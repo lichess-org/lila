@@ -29,7 +29,8 @@ case class ModTimeline(
     val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
-    concat.sorted
+    // latest first
+    concat.sorted(using Ordering.by(at).reverse)
 
   // def commReportsAbout: List[Report] = reports
   //   .collect:
@@ -42,6 +43,22 @@ object ModTimeline:
   case class ReportClose(report: Report, done: Report.Done)
 
   type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | TempBan | PublicLine
+
+  def aggregateEvents(events: List[Event]): List[Event] =
+    events.toNel.fold(events):
+      case NonEmptyList(head, tail) =>
+        tail
+          .foldLeft(NonEmptyList.one(head)):
+            case (acc, event) =>
+              ModTimeline
+                .merge(acc.head, event)
+                .fold(event :: acc): merged =>
+                  acc.copy(head = merged)
+          .toList
+
+  private def merge(prev: Event, next: Event): Option[Event] = (prev, next) match
+    case (p: PublicLine, n: PublicLine) => p.copy(text = s"${n.text}|${p.text}").some
+    case _                              => none
 
   extension (e: Event)
     def key: String = e match
@@ -82,12 +99,10 @@ object ModTimeline:
       case _: Note      => s"${routes.User.show(u.username)}?notes=1"
       case _            => s"${routes.User.show(u.username)}?mod=1"
 
-  // latest first
-  given Ordering[Event] = Ordering.by(at).reverse
-
   enum Angle:
     case None
     case Comm
+    case Play
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,

@@ -97,7 +97,7 @@ final class ClasApi(
               Match($doc("userId" -> student)) -> List(
                 Project($doc("clasId" -> true)),
                 PipelineOperator(
-                  $lookup.pipeline(
+                  $lookup.pipelineBC(
                     from = colls.clas,
                     as = "clas",
                     local = "clasId",
