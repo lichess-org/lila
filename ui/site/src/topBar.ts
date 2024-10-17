@@ -26,8 +26,13 @@ export default function () {
 
   $('#tn-tg').on('change', e => {
     const menuOpen = (e.target as HTMLInputElement).checked;
-    if (menuOpen) document.body.addEventListener('touchmove', blockBodyScroll, { passive: false });
-    else document.body.removeEventListener('touchmove', blockBodyScroll);
+    if (menuOpen) {
+      document.body.addEventListener('touchmove', blockBodyScroll, { passive: false });
+      $(e.target).addClass('opened');
+    } else {
+      document.body.removeEventListener('touchmove', blockBodyScroll);
+      setTimeout(() => $(e.target).removeClass('opened'), 200);
+    }
     document.body.classList.toggle('masked', menuOpen);
   });
 

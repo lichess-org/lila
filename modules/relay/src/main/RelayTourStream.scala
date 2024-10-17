@@ -12,7 +12,7 @@ final class RelayTourStream(colls: RelayColls, jsonView: JsonView)(using Executo
   import BSONHandlers.given
   import RelayTourRepo.selectors
 
-  private val roundLookup = $lookup.pipeline(
+  private val roundLookup = $lookup.pipelineBC(
     from = colls.round,
     as = "rounds",
     local = "_id",
