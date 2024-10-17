@@ -32,7 +32,6 @@ object userId:
       inline def is[T: UserIdOf](other: T)         = u.id == other.id
       inline def isnt[T: UserIdOf](other: T)       = u.id != other.id
       inline def is[T: UserIdOf](other: Option[T]) = other.exists(_.id == u.id)
-      inline def isMe: Boolean                     = u.id == UserId("me")
 
   // specialized UserIds like Coach.Id
   trait OpaqueUserId[A] extends OpaqueString[A]:
