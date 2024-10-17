@@ -20,7 +20,7 @@ final class RelayListing(
   val active = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
     _.refreshAfterWrite(5 seconds).buildAsyncFuture: _ =>
 
-      val roundLookup = $lookup.pipeline(
+      val roundLookup = $lookup.pipelineBC(
         from = colls.round,
         as = "round",
         local = "_id",
@@ -161,7 +161,7 @@ final class RelayListing(
             PipelineOperator(group.firstLookup(colls.group)),
             Match(group.firstFilter),
             PipelineOperator:
-              $lookup.pipeline(
+              $lookup.pipelineBC(
                 from = colls.round,
                 as = "round",
                 local = "_id",

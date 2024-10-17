@@ -29,11 +29,8 @@ case class ModTimeline(
     val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
-    concat.sorted
-
-  private val dayOrdering = summon[Ordering[LocalDate]].reverse
-  def allGroupedByDay: List[(LocalDate, List[Event])] =
-    all.groupBy(_.at.date).toList.sortBy(_._1)(using dayOrdering)
+    // latest first
+    concat.sorted(using Ordering.by(at).reverse)
 
   // def commReportsAbout: List[Report] = reports
   //   .collect:
@@ -46,6 +43,22 @@ object ModTimeline:
   case class ReportClose(report: Report, done: Report.Done)
 
   type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | TempBan | PublicLine
+
+  def aggregateEvents(events: List[Event]): List[Event] =
+    events.toNel.fold(events):
+      case NonEmptyList(head, tail) =>
+        tail
+          .foldLeft(NonEmptyList.one(head)):
+            case (acc, event) =>
+              ModTimeline
+                .merge(acc.head, event)
+                .fold(event :: acc): merged =>
+                  acc.copy(head = merged)
+          .toList
+
+  private def merge(prev: Event, next: Event): Option[Event] = (prev, next) match
+    case (p: PublicLine, n: PublicLine) => p.copy(text = s"${n.text}|${p.text}").some
+    case _                              => none
 
   extension (e: Event)
     def key: String = e match
@@ -72,7 +85,7 @@ object ModTimeline:
         case _: ReportNewAtom => "symbols.exclamation-mark"
         case _: ReportClose   => "objects.package"
         case _: TempBan       => "objects.hourglass-not-done"
-        case _: PublicLine    => "symbols.triangular-flag"
+        case _: PublicLine    => "symbols.exclamation-mark"
     def at: Instant = e match
       case e: Modlog               => e.date
       case e: AppealMsg            => e.at
@@ -86,8 +99,10 @@ object ModTimeline:
       case _: Note      => s"${routes.User.show(u.username)}?notes=1"
       case _            => s"${routes.User.show(u.username)}?mod=1"
 
-  // latest first
-  given Ordering[Event] = Ordering.by(at).reverse
+  enum Angle:
+    case None
+    case Comm
+    case Play
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,
@@ -105,7 +120,7 @@ final class ModTimelineApi(
       modLog = modLogAll.filter(filterModLog)
       appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
-      notes = notesAll.filterNot(_.text.startsWith("Appeal reply:"))
+      notes = notesAll.filter(filterNote)
       reports <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
       playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))
@@ -113,6 +128,12 @@ final class ModTimelineApi(
 
   private def filterModLog(l: Modlog): Boolean =
     if l.action == Modlog.teamKick && !modsList.contains(l.mod) then false
+    else if l.action == Modlog.teamEdit && !modsList.contains(l.mod) then false
+    else true
+
+  private def filterNote(note: Note): Boolean =
+    if note.from.is(UserId.irwin) then false
+    else if note.text.startsWith("Appeal reply:") then false
     else true
 
   private object modsList:
