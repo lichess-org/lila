@@ -3,7 +3,7 @@ import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { player as renderPlayer, numberRow } from './util';
-import { Pairing } from '../interfaces';
+import { Outcome, Pairing } from '../interfaces';
 import { isOutcome } from '../util';
 import SwissCtrl from '../ctrl';
 import { fullName } from 'common/userLink';
@@ -15,10 +15,11 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
     return h(tag, [h('div.stats', [h('h2', ctrl.playerInfoId), spinner()])]);
-  const games = data.sheet.filter((p: any) => p.g).length;
-  const wins = data.sheet.filter((p: any) => p.w).length;
+  const isPairing = (p: Pairing | Outcome) => typeof p !== 'string';
+  const games = data.sheet.filter(p => isPairing(p) && p.g).length;
+  const wins = data.sheet.filter(p => isPairing(p) && p.w).length;
   const avgOp: number | undefined = games
-    ? Math.round(data.sheet.reduce((r, p) => r + ((p as any).rating || 1), 0) / games)
+    ? Math.round(data.sheet.reduce((r, p) => r + (isPairing(p) ? p.rating : 1), 0) / games)
     : undefined;
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     h('a.close', {

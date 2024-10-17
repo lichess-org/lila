@@ -142,7 +142,7 @@ const dateFormat = memoize(() =>
     ? new Intl.DateTimeFormat(site.displayLocale, {
         month: 'short',
         day: '2-digit',
-      } as any).format
+      }).format
     : (d: Date) => d.toLocaleDateString(),
 );
 

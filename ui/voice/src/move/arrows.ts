@@ -60,9 +60,9 @@ export function coloredArrows(choices: [string, Uci][], timer: number | undefine
 function timerShape(duration: number, color: string, alpha = 0.4) {
   // works around a firefox stroke-dasharray animation bug
   setTimeout(() => {
-    for (const anim of $('.voice-timer-arc').get() as any[]) {
-      anim?.beginElement();
-      anim?.parentElement!.setAttribute('visibility', 'visible');
+    for (const anim of document.querySelectorAll<SVGAnimateElement>('animate .voice-timer-arc')) {
+      anim.beginElement();
+      anim.parentElement?.setAttribute('visibility', 'visible');
       if (color === 'grey') return; // don't show numbered arrow outlines
     }
   });
