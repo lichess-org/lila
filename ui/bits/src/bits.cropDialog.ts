@@ -93,15 +93,14 @@ export async function initModule(o?: CropOpts): Promise<void> {
       maxWidth: opts.max?.pixels,
       maxHeight: opts.max?.pixels,
     });
-    const imgOutputFormat = isJpeg(opts.source) ? 'jpeg' : 'png';
-    const tryQuality = (quality = 1) => {
+    const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
           if (blob && blob.size < (opts.max?.megabytes ?? 100) * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');
         },
-        `image/${imgOutputFormat}`,
+        `image/webp`,
         quality,
       );
     };
@@ -155,9 +154,3 @@ export async function initModule(o?: CropOpts): Promise<void> {
     return constrained;
   }
 }
-
-const isJpeg = (source?: Blob | string) => {
-  if (source instanceof Blob) return source.type == 'image/jpeg';
-  if (typeof source == 'string') return /\.jpe?g$/i.test(source);
-  return false;
-};
