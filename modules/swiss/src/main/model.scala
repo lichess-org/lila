@@ -3,7 +3,7 @@ package lila.swiss
 import lila.core.chess.Rank
 
 opaque type SwissRoundNumber = Int
-object SwissRoundNumber extends OpaqueInt[SwissRoundNumber]
+object SwissRoundNumber extends RelaxedOpaqueInt[SwissRoundNumber]
 
 case class MyInfo(rank: Rank, gameId: Option[GameId], user: User, player: SwissPlayer):
   def page = (rank + 9).value / 10

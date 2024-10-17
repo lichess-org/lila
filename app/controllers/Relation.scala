@@ -110,7 +110,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .obj:
           "perfs" -> r.user.perfs.bestRatedPerf.map:
             lila.user.JsonView.keyedPerfJson
-        .add("online" -> env.socket.isOnline(r.user.id)))
+        .add("online" -> env.socket.isOnline.exec(r.user.id)))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):

@@ -15,9 +15,10 @@ object AccuracyPercent extends OpaqueDouble[AccuracyPercent]:
   given Percent[AccuracyPercent] = Percent.of(AccuracyPercent)
 
   extension (a: AccuracyPercent)
-    def *(weight: Double)            = apply(a.value * weight)
-    def mean(other: AccuracyPercent) = apply((a.value + other.value) / 2)
-    def toInt                        = Percent.toInt(a)
+    inline def +(inline d: Double)                 = apply(a.value + d)
+    inline def *(inline weight: Double)            = apply(a.value * weight)
+    inline def mean(inline other: AccuracyPercent) = apply((a.value + other.value) / 2)
+    inline def toInt                               = Percent.toInt(a)
 
   inline def fromPercent(int: Int) = AccuracyPercent(int.toDouble)
 

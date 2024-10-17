@@ -39,7 +39,7 @@ final class AutoPairing(
     for
       _ <- gameRepo.insertDenormalized(game)
       _ =
-        onStart(game.id)
+        onStart.exec(game.id)
         import lila.rating.intZero
         duelStore.add(
           tour = tour,

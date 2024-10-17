@@ -6,11 +6,11 @@ import alleycats.Zero
 object data:
 
   opaque type IntRating = Int
-  object IntRating extends OpaqueInt[IntRating]:
+  object IntRating extends RelaxedOpaqueInt[IntRating]:
     extension (r: IntRating) def applyDiff(diff: IntRatingDiff): IntRating = r + diff.value
 
   opaque type IntRatingDiff = Int
-  object IntRatingDiff extends OpaqueInt[IntRatingDiff]:
+  object IntRatingDiff extends RelaxedOpaqueInt[IntRatingDiff]:
     given Zero[IntRatingDiff] = Zero(0)
 
   opaque type Rating = Double

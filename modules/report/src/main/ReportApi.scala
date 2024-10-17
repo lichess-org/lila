@@ -467,7 +467,7 @@ final class ReportApi(
       .map: users =>
         reports
           .flatMap: r =>
-            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline(u.id)) }
+            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline.exec(u.id)) }
           .sortBy(-_.urgency)
 
   def snooze(reportId: ReportId, duration: String)(using mod: Me): Fu[Option[Report]] =

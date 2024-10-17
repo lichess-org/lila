@@ -60,10 +60,10 @@ final class LobbySocket(
         idleSris.clear()
         hookSubscriberSris.clear()
 
-      case ReloadTimelines(users) => send(Out.tellLobbyUsers(users, makeMessage("reload_timeline")))
+      case ReloadTimelines(users) => send.exec(Out.tellLobbyUsers(users, makeMessage("reload_timeline")))
 
       case AddHook(hook) =>
-        send(
+        send.exec(
           P.Out.tellSris(
             hookSubscriberSris
               .diff(idleSris)
@@ -85,15 +85,15 @@ final class LobbySocket(
 
       case JoinHook(sri, hook, game, creatorColor) =>
         lila.mon.lobby.hook.join.increment()
-        send(P.Out.tellSri(hook.sri, gameStartRedirect(game.pov(creatorColor))))
-        send(P.Out.tellSri(sri, gameStartRedirect(game.pov(!creatorColor))))
+        send.exec(P.Out.tellSri(hook.sri, gameStartRedirect(game.pov(creatorColor))))
+        send.exec(P.Out.tellSri(sri, gameStartRedirect(game.pov(!creatorColor))))
 
       case JoinSeek(userId, seek, game, creatorColor) =>
         lila.mon.lobby.seek.join.increment()
-        send(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game.pov(creatorColor))))
-        send(Out.tellLobbyUsers(List(userId), gameStartRedirect(game.pov(!creatorColor))))
+        send.exec(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game.pov(creatorColor))))
+        send.exec(Out.tellLobbyUsers(List(userId), gameStartRedirect(game.pov(!creatorColor))))
 
-      case lila.core.pool.Pairings(pairings) => send(Out.pairings(pairings))
+      case lila.core.pool.Pairings(pairings) => send.exec(Out.pairings(pairings))
 
       case HookIds(ids) => tellActiveHookSubscribers(makeMessage("hli", ids.mkString("")))
 
@@ -106,7 +106,7 @@ final class LobbySocket(
 
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
-        send(
+        send.exec(
           P.Out.tellSri(member.sri, makeMessage("hooks", hooks.map(_.render)))
         )
         hookSubscriberSris += member.sri.value
@@ -115,10 +115,10 @@ final class LobbySocket(
     scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
     scheduler.scheduleWithFixedDelay(31 seconds, 31 seconds)(() => this ! Cleanup)
 
-    private def tellActive(msg: JsObject): Unit = send(Out.tellLobbyActive(msg))
+    private def tellActive(msg: JsObject): Unit = send.exec(Out.tellLobbyActive(msg))
 
     private def tellActiveHookSubscribers(msg: JsObject): Unit =
-      send(P.Out.tellSris(hookSubscriberSris.diff(idleSris).map { Sri(_) }, msg))
+      send.exec(P.Out.tellSris(hookSubscriberSris.diff(idleSris).map { Sri(_) }, msg))
 
     import lila.common.Json.given
     private def gameStartRedirect(pov: Pov) = makeMessage(

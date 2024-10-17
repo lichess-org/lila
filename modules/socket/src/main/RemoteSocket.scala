@@ -53,7 +53,7 @@ final class RemoteSocket(
     case In.TellUser(userId, typ, msg) =>
       Bus.publish(TellUserIn(userId, msg), s"remoteSocketIn:$typ")
     case In.ReqResponse(reqId, response) => requester.onResponse(reqId, response)
-    case In.Ping(id)                     => send(Out.pong(id))
+    case In.Ping(id)                     => send.exec(Out.pong(id))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds.set(initialUserIds)
@@ -72,38 +72,38 @@ final class RemoteSocket(
   ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds.intersect(onlineUserIds.get)
-      if connectedUsers.nonEmpty then send(Out.tellUsers(connectedUsers, payload))
+      if connectedUsers.nonEmpty then send.exec(Out.tellUsers(connectedUsers, payload))
     case SendTo(userId, payload) =>
-      if onlineUserIds.get.contains(userId) then send(Out.tellUser(userId, payload))
+      if onlineUserIds.get.contains(userId) then send.exec(Out.tellUser(userId, payload))
     case SendToOnlineUser(userId, makePayload) =>
       if onlineUserIds.get.contains(userId) then
         makePayload.value.foreach: payload =>
-          send(Out.tellUser(userId, payload))
+          send.exec(Out.tellUser(userId, payload))
     case Announce(_, _, json) =>
-      send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
+      send.exec(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
     case Mlat(millis) =>
-      send(Out.mlat(millis))
+      send.exec(Out.mlat(millis))
     case SendToFlag(flag, payload) =>
-      send(Out.tellFlag(flag, payload))
+      send.exec(Out.tellFlag(flag, payload))
     case TellSriOut(sri, payload) =>
-      send(Out.tellSri(Sri(sri), payload))
+      send.exec(Out.tellSri(Sri(sri), payload))
     case TellSrisOut(sris, payload) =>
-      send(Out.tellSris(Sri.from(sris), payload))
+      send.exec(Out.tellSris(Sri.from(sris), payload))
     case CloseAccount(userId) =>
-      send(Out.disconnectUser(userId))
+      send.exec(Out.disconnectUser(userId))
     case lila.core.mod.Shadowban(userId, v) =>
-      send(Out.setTroll(userId, v))
+      send.exec(Out.setTroll(userId, v))
     case lila.core.mod.Impersonate(userId, modId) =>
-      send(Out.impersonate(userId, modId))
+      send.exec(Out.impersonate(userId, modId))
     case ApiUserIsOnline(userId, value) =>
-      send(Out.apiUserOnline(userId, value))
+      send.exec(Out.apiUserOnline(userId, value))
       if value then onlineUserIds.getAndUpdate(_ + userId)
-    case Follow(u1, u2)   => send(Out.follow(u1, u2))
-    case UnFollow(u1, u2) => send(Out.unfollow(u1, u2))
+    case Follow(u1, u2)   => send.exec(Out.follow(u1, u2))
+    case UnFollow(u1, u2) => send.exec(Out.unfollow(u1, u2))
   }
   Bus.sub[StreamersOnline]:
     case StreamersOnline(streamers) =>
-      send(Out.streamersOnline(streamers))
+      send.exec(Out.streamersOnline(streamers))
 
   final class StoppableSender(val conn: PubSub[String, String], channel: Channel) extends Sender:
     def apply(msg: String)               = if !stopping then super.sendTo(channel, msg)
@@ -170,7 +170,7 @@ final class RemoteSocket(
 
   Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping"): () =>
     requester[Unit](
-      id => send(Protocol.Out.stop(id)),
+      id => send.exec(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second, "Lilakka.shutdown")
       .addFailureEffect(e => logger.error("lila-ws stop", e))

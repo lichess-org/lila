@@ -451,7 +451,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
     private def challengeTd(user: User)(using ctx: Context) =
       if ctx.is(user) then td
       else
-        val online = isOnline(user.id)
+        val online = isOnline.exec(user.id)
         td(
           a(
             dataIcon := Icon.Swords,
