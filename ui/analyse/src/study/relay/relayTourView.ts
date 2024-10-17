@@ -315,7 +315,19 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
 
 const games = (ctx: RelayViewContext) => [
   ...header(ctx),
-  ctx.study.chapters.list.looksNew() ? undefined : multiBoardView(ctx.study.multiBoard, ctx.study),
+  ctx.study.chapters.list.looksNew()
+    ? h(
+        'div.relay-tour__note',
+        h('div', [
+          h('div', 'No boards yet. These will appear once games are uploaded.'),
+          ctx.study.members.myMember() &&
+            h('small', [
+              'Boards can be loaded with a source or via the ',
+              h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
+            ]),
+        ]),
+      )
+    : multiBoardView(ctx.study.multiBoard, ctx.study),
   !ctx.ctrl.isEmbed && showSource(ctx.relay.data),
 ];
 
