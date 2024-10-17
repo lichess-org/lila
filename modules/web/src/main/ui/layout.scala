@@ -3,7 +3,7 @@ package ui
 
 import play.api.i18n.Lang
 
-import lila.core.i18n.Language
+import lila.core.i18n.{ I18nModule, Language }
 import lila.core.report.ScoreThresholds
 import lila.ui.*
 
@@ -141,8 +141,10 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
     )
 
-  def sitePreload(i18nDicts: List[String], modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    val i18nModules = i18nDicts.map(dict => s"i18n/$dict.${ctx.lang.code}")
+  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList, isInquiry: Boolean)(using
+      ctx: Context
+  ) =
+    val i18nModules = i18nMods.map(mod => s"i18n/${mod(I18nModule)}.${ctx.lang.code}")
     scriptsPreload(
       i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
     )

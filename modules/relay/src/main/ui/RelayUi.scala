@@ -28,8 +28,7 @@ final class RelayUi(helpers: Helpers)(
   )(using ctx: Context) =
     Page(rt.fullName)
       .css("analyse.relay")
-      .i18n("study")
-      .i18n("broadcast")
+      .i18n(_.study, _.broadcast)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .zoom

@@ -30,9 +30,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
-      .i18n("puzzle")
-      .i18n("puzzleTheme")
-      .i18n("storm")
+      .i18n(_.puzzle, _.puzzleTheme, _.storm)
       .js(ctx.blind.option(Esm("puzzle.nvui")))
       .js(
         PageModule(

@@ -33,9 +33,7 @@ final class SwissShow(helpers: Helpers, ui: SwissBitsUi, gathering: GatheringUi)
     Page(fullName(s, team))
       .css("swiss.show")
       .css(hasScheduleInput.option("bits.flatpickr"))
-      .i18n("study")
-      .i18n("swiss")
-      .i18n("team")
+      .i18n(_.study, _.swiss, _.team)
       .js(hasScheduleInput.option(Esm("bits.flatpickr")))
       .js(
         PageModule(

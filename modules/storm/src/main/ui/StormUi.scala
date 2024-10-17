@@ -15,7 +15,7 @@ final class StormUi(helpers: Helpers):
   def home(data: JsObject, high: Option[StormHigh])(using Context) =
     Page("Puzzle Storm")
       .css("storm")
-      .i18n("storm")
+      .i18n(_.storm)
       .js(PageModule("storm", data))
       .zoom
       .zen

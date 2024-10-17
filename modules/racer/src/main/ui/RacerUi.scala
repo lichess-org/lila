@@ -34,7 +34,7 @@ final class RacerUi(helpers: Helpers):
   def show(data: JsObject)(using Context) =
     Page("Puzzle Racer")
       .css("racer")
-      .i18n("storm")
+      .i18n(_.storm)
       .js(PageModule("racer", data))
       .zoom
       .zen:
