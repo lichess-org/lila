@@ -93,7 +93,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
       maxWidth: opts.max?.pixels,
       maxHeight: opts.max?.pixels,
     });
-    const imgOutputFormat = isPng(opts.source) ? 'png' : 'jpeg';
+    const imgOutputFormat = isJpeg(opts.source) ? 'jpeg' : 'png';
     const tryQuality = (quality = 1) => {
       canvas.toBlob(
         blob => {
@@ -156,8 +156,8 @@ export async function initModule(o?: CropOpts): Promise<void> {
   }
 }
 
-const isPng = (source?: Blob | string) => {
-  if (source instanceof Blob) return source.type == 'image/png';
-  if (typeof source == 'string') return source.endsWith('.png');
+const isJpeg = (source?: Blob | string) => {
+  if (source instanceof Blob) return source.type == 'image/jpeg';
+  if (typeof source == 'string') return /\.jpe?g$/i.test(source);
   return false;
 };
