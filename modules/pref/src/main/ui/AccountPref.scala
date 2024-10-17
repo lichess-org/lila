@@ -186,6 +186,11 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.scrollOnTheBoardToReplayMoves(),
               radios(form("behavior.scrollMoves"), booleanChoices),
               "scrollOnTheBoardToReplayMoves"
+            ),
+            setting(
+              trp.showRatingsWhilePlaying(),
+              radios(form("behavior.showRatingsInGame"), booleanChoices),
+              "showRatingsWhilePlaying"
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(
