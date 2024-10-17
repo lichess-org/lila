@@ -87,7 +87,6 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
             checked: p.autoNext(),
             change: p.autoNext,
           },
-          ctrl.trans,
           ctrl.redraw,
         ),
       ];

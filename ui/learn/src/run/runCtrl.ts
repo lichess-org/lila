@@ -3,7 +3,6 @@ import * as stages from '../stage/list';
 import { Prop, prop } from 'common';
 import { LearnProgress, LearnOpts } from '../learn';
 import { Stage } from '../stage/list';
-import { LearnCtrl } from '../ctrl';
 import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
@@ -11,7 +10,6 @@ import { WithGround } from '../util';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
-  trans: Trans;
 
   chessground: CgApi | undefined;
   levelCtrl: LevelCtrl;
@@ -24,13 +22,10 @@ export class RunCtrl {
   }
 
   constructor(
-    ctrl: LearnCtrl,
     readonly opts: LearnOpts,
     readonly redraw: () => void,
   ) {
     clearTimeouts();
-
-    this.trans = ctrl.trans;
 
     this.initializeLevel();
 

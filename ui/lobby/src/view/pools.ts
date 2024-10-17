@@ -42,7 +42,7 @@ export function render(ctrl: LobbyController) {
       h(
         'div.custom',
         { class: { transp: !!member }, attrs: { role: 'button', 'data-id': 'custom' } },
-        ctrl.trans.noarg('custom'),
+        i18n.site.custom,
       ),
     );
 }

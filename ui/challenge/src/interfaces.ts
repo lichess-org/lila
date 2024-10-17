@@ -58,9 +58,6 @@ export type Reasons = {
 export interface ChallengeData {
   in: Array<Challenge>;
   out: Array<Challenge>;
-  i18n?: {
-    [key: string]: string;
-  };
   reasons?: Reasons;
 }
 

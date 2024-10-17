@@ -75,7 +75,7 @@ object page:
   private def esModules(withSearch: Boolean = false)(using Context): EsmList =
     import play.api.libs.json.Json
     infiniteScrollEsmInit
-      ++ esmInitObj("bits.user", "i18n" -> i18nJsObject(ui.i18nKeys))
+      ++ esmInit("bits.user")
       ++ withSearch.so(Esm("bits.gameSearch"))
       ++ isGranted(_.UserModView).so(Esm("mod.user"))
 

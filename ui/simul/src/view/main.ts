@@ -38,10 +38,7 @@ const started = (ctrl: SimulCtrl) => [
 ];
 
 const finished = (ctrl: SimulCtrl) => [
-  h('div.box__top', [
-    util.title(ctrl),
-    h('div.box__top__actions', h('div.finished', ctrl.trans('finished'))),
-  ]),
+  h('div.box__top', [util.title(ctrl), h('div.box__top__actions', h('div.finished', i18n.site.finished))]),
   showText(ctrl),
   results(ctrl),
   pairings(ctrl),

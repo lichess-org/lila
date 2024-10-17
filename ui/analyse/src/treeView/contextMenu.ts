@@ -59,8 +59,7 @@ function action(icon: string, text: string, handler: () => void): VNode {
 function view(opts: Opts, coords: Coords): VNode {
   const ctrl = opts.root,
     node = ctrl.tree.nodeAtPath(opts.path),
-    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
-    trans = ctrl.trans.noarg;
+    onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path);
   return h(
     'div#' + elementId + '.visible',
     {
@@ -76,22 +75,22 @@ function view(opts: Opts, coords: Coords): VNode {
       h('p.title', nodeFullName(node)),
 
       !onMainline &&
-        action(licon.UpTriangle, trans('promoteVariation'), () => ctrl.promote(opts.path, false)),
+        action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(opts.path, false)),
 
-      !onMainline && action(licon.Checkmark, trans('makeMainLine'), () => ctrl.promote(opts.path, true)),
+      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(opts.path, true)),
 
-      action(licon.Trash, trans('deleteFromHere'), () => ctrl.deleteNode(opts.path)),
+      action(licon.Trash, i18n.site.deleteFromHere, () => ctrl.deleteNode(opts.path)),
 
-      action(licon.PlusButton, trans('expandVariations'), () => ctrl.setAllCollapsed(opts.path, false)),
+      action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),
 
-      action(licon.MinusButton, trans('collapseVariations'), () => ctrl.setAllCollapsed(opts.path, true)),
+      action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setAllCollapsed(opts.path, true)),
 
       ...(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []),
 
       onMainline &&
-        action(licon.InternalArrow, trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)),
+        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
 
-      action(licon.Clipboard, trans('copyVariationPgn'), () =>
+      action(licon.Clipboard, i18n.site.copyVariationPgn, () =>
         navigator.clipboard.writeText(renderVariationPgn(opts.root.tree.getNodeList(opts.path))),
       ),
     ],

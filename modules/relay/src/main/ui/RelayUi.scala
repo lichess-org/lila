@@ -13,7 +13,6 @@ import ScalatagsTemplate.{ *, given }
 
 final class RelayUi(helpers: Helpers)(
     picfitUrl: lila.core.misc.PicfitUrl,
-    studyJsI18n: () => helpers.Translate ?=> JsObject,
     socketUrl: StudyId => String,
     explorerAndCevalConfig: Context ?=> JsObject
 ):
@@ -29,6 +28,7 @@ final class RelayUi(helpers: Helpers)(
   )(using ctx: Context) =
     Page(rt.fullName)
       .css("analyse.relay")
+      .i18n(_.study, _.broadcast)
       .js(analyseNvuiTag)
       .js(pageModule(rt, data, chatOption, socketVersion))
       .zoom
@@ -56,7 +56,6 @@ final class RelayUi(helpers: Helpers)(
           "relay"         -> data.relay,
           "study"         -> data.study.add("admin" -> Granter.opt(_.StudyAdmin)),
           "data"          -> data.analysis,
-          "i18n"          -> jsI18n,
           "tagTypes"      -> lila.study.PgnTags.typesToString,
           "userId"        -> ctx.userId,
           "chat"          -> chatOption.map(_._1),
@@ -125,16 +124,4 @@ final class RelayUi(helpers: Helpers)(
   def howToUse(using Translate) =
     a(dataIcon := Icon.InfoCircle, cls := "text", href := routes.RelayTour.help)(
       trans.broadcast.howToUseLichessBroadcasts()
-    )
-
-  def jsI18n(using Translate) =
-    studyJsI18n() ++ i18nJsObject(i18nKeys)
-
-  val i18nKeys =
-    import trans.broadcast as trb
-    List(
-      trb.addRound,
-      trb.currentGameUrl,
-      trb.downloadAllRounds,
-      trb.editRoundStudy
     )

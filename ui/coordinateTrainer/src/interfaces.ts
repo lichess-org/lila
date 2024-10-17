@@ -17,7 +17,6 @@ export interface ModeScores {
 }
 
 export interface CoordinateTrainerConfig {
-  i18n: I18nDict;
   is3d: boolean;
   resizePref: number;
   scores: ModeScores;

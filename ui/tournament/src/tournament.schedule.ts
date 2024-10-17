@@ -3,7 +3,6 @@ import view from './view/scheduleView';
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
 import { Tournament } from './interfaces';
 import StrongSocket from 'common/socket';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 const patch = init([classModule, attributesModule]);
@@ -17,17 +16,15 @@ export interface Data {
 }
 export interface Ctrl {
   data(): Data;
-  trans: Trans;
 }
 
-export function initModule(opts: { data: Data; i18n: I18nDict }) {
+export function initModule(opts: { data: Data }) {
   site.socket = new StrongSocket('/socket/v5', false, { params: { flag: 'tournament' } });
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
 
   const ctrl = {
     data: () => opts.data,
-    trans: trans(opts.i18n),
   };
 
   let vnode: VNode;

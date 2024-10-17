@@ -3,8 +3,9 @@ import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
+
+const renderers = makeRenderers();
 
 export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();
@@ -49,8 +50,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
   return nodes;
 }
 
-export function asText(n: Notification, trans: Trans): string | undefined {
-  const renderers = makeRenderers(trans);
+export function asText(n: Notification): string | undefined {
   return renderers[n.type] ? renderers[n.type].text(n) : undefined;
 }
 
@@ -62,8 +62,7 @@ function notificationDenied(): VNode {
   );
 }
 
-function asHtml(n: Notification, trans: Trans): VNode | undefined {
-  const renderers = makeRenderers(trans);
+function asHtml(n: Notification): VNode | undefined {
   return renderers[n.type] ? renderers[n.type].html(n) : undefined;
 }
 
@@ -78,14 +77,13 @@ function clickHook(f: () => void) {
 const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
-  const translations = trans(d.i18n);
   return h(
     'div',
     {
       class: { notifications: true, scrolling },
       hook: { insert: contentLoaded, postpatch: contentLoaded },
     },
-    d.pager.currentPageResults.map(n => asHtml(n, translations)) as VNode[],
+    d.pager.currentPageResults.map(n => asHtml(n)) as VNode[],
   );
 }
 

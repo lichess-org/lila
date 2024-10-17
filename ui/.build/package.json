@@ -10,6 +10,7 @@
     "@types/tinycolor2": "^1.4.6",
     "esbuild": "^0.24.0",
     "fast-glob": "^3.3.2",
+    "fast-xml-parser": "^4.5.0",
     "tinycolor2": "^1.6.0",
     "typescript": "^5.6.2"
   },

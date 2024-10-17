@@ -5,7 +5,7 @@ import { StageNoID } from './list';
 const imgUrl = assetUrl + 'images/learn/scales.svg';
 
 const common = {
-  goal: 'stalemateGoal',
+  goal: i18n.learn.stalemateGoal,
   detectCapture: false,
   nbMoves: 1,
   nextButton: true,
@@ -16,10 +16,10 @@ const common = {
 
 const stage: StageNoID = {
   key: 'stalemate',
-  title: 'stalemate',
-  subtitle: 'theGameIsADraw',
+  title: i18n.learn.stalemate,
+  subtitle: i18n.learn.theGameIsADraw,
   image: imgUrl,
-  intro: 'stalemateIntro',
+  intro: i18n.learn.stalemateIntro,
   illustration: roundSvg(imgUrl),
   levels: [
     {
@@ -96,6 +96,6 @@ const stage: StageNoID = {
       ],
     },
   ].map((l, i) => toLevel({ ...common, ...l }, i)),
-  complete: 'stalemateComplete',
+  complete: i18n.learn.stalemateComplete,
 };
 export default stage;

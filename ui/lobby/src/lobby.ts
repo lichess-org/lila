@@ -2,7 +2,6 @@ import * as xhr from 'common/xhr';
 import main from './main';
 import { LobbyOpts } from './interfaces';
 import StrongSocket from 'common/socket';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 export function initModule(opts: LobbyOpts) {
@@ -22,7 +21,6 @@ export function initModule(opts: LobbyOpts) {
     { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
-  opts.trans = trans(opts.i18n);
 
   site.socket = new StrongSocket('/lobby/socket/v5', false, {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),

@@ -8,7 +8,6 @@ import { LinksCtrl } from './links';
 import { MaybeVNode, Redraw } from 'common/snabbdom';
 import { DasherData, Mode, PaneCtrl } from './interfaces';
 import { Prop, prop } from 'common';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 const defaultMode = 'links';
@@ -16,7 +15,6 @@ const defaultMode = 'links';
 type ModeIndexed = { [key in Mode]: PaneCtrl };
 
 export class DasherCtrl implements ModeIndexed {
-  trans: Trans;
   ping: PingCtrl;
   langs: LangsCtrl;
   sound: SoundCtrl;
@@ -33,7 +31,6 @@ export class DasherCtrl implements ModeIndexed {
     readonly data: DasherData,
     readonly redraw: Redraw,
   ) {
-    this.trans = trans(data.i18n);
     this.ping = new PingCtrl(this);
     this.langs = new LangsCtrl(this);
     this.sound = new SoundCtrl(this);

@@ -5,9 +5,9 @@ import { ColorChoice, TimeControl, Mode } from './interfaces';
 import { toggle } from 'common/controls';
 
 const colors: [ColorChoice, string][] = [
-  ['black', 'asBlack'],
-  ['random', 'randomColor'],
-  ['white', 'asWhite'],
+  ['black', i18n.site.asBlack],
+  ['random', i18n.site.randomColor],
+  ['white', i18n.site.asWhite],
 ];
 
 const timeControls: [TimeControl, string][] = [
@@ -109,12 +109,13 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             {
               attrs: {
                 for: `coord_mode_${mode}`,
-                title: ctrl.trans(
-                  mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation',
-                ),
+                title:
+                  i18n.coordinates[
+                    mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation'
+                  ],
               },
             },
-            ctrl.trans(mode),
+            i18n.coordinates[mode],
           ),
         ]),
       ),
@@ -146,9 +147,10 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             {
               attrs: {
                 for: `coord_timeControl_${timeControl}`,
-                title: ctrl.trans(
-                  timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant',
-                ),
+                title:
+                  i18n.coordinates[
+                    timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'
+                  ],
               },
             },
             timeControlLabel,
@@ -160,7 +162,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
   h('form.color.buttons', [
     h(
       'group.radio',
-      colors.map(([key, i18n]) =>
+      colors.map(([key, text]) =>
         h('div', [
           h('input', {
             attrs: {
@@ -178,11 +180,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(
-            `label.color_${key}`,
-            { attrs: { for: `coord_color_${key}`, title: ctrl.trans.noarg(i18n) } },
-            h('i'),
-          ),
+          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: text } }, h('i')),
         ]),
       ),
     ),
@@ -196,12 +194,12 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
     h(
       'div.scores',
       [
-        ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode()].white],
-        ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode()].black],
-      ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
+        ['white', i18n.coordinates.averageScoreAsWhiteX, ctrl.modeScores[ctrl.mode()].white],
+        ['black', i18n.coordinates.averageScoreAsBlackX, ctrl.modeScores[ctrl.mode()].black],
+      ].map(([color, fmt, scoreList]: [Color, I18nFormat, number[]]) =>
         scoreList.length
           ? h('div.color-chart', [
-              h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
+              h('p', fmt.asArray(h('strong', `${average(scoreList).toFixed(2)}`))),
               h('svg.sparkline', {
                 attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
                 hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
@@ -213,19 +211,19 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
   );
 
 const scoreBox = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.box.current-status', [h('h1', ctrl.trans('score')), h('div.score', ctrl.score)]);
+  h('div.box.current-status', [h('h1', i18n.storm.score), h('div.score', ctrl.score)]);
 
 const timeBox = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.box.current-status', [
-    h('h1', ctrl.trans('time')),
+    h('h1', i18n.site.time),
     h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
   ]);
 
 const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${ctrl.trans('back')}`));
+  h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${i18n.study.back}`));
 
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
-  const { trans, redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;
+  const { redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;
   return h('div.settings', [
     ctrl.mode() === 'findSquare'
       ? toggle(
@@ -235,14 +233,12 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
             checked: ctrl.selectionEnabled(),
             change: ctrl.selectionEnabled,
           },
-          trans,
           redraw,
         )
       : null,
     ...filesAndRanksSelection(ctrl),
     toggle(
       { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
-      trans,
       redraw,
     ),
     toggle(
@@ -253,24 +249,16 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
         change: showCoordsOnAllSquares,
         disabled: !ctrl.showCoordinates(),
       },
-      trans,
       redraw,
     ),
-    toggle(
-      { name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces },
-      trans,
-      redraw,
-    ),
+    toggle({ name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces }, redraw),
   ]);
 };
 
 const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.box.current-status.current-status--color', [
     h(`label.color_${ctrl.orientation}`, h('i')),
-    h(
-      'em',
-      ctrl.trans.noarg(ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
-    ),
+    h('em', i18n.site[ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']),
   ]);
 };
 

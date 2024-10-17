@@ -15,7 +15,6 @@ import { PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
-import { trans } from 'common/i18n';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub, PubsubEvent, PubsubCallback } from 'common/pubsub';
 
@@ -32,7 +31,6 @@ export default class ChatCtrl {
   moderation: ModerationCtrl | undefined;
   note: NoteCtrl | undefined;
   preset: PresetCtrl;
-  trans: Trans;
   vm: ViewModel;
 
   constructor(
@@ -47,12 +45,10 @@ export default class ChatCtrl {
       loaded: false,
       enabled: prop(!!this.data.palantir),
     };
-    this.trans = trans(this.opts.i18n);
     const noChat = storage.get('nochat');
     this.vm = {
       tab: this.allTabs.find(tab => tab === this.storedTab) || this.allTabs[0],
       enabled: opts.alwaysEnabled || !noChat,
-      placeholderKey: 'talkInChat',
       loading: false,
       autofocus: false,
       timeout: opts.timeout,
@@ -64,7 +60,6 @@ export default class ChatCtrl {
       ? noteCtrl({
           id: opts.noteId,
           text: opts.noteText,
-          trans: this.trans,
           redraw: this.redraw,
         })
       : undefined;

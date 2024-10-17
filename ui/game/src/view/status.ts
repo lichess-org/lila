@@ -35,58 +35,59 @@ function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean {
 }
 
 export default function status(ctrl: Ctrl): string {
-  const noarg = ctrl.trans.noarg,
-    d = ctrl.data,
-    winnerSuffix = d.game.winner ? ' • ' + noarg(d.game.winner + 'IsVictorious') : '';
+  const d = ctrl.data,
+    winnerSuffix = d.game.winner
+      ? ' • ' + i18n.site[d.game.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
+      : '';
   switch (d.game.status.name) {
     case 'started':
-      return noarg('playingRightNow');
+      return i18n.site.playingRightNow;
     case 'aborted':
-      return noarg('gameAborted') + winnerSuffix;
+      return i18n.site.gameAborted + winnerSuffix;
     case 'mate':
-      return noarg('checkmate') + winnerSuffix;
+      return i18n.site.checkmate + winnerSuffix;
     case 'resign':
-      return noarg(d.game.winner == 'white' ? 'blackResigned' : 'whiteResigned') + winnerSuffix;
+      return i18n.site[d.game.winner == 'white' ? 'blackResigned' : 'whiteResigned'] + winnerSuffix;
     case 'stalemate':
-      return noarg('stalemate') + winnerSuffix;
+      return i18n.site.stalemate + winnerSuffix;
     case 'timeout':
       switch (d.game.winner) {
         case 'white':
-          return noarg('blackLeftTheGame') + winnerSuffix;
+          return i18n.site.blackLeftTheGame + winnerSuffix;
         case 'black':
-          return noarg('whiteLeftTheGame') + winnerSuffix;
+          return i18n.site.whiteLeftTheGame + winnerSuffix;
         default:
-          return `${d.game.turns % 2 === 0 ? noarg('whiteLeftTheGame') : noarg('blackLeftTheGame')} • ${noarg(
-            'draw',
-          )}`;
+          return `${d.game.turns % 2 === 0 ? i18n.site.whiteLeftTheGame : i18n.site.blackLeftTheGame} • ${i18n.site.draw}`;
       }
     case 'draw': {
       if (d.game.fen.split(' ')[4] === '100')
-        return `${noarg('fiftyMovesWithoutProgress')} • ${noarg('draw')}`;
-      if (d.game.threefold) return `${noarg('threefoldRepetition')} • ${noarg('draw')}`;
+        return `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`;
+      if (d.game.threefold) return `${i18n.site.threefoldRepetition} • ${i18n.site.draw}`;
       if (insufficientMaterial(d.game.variant.key, d.game.fen))
-        return `${noarg('insufficientMaterial')} • ${noarg('draw')}`;
-      if (d.game.drawOffers?.some(turn => turn >= d.game.turns)) return noarg('drawByMutualAgreement');
-      return noarg('draw');
+        return `${i18n.site.insufficientMaterial} • ${i18n.site.draw}`;
+      if (d.game.drawOffers?.some(turn => turn >= d.game.turns)) return i18n.site.drawByMutualAgreement;
+      return i18n.site.draw;
     }
     case 'outoftime':
-      return `${d.game.turns % 2 === 0 ? noarg('whiteTimeOut') : noarg('blackTimeOut')}${
-        winnerSuffix || ` • ${noarg('draw')}`
+      return `${d.game.turns % 2 === 0 ? i18n.site.whiteTimeOut : i18n.site.blackTimeOut}${
+        winnerSuffix || ` • ${i18n.site.draw}`
       }`;
     case 'noStart':
-      return (d.game.winner == 'white' ? noarg('blackDidntMove') : noarg('whiteDidntMove')) + winnerSuffix;
+      return (d.game.winner == 'white' ? i18n.site.blackDidntMove : i18n.site.whiteDidntMove) + winnerSuffix;
     case 'cheat':
-      return noarg('cheatDetected') + winnerSuffix;
+      return i18n.site.cheatDetected + winnerSuffix;
     case 'variantEnd':
       switch (d.game.variant.key) {
         case 'kingOfTheHill':
-          return noarg('kingInTheCenter') + winnerSuffix;
+          return i18n.site.kingInTheCenter + winnerSuffix;
         case 'threeCheck':
-          return noarg('threeChecks') + winnerSuffix;
+          return i18n.site.threeChecks + winnerSuffix;
       }
-      return noarg('variantEnding') + winnerSuffix;
+      return i18n.site.variantEnding + winnerSuffix;
     case 'unknownFinish':
-      return d.game.winner ? noarg(d.game.winner + 'IsVictorious') : 'Finished';
+      return d.game.winner
+        ? i18n.site[d.game.winner === 'white' ? 'whiteIsVictorious' : 'blackIsVictorious']
+        : i18n.site.finished;
     default:
       return d.game.status.name + winnerSuffix;
   }

@@ -146,7 +146,6 @@ export default class StudyCtrl {
       onBecomingContributor: () => (this.vm.mode.write = !relayData || this.relayRecProp()),
       admin: data.admin,
       redraw: ctrl.redraw,
-      trans: ctrl.trans,
     });
     this.chapters = new StudyChaptersCtrl(
       data.chapters!,
@@ -178,7 +177,6 @@ export default class StudyCtrl {
       this.multiCloudEval,
       this.relay?.tourShow() ? undefined : this.data.chapter.id,
       this.redraw,
-      this.ctrl.trans,
     );
     this.form = new StudyForm(
       (d, isNew) => {
@@ -193,7 +191,6 @@ export default class StudyCtrl {
           this.chapters.newForm.openInitial();
       },
       () => data,
-      ctrl.trans,
       this.redraw,
       this.relay,
     );
@@ -229,7 +226,6 @@ export default class StudyCtrl {
     this.topics = new TopicsCtrl(
       topics => this.send('setTopics', topics),
       () => data.topics || [],
-      ctrl.trans,
       this.redraw,
     );
 
@@ -241,7 +237,6 @@ export default class StudyCtrl {
       this.bottomColor,
       this.relay,
       this.redraw,
-      ctrl.trans,
     );
 
     this.practice = practiceData && new StudyPracticeCtrl(ctrl, data, practiceData);
@@ -412,7 +407,7 @@ export default class StudyCtrl {
       if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
     });
     if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
-    this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.ctrl.trans, this.redraw);
+    this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.redraw);
     this.vm.mode.sticky = false;
     return undefined;
   };
@@ -603,7 +598,6 @@ export default class StudyCtrl {
     this.redraw();
     this.updateAddressBar();
   };
-  trans = this.ctrl.trans;
   socketHandler = (t: string, d: any) => {
     const handler = (this.socketHandlers as any as SocketHandlers)[t];
     if (handler) {

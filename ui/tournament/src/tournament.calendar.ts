@@ -17,7 +17,7 @@ export interface Ctrl {
   data: Data;
 }
 
-export function initModule(opts: { data: Data; i18n: I18nDict }) {
+export function initModule(opts: { data: Data }) {
   const element = document.getElementById('tournament-calendar');
   // enrich tournaments
   opts.data.tournaments.forEach(t => {

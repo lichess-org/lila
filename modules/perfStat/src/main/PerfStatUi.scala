@@ -382,10 +382,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             "freq"        -> data,
             "myRating"    -> myVisiblePerfs.map(_(perfType).intRating),
             "otherRating" -> otherUser.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
-            "otherPlayer" -> otherUser.map(_.username),
-            "i18n" -> i18nJsObject(
-              List(trans.site.players, trans.site.yourRating, trans.site.cumulative, trans.site.glicko2Rating)
-            )
+            "otherPlayer" -> otherUser.map(_.username)
           )
         )
       ):

@@ -97,31 +97,34 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
     hist: node.ply < ctx.ctrl.initialNode.ply,
   };
   if (node.puzzle) classes[node.puzzle] = true;
-  return h('move', { attrs: { p: path }, class: classes }, renderMove(ctx, node));
+  return h('move', { attrs: { p: path }, class: classes }, renderMove(node));
 }
 
 const renderGlyph = (glyph: Glyph): VNode => h('glyph', { attrs: { title: glyph.name } }, glyph.symbol);
 
-function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
+function puzzleGlyph(node: Tree.Node): MaybeVNode {
   switch (node.puzzle) {
     case 'good':
     case 'win':
-      return renderGlyph({ name: ctx.ctrl.trans.noarg('bestMove'), symbol: '✓' });
+      return renderGlyph({ name: i18n.puzzle.bestMove, symbol: '✓' });
     case 'fail':
-      return renderGlyph({ name: ctx.ctrl.trans.noarg('puzzleFailed'), symbol: '✗' });
+      return renderGlyph({
+        name: 'Puzzle failed', //puzzleFailed key never worked, it's in learn/*.xml
+        symbol: '✗',
+      });
     case 'retry':
-      return renderGlyph({ name: ctx.ctrl.trans.noarg('goodMove'), symbol: '?!' });
+      return renderGlyph({ name: i18n.puzzle.goodMove, symbol: '?!' });
     default:
       return;
   }
 }
 
-function renderMove(ctx: Ctx, node: Tree.Node): LooseVNodes {
+function renderMove(node: Tree.Node): LooseVNodes {
   const ev = node.eval || node.ceval;
   return [
     node.san,
     ev && (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) && renderEval('#' + ev.mate)),
-    puzzleGlyph(ctx, node),
+    puzzleGlyph(node),
   ];
 }
 
@@ -134,7 +137,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
   return h('move', { attrs: { p: path }, class: classes }, [
     withIndex && renderIndex(node.ply, true),
     node.san,
-    puzzleGlyph(ctx, node),
+    puzzleGlyph(node),
   ]);
 }
 

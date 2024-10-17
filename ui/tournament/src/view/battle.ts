@@ -23,11 +23,11 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     onClose,
     vnodes: [
       h('div.team-picker', [
-        h('h2', ctrl.trans.noarg('pickYourTeam')),
+        h('h2', i18n.arena.pickYourTeam),
         h('br'),
         ...(tb.joinWith.length
           ? [
-              h('p', ctrl.trans.noarg('whichTeamWillYouRepresentInThisBattle')),
+              h('p', i18n.arena.whichTeamWillYouRepresentInThisBattle),
               ...tb.joinWith.map(id =>
                 h(
                   'button.button.team-picker__team',
@@ -37,7 +37,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ),
             ]
           : [
-              h('p', ctrl.trans.noarg('youMustJoinOneOfTheseTeamsToParticipate')),
+              h('p', i18n.arena.youMustJoinOneOfTheseTeamsToParticipate),
               h(
                 'ul',
                 shuffleArray(Object.keys(tb.teams)).map((id: string) =>
@@ -75,7 +75,7 @@ function extraTeams(ctrl: TournamentController): VNode {
       h(
         'a',
         { attrs: { href: `/tournament/${ctrl.data.id}/teams` } },
-        ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length),
+        i18n.arena.viewAllXTeams(Object.keys(ctrl.data.teamBattle!.teams).length),
       ),
     ),
   );

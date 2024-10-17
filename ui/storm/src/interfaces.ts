@@ -5,7 +5,6 @@ export interface StormOpts {
   puzzles: Puzzle[];
   key?: string;
   pref: StormPrefs;
-  i18n: I18nDict;
 }
 
 export interface StormPrefs extends PuzPrefs {}

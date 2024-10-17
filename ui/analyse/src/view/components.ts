@@ -257,7 +257,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            ctrl.trans.noarg('importPgn'),
+            i18n.site.importPgn,
           ),
         h(
           'div.bottom-item.bottom-error',
@@ -272,8 +272,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
 export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    menuIsOpen = ctrl.actionMenu(),
-    noarg = ctrl.trans.noarg;
+    menuIsOpen = ctrl.actionMenu();
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -297,13 +296,13 @@ export function renderControls(ctrl: AnalyseCtrl) {
         ctrl.studyPractice
           ? [
               h('button.fbt', {
-                attrs: { title: noarg('analysis'), 'data-act': 'analysis', 'data-icon': licon.Microscope },
+                attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
               }),
             ]
           : [
               h('button.fbt', {
                 attrs: {
-                  title: noarg('openingExplorerAndTablebase'),
+                  title: i18n.site.openingExplorerAndTablebase,
                   'data-act': 'explorer',
                   'data-icon': licon.Book,
                 },
@@ -318,7 +317,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
                 !ctrl.isEmbed &&
                 h('button.fbt', {
                   attrs: {
-                    title: noarg('practiceWithComputer'),
+                    title: i18n.site.practiceWithComputer,
                     'data-act': 'practice',
                     'data-icon': licon.Bullseye,
                   },
@@ -336,7 +335,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
         ? h('div.noop')
         : h('button.fbt', {
             class: { active: menuIsOpen },
-            attrs: { title: noarg('menu'), 'data-act': 'menu', 'data-icon': licon.Hamburger },
+            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
           }),
     ],
   );
@@ -361,9 +360,9 @@ function renderMoveList(ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: 
     } else if (ctrl.study) {
       const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
       if (!result || result === '*') return [];
-      if (result === '1-0') return render(result, [ctrl.trans.noarg('whiteIsVictorious')]);
-      if (result === '0-1') return render(result, [ctrl.trans.noarg('blackIsVictorious')]);
-      return render('½-½', [ctrl.trans.noarg('draw')]);
+      if (result === '1-0') return render(result, [i18n.site.whiteIsVictorious]);
+      if (result === '0-1') return render(result, [i18n.site.blackIsVictorious]);
+      return render('½-½', [i18n.site.draw]);
     }
     return [];
   }

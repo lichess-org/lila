@@ -78,6 +78,7 @@ def replay(
     .css((pov.game.variant == Crazyhouse).option("analyse.zh"))
     .css(ctx.blind.option("round.nvui"))
     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+    .i18n(_.puzzle, _.study)
     .js(analyseNvuiTag)
     .js(
       bits.analyseModule(
@@ -85,7 +86,6 @@ def replay(
         Json
           .obj(
             "data"   -> data,
-            "i18n"   -> views.analysisI18n(),
             "userId" -> ctx.userId,
             "chat"   -> chatJson
           )

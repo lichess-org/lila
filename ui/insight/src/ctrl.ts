@@ -188,5 +188,4 @@ export default class {
       this.askQuestion();
     }
   }
-  // this.trans = site.trans(env.i18n);
 }

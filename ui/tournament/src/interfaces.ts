@@ -23,8 +23,6 @@ export interface TournamentOpts {
   element: HTMLElement;
   socketSend: SocketSend;
   data: TournamentData;
-  i18n: I18nDict;
-  trans: Trans;
   classes: string | null;
   $side: Cash;
   $faq: Cash;

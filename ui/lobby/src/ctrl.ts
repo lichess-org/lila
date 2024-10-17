@@ -38,7 +38,6 @@ export default class LobbyController {
   stepping = false;
   redirecting = false;
   poolMember?: PoolMember;
-  trans: Trans;
   pools: Pool[];
   filter: Filter;
   setupCtrl: SetupController;
@@ -70,7 +69,6 @@ export default class LobbyController {
     this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
     this.mode = this.stores.mode.get();
     this.sort = this.stores.sort.get();
-    this.trans = opts.trans;
 
     const locationHash = location.hash.replace('#', '');
     if (['ai', 'friend', 'hook'].includes(locationHash)) {

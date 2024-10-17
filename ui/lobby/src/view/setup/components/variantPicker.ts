@@ -5,10 +5,10 @@ import { variantsBlindMode, variants, variantsForGameType } from '../../../optio
 import { option } from './option';
 
 export const variantPicker = (ctrl: LobbyController) => {
-  const { trans, setupCtrl } = ctrl;
+  const { setupCtrl } = ctrl;
   const baseVariants = site.blindMode ? variantsBlindMode : variants;
   return h('div.variant.label-select', [
-    h('label', { attrs: { for: 'sf_variant' } }, trans('variant')),
+    h('label', { attrs: { for: 'sf_variant' } }, i18n.site.variant),
     h(
       'select#sf_variant',
       {

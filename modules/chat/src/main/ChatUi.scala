@@ -78,7 +78,6 @@ final class ChatUi(helpers: Helpers):
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
           .add("palantir" -> (palantir && ctx.isAuth)),
-        "i18n"      -> chatI18nObject(withNote = withNoteAge.isDefined),
         "writeable" -> writeable,
         "public"    -> public,
         "permissions" -> Json
@@ -96,13 +95,3 @@ final class ChatUi(helpers: Helpers):
         "timeoutReasons" -> (!localMod && (Granter.opt(_.ChatTimeout) || Granter.opt(_.BroadcastTimeout)))
           .option(JsonView.timeoutReasons)
       )
-
-  private def chatI18nObject(withNote: Boolean)(using Context) =
-    i18nOptionJsObject(
-      trans.site.talkInChat.some,
-      trans.site.toggleTheChat.some,
-      trans.site.loginToChat.some,
-      trans.site.youHaveBeenTimedOut.some,
-      Option.when(withNote)(trans.site.notes),
-      Option.when(withNote)(trans.site.typePrivateNotesHere)
-    )

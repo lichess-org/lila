@@ -54,7 +54,7 @@ function controls(ctrl: PuzzleCtrl): VNode {
         jumpButton(licon.JumpPrev, 'prev', !node.ply),
         jumpButton(licon.JumpNext, 'next', !nextNode),
         jumpButton(licon.JumpLast, 'last', !nextNode, notOnLastMove),
-        boardMenuToggleButton(ctrl.menu, ctrl.trans.noarg('menu')),
+        boardMenuToggleButton(ctrl.menu, i18n.site.menu),
       ],
     ),
     boardMenu(ctrl),

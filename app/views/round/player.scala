@@ -50,7 +50,6 @@ def player(
         Json
           .obj(
             "data"   -> data,
-            "i18n"   -> jsI18n(pov.game),
             "userId" -> ctx.userId,
             "chat"   -> chatJson
           )

@@ -18,7 +18,7 @@ def index(
       pov.game.variant,
       s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}"
     )
-    .js(PageModule("round", Json.obj("data" -> data, "i18n" -> views.round.jsI18n(pov.game))))
+    .js(PageModule("round", Json.obj("data" -> data)))
     .css("bits.tv.single")
     .graph(
       title = s"Watch the best ${channel.name.toLowerCase} games of lichess.org",

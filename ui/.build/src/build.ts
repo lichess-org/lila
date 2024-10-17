@@ -10,6 +10,7 @@ import { monitor, stopMonitor } from './monitor.ts';
 import { writeManifest } from './manifest.ts';
 import { clean } from './clean.ts';
 import { type Package, env, errorMark, colors as c } from './main.ts';
+import { i18n, stopI18n } from './i18n.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
   await stop();
@@ -37,8 +38,9 @@ export async function build(pkgs: string[]): Promise<void> {
     fs.promises.mkdir(env.buildTempDir),
   ]);
 
+  await Promise.all([sass(), copies(), i18n()]);
+  await esbuild(tsc());
   monitor(pkgs);
-  await Promise.all([sass(), copies(), esbuild(tsc())]);
 }
 
 export async function stop(): Promise<void> {
@@ -46,6 +48,7 @@ export async function stop(): Promise<void> {
   stopSass();
   stopTsc();
   stopCopies();
+  stopI18n();
   await stopEsbuild();
 }
 
@@ -67,6 +70,8 @@ export function prePackage(pkg: Package | undefined): void {
     if (stdout) env.log(stdout, { ctx: pkg.name });
   });
 }
+
+export const quantize = (n?: number, factor = 2000) => Math.floor((n ?? 0) / factor) * factor;
 
 function depsOne(pkgName: string): Package[] {
   const collect = (dep: string): string[] => [...(env.deps.get(dep) || []).flatMap(d => collect(d)), dep];

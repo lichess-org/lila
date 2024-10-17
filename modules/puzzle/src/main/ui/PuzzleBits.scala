@@ -9,15 +9,11 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class PuzzleBits(helpers: Helpers)(cevalTranslations: Seq[I18nKey]):
+final class PuzzleBits(helpers: Helpers):
   import helpers.{ *, given }
 
   def daily(p: lila.puzzle.Puzzle, fen: BoardFen, lastMove: Uci) =
     chessgroundMini(fen, p.color, lastMove.some)(span)
-
-  def jsI18n(streak: Boolean)(using Translate) =
-    if streak then i18nJsObject(streakI18nKeys)
-    else i18nJsObject(trainingI18nKeys)
 
   lazy val jsonThemes = PuzzleTheme.visible
     .collect { case t if t != PuzzleTheme.mix => t.key }
@@ -150,59 +146,3 @@ final class PuzzleBits(helpers: Helpers)(cevalTranslations: Seq[I18nKey]):
           iconTag(if results.canReplay then Icon.PlayTriangle else Icon.Checkmark)
         )
       )
-
-  private val themeI18nKeys: List[I18nKey] =
-    PuzzleTheme.visible.map(_.name) ::: PuzzleTheme.visible.map(_.description)
-
-  private val baseI18nKeys: List[I18nKey] = List(
-    trans.puzzle.bestMove,
-    trans.puzzle.keepGoing,
-    trans.puzzle.notTheMove,
-    trans.puzzle.trySomethingElse,
-    trans.site.yourTurn,
-    trans.puzzle.findTheBestMoveForBlack,
-    trans.puzzle.findTheBestMoveForWhite,
-    trans.site.viewTheSolution,
-    trans.puzzle.puzzleSuccess,
-    trans.puzzle.puzzleComplete,
-    trans.puzzle.hidden,
-    trans.puzzle.jumpToNextPuzzleImmediately,
-    trans.puzzle.fromGameLink,
-    trans.puzzle.puzzleId,
-    trans.puzzle.ratingX,
-    trans.puzzle.playedXTimes,
-    trans.puzzle.continueTraining,
-    trans.puzzle.didYouLikeThisPuzzle,
-    trans.puzzle.voteToLoadNextOne,
-    trans.site.analysis,
-    trans.site.playWithTheMachine,
-    trans.preferences.zenMode,
-    trans.site.asWhite,
-    trans.site.asBlack,
-    trans.site.randomColor,
-    trans.site.flipBoard
-  ) ::: cevalTranslations.toList
-
-  private val trainingI18nKeys: List[I18nKey] = baseI18nKeys ::: List[I18nKey](
-    trans.puzzle.example,
-    trans.puzzle.dailyPuzzle,
-    trans.puzzle.addAnotherTheme,
-    trans.puzzle.difficultyLevel,
-    trans.site.rated,
-    trans.puzzle.yourPuzzleRatingWillNotChange,
-    trans.site.signUp,
-    trans.puzzle.toGetPersonalizedPuzzles,
-    trans.puzzle.nbPointsBelowYourPuzzleRating,
-    trans.puzzle.nbPointsAboveYourPuzzleRating
-  ) :::
-    themeI18nKeys :::
-    PuzzleDifficulty.all.map(_.name)
-
-  private val streakI18nKeys: List[I18nKey] = baseI18nKeys ::: List[I18nKey](
-    trans.storm.skip,
-    trans.puzzle.streakDescription,
-    trans.puzzle.yourStreakX,
-    trans.puzzle.streakSkipExplanation,
-    trans.puzzle.continueTheStreak,
-    trans.puzzle.newStreak
-  ) ::: themeI18nKeys

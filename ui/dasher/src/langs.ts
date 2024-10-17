@@ -21,7 +21,7 @@ export class LangsCtrl extends PaneCtrl {
 
   render = (): VNode =>
     h('div.sub.langs', [
-      header(this.trans.noarg('language'), this.close),
+      header(i18n.site.language, this.close),
       h(
         'form',
         { attrs: { method: 'post', action: '/translation/select' } },

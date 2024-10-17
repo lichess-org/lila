@@ -25,7 +25,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
 
 const views = {
   hook: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2', ctrl.trans('createAGame')),
+    h('h2', i18n.site.createAGame),
     h('div.setup-content', [
       variantPicker(ctrl),
       timePickerAndSliders(ctrl),
@@ -35,7 +35,7 @@ const views = {
     ]),
   ],
   friend: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2', ctrl.trans('playWithAFriend')),
+    h('h2', i18n.site.playWithAFriend),
     h('div.setup-content', [
       ctrl.setupCtrl.friendUser ? userLink({ name: ctrl.setupCtrl.friendUser, line: false }) : null,
       variantPicker(ctrl),
@@ -46,7 +46,7 @@ const views = {
     ]),
   ],
   ai: (ctrl: LobbyController): MaybeVNodes => [
-    h('h2', ctrl.trans('playWithTheMachine')),
+    h('h2', i18n.site.playWithTheMachine),
     h('div.setup-content', [
       variantPicker(ctrl),
       fenInput(ctrl),

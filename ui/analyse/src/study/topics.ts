@@ -13,7 +13,6 @@ export default class TopicsCtrl {
   constructor(
     readonly save: (data: string[]) => void,
     readonly getTopics: () => Topic[],
-    readonly trans: Trans,
     readonly redraw: Redraw,
   ) {}
 }
@@ -29,7 +28,7 @@ export const view = (ctrl: StudyCtrl): VNode =>
       ? h(
           'a.manage',
           { hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw) },
-          ctrl.trans.noarg('manageTopics'),
+          i18n.study.manageTopics,
         )
       : null,
   ]);
@@ -44,7 +43,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
       ctrl.redraw();
     },
     vnodes: [
-      h('h2', ctrl.trans.noarg('topics')),
+      h('h2', i18n.study.topics),
       h(
         'form',
         {
@@ -62,7 +61,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
             { hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)) },
             ctrl.getTopics().join(', ').replace(/[<>]/g, ''),
           ),
-          h('button.button', { type: 'submit' }, ctrl.trans.noarg('save')),
+          h('button.button', { type: 'submit' }, i18n.study.save),
         ],
       ),
     ],

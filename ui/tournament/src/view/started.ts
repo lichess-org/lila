@@ -9,18 +9,18 @@ import * as pagination from '../pagination';
 import TournamentController from '../ctrl';
 import { MaybeVNodes } from 'common/snabbdom';
 
-function joinTheGame(ctrl: TournamentController, gameId: string) {
+function joinTheGame(gameId: string) {
   return h('a.tour__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
-    ctrl.trans('youArePlaying'),
+    i18n.site.youArePlaying,
     h('br'),
-    ctrl.trans('joinTheGame'),
+    i18n.site.joinTheGame,
   ]);
 }
 
 function notice(ctrl: TournamentController): VNode {
   return ctrl.willBePaired()
-    ? h('div.tour__notice.bar-glider', ctrl.trans('standByX', ctrl.data.myUsername!))
-    : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
+    ? h('div.tour__notice.bar-glider', i18n.site.standByX(ctrl.data.myUsername!))
+    : h('div.tour__notice.closed', i18n.site.tournamentPairingsAreNowClosed);
 }
 
 export const name = 'started';
@@ -30,7 +30,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
     pag = pagination.players(ctrl);
   return [
     header(ctrl),
-    gameId ? joinTheGame(ctrl, gameId) : ctrl.isIn() ? notice(ctrl) : null,
+    gameId ? joinTheGame(gameId) : ctrl.isIn() ? notice(ctrl) : null,
     teamStanding(ctrl, 'started'),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),

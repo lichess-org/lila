@@ -161,18 +161,12 @@ export interface Perf {
 
 export interface Ctrl {
   data: GameData;
-  trans: Trans;
 }
 
 export interface Blurs {
   nb: number;
   percent: number;
   bits?: string;
-}
-
-export interface Trans {
-  (key: string): string;
-  noarg: (key: string) => string;
 }
 
 export interface Hold {
