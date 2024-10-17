@@ -4,14 +4,6 @@
   <string name="correspondenceWithConditionalPremoves">شطرنج المراسلة مع حركات مسبقة مشروطة</string>
   <string name="standardChessAndX" comment="%s is 8 variants">الشطرنج العادي و %s</string>
   <string name="deepXServerAnalysis" comment="%s is the engine name">تحاليل خادم %s عميقة</string>
-  <plurals name="gamesPerDay">
-    <item quantity="zero">%s دور يوميا</item>
-    <item quantity="one">%s أدوار يوميًا</item>
-    <item quantity="two">%s دور يوميًا</item>
-    <item quantity="few">بعض المباريات يومياً</item>
-    <item quantity="many">مباراة %s يومياً</item>
-    <item quantity="other">العديد من المباريات يومياً</item>
-  </plurals>
   <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">لوحة التحرير والتحليل مع%s</string>
   <string name="cloudEngineAnalysis">تحليل محرك السحابة</string>
   <string name="studies">الدراسات (تحليل قابل للمشاركة والتحليل المستمر)</string>
