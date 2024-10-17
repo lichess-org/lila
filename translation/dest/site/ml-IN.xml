@@ -280,15 +280,15 @@
   <string name="confirmMove">നീക്കം ഉറപ്പിക്കുക</string>
   <string name="play">കളിക്കുക</string>
   <string name="inbox">ഇ-തപാൽപെട്ടി</string>
-  <string name="chatRoom">ചാറ്റ് മുറി</string>
-  <string name="loginToChat">ചാറ്റ് ചെയ്യാൻ ലോഗിൻ ചെയ്യുക</string>
+  <string name="chatRoom">സല്ലാപമുറി</string>
+  <string name="loginToChat">സല്ലപിക്കാൻ പ്രവേശിക്കൽ ചെയ്യുക</string>
   <string name="youHaveBeenTimedOut">നിങ്ങൾ ടൈംഡ്-ഔട്ട് ആയിരിക്കുന്നു.</string>
   <string name="spectatorRoom">വീക്ഷണ മുറി</string>
   <string name="composeMessage">സന്ദേശം എഴുതുക</string>
   <string name="subject">വിഷയം</string>
   <string name="send">അയക്കുക</string>
   <string name="incrementInSeconds">സെക്കന്‍ഡുകളുടെ വര്‍ദ്ധന</string>
-  <string name="freeOnlineChess">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌</string>
+  <string name="freeOnlineChess">സൗജന്യ തൽസമയചെസ്സ്‌</string>
   <plurals name="nbRated">
     <item quantity="one">%s റേറ്റഡ്</item>
     <item quantity="other">%s റേറ്റഡ്</item>
@@ -364,7 +364,7 @@
   <string name="mustBeInTeam">ഇതിന് %s ടീമിലെ അംഗമാകണം</string>
   <string name="youAreNotInTeam">താങ്കള്‍ %s ടീമിലെ അംഗമല്ല</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
-  <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
+  <string name="siteDescription">സൗജന്യ തൽസമയം ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="xJoinedTeamY">%1$s സംഘത്തിൽ %2$s അംഗമായി</string>
   <string name="xCreatedTeamY">%1$s നിർമിച്ച %2$s സംഘം</string>
   <string name="xStartedStreaming">%s സംപ്രേക്ഷണം ആരംഭിച്ചിരിക്കുന്നു</string>
@@ -397,8 +397,8 @@
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s സുഹൃത്ത് ഓണ്‍ലൈനാണ്</item>
-    <item quantity="other">%s സുഹൃത്തുക്കൾ ഓണ്‍ലൈനാണ്</item>
+    <item quantity="one">%s സുഹൃത്ത് തൽസമയം</item>
+    <item quantity="other">%s സുഹൃത്തുക്കൾ തൽസമയം</item>
   </plurals>
   <string name="favoriteOpponents">ഇഷ്ടപ്പെട്ട എതിരാളികള്‍</string>
   <string name="follow">പിന്തുടരുക</string>
@@ -488,7 +488,7 @@
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="clearSavedMoves">നീക്കങ്ങൾ കളയുക</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
-  <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
+  <string name="onlinePlayers">തൽസമയ കളിക്കാർ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
   <string name="success">വിജയകരം</string>
@@ -499,6 +499,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">നീക്കത്തിന് ശേഷം അടുത്ത കളിയിലേക്ക് താനെ തുടരാം</string>
   <string name="autoSwitch">ഓട്ടോ സ്വിച്ച്</string>
   <string name="puzzles">സമസ്യകൾ</string>
+  <string name="onlineBots">തൽസമയം യന്ത്രമനുഷ്യർ</string>
   <string name="name">പേര്</string>
   <string name="description">വിവരണം</string>
   <string name="descPrivate">സ്വകാര്യ വിവരണം</string>
@@ -873,8 +874,11 @@
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
   <string name="clickToRevealEmailAddress">ഇമെയിൽ വിലാസം വെളിപ്പെടുത്തുകാൻ അമർത്തിക്കൂ</string>
   <string name="noRestriction">അതിരിടലങ്ങളൊന്നുമില്ല</string>
+  <string name="tournChat">മത്സരസല്ലാപമുറി</string>
+  <string name="noChat">സല്ലാപമുറി ഇല്ല</string>
   <string name="onlyTeamLeaders">കളികൂട്ടനേതാവ് മാത്രം</string>
   <string name="onlyTeamMembers">കളികൂട്ടം അംഗംക്കാർ മാത്രം</string>
+  <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
   <string name="sentEmailWithLink">ഞങ്ങൾ താങ്ങളേ ഒരു കണ്ണിയുള്ള ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</string>
