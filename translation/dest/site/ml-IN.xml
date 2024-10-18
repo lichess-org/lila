@@ -18,7 +18,7 @@
   <string name="stalemate">സമനില</string>
   <string name="white">വെളുപ്പ്‌</string>
   <string name="black">കറുപ്പ്</string>
-  <string name="asWhite">വെള്ളയായി വെള്ള</string>
+  <string name="asWhite">വെള്ളയായി</string>
   <string name="asBlack">കറുപ്പായി</string>
   <string name="randomColor">ഏതെങ്കിലും നിറം</string>
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
@@ -28,7 +28,7 @@
   <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
   <string name="cheatDetected">കള്ളത്തരം കണ്ടെത്തി</string>
-  <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
+  <string name="kingInTheCenter">രാജാവു്  കേന്ദത്തിലുള്ള കളി</string>
   <string name="threeChecks">മൂനു ചെക്ക് കളി</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="variantEnding">വ്യത്യാസപ്പെട്ട അവസാനം</string>
@@ -891,6 +891,7 @@
   <string name="minimumRating">ഏറ്റവും താഴ്ന്ന റേറ്റിങു്</string>
   <string name="maximumWeeklyRating">ഏറ്റവും കൂടിയ ആഴ്ചതോറ റേറ്റിങു്</string>
   <string name="cancelSimul">ഒരേവേളകളി വേണ്ട വെയ്ക്കുക</string>
+  <string name="simulFeatured">%s-ൽ കാണിക്കുക</string>
   <string name="simulFeaturedHelp">എല്ലാവർക്കും എന്റെ ഒരേവേളകളികൾ %s-ൽ കാണിക്കുക. സ്വകാര്യമായ ഒരേവേളകളികൾക്കു് ഇതു ചെയ്യരുതു്.</string>
   <string name="simulDescription">ഒരേവേളകളി കുറിച്ചു്</string>
   <string name="simulDescriptionHelp">കളിക്കാരേ എന്തെങ്കിലും പറയാനുണ്ടോ?</string>
