@@ -35,7 +35,6 @@ def watcher(
         "round",
         Json.obj(
           "data" -> data,
-          "i18n" -> jsI18n(pov.game),
           "chat" -> chatJson
         )
       )

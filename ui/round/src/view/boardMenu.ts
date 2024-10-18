@@ -6,11 +6,11 @@ import { toggle } from 'common';
 import { boolPrefXhrToggle } from 'common/controls';
 
 export default function (ctrl: RoundController): LooseVNode {
-  return menuDropdown(ctrl.trans, ctrl.redraw, ctrl.menu, menu => {
+  return menuDropdown(ctrl.redraw, ctrl.menu, menu => {
     const d = ctrl.data,
       spectator = d.player.spectator;
     return [
-      h('section', [menu.flip(ctrl.noarg('flipBoard'), ctrl.flip, ctrl.flipNow)]),
+      h('section', [menu.flip(i18n.site.flipBoard, ctrl.flip, ctrl.flipNow)]),
       h('section', [
         menu.zenMode(true),
         menu.blindfold(

@@ -15,7 +15,8 @@ final class StormUi(helpers: Helpers):
   def home(data: JsObject, high: Option[StormHigh])(using Context) =
     Page("Puzzle Storm")
       .css("storm")
-      .js(PageModule("storm", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))
+      .i18n(_.storm)
+      .js(PageModule("storm", data))
       .zoom
       .zen
       .hrefLangs(lila.ui.LangPath(routes.Storm.home)):
@@ -122,37 +123,3 @@ final class StormUi(helpers: Helpers):
             )
           )
         )
-
-  private val i18nKeys =
-    import trans.{ storm as s }
-    List(
-      s.moveToStart,
-      s.puzzlesSolved,
-      s.newDailyHighscore,
-      s.newWeeklyHighscore,
-      s.newMonthlyHighscore,
-      s.newAllTimeHighscore,
-      s.previousHighscoreWasX,
-      s.playAgain,
-      s.score,
-      s.moves,
-      s.accuracy,
-      s.combo,
-      s.time,
-      s.timePerMove,
-      s.highestSolved,
-      s.puzzlesPlayed,
-      s.newRun,
-      s.endRun,
-      s.youPlayTheWhitePiecesInAllPuzzles,
-      s.youPlayTheBlackPiecesInAllPuzzles,
-      s.failedPuzzles,
-      s.slowPuzzles,
-      s.thisWeek,
-      s.thisMonth,
-      s.allTime,
-      s.clickToReload,
-      s.thisRunHasExpired,
-      s.thisRunWasOpenedInAnotherTab,
-      trans.site.flipBoard
-    )
