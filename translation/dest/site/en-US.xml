@@ -59,7 +59,7 @@
   <string name="analysis">Analysis board</string>
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Using server analysis</string>
-  <string name="loadingEngine">Loading engine ...</string>
+  <string name="loadingEngine">Loading engine...</string>
   <string name="calculatingMoves">Calculating moves...</string>
   <string name="engineFailed">Error loading engine</string>
   <string name="cloudAnalysis">Cloud analysis</string>
@@ -90,7 +90,7 @@
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="masterDbExplanation">OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
+  <string name="masterDbExplanation" comment="Description of the Masters database in the opening explorer. Example: OTB games of 2200+ FIDE-rated players from 1952 to 2017.&#10;Appears as title text on 'Masters database', seen when you hover the mouse over.&#10;&#10;OTB means 'over the board', which is physical/real life chess. This may not exist as an abbreviation in your language. As always, please aim for clarity in your translation.&#10;&#10;This string used to say &quot;Two million games&quot;. If you still see this, it can be removed.">OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
@@ -274,7 +274,7 @@
   <string name="accept">Accept</string>
   <string name="decline">Decline</string>
   <string name="playingRightNow">Playing right now</string>
-  <string name="eventInProgress">Playing right now</string>
+  <string name="eventInProgress">Playing now</string>
   <string name="finished">Finished</string>
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
