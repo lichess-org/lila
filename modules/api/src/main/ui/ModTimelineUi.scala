@@ -53,7 +53,14 @@ final class ModTimelineUi(helpers: Helpers)(
     )
 
   private def renderEvent(t: ModTimeline)(e: Event)(using Translate) =
-    div(cls := s"mod-timeline__event mod-timeline__event--${e.key}")(
+    val isRecent = e.at.isAfter(nowInstant.minusMonths(6))
+    div(
+      cls := List(
+        "mod-timeline__event"            -> true,
+        s"mod-timeline__event--${e.key}" -> true,
+        "mod-timeline__event--recent"    -> isRecent
+      )
+    )(
       a(cls := "mod-timeline__event__flair", href := e.url(t.user)):
         img(src := flairSrc(e.flair), title := s"${e.key} ${showInstant(e.at)}")
       ,
