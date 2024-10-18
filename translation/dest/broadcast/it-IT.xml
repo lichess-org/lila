@@ -7,6 +7,7 @@
     <item quantity="other">%s dirette</item>
   </plurals>
   <string name="liveBroadcasts">Tornei in diretta</string>
+  <string name="broadcastCalendar">Calendario trasmissioni</string>
   <string name="newBroadcast">Nuova diretta</string>
   <string name="subscribedBroadcasts">Trasmissioni abbonate</string>
   <string name="aboutBroadcasts">Informazioni sulle trasmissioni</string>
@@ -26,6 +27,7 @@
   <string name="sourceSingleUrl">Sorgente URL PGN</string>
   <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
   <string name="sourceGameIds">Fino a 64 ID di partite Lichess, separati da spazi.</string>
+  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Data d\'inizio nel fuso orario locale del torneo: %s</string>
   <string name="startDateHelp">Facoltativo, se sai quando inizia l\'evento</string>
   <string name="credits">Cita la fonte</string>
   <string name="currentGameUrl">URL della partita corrente</string>

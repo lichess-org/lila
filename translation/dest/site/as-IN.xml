@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">অান এজনৰ বিপক্ষে খেলিবলৈ এই URLতু ব্যৱহাৰ কৰক</string>
   <string name="gameOver">Khel Sesh</string>
   <string name="waitingForOpponent">বিৰোধী\'ৰ অপেক্ষাত</string>
+  <string name="orLetYourOpponentScanQrCode">Yyi Loota myaiaponet QR code scanna</string>
   <string name="waiting">অপেক্ষাত</string>
   <string name="yourTurn">আপোনাৰ পাল</string>
   <string name="level">স্তৰ বা লেভেল</string>
@@ -24,13 +25,16 @@
   <string name="youPlayTheWhitePieces">আপুনি বগা ৰং হিচাপে খেলিব</string>
   <string name="youPlayTheBlackPieces">আপুনি ক\'লা ৰং হিচাপে খেলিব</string>
   <string name="itsYourTurn">আপোনাৰ খেলাৰ পাল !</string>
+  <string name="cheatDetected">Cheat Ketcohahe</string>
   <string name="kingInTheCenter">ৰজা আহিল মাজ\'লৈ</string>
   <string name="joinTheGame">খেলখনত ভাগ লোৱা</string>
   <string name="whitePlays">বগা দলৰ পাল</string>
   <string name="blackPlays">ক’লা দলৰ পাল</string>
   <string name="forceResignation">জয় লাভ কৰক</string>
+  <string name="forceDraw">Hell draw</string>
   <string name="talkInChat">চেতত ভাল বাবে কথা পাতিব!</string>
   <string name="whiteLeftTheGame">বগা খেলোৱৈয়ে খেলখন এৰি গ\'ল</string>
   <string name="blackLeftTheGame">ক\'লা খেলোৱৈয়ে খেলখন এৰি গ\'ল</string>
+  <string name="depthX">Diff %s</string>
   <string name="close">বন্ধ</string>
 </resources>

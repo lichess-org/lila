@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="puzzles">Chess Puzzles</string>
+  <string name="puzzles">Puzzles</string>
   <string name="puzzleThemes">Puzzle Themes</string>
   <string name="recommended">Recommended</string>
   <string name="phases">Phases</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Strengths</string>
   <string name="history">Puzzle history</string>
   <string name="solved">solved</string>
-  <string name="failed">failed</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">incorrect</string>
   <string name="streakDescription">Solve progressively harder puzzles and build a win streak. There is no clock, so take your time. One wrong move, and it\'s game over! But you can skip one move per session.</string>
   <string name="yourStreakX">Your streak: %s</string>
   <string name="streakSkipExplanation">Skip this move to preserve your streak! Only works once per run.</string>
@@ -77,6 +77,7 @@
   <string name="fromXGames">Puzzles from %s\'s games</string>
   <string name="searchPuzzles">Search puzzles</string>
   <string name="fromMyGamesNone">You have no puzzles in the database, but Lichess still loves you very much.
+
 Play rapid and classical games to increase your chances of having a puzzle of yours added!</string>
   <string name="fromXGamesFound">%1$s puzzles found in %2$s games</string>
   <string name="puzzleDashboardDescription">Train, analyse, improve</string>
