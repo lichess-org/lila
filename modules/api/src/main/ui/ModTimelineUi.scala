@@ -31,10 +31,7 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def render(t: ModTimeline)(using angle: Angle)(using Translate) = div(cls := "mod-timeline"):
     t.all
-      .filter:
-        case _: TempBan if angle != Angle.Play                                  => false
-        case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
-        case _                                                                  => true
+      .filter(Angle.filter)
       .map: e =>
         daysFromNow(e.at.date) -> e
       .groupBy(_._1)

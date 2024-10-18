@@ -103,6 +103,15 @@ object ModTimeline:
     case None
     case Comm
     case Play
+  object Angle:
+    def filter(e: Event)(using angle: Angle): Boolean = e match
+      case _: TempBan if angle != Angle.Play                                  => false
+      case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
+      case l: Modlog if l.action == Modlog.modMessage =>
+        if l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
+        then angle != Comm
+        else angle == Comm
+      case _ => true
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,
