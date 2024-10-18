@@ -79,9 +79,12 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
 
     def lpvJs(lpvConfig: JsObject)(using Translate): WithNonce[Frag] =
       embedJsUnsafe(s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
-          lpvConfig ++ Json.obj(
-            "i18n" -> i18nJsObject(lpvI18n)
-          )
+          lpvConfig + ("i18n" -> Json.obj(
+            "flipBoard"            -> trans.site.flipBoard.txt(),
+            "analysis"             -> trans.site.analysis.txt(),
+            "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
+            "download"             -> trans.site.download
+          ))
         )})})""")
 
     def lpvConfig(orientation: Option[Color], getPgn: Boolean) = Json
@@ -91,10 +94,3 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
         )
       )
       .add("orientation", orientation.map(_.name))
-
-    private val lpvI18n = List(
-      trans.site.flipBoard,
-      trans.site.analysis,
-      trans.site.practiceWithComputer,
-      trans.site.download
-    )

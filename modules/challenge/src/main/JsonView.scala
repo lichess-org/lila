@@ -2,7 +2,7 @@ package lila.challenge
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.core.i18n.{ I18nKey as trans, JsDump, Translate }
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.id.GameFullId
 import lila.core.socket.{ SocketVersion, userLag }
 import lila.game.JsonView.given
@@ -13,8 +13,7 @@ final class JsonView(
     baseUrl: lila.core.config.BaseUrl,
     getLightUser: lila.core.LightUser.GetterSync,
     getLagRating: userLag.GetLagRating,
-    isOnline: lila.core.socket.IsOnline,
-    jsDump: JsDump
+    isOnline: lila.core.socket.IsOnline
 ):
 
   import Challenge.*
