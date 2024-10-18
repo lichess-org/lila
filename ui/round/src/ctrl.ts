@@ -287,7 +287,7 @@ export default class RoundController implements MoveRootCtrl {
   isLate = (): boolean => this.replaying() && status.playing(this.data);
 
   playerAt = (position: Position): game.Player =>
-    (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
+    this.flip != (position === 'top') ? this.data.opponent : this.data.player;
 
   flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;

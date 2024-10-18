@@ -15,10 +15,10 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
     return h(tag, [h('div.stats', [h('h2', ctrl.playerInfoId), spinner()])]);
-  const games = data.sheet.filter((p: any) => p.g).length;
-  const wins = data.sheet.filter((p: any) => p.w).length;
+  const games = data.sheet.filter(p => !isOutcome(p) && p.g).length;
+  const wins = data.sheet.filter(p => !isOutcome(p) && p.w).length;
   const avgOp: number | undefined = games
-    ? Math.round(data.sheet.reduce((r, p) => r + ((p as any).rating || 1), 0) / games)
+    ? Math.round(data.sheet.reduce((r, p) => r + (!isOutcome(p) ? p.rating : 1), 0) / games)
     : undefined;
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     h('a.close', {

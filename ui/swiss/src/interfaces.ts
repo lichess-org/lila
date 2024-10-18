@@ -79,6 +79,8 @@ export interface Standing {
 
 export type Outcome = 'absent' | 'late' | 'bye';
 
+export type Sheet = (PairingBase | Outcome)[];
+
 export interface BasePlayer {
   user: LightUser;
   rating: number;
@@ -97,7 +99,7 @@ export interface PodiumPlayer extends BasePlayer {
 export interface Player extends BasePlayer {
   rank: number;
   sheetMin: string;
-  sheet: (PairingBase | Outcome)[];
+  sheet: Sheet;
 }
 
 export interface Board {

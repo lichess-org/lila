@@ -363,7 +363,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
             mousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
             touchstart: onSelectSparePiece(ctrl, s, 'touchend'),
             touchmove: e => {
-              lastTouchMovePos = eventPosition(e as any);
+              lastTouchMovePos = eventPosition(e);
             },
           },
         },
