@@ -35,8 +35,7 @@ export function view(root: StudyCtrl): VNode {
   return thunk('div.' + chapter.id, doRender, [root, key]);
 }
 
-const doRender = (root: StudyCtrl): VNode =>
-  h('div', renderPgnTags(root.tags, root.trans, root.data.showRatings));
+const doRender = (root: StudyCtrl): VNode => h('div', renderPgnTags(root.tags, root.data.showRatings));
 
 const editable = (value: string, submit: (v: string, el: HTMLInputElement) => void): VNode =>
   h('input', {
@@ -57,7 +56,7 @@ const fixed = ([key, value]: [string, string]) =>
 
 const fixedValue = (value: string) => h('span', value);
 
-function renderPgnTags(tags: TagsForm, trans: Trans, showRatings: boolean): VNode {
+function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
   let rows: TagRow[] = [];
   const chapter = tags.getChapter();
   if (chapter.setup.variant.key !== 'standard')
@@ -94,7 +93,7 @@ function renderPgnTags(tags: TagsForm, trans: Trans, showRatings: boolean): VNod
           },
         },
         [
-          h('option', trans.noarg('newTag')),
+          h('option', i18n.study.newTag),
           ...tags.types.map(t => (!existingTypes.includes(t) ? option(t, '', t) : undefined)),
         ],
       ),

@@ -35,7 +35,6 @@ Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, 
 export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
-  trans: Trans,
   hunter: boolean,
 ): Promise<PlyChart | undefined> {
   const possibleChart = maybeChart(el);
@@ -99,7 +98,7 @@ export default async function (
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
-    label += '\n' + trans('nbSeconds', seconds);
+    label += '\n' + i18n.site.nbSeconds(Number(seconds));
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;
@@ -164,7 +163,7 @@ export default async function (
         datalabels: { display: false },
       }))
     : lineBuilder(moveSeries, true);
-  const divisionLines = division(trans, data.game.division);
+  const divisionLines = division(data.game.division);
   const datasets: ChartDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   datasets.push(plyLine(firstPly), ...divisionLines);

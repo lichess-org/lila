@@ -65,7 +65,7 @@ object embed:
           page.ui.pieceSprite(ctx.pieceSet.name),
           cssTag("common.theme.embed"), // includes both light & dark colors
           cssKeys.map(cssTag),
-          page.ui.sitePreload(allModules, isInquiry = false),
+          page.ui.sitePreload(Nil, allModules, isInquiry = false),
           page.ui.lichessFontFaceCss
         ),
         st.body(bodyModifiers)(

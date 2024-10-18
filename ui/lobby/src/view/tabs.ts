@@ -21,16 +21,12 @@ export default function (ctrl: LobbyController) {
     active = ctrl.tab,
     isBot = ctrl.me?.isBot;
   return [
-    isBot ? undefined : tab(ctrl, 'pools', active, [ctrl.trans.noarg('quickPairing')]),
-    isBot ? undefined : tab(ctrl, 'real_time', active, [ctrl.trans.noarg('lobby')]),
-    isBot ? undefined : tab(ctrl, 'seeks', active, [ctrl.trans.noarg('correspondence')]),
+    isBot ? undefined : tab(ctrl, 'pools', active, [i18n.site.quickPairing]),
+    isBot ? undefined : tab(ctrl, 'real_time', active, [i18n.site.lobby]),
+    isBot ? undefined : tab(ctrl, 'seeks', active, [i18n.site.correspondence]),
     active === 'now_playing' || nbPlaying || isBot
       ? tab(ctrl, 'now_playing', active, [
-          ...ctrl.trans.vdomPlural(
-            'nbGamesInPlay',
-            nbPlaying,
-            nbPlaying >= 100 ? '100+' : nbPlaying.toString(),
-          ),
+          ...i18n.site.nbGamesInPlay.asArray(nbPlaying, nbPlaying >= 100 ? '100+' : nbPlaying.toString()),
           myTurnPovsNb > 0 ? h('i.unread', myTurnPovsNb >= 9 ? '9+' : myTurnPovsNb) : null,
         ])
       : null,

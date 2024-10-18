@@ -5,7 +5,6 @@ export interface SimulOpts {
   $side: Cash;
   socketVersion: number;
   chat: any;
-  i18n: I18nDict;
   showRatings: boolean;
   socketSend: SocketSend;
 }

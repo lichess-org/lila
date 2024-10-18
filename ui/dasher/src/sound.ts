@@ -36,7 +36,7 @@ export class SoundCtrl extends PaneCtrl {
         },
       },
       [
-        header(this.trans('sound'), this.close),
+        header(i18n.site.sound, this.close),
         h('div.content.force-ltr', [
           h('input', {
             attrs: {

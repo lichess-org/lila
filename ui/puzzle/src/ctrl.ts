@@ -6,7 +6,16 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import { throttle } from 'common/timing';
-import { PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd, NvuiPlugin, PuzzleRound } from './interfaces';
+import {
+  PuzzleOpts,
+  PuzzleData,
+  MoveTest,
+  ThemeKey,
+  ReplayEnd,
+  NvuiPlugin,
+  PuzzleRound,
+  RoundThemes,
+} from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -29,13 +38,11 @@ import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
-  trans: Trans;
   tree: TreeWrapper;
   ceval: CevalCtrl;
   autoNext: StoredProp<boolean>;
@@ -76,7 +83,6 @@ export default class PuzzleCtrl implements ParentCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin,
   ) {
-    this.trans = trans(opts.i18n);
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,
@@ -621,7 +627,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   voteTheme = (theme: ThemeKey, v: boolean) => {
     if (this.round) {
-      this.round.themes = this.round.themes || {};
+      this.round.themes = this.round.themes || ({} as RoundThemes);
       if (v === this.round.themes[theme]) {
         delete this.round.themes[theme];
         xhr.voteTheme(this.data.puzzle.id, theme, undefined);

@@ -23,6 +23,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
       .css(ctx.blind.option("round.nvui"))
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .csp(csp.compose(_.withExternalAnalysisApis))
+      .i18n(_.puzzle, _.study)
       .graph(
         title = "Chess analysis board",
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",

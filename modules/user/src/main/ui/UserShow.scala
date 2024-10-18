@@ -140,11 +140,4 @@ final class UserShow(helpers: Helpers, bits: UserBits):
       s" Current ${p.key.perfTrans} rating: ${p.perf.intRating}."
     s"$name played $nbGames games since $createdAt.$currentRating"
 
-  val i18nKeys = List(
-    trans.site.youAreLeavingLichess,
-    trans.site.neverTypeYourPassword,
-    trans.site.cancel,
-    trans.site.proceedToX
-  )
-
   val dataUsername = attr("data-username")

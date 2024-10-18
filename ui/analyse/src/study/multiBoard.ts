@@ -26,7 +26,6 @@ export class MultiBoardCtrl {
     readonly multiCloudEval: MultiCloudEval | undefined,
     private readonly initialTeamSelect: ChapterId | undefined,
     readonly redraw: () => void,
-    readonly trans: Trans,
   ) {
     this.playing = toggle(false, this.redraw);
     if (this.initialTeamSelect) this.onChapterChange(this.initialTeamSelect);
@@ -99,7 +98,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
       renderPagerNav(pager, ctrl),
       h('div.study__multiboard__options', [
         ctrl.multiCloudEval &&
-          h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), ctrl.trans.noarg('showEvalBar')]),
+          h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), i18n.study.showEvalBar]),
         renderPlayingToggle(ctrl),
       ]),
     ]),
@@ -121,11 +120,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
     to = Math.min(pager.nbResults, page * pager.maxPerPage),
     max = ctrl.maxPerPage();
   return h('div.study__multiboard__pager', [
-    pagerButton('first', licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton('previous', licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
+    pagerButton(i18n.study.first, licon.JumpFirst, () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(i18n.study.previous, licon.JumpPrev, ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton('next', licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton('last', licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
+    pagerButton(i18n.study.next, licon.JumpNext, ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(i18n.study.last, licon.JumpLast, ctrl.lastPage, page < pager.nbPages, ctrl),
     teamSelector(ctrl),
     h(
       'select.study__multiboard__pager__max-per-page',
@@ -154,14 +153,14 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
 };
 
 function pagerButton(
-  transKey: string,
+  text: string,
   icon: string,
   click: () => void,
   enable: boolean,
   ctrl: MultiBoardCtrl,
 ): VNode {
   return h('button.fbt', {
-    attrs: { 'data-icon': icon, disabled: !enable, title: ctrl.trans.noarg(transKey) },
+    attrs: { 'data-icon': icon, disabled: !enable, title: text },
     hook: bind('mousedown', click, ctrl.redraw),
   });
 }
@@ -172,7 +171,7 @@ const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
       attrs: { type: 'checkbox', checked: ctrl.playing() },
       hook: bind('change', e => ctrl.playing((e.target as HTMLInputElement).checked)),
     }),
-    ctrl.trans.noarg('playing'),
+    i18n.study.playing,
   ]);
 
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({

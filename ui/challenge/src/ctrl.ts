@@ -1,11 +1,9 @@
 import * as xhr from 'common/xhr';
-import { trans } from 'common/i18n';
 import { once } from 'common/storage';
 import { ChallengeOpts, ChallengeData, Reasons } from './interfaces';
 
 export default class ChallengeCtrl {
   data: ChallengeData;
-  trans = (key: string) => key;
   redirecting = false;
   reasons: Reasons = {};
 
@@ -21,7 +19,6 @@ export default class ChallengeCtrl {
 
   update = (d: ChallengeData) => {
     this.data = d;
-    if (d.i18n) this.trans = trans(d.i18n).noarg;
     if (d.reasons) this.reasons = d.reasons;
     this.opts.setCount(this.countActiveIn());
     this.notifyNew();

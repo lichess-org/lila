@@ -6,7 +6,6 @@ import lila.core.socket.SocketVersion
 
 val ui = lila.relay.ui.RelayUi(helpers)(
   picfitUrl,
-  views.study.jsI18n,
   views.study.socketUrl,
   views.board.explorerAndCevalConfig
 )
