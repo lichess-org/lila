@@ -8,6 +8,7 @@ trait Pref:
   val id: UserId
   val coords: Int
   val keyboardMove: Int
+  val showRatingsInGame: Int
   val voice: Option[Int]
   val rookCastle: Int
   val animation: Int
@@ -21,6 +22,7 @@ trait Pref:
 
   def hasKeyboardMove: Boolean
   def hasVoice: Boolean
+  def hasShowRatingsInGame: Boolean
   def showRatings: Boolean
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int
