@@ -116,13 +116,12 @@ object BSONHandlers:
         case None =>
           val clm  = r.get[CastleLastMove](F.castleLastMove)
           val sans = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
-          val halfMoveClock =
-            HalfMoveClock.from(
+          val halfMoveClock = HalfMoveClock
+            .from:
               sans.reverse
                 .indexWhere(san => san.value.contains("x") || san.value.headOption.exists(_.isLower))
                 .some
-                .filter(HalfMoveClock.initial <= _)
-            )
+            .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
             board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
