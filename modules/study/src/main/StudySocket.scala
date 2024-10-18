@@ -31,13 +31,13 @@ final private class StudySocket(
 
   def isPresent(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socketRequest[Boolean](
-      id => send(Protocol.Out.getIsPresent(id, studyId, userId)),
+      id => send.exec(Protocol.Out.getIsPresent(id, studyId, userId)),
       _ == "true"
     )
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
-    send(
+    send.exec(
       RP.Out.tellRoom(
         studyId,
         makeMessage(
@@ -231,7 +231,7 @@ final private class StudySocket(
           yield api
             .invite(w.u, studyId, username, isPresent(studyId, _))
             .recover:
-              case err: Exception => send(P.Out.tellSri(w.sri, makeMessage("error", err.getMessage)))
+              case err: Exception => send.exec(P.Out.tellSri(w.sri, makeMessage("error", err.getMessage)))
 
         case "relaySync" =>
           applyWho: w =>
@@ -263,7 +263,7 @@ final private class StudySocket(
 
   socketKit
     .subscribe("study-in", RP.In.reader)(studyHandler.orElse(rHandler).orElse(socketKit.baseHandler))
-    .andDo(send(P.Out.boot))
+    .andDo(send.exec(P.Out.boot))
 
   // send API
 
@@ -274,7 +274,7 @@ final private class StudySocket(
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.into(RoomId), NotifyVersion(tpe, data))
   private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy =
-    _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
+    _ => send.exec(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
   def addNode(
@@ -325,7 +325,7 @@ final private class StudySocket(
       )
     )
   def reloadMembers(members: StudyMembers, sendTo: Iterable[UserId])(studyId: StudyId) =
-    send(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
+    send.exec(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
 
   def setComment(pos: Position.Ref, comment: Comment, who: Who) =
     version(

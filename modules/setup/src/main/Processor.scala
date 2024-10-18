@@ -15,14 +15,14 @@ final private[setup] class Processor(
     me  <- me.map(_.value).soFu(userApi.withPerf(_, config.perfType))
     pov <- config.pov(me)
     _   <- gameRepo.insertDenormalized(pov.game)
-    _ = onStart(pov.gameId)
+    _ = onStart.exec(pov.gameId)
   yield pov
 
   def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
     me  <- userApi.withPerf(me, config.perfType)
     pov <- config.pov(me.some)
     _   <- gameRepo.insertDenormalized(pov.game)
-    _ = onStart(pov.gameId)
+    _ = onStart.exec(pov.gameId)
   yield pov
 
   def hook(

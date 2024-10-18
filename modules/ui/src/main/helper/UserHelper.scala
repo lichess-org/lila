@@ -194,7 +194,7 @@ trait UserHelper:
   ): List[(String, Boolean)] =
     if userId.isGhost then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
-      (withOnline.so(List((if isOnline(userId) then "online" else "offline") -> true))) ::: List(
+      (withOnline.so(List((if isOnline.exec(userId) then "online" else "offline") -> true))) ::: List(
         "user-link" -> true,
         ~cssClass   -> cssClass.isDefined,
         "ulpt"      -> withPowerTip

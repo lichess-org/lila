@@ -68,11 +68,11 @@ final class ChallengeGranter(
               userApi
                 .perfsOf(from.value -> dest, primary = false)
                 .map: (fromPerfs, destPerfs) =>
-                  if fromPerfs(pk).provisional || destPerfs(pk).provisional
+                  if (fromPerfs(pk).provisional || destPerfs(pk).provisional).value
                   then RatingIsProvisional(pk).some
                   else
-                    val diff = math.abs(fromPerfs(pk).intRating.value - destPerfs(pk).intRating.value)
-                    (diff > ratingThreshold).option(RatingOutsideRange(pk))
+                    val diff = (fromPerfs(pk).intRating - destPerfs(pk).intRating).value
+                    (Math.abs(diff) > ratingThreshold).option(RatingOutsideRange(pk))
           case (_, lila.core.pref.Challenge.REGISTERED) => none
           case _ if from == dest                        => SelfChallenge.some
           case _                                        => none

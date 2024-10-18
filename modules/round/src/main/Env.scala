@@ -117,7 +117,7 @@ final class Env(
       resignAllGamesOf(userId)
     },
     "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
-      onStart(gameId)
+      onStart.exec(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)

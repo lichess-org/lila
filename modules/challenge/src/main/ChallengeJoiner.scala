@@ -23,7 +23,7 @@ final private class ChallengeJoiner(
             gameRepo
               .insertDenormalized(game)
               .inject:
-                onStart(game.id)
+                onStart.exec(game.id)
                 Right(Pov(game, !c.finalColor))
     }
 

@@ -28,4 +28,4 @@ final private class TeamSocket(
 
   socketKit
     .subscribe("team-in", RP.In.reader)(handler.orElse(socketKit.baseHandler))
-    .andDo(send(P.Out.boot))
+    .andDo(send.exec(P.Out.boot))

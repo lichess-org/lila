@@ -30,7 +30,7 @@ final class JsonView(
       .add("provisional" -> r.rating.provisional)
       .add("patron" -> light.so(_.isPatron))
       .add("flair" -> light.flatMap(_.flair))
-      .add("online" -> isOnline(r.id))
+      .add("online" -> isOnline.exec(r.id))
       .add("lag" -> getLagRating(r.id))
 
   def apply(a: AllChallenges)(using Translate): JsObject =

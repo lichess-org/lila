@@ -40,7 +40,7 @@ final class Api(
     Ok.snip(views.bits.api)
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
+    userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline.exec(name.id) then 1 else 2):
       userApi
         .extended(
           name,
@@ -76,7 +76,7 @@ final class Api(
         def toJson(u: LightUser) =
           lila.common.Json.lightUser
             .write(u)
-            .add("online", env.socket.isOnline(u.id))
+            .add("online", env.socket.isOnline.exec(u.id))
             .add("playing", env.round.playing(u.id))
             .add("streaming", streamingIds(u.id))
             .add("signal", withSignal.so(env.socket.getLagRating(u.id)))

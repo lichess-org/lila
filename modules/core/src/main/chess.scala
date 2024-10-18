@@ -5,10 +5,10 @@ opaque type Win = Boolean
 object Win extends YesNo[Win]
 
 opaque type Rank = Int
-object Rank extends OpaqueInt[Rank]
+object Rank extends RelaxedOpaqueInt[Rank]
 
 opaque type MultiPv = Int
-object MultiPv extends OpaqueInt[MultiPv]
+object MultiPv extends RelaxedOpaqueInt[MultiPv]
 
 opaque type Depth = Int
-object Depth extends OpaqueInt[Depth]
+object Depth extends RelaxedOpaqueInt[Depth]

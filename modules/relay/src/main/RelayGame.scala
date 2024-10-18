@@ -45,7 +45,7 @@ case class RelayGame(
   )
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
-    tags.fideIds.some.filter(_.forall(_.exists(_ > 0))).map(_.toPair)
+    tags.fideIds.some.filter(_.forall(_.exists(_.value > 0))).map(_.toPair)
 
   def hasUnknownPlayer: Boolean =
     List(RelayGame.whiteTags, RelayGame.blackTags).exists:
