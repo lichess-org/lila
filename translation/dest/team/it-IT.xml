@@ -11,7 +11,7 @@
   <string name="newTeam">Nuovo gruppo</string>
   <string name="myTeams">I miei gruppi</string>
   <string name="noTeamFound">Nessun gruppo trovato</string>
-  <string name="joinTeam">Unisciti al gruppo</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Unisciti al gruppo</string>
   <string name="onlyLeaderLeavesTeam">Prima di andartene scegli un nuovo capitano della squadra oppure elimina la squadra.</string>
   <string name="quitTeam">Abbandona il gruppo</string>
   <string name="manuallyReviewAdmissionRequests">Rivedi manualmente le richieste di ammissione</string>
@@ -56,7 +56,7 @@ I giocatori a cui non piace ricevere i tuoi messaggi potrebbero lasciare la squa
   <string name="joinLichessVariantTeam">Unisciti al team ufficiale di %s per novità ed eventi</string>
   <string name="teamPage">Pagina della squadra</string>
   <string name="thisTeamBattleIsOver">Questo torneo è terminato e le squadre non possono più essere aggiornate.</string>
-  <string name="listTheTeamsThatWillCompete">Elenca le squadre che competeranno in questa battaglia.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Elenca le squadre che competeranno in questa battaglia.</string>
   <string name="oneTeamPerLine">Un team per riga. Usa il completamento automatico.</string>
   <string name="oneTeamPerLineHelp">Puoi copiare-incollare questa lista da un torneo ad un altro!
 
@@ -64,4 +64,8 @@ Non puoi rimuovere una squadra se un giocatore ha già aderito al torneo.</strin
   <string name="numberOfLeadsPerTeam">Numero di leader per squadra. La somma del loro punteggio è il punteggio della squadra.</string>
   <string name="numberOfLeadsPerTeamHelp">Una volta che il torneo è iniziato non dovresti proprio cambiare questo valore!</string>
   <string name="innerTeam">Squadra interna</string>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Un leader per squadra</item>
+    <item quantity="other">%s leader per squadra</item>
+  </plurals>
 </resources>
