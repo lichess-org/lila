@@ -80,10 +80,11 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
     def lpvJs(lpvConfig: JsObject)(using Translate): WithNonce[Frag] =
       embedJsUnsafe(s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
           lpvConfig + ("i18n" -> Json.obj(
-            "flipBoard"            -> trans.site.flipBoard.txt(),
-            "analysis"             -> trans.site.analysis.txt(),
+            "flipTheBoard"         -> trans.site.flipBoard.txt(),
+            "analysisBoard"        -> trans.site.analysis.txt(),
             "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
-            "download"             -> trans.site.download
+            "getPgn"               -> trans.study.copyChapterPgn.txt(),
+            "download"             -> trans.site.download.txt()
           ))
         )})})""")
 
