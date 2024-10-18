@@ -155,8 +155,8 @@
     <item quantity="other">%s സൂചികകൾ</item>
   </plurals>
   <string name="viewInFullSize">പൂര്‍ണ രൂപത്തില്‍ കാണുക</string>
-  <string name="logOut">സൈന്‍ ഔട്ട്‌</string>
-  <string name="signIn">സൈന്‍ ഇന്‍</string>
+  <string name="logOut">പുറത്തിറങ്ങൾ</string>
+  <string name="signIn">പ്രവേശിക്കൽ</string>
   <string name="rememberMe">എന്നേ നിർഗമിക്കരുത്</string>
   <string name="youNeedAnAccountToDoThat">ഇത് ചെയ്യണമെങ്കില്‍ നിങ്ങള്‍ക്ക് ഒരു അക്കൗണ്ട്‌ വേണം</string>
   <string name="signUp">രജിസ്റ്റര്‍</string>
@@ -507,6 +507,7 @@
   <string name="no">ഇല്ല</string>
   <string name="yes">അതെ</string>
   <string name="website">ജാലീസ്ഥാനികം</string>
+  <string name="mobile">ചലനാത്മകം</string>
   <string name="help">സഹായം:</string>
   <string name="createANewTopic">ഒരു പുതിയ വിഷയം തുടങ്ങാം</string>
   <string name="topics">വിഷയങ്ങൾ</string>
@@ -525,6 +526,7 @@
   <string name="cheat">ചതി</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">താങ്ങളുടെ കുറ്റപെടുത്തൽരേഖ ഇംഗ്ലീഷിൽ എഴുതിയാൽ താങ്ങൾക്കു് ഉടനെ മറുപടി കിട്ടും.</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
@@ -703,6 +705,7 @@
   <string name="withFriends">കൂട്ടുകാരുമൊത്ത്‌</string>
   <string name="withEverybody">എല്ലാവർക്കുമൊപ്പം</string>
   <string name="kidMode">കുട്ടികൾക്ക് വേണ്ട വിധം</string>
+  <string name="kidModeIsEnabled">കിട്ടിരീതി വച്ചിരിക്കുന്നു.</string>
   <string name="kidModeExplanation">ഇത് സുരക്ഷിതത്വത്തിനു വേണ്ടിയാണ്. കുട്ടി-മുറയിൽ (കിഡ്-മോഡ്) എല്ലാ വിധ സൈറ്റ് വർത്തമാനങ്ങളും തടസ്സപ്പെടുന്നു. ഈ സംവിധാനം ചെറിയ കുട്ടികൾക്കും വിദ്യാർത്ഥികൾക്കും മറ്റു അന്തർജാലിക ഉപയോക്താവർ നിന്നും സുരക്ഷിതത്വം നൽകുന്നു.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">കിഡ്-മോഡിൽ lichess ലോഗോയ്ക്ക് ഒരു %s ഐക്കൺ ലഭിക്കുന്നു. അത് നിങ്ങളുടെ കുട്ടികൾ സുരക്ഷിതരാണെന്ന് നിങ്ങൾക്ക് ബോധ്യപ്പെടുത്തുന്നു.</string>
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
