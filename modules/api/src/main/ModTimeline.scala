@@ -55,6 +55,7 @@ object ModTimeline:
                 .fold(event :: acc): merged =>
                   acc.copy(head = merged)
           .toList
+          .reverse
 
   private def merge(prev: Event, next: Event): Option[Event] = (prev, next) match
     case (p: PublicLine, n: PublicLine) => p.copy(text = s"${n.text}|${p.text}").some
@@ -105,7 +106,8 @@ object ModTimeline:
     case Play
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
-      case _: TempBan if angle != Angle.Play                                  => false
+      case _: TempBan                                                         => angle != Angle.Comm
+      case _: ReportClose                                                     => angle != Angle.Comm
       case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
       case l: Modlog if l.action == Modlog.modMessage =>
         if l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
