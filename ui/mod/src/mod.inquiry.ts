@@ -101,6 +101,9 @@ site.load.then(() => {
     const message = $(this).find('.message').text();
     addToNote(`${username}: "${message}"`);
   });
+  $('#communication').on('click', '.mod-timeline__event .message', function (this: HTMLElement) {
+    addToNote(`${username}: "${$(this).text()}"`);
+  });
 
   $('.user-show').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {
     const username = $(this).parents('tr').find('td:first-child .user-link').text().split(' ')[0];
