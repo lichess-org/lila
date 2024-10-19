@@ -93,6 +93,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       details = openReports.map(r => s"${r.room.name} report").mkString(", ").some.filter(_.nonEmpty)
     )
 
+  def closedBySelf(user: User): Fu[Boolean] =
+    coll.exists($doc("user" -> user.id, "action" -> Modlog.selfCloseAccount))
+
   def closedByMod(user: User): Fu[Boolean] =
     fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
 
