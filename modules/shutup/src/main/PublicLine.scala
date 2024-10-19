@@ -15,4 +15,5 @@ object PublicLine:
 
   def merge(prev: PublicLine, next: PublicLine): Option[PublicLine] =
     if prev.from != next.from then none
+    else if prev.text.split(" \\| ").toList.contains(next.text) then prev.some
     else prev.copy(text = s"${prev.text} | ${next.text}").some
