@@ -46,9 +46,9 @@ object UblogPost:
     if s.isEmpty then "-" else s
 
   opaque type Likes = Int
-  object Likes extends OpaqueInt[Likes]
+  object Likes extends RelaxedOpaqueInt[Likes]
   opaque type Views = Int
-  object Views extends OpaqueInt[Views]
+  object Views extends RelaxedOpaqueInt[Views]
 
   opaque type RankDate = Instant
   object RankDate extends OpaqueInstant[RankDate]

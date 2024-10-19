@@ -50,8 +50,7 @@ export default class OnlineFriends {
     if (this.loaded)
       requestAnimationFrame(() => {
         const ids = Array.from(this.users.keys()).sort();
-        this.titleEl.innerHTML = site.trans.pluralSame(
-          'nbFriendsOnline',
+        this.titleEl.innerHTML = i18n.site.nbFriendsOnline(
           ids.length,
           this.loaded ? `<strong>${ids.length}</strong>` : '-',
         );

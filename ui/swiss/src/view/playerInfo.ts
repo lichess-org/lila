@@ -11,14 +11,13 @@ import { fullName } from 'common/userLink';
 export default function (ctrl: SwissCtrl): VNode | undefined {
   if (!ctrl.playerInfoId) return;
   const data = ctrl.data.playerInfo;
-  const noarg = ctrl.trans.noarg;
   const tag = 'div.swiss__player-info.swiss__table';
   if (data?.user.id !== ctrl.playerInfoId)
     return h(tag, [h('div.stats', [h('h2', ctrl.playerInfoId), spinner()])]);
-  const games = data.sheet.filter((p: any) => p.g).length;
-  const wins = data.sheet.filter((p: any) => p.w).length;
+  const games = data.sheet.filter(p => !isOutcome(p) && p.g).length;
+  const wins = data.sheet.filter(p => !isOutcome(p) && p.w).length;
   const avgOp: number | undefined = games
-    ? Math.round(data.sheet.reduce((r, p) => r + ((p as any).rating || 1), 0) / games)
+    ? Math.round(data.sheet.reduce((r, p) => r + (!isOutcome(p) ? p.rating : 1), 0) / games)
     : undefined;
   return h(tag, { hook: { insert: setup, postpatch: (_, vnode) => setup(vnode) } }, [
     h('a.close', {
@@ -28,15 +27,15 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     h('div.stats', [
       h('h2', [h('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),
       h('table', [
-        numberRow(noarg('points'), data.points, 'raw'),
-        numberRow(noarg('tieBreak'), data.tieBreak, 'raw'),
+        numberRow(i18n.site.points, data.points, 'raw'),
+        numberRow(i18n.swiss.tieBreak, data.tieBreak, 'raw'),
         ...(games
           ? [
               data.performance &&
                 ctrl.opts.showRatings &&
-                numberRow(noarg('performance'), data.performance + (games < 3 ? '?' : ''), 'raw'),
-              numberRow(noarg('winRate'), [wins, games], 'percent'),
-              ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+                numberRow(i18n.site.performance, data.performance + (games < 3 ? '?' : ''), 'raw'),
+              numberRow(i18n.site.winRate, [wins, games], 'percent'),
+              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
             ]
           : []),
       ]),

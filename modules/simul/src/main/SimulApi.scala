@@ -272,7 +272,7 @@ final class SimulApi(
       .start
     _ <- gameRepo.insertDenormalized(game2)
   yield
-    onGameStart(game2.id)
+    onGameStart.exec(game2.id)
     socket.startGame(simul, game2)
     game2 -> hostColor
 

@@ -4,7 +4,6 @@ import makeView from './view/main';
 import { AnalyseApi, AnalyseOpts } from './interfaces';
 import { VNode } from 'snabbdom';
 import type * as studyDeps from './study/studyDeps';
-import { trans } from 'common/i18n';
 
 export default function (
   patch: (oldVnode: VNode | Element | DocumentFragment, vnode: VNode) => VNode,
@@ -12,7 +11,6 @@ export default function (
 ) {
   return function (opts: AnalyseOpts): AnalyseApi {
     opts.element = document.querySelector('main.analyse') as HTMLElement;
-    opts.trans = trans(opts.i18n);
 
     const ctrl = (site.analysis = new makeCtrl(opts, redraw, deps?.StudyCtrl));
     const view = makeView(deps);

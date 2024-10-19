@@ -16,7 +16,7 @@ object header:
     frag(
       div(cls := "box__top user-show__header")(
         if u.isPatron then
-          h1(cls := s"user-link ${if isOnline(u.id) then "online" else "offline"}")(
+          h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
             a(href := routes.Plan.index())(patronIcon),
             ui.userDom(u)
           )

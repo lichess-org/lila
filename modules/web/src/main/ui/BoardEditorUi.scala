@@ -44,29 +44,6 @@ final class BoardEditorUi(helpers: Helpers):
       .obj(
         "baseUrl"   -> s"$netBaseUrl${routes.Editor.index}",
         "animation" -> Json.obj("duration" -> ctx.pref.animationMillis),
-        "is3d"      -> ctx.pref.is3d,
-        "i18n"      -> i18nJsObject(i18nKeys)
+        "is3d"      -> ctx.pref.is3d
       )
       .add("fen" -> fen)
-
-  private val i18nKeys = List(
-    trans.site.setTheBoard,
-    trans.site.boardEditor,
-    trans.site.startPosition,
-    trans.site.clearBoard,
-    trans.site.flipBoard,
-    trans.site.loadPosition,
-    trans.site.popularOpenings,
-    trans.site.endgamePositions,
-    trans.site.castling,
-    trans.site.whiteCastlingKingside,
-    trans.site.blackCastlingKingside,
-    trans.site.whitePlays,
-    trans.site.blackPlays,
-    trans.site.variant,
-    trans.site.continueFromHere,
-    trans.site.playWithTheMachine,
-    trans.site.playWithAFriend,
-    trans.site.analysis,
-    trans.site.toStudy
-  )

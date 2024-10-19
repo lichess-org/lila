@@ -3,6 +3,7 @@ import path from 'node:path';
 import { globArray, globArrays } from './parse.ts';
 import { hashedManifest, writeManifest } from './manifest.ts';
 import { type Sync, env, errorMark, colors as c } from './main.ts';
+import { quantize } from './build.ts';
 
 const syncWatch: fs.FSWatcher[] = [];
 let watchTimeout: NodeJS.Timeout | undefined;
@@ -105,5 +106,3 @@ async function syncOne(absSrc: string, absDest: string, pkgName: string) {
     env.log(`[${c.grey(pkgName)}] - ${errorMark} - failed sync '${c.cyan(absSrc)}' to '${c.cyan(absDest)}'`);
   }
 }
-
-const quantize = (n?: number, factor = 10000) => Math.floor((n ?? 0) / factor) * factor;

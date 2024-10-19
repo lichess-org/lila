@@ -52,6 +52,6 @@
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "trans-dump": "pnpx tsx bin/trans-dump.ts",
-    "multilog": "pnpm serverlog & ui/build -r"
+    "multilog": "pnpm serverlog & ui/build -w"
   }
 }

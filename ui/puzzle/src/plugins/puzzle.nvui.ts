@@ -258,13 +258,13 @@ function onSubmit(
         ctrl.playUci(uci);
         switch (ctrl.lastFeedback) {
           case 'fail':
-            notify(ctrl.trans.noarg('notTheMove'));
+            notify(i18n.puzzle.notTheMove);
             break;
           case 'good':
-            notify(ctrl.trans.noarg('bestMove'));
+            notify(i18n.puzzle.bestMove);
             break;
           case 'win':
-            notify(ctrl.trans.noarg('puzzleSuccess'));
+            notify(i18n.puzzle.puzzleSuccess);
         }
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
@@ -332,7 +332,7 @@ function nextNode(node?: Tree.Node): Tree.Node | undefined {
 
 function renderStreak(ctrl: PuzzleCtrl): VNode[] {
   if (!ctrl.streak) return [];
-  return [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || ctrl.trans.noarg('streakDescription'))];
+  return [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || i18n.puzzle.streakDescription)];
 }
 
 function renderStatus(ctrl: PuzzleCtrl): string {
@@ -346,17 +346,13 @@ function renderReplay(ctrl: PuzzleCtrl): string {
   const replay = ctrl.data.replay;
   if (!replay) return '';
   const i = replay.i + (ctrl.mode === 'play' ? 0 : 1);
-  return `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles: ${i} of ${replay.of}`;
+  const text = i18n.puzzleTheme[ctrl.data.angle.key];
+  return `Replaying ${text} puzzles: ${i} of ${replay.of}`;
 }
 
 function playActions(ctrl: PuzzleCtrl): VNode {
   if (ctrl.streak)
-    return button(
-      ctrl.trans.noarg('skip'),
-      ctrl.skip,
-      ctrl.trans.noarg('streakSkipExplanation'),
-      !ctrl.streak.data.skip,
-    );
+    return button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip);
   else return h('div.actions_play', button('View the solution', ctrl.viewSolution));
 }
 
@@ -365,14 +361,14 @@ function afterActions(ctrl: PuzzleCtrl): VNode {
   return h(
     'div.actions_after',
     ctrl.streak && !win
-      ? anchor(ctrl.trans.noarg('newStreak'), '/streak')
+      ? anchor(i18n.puzzle.newStreak, '/streak')
       : [...renderVote(ctrl), button('Continue training', ctrl.nextPuzzle)],
   );
 }
 
 const renderVoteTutorial = (ctrl: PuzzleCtrl): VNode[] =>
   ctrl.session.isNew() && ctrl.data.user?.provisional
-    ? [h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')), h('p', ctrl.trans.noarg('voteToLoadNextOne'))]
+    ? [h('p', i18n.puzzle.didYouLikeThisPuzzle), h('p', i18n.puzzle.voteToLoadNextOne)]
     : [];
 
 function renderVote(ctrl: PuzzleCtrl): VNode[] {

@@ -30,6 +30,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
+      .i18n(_.puzzle, _.puzzleTheme, _.storm)
       .js(ctx.blind.option(Esm("puzzle.nvui")))
       .js(
         PageModule(
@@ -38,7 +39,6 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             .obj(
               "data"        -> data,
               "pref"        -> pref,
-              "i18n"        -> bits.jsI18n(streak = isStreak),
               "showRatings" -> ctx.pref.showRatings,
               "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color),
               "externalEngineEndpoint" -> externalEngineEndpoint

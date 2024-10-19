@@ -82,23 +82,10 @@ object PlayServer:
       if !file.isDirectory then throw ServerStartException(s"Bad root server path: $path")
       file
 
-    def parsePort(portType: String): Option[Int] =
-      configuration
-        .getOptional[String](s"play.server.$portType.port")
-        .filter(_ != "disabled")
-        .map: str =>
-          try Integer.parseInt(str)
-          catch
-            case _: NumberFormatException =>
-              throw ServerStartException(s"Invalid ${portType.toUpperCase} port: $str")
+    val httpPort = configuration.getOptional[String]("play.server.http.port").flatMap(_.toIntOption) | 9663
+    val address  = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
+    val mode =
+      if configuration.getOptional[String]("play.mode").contains("prod") then Mode.Prod
+      else Mode.Dev
 
-    parsePort("http") match
-      case None => throw ServerStartException("Must provide an HTTP port")
-      case Some(httpPort) =>
-        val address = configuration.getOptional[String]("play.server.http.address").getOrElse("0.0.0.0")
-
-        val mode =
-          if configuration.getOptional[String]("play.mode").contains("prod") then Mode.Prod
-          else Mode.Dev
-
-        ServerConfig(rootDir, httpPort, address, mode, process.properties, configuration)
+    ServerConfig(rootDir, httpPort, address, mode, process.properties, configuration)

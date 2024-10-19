@@ -35,23 +35,6 @@
     letter-spacing: 2px;
   }
 
-  .public_chats,
-  .notes,
-  .history {
-    @extend %box-neat;
-    padding: 1em;
-    margin-top: 0.5em;
-    max-height: 20vh;
-    overflow-y: auto;
-    padding-bottom: 0.5em;
-  }
-
-  .reports h3 {
-    line-height: 2em;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-
   .player_chats {
     @extend %break-word;
     @extend %flex-wrap;
@@ -109,11 +92,11 @@
     padding: 0 0.5em;
   }
 
-  .public_chats .line,
+  .mod-timeline__event .message,
   .player_chats .line.author,
   .threads .post.author {
-    opacity: 1;
     cursor: pointer;
+    border-bottom: 1px dashed $c-accent;
     &:hover {
       background: $m-accent--fade-80;
     }
