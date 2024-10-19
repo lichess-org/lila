@@ -174,6 +174,11 @@ final class UblogApi(
   def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
     colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
 
+  def onAccountClose(user: User) = for
+    blog <- getBlog(UblogBlog.Id.User(user.id))
+    _    <- blog.filter(_.visible).so(b => setTier(b.id, UblogRank.Tier.HIDDEN))
+  yield ()
+
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)
 
