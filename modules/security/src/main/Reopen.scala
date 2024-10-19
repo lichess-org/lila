@@ -21,7 +21,7 @@ final class Reopen(
       u: UserStr,
       email: EmailAddress,
       closedByMod: User => Fu[Boolean],
-      closedBySelf: User => Fu[Boolean]
+      closedByUserCount: User => Fu[Int]
   ): Fu[Either[(String, String), User]] =
     userRepo.enabledWithEmail(email.normalize).flatMap {
       case Some(_) =>
@@ -45,8 +45,8 @@ final class Reopen(
                 closedByMod(user).flatMap { modClosed =>
                   if modClosed then fuccess(cannotReopen)
                   else
-                    closedBySelf(user).map { selfClosed =>
-                      if selfClosed then cannotReopen
+                    closedByUserCount(user).map { count =>
+                      if count > 1 then cannotReopen
                       else Right(user)
                     }
                 }
