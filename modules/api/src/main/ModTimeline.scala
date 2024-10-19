@@ -24,8 +24,7 @@ case class ModTimeline(
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap: r =>
-      r.done.map(ReportClose(r, _)).toList :::
-        r.atoms.groupBy(_.text).values.toList.map(ReportNewAtom(r, _))
+      r.done.map(ReportClose(r, _)).toList ::: reportAtoms(r)
     val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
@@ -45,21 +44,26 @@ object ModTimeline:
   type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | TempBan | PublicLine
 
   def aggregateEvents(events: List[Event]): List[Event] =
-    events.toNel.fold(events):
-      case NonEmptyList(head, tail) =>
-        tail
-          .foldLeft(NonEmptyList.one(head)):
-            case (acc, event) =>
-              ModTimeline
-                .merge(acc.head, event)
-                .fold(event :: acc): merged =>
-                  acc.copy(head = merged)
-          .toList
-          .reverse
+    events.foldLeft(List.empty[Event])(mergeMany)
 
-  private def merge(prev: Event, next: Event): Option[Event] = (prev, next) match
-    case (p: PublicLine, n: PublicLine) => p.copy(text = s"${n.text}|${p.text}").some
+  private def mergeMany(prevs: List[Event], next: Event): List[Event] = (prevs, next) match
+    case (Nil, n)                      => List(n)
+    case (head :: rest, n: PublicLine) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
+    case (prevs, n)                    => prevs :+ n
+
+  private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
+    case (p: PublicLine, n: PublicLine) => PublicLine.merge(p, n)
     case _                              => none
+
+  private def reportAtoms(report: Report): List[ReportNewAtom | PublicLine] =
+    report.atoms
+      .groupBy(_.text)
+      .values
+      .toList
+      .flatMap: atoms =>
+        atoms.head.parseFlag match
+          case None       => List(ReportNewAtom(report, atoms))
+          case Some(flag) => flag.quotes.map(PublicLine(_, flag.source, atoms.head.at))
 
   extension (e: Event)
     def key: String = e match

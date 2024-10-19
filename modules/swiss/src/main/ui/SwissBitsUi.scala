@@ -16,7 +16,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
       href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId): String = getName.sync(id).getOrElse("Tournament")
+  def idToName(id: SwissId): String = getName.sync(id).getOrElse(s"Swiss #$id")
 
   def notFound(using Context) =
     Page(trans.site.tournamentNotFound.txt()):

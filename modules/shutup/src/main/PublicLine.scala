@@ -12,3 +12,7 @@ object PublicLine:
   import reactivemongo.api.bson.*
   import PublicSource.given
   given BSONHandler[PublicLine] = Macros.handler
+
+  def merge(prev: PublicLine, next: PublicLine): Option[PublicLine] =
+    if prev.from != next.from then none
+    else prev.copy(text = s"${prev.text} | ${next.text}").some
