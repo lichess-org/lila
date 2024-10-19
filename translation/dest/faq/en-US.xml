@@ -31,7 +31,7 @@
   <string name="youCanUseOpeningBookNoEngine">On Lichess, the main difference in rules for correspondence chess is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lichess does not.</string>
   <string name="gameplay">Gameplay</string>
   <string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
-  <string name="basedOnGameDuration">Lichess time controls are based on estimated game duration = %1$s
+  <string name="basedOnGameDuration">Lichess time controls are based on estimated game duration = %1$s.
 For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 seconds.</string>
   <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(clock initial time in seconds) + 40 × (clock increment)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
@@ -139,7 +139,7 @@ It is useful to think of ratings as \"relative\" figures (as opposed to \"absolu
   <string name="viewSiteInformationPopUp">View site information popup</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess can optionally send popup notifications, for example when it is your turn or you received a private message.
 
-Click the lock icon next to the lichess.org URL in the address bar of your browser.
+Click the lock icon next to the lichess.org address in the URL bar of your browser.
 
 Then select whether to allow or block notifications from Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Enable autoplay for sounds?</string>
