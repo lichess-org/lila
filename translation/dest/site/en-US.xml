@@ -755,6 +755,7 @@
   <string name="kidMode">Kid mode</string>
   <string name="kidModeIsEnabled">Kid mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
@@ -887,6 +888,7 @@
   <string name="lifetimeScore">Lifetime score</string>
   <string name="currentMatchScore">Current match score</string>
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
+  <string name="agreementNice" comment="This is a condition a new player must agree to when registering an account. It has a checkbox next to it.&#10;&#10;Note: this string used to say &quot;nice&quot; but it has since been reworded to &quot;respectful&quot;. Please update translations as needed.">I agree that I will always be respectful to other players.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">I agree that I will not create multiple accounts (except for the reasons stated in the %s).</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
   <string name="searchOrStartNewDiscussion" comment="Appears in https://lichess.org/inbox&#10;&#10;Note: This used to say &quot;discussion&quot;, which was fitting for how the inbox worked at the time, but it has since been reworded to &quot;conversation&quot;, which is more appropriate for the current inbox user experience (as of 2024).">Search or start new conversation</string>
