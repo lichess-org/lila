@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">На некаторых старонках Lichess ёсць спалучэнні клавіш, якія можна выкарыстоўваць. Паспрабуйце націснуць «?» клавішу на старонцы даследавання, аналізу, галаваломкі або гульні, каб пералічыць даступныя спалучэнні клавіш.</string>
   <string name="fairPlay">Сумленная гульня</string>
   <string name="whenAmIEligibleRatinRefund">Калі я магу разлічваць на аўтаматычную кампенсацыю рэйтынга, згубленага чыцеру?</string>
-  <string name="ratingRefundExplanation">Праз хвіліну пасля выяўлення такога гульца, 40 апошніх рэйтынгавых гульняў за апошнія 3 дні бяруцца. Калі вы адзін з супернікаў у гэтых гульнях, вы згубілі рэйтынг (праз паразу або нічыю), і ваш рэйтынг не быў умоўным, вы атрымліваецце кампенсацыю рэйтынгу. Кампенсацыя абмежавана вашым пікавым рэйтынгам і вашым прагрэсам рэйтынгу пасля гульні.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Праз хвіліну пасля выяўлення такога гульца, 40 апошніх рэйтынгавых гульняў за апошнія 3 дні бяруцца. Калі вы адзін з супернікаў у гэтых гульнях, вы згубілі рэйтынг (праз паразу або нічыю), і ваш рэйтынг не быў умоўным, вы атрымліваецце кампенсацыю рэйтынгу. Кампенсацыя абмежавана вашым пікавым рэйтынгам і вашым прагрэсам рэйтынгу пасля гульні.
  (Напрыклад, калі ваш рэйтынг значна ўзрос пасля такіх гульняў, вы можаце атрымаць частковую кампенсацыю або ўвогуле нічога.) Кампенсацыя ніколі не перавысіць 150 балаў рэйтынгу.</string>
   <string name="preventLeavingGameWithoutResigning">Якія меры прымаюцца супраць гульцоў, якія пакідаюць гульні без здачы?</string>
   <string name="leavingGameWithoutResigningExplanation">Калі ваш супернік(ца) часта скасоўвае/пакідае гульні, ён(яна) атрымае \"бан на гульню\", гэта значыць, што яны часова не могуць граць. Гэта не адлюстроўваецца ў іх профіле. Калі такія паводзіны працягваюцца, працяг гуллёвага бану павялічваецца - дальнейшая дзейнасць падобнага характару можа прывесці да закрыцця ўліковага запісу.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Як кантролі часу Кулі, Бліцу ды іншых вырашаны?</string>
   <string name="basedOnGameDuration">Кантролі часу на Lichess заснаваны на чаканай працягласці гульні = %1$s
 Напрыклад, чаканая працягласць гульні 5+3 = 5 × 60 + 40 × 3 = 420 сякунд.</string>
-  <string name="durationFormula">(пачатковы час) + 40 * (прыбаўка часу)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(пачатковы час) + 40 * (прыбаўка часу)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">У якія разнастайнасці шахмат магчыма згуляць на Lichess?</string>
