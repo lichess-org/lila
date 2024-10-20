@@ -34,6 +34,4 @@
   <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
   <string name="deleteTournament">ही स्पर्धा हटवा</string>
   <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
-  <string name="periodInSeconds">सेकंदात कालावधी</string>
-  <string name="periodInSecondsHelp">पर्यायी, विनंत्यांच्या दरम्यान किती वेळ प्रतीक्षा करावी. किमान 2s, कमाल 60s. डीफॉल्ट दर्शकांच्या संख्येच्या आधारावर स्वयंचलित.</string>
 </resources>
