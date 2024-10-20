@@ -31,8 +31,8 @@
   <string name="byOpenings">Per obertura</string>
   <string name="puzzlesByOpenings">Problemes per obertura</string>
   <string name="openingsYouPlayedTheMost">Obertures que heu jugat més en partides puntuades</string>
-  <string name="useFindInPage">Utilitzeu la \"Cerca en la pàgina\" del menú del vostre navegador per trobar la vostra obertura preferida!</string>
-  <string name="useCtrlF">Utilitzeu Ctrl+f per trobar la vostra obertura preferida!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Utilitzeu la \"Cerca en la pàgina\" del menú del vostre navegador per trobar la vostra obertura preferida!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Utilitzeu Ctrl+f per trobar la vostra obertura preferida!</string>
   <string name="notTheMove">Aquesta no és la jugada!</string>
   <string name="trySomethingElse">Prova d\'una altra manera.</string>
   <string name="ratingX">Puntuació: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Fortaleses</string>
   <string name="history">Historial de problemes</string>
   <string name="solved">resolt</string>
-  <string name="failed">fallat</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">fallat</string>
   <string name="streakDescription">Soluciona problemes cada vegada més difícils i aconsegueix una ratxa de victòries. No hi ha temps, pren-t\'ho amb calma. Si fas un moviment erroni, s\'acaba el joc! Però pots ometre un moviment per sessió.</string>
   <string name="yourStreakX">Victòries consecutives: %s</string>
   <string name="streakSkipExplanation">Omet aquest moviment i preserva la teva ratxa! Només funciona una vegada per sessió.</string>
