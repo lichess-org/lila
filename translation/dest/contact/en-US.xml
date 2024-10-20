@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">What can we help you with?</string>
   <string name="visitThisPage">Visit this page to solve the issue</string>
   <string name="iCantLogIn">I can\'t log in</string>
-  <string name="noConfirmationEmail">I don\'t receive my confirmation email</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">I didn\'t receive my confirmation email</string>
   <string name="forgotPassword">I forgot my password</string>
   <string name="forgotUsername">I forgot my username</string>
   <string name="youCanLoginWithEmail">You can login with the email address you signed up with</string>
@@ -31,7 +31,7 @@
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
   <string name="doNotReportInForum">Do not report players in the forum.</string>
   <string name="doNotSendReportEmails">Do not send us report emails.</string>
-  <string name="doNotMessageModerators">Do not send direct messages to moderators.</string>
+  <string name="doNotMessageModerators">Please do not send direct messages to moderators.</string>
   <string name="onlyReports">Only reporting players through the report form is effective.</string>
   <string name="wantReportBug">I want to report a bug</string>
   <string name="reportBugInForum">In the Lichess Feedback section of the forum</string>

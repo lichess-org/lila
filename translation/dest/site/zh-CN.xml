@@ -89,7 +89,7 @@
   <string name="averageRatingX">平均等级分：%s</string>
   <string name="recentGames">最近棋局</string>
   <string name="topGames">名局</string>
-  <string name="masterDbExplanation">%2$s-%3$s年国际棋联等级分%1$s以上棋手的棋谱</string>
+  <string name="masterDbExplanation" comment="Description of the Masters database in the opening explorer. Example: OTB games of 2200+ FIDE-rated players from 1952 to 2017.&#10;Appears as title text on 'Masters database', seen when you hover the mouse over.&#10;&#10;OTB means 'over the board', which is physical/real life chess. This may not exist as an abbreviation in your language. As always, please aim for clarity in your translation.&#10;&#10;This string used to say &quot;Two million games&quot;. If you still see this, it can be removed.">%2$s-%3$s年国际棋联等级分%1$s以上棋手的棋谱</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">离将死剩%s着</item>
   </plurals>
@@ -101,7 +101,7 @@
   <string name="openingExplorer">开局浏览器</string>
   <string name="openingEndgameExplorer">开局/残局浏览器</string>
   <string name="xOpeningExplorer">%s 开局浏览器</string>
-  <string name="playFirstOpeningEndgameExplorerMove">在开局/残局浏览器走第一步棋</string>
+  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">在开局/残局浏览器走第一步棋</string>
   <string name="winPreventedBy50MoveRule">因50回合规则未赢棋</string>
   <string name="lossSavedBy50MoveRule">因50回合规则未输棋</string>
   <string name="winOr50MovesByPriorMistake">赢棋或因先前错误而50步作和</string>
@@ -655,14 +655,14 @@
   <string name="timeBeforeTournamentStarts">距比赛开始时间</string>
   <string name="averageCentipawnLoss">平均厘兵损失</string>
   <string name="accuracy">准确度</string>
-  <string name="keyboardShortcuts">快捷键</string>
+  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">快捷键</string>
   <string name="keyMoveBackwardOrForward">后退/前进</string>
   <string name="keyGoToStartOrEnd">跳到开始/结束</string>
   <string name="keyCycleSelectedVariation">选择变着</string>
   <string name="keyShowOrHideComments">显示／隐藏评论</string>
   <string name="keyEnterOrExitVariation">进入或退出变着</string>
-  <string name="keyRequestComputerAnalysis">请求电脑分析，并从你的失误中学习</string>
-  <string name="keyNextLearnFromYourMistakes">下一个 (从你的失误中学习)</string>
+  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">请求电脑分析，并从你的失误中学习</string>
+  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">下一个 (从你的失误中学习)</string>
   <string name="keyNextBlunder">下一个漏着</string>
   <string name="keyNextMistake">下一个错着</string>
   <string name="keyNextInaccuracy">下一个失准着</string>
@@ -897,7 +897,7 @@
   <string name="cancelTournament">取消锦标赛</string>
   <string name="tournDescription">锦标赛描述</string>
   <string name="tournDescriptionHelp">你还有其他信息要告诉参赛者们吗？请不要写太多。可以使用Markdown来写链接：[文字](https://url)</string>
-  <string name="ratedFormHelp">排位赛
+  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">排位赛
 将影响玩家的等级分</string>
   <string name="onlyMembersOfTeam">仅团队成员</string>
   <string name="noRestriction">无限制</string>
@@ -929,7 +929,7 @@
   <string name="playComputerMove">走电脑推荐的最佳招</string>
   <string name="analysisOptions">分析选项</string>
   <string name="focusChat">聚焦聊天</string>
-  <string name="showHelpDialog">显示此帮助对话框</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">显示此帮助对话框</string>
   <string name="reopenYourAccount">恢复你的账户</string>
   <string name="closedAccountChangedMind">如果你关闭了账户，但此后又改变了主意，你可以获得一次恢复账户的机会。</string>
   <string name="onlyWorksOnce">账户关闭后只能恢复一次</string>
