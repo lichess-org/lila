@@ -16,14 +16,14 @@
   <string name="ongoing">Lopend</string>
   <string name="upcoming">Aankomend</string>
   <string name="completed">Voltooid</string>
-  <string name="completedHelp">Lichess detecteert voltooiing van de ronde op basis van de bronpartijen. Gebruik deze schakelaar als er geen bron is.</string>
+  <string name="completedHelp" comment="This string used to say &quot;Lichess detects round completion based on the source games. Use this toggle if there is no source.&quot; but has since been streamlined along with the rest of the user interface. Please update translations as needed.">Lichess detecteert voltooiing van de ronde op basis van de bronpartijen. Gebruik deze schakelaar als er geen bron is.</string>
   <string name="roundName">Naam ronde</string>
   <string name="roundNumber">Ronde</string>
   <string name="tournamentName">Naam toernooi</string>
   <string name="tournamentDescription">Korte toernooibeschrijving</string>
-  <string name="fullDescription">Volledige beschrijving evenement</string>
-  <string name="fullDescriptionHelp">Optionele lange beschrijving van de uitzending. %1$s is beschikbaar. Totale lengte moet minder zijn dan %2$s tekens.</string>
-  <string name="sourceSingleUrl">URL van pgn-bron</string>
+  <string name="fullDescription" comment="This text used to say &quot;Full event description&quot;. It can be changed to &quot;tournament&quot; since all broadcast events are tournaments.">Volledige beschrijving evenement</string>
+  <string name="fullDescriptionHelp" comment="This text used to start with &quot;Optional long description of the broadcast.&quot;.&#10;The word should be changed to &quot;tournament&quot; since all broadcast events are tournaments, and it is a more user-friendly term.&#10;&#10;%1$s says &quot;Markdown&quot; (a proper noun) and gives a link to a description of Markdown.&#10;%2$s is the character limit (e.g. 160)">Optionele lange beschrijving van de uitzending. %1$s is beschikbaar. Totale lengte moet minder zijn dan %2$s tekens.</string>
+  <string name="sourceSingleUrl">URL van PGN-bron</string>
   <string name="sourceUrlHelp">Link die Lichess gebruikt om PGN updates te krijgen. Deze moet openbaar toegankelijk zijn via internet.</string>
   <string name="sourceGameIds">Tot 64 Lichess partij-ID\'\'s, gescheiden door spaties.</string>
   <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Startdatum in de lokale tijdzone van het tornooi: %s</string>
@@ -33,7 +33,7 @@
   <string name="downloadAllRounds">Alle rondes downloaden</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
   <string name="deleteRound">Deze ronde verwijderen</string>
-  <string name="definitivelyDeleteRound">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
+  <string name="definitivelyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.&#10;&#10;This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Deze ronde en bijbehorende partijen definitief verwijderen.</string>
   <string name="deleteAllGamesOfThisRound">Alle partijen van deze ronde verwijderen. De bron zal actief moeten zijn om ze opnieuw te maken.</string>
   <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>

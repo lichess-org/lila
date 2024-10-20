@@ -21,7 +21,7 @@
   <string name="keyboardShortcutsExplanation">هەندێک لە لاپەڕەکانی Lichess کورتکراوەی کیبۆردیان هەیە کە دەتوانیت بەکاری بهێنیت. هەوڵبدە \'؟\' کلیل لەسەر لاپەڕەی لێکۆڵینەوە، شیکاری، مەتەڵ، یان یاری بۆ لیستکردنی کورتکراوەی کیبۆرد بەکاربێنیت</string>
   <string name="fairPlay">یاری ئاگرین</string>
   <string name="whenAmIEligibleRatinRefund">کەی شایستەی گەڕاندنەوەی پارەی ئۆتۆماتیکی ڕیزبەندیم لە فێڵبازەکانەوە؟</string>
-  <string name="ratingRefundExplanation">دوای یەک خولەک دوای ئەوەی یاریزانێک نیشانە دەکرێت، ٤٠ دوایین یارییەکەی کە لە ٣ ڕۆژی ڕابردوودا ڕیزبەندی کراوە، دەگیرێت. ئەگەر لە یەکێک لەو یارییانەدا ڕکابەری ئەوان بوویت، ڕیتینگت لەدەستدا (بەهۆی دۆڕان یان یەکسانبوون)، و ڕیتینگەکەت کاتی نەبوو، ئەوا ڕیتینگەکەت بۆ دەگەڕێتەوە. گەڕاندنەوەی ڕەیتینگەکە بە پشتبەستن بە لوتکەی ڕیزبەندی و پێشکەوتنی ڕیزبەندیەکەت دوای یارییەکە کۆتایی پێدێت. (بۆ نموونە ئەگەر دوای ئەو یارییە ڕیزبەندیەکەت زۆر زیادی کرد، لەوانەیە هیچ ڕەیتینگێکت بۆ نەگەرێتەوە یان تەنها بەشێکی رەیتینگەکەت بۆ بگەڕێتەوە.) گەڕاندنەوەی رەیتینگەکەت هەرگیز لە ١٥٠ خاڵ زیاتر نابێت.</string>
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">دوای یەک خولەک دوای ئەوەی یاریزانێک نیشانە دەکرێت، ٤٠ دوایین یارییەکەی کە لە ٣ ڕۆژی ڕابردوودا ڕیزبەندی کراوە، دەگیرێت. ئەگەر لە یەکێک لەو یارییانەدا ڕکابەری ئەوان بوویت، ڕیتینگت لەدەستدا (بەهۆی دۆڕان یان یەکسانبوون)، و ڕیتینگەکەت کاتی نەبوو، ئەوا ڕیتینگەکەت بۆ دەگەڕێتەوە. گەڕاندنەوەی ڕەیتینگەکە بە پشتبەستن بە لوتکەی ڕیزبەندی و پێشکەوتنی ڕیزبەندیەکەت دوای یارییەکە کۆتایی پێدێت. (بۆ نموونە ئەگەر دوای ئەو یارییە ڕیزبەندیەکەت زۆر زیادی کرد، لەوانەیە هیچ ڕەیتینگێکت بۆ نەگەرێتەوە یان تەنها بەشێکی رەیتینگەکەت بۆ بگەڕێتەوە.) گەڕاندنەوەی رەیتینگەکەت هەرگیز لە ١٥٠ خاڵ زیاتر نابێت.</string>
   <string name="preventLeavingGameWithoutResigning">چی ڕووئەدات ئەگەر یاریزانەکان یاریەکەیان جێ ھێشت بەبێ ئەوەی تەسلیم بن؟</string>
   <string name="leavingGameWithoutResigningExplanation">ئەگەر بەرامبەرەکەت یاریەکە پێش تەواو بون بەجێ بێڵێت و چەند جارێک دووبارەی بکاتەوە، یاریکردنی لێ قەدەغە ئەکرێت بۆ ماوەیەکی کاتی، ئەگەر ھات و وازی لەو ئسلوبەی نەھێنا و ھەر بەردەوام بوو ئەوە بۆ ھەمیشە یاریکردنی لێ قەدەغە ئەکرێت.</string>
   <string name="howCanIBecomeModerator">چۆن ئەتوانم ببم بە بەرێوبەر؟</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">چۆن کاتەکانی بولێت،بلێتز یاجۆرەکانی تری یاری کاتەکانیان دانراوە؟</string>
   <string name="basedOnGameDuration">کۆنتڕۆڵەکانی کاتی لیچێس لەسەر بنەمای ماوەی یارییە خەمڵێنراوەکان = %1$s.
 بۆ نموونە ماوەی خەمڵێنراوی یارییەکی 5+3 5 × 60 + 40 × 3 = 420 چرکە.</string>
-  <string name="durationFormula">(کاتی سەرەتایی کاتژمێر بە چرکە) + 40 × (زیادبوونی کاتژمێر)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(کاتی سەرەتایی کاتژمێر بە چرکە) + 40 × (زیادبوونی کاتژمێر)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$sسانیە= %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$sسانیە= %2$s</string>
   <string name="whatVariantsCanIplay">ئەو گۆڕانکاریانە چین کە من ئەتوانم یاری پێ بکەم لە لی چێس؟</string>
@@ -93,7 +93,7 @@
   <string name="usernamesNotOffensive">بە گشتی، یوزەر نەیم(ناو) نابێت ئەمانە بێت: ئیهانەکردن ، ناوی کەسایەتییەکی تر بێت، یان ڕیکلام بێت.
 دەتوانی زیاتر بزانی لەسەر %1$s.</string>
   <string name="guidelines">ڕێنماییەکان</string>
-  <string name="canIChangeMyUsername">ئەتوانم ناوی بەکارھێنراوم بگۆڕم ؟ </string>
+  <string name="canIChangeMyUsername">ئەتوانم ناوی بەکارھێنراوم بگۆڕم ؟</string>
   <string name="usernamesCannotBeChanged">نەخێر ناتوانی بیگۆڕیت بەھۆی ئەو داتازۆرەی تۆمار ئەکرێت بەشێکی لای ئەوانەیە کە یاریت لەگەل کردون بەشێکیشی لای رێکخستنی تیمی لیچیسە .</string>
   <string name="uniqueTrophies">جامە ناوازەکە</string>
   <string name="ownerUniqueTrophies">ئەو جامە لە مێژووی لیچێسدا ناوازەیە، جگە لە %1$s کەسی تر هەرگیز ئەو جامەی نابێت.</string>

@@ -19,7 +19,7 @@ final class PracticeUi(helpers: Helpers)(
   def show(us: UserStudy, data: JsonView.JsData)(using Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
-      .i18n(_.study)
+      .i18n(_.puzzle, _.study)
       .js(analyseNvuiTag)
       .js(
         PageModule(

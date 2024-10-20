@@ -86,11 +86,11 @@
   <string name="drawn">Leva a táboas</string>
   <string name="unknown">Descoñecido</string>
   <string name="database">Base de datos</string>
-  <string name="whiteDrawBlack">Brancas / Táboas / Negras</string>
+  <string name="whiteDrawBlack" comment="One of the three columns of the opening explorer. Displays the ratio of White / Draw / Black wins, when playing a move suggested by the opening explorer.&#10;&#10;The best way to understand this is to try the explorer yourself by trying some moves and seeing the table change https://lichess.org/analysis#explorer">Brancas / Táboas / Negras</string>
   <string name="averageRatingX">Puntuación media: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Mellores partidas</string>
-  <string name="masterDbExplanation">Partidas cara a cara de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
+  <string name="masterDbExplanation" comment="Description of the Masters database in the opening explorer. Example: OTB games of 2200+ FIDE-rated players from 1952 to 2017.&#10;Appears as title text on 'Masters database', seen when you hover the mouse over.&#10;&#10;OTB means 'over the board', which is physical/real life chess. This may not exist as an abbreviation in your language. As always, please aim for clarity in your translation.&#10;&#10;This string used to say &quot;Two million games&quot;. If you still see this, it can be removed.">Partidas cara a cara de xogadores con Elo FIDE de %1$s+, dende %2$s a %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate en %s media xogada</item>
     <item quantity="other">Mate en %s medias xogadas</item>
@@ -407,7 +407,7 @@
   <string name="continueFromHere">Continuar dende aquí</string>
   <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
+  <string name="importGameExplanation" comment="The description of the &quot;Import game&quot; feature. (https://lichess.org/paste)&#10;&#10;There are two screenshots, one of them is how it used to look and the other is how it looks now.&#10;&#10;Please do not translate &quot;PGN&quot; itself, keep it as it is.&#10;&#10;You might notice the translation seems different. This is because the original English text was rewritten in the active voice. It previously said &quot;When pasting a game PGN you get a browsable replay,&#10;a computer analysis, a game chat and a shareable URL.&quot;&#10;We encourage you to re-do the translation for your language as well.">Pega o PGN dunha partida para obter unha versión navegable, análise por ordenador, sala de conversa e unha ligazón pública para compartila.</string>
   <string name="importGameCaveat">As variantes borraranse. Pra conservalas, importa o PGN mediante un estudo.</string>
   <string name="importGameDataPrivacyWarning">Este PGN é de acceso público. Para importar unha partida de xeito privado, emprega un estudo.</string>
   <plurals name="nbImportedGames">
@@ -634,7 +634,7 @@
   <string name="error.email_unique">Este enderezo de correo non é válido ou xa foi empregado</string>
   <string name="error.email_different">Este xa é o teu enderezo de correo electrónico</string>
   <string name="error.minLength">A lonxitude mínima é de %s caracteres</string>
-  <string name="error.maxLength">A lonxitude máxima é de %s caracteres</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.&#10;&#10;Note: this string used to be &quot;Maximum length is %s&quot; so some translations may be out of date.">Debe conter polo menos %s caracteres</string>
   <string name="error.min">Debe ser maior ou igual que %s</string>
   <string name="error.max">Debe ser menor ou igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
@@ -651,7 +651,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo xogando: %s</string>
   <string name="watchGames">Ver partidas</string>
-  <string name="tpTimeSpentOnTV">Tempo en TV: %s</string>
+  <string name="tpTimeSpentOnTV" comment="Appears on player profiles. It's how long you have appeared on https://lichess.org/tv for. Lichess TV features the current strongest players on lichess for a specific variant, check it out.&#10;&#10;Please note this string used to be &quot;Time on TV: %s&quot;, so some translations may be out of date.">Tempo saíndo en TV: %s</string>
   <string name="watch">Ver</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="streamersMenu">Presentadores</string>
@@ -677,14 +677,14 @@
   <string name="aboutSimul">As simultáneas son partidas dun xogador contra varios ó mesmo tempo.</string>
   <string name="aboutSimulImage">De 50 rivais, Fischer gañou 47 partidas, empatou 2 e perdeu 1.</string>
   <string name="aboutSimulRealLife">O concepto tómase de eventos reais. Nestes, o anfitrión das simultáneas móvese de mesa en mesa e fai unha xogada de cada vez.</string>
-  <string name="aboutSimulRules">Cando as simultáneas comezan, cada xogador inicia unha partida contra o anfitrión. As simultáneas finalizan cando todas as partidas rematan.</string>
+  <string name="aboutSimulRules" comment="Please note the string used to say the host gets to play with the white pieces. This is no longer accurate, so please update the translation as needed.">Cando comezan as simultáneas, cada xogador inicia unha partida co anfitrión. As simultáneas finalizan cando se completan todas as partidas.</string>
   <string name="aboutSimulSettings">As simultáneas son sempre amigables. As opcións de desquite, de desfacer a xogada e de engadir tempo non están activadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cando creas unha exhibición de simultáneas, tes que enfrontarte a varios xogadores ó mesmo tempo.</string>
   <string name="simulVariantsHint">Se seleccionas distintas variantes, cada xogador pode escoller cal xogar.</string>
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coas simultáneas.</string>
-  <string name="simulHostExtraTime">Tempo extra para o anfitrión</string>
+  <string name="simulHostExtraTime" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Tempo inicial extra para o anfitrión</string>
   <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una ás simultáneas.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra do anfitrión por cada xogador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
@@ -735,7 +735,7 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Enviámosche un correo electrónico. Preme na ligazón do correo para activares a túa conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non ves o correo, revisa noutros cartafoles onde poida estar, coma no lixo, co correo non desexado ou de redes sociais.</string>
   <string name="weHaveSentYouAnEmailTo">Enviámosche un correo a %s. Segue a ligazón no correo para restaurar o teu contrasinal.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Ó rexistrarte, aceptas os nosos %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur" comment="Appears upon registering for a profile. It is a description of a checkbox explaining to the user that they agree to be bound by lichess' Terms of Service.&#10;&#10;This used to say &quot;you agree to be bound by our %s&quot;. Technically, Terms of Service are not legally binding, so to avoid any confusion, we have renamed this text. It also lines up better with other points the user must agree to on the registration page.">Ó rexistrarte, aceptas os nosos %s.</string>
   <string name="readAboutOur">Le acerca da nosa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Retardo da conexión entre ti e máis Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para procesar un movemento no servidor de Lichess</string>
@@ -743,7 +743,7 @@
   <string name="downloadRaw">Descargar sen anotar</string>
   <string name="downloadImported">Descargar importadas</string>
   <string name="crosstable">Táboa de cruces</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamén podes usar a roda do rato sobre o taboleiro para moverte pola partida.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame" comment="youCanAlsoScrollOverTheBoardToMoveInTheGame&#10;&#10;Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.&#10;&#10;This just means you can use the scroll wheel (on computer) to quickly go through moves while you're analysing a game.&#10;&#10;This text used to say &quot;You can also...&quot;, but please remove this clause if you see it on the translation and simplify.">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
   <string name="analysisShapesHowTo">Pulsa Maiúsculas+clic ou preme o botón dereito do rato para debuxar círculos e frechas no taboleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros xogadores che envíen mensaxes</string>
@@ -888,10 +888,10 @@
   <string name="lifetimeScore">Marcador histórico</string>
   <string name="currentMatchScore">Resultados deste enfrontamento</string>
   <string name="agreementAssistance">Comprométome a non recibir axuda externa durante as miñas partidas (dun computador, libro, base de datos ou doutra persoa).</string>
-  <string name="agreementNice">Comprométome a respectar sempre aos outros xogadores.</string>
+  <string name="agreementNice" comment="This is a condition a new player must agree to when registering an account. It has a checkbox next to it.&#10;&#10;Note: this string used to say &quot;nice&quot; but it has since been reworded to &quot;respectful&quot;. Please update translations as needed.">Comprométome a respectar sempre aos outros xogadores.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Comprométome a non crear múltiples contas (excepto polas razóns indicadas nos %s).</string>
   <string name="agreementPolicy">Comprométome a seguir as normas de Lichess.</string>
-  <string name="searchOrStartNewDiscussion">Busca ou comeza unha nova conversa</string>
+  <string name="searchOrStartNewDiscussion" comment="Appears in https://lichess.org/inbox&#10;&#10;Note: This used to say &quot;discussion&quot;, which was fitting for how the inbox worked at the time, but it has since been reworded to &quot;conversation&quot;, which is more appropriate for the current inbox user experience (as of 2024).">Busca ou comeza unha nova conversa</string>
   <string name="edit">Editar</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Lóstrego</string>
@@ -985,7 +985,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
   <string name="since">Desde</string>
   <string name="until">Ata</string>
-  <string name="lichessDbExplanation">Partidas puntuadas de todos os xogadores de Lichess</string>
+  <string name="lichessDbExplanation" comment="Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Note: This used to say &quot;Rated games sampled from all Lichess players&quot;, but this is no longer accurate since 2022, so the text was changed. https://github.com/lichess-org/lila/commit/f09f32697945610e7366d94abaca04f83770e454 - please update translations as required.">Partidas puntuadas xogadas en Lichess</string>
   <string name="switchSides">Cambiar de cor</string>
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>

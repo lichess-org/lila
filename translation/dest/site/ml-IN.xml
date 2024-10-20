@@ -18,7 +18,7 @@
   <string name="stalemate">സമനില</string>
   <string name="white">വെളുപ്പ്‌</string>
   <string name="black">കറുപ്പ്</string>
-  <string name="asWhite">വെള്ളയായി വെള്ള</string>
+  <string name="asWhite">വെള്ളയായി</string>
   <string name="asBlack">കറുപ്പായി</string>
   <string name="randomColor">ഏതെങ്കിലും നിറം</string>
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
@@ -28,7 +28,7 @@
   <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
   <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
   <string name="cheatDetected">കള്ളത്തരം കണ്ടെത്തി</string>
-  <string name="kingInTheCenter">കിംഗ് ഇൻ ദി സെന്റർ ഗെയിം</string>
+  <string name="kingInTheCenter">രാജാവു്  കേന്ദത്തിലുള്ള കളി</string>
   <string name="threeChecks">മൂനു ചെക്ക് കളി</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="variantEnding">വ്യത്യാസപ്പെട്ട അവസാനം</string>
@@ -155,8 +155,8 @@
     <item quantity="other">%s സൂചികകൾ</item>
   </plurals>
   <string name="viewInFullSize">പൂര്‍ണ രൂപത്തില്‍ കാണുക</string>
-  <string name="logOut">സൈന്‍ ഔട്ട്‌</string>
-  <string name="signIn">സൈന്‍ ഇന്‍</string>
+  <string name="logOut">പുറത്തിറങ്ങൾ</string>
+  <string name="signIn">പ്രവേശിക്കൽ</string>
   <string name="rememberMe">എന്നേ നിർഗമിക്കരുത്</string>
   <string name="youNeedAnAccountToDoThat">ഇത് ചെയ്യണമെങ്കില്‍ നിങ്ങള്‍ക്ക് ഒരു അക്കൗണ്ട്‌ വേണം</string>
   <string name="signUp">രജിസ്റ്റര്‍</string>
@@ -280,15 +280,15 @@
   <string name="confirmMove">നീക്കം ഉറപ്പിക്കുക</string>
   <string name="play">കളിക്കുക</string>
   <string name="inbox">ഇ-തപാൽപെട്ടി</string>
-  <string name="chatRoom">ചാറ്റ് മുറി</string>
-  <string name="loginToChat">ചാറ്റ് ചെയ്യാൻ ലോഗിൻ ചെയ്യുക</string>
+  <string name="chatRoom">സല്ലാപമുറി</string>
+  <string name="loginToChat">സല്ലപിക്കാൻ പ്രവേശിക്കൽ ചെയ്യുക</string>
   <string name="youHaveBeenTimedOut">നിങ്ങൾ ടൈംഡ്-ഔട്ട് ആയിരിക്കുന്നു.</string>
   <string name="spectatorRoom">വീക്ഷണ മുറി</string>
   <string name="composeMessage">സന്ദേശം എഴുതുക</string>
   <string name="subject">വിഷയം</string>
   <string name="send">അയക്കുക</string>
   <string name="incrementInSeconds">സെക്കന്‍ഡുകളുടെ വര്‍ദ്ധന</string>
-  <string name="freeOnlineChess">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌</string>
+  <string name="freeOnlineChess">സൗജന്യ തൽസമയചെസ്സ്‌</string>
   <plurals name="nbRated">
     <item quantity="one">%s റേറ്റഡ്</item>
     <item quantity="other">%s റേറ്റഡ്</item>
@@ -336,6 +336,10 @@
     <item quantity="one">%s പഠനം</item>
     <item quantity="other">%s പഠനങ്ങൾ</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s ഒരേവേളകളി</item>
+    <item quantity="other">%s ഒരേവേളകളികൾ</item>
+  </plurals>
   <string name="viewTournament">ടൂര്‍ണമെന്‍റ് കാണുക</string>
   <string name="backToTournament">ടൂര്‍ണമെന്‍റിലേക്ക് തിരികെ പോവുക</string>
   <string name="thematic">തീമാറ്റിക്</string>
@@ -364,7 +368,7 @@
   <string name="mustBeInTeam">ഇതിന് %s ടീമിലെ അംഗമാകണം</string>
   <string name="youAreNotInTeam">താങ്കള്‍ %s ടീമിലെ അംഗമല്ല</string>
   <string name="backToGame">മത്സരത്തിലേക്ക് തിരികെ പോവുക</string>
-  <string name="siteDescription">സൗജന്യ ഓണ്‍ലൈന്‍ ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
+  <string name="siteDescription">സൗജന്യ തൽസമയം ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="xJoinedTeamY">%1$s സംഘത്തിൽ %2$s അംഗമായി</string>
   <string name="xCreatedTeamY">%1$s നിർമിച്ച %2$s സംഘം</string>
   <string name="xStartedStreaming">%s സംപ്രേക്ഷണം ആരംഭിച്ചിരിക്കുന്നു</string>
@@ -397,8 +401,8 @@
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s സുഹൃത്ത് ഓണ്‍ലൈനാണ്</item>
-    <item quantity="other">%s സുഹൃത്തുക്കൾ ഓണ്‍ലൈനാണ്</item>
+    <item quantity="one">%s സുഹൃത്ത് തൽസമയം</item>
+    <item quantity="other">%s സുഹൃത്തുക്കൾ തൽസമയം</item>
   </plurals>
   <string name="favoriteOpponents">ഇഷ്ടപ്പെട്ട എതിരാളികള്‍</string>
   <string name="follow">പിന്തുടരുക</string>
@@ -488,7 +492,7 @@
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
   <string name="clearSavedMoves">നീക്കങ്ങൾ കളയുക</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
-  <string name="onlinePlayers">ഓൺലൈൻ കളിക്കാർ</string>
+  <string name="onlinePlayers">തൽസമയ കളിക്കാർ</string>
   <string name="activePlayers">സജീവ കളിക്കാർ</string>
   <string name="bewareTheGameIsRatedButHasNoClock">നോക്കൂ, ഈ കളി ക്രമപ്പെടുത്തിയതാണ്. പക്ഷെ സമയ പരിധിയില്ല!</string>
   <string name="success">വിജയകരം</string>
@@ -499,6 +503,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">നീക്കത്തിന് ശേഷം അടുത്ത കളിയിലേക്ക് താനെ തുടരാം</string>
   <string name="autoSwitch">ഓട്ടോ സ്വിച്ച്</string>
   <string name="puzzles">സമസ്യകൾ</string>
+  <string name="onlineBots">തൽസമയം യന്ത്രമനുഷ്യർ</string>
   <string name="name">പേര്</string>
   <string name="description">വിവരണം</string>
   <string name="descPrivate">സ്വകാര്യ വിവരണം</string>
@@ -506,6 +511,7 @@
   <string name="no">ഇല്ല</string>
   <string name="yes">അതെ</string>
   <string name="website">ജാലീസ്ഥാനികം</string>
+  <string name="mobile">ചലനാത്മകം</string>
   <string name="help">സഹായം:</string>
   <string name="createANewTopic">ഒരു പുതിയ വിഷയം തുടങ്ങാം</string>
   <string name="topics">വിഷയങ്ങൾ</string>
@@ -524,6 +530,7 @@
   <string name="cheat">ചതി</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
+  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">താങ്ങളുടെ കുറ്റപെടുത്തൽരേഖ ഇംഗ്ലീഷിൽ എഴുതിയാൽ താങ്ങൾക്കു് ഉടനെ മറുപടി കിട്ടും.</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
@@ -556,6 +563,7 @@
   <string name="slow">മന്ദം</string>
   <string name="insideTheBoard">പലകയിൽ</string>
   <string name="outsideTheBoard">പലകക്ക് അപ്പുറം</string>
+  <string name="allSquaresOfTheBoard">എല്ലാ ചതുരങ്ങളിലും</string>
   <string name="onSlowGames">വേഗം കുറഞ്ഞ കളികളിൽ</string>
   <string name="always">നിരന്തരം</string>
   <string name="never">ഒരിക്കലും</string>
@@ -628,6 +636,7 @@
   <string name="simultaneousExhibitions">ഈ വേളയിലെ പ്രദർശനങ്ങൾ</string>
   <string name="host">ഹോസ്റ്റ്</string>
   <string name="hostColorX">ഹോസ്റ്റ് നിറം: %s</string>
+  <string name="yourPendingSimuls">താങ്ങളുടെ തൂങ്ങുന്ന ഒരേവേളകളികൾ</string>
   <string name="createdSimuls">പുതിയ സിമുൽ</string>
   <string name="hostANewSimul">ഒരു പുതിയ സിമുലിന് ആതിഥ്യം നൽകൂ</string>
   <string name="noSimulFound">സിമുൽ കണ്ടെത്തിയില്ല</string>
@@ -702,6 +711,7 @@
   <string name="withFriends">കൂട്ടുകാരുമൊത്ത്‌</string>
   <string name="withEverybody">എല്ലാവർക്കുമൊപ്പം</string>
   <string name="kidMode">കുട്ടികൾക്ക് വേണ്ട വിധം</string>
+  <string name="kidModeIsEnabled">കിട്ടിരീതി വച്ചിരിക്കുന്നു.</string>
   <string name="kidModeExplanation">ഇത് സുരക്ഷിതത്വത്തിനു വേണ്ടിയാണ്. കുട്ടി-മുറയിൽ (കിഡ്-മോഡ്) എല്ലാ വിധ സൈറ്റ് വർത്തമാനങ്ങളും തടസ്സപ്പെടുന്നു. ഈ സംവിധാനം ചെറിയ കുട്ടികൾക്കും വിദ്യാർത്ഥികൾക്കും മറ്റു അന്തർജാലിക ഉപയോക്താവർ നിന്നും സുരക്ഷിതത്വം നൽകുന്നു.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">കിഡ്-മോഡിൽ lichess ലോഗോയ്ക്ക് ഒരു %s ഐക്കൺ ലഭിക്കുന്നു. അത് നിങ്ങളുടെ കുട്ടികൾ സുരക്ഷിതരാണെന്ന് നിങ്ങൾക്ക് ബോധ്യപ്പെടുത്തുന്നു.</string>
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
@@ -729,7 +739,7 @@
   <string name="xJoinsY">%1$s %2$s -ൽ ചേർന്നിരിക്കുന്നു</string>
   <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടപെട്ടു</string>
   <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
-  <string name="lobby">ലോബി</string>
+  <string name="lobby">ഇടനാഴി</string>
   <string name="anonymous">അജ്ഞാത</string>
   <string name="yourScore">നിങ്ങളുടെ സ്കോർ %s</string>
   <string name="language">ഭാഷ</string>
@@ -852,6 +862,7 @@
   <string name="useTheReportForm">റിപ്പോർട്ട് ഫോം ഉപയോഗിക്കുക</string>
   <string name="toRequestSupport">സഹായം ആവശ്യപെടുക, %1$s</string>
   <string name="tryTheContactPage">ബന്ധപെടാനുള്ള ഫോറേം ഉപയോഗിക്കുക</string>
+  <string name="makeSureToRead">ഉറപ്പായിട്ടു്  %1$s വായിക്കുക</string>
   <string name="thisTopicIsArchived">ഈ വിഷയം ത്തിനു മറുപടി കൊടുക്കാൻ കഴിയുകയയില്ല.</string>
   <string name="joinTheTeamXToPost">%1$s ഇൽ ചേരുക, ഫോറത്തിൽ പോസ്റ്റ്‌ ചെയുന്നതിനു</string>
   <string name="teamNamedX">%1$s ടീം</string>
@@ -872,11 +883,28 @@
   <string name="refundXpointsTimeControlY">റിഫണ്ട്:%1$s%2$s റേറ്റിംഗ് പോയിന്റുകൾ.</string>
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
   <string name="clickToRevealEmailAddress">ഇമെയിൽ വിലാസം വെളിപ്പെടുത്തുകാൻ അമർത്തിക്കൂ</string>
+  <string name="cancelTournament">മത്സരം വേണ്ടെന്നു വയ്ക്കുക</string>
+  <string name="tournDescription">മത്സരം കുറിച്ചു്</string>
+  <string name="onlyMembersOfTeam">കളിക്കൂട്ടത്തിന്റെ അംഗങ്ങൾ മാത്രം</string>
   <string name="noRestriction">അതിരിടലങ്ങളൊന്നുമില്ല</string>
+  <string name="minimumRatedGames">ഏറ്റവും താഴ്ന്ന റേറ്റിങുള്ള കളികൾ</string>
+  <string name="minimumRating">ഏറ്റവും താഴ്ന്ന റേറ്റിങു്</string>
+  <string name="maximumWeeklyRating">ഏറ്റവും കൂടിയ ആഴ്ചതോറ റേറ്റിങു്</string>
+  <string name="cancelSimul">ഒരേവേളകളി വേണ്ട വെയ്ക്കുക</string>
+  <string name="simulFeatured">%s-ൽ കാണിക്കുക</string>
+  <string name="simulFeaturedHelp">എല്ലാവർക്കും എന്റെ ഒരേവേളകളികൾ %s-ൽ കാണിക്കുക. സ്വകാര്യമായ ഒരേവേളകളികൾക്കു് ഇതു ചെയ്യരുതു്.</string>
+  <string name="simulDescription">ഒരേവേളകളി കുറിച്ചു്</string>
+  <string name="simulDescriptionHelp">കളിക്കാരേ എന്തെങ്കിലും പറയാനുണ്ടോ?</string>
+  <string name="embedsAvailable">ഉൾപെടുത്തുകാൻ ഒരു കളിയുടെ കണ്ണി അതോ ഒരു പാഠം കണ്ണി ഒട്ടിക്കുക.</string>
+  <string name="tournChat">മത്സരസല്ലാപമുറി</string>
+  <string name="noChat">സല്ലാപമുറി ഇല്ല</string>
   <string name="onlyTeamLeaders">കളികൂട്ടനേതാവ് മാത്രം</string>
   <string name="onlyTeamMembers">കളികൂട്ടം അംഗംക്കാർ മാത്രം</string>
+  <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
+  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
+  <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
   <string name="sentEmailWithLink">ഞങ്ങൾ താങ്ങളേ ഒരു കണ്ണിയുള്ള ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</string>
   <string name="hangOn">കാത്തിരിക്കൂ</string>
   <string name="gameInProgress">താങ്ങൾ ഇപ്പോഴ് %s-ിന്റെ കൂടെ കളിക്കുന്നുണ്ട്.</string>
@@ -886,5 +914,7 @@
   <string name="since">മുതൽ</string>
   <string name="until">വരേ</string>
   <string name="switchSides">പക്ഷം മാറുക</string>
+  <string name="instructions">നിർദേശങ്ങൾ</string>
   <string name="showMeEverything">എല്ലാം കാണിക്കുക</string>
+  <string name="nothingToSeeHere">അല്പസമയത്തേക്കു് ഒന്നും കാണാനില്ല.</string>
 </resources>

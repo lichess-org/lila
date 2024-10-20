@@ -17,14 +17,14 @@
   <string name="ongoing">Në zhvillim</string>
   <string name="upcoming">I ardhshëm</string>
   <string name="completed">I mbaruar</string>
-  <string name="completedHelp">Lichess-i e pikas plotësimin e raundit bazuar në lojërat burim. Përdoreni këtë buton, nëse s’ka burim.</string>
+  <string name="completedHelp" comment="This string used to say &quot;Lichess detects round completion based on the source games. Use this toggle if there is no source.&quot; but has since been streamlined along with the rest of the user interface. Please update translations as needed.">Lichess-i e pikas plotësimin e raundit bazuar në lojërat burim. Përdoreni këtë buton, nëse s’ka burim.</string>
   <string name="roundName">Emër raundi</string>
   <string name="roundNumber">Numër raundi</string>
   <string name="tournamentName">Emër turneu</string>
   <string name="tournamentDescription">Përshkrim i shkurtër i turneut</string>
-  <string name="fullDescription">Përshkrim i plotë i turneut</string>
-  <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
-  <string name="sourceSingleUrl">URL Burimi PNG-je</string>
+  <string name="fullDescription" comment="This text used to say &quot;Full event description&quot;. It can be changed to &quot;tournament&quot; since all broadcast events are tournaments.">Përshkrim i plotë i turneut</string>
+  <string name="fullDescriptionHelp" comment="This text used to start with &quot;Optional long description of the broadcast.&quot;.&#10;The word should be changed to &quot;tournament&quot; since all broadcast events are tournaments, and it is a more user-friendly term.&#10;&#10;%1$s says &quot;Markdown&quot; (a proper noun) and gives a link to a description of Markdown.&#10;%2$s is the character limit (e.g. 160)">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
+  <string name="sourceSingleUrl">URL Burimi PGN-je</string>
   <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
   <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
   <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Datë fillimi në zonën kohore vendore të turneut: %s</string>
@@ -33,7 +33,7 @@
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
   <string name="deleteRound">Fshije këtë raund</string>
-  <string name="definitivelyDeleteRound">Fshije përfundimisht raundin dhe lojërat e tij.</string>
+  <string name="definitivelyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.&#10;&#10;This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">Fshije përfundimisht raundin dhe lojërat e tij.</string>
   <string name="deleteAllGamesOfThisRound">Fshi krejt lojërat e këtij raundi. Burimi do të duhet të jetë aktiv, që të mund të rikrijohen ato.</string>
   <string name="editRoundStudy">Përpunoni analizë raundi</string>
   <string name="deleteTournament">Fshije këtë turne</string>

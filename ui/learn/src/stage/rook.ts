@@ -1,9 +1,10 @@
+import { i18nHotfix } from '../i18nHotfix';
 import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 import { StageNoID } from './list';
 
 const stage: StageNoID = {
   key: 'rook',
-  title: i18n.learn.theRook,
+  title: i18nHotfix.theRook,
   subtitle: i18n.learn.itMovesInStraightLines,
   image: assetUrl + 'images/learn/pieces/R.svg',
   intro: i18n.learn.rookIntro,

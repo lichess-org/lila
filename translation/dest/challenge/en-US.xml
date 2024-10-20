@@ -2,10 +2,10 @@
 <resources>
   <string name="challengesX">Challenges: %1$s</string>
   <string name="challengeToPlay">Challenge to a game</string>
-  <string name="challengeDeclined">Challenge declined</string>
+  <string name="challengeDeclined">Challenge declined.</string>
   <string name="challengeAccepted">Challenge accepted!</string>
   <string name="challengeCanceled">Challenge canceled.</string>
-  <string name="registerToSendChallenges">Please register to send challenges.</string>
+  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Please register to send challenges to this user.</string>
   <string name="youCannotChallengeX">You cannot challenge %s.</string>
   <string name="xDoesNotAcceptChallenges">%s does not accept challenges.</string>
   <string name="yourXRatingIsTooFarFromY">Your %1$s rating is too far from %2$s.</string>

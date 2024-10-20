@@ -50,7 +50,7 @@ def show(
   Page(s.name.value)
     .css("analyse.study")
     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
-    .i18n(_.study)
+    .i18n(_.puzzle, _.study)
     .js(analyseNvuiTag)
     .js(
       PageModule(

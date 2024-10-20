@@ -96,7 +96,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: TourId)(using translate: Translate): String =
-    getTourName.sync(id)(using translate.lang).getOrElse("Tournament")
+    getTourName.sync(id)(using translate.lang).getOrElse(s"Tournament #$id")
 
   object scheduledTournamentNameShortHtml:
     private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
