@@ -425,6 +425,8 @@
   <string name="descPrivateHelp">Язма төркемле уенчыларга гына күренә ала. Әгәр куйсагыз, алыштырсагыз төркем әгъзалары өчен җәмәгать тасвирламасын.</string>
   <string name="no">Юк</string>
   <string name="yes">Әйе</string>
+  <string name="website">Веб-сайт</string>
+  <string name="mobile">Мобиль</string>
   <string name="help">Булышу:</string>
   <string name="createANewTopic">Яңа сәрхаү ачу</string>
   <string name="topics">Сәрхәү</string>
@@ -631,6 +633,9 @@
   <string name="dark">Караңгы</string>
   <string name="transparent">Үтә күренмәле</string>
   <string name="backgroundImageUrl">Арткы караныш рәсеме URL:</string>
+  <string name="board">Такта</string>
+  <string name="size">Үлчәм</string>
+  <string name="opacity">Тоныклык</string>
   <string name="pieceSet">Эйберлэр</string>
   <string name="embedInYourWebsite">Веб-сайтыгызга җайлаштырылган</string>
   <string name="usernameAlreadyUsed">Ошбу кулланучынәми әлләкайчан ишләтелгән, фадлыйк башкасын сынап карыйк.</string>
@@ -717,6 +722,7 @@
   <string name="agreementPolicy">Мин барлык Lichess сәясәтен үтәрмен дип килешәм.</string>
   <string name="searchOrStartNewDiscussion">Яңа сөйләшүне эзләү яки башлау</string>
   <string name="edit">Үзгәртү</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Тиз</string>
   <string name="classical">Классика</string>
@@ -756,4 +762,6 @@
   <string name="download">Йөкләп алу</string>
   <string name="tournDescription">Ярыш тасвирламасы</string>
   <string name="hangOn">Туктагыз!</string>
+  <string name="since">Шуннан соң</string>
+  <string name="until">Кадәр</string>
 </resources>
