@@ -11,7 +11,7 @@
   <string name="newTeam">Ekip i ri</string>
   <string name="myTeams">Ekipet e mia</string>
   <string name="noTeamFound">S’u gjet ekip</string>
-  <string name="joinTeam">Bëhuni pjesë e ekipit</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Bëhuni pjesë e ekipit</string>
   <string name="onlyLeaderLeavesTeam">Ju lutemi, përpara se të ikni, ose mbyllni ekipin, caktoni një drejtues të ri të ekipit.</string>
   <string name="quitTeam">Braktiseni ekipin</string>
   <string name="manuallyReviewAdmissionRequests">Shqyrtojini dorazi kërkesat për pranim</string>
@@ -56,7 +56,7 @@ Lojtarët të cilëve s’u pëlqen të marrin mesazhe nga ju, mund të dalin ng
   <string name="joinLichessVariantTeam">Bëhuni pjesë e ekipit zyrtar %s, për lajme dhe veprimtari</string>
   <string name="teamPage">Faqe ekipi</string>
   <string name="thisTeamBattleIsOver">Ky turne ka përfunduar dhe ekipet s’mund të përditësohen më.</string>
-  <string name="listTheTeamsThatWillCompete">Radhitni ekipet që do të ndeshen në këtë ndeshje.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Radhitni ekipet që do të ndeshen në këtë ndeshje.</string>
   <string name="oneTeamPerLine">Një ekip për rresht. Përdorni vetëplotësimin.</string>
   <string name="oneTeamPerLineHelp">Mund ta kopjoni dhe ngjitni këtë listë nga një turne në një tjetër!
 
