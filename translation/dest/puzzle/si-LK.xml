@@ -31,8 +31,8 @@
   <string name="byOpenings">Opening මගින්</string>
   <string name="puzzlesByOpenings">Openings මගින් ප්‍රහේලිකා</string>
   <string name="openingsYouPlayedTheMost">ඔබ ශ්‍රේණිගත කළ ක්‍රීඩා වල වැඩිපුරම ක්‍රීඩා කළ Opening එක</string>
-  <string name="useFindInPage">ඔබගේ ප්‍රියතම Opening එක සොයා ගැනීමට බ්‍රවුසර මෙනුවේ \"පිටුව තුළ සොයන්න\" භාවිතා කරන්න!</string>
-  <string name="useCtrlF">ඔබේ ප්‍රියතම Opening එක සොයා ගැනීමට Ctrl+f භාවිතා කරන්න!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ඔබගේ ප්‍රියතම Opening එක සොයා ගැනීමට බ්‍රවුසර මෙනුවේ \"පිටුව තුළ සොයන්න\" භාවිතා කරන්න!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ඔබේ ප්‍රියතම Opening එක සොයා ගැනීමට Ctrl+f භාවිතා කරන්න!</string>
   <string name="notTheMove">එය හරි ඇදීම නොවේ!</string>
   <string name="trySomethingElse">වෙනත් දෙයක් උත්සාහ කරන්න.</string>
   <string name="ratingX">Rating: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">ශක්තීන්</string>
   <string name="history">ප්‍රහේලිකා ඉතිහාසය</string>
   <string name="solved">විසඳා ඇත</string>
-  <string name="failed">වැරදියි</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">වැරදියි</string>
   <string name="streakDescription">ක්‍රමානුකූලව දුෂ්කර ප්‍රහේලිකා විසඳා ජයග්‍රහණ මාලාවක් ගොඩනඟන්න. ඔරලෝසුවක් නැත, එබැවින් ඔබේ කාලය ගන්න. එක් වැරදි පියවරක්, එය ක්‍රීඩාව අවසන්! නමුත් ඔබට සැසියකට එක් පියවරක් මඟ හැරිය හැක.</string>
   <string name="yourStreakX">ඔබේ ස්ත්‍රීකය​:%s</string>
   <string name="streakSkipExplanation">ඔබේ ස්ත්‍රීකය​ ආරක්ෂා කර ගැනීමට මෙම පියවර මඟ හරින්න! ධාවනයකට එක් වරක් පමණක් ක්‍රියා කරයි.</string>
