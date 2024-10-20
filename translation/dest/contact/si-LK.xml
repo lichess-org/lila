@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">අපට ඔබට උදව් කළ හැක්කේ කුමක් ද?</string>
   <string name="visitThisPage">ගැටලුව විසඳීමට මෙම පිටුවට පිවිසෙන්න</string>
   <string name="iCantLogIn">මට ලොග් වෙන්න බෑ</string>
-  <string name="noConfirmationEmail">මට මගේ තහවුරු කිරීමේ විද්‍යුත් තැපෑල ලැබුණේ නැත</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">මට මගේ තහවුරු කිරීමේ විද්‍යුත් තැපෑල ලැබුණේ නැත</string>
   <string name="forgotPassword">මට මගේ මුරපදය අමතක විය</string>
   <string name="forgotUsername">මට මගේ පරිශීලක නාමය අමතක විය</string>
   <string name="youCanLoginWithEmail">ඔබ ලියාපදිංචි වූ විද්‍යුත් තැපැල් ලිපිනයෙන් ඔබට පුරනය විය හැක</string>
