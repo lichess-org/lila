@@ -35,6 +35,4 @@
   <string name="editRoundStudy">Redakti raŭndan studon</string>
   <string name="deleteTournament">Forigi ĉi tiun turniron</string>
   <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
-  <string name="periodInSeconds">Periodo kiel sekundoj</string>
-  <string name="periodInSecondsHelp">Laŭvola, kiom tempo por atendi inter aliĝpetoj. Min 2s, Maks 60s. Defaŭlto estas aŭtamata baze sur la nombro de spektantoj.</string>
 </resources>
