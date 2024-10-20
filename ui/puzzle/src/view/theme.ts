@@ -49,7 +49,7 @@ const invisibleThemes = new Set(['master', 'masterVsMaster', 'superGM']);
 const editor = (ctrl: PuzzleCtrl): VNode[] => {
   const data = ctrl.data,
     votedThemes = ctrl.round?.themes || ({} as RoundThemes);
-  const trans = i18n.puzzleTheme as any;
+  const themeTrans = (key: string) => (i18n.puzzleTheme as any)[key] || key;
   const visibleThemes: ThemeKey[] = [
     ...data.puzzle.themes.filter(t => !invisibleThemes.has(t)),
     ...Object.keys(votedThemes).filter(
@@ -58,7 +58,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
   ].sort();
   const allThemes = location.pathname == '/training/daily' ? null : ctrl.allThemes;
   const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
-  if (availableThemes) availableThemes.sort((a, b) => (trans(a) < trans(b) ? -1 : 1));
+  if (availableThemes) availableThemes.sort((a, b) => (themeTrans(a) < themeTrans(b) ? -1 : 1));
   return [
     h(
       'div.puzzle__themes_list',
@@ -71,7 +71,11 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
       },
       visibleThemes.map(key =>
         h('div.puzzle__themes__list__entry', { class: { strike: votedThemes[key] === false } }, [
-          h('a', { attrs: { href: `/training/${key}`, title: trans(`${key}Description`) } }, trans(key)),
+          h(
+            'a',
+            { attrs: { href: `/training/${key}`, title: themeTrans(`${key}Description`) } },
+            themeTrans(key),
+          ),
           allThemes &&
             h(
               'div.puzzle__themes__votes',
@@ -109,7 +113,11 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
             [
               h('option', { attrs: { value: '', selected: true } }, i18n.puzzle.addAnotherTheme),
               ...availableThemes.map(theme =>
-                h('option', { attrs: { value: theme, title: trans(`${theme}Description`) } }, trans(theme)),
+                h(
+                  'option',
+                  { attrs: { value: theme, title: themeTrans(`${theme}Description`) } },
+                  themeTrans(theme),
+                ),
               ),
             ],
           ),
