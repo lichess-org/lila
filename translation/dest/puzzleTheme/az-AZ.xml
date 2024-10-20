@@ -39,7 +39,7 @@
   <string name="deflection">Yayındırma</string>
   <string name="deflectionDescription">Rəqib fiqurunu, yerinə yetirdiyi başqa bir vəzifədən, məsələn, vacib bir xananı qorumaqdan yayındıran bir gediş. Bəzən \"həddindən artıq yükləmə\" də deyilir.</string>
   <string name="discoveredAttack">Açaraq hücum</string>
-  <string name="discoveredAttackDescription">Uzaq mənzilli bir fiqurun yolunu kəsən digər bir fiquru oynayaraq edilən hücum, atı oynayaraq topla hücum etmək kimi.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Uzaq mənzilli bir fiqurun yolunu kəsən digər bir fiquru oynayaraq edilən hücum, atı oynayaraq topla hücum etmək kimi.</string>
   <string name="doubleCheck">İkiqat şah</string>
   <string name="doubleCheckDescription">Bir gedişdə, həm gediş edilən həm də açaraq hücumun ardından yolu açılan fiqur ilə eyni anda şah vermək.</string>
   <string name="endgame">Endşpil</string>
