@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">A túa conta non está marcada ou restrinxida. Está todo ben!</string>
-  <string name="engineMarked">A túa conta está marcada por asistencia externa nas partidas.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">A túa conta está marcada por asistencia externa nas partidas.</string>
   <string name="engineMarkedInfo">Isto definímolo como o uso de calquera axuda externa para reforzar os teus coñecementos e/ou capacidades de cálculo, co fin de obter unha vantaxe inxusta sobre o teu adversario. Ve a páxina %s para máis detalles.</string>
   <string name="arenaBanned">A túa conta ten prohibido entrar nas arenas.</string>
   <string name="prizeBanned">A túa conta ten prohibido participar en torneos con premios reais.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">A túa conta está silenciada.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Le as nosas %s. Non respectar as directrices de comunicación pode implicar que as contas sexan silenciadas.</string>
   <string name="excludedFromLeaderboards">A túa conta foi excluída das listaxes de líderes.</string>
-  <string name="excludedFromLeaderboardsInfo">Isto definímolo como o uso de calquera procedemento inxusto para aparecer nas listaxes de líderes.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Isto definímolo como o uso de calquera procedemento inxusto para aparecer nas listaxes de líderes.</string>
   <string name="closedByModerators">A túa conta foi pechada polos moderadores.</string>
   <string name="hiddenBlog">As túas publicacións no blog foron agochadas polos moderadores.</string>
   <string name="hiddenBlogInfo">Asegúrate de ler de novo as nosas %s.</string>
