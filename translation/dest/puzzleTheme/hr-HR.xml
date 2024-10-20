@@ -39,7 +39,7 @@
   <string name="deflection">Odvraćanje</string>
   <string name="deflectionDescription">Potez koji odvraća protivničku figuru od dužnosti koju obavlja (kao što je kontroliranje značajnog polja). Ova taktika se također zove i \"preopterećenje\".</string>
   <string name="discoveredAttack">Otkriveni napad</string>
-  <string name="discoveredAttackDescription">Napad izvršen kad se figura koja blokira drugu figuru (kraljicu, lovca ili topa) skloni sa određene dijagonale, reda ili stupca.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Napad izvršen kad se figura koja blokira drugu figuru (kraljicu, lovca ili topa) skloni sa određene dijagonale, reda ili stupca.</string>
   <string name="doubleCheck">Dvostruki šah</string>
   <string name="doubleCheckDescription">Šah kojeg daju dvije figure istovremeno kao rezultat otkrivenog šaha.</string>
   <string name="endgame">Završnica</string>
