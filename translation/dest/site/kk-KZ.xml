@@ -123,7 +123,6 @@
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
   <string name="removesTheDepthLimit">Тереңдік шектеулерін жояды, әрі компьютеріңізді қыздырады</string>
-  <string name="engineManager">Есептеуіш басқарушысы</string>
   <string name="blunder">Өрескел қателік</string>
   <string name="mistake">Қателік</string>
   <string name="inaccuracy">Жеңіл қате</string>
