@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT тақта талаптары</string>
   <string name="dgtBoardLimitations">DGT тақта шектеулері</string>
   <string name="thisPageAllowsConnectingDgtBoard">Бұл бетте сіз өз DGT тақтаңызды ойын үшін Лическе жалғай аласыз.</string>
-  <string name="toConnectTheDgtBoard">DGT электронды тақтаны жалғау үшін %s деген програмды орнату керек.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT электронды тақтаны жалғау үшін %s деген програмды орнату керек.</string>
   <string name="downloadHere">Програмды осы жерден алыңыз: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Егер %1$s бұл компьютерде жұмыс істеп тұрса, байланысты %2$s тексеріңіз.</string>
   <string name="openingThisLink">осы сілтемені ашумен</string>
