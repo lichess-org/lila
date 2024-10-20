@@ -130,7 +130,6 @@
   <string name="memory">Atmintinė</string>
   <string name="infiniteAnalysis">Neribota analizė</string>
   <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
-  <string name="engineManager">Variklių valdymas</string>
   <string name="blunder">Šiurkšti klaida</string>
   <string name="mistake">Klaida</string>
   <string name="inaccuracy">Netikslumas</string>
@@ -627,9 +626,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="cheat">Sukčiaviavo</string>
   <string name="troll">„Troll\'ino“</string>
   <string name="other">Kita</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Įdėkite nuorodą į partiją(-as) ir paaiškinkite, kas netinkamo yra šio vartotojo elgsenoje. Paminėkite, kaip priėjote prie tokios išvados. Jūsų pranešimas bus apdorotas greičiau, jei bus pateiktas anglų kalba.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Paaiškinkite, kuo šis vartotojo vardas yra įžeidžiantis. Nesakykite tiesiog „tai įžeidžia/netinkama“, bet papasakokite, kaip priėjote prie šios išvados, ypač jei įžeidimas yra užmaskuotas, ne anglų kalba, yra slengas arba yra istorinė / kultūrinė nuoroda.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Jūsų pranešimas bus apdorotas greičiau, jei jis bus parašytas anglų kalba.</string>
+  <string name="reportCheatBoostHelp">Įdėkite nuorodą į partiją(-as) ir paaiškinkite, kas netinkamo yra šio vartotojo elgsenoje. Paminėkite, kaip priėjote prie tokios išvados. Jūsų pranešimas bus apdorotas greičiau, jei bus pateiktas anglų kalba.</string>
+  <string name="reportUsernameHelp">Paaiškinkite, kuo šis vartotojo vardas yra įžeidžiantis. Nesakykite tiesiog „tai įžeidžia/netinkama“, bet papasakokite, kaip priėjote prie šios išvados, ypač jei įžeidimas yra užmaskuotas, ne anglų kalba, yra slengas arba yra istorinė / kultūrinė nuoroda.</string>
+  <string name="reportProcessedFasterInEnglish">Jūsų pranešimas bus apdorotas greičiau, jei jis bus parašytas anglų kalba.</string>
   <string name="error.provideOneCheatedGameLink">Pateikite bent vieną nuorodą į partiją, kurioje buvo sukčiauta.</string>
   <string name="by">nuo %s</string>
   <string name="importedByX">Importavo %s</string>
