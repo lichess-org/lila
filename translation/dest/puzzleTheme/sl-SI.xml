@@ -41,7 +41,7 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="deflection">Odklon</string>
   <string name="deflectionDescription">Poteza, ki nasprotnikovo figuro odvrne od druge dolžnosti, ki jo opravlja, na primer varovanja ključnega polja. Včasih se imenuje tudi \"preobremenitev\".</string>
   <string name="discoveredAttack">Odkrit napad</string>
-  <string name="discoveredAttackDescription">Premikanje figure (na primer skakača), ki je prej blokiral napad s figure velikega dosega (na primer trdnjava), stran od te figure.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Premikanje figure (na primer skakača), ki je prej blokiral napad s figure velikega dosega (na primer trdnjava), stran od te figure.</string>
   <string name="doubleCheck">Dvojni šah</string>
   <string name="doubleCheckDescription">Napad na kralja z dvema figurama naenkrat, kot rezultat odkritega napada, kjer tako premikajoča se figura kot tudi razkrita figura napadata nasprotnikovega kralja.</string>
   <string name="endgame">Končnica</string>
