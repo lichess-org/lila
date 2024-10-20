@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Сізге қандай көмек көрсете аламыз?</string>
   <string name="visitThisPage">Бұл мәселені шешу үшін осы парақшаны ашыңыз</string>
   <string name="iCantLogIn">Мен кіре алмай отырмын</string>
-  <string name="noConfirmationEmail">Маған растау хаты келген жоқ</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Маған растау хаты келген жоқ</string>
   <string name="forgotPassword">Мен құпиясөзімді ұмыттым</string>
   <string name="forgotUsername">Мен тіркеулі атымды ұмыттым</string>
   <string name="youCanLoginWithEmail">Сіз поштаңыздың мекенжайын жазып, тіркелгіге кіре аласыз</string>
