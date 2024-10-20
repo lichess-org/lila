@@ -11,7 +11,7 @@
   <string name="moveToE4OrSelectE4Piece">حرکت به e4 یا انتخاب خانه e4</string>
   <string name="selectOrCaptureABishop">انتخاب کردن یا زدن یک فیل</string>
   <string name="takeRookWithQueen">گرفتن رخ با وزیر</string>
-  <string name="castle">قلعه (از هر سو)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">قلعه (از هر سو)</string>
   <string name="phoneticAlphabetIsBest">الفبای آوایی بهترین است</string>
   <string name="cancelTimerOrDenyARequest">لغو کردن زمانسنج یا رد یک درخواست</string>
   <string name="playPreferredMoveOrConfirmSomething">حرکت ترجیحی را بازی کنید یا چیزی را تایید کنید</string>
