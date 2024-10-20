@@ -41,11 +41,13 @@ def embed(
     data: lila.relay.JsonView.JsData,
     socketVersion: SocketVersion
 )(using ctx: EmbedContext) =
+  import lila.core.i18n.I18nModule
   views.base.embed.site(
     title = rt.fullName,
     cssKeys = List("analyse.relay.embed"),
     pageModule = ui.pageModule(rt, data, none, socketVersion, embed = true).some,
-    csp = _.withExternalAnalysisApis
+    csp = _.withExternalAnalysisApis,
+    i18nModules = List(_.site, _.timeago, _.study, _.broadcast)
   )(
     div(id := "main-wrap", cls := "is2d"):
       ui.showPreload(rt, data)(cls := "relay-embed")
