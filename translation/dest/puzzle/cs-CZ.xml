@@ -31,8 +31,8 @@
   <string name="byOpenings">Podle zahájení</string>
   <string name="puzzlesByOpenings">Úlohy podle zahájení</string>
   <string name="openingsYouPlayedTheMost">Zahájení, které jste hráli nejvíce v hodnocených hrách</string>
-  <string name="useFindInPage">Použijte \"Hledání na stránce\" v menu prohlížeče a najděte svoje oblíbené zahájení!</string>
-  <string name="useCtrlF">Použijte ctrl+f pro vyhledání vašeho oblíbeného zahájení!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Použijte \"Hledání na stránce\" v menu prohlížeče a najděte svoje oblíbené zahájení!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Použijte ctrl+f pro vyhledání vašeho oblíbeného zahájení!</string>
   <string name="notTheMove">To není správný tah!</string>
   <string name="trySomethingElse">Zkuste něco jiného.</string>
   <string name="ratingX">Rating: %s</string>
@@ -72,7 +72,7 @@
   <string name="strengths">Silné stránky</string>
   <string name="history">Historie řešení úloh</string>
   <string name="solved">vyřešeno</string>
-  <string name="failed">nezdařilo se</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">nezdařilo se</string>
   <string name="streakDescription">Vyřešte postupně těžší hádanky a vytvořte vítěznou sérii. Není tu žádný limit, takže si dejte na na čas. Jeden špatný tah a je to, hra skončí! Můžete ale přeskočit jeden tah za běh.</string>
   <string name="yourStreakX">Vaše série: %s</string>
   <string name="streakSkipExplanation">Přeskočit tento krok pro zachování své série! Funguje pouze jednou za běh.</string>
