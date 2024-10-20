@@ -4,6 +4,7 @@
   <string name="features">Үзенчәлекләр</string>
   <string name="teachersX">Укытучылар: %s</string>
   <string name="reopen">Яңадан ачу</string>
+  <string name="removedStudents">Чыгарылды</string>
   <string name="resetPassword">Серсүзне алыштыру</string>
   <string name="passwordX">Парол: %s</string>
   <string name="lastActiveDate">Актив</string>
