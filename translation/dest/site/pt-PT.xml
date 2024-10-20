@@ -103,7 +103,7 @@
   <string name="openingExplorer">Explorador de aberturas</string>
   <string name="openingEndgameExplorer">Explorador de Aberturas/Finais</string>
   <string name="xOpeningExplorer">Explorador de aberturas de %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">Jogar o primeiro lance do explorador de aberturas/finais</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Jogar o primeiro lance do explorador de aberturas/finais</string>
   <string name="winPreventedBy50MoveRule">Vitória impedida pela regra dos 50 movimentos</string>
   <string name="lossSavedBy50MoveRule">Derrota evitada pela regra dos 50 movimentos</string>
   <string name="winOr50MovesByPriorMistake">Vitória ou 50 movimentos por engano anterior</string>
@@ -126,7 +126,6 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o teu computador quente</string>
-  <string name="engineManager">Gestão do motor</string>
   <string name="blunder">Erro grave</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
@@ -559,9 +558,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="cheat">Batota</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Cola o(s) link(s) do(s) jogo(s) e explica o que está errado no comportamento deste utilizador. Não digas apenas “eles fazem batota”, mas diz-nos como chegaste a essa conclusão.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Explica o que este nome de utilizador tem de ofensivo. Não digas apenas “é ofensivo/inapropriado”, mas diz-nos como chegaste a essa conclusão, especialmente se o insulto for ofuscado, não estiver em inglês, estiver em calão ou for uma referência histórica/cultural.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">A tua denúncia será processado mais rapidamente se estiver escrito em inglês.</string>
+  <string name="reportCheatBoostHelp">Cola o(s) link(s) do(s) jogo(s) e explica o que está errado no comportamento deste utilizador. Não digas apenas “eles fazem batota”, mas diz-nos como chegaste a essa conclusão.</string>
+  <string name="reportUsernameHelp">Explica o que este nome de utilizador tem de ofensivo. Não digas apenas “é ofensivo/inapropriado”, mas diz-nos como chegaste a essa conclusão, especialmente se o insulto for ofuscado, não estiver em inglês, estiver em calão ou for uma referência histórica/cultural.</string>
+  <string name="reportProcessedFasterInEnglish">A tua denúncia será processado mais rapidamente se estiver escrito em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, fornece-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -693,14 +692,14 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="timeBeforeTournamentStarts">Contagem decrescente para o início do torneio</string>
   <string name="averageCentipawnLoss">Perda média de centésimos de peão</string>
   <string name="accuracy">Precisão</string>
-  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Atalhos do teclado</string>
+  <string name="keyboardShortcuts">Atalhos do teclado</string>
   <string name="keyMoveBackwardOrForward">retroceder/avançar jogada</string>
   <string name="keyGoToStartOrEnd">ir para início/fim</string>
   <string name="keyCycleSelectedVariation">Ciclo da variante selecionada</string>
   <string name="keyShowOrHideComments">mostrar/ocultar os comentários</string>
   <string name="keyEnterOrExitVariation">entrar/sair da variante</string>
-  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Solicite análise do computador, Aprenda com seus erros</string>
-  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Seguinte (Aprenda com os seus erros)</string>
+  <string name="keyRequestComputerAnalysis">Solicite análise do computador, Aprenda com seus erros</string>
+  <string name="keyNextLearnFromYourMistakes">Seguinte (Aprenda com os seus erros)</string>
   <string name="keyNextBlunder">Próxima gafe</string>
   <string name="keyNextMistake">Próximo erro</string>
   <string name="keyNextInaccuracy">Próxima imprecisão</string>
@@ -972,7 +971,7 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="playComputerMove">Jogar o melhor lance do computador</string>
   <string name="analysisOptions">Opções de análise</string>
   <string name="focusChat">Focar no bate-papo</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Mostrar esta mensagem de ajuda</string>
+  <string name="showHelpDialog">Mostrar esta mensagem de ajuda</string>
   <string name="reopenYourAccount">Reabrir a sua conta</string>
   <string name="closedAccountChangedMind">Se fechou a sua conta mas desde então mudou de ideias, terá uma oportunidade de recuperar a sua conta.</string>
   <string name="onlyWorksOnce">Isto só vai funcionar uma única vez.</string>
