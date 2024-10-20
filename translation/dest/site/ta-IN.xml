@@ -126,7 +126,6 @@
   <string name="memory">நினைவகம்</string>
   <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
   <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் மதிப்பை நீக்கிவிடும். உங்கள் கணினியை சூடாக வைக்கும்</string>
-  <string name="engineManager">இயந்திர மேலாளர்</string>
   <string name="blunder">பெரிய தவறு</string>
   <string name="mistake">தவறு</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
@@ -554,9 +553,9 @@
   <string name="cheat">வஞ்சகன்</string>
   <string name="troll">அக்கிரமி</string>
   <string name="other">வேறு</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்தப் பயனர் நடத்தைபற்றித் தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி என்பதை எங்களுக்குச் சொல்ல.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">இந்த பயனர் பெயர் புண்படுத்தக்கூடியது என்ன என்பதை விளக்குங்கள். \"இது புண்படுத்தும்/பொருத்தமற்றது\" என்று மட்டும் சொல்லாதீர்கள், ஆனால் நீங்கள் எப்படி இந்த முடிவுக்கு வந்தீர்கள் என்று எங்களிடம் கூறுங்கள், குறிப்பாக ஆங்கிலத்தில் அல்ல, ஸ்லாங்கில் அல்லது ஒரு வரலாற்று/கலாச்சாரக் குறிப்பால் அவமதிப்பு தெளிவற்றதாக இருந்தால்.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">உங்கள் அறிக்கை ஆங்கிலத்தில் எழுதப்பட்டால் வேகமாக செயலாக்கப்படும்.</string>
+  <string name="reportCheatBoostHelp">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்தப் பயனர் நடத்தைபற்றித் தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி என்பதை எங்களுக்குச் சொல்ல.</string>
+  <string name="reportUsernameHelp">இந்த பயனர் பெயர் புண்படுத்தக்கூடியது என்ன என்பதை விளக்குங்கள். \"இது புண்படுத்தும்/பொருத்தமற்றது\" என்று மட்டும் சொல்லாதீர்கள், ஆனால் நீங்கள் எப்படி இந்த முடிவுக்கு வந்தீர்கள் என்று எங்களிடம் கூறுங்கள், குறிப்பாக ஆங்கிலத்தில் அல்ல, ஸ்லாங்கில் அல்லது ஒரு வரலாற்று/கலாச்சாரக் குறிப்பால் அவமதிப்பு தெளிவற்றதாக இருந்தால்.</string>
+  <string name="reportProcessedFasterInEnglish">உங்கள் அறிக்கை ஆங்கிலத்தில் எழுதப்பட்டால் வேகமாக செயலாக்கப்படும்.</string>
   <string name="error.provideOneCheatedGameLink">ஏமாற்றப்பட்ட விளையாட்டிற்கு குறைந்தபட்சம் ஒரு இணைப்பை வழங்கவும்.</string>
   <string name="by">மூலம் %s</string>
   <string name="importedByX">%s ஆல் இறக்குமதி செய்யப்பட்டது</string>
