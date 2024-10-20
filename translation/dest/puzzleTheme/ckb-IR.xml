@@ -39,7 +39,7 @@
   <string name="deflection">لادان</string>
   <string name="deflectionDescription">جوڵەیەک کە وا دەکات داشی بەرانبەر ئەرکێک وەرگرێت و سەرقاڵبێت بە بەرگریکردن لە خانەیەکی دیکەی گرنگ، زۆرجار پێی دەگوترێت \"زیاد بارکردن\".</string>
   <string name="discoveredAttack">دۆزینەوەی هێرشەکان</string>
-  <string name="discoveredAttackDescription">جوڵاندنی داشێکی (وەک ئەسپ)، کە پێشتر ڕێگری لە کشێک کردبوو لە ڕێگەی داشێکی مەودا دوورەوە (وەک قەڵا).</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">جوڵاندنی داشێکی (وەک ئەسپ)، کە پێشتر ڕێگری لە کشێک کردبوو لە ڕێگەی داشێکی مەودا دوورەوە (وەک قەڵا).</string>
   <string name="doubleCheck">کشکردن لە دوولاوە</string>
   <string name="doubleCheckDescription">کشکردن بە دوو داش لە یەک کاتدا، ئەنجامی هێرشێکە کە بە دوو داش دەکرێت لە کاتی جوڵانی داشێک کە کشی پێدەکەیت و داشێک کە نەتجوڵاندووە و ئۆتۆماتیکی دەکەوێتە بەرانبەر پاشای رکابەرەکەت و کش دەکات.</string>
   <string name="endgame">قۆناغی کۆتایی یاری</string>
