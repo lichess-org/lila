@@ -7,7 +7,7 @@
   <string name="enterPassword">அமைப்பை முடிக்க, உங்கள் கடவுச்சொல்லையும் செயலி உருவாக்கிய அங்கீகாரக் குறியீட்டையும் உள்ளிடவும். ஒவ்வொரு முறை உள்நுழையும்போதும் அங்கீகாரக் குறியீடு தேவைப்படும்.</string>
   <string name="ifYouCannotScanEnterX">உங்களால் குறியீட்டை ஊடறி செய்ய முடியாவிட்டால், உங்கள் பயன்பாட்டில் %s என்ற ரகசிய விசையை உள்ளிடவும்.</string>
   <string name="authenticationCode">அங்கீகார குறியீடு</string>
-  <string name="ifYouLoseAccessTwoFactor">குறிப்பு: உங்கள் இரு காரணி அங்கீகாரக் குறியீடுகளுக்கான அணுகலை இழந்தால், மின்னஞ்சல் வழியாக %sஐச் செய்யலாம்.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">குறிப்பு: உங்கள் இரு காரணி அங்கீகாரக் குறியீடுகளுக்கான அணுகலை இழந்தால், மின்னஞ்சல் வழியாக %sஐச் செய்யலாம்.</string>
   <string name="enableTwoFactor">இரண்டு காரணி அங்கீகாரத்தை இயக்கு</string>
   <string name="disableTwoFactor">இரண்டு காரணி அங்கீகாரத்தை முடக்கு</string>
   <string name="twoFactorEnabled">இரண்டு காரணி அங்கீகாரம் இயக்கப்பட்டது</string>
