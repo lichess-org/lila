@@ -4,7 +4,7 @@
   <string name="coordinateTraining">אימון קואורדינטות (נקודות ציון)</string>
   <string name="averageScoreAsWhiteX">הציון הממוצע כלבן: %s</string>
   <string name="averageScoreAsBlackX">הציון הממוצע כשחור: %s</string>
-  <string name="knowingTheChessBoard">ידיעת הקואורדינטות (נקודות הציון) של לוח השחמט היא מיומנות שחמטאית חשובה מאוד:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">ידיעת הקואורדינטות (נקודות הציון) של לוח השחמט היא מיומנות שחמטאית חשובה מאוד:</string>
   <string name="mostChessCourses">בימינו, שיטת הרישום האלגברית היא הנפוצה ביותר בכל תוכנות האימון.</string>
   <string name="talkToYourChessFriends">היא מקלה על התקשורת עם חבריך לשחמט, כי היא משמשת כשפת תקשורת המובנת לכולכם.</string>
   <string name="youCanAnalyseAGameMoreEffectively">ניתן לנתח משחקים באופן יעיל יותר כאשר הזיהוי של המשבצות הוא מהיר וקל.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">יש לך 30 שניות למקם נכונה כמה שיותר משבצות!</string>
   <string name="goAsLongAsYouWant">פתרו כפי יכולתכם, אין מגבלת זמן!</string>
   <string name="showCoordinates">הצגת קואורדינטות (נקודות ציון)</string>
-  <string name="showCoordsOnAllSquares">קואורדינטות על כל משבצת</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">קואורדינטות על כל משבצת</string>
   <string name="showPieces">הצגת הכלים</string>
   <string name="startTraining">התחילו להתאמן</string>
   <string name="findSquare">מצא/י את המשבצת</string>
