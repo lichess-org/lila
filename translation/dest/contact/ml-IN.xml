@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">ബന്ധപെടുക</string>
-  <string name="noConfirmationEmail">എനിക്കു് എന്റെ ഉറപ്പിക്കൽ ഇമെയിൽ കിട്ടിയില്ല</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">എനിക്കു് എന്റെ ഉറപ്പിക്കൽ ഇമെയിൽ കിട്ടിയില്ല</string>
   <string name="forgotPassword">ഞാൻ എന്റെ രഹസ്യവാക്ക് മറന്നുപോയി</string>
   <string name="forgotUsername">ഞാൻ എന്റെ ഉപയോക്തൃപേര് മറന്നുപോയി</string>
   <string name="wantCloseAccount">എനിക്കു് എന്റെ അക്കൌണ്ടു് അവസാനിപ്പിക്കണം</string>
