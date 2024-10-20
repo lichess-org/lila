@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">添加时间 (最早)</string>
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
-  <string name="alphabetical">按字母顺序</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">按字母顺序</string>
   <string name="addNewChapter">添加一个新章节</string>
   <plurals name="nbChapters">
     <item quantity="other">共 %s 章</item>
@@ -64,7 +64,7 @@
   <string name="downloadGame">下载棋局</string>
   <string name="studyUrl">研究链接</string>
   <string name="currentChapterUrl">当前章节链接</string>
-  <string name="youCanPasteThisInTheForumToEmbed">你可以将此粘贴到论坛以嵌入章节</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">你可以将此粘贴到论坛以嵌入章节</string>
   <string name="startAtInitialPosition">从初始局面开始</string>
   <string name="startAtX">从 %s 开始</string>
   <string name="embedInYourWebsite">嵌入到你的网站上</string>
@@ -95,9 +95,9 @@
   <string name="startFromInitialPosition">从初始局面开始</string>
   <string name="editor">编辑器</string>
   <string name="startFromCustomPosition">从自定义局面开始</string>
-  <string name="loadAGameByUrl">通过 URL 加载游戏</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">通过 URL 加载游戏</string>
   <string name="loadAPositionFromFen">从 FEN 加载一个局面</string>
-  <string name="loadAGameFromPgn">从 PGN 文件加载游戏</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">从 PGN 文件加载游戏</string>
   <string name="automatic">自动</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">在此粘贴你的 PGN 文本，最多支持 %s 个游戏</item>
@@ -160,7 +160,7 @@
   <string name="popularTopics">热门主题</string>
   <string name="manageTopics">管理主题</string>
   <string name="back">回到起始</string>
-  <string name="playAgain">重玩</string>
-  <string name="whatWouldYouPlay">你会在这个位置上怎么走？</string>
-  <string name="youCompletedThisLesson">恭喜！你完成了这个课程！</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">重玩</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">你会在这个位置上怎么走？</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">恭喜！你完成了这个课程！</string>
 </resources>
