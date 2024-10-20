@@ -27,7 +27,8 @@ interface I18nPlural {
 }
 interface I18n {
   /** Global noarg key lookup (only if absolutely necessary). */
-  (key: string): string;\n\n`;
+  (key: string): string;
+  quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
 
 const jsPrelude =
   '"use strict";(()=>{' +
@@ -44,17 +45,17 @@ const jsPrelude =
         return (r.asArray = (...n) => l(t, ...n)), r;
       }
       function o(t, n) {
-        return t[site.quantity(n)] || t.other || t.one || '';
+        return t[i18n.quantity(n)] || t.other || t.one || '';
       }
       function l(t, ...r) {
         let n = t.split(/(%(?:\\d\\$)?s)/);
         if (r.length) {
           let e = n.indexOf('%s');
-          if (e !== -1) n[e] = r[0];
+          if (e != -1) n[e] = r[0];
           else
             for (let i = 0; i < r.length; i++) {
               let s = n.indexOf('%' + (i + 1) + '$s');
-              s !== -1 && (n[s] = r[i]);
+              s != -1 && (n[s] = r[i]);
             }
         }
         return n;
@@ -62,6 +63,132 @@ const jsPrelude =
       { minify: true, loader: 'js' },
     )
   ).code;
+
+const siteInit = (
+  await transform(
+    `window.i18n = function(k) {
+      for (let v of Object.values(window.i18n)) {
+        if (v[k]) return v[k];
+        return k;
+      }
+    };
+    window.i18n.quantity = [
+      {
+        l: ['fr', 'ff', 'kab', 'co', 'ak', 'am', 'bh', 'fil', 'tl', 'guw', 'hi', 'ln', 'mg', 'nso', 'ti', 'wa'],
+          q: e => (e <= 1 ? 'one' : 'other'),
+        },
+        { l: ['cs', 'sk'], q: e => (e == 1 ? 'one' : e >= 2 && e <= 4 ? 'few' : 'other') },
+        {
+          l: ['hr', 'ru', 'sr', 'uk', 'be', 'bs', 'sh', 'ry'],
+          q: e => {
+            const t = e % 100,
+              n = e % 10;
+            return n == 1 && t != 11
+              ? 'one'
+              : n >= 2 && n <= 4 && !(t >= 12 && t <= 14)
+                ? 'few'
+                : n == 0 || (n >= 5 && n <= 9) || (t >= 11 && t <= 14)
+                  ? 'many'
+                  : 'other';
+          },
+        },
+        { l: ['lv'], q: e => (e == 0 ? 'zero' : e % 10 == 1 && e % 100 != 11 ? 'one' : 'other') },
+        {
+          l: ['lt'],
+          q: e => {
+            const t = e % 100,
+              n = e % 10;
+            return n != 1 || (t >= 11 && t <= 19)
+              ? n >= 2 && n <= 9 && !(t >= 11 && t <= 19)
+                ? 'few'
+                : 'other'
+              : 'one';
+          },
+        },
+        {
+          l: ['pl'],
+          q: e => {
+            const t = e % 100,
+              n = e % 10;
+            return e == 1 ? 'one' : n >= 2 && n <= 4 && !(t >= 12 && t <= 14) ? 'few' : 'other';
+          },
+        },
+        {
+          l: ['ro', 'mo'],
+          q: e => {
+            const t = e % 100;
+            return e == 1 ? 'one' : e == 0 || (t >= 1 && t <= 19) ? 'few' : 'other';
+          },
+        },
+        {
+          l: ['sl'],
+          q: e => {
+            const t = e % 100;
+            return t == 1 ? 'one' : t == 2 ? 'two' : t >= 3 && t <= 4 ? 'few' : 'other';
+          },
+        },
+        {
+          l: ['ar'],
+          q: e => {
+            const t = e % 100;
+            return e == 0
+              ? 'zero'
+              : e == 1
+                ? 'one'
+                : e == 2
+                  ? 'two'
+                  : t >= 3 && t <= 10
+                    ? 'few'
+                    : t >= 11 && t <= 99
+                      ? 'many'
+                      : 'other';
+          },
+        },
+        { l: ['mk'], q: e => (e % 10 == 1 && e != 11 ? 'one' : 'other') },
+        {
+          l: ['cy', 'br'],
+          q: e =>
+            e == 0
+              ? 'zero'
+              : e == 1
+                ? 'one'
+                : e == 2
+                  ? 'two'
+                  : e == 3
+                    ? 'few'
+                    : e == 6
+                      ? 'many'
+                      : 'other',
+        },
+        {
+          l: ['mt'],
+          q: e => {
+            const t = e % 100;
+            return e == 1
+              ? 'one'
+              : e == 0 || (t >= 2 && t <= 10)
+                ? 'few'
+                : t >= 11 && t <= 19
+                  ? 'many'
+                  : 'other';
+          },
+        },
+        {
+          l: ['ga', 'se', 'sma', 'smi', 'smj', 'smn', 'sms'],
+          q: e => (e == 1 ? 'one' : e == 2 ? 'two' : 'other'),
+        },
+        {
+          l: [
+            'az', 'bm', 'fa', 'ig', 'hu', 'ja', 'kde', 'kea', 'ko', 'my', 'ses', 'sg', 'to', 'tr', 'vi',
+            'wo', 'yo', 'zh', 'bo', 'dz', 'id', 'jv', 'ka', 'km', 'kn', 'ms', 'th', 'tp', 'io', 'ia'
+          ],
+          q: e => 'other',
+        },
+      ].find(({ l: e }) => e.includes(document.documentElement.lang.split('-')[0]))?.q ||
+      (e => e == 1 ? 'one' : 'other');`,
+    { minify: true, loader: 'js' },
+  )
+).code;
 
 export function stopI18n(): void {
   clearTimeout(watchTimeout);
@@ -177,15 +304,10 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
           .then(parseXml)
       : []),
   ]);
-  const jsInit =
-    cat === 'site'
-      ? 'window.i18n=function(k){for(let v of Object.values(window.i18n))if(v[k])return v[k];return k};'
-      : '';
   const code =
     jsPrelude +
-    jsInit +
-    `if(!window.i18n.${cat})window.i18n.${cat}={};` +
-    `let i=window.i18n.${cat};` +
+    (cat === 'site' ? siteInit : '') +
+    `let i=window.i18n.${cat}={};` +
     [...translations]
       .map(
         ([k, v]) =>

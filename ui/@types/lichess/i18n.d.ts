@@ -5,12 +5,12 @@ interface I18nFormat {
 }
 interface I18nPlural {
   (quantity: number, ...args: (string | number)[]): string; // pluralSame
-  raw: (quantity: number, ...args: (string | number)[]) => string; // plural
-  asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural
+  asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
 }
 interface I18n {
   /** Global noarg key lookup (only if absolutely necessary). */
   (key: string): string;
+  quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
   activity: {
     /** Activity */
