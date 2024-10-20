@@ -29,7 +29,7 @@
   <string name="sourceSingleUrl">PGN Zdrojová URL adresa</string>
   <string name="sourceUrlHelp">URL adresa, kterou bude Lichess kontrolovat pro získání PGN aktualizací. Musí být veřejně přístupná z internetu.</string>
   <string name="sourceGameIds">Až 64 ID Lichess her, oddělených mezerama.</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Datum zahájení v lokálním čase turnaje: %s</string>
+  <string name="startDateTimeZone">Datum zahájení v lokálním čase turnaje: %s</string>
   <string name="startDateHelp">Nepovinné, pokud víte, kdy událost začíná</string>
   <string name="credits">Uveďte zdroj</string>
   <string name="currentGameUrl">URL adresa právě probíhající partie</string>
@@ -43,8 +43,6 @@
   <string name="definitivelyDeleteTournament">Opravdu smazat celý turnaj, všechna kola a hry.</string>
   <string name="showScores">Zobraz skóre hráču dle herních výsledků</string>
   <string name="replacePlayerTags">Volitelné: nahraď jména hráčů, rating a tituly</string>
-  <string name="periodInSeconds">Doba v sekundách</string>
-  <string name="periodInSecondsHelp">Volitelné, jak dlouho se má čekat mezi jednotlivými požadavky. Min. 2s, max. 60s. Výchozí hodnota je automatická podle počtu diváků.</string>
   <string name="fideFederations">FIDE federace</string>
   <string name="top10Rating">Rating top 10</string>
   <string name="fidePlayers">FIDE hráči</string>
