@@ -35,7 +35,6 @@ case class Pref(
     insightShare: Int,
     keyboardMove: Int,
     voice: Option[Int],
-    showRatingsInGame: Int,
     zen: Int,
     ratings: Int,
     flairs: Boolean,
@@ -93,7 +92,8 @@ case class Pref(
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
 
-  val showRatings = ratings == Ratings.YES
+  def showRatings = ratings == Ratings.YES // was val before
+  def hasShowRatingsInGame = ratings == Ratings.GAME_ONLY
 
   def is2d = !is3d
 
@@ -101,7 +101,6 @@ case class Pref(
 
   def hasKeyboardMove      = keyboardMove == KeyboardMove.YES
   def hasVoice             = voice.has(Voice.YES)
-  def hasShowRatingsInGame = showRatingsInGame == ShowRatingsInGame.YES
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
@@ -251,7 +250,6 @@ object Pref:
 
   object KeyboardMove      extends BooleanPref
   object Voice             extends BooleanPref
-  object ShowRatingsInGame extends BooleanPref
 
   object RookCastle:
     val NO  = 0
@@ -428,7 +426,16 @@ object Pref:
       GAME_AUTO -> "In-game only"
     )
 
-  object Ratings extends BooleanPref
+  object Ratings:
+    val NO        = 0
+    val YES       = 1
+    val GAME_ONLY = 2
+
+    val choices = Seq(
+      NO        -> "No",
+      YES       -> "Yes",
+      GAME_ONLY -> "In-game only"
+    )
 
   val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)
   val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
@@ -477,7 +484,6 @@ object Pref:
     insightShare = lila.core.pref.InsightShare.FRIENDS,
     keyboardMove = KeyboardMove.NO,
     voice = None,
-    showRatingsInGame = ShowRatingsInGame.YES,
     zen = Zen.NO,
     ratings = Ratings.YES,
     flairs = true,

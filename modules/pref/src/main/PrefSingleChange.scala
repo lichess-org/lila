@@ -37,8 +37,6 @@ object PrefSingleChange:
       _.copy(voice = v.some),
     changing(_.keyboardMove): v =>
       _.copy(keyboardMove = v | Pref.KeyboardMove.NO),
-    changing(_.showRatingsInGame): v =>
-      _.copy(showRatingsInGame = v | Pref.ShowRatingsInGame.YES),
     changing(_.autoQueen): v =>
       _.copy(autoQueen = v),
     changing(_.premove): v =>

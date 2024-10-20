@@ -77,7 +77,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
             setting(
               trp.showPlayerRatings(),
               frag(
-                radios(form("ratings"), booleanChoices),
+                radios(form("ratings"), translatedRatingsChoices),
                 div(cls := "help text shy", dataIcon := Icon.InfoCircle)(trp.explainShowPlayerRatings())
               ),
               "showRatings"
@@ -186,11 +186,6 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
               trp.scrollOnTheBoardToReplayMoves(),
               radios(form("behavior.scrollMoves"), booleanChoices),
               "scrollOnTheBoardToReplayMoves"
-            ),
-            setting(
-              trp.showRatingsWhilePlaying(),
-              radios(form("behavior.showRatingsInGame"), booleanChoices),
-              "showRatingsWhilePlaying"
             )
           ),
           categFieldset(PrefCateg.Privacy, categ)(
