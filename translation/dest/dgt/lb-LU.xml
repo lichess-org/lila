@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT-Briet-Ufuerderungen</string>
   <string name="dgtBoardLimitations">DGT-Briet-Beschränkungen</string>
   <string name="thisPageAllowsConnectingDgtBoard">Dës Säit erlaabt et dir däin DGT-Briet mat Lichess ze verbannen an ze benotzen, fir domat Partien ze spillen.</string>
-  <string name="toConnectTheDgtBoard">Fir däin elektronescht DGT-Briet ze verbannen, muss du %s installéieren.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Fir däin elektronescht DGT-Briet ze verbannen, muss du %s installéieren.</string>
   <string name="downloadHere">Du kanns d\'Software hei eroflueden: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Wa %1$s op dësem Computer leeft, kanns du deng Verbindung iwwerpréiwen, andeems du %2$s.</string>
   <string name="openingThisLink">dëse Link opméchs</string>
