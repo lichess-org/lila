@@ -39,7 +39,7 @@
   <string name="deflection">Ablänkig</string>
   <string name="deflectionDescription">En Zug, wo e gägnerischi Figur devo ablänkt e Figur oder es wichtigs Fäld z\'schütze. Wird au als \"Überlaschtig\" bezeichnet.</string>
   <string name="discoveredAttack">Abzugsagriff</string>
-  <string name="discoveredAttackDescription">Me nimmt (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wit weg stehendi, Figur (z. B. en Turm) blockiert hät, us em Wäg.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Me nimmt (z. B. en Schpringer) wo vorher en Agriff dur e anderi, wit weg stehendi, Figur (z. B. en Turm) blockiert hät, us em Wäg.</string>
   <string name="doubleCheck">Doppelschach</string>
   <string name="doubleCheckDescription">Abzug mit doppletem Schachgebot, wobi die vorher verdeckti Figur- und die Abzogeni, de König glichzitig agrifed.</string>
   <string name="endgame">Ändschpil</string>
