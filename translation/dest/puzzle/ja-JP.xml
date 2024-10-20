@@ -31,8 +31,8 @@
   <string name="byOpenings">オープニング別</string>
   <string name="puzzlesByOpenings">オープニング別の問題</string>
   <string name="openingsYouPlayedTheMost">レート戦でもっともよく使ったオープニング</string>
-  <string name="useFindInPage">ブラウザのページ内検索（Ctrl+F）を使えばお好きなオープニングが探せます。</string>
-  <string name="useCtrlF">Ctrl+F を使えばお好きなオープニングが探せます。</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ブラウザのページ内検索（Ctrl+F）を使えばお好きなオープニングが探せます。</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+F を使えばお好きなオープニングが探せます。</string>
   <string name="notTheMove">その手は違います！</string>
   <string name="trySomethingElse">別の手をどうぞ。</string>
   <string name="ratingX">レーティング: %s</string>
@@ -63,7 +63,7 @@
   <string name="strengths">得意テーマ</string>
   <string name="history">解答履歴</string>
   <string name="solved">正解</string>
-  <string name="failed">失敗</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">失敗</string>
   <string name="streakDescription">だんだん難しくなる問題に連続正解してください。時間制限はないのでじっくりとどうぞ。1 手間違えると終了です！　ただし途中 1 手だけ飛ばすことができます。</string>
   <string name="yourStreakX">連続正解：%s</string>
   <string name="streakSkipExplanation">手を飛ばすことで連続正解が続きます！ 1 回だけ有効。</string>
