@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Trajnim kordinatash</string>
   <string name="averageScoreAsWhiteX">Rezultati mesatar si i bardhë: %s</string>
   <string name="averageScoreAsBlackX">Rezultati mesatar si i zi: %s</string>
-  <string name="knowingTheChessBoard">Njohja e koordinatave të fushës është një aftësi shumë e rëndësishme e shahut:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Njohja e koordinatave të fushës është një aftësi shumë e rëndësishme e shahut:</string>
   <string name="mostChessCourses">Shumica e kurseve dhe ushtrimeve të shahut përdorin gjerësisht shënimet algjebrike.</string>
   <string name="talkToYourChessFriends">E bën më të lehtë të bisedoni me shokët tuaj të shahut, ngaqë të dy kuptoni “gjuhën e shahut”.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Një lojë mund ta analizoni më me efikasitet, nëse kuptoni shpejt koordinatat.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Keni 30 sekonda për të përshoqëruar saktësisht sa më tepër kuti që mundet!</string>
   <string name="goAsLongAsYouWant">Vazhdoni për sa kohë doni, s’ka kufi kohor!</string>
   <string name="showCoordinates">Shfaq koordinata</string>
-  <string name="showCoordsOnAllSquares">Koordinata në çdo katror</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinata në çdo katror</string>
   <string name="showPieces">Shfaq gurë</string>
   <string name="startTraining">Filloni trajnimin</string>
   <string name="findSquare">Gjeni kuadrat</string>
