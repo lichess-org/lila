@@ -27,7 +27,6 @@
   <string name="deleteTournament">Vee hierdie toernooi uit</string>
   <string name="definitivelyDeleteTournament">Vee beslis die hele toernooi uit, met al sy rondtes en spelle.</string>
   <string name="replacePlayerTags">Opsioneel: vervang spelername, graderings en titels</string>
-  <string name="periodInSeconds">Periode in sekondes</string>
   <string name="fideFederations">FIDE-federasies</string>
   <string name="top10Rating">Top 10 gradering</string>
   <string name="fidePlayers">FIDE-deelnemers</string>
