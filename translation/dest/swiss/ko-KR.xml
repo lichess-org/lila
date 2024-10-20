@@ -21,7 +21,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">라운드 사이 %s분</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">시작까지</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">시작까지</string>
   <string name="nextRound">다음 라운드</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">진행중인 게임</item>
@@ -72,7 +72,7 @@ Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비�
 이후 시스템은 그 플레이어를 토너먼트에서 기권처리하므로 더 이상 점수를 잃지 않습니다.
 플레이어는 언제든 토너먼트에 다시 참가할 수 있습니다.</string>
   <string name="protectionAgainstNoShowQ">미참석 시 어떻게 처리되나요?</string>
-  <string name="protectionAgainstNoShowA">스위스 이벤트에 등록했지만 게임을 하지 않는 플레이어는 문제가 될 수 있습니다.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">스위스 이벤트에 등록했지만 게임을 하지 않는 플레이어는 문제가 될 수 있습니다.
 이 문제를 완화하기 위해 Lichess는 게임을 플레이하지 않은 플레이어는 일정 시간 동안 새로운 스위스 이벤트에 참여하지 못하도록 합니다.
 스위스 이벤트의 운영자는 어쨌든 이벤트에 참여하도록 결정할 수 있습니다.</string>
   <string name="lateJoinQ">늦게 참가할 수 있나요?</string>
