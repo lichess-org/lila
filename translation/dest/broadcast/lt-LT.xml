@@ -41,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
   <string name="showScores">Rodyti žaidėjų balus pagal partijų rezultatus</string>
   <string name="replacePlayerTags">Pasirenkama: pakeiskite žaidėjų vardus, reitingus ir titulus</string>
-  <string name="periodInSeconds">Laikotarpis sekundėmis</string>
-  <string name="periodInSecondsHelp">Pasirinkimas, kiek laiko reikės laukti tarp užklausų. Min 2s, max 60s. Pagal numatytuosius nustatymus-automatinis, atsižvelgiant į žiūrinčiųjų skaičių.</string>
   <string name="fideFederations">FIDE federacijos</string>
   <string name="top10Rating">10 aukščiausių reitingų</string>
   <string name="fidePlayers">FIDE žaidėjai</string>
