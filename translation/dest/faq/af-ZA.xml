@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Party Lichess blaaie het kitssleutels wat jy kan gebruik. Probeer om die \'?\' sleutel te druk op \'n studie, analise, raaisel of spel blad om die beskikbare kitssleutels te vertoon.</string>
   <string name="fairPlay">Regverdige spel</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ek in aanmerking vir die outomatiese terugbetaling van graderings van bedrieërs?</string>
-  <string name="ratingRefundExplanation">Een minuut nadat \'n speler gemerk is, word hul 40 laaste wedstryde in die afgelope drie dae geneem. As u die teenstander in daardie wedstryde is, het u \'n aanslag verloor (as gevolg van \'n verlies of gelykop uitslag) en u gradering was nie voorlopig nie, u ontvang \'n terugbetaling. Die terugbetaling is beperk op grond van u piekgradering en u vordering na die wedstryd.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Een minuut nadat \'n speler gemerk is, word hul 40 laaste wedstryde in die afgelope drie dae geneem. As u die teenstander in daardie wedstryde is, het u \'n aanslag verloor (as gevolg van \'n verlies of gelykop uitslag) en u gradering was nie voorlopig nie, u ontvang \'n terugbetaling. Die terugbetaling is beperk op grond van u piekgradering en u vordering na die wedstryd.
   (Byvoorbeeld, as u gradering aansienlik toegeneem het na daardie speletjies, sal u miskien geen terugbetaling of slegs \'n gedeeltelike terugbetaling kry nie.) \'N Terugbetaling sal nooit meer as 150 punte oorskry nie.</string>
   <string name="preventLeavingGameWithoutResigning">Wat word gedoen daaraan dat spelers speletjies verlaat aonder om te bedank?</string>
   <string name="leavingGameWithoutResigningExplanation">As u opponent gereeld speletjies staak / verlaat, word hulle \"speel verban\", wat beteken dat hulle tydelik verbied word om speletjies te speel. Dit word nie publiek op hul profiel aangedui nie. As hierdie gedrag voortduur, verhoog die lengte van die speelbaan - en langdurige gedrag van hierdie aard kan lei tot die sluiting van die rekening.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Hoe word daar besluit oor Bullet, Blitz en ander tydsbeheer?</string>
   <string name="basedOnGameDuration">Lichess-tydkontroles is gebaseer op die geskatte tydsduur = %1$s
 Die geskatte duur van \'n 5 + 3-speletjie is byvoorbeeld 5 × 60 + 40 × 3 = 420 sekondes.</string>
-  <string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(clock initial time) + 40 × (clock increment)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Watter variante kan ek op Lichess speel?</string>
