@@ -283,10 +283,6 @@ interface I18n {
     newBroadcast: string;
     /** Ongoing */
     ongoing: string;
-    /** Period in seconds */
-    periodInSeconds: string;
-    /** Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers. */
-    periodInSecondsHelp: string;
     /** Recent tournaments */
     recentTournaments: string;
     /** Optional: replace player names, ratings and titles */
@@ -3071,8 +3067,6 @@ interface I18n {
     endgamePositions: string;
     /** Error loading engine */
     engineFailed: string;
-    /** Engine manager */
-    engineManager: string;
     /** This email address is invalid */
     'error.email': string;
     /** This email address is not acceptable. Please double-check it, and try again. */

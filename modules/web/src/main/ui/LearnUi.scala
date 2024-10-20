@@ -25,6 +25,7 @@ final class LearnUi(helpers: Helpers):
           )
         )
       .css("learn")
+      .i18n(_.learn)
       .graph(
         title = "Learn chess by playing",
         description = "You don't know much about chess? Excellent! Let's have fun and learn to play chess!",
