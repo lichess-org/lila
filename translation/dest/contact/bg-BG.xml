@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Как можем да бъдем полезни?</string>
   <string name="visitThisPage">Посетете тази страница за разрешаване на проблема</string>
   <string name="iCantLogIn">Не мога да вляза в профила си</string>
-  <string name="noConfirmationEmail">Не получих имейл за потвърждение</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Не получих имейл за потвърждение</string>
   <string name="forgotPassword">Забравих паролата си</string>
   <string name="forgotUsername">Забравих потребителското си име</string>
   <string name="youCanLoginWithEmail">Можете да влезете с имейл адреса, с който сте регистрирани</string>
