@@ -50,6 +50,7 @@
     display: block;
     float: left;
     width: 33.33%;
+    border-bottom: $border;
   }
 
   .player_chats .game:nth-child(odd) {
@@ -74,7 +75,7 @@
 
   .player_chats .game .chat {
     padding-top: 0;
-    height: 20em;
+    height: 15em;
     overflow: hidden;
   }
 
@@ -95,6 +96,7 @@
   .mod-timeline__event .message,
   .player_chats .line.author,
   .threads .post.author {
+    opacity: 1;
     cursor: pointer;
     border-bottom: 1px dashed $c-accent;
     &:hover {
@@ -105,7 +107,11 @@
   .thread {
     padding: 20px;
     overflow-y: auto;
-    max-height: 400px;
+    max-height: 300px;
+    border-bottom: $border;
+  }
+  .thread td {
+    padding: 0.3em 1em;
   }
 
   .thread .title {

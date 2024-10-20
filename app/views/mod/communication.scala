@@ -116,8 +116,8 @@ def communication(
                   )
               )
             ,
+            h2("Recent inbox messages"),
             div(cls := "threads")(
-              h2("Recent inbox messages"),
               convos.nonEmpty.option:
                 convos.map: modConvo =>
                   div(cls := "thread")(
