@@ -16,7 +16,7 @@
   <string name="equality">sama wawa pi nasin ijo</string>
   <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">nasin pi ijo musi sina li ike. taso, sina ken sama e ona tawa jan ante.</string>
   <string name="discoveredAttack">o open e nasin utala</string>
-  <string name="discoveredAttackDescription">ijo musi li tawa, li open e nasin utala tawa ijo musi ante.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">ijo musi li tawa, li open e nasin utala tawa ijo musi ante.</string>
   <string name="doubleCheck">lawa mije li ken moli tan ijo tu</string>
   <string name="doubleCheckDescription">ijo musi wan li tawa, li open e nasin utala tawa ijo musi ante. ijo musi tu li utala e lawa mije lon tenpo sama.</string>
   <string name="endgame">pini musi</string>
