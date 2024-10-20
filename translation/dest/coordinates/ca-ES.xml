@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Entrenament de coordenades</string>
   <string name="averageScoreAsWhiteX">Puntuació mitjana amb blanques: %s</string>
   <string name="averageScoreAsBlackX">Puntuació mitjana amb negres: %s</string>
-  <string name="knowingTheChessBoard">Saber les coordenades del tauler és una habilitat important:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Saber les coordenades del tauler és una habilitat important:</string>
   <string name="mostChessCourses">La majoria de cursos i exercicis usa la notació algebraica de forma extensiva.</string>
   <string name="talkToYourChessFriends">Facilita la comunicació amb altres jugadors, ja que tots enteneu l’«idioma dels escacs».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Pots analitzar un joc de forma més eficient si en pots reconèixer ràpidament les coordenades.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Tens 30 segons per indicar correctament tantes caselles com sigui possible!</string>
   <string name="goAsLongAsYouWant">Pren-te tant temps com vulguis, no hi ha límit de temps!</string>
   <string name="showCoordinates">Mostrar les coordenades</string>
-  <string name="showCoordsOnAllSquares">Coordenades en cada casella</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordenades en cada casella</string>
   <string name="showPieces">Mostrar les peces</string>
   <string name="startTraining">Comença l\'entrenament</string>
   <string name="findSquare">Cerca caselles</string>
