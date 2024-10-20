@@ -36,7 +36,7 @@
   <string name="xPublishedY">%1$s опубликовал %2$s</string>
   <string name="thisPostIsPublished">Эта запись опубликована</string>
   <string name="thisIsADraft">Это черновик</string>
-  <string name="moreBlogPostsBy">Больше записей в блоге от %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Больше записей в блоге от %s</string>
   <string name="noPostsInThisBlogYet">В этом блоге пока нет записей.</string>
   <string name="noDrafts">Нет черновиков для просмотра.</string>
   <string name="latestBlogPosts">Свежие записи в блоге</string>
