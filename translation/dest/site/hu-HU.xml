@@ -124,7 +124,6 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
-  <string name="engineManager">Motor menedzser</string>
   <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
