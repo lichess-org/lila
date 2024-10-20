@@ -11,7 +11,7 @@
   <string name="newTeam">تیم جدید</string>
   <string name="myTeams">تیم‌های من</string>
   <string name="noTeamFound">تیمی پیدا نشد</string>
-  <string name="joinTeam">پیوستن به تیم</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">پیوستن به تیم</string>
   <string name="onlyLeaderLeavesTeam">لطفا قبل از ترک تیم یک رهبر جدید اضافه کنید، یا تیم را ببندید.</string>
   <string name="quitTeam">خروج از تیم</string>
   <string name="manuallyReviewAdmissionRequests">درخواستهای پذیرش را به صورت شخصی و دستی بررسی کنید</string>
@@ -56,7 +56,7 @@
   <string name="joinLichessVariantTeam">برای خبرها و رویدادها به تیم رسمی %s بپیوندید</string>
   <string name="teamPage">صفحه تیم ها</string>
   <string name="thisTeamBattleIsOver">این مسابقات به پایان رسیده‌است و تیم‌ها دیگر نمی‌توانند به‌روز شوند.</string>
-  <string name="listTheTeamsThatWillCompete">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>
   <string name="oneTeamPerLine">هر تیم در یک خط. از تکمیل خودکار استفاده کنید.</string>
   <string name="oneTeamPerLineHelp">می‌توانید این لیست را از یک مسابقه به مسابقات دیگر کپی کنید!
 
