@@ -530,7 +530,7 @@
   <string name="cheat">ചതി</string>
   <string name="troll">ചൂണ്ട</string>
   <string name="other">മറ്റുള്ളവ</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">താങ്ങളുടെ കുറ്റപെടുത്തൽരേഖ ഇംഗ്ലീഷിൽ എഴുതിയാൽ താങ്ങൾക്കു് ഉടനെ മറുപടി കിട്ടും.</string>
+  <string name="reportProcessedFasterInEnglish">താങ്ങളുടെ കുറ്റപെടുത്തൽരേഖ ഇംഗ്ലീഷിൽ എഴുതിയാൽ താങ്ങൾക്കു് ഉടനെ മറുപടി കിട്ടും.</string>
   <string name="error.provideOneCheatedGameLink">കുറഞ്ഞത് ഒരു കളിയുടെയെങ്കിലും ലിങ്ക് നല്‍കേണ്ടതാണ്.</string>
   <string name="by">%sന്റേത്</string>
   <string name="importedByX">%s ഇറക്കുമതി ചെയ്തത്</string>
@@ -658,12 +658,12 @@
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
   <string name="averageCentipawnLoss">ശരാശരി centipawn നഷ്ടം</string>
   <string name="accuracy">കൃത്യത</string>
-  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
+  <string name="keyboardShortcuts">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
   <string name="keyMoveBackwardOrForward">നീക്കം പുറകോട്ട്/മുന്നോട്ട്</string>
   <string name="keyGoToStartOrEnd">പോകാം തുടക്കം/ഒടുക്കം</string>
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
-  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">അടുത്ത (തെറ്റുകളിൽ നിന്ന് പഠിക്കുക)</string>
+  <string name="keyNextLearnFromYourMistakes">അടുത്ത (തെറ്റുകളിൽ നിന്ന് പഠിക്കുക)</string>
   <string name="keyNextBlunder">അടുത്ത അബദ്ധം</string>
   <string name="keyNextMistake">അടുത്ത തെറ്റ്</string>
   <string name="keyNextInaccuracy">അടുത്ത കൃത്യമില്ലായ്മ</string>
@@ -901,7 +901,7 @@
   <string name="onlyTeamLeaders">കളികൂട്ടനേതാവ് മാത്രം</string>
   <string name="onlyTeamMembers">കളികൂട്ടം അംഗംക്കാർ മാത്രം</string>
   <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
+  <string name="showHelpDialog">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
   <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
