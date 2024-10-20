@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">Учебные классы</string>
+  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Учебные классы</string>
   <string name="teachClassesOfChessStudents">Преподавайте шахматы ученикам с помощью инструментов «Уроки Lichess».</string>
   <string name="features">Возможности</string>
   <string name="quicklyGenerateSafeUsernames">Быстро создавайте безопасные имена и пароли для учеников</string>
