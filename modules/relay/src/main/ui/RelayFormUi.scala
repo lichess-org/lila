@@ -342,8 +342,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 ,
                 form3.group(
                   form("period"),
-                  trb.periodInSeconds(),
-                  help = trb.periodInSecondsHelp().some,
+                  "Period in seconds",
+                  help = frag(
+                    "Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers."
+                  ).some,
                   half = true
                 )(form3.input(_, typ = "number"))
               )
