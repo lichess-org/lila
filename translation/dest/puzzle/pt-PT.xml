@@ -31,8 +31,8 @@
   <string name="byOpenings">Por abertura</string>
   <string name="puzzlesByOpenings">Problemas por abertura</string>
   <string name="openingsYouPlayedTheMost">Aberturas que jogou mais vezes em partidas com rating</string>
-  <string name="useFindInPage">Usar \"Localizar na página\" no menu do navegador para encontrar a sua abertura favorita!</string>
-  <string name="useCtrlF">Usar Ctrl+f para encontrar a sua abertura favorita!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Usar \"Localizar na página\" no menu do navegador para encontrar a sua abertura favorita!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Usar Ctrl+f para encontrar a sua abertura favorita!</string>
   <string name="notTheMove">Não é esse movimento!</string>
   <string name="trySomethingElse">Tenta outra coisa.</string>
   <string name="ratingX">Pontuação: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Pontos fortes</string>
   <string name="history">Histórico de problemas</string>
   <string name="solved">resolvido</string>
-  <string name="failed">incorreto</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">incorreto</string>
   <string name="streakDescription">Resolve puzzles progressivamente mais difíceis e estabelece uma sequência de vitórias. Não há relógio, demora o teu tempo. Um movimento errado e o jogo acaba! No entanto, podes saltar um movimento por sessão.</string>
   <string name="yourStreakX">Vitórias consecutivas: %s</string>
   <string name="streakSkipExplanation">Salta este movimento para preservar a tua sequência! Apenas funciona uma vez por sessão.</string>
