@@ -88,9 +88,11 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
     "Chat flag",
     publicLineSource(l.from),
-    fragList(
-      PublicLine.merge.split(l.text).map(quote => span(cls := "message")(renderText(quote, true))),
-      " | "
+    div(cls := "mod-timeline__texts")(
+      fragList(
+        PublicLine.merge.split(l.text).map(quote => span(cls := "message")(Analyser.highlightBad(quote))),
+        " | "
+      )
     )
   )
 
