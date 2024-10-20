@@ -32,7 +32,7 @@
     <item quantity="one">%s minūte starp raundiem</item>
     <item quantity="other">%s minūtes starp raundiem</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Sāksies pēc</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Sāksies pēc</string>
   <string name="nextRound">Nākamais raunds</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="zero">Pašreizējās spēles</item>
@@ -72,7 +72,7 @@ Mūsuprāt ir lielāka varbūtība, ka komanda būs piemērota šiem nosacījumi
 Tad, sistēma izņems spēlētāju no turnīra, lai izvairītos no turpmākiem zaudējumiem.
 Iespējams atkal pievienoties turnīram jebkurā laikā.</string>
   <string name="protectionAgainstNoShowQ">Kas tiek darīts neierašanās gadījumā?</string>
-  <string name="protectionAgainstNoShowA">Spēlētāji, kuri reģistrējas Šveices turnīriem taču nespēlē rada problēmas.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Spēlētāji, kuri reģistrējas Šveices turnīriem taču nespēlē rada problēmas.
 Lai ar to cīnītos, Lichess spēlētājiem, kuri neaizvada ne spēles, uz noteiktu laiku aizliedz spēlēt jaunos Šveices turnīros.
 Turnīra organizētājs var nolemt atļaut tiem piedalīties tik un tā.</string>
   <string name="lateJoinQ">Vai spēlētāji var pievienoties ar aizkavēšanos?</string>
