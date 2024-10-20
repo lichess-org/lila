@@ -136,7 +136,8 @@ final class ModTimelineApi(
       appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
       notes = notesAll.filter(filterNote)
-      reports <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
+      reportsAll <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
+      reports = reportsAll.filter(filterReport)
       playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))
     yield ModTimeline(user, modLog, appeal, notes, reports, playban, lines)
@@ -150,6 +151,8 @@ final class ModTimelineApi(
     if note.from.is(UserId.irwin) then false
     else if note.text.startsWith("Appeal reply:") then false
     else true
+
+  private def filterReport(r: Report): Boolean = !r.isSpontaneous
 
   private object modsList:
     var all: Set[ModId]               = Set(UserId.lichess.into(ModId))

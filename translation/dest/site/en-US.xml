@@ -59,7 +59,7 @@
   <string name="analysis">Analysis board</string>
   <string name="depthX">Depth %s</string>
   <string name="usingServerAnalysis">Using server analysis</string>
-  <string name="loadingEngine">Loading engine ...</string>
+  <string name="loadingEngine">Loading engine...</string>
   <string name="calculatingMoves">Calculating moves...</string>
   <string name="engineFailed">Error loading engine</string>
   <string name="cloudAnalysis">Cloud analysis</string>
@@ -86,11 +86,11 @@
   <string name="drawn">Drawn</string>
   <string name="unknown">Unknown</string>
   <string name="database">Database</string>
-  <string name="whiteDrawBlack">White / Draw / Black</string>
+  <string name="whiteDrawBlack" comment="One of the three columns of the opening explorer. Displays the ratio of White / Draw / Black wins, when playing a move suggested by the opening explorer.&#10;&#10;The best way to understand this is to try the explorer yourself by trying some moves and seeing the table change https://lichess.org/analysis#explorer">White / Draw / Black</string>
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="masterDbExplanation">OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
+  <string name="masterDbExplanation" comment="Description of the Masters database in the opening explorer. Example: OTB games of 2200+ FIDE-rated players from 1952 to 2017.&#10;Appears as title text on 'Masters database', seen when you hover the mouse over.&#10;&#10;OTB means 'over the board', which is physical/real life chess. This may not exist as an abbreviation in your language. As always, please aim for clarity in your translation.&#10;&#10;This string used to say &quot;Two million games&quot;. If you still see this, it can be removed.">OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
@@ -274,7 +274,7 @@
   <string name="accept">Accept</string>
   <string name="decline">Decline</string>
   <string name="playingRightNow">Playing right now</string>
-  <string name="eventInProgress">Playing right now</string>
+  <string name="eventInProgress">Playing now</string>
   <string name="finished">Finished</string>
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
@@ -407,8 +407,7 @@
   <string name="continueFromHere">Continue from here</string>
   <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
-computer analysis, game chat and shareable URL.</string>
+  <string name="importGameExplanation" comment="The description of the &quot;Import game&quot; feature. (https://lichess.org/paste)&#10;&#10;There are two screenshots, one of them is how it used to look and the other is how it looks now.&#10;&#10;Please do not translate &quot;PGN&quot; itself, keep it as it is.&#10;&#10;You might notice the translation seems different. This is because the original English text was rewritten in the active voice. It previously said &quot;When pasting a game PGN you get a browsable replay,&#10;a computer analysis, a game chat and a shareable URL.&quot;&#10;We encourage you to re-do the translation for your language as well.">Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL.</string>
   <string name="importGameCaveat">Variations will be erased. To keep them, import the PGN via a study.</string>
   <string name="importGameDataPrivacyWarning">This PGN can be accessed by the public. To import a game privately, use a study.</string>
   <plurals name="nbImportedGames">
@@ -513,7 +512,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">There is a setting to hide all user flairs across the entire site.</string>
   <string name="biography">Biography</string>
-  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Region or country</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Country or region</string>
   <string name="thankYou">Thank you!</string>
   <string name="socialMediaLinks">Social media links</string>
   <string name="oneUrlPerLine">One URL per line.</string>
@@ -635,7 +634,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="error.email_unique">Email address invalid or already taken</string>
   <string name="error.email_different">This is already your email address</string>
   <string name="error.minLength">Must be at least %s characters long</string>
-  <string name="error.maxLength">Maximum length is %s</string>
+  <string name="error.maxLength" comment="error.maxLength&#10;&#10;%s is a number&#10;&#10;This is generic error message for when the length of text that you have entered in a form is too long.&#10;&#10;Examples of forms with a maximum length requirement might be account or streamer names.&#10;&#10;Note: this string used to be &quot;Maximum length is %s&quot; so some translations may be out of date.">Must be at most %s characters long</string>
   <string name="error.min">Must be at least %s</string>
   <string name="error.max">Must be at most %s</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
@@ -652,7 +651,7 @@ computer analysis, game chat and shareable URL.</string>
   </plurals>
   <string name="tpTimeSpentPlaying">Time spent playing: %s</string>
   <string name="watchGames">Watch games</string>
-  <string name="tpTimeSpentOnTV">Time on TV: %s</string>
+  <string name="tpTimeSpentOnTV" comment="Appears on player profiles. It's how long you have appeared on https://lichess.org/tv for. Lichess TV features the current strongest players on lichess for a specific variant, check it out.&#10;&#10;Please note this string used to be &quot;Time on TV: %s&quot;, so some translations may be out of date.">Time featured on TV: %s</string>
   <string name="watch">Watch</string>
   <string name="videoLibrary">Video library</string>
   <string name="streamersMenu">Streamers</string>
@@ -678,14 +677,14 @@ computer analysis, game chat and shareable URL.</string>
   <string name="aboutSimul">Simuls involve a single player facing several players at once.</string>
   <string name="aboutSimulImage">Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1.</string>
   <string name="aboutSimulRealLife">The concept is taken from real world events. In real life, this involves the simul host moving from table to table to play a single move.</string>
-  <string name="aboutSimulRules">When the simul starts, every player starts a game with the host, who gets to play the white pieces. The simul ends when all games are complete.</string>
+  <string name="aboutSimulRules" comment="Please note the string used to say the host gets to play with the white pieces. This is no longer accurate, so please update the translation as needed.">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
   <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
   <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
-  <string name="simulAddExtraTime">You may add extra time to your clock to help cope with the simul.</string>
-  <string name="simulHostExtraTime">Host extra clock time</string>
+  <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>
+  <string name="simulHostExtraTime" comment="Appears on: https://lichess.org/simul/new&#10;&#10;Allows a simul host to select extra time for the simul.&#10;&#10;Please note this string used to state &quot;Host extra clock time&quot;, without the word &quot;initial&quot;">Host extra initial clock time</string>
   <string name="simulAddExtraTimePerPlayer">Add initial time to your clock for each player joining the simul.</string>
   <string name="simulHostExtraTimePerPlayer">Host extra clock time per player</string>
   <string name="lichessTournaments">Lichess tournaments</string>
@@ -699,8 +698,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="keyCycleSelectedVariation">Cycle selected variation</string>
   <string name="keyShowOrHideComments">show/hide comments</string>
   <string name="keyEnterOrExitVariation">enter/exit variation</string>
-  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Request computer analysis, learn from your mistakes</string>
-  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Next (learn from your mistakes)</string>
+  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Request computer analysis, Learn from your mistakes</string>
+  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Next (Learn from your mistakes)</string>
   <string name="keyNextBlunder">Next blunder</string>
   <string name="keyNextMistake">Next mistake</string>
   <string name="keyNextInaccuracy">Next inaccuracy</string>
@@ -736,15 +735,15 @@ computer analysis, game chat and shareable URL.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We\'ve sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don\'t see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
   <string name="weHaveSentYouAnEmailTo">We\'ve sent an email to %s. Click the link in the email to reset your password.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">By registering, you agree to be bound by our %s.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur" comment="Appears upon registering for a profile. It is a description of a checkbox explaining to the user that they agree to be bound by lichess' Terms of Service.&#10;&#10;This used to say &quot;you agree to be bound by our %s&quot;. Technically, Terms of Service are not legally binding, so to avoid any confusion, we have renamed this text. It also lines up better with other points the user must agree to on the registration page.">By registering, you agree to the %s.</string>
   <string name="readAboutOur">Read about our %s.</string>
-  <string name="networkLagBetweenYouAndLichess">Network lag between you and lichess</string>
-  <string name="timeToProcessAMoveOnLichessServer">Time to process a move on lichess server</string>
+  <string name="networkLagBetweenYouAndLichess">Network lag between you and Lichess</string>
+  <string name="timeToProcessAMoveOnLichessServer">Time to process a move on Lichess\'s server</string>
   <string name="downloadAnnotated">Download annotated</string>
   <string name="downloadRaw">Download raw</string>
   <string name="downloadImported">Download imported</string>
   <string name="crosstable">Crosstable</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">You can also scroll over the board to move in the game.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame" comment="youCanAlsoScrollOverTheBoardToMoveInTheGame&#10;&#10;Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.&#10;&#10;This just means you can use the scroll wheel (on computer) to quickly go through moves while you're analysing a game.&#10;&#10;This text used to say &quot;You can also...&quot;, but please remove this clause if you see it on the translation and simplify.">You can also scroll over the board to move in the game.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Scroll over computer variations to preview them.</string>
   <string name="analysisShapesHowTo">Press shift+click or right-click to draw circles and arrows on the board.</string>
   <string name="letOtherPlayersMessageYou">Let other players message you</string>
@@ -754,9 +753,9 @@ computer analysis, game chat and shareable URL.</string>
   <string name="withFriends">With friends</string>
   <string name="withEverybody">With everybody</string>
   <string name="kidMode">Kid mode</string>
-  <string name="kidModeIsEnabled">Child-mode is enabled.</string>
+  <string name="kidModeIsEnabled">Kid mode is enabled.</string>
   <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Your account is managed. Ask your chess teacher about lifting kid mode.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
@@ -764,7 +763,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="sessions">Sessions</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
-  <string name="asFreeAsLichess">As free as lichess</string>
+  <string name="asFreeAsLichess">As free as Lichess</string>
   <string name="builtForTheLoveOfChessNotMoney">Built for the love of chess, not money</string>
   <string name="everybodyGetsAllFeaturesForFree">Everybody gets all features for free</string>
   <string name="zeroAdvertisement">Zero advertisement</string>
@@ -889,10 +888,10 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lifetimeScore">Lifetime score</string>
   <string name="currentMatchScore">Current match score</string>
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
-  <string name="agreementNice">I agree that I will always be nice to other players.</string>
+  <string name="agreementNice" comment="This is a condition a new player must agree to when registering an account. It has a checkbox next to it.&#10;&#10;Note: this string used to say &quot;nice&quot; but it has since been reworded to &quot;respectful&quot;. Please update translations as needed.">I agree that I will always be respectful to other players.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">I agree that I will not create multiple accounts (except for the reasons stated in the %s).</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
-  <string name="searchOrStartNewDiscussion">Search or start new discussion</string>
+  <string name="searchOrStartNewDiscussion" comment="Appears in https://lichess.org/inbox&#10;&#10;Note: This used to say &quot;discussion&quot;, which was fitting for how the inbox worked at the time, but it has since been reworded to &quot;conversation&quot;, which is more appropriate for the current inbox user experience (as of 2024).">Search or start new conversation</string>
   <string name="edit">Edit</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
@@ -933,7 +932,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lostAgainstTOSViolator">You lost rating points to someone who violated the Lichess TOS</string>
   <string name="refundXpointsTimeControlY">Refund: %1$s %2$s rating points.</string>
   <string name="timeAlmostUp">Time is almost up!</string>
-  <string name="clickToRevealEmailAddress">[Click to reveal email address.]</string>
+  <string name="clickToRevealEmailAddress">[Click to reveal email address]</string>
   <string name="download">Download</string>
   <string name="coachManager">Coach manager</string>
   <string name="streamerManager">Streamer manager</string>
@@ -986,7 +985,7 @@ Leave empty to start games from the normal initial position.</string>
   <string name="youCantStartNewGame">You can\'t start a new game until this one is finished.</string>
   <string name="since">Since</string>
   <string name="until">Until</string>
-  <string name="lichessDbExplanation">Rated games sampled from all Lichess players</string>
+  <string name="lichessDbExplanation" comment="Description when hovering the mouse over the 'Lichess' option for past games, in the opening explorer: https://lichess.org/analysis#explorer&#10;&#10;Note: This used to say &quot;Rated games sampled from all Lichess players&quot;, but this is no longer accurate since 2022, so the text was changed. https://github.com/lichess-org/lila/commit/f09f32697945610e7366d94abaca04f83770e454 - please update translations as required.">Rated games sampled from all Lichess players</string>
   <string name="switchSides">Switch sides</string>
   <string name="closingAccountWithdrawAppeal">Closing your account will withdraw your appeal</string>
   <string name="ourEventTips">Our tips for organizing events</string>

@@ -7,7 +7,7 @@
     <item quantity="other">View all %s rounds</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
-    <item quantity="one">%s rounds</item>
+    <item quantity="one">%s round</item>
     <item quantity="other">%s rounds</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
@@ -27,7 +27,7 @@
     <item quantity="one">%s minute between rounds</item>
     <item quantity="other">%s minutes between rounds</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Starting in</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Starting in</string>
   <string name="nextRound">Next round</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Ongoing game</item>
@@ -50,8 +50,8 @@ Leave this field empty to let Lichess create pairings automatically.</string>
   <string name="mustHavePlayedTheirLastSwissGame">Must have played their last Swiss game</string>
   <string name="mustHavePlayedTheirLastSwissGameHelp">Only let players join if they have played their last Swiss game. If they failed to show in a recent Swiss event, they won\'t be able to enter yours. This results in a better Swiss experience for the players who actually show up.</string>
   <string name="newSwiss">New Swiss tournament</string>
-  <string name="swissVsArenaQ">When to use swiss tournaments instead of arenas?</string>
-  <string name="swissVsArenaA">In a swiss tournament, all participants play the same number of games, and can only play each other once.
+  <string name="swissVsArenaQ">When to use Swiss tournaments instead of arenas?</string>
+  <string name="swissVsArenaA">In a Swiss tournament, all participants play the same number of games, and can only play each other once.
 It can be a good option for clubs and official tournaments.</string>
   <string name="pointsCalculationQ">How are points calculated?</string>
   <string name="pointsCalculationA">A win is worth one point, a draw is a half point, and a loss is zero points.
@@ -79,13 +79,13 @@ Additionally, a single bye of half a point is attributed when a player late-join
 Then the system will withdraw the player from the tournament, so they don\'t lose more games.
 They can re-join the tournament at any time.</string>
   <string name="protectionAgainstNoShowQ">What is done regarding no-shows?</string>
-  <string name="protectionAgainstNoShowA">Players who sign up for swiss events but don\'t play their games can be problematic.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Players who sign up for Swiss events but don\'t play their games can be problematic.
 To alleviate this issue, Lichess prevents players who failed to play a game from joining a new Swiss event for a given amount of time.
 The creator of a Swiss event can decide to let them join the event anyway.</string>
   <string name="lateJoinQ">Can players late-join?</string>
-  <string name="lateJoinA">Yes, until more than half the rounds have started: for example, in a 11-round swiss players can join before round 6 starts, and in a 12-round before round 7 starts.
+  <string name="lateJoinA">Yes, until more than half the rounds have started; for example in a 11-rounds Swiss, players can join before round 6 starts and in a 12-rounds before round 7 starts.
 Late joiners get a single bye, even if they missed several rounds.</string>
-  <string name="willSwissReplaceArenasQ">Will swiss replace arena tournaments?</string>
+  <string name="willSwissReplaceArenasQ">Will Swiss replace arena tournaments?</string>
   <string name="willSwissReplaceArenasA">No. They\'re complementary features.</string>
   <string name="roundRobinQ">What about round-robin?</string>
   <string name="roundRobinA">We\'d like to add it, but unfortunately Round Robin doesn\'t work online.
@@ -94,8 +94,8 @@ The closest you can get to Round Robin online is to play a Swiss tournament with
   <string name="otherSystemsQ">What about other tournament systems?</string>
   <string name="otherSystemsA">We don\'t plan to add more tournament systems to Lichess at the moment.</string>
   <string name="swissDescription">In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players.</string>
-  <string name="teamOnly">Swiss tournaments can only be created by team leaders, and can only be played by team members.           
-%1$s to start playing in swiss tournaments.</string>
+  <string name="teamOnly">Swiss tournaments can only be created by team leaders, and can only be played by team members.
+%1$s to start playing in Swiss tournaments.</string>
   <string name="joinOrCreateTeam">Join or create a team</string>
   <string name="nowPlaying">Now playing</string>
   <string name="startingSoon">Starting soon</string>

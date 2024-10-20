@@ -5,8 +5,8 @@
   <string name="dgtBoardRequirements">DGT 棋盤預先要求</string>
   <string name="dgtBoardLimitations">DGT 棋盤限制</string>
   <string name="thisPageAllowsConnectingDgtBoard">您可以在這連接 DGT 棋盤以在 Lichess 的棋局中使用</string>
-  <string name="toConnectTheDgtBoard">以連接 DGT 電子棋盤您必須安裝 %s。</string>
-  <string name="downloadHere">您可以在這裡安裝：%s </string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">以連接 DGT 電子棋盤您必須安裝 %s。</string>
+  <string name="downloadHere">您可以在這裡安裝：%s</string>
   <string name="ifLiveChessRunningOnThisComputer">如果 %1$s 正在電腦上執行，您可以%2$s確認網路連接。</string>
   <string name="openingThisLink">開啟此連結</string>
   <string name="ifLiveChessRunningElsewhere">如果 %1$s 正在不同的機器或序列埠中執行，您必須在%2$s中自行設定 IP 地址。</string>
