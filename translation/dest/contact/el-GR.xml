@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Πως μπορούμε να σας βοηθήσουμε;</string>
   <string name="visitThisPage">Επισκεφτείτε αυτή τη σελίδα για επίλυση του προβλήματος</string>
   <string name="iCantLogIn">Δεν μπορώ να συνδεθώ</string>
-  <string name="noConfirmationEmail">Δεν έχω λάβει μήνυμα επιβεβαίωσης</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Δεν έχω λάβει μήνυμα επιβεβαίωσης</string>
   <string name="forgotPassword">Ξέχασα τον κωδικό μου</string>
   <string name="forgotUsername">Ξέχασα το όνομα χρήστη</string>
   <string name="youCanLoginWithEmail">Μπορείτε να συνδεθείτε με το email που εγγραφήκατε</string>
