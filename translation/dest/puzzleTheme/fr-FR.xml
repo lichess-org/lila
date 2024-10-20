@@ -39,7 +39,7 @@
   <string name="deflection">Déviation</string>
   <string name="deflectionDescription">Un coup qui dévie une pièce de l\'adversaire d\'une tâche qu\'elle assure, comme la protection d\'une case-clé.</string>
   <string name="discoveredAttack">Attaque à la découverte</string>
-  <string name="discoveredAttackDescription">Déplacer une pièce qui bloquait auparavant une attaque par une autre pièce à longue portée, comme un Cavalier hors du champ d\'une Tour.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Déplacer une pièce qui bloquait auparavant une attaque par une autre pièce à longue portée, comme un Cavalier hors du champ d\'une Tour.</string>
   <string name="doubleCheck">Échec double</string>
   <string name="doubleCheckDescription">Faire échec avec deux pièces à la fois, à la suite d\'une attaque à la découverte où la pièce mobile et la pièce dévoilée attaquent le Roi adverse.</string>
   <string name="endgame">Finale</string>
