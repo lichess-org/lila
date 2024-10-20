@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">โหมดซ่อนเร้น</string>
   <string name="showPlayerRatings">โชว์เรดติงผู้เล่น</string>
   <string name="showFlairs">โชว์รูปตกแต่งผู้เล่น</string>
-  <string name="explainShowPlayerRatings">นี้จะซ้อนเรดติ้งหมากรุกของผู้เล่นไว้ เพื่อให้คุณไม่เครียดกับเกมมากขึ้น แต่เกมคิดคะแนนยังคงส่งผลต่อเรดติ้งคุณ</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">นี้จะซ้อนเรดติ้งหมากรุกของผู้เล่นไว้ เพื่อให้คุณไม่เครียดกับเกมมากขึ้น แต่เกมคิดคะแนนยังคงส่งผลต่อเรดติ้งคุณ</string>
   <string name="displayBoardResizeHandle">แสดงตัวปรับขนาดกระดาน</string>
   <string name="onlyOnInitialPosition">เฉพาะก่อนเริ่มเดินหมาก</string>
   <string name="inGameOnly">ในเกมเท่านั้น</string>
