@@ -93,9 +93,9 @@
   <string name="startFromInitialPosition">ആദ്യ പൊസിഷനില്‍ തുടങ്ങുക</string>
   <string name="editor">എഡിറ്റർ</string>
   <string name="startFromCustomPosition">കസ്റ്റം പൊസിഷനില്‍ തുടങ്ങുക</string>
-  <string name="loadAGameByUrl">URL ഉപയോഗിച്ചു കളി ലോഡ് ചെയ്യുക</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">URL ഉപയോഗിച്ചു കളി ലോഡ് ചെയ്യുക</string>
   <string name="loadAPositionFromFen">FEN-ൽ നിന്നും പൊസിഷൻ ലോഡ് ചെയ്യുക</string>
-  <string name="loadAGameFromPgn">PGN-ൽ നിന്നും കളി ലോഡ് ചെയ്യുക</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN-ൽ നിന്നും കളി ലോഡ് ചെയ്യുക</string>
   <string name="automatic">സ്വയമേ</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">നിങ്ങളുടെ PGN ടെക്സ്റ്റ് ഇവിടെ പേസ്റ്റ് ചെയ്യുക, %s കളി വരെ</item>
