@@ -27,7 +27,7 @@
   <string name="sourceSingleUrl">PGN Kaynak URL\'si</string>
   <string name="sourceUrlHelp">Lichess, sağladığınız URL yardımıyla PGN\'yi güncelleyecektir. İnternet üzerinden herkese açık bir URL yazmalısınız.</string>
   <string name="sourceGameIds">Boşluklarla ayrılmış 64 adede kadar Lichess oyun ID\'si.</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Turnuva yerel saati ile başlama zamanı: %s</string>
+  <string name="startDateTimeZone">Turnuva yerel saati ile başlama zamanı: %s</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>
   <string name="credits">Kaynağı görüntüle</string>
   <string name="currentGameUrl">Şu anki oyunun linki</string>
@@ -41,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Bütün turnuvayı, turlarını ve oyunlarını kalıcı olarak sil.</string>
   <string name="showScores">Oyuncuların puanlarını oyun sonuçlarına göre göster</string>
   <string name="replacePlayerTags">İsteğe bağlı: Oyuncu adlarını, derecelendirmelerini ve unvanlarını değiştirin</string>
-  <string name="periodInSeconds">Saniye cinsinden dönem</string>
-  <string name="periodInSecondsHelp">İsteğe bağlı olarak, istekler arasında beklenmesi gereken süreyi belirtin. Minimum 2 saniye, maksimum 60 saniye. Varsayılan değer, izleyici sayısına göre otomatik olarak belirlenir.</string>
   <string name="fideFederations">FIDE federasyonları</string>
   <string name="top10Rating">İlk 10 rating</string>
   <string name="fidePlayers">FIDE oyuncuları</string>
