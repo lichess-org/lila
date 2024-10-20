@@ -28,7 +28,7 @@
   <string name="fullDescriptionHelp">Neobvezen dolg opis prenosa. %1$s je na voljo. Dolžina mora biti manjša od %2$s znakov.</string>
   <string name="sourceSingleUrl">Vir partije v PGN formatu</string>
   <string name="sourceUrlHelp">URL, ki ga bo Lichess preveril, da bo prejel PGN posodobitve. Javno mora biti dostopen preko interneta.</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Začetni datum v lokalnem časovnem pasu turnirja: %s</string>
+  <string name="startDateTimeZone">Začetni datum v lokalnem časovnem pasu turnirja: %s</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>
   <string name="credits">Navedi vir</string>
   <string name="currentGameUrl">URL trenutno igrane igre</string>
@@ -42,6 +42,4 @@
   <string name="definitivelyDeleteTournament">Dokončno izbrišite celoten turnir, vse njegove kroge in vse njegove igre.</string>
   <string name="showScores">Prikaži rezultate igralcev na podlagi rezultatov igre</string>
   <string name="replacePlayerTags">Izbirno: zamenjajte imena igralcev, ratinge in nazive</string>
-  <string name="periodInSeconds">Obdobje v sekundah</string>
-  <string name="periodInSecondsHelp">Izbirno, koliko časa je treba čakati med zahtevami. Najmanj 2 s, največ 60 s. Privzeto je samodejno glede na število gledalcev.</string>
 </resources>
