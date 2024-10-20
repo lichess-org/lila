@@ -35,8 +35,6 @@
   <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή αυτού του τουρνουά</string>
   <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
-  <string name="periodInSeconds">Περίοδος σε δευτερόλεπτα</string>
-  <string name="periodInSecondsHelp">Προαιρετικά, θέσετε χρόνο αναμονής μεταξύ αιτήσεων. Τουλάχιστον 2δ, μέγιστος 60δ. Προεπιλέγεντε αυτόματα βάση τον αριθμό των θεατών.</string>
   <string name="fideFederations">Ομοσπονδίες FIDE</string>
   <string name="fidePlayers">Παίκτες FIDE</string>
   <string name="fidePlayerNotFound">Δε βρέθηκε παίκτης FIDE</string>
