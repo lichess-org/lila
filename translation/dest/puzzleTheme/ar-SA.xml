@@ -39,7 +39,7 @@
   <string name="deflection">ابعاد</string>
   <string name="deflectionDescription">نقلة تصرف انتباه قطعة الخصم عن مهمة مهمة أخرى تؤديها، على سبيل المثال، عن الدفاع عن مربع رئيسي. أحيانًا يُطلق عليه أيضًا \"التحميل الزائد\".</string>
   <string name="discoveredAttack">هجوم مكشوف</string>
-  <string name="discoveredAttackDescription">تحريك قطعة (مثل الحصان)، التي حالت في السابق دون هجوم على قطعة بعيدة المدى (مثل القلعة)، بعيدا عن طريق تلك القطعة.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">تحريك قطعة (مثل الحصان)، التي حالت في السابق دون هجوم على قطعة بعيدة المدى (مثل القلعة)، بعيدا عن طريق تلك القطعة.</string>
   <string name="doubleCheck">كشة مزدوجة</string>
   <string name="doubleCheckDescription">الكش من قطعتين في وقت واحد، نتيجةً للهجوم المكتشف حيث تهاجم كل من القطعة المتحركة والقطعة غير المختبئة ملك الخصم. وبالتالي لا يمكن للملك سوى الهروب من الكش.</string>
   <string name="endgame">مرحلة نهاية المباراة</string>
