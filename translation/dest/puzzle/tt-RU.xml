@@ -53,7 +53,7 @@
   <string name="strengths">Көчләр яклары</string>
   <string name="history">Башваткыч тарихы</string>
   <string name="solved">чишелгән</string>
-  <string name="failed">уңышсыз</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">уңышсыз</string>
   <string name="streakDescription">Акрынлап катлаулы башваткычларны чишегез һәм җиңү сызыгы төзегез. Сәгать юк, шуңа күрә вакытыгызны алыгыз. Бер ялгыш хәрәкәт, һәм бу уен бетте! Ләкин сез сессиягә бер хәрәкәтне калдыра аласыз.</string>
   <string name="yourStreakX">Сезнең юл %s</string>
   <string name="streakSkipExplanation">Сезнең юлны саклап калу өчен бу хәрәкәтне ташлагыз! Бер тапкыр гына эшли.</string>
