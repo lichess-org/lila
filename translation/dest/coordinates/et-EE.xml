@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinaatide harjutamine</string>
   <string name="averageScoreAsWhiteX">Keskmine tulemus valgena: %s</string>
   <string name="averageScoreAsBlackX">Keskmine tulemus mustana: %s</string>
-  <string name="knowingTheChessBoard">Malelaua koordinaatide tundmine on males väga oluline oskus:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Malelaua koordinaatide tundmine on males väga oluline oskus:</string>
   <string name="mostChessCourses">Enamik malekursustest ja -ülesannetest kasutavad ulatuslikult algebralisi märke.</string>
   <string name="talkToYourChessFriends">See teeb oma malesõpradega rääkimise kergemaks, sest Te mõlemad mõistate \"male keelt\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Saate mänge efektiivsemalt analüüsida, kui ei pea ruutude nimetusi taga otsima.</string>
