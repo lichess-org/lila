@@ -2,17 +2,17 @@
   @extend %flex-column, %box-neat;
   gap: 1em;
   background: $c-bg-zebra;
-  padding: 2em 4em;
+  padding: 1em 1em 1em 2em;
   max-height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
 .mod-timeline__period {
   @extend %flex-center-nowrap;
-  gap: 3em;
+  gap: 1em;
   h3 {
-    flex: 0 0 12ch;
-    font-size: 1.3em;
+    flex: 0 0 11ch;
+    font-size: 1.2em;
     text-transform: capitalize;
   }
   border-bottom: $border;
@@ -20,7 +20,7 @@
 }
 .mod-timeline__period__events {
   @extend %flex-column;
-  gap: 0.5em;
+  gap: 0.3em;
   flex: 1 1 auto;
 }
 .mod-timeline__event {
