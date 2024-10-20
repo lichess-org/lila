@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Eklenme tarihi (en eski)</string>
   <string name="recentlyUpdated">Yeni güncellenmiş</string>
   <string name="mostPopular">En popüler</string>
-  <string name="alphabetical">Alfabetik</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alfabetik</string>
   <string name="addNewChapter">Yeni bir bölüm ekle</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Bölüm</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">Oyunu indir</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Forumda gömülü olarak paylaşmak için yukarıdaki bağlantıyı kullanabilirsiniz</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Forumda gömülü olarak paylaşmak için yukarıdaki bağlantıyı kullanabilirsiniz</string>
   <string name="startAtInitialPosition">İlk pozisyondan başlasın</string>
   <string name="startAtX">%s pozisyonundan başlasın</string>
   <string name="embedInYourWebsite">İnternet sitenizde ya da blogunuzda gömülü olarak paylaşın</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">İlk pozisyondan başlasın</string>
   <string name="editor">Editör</string>
   <string name="startFromCustomPosition">Özel bir pozisyondan başlasın</string>
-  <string name="loadAGameByUrl">URL ile oyun yükle</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">URL ile oyun yükle</string>
   <string name="loadAPositionFromFen">FEN kullanarak pozisyon yükle</string>
-  <string name="loadAGameFromPgn">PGN ile oyun yükle</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN ile oyun yükle</string>
   <string name="automatic">Otomatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">PGN metninizi buraya yapıştırın, en fazla %s oyuna kadar</item>
@@ -164,7 +164,7 @@
   <string name="popularTopics">Popüler konular</string>
   <string name="manageTopics">Konuları yönet</string>
   <string name="back">Baştan başlat</string>
-  <string name="playAgain">Tekrar oyna</string>
-  <string name="whatWouldYouPlay">Burada hangi hamleyi yapardınız?</string>
-  <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Tekrar oyna</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Burada hangi hamleyi yapardınız?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Tebrikler! Bu dersi tamamlandınız.</string>
 </resources>
