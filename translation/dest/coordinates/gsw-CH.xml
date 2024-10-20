@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinate Training</string>
   <string name="averageScoreAsWhiteX">Durchschnittlichi Punktzahl mit Wiss: %s</string>
   <string name="averageScoreAsBlackX">Durchschnittlichi Punktzahl mit Schwarz: %s</string>
-  <string name="knowingTheChessBoard">D\'Koordinate vom Schachbrätt z\'känne, 
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">D\'Koordinate vom Schachbrätt z\'känne, 
 isch e wichtigi Fähigkeit:</string>
   <string name="mostChessCourses">Die meischte Schach Kürs und Üebige 
 verwänded die algebraischi Notazion.</string>
@@ -17,7 +17,7 @@ wänn me d\'Koordinate schnäll gseht.</string>
   <string name="youHaveThirtySeconds">Du häsch 30 Sekunde, zum soviel Fälder wie möglich, korrekt z\'bezeichne!</string>
   <string name="goAsLongAsYouWant">Mach so lang wie du wottsch, es git keis Zitlimitt!</string>
   <string name="showCoordinates">Koordinate azeige</string>
-  <string name="showCoordsOnAllSquares">Koordinate uf jedem Fäld azeige</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinate uf jedem Fäld azeige</string>
   <string name="showPieces">Figure azeige</string>
   <string name="startTraining">Training schtarte</string>
   <string name="findSquare">Fäld finde</string>
