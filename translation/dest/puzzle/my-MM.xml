@@ -28,8 +28,8 @@
   <string name="byOpenings">အဖွင့်များဖြင့်</string>
   <string name="puzzlesByOpenings">အဖွင့်ကွက်များနှင့် ရှာကွက်ပုစ္ဆာများ</string>
   <string name="openingsYouPlayedTheMost">အမှတ်ပွဲများတွင် အများဆုံး သင်ဆော့ခဲ့သော အဖွင့်ကွက်များ</string>
-  <string name="useFindInPage">\"စာမျက်နှာအတွင်း ရှာဖွေခြင်း\" ကိုအသုံးပြု၍ သင်နှင့် အလိုက်ဖက်ဆုံးသော အဖွင့်ကွက်များကိုရှာပါ!</string>
-  <string name="useCtrlF">Ctrl+F ကိုအသုံးပြုပြီး သင်အနှစ်သက်ဆုံးသော ဖွင့်ကွက်များကို ရှာပါ!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">\"စာမျက်နှာအတွင်း ရှာဖွေခြင်း\" ကိုအသုံးပြု၍ သင်နှင့် အလိုက်ဖက်ဆုံးသော အဖွင့်ကွက်များကိုရှာပါ!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+F ကိုအသုံးပြုပြီး သင်အနှစ်သက်ဆုံးသော ဖွင့်ကွက်များကို ရှာပါ!</string>
   <string name="notTheMove">၎င်း ရွှေ့ကွက် မဟုတ်ပါ</string>
   <string name="trySomethingElse">တခြားနည်း စမ်းကြည့်ပါ</string>
   <string name="ratingX">လက်ရည်- %s</string>
@@ -56,7 +56,7 @@
   <string name="strengths">အားသာချက်များ</string>
   <string name="history">ဆော့ခဲ့သော ရှာကွက်ပုစ္ဆာများ</string>
   <string name="solved">ဖြေပြီး</string>
-  <string name="failed">မှားသည်</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">မှားသည်</string>
   <string name="yourStreakX">သင့်အစဥ် %s</string>
   <string name="streakSkipExplanation">ဤအကွက်ကို ကျော်လိုက်ပြီး သင့်အစဥ်မပျက်ထားပါ။ တစ်ပွဲ တစ်ခါပဲရမည်။.</string>
   <string name="continueTheStreak">သင့်ရှာကွက် အစဥ်ဆက်ပါ။</string>
