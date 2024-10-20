@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Wymagania szachownicy DGT</string>
   <string name="dgtBoardLimitations">Ograniczenia szachownicy DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ta strona pozwala na podłączenie szachownicy DGT do Lichess i używanie jej do rozgrywania partii.</string>
-  <string name="toConnectTheDgtBoard">Aby połączyć się z elektroniczną szachownicą DGT musisz zainstalować %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Aby połączyć się z elektroniczną szachownicą DGT musisz zainstalować %s.</string>
   <string name="downloadHere">Oprogramowanie możesz pobrać stąd: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Jeśli %1$s jest uruchomiony na tym komputerze, możesz sprawdzić połączenie z nim %2$s.</string>
   <string name="openingThisLink">otwierając ten link</string>
