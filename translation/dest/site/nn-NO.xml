@@ -126,7 +126,6 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
-  <string name="engineManager">Innstillingar for sjakkprogram</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Småfeil</string>
@@ -559,9 +558,9 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="cheat">Juks</string>
   <string name="troll">Troll</string>
   <string name="other">Anna</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Legg ved lenke til partiet/partia og forklar kva som er gale med åtferda til denne brukaren. Å berre påstå at brukaren juksar er ikkje nok, men gje ei nærare forklaring på korleis du kom til denne konklusjonen.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Forklår kva som gjer brukarnamnet er støytande. Det held ikkje med å påstå at \"namnet er støytande/upassande\", men fortell oss korleis du kom til denne konklusjonen, spesielt om tydinga er uklår, ikkje er på engelsk, er eit slanguttrykk, eller har ein historisk/kulturell referanse.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Rapporten din blir raskare behandla om du skriv på engelsk.</string>
+  <string name="reportCheatBoostHelp">Legg ved lenke til partiet/partia og forklar kva som er gale med åtferda til denne brukaren. Å berre påstå at brukaren juksar er ikkje nok, men gje ei nærare forklaring på korleis du kom til denne konklusjonen.</string>
+  <string name="reportUsernameHelp">Forklår kva som gjer brukarnamnet er støytande. Det held ikkje med å påstå at \"namnet er støytande/upassande\", men fortell oss korleis du kom til denne konklusjonen, spesielt om tydinga er uklår, ikkje er på engelsk, er eit slanguttrykk, eller har ein historisk/kulturell referanse.</string>
+  <string name="reportProcessedFasterInEnglish">Rapporten din blir raskare behandla om du skriv på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importert av %s</string>
