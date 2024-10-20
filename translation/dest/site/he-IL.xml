@@ -107,7 +107,7 @@
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="openingEndgameExplorer">סייר פתיחות/סיומים</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">שחקו את המהלך הראשון על פי סייר הפתיחות והסיומים</string>
+  <string name="playFirstOpeningEndgameExplorerMove">שחקו את המהלך הראשון על פי סייר הפתיחות והסיומים</string>
   <string name="winPreventedBy50MoveRule">ניצחון נמנע מפאת כלל 50 המהלכים</string>
   <string name="lossSavedBy50MoveRule">הפסד נמנע מפאת כלל 50 המהלכים</string>
   <string name="winOr50MovesByPriorMistake">ניצחון או כלל 50 המסעים בגלל טעות קודמת</string>
@@ -130,7 +130,6 @@
   <string name="memory">זיכרון</string>
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
-  <string name="engineManager">מנהל המנועים</string>
   <string name="blunder">טעות גסה</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">אי־דיוק</string>
@@ -626,9 +625,9 @@
   <string name="cheat">רמאות</string>
   <string name="troll">הטרלה</string>
   <string name="other">אחר</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">הדיווח שלך יטופל מהר יותר אם ייכתב באנגלית.</string>
+  <string name="reportCheatBoostHelp">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
+  <string name="reportUsernameHelp">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
+  <string name="reportProcessedFasterInEnglish">הדיווח שלך יטופל מהר יותר אם ייכתב באנגלית.</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על־ידי %s</string>
   <string name="importedByX">יובא ע\"י %s</string>
@@ -766,14 +765,14 @@
   <string name="timeBeforeTournamentStarts">זמן לתחילת הטורניר</string>
   <string name="averageCentipawnLoss">אובדן מאית־חייל ממוצע</string>
   <string name="accuracy">דיוק</string>
-  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">קיצורי מקלדת</string>
+  <string name="keyboardShortcuts">קיצורי מקלדת</string>
   <string name="keyMoveBackwardOrForward">גלול אחורה/קדימה</string>
   <string name="keyGoToStartOrEnd">מעבר להתחלה/לסיום</string>
   <string name="keyCycleSelectedVariation">מחזור הוריאציה שנבחרה </string>
   <string name="keyShowOrHideComments">הצג/הסתר הערות</string>
   <string name="keyEnterOrExitVariation">כנס לגרסה או צא ממנה</string>
-  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
-  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">הבא (למדו מטעויותיכם)</string>
+  <string name="keyRequestComputerAnalysis">בקשו ניתוח ממוחשב, למדו מטעויותיכם</string>
+  <string name="keyNextLearnFromYourMistakes">הבא (למדו מטעויותיכם)</string>
   <string name="keyNextBlunder">הטעות הגסה הבאה</string>
   <string name="keyNextMistake">הטעות הבאה</string>
   <string name="keyNextInaccuracy">אי־הדיוק הבא</string>
@@ -1056,7 +1055,7 @@
   <string name="playComputerMove">שחק את מהלך המחשב הטוב ביותר</string>
   <string name="analysisOptions">אפשרויות ניתוח</string>
   <string name="focusChat">הגדלת הצ\'אט</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">הצגת מסך עזרה זה</string>
+  <string name="showHelpDialog">הצגת מסך עזרה זה</string>
   <string name="reopenYourAccount">פתח/י את חשבונך מחדש</string>
   <string name="closedAccountChangedMind">אם סגרת את חשבונך אך התחרטת, יש לך הזדמנות אחת לפתוח אותו.</string>
   <string name="onlyWorksOnce">פעולה זו היא חד פעמית.</string>
