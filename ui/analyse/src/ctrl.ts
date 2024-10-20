@@ -337,7 +337,9 @@ export default class AnalyseCtrl {
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
         : this.practice
-          ? this.bottomColor()
+          ? this.data.game.variant.key === 'racingKings'
+            ? this.data.player.color
+            : this.bottomColor()
           : (dests && dests.size > 0) || drops === null || drops.length
             ? color
             : undefined,
