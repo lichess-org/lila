@@ -9,7 +9,7 @@
   <string name="newTeam">Taɣlamt tamaynut</string>
   <string name="myTeams">Tiɣlamin-iw</string>
   <string name="noTeamFound">Ulac taɣlamt</string>
-  <string name="joinTeam">Ddukkel ed taɣlamt</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Ddukkel ed taɣlamt</string>
   <string name="quitTeam">Eǧǧ taɣlamt</string>
   <string name="teamRecentMembers">Imaslaḍen imaynuten</string>
 </resources>
