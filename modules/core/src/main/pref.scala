@@ -8,7 +8,6 @@ trait Pref:
   val id: UserId
   val coords: Int
   val keyboardMove: Int
-  val showRatingsInGame: Int
   val voice: Option[Int]
   val rookCastle: Int
   val animation: Int

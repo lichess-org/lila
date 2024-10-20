@@ -83,9 +83,7 @@ object side:
                     withOnline = false,
                     withDiff = true,
                     withBerserk = true,
-                    withRating = game.finishedOrAborted || !ctx.userId.exists(
-                      game.userIds.has
-                    ) || ctx.pref.hasShowRatingsInGame
+                    withRating = if (ctx.pref.hasShowRatingsInGame) game.finishedOrAborted || !ctx.userId.exists(game.userIds.has) else true 
                   )
                 ),
                 tour.flatMap(_.teamVs).map(_.teams(p.color)).map {
