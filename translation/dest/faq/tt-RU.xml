@@ -18,7 +18,7 @@
   <string name="yesLichessInspiredOtherOpenSourceWebsites">Әйе. Lichess чыннан да безнең %1$s, %2$s, яки %3$s кулланган бүтән ачык чыганак сайтларын рухландырды.</string>
   <string name="fairPlay">Гадел уен</string>
   <string name="whenAmIEligibleRatinRefund">Кайчан мин алдакчылардан автоматик рейтингны кире кайтарырга хокуклы?</string>
-  <string name="ratingRefundExplanation">Уенчы билгеләнгәннән соң бер минуттан соңгы 3 көн эчендә аларның иң соңгы 40 уены алынды. Әгәр дә сез бу уеннарда көндәш булсагыз, сез рейтингны югалттыгыз (оттыру яки җирәбә аркасында), һәм сезнең рейтинг вакытлыча булмаган, сез рейтингны кире кайтарасыз. Кире кайтару сезнең иң югары рейтингыгызга һәм уеннан соң сезнең рейтингыгызга нигезләнеп ясала.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Уенчы билгеләнгәннән соң бер минуттан соңгы 3 көн эчендә аларның иң соңгы 40 уены алынды. Әгәр дә сез бу уеннарда көндәш булсагыз, сез рейтингны югалттыгыз (оттыру яки җирәбә аркасында), һәм сезнең рейтинг вакытлыча булмаган, сез рейтингны кире кайтарасыз. Кире кайтару сезнең иң югары рейтингыгызга һәм уеннан соң сезнең рейтингыгызга нигезләнеп ясала.
    (Мәсәлән, бу уеннардан соң сезнең рейтингыгыз зурайган булса, сез кире кайтарырга яки өлешчә кире кайтарырга мөмкин түгел.) Кире кайтару беркайчан да 150 ноктадан артмас.</string>
   <string name="preventLeavingGameWithoutResigning">Ни әйтеп була уеннан истифа бирмичә чыгып киткән уенчылар турында?</string>
   <string name="leavingGameWithoutResigningExplanation">Әгәр көндәшегез уеннарны еш туктатса / калдырса, алар \"тыелган уйнау\" алалар, димәк, аларга уен уйнау вакытлыча тыелган. Бу аларның профилендә ачык күрсәтелми. Әгәр дә бу тәртип дәвам итсә, плейбанның озынлыгы арта - һәм бу табигатьнең озак тотышы хисап ябылуга китерергә мөмкин.</string>
@@ -30,7 +30,7 @@
   <string name="howBulletBlitzEtcDecided">Мәрми, Яшендәй һәм башка вакытны башкару ничек хәл ителә?</string>
   <string name="basedOnGameDuration">Lichess вакытны башкару белән уенның фаразланган вакытына нигезләнә =%1$s
 Мәсәлән, 5 + 3 уенның смета озынлыгы 5 × 60 + 40 × 3 = 420 секунд.</string>
-  <string name="durationFormula">(сәгатьнең башлангыч вакыты) + 40 × (сәгать арту)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(сәгатьнең башлангыч вакыты) + 40 × (сәгать арту)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s с = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Ни вариантлар Мин уйный алам Lichess та?</string>
