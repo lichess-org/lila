@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">במה נוכל לעזור?</string>
   <string name="visitThisPage">צפו בעמוד זה כדי לפתור את הבעיה</string>
   <string name="iCantLogIn">אני לא מצליח/ה להתחבר</string>
-  <string name="noConfirmationEmail">לא קיבלתי את אימייל האישור</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">לא קיבלתי את אימייל האישור</string>
   <string name="forgotPassword">שכחתי את הסיסמה</string>
   <string name="forgotUsername">שכחתי את שם המשתמש</string>
   <string name="youCanLoginWithEmail">את/ה יכול/ה להתחבר עם כתובת האימייל שאיתה נרשמת</string>
