@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">הדרישות עבור לוח DGT</string>
   <string name="dgtBoardLimitations">ההגבלות של לוח ה־DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">העמוד הזה מאפשר לך לחבר את לוח ה־DGT שברשותך ל־Lichess ולהשתמש בו כדי לשחק.</string>
-  <string name="toConnectTheDgtBoard">כדי לחבר את לוח ה־DGT האלקטרוני שלך יש להתקין את %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">כדי לחבר את לוח ה־DGT האלקטרוני שלך יש להתקין את %s.</string>
   <string name="downloadHere">ניתן להוריד את התוכנה כאן: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">אם %1$s מותקן על המחשב הזה, ניתן לבדוק את החיבור שלך אליו על ידי %2$s.</string>
   <string name="openingThisLink">פתיחת הקישור הזה</string>
@@ -44,5 +44,5 @@ UCI נפוץ במנועי שחמט: g8f6.</string>
   <string name="verboseLogging">Verbose logging</string>
   <string name="toSeeConsoleMessage">כדי לראות את ההודעות ב־Console לחצו Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS)</string>
   <string name="playWithDgtBoard">שחקו עם לוח DGT</string>
-  <string name="configure">הגדרות תצורה </string>
+  <string name="configure">הגדרות תצורה</string>
 </resources>
