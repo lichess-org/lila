@@ -99,6 +99,7 @@
     opacity: 1;
     cursor: pointer;
     border-bottom: 1px dashed $c-accent;
+    min-width: 6ch;
     &:hover {
       background: $m-accent--fade-80;
     }
