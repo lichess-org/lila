@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">投稿日（古い順）</string>
   <string name="recentlyUpdated">更新順</string>
   <string name="mostPopular">人気順</string>
-  <string name="alphabetical">アルファベット順</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">アルファベット順</string>
   <string name="addNewChapter">新たな章を追加</string>
   <plurals name="nbChapters">
     <item quantity="other">%s 章</item>
@@ -64,7 +64,7 @@
   <string name="downloadGame">1 局をダウンロード</string>
   <string name="studyUrl">研究の URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">これをフォーラムにペーストすれば埋め込み表示できます</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">これをフォーラムにペーストすれば埋め込み表示できます</string>
   <string name="startAtInitialPosition">開始局面から</string>
   <string name="startAtX">%s に開始</string>
   <string name="embedInYourWebsite">自分のウェブサイト／ブログに埋め込む</string>
@@ -95,9 +95,9 @@
   <string name="startFromInitialPosition">開始局面から</string>
   <string name="editor">エディタ</string>
   <string name="startFromCustomPosition">指定した局面から</string>
-  <string name="loadAGameByUrl">棋譜を URL で読み込み</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">棋譜を URL で読み込み</string>
   <string name="loadAPositionFromFen">局面を FEN で読み込み</string>
-  <string name="loadAGameFromPgn">棋譜を PGN で読み込み</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">棋譜を PGN で読み込み</string>
   <string name="automatic">自動</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">ここに PGN をペースト（%s 局まで）</item>
@@ -160,7 +160,7 @@
   <string name="popularTopics">人気のトピック</string>
   <string name="manageTopics">トピックの管理</string>
   <string name="back">戻る</string>
-  <string name="playAgain">もう一度プレイ</string>
-  <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
-  <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">もう一度プレイ</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">この局面、あなたならどう指す？</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">おめでとう ！　このレッスンを修了しました。</string>
 </resources>
