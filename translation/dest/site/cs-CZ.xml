@@ -107,7 +107,7 @@
   <string name="openingExplorer">Průzkumník zahájení</string>
   <string name="openingEndgameExplorer">Průzkumník zahájení/koncovek</string>
   <string name="xOpeningExplorer">%s průzkumník zahájení</string>
-  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">Hrát první tah průzkumníka zahájení/koncovek</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Hrát první tah průzkumníka zahájení/koncovek</string>
   <string name="winPreventedBy50MoveRule">Výhra zabránění 50tahového pravidla</string>
   <string name="lossSavedBy50MoveRule">Prohra zachráněna 50tahovým pravidlem</string>
   <string name="winOr50MovesByPriorMistake">Výhra nebo 50 tahů po předchozí chybě</string>
@@ -130,7 +130,6 @@
   <string name="memory">Paměť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
-  <string name="engineManager">Správce enginu</string>
   <string name="blunder">Hrubá chyba</string>
   <string name="mistake">Chyba</string>
   <string name="inaccuracy">Nepřesnost</string>
@@ -626,9 +625,9 @@
   <string name="cheat">Podvod</string>
   <string name="troll">Troll</string>
   <string name="other">Jiné</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Zde vlož odkaz na hru(hry) a napiš co dělal tento uživatel. Nepiš pouze \"on podváděl\", ale napiš proč si myslíš že podváděl.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Vysvětli co je urážlivého na jeho u6ivatelském jménu. Nepiš pouze \"Je urážlivé/nevhodné\", ale řekni i důvod proč to tak je, zejména pokud je urážka zatemněná, nebo je v jiném jazyce než v angličtině, nebo je ve slangu či jde o historickou nebokulturní referenci.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Nahlášení bude rychlejší pokud bude v angličtině.</string>
+  <string name="reportCheatBoostHelp">Zde vlož odkaz na hru(hry) a napiš co dělal tento uživatel. Nepiš pouze \"on podváděl\", ale napiš proč si myslíš že podváděl.</string>
+  <string name="reportUsernameHelp">Vysvětli co je urážlivého na jeho u6ivatelském jménu. Nepiš pouze \"Je urážlivé/nevhodné\", ale řekni i důvod proč to tak je, zejména pokud je urážka zatemněná, nebo je v jiném jazyce než v angličtině, nebo je ve slangu či jde o historickou nebokulturní referenci.</string>
+  <string name="reportProcessedFasterInEnglish">Nahlášení bude rychlejší pokud bude v angličtině.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Importováno uživatelem %s</string>
@@ -766,14 +765,14 @@
   <string name="timeBeforeTournamentStarts">Čas do začátku turnaje</string>
   <string name="averageCentipawnLoss">Průměrná pěšcová ztráta</string>
   <string name="accuracy">Přesnost</string>
-  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Klávesové zkratky</string>
+  <string name="keyboardShortcuts">Klávesové zkratky</string>
   <string name="keyMoveBackwardOrForward">O tah vpřed/vzad</string>
   <string name="keyGoToStartOrEnd">běžte na začátek/konec</string>
   <string name="keyCycleSelectedVariation">Projdi zkrze vybranou variaci</string>
   <string name="keyShowOrHideComments">zobrazte/skryjte komentáře</string>
   <string name="keyEnterOrExitVariation">Zobraz variantu</string>
-  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Vyžádejte si počítačovou analýzu, poučte se ze svých chyb</string>
-  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Další (poučit se z chyb)</string>
+  <string name="keyRequestComputerAnalysis">Vyžádejte si počítačovou analýzu, poučte se ze svých chyb</string>
+  <string name="keyNextLearnFromYourMistakes">Další (poučit se z chyb)</string>
   <string name="keyNextBlunder">Další hrubá chyba</string>
   <string name="keyNextMistake">Další chyba</string>
   <string name="keyNextInaccuracy">Další nepřesnost</string>
@@ -1054,7 +1053,7 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="playComputerMove">Zahrát nejlepší počítačový tah</string>
   <string name="analysisOptions">Ovládání analýzy</string>
   <string name="focusChat">Vybrat chat</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Zobrazit tuto nápovědu</string>
+  <string name="showHelpDialog">Zobrazit tuto nápovědu</string>
   <string name="reopenYourAccount">Znovu otevřít svůj účet</string>
   <string name="closedAccountChangedMind">Pokud jste uzavřel svůj účet, ale od té doby jste změnili názor, dostanete jednu šanci získat svůj účet zpět.</string>
   <string name="onlyWorksOnce">Toto je možné provést pouze jednou.</string>
