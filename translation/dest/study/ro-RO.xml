@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Data adăugată (cele mai vechi)</string>
   <string name="recentlyUpdated">Încărcate recent</string>
   <string name="mostPopular">Cele mai populare</string>
-  <string name="alphabetical">Alfabetic</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alfabetic</string>
   <string name="addNewChapter">Adaugă un nou capitol</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capitol</item>
@@ -70,7 +70,7 @@
   <string name="downloadGame">Descarcă partida</string>
   <string name="studyUrl">URL-ul studiului</string>
   <string name="currentChapterUrl">URL-ul capitolului curent</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Poți lipi acest cod în forum pentru a îngloba</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Poți lipi acest cod în forum pentru a îngloba</string>
   <string name="startAtInitialPosition">Începeți de la poziția inițială</string>
   <string name="startAtX">Începeți la %s</string>
   <string name="embedInYourWebsite">Înglobează pe site-ul sau blog-ul tău</string>
@@ -101,9 +101,9 @@
   <string name="startFromInitialPosition">Începeți de la poziția inițială</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Începeți de la o poziție personalizată</string>
-  <string name="loadAGameByUrl">Încărcați meciul din URL</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Încărcați meciul din URL</string>
   <string name="loadAPositionFromFen">Încărcați o poziție din FEN</string>
-  <string name="loadAGameFromPgn">Încărcați un joc din PGN</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Încărcați un joc din PGN</string>
   <string name="automatic">Automată</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Lipiți textul PGN aici, până la %s meci</item>
@@ -168,7 +168,7 @@
   <string name="popularTopics">Subiecte populare</string>
   <string name="manageTopics">Gestionează subiecte</string>
   <string name="back">Înapoi</string>
-  <string name="playAgain">Joacă din nou</string>
-  <string name="whatWouldYouPlay">Ce ai juca în această poziție?</string>
-  <string name="youCompletedThisLesson">Felicitări! Ai terminat această lecție.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Joacă din nou</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Ce ai juca în această poziție?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Felicitări! Ai terminat această lecție.</string>
 </resources>
