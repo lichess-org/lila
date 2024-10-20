@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Data dodania (od najstarszych)</string>
   <string name="recentlyUpdated">Ostatnio aktualizowane</string>
   <string name="mostPopular">Najpopularniejsze</string>
-  <string name="alphabetical">Alfabetycznie</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alfabetycznie</string>
   <string name="addNewChapter">Dodaj nowy rozdział</string>
   <plurals name="nbChapters">
     <item quantity="one">%s rozdział</item>
@@ -73,7 +73,7 @@
   <string name="downloadGame">Pobierz partię</string>
   <string name="studyUrl">Link do opracowania</string>
   <string name="currentChapterUrl">URL bieżącego rozdziału</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Możesz wkleić to, aby osadzić na forum</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Możesz wkleić to, aby osadzić na forum</string>
   <string name="startAtInitialPosition">Rozpocznij z pozycji początkowej</string>
   <string name="startAtX">Rozpocznij od %s</string>
   <string name="embedInYourWebsite">Udostępnij na swojej stronie lub na blogu</string>
@@ -104,9 +104,9 @@
   <string name="startFromInitialPosition">Rozpocznij z pozycji początkowej</string>
   <string name="editor">Edytor</string>
   <string name="startFromCustomPosition">Rozpocznij z ustawionej pozycji</string>
-  <string name="loadAGameByUrl">Zaimportuj partię z linku</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Zaimportuj partię z linku</string>
   <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
-  <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Zaimportuj partię z PGN</string>
   <string name="automatic">Automatycznie</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Wklej tutaj swój PGN, max %s partię</item>
@@ -172,7 +172,7 @@
   <string name="popularTopics">Popularne tematy</string>
   <string name="manageTopics">Zarządzaj tematami</string>
   <string name="back">Powrót</string>
-  <string name="playAgain">Odtwórz ponownie</string>
-  <string name="whatWouldYouPlay">Co byś zagrał w tej pozycji?</string>
-  <string name="youCompletedThisLesson">Gratulacje! Ukończono tę lekcję.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Odtwórz ponownie</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Co byś zagrał w tej pozycji?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Gratulacje! Ukończono tę lekcję.</string>
 </resources>
