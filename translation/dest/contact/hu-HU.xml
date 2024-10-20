@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Miben segíthetünk?</string>
   <string name="visitThisPage">Látogass el az alábbi oldalra a probléma magoldásához</string>
   <string name="iCantLogIn">Nem tudok belépni</string>
-  <string name="noConfirmationEmail">Nem kaptam meg a visszaigazoló emailt</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Nem kaptam meg a visszaigazoló emailt</string>
   <string name="forgotPassword">Elfelejtettem a jelszavamat</string>
   <string name="forgotUsername">Elfelejtettem a felhasználói nevemet</string>
   <string name="youCanLoginWithEmail">Be tudsz lépni azzal az email címmel amivel regisztráltál</string>
