@@ -199,8 +199,6 @@ interface I18n {
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
     someRated: string;
-    /** Stats */
-    stats: string;
     /** There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent. */
     thereIsACountdown: string;
     /** This is a private tournament */
@@ -319,8 +317,6 @@ interface I18n {
     startDateTimeZone: I18nFormat;
     /** Starts after %s */
     startsAfter: I18nFormat;
-    /** Stats */
-    stats: string;
     /** Subscribed broadcasts */
     subscribedBroadcasts: string;
     /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
@@ -3961,6 +3957,8 @@ interface I18n {
     starting: string;
     /** Starting position */
     startPosition: string;
+    /** Stats */
+    stats: string;
     /** Streamer manager */
     streamerManager: string;
     /** Streamers */

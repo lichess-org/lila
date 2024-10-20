@@ -426,7 +426,7 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
     makeTab('players', i18n.site.players),
     relay.teams && makeTab('teams', i18n.broadcast.teams),
     study.members.myMember() && relay.data.tour.tier
-      ? makeTab('stats', i18n.broadcast.stats)
+      ? makeTab('stats', i18n.site.stats)
       : ctrl.isEmbed
         ? h(
             'a.relay-tour__tabs--open.text',

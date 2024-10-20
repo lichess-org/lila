@@ -53,7 +53,6 @@
   <string name="teams">Teams</string>
   <string name="boards">Boards</string>
   <string name="overview">Overview</string>
-  <string name="stats">Stats</string>
   <string name="subscribeTitle">Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences.</string>
   <string name="noteContributorsOnly">This note is visible to contributors only.</string>
   <string name="uploadImage">Upload tournament image</string>
