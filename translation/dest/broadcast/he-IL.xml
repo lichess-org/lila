@@ -29,7 +29,7 @@
   <string name="sourceSingleUrl">קישור המקור של ה־PGN</string>
   <string name="sourceUrlHelp">הקישור ש־Lichess יבדוק כדי לקלוט עדכונים ב־PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
   <string name="sourceGameIds">עד 64 מזהי משחק של Lichess, מופרדים ברווחים.</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">שעת ההתחלה באזור הזמן המקומי של הטורניר: %s</string>
+  <string name="startDateTimeZone">שעת ההתחלה באזור הזמן המקומי של הטורניר: %s</string>
   <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
   <string name="credits">תן/י קרדיט למקור</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
@@ -43,8 +43,6 @@
   <string name="definitivelyDeleteTournament">מחיקה לצמיתות של הטורניר הזה, על כל סבביו והמשחקים שבו.</string>
   <string name="showScores">הצגת הניקוד של השחקנים בהתבסס על תוצאות המשחקים</string>
   <string name="replacePlayerTags">אופציונאלי: החלפה של שמות השחקנים, דירוגיהם ותאריהם</string>
-  <string name="periodInSeconds">תדירות בשניות</string>
-  <string name="periodInSecondsHelp">אופציונאלי. משפיע על משך הזמן שעובר בין משיכות הנתונים מהמקור. בין 2 ל־60 שניות. כתלות במספר הצופים, הקצב עשוי לחזור לברירת המחדל.</string>
   <string name="fideFederations">איגודי FIDE</string>
   <string name="top10Rating">דירוג עשרת המובילים</string>
   <string name="fidePlayers">שחקני FIDE</string>
