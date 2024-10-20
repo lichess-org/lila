@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Perwerdeya kordînatê</string>
   <string name="averageScoreAsWhiteX">Skora navîn wek spî: %s</string>
   <string name="averageScoreAsBlackX">Skora navîn wek reş: %s</string>
-  <string name="knowingTheChessBoard">Zanîna koordînatên texteya kişikê qabiliyeteke kişikê yê pir girîng e:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Zanîna koordînatên texteya kişikê qabiliyeteke kişikê yê pir girîng e:</string>
   <string name="mostChessCourses">Di piraniya kurs û egzersîzên kişikan de notasyona cebîrî tê bikaranîn.</string>
   <string name="talkToYourChessFriends">Ew dike ku hêsantir be xeberdana te ya bi hevalên kişikê re, piştî famkirina te ya \'zimanê kişikê\'.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Tu yê karibî lîstikek karîgertir analîz bikî, ger koordînatan zû binasî.</string>
