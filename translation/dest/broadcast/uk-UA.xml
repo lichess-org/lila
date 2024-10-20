@@ -42,8 +42,6 @@
   <string name="definitivelyDeleteTournament">Остаточно видалити весь турнір, всі його раунди та всі його ігри.</string>
   <string name="showScores">Показувати результати гравців за результатами гри</string>
   <string name="replacePlayerTags">За бажанням: замінити імена, рейтинги та титули гравців</string>
-  <string name="periodInSeconds">Період у секундах</string>
-  <string name="periodInSecondsHelp">Опціонально: час очікування між запитами. Мінімально 2 с, максимально 60 с. За замовчуванням - автоматично, виходячи з кількості запитів глядачів.</string>
   <string name="fideFederations">Федерації FIDE</string>
   <string name="top10Rating">Топ 10 рейтингу</string>
   <string name="fidePlayers">Гравці FIDE</string>
