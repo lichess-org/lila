@@ -285,6 +285,10 @@ interface I18n {
     noBoardsYet: string;
     /** This note is visible to contributors only. */
     noteContributorsOnly: string;
+    /** The broadcast has not yet started. */
+    notYetStarted: string;
+    /** Official website */
+    officialWebsite: string;
     /** Ongoing */
     ongoing: string;
     /** Open in Lichess */
@@ -311,12 +315,16 @@ interface I18n {
     sourceSingleUrl: string;
     /** URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet. */
     sourceUrlHelp: string;
+    /** Standings */
+    standings: string;
     /** Optional, if you know when the event starts */
     startDateHelp: string;
     /** Start date in the tournament local timezone: %s */
     startDateTimeZone: I18nFormat;
     /** Starts after %s */
     startsAfter: I18nFormat;
+    /** The broadcast will start very soon. */
+    startVerySoon: string;
     /** Subscribed broadcasts */
     subscribedBroadcasts: string;
     /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */

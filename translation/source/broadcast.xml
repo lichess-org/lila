@@ -60,4 +60,8 @@
   <string name="boardsCanLoaded">Boards can be loaded with a source or via the</string>
   <string name="startsAfter">Starts after %s</string>
   <string name="previousRound">the previous round</string>
+  <string name="startVerySoon">The broadcast will start very soon.</string>
+  <string name="notYetStarted">The broadcast has not yet started.</string>
+  <string name="officialWebsite">Official website</string>
+  <string name="standings">Standings</string>
 </resources>

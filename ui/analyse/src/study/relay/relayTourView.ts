@@ -61,7 +61,7 @@ export const tourSide = (ctx: RelayViewContext) => {
               ),
               !ctrl.isEmbed &&
                 h('button.streamer-show.data-count', {
-                  attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+                  attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: i18n.site.streamersMenu },
                   class: {
                     disabled: !relay.streams.length,
                     active: relay.showStreamerMenu(),
@@ -96,9 +96,9 @@ const startCountdown = (relay: RelayCtrl) => {
     h('strong', round.name),
     ...(startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
-        ? ['The broadcast will start very soon.', date]
+        ? [i18n.broadcast.startVerySoon, date]
         : [h('strong', timeago(startsAt)), date]
-      : ['The broadcast has not yet started.']),
+      : [i18n.broadcast.notYetStarted]),
   ]);
 };
 
@@ -114,8 +114,8 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['tc', i.tc, 'objects.mantelpiece-clock'],
     ['location', i.location, 'travel-places.globe-showing-europe-africa'],
     ['players', i.players, 'activity.sparkles'],
-    ['website', i.website, null, 'Official website'],
-    ['standings', i.standings, null, 'Standings'],
+    ['website', i.website, null, i18n.broadcast.officialWebsite],
+    ['standings', i.standings, null, i18n.broadcast.standings],
   ]
     .map(
       ([key, value, icon, linkName]) =>

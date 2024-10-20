@@ -184,6 +184,10 @@ object I18nKey:
     val `boardsCanLoaded`: I18nKey = "broadcast:boardsCanLoaded"
     val `startsAfter`: I18nKey = "broadcast:startsAfter"
     val `previousRound`: I18nKey = "broadcast:previousRound"
+    val `startVerySoon`: I18nKey = "broadcast:startVerySoon"
+    val `notYetStarted`: I18nKey = "broadcast:notYetStarted"
+    val `officialWebsite`: I18nKey = "broadcast:officialWebsite"
+    val `standings`: I18nKey = "broadcast:standings"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:
