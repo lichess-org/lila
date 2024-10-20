@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">זוזו ל־e4 או בחרו כלי שנמצא ב־e4</string>
   <string name="selectOrCaptureABishop">בחרו רץ או הכו אותו</string>
   <string name="takeRookWithQueen">הכו את הצריח עם המלכה</string>
-  <string name="castle">בצעו הצרחה (לאחד הצדדים)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">בצעו הצרחה (לאחד הצדדים)</string>
   <string name="phoneticAlphabetIsBest">האלפבית הפונטי עדיף</string>
   <string name="cancelTimerOrDenyARequest">בטלו את הטיימר או דחו את הבקשה</string>
   <string name="playPreferredMoveOrConfirmSomething">בצעו את המהלך שנבחר או אשרו משהו</string>
