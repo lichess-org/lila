@@ -231,6 +231,10 @@ interface I18n {
     addRound: string;
     /** Age this year */
     ageThisYear: string;
+    /** Boards */
+    boards: string;
+    /** Boards can be loaded with a source or via the */
+    boardsCanLoaded: string;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */
@@ -239,8 +243,6 @@ interface I18n {
     completed: string;
     /** Lichess detects round completion, but can get it wrong. Use this to set it manually. */
     completedHelp: string;
-    /** Credit the source */
-    credits: string;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */
@@ -281,8 +283,18 @@ interface I18n {
     nbBroadcasts: I18nPlural;
     /** New live broadcast */
     newBroadcast: string;
+    /** No boards yet. These will appear once games are uploaded. */
+    noBoardsYet: string;
+    /** This note is visible to contributors only. */
+    noteContributorsOnly: string;
     /** Ongoing */
     ongoing: string;
+    /** Open in Lichess */
+    openLichess: string;
+    /** Overview */
+    overview: string;
+    /** the previous round */
+    previousRound: string;
     /** Recent tournaments */
     recentTournaments: string;
     /** Optional: replace player names, ratings and titles */
@@ -305,8 +317,16 @@ interface I18n {
     startDateHelp: string;
     /** Start date in the tournament local timezone: %s */
     startDateTimeZone: I18nFormat;
+    /** Starts after %s */
+    startsAfter: I18nFormat;
+    /** Stats */
+    stats: string;
     /** Subscribed broadcasts */
     subscribedBroadcasts: string;
+    /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
+    subscribeTitle: string;
+    /** Teams */
+    teams: string;
     /** The new round will have the same members and contributors as the previous one. */
     theNewRoundHelp: string;
     /** Top 10 rating */
@@ -319,6 +339,8 @@ interface I18n {
     unrated: string;
     /** Upcoming */
     upcoming: string;
+    /** Upload tournament image */
+    uploadImage: string;
   };
   challenge: {
     /** Cannot challenge due to provisional %s rating. */

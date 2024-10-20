@@ -294,7 +294,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         round.startsAt
                           ? commonDateFormat(new Date(round.startsAt))
                           : round.startsAfterPrevious
-                            ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
+                            ? i18n.broadcast.startsAfter(
+                                relay.data.rounds[i - 1]?.name || i18n.broadcast.previousRound,
+                              )
                             : '',
                       ),
                       h(
@@ -319,11 +321,11 @@ const games = (ctx: RelayViewContext) => [
     ? h(
         'div.relay-tour__note',
         h('div', [
-          h('div', 'No boards yet. These will appear once games are uploaded.'),
+          h('div', i18n.broadcast.noBoardsYet),
           ctx.study.members.myMember() &&
             h('small', [
-              'Boards can be loaded with a source or via the ',
-              h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
+              i18n.broadcast.boardsCanLoaded,
+              h('a', { attrs: { href: '/broadcast/app' } }, ' Broadcaster App'),
             ]),
         ]),
       )
@@ -364,7 +366,7 @@ const header = (ctx: RelayViewContext) => {
               ? h(
                   'a.button.relay-tour__header__image-upload',
                   { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
-                  'Upload tournament image',
+                  i18n.broadcast.uploadImage,
                 )
               : undefined,
       ),
@@ -375,7 +377,7 @@ const header = (ctx: RelayViewContext) => {
         'div.relay-tour__note',
         h('div', [
           h('div', { hook: richHTML(d.note, false) }),
-          h('small', 'This note is visible to contributors only.'),
+          h('small', i18n.broadcast.noteContributorsOnly),
         ]),
       ),
     h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),
@@ -389,9 +391,7 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
           {
             name: i18n.site.subscribe,
             id: 'tour-subscribe',
-            title:
-              'Subscribe to be notified when each round starts. You can toggle bell or push ' +
-              'notifications for broadcasts in your account preferences.',
+            title: i18n.broadcast.subscribeTitle,
             cls: 'relay-tour__subscribe',
             checked: relay.data.isSubscribed,
             change: (v: boolean) => {
@@ -421,19 +421,19 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
       name,
     );
   return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
-    makeTab('overview', 'Overview'),
-    makeTab('boards', 'Boards'),
-    makeTab('players', 'Players'),
-    relay.teams && makeTab('teams', 'Teams'),
+    makeTab('overview', i18n.broadcast.overview),
+    makeTab('boards', i18n.broadcast.boards),
+    makeTab('players', i18n.site.players),
+    relay.teams && makeTab('teams', i18n.broadcast.teams),
     study.members.myMember() && relay.data.tour.tier
-      ? makeTab('stats', 'Stats')
+      ? makeTab('stats', i18n.broadcast.stats)
       : ctrl.isEmbed
         ? h(
             'a.relay-tour__tabs--open.text',
             {
               attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
             },
-            'Open in Lichess',
+            i18n.broadcast.openLichess,
           )
         : undefined,
   ]);
@@ -443,12 +443,12 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
   round.ongoing
     ? h(
         'span.round-state.ongoing',
-        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && 'Ongoing' } },
-        titleAsText && 'Ongoing',
+        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
+        titleAsText && i18n.broadcast.ongoing,
       )
     : round.finished &&
       h(
         'span.round-state.finished',
-        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && 'Finished' } },
-        titleAsText && 'Finished',
+        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
+        titleAsText && i18n.site.finished,
       );
