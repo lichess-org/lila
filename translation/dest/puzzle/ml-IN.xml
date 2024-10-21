@@ -49,7 +49,7 @@
   <string name="strengths">മികവ്</string>
   <string name="history">മുന്‍പ്‌ ശ്രമിച്ച പസ്സിലുകള്‍</string>
   <string name="solved">ശരിയാക്കിയവ</string>
-  <string name="failed">തെറ്റിയവ</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">തെറ്റിയവ</string>
   <string name="yourStreakX">നിങ്ങളുടെ വിജയത്തുടര്‍ച്ച: %s</string>
   <string name="fromMyGames">എന്റെ കളികൾ നിന്നു്</string>
   <string name="searchPuzzles">പസ്സിലുകൾ തിരയുക</string>

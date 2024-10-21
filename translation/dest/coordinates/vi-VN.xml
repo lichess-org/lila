@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Luyện tập tầm nhìn</string>
   <string name="averageScoreAsWhiteX">Điểm trung bình khi cầm quân trắng: %s</string>
   <string name="averageScoreAsBlackX">Điểm trung bình khi cầm quân đen: %s</string>
-  <string name="knowingTheChessBoard">Biết tọa độ bàn cờ là một kỹ năng rất quan trọng vì nhiều lý do:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Biết tọa độ bàn cờ là một kỹ năng rất quan trọng vì nhiều lý do:</string>
   <string name="mostChessCourses">Hầu hết các khóa học và bài tập cờ vua dùng ký hiệu đại số rộng rãi.</string>
   <string name="talkToYourChessFriends">Nó giúp bạn cờ dễ nói chuyện với nhau hơn, vì cả hai đều hiểu \"ngôn ngữ cờ vua\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Bạn sẽ phân tích ván cờ hiệu quả hơn nếu bạn có thể tìm ra ngay ô cờ từ tọa độ.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Cố gắng tìm đúng nhiều ô nhất có thể trong vòng 30 giây!</string>
   <string name="goAsLongAsYouWant">Luyện tập vô tận, không có giới hạn thời gian!</string>
   <string name="showCoordinates">Hiện tọa độ</string>
-  <string name="showCoordsOnAllSquares">Tọa độ trên mỗi ô cờ</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Tọa độ trên mỗi ô cờ</string>
   <string name="showPieces">Hiện quân cờ</string>
   <string name="startTraining">Bắt đầu tập luyện</string>
   <string name="findSquare">Tìm ô cờ</string>

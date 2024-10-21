@@ -73,7 +73,7 @@
   <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
-  <string name="youCanPasteThisInTheForumToEmbed">את/ה יכול/ה לפרסם את זה בפורום כדי להטמיע</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">את/ה יכול/ה לפרסם את זה בפורום כדי להטמיע</string>
   <string name="startAtInitialPosition">התחילו בעמדת הפתיחה</string>
   <string name="startAtX">התחילו ב%s</string>
   <string name="embedInYourWebsite">הטמעה באתר שלך</string>
@@ -104,9 +104,9 @@
   <string name="startFromInitialPosition">התחילו מהעמדה ההתחלתית</string>
   <string name="editor">עורך</string>
   <string name="startFromCustomPosition">התחילו מעמדה מותאמת אישית</string>
-  <string name="loadAGameByUrl">טען משחק ע\"י כתובת אינטרנט</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">טען משחק ע\"י כתובת אינטרנט</string>
   <string name="loadAPositionFromFen">טען עמדה מFEN</string>
-  <string name="loadAGameFromPgn">טען משחק מPGN</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">טען משחק מPGN</string>
   <string name="automatic">אוטומטי</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">הדבק את טקסט הPGN שלך כאן, עד למשחק %s</item>

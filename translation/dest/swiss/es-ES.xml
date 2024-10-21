@@ -27,7 +27,7 @@
     <item quantity="one">%s minuto entre rondas</item>
     <item quantity="other">%s minutos entre rondas</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Comienza en</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Comienza en</string>
   <string name="nextRound">Siguiente ronda</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Partida en curso</item>
@@ -79,7 +79,7 @@ Además, se concede un único bye de medio punto cuando un jugador se une a un t
 A continuación, el sistema retirará al jugador del torneo para que no pierda más partidas.
 Podrá volver a unirse al torneo en cualquier momento.</string>
   <string name="protectionAgainstNoShowQ">¿Qué ocurre cuando un jugador no se presenta?</string>
-  <string name="protectionAgainstNoShowA">Los jugadores que se registran en eventos suizos pero que no juegan pueden suponer un problema.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Los jugadores que se registran en eventos suizos pero que no juegan pueden suponer un problema.
 Para mitigar este inconveniente, Lichess evita que los jugadores que no pudieron jugar una partida se unan a un nuevo evento suizo durante un periodo de tiempo determinado.
 El creador de un evento suizo puede decidir dejar que se unan al evento de todos modos.</string>
   <string name="lateJoinQ">¿Pueden unirse jugadores a un torneo empezado?</string>

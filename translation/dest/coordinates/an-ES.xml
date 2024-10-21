@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Entrenar coordenadas</string>
   <string name="averageScoreAsWhiteX">Puntuación meya con blancas: %s</string>
   <string name="averageScoreAsBlackX">Puntuación meya con negras: %s</string>
-  <string name="knowingTheChessBoard">Conoixer las coordenadas d\'os escaques ye esencial en os escaques:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Conoixer las coordenadas d\'os escaques ye esencial en os escaques:</string>
   <string name="mostChessCourses">La mayoría d\'os cursos y exercicios d\'escaques usan la notación alchebraica.</string>
   <string name="talkToYourChessFriends">Facilita la comunicación con atros chugadors, que tamién charran lo \"luengache d\'os escaques\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Puez analisar partidas de forma mas eficient si no has de que andar buscando los nombres d\'os cuadrez</string>

@@ -122,7 +122,6 @@
   <string name="memory">მეხსიერება</string>
   <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
   <string name="removesTheDepthLimit">აუქმებს სიღრმის ლიმიტს, ახურებს თქვენს კომპიუტერს(ანუ ბევრ რესურს იყენებს)</string>
-  <string name="engineManager">ძრავის მენეჯერი</string>
   <string name="blunder">უხეში შეცდომა</string>
   <string name="mistake">შეცდომა</string>
   <string name="inaccuracy">უზუსტობა</string>

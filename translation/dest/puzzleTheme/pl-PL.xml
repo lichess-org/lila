@@ -39,7 +39,7 @@
   <string name="deflection">Odciągnięcie</string>
   <string name="deflectionDescription">Posunięcie odciągające bierkę przeciwnika od innego wykonywanego przez nią zadania, np. ochrony kluczowego pola.</string>
   <string name="discoveredAttack">Atak z odsłony</string>
-  <string name="discoveredAttackDescription">Ruch bierką, która blokuje atak innej figury dalekiego zasięgu, np. ruch skoczkiem uaktywniający wieżę.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ruch bierką, która blokuje atak innej figury dalekiego zasięgu, np. ruch skoczkiem uaktywniający wieżę.</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="doubleCheckDescription">Szach dwoma bierkami jednocześnie będący wynikiem ataku z odkrycia, w którym zarówno bierka poruszana, jak i odkryta atakują króla.</string>
   <string name="endgame">Końcówka</string>

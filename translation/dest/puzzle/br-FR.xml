@@ -14,7 +14,7 @@
   <string name="byOpenings">Dre zigoradurioù</string>
   <string name="puzzlesByOpenings">Poelladennoù dre zigoradurioù</string>
   <string name="openingsYouPlayedTheMost">Digoradurioù ho peus c\'hoariet alies e krogadoù renket</string>
-  <string name="useCtrlF">Grit gant Ctrl+f evit kavout ho tigoradurioù muiañ-karet!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Grit gant Ctrl+f evit kavout ho tigoradurioù muiañ-karet!</string>
   <string name="trySomethingElse">Klaskit un doare all.</string>
   <string name="ratingX">Renkadur: %s</string>
   <string name="hidden">kuzhet</string>
@@ -36,7 +36,7 @@
   <string name="nextPuzzle">Poelladenn nesañ</string>
   <string name="jumpToNextPuzzleImmediately">Cheñch poelladenn diouzhtu</string>
   <string name="improvementAreas">Ar pezh a zo da wellaat</string>
-  <string name="failed">n\'eo ket mat</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">n\'eo ket mat</string>
   <string name="fromMyGames">Diwar ma c\'hrogadoù</string>
   <string name="fromMyGamesNone">N\'eus poelladenn ebet tennet diwar ho krogadoù met gant Lichess oc\'h karet memestra.
 Kontant e vefec\'h e vefe savet ur boelladenn diwar unan eus ho partiennoù? C\'hoariit krogadoù prim pe glasel evit kaout muioc\'h a chañs!</string>

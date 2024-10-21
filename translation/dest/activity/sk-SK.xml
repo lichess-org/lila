@@ -50,7 +50,7 @@
     <item quantity="many">Dohraných %s korešpondenčných partií</item>
     <item quantity="other">Dohraných %s korešpondenčných partií</item>
   </plurals>
-  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+  <plurals name="completedNbVariantGames">
     <item quantity="one">Odohraná %1$s %2$s korešpondenčná partia</item>
     <item quantity="few">Odohrané %1$s %2$s korešpondenčné partie</item>
     <item quantity="many">Odohraných %1$s %2$s korešpondenčných partií</item>
@@ -86,7 +86,7 @@
     <item quantity="many">Vytvorenie %s nových štúdií</item>
     <item quantity="other">Vytvorenie %s nových štúdií</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Zúčastnil sa v %s turnaji</item>
     <item quantity="few">Zúčastnil sa v %s turnajoch</item>
     <item quantity="many">Zúčastnil sa v %s turnajoch</item>

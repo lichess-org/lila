@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT 보드 요구사항</string>
   <string name="dgtBoardLimitations">DGT 보드 제약사항</string>
   <string name="thisPageAllowsConnectingDgtBoard">이 페이지에서는 DGT 보드를 Lichess에 연결하여 사용 할 수 있습니다.</string>
-  <string name="toConnectTheDgtBoard">DGT 보드에 연결하려면 %s를 설치해야 합니다.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT 보드에 연결하려면 %s를 설치해야 합니다.</string>
   <string name="downloadHere">소프트웨어 다운로드가 가능합니다: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">만약 %1$s가 이 컴퓨터에서 작동하고 있다면, %2$s하여 연결을 확인할 수 있습니다.</string>
   <string name="openingThisLink">이 링크를 클릭</string>

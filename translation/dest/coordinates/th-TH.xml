@@ -4,7 +4,7 @@
   <string name="coordinateTraining">การฝึกฝนพิกัด</string>
   <string name="averageScoreAsWhiteX">คะแนนเฉลี่ยเมื่อเป็นขาว: %s</string>
   <string name="averageScoreAsBlackX">คะแนนเฉลี่ยเมื่อเป็นดำ: %s</string>
-  <string name="knowingTheChessBoard">การรู้พิกัดกระดานหมากรุกถือเป็นทักษะหมากรุกที่สำคัญมาก:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">การรู้พิกัดกระดานหมากรุกถือเป็นทักษะหมากรุกที่สำคัญมาก:</string>
   <string name="mostChessCourses">หลักสูตรและการฝึกหัดหมากรุกส่วนใหญ่ใช้สัญลักษณ์ทางพีชคณิตกันอย่างกว้างขวาง</string>
   <string name="talkToYourChessFriends">ทำให้การคุยเรื่องหมากรุกกับเพื่อนนั้นง่ายขึ้น นับแต่คุณทั้งสองเข้าใจใน \"ภาษาหมากรุก\"</string>
   <string name="youCanAnalyseAGameMoreEffectively">คุณสามารถวิเคราะห์เกมเพิ่มเติมได้อย่างมีประสิทธิภาพถ้าคุณไม่ต้องค้นหาชื่อช่องตาราง</string>

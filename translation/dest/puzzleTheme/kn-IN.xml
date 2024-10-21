@@ -39,7 +39,7 @@
   <string name="deflection">ವಿಚಲನ</string>
   <string name="deflectionDescription">ಪ್ರಮುಖ ಚೌಕವನ್ನು ಕಾಪಾಡುವಂತಹ ಮತ್ತೊಂದು ಕರ್ತವ್ಯದಿಂದ ಎದುರಾಳಿಯ ತುಣುಕನ್ನು ವಿಚಲಿತಗೊಳಿಸುವ ಕ್ರಮ. ಕೆಲವೊಮ್ಮೆ \"ಓವರ್‌ಲೋಡ್\" ಎಂದೂ ಕರೆಯುತ್ತಾರೆ.</string>
   <string name="discoveredAttack">ದಾಳಿಯನ್ನು ಪತ್ತೆ ಮಾಡಿದೆ</string>
-  <string name="discoveredAttackDescription">ತುಂಡನ್ನು (ಉದಾಹರಣೆಗೆ ನೈಟ್) ಸರಿಸುವುದು, ಅದು ಈ ಹಿಂದೆ ಆ ತುಣುಕಿನ ಮಾರ್ಗದಿಂದ ದೂರದ ವ್ಯಾಪ್ತಿಯ ತುಣುಕಿನಿಂದ (ಉದಾಹರಣೆಗೆ) ದಾಳಿಯನ್ನು ನಿರ್ಬಂಧಿಸಿದೆ.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">ತುಂಡನ್ನು (ಉದಾಹರಣೆಗೆ ನೈಟ್) ಸರಿಸುವುದು, ಅದು ಈ ಹಿಂದೆ ಆ ತುಣುಕಿನ ಮಾರ್ಗದಿಂದ ದೂರದ ವ್ಯಾಪ್ತಿಯ ತುಣುಕಿನಿಂದ (ಉದಾಹರಣೆಗೆ) ದಾಳಿಯನ್ನು ನಿರ್ಬಂಧಿಸಿದೆ.</string>
   <string name="doubleCheck">ಎರಡುಸಲ ತಪಾಸಣೆ ಮಾಡು</string>
   <string name="doubleCheckDescription">ಚಲಿಸುವ ತುಂಡು ಮತ್ತು ಅನಾವರಣಗೊಂಡ ತುಂಡು ಎರಡೂ ಎದುರಾಳಿಯ ರಾಜನ ಮೇಲೆ ದಾಳಿ ಮಾಡುವ ಪತ್ತೆಯಾದ ದಾಳಿಯ ಪರಿಣಾಮವಾಗಿ ಎರಡು ತುಣುಕುಗಳೊಂದಿಗೆ ಏಕಕಾಲದಲ್ಲಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="endgame">ಎಂಡ್‌ಗೇಮ್</string>

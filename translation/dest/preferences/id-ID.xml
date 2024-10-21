@@ -15,7 +15,7 @@
   <string name="pgnLetter">Huruf (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
   <string name="showPlayerRatings">Munculkan rating pemain</string>
-  <string name="explainShowPlayerRatings">Ini dapat menyembunyikan rating dari website, agar membantu fokus ke catur. Permainan tetap dapat dinilai, ini hanya untuk apa yang Anda lihat.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">Ini dapat menyembunyikan rating dari website, agar membantu fokus ke catur. Permainan tetap dapat dinilai, ini hanya untuk apa yang Anda lihat.</string>
   <string name="displayBoardResizeHandle">Tampilkan pengubah ukuran papan catur</string>
   <string name="onlyOnInitialPosition">Hanya di posisi awal</string>
   <string name="inGameOnly">Hanya di dalam permainan</string>

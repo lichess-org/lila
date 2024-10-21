@@ -4,6 +4,6 @@
   <string name="coordinateTraining">Hnitaþjálfun</string>
   <string name="averageScoreAsWhiteX">Meðalskor sem hvítur: %s</string>
   <string name="averageScoreAsBlackX">Meðalskor sem svartur: %s</string>
-  <string name="knowingTheChessBoard">Að þekkja hnit borðsins er mikilvægur hæfileiki í skák:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Að þekkja hnit borðsins er mikilvægur hæfileiki í skák:</string>
   <string name="mostChessCourses">Flest skáknámskeið og æfingar gjörnýta sama ritháttinn.</string>
 </resources>

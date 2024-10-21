@@ -11,7 +11,7 @@
   <string name="newTeam">புது குழு</string>
   <string name="myTeams">எனது குழுக்கள்</string>
   <string name="noTeamFound">எந்தக் குழுவும் கிட்டவில்லை</string>
-  <string name="joinTeam">குழுவில் சேர்</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">குழுவில் சேர்</string>
   <string name="onlyLeaderLeavesTeam">வெளியேறும் முன் புதிய குழுத் தலைவரைச் சேர்க்கவும் அல்லது குழுவை மூடவும்.</string>
   <string name="quitTeam">குழுவை விட்டுவிலகு</string>
   <string name="manuallyReviewAdmissionRequests">சேர்க்கை கோரிக்கைகளைக் கைமுறையாக மதிப்பாய்வு செய்யவும்</string>

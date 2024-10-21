@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Трэніроўка каардынат</string>
   <string name="averageScoreAsWhiteX">Сярэдні вынік за белых: %s</string>
   <string name="averageScoreAsBlackX">Сярэдні вынік за чорных: %s</string>
-  <string name="knowingTheChessBoard">Ведаць каардынаты шахматнай дошкі - вельмі важны шахматны навык:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Ведаць каардынаты шахматнай дошкі - вельмі важны шахматны навык:</string>
   <string name="mostChessCourses">Большасць шахматных задач та заданняў выкарыстоўваць шахматнаю натацыю.</string>
   <string name="talkToYourChessFriends">Гэта спрошчвае гутарку з сябрамі-шахматыстамі, бо вы абодва разумееце \"шахматную мову\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Вы можаце больш эфектыўна аналізаваць гульні, калі вы ведаеце дзе кожная клетка знаходзіцца.</string>

@@ -33,7 +33,7 @@
     <item quantity="few">%s minute între runde</item>
     <item quantity="other">%s de minute între runde</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Începe în</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Începe în</string>
   <string name="nextRound">Runda următoare</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Joc în desfășurare</item>
@@ -86,7 +86,7 @@ Considerăm că este mai probabil ca aceste condiții să fie îndeplinite în c
 Apoi sistemul va retrage jucătorul din turneu, astfel încât să nu piardă mai multe partide.
  Se pot alătura din nou turneului în orice moment.</string>
   <string name="protectionAgainstNoShowQ">Ce se face cu privire la ne-prezentări?</string>
-  <string name="protectionAgainstNoShowA">Jucătorii care se înscriu pentru evenimente elvețiene dar nu își joacă jocurile pot fi problematici.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Jucătorii care se înscriu pentru evenimente elvețiene dar nu își joacă jocurile pot fi problematici.
 Pentru a atenua această problemă, Lichess îi împiedică pe jucătorii care nu au reușit să joace un joc să se alăture unui nou eveniment elvețian pentru o anumită perioadă de timp.
 Creatorul unui eveniment elvețian poate decide oricum să se alăture evenimentului.</string>
   <string name="lateJoinQ">Pot jucătorii să se alăture cu întârziere?</string>

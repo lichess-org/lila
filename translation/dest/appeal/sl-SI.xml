@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Vaš račun ni označen ali omejen. Vsi ste dobri!</string>
-  <string name="engineMarked">Vaš račun je označen za zunanjo pomoč pri igrah.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Vaš račun je označen za zunanjo pomoč pri igrah.</string>
   <string name="engineMarkedInfo">To opredeljujemo kot uporabo kakršne koli zunanje pomoči za krepitev vašega znanja in/ali računskih spretnosti z namenom pridobivanja nepoštene prednosti pred nasprotnikom. Za več podrobnosti si oglejte stran %s.</string>
   <string name="arenaBanned">Vašemu računu je prepovedano pridružiti se arenam.</string>
   <string name="prizeBanned">Vaš račun je prepovedan za turnirje s pravimi nagradami.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Vaš račun je izklopljen.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Preberite naše %s. Neupoštevanje komunikacijskih smernic lahko povzroči utišanje računov.</string>
   <string name="excludedFromLeaderboards">Vaš račun je bil izključen iz lestvic najboljših.</string>
-  <string name="excludedFromLeaderboardsInfo">Vaš račun je bil izključen iz lestvic najboljših.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Vaš račun je bil izključen iz lestvic najboljših.</string>
   <string name="closedByModerators">Vaš račun so zaprli moderatorji.</string>
   <string name="hiddenBlog">Moderatorji so skrili vaše bloge.</string>
   <string name="hiddenBlogInfo">Ponovno preberite naše %s.</string>

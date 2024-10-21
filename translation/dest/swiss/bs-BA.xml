@@ -32,7 +32,7 @@
     <item quantity="few">%s minute među kolima</item>
     <item quantity="other">%s minuta među kolima</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Počinje u</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Počinje u</string>
   <string name="nextRound">Sljedeće kolo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Igra u toku</item>
@@ -75,7 +75,7 @@ Dodatno, jedan bod od pola boda se pripisuje kada se igrač kasni pridruži turn
 Tada će sistem povući igrača sa turnira, kako ne bi izgubio više utakmica.
  Oni se mogu ponovo pridružiti turniru u bilo kojem trenutku.</string>
   <string name="protectionAgainstNoShowQ">Šta kada se neki igrač ne pojavi?</string>
-  <string name="protectionAgainstNoShowA">Igrači koji se prijave za turnire po švicarskom sistemu, ali ne odigraju svoje partije mogu biti problematični.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Igrači koji se prijave za turnire po švicarskom sistemu, ali ne odigraju svoje partije mogu biti problematični.
 Kako bi se ovaj problem ublažio, Lichess sprečava igrače koji nisu uspjeli odigrati nijednu partiju da se pridruže novom turniru po švicarskom sistemu na određenu količinu vremena.
 No, kreator turnira može im svejedno dozvoliti učešće.</string>
   <string name="lateJoinQ">Mogu li se igrači kasno pridružiti?</string>

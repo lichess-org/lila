@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Krav til DGT-brett</string>
   <string name="dgtBoardLimitations">Avgrensingar for DGT-brett</string>
   <string name="thisPageAllowsConnectingDgtBoard">Denne sida lar deg kople til og spele med DGT-brett på Lichess.</string>
-  <string name="toConnectTheDgtBoard">For å kople til eit DGT elektronisk brett må du installere %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">For å kople til eit DGT elektronisk brett må du installere %s.</string>
   <string name="downloadHere">Du kan laste ned naudsynt programvare her: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Dersom %1$s køyrer på denne maskina kan du sjekke di tilkopling til %2$s.</string>
   <string name="openingThisLink">opne denne lenka</string>

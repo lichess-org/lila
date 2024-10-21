@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Координат меңгеру</string>
   <string name="averageScoreAsWhiteX">Ақтың орташа есебі: %s</string>
   <string name="averageScoreAsBlackX">Қараның орташа есебі: %s</string>
-  <string name="knowingTheChessBoard">Шахмат координаттарын білу – шеберліктің бір бөлігі:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Шахмат координаттарын білу – шеберліктің бір бөлігі:</string>
   <string name="mostChessCourses">Шахмат мектептердің көпшілігі алгебралық жазу тәртібін ұстанады.</string>
   <string name="talkToYourChessFriends">\"Шахмат тілін\" біліп жүрсеңіз, шахмат білетін досыңызбен әңгіме құру оңай болады.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Координатты танитын болсаңыз, ойынды тиімді түрде талдауға қабілетті боласыз.</string>

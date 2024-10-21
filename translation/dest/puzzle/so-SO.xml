@@ -8,5 +8,5 @@
   <string name="puzzleSuccess">Guul!</string>
   <string name="hidden">qarsoon</string>
   <string name="solved">xaliyay</string>
-  <string name="failed">khaldan</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">khaldan</string>
 </resources>

@@ -91,7 +91,7 @@ Taip pat, vienas pusės taško vertės \"bye\" suteikiamas, kai žaidėjas pavė
 Tada sistema pašalins žaidėją iš turnyro tam, kad jie nepralaimėtų daugiau partijų.
 Žaidėjai bet kada gali grįžti į turnyrą.</string>
   <string name="protectionAgainstNoShowQ">Kas daroma žaidėjui nepasirodžius?</string>
-  <string name="protectionAgainstNoShowA">Žaidėjai, kurie užsiregistruoja šveicariškiems turnyrams bet nedalyvauja partijose, gali būti problematiški.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Žaidėjai, kurie užsiregistruoja šveicariškiems turnyrams bet nedalyvauja partijose, gali būti problematiški.
 Norint išspręsti šią problemą žaidėjams, kurie neatvyko į šveicarišką turnyrą, kurį laiką neleidžiama dalyvauti naujuose šveicariškuose turnyruose.
 Turnyro organizatorius pasilieka galimybę vis tiek įleisti dalyvį.</string>
   <string name="lateJoinQ">Ar žaidėjai gali prisijungti pavėlavę?</string>

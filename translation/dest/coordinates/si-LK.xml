@@ -4,5 +4,5 @@
   <string name="coordinateTraining">Запоминание координат полей</string>
   <string name="averageScoreAsWhiteX">Average score as white: %s</string>
   <string name="averageScoreAsBlackX">Average score as black: %s</string>
-  <string name="knowingTheChessBoard">Knowing the chessboard coordinates is a very important chess skill:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Knowing the chessboard coordinates is a very important chess skill:</string>
 </resources>

@@ -7,7 +7,7 @@
   <string name="enterPassword">Entajpu vian pasvorton kaj la aŭtentigan kodon generis de la apo por fini la agordo. Vi bezonos aŭtentigan kodon ĉiam vi ensalutas.</string>
   <string name="ifYouCannotScanEnterX">Se vi ne povas skani la kodon, entajpu la sekretan ŝlosilon %s en vian apon.</string>
   <string name="authenticationCode">Aŭtentiga kodo</string>
-  <string name="ifYouLoseAccessTwoFactor">Noto: Se vi perdos alireblon al via dupaŝaj aŭtentigaj kodoj, vi povas fari %s per retpoŝto.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Noto: Se vi perdos alireblon al via dupaŝaj aŭtentigaj kodoj, vi povas fari %s per retpoŝto.</string>
   <string name="enableTwoFactor">Ebligi dufazan aŭtentigon</string>
   <string name="disableTwoFactor">Malebligi dufazan aŭtentigon</string>
   <string name="twoFactorEnabled">Dufaza aŭtentigo ebligita</string>

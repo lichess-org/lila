@@ -26,7 +26,7 @@
     <item quantity="one">%s minut mellan ronderna</item>
     <item quantity="other">%s minuter mellan ronderna</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Startar om</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Startar om</string>
   <string name="nextRound">Nästa runda</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Pågående parti</item>
@@ -68,7 +68,7 @@ Dessutom får spelaren ytterligare en halv poäng när en spelare går sent med 
 Därefter kommer systemet att ta bort spelaren från turneringen, så att de inte förlorar fler partier.
  De kan återansluta till turneringen när som helst.</string>
   <string name="protectionAgainstNoShowQ">Vad händer om en spelare inte dyker upp?</string>
-  <string name="protectionAgainstNoShowA">Spelare som registrerar sig för en schweizisk tävling utan att spela sina partier kan medföra problem.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Spelare som registrerar sig för en schweizisk tävling utan att spela sina partier kan medföra problem.
 För att lindra problemet hindrar Lichess spelare med ospelade partier från att gå med i en ny schweizisk tävling under en viss tid.
 Arrangören kan besluta att låta dem delta i tävlingen ändå.</string>
   <string name="lateJoinQ">Kan spelare ansluta sent?</string>

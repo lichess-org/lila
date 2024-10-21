@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Ваша учётная запись не помечена и не ограничена. Всё в порядке!</string>
-  <string name="engineMarked">Ваша учётная запись помечена как получающая стороннюю помощь в партиях.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Ваша учётная запись помечена как получающая стороннюю помощь в партиях.</string>
   <string name="engineMarkedInfo">Мы определяем это как использование любой внешней помощи для усиления ваших знаний или расчётов с целью получения несправедливого преимущества над противником. Смотрите страницу %s для более подробной информации.</string>
   <string name="arenaBanned">Ваша учётная запись заблокирована для участия на Аренах.</string>
   <string name="prizeBanned">Ваша учётная запись заблокирована для участия в турнирах с реальными призами.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Ваша учётная запись ограничена.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Прочтите наши %s. Несоблюдение правил общения может привести к ограничению учётных записей.</string>
   <string name="excludedFromLeaderboards">Ваша учётная запись исключена из списка лидеров.</string>
-  <string name="excludedFromLeaderboardsInfo">Мы определяем это как использование нечестного способа попасть в список лидеров.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Мы определяем это как использование нечестного способа попасть в список лидеров.</string>
   <string name="closedByModerators">Ваша учётная запись была закрыта модераторами.</string>
   <string name="hiddenBlog">Ваши блоги были скрыты модераторами.</string>
   <string name="hiddenBlogInfo">Обязательно перечитайте наши %s.</string>

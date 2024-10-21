@@ -31,8 +31,8 @@
   <string name="byOpenings">ತೆರೆಯುವಿಕೆಯಿಂದ</string>
   <string name="puzzlesByOpenings">ತೆರೆಯುವಿಕೆಯಿಂದ ಒಗಟುಗಳು</string>
   <string name="openingsYouPlayedTheMost">ರೇಟ್ ಮಾಡಲಾದ ಆಟಗಳಲ್ಲಿ ನೀವು ಹೆಚ್ಚು ಆಡಿದ ಓಪನಿಂಗ್‌ಗಳು</string>
-  <string name="useFindInPage">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು ಬ್ರೌಸರ್ ಮೆನುವಿನಲ್ಲಿ \"ಪುಟದಲ್ಲಿ ಹುಡುಕಿ\" ಬಳಸಿ!</string>
-  <string name="useCtrlF">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು Ctrl+f ಬಳಸಿ!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು ಬ್ರೌಸರ್ ಮೆನುವಿನಲ್ಲಿ \"ಪುಟದಲ್ಲಿ ಹುಡುಕಿ\" ಬಳಸಿ!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">ನಿಮ್ಮ ಮೆಚ್ಚಿನ ತೆರೆಯುವಿಕೆಯನ್ನು ಹುಡುಕಲು Ctrl+f ಬಳಸಿ!</string>
   <string name="notTheMove">ಆ ನಡೆ ಸರಿಯಿಲ್ಲ!</string>
   <string name="trySomethingElse">ಬೇರೆ ಏನಾದರೂ ಪ್ರಯತ್ನಿಸಿ.</string>
   <string name="ratingX">ಧಾರಣೆ: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">ಸಾಮರ್ಥ್ಯ</string>
   <string name="history">ಮುಂಚಿನ ಒಗಟುಗಳು</string>
   <string name="solved">ಬಿಡಿಸಿದ ಒಗಟುಗಳು</string>
-  <string name="failed">ವಿಫಲಗೊಂಡ ಒಗಟುಗಳು</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">ವಿಫಲಗೊಂಡ ಒಗಟುಗಳು</string>
   <string name="streakDescription">ನೀವು ಉತ್ತರಿಸುತ್ತಾ ಹೋದಂತೆ ಕಠಿಣವಾಗುವ ಒಗಟುಗಳನ್ನು ಬಿಡಿಸಿ ಹಾಗೂ ಆ ಮೂಲಕ ಗೆಲುವಿನ ಸರಣಿಯನ್ನು ಕಟ್ಟುತ್ತಾ ಹೋಗಿ. ಇದಕ್ಕೆ ಸಮಯದ ಮಿತಿಯಿಲ್ಲ, ಆದ್ದರಿಂದ ಆರಾಮವಾಗಿ ಯೋಚಿಸಿ ಉತ್ತರಿಸಿ. ಒಂದು ತಪ್ಪು ನಡೆ, ಅಷ್ಟೇ, ಆಟ ಮುಗಿಯಿತು ಅಲ್ಲಿಗೆ! ಆದರೆ ಪ್ರತಿ ಸೆಷನ್ ಗೆ ಒಂದು ಬಾರಿ ನೀವು ಮುಂದಿನ ಒಗಟಿಗೆ ಜಿಗಿಯಬಹುದು.</string>
   <string name="yourStreakX">ನಿಮ್ಮ ಸರಣಿ: %s</string>
   <string name="streakSkipExplanation">ನಿಮ್ಮ ಸರಣಿಯನ್ನು ರಕ್ಷಿಸಲು ಈ ನಡೆಯನ್ನು ಬಿಟ್ಟು ಮುಂದೆ ಹೋಗಿ! ನೆನಪಿರಲಿ, ಇದು ಪ್ರತಿ ಓಟಕ್ಕೆ ಒಂದು ಬಾರಿ ಮಾತ್ರ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</string>

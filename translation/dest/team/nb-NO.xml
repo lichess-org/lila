@@ -11,7 +11,7 @@
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mine lag</string>
   <string name="noTeamFound">Ingen lag funnet</string>
-  <string name="joinTeam">Bli med i klanen</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Bli med i klanen</string>
   <string name="onlyLeaderLeavesTeam">Legg til en ny lagleder før du forlater laget, eller legg ned laget.</string>
   <string name="quitTeam">Forlat klanen</string>
   <string name="manuallyReviewAdmissionRequests">Gå gjennom ønsker om å få bli med manuelt</string>
@@ -56,7 +56,7 @@ Spillere som ikke liker å motta meldinger fra deg, kan komme til å forlate lag
   <string name="joinLichessVariantTeam">Bli med i det offisielle laget for %s for nyheter og hendelser</string>
   <string name="teamPage">Lagside</string>
   <string name="thisTeamBattleIsOver">Turneringen er avsluttet, og lagene kan ikke oppdateres lenger.</string>
-  <string name="listTheTeamsThatWillCompete">List opp lagene som deltar i denne kampen.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">List opp lagene som deltar i denne kampen.</string>
   <string name="oneTeamPerLine">Ett lag per linje. Bruk autofullføring.</string>
   <string name="oneTeamPerLineHelp">Du kan kopiere denne listen fra en turnering til en annen!
 

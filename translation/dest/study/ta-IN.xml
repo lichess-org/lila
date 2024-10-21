@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">நேரப்படி சேர்க்கப்பட்டவை (பழயவை)</string>
   <string name="recentlyUpdated">அண்மையில் புதுப்பிக்கப்பட்டவை</string>
   <string name="mostPopular">மிகவும் பிரபலமானவை</string>
-  <string name="alphabetical">அகரவரிசைப்படி</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">அகரவரிசைப்படி</string>
   <string name="addNewChapter">புதிய அத்தியாயத்தைச் சேர்க்க</string>
   <plurals name="nbChapters">
     <item quantity="one">%s அத்தியாயம்</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">விளையாட்டைப் பதிவிறக்க</string>
   <string name="studyUrl">கற்கை URL</string>
   <string name="currentChapterUrl">இந்த அத்தியாய URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">மன்றத்தில் அல்லது லீசெஸ் வலைப்பதிவில் உட்பொதிக்க நீங்கள் இதை ஒட்டலாம்</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">மன்றத்தில் அல்லது லீசெஸ் வலைப்பதிவில் உட்பொதிக்க நீங்கள் இதை ஒட்டலாம்</string>
   <string name="startAtInitialPosition">கற்கையை இந்த இடத்திலிருந்து ஆரம்பிக்கவும்</string>
   <string name="startAtX">%s இல் ஆரம்பிக்க</string>
   <string name="embedInYourWebsite">உங்கள் வலைத்தளத்தில் உட்பொதிக்க</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">கற்கையை இந்த இடத்திலிருந்து ஆரம்பிக்கவும்</string>
   <string name="editor">திருத்து</string>
   <string name="startFromCustomPosition">தனிப்பயன் நிலையிலிருந்து தொடங்கவும்</string>
-  <string name="loadAGameByUrl">URLகள் மூலம் ஆட்டங்களை ஏற்றவும்</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">URLகள் மூலம் ஆட்டங்களை ஏற்றவும்</string>
   <string name="loadAPositionFromFen">FEN இலிருந்து ஒரு நிலையை ஏற்றவும்</string>
-  <string name="loadAGameFromPgn">PGN இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN இலிருந்து ஆட்டங்களை ஏற்றவும்</string>
   <string name="automatic">தானியங்கி</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">%s ஆட்டம்வரை உங்கள் PGN உரையை இங்கே ஒட்டவும்</item>
@@ -164,7 +164,7 @@
   <string name="popularTopics">பிரபலமான தலைப்புகள்</string>
   <string name="manageTopics">தலைப்புகளை நிர்வகிக்கவும்</string>
   <string name="back">பின்செல்</string>
-  <string name="playAgain">மீண்டும் விளையாட</string>
-  <string name="whatWouldYouPlay">இந்த நிலையில் நீங்கள் என்ன விளையாடுவீர்கள்?</string>
-  <string name="youCompletedThisLesson">வாழ்த்துகள்! இந்தப் பாடத்தை முடித்துவிட்டீர்கள்.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">மீண்டும் விளையாட</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">இந்த நிலையில் நீங்கள் என்ன விளையாடுவீர்கள்?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">வாழ்த்துகள்! இந்தப் பாடத்தை முடித்துவிட்டீர்கள்.</string>
 </resources>

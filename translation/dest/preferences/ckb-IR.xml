@@ -15,7 +15,7 @@
   <string name="pgnLetter">پیتی (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">دۆخی zen</string>
   <string name="showPlayerRatings">مستەوای یاریزانەکان پیشان بدە</string>
-  <string name="explainShowPlayerRatings">ئەمەش ڕێگە بە شاردنەوەی هەموو ئیلۆکان دەدات لە ماڵپەڕەکە، بۆ ئەوەی یارمەتیت بدات لە سەرنجدان لەسەر شەترەنج، یارییەکان هێشتا دەتوانرێت هەڵسەنگاندنیان بۆ بکرێت، ئەمە تەنها پەیوەندی بەوە ھەیە کە چی دەبینی.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">ئەمەش ڕێگە بە شاردنەوەی هەموو ئیلۆکان دەدات لە ماڵپەڕەکە، بۆ ئەوەی یارمەتیت بدات لە سەرنجدان لەسەر شەترەنج، یارییەکان هێشتا دەتوانرێت هەڵسەنگاندنیان بۆ بکرێت، ئەمە تەنها پەیوەندی بەوە ھەیە کە چی دەبینی.</string>
   <string name="displayBoardResizeHandle">گۆڕینی قەبارەی بۆرد پیشان بدە</string>
   <string name="onlyOnInitialPosition">تەنها لەسەر شوێنی سەرەتایی</string>
   <string name="inGameOnly">تەنیا لەناو یاری</string>

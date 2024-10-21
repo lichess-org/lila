@@ -36,10 +36,10 @@
   <string name="clearanceDescription">이어지는 전술적 아이디어를 위해 칸, 파일 또는 대각선을 비우는 수입니다.</string>
   <string name="defensiveMove">방어적인 수</string>
   <string name="defensiveMoveDescription">기물을 잃거나 다른 손실을 피하기 위해 필요한 정확한 수입니다.</string>
-  <string name="deflection">유인</string>
+  <string name="deflection">굴절</string>
   <string name="deflectionDescription">중요한 칸을 수비하는 등 다른 역할을 수행하는 상대 기물의 주의를 분산시키는 수입니다. \"과부하\"라고도 불립니다.</string>
   <string name="discoveredAttack">디스커버드 어택</string>
-  <string name="discoveredAttackDescription">장거리 기물(예: 룩)의 길을 막고 있는 기물(예: 나이트)을 이동시켜 공격합니다.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">장거리 기물(예: 룩)의 길을 막고 있는 기물(예: 나이트)을 이동시켜 공격합니다.</string>
   <string name="doubleCheck">더블 체크</string>
   <string name="doubleCheckDescription">움직인 기물과 그 뒤에 있던 기물이 모두 상대 킹을 공격한 디스커버 어택의 결과로, 두 기물이 동시에 체크를 합니다.</string>
   <string name="endgame">엔드게임</string>

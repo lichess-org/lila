@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s huet %2$s verëffentlecht</string>
   <string name="thisPostIsPublished">Dësen Bäitrag ass verëffentlecht</string>
   <string name="thisIsADraft">Dëst ass en Entworf</string>
-  <string name="moreBlogPostsBy">Méi Blog-Bäiträg vum %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Méi Blog-Bäiträg vum %s</string>
   <string name="noPostsInThisBlogYet">Nach keng Bäiträg an dësen Blog.</string>
   <string name="noDrafts">Keng Entwërf unzeweisen.</string>
   <string name="latestBlogPosts">Neiste Blog-Bäiträg</string>

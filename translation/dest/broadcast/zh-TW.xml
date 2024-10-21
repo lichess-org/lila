@@ -16,32 +16,30 @@
   <string name="ongoing">進行中</string>
   <string name="upcoming">即將舉行</string>
   <string name="completed">已結束</string>
-  <string name="completedHelp" comment="This string used to say &quot;Lichess detects round completion based on the source games. Use this toggle if there is no source.&quot; but has since been streamlined along with the rest of the user interface. Please update translations as needed.">Lichess 偵測棋局的結束，但有可能會偵測錯誤。請在這自行設定。</string>
+  <string name="completedHelp">Lichess 偵測棋局的結束，但有可能會偵測錯誤。請在這自行設定。</string>
   <string name="roundName">回合名稱</string>
   <string name="roundNumber">回合數</string>
   <string name="tournamentName">錦標賽名稱</string>
   <string name="tournamentDescription">簡短比賽說明</string>
-  <string name="fullDescription" comment="This text used to say &quot;Full event description&quot;. It can be changed to &quot;tournament&quot; since all broadcast events are tournaments.">完整比賽說明</string>
-  <string name="fullDescriptionHelp" comment="This text used to start with &quot;Optional long description of the broadcast.&quot;.&#10;The word should be changed to &quot;tournament&quot; since all broadcast events are tournaments, and it is a more user-friendly term.&#10;&#10;%1$s says &quot;Markdown&quot; (a proper noun) and gives a link to a description of Markdown.&#10;%2$s is the character limit (e.g. 160)">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
+  <string name="fullDescription">完整比賽說明</string>
+  <string name="fullDescriptionHelp">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
   <string name="sourceSingleUrl">PGN 來源網址</string>
   <string name="sourceUrlHelp">Lichess 將以該網址更新PGN數據，網址必須公開</string>
   <string name="sourceGameIds">最多 64 個以空格分開的 Lichess 棋局序號。</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">當地時區的錦標賽起始日期：%s</string>
+  <string name="startDateTimeZone">當地時區的錦標賽起始日期：%s</string>
   <string name="startDateHelp">可選，如果知道比賽開始時間</string>
   <string name="credits">提及來源</string>
   <string name="currentGameUrl">目前棋局連結</string>
   <string name="downloadAllRounds">下載所有棋局</string>
   <string name="resetRound">重設此回合</string>
   <string name="deleteRound">刪除此回合</string>
-  <string name="definitivelyDeleteRound" comment="Refers to live tournaments being broadcast on Lichess (https://lichess.org/broadcast).&#10;&#10;Description (also translateable): Delete all games of this round. The source will need to be active in order to re-create them.&#10;&#10;This string has been amended since its initial publication; it didn't say &quot;all its games&quot; at the time.">刪除這局以及其所有棋局</string>
+  <string name="definitivelyDeleteRound">刪除這局以及其所有棋局</string>
   <string name="deleteAllGamesOfThisRound">刪除所有此輪的棋局。直播來源必須是開啟的以成功重新建立棋局。</string>
   <string name="editRoundStudy">編輯此輪研究</string>
   <string name="deleteTournament">刪除此錦標賽</string>
   <string name="definitivelyDeleteTournament">刪除錦標賽以及所有棋局</string>
   <string name="showScores">根據比賽結果顯示玩家分數</string>
   <string name="replacePlayerTags">取代玩家名字、評級、以及頭銜（選填）</string>
-  <string name="periodInSeconds">週期（秒）</string>
-  <string name="periodInSecondsHelp">請求之間的時間間隔，最少 2 秒，最多 60 秒。預設為依照觀看人數決定。（選填）</string>
   <string name="fideFederations">FIDE 國別</string>
   <string name="top10Rating">前 10 評級</string>
   <string name="fidePlayers">FIDE 玩家</string>

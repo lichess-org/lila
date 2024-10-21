@@ -27,7 +27,7 @@
     <item quantity="one">%s minutes entre les rondes</item>
     <item quantity="other">%s minutes entre les rondes</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Commence dans</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Commence dans</string>
   <string name="nextRound">Prochaine ronde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Partie en cours</item>
@@ -78,7 +78,7 @@ De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardiveme
 Ensuite, il sera retiré du tournoi pour éviter de perdre d\'autres parties par défaut.
 Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</string>
   <string name="protectionAgainstNoShowQ">Que fait-on dans le cas d\'un joueur qui ne se présente pas pour une partie ?</string>
-  <string name="protectionAgainstNoShowA">Les joueurs qui s\'inscrivent à un tournoi suisse, mais qui ne jouent pas une ou plusieurs de leurs parties, sont un problème.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Les joueurs qui s\'inscrivent à un tournoi suisse, mais qui ne jouent pas une ou plusieurs de leurs parties, sont un problème.
 Pour réduire ce problème, Lichess empêche ces joueurs de participer à un nouveau tournoi suisse pendant un certain temps.
 Mais l\'organisateur d\'un tournoi suisse peut décider de les laisser participer.</string>
   <string name="lateJoinQ">Un joueur peut-il se joindre tardivement à un tournoi ?</string>

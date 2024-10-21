@@ -55,7 +55,7 @@
   <string name="strengths">Kekuatan</string>
   <string name="history">Riwayat teka-teki</string>
   <string name="solved">diselesaikan</string>
-  <string name="failed">gagal</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">gagal</string>
   <string name="streakDescription">Pecahkan teka-teki yang semakin sulit dan bangun kemenangan beruntun. Tidak ada jam, jadi luangkan waktu Anda. Satu langkah salah, dan permainan berakir! Tapi Anda dapat melewati gerakan per sesi.</string>
   <string name="yourStreakX">Garis Anda: %s</string>
   <string name="streakSkipExplanation">Lewati gerakan ini untuk mempertahankan garis Anda! Hanya bekerja sekali per pertandingan.</string>

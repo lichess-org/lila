@@ -15,7 +15,7 @@
   <string name="puzzleDashboard">ପ୍ରହେଳିକା ଡ୍ୟାସବୋର୍ଡ</string>
   <string name="history">ପ୍ରହେଳିକା ଇତିବୃତ୍ତି</string>
   <string name="solved">ସମାଧାନ ହୋଇଛି</string>
-  <string name="failed">ବିଫଳ</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">ବିଫଳ</string>
   <string name="lookupOfPlayer">ଜଣେ ଖେଳାଳିଙ୍କ ଖେଳରୁ ପ୍ରହେଳିକା ଦେଖନ୍ତୁ</string>
   <string name="fromXGames">%sଙ୍କ ଖେଳରୁ ପ୍ରହେଳିକା</string>
   <string name="searchPuzzles">ପ୍ରହେଳିକା ଖୋଜନ୍ତୁ</string>

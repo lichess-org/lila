@@ -27,7 +27,7 @@
     <item quantity="one">%s دقیقه بین دورها</item>
     <item quantity="other">%s دقیقه بین دورها</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">شروع در</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">شروع در</string>
   <string name="nextRound">دور بعد</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">بازی در جریان</item>
@@ -76,7 +76,7 @@
   <string name="whatIfOneDoesntPlayA">بازی ادامه پیدا میکند تا در نهایت تسلیم شده و بازی را واگذار کنند. سپس سیستم بازیکن را از مسابقات خارج می کند تا بازی های بیشتری را نبازند.
 آنها هر زمانی که خواستند میتوانند به مسابقه برگردند.</string>
   <string name="protectionAgainstNoShowQ">در موارد عدم حضور چه اتفاقی می‌افتد؟</string>
-  <string name="protectionAgainstNoShowA">بازیکنانی که برای مسابقات سوییس ثبت‌نام می‌کنند اما در بازی‌هایشان شرکت نمی‌کنند٬ می‌توانند باعث ایجاد مشکلاتی شوند.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">بازیکنانی که برای مسابقات سوییس ثبت‌نام می‌کنند اما در بازی‌هایشان شرکت نمی‌کنند٬ می‌توانند باعث ایجاد مشکلاتی شوند.
 برای رفع این مشکل٬ لیچس بازیکنانی را که در بازی شرکت نمی‌کنند از شرکت در دیگر مسابقات سوییس برای مدت زمان مشخصی محروم می‌کند. 
 برگزارکننده یک مسابقه سوییس می‌تواند اجازه حضور در مسابقه را٬ علیرغم این محرومیت٬ برای این بازیکنان صادر کند.</string>
   <string name="lateJoinQ">آیا بازیکنان می توانند دیر تر در مسابقه شرکت کنند؟</string>

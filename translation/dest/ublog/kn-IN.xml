@@ -24,7 +24,7 @@
   <string name="xPublishedY">%1$s, %2$s ಪ್ರಕಟಿಸಲಾಗಿದೆ</string>
   <string name="thisPostIsPublished">ಈ ಪೋಸ್ಟ್ ಪ್ರಕಟಿಸಲಾಗಿದೆ</string>
   <string name="thisIsADraft">ಇದು ಡ್ರಾಫ್ಟ್ ಆಗಿದೆ</string>
-  <string name="moreBlogPostsBy">%s ಅವರಿಂದ ಇನ್ನಷ್ಟು ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳು</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s ಅವರಿಂದ ಇನ್ನಷ್ಟು ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳು</string>
   <string name="noPostsInThisBlogYet">ಈ ಬ್ಲಾಗ್‌ನಲ್ಲಿ ಇನ್ನೂ ಯಾವುದೇ ಪೋಸ್ಟ್‌ಗಳಿಲ್ಲ.</string>
   <string name="noDrafts">ತೋರಿಸಲು ಯಾವುದೇ ಡ್ರಾಫ್ಟ್‌ಗಳಿಲ್ಲ.</string>
   <string name="latestBlogPosts">ಇತ್ತೀಚಿನ ಬ್ಲಾಗ್ ಪೋಸ್ಟ್‌ಗಳು</string>

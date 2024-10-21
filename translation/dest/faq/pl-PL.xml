@@ -23,7 +23,7 @@
   <string name="keyboardShortcutsExplanation">Na niektórych stronach Lichess możesz używać skrótów klawiaturowych. Naciśnij klawisz \'?\' będąc na stronie opracowania, analizy, zadania szachowego lub na stronie gry, aby wyświetlić dostępne skróty klawiaturowe.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">W jakich przypadkach mogę liczyć na automatyczny zwrot punktów rankingowych utraconych w grze z oszustami?</string>
-  <string name="ratingRefundExplanation">Już po minucie od wykrycia oszusta pobierzemy jego 40 ostatnich partii rankingowych z ostatnich 3 dni. Jeśli byłeś jego przeciwnikiem w tych partiach i straciłeś punkty rankingowe (ze względu na porażkę lub remis), a Twój ranking nie był tymczasowy, to otrzymasz zwrot punktów. Zwrot jest uzależniony od Twojego maksymalnego rankingu i jego wzrostu od czasu gry z oszustem.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Już po minucie od wykrycia oszusta pobierzemy jego 40 ostatnich partii rankingowych z ostatnich 3 dni. Jeśli byłeś jego przeciwnikiem w tych partiach i straciłeś punkty rankingowe (ze względu na porażkę lub remis), a Twój ranking nie był tymczasowy, to otrzymasz zwrot punktów. Zwrot jest uzależniony od Twojego maksymalnego rankingu i jego wzrostu od czasu gry z oszustem.
 (Na przykład, jeśli Twój ranking znacznie się zwiększył po tych partiach, możesz nie otrzymać zwrotu lub otrzymać tylko częściowy zwrot.) Zwrot nigdy nie przekracza 150 punktów.</string>
   <string name="preventLeavingGameWithoutResigning">Co się dzieje z graczami opuszczającymi partie bez poddania się?</string>
   <string name="leavingGameWithoutResigningExplanation">Przeciwnik który często przerywa/opuszcza partie otrzyma \"wykluczenie\", co oznacza, że tymczasowo nie będzie mógł grać. Nie jest to publicznie widoczne na jego profilu. Jeśli takie zachowanie będzie się powtarzać, czas trwania wykluczenia wydłuży się - a długotrwałe zachowanie tego rodzaju może prowadzić do zamknięcia konta.</string>
@@ -37,7 +37,7 @@
   <string name="howBulletBlitzEtcDecided">W jaki sposób system decyduje czy partia jest typu Bullet, Blitz itd.?</string>
   <string name="basedOnGameDuration">Kontrole czasu na Lichess oparte są na szacowanym czasie trwania gry = %1$s
 Na przykład, szacowany czas trwania gry 5+3 wynosi 5 * 60 + 40 * 3 = 420 sekund.</string>
-  <string name="durationFormula">(czas podstawowy) + 40 * (czas dodatkowy)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(czas podstawowy) + 40 * (czas dodatkowy)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">W jakie warianty szachów mogę zagrać na Lichess?</string>

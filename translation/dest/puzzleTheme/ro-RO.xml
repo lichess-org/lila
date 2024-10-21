@@ -39,7 +39,7 @@
   <string name="deflection">Deviere</string>
   <string name="deflectionDescription">O mutare care distrage o piesă adversară de la o altă funcție pe care o îndeplinește, cum ar fi apărarea unui pătrat esențial.</string>
   <string name="discoveredAttack">Atac prin descoperire</string>
-  <string name="discoveredAttackDescription">Mutarea unei piese care bloca anterior un atac de la o altă piesă cu rază lungă de acțiune, cum ar fi un cal din calea unui turn.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mutarea unei piese care bloca anterior un atac de la o altă piesă cu rază lungă de acțiune, cum ar fi un cal din calea unui turn.</string>
   <string name="doubleCheck">Șah dublu</string>
   <string name="doubleCheckDescription">Șahul cu două piese deodată, ca rezultat al unui atac descoperit unde și piesa mutată, și cea descoperită atacă regele adversarului.</string>
   <string name="endgame">Final de partidă</string>

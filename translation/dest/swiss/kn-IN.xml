@@ -27,7 +27,7 @@
     <item quantity="one">ಸುತ್ತುಗಳ ನಡುವೆ %s ನಿಮಿಷ</item>
     <item quantity="other">ಸುತ್ತುಗಳ ನಡುವೆ %s ನಿಮಿಷಗಳು</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">ರಲ್ಲಿ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">ರಲ್ಲಿ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತಿದೆ</string>
   <string name="nextRound">ಮುಂದಿನ ಸುತ್ತು</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">ನಡೆಯುತ್ತಿರುವ ಆಟ</item>
@@ -79,7 +79,7 @@
 ನಂತರ ವ್ಯವಸ್ಥೆಯು ಪಂದ್ಯಾವಳಿಯಿಂದ ಆಟಗಾರನನ್ನು ಹಿಂತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ, ಆದ್ದರಿಂದ ಅವರು ಹೆಚ್ಚಿನ ಆಟಗಳನ್ನು ಕಳೆದುಕೊಳ್ಳುವುದಿಲ್ಲ.
  ಅವರು ಯಾವುದೇ ಸಮಯದಲ್ಲಿ ಪಂದ್ಯಾವಳಿಗೆ ಮರು ಸೇರಿಕೊಳ್ಳಬಹುದು.</string>
   <string name="protectionAgainstNoShowQ">ಪ್ರದರ್ಶನಗಳಿಲ್ಲದ ಬಗ್ಗೆ ಏನು ಮಾಡಲಾಗುತ್ತದೆ?</string>
-  <string name="protectionAgainstNoShowA">ಸ್ವಿಸ್ ಈವೆಂಟ್‌ಗಳಿಗೆ ಸೈನ್ ಅಪ್ ಮಾಡಿದ ಆದರೆ ಅವರ ಆಟಗಳನ್ನು ಆಡದ ಆಟಗಾರರು ಸಮಸ್ಯಾತ್ಮಕವಾಗಬಹುದು.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">ಸ್ವಿಸ್ ಈವೆಂಟ್‌ಗಳಿಗೆ ಸೈನ್ ಅಪ್ ಮಾಡಿದ ಆದರೆ ಅವರ ಆಟಗಳನ್ನು ಆಡದ ಆಟಗಾರರು ಸಮಸ್ಯಾತ್ಮಕವಾಗಬಹುದು.
 ಈ ಸಮಸ್ಯೆಯನ್ನು ನಿವಾರಿಸಲು, ಲಿಚೆಸ್ ಆಟವನ್ನು ಆಡಲು ವಿಫಲರಾದ ಆಟಗಾರರನ್ನು ನಿರ್ದಿಷ್ಟ ಸಮಯದವರೆಗೆ ಹೊಸ ಸ್ವಿಸ್ ಈವೆಂಟ್‌ಗೆ ಸೇರುವುದನ್ನು ತಡೆಯುತ್ತದೆ.
 ಸ್ವಿಸ್ ಈವೆಂಟ್‌ನ ರಚನೆಕಾರರು ಹೇಗಾದರೂ ಅವರನ್ನು ಈವೆಂಟ್‌ಗೆ ಸೇರಲು ಅನುಮತಿಸಲು ನಿರ್ಧರಿಸಬಹುದು.</string>
   <string name="lateJoinQ">ಆಟಗಾರರು ತಡವಾಗಿ ಸೇರಬಹುದೇ?</string>

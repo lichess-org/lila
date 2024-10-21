@@ -39,7 +39,7 @@
   <string name="deflection">引离</string>
   <string name="deflectionDescription">一步棋使对方的棋子分散了其另一项任务，例如防守一个关键格。有时候也叫“过载”。</string>
   <string name="discoveredAttack">闪击</string>
-  <string name="discoveredAttackDescription">移动阻挡长距离棋子(例如车) 的己方棋子(例如马)，打通前者的路线。</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">移动阻挡长距离棋子(例如车) 的己方棋子(例如马)，打通前者的路线。</string>
   <string name="doubleCheck">双将</string>
   <string name="doubleCheckDescription">两个棋子同时将军，作为一种闪击，走动的棋子与后面闪露出来的棋子同时攻击对方的王。</string>
   <string name="endgame">残局</string>

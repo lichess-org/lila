@@ -36,7 +36,7 @@
   <string name="xPublishedY">Používateľ %1$s uverejnil blog s názvom %2$s</string>
   <string name="thisPostIsPublished">Tento príspevok je zverejnený</string>
   <string name="thisIsADraft">Toto je koncept</string>
-  <string name="moreBlogPostsBy">Viac príspevkov na blogu od používateľa %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Viac príspevkov na blogu od používateľa %s</string>
   <string name="noPostsInThisBlogYet">V tomto blogu zatiaľ nie sú žiadne príspevky.</string>
   <string name="noDrafts">Žiadne koncepty na zobrazenie.</string>
   <string name="latestBlogPosts">Najnovšie príspevky na blogu</string>

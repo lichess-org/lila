@@ -124,7 +124,6 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
   <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
-  <string name="engineManager">Hantera analysmotor</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Misstag</string>
   <string name="inaccuracy">Felaktighet</string>

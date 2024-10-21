@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Zahtjevi DGT ploče</string>
   <string name="dgtBoardLimitations">Ograničenja DGT ploče</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ova stranica Vam dopušta da povežete vašu DGT ploču sa Lichess-om i da je koristite za igranje.</string>
-  <string name="toConnectTheDgtBoard">Da biste spojili DGT elektronsku ploču morate instalirati %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Da biste spojili DGT elektronsku ploču morate instalirati %s.</string>
   <string name="downloadHere">Softver možete preuzeti ovdje: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Ako je %1$s pokrenut na ovom računaru, vašu konekciju s njim možete provjeriti sa %2$s.</string>
   <string name="openingThisLink">otvaranjem ovog linka</string>

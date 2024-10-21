@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">متطلبات رقعة DGT</string>
   <string name="dgtBoardLimitations">قيود استخدام رقعة DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">هذه الصفحة تسمح لك بربط رقعة DGT الخاصة بك في ليتشيس، واستخدامها لعرض المباريات عليه.</string>
-  <string name="toConnectTheDgtBoard">لربط رقعة DGT الإلكترونية، يجب عليك أن تثبت%s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">لربط رقعة DGT الإلكترونية، يجب عليك أن تثبت%s.</string>
   <string name="downloadHere">يمكنك تنزيل البرنامَج من هنا:%s.</string>
   <string name="ifLiveChessRunningOnThisComputer">إذا كان %1$s يعمل على هذا الحاسوب، يمكنك التحقق من اتصالك به بواسطة%2$s.</string>
   <string name="openingThisLink">فتح هذا الرابط</string>
