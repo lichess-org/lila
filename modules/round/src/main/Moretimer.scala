@@ -17,8 +17,8 @@ final class Moretimer(
   private val maxTime = 60.seconds
 
   // pov of the player giving more time
-  def apply(pov: Pov, duration: FiniteDuration): Fu[Option[Progress]] =
-    IfAllowed(pov.game, Preload.none):
+  def apply(pov: Pov, duration: FiniteDuration, force: Boolean): Fu[Option[Progress]] =
+    IfAllowed(pov.game, Preload.none, force):
       (pov.game
         .moretimeable(!pov.color))
         .so:
@@ -30,9 +30,10 @@ final class Moretimer(
               val p = correspondenceGiveTime(pov.game)
               p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
 
-  def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]], byAdmin: Boolean): Fu[Boolean] =
+  TODO.duplicated(code)
+  def isAllowedIn(game: Game, prefs: Preload[ByColor[Pref]], force: Boolean): Fu[Boolean] =
     (game.canTakebackOrAddTime && game.playable).so:
-      if byAdmin then fuccess(true)
+      if force then fuccess(true)
       else (!game.metadata.hasRule(_.noGiveTime)).so(isAllowedByPrefs(game, prefs))
 
   private def correspondenceGiveTime(g: Game) = Progress(g, g.copy(movedAt = nowInstant))
@@ -58,10 +59,11 @@ final class Moretimer(
         _.forall: p =>
           p.moretime == Pref.Moretime.ALWAYS || (p.moretime == Pref.Moretime.CASUAL && game.casual)
 
-  private def IfAllowed[A](game: Game, prefs: Preload[ByColor[Pref]])(f: => A): Fu[A] =
-    if !game.playable then fufail(ClientError("[moretimer] game is over " + game.id))
-    else if !game.canTakebackOrAddTime || game.metadata.hasRule(_.noGiveTime) then
-      fufail(ClientError("[moretimer] game disallows it " + game.id))
+  private def IfAllowed[A](game: Game, prefs: Preload[ByColor[Pref]], force: Boolean)(f: => A): Fu[A] =
+    if !game.playable then fufail(ClientError("[moretimer] game is over"))
+    else if !game.canTakebackOrAddTime then fufail(ClientError("[moretimer] Can't add time to this game"))
+    else if !force && game.metadata.hasRule(_.noGiveTime) then
+      fufail(ClientError("[moretimer] game rules disallows it"))
     else
       isAllowedByPrefs(game, prefs).flatMap:
         if _ then fuccess(f)
