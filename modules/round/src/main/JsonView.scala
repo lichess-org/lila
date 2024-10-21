@@ -194,7 +194,7 @@ final class JsonView(
           "opponent" -> commonWatcherJson(game, opponent, users(pov.opponent.color), flags).add(
             "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
           ),
-          "orientation" -> pov.color.name,
+          "orientation" -> (if game.variant.racingKings then Color.White else pov.color.name),
           "url" -> flags.lichobileCompat.option:
             Json.obj(
               "socket" -> s"/watch/$gameId/${color.name}/v${ApiVersion.lichobile}",
