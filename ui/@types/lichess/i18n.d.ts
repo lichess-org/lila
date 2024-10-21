@@ -10,6 +10,7 @@ interface I18nPlural {
 interface I18n {
   /** Global noarg key lookup (only if absolutely necessary). */
   (key: string): string;
+  quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
   activity: {
     /** Activity */

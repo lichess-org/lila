@@ -16,53 +16,6 @@ let watchTimeout: NodeJS.Timeout | undefined;
 const i18nWatch: fs.FSWatcher[] = [];
 const isFormat = /%(?:[\d]\$)?s/;
 
-const tsPrelude = `// Generated
-interface I18nFormat {
-  (...args: (string | number)[]): string; // formatted
-  asArray: <T>(...args: T[]) => (T | string)[]; // vdom
-}
-interface I18nPlural {
-  (quantity: number, ...args: (string | number)[]): string; // pluralSame
-  asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
-}
-interface I18n {
-  /** Global noarg key lookup (only if absolutely necessary). */
-  (key: string): string;\n\n`;
-
-const jsPrelude =
-  '"use strict";(()=>{' +
-  (
-    await transform(
-      // s(...) is the standard format function, p(...) is the plural format function.
-      // both have an asArray method for vdom.
-      `function p(t) {
-        let r = (n, ...e) => l(o(t, n), n, ...e).join('');
-        return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
-      }
-      function s(t) {
-        let r = (...n) => l(t, ...n).join('');
-        return (r.asArray = (...n) => l(t, ...n)), r;
-      }
-      function o(t, n) {
-        return t[site.quantity(n)] || t.other || t.one || '';
-      }
-      function l(t, ...r) {
-        let n = t.split(/(%(?:\\d\\$)?s)/);
-        if (r.length) {
-          let e = n.indexOf('%s');
-          if (e !== -1) n[e] = r[0];
-          else
-            for (let i = 0; i < r.length; i++) {
-              let s = n.indexOf('%' + (i + 1) + '$s');
-              s !== -1 && (n[s] = r[i]);
-            }
-        }
-        return n;
-      }`,
-      { minify: true, loader: 'js' },
-    )
-  ).code;
-
 export function stopI18n(): void {
   clearTimeout(watchTimeout);
   watchTimeout = undefined;
@@ -177,15 +130,18 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
           .then(parseXml)
       : []),
   ]);
+  const lang = locale?.split('-')[0];
   const jsInit =
-    cat === 'site'
-      ? 'window.i18n=function(k){for(let v of Object.values(window.i18n))if(v[k])return v[k];return k};'
-      : '';
+    cat !== 'site'
+      ? ''
+      : siteInit +
+        'window.i18n.quantity=' +
+        (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
+        ';';
   const code =
     jsPrelude +
     jsInit +
-    `if(!window.i18n.${cat})window.i18n.${cat}={};` +
-    `let i=window.i18n.${cat};` +
+    `let i=window.i18n.${cat}={};` +
     [...translations]
       .map(
         ([k, v]) =>
@@ -244,3 +200,123 @@ function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
   }
   return result;
 }
+
+async function min(js: string): Promise<string> {
+  return (await transform(js, { minify: true, loader: 'js' })).code;
+}
+
+const tsPrelude = `// Generated
+interface I18nFormat {
+  (...args: (string | number)[]): string; // formatted
+  asArray: <T>(...args: T[]) => (T | string)[]; // vdom
+}
+interface I18nPlural {
+  (quantity: number, ...args: (string | number)[]): string; // pluralSame
+  asArray: <T>(quantity: number, ...args: T[]) => (T | string)[]; // vdomPlural / plural
+}
+interface I18n {
+  /** Global noarg key lookup (only if absolutely necessary). */
+  (key: string): string;
+  quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';\n\n`;
+
+const jsPrelude =
+  '"use strict";(()=>{' +
+  (await min(
+    // s(...) is the standard format function, p(...) is the plural format function.
+    // both have an asArray method for vdom.
+    `function p(t) {
+        let r = (n, ...e) => l(o(t, n), n, ...e).join('');
+        return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
+      }
+      function s(t) {
+        let r = (...n) => l(t, ...n).join('');
+        return (r.asArray = (...n) => l(t, ...n)), r;
+      }
+      function o(t, n) {
+        return t[i18n.quantity(n)] || t.other || t.one || '';
+      }
+      function l(t, ...r) {
+        let n = t.split(/(%(?:\\d\\$)?s)/);
+        if (r.length) {
+          let e = n.indexOf('%s');
+          if (e != -1) n[e] = r[0];
+          else
+            for (let i = 0; i < r.length; i++) {
+              let s = n.indexOf('%' + (i + 1) + '$s');
+              s != -1 && (n[s] = r[i]);
+            }
+        }
+        return n;
+      }`,
+  ));
+
+const siteInit = await min(
+  `window.i18n = function(k) {
+      for (let v of Object.values(window.i18n)) {
+        if (v[k]) return v[k];
+        return k;
+      }
+  }`,
+);
+
+const jsQuantity = [
+  {
+    l: ['fr', 'ff', 'kab', 'co', 'ak', 'am', 'bh', 'fil', 'tl', 'guw', 'hi', 'ln', 'mg', 'nso', 'ti', 'wa'],
+    q: `o=>o<=1?"one":"other"`, // french
+  },
+  {
+    l: ['cs', 'sk'],
+    q: `o=>1==o?"one":o>=2&&o<=4?"few":"other"`, // czech
+  },
+  {
+    l: ['hr', 'ru', 'sr', 'uk', 'be', 'bs', 'sh', 'ry'], // balkan
+    q: `o=>{const e=o%100,t=o%10;return 1==t&&11!=e?"one":t>=2&&t<=4&&!(e>=12&&e<=14)?"few":0==t||t>=5&&t<=9||e>=11&&e<=14?"many":"other"}`,
+  },
+  {
+    l: ['lv'], // latvian
+    q: `o=>0==o?"zero":o%10==1&&o%100!=11?"one":"other"`,
+  },
+  {
+    l: ['lt'], // lithuanian
+    q: `o=>{const e=o%100,t=o%10;return 1!=t||e>=11&&e<=19?t>=2&&t<=9&&!(e>=11&&e<=19)?"few":"other":"one"}`,
+  },
+  {
+    l: ['pl'], // polish
+    q: `o=>{const e=o%100,t=o%10;return 1==o?"one":t>=2&&t<=4&&!(e>=12&&e<=14)?"few":"other"}`,
+  },
+  {
+    l: ['ro', 'mo'], // romanian
+    q: `o=>{const e=o%100;return 1==o?"one":0==o||e>=1&&e<=19?"few":"other"}`,
+  },
+  {
+    l: ['sl'], // slovenian
+    q: `o=>{const e=o%100;return 1==e?"one":2==e?"two":e>=3&&e<=4?"few":"other"}`,
+  },
+  {
+    l: ['ar'], // arabic
+    q: `o=>{const e=o%100;return 0==o?"zero":1==o?"one":2==o?"two":e>=3&&e<=10?"few":e>=11&&e<=99?"many":"other"}`,
+  },
+  {
+    l: ['mk'], // macedonian
+    q: `o=>o%10==1&&11!=o?"one":"other"`,
+  },
+  {
+    l: ['cy', 'br'], // welsh
+    q: `o=>0==o?"zero":1==o?"one":2==o?"two":3==o?"few":6==o?"many":"other"`,
+  },
+  {
+    l: ['mt'], // maltese
+    q: `o=>{const e=o%100;return 1==o?"one":0==o||e>=2&&e<=10?"few":e>=11&&e<=19?"many":"other"}`,
+  },
+  {
+    l: ['ga', 'se', 'sma', 'smi', 'smj', 'smn', 'sms'],
+    q: `o=>1==o?"one":2==o?"two":"other"`,
+  },
+  {
+    l: [
+      ...['az', 'bm', 'fa', 'ig', 'hu', 'ja', 'kde', 'kea', 'ko', 'my', 'ses', 'sg', 'to', 'tr', 'vi', 'wo'],
+      ...['yo', 'zh', 'bo', 'dz', 'id', 'jv', 'ka', 'km', 'kn', 'ms', 'th', 'tp', 'io', 'ia'],
+    ],
+    q: `o=>"other"`,
+  },
+];
