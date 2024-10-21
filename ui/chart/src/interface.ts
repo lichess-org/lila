@@ -52,12 +52,6 @@ export interface ChartGame {
 
 export interface DistributionData {
   freq: number[];
-  i18n: {
-    cumulative: string;
-    glicko2Rating: string;
-    players: string;
-    yourRating: string;
-  };
   myRating: number | null;
   otherPlayer: string | null;
   otherRating: number | null;
