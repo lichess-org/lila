@@ -28,6 +28,7 @@ final class TournamentApi(
     pairingSystem: arena.PairingSystem,
     callbacks: TournamentApi.Callbacks,
     socket: TournamentSocket,
+    leaderboard: LeaderboardApi,
     roundApi: lila.core.round.RoundApi,
     gameProxy: lila.core.game.GameProxy,
     trophyApi: lila.core.user.TrophyApi,

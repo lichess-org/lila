@@ -1,6 +1,8 @@
 package lila.tournament
 
+import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
+import reactivemongo.akkastream.cursorProducer
 import scalalib.Maths
 import scalalib.paginator.{ AdapterLike, Paginator }
 
@@ -8,11 +10,12 @@ import lila.core.chess.Rank
 import lila.core.perf.PerfId
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
+import lila.core.tournament.Status
 
 final class LeaderboardApi(
-    repo: LeaderboardRepo,
+    val repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(using Executor)
+)(using Executor, akka.stream.Materializer)
     extends lila.core.tournament.leaderboard.Api:
 
   import LeaderboardApi.*
@@ -72,6 +75,45 @@ final class LeaderboardApi(
           .inject(entries.map(_.tourId))
       }
 
+  def byPlayerStream(
+      user: User,
+      status: List[Status],
+      perSecond: MaxPerSecond,
+      nb: Int
+  ): Source[TourEntry, ?] =
+    repo.coll
+      .aggregateWith[Bdoc](): framework =>
+        import framework.*
+        val sort = framework.Descending("d")
+        aggregateByPlayer(user, framework, sort, nb, offset = 0).toList
+      .documentSource()
+      .mapConcat: doc =>
+        doc.getAsOpt[Tournament]("tour").toList
+
+  private def aggregateByPlayer(
+      user: User,
+      framework: repo.coll.AggregationFramework.type,
+      sort: framework.SortOrder,
+      nb: Int,
+      offset: Int = 0
+  ): NonEmptyList[framework.PipelineOperator] =
+    import framework.*
+    NonEmptyList.of(
+      Match($doc("u" -> user.id)),
+      Sort(sort),
+      Skip(offset),
+      Limit(nb),
+      PipelineOperator(
+        $lookup.simple(
+          from = tournamentRepo.coll,
+          as = "tour",
+          local = "t",
+          foreign = "_id"
+        )
+      ),
+      UnwindField("tour")
+    )
+
   private def paginator(user: User, page: Int, sortBest: Boolean): Fu[Paginator[TourEntry]] =
     Paginator(
       currentPage = page,
@@ -83,27 +125,17 @@ final class LeaderboardApi(
           repo.coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
-              Match(selector) -> List(
-                Sort(if sortBest then Ascending("w") else Descending("d")),
-                Skip(offset),
-                Limit(length),
-                PipelineOperator(
-                  $lookup.simple(
-                    from = tournamentRepo.coll,
-                    as = "tour",
-                    local = "t",
-                    foreign = "_id"
-                  )
-                ),
-                UnwindField("tour")
-              )
-            .map: docs =>
-              for
-                doc   <- docs
-                entry <- doc.asOpt[Entry]
-                tour  <- doc.getAsOpt[Tournament]("tour")
-              yield TourEntry(tour, entry)
+              val sort = if sortBest then framework.Ascending("w") else framework.Descending("d")
+              val pipe = aggregateByPlayer(user, framework, sort, length, offset)
+              pipe.head -> pipe.tail
+            .map(readTourEntries)
     )
+
+  private def readTourEntries(docs: List[Bdoc]): List[TourEntry] = for
+    doc   <- docs
+    entry <- doc.asOpt[Entry]
+    tour  <- doc.getAsOpt[Tournament]("tour")
+  yield TourEntry(tour, entry)
 
 object LeaderboardApi:
 
