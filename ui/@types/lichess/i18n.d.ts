@@ -231,8 +231,8 @@ interface I18n {
     ageThisYear: string;
     /** Boards */
     boards: string;
-    /** Boards can be loaded with a source or via the */
-    boardsCanLoaded: string;
+    /** Boards can be loaded with a source or via the %s */
+    boardsCanLoaded: I18nFormat;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */

@@ -61,7 +61,11 @@ export const tourSide = (ctx: RelayViewContext) => {
               ),
               !ctrl.isEmbed &&
                 h('button.streamer-show.data-count', {
-                  attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: i18n.site.streamersMenu },
+                  attrs: {
+                    'data-icon': licon.Mic,
+                    'data-count': relay.streams.length,
+                    title: i18n.site.streamersMenu,
+                  },
                   class: {
                     disabled: !relay.streams.length,
                     active: relay.showStreamerMenu(),
@@ -323,10 +327,12 @@ const games = (ctx: RelayViewContext) => [
         h('div', [
           h('div', i18n.broadcast.noBoardsYet),
           ctx.study.members.myMember() &&
-            h('small', [
-              i18n.broadcast.boardsCanLoaded,
-              h('a', { attrs: { href: '/broadcast/app' } }, ' Broadcaster App'),
-            ]),
+            h(
+              'small',
+              i18n.broadcast.boardsCanLoaded.asArray(
+                h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
+              ),
+            ),
         ]),
       )
     : multiBoardView(ctx.study.multiBoard, ctx.study),
