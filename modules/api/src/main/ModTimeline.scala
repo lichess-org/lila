@@ -31,11 +31,6 @@ case class ModTimeline(
     // latest first
     concat.sorted(using Ordering.by(at).reverse)
 
-  // def commReportsAbout: List[Report] = reports
-  //   .collect:
-  //     case Report.AndAtom(r, _) if r.is(_.Comm) => r
-  //   .distinct
-
 object ModTimeline:
 
   case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom])
@@ -114,9 +109,9 @@ object ModTimeline:
       case _: ReportClose                                                     => angle != Angle.Comm
       case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
       case l: Modlog if l.action == Modlog.modMessage =>
-        if l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
-        then angle != Comm
-        else angle == Comm
+        angle match
+          case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
+          case _    => true
       case _ => true
 
 final class ModTimelineApi(

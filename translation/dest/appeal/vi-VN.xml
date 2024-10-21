@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Tài khoản của bạn không bị đánh dấu hoặc hạn chế. Tất cả của bạn đều ổn!</string>
-  <string name="engineMarked">Tài khoản của bạn được đánh dấu để hỗ trợ bên ngoài trong các ván đấu.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Tài khoản của bạn được đánh dấu để hỗ trợ bên ngoài trong các ván đấu.</string>
   <string name="engineMarkedInfo">Chúng tôi định nghĩa điều này là việc sử dụng bất kỳ trợ giúp bên ngoài nào để củng cố kiến thức và/hoặc kỹ năng tính toán của bạn nhằm đạt được lợi thế không công bằng trước đối thủ của bạn. Xem trang %s để biết thêm chi tiết.</string>
   <string name="arenaBanned">Tài khoản của bạn bị cấm tham gia các đấu trường.</string>
   <string name="prizeBanned">Tài khoản của bạn bị cấm tham gia các giải đấu có giải thưởng thực.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Tài khoản của bạn bị tắt tiếng.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Đọc %s của chúng tôi. Việc không tuân thủ các nguyên tắc giao tiép có thể dẫn đến việc tài khoản bị tắt tiếng.</string>
   <string name="excludedFromLeaderboards">Tài khoản của bạn đã bị loại khỏi bảng xếp hạng.</string>
-  <string name="excludedFromLeaderboardsInfo">Chúng tôi định nghĩa điều này là sử dụng bất kỳ cách không công bằng nào để có được vị trí trên bảng xếp hạng.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Chúng tôi định nghĩa điều này là sử dụng bất kỳ cách không công bằng nào để có được vị trí trên bảng xếp hạng.</string>
   <string name="closedByModerators">Tài khoản của bạn đã bị đóng bởi điều hành viên.</string>
   <string name="hiddenBlog">Blog của bạn đã bị người điều hành ẩn.</string>
   <string name="hiddenBlogInfo">Hãy nhớ đọc lại %s của chúng tôi.</string>

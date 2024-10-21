@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Cad is féidir linn cabhrú leat le?</string>
   <string name="visitThisPage">Tabhair cuairt ar an leathanach seo chun an cheist a réiteach</string>
   <string name="iCantLogIn">Ní féidir liom logáil isteach</string>
-  <string name="noConfirmationEmail">Ní bhfuair mé deimhniú r-phost</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ní bhfuair mé deimhniú r-phost</string>
   <string name="forgotPassword">Rinne mé dearmad ar mo phasfhocal</string>
   <string name="forgotUsername">Rinne mé dearmad ar m’ainm úsáideora</string>
   <string name="youCanLoginWithEmail">Féadfaidh tú logáil isteach leis an seoladh ríomhphoist a usáid tú le sínigh isteach</string>

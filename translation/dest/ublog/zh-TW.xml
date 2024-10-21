@@ -30,7 +30,7 @@
   <string name="xPublishedY">%1$s 發布了 %2$s</string>
   <string name="thisPostIsPublished">文章已發布</string>
   <string name="thisIsADraft">這是一個草稿</string>
-  <string name="moreBlogPostsBy">%s 的更多文章</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s 的更多文章</string>
   <string name="noPostsInThisBlogYet">此網誌中尚無文章</string>
   <string name="noDrafts">沒有草稿</string>
   <string name="latestBlogPosts">最新的部落格</string>

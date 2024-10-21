@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">เดินไป e4 หรือ เลือกหมากที่ e4</string>
   <string name="selectOrCaptureABishop">เลือก หรือกินบิชอป</string>
   <string name="takeRookWithQueen">กินเรือด้วยควีน</string>
-  <string name="castle">เข้าป้อง (ฝั่งไหนก็ได้)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">เข้าป้อง (ฝั่งไหนก็ได้)</string>
   <string name="phoneticAlphabetIsBest">สัทอักษรดีที่สุด</string>
   <string name="cancelTimerOrDenyARequest">ยกเลิกเวลาหรือปฏิเสธคำขอ</string>
   <string name="playPreferredMoveOrConfirmSomething">เล่นตาเดินที่เสนอหรือยืนยันบางอย่างก่อน</string>

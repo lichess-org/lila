@@ -39,7 +39,7 @@
   <string name="deflection">ディフレクション（そらし）</string>
   <string name="deflectionDescription">相手の駒を別の役割（重要なマスを守るなど）からそらす手。</string>
   <string name="discoveredAttack">ディスカバード・アタック</string>
-  <string name="discoveredAttackDescription">別のラインピースの効きを止めていた駒を動かす手。たとえばルークの効き筋からナイトを動かす。</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">別のラインピースの効きを止めていた駒を動かす手。たとえばルークの効き筋からナイトを動かす。</string>
   <string name="doubleCheck">ダブル・チェック</string>
   <string name="doubleCheckDescription">ディスカバード・アタックによって、動いた駒とラインピースが相手のキングに同時にチェックをかける手。</string>
   <string name="endgame">エンドゲーム</string>

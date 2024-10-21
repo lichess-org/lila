@@ -31,8 +31,8 @@
   <string name="byOpenings">Pagal debiutus</string>
   <string name="puzzlesByOpenings">Galvosūkiai pagal debiutus</string>
   <string name="openingsYouPlayedTheMost">Debiutai, kuriuos žaidėte paskutinėse reitinguotose partijose</string>
-  <string name="useFindInPage">Naudokite \"Rasti puslapyje\" savo naršyklės meniu norėdami rasti savo mėgiamiausią debiutą!</string>
-  <string name="useCtrlF">Naudokite Ctrl+f norėdami rasti savo mėgiamiausią debiutą!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Naudokite \"Rasti puslapyje\" savo naršyklės meniu norėdami rasti savo mėgiamiausią debiutą!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Naudokite Ctrl+f norėdami rasti savo mėgiamiausią debiutą!</string>
   <string name="notTheMove">Ne toks ėjimas!</string>
   <string name="trySomethingElse">Bandykite kitką.</string>
   <string name="ratingX">Reitingas: %s</string>
@@ -72,7 +72,7 @@
   <string name="strengths">Striprybės</string>
   <string name="history">Užduočių istorija</string>
   <string name="solved">išspręsta</string>
-  <string name="failed">nepavyko</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">nepavyko</string>
   <string name="streakDescription">Spręskite vis sunkėjančias užduotis ir kaupkite pergalių seriją. Galite neskubėti, kadangi nėra laikrodžio. Vienas neteisingas ėjimas ir žaidimas baigtas! Per sesiją galite praleisti vieną ėjimą.</string>
   <string name="yourStreakX">Jūsų serija: %s</string>
   <string name="streakSkipExplanation">Praleiskite ėjimą norėdami išsaugoti savo seriją! Veikia tik vieną kartą per bandymą.</string>

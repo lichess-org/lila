@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinātu treniņš</string>
   <string name="averageScoreAsWhiteX">Vidējais rezultāts ar baltajām: %s</string>
   <string name="averageScoreAsBlackX">Vidējais rezultāts ar melnajām: %s</string>
-  <string name="knowingTheChessBoard">Šaha galdiņa koordinātu zināšana ir svarīga šaha prasme:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Šaha galdiņa koordinātu zināšana ir svarīga šaha prasme:</string>
   <string name="mostChessCourses">Lielākajā daļā šaha literatūras plaši tiek lietota algebriskā notācija.</string>
   <string name="talkToYourChessFriends">Būs vieglāk runāt ar saviem šaha draugiem, jo abi sapratīsiet \"šaha valodu\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Varēsi efektīvāk analizēt spēli, ja nevajadzēs ik reizi meklēt lauciņa nosaukumu.</string>

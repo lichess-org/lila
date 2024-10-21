@@ -39,7 +39,7 @@
   <string name="deflection">Отвличане</string>
   <string name="deflectionDescription">Ход, с който се отвлича фигура от задължението ѝ - например да пази друга фигура. Също познато като \"претоварване\".</string>
   <string name="discoveredAttack">Открита атака</string>
-  <string name="discoveredAttackDescription">Преместване на фигура (например кон), която е блокирала пътя на далекобойна фигура (например топ), така че вече да не го блокира.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Преместване на фигура (например кон), която е блокирала пътя на далекобойна фигура (например топ), така че вече да не го блокира.</string>
   <string name="doubleCheck">Двоен шах</string>
   <string name="doubleCheckDescription">Шах с две фигури едновременно. Получава се, когато преместената фигура дава шах заедно с далекобойна, която досега е била блокирана.</string>
   <string name="endgame">Ендшпил</string>

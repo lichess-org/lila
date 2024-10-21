@@ -7,7 +7,7 @@
   <string name="enterPassword">Nhập mật khẩu của bạn và mã xác thực do ứng dụng tạo để hoàn tất thiết lập. Bạn sẽ cần mã xác thực mỗi khi đăng nhập.</string>
   <string name="ifYouCannotScanEnterX">Nếu bạn không thể quét mã, hãy nhập khóa bí mật %s vào ứng dụng của bạn.</string>
   <string name="authenticationCode">Mã xác thực</string>
-  <string name="ifYouLoseAccessTwoFactor">Lưu ý: Nếu mất quyền truy cập vào mã xác thực hai bước, bạn có thể thực hiện %s qua email.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Lưu ý: Nếu mất quyền truy cập vào mã xác thực hai bước, bạn có thể thực hiện %s qua email.</string>
   <string name="enableTwoFactor">Bật xác thực 2 bước</string>
   <string name="disableTwoFactor">Tắt xác thực 2 bước</string>
   <string name="twoFactorEnabled">Xác thực 2 bước đã được kích hoạt</string>

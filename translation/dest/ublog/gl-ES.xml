@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s publicou %2$s</string>
   <string name="thisPostIsPublished">Este artigo está publicado</string>
   <string name="thisIsADraft">Isto é un borrador</string>
-  <string name="moreBlogPostsBy">Máis publicacións de %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Máis publicacións de %s</string>
   <string name="noPostsInThisBlogYet">Aínda non hai publicacións neste blog.</string>
   <string name="noDrafts">Non hai borradores que amosar.</string>
   <string name="latestBlogPosts">Últimas publicacións</string>

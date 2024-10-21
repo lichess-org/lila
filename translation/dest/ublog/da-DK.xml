@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s publicerede %2$s</string>
   <string name="thisPostIsPublished">Dette indlæg er publiceret</string>
   <string name="thisIsADraft">Dette er et udkast</string>
-  <string name="moreBlogPostsBy">Se flere blogindlæg af %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Se flere blogindlæg af %s</string>
   <string name="noPostsInThisBlogYet">Ingen indlæg på denne blog, endnu.</string>
   <string name="noDrafts">Ingen udkast at vise.</string>
   <string name="latestBlogPosts">Seneste blog-indlæg</string>

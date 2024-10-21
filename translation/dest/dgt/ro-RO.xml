@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Cerințele Panoului DGT</string>
   <string name="dgtBoardLimitations">Limitări ale tablei DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Această pagină îți permite să conectezi panoul tău DGT la Lichess, și să-l folosești pentru a juca jocuri.</string>
-  <string name="toConnectTheDgtBoard">Pentru a te conecta la Panoul Electronic DGT, va trebui să instalezi %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Pentru a te conecta la Panoul Electronic DGT, va trebui să instalezi %s.</string>
   <string name="downloadHere">Poți descărca software-ul aici: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Dacă %1$s rulează pe acest calculator, poți verifica conexiunea către el prin %2$s.</string>
   <string name="openingThisLink">deschiderea acestui link</string>

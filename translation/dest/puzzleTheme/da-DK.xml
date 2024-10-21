@@ -39,7 +39,7 @@
   <string name="deflection">Afledning</string>
   <string name="deflectionDescription">Et træk der distraherer en modstanders brik fra at udføre en anden funktion, såsom bevogtning af et vigtigt felt.</string>
   <string name="discoveredAttack">Afdækkertræk</string>
-  <string name="discoveredAttackDescription">Flytning af en brik, som tidligere blokerede for et angreb fra en langtrækkende brik. For eksempel en springer flyttet for et tårn.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Flytning af en brik, som tidligere blokerede for et angreb fra en langtrækkende brik. For eksempel en springer flyttet for et tårn.</string>
   <string name="doubleCheck">Dobbeltskak</string>
   <string name="doubleCheckDescription">Skak med to brikker på samme tid som resultat af et afdækket angreb, hvor både den flyttede brik og den afdækkede brik giver skak til modstanderens konge.</string>
   <string name="endgame">Slutspil</string>

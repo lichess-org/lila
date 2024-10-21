@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Kiel ni povas helpi vin?</string>
   <string name="visitThisPage">Vizitu ĉi tiun paĝon por solvi la problemon</string>
   <string name="iCantLogIn">Mi ne povas ensaluti</string>
-  <string name="noConfirmationEmail">Mi ne ricevis mian konfirman retpoŝton</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Mi ne ricevis mian konfirman retpoŝton</string>
   <string name="forgotPassword">Mi forgesis mian pasvorton</string>
   <string name="forgotUsername">Mi forgesis mian uzantnomo</string>
   <string name="youCanLoginWithEmail">Vi povas ensaluti per la retpoŝta adreso, kiun vi uzis</string>

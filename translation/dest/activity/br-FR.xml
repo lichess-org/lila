@@ -93,7 +93,7 @@
     <item quantity="many">Krouet %s studiadenn gantañ</item>
     <item quantity="other">Krouet %s studiadenn gantañ</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Kemeret he/en deus perzh en %s tournamant</item>
     <item quantity="two">Kemeret he/en deus perzh e %s dournamant</item>
     <item quantity="few">Kemeret he/en deus perzh e %s tournamant</item>

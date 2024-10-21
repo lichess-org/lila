@@ -27,7 +27,7 @@
     <item quantity="one">%s minuto tra i turni</item>
     <item quantity="other">%s minuti tra i turni</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Inizia tra</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Inizia tra</string>
   <string name="nextRound">Prossimo turno</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Partita in corso</item>
@@ -78,7 +78,7 @@ Pensiamo che queste condizioni siano preferibilmente da soddisfare in una squadr
 Il giocatore sarà squalificato dal torneo, così da non perdere altre partite.
 Potrà riprendere a giocare nel torneo in qualsiasi momento.</string>
   <string name="protectionAgainstNoShowQ">Cosa succede nel caso non ci si presenti?</string>
-  <string name="protectionAgainstNoShowA">Può essere problematico se un giocatore si iscrive ad un torneo svizzero ma non partecipa alle proprie partite.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Può essere problematico se un giocatore si iscrive ad un torneo svizzero ma non partecipa alle proprie partite.
 Per contrastare questo problema, Lichess impedisce, ai giocatori che non sono riusciti a giocare una partita, di partecipare ad un nuovo torneo svizzero per un certo periodo di tempo.
 L\'organizzatore di un dato torneo svizzero può decidere di ammetterli comunque all\'evento.</string>
   <string name="lateJoinQ">I giocatori possono entrare in ritardo?</string>

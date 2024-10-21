@@ -4,7 +4,7 @@
   <string name="coordinateTraining">კოორდინატების ვარჯიში</string>
   <string name="averageScoreAsWhiteX">საშუალო ქულა თეთრების მხრიდან: %s</string>
   <string name="averageScoreAsBlackX">საშუალო ქულა შავების მხრიდან: %s</string>
-  <string name="knowingTheChessBoard">დაფის კოორდინატების ცოდნა ძალიან მნიშვნელოვანი საჭადრაკო უნარია:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">დაფის კოორდინატების ცოდნა ძალიან მნიშვნელოვანი საჭადრაკო უნარია:</string>
   <string name="mostChessCourses">ჭადრაკის კურსები და სავარჯიშოები უმეტესად იყენებენ ალგებრულ ნოტაციას.</string>
   <string name="talkToYourChessFriends">ეს აადვილებს ესაუბროთ თქვენს მოჭადრაკე მეგობრებს, რადგან ორივეს გესმით \"ჭადრაკის ენა\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">თქვენ შეგეძლებათ გააანალიზოთ პარტიები უფრო ეფექტურად, რადგან არ მოგიწევთ ყოველ ჯერზე უჯრის სახელის ძიება.</string>

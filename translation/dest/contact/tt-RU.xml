@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Без сезгә нәрсә ярдәм итә алабыз?</string>
   <string name="visitThisPage">Мәсьәләне чишү өчен бу биткә керегез</string>
   <string name="iCantLogIn">Мин керә алмыйм</string>
-  <string name="noConfirmationEmail">Мин раслау электрон почтасын алмадым</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Мин раслау электрон почтасын алмадым</string>
   <string name="forgotPassword">Мин оныттым серсүзне</string>
   <string name="forgotUsername">Мин оныттым кулланучы исемен</string>
   <string name="youCanLoginWithEmail">Сез үзегез язган электрон почта адресы белән керә аласыз</string>

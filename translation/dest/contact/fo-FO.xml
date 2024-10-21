@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Hvørjum kunnu vit hjálpa tær við?</string>
   <string name="visitThisPage">Vitja hesa síðuna at greiða trupulleikan</string>
   <string name="iCantLogIn">Eg fái ikki ritað inn</string>
-  <string name="noConfirmationEmail">Eg fekk ikki teldupost við váttan</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Eg fekk ikki teldupost við váttan</string>
   <string name="forgotPassword">Gloymt loyniorðið</string>
   <string name="forgotUsername">Eg havi gloymt mítt brúkaranavn</string>
   <string name="youCanLoginWithEmail">Tú kanst rita inn við teldupostbústaðinum, tú meldaði teg til við</string>

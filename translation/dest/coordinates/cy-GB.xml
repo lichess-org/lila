@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Hyfforddi sgwariau</string>
   <string name="averageScoreAsWhiteX">Sgôr cyfartalog fel gwyn: %s</string>
   <string name="averageScoreAsBlackX">Sgôr cyfartalog fel du: %s</string>
-  <string name="knowingTheChessBoard">Mae medru enwi\'r sgwariau yn sgil bwysig:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Mae medru enwi\'r sgwariau yn sgil bwysig:</string>
   <string name="mostChessCourses">Mae\'r rhan fwyaf o adnoddau gwyddbwyll yn defnyddio\'r dull cofnodi algebraeg.</string>
   <string name="talkToYourChessFriends">Mae\'n haws i drafod gwyddbwyll gyda ffrindiau pan rydych chi\'ch dau yn siarad \"iaith gwyddbwyll\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Gellir dadansoddi gêm fwy effeithiol os nad oes angen chwilio am enwau sgwâr.</string>

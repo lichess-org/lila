@@ -31,8 +31,8 @@
   <string name="byOpenings">Nach Eröffnige</string>
   <string name="puzzlesByOpenings">Ufgabe nach Eröffnige</string>
   <string name="openingsYouPlayedTheMost">Dini meischt-gschpillte Eröffnige, i g\'wertete Schpiel</string>
-  <string name="useFindInPage">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
-  <string name="useCtrlF">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Benutz im Browser \"Suchen...\", um dini bevorzugti Eröffnig z\'finde!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Find dini bevorzugti Eröffnig mit Ctrl+F !</string>
   <string name="notTheMove">Das isch nöd de Zug!</string>
   <string name="trySomethingElse">Probier öppis Anders.</string>
   <string name="ratingX">Wertig: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Stärche</string>
   <string name="history">Ufgabe Verlauf</string>
   <string name="solved">glöst</string>
-  <string name="failed">unglöst</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">unglöst</string>
   <string name="streakDescription">Lös immer schwierigeri Ufgabe und versuech e langi Erfolgserie z\'erreiche. Nimm dir Zit, es lauft kei Uhr. Doch nur 1 falsche Zug und es isch verbi! Aber du chasch 1 Zug pro Serie überschpringe.</string>
   <string name="yourStreakX">Dini Erfolgsserie: %s</string>
   <string name="streakSkipExplanation">Überschpring de Zug, um dini Erfolgsserie z\'hebe! Aber du chasch das nur 1x pro Serie mache.</string>

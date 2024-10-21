@@ -10,7 +10,7 @@
   <string name="newTeam">Tim baru</string>
   <string name="myTeams">Tim saya</string>
   <string name="noTeamFound">Tidak ada tim yang ditemukan</string>
-  <string name="joinTeam">Gabung tim</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Gabung tim</string>
   <string name="quitTeam">Keluar dari tim</string>
   <string name="manuallyReviewAdmissionRequests">Tinjau permintaan masuk secara manual</string>
   <string name="manuallyReviewAdmissionRequestsHelp">Jika dicentang, pemain harus menulis permintaan untuk bergabung tim, yang dapat kamu tolak atau terima.</string>

@@ -34,6 +34,4 @@
   <string name="editRoundStudy">Redigera studie för ronden</string>
   <string name="deleteTournament">Radera turnering</string>
   <string name="definitivelyDeleteTournament">Definitivt radera turnering.</string>
-  <string name="periodInSeconds">Period i sekunder</string>
-  <string name="periodInSecondsHelp">Valfritt, hur länge man väntar mellan förfrågningar. Min 2s, max 60s. Standardvärdet är automatiskt baserat på antalet tittare.</string>
 </resources>

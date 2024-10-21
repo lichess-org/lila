@@ -44,7 +44,7 @@
   <plurals name="createdNbStudies">
     <item quantity="other">공부 %s개 작성함</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="other">%s 번 토너먼트에 참가함</item>
   </plurals>
   <plurals name="rankedInTournament">

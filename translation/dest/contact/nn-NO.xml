@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Kva kan vi hjelpe deg med?</string>
   <string name="visitThisPage">Gå til denne sida for å løyse problemet</string>
   <string name="iCantLogIn">Eg kan ikkje logge inn</string>
-  <string name="noConfirmationEmail">Eg mottok ikkje stadfesting på epost</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Eg mottok ikkje stadfesting på epost</string>
   <string name="forgotPassword">Eg har gløymd passordet mitt</string>
   <string name="forgotUsername">Eg har gløymd brukarnamnet mitt</string>
   <string name="youCanLoginWithEmail">Du kan logge inn med den e-postadressa du registrerte deg med</string>

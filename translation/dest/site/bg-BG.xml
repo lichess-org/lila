@@ -126,7 +126,6 @@
   <string name="memory">Памет</string>
   <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="removesTheDepthLimit">Анализът ще е безкраен, а компютърът ви - топъл</string>
-  <string name="engineManager">Мениджър на двигателя</string>
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Неточност</string>

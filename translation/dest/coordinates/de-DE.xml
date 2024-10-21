@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinatentraining</string>
   <string name="averageScoreAsWhiteX">Durchschnittliche Punktzahl als Weiß: %s</string>
   <string name="averageScoreAsBlackX">Durchschnittliche Punktzahl als Schwarz: %s</string>
-  <string name="knowingTheChessBoard">Die Koordinaten des Schachbretts zu kennen ist eine wichtige Fähigkeit:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Die Koordinaten des Schachbretts zu kennen ist eine wichtige Fähigkeit:</string>
   <string name="mostChessCourses">Die meisten Schach-Kurse und Übungen verwenden die algebraische Notation.</string>
   <string name="talkToYourChessFriends">Es macht es einfacher dich mit deinen Schachfreunden zu unterhalten, da ihr beide die \"Schachsprache\" versteht.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Du kannst ein Spiel effektiver analysieren, wenn du nicht immer nach den Feldbezeichnungen suchen musst.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Du hast 30 Sekunden, um so viele Felder wie möglich korrekt zu benennen!</string>
   <string name="goAsLongAsYouWant">Spiele so lange du willst, es gibt keine Zeitbegrenzung!</string>
   <string name="showCoordinates">Koordinaten anzeigen</string>
-  <string name="showCoordsOnAllSquares">Koordinaten auf jedem Feld</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinaten auf jedem Feld</string>
   <string name="showPieces">Figuren anzeigen</string>
   <string name="startTraining">Training beginnen</string>
   <string name="findSquare">Feld finden</string>

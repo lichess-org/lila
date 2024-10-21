@@ -31,8 +31,8 @@
   <string name="byOpenings">Par ouverture</string>
   <string name="puzzlesByOpenings">Problèmes par ouverture</string>
   <string name="openingsYouPlayedTheMost">Ouvertures que vous avez le plus jouées dans des parties classées</string>
-  <string name="useFindInPage">Utilisez la fonction « Rechercher dans la page » du navigateur pour trouver votre ouverture préférée !</string>
-  <string name="useCtrlF">Appuyez sur les touches Ctrl+f pour trouver votre ouverture préférée !</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Utilisez la fonction « Rechercher dans la page » du navigateur pour trouver votre ouverture préférée !</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Appuyez sur les touches Ctrl+f pour trouver votre ouverture préférée !</string>
   <string name="notTheMove">Ce n\'est pas le coup !</string>
   <string name="trySomethingElse">Essayez autre chose.</string>
   <string name="ratingX">Classement : %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Points forts</string>
   <string name="history">Historique des problèmes</string>
   <string name="solved">résolu</string>
-  <string name="failed">non résolu</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">non résolu</string>
   <string name="streakDescription">Résolvez des problèmes de plus en plus difficiles et obtenez une série de victoires. Prenez votre temps, il n\'y a pas de pendule. Un mauvais coup et c\'est terminé ! Mais vous pouvez passer un coup par session.</string>
   <string name="yourStreakX">Votre série gagnante : %s</string>
   <string name="streakSkipExplanation">Sautez ce coup pour préserver votre série gagnante! Possible une seule fois par session.</string>

@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Kordinatalar bilan shug\'ullanish</string>
   <string name="averageScoreAsWhiteX">Oqlarda o\'rtacha baho: %s</string>
   <string name="averageScoreAsBlackX">Qorada o\'rtacha baho: %s</string>
-  <string name="knowingTheChessBoard">Shahmat doskasini koordinatalarini bilish shahmatda muhim:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Shahmat doskasini koordinatalarini bilish shahmatda muhim:</string>
   <string name="mostChessCourses">Ko\'pchilik shahmat kurslari va mashqlarida algebraik ifoda ishlatiladi.</string>
   <string name="talkToYourChessFriends">Sizning shahmatdagi do\'stlaringiz bilan gaplashish onson, chunki ikkalangiz ham shahmat tilini bilasiz.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Agar sizga kataklar nomlarini bilsangiz, ularni qidirmasdan o\'yinni yanada chuqurroq tahlil qilishingiz mumkin.</string>

@@ -31,8 +31,8 @@
   <string name="byOpenings">За дебютами</string>
   <string name="puzzlesByOpenings">Задачі за дебютами</string>
   <string name="openingsYouPlayedTheMost">Дебюти, які ви грали найбільше в рейтингових іграх</string>
-  <string name="useFindInPage">Використайте \"Знайти на сторінці\" в меню браузера, щоб знайти свій улюблений дебют!</string>
-  <string name="useCtrlF">Використайте Ctrl+F, щоб знайти свій улюблений дебют!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Використайте \"Знайти на сторінці\" в меню браузера, щоб знайти свій улюблений дебют!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Використайте Ctrl+F, щоб знайти свій улюблений дебют!</string>
   <string name="notTheMove">Поганий хід!</string>
   <string name="trySomethingElse">Спробуйте щось інше.</string>
   <string name="ratingX">Рейтинг: %s</string>
@@ -72,7 +72,7 @@
   <string name="strengths">Сильні сторони</string>
   <string name="history">Історія задач</string>
   <string name="solved">вирішено</string>
-  <string name="failed">невирішено</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">невирішено</string>
   <string name="streakDescription">Вирішуйте щораз важчі задачі та створюйте серію перемог. Обмеження часу немає, тому не поспішайте. Один хибний хід, і гра закінчена! Але ви можете пропустити один хід за сесію.</string>
   <string name="yourStreakX">Ваша серія: %s</string>
   <string name="streakSkipExplanation">Пропустіть цей хід, щоб зберегти Вашу серію! Але лише один раз за сесію.</string>

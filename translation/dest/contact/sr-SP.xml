@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Како Вам можемо помоћи?</string>
   <string name="visitThisPage">Посетите ову страницу да решите проблем</string>
   <string name="iCantLogIn">Логовање није успело</string>
-  <string name="noConfirmationEmail">Нисам примио е-пошту потврде</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Нисам примио е-пошту потврде</string>
   <string name="forgotPassword">Заборавио/ла сам лозинку</string>
   <string name="forgotUsername">Заборавио/ла сам корисничко име</string>
   <string name="youCanLoginWithEmail">Можете се улоговати са адресом е-поште са којом сте се пријавили</string>

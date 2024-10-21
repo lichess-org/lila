@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Bellas pachinas de Lichess tiene alcorces de teclau que puez fer servir. Preba de pretar la tecla \'?\' en una pachina d\'estudio, analisi, problema u partida pa veyer un listau d\'alcorces de teclau.</string>
   <string name="fairPlay">Chuego limpio</string>
   <string name="whenAmIEligibleRatinRefund">En qué casos se me tornan automaticament los puntos perdius contra un trapacero?</string>
-  <string name="ratingRefundExplanation">Un minuto dimpués de marcar a un chugador como trapacero, se prenen las suyas zagueras 40 partidas per puntos d\'os tres zaguers días. Si tu has estau lo suyo oponent en ixas partidas, has perdiu puntos en ellas (i has perdiu u empazau), y la tuya puntuación no yera provisional, alavez se te tornará puntos. Esta torna ye limitada per la tuya puntuación maxima y per cómo i haiga progresau la tuya puntuación dimpués d\'aquella partida.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minuto dimpués de marcar a un chugador como trapacero, se prenen las suyas zagueras 40 partidas per puntos d\'os tres zaguers días. Si tu has estau lo suyo oponent en ixas partidas, has perdiu puntos en ellas (i has perdiu u empazau), y la tuya puntuación no yera provisional, alavez se te tornará puntos. Esta torna ye limitada per la tuya puntuación maxima y per cómo i haiga progresau la tuya puntuación dimpués d\'aquella partida.
 (Per eixemplo, si la tuya puntuación ha puyau muito dimpués d\'aquellas partidas, puede que no se te tornen los puntos u nomás se te\'n torne beluns). La torna en garra caso será de mas de 150 puntos.</string>
   <string name="preventLeavingGameWithoutResigning">Qué se fa con os chugadors que abandonan las partidas sin rendirse?</string>
   <string name="leavingGameWithoutResigningExplanation">Si lo tuyo oponent abandona habitualment partidas se le marca como \"prohibiu chugar\", lo que significa que ye temporalment suspendiu pa chugar. Esto no s\'indica publicament en o suyo perfil. Si persiste en este comportamiento, la duración d\'a suspensión aumenta y puede comportar que se zarre la suya cuenta.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Cómo se deciden los controls de tiempo en bala, lampado y atros?</string>
   <string name="basedOnGameDuration">Los controls de tiempo de Lichess se basan en a duración estimada d\'una partida = %1$s
  Per eixemplo, la duración estimada d\'una partida de 5+3 ye 5 × 60 + 40 × 3 = 420 segundos.</string>
-  <string name="durationFormula">(tiempo inicial d\'o reloch) + 40 × (incremento d\'o reloch)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(tiempo inicial d\'o reloch) + 40 × (incremento d\'o reloch)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Qué variants puedo chugar en Lichess?</string>

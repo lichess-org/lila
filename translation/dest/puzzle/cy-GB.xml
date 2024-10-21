@@ -4,7 +4,7 @@
   <string name="keepGoing">Dalia ati…</string>
   <string name="example">Enghraifft</string>
   <string name="history">Hanes Posau</string>
-  <string name="failed">colli</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">colli</string>
   <string name="puzzleDashboardDescription">Ymarfer, adolygu, gwella</string>
   <string name="percentSolved">%s wedi\'i datrys</string>
   <string name="noPuzzlesToShow">Dim i\'w ddangos, ewch i chwarae rhai posau yn gyntaf!</string>

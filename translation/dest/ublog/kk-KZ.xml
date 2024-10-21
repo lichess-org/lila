@@ -24,7 +24,7 @@
   <string name="xPublishedY">%1$s %2$s жариялады</string>
   <string name="thisPostIsPublished">Бұл жазба жарияланған</string>
   <string name="thisIsADraft">Бұл уақытша жазба</string>
-  <string name="moreBlogPostsBy">%s-ның басқа да блог-жазбалары</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s-ның басқа да блог-жазбалары</string>
   <string name="noPostsInThisBlogYet">Осы блогта әлі жазба жоқ.</string>
   <string name="noDrafts">Көрсетерлік уақытша жазба жоқ.</string>
   <string name="latestBlogPosts">Кейінгі блог-жазбалар</string>

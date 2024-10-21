@@ -39,7 +39,7 @@
   <string name="deflection">Đánh lạc hướng</string>
   <string name="deflectionDescription">Một nước đi đánh lạc hướng một quân đối phương khỏi một nhiệm vụ nó đang làm, chẳng hạn như bảo vệ một ô trọng điểm. Còn được gọi là \"quá tải\".</string>
   <string name="discoveredAttack">Tấn công mở</string>
-  <string name="discoveredAttackDescription">Đi một quân cờ đang chặn giữa đường tấn công của một quân đánh xa khác (ví dụ như đi một quân mã khỏi đường tấn công của quân xe).</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Đi một quân cờ đang chặn giữa đường tấn công của một quân đánh xa khác (ví dụ như đi một quân mã khỏi đường tấn công của quân xe).</string>
   <string name="doubleCheck">Chiếu đôi</string>
   <string name="doubleCheckDescription">Chiếu bằng hai quân một lúc, là kết quả của một đòn tấn công mở khi mà cả quân đứng sau và quân chặn đường đều tấn công vua đối phương.</string>
   <string name="endgame">Tàn cuộc</string>

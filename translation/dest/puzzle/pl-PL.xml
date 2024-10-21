@@ -31,8 +31,8 @@
   <string name="byOpenings">Według otwarć</string>
   <string name="puzzlesByOpenings">Zadania według otwarć</string>
   <string name="openingsYouPlayedTheMost">Najczęściej grane otwarcia w partiach rankingowych</string>
-  <string name="useFindInPage">Użyj \"Znajdź na stronie\" w menu przeglądarki, aby znaleźć swoje ulubione otwarcie!</string>
-  <string name="useCtrlF">Użyj Ctrl+f, aby znaleźć swoje ulubione otwarcie!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Użyj \"Znajdź na stronie\" w menu przeglądarki, aby znaleźć swoje ulubione otwarcie!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Użyj Ctrl+f, aby znaleźć swoje ulubione otwarcie!</string>
   <string name="notTheMove">To nie jest właściwy ruch!</string>
   <string name="trySomethingElse">Spróbuj czegoś innego.</string>
   <string name="ratingX">Ranking: %s</string>
@@ -72,7 +72,7 @@
   <string name="strengths">Siła</string>
   <string name="history">Historia zadań</string>
   <string name="solved">rozwiązane</string>
-  <string name="failed">nie udało się</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">nie udało się</string>
   <string name="streakDescription">Stopniowo rozwiązuj coraz trudniejsze zadania i utwórz serię poprawnych rozwiązań. Czas nie jest odliczany, więc nie musisz się spieszyć. Jednak do przegranej wystarczy tylko jeden zły ruch! Możesz pominąć jeden ruch na sesję.</string>
   <string name="yourStreakX">Twoja seria: %s</string>
   <string name="streakSkipExplanation">Pomiń ruch, jeśli chcesz zachować swoją serię. Możesz użyć tylko raz w sesji.</string>

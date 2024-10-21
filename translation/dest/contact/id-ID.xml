@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Apa yang bisa kami bantu?</string>
   <string name="visitThisPage">Kunjungi halaman ini untuk mengatasi masalah ini</string>
   <string name="iCantLogIn">Saya tidak dapat masuk</string>
-  <string name="noConfirmationEmail">Saya tidak mendapatkan konfirmasi email</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Saya tidak mendapatkan konfirmasi email</string>
   <string name="forgotPassword">Saya lupa kata sandi</string>
   <string name="forgotUsername">Saya lupa nama pengguna</string>
   <string name="youCanLoginWithEmail">Anda dapat masuk dengan alamat email yang Anda daftarkan</string>

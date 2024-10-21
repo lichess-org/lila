@@ -31,8 +31,8 @@
   <string name="byOpenings">उद्घाटन द्वारा</string>
   <string name="puzzlesByOpenings">उद्घाटन द्वारा पहेलियाँ</string>
   <string name="openingsYouPlayedTheMost">ओपनिंग्स आपने रेटेड गेम्स में सबसे ज्यादा खेले</string>
-  <string name="useFindInPage">अपनी पसंदीदा ओपनिंग ढूंढने के लिए ब्राउज़र मेनू में \"पेज खोजें\" का उपयोग करें!</string>
-  <string name="useCtrlF">अपनी पसंदीदा ओपनिंग ढूंढने के लिए Ctrl+f का उपयोग करें!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">अपनी पसंदीदा ओपनिंग ढूंढने के लिए ब्राउज़र मेनू में \"पेज खोजें\" का उपयोग करें!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">अपनी पसंदीदा ओपनिंग ढूंढने के लिए Ctrl+f का उपयोग करें!</string>
   <string name="notTheMove">यह कदम नहीं है!</string>
   <string name="trySomethingElse">कुछ और कोशिश करो।</string>
   <string name="ratingX">रेटिंग: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">ताकत</string>
   <string name="history">पहेली इतिहास</string>
   <string name="solved">हल किया</string>
-  <string name="failed">अनुत्तीर्ण होना</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">अनुत्तीर्ण होना</string>
   <string name="streakDescription">कठिन पहेलियों को हल करें एवं जीतने की श्रंखला बनाएं । समय की कोई पाबंदी नहीं है अतः अपना समय लें । एक गलत कदम और खेल खतम! परंतु आप हर अधिवेशन मे एक कदम छोड़ सकते हैं।</string>
   <string name="yourStreakX">आपका स्कोर: %s</string>
   <string name="streakSkipExplanation">अपने कॉम्बो को संरक्षित करने के लिए इस कदम को छोड़ दें। सम्पूर्ण पारी मे केवल एक बार काम करता है ।</string>

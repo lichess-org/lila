@@ -31,8 +31,8 @@
   <string name="byOpenings">După deschideri</string>
   <string name="puzzlesByOpenings">Puzzle-uri după deschidere</string>
   <string name="openingsYouPlayedTheMost">Deschideri pe care le-ai jucat cel mai mult în meciurile evaluate</string>
-  <string name="useFindInPage">Folosește \"Găsește în pagină\" în meniul browser-ului pentru a găsi deschiderea ta preferată!</string>
-  <string name="useCtrlF">Folosește Ctrl+f pentru a găsi deschiderea favorită!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Folosește \"Găsește în pagină\" în meniul browser-ului pentru a găsi deschiderea ta preferată!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Folosește Ctrl+f pentru a găsi deschiderea favorită!</string>
   <string name="notTheMove">Nu este asta mișcarea!</string>
   <string name="trySomethingElse">Încercă altceva.</string>
   <string name="ratingX">Scor: %s</string>
@@ -69,7 +69,7 @@
   <string name="strengths">Puncte tari</string>
   <string name="history">Istoric probleme de șah</string>
   <string name="solved">rezolvat</string>
-  <string name="failed">eșuat</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">eșuat</string>
   <string name="streakDescription">Rezolvă probleme din ce în ce mai grele și construiește un șir de victorii consecutive. Nu există limită de timp, deci nu te grăbi. O mișcare greșită și jocul s-a terminat! Dar poți sări peste o mutare în fiecare sesiune.</string>
   <string name="yourStreakX">Probleme consecutive: %s</string>
   <string name="streakSkipExplanation">Sări peste această mutare pentru a-ți păstra șirul de probleme consecutive reușite! Funcționează o singură dată pe sesiune.</string>

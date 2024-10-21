@@ -34,7 +34,7 @@
   <string name="basedOnGameDuration">کنترل زمانی لیچس بر اساس مدت زمان تخمینی بازی است = %1$s
 برای مثال، مدت زمان تخمینی یک بازی 3+5:
 ثانیه 420 = 40 × 3 + 60 × 5</string>
-  <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">چه شطرنج‌گونه‌هایی را می‌توانم در Lichess بازی کنم؟</string>

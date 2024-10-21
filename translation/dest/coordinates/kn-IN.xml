@@ -4,7 +4,7 @@
   <string name="coordinateTraining">ಸಮನ್ವಯ ತರಬೇತಿ</string>
   <string name="averageScoreAsWhiteX">ಬಿಳಿಯಂತೆ ಸರಾಸರಿ ಸ್ಕೋರ್: %s</string>
   <string name="averageScoreAsBlackX">ಕಪ್ಪು ಬಣ್ಣದಂತೆ ಸರಾಸರಿ ಸ್ಕೋರ್: %s</string>
-  <string name="knowingTheChessBoard">ಚದುರಂಗ ಫಲಕದ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ತಿಳಿದುಕೊಳ್ಳುವುದು ಬಹಳ ಮುಖ್ಯವಾದ ಚೆಸ್ ಕೌಶಲ್ಯವಾಗಿದೆ:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">ಚದುರಂಗ ಫಲಕದ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ತಿಳಿದುಕೊಳ್ಳುವುದು ಬಹಳ ಮುಖ್ಯವಾದ ಚೆಸ್ ಕೌಶಲ್ಯವಾಗಿದೆ:</string>
   <string name="mostChessCourses">ಹೆಚ್ಚಿನ ಚೆಸ್ ಕೋರ್ಸ್‌ಗಳು ಮತ್ತು ವ್ಯಾಯಾಮಗಳು ಬೀಜಗಣಿತದ ಸಂಕೇತವನ್ನು ವ್ಯಾಪಕವಾಗಿ ಬಳಸುತ್ತವೆ.</string>
   <string name="talkToYourChessFriends">ನೀವಿಬ್ಬರೂ \'ಚೆಸ್‌ನ ಭಾಷೆ\'ಯನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡಿರುವುದರಿಂದ ನಿಮ್ಮ ಚೆಸ್ ಸ್ನೇಹಿತರೊಂದಿಗೆ ಮಾತನಾಡಲು ಇದು ಸುಲಭವಾಗುತ್ತದೆ.</string>
   <string name="youCanAnalyseAGameMoreEffectively">ನೀವು ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ತ್ವರಿತವಾಗಿ ಗುರುತಿಸಬಹುದಾದರೆ ನೀವು ಆಟವನ್ನು ಹೆಚ್ಚು ಪರಿಣಾಮಕಾರಿಯಾಗಿ ವಿಶ್ಲೇಷಿಸಬಹುದು.</string>

@@ -32,7 +32,7 @@
     <item quantity="few">%s minute između kola</item>
     <item quantity="other">%s minuta između kola</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Počinje za</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Počinje za</string>
   <string name="nextRound">Slijedeće kolo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Tekuća partija</item>

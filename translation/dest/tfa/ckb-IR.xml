@@ -6,7 +6,7 @@
   <string name="enterPassword">وشەی نهێنی و کۆدی پشتڕاستکردنەوە کە بە نەرمەواڵاکە(بەرنامەکە) دڵنیاکراوەتەوە داخڵبکە بۆ تەواوکردنی کردارەکە. تۆ هەموو جارێک بۆ داخڵبوون پێویستت بە کۆدی پشتڕاستکردنەوە دەبێت.</string>
   <string name="ifYouCannotScanEnterX">ئەگەر ناتوانی کۆدەکە سکان بکەی، ئەوا کلیلی نهێنی %s داخڵبکە لەسەر نەرمەواڵاکەت(بەرنامەکەت).</string>
   <string name="authenticationCode">کۆدی پشتڕاستکردنەوە</string>
-  <string name="ifYouLoseAccessTwoFactor">تێبینی: ئەگەر دەستڕاگەیشتن بە کۆدەکانی ڕەسەنایەتی دوو فاکتەری خۆت لەدەستدا، دەتوانیت %s لە ڕێگەی ئیمەیڵەوە ئەنجام بدەیت.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">تێبینی: ئەگەر دەستڕاگەیشتن بە کۆدەکانی ڕەسەنایەتی دوو فاکتەری خۆت لەدەستدا، دەتوانیت %s لە ڕێگەی ئیمەیڵەوە ئەنجام بدەیت.</string>
   <string name="enableTwoFactor">چالاک کردنی هۆکاری دووەمی پشتڕاستکردنەوە</string>
   <string name="disableTwoFactor">ناچالاک کردنی هۆکاری دووەمی پشتڕاستکردنەوە</string>
   <string name="twoFactorEnabled">هۆکاری دووەمی پشتڕاستکردنەوە چالاک کراوە</string>

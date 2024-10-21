@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT-Brett-Anforderungen</string>
   <string name="dgtBoardLimitations">DGT-Brett-Beschränkungen</string>
   <string name="thisPageAllowsConnectingDgtBoard">Diese Seite erlaubt dir, dein DGT-Brett mit Lichess zu verbinden und es zu benutzen, um damit Partien zu spielen.</string>
-  <string name="toConnectTheDgtBoard">Um das elektronische DGT-Brett zu verbinden, musst du %s installieren.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Um das elektronische DGT-Brett zu verbinden, musst du %s installieren.</string>
   <string name="downloadHere">Du kannst die Software hier herunterladen: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Falls %1$s auf diesem Computer läuft, kannst du die Verbindung mittels %2$s überprüfen.</string>
   <string name="openingThisLink">Öffnen dieses Links</string>
