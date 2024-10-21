@@ -465,6 +465,7 @@
   <string name="movesPlayed">കളിച്ച കളികൾ</string>
   <string name="whiteWins">വെള്ള കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
   <string name="blackWins">കറുത്ത കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
+  <string name="drawRate">സമനില നിരക്കു്</string>
   <string name="draws">സമനിലകൾ</string>
   <string name="nextXTournament">അടുത്ത %s ടൂർണമെന്റ്:</string>
   <string name="averageOpponent">ശരാശരി എതിരാളി</string>
@@ -863,6 +864,7 @@
   <string name="toRequestSupport">സഹായം ആവശ്യപെടുക, %1$s</string>
   <string name="tryTheContactPage">ബന്ധപെടാനുള്ള ഫോറേം ഉപയോഗിക്കുക</string>
   <string name="makeSureToRead">ഉറപ്പായിട്ടു്  %1$s വായിക്കുക</string>
+  <string name="theForumEtiquette">ചർച്ചാവേദി മര്യാദം</string>
   <string name="thisTopicIsArchived">ഈ വിഷയം ത്തിനു മറുപടി കൊടുക്കാൻ കഴിയുകയയില്ല.</string>
   <string name="joinTheTeamXToPost">%1$s ഇൽ ചേരുക, ഫോറത്തിൽ പോസ്റ്റ്‌ ചെയുന്നതിനു</string>
   <string name="teamNamedX">%1$s ടീം</string>
@@ -883,6 +885,7 @@
   <string name="refundXpointsTimeControlY">റിഫണ്ട്:%1$s%2$s റേറ്റിംഗ് പോയിന്റുകൾ.</string>
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
   <string name="clickToRevealEmailAddress">ഇമെയിൽ വിലാസം വെളിപ്പെടുത്തുകാൻ അമർത്തിക്കൂ</string>
+  <string name="download">ഇറക്കിവയ്ക്കുക</string>
   <string name="cancelTournament">മത്സരം വേണ്ടെന്നു വയ്ക്കുക</string>
   <string name="tournDescription">മത്സരം കുറിച്ചു്</string>
   <string name="onlyMembersOfTeam">കളിക്കൂട്ടത്തിന്റെ അംഗങ്ങൾ മാത്രം</string>
