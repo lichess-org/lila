@@ -181,31 +181,34 @@ const overview = (ctx: RelayViewContext) => {
 const share = (ctx: RelayViewContext) => {
   const iframe = (path: string) =>
     `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
-  const iframeHelp = h('div.form-help', [
-    'More options on the ',
-    h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
-  ]);
+  const iframeHelp = h(
+    'div.form-help',
+    i18n.broadcast.iframeHelp.asArray(
+      h('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage),
+    ),
+  );
   const roundName = ctx.relay.roundName();
   return h('div.relay-tour__share', [
-    h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
+    h('h2.text', { attrs: dataIcon(licon.Heart) }, i18n.broadcast.sharingCaring),
     ...[
       [ctx.relay.data.tour.name, ctx.relay.tourPath()],
       [roundName, ctx.relay.roundPath()],
       [
         `${roundName} PGN`,
         `${ctx.relay.roundPath()}.pgn`,
-        h('div.form-help', [
-          'A public, real-time PGN source for this round. We also offer a ',
-          h(
-            'a',
-            { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-            'streaming API',
+        h(
+          'div.form-help',
+          i18n.broadcast.streamingApiInfo.asArray(
+            h(
+              'a',
+              { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+              i18n.broadcast.streamingApi,
+            ),
           ),
-          ' for faster and more efficient synchronisation.',
-        ]),
+        ),
       ],
-      ['Embed this broadcast in your website', iframe(ctx.relay.tourPath()), iframeHelp],
-      [`Embed ${roundName} in your website`, iframe(ctx.relay.roundPath()), iframeHelp],
+      [i18n.broadcast.embedThisBroadcast, iframe(ctx.relay.tourPath()), iframeHelp],
+      [i18n.broadcast.embedThisRound(roundName), iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([text, path, help]: [string, string, VNode]) =>
       h('div.form-group', [
         h('label.form-label', text),

@@ -188,6 +188,16 @@ object I18nKey:
     val `notYetStarted`: I18nKey = "broadcast:notYetStarted"
     val `officialWebsite`: I18nKey = "broadcast:officialWebsite"
     val `standings`: I18nKey = "broadcast:standings"
+    val `sharingCaring`: I18nKey = "broadcast:sharingCaring"
+    val `iframeHelp`: I18nKey = "broadcast:iframeHelp"
+    val `webmastersPage`: I18nKey = "broadcast:webmastersPage"
+    val `streamingApiInfo`: I18nKey = "broadcast:streamingApiInfo"
+    val `streamingApi`: I18nKey = "broadcast:streamingApi"
+    val `embedThisBroadcast`: I18nKey = "broadcast:embedThisBroadcast"
+    val `embedThisRound`: I18nKey = "broadcast:embedThisRound"
+    val `ratingDiff`: I18nKey = "broadcast:ratingDiff"
+    val `gamesThisTournament`: I18nKey = "broadcast:gamesThisTournament"
+    val `score`: I18nKey = "broadcast:score"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:

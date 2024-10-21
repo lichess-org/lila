@@ -257,6 +257,10 @@ interface I18n {
     downloadAllRounds: string;
     /** Edit round study */
     editRoundStudy: string;
+    /** Embed this broadcast in your website */
+    embedThisBroadcast: string;
+    /** Embed %s in your website */
+    embedThisRound: I18nFormat;
     /** Federation */
     federation: string;
     /** FIDE federations */
@@ -271,8 +275,12 @@ interface I18n {
     fullDescription: string;
     /** Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters. */
     fullDescriptionHelp: I18nFormat;
+    /** Games in this tournament */
+    gamesThisTournament: string;
     /** How to use Lichess Broadcasts. */
     howToUseLichessBroadcasts: string;
+    /** More options on the %s */
+    iframeHelp: I18nFormat;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
     /** My broadcasts */
@@ -297,6 +305,8 @@ interface I18n {
     overview: string;
     /** the previous round */
     previousRound: string;
+    /** Rating diff */
+    ratingDiff: string;
     /** Recent tournaments */
     recentTournaments: string;
     /** Optional: replace player names, ratings and titles */
@@ -307,6 +317,10 @@ interface I18n {
     roundName: string;
     /** Round number */
     roundNumber: string;
+    /** Score */
+    score: string;
+    /** Sharing is caring */
+    sharingCaring: string;
     /** Show players scores based on game results */
     showScores: string;
     /** Up to 64 Lichess game IDs, separated by spaces. */
@@ -325,6 +339,10 @@ interface I18n {
     startsAfter: I18nFormat;
     /** The broadcast will start very soon. */
     startVerySoon: string;
+    /** streaming API */
+    streamingApi: string;
+    /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
+    streamingApiInfo: I18nFormat;
     /** Subscribed broadcasts */
     subscribedBroadcasts: string;
     /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
@@ -345,6 +363,8 @@ interface I18n {
     upcoming: string;
     /** Upload tournament image */
     uploadImage: string;
+    /** webmasters page */
+    webmastersPage: string;
   };
   challenge: {
     /** Cannot challenge due to provisional %s rating. */
