@@ -19,7 +19,7 @@
   <string name="source">منبع</string>
   <string name="nbTurns">تعداد حرکت</string>
   <string name="result">نتیجه</string>
-  <string name="winnerColor">رنگ مهره های بازیکن برنده</string>
+  <string name="winnerColor">رنگ برنده</string>
   <string name="date">تاریخ</string>
   <string name="sortBy">مرتب‌سازی بر اساس</string>
   <string name="analysis">واکاوی</string>
