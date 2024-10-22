@@ -49,4 +49,11 @@
   <string name="ageThisYear">Idade atual</string>
   <string name="unrated">Sem rating</string>
   <string name="recentTournaments">Torneios recentes</string>
+  <string name="openLichess">Abrir no Lichess</string>
+  <string name="teams">Equipes</string>
+  <string name="boards">Tabuleiros</string>
+  <string name="overview">Visão geral</string>
+  <string name="subscribeTitle">Inscreva-se para ser notificado no início de cada rodada. Você pode configurar as notificações de transmissões nas suas preferências.</string>
+  <string name="uploadImage">Enviar imagem de torneio</string>
+  <string name="noBoardsYet">Sem tabuleiros ainda. Eles vão aparecer quando os jogos forem enviados.</string>
 </resources>
