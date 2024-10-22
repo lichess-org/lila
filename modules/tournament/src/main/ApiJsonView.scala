@@ -77,16 +77,9 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       )
 
   def fullJson(tour: Tournament)(using Translate): Fu[JsObject] =
-    (tour.winnerId.so(lightUserApi.async)).map { winner =>
-      baseJson(tour).add("winner" -> winner.map(userJson))
+    tour.winnerId.so(lightUserApi.async).map { winner =>
+      baseJson(tour).add("winner" -> winner)
     }
-
-  private def userJson(u: lila.core.LightUser) =
-    Json.obj(
-      "id"    -> u.id,
-      "name"  -> u.name,
-      "title" -> u.title
-    )
 
   private val perfPositions: Map[PerfKey, Int] = {
     import PerfKey.*
