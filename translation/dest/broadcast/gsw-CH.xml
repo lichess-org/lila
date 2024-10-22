@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Bis zu 64 Lichess Schpiel-IDs, trännt dur en Leerschlag.</string>
   <string name="startDateTimeZone">Startdatum i de lokale Zitzone vum Turnier: %s</string>
   <string name="startDateHelp">Optional, falls du weisch, wänn das Ereignis afangt</string>
-  <string name="credits">Erwähn\' d\'Quälle</string>
   <string name="currentGameUrl">URL vom laufende Schpiel</string>
   <string name="downloadAllRounds">Alli Runde abelade</string>
   <string name="resetRound">Die Rundi zruggsetze</string>
