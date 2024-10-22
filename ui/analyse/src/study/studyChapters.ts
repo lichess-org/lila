@@ -19,6 +19,7 @@ import {
   StudyPlayerFromServer,
   StudyPlayer,
   ChapterSelect,
+  StatusStr,
 } from './interfaces';
 import StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
@@ -62,7 +63,7 @@ export default class StudyChaptersCtrl {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
     this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
-    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.redraw);
   }
 
   sort = (ids: string[]) => this.send('sortChapters', ids);
@@ -105,6 +106,12 @@ export default class StudyChaptersCtrl {
         if (playerWhoMoved) playerWhoMoved.clock = node.clock;
       }
     }
+  };
+
+  setTags = (id: ChapterId, tags: TagArray[]) => {
+    const chap = this.list.get(id),
+      result = findTag(tags, 'result');
+    if (chap && result) chap.status = result.replace(/1\/2/g, '½') as StatusStr;
   };
 }
 
@@ -232,11 +239,11 @@ export function view(ctrl: StudyCtrl): VNode {
       .concat(
         ctrl.members.canContribute()
           ? [
-            h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
-              h('span', iconTag(licon.PlusButton)),
-              h('h3', ctrl.trans.noarg('addNewChapter')),
-            ]),
-          ]
+              h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+                h('span', iconTag(licon.PlusButton)),
+                h('h3', i18n.study.addNewChapter),
+              ]),
+            ]
           : [],
       ),
   );

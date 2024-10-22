@@ -239,6 +239,7 @@ final class Mod(
           .mon(_.mod.comm.segment("recentPovs"))
           .flatMap: povs =>
             (
+              env.api.modTimeline(user, withPlayBans = false).mon(_.mod.comm.segment("modTimeline")),
               priv.so:
                 env.chat.api.playerChat
                   .optionsByOrderedIds(povs.map(_.gameId.into(ChatId)))
@@ -252,20 +253,13 @@ final class Mod(
               env.shutup.api
                 .getPublicLines(user.id)
                 .mon(_.mod.comm.segment("publicChats")),
-              env.user.noteApi
-                .byUserForMod(user.id)
-                .mon(_.mod.comm.segment("notes")),
-              env.mod.logApi
-                .userHistory(user.id)
-                .mon(_.mod.comm.segment("history")),
               env.report.api.inquiries
                 .ofModId(me.id)
                 .mon(_.mod.comm.segment("inquiries")),
               env.security.userLogins(user, 100).flatMap {
                 userC.loginsTableData(user, _, 100)
-              },
-              env.report.api.commReportsAbout(user, Max(50))
-            ).flatMapN { (chats, convos, publicLines, notes, history, inquiry, logins, reports) =>
+              }
+            ).flatMapN { (timeline, chats, convos, publicLines, inquiry, logins) =>
               if priv && !inquiry.so(_.isRecentCommOf(Suspect(user))) then
                 env.irc.api.commlog(user = user.light, inquiry.map(_.oldestAtom.by.userId))
                 if isGranted(_.MonitoredCommMod) then
@@ -279,7 +273,7 @@ final class Mod(
                 .map: appeals =>
                   views.mod.communication(
                     me,
-                    user,
+                    timeline,
                     povs
                       .zip(chats)
                       .collect:
@@ -287,10 +281,7 @@ final class Mod(
                       .take(15),
                     convos,
                     publicLines,
-                    notes.filter(_.from != UserId.irwin),
-                    history,
                     logins,
-                    reports,
                     appeals,
                     priv
                   )
@@ -307,10 +298,9 @@ final class Mod(
           .modFullCommsExport(user.id)
           .map: (tid, msgs) =>
             s"=== 0 === thread: ${tid}\n${msgs.map(m => s"${m.date} ${m.user}: ${m.text}\n--- 0 ---\n").toList.mkString("\n")}"
-        Ok.chunked(source)
-          .pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
-          .andDo(env.mod.logApi.fullCommExport(Suspect(user)))
-          .andDo(env.irc.api.fullCommExport(user.light))
+        env.mod.logApi.fullCommExport(Suspect(user))
+        env.irc.api.fullCommExport(user.light)
+        Ok.chunked(source).pipe(asAttachmentStream(s"full-comms-export-of-${user.id}.txt"))
     }
 
   protected[controllers] def redirect(username: UserStr, mod: Boolean = true) =
@@ -547,7 +537,7 @@ final class Mod(
     Found(env.user.repo.byId(username)): user =>
       for
         logs      <- env.mod.logApi.userHistory(user.id)
-        notes     <- env.socialInfo.fetchNotes(user)
+        notes     <- env.user.noteApi.getForMyPermissions(user)
         notesJson <- lila.user.JsonView.notes(notes)(using env.user.lightUserApi)
       yield JsonOk(
         Json.obj(

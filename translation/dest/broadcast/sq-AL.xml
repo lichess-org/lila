@@ -7,6 +7,7 @@
     <item quantity="other">%s transmetime</item>
   </plurals>
   <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
+  <string name="broadcastCalendar">Kalendar transmetimesh</string>
   <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
   <string name="subscribedBroadcasts">Transmetime me pajtim</string>
   <string name="aboutBroadcasts">Rreth transmetimeve</string>
@@ -23,10 +24,10 @@
   <string name="tournamentDescription">Përshkrim i shkurtër i turneut</string>
   <string name="fullDescription">Përshkrim i plotë i turneut</string>
   <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
-  <string name="sourceSingleUrl">URL Burimi PNG-je</string>
+  <string name="sourceSingleUrl">URL Burimi PGN-je</string>
   <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
   <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
-  <string name="startDate">Datë fillimi në zonën tuaj kohore</string>
+  <string name="startDateTimeZone">Datë fillimi në zonën kohore vendore të turneut: %s</string>
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
   <string name="credits">Atriboji merita burimit</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
@@ -39,8 +40,6 @@
   <string name="definitivelyDeleteTournament">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
   <string name="showScores">Shfaq pikë lojtatësh bazuar në përfundime lojërash</string>
   <string name="replacePlayerTags">Opsionale: zëvendësoni emra lojëtarësh, vlerësime dhe tituj</string>
-  <string name="periodInSeconds">Periudhë, në sekonda</string>
-  <string name="periodInSecondsHelp">Opsionale, sa gjatë të pritet mes kërkesash. Min. 2s, maks. 60s. Si parazgjedhje, përdoret vlera automatike bazuar në numrin e parësve.</string>
   <string name="fideFederations">Federata FIDE</string>
   <string name="top10Rating">10 vlerësimet kryesuese</string>
   <string name="fidePlayers">Lojtarë FIDE</string>

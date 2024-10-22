@@ -259,7 +259,7 @@ lazy val bot = module("bot",
 lazy val analyse = module("analyse",
   Seq(tree, memo, ui),
   tests.bundle
-)
+).dependsOn(coreI18n % "test->test")
 
 lazy val round = module("round",
   Seq(room, game, user, playban, pref, chat),
@@ -309,7 +309,7 @@ lazy val gathering = module("gathering",
 lazy val tournament = module("tournament",
   Seq(gathering, room, memo),
   Seq(lettuce) ++ tests.bundle
-)
+).dependsOn(coreI18n % "test->test")
 
 lazy val swiss = module("swiss",
   Seq(gathering, room, memo),

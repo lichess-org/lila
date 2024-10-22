@@ -4,10 +4,9 @@
   "private": true,
   "description": "lichess.org chess utils",
   "type": "module",
-  "module": "board.js",
-  "types": "board.d.ts",
+  "module": "menu.js",
+  "types": "menu.d.ts",
   "exports": {
-    ".": "./dist/board.js",
     "./*": "./dist/*.js"
   },
   "typesVersions": {

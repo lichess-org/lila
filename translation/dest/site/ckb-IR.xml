@@ -126,7 +126,6 @@
   <string name="memory">یادگە</string>
   <string name="infiniteAnalysis">شیکاریکردنی بێ کۆتا</string>
   <string name="removesTheDepthLimit">لابردنی سنووری قوڵیەکەی، بەمەش کۆمپیوتەرەکەت سەلامەتتر دەبێت</string>
-  <string name="engineManager">بەڕێوەبردنی کۆمپیوتەر</string>
   <string name="blunder">هەڵەی دۆڕان</string>
   <string name="mistake">هەڵە</string>
   <string name="inaccuracy">ناتەواو</string>
@@ -552,9 +551,9 @@
   <string name="cheat">فێڵکردن</string>
   <string name="troll">بێزارکەرەکان</string>
   <string name="other">ئەوانیتر</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">لینکی یارییەکە یان یاریەکان پەیست بکە و ڕوونی بکەرەوە کە چی هەڵەیە لە هەڵسوکەوتی ئەم بەکارهێنەرەدا. تەنها مەڵێ \"فێڵ دەکەن\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">ڕوونی بکەرەوە کە چی دەربارەی ئەم ناوی بەکارهێنەرە نەگونجاوە. تەنها مەڵێن \"ئەوە هێرشبەرە/نەگونجاو\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە، بەتایبەتی ئەگەر سووکایەتیەکە تەمومژاوی بێت نەک بە ئینگلیزی، بە زمانی بازاڕی بێت، یان ئاماژەیەکی مێژوویی/ کولتووری بێت.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">ڕاپۆرتەکەت خێراتر پێڤاژۆ دەکرێت ئەگەر بە زمانی ئینگلیزی بنووسرێت.</string>
+  <string name="reportCheatBoostHelp">لینکی یارییەکە یان یاریەکان پەیست بکە و ڕوونی بکەرەوە کە چی هەڵەیە لە هەڵسوکەوتی ئەم بەکارهێنەرەدا. تەنها مەڵێ \"فێڵ دەکەن\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە.</string>
+  <string name="reportUsernameHelp">ڕوونی بکەرەوە کە چی دەربارەی ئەم ناوی بەکارهێنەرە نەگونجاوە. تەنها مەڵێن \"ئەوە هێرشبەرە/نەگونجاو\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە، بەتایبەتی ئەگەر سووکایەتیەکە تەمومژاوی بێت نەک بە ئینگلیزی، بە زمانی بازاڕی بێت، یان ئاماژەیەکی مێژوویی/ کولتووری بێت.</string>
+  <string name="reportProcessedFasterInEnglish">ڕاپۆرتەکەت خێراتر پێڤاژۆ دەکرێت ئەگەر بە زمانی ئینگلیزی بنووسرێت.</string>
   <string name="error.provideOneCheatedGameLink">تکایە بەلایەنی کەمەوە لینکی یاریەک دابنێ بۆ ئەو یاریانەی فێڵی تێداکراوە.</string>
   <string name="by">لەلایەن %s</string>
   <string name="importedByX">هاوردەکراوە لەلایەن %s</string>

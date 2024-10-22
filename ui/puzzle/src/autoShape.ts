@@ -31,7 +31,7 @@ function makeAutoShapesFromUci(
   ];
 }
 
-export default function(opts: Opts): DrawShape[] {
+export default function (opts: Opts): DrawShape[] {
   const n = opts.node,
     hovering = opts.ceval.hovering(),
     color = n.fen.includes(' w ') ? 'white' : 'black';

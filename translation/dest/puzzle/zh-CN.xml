@@ -31,8 +31,8 @@
   <string name="byOpenings">按开局分类</string>
   <string name="puzzlesByOpenings">按开局分类的谜题</string>
   <string name="openingsYouPlayedTheMost">你在排位赛中使用最多的开局</string>
-  <string name="useFindInPage">在浏览器菜单中使用 “在页面中查找” 来找到你最爱的开局！</string>
-  <string name="useCtrlF">使用 Ctrl + F 查找你最爱的开局！</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">在浏览器菜单中使用 “在页面中查找” 来找到你最爱的开局！</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">使用 Ctrl + F 查找你最爱的开局！</string>
   <string name="notTheMove">不是最佳着法</string>
   <string name="trySomethingElse">试试其他着法</string>
   <string name="ratingX">等级分：%s</string>
@@ -63,7 +63,7 @@
   <string name="strengths">强项</string>
   <string name="history">解题历史</string>
   <string name="solved">已解答</string>
-  <string name="failed">失败</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">失败</string>
   <string name="streakDescription">解破日益困难的谜题，从而建造一个胜利纪录。没有计时。一步错解，游戏就会结束！不过，每场游戏都可跳过一步棋。</string>
   <string name="yourStreakX">你的连胜纪录: %s</string>
   <string name="streakSkipExplanation">跳过这一步来保持你的连胜纪录！每场游戏只能使用一次。</string>

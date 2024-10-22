@@ -3,6 +3,7 @@ import subprocess
 import re
 import textwrap
 import os
+import sys
 import platform
 from os.path import *
 import argparse
@@ -67,10 +68,17 @@ debug_preamble = """<!--""" + comment_preamble + """-->
   <body>"""
 
 def main():
-    parser = argparse.ArgumentParser(description='lichess.sfd helper')
+    parser = argparse.ArgumentParser(description="""
+        licon.py uses public/font/lichess.sfd and fontforge to build fonts and update lila code. Use --check or --replace
+        to check for or fix any embedded licon literals in your sources""")
     parser.add_argument('--check', action='store_true', help='report any embedded licon literals in your sources')
     parser.add_argument('--replace', action='store_true', help='replace embedded licon literals with `licon.<glyph-name>`')
 
+    args = parser.parse_args()
+    if '--help' in sys.argv or '-h' in sys.argv:
+        parser.print_help()
+        return
+    
     lila_chdir('public/font')
 
     gen_fonts()
@@ -83,14 +91,13 @@ def main():
     print('  modules/ui/src/main/Icon.scala\n  ui/common/src/licon.ts')
     print('  ui/common/css/abstract/_licon.scss\n')
 
-    args = parser.parse_args()
     if args.check or args.replace:
         lila_chdir()
         find_replace_chars({chr(v): k for k, v in codes.items()}, args.replace)
     else:
         print('Note:')
         print('  bin/gen/licon.py --check    # report any embedded licon literals in your sources')
-        print('  bin/gen/licon.py --replace  # replace embedded licon literals with `licon.<glyph-name>`')
+        print('  bin/gen/licon.py --replace  # replace embedded licon literals with `<prefix>.<glyph-name>`')
 
     print("\nDon't forget to install lichess.ttf in your system & editor!\n")
 
@@ -175,7 +182,7 @@ def find_replace_chars(names, replace):
         sources.extend([join(dir, f) for f in filter(
             lambda f: \
                 any(map(lambda e: f.endswith(e), ['.ts', '.scala', '.scss'])) \
-                and not f in ['Licon.scala', 'licon.ts', '_licon.scss'],
+                and not f in ['Icon.scala', 'licon.ts', '_licon.scss'],
             files
         )])
 
@@ -194,7 +201,9 @@ def find_replace_chars(names, replace):
                             sub = f'$licon-{names[ch]}'
                             if text[m.end():m.end()+1] == ']':
                                 sub = f"'#{{{sub}}}'"
-                        else:
+                        elif source.endsWith('.scala'):
+                            sub = f'Icon.{names[ch]}'
+                        elif source.endswith('.ts'):
                             sub = f'licon.{names[ch]}'
                         text = text[:m.start()] + sub + text[m.end():]
                         report += f'{m.group(1)} -> {sub}'

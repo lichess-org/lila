@@ -126,7 +126,6 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o teu computador quente</string>
-  <string name="engineManager">Gestão do motor</string>
   <string name="blunder">Erro grave</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
@@ -180,6 +179,7 @@
   <string name="latestForumPosts">Últimas publicações no fórum</string>
   <string name="players">Jogadores</string>
   <string name="friends">Amigos</string>
+  <string name="otherPlayers">outros jogadores</string>
   <string name="discussions">Conversas</string>
   <string name="today">Hoje</string>
   <string name="yesterday">Ontem</string>
@@ -538,6 +538,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="descPrivateHelp">Texto que apenas está visível para os membros da equipa. Se definido, substitui a descrição pública dos membros da equipa.</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
+  <string name="website">Site</string>
+  <string name="mobile">Telemóvel</string>
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Criar um novo tópico</string>
   <string name="topics">Tópicos</string>
@@ -556,6 +558,9 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="cheat">Batota</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
+  <string name="reportCheatBoostHelp">Cola o(s) link(s) do(s) jogo(s) e explica o que está errado no comportamento deste utilizador. Não digas apenas “eles fazem batota”, mas diz-nos como chegaste a essa conclusão.</string>
+  <string name="reportUsernameHelp">Explica o que este nome de utilizador tem de ofensivo. Não digas apenas “é ofensivo/inapropriado”, mas diz-nos como chegaste a essa conclusão, especialmente se o insulto for ofuscado, não estiver em inglês, estiver em calão ou for uma referência histórica/cultural.</string>
+  <string name="reportProcessedFasterInEnglish">A tua denúncia será processado mais rapidamente se estiver escrito em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, fornece-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -764,7 +769,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="zeroAdvertisement">Zero anúncios</string>
   <string name="fullFeatured">Cheio de recursos</string>
   <string name="phoneAndTablet">Telemóvel e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, clássico</string>
+  <string name="bulletBlitzClassical">Bullet, rápida, clássica</string>
   <string name="correspondenceChess">Xadrez por correspondência</string>
   <string name="onlineAndOfflinePlay">Jogar online e offline</string>
   <string name="viewTheSolution">Ver a solução</string>

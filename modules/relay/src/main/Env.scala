@@ -71,6 +71,8 @@ final class Env(
 
   lazy val pager = wire[RelayPager]
 
+  lazy val calendar = wire[RelayCalendar]
+
   lazy val push = wire[RelayPush]
 
   lazy val markup = wire[RelayMarkup]
@@ -129,7 +131,7 @@ final class Env(
   wire[RelayFetch]
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
-    api.autoStart >> api.autoFinishNotSyncing
+    api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
 
   lila.common.Bus.subscribeFuns(
     "study" -> { case lila.core.study.RemoveStudy(studyId) =>

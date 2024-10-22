@@ -21,7 +21,7 @@ const xhrSaveScore = (stageKey: string, levelId: number, score: number) =>
 
 const xhrReset = () => xhr.jsonAnyResponse('/learn/reset', { method: 'POST' });
 
-export default function(d?: LearnProgress): Storage {
+export default function (d?: LearnProgress): Storage {
   const key = 'learn.progress';
   const defaultValue: LearnProgress = {
     stages: {},

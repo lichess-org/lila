@@ -8,31 +8,26 @@ interface OptsWithI18n extends Opts {
   };
 }
 
-(window as any).LpvEmbed = function(opts: Partial<OptsWithI18n>) {
+(window as any).LpvEmbed = function (opts: Partial<OptsWithI18n>) {
   const elem = document.body.firstChild!.firstChild as HTMLElement;
-  const i18n = {
-    ...(opts.i18n || {}),
-    flipTheBoard: opts.i18n.flipBoard,
-    analysisBoard: opts.i18n.analysis,
-  };
   const lpv = Lpv(elem, {
     initialPly: parseInt(location.hash.slice(1)) || undefined,
     ...(opts.gamebook
       ? {
-        showPlayers: false,
-        showMoves: false,
-        showClocks: false,
-        showControls: false,
-        scrollToMove: false,
-        drawArrows: false,
-        classes: 'lpv--gamebook',
-      }
+          showPlayers: false,
+          showMoves: false,
+          showClocks: false,
+          showControls: false,
+          scrollToMove: false,
+          drawArrows: false,
+          classes: 'lpv--gamebook',
+        }
       : {
-        showMoves: 'auto',
-      }),
+          showMoves: 'auto',
+        }),
     ...opts,
     pgn: elem.innerHTML,
-    translate: key => i18n[key],
+    translate: key => opts.i18n?.[key],
   });
   if (opts.gamebook) {
     const text = lpv.game.initial.comments[0] || 'Start';

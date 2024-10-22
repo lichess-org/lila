@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Em dikarin çawa alîkarîya we bikin?</string>
   <string name="visitThisPage">Serdana vê rûpelê bikin ku pirsgirêk çareser bikin</string>
   <string name="iCantLogIn">Ez nikarim têkevim</string>
-  <string name="noConfirmationEmail">Min e-nameya xwe ya pejirandinê wernegirt</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Min e-nameya xwe ya pejirandinê wernegirt</string>
   <string name="forgotPassword">Min pêborînê xwe ji bîr kir</string>
   <string name="forgotUsername">Min navê bikarhênerê bîr ve kir</string>
   <string name="youCanLoginWithEmail">Hûn dikarin bi navnîşana e-nameya ku we pê re qeydkirî têkevinê</string>

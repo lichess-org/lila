@@ -42,9 +42,9 @@ export function view(ctrl: ServerEval): VNode {
   const mainline = ctrl.requested ? ctrl.root.data.treeParts : ctrl.analysedMainline();
   const chart = h('canvas.study__server-eval.ready.' + analysis.id, {
     hook: onInsert(el => {
-      requestIdleCallback(async() => {
+      requestIdleCallback(async () => {
         (await site.asset.loadEsm<ChartGame>('chart.game'))
-          .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline, ctrl.root.trans)
+          .acpl(el as HTMLCanvasElement, ctrl.root.data, mainline)
           .then(chart => (ctrl.chart = chart));
       }, 800);
     }),
@@ -60,24 +60,23 @@ const disabled = () => h('div.study__server-eval.disabled.padded', 'You disabled
 const requested = () => h('div.study__server-eval.requested.padded', spinnerVdom());
 
 function requestButton(ctrl: ServerEval) {
-  const root = ctrl.root,
-    noarg = root.trans.noarg;
+  const root = ctrl.root;
   return h(
     'div.study__message',
     root.mainline.length < 5
-      ? h('p', noarg('theChapterIsTooShortToBeAnalysed'))
+      ? h('p', i18n.study.theChapterIsTooShortToBeAnalysed)
       : !root.study!.members.canContribute()
-        ? [noarg('onlyContributorsCanRequestAnalysis')]
+        ? [i18n.study.onlyContributorsCanRequestAnalysis]
         : [
-          h('p', [noarg('getAFullComputerAnalysis'), h('br'), noarg('makeSureTheChapterIsComplete')]),
-          h(
-            'a.button.text',
-            {
-              attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
-              hook: bind('click', ctrl.request, root.redraw),
-            },
-            noarg('requestAComputerAnalysis'),
-          ),
-        ],
+            h('p', [i18n.study.getAFullComputerAnalysis, h('br'), i18n.study.makeSureTheChapterIsComplete]),
+            h(
+              'a.button.text',
+              {
+                attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
+                hook: bind('click', ctrl.request, root.redraw),
+              },
+              i18n.site.requestAComputerAnalysis,
+            ),
+          ],
   );
 }

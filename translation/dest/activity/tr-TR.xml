@@ -34,6 +34,10 @@
     <item quantity="one">%s adet yazışmalı oyun tamamladı</item>
     <item quantity="other">%s adet yazışmalı oyun tamamladı</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">%1$s %2$s yazışmalı oyunu tamamladı</item>
+    <item quantity="other">%1$s %2$s yazışmalı oyunu tamamladı</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s oyuncuyu takip etmeye başladı</item>
     <item quantity="other">%s oyuncuyu takip etmeye başladı</item>
@@ -54,7 +58,7 @@
     <item quantity="one">%s yeni çalışma oluşturdu</item>
     <item quantity="other">%s yeni çalışma oluşturdu</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">%s turnuvaya katıldı</item>
     <item quantity="other">%s turnuvaya katıldı</item>
   </plurals>

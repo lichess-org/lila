@@ -6,10 +6,11 @@ import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.format.Formatter
 import scalalib.model.Seconds
-import lila.common.Form.{ cleanText, formatter, into, stringIn }
+import lila.common.Form.{ cleanText, formatter, into, stringIn, LocalDateTimeOrTimestamp }
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
+import lila.common.Form.PrettyDateTime
 
 final class RelayRoundForm(using mode: Mode):
 
@@ -46,7 +47,7 @@ final class RelayRoundForm(using mode: Mode):
   private def lccIsComplete(url: Upstream.Url) =
     url.lcc.isDefined || !url.url.host.toString.endsWith("livechesscloud.com")
 
-  def roundMapping(using Me) =
+  def roundMapping(tour: RelayTour)(using Me) =
     mapping(
       "name"       -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
       "caption"    -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
@@ -61,27 +62,26 @@ final class RelayRoundForm(using mode: Mode):
       ),
       "syncUrls"            -> optional(of[Upstream.Urls]),
       "syncIds"             -> optional(of[Upstream.Ids]),
-      "startsAt"            -> optional(ISOInstantOrTimestamp.mapping),
+      "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
       "startsAfterPrevious" -> optional(boolean),
       "finished"            -> optional(boolean),
       "period"              -> optional(number(min = 2, max = 60).into[Seconds]),
       "delay"               -> optional(number(min = 0, max = RelayDelay.maxSeconds.value).into[Seconds]),
       "onlyRound"           -> optional(number(min = 1, max = 999)),
       "slices" -> optional:
-        nonEmptyText
-          .transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
+        nonEmptyText.transform[List[RelayGame.Slice]](RelayGame.Slices.parse, RelayGame.Slices.show)
     )(Data.apply)(unapply)
 
   def create(trs: RelayTour.WithRounds)(using Me) = Form(
-    roundMapping
+    roundMapping(trs.tour)
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
         _ => trs.rounds.sizeIs < RelayTour.maxRelays
       )
   ).fill(fillFromPrevRounds(trs.rounds))
 
-  def edit(r: RelayRound)(using Me) = Form(
-    roundMapping
+  def edit(t: RelayTour, r: RelayRound)(using Me) = Form(
+    roundMapping(t)
       .verifying(
         "The round source cannot be itself",
         d => d.syncSource.forall(_ != "url") || d.syncUrl.forall(_.roundId.forall(_ != r.id))
@@ -212,35 +212,35 @@ object RelayRoundForm:
       .map(RelayRound.Starts.At(_))
       .orElse((~startsAfterPrevious).option(RelayRound.Starts.AfterPrevious))
 
-    def update(official: Boolean)(relay: RelayRound)(using me: Me)(using mode: Mode) =
-      val sync = makeSync(me)
+    def update(official: Boolean)(relay: RelayRound)(using Me, Mode) =
+      val sync = makeSync(relay.sync.some)
       relay.copy(
         name = name,
-        caption = caption,
+        caption = if Granter(_.StudyAdmin) then caption else relay.caption,
         sync = if relay.sync.playing then sync.play(official) else sync,
         startsAt = relayStartsAt,
         finished = ~finished
       )
 
-    private def makeSync(user: User): Sync =
+    private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
       RelayRound.Sync(
         upstream = upstream,
         until = none,
         nextAt = none,
-        period = period.ifTrue(Granter.ofUser(_.StudyAdmin)(user)),
+        period = if Granter(_.StudyAdmin) then period else prev.flatMap(_.period),
         delay = delay,
         onlyRound = onlyRound,
         slices = slices,
         log = SyncLog.empty
       )
 
-    def make(user: User, tour: RelayTour)(using mode: Mode) =
+    def make(tour: RelayTour)(using Me, Mode) =
       RelayRound(
         id = RelayRound.makeId,
         tourId = tour.id,
         name = name,
-        caption = caption,
-        sync = makeSync(user),
+        caption = Granter(_.StudyAdmin).so(caption),
+        sync = makeSync(none),
         createdAt = nowInstant,
         crowd = none,
         finished = ~finished,

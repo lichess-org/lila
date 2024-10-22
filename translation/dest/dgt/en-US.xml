@@ -5,13 +5,13 @@
   <string name="dgtBoardRequirements">DGT Board Requirements</string>
   <string name="dgtBoardLimitations">DGT Board Limitations</string>
   <string name="thisPageAllowsConnectingDgtBoard">This page allows you to connect your DGT board to Lichess and use it for games.</string>
-  <string name="toConnectTheDgtBoard">To connect to the DGT Electronic Board, you will need to install %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">To connect to the DGT Electronic Board, you will need to install %s.</string>
   <string name="downloadHere">You can download the software here: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">If %1$s is running on this computer, you can check your connection to it by %2$s.</string>
   <string name="openingThisLink">opening this link</string>
   <string name="ifLiveChessRunningElsewhere">If %1$s is running on a different machine or different port, you will need to set the IP address and port here in the %2$s.</string>
   <string name="configurationSection">Configuration Section</string>
-  <string name="keepPlayPageOpen">The Configuration page needs to remain open in your browser. It does not need to be visible. You can minimize the page or set it to the side of the Lichess game page. Please do not close it, or the board will disconnect.</string>
+  <string name="keepPlayPageOpen">The Play page needs to remain open in your browser. It does not need to be visible. You can minimize the page or set it to the side of the Lichess game page. Please do not close it, or the board will disconnect.</string>
   <string name="boardWillAutoConnect">The board will auto connect to any game that is already on course or any new game that starts. Ability to choose which game to play is coming soon.</string>
   <string name="timeControlsForCasualGames">Time controls for casual games: Classical, Correspondence and Rapid only.</string>
   <string name="timeControlsForRatedGames">Time controls for rated games: Classical, Correspondence and some Rapids including 15+10 and 20+0</string>

@@ -23,28 +23,28 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     onClose,
     vnodes: [
       h('div.team-picker', [
-        h('h2', ctrl.trans.noarg('pickYourTeam')),
+        h('h2', i18n.arena.pickYourTeam),
         h('br'),
         ...(tb.joinWith.length
           ? [
-            h('p', ctrl.trans.noarg('whichTeamWillYouRepresentInThisBattle')),
-            ...tb.joinWith.map(id =>
-              h(
-                'button.button.team-picker__team',
-                { attrs: { 'data-id': id } },
-                renderTeamArray(tb.teams[id]),
+              h('p', i18n.arena.whichTeamWillYouRepresentInThisBattle),
+              ...tb.joinWith.map(id =>
+                h(
+                  'button.button.team-picker__team',
+                  { attrs: { 'data-id': id } },
+                  renderTeamArray(tb.teams[id]),
+                ),
               ),
-            ),
-          ]
+            ]
           : [
-            h('p', ctrl.trans.noarg('youMustJoinOneOfTheseTeamsToParticipate')),
-            h(
-              'ul',
-              shuffleArray(Object.keys(tb.teams)).map((id: string) =>
-                h('li', h('a', { attrs: { href: '/team/' + id } }, renderTeamArray(tb.teams[id]))),
+              h('p', i18n.arena.youMustJoinOneOfTheseTeamsToParticipate),
+              h(
+                'ul',
+                shuffleArray(Object.keys(tb.teams)).map((id: string) =>
+                  h('li', h('a', { attrs: { href: '/team/' + id } }, renderTeamArray(tb.teams[id]))),
+                ),
               ),
-            ),
-          ]),
+            ]),
       ]),
     ],
   });
@@ -58,11 +58,11 @@ export function teamStanding(ctrl: TournamentController, klass?: string): VNode 
     bigBattle = battle && Object.keys(battle.teams).length > 10;
   return battle && standing
     ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
-      h('tbody', [
-        ...standing.map(rt => teamTr(ctrl, battle, rt)),
-        ...(bigBattle ? [extraTeams(ctrl), myTeam(ctrl, battle)] : []),
-      ]),
-    ])
+        h('tbody', [
+          ...standing.map(rt => teamTr(ctrl, battle, rt)),
+          ...(bigBattle ? [extraTeams(ctrl), myTeam(ctrl, battle)] : []),
+        ]),
+      ])
     : null;
 }
 
@@ -75,7 +75,7 @@ function extraTeams(ctrl: TournamentController): VNode {
       h(
         'a',
         { attrs: { href: `/tournament/${ctrl.data.id}/teams` } },
-        ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length),
+        i18n.arena.viewAllXTeams(Object.keys(ctrl.data.teamBattle!.teams).length),
       ),
     ),
   );
@@ -127,7 +127,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
             const href = (e.target as HTMLElement).getAttribute('data-href');
             if (href) {
               ctrl.jumpToPageOf(href.slice(3));
-              ctrl.redraw;
+              ctrl.redraw();
             }
           }),
         },

@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Algunes pàgines de Lichess tenen dreceres de teclat que pots utilitzar. Proveu de prémer la tecla \'?\' en una pàgina d\'estudi, anàlisis, problemes o una partida per veure les dreceres disponibles.</string>
   <string name="fairPlay">Joc net</string>
   <string name="whenAmIEligibleRatinRefund">En quins casos se\'m retornen automàticament els punts perduts contra un trampós?</string>
-  <string name="ratingRefundExplanation">Un minut després de marcar a un jugador com a trampós, s\'agafen les seves últimes 40 partides puntuables dels tres últims dies. Si tu vas ser el seu oponent en aquestes partides, vas perdre punts en elles (bé perquè vas perdre, bé perquè vas empatar), y la teva puntuació no era provisional, llavors se\'t retornaran els punts. Aquest reemborsament està limitat per la teva màxima puntuació i per com hagi progressat la teva puntuació després d\'aquella partida.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minut després de marcar a un jugador com a trampós, s\'agafen les seves últimes 40 partides puntuables dels tres últims dies. Si tu vas ser el seu oponent en aquestes partides, vas perdre punts en elles (bé perquè vas perdre, bé perquè vas empatar), y la teva puntuació no era provisional, llavors se\'t retornaran els punts. Aquest reemborsament està limitat per la teva màxima puntuació i per com hagi progressat la teva puntuació després d\'aquella partida.
 (Per exemple, si la teva puntuació ha pujat molt després d\'aquelles partides, pot ser que no se\'t retornin els punts o només se\'t retorni una part). La devolució en cap cas serà de més de 150 punts.</string>
   <string name="preventLeavingGameWithoutResigning">Què es fa amb els jugadors que abandonen partides sense rendir-se?</string>
   <string name="leavingGameWithoutResigningExplanation">Si el teu oponent abandona habitualment partides se\'l marca com a \"prohibit jugar\", el que significa que està temporalment suspès per a jugar. Això no s\'indica públicament al seu perfil. Si persisteix en aquest comportament, la duració de la suspensió augmenta i pot implicar el tancament del seu compte.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Com es decideixen els controls de temps a Bullet, Blitz i altres?</string>
   <string name="basedOnGameDuration">Els controls de temps de Lichess es basen en la duració estimada d\'una partida = %1$s
 Per exemple, la duració estimada d\'una partida de 5+3 és 5 × 60 + 40 × 3 = 420 segons.</string>
-  <string name="durationFormula">(temps inicial del rellotge) + 40 × (increment)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(temps inicial del rellotge) + 40 × (increment)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">Quines variants puc jugar a Lichess?</string>

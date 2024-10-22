@@ -36,15 +36,15 @@ export function boot() {
     const chatMembers = document.querySelector('.chat__members') as HTMLElement | null;
     if (chatMembers) watchers(chatMembers);
 
-    $('.subnav__inner').each(function(this: HTMLElement) {
+    $('.subnav__inner').each(function (this: HTMLElement) {
       scrollToInnerSelector(this, '.active', true);
     });
-    $('#main-wrap').on('click', '.copy-me__button', function(this: HTMLElement) {
+    $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {
       const showCheckmark = () => {
         $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
         setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
       };
-      $(this.parentElement!.firstElementChild!).each(function(this: any) {
+      $(this.parentElement!.firstElementChild!).each(function (this: any) {
         try {
           navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
         } catch (e) {
@@ -54,7 +54,7 @@ export function boot() {
       return false;
     });
 
-    $('body').on('click', '.relation-button', function(this: HTMLAnchorElement) {
+    $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
       const $a = $(this).addClass('processing').css('opacity', 0.3);
       xhr.text(this.href, { method: 'post' }).then(html => {
         if ($a.hasClass('aclose')) $a.hide();
@@ -74,7 +74,7 @@ export function boot() {
 
     window.addEventListener('resize', dispatchChessgroundResize);
 
-    $('.user-autocomplete').each(function(this: HTMLInputElement) {
+    $('.user-autocomplete').each(function (this: HTMLInputElement) {
       const focus = !!this.autofocus;
       const start = () =>
         userComplete({
@@ -88,11 +88,11 @@ export function boot() {
       else $(this).one('focus', start);
     });
 
-    $('input.confirm, button.confirm').on('click', function(this: HTMLElement) {
+    $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
       return confirm(this.title || 'Confirm this action?');
     });
 
-    $('#main-wrap').on('click', 'a.bookmark', function(this: HTMLAnchorElement) {
+    $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
       const t = $(this).toggleClass('bookmarked');
       xhr.text(this.href, { method: 'post' });
       const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
@@ -114,7 +114,7 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.toggle-box--toggle').each(function(this: HTMLFieldSetElement) {
+    $('.toggle-box--toggle').each(function (this: HTMLFieldSetElement) {
       const toggle = () => this.classList.toggle('toggle-box--toggle-off');
       $(this)
         .children('legend')
@@ -143,9 +143,7 @@ export function boot() {
       document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => updateMiniGame(el, e)),
     );
     pubsub.on('socket.in.finish', e =>
-      document
-        .querySelectorAll('.mini-game-' + e.id)
-        .forEach((el: HTMLElement) => finishMiniGame(el, e.win)),
+      document.querySelectorAll('.mini-game-' + e.id).forEach((el: HTMLElement) => finishMiniGame(el, e.win)),
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
@@ -159,8 +157,8 @@ export function boot() {
               .append(
                 $(`<a class="withdraw text" data-icon="${licon.Pause}">`)
                   .attr('href', url + '/withdraw')
-                  .text(site.trans('pause'))
-                  .on('click', function(this: HTMLAnchorElement) {
+                  .text(i18n.site.pause)
+                  .on('click', function (this: HTMLAnchorElement) {
                     xhr.text(this.href, { method: 'post' });
                     $('#announce').remove();
                     return false;
@@ -169,7 +167,7 @@ export function boot() {
               .append(
                 $(`<a class="text" data-icon="${licon.PlayTriangle}">`)
                   .attr('href', url)
-                  .text(site.trans('resume')),
+                  .text(i18n.site.resume),
               ),
           ),
       );

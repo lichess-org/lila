@@ -36,9 +36,7 @@
       @include inline-start(8px);
     }
   }
-}
 
-.action-menu {
   &__tools {
     display: grid;
     gap: 0 1em;

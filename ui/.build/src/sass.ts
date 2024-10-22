@@ -3,9 +3,9 @@ import fs from 'node:fs';
 import ps from 'node:process';
 import path from 'node:path';
 import clr from 'tinycolor2';
-import { env, colors as c, lines, errorMark } from './main';
-import { globArray } from './parse';
-import { cssManifest } from './manifest';
+import { env, colors as c, lines, errorMark } from './main.ts';
+import { globArray } from './parse.ts';
+import { cssManifest } from './manifest.ts';
 
 const colorMixMap = new Map<string, { c1: string; c2?: string; op: string; val: number }>();
 const themeColorMap = new Map<string, Map<string, clr.Instance>>();
@@ -82,7 +82,7 @@ function compile(sources: string[], logAll = true) {
     const txts = lines(buf.toString('utf8'));
     for (const txt of txts) env.log(c.red(txt), { ctx: 'sass' });
   });
-  sassPs.on('close', async(code: number) => {
+  sassPs.on('close', async (code: number) => {
     if (code !== 0) return env.done(code, 'sass');
     if (awaitingFullBuild && compile(await unbuiltSources()) > 0) return;
     awaitingFullBuild = false; // now we are ready to make manifests

@@ -19,40 +19,39 @@
   "homepage": "https://lichess.org",
   "packageManager": "pnpm@9.10.0+sha256.355a8ab8dbb6ad41befbef39bc4fd6b5df85e12761d2724bd01f13e878de4b13",
   "engines": {
-    "node": "22",
+    "node": "^22.6",
     "pnpm": "^9"
   },
   "//": "NOTE: lint-staged patterns must stay in sync with bin/git-hooks/pre-commit!",
   "lint-staged": {
-    "*.{json,scss}": "prettier --write",
-    "*.ts": "eslint --fix"
+    "*.{json,scss,ts}": "prettier --write"
   },
   "dependencies": {
-    "@stylistic/eslint-plugin": "^2.8.0",
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.5.5",
-    "@types/web": "^0.0.163",
-    "@typescript-eslint/eslint-plugin": "^8.6.0",
-    "@typescript-eslint/parser": "^8.6.0",
+    "@types/node": "^22.7.4",
+    "@types/web": "^0.0.166",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
-    "eslint": "^9.10.0",
+    "eslint": "^9.11.1",
     "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
     "typescript": "^5.6.2"
   },
   "scripts": {
-    "format": "prettier --write --log-level warn . && eslint --fix ui",
-    "check-format": "prettier --check --log-level warn . && eslint ui",
-    "watch-format": "bin/watch-format",
+    "format": "prettier --write --log-level warn .",
+    "check-format": "prettier --check --log-level warn .",
+    "watch-format": "onchange \"**/*\" -- prettier --write --log-level warn {{changed}}",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint ui",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
+    "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "trans-dump": "pnpx tsx bin/trans-dump.ts",
-    "multilog": "pnpm serverlog & ui/build -r"
+    "multilog": "pnpm serverlog & ui/build -w"
   }
 }

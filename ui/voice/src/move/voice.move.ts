@@ -364,14 +364,14 @@ export function initModule({
     return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
       roles
         ? voice.mic.addListener(
-          (text: string) => {
-            const val = matchOneTags(text, ['role'], ['no']);
-            voice.mic.stopPropagation();
-            if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
-            else if (val === 'no') ctrl.cancel();
-          },
-          { listenerId: 'promotion' },
-        )
+            (text: string) => {
+              const val = matchOneTags(text, ['role'], ['no']);
+              voice.mic.stopPropagation();
+              if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
+              else if (val === 'no') ctrl.cancel();
+            },
+            { listenerId: 'promotion' },
+          )
         : voice.mic.removeListener('promotion');
   }
 
@@ -613,8 +613,7 @@ export function initModule({
     if (v instanceof Set) {
       if (tag) return [...v].find(e => e.tags.includes(tag))?.in ?? val;
       else return (v.values().next().value as Entry).in;
-    }
-    else return v ? v.in : val;
+    } else return v ? v.in : val;
   }
 
   function allPhrases() {

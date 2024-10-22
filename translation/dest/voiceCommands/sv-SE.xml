@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Flytta till e4 eller välj e4 bit</string>
   <string name="selectOrCaptureABishop">Välj eller fånga en löpare</string>
   <string name="takeRookWithQueen">Ta torn med drottning</string>
-  <string name="castle">Rockad (oavsett sida)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rockad (oavsett sida)</string>
   <string name="phoneticAlphabetIsBest">Fonetiskt alfabet är bäst</string>
   <string name="cancelTimerOrDenyARequest">Avbryt timer eller neka en begäran</string>
   <string name="playPreferredMoveOrConfirmSomething">Spela föredraget drag eller bekräfta något</string>

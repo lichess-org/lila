@@ -29,7 +29,6 @@ final class SimulShow(helpers: Helpers, ui: SimulUi, gathering: GatheringUi):
           "simul",
           Json.obj(
             "data"          -> data,
-            "i18n"          -> ui.jsI18n,
             "socketVersion" -> socketVersion,
             "userId"        -> ctx.userId,
             "chat"          -> chatOption.map(_._1),
@@ -49,7 +48,7 @@ final class SimulShow(helpers: Helpers, ui: SimulUi, gathering: GatheringUi):
                       sim.variants.map(_.name).mkString(", "),
                       " • ",
                       trans.site.casual(),
-                      ((Granter.opt(_.ManageSimul) || userIsHost) && sim.isCreated).option(
+                      (Granter.opt(_.ManageSimul) || userIsHost).option(
                         frag(
                           " • ",
                           a(href := routes.Simul.edit(sim.id), title := "Edit simul")(iconTag(Icon.Gear))

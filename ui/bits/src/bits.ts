@@ -8,30 +8,48 @@ import { wireCropDialog } from './exports/crop';
 
 export function initModule(args: { fn: string } & any): void {
   switch (args.fn) {
-    case 'appeal': return appeal();
-    case 'autoForm': return autoForm(args);
-    case 'colorizeYesNoTable': return colorizeYesNoTable();
-    case 'contact': return contact();
-    case 'dailyFeed': return dailyFeed();
-    case 'embedReasonToggle': return embedReasonToggle();
-    case 'eventCountdown': return eventCountdown();
-    case 'hcaptcha': return hcaptcha();
-    case 'importer': return importer();
-    case 'oauth': return oauth(args);
-    case 'pmAll': return pmAll();
-    case 'practiceNag': return practiceNag();
-    case 'relayForm': return relayForm();
-    case 'setAssetInfo': return setAssetInfo();
-    case 'streamer': return streamer();
-    case 'thanksReport': return thanksReport();
-    case 'titleRequest': return titleRequest();
-    case 'validEmail': return validateEmail();
+    case 'appeal':
+      return appeal();
+    case 'autoForm':
+      return autoForm(args);
+    case 'colorizeYesNoTable':
+      return colorizeYesNoTable();
+    case 'contact':
+      return contact();
+    case 'dailyFeed':
+      return dailyFeed();
+    case 'embedReasonToggle':
+      return embedReasonToggle();
+    case 'eventCountdown':
+      return eventCountdown();
+    case 'hcaptcha':
+      return hcaptcha();
+    case 'importer':
+      return importer();
+    case 'oauth':
+      return oauth(args);
+    case 'pmAll':
+      return pmAll();
+    case 'practiceNag':
+      return practiceNag();
+    case 'relayForm':
+      return relayForm();
+    case 'setAssetInfo':
+      return setAssetInfo();
+    case 'streamer':
+      return streamer();
+    case 'thanksReport':
+      return thanksReport();
+    case 'titleRequest':
+      return titleRequest();
+    case 'validEmail':
+      return validateEmail();
   }
 }
 
 function appeal() {
   if ($('.nav-tree').length) location.hash = location.hash || '#help-root';
-  $('select.appeal-presets').on('change', function(this: HTMLSelectElement, e: Event) {
+  $('select.appeal-presets').on('change', function (this: HTMLSelectElement, e: Event) {
     $(this)
       .parents('form')
       .find('textarea')
@@ -67,7 +85,7 @@ function contact() {
 }
 
 export function contactEmail(): void {
-  $('a.contact-email-obfuscated').one('click', function(this: HTMLLinkElement) {
+  $('a.contact-email-obfuscated').one('click', function (this: HTMLLinkElement) {
     $(this).html('...');
     setTimeout(() => {
       const address = atob(this.dataset.email!);
@@ -78,7 +96,7 @@ export function contactEmail(): void {
 }
 
 function dailyFeed() {
-  $('.emoji-details').each(function(this: HTMLElement) {
+  $('.emoji-details').each(function (this: HTMLElement) {
     flairPickerLoader(this);
   });
 }
@@ -86,12 +104,15 @@ function dailyFeed() {
 function embedReasonToggle() {
   const el = document.getElementById('form3-reason') as HTMLSelectElement;
   el.addEventListener('change', () => {
-    $('.report-reason').addClass('none').filter('.report-reason-' + el.value).removeClass('none');
+    $('.report-reason')
+      .addClass('none')
+      .filter('.report-reason-' + el.value)
+      .removeClass('none');
   });
 }
 
 function eventCountdown() {
-  $('.event .countdown').each(function() {
+  $('.event .countdown').each(function () {
     if (!this.dataset.seconds) return;
 
     const $el = $(this);
@@ -103,18 +124,18 @@ function eventCountdown() {
       hour = minute * 60,
       day = hour * 24;
 
-    const redraw = function() {
+    const redraw = function () {
       const distance = target - new Date().getTime();
 
       if (distance > 0) {
         $el.find('.days').text(Math.floor(distance / day).toString()),
-        $el.find('.hours').text(Math.floor((distance % day) / hour).toString()),
-        $el.find('.minutes').text(Math.floor((distance % hour) / minute).toString()),
-        $el.find('.seconds').text(
-          Math.floor((distance % minute) / second)
-            .toString()
-            .padStart(2, '0'),
-        );
+          $el.find('.hours').text(Math.floor((distance % day) / hour).toString()),
+          $el.find('.minutes').text(Math.floor((distance % hour) / minute).toString()),
+          $el.find('.seconds').text(
+            Math.floor((distance % minute) / second)
+              .toString()
+              .padStart(2, '0'),
+          );
       } else {
         clearInterval(interval);
         site.reload();
@@ -134,7 +155,7 @@ function hcaptcha() {
     const documentCreateElement = document.createElement;
     script.src = 'https://hcaptcha.com/1/api.js?onload=initHcaptcha&recaptchacompat=off';
     script.onload = () => {
-      document.createElement = function() {
+      document.createElement = function () {
         const element = documentCreateElement.apply(this, arguments as any);
         if (element instanceof HTMLIFrameElement) element.setAttribute('credentialless', '');
         return element;
@@ -151,7 +172,7 @@ function importer() {
 
   $form.on('submit', () => setTimeout(() => $form.html(spinnerHtml), 50));
 
-  $form.find('input[type=file]').on('change', function(this: HTMLInputElement) {
+  $form.find('input[type=file]').on('change', function (this: HTMLInputElement) {
     const file = this.files?.[0];
     if (!file) return;
 
@@ -162,14 +183,14 @@ function importer() {
 }
 
 function pmAll() {
-  $('.copy-url-button').on('click', function(e) {
+  $('.copy-url-button').on('click', function (e) {
     $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n');
   });
 }
 
 function practiceNag() {
   const el = document.querySelector('.do-reset');
-  if (!(el instanceof HTMLButtonElement)) return;
+  if (!(el instanceof HTMLAnchorElement)) return;
   el.addEventListener('click', () => {
     if (confirm('You will lose your practice progress!')) (el.parentNode as HTMLFormElement).submit();
   });
@@ -178,12 +199,15 @@ function practiceNag() {
 // ensure maximum browser compatibility here,
 // as the oauth page can be embedded in very dubious webviews
 function oauth({ danger }: { danger: boolean }) {
-  setTimeout(() => {
-    const el = document.getElementById('oauth-authorize')!;
-    el.removeAttribute('disabled');
-    el.className = 'button';
-    if (danger) el.classList.add('button-red', 'confirm', 'text');
-  }, danger ? 5000 : 2000);
+  setTimeout(
+    () => {
+      const el = document.getElementById('oauth-authorize')!;
+      el.removeAttribute('disabled');
+      el.className = 'button';
+      if (danger) el.classList.add('button-red', 'confirm', 'text');
+    },
+    danger ? 5000 : 2000,
+  );
 }
 
 function relayForm() {
@@ -196,7 +220,7 @@ function relayForm() {
 
   const $source = $('#form3-syncSource'),
     showSource = () =>
-      $('.relay-form__sync').each(function(this: HTMLElement) {
+      $('.relay-form__sync').each(function (this: HTMLElement) {
         this.classList.toggle('none', !this.classList.contains(`relay-form__sync-${$source.val()}`));
       });
 
@@ -206,8 +230,14 @@ function relayForm() {
 
 function setAssetInfo() {
   $('#asset-version-date').text(site.info.date);
-  $('#asset-version-commit').attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit).find('pre').text(site.info.commit.substr(0, 7));
-  $('#asset-version-upcoming').attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master').find('pre').text('...');
+  $('#asset-version-commit')
+    .attr('href', 'https://github.com/lichess-org/lila/commits/' + site.info.commit)
+    .find('pre')
+    .text(site.info.commit.substr(0, 7));
+  $('#asset-version-upcoming')
+    .attr('href', 'https://github.com/lichess-org/lila/compare/' + site.info.commit + '...master')
+    .find('pre')
+    .text('...');
   $('#asset-version-message').text(site.info.message);
 }
 
@@ -216,7 +246,7 @@ function streamer() {
     const target = e.target as HTMLInputElement;
     $(target)
       .parents('.streamer-subscribe')
-      .each(function(this: HTMLElement) {
+      .each(function (this: HTMLElement) {
         text(
           $(this)
             .data('action')
@@ -235,7 +265,7 @@ function streamer() {
 }
 
 function titleRequest() {
-  $('.title-image-edit').each(function(this: HTMLElement) {
+  $('.title-image-edit').each(function (this: HTMLElement) {
     wireCropDialog({
       post: { url: $(this).attr('data-post-url')!, field: 'image' },
       selectClicks: $(this).find('.drop-target'),
@@ -246,10 +276,9 @@ function titleRequest() {
 
 function thanksReport() {
   const $button = $('button.report-block');
-  $button.one('click', function() {
+  $button.one('click', function () {
     $button.find('span').text('Blocking...');
-    fetch($button.attr('action')!, { method:'post' })
-      .then(() => $button.find('span').text('Blocked!'));
+    fetch($button.attr('action')!, { method: 'post' }).then(() => $button.find('span').text('Blocked!'));
   });
 }
 
@@ -257,7 +286,7 @@ function validateEmail() {
   const email = document.getElementById('new-email') as HTMLInputElement;
   const currentError = 'This is already your current email.';
   email.setCustomValidity(currentError);
-  email.addEventListener('input', function() {
+  email.addEventListener('input', function () {
     email.setCustomValidity(email.validity.patternMismatch ? currentError : '');
   });
 }

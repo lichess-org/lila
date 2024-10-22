@@ -126,7 +126,6 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Elimina o límite de profundidade, e mantén o teu ordenador quente</string>
-  <string name="engineManager">Administrador do motor de análise</string>
   <string name="blunder">Metida de zoca</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisión</string>
@@ -218,7 +217,7 @@
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>
-  <string name="passwordReset">Cambiar contrasinal</string>
+  <string name="passwordReset">restablecer o contrasinal</string>
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="error.weakPassword">Ese contrasinal é extremadamente común e demasiado doado de adiviñar.</string>
   <string name="error.namePassword">Por favor, non uses o teu usuario como contrasinal.</string>
@@ -558,9 +557,9 @@
   <string name="cheat">Trampa</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">A túa denuncia será procesada máis rápido se está escrita en Inglés.</string>
+  <string name="reportCheatBoostHelp">Pega a ligazón á(s) partida(s) e explica que ten de malo o comportamento deste usuario. Non digas soamente \"fai trampas\", mais cóntanos como chegaches a esta conclusión.</string>
+  <string name="reportUsernameHelp">Explica que ten de ofensivo este nome de usuario. Non digas soamente \"é ofensivo/inadecuado\". Cóntanos como chegaches a esta conclusión, especialmente se o insulto está camuflado, non está en inglés, é xerga ou é unha referencia histórica ou cultural.</string>
+  <string name="reportProcessedFasterInEnglish">A túa denuncia será procesada máis rápido se está escrita en Inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos unha ligazón a unha partida na que se fixeron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -634,7 +633,7 @@
   <string name="error.email_unique">Este enderezo de correo non é válido ou xa foi empregado</string>
   <string name="error.email_different">Este xa é o teu enderezo de correo electrónico</string>
   <string name="error.minLength">A lonxitude mínima é de %s caracteres</string>
-  <string name="error.maxLength">A lonxitude máxima é de %s caracteres</string>
+  <string name="error.maxLength">Debe conter polo menos %s caracteres</string>
   <string name="error.min">Debe ser maior ou igual que %s</string>
   <string name="error.max">Debe ser menor ou igual que %s</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
@@ -651,7 +650,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">Tempo xogando: %s</string>
   <string name="watchGames">Ver partidas</string>
-  <string name="tpTimeSpentOnTV">Tempo en TV: %s</string>
+  <string name="tpTimeSpentOnTV">Tempo saíndo en TV: %s</string>
   <string name="watch">Ver</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="streamersMenu">Presentadores</string>
@@ -677,14 +676,14 @@
   <string name="aboutSimul">As simultáneas son partidas dun xogador contra varios ó mesmo tempo.</string>
   <string name="aboutSimulImage">De 50 rivais, Fischer gañou 47 partidas, empatou 2 e perdeu 1.</string>
   <string name="aboutSimulRealLife">O concepto tómase de eventos reais. Nestes, o anfitrión das simultáneas móvese de mesa en mesa e fai unha xogada de cada vez.</string>
-  <string name="aboutSimulRules">Cando as simultáneas comezan, cada xogador inicia unha partida contra o anfitrión. As simultáneas finalizan cando todas as partidas rematan.</string>
+  <string name="aboutSimulRules">Cando comezan as simultáneas, cada xogador inicia unha partida co anfitrión. As simultáneas finalizan cando se completan todas as partidas.</string>
   <string name="aboutSimulSettings">As simultáneas son sempre amigables. As opcións de desquite, de desfacer a xogada e de engadir tempo non están activadas.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Cando creas unha exhibición de simultáneas, tes que enfrontarte a varios xogadores ó mesmo tempo.</string>
   <string name="simulVariantsHint">Se seleccionas distintas variantes, cada xogador pode escoller cal xogar.</string>
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coas simultáneas.</string>
-  <string name="simulHostExtraTime">Tempo extra para o anfitrión</string>
+  <string name="simulHostExtraTime">Tempo inicial extra para o anfitrión</string>
   <string name="simulAddExtraTimePerPlayer">Engadir tempo inicial ao teu reloxo por cada xogador que se una ás simultáneas.</string>
   <string name="simulHostExtraTimePerPlayer">Tempo extra do anfitrión por cada xogador</string>
   <string name="lichessTournaments">Torneos de Lichess</string>
@@ -743,7 +742,7 @@
   <string name="downloadRaw">Descargar sen anotar</string>
   <string name="downloadImported">Descargar importadas</string>
   <string name="crosstable">Táboa de cruces</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamén podes usar a roda do rato sobre o taboleiro para moverte pola partida.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Usa a roda do rato sobre o taboleiro para moverte pola partida.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Pasa o punteiro sobre as variantes da computadora para visualizalas.</string>
   <string name="analysisShapesHowTo">Pulsa Maiúsculas+clic ou preme o botón dereito do rato para debuxar círculos e frechas no taboleiro.</string>
   <string name="letOtherPlayersMessageYou">Permitir que outros xogadores che envíen mensaxes</string>
@@ -939,8 +938,7 @@
   <string name="cancelTournament">Cancelar o torneo</string>
   <string name="tournDescription">Descrición do torneo</string>
   <string name="tournDescriptionHelp">Queres dicirlles algo en especial ós participantes? Tenta ser breve. Hai dispoñibles ligazóns de Markdown: [name](https://url)</string>
-  <string name="ratedFormHelp">As partidas son puntuadas
-e afectan ás puntuacións dos xogadores</string>
+  <string name="ratedFormHelp">As partidas son puntuadas e afectan ás puntuacións dos xogadores</string>
   <string name="onlyMembersOfTeam">Só membros do equipo</string>
   <string name="noRestriction">Sen restrición</string>
   <string name="minimumRatedGames">Mínimo de partidas puntuadas</string>
@@ -986,7 +984,7 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="youCantStartNewGame">Non podes comezar unha nova partida ata que esta remate.</string>
   <string name="since">Desde</string>
   <string name="until">Ata</string>
-  <string name="lichessDbExplanation">Partidas puntuadas de todos os xogadores de Lichess</string>
+  <string name="lichessDbExplanation">Partidas puntuadas xogadas en Lichess</string>
   <string name="switchSides">Cambiar de cor</string>
   <string name="closingAccountWithdrawAppeal">Se pechas a túa conta, retirarás a túa apelación</string>
   <string name="ourEventTips">Os nosos consellos para organizar eventos</string>

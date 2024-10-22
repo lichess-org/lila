@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Солбицолын сургуулилалт</string>
   <string name="averageScoreAsWhiteX">Цагаанаар авсан дундаж оноо: %s</string>
   <string name="averageScoreAsBlackX">Хараар авсан дундаж оноо: %s</string>
-  <string name="knowingTheChessBoard">Шатрын тавцангийн солбицолыг мэддэг байх нь маш чухал чадвар юм:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Шатрын тавцангийн солбицолыг мэддэг байх нь маш чухал чадвар юм:</string>
   <string name="mostChessCourses">Шатрын ихэнх хичээл, дугуйлангууд алгебрын тэмдэглэгээг өргөн хэрэглэдэг.</string>
   <string name="talkToYourChessFriends">Энэ нь шатрын өргийн талаар найзтайгаа ярихад хялбар болгодог.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Та шатрын өргийг илүү үр дүнтэйгээр шинжэлж чадна.</string>

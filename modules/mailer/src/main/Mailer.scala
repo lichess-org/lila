@@ -6,6 +6,7 @@ import play.api.libs.mailer.{ Email, SMTPConfiguration, SMTPMailer }
 import scalalib.ThreadLocalRandom
 import scalatags.Text.all.{ html as htmlTag, * }
 import scalatags.Text.tags2.title as titleTag
+import org.apache.commons.mail.EmailException
 
 import scala.concurrent.blocking
 
@@ -39,14 +40,19 @@ final class Mailer(
         Chronometer.syncMon(_.email.send.time):
           blocking:
             val (client, config) = randomClient()
-            client.send:
-              Email(
-                subject = msg.subject,
-                from = config.sender,
-                to = Seq(msg.to.value),
-                bodyText = msg.text.some,
-                bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
-              )
+            val email = Email(
+              subject = msg.subject,
+              from = config.sender,
+              to = Seq(msg.to.value),
+              bodyText = msg.text.some,
+              bodyHtml = msg.htmlBody.map { body => Mailer.html.wrap(msg.subject, body).render }
+            )
+            client.send(email)
+      .recoverWith:
+        case e: EmailException if msg.to.normalize.value != msg.to.value =>
+          logger.warn(s"Email ${msg.to} is invalid, trying ${msg.to.normalize}")
+          send(msg.copy(to = msg.to.normalize.into(EmailAddress)))
+      .void
 
 object Mailer:
 

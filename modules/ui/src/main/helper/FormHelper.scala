@@ -4,6 +4,8 @@ import play.api.data.*
 import scalatags.text.Builder
 
 import lila.ui.ScalatagsTemplate.*
+import scala.util.Try
+import play.api.i18n.Lang
 
 trait FormHelper:
   self: I18nHelper =>
@@ -70,3 +72,21 @@ trait FormHelper:
       false -> trans.site.no.txt(),
       true  -> trans.site.yes.txt()
     )
+
+  object timeZone:
+    import java.time.{ ZoneId, ZoneOffset }
+    import scala.jdk.CollectionConverters.*
+
+    lazy val zones: List[(ZoneOffset, ZoneId)] =
+      val now = nowInstant
+      ZoneId.getAvailableZoneIds.asScala.toList
+        .flatMap: id =>
+          Try(ZoneId.of(id)).toOption
+        .map: z =>
+          (z.getRules.getOffset(now), z)
+        .toList
+        .sortBy: (offset, zone) =>
+          (offset, zone.getId)
+    def translatedChoices(using lang: Lang): List[(String, String)] =
+      zones.map: (offset, zone) =>
+        zone.getId -> s"${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)} $offset"

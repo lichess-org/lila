@@ -73,10 +73,10 @@ const oneDay = 24 * 60 * 60 * 1000;
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
     ? new Intl.DateTimeFormat(site.displayLocale, {
-      month: 'short',
-      day: '2-digit',
-      year: 'numeric',
-    }).format
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+      }).format
     : (d: Date) => d.toLocaleDateString(),
 );
 
@@ -268,7 +268,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
       slider.set([min, endDate.valueOf()]);
       chart.zoomScale('x', { min: min, max: endDate.valueOf() });
     };
-    $('.time-selector-buttons').on('mousedown', 'button', function(this: HTMLButtonElement) {
+    $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
       const min = buttons.find(b => b.t == this.textContent);
       if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
       this.classList.add('active');

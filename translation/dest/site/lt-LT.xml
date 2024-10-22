@@ -5,12 +5,12 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Norėdami pakviesti varžovą, pasidalinkite šiuo adresu</string>
   <string name="gameOver">Partija baigta</string>
   <string name="waitingForOpponent">Laukiama varžovo</string>
-  <string name="orLetYourOpponentScanQrCode">Arba leiskite priešininkui nuskanuoti šį QR kodą</string>
+  <string name="orLetYourOpponentScanQrCode">Arba leiskite priešininkui nuskenuoti šį QR kodą</string>
   <string name="waiting">Laukiama</string>
   <string name="yourTurn">Jūsų ėjimas</string>
   <string name="aiNameLevelAiLevel">%1$s lygis Nr. %2$s</string>
   <string name="level">Lygis</string>
-  <string name="strength">Stiprumas</string>
+  <string name="strength">Pasipriešinimo stiprumas</string>
   <string name="toggleTheChat">Įjungti / išjungti pokalbį</string>
   <string name="chat">Pokalbis</string>
   <string name="resign">Pasiduoti</string>
@@ -18,14 +18,14 @@
   <string name="stalemate">Patas</string>
   <string name="white">Baltieji</string>
   <string name="black">Juodieji</string>
-  <string name="asWhite">kaip baltieji</string>
-  <string name="asBlack">kaip juodieji</string>
+  <string name="asWhite">už baltuosius</string>
+  <string name="asBlack">už juoduosius</string>
   <string name="randomColor">Atsitiktinė spalva</string>
   <string name="createAGame">Kurti žaidimą</string>
   <string name="whiteIsVictorious">Baltieji laimėjo</string>
   <string name="blackIsVictorious">Juodieji laimėjo</string>
-  <string name="youPlayTheWhitePieces">Žaidžiate baltomis figūromis</string>
-  <string name="youPlayTheBlackPieces">Žaidžiate juodomis figūromis</string>
+  <string name="youPlayTheWhitePieces">Jūs žaidžiate baltosiomis figūromis</string>
+  <string name="youPlayTheBlackPieces">Jūs žaidžiate juodosiomis figūromis</string>
   <string name="itsYourTurn">Jūsų ėjimas!</string>
   <string name="cheatDetected">Aptiktas sukčiavimas</string>
   <string name="kingInTheCenter">Karalius centre</string>
@@ -38,7 +38,7 @@
   <string name="whitePlays">Baltųjų ėjimas</string>
   <string name="blackPlays">Juodųjų ėjimas</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundės.</item>
+    <item quantity="one">Jūsų varžovas paliko partiją. Galite reikalauti pergalės už %s sekundės.</item>
     <item quantity="few">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundžių.</item>
     <item quantity="many">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundžių.</item>
     <item quantity="other">Jūsų varžovas paliko partiją. Galėsite prisiimti pergalę už %s sekundžių.</item>
@@ -130,7 +130,6 @@
   <string name="memory">Atmintinė</string>
   <string name="infiniteAnalysis">Neribota analizė</string>
   <string name="removesTheDepthLimit">Panaikina gylio limitą ir neleidžia kompiuteriui atvėsti</string>
-  <string name="engineManager">Variklių valdymas</string>
   <string name="blunder">Šiurkšti klaida</string>
   <string name="mistake">Klaida</string>
   <string name="inaccuracy">Netikslumas</string>
@@ -627,9 +626,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="cheat">Sukčiaviavo</string>
   <string name="troll">„Troll\'ino“</string>
   <string name="other">Kita</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Įdėkite nuorodą į partiją(-as) ir paaiškinkite, kas netinkamo yra šio vartotojo elgsenoje. Paminėkite, kaip priėjote prie tokios išvados. Jūsų pranešimas bus apdorotas greičiau, jei bus pateiktas anglų kalba.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Paaiškinkite, kuo šis vartotojo vardas yra įžeidžiantis. Nesakykite tiesiog „tai įžeidžia/netinkama“, bet papasakokite, kaip priėjote prie šios išvados, ypač jei įžeidimas yra užmaskuotas, ne anglų kalba, yra slengas arba yra istorinė / kultūrinė nuoroda.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Jūsų pranešimas bus apdorotas greičiau, jei jis bus parašytas anglų kalba.</string>
+  <string name="reportCheatBoostHelp">Įdėkite nuorodą į partiją(-as) ir paaiškinkite, kas netinkamo yra šio vartotojo elgsenoje. Paminėkite, kaip priėjote prie tokios išvados. Jūsų pranešimas bus apdorotas greičiau, jei bus pateiktas anglų kalba.</string>
+  <string name="reportUsernameHelp">Paaiškinkite, kuo šis vartotojo vardas yra įžeidžiantis. Nesakykite tiesiog „tai įžeidžia/netinkama“, bet papasakokite, kaip priėjote prie šios išvados, ypač jei įžeidimas yra užmaskuotas, ne anglų kalba, yra slengas arba yra istorinė / kultūrinė nuoroda.</string>
+  <string name="reportProcessedFasterInEnglish">Jūsų pranešimas bus apdorotas greičiau, jei jis bus parašytas anglų kalba.</string>
   <string name="error.provideOneCheatedGameLink">Pateikite bent vieną nuorodą į partiją, kurioje buvo sukčiauta.</string>
   <string name="by">nuo %s</string>
   <string name="importedByX">Importavo %s</string>

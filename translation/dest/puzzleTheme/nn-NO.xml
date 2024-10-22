@@ -39,7 +39,7 @@
   <string name="deflection">Avleiing</string>
   <string name="deflectionDescription">Eit trekk som leier ei av brikkene til motstpelaren bort frå ei anna oppgåve, som til dømes oppdekking av eit viktig felt.</string>
   <string name="discoveredAttack">Avdekkaråtak</string>
-  <string name="discoveredAttackDescription">Å flytte ei brikke som før åtaket blokkerer ei anna langtrekkande brikke. Til dømes flytte ein springar av vegen for eit tårn.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Å flytte ei brikke som før åtaket blokkerer ei anna langtrekkande brikke. Til dømes flytte ein springar av vegen for eit tårn.</string>
   <string name="doubleCheck">Dobbeltsjakk</string>
   <string name="doubleCheckDescription">Sjakk med to brikker samstundes, som eit resultat av eit avdekkaråtak der både brikka som vert flytta og den avdekka brikka set kongen til motspelaren i sjakk.</string>
   <string name="endgame">Sluttspel</string>

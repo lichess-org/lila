@@ -5,6 +5,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 import lila.insight.InsightPerfStats
+import scala.util.Try
 
 private object TutorBsonHandlers:
 
@@ -51,9 +52,19 @@ private object TutorBsonHandlers:
     )
 
   given BSONDocumentHandler[TutorOpeningFamily] = Macros.handler
-  given BSONDocumentHandler[TutorColorOpenings] = Macros.handler
-  given BSONDocumentHandler[TutorPhase]         = Macros.handler
-  given BSONDocumentHandler[TutorFlagging]      = Macros.handler
-  given BSONDocumentHandler[InsightPerfStats]   = Macros.handler
-  given BSONDocumentHandler[TutorPerfReport]    = Macros.handler
-  given BSONDocumentHandler[TutorFullReport]    = Macros.handler
+
+  // survive to an opening family that has since disappeared
+  given BSONDocumentHandler[TutorColorOpenings] = new:
+    val writer = Macros.writer[TutorColorOpenings]
+    export writer.writeTry
+    def readDocument(doc: BSONDocument): Try[TutorColorOpenings] =
+      doc
+        .getAsTry[List[Bdoc]]("families")
+        .map: docs =>
+          TutorColorOpenings(docs.flatMap(_.asOpt[TutorOpeningFamily]))
+
+  given BSONDocumentHandler[TutorPhase]       = Macros.handler
+  given BSONDocumentHandler[TutorFlagging]    = Macros.handler
+  given BSONDocumentHandler[InsightPerfStats] = Macros.handler
+  given BSONDocumentHandler[TutorPerfReport]  = Macros.handler
+  given BSONDocumentHandler[TutorFullReport]  = Macros.handler

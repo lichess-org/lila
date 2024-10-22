@@ -43,8 +43,8 @@ async function app(opts: RoundOpts): Promise<RoundController> {
 
 async function boot(
   opts: RoundOpts,
-  roundMain: (opts: RoundOpts) => Promise<RoundController>): Promise<RoundController> {
-
+  roundMain: (opts: RoundOpts) => Promise<RoundController>,
+): Promise<RoundController> {
   const data = opts.data;
   if (data.tournament) document.body.dataset.tournamentId = data.tournament.id;
   const socketUrl = opts.data.player.spectator
@@ -62,8 +62,8 @@ async function boot(
           $('.tv-channels .' + o.channel + ' .champion').html(
             o.player
               ? [o.player.title, o.player.name, data.pref.ratings ? o.player.rating : '']
-                .filter(x => x)
-                .join('&nbsp')
+                  .filter(x => x)
+                  .join('&nbsp')
               : 'Anonymous',
           );
       },
@@ -90,7 +90,7 @@ async function boot(
 
   const startTournamentClock = () => {
     if (data.tournament)
-      $('.game__tournament .clock').each(function(this: HTMLElement) {
+      $('.game__tournament .clock').each(function (this: HTMLElement) {
         setClockWidget(this, {
           time: parseFloat(this.dataset.time!),
         });
@@ -107,7 +107,7 @@ async function boot(
   const chatOpts = opts.chat;
   if (chatOpts) {
     if (data.tournament?.top) {
-      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, opts.i18n.standing);
+      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, i18n.site.standing);
       chatOpts.alwaysEnabled = true;
     } else if (!data.simul && !data.swiss) {
       chatOpts.preset = getPresetGroup(data);
@@ -116,8 +116,7 @@ async function boot(
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
     chatOpts.instance = makeChat(chatOpts);
     if (!data.tournament && !data.simul && !data.swiss)
-      opts.onChange = (d: RoundData) =>
-        chatOpts.instance!.preset.setGroup(getPresetGroup(d));
+      opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')

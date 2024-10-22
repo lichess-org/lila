@@ -58,14 +58,10 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
     $cg = $el.find('.cg-wrap'),
     turnColor = fenColor(fen);
 
-  domData.set(
-    $cg[0] as Element,
-    'chessground',
-    (withCg ?? makeChessground)($cg[0] as HTMLElement, config),
-  );
+  domData.set($cg[0] as Element, 'chessground', (withCg ?? makeChessground)($cg[0] as HTMLElement, config));
 
   ['white', 'black'].forEach((color: Color) =>
-    $el.find('.mini-game__clock--' + color).each(function(this: HTMLElement) {
+    $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
       setClockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
         pause: color != turnColor || !lichessClockIsRunning(fen, color),

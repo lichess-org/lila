@@ -39,7 +39,7 @@
   <string name="deflection">Odlákanie</string>
   <string name="deflectionDescription">Ťah, ktorý odvádza súperovu figúry od jej iných povinností, ako napríklad bránenie kľúčového poľa. Občas nazývané aj \"preťaženie\".</string>
   <string name="discoveredAttack">Odťažené napadnutie</string>
-  <string name="discoveredAttackDescription">Ťah figúrou, ktorá blokovala napadnutie inou figúrou, ako napr. ťah jazdcom, ktorý odkryje napadnutie vežou.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ťah figúrou, ktorá blokovala napadnutie inou figúrou, ako napr. ťah jazdcom, ktorý odkryje napadnutie vežou.</string>
   <string name="doubleCheck">Dvojitý šach</string>
   <string name="doubleCheckDescription">Šachovanie dvoma figúrami naraz, ako výsledok odkryvného šachu, kedy aj figúra ktorou sa potiahlo aj odkrytá figúra napádajú súperovho kráľa.</string>
   <string name="endgame">Koncovka</string>

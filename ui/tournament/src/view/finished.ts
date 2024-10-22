@@ -21,41 +21,39 @@ function confetti(data: TournamentData): VNode | undefined {
 }
 
 function stats(ctrl: TournamentController): VNode | undefined {
-  const data = ctrl.data,
-    trans = ctrl.trans,
-    noarg = trans.noarg;
+  const data = ctrl.data;
   if (!data.stats) return undefined;
   const tableData = [
-    ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.stats.averageRating, 'raw') : null,
-    numberRow(noarg('gamesPlayed'), data.stats.games),
-    numberRow(noarg('movesPlayed'), data.stats.moves),
-    numberRow(noarg('whiteWins'), [data.stats.whiteWins, data.stats.games], 'percent'),
-    numberRow(noarg('blackWins'), [data.stats.blackWins, data.stats.games], 'percent'),
-    numberRow(noarg('drawRate'), [data.stats.draws, data.stats.games], 'percent'),
+    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, data.stats.averageRating, 'raw') : null,
+    numberRow(i18n.site.gamesPlayed, data.stats.games),
+    numberRow(i18n.site.movesPlayed, data.stats.moves),
+    numberRow(i18n.site.whiteWins, [data.stats.whiteWins, data.stats.games], 'percent'),
+    numberRow(i18n.site.blackWins, [data.stats.blackWins, data.stats.games], 'percent'),
+    numberRow(i18n.site.drawRate, [data.stats.draws, data.stats.games], 'percent'),
   ];
 
   if (data.berserkable) {
-    tableData.push(numberRow(noarg('berserkRate'), [data.stats.berserks / 2, data.stats.games], 'percent'));
+    tableData.push(numberRow(i18n.site.berserkRate, [data.stats.berserks / 2, data.stats.games], 'percent'));
   }
 
   return h('div.tour__stats', [
-    h('h2', noarg('tournamentComplete')),
+    h('h2', i18n.site.tournamentComplete),
     h('table', tableData),
     h('div.tour__stats__links.force-ltr', [
       ...(data.teamBattle
         ? [
-          h(
-            'a',
-            { attrs: { href: `/tournament/${data.id}/teams` } },
-            trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length),
-          ),
-          h('br'),
-        ]
+            h(
+              'a',
+              { attrs: { href: `/tournament/${data.id}/teams` } },
+              i18n.arena.viewAllXTeams(Object.keys(data.teamBattle.teams).length),
+            ),
+            h('br'),
+          ]
         : []),
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        noarg('downloadAllGames'),
+        i18n.study.downloadAllGames,
       ),
       data.me &&
         h(

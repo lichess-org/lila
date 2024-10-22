@@ -2,6 +2,7 @@ import { Prop, propWithEffect } from 'common';
 import { debounce } from 'common/timing';
 import * as xhr from 'common/xhr';
 import { storedJsonProp, StoredJsonProp } from 'common/storage';
+import { clockToSpeed } from 'game';
 import LobbyController from './ctrl';
 import {
   ForceSetupOptions,
@@ -23,21 +24,12 @@ import {
   variants,
 } from './options';
 
-const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
-  if (!['standard', 'fromPosition'].includes(variant)) return variant as Perf;
-  if (timeMode !== 'realTime') return 'correspondence';
-
-  const totalGameTime = time * 60 + increment * 40;
-  return totalGameTime < 30
-    ? 'ultraBullet'
-    : totalGameTime < 180
-      ? 'bullet'
-      : totalGameTime < 480
-        ? 'blitz'
-        : totalGameTime < 1500
-          ? 'rapid'
-          : 'classical';
-};
+const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf =>
+  variant != 'standard' && variant != 'fromPosition'
+    ? variant
+    : timeMode !== 'realTime'
+      ? 'correspondence'
+      : clockToSpeed(time * 60, increment);
 
 export default class SetupController {
   root: LobbyController;
@@ -261,9 +253,9 @@ export default class SetupController {
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {
-        id,
-        range: this.ratingRange(),
-      }
+          id,
+          range: this.ratingRange(),
+        }
       : null;
   };
 
@@ -271,7 +263,7 @@ export default class SetupController {
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.fen(),
-      timeMode: keyToId(this.timeMode(), timeModes(this.root.trans)).toString(),
+      timeMode: keyToId(this.timeMode(), timeModes).toString(),
       time: this.time().toString(),
       time_range: this.timeV().toString(),
       increment: this.increment().toString(),
@@ -295,7 +287,7 @@ export default class SetupController {
     this.time() >= 1;
   valid = (): boolean => this.validFen() && this.validTime() && this.validAiTime();
 
-  submit = async(color: Color | 'random') => {
+  submit = async (color: Color | 'random') => {
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
       this.root.enterPool(poolMember);
@@ -330,8 +322,8 @@ export default class SetupController {
       alert(
         errs
           ? Object.keys(errs)
-            .map(k => `${k}: ${errs[k]}`)
-            .join('\n')
+              .map(k => `${k}: ${errs[k]}`)
+              .join('\n')
           : 'Invalid setup',
       );
       if (response.status == 403) {

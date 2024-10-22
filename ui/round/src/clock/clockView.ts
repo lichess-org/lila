@@ -33,12 +33,12 @@ export function renderClock(ctrl: RoundController, player: game.Player, position
     clock.opts.nvui
       ? [h('div.time', { attrs: { role: 'timer' }, hook: timeHook })]
       : [
-        clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
-        h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
-        renderBerserk(ctrl, player.color, position),
-        isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
-        clockSide(ctrl, player.color, position),
-      ],
+          clock.showBar && game.bothPlayersHavePlayed(ctrl.data) ? showBar(ctrl, player.color) : undefined,
+          h('div.time', { class: { hour: millis > 3600 * 1000 }, hook: timeHook }),
+          renderBerserk(ctrl, player.color, position),
+          isPlayer ? goBerserk(ctrl) : button.moretime(ctrl),
+          clockSide(ctrl, player.color, position),
+        ],
   );
 }
 

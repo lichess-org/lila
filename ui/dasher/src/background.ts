@@ -29,9 +29,9 @@ export class BackgroundCtrl extends PaneCtrl {
   constructor(root: DasherCtrl) {
     super(root);
     this.list = [
-      { key: 'system', name: this.trans.noarg('deviceTheme') },
-      { key: 'light', name: this.trans.noarg('light') },
-      { key: 'dark', name: this.trans.noarg('dark') },
+      { key: 'system', name: i18n.site.deviceTheme },
+      { key: 'light', name: i18n.site.light },
+      { key: 'dark', name: i18n.site.dark },
       { key: 'transp', name: 'Picture' },
     ];
   }
@@ -40,7 +40,7 @@ export class BackgroundCtrl extends PaneCtrl {
     const cur = this.get();
 
     return h('div.sub.background', [
-      header(this.trans.noarg('background'), this.close),
+      header(i18n.site.background, this.close),
       h(
         'div.selector.large',
         this.list.map(bg => {
@@ -104,15 +104,15 @@ export class BackgroundCtrl extends PaneCtrl {
       bgData
         ? (bgData.innerHTML = 'html.transp::before{background-image:url(' + this.data.image + ');}')
         : $('head').append(
-          '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
-        );
+            '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
+          );
     }
     pubsub.emit('theme', key);
   };
 
   private imageInput = () =>
     h('div.image', [
-      h('p', this.trans.noarg('backgroundImageUrl')),
+      h('p', i18n.site.backgroundImageUrl),
       h('input', {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
         hook: {

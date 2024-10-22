@@ -17,7 +17,7 @@ export function makeStars(level: Level, score: number) {
 export function progressView(ctrl: RunCtrl) {
   return h(
     'div.progress',
-    ctrl.stage.levels.map(function(level: Level) {
+    ctrl.stage.levels.map(function (level: Level) {
       const score = ctrl.score(level);
       const status = level.id === ctrl.levelCtrl.blueprint.id ? 'active' : score ? 'done' : 'future';
       const label = score ? makeStars(level, score) : h('span.id', level.id);

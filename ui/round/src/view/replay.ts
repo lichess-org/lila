@@ -46,9 +46,9 @@ const renderDrawOffer = () => h('draw', { attrs: { title: 'Draw offer' } }, '½?
 const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Set<number>) =>
   step
     ? h(moveTag, { class: { a1t: step.ply === curPly } }, [
-      step.san[0] === 'P' ? step.san.slice(1) : step.san,
-      drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
-    ])
+        step.san[0] === 'P' ? step.san.slice(1) : step.san,
+        drawOffers.has(step.ply) ? renderDrawOffer() : undefined,
+      ])
     : orEmpty && h(moveTag, '…');
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -120,7 +120,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
       {
         class: { text: !!forecastCount },
         attrs: {
-          title: ctrl.noarg('analysis'),
+          title: i18n.site.analysis,
           href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
           'data-icon': licon.Microscope,
         },
@@ -162,7 +162,7 @@ function renderButtons(ctrl: RoundController) {
           attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
         });
       }),
-      boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
+      boardMenuToggleButton(ctrl.menu, i18n.site.menu),
     ],
   );
 }
@@ -176,8 +176,8 @@ function initMessage(ctrl: RoundController) {
     !d.player.spectator &&
     h('div.message', util.justIcon(licon.InfoCircle), [
       h('div', [
-        ctrl.trans(d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
-        ...(d.player.color === 'white' ? [h('br'), h('strong', ctrl.trans('itsYourTurn'))] : []),
+        i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
+        ...(d.player.color === 'white' ? [h('br'), h('strong', i18n.site.itsYourTurn)] : []),
       ]),
     ])
   );
@@ -229,10 +229,10 @@ export function render(ctrl: RoundController): LooseVNode {
       initMessage(ctrl) ||
         (isCol1()
           ? h('div.col1-moves', [
-            col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == util.firstPly(d)),
-            renderMovesOrResult,
-            col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == util.lastPly(d)),
-          ])
+              col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == util.firstPly(d)),
+              renderMovesOrResult,
+              col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == util.lastPly(d)),
+            ])
           : renderMovesOrResult),
     ])
   );

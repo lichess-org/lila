@@ -16,6 +16,7 @@
   <string name="ongoing">Σε εξέλιξη</string>
   <string name="upcoming">Προσεχή</string>
   <string name="completed">Ολοκληρώθηκε</string>
+  <string name="completedHelp">Το Lichess ανιχνεύει ολοκλήρωση γύρων, αλλά μπορεί να κάνει λάθος. Χρησιμοποιήστε αυτό για να το ρυθμίσετε χειροκίνητα.</string>
   <string name="roundName">Όνομα γύρου</string>
   <string name="roundNumber">Αριθμός γύρου</string>
   <string name="tournamentName">Όνομα τουρνουά</string>
@@ -23,7 +24,6 @@
   <string name="fullDescription">Πλήρης περιγραφή γεγονότος</string>
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
-  <string name="startDate">Ημερομηνία έναρξης στη δική σας ζώνη ώρας</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="credits">Αναφέρετε την πηγή</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>

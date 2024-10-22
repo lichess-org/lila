@@ -31,7 +31,6 @@ export default class MsgCtrl {
 
   constructor(
     data: MsgData,
-    readonly trans: Trans,
     readonly redraw: Redraw,
   ) {
     this.data = data;

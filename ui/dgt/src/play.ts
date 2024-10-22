@@ -5,7 +5,7 @@ import { NormalMove } from 'chessops/types';
 import { board } from 'chessops/debug';
 import { defaultSetup, fen, makeUci, parseUci } from 'chessops';
 
-export default function(token: string): void {
+export default function (token: string): void {
   const root = document.getElementById('dgt-play-zone') as HTMLDivElement;
   const consoleOutput = document.getElementById('dgt-play-zone-log') as HTMLPreElement;
 
@@ -126,7 +126,7 @@ export default function(token: string): void {
     function fixLoggingFunc(name: string) {
       console['old' + name] = console[name];
       //Rewire function
-      console[name] = function() {
+      console[name] = function () {
         //Return a promise so execution is not delayed by string manipulation
         return new Promise<void>(resolve => {
           let output = '';

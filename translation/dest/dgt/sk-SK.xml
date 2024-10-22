@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Požiadavky na DGT šachovnicu</string>
   <string name="dgtBoardLimitations">Obmedzenia DGT šachovnice</string>
   <string name="thisPageAllowsConnectingDgtBoard">Táto stránka vám umožňuje pripojiť Vašu DGT šachovnicu k Lichess a používať ju na hranie partií.</string>
-  <string name="toConnectTheDgtBoard">Na pripojenie sa k DGT elektronickej šachovnici je potrebné nainštalovať %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Na pripojenie sa k DGT elektronickej šachovnici je potrebné nainštalovať %s.</string>
   <string name="downloadHere">Príslušný softvér si môžete stiahnuť tu: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Ak %1$s beží na tomto počítači, svoje pripojenie k nemu môžete skontrolovať pomocou %2$s.</string>
   <string name="openingThisLink">tohoto odkazu</string>

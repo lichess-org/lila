@@ -36,7 +36,7 @@
   <string name="xPublishedY">%1$s opublikował %2$s</string>
   <string name="thisPostIsPublished">Ten wpis jest opublikowany</string>
   <string name="thisIsADraft">To jest wersja robocza</string>
-  <string name="moreBlogPostsBy">Zobacz więcej wpisów opublikowanych przez %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Zobacz więcej wpisów opublikowanych przez %s</string>
   <string name="noPostsInThisBlogYet">Nie ma jeszcze wpisów na tym blogu.</string>
   <string name="noDrafts">Brak wersji roboczych.</string>
   <string name="latestBlogPosts">Najnowsze wpisy na blogu</string>

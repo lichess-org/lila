@@ -56,7 +56,6 @@ function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
     canContribute = ctrl.members.canContribute(),
     showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
-    noarg = root.trans.noarg,
     gbButton = gbOverrideButton(ctrl);
   return h('div.study__buttons', [
     h('div.left-buttons.tabs-horiz', { attrs: { role: 'tablist' } }, [
@@ -65,7 +64,7 @@ function buttons(root: AnalyseCtrl): VNode {
         h(
           'a.mode.sync',
           {
-            attrs: { title: noarg('allSyncMembersRemainOnTheSamePosition') },
+            attrs: { title: i18n.study.allSyncMembersRemainOnTheSamePosition },
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
@@ -75,18 +74,18 @@ function buttons(root: AnalyseCtrl): VNode {
         h(
           'a.mode.write',
           {
-            attrs: { title: noarg('shareChanges') },
+            attrs: { title: i18n.study.shareChanges },
             class: { on: ctrl.vm.mode.write },
             hook: bind('click', ctrl.toggleWrite),
           },
           [h('i.is'), 'REC'],
         ),
-      toolButton({ ctrl, tab: 'tags', hint: noarg('pgnTags'), icon: iconTag(licon.Tag) }),
+      toolButton({ ctrl, tab: 'tags', hint: i18n.study.pgnTags, icon: iconTag(licon.Tag) }),
       canContribute &&
         toolButton({
           ctrl,
           tab: 'comments',
-          hint: noarg('commentThisPosition'),
+          hint: i18n.study.commentThisPosition,
           icon: iconTag(licon.BubbleSpeech),
           onClick() {
             ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
@@ -97,7 +96,7 @@ function buttons(root: AnalyseCtrl): VNode {
         toolButton({
           ctrl,
           tab: 'glyphs',
-          hint: noarg('annotateWithGlyphs'),
+          hint: i18n.study.annotateWithGlyphs,
           icon: h('i.glyph-icon'),
           count: (root.node.glyphs || []).length,
         }),
@@ -105,12 +104,12 @@ function buttons(root: AnalyseCtrl): VNode {
         toolButton({
           ctrl,
           tab: 'serverEval',
-          hint: noarg('computerAnalysis'),
+          hint: i18n.site.computerAnalysis,
           icon: iconTag(licon.BarChart),
           count: root.data.analysis && '✓',
         }),
       toolButton({ ctrl, tab: 'multiBoard', hint: 'Multiboard', icon: iconTag(licon.Multiboard) }),
-      toolButton({ ctrl, tab: 'share', hint: noarg('shareAndExport'), icon: iconTag(licon.NodeBranching) }),
+      toolButton({ ctrl, tab: 'share', hint: i18n.study.shareAndExport, icon: iconTag(licon.NodeBranching) }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         h('span.help', {
@@ -137,7 +136,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
-            title: ctrl.trans.noarg(d.liked ? 'unlike' : 'like'),
+            title: d.liked ? i18n.study.unlike : i18n.study.like,
           },
           hook: bind('click', ctrl.toggleLike),
         },
@@ -165,14 +164,11 @@ export function side(ctrl: StudyCtrl, withSearch: boolean): VNode {
 
   const chaptersTab =
     (ctrl.chapters.list.looksNew() && !ctrl.members.canContribute()) ||
-    makeTab(
-      'chapters',
-      ctrl.trans.pluralSame(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.list.size()),
-    );
+    makeTab('chapters', i18n.study[ctrl.relay ? 'nbGames' : 'nbChapters'](ctrl.chapters.list.size()));
 
   const tabs = h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
     chaptersTab,
-    ctrl.members.size() > 0 && makeTab('members', ctrl.trans.pluralSame('nbMembers', ctrl.members.size())),
+    ctrl.members.size() > 0 && makeTab('members', i18n.study.nbMembers(ctrl.members.size())),
     withSearch &&
       h('span.search.narrow', {
         attrs: { ...dataIcon(licon.Search), title: 'Search' },
@@ -193,28 +189,28 @@ export function side(ctrl: StudyCtrl, withSearch: boolean): VNode {
 export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): VNode[] {
   return ctrl.vm.mode.write
     ? [
-      h(
-        'a',
-        {
-          attrs: dataIcon(licon.BubbleSpeech),
-          hook: bind('click', () => {
-            ctrl.vm.toolTab('comments');
-            ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
-          }),
-        },
-        ctrl.trans.noarg('commentThisMove'),
-      ),
-      h(
-        'a.glyph-icon',
-        {
-          hook: bind('click', () => {
-            ctrl.vm.toolTab('glyphs');
-            ctrl.ctrl.userJump(path);
-          }),
-        },
-        ctrl.trans.noarg('annotateWithGlyphs'),
-      ),
-    ]
+        h(
+          'a',
+          {
+            attrs: dataIcon(licon.BubbleSpeech),
+            hook: bind('click', () => {
+              ctrl.vm.toolTab('comments');
+              ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
+            }),
+          },
+          i18n.study.commentThisMove,
+        ),
+        h(
+          'a.glyph-icon',
+          {
+            hook: bind('click', () => {
+              ctrl.vm.toolTab('glyphs');
+              ctrl.ctrl.userJump(path);
+            }),
+          },
+          i18n.study.annotateWithGlyphs,
+        ),
+      ]
     : [];
 }
 
@@ -248,11 +244,11 @@ export function underboard(ctrl: AnalyseCtrl): MaybeVNodes {
       panel = study.vm.mode.write
         ? commentForm.view(ctrl)
         : commentForm.viewDisabled(
-          ctrl,
-          study.members.canContribute()
-            ? 'Press REC to comment moves'
-            : 'Only the study members can comment on moves',
-        );
+            ctrl,
+            study.members.canContribute()
+              ? 'Press REC to comment moves'
+              : 'Only the study members can comment on moves',
+          );
       break;
     case 'glyphs':
       panel = ctrl.path

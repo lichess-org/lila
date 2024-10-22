@@ -31,8 +31,8 @@
   <string name="byOpenings">Debyutlar bo‘yicha</string>
   <string name="puzzlesByOpenings">Debyutlar bo‘yicha boshqotirmalar</string>
   <string name="openingsYouPlayedTheMost">Reytingli o‘yinlarda siz ko‘p o‘ynagan debyutlar</string>
-  <string name="useFindInPage">Yoqtirgan debyutlaringizni topish uchun brovzerning \"Find in page\" imkoniyatidan foydalaning!</string>
-  <string name="useCtrlF">Yoqtirgan debyutlaringizni topish uchun Ctrl+f dan foydalaning!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Yoqtirgan debyutlaringizni topish uchun brovzerning \"Find in page\" imkoniyatidan foydalaning!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Yoqtirgan debyutlaringizni topish uchun Ctrl+f dan foydalaning!</string>
   <string name="notTheMove">Bu yurish emas!</string>
   <string name="trySomethingElse">Yana urinib koʻring.</string>
   <string name="ratingX">Reyting: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Kuchli tomonlari</string>
   <string name="history">Boshqotirma tarixi</string>
   <string name="solved">yechildi</string>
-  <string name="failed">xatolik</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">xatolik</string>
   <string name="streakDescription">Asta sekinlik bilan qiyin boshqotirmalarni yeching va g‘alabalar seriyasini yarating. Bu yersa soatlar yo‘q, shu sababli shoshilmang. Bitta xato yurish va o‘yin yakunlanadi. Ammo bitta yurishni tashlab ketish mumkin seansda.</string>
   <string name="yourStreakX">Sizning rivojingiz seriyasi: %s</string>
   <string name="streakSkipExplanation">Seriyani saqlab qolish uchun ushbu yurishni o‘tkazib yuborish. Har bir sessiyada bir marta ishlatish mumkin.</string>

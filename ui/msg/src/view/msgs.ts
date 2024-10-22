@@ -8,14 +8,11 @@ import { scroller } from './scroller';
 import MsgCtrl from '../ctrl';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
-  return h(
-    'div.msg-app__convo__msgs',
-    { hook: { insert: setupMsgs(ctrl, true), postpatch: setupMsgs(ctrl, false) } },
-    [
-      h('div.msg-app__convo__msgs__init'),
-      h('div.msg-app__convo__msgs__content', [
-        ctrl.canGetMoreSince
-          ? h(
+  return h('div.msg-app__convo__msgs', { hook: { insert: setupMsgs(true), postpatch: setupMsgs(false) } }, [
+    h('div.msg-app__convo__msgs__init'),
+    h('div.msg-app__convo__msgs__content', [
+      ctrl.canGetMoreSince
+        ? h(
             'button.msg-app__convo__msgs__more.button.button-empty',
             {
               key: 'more',
@@ -27,12 +24,11 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
             },
             'Load more',
           )
-          : null,
-        ...contentMsgs(ctrl, convo.msgs),
-        h('div.msg-app__convo__msgs__typing', ctrl.typing ? `${convo.user.name} is typing...` : null),
-      ]),
-    ],
-  );
+        : null,
+      ...contentMsgs(ctrl, convo.msgs),
+      h('div.msg-app__convo__msgs__typing', ctrl.typing ? `${convo.user.name} is typing...` : null),
+    ]),
+  ]);
 }
 
 function contentMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode[] {
@@ -44,7 +40,7 @@ function contentMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode[] {
 
 function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
   return [
-    h('day', renderDate(daily.date, ctrl.trans)),
+    h('day', renderDate(daily.date)),
     ...daily.msgs.map(group =>
       h(
         'group',
@@ -78,9 +74,9 @@ const today = new Date();
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
-function renderDate(date: Date, trans: Trans) {
-  if (sameDay(date, today)) return trans.noarg('today').toUpperCase();
-  if (sameDay(date, yesterday)) return trans.noarg('yesterday').toUpperCase();
+function renderDate(date: Date) {
+  if (sameDay(date, today)) return i18n.site.today.toUpperCase();
+  if (sameDay(date, yesterday)) return i18n.site.yesterday.toUpperCase();
   return renderFullDate(date);
 }
 
@@ -100,27 +96,27 @@ const sameDay = (d: Date, e: Date) =>
 const renderText = (msg: Msg) =>
   enhance.isMoreThanText(msg.text)
     ? h('t', {
-      hook: {
-        create(_, vnode: VNode) {
-          const el = vnode.elm as HTMLElement;
-          el.innerHTML = enhance.enhance(msg.text);
-          el.querySelectorAll('img').forEach(c =>
-            c.addEventListener('load', scroller.auto, { once: true }),
-          );
-          $('form.unsub', el).on('submit', function(this: HTMLFormElement) {
-            teamUnsub(this);
-            return false;
-          });
+        hook: {
+          create(_, vnode: VNode) {
+            const el = vnode.elm as HTMLElement;
+            el.innerHTML = enhance.enhance(msg.text);
+            el.querySelectorAll('img').forEach(c =>
+              c.addEventListener('load', scroller.auto, { once: true }),
+            );
+            $('form.unsub', el).on('submit', function (this: HTMLFormElement) {
+              teamUnsub(this);
+              return false;
+            });
+          },
         },
-      },
-    })
+      })
     : h('t', msg.text);
 
-const setupMsgs = (ctrl: MsgCtrl, insert: boolean) => (vnode: VNode) => {
+const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   const el = vnode.elm as HTMLElement;
   if (insert) scroller.init(el);
   enhance.expandLpvs(el);
-  makeLinkPopups(el, ctrl.trans, 'their a[href^="http"]');
+  makeLinkPopups(el, 'their a[href^="http"]');
   scroller.toMarker() || scroller.auto();
 };
 

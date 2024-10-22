@@ -38,9 +38,9 @@
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="other">你的对手已离开棋局。你可以在 %s 秒后宣布胜利。</item>
+    <item quantity="other">您的对手已离开棋局。您可以在 %s 秒后宣布胜利。</item>
   </plurals>
-  <string name="opponentLeftChoices">你的对手可能已离开棋局。你可以宣布胜利，和棋，或继续等待。</string>
+  <string name="opponentLeftChoices">你的对手已离开棋局。你可以宣布胜利、和棋或继续等待。</string>
   <string name="forceResignation">宣布胜利</string>
   <string name="forceDraw">宣布和棋</string>
   <string name="talkInChat">聊天请注意文明用语！</string>
@@ -124,7 +124,6 @@
   <string name="memory">内存</string>
   <string name="infiniteAnalysis">开启无限分析</string>
   <string name="removesTheDepthLimit">取消深度限制（会提升电脑温度）</string>
-  <string name="engineManager">引擎管理</string>
   <string name="blunder">漏着</string>
   <string name="mistake">错着</string>
   <string name="inaccuracy">失准</string>
@@ -524,9 +523,9 @@
   <string name="cheat">作弊</string>
   <string name="troll">捣乱</string>
   <string name="other">其他</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">请附上棋局链接解释该用户的行为问题。请不要只说 “对手作弊”，而是解释为什么你认为对手作弊。</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">解释这个用户名为何具有冒犯性。不要只说“它具有冒犯性/不恰当”，而是要告诉我们你是如何得出这个结论的，特别是如果侮辱性内容是隐晦的、非英语的、俚语或有历史/文化参考。</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">如果您使用英语举报，我们将会更快作出答复。</string>
+  <string name="reportCheatBoostHelp">请附上棋局链接解释该用户的行为问题。请不要只说 “对手作弊”，而是解释为什么你认为对手作弊。</string>
+  <string name="reportUsernameHelp">解释这个用户名为何具有冒犯性。不要只说“它具有冒犯性/不恰当”，而是要告诉我们你是如何得出这个结论的，特别是如果侮辱性内容是隐晦的、非英语的、俚语或有历史/文化参考。</string>
+  <string name="reportProcessedFasterInEnglish">如果您使用英语举报，我们将会更快作出答复。</string>
   <string name="error.provideOneCheatedGameLink">请提供至少一局作弊的棋局的链接。</string>
   <string name="by">来自%s</string>
   <string name="importedByX">由 %s 导入</string>

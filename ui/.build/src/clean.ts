@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import fg from 'fast-glob';
-import { env, colors as c } from './main';
+import { env, colors as c } from './main.ts';
 
 const globOpts: fg.Options = {
   absolute: true,
@@ -31,4 +31,8 @@ export async function clean(globs?: string[]): Promise<void> {
       else await fs.unlink(f);
     }
   }
+}
+
+export async function deepClean(): Promise<void> {
+  return clean(['ui/@types/lichess/i18n.d.ts', 'translation/js', ...allGlobs]);
 }

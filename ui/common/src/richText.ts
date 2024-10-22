@@ -12,12 +12,12 @@ export const userPattern: RegExp = /(^|[^\w@#/])@([a-z0-9_-]{2,30})/gi;
 // looks like it has a @mention or #gameid or a url.tld
 export const isMoreThanText = (str: string): boolean => /(\n|(@|#|\.)\w{2,}|(board|game) \d)/i.test(str);
 
+const linkHtml = (href: string, content: string): string =>
+  `<a target="_blank" rel="nofollow noopener noreferrer" href="${href}">${content}</a>`;
+
 export function toLink(url: string): string {
   if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
-  return `<a target="_blank" rel="nofollow noopener noreferrer" href="${url}">${url.replace(
-    /https?:\/\//,
-    '',
-  )}</a>`;
+  return linkHtml(url, url.replace(/https?:\/\//, ''));
 }
 
 export const autolink = (str: string, callback: (str: string) => string): string =>
@@ -36,11 +36,9 @@ export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
   },
 });
 
-export function linkReplace(href: string, body?: string, cls?: string): string {
+export function linkReplace(href: string, body?: string): string {
   if (href.includes('&quot;')) return href;
-  return `<a target="_blank" rel="noopener nofollow noreferrer" href="${
-    href.startsWith('/') || href.includes('://') ? href : '//' + href
-  }"${cls ? ` class="${cls}"` : ''}>${body ? body : href}</a>`;
+  return linkHtml(href.startsWith('/') || href.includes('://') ? href : '//' + href, body ? body : href);
 }
 
 export const userLinkReplace = (_: string, prefix: string, user: string): string =>

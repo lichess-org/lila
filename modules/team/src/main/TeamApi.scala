@@ -171,7 +171,7 @@ final class TeamApi(
         user = me,
         message = if me.marks.troll then TeamRequest.defaultMessage else msg
       )
-      requestRepo.coll.insert.one(request).void.andDo(cached.nbRequests.invalidate(team.createdBy))
+      for _ <- requestRepo.coll.insert.one(request) yield cached.nbRequests.invalidate(team.createdBy)
     }
 
   def cancelRequestOrQuit(team: Team)(using me: Me): Funit =
@@ -207,12 +207,13 @@ final class TeamApi(
 
   def doJoin(team: Team)(using me: Me): Funit = {
     belongsTo(team.id, me).not.flatMapz {
-      (memberRepo.add(team.id, me) >>
-        teamRepo.incMembers(team.id, +1)).andDo {
+      for
+        _ <- memberRepo.add(team.id, me)
+        _ <- teamRepo.incMembers(team.id, +1)
+      yield
         cached.invalidateTeamIds(me)
         lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
         publish(JoinTeam(id = team.id, userId = me))
-      }
     }
   }.recover(lila.db.ignoreDuplicateKey)
 
@@ -237,15 +238,13 @@ final class TeamApi(
   def teamsByIds(ids: List[TeamId]) =
     teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
-  def quit(team: Team, userId: UserId): Funit =
-    memberRepo.remove(team.id, userId).flatMap { res =>
-      (res.n == 1)
-        .so:
-          teamRepo.incMembers(team.id, -1)
-        .andDo:
-          publish(LeaveTeam(teamId = team.id, userId = userId))
-          cached.invalidateTeamIds(userId)
-    }
+  def quit(team: Team, userId: UserId): Funit = for
+    res <- memberRepo.remove(team.id, userId)
+    _ <- (res.n == 1).so:
+      teamRepo.incMembers(team.id, -1)
+  yield
+    publish(LeaveTeam(teamId = team.id, userId = userId))
+    cached.invalidateTeamIds(userId)
 
   def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
     teamIds <- cached.teamIdsList(userId)
@@ -327,10 +326,8 @@ final class TeamApi(
             _ <- requestRepo.removeByTeam(team.id)
           yield ()
         else
-          teamRepo
-            .enable(team)
-            .andDo:
-              Bus.publish(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)), "team")
+          for _ <- teamRepo.enable(team)
+          yield Bus.publish(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)), "team")
       else memberRepo.setPerms(team.id, me, Set.empty)
 
   def idAndLeaderIds(teamId: TeamId): Fu[Option[Team.IdAndLeaderIds]] =
@@ -348,11 +345,10 @@ final class TeamApi(
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
 
   // delete for ever, with members but not forums
-  def delete(team: Team, by: User, explain: String): Funit =
-    (teamRepo.coll.delete.one($id(team.id)) >>
-      memberRepo.removeByTeam(team.id)).andDo {
-      logger.info(s"delete team ${team.id} by @${by.id}: $explain")
-    }
+  def delete(team: Team, by: User, explain: String): Funit = for
+    _ <- teamRepo.coll.delete.one($id(team.id))
+    _ <- memberRepo.removeByTeam(team.id)
+  yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId).contains(teamId)

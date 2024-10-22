@@ -39,7 +39,7 @@
   <string name="deflection">Zavlečení</string>
   <string name="deflectionDescription">Tah, který odvádí soupeřovu figuru od jejích jiných povinností, jako například bránění klíčového pole. Občas nazýváno také jako \"přetížení\".</string>
   <string name="discoveredAttack">Odtažný útok</string>
-  <string name="discoveredAttackDescription">Tah figurou (například jezdcem) z cesty jiné, dalekonosné, které blokovala působnost (například věži).</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Tah figurou (například jezdcem) z cesty jiné, dalekonosné, které blokovala působnost (například věži).</string>
   <string name="doubleCheck">Dvojný šach</string>
   <string name="doubleCheckDescription">Šach dvěma figurami zároveň, často důsledkem odtahu. Obě figury dávají šach soupeřovu králi.</string>
   <string name="endgame">Koncovka</string>

@@ -23,8 +23,8 @@ import {
 import { wikiToggleBox } from '../wiki';
 import { watchers } from 'common/watchers';
 
-export default function(deps?: typeof studyDeps) {
-  return function(ctrl: AnalyseCtrl): VNode {
+export default function (deps?: typeof studyDeps) {
+  return function (ctrl: AnalyseCtrl): VNode {
     if (ctrl.nvui) return ctrl.nvui.render();
     else if (deps && ctrl.study?.relay) return relayView(ctrl, ctrl.study, ctrl.study.relay, deps);
     else return analyseView(ctrl, deps);
@@ -50,22 +50,22 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
     ctrl.studyPractice
       ? deps?.studyPracticeView.side(study!)
       : h(
-        'aside.analyse__side',
-        {
-          hook: onInsert(elm => {
-            if (ctrl.opts.$side && ctrl.opts.$side.length) {
-              $(elm).replaceWith(ctrl.opts.$side);
-              wikiToggleBox();
-            }
-          }),
-        },
-        ctrl.studyPractice
-          ? [deps?.studyPracticeView.side(study!)]
-          : study
-            ? [deps?.studyView.side(study, true)]
-            : [
-              ctrl.forecast && forecastView(ctrl, ctrl.forecast),
-              !ctrl.synthetic &&
+          'aside.analyse__side',
+          {
+            hook: onInsert(elm => {
+              if (ctrl.opts.$side && ctrl.opts.$side.length) {
+                $(elm).replaceWith(ctrl.opts.$side);
+                wikiToggleBox();
+              }
+            }),
+          },
+          ctrl.studyPractice
+            ? [deps?.studyPracticeView.side(study!)]
+            : study
+              ? [deps?.studyView.side(study, true)]
+              : [
+                  ctrl.forecast && forecastView(ctrl, ctrl.forecast),
+                  !ctrl.synthetic &&
                     playable(ctrl.data) &&
                     h(
                       'div.back-to-game',
@@ -77,11 +77,11 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                             'data-icon': licon.Back,
                           },
                         },
-                        ctrl.trans.noarg('backToGame'),
+                        i18n.site.backToGame,
                       ),
                     ),
-            ],
-      ),
+                ],
+        ),
     h('div.chat__members.none', { hook: onInsert(watchers) }),
   ]);
 }

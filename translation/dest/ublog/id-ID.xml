@@ -21,7 +21,7 @@
   <string name="xPublishedY">%1$s menerbitkan %2$s</string>
   <string name="thisPostIsPublished">Postingan ini telah dipublikasi</string>
   <string name="thisIsADraft">Ini sebuah draf</string>
-  <string name="moreBlogPostsBy">Blog post lainnya oleh %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Blog post lainnya oleh %s</string>
   <string name="noPostsInThisBlogYet">Belum ada post di blog ini.</string>
   <string name="noDrafts">Tidak ada draf.</string>
   <string name="latestBlogPosts">Postingan blog terbaru</string>

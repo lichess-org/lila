@@ -117,7 +117,7 @@ final class Env(
       resignAllGamesOf(userId)
     },
     "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
-      onStart(gameId)
+      onStart.exec(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
@@ -132,14 +132,13 @@ final class Env(
       .game(gameId)
       .foreach:
         _.foreach: game =>
-          lightUserApi
-            .preloadMany(game.userIds)
-            .andDo:
-              val sg = lila.core.game.StartGame(game)
-              Bus.publish(sg, "startGame")
-              game.userIds.foreach: userId =>
-                Bus.publish(sg, s"userStartGame:$userId")
-              if game.playableByAi then Bus.publish(game, "fishnetPlay")
+          for _ <- lightUserApi.preloadMany(game.userIds)
+          yield
+            val sg = lila.core.game.StartGame(game)
+            Bus.publish(sg, "startGame")
+            game.userIds.foreach: userId =>
+              Bus.publish(sg, s"userStartGame:$userId")
+            if game.playableByAi then Bus.publish(game, "fishnetPlay")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 

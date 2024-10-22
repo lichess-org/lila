@@ -34,7 +34,7 @@
   <string name="xPublishedY">%1$s išleido %2$s</string>
   <string name="thisPostIsPublished">Šis įrašas paskelbtas</string>
   <string name="thisIsADraft">Tai yra juodraštis</string>
-  <string name="moreBlogPostsBy">Peržiūrėti daugiau tinklaraščio įrašų iš %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Peržiūrėti daugiau tinklaraščio įrašų iš %s</string>
   <string name="noPostsInThisBlogYet">Šiame tinklaraštyje įrašų dar nėra.</string>
   <string name="noDrafts">Nėra galimų parodyti juodraščių.</string>
   <string name="latestBlogPosts">Vėliausi tinklaraščio įrašai</string>

@@ -27,7 +27,7 @@
     <item quantity="one">%s Minute zwischen den Runden</item>
     <item quantity="other">%s Minuten zwischen den Runden</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Beginnt in</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Beginnt in</string>
   <string name="nextRound">Nächste Runde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Laufende Partie</item>
@@ -77,7 +77,7 @@ Zusätzlich wird ein halber Punkt vergeben, wenn ein Spieler einem Turnier zu sp
   <string name="whatIfOneDoesntPlayA">Die Zeit wird ablaufen und er wird die Partie verlieren. Anschließend entfernt das System den Spieler vom Turnier, so dass dieser nicht noch mehr Partien verliert.
  Er kann jederzeit wieder am Turnier teilnehmen.</string>
   <string name="protectionAgainstNoShowQ">Was wird bei Nichterscheinen unternommen?</string>
-  <string name="protectionAgainstNoShowA">Spieler, die sich für ein Turnier nach dem Schweizer System anmelden, aber ihre Partien nicht spielen, können ein Problem darstellen.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Spieler, die sich für ein Turnier nach dem Schweizer System anmelden, aber ihre Partien nicht spielen, können ein Problem darstellen.
 Um diesem Problem entgegenzuwirken, verhindert Lichess, dass Spieler, die es versäumt haben, eine Partie zu spielen, sich für eine bestimmte Zeit für ein neues Turnier nach dem Schweizer System anmelden können.
 Der Initiator eines Turniers nach dem Schweizer System kann jedoch entscheiden, ihnen trotzdem die Teilnahme am Turnier zu ermöglichen.</string>
   <string name="lateJoinQ">Können Spieler im Nachhinein beitreten?</string>

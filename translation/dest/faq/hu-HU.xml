@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">A Lichess oldalain gyorsbillentyűket is használhatsz. Nyomd meg a \'?\' billentyűt a tanulmány, elemzés, feladvány és játszma oldalakon az elérhető gyorsbillentyűk listájához.</string>
   <string name="fairPlay">Sportszerűség</string>
   <string name="whenAmIEligibleRatinRefund">Mikor vagyok jogosult értékszám kompenzációra a csalók miatt?</string>
-  <string name="ratingRefundExplanation">Egy percel azután, hogy a játékost jelentik, megvizsgáljuk az utolsó 40 értékelt játszmáit az elmúlt 3 napból. Ha egyike vagy a játékos ellenfeleinek, a pontszámod csökkent (mert vesztettél vagy döntetlent játszottál) és a pontszámod nem becsült, visszajár az elvesztett pontokból. A pontos érték változhat az eddigi legmagasabb pontszámod és annak alakulása alapján.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Egy percel azután, hogy a játékost jelentik, megvizsgáljuk az utolsó 40 értékelt játszmáit az elmúlt 3 napból. Ha egyike vagy a játékos ellenfeleinek, a pontszámod csökkent (mert vesztettél vagy döntetlent játszottál) és a pontszámod nem becsült, visszajár az elvesztett pontokból. A pontos érték változhat az eddigi legmagasabb pontszámod és annak alakulása alapján.
   (Például, ha nagyon sokat emelkedett a pontszámod ezalatt a játszmák alatt, nem jár vissza mind.) A kompenzáció sosem több, mint 150 pont.</string>
   <string name="preventLeavingGameWithoutResigning">Mi történik azokkal, akik feladás nélkül hagyják el a játszmát?</string>
   <string name="leavingGameWithoutResigningExplanation">Ha az ellenfeled gyakran szakítja meg vagy hagyja ott a játszmákat, akkor \"kényszerpihenőt\" kapnak, azaz ez idő alatt nem játszhatnak. Ez nincs nyilvánosan feltüntetve a profiljukon. Ha a fenti magatartás folytatódik, a kényszerpihenő egyre hosszabb lesz és végül akár a fiók zárolásához is vezethet.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Mi alapján történik a különböző játékidők (Bullet, Blitz, stb.) besorolása?</string>
   <string name="basedOnGameDuration">A Lichess-en ez a játszma hozzávetőleges hossza alapján történik = %1$s
 Például egy 5+3 játszma körülbelül 5 × 60 + 40 × 3 = 420 másodpercig tart.</string>
-  <string name="durationFormula">(kiindulási idő) + 40 × (növekmény)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(kiindulási idő) + 40 × (növekmény)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Milyen variánsokat játszhatok a Lichess-en?</string>

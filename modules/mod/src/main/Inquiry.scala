@@ -33,7 +33,7 @@ final class InquiryApi(
           (
             reportApi.moreLike(report, Max(10)),
             userApi.withPerfs(report.user),
-            noteApi.byUserForMod(report.user),
+            noteApi.toUserForMod(report.user),
             logApi.userHistory(report.user)
           ).mapN: (moreReports, userOption, notes, history) =>
             userOption.map: user =>

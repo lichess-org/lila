@@ -136,23 +136,35 @@ final class Simul(env: Env) extends LilaController(env):
   }
 
   def edit(id: SimulId) = Auth { ctx ?=> me ?=>
-    WithEditableSimul(id) { simul =>
+    AsHost(id): simul =>
       Ok.async:
         env.team.api.lightsByTourLeader(me).map { teams =>
           views.simul.form.edit(forms.edit(teams, simul), teams, simul)
         }
-    }
   }
 
   def update(id: SimulId) = AuthBody { ctx ?=> me ?=>
-    WithEditableSimul(id): simul =>
+    AsHost(id): simul =>
       env.team.api
         .lightsByTourLeader(me)
         .flatMap: teams =>
-          bindForm(forms.edit(teams, simul))(
-            err => BadRequest.page(views.simul.form.edit(err, teams, simul)),
-            data => env.simul.api.update(simul, data, teams).inject(Redirect(routes.Simul.show(id)))
-          )
+          def errPage(err: lila.simul.SimulForm.EitherForm) =
+            BadRequest.page(views.simul.form.edit(err, teams, simul))
+          def redirect = Redirect(routes.Simul.show(id))
+          forms
+            .edit(teams, simul)
+            .fold(
+              f =>
+                bindForm(f)(
+                  err => errPage(Left(err)),
+                  data => env.simul.api.update(simul, data).inject(redirect)
+                ),
+              f =>
+                bindForm(f)(
+                  err => errPage(Right(err)),
+                  data => env.simul.api.update(simul, data, teams).inject(redirect)
+                )
+            )
   }
 
   def byUser(username: UserStr, page: Int) = Open:
@@ -168,11 +180,5 @@ final class Simul(env: Env) extends LilaController(env):
     Found(env.simul.repo.find(simulId)): simul =>
       if ctx.is(simul.hostId) || isGrantedOpt(_.ManageSimul) then f(simul)
       else Unauthorized
-
-  private def WithEditableSimul(id: SimulId)(f: Sim => Fu[Result])(using Context): Fu[Result] =
-    AsHost(id): sim =>
-      if sim.isStarted
-      then Redirect(routes.Simul.show(sim.id))
-      else f(sim)
 
   private given lila.gathering.Condition.GetMyTeamIds = me => env.team.cached.teamIdsList(me.userId)

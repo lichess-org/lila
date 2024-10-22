@@ -117,10 +117,10 @@ function portraitView(ctrl: Ctrl) {
       ctrl.vm.view === 'insights'
         ? [header(ctrl), thunk('div.insight__main.box', renderMain, [ctrl, cacheKey(ctrl)])]
         : h('div.left-side', [
-          info(ctrl),
-          ctrl.vm.view === 'filters' && clearBtn(ctrl),
-          ctrl.vm.view === 'presets' ? presets(ctrl) : filters(ctrl),
-        ]),
+            info(ctrl),
+            ctrl.vm.view === 'filters' && clearBtn(ctrl),
+            ctrl.vm.view === 'presets' ? presets(ctrl) : filters(ctrl),
+          ]),
     ),
   ]);
 }

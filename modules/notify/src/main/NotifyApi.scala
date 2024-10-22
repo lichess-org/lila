@@ -83,23 +83,24 @@ final class NotifyApi(
     getNotifications(userId, page).zip(unreadCount(userId)).map(AndUnread.apply)
 
   def markAllRead(userId: UserId): Funit =
-    repo.markAllRead(userId).andDo(unreadCountCache.put(userId, fuccess(UnreadCount(0))))
+    for _ <- repo.markAllRead(userId)
+    yield unreadCountCache.put(userId, fuccess(UnreadCount(0)))
 
   def markAllRead(userIds: Iterable[UserId]): Funit =
-    repo
-      .markAllRead(userIds)
-      .andDo(userIds.foreach:
-        unreadCountCache.put(_, fuccess(UnreadCount(0)))
-      )
+    for _ <- repo.markAllRead(userIds)
+    yield userIds.foreach:
+      unreadCountCache.put(_, fuccess(UnreadCount(0)))
 
   def unreadCount(userId: UserId): Fu[UnreadCount] =
     unreadCountCache.get(userId)
 
   def insertNotification(notification: Notification): Funit =
-    repo.insert(notification).andDo(unreadCountCache.update(notification.to, _ + 1))
+    for _ <- repo.insert(notification)
+    yield unreadCountCache.update(notification.to, _ + 1)
 
   def remove(to: UserId, selector: Bdoc = $empty): Funit =
-    repo.remove(to, selector).andDo(unreadCountCache.invalidate(to))
+    for _ <- repo.remove(to, selector)
+    yield unreadCountCache.invalidate(to)
 
   def markRead(to: UserId, selector: Bdoc): Funit =
     repo
@@ -137,22 +138,21 @@ final class NotifyApi(
     bellMany(recips, content)
 
   private def bellOne(note: Notification): Funit =
-    insertNotification(note).andDo(
-      Bus.publish(
-        SendToOnlineUser(
-          note.to,
-          LazyFu: () =>
-            for
-              notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
-              langStr       <- userApi.langOf(note.to)
-              lang = langPicker.byStrOrDefault(langStr)
-            yield Json.obj(
-              "t" -> "notifications",
-              "d" -> jsonHandlers(notifications)(using summon[Translator].to(lang))
-            )
-        ),
-        "socketUsers"
-      )
+    for _ <- insertNotification(note)
+    yield Bus.publish(
+      SendToOnlineUser(
+        note.to,
+        LazyFu: () =>
+          for
+            notifications <- getNotifications(note.to, 1).zip(unreadCount(note.to)).dmap(AndUnread.apply)
+            langStr       <- userApi.langOf(note.to)
+            lang = langPicker.byStrOrDefault(langStr)
+          yield Json.obj(
+            "t" -> "notifications",
+            "d" -> jsonHandlers(notifications)(using summon[Translator].to(lang))
+          )
+      ),
+      "socketUsers"
     )
 
   private def bellMany(recips: Iterable[NotifyAllows], content: NotificationContent): Funit =
@@ -162,14 +162,11 @@ final class NotifyApi(
       case _                 => none
     val bells = recips.collect { case r if r.allows.bell => r.userId }
     bells.foreach(unreadCountCache.invalidate) // or maybe update only if getIfPresent?
-    repo
-      .insertMany(bells.map(to => Notification.make(to, content, expiresIn)))
-      .andDo(
-        Bus.publish(
-          SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)),
-          "socketUsers"
-        )
-      )
+    for _ <- repo.insertMany(bells.map(to => Notification.make(to, content, expiresIn)))
+    yield Bus.publish(
+      SendTos(bells.toSet, "notifications", Json.obj("incrementUnread" -> true)),
+      "socketUsers"
+    )
 
   private def pushOne(to: NotifyAllows, content: NotificationContent) =
     pushMany(Seq(to), content)

@@ -18,7 +18,6 @@ export default class GamebookPlayCtrl {
   constructor(
     readonly root: AnalyseCtrl,
     readonly chapterId: string,
-    readonly trans: Trans,
     readonly redraw: () => void,
   ) {
     this.makeState();

@@ -122,37 +122,35 @@ final private[puzzle] class PuzzleFinisher(
                       (round, newPuzzleGlicko, userPerf)
               .flatMap: (round, newPuzzleGlicko, userPerf) =>
                 import lila.rating.Glicko.glickoHandler
-                api.round
-                  .upsert(round, angle)
-                  .zip(colls.puzzle {
-                    _.update
-                      .one(
-                        $id(puzzle.id),
-                        $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
-                          $set(Puzzle.BSONFields.glicko -> glicko)
-                        }
-                      )
-                      .void
-                  })
-                  .zip((userPerf != perf).so {
-                    userApi
-                      .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
-                      .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf)) void
-                  })
-                  .andDo {
-                    if prevRound.isEmpty then
-                      Bus.publish(
-                        Puzzle
-                          .UserResult(
-                            puzzle.id,
-                            me.userId,
-                            win,
-                            perf.intRating -> userPerf.intRating
-                          ),
-                        "finishPuzzle"
-                      )
-                  }
-                  .inject((round -> userPerf).some)
+                for
+                  _ <- api.round
+                    .upsert(round, angle)
+                    .zip:
+                      colls.puzzle:
+                        _.update
+                          .one(
+                            $id(puzzle.id),
+                            $inc(Puzzle.BSONFields.plays -> $int(1)) ++ newPuzzleGlicko.so { glicko =>
+                              $set(Puzzle.BSONFields.glicko -> glicko)
+                            }
+                          )
+                    .zip:
+                      (userPerf != perf).so:
+                        userApi
+                          .setPerf(me.userId, PerfType.Puzzle, userPerf.clearRecent)
+                          .zip(historyApi.addPuzzle(user = me.value, completedAt = now, perf = userPerf)) void
+                  _ = if prevRound.isEmpty then
+                    Bus.publish(
+                      Puzzle
+                        .UserResult(
+                          puzzle.id,
+                          me.userId,
+                          win,
+                          perf.intRating -> userPerf.intRating
+                        ),
+                      "finishPuzzle"
+                    )
+                yield (round -> userPerf).some
         }
 
   private object ponder:

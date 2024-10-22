@@ -46,8 +46,8 @@ export interface SocketDrop {
 export type EncodedDests =
   | string
   | {
-    [key: string]: string;
-  };
+      [key: string]: string;
+    };
 export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
@@ -99,7 +99,6 @@ export interface RoundOpts {
   onChange(d: RoundData): void;
   element?: HTMLElement;
   crosstableEl?: HTMLElement;
-  i18n: I18nDict;
   chat?: ChatOpts;
   local?: RoundProxy;
 }

@@ -2,7 +2,7 @@ package controllers
 
 import lila.app.{ *, given }
 
-final class UserTournament(env: Env) extends LilaController(env):
+final class UserTournament(env: Env, apiC: => Api) extends LilaController(env):
 
   def path(username: UserStr, path: String, page: Int) = Open:
     Reasonable(page):
@@ -32,3 +32,24 @@ final class UserTournament(env: Env) extends LilaController(env):
             Found(ctx.me): me =>
               Redirect(routes.UserTournament.path(me.username, "upcoming"))
           case _ => notFound
+
+  def apiTournamentsByOwner(name: UserStr, status: List[Int]) = AnonOrScoped():
+    Found(meOrFetch(name).map(_.filterNot(_.is(UserId.lichess)))): user =>
+      val tourStatus = status.flatMap(lila.core.tournament.Status.byId.get)
+      apiC.jsonDownload:
+        env.tournament.api
+          .byOwnerStream(user, tourStatus, maxPerSecond(name), getInt("nb") | Int.MaxValue)
+          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+
+  def apiTournamentsByPlayer(name: UserStr) = AnonOrScoped():
+    Found(meOrFetch(name)): user =>
+      apiC.jsonDownload:
+        env.tournament.leaderboardApi
+          .byPlayerStream(user, maxPerSecond(name), getInt("nb") | Int.MaxValue)
+          .map(env.tournament.apiJsonView.byPlayer)
+
+  private def maxPerSecond(of: UserStr)(using ctx: Context) =
+    MaxPerSecond:
+      if ctx.is(of) then 50
+      else if ctx.isOAuth then 30 // bonus for oauth logged in only (not for CSRF)
+      else 20

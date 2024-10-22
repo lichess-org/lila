@@ -8,15 +8,15 @@ import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, ctrl.noarg('viewTheSolution')),
-    h('a', { hook: bind('click', ctrl.skip) }, ctrl.noarg('skipThisMove')),
+    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, i18n.site.viewTheSolution),
+    h('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
   return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
-    ctrl.noarg('next'),
+    i18n.site.next,
   ]);
 }
 
@@ -44,8 +44,7 @@ const feedback = {
         h('div.instruction', [
           h(
             'strong',
-            ctrl.trans.vdom(
-              'xWasPlayed',
+            i18n.site.xWasPlayed.asArray(
               h(
                 'move',
                 renderIndexAndMove(
@@ -55,7 +54,7 @@ const feedback = {
               ),
             ),
           ),
-          h('em', ctrl.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
+          h('em', i18n.site[ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack']),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -67,10 +66,8 @@ const feedback = {
       h('div.player', [
         h('div.icon.off', '!'),
         h('div.instruction', [
-          h('strong', ctrl.noarg('youBrowsedAway')),
-          h('div.choices.off', [
-            h('a', { hook: bind('click', ctrl.jumpToNext) }, ctrl.noarg('resumeLearning')),
-          ]),
+          h('strong', i18n.site.youBrowsedAway),
+          h('div.choices.off', [h('a', { hook: bind('click', ctrl.jumpToNext) }, i18n.site.resumeLearning)]),
         ]),
       ]),
     ];
@@ -80,8 +77,8 @@ const feedback = {
       h('div.player', [
         h('div.icon', '✗'),
         h('div.instruction', [
-          h('strong', ctrl.noarg('youCanDoBetter')),
-          h('em', ctrl.noarg(ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack')),
+          h('strong', i18n.site.youCanDoBetter),
+          h('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
           skipOrViewSolution(ctrl),
         ]),
       ]),
@@ -91,7 +88,7 @@ const feedback = {
     return [
       h(
         'div.half.top',
-        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', ctrl.noarg('goodMove')))]),
+        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', i18n.study.goodMove))]),
       ),
       jumpToNext(ctrl),
     ];
@@ -103,11 +100,10 @@ const feedback = {
         h('div.player', [
           h('div.icon', '✓'),
           h('div.instruction', [
-            h('strong', ctrl.noarg('solution')),
+            h('strong', i18n.site.solution),
             h(
               'em',
-              ctrl.trans.vdom(
-                'bestWasX',
+              i18n.site.bestWasX.asArray(
                 h(
                   'strong',
                   renderIndexAndMove({ withDots: true, showEval: false }, ctrl.current()!.solution.node),
@@ -125,10 +121,7 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player.center', [
-          h('div.instruction', [
-            h('strong', ctrl.noarg('evaluatingYourMove')),
-            renderEvalProgress(ctrl.node()),
-          ]),
+          h('div.instruction', [h('strong', i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
         ]),
       ),
     ];
@@ -138,7 +131,7 @@ const feedback = {
       return [
         h(
           'div.half.top',
-          h('div.player', [h('div.icon', spinner()), h('div.instruction', ctrl.noarg('waitingForAnalysis'))]),
+          h('div.player', [h('div.icon', spinner()), h('div.instruction', i18n.site.waitingForAnalysis)]),
         ),
       ];
     const nothing = !ctrl.completion()[1];
@@ -148,30 +141,34 @@ const feedback = {
         h('div.instruction', [
           h(
             'em',
-            nothing
-              ? ctrl.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack')
-              : ctrl.noarg(
-                ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes',
-              ),
+            i18n.site[
+              nothing
+                ? ctrl.color === 'white'
+                  ? 'noMistakesFoundForWhite'
+                  : 'noMistakesFoundForBlack'
+                : ctrl.color === 'white'
+                  ? 'doneReviewingWhiteMistakes'
+                  : 'doneReviewingBlackMistakes'
+            ],
           ),
           h('div.choices.end', [
             nothing
               ? null
               : h(
-                'a',
-                {
-                  key: 'reset',
-                  hook: bind('click', ctrl.reset),
-                },
-                ctrl.noarg('doItAgain'),
-              ),
+                  'a',
+                  {
+                    key: 'reset',
+                    hook: bind('click', ctrl.reset),
+                  },
+                  i18n.site.doItAgain,
+                ),
             h(
               'a',
               {
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
-              ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'),
+              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
             ),
           ]),
         ]),
@@ -188,14 +185,14 @@ function renderFeedback(root: AnalyseCtrl, fb: Exclude<keyof typeof feedback, 'e
   return feedback[fb](ctrl);
 }
 
-export default function(root: AnalyseCtrl): VNode | undefined {
+export default function (root: AnalyseCtrl): VNode | undefined {
   const ctrl = root.retro;
   if (!ctrl) return;
   const fb = ctrl.feedback(),
     completion = ctrl.completion();
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
-      h('span', ctrl.noarg('learnFromYourMistakes')),
+      h('span', i18n.site.learnFromYourMistakes),
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
       h('button.fbt', {
         hook: bind('click', root.toggleRetro, root.redraw),

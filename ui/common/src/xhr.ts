@@ -90,9 +90,9 @@ export const formToXhr = (el: HTMLFormElement, submitter?: HTMLButtonElement): P
   }
   return action
     ? text(action, {
-      method: el.method,
-      body,
-    })
+        method: el.method,
+        body,
+      })
     : Promise.reject(`Form has no action: ${el}`);
 };
 

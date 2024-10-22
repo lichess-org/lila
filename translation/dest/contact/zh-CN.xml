@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">你需要什么帮助?</string>
   <string name="visitThisPage">请向往该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
-  <string name="noConfirmationEmail">我没有收到确认邮件</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">我没有收到确认邮件</string>
   <string name="forgotPassword">我忘了我的密码</string>
   <string name="forgotUsername">我忘了我的用户名</string>
   <string name="youCanLoginWithEmail">你可以使用你注册的电子邮箱地址登录</string>

@@ -55,9 +55,9 @@ class StringTest extends munit.FunSuite:
   }
 
   test("richText Not find forum post path") {
-    assertEquals(extractPosts("yes/no/maybe"), List())
-    assertEquals(extractPosts("go/to/some/very/long/path"), List())
-    assertEquals(extractPosts("Answer me yes/no?"), List())
+    assertEquals(extractPosts("yes/no/maybe"), Nil)
+    assertEquals(extractPosts("go/to/some/very/long/path"), Nil)
+    assertEquals(extractPosts("Answer me yes/no?"), Nil)
   }
 
   test("noShouting") {

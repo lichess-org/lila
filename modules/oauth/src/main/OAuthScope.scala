@@ -154,7 +154,8 @@ object OAuthScope:
 
   def canUseWebMod(using Option[Me]) =
     import lila.core.perm.*
-    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin).exists(Granter.opt)
+    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin, _.ApiChallengeAdmin)
+      .exists(Granter.opt)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

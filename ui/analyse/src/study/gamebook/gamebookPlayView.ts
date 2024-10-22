@@ -12,11 +12,11 @@ export function render(ctrl: GamebookPlayCtrl): VNode {
         state.comment
           ? h('div.content', { hook: richHTML(state.comment) })
           : h(
-            'div.content',
-            state.feedback == 'play'
-              ? ctrl.trans('whatWouldYouPlay')
-              : state.feedback == 'end' && ctrl.trans('youCompletedThisLesson'),
-          ),
+              'div.content',
+              state.feedback == 'play'
+                ? i18n.study.whatWouldYouPlay
+                : state.feedback == 'end' && i18n.study.youCompletedThisLesson,
+            ),
         hintZone(ctrl),
       ]),
     h('div.floor', [
@@ -32,7 +32,7 @@ function hintZone(ctrl: GamebookPlayCtrl) {
   const state = ctrl.state,
     buttonData = () => ({ attrs: { type: 'button' }, hook: bind('click', ctrl.hint, ctrl.redraw) });
   if (state.showHint) return h('button', buttonData(), [h('div.hint', { hook: richHTML(state.hint!) })]);
-  if (state.hint) return h('button.hint', buttonData(), ctrl.trans.noarg('getAHint'));
+  if (state.hint) return h('button.hint', buttonData(), i18n.site.getAHint);
   return undefined;
 }
 
@@ -43,11 +43,11 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     return h(
       'button.feedback.act.bad' + (state.comment ? '.com' : ''),
       { attrs: { type: 'button' }, hook: bind('click', ctrl.retry) },
-      [iconTag(licon.Reload), h('span', ctrl.trans.noarg('retry'))],
+      [iconTag(licon.Reload), h('span', i18n.site.retry)],
     );
   if (fb === 'good' && state.comment)
     return h('button.feedback.act.good.com', { attrs: { type: 'button' }, hook: bind('click', ctrl.next) }, [
-      h('span.text', { attrs: dataIcon(licon.PlayTriangle) }, ctrl.trans.noarg('next')),
+      h('span.text', { attrs: dataIcon(licon.PlayTriangle) }, i18n.study.next),
       h('kbd', '<space>'),
     ]);
   if (fb === 'end') return renderEnd(ctrl);
@@ -57,16 +57,13 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
       'div',
       fb === 'play'
         ? [
-          h('div.no-square', h('piece.king.' + color)),
-          h('div.instruction', [
-            h('strong', ctrl.trans.noarg('yourTurn')),
-            h(
-              'em',
-              ctrl.trans.noarg(color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack'),
-            ),
-          ]),
-        ]
-        : ctrl.trans.noarg('goodMove'),
+            h('div.no-square', h('piece.king.' + color)),
+            h('div.instruction', [
+              h('strong', i18n.site.yourTurn),
+              h('em', i18n.puzzle[color === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']),
+            ]),
+          ]
+        : i18n.study.goodMove,
     ),
   );
 }
@@ -81,7 +78,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
           attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
           hook: bind('click', study.goToNextChapter),
         },
-        study.trans.noarg('nextChapter'),
+        i18n.study.nextChapter,
       ),
     h(
       'button.retry',
@@ -89,7 +86,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         attrs: { 'data-icon': licon.Reload, type: 'button' },
         hook: bind('click', () => ctrl.root.userJump(''), ctrl.redraw),
       },
-      study.trans.noarg('playAgain'),
+      i18n.study.playAgain,
     ),
     h(
       'button.analyse',
@@ -97,7 +94,7 @@ function renderEnd(ctrl: GamebookPlayCtrl) {
         attrs: { 'data-icon': licon.Microscope, type: 'button' },
         hook: bind('click', () => study.setGamebookOverride('analyse'), ctrl.redraw),
       },
-      study.trans.noarg('analysis'),
+      i18n.site.analysis,
     ),
   ]);
 }

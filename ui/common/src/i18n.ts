@@ -1,3 +1,7 @@
+type I18nKey = string;
+type I18nDict = Record<I18nKey, string>;
+type Trans = any;
+
 export const trans = (i18n: I18nDict): Trans => {
   const trans: Trans = (key: I18nKey, ...args: Array<string | number>) => {
     const str = i18n[key];
@@ -11,7 +15,7 @@ export const trans = (i18n: I18nDict): Trans => {
   trans.pluralSame = (key: I18nKey, count: number, ...args: Array<string | number>) =>
     trans.plural(key, count, count, ...args);
 
-  trans.plural = function(key: I18nKey, count: number, ...args: Array<string | number>) {
+  trans.plural = function (key: I18nKey, count: number, ...args: Array<string | number>) {
     const str = resolvePlural(key, count);
     return str ? format(str, args) : key;
   };
@@ -32,7 +36,7 @@ export const trans = (i18n: I18nDict): Trans => {
 // due to international context, so we make sure it's displayed using the gregorian calendar
 export const displayLocale: string = document.documentElement.lang.startsWith('ar-')
   ? 'ar-ly'
-  : document.documentElement.lang;;
+  : document.documentElement.lang;
 
 const commonDateFormatter = new Intl.DateTimeFormat(displayLocale, {
   year: 'numeric',
@@ -42,10 +46,10 @@ const commonDateFormatter = new Intl.DateTimeFormat(displayLocale, {
   minute: 'numeric',
 });
 
-export const commonDateFormat: (d?: Date|number) => string = commonDateFormatter.format;
+export const commonDateFormat: (d?: Date | number) => string = commonDateFormatter.format;
 
-export const timeago: (d: DateLike) => string =
-  (date: DateLike) => formatAgo((Date.now() - toDate(date).getTime()) / 1000);
+export const timeago: (d: DateLike) => string = (date: DateLike) =>
+  formatAgo((Date.now() - toDate(date).getTime()) / 1000);
 
 // format Date / string / timestamp to Date instance.
 export const toDate = (input: DateLike): Date =>
@@ -58,13 +62,14 @@ export const formatAgo = (seconds: number): string => {
   const absSeconds = Math.abs(seconds);
   const strIndex = seconds < 0 ? 1 : 0;
   const unit = agoUnits.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
-  return site.trans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
+  const fmt = i18n.timeago[unit[strIndex]!];
+  return typeof fmt === 'string' ? fmt : fmt(Math.floor(absSeconds / unit[2]));
 };
 
 type DateLike = Date | number | string;
 
 // past, future, divisor, at least
-const agoUnits: [string | undefined, string, number, number][] = [
+const agoUnits: [keyof I18n['timeago'] | undefined, keyof I18n['timeago'], number, number][] = [
   ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
   ['nbMonthsAgo', 'inNbMonths', (60 * 60 * 24 * 365) / 12, 1],
   ['nbWeeksAgo', 'inNbWeeks', 60 * 60 * 24 * 7, 1],
@@ -96,4 +101,3 @@ function list<T>(str: string, args: T[]): Array<string | T> {
   }
   return segments;
 }
-

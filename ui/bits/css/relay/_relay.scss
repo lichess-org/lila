@@ -1,4 +1,5 @@
 @import 'card';
+@import 'image';
 
 .relay-index {
   .new::before {
@@ -18,18 +19,15 @@
   border-bottom: $border;
   margin-bottom: 2em;
 }
-
-.relay-image {
-  &--fallback {
-    @extend %flex-center;
-    justify-content: center;
-    width: 100%;
-    aspect-ratio: 2 / 1;
-    background: linear-gradient(to bottom, $m-primary--alpha-70, $m-brag--alpha-70);
-    background-repeat: no-repeat;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3) inset;
-    color: $c-font;
-    text-shadow: 0 0 40px white;
-    font-size: 3em;
+.relay-index__calendar {
+  text-align: center;
+  .button {
+    padding: 1.5em 4em;
+    white-space: normal;
+    strong {
+      font-size: 1.5em;
+      display: block;
+      margin-bottom: 0.5em;
+    }
   }
 }

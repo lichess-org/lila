@@ -75,11 +75,11 @@
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">中位數</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">所有平均為%s。</string>
   <string name="total">總計</string>
-  <string name="pointsAvg">平均分數</string>
+  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">平均分數</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">總計分數</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">平均等地</string>
   <string name="tournamentWinners">錦標賽贏家</string>
   <string name="tournamentShields">錦標賽徽章</string>
   <string name="onlyTitled">僅限頭銜玩家</string>
-  <string name="onlyTitledHelp">需要官方頭銜才能加入比賽</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">需要官方頭銜才能加入比賽</string>
 </resources>

@@ -9,6 +9,7 @@
     <item quantity="other">%s трансляций</item>
   </plurals>
   <string name="liveBroadcasts">Прямые трансляции турнира</string>
+  <string name="broadcastCalendar">Календарь трансляций</string>
   <string name="newBroadcast">Новая прямая трансляция</string>
   <string name="subscribedBroadcasts">Подписанные рассылки</string>
   <string name="aboutBroadcasts">О трансляции</string>
@@ -28,7 +29,7 @@
   <string name="sourceSingleUrl">Исходный URL PGN</string>
   <string name="sourceUrlHelp">URL-адрес, с которого Lichess будет получать обновление PGN. Он должен быть доступен для получения из Интернета.</string>
   <string name="sourceGameIds">До 64 идентификаторов (ID) игр Lichess, разделённых пробелами.</string>
-  <string name="startDate">Дата начала в вашем часовом поясе</string>
+  <string name="startDateTimeZone">Дата начала турнира в местном часовом поясе: %s</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
   <string name="credits">Признательность</string>
   <string name="currentGameUrl">URL-адрес текущей партии</string>
@@ -42,8 +43,6 @@
   <string name="definitivelyDeleteTournament">Окончательно удалить весь турнир, его туры и партии.</string>
   <string name="showScores">Показать очки игроков по результатам партий</string>
   <string name="replacePlayerTags">Необязательно: заменить имена игроков, рейтинги и звания</string>
-  <string name="periodInSeconds">Период в секундах</string>
-  <string name="periodInSecondsHelp">Необязательно: сколько времени ждать между запросами. Минимум 2 сек, максимум 60 сек. По умолчанию устанавливается автоматически, в зависимости от количества зрителей.</string>
   <string name="fideFederations">Федерации FIDE</string>
   <string name="top10Rating">Топ-10</string>
   <string name="fidePlayers">Игроки FIDE</string>

@@ -17,7 +17,6 @@
   <string name="fullDescription">Поўнае апісанне турніру</string>
   <string name="fullDescriptionHelp">Неабавязковая дасканалае апісанне турніру. Даступны %1$s. Даўжыня павінна быць менш за %2$s сімвалаў.</string>
   <string name="sourceUrlHelp">Спасылка, з якой Lichess паспрабуе атрымоўваць абнаўленні PGN. Яны павінна быць даступнай для кожнай ва Інтэрнэце.</string>
-  <string name="startDate">Дата пачатаку ў вашым часавым поясе</string>
   <string name="startDateHelp">Па жаданні, калі вы ведаеце пачатак падзеі</string>
   <string name="credits">Падзякаваць крыніцы</string>
   <string name="currentGameUrl">Спасылка на бягучую гульню</string>

@@ -14,7 +14,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/webrtc": "^0.0.42",
+    "@types/webrtc": "^0.0.43",
     "common": "workspace:*",
     "peerjs": "^1.5.4",
     "snabbdom": "3.5.1"

@@ -23,13 +23,6 @@ def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
 def streamers(streamers: List[UserId])(using Translate) =
   views.streamer.bits.contextual(streamers).map(_(cls := "none"))
 
-def jsI18n()(using Translate) =
-  views.userAnalysisI18n(withAdvantageChart = true) ++
-    i18nJsObject(bits.i18nKeys ++ bits.gamebookPlayKeys)
-
-def embedJsI18n(chapter: lila.study.Chapter)(using Translate) =
-  views.userAnalysisI18n() ++ chapter.isGamebook.so(i18nJsObject(bits.gamebookPlayKeys))
-
 def clone(s: lila.study.Study)(using Context) =
   views.site.message(title = s"Clone ${s.name}", icon = Icon.StudyBoard.some)(ui.clone(s))
 
@@ -57,6 +50,7 @@ def show(
   Page(s.name.value)
     .css("analyse.study")
     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+    .i18n(_.puzzle, _.study)
     .js(analyseNvuiTag)
     .js(
       PageModule(
@@ -66,7 +60,6 @@ def show(
             .add("admin", isGranted(_.StudyAdmin))
             .add("showRatings", ctx.pref.showRatings),
           "data"     -> data.analysis,
-          "i18n"     -> jsI18n(),
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId"   -> ctx.userId,
           "chat" -> chatOption.map: c =>

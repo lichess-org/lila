@@ -17,11 +17,9 @@ import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
-import { trans } from 'common/i18n';
 
 export default class EditorCtrl {
   options: Options;
-  trans: Trans;
   chessground: CgApi | undefined;
 
   selected: Prop<Selected>;
@@ -42,8 +40,6 @@ export default class EditorCtrl {
     readonly redraw: Redraw,
   ) {
     this.options = cfg.options || {};
-
-    this.trans = trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 

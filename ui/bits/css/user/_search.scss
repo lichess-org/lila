@@ -10,6 +10,17 @@
     table {
       flex: 0 1 48%;
       margin-inline-start: 2%;
+
+      .two-columns {
+        @extend %flex-wrap;
+        gap: 1em;
+
+        > * {
+          flex: 1 150px;
+          @extend %flex-between-nowrap;
+          gap: 2ch;
+        }
+      }
     }
 
     td {
@@ -30,19 +41,6 @@
     label {
       margin-inline-end: 0.5em;
       white-space: normal;
-    }
-
-    table {
-      .two-columns {
-        @extend %flex-wrap;
-        gap: 1em;
-
-        > * {
-          flex: 1 150px;
-          @extend %flex-between-nowrap;
-          gap: 2ch;
-        }
-      }
     }
 
     .action {

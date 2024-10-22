@@ -19,10 +19,7 @@ function renderInStage(ctrl: SideCtrl) {
         {
           attrs: { href: BASE_LEARN_PATH },
         },
-        [
-          h('img', { attrs: { src: util.assetUrl + 'images/learn/brutal-helm.svg' } }),
-          ctrl.trans.noarg('menu'),
-        ],
+        [h('img', { attrs: { src: util.assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
       ),
       ...stages.categs.map((categ, categId) =>
         h(
@@ -31,7 +28,7 @@ function renderInStage(ctrl: SideCtrl) {
             class: { active: categId == ctrl.categId() },
           },
           [
-            h('h2', { hook: bind('click', () => ctrl.categId(categId)) }, ctrl.trans.noarg(categ.name)),
+            h('h2', { hook: bind('click', () => ctrl.categId(categId)) }, categ.name),
             h(
               'div.categ_stages',
               categ.stages.map(s => {
@@ -42,7 +39,7 @@ function renderInStage(ctrl: SideCtrl) {
                   {
                     attrs: { href: hashHref(s.id) },
                   },
-                  [h('img', { attrs: { src: s.image } }), h('span', ctrl.trans.noarg(s.title))],
+                  [h('img', { attrs: { src: s.image } }), h('span', s.title)],
                 );
               }),
             ),
@@ -57,10 +54,10 @@ function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
   return h('div.learn__side-home', [
     h('i.fat'),
-    h('h1', ctrl.trans.noarg('learnChess')),
-    h('h2', ctrl.trans.noarg('byPlaying')),
+    h('h1', i18n.learn.learnChess),
+    h('h2', i18n.learn.byPlaying),
     h('div.progress', [
-      h('div.text', ctrl.trans('progressX', progress + '%')),
+      h('div.text', i18n.learn.progressX(progress + '%')),
       h('div.bar', {
         style: {
           width: progress + '%',
@@ -70,15 +67,12 @@ function renderHome(ctrl: SideCtrl) {
     h('div.actions', [
       progress > 0
         ? h(
-          'a.confirm',
-          {
-            hook: bind(
-              'click',
-              () => confirm(ctrl.trans.noarg('youWillLoseAllYourProgress')) && ctrl.reset(),
-            ),
-          },
-          ctrl.trans.noarg('resetMyProgress'),
-        )
+            'a.confirm',
+            {
+              hook: bind('click', () => confirm(i18n.learn.youWillLoseAllYourProgress) && ctrl.reset()),
+            },
+            i18n.learn.resetMyProgress,
+          )
         : null,
     ]),
   ]);

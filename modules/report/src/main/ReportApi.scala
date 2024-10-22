@@ -36,14 +36,18 @@ final class ReportApi(
   def create(data: ReportSetup, reporter: Reporter, msgs: List[String]): Funit =
     Reason(data.reason).so: reason =>
       getSuspect(data.user.id).flatMapz: suspect =>
-        create:
-          Report.Candidate(
-            reporter,
-            suspect,
-            reason,
-            data.text.take(1000) + msgs.nonEmpty.so:
-              s"""\n\n\n--- selected inbox messages ---\n\n${msgs.mkString("\n\n")}"""
-          )
+        if data.text.startsWith(Reason.flagText) then
+          logger.warn(s"False flag from ${reporter.user.username} about ${data.user.name}: ${data.text}")
+          funit
+        else
+          create:
+            Report.Candidate(
+              reporter,
+              suspect,
+              reason,
+              data.text.take(1000) + msgs.nonEmpty.so:
+                s"""\n\n\n--- selected inbox messages ---\n\n${msgs.mkString("\n\n")}"""
+            )
 
   def isAutoBlock(data: ReportSetup): Boolean =
     Reason(data.reason).exists(Reason.autoBlock)
@@ -276,8 +280,10 @@ final class ReportApi(
   def byId(id: ReportId) = coll.byId[Report](id)
 
   def process(report: Report)(using Me): Funit = for
-    _ <- accuracy.invalidate($id(report.id))
-    _ <- doProcessReport($id(report.id), unsetInquiry = true)
+    _             <- accuracy.invalidate($id(report.id))
+    deletedAppeal <- deleteIfAppealInquiry(report)
+    _ <- (!deletedAppeal).so:
+      doProcessReport($id(report.id), unsetInquiry = true)
   yield
     maxScoreCache.invalidateUnit()
     lila.mon.mod.report.close.increment()
@@ -288,9 +294,15 @@ final class ReportApi(
       "room".$in(rooms),
       "open" -> true
     )
-    doProcessReport(selector, unsetInquiry = true).void
-      .andDo(maxScoreCache.invalidateUnit())
-      .andDo(lila.mon.mod.report.close.increment())
+    for _ <- doProcessReport(selector, unsetInquiry = true)
+    yield
+      maxScoreCache.invalidateUnit()
+      lila.mon.mod.report.close.increment()
+
+  private def deleteIfAppealInquiry(report: Report)(using me: MyId): Fu[Boolean] =
+    if report.isAppealInquiryByMe
+    then for _ <- coll.delete.one($id(report.id)) yield true
+    else fuccess(false)
 
   private def doProcessReport(selector: Bdoc, unsetInquiry: Boolean)(using me: MyId): Funit =
     coll.update
@@ -382,12 +394,15 @@ final class ReportApi(
       .cursor[Report]()
       .list(nb.value)
 
-  def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
+  def allReportsAbout(user: User, nb: Max, select: Bdoc = $empty): Fu[List[Report]] =
     coll
-      .find($doc("user" -> user.id, "room" -> Room.Comm.key))
+      .find($doc("user" -> user.id) ++ select)
       .sort(sortLastAtomAt)
       .cursor[Report]()
       .list(nb.value)
+
+  def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
+    allReportsAbout(user, nb, $doc("room" -> Room.Comm.key))
 
   def byAndAbout(user: User, nb: Max)(using Me): Fu[Report.ByAndAbout] = for
     by <-
@@ -456,7 +471,7 @@ final class ReportApi(
       .map: users =>
         reports
           .flatMap: r =>
-            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline(u.id)) }
+            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline.exec(u.id)) }
           .sortBy(-_.urgency)
 
   def snooze(reportId: ReportId, duration: String)(using mod: Me): Fu[Option[Report]] =
@@ -591,7 +606,7 @@ final class ReportApi(
 
     private def cancel(report: Report)(using mod: Me): Funit =
       if report.is(_.Other) && mod.is(report.onlyAtom.map(_.by))
-      then coll.delete.one($id(report.id)).void // cancel spontaneous inquiry
+      then coll.delete.one($id(report.id)).void // cancel spontaneous inquiry or appeal
       else
         coll.update
           .one(
@@ -611,7 +626,7 @@ final class ReportApi(
         Report.Atom
           .best(report.so(_.atoms.toList).filter(_.is(_.Username)), 1)
           .headOption
-          .map(_.simplifiedText)
+          .map(_.textWithoutAutoReports)
 
     private def openOther(sus: Suspect, name: String)(using mod: Me): Fu[Report] =
       ofModId(mod.userId).flatMap: current =>

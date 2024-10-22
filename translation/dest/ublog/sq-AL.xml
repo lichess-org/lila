@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s botoi %2$s</string>
   <string name="thisPostIsPublished">Ky postim u botua</string>
   <string name="thisIsADraft">Kjo është një skicë</string>
-  <string name="moreBlogPostsBy">Më tepër postime blogu nga %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Më tepër postime blogu nga %s</string>
   <string name="noPostsInThisBlogYet">Ende pa postime në këtë blog.</string>
   <string name="noDrafts">S’ka skica për shfaqje.</string>
   <string name="latestBlogPosts">Postimet më të reja në blog</string>

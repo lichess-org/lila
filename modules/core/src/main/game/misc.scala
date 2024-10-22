@@ -68,7 +68,6 @@ enum Source(val id: Int) derives Eq:
   case Import     extends Source(id = 7)
   case ImportLive extends Source(id = 9)
   case Simul      extends Source(id = 10)
-  case Relay      extends Source(id = 11)
   case Pool       extends Source(id = 12)
   case Swiss      extends Source(id = 13)
 

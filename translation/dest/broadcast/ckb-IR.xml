@@ -22,7 +22,6 @@
   <string name="fullDescription">بە گشتی باسی پالەوانێتیەکە بکە</string>
   <string name="fullDescriptionHelp">وەسفێکی درێژی ھەڵبژاردنی پاڵەوانێتییەکە. %1$s بەردەستە. درێژی دەبێت کەمتر بێت لە کاراکتەرەکانی %2$s.</string>
   <string name="sourceUrlHelp">URL مافی لی چێسە بۆ بەردەست خستنی تازەکردنەوە PGN پێویستە بۆ ھەموان بەردەست بێت لەسەر ئەنتەرنێت</string>
-  <string name="startDate">بەرواری دەستپێکردن لە چوارچێوەی کاتی خۆتدا</string>
   <string name="startDateHelp">بە ھەلبژاردنی خۆتە چ کاتێک دەس پێ بکات</string>
   <string name="credits">لە سەرچاوەکە دڵنیابە</string>
   <string name="currentGameUrl">لینکی یاریەکانی ئێستا</string>

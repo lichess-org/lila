@@ -2,6 +2,7 @@
 <resources>
   <string name="puzzles">പസ്സിലുകള്‍</string>
   <string name="puzzleThemes">പസ്സില്‍ വിഷയം</string>
+  <string name="recommended">മികച്ചതു്</string>
   <string name="phases">ഘട്ടങ്ങള്‍</string>
   <string name="motifs">വിഷയം</string>
   <string name="advanced">കടുപ്പം കൂടിയത്</string>
@@ -16,6 +17,7 @@
   <string name="findTheBestMoveForBlack">കറുപ്പിന്‍റെ ഏറ്റവും മികച്ച നീക്കം കണ്ടു പിടിക്കൂക.</string>
   <string name="puzzleId">%sമത്തെ പസ്സില്‍</string>
   <string name="puzzleOfTheDay">ഇന്നത്തെ പസ്സില്‍</string>
+  <string name="dailyPuzzle">ദിവസേന പസ്സിൽ</string>
   <string name="clickToSolve">ഉത്തരം കണ്ടുപിടിക്കാനായി ക്ലിക്ക് ചെയ്യുക</string>
   <string name="goodMove">നല്ല നീക്കം</string>
   <string name="bestMove">ഏറ്റവും മികച്ച നീക്കം!</string>
@@ -40,12 +42,17 @@
   <string name="hardest">ഏറ്റവും കടുപ്പമേറിയവ</string>
   <string name="example">ഉദാഹരണം</string>
   <string name="addAnotherTheme">മറ്റൊരു തീം ചേര്‍ക്കുക</string>
+  <string name="nextPuzzle">അടുത്ത പസ്സിൽ</string>
   <string name="jumpToNextPuzzleImmediately">ഉടനെ അടുത്ത പസ്സിലിലേക്ക് പോകുക</string>
   <string name="puzzleDashboard">പസ്സില്‍ ഡാഷ്ബോർഡ്</string>
   <string name="improvementAreas">മെച്ചപ്പെടുത്തുവാനുള്ള മേഖലകള്‍</string>
   <string name="strengths">മികവ്</string>
   <string name="history">മുന്‍പ്‌ ശ്രമിച്ച പസ്സിലുകള്‍</string>
   <string name="solved">ശരിയാക്കിയവ</string>
-  <string name="failed">തെറ്റിയവ</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">തെറ്റിയവ</string>
   <string name="yourStreakX">നിങ്ങളുടെ വിജയത്തുടര്‍ച്ച: %s</string>
+  <string name="fromMyGames">എന്റെ കളികൾ നിന്നു്</string>
+  <string name="searchPuzzles">പസ്സിലുകൾ തിരയുക</string>
+  <string name="percentSolved">%s പൂർതീകരിച്ചിരിക്കുന്നു</string>
+  <string name="noPuzzlesToShow">കാണിക്കാനൊന്നുമില്ല, ആദ്യം പസ്സിലുകൾ ശ്രമിച്ചു് നോക്കു്!</string>
 </resources>

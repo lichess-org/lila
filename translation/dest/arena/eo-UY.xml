@@ -77,11 +77,11 @@ Ekzemple, se vi estas rangita 3 en turniro de 100 ludantoj = 3%. Se vi estas ran
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medianoj</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Ĉiuj mezumoj sur ĉi tiu paĝo estas %s.</string>
   <string name="total">Totalo</string>
-  <string name="pointsAvg">Poenta mezumo</string>
+  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Poenta mezumo</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Poenta sumo</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Ranga mezumo</string>
   <string name="tournamentWinners">Turniraj venkintoj</string>
   <string name="tournamentShields">Turniraj ŝildoj</string>
   <string name="onlyTitled">Nur titolitaj ludantoj</string>
-  <string name="onlyTitledHelp">Necesigi oficialan titolon por aliĝi al la turniro</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Necesigi oficialan titolon por aliĝi al la turniro</string>
 </resources>

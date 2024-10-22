@@ -69,7 +69,7 @@ function group(arr: Tournament[], grouper: (t: Tournament) => number): Lane[] {
   });
   return Object.keys(groups)
     .sort()
-    .map(function(k) {
+    .map(function (k) {
       return groups[k]!;
     });
 }
@@ -79,7 +79,7 @@ function truncSeconds(epoch: number): number {
 }
 
 function fitLane(lane: Lane, tour2: Tournament) {
-  return !lane.some(function(tour1: Tournament) {
+  return !lane.some(function (tour1: Tournament) {
     return !(
       truncSeconds(tour1.finishesAt) <= truncSeconds(tour2.startsAt) ||
       truncSeconds(tour2.finishesAt) <= truncSeconds(tour1.startsAt)
@@ -132,7 +132,7 @@ const iconOf = (tour: Tournament) =>
 
 let mousedownAt: number[] | undefined;
 
-function renderTournament(ctrl: Ctrl, tour: Tournament) {
+function renderTournament(tour: Tournament) {
   let width = tour.minutes * scale;
   const left = leftPos(tour.startsAt);
   // moves content into viewport, for long tourneys and marathons
@@ -140,12 +140,12 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
     tour.minutes < 90
       ? 0
       : Math.max(
-        0,
-        Math.min(
-          width - 250, // max padding, reserved text space
-          leftPos(now) - left - 380,
-        ),
-      ); // distance from Now
+          0,
+          Math.min(
+            width - 250, // max padding, reserved text space
+            leftPos(now) - left - 380,
+          ),
+        ); // distance from Now
   // cut right overflow to fit viewport and not widen it, for marathons
   width = Math.min(width, leftPos(stopTime) - left);
 
@@ -178,7 +178,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
             displayClock(tour.clock) + ' ',
             tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
             tour.position ? 'Thematic ' : null,
-            tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament'),
+            i18n.site[tour.rated ? 'ratedTournament' : 'casualTournament'],
           ]),
           tour.nbPlayers
             ? h('span.nb-players', { attrs: { 'data-icon': licon.User } }, tour.nbPlayers)
@@ -226,7 +226,7 @@ function isSystemTournament(t: Tournament) {
   return !!t.schedule;
 }
 
-export default function(ctrl: Ctrl) {
+export default function (ctrl: Ctrl) {
   now = Date.now();
   startTime = now - 3 * 60 * 60 * 1000;
   stopTime = startTime + 10 * 60 * 60 * 1000;
@@ -284,7 +284,7 @@ export default function(ctrl: Ctrl) {
         ...tourLanes.map(lane => {
           return h(
             'div.tournamentline',
-            lane.map(tour => renderTournament(ctrl, tour)),
+            lane.map(tour => renderTournament(tour)),
           );
         }),
       ],

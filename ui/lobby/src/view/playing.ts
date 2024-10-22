@@ -19,7 +19,7 @@ function timer(pov: NowPlaying) {
   );
 }
 
-export default function(ctrl: LobbyController) {
+export default function (ctrl: LobbyController) {
   return h(
     'div.now-playing',
     ctrl.data.nowPlaying.map(pov =>
@@ -30,14 +30,14 @@ export default function(ctrl: LobbyController) {
         }),
         h('span.meta', [
           pov.opponent.ai
-            ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai)
+            ? i18n.site.aiNameLevelAiLevel('Stockfish', pov.opponent.ai)
             : pov.opponent.username,
           h(
             'span.indicator',
             pov.isMyTurn
               ? pov.secondsLeft && pov.hasMoved
                 ? timer(pov)
-                : [ctrl.trans.noarg('yourTurn')]
+                : [i18n.site.yourTurn]
               : h('span', '\xa0'),
           ), // &nbsp;
         ]),

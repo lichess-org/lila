@@ -3,14 +3,13 @@ package ui
 
 import play.api.i18n.Lang
 
-import lila.core.i18n.Language
+import lila.core.i18n.{ I18nModule, Language }
 import lila.core.report.ScoreThresholds
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
-    jsQuantity: Lang => String,
     isRTL: Lang => Boolean,
     popularAlternateLanguages: List[Language],
     reportScoreThreshold: () => ScoreThresholds,
@@ -141,9 +140,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
     )
 
-  // consolidate script packaging here to dedup chunk dependencies
-  def sitePreload(modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    scriptsPreload("site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten)
+  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList, isInquiry: Boolean)(using
+      ctx: Context
+  ) =
+    val i18nModules = i18nMods.map(mod => s"i18n/${mod(I18nModule)}.${ctx.lang.code}")
+    scriptsPreload(
+      i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
+    )
 
   def scriptsPreload(keys: List[String]) =
     frag(
@@ -334,32 +337,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   object inlineJs:
     def apply(nonce: Nonce)(using Translate): Frag = embedJsUnsafe(jsCode)(nonce.some)
 
-    private val i18nKeys = List(
-      trans.site.pause,
-      trans.site.resume,
-      trans.site.nbFriendsOnline,
-      trans.site.reconnecting,
-      trans.site.noNetwork,
-      trans.timeago.justNow,
-      trans.timeago.inNbSeconds,
-      trans.timeago.inNbMinutes,
-      trans.timeago.inNbHours,
-      trans.timeago.inNbDays,
-      trans.timeago.inNbWeeks,
-      trans.timeago.inNbMonths,
-      trans.timeago.inNbYears,
-      trans.timeago.rightNow,
-      trans.timeago.nbMinutesAgo,
-      trans.timeago.nbHoursAgo,
-      trans.timeago.nbDaysAgo,
-      trans.timeago.nbWeeksAgo,
-      trans.timeago.nbMonthsAgo,
-      trans.timeago.nbYearsAgo,
-      trans.timeago.nbMinutesRemaining,
-      trans.timeago.nbHoursRemaining,
-      trans.timeago.completed
-    )
-
     private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
     lila.common.Bus.subscribeFun("i18n.load"):
       case lang: Lang => cache.remove(lang)
@@ -367,10 +344,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     private def jsCode(using t: Translate) =
       cache.computeIfAbsent(
         t.lang,
-        _ =>
-          "if (!window.site) window.site={};" +
-            """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
-            s"window.site.quantity=${jsQuantity(t.lang)};" +
-            s"window.site.siteI18n=${safeJsonValue(i18nJsObject(i18nKeys))};"
+        _ => """window.site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r))};"""
       )
   end inlineJs

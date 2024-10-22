@@ -255,6 +255,7 @@ GET   /broadcast                              controllers.RelayTour.index(page: 
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
+GET   /broadcast/calendar/:year/:month        controllers.RelayTour.calendarMonth(year: Int, month: Int)
 GET   /broadcast/help                         controllers.RelayTour.help
 GET   /broadcast/app                          controllers.RelayTour.app
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user: UserStr, page: Int ?= 1)
@@ -682,7 +683,8 @@ GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id: PuzzleId)
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
-GET   /api/user/:user/tournament/created controllers.Api.tournamentsByOwner(user: UserStr, status: List[Int])
+GET   /api/user/:user/tournament/created controllers.UserTournament.apiTournamentsByOwner(user: UserStr, status: List[Int])
+GET   /api/user/:user/tournament/played  controllers.UserTournament.apiTournamentsByPlayer(user: UserStr)
 GET   /api/user/:user                  controllers.Api.user(user: UserStr)
 GET   /api/user/:user/activity         controllers.Api.activity(user: UserStr)
 GET   /api/user/:user/note             controllers.User.apiReadNote(user: UserStr)

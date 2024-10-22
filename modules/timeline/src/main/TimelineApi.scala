@@ -21,7 +21,8 @@ private final class TimelineApi(
           unsubApi.filterUnsub(data.channel, users)
         .foreach: users =>
           if users.nonEmpty then
-            insertEntry(users, data).andDo(lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket"))
+            for _ <- insertEntry(users, data)
+            yield lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
           lila.mon.timeline.notification.increment(users.size)
 
   private def doPropagate(propagations: List[Propagation]): Fu[List[UserId]] =

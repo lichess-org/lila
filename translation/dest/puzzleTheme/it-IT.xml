@@ -39,7 +39,7 @@
   <string name="deflection">Deviazione</string>
   <string name="deflectionDescription">Una mossa che rimuove un pezzo avversario da un compito, come ad esempio difendere una casa chiave.</string>
   <string name="discoveredAttack">Attacco di scoperta</string>
-  <string name="discoveredAttackDescription">Mossa di un pezzo che precedentemente bloccava un attacco di un pezzo a lungo raggio, come ad esempio un cavallo che si sposta da una casa in fronte ad una torre.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mossa di un pezzo che precedentemente bloccava un attacco di un pezzo a lungo raggio, come ad esempio un cavallo che si sposta da una casa in fronte ad una torre.</string>
   <string name="doubleCheck">Doppio scacco</string>
   <string name="doubleCheckDescription">Scacco con due pezzi contemporaneamente, conseguente a un attacco di scoperta in cui sia il pezzo appena mosso che il pezzo scoperto attaccano il re avversario.</string>
   <string name="endgame">Finale</string>

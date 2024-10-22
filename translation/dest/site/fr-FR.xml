@@ -126,7 +126,6 @@
   <string name="memory">Mémoire</string>
   <string name="infiniteAnalysis">Analyse infinie</string>
   <string name="removesTheDepthLimit">Désactive la profondeur limitée et fait chauffer votre ordinateur</string>
-  <string name="engineManager">Gestionnaire de moteur d\'analyse</string>
   <string name="blunder">Gaffe</string>
   <string name="mistake">Erreur</string>
   <string name="inaccuracy">Imprécision</string>

@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Координатне тренування</string>
   <string name="averageScoreAsWhiteX">Середній результат за білих: %s</string>
   <string name="averageScoreAsBlackX">Середній результат за чорних: %s</string>
-  <string name="knowingTheChessBoard">Знання координат шахівниці - дуже важлива шахова навичка:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Знання координат шахівниці - дуже важлива шахова навичка:</string>
   <string name="mostChessCourses">У більшості шахових задач активно використовуються шахова нотація.</string>
   <string name="talkToYourChessFriends">Це спрощує розмову з друзями-шахістами, бо Ви обидва розумієте «мову шахів».</string>
   <string name="youCanAnalyseAGameMoreEffectively">Ви можете більш ефективно аналізувати ігри, якщо вам не потрібно шукати координати.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Ви маєте 30 секунд для того, щоб відмітити якнайбільше полів!</string>
   <string name="goAsLongAsYouWant">Витрачайте стільки часу, скільки забажаєте - жодних лімітів!</string>
   <string name="showCoordinates">Відображати координати</string>
-  <string name="showCoordsOnAllSquares">Координати на кожному полі</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Координати на кожному полі</string>
   <string name="showPieces">Показувати фігури</string>
   <string name="startTraining">Розпочати тренування</string>
   <string name="findSquare">Знайти поле</string>

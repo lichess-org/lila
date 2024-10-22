@@ -48,9 +48,9 @@ export const userFlair = (u: HasFlair): VNode | undefined =>
 export const userLine = (u: HasLine): VNode | undefined =>
   u.line !== false
     ? h('i.line', {
-      class: { patron: !!u.patron, moderator: !!u.moderator },
-      attrs: u.patron ? { title: 'Lichess Patron' } : {},
-    })
+        class: { patron: !!u.patron, moderator: !!u.moderator },
+        attrs: u.patron ? { title: 'Lichess Patron' } : {},
+      })
     : undefined;
 
 export const userTitle = (u: HasTitle): VNode | undefined =>

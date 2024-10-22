@@ -115,7 +115,7 @@
   <string name="deleteThisImportedGame">آیا این بازیِ درونبُرده پاک شود؟</string>
   <string name="replayMode">حالت بازپخش</string>
   <string name="realtimeReplay">مشابه بازی</string>
-  <string name="byCPL">درنگ حین اشتباهات</string>
+  <string name="byCPL">درنگ هنگام اشتباه</string>
   <string name="openStudy">گشودن مطالعه</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
@@ -126,7 +126,6 @@
   <string name="memory">حافظه</string>
   <string name="infiniteAnalysis">آنالیز بی پایان</string>
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
-  <string name="engineManager">مدیر موتور شطرنج</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
   <string name="inaccuracy">بی دقتی</string>
@@ -176,8 +175,8 @@
   <string name="computersAreNotAllowedToPlay">رایانه ها و بازیکنان رایانه-یاریده، مجاز به بازی نیستند. لطفا هنگام بازی از موتورهای شطرنج، دادگان‌ها یا دیگر بازیکنان کمک نگیرید. همچنین توجه کنید که ساخت چندین حساب به شدت ممنوع است و چند حسابی افزاینده، منجر به بستن‌تان می‌شود.</string>
   <string name="games">بازی ها</string>
   <string name="forum">انجمن</string>
-  <string name="xPostedInForumY">%1$s در انجمن،موضوع %2$s را پست کرد.</string>
-  <string name="latestForumPosts">آخرین پست های انجمن</string>
+  <string name="xPostedInForumY">%1$s در موضوع %2$s، پیامی نوشت</string>
+  <string name="latestForumPosts">آخرین فرسته‌های انجمن</string>
   <string name="players">بازیکنان</string>
   <string name="friends">دوستان</string>
   <string name="otherPlayers">بازیکنان دیگر</string>
@@ -229,7 +228,7 @@
   <string name="passwordSuggestion">از رمز عبور پیشنهاد شده از شخص دیگر استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
   <string name="emailSuggestion">از ایمیلی که از شخص دیگر به شما پیشنهاد داده است استفاده نکنید. در این صورت احتمال سرقت حساب شما وجود دارد.</string>
   <string name="emailConfirmHelp">کمک با تائید ایمیل</string>
-  <string name="emailConfirmNotReceived">آیا ایمیل تائید بعد از ثبت نام را دریافت نکرده اید؟</string>
+  <string name="emailConfirmNotReceived">آیا رایانامهٔ تاییدتان را پس از نام‌نویسی دریافت نکردید؟</string>
   <string name="whatSignupUsername">از چه نام کاربری برای ثبت نام استفاده کردید؟</string>
   <string name="usernameNotFound">ما هیچ کابری با این نام نیافتیم: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">شما می توانید از این نام کاربری برای ایجاد یک حساب کاربری جدید استفاده کنید</string>
@@ -428,23 +427,23 @@
     <item quantity="other">%s دوست بَرخط</item>
   </plurals>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
-  <string name="follow">دنبال کردن</string>
-  <string name="following">افرادی که دنبال می کنید</string>
-  <string name="unfollow">لغو دنبال کردن</string>
+  <string name="follow">دنبالیدن</string>
+  <string name="following">دنبالنده</string>
+  <string name="unfollow">وادنبالیدن</string>
   <string name="followX">دنبالیدن %s</string>
-  <string name="unfollowX">نادنبالیدن %s</string>
+  <string name="unfollowX">وادنبالیدن %s</string>
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
-  <string name="followsYou">افرادی که شما را دنبال می کنند</string>
-  <string name="xStartedFollowingY">%1$s %2$s را فالو کرد</string>
+  <string name="followsYou">شما را می‌دنبالد</string>
+  <string name="xStartedFollowingY">%1$s دنبالیدن %2$s را آغازید</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s دنبال کننده‌</item>
-    <item quantity="other">%s دنبال کننده‌</item>
+    <item quantity="one">%s دنبال‌گر</item>
+    <item quantity="other">%s دنبال‌گر</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s دنبال می کند</item>
-    <item quantity="other">%s دنبال میکند</item>
+    <item quantity="one">%s دنبالنده</item>
+    <item quantity="other">%s دنبالنده</item>
   </plurals>
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
@@ -528,9 +527,9 @@
     <item quantity="one">%s بازی در حال انجام است</item>
     <item quantity="other">%s بازی در حال انجام است</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">حرکت کردن اتوماتیک برای بازی بعدی بعد از حرکت کردن</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">پس از حرکت، خودکار به بازی بعدی روید</string>
   <string name="autoSwitch">تعویض خودکار</string>
-  <string name="puzzles">معماها</string>
+  <string name="puzzles">معما</string>
   <string name="onlineBots">ربات‌های بَرخط</string>
   <string name="name">نام</string>
   <string name="description">شرح</string>
@@ -543,8 +542,8 @@
   <string name="help">راهنما:</string>
   <string name="createANewTopic">ایجاد یک موضوع جدید</string>
   <string name="topics">مباحث</string>
-  <string name="posts">پست ها</string>
-  <string name="lastPost">آخرین ارسال</string>
+  <string name="posts">فرسته‌ها</string>
+  <string name="lastPost">آخرین فرسته</string>
   <string name="views">نمایش ها</string>
   <string name="replies">پاسخ ها</string>
   <string name="replyToThisTopic">پاسخ به این موضوع</string>
@@ -558,18 +557,18 @@
   <string name="cheat">تقلب</string>
   <string name="troll">وِزُل</string>
   <string name="other">دیگر</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">اگر انگلیسی بنویسید، زودتر به گزارش‌تان رسیدگی خواهد شد.</string>
+  <string name="reportCheatBoostHelp">پیوند بازی(ها) را جای‌گذارید و بشرحید که چه رفتاری از این کاربر مشکل دارد. فقط نگویید «آنها تقلب‌کارند»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید.</string>
+  <string name="reportUsernameHelp">بشرحید چه چیز این نام‌کاربری آزارنده است. فقط نگویید «آزارنده/نامناسب است»، بلکه به ما بگویید چطور به این نتیجه رسیده‌اید، به‌ویژه اگر توهین: گنگ است، انگلیسی نیست، کوچه‌بازاری است، یا یک ارجاع تاریخی/فرهنگی است.</string>
+  <string name="reportProcessedFasterInEnglish">اگر انگلیسی بنویسید، زودتر به گزارش‌تان رسیدگی خواهد شد.</string>
   <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
-  <string name="by">توسط %s</string>
+  <string name="by">به‌دستِ %s</string>
   <string name="importedByX">%s آن را وارد کرده</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
   <string name="blog">وبنوشت</string>
-  <string name="notes">یادداشت ها</string>
-  <string name="typePrivateNotesHere">یادداشت خصوصی را اینجا وارد کنید</string>
+  <string name="notes">یادداشت‌ها</string>
+  <string name="typePrivateNotesHere">یادداشت‌های خصوصی را اینجا بنویسید</string>
   <string name="writeAPrivateNoteAboutThisUser">یک یادداشت خصوصی درباره این کاربر بنویسید</string>
-  <string name="noNoteYet">تا الان، بدون یادداشت</string>
+  <string name="noNoteYet">تاکنون، بدون یادداشت</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا رمز عبور نادرست است</string>
   <string name="incorrectPassword">گذرواژه‌ی نادرست</string>
   <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
@@ -583,7 +582,7 @@
   <string name="clockIncrement">مقدار زمان اضافی به ازای هر حرکت</string>
   <string name="privacy">حریم شخصی</string>
   <string name="privacyPolicy">سیاست حریم شخصی</string>
-  <string name="letOtherPlayersFollowYou">بقیه بازیکنان شما را دنبال کنند</string>
+  <string name="letOtherPlayersFollowYou">اجازه دهید دیگر بازیکنان شما را بدنبالند</string>
   <string name="letOtherPlayersChallengeYou">اجازه دهید بازیکنان دیگر به شما پیشنهاد بازی دهند</string>
   <string name="letOtherPlayersInviteYouToStudy">بگذارید دیگر بازیکنان، شما را به مطالعه دعوت کنند</string>
   <string name="sound">صدا</string>
@@ -604,7 +603,7 @@
   <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">جدول زمانی</string>
-  <string name="starting">شروع</string>
+  <string name="starting">آغاز:</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
   <string name="biographyDescription">درباره ی خودتان بگویید - به چه چیزی در شطرنج علاقه داریدو گشایش ها - بازی ها و بازیکنان مورد علاقه تان…</string>
   <plurals name="maximumNbCharacters">
@@ -646,8 +645,8 @@
   <string name="whiteCastlingKingside">O-O سفید</string>
   <string name="blackCastlingKingside">O-O سیاه</string>
   <plurals name="nbForumPosts">
-    <item quantity="one">%s وبنوشته در انجمن</item>
-    <item quantity="other">%s وبنوشته در انجمن</item>
+    <item quantity="one">%s فرسته در انجمن</item>
+    <item quantity="other">%s فرسته در انجمن</item>
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی‌ها</string>
@@ -696,10 +695,10 @@
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
   <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
-  <string name="keyShowOrHideComments">نمایش/ پنهان کردن نظرات</string>
+  <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
   <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
   <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
-  <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباهات خود درس بگیرید)</string>
+  <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباه‌های‌تان بیاموزید)</string>
   <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
   <string name="keyNextMistake">اشتباه بعدی</string>
   <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
@@ -773,14 +772,14 @@
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راه‌حل</string>
-  <string name="followAndChallengeFriends">دنبال کردن و پیشنهاد بازی دادن به دوستان</string>
+  <string name="followAndChallengeFriends">دنبالیدن و پیشنهاد بازی دادن به دوستان</string>
   <plurals name="availableInNbLanguages">
     <item quantity="one">در %s زبان موجود است!</item>
     <item quantity="other">در %s زبان موجود است!</item>
   </plurals>
   <string name="gameAnalysis">تجزیه و تحلیلِ بازی</string>
-  <string name="xHostsY">%1$s میزبان ها %2$s</string>
-  <string name="xJoinsY">%1$s وارد می شود %2$s</string>
+  <string name="xHostsY">%1$s میزبان %2$s است</string>
+  <string name="xJoinsY">%1$s به %2$s می‌پیوندد</string>
   <string name="xLikesY">%1$s، %2$s را می‌پسندد</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">سَرسَرا</string>
@@ -833,7 +832,7 @@
   <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
   <string name="whiteWinsGame">سفید برنده شد</string>
   <string name="blackWinsGame">سیاه برنده شد</string>
-  <string name="learnFromYourMistakes">از اشتباهات خود درس بگیرید</string>
+  <string name="learnFromYourMistakes">از اشتباه‌های‌تان بیاموزید</string>
   <string name="learnFromThisMistake">از این اشتباه درس بگیرید</string>
   <string name="skipThisMove">رد کردن این حرکت</string>
   <string name="next">بعدی</string>
@@ -890,7 +889,7 @@
   <string name="agreementAssistance">من موافقم که در طول بازی‌هایم هیچگاه کمکی نخواهم گرفت (از یک رایانه شطرنج، کتاب، دادگان یا شخص دیگری).</string>
   <string name="agreementNice">می‌پذیرم که همواره به بازیکنان دیگر احترام گزارم.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">موافقم که چندین حساب نخواهم ساخت (جز به دلیل‌های ذکر شده در %s).</string>
-  <string name="agreementPolicy">با پیروی از همه خط‌مشی‌های Lichess، موافقم.</string>
+  <string name="agreementPolicy">با پیروی از همهٔ خط‌مشی‌های Lichess، موافقم.</string>
   <string name="searchOrStartNewDiscussion">جستجو یا شروع کردن مکالمه جدید</string>
   <string name="edit">ویرایش</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله‌ای</string>
@@ -914,13 +913,13 @@
   <string name="makeSureToRead">حتما %1$s را مطالعه کنید</string>
   <string name="theForumEtiquette">آداب انجمن</string>
   <string name="thisTopicIsArchived">این موضوع بایگانی شده است و دیگر نمی توان به آن پاسخ داد.</string>
-  <string name="joinTheTeamXToPost">به %1$s ملحق شوید تا در این انجمن پست بگذارید</string>
+  <string name="joinTheTeamXToPost">برای فرسته گذاشتن در این انجمن، به %1$s بپیوندید</string>
   <string name="teamNamedX">تیم %1$s</string>
-  <string name="youCannotPostYetPlaySomeGames">شما هنوز قادر به پست گذاشتن در انجمن نیستید. چند بازی انجام دهید!</string>
+  <string name="youCannotPostYetPlaySomeGames">هنوز نمی‌توانید در انجمن‌ها فرسته گذارید. چند بازی کنید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
   <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
-  <string name="xMentionedYouInY">%1$s اسم شما را در \"%2$s\" ذکر کرده است.</string>
+  <string name="xMentionedYouInY">%1$s از شما در \"%2$s\" نام برد.</string>
   <string name="invitedYouToX">به «%1$s» دعوت شده‌اید.</string>
   <string name="xInvitedYouToY">%1$s شما را به «%2$s» دعوت کرده است.</string>
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>

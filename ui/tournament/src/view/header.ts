@@ -37,7 +37,7 @@ function clock(ctrl: TournamentController): VNode | undefined {
         }),
       ]);
     return h('div.clock.clock-created', [
-      h('span.shy', ctrl.trans.noarg('startingIn')),
+      h('span.shy', i18n.swiss.startingIn),
       h('span.time.text', { hook: startClock(d.secondsToStart) }),
     ]);
   }
@@ -64,18 +64,18 @@ function title(ctrl: TournamentController) {
     'h1',
     (d.greatPlayer
       ? [
-        h(
-          'a',
-          { attrs: { href: d.greatPlayer.url, target: '_blank', rel: 'noopener' } },
-          d.greatPlayer.name,
-        ),
-        ' Arena',
-      ]
+          h(
+            'a',
+            { attrs: { href: d.greatPlayer.url, target: '_blank', rel: 'noopener' } },
+            d.greatPlayer.name,
+          ),
+          ' Arena',
+        ]
       : [d.fullName]
     ).concat(d.private ? [' ', h('span', { attrs: dataIcon(licon.Padlock) })] : []),
   );
 }
 
-export default function(ctrl: TournamentController): VNode {
+export default function (ctrl: TournamentController): VNode {
   return h('div.tour__main__header', [image(ctrl.data), title(ctrl), clock(ctrl)]);
 }

@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Potiahne na e4 alebo označí figúrku na e4</string>
   <string name="selectOrCaptureABishop">Označí alebo vezme strelca</string>
   <string name="takeRookWithQueen">Vezme vežu Dámou</string>
-  <string name="castle">Urobí rošádu (ktorýmkoľvek smerom)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Urobí rošádu (ktorýmkoľvek smerom)</string>
   <string name="phoneticAlphabetIsBest">Anglická fonetická abeceda je najlepšia</string>
   <string name="cancelTimerOrDenyARequest">Zruší časovač alebo zamietne žiadosť</string>
   <string name="playPreferredMoveOrConfirmSomething">Potiahne požadovaný ťah alebo niečo potvrdí</string>

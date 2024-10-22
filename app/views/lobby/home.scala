@@ -18,7 +18,6 @@ object home:
           Json
             .obj(
               "data"                    -> data,
-              "i18n"                    -> i18nJsObject(i18nKeys),
               "showRatings"             -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
@@ -130,11 +129,11 @@ object home:
           div(cls := "lobby__blog ublog-post-cards"):
             ublogPosts
               .filter(_.isLichess || ctx.kid.no)
-              .take(3)
+              .take(9)
               .map:
                 views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
           ,
-          ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
+          ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)
           ,
@@ -167,48 +166,3 @@ object home:
             views.bits.connectLinks
           )
         )
-
-  private val i18nKeys = List(
-    trans.site.realTime,
-    trans.site.correspondence,
-    trans.site.unlimited,
-    trans.site.timeControl,
-    trans.site.incrementInSeconds,
-    trans.site.minutesPerSide,
-    trans.site.daysPerTurn,
-    trans.site.ratingRange,
-    trans.site.nbPlayers,
-    trans.site.nbGamesInPlay,
-    trans.site.player,
-    trans.site.time,
-    trans.site.joinTheGame,
-    trans.site.cancel,
-    trans.site.casual,
-    trans.site.rated,
-    trans.site.perfRatingX,
-    trans.site.variant,
-    trans.site.mode,
-    trans.site.list,
-    trans.site.graph,
-    trans.site.filterGames,
-    trans.site.youNeedAnAccountToDoThat,
-    trans.site.oneDay,
-    trans.site.nbDays,
-    trans.site.aiNameLevelAiLevel,
-    trans.site.yourTurn,
-    trans.site.rating,
-    trans.site.createAGame,
-    trans.site.playWithAFriend,
-    trans.site.playWithTheMachine,
-    trans.site.strength,
-    trans.site.pasteTheFenStringHere,
-    trans.site.quickPairing,
-    trans.site.lobby,
-    trans.site.custom,
-    trans.site.anonymous,
-    trans.site.side,
-    trans.site.white,
-    trans.site.randomColor,
-    trans.site.black,
-    trans.site.boardEditor
-  )

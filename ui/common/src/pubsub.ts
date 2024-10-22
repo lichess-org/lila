@@ -2,7 +2,6 @@ export type PubsubEvent =
   | 'ab.rep'
   | 'analyse.close-all'
   | 'analysis.change'
-  | 'analysis.change'
   | 'analysis.chart.click'
   | 'analysis.comp.toggle'
   | 'analysis.server.progress'
@@ -57,9 +56,7 @@ export type PubsubEvent =
   | 'top.toggle.user_tag'
   | 'zen';
 
-export type PubsubOneTimeEvent =
-  | 'dialog.polyfill'
-  | 'socket.hasConnected';
+export type PubsubOneTimeEvent = 'dialog.polyfill' | 'socket.hasConnected';
 
 export type PubsubCallback = (...data: any[]) => void;
 

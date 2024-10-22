@@ -9,6 +9,7 @@
     <item quantity="other">%s vysielaní</item>
   </plurals>
   <string name="liveBroadcasts">Živé vysielanie turnaja</string>
+  <string name="broadcastCalendar">Kalendár vysielaní</string>
   <string name="newBroadcast">Nové živé vysielanie</string>
   <string name="subscribedBroadcasts">Odoberané vysielania</string>
   <string name="aboutBroadcasts">O vysielaní</string>
@@ -28,7 +29,7 @@
   <string name="sourceSingleUrl">Zdrojová URL pre PGN súbor</string>
   <string name="sourceUrlHelp">URL, ktorú bude Lichess kontrolovať, aby získal aktualizácie PGN. Musí byť verejne prístupná z internetu.</string>
   <string name="sourceGameIds">Až do 64 identifikátorov Lichess partií oddelených medzerami.</string>
-  <string name="startDate">Dátum a čas začiatku, vo vašej časovej zóne</string>
+  <string name="startDateTimeZone">Dátum začiatku v miestnej časovej zóne turnaja: %s</string>
   <string name="startDateHelp">Voliteľné, ak viete kedy sa udalosť začne</string>
   <string name="credits">Uveďte zdroj</string>
   <string name="currentGameUrl">Adresa URL aktuálnej partie</string>
@@ -42,8 +43,6 @@
   <string name="definitivelyDeleteTournament">Definitívne odstrániť celý turnaj so všetkými kolami a všetkými partiami.</string>
   <string name="showScores">Zobraziť skóre hráčov na základe výsledkov partií</string>
   <string name="replacePlayerTags">Voliteľné: nahradiť mená hráčov, hodnotenia a tituly</string>
-  <string name="periodInSeconds">Doba v sekundách</string>
-  <string name="periodInSecondsHelp">Nepovinné, ako dlho sa má čakať medzi požiadavkami. Min. 2 s, max. 60 s. Predvolené nastavenie je automatické na základe počtu divákov.</string>
   <string name="fideFederations">FIDE federácie</string>
   <string name="top10Rating">10 najlepšie hodnotených</string>
   <string name="fidePlayers">FIDE šachisti</string>

@@ -5,7 +5,10 @@
   margin-bottom: 1em;
 
   &--tier-best {
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    @media (max-width: at-most($xx-small)) {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
   }
   &--tier-high {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -81,10 +84,14 @@
       font-size: 1.4em;
     }
   }
-  &__desc {
-    @extend %roboto;
-    @include line-clamp(2);
+  &__players {
+    @extend %roboto, %flex-center;
     color: $c-font-dim;
+    overflow: hidden;
+    height: 1.2em;
+    span:not(:first-child)::before {
+      content: ', ';
+    }
   }
   &__errors {
     @extend %break-word, %nowrap-ellipsis;

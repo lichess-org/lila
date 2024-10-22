@@ -30,4 +30,8 @@ class PlanPricingTest extends munit.FunSuite:
     assertEquals(nicelyRound(23), BigDecimal(20))
     assertEquals(nicelyRound(77), BigDecimal(80))
     assertEquals(nicelyRound(1009), BigDecimal(1000))
+
+    assertEquals(nicelyRound(99.99999999999), BigDecimal(100))
+    assertEquals(nicelyRound(99_999.99999999), BigDecimal(100_000))
+    assertEquals(nicelyRound(99_999.99999999999), BigDecimal(100_000))
   }

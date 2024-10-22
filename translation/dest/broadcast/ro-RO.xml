@@ -27,7 +27,6 @@
   <string name="sourceSingleUrl">URL sursă PGN</string>
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
   <string name="sourceGameIds">Până la 64 de ID-uri de joc Lichess, separate prin spații.</string>
-  <string name="startDate">Data de începere conform fusului tău orar</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
   <string name="credits">Creditează sursa</string>
   <string name="currentGameUrl">URL-ul partidei curente</string>
@@ -41,8 +40,6 @@
   <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
   <string name="showScores">Arată scorurile jucătorilor pe baza rezultatelor jocului</string>
   <string name="replacePlayerTags">Opțional: înlocuiește numele jucătorilor, ratingurile și titlurile</string>
-  <string name="periodInSeconds">Perioada în secunde</string>
-  <string name="periodInSecondsHelp">Opțional, cât de mult timp să se aștepte între cereri. Min 2s, max 60s. Implicit este automat bazat pe numărul de vizitatori.</string>
   <string name="fideFederations">Federații FIDE</string>
   <string name="top10Rating">Top 10 evaluări</string>
   <string name="fidePlayers">Jucători FIDE</string>

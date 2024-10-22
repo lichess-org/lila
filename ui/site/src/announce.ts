@@ -22,7 +22,9 @@ const announce = (d: LichessAnnouncement) => {
       )
       .find('#announce .close')
       .on('click', kill);
-    timeout = setTimeout(kill, d.date ? new Date(d.date).getTime() - Date.now() : 5000);
+    const millis = d.date ? new Date(d.date).getTime() - Date.now() : 5000;
+    if (millis > 0) timeout = setTimeout(kill, millis);
+    else kill();
     if (d.date) pubsub.emit('content-loaded');
   }
 };

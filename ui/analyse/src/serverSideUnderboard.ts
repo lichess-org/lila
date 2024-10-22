@@ -11,7 +11,7 @@ import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 
-export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
+export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
 
   const data = ctrl.data,
@@ -78,16 +78,14 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
     site.asset.loadEsm<ChartGame>('chart.game').then(m => {
-      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline(), ctrl.trans).then(
-        chart => {
-          advChart = chart;
-        },
-      );
+      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline()).then(chart => {
+        advChart = chart;
+      });
     });
   }
 
   const store = storage.make('analysis.panel');
-  const setPanel = function(panel: string) {
+  const setPanel = function (panel: string) {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
     $panels
@@ -97,12 +95,12 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
       site.asset.loadEsm<ChartGame>('chart.game').then(m => {
         timeChartLoaded = true;
-        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.trans, ctrl.opts.hunter);
+        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.opts.hunter);
       });
     if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
   };
-  $menu.on('mousedown', 'span', function(this: HTMLElement) {
+  $menu.on('mousedown', 'span', function (this: HTMLElement) {
     const panel = this.dataset.panel!;
     store.set(panel);
     setPanel(panel);
@@ -110,7 +108,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
   const stored = store.get();
   const foundStored =
     stored &&
-    $menu.children(`[data-panel="${stored}"]`).filter(function(this: HTMLElement) {
+    $menu.children(`[data-panel="${stored}"]`).filter(function (this: HTMLElement) {
       const display = window.getComputedStyle(this).display;
       return !!display && display != 'none';
     }).length;
@@ -120,9 +118,9 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
-    $panels.find('form.future-game-analysis').on('submit', function(this: HTMLFormElement) {
+    $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
-        if (confirm(ctrl.trans('youNeedAnAccountToDoThat')))
+        if (confirm(i18n.site.youNeedAnAccountToDoThat))
           location.href = '/login?referrer=' + window.location.pathname;
         return false;
       }
@@ -138,7 +136,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     });
   }
 
-  $panels.on('click', '.pgn', function(this: HTMLElement) {
+  $panels.on('click', '.pgn', function (this: HTMLElement) {
     const selection = window.getSelection(),
       range = document.createRange();
     range.selectNodeContents(this);
@@ -146,7 +144,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     selection!.addRange(range);
   });
 
-  $panels.on('click', '.embed-howto', function(this: HTMLElement) {
+  $panels.on('click', '.embed-howto', function (this: HTMLElement) {
     // location.hash is percent encoded, so no need to escape and make &bg=...
     // uglier in the process.
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;

@@ -173,10 +173,10 @@ export function render(ctrl: KeyboardMove): VNode {
       : h('strong', 'Press <enter> to focus'),
     ctrl.helpModalOpen()
       ? snabDialog({
-        class: 'help.keyboard-move-help',
-        htmlUrl: '/help/keyboard-move',
-        onClose: () => ctrl.helpModalOpen(false),
-      })
+          class: 'help.keyboard-move-help',
+          htmlUrl: '/help/keyboard-move',
+          onClose: () => ctrl.helpModalOpen(false),
+        })
       : null,
   ]);
 }

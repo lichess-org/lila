@@ -4,13 +4,13 @@ import LobbyController from '../../../ctrl';
 import { initMiniBoard } from 'common/miniBoard';
 
 export const fenInput = (ctrl: LobbyController) => {
-  const { trans, setupCtrl } = ctrl;
+  const { setupCtrl } = ctrl;
   if (setupCtrl.variant() !== 'fromPosition') return null;
   const fen = setupCtrl.fen();
   return h('div.fen.optional-config', [
     h('div.fen__form', [
       h('input#fen-input', {
-        attrs: { placeholder: trans('pasteTheFenStringHere'), value: fen },
+        attrs: { placeholder: i18n.site.pasteTheFenStringHere, value: fen },
         on: {
           input: (e: InputEvent) => {
             setupCtrl.fen((e.target as HTMLInputElement).value.trim());
@@ -23,7 +23,7 @@ export const fenInput = (ctrl: LobbyController) => {
       h('a.button.button-empty', {
         attrs: {
           'data-icon': licon.Pencil,
-          title: trans('boardEditor'),
+          title: i18n.site.boardEditor,
           href: '/editor' + (fen && !setupCtrl.fenError ? `/${fen.replace(' ', '_')}` : ''),
         },
       }),
@@ -34,15 +34,15 @@ export const fenInput = (ctrl: LobbyController) => {
       !setupCtrl.lastValidFen || !setupCtrl.validFen()
         ? null
         : h(
-          'span.preview',
-          h('div.position.mini-board.cg-wrap.is2d', {
-            attrs: { 'data-state': `${setupCtrl.lastValidFen},white` },
-            hook: {
-              insert: vnode => initMiniBoard(vnode.elm as HTMLElement),
-              update: vnode => initMiniBoard(vnode.elm as HTMLElement),
-            },
-          }),
-        ),
+            'span.preview',
+            h('div.position.mini-board.cg-wrap.is2d', {
+              attrs: { 'data-state': `${setupCtrl.lastValidFen},white` },
+              hook: {
+                insert: vnode => initMiniBoard(vnode.elm as HTMLElement),
+                update: vnode => initMiniBoard(vnode.elm as HTMLElement),
+              },
+            }),
+          ),
     ),
   ]);
 };

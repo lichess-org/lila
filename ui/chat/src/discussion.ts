@@ -12,7 +12,7 @@ import { pubsub } from 'common/pubsub';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
-export default function(ctrl: ChatCtrl): Array<VNode | undefined> {
+export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
       const el = vnode.elm as HTMLElement;
@@ -61,12 +61,12 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
     return h('input.mchat__say', {
-      attrs: { placeholder: ctrl.trans('loginToChat'), disabled: true },
+      attrs: { placeholder: i18n.site.loginToChat, disabled: true },
     });
   let placeholder: string;
-  if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
+  if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
-  else placeholder = ctrl.trans.noarg(ctrl.vm.placeholderKey);
+  else placeholder = i18n.site.talkInChat;
   return h('input.mchat__say', {
     attrs: {
       placeholder,
@@ -104,7 +104,7 @@ const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
         pub = ctrl.opts.public;
 
       if (txt === '')
-        $('.input-move input').each(function(this: HTMLInputElement) {
+        $('.input-move input').each(function (this: HTMLInputElement) {
           this.focus();
         });
       else {
@@ -216,14 +216,14 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-        myUserId && line.u && myUserId != line.u
-          ? h('action.flag', {
-            attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
-          })
-          : null,
-        userNode,
-        ' ',
-        textNode,
-      ],
+          myUserId && line.u && myUserId != line.u
+            ? h('action.flag', {
+                attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
+              })
+            : null,
+          userNode,
+          ' ',
+          textNode,
+        ],
   );
 }

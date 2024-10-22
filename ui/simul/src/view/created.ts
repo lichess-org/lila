@@ -7,7 +7,7 @@ import { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
 
-export default function(showText: (ctrl: SimulCtrl) => VNode | false) {
+export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
   return (ctrl: SimulCtrl) => {
     const candidates = ctrl.candidates().sort(byName),
       accepted = ctrl.accepted().sort(byName),
@@ -26,44 +26,40 @@ export default function(showText: (ctrl: SimulCtrl) => VNode | false) {
             ? isHost
               ? [startOrCancel(ctrl, accepted), randomButton(ctrl)]
               : ctrl.containsMe()
-                ? h(
-                  'a.button',
-                  { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) },
-                  ctrl.trans('withdraw'),
-                )
+                ? h('a.button', { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) }, i18n.site.withdraw)
                 : h(
-                  'a.button.text' + (canJoin ? '' : '.disabled'),
-                  {
-                    attrs: { disabled: !canJoin, 'data-icon': licon.PlayTriangle },
-                    hook: canJoin
-                      ? bind('click', () => {
-                        if (ctrl.data.variants.length === 1)
-                          xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
-                        else
-                          domDialog({
-                            cash: $('.simul .continue-with'),
-                          }).then(dlg => {
-                            $('button.button', dlg.view).on('click', function(this: HTMLButtonElement) {
-                              xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
-                              dlg.close();
-                            });
-                            dlg.showModal();
-                          });
-                      })
-                      : {},
-                  },
-                  ctrl.trans('join'),
-                )
+                    'a.button.text' + (canJoin ? '' : '.disabled'),
+                    {
+                      attrs: { disabled: !canJoin, 'data-icon': licon.PlayTriangle },
+                      hook: canJoin
+                        ? bind('click', () => {
+                            if (ctrl.data.variants.length === 1)
+                              xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
+                            else
+                              domDialog({
+                                cash: $('.simul .continue-with'),
+                              }).then(dlg => {
+                                $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
+                                  xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
+                                  dlg.close();
+                                });
+                                dlg.showModal();
+                              });
+                          })
+                        : {},
+                    },
+                    i18n.site.join,
+                  )
             : h(
-              'a.button.text',
-              {
-                attrs: {
-                  'data-icon': licon.PlayTriangle,
-                  href: '/login?referrer=' + window.location.pathname,
+                'a.button.text',
+                {
+                  attrs: {
+                    'data-icon': licon.PlayTriangle,
+                    href: '/login?referrer=' + window.location.pathname,
+                  },
                 },
-              },
-              ctrl.trans('signIn'),
-            ),
+                i18n.site.signIn,
+              ),
         ),
       ]),
       showText(ctrl),
@@ -186,17 +182,17 @@ const randomButton = (ctrl: SimulCtrl) =>
 const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
   accepted.length > 1
     ? h(
-      'a.button.button-green.text',
-      { attrs: { 'data-icon': licon.PlayTriangle }, hook: bind('click', () => xhr.start(ctrl.data.id)) },
-      `Start (${accepted.length})`,
-    )
+        'a.button.button-green.text',
+        { attrs: { 'data-icon': licon.PlayTriangle }, hook: bind('click', () => xhr.start(ctrl.data.id)) },
+        `Start (${accepted.length})`,
+      )
     : h(
-      'a.button.button-red.text',
-      {
-        attrs: { 'data-icon': licon.X },
-        hook: bind('click', () => {
-          if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
-        }),
-      },
-      ctrl.trans('cancel'),
-    );
+        'a.button.button-red.text',
+        {
+          attrs: { 'data-icon': licon.X },
+          hook: bind('click', () => {
+            if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
+          }),
+        },
+        i18n.site.cancel,
+      );

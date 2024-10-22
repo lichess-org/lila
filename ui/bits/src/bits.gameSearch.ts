@@ -9,7 +9,7 @@ site.load.then(() => {
 
   function getUsernames() {
     const us: string[] = [];
-    $usernames.each(function(this: HTMLInputElement) {
+    $usernames.each(function (this: HTMLInputElement) {
       const u = this.value.trim();
       if (u) us.push(u);
     });
@@ -47,15 +47,15 @@ site.load.then(() => {
   }
 
   function reloadUserChoices() {
-    $userRows.each(function(this: HTMLTableRowElement) {
+    $userRows.each(function (this: HTMLTableRowElement) {
       userChoices(this);
     });
   }
   reloadUserChoices();
   $usernames.on('input paste', reloadUserChoices);
 
-  const toggleAiLevel = function() {
-    $form.find('.opponent select').each(function(this: HTMLSelectElement) {
+  const toggleAiLevel = function () {
+    $form.find('.opponent select').each(function (this: HTMLSelectElement) {
       $form.find('.aiLevel').toggleClass('none', this.value != '1');
       $form.find('.opponentName').toggleClass('none', this.value == '1');
     });
@@ -72,12 +72,12 @@ site.load.then(() => {
   }
 
   const serialized = serialize();
-  $result.find('a.permalink').each(function(this: HTMLAnchorElement) {
+  $result.find('a.permalink').each(function (this: HTMLAnchorElement) {
     this.href = this.href.split('?')[0] + '?' + serialized;
   });
 
   const updatePagerLink = () =>
-    $result.find('.infinite-scroll .pager a').each(function(this: HTMLAnchorElement) {
+    $result.find('.infinite-scroll .pager a').each(function (this: HTMLAnchorElement) {
       this.href += '&' + serialized;
     });
   updatePagerLink();
@@ -86,7 +86,7 @@ site.load.then(() => {
   $form.on('submit', () => {
     $form
       .find('input,select')
-      .filter(function(this: HTMLInputElement) {
+      .filter(function (this: HTMLInputElement) {
         return !this.value;
       })
       .attr('disabled', 'disabled');

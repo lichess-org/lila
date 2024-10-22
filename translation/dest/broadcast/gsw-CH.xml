@@ -7,6 +7,7 @@
     <item quantity="other">%s Überträgige</item>
   </plurals>
   <string name="liveBroadcasts">Live Turnier-Überträgige</string>
+  <string name="broadcastCalendar">Überträgigs-Kaländer</string>
   <string name="newBroadcast">Neui Live-Überträgige</string>
   <string name="subscribedBroadcasts">Abonnierti Überträgige</string>
   <string name="aboutBroadcasts">Über Überträgige</string>
@@ -26,22 +27,20 @@
   <string name="sourceSingleUrl">PGN Quälle URL</string>
   <string name="sourceUrlHelp">URL wo Lichess abfrögt, für PGN Aktualisierige z\'erhalte. Sie muess öffentlich im Internet zuegänglich si.</string>
   <string name="sourceGameIds">Bis zu 64 Lichess Schpiel-IDs, trännt dur en Leerschlag.</string>
-  <string name="startDate">Startdatum in dinere eigene Zitzone</string>
+  <string name="startDateTimeZone">Startdatum i de lokale Zitzone vum Turnier: %s</string>
   <string name="startDateHelp">Optional, falls du weisch, wänn das Ereignis afangt</string>
-  <string name="credits">Erwähn die Quälle</string>
+  <string name="credits">Erwähn\' d\'Quälle</string>
   <string name="currentGameUrl">URL vom laufende Schpiel</string>
   <string name="downloadAllRounds">Alli Runde abelade</string>
   <string name="resetRound">Die Rundi zruggsetze</string>
   <string name="deleteRound">Die Rundi lösche</string>
-  <string name="definitivelyDeleteRound">Die Rundi und ihri Schpiel definitiv lösche.</string>
+  <string name="definitivelyDeleteRound">Die Rundi, mit allne Schpiel, definitiv lösche.</string>
   <string name="deleteAllGamesOfThisRound">Lösch alli Schpiel vu dere Rundi. D\'Quälle muess aktiv si, dass sie neu erschtellt werde chönd.</string>
-  <string name="editRoundStudy">Schtudie Rundi bearbeite</string>
+  <string name="editRoundStudy">Runde-Schtudie bearbeite</string>
   <string name="deleteTournament">Lösch das Turnier</string>
   <string name="definitivelyDeleteTournament">Das ganze Turnier, alli Runde und alli Schpiel definitiv lösche.</string>
   <string name="showScores">Zeigt d\'Erfolg vu de Schpiller, anhand vu Schpiel-Ergäbnis</string>
   <string name="replacePlayerTags">Optional: Schpillernäme, Wertige und Titel weg lah</string>
-  <string name="periodInSeconds">Periode i Sekunde</string>
-  <string name="periodInSecondsHelp">Optional, wie lang zwüsche Afrage gwartet werden söll. Minimal 2, maximal 60 Sekunde. Die Standardischtellig isch automatisch, basierend uf der Azahl vu de Zueschauer.</string>
   <string name="fideFederations">FIDE Wältschachverband</string>
   <string name="top10Rating">Top 10 Ratings</string>
   <string name="fidePlayers">FIDE Schpiller</string>

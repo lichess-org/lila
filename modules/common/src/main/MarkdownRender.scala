@@ -174,6 +174,7 @@ object MarkdownRender:
               html
                 .srcPos(node.getChars())
                 .attr("href", url)
+                .attr("target", "_blank")
                 .attr("rel", rel)
                 .withAttr(resolvedLink)
                 .tag("a")
@@ -295,6 +296,7 @@ object MarkdownRender:
   private val lilaLinkAttributeProvider = new AttributeProvider:
     override def setAttributes(node: Node, part: AttributablePart, attributes: MutableAttributes) =
       if (node.isInstanceOf[Link] || node.isInstanceOf[AutoLink]) && part == AttributablePart.LINK then
+        attributes.replaceValue("target", "_blank")
         attributes.replaceValue("rel", rel)
         attributes.replaceValue("href", RawHtml.removeUrlTrackingParameters(attributes.getValue("href")))
 

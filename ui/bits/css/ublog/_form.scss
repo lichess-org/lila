@@ -15,13 +15,11 @@
     padding-top: 4em;
   }
   &__etiquette {
-    margin-inline-end: 3em;
-  }
-  &__etiquette {
     @extend %box-neat;
     background: $c-bg-zebra;
     padding: 2em 3em;
     margin: 0 auto 3em auto;
+    margin-inline-end: 3em;
     max-width: 80ch;
   }
   .tagify {

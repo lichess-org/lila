@@ -86,15 +86,14 @@ final class FeedApi(coll: Coll, cacheApi: CacheApi, flairApi: FlairApi, askApi: 
           up.copy(content = Markdown(text.pp)).some
     case _ => fuccess(none[Update])
 
-  def set(update: Update)(using me: lila.user.Me): Funit =
-    askApi.freezeAndCommit(update.content.value, me, s"/feed#${update.id}".some).flatMap { text =>
-      coll.update
-        .one($id(update.id), update.copy(content = Markdown(text)), upsert = true)
-        .void
-        .andDo(cache.clear())
-    }
+  def set(update: Update)(using me: Me): Funit =
+    for
+      text <- askApi.freezeAndCommit(update.content.value, me, s"/feed#${update.id}".some)
+      _    <- coll.update.one($id(update.id), update.copy(content = Markdown(text)), upsert = true)
+    yield cache.clear()
+
   def delete(id: ID): Funit =
-    coll.delete.one($id(id)).void.andDo(cache.clear())
+    for _ <- coll.delete.one($id(id)) yield cache.clear()
 
   case class UpdateData(content: Markdown, public: Boolean, at: Instant, flair: Option[Flair]):
     def toUpdate(id: Option[ID]) = Update(id | makeId, content, public, at, flair)

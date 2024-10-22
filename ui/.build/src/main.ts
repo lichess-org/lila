@@ -1,72 +1,81 @@
 import ps from 'node:process';
 import path from 'node:path';
 import fs from 'node:fs';
-import { clean } from './clean';
-import { build, postBuild } from './build';
+import { deepClean } from './clean.ts';
+import { build, postBuild } from './build.ts';
+import { startConsole } from './console.ts';
 
 // readme should be up to date but this is the definitive list of flags
-const args = [
-  ['--tsc'],
-  ['--sass'],
-  ['--esbuild'],
-  ['--copies'],
-  ['--no-color'],
-  ['--no-time'],
-  ['--no-context'],
-  ['--help'],
-  ['--rebuild', '-r'],
-  ['--watch', '-w'],
-  ['--prod', '-p'],
-  ['--debug', '-d'],
-  ['--clean-build', '-c'],
-  ['--clean'],
-  ['--update'],
-  ['--no-install', '-n'],
-];
+const args: Record<string, string> = {
+  '--tsc': '',
+  '--sass': '',
+  '--esbuild': '',
+  '--copies': '',
+  '--i18n': '',
+  '--no-color': '',
+  '--no-time': '',
+  '--no-context': '',
+  '--help': 'h',
+  '--watch': 'w',
+  '--prod': 'p',
+  '--debug': 'd',
+  '--clean-build': 'c',
+  '--clean': '',
+  '--update': '',
+  '--no-install': 'n',
+  '--log': 'l',
+};
 
-const longArgs = args.map(x => x[0]);
-const shortArgs = args.map(x => x[1] && x[1][1]).filter(x => x);
 type Builder = 'sass' | 'tsc' | 'esbuild';
 
 export function main(): void {
-  const args = ps.argv.slice(2);
-  const oneDashArgs = args.filter(x => /^-([a-z]+)$/.test(x))?.flatMap(x => x.slice(1).split(''));
-  oneDashArgs.filter(x => !shortArgs.includes(x)).forEach(arg => env.exit(`Unknown flag '-${arg}'`));
-  args
-    .filter(x => x.startsWith('--') && !longArgs.includes(x))
+  const argv = ps.argv.slice(2);
+  const oneDashRe = /^-([a-z]+)(?:=[a-zA-Z0-9-_:./]+)?$/;
+  const stringArg = (arg: string): string | boolean => {
+    const it = argv.find(
+      x => x.startsWith(arg) || (args[arg] && oneDashRe.exec(x)?.[1]?.includes(args[arg])),
+    );
+    return it?.split('=')[1] ?? (it ? true : false);
+  };
+  const oneDashArgs = argv
+    .flatMap(x => oneDashRe.exec(x)?.[1] ?? '')
+    .join('')
+    .split('');
+  oneDashArgs
+    .filter(x => !Object.values(args).includes(x))
+    .forEach(arg => env.exit(`Unknown flag '-${arg}'`));
+  argv
+    .filter(x => x.startsWith('--') && !Object.keys(args).includes(x.split('=')[0]))
     .forEach(arg => env.exit(`Unknown argument '${arg}'`));
 
-  if (['--tsc', '--sass', '--esbuild', '--copies'].filter(x => args.includes(x)).length) {
+  if (['--tsc', '--sass', '--esbuild', '--copies', '--i18n'].filter(x => argv.includes(x)).length) {
     // including one or more of these disables the others
-    if (!args.includes('--sass')) env.exitCode.set('sass', false);
-    if (!args.includes('--tsc')) env.exitCode.set('tsc', false);
-    if (!args.includes('--esbuild')) env.exitCode.set('esbuild', false);
-    env.copies = args.includes('--copies');
+    if (!argv.includes('--sass')) env.exitCode.set('sass', false);
+    if (!argv.includes('--tsc')) env.exitCode.set('tsc', false);
+    if (!argv.includes('--esbuild')) env.exitCode.set('esbuild', false);
+    env.i18n = argv.includes('--i18n');
+    env.copies = argv.includes('--copies');
   }
-  if (args.includes('--no-color')) env.color = undefined;
-  if (args.includes('--no-time')) env.logTime = false;
-  if (args.includes('--no-context')) env.logContext = false;
+  if (argv.includes('--no-color')) env.color = undefined;
+  if (argv.includes('--no-time')) env.logTime = false;
+  if (argv.includes('--no-context')) env.logContext = false;
 
-  env.rebuild = args.includes('--rebuild') || oneDashArgs.includes('r');
-  env.watch = env.rebuild || args.includes('--watch') || oneDashArgs.includes('w');
-  env.prod = args.includes('--prod') || oneDashArgs.includes('p');
-  env.debug = args.includes('--debug') || oneDashArgs.includes('d');
-  env.clean = args.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
-  env.install = !args.includes('--no-install') && !oneDashArgs.includes('n');
-  env.rgb = args.includes('--rgb');
+  env.watch = argv.includes('--watch') || oneDashArgs.includes('w');
+  env.prod = argv.includes('--prod') || oneDashArgs.includes('p');
+  env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
+  env.remoteLog = stringArg('--log');
+  env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
+  env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
+  env.rebuild = env.watch && env.install;
+  env.rgb = argv.includes('--rgb');
 
-  if (env.rebuild && !env.install) {
-    env.warn(`--rebuild incompatible with --no-install`);
-    env.rebuild = false;
-  }
-
-  if (args.length === 1 && (args[0] === '--help' || args[0] === '-h')) {
-    console.log(fs.readFileSync(path.resolve(__dirname, '../readme'), 'utf8'));
-  } else if (args.includes('--clean')) {
-    env.log('Cleaning then exiting. Use --clean-build or -c to clean then build');
-    clean();
+  if (argv.length === 1 && (argv[0] === '--help' || argv[0] === '-h')) {
+    console.log(fs.readFileSync(path.resolve(env.buildDir, 'readme'), 'utf8'));
+  } else if (argv.includes('--clean')) {
+    deepClean();
   } else {
-    build(args.filter(x => !x.startsWith('-')));
+    startConsole();
+    build(argv.filter(x => !x.startsWith('-')));
   }
 }
 
@@ -111,7 +120,7 @@ export const colors: Record<string, (text: string) => string> = {
 };
 
 class Env {
-  rootDir: string = path.resolve(__dirname, '../../..'); // absolute path to lila project root
+  rootDir: string = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../..'); // absolute path to lila project root
 
   deps: Map<string, string[]> = new Map();
   packages: Map<string, Package> = new Map();
@@ -122,9 +131,11 @@ class Env {
   clean = false;
   prod = false;
   debug = false;
+  remoteLog: string | boolean = false;
   rgb = false;
   install = true;
   copies = true;
+  i18n = true;
   exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
   logTime = true;
@@ -176,13 +187,25 @@ class Env {
     return path.join(this.uiDir, '.build');
   }
   get cssTempDir(): string {
-    return path.join(this.buildDir, '.build-gen', 'css');
+    return path.join(this.buildDir, 'build', 'css');
+  }
+  get buildSrcDir(): string {
+    return path.join(this.uiDir, '.build', 'src');
   }
   get buildTempDir(): string {
     return path.join(this.buildDir, 'build');
   }
   get typesDir(): string {
     return path.join(this.uiDir, '@types');
+  }
+  get i18nSrcDir(): string {
+    return path.join(this.rootDir, 'translation', 'source');
+  }
+  get i18nDestDir(): string {
+    return path.join(this.rootDir, 'translation', 'dest');
+  }
+  get i18nJsDir(): string {
+    return path.join(this.rootDir, 'translation', 'js');
   }
   get manifestFile(): string {
     return path.join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);
@@ -232,7 +255,7 @@ class Env {
     if (ctx !== 'tsc' || code === 0)
       this.log(
         `${code === 0 ? 'Done' : colors.red('Failed')}` +
-        (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
+          (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
         {
           ctx: ctx,
         },

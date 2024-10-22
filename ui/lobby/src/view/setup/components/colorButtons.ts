@@ -8,18 +8,18 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   ...(ctrl.setupCtrl.gameType === 'hook'
     ? []
     : [
-      h('label', { attrs: { for: 'sf_color' } }, ctrl.trans('side')),
-      h(
-        'select#sf_color',
-        {
-          on: {
-            change: (e: Event) =>
-              ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
+        h('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
+        h(
+          'select#sf_color',
+          {
+            on: {
+              change: (e: Event) =>
+                ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
+            },
           },
-        },
-        colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor())),
-      ),
-    ]),
+          colors.map(color => option(color, ctrl.setupCtrl.blindModeColor())),
+        ),
+      ]),
   h(
     'button',
     { on: { click: () => ctrl.setupCtrl.submit(ctrl.setupCtrl.blindModeColor()) } },
@@ -48,15 +48,15 @@ export const createButtons = (ctrl: LobbyController) => {
       ? renderBlindModeColorPicker(ctrl)
       : setupCtrl.loading
         ? spinnerVdom()
-        : colors(ctrl.trans).map(({ key, name }) =>
-          h(
-            `button.button.button-metal.color-submits__button.${key}`,
-            {
-              attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
-              on: { click: () => setupCtrl.submit(key) },
-            },
-            h('i'),
+        : colors.map(({ key, name }) =>
+            h(
+              `button.button.button-metal.color-submits__button.${key}`,
+              {
+                attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
+                on: { click: () => setupCtrl.submit(key) },
+              },
+              h('i'),
+            ),
           ),
-        ),
   );
 };

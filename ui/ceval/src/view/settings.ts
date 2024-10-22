@@ -25,7 +25,6 @@ const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(
 
 export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
   const ceval = ctrl.getCeval(),
-    noarg = ctrl.trans.noarg,
     minThreads = ceval.engines.active?.minThreads ?? 1,
     maxThreads = ceval.maxThreads,
     engCtrl = ctrl.getCeval().engines,
@@ -53,20 +52,20 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
 
   return ceval.showEnginePrefs()
     ? h(
-      'div#ceval-settings-anchor',
-      h(
-        'div#ceval-settings',
-        {
-          hook: onInsert(
-            onClickAway(() => {
-              ceval.showEnginePrefs(false);
-              ceval.opts.redraw();
-            }),
-          ),
-        },
-        [
-          ...engineSelection(ctrl),
-          !ceval.customSearch &&
+        'div#ceval-settings-anchor',
+        h(
+          'div#ceval-settings',
+          {
+            hook: onInsert(
+              onClickAway(() => {
+                ceval.showEnginePrefs(false);
+                ceval.opts.redraw();
+              }),
+            ),
+          },
+          [
+            ...engineSelection(ctrl),
+            !ceval.customSearch &&
               (id => {
                 return h('div.setting', { attrs: { title: 'Set time to evaluate fresh positions' } }, [
                   h('label', 'Search time'),
@@ -80,14 +79,14 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                   h('div.range_value', searchTicks[searchTick()][1]),
                 ]);
               })('engine-search-ms'),
-          !ceval.customSearch &&
+            !ceval.customSearch &&
               (id => {
                 const max = 5;
                 return h(
                   'div.setting',
                   { attrs: { title: 'Set number of evaluation lines and move arrows on the board' } },
                   [
-                    h('label', { attrs: { for: id } }, noarg('multipleLines')),
+                    h('label', { attrs: { for: id } }, i18n.site.multipleLines),
                     h('input#' + id, {
                       attrs: { type: 'range', min: 0, max, step: 1 },
                       hook: rangeConfig(
@@ -102,7 +101,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                   ],
                 );
               })('analyse-multipv'),
-          maxThreads > minThreads &&
+            maxThreads > minThreads &&
               (id => {
                 return h(
                   'div.setting',
@@ -150,31 +149,31 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                   ],
                 );
               })('analyse-threads'),
-          (id =>
-            h('div.setting', { attrs: { title: 'Higher values may improve performance' } }, [
-              h('label', { attrs: { for: id } }, noarg('memory')),
-              h('input#' + id, {
-                attrs: {
-                  type: 'range',
-                  min: 4,
-                  max: Math.floor(Math.log2(engCtrl.active?.maxHash ?? 4)),
-                  step: 1,
-                  disabled: ceval.maxHash <= 16,
-                },
-                hook: rangeConfig(
-                  () => Math.floor(Math.log2(ceval.hashSize)),
-                  v => {
-                    ceval.setHashSize(Math.pow(2, v));
-                    ctrl.restartCeval?.();
+            (id =>
+              h('div.setting', { attrs: { title: 'Higher values may improve performance' } }, [
+                h('label', { attrs: { for: id } }, i18n.site.memory),
+                h('input#' + id, {
+                  attrs: {
+                    type: 'range',
+                    min: 4,
+                    max: Math.floor(Math.log2(engCtrl.active?.maxHash ?? 4)),
+                    step: 1,
+                    disabled: ceval.maxHash <= 16,
                   },
-                ),
-              }),
+                  hook: rangeConfig(
+                    () => Math.floor(Math.log2(ceval.hashSize)),
+                    v => {
+                      ceval.setHashSize(Math.pow(2, v));
+                      ctrl.restartCeval?.();
+                    },
+                  ),
+                }),
 
-              h('div.range_value', formatHashSize(ceval.hashSize)),
-            ]))('analyse-memory'),
-        ],
-      ),
-    )
+                h('div.range_value', formatHashSize(ceval.hashSize)),
+              ]))('analyse-memory'),
+          ],
+        ),
+      )
     : null;
 }
 

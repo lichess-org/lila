@@ -45,8 +45,8 @@
   <string name="forceDraw">무승부 선언</string>
   <string name="talkInChat">건전한 채팅을 해주세요!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">이 URL로 가장 먼저 들어온 사람과 체스를 두게 됩니다.</string>
-  <string name="whiteResigned">백 기권</string>
-  <string name="blackResigned">흑 기권</string>
+  <string name="whiteResigned">백 기권함</string>
+  <string name="blackResigned">흑 기권함</string>
   <string name="whiteLeftTheGame">백이 게임 퇴장</string>
   <string name="blackLeftTheGame">흑이 게임 퇴장</string>
   <string name="whiteDidntMove">백이 두지 않음</string>
@@ -66,7 +66,7 @@
   <string name="showThreat">위험요소 표시</string>
   <string name="inLocalBrowser">브라우저에서</string>
   <string name="toggleLocalEvaluation">로컬 분석 토글</string>
-  <string name="promoteVariation">게임 분석 후에 어떤 수에 대한 예상결과들을 확인하고 싶다면</string>
+  <string name="promoteVariation">변형 승격</string>
   <string name="makeMainLine">주 라인으로 하기</string>
   <string name="deleteFromHere">여기서부터 삭제</string>
   <string name="collapseVariations">바리에이션 축소하기</string>
@@ -124,7 +124,6 @@
   <string name="memory">메모리</string>
   <string name="infiniteAnalysis">무한 분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
-  <string name="engineManager">엔진 매니저</string>
   <string name="blunder">블런더</string>
   <string name="mistake">실수</string>
   <string name="inaccuracy">사소한 실수</string>
@@ -524,9 +523,9 @@
   <string name="cheat">부정행위</string>
   <string name="troll">분란 조장</string>
   <string name="other">기타</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">귀하의 신고가 영어로 적혀있을 경우 빠르게 처리될 것입니다.</string>
+  <string name="reportCheatBoostHelp">게임 URL 주소를 붙여넣으시고 해당 사용자가 무엇을 잘못했는지 설명해 주세요. 그냥 \"그들이 부정행위를 했어요\" 라고만 말하지 말고, 어떻게 당신이 이 결론에 도달하게 됐는지 알려주세요.</string>
+  <string name="reportUsernameHelp">왜 이 사용자의 이름이 불쾌한지 설명해주세요. 그저 \"불쾌해요/부적절해요\"라고만 말하지 마세요, 대신 왜 이런 결론에 도달했는지 말씀해 주세요. 단어가 난해하거나, 영어가 아니거나, 은어이거나, 문화적/역사적 배경이 있는 경우 특히 중요합니다.</string>
+  <string name="reportProcessedFasterInEnglish">귀하의 신고가 영어로 적혀있을 경우 빠르게 처리될 것입니다.</string>
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
   <string name="importedByX">%s가 불러옴</string>
@@ -546,7 +545,7 @@
   <string name="newPasswordsDontMatch">새로운 비밀번호가 일치하지 않습니다</string>
   <string name="newPasswordStrength">비밀번호 강도</string>
   <string name="clockInitialTime">기본 시간</string>
-  <string name="clockIncrement">한 수당 증가하는 시간</string>
+  <string name="clockIncrement">수 당 추가 시간</string>
   <string name="privacy">보안</string>
   <string name="privacyPolicy">개인정보취급방침</string>
   <string name="letOtherPlayersFollowYou">다른 사람이 팔로우할 수 있게 함</string>
@@ -581,8 +580,8 @@
   </plurals>
   <string name="listBlockedPlayers">이 플레이어를 차단</string>
   <string name="human">인간</string>
-  <string name="computer">인공지능</string>
-  <string name="side">진영</string>
+  <string name="computer">컴퓨터</string>
+  <string name="side">색</string>
   <string name="clock">시계</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
@@ -590,7 +589,7 @@
   <string name="practice">연습</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
-  <string name="increment">시간 증가</string>
+  <string name="increment">추가 시간</string>
   <string name="error.unknown">잘못된 값</string>
   <string name="error.required">필수 기입 사항입니다.</string>
   <string name="error.email">이메일 주소가 유효하지 않습니다</string>
@@ -725,7 +724,7 @@
   <string name="sessions">세션</string>
   <string name="revokeAllSessions">모든 세션 비활성화</string>
   <string name="playChessEverywhere">어디에서나 체스를 즐기세요</string>
-  <string name="asFreeAsLichess">lichess처럼 무료입니다</string>
+  <string name="asFreeAsLichess">Lichess처럼 무료예요</string>
   <string name="builtForTheLoveOfChessNotMoney">오직 체스에 대한 열정으로 만들어졌습니다</string>
   <string name="everybodyGetsAllFeaturesForFree">모두가 모든 기능을 무료로 이용할 수 있습니다</string>
   <string name="zeroAdvertisement">광고가 없습니다</string>
@@ -737,7 +736,7 @@
   <string name="viewTheSolution">정답 보기</string>
   <string name="followAndChallengeFriends">친구를 팔로우하고 도전하기</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="other">%s개의 언어 지원!</item>
+    <item quantity="other">%s개의 언어를 지원합니다!</item>
   </plurals>
   <string name="gameAnalysis">게임 분석기</string>
   <string name="xHostsY">%2$s가 %1$s를 시작했습니다.</string>
@@ -894,12 +893,12 @@
   <string name="download">다운로드</string>
   <string name="coachManager">코치 설정</string>
   <string name="streamerManager">스트리머 설정</string>
-  <string name="cancelTournament">토너먼트 취소</string>
+  <string name="cancelTournament">토너먼트 취소하기</string>
   <string name="tournDescription">토너먼트 설명</string>
   <string name="tournDescriptionHelp">참가자에게 하고 싶은 말이 있나요? 짧게 작성해주세요. 마크다운 링크가 가능합니다: [name](https://url)</string>
   <string name="ratedFormHelp">레이팅 게임을 합니다
 플레이어 레이팅에 영향을 줍니다</string>
-  <string name="onlyMembersOfTeam">팀 멤버만</string>
+  <string name="onlyMembersOfTeam">팀 멤버들만</string>
   <string name="noRestriction">제한 없음</string>
   <string name="minimumRatedGames">최소 레이팅 게임 참여 횟수</string>
   <string name="minimumRating">최소 레이팅</string>
@@ -922,7 +921,7 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="noChat">채팅 없음</string>
   <string name="onlyTeamLeaders">팀 리더만</string>
   <string name="onlyTeamMembers">팀 멤버만</string>
-  <string name="navigateMoveTree">수 탐색</string>
+  <string name="navigateMoveTree">수의 나무 탐색</string>
   <string name="mouseTricks">마우스 기능</string>
   <string name="toggleLocalAnalysis">로컬 컴퓨터 분석 켜기/끄기</string>
   <string name="toggleAllAnalysis">모든 컴퓨터 분석 켜기/끄기</string>
@@ -930,15 +929,15 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="analysisOptions">분석 옵션</string>
   <string name="focusChat">채팅에 포커스 주기</string>
   <string name="showHelpDialog">이 도움말 보기</string>
-  <string name="reopenYourAccount">계정 다시 활성화</string>
+  <string name="reopenYourAccount">계정 재활성화</string>
   <string name="closedAccountChangedMind">계정을 폐쇄한 후 마음이 바뀌었다면, 계정을 다시 활성화할 수 있는 기회가 한 번 있습니다.</string>
   <string name="onlyWorksOnce">단 한번만 가능합니다.</string>
   <string name="cantDoThisTwice">계정을 두 번째로 폐쇄했다면 복구할 방법이 없습니다.</string>
   <string name="emailAssociatedToaccount">계정에 등록된 이메일 주소</string>
   <string name="sentEmailWithLink">링크가 포함된 이메일을 보냈습니다.</string>
   <string name="tournamentEntryCode">토너먼트 입장 코드</string>
-  <string name="hangOn">잠깐!</string>
-  <string name="gameInProgress">%s와 진행중인 게임이 있습니다.</string>
+  <string name="hangOn">잠깐만요!</string>
+  <string name="gameInProgress">%s와(과) 진행중인 대국이 있습니다.</string>
   <string name="abortTheGame">게임 중단</string>
   <string name="resignTheGame">게임 기권</string>
   <string name="youCantStartNewGame">이 게임이 끝나기 전까지 새 게임을 시작할 수 없습니다.</string>

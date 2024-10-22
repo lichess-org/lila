@@ -2,7 +2,7 @@ import { isTouchDevice } from 'common/device';
 import { escapeHtml } from 'common';
 
 export const registerMultipleSelect = () => {
-  $.fn.multipleSelectHover = function(fnOver, fnOut) {
+  $.fn.multipleSelectHover = function (fnOver, fnOut) {
     return this.on('mouseenter', fnOver).on('mouseleave', fnOut || fnOver);
   };
 
@@ -60,7 +60,7 @@ export const registerMultipleSelect = () => {
       this.selectGroupName = `data-name="selectGroup${name}"`;
       this.selectItemName = `data-name="selectItem${name}"`;
       if (!this.options.keepOpen) {
-        $(document).on('click', function(e) {
+        $(document).on('click', function (e) {
           if (
             $(e.target)[0] === that.$choice[0] ||
             $(e.target).parents('.ms-choice')[0] === that.$choice[0]
@@ -105,7 +105,7 @@ export const registerMultipleSelect = () => {
           ].join(''),
         );
       }
-      $.each(this.$el.children(), function(i, elm) {
+      $.each(this.$el.children(), function (i, elm) {
         $ul.append(that.optionToHtml(i, elm!));
       });
       $ul.append(`<li class="ms-no-results">${this.options.noMatchesFound}</li>`);
@@ -171,7 +171,7 @@ export const registerMultipleSelect = () => {
             '</li>',
           ].join(''),
         );
-        $.each($elm.children(), function(i, elm) {
+        $.each($elm.children(), function (i, elm) {
           $group.append(that.optionToHtml(i, elm!, group, disabled));
         });
         return $group.html();
@@ -181,12 +181,12 @@ export const registerMultipleSelect = () => {
 
     events() {
       const that = this,
-        toggleOpen: EventCallback = function(e) {
+        toggleOpen: EventCallback = function (e) {
           e.preventDefault();
           that[that.options.isOpen ? 'close' : 'open']();
         };
       if (this.$label) {
-        this.$label.off('click').on('click', function(this: HTMLElement, e) {
+        this.$label.off('click').on('click', function (this: HTMLElement, e) {
           if (e.target.nodeName.toLowerCase() !== 'label' || e.target !== this) {
             return;
           }
@@ -210,7 +210,7 @@ export const registerMultipleSelect = () => {
           .off('mouseover')
           .off('mouseout')
           .multipleSelectHover(that.open.bind(that), that.close.bind(that));
-      this.$parent.off('keydown').on('keydown', function(e) {
+      this.$parent.off('keydown').on('keydown', function (e) {
         switch (e.which) {
           case 27:
             that.close();
@@ -220,13 +220,13 @@ export const registerMultipleSelect = () => {
       });
       this.$searchInput
         .off('keydown')
-        .on('keydown', function(e) {
+        .on('keydown', function (e) {
           if (e.keyCode === 9 && e.shiftKey) {
             that.close();
           }
         })
         .off('keyup')
-        .on('keyup', function(e) {
+        .on('keyup', function (e) {
           if (
             that.options.filterAcceptOnEnter &&
             (e.which === 13 || e.which == 32) &&
@@ -239,7 +239,7 @@ export const registerMultipleSelect = () => {
           }
           that.filter();
         });
-      this.$selectAll.off('click').on('click', function(this: HTMLElement) {
+      this.$selectAll.off('click').on('click', function (this: HTMLElement) {
         const checked = $(this).prop('checked'),
           $items = that.$selectItems.filter(isVisible);
         if ($items.length === that.$selectItems.length) {
@@ -251,7 +251,7 @@ export const registerMultipleSelect = () => {
           that.update();
         }
       });
-      this.$selectGroups.off('click').on('click', function(this: HTMLElement) {
+      this.$selectGroups.off('click').on('click', function (this: HTMLElement) {
         const group = $(this).parent().attr('data-group'),
           $items = that.$selectItems.filter(isVisible),
           $children = $items.filter(`[data-group="${group}"]`),
@@ -266,7 +266,7 @@ export const registerMultipleSelect = () => {
           instance: that,
         });
       });
-      this.$selectItems.off('click').on('click', function(this: HTMLElement) {
+      this.$selectItems.off('click').on('click', function (this: HTMLElement) {
         that.updateSelectAll();
         that.update();
         that.updateOptGroupSelect();
@@ -282,10 +282,10 @@ export const registerMultipleSelect = () => {
         if (that.options.single) {
           const clickedVal = $(this).val();
           that.$selectItems
-            .filter(function() {
+            .filter(function () {
               return $(this).val() !== clickedVal;
             })
-            .each(function() {
+            .each(function () {
               $(this).prop('checked', false);
             });
           that.update();
@@ -357,7 +357,7 @@ export const registerMultipleSelect = () => {
       }
       this.$el.val(this.getSelects()).trigger('change');
       this.$drop.find('li').removeClass('selected');
-      this.$drop.find(`input[${this.selectItemName}]:checked`).each(function() {
+      this.$drop.find(`input[${this.selectItemName}]:checked`).each(function () {
         $(this).parents('li').first().addClass('selected');
       });
       if (!isInit) {
@@ -378,7 +378,7 @@ export const registerMultipleSelect = () => {
 
     updateOptGroupSelect() {
       const $items = this.$selectItems.filter(isVisible);
-      $.each(this.$selectGroups, function(_i, val) {
+      $.each(this.$selectGroups, function (_i, val) {
         const group = $(val).parent().attr('data-group'),
           $children = $items.filter(`[data-group="${group}"]`);
         $(val).prop('checked', $children.length && $children.length === $children.filter(':checked').length);
@@ -389,13 +389,13 @@ export const registerMultipleSelect = () => {
       const that = this,
         values: string[] = [];
       let texts: string[] = [];
-      this.$drop.find(`input[${this.selectItemName}]:checked`).each(function() {
+      this.$drop.find(`input[${this.selectItemName}]:checked`).each(function () {
         texts.push($(this).parents('li').first().text());
         values.push($(this).val() as string);
       });
       if (type === 'text' && this.$selectGroups.length) {
         texts = [];
-        this.$selectGroups.each(function() {
+        this.$selectGroups.each(function () {
           const html = [],
             text = $(this).parent().text().trim(),
             group = $(this).parent().data('group'),
@@ -408,7 +408,7 @@ export const registerMultipleSelect = () => {
           html.push(text);
           if ($children.length > $selected.length) {
             const list: string[] = [];
-            $selected.each(function() {
+            $selected.each(function () {
               list.push($(this).parent().text());
             });
             html.push(': ' + list.join(', '));
@@ -423,14 +423,14 @@ export const registerMultipleSelect = () => {
     setSelects(values: string[]) {
       const that = this;
       this.$selectItems.prop('checked', false);
-      $.each(values, function(_i, value) {
+      $.each(values, function (_i, value) {
         that.$selectItems.filter(`[value="${value}"]`).prop('checked', true);
       });
       this.$selectAll.prop(
         'checked',
         this.$selectItems.length === this.$selectItems.filter(':checked').length,
       );
-      $.each(that.$selectGroups, function(_i, val) {
+      $.each(that.$selectGroups, function (_i, val) {
         const group = $(val).parent().attr('data-group'),
           $children = that.$selectItems.filter(`[data-group="${group}"]`);
         $(val).prop('checked', $children.length && $children.length === $children.filter(':checked').length);
@@ -486,12 +486,12 @@ export const registerMultipleSelect = () => {
         this.$selectGroups.parent().show();
         this.$noResults.hide();
       } else {
-        this.$selectItems.each(function() {
+        this.$selectItems.each(function () {
           const $parent = $(this).parent();
           $parent[$parent.text().toLowerCase().indexOf(text) < 0 ? 'hide' : 'show']();
         });
         this.$disableItems.parent().hide();
-        this.$selectGroups.each(function() {
+        this.$selectGroups.each(function () {
           const $parent = $(this).parent(),
             group = $parent.attr('data-group'),
             $items = that.$selectItems.filter(isVisible);
@@ -523,14 +523,14 @@ export const registerMultipleSelect = () => {
     | 'focus'
     | 'blur'
     | 'refresh';
-  $.fn.multipleSelect = function(this: Cash) {
+  $.fn.multipleSelect = function (this: Cash) {
     const option = arguments[0],
       args = arguments;
     let value;
     interface EleHack extends EleLoose {
       multipleSelect: MultipleSelectState;
     }
-    this.each(function(this: EleHack) {
+    this.each(function (this: EleHack) {
       let data = this['multipleSelect'];
       const $this = $(this),
         options = {
@@ -580,40 +580,40 @@ export const registerMultipleSelect = () => {
     allSelected: 'All selected',
     countSelected: '# of % selected',
     noMatchesFound: 'No matches found',
-    styler: function() {
+    styler: function () {
       return null;
     },
-    textTemplate: function($elm) {
+    textTemplate: function ($elm) {
       return $elm.text();
     },
-    labelTemplate: function($elm) {
+    labelTemplate: function ($elm) {
       return $elm.attr('label');
     },
-    onOpen: function() {
+    onOpen: function () {
       return false;
     },
-    onClose: function() {
+    onClose: function () {
       return false;
     },
-    onCheckAll: function() {
+    onCheckAll: function () {
       return false;
     },
-    onUncheckAll: function() {
+    onUncheckAll: function () {
       return false;
     },
-    onFocus: function() {
+    onFocus: function () {
       return false;
     },
-    onBlur: function() {
+    onBlur: function () {
       return false;
     },
-    onOptgroupClick: function() {
+    onOptgroupClick: function () {
       return false;
     },
-    onClick: function() {
+    onClick: function () {
       return false;
     },
-    onFilter: function() {
+    onFilter: function () {
       return false;
     },
   };

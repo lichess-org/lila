@@ -2,7 +2,7 @@
 <resources>
   <string name="newAccessToken">새로운 개인 API 액세스 토큰</string>
   <string name="tokenGrantsPermission">토큰은 다른 사람이 내 계정을 사용할 수 있는 권한을 부여합니다.</string>
-  <string name="carefullySelect">Carefully select what it is allowed to do on your behalf.</string>
+  <string name="carefullySelect">나를 대신하여 수행할 수 있는 작업을 신중하게 선택하세요.</string>
   <string name="tokenDescription">토큰 설명</string>
   <string name="rememberTokenUse">이 토큰의 용도가 무엇인지 기억하시나요?</string>
   <string name="whatTheTokenCanDo">토큰이 사용자를 대신해 수행할 수 있는 작업:</string>
@@ -37,7 +37,7 @@
   <string name="insteadGenerateToken" comment="%s is 'generate a personal access token'.">대신 당신이 직접적으로 APi 요청을 사용할 수 있게 %s</string>
   <string name="generatePersonalToken" comment="Part of longer string insteadGenerateToken:&#10;'Instead, generate a personal access token you can directly use in API requests.'&#10;&#10;It is a link, which links to https://lichess.org/account/oauth/token/create and appears after you have created at least one token.">개인 접속 토큰을 생성합니다.</string>
   <string name="guardTokensCarefully">토큰들을 잘 지키세요! 그들은 비밀번호와도 같습니다. 암호를 스크립트에 입력하는 것보다 토큰을 사용하는 것의 장점은 토큰을 취소할 수 있고 많은 토큰을 생성할 수 있다는 것입니다.</string>
-  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;These can both be translated separately.">여기 %1$s와 %2$s가 있습니다.</string>
+  <string name="apiDocumentationLinks" comment="%1$s links to a personal token app example (string: personalTokenAppExample).&#10;&#10;%2$s links to the API documentation (string: apiDocumentation).&#10;&#10;Full sentence after %1$s and %2$s have been substituted:&#10;&quot;Here's a personal app token example and the API documentation.&quot;&#10;&#10;personalTokenAppExample and apiDocumentation can both be translated separately.">여기 %1$s와 %2$s가 있습니다.</string>
   <string name="personalTokenAppExample" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://github.com/lichess-org/api/tree/master/example/oauth-personal-token.">개인 토큰 앱의 예시</string>
   <string name="apiDocumentation" comment="Part of longer string apiDocumentationLinks:&#10;'Here's a personal token app example and the API documentation.'&#10;&#10;This text is also a link which directs to https://lichess.org/api.">API 문서</string>
   <string name="newToken">새로운 액세스 토큰</string>

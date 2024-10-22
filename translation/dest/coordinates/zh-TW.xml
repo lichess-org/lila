@@ -4,7 +4,7 @@
   <string name="coordinateTraining">座標訓練</string>
   <string name="averageScoreAsWhiteX">白棋方平均分數: %s</string>
   <string name="averageScoreAsBlackX">黑棋方平均分數: %s</string>
-  <string name="knowingTheChessBoard">能快速對照棋盤上的座標與其位置是一項很重要的技巧。</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">能快速對照棋盤上的座標與其位置是一項很重要的技巧。</string>
   <string name="mostChessCourses">大多數的西洋棋課程都很頻繁的使用代數記譜法。</string>
   <string name="talkToYourChessFriends">這讓你跟和棋友更容易聊天，因為你們都知道「西洋棋的共同語言」。</string>
   <string name="youCanAnalyseAGameMoreEffectively">如果能夠快速地辨認座標，可以更有效率的分析一場棋局。</string>

@@ -9,7 +9,9 @@
     <item quantity="other">%s vysílání</item>
   </plurals>
   <string name="liveBroadcasts">Živé přenosy turnajů</string>
+  <string name="broadcastCalendar">Kalendář přenosů</string>
   <string name="newBroadcast">Nový živý přenos</string>
+  <string name="subscribedBroadcasts">Odebírané přenosy</string>
   <string name="aboutBroadcasts">O vysílání</string>
   <string name="howToUseLichessBroadcasts">Jak používat Lichess vysílání.</string>
   <string name="theNewRoundHelp">Nové kolo bude mít stejné členy a přispěvatele jako to předchozí.</string>
@@ -24,8 +26,10 @@
   <string name="tournamentDescription">Stručný popis turnaje</string>
   <string name="fullDescription">Úplný popis události</string>
   <string name="fullDescriptionHelp">Volitelný dlouhý popis přenosu. %1$s je k dispozici. Délka musí být menší než %2$s znaků.</string>
+  <string name="sourceSingleUrl">PGN Zdrojová URL adresa</string>
   <string name="sourceUrlHelp">URL adresa, kterou bude Lichess kontrolovat pro získání PGN aktualizací. Musí být veřejně přístupná z internetu.</string>
-  <string name="startDate">Datum a čas zahájení ve vašem časovém pásmu</string>
+  <string name="sourceGameIds">Až 64 ID Lichess her, oddělených mezerama.</string>
+  <string name="startDateTimeZone">Datum zahájení v lokálním čase turnaje: %s</string>
   <string name="startDateHelp">Nepovinné, pokud víte, kdy událost začíná</string>
   <string name="credits">Uveďte zdroj</string>
   <string name="currentGameUrl">URL adresa právě probíhající partie</string>
@@ -37,6 +41,15 @@
   <string name="editRoundStudy">Upravit studie kola</string>
   <string name="deleteTournament">Smazat tento turnaj</string>
   <string name="definitivelyDeleteTournament">Opravdu smazat celý turnaj, všechna kola a hry.</string>
-  <string name="periodInSeconds">Doba v sekundách</string>
-  <string name="periodInSecondsHelp">Volitelné, jak dlouho se má čekat mezi jednotlivými požadavky. Min. 2s, max. 60s. Výchozí hodnota je automatická podle počtu diváků.</string>
+  <string name="showScores">Zobraz skóre hráču dle herních výsledků</string>
+  <string name="replacePlayerTags">Volitelné: nahraď jména hráčů, rating a tituly</string>
+  <string name="fideFederations">FIDE federace</string>
+  <string name="top10Rating">Rating top 10</string>
+  <string name="fidePlayers">FIDE hráči</string>
+  <string name="fidePlayerNotFound">FIDE hráč nenalezen</string>
+  <string name="fideProfile">FIDE profil</string>
+  <string name="federation">Federace</string>
+  <string name="ageThisYear">Věk tento rok</string>
+  <string name="unrated">Nehodnocen</string>
+  <string name="recentTournaments">Nedávné tournamenty</string>
 </resources>

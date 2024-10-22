@@ -22,8 +22,8 @@
   <string name="teamRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">اطلاعات تیم خصوصی را بخوانید</string>
   <string name="teamWrite" comment="In the context of an access token, a setting that permits the third party software to join or leave teams on your behalf.">پیوستن و ترک کردن تیم ها</string>
   <string name="teamLead">مدیریت تیم های تحت رهبری شما: ارسال پیام ها، حذف اعضاء</string>
-  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">بازیکنان دنبال شده را بخوانید</string>
-  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">سایر بازیکنان را دنبال و آنفالو کنید</string>
+  <string name="followRead" comment="In the context of an access token, a setting which permits third-party software to view (read) which players you are following.">خواندن بازیکنان دنبالیده</string>
+  <string name="followWrite" comment="In the context of an access token, a setting which permits third-party software to follow and unfollow other players on your behalf.">دنبالیدن و وادنبالیدن دیگر بازیکنان</string>
   <string name="msgWrite" comment="In the context of an access token, a setting which permits third-party software to send messages on your behalf.">برای سایر بازیکنان پیام خصوصی بفرستید</string>
   <string name="boardPlay" comment="In the context of an access token, a setting which permits third-party software to play games using e-boards like DGT, through Lichess's board API.">بازی با رابط کاربری</string>
   <string name="botPlay" comment="In the context of an access token, a setting which permits third-party software to play games over the bot API. This is intended mainly for having an engine account e.g. the accounts featured on https://lichess.org/player/bots">با api ربات بازی کنید</string>

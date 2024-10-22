@@ -21,7 +21,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">ラウンド間 %s 分</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">開始まで</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">開始まで</string>
   <string name="nextRound">次のラウンド</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">対局中</item>
@@ -73,7 +73,7 @@
 続いてシステムはその人をトーナメントから除外するので、それ以上負けにはなりません。
 その人はまた後に途中参加することができます。</string>
   <string name="protectionAgainstNoShowQ">参加登録したトーナメントに参加しないとどうなりますか？</string>
-  <string name="protectionAgainstNoShowA">スイス式イベントに登録しておいて対局しない人がいるのは問題です。
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">スイス式イベントに登録しておいて対局しない人がいるのは問題です。
 この問題を減らすため、対局しなかったプレイヤーは一定の期間、別のスイス式イベントに参加登録できなくなります。
 ただしイベントの作成者はこの種のプレイヤーの参加を認めることもできます。</string>
   <string name="lateJoinQ">途中参加はできますか？</string>

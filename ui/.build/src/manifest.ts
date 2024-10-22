@@ -3,14 +3,16 @@ import path from 'node:path';
 import fs from 'node:fs';
 import crypto from 'node:crypto';
 import es from 'esbuild';
-import { env, colors as c, warnMark } from './main';
-import { globArray, globArrays } from './parse';
-import { isUnmanagedAsset } from './copies';
-import { allSources } from './sass';
+import { env, colors as c, warnMark } from './main.ts';
+import { globArray, globArrays } from './parse.ts';
+import { isUnmanagedAsset } from './copies.ts';
+import { allSources } from './sass.ts';
+import { jsLogger } from './console.ts';
 
-type Manifest = { [key: string]: { hash?: string; imports?: string[]; mtime?: number } };
+export type Manifest = { [key: string]: { hash?: string; imports?: string[]; mtime?: number } };
 
-const current: { js: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
+const current: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
+  i18n: {},
   js: {},
   css: {},
   hashed: {},
@@ -91,6 +93,23 @@ export async function hashedManifest(): Promise<void> {
   writeManifest();
 }
 
+export async function i18nManifest(): Promise<void> {
+  const i18nManifest: Manifest = {};
+  fs.mkdirSync(path.join(env.jsOutDir, 'i18n'), { recursive: true });
+  const scripts = await globArray('*.js', { cwd: env.i18nJsDir });
+  for (const file of scripts) {
+    const name = `i18n/${path.basename(file, '.js')}`;
+    const content = await fs.promises.readFile(file, 'utf-8');
+    const hash = crypto.createHash('md5').update(content).digest('hex').slice(0, 12);
+    const destPath = path.join(env.jsOutDir, `${name}.${hash}.js`);
+    i18nManifest[name] = { hash };
+    if (!fs.existsSync(destPath)) await fs.promises.writeFile(destPath, content);
+  }
+  current.i18n = shallowSort(i18nManifest);
+  current.dirty = true;
+  writeManifest();
+}
+
 async function write() {
   if (!env.manifestOk || !(await isComplete())) return;
   const commitMessage = cps
@@ -107,6 +126,7 @@ async function write() {
     `window.site.debug=${env.debug};`,
     'const m=window.site.manifest={css:{},js:{},hashed:{}};',
   ];
+  if (env.remoteLog) clientJs.push(jsLogger());
   for (const [name, info] of Object.entries(current.js)) {
     if (!/common\.[A-Z0-9]{8}/.test(name)) clientJs.push(`m.js['${name}']='${info.hash}';`);
   }
@@ -125,7 +145,7 @@ async function write() {
       new Date(new Date().toUTCString()).toISOString().split('.')[0] + '+00:00'
     }';\n`;
   const serverManifest = {
-    js: { manifest: { hash }, ...current.js },
+    js: { manifest: { hash }, ...current.js, ...current.i18n },
     css: { ...current.css },
     hashed: { ...current.hashed },
   };
@@ -138,7 +158,8 @@ async function write() {
     ),
   ]);
   current.dirty = false;
-  env.log(`Manifest hash ${c.green(hash)}`);
+  env.log(`Client manifest '${c.cyan(`public/compiled/manifest.${hash}.js`)}'`);
+  env.log(`Server manifest '${c.cyan(`public/compiled/manifest.${env.prod ? 'prod' : 'dev'}.json`)}'`);
 }
 
 async function hashMoveCss(src: string) {
@@ -178,7 +199,7 @@ async function isComplete() {
       return false;
     }
   }
-  return true;
+  return Object.keys(current.i18n).length;
 }
 
 function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {

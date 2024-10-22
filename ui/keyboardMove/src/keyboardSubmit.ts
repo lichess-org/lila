@@ -148,7 +148,7 @@ function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
 function sanCandidates(san: string, legalSans: SanToUci): San[] {
   // replace '=' in promotion moves (#7326)
   const lowered = san.replace('=', '').toLowerCase();
-  return Object.keys(legalSans).filter(function(s) {
+  return Object.keys(legalSans).filter(function (s) {
     return s.toLowerCase().startsWith(lowered);
   });
 }

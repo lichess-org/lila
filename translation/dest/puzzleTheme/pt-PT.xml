@@ -39,7 +39,7 @@
   <string name="deflection">Desvio</string>
   <string name="deflectionDescription">Uma jogada que distrai uma peça do adversário de outra função, como por exemplo, proteger uma casa chave. Às vezes também é chamado de sobrecarga.</string>
   <string name="discoveredAttack">Ataque descoberto</string>
-  <string name="discoveredAttackDescription">Mover uma peça que estava a bloquear um ataque de uma peça de longo alcance, como por exemplo um cavalo que sai da frente de uma torre.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mover uma peça que estava a bloquear um ataque de uma peça de longo alcance, como por exemplo um cavalo que sai da frente de uma torre.</string>
   <string name="doubleCheck">Xeque duplo</string>
   <string name="doubleCheckDescription">Fazer xeque com duas peças ao mesmo tempo, como consequência de um ataque descoberto em que tanto a peça que move como a peça que é descoberta atacam o rei do adversário.</string>
   <string name="endgame">Final de jogo</string>

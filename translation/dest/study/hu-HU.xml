@@ -4,7 +4,7 @@
   <string name="myStudies">Tanulmányaim</string>
   <string name="studiesIContributeTo">Tanulmányaim szerkesztőként</string>
   <string name="myPublicStudies">Nyilvános tanulmányaim</string>
-  <string name="myPrivateStudies">Privát tanulmányaim</string>
+  <string name="myPrivateStudies">Saját tanulmányaim</string>
   <string name="myFavoriteStudies">Kedvenc tanulmányaim</string>
   <string name="whatAreStudies">Mik azok a tanulmányok?</string>
   <string name="allStudies">Összes tanulmány</string>
@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Hozzáadva (legrégebbi)</string>
   <string name="recentlyUpdated">Nemrégiben frissítve</string>
   <string name="mostPopular">Legnépszerűbb</string>
-  <string name="alphabetical">Betűrendben</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Betűrendben</string>
   <string name="addNewChapter">Új fejezet hozzáadása</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Fejezet</item>
@@ -66,7 +66,7 @@
   <string name="downloadGame">Játszma letöltése</string>
   <string name="studyUrl">Tanulmány URL</string>
   <string name="currentChapterUrl">URL erre a fejezetre</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Ezzel a linkkel beágyazhatod a fejezetet a Lichess blogodban vagy a fórumon</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Ezzel a linkkel beágyazhatod a fejezetet a Lichess blogodban vagy a fórumon</string>
   <string name="startAtInitialPosition">Kezdés a kiinduló állásból</string>
   <string name="startAtX">Kezdés innen: %s</string>
   <string name="embedInYourWebsite">Beágyazás saját weboldalba</string>
@@ -97,9 +97,9 @@
   <string name="startFromInitialPosition">Kezdés az alapállásból</string>
   <string name="editor">Szerkesztő</string>
   <string name="startFromCustomPosition">Kezdés tetszőleges állásból</string>
-  <string name="loadAGameByUrl">Játszmák betöltése linkkel</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Játszmák betöltése linkkel</string>
   <string name="loadAPositionFromFen">Állás betöltése FEN-ből</string>
-  <string name="loadAGameFromPgn">Játszmák betöltése PGN-ből</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Játszmák betöltése PGN-ből</string>
   <string name="automatic">Automatikus</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Illeszd be a PGN szövegét legfeljebb %s játszmáig</item>
@@ -163,7 +163,7 @@
   <string name="popularTopics">Népszerű témakörök</string>
   <string name="manageTopics">Témakörök kezelése</string>
   <string name="back">Vissza</string>
-  <string name="playAgain">Újra</string>
-  <string name="whatWouldYouPlay">Mit lépnél ebben az állásban?</string>
-  <string name="youCompletedThisLesson">Gratulálok! A fejezet végére értél.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Újra</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Mit lépnél ebben az állásban?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Gratulálok! A fejezet végére értél.</string>
 </resources>

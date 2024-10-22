@@ -1,12 +1,12 @@
 db.trophyKind.drop();
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'zugMiracle',
   name: 'Zug miracle',
   url: '//lichess.org/faq#trophies',
   order: NumberInt(1),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'wayOfBerserk',
   name: 'The way of Berserk',
   icon: '',
@@ -15,7 +15,7 @@ db.trophyKind.insert({
   order: NumberInt(2),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'marathonWinner',
   name: 'Marathon Winner',
   icon: '',
@@ -23,7 +23,7 @@ db.trophyKind.insert({
   order: NumberInt(3),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'marathonTopTen',
   name: 'Marathon Top 10',
   icon: '',
@@ -31,7 +31,7 @@ db.trophyKind.insert({
   order: NumberInt(4),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'marathonTopFifty',
   name: 'Marathon Top 50',
   icon: '',
@@ -39,7 +39,7 @@ db.trophyKind.insert({
   order: NumberInt(5),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'marathonTopHundred',
   name: 'Marathon Top 100',
   icon: '',
@@ -47,7 +47,7 @@ db.trophyKind.insert({
   order: NumberInt(6),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'marathonTopFivehundred',
   name: 'Marathon Top 500',
   icon: '',
@@ -55,7 +55,7 @@ db.trophyKind.insert({
   order: NumberInt(7),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'marathonSurvivor',
   name: 'Marathon #1 survivor',
   icon: '',
@@ -64,7 +64,7 @@ db.trophyKind.insert({
   order: NumberInt(8),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'developer',
   name: 'Lichess developer',
   icon: '',
@@ -73,7 +73,7 @@ db.trophyKind.insert({
   order: NumberInt(100),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'moderator',
   name: 'Lichess moderator',
   icon: '',
@@ -82,7 +82,7 @@ db.trophyKind.insert({
   order: NumberInt(101),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'verified',
   name: 'Verified account',
   icon: '',
@@ -90,7 +90,7 @@ db.trophyKind.insert({
   order: NumberInt(102),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'contentTeam',
   name: 'Lichess Content Team',
   icon: '',
@@ -98,42 +98,42 @@ db.trophyKind.insert({
   order: NumberInt(103),
   withCustomImage: false,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'zhwc17',
   name: 'Crazyhouse champion 2017',
   url: '//lichess.org/blog/WMnMzSEAAMgA3oAW/crazyhouse-world-championship-the-candidates',
   order: NumberInt(1),
   withCustomImage: true,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'zhwc18',
   name: 'Crazyhouse champion 2018',
   url: '//lichess.org/forum/team-crazyhouse-world-championship/opperwezen-the-2nd-cwc',
   order: NumberInt(1),
   withCustomImage: true,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'atomicwc16',
   name: 'Atomic World Champion 2016',
   url: '//lichess.org/forum/team-atomic-wc/championship-final',
   order: NumberInt(1),
   withCustomImage: true,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'atomicwc17',
   name: 'Atomic World Champion 2017',
   url: '//lichess.org/forum/team-atomic-wc/awc-2017-its-final-time',
   order: NumberInt(1),
   withCustomImage: true,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'atomicwc18',
   name: 'Atomic World Champion 2018',
   url: '//lichess.org/forum/team-atomic-wc/announcement-awc-2018',
   order: NumberInt(1),
   withCustomImage: true,
 });
-db.trophyKind.insert({
+db.trophyKind.insertOne({
   _id: 'acwc18',
   name: 'Antichess World Champion 2018',
   url: '//lichess.org/forum/team-antichess-wc/congratulations-to-our-new-antichess-world-champion',

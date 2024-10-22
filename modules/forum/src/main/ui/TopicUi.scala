@@ -235,7 +235,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   text
               )
             ),
-            form3.hidden("name", me.username.value),
+            form3.hidden("name", s"${me.username.value} problem report"),
             renderCaptcha(form("post"), captcha),
             form3.actions(form3.submit("submit"))
           )

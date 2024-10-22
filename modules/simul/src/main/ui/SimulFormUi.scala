@@ -15,6 +15,7 @@ final class SimulFormUi(helpers: Helpers)(
     translatedVariantChoicesWithVariantsById: Translate ?=> List[(String, String, Option[String])]
 ):
   import helpers.{ *, given }
+  import SimulForm.EitherForm
 
   def create(form: Form[SimulForm.Setup], teams: List[LightTeam])(using Context) =
     Page(trans.site.hostANewSimul.txt())
@@ -27,7 +28,7 @@ final class SimulFormUi(helpers: Helpers)(
             p(trans.site.whenCreateSimul()),
             br,
             br,
-            formContent(form, teams, none),
+            formContent(Right(form), teams, none),
             form3.actions(
               a(href := routes.Simul.home)(trans.site.cancel()),
               form3.submit(trans.site.hostANewSimul(), icon = Icon.Trophy.some)
@@ -35,7 +36,7 @@ final class SimulFormUi(helpers: Helpers)(
           )
         )
 
-  def edit(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Simul)(using Context) =
+  def edit(form: EitherForm, teams: List[LightTeam], simul: Simul)(using Context) =
     Page(s"Edit ${simul.fullName}")
       .css("simul.form")
       .js(Esm("bits.flatpickr")):
@@ -48,22 +49,24 @@ final class SimulFormUi(helpers: Helpers)(
               form3.submit(trans.site.save(), icon = Icon.Trophy.some)
             )
           ),
-          postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-            submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
-              trans.site.cancelSimul()
+          form.isRight.option:
+            postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
+                trans.site.cancelSimul()
+              )
             )
-          )
         )
 
   private val gatheringFormUi = GatheringFormUi(helpers)
 
-  private def formContent(form: Form[SimulForm.Setup], teams: List[LightTeam], simul: Option[Simul])(using
+  private def formContent(form: EitherForm, teams: List[LightTeam], simul: Option[Simul])(using
       ctx: Context
   ) =
     import SimulForm.*
+    val anyForm = form.merge
     frag(
-      globalError(form),
-      form3.group(form("name"), trans.site.name()) { f =>
+      globalError(anyForm),
+      form3.group(anyForm("name"), trans.site.name()) { f =>
         div(
           form3.input(f),
           " Simul",
@@ -71,101 +74,105 @@ final class SimulFormUi(helpers: Helpers)(
           small(cls := "form-help")(trans.site.inappropriateNameWarning())
         )
       },
-      form3.fieldset("Games")(
-        form3.group(form("variant"), trans.site.simulVariantsHint()) { f =>
-          frag(
-            div(cls := "variants")(
-              setupCheckboxes(
-                form("variants"),
-                translatedVariantChoicesWithVariantsById,
-                form.value
-                  .map(_.variants.map(_.toString))
-                  .getOrElse(simul.so(_.variants.map(_.id.toString)))
-                  .toSet
-              )
-            ),
-            errMsg(f)
-          )
-        },
-        form3.split(
-          form3.group(
-            form("position"),
-            trans.site.startPosition(),
-            klass = "position",
-            half = true,
-            help = trans.site
-              .positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.site.boardEditor.txt()))
-              .some
-          )(form3.input(_)),
-          form3.group(form("color"), trans.site.simulHostcolor(), half = true)(
-            form3.select(_, colorChoices)
-          )
-        )
-      ),
-      form3.fieldset("Clock")(
-        form3.split(
-          form3.group(
-            form("clockTime"),
-            trans.site.clockInitialTime(),
-            help = trans.site.simulClockHint().some,
-            half = true
-          )(form3.select(_, clockTimeChoices)),
-          form3.group(form("clockIncrement"), trans.site.clockIncrement(), half = true)(
-            form3.select(_, clockIncrementChoices)
+      form.toOption.map: form =>
+        form3.fieldset("Games")(
+          form3.group(form("variant"), trans.site.simulVariantsHint()) { f =>
+            frag(
+              div(cls := "variants")(
+                setupCheckboxes(
+                  form("variants"),
+                  translatedVariantChoicesWithVariantsById,
+                  form.value
+                    .map(_.variants.map(_.toString))
+                    .getOrElse(simul.so(_.variants.map(_.id.toString)))
+                    .toSet
+                )
+              ),
+              errMsg(f)
+            )
+          },
+          form3.split(
+            form3.group(
+              form("position"),
+              trans.site.startPosition(),
+              klass = "position",
+              half = true,
+              help = trans.site
+                .positionInputHelp(a(href := routes.Editor.index, targetBlank)(trans.site.boardEditor.txt()))
+                .some
+            )(form3.input(_)),
+            form3.group(form("color"), trans.site.simulHostcolor(), half = true)(
+              form3.select(_, colorChoices)
+            )
           )
         ),
-        form3.split(
-          form3.group(
-            form("clockExtra"),
-            trans.site.simulHostExtraTime(),
-            help = trans.site.simulAddExtraTime().some,
-            half = true
-          )(
-            form3.select(_, clockExtraChoices)
-          ),
-          form3.group(
-            form("clockExtraPerPlayer"),
-            trans.site.simulHostExtraTimePerPlayer(),
-            help = trans.site.simulAddExtraTimePerPlayer().some,
-            half = true
-          )(
-            form3.select(_, clockExtraPerPlayerChoices)
-          )
-        )
-      ),
-      form3.fieldset("Entry conditions")(
-        form3.split(
-          teams.nonEmpty.option(
-            form3.group(form("conditions.team.teamId"), trans.site.onlyMembersOfTeam(), half = true)(
-              form3.select(_, List(("", trans.site.noRestriction.txt())) ::: teams.map(_.pair))
+      form.toOption.map: form =>
+        form3.fieldset("Clock")(
+          form3.split(
+            form3.group(
+              form("clockTime"),
+              trans.site.clockInitialTime(),
+              help = trans.site.simulClockHint().some,
+              half = true
+            )(form3.select(_, clockTimeChoices)),
+            form3.group(form("clockIncrement"), trans.site.clockIncrement(), half = true)(
+              form3.select(_, clockIncrementChoices)
             )
           ),
-          gatheringFormUi.accountAge(form("conditions.accountAge"))
+          form3.split(
+            form3.group(
+              form("clockExtra"),
+              trans.site.simulHostExtraTime(),
+              help = trans.site.simulAddExtraTime().some,
+              half = true
+            )(
+              form3.select(_, clockExtraChoices)
+            ),
+            form3.group(
+              form("clockExtraPerPlayer"),
+              trans.site.simulHostExtraTimePerPlayer(),
+              help = trans.site.simulAddExtraTimePerPlayer().some,
+              half = true
+            )(
+              form3.select(_, clockExtraPerPlayerChoices)
+            )
+          )
         ),
+      form.toOption.map: form =>
+        form3.fieldset("Entry conditions")(
+          form3.split(
+            teams.nonEmpty.option(
+              form3.group(form("conditions.team.teamId"), trans.site.onlyMembersOfTeam(), half = true)(
+                form3.select(_, List(("", trans.site.noRestriction.txt())) ::: teams.map(_.pair))
+              )
+            ),
+            gatheringFormUi.accountAge(form("conditions.accountAge"))
+          ),
+          form3.split(
+            gatheringFormUi.minRating(form("conditions.minRating.rating")),
+            gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
+          )
+        ),
+      form.toOption.map: form =>
         form3.split(
-          gatheringFormUi.minRating(form("conditions.minRating.rating")),
-          gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
-        )
-      ),
-      form3.split(
-        form3.group(
-          form("estimatedStartAt"),
-          trans.site.estimatedStart(),
-          half = true
-        )(form3.flatpickr(_))
-      ),
+          form3.group(
+            form("estimatedStartAt"),
+            trans.site.estimatedStart(),
+            half = true
+          )(form3.flatpickr(_))
+        ),
       form3.group(
-        form("text"),
+        anyForm("text"),
         trans.site.simulDescription(),
         help = trans.site.simulDescriptionHelp().some
       )(form3.textarea(_)(rows := 10)),
-      ctx.me
-        .exists(canBeFeatured)
-        .option(
-          form3.checkbox(
-            form("featured"),
-            trans.site.simulFeatured("lichess.org/simul"),
-            help = trans.site.simulFeaturedHelp("lichess.org/simul").some
-          )
-        )
+      form.toOption.map: form =>
+        ctx.me
+          .exists(canBeFeatured)
+          .option:
+            form3.checkbox(
+              form("featured"),
+              trans.site.simulFeatured("lichess.org/simul"),
+              help = trans.site.simulFeaturedHelp("lichess.org/simul").some
+            )
     )

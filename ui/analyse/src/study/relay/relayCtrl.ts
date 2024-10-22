@@ -108,8 +108,9 @@ export default class RelayCtrl {
 
   roundById = (id: string) => this.data.rounds.find(r => r.id == id);
   currentRound = () => this.roundById(this.id)!;
+  roundName = () => this.currentRound().name;
 
-  fullRoundName = () => `${this.data.tour.name} - ${this.currentRound().name}`;
+  fullRoundName = () => `${this.data.tour.name} - ${this.roundName()}`;
 
   tourPath = () => `/broadcast/${this.data.tour.slug}/${this.data.tour.id}`;
   roundPath = (round?: RelayRound) => {

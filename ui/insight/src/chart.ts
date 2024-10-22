@@ -115,15 +115,15 @@ function barBuilder(
       id == 'y2'
         ? { display: false }
         : {
-          color: tooltipFontColor,
-          textStrokeColor: tooltipBgColor,
-          textShadowBlur: 10,
-          textShadowColor: tooltipBgColor,
-          textStrokeWidth: 1.2,
-          font: fontFamily(12, 'bold'),
-          formatter: val =>
-            val == 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
-        },
+            color: tooltipFontColor,
+            textStrokeColor: tooltipBgColor,
+            textShadowBlur: 10,
+            textShadowColor: tooltipBgColor,
+            textStrokeWidth: 1.2,
+            font: fontFamily(12, 'bold'),
+            formatter: val =>
+              val == 0 && percent ? '' : formatNumber(serie.dataType, val * (percent ? 100 : 1)),
+          },
   };
 }
 
@@ -196,7 +196,7 @@ function chartHook(vnode: VNode, ctrl: Ctrl) {
   }
 }
 
-export default function(ctrl: Ctrl) {
+export default function (ctrl: Ctrl) {
   if (!ctrl.validCombinationCurrent()) return empty('Invalid dimension/metric combination');
   if (!ctrl.vm.answer?.series.length) return empty('No data. Try widening or clearing the filters.');
   return h(

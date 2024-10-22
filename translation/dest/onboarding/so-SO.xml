@@ -3,4 +3,6 @@
   <string name="welcome">Soo dhawow!</string>
   <string name="welcomeToLichess">Ku soo dhawow lichess.org!</string>
   <string name="thisIsYourProfilePage">Halkani waa boggaagii.</string>
+  <string name="learnChessRules">Baro sharciyada shataranjiga/chess</string>
+  <string name="improveWithChessTacticsPuzzles">Horumari xirfadahaaga shatranjiga/chess adoo xallinaya Hal-xiraale.</string>
 </resources>

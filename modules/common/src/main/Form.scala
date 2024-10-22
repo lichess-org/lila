@@ -6,10 +6,10 @@ import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.validation.{ Constraint, Constraints }
 import play.api.data.{ Form as PlayForm, FormError, Mapping, validation as V }
-
 import java.lang
-import java.time.LocalDate
+import java.time.{ LocalDate, LocalDateTime, ZoneId }
 import scala.util.Try
+import play.api.i18n.Lang
 
 object Form:
 
@@ -217,7 +217,7 @@ object Form:
     val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen.Full) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
-        if g.fullMoveNumber >= 150 then
+        if g.fullMoveNumber >= chess.FullMoveNumber(150) then
           Fen.write(g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100))) // keep the start ply low
         else fen
       }
@@ -227,6 +227,13 @@ object Form:
     given Formatter[URL] = formatter.stringTryFormatter: s =>
       lila.common.url.parse(s).toEither.fold(err => Left(s"Invalid URL: ${err.getMessage}"), Right(_))
     val field: Mapping[URL] = of[URL]
+
+  object timeZone:
+    given Formatter[ZoneId] = formatter.stringTryFormatter(
+      from = s => Try(ZoneId.of(s)).fold(err => Left(err.getMessage), Right(_)),
+      to = _.getId
+    )
+    val field: Mapping[ZoneId] = of[ZoneId]
 
   object username:
     val historicalConstraints = Seq(
@@ -333,4 +340,15 @@ object Form:
       def bind(key: String, data: Map[String, String]) =
         ISOInstant.format.bind(key, data).orElse(Timestamp.format.bind(key, data))
       def unbind(key: String, value: Instant) = ISOInstant.format.unbind(key, value)
+    val mapping: Mapping[Instant] = of[Instant](format)
+  final class LocalDateTimeOrTimestamp(zone: ZoneId):
+    val localFormatter = java.time.format.DateTimeFormatter.ofPattern(PrettyDateTime.pattern)
+    def localDateTimeParse(data: String) = LocalDateTime.parse(data, localFormatter)
+    val format: Formatter[Instant] = new:
+      def bind(key: String, data: Map[String, String]) =
+        parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
+          .map(_.atZone(zone).toInstant)
+          .orElse(Timestamp.format.bind(key, data))
+      def unbind(key: String, value: Instant) =
+        Map(key -> value.atZone(zone).toLocalDateTime.format(localFormatter))
     val mapping: Mapping[Instant] = of[Instant](format)

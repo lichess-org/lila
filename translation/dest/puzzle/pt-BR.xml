@@ -31,8 +31,8 @@
   <string name="byOpenings">Por abertura</string>
   <string name="puzzlesByOpenings">Quebra-cabeças por abertura</string>
   <string name="openingsYouPlayedTheMost">Aberturas que você mais jogou em partidas valendo pontos</string>
-  <string name="useFindInPage">Use a ferramenta \"Encontrar na página\" do navegador para encontrar sua abertura favorita!</string>
-  <string name="useCtrlF">Aperte Ctrl + F para encontrar sua abertura favorita!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Use a ferramenta \"Encontrar na página\" do navegador para encontrar sua abertura favorita!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Aperte Ctrl + F para encontrar sua abertura favorita!</string>
   <string name="notTheMove">O movimento não é este!</string>
   <string name="trySomethingElse">Tente algo diferente.</string>
   <string name="ratingX">Rating: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Pontos fortes</string>
   <string name="history">Histórico de quebra-cabeças</string>
   <string name="solved">resolvido</string>
-  <string name="failed">falhou</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">falhou</string>
   <string name="streakDescription">Resolva quebra-cabeças progressivamente mais difíceis e construa uma sequência de vitórias. Não há relógio, então tome seu tempo. Um movimento errado e o jogo acaba! Porém, você pode pular um movimento por sessão.</string>
   <string name="yourStreakX">Sua sequência: %s</string>
   <string name="streakSkipExplanation">Pule este lance para preservar a sua sequência! Funciona apenas uma vez por corrida.</string>

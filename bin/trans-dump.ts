@@ -1,11 +1,11 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readdirSync, readFileSync, writeFileSync } from 'fs';
 import path from 'path';
 import { XMLParser } from 'fast-xml-parser';
 
 interface TranslationXml {
   '?xml': {
     version: string;
-    encoding: string
+    encoding: string;
   };
   resources: {
     string?: {
@@ -15,7 +15,7 @@ interface TranslationXml {
     }[];
     plurals?: {
       name: string;
-      text: string ;
+      text: string;
       comment?: string;
       item: {
         quantity: 'one' | 'other';
@@ -33,17 +33,18 @@ interface KeyList {
 const lilaDir = path.resolve(__dirname, '..');
 const baseDir = path.resolve(lilaDir, 'translation/source');
 
-const dbs = 'site arena emails learn activity coordinates study clas contact appeal patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding features'
-  .split(' ');
+const xmls = readdirSync(baseDir)
+  .filter(f => f.endsWith('.xml'))
+  .map(f => f.replace(/\.xml$/, ''));
 
-function xmlName(name: string) {
-  const renames = new Map([['clas', 'class']]);
+function convertObjectName(name: string) {
+  const renames = new Map([['class', 'clas']]);
 
   return renames.get(name) || name;
 }
 
 function keyListFrom(name: string): KeyList {
-  const txt = readFileSync(path.resolve(baseDir, `${xmlName(name)}.xml`), 'utf-8');
+  const txt = readFileSync(path.resolve(baseDir, `${name}.xml`), 'utf-8');
   const parser = new XMLParser({
     ignoreAttributes: false,
     isArray: tagName => ['string', 'plurals', 'item'].includes(tagName),
@@ -62,14 +63,14 @@ function keyListFrom(name: string): KeyList {
     name,
     code:
       keys
-        .map(k => `${indent}val \`${k}\`: I18nKey = "${name === 'site' ? '' : xmlName(name) + ':'}${k}"`)
+        .map(k => `${indent}val \`${k}\`: I18nKey = "${name === 'site' ? '' : name + ':'}${k}"`)
         .join('\n') + '\n',
   };
 }
 
-const dbCode = (obj: KeyList) => `  object ${obj.name}:\n${obj.code}`;
+const dbCode = (obj: KeyList) => `  object ${convertObjectName(obj.name)}:\n${obj.code}`;
 
-Promise.all(dbs.map(keyListFrom)).then(objs => {
+Promise.all(xmls.map(keyListFrom)).then(objs => {
   const code = `// Generated with bin/trans-dump.ts
 package lila.core.i18n
 

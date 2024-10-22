@@ -44,10 +44,10 @@ export function fontFamily(
   size?: number,
   weight?: 'bold',
 ): {
-    family: string;
-    size: number;
-    weight?: 'bold';
-  } {
+  family: string;
+  size: number;
+  weight?: 'bold';
+} {
   return {
     family: "'Noto Sans', 'Lucida Grande', 'Lucida Sans Unicode', Verdana, Arial, Helvetica, sans-serif",
     size: size ?? 12,

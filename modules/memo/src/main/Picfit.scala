@@ -94,7 +94,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     def store(image: PicfitImage, part: SourcePart): Funit =
       ws
         .url(s"${config.endpointPost}/upload")
-        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: List()))(using
+        .post(Source(part.copy[ByteSource](filename = image.id.value, key = "data") :: Nil))(using
           WSBodyWritables.bodyWritable
         )
         .flatMap:
@@ -172,7 +172,7 @@ final class PicfitUrl(config: PicfitConfig)(using Executor) extends lila.core.mi
       height: Int
   ) =
     // parameters must be given in alphabetical order for the signature to work (!)
-    val queryString = s"h=$height&op=$operation&path=$id&w=$width"
+    val queryString = s"fmt=webp&h=$height&op=$operation&path=$id&w=$width"
     s"${config.endpointGet}/display?${signQueryString(queryString)}"
 
   private object signQueryString:

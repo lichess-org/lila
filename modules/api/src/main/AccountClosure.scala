@@ -21,6 +21,7 @@ final class AccountClosure(
     modApi: lila.mod.ModApi,
     modLogApi: lila.mod.ModlogApi,
     appealApi: lila.appeal.AppealApi,
+    ublogApi: lila.ublog.UblogApi,
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail
 )(using Executor):
@@ -55,9 +56,9 @@ final class AccountClosure(
       if selfClose then modLogApi.selfCloseAccount(u.id, reports)
       else modLogApi.closeAccount(u.id)
     _ <- appealApi.onAccountClose(u)
-    _ <- u.marks.troll.so(relationApi.fetchFollowing(u.id).flatMap {
-      activityWrite.unfollowAll(u, _)
-    })
+    _ <- ublogApi.onAccountClose(u)
+    _ <- u.marks.troll.so:
+      relationApi.fetchFollowing(u.id).flatMap(activityWrite.unfollowAll(u, _))
   yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: UserId) =

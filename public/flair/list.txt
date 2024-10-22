@@ -3101,6 +3101,7 @@ symbols.fast-up-button
 symbols.female-sign
 symbols.fleur-de-lis
 symbols.free-button
+symbols.fridays-for-future
 symbols.gemini
 symbols.gnu-logo
 symbols.green-heart

@@ -13,6 +13,7 @@
   <string name="chessInsights">チェス・インサイト（あなたのプレイの詳細な分析）</string>
   <string name="allChessBasicsLessons">すべてのチェスの基本レッスン</string>
   <string name="tacticalPuzzlesFromUserGames">ユーザーの対局からのタクティクス問題</string>
+  <string name="personalOpeningExplorerX">%1$s （%2$s にも有効）</string>
   <string name="personalOpeningExplorer">個人用オープニング エクスプローラー</string>
   <string name="globalOpeningExplorerInNbGames">オープニングエクスプローラー（%s 局！）</string>
   <string name="endgameTablebase">7 駒までの終盤テーブルベース</string>

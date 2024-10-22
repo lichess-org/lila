@@ -51,7 +51,7 @@ export default new (class implements SoundI {
     if (!this.enabled()) return;
     let dir = this.theme;
     if (this.theme === 'music' || this.speech()) {
-      if (['move', 'capture', 'check'].includes(name)) return;
+      if (['move', 'capture', 'check', 'checkmate'].includes(name)) return;
       dir = 'standard';
     }
     return this.url(`${dir}/${name[0].toUpperCase() + name.slice(1)}.mp3`);
@@ -76,7 +76,11 @@ export default new (class implements SoundI {
       else {
         if (o?.san?.includes('x')) this.throttled('capture', volume);
         else this.throttled('move', volume);
-        if (o?.san?.includes('#') || o?.san?.includes('+')) this.throttled('check', volume);
+        if (o?.san?.includes('#')) {
+          this.throttled('checkmate', volume);
+        } else if (o?.san?.includes('+')) {
+          this.throttled('check', volume);
+        }
       }
     }
     if (o?.filter === 'game' || this.theme !== 'music') return;
@@ -171,29 +175,29 @@ export default new (class implements SoundI {
                 : san.includes('O-O')
                   ? 'short castle'
                   : san
-                    .split('')
-                    .map(c => {
-                      if (c == 'x') return 'takes';
-                      if (c == '+') return 'check';
-                      if (c == '#') return 'checkmate';
-                      if (c == '=') return 'promotes to';
-                      if (c == '@') return 'at';
-                      const code = c.charCodeAt(0);
-                      if (code > 48 && code < 58) return c; // 1-8
-                      if (code > 96 && code < 105) return c.toUpperCase();
-                      return charRole(c) || c;
-                    })
-                    .join(' ')
-                    .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
-                    .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
-                    .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
-                    .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
-                    .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
+                      .split('')
+                      .map(c => {
+                        if (c == 'x') return 'takes';
+                        if (c == '+') return 'check';
+                        if (c == '#') return 'checkmate';
+                        if (c == '=') return 'promotes to';
+                        if (c == '@') return 'at';
+                        const code = c.charCodeAt(0);
+                        if (code > 48 && code < 58) return c; // 1-8
+                        if (code > 96 && code < 105) return c.toUpperCase();
+                        return charRole(c) || c;
+                      })
+                      .join(' ')
+                      .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
+                      .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
+                      .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
+                      .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
+                      .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
     this.say(text, cut);
   }
 
   preloadBoardSounds() {
-    for (const name of ['move', 'capture', 'check', 'genericNotify']) this.load(name);
+    for (const name of ['move', 'capture', 'check', 'checkmate', 'genericNotify']) this.load(name);
   }
 
   async resumeWithTest(): Promise<boolean> {

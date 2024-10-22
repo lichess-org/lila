@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Requisitos do taboleiro DGT</string>
   <string name="dgtBoardLimitations">Limitacións do taboleiro DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Esta páxina permíteche conectar o teu taboleiro DGT a Lichess e usalo para xogar as túas partidas.</string>
-  <string name="toConnectTheDgtBoard">Necesitas instalar %s para conectarte ó taboleiro electrónico DGT.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Necesitas instalar %s para conectarte ó taboleiro electrónico DGT.</string>
   <string name="downloadHere">Podes descargar o programa aquí: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Se %1$s se está a executar neste ordenador, podes comprobar a túa conexión %2$s.</string>
   <string name="openingThisLink">abrindo esta ligazón</string>

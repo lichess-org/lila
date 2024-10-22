@@ -19,7 +19,7 @@ resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
 export async function initModule(data: DistributionData): Promise<void> {
-  $('#rating_distribution_chart').each(function(this: HTMLCanvasElement) {
+  $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
     const sum = arraySum(data.freq);
@@ -46,7 +46,7 @@ export async function initModule(data: DistributionData): Promise<void> {
         ...seriesCommonData('#dddf0d'),
         data: cumul,
         yAxisID: 'y2',
-        label: data.i18n.cumulative,
+        label: i18n.site.cumulative,
         pointRadius: 0,
         datalabels: { display: false },
         pointHitRadius: 200,
@@ -57,7 +57,7 @@ export async function initModule(data: DistributionData): Promise<void> {
         backgroundColor: gradient,
         yAxisID: 'y',
         fill: true,
-        label: data.i18n.players,
+        label: i18n.site.players,
         pointRadius: 4,
         datalabels: { display: false },
         pointHitRadius: 200,
@@ -84,9 +84,10 @@ export async function initModule(data: DistributionData): Promise<void> {
           color: color,
         },
       });
-    if (data.myRating && data.myRating <= maxRating) pushLine('#55bf3b', data.myRating, `${data.i18n.yourRating} (${data.myRating})`);
+    if (data.myRating && data.myRating <= maxRating)
+      pushLine('#55bf3b', data.myRating, `${i18n.site.yourRating} (${data.myRating})`);
     if (data.otherRating && data.otherPlayer) {
-      pushLine('#eeaaee', Math.min(data.otherRating , maxRating), `${data.otherPlayer} (${data.otherRating})`);
+      pushLine('#eeaaee', Math.min(data.otherRating, maxRating), `${data.otherPlayer} (${data.otherRating})`);
     }
     const chartData: ChartData<'line'> = {
       labels: ratings,
@@ -113,7 +114,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
             title: {
               display: true,
-              text: data.i18n.glicko2Rating,
+              text: i18n.site.glicko2Rating,
             },
           },
           y: {
@@ -126,7 +127,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
             title: {
               display: true,
-              text: data.i18n.players,
+              text: i18n.site.players,
             },
           },
           y2: {
@@ -142,7 +143,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
             title: {
               display: true,
-              text: data.i18n.cumulative,
+              text: i18n.site.cumulative,
             },
           },
         },

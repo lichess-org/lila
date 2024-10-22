@@ -24,14 +24,14 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         ...(main.forceVariation
           ? []
           : [
-            renderMoveOf(ctx, main, {
-              parentPath: opts.parentPath,
-              isMainline: true,
-              depth: opts.depth,
-              withIndex: opts.withIndex,
-            }),
-            ...renderInlineCommentsOf(ctx, main, opts.parentPath),
-          ]),
+              renderMoveOf(ctx, main, {
+                parentPath: opts.parentPath,
+                isMainline: true,
+                depth: opts.depth,
+                withIndex: opts.withIndex,
+              }),
+              ...renderInlineCommentsOf(ctx, main, opts.parentPath),
+            ]),
         h(
           'interrupt',
           renderLines(ctx, node, main.forceVariation ? cs : cs.slice(1), {
@@ -43,11 +43,11 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
         ...(main.forceVariation
           ? []
           : renderChildrenOf(ctx, main, {
-            parentPath: opts.parentPath + main.id,
-            isMainline: true,
-            depth: opts.depth,
-            withIndex: true,
-          }) || []),
+              parentPath: opts.parentPath + main.id,
+              isMainline: true,
+              depth: opts.depth,
+              withIndex: true,
+            }) || []),
       ]
     );
   }
@@ -76,15 +76,15 @@ function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: 
     { class: { collapsed } },
     collapsed
       ? h('line', { class: { expand: true } }, [
-        h('branch'),
-        h('a', {
-          attrs: { 'data-icon': licon.PlusButton, title: ctx.ctrl.trans.noarg('expandVariations') },
-          on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
-        }),
-      ])
+          h('branch'),
+          h('a', {
+            attrs: { 'data-icon': licon.PlusButton, title: i18n.site.expandVariations },
+            on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
+          }),
+        ])
       : nodes.map(n => {
-        return (
-          retroLine(ctx, n) ||
+          return (
+            retroLine(ctx, n) ||
             h('line', [
               h('branch'),
               ...renderMoveAndChildrenOf(ctx, n, {
@@ -95,8 +95,8 @@ function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: 
                 truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
               }),
             ])
-        );
-      }),
+          );
+        }),
   );
 }
 
@@ -142,7 +142,7 @@ function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   return h('move', { attrs: { p: path }, class: nodeClasses(ctx, node, path) }, content);
 }
 
-export default function(ctrl: AnalyseCtrl): VNode {
+export default function (ctrl: AnalyseCtrl): VNode {
   const ctx = renderingCtx(ctrl);
   return h('div.tview2.tview2-inline', { hook: mainHook(ctrl) }, [
     ...renderInlineCommentsOf(ctx, ctrl.tree.root, ''),

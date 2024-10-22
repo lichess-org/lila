@@ -27,7 +27,7 @@
     <item quantity="one">Minutu %s txanden artean</item>
     <item quantity="other">%s minutu txanden artean</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Hasiera</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Hasiera</string>
   <string name="nextRound">Hurrengo txanda</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Partida bat martxan</item>
@@ -77,7 +77,7 @@ Gainera jokalari batek puntu-erdiko bye edo atseden bat jaso dezake txapelketara
 Orduan sistemak jokalaria txapelketatik kanpoko utziko du partida gehiago gal ez dezan.
  Edozein momentutan partidara berriz sartu daiteke jokalaria.</string>
   <string name="protectionAgainstNoShowQ">Zer egiten da jokalariak partidara agertzen ez badira?</string>
-  <string name="protectionAgainstNoShowA">Txapelketa suitzarretan izena eman eta beren partidak jokatzen ez dituzten jokalariek arazoak sortzen dituzte.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Txapelketa suitzarretan izena eman eta beren partidak jokatzen ez dituzten jokalariek arazoak sortzen dituzte.
 Hori leuntzeko, Lichessek partidaren bat jokatu3gabe utzi duten jokalariei ez die utziko beste txapelketa suitzar baten parte hartzen denbora batean.
 Hala ere Txapelketaren sortzaileak sartzen utz diezaieke.</string>
   <string name="lateJoinQ">Sartu daitezke jokalariak berandu?</string>

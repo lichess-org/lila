@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Alcune pagine di Lichess hanno delle scorciatoie da tastiera che puoi usare. Prova a premere il tasto \'?\' sulle pagine di studi, analisi, puzzle, o partite per avere una lista delle scorciatoie da tastiera.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Quando posso beneficiare del rimborso automatico del punteggio perso contro chi imbroglia?</string>
-  <string name="ratingRefundExplanation">Un minuto dopo aver individuato un giocatore che imbroglia, vengono considerate le ultime 40 partite classificate negli ultimi 3 giorni. Se sei il loro avversario in una di quelle partite, hai perso punteggio (a causa di una sconfitta o un pareggio) e il tuo punteggio non era provvisorio, otterrai un rimborso del punteggio. Il rimborso è limitato in base al punteggio massimo e al progresso del tuo punteggio dopo la partita.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minuto dopo aver individuato un giocatore che imbroglia, vengono considerate le ultime 40 partite classificate negli ultimi 3 giorni. Se sei il loro avversario in una di quelle partite, hai perso punteggio (a causa di una sconfitta o un pareggio) e il tuo punteggio non era provvisorio, otterrai un rimborso del punteggio. Il rimborso è limitato in base al punteggio massimo e al progresso del tuo punteggio dopo la partita.
    (Ad esempio, se la tua valutazione aumenta notevolmente dopo tali partite, potresti non ottenere alcun rimborso o un rimborso parziale.) Un rimborso non supererà mai i 150 punti.</string>
   <string name="preventLeavingGameWithoutResigning">Cosa succede ai giocatori che lasciano la partita senza abbandonare?</string>
   <string name="leavingGameWithoutResigningExplanation">Se il tuo avversario interrompe/abbandona le partite di frequente, viene \"bannato dal giocare\", il che significa che gli viene temporaneamente vieato di giocare partite. Ciò non è indicato pubblicamente sul loro profilo. Se questo comportamento persiste, la lunghezza del ban dal giocare aumenta e un comportamento prolungato di questo tipo può portare alla chiusura dell\'account.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Come vengono decisi Bullet, Blitz e altre cadenze di gioco?</string>
   <string name="basedOnGameDuration">Le cadenze di gioco Lichess si basano sulla durata stimata della partita = %1$s
 Ad esempio, la durata stimata di una partita 5+3 è 5 × 60 + 40 × 3 = 420 secondi.</string>
-  <string name="durationFormula">(tempo iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(tempo iniziale dell\'orologio) + 40 × (incremento dell\'orologio)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Quali varianti posso giocare su Lichess?</string>

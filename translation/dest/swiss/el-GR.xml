@@ -22,7 +22,7 @@
     <item quantity="one">%s λεπτό μεταξύ γύρων</item>
     <item quantity="other">%s λεπτά μεταξύ γύρων</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Εκκίνηση σε</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Εκκίνηση σε</string>
   <string name="nextRound">Επόμενος γύρος</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Παιχνίδι σε εξέλιξη</item>
@@ -61,6 +61,9 @@
   <string name="whatIfOneDoesntPlayA">Το ρολόι θα συνεχίσει να τρέχει και κάποια στιγμή θα χάσει από χρόνο.
 Κατόπιν, το σύστημα θα αποκλείσει αυτόματα τον παίκτη από το τουρνουά, έτσι ώστε να μη χάσει περισσότερα παιχνίδια.
 Μπορούν να ξανασυμμετέχουν στο τουρνουά οποιαδήποτε στιγμή.</string>
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Οι παίκτες που εγγράφονται σε ελβετικά τουρνουά αλλά δεν παίζουν τα παιχνίδια τους μπορεί να είναι προβληματικοί.
+Για να μετριάσει αυτό το πρόβλημα, το Lichess αποτρέπει τους παίκτες που δεν έπεξαν κανένα παιχνίδι από το να συμμετάσχουν σε νεο ελβετικό τουρνουά, για ένα συγκεκριμένο χρονικό διάστημα.
+Ο δημιουργός του ελβετικού τουρνουά μπορεί, ούτως ή άλλως, να τους αφήσει να συμμετάσχουν στο τουρνουά.</string>
   <string name="lateJoinQ">Μπορούν οι παίκτες να δηλώσουν συμμετοχή ακόμα και μετά τον πρώτο γύρο;</string>
   <string name="lateJoinA">Ναι, αλλά όχι μόλις έχουν ολοκληρωθεί περισσότεροι από τους μισούς γύρους. Για παράδειγμα, σε ένα ελβετικό τουρνουά 11 γύρων, ένας παίκτης μπορεί να δηλώσει συμμετοχή πριν τον 6ο γύρο, ενώ σε ένα τουρνουά 12 γύρων πριν τον 7ο.
 Οι παίκτες αυτοί παίρνουν ένα bye, ακόμα και αν έχασαν αρκετούς γύρους.</string>

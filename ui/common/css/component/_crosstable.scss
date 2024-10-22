@@ -81,10 +81,6 @@
       border: $c-border;
     }
 
-    a.loss {
-      opacity: 0.2;
-    }
-
     @media (max-width: at-most($x-small)) {
       display: none;
 

@@ -27,7 +27,6 @@ import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 import StrongSocket from 'common/socket';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 export default class RacerCtrl implements PuzCtrl {
@@ -39,7 +38,6 @@ export default class RacerCtrl implements PuzCtrl {
   run: Run;
   vm: RacerVm;
   filters: PuzFilters;
-  trans: Trans;
   promotion: PromotionCtrl;
   countdown: Countdown;
   boost: Boost = new Boost();
@@ -57,7 +55,6 @@ export default class RacerCtrl implements PuzCtrl {
     this.race = this.data.race;
     this.pref = opts.pref;
     this.filters = new PuzFilters(redraw, true);
-    this.trans = trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
@@ -229,8 +226,8 @@ export default class RacerCtrl implements PuzCtrl {
     this.isPlayer()
       ? makeCgOpts(this.run, this.isRacing(), this.flipped)
       : {
-        orientation: this.run.pov,
-      };
+          orientation: this.run.pov,
+        };
 
   private setGround = () => this.withGround(g => g.set(this.cgOpts()));
 

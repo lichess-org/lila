@@ -121,10 +121,10 @@ final class GameStateStream(
       claimInSeconds.fold(jsonView.opponentGoneIsBack)(jsonView.opponentGoneClaimIn).some
 
     def onGameOver(g: Option[Game]) =
-      g.so(pushState)
-        .andDo:
-          gameOver = true
-          self ! PoisonPill
+      for _ <- g.so(pushState)
+      yield
+        gameOver = true
+        self ! PoisonPill
 
 private object GameStateStream:
 

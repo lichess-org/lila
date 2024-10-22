@@ -5,9 +5,9 @@ import { ColorChoice, TimeControl, Mode } from './interfaces';
 import { toggle } from 'common/controls';
 
 const colors: [ColorChoice, string][] = [
-  ['black', 'asBlack'],
-  ['random', 'randomColor'],
-  ['white', 'asWhite'],
+  ['black', i18n.site.asBlack],
+  ['random', i18n.site.randomColor],
+  ['white', i18n.site.asWhite],
 ];
 
 const timeControls: [TimeControl, string][] = [
@@ -18,63 +18,63 @@ const timeControls: [TimeControl, string][] = [
 const filesAndRanksSelection = (ctrl: CoordinateTrainerCtrl): VNodes =>
   ctrl.selectionEnabled() && ctrl.mode() === 'findSquare'
     ? [
-      h('form.files.buttons', [
-        h(
-          'group.radio',
-          'abcdefgh'.split('').map((fileLetter: Files) =>
-            h('div.file_option', [
-              h('input', {
-                attrs: {
-                  type: 'checkbox',
-                  id: `coord_file_${fileLetter}`,
-                  name: 'files_selection',
-                  value: fileLetter,
-                  checked: ctrl.selectedFiles.has(fileLetter),
-                },
-                on: {
-                  change: e => {
-                    const target = e.target as HTMLInputElement;
-                    ctrl.onFilesChange(target.value as Files, target.checked);
+        h('form.files.buttons', [
+          h(
+            'group.radio',
+            'abcdefgh'.split('').map((fileLetter: Files) =>
+              h('div.file_option', [
+                h('input', {
+                  attrs: {
+                    type: 'checkbox',
+                    id: `coord_file_${fileLetter}`,
+                    name: 'files_selection',
+                    value: fileLetter,
+                    checked: ctrl.selectedFiles.has(fileLetter),
                   },
-                  keyup: ctrl.onRadioInputKeyUp,
-                },
-              }),
-              h(
-                `label.file_${fileLetter}`,
-                { attrs: { for: `coord_file_${fileLetter}`, title: fileLetter } },
-                fileLetter,
-              ),
-            ]),
-          ),
-        ),
-      ]),
-      h('form.ranks.buttons', [
-        h(
-          'group.radio',
-          '12345678'.split('').map((rank: Ranks) =>
-            h('div.file_option', [
-              h('input', {
-                attrs: {
-                  type: 'checkbox',
-                  id: `coord_rank_${rank}`,
-                  name: 'ranks_selection',
-                  value: rank,
-                  checked: ctrl.selectedRanks.has(rank),
-                },
-                on: {
-                  change: e => {
-                    const target = e.target as HTMLInputElement;
-                    ctrl.onRanksChange(target.value as Ranks, target.checked);
+                  on: {
+                    change: e => {
+                      const target = e.target as HTMLInputElement;
+                      ctrl.onFilesChange(target.value as Files, target.checked);
+                    },
+                    keyup: ctrl.onRadioInputKeyUp,
                   },
-                  keyup: ctrl.onRadioInputKeyUp,
-                },
-              }),
-              h(`label.rank_${rank}`, { attrs: { for: `coord_rank_${rank}`, title: rank } }, rank),
-            ]),
+                }),
+                h(
+                  `label.file_${fileLetter}`,
+                  { attrs: { for: `coord_file_${fileLetter}`, title: fileLetter } },
+                  fileLetter,
+                ),
+              ]),
+            ),
           ),
-        ),
-      ]),
-    ]
+        ]),
+        h('form.ranks.buttons', [
+          h(
+            'group.radio',
+            '12345678'.split('').map((rank: Ranks) =>
+              h('div.file_option', [
+                h('input', {
+                  attrs: {
+                    type: 'checkbox',
+                    id: `coord_rank_${rank}`,
+                    name: 'ranks_selection',
+                    value: rank,
+                    checked: ctrl.selectedRanks.has(rank),
+                  },
+                  on: {
+                    change: e => {
+                      const target = e.target as HTMLInputElement;
+                      ctrl.onRanksChange(target.value as Ranks, target.checked);
+                    },
+                    keyup: ctrl.onRadioInputKeyUp,
+                  },
+                }),
+                h(`label.rank_${rank}`, { attrs: { for: `coord_rank_${rank}`, title: rank } }, rank),
+              ]),
+            ),
+          ),
+        ]),
+      ]
     : [];
 
 const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
@@ -109,12 +109,13 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             {
               attrs: {
                 for: `coord_mode_${mode}`,
-                title: ctrl.trans(
-                  mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation',
-                ),
+                title:
+                  i18n.coordinates[
+                    mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation'
+                  ],
               },
             },
-            ctrl.trans(mode),
+            i18n.coordinates[mode],
           ),
         ]),
       ),
@@ -146,9 +147,10 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
             {
               attrs: {
                 for: `coord_timeControl_${timeControl}`,
-                title: ctrl.trans(
-                  timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant',
-                ),
+                title:
+                  i18n.coordinates[
+                    timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'
+                  ],
               },
             },
             timeControlLabel,
@@ -160,7 +162,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
   h('form.color.buttons', [
     h(
       'group.radio',
-      colors.map(([key, i18n]) =>
+      colors.map(([key, text]) =>
         h('div', [
           h('input', {
             attrs: {
@@ -178,11 +180,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
               keyup: ctrl.onRadioInputKeyUp,
             },
           }),
-          h(
-            `label.color_${key}`,
-            { attrs: { for: `coord_color_${key}`, title: ctrl.trans.noarg(i18n) } },
-            h('i'),
-          ),
+          h(`label.color_${key}`, { attrs: { for: `coord_color_${key}`, title: text } }, h('i')),
         ]),
       ),
     ),
@@ -196,53 +194,51 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
     h(
       'div.scores',
       [
-        ['white', 'averageScoreAsWhiteX', ctrl.modeScores[ctrl.mode()].white],
-        ['black', 'averageScoreAsBlackX', ctrl.modeScores[ctrl.mode()].black],
-      ].map(([color, transKey, scoreList]: [Color, string, number[]]) =>
+        ['white', i18n.coordinates.averageScoreAsWhiteX, ctrl.modeScores[ctrl.mode()].white],
+        ['black', i18n.coordinates.averageScoreAsBlackX, ctrl.modeScores[ctrl.mode()].black],
+      ].map(([color, fmt, scoreList]: [Color, I18nFormat, number[]]) =>
         scoreList.length
           ? h('div.color-chart', [
-            h('p', ctrl.trans.vdom(transKey, h('strong', `${average(scoreList).toFixed(2)}`))),
-            h('svg.sparkline', {
-              attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
-              hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
-            }),
-          ])
+              h('p', fmt.asArray(h('strong', `${average(scoreList).toFixed(2)}`))),
+              h('svg.sparkline', {
+                attrs: { height: '80px', 'stroke-width': '3', id: `${color}-sparkline` },
+                hook: { insert: vnode => ctrl.updateChart(vnode.elm as SVGSVGElement, color) },
+              }),
+            ])
           : null,
       ),
     ),
   );
 
 const scoreBox = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.box.current-status', [h('h1', ctrl.trans('score')), h('div.score', ctrl.score)]);
+  h('div.box.current-status', [h('h1', i18n.storm.score), h('div.score', ctrl.score)]);
 
 const timeBox = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.box.current-status', [
-    h('h1', ctrl.trans('time')),
+    h('h1', i18n.site.time),
     h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
   ]);
 
 const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${ctrl.trans('back')}`));
+  h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${i18n.study.back}`));
 
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
-  const { trans, redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;
+  const { redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;
   return h('div.settings', [
     ctrl.mode() === 'findSquare'
       ? toggle(
-        {
-          name: 'Practice only some files & ranks',
-          id: 'enableSelection',
-          checked: ctrl.selectionEnabled(),
-          change: ctrl.selectionEnabled,
-        },
-        trans,
-        redraw,
-      )
+          {
+            name: 'Practice only some files & ranks',
+            id: 'enableSelection',
+            checked: ctrl.selectionEnabled(),
+            change: ctrl.selectionEnabled,
+          },
+          redraw,
+        )
       : null,
     ...filesAndRanksSelection(ctrl),
     toggle(
       { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
-      trans,
       redraw,
     ),
     toggle(
@@ -253,24 +249,16 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
         change: showCoordsOnAllSquares,
         disabled: !ctrl.showCoordinates(),
       },
-      trans,
       redraw,
     ),
-    toggle(
-      { name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces },
-      trans,
-      redraw,
-    ),
+    toggle({ name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces }, redraw),
   ]);
 };
 
 const playingAs = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.box.current-status.current-status--color', [
     h(`label.color_${ctrl.orientation}`, h('i')),
-    h(
-      'em',
-      ctrl.trans.noarg(ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'),
-    ),
+    h('em', i18n.site[ctrl.orientation === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces']),
   ]);
 };
 
@@ -279,18 +267,18 @@ const side = (ctrl: CoordinateTrainerCtrl): VNode =>
     'div.side',
     ctrl.playing
       ? [
-        scoreBox(ctrl),
-        !ctrl.timeDisabled() ? timeBox(ctrl) : null,
-        ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
-        playingAs(ctrl),
-        ctrl.timeDisabled() ? backButton(ctrl) : null,
-      ]
+          scoreBox(ctrl),
+          !ctrl.timeDisabled() ? timeBox(ctrl) : null,
+          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
+          playingAs(ctrl),
+          ctrl.timeDisabled() ? backButton(ctrl) : null,
+        ]
       : [
-        ctrl.hasPlayed ? scoreBox(ctrl) : null,
-        ...configurationButtons(ctrl),
-        ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
-        settings(ctrl),
-      ],
+          ctrl.hasPlayed ? scoreBox(ctrl) : null,
+          ...configurationButtons(ctrl),
+          ctrl.isAuth && ctrl.hasModeScores() ? scoreCharts(ctrl) : null,
+          settings(ctrl),
+        ],
   );
 
 export default side;

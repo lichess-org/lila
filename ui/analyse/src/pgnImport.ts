@@ -27,7 +27,7 @@ const readNode = (
   };
 };
 
-export default function(pgn: string): Partial<AnalyseData> {
+export default function (pgn: string): Partial<AnalyseData> {
   const game = parsePgn(pgn)[0];
   const headers = new Map(Array.from(game.headers, ([key, value]) => [key.toLowerCase(), value]));
   const start = startingPosition(game.headers).unwrap();

@@ -25,7 +25,7 @@ final class IrcApi(
       case ModDomain.Boost => ZulipClient.stream.mod.hunterBoost
       case _               => ZulipClient.stream.mod.adminGeneral
     noteApi
-      .recentByUserForMod(user.id)
+      .recentToUserForMod(user.id)
       .flatMap:
         case None =>
           zulip.sendAndGetLink(stream, "/" + user.name):
@@ -187,11 +187,10 @@ final class IrcApi(
             if firsts.lengthIs > 10
             then s"$firsts and, like, ${firsts.length - 10} others,"
             else firsts
-          displayMessage {
+          displayMessage:
             s"$patrons donated ${amount(amountSum)}. Monthly progress: ${buffer.last.percent}%"
-          }.andDo {
+          .andDo:
             buffer = Vector.empty
-          }
 
     private def displayMessage(text: String) =
       zulip(_.general, "lila")(markdown.linkifyUsers(text))

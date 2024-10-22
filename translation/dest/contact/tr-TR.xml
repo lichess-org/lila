@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Size ne konuda yardımcı olabiliriz?</string>
   <string name="visitThisPage">Sorununuzu çözmek için bu sayfayı ziyaret edin</string>
   <string name="iCantLogIn">Giriş yapamıyorum</string>
-  <string name="noConfirmationEmail">Hesap doğrulama e-postasını almadım</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Hesap doğrulama e-postasını almadım</string>
   <string name="forgotPassword">Şifremi unuttum</string>
   <string name="forgotUsername">Kullanıcı adımı unuttum</string>
   <string name="youCanLoginWithEmail">Üye olduğunuz e-posta adresini kullanarak giriş yapabilirsiniz</string>

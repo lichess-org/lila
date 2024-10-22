@@ -25,22 +25,17 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
       }),
     ]);
   return h(`div.clock.clock-created.time-cache-${next.at}`, [
-    h(
-      'span.shy',
-      ctrl.data.status == 'created' ? ctrl.trans.noarg('startingIn') : ctrl.trans.noarg('nextRound'),
-    ),
+    h('span.shy', ctrl.data.status == 'created' ? i18n.swiss.startingIn : i18n.swiss.nextRound),
     h('span.time.text', { hook: startClock(next.in + 1) }),
   ]);
 }
 
 function ongoing(ctrl: SwissCtrl): VNode | undefined {
   const nb = ctrl.data.nbOngoing;
-  return nb
-    ? h('div.ongoing', [h('span.nb', [nb]), h('span.shy', ctrl.trans.pluralSame('ongoingGames', nb))])
-    : undefined;
+  return nb ? h('div.ongoing', [h('span.nb', [nb]), h('span.shy', i18n.swiss.ongoingGames(nb))]) : undefined;
 }
 
-export default function(ctrl: SwissCtrl): VNode {
+export default function (ctrl: SwissCtrl): VNode {
   const greatPlayer = ctrl.data.greatPlayer;
   return h('div.swiss__main__header', [
     h('i.img', dataIcon(licon.Trophy)),
@@ -48,9 +43,9 @@ export default function(ctrl: SwissCtrl): VNode {
       'h1',
       greatPlayer
         ? [
-          h('a', { attrs: { href: greatPlayer.url, target: '_blank', rel: 'noopener' } }, greatPlayer.name),
-          ' Tournament',
-        ]
+            h('a', { attrs: { href: greatPlayer.url, target: '_blank', rel: 'noopener' } }, greatPlayer.name),
+            ' Tournament',
+          ]
         : [ctrl.data.name],
     ),
     ctrl.data.status == 'finished' ? undefined : clock(ctrl) || ongoing(ctrl),

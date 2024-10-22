@@ -107,12 +107,12 @@
   <string name="openingExplorer">База дебютов</string>
   <string name="openingEndgameExplorer">База дебютов/окончаний</string>
   <string name="xOpeningExplorer">База дебютов для %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Играть первый ход изучателя дебютов/эндшпилей</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Играть первый ход изучения дебютов/эндшпилей</string>
   <string name="winPreventedBy50MoveRule">Не удаётся победить из-за правила 50 ходов</string>
   <string name="lossSavedBy50MoveRule">Удаётся избежать поражения из-за правила 50 ходов</string>
   <string name="winOr50MovesByPriorMistake">Победа или правило 50 ходов</string>
   <string name="lossOr50MovesByPriorMistake">Поражение или 50 ходов после последней ошибки</string>
-  <string name="unknownDueToRounding">Победа/поражение гарантируется только если рекомендуемая последовательность ходов была выполнена с момента последнего взятия фигуры или хода пешки из-за возможного округления значений DTZ в базах Syzygy.</string>
+  <string name="unknownDueToRounding">Победа/поражение гарантируется, только если рекомендуемая последовательность ходов была выполнена с момента последнего взятия фигуры или хода пешки из-за возможного округления значений DTZ в базах Syzygy.</string>
   <string name="allSet">Готово!</string>
   <string name="importPgn">Импортировать в PGN</string>
   <string name="delete">Удалить</string>
@@ -130,7 +130,6 @@
   <string name="memory">Память</string>
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
-  <string name="engineManager">Менеджер движка</string>
   <string name="blunder">Зевок</string>
   <string name="mistake">Ошибка</string>
   <string name="inaccuracy">Неточность</string>
@@ -223,7 +222,7 @@
     <item quantity="other">%s часов</item>
   </plurals>
   <plurals name="nbMinutes">
-    <item quantity="one">%s минута</item>
+    <item quantity="one">%s одна минута</item>
     <item quantity="few">%s минуты</item>
     <item quantity="many">%s минут</item>
     <item quantity="other">%s минут</item>
@@ -626,9 +625,9 @@
   <string name="cheat">Жульничество</string>
   <string name="troll">Троллинг</string>
   <string name="other">Другое</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Вставьте ссылку на игру (или несколько игр) и объясните, что не так в поведении этого пользователя. Не надо просто писать «он жульничал», лучше распишите, как вы пришли к такому выводу.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Объясните, что в этом имени пользователя является оскорбительным. Не надо просто писать «оно оскорбительно или неподобающе», лучше расскажите, как вы пришли к такому выводу, особенно если оскорбление завуалировано, не на английском языке, является сленгом, или же является исторической или культурной отсылкой.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Ваша жалоба будет рассмотрена быстрее, если она будет написана на английском языке.</string>
+  <string name="reportCheatBoostHelp">Вставьте ссылку на игру (или несколько игр) и объясните, что не так в поведении этого пользователя. Не надо просто писать «он жульничал», лучше распишите, как вы пришли к такому выводу.</string>
+  <string name="reportUsernameHelp">Объясните, что в этом имени пользователя является оскорбительным. Не надо просто писать «оно оскорбительно или неподобающе», лучше расскажите, как вы пришли к такому выводу, особенно если оскорбление завуалировано, не на английском языке, является сленгом, или же является исторической или культурной отсылкой.</string>
+  <string name="reportProcessedFasterInEnglish">Ваша жалоба будет рассмотрена быстрее, если она будет написана на английском языке.</string>
   <string name="error.provideOneCheatedGameLink">Пожалуйста, добавьте ссылку хотя бы на одну игру, где по вашему мнению были нарушены правила.</string>
   <string name="by">%s</string>
   <string name="importedByX">Импортировано %s</string>

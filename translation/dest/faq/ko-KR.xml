@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">자주 묻는 질문</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">자주 묻는 질문들</string>
   <string name="whyIsLichessCalledLichess">Lichess는 무슨 뜻인가요?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 부릅니다.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 발음합니다.</string>
   <string name="leechess">리체스</string>
-  <string name="hearItPronouncedBySpecialist">여기 전문가의 발음을 들어보세요.</string>
-  <string name="whyLiveLightLibre">라이브 - 게임을 연중무휴 실시간으로 플레이하고 볼 수 있기 때문입니다. 라이트와 리브레는 Lichess가 다른 웹사이트를 오염시키는 독점적인 쓰레기로부터 자유로운 오픈소스라는 사실에 기반합니다.</string>
+  <string name="hearItPronouncedBySpecialist">전문가의 발음을 들어보세요.</string>
+  <string name="whyLiveLightLibre">Live - 게임을 연중무휴 실시간으로 플레이하고 볼 수 있기 때문입니다. Light와 Libre는 Lichess가 다른 웹사이트를 오염시키는 정크로부터 자유로운 오픈소스라는 사실에 기반합니다.</string>
   <string name="whyIsLilaCalledLila">비슷하게, Lichess의 소스코드인 %1$s는 li[chess in sca]la의 약자입니다. Lichess는 대부분 직관적인 프로그래밍 언어인 %2$s로 작성되어 있습니다.</string>
   <string name="howCanIContributeToLichess">Lichess에 어떻게 기여할 수 있나요?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess는 후원자들의 기부와 자원봉사자들의 노력으로 운영됩니다.</string>
-  <string name="findMoreAndSeeHowHelp">%1$s에 대해 알아보세요. (%2$s 포함) 자신의 시간과 기술을 Lichess를 돕는데 쓰고 싶다면 %3$s이 있습니다.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s에 대해 더 자세히 알아보실 수 있습니다. (%2$s 포함) 자신의 시간과 기술을 Lichess를 돕는데 쓰고 싶다면 %3$s이 있습니다.</string>
   <string name="beingAPatron">후원하는 법</string>
   <string name="breakdownOfOurCosts">지출 내역</string>
   <string name="otherWaysToHelp">다른 방법들</string>
@@ -20,12 +20,12 @@
   <string name="keyboardShortcutsExplanation">일부 리체스 페이지에는 사용할 수 있는 키보드 단축키가 있습니다. 학습, 분석, 퍼즐 또는 게임 페이지에서 \'?\' 키를 누르면 사용 가능한 키보드 단축키가 나열됩니다.</string>
   <string name="fairPlay">페어플레이</string>
   <string name="whenAmIEligibleRatinRefund">부정행위자로 인한 레이팅 자동 환급은 언제 되나요?</string>
-  <string name="ratingRefundExplanation">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
   (예를 들어, 이 게임 이후에 레이팅이 크게 올랐다면, 환급을 받지 못하거나 일부만 받습니다.) 환급은 150포인트를 초과하지 않습니다.</string>
   <string name="preventLeavingGameWithoutResigning">플레이어가 기권하지 않고 게임을 나가면 어떻게 되나요?</string>
   <string name="leavingGameWithoutResigningExplanation">상대가 게임을 자주 중단/탈주하면 \"플레이 금지\" 처분을 받습니다. 이는 일시적으로 게임을 할 수 없다는 의미입니다. 이것은 프로필에 공개적으로 표시되지 않습니다. 이러한 행동이 계속된다면 금지 기간은 계속 증가하고 계정 폐쇄로 이어질 수 있습니다.</string>
-  <string name="howCanIBecomeModerator">중재자가 되려면 어떻게 하나요?</string>
-  <string name="youCannotApply">중재자 신청은 받지 않습니다. 저희가 보기에 중재자로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것입니다.</string>
+  <string name="howCanIBecomeModerator">모더레이터가 되려면 어떻게 하나요?</string>
+  <string name="youCannotApply">모더레이터 신청은 받지 않습니다. 저희가 보기에 모더레이터로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것 입니다.</string>
   <string name="isCorrespondenceDifferent">통신 체스는 일반 체스와 다른점이 있나요?</string>
   <string name="pleaseReadFairPlayPage">더 자세한 정보는 %s를 읽어주세요.</string>
   <string name="fairPlayPage">공정한 경기 페이지</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">불렛, 블리츠와 다른 시간 제한은 어떻게 결정되나요?</string>
   <string name="basedOnGameDuration">Lichess의 시간 제한은 예상 게임 시간에 기반합니다 = %1$s
 예를 들어 5+3 게임의 예상 시간은 5 × 60 + 40 × 3 = 420초입니다.</string>
-  <string name="durationFormula">(초기 시간) + 40 × (증분)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(초기 시간) + 40 × (추가 시간)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s초 = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s초 = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess에서 플레이할 수 있는 변형 체스에는 무엇이 있나요?</string>

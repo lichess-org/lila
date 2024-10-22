@@ -147,3 +147,10 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
+
+  val openingStatsProxy = RateLimit.composite[UserId](
+    key = "opening.stats.proxy.user"
+  )(
+    ("fast", 30, 10.minutes),
+    ("slow", 100, 1.day)
+  )

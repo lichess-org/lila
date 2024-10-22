@@ -24,8 +24,8 @@ final class UciToSanTest extends munit.FunSuite:
     val uciAnalysis = Analysis(
       Analysis.Id(GameId("ke5ssdgj")),
       List(
-        Info(1, Eval(Some(Cp(12)), None, None), List()),
-        Info(2, Eval(Some(Cp(36)), None, None), List()),
+        Info(1, Eval(Some(Cp(12)), None, None), Nil),
+        Info(2, Eval(Some(Cp(36)), None, None), Nil),
         Info(
           3,
           Eval(Some(Cp(22)), None, None),
@@ -48,8 +48,8 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(4, Eval(Some(Cp(-30)), None, None), List()),
-        Info(5, Eval(Some(Cp(-48)), None, None), List()),
+        Info(4, Eval(Some(Cp(-30)), None, None), Nil),
+        Info(5, Eval(Some(Cp(-48)), None, None), Nil),
         Info(
           6,
           Eval(Some(Cp(-80)), None, None),
@@ -69,19 +69,19 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(7, Eval(Some(Cp(-22)), None, None), List()),
-        Info(8, Eval(Some(Cp(-64)), None, None), List()),
-        Info(9, Eval(Some(Cp(-38)), None, None), List()),
-        Info(10, Eval(Some(Cp(-56)), None, None), List()),
-        Info(11, Eval(Some(Cp(-48)), None, None), List()),
-        Info(12, Eval(Some(Cp(-48)), None, None), List()),
-        Info(13, Eval(Some(Cp(-52)), None, None), List()),
-        Info(14, Eval(Some(Cp(-98)), None, None), List()),
-        Info(15, Eval(Some(Cp(-56)), None, None), List()),
-        Info(16, Eval(Some(Cp(-98)), None, None), List()),
-        Info(17, Eval(Some(Cp(-54)), None, None), List()),
-        Info(18, Eval(Some(Cp(-96)), None, None), List()),
-        Info(19, Eval(Some(Cp(-96)), None, None), List()),
+        Info(7, Eval(Some(Cp(-22)), None, None), Nil),
+        Info(8, Eval(Some(Cp(-64)), None, None), Nil),
+        Info(9, Eval(Some(Cp(-38)), None, None), Nil),
+        Info(10, Eval(Some(Cp(-56)), None, None), Nil),
+        Info(11, Eval(Some(Cp(-48)), None, None), Nil),
+        Info(12, Eval(Some(Cp(-48)), None, None), Nil),
+        Info(13, Eval(Some(Cp(-52)), None, None), Nil),
+        Info(14, Eval(Some(Cp(-98)), None, None), Nil),
+        Info(15, Eval(Some(Cp(-56)), None, None), Nil),
+        Info(16, Eval(Some(Cp(-98)), None, None), Nil),
+        Info(17, Eval(Some(Cp(-54)), None, None), Nil),
+        Info(18, Eval(Some(Cp(-96)), None, None), Nil),
+        Info(19, Eval(Some(Cp(-96)), None, None), Nil),
         Info(
           20,
           Eval(Some(Cp(-113)), None, None),
@@ -203,7 +203,7 @@ final class UciToSanTest extends munit.FunSuite:
             )
           )
         ),
-        Info(26, Eval(Some(Cp(-2165)), None, None), List()),
+        Info(26, Eval(Some(Cp(-2165)), None, None), Nil),
         Info(
           27,
           Eval(Some(Cp(-2731)), None, None),
@@ -233,7 +233,7 @@ final class UciToSanTest extends munit.FunSuite:
           )
         ),
         Info(28, Eval(None, Some(Mate(2)), None), SanStr.from(List("h4f2", "e2d3", "c6b4"))),
-        Info(29, Eval(None, Some(Mate(-2)), None), List())
+        Info(29, Eval(None, Some(Mate(-2)), None), Nil)
       ),
       0,
       now,

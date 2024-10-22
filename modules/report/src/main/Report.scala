@@ -7,6 +7,7 @@ import lila.core.id.ReportId
 import lila.core.perf.UserWithPerfs
 import lila.core.report.SuspectId
 import lila.core.userId.ModId
+import lila.core.shutup.PublicSource
 
 case class Report(
     @Key("_id") id: ReportId, // also the url slug
@@ -53,7 +54,9 @@ case class Report(
   def bestAtoms(nb: Int): List[Atom]               = Atom.best(atoms.toList, nb)
   def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty.option(atoms.head)
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
-  def bestAtomByHuman: Option[Atom]                = bestAtoms(10).find(_.byHuman)
+  def atomsByAndAbout(userId: UserId): List[Atom] =
+    if user == userId then atoms.toList else atomBy(userId.into(ReporterId)).toList
+  def bestAtomByHuman: Option[Atom] = bestAtoms(10).find(_.byHuman)
 
   def unprocessedCheat = open && is(_.Cheat)
   def unprocessedOther = open && is(_.Other)
@@ -70,7 +73,8 @@ case class Report(
   def isRecentComm                 = open && room == Room.Comm
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
-  def isAppeal = room == Room.Other && atoms.head.text == Report.appealText
+  def isAppeal                            = room == Room.Other && atoms.head.text == Report.appealText
+  def isAppealInquiryByMe(using me: MyId) = isAppeal && atoms.head.by.is(me)
 
   def isSpontaneous = room == Room.Other && atoms.head.text == Report.spontaneousText
 
@@ -98,7 +102,7 @@ object Report:
       score: Score,
       at: Instant
   ):
-    def simplifiedText = text.linesIterator.filterNot(_.startsWith("[AUTOREPORT]")).mkString("\n")
+    def textWithoutAutoReports = text.linesIterator.filterNot(_.startsWith("[AUTOREPORT]")).mkString("\n")
 
     def byHuman = !byLichess && by.isnt(ReporterId.irwin)
 
@@ -106,6 +110,16 @@ object Report:
 
     def is(reason: Reason.type => Reason) = this.reason == reason(Reason)
     def isFlag                            = text.startsWith(Reason.flagText)
+    def parseFlag: Option[Atom.ParsedFlag] = isFlag.so:
+      text
+        .split(" ", 3)
+        .lift(1)
+        .flatMap(PublicSource.longNotation.read)
+        .map: source =>
+          val quotes = text.linesIterator.toList
+            .flatMap: line =>
+              line.startsWith(Reason.flagText).so(line.split(" ", 3).lift(2))
+          Atom.ParsedFlag(source, quotes)
 
   object Atom:
     def best(atoms: List[Atom], nb: Int): List[Atom] =
@@ -113,6 +127,9 @@ object Report:
         .sortBy: a =>
           (-a.score, -a.at.toSeconds)
         .take(nb)
+    case class ParsedFlag(source: PublicSource, quotes: List[String])
+
+  case class AndAtom(report: Report, atom: Atom)
 
   case class Done(by: ModId, at: Instant)
 
@@ -125,7 +142,8 @@ object Report:
         (report.closed.so(-999999))
 
   case class ByAndAbout(by: List[Report], about: List[Report]):
-    def userIds = by.flatMap(_.userIds) ::: about.flatMap(_.userIds)
+    def all     = by ::: about
+    def userIds = all.flatMap(_.userIds)
 
   case class Candidate(
       reporter: Reporter,

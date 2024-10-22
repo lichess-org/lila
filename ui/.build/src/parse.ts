@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
-import { Package, env } from './main';
+import { type Package, env } from './main.ts';
 
 export async function parsePackages(): Promise<[Map<string, Package>, Map<string, string[]>]> {
   const packages = new Map<string, Package>();

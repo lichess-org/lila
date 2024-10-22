@@ -7,17 +7,17 @@ import { TextareaEditor } from '@textcomplete/textarea';
 import type { UserCompleteResult } from 'common/userComplete';
 
 site.load.then(() => {
-  $('table.sortable').each(function(this: HTMLElement) {
+  $('table.sortable').each(function (this: HTMLElement) {
     tablesort(this, {
       descending: true,
     });
   });
-  $('.name-regen').on('click', function(this: HTMLAnchorElement) {
+  $('.name-regen').on('click', function (this: HTMLAnchorElement) {
     xhr.text(this.href).then(name => $('#form3-create-username').val(name));
     return false;
   });
 
-  $('#form3-teachers').each(function(this: HTMLTextAreaElement) {
+  $('#form3-teachers').each(function (this: HTMLTextAreaElement) {
     const textarea = this;
 
     function currentUserIds() {

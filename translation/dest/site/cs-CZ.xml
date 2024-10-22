@@ -72,6 +72,8 @@
   <string name="promoteVariation">Povýšit variantu</string>
   <string name="makeMainLine">Povýšit na hlavní variantu</string>
   <string name="deleteFromHere">Smazat odsud</string>
+  <string name="collapseVariations">Schovat variace</string>
+  <string name="expandVariations">Zobrazit variace</string>
   <string name="forceVariation">Zobrazit jako variantu</string>
   <string name="copyVariationPgn">Zkopírovat PGN varianty</string>
   <string name="move">Tah</string>
@@ -128,7 +130,6 @@
   <string name="memory">Paměť</string>
   <string name="infiniteAnalysis">Nekonečná analýza</string>
   <string name="removesTheDepthLimit">Zapne nekonečnou analýzu a odstraní omezení hloubky propočtu</string>
-  <string name="engineManager">Správce enginu</string>
   <string name="blunder">Hrubá chyba</string>
   <string name="mistake">Chyba</string>
   <string name="inaccuracy">Nepřesnost</string>
@@ -196,6 +197,7 @@
   <string name="latestForumPosts">Poslední příspěvky</string>
   <string name="players">Hráči</string>
   <string name="friends">Přátelé</string>
+  <string name="otherPlayers">ostatní hráči</string>
   <string name="discussions">Konverzace</string>
   <string name="today">Dnes</string>
   <string name="yesterday">Včera</string>
@@ -570,8 +572,10 @@
   <string name="ifNoneLeaveEmpty">Pokud nemáte, nechte pole volné</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Upravit profil</string>
+  <string name="realName">Skutečné jméno</string>
   <string name="setFlair">Nastav si svou ikonu za jménem</string>
-  <string name="flair">Upravitelná ikona</string>
+  <string name="flair">Ikona</string>
+  <string name="youCanHideFlair">Existuje nastavení které schová všechny uživatelské ikony za jménem po celém webu.</string>
   <string name="biography">O mně</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Země nebo region</string>
   <string name="thankYou">Děkujeme!</string>
@@ -594,12 +598,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Automaticky přejdi k další hře po tahu</string>
   <string name="autoSwitch">Přepnout automaticky</string>
   <string name="puzzles">Puzzle</string>
+  <string name="onlineBots">Online roboti</string>
   <string name="name">Jméno</string>
   <string name="description">Popis</string>
   <string name="descPrivate">Soukromý popis</string>
   <string name="descPrivateHelp">Text, který uvidí pouze členové týmu, kteří poté uvidí jenom tento text.</string>
   <string name="no">Ne</string>
   <string name="yes">Ano</string>
+  <string name="website">Web</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Nápověda:</string>
   <string name="createANewTopic">Vytvořit nové téma</string>
   <string name="topics">Témata</string>
@@ -618,6 +625,9 @@
   <string name="cheat">Podvod</string>
   <string name="troll">Troll</string>
   <string name="other">Jiné</string>
+  <string name="reportCheatBoostHelp">Zde vlož odkaz na hru(hry) a napiš co dělal tento uživatel. Nepiš pouze \"on podváděl\", ale napiš proč si myslíš že podváděl.</string>
+  <string name="reportUsernameHelp">Vysvětli co je urážlivého na jeho u6ivatelském jménu. Nepiš pouze \"Je urážlivé/nevhodné\", ale řekni i důvod proč to tak je, zejména pokud je urážka zatemněná, nebo je v jiném jazyce než v angličtině, nebo je ve slangu či jde o historickou nebokulturní referenci.</string>
+  <string name="reportProcessedFasterInEnglish">Nahlášení bude rychlejší pokud bude v angličtině.</string>
   <string name="error.provideOneCheatedGameLink">Prosím, uveďte alespoň jeden link na partii, ve které se podvádělo.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Importováno uživatelem %s</string>
@@ -650,6 +660,7 @@
   <string name="slow">Pomalé</string>
   <string name="insideTheBoard">Na šachovnici</string>
   <string name="outsideTheBoard">Mimo šachovnici</string>
+  <string name="allSquaresOfTheBoard">Všechny pole na šachovnici</string>
   <string name="onSlowGames">Při pomalých hrách</string>
   <string name="always">Vždy</string>
   <string name="never">Nikdy</string>
@@ -729,8 +740,10 @@
   <string name="simultaneousExhibitions">Simultánky</string>
   <string name="host">Host</string>
   <string name="hostColorX">Barva zakladatele: %s</string>
+  <string name="yourPendingSimuls">Tvoje simulace ve frontě</string>
   <string name="createdSimuls">Nově vytvořené simultánky</string>
   <string name="hostANewSimul">Vytvoř novou simultánku</string>
+  <string name="signUpToHostOrJoinASimul">Zaregistruj se abys mohl založit nebo se připojit k simulaci</string>
   <string name="noSimulFound">Simultánka nenalezena</string>
   <string name="noSimulExplanation">Tato simultánka neexistuje</string>
   <string name="returnToSimulHomepage">Vrať se na domovskou sránku simultánek</string>
@@ -755,6 +768,7 @@
   <string name="keyboardShortcuts">Klávesové zkratky</string>
   <string name="keyMoveBackwardOrForward">O tah vpřed/vzad</string>
   <string name="keyGoToStartOrEnd">běžte na začátek/konec</string>
+  <string name="keyCycleSelectedVariation">Projdi zkrze vybranou variaci</string>
   <string name="keyShowOrHideComments">zobrazte/skryjte komentáře</string>
   <string name="keyEnterOrExitVariation">Zobraz variantu</string>
   <string name="keyRequestComputerAnalysis">Vyžádejte si počítačovou analýzu, poučte se ze svých chyb</string>
@@ -762,8 +776,12 @@
   <string name="keyNextBlunder">Další hrubá chyba</string>
   <string name="keyNextMistake">Další chyba</string>
   <string name="keyNextInaccuracy">Další nepřesnost</string>
+  <string name="keyPreviousBranch">Předchozí větev</string>
+  <string name="keyNextBranch">Další větev</string>
   <string name="toggleVariationArrows">Přepnout šipky variant</string>
+  <string name="cyclePreviousOrNextVariation">Projdi předchozí/následující variantu</string>
   <string name="toggleGlyphAnnotations">Přepnout poznámky glyfů</string>
+  <string name="togglePositionAnnotations">Přepni zvýraznění pozice</string>
   <string name="variationArrowsInfo">Šipky variant umožňují navigaci bez použití seznamu tahů.</string>
   <string name="playSelectedMove">zahrát vybraný tah</string>
   <string name="newTournament">Nový turnaj</string>
@@ -852,6 +870,12 @@
   <string name="transparent">Průhledné</string>
   <string name="deviceTheme">Motiv podle zařízení</string>
   <string name="backgroundImageUrl">URL zdroj obrázku na pozadí:</string>
+  <string name="board">Šachovnice</string>
+  <string name="size">Velikost</string>
+  <string name="opacity">Průhlednost</string>
+  <string name="brightness">Jas</string>
+  <string name="hue">Hue</string>
+  <string name="boardReset">Vrátit barvy na původní nastavení</string>
   <string name="pieceSet">Vzhled figur</string>
   <string name="embedInYourWebsite">Vložit na web</string>
   <string name="usernameAlreadyUsed">Toto uživatelské jméno již existuje. Zvol, prosím, jiné.</string>
@@ -952,6 +976,7 @@
   <string name="agreementPolicy">Souhlasím, že se budu řídit všemi pravidly Lichessu.</string>
   <string name="searchOrStartNewDiscussion">Začněte nebo vyhledejte konverzaci</string>
   <string name="edit">Upravit</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Bleskové šachy</string>
   <string name="rapid">Rapid</string>
   <string name="classical">Klasické</string>
@@ -1051,4 +1076,5 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="showMeEverything">Ukaž mi všechno</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
+  <string name="nothingToSeeHere">Momentálně zde není nic k vidění.</string>
 </resources>

@@ -13,7 +13,7 @@
   <string name="newTeam">Załóż klub</string>
   <string name="myTeams">Moje kluby</string>
   <string name="noTeamFound">Nie znaleziono klubu</string>
-  <string name="joinTeam">Dołącz do klubu</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Dołącz do klubu</string>
   <string name="onlyLeaderLeavesTeam">Zanim opuścisz klub, dodaj proszę nowego lidera lub zamknij klub.</string>
   <string name="quitTeam">Opuść klub</string>
   <string name="manuallyReviewAdmissionRequests">Ręczna weryfikacja wniosków o przyjęcie</string>
@@ -62,7 +62,7 @@ Gracze, którzy nie chcą otrzymywać Twoich wiadomości, mogą opuścić klub.<
   <string name="joinLichessVariantTeam">Dołącz do oficjalnego klubu %s, aby być na bieżąco z naszymi aktualnościami i wydarzeniami</string>
   <string name="teamPage">Strona klubu</string>
   <string name="thisTeamBattleIsOver">Ten turniej zakończył się, a drużyny nie mogą być już aktualizowane.</string>
-  <string name="listTheTeamsThatWillCompete">Wymień drużyny, które będą konkurować w tej bitwie.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Wymień drużyny, które będą konkurować w tej bitwie.</string>
   <string name="oneTeamPerLine">Jeden zespół na linię. Użyj autouzupełniania.</string>
   <string name="oneTeamPerLineHelp">Możesz skopiować tę listę do innego turnieju!
 

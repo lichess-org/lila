@@ -73,7 +73,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
-      userShowRateLimit(rateLimited, cost = if env.socket.isOnline(u.id) then 2 else 3):
+      userShowRateLimit(rateLimited, cost = if env.socket.isOnline.exec(u.id) then 2 else 3):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)
@@ -177,7 +177,7 @@ final class User(
               ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
-              val ping = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
+              val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
               negotiate(
                 html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
                   Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
@@ -354,6 +354,11 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
+        val timeline = env.api
+          .modTimeline(user, withPlayBans = false)
+          .map(views.mod.timeline.renderGeneral)
+          .map(lila.mod.ui.mzSection("timeline")(_))
+
         val modLog = for
           history <- env.mod.logApi.userHistory(user.id)
           appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
@@ -428,6 +433,7 @@ final class User(
           Source
             .single(ui.menu)
             .merge(modZoneSegment(actions, "actions", user))
+            .merge(modZoneSegment(timeline, "timeline", user))
             .merge(modZoneSegment(modLog, "modLog", user))
             .merge(modZoneSegment(plan, "plan", user))
             .merge(modZoneSegment(student, "student", user))
@@ -468,12 +474,12 @@ final class User(
         doWriteNote(username, data): user =>
           if getBool("inquiry") then
             Ok.snipAsync:
-              env.user.noteApi.byUserForMod(user.id).map {
+              env.user.noteApi.toUserForMod(user.id).map {
                 views.mod.inquiry.ui.noteZone(user, _)
               }
           else
             Ok.snipAsync:
-              env.socialInfo.fetchNotes(user).map {
+              env.user.noteApi.getForMyPermissions(user).map {
                 views.user.noteUi.zone(user, _)
               }
     )
@@ -481,11 +487,10 @@ final class User(
 
   def apiReadNote(username: UserStr) = Scoped() { _ ?=> me ?=>
     Found(meOrFetch(username)):
-      env.socialInfo
-        .fetchNotes(_)
-        .flatMap {
+      env.user.noteApi
+        .getForMyPermissions(_)
+        .flatMap:
           lila.user.JsonView.notes(_)(using lightUserApi)
-        }
         .map(JsonOk)
   }
 
@@ -603,7 +608,7 @@ final class User(
                     "result" -> JsArray(users.collect { case Some(u) =>
                       lila.common.Json.lightUser
                         .write(u)
-                        .add("online" -> env.socket.isOnline(u.id))
+                        .add("online" -> env.socket.isOnline.exec(u.id))
                     })
             else fuccess(Json.toJson(userIds))
           }.map(JsonOk)

@@ -31,8 +31,8 @@
   <string name="byOpenings">ওপেনিং অনুযায়ী</string>
   <string name="puzzlesByOpenings">ওপেনিং অনুযায়ী ধাঁধা</string>
   <string name="openingsYouPlayedTheMost">রেটেড খেলায় আপনি যে ওপেনিংগুলো সবথেকে বেশি খেলেছেন</string>
-  <string name="useFindInPage">আপনার প্রিয় ওপেনিংগুলি খুঁজতে ব্রাউসার মেনুতে \"ফাইন্ড ইন পেজ\" ব্যবহার করুন!</string>
-  <string name="useCtrlF">আপনার প্রিয় ওপেনিং খুঁজতে Ctrl + F ব্যবহার করুন!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">আপনার প্রিয় ওপেনিংগুলি খুঁজতে ব্রাউসার মেনুতে \"ফাইন্ড ইন পেজ\" ব্যবহার করুন!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">আপনার প্রিয় ওপেনিং খুঁজতে Ctrl + F ব্যবহার করুন!</string>
   <string name="notTheMove">এটা সঠিক চাল না!</string>
   <string name="trySomethingElse">অন্য কিছু চেষ্টা করুন.</string>
   <string name="ratingX">রেটিংস: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">শক্তিমত্তা</string>
   <string name="history">পূর্বে চেষ্টা করা ধাঁধা</string>
   <string name="solved">মীমাংসিত</string>
-  <string name="failed">ভুল করা ধাঁদা</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">ভুল করা ধাঁদা</string>
   <string name="streakDescription">ধারাবাহিক জয় বজায় রাখতে ক্রমাগত কঠিন হতে থাকা ধাঁধার সমাধান করুন। কোনো সময়সীমা নেই। তবে একটি ভুল চালে খেলা শেষ। প্রতি সেশনে একটি করে চাল বাদ(skip) দেয়া যাবে।</string>
   <string name="yourStreakX">আপনার স্কোর: %s</string>
   <string name="streakSkipExplanation">আপনার ধারাবাহিক জয় বজায় রাখতে এই চাল বাদ(skip) করুন। প্রতিবার প্রচেষ্টায় একবার করে এমনটা করতে পারবেন।</string>

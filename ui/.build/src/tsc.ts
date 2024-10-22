@@ -1,9 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
-import { env, colors as c, errorMark } from './main';
-import { globArray, folderSize } from './parse';
-import type { WorkerData, Message } from './tscWorker';
+import { env, colors as c, errorMark } from './main.ts';
+import { globArray, folderSize } from './parse.ts';
+import type { WorkerData, Message } from './tscWorker.ts';
 import ts from 'typescript';
 
 const workers: Worker[] = [];
@@ -36,48 +36,46 @@ export async function tsc(): Promise<void> {
   }
 
   env.log(`Transpiling ${c.grey('noCheck')}`, { ctx: 'tsc' });
-  await new WatchMonitor(noCheckWorkerBuckets, 'noCheck').ok;
+  await watchMonitor(noCheckWorkerBuckets, 'noCheck');
 
   env.log(`Typechecking ${c.grey('noEmit')}`, { ctx: 'tsc' });
-  await new WatchMonitor(noEmitWorkerBuckets, 'noEmit').ok;
+  await watchMonitor(noEmitWorkerBuckets, 'noEmit');
 }
 
-class WatchMonitor {
-  status: ('ok' | 'busy' | 'error')[] = [];
-  resolve?: () => void;
-  ok = new Promise<void>(resolve => (this.resolve = resolve));
-  constructor(
-    readonly buckets: SplitConfig[][],
-    readonly key: 'noCheck' | 'noEmit',
-  ) {
-    for (const bucket of buckets) {
-      const workerData: WorkerData = {
-        projects: bucket.map(p => p[key]!.file),
-        watch: env.watch,
-        index: this.status.length,
-      };
-      this.status.push('busy');
-      const worker = new Worker(path.resolve(__dirname, 'tscWorker.js'), { workerData });
-      workers.push(worker);
-      worker.on('message', this.onMessage);
-      worker.on('error', this.onError);
-    }
-  }
-  onMessage = (msg: Message): void => {
-    // the watch builder always gives us a 6194 first time thru, even when errors are found
-    if (env.watch && this.resolve && msg.type === 'ok' && this.status[msg.index] === 'error') return;
+function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
+  const status: ('ok' | 'busy' | 'error')[] = [];
+  let resolve: (() => void) | undefined = undefined;
+  const ok = new Promise<void>(res => (resolve = res));
 
-    this.status[msg.index] = msg.type;
+  const onMessage = (msg: Message): void => {
+    // the watch builder always gives us a 6194 first time thru, even when errors are found
+    if (env.watch && resolve && msg.type === 'ok' && status[msg.index] === 'error') return;
+
+    status[msg.index] = msg.type;
 
     if (msg.type === 'error') return logMessage(msg);
-    if (this.status.some(s => s !== 'ok')) return;
+    if (status.some(s => s !== 'ok')) return;
 
-    this.resolve?.();
-    if (this.key === 'noEmit' && env.exitCode.get('tsc') !== 0) env.done(0, 'tsc');
+    resolve?.();
+    if (key === 'noEmit' && env.exitCode.get('tsc') !== 0) env.done(0, 'tsc');
   };
-  onError = (err: Error): void => {
+  const onError = (err: Error): void => {
     env.exit(err.message, 'tsc');
   };
+
+  for (const bucket of buckets) {
+    const workerData: WorkerData = {
+      projects: bucket.map(p => p[key]!.file),
+      watch: env.watch,
+      index: status.length,
+    };
+    status.push('busy');
+    const worker = new Worker(path.resolve(env.buildSrcDir, 'tscWorker.ts'), { workerData });
+    workers.push(worker);
+    worker.on('message', onMessage);
+    worker.on('error', onError);
+  }
+  return ok;
 }
 
 function logMessage(msg: Message): void {
@@ -104,21 +102,12 @@ function addToBucket(config: SplitConfig, buckets: SplitConfig[][], key: keyof S
     .push(config);
 }
 
-export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
-  const length = Math.min(arr1.length, arr2.length);
-  const res: [T, U][] = [];
-  for (let i = 0; i < length; i++) {
-    res.push([arr1[i], arr2[i]]);
-  }
-  return res;
-}
-
-// the splitConfig transform generates noCheck and noEmit tsconfigs within a ui/.build temp folder.
+// the splitConfig transform generates noCheck and noEmit tsconfigs within the 'build' temp folder.
 // each package that emits gets a --noCheck pass for fast transpilations and declarations.
 // then we do a --noEmit pass on EVERY package to verify things, regardless of its original emit.
 // this allows more parallel type checking.
 
-// splitConfig expects current lichess tsconfig conventions and doesn't anticipate future needs
+// splitConfig expects current lichess tsconfig conventions
 
 interface SplitConfig {
   noEmit: { file: string; data: any };

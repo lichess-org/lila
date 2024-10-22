@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s julkaisi kirjoituksen %2$s</string>
   <string name="thisPostIsPublished">Tämä kirjoitus on julkaistu</string>
   <string name="thisIsADraft">Tämä on luonnos</string>
-  <string name="moreBlogPostsBy">Näytä lisää käyttäjän %s blogikirjoituksia</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Näytä lisää käyttäjän %s blogikirjoituksia</string>
   <string name="noPostsInThisBlogYet">Tässä blogissa ei ole vielä kirjoituksia.</string>
   <string name="noDrafts">Ei näytettäviä luonnoksia.</string>
   <string name="latestBlogPosts">Uusimmat blogikirjoitukset</string>

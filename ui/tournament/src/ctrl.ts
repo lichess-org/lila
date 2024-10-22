@@ -4,7 +4,6 @@ import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 interface CtrlTeamInfo {
@@ -15,7 +14,6 @@ interface CtrlTeamInfo {
 export default class TournamentController {
   opts: TournamentOpts;
   data: TournamentData;
-  trans: Trans;
   socket: TournamentSocket;
   page: number;
   pages: Pages = {};
@@ -36,7 +34,6 @@ export default class TournamentController {
     this.opts = opts;
     this.data = opts.data;
     this.redraw = redraw;
-    this.trans = trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
@@ -154,7 +151,7 @@ export default class TournamentController {
     } else {
       let password;
       if (this.data.private && !this.data.me) {
-        password = prompt(this.trans.noarg('tournamentEntryCode'));
+        password = prompt(i18n.site.tournamentEntryCode);
         if (password === null) {
           return;
         }

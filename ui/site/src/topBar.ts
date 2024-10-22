@@ -4,7 +4,7 @@ import { spinnerHtml } from 'common/spinner';
 import { clamp } from 'common/algo';
 import { pubsub } from 'common/pubsub';
 
-export default function() {
+export default function () {
   const top = document.getElementById('top')!;
 
   const initiatingHtml = `<div class="initiating">${spinnerHtml}</div>`,
@@ -26,12 +26,17 @@ export default function() {
 
   $('#tn-tg').on('change', e => {
     const menuOpen = (e.target as HTMLInputElement).checked;
-    if (menuOpen) document.body.addEventListener('touchmove', blockBodyScroll, { passive: false });
-    else document.body.removeEventListener('touchmove', blockBodyScroll);
+    if (menuOpen) {
+      document.body.addEventListener('touchmove', blockBodyScroll, { passive: false });
+      $(e.target).addClass('opened');
+    } else {
+      document.body.removeEventListener('touchmove', blockBodyScroll);
+      setTimeout(() => $(e.target).removeClass('opened'), 200);
+    }
     document.body.classList.toggle('masked', menuOpen);
   });
 
-  $(top).on('click', '.toggle', function(this: HTMLElement) {
+  $(top).on('click', '.toggle', function (this: HTMLElement) {
     const $p = $(this).parent().toggleClass('shown');
     $p.siblings('.shown').removeClass('shown');
     setTimeout(() => {
@@ -52,7 +57,7 @@ export default function() {
     const $toggle = $('#challenge-toggle'),
       $countSpan = $toggle.find('span');
     $toggle.one('mouseover click', () => load());
-    const load = function(data?: any) {
+    const load = function (data?: any) {
       if (instance) return;
       const $el = $('#challenge-app').html(initiatingHtml);
       loadCssPath('challenge');
@@ -122,7 +127,7 @@ export default function() {
       .one('mouseover click', () => load())
       .on('click', () => {
         if ('Notification' in window) Notification.requestPermission();
-        setTimeout(async() => {
+        setTimeout(async () => {
           if (instance && isVisible(selector)) (await instance).onShow();
         }, 200);
       });
@@ -140,7 +145,7 @@ export default function() {
   {
     // dasher
     const load = memoize(() => loadEsm('dasher'));
-    $('#top .dasher .toggle').one('mouseover click', function(this: HTMLElement) {
+    $('#top .dasher .toggle').one('mouseover click', function (this: HTMLElement) {
       $(this).removeAttr('href');
       loadCssPath('dasher');
       load();

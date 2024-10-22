@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">פעילות</string>
-  <string name="hostedALiveStream">עלה (או עלתה) לשידור חי</string>
+  <string name="hostedALiveStream">על\תה לשידור חי</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">תמכ/ה בליצ\'ס במשך חודש %1$s כ%2$s</item>
+    <item quantity="one">תמכ/ה ב-lichess במשך חודש %1$s כ%2$s</item>
     <item quantity="two">תמכ/ה בליצ\'ס במשך %1$s חודשים כ%2$s</item>
     <item quantity="many">תמכ/ה בליצ\'ס במשך %1$s חודשים כ%2$s</item>
     <item quantity="other">תמכ/ה בליצ\'ס במשך %1$s חודשים כ%2$s</item>
@@ -50,7 +50,7 @@
     <item quantity="many">השלים/ה %s משחקי התכתבות</item>
     <item quantity="other">השלים/ה %s משחקי התכתבות</item>
   </plurals>
-  <plurals name="completedNbVariantGames" comment="%1$s is the number of games&#10;&#10;%2$s is the name of the variant e.g. Crazyhouse, Atomic, King of the Hill...">
+  <plurals name="completedNbVariantGames">
     <item quantity="one">השלים/ה משחק התכתבות %1$s מסוג %2$s</item>
     <item quantity="two">השלים/ה %1$s משחקי התכתבות מסוג %2$s</item>
     <item quantity="many">השלים/ה %1$s משחקי התכתבות מסוג %2$s</item>
@@ -86,7 +86,7 @@
     <item quantity="many">יצר/ה %s לוחות למידה חדשים</item>
     <item quantity="other">יצר/ה %s לוחות למידה חדשים</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">השתתף/ה בטורניר זירה %s</item>
     <item quantity="two">השתתף/ה ב־%s טורנירי זירה</item>
     <item quantity="many">השתתף/ה ב־%s טורנירי זירה</item>

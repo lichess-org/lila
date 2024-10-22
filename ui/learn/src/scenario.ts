@@ -14,9 +14,9 @@ export interface Scenario {
 export type ScenarioLevel = (
   | Uci
   | {
-    move: Uci;
-    shapes: Shape[];
-  }
+      move: Uci;
+      shapes: Shape[];
+    }
 )[];
 
 interface ScenarioOpts {
@@ -26,7 +26,7 @@ interface ScenarioOpts {
   setShapes(shapes: Shape[]): void;
 }
 
-export default function(blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
+export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpts): Scenario {
   const steps = (blueprint || []).map(step => (typeof step !== 'string' ? step : { move: step, shapes: [] }));
 
   let it = 0;

@@ -346,8 +346,7 @@ function anyClock(ctrl: RoundController, position: Position) {
     player = ctrl.playerAt(position);
   return (
     (ctrl.clock && renderClock(ctrl, player, position)) ||
-    (d.correspondence &&
-      renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, d.game.player)) ||
+    (d.correspondence && renderCorresClock(ctrl.corresClock!, player.color, position, d.game.player)) ||
     undefined
   );
 }
@@ -364,12 +363,8 @@ function renderMoves(steps: Step[], style: Style) {
   return res;
 }
 
-function renderAi(ctrl: RoundController, level: number): string {
-  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
-}
-
 function playerHtml(ctrl: RoundController, player: game.Player) {
-  if (player.ai) return renderAi(ctrl, player.ai);
+  if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
@@ -378,19 +373,19 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
     ? h('span', [
-      h(
-        'a',
-        { attrs: { href: '/@/' + user.username } },
-        user.title ? `${user.title} ${user.username}` : user.username,
-      ),
-      rating ? ` ${rating}` : ``,
-      ' ' + ratingDiff,
-    ])
+        h(
+          'a',
+          { attrs: { href: '/@/' + user.username } },
+          user.title ? `${user.title} ${user.username}` : user.username,
+        ),
+        rating ? ` ${rating}` : ``,
+        ' ' + ratingDiff,
+      ])
     : 'Anonymous';
 }
 
 function playerText(ctrl: RoundController, player: game.Player) {
-  if (player.ai) return renderAi(ctrl, player.ai);
+  if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,

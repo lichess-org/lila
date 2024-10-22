@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Některé stránky na Lichess mají klávesové zkratky, které můžete zkusit použít. Zkuste použít klávesu \'?\' při studii, analýze, úlohách nebo při hře pro zobrazení listu dostupných klávesových zkratek.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kdy mám nárok na automatické vrácení ratingu za zápasy s podvodníky?</string>
-  <string name="ratingRefundExplanation">Jednu minutu poté, co je hráč označen, vezmeme jejich posledních 40 hodnocených her za uplynulé 3 dny. Pokud jste proti němu v těchto hrách hráli, ztratili jste body (kvůli prohře nebo remíze) a vaše hodnocení nebylo prozatimní, budou vám body vráceny. Počet vrácených bodů je omezen v závislosti na vašem dosavadním nejlepším hodnocení a rovněž vývoji vašeho hodnocení po dané hře.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Jednu minutu poté, co je hráč označen, vezmeme jejich posledních 40 hodnocených her za uplynulé 3 dny. Pokud jste proti němu v těchto hrách hráli, ztratili jste body (kvůli prohře nebo remíze) a vaše hodnocení nebylo prozatimní, budou vám body vráceny. Počet vrácených bodů je omezen v závislosti na vašem dosavadním nejlepším hodnocení a rovněž vývoji vašeho hodnocení po dané hře.
  (Například pokud se vaše hodnocení po těchto hrách mezitím výrazně zvyšovalo, je možné, že nedostanete nazpátek žádné body, a nebo jen jejich část.) Maximálně vám můžeme vrátit 150 bodů.</string>
   <string name="preventLeavingGameWithoutResigning">Co děláte s hráči, kteří opouštějí rozehrané hry, aniž by se vzdali?</string>
   <string name="leavingGameWithoutResigningExplanation">Hráčům, kteří často přerušují nebo ukončují hry, bude dočasně zakázáno hrát. Tato informace není veřejně uvedena na jejich profilu. Pokud v tomto chování pokračují, délka zákazu se prodlužuje a nakonec jim může být úplně uzavřen účet.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Podle čeho se rozhoduje, zda časomíra spadá pod bullet, blitz apod.?</string>
   <string name="basedOnGameDuration">Časové kontroly Lichess jsou založeny na odhadu doby trvání partie = %1$s
 Například odhadovaná délka partie 5+3 je 5 × 60 + 40 × 3 = 420 sekund.</string>
-  <string name="durationFormula">(počáteční čas) + 40 × (přídavek)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(počáteční čas) + 40 × (přídavek)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>
@@ -158,4 +158,13 @@ Zobrazujeme červenou ikonu, abychom vás upozornili, když k tomu dojde. Často
 3. Klikněte na položku Cookies a oprávnění webu
 4. Přejděte dolů a klikněte na možnost Automatické přehrávání médií
 5. Přidejte lichess.org do Povolit</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Jak se donutit přestat hrát?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">samostatný mentální problém</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess uživatelské styly</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">méně nabídek lobby</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Pravidelně dostáváme zprávy od uživatelů, kteří nás žádají o pomoc, abychom jim zabránili v příliš velkém hraní.
+
+Zatímco Lichess nezakazuje ani neblokuje hráče kromě porušení smluvních podmínek, doporučujeme použít externí nástroje k omezení přílišného hraní. Některé běžné návrhy pro blokátory webových stránek zahrnují %1$s, %2$sa %3$s. Pokud chcete nadále používat web, ale necítit pokušení, můžete se také zajímat o %4$s, zde je jeden s %5$s.
+
+Někteří hráči se mohou cítit, že se jejich chování mění v závislost. WHO totiž klasifikuje poruchy hry jako %6$s, přičemž základní funkce jsou 1) narušenou kontrolou hraní, 2) zvýšení priority v oblasti her 3) eskalace her navzdory negativním důsledkům. Pokud si myslíte, že vaše hraní šachu je podle tohoto vzoru, povzbuzujeme vás, abyste o tom hovořili s přítelem nebo s rodinným příslušníkem a/nebo s profesionálem.</string>
 </resources>

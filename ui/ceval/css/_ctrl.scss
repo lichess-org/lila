@@ -71,42 +71,6 @@
     flex: 0 0 18px;
     color: $c-font-dim;
     font-size: 16px;
-    overflow: hidden;
-    visibility: hidden;
-
-    &:hover:not(.hidden),
-    &.active {
-      color: $c-bad;
-    }
-
-    &.hidden {
-      opacity: 0.3;
-      cursor: default;
-    }
-  }
-
-  .settings-gear {
-    @extend %button-none;
-    color: $c-font-dim;
-    font-size: 16px;
-    padding: 0 6px;
-    margin-inline-end: 6px;
-
-    &:hover {
-      color: $c-font;
-    }
-
-    &.active {
-      color: white;
-      background-color: $c-primary;
-    }
-  }
-
-  .show-threat {
-    @extend %button-none;
-    flex: 0 0 18px;
-    color: $c-font-dim;
-    font-size: 16px;
     margin-top: -3px; // bar
     overflow: hidden;
     visibility: hidden;
@@ -127,8 +91,8 @@
     color: $c-font-dim;
     font-size: 16px;
     padding: 0 6px;
-    margin-top: -3px; // bar
     margin-inline-end: 6px;
+    margin-top: -3px; // bar
 
     &:hover {
       color: $c-font;

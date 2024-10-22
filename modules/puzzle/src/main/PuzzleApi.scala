@@ -100,10 +100,9 @@ final class PuzzleApi(
                   F.voteDown -> down,
                   F.vote     -> ((up - down).toFloat / (up + down))
                 ) ++ {
-                  (newVote <= -100 && doc
-                    .getAsOpt[Instant](F.day)
-                    .exists(_.isAfter(nowInstant.minusDays(1)))).so($unset(F.day))
-                }
+                  newVote <= -100 &&
+                  doc.getAsOpt[Instant](F.day).exists(_.isAfter(nowInstant.minusDays(1)))
+                }.so($unset(F.day))
               )
               .void
 

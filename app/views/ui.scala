@@ -9,9 +9,6 @@ val chat = lila.chat.ChatUi(helpers)
 
 val boardEditor = lila.web.ui.BoardEditorUi(helpers)
 
-val userAnalysisI18n = lila.analyse.ui.AnalyseI18n(helpers)
-val analysisI18n     = lila.analyse.ui.GameAnalyseI18n(helpers, userAnalysisI18n)
-
 val setup = lila.setup.ui.SetupUi(helpers)
 
 val gathering = lila.gathering.ui.GatheringUi(helpers)(env.web.settings.prizeTournamentMakers.get)
@@ -58,7 +55,6 @@ object account:
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.csp,
-  translations = userAnalysisI18n.vector() ++ views.study.bits.gamebookPlayKeys,
   board.explorerAndCevalConfig,
   modMenu = mod.ui.menu("practice")
 )

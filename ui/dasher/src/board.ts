@@ -26,7 +26,7 @@ export class BoardCtrl extends PaneCtrl {
 
   render = (): VNode =>
     h(`div.sub.board.${this.dimension}`, [
-      header(this.trans.noarg('board'), this.close),
+      header(i18n.site.board, this.close),
       h('div.selector.large', [
         h(
           'button.text',
@@ -55,7 +55,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { 'data-icon': licon.Back, type: 'button' },
             hook: bind('click', this.reset),
           },
-          this.trans.noarg('boardReset'),
+          i18n.site.boardReset,
         ),
       h(
         'div.list',
@@ -124,7 +124,7 @@ export class BoardCtrl extends PaneCtrl {
     xhr.text(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
-  private set3d = async(v: boolean) => {
+  private set3d = async (v: boolean) => {
     if (this.is3d === v) return;
     this.data.is3d = v;
     xhr
@@ -159,19 +159,15 @@ export class BoardCtrl extends PaneCtrl {
   private propSliders = () => {
     const sliders = [];
     if (!Number.isNaN(this.getVar('zoom')))
-      sliders.push(this.propSlider('zoom', this.trans.noarg('size'), { min: 0, max: 100, step: 1 }));
+      sliders.push(this.propSlider('zoom', i18n.site.size, { min: 0, max: 100, step: 1 }));
     if (document.body.dataset.theme === 'transp')
-      sliders.push(
-        this.propSlider('board-opacity', this.trans.noarg('opacity'), { min: 0, max: 100, step: 1 }),
-      );
+      sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
     else
-      sliders.push(
-        this.propSlider('board-brightness', this.trans.noarg('brightness'), { min: 20, max: 140, step: 1 }),
-      );
+      sliders.push(this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }));
     sliders.push(
       this.propSlider(
         'board-hue',
-        this.trans.noarg('hue'),
+        i18n.site.hue,
         { min: 0, max: 100, step: 1 },
         v => `+ ${Math.round(v * 3.6)}°`,
       ),

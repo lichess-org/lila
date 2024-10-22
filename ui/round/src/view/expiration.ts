@@ -5,7 +5,7 @@ import { MaybeVNode } from 'common/snabbdom';
 
 let rang = false;
 
-export default function(ctrl: RoundController): MaybeVNode {
+export default function (ctrl: RoundController): MaybeVNode {
   const d = playable(ctrl.data) && ctrl.data.expiration;
   if (!d) return;
   const timeLeft = Math.max(0, d.movedAt - Date.now() + d.millisToMove),
@@ -20,6 +20,6 @@ export default function(ctrl: RoundController): MaybeVNode {
   return h(
     'div.expiration.expiration-' + side,
     { class: { emerg, 'bar-glider': myTurn } },
-    ctrl.trans.vdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft)),
+    i18n.site.nbSecondsToPlayTheFirstMove.asArray(secondsLeft, h('strong', '' + secondsLeft)),
   );
 }

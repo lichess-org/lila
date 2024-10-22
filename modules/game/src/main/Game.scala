@@ -263,7 +263,8 @@ object Game:
   def isBoardCompatible(game: Game): Boolean =
     game.clock.forall: c =>
       lila.core.game.isBoardCompatible(c.config) || {
-        (game.hasAi || game.sourceIs(_.Friend)) && chess.Speed(c.config) >= Speed.Blitz
+        (game.hasAi || game.sourceIs(_.Friend) || game.sourceIs(_.Api)) &&
+        chess.Speed(c.config) >= Speed.Blitz
       }
 
   def isBotCompatible(game: Game): Boolean = {

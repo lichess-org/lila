@@ -116,7 +116,6 @@
     @include if-rtl {
       transform: translateX(calc(100% + 10px));
     }
-    transition: transform 200ms;
 
     padding-bottom: 1.2rem;
     overflow-y: auto;
@@ -180,6 +179,10 @@
         opacity: 1;
         transition: opacity 125ms ease-in-out 125ms;
       }
+    }
+
+    .opened ~ & {
+      transition: transform 200ms;
     }
   }
 

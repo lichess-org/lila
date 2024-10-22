@@ -92,7 +92,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
         nCeval.pvs[1] &&
         !(ctrl.threatMode() && nThreat && nThreat.pvs.length > 2)
       ) {
-        nCeval.pvs.forEach(function(pv) {
+        nCeval.pvs.forEach(function (pv) {
           if (pv.moves[0] === nextBest) return;
           const shift = winningChances.povDiff(color, nCeval.pvs[0], pv);
           if (shift >= 0 && shift < 0.2) {
@@ -111,7 +111,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
 
     shapes = shapes.concat(makeShapesFromUci(rcolor, pv0.moves[0], pv1s.length > 0 ? 'paleRed' : 'red'));
 
-    pv1s.forEach(function(pv) {
+    pv1s.forEach(function (pv) {
       const shift = winningChances.povDiff(rcolor, pv, pv0);
       if (shift >= 0 && shift < 0.2) {
         shapes = shapes.concat(

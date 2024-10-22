@@ -11,7 +11,7 @@
   <string name="newTeam">New team</string>
   <string name="myTeams">My teams</string>
   <string name="noTeamFound">No team found</string>
-  <string name="joinTeam">Join team</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Join team</string>
   <string name="onlyLeaderLeavesTeam">Please add a new team leader before leaving, or close the team.</string>
   <string name="quitTeam">Leave team</string>
   <string name="manuallyReviewAdmissionRequests">Manually review admission requests</string>
@@ -56,7 +56,7 @@ Players who don\'t like receiving your messages might leave the team.</string>
   <string name="joinLichessVariantTeam">Join the official %s team for news and events</string>
   <string name="teamPage">Team page</string>
   <string name="thisTeamBattleIsOver">This tournament is over, and the teams can no longer be updated.</string>
-  <string name="listTheTeamsThatWillCompete">List the teams that will compete in this battle.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">List the teams that will compete in this battle.</string>
   <string name="oneTeamPerLine">One team per line. Use the auto-completion.</string>
   <string name="oneTeamPerLineHelp">You can copy-paste this list from a tournament to another!
 

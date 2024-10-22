@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Exigences pour l\'échiquier DGT</string>
   <string name="dgtBoardLimitations">Limitations de l\'échiquier DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Cette page vous permet de connecter votre échiquier DGT à Lichess, et de l\'utiliser pour jouer.</string>
-  <string name="toConnectTheDgtBoard">Pour vous connecter à l\'échiquier électronique DGT, vous devrez installer %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Pour vous connecter à l\'échiquier électronique DGT, vous devrez installer %s.</string>
   <string name="downloadHere">Vous pouvez télécharger le logiciel ici : %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Si %1$s est en cours d\'exécution sur cet ordinateur, vous pouvez vérifier votre connexion par %2$s.</string>
   <string name="openingThisLink">Ouvrir le lien</string>

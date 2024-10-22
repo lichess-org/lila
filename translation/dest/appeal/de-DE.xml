@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Dein Konto ist nicht markiert oder eingeschränkt. Alles in Ordnung!</string>
-  <string name="engineMarked">Dein Konto ist für externe Unterstützung in Partien markiert.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Dein Konto ist für externe Unterstützung in Partien markiert.</string>
   <string name="engineMarkedInfo">Wir definieren dies als den Einsatz externer Hilfsmittel, mit dem Zweck dein Wissen und/oder deine Berechnungsfähigkeiten zu verbessern, um einen unfairen Vorteil gegenüber deinem Gegner zu erzielen. Weitere Details findest du auf der %s Seite.</string>
   <string name="arenaBanned">Dein Benutzerkonto ist für die Teilnahme an Arena-Turnieren gesperrt.</string>
   <string name="prizeBanned">Dein Benutzerkonto ist für die Teilnahme an Turnieren mit echten Preisen gesperrt.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Dein Benutzerkonto ist stummgeschaltet.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Lies unsere %s. Wenn die Kommunikationsrichtlinien nicht befolgt werden, kann dies zur Stummschaltung von Benutzerkonten führen.</string>
   <string name="excludedFromLeaderboards">Dein Konto wurde von der Rangliste ausgeschlossen.</string>
-  <string name="excludedFromLeaderboardsInfo">Wir definieren dies als eine unfaire Methode, um auf die Rangliste zu kommen.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Wir definieren dies als eine unfaire Methode, um auf die Rangliste zu kommen.</string>
   <string name="closedByModerators">Dein Benutzerkonto wurde von einem Moderator geschlossen.</string>
   <string name="hiddenBlog">Deine Blog-Einträge wurden von Moderatoren versteckt.</string>
   <string name="hiddenBlogInfo">Versichere dich, dass du unsere %s erneut liest.</string>

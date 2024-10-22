@@ -126,7 +126,6 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdebegrensning, og holder maskinen din varm</string>
-  <string name="engineManager">Innstillinger for sjakkmotorer</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Feil</string>
   <string name="inaccuracy">Unøyaktighet</string>

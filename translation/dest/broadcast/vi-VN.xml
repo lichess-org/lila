@@ -6,6 +6,7 @@
     <item quantity="other">%s phát sóng</item>
   </plurals>
   <string name="liveBroadcasts">Các giải đấu phát sóng trực tiếp</string>
+  <string name="broadcastCalendar">Lịch phát sóng</string>
   <string name="newBroadcast">Phát sóng trực tiếp mới</string>
   <string name="subscribedBroadcasts">Các phát sóng đã đăng ký theo dõi</string>
   <string name="aboutBroadcasts">Giới thiệu về phát sóng</string>
@@ -25,7 +26,7 @@
   <string name="sourceSingleUrl">URL Nguồn PGN</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
   <string name="sourceGameIds">Tối đa 64 ID ván cờ trên Lichess, phân tách bằng dấu cách.</string>
-  <string name="startDate">Ngày bắt đầu theo múi giờ của bạn</string>
+  <string name="startDateTimeZone">Thời gian bắt đầu của giải theo múi giờ địa phương: %s</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
   <string name="credits">Công nhận nguồn</string>
   <string name="currentGameUrl">URL ván đấu hiện tại</string>
@@ -39,8 +40,6 @@
   <string name="definitivelyDeleteTournament">Xóa dứt khoát toàn bộ giải đấu, tất cả các vòng và tất cả ván cờ trong đó.</string>
   <string name="showScores">Hiển thị điểm số của người chơi dựa trên kết quả ván đấu</string>
   <string name="replacePlayerTags">Tùy chọn: biệt danh, hệ số Elo và danh hiệu</string>
-  <string name="periodInSeconds">Khoảng thời gian tính bằng giây</string>
-  <string name="periodInSecondsHelp">Tùy chọn, thời gian chờ đợi giữa các yêu cầu. Tối thiểu 2 giây, tối đa 60 giây. Mặc định là tự động dựa trên số lượng người xem.</string>
   <string name="fideFederations">Các liên đoàn FIDE</string>
   <string name="top10Rating">Hệ số Elo top 10</string>
   <string name="fidePlayers">Các kỳ thủ FIDE</string>

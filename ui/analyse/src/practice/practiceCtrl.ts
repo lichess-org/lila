@@ -78,8 +78,8 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       hit &&
       (hit.winner
         ? {
-          mate: hit.winner === 'white' ? 10 : -10,
-        }
+            mate: hit.winner === 'white' ? 10 : -10,
+          }
         : { cp: 0 })
     );
   }
@@ -123,12 +123,12 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       verdict,
       best: best
         ? {
-          uci: best,
-          san: root.position(prev).unwrap(
-            pos => makeSan(pos, parseUci(best)!),
-            _ => '--',
-          ),
-        }
+            uci: best,
+            san: root.position(prev).unwrap(
+              pos => makeSan(pos, parseUci(best)!),
+              _ => '--',
+            ),
+          }
         : undefined,
     };
   }

@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s δημοσίευσε %2$s</string>
   <string name="thisPostIsPublished">Αυτή η ανάρτηση έχει δημοσιευτεί</string>
   <string name="thisIsADraft">Πρόχειρο</string>
-  <string name="moreBlogPostsBy">Περισσότερες δημοσιεύσεις από τον χρήστη %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Περισσότερες δημοσιεύσεις από τον χρήστη %s</string>
   <string name="noPostsInThisBlogYet">Δεν υπάρχει καμία δημοσίευση σε αυτό το ιστολόγιο ακόμα.</string>
   <string name="noDrafts">Δεν έχετε αποθηκευμένα πρόχειρα.</string>
   <string name="latestBlogPosts">Τελευταίες δημοσιεύσεις ιστολογίου</string>

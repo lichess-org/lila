@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen-modus</string>
   <string name="showPlayerRatings">Vis ratingen til spelarane</string>
   <string name="showFlairs">Vis symbol for talentet til spelarane</string>
-  <string name="explainShowPlayerRatings">Denne innstillinga gjer det mogleg å gøyme alle ratingar frå nettsida. Dette for å hjelpa til med å fokusera på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">Denne innstillinga gjer det mogleg å gøyme alle ratingar frå nettsida. Dette for å hjelpa til med å fokusera på sjakken. Du kan framleis spela rangerte parti, dette handlar berre om kva du får sjå.</string>
   <string name="displayBoardResizeHandle">Vis handtak for brettstorleik</string>
   <string name="onlyOnInitialPosition">Berre for startstillinga</string>
   <string name="inGameOnly">Berre under eit parti</string>

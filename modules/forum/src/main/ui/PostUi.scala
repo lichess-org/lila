@@ -190,7 +190,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits)(
                       br,
                       bits.authorLink(view.post)
                     )
-                  tr(cls := "paginated")(
+                  tr(cls := "paginated stack-row")(
                     if viewWithRead.canRead then
                       frag(
                         td(

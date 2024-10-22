@@ -1,6 +1,7 @@
 export default function flairPickerLoader(element: HTMLElement): void {
   const parent = $(element).parent();
   const close = () => element.removeAttribute('open');
+
   const onEmojiSelect = (i?: { id: string; src: string }) => {
     parent.find('input[name="flair"]').val(i?.id ?? '');
     parent.find('.uflair').remove();
@@ -13,12 +14,15 @@ export default function flairPickerLoader(element: HTMLElement): void {
     $(e.target).remove();
   });
   $(element).on('toggle', () =>
-    site.asset.loadEsm('bits.flairPicker', {
-      init: {
-        element: element.querySelector('.flair-picker')!,
-        close,
-        onEmojiSelect,
-      },
-    }),
+    Promise.all([
+      site.asset.loadCssPath('bits.flairPicker'),
+      site.asset.loadEsm('bits.flairPicker', {
+        init: {
+          element: element.querySelector('.flair-picker')!,
+          close,
+          onEmojiSelect,
+        },
+      }),
+    ]),
   );
 }

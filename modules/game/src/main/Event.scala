@@ -88,6 +88,7 @@ object Event:
         .add("enpassant" -> enpassant.map(_.data))
         .add("castle" -> castle.map(_.data))
     override def moveBy = Some(!state.turns.turn)
+
   object Move:
     def apply(
         move: ChessMove,
@@ -287,7 +288,7 @@ object Event:
           "white" -> white.toSeconds,
           "black" -> black.toSeconds
         )
-        .add("lag" -> nextLagComp.filter(_ > 1))
+        .add("lag" -> nextLagComp.filter(_ > Centis(1)))
   object Clock:
     def apply(clock: ChessClock): Clock =
       Clock(

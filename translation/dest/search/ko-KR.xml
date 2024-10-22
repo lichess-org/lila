@@ -13,7 +13,7 @@
   <string name="from">From</string>
   <string name="to">To</string>
   <string name="humanOrComputer">플레이어의 상대가 인간인지 컴퓨터인지 여부</string>
-  <string name="aiLevel">인공지능 레벨</string>
+  <string name="aiLevel">A.I. 레벨</string>
   <string name="source">출처</string>
   <string name="nbTurns">턴 수</string>
   <string name="result">결과</string>

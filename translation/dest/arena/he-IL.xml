@@ -80,11 +80,11 @@
   <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">חציונים</string>
   <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">כל הממוצעים בעמוד זה הם למעשה %s.</string>
   <string name="total">סך הכל</string>
-  <string name="pointsAvg">ממוצע הנקודות</string>
+  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">ממוצע הנקודות</string>
   <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">סכום הנקודות</string>
   <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">ממוצע הדירוג</string>
   <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="tournamentShields">מגיני הטורנירים</string>
   <string name="onlyTitled">שחקנים עטורי דרגות בלבד</string>
-  <string name="onlyTitledHelp">יהיה צורך בתואר רשמי כדי להצטרף לטורניר</string>
+  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">יהיה צורך בתואר רשמי כדי להצטרף לטורניר</string>
 </resources>

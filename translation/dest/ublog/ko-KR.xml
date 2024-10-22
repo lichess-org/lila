@@ -30,7 +30,7 @@
   <string name="xPublishedY">%1$s님이 %2$s를 게시했습니다.</string>
   <string name="thisPostIsPublished">게시물이 게시되었습니다.</string>
   <string name="thisIsADraft">임시저장입니다</string>
-  <string name="moreBlogPostsBy">더 많은 %s의 글</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">더 많은 %s의 글</string>
   <string name="noPostsInThisBlogYet">이 블로그에는 아직 글이 없습니다.</string>
   <string name="noDrafts">임시저장된 글이 없습니다.</string>
   <string name="latestBlogPosts">최근 블로그 글</string>

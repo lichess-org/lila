@@ -15,7 +15,7 @@ export type Dests = Map<Key, Key[]>;
 export function destsToUcis(dests: Dests): Uci[] {
   const ucis: string[] = [];
   for (const [orig, d] of dests) {
-    d.forEach(function(dest) {
+    d.forEach(function (dest) {
       ucis.push(orig + dest);
     });
   }

@@ -39,7 +39,7 @@
   <string name="deflection">การดึงดูด</string>
   <string name="deflectionDescription">การเดินที่หันเหความสนใจของหมากฝ่ายตรงข้ามจากสิ่งที่มันต้องทำ เช่น การป้องกันช่องที่เป็นกุญแจสำคัญ บางครั้งเรียกว่า \"โอเวอร์โหลด\"</string>
   <string name="discoveredAttack">เปิดเผยการโจมตี</string>
-  <string name="discoveredAttackDescription">การเดินหมาก (อย่างเช่นม้า) ที่ก่อนหน้านี้ขวางการโจมตีของหมากระยะยาว (เรือหรือควีน) ออกไป</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">การเดินหมาก (อย่างเช่นม้า) ที่ก่อนหน้านี้ขวางการโจมตีของหมากระยะยาว (เรือหรือควีน) ออกไป</string>
   <string name="doubleCheck">ดับเบิ้ลรุก</string>
   <string name="doubleCheckDescription">รุกด้วยหมากสองตัวในคราเดียวกันทำให้เป็นการเปิดโจมตี โดยหมากตัวที่ถูกเดินในตานี้และหมากที่อยู่ข้างหลังหมากตัวที่เดินทำการรุกคิงพร้อมกัน</string>
   <string name="endgame">ท้ายเกม</string>

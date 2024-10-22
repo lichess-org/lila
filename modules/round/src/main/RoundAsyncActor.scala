@@ -166,7 +166,7 @@ final private class RoundAsyncActor(
 
     case lila.tree.AnalysisProgress(payload) =>
       fuccess:
-        socketSend:
+        socketSend.exec:
           RP.Out.tellRoom(roomId, makeMessage("analysisProgress", payload()))
 
     // round stuff
@@ -181,7 +181,7 @@ final private class RoundAsyncActor(
       .chronometer.lap.addEffects(
         err =>
           p.promise.foreach(_.failure(err))
-          socketSend(Protocol.Out.resyncPlayer(GameFullId(gameId, p.playerId)))
+          socketSend.exec(Protocol.Out.resyncPlayer(GameFullId(gameId, p.playerId)))
         ,
         lap =>
           p.promise.foreach(_.success {})
@@ -220,10 +220,14 @@ final private class RoundAsyncActor(
     case GoBerserk(color, promise) =>
       handle(color): pov =>
         val berserked = pov.game.goBerserk(color)
-        berserked
-          .so: progress =>
-            (proxy.save(progress) >> gameRepo.goBerserk(pov)).inject(progress.events)
-          .andDo(promise.success(berserked.isDefined))
+        for
+          events <- berserked.so: progress =>
+            for
+              _ <- proxy.save(progress)
+              _ <- gameRepo.goBerserk(pov)
+            yield progress.events
+          _ = promise.success(berserked.isDefined)
+        yield events
 
     case Blindfold(playerId, value) =>
       handle(playerId): pov =>
@@ -302,9 +306,9 @@ final private class RoundAsyncActor(
         publish:
           rematcher.redirectEvents(newGame)
 
-    case Moretime(playerId, duration) =>
+    case Moretime(playerId, duration, force) =>
       handle(playerId): pov =>
-        moretimer(pov, duration).flatMapz: progress =>
+        moretimer(pov, duration, force).flatMapz: progress =>
           proxy.save(progress).inject(progress.events)
 
     case ForecastPlay(lastMove) =>
@@ -370,7 +374,7 @@ final private class RoundAsyncActor(
         )
       } | funit
 
-    case Stop => proxy.terminate().andDo(socketSend(RP.Out.stop(roomId)))
+    case Stop => for _ <- proxy.terminate() yield socketSend.exec(RP.Out.stop(roomId))
 
   private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
@@ -399,13 +403,13 @@ final private class RoundAsyncActor(
   private def notifyGone(color: Color, gone: Boolean): Funit =
     proxy.withPov(color): pov =>
       fuccess:
-        socketSend(Protocol.Out.gone(pov.fullId, gone))
+        socketSend.exec(Protocol.Out.gone(pov.fullId, gone))
         publishBoardBotGone(pov, gone.option(0L))
 
   private def notifyGoneIn(color: Color, millis: Long): Funit =
     proxy.withPov(color): pov =>
       fuccess:
-        socketSend(Protocol.Out.goneIn(pov.fullId, millis))
+        socketSend.exec(Protocol.Out.goneIn(pov.fullId, millis))
         publishBoardBotGone(pov, millis.some)
 
   private def publishBoardBotGone(pov: Pov, millis: Option[Long]) =
@@ -440,7 +444,7 @@ final private class RoundAsyncActor(
     if events.nonEmpty then
       events.foreach: e =>
         version = version.map(_ + 1)
-        socketSend:
+        socketSend.exec:
           Protocol.Out.tellVersion(roomId, version, e)
       if events.exists:
           case e: Event.Move => e.threefold

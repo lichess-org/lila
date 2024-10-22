@@ -28,7 +28,7 @@ export function initModule(opts: Env) {
 }
 
 export function registerFormHandler() {
-  $('form.insight-refresh').on('submit', function(this: HTMLFormElement) {
+  $('form.insight-refresh').on('submit', function (this: HTMLFormElement) {
     fetch(this.action, {
       method: 'post',
       credentials: 'same-origin',

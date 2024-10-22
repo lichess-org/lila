@@ -119,15 +119,15 @@ function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: 
     { class: { single: !nodes[1], collapsed } },
     collapsed
       ? h('line', { class: { expand: true } }, [
-        h('branch'),
-        h('a', {
-          attrs: { 'data-icon': licon.PlusButton, title: ctx.ctrl.trans.noarg('expandVariations') },
-          on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
-        }),
-      ])
+          h('branch'),
+          h('a', {
+            attrs: { 'data-icon': licon.PlusButton, title: i18n.site.expandVariations },
+            on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
+          }),
+        ])
       : nodes.map(n => {
-        return (
-          retroLine(ctx, n) ||
+          return (
+            retroLine(ctx, n) ||
             h('line', [
               h('branch'),
               ...renderMoveAndChildrenOf(ctx, n, {
@@ -139,8 +139,8 @@ function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: 
                 truncate: n.comp && !treePath.contains(ctx.ctrl.path, opts.parentPath + n.id) ? 3 : undefined,
               }),
             ])
-        );
-      }),
+          );
+        }),
   );
 }
 
@@ -219,7 +219,7 @@ function renderMainlineCommentsOf(
 
 const emptyConcealOf: ConcealOf = () => () => null;
 
-export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
+export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
   const root = ctrl.tree.root;
   const ctx: Ctx = {
     ...renderingCtx(ctrl),

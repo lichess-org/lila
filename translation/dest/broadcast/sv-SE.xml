@@ -23,7 +23,6 @@
   <string name="fullDescription">Fullständig beskrivning</string>
   <string name="fullDescriptionHelp">Valfri längre beskrivning av sändningen. %1$s är tillgänglig. Längden måste vara mindre än %2$s tecken.</string>
   <string name="sourceUrlHelp">URL som Lichess kan använda för att få PGN-uppdateringar. Den måste vara publikt tillgänglig från Internet.</string>
-  <string name="startDate">Startdatum i din egen tidszon</string>
   <string name="startDateHelp">Valfritt, om du vet när händelsen startar</string>
   <string name="credits">Kreditera källan</string>
   <string name="currentGameUrl">Länk till aktuellt parti (URL)</string>
@@ -35,6 +34,4 @@
   <string name="editRoundStudy">Redigera studie för ronden</string>
   <string name="deleteTournament">Radera turnering</string>
   <string name="definitivelyDeleteTournament">Definitivt radera turnering.</string>
-  <string name="periodInSeconds">Period i sekunder</string>
-  <string name="periodInSecondsHelp">Valfritt, hur länge man väntar mellan förfrågningar. Min 2s, max 60s. Standardvärdet är automatiskt baserat på antalet tittare.</string>
 </resources>

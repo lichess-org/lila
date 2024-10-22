@@ -8,7 +8,7 @@ describe('test imgur matching', () => {
   ])('embed individual images', (input, link) => {
     expect(imgurRegex.test(input)).toBe(true);
     expect(enhance(input)).toBe(
-      `<a target="_blank" rel="noopener nofollow noreferrer" href="${link}"><img src="${link}"/></a>`,
+      `<a target="_blank" rel="nofollow noopener noreferrer" href="${link}"><img src="${link}"/></a>`,
     );
   });
 
@@ -21,7 +21,7 @@ describe('test imgur matching', () => {
   ])('albums and galleries should not be embedded', (input, link) => {
     expect(imgurRegex.test(input)).toBe(false);
     expect(enhance(input)).toBe(
-      `<a target="_blank" rel="noopener nofollow noreferrer" href="${input}">${link}</a>`,
+      `<a target="_blank" rel="nofollow noopener noreferrer" href="${input}">${link}</a>`,
     );
   });
 });

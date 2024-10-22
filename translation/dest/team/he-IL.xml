@@ -13,7 +13,7 @@
   <string name="newTeam">קבוצה חדשה</string>
   <string name="myTeams">הקבוצות שלי</string>
   <string name="noTeamFound">לא נמצאה קבוצה</string>
-  <string name="joinTeam">הצטרף/י לקבוצה</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">הצטרף/י לקבוצה</string>
   <string name="onlyLeaderLeavesTeam">אנא מנו מנהיג חדש לקבוצה טרם עזיבתכם, או סגרו את הקבוצה.</string>
   <string name="quitTeam">צא/י מהקבוצה</string>
   <string name="manuallyReviewAdmissionRequests">אשר/י מצטרפים לקבוצה באופן ידני</string>
@@ -24,7 +24,7 @@
     <item quantity="many">מנהיגי הקבוצה</item>
     <item quantity="other">מנהיגי הקבוצה</item>
   </plurals>
-  <string name="teamRecentMembers">השחקנים האחרונים שהצטרפו לקבוצה</string>
+  <string name="teamRecentMembers">המצטרפים האחרונים</string>
   <string name="kickSomeone">הסירו מישהו מהקבוצה</string>
   <string name="whoToKick">את מי את/ה רוצה להסיר מהקבוצה?</string>
   <plurals name="xJoinRequests">
@@ -49,7 +49,7 @@
 שחקנים שלא אוהבים לקבל את ההודעות הללו עלולים לעזוב את הקבוצה.</string>
   <string name="teamsIlead">קבוצות שאני מוביל/ה</string>
   <string name="youWayWantToLinkOneOfTheseTournaments">אולי תרצה לקשר אחד מהטורנירים הבאים הקרובים?</string>
-  <string name="leadersChat">צ\'אט המנהלים</string>
+  <string name="leadersChat">שיחת המנהלים</string>
   <string name="closeTeam">סגור את הקבוצה</string>
   <string name="closeTeamDescription">שדה זה סוגר את הקבוצה לעד.</string>
   <string name="entryCode">סיסמת הקבוצה</string>
@@ -62,7 +62,7 @@
   <string name="joinLichessVariantTeam">הצטרפו לקבוצת %s הרשמית של ליצ\'ס כדי לקבל עדכונים על חדשות ואירועים</string>
   <string name="teamPage">עמוד הקבוצה</string>
   <string name="thisTeamBattleIsOver">הטורניר הזה הסתיים ולא ניתן לעדכן יותר את הקבוצות.</string>
-  <string name="listTheTeamsThatWillCompete">רשימה של הקבוצות שישתתפו בקרב הזה.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">רשימה של הקבוצות שישתתפו בקרב הזה.</string>
   <string name="oneTeamPerLine">קבוצה אחת בכל שורה. ניתן להשתמש בהשלמה האוטומטית.</string>
   <string name="oneTeamPerLineHelp">ניתן להעתיק ולהדביק את הרשימה הזו מטורניר אחד לאחר. לא ניתן להסיר קבוצה אם אחד משחקניה כבר הצטרף.</string>
   <string name="numberOfLeadsPerTeam">מספר המובילים בכל קבוצה. סך הנקודות שלהם הוא הניקוד שהקבוצה תשיג.</string>

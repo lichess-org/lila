@@ -10,6 +10,7 @@
   <string name="attackingF2F7">f2 яки f7-не һөҗүм итү</string>
   <string name="bodenMate">Боден маты</string>
   <string name="bodenMateDescription">Ике һөҗүм итүче киселешәләр диагональ буенча һәм рәкыйпнең үз дуст сөякләре кома шаулаган шаһына мат куялар.</string>
+  <string name="castling">Рокировка</string>
   <string name="crushing">Изеш</string>
   <string name="doubleBishopMate">Икеләтә филь маты</string>
   <string name="equality">Тигезлек</string>
@@ -24,7 +25,13 @@
   <string name="master">Осталарның уеннары</string>
   <string name="masterVsMaster">Осталар арасындагы уеннар</string>
   <string name="mate">Мат</string>
+  <string name="mateIn1">1 йөрүдә мат</string>
+  <string name="mateIn2">2 йөрүдә мат</string>
+  <string name="mateIn3">3 йөрүдә мат</string>
+  <string name="mateIn4">4 йөрүдә мат</string>
   <string name="middlegame">Уен уртасы</string>
   <string name="opening">Дебют</string>
   <string name="pin">Беркетү</string>
+  <string name="xRayAttack">Рентген</string>
+  <string name="zugzwang">Цугцванг</string>
 </resources>

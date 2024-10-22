@@ -42,16 +42,16 @@ export const checkBoxAll = (table: HTMLTableElement): Cash =>
 
 export const selector =
   (table: HTMLTableElement, select: HTMLSelectElement) =>
-    (f: (action: string) => void): Cash =>
-      $(select).on('change', _ => {
-        const action = select.value;
-        if (action) {
-          select.value = '';
-          if (action == 'all' || action == 'none')
-            $(table)
-              .find('tbody tr:not(.none) input:not(:disabled)')
-              .prop('checked', action == 'all');
-          else f(action);
-        }
-        return false;
-      });
+  (f: (action: string) => void): Cash =>
+    $(select).on('change', _ => {
+      const action = select.value;
+      if (action) {
+        select.value = '';
+        if (action == 'all' || action == 'none')
+          $(table)
+            .find('tbody tr:not(.none) input:not(:disabled)')
+            .prop('checked', action == 'all');
+        else f(action);
+      }
+      return false;
+    });

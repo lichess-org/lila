@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Η πρόκληση απορρίφθηκε</string>
   <string name="challengeAccepted">Η πρόκληση έγινε δεκτή!</string>
   <string name="challengeCanceled">Η πρόκληση ακυρώθηκε.</string>
-  <string name="registerToSendChallenges">Εγγραφείτε για να στείλετε προκλήσεις.</string>
+  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">Εγγραφείτε για να στείλετε προκλήσεις.</string>
   <string name="youCannotChallengeX">Δεν μπορείτε να προκαλέσετε τον %s.</string>
   <string name="xDoesNotAcceptChallenges">%s δε δέχεται προκλήσεις.</string>
   <string name="yourXRatingIsTooFarFromY">Η βαθμολογία σας στο %1$s διαφέρει σημαντικά από αυτήν του χρήστη %2$s.</string>

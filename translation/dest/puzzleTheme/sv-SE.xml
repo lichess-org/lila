@@ -39,7 +39,7 @@
   <string name="deflection">Avledande drag</string>
   <string name="deflectionDescription">Ett drag som avleder en motståndarpjäs från en annan uppgift, såsom att bevaka en viktig ruta. Kallas Ibland också \"överbelastning\".</string>
   <string name="discoveredAttack">Avdragsattack</string>
-  <string name="discoveredAttackDescription">Flytta en pjäs som tidigare blockerade en attack från en annan pjäs med lång räckvidd, såsom en springare ur vägen för ett torn.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Flytta en pjäs som tidigare blockerade en attack från en annan pjäs med lång räckvidd, såsom en springare ur vägen för ett torn.</string>
   <string name="doubleCheck">Dubbelschack</string>
   <string name="doubleCheckDescription">Schack med två pjäser i samma drag, som ett resultat av avdragsattack (avdragsschack) där både den rörliga pjäsen och den avtäckta pjäsen attackerar motståndarens kung.</string>
   <string name="endgame">Slutspel</string>

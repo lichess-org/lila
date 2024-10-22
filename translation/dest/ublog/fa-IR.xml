@@ -5,7 +5,7 @@
   <string name="likedBlogs">وبنوشته‌های پسندیده</string>
   <string name="blogTopics">موضوع‌های وبنوشت</string>
   <string name="lichessOfficialBlog">وبنوشت رسمی Lichess</string>
-  <string name="continueReadingPost">ادامه مطلب</string>
+  <string name="continueReadingPost">ادامهٔ خواندن این فرسته</string>
   <string name="lichessBlogPostsFromXYear">وبنوشته‌های Lichess در %s</string>
   <string name="previousBlogPosts">وبنوشته‌های پیشین</string>
   <string name="xBlog">وبنوشتِ %s</string>
@@ -13,12 +13,12 @@
   <string name="editYourBlogPost">وبنوشته‌تان را بویرایید</string>
   <string name="saveDraft">پیش‌نویس را ذخیره نمایید</string>
   <string name="postTitle">عنوان مطلب</string>
-  <string name="postIntro">مقدمهٔ نوشته</string>
-  <string name="postBody">متنِ وبنوشت</string>
+  <string name="postIntro">پیش‌گفتار وبنوشت</string>
+  <string name="postBody">بدنهٔ وبنوشت</string>
   <string name="drafts">پیش‌نویس‌ها</string>
   <string name="published">منتشر شده</string>
-  <string name="createBlogDiscussion">فعال‌سازی نظرات</string>
-  <string name="createBlogDiscussionHelp">یک گفتگو انجمنی برای دیگران ساخته خواهد شد تا درباره نوشته‌تان نظر دهند</string>
+  <string name="createBlogDiscussion">فعال‌سازی نظرها</string>
+  <string name="createBlogDiscussionHelp">یک گفتگوی انجمنی برای دیگران ساخته خواهد شد تا دربارهٔ فرسته‌تان نظر دهند</string>
   <string name="publishOnYourBlog">روی وبنوشت‌تان منتشر کنید</string>
   <string name="publishHelp">اگر علامت زنید، نوشته در وبنوشت‌تان قرار می‌گیرد. اگر نه، در نوشته‌های پیش‌نویس‌تان، خصوصی خواهد شد</string>
   <plurals name="publishedNbBlogPosts">
@@ -30,26 +30,26 @@
     <item quantity="other">%s بازدید</item>
   </plurals>
   <string name="xPublishedY">%1$s، %2$s را منتشر کرد</string>
-  <string name="thisPostIsPublished">این نوشته منتشر شد</string>
+  <string name="thisPostIsPublished">این وبنوشته منتشر شد</string>
   <string name="thisIsADraft">این یک پیش‌نویس است</string>
-  <string name="moreBlogPostsBy">وبنوشته‌های بیشتر از %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">وبنوشته‌های بیشتر از %s</string>
   <string name="noPostsInThisBlogYet">هنوز، نوشته‌ای در این وبنوشت نیست.</string>
   <string name="noDrafts">پیش‌نویسی برای نمایش وجود ندارد.</string>
   <string name="latestBlogPosts">تازه‌ترین وبنوشته‌ها</string>
   <plurals name="viewAllNbPosts">
-    <item quantity="one">دیدن پست</item>
-    <item quantity="other">دیدت تمام %s پست</item>
+    <item quantity="one">دیدن فرسته</item>
+    <item quantity="other">دیدت همهٔ %s فرسته</item>
   </plurals>
-  <string name="uploadAnImageForYourPost">بارگذاری یک عکس برای پست شما</string>
+  <string name="uploadAnImageForYourPost">بارگذاری یک تصویر برای فرسته‌تان</string>
   <string name="imageAlt">مقدار alternative برای عکس</string>
   <string name="imageCredit">منبع عکس</string>
   <string name="deleteBlog">بی‌دریغ این وبنوشته را پاک کنید</string>
-  <string name="safeToUseImages">استفاده از تصاویر از وب سایت های زیر بی خطر است:</string>
-  <string name="selectPostTopics">موضوعی که پست شما درباره آن است انتخاب کنید</string>
+  <string name="safeToUseImages">استفاده از تصویرهای وبگاه‌های زیر، ایمن است: </string>
+  <string name="selectPostTopics">موضوع‌هایی که فرسته‌تان دربارهٔ آن‌ها است را، برگزینید</string>
   <string name="useImagesYouMadeYourself">همچنین میتوانید از تصاویری که خودتان درست کردید، عکس هایی که گرفتید، اسکرین شات هایی از لیچس و ... که جزو قوانین کپی رایت حساب نمیشوند استفاده کنید.</string>
-  <string name="safeAndRespectfulContent">لطفا فقط مطالب ایمن و محترمانه منتشر کنید. مطالب دیگران را کپی نکنید.</string>
+  <string name="safeAndRespectfulContent">لطفا فقط محتوای ایمن و محترمانه منتشر کنید. محتوای دیگران را رونویسی نکنید.</string>
   <string name="inappropriateContentAccountClosed">هر چیز نامناسبی می تواند حساب شما را ببندد.</string>
-  <string name="blogTips">نکته‌های ساده‌ ما، برای نوشتن وبنوشته‌های عالی</string>
+  <string name="blogTips">نکته‌های ساده‌ٔ ما، برای نوشتن وبنوشته‌های عالی</string>
   <string name="discussThisBlogPostInTheForum">درباره این وبنوشته در انجمن بحث کنید</string>
-  <string name="youBlockedByBlogAuthor">نویسنده وبنوشت، شما را مسدود کرده است.</string>
+  <string name="youBlockedByBlogAuthor">نویسندهٔ وبنوشت، شما را مسدود کرده است.</string>
 </resources>

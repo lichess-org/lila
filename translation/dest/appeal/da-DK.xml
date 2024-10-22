@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Din konto er ikke blevet markeret eller begrænset. Alt er i orden!</string>
-  <string name="engineMarked">Din konto er blevet markeret for ekstern hjælp i partier.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Din konto er blevet markeret for ekstern hjælp i partier.</string>
   <string name="engineMarkedInfo">Vi definerer dette som brug af ekstern hjælp til at styrke din viden og/eller dine regnefærdigheder for at opnå en uretfærdig fordel i forhold til din modstander. Se siden %s for flere detaljer.</string>
   <string name="arenaBanned">Din konto er udelukket fra at deltage i arenaer.</string>
   <string name="prizeBanned">Din konto er udelukket fra turneringer med rigtige præmier.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Din konto er gjort stum.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Læs vores %s. Hvis retningslinjerne for kommunikation ikke følges, kan det resultere i, at konti bliver gjort stumme.</string>
   <string name="excludedFromLeaderboards">Din konto er blevet udelukket fra ranglister.</string>
-  <string name="excludedFromLeaderboardsInfo">Vi definerer dette som at bruge unfair metoder til at komme på ranglisten.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Vi definerer dette som at bruge unfair metoder til at komme på ranglisten.</string>
   <string name="closedByModerators">Din konto blev lukket af moderatorer.</string>
   <string name="hiddenBlog">Dine blogs er blevet skjult af moderatorer.</string>
   <string name="hiddenBlogInfo">Sørg for igen at læse vores %s.</string>

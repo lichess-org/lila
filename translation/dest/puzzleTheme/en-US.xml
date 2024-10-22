@@ -39,7 +39,7 @@
   <string name="deflection">Deflection</string>
   <string name="deflectionDescription">A move that distracts an opponent piece from another duty that it performs, such as guarding a key square. Sometimes also called \"overloading\".</string>
   <string name="discoveredAttack">Discovered attack</string>
-  <string name="discoveredAttackDescription">Moving a piece that previously blocked an attack by another long range piece, such as a knight out of the way of a rook.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Moving a piece that previously blocked an attack by another long range piece, such as a knight out of the way of a rook.</string>
   <string name="doubleCheck">Double check</string>
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent\'s king.</string>
   <string name="endgame">Endgame</string>

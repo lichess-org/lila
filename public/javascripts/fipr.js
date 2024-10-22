@@ -1075,22 +1075,3 @@ window.fipr = (function() {
     };
   return e;
 })();
-
-site.load.then(() =>
-  setTimeout(() => {
-    const storageKey = 'fipr';
-    const t = performance.now(),
-      send = hash => {
-        localStorage.setItem(storageKey, hash);
-        const $i = $('#signup-fp-input');
-        if ($i.length) $i.val(hash);
-        else
-          fetch('/auth/set-fp/' + hash + '/' + Math.round(performance.now() - t), {
-            method: 'post',
-            credentials: 'same-origin',
-          });
-      };
-    if (localStorage.getItem(storageKey)) send(localStorage.getItem(storageKey));
-    else fipr.get(c => send(fipr.x64hash128(c.map(x => x.value).join(''), 31)));
-  }, 1000),
-);

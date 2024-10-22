@@ -11,7 +11,7 @@
   <string name="newTeam">Novo equipo</string>
   <string name="myTeams">Os meus equipos</string>
   <string name="noTeamFound">Ningún equipo atopado</string>
-  <string name="joinTeam">Unirse ó equipo</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Unirse ó equipo</string>
   <string name="onlyLeaderLeavesTeam">Por favor, engade un novo líder de equipo antes de saíres ou pecha o equipo.</string>
   <string name="quitTeam">Saír do equipo</string>
   <string name="manuallyReviewAdmissionRequests">Revisar manualmente as solicitudes de admisión</string>
@@ -56,7 +56,7 @@ Os xogadores que non gosten de recibiren mensaxes poden abandonar o equipo.</str
   <string name="joinLichessVariantTeam">Únete ó equipo oficial de %s para novidades e eventos</string>
   <string name="teamPage">Páxina do equipo</string>
   <string name="thisTeamBattleIsOver">Este torneo rematou e os equipos xa non poden ser actualizados.</string>
-  <string name="listTheTeamsThatWillCompete">Enumera os equipos que competirán nesta batalla.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Enumera os equipos que competirán nesta batalla.</string>
   <string name="oneTeamPerLine">Un equipo por liña. Usar o autocompletado.</string>
   <string name="oneTeamPerLineHelp">Podes copiar esta lista dun torneo e pegala noutro!
 

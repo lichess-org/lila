@@ -17,7 +17,7 @@ export function withdraw(ctrl: TournamentController): VNode {
         attrs: dataIcon(pause ? licon.Pause : licon.FlagOutline),
         hook: bind('click', ctrl.withdraw, ctrl.redraw),
       },
-      ctrl.trans.noarg(pause ? 'pause' : 'withdraw'),
+      i18n.site[pause ? 'pause' : 'withdraw'],
     );
   });
 }
@@ -32,29 +32,29 @@ export function join(ctrl: TournamentController): VNode {
         attrs: { disabled: !joinable, 'data-icon': licon.PlayTriangle },
         hook: bind('click', _ => ctrl.join(), ctrl.redraw),
       },
-      ctrl.trans.noarg('join'),
+      i18n.site.join,
     );
     return delay
       ? h('div.delay-wrap', { attrs: { title: 'Waiting to be able to re-join the tournament' } }, [
-        h(
-          'div.delay',
-          {
-            hook: {
-              insert(vnode) {
-                const el = vnode.elm as HTMLElement;
-                el.style.animation = `tour-delay ${delay}s linear`;
-                setTimeout(() => {
-                  if (delay === ctrl.data.me!.pauseDelay) {
-                    ctrl.data.me!.pauseDelay = 0;
-                    ctrl.redraw();
-                  }
-                }, delay * 1000);
+          h(
+            'div.delay',
+            {
+              hook: {
+                insert(vnode) {
+                  const el = vnode.elm as HTMLElement;
+                  el.style.animation = `tour-delay ${delay}s linear`;
+                  setTimeout(() => {
+                    if (delay === ctrl.data.me!.pauseDelay) {
+                      ctrl.data.me!.pauseDelay = 0;
+                      ctrl.redraw();
+                    }
+                  }, delay * 1000);
+                },
               },
             },
-          },
-          button,
-        ),
-      ])
+            button,
+          ),
+        ])
       : button;
   });
 }
@@ -64,7 +64,7 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
     return h(
       'a.fbt.text.highlight',
       { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
-      ctrl.trans('signIn'),
+      i18n.site.signIn,
     );
   if (!ctrl.data.isFinished) return ctrl.isIn() ? withdraw(ctrl) : join(ctrl);
   return undefined;

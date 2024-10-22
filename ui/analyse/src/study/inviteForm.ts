@@ -17,7 +17,6 @@ export interface StudyInviteFormCtrl {
   toggle(): void;
   invite(titleName: string): void;
   redraw(): void;
-  trans: Trans;
   previouslyInvited: StoredSet<string>;
 }
 
@@ -26,7 +25,6 @@ export function makeCtrl(
   members: Prop<StudyMemberMap>,
   setTab: () => void,
   redraw: () => void,
-  trans: Trans,
 ): StudyInviteFormCtrl {
   const open = prop(false),
     spectators = prop<string[]>([]);
@@ -52,7 +50,6 @@ export function makeCtrl(
       setTab();
     },
     redraw,
-    trans,
     previouslyInvited,
   };
 }
@@ -69,16 +66,12 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     },
     noScrollable: true,
     vnodes: [
-      h('h2', ctrl.trans.noarg('inviteToTheStudy')),
-      h(
-        'p.info',
-        { attrs: { 'data-icon': licon.InfoCircle } },
-        ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow'),
-      ),
+      h('h2', i18n.study.inviteToTheStudy),
+      h('p.info', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {
-          attrs: { placeholder: ctrl.trans.noarg('searchByUsername'), spellcheck: 'false' },
+          attrs: { placeholder: i18n.study.searchByUsername, spellcheck: 'false' },
           hook: onInsert<HTMLInputElement>(input =>
             userComplete({
               input,
@@ -89,21 +82,21 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
                 ctrl.invite(v.name);
                 ctrl.redraw();
               },
-            })
+            }),
           ),
         }),
       ]),
       candidates.length
         ? h(
-          'div.users',
-          candidates.map(function(username: string) {
-            return h(
-              'span.button.button-metal',
-              { key: username, hook: bind('click', () => ctrl.invite(username)) },
-              username,
-            );
-          }),
-        )
+            'div.users',
+            candidates.map(function (username: string) {
+              return h(
+                'span.button.button-metal',
+                { key: username, hook: bind('click', () => ctrl.invite(username)) },
+                username,
+              );
+            }),
+          )
         : undefined,
     ],
   });

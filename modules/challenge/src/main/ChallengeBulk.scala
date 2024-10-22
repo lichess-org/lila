@@ -112,11 +112,12 @@ final class ChallengeBulkApi(
           .start
         (game, users)
       .mapAsyncUnordered(8): (game, users) =>
-        gameRepo
-          .insertDenormalized(game)
-          .recover(e => logger.error(s"Bulk.insertGame ${game.id} ${e.getMessage}"))
-          .andDo(onStart(game.id))
-          .inject(game -> users)
+        for
+          _ <- gameRepo
+            .insertDenormalized(game)
+            .recover(e => logger.error(s"Bulk.insertGame ${game.id} ${e.getMessage}"))
+          _ = onStart.exec(game.id)
+        yield game -> users
       .mapAsyncUnordered(8): (game, users) =>
         msgApi
           .onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)

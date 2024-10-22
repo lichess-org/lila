@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Entrainement des coordonnées</string>
   <string name="averageScoreAsWhiteX">Moyenne blanc : %s</string>
   <string name="averageScoreAsBlackX">Moyenne noir : %s</string>
-  <string name="knowingTheChessBoard">Connaitre les coordonnées des cases d\'un échiquier est une compétence clé :</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Connaitre les coordonnées des cases d\'un échiquier est une compétence clé :</string>
   <string name="mostChessCourses">La plupart des cours et des exercices d’échecs utilisent la notation algébrique.</string>
   <string name="talkToYourChessFriends">Cela facilite la communication avec vos amis, puisque vous comprenez tous les deux \"la langue des échecs\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">L\'analyse des parties est facilité si vous visualisez l\'emplacement des cases.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Vous avez 30 secondes pour sélectionner correctement autant de cases que possible!</string>
   <string name="goAsLongAsYouWant">Pas besoin de vous presser, il n\'y a pas de limite de temps!</string>
   <string name="showCoordinates">Afficher les coordonnées</string>
-  <string name="showCoordsOnAllSquares">Coordonnées sur chaque case</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordonnées sur chaque case</string>
   <string name="showPieces">Afficher les pièces</string>
   <string name="startTraining">Démarrer l\'entrainement</string>
   <string name="findSquare">Trouver la case</string>

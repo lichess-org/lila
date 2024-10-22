@@ -39,7 +39,7 @@
   <string name="deflection">Отвлечение</string>
   <string name="deflectionDescription">Ход, отвлекающий фигуру противника от важной задачи, например, от защиты ключевого поля.</string>
   <string name="discoveredAttack">Вскрытое нападение</string>
-  <string name="discoveredAttackDescription">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём, вскрывающий линию для стоящей за ним ладьи.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём, вскрывающий линию для стоящей за ним ладьи.</string>
   <string name="doubleCheck">Двойной шах</string>
   <string name="doubleCheckDescription">Шах двумя фигурами одновременно при помощи вскрытого нападения. Нельзя срубить обе атакующие фигуры и нельзя закрыться от них, поэтому король может только уйти от шаха.</string>
   <string name="endgame">Эндшпиль</string>

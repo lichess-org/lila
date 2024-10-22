@@ -130,7 +130,6 @@
   <string name="memory">זיכרון</string>
   <string name="infiniteAnalysis">ניתוח אינסופי</string>
   <string name="removesTheDepthLimit">מסיר את מגבלת העומק ו\"מחמם\" את המחשב</string>
-  <string name="engineManager">מנהל המנועים</string>
   <string name="blunder">טעות גסה</string>
   <string name="mistake">שגיאה</string>
   <string name="inaccuracy">אי־דיוק</string>
@@ -619,16 +618,16 @@
   <string name="reply">תגובה</string>
   <string name="message">הודעה</string>
   <string name="createTheTopic">צור אשכול</string>
-  <string name="reportAUser">דווח על משתמש</string>
+  <string name="reportAUser">דיווח על משתמש/ת</string>
   <string name="user">משתמש</string>
   <string name="reason">סיבה</string>
   <string name="whatIsIheMatter">מה הבעיה?</string>
   <string name="cheat">רמאות</string>
   <string name="troll">הטרלה</string>
   <string name="other">אחר</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">הדיווח שלך יטופל מהר יותר אם הוא כתוב באנגלית.</string>
+  <string name="reportCheatBoostHelp">הדביקו את הקישור למשחקים שעליהם תרצו לדווח והסבירו מה הבעיה בהתנהגות המשתמש כפי שהיא משתקפת בהם. אל תכתבו סתם ״השחקן מרמה״. הסבירו לנו כיצד הגעתם למסקנה הזו.</string>
+  <string name="reportUsernameHelp">הסבירו מה פוגעני בשם המשתמש הזה. אל תכתבו סתם ״שם המשתמש פוגעני״. הסבירו לנו כיצד הגעתם למסקנה הזו, במיוחד אם ההעלבה מוסווית, בשפה זרה (שאינה אנגלית), בלשון סלנג או תלויית תרבות והיסטוריה.</string>
+  <string name="reportProcessedFasterInEnglish">הדיווח שלך יטופל מהר יותר אם ייכתב באנגלית.</string>
   <string name="error.provideOneCheatedGameLink">בבקשה לספק לפחות קישור אחד למשחק עם רמאות.</string>
   <string name="by">על־ידי %s</string>
   <string name="importedByX">יובא ע\"י %s</string>

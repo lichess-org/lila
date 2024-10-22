@@ -72,7 +72,7 @@
   <string name="downloadGame">Pellgargañ ur c\'hrogad</string>
   <string name="studyUrl">Studiañ URL</string>
   <string name="currentChapterUrl">URL ar pennad evit poent</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Gallout a rit pegañ se er forom evit ensoc\'hañ</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Gallout a rit pegañ se er forom evit ensoc\'hañ</string>
   <string name="startAtInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="startAtX">Kregiñ e %s</string>
   <string name="embedInYourWebsite">Enframmañ en ho lec\'hienn pe blog</string>
@@ -101,9 +101,9 @@
   <string name="startFromInitialPosition">Kregiñ el lec\'hiadur kentañ</string>
   <string name="editor">Aozer</string>
   <string name="startFromCustomPosition">Kregiñ adalek ul lakadur aozet</string>
-  <string name="loadAGameByUrl">Kargañ ur c\'hrogad dre URL</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Kargañ ur c\'hrogad dre URL</string>
   <string name="loadAPositionFromFen">Kargañ ul lakadur dre FEN</string>
-  <string name="loadAGameFromPgn">Kargañ ul lakadur dre PGN</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Kargañ ul lakadur dre PGN</string>
   <string name="automatic">Emgefre</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Pegit testenn ho PGN amañ, betek %s krogad</item>

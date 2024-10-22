@@ -6,8 +6,7 @@ import { Seek } from '../interfaces';
 import perfIcons from 'common/perfIcons';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
-  const klass = seek.action === 'joinSeek' ? 'join' : 'cancel',
-    noarg = ctrl.trans.noarg;
+  const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
   return h(
     'tr.seek.' + klass,
     {
@@ -16,8 +15,8 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
         role: 'button',
         title:
           seek.action === 'joinSeek'
-            ? noarg('joinTheGame') + ' - ' + perfNames[seek.perf.key]
-            : noarg('cancel'),
+            ? i18n.site.joinTheGame + ' - ' + perfNames[seek.perf.key]
+            : i18n.site.cancel,
         'data-id': seek.id,
       },
     },
@@ -26,10 +25,10 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
         ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, seek.username)
         : 'Anonymous',
       seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
-      seek.days ? ctrl.trans.pluralSame('nbDays', seek.days) : '∞',
+      seek.days ? i18n.site.nbDays(seek.days) : '∞',
       h('span', [
         h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.perf.key] } }),
-        noarg(seek.mode === 1 ? 'rated' : 'casual'),
+        seek.mode === 1 ? i18n.site.rated : i18n.site.casual,
       ]),
     ]),
   );
@@ -47,22 +46,23 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
             ctrl.redraw,
           ),
         },
-        ctrl.trans('createAGame'),
+        i18n.site.createAGame,
       ),
     ]);
   return;
 }
 
-export default function(ctrl: LobbyController): MaybeVNodes {
+export default function (ctrl: LobbyController): MaybeVNodes {
   return [
     h('table.hooks__list', [
       h(
         'thead',
         h(
           'tr',
-          ['player', 'rating', 'time', 'mode'].map(header => h('th', ctrl.trans(header))),
+          (['player', 'rating', 'time', 'mode'] as const).map(k => h('th', i18n.site[k])),
         ),
       ),
+
       h(
         'tbody',
         {
@@ -72,7 +72,7 @@ export default function(ctrl: LobbyController): MaybeVNodes {
               el = el.parentNode as HTMLElement;
               if (el.nodeName === 'TR') {
                 if (!ctrl.me) {
-                  if (confirm(ctrl.trans('youNeedAnAccountToDoThat'))) location.href = '/signup';
+                  if (confirm(i18n.site.youNeedAnAccountToDoThat)) location.href = '/signup';
                   return;
                 }
                 return ctrl.clickSeek(el.dataset['id']!);

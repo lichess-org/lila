@@ -133,13 +133,13 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
     ...(ctrl.actionMenu()
       ? [actionMenu(ctrl)]
       : [
-        ...cevalView.renderCeval(ctrl),
-        !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
-        renderMoveList(ctrl, deps, concealOf),
-        deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
-        forkView(ctrl, concealOf),
-        retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
-      ]),
+          ...cevalView.renderCeval(ctrl),
+          !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
+          renderMoveList(ctrl, deps, concealOf),
+          deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
+          forkView(ctrl, concealOf),
+          retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
+        ]),
   ]);
 }
 
@@ -151,22 +151,22 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
         'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
           ? undefined
           : bindNonPassive(
-            'wheel',
-            stepwiseScroll((e: WheelEvent, scroll: boolean) => {
-              if (ctrl.gamebookPlay()) return;
-              const target = e.target as HTMLElement;
-              if (
-                target.tagName !== 'PIECE' &&
+              'wheel',
+              stepwiseScroll((e: WheelEvent, scroll: boolean) => {
+                if (ctrl.gamebookPlay()) return;
+                const target = e.target as HTMLElement;
+                if (
+                  target.tagName !== 'PIECE' &&
                   target.tagName !== 'SQUARE' &&
                   target.tagName !== 'CG-BOARD'
-              )
-                return;
-              e.preventDefault();
-              if (e.deltaY > 0 && scroll) control.next(ctrl);
-              else if (e.deltaY < 0 && scroll) control.prev(ctrl);
-              ctrl.redraw();
-            }),
-          ),
+                )
+                  return;
+                e.preventDefault();
+                if (e.deltaY > 0 && scroll) control.next(ctrl);
+                else if (e.deltaY < 0 && scroll) control.prev(ctrl);
+                ctrl.redraw();
+              }),
+            ),
     },
     [
       ...(playerStrips || []),
@@ -257,7 +257,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            ctrl.trans.noarg('importPgn'),
+            i18n.site.importPgn,
           ),
         h(
           'div.bottom-item.bottom-error',
@@ -272,8 +272,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
 export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    menuIsOpen = ctrl.actionMenu(),
-    noarg = ctrl.trans.noarg;
+    menuIsOpen = ctrl.actionMenu();
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -296,35 +295,35 @@ export function renderControls(ctrl: AnalyseCtrl) {
         'div.features',
         ctrl.studyPractice
           ? [
-            h('button.fbt', {
-              attrs: { title: noarg('analysis'), 'data-act': 'analysis', 'data-icon': licon.Microscope },
-            }),
-          ]
+              h('button.fbt', {
+                attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
+              }),
+            ]
           : [
-            h('button.fbt', {
-              attrs: {
-                title: noarg('openingExplorerAndTablebase'),
-                'data-act': 'explorer',
-                'data-icon': licon.Book,
-              },
-              class: {
-                hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
-                active: ctrl.explorer.enabled(),
-              },
-            }),
-            ctrl.ceval.possible &&
+              h('button.fbt', {
+                attrs: {
+                  title: i18n.site.openingExplorerAndTablebase,
+                  'data-act': 'explorer',
+                  'data-icon': licon.Book,
+                },
+                class: {
+                  hidden: menuIsOpen || !ctrl.explorer.allowed() || !!ctrl.retro,
+                  active: ctrl.explorer.enabled(),
+                },
+              }),
+              ctrl.ceval.possible &&
                 ctrl.ceval.allowed() &&
                 !ctrl.isGamebook() &&
                 !ctrl.isEmbed &&
                 h('button.fbt', {
                   attrs: {
-                    title: noarg('practiceWithComputer'),
+                    title: i18n.site.practiceWithComputer,
                     'data-act': 'practice',
                     'data-icon': licon.Bullseye,
                   },
                   class: { hidden: menuIsOpen || !!ctrl.retro, active: !!ctrl.practice },
                 }),
-          ],
+            ],
       ),
       h('div.jumps', [
         jumpButton(licon.JumpFirst, 'first', canJumpPrev),
@@ -335,9 +334,9 @@ export function renderControls(ctrl: AnalyseCtrl) {
       ctrl.studyPractice
         ? h('div.noop')
         : h('button.fbt', {
-          class: { active: menuIsOpen },
-          attrs: { title: noarg('menu'), 'data-act': 'menu', 'data-icon': licon.Hamburger },
-        }),
+            class: { active: menuIsOpen },
+            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
+          }),
     ],
   );
 }
@@ -361,9 +360,9 @@ function renderMoveList(ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: 
     } else if (ctrl.study) {
       const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
       if (!result || result === '*') return [];
-      if (result === '1-0') return render(result, [ctrl.trans.noarg('whiteIsVictorious')]);
-      if (result === '0-1') return render(result, [ctrl.trans.noarg('blackIsVictorious')]);
-      return render('½-½', [ctrl.trans.noarg('draw')]);
+      if (result === '1-0') return render(result, [i18n.site.whiteIsVictorious]);
+      if (result === '0-1') return render(result, [i18n.site.blackIsVictorious]);
+      return render('½-½', [i18n.site.draw]);
     }
     return [];
   }
@@ -402,9 +401,9 @@ function makeConcealOf(ctrl: AnalyseCtrl): ConcealOf | undefined {
   const conceal =
     ctrl.study && ctrl.study.data.chapter.conceal !== undefined
       ? {
-        owner: ctrl.study.isChapterOwner(),
-        ply: ctrl.study.data.chapter.conceal,
-      }
+          owner: ctrl.study.isChapterOwner(),
+          ply: ctrl.study.data.chapter.conceal,
+        }
       : null;
   if (conceal)
     return (isMainline: boolean) => (path: Tree.Path, node: Tree.Node) => {

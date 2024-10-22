@@ -23,7 +23,7 @@ case class FormNavigation(
     .filter: r =>
       r.sync.upstream.forall(up => up.isUrl && !up.hasLcc)
 
-final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
+final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
   import helpers.{ *, given }
   import trans.{ broadcast as trb, site as trs }
 
@@ -293,10 +293,10 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           form3.split(
             form3.group(
               form("startsAt"),
-              trb.startDate(),
+              trb.startDateTimeZone(strong(nav.tour.info.timeZoneOrDefault.getId)),
               help = trb.startDateHelp().some,
               half = true
-            )(form3.flatpickr(_, minDate = None)),
+            )(form3.flatpickr(_, local = true, minDate = None)),
             form3.checkbox(
               form("startsAfterPrevious"),
               "When the previous round completes",
@@ -342,8 +342,10 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                 ,
                 form3.group(
                   form("period"),
-                  trb.periodInSeconds(),
-                  help = trb.periodInSecondsHelp().some,
+                  "Period in seconds",
+                  help = frag(
+                    "Optional, how long to wait between requests. Min 2s, max 60s. Defaults to automatic based on the number of viewers."
+                  ).some,
                   half = true
                 )(form3.input(_, typ = "number"))
               )
@@ -435,6 +437,21 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           ),
           form3.split(
             form3.group(
+              form("info.players"),
+              "Top players",
+              help = frag("Mention up to 4 of the best players participating").some,
+              half = true
+            )(form3.input(_)),
+            form3.group(
+              form("info.timeZone"),
+              "Time zone",
+              help = frag("Used to set round dates using their local time").some,
+              half = true
+            ):
+              form3.select(_, timeZone.translatedChoices)
+          ),
+          form3.split(
+            form3.group(
               form("info.tc"),
               "Time control",
               help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
@@ -452,12 +469,6 @@ final class FormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
                   tc.toString -> tc.toString.capitalize
               )
           ),
-          form3.group(
-            form("info.players"),
-            "Top players",
-            help = frag("Mention up to 4 of the best players participating").some,
-            half = true
-          )(form3.input(_)),
           form3.split(
             form3.group(
               form("info.website"),

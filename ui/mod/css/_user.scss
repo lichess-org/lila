@@ -1,8 +1,10 @@
+.user-show .mod-zone {
+  margin: 0 20px 1em 20px;
+}
 .mod-zone {
   @extend %flex-wrap;
   gap: 0.5em;
 
-  margin: 0 20px 1em 20px;
   > * {
     padding: 20px 0 0 0;
     flex: 1 1 100%;
@@ -50,7 +52,6 @@
 
   strong {
     display: block;
-    margin-top: 0.5em;
     &.inline {
       display: inline;
     }
@@ -110,24 +111,28 @@
     order: 9;
   }
 
-  &--assessments {
+  &--timeline {
     order: 10;
   }
 
-  &--mod_log {
+  &--assessments {
     order: 11;
   }
 
-  &--reports {
+  &--mod_log {
     order: 12;
   }
 
-  &--identification {
+  &--reports {
     order: 13;
   }
 
-  &--others {
+  &--identification {
     order: 14;
+  }
+
+  &--others {
+    order: 15;
   }
 
   &--menu {

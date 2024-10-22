@@ -86,7 +86,7 @@ export default class CevalCtrl {
     }
   });
 
-  private doStart = (path: Tree.Path, steps: Step[], threatMode: boolean) => {
+  private doStart = (path: Tree.Path, steps: Step[], gameId: string | undefined, threatMode: boolean) => {
     if (!this.enabled() || !this.possible || !enabledAfterDisable()) return;
     const step = steps[steps.length - 1];
     if (
@@ -94,13 +94,14 @@ export default class CevalCtrl {
       'movetime' in this.search.by &&
       ((threatMode ? step.threat : step.ceval)?.millis ?? 0) >= this.search.by.movetime
     ) {
-      this.lastStarted = { path, steps, threatMode };
+      this.lastStarted = { path, steps, gameId, threatMode };
       return;
     }
     const work: Work = {
       variant: this.opts.variant.key,
       threads: this.threads,
       hashSize: this.hashSize,
+      gameId,
       stopRequested: false,
       initialFen: steps[0].fen,
       moves: [],
@@ -143,6 +144,7 @@ export default class CevalCtrl {
     this.lastStarted = {
       path,
       steps,
+      gameId,
       threatMode,
     };
   };
@@ -150,16 +152,21 @@ export default class CevalCtrl {
   goDeeper = (): void => {
     if (!this.lastStarted) return;
     this.isDeeper(true);
-    this.doStart(this.lastStarted.path, this.lastStarted.steps, this.lastStarted.threatMode);
+    this.doStart(
+      this.lastStarted.path,
+      this.lastStarted.steps,
+      this.lastStarted.gameId,
+      this.lastStarted.threatMode,
+    );
   };
 
   stop = (): void => {
     this.worker?.stop();
   };
 
-  start = (path: string, steps: Step[], threatMode?: boolean): void => {
+  start = (path: string, steps: Step[], gameId: string | undefined, threatMode?: boolean): void => {
     this.isDeeper(false);
-    this.doStart(path, steps, !!threatMode);
+    this.doStart(path, steps, gameId, !!threatMode);
   };
 
   get state(): CevalState {
@@ -267,11 +274,6 @@ export default class CevalCtrl {
       this.enabled(false);
       this.download = undefined;
     }
-  };
-
-  destroy = (): void => {
-    this.worker?.destroy();
-    this.worker = undefined;
   };
 
   engineFailed(msg: string): void {

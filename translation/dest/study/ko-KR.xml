@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">추가된 날짜(오래된 순)</string>
   <string name="recentlyUpdated">최근에 업데이트된 순</string>
   <string name="mostPopular">인기 많은 순</string>
-  <string name="alphabetical">알파벳 순</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">알파벳 순</string>
   <string name="addNewChapter">새 챕터 추가하기</string>
   <plurals name="nbChapters">
     <item quantity="other">%s 챕터</item>
@@ -64,7 +64,7 @@
   <string name="downloadGame">게임 다운로드</string>
   <string name="studyUrl">공부 URL</string>
   <string name="currentChapterUrl">현재 챕터 URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">포럼에 공유하려면 이 주소를 붙여넣으세요</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">포럼에 공유하려면 이 주소를 붙여넣으세요</string>
   <string name="startAtInitialPosition">처음 포지션에서 시작</string>
   <string name="startAtX">%s에서 시작</string>
   <string name="embedInYourWebsite">웹사이트 또는 블로그에 공유하기</string>
@@ -95,9 +95,9 @@
   <string name="startFromInitialPosition">초기 포지션에서 시작</string>
   <string name="editor">편집기</string>
   <string name="startFromCustomPosition">커스텀 포지션에서 시작</string>
-  <string name="loadAGameByUrl">URL로 게임 가져오기</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">URL로 게임 가져오기</string>
   <string name="loadAPositionFromFen">FEN으로 포지션 가져오기</string>
-  <string name="loadAGameFromPgn">PGN으로 게임 가져오기</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN으로 게임 가져오기</string>
   <string name="automatic">자동</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">PGN을 여기에 붙여넣으세요. 최대 %s 게임까지 가능합니다.</item>
@@ -160,7 +160,7 @@
   <string name="popularTopics">인기 주제</string>
   <string name="manageTopics">주제 관리</string>
   <string name="back">뒤로</string>
-  <string name="playAgain">다시 플레이</string>
-  <string name="whatWouldYouPlay">이 포지션에서 무엇을 하시겠습니까?</string>
-  <string name="youCompletedThisLesson">축하합니다! 이 레슨을 완료했습니다.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">다시 플레이</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">이 포지션에서 무엇을 하시겠습니까?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">축하합니다! 이 레슨을 완료했습니다.</string>
 </resources>

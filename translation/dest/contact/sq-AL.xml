@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Si mund t’ju ndihmojmë?</string>
   <string name="visitThisPage">Vizitoni këtë faqe për të zgjidhur problemin</string>
   <string name="iCantLogIn">S’bëj dot hyrjen</string>
-  <string name="noConfirmationEmail">S’mora email-in tim të ripohimit</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">S’mora email-in tim të ripohimit</string>
   <string name="forgotPassword">Harrova fjalëkalimin</string>
   <string name="forgotUsername">Harrova emrin tim të përdoruesit</string>
   <string name="youCanLoginWithEmail">Mund të bëni hyrjen me adresën email me të cilën u regjistruar</string>

@@ -15,26 +15,22 @@ export const toggleButton = (toggle: Toggle, title: string): VNode =>
   });
 
 export const menu = (
-  trans: Trans,
   redraw: Redraw,
   toggle: Toggle,
   content: (menu: BoardMenu) => MaybeVNodes,
 ): MaybeVNode =>
   toggle()
     ? h(
-      'div.board-menu',
-      { hook: onInsert(onClickAway(() => toggle(false))) },
-      content(new BoardMenu(trans, redraw)),
-    )
+        'div.board-menu',
+        { hook: onInsert(onClickAway(() => toggle(false))) },
+        content(new BoardMenu(redraw)),
+      )
     : undefined;
 
 export class BoardMenu {
   anonymous: boolean = document.querySelector('body[data-user]') === null;
 
-  constructor(
-    readonly trans: Trans,
-    readonly redraw: Redraw,
-  ) {}
+  constructor(readonly redraw: Redraw) {}
 
   flip = (name: string, active: boolean, onChange: () => void): VNode =>
     h(
@@ -94,5 +90,5 @@ export class BoardMenu {
       disabled: !enabled,
     });
 
-  private cmnToggle = (t: controls.ToggleSettings) => controls.toggle(t, this.trans, this.redraw);
+  private cmnToggle = (t: controls.ToggleSettings) => controls.toggle(t, this.redraw);
 }

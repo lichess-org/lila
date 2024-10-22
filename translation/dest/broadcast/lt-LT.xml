@@ -28,7 +28,6 @@
   <string name="sourceSingleUrl">PGN šaltinio URL</string>
   <string name="sourceUrlHelp">URL, į kurį „Lichess“ kreipsis gauti PGN atnaujinimus. Privalo būti viešai pasiekiamas internete.</string>
   <string name="sourceGameIds">Iki 64 Lichess žaidimo ID, atskirtų tarpais.</string>
-  <string name="startDate">Pradžios laikas jūsų laiko juostoje</string>
   <string name="startDateHelp">Neprivaloma; tik jeigu žinote, kada prasideda renginys</string>
   <string name="credits">Paminėkite šaltinį</string>
   <string name="currentGameUrl">Dabartinio žaidimo adresas</string>
@@ -42,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Užtikrintai ištrinti visą turnyrą, visus raundus ir visas jų partijas.</string>
   <string name="showScores">Rodyti žaidėjų balus pagal partijų rezultatus</string>
   <string name="replacePlayerTags">Pasirenkama: pakeiskite žaidėjų vardus, reitingus ir titulus</string>
-  <string name="periodInSeconds">Laikotarpis sekundėmis</string>
-  <string name="periodInSecondsHelp">Pasirinkimas, kiek laiko reikės laukti tarp užklausų. Min 2s, max 60s. Pagal numatytuosius nustatymus-automatinis, atsižvelgiant į žiūrinčiųjų skaičių.</string>
   <string name="fideFederations">FIDE federacijos</string>
   <string name="top10Rating">10 aukščiausių reitingų</string>
   <string name="fidePlayers">FIDE žaidėjai</string>

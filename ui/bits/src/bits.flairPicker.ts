@@ -6,8 +6,14 @@ type Config = {
   onEmojiSelect: (i?: { id: string; src: string }) => void;
 };
 
-export function initModule(cfg: Config): void {
+export async function initModule(cfg: Config): Promise<void> {
   if (cfg.element.classList.contains('emoji-done')) return;
+  const theme =
+    document.body.dataset.theme === 'system'
+      ? 'auto'
+      : document.body.dataset.theme === 'light'
+        ? 'light'
+        : 'dark';
   const opts = {
     ...cfg,
     onClickOutside: cfg.close,
@@ -17,15 +23,17 @@ export function initModule(cfg: Config): void {
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
+    theme,
     exceptEmojis: cfg.element.dataset.exceptEmojis?.split(' '),
   };
   const picker = new emojis.Picker(opts);
+
   cfg.element.appendChild(picker as unknown as HTMLElement);
   cfg.element.classList.add('emoji-done');
   $(cfg.element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
 }
 
-const makeEmojiData = async() => {
+const makeEmojiData = async () => {
   const res = await fetch(site.asset.url('flair/list.txt'));
   const text = await res.text();
   const lines = text.split('\n').slice(0, -1);

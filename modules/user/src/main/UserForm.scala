@@ -7,6 +7,7 @@ import lila.common.Form.{
   cleanNoSymbolsText,
   cleanNonEmptyText,
   cleanText,
+  cleanTextWithSymbols,
   into,
   playerTitle
 }
@@ -56,7 +57,7 @@ object UserForm:
 
   val note = Form:
     mapping(
-      "text"     -> cleanText(minLength = 3, maxLength = 2000),
+      "text"     -> cleanTextWithSymbols(minLength = 3, maxLength = 2000),
       "noteType" -> text
     )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ =>
       none
@@ -64,7 +65,7 @@ object UserForm:
 
   val apiNote = Form:
     mapping(
-      "text" -> cleanText(minLength = 3, maxLength = 2000),
+      "text" -> cleanTextWithSymbols(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
       "dox"  -> default(boolean, false)
     )(NoteData.apply)(unapply)

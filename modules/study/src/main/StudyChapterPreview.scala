@@ -187,5 +187,5 @@ object ChapterPreview:
           lastMove = lastPos.flatMap(_.uci),
           lastMoveAt = lastMoveAt,
           check = lastPos.flatMap(_.check),
-          points = tags.map(_.points)
+          points = tags.filter(_.exists(_.Result)).map(_.points)
         )

@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Unele pagini Lichess au comenzi rapide de tastatură pe care le puteți folosi. Încercați să apăsați tasta \'?\' la un studiu, analiză, puzzle sau în pagina jocului pentru a afișa scurtăturile de tastatură disponibile.</string>
   <string name="fairPlay">Joc Corect</string>
   <string name="whenAmIEligibleRatinRefund">Cănd sunt eligibil să primesc automat înapoi scorul pierdut din cauza cheaterilor?</string>
-  <string name="ratingRefundExplanation">La un minut după ce un jucător este marcat, ultimele lor 40 de partide oficiale din ultimele 3 zile sunt ascunse. Daca ai fost oponentul lui în aceste meciuri, ai pierdut scor (datorită unei înfrângeri sau a unei remize), și scorul tau nu a fost provizoriu, o sa îți iei punctele înapoi. Înapoierea punctelor este limitată pe baza la cat scor ai făcut maxim și progresul în scor după partidă.  (De exemplu, daca scorul tău a crescut drastic după acele meciuri, este posibil să nu ți se înapoieze sau să ți se înapoieze parțial.) Nu ți se va înapoia niciodată mai mult de 150 puncte.</string>
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">La un minut după ce un jucător este marcat, ultimele lor 40 de partide oficiale din ultimele 3 zile sunt ascunse. Daca ai fost oponentul lui în aceste meciuri, ai pierdut scor (datorită unei înfrângeri sau a unei remize), și scorul tau nu a fost provizoriu, o sa îți iei punctele înapoi. Înapoierea punctelor este limitată pe baza la cat scor ai făcut maxim și progresul în scor după partidă.  (De exemplu, daca scorul tău a crescut drastic după acele meciuri, este posibil să nu ți se înapoieze sau să ți se înapoieze parțial.) Nu ți se va înapoia niciodată mai mult de 150 puncte.</string>
   <string name="preventLeavingGameWithoutResigning">Ce se face împotriva jucătorilor care abandonează un meci fară sa se predea?</string>
   <string name="leavingGameWithoutResigningExplanation">Daca oponentul tău anulează/iese dintr-un meci frecvent, vor primi \"play ban\", ceea ce înseamnă că sunt blocați temporar din a mai juca partide. Acest lucru nu este indicat public pe profilul lor. Dacă acest comportament continuă, lungimea blocării temporare crește - și acest comportament prelungit poate duce la închiderea contului.</string>
   <string name="howCanIBecomeModerator">Cum pot deveni un moderator?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">Cum sunt decise controalele de timp Bullet, Blitz și alte?</string>
   <string name="basedOnGameDuration">Controalele de timp sunt bazate pe durata de joc estimată = %1$s
 De exemplu, durata estimată a unui meci 5+3 este 5 × 60 + 40 × 3 = 420 de secunde.</string>
-  <string name="durationFormula">(timpul inițial pe ceas) + 40 × (crestere pe ceas)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(timpul inițial pe ceas) + 40 × (crestere pe ceas)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Ce variantă pot juca pe Lichess?</string>

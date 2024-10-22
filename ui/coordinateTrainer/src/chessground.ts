@@ -6,7 +6,7 @@ import CoordinateTrainerCtrl from './ctrl';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 
-export default function(ctrl: CoordinateTrainerCtrl): VNode {
+export default function (ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {

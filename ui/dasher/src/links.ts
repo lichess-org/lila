@@ -9,16 +9,15 @@ export class LinksCtrl extends PaneCtrl {
   }
 
   render = (): VNode => {
-    const modeCfg = this.modeCfg,
-      noarg = this.trans.noarg;
+    const modeCfg = this.modeCfg;
     return h('div', [
       this.userLinks(),
       h('div.subs', [
-        h('button.sub', modeCfg('langs'), noarg('language')),
-        h('button.sub', modeCfg('sound'), noarg('sound')),
-        h('button.sub', modeCfg('background'), noarg('background')),
-        h('button.sub', modeCfg('board'), noarg('board')),
-        h('button.sub', modeCfg('piece'), noarg('pieceSet')),
+        h('button.sub', modeCfg('langs'), i18n.site.language),
+        h('button.sub', modeCfg('sound'), i18n.site.sound),
+        h('button.sub', modeCfg('background'), i18n.site.background),
+        h('button.sub', modeCfg('board'), i18n.site.board),
+        h('button.sub', modeCfg('piece'), i18n.site.pieceSet),
         this.root.opts.zenable &&
           h('div.zen.selector', [
             h(
@@ -27,7 +26,7 @@ export class LinksCtrl extends PaneCtrl {
                 attrs: { 'data-icon': licon.DiscBigOutline, title: 'Keyboard: z', type: 'button' },
                 hook: bind('click', () => pubsub.emit('zen')),
               },
-              this.trans.noarg('zenMode'),
+              i18n.preferences.zenMode,
             ),
           ]),
       ]),
@@ -41,36 +40,35 @@ export class LinksCtrl extends PaneCtrl {
 
   private userLinks(): VNode | null {
     const d = this.data,
-      noarg = this.trans.noarg,
       linkCfg = this.linkCfg;
     return d.user
       ? h('div.links', [
-        h(
-          'a.user-link.online.text.is-green',
-          linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
-          noarg('profile'),
-        ),
-
-        h('a.text', linkCfg('/inbox', licon.Envelope), noarg('inbox')),
-
-        h(
-          'a.text',
-          linkCfg(
-            '/account/profile',
-            licon.Gear,
-            this.root.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined,
+          h(
+            'a.user-link.online.text.is-green',
+            linkCfg(`/@/${d.user.name}`, d.user.patron ? licon.Wings : licon.Disc),
+            i18n.site.profile,
           ),
-          noarg('preferences'),
-        ),
 
-        d.coach && h('a.text', linkCfg('/coach/edit', licon.GraduateCap), noarg('coachManager')),
+          h('a.text', linkCfg('/inbox', licon.Envelope), i18n.site.inbox),
 
-        d.streamer && h('a.text', linkCfg('/streamer/edit', licon.Mic), noarg('streamerManager')),
+          h(
+            'a.text',
+            linkCfg(
+              '/account/profile',
+              licon.Gear,
+              this.root.opts.playing ? { target: '_blank', rel: 'noopener' } : undefined,
+            ),
+            i18n.preferences.preferences,
+          ),
 
-        h('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
-          h('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, noarg('logOut')),
-        ]),
-      ])
+          d.coach && h('a.text', linkCfg('/coach/edit', licon.GraduateCap), i18n.site.coachManager),
+
+          d.streamer && h('a.text', linkCfg('/streamer/edit', licon.Mic), i18n.site.streamerManager),
+
+          h('form.logout', { attrs: { method: 'post', action: '/logout' } }, [
+            h('button.text', { attrs: { type: 'submit', 'data-icon': licon.Power } }, i18n.site.logOut),
+          ]),
+        ])
       : null;
   }
 

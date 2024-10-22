@@ -127,8 +127,8 @@ case class Schedule(
 
   def perfKey: PerfKey = PerfKey.byVariant(variant) | Schedule.Speed.toPerfKey(speed)
 
-  def plan                                  = Schedule.Plan(this, None)
-  def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
+  def plan                                  = Schedule.Plan(this, atInstant, None)
+  def plan(build: Tournament => Tournament) = Schedule.Plan(this, atInstant, build.some)
 
   override def toString =
     s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions $position"
@@ -144,72 +144,16 @@ object Schedule:
       at = tour.startsAt.dateTime
     )
 
-  /** Max window for daily or better schedules to be considered overlapping (i.e. if one starts within X hrs
-    * of the other ending). Using 11.5 hrs here ensures that at least one daily is always cancelled for the
-    * more important event. But, if a higher importance tourney is scheduled nearly opposite of the daily
-    * (i.e. 11:00 for a monthly and 00:00 for its daily), two dailies will be cancelled... so don't do this!
-    */
-  private[tournament] val SCHEDULE_DAILY_OVERLAP_MINS = 690 // 11.5 * 60
-
-  private[tournament] trait ScheduleWithInterval:
-    def schedule: Schedule
-    def startsAt: Instant
-    def duration: java.time.Duration
-
-    def endsAt = startsAt.plus(duration)
-
-    def interval = TimeInterval(startsAt, duration)
-
-    def overlaps(other: ScheduleWithInterval) = interval.overlaps(other.interval)
-
-    // Note: must be kept in sync with [[SchedulerTestHelpers.ExperimentalPruner.pruneConflictsFailOnUsurp]]
-    // In particular, pruneConflictsFailOnUsurp filters tourneys that couldn't possibly conflict based
-    // on their hours -- so the same logic (overlaps and daily windows) must be used here.
-    def conflictsWith(si2: ScheduleWithInterval) =
-      val s1 = schedule
-      val s2 = si2.schedule
-      s1.variant == s2.variant && (
-        // prevent daily && weekly within X hours of each other
-        if s1.freq.isDailyOrBetter && s2.freq.isDailyOrBetter && s1.sameSpeed(s2) then
-          si2.startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(endsAt) &&
-          startsAt.minusMinutes(SCHEDULE_DAILY_OVERLAP_MINS).isBefore(si2.endsAt)
-        else
-          (
-            s1.variant.exotic ||  // overlapping exotic variant
-              s1.hasMaxRating ||  // overlapping same rating limit
-              s1.similarSpeed(s2) // overlapping similar
-          ) && s1.similarConditions(s2) && overlaps(si2)
-      )
-
-    /** Kept in sync with [[conflictsWithFailOnUsurp]].
-      */
-    def conflictsWith(scheds: Iterable[ScheduleWithInterval]): Boolean =
-      scheds.exists(conflictsWith)
-
-    /** Kept in sync with [[conflictsWith]].
-      *
-      * Raises an exception if a tourney is incorrectly usurped.
-      */
-    @throws[IllegalStateException]("if a tourney is incorrectly usurped")
-    def conflictsWithFailOnUsurp(scheds: Iterable[ScheduleWithInterval]) =
-      val conflicts   = scheds.filter(conflictsWith).toSeq
-      val okConflicts = conflicts.filter(_.schedule.freq >= schedule.freq)
-      if conflicts.nonEmpty && okConflicts.isEmpty then
-        throw new IllegalStateException(s"Schedule [$schedule] usurped by ${conflicts}")
-      conflicts.nonEmpty
-
-  case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament])
-      extends ScheduleWithInterval:
+  case class Plan(schedule: Schedule, startsAt: Instant, buildFunc: Option[Tournament => Tournament])
+      extends PlanBuilder.ScheduleWithInterval:
 
     def build(using Translate): Tournament =
-      val t = Tournament.scheduleAs(withConditions(schedule), minutes)
+      val t = Tournament.scheduleAs(withConditions(schedule), startsAt, minutes)
       buildFunc.fold(t) { _(t) }
 
     def map(f: Tournament => Tournament) = copy(
       buildFunc = buildFunc.fold(f)(f.compose).some
     )
-
-    override def startsAt = schedule.atInstant
 
     def minutes = durationFor(schedule)
 
@@ -423,21 +367,3 @@ object Schedule:
           accountAge = none,
           allowList = none
         )
-
-  /** Given a list of existing schedules and a list of possible new plans, returns a subset of the possible
-    * plans that do not conflict with either the existing schedules or with themselves. Intended to produce
-    * identical output to [[SchedulerTestHelpers.ExperimentalPruner.pruneConflictsFailOnUsurp]], but this
-    * variant is more readable and has lower potential for bugs.
-    */
-  private[tournament] def pruneConflicts[A <: ScheduleWithInterval](
-      existingSchedules: Iterable[ScheduleWithInterval],
-      possibleNewPlans: Iterable[A]
-  ): List[A] =
-    var allPlannedSchedules = existingSchedules.toList
-    possibleNewPlans
-      .foldLeft(Nil): (newPlans, p) =>
-        if p.conflictsWith(allPlannedSchedules) then newPlans
-        else
-          allPlannedSchedules ::= p
-          p :: newPlans
-      .reverse

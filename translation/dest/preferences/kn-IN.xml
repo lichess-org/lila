@@ -15,7 +15,7 @@
   <string name="pgnLetter">ಪತ್ರ (ಕೆ, ಕ್ಯೂ, ಆರ್, ಬಿ, ಎನ್)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ಝೆನ್ ಮೋಡ್</string>
   <string name="showPlayerRatings">ಆಟಗಾರರ ರೇಟಿಂಗ್‌ಗಳನ್ನು ತೋರಿಸಿ</string>
-  <string name="explainShowPlayerRatings">ಇದು ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಎಲ್ಲಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಮರೆಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ಚದುರಂಗದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಆಟಗಳನ್ನು ಇನ್ನೂ ರೇಟ್ ಮಾಡಬಹುದು, ಇದು ನೀವು ನೋಡುವುದನ್ನು ಮಾತ್ರ.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">ಇದು ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಎಲ್ಲಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಮರೆಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ಚದುರಂಗದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಆಟಗಳನ್ನು ಇನ್ನೂ ರೇಟ್ ಮಾಡಬಹುದು, ಇದು ನೀವು ನೋಡುವುದನ್ನು ಮಾತ್ರ.</string>
   <string name="displayBoardResizeHandle">ಬೋರ್ಡ್ ಮರುಗಾತ್ರದ ಹ್ಯಾಂಡಲ್ ಅನ್ನು ತೋರಿಸಿ</string>
   <string name="onlyOnInitialPosition">ಆರಂಭಿಕ ಸ್ಥಾನದಲ್ಲಿ ಮಾತ್ರ</string>
   <string name="inGameOnly">ಆಟದಲ್ಲಿ ಮಾತ್ರ</string>

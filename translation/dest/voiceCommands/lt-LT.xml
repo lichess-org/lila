@@ -4,7 +4,7 @@
   <string name="moveToE4OrSelectE4Piece">Eiti į e4 arba pasirinkti figūrą e4 langelyje</string>
   <string name="selectOrCaptureABishop">Pasirinkti arba kirsti rikį</string>
   <string name="takeRookWithQueen">Valdove kirsti bokštą</string>
-  <string name="castle">Rokiruotė (į bet kurią pusę)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokiruotė (į bet kurią pusę)</string>
   <string name="phoneticAlphabetIsBest">Geriausia veikia fonetinė abėcėlė</string>
   <string name="cancelTimerOrDenyARequest">Atšaukti laikmatį arba atmesti prašymą</string>
   <string name="playPreferredMoveOrConfirmSomething">Žaisti norimą ėjimą arba ką nors patvirtinti</string>

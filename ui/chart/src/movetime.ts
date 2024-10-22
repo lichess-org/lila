@@ -32,10 +32,9 @@ import { pubsub } from 'common/pubsub';
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, BarElement, BarController);
 
-export default async function(
+export default async function (
   el: HTMLCanvasElement,
   data: AnalyseData,
-  trans: Trans,
   hunter: boolean,
 ): Promise<PlyChart | undefined> {
   const possibleChart = maybeChart(el);
@@ -99,7 +98,7 @@ export default async function(
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
-    label += '\n' + trans('nbSeconds', seconds);
+    label += '\n' + i18n.site.nbSeconds(Number(seconds));
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;
@@ -152,19 +151,19 @@ export default async function(
 
   const moveSeriesSet: ChartDataset[] = showTotal
     ? colors.map(color => ({
-      type: 'bar',
-      data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
-      backgroundColor: color,
-      grouped: false,
-      categoryPercentage: 2,
-      barPercentage: 1,
-      order: 2,
-      borderColor: color == 'white' ? '#838383' : '#616161',
-      borderWidth: 1,
-      datalabels: { display: false },
-    }))
+        type: 'bar',
+        data: moveSeries[color].map(point => ({ x: point.x, y: point.y / moveSeriesMax })),
+        backgroundColor: color,
+        grouped: false,
+        categoryPercentage: 2,
+        barPercentage: 1,
+        order: 2,
+        borderColor: color == 'white' ? '#838383' : '#616161',
+        borderWidth: 1,
+        datalabels: { display: false },
+      }))
     : lineBuilder(moveSeries, true);
-  const divisionLines = division(trans, data.game.division);
+  const divisionLines = division(data.game.division);
   const datasets: ChartDataset[] = [...moveSeriesSet];
   if (showTotal) datasets.push(...lineBuilder(totalSeries, false));
   datasets.push(plyLine(firstPly), ...divisionLines);

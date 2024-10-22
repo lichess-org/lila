@@ -88,8 +88,8 @@
   <string name="topGames">Parimad mängud</string>
   <string name="masterDbExplanation">Kaks miljonit päriselumängu %1$s+ FIDE hinnatud mängijat alates %2$s kuni %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Šahh ja Matt %s käiguga</item>
-    <item quantity="other">Šahh ja matt %s käiguga</item>
+    <item quantity="one">Matt %s käiguga</item>
+    <item quantity="other">Matt %s käiguga</item>
   </plurals>
   <string name="dtzWithRounding">DTZ50\'\' ümardatult, põhineb poolkäikude arvul kuni järgmise löögi või etturi käiguni</string>
   <string name="noGameFound">Ühtegi mängu ei leitud</string>

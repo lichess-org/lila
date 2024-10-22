@@ -2,8 +2,8 @@ package lila.ui
 
 import play.api.i18n.Lang
 
-import java.time.format.{ DateTimeFormatter, FormatStyle }
-import java.time.{ Duration, LocalDate }
+import java.time.format.{ DateTimeFormatter, FormatStyle, TextStyle }
+import java.time.{ Duration, LocalDate, Month, YearMonth }
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.core.i18n.Translate
@@ -35,6 +35,12 @@ trait DateHelper:
       _ => DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(lang.toLocale)
     )
 
+  private val englishTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+  def showTime(time: Instant)(using Translate): Tag =
+    timeTag(title := s"${showInstant(time)} UTC"):
+      englishTimeFormatter.format(time.dateTime)
+
   def showInstant(instant: Instant)(using t: Translate): String =
     dateTimeFormatter(using t.lang).print(instant)
 
@@ -46,6 +52,13 @@ trait DateHelper:
     if lang.language == "ar"
     then dateFormatter.print(date).replaceAll("\u200f", "")
     else dateFormatter.print(date)
+
+  def showYearMonth(month: YearMonth)(using lang: Lang): String =
+    val formatter = DateTimeFormatter.ofPattern("yyyy/MM").withLocale(lang.toLocale)
+    month.format(formatter)
+
+  def showMonth(m: Month)(using lang: Lang): String =
+    m.getDisplayName(TextStyle.FULL, lang.locale)
 
   def showEnglishDate(instant: Instant): String    = englishDateFormatter.print(instant)
   def showEnglishInstant(instant: Instant): String = englishDateTimeFormatter.print(instant)
@@ -92,7 +105,7 @@ trait DateHelper:
     momentFromNow(nowInstant.plusSeconds(seconds), alwaysRelative)
 
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
-    timeTag(title := f"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
+    timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))
 
   def momentFromNowServerText(instant: Instant): String =
     val inFuture          = false
@@ -112,6 +125,12 @@ trait DateHelper:
     else if months == 0 then s"${pluralize("week", weeks)}$preposition"
     else if years == 0 then s"${pluralize("month", months)}$preposition"
     else s"${pluralize("year", years)}$preposition"
+
+  def daysFromNow(date: LocalDate): String =
+    val today = nowInstant.date
+    if date == today then "Today"
+    else if date == today.minusDays(1) then "Yesterday"
+    else momentFromNowServerText(date.atStartOfDay.instant)
 
   def timeRemaining(instant: Instant): Tag =
     timeTag(cls := s"timeago remaining", datetimeAttr := isoDateTime(instant))(nbsp)

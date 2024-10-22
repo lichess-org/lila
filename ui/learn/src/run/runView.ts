@@ -14,11 +14,11 @@ import { promotionView } from '../promotionView';
 
 const renderFailed = (ctrl: RunCtrl): VNode =>
   h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
-    h('h2', ctrl.trans.noarg('puzzleFailed')),
-    h('button', ctrl.trans.noarg('retry')),
+    h('h2', i18n.learn.puzzleFailed),
+    h('button', i18n.learn.retry),
   ]);
 
-const renderCompleted = (ctrl: RunCtrl, level: LevelCtrl): VNode =>
+const renderCompleted = (level: LevelCtrl): VNode =>
   h(
     'div.result.completed',
     {
@@ -26,10 +26,8 @@ const renderCompleted = (ctrl: RunCtrl, level: LevelCtrl): VNode =>
       hook: bind('click', level.onComplete),
     },
     [
-      h('h2', ctrl.trans.noarg(congrats())),
-      level.blueprint.nextButton
-        ? h('button', ctrl.trans.noarg('next'))
-        : makeStars(level.blueprint, level.vm.score),
+      h('h2', congrats()),
+      level.blueprint.nextButton ? h('button', i18n.learn.next) : makeStars(level.blueprint, level.vm.score),
     ],
   );
 
@@ -58,16 +56,13 @@ export const runView = (ctrl: LearnCtrl) => {
         h('div.wrap', [
           h('div.title', [
             h('img', { attrs: { src: stage.image } }),
-            h('div.text', [
-              h('h2', ctrl.trans.noarg(stage.title)),
-              h('p.subtitle', ctrl.trans.noarg(stage.subtitle)),
-            ]),
+            h('div.text', [h('h2', stage.title), h('p.subtitle', stage.subtitle)]),
           ]),
           levelCtrl.vm.failed
             ? renderFailed(runCtrl)
             : levelCtrl.vm.completed
-              ? renderCompleted(runCtrl, levelCtrl)
-              : h('div.goal', util.withLinebreaks(ctrl.trans.noarg(levelCtrl.blueprint.goal))),
+              ? renderCompleted(levelCtrl)
+              : h('div.goal', util.withLinebreaks(levelCtrl.blueprint.goal)),
           progressView(runCtrl),
         ]),
       ]),

@@ -92,16 +92,16 @@ export function initModule(ctrl: AnalyseController) {
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
           ...(!ctrl.studyPractice
             ? [
-              h(
-                'button',
-                {
-                  attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
-                  hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
-                },
-                ctrl.trans.noarg('openingExplorerAndTablebase'),
-              ),
-              explorerView(ctrl),
-            ]
+                h(
+                  'button',
+                  {
+                    attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
+                    hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
+                  },
+                  i18n.site.openingExplorerAndTablebase,
+                ),
+                explorerView(ctrl),
+              ]
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
@@ -186,7 +186,7 @@ export function initModule(ctrl: AnalyseController) {
               insert: vnode => {
                 const root = $(vnode.elm as HTMLElement);
                 root.append($('.blind-content').removeClass('none'));
-                root.find('.copy-pgn').on('click', function(this: HTMLElement) {
+                root.find('.copy-pgn').on('click', function (this: HTMLElement) {
                   navigator.clipboard.writeText(this.dataset.pgn!).then(() => {
                     notify.set('PGN copied into clipboard.');
                   });
@@ -273,13 +273,13 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   let evalStr: string, depthStr: string;
   if (ctrl.threatMode()) {
     evalStr = evalInfo(ctrl.node.threat);
-    depthStr = depthInfo(ctrl, ctrl.node.threat, false);
-    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`;
+    depthStr = depthInfo(ctrl.node.threat, false);
+    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
   } else {
     const evs = ctrl.currentEvals(),
       bestEv = cevalView.getBestEval(evs);
     evalStr = evalInfo(bestEv);
-    depthStr = depthInfo(ctrl, evs.client, !!evs.client?.cloud);
+    depthStr = depthInfo(evs.client, !!evs.client?.cloud);
   }
   if (!evalStr) {
     if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
@@ -299,10 +299,10 @@ function evalInfo(bestEv: EvalScore | undefined): string {
   return '';
 }
 
-function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
+function depthInfo(clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
   if (!clientEv) return '';
   const depth = clientEv.depth || 0;
-  return ctrl.trans('depthX', depth) + isCloud ? ' Cloud' : '';
+  return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';
 }
 
 function renderBestMove(ctrl: AnalyseController, style: Style): string {
@@ -364,7 +364,7 @@ function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNo
 }
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
-  return function() {
+  return function () {
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -507,7 +507,7 @@ function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
+  return player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 }
 
 function userHtml(ctrl: AnalyseController, player: Player) {
@@ -519,14 +519,14 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
     ? h('span', [
-      h(
-        'a',
-        { attrs: { href: '/@/' + user.username } },
-        user.title ? `${user.title} ${user.username}` : user.username,
-      ),
-      rating ? ` ${rating}` : ``,
-      ' ' + ratingDiff,
-    ])
+        h(
+          'a',
+          { attrs: { href: '/@/' + user.username } },
+          user.title ? `${user.title} ${user.username}` : user.username,
+        ),
+        rating ? ` ${rating}` : ``,
+        ' ' + ratingDiff,
+      ])
     : 'Anonymous';
 }
 

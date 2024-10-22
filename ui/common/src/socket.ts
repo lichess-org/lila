@@ -68,8 +68,11 @@ export default class StrongSocket implements SocketI {
   private heartbeat = browserTaskQueueMonitor(1000);
   private isTestUser = document.body.dataset.socketTestUser === 'true';
   private isTestRunning = document.body.dataset.socketTestRunning === 'true';
-  private stats: { store?: ObjectStorage<any>, m2: number, n: number, mean: number } =
-    { m2: 0, n: 0, mean: 0 };
+  private stats: { store?: ObjectStorage<any>; m2: number; n: number; mean: number } = {
+    m2: 0,
+    n: 0,
+    mean: 0,
+  };
 
   constructor(
     readonly url: string,
@@ -111,7 +114,7 @@ export default class StrongSocket implements SocketI {
     if (!isOnline()) {
       document.body.classList.remove('online');
       document.body.classList.add('offline');
-      $('#network-status').text(site ? site.trans('noNetwork') : 'Offline');
+      $('#network-status').text(i18n?.site?.noNetwork ?? 'Offline');
       this.scheduleConnect(4000);
       return;
     }
@@ -192,7 +195,7 @@ export default class StrongSocket implements SocketI {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      $('#network-status').text(site.trans ? site.trans('reconnecting') : 'Reconnecting');
+      $('#network-status').text(i18n?.site?.reconnecting ?? 'Reconnecting');
       this.tryOtherUrl = true;
       this.connect();
     }, delay);
@@ -209,9 +212,9 @@ export default class StrongSocket implements SocketI {
     const pingData =
       this.options.isAuth && this.pongCount % 10 == 2
         ? JSON.stringify({
-          t: 'p',
-          l: Math.round(0.1 * this.averageLag),
-        })
+            t: 'p',
+            l: Math.round(0.1 * this.averageLag),
+          })
         : 'null';
     try {
       this.ws!.send(pingData);
@@ -262,7 +265,7 @@ export default class StrongSocket implements SocketI {
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
           const sentAsEvent = this.settings.events[m.t] && this.settings.events[m.t](m.d || null, m);
           if (!sentAsEvent) {
-            pubsub.emit('socket.in.' + m.t as PubsubEvent, m.d, m);
+            pubsub.emit(('socket.in.' + m.t) as PubsubEvent, m.d, m);
           }
         }
     }
@@ -359,7 +362,7 @@ export default class StrongSocket implements SocketI {
     if (!event && this.stats.n < 2) return;
 
     const data = {
-      dns: this.lastUrl.includes(`//${this.baseUrls[0]}`) ? 'ovh': 'cf',
+      dns: this.lastUrl.includes(`//${this.baseUrls[0]}`) ? 'ovh' : 'cf',
       n: this.stats.n,
       ...event,
     };
@@ -377,7 +380,7 @@ export default class StrongSocket implements SocketI {
     const storeKey = `socket.test.${document.body.dataset.user}`;
     const last = localStorage.getItem(storeKey);
 
-    if (!last && !this.isTestRunning && !await dbExists({ store: storeKey })) return;
+    if (!last && !this.isTestRunning && !(await dbExists({ store: storeKey }))) return;
 
     this.stats.store ??= await objectStorage<any, number>({ store: storeKey });
     if (last) await this.stats.store.put(await this.stats.store.count(), JSON.parse(last));

@@ -34,14 +34,14 @@ export const propWithEffect = <A>(initialValue: A, effect: (value: A) => void): 
 
 export const withEffect =
   <T>(prop: Prop<T>, effect: (v: T) => void): PropWithEffect<T> =>
-    (v?: T) => {
-      let returnValue;
-      if (defined(v)) {
-        returnValue = prop(v);
-        effect(v);
-      } else returnValue = prop();
-      return returnValue;
-    };
+  (v?: T) => {
+    let returnValue;
+    if (defined(v)) {
+      returnValue = prop(v);
+      effect(v);
+    } else returnValue = prop();
+    return returnValue;
+  };
 
 export interface Toggle extends PropWithEffect<boolean> {
   toggle(): void;
@@ -76,20 +76,20 @@ export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boo
 
 export const onClickAway =
   (f: () => void) =>
-    (el: HTMLElement): void => {
-      const listen: () => void = () =>
-        $(document).one('click', e => {
-          if (!document.contains(el)) {
-            return;
-          }
-          if (el.contains(e.target)) {
-            listen();
-          } else {
-            f();
-          }
-        });
-      setTimeout(listen, 300);
-    };
+  (el: HTMLElement): void => {
+    const listen: () => void = () =>
+      $(document).one('click', e => {
+        if (!document.contains(el)) {
+          return;
+        }
+        if (el.contains(e.target)) {
+          listen();
+        } else {
+          f();
+        }
+      });
+    setTimeout(listen, 300);
+  };
 
 export function hyphenToCamel(str: string): string {
   return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
@@ -103,11 +103,11 @@ export const requestIdleCallback = (f: () => void, timeout?: number): void => {
 export const escapeHtml = (str: string): string =>
   /[&<>"']/.test(str)
     ? str
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/'/g, '&#39;')
-      .replace(/"/g, '&quot;')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/'/g, '&#39;')
+        .replace(/"/g, '&quot;')
     : str;
 
 export function frag<T extends Node = Node>(html: string): T {

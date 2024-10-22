@@ -24,7 +24,7 @@ site.load.then(() => {
     );
     renderButton();
 
-    $('#communication .chat').each(function() {
+    $('#communication .chat').each(function () {
       this.scrollTop = 99999;
     });
 
@@ -38,12 +38,12 @@ site.load.then(() => {
         $('.auto-refresh').removeClass('hold');
       });
 
-    $('#communication').on('click', '.line:not(.lichess)', function(this: HTMLDivElement) {
+    $('#communication').on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
       const $l = $(this);
       domDialog({ cash: $('.timeout-modal') }).then(dlg => {
         $('.username', dlg.view).text($l.find('.user-link').text());
         $('.text', dlg.view).text($l.text().split(' ').slice(1).join(' '));
-        $('.button', dlg.view).on('click', function(this: HTMLButtonElement) {
+        $('.button', dlg.view).on('click', function (this: HTMLButtonElement) {
           const roomId = $l.parents('.game').data('room');
           const chan = $l.parents('.game').data('chan');
           text('/mod/public-chat/timeout', {
@@ -64,7 +64,7 @@ site.load.then(() => {
   };
   onPageReload();
 
-  setInterval(function() {
+  setInterval(function () {
     if (!autoRefreshEnabled || document.visibilityState === 'hidden' || autoRefreshOnHold) return;
     reloadNow();
   }, 5000);

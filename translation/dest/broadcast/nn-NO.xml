@@ -7,6 +7,7 @@
     <item quantity="other">%s sendingar</item>
   </plurals>
   <string name="liveBroadcasts">Direktesende turneringar</string>
+  <string name="broadcastCalendar">Kaldender for sendingar</string>
   <string name="newBroadcast">Ny direktesending</string>
   <string name="subscribedBroadcasts">Sendingar du abonnerar på</string>
   <string name="aboutBroadcasts">Om sending</string>
@@ -26,7 +27,7 @@
   <string name="sourceSingleUrl">PGN kjelde-URL</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringar frå. Den må vera offentleg tilgjengeleg på internett.</string>
   <string name="sourceGameIds">Opp til 64 Lichess spel-ID\'ar, skilde med mellomrom.</string>
-  <string name="startDate">Startdato i di eiga tidssone</string>
+  <string name="startDateTimeZone">Startdato i turneringas lokale tidssone: %s</string>
   <string name="startDateHelp">Valfritt, om du veit når arrangementet startar</string>
   <string name="credits">Kreditér kjelda</string>
   <string name="currentGameUrl">URL til pågåande parti</string>
@@ -40,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Slett heile turneringa med alle rundene og alle partia.</string>
   <string name="showScores">Vis poengsummane til spelarar basert på spelresultatet deira</string>
   <string name="replacePlayerTags">Valfritt: bytt ut spelarnamn, rangeringar og titlar</string>
-  <string name="periodInSeconds">Periode i sekund</string>
-  <string name="periodInSecondsHelp">Ventetida mellom førespurnadene er valfri frå 2 til 60 sekund. Default tid er basert på sjåartalet.</string>
   <string name="fideFederations">FIDE-forbund</string>
   <string name="top10Rating">Topp 10 rating</string>
   <string name="fidePlayers">FIDE-spelarar</string>

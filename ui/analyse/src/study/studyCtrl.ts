@@ -23,7 +23,6 @@ import {
   TagTypes,
   ReloadData,
   WithWhoAndPos,
-  WithChapterId,
   WithWhoAndChap,
   WithWho,
   WithPosition,
@@ -67,7 +66,7 @@ interface Handlers {
   clock(d: ServerClockMsg): void;
   forceVariation(d: WithWhoAndPos & { force: boolean }): void;
   chapters(d: ChapterPreviewFromServer[]): void;
-  reload(d: null | WithChapterId): void;
+  reload(): void;
   changeChapter(d: WithWhoAndPos): void;
   updateChapter(d: WithWhoAndChap): void;
   descChapter(d: WithWhoAndChap & { desc?: string }): void;
@@ -147,7 +146,6 @@ export default class StudyCtrl {
       onBecomingContributor: () => (this.vm.mode.write = !relayData || this.relayRecProp()),
       admin: data.admin,
       redraw: ctrl.redraw,
-      trans: ctrl.trans,
     });
     this.chapters = new StudyChaptersCtrl(
       data.chapters!,
@@ -179,7 +177,6 @@ export default class StudyCtrl {
       this.multiCloudEval,
       this.relay?.tourShow() ? undefined : this.data.chapter.id,
       this.redraw,
-      this.ctrl.trans,
     );
     this.form = new StudyForm(
       (d, isNew) => {
@@ -194,7 +191,6 @@ export default class StudyCtrl {
           this.chapters.newForm.openInitial();
       },
       () => data,
-      ctrl.trans,
       this.redraw,
       this.relay,
     );
@@ -230,7 +226,6 @@ export default class StudyCtrl {
     this.topics = new TopicsCtrl(
       topics => this.send('setTopics', topics),
       () => data.topics || [],
-      ctrl.trans,
       this.redraw,
     );
 
@@ -242,7 +237,6 @@ export default class StudyCtrl {
       this.bottomColor,
       this.relay,
       this.redraw,
-      ctrl.trans,
     );
 
     this.practice = practiceData && new StudyPracticeCtrl(ctrl, data, practiceData);
@@ -264,7 +258,7 @@ export default class StudyCtrl {
   send = this.ctrl.socket.send;
   redraw = this.ctrl.redraw;
 
-  startTour = async() => {
+  startTour = async () => {
     const [tour] = await Promise.all([
       site.asset.loadEsm<StudyTour>('analyse.study.tour'),
       site.asset.loadCssPath('bits.shepherd'),
@@ -382,13 +376,14 @@ export default class StudyCtrl {
     this.updateAddressBar();
   };
 
-  xhrReload = throttlePromise(() => {
+  xhrReload = throttlePromise((withChapters: boolean = false) => {
     this.vm.loading = true;
     return xhr
       .reload(
         this.practice ? 'practice/load' : 'study',
         this.data.id,
         this.vm.mode.sticky ? undefined : this.vm.chapterId,
+        (withChapters = withChapters),
       )
       .then(this.onReload, site.reload);
   });
@@ -412,7 +407,7 @@ export default class StudyCtrl {
       if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
     });
     if (this.gamebookPlay?.chapterId === this.vm.chapterId) return;
-    this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.ctrl.trans, this.redraw);
+    this.gamebookPlay = new GamebookPlayCtrl(this.ctrl, this.vm.chapterId, this.redraw);
     this.vm.mode.sticky = false;
     return undefined;
   };
@@ -456,7 +451,7 @@ export default class StudyCtrl {
 
   likeToggler = debounce(() => this.send('like', { liked: this.data.liked }), 1000);
 
-  setChapter = async(idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
+  setChapter = async (idOrNumber: ChapterId | number, force?: boolean): Promise<boolean> => {
     const prev = this.chapters.list.get(idOrNumber);
     const id = prev?.id;
     if (!id) {
@@ -603,7 +598,6 @@ export default class StudyCtrl {
     this.redraw();
     this.updateAddressBar();
   };
-  trans = this.ctrl.trans;
   socketHandler = (t: string, d: any) => {
     const handler = (this.socketHandlers as any as SocketHandlers)[t];
     if (handler) {
@@ -697,7 +691,7 @@ export default class StudyCtrl {
       this.ctrl.treeVersion++;
       return this.redraw();
     },
-    reload: this.xhrReload,
+    reload: () => this.xhrReload(),
     changeChapter: d => {
       this.setMemberActive(d.w);
       if (!this.vm.mode.sticky) this.vm.behind++;
@@ -738,7 +732,7 @@ export default class StudyCtrl {
         this.vm.mode.write = this.relayData ? this.relayRecProp() : this.nonRelayRecMapProp(this.data.id);
         this.vm.chapterId = d.p.chapterId;
       }
-      this.xhrReload();
+      this.xhrReload(true);
     },
     members: d => {
       this.members.update(d);
@@ -776,6 +770,7 @@ export default class StudyCtrl {
     },
     setTags: d => {
       this.setMemberActive(d.w);
+      this.chapters.setTags(d.chapterId, d.tags);
       if (d.chapterId !== this.vm.chapterId) return;
       this.data.chapter.tags = d.tags;
       this.redraw();

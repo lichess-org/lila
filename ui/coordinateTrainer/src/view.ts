@@ -21,8 +21,8 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {
             style:
               modifier === 'current'
                 ? ({
-                  remove: { opacity: 0, transform: 'translate(-8px, 60px)' },
-                } as unknown as VNodeStyle)
+                    remove: { opacity: 0, transform: 'translate(-8px, 60px)' },
+                  } as unknown as VNodeStyle)
                 : undefined,
           },
           h('text', modifier === 'current' ? ctrl.currentKey : ctrl.nextKey),
@@ -33,18 +33,25 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {
 };
 
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
-  const { trans } = ctrl;
   return h('div.explanation.box', [
-    h('h1', trans('coordinates')),
-    h('p', trans('knowingTheChessBoard')),
+    h('h1', i18n.coordinates.coordinates),
+    h('p', i18n.coordinates.knowingTheChessBoard),
     h('ul', [
-      h('li', trans('mostChessCourses')),
-      h('li', trans('talkToYourChessFriends')),
-      h('li', trans('youCanAnalyseAGameMoreEffectively')),
+      h('li', i18n.coordinates.mostChessCourses),
+      h('li', i18n.coordinates.talkToYourChessFriends),
+      h('li', i18n.coordinates.youCanAnalyseAGameMoreEffectively),
     ]),
-    h('strong', trans(ctrl.mode())),
-    h('p', trans(ctrl.mode() === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation')),
-    h('p', trans(ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant')),
+    h('strong', i18n.coordinates[ctrl.mode()]),
+    h(
+      'p',
+      i18n.coordinates[
+        ctrl.mode() === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation'
+      ],
+    ),
+    h(
+      'p',
+      i18n.coordinates[ctrl.timeControl() === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'],
+    ),
   ]);
 };
 
@@ -52,7 +59,11 @@ const table = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.table', [
     !ctrl.hasPlayed && explanation(ctrl),
     !ctrl.playing &&
-      h('button.start.button.button-fat', { hook: bind('click', ctrl.start) }, ctrl.trans('startTraining')),
+      h(
+        'button.start.button.button-fat',
+        { hook: bind('click', ctrl.start) },
+        i18n.coordinates.startTraining,
+      ),
   ]);
 };
 

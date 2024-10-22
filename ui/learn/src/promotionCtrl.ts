@@ -7,10 +7,10 @@ export class PromotionCtrl {
   promoting:
     | false
     | {
-      orig: Key;
-      dest: Key;
-      callback: PromotionCallback;
-    } = false;
+        orig: Key;
+        dest: Key;
+        callback: PromotionCallback;
+      } = false;
 
   constructor(
     readonly withGround: WithGround,

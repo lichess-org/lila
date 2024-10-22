@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">حالت ذن</string>
   <string name="showPlayerRatings">نشان دادن درجه‌بندی بازیکنان</string>
   <string name="showFlairs">نمایش نشان بازیکنان</string>
-  <string name="explainShowPlayerRatings">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">این گزینه همه درجه‌بندی‌ها در Lichess را پنهان می‌کند تا کمک کند روی شطرنج تمرکز کنید. بازی‌های رسمی همچنان بر درجه‌بندی‌تان تاثیر می‌گذارند، این گزینه فقط مربوط به دیدن/ندیدن درجه‌بندی‌هاست.</string>
   <string name="displayBoardResizeHandle">نمایش دستگیره برای تغییر اندازه صفحه</string>
   <string name="onlyOnInitialPosition">فقط در وضعیت آغازین</string>
   <string name="inGameOnly">تنها در بازی</string>
@@ -56,7 +56,7 @@
   <string name="correspondenceEmailNotification">ایمیل های روزانه که بازی های شبیه شما را به صورت لیست درمی‌آورند</string>
   <string name="notifyStreamStart">استریمر شروع به فعالیت کرد</string>
   <string name="notifyInboxMsg">پیام جدید</string>
-  <string name="notifyForumMention">در کامنتی نام شما ذکر شده است</string>
+  <string name="notifyForumMention">در انجمن از شما نام‌بُرده‌اند</string>
   <string name="notifyInvitedStudy">دعوت به مطالعه</string>
   <string name="notifyGameEvent">اعلان به روزرسانی بازی</string>
   <string name="notifyChallenge">پیشنهاد بازی</string>

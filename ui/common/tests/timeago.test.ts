@@ -9,7 +9,7 @@ describe('test formatter', () => {
     ['en-US', 'Jan 1, 2024, 5:00 PM'],
     ['en-UK', '1 Jan 2024, 17:00'],
     ['fr', '1 janv. 2024, 17:00'],
-  ])('lang code formatting', async(lang, expected) => {
+  ])('lang code formatting', async (lang, expected) => {
     document.documentElement.lang = lang;
 
     const displayLocale = await import('../src/i18n').then(m => m.displayLocale);

@@ -9,7 +9,6 @@ import lila.api.SocketTest
 object page:
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
-    jsQuantity = lila.i18n.JsQuantity.apply,
     isRTL = lila.i18n.LangList.isRTL,
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,
@@ -41,7 +40,9 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
-    val allModules = p.modules ++ p.pageModule.so(module => esmPage(module.name))
+    val allModules = p.modules ++
+      p.pageModule.so(module => esmPage(module.name)) ++
+      ctx.needsFp.so(fingerprintTag)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -86,7 +87,7 @@ object page:
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
-          sitePreload(allModules, isInquiry = ctx.data.inquiry.isDefined),
+          sitePreload(p.i18nModules, allModules, isInquiry = ctx.data.inquiry.isDefined),
           lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
@@ -156,7 +157,6 @@ object page:
             )
           )(p.transform(p.body)),
           bottomHtml,
-          ctx.needsFp.option(views.auth.fingerprintTag),
           ctx.nonce.map(inlineJs.apply),
           modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),

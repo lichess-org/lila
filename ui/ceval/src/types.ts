@@ -11,6 +11,7 @@ export interface Work {
   variant: VariantKey;
   threads: number;
   hashSize: number | undefined;
+  gameId: string | undefined; // send ucinewgame when changed
   stopRequested: boolean;
 
   path: string;
@@ -107,6 +108,7 @@ export interface PvBoard {
 export interface Started {
   path: string;
   steps: Step[];
+  gameId: string | undefined;
   threatMode: boolean;
 }
 
@@ -132,7 +134,6 @@ export interface ParentCtrl {
   restartCeval: () => void;
   redraw?: () => void;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  trans: Trans;
 }
 
 export interface NodeEvals {

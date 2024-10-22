@@ -6,7 +6,16 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import { throttle } from 'common/timing';
-import { PuzzleOpts, PuzzleData, MoveTest, ThemeKey, ReplayEnd, NvuiPlugin, PuzzleRound } from './interfaces';
+import {
+  PuzzleOpts,
+  PuzzleData,
+  MoveTest,
+  ThemeKey,
+  ReplayEnd,
+  NvuiPlugin,
+  PuzzleRound,
+  RoundThemes,
+} from './interfaces';
 import { Api as CgApi } from 'chessground/api';
 import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
@@ -29,13 +38,11 @@ import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
   next: Deferred<PuzzleData | ReplayEnd> = defer<PuzzleData>();
-  trans: Trans;
   tree: TreeWrapper;
   ceval: CevalCtrl;
   autoNext: StoredProp<boolean>;
@@ -76,7 +83,6 @@ export default class PuzzleCtrl implements ParentCtrl {
     readonly redraw: Redraw,
     readonly nvui?: NvuiPlugin,
   ) {
-    this.trans = trans(opts.i18n);
     this.rated = storedBooleanPropWithEffect('puzzle.rated', true, this.redraw);
     this.autoNext = storedBooleanProp(
       `puzzle.autoNext${opts.data.streak ? '.streak' : ''}`,
@@ -96,6 +102,35 @@ export default class PuzzleCtrl implements ParentCtrl {
       () => this.withGround(g => g.set(this.cgConfig!)),
       redraw,
     );
+
+    this.ceval = new CevalCtrl({
+      redraw: this.redraw,
+      variant: {
+        short: 'Std',
+        name: 'Standard',
+        key: 'standard',
+      },
+      externalEngines:
+        this.data.externalEngines?.map(engine => ({
+          ...engine,
+          endpoint: this.opts.externalEngineEndpoint,
+        })) || [],
+      initialFen: undefined, // always standard starting position
+      possible: true,
+      emit: (ev, work) => {
+        this.tree.updateAt(work.path, node => {
+          if (work.threatMode) {
+            const threat = ev;
+            if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
+          } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
+          if (work.path === this.path) {
+            this.setAutoShapes();
+            this.redraw();
+          }
+        });
+      },
+      setAutoShapes: this.setAutoShapes,
+    });
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
@@ -210,8 +245,6 @@ export default class PuzzleCtrl implements ParentCtrl {
       g.setShapes([]);
       this.showGround(g);
     });
-
-    this.instanciateCeval();
   };
 
   position = (): Chess => {
@@ -227,13 +260,13 @@ export default class PuzzleCtrl implements ParentCtrl {
     const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle == 'fail'));
     const movable = canMove
       ? {
-        color: dests.size > 0 ? color : undefined,
-        dests,
-      }
+          color: dests.size > 0 ? color : undefined,
+          dests,
+        }
       : {
-        color: undefined,
-        dests: new Map(),
-      };
+          color: undefined,
+          dests: new Map(),
+        };
     const config = {
       fen: node.fen,
       orientation: this.flipped() ? opposite(this.pov) : this.pov,
@@ -395,7 +428,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.sound.end();
   };
 
-  sendResult = async(win: boolean): Promise<void> => {
+  sendResult = async (win: boolean): Promise<void> => {
     if (this.resultSent) return Promise.resolve();
     this.resultSent = true;
     this.session.complete(this.data.puzzle.id, win);
@@ -456,38 +489,6 @@ export default class PuzzleCtrl implements ParentCtrl {
     }
   };
 
-  instanciateCeval = (): void => {
-    this.ceval?.destroy();
-    this.ceval = new CevalCtrl({
-      redraw: this.redraw,
-      variant: {
-        short: 'Std',
-        name: 'Standard',
-        key: 'standard',
-      },
-      externalEngines:
-        this.data.externalEngines?.map(engine => ({
-          ...engine,
-          endpoint: this.opts.externalEngineEndpoint,
-        })) || [],
-      initialFen: undefined, // always standard starting position
-      possible: true,
-      emit: (ev, work) => {
-        this.tree.updateAt(work.path, node => {
-          if (work.threatMode) {
-            const threat = ev;
-            if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
-          } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
-          if (work.path === this.path) {
-            this.setAutoShapes();
-            this.redraw();
-          }
-        });
-      },
-      setAutoShapes: this.setAutoShapes,
-    });
-  };
-
   setAutoShapes = (): void =>
     this.withGround(g =>
       g.setAutoShapes(
@@ -505,7 +506,9 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (this.ceval.enabled() && this.canUseCeval()) this.doStartCeval();
   };
 
-  private doStartCeval = throttle(800, () => this.ceval.start(this.path, this.nodeList, this.threatMode()));
+  private doStartCeval = throttle(800, () =>
+    this.ceval.start(this.path, this.nodeList, this.data.puzzle.id, this.threatMode()),
+  );
 
   nextNodeBest = () => treeOps.withMainlineChild(this.node, n => n.eval?.best);
 
@@ -624,7 +627,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   voteTheme = (theme: ThemeKey, v: boolean) => {
     if (this.round) {
-      this.round.themes = this.round.themes || {};
+      this.round.themes = this.round.themes || ({} as RoundThemes);
       if (v === this.round.themes[theme]) {
         delete this.round.themes[theme];
         xhr.voteTheme(this.data.puzzle.id, theme, undefined);

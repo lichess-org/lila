@@ -7,6 +7,7 @@
     <item quantity="other">%s lähetystä</item>
   </plurals>
   <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
+  <string name="broadcastCalendar">Lähetyskalenteri</string>
   <string name="newBroadcast">Uusi livelähetys</string>
   <string name="subscribedBroadcasts">Tilatut lähetykset</string>
   <string name="aboutBroadcasts">Lähetyksistä</string>
@@ -26,7 +27,7 @@
   <string name="sourceSingleUrl">PGN:n lähde-URL</string>
   <string name="sourceUrlHelp">URL, josta Lichess hakee PGN-päivitykset. Sen täytyy olla julkisesti saatavilla internetissä.</string>
   <string name="sourceGameIds">Korkeintaan 64 Lichess-pelin tunnistenumeroa välilyönneillä eroteltuna.</string>
-  <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
+  <string name="startDateTimeZone">Alkamisajankohta turnauksen paikallisella aikavyöhykkeellä: %s</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
   <string name="credits">Mainitse lähde</string>
   <string name="currentGameUrl">Tämän pelin URL</string>
@@ -39,8 +40,6 @@
   <string name="deleteTournament">Poista tämä turnaus</string>
   <string name="definitivelyDeleteTournament">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
   <string name="replacePlayerTags">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
-  <string name="periodInSeconds">Jakso sekunteina</string>
-  <string name="periodInSecondsHelp">Tarvittaessa pyyntöjen välinen odotusaika: vähintään 2 s, enintään 60 s. Oletuksena on katsojien määrään perustuva automaattinen arvo.</string>
   <string name="fideFederations">FIDEn liitot</string>
   <string name="top10Rating">Top 10 -vahvuuslukulista</string>
   <string name="fidePlayers">FIDE-pelaajat</string>

@@ -4,7 +4,7 @@ import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
-import { storedStringProp, StoredProp, storage } from 'common/storage';
+import { storedStringProp, StoredProp } from 'common/storage';
 import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
@@ -18,12 +18,9 @@ export class Engines {
   browserSupport: Requires[] = features().slice();
 
   constructor(private ctrl: CevalCtrl) {
-    if (
-      ((getFirefoxMajorVersion() ?? 114) > 113 && !('brave' in navigator)) ||
-      storage.get('ceval.lsfw.forceEnable') === 'true'
-    ) {
-      this.browserSupport.push('allowLsfw'); // lsfw is https://github.com/lichess-org/lila-stockfish-web
-    }
+    const firefox = getFirefoxMajorVersion();
+    if (!firefox || firefox > 113) this.browserSupport.push('allowLsfw');
+
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];

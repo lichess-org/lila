@@ -18,7 +18,6 @@
   <string name="fullDescription">ಪಂದ್ಯಾವಳಿಯ ಸಂಪೂರ್ಣ ವಿವರಣೆ</string>
   <string name="fullDescriptionHelp">ಪಂದ್ಯಾವಳಿಯ ಐಚ್ಛಿಕ ದೀರ್ಘ ವಿವರಣೆ. %1$s ಲಭ್ಯವಿದೆ. ಉದ್ದವು %2$s ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆಯಿರಬೇಕು.</string>
   <string name="sourceUrlHelp">PGN ನವೀಕರಣಗಳನ್ನು ಪಡೆಯಲು Lichess ಪರಿಶೀಲಿಸುವ URL. ಇದನ್ನು ಇಂಟರ್ನೆಟ್‌ನಿಂದ ಸಾರ್ವಜನಿಕವಾಗಿ ಪ್ರವೇಶಿಸಬೇಕು.</string>
-  <string name="startDate">ನಿಮ್ಮ ಸ್ವಂತ ಸಮಯವಲಯದಲ್ಲಿ ದಿನಾಂಕವನ್ನು ಪ್ರಾರಂಭಿಸಿ</string>
   <string name="startDateHelp">ಐಚ್ಛಿಕ, ಈವೆಂಟ್ ಯಾವಾಗ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ ಎಂದು ನಿಮಗೆ ತಿಳಿದಿದ್ದರೆ</string>
   <string name="credits">ಮೂಲವನ್ನು ಕ್ರೆಡಿಟ್ ಮಾಡಿ</string>
   <string name="currentGameUrl">ಪ್ರಸ್ತುತ ಆಟದ URL</string>

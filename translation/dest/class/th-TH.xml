@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses">ชั้นเรียน</string>
+  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">ชั้นเรียน</string>
   <string name="features">แสดง</string>
   <string name="quicklyGenerateSafeUsernames">สร้างชื่อและพาสเวิร์ดที่ปลอดภัยให้นักเรียนโดยเร็ว</string>
   <string name="trackStudentProgress">ติดตามความก้าวหน้าของนักเรียนจากเกมและปริศนา</string>
