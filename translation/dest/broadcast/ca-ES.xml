@@ -49,4 +49,25 @@
   <string name="ageThisYear">Edat aquest any</string>
   <string name="unrated">Sense avaluació</string>
   <string name="recentTournaments">Tornejos recents</string>
+  <string name="openLichess">Obre a Lichess</string>
+  <string name="teams">Equips</string>
+  <string name="boards">Taulers</string>
+  <string name="overview">Visió general</string>
+  <string name="subscribeTitle">Subscriviu-vos per ser notificats quan comença cada ronda. Podeu activar/desactivara la campana o modificar les notificacions push a les preferències del vostre compte.</string>
+  <string name="uploadImage">Puja una imatge del torneig</string>
+  <string name="noBoardsYet">Encara no hi ha taulers. Apareixeran en el moment que es carreguin les partides.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Els taulers es poden carregar per codi o a través de %s</string>
+  <string name="startsAfter">Començar a les %s</string>
+  <string name="startVerySoon">La retransmissió començarà aviat.</string>
+  <string name="notYetStarted">La retransmissió encara no ha començat.</string>
+  <string name="officialWebsite">Lloc web oficial</string>
+  <string name="standings">Classificació</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Més opcions a la %s</string>
+  <string name="webmastersPage">pàgina d\'administració</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Un origen públic en PGN públic en temps real d\'aquesta ronda. També oferim un %s per una sincronització més ràpida i eficient.</string>
+  <string name="embedThisBroadcast">Incrusta aquesta retransmissió al vostre lloc web</string>
+  <string name="embedThisRound">Incrusta %s al vostre lloc web</string>
+  <string name="ratingDiff">Diferència puntuació</string>
+  <string name="gamesThisTournament">Partides en aquest torneig</string>
+  <string name="score">Puntuació</string>
 </resources>
