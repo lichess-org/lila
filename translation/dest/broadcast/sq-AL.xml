@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
   <string name="startDateTimeZone">Datë fillimi në zonën kohore vendore të turneut: %s</string>
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
-  <string name="credits">Atriboji merita burimit</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
   <string name="deleteRound">Fshije këtë raund</string>
