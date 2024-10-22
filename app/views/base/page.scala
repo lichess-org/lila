@@ -9,7 +9,6 @@ import lila.api.SocketTest
 object page:
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
-    jsQuantity = lila.i18n.JsQuantity.apply,
     isRTL = lila.i18n.LangList.isRTL,
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,

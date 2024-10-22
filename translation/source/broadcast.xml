@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
   <string name="startDateTimeZone">Start date in the tournament local timezone: %s</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
-  <string name="credits">Credit the source</string>
   <string name="currentGameUrl">Current game URL</string>
   <string name="downloadAllRounds">Download all rounds</string>
   <string name="resetRound">Reset this round</string>
@@ -50,4 +49,25 @@
   <string name="ageThisYear">Age this year</string>
   <string name="unrated">Unrated</string>
   <string name="recentTournaments">Recent tournaments</string>
+  <string name="openLichess">Open in Lichess</string>
+  <string name="teams">Teams</string>
+  <string name="boards">Boards</string>
+  <string name="overview">Overview</string>
+  <string name="subscribeTitle">Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences.</string>
+  <string name="uploadImage">Upload tournament image</string>
+  <string name="noBoardsYet">No boards yet. These will appear once games are uploaded.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Boards can be loaded with a source or via the %s</string>
+  <string name="startsAfter">Starts after %s</string>
+  <string name="startVerySoon">The broadcast will start very soon.</string>
+  <string name="notYetStarted">The broadcast has not yet started.</string>
+  <string name="officialWebsite">Official website</string>
+  <string name="standings">Standings</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
+  <string name="webmastersPage">webmasters page</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation.</string>
+  <string name="embedThisBroadcast">Embed this broadcast in your website</string>
+  <string name="embedThisRound">Embed %s in your website</string>
+  <string name="ratingDiff">Rating diff</string>
+  <string name="gamesThisTournament">Games in this tournament</string>
+  <string name="score">Score</string>
 </resources>

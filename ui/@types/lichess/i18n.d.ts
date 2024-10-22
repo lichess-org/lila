@@ -10,6 +10,7 @@ interface I18nPlural {
 interface I18n {
   /** Global noarg key lookup (only if absolutely necessary). */
   (key: string): string;
+  quantity: (count: number) => 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
 
   activity: {
     /** Activity */
@@ -198,8 +199,6 @@ interface I18n {
     shareUrl: I18nFormat;
     /** Some tournaments are rated and will affect your rating. */
     someRated: string;
-    /** Stats */
-    stats: string;
     /** There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent. */
     thereIsACountdown: string;
     /** This is a private tournament */
@@ -230,6 +229,10 @@ interface I18n {
     addRound: string;
     /** Age this year */
     ageThisYear: string;
+    /** Boards */
+    boards: string;
+    /** Boards can be loaded with a source or via the %s */
+    boardsCanBeLoaded: I18nFormat;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */
@@ -238,8 +241,6 @@ interface I18n {
     completed: string;
     /** Lichess detects round completion, but can get it wrong. Use this to set it manually. */
     completedHelp: string;
-    /** Credit the source */
-    credits: string;
     /** Current game URL */
     currentGameUrl: string;
     /** Definitively delete the round and all its games. */
@@ -256,6 +257,10 @@ interface I18n {
     downloadAllRounds: string;
     /** Edit round study */
     editRoundStudy: string;
+    /** Embed this broadcast in your website */
+    embedThisBroadcast: string;
+    /** Embed %s in your website */
+    embedThisRound: I18nFormat;
     /** Federation */
     federation: string;
     /** FIDE federations */
@@ -270,8 +275,12 @@ interface I18n {
     fullDescription: string;
     /** Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters. */
     fullDescriptionHelp: I18nFormat;
+    /** Games in this tournament */
+    gamesThisTournament: string;
     /** How to use Lichess Broadcasts. */
     howToUseLichessBroadcasts: string;
+    /** More options on the %s */
+    iframeHelp: I18nFormat;
     /** Live tournament broadcasts */
     liveBroadcasts: string;
     /** My broadcasts */
@@ -280,8 +289,22 @@ interface I18n {
     nbBroadcasts: I18nPlural;
     /** New live broadcast */
     newBroadcast: string;
+    /** No boards yet. These will appear once games are uploaded. */
+    noBoardsYet: string;
+    /** The broadcast has not yet started. */
+    notYetStarted: string;
+    /** Official website */
+    officialWebsite: string;
     /** Ongoing */
     ongoing: string;
+    /** Open in Lichess */
+    openLichess: string;
+    /** Overview */
+    overview: string;
+    /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
+    pgnSourceHelp: I18nFormat;
+    /** Rating diff */
+    ratingDiff: string;
     /** Recent tournaments */
     recentTournaments: string;
     /** Optional: replace player names, ratings and titles */
@@ -292,6 +315,8 @@ interface I18n {
     roundName: string;
     /** Round number */
     roundNumber: string;
+    /** Score */
+    score: string;
     /** Show players scores based on game results */
     showScores: string;
     /** Up to 64 Lichess game IDs, separated by spaces. */
@@ -300,12 +325,22 @@ interface I18n {
     sourceSingleUrl: string;
     /** URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet. */
     sourceUrlHelp: string;
+    /** Standings */
+    standings: string;
     /** Optional, if you know when the event starts */
     startDateHelp: string;
     /** Start date in the tournament local timezone: %s */
     startDateTimeZone: I18nFormat;
+    /** Starts after %s */
+    startsAfter: I18nFormat;
+    /** The broadcast will start very soon. */
+    startVerySoon: string;
     /** Subscribed broadcasts */
     subscribedBroadcasts: string;
+    /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
+    subscribeTitle: string;
+    /** Teams */
+    teams: string;
     /** The new round will have the same members and contributors as the previous one. */
     theNewRoundHelp: string;
     /** Top 10 rating */
@@ -318,6 +353,10 @@ interface I18n {
     unrated: string;
     /** Upcoming */
     upcoming: string;
+    /** Upload tournament image */
+    uploadImage: string;
+    /** webmasters page */
+    webmastersPage: string;
   };
   challenge: {
     /** Cannot challenge due to provisional %s rating. */
@@ -3938,6 +3977,8 @@ interface I18n {
     starting: string;
     /** Starting position */
     startPosition: string;
+    /** Stats */
+    stats: string;
     /** Streamer manager */
     streamerManager: string;
     /** Streamers */

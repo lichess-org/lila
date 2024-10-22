@@ -216,14 +216,6 @@ final class Api(
       }
     }
 
-  def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
-    Found(meOrFetch(name).map(_.filterNot(_.is(UserId.lichess)))): user =>
-      val nb = getInt("nb") | Int.MaxValue
-      jsonDownload:
-        env.tournament.api
-          .byOwnerStream(user, status.flatMap(lila.core.tournament.Status.byId.get), MaxPerSecond(20), nb)
-          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
-
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
     Found(env.swiss.cache.swissCache.byId(id)): swiss =>
       val config = GameApiV2.BySwissConfig(

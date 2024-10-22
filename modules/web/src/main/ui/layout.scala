@@ -10,7 +10,6 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
-    jsQuantity: Lang => String,
     isRTL: Lang => Boolean,
     popularAlternateLanguages: List[Language],
     reportScoreThreshold: () => ScoreThresholds,
@@ -345,9 +344,6 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     private def jsCode(using t: Translate) =
       cache.computeIfAbsent(
         t.lang,
-        _ =>
-          "if (!window.site) window.site={};" +
-            """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
-            s"window.site.quantity=${jsQuantity(t.lang)};"
+        _ => """window.site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r))};"""
       )
   end inlineJs

@@ -11,10 +11,10 @@ import { pubsub } from 'common/pubsub';
 
 const site = window.site;
 (site as any).pubsub = pubsub; // do not declare in index.d.ts. some extensions need this here
-// site.load, site.quantity, site.siteI18n are initialized in layout.scala embedded script tags
-// site.manifest is fetched immediately from the server
+// site.load is initialized in layout.scala embedded script tags
+// site.manifest is fetched
 // site.info, site.debug are populated by ui/build
-// site.socket, site.quietMode, site.analysis are set elsewhere but available here
+// site.socket, site.quietMode, site.analysis are set elsewhere
 site.sri = randomToken();
 site.displayLocale = displayLocale;
 site.blindMode = document.body.classList.contains('blind-mode');
