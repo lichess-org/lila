@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Opp til 64 Lichess spel-ID\'ar, skilde med mellomrom.</string>
   <string name="startDateTimeZone">Startdato i turneringas lokale tidssone: %s</string>
   <string name="startDateHelp">Valfritt, om du veit når arrangementet startar</string>
-  <string name="credits">Kreditér kjelda</string>
   <string name="currentGameUrl">URL til pågåande parti</string>
   <string name="downloadAllRounds">Last ned alle rundene</string>
   <string name="resetRound">Tilbakestill denne runden</string>
