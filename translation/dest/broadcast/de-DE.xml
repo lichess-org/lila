@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Bis zu 64 Lichess Partie-IDs, getrennt durch Leerzeichen.</string>
   <string name="startDateTimeZone">Startdatum in der Zeitzone des Tunierstandortes: %s</string>
   <string name="startDateHelp">Optional, falls du weißt wann das Ereignis beginnt</string>
-  <string name="credits">Erwähne die Quelle</string>
   <string name="currentGameUrl">URL der aktuellen Partie</string>
   <string name="downloadAllRounds">Alle Runden herunterladen</string>
   <string name="resetRound">Diese Runde zurücksetzen</string>
