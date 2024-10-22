@@ -31,7 +31,6 @@
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
   <string name="startDateTimeZone">Data rozpoczęcia w lokalnej strefie czasowej turnieju: %s</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
-  <string name="credits">Potwierdź źródło</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>
   <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
   <string name="resetRound">Zresetuj tę rundę</string>
