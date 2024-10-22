@@ -316,4 +316,4 @@ final class Round(
   }
 
   def help = Open:
-    Ok.snip(lila.web.ui.help.round)
+    Ok.snip(lila.web.ui.help.round(ctx.kid.no))
