@@ -13,7 +13,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
     rating = player.rating || perf?.rating,
-    showRating = d.pref.showRatingsInGame ? !ctrl.isPlaying() : !!rating ,
+    showRating = d.pref.showRatingsInGame ? !ctrl.isPlaying() : !!rating,
     signal = user?.id === d.opponent.user?.id ? d.opponentSignal : undefined;
 
   if (user) {
@@ -46,8 +46,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           line: false,
         }),
         !!signal && signalBars(signal),
-        showRating &&
-          h('rating', rating + (player.provisional ? '?' : '')),
+        showRating && h('rating', rating + (player.provisional ? '?' : '')),
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {

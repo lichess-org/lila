@@ -37,12 +37,12 @@ object JsonView:
         if lichobileCompat then Pref.SubmitMove.lichobile.serverToApp(p.submitMove)
         else p.submitMove
       },
-      "confirmResign"     -> p.confirmResign,
-      "insightShare"      -> p.insightShare,
-      "keyboardMove"      -> p.keyboardMove,
-      "voiceMove"         -> p.hasVoice,
-      "zen"               -> p.zen,
-      "ratings"           -> p.ratings,
-      "moveEvent"         -> p.moveEvent,
-      "rookCastle"        -> p.rookCastle
+      "confirmResign" -> p.confirmResign,
+      "insightShare"  -> p.insightShare,
+      "keyboardMove"  -> p.keyboardMove,
+      "voiceMove"     -> p.hasVoice,
+      "zen"           -> p.zen,
+      "ratings"       -> p.ratings,
+      "moveEvent"     -> p.moveEvent,
+      "rookCastle"    -> p.rookCastle
     )

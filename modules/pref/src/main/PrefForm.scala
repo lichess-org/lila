@@ -36,22 +36,22 @@ object PrefForm:
       "URL must use https",
       url => url.isBlank || url.startsWith("https://") || url.startsWith("//")
     )
-    val is3d              = "is3d"              -> tolerantBoolean
-    val zen               = "zen"               -> checkedNumber(Pref.Zen.choices)
-    val voice             = "voice"             -> booleanNumber
-    val keyboardMove      = "keyboardMove"      -> booleanNumber
-    val autoQueen         = "autoQueen"         -> checkedNumber(Pref.AutoQueen.choices)
-    val premove           = "premove"           -> booleanNumber
-    val takeback          = "takeback"          -> checkedNumber(Pref.Takeback.choices)
-    val autoThreefold     = "autoThreefold"     -> checkedNumber(Pref.AutoThreefold.choices)
-    val submitMove        = "submitMove"        -> bitCheckedNumber(Pref.SubmitMove.choices)
-    val confirmResign     = "confirmResign"     -> checkedNumber(Pref.ConfirmResign.choices)
-    val moretime          = "moretime"          -> checkedNumber(Pref.Moretime.choices)
-    val clockSound        = "clockSound"        -> booleanNumber
-    val pieceNotation     = "pieceNotation"     -> booleanNumber
-    val ratings           = "ratings"           -> checkedNumber(Pref.Ratings.choices)
-    val flairs            = "flairs"            -> boolean
-    val follow            = "follow"            -> booleanNumber
+    val is3d          = "is3d"          -> tolerantBoolean
+    val zen           = "zen"           -> checkedNumber(Pref.Zen.choices)
+    val voice         = "voice"         -> booleanNumber
+    val keyboardMove  = "keyboardMove"  -> booleanNumber
+    val autoQueen     = "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices)
+    val premove       = "premove"       -> booleanNumber
+    val takeback      = "takeback"      -> checkedNumber(Pref.Takeback.choices)
+    val autoThreefold = "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices)
+    val submitMove    = "submitMove"    -> bitCheckedNumber(Pref.SubmitMove.choices)
+    val confirmResign = "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices)
+    val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
+    val clockSound    = "clockSound"    -> booleanNumber
+    val pieceNotation = "pieceNotation" -> booleanNumber
+    val ratings       = "ratings"       -> checkedNumber(Pref.Ratings.choices)
+    val flairs        = "flairs"        -> boolean
+    val follow        = "follow"        -> booleanNumber
     object board:
       val brightness = "boardBrightness" -> number(0, 150)
       val opacity    = "boardOpacity"    -> number(0, 100)

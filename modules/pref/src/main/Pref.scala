@@ -92,15 +92,15 @@ case class Pref(
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
 
-  def showRatings = ratings != Ratings.NO
+  def showRatings          = ratings != Ratings.NO
   def hasShowRatingsInGame = ratings == Ratings.GAME_ONLY
 
   def is2d = !is3d
 
   def agree = copy(agreement = Agreement.current)
 
-  def hasKeyboardMove      = keyboardMove == KeyboardMove.YES
-  def hasVoice             = voice.has(Voice.YES)
+  def hasKeyboardMove = keyboardMove == KeyboardMove.YES
+  def hasVoice        = voice.has(Voice.YES)
 
   def isUsingAltSocket = usingAltSocket.has(true)
 
@@ -248,8 +248,8 @@ object Pref:
       EVERYBODY -> "With everybody"
     )
 
-  object KeyboardMove      extends BooleanPref
-  object Voice             extends BooleanPref
+  object KeyboardMove extends BooleanPref
+  object Voice        extends BooleanPref
 
   object RookCastle:
     val NO  = 0
