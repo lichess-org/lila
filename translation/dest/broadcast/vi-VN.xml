@@ -28,7 +28,6 @@
   <string name="sourceGameIds">Tối đa 64 ID ván cờ trên Lichess, phân tách bằng dấu cách.</string>
   <string name="startDateTimeZone">Thời gian bắt đầu của giải theo múi giờ địa phương: %s</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
-  <string name="credits">Công nhận nguồn</string>
   <string name="currentGameUrl">URL ván đấu hiện tại</string>
   <string name="downloadAllRounds">Tải về tất cả ván đấu</string>
   <string name="resetRound">Đặt lại vòng này</string>
