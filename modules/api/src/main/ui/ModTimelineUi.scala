@@ -108,7 +108,7 @@ final class ModTimelineUi(helpers: Helpers)(
         )(pluralize("player", r.atoms.size))
       ,
       span(cls := "mod-timeline__event__action")(" opened a ", atoms.head.reason.name, " report"),
-      renderText(atoms.head.text, true)
+      renderText(atoms.head.text, atoms.head.reason.isComm)
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(
