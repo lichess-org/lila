@@ -100,56 +100,6 @@ def communication(
             )
           )
         ),
-        timeline.modLog.nonEmpty.option(
-          frag(
-            h2("Moderation history"),
-            div(cls := "history")(
-              timeline.modLog.map: e =>
-                div(
-                  userIdLink(e.mod.userId.some),
-                  " ",
-                  b(e.showAction),
-                  " ",
-                  u.username,
-                  " ",
-                  e.details,
-                  " ",
-                  momentFromNowServer(e.date)
-                )
-            )
-          )
-        ),
-        timeline.notes.nonEmpty.option(
-          frag(
-            h2("Notes from other users"),
-            div(cls := "notes")(
-              timeline.notes.map: note =>
-                (isGranted(_.Admin) || !note.dox).option(
-                  div(
-                    userIdLink(note.from.some),
-                    " ",
-                    momentFromNowServer(note.date),
-                    ": ",
-                    richText(note.text)
-                  )
-                )
-            )
-          )
-        ),
-        h2("Dubious public chats"),
-        if publicLines.isEmpty then strong("None!")
-        else
-          ul(cls := "public_chats")(
-            publicLines.reverse.map: line =>
-              li(
-                momentFromNowServer(line.date),
-                " ",
-                publicLineSource(line.from),
-                nbsp,
-                span(cls := "line author")(span(cls := "message")(Analyser.highlightBad(line.text)))
-              )
-          )
-        ,
         priv.option(
           frag(
             h2("Recent private chats"),

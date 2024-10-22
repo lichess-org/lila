@@ -1,13 +1,13 @@
 .mod-timeline {
   @extend %flex-column, %box-neat;
-  gap: 4em;
+  gap: 1em;
   background: $c-bg-zebra;
   padding: 2em 4em;
   max-height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
-.mod-timeline__day {
+.mod-timeline__period {
   @extend %flex-center-nowrap;
   gap: 3em;
   h3 {
@@ -15,26 +15,25 @@
     font-size: 1.3em;
     text-transform: capitalize;
   }
-  .mod-timeline__day__events {
-    @extend %flex-column;
-    gap: 0.5em;
-    flex: 1 1 auto;
-  }
+  border-bottom: $border;
+  padding-bottom: 1em;
+}
+.mod-timeline__period__events {
+  @extend %flex-column;
+  gap: 0.5em;
+  flex: 1 1 auto;
 }
 .mod-timeline__event {
   @extend %flex-center-nowrap;
   gap: 1em;
   padding: 0 1em;
 }
-.mod-timeline__event:has(.mod-timeline__event__action--modMessage) {
-  background: $c-bg-zebra2;
-  padding: 1em;
-}
 .mod-timeline__event__from {
   white-space: nowrap;
 }
 .mod-timeline__event__flair {
   @extend %flex-center;
+  padding: 0.2em;
   img {
     width: 1.6em;
     height: 1.6em;
@@ -51,6 +50,12 @@
     flex: 0 0 auto;
   }
 }
+.mod-timeline__event--modlog:has(i.moderator) {
+  .user-link,
+  .user-link i {
+    color: $c-brag;
+  }
+}
 .mod-timeline__event__action {
   flex: 0 0 auto;
   white-space: nowrap;
@@ -58,4 +63,22 @@
 .mod-timeline__text {
   @extend %break-word-hard;
   font-size: 0.9em;
+}
+.mod-timeline__event:has(.mod-timeline__event__action--modMessage),
+.mod-timeline__event:has(.mod-timeline__event__action--sentence),
+.mod-timeline__event:has(.mod-timeline__event__action--undo) {
+  padding: 0.5em 1em;
+  border-left: 4px solid $c-brag;
+  margin-left: -4px;
+  background: $c-bg-zebra2;
+  .mod-timeline__event__flair {
+    padding: 0;
+    img {
+      width: 2em;
+      height: 2em;
+    }
+  }
+  .mod-timeline__event__action {
+    font-weight: bold;
+  }
 }

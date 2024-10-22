@@ -82,7 +82,7 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
       )
     ) ::: List(
       framework.PipelineOperator(
-        $lookup.pipeline(
+        $lookup.pipelineBC(
           from = otherColls.round,
           as = "round",
           local = "_id",
