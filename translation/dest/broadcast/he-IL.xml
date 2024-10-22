@@ -31,7 +31,6 @@
   <string name="sourceGameIds">עד 64 מזהי משחק של Lichess, מופרדים ברווחים.</string>
   <string name="startDateTimeZone">שעת ההתחלה באזור הזמן המקומי של הטורניר: %s</string>
   <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
-  <string name="credits">תן/י קרדיט למקור</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
   <string name="downloadAllRounds">הורדת כל הסבבים</string>
   <string name="resetRound">אפס את הסיבוב הזה</string>
