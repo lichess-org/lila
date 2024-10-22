@@ -188,9 +188,9 @@ const share = (ctx: RelayViewContext) => {
     ),
   );
   const roundName = ctx.relay.roundName();
-  return h('div.relay-tour__share', [
-    h('h2.text', { attrs: dataIcon(licon.Heart) }, i18n.broadcast.sharingCaring),
-    ...[
+  return h(
+    'div.relay-tour__share',
+    [
       [ctx.relay.data.tour.name, ctx.relay.tourPath()],
       [roundName, ctx.relay.roundPath()],
       [
@@ -216,7 +216,7 @@ const share = (ctx: RelayViewContext) => {
         help,
       ]),
     ),
-  ]);
+  );
 };
 
 const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {

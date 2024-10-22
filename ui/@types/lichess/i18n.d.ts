@@ -319,8 +319,6 @@ interface I18n {
     roundNumber: string;
     /** Score */
     score: string;
-    /** Sharing is caring */
-    sharingCaring: string;
     /** Show players scores based on game results */
     showScores: string;
     /** Up to 64 Lichess game IDs, separated by spaces. */

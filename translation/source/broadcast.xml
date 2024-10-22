@@ -64,7 +64,6 @@
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
   <string name="standings">Standings</string>
-  <string name="sharingCaring">Sharing is caring</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
   <string name="webmastersPage">webmasters page</string>
   <string name="streamingApiInfo" comment="%s is 'streaming API'">A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation.</string>
