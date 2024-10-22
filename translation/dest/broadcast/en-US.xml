@@ -49,4 +49,19 @@
   <string name="ageThisYear">Age this year</string>
   <string name="unrated">Unrated</string>
   <string name="recentTournaments">Recent tournaments</string>
+  <string name="openLichess">Lichess</string>
+  <string name="teams">Arabic</string>
+  <string name="boards">Arabic</string>
+  <string name="overview">Arabic</string>
+  <string name="subscribeTitle">Arabic.</string>
+  <string name="uploadImage">Arabic</string>
+  <string name="noBoardsYet">Arabic.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Arabic</string>
+  <string name="startsAfter">Arabic</string>
+  <string name="startVerySoon">Arabic.</string>
+  <string name="notYetStarted">Arabic.</string>
+  <string name="officialWebsite">Arabic</string>
+  <string name="standings">Arabic</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Arabic</string>
+  <string name="webmastersPage">arabic</string>
 </resources>
