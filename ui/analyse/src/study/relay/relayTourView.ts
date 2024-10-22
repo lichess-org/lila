@@ -302,7 +302,7 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                           ? commonDateFormat(new Date(round.startsAt))
                           : round.startsAfterPrevious
                             ? i18n.broadcast.startsAfter(
-                                relay.data.rounds[i - 1]?.name || i18n.broadcast.previousRound,
+                                relay.data.rounds[i - 1]?.name || 'the previous round',
                               )
                             : '',
                       ),

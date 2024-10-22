@@ -303,8 +303,6 @@ interface I18n {
     overview: string;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
     pgnSourceHelp: I18nFormat;
-    /** the previous round */
-    previousRound: string;
     /** Rating diff */
     ratingDiff: string;
     /** Recent tournaments */

@@ -58,7 +58,6 @@
   <string name="noBoardsYet">No boards yet. These will appear once games are uploaded.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Boards can be loaded with a source or via the %s</string>
   <string name="startsAfter">Starts after %s</string>
-  <string name="previousRound">the previous round</string>
   <string name="startVerySoon">The broadcast will start very soon.</string>
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>

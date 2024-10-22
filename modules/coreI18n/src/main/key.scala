@@ -182,7 +182,6 @@ object I18nKey:
     val `noBoardsYet`: I18nKey = "broadcast:noBoardsYet"
     val `boardsCanBeLoaded`: I18nKey = "broadcast:boardsCanBeLoaded"
     val `startsAfter`: I18nKey = "broadcast:startsAfter"
-    val `previousRound`: I18nKey = "broadcast:previousRound"
     val `startVerySoon`: I18nKey = "broadcast:startVerySoon"
     val `notYetStarted`: I18nKey = "broadcast:notYetStarted"
     val `officialWebsite`: I18nKey = "broadcast:officialWebsite"
