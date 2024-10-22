@@ -163,11 +163,6 @@ case class Game(
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
-  def moretimeable(color: Color) =
-    playable && canTakebackOrAddTime && !hasRule(_.noGiveTime) && {
-      clock.exists(_.moretimeable(color)) || correspondenceClock.exists(_.moretimeable(color))
-    }
-
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
   def abortableByUser = abortable && !hasRule(_.noAbort)
 
