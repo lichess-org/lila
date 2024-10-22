@@ -78,12 +78,12 @@ final private class LobbySyncActor(
         }
 
     case msg @ JoinHook(_, hook, game, _) =>
-      onStart(game.id)
+      onStart.exec(game.id)
       socket ! msg
       remove(hook)
 
     case msg @ JoinSeek(_, seek, game, _) =>
-      onStart(game.id)
+      onStart.exec(game.id)
       seekApi.archive(seek, game.id)
       socket ! msg
       socket ! RemoveSeek(seek.id)

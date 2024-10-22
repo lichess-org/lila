@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Kordinat türgenleşigi</string>
   <string name="averageScoreAsWhiteX">Aklar hökmünde ortaça hasap: %s</string>
   <string name="averageScoreAsBlackX">Garalar hökmünde ortaça hasap: %s</string>
-  <string name="knowingTheChessBoard">Küşt tagtasyndaky kordinatlary bilmek diýseň wajyp küşt ukybydyr:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Küşt tagtasyndaky kordinatlary bilmek diýseň wajyp küşt ukybydyr:</string>
   <string name="mostChessCourses">Küşt kurslarynyň we türgenleşikleriniň aglabasy algebrik notasiýany ulanýar.</string>
   <string name="talkToYourChessFriends">Ikiňiziň hem \"küşt dilini\" bilýändigiňiz sebäpli küştçi dostlaryň bilen gürleşmegi amatlylaşdyrýar.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Öýjük atlaryny agtarmaly bolmasaňyz oýunlary has täsirli ýagdaýda derňäp bilersiňiz.</string>

@@ -51,7 +51,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
             h('span.desc', [
               h('span.is.color-icon.' + myColor),
               ' • ',
-              [ctrl.trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+              [i18n.site[c.rated ? 'rated' : 'casual'], timeControl(c.timeControl), c.variant.name].join(
                 ' • ',
               ),
             ]),
@@ -79,20 +79,20 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
           type: 'submit',
           'aria-describedby': `challenge-text-${c.id}`,
           'data-icon': licon.Checkmark,
-          title: ctrl.trans('accept'),
+          title: i18n.site.accept,
         },
         hook: onClick(ctrl.onRedirect),
       }),
     ]);
   const viewElement = () =>
     h('a.view', {
-      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: ctrl.trans('viewInFullSize') },
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
     });
 
   return [
     viewInsteadOfAccept ? viewElement() : acceptElement(),
     h('button.button.decline', {
-      attrs: { type: 'submit', 'data-icon': licon.X, title: ctrl.trans('decline') },
+      attrs: { type: 'submit', 'data-icon': licon.X, title: i18n.site.decline },
       hook: onClick(() => ctrl.decline(c.id, 'generic')),
     }),
     h(
@@ -114,13 +114,13 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
 
 const outButtons = (ctrl: ChallengeCtrl, c: Challenge) => [
   h('div.owner', [
-    h('span.waiting', ctrl.trans('waiting')),
+    h('span.waiting', i18n.site.waiting),
     h('a.view', {
-      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: ctrl.trans('viewInFullSize') },
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
     }),
   ]),
   h('button.button.decline', {
-    attrs: { 'data-icon': licon.X, title: ctrl.trans('cancel') },
+    attrs: { 'data-icon': licon.X, title: i18n.site.cancel },
     hook: onClick(() => ctrl.cancel(c.id)),
   }),
 ];

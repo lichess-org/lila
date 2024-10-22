@@ -63,7 +63,7 @@ export default class StudyChaptersCtrl {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
     this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
-    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.redraw);
   }
 
   sort = (ids: string[]) => this.send('sortChapters', ids);
@@ -241,7 +241,7 @@ export function view(ctrl: StudyCtrl): VNode {
           ? [
               h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
                 h('span', iconTag(licon.PlusButton)),
-                h('h3', ctrl.trans.noarg('addNewChapter')),
+                h('h3', i18n.study.addNewChapter),
               ]),
             ]
           : [],

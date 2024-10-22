@@ -5,7 +5,7 @@
   <string name="challengeDeclined">Kihívás elutasítva</string>
   <string name="challengeAccepted">Kihívás elfogadva!</string>
   <string name="challengeCanceled">Kihívás visszavonva.</string>
-  <string name="registerToSendChallenges">A kihíváshoz regisztráció szükséges.</string>
+  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">A kihíváshoz regisztráció szükséges.</string>
   <string name="youCannotChallengeX">%s nem kihívható.</string>
   <string name="xDoesNotAcceptChallenges">%s nem fogad kihívásokat.</string>
   <string name="yourXRatingIsTooFarFromY">Túl nagy az eltérés %2$s és a te %1$s pontszámod között.</string>

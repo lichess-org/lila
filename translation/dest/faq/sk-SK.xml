@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Niektoré Lichess stránky majú k dispozícii klávesové skratky. Vyskúšajte stlačiť kláves \'?\' na stránke so štúdiou, analýzou, šachovou úlohou alebo partiou a zobrazí sa zoznam dostupných klávesových skratiek.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kedy mám právo na automatické vrátenie ratingu od podvodníkov?</string>
-  <string name="ratingRefundExplanation">Minútu po označení hráča sa pozrieme na jeho posledných 40 hodnotených partií za posledné 3 dni. Ak ste boli jeho súperom v týchto partiách, stratili ste rating (z dôvodu prehry alebo remízy) a Váš rating nebol provizórny, vrátime Vám ho. Výška vráteného ratingu je obmedzená Váším maximálnym ratingom a pohybom Vášho ratingu po tejto partii.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Minútu po označení hráča sa pozrieme na jeho posledných 40 hodnotených partií za posledné 3 dni. Ak ste boli jeho súperom v týchto partiách, stratili ste rating (z dôvodu prehry alebo remízy) a Váš rating nebol provizórny, vrátime Vám ho. Výška vráteného ratingu je obmedzená Váším maximálnym ratingom a pohybom Vášho ratingu po tejto partii.
 (Napríklad, ak sa Váš rating po tejto partii výrazne zvýšil, je možné, že Vám bude vrátený len čiastočne alebo vôbec). Maximálna výška vráteného ratingu je 150 bodov.</string>
   <string name="preventLeavingGameWithoutResigning">Čo sa robí s hráčmi, ktorí odchádzajú z hry bez rezignácie?</string>
   <string name="leavingGameWithoutResigningExplanation">Ak váš súper často prerušuje / opúšťa hry, dostane \"herný ban\", čo znamená, že má dočasne zakázané hrať hry. Toto nie je verejne uvedené v ich profile. Ak toto správanie bude pokračovať, dĺžka herného banu sa zvýši - a dlhšie správanie tohto druhu môže viesť k uzavretiu účtu.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Ako sa rozhoduje o Bullete, Blitzi a iných časových kontrolách?</string>
   <string name="basedOnGameDuration">Časové kontroly na Lichessi sú založené na odhadovanom trvaní partie = %1$s 
 Napríklad, odhadované trvanie 5+3 partie je 5 × 60 + 40 × 3 = 420 sekúnd.</string>
-  <string name="durationFormula">(počiatočný čas na hodinách) + 40 × (prídavok na hodinách)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(počiatočný čas na hodinách) + 40 × (prídavok na hodinách)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Aké varianty môžem hrať na Lichessi?</string>

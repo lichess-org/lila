@@ -12,5 +12,5 @@
   <string name="moveToE4OrSelectE4Piece">بچۆ بۆ e4 یان داشی e4 هەڵبژێرە</string>
   <string name="selectOrCaptureABishop">فیلێک هەڵبژێرە یان بیگرە</string>
   <string name="takeRookWithQueen">بە شاژن داشی رۆک ببە</string>
-  <string name="castle">ماڵکردن (هەر لایەک)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">ماڵکردن (هەر لایەک)</string>
 </resources>

@@ -12,7 +12,7 @@ final class SocketTestResult(resultsDb: lila.db.AsyncCollFailingSilently)(using 
 object SocketTest:
 
   def isUserInTestBucket(net: NetConfig)(using ctx: Context) =
-    net.socketTest && ctx.pref.usingAltSocket.isEmpty && ctx.userId.exists(_.value.toList.sum % 128 == 0)
+    net.socketTest && ctx.pref.usingAltSocket.isEmpty && ctx.userId.exists(_.value.hashCode % 128 == 0)
 
   def socketEndpoints(net: NetConfig)(using ctx: Context): List[String] =
     ctx.pref.usingAltSocket.match

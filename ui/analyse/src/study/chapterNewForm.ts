@@ -18,10 +18,10 @@ import type { LichessEditor } from 'editor';
 import { pubsub } from 'common/pubsub';
 
 export const modeChoices = [
-  ['normal', 'normalAnalysis'],
-  ['practice', 'practiceWithComputer'],
-  ['conceal', 'hideNextMoves'],
-  ['gamebook', 'interactiveLesson'],
+  ['normal', i18n.study.normalAnalysis],
+  ['practice', i18n.site.practiceWithComputer],
+  ['conceal', i18n.study.hideNextMoves],
+  ['gamebook', i18n.study.interactiveLesson],
 ];
 
 export const fieldValue = (e: Event, id: string) =>
@@ -95,8 +95,7 @@ export class StudyChapterNewForm {
 }
 
 export function view(ctrl: StudyChapterNewForm): VNode {
-  const trans = ctrl.root.trans,
-    study = ctrl.root.study!;
+  const study = ctrl.root.study!;
   const activeTab = ctrl.tab();
   const makeTab = (key: ChapterTab, name: string, title: string) =>
     h(
@@ -127,7 +126,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       : currentChapter.gamebook
         ? 'gamebook'
         : 'normal';
-  const noarg = trans.noarg;
 
   return snabDialog({
     class: 'chapter-new',
@@ -140,7 +138,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     vnodes: [
       activeTab !== 'edit' &&
         h('h2', [
-          noarg('newChapter'),
+          i18n.study.newChapter,
           h('i.help', { attrs: { 'data-icon': licon.InfoCircle }, hook: bind('click', ctrl.startTour) }),
         ]),
       h(
@@ -163,12 +161,12 @@ export function view(ctrl: StudyChapterNewForm): VNode {
         },
         [
           h('div.form-group', [
-            h('label.form-label', { attrs: { for: 'chapter-name' } }, noarg('name')),
+            h('label.form-label', { attrs: { for: 'chapter-name' } }, i18n.site.name),
             h('input#chapter-name.form-control', {
               attrs: { minlength: 2, maxlength: 80 },
               hook: onInsert<HTMLInputElement>(el => {
                 if (!el.value) {
-                  el.value = trans('chapterX', ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
+                  el.value = i18n.study.chapterX(ctrl.initial() ? 1 : ctrl.chapters.size() + 1);
                   el.onchange = () => ctrl.isDefaultName(false);
                   el.select();
                 }
@@ -179,11 +177,11 @@ export function view(ctrl: StudyChapterNewForm): VNode {
             }),
           ]),
           h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
-            makeTab('init', noarg('empty'), noarg('startFromInitialPosition')),
-            makeTab('edit', noarg('editor'), noarg('startFromCustomPosition')),
-            makeTab('game', 'URL', noarg('loadAGameByUrl')),
-            makeTab('fen', 'FEN', noarg('loadAPositionFromFen')),
-            makeTab('pgn', 'PGN', noarg('loadAGameFromPgn')),
+            makeTab('init', i18n.study.empty, i18n.study.startFromInitialPosition),
+            makeTab('edit', i18n.study.editor, i18n.study.startFromCustomPosition),
+            makeTab('game', 'URL', i18n.study.loadAGameByUrl),
+            makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen),
+            makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn),
           ]),
           activeTab === 'edit' &&
             h(
@@ -215,10 +213,10 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h(
                 'label.form-label',
                 { attrs: { for: 'chapter-game' } },
-                trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com'),
+                i18n.study.loadAGameFromXOrY('lichess.org', 'chessgames.com'),
               ),
               h('textarea#chapter-game.form-control', {
-                attrs: { placeholder: noarg('urlOfTheGame') },
+                attrs: { placeholder: i18n.study.urlOfTheGame },
                 hook: onInsert((el: HTMLTextAreaElement) => {
                   el.addEventListener('change', () => el.reportValidity());
                   el.addEventListener('input', () => {
@@ -244,7 +242,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h('input#chapter-fen.form-control', {
                 attrs: {
                   value: ctrl.root.node.fen,
-                  placeholder: noarg('loadAPositionFromFen'),
+                  placeholder: i18n.study.loadAPositionFromFen,
                   spellcheck: 'false',
                 },
                 hook: onInsert((el: HTMLInputElement) => {
@@ -262,14 +260,14 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [h('i.text', { attrs: dataIcon(licon.Eye) }), noarg('editor')],
+                [h('i.text', { attrs: dataIcon(licon.Eye) }), i18n.study.editor],
               ),
             ]),
           activeTab === 'pgn' &&
             h('div.form-group', [
               h('textarea#chapter-pgn.form-control', {
                 attrs: {
-                  placeholder: trans.pluralSame('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax),
+                  placeholder: i18n.study.pasteYourPgnTextHereUpToNbGames(ctrl.multiPgnMax),
                 },
               }),
               h(
@@ -288,7 +286,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                     false,
                   ),
                 },
-                trans('importFromChapterX', study.currentChapter().name),
+                i18n.study.importFromChapterX(study.currentChapter().name),
               ),
               window.FileReader &&
                 h('input#chapter-pgn-file.form-control', {
@@ -307,17 +305,17 @@ export function view(ctrl: StudyChapterNewForm): VNode {
             ]),
           h('div.form-split', [
             h('div.form-group.form-half', [
-              h('label.form-label', { attrs: { for: 'chapter-variant' } }, noarg('Variant')),
+              h('label.form-label', { attrs: { for: 'chapter-variant' } }, i18n.site.variant),
               h(
                 'select#chapter-variant.form-control',
                 { attrs: { disabled: gameOrPgn } },
                 gameOrPgn
-                  ? [h('option', { attrs: { value: 'standard' } }, noarg('automatic'))]
+                  ? [h('option', { attrs: { value: 'standard' } }, i18n.study.automatic)]
                   : ctrl.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),
               ),
             ]),
             h('div.form-group.form-half', [
-              h('label.form-label', { attrs: { for: 'chapter-orientation' } }, noarg('orientation')),
+              h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
               h(
                 'select#chapter-orientation.form-control',
                 {
@@ -325,22 +323,22 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                     ctrl.editor?.setOrientation((e.target as HTMLInputElement).value as Color),
                   ),
                 },
-                [...(activeTab === 'pgn' ? ['automatic'] : []), 'white', 'black'].map(c =>
-                  option(c, currentChapter.setup.orientation, noarg(c)),
+                [activeTab === 'pgn' && i18n.study.automatic, i18n.site.white, i18n.site.black].map(
+                  c => c && option(c, currentChapter.setup.orientation, c),
                 ),
               ),
             ]),
           ]),
           h('div.form-group', [
-            h('label.form-label', { attrs: { for: 'chapter-mode' } }, noarg('analysisMode')),
+            h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
             h(
               'select#chapter-mode.form-control',
-              modeChoices.map(c => option(c[0], mode, noarg(c[1]))),
+              modeChoices.map(c => option(c[0], mode, c[1])),
             ),
           ]),
           h(
             'div.form-actions.single',
-            h('button.button', { attrs: { type: 'submit' } }, noarg('createChapter')),
+            h('button.button', { attrs: { type: 'submit' } }, i18n.study.createChapter),
           ),
         ],
       ),

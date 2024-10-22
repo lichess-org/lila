@@ -67,7 +67,7 @@
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">وب‌نشانی مطالعه</string>
   <string name="currentChapterUrl">وب‌نشانی بخش جاری</string>
-  <string name="youCanPasteThisInTheForumToEmbed">می‌توانید این را در انجمن یا وبنوشت Lichessتان برای جاسازی قرار دهید</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">می‌توانید این را در انجمن یا وبنوشت Lichessتان برای جاسازی قرار دهید</string>
   <string name="startAtInitialPosition">در وضعیت نخستین بیاغازید</string>
   <string name="startAtX">آغاز از %s</string>
   <string name="embedInYourWebsite">در وبگاهتان قرار دهید</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">از وضعیت نخستین بیاغازید</string>
   <string name="editor">ویرایشگر</string>
   <string name="startFromCustomPosition">از وضعیت دلخواه بیاغازید</string>
-  <string name="loadAGameByUrl">بارگذاری بازی از وب‌نشانی‌ها</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">بارگذاری بازی از وب‌نشانی‌ها</string>
   <string name="loadAPositionFromFen">بار کردن وضعیت از FEN</string>
-  <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">متن PGN خود را در اینجا بچسبانید، تا %s بازی</item>

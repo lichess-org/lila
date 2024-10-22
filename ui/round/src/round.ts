@@ -107,7 +107,7 @@ async function boot(
   const chatOpts = opts.chat;
   if (chatOpts) {
     if (data.tournament?.top) {
-      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, opts.i18n.standing);
+      chatOpts.plugin = tourStandingCtrl(data.tournament.top, data.tournament.team, i18n.site.standing);
       chatOpts.alwaysEnabled = true;
     } else if (!data.simul && !data.swiss) {
       chatOpts.preset = getPresetGroup(data);

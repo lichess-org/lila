@@ -52,7 +52,7 @@ final class JsonView(
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
-      .add("offeringRematch" -> isOfferingRematch(Pov(g, p).ref))
+      .add("offeringRematch" -> isOfferingRematch.exec(Pov(g, p).ref))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
@@ -68,7 +68,7 @@ final class JsonView(
       flags: ExportOptions
   ): Fu[JsObject] = for
     takebackable <- takebacker.isAllowedIn(pov.game, Preload(prefs))
-    moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs), byAdmin = false)
+    moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs), force = false)
     socket       <- getSocketStatus(pov.game)
     pref = prefs(pov.color)
   yield

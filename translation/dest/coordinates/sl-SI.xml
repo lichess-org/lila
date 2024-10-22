@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Trening šahovskih polj</string>
   <string name="averageScoreAsWhiteX">Povprečno število točk kot beli: %s</string>
   <string name="averageScoreAsBlackX">Povprečno število točk kot črni: %s</string>
-  <string name="knowingTheChessBoard">Poznavanje polj je zelo pomembna šahovska veščina:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Poznavanje polj je zelo pomembna šahovska veščina:</string>
   <string name="mostChessCourses">Večino šahovskih tečajev uporablja algebraičen način zapisovanja.</string>
   <string name="talkToYourChessFriends">Lažje se je pogovarjati s šahovskimi kolegi, kadar oba razumeta \"šahovski jezik\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Lažje je analizirati partijo če ni potrebno iskati imena polj.</string>

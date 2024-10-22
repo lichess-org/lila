@@ -555,9 +555,9 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="cheat">Hile</string>
   <string name="troll">Troll</string>
   <string name="other">Tjetër</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Ngjitni lidhjen për te loja(rat) dhe shpjegoni se ç’nuk shkon me sjelljen e këtij përdoruesi. Mos thoni thjesht “bën me hile”, por na tregoni se si arritët në këtë konkluzion.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Shpjegoni pse ky emër përdoruesi është fyes. Mos thoni thjesht “është fyes/i papërshtatshëm”, por na tregoni se si arritët në këtë konkluzion, veçanërisht nëse fyerja është e hollë, jo në anglisht, është në një slang, ose është një referencë historike/kulturore.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Raportimi juaj do të shqyrtohet më shpejt, nëse është shkruar në anglisht.</string>
+  <string name="reportCheatBoostHelp">Ngjitni lidhjen për te loja(rat) dhe shpjegoni se ç’nuk shkon me sjelljen e këtij përdoruesi. Mos thoni thjesht “bën me hile”, por na tregoni se si arritët në këtë konkluzion.</string>
+  <string name="reportUsernameHelp">Shpjegoni pse ky emër përdoruesi është fyes. Mos thoni thjesht “është fyes/i papërshtatshëm”, por na tregoni se si arritët në këtë konkluzion, veçanërisht nëse fyerja është e hollë, jo në anglisht, është në një slang, ose është një referencë historike/kulturore.</string>
+  <string name="reportProcessedFasterInEnglish">Raportimi juaj do të shqyrtohet më shpejt, nëse është shkruar në anglisht.</string>
   <string name="error.provideOneCheatedGameLink">Ju lutemi, jepni të paktën një lidhje te një lojë me hile.</string>
   <string name="by">nga %s</string>
   <string name="importedByX">Importuar nga %s</string>

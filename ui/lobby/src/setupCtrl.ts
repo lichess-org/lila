@@ -263,7 +263,7 @@ export default class SetupController {
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.fen(),
-      timeMode: keyToId(this.timeMode(), timeModes(this.root.trans)).toString(),
+      timeMode: keyToId(this.timeMode(), timeModes).toString(),
       time: this.time().toString(),
       time_range: this.timeV().toString(),
       increment: this.increment().toString(),

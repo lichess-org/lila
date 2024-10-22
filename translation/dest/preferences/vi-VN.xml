@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Chế độ tập trung</string>
   <string name="showPlayerRatings">Hiển thị hệ số của người chơi</string>
   <string name="showFlairs">Hiển thị biểu tượng của người chơi</string>
-  <string name="explainShowPlayerRatings">Điều này sẽ ẩn toàn bộ hệ số khỏi Lichess để giúp tập trung vào ván cờ. Ván đấu có xếp hạng vẫn ảnh hưởng đến hệ số của bạn, đây chỉ là những gì bạn có thể nhìn thấy.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">Điều này sẽ ẩn toàn bộ hệ số khỏi Lichess để giúp tập trung vào ván cờ. Ván đấu có xếp hạng vẫn ảnh hưởng đến hệ số của bạn, đây chỉ là những gì bạn có thể nhìn thấy.</string>
   <string name="displayBoardResizeHandle">Hiện nút thay đổi kích cỡ bàn cờ</string>
   <string name="onlyOnInitialPosition">Chỉ ở thế cờ ban đầu</string>
   <string name="inGameOnly">Chỉ trong ván cờ</string>

@@ -35,23 +35,6 @@
     letter-spacing: 2px;
   }
 
-  .public_chats,
-  .notes,
-  .history {
-    @extend %box-neat;
-    padding: 1em;
-    margin-top: 0.5em;
-    max-height: 20vh;
-    overflow-y: auto;
-    padding-bottom: 0.5em;
-  }
-
-  .reports h3 {
-    line-height: 2em;
-    font-size: 1.5em;
-    font-weight: bold;
-  }
-
   .player_chats {
     @extend %break-word;
     @extend %flex-wrap;
@@ -67,6 +50,7 @@
     display: block;
     float: left;
     width: 33.33%;
+    border-bottom: $border;
   }
 
   .player_chats .game:nth-child(odd) {
@@ -91,7 +75,7 @@
 
   .player_chats .game .chat {
     padding-top: 0;
-    height: 20em;
+    height: 15em;
     overflow: hidden;
   }
 
@@ -109,11 +93,13 @@
     padding: 0 0.5em;
   }
 
-  .public_chats .line,
+  .mod-timeline__event .message,
   .player_chats .line.author,
   .threads .post.author {
     opacity: 1;
     cursor: pointer;
+    border-bottom: 1px dashed $c-accent;
+    min-width: 6ch;
     &:hover {
       background: $m-accent--fade-80;
     }
@@ -122,7 +108,11 @@
   .thread {
     padding: 20px;
     overflow-y: auto;
-    max-height: 400px;
+    max-height: 300px;
+    border-bottom: $border;
+  }
+  .thread td {
+    padding: 0.3em 1em;
   }
 
   .thread .title {

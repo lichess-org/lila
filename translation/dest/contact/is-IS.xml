@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Hvernig getum við aðstoðað?</string>
   <string name="visitThisPage">Farðu á síðuna til að leysa vandamálinu</string>
   <string name="iCantLogIn">Ég get ekki skráð mig inn</string>
-  <string name="noConfirmationEmail">Ég fékk ekki staðfestingapóstinn minn</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ég fékk ekki staðfestingapóstinn minn</string>
   <string name="forgotPassword">Ég gleymdi lykilorðinu mínu</string>
   <string name="forgotUsername">Ég gleymdi notendanafninu mínu</string>
 </resources>

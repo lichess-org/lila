@@ -8,7 +8,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   ...(ctrl.setupCtrl.gameType === 'hook'
     ? []
     : [
-        h('label', { attrs: { for: 'sf_color' } }, ctrl.trans('side')),
+        h('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
         h(
           'select#sf_color',
           {
@@ -17,7 +17,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
                 ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
             },
           },
-          colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor())),
+          colors.map(color => option(color, ctrl.setupCtrl.blindModeColor())),
         ),
       ]),
   h(
@@ -48,7 +48,7 @@ export const createButtons = (ctrl: LobbyController) => {
       ? renderBlindModeColorPicker(ctrl)
       : setupCtrl.loading
         ? spinnerVdom()
-        : colors(ctrl.trans).map(({ key, name }) =>
+        : colors.map(({ key, name }) =>
             h(
               `button.button.button-metal.color-submits__button.${key}`,
               {

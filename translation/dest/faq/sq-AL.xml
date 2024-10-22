@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Disa faqe Lichess-i kanë shkurtore që mund të përdorni. Provoni të shtypni tastin “?” në një faqe ushtrimesh, analizash, puzzle-esh apo lojërësh, që të shfaqen shkurtoret e gatshme të tastierës.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kur kualifikohem për kthim pikësh të humbura nga lojtarë hileqarë?</string>
-  <string name="ratingRefundExplanation">Një minutë pasi një lojtar cilësohet si i tillë, i merren 40 lojëra të vlerësuara të 3 ditët e fundit. Nëse jeni kundërshtar i tij në këto lojëra, humbet vlerësim (për shkak të një humbjeje ose barazimi) dhe vlerësimi për ju nuk qe i përkohshëm, përfitoni kthim pikësh. Kthimi i pikëve bazohen në vlerësimin tuaj kulmor dhe në ecurinë e vlerësimeve tuaja pas lojës.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Një minutë pasi një lojtar cilësohet si i tillë, i merren 40 lojëra të vlerësuara të 3 ditët e fundit. Nëse jeni kundërshtar i tij në këto lojëra, humbet vlerësim (për shkak të një humbjeje ose barazimi) dhe vlerësimi për ju nuk qe i përkohshëm, përfitoni kthim pikësh. Kthimi i pikëve bazohen në vlerësimin tuaj kulmor dhe në ecurinë e vlerësimeve tuaja pas lojës.
   (Për shembull, nëse vlerësimi juaj është rritur dukshëm pas këtyre lojërave, mund të mos merrni kthim, ose vetëm një rikthim të pjesshëm). Kthimi i pikëve s’tejkalon kurrë 150 pikë.</string>
   <string name="preventLeavingGameWithoutResigning">Çfarë ndodh me lojtarë që e lënë lojën pa dhënë dorëheqje?</string>
   <string name="leavingGameWithoutResigningExplanation">Nëse kundërshtari juaj ndërpret/braktis shpesh lojërat, për ta jepet “dëbuar nga luajtje”, që do të thotë se dëbohen përkohësisht nga luajtja e lojërave. Kjo nuk shfaqet publikisht në profilin e tij. Nëse kjo sjellje vazhdon, kohëzgjatja e dëbimit nga luajta rritet - dhe përsëritja e zgjatur e sjelljes së kësaj natyre ve mund të çojë në mbyllje të llogarisë.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Si përcaktohen Bullet-i, Blit-i dhe kontrolle të tjerë të kohës?</string>
   <string name="basedOnGameDuration">Kontrollet për kohën në Lichess bazohen në zgjatjen e përafërt të lojës = %1$s
 Për shembull, kohëzgjatja e përafërt e një loje 5+3 është 5 x 60 + 40 x 3 =420 sekonda.</string>
-  <string name="durationFormula">(koha fillestare e sahatit, në sekonda) + 40 x (shtim kohe)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(koha fillestare e sahatit, në sekonda) + 40 x (shtim kohe)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Cilat variante mund të luaj në Lichess?</string>

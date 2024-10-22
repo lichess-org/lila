@@ -49,7 +49,6 @@ import {
 import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 interface GoneBerserk {
@@ -65,8 +64,6 @@ export default class RoundController implements MoveRootCtrl {
   chessground: CgApi;
   clock?: ClockController;
   corresClock?: CorresClockController;
-  trans: Trans;
-  noarg: TransNoArg;
   keyboardMove?: KeyboardMove;
   voiceMove?: VoiceMove;
   moveOn: MoveOn;
@@ -132,9 +129,6 @@ export default class RoundController implements MoveRootCtrl {
     if (!opts.local) this.transientMove = new TransientMove(this.socket);
 
     this.menu = toggle(false, redraw);
-
-    this.trans = trans(opts.i18n);
-    this.noarg = this.trans.noarg;
 
     setTimeout(this.delayedInit, 200);
 
@@ -287,7 +281,7 @@ export default class RoundController implements MoveRootCtrl {
   isLate = (): boolean => this.replaying() && status.playing(this.data);
 
   playerAt = (position: Position): game.Player =>
-    (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
+    this.flip != (position === 'top') ? this.data.opponent : this.data.player;
 
   flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;
@@ -378,11 +372,11 @@ export default class RoundController implements MoveRootCtrl {
   showYourMoveNotification = (): void => {
     if (this.opts.local) return;
     const d = this.data;
-    const opponent = $('body').hasClass('zen') ? 'Your opponent' : renderUser.userTxt(this, d.opponent);
+    const opponent = $('body').hasClass('zen') ? 'Your opponent' : renderUser.userTxt(d.opponent);
     const joined = `${opponent}\njoined the game.`;
     if (game.isPlayerTurn(d))
       notify(() => {
-        let txt = this.noarg('yourTurn');
+        let txt = i18n.site.yourTurn;
         if (this.ply < 1) txt = `${joined}\n${txt}`;
         else {
           let move = d.steps[d.steps.length - 1].san;
@@ -635,26 +629,26 @@ export default class RoundController implements MoveRootCtrl {
     if (this.moveToSubmit || this.dropToSubmit) {
       setTimeout(() => this.voiceMove?.listenForResponse('submitMove', this.submitMove));
       return {
-        prompt: this.noarg('confirmMove'),
+        prompt: i18n.site.confirmMove,
         yes: { action: () => this.submitMove(true) },
-        no: { action: () => this.submitMove(false), key: 'cancel' },
+        no: { action: () => this.submitMove(false), text: i18n.site.cancel },
       };
     } else if (this.data.player.proposingTakeback) {
       this.voiceMove?.listenForResponse('cancelTakeback', this.cancelTakebackPreventDraws);
       return {
-        prompt: this.noarg('takebackPropositionSent'),
-        no: { action: this.cancelTakebackPreventDraws, key: 'cancel' },
+        prompt: i18n.site.takebackPropositionSent,
+        no: { action: this.cancelTakebackPreventDraws, text: i18n.site.cancel },
       };
-    } else if (this.data.player.offeringDraw) return { prompt: this.noarg('drawOfferSent') };
+    } else if (this.data.player.offeringDraw) return { prompt: i18n.site.drawOfferSent };
     else if (this.data.opponent.offeringDraw)
       return {
-        prompt: this.noarg('yourOpponentOffersADraw'),
+        prompt: i18n.site.yourOpponentOffersADraw,
         yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
         no: { action: () => this.socket.send('draw-no') },
       };
     else if (this.data.opponent.proposingTakeback)
       return {
-        prompt: this.noarg('yourOpponentProposesATakeback'),
+        prompt: i18n.site.yourOpponentProposesATakeback,
         yes: { action: this.takebackYes, icon: licon.Back },
         no: { action: () => this.socket.send('takeback-no') },
       };
@@ -662,11 +656,11 @@ export default class RoundController implements MoveRootCtrl {
     else return false;
   };
 
-  opponentRequest(req: string, i18nKey: string): void {
+  opponentRequest(req: string, text: string): void {
     this.voiceMove?.listenForResponse(req, (v: boolean) =>
       this.socket.sendLoading(`${req}-${v ? 'yes' : 'no'}`),
     );
-    notify(this.noarg(i18nKey));
+    notify(text);
   }
 
   takebackYes = (): void => {

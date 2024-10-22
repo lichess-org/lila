@@ -36,14 +36,18 @@ final class ReportApi(
   def create(data: ReportSetup, reporter: Reporter, msgs: List[String]): Funit =
     Reason(data.reason).so: reason =>
       getSuspect(data.user.id).flatMapz: suspect =>
-        create:
-          Report.Candidate(
-            reporter,
-            suspect,
-            reason,
-            data.text.take(1000) + msgs.nonEmpty.so:
-              s"""\n\n\n--- selected inbox messages ---\n\n${msgs.mkString("\n\n")}"""
-          )
+        if data.text.startsWith(Reason.flagText) then
+          logger.warn(s"False flag from ${reporter.user.username} about ${data.user.name}: ${data.text}")
+          funit
+        else
+          create:
+            Report.Candidate(
+              reporter,
+              suspect,
+              reason,
+              data.text.take(1000) + msgs.nonEmpty.so:
+                s"""\n\n\n--- selected inbox messages ---\n\n${msgs.mkString("\n\n")}"""
+            )
 
   def isAutoBlock(data: ReportSetup): Boolean =
     Reason(data.reason).exists(Reason.autoBlock)
@@ -467,7 +471,7 @@ final class ReportApi(
       .map: users =>
         reports
           .flatMap: r =>
-            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline(u.id)) }
+            users.find(_.id == r.user).map { u => Report.WithSuspect(r, u, isOnline.exec(u.id)) }
           .sortBy(-_.urgency)
 
   def snooze(reportId: ReportId, duration: String)(using mod: Me): Fu[Option[Report]] =

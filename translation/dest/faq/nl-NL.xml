@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Op sommige Lichess-pagina\'s kunt u sneltoetsen gebruiken. Druk op de \'?\' toets op een studie-, analyse-, puzzel- of partijpagina om beschikbare sneltoetsen te tonen.</string>
   <string name="fairPlay">Eerlijk spel</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
-  <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
   (Als je rating bijvoorbeeld sterk gestegen is na deze partijen, zou je geen compensatie of alleen een gedeeltelijke compensatie kunnen krijgen.) Een compensatie zal nooit meer bedragen dan 150 punten.</string>
   <string name="preventLeavingGameWithoutResigning">Wat gebeurt er met spelers die partijen laten voor wat ze zijn zonder op te geven?</string>
   <string name="leavingGameWithoutResigningExplanation">Als je tegenstander vaak partijen afbreekt of laat voor wat ze zijn, krijgt hij een \"speelverbod\", wat betekent dat hij tijdelijk geen partijen meer mag spelen. Dit wordt niet publiekelijk op hun profiel aangegeven. Als dit gedrag zich voortzet, neemt de duur van het speelverbod toe - en dergelijk langdurig gedrag kan leiden tot sluiting van de account.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>
   <string name="basedOnGameDuration">Lichess speeltempo\'s zijn gebaseerd op de geschatte partijduur = %1$s.
 Bijvoorbeeld, de geschatte duur van een 5+3 partij is 5 × 60 + 40 × 3 = 420 seconden.</string>
-  <string name="durationFormula">(initiële kloktijd) + 40 × (extra tijd per zet)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(initiële kloktijd) + 40 × (extra tijd per zet)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>

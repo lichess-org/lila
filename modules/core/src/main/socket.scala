@@ -28,7 +28,7 @@ type ChannelSend = Channel => SocketSend
 trait ParallelSocketSend:
   def apply(msg: String): Unit
   def sticky(_id: String, msg: String): Unit
-  def send = SocketSend(apply)
+  def send: SocketSend = SocketSend(apply)
 type ParallelChannelSend = (Channel, Parallelism) => ParallelSocketSend
 
 type SocketHandler = PartialFunction[protocol.In, Unit]

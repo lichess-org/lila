@@ -16,7 +16,7 @@
   <string name="xPublishedY">%1$s ने प्रकाशित किया %2$s</string>
   <string name="thisPostIsPublished">यह पोस्ट प्रकाशित कर दिया गया</string>
   <string name="thisIsADraft">यह एक ड्राफट है</string>
-  <string name="moreBlogPostsBy">%s के द्वारा अन्य पोस्ट</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s के द्वारा अन्य पोस्ट</string>
   <string name="noPostsInThisBlogYet">इस ब्लॉग में कोई पोस्ट नही है, अभी तक।</string>
   <string name="noDrafts">कोई ड्राफट दिखाने के लिए नही है</string>
   <string name="latestBlogPosts">नवीनतम ब्लॉग पोस्ट</string>

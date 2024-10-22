@@ -27,7 +27,7 @@
     <item quantity="one">%s minuto entre as rodadas</item>
     <item quantity="other">%s minutos entre as rodadas</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Começando em</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Começando em</string>
   <string name="nextRound">Próxima rodada</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Jogo em andamento</item>
@@ -79,7 +79,7 @@ Além disso, um bye valendo meio ponto é dado ao jogador, se ele entrar atrasad
 Então, o sistema irá retirar o jogador do torneio, para evitar que ele perca mais jogos.
  O jogador pode retornar ao torneio a qualquer momento.</string>
   <string name="protectionAgainstNoShowQ">O que acontece quando o adversário não aparece?</string>
-  <string name="protectionAgainstNoShowA">Jogadores que se inscrevem em torneios suíços, mas se ausentam, pode ser problemático.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Jogadores que se inscrevem em torneios suíços, mas se ausentam, pode ser problemático.
 Para aliviar a questão, o Lichess impede jogadores que não jogaram uma partida de entrarem em outro torneio suíço durante um dado período de tempo.
 O criador de um torneio suíço poderá deixá-lo entrar mesmo assim.</string>
   <string name="lateJoinQ">Os jogadores podem entrar atrasados?</string>

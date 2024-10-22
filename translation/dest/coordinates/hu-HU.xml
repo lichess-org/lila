@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordináta gyakorló</string>
   <string name="averageScoreAsWhiteX">Átlagos pontszám világosként: %s</string>
   <string name="averageScoreAsBlackX">Átlagos pontszám sötétként: %s</string>
-  <string name="knowingTheChessBoard">A sakktábla koordinátáinak ismerete nagyon fontos sakk készség:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">A sakktábla koordinátáinak ismerete nagyon fontos sakk készség:</string>
   <string name="mostChessCourses">A sakk tanfolyamok és feladványok többnyire az algebrai jelölési rendszert alkalmazzák.</string>
   <string name="talkToYourChessFriends">Könnyebbé teszi a sakk társalgást a barátokkal, ha mindketten beszélik a \"sakk nyelvét\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">A játszmák hatékonyabban elemezhetőek, ha nem kell keresgetni a mezőket.</string>

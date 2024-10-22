@@ -11,7 +11,7 @@
   <string name="newTeam">Yangi jamoa</string>
   <string name="myTeams">Mening jamoam</string>
   <string name="noTeamFound">Jamoa topilmadi</string>
-  <string name="joinTeam">Jamoaga qo\'shilish</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Jamoaga qo\'shilish</string>
   <string name="onlyLeaderLeavesTeam">Jamoani yopish yoki tark etishdan avval yangi jamoa sardorini qo‘shing.</string>
   <string name="quitTeam">Jamoani tark etish</string>
   <string name="manuallyReviewAdmissionRequests">Qabul qilish soʻrovlarini koʻrib chiqish</string>

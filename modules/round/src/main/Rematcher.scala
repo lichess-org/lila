@@ -90,7 +90,7 @@ final private class Rematcher(
       _ <- gameRepo.insertDenormalized(nextGame)
     yield
       messenger.volatile(pov.game, trans.site.rematchOfferAccepted.txt())
-      onStart(nextGame.id)
+      onStart.exec(nextGame.id)
       incUserColors(nextGame)
       redirectEvents(nextGame)
 

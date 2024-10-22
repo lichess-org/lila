@@ -3,10 +3,10 @@ import LobbyController from '../../../ctrl';
 import { option } from './option';
 
 export const levelButtons = (ctrl: LobbyController) => {
-  const { trans, setupCtrl } = ctrl;
+  const { setupCtrl } = ctrl;
   return site.blindMode
     ? [
-        h('label', { attrs: { for: 'sf_level' } }, trans('strength')),
+        h('label', { attrs: { for: 'sf_level' } }, i18n.site.strength),
         h(
           'select#sf_level',
           {
@@ -17,7 +17,7 @@ export const levelButtons = (ctrl: LobbyController) => {
       ]
     : [
         h('br'),
-        trans('strength'),
+        i18n.site.strength,
         h('div.level.buttons', [
           h(
             'div.config_level',
@@ -45,7 +45,7 @@ export const levelButtons = (ctrl: LobbyController) => {
             'div.ai_info',
             h(
               `div.sf_level_${setupCtrl.aiLevel()}`,
-              trans('aiNameLevelAiLevel', 'Fairy-Stockfish 14', setupCtrl.aiLevel()),
+              i18n.site.aiNameLevelAiLevel('Fairy-Stockfish 14', setupCtrl.aiLevel()),
             ),
           ),
         ]),

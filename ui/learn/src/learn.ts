@@ -25,7 +25,6 @@ export interface StageProgress {
 }
 
 export interface LearnOpts {
-  i18n: I18nDict;
   storage: Storage;
   stageId: number | null;
   levelId: number | null;
@@ -40,14 +39,12 @@ export interface LearnPrefs {
 
 interface LearnServerOpts {
   data?: LearnProgress;
-  i18n: I18nDict;
   pref: LearnPrefs;
 }
 
-export function initModule({ data, i18n, pref }: LearnServerOpts) {
+export function initModule({ data, pref }: LearnServerOpts) {
   const _storage = storage(data);
   const opts: LearnOpts = {
-    i18n,
     storage: _storage,
     stageId: null,
     levelId: null,

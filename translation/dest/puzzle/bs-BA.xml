@@ -31,8 +31,8 @@
   <string name="byOpenings">Po otvorima</string>
   <string name="puzzlesByOpenings">Zagonetke po otvorima</string>
   <string name="openingsYouPlayedTheMost">Otvaranja koja ste najviše igrali u ocenjenim igrama</string>
-  <string name="useFindInPage">Koristite \"Pronađi na stranici\" u meniju pretraživača da pronađete svoje omiljeno otvaranje!</string>
-  <string name="useCtrlF">Koristite Ctrl+f da pronađete svoj omiljeni otvor!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Koristite \"Pronađi na stranici\" u meniju pretraživača da pronađete svoje omiljeno otvaranje!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Koristite Ctrl+f da pronađete svoj omiljeni otvor!</string>
   <string name="notTheMove">To nije traženi potez!</string>
   <string name="trySomethingElse">Pokušajte nešto drugo.</string>
   <string name="ratingX">Rejting: %s</string>
@@ -69,7 +69,7 @@
   <string name="strengths">Jake strane</string>
   <string name="history">Istorija slagalice</string>
   <string name="solved">riješeno</string>
-  <string name="failed">nepravilno</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">nepravilno</string>
   <string name="streakDescription">Rješavajte progresivno teže probleme i napravite niz pobjeda. Nema vremenskog ograničenja, pa uzmite vremena. Jedan pogrešan potez i igra je gotova! No, možete preskočiti jedan potez po sesiji.</string>
   <string name="yourStreakX">Vaš niz: %s</string>
   <string name="streakSkipExplanation">Preskočite ovaj potez da sačuvate niz! To možete samo jednom po rundi.</string>

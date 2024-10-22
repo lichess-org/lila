@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Trening współrzędnych pól</string>
   <string name="averageScoreAsWhiteX">Średni wynik białymi: %s</string>
   <string name="averageScoreAsBlackX">Średni wynik czarnymi: %s</string>
-  <string name="knowingTheChessBoard">Znajomość współrzędnych pól na szachownicy jest bardzo ważną umiejętnością:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Znajomość współrzędnych pól na szachownicy jest bardzo ważną umiejętnością:</string>
   <string name="mostChessCourses">Większość kursów i ćwiczeń szachowych powszechnie wykorzystuje notację algebraiczną.</string>
   <string name="talkToYourChessFriends">Rozmowa ze znajomymi szachistami będzie łatwiejsza, gdy będziecie się porozumiewać w „języku szachów”.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Analiza partii przebiega sprawniej, jeśli nie musisz szukać pól mając ich współrzędne.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Masz 30 sekund, aby wskazać tak wiele pól, jak to możliwe!</string>
   <string name="goAsLongAsYouWant">Próbuj tak długo, jak chcesz, nie ma limitu czasowego!</string>
   <string name="showCoordinates">Pokaż współrzędne</string>
-  <string name="showCoordsOnAllSquares">Współrzędne na każdym polu</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Współrzędne na każdym polu</string>
   <string name="showPieces">Pokaż bierki</string>
   <string name="startTraining">Rozpocznij trening</string>
   <string name="findSquare">Znajdź pole</string>

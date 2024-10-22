@@ -19,7 +19,7 @@
   <string name="keyboardShortcuts">Apa saja pintasan papan ketik yang ada?</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Kapan saya dapat menerima pengembalian rating otomatis dari pemain curang?</string>
-  <string name="ratingRefundExplanation">Satu menit setelah seorang pemain diberikan tanda, 40 permainan terakhir pemain itu selama 3 hari ke belakang akan ditandai. Apabila Anda sempat menjadi lawan pemain itu dalam permainan-permainan tersebut, rating Anda turun (akibat kalah atau seri), dan rating Anda tidak provisional, maka rating Anda akan dikembalikan. Pengembalian rating ini memiliki batas maksimal, yaitu pada puncak rating serta pergerakan rating Anda setelah permainan tersebut. (Sebagai contoh, apabila rating Anda meningkat tajam setelah permainan-permainan tersebut, Anda mungkin tidak akan mendapatkan pengembalian rating atau hanya sebagian.) Pengembalian rating tidak akan melebihi 150 poin.</string>
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Satu menit setelah seorang pemain diberikan tanda, 40 permainan terakhir pemain itu selama 3 hari ke belakang akan ditandai. Apabila Anda sempat menjadi lawan pemain itu dalam permainan-permainan tersebut, rating Anda turun (akibat kalah atau seri), dan rating Anda tidak provisional, maka rating Anda akan dikembalikan. Pengembalian rating ini memiliki batas maksimal, yaitu pada puncak rating serta pergerakan rating Anda setelah permainan tersebut. (Sebagai contoh, apabila rating Anda meningkat tajam setelah permainan-permainan tersebut, Anda mungkin tidak akan mendapatkan pengembalian rating atau hanya sebagian.) Pengembalian rating tidak akan melebihi 150 poin.</string>
   <string name="preventLeavingGameWithoutResigning">Apa tindakan terhadap pemain yang meninggalkan permainan tanpa menyerah?</string>
   <string name="leavingGameWithoutResigningExplanation">Apabila lawan Anda sering meninggalkan permainan, ia akan mendapat \"ban\", yaitu blokir sementara dari bermain catur. Blokade ini tidak ditampilkan secara publik di profil pemain itu. Kalau perilaku ini berlanjut, maka blokade akan diperpanjang. Pengulangan perilaku ini secara berkelanjutan dapat berujung pada penutupan akun.</string>
   <string name="howCanIBecomeModerator">Bagaimana saya bisa menjadi moderator?</string>
@@ -32,7 +32,7 @@
   <string name="howBulletBlitzEtcDecided">Bagaimana pengaturan waktu catur kilat, peluru, dan lainya ditentukan?</string>
   <string name="basedOnGameDuration">Kontrol waktu Lichess berdasarkan pada perkiraan durasi permainan = %1$s
 Misalnya, perkiraan durasi permainan 5+3 adalah 5 × 60 + 40 × 3 = 420 detik.</string>
-  <string name="durationFormula">(waktu awal jam) + 40 x (kenaikan jam)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(waktu awal jam) + 40 x (kenaikan jam)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt;%1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Varian apa saja yang dapat saya mainkan di Lichess?</string>

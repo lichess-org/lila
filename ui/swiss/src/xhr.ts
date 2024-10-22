@@ -2,6 +2,7 @@ import { throttlePromiseDelay } from 'common/timing';
 import { json, form } from 'common/xhr';
 import SwissCtrl from './ctrl';
 import { isOutcome } from './util';
+import { Sheet } from './interfaces';
 
 // when the tournament no longer exists
 const onFail = () => site.reload();
@@ -41,7 +42,7 @@ const playerInfo = (ctrl: SwissCtrl, userId: string) =>
     ctrl.redraw();
   }, onFail);
 
-const readSheetMin = (str: string) =>
+const readSheetMin = (str: string): Sheet =>
   str
     ? str.split('|').map(s =>
         isOutcome(s)

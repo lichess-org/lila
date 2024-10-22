@@ -20,13 +20,6 @@ final class PlaybanApi(
     messenger: MsgApi
 )(using ec: Executor, mode: play.api.Mode):
 
-  private val sittingAutoPreset = lila.core.msg.MsgPreset(
-    name = "Warning: leaving games / stalling on time",
-    text =
-      """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
-  This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
-  )
-
   private given BSONHandler[Outcome] = tryHandler(
     { case BSONInteger(v) => Outcome(v).toTry(s"No such playban outcome: $v") },
     x => BSONInteger(x.id)
@@ -291,10 +284,10 @@ final class PlaybanApi(
       case RageSit.Update.Inc(delta) =>
         rageSitCache.put(record.userId, fuccess(record.rageSit))
         (delta < 0 && record.rageSit.isVeryBad).so:
-          for _ <- messenger.postPreset(record.userId, sittingAutoPreset)
+          for _ <- messenger.postPreset(record.userId, PlaybanFeedback.sittingAutoPreset)
           yield
             Bus.publish(
-              lila.core.mod.AutoWarning(record.userId, sittingAutoPreset.name),
+              lila.core.mod.AutoWarning(record.userId, PlaybanFeedback.sittingAutoPreset.name),
               "autoWarning"
             )
             if record.rageSit.isLethal && record.banMinutes.exists(_ > 12 * 60) then

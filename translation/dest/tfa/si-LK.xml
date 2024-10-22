@@ -7,7 +7,7 @@
   <string name="enterPassword">පිහිටුවීම සම්පූර්ණ කිරීම සඳහා ඔබගේ මුරපදය සහ යෙදුම මඟින් ජනනය කරන ලද සත්‍යාපන කේතය ඇතුළත් කරන්න. ඔබ ලොග් වන සෑම අවස්ථාවකම ඔබට සත්‍යාපන කේතයක් අවශ්‍ය වේ.</string>
   <string name="ifYouCannotScanEnterX">ඔබට කේතය පරිලෝකනය කළ නොහැකි නම්, රහස් %s ඔබේ යෙදුමට ඇතුළු කරන්න.</string>
   <string name="authenticationCode">සත්යාපන කේතය</string>
-  <string name="ifYouLoseAccessTwoFactor">සටහන: ඔබට ඔබගේ ද්වි-සාධක සත්‍යාපන කේත වෙත ප්‍රවේශය අහිමි වුවහොත්, ඔබට විද්‍යුත් තැපෑලෙන් %s එකක් කළ හැක.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">සටහන: ඔබට ඔබගේ ද්වි-සාධක සත්‍යාපන කේත වෙත ප්‍රවේශය අහිමි වුවහොත්, ඔබට විද්‍යුත් තැපෑලෙන් %s එකක් කළ හැක.</string>
   <string name="enableTwoFactor">ද්වි-සාධක සත්‍යාපනය සක්‍රීය කරන්න</string>
   <string name="disableTwoFactor">ද්වි-සාධක සත්‍යාපනය අක්‍රීය කරන්න</string>
   <string name="twoFactorEnabled">ද්වි-සාධක සත්‍යාපනය සක්‍රීය කර ඇත</string>

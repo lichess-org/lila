@@ -39,7 +39,7 @@
   <string name="deflection">Одвлачење</string>
   <string name="deflectionDescription">Потез који одвлачи противничку фигуру од обављања друге дужности, као што је чување кључног поља. Некада се такође зове \"преоптерећење\".</string>
   <string name="discoveredAttack">Откривени напад</string>
-  <string name="discoveredAttackDescription">Померање фигуре (као што је скакач), која је претходно блокирала напад далекометне фигуре (као што је топ), са пута те фигуре.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Померање фигуре (као што је скакач), која је претходно блокирала напад далекометне фигуре (као што је топ), са пута те фигуре.</string>
   <string name="doubleCheck">Двоструки шах</string>
   <string name="doubleCheckDescription">Шахирање са две фигуре од једном, као резултат откривеног напада где и фигура која се помера и откривена фигура нападју противничког краља.</string>
   <string name="endgame">Завршница</string>

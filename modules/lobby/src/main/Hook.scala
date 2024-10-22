@@ -79,7 +79,7 @@ case class Hook(
     .add("ra" -> realMode.rated.option(1))
 
   def compatibleWithPools(using isClockCompatible: IsClockCompatible) =
-    realMode.rated && realVariant.standard && isClockCompatible(clock)
+    realMode.rated && realVariant.standard && isClockCompatible.exec(clock)
 
   def compatibleWithPool(poolClock: chess.Clock.Config)(using IsClockCompatible) =
     compatibleWithPools && clock == poolClock

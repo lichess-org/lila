@@ -9,7 +9,6 @@ import lila.api.SocketTest
 object page:
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
-    jsQuantity = lila.i18n.JsQuantity.apply,
     isRTL = lila.i18n.LangList.isRTL,
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,
@@ -88,7 +87,7 @@ object page:
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
-          sitePreload(allModules, isInquiry = ctx.data.inquiry.isDefined),
+          sitePreload(p.i18nModules, allModules, isInquiry = ctx.data.inquiry.isDefined),
           lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),

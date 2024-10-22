@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Mit was chömmer hälfe?</string>
   <string name="visitThisPage">Bsuech die Site, um s\'Problem z\'löse</string>
   <string name="iCantLogIn">Ich chann nöd ilogge</string>
-  <string name="noConfirmationEmail">Ich han mis Beschtätigungs Mail nöd übercho</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ich han mis Beschtätigungs Mail nöd übercho</string>
   <string name="forgotPassword">Ich han mis Passwort vergässe</string>
   <string name="forgotUsername">Ich han min Benutzername vergässe</string>
   <string name="youCanLoginWithEmail">Du chasch mit de E-Mail-Adrässe ilogge, wo du für d\'Regischtrierig benutzt häsch</string>

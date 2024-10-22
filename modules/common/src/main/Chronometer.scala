@@ -114,21 +114,21 @@ object Chronometer:
       }(scala.concurrent.ExecutionContext.parasitic)
 
   def apply[A](f: Fu[A]): FuLap[A] =
-    val start = nowNanos
-    FuLap(f.dmap { Lap(_, nowNanos - start) })
+    val start = nowNanosRel
+    FuLap(f.dmap { Lap(_, nowNanosRel - start) })
 
   def lapTry[A](f: Fu[A]): FuLapTry[A] =
-    val start = nowNanos
+    val start = nowNanosRel
     FuLapTry {
       f.transformWith { r =>
-        fuccess(LapTry(r, nowNanos - start))
+        fuccess(LapTry(r, nowNanosRel - start))
       }(scala.concurrent.ExecutionContext.parasitic)
     }
 
   def sync[A](f: => A): Lap[A] =
-    val start = nowNanos
+    val start = nowNanosRel
     val res   = f
-    Lap(res, nowNanos - start)
+    Lap(res, nowNanosRel - start)
 
   def syncEffect[A](f: => A)(effect: Lap[A] => Unit): A =
     val lap = sync(f)
@@ -142,5 +142,5 @@ object Chronometer:
     res
 
   def start =
-    val at = nowNanos
-    () => Lap((), nowNanos - at)
+    val at = nowNanosRel
+    () => Lap((), nowNanosRel - at)

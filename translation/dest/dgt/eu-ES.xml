@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT taularen beharrak</string>
   <string name="dgtBoardLimitations">DGT taularen mugak</string>
   <string name="thisPageAllowsConnectingDgtBoard">Orrialde honek zure DGT taula Lichessekin konektatzea eta berarekin partidak jokatzea ahalbidetzen du.</string>
-  <string name="toConnectTheDgtBoard">DGT Taula elektronikoa konektatzeko %s instalatu beharko duzu.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT Taula elektronikoa konektatzeko %s instalatu beharko duzu.</string>
   <string name="downloadHere">Programa hori hemendik deskargatu dezakezu: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">%1$s ordenagailuan martxan baduzu, probatu konexioa %2$s.</string>
   <string name="openingThisLink">esteka hau irekiz</string>

@@ -11,8 +11,6 @@ final class SimulUi(helpers: Helpers):
   def link(simulId: SimulId): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
 
-  def jsI18n(using Translate) = i18nJsObject(baseTranslations)
-
   def notFound(using Context) =
     Page(trans.site.noSimulFound.txt()):
       main(cls := "page-small box box-pad")(
@@ -67,19 +65,3 @@ final class SimulUi(helpers: Helpers):
       s.ongoing,
       " ongoing"
     )
-
-  import lila.core.i18n.I18nKey
-  private val baseTranslations: Vector[I18nKey] = Vector(
-    trans.site.finished,
-    trans.site.withdraw,
-    trans.site.join,
-    trans.site.cancel,
-    trans.site.joinTheGame,
-    trans.site.nbPlaying,
-    trans.site.nbWins,
-    trans.site.nbDraws,
-    trans.site.nbLosses,
-    trans.site.by,
-    trans.site.signIn,
-    trans.site.mustBeInTeam
-  )

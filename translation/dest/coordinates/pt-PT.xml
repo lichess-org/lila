@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Treino de coordenadas</string>
   <string name="averageScoreAsWhiteX">Pontuação média com as brancas: %s</string>
   <string name="averageScoreAsBlackX">Pontuação média com as pretas: %s</string>
-  <string name="knowingTheChessBoard">Saber as coordenadas do tabuleiro é uma habilidade muito importante no xadrez:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Saber as coordenadas do tabuleiro é uma habilidade muito importante no xadrez:</string>
   <string name="mostChessCourses">A maioria dos cursos e exercícios usam extensamente a notação algébrica.</string>
   <string name="talkToYourChessFriends">Torna-se mais fácil falar de xadrez com os teus amigos, já que ambos entendem o \"idioma do xadrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Podes analisar um jogo com maior eficiência se conseguires reconhecer as coordenadas rapidamente.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Tem 30 segundos para mapear corretamente o máximo de quadrados possível!</string>
   <string name="goAsLongAsYouWant">Pode continuar enquanto quiser, não há limite de tempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>
-  <string name="showCoordsOnAllSquares">Coordenadas em cada quadrado</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordenadas em cada quadrado</string>
   <string name="showPieces">Mostrar as peças</string>
   <string name="startTraining">Começar o treino</string>
   <string name="findSquare">Encontrar quadrado</string>

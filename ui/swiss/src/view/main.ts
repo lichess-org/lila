@@ -57,7 +57,7 @@ const notice = (ctrl: SwissCtrl) => {
     !d.me.absent &&
     d.status == 'started' &&
     d.nextRound &&
-    h('div.swiss__notice.bar-glider', ctrl.trans('standByX', d.me.name))
+    h('div.swiss__notice.bar-glider', i18n.site.standByX(d.me.name))
   );
 };
 
@@ -122,14 +122,14 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     return h(
       'a.fbt.text.highlight',
       { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
-      ctrl.trans('signIn'),
+      i18n.site.signIn,
     );
 
   if (d.joinTeam)
     return h(
       'a.fbt.text.highlight',
       { attrs: { href: `/team/${d.joinTeam}`, 'data-icon': licon.Group } },
-      ctrl.trans.noarg('joinTeam'),
+      i18n.team.joinTeam,
     );
 
   if (d.canJoin)
@@ -143,14 +143,14 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
               'click',
               _ => {
                 if (d.password) {
-                  const p = prompt(ctrl.trans.noarg('tournamentEntryCode'));
+                  const p = prompt(i18n.site.tournamentEntryCode);
                   if (p !== null) ctrl.join(p);
                 } else ctrl.join();
               },
               ctrl.redraw,
             ),
           },
-          ctrl.trans.noarg('join'),
+          i18n.site.join,
         );
 
   if (d.me && d.status != 'finished')
@@ -160,14 +160,14 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
         : h(
             'button.fbt.text.highlight',
             { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
-            ctrl.trans.noarg('join'),
+            i18n.site.join,
           )
       : ctrl.joinSpinner
         ? spinner()
         : h(
             'button.fbt.text',
             { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
-            ctrl.trans.noarg('withdraw'),
+            i18n.site.withdraw,
           );
 
   return;
@@ -178,9 +178,9 @@ function joinTheGame(ctrl: SwissCtrl) {
   return (
     gameId &&
     h('a.swiss__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
-      ctrl.trans('youArePlaying'),
+      i18n.site.youArePlaying,
       h('br'),
-      ctrl.trans('joinTheGame'),
+      i18n.site.joinTheGame,
     ])
   );
 }
@@ -200,25 +200,24 @@ function confetti(data: SwissData) {
 
 function stats(ctrl: SwissCtrl) {
   const s = ctrl.data.stats,
-    noarg = ctrl.trans.noarg,
     slots = ctrl.data.round * ctrl.data.nbPlayers;
   if (!s) return undefined;
   return h('div.swiss__stats', [
-    h('h2', noarg('tournamentComplete')),
+    h('h2', i18n.site.tournamentComplete),
     h('table', [
-      ctrl.opts.showRatings ? numberRow(noarg('averageElo'), s.averageRating, 'raw') : null,
-      numberRow(noarg('gamesPlayed'), s.games),
-      numberRow(noarg('whiteWins'), [s.whiteWins, slots], 'percent'),
-      numberRow(noarg('blackWins'), [s.blackWins, slots], 'percent'),
-      numberRow(noarg('drawRate'), [s.draws, slots], 'percent'),
-      numberRow(noarg('byes'), [s.byes, slots], 'percent'),
-      numberRow(noarg('absences'), [s.absences, slots], 'percent'),
+      ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, s.averageRating, 'raw') : null,
+      numberRow(i18n.site.gamesPlayed, s.games),
+      numberRow(i18n.site.whiteWins, [s.whiteWins, slots], 'percent'),
+      numberRow(i18n.site.blackWins, [s.blackWins, slots], 'percent'),
+      numberRow(i18n.site.drawRate, [s.draws, slots], 'percent'),
+      numberRow(i18n.swiss.byes, [s.byes, slots], 'percent'),
+      numberRow(i18n.swiss.absences, [s.absences, slots], 'percent'),
     ]),
     h('div.swiss__stats__links', [
       h(
         'a',
         { attrs: { href: `/swiss/${ctrl.data.id}/round/1` } },
-        ctrl.trans('viewAllXRounds', ctrl.data.round),
+        i18n.swiss.viewAllXRounds(ctrl.data.round),
       ),
       h('br'),
       h(
@@ -229,7 +228,7 @@ function stats(ctrl: SwissCtrl) {
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
-        noarg('downloadAllGames'),
+        i18n.study.downloadAllGames,
       ),
       h(
         'a.text',

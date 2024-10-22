@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">चेस सिक्नुहोस्</string>
-  <string name="byPlaying">खेलेर </string>
+  <string name="byPlaying">खेलेर</string>
   <string name="menu">सुची</string>
   <string name="progressX">प्रगति :  %s</string>
-  <string name="resetMyProgress">फेरी शुरुबाट थल्नुहोस् । </string>
+  <string name="resetMyProgress">फेरी शुरुबाट थल्नुहोस्</string>
   <string name="youWillLoseAllYourProgress">तपाइको सबै प्रगति हट्ने छ</string>
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">खेल्नुहोस्</string>
   <string name="chessPieces">बुद्धिचाल को गट्टीहरू</string>
@@ -17,7 +17,7 @@
   <string name="theFewerMoves">तपाइले जति थोरै गट्टी चाल्नुभयो,
 त्यति धेरै अंक प्राप्त गर्नुहुनेछ ।</string>
   <string name="useTwoRooks">दुइवटा हात्ती प्रयोग गरेर
-खेलको गति बनाउनुहोस् । </string>
+खेलको गति बनाउनुहोस् ।</string>
   <string name="rookComplete">बधाई छ! तपाइले हाती चाल्न सिक्नु भयो । </string>
   <string name="theBishop">उँट (कर्नेल)</string>
   <string name="itMovesDiagonally">उँट छड्के चल्छ</string>

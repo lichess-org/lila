@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Coordinate training</string>
   <string name="averageScoreAsWhiteX">Average score as white: %s</string>
   <string name="averageScoreAsBlackX">Average score as black: %s</string>
-  <string name="knowingTheChessBoard">Knowing the chessboard coordinates is a very important chess skill:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Knowing the chessboard coordinates is a very important skill for several reasons:</string>
   <string name="mostChessCourses">Most chess courses and exercises use the algebraic notation extensively.</string>
   <string name="talkToYourChessFriends">It makes it easier to talk to your chess friends, since you both understand the \"language of chess\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">You can analyze a game more effectively if you can quickly recognize coordinates.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">You have 30 seconds to correctly map as many squares as possible!</string>
   <string name="goAsLongAsYouWant">Go as long as you want, there is no time limit!</string>
   <string name="showCoordinates">Show coordinates</string>
-  <string name="showCoordsOnAllSquares">Coordinates on every square</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordinates on every square</string>
   <string name="showPieces">Show pieces</string>
   <string name="startTraining">Start training</string>
   <string name="findSquare">Find square</string>

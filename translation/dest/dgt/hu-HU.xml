@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT tábla követelmények</string>
   <string name="dgtBoardLimitations">DGT tábla limitációk</string>
   <string name="thisPageAllowsConnectingDgtBoard">Az alábbi oldal segítséget nyújt a DGT táblád csatlakoztatásához, hogy azt használhasd a játszmákban.</string>
-  <string name="toConnectTheDgtBoard">A DGT táblád csatlakoztatásához telepítened kell: %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">A DGT táblád csatlakoztatásához telepítened kell: %s.</string>
   <string name="downloadHere">A szoftver innen letölthető: %s.</string>
   <string name="openingThisLink">az alábbi link megnyitásával</string>
   <string name="reloadThisPage">Oldal frissítése</string>

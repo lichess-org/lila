@@ -116,7 +116,7 @@ final class ChallengeBulkApi(
           _ <- gameRepo
             .insertDenormalized(game)
             .recover(e => logger.error(s"Bulk.insertGame ${game.id} ${e.getMessage}"))
-          _ = onStart(game.id)
+          _ = onStart.exec(game.id)
         yield game -> users
       .mapAsyncUnordered(8): (game, users) =>
         msgApi

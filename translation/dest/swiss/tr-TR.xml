@@ -27,7 +27,7 @@
     <item quantity="one">Turlar arası %s dakika</item>
     <item quantity="other">Turlar arası %s dakika</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Başlamasına</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Başlamasına</string>
   <string name="nextRound">Sıradaki tur</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Devam eden oyun</item>
@@ -77,7 +77,7 @@ Bununla birlikte, turnuvaya geç katılan oyuncuya tek seferliğine yarım puan 
 Sonrasında sistem bu oyuncuyu daha fazla oyun kaybetmemesi için turnuvadan çeker.
 Oyuncu istediği vakit turnuvaya tekrar katılabilir.</string>
   <string name="protectionAgainstNoShowQ">Rakibim gelmezse ne olacak?</string>
-  <string name="protectionAgainstNoShowA">İsviçre sistemi etkinliklere kaydolan oyuncuların maçlara gelmemesi can sıkıcı olabilir. Bu durumu biraz hafifletmek için, maçlara çıkmayan oyuncuların İsviçre sistemi turnuvalarına katılması Lichess tarafından bir süreliğine engellenir. Etkinliği düzenleyen kişi isterse bu oyuncuları turnuvaya alabilir.</string>
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">İsviçre sistemi etkinliklere kaydolan oyuncuların maçlara gelmemesi can sıkıcı olabilir. Bu durumu biraz hafifletmek için, maçlara çıkmayan oyuncuların İsviçre sistemi turnuvalarına katılması Lichess tarafından bir süreliğine engellenir. Etkinliği düzenleyen kişi isterse bu oyuncuları turnuvaya alabilir.</string>
   <string name="lateJoinQ">Turnuvaya geç katılmak mümkün mü?</string>
   <string name="lateJoinA">Evet, toplam tur sayısının yarısına ulaşana dek turnuvaya katılmak mümkün. Örneğin 11 turluk bir turnuvaya 6. tur başlayana kadar, 12 turluk bir turnuvaya ise 7. tur başlayana kadar katılabilirsiniz. Geç katılan oyunculara, birkaç tur kaçırmış olsalar dahi yalnızca yarım puan verilir.</string>
   <string name="willSwissReplaceArenasQ">İsviçre sistemi turnuvalar, arena turnuvalarının yerini mi alacak?</string>

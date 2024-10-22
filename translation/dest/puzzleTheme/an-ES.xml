@@ -39,7 +39,7 @@
   <string name="deflection">Esbarre</string>
   <string name="deflectionDescription">Un movimiento que distraye una pieza oponent de belatra tasca, como protecher un cuadret. A vegadas tamién se diz \"sobrecarga\".</string>
   <string name="discoveredAttack">Ataque a la descubierta</string>
-  <string name="discoveredAttackDescription">Mover una pieza (como un caballo), que previament blocaba un ataque a larga distancia d\'unatra pieza, como per eixemplo, un caballo que sale de debant d\'una torre.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mover una pieza (como un caballo), que previament blocaba un ataque a larga distancia d\'unatra pieza, como per eixemplo, un caballo que sale de debant d\'una torre.</string>
   <string name="doubleCheck">Escaque doble</string>
   <string name="doubleCheckDescription">Meter en escaque con dos piezas de vez, como resultau d\'un ataque a la descubierta an que tanto la pieza que s\'ha moviu como la pieza descubierta ataquen a lo rei de l\'oponent.</string>
   <string name="endgame">Final</string>

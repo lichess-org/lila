@@ -13,4 +13,5 @@
   <string name="sourceUrlHelp">PGN яңартуларын алу өчен Lichess тикшерәчәк URL. Ул Интернеттан ачык булырга тиеш.</string>
   <string name="startDateHelp">Ихтимал, вакыйганың кайчан башланганын белсәгез</string>
   <string name="credits">Чыганакка кредит</string>
+  <string name="federation">Федерация</string>
 </resources>

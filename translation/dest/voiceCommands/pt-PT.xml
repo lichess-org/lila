@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Mover para e4 ou selecionar a peça de e4</string>
   <string name="selectOrCaptureABishop">Seleciona ou captura um bispo</string>
   <string name="takeRookWithQueen">Pega a torre com a dama</string>
-  <string name="castle">Roque (qualquer lado)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Roque (qualquer lado)</string>
   <string name="phoneticAlphabetIsBest">Alfabeto fonético é melhor</string>
   <string name="cancelTimerOrDenyARequest">Cancelar temporizador ou negar solicitação</string>
   <string name="playPreferredMoveOrConfirmSomething">Joga o movimento preferido ou confirma algo</string>

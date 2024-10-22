@@ -20,7 +20,6 @@ def index(
         Json.obj(
           "ui"              -> ui,
           "initialQuestion" -> question,
-          "i18n"            -> Json.obj(),
           "myUserId"        -> ctx.userId,
           "user" -> (lila.common.Json.lightUser.write(u.light) ++ Json.obj(
             "nbGames" -> insightUser.count,

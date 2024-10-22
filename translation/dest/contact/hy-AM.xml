@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Ինչո՞վ կարող ենք օգնել։</string>
   <string name="visitThisPage">Խնդիրը կարգավորելու համար այցելեք այս էջը</string>
   <string name="iCantLogIn">Չեմ կարողանում մտնել</string>
-  <string name="noConfirmationEmail">Չեմ ստանում հաստատումով նամակը</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Չեմ ստանում հաստատումով նամակը</string>
   <string name="forgotPassword">Մոռացել եմ գաղտնաբառը։</string>
   <string name="forgotUsername">Մոռացել եմ մասնակցային անունս</string>
   <string name="youCanLoginWithEmail">Դուք կարող եք մուտք գործել այն էլեկտրոնային հասցեի օգնությամբ, որով գրանցվել եք</string>

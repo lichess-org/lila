@@ -27,12 +27,14 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     val extraCls = tour.schedule.so: sched =>
       s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
     Page(s"${tour.name()} #${tour.id}")
+      .i18n(_.study, _.swiss)
+      .i18nOpt(tour.isTeamBattle, _.team)
+      .i18nOpt(tour.isTeamBattle, _.arena)
       .js(
         PageModule(
           "tournament",
           Json.obj(
             "data"        -> data,
-            "i18n"        -> ui.jsI18n(tour),
             "userId"      -> ctx.userId,
             "chat"        -> chat.map(_._2),
             "showRatings" -> ctx.pref.showRatings

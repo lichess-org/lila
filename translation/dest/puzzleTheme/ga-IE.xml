@@ -39,7 +39,7 @@
   <string name="deflection">Sraonadh</string>
   <string name="deflectionDescription">Beart a cureann mearú ar píosa do chomhraic chéile atá gnóthach ar post eile, mar shampla ag déanamh cosaint ar cearnóg. Uaireanta tugtar \"ró-ualú\" air fosta.</string>
   <string name="discoveredAttack">Ionsaí nochta</string>
-  <string name="discoveredAttackDescription">Ag bogadh píosa (ridire b\'fhéidir), a chuir bac ar ionsaí roimhe seo le píosa fadraoin (caiseal b\'fhéidir), as bealach an phíosa sin.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ag bogadh píosa (ridire b\'fhéidir), a chuir bac ar ionsaí roimhe seo le píosa fadraoin (caiseal b\'fhéidir), as bealach an phíosa sin.</string>
   <string name="doubleCheck">Sáinn faoi dhó</string>
   <string name="doubleCheckDescription">Ag sáiniú le dhá phíosa ag an am céanna, tar éis ionsaí nochta ina n-ionsaíonn an píosa gluaiseachta agus an píosa nochtaithe araon rí an chéile comhraic.</string>
   <string name="endgame">Cor deiridh</string>

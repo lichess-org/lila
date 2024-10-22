@@ -288,7 +288,7 @@ object Event:
           "white" -> white.toSeconds,
           "black" -> black.toSeconds
         )
-        .add("lag" -> nextLagComp.filter(_ > 1))
+        .add("lag" -> nextLagComp.filter(_ > Centis(1)))
   object Clock:
     def apply(clock: ChessClock): Clock =
       Clock(

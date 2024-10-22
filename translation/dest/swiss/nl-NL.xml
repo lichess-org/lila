@@ -27,7 +27,7 @@
     <item quantity="one">%s minuut tussen rondes</item>
     <item quantity="other">%s minuten tussen rondes</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Begint over</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Begint over</string>
   <string name="nextRound">Volgende ronde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Lopende partij</item>
@@ -68,7 +68,7 @@ Daarnaast wordt een enkele bye van een halve punt toegekend als een speler gaat 
 Vervolgens wordt de speler uit het toernooi gehaald, zodat deze niet meer partijen verliest.
  Op elk moment kan de speler opnieuw deelnemen aan het toernooi.</string>
   <string name="protectionAgainstNoShowQ">Wat gebeurt er als iemand niet komt opdagen?</string>
-  <string name="protectionAgainstNoShowA">Spelers die zich aanmelden voor een Zwitsers toernooi, maar vervolgens niet spelen kunnen een probleem zijn.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Spelers die zich aanmelden voor een Zwitsers toernooi, maar vervolgens niet spelen kunnen een probleem zijn.
 Om dit probleem te verhelpen verbiedt Lichess spelers die niet komen opdagen bij een partij om een nieuw Zwitsers evenement te starten, voor een bepaalde periode. De maker van een Zwitser evenement kan er voor kiezen om deze spelers alsnog te laten spelen.</string>
   <string name="lateJoinQ">Kunnen spelers nog meedoen als het toernooi al begonnen is?</string>
   <string name="lateJoinA">Ja, tot meer dan de helft van de rondes is begonnen; in een Zwitsers toernooi van 11 rondes bijvoorbeeld, kunnen spelers meedoen voordat ronde 6 begint en in een toernooi van 12 rondes voordat ronde 7 begint.

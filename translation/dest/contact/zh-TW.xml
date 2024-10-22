@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">有什麼我們能幫您的地方？</string>
   <string name="visitThisPage">觀看這個頁面以獲取解答</string>
   <string name="iCantLogIn">我無法登錄。</string>
-  <string name="noConfirmationEmail">我沒有收到我的電子郵件確認信</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">我沒有收到我的電子郵件確認信</string>
   <string name="forgotPassword">我忘記了密碼</string>
   <string name="forgotUsername">我忘了自己的用戶名</string>
   <string name="youCanLoginWithEmail">您可以使用之前註冊的電子郵件登入</string>

@@ -140,6 +140,7 @@
   <string name="outstanding">Искиткеч!</string>
   <string name="yesYesYes">Афәрин!</string>
   <string name="next">Киләсе</string>
+  <string name="nextX">Киләсе: %s</string>
   <string name="backToMenu">Минюга кайту</string>
   <string name="retry">Кабатла</string>
 </resources>

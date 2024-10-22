@@ -64,7 +64,7 @@ final class Cached(
 
   private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
     _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
-      userApi.byIdsSortRatingNoBot(onlineUserIds(), 50)
+      userApi.byIdsSortRatingNoBot(onlineUserIds.exec(), 50)
 
   def getTop50Online: Fu[List[UserWithPerfs]] = top50OnlineCache.getUnit
 

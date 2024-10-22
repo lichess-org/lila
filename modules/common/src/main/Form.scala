@@ -217,7 +217,7 @@ object Form:
     val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen.Full) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
-        if g.fullMoveNumber >= 150 then
+        if g.fullMoveNumber >= chess.FullMoveNumber(150) then
           Fen.write(g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100))) // keep the start ply low
         else fen
       }

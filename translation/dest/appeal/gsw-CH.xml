@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Dis Konto isch nöd markiert oder gschperrt. Alles isch OK!</string>
-  <string name="engineMarked">Dis Konto isch wäge externer Underschtützig bim Schpille markiert.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Dis Konto isch wäge externer Underschtützig bim Schpille markiert.</string>
   <string name="engineMarkedInfo">Mir definiered das als d\'Verwändig vu externer Hilf, zum dis Wüsse und/oder dini Kobinationsfähigkeit z\'verschtärche und en Vorteil gägenüber dim Gegner z\'erlange. Witeri Einzelheite findsch uf de Site %s.</string>
   <string name="arenaBanned">Dis Konto isch gschperrt für Spiel - Arenas.</string>
   <string name="prizeBanned">Dis Konto isch gschperrt, für Turnier mit ächte Prise.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Dis Konto isch schtumm g\'schaltet.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Lies euseri %s. D\'Nödihaltig vu de Kommunikationsrichtlinie chann dezue fühere, dass Konte schtumm g\'eschaltet werded.</string>
   <string name="excludedFromLeaderboards">Dis Konto isch vu de Beschtelischte usgschlosse.</string>
-  <string name="excludedFromLeaderboardsInfo">Mir definiered das als es Usnütze vu jegliche unfaire Methode, zum uf d\'Beschtelischte zcho.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Mir definiered das als es Usnütze vu jegliche unfaire Methode, zum uf d\'Beschtelischte zcho.</string>
   <string name="closedByModerators">Dis Konto isch vu de Moderatore g\'schlosse worde.</string>
   <string name="hiddenBlog">Dini Tagebüecher (Blogs) händ d\'Moderatore unsichtbar g\'macht.</string>
   <string name="hiddenBlogInfo">Lies unbedingt nomal euseri %s.</string>

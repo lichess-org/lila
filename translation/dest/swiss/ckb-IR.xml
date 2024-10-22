@@ -26,7 +26,7 @@
     <item quantity="one">%s دەقە لە نێوان خولەکاندا</item>
     <item quantity="other">%s دەقەکان لە نێوان خولەکاندا</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">دەستپێدەکات لە</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">دەستپێدەکات لە</string>
   <string name="nextRound">خولی دواتر</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">یاری بەردەوام</item>
@@ -68,7 +68,7 @@
 دواتر سیستەمەکە یاریزانەکە لە خولەکە دووردەخاتەوە بۆ ئەوەی یاری زیاتر نەدۆڕێنن.
 دواتر دەتوانن دوبارە بەژداری خولەکە بکەنەوە.</string>
   <string name="protectionAgainstNoShowQ">چی ڕوودەدات گەر یاریزانێک ئامادەنەبێت لەکاتی بەڕێوەچوونی خولەکەدا?</string>
-  <string name="protectionAgainstNoShowA">ئەو یاریزانانەی ناوی خۆیان تۆماردەکەن بۆ بەژداریکردن لە خولی سویسدا بەڵام ھیچکام لە یارییەکانیان ئەنجامنادەن دەبنە ھۆی درووستبوونی کێشە.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">ئەو یاریزانانەی ناوی خۆیان تۆماردەکەن بۆ بەژداریکردن لە خولی سویسدا بەڵام ھیچکام لە یارییەکانیان ئەنجامنادەن دەبنە ھۆی درووستبوونی کێشە.
 لەپێناو کەمکردنەوەی ئەم کێشەیەدا، لیچێس دوبارە ڕێگە بەو یاریزانانە نادات کە نەیانتوانیوە بەژداری ھیچکام لە یارییەکاندا بکەن دوبارە بەژداری لە خولێکی نوێدا بکەنەوە و ئەم سزایە بۆ ماوەیە دەسەپێنێت بەسەریاندا.
 ڕێکخەرە تایبەتەکانی خولی سویس دەتوانن خۆیان سەربەخۆیانە بڕیاری ئەوە بدەن کە بھێڵن ئەو یاریزانانە بەژداری خولەکانیان بکەن.</string>
   <string name="lateJoinQ">دەکرێت یاریزانەکان درەنگ بەژداری خولەکان بکەن؟</string>

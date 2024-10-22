@@ -31,8 +31,8 @@
   <string name="byOpenings">بەپێی دەستپێکەکان</string>
   <string name="puzzlesByOpenings">مەتەڵەکان بەپێی دەستپێک</string>
   <string name="openingsYouPlayedTheMost">ئەو کردنەوانەی زۆرترین یاریت پێکردوون لە یاریە ڕەیتیدەکان</string>
-  <string name="useFindInPage">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
-  <string name="useCtrlF">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">\"دۆزینەوە لە پەڕە\" دا بەکاربهێنە لە گەڕان بۆ دۆزینەوەی کردنەوەی دڵخوازت!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+f بەکاربهێنە بۆ دۆزینەوەی ئۆپنینگی دڵخوازت!</string>
   <string name="notTheMove">ئەوە جوڵەکە نییە!</string>
   <string name="trySomethingElse">شتێکی دیقە تاقی بکەرەوە.</string>
   <string name="ratingX">ئاست: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">هێزەکان</string>
   <string name="history">مێژووی مەتەڵ</string>
   <string name="solved">شیکارکراو</string>
-  <string name="failed">شکست</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">شکست</string>
   <string name="streakDescription">مەتەڵی قوڕستر شیکاربکە و زنجیرەیەک بردنەوە تۆماربکە. کات بوونی نییە، بۆیە کاتی خۆت وەرگرە و پەلەمەکە. یەک جوڵەی هەڵە دەبێتە کۆتایی یاریەکە! لەگەڵ ئەوەشدا دەتوانی جوڵەیەک تێبپەڕێنی لە زنجیرەیەکدا.</string>
   <string name="yourStreakX">نمرەکەت: %s</string>
   <string name="streakSkipExplanation">جوڵەکە بپەڕێنە بۆ پاراستنی نمرەکەت! تەنیا یەک جار بەکاردێت لە خولێکدا.</string>

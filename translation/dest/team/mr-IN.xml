@@ -11,7 +11,7 @@
   <string name="newTeam">नवीन संघ</string>
   <string name="myTeams">माझे  संघ</string>
   <string name="noTeamFound">कुठलाच संघ सापडला नाही</string>
-  <string name="joinTeam">संघात सहभागी व्हा</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">संघात सहभागी व्हा</string>
   <string name="onlyLeaderLeavesTeam">जाण्यापूर्वी कृपया नवीन संघ नेता निवडा किंवा संघ बंद करा.</string>
   <string name="quitTeam">संघातून बाहेर पडा</string>
   <string name="manuallyReviewAdmissionRequests">प्रवेश विनंत्यांचे स्वतः पुनरावलोकन करा</string>

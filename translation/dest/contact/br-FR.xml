@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Penaos e c\'hellomp ho sikour?</string>
   <string name="visitThisPage">Kit war ar pajenn-mañ da zirouestlañ ho kudenn</string>
   <string name="iCantLogIn">Ne c\'hallan ket kevreañ</string>
-  <string name="noConfirmationEmail">N\'em eus ket resevet postel ebet evit kadarnat</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">N\'em eus ket resevet postel ebet evit kadarnat</string>
   <string name="forgotPassword">Disoñjet em eus ma ger-tremen</string>
   <string name="forgotUsername">Disoñjet em eus ma anv-implijer</string>
   <string name="youCanLoginWithEmail">Gallout a rit kevreañ gant ar chomlec\'h postel arveret ganeoc\'h evit lakaat hoc\'h anv</string>

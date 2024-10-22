@@ -15,7 +15,6 @@ import { PuzFilters } from 'puz/filters';
 import { Role } from 'chessground/types';
 import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
 import { storage } from 'common/storage';
-import { trans } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
 export default class StormCtrl implements PuzCtrl {
@@ -25,7 +24,6 @@ export default class StormCtrl implements PuzCtrl {
   run: Run;
   vm: StormVm;
   filters: PuzFilters;
-  trans: Trans;
   promotion: PromotionCtrl;
   ground: Prop<CgApi | false> = prop<CgApi | false>(false);
   flipped = false;
@@ -35,7 +33,6 @@ export default class StormCtrl implements PuzCtrl {
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
     this.filters = new PuzFilters(this.redraw, false);
-    this.trans = trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,

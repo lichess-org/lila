@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Hesabınız işaretlenmemiş veya kısıtlanmamıştır. Her şey yolunda!</string>
-  <string name="engineMarked">Hesabınız oyunlarda dışarıdan yardım aldığınız için işaretlenmiştir.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Hesabınız oyunlarda dışarıdan yardım aldığınız için işaretlenmiştir.</string>
   <string name="engineMarkedInfo">Bunu, rakibinize karşı haksız bir avantaj elde etmek amacıyla bilginizi ve/veya hesaplama becerilerinizi güçlendirmek için her türlü dış yardımdan yararlanmak olarak tanımlıyoruz. Daha fazla ayrıntı için %s sayfasına bakın.</string>
   <string name="arenaBanned">Hesabınızla arena turnuvalarına katılmanız yasaklanmıştır.</string>
   <string name="prizeBanned">Hesabınızla gerçek ödüllü turnuvalara katılmanız yasaklanmıştır.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Hesabınız sessize alınmıştır.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">%s bölümümüzü okuyun. İletişim kurallarına uyulmaması hesapların sessize alınmasına neden olabilir.</string>
   <string name="excludedFromLeaderboards">Hesabınız lider panolarından çıkarılmıştır.</string>
-  <string name="excludedFromLeaderboardsInfo">Bunu, liderlik panosuna çıkmak için adil olmayan bir yol kullanmak olarak tanımlıyoruz.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Bunu, liderlik panosuna çıkmak için adil olmayan bir yol kullanmak olarak tanımlıyoruz.</string>
   <string name="closedByModerators">Hesabınız moderatörler tarafından kapatılmıştır.</string>
   <string name="hiddenBlog">Bloglarınız moderatörler tarafından görünmeze alınmıştır.</string>
   <string name="hiddenBlogInfo">%s bölümümüzü tekrar okuduğunuzdan emin olun.</string>

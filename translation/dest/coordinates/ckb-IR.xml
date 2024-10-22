@@ -4,7 +4,7 @@
   <string name="coordinateTraining">ڕاهێنانی ناوی خانەکان</string>
   <string name="averageScoreAsWhiteX">تێکڕای نمرە وەک سپی: %s</string>
   <string name="averageScoreAsBlackX">تێکڕای نمرە وەک ڕەش: %s</string>
-  <string name="knowingTheChessBoard">زانینی ناوی خانەکانی تەختەی شەترەنج کارامەیییەکی زۆر گرنگی شەترەنجە:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">زانینی ناوی خانەکانی تەختەی شەترەنج کارامەیییەکی زۆر گرنگی شەترەنجە:</string>
   <string name="mostChessCourses">زۆربەی خول و ڕاهێنانەکانی شەترەنج بە شێوەیەکی بەرفراوان نووسینی جەبری بەکاردەهێنن.</string>
   <string name="talkToYourChessFriends">قسەکردن لەگەڵ هاوڕێ شەترەنجەکانت ئاسانتر دەکات، بەو پێیەی هەردووکتان لە \'زمانی شەترەنج\' تێدەگەن.</string>
   <string name="youCanAnalyseAGameMoreEffectively">دەتوانیت یارییەک بە شێوەیەکی کاریگەرتر شی بکەیتەوە ئەگەر بتوانیت بە خێرایی ناوی خانەکان بناسیتەوە.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">30 چرکەت هەیە بۆ ئەوەی زۆرترین چوارگۆشە بە دروستی بزانیت!</string>
   <string name="goAsLongAsYouWant">تا ئەو کاتەی دەتەوێت بڕۆ، هیچ سنوورێکی کاتیی نییە!</string>
   <string name="showCoordinates">ناوی خانەکان پیشان بدە</string>
-  <string name="showCoordsOnAllSquares">رێکخستن لەسەر هەموو چوارگۆشەیەک دەکات</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">رێکخستن لەسەر هەموو چوارگۆشەیەک دەکات</string>
   <string name="showPieces">پیشاندانی پارچە</string>
   <string name="startTraining">دەست بە ڕاهێنان بکە</string>
   <string name="findSquare">چوارگۆشەکە بدۆزەوە</string>

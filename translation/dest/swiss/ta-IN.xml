@@ -26,7 +26,7 @@
     <item quantity="one">சுற்றுகளுக்கு இடையே %s நிமிடம்</item>
     <item quantity="other">சுற்றுகளுக்கு இடையே %s நிமிடங்கள்</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">இல் தொடங்குகிறது</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">இல் தொடங்குகிறது</string>
   <string name="nextRound">அடுத்த சுற்று</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">நடந்துகொண்டிருக்கும் விளையாட்டு</item>
@@ -68,7 +68,7 @@
 பின்னர் போட்டி அமைப்பிலிருந்து வீரர் வெளியேற்றப்படுவார், அதனால் அவர்கள் அதிக விளையாட்டுகளை இழக்க மாட்டார்கள்.
  அவர்கள் எந்த நேரத்திலும் போட்டியில் மீண்டும் சேரலாம்.</string>
   <string name="protectionAgainstNoShowQ">நிகழ்ச்சிகள் இல்லாதது தொடர்பாக என்ன செய்யப்படுகிறது?</string>
-  <string name="protectionAgainstNoShowA">சுவிஸ் நிகழ்வுகளுக்கு பதிவு செய்யும் வீரர்கள் ஆனால் தங்கள் ஆட்டங்களை விளையாடாதவர்கள் சிக்கலாக இருக்கலாம்.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">சுவிஸ் நிகழ்வுகளுக்கு பதிவு செய்யும் வீரர்கள் ஆனால் தங்கள் ஆட்டங்களை விளையாடாதவர்கள் சிக்கலாக இருக்கலாம்.
 இந்தச் சிக்கலைத் தணிக்க, ஒரு ஆட்டத்தை விளையாடத் தவறிய வீரர்களை ஒரு குறிப்பிட்ட நேரத்திற்கு புதிய சுவிஸ் நிகழ்வில் சேர்வதை லிசெஸ் தடுக்கும்.
 சுவிஸ் நிகழ்வை உருவாக்கியவர் அவர்களை எப்படியும் நிகழ்வில் சேர அனுமதிக்கலாம்.</string>
   <string name="lateJoinQ">வீரர்கள் தாமதமாகச் சேர முடியுமா?</string>

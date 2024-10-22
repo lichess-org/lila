@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinatlar məşğələsi</string>
   <string name="averageScoreAsWhiteX">Ağlar qismində orta xal: %s</string>
   <string name="averageScoreAsBlackX">Qaralar qismində orta xal: %s</string>
-  <string name="knowingTheChessBoard">Şahmat lövhəsinin koordinatlarını bilmək çox önəmlidir:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Şahmat lövhəsinin koordinatlarını bilmək çox önəmlidir:</string>
   <string name="mostChessCourses">Bir çox şahmat dərs və məşğələlərində cəbri notasiyadan istifadə edilir.</string>
   <string name="talkToYourChessFriends">Hər ikiniz \"şahmat dilini\" bildikdə dostunla şahmat haqqında danışmaq asanlaşır.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Xanaların adını bildikdə oyunu daha tez təhlil etdə bilərsən.</string>

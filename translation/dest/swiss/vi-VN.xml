@@ -21,7 +21,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">%s phút giữa các vòng đấu</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Bắt đầu trong</string>
   <string name="nextRound">Vòng đấu tiếp theo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">Ván đấu đang diễn ra</item>
@@ -72,7 +72,7 @@ Ngoài ra, 0.5 điểm \"miễn\" cộng một lần duy nhất sẽ được c�
 Sau đó, hệ thống sẽ tự động rút họ khỏi giải đấu để tránh thua thêm những ván khác.
  Họ có thể tham gia lại bất cứ lúc nào.</string>
   <string name="protectionAgainstNoShowQ">Những gì được thực hiện liên quan đến vắng mặt?</string>
-  <string name="protectionAgainstNoShowA">Người chơi đăng ký các sự kiện của giải hệ Thụy Sĩ nhưng không chơi ván của họ có thể gặp vấn đề.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Người chơi đăng ký các sự kiện của giải hệ Thụy Sĩ nhưng không chơi ván của họ có thể gặp vấn đề.
 Để giải quyết vấn đề này, Lichess ngăn những người chơi không chơi được ván đấu tham gia một sự kiện hệ Thụy Sĩ mới trong một khoảng thời gian nhất định.
 Người tạo ở sự kiện hệ Thụy Sĩ vẫn có thể quyết định cho phép họ tham gia sự kiện đó.</string>
   <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>

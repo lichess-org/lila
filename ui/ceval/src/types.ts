@@ -134,7 +134,6 @@ export interface ParentCtrl {
   restartCeval: () => void;
   redraw?: () => void;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  trans: Trans;
 }
 
 export interface NodeEvals {

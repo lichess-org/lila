@@ -73,7 +73,7 @@ final class User(
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(using Context): Fu[Result] =
     if HTTPRequest.isSynchronousHttp(ctx.req)
     then
-      userShowRateLimit(rateLimited, cost = if env.socket.isOnline(u.id) then 2 else 3):
+      userShowRateLimit(rateLimited, cost = if env.socket.isOnline.exec(u.id) then 2 else 3):
         for
           as     <- env.activity.read.recentAndPreload(u)
           nbs    <- env.userNbGames(u, withCrosstable = false)
@@ -177,7 +177,7 @@ final class User(
               ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
-              val ping          = env.socket.isOnline(user.id).so(env.socket.getLagRating(user.id))
+              val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
               val isUserPlaying = ctx.userId.so(env.round.playing(_))
               negotiate(
                 html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
@@ -610,7 +610,7 @@ final class User(
                     "result" -> JsArray(users.collect { case Some(u) =>
                       lila.common.Json.lightUser
                         .write(u)
-                        .add("online" -> env.socket.isOnline(u.id))
+                        .add("online" -> env.socket.isOnline.exec(u.id))
                     })
             else fuccess(Json.toJson(userIds))
           }.map(JsonOk)

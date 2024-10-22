@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Millega saame sind aidata?</string>
   <string name="visitThisPage">Külasta seda lehekülge, et probleem lahendada</string>
   <string name="iCantLogIn">Ma ei saa sisse logida</string>
-  <string name="noConfirmationEmail">Ma ei saanud kinnitust e-mailile</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ma ei saanud kinnitust e-mailile</string>
   <string name="forgotPassword">Ma unustasin oma parooli</string>
   <string name="forgotUsername">Ma unustasin oma kasutajanime</string>
   <string name="youCanLoginWithEmail">Võid logida sisse sama e-mailiga, millega registreerusid kasutajaks</string>

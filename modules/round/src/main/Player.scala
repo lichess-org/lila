@@ -86,7 +86,7 @@ final private class Player(
         moveOrDrop.move.foreach { move =>
           round ! ForecastPlay(move)
         }
-      scheduleExpiration(progress.game)
+      scheduleExpiration.exec(progress.game)
       fuccess(progress.events)
 
   private[round] def fishnet(game: Game, sign: String, uci: Uci)(using proxy: GameProxy): Fu[Events] =

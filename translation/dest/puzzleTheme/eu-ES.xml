@@ -39,7 +39,7 @@
   <string name="deflection">Desbideraketa</string>
   <string name="deflectionDescription">Aurkariaren pieza berezkoa duen betebehar batetik desbideratzea, adibidez lauki bat babestetik. Batzuetan \"gainkarga\" ere deitzen zaio.</string>
   <string name="discoveredAttack">Ageriko erasoa</string>
-  <string name="discoveredAttackDescription">Beste pieza baten erasoa blokeatzen duen pieza bat mugitzea.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Beste pieza baten erasoa blokeatzen duen pieza bat mugitzea.</string>
   <string name="doubleCheck">Xake bikoitza</string>
   <string name="doubleCheckDescription">Bi piezarekin batera xake egitea, ageriko eraso baten ondorioz, mugitutako eta ezkutuan zegoen piezak aurkariaren erregea erasotuz.</string>
   <string name="endgame">Partida-bukaera</string>

@@ -75,11 +75,11 @@ final class UserBits(helpers: Helpers):
       .collect:
         case (perf, rank) if rank == 1 =>
           span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
-            img(src := assetUrl("images/trophy/Big-Gold-Cup.png"))
+            img(src := assetUrl("images/trophy/gold-cup-2.png"))
           )
         case (perf, rank) if rank <= 10 =>
           span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
-            img(src := assetUrl("images/trophy/Big-Silver-Cup.png"))
+            img(src := assetUrl("images/trophy/silver-cup-2.png"))
           )
         case (perf, rank) if rank <= 50 =>
           span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(

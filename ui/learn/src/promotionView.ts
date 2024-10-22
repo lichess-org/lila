@@ -42,16 +42,16 @@ export function promotionView(ctrl: RunCtrl) {
           h('piece.' + role + '.' + color),
         ),
       ),
-      explain ? renderExplanation(ctrl) : null,
+      explain ? renderExplanation() : null,
     ],
   );
 }
 
-function renderExplanation(ctrl: RunCtrl) {
+function renderExplanation() {
   return h('div.explanation', [
-    h('h2', ctrl.trans.noarg('pawnPromotion')),
-    h('p', ctrl.trans.noarg('yourPawnReachedTheEndOfTheBoard')),
-    h('p', ctrl.trans.noarg('itNowPromotesToAStrongerPiece')),
-    h('p', ctrl.trans.noarg('selectThePieceYouWant')),
+    h('h2', i18n.learn.pawnPromotion),
+    h('p', i18n.learn.yourPawnReachedTheEndOfTheBoard),
+    h('p', i18n.learn.itNowPromotesToAStrongerPiece),
+    h('p', i18n.learn.selectThePieceYouWant),
   ]);
 }

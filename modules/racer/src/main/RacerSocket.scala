@@ -13,7 +13,7 @@ final private class RacerSocket(
 
   import RacerSocket.*
 
-  def publishState(race: RacerRace): Unit = send:
+  def publishState(race: RacerRace): Unit = send.exec:
     Protocol.Out.publishState(race.id, json.state(race))
 
   private lazy val send: SocketSend = socketKit.send("racer-out")

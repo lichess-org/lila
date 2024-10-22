@@ -39,7 +39,7 @@
   <string name="deflection">Desviación</string>
   <string name="deflectionDescription">Un movemento que distrae unha peza rival dunha tarefa que desempeña, como a protección dunha casa chave. Ás veces denomínase \"sobrecarga\".</string>
   <string name="discoveredAttack">Ataque descuberto</string>
-  <string name="discoveredAttackDescription">Apartar unha peza que previamente bloqueaba o ataque doutra peza de longo alcance (por exemplo un cabalo fóra do camiño dunha torre).</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Apartar unha peza (por exemplo un cabalo) que previamente bloqueaba o ataque doutra peza de longo alcance (por exemplo unha torre).</string>
   <string name="doubleCheck">Xaque dobre</string>
   <string name="doubleCheckDescription">Xaque con dúas pezas á vez, como resultado dun ataque descuberto onde tanto a peza en movemento como a desvelada atacan ao rei do opoñente.</string>
   <string name="endgame">Final</string>

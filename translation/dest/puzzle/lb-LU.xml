@@ -31,8 +31,8 @@
   <string name="byOpenings">No Erëffnungen</string>
   <string name="puzzlesByOpenings">Aufgaben no Erëffnungen</string>
   <string name="openingsYouPlayedTheMost">Erëffnungen, déi s du am meeschten an gewäertene Partie gespillt hues</string>
-  <string name="useFindInPage">Benotz \"Suche in Seite\" an dengem Browser fir deng Lieblingseröffnung ze fannen!</string>
-  <string name="useCtrlF">Benotz Strg+F fir deng Lieblingserëffnung ze fannen!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Benotz \"Suche in Seite\" an dengem Browser fir deng Lieblingseröffnung ze fannen!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Benotz Strg+F fir deng Lieblingserëffnung ze fannen!</string>
   <string name="notTheMove">Dat ass net den Zuch!</string>
   <string name="trySomethingElse">Probéier eppes aneres.</string>
   <string name="ratingX">Wäertung: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Stäerkten</string>
   <string name="history">Aufgabeverlaf</string>
   <string name="solved">geléist</string>
-  <string name="failed">feelgeschloen</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">feelgeschloen</string>
   <string name="streakDescription">Léis Aufgabe déi méi schwéier ginn a bau eng Erfollegsserie op. Et gëtt keng Auer, also huel dir Zäit. Ee falsche Zuch an et ass eriwwer! Mee du kanns een Zuch pro Laf iwwersprangen.</string>
   <string name="yourStreakX">Deng Erfollegsserie: %s</string>
   <string name="streakSkipExplanation">Iwwersprang dëse Zuch fir deng Erfollegsserie ze erhalen! Dës kanns du nëmmen ee Mol pro Laf maachen.</string>

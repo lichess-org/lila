@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Əlavə edilmə tarixi (köhnədən yeniyə)</string>
   <string name="recentlyUpdated">Ən son yenilənən</string>
   <string name="mostPopular">Ən məşhur</string>
-  <string name="alphabetical">Əlifbaya görə</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Əlifbaya görə</string>
   <string name="addNewChapter">Yeni bir fəsil əlavə et</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Fəsil</item>
@@ -64,7 +64,7 @@
   <string name="downloadGame">Oyunu endir</string>
   <string name="studyUrl">Çalışma URL-i</string>
   <string name="currentChapterUrl">Cari fəsil URL-ii</string>
-  <string name="youCanPasteThisInTheForumToEmbed">Pərçimləmək üçün bunu forumda paylaşa bilərsiniz</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Pərçimləmək üçün bunu forumda paylaşa bilərsiniz</string>
   <string name="startAtInitialPosition">Başlanğıc pozisiyada başlasın</string>
   <string name="startAtX">buradan başla: %s</string>
   <string name="embedInYourWebsite">Veb sayt və ya bloqunuzda pərçimləyin</string>
@@ -93,9 +93,9 @@
   <string name="startFromInitialPosition">Başlanğıc pozisiyadan başlasın</string>
   <string name="editor">Redaktor</string>
   <string name="startFromCustomPosition">Özəl pozisiyadan başlasın</string>
-  <string name="loadAGameByUrl">URL ilə oyun yüklə</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">URL ilə oyun yüklə</string>
   <string name="loadAPositionFromFen">FEN ilə pozisiya yüklə</string>
-  <string name="loadAGameFromPgn">PGN ilə oyun yüklə</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN ilə oyun yüklə</string>
   <string name="automatic">Avtomatik</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">PGN mətninizi bura yapışdırın, ən çox %s oyuna qədər</item>

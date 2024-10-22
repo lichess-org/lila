@@ -6,14 +6,12 @@ import { LearnCtrl } from './ctrl';
 
 export class SideCtrl {
   opts: LearnOpts;
-  trans: Trans;
   data: LearnProgress;
 
   categId: Prop<number>;
 
   constructor(ctrl: LearnCtrl, opts: LearnOpts) {
     this.opts = opts;
-    this.trans = ctrl.trans;
     this.data = ctrl.data;
 
     this.categId = propWithEffect(this.getCategIdFromStageId() ?? 0, ctrl.redraw);

@@ -41,7 +41,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         attrs: { type: 'submit', 'data-icon': licon.StudyBoard, disabled: !state.legalFen },
         class: { button: true, 'button-empty': true, text: true, disabled: !state.legalFen },
       },
-      ctrl.trans.noarg('toStudy'),
+      i18n.site.toStudy,
     ),
   ]);
 }
@@ -50,7 +50,7 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
     { attrs: { value: key, selected: key == ctrl.rules } },
-    `${ctrl.trans.noarg('variant')} | ${name}`,
+    `${i18n.site.variant} | ${name}`,
   );
 }
 
@@ -74,13 +74,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     h(
       `a.button.button-empty${icon ? '.text' : ''}`,
       { on: { click: ctrl.startPosition }, attrs: icon ? dataIcon(icon) : {} },
-      ctrl.trans.noarg('startPosition'),
+      i18n.site.startPosition,
     );
   const buttonClear = (icon?: string) =>
     h(
       `a.button.button-empty${icon ? '.text' : ''}`,
       { on: { click: ctrl.clearBoard }, attrs: icon ? dataIcon(icon) : {} },
-      ctrl.trans.noarg('clearBoard'),
+      i18n.site.clearBoard,
     );
 
   return h('div.board-editor__tools', [
@@ -97,25 +97,25 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             },
             props: { value: ctrl.turn },
           },
-          ['whitePlays', 'blackPlays'].map(function (key) {
+          (['whitePlays', 'blackPlays'] as const).map(function (key) {
             return h(
               'option',
               {
                 attrs: { value: key[0] === 'w' ? 'white' : 'black', selected: key[0] === ctrl.turn[0] },
               },
-              ctrl.trans(key),
+              i18n.site[key],
             );
           }),
         ),
       ),
       h('div.castling', [
-        h('strong', ctrl.trans.noarg('castling')),
+        h('strong', i18n.site.castling),
         h('div', [
-          castleCheckBox(ctrl, 'K', ctrl.trans.noarg('whiteCastlingKingside'), !!ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'K', i18n.site.whiteCastlingKingside, !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'Q', 'O-O-O', true),
         ]),
         h('div', [
-          castleCheckBox(ctrl, 'k', ctrl.trans.noarg('blackCastlingKingside'), !!ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'k', i18n.site.blackCastlingKingside, !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'q', 'O-O-O', true),
         ]),
       ]),
@@ -181,12 +181,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
               },
               [
-                h('option', { attrs: { value: '' } }, ctrl.trans.noarg('setTheBoard')),
-                optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(positionOption)),
-                optgroup(
-                  ctrl.trans.noarg('endgamePositions'),
-                  ctrl.cfg.endgamePositions.map(endgamePosition2option),
-                ),
+                h('option', { attrs: { value: '' } }, i18n.site.setTheBoard),
+                optgroup(i18n.site.popularOpenings, ctrl.cfg.positions.map(positionOption)),
+                optgroup(i18n.site.endgamePositions, ctrl.cfg.endgamePositions.map(endgamePosition2option)),
               ],
             );
           })(),
@@ -222,7 +219,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              ctrl.trans.noarg('flipBoard'),
+              i18n.site.flipBoard,
             ),
             h(
               'a',
@@ -241,7 +238,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   disabled: !state.legalFen,
                 },
               },
-              ctrl.trans.noarg('analysis'),
+              i18n.site.analysis,
             ),
             h(
               'button',
@@ -253,13 +250,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [
-                h(
-                  'span.text',
-                  { attrs: { 'data-icon': licon.Swords } },
-                  ctrl.trans.noarg('continueFromHere'),
-                ),
-              ],
+              [h('span.text', { attrs: { 'data-icon': licon.Swords } }, i18n.site.continueFromHere)],
             ),
             studyButton(ctrl, state),
           ]),
@@ -267,12 +258,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#ai', rel: 'nofollow' } },
-              ctrl.trans.noarg('playWithTheMachine'),
+              i18n.site.playWithTheMachine,
             ),
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#friend', rel: 'nofollow' } },
-              ctrl.trans.noarg('playWithAFriend'),
+              i18n.site.playWithAFriend,
             ),
           ]),
         ]),
@@ -363,7 +354,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
             mousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
             touchstart: onSelectSparePiece(ctrl, s, 'touchend'),
             touchmove: e => {
-              lastTouchMovePos = eventPosition(e as any);
+              lastTouchMovePos = eventPosition(e);
             },
           },
         },

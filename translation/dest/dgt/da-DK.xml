@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Krav til DGT-bræt</string>
   <string name="dgtBoardLimitations">DGT-bræt begrænsninger</string>
   <string name="thisPageAllowsConnectingDgtBoard">Denne side giver dig mulighed for at forbinde dit DGT-bræt til Lichess og bruge det til at spille partier.</string>
-  <string name="toConnectTheDgtBoard">For at oprette forbindelse til DGT Electronic Board skal du installere %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">For at oprette forbindelse til DGT Electronic Board skal du installere %s.</string>
   <string name="downloadHere">Du kan downloade softwaren her: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Hvis %1$s kører på denne computer, kan du tjekke din forbindelse til den ved at %2$s.</string>
   <string name="openingThisLink">åbne dette link</string>

@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinata ekzerco</string>
   <string name="averageScoreAsWhiteX">Meznombra poentaro por blanka: %s</string>
   <string name="averageScoreAsBlackX">Meznombra poentaro por nigra: %s</string>
-  <string name="knowingTheChessBoard">Scii la koordinatojn de ŝako estas tre grava ŝako:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Scii la koordinatojn de ŝako estas tre grava ŝako:</string>
   <string name="mostChessCourses">Plej multaj ŝako-kursoj kaj ekzercoj uzas la algebra notacio vaste.</string>
   <string name="talkToYourChessFriends">Estas pli facile paroli kun viaj ŝakaj amikoj, ĉar vi ambaŭ komprenas la \"lingvon de ŝako\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Vi povas analizi ludon pli efike se vi ne bezonas serĉi kvadratajn nomojn.</string>

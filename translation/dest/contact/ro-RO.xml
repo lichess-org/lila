@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Cu ce te putem ajuta?</string>
   <string name="visitThisPage">Vizitați această pagină pentru a rezolva problema</string>
   <string name="iCantLogIn">Nu mă pot conecta</string>
-  <string name="noConfirmationEmail">Nu am primit e-mail-ul de confirmare</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Nu am primit e-mail-ul de confirmare</string>
   <string name="forgotPassword">Mi-am uitat parola</string>
   <string name="forgotUsername">Mi-am uitat numele de utilizator</string>
   <string name="youCanLoginWithEmail">Te poți autentifica cu adresa de e-mail cu care te-ai înregistrat</string>

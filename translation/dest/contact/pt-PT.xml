@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Como te podemos ajudar?</string>
   <string name="visitThisPage">Visita esta página para resolveres o problema</string>
   <string name="iCantLogIn">Não consigo iniciar sessão</string>
-  <string name="noConfirmationEmail">Não recebi a minha confirmação de e-mail</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Não recebi a minha confirmação de e-mail</string>
   <string name="forgotPassword">Esqueci-me da minha palavra-passe</string>
   <string name="forgotUsername">Esqueci-me do meu nome de utilizador</string>
   <string name="youCanLoginWithEmail">Podes iniciar sessão com o endereço de e-mail com que te registaste</string>
