@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Op til 64 Lichess parti-ID\'er, adskilt af mellemrum.</string>
   <string name="startDateTimeZone">Startdato i turneringens lokale tidszone: %s</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
-  <string name="credits">Krediter kilden</string>
   <string name="currentGameUrl">Nuværende parti URL</string>
   <string name="downloadAllRounds">Download alle runder</string>
   <string name="resetRound">Nulstil denne runde</string>
