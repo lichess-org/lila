@@ -66,7 +66,7 @@
   <string name="webmastersPage">páxina do administrador web</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Unha fonte dos PGN pública e en tempo real para esta rolda. Tamén ofrecemos unha %s para unha sincronización máis rápida e eficiente.</string>
   <string name="embedThisBroadcast">Incrustar esta emisión na túa páxina web</string>
-  <string name="embedThisRound">Incrustar %s na túa páxina web</string>
+  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Incrustar a %s na túa páxina web</string>
   <string name="ratingDiff">Diferenza de puntuación</string>
   <string name="gamesThisTournament">Partidas neste torneo</string>
   <string name="score">Resultado</string>
