@@ -25,7 +25,6 @@
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
-  <string name="credits">Αναφέρετε την πηγή</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
   <string name="resetRound">Επαναφορά αυτού του γύρου</string>
