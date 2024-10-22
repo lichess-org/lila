@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Até 64 IDs de partidas do Lichess, separados por espaços.</string>
   <string name="startDateTimeZone">Data de início no horário local do torneio: %s</string>
   <string name="startDateHelp">Opcional, se você sabe quando o evento começa</string>
-  <string name="credits">Crédito a fonte</string>
   <string name="currentGameUrl">URL da partida atual</string>
   <string name="downloadAllRounds">Baixar todas as rodadas</string>
   <string name="resetRound">Reiniciar esta rodada</string>
