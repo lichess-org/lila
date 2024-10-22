@@ -198,11 +198,11 @@ const share = (ctx: RelayViewContext) => {
         `${ctx.relay.roundPath()}.pgn`,
         h(
           'div.form-help',
-          i18n.broadcast.streamingApiInfo.asArray(
+          i18n.broadcast.pgnSourceHelp.asArray(
             h(
               'a',
-              { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-              i18n.broadcast.streamingApi,
+              { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+              'streaming API',
             ),
           ),
         ),

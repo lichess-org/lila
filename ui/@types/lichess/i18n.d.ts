@@ -303,6 +303,8 @@ interface I18n {
     openLichess: string;
     /** Overview */
     overview: string;
+    /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
+    pgnSourceHelp: I18nFormat;
     /** the previous round */
     previousRound: string;
     /** Rating diff */
@@ -337,10 +339,6 @@ interface I18n {
     startsAfter: I18nFormat;
     /** The broadcast will start very soon. */
     startVerySoon: string;
-    /** streaming API */
-    streamingApi: string;
-    /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
-    streamingApiInfo: I18nFormat;
     /** Subscribed broadcasts */
     subscribedBroadcasts: string;
     /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
