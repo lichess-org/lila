@@ -31,7 +31,6 @@
   <string name="sourceGameIds">До 64 идентификаторов (ID) игр Lichess, разделённых пробелами.</string>
   <string name="startDateTimeZone">Дата начала турнира в местном часовом поясе: %s</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
-  <string name="credits">Признательность</string>
   <string name="currentGameUrl">URL-адрес текущей партии</string>
   <string name="downloadAllRounds">Скачать все туры</string>
   <string name="resetRound">Сбросить тур</string>
