@@ -28,7 +28,6 @@
   <string name="sourceGameIds">Tot 64 Lichess partij-ID\'\'s, gescheiden door spaties.</string>
   <string name="startDateTimeZone">Startdatum in de lokale tijdzone van het tornooi: %s</string>
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
-  <string name="credits">Bronvermelding</string>
   <string name="currentGameUrl">Huidige partij-link</string>
   <string name="downloadAllRounds">Alle rondes downloaden</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
