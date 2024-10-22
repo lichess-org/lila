@@ -306,9 +306,9 @@ final private class RoundAsyncActor(
         publish:
           rematcher.redirectEvents(newGame)
 
-    case Moretime(playerId, duration) =>
+    case Moretime(playerId, duration, force) =>
       handle(playerId): pov =>
-        moretimer(pov, duration).flatMapz: progress =>
+        moretimer(pov, duration, force).flatMapz: progress =>
           proxy.save(progress).inject(progress.events)
 
     case ForecastPlay(lastMove) =>
