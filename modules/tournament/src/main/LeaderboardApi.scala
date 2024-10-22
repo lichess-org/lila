@@ -10,7 +10,6 @@ import lila.core.chess.Rank
 import lila.core.perf.PerfId
 import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
-import lila.core.tournament.Status
 
 final class LeaderboardApi(
     val repo: LeaderboardRepo,
@@ -21,7 +20,7 @@ final class LeaderboardApi(
   import LeaderboardApi.*
   import BSONHandlers.given
 
-  private val maxPerPage = MaxPerPage(15)
+  private val maxPerPage = MaxPerPage(20)
 
   def recentByUser(user: User, page: Int) = paginator(user, page, sortBest = false)
 
@@ -61,34 +60,18 @@ final class LeaderboardApi(
               }
             .sortLike(lila.rating.PerfType.leaderboardable, _._1)
 
-  def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] =
-    repo.coll
-      .list[Entry](
-        $doc(
-          "u" -> userId,
-          "d".$gt(since)
-        )
-      )
-      .flatMap { entries =>
-        (entries.nonEmpty
-          .so(repo.coll.delete.one($inIds(entries.map(_.id))).void))
-          .inject(entries.map(_.tourId))
-      }
+  def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
+    entries <- repo.coll.list[Entry]($doc("u" -> userId, "d".$gt(since)))
+    _ <- entries.nonEmpty.so:
+      repo.coll.delete.one($inIds(entries.map(_.id))).void
+  yield entries.map(_.tourId)
 
-  def byPlayerStream(
-      user: User,
-      status: List[Status],
-      perSecond: MaxPerSecond,
-      nb: Int
-  ): Source[TourEntry, ?] =
+  def byPlayerStream(user: User, perSecond: MaxPerSecond, nb: Int): Source[TourEntry, ?] =
     repo.coll
-      .aggregateWith[Bdoc](): framework =>
-        import framework.*
-        val sort = framework.Descending("d")
-        aggregateByPlayer(user, framework, sort, nb, offset = 0).toList
+      .aggregateWith[Bdoc](): fw =>
+        aggregateByPlayer(user, fw, fw.Descending("d"), nb, offset = 0).toList
       .documentSource()
-      .mapConcat: doc =>
-        doc.getAsOpt[Tournament]("tour").toList
+      .mapConcat(readTourEntry)
 
   private def aggregateByPlayer(
       user: User,
@@ -128,11 +111,10 @@ final class LeaderboardApi(
               val sort = if sortBest then framework.Ascending("w") else framework.Descending("d")
               val pipe = aggregateByPlayer(user, framework, sort, length, offset)
               pipe.head -> pipe.tail
-            .map(readTourEntries)
+            .map(_.flatMap(readTourEntry))
     )
 
-  private def readTourEntries(docs: List[Bdoc]): List[TourEntry] = for
-    doc   <- docs
+  private def readTourEntry(doc: Bdoc): Option[TourEntry] = for
     entry <- doc.asOpt[Entry]
     tour  <- doc.getAsOpt[Tournament]("tour")
   yield TourEntry(tour, entry)
