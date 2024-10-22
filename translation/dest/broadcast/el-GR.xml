@@ -41,4 +41,15 @@
   <string name="federation">Ομοσπονδία</string>
   <string name="ageThisYear">Φετινή ηλικία</string>
   <string name="recentTournaments">Πρόσφατα τουρνουά</string>
+  <string name="openLichess">Άνοιγμα στο Lichess</string>
+  <string name="teams">Ομάδες</string>
+  <string name="boards">Σκακιέρες</string>
+  <string name="overview">Επισκόπηση</string>
+  <string name="uploadImage">Ανεβάστε εικόνα τουρνουά</string>
+  <string name="startsAfter">Ξεκινάει μετά από %s</string>
+  <string name="officialWebsite">Επίσημη ιστοσελίδα</string>
+  <string name="standings">Κατάταξη</string>
+  <string name="ratingDiff">Διαφορά βαθμολογίας</string>
+  <string name="gamesThisTournament">Παρτίδες σε αυτό το τουρνουά</string>
+  <string name="score">Βαθμολογία</string>
 </resources>
