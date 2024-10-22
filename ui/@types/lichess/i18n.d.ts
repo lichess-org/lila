@@ -232,7 +232,7 @@ interface I18n {
     /** Boards */
     boards: string;
     /** Boards can be loaded with a source or via the %s */
-    boardsCanLoaded: I18nFormat;
+    boardsCanBeLoaded: I18nFormat;
     /** Broadcast calendar */
     broadcastCalendar: string;
     /** Broadcasts */

@@ -56,7 +56,7 @@
   <string name="subscribeTitle">Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences.</string>
   <string name="uploadImage">Upload tournament image</string>
   <string name="noBoardsYet">No boards yet. These will appear once games are uploaded.</string>
-  <string name="boardsCanLoaded" comment="%s is 'Broadcaster App'">Boards can be loaded with a source or via the %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Boards can be loaded with a source or via the %s</string>
   <string name="startsAfter">Starts after %s</string>
   <string name="previousRound">the previous round</string>
   <string name="startVerySoon">The broadcast will start very soon.</string>

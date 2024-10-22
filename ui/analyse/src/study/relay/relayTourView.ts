@@ -332,7 +332,7 @@ const games = (ctx: RelayViewContext) => [
           ctx.study.members.myMember() &&
             h(
               'small',
-              i18n.broadcast.boardsCanLoaded.asArray(
+              i18n.broadcast.boardsCanBeLoaded.asArray(
                 h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
               ),
             ),
