@@ -60,25 +60,24 @@ Luani shpejt dhe kthehuni në holl, që të luani më shumë lojëra dhe të fit
   <string name="myTournaments">Turnetë e mia</string>
   <string name="editTournament">Përpunoni turne</string>
   <string name="editTeamBattle">Përpunoni ndeshje ekipesh</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Mbrojtës</string>
+  <string name="defender">Mbrojtës</string>
   <string name="pickYourTeam">Zgjidhni ekipin tuaj</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Cilin ekip do të përfaqësoni në këtë ndeshje?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Që të merrni pjesë, duhet të bëheni pjesë e njërit prej këtyre ekipeve!</string>
   <string name="created">Të krijuar</string>
   <string name="recentlyPlayed">Luajtur së fundi</string>
   <string name="bestResults">Përfundimet më të mira</string>
-  <string name="stats">Statistika</string>
   <string name="tournamentStats">Statistika turneu</string>
   <string name="rankAvgHelp">Renditja mesatare është një përqindje e renditjes tuaj. Sa më e ulët, aq më mirë.
 
 Për shembull, të qenët i renditur i 3-i në një turne me 100 lojtarë = 3%. Renditja si i 10-it në një turne me 1000 lojtarë = 1%.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mesatare</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Krejt mesataret në këtë faqe janë %s.</string>
+  <string name="medians">mesatare</string>
+  <string name="allAveragesAreX">Krejt mesataret në këtë faqe janë %s.</string>
   <string name="total">Gjithsej</string>
-  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Mesatare pikësh</string>
-  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Shumë pikësh</string>
-  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Mesatare renditjeje</string>
+  <string name="pointsAvg">Mesatare pikësh</string>
+  <string name="pointsSum">Shumë pikësh</string>
+  <string name="rankAvg">Mesatare renditjeje</string>
   <string name="tournamentWinners">Fitues turnesh</string>
   <string name="onlyTitled">Vetëm lojtarë me titull</string>
-  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
+  <string name="onlyTitledHelp">Për të marrë pjesë në turne, kërko doemos një titull zyrtar</string>
 </resources>
