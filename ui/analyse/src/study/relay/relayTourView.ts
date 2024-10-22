@@ -61,7 +61,11 @@ export const tourSide = (ctx: RelayViewContext) => {
               ),
               !ctrl.isEmbed &&
                 h('button.streamer-show.data-count', {
-                  attrs: { 'data-icon': licon.Mic, 'data-count': relay.streams.length, title: 'Streamers' },
+                  attrs: {
+                    'data-icon': licon.Mic,
+                    'data-count': relay.streams.length,
+                    title: i18n.site.streamersMenu,
+                  },
                   class: {
                     disabled: !relay.streams.length,
                     active: relay.showStreamerMenu(),
@@ -96,9 +100,9 @@ const startCountdown = (relay: RelayCtrl) => {
     h('strong', round.name),
     ...(startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
-        ? ['The broadcast will start very soon.', date]
+        ? [i18n.broadcast.startVerySoon, date]
         : [h('strong', timeago(startsAt)), date]
-      : ['The broadcast has not yet started.']),
+      : [i18n.broadcast.notYetStarted]),
   ]);
 };
 
@@ -114,8 +118,8 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['tc', i.tc, 'objects.mantelpiece-clock'],
     ['location', i.location, 'travel-places.globe-showing-europe-africa'],
     ['players', i.players, 'activity.sparkles'],
-    ['website', i.website, null, 'Official website'],
-    ['standings', i.standings, null, 'Standings'],
+    ['website', i.website, null, i18n.broadcast.officialWebsite],
+    ['standings', i.standings, null, i18n.broadcast.standings],
   ]
     .map(
       ([key, value, icon, linkName]) =>
@@ -177,31 +181,34 @@ const overview = (ctx: RelayViewContext) => {
 const share = (ctx: RelayViewContext) => {
   const iframe = (path: string) =>
     `<iframe src="${baseUrl()}/embed${path}" style="width: 100%; aspect-ratio: 4/3;" frameborder="0"></iframe>`;
-  const iframeHelp = h('div.form-help', [
-    'More options on the ',
-    h('a', { attrs: { href: '/developers#broadcast' } }, 'webmasters page'),
-  ]);
+  const iframeHelp = h(
+    'div.form-help',
+    i18n.broadcast.iframeHelp.asArray(
+      h('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage),
+    ),
+  );
   const roundName = ctx.relay.roundName();
-  return h('div.relay-tour__share', [
-    h('h2.text', { attrs: dataIcon(licon.Heart) }, 'Sharing is caring'),
-    ...[
+  return h(
+    'div.relay-tour__share',
+    [
       [ctx.relay.data.tour.name, ctx.relay.tourPath()],
       [roundName, ctx.relay.roundPath()],
       [
         `${roundName} PGN`,
         `${ctx.relay.roundPath()}.pgn`,
-        h('div.form-help', [
-          'A public, real-time PGN source for this round. We also offer a ',
-          h(
-            'a',
-            { attrs: { href: 'https://lichess.org/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
-            'streaming API',
+        h(
+          'div.form-help',
+          i18n.broadcast.pgnSourceHelp.asArray(
+            h(
+              'a',
+              { attrs: { href: '/api#tag/Broadcasts/operation/broadcastStreamRoundPgn' } },
+              'streaming API',
+            ),
           ),
-          ' for faster and more efficient synchronisation.',
-        ]),
+        ),
       ],
-      ['Embed this broadcast in your website', iframe(ctx.relay.tourPath()), iframeHelp],
-      [`Embed ${roundName} in your website`, iframe(ctx.relay.roundPath()), iframeHelp],
+      [i18n.broadcast.embedThisBroadcast, iframe(ctx.relay.tourPath()), iframeHelp],
+      [i18n.broadcast.embedThisRound(roundName), iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([text, path, help]: [string, string, VNode]) =>
       h('div.form-group', [
         h('label.form-label', text),
@@ -209,7 +216,7 @@ const share = (ctx: RelayViewContext) => {
         help,
       ]),
     ),
-  ]);
+  );
 };
 
 const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
@@ -294,7 +301,9 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                         round.startsAt
                           ? commonDateFormat(new Date(round.startsAt))
                           : round.startsAfterPrevious
-                            ? `Starts after ${relay.data.rounds[i - 1]?.name || 'the previous round'}`
+                            ? i18n.broadcast.startsAfter(
+                                relay.data.rounds[i - 1]?.name || 'the previous round',
+                              )
                             : '',
                       ),
                       h(
@@ -319,12 +328,14 @@ const games = (ctx: RelayViewContext) => [
     ? h(
         'div.relay-tour__note',
         h('div', [
-          h('div', 'No boards yet. These will appear once games are uploaded.'),
+          h('div', i18n.broadcast.noBoardsYet),
           ctx.study.members.myMember() &&
-            h('small', [
-              'Boards can be loaded with a source or via the ',
-              h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
-            ]),
+            h(
+              'small',
+              i18n.broadcast.boardsCanBeLoaded.asArray(
+                h('a', { attrs: { href: '/broadcast/app' } }, 'Broadcaster App'),
+              ),
+            ),
         ]),
       )
     : multiBoardView(ctx.study.multiBoard, ctx.study),
@@ -364,7 +375,7 @@ const header = (ctx: RelayViewContext) => {
               ? h(
                   'a.button.relay-tour__header__image-upload',
                   { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
-                  'Upload tournament image',
+                  i18n.broadcast.uploadImage,
                 )
               : undefined,
       ),
@@ -389,9 +400,7 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
           {
             name: i18n.site.subscribe,
             id: 'tour-subscribe',
-            title:
-              'Subscribe to be notified when each round starts. You can toggle bell or push ' +
-              'notifications for broadcasts in your account preferences.',
+            title: i18n.broadcast.subscribeTitle,
             cls: 'relay-tour__subscribe',
             checked: relay.data.isSubscribed,
             change: (v: boolean) => {
@@ -421,19 +430,19 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
       name,
     );
   return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
-    makeTab('overview', 'Overview'),
-    makeTab('boards', 'Boards'),
-    makeTab('players', 'Players'),
-    relay.teams && makeTab('teams', 'Teams'),
+    makeTab('overview', i18n.broadcast.overview),
+    makeTab('boards', i18n.broadcast.boards),
+    makeTab('players', i18n.site.players),
+    relay.teams && makeTab('teams', i18n.broadcast.teams),
     study.members.myMember() && relay.data.tour.tier
-      ? makeTab('stats', 'Stats')
+      ? makeTab('stats', i18n.site.stats)
       : ctrl.isEmbed
         ? h(
             'a.relay-tour__tabs--open.text',
             {
               attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
             },
-            'Open in Lichess',
+            i18n.broadcast.openLichess,
           )
         : undefined,
   ]);
@@ -443,12 +452,12 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
   round.ongoing
     ? h(
         'span.round-state.ongoing',
-        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && 'Ongoing' } },
-        titleAsText && 'Ongoing',
+        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
+        titleAsText && i18n.broadcast.ongoing,
       )
     : round.finished &&
       h(
         'span.round-state.finished',
-        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && 'Finished' } },
-        titleAsText && 'Finished',
+        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
+        titleAsText && i18n.site.finished,
       );

@@ -36,7 +36,7 @@ object help:
     .map: letter =>
       frag(s"${letter.capitalize} = ", phonetic(letter), ". ")
 
-  def round(using Translate) =
+  def round(hasChat: Boolean)(using Translate) =
     frag(
       h2(trans.site.keyboardShortcuts()),
       table(
@@ -45,6 +45,9 @@ object help:
           header(trans.site.other()),
           flip,
           zen,
+          hasChat.option(
+            row(kbd("c"), trans.site.focusChat())
+          ),
           helpDialog
         )
       )
