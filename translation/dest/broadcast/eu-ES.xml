@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Gehienez ere Lichesseko 64 partidren idak, espazioekin banatuta.</string>
   <string name="startDateTimeZone">Txapelketaren hasiera ordua ordu-zona lokalean: %s</string>
   <string name="startDateHelp">Hautazkoa, ekitaldia noiz hasten den baldin badakizu</string>
-  <string name="credits">Jatorria zein den esaiguzu</string>
   <string name="currentGameUrl">Uneko partidaren URL helbidea</string>
   <string name="downloadAllRounds">Deskargatu txanda guztiak</string>
   <string name="resetRound">Berrezarri txanda hau</string>
