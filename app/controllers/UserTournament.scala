@@ -2,7 +2,7 @@ package controllers
 
 import lila.app.{ *, given }
 
-final class UserTournament(env: Env) extends LilaController(env):
+final class UserTournament(env: Env, apiC: => Api) extends LilaController(env):
 
   def path(username: UserStr, path: String, page: Int) = Open:
     Reasonable(page):
@@ -32,3 +32,19 @@ final class UserTournament(env: Env) extends LilaController(env):
             Found(ctx.me): me =>
               Redirect(routes.UserTournament.path(me.username, "upcoming"))
           case _ => notFound
+
+  def apiTournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
+    Found(meOrFetch(name).map(_.filterNot(_.is(UserId.lichess)))): user =>
+      val nb = getInt("nb") | Int.MaxValue
+      apiC.jsonDownload:
+        env.tournament.api
+          .byOwnerStream(user, status.flatMap(lila.core.tournament.Status.byId.get), MaxPerSecond(20), nb)
+          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
+
+  def apiTournamentsByPlayer(name: UserStr) = Anon:
+    Found(meOrFetch(name).map(_.filterNot(_.is(UserId.lichess)))): user =>
+      val nb = getInt("nb") | Int.MaxValue
+      apiC.jsonDownload:
+        env.tournament.leaderboardApi
+          .byPlayerStream(user, MaxPerSecond(20), nb)
+          .map(env.tournament.apiJsonView.byPlayer)
