@@ -386,7 +386,7 @@ const header = (ctx: RelayViewContext) => {
         'div.relay-tour__note',
         h('div', [
           h('div', { hook: richHTML(d.note, false) }),
-          h('small', i18n.broadcast.noteContributorsOnly),
+          h('small', 'This note is visible to contributors only.'),
         ]),
       ),
     h('div.relay-tour__nav', [makeTabs(ctrl), ...subscribe(relay, ctrl)]),

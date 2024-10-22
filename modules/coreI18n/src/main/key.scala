@@ -178,7 +178,6 @@ object I18nKey:
     val `boards`: I18nKey = "broadcast:boards"
     val `overview`: I18nKey = "broadcast:overview"
     val `subscribeTitle`: I18nKey = "broadcast:subscribeTitle"
-    val `noteContributorsOnly`: I18nKey = "broadcast:noteContributorsOnly"
     val `uploadImage`: I18nKey = "broadcast:uploadImage"
     val `noBoardsYet`: I18nKey = "broadcast:noBoardsYet"
     val `boardsCanLoaded`: I18nKey = "broadcast:boardsCanLoaded"

@@ -291,8 +291,6 @@ interface I18n {
     newBroadcast: string;
     /** No boards yet. These will appear once games are uploaded. */
     noBoardsYet: string;
-    /** This note is visible to contributors only. */
-    noteContributorsOnly: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
     /** Official website */
