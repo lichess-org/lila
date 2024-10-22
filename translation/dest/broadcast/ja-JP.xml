@@ -27,7 +27,6 @@
   <string name="sourceUrlHelp">Lichess が PGN を取得するための URL。インターネット上に公表されているもののみ。</string>
   <string name="sourceGameIds">Lichess ゲーム ID、半角スペースで区切って最大 64 個まで。</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
-  <string name="credits">ソースを表示する</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
   <string name="downloadAllRounds">全ラウンドをダウンロード</string>
   <string name="resetRound">このラウンドをリセット</string>
