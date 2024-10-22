@@ -92,7 +92,7 @@ case class Pref(
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
 
-  def showRatings = ratings != Ratings.NO // was val before
+  def showRatings = ratings != Ratings.NO
   def hasShowRatingsInGame = ratings == Ratings.GAME_ONLY
 
   def is2d = !is3d
