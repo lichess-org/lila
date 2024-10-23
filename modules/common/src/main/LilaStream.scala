@@ -23,8 +23,11 @@ object LilaStream:
       flowRate[T](metric, outputDelay)
         .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}")))
 
-  val sinkCount = Sink.fold[Int, Any](0): (total, _) =>
+  val sinkCount: Sink[Any, Future[Int]] = Sink.fold[Int, Any](0): (total, _) =>
     total + 1
 
-  def collect[A] = Flow[Option[A]].collect:
+  val sinkSum: Sink[Int, Future[Int]] = Sink.fold[Int, Int](0): (total, nb) =>
+    total + nb
+
+  def collect[A]: Flow[Option[A], A, NotUsed] = Flow[Option[A]].collect:
     case Some(a) => a
