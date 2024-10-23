@@ -51,4 +51,8 @@
   <string name="ageThisYear">Возраст в этом году</string>
   <string name="unrated">Без рейтинга</string>
   <string name="recentTournaments">Недавние турниры</string>
+  <string name="openLichess">Открыть в Lichess</string>
+  <string name="teams">Клубы</string>
+  <string name="boards">Доски</string>
+  <string name="overview">Обзор</string>
 </resources>
