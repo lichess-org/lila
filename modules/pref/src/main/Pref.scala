@@ -92,7 +92,7 @@ case class Pref(
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
 
-  def showRatings          = ratings != Ratings.NO
+  def showRatings       = ratings != Ratings.NO
   def hideRatingsInGame = ratings == Ratings.EXCEPT_GAME
 
   def is2d = !is3d
@@ -427,13 +427,13 @@ object Pref:
     )
 
   object Ratings:
-    val NO        = 0
-    val YES       = 1
+    val NO          = 0
+    val YES         = 1
     val EXCEPT_GAME = 2
 
     val choices = Seq(
-      NO        -> "No",
-      YES       -> "Yes",
+      NO          -> "No",
+      YES         -> "Yes",
       EXCEPT_GAME -> "Except in-game"
     )
 

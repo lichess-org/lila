@@ -27,8 +27,7 @@ final class GameUi(helpers: Helpers):
         pov,
         withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
         showRatings =
-          if ctx.pref.hideRatingsInGame then
-            !pov.game.playable || !ctx.userId.exists(pov.game.userIds.has)
+          if ctx.pref.hideRatingsInGame then !pov.game.playable || !ctx.userId.exists(pov.game.userIds.has)
           else ctx.pref.showRatings
       )
 
