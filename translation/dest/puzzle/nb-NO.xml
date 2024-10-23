@@ -31,8 +31,8 @@
   <string name="byOpenings">Etter åpninger</string>
   <string name="puzzlesByOpenings">Sjakknøtter etter åpninger</string>
   <string name="openingsYouPlayedTheMost">Åpningene du spiller mest av i ratede partier</string>
-  <string name="useFindInPage">Bruk søkefunksjonen i nettleseren for å finne favorittåpningen din!</string>
-  <string name="useCtrlF">Bruk Ctrl+f for å finne favorittåpningen din!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Bruk søkefunksjonen i nettleseren for å finne favorittåpningen din!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Bruk Ctrl+f for å finne favorittåpningen din!</string>
   <string name="notTheMove">Det der er ikke trekket!</string>
   <string name="trySomethingElse">Prøv noe annet.</string>
   <string name="ratingX">Rating: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Styrker</string>
   <string name="history">Historikk for sjakknøtter</string>
   <string name="solved">løst</string>
-  <string name="failed">feil</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">feil</string>
   <string name="streakDescription">Løs verre og verre sjakknøtter og bygg en seiersrekke. Det er ingen klokke, så ta den tiden du trenger. Ett galt trekk og det er slutt! Du kan imidlertid hoppe over ett trekk for hver runde.</string>
   <string name="yourStreakX">Din rekke: %s</string>
   <string name="streakSkipExplanation">Hopp over dette trekket for å bevare rekken din! Funker bare én gang for hver runde.</string>

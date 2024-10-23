@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Podle čeho se rozhoduje, zda časomíra spadá pod bullet, blitz apod.?</string>
   <string name="basedOnGameDuration">Časové kontroly Lichess jsou založeny na odhadu doby trvání partie = %1$s
 Například odhadovaná délka partie 5+3 je 5 × 60 + 40 × 3 = 420 sekund.</string>
-  <string name="durationFormula">(počáteční čas) + 40 × (přídavek)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(počáteční čas) + 40 × (přídavek)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Jaké varianty mohu hrát na Lichess?</string>

@@ -340,7 +340,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f(using _)
 
   def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
-    if id.isMe then fuccess(ctx.user)
+    if id.is(UserId("me")) then fuccess(ctx.user)
     else ctx.user.filter(_.is(id)).fold(env.user.repo.byId(id))(u => fuccess(u.some))
 
   def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =

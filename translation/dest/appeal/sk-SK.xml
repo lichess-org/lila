@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Váš účet nie je označený ani obmedzený. Všetko je v poriadku!</string>
-  <string name="engineMarked">Váš účet je označený kvôli externej pomoci v partiách.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Váš účet je označený kvôli externej pomoci v partiách.</string>
   <string name="engineMarkedInfo">Definujeme to ako využívanie akejkoľvek externej pomoci na posilnenie svojich vedomostí a/alebo schopností kalkulácie s cieľom získať neférovú výhodu nad súperom. Viac informácií nájdete na stránke %s.</string>
   <string name="arenaBanned">Vášmu účtu je zakázané vstupovať do arén.</string>
   <string name="prizeBanned">Váš účet má zakázané zúčastňovať sa turnajov so skutočnými cenami.</string>
@@ -10,7 +10,7 @@
   <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Posielanie správ je u Vášho konta zakázané.</string>
   <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Prečítajte si naše %s. Nedodržanie komunikačných pokynov môže viesť k zákazu posielania správ.</string>
   <string name="excludedFromLeaderboards">Vaše konto bolo vylúčené z rebríčkov.</string>
-  <string name="excludedFromLeaderboardsInfo">Definujeme to ako používanie akéhokoľvek neférového spôsobu, ako sa dostať do rebríčka.</string>
+  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Definujeme to ako používanie akéhokoľvek neférového spôsobu, ako sa dostať do rebríčka.</string>
   <string name="closedByModerators">Váš účet bol zrušený moderátormi.</string>
   <string name="hiddenBlog">Vaše blogy boli skryté moderátormi.</string>
   <string name="hiddenBlogInfo">Nezabudnite si znovu prečítať naše %s.</string>

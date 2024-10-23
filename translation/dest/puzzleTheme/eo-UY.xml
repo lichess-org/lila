@@ -39,7 +39,7 @@
   <string name="deflection">Devio</string>
   <string name="deflectionDescription">Movo, kiu distras kontraŭan ŝakpecon de alia devo, kio ĝi faras, kiel gardo de grava ĉelo. Kelkfoje ankaŭ nomiĝas \"troŝargo\".</string>
   <string name="discoveredAttack">Malkovrita atako</string>
-  <string name="discoveredAttackDescription">Movo de peco (kiel ĉevalo), kiu antaŭe blokis atakon de longdistanca peco (kiel turo), fore de vojo de tiu peco.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Movo de peco (kiel ĉevalo), kiu antaŭe blokis atakon de longdistanca peco (kiel turo), fore de vojo de tiu peco.</string>
   <string name="doubleCheck">Duobla ŝako</string>
   <string name="doubleCheckDescription">Ŝakanta per du ŝakpecoj samtempe, kiel rezulto de malkovrita atako, kie kaj la moviĝa ŝakpeco kaj la malvualita ŝakpeco ataki la reĝo de la kontraŭulo.</string>
   <string name="endgame">Finaĵo</string>

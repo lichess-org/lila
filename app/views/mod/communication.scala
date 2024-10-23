@@ -30,7 +30,6 @@ def communication(
     priv: Boolean
 )(using ctx: Context, renderIp: RenderIp) =
   val u = timeline.user
-  //                     notes.filter(_.from != UserId.irwin),
   Page(s"${u.username} communications")
     .css("mod.communication")
     .css(isGranted(_.UserModView).option("mod.user"))
@@ -82,24 +81,6 @@ def communication(
           )
         ),
         views.mod.timeline.renderComm(timeline),
-        timeline.reports.nonEmpty.option(
-          frag(
-            h2("Comm reports"),
-            div(cls := "reports history")(
-              timeline.reports
-                .flatMap(_.atoms.toList)
-                .map: a =>
-                  div(
-                    h3(a.reason.name),
-                    userIdLink(a.by.some),
-                    " ",
-                    momentFromNowServer(a.at),
-                    ": ",
-                    richText(a.text)
-                  )
-            )
-          )
-        ),
         priv.option(
           frag(
             h2("Recent private chats"),
@@ -135,8 +116,8 @@ def communication(
                   )
               )
             ,
+            h2("Recent inbox messages"),
             div(cls := "threads")(
-              h2("Recent inbox messages"),
               convos.nonEmpty.option:
                 convos.map: modConvo =>
                   div(cls := "thread")(

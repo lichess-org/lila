@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">ಸೇರಿಸಿದ ದಿನಾಂಕ (ಹಳೆಯದು)</string>
   <string name="recentlyUpdated">ಇತ್ತೀಚೆಗೆ ನವೀಕರಿಸಲಾಗಿದೆ</string>
   <string name="mostPopular">ಅತ್ಯಂತ ಜನಪ್ರಿಯ</string>
-  <string name="alphabetical">ವರ್ಣಮಾಲೆಯ ಪ್ರಕಾರ</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">ವರ್ಣಮಾಲೆಯ ಪ್ರಕಾರ</string>
   <string name="addNewChapter">ಹೊಸ ಅಧ್ಯಾಯವನ್ನು ಸೇರಿಸಿ</string>
   <plurals name="nbChapters">
     <item quantity="one">%s ಅಧ್ಯಾಯ</item>
@@ -66,7 +66,7 @@
   <string name="downloadGame">ಆಟವನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
   <string name="studyUrl">ಅಧ್ಯಯನ URL</string>
   <string name="currentChapterUrl">ಪ್ರಸ್ತುತ ಅಧ್ಯಾಯ URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">ಎಂಬೆಡ್ ಮಾಡಲು ನೀವು ಇದನ್ನು ಫೋರಮ್ ಅಥವಾ ನಿಮ್ಮ ಲಿಚೆಸ್ ಬ್ಲಾಗ್‌ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು</string>
+  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">ಎಂಬೆಡ್ ಮಾಡಲು ನೀವು ಇದನ್ನು ಫೋರಮ್ ಅಥವಾ ನಿಮ್ಮ ಲಿಚೆಸ್ ಬ್ಲಾಗ್‌ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು</string>
   <string name="startAtInitialPosition">ಆರಂಭಿಕ ಸ್ಥಾನದಲ್ಲಿ ಪ್ರಾರಂಭಿಸಿ</string>
   <string name="startAtX">%s ನಲ್ಲಿ ಪ್ರಾರಂಭಿಸಿ</string>
   <string name="embedInYourWebsite">ನಿಮ್ಮ ವೆಬ್‌ಸೈಟ್‌ನಲ್ಲಿ ಎಂಬೆಡ್ ಮಾಡಿ</string>
@@ -97,9 +97,9 @@
   <string name="startFromInitialPosition">ಆರಂಭಿಕ ಸ್ಥಾನದಿಂದ ಪ್ರಾರಂಭಿಸಿ</string>
   <string name="editor">ಸಂಪಾದಕ ಬಟನ್</string>
   <string name="startFromCustomPosition">ಕಸ್ಟಮ್ ಸ್ಥಾನದಿಂದ ಪ್ರಾರಂಭಿಸಿ</string>
-  <string name="loadAGameByUrl">URL ಗಳ ಮೂಲಕ ಆಟಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">URL ಗಳ ಮೂಲಕ ಆಟಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
   <string name="loadAPositionFromFen">FEN ನಿಂದ ಸ್ಥಾನವನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
-  <string name="loadAGameFromPgn">PGN ನಿಂದ ಆಟಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN ನಿಂದ ಆಟಗಳನ್ನು ಲೋಡ್ ಮಾಡಿ</string>
   <string name="automatic">ಸ್ವಯಂಚಾಲಿತ</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">ನಿಮ್ಮ PGN ಪಠ್ಯವನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ, %s ಆಟದವರೆಗೆ</item>
@@ -163,7 +163,7 @@
   <string name="popularTopics">ಜನಪ್ರಿಯ ವಿಷಯಗಳು</string>
   <string name="manageTopics">ವಿಷಯಗಳನ್ನು ನಿರ್ವಹಿಸಿ</string>
   <string name="back">ಹಿಂದೆ</string>
-  <string name="playAgain">ಪುನಃ ಅಡಿ</string>
-  <string name="whatWouldYouPlay">ಈ ಸ್ಥಾನದಲ್ಲಿ ನೀವು ಏನು ಆಡುತ್ತೀರಿ?</string>
-  <string name="youCompletedThisLesson">ಅಭಿನಂದನೆಗಳು! ನೀವು ಈ ಪಾಠವನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ.</string>
+  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">ಪುನಃ ಅಡಿ</string>
+  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">ಈ ಸ್ಥಾನದಲ್ಲಿ ನೀವು ಏನು ಆಡುತ್ತೀರಿ?</string>
+  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">ಅಭಿನಂದನೆಗಳು! ನೀವು ಈ ಪಾಠವನ್ನು ಪೂರ್ಣಗೊಳಿಸಿದ್ದೀರಿ.</string>
 </resources>

@@ -31,8 +31,8 @@
   <string name="byOpenings">Megnyitások szerint</string>
   <string name="puzzlesByOpenings">Feladványok megnyitások szerint</string>
   <string name="openingsYouPlayedTheMost">A leggyakoribb megnyitások az értékelt játszmáidból</string>
-  <string name="useFindInPage">Használd a böngésző \"Keresés az oldalon\" funkcióját, hogy megtaláld a kedvenc megnyitásod!</string>
-  <string name="useCtrlF">Ctrl+f a kedvenc megnyitásod megtalálásához!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Használd a böngésző \"Keresés az oldalon\" funkcióját, hogy megtaláld a kedvenc megnyitásod!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+f a kedvenc megnyitásod megtalálásához!</string>
   <string name="notTheMove">Nem a legjobb lépés!</string>
   <string name="trySomethingElse">Próbálkozz mással.</string>
   <string name="ratingX">Pontszám: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Erősségek</string>
   <string name="history">Korábbi feladványok</string>
   <string name="solved">megoldva</string>
-  <string name="failed">sikertelen</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">sikertelen</string>
   <string name="streakDescription">Oldj meg egyre nehezedő feladványokat nyerő széria építéséhez. Nincs időkorlát, szánd rá az időt. Egyetlen hibás lépés és a játéknak vége. Viszont mindig egyet átugorhatsz.</string>
   <string name="yourStreakX">Nyerő szériád: %s</string>
   <string name="streakSkipExplanation">Ugord át ezt a lépést a szériád megőrzéséhez! Egy menetben csak egyszer működik.</string>

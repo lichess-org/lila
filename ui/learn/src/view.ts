@@ -20,7 +20,7 @@ const mapView = (ctrl: LearnCtrl) =>
     h('div.learn__main.learn-stages', [
       ...stages.categs.map(categ =>
         h('div.categ', [
-          h('h2', ctrl.trans.noarg(categ.name)),
+          h('h2', categ.name),
           h(
             'div.categ_stages',
             categ.stages.map(stage => {
@@ -28,14 +28,14 @@ const mapView = (ctrl: LearnCtrl) =>
               const complete = ctrl.isStageIdComplete(stage.id);
               const prevComplete = ctrl.isStageIdComplete(stage.id - 1);
               const status: Status = complete ? 'done' : prevComplete || stageProgress ? 'ongoing' : 'future';
-              const title = ctrl.trans.noarg(stage.title);
+              const title = stage.title;
               return h(
                 `a.stage.${status}.${titleVerbosityClass(title)}`,
                 { attrs: { href: hashHref(stage.id) } },
                 [
                   status != 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
                   h('img', { attrs: { src: stage.image } }),
-                  h('div.text', [h('h3', title), h('p.subtitle', ctrl.trans.noarg(stage.subtitle))]),
+                  h('div.text', [h('h3', title), h('p.subtitle', stage.subtitle)]),
                 ],
               );
             }),
@@ -53,7 +53,7 @@ const makeStars = (rank: scoring.Rank): VNode[] =>
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);
-  return progress[0] ? progress.join(' / ') : ctrl.trans.noarg('play');
+  return progress[0] ? progress.join(' / ') : i18n.learn.play;
 };
 
 const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, stageProgress: StageProgress) =>
@@ -67,32 +67,37 @@ const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, st
 
 function whatNext(ctrl: LearnCtrl) {
   const makeStage = (href: string, img: string, title: string, subtitle: string, done?: boolean) => {
-    const transTitle = ctrl.trans.noarg(title);
-    return h(
-      `a.stage.done.${titleVerbosityClass(transTitle)}`,
-      {
-        attrs: { href: href },
-      },
-      [
-        done ? h('span.ribbon-wrapper', h('span.ribbon.done', makeStars(1))) : null,
-        h('img', { attrs: { src: util.assetUrl + 'images/learn/' + img + '.svg' } }),
-        h('div.text', [h('h3', transTitle), h('p.subtitle', ctrl.trans.noarg(subtitle))]),
-      ],
-    );
+    const transTitle = title;
+    return h(`a.stage.done.${titleVerbosityClass(transTitle)}`, { attrs: { href: href } }, [
+      done ? h('span.ribbon-wrapper', h('span.ribbon.done', makeStars(1))) : null,
+      h('img', { attrs: { src: util.assetUrl + 'images/learn/' + img + '.svg' } }),
+      h('div.text', [h('h3', transTitle), h('p.subtitle', subtitle)]),
+    ]);
   };
   const userId = ctrl.data._id;
   return h('div.categ.what_next', [
-    h('h2', ctrl.trans.noarg('whatNext')),
-    h('p', ctrl.trans.noarg('youKnowHowToPlayChess')),
+    h('h2', i18n.learn.whatNext),
+    h('p', i18n.learn.youKnowHowToPlayChess),
     h('div.categ_stages', [
       userId
-        ? makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLichessAccount', true)
-        : makeStage('/signup', 'beams-aura', 'register', 'getAFreeLichessAccount'),
-      makeStage('/practice', 'robot-golem', 'practice', 'learnCommonChessPositions'),
-      makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
-      makeStage('/video?tags=beginner', 'tied-scroll', 'videos', 'watchInstructiveChessVideos'),
-      makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
-      makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
+        ? makeStage(
+            '/@/' + userId,
+            'beams-aura',
+            i18n.learn.register,
+            i18n.learn.getAFreeLichessAccount,
+            true,
+          )
+        : makeStage('/signup', 'beams-aura', i18n.learn.register, i18n.learn.getAFreeLichessAccount),
+      makeStage('/practice', 'robot-golem', i18n.learn.practice, i18n.learn.learnCommonChessPositions),
+      makeStage('/training', 'bullseye', i18n.learn.puzzles, i18n.learn.exerciseYourTacticalSkills),
+      makeStage(
+        '/video?tags=beginner',
+        'tied-scroll',
+        i18n.learn.videos,
+        i18n.learn.watchInstructiveChessVideos,
+      ),
+      makeStage('/#hook', 'sword-clash', i18n.learn.playPeople, i18n.learn.opponentsFromAroundTheWorld),
+      makeStage('/#ai', 'vintage-robot', i18n.learn.playMachine, i18n.learn.testYourSkillsWithTheComputer),
     ]),
   ]);
 }

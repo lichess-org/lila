@@ -15,6 +15,7 @@ final class CoordinateUi(helpers: Helpers):
     Page(trans.coordinates.coordinateTraining.txt())
       .css("coordinateTrainer")
       .css("voice")
+      .i18n(_.coordinates, _.storm, _.study)
       .js(pageModule(scoreOption))
       .csp(_.withPeer.withWebAssembly)
       .graph(
@@ -41,7 +42,6 @@ final class CoordinateUi(helpers: Helpers):
     PageModule(
       "coordinateTrainer",
       Json.obj(
-        "i18n"       -> i18nJsObject(i18nKeys),
         "resizePref" -> ctx.pref.resizeHandle,
         "is3d"       -> ctx.pref.is3d,
         "scores" -> Json.obj(
@@ -56,31 +56,3 @@ final class CoordinateUi(helpers: Helpers):
         )
       )
     ).some
-
-  private val i18nKeys: List[I18nKey] = List(
-    trans.coordinates.aSquareIsHighlightedExplanation,
-    trans.coordinates.aCoordinateAppears,
-    trans.coordinates.youHaveThirtySeconds,
-    trans.coordinates.goAsLongAsYouWant,
-    trans.coordinates.averageScoreAsBlackX,
-    trans.coordinates.averageScoreAsWhiteX,
-    trans.coordinates.coordinates,
-    trans.coordinates.knowingTheChessBoard,
-    trans.coordinates.mostChessCourses,
-    trans.coordinates.startTraining,
-    trans.coordinates.talkToYourChessFriends,
-    trans.coordinates.youCanAnalyseAGameMoreEffectively,
-    trans.coordinates.findSquare,
-    trans.coordinates.nameSquare,
-    trans.coordinates.showCoordinates,
-    trans.coordinates.showCoordsOnAllSquares,
-    trans.coordinates.showPieces,
-    trans.storm.score,
-    trans.study.back,
-    trans.site.time,
-    trans.site.asWhite,
-    trans.site.asBlack,
-    trans.site.randomColor,
-    trans.site.youPlayTheWhitePieces,
-    trans.site.youPlayTheBlackPieces
-  )

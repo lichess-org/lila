@@ -31,8 +31,8 @@
   <string name="byOpenings">Per obriduras</string>
   <string name="puzzlesByOpenings">Problemas per obridura</string>
   <string name="openingsYouPlayedTheMost">Obriduras que mas has chugau en partidas puntuadas</string>
-  <string name="useFindInPage">Fe servir \"Buscar en a pachina\" en o menú d\'o tuyo navegador pa trobar la tuya obridura preferida!</string>
-  <string name="useCtrlF">Usar Ctrl+f pa trobar la tuya obridura favorita!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Fe servir \"Buscar en a pachina\" en o menú d\'o tuyo navegador pa trobar la tuya obridura preferida!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Usar Ctrl+f pa trobar la tuya obridura favorita!</string>
   <string name="notTheMove">Ixe no ye lo movimiento!</string>
   <string name="trySomethingElse">Mira de prebar en belatro puesto.</string>
   <string name="ratingX">Puntuación: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Fuerzas</string>
   <string name="history">Historial d\'os problemas</string>
   <string name="solved">resuelto</string>
-  <string name="failed">suspendiu</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">suspendiu</string>
   <string name="streakDescription">Soluciona problemas cada vegada mas dificils i aconsigue una racha de victories. No i hai tiempo, prene-te-lo con calma. Si fas un movimiento erronio, s\'acaba lo chuego! Pero puez blincar un movimiento per sesión.</string>
   <string name="yourStreakX">La tuya racha: %s</string>
   <string name="streakSkipExplanation">Blinca este movimiento pa preservar la tuya racha! Nomás funciona una vergada per sesión.</string>

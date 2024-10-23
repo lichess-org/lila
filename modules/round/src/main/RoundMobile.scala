@@ -60,7 +60,7 @@ final class RoundMobile(
       users        <- game.userIdPair.traverse(_.so(lightUserGet))
       prefs        <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
-      moretimeable <- moretimer.isAllowedIn(game, Preload(prefs), byAdmin = false)
+      moretimeable <- moretimer.isAllowedIn(game, Preload(prefs), force = false)
       chat         <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
       chatLines    <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
       bookmarked   <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
@@ -71,7 +71,7 @@ final class RoundMobile(
           .player(pov.player, users(color))
           .add("isGone" -> (game.forceDrawable && use.socketStatus.exists(_.isGone(pov.color))))
           .add("onGame" -> (pov.player.isAi || use.socketStatus.exists(_.onGame(pov.color))))
-          .add("offeringRematch" -> isOfferingRematch(pov.ref))
+          .add("offeringRematch" -> isOfferingRematch.exec(pov.ref))
           .add("offeringDraw" -> pov.player.isOfferingDraw)
           .add("proposingTakeback" -> pov.player.isProposingTakeback)
       Json

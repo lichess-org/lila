@@ -28,7 +28,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       .js(
         PageModule(
           "tournament.schedule",
-          Json.obj("data" -> json, "i18n" -> ui.scheduleJsI18n)
+          Json.obj("data" -> json)
         )
       )
       .hrefLangs(LangPath(routes.Tournament.home))

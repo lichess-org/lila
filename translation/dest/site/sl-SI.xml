@@ -130,7 +130,6 @@
   <string name="memory">Spomin</string>
   <string name="infiniteAnalysis">Neskončna analiza</string>
   <string name="removesTheDepthLimit">Odstrani omejitev globine in ohrani računalnik topel</string>
-  <string name="engineManager">Vodja motorja</string>
   <string name="blunder">Spodrsljaj</string>
   <string name="mistake">Napaka</string>
   <string name="inaccuracy">Nenatančnost</string>
@@ -626,7 +625,7 @@
   <string name="cheat">Goljufija</string>
   <string name="troll">Provokacija</string>
   <string name="other">Drugo</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
+  <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvozil je %s</string>

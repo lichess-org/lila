@@ -544,7 +544,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="cheat">musi ike</string>
   <string name="troll">pakala e musi</string>
   <string name="other">ijo ante</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">toki Inli la, toki li pali pi tenpo lili</string>
+  <string name="reportProcessedFasterInEnglish">toki Inli la, toki li pali pi tenpo lili</string>
   <string name="error.provideOneCheatedGameLink">o pana e nimi nasin tawa musi pi pali ike.</string>
   <string name="by">pi %s</string>
   <string name="thisTopicIsNowClosed">lipu toki ni li pini</string>

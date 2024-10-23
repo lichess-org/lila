@@ -140,7 +140,7 @@ export function truncateComment(text: string, len: number, ctx: Ctx) {
 
 export function retroLine(ctx: Ctx, node: Tree.Node): VNode | undefined {
   return node.comp && ctx.ctrl.retro && ctx.ctrl.retro.hideComputerLine(node)
-    ? h('line', ctx.ctrl.trans.noarg('learnFromThisMistake'))
+    ? h('line', i18n.site.learnFromThisMistake)
     : undefined;
 }
 

@@ -29,7 +29,6 @@ final class SimulShow(helpers: Helpers, ui: SimulUi, gathering: GatheringUi):
           "simul",
           Json.obj(
             "data"          -> data,
-            "i18n"          -> ui.jsI18n,
             "socketVersion" -> socketVersion,
             "userId"        -> ctx.userId,
             "chat"          -> chatOption.map(_._1),

@@ -61,7 +61,6 @@ export default class AnalyseCtrl {
   tree: TreeWrapper;
   socket: Socket;
   chessground: ChessgroundApi;
-  trans: Trans;
   ceval: CevalCtrl;
   evalCache: EvalCache;
   persistence?: Persistence;
@@ -137,7 +136,6 @@ export default class AnalyseCtrl {
   ) {
     this.data = opts.data;
     this.element = opts.element;
-    this.trans = opts.trans;
     this.isEmbed = !!opts.embed;
     this.treeView = new TreeView('column');
     this.promotion = new PromotionCtrl(

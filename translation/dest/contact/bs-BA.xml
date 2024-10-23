@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Kako Vam možemo pomoći?</string>
   <string name="visitThisPage">Posjetite ovu stranicu kako biste riješili problem</string>
   <string name="iCantLogIn">Ne mogu se prijaviti</string>
-  <string name="noConfirmationEmail">Ne dobijam moju potvrdnu e-mail poruku</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ne dobijam moju potvrdnu e-mail poruku</string>
   <string name="forgotPassword">Zaboravio sam lozinku</string>
   <string name="forgotUsername">Zaboravio sam svoje korisničko ime</string>
   <string name="youCanLoginWithEmail">Možete se prijaviti sa e-mail adresom koju ste koristili kada ste kreirali korisnički račun</string>

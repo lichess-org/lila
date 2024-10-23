@@ -31,8 +31,8 @@
   <string name="byOpenings">Avausryhmitys</string>
   <string name="puzzlesByOpenings">Tehtäviä avausten mukaan ryhmitettyinä</string>
   <string name="openingsYouPlayedTheMost">Pisteytetyissä peleissä eniten pelaamasi avaukset</string>
-  <string name="useFindInPage">Löydä lempiavauksesi valitsemalla selaimen valikosta \"Etsi sivulta\"!</string>
-  <string name="useCtrlF">Löydä lempiavauksesi painamalla Ctrl+F!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Löydä lempiavauksesi valitsemalla selaimen valikosta \"Etsi sivulta\"!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Löydä lempiavauksesi painamalla Ctrl+F!</string>
   <string name="notTheMove">Tuo siirto se ei ole!</string>
   <string name="trySomethingElse">Kokeile jotain muuta.</string>
   <string name="ratingX">Vahvuusluku: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Vahvuutesi</string>
   <string name="history">Tehtävähistoria</string>
   <string name="solved">ratkaistu</string>
-  <string name="failed">epäonnistui</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">epäonnistui</string>
   <string name="streakDescription">Ratkaise asteittain vaikeutuvia tehtäviä ja luo voittoputki. Kello ei ole käytössä, joten voit miettiä rauhassa. Yksikin väärä siirto, niin peli on ohi! Kunkin sarjan aikana voit kuitenkin ohittaa yhden siirron.</string>
   <string name="yourStreakX">Putkesi: %s</string>
   <string name="streakSkipExplanation">Ohita tämä siirto jatkaaksesi putkea! Toimii kunkin sarjan aikana vain kerran.</string>

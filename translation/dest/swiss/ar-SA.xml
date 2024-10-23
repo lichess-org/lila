@@ -51,7 +51,7 @@
     <item quantity="many">%s دقائق بين الجولات</item>
     <item quantity="other">%s دقائق بين الجولات</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">تبدأ في</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">تبدأ في</string>
   <string name="nextRound">الجولة التالية</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="zero">المباريات الجارية</item>
@@ -107,7 +107,7 @@
 وعندها سيقوم النظام بإخراجهم من البطولة لكي لا يخسروا مزيداً من الجولات.
 يمكنهم إعادة الانضمام للبطولة متى ما شاؤوا.</string>
   <string name="protectionAgainstNoShowQ">ماذا يحدث للبطولات غير المعروضة؟</string>
-  <string name="protectionAgainstNoShowA">اللاعبون الذين يسجلون في البطولات السويسرية، ولكنهم لا يلعبون مبارياتهم قد يسببون مشكلة.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">اللاعبون الذين يسجلون في البطولات السويسرية، ولكنهم لا يلعبون مبارياتهم قد يسببون مشكلة.
 لذا، يُمنع اللاعبين الذين يفعلون ذلك من الانضمام إلى حدث سويسري جديد لفترة زمنية معينة، لكن يمكن لمنشئ البطولة السويسرية أن يقرر ضمهم إليها مع ذلك.</string>
   <string name="lateJoinQ">هل يمكن للاعب الانضمام متأخراً؟</string>
   <string name="lateJoinA">نعم، إلى أن يبدأ أكثر من نصف المباريات؛ على سبيل المثال في إحدى عشرة جولة يمكن للاعبين أن ينضموا قبل أن تبدأ الجولة السادسة وفي 12 جولة قبل بدء الجولة السابعة.

@@ -27,7 +27,7 @@ object RoomSocket:
       case SetVersion(v)       => version = v
       case nv: NotifyVersion[?] =>
         version = version.map(_ + 1)
-        send:
+        send.exec:
           val tell =
             if chatMsgs(nv.tpe) then Protocol.Out.tellRoomChat
             else Protocol.Out.tellRoomVersion
@@ -35,7 +35,7 @@ object RoomSocket:
 
     override def stop() =
       super.stop()
-      send(Protocol.Out.stop(roomId))
+      send.exec(Protocol.Out.stop(roomId))
 
   def makeRoomMap(send: SocketSend)(using Executor) =
     SyncActorMap[RoomId, RoomState](

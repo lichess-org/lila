@@ -21,7 +21,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">回合间隔 %s 分钟</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">开始于</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">开始于</string>
   <string name="nextRound">下一轮</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">进行中的棋局</item>
@@ -71,7 +71,7 @@
 然后系统会将该玩家从比赛中踢出，使他不至于输掉更多比赛。
 他们随时可以重新加入比赛。</string>
   <string name="protectionAgainstNoShowQ">对于没有参加的情况怎么办？</string>
-  <string name="protectionAgainstNoShowA">报名参加瑞士锦标赛但不下棋的玩家可能导致问题。
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">报名参加瑞士锦标赛但不下棋的玩家可能导致问题。
 为了缓解这些麻烦，Lichess 会阻止未能在加入锦标赛一段时间内下出一盘棋的玩家。
 瑞士锦标赛的创建者也可以决定是否让他们加入。</string>
   <string name="lateJoinQ">玩家可以稍后加入吗？</string>

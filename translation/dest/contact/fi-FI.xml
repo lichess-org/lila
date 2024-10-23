@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Kuinka voimme olla avuksi?</string>
   <string name="visitThisPage">Ongelman ratkaisemiseksi käy tällä sivulla</string>
   <string name="iCantLogIn">En pääse kirjautumaan sisään</string>
-  <string name="noConfirmationEmail">En saanut vahvistusta sähköpostitse</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">En saanut vahvistusta sähköpostitse</string>
   <string name="forgotPassword">Unohdin salasanani</string>
   <string name="forgotUsername">Unohdin käyttäjänimeni</string>
   <string name="youCanLoginWithEmail">Voit kirjautua sisään sähköpostiosoitteella, jolla rekisteröidyit käyttäjäksi</string>

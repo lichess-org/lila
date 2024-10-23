@@ -12,7 +12,6 @@ import { pubsub } from 'common/pubsub';
 export class GameCtrl implements LocalSetup {
   private stopped = true;
   private setup: LocalSetup;
-  private trans: Trans;
   live: LocalGame;
   history?: LocalGame;
   proxy: RoundProxy;
@@ -21,7 +20,6 @@ export class GameCtrl implements LocalSetup {
   resolveThink?: () => void;
 
   constructor(readonly opts: LocalPlayOpts) {
-    this.trans = trans(this.opts.i18n);
     this.setup =
       opts.setup ??
       JSON.parse(localStorage.getItem('assets' in opts ? 'local.dev.setup' : 'local.setup') ?? '{}');
@@ -136,7 +134,7 @@ export class GameCtrl implements LocalSetup {
 
   nameOf(color: Color): string {
     if (!this[color] && this[co.opposite(color)]) return env.username;
-    return this[color] ? env.bot.get(this[color])!.name : this.trans(color);
+    return this[color] ? env.bot.get(this[color])!.name : i18n.site[color];
   }
 
   idOf(color: Color): string {

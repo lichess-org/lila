@@ -27,7 +27,7 @@
   <string name="sourceSingleUrl">URL origen del PGN</string>
   <string name="sourceUrlHelp">URL que Lichess comprovarà per a obtenir actualitzacions PGN. Ha de ser públicament accessible des d\'Internet.</string>
   <string name="sourceGameIds">Fins a 64 identificadors de partides de Lichess, separades per espais.</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Dia d\'inici a la zona horari del torneig: %s</string>
+  <string name="startDateTimeZone">Dia d\'inici a la zona horari del torneig: %s</string>
   <string name="startDateHelp">Opcional, si saps quan comença l\'esdeveniment</string>
   <string name="credits">Cita la font</string>
   <string name="currentGameUrl">URL actual de joc</string>
@@ -41,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Elimina el torneig de forma definitiva, amb totes les seves rondes i les seves partides.</string>
   <string name="showScores">Mostra les puntuacions dels jugadors en funció dels resultats de les partides</string>
   <string name="replacePlayerTags">Opcional: Reemplaça noms dels jugadors, puntuacions i títols</string>
-  <string name="periodInSeconds">Període en segons</string>
-  <string name="periodInSecondsHelp">Opcional, quant de temps esperar entre sol·licituds. Mínim 2 segons, màxim 60 segons. Per defecte es gestiona automàticament en funció del nombre de visualitzadors.</string>
   <string name="fideFederations">Federacions FIDE</string>
   <string name="top10Rating">Top 10 Ràting</string>
   <string name="fidePlayers">Jugadors FIDE</string>

@@ -1,6 +1,7 @@
 /// <reference path="./tree.d.ts" />
 /// <reference path="./chessground.d.ts" />
 /// <reference path="./cash.d.ts" />
+/// <reference path="./i18n.d.ts" />
 
 // file://./../../site/src/site.ts
 interface Site {
@@ -30,15 +31,13 @@ interface Site {
   redirect(o: RedirectTo, beep?: boolean): void;
   reload(err?: any): void;
   announce(d: LichessAnnouncement): void;
-  trans: Trans; // file://./../../common/src/i18n.ts
   sound: SoundI; // file://./../../site/src/sound.ts
   displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
 
   // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
-  quantity(n: number): 'zero' | 'one' | 'few' | 'many' | 'other';
-  siteI18n: I18nDict;
+  quantity(n: number): 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
   socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
@@ -51,9 +50,6 @@ interface EsmModuleOpts extends AssetUrlOpts {
 }
 
 type PairOf<T> = [T, T];
-
-type I18nDict = { [key: string]: string };
-type I18nKey = string;
 
 type Flair = string;
 
@@ -81,7 +77,7 @@ interface QuestionChoice {
   // file://./../../round/src/ctrl.ts
   action: () => void;
   icon?: string;
-  key?: I18nKey;
+  text?: string;
 }
 
 interface QuestionOpts {
@@ -151,18 +147,6 @@ type Timeout = ReturnType<typeof setTimeout>;
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
-type TransNoArg = (key: string) => string;
-
-interface Trans {
-  // file://./../../common/src/i18n.ts
-  (key: string, ...args: Array<string | number>): string;
-  noarg: TransNoArg;
-  plural(key: string, count: number, ...args: Array<string | number>): string;
-  pluralSame(key: string, count: number, ...args: Array<string | number>): string;
-  vdom<T>(key: string, ...args: T[]): Array<string | T>;
-  vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): Array<string | T>;
-}
-
 interface LichessAnnouncement {
   msg?: string;
   date?: string;
@@ -180,6 +164,7 @@ interface Fipr {
 interface Window {
   site: Site;
   fipr: Fipr;
+  i18n: I18n;
   $as<T>(cash: Cash): T;
   readonly chrome?: unknown;
   readonly moment: any;
@@ -319,4 +304,5 @@ type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const site: Site;
 declare const fipr: Fipr;
+declare const i18n: I18n;
 declare module 'tablesort';

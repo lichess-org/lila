@@ -32,7 +32,7 @@
     <item quantity="many">%s хвіліны паміж турамі</item>
     <item quantity="other">%s хвіліны паміж турамі</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Пачынаецца праз</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Пачынаецца праз</string>
   <string name="nextRound">Наступны тур</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Бягучая партыя</item>

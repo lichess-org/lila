@@ -41,7 +41,7 @@
   <string name="addAnotherTheme">latlh Segh chel</string>
   <string name="nextPuzzle">ngajrun veb</string>
   <string name="solved">panpu\'</string>
-  <string name="failed">muj</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">muj</string>
   <string name="searchPuzzles">ngajrun nej</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s Qujpu\'</item>

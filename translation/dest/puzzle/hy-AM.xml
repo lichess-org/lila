@@ -31,8 +31,8 @@
   <string name="byOpenings">Ըստ դեբյուտների</string>
   <string name="puzzlesByOpenings">Դեբյուտային խնդիրներ</string>
   <string name="openingsYouPlayedTheMost">Դեբյուտներ, որոնք դուք խաղացել եք վարկանիշային կուսակցությունների մեծ մասում</string>
-  <string name="useFindInPage">Օգտագործեք \"Գտել էջում \" զննարկչի ընտրացանկում՝ ձեր նախընտրած դեբյուտը գտնելու՛ համար:</string>
-  <string name="useCtrlF">Օգտագործեք Ctrl + f ՝ Ձեր նախընտրած դեբյուտը գտնելու՛ համար։</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Օգտագործեք \"Գտել էջում \" զննարկչի ընտրացանկում՝ ձեր նախընտրած դեբյուտը գտնելու՛ համար:</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Օգտագործեք Ctrl + f ՝ Ձեր նախընտրած դեբյուտը գտնելու՛ համար։</string>
   <string name="notTheMove">Վատ քայլ է</string>
   <string name="trySomethingElse">Փորձեք այլ կերպ։</string>
   <string name="ratingX">Վարկանիշ՝ %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Ուժեղ կողմեր</string>
   <string name="history">Խնդիրների պատմություն</string>
   <string name="solved">լուծված</string>
-  <string name="failed">անհաջող</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">անհաջող</string>
   <string name="streakDescription">Լուծե՛ք աստիճանաբար բարդացող խնդիրները և ստեղծե՛ք հաղթական շարք։ Այստեղ չկա ժամացույց, այնպես որ՝ մի՛ շտապեք։ Մեկ անհաջող քայլ, և խաղն ավարտված է։ Բայց մեկ խաղաշարի ընթացքում կարելի է բաց թողնել մեկ քայլ։</string>
   <string name="yourStreakX">Ձեր շարքը՝ %s</string>
   <string name="streakSkipExplanation">Բաց թողնել այս քայլը՝ շարքը պահպանելու համար։ Կարելի է օգտագործել միայն մեկ անգամ։</string>

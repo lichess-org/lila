@@ -4,7 +4,7 @@
   <string name="coordinateTraining">निर्देशांक प्रशिक्षण</string>
   <string name="averageScoreAsWhiteX">सफेद के साथ में औसत अंक: %s</string>
   <string name="averageScoreAsBlackX">काले के साथ में औसत अंक: %s</string>
-  <string name="knowingTheChessBoard">शतरंज निर्देशांक जानना एक बहुत महत्वपूर्ण शतरंज कौशल है:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">शतरंज निर्देशांक जानना एक बहुत महत्वपूर्ण शतरंज कौशल है:</string>
   <string name="mostChessCourses">ज्यादातर शतरंज पाठ्यक्रम और अभ्यास बड़े पैमाने पर बीजगणित संकेतन का उपयोग करते हैं।</string>
   <string name="talkToYourChessFriends">यह आपके शतरंज मित्रों से बात करना आसान बनाता है, क्योंकि आप दोनों \"शतरंज की भाषा\" को समझते हैं।</string>
   <string name="youCanAnalyseAGameMoreEffectively">यदि आप वर्ग के नामों की खोज करने की आवश्यकता नहीं है, तो आप एक गेम को और अधिक प्रभावी ढंग से विश्लेषण कर सकते हैं।</string>

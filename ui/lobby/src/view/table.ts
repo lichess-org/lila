@@ -6,7 +6,7 @@ import renderSetupModal from './setup/modal';
 import { numberFormat } from 'common/number';
 
 export default function table(ctrl: LobbyController) {
-  const { data, trans, opts } = ctrl;
+  const { data, opts } = ctrl;
   const hasOngoingRealTimeGame = ctrl.hasOngoingRealTimeGame();
   const hookDisabled =
     opts.playban || opts.hasUnreadLichessMessage || ctrl.me?.isBot || hasOngoingRealTimeGame;
@@ -16,11 +16,10 @@ export default function table(ctrl: LobbyController) {
       'div.lobby__start',
       (site.blindMode ? [h('h2', 'Play')] : []).concat(
         [
-          ['hook', 'createAGame', hookDisabled],
-          ['friend', 'playWithAFriend', hasOngoingRealTimeGame],
-          ['ai', 'playWithTheMachine', hasOngoingRealTimeGame],
-          //['local', 'privatePlay', false],
-        ].map(([gameType, transKey, disabled]: [GameType, string, boolean]) =>
+          ['hook', i18n.site.createAGame, hookDisabled],
+          ['friend', i18n.site.playWithAFriend, hasOngoingRealTimeGame],
+          ['ai', i18n.site.playWithTheMachine, hasOngoingRealTimeGame],
+        ].map(([gameType, text, disabled]: [GameType, string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,
             {
@@ -37,7 +36,7 @@ export default function table(ctrl: LobbyController) {
                     ctrl.redraw,
                   ),
             },
-            trans(transKey),
+            text,
           ),
         ),
       ),
@@ -52,8 +51,7 @@ export default function table(ctrl: LobbyController) {
           h(
             'a',
             { attrs: site.blindMode ? {} : { href: '/player' } },
-            trans.vdomPlural(
-              'nbPlayers',
+            i18n.site.nbPlayers.asArray(
               members,
               h(
                 'strong',
@@ -70,8 +68,7 @@ export default function table(ctrl: LobbyController) {
           h(
             'a',
             site.blindMode ? {} : { attrs: { href: '/games' } },
-            trans.vdomPlural(
-              'nbGamesInPlay',
+            i18n.site.nbGamesInPlay.asArray(
               rounds,
               h(
                 'strong',

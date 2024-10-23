@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Pomakni na e4 ili odaberi e4 figuru</string>
   <string name="selectOrCaptureABishop">Odaberi ili pojedi lovca</string>
   <string name="takeRookWithQueen">Pojedi topa sa kraljicom</string>
-  <string name="castle">Rokada ( bilo koja strana)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokada ( bilo koja strana)</string>
   <string name="phoneticAlphabetIsBest">Fonetska abeceda je najbolja</string>
   <string name="cancelTimerOrDenyARequest">Otkaži mjerenje vremena ili odbij zahtjev</string>
   <string name="playPreferredMoveOrConfirmSomething">Odigraj preferirani potez ili potvrdi nešto</string>

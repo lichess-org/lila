@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Nokre Lichess-sider har tastatursnarvegar. Trykk \'?\'-nøkkelen på sider med studie, analyse, oppgåve eller parti for å sjå ei liste med tilgjengelege tastatursnarvegar.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Når er eg kvalifisert til den automatiske refunderinga av rating-tap frå fuskarar?</string>
-  <string name="ratingRefundExplanation">Eit minutt etter at ein spelar er markert ser systemet over spelaren sine 40 siste rangerte sigrar. Du får refusjon dersom du har vore motspelar i nokre av desse spela og ratinga di ikkje var mellombels. Refusjonen vert avgrensa av den høgaste ratinga di og av framgangen i rating etter spelet.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Eit minutt etter at ein spelar er markert ser systemet over spelaren sine 40 siste rangerte sigrar. Du får refusjon dersom du har vore motspelar i nokre av desse spela og ratinga di ikkje var mellombels. Refusjonen vert avgrensa av den høgaste ratinga di og av framgangen i rating etter spelet.
  (Til dømes: dersom ratinga di aukar sterkt etter desse spela kan det hende du får korkje heil eller delvis refusjon.) Refusjonen vil aldri overgå 150 ratingpoeng.</string>
   <string name="preventLeavingGameWithoutResigning">Kva hender med spelarar som forsvinn utan å resignere partiet?</string>
   <string name="leavingGameWithoutResigningExplanation">Dersom motspelaren din har som vane å bryte av/forsvinne frå partiet får vedkomande mellombels \"spelenekt\". Eit forbod av dette slaget vert ikkje kunngjort på spelarprofilen. Dersom spelaren held fram med denne framferda vert lengda på spelenekten lengre - og ei vedvarande åtferd av dette slaget kan føre til stenging av kontoen.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Kor går skiljene mellom tidskontrollane for bullet, lyn, snøgg og klassisk sjakk?</string>
   <string name="basedOnGameDuration">Tidskontrollane på Lichess er basert på estimert total speletid = %1$s
   Til dømes er estimert lengd på eit 5+3 parti 5 * 60 + 40 * 3 = 420 sekund.</string>
-  <string name="durationFormula">(starttid på sjakkuret) + 40 * (tilleggstid)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(starttid på sjakkuret) + 40 * (tilleggstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Kva for variantar kan eg spele på Lichess?</string>

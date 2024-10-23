@@ -7,6 +7,7 @@
     <item quantity="other">%s dirette</item>
   </plurals>
   <string name="liveBroadcasts">Tornei in diretta</string>
+  <string name="broadcastCalendar">Calendario trasmissioni</string>
   <string name="newBroadcast">Nuova diretta</string>
   <string name="subscribedBroadcasts">Trasmissioni abbonate</string>
   <string name="aboutBroadcasts">Informazioni sulle trasmissioni</string>
@@ -26,6 +27,7 @@
   <string name="sourceSingleUrl">Sorgente URL PGN</string>
   <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
   <string name="sourceGameIds">Fino a 64 ID di partite Lichess, separati da spazi.</string>
+  <string name="startDateTimeZone">Data d\'inizio nel fuso orario locale del torneo: %s</string>
   <string name="startDateHelp">Facoltativo, se sai quando inizia l\'evento</string>
   <string name="credits">Cita la fonte</string>
   <string name="currentGameUrl">URL della partita corrente</string>
@@ -39,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Elimina definitivamente l\'intero torneo, tutti i turni e tutte le partite.</string>
   <string name="showScores">Mostra i punteggi dei giocatori in base ai risultati del gioco</string>
   <string name="replacePlayerTags">Facoltativo: sostituisci i nomi dei giocatori, i punteggi e i titoli</string>
-  <string name="periodInSeconds">Intervallo in secondi</string>
-  <string name="periodInSecondsHelp">Facoltativo: quanto a lungo aspettare tra le richieste. Minimo 2s, massimo 60s. Il default è scelto in base al numero di spettatori.</string>
   <string name="fideFederations">Federazioni FIDE</string>
   <string name="top10Rating">Migliori 10 punteggi</string>
   <string name="fidePlayers">Giocatori FIDE</string>

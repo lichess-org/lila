@@ -9,8 +9,6 @@ import { Redraw } from '../interfaces';
 
 export interface RetroCtrl {
   isSolving(): boolean;
-  trans: Trans;
-  noarg: TransNoArg;
   current: Prop<Retrospection | null>;
   feedback: Prop<Feedback>;
   color: Color;
@@ -254,8 +252,6 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return isSolving() && !!cur && root.path == cur.prev.path;
     },
     close: root.toggleRetro,
-    trans: root.trans,
-    noarg: root.trans.noarg,
     node: () => root.node,
     redraw,
   };

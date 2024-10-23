@@ -39,7 +39,7 @@
   <string name="deflection">Atmušimas</string>
   <string name="deflectionDescription">Ėjimas, kuris nukreipia priešininko figūros dėmesį nuo kitos svarbios jos rolės, pavyzdžiui: langelio šalia karaliaus saugojimo.</string>
   <string name="discoveredAttack">Atidengimo ataka</string>
-  <string name="discoveredAttackDescription">Blokuojančios figūros patraukimas nuo ilgų distancijų figūros, pavyzdžiui žirgo patraukimas nuo bokšto trajektorijos.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Blokuojančios figūros patraukimas nuo ilgų distancijų figūros, pavyzdžiui žirgo patraukimas nuo bokšto trajektorijos.</string>
   <string name="doubleCheck">Dvigubas šachas</string>
   <string name="doubleCheckDescription">Šachas dviem figūrom vienu metu. Įvyksta po atidengimo atakos, kai ir perkelta figūra ir atidengta figūra puola priešininko karalių.</string>
   <string name="endgame">Endšpilis</string>

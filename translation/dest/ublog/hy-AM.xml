@@ -24,7 +24,7 @@
   <string name="xPublishedY">%1$s-ը %2$s է հրապարակել</string>
   <string name="thisPostIsPublished">Գրառումը հրապարակված է</string>
   <string name="thisIsADraft">Սա սևագրություն է</string>
-  <string name="moreBlogPostsBy">Դիտել %s-ի ավելի շատ գրառումներ բլոգում</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Դիտել %s-ի ավելի շատ գրառումներ բլոգում</string>
   <string name="noPostsInThisBlogYet">Այս բլոգում գրառումներ առայժմ չկան։</string>
   <string name="noDrafts">Ցուցադրելու համար սևագրություններ չկան։</string>
   <string name="latestBlogPosts">Թարմ Բլոգի գրառումներ</string>

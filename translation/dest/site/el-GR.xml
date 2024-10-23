@@ -90,7 +90,7 @@
   <string name="averageRatingX">Μέση βαθμολογία: %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
   <string name="topGames">Κορυφαίες παρτίδες</string>
-  <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
+  <string name="masterDbExplanation">Παρτίδες OTB %1$s + παικτών με αξιολόγηση FIDE, από %2$s έως %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Ματ σε %s μισή κίνηση</item>
     <item quantity="other">Ματ σε %s μισές κινήσεις</item>
@@ -103,7 +103,7 @@
   <string name="openingExplorer">Εξερευνητής ανοιγμάτων</string>
   <string name="openingEndgameExplorer">Εξερευνητής ανοιγμάτων/φινάλε</string>
   <string name="xOpeningExplorer">%s εξερευνητής ανοιγμάτων</string>
-  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">Κλειδί: παίξτε ΠρώταΆνοιγμαΦινάλεΕξερευνητήςΚίνηση</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Κλειδί: παίξτε ΠρώταΆνοιγμαΦινάλεΕξερευνητήςΚίνηση</string>
   <string name="winPreventedBy50MoveRule">H νίκη εμποδίζεται από τον κανόνα των 50 κινήσεων</string>
   <string name="lossSavedBy50MoveRule">Η ήττα αποτρέπεται από τον κανόνα των 50 κινήσεων</string>
   <string name="winOr50MovesByPriorMistake">Νίκη ή ισοπαλία από 50 κινήσεις λόγω λάθους</string>
@@ -126,7 +126,6 @@
   <string name="memory">Μνήμη</string>
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
   <string name="removesTheDepthLimit">Καταργεί το όριο βάθους και κρατά τον υπολογιστή σας ζεστό</string>
-  <string name="engineManager">Διαχειριστής μηχανής</string>
   <string name="blunder">Σοβαρό σφάλμα</string>
   <string name="mistake">Λάθος</string>
   <string name="inaccuracy">Ανακρίβεια</string>
@@ -559,9 +558,9 @@
   <string name="cheat">Απάτη</string>
   <string name="troll">Εμπαιγμός</string>
   <string name="other">Άλλο</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Επικολλήστε τους συνδέσμους με τα παιχνίδια και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Η αναφορά σας θα επεξεργαστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τα παιχνίδια και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
+  <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα επεξεργαστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
   <string name="by">από τον %s</string>
   <string name="importedByX">Εισήχθη από τον χρήστη %s</string>
@@ -693,14 +692,14 @@
   <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το τουρνουά</string>
   <string name="averageCentipawnLoss">Μέση απώλεια εκατοστοπιονιού</string>
   <string name="accuracy">Ακρίβεια</string>
-  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Συντομεύσεις πληκτρολογίου</string>
+  <string name="keyboardShortcuts">Συντομεύσεις πληκτρολογίου</string>
   <string name="keyMoveBackwardOrForward">μετακίνηση προς τα πίσω / προς τα εμπρός</string>
   <string name="keyGoToStartOrEnd">πηγαίνετε στην έναρξη / λήξη</string>
   <string name="keyCycleSelectedVariation">Επανάληψη επιλεγμένης βαριάντας</string>
   <string name="keyShowOrHideComments">εμφάνιση / απόκρυψη σχολίων</string>
   <string name="keyEnterOrExitVariation">είσοδος / έξοδος εκδοχής</string>
-  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Ζητήστε ανάλυση της θέσης από υπολογιστή, Μάθετε από τα λάθη σας</string>
-  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">Συνέχεια (Μάθετε από τα λάθη σας)</string>
+  <string name="keyRequestComputerAnalysis">Ζητήστε ανάλυση της θέσης από υπολογιστή, Μάθετε από τα λάθη σας</string>
+  <string name="keyNextLearnFromYourMistakes">Συνέχεια (Μάθετε από τα λάθη σας)</string>
   <string name="keyNextBlunder">Επόμενο σοβαρό σφάλμα</string>
   <string name="keyNextMistake">Επόμενο λάθος</string>
   <string name="keyNextInaccuracy">Επόμενη ανακρίβεια</string>
@@ -744,7 +743,7 @@
   <string name="downloadRaw">Λήψη ακατέργαστο</string>
   <string name="downloadImported">Λήψη εισαγόμενου</string>
   <string name="crosstable">Αποτελέσματα</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινηθείτε πάνω στην σκακιέρα για να πάτε στο παιχνίδι.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινήσετε πάνω στην σκακιέρα για να μετακινηθείτε στο παιχνίδι.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
@@ -940,7 +939,7 @@
   <string name="cancelTournament">Ακύρωση τουρνουά</string>
   <string name="tournDescription">Περιγραφή του τουρνουά</string>
   <string name="tournDescriptionHelp">Θέλετε να πείτε κάτι ιδιαίτερο στους παίκτες; Προσπαθήστε να κρατήσετε το μήνυμά σας σύντομο. Μπορείτε να χρησιμοποιείτε συνδέσμους σε Markdown: [name](https://url)</string>
-  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">Τα παιχνίδια αξιολογούνται
+  <string name="ratedFormHelp">Τα παιχνίδια αξιολογούνται
 και επηρεάζουν τη βαθμολογία των παιχτών</string>
   <string name="onlyMembersOfTeam">Μόνο μέλη της ομάδας</string>
   <string name="noRestriction">Χωρίς περιορισμούς</string>
@@ -972,7 +971,7 @@
   <string name="playComputerMove">Παίξτε την καλύτερη κίνηση που προτείνει ο υπολογιστής</string>
   <string name="analysisOptions">Ρυθμίσεις ανάλυσης</string>
   <string name="focusChat">Εστίαση στο chat</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
+  <string name="showHelpDialog">Εμφάνιση αυτού του παραθύρου διαλόγου βοήθειας</string>
   <string name="reopenYourAccount">Ξανανοίξτε τον λογαριασμό σας</string>
   <string name="closedAccountChangedMind">Αν κλείσατε το λογαριασμό σας, αλλά έχετε αλλάξει γνώμη, μπορείτε να τον ξανανοίξετε.</string>
   <string name="onlyWorksOnce">Αυτό θα λειτουργήσει μόνο μία φορά.</string>

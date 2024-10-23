@@ -11,7 +11,6 @@ import ScalatagsTemplate.{ *, given }
 
 final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
-    translations: Vector[I18nKey],
     explorerAndCevalConfig: Context ?=> JsObject,
     modMenu: Context ?=> Frag
 ):
@@ -20,6 +19,7 @@ final class PracticeUi(helpers: Helpers)(
   def show(us: UserStudy, data: JsonView.JsData)(using Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
+      .i18n(_.puzzle, _.study)
       .js(analyseNvuiTag)
       .js(
         PageModule(
@@ -27,8 +27,7 @@ final class PracticeUi(helpers: Helpers)(
           Json.obj(
             "practice" -> data.practice,
             "study"    -> data.study,
-            "data"     -> data.analysis,
-            "i18n"     -> i18nJsObject(translations)
+            "data"     -> data.analysis
           ) ++ explorerAndCevalConfig
         )
       )

@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Lichesseko orri batzuk lasterteklak dituzte. \'?\' tekla azterlan, analisi, ariketa eta partida baten pantailan sakatuz gero, zerrendatuta agertuko dira.</string>
   <string name="fairPlay">Joko Garbia</string>
   <string name="whenAmIEligibleRatinRefund">Noiz jaso dezaket tranpa egin didaten jokalarien aurkako partidetako puntuazioa?</string>
-  <string name="ratingRefundExplanation">Jokalari bat markatu eta minutu bat pasatu ostean, bere azken 3 egunetako puntuatutako azken 40 partidak hartzen dira. Partida horietako aurkariren bat zu bazara, puntuazioa galdu bazenuen (porrot edo berdinketagatik), eta zure puntuazioa behin-behinekoa ez bazen, zure puntuazioa bueltan lortuko duzu. Puntuazioaren itzulera zure puntuazio altuenarekin eta partidaren osteko zure eboluzioarekin mugatuta egongo da.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Jokalari bat markatu eta minutu bat pasatu ostean, bere azken 3 egunetako puntuatutako azken 40 partidak hartzen dira. Partida horietako aurkariren bat zu bazara, puntuazioa galdu bazenuen (porrot edo berdinketagatik), eta zure puntuazioa behin-behinekoa ez bazen, zure puntuazioa bueltan lortuko duzu. Puntuazioaren itzulera zure puntuazio altuenarekin eta partidaren osteko zure eboluzioarekin mugatuta egongo da.
   (adibidez, zure puntuazioa partida horien ostean asko igo bada, agian ez duzu puntuazio osoa berreskuratuko). Itzulera ez da inoiz 150 puntutik pasatuko.</string>
   <string name="preventLeavingGameWithoutResigning">Zer egiten da partidak amore eman gabe uzten dituzten jokalariekin?</string>
   <string name="leavingGameWithoutResigningExplanation">Zure aurkariek sarri partidak bertan behera utzi edo joan egiten badira, \"jokatzeko debekua\" jasoko dute eta horrekin ezingo dute denbora baterako partidarik jokatu. Hau ez da beren profilean publikoki agertuko. Jarrera honek aurrera jarraitzen badu, jokatzeko debekuaren iraupena luzatu egingo da, eta horrelako jarrera iraunkorrak kontua ixtea ekar lezake.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Nola erabakizen da zer diren Bullet, Blitz edo beste erritmo batzuk?</string>
   <string name="basedOnGameDuration">Lichesseko joko erritmoak partiden ustezko iraupenaren arabera ezartzen dira = %1$s
   Adibidez, 5+3 partida baten ustezko iraupena hauxe da: 5 * 60 + 40 * 3 = 420 segundo.</string>
-  <string name="durationFormula">(erlojuaren hasierako denbora) + 40 * (denbora gehigarria)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(erlojuaren hasierako denbora) + 40 * (denbora gehigarria)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Zein aldaeratara jokatu dezaket Lichessen?</string>

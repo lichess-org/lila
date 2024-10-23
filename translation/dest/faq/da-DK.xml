@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Nogle Lichess-sider har tastaturgenveje du kan bruge. Prøv at trykke på tasten \'?\' på studie-, analyse-, opgave- eller partisider for at få vist en liste over tilgængelige tastaturgenveje.</string>
   <string name="fairPlay">Fair Play</string>
   <string name="whenAmIEligibleRatinRefund">Hvornår er jeg berettiget til den automatiske rating-refundering fra snydere?</string>
-  <string name="ratingRefundExplanation">Et minut efter en spiller får en anmærkning, bliver deres 40 seneste ratede sejre i løbet af de sidste 3 dage inddraget. Hvis du var deres modstander i de partier og din rating ikke var provisorisk, vil du få en rating-refundering. Størrelsen på refunderingen afgøres af din højeste rating og din rating-udvikling efter partiet. 
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Et minut efter en spiller får en anmærkning, bliver deres 40 seneste ratede sejre i løbet af de sidste 3 dage inddraget. Hvis du var deres modstander i de partier og din rating ikke var provisorisk, vil du få en rating-refundering. Størrelsen på refunderingen afgøres af din højeste rating og din rating-udvikling efter partiet. 
   (Hvis for eksempel din rating steg markant efter de partier, får du måske ingen refundering eller kun en delvis refundering.) En refundering vil aldrig være på mere end 150 point.</string>
   <string name="preventLeavingGameWithoutResigning">Hvad gøres der ved spillere, som forlader partier uden at opgive?</string>
   <string name="leavingGameWithoutResigningExplanation">Hvis din modstander ofte afbryder / forlader spil, får de \"spilforbud\", hvilket betyder, at de får et midlertidigt forbud mod at spille. Dette er ikke offentliggjort på deres profil. Hvis denne opførsel fortsætter, forlænges spilleforbuddet - og en vedvarende opførsel af denne art kan føre til lukning af kontoen.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Hvordan afgøres forskellen mellem Bullet, Blitz og andre tidskontroller?</string>
   <string name="basedOnGameDuration">Tidskontroller på Lichess er baseret på en estimeret varighed af partiet = %1$s
   For eksempel er den estimeret varighed af et 5+3 parti 5 * 60 + 40 * 3 = 420 sekunder.</string>
-  <string name="durationFormula">(starttid på uret) + 40 * (tillægstid)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(starttid på uret) + 40 * (tillægstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille på Lichess?</string>

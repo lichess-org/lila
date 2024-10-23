@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Waar kunnen we je mee helpen?</string>
   <string name="visitThisPage">Bezoek deze pagina om het probleem op te lossen</string>
   <string name="iCantLogIn">Ik kan niet inloggen</string>
-  <string name="noConfirmationEmail">Ik heb geen bevestigingsmail ontvangen</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ik heb geen bevestigingsmail ontvangen</string>
   <string name="forgotPassword">Ik ben mijn wachtwoord vergeten</string>
   <string name="forgotUsername">Ik ben mijn gebruikersnaam vergeten</string>
   <string name="youCanLoginWithEmail">Je kunt inloggen met het e-mailadres waarmee je je hebt aangemeld</string>

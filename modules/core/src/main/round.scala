@@ -55,7 +55,11 @@ case class DrawClaim(playerId: GamePlayerId)
 case class Blindfold(playerId: GamePlayerId, blindfold: Boolean)
 object Moretime:
   val defaultDuration = 15.seconds
-case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
+case class Moretime(
+    playerId: GamePlayerId,
+    seconds: FiniteDuration = Moretime.defaultDuration,
+    force: Boolean = false
+)
 case class ClientFlag(color: Color, fromPlayerId: Option[GamePlayerId])
 case object Abandon
 case class ForecastPlay(lastMove: Move)

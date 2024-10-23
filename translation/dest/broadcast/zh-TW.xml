@@ -6,6 +6,7 @@
     <item quantity="other">%s 個直播</item>
   </plurals>
   <string name="liveBroadcasts">錦標賽直播</string>
+  <string name="broadcastCalendar">直播時程表</string>
   <string name="newBroadcast">新的現場直播</string>
   <string name="subscribedBroadcasts">已訂閱的直播</string>
   <string name="aboutBroadcasts">關於直播</string>
@@ -25,6 +26,7 @@
   <string name="sourceSingleUrl">PGN 來源網址</string>
   <string name="sourceUrlHelp">Lichess 將以該網址更新PGN數據，網址必須公開</string>
   <string name="sourceGameIds">最多 64 個以空格分開的 Lichess 棋局序號。</string>
+  <string name="startDateTimeZone">當地時區的錦標賽起始日期：%s</string>
   <string name="startDateHelp">可選，如果知道比賽開始時間</string>
   <string name="credits">提及來源</string>
   <string name="currentGameUrl">目前棋局連結</string>
@@ -36,9 +38,8 @@
   <string name="editRoundStudy">編輯此輪研究</string>
   <string name="deleteTournament">刪除此錦標賽</string>
   <string name="definitivelyDeleteTournament">刪除錦標賽以及所有棋局</string>
+  <string name="showScores">根據比賽結果顯示玩家分數</string>
   <string name="replacePlayerTags">取代玩家名字、評級、以及頭銜（選填）</string>
-  <string name="periodInSeconds">週期（秒）</string>
-  <string name="periodInSecondsHelp">請求之間的時間間隔，最少 2 秒，最多 60 秒。預設為依照觀看人數決定。（選填）</string>
   <string name="fideFederations">FIDE 國別</string>
   <string name="top10Rating">前 10 評級</string>
   <string name="fidePlayers">FIDE 玩家</string>

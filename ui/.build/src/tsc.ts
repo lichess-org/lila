@@ -102,15 +102,6 @@ function addToBucket(config: SplitConfig, buckets: SplitConfig[][], key: keyof S
     .push(config);
 }
 
-export function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
-  const length = Math.min(arr1.length, arr2.length);
-  const res: [T, U][] = [];
-  for (let i = 0; i < length; i++) {
-    res.push([arr1[i], arr2[i]]);
-  }
-  return res;
-}
-
 // the splitConfig transform generates noCheck and noEmit tsconfigs within the 'build' temp folder.
 // each package that emits gets a --noCheck pass for fast transpilations and declarations.
 // then we do a --noEmit pass on EVERY package to verify things, regardless of its original emit.

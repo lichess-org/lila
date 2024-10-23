@@ -653,7 +653,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="timeBeforeTournamentStarts">Aega turniiri alguseni</string>
   <string name="averageCentipawnLoss">Keskmine kaotus käigu kohta sajandiketturites</string>
   <string name="accuracy">Täpsus</string>
-  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">Kiirklahvid</string>
+  <string name="keyboardShortcuts">Kiirklahvid</string>
   <string name="keyMoveBackwardOrForward">liigu tagasi/edasi</string>
   <string name="keyGoToStartOrEnd">mine algusesse/lõppu</string>
   <string name="keyShowOrHideComments">näita/peida kommentaarid</string>
@@ -877,7 +877,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="cancelTournament">Tühista turniir</string>
   <string name="tournDescription">Turniiri kirjeldus</string>
   <string name="tournDescriptionHelp">Kas soovid osalejatele midagi erilist öelda? Püüa hoida see lühike. Markdown lingid on saadaval: [name](https://url)</string>
-  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">Mängud on reitinguga
+  <string name="ratedFormHelp">Mängud on reitinguga
 ja mõjutavad mängijate reitinguid</string>
   <string name="onlyMembersOfTeam">Ainult võistkonnaliikmed</string>
   <string name="noRestriction">Piiranguta</string>
@@ -909,7 +909,7 @@ Jäta tühjaks, et alustada mänge tavalisest algpositsioonist.</string>
   <string name="playComputerMove">Tee parim arvutikäik</string>
   <string name="analysisOptions">Analüüsi seaded</string>
   <string name="focusChat">Fokuseeri vestlus</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">Näita seda abiakent</string>
+  <string name="showHelpDialog">Näita seda abiakent</string>
   <string name="reopenYourAccount">Ava oma konto uuesti</string>
   <string name="closedAccountChangedMind">Kui sulgesid oma konto, kuid oled vahepeal ümber mõelnud, on sul üks võimalus oma konto tagasi saada.</string>
   <string name="onlyWorksOnce">See töötab ainult ühe korra.</string>

@@ -23,6 +23,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
       .css(ctx.blind.option("round.nvui"))
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .csp(csp.compose(_.withExternalAnalysisApis))
+      .i18n(_.puzzle, _.study)
       .graph(
         title = "Chess analysis board",
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
@@ -78,9 +79,13 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
 
     def lpvJs(lpvConfig: JsObject)(using Translate): WithNonce[Frag] =
       embedJsUnsafe(s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
-          lpvConfig ++ Json.obj(
-            "i18n" -> i18nJsObject(lpvI18n)
-          )
+          lpvConfig + ("i18n" -> Json.obj(
+            "flipTheBoard"         -> trans.site.flipBoard.txt(),
+            "analysisBoard"        -> trans.site.analysis.txt(),
+            "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
+            "getPgn"               -> trans.study.copyChapterPgn.txt(),
+            "download"             -> trans.site.download.txt()
+          ))
         )})})""")
 
     def lpvConfig(orientation: Option[Color], getPgn: Boolean) = Json
@@ -90,10 +95,3 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
         )
       )
       .add("orientation", orientation.map(_.name))
-
-    private val lpvI18n = List(
-      trans.site.flipBoard,
-      trans.site.analysis,
-      trans.site.practiceWithComputer,
-      trans.site.download
-    )

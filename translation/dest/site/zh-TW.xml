@@ -124,7 +124,6 @@
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，可能會使您的電腦發熱。</string>
-  <string name="engineManager">引擎管理</string>
   <string name="blunder">漏著</string>
   <string name="mistake">錯誤</string>
   <string name="inaccuracy">輕微失誤</string>
@@ -524,9 +523,9 @@
   <string name="cheat">作弊</string>
   <string name="troll">搗亂</string>
   <string name="other">其他</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">請詳細說明你舉報此使用者的具體原因並貼上遊戲連結。「他作弊」等簡短說明是不被接受的。</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">請詳細說明你舉報此使用者的具體原因。若必要請解釋其名詞的歷史意義、網路用語、或是此使用者名稱如何指桑罵槐。「他的使用者名稱不妥」等簡短說明是不被接受的。</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">若舉報內容為英文將會更快的被處理。</string>
+  <string name="reportCheatBoostHelp">請詳細說明你舉報此使用者的具體原因並貼上遊戲連結。「他作弊」等簡短說明是不被接受的。</string>
+  <string name="reportUsernameHelp">請詳細說明你舉報此使用者的具體原因。若必要請解釋其名詞的歷史意義、網路用語、或是此使用者名稱如何指桑罵槐。「他的使用者名稱不妥」等簡短說明是不被接受的。</string>
+  <string name="reportProcessedFasterInEnglish">若舉報內容為英文將會更快的被處理。</string>
   <string name="error.provideOneCheatedGameLink">請提供至少一局作弊棋局的連結。</string>
   <string name="by">作者：%s</string>
   <string name="importedByX">由%s導入</string>

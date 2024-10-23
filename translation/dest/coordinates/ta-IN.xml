@@ -4,7 +4,7 @@
   <string name="coordinateTraining">ஒருங்கிணைப்பு பயிற்சி</string>
   <string name="averageScoreAsWhiteX">சராசரி மதிப்பெண் வெள்ளை: %s</string>
   <string name="averageScoreAsBlackX">சராசரி மதிப்பெண் கருப்பு: %s</string>
-  <string name="knowingTheChessBoard">சதுரங்க பலகையை அறிவது மிக முக்கியமான திறமை:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">சதுரங்க பலகையை அறிவது மிக முக்கியமான திறமை:</string>
   <string name="mostChessCourses">பெரும்பாலான செஸ் படிப்புகள், பயிற்சிகள் இயற்கணித நொட்டேஷன் பெற்றவர்களைத்தான்.</string>
   <string name="talkToYourChessFriends">உங்கள் சதுரங்க நண்பர்களுடன் பேசுவதை இது எளிதாக்குகிறது, ஏனெனில் நீங்கள் இருவரும் \'சதுரங்கத்தின் மொழியை\' புரிந்துகொள்கிறீர்கள்.</string>
   <string name="youCanAnalyseAGameMoreEffectively">ஒருங்கிணைப்புகளை விரைவாக அடையாளம் காண முடிந்தால், நீங்கள் ஒரு விளையாட்டை மிகவும் திறம்பட பகுப்பாய்வு செய்யலாம்.</string>

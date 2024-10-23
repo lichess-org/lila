@@ -93,7 +93,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
       maxWidth: opts.max?.pixels,
       maxHeight: opts.max?.pixels,
     });
-    const tryQuality = (quality = 1) => {
+    const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
           console.log(blob?.size, quality, opts.max?.megabytes);

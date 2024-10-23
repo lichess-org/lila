@@ -132,7 +132,7 @@ const iconOf = (tour: Tournament) =>
 
 let mousedownAt: number[] | undefined;
 
-function renderTournament(ctrl: Ctrl, tour: Tournament) {
+function renderTournament(tour: Tournament) {
   let width = tour.minutes * scale;
   const left = leftPos(tour.startsAt);
   // moves content into viewport, for long tourneys and marathons
@@ -178,7 +178,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
             displayClock(tour.clock) + ' ',
             tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
             tour.position ? 'Thematic ' : null,
-            tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament'),
+            i18n.site[tour.rated ? 'ratedTournament' : 'casualTournament'],
           ]),
           tour.nbPlayers
             ? h('span.nb-players', { attrs: { 'data-icon': licon.User } }, tour.nbPlayers)
@@ -284,7 +284,7 @@ export default function (ctrl: Ctrl) {
         ...tourLanes.map(lane => {
           return h(
             'div.tournamentline',
-            lane.map(tour => renderTournament(ctrl, tour)),
+            lane.map(tour => renderTournament(tour)),
           );
         }),
       ],

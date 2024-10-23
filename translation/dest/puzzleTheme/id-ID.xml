@@ -39,7 +39,7 @@
   <string name="deflection">Defleksi</string>
   <string name="deflectionDescription">Gerakan yang mengalihkan perhatian bidak lawan dari tugas lain yang dilakukan, seperti menjaga kotak kunci. Kadang juga disebut \"overloading\".</string>
   <string name="discoveredAttack">Menemukan serangan</string>
-  <string name="discoveredAttackDescription">Menggerakan bidak(seperti kuda), yang sebelumnya memblokir serangan oleh bidak jarak jauh(seperti benteng) keluar dari bidak itu.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Menggerakan bidak(seperti kuda), yang sebelumnya memblokir serangan oleh bidak jarak jauh(seperti benteng) keluar dari bidak itu.</string>
   <string name="doubleCheck">Skak ganda</string>
   <string name="doubleCheckDescription">Skak dengan dua bidak bersamaan, sebagai hasil dari serangan tarik dimana bidak yang bergerak dan bidak yang terungkap menyerang raja lawan bersamaan.</string>
   <string name="endgame">Akhir permainan</string>

@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 object UblogRank:
 
   opaque type Tier = Int
-  object Tier extends OpaqueInt[Tier]:
+  object Tier extends RelaxedOpaqueInt[Tier]:
     val HIDDEN: Tier  = 0 // not visible
     val VISIBLE: Tier = 1 // not listed in community page
     val LOW: Tier     = 2 // from here, ranking boost

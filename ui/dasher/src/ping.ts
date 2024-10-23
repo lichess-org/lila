@@ -34,12 +34,12 @@ export class PingCtrl {
       this.signalBars(),
       h(
         'span.ping',
-        { attrs: { title: 'PING: ' + this.root.trans.noarg('networkLagBetweenYouAndLichess') } },
+        { attrs: { title: 'PING: ' + i18n.site.networkLagBetweenYouAndLichess } },
         this.showMillis('PING', this.ping),
       ),
       h(
         'span.server',
-        { attrs: { title: 'SERVER: ' + this.root.trans.noarg('timeToProcessAMoveOnLichessServer') } },
+        { attrs: { title: 'SERVER: ' + i18n.site.timeToProcessAMoveOnLichessServer } },
         this.showMillis('SERVER', this.server),
       ),
     ]);

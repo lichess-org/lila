@@ -20,7 +20,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
     : player.ai
       ? h('div.user-link.online.ruser.ruser-' + position, [
           h('i.line'),
-          h('name', renderUser.aiName(ctrl, player.ai)),
+          h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
         ])
       : (ctrl.opts.local?.userVNode(player, position) ?? renderUser.userHtml(ctrl, player, position));
 }
@@ -50,13 +50,14 @@ const prompt = (ctrl: RoundController) => {
   const o = ctrl.question();
   if (!o) return {};
 
-  const btn = (tpe: 'yes' | 'no', icon: string, i18nKey: I18nKey, action: () => void) =>
+  const btn = (tpe: 'yes' | 'no', icon: string, text: string, action: () => void) =>
     ctrl.nvui
-      ? h('button', { hook: bind('click', action) }, ctrl.noarg(i18nKey))
+      ? h('button', { hook: bind('click', action) }, text)
       : h(`a.${tpe}`, { attrs: { 'data-icon': icon }, hook: bind('click', action) });
 
-  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.key || 'decline', o.no.action);
-  const yesBtn = o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.key || 'accept', o.yes.action);
+  const noBtn = o.no && btn('no', o.no.icon || licon.X, o.no.text || i18n.site.decline, o.no.action);
+  const yesBtn =
+    o.yes && btn('yes', o.yes.icon || licon.Checkmark, o.yes.text || i18n.site.accept, o.yes.action);
 
   return {
     promptVNode: h('div.question', { key: o.prompt }, [noBtn, h('p', o.prompt), yesBtn]),
@@ -73,12 +74,12 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
         ? []
         : [
             game.abortable(d)
-              ? button.standard(ctrl, undefined, licon.X, 'abortGame', 'abort')
+              ? button.standard(ctrl, undefined, licon.X, i18n.site.abortGame, 'abort')
               : button.standard(
                   ctrl,
                   d => ({ enabled: game.takebackable(d) }),
                   licon.Back,
-                  'proposeATakeback',
+                  i18n.site.proposeATakeback,
                   'takeback-yes',
                   ctrl.takebackYes,
                 ),
@@ -89,17 +90,17 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                     const threefoldable = game.drawableSwiss(d);
                     return {
                       enabled: threefoldable,
-                      overrideHint: threefoldable ? undefined : 'noDrawBeforeSwissLimit',
+                      overrideHint: threefoldable ? undefined : i18n.site.noDrawBeforeSwissLimit,
                     };
                   })
                 : button.standard(
                     ctrl,
                     d => ({
                       enabled: ctrl.canOfferDraw(),
-                      overrideHint: game.drawableSwiss(d) ? undefined : 'noDrawBeforeSwissLimit',
+                      overrideHint: game.drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
                     }),
                     licon.OneHalf,
-                    'offerDraw',
+                    i18n.site.offerDraw,
                     'draw-yes',
                     () => ctrl.offerDraw(true),
                   ),
@@ -109,12 +110,12 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                   ctrl,
                   d => ({ enabled: game.resignable(d) }),
                   licon.FlagOutline,
-                  'resign',
+                  i18n.site.resign,
                   'resign',
                   () => ctrl.resign(true),
                 ),
             replay.analysisButton(ctrl),
-            boardMenuToggleButton(ctrl.menu, ctrl.noarg('menu')),
+            boardMenuToggleButton(ctrl.menu, i18n.site.menu),
           ],
     buttons = loading
       ? [loader()]
@@ -137,8 +138,8 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
       h(
         'div.rclock-turn__text',
         d.player.spectator
-          ? ctrl.trans(d.game.player + 'Plays')
-          : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'),
+          ? i18n.site[d.game.player === 'white' ? 'whitePlays' : 'blackPlays']
+          : i18n.site[d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent'],
       ),
   );
 }
@@ -147,7 +148,7 @@ function anyClock(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
   if (ctrl.clock) return renderClock(ctrl, player, position);
   else if (ctrl.data.correspondence && ctrl.data.game.turns > 1)
-    return renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, ctrl.data.game.player);
+    return renderCorresClock(ctrl.corresClock!, player.color, position, ctrl.data.game.player);
   else return whosTurn(ctrl, player.color, position);
 }
 

@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT Tahta Gereksinimleri</string>
   <string name="dgtBoardLimitations">DGT Tahta Sınırlamaları</string>
   <string name="thisPageAllowsConnectingDgtBoard">Bu sayfa, DGT tahtanızı Lichess\'e bağlamanıza ve oyun oynamak için kullanmanıza olanak tanır.</string>
-  <string name="toConnectTheDgtBoard">DGT Elektronik Tahta\'ya bağlanmak için %s kurmanız gerekecek.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">DGT Elektronik Tahta\'ya bağlanmak için %s kurmanız gerekecek.</string>
   <string name="downloadHere">Programı indirmek için tıklayın: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Eğer %1$s bilgisayarınızda çalışıyorsa, kontrol etmek için %2$s.</string>
   <string name="openingThisLink">bu bağlantıyı açın</string>

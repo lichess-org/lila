@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">DGT-laudan vaatimukset</string>
   <string name="dgtBoardLimitations">DGT-laudan rajoitukset</string>
   <string name="thisPageAllowsConnectingDgtBoard">Tältä sivulta voit yhdistää DGT-lautasi Lichessiin ja käyttää sitä pelien pelaamiseen.</string>
-  <string name="toConnectTheDgtBoard">Yhdistääksesi elektronisen DGT-laudan sinun on asennettava %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Yhdistääksesi elektronisen DGT-laudan sinun on asennettava %s.</string>
   <string name="downloadHere">Voit ladata ohjelmiston täältä: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Jos %1$s on käynnissä tällä tietokoneella, voit tarkistaa yhteytesi siihen %2$s.</string>
   <string name="openingThisLink">avaamalla tämän linkin</string>

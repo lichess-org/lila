@@ -39,7 +39,7 @@
   <string name="deflection">Harhautus</string>
   <string name="deflectionDescription">Siirto, jolla harhautetaan vastustajan nappula pois suorittamasta jotain toista tehtävää, kuten vartioimasta tärkeää ruutua.</string>
   <string name="discoveredAttack">Paljastushyökkäys</string>
-  <string name="discoveredAttackDescription">Siirrä nappulaa, joka on tähän asti peittänyt jonkin ulottuvaisen nappulan hyökkäyksen, esimerkiksi ratsu pois tornin edestä.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Siirrä nappulaa, joka on tähän asti peittänyt jonkin ulottuvaisen nappulan hyökkäyksen, esimerkiksi ratsu pois tornin edestä.</string>
   <string name="doubleCheck">Kaksoisshakki</string>
   <string name="doubleCheckDescription">Shakkaa samanaikaisesti kahdella nappulalla niin, että paljastushyökkäyksessäsi sekä liikkuva nappula että sen paljastama nappula uhkaavat vastustajan kuningasta.</string>
   <string name="endgame">Loppupeli</string>

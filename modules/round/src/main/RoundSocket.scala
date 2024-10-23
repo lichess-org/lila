@@ -97,7 +97,7 @@ final class RoundSocket(
     terminationDelay.schedule(id)
     gameFu.dforeach:
       _.foreach: game =>
-        scheduleExpiration(game)
+        scheduleExpiration.exec(game)
         goneWeightsFor(game).dforeach: w =>
           roundActor ! RoundAsyncActor.SetGameInfo(game, w)
     roundActor
@@ -158,7 +158,7 @@ final class RoundSocket(
       for
         game <- rounds.ask[GameAndSocketStatus](anyId.gameId)(GetGameAndSocketStatus.apply)
         data <- mobileSocket.online(game.game, anyId, game.socket)
-      yield sendForGameId(anyId.gameId)(Protocol.Out.respond(reqId, data))
+      yield sendForGameId(anyId.gameId).exec(Protocol.Out.respond(reqId, data))
 
     case Protocol.In.WsLatency(millis) => MoveLatMonitor.wsLatency.set(millis)
     case P.In.WsBoot =>
@@ -191,11 +191,11 @@ final class RoundSocket(
     "roundUnplayed"
   ):
     case TvSelect(gameId, speed, _, json) =>
-      sendForGameId(gameId)(Protocol.Out.tvSelect(gameId, speed, json))
+      sendForGameId(gameId).exec(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(id, e @ BotConnected(color, v)) =>
       val gameId = GameId(id)
       rounds.tell(gameId, e)
-      sendForGameId(gameId)(Protocol.Out.botConnected(gameId, color, v))
+      sendForGameId(gameId).exec(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg)          => rounds.tell(GameId(gameId), msg)
     case TellIfExists(gameId, msg)  => rounds.tellIfPresent(GameId(gameId), msg)
     case TellMany(gameIds, msg)     => rounds.tellIds(gameIds.asInstanceOf[Seq[GameId]], msg)
@@ -206,12 +206,12 @@ final class RoundSocket(
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
-          sendForGameId(game.id)(Protocol.Out.startGame(usersPlaying))
+          sendForGameId(game.id).exec(Protocol.Out.startGame(usersPlaying))
     case lila.core.game.FinishGame(game, _) if game.hasClock =>
       game.userIds.some
         .filter(_.nonEmpty)
         .foreach: usersPlaying =>
-          sendForGameId(game.id)(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
+          sendForGameId(game.id).exec(Protocol.Out.finishGame(game.id, game.winnerColor, usersPlaying))
     case lila.core.round.DeleteUnplayed(gameId) => finishRound(gameId)
 
   Bus.subscribeFun(BusChan.round.chan, BusChan.global.chan):

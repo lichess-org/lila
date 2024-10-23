@@ -1,3 +1,7 @@
+type I18nKey = string;
+type I18nDict = Record<I18nKey, string>;
+type Trans = any;
+
 export const trans = (i18n: I18nDict): Trans => {
   const trans: Trans = (key: I18nKey, ...args: Array<string | number>) => {
     const str = i18n[key];
@@ -58,13 +62,14 @@ export const formatAgo = (seconds: number): string => {
   const absSeconds = Math.abs(seconds);
   const strIndex = seconds < 0 ? 1 : 0;
   const unit = agoUnits.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
-  return site.trans.pluralSame(unit[strIndex]!, Math.floor(absSeconds / unit[2]));
+  const fmt = i18n.timeago[unit[strIndex]!];
+  return typeof fmt === 'string' ? fmt : fmt(Math.floor(absSeconds / unit[2]));
 };
 
 type DateLike = Date | number | string;
 
 // past, future, divisor, at least
-const agoUnits: [string | undefined, string, number, number][] = [
+const agoUnits: [keyof I18n['timeago'] | undefined, keyof I18n['timeago'], number, number][] = [
   ['nbYearsAgo', 'inNbYears', 60 * 60 * 24 * 365, 1],
   ['nbMonthsAgo', 'inNbMonths', (60 * 60 * 24 * 365) / 12, 1],
   ['nbWeeksAgo', 'inNbWeeks', 60 * 60 * 24 * 7, 1],

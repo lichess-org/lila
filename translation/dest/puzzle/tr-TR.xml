@@ -31,8 +31,8 @@
   <string name="byOpenings">Açılışlardan</string>
   <string name="puzzlesByOpenings">Açılışlardan bulmacalar</string>
   <string name="openingsYouPlayedTheMost">Dereceli oyunlarda en çok oynadığınız açılışlar</string>
-  <string name="useFindInPage">Favori açılışlarınızı bulmak için tarayıcı menüsündeki \" Sayfa içinde bul\" seçeneğini kullanın!</string>
-  <string name="useCtrlF">Favori açılışınızı bulmak bulmak için Ctrl+f kısayolunu kullanın!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Favori açılışlarınızı bulmak için tarayıcı menüsündeki \" Sayfa içinde bul\" seçeneğini kullanın!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Favori açılışınızı bulmak bulmak için Ctrl+f kısayolunu kullanın!</string>
   <string name="notTheMove">Olmadı!</string>
   <string name="trySomethingElse">Başka bir şey dene.</string>
   <string name="ratingX">Puan: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Güçlü yönler</string>
   <string name="history">Bulmaca geçmişi</string>
   <string name="solved">çözüldü</string>
-  <string name="failed">başarısız</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">başarısız</string>
   <string name="streakDescription">Giderek zorlaşan bulmacaları çözün ve bir galibiyet serisi oluşturun. Zaman sınırı yok, bu yüzden acele etmeyin. Bir yanlış hamleye oyun biter! Fakat tur başına bir hamle atlayabilirsiniz.</string>
   <string name="yourStreakX">Seriniz: %s</string>
   <string name="streakSkipExplanation">Serini korumak için bu hamleyi atla! Her turda sadece bir atlama hakkın var.</string>

@@ -1,7 +1,7 @@
 import ps from 'node:process';
 import path from 'node:path';
 import fs from 'node:fs';
-import { clean } from './clean.ts';
+import { deepClean } from './clean.ts';
 import { build, postBuild } from './build.ts';
 import { startConsole } from './console.ts';
 
@@ -11,11 +11,11 @@ const args: Record<string, string> = {
   '--sass': '',
   '--esbuild': '',
   '--copies': '',
+  '--i18n': '',
   '--no-color': '',
   '--no-time': '',
   '--no-context': '',
   '--help': 'h',
-  '--rebuild': 'r',
   '--watch': 'w',
   '--prod': 'p',
   '--debug': 'd',
@@ -48,22 +48,19 @@ export function main(): void {
     .filter(x => x.startsWith('--') && !Object.keys(args).includes(x.split('=')[0]))
     .forEach(arg => env.exit(`Unknown argument '${arg}'`));
 
-  if (['--tsc', '--sass', '--esbuild', '--copies'].filter(x => argv.includes(x)).length) {
+  if (['--tsc', '--sass', '--esbuild', '--copies', '--i18n'].filter(x => argv.includes(x)).length) {
     // including one or more of these disables the others
     if (!argv.includes('--sass')) env.exitCode.set('sass', false);
     if (!argv.includes('--tsc')) env.exitCode.set('tsc', false);
     if (!argv.includes('--esbuild')) env.exitCode.set('esbuild', false);
+    env.i18n = argv.includes('--i18n');
     env.copies = argv.includes('--copies');
   }
   if (argv.includes('--no-color')) env.color = undefined;
   if (argv.includes('--no-time')) env.logTime = false;
   if (argv.includes('--no-context')) env.logContext = false;
 
-  env.watch =
-    argv.includes('--rebuild') ||
-    oneDashArgs.includes('r') ||
-    argv.includes('--watch') ||
-    oneDashArgs.includes('w');
+  env.watch = argv.includes('--watch') || oneDashArgs.includes('w');
   env.prod = argv.includes('--prod') || oneDashArgs.includes('p');
   env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
   env.remoteLog = stringArg('--log');
@@ -75,8 +72,7 @@ export function main(): void {
   if (argv.length === 1 && (argv[0] === '--help' || argv[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(env.buildDir, 'readme'), 'utf8'));
   } else if (argv.includes('--clean')) {
-    env.log('Cleaning then exiting. Use --clean-build or -c to clean then build');
-    clean();
+    deepClean();
   } else {
     startConsole();
     build(argv.filter(x => !x.startsWith('-')));
@@ -139,6 +135,7 @@ class Env {
   rgb = false;
   install = true;
   copies = true;
+  i18n = true;
   exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
   logTime = true;
@@ -200,6 +197,15 @@ class Env {
   }
   get typesDir(): string {
     return path.join(this.uiDir, '@types');
+  }
+  get i18nSrcDir(): string {
+    return path.join(this.rootDir, 'translation', 'source');
+  }
+  get i18nDestDir(): string {
+    return path.join(this.rootDir, 'translation', 'dest');
+  }
+  get i18nJsDir(): string {
+    return path.join(this.rootDir, 'translation', 'js');
   }
   get manifestFile(): string {
     return path.join(this.jsOutDir, `manifest.${this.prod ? 'prod' : 'dev'}.json`);

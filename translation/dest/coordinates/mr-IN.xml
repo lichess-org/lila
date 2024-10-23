@@ -4,7 +4,7 @@
   <string name="coordinateTraining">सहनिर्देशक प्रशिक्षण</string>
   <string name="averageScoreAsWhiteX">पांढऱ्या सोंगट्या खेळताना सरासरी गुण: %s</string>
   <string name="averageScoreAsBlackX">काळ्या सोंगट्या खेळताना सरासरी गुण: %s</string>
-  <string name="knowingTheChessBoard">बुद्धिबळ पटावरील सहनिर्देशक माहिती असणे हे एक महत्वाचे कौशल्य आहे:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">बुद्धिबळ पटावरील सहनिर्देशक माहिती असणे हे एक महत्वाचे कौशल्य आहे:</string>
   <string name="mostChessCourses">सर्व अभ्यास बिजगणितीय सहनिर्देशक वापरतात.</string>
   <string name="talkToYourChessFriends">सर्वांना \"बुद्धिबळाची भाषा\" माहिती असल्यास मित्रांशी बोलणे सोपे होते.</string>
   <string name="youCanAnalyseAGameMoreEffectively">सहनिर्देशक लगेच ओळखता आले तर खेळाचे विश्लेषण जास्त परिणामकारक होते.</string>

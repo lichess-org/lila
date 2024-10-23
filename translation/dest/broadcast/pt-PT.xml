@@ -27,7 +27,7 @@
   <string name="sourceSingleUrl">URL da fonte PGN</string>
   <string name="sourceUrlHelp">Link que o Lichess vai verificar para obter atualizações da PGN. Deve ser acessível ao público a partir da internet.</string>
   <string name="sourceGameIds">Até 64 IDs de jogo Lichess, separados por espaços.</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Data de início no fuso horário local do torneio: %s</string>
+  <string name="startDateTimeZone">Data de início no fuso horário local do torneio: %s</string>
   <string name="startDateHelp">Opcional, se souberes quando começa o evento</string>
   <string name="credits">Credita a fonte</string>
   <string name="currentGameUrl">Link da partida atual</string>
@@ -41,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
   <string name="showScores">Mostra as pontuações dos jogadores com base nos resultados dos jogos</string>
   <string name="replacePlayerTags">Opcional: substituir nomes de jogadores, avaliações e títulos</string>
-  <string name="periodInSeconds">Período em segundos</string>
-  <string name="periodInSecondsHelp">Opcional, quanto tempo de espera entre as requisições. Mínimo 2s, máximo de 60s. O padrão é automático com base no número de espetadores.</string>
   <string name="fideFederations">Federações FIDE</string>
   <string name="top10Rating">10 melhores classificações</string>
   <string name="fidePlayers">Jogadores FIDE</string>

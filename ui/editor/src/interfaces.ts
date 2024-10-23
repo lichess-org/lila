@@ -36,7 +36,6 @@ export interface Config {
   embed: boolean;
   positions?: OpeningPosition[];
   endgamePositions?: EndgamePosition[];
-  i18n: I18nDict;
 }
 
 export interface Options {

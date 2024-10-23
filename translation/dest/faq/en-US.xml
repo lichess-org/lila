@@ -31,10 +31,10 @@
   <string name="youCanUseOpeningBookNoEngine">On Lichess, the main difference in rules for correspondence chess is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lichess does not.</string>
   <string name="gameplay">Gameplay</string>
   <string name="howBulletBlitzEtcDecided">How are Bullet, Blitz and other time controls decided?</string>
-  <string name="basedOnGameDuration">Lichess time controls are based on estimated game duration = %1$s
+  <string name="basedOnGameDuration">Lichess time controls are based on estimated game duration = %1$s.
 For instance, the estimated duration of a 5+3 game is 5 × 60 + 40 × 3 = 420 seconds.</string>
-  <string name="durationFormula">(clock initial time) + 40 × (clock increment)</string>
-  <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(clock initial time in seconds) + 40 × (clock increment)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">What variants can I play on Lichess?</string>
   <string name="lichessSupportChessAnd">Lichess supports standard chess and %1$s.</string>
@@ -73,7 +73,7 @@ See the %3$s on this move for some practice with it.</string>
   <string name="repeatedPositionsThatMatters">Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively.</string>
   <string name="positions">positions</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">We repeated a position three times. Why was the game not drawn?</string>
-  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
+  <string name="threeFoldHasToBeClaimed">Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown or by offering a draw before your final repeating move. It won\'t matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game.</string>
   <string name="configure">configure</string>
   <string name="accounts">Accounts</string>
   <string name="titlesAvailableOnLichess">What titles are there on Lichess?</string>
@@ -139,7 +139,7 @@ It is useful to think of ratings as \"relative\" figures (as opposed to \"absolu
   <string name="viewSiteInformationPopUp">View site information popup</string>
   <string name="lichessCanOptionnalySendPopUps">Lichess can optionally send popup notifications, for example when it is your turn or you received a private message.
 
-Click the lock icon next to the lichess.org URL in the address bar of your browser.
+Click the lock icon next to the lichess.org address in the URL bar of your browser.
 
 Then select whether to allow or block notifications from Lichess.</string>
   <string name="enableAutoplayForSoundsQ">Enable autoplay for sounds?</string>
@@ -166,7 +166,7 @@ We show the red icon to alert you when this happens. Often you can explicitly al
 3. Click Cookies and Site Permissions
 4. Scroll down and click Media autoplay
 5. Add lichess.org to Allow</string>
-  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Stop myself from playing</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Stop myself from playing?</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">stand-alone mental health condition</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess userstyles</string>
   <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">fewer lobby pools</string>

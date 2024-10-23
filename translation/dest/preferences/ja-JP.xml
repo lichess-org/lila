@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">集中モード</string>
   <string name="showPlayerRatings">レーティングを表示</string>
   <string name="showFlairs">プレイヤーのフレアを表示</string>
-  <string name="explainShowPlayerRatings">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">Lichess 上のすべてのレーティングが非表示となり、集中しやすくなります。対局はレート戦のままで、変わるのは表示の有無だけです。</string>
   <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
   <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="inGameOnly">対局中のみ</string>

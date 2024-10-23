@@ -39,7 +39,7 @@
   <string name="deflection">Desviación</string>
   <string name="deflectionDescription">Un movimiento que distrae una pieza del oponente de alguna de las tareas que desempeña, como la protección de una casilla clave. También conocido como \"sobrecarga\".</string>
   <string name="discoveredAttack">Ataque a la descubierta</string>
-  <string name="discoveredAttackDescription">Mover una pieza que bloqueaba el ataque de otra pieza de largo alcance, como por ejemplo, quitar un caballo del camino de una torre.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mover una pieza que bloqueaba el ataque de otra pieza de largo alcance, como por ejemplo, quitar un caballo del camino de una torre.</string>
   <string name="doubleCheck">Jaque doble</string>
   <string name="doubleCheckDescription">Dar jaque con dos piezas a la vez, como consecuencia de una ataque a la descubierta, donde tanto la pieza movida como la revelada atacan al rey del oponente.</string>
   <string name="endgame">Final</string>

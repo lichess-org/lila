@@ -25,7 +25,6 @@ const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(
 
 export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
   const ceval = ctrl.getCeval(),
-    noarg = ctrl.trans.noarg,
     minThreads = ceval.engines.active?.minThreads ?? 1,
     maxThreads = ceval.maxThreads,
     engCtrl = ctrl.getCeval().engines,
@@ -87,7 +86,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                   'div.setting',
                   { attrs: { title: 'Set number of evaluation lines and move arrows on the board' } },
                   [
-                    h('label', { attrs: { for: id } }, noarg('multipleLines')),
+                    h('label', { attrs: { for: id } }, i18n.site.multipleLines),
                     h('input#' + id, {
                       attrs: { type: 'range', min: 0, max, step: 1 },
                       hook: rangeConfig(
@@ -152,7 +151,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
               })('analyse-threads'),
             (id =>
               h('div.setting', { attrs: { title: 'Higher values may improve performance' } }, [
-                h('label', { attrs: { for: id } }, noarg('memory')),
+                h('label', { attrs: { for: id } }, i18n.site.memory),
                 h('input#' + id, {
                   attrs: {
                     type: 'range',

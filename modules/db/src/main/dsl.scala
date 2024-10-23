@@ -298,12 +298,30 @@ trait dsl:
           "pipeline" -> pipe
         )
       )
-    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+    // mongodb 4
+    def pipelineBC(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       pipelineFull(
         from,
         as,
         $doc("local" -> s"$$$local"),
         $doc("$match" -> $expr($doc("$eq" -> $arr(s"$$$foreign", "$$local")))) :: pipe
+      )
+    def pipelineBC(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipelineBC(from.name, as, local, foreign, pipe)
+    def pipelineBC(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipelineBC(from.name.value, as, local, foreign, pipe)
+
+    // mongodb 5+ Correlated Subqueries Using Concise Syntax
+    // https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#correlated-subqueries-using-concise-syntax
+    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      $doc(
+        "$lookup" -> $doc(
+          "from"         -> from,
+          "as"           -> as,
+          "localField"   -> local,
+          "foreignField" -> foreign,
+          "pipeline"     -> pipe
+        )
       )
     def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       pipeline(from.name, as, local, foreign, pipe)

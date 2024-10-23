@@ -39,7 +39,7 @@
   <string name="deflection">नीचे को झुकाव</string>
   <string name="deflectionDescription">एक चाल जो एक प्रतिद्वंद्वी के टुकड़े को दूसरे कर्तव्य से विचलित करती है जो इसे निष्पादित करता है, जैसे कि एक प्रमुख वर्ग की रखवाली।</string>
   <string name="discoveredAttack">हमले की खोज की</string>
-  <string name="discoveredAttackDescription">एक टुकड़ा जो पहले एक और लंबी दूरी के टुकड़े द्वारा हमले को अवरुद्ध करता है, जैसे कि एक शूरवीर के रास्ते से बाहर एक नाइट।</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">एक टुकड़ा जो पहले एक और लंबी दूरी के टुकड़े द्वारा हमले को अवरुद्ध करता है, जैसे कि एक शूरवीर के रास्ते से बाहर एक नाइट।</string>
   <string name="doubleCheck">दोहरा शह</string>
   <string name="doubleCheckDescription">एक बार में दो टुकड़ों के साथ जाँच, एक खोज हमले के परिणामस्वरूप जहां चलती टुकड़ा और अनावरण टुकड़ा दोनों प्रतिद्वंद्वी के राजा पर हमला करते हैं।</string>
   <string name="endgame">एंडगेम</string>

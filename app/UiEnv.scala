@@ -44,7 +44,6 @@ object UiEnv
   lazy val isOnline                = env.socket.isOnline
   lazy val lightUserSync           = env.user.lightUserSync
   def manifest                     = env.web.manifest
-  protected val jsDump             = lila.i18n.JsDump
   protected val translator         = lila.i18n.Translator
   val langList                     = lila.i18n.LangList
   protected val namer              = lila.game.Namer

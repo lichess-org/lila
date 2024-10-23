@@ -11,7 +11,7 @@
   <string name="newTeam">Neus Team</string>
   <string name="myTeams">Eigeni Teams</string>
   <string name="noTeamFound">Keis Team g\'funde</string>
-  <string name="joinTeam">Tritt em Team bi</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Tritt em Team bi</string>
   <string name="onlyLeaderLeavesTeam">Gib dem Team en neue Leiter, bevor du gahsch - oder lös das Team uf.</string>
   <string name="quitTeam">Team verloh</string>
   <string name="manuallyReviewAdmissionRequests">Bitrittsafrage manuell überprüefe</string>
@@ -54,7 +54,7 @@
   <string name="joinLichessVariantTeam">Chumm is offizielli %s Team für Neuigkeite und Ereignis</string>
   <string name="teamPage">Team - Site</string>
   <string name="thisTeamBattleIsOver">Das Turnier isch verbi und d\'Teams chönd nümme aktualisiert werde.</string>
-  <string name="listTheTeamsThatWillCompete">Nänn alli Teams, wo du für de Kampf wottsch isetze.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Nänn alli Teams, wo du für de Kampf wottsch isetze.</string>
   <string name="oneTeamPerLine">Eis Team pro Zile. Benutz s\'Autousfülle.</string>
   <string name="oneTeamPerLineHelp">Du chasch die Lischte vu eim Turnier zume Andere kopiere-ifüege!</string>
   <string name="numberOfLeadsPerTeam">Azahl Leader pro Team. D\'Summe vu ihre Pünkt isch d\'Punktzahl vum Team.</string>

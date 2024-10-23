@@ -121,7 +121,6 @@
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконечна анализа</string>
   <string name="removesTheDepthLimit">Неограничена длабочина на анализа, го загрева вашиот компјутер</string>
-  <string name="engineManager">Менаџер на компјутерот</string>
   <string name="blunder">Глупа грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>

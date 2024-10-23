@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Algunas páginas de Lichess tienen atajos de teclado que puedes utilizar. Presiona la tecla \'?\' en un estudio, análisis, ejercicio o en una partida para listar los atajos de teclado disponibles.</string>
   <string name="fairPlay">Juego limpio</string>
   <string name="whenAmIEligibleRatinRefund">¿En qué casos se me devuelven automáticamente los puntos perdidos contra un tramposo?</string>
-  <string name="ratingRefundExplanation">Un minuto después de marcar a un jugador como tramposo, se toman sus últimas 40 partidas por puntos de los tres últimos días. Si tú fuiste su oponente en esas partidas, perdiste puntos en ellas (bien porque perdiste, bien porque empataste), y tu puntuación no era provisional, entonces se te devuelven puntos. Este reembolso está limitado por tu puntuación máxima y por cómo haya progresado tu puntuación después de aquella partida.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Un minuto después de marcar a un jugador como tramposo, se toman sus últimas 40 partidas por puntos de los tres últimos días. Si tú fuiste su oponente en esas partidas, perdiste puntos en ellas (bien porque perdiste, bien porque empataste), y tu puntuación no era provisional, entonces se te devuelven puntos. Este reembolso está limitado por tu puntuación máxima y por cómo haya progresado tu puntuación después de aquella partida.
 (Por ejemplo, si tu puntuación ha subido mucho después de aquellas partidas, puede que no se te devuelvan los puntos o sólo se te devuelvan algunos). La devolución en ningún caso será de más de 150 puntos.</string>
   <string name="preventLeavingGameWithoutResigning">¿Qué se hace con los jugadores que abandonan las partidas sin rendirse?</string>
   <string name="leavingGameWithoutResigningExplanation">Si tu oponente abandona habitualmente partidas se le marca como \"prohibido jugar\", lo que significa que está temporalmente suspendido para jugar. Esto no se indica públicamente en su perfil. Si persiste en este comportamiento, la duración de la suspensión aumenta y puede conllevar el cierre de su cuenta.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">¿Cómo se deciden los controles de tiempo en Bullet, Blitz y otros?</string>
   <string name="basedOnGameDuration">Los controles de tiempo de Lichess se basan en la duración estimada de una partida = %1$s
  Por ejemplo, la duración estimada de una partida de 5+3 es 5 * 60 + 40 * 3 = 420 segundos.</string>
-  <string name="durationFormula">(tiempo inicial del reloj) + 40 × (incremento)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(tiempo inicial del reloj) + 40 × (incremento)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$s s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s s = %2$s</string>
   <string name="whatVariantsCanIplay">¿Qué variantes puedo jugar en Lichess?</string>

@@ -147,14 +147,12 @@ export interface AnalyseOpts {
   hunter: boolean;
   explorer: ExplorerOpts;
   socketSend: AnalyseSocketSend;
-  trans: Trans;
   study?: StudyDataFromServer;
   tagTypes?: string;
   practice?: StudyPracticeData;
   relay?: RelayData;
   $side?: Cash;
   $underboard?: Cash;
-  i18n: I18nDict;
   chat: {
     enhance: EnhanceOpts;
     instance?: ChatCtrl;

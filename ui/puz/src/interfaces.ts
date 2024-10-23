@@ -7,7 +7,6 @@ import * as Prefs from 'common/prefs';
 export interface PuzCtrl {
   run: Run;
   filters: PuzFilters;
-  trans: Trans;
   pref: PuzPrefs;
 }
 

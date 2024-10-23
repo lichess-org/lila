@@ -11,7 +11,7 @@
   <string name="newTeam">Sgioba ùr</string>
   <string name="myTeams">Na sgiobaidhean agam</string>
   <string name="noTeamFound">Cha deach sgioba a lorg</string>
-  <string name="joinTeam">Gabh pàirt san sgioba</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Gabh pàirt san sgioba</string>
   <string name="quitTeam">Fàg an sgioba</string>
   <string name="teamRecentMembers">Na buill as ùire</string>
 </resources>

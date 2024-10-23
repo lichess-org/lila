@@ -9,7 +9,7 @@
   <string name="newTeam">Nove equipa</string>
   <string name="myTeams">Mi equipas</string>
   <string name="noTeamFound">Nulle equipa trovate</string>
-  <string name="joinTeam">Adherer al equipa</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Adherer al equipa</string>
   <string name="quitTeam">Abandonar equipa</string>
   <string name="teamRecentMembers">Membros recente</string>
 </resources>

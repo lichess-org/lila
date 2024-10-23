@@ -126,7 +126,6 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinitua</string>
   <string name="removesTheDepthLimit">Sakonera muga ezabatzendu eta zure ordenagailua epel mantentzen du</string>
-  <string name="engineManager">Motore kudeatzailea</string>
   <string name="blunder">Hanka-sartzea</string>
   <string name="mistake">Akatsa</string>
   <string name="inaccuracy">Akats txikia</string>
@@ -558,9 +557,9 @@
   <string name="cheat">Tranpak</string>
   <string name="troll">Trolla</string>
   <string name="other">Bestelakoak</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak.</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">Azaldu erabiltzaile-izen honek zer duen iraingarria. Ez esan \"iraingarria da\" soilik, eman arrazoiak, batez ere iraina ezkutatuta badago, ez bada ingelesezko hitz bat edo errefererantzia historiko edo kulturala bada.</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">Zure mezua azkarrago kudeatuko dugu ingelesez idazten baduzu.</string>
+  <string name="reportCheatBoostHelp">Partidaren esteka itsasi, eta azaldu zer egin duen gaizki erabiltzaileak. Ez esan \"tranpak egiten ditu\" bakarrik, eman horren arrazoiak.</string>
+  <string name="reportUsernameHelp">Azaldu erabiltzaile-izen honek zer duen iraingarria. Ez esan \"iraingarria da\" soilik, eman arrazoiak, batez ere iraina ezkutatuta badago, ez bada ingelesezko hitz bat edo errefererantzia historiko edo kulturala bada.</string>
+  <string name="reportProcessedFasterInEnglish">Zure mezua azkarrago kudeatuko dugu ingelesez idazten baduzu.</string>
   <string name="error.provideOneCheatedGameLink">Iruzurra izandako partida baten lotura bidali gutxienez.</string>
   <string name="by">egilea %s</string>
   <string name="importedByX">%s erabiltzaileak inportatuta</string>

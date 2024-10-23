@@ -10,7 +10,7 @@
   <string name="newTeam">Bagong Team</string>
   <string name="myTeams">Ang mga Teams mo</string>
   <string name="noTeamFound">Walang natagpuang koponan</string>
-  <string name="joinTeam">Sumali sa koponan</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Sumali sa koponan</string>
   <string name="quitTeam">Umalis sa koponan</string>
   <plurals name="teamLeaders">
     <item quantity="one">Pinuno ng koponan</item>

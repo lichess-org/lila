@@ -31,8 +31,8 @@
   <string name="byOpenings">Efter öppningar</string>
   <string name="puzzlesByOpenings">Schackproblem efter öppningar</string>
   <string name="openingsYouPlayedTheMost">Öppningar som du spelade mest i rankade partier</string>
-  <string name="useFindInPage">Använd \"Hitta på sida\" i webbläsarmenyn för att hitta din favoritöppning!</string>
-  <string name="useCtrlF">Använd Ctrl+f för att hitta din favoritöppning!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Använd \"Hitta på sida\" i webbläsarmenyn för att hitta din favoritöppning!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Använd Ctrl+f för att hitta din favoritöppning!</string>
   <string name="notTheMove">Det är inte rätt drag!</string>
   <string name="trySomethingElse">Prova något annat.</string>
   <string name="ratingX">Rating: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Styrkor</string>
   <string name="history">Historik för schackproblem</string>
   <string name="solved">löst</string>
-  <string name="failed">olöst</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">olöst</string>
   <string name="streakDescription">Lös gradvis svårare pussel och bygg en vinstserie. Det finns ingen klocka, så ta din tid. Ett feldrag och spelet är över! Men du kan skippa ett drag per session.</string>
   <string name="yourStreakX">Din vinstserie: %s</string>
   <string name="streakSkipExplanation">Skippa detta drag för att bevara din vinstserie! Fungerar bara en gång per spel.</string>

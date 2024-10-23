@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Flyt til e4 eller vælg e4-brik</string>
   <string name="selectOrCaptureABishop">Vælg eller tag en løber</string>
   <string name="takeRookWithQueen">Tag tårn med dronning</string>
-  <string name="castle">Rokér (begge sider)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Rokér (begge sider)</string>
   <string name="phoneticAlphabetIsBest">Fonetisk alfabet er bedst</string>
   <string name="cancelTimerOrDenyARequest">Annullér timer eller afvis en anmodning</string>
   <string name="playPreferredMoveOrConfirmSomething">Afspil foretrukket træk eller bekræft noget</string>

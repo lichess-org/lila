@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Како можеме да ви помогнеме?</string>
   <string name="visitThisPage">Посетете ја странава за да го решите проблемот</string>
   <string name="iCantLogIn">Не можам да се пријавам</string>
-  <string name="noConfirmationEmail">Не ја добив потврдната е-пошта</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Не ја добив потврдната е-пошта</string>
   <string name="forgotPassword">Ја заборавив мојата лозинка</string>
   <string name="forgotUsername">Го заборавив моето корисничко име</string>
   <string name="youCanLoginWithEmail">Можете да се пријавите со е-поштата со која се регистриравте</string>

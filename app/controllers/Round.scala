@@ -303,17 +303,17 @@ final class Round(
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.core.round.Moretime
     env.round.proxyRepo
-      .game(anyId.gameId)
+      .pov(anyId.gameId, me)
       .flatMap:
-        _.flatMap { Pov(_, me) }.so: pov =>
+        _.so: pov =>
           env.round.moretimer
-            .isAllowedIn(pov.game, Preload.none, byAdmin = true)
+            .isAllowedIn(pov.game, Preload.none, force = true)
             .map:
               if _ then
-                env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+                env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds, force = true))
                 jsonOkResult
               else BadRequest(jsonError("This game doesn't allow giving time"))
   }
 
   def help = Open:
-    Ok.snip(lila.web.ui.help.round)
+    Ok.snip(lila.web.ui.help.round(ctx.kid.no))

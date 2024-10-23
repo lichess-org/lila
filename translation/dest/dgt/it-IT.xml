@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Requisiti scacchiera DGT</string>
   <string name="dgtBoardLimitations">Limitazioni scacchiera DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Questa pagina ti permette di connettere la tua scacchiera DGT a Lichess e di utilizzarla per giocare.</string>
-  <string name="toConnectTheDgtBoard">Per connettersi alla scacchiera elettronica DGT è necessario installare %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Per connettersi alla scacchiera elettronica DGT è necessario installare %s.</string>
   <string name="downloadHere">Puoi scaricare il software qui: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Se %1$s è in esecuzione su questo computer, puoi verificare di esserci connesso da %2$s.</string>
   <string name="openingThisLink">aprendo questo link</string>

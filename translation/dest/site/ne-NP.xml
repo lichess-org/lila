@@ -124,7 +124,6 @@
   <string name="memory">स्मृति</string>
   <string name="infiniteAnalysis">अनन्त विश्लेषण</string>
   <string name="removesTheDepthLimit">गहिराइको हद हटाएर कम्प्युटर तातो राख्छ</string>
-  <string name="engineManager">इन्जीन व्यवस्थापक</string>
   <string name="blunder">ठुलो भुल</string>
   <string name="mistake">सानो भुल</string>
   <string name="inaccuracy">धेरै सानो भुल</string>

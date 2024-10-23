@@ -158,7 +158,6 @@ object ModActivity:
       "alt"             -> CloseAccount,
       "closeAccount"    -> CloseAccount,
       "chatTimeout"     -> ChatTimeout,
-      "appealPost"      -> Appeal,
       "appealClose"     -> Appeal,
       "setEmail"        -> SetEmail,
       "streamerList"    -> Streamer,

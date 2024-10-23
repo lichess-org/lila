@@ -8,9 +8,9 @@ export default function (ctrl: RunCtrl) {
     'div.learn__screen-overlay',
     { hook: bind('click', ctrl.hideStartingPane) },
     h('div.learn__screen', [
-      h('h1', ctrl.trans('stageX', ctrl.stage.id) + ': ' + ctrl.trans.noarg(ctrl.stage.title)),
+      h('h1', i18n.learn.stageX(ctrl.stage.id) + ': ' + ctrl.stage.title),
       ctrl.stage.illustration,
-      h('p', util.withLinebreaks(ctrl.trans.noarg(ctrl.stage.intro))),
+      h('p', util.withLinebreaks(ctrl.stage.intro)),
       h(
         'div.buttons',
         h(
@@ -19,7 +19,7 @@ export default function (ctrl: RunCtrl) {
             key: ctrl.stage.id,
             hook: bind('click', ctrl.hideStartingPane),
           },
-          ctrl.trans.noarg('letsGo'),
+          i18n.learn.letsGo,
         ),
       ),
     ]),

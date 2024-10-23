@@ -24,18 +24,12 @@ case class ModTimeline(
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap: r =>
-      r.done.map(ReportClose(r, _)).toList :::
-        r.atoms.groupBy(_.text).values.toList.map(ReportNewAtom(r, _))
+      r.done.map(ReportClose(r, _)).toList ::: reportAtoms(r)
     val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
     // latest first
     concat.sorted(using Ordering.by(at).reverse)
-
-  // def commReportsAbout: List[Report] = reports
-  //   .collect:
-  //     case Report.AndAtom(r, _) if r.is(_.Comm) => r
-  //   .distinct
 
 object ModTimeline:
 
@@ -45,20 +39,26 @@ object ModTimeline:
   type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | TempBan | PublicLine
 
   def aggregateEvents(events: List[Event]): List[Event] =
-    events.toNel.fold(events):
-      case NonEmptyList(head, tail) =>
-        tail
-          .foldLeft(NonEmptyList.one(head)):
-            case (acc, event) =>
-              ModTimeline
-                .merge(acc.head, event)
-                .fold(event :: acc): merged =>
-                  acc.copy(head = merged)
-          .toList
+    events.foldLeft(List.empty[Event])(mergeMany)
 
-  private def merge(prev: Event, next: Event): Option[Event] = (prev, next) match
-    case (p: PublicLine, n: PublicLine) => p.copy(text = s"${n.text}|${p.text}").some
+  private def mergeMany(prevs: List[Event], next: Event): List[Event] = (prevs, next) match
+    case (Nil, n)                      => List(n)
+    case (head :: rest, n: PublicLine) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
+    case (prevs, n)                    => prevs :+ n
+
+  private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
+    case (p: PublicLine, n: PublicLine) => PublicLine.merge(p, n)
     case _                              => none
+
+  private def reportAtoms(report: Report): List[ReportNewAtom | PublicLine] =
+    report.atoms
+      .groupBy(_.text)
+      .values
+      .toList
+      .flatMap: atoms =>
+        atoms.head.parseFlag match
+          case None       => List(ReportNewAtom(report, atoms))
+          case Some(flag) => flag.quotes.map(PublicLine(_, flag.source, atoms.head.at))
 
   extension (e: Event)
     def key: String = e match
@@ -103,6 +103,16 @@ object ModTimeline:
     case None
     case Comm
     case Play
+  object Angle:
+    def filter(e: Event)(using angle: Angle): Boolean = e match
+      case _: TempBan                                                         => angle != Angle.Comm
+      case _: ReportClose                                                     => angle != Angle.Comm
+      case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
+      case l: Modlog if l.action == Modlog.modMessage =>
+        angle match
+          case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
+          case _    => true
+      case _ => true
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,
@@ -121,7 +131,8 @@ final class ModTimelineApi(
       appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
       notes = notesAll.filter(filterNote)
-      reports <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
+      reportsAll <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
+      reports = reportsAll.filter(filterReport)
       playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))
     yield ModTimeline(user, modLog, appeal, notes, reports, playban, lines)
@@ -135,6 +146,8 @@ final class ModTimelineApi(
     if note.from.is(UserId.irwin) then false
     else if note.text.startsWith("Appeal reply:") then false
     else true
+
+  private def filterReport(r: Report): Boolean = !r.isSpontaneous
 
   private object modsList:
     var all: Set[ModId]               = Set(UserId.lichess.into(ModId))

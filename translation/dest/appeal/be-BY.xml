@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Ваш уліковы запіс не пазначаны і не заблакаваны. У вас усё добра!</string>
-  <string name="engineMarked">Ваш уліковы запіс пазначаная для атрымання знешняй дапамогі ў гульнях.</string>
+  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Ваш уліковы запіс пазначаная для атрымання знешняй дапамогі ў гульнях.</string>
   <string name="engineMarkedInfo">Мы вызначаем гэта як выкарыстанне любой знешняй дапамогі для ўмацавання вашых ведаў і / або навыкаў разліку з мэтай атрымання несправядлівага перавагі над вашым апанентам. Больш падрабязную інфармацыю глядзіце на старонцы %s.</string>
   <string name="arenaBanned">Вашай ўліковага запісу забаронена ўдзельнічаць у арэнах.</string>
   <string name="prizeBanned">Вашаму акаўнта забаронена ўдзельнічаць у турнірах з рэальнымі прызамі.</string>

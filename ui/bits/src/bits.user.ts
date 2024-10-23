@@ -1,13 +1,10 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
-import { trans as translation } from 'common/i18n';
 import { pubsub } from 'common/pubsub';
 
-export function initModule(opts: { i18n: I18nDict }): void {
-  const trans = translation(opts.i18n);
-
-  makeLinkPopups($('.social_links'), trans);
-  makeLinkPopups($('.user-infos .bio'), trans);
+export function initModule(): void {
+  makeLinkPopups($('.social_links'));
+  makeLinkPopups($('.user-infos .bio'));
 
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');

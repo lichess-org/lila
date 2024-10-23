@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">তৈরির তারিখ (সবচেয়ে পুরনো)</string>
   <string name="recentlyUpdated">সাম্প্রতিক হালনাগাদকৃত</string>
   <string name="mostPopular">সবচেয়ে জনপ্রিয়</string>
-  <string name="alphabetical">বর্ণানুক্রমিক</string>
+  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">বর্ণানুক্রমিক</string>
   <string name="addNewChapter">নতুন অধ্যায় যোগ করুন</string>
   <plurals name="nbChapters">
     <item quantity="one">%sটি অধ্যায়</item>
@@ -52,9 +52,9 @@
   <string name="downloadAllGames">ডাউনলোড করুন সকল গেম</string>
   <string name="open">ওপেন</string>
   <string name="startFromCustomPosition">নির্দিষ্ট অবস্থান থেকে শুরু করুন</string>
-  <string name="loadAGameByUrl">URL থেকে খেলা লোড করুন</string>
+  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">URL থেকে খেলা লোড করুন</string>
   <string name="loadAPositionFromFen">FEN থেকে একটি অবস্থান লোড করুন</string>
-  <string name="loadAGameFromPgn">PGN থেকে খেলা লোড করুন</string>
+  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN থেকে খেলা লোড করুন</string>
   <string name="automatic">স্বয়ংক্রিয়</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">PGN টেক্সট এখানে পেস্ট করুন, %s টি খেলা পর্যন্ত</item>

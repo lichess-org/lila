@@ -3,12 +3,11 @@ package lila.ui
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 
-import lila.core.i18n.{ I18nKey, JsDump, LangList, Translator, fixJavaLanguage }
+import lila.core.i18n.{ I18nKey, LangList, Translator, fixJavaLanguage }
 import lila.ui.ScalatagsTemplate.*
 
 trait I18nHelper:
 
-  protected val jsDump: JsDump
   protected val translator: Translator
   protected val ratingApi: lila.ui.RatingApi
 
@@ -31,12 +30,6 @@ trait I18nHelper:
 
   def transKey(key: I18nKey, args: Seq[Matchable] = Nil)(using t: Translate): Frag =
     translator.frag.literal(key, args, t.lang)
-
-  def i18nJsObject(keys: Seq[I18nKey])(using Translate): JsObject =
-    jsDump.keysToObject(keys)
-
-  def i18nOptionJsObject(keys: Option[I18nKey]*)(using Translate): JsObject =
-    jsDump.keysToObject(keys.flatten)
 
   def langHref(call: Call)(using Context): String = langHref(call.url)
   def langHref(path: String)(using ctx: Context): String =

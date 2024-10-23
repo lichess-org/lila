@@ -27,7 +27,7 @@
   <string name="sourceSingleUrl">URL for PGN-kilde</string>
   <string name="sourceUrlHelp">URL som Lichess vil trække på for at få PGN updates. Den skal være offentlig tilgængelig fra internettet.</string>
   <string name="sourceGameIds">Op til 64 Lichess parti-ID\'er, adskilt af mellemrum.</string>
-  <string name="startDateTimeZone" comment="The date the real-life tournament starts, in the location it will take place.&#10;&#10;%s is the date.">Startdato i turneringens lokale tidszone: %s</string>
+  <string name="startDateTimeZone">Startdato i turneringens lokale tidszone: %s</string>
   <string name="startDateHelp">Valgfri, hvis du ved, hvornår begivenheden starter</string>
   <string name="credits">Krediter kilden</string>
   <string name="currentGameUrl">Nuværende parti URL</string>
@@ -41,8 +41,6 @@
   <string name="definitivelyDeleteTournament">Slet hele turneringen, alle dens runder og alle dens partier.</string>
   <string name="showScores">Vis spilleres point baseret på resultater fra partier</string>
   <string name="replacePlayerTags">Valgfrit: udskift spillernavne, ratings og titler</string>
-  <string name="periodInSeconds">Periode i sekunder</string>
-  <string name="periodInSecondsHelp">Valgfri, hvor lang tid der skal ventes mellem anmodninger. Min 2s, maks. 60s. Er som standard automatisk baseret på antallet af seere.</string>
   <string name="fideFederations">FIDE-føderationer</string>
   <string name="top10Rating">Top 10 rating</string>
   <string name="fidePlayers">FIDE-spillere</string>

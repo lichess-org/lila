@@ -2,6 +2,7 @@ package views.base
 
 import lila.app.UiEnv.{ *, given }
 import lila.ui.ContentSecurityPolicy
+import lila.core.i18n.I18nModule
 
 object embed:
   /* a minimalist embed that doesn't load site.ts */
@@ -49,7 +50,8 @@ object embed:
       cssKeys: List[String] = Nil,
       modules: EsmList = Nil,
       pageModule: Option[PageModule] = None,
-      csp: Update[ContentSecurityPolicy] = identity
+      csp: Update[ContentSecurityPolicy] = identity,
+      i18nModules: List[I18nModule.Selector] = Nil
   )(body: Modifier*)(using ctx: EmbedContext) = lila.ui.Snippet:
     val allModules = modules ++ pageModule.so(module => esmPage(module.name))
     frag(
@@ -65,7 +67,11 @@ object embed:
           page.ui.pieceSprite(ctx.pieceSet.name),
           cssTag("common.theme.embed"), // includes both light & dark colors
           cssKeys.map(cssTag),
-          page.ui.sitePreload(allModules, isInquiry = false),
+          page.ui.sitePreload(
+            List[I18nModule.Selector](_.site, _.timeago) ++ i18nModules,
+            allModules,
+            isInquiry = false
+          ),
           page.ui.lichessFontFaceCss
         ),
         st.body(bodyModifiers)(

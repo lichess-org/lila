@@ -32,7 +32,6 @@ function setup(vnode: VNode) {
 
 export default function (ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
-  const noarg = ctrl.trans.noarg;
   const tag = 'div.tour__player-info.tour__actor-info';
   if (!data || data.player.id !== ctrl.playerInfo.id)
     return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
@@ -55,13 +54,13 @@ export default function (ctrl: TournamentController): VNode {
       h('table', [
         ctrl.opts.showRatings &&
           data.player.performance &&
-          numberRow(noarg('performance'), data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
-        numberRow(noarg('gamesPlayed'), nb.game),
+          numberRow(i18n.site.performance, data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
+        numberRow(i18n.site.gamesPlayed, nb.game),
         ...(nb.game
           ? [
-              numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
-              numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
-              ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+              numberRow(i18n.site.winRate, [nb.win, nb.game], 'percent'),
+              numberRow(i18n.site.berserkRate, [nb.berserk, nb.game], 'percent'),
+              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
             ]
           : []),
       ]),

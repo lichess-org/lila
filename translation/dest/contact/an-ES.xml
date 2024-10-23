@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">En qué podemos aduyar-te?</string>
   <string name="visitThisPage">Visita esta pachina pa resolver lo problema</string>
   <string name="iCantLogIn">No puedo iniciar sesión</string>
-  <string name="noConfirmationEmail">No recibo lo mío correu de confirmación</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">No recibo lo mío correu de confirmación</string>
   <string name="forgotPassword">He oblidau la mía clau</string>
   <string name="forgotUsername">He oblidau lo mío nombre d\'usuario</string>
   <string name="youCanLoginWithEmail">Puez iniciar sesión con l\'adreza de correu electronico con que te rechistrés</string>

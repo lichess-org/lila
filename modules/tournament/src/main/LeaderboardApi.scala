@@ -1,6 +1,8 @@
 package lila.tournament
 
+import akka.stream.scaladsl.*
 import reactivemongo.api.bson.*
+import reactivemongo.akkastream.cursorProducer
 import scalalib.Maths
 import scalalib.paginator.{ AdapterLike, Paginator }
 
@@ -10,15 +12,15 @@ import lila.db.dsl.{ *, given }
 import lila.rating.PerfType
 
 final class LeaderboardApi(
-    repo: LeaderboardRepo,
+    val repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-)(using Executor)
+)(using Executor, akka.stream.Materializer)
     extends lila.core.tournament.leaderboard.Api:
 
   import LeaderboardApi.*
   import BSONHandlers.given
 
-  private val maxPerPage = MaxPerPage(15)
+  private val maxPerPage = MaxPerPage(20)
 
   def recentByUser(user: User, page: Int) = paginator(user, page, sortBest = false)
 
@@ -58,19 +60,42 @@ final class LeaderboardApi(
               }
             .sortLike(lila.rating.PerfType.leaderboardable, _._1)
 
-  def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] =
+  def getAndDeleteRecent(userId: UserId, since: Instant): Fu[List[TourId]] = for
+    entries <- repo.coll.list[Entry]($doc("u" -> userId, "d".$gt(since)))
+    _ <- entries.nonEmpty.so:
+      repo.coll.delete.one($inIds(entries.map(_.id))).void
+  yield entries.map(_.tourId)
+
+  def byPlayerStream(user: User, perSecond: MaxPerSecond, nb: Int): Source[TourEntry, ?] =
     repo.coll
-      .list[Entry](
-        $doc(
-          "u" -> userId,
-          "d".$gt(since)
+      .aggregateWith[Bdoc](): fw =>
+        aggregateByPlayer(user, fw, fw.Descending("d"), nb, offset = 0).toList
+      .documentSource()
+      .mapConcat(readTourEntry)
+
+  private def aggregateByPlayer(
+      user: User,
+      framework: repo.coll.AggregationFramework.type,
+      sort: framework.SortOrder,
+      nb: Int,
+      offset: Int = 0
+  ): NonEmptyList[framework.PipelineOperator] =
+    import framework.*
+    NonEmptyList.of(
+      Match($doc("u" -> user.id)),
+      Sort(sort),
+      Skip(offset),
+      Limit(nb),
+      PipelineOperator(
+        $lookup.simple(
+          from = tournamentRepo.coll,
+          as = "tour",
+          local = "t",
+          foreign = "_id"
         )
-      )
-      .flatMap { entries =>
-        (entries.nonEmpty
-          .so(repo.coll.delete.one($inIds(entries.map(_.id))).void))
-          .inject(entries.map(_.tourId))
-      }
+      ),
+      UnwindField("tour")
+    )
 
   private def paginator(user: User, page: Int, sortBest: Boolean): Fu[Paginator[TourEntry]] =
     Paginator(
@@ -83,27 +108,16 @@ final class LeaderboardApi(
           repo.coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
-              Match(selector) -> List(
-                Sort(if sortBest then Ascending("w") else Descending("d")),
-                Skip(offset),
-                Limit(length),
-                PipelineOperator(
-                  $lookup.simple(
-                    from = tournamentRepo.coll,
-                    as = "tour",
-                    local = "t",
-                    foreign = "_id"
-                  )
-                ),
-                UnwindField("tour")
-              )
-            .map: docs =>
-              for
-                doc   <- docs
-                entry <- doc.asOpt[Entry]
-                tour  <- doc.getAsOpt[Tournament]("tour")
-              yield TourEntry(tour, entry)
+              val sort = if sortBest then framework.Ascending("w") else framework.Descending("d")
+              val pipe = aggregateByPlayer(user, framework, sort, length, offset)
+              pipe.head -> pipe.tail
+            .map(_.flatMap(readTourEntry))
     )
+
+  private def readTourEntry(doc: Bdoc): Option[TourEntry] = for
+    entry <- doc.asOpt[Entry]
+    tour  <- doc.getAsOpt[Tournament]("tour")
+  yield TourEntry(tour, entry)
 
 object LeaderboardApi:
 

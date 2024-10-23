@@ -11,7 +11,7 @@
   <string name="newTeam">Нов отбор</string>
   <string name="myTeams">Моите отбори</string>
   <string name="noTeamFound">Не са намерени отбори</string>
-  <string name="joinTeam">Присъедини се към отбора</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Присъедини се към отбора</string>
   <string name="onlyLeaderLeavesTeam">Моля добавете нов лидер преди да напуснете или закрийте отбора.</string>
   <string name="quitTeam">Напусни отбора</string>
   <string name="manuallyReviewAdmissionRequests">Ръчно преглеждайте заявките за прием</string>

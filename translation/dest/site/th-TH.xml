@@ -101,7 +101,7 @@
   <string name="openingExplorer">ชมการเปิดเกม</string>
   <string name="openingEndgameExplorer">ตัวสำรวจการเปิดเกม/จบเกม</string>
   <string name="xOpeningExplorer">ชมการเปิดเกมแบบ %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).&#10;&#10;This string refers to the action 'Shift + Space', which plays the first move on the list, while you are analysing a game in the opening/endgame explorer mode.&#10;&#10;During the opening, this would be the most played move. The endgame-explorer shows known positions where the number of remaining pieces (both Kings included) is 7 or less.">เล่นการเปิดเกม/จบเกม-ค้นหาตาเดิน</string>
+  <string name="playFirstOpeningEndgameExplorerMove">เล่นการเปิดเกม/จบเกม-ค้นหาตาเดิน</string>
   <string name="winPreventedBy50MoveRule">พลาดชัยชนะเนื่องจากกฎการเดิน 50 รอบ</string>
   <string name="lossSavedBy50MoveRule">รอดจากการแพ้ด้วยกฎการเดิน 50 รอบ</string>
   <string name="winOr50MovesByPriorMistake">ชนะหรือเดิน 50 ตาโดยไม่ได้ตั้งใจ</string>
@@ -124,7 +124,6 @@
   <string name="memory">หน่วยความจำที่ใช้</string>
   <string name="infiniteAnalysis">การวิเคราะห์อนันต์</string>
   <string name="removesTheDepthLimit">ไม่จำกัดความลึก อาจทำให้เครื่องร้อน</string>
-  <string name="engineManager">จัดการเครื่องจักร</string>
   <string name="blunder">พลาดมหันต์</string>
   <string name="mistake">พลาด</string>
   <string name="inaccuracy">ไม่แม่นยำ</string>
@@ -524,9 +523,9 @@
   <string name="cheat">โกง</string>
   <string name="troll">ป่วน</string>
   <string name="other">อื่นๆ</string>
-  <string name="reportCheatBoostHelp" comment="This is a generic message and not specific to cheating reports. It attempts to educate the player on how to write a useful report for the Lichess team. It also requests evidence.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report.">วางลิงก์ไปยังเกม และอธิบายสิ่งผิดปกติเกี่ยวกับพฤติกรรมของผู้ใช้นี้ อย่าแค่พูดว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร</string>
-  <string name="reportUsernameHelp" comment="This is a generic message, which attempts to educate the player on how to write a useful report for the Lichess team.&#10;&#10;Appears on the &quot;Report a user&quot; page https://lichess.org/report, when selecting the 'User name' option.">อธิบายว่าชื่อผู้ใช้นี้ไม่เหมาะสมอย่างไร อย่าเพียงแค่พูดว่า \"มันน่ารังเกียจ/ไม่เหมาะสม\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร โดยเฉพาะหากชื่อนั้นคลุมเครือ ไม่ใช่ภาษาอังกฤษ เป็นคำสแลง หรือเป็นการอ้างอิงทางประวัติศาสตร์/วัฒนธรรม</string>
-  <string name="reportProcessedFasterInEnglish" comment="Appears on the &quot;Report a user&quot; page https://lichess.org/report, to encourage users to write in English, so any Lichess moderator can process it.">รายงานของคุณจะได้รับการดำเนินการเร็วขึ้นหากเขียนเป็นภาษาอังกฤษ</string>
+  <string name="reportCheatBoostHelp">วางลิงก์ไปยังเกม และอธิบายสิ่งผิดปกติเกี่ยวกับพฤติกรรมของผู้ใช้นี้ อย่าแค่พูดว่า \"พวกเขาโกง\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร</string>
+  <string name="reportUsernameHelp">อธิบายว่าชื่อผู้ใช้นี้ไม่เหมาะสมอย่างไร อย่าเพียงแค่พูดว่า \"มันน่ารังเกียจ/ไม่เหมาะสม\" แต่บอกเราว่าคุณมาถึงข้อสรุปนี้ได้อย่างไร โดยเฉพาะหากชื่อนั้นคลุมเครือ ไม่ใช่ภาษาอังกฤษ เป็นคำสแลง หรือเป็นการอ้างอิงทางประวัติศาสตร์/วัฒนธรรม</string>
+  <string name="reportProcessedFasterInEnglish">รายงานของคุณจะได้รับการดำเนินการเร็วขึ้นหากเขียนเป็นภาษาอังกฤษ</string>
   <string name="error.provideOneCheatedGameLink">โปรดระบุอย่างน้อยหนึ่งลิงก์ เพื่อเชื่อมโยงไปยังเกมที่มีการโกง</string>
   <string name="by">โดย %s</string>
   <string name="importedByX">ถูกนำเข้าโดย %s</string>
@@ -655,14 +654,14 @@
   <string name="timeBeforeTournamentStarts">เวลาก่อนทัวร์นาเมนต์จะเริ่ม</string>
   <string name="averageCentipawnLoss">เบี้ยร้อยละที่เสียโดยเฉลี่ย</string>
   <string name="accuracy">ความแม่นยำ</string>
-  <string name="keyboardShortcuts" comment="A heading for a listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">ปุ่มลัดแป้นพิมพ์</string>
+  <string name="keyboardShortcuts">ปุ่มลัดแป้นพิมพ์</string>
   <string name="keyMoveBackwardOrForward">เดินถอยหลัง/ไปหน้า</string>
   <string name="keyGoToStartOrEnd">ไปยังตอนเริ่ม/ตอนจบ</string>
   <string name="keyCycleSelectedVariation">กู้คืน ตาเดินที่ถูกเลือก</string>
   <string name="keyShowOrHideComments">แสดง/ซ่อนความคิดเห็น</string>
   <string name="keyEnterOrExitVariation">เข้าสู่/ออกจากตัวแปรกติกา</string>
-  <string name="keyRequestComputerAnalysis" comment="Appears in the listing of keyboard shortcuts (press &quot;?&quot; on a device with a keyboard connected, anywhere on the website).">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
-  <string name="keyNextLearnFromYourMistakes" comment="Appears in the listing of keyboard shortcuts.&#10;&#10;It explains that when you hit Enter while in the 'Learn from your mistakes' mode, you will progress to the next mistake. There are separate shortcuts for specifically moving to inaccuracies/mistakes/blunders.">ต่อไป (เรียนรู้จากความผิดพลาดของคุณ)</string>
+  <string name="keyRequestComputerAnalysis">ข้อการวิเคราะห์ด้วยคอมพิวเตอร์</string>
+  <string name="keyNextLearnFromYourMistakes">ต่อไป (เรียนรู้จากความผิดพลาดของคุณ)</string>
   <string name="keyNextBlunder">ตาเดินที่ผิดมหันต์ต่อไป</string>
   <string name="keyNextMistake">ตาเดินที่ผิดพลาดต่อไป</string>
   <string name="keyNextInaccuracy">ตาเดินที่ไม่แม่นยำต่อไป</string>
@@ -897,7 +896,7 @@
   <string name="cancelTournament">ยกเลิกทัวร์นาเมนต์</string>
   <string name="tournDescription">คำบรรยายทัวร์นาเมนต์</string>
   <string name="tournDescriptionHelp">คุณอยากบอกอะไรเป็นพิเศษกับผู้เข้าร่วมไหม? จงใช้แบบสั้นๆ ลิงค์ Markdown ที่มีให้ใช้ได้: [name](https://url)</string>
-  <string name="ratedFormHelp" comment="Explanation for setting a tournament to be 'Rated' (as opposed to 'Casual', the default setting).&#10;&#10;This string used to have a line break, which is no longer required.">เกมถูกคิดคะแนน และมีผลกับระดับคะแนนของผู้เล่น</string>
+  <string name="ratedFormHelp">เกมถูกคิดคะแนน และมีผลกับระดับคะแนนของผู้เล่น</string>
   <string name="onlyMembersOfTeam">เฉพาะสมาชิกของทีม</string>
   <string name="noRestriction">ไม่มีข้อจำกัด</string>
   <string name="minimumRatedGames">จำนวนเกมต่ำสุดที่คิดคะแนน</string>
@@ -928,7 +927,7 @@
   <string name="playComputerMove">เล่นการเดินคอมพิวเตอร์ที่ดีที่สุด</string>
   <string name="analysisOptions">ตัวเลือกการวิเคราะห์</string>
   <string name="focusChat">โฟกัสที่แชท</string>
-  <string name="showHelpDialog" comment="Used in various popup guidance menus (keyboard shortcuts, voice commands, keyboard move entry). It is triggered by pressing '?' on the keyboard while playing or analysing a game, or working on a puzzle.">แสดงกรอบช่วยเหลือนี้</string>
+  <string name="showHelpDialog">แสดงกรอบช่วยเหลือนี้</string>
   <string name="reopenYourAccount">เปิดบัญชีของคุณอีกครั้ง</string>
   <string name="closedAccountChangedMind">ถ้าคุณได้ปิดบัญชีแล้ว แต่เกิดเปลี่ยนใจ คุณมีโอกาสอีกครั้งเดียวในการเรียกบัญชีของคุณคืนมา</string>
   <string name="onlyWorksOnce">นี่จะทำได้เพียงครั้งเดียว</string>

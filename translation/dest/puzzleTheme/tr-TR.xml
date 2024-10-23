@@ -39,7 +39,7 @@
   <string name="deflection">Saptırma</string>
   <string name="deflectionDescription">Rakip taşı önemli bir kareyi korumak gibi mühim bir görevden alıkoyan hamleler.</string>
   <string name="discoveredAttack">Açarak saldırı</string>
-  <string name="discoveredAttackDescription">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
   <string name="doubleCheck">Çifte şah</string>
   <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
   <string name="endgame">Oyunsonu</string>

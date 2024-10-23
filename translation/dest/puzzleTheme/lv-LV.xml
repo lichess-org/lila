@@ -39,7 +39,7 @@
   <string name="deflection">Novirze</string>
   <string name="deflectionDescription">Gājiens, kas novērš pretinieka figūras uzmanību no kāda lauciņa sargāšanas vai cita uzdevuma.</string>
   <string name="discoveredAttack">Atklāts uzbrukums</string>
-  <string name="discoveredAttackDescription">Figūras, kas iepriekš bloķēja slīdošas figūras uzbrukumu, izkustināšana — piemēram zirdziņa aizkustināšana no torņa ceļa.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Figūras, kas iepriekš bloķēja slīdošas figūras uzbrukumu, izkustināšana — piemēram zirdziņa aizkustināšana no torņa ceļa.</string>
   <string name="doubleCheck">Dubultais šahs</string>
   <string name="doubleCheckDescription">Atklāta uzbrukuma rezultātā pieteikts šahs ar abām figūrām vienlaikus: gan ar atklāto figūru, gan ar izkustināto figūru.</string>
   <string name="endgame">Beigu spēle</string>

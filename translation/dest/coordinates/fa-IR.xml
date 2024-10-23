@@ -4,7 +4,7 @@
   <string name="coordinateTraining">تمرین همآرا</string>
   <string name="averageScoreAsWhiteX">میانگین امتیاز به عنوان سفید: %s</string>
   <string name="averageScoreAsBlackX">میانگین امتیاز به عنوان سیاه: %s</string>
-  <string name="knowingTheChessBoard">دانستن همآراهای صفحه شطرنج، مهارت خیلی مهمی است، به چند دلیل:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">دانستن همآراهای صفحه شطرنج، مهارت خیلی مهمی است، به چند دلیل:</string>
   <string name="mostChessCourses">بیشتر دوره‌ها و تمرین‌های شطرنج، از نشانه‌گذاری جبری استفاده می‌کنند.</string>
   <string name="talkToYourChessFriends">صحبت با دوستان شطرنجی‌تان را آسان‌تر می‌کند، زیرا هر دوی‌تان «زبان شطرنج» را می‌فهمید.</string>
   <string name="youCanAnalyseAGameMoreEffectively">اگر بتوانید همآراها را به تندی تشخیص دهید، می‌توانید یک بازی را موثرتر واکاوید.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">شما 30 ثانیه فرصت دارید تا هر چه بیشتر خانه‌ها را به‌درستی بیابید!</string>
   <string name="goAsLongAsYouWant">بدون محدودیت زمانی</string>
   <string name="showCoordinates">نمایش همآراها</string>
-  <string name="showCoordsOnAllSquares">همآراها روی خانه‌ها</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">همآراها روی خانه‌ها</string>
   <string name="showPieces">نمایش مهره ها</string>
   <string name="startTraining">آغاز تمرین</string>
   <string name="findSquare">خانه را بیابید</string>

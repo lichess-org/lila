@@ -341,9 +341,6 @@ $hover-bg: $m-primary_bg--mix-30;
     @extend %box-neat, %tour-margin-horiz;
     background: $c-bg-zebra;
     padding: 3em 2vw 1em 2vw;
-    h2 {
-      margin-bottom: 3rem;
-    }
   }
 
   &__players {

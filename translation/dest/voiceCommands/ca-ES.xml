@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Moure a e4 o seleccionar la peça d\'e4</string>
   <string name="selectOrCaptureABishop">Seleccionar o capturar un alfil</string>
   <string name="takeRookWithQueen">Capturar una torre amb la dama</string>
-  <string name="castle">Enrocar (a qualsevol flanc)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Enrocar (a qualsevol flanc)</string>
   <string name="phoneticAlphabetIsBest">L\'alfabet fonètic és el millor</string>
   <string name="cancelTimerOrDenyARequest">Cancel·la el comptador o denega una sol·licitud</string>
   <string name="playPreferredMoveOrConfirmSomething">Juga el moviment preferit o confirma alguna cosa</string>

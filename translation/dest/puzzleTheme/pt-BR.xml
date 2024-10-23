@@ -39,7 +39,7 @@
   <string name="deflection">Desvio</string>
   <string name="deflectionDescription">Um movimento que desvia a peça do oponente da sua função, por exemplo a de defesa de outra peça ou a defesa de uma casa importante.</string>
   <string name="discoveredAttack">Ataque descoberto</string>
-  <string name="discoveredAttackDescription">Mover uma peça que anteriormente bloqueava um ataque de uma peça de longo alcance, como por exemplo um cavalo liberando a coluna de uma torre.</string>
+  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mover uma peça que anteriormente bloqueava um ataque de uma peça de longo alcance, como por exemplo um cavalo liberando a coluna de uma torre.</string>
   <string name="doubleCheck">Xeque duplo</string>
   <string name="doubleCheckDescription">Dar Xeque com duas peças ao mesmo tempo, como resultado de um ataque descoberto onde tanto a peça que se move quanto a peça que estava sendo obstruída atacam o rei do oponente.</string>
   <string name="endgame">Finais</string>

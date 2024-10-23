@@ -61,7 +61,7 @@ const onEndPlugin = {
     build.onEnd(async (result: es.BuildResult) => {
       for (const err of result.errors) esbuildMessage(err, true);
       for (const warn of result.warnings) esbuildMessage(warn);
-      if (result.errors.length === 0) await jsManifest(result.metafile!);
+      if (result.errors.length === 0) jsManifest(result.metafile!);
       env.done(result.errors.length, 'esbuild');
     });
   },

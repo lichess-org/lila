@@ -17,6 +17,9 @@ final private class FideRepo(
     def selectFed(fed: hub.Federation.Id): Bdoc    = $doc("fed" -> fed)
     def sortStandard: Bdoc                         = $sort.desc("standard")
     def fetch(id: FideId): Fu[Option[FidePlayer]]  = playerColl.byId[FidePlayer](id)
+    def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
+      playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
+    def countAll = playerColl.count()
 
   object federation:
     given BSONDocumentHandler[hub.Federation.Stats] = Macros.handler

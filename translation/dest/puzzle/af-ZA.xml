@@ -31,8 +31,8 @@
   <string name="byOpenings">Vir openinge</string>
   <string name="puzzlesByOpenings">Raaisels vir openinge</string>
   <string name="openingsYouPlayedTheMost">Openinge wat jy die meeste in gradeerde spelle speel</string>
-  <string name="useFindInPage">Gebruik die \"Find in page\" in die blaaier se gids om jou gunsteling opening te vind!</string>
-  <string name="useCtrlF">Gebruik Ctrl+f om jou gensteling opening te vind!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gebruik die \"Find in page\" in die blaaier se gids om jou gunsteling opening te vind!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gebruik Ctrl+f om jou gensteling opening te vind!</string>
   <string name="notTheMove">Dit is nie die skuif nie!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Gradering: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Sterkpunte</string>
   <string name="history">Kopkrapper geskiedenis</string>
   <string name="solved">opgelos</string>
-  <string name="failed">gefaal</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">gefaal</string>
   <string name="streakDescription">Los toenemend moeiliker raaisels op en bou \'n wen reeks. Daar is nie \'n tydsfaktor nie, so vat dit rustig. Een verkeerde skuif en dit stuit! Maar jy kan \'n skuif per sessie oorslaan.</string>
   <string name="yourStreakX">Jou wen reeks: %s</string>
   <string name="streakSkipExplanation">Slaan die skuif oor, om jou reeks te behou! Werk slegs een keer per ronde.</string>

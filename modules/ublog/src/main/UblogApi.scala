@@ -53,13 +53,12 @@ final class UblogApi(
         if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
-    getBlog(UblogBlog.Id.User(user.id)).getOrElse(
-      userApi
-        .withPerfs(user)
-        .flatMap: user =>
-          val blog = UblogBlog.make(user)
-          (insertMissing.so(colls.blog.insert.one(blog).void)).inject(blog)
-    )
+    getBlog(UblogBlog.Id.User(user.id)).getOrElse:
+      for
+        user <- userApi.withPerfs(user)
+        blog = UblogBlog.make(user)
+        _ <- insertMissing.so(colls.blog.insert.one(blog).void)
+      yield blog
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
@@ -147,7 +146,7 @@ final class UblogApi(
     def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
-    (post.markdown.value.sizeIs > 1000).so(
+    (post.markdown.value.sizeIs > 1000).so:
       irc.ublogPost(
         user.light,
         id = post.id,
@@ -155,7 +154,6 @@ final class UblogApi(
         title = post.title,
         intro = post.intro
       )
-    )
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
@@ -173,6 +171,11 @@ final class UblogApi(
 
   def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
     colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
+
+  def onAccountClose(user: User) = for
+    blog <- getBlog(UblogBlog.Id.User(user.id))
+    _    <- blog.filter(_.visible).so(b => setTier(b.id, UblogRank.Tier.HIDDEN))
+  yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)

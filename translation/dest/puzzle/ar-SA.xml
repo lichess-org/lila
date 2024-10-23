@@ -31,8 +31,8 @@
   <string name="byOpenings">من الافتتاحات</string>
   <string name="puzzlesByOpenings">ألغاز من الافتتاحات</string>
   <string name="openingsYouPlayedTheMost">الافتتاحات التي استخدمتها في معظم المبارايات المقيمة</string>
-  <string name="useFindInPage">استخدم خاصية \"البحث في الصفحة\" في المتصفح للعثور على افتتاحك المفضل!</string>
-  <string name="useCtrlF">أضغط Ctrl و f لتبحث عن افتتاحك المفضل!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">استخدم خاصية \"البحث في الصفحة\" في المتصفح للعثور على افتتاحك المفضل!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">أضغط Ctrl و f لتبحث عن افتتاحك المفضل!</string>
   <string name="notTheMove">هذه ليست الحركة الصحيحة!</string>
   <string name="trySomethingElse">جرب شيئا آخر.</string>
   <string name="ratingX">التقييم: %s</string>
@@ -78,7 +78,7 @@
   <string name="strengths">نقاط القوة</string>
   <string name="history">سجل الألغاز</string>
   <string name="solved">حلت</string>
-  <string name="failed">فشلت</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">فشلت</string>
   <string name="streakDescription">حل الألغاز بشكل مطرد وبناء سلسلة الفوز. لا توجد ساعة، لذا خذ وقتك. نقلة خاطئة واحدة، وقد انتهت اللعبة! ولكن يمكنك تخطي حركة واحدة في كل دورة.</string>
   <string name="yourStreakX">حل متتالي: %s</string>
   <string name="streakSkipExplanation">تخطى هذه الحركة للحفاظ على سلسلة الانتصارات.</string>

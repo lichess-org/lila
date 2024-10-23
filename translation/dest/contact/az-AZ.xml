@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Sizə nədə kömək edə bilərik?</string>
   <string name="visitThisPage">Problemi həll etmək üçün bu səhifəyə keçin</string>
   <string name="iCantLogIn">Daxil ola bilmirəm</string>
-  <string name="noConfirmationEmail">Təsdiq e-poçtu almadım</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Təsdiq e-poçtu almadım</string>
   <string name="forgotPassword">Şifrəmi unutdum</string>
   <string name="forgotUsername">İstifadəçi adımı unutdum</string>
   <string name="youCanLoginWithEmail">Qeydiyyatdan keçdiyiniz elektron poçt ünvanı ilə daxil ola bilərsiniz</string>

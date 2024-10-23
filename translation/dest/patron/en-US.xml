@@ -48,8 +48,8 @@ Or you can %s.</string>
   <string name="onlyDonationFromAbove">Please note that only the donation form above will grant the Patron status.</string>
   <string name="patronFeatures">Are some features reserved to Patrons?</string>
   <string name="noPatronFeatures">No, because Lichess is entirely free, forever, and for everyone. That\'s a promise.
-However, Patrons get bragging rights with a cool new profile icon.</string>
-  <string name="featuresComparison">See the detailed features comparison</string>
+However, Patrons get bragging rights with cool new Patron wings that show up on your profile.</string>
+  <string name="featuresComparison">See the detailed feature comparison</string>
   <plurals name="patronForMonths">
     <item quantity="one">Lichess Patron for one month</item>
     <item quantity="other">Lichess Patron for %s months</item>
@@ -59,12 +59,12 @@ However, Patrons get bragging rights with a cool new profile icon.</string>
   <string name="currentStatus">Current status</string>
   <string name="nextPayment">Next payment</string>
   <string name="youWillBeChargedXOnY">You will be charged %1$s on %2$s.</string>
-  <string name="makeAdditionalDonation">Make an additional donation now</string>
+  <string name="makeAdditionalDonation">Make an additional donation</string>
   <string name="giftPatronWingsShort">Gift Patron wings</string>
   <string name="giftPatronWings">Gift Patron wings to a player</string>
   <string name="update">Update</string>
   <string name="changeMonthlyAmount">Change the monthly amount (%s)</string>
-  <string name="cancelSupport">cancel your support</string>
+  <string name="cancelSupport">Cancel your support</string>
   <string name="xOrY">%1$s or %2$s</string>
   <string name="decideHowMuch">Decide what Lichess is worth to you:</string>
   <string name="stopPayments">Withdraw your credit card and stop payments:</string>

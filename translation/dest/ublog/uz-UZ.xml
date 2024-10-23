@@ -24,7 +24,7 @@
   <string name="xPublishedY">%1$s %2$s\'ni chop etdi</string>
   <string name="thisPostIsPublished">Ushbu post chop etilgan</string>
   <string name="thisIsADraft">Bu qoralama</string>
-  <string name="moreBlogPostsBy">%s\'dan koʻproq blog postlar</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s\'dan koʻproq blog postlar</string>
   <string name="noPostsInThisBlogYet">Ushbu blogda hozircha postlar yoʻq.</string>
   <string name="noDrafts">Ko‘rsatish uchun qoralamalar yo‘q.</string>
   <string name="latestBlogPosts">Eng soʻnggi nlog postlar</string>

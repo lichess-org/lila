@@ -10,7 +10,6 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
   }, 1000);
   return {
     id: opts.id,
-    trans: opts.trans,
     text: () => text,
     fetch() {
       xhr.getNote(opts.id).then(t => {
@@ -29,7 +28,7 @@ export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   const text = ctrl.text();
   if (text == undefined) return h('div.loading', { hook: { insert: ctrl.fetch } });
   return h('textarea.mchat__note', {
-    attrs: { placeholder: ctrl.trans('typePrivateNotesHere') },
+    attrs: { placeholder: i18n.site.typePrivateNotesHere },
     hook: {
       insert(vnode) {
         const el = vnode.elm as HTMLTextAreaElement;
