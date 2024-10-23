@@ -47,4 +47,8 @@
   <string name="ageThisYear">今年時点の年齢</string>
   <string name="unrated">レーティングなし</string>
   <string name="recentTournaments">最近のトーナメント</string>
+  <string name="openLichess">Lichess で開く</string>
+  <string name="teams">チーム</string>
+  <string name="boards">ボード</string>
+  <string name="overview">概要</string>
 </resources>
