@@ -41,7 +41,7 @@ def mini(
   val showRating =
     !ctx.pref.hideRatingsInGame ||
       (playingGame match
-        case Some(pov) => pov.game.finishedOrAborted || !ctx.userId.exists(pov.game.userIds.has)
+        case Some(pov) => !pov.game.playable || !ctx.userId.exists(pov.game.userIds.has)
         case None      => !isUserPlaying
     )
   show.ui.mini(u, playing, blocked, followable, ping, rel, crosstable, flag, perfs, userMarks, showRating)
