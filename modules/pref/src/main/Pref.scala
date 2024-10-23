@@ -434,7 +434,7 @@ object Pref:
     val choices = Seq(
       NO        -> "No",
       YES       -> "Yes",
-      GAME_ONLY -> "In-game only"
+      GAME_ONLY -> "Except in-game"
     )
 
   val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)

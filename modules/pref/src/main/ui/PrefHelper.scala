@@ -24,7 +24,7 @@ trait PrefHelper:
     List(
       (Pref.Ratings.NO, trans.site.no.txt()),
       (Pref.Ratings.YES, trans.site.yes.txt()),
-      (Pref.Ratings.GAME_ONLY, trans.preferences.inGameOnly.txt())
+      (Pref.Ratings.GAME_ONLY, trans.preferences.exceptInGame.txt())
     )
 
   def translatedBoardCoordinateChoices(using Translate) =
