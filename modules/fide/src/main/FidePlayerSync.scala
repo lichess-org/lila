@@ -114,7 +114,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
               .mapConcat(_.toList)
               .grouped(100)
               .mapAsync(1)(upsert)
-              .runWith(lila.common.LilaStream.sinkCount)
+              .runWith(lila.common.LilaStream.sinkSum)
               .monSuccess(_.fideSync.time)
               .flatMap: nb =>
                 lila.mon.fideSync.players.update(nb)
@@ -161,7 +161,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         fetchedAt = nowInstant
       )
 
-    private def upsert(ps: Seq[FidePlayer]) =
+    private def upsert(ps: Seq[FidePlayer]): Future[Int] =
       val update = repo.playerColl.update(ordered = false)
       for
         elements <- ps.toList.sequentially: p =>
@@ -171,7 +171,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
             upsert = true
           )
         _ <- elements.nonEmpty.so(update.many(elements).void)
-      yield ()
+      yield elements.size
 
     private def setDeletedFlags(date: Instant): Fu[Int] = for
       nbDeleted <- repo.playerColl.update
