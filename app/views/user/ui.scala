@@ -39,12 +39,11 @@ def mini(
   val flag      = u.profileOrDefault.flagInfo
   val perfs     = u.perfs.best8Perfs
   val showRating =
-    if ctx.pref.hideRatingsInGame then
+    !ctx.pref.hideRatingsInGame ||
       (playingGame match
         case Some(pov) => pov.game.finishedOrAborted || !ctx.userId.exists(pov.game.userIds.has)
         case None      => !isUserPlaying
     )
-    else true
   show.ui.mini(u, playing, blocked, followable, ping, rel, crosstable, flag, perfs, userMarks, showRating)
 
 val perfStat = lila.perfStat.PerfStatUi(helpers)(views.user.bits.communityMenu("ratings"))
