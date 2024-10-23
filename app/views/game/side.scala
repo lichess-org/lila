@@ -84,7 +84,7 @@ object side:
                     withDiff = true,
                     withBerserk = true,
                     withRating =
-                      if ctx.pref.hasShowRatingsInGame then
+                      if ctx.pref.hideRatingsInGame then
                         game.finishedOrAborted || !ctx.userId.exists(game.userIds.has)
                       else true
                   )

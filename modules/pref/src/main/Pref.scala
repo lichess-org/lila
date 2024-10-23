@@ -93,7 +93,7 @@ case class Pref(
   def isZenAuto = zen == Zen.GAME_AUTO
 
   def showRatings          = ratings != Ratings.NO
-  def hasShowRatingsInGame = ratings == Ratings.GAME_ONLY
+  def hideRatingsInGame = ratings == Ratings.EXCEPT_GAME
 
   def is2d = !is3d
 
@@ -429,12 +429,12 @@ object Pref:
   object Ratings:
     val NO        = 0
     val YES       = 1
-    val GAME_ONLY = 2
+    val EXCEPT_GAME = 2
 
     val choices = Seq(
       NO        -> "No",
       YES       -> "Yes",
-      GAME_ONLY -> "Except in-game"
+      EXCEPT_GAME -> "Except in-game"
     )
 
   val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)

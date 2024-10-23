@@ -102,7 +102,7 @@ object page:
               "kid"                  -> ctx.kid.yes,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> p.playing,
-              "no-rating"            -> (!pref.showRatings || (p.playing && pref.hasShowRatingsInGame)),
+              "no-rating"            -> (!pref.showRatings || (p.playing && pref.hideRatingsInGame)),
               "no-flair"             -> !pref.flairs,
               "zen"                  -> (pref.isZen || (p.playing && pref.isZenAuto)),
               "zenable"              -> p.zenable,

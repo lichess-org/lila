@@ -10,7 +10,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
     rating = player.rating || perf?.rating,
-    showRating = d.pref.showRatingsInGame ? !ctrl.isPlaying() : !!rating,
+    showRating = d.pref.hideRatingsInGame ? !ctrl.isPlaying() : !!rating,
     signal = user?.id === d.opponent.user?.id ? d.opponentSignal : undefined;
 
   if (user) {

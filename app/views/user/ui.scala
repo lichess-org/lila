@@ -39,7 +39,7 @@ def mini(
   val flag      = u.profileOrDefault.flagInfo
   val perfs     = u.perfs.best8Perfs
   val showRating =
-    if ctx.pref.hasShowRatingsInGame then
+    if ctx.pref.hideRatingsInGame then
       (playingGame match
         case Some(pov) => pov.game.finishedOrAborted || !ctx.userId.exists(pov.game.userIds.has)
         case None      => !isUserPlaying
