@@ -20,7 +20,6 @@ final class LoginContext(
     val oauth: Option[TokenScopes]
 ):
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def myId: Option[MyId]         = me.map(_.myId)
   def user: Option[User]         = Me.raw(me)
   def userId: Option[UserId]     = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
