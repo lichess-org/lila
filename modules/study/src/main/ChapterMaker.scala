@@ -218,7 +218,7 @@ private[study] object ChapterMaker:
     case Fixed(color: Color) extends Orientation(color.name, color.some)
     case Auto                extends Orientation("automatic", none)
   object Orientation:
-    def apply(str: String) = Color.fromName(str).fold[Orientation](Auto)(Fixed.apply)
+    def apply(str: String) = Color.fromName(str.toLowerCase()).fold[Orientation](Auto)(Fixed.apply)
 
   case class Data(
       name: StudyChapterName,
