@@ -19,7 +19,7 @@ def mini(
     relation: Option[lila.relation.Relation],
     ping: Option[Int],
     ct: Option[lila.game.Crosstable],
-    amPlaying: Boolean
+    showRating: Boolean
 )(using ctx: Context) =
   val rel = views.relation.mini(u.id, blocked, followable, relation)
   def crosstable(myId: UserId) = ct
@@ -34,11 +34,10 @@ def mini(
           val opponent = ~cross.showOpponentScore(myId)
           s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>"""
         )
-  val playing    = playingGame.map(views.game.mini(_))
-  def userMarks  = views.mod.user.userMarks(u.user, None)
-  val flag       = u.profileOrDefault.flagInfo
-  val perfs      = u.perfs.best8Perfs
-  val showRating = ctx.pref.showRatingsIn(playingGame.map(_.game), amPlaying)
+  val playing   = playingGame.map(views.game.mini(_))
+  def userMarks = views.mod.user.userMarks(u.user, None)
+  val flag      = u.profileOrDefault.flagInfo
+  val perfs     = u.perfs.best8Perfs
   show.ui.mini(u, playing, blocked, followable, ping, rel, crosstable, flag, perfs, userMarks, showRating)
 
 val perfStat = lila.perfStat.PerfStatUi(helpers)(views.user.bits.communityMenu("ratings"))
