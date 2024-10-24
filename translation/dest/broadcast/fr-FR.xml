@@ -56,7 +56,7 @@
   <string name="subscribeTitle">Abonnez-vous pour être averti du début de chaque ronde. Vous pouvez basculer entre une sonnerie ou une notification poussée pour les diffusions dans les préférences de votre compte.</string>
   <string name="uploadImage">Téléverser une image pour le tournoi</string>
   <string name="noBoardsYet">Pas d\'échiquiers pour le moment. Ils s\'afficheront lorsque les parties seront téléversées.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Les échiquiers sont chargés à partir d\'une source ou de %s.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Les échiquiers sont chargés à partir d\'une source ou de l\'%s.</string>
   <string name="startsAfter">Commence après %s</string>
   <string name="startVerySoon">La diffusion commencera très bientôt.</string>
   <string name="notYetStarted">La diffusion n\'a pas encore commencé.</string>
