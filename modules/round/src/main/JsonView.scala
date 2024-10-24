@@ -116,7 +116,7 @@ final class JsonView(
             .add("confirmResign" -> (!flags.nvui && pref.confirmResign == Pref.ConfirmResign.YES))
             .add("keyboardMove" -> (!flags.nvui && pref.hasKeyboardMove))
             .add("voiceMove" -> (!flags.nvui && pref.hasVoice))
-            .add("hideRatingsInGame" -> (pref.hideRatingsInGame))
+            .add("hideRatingsInGame" -> pref.hideRatingsInGame)
             .add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
             .add("highlight" -> pref.highlight)
             .add("destination" -> pref.destination)

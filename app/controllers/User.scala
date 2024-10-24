@@ -44,10 +44,9 @@ final class User(
     env.game.cached
       .lastPlayedPlayingId(username.id)
       .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-      .flatMap {
+      .flatMap:
         case None         => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
-      }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
@@ -177,12 +176,13 @@ final class User(
               ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
-              val ping          = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
-              val isUserPlaying = ctx.userId.so(env.round.playing(_))
               negotiate(
-                html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
+                html = ctx.isnt(user).so(currentlyPlaying(user.user)).flatMap { pov =>
+                  val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
+                  val showRating =
+                    ctx.pref.showRatingsIn(pov.map(_.game), ctx.userId.so(env.round.playing(_)))
                   Ok.snip(
-                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, isUserPlaying)
+                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, showRating)
                   ).map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
                 json =

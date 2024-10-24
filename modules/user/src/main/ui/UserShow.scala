@@ -56,7 +56,7 @@ final class UserShow(helpers: Helpers, bits: UserBits):
         if u.lame && ctx.isnt(u) && !Granter.opt(_.UserModView)
         then div(cls := "upt__info__warning")(trans.site.thisAccountViolatedTos())
         else
-          (ctx.pref.showRatings && showRating).option:
+          showRating.option:
             div(cls := "upt__info__ratings")(best8Perfs.map(showPerfRating(u.perfs, _)))
       ),
       ctx.userId.map: myId =>
