@@ -995,4 +995,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
+  <string name="stats">Statistikk</string>
 </resources>

@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Korkeintaan 64 Lichess-pelin tunnistenumeroa välilyönneillä eroteltuna.</string>
   <string name="startDateTimeZone">Alkamisajankohta turnauksen paikallisella aikavyöhykkeellä: %s</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
-  <string name="credits">Mainitse lähde</string>
   <string name="currentGameUrl">Tämän pelin URL</string>
   <string name="downloadAllRounds">Lataa kaikki kierrokset</string>
   <string name="resetRound">Nollaa tämä kierros</string>

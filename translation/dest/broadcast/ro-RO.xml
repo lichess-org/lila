@@ -28,7 +28,6 @@
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
   <string name="sourceGameIds">Până la 64 de ID-uri de joc Lichess, separate prin spații.</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
-  <string name="credits">Creditează sursa</string>
   <string name="currentGameUrl">URL-ul partidei curente</string>
   <string name="downloadAllRounds">Descarcă toate rundele</string>
   <string name="resetRound">Resetează această rundă</string>

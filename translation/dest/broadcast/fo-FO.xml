@@ -11,5 +11,4 @@
   <string name="fullDescriptionHelp">Valfrí long lýsing av sending. %1$s er tøkt. Longdin má vera styttri enn %2$s bókstavir.</string>
   <string name="sourceUrlHelp">URL-leinki, ið Lichess fer at kanna til tess at fáa PGN dagføringar. Leinkið nýtist at vera alment atkomiligt á alnetinum.</string>
   <string name="startDateHelp">Valfrítt, um tú veitst, nær tiltakið byrjar</string>
-  <string name="credits">Nevn kelduna</string>
 </resources>

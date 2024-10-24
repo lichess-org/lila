@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="contact">ബന്ധപെടുക</string>
+  <string name="contactLichess">Lichess-നിന്നു് ബന്ധപ്പെടുക</string>
+  <string name="whatCanWeHelpYouWith">ഞങ്ങൾക്കു് താങ്ങളെ എങ്ങനെ സഹായിക്കാനാകും?</string>
+  <string name="iCantLogIn">എനിക്കു് പ്രവേശിക്കാൻ ഒക്കനില്ല</string>
   <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">എനിക്കു് എന്റെ ഉറപ്പിക്കൽ ഇമെയിൽ കിട്ടിയില്ല</string>
   <string name="forgotPassword">ഞാൻ എന്റെ രഹസ്യവാക്ക് മറന്നുപോയി</string>
   <string name="forgotUsername">ഞാൻ എന്റെ ഉപയോക്തൃപേര് മറന്നുപോയി</string>
+  <string name="accountSupport">എനിക്കു് അക്കൌണ്ടു് കുറിച്ചു് സഹായം വേണം</string>
+  <string name="wantTitle">എനിക്കു് എന്റെ പദവി Lichess-ൽ പ്രദർശിക്കപ്പെടണം</string>
   <string name="wantCloseAccount">എനിക്കു് എന്റെ അക്കൌണ്ടു് അവസാനിപ്പിക്കണം</string>
   <string name="closeYourAccount">താങ്ങൾക്കു് അക്കൌണ്ടു് ഈ താളത്തിൽ അവസാനിപ്പിക്കാം</string>
   <string name="doNotAskByEmail">ദെയവായി ഞങ്ങളേ ഇമെയിൽ വഴി അക്കൌണ്ടു് അവസാനിപ്പിക്കാൻ അപേക്ഷിക്കരുതു് , കാരണം ഞങ്ങൾക്കു് അതു് ചെയ്യാൻ പറ്റത്തില്ല.</string>
@@ -11,6 +16,8 @@
   <string name="reopenOnThisPage">താങ്ങൾക്കു് ഈ താളിൽ താങ്ങളുടേ അക്കൌണ്ടു് തിരിയേ തുറക്കാം. മുൻകരുതൽ: താങ്ങൾക്കു് ഇതു് ഒരുതവണയേ ചെയ്യാൻ സാധിക്കും.</string>
   <string name="doNotAskByEmailToReopen">ദെയവായി ഞങ്ങളേ ഇമെയിൽ വഴി അക്കൌണ്ടു് തിരിയേ തുറക്കാൻ അപേക്ഷിക്കരുതു്, കാരണം ഞങ്ങൾക്കു് അതു് ചെയ്യാൻ പറ്റത്തില്ല.</string>
   <string name="wantChangeUsername">എനിക്കു് എന്റെ ഉപയോക്തൃപേരു് മാറ്റണം</string>
+  <string name="changeUsernameCase">ഉപയോക്തൃപേരു് മാറ്റാൻ ഈ താൾ ലേക്കു് പോവുക</string>
+  <string name="orCloseAccount">എന്നാൽ താങ്ങൾക്കു് നിലവിലുള്ള അക്കൌണ്ടു് അവസാനിപ്പിക്കാം, പിന്നെയൊരു പുതിയ അക്കൌണ്ടു് ഉണ്ടാക്കാം.</string>
   <string name="doNotReportInForum">കളിക്കാരേ ചർച്ചാവേദിയിൽ കുറ്റപെടരുതു്.</string>
   <string name="doNotSendReportEmails">ഞങ്ങളേ കുറ്റാരോപണ ഇമെയിലുകൾ അയക്കരുതു്.</string>
   <string name="buyingLichess">Lichess വാങ്ങൽ</string>

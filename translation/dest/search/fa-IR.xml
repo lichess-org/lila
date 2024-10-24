@@ -19,10 +19,10 @@
   <string name="source">منبع</string>
   <string name="nbTurns">تعداد حرکت</string>
   <string name="result">نتیجه</string>
-  <string name="winnerColor">رنگ مهره های بازیکن برنده</string>
+  <string name="winnerColor">رنگ برنده</string>
   <string name="date">تاریخ</string>
   <string name="sortBy">مرتب‌سازی بر اساس</string>
-  <string name="analysis">برسی بازی</string>
+  <string name="analysis">واکاوی</string>
   <string name="onlyAnalysed">فقط بازی‌هایی که تحلیل رایانه‌ای برای‌شان موجود است</string>
   <string name="color">رنگ</string>
   <string name="evaluation">ارزیابی</string>

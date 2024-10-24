@@ -15,7 +15,6 @@
   <string name="tournamentDescription">Իրադարձության համառոտ նկարագրություն</string>
   <string name="fullDescription">Իրադարձության ամբողջական նկարագրություն</string>
   <string name="startDateHelp">Լրացուցիչ, եթե գիտեք, թե երբ է սկսվելու իրադարձությունը</string>
-  <string name="credits">Երախտագիտություն</string>
   <string name="currentGameUrl">Ընթացիկ պարտիայի URL-հասցեն</string>
   <string name="downloadAllRounds">Բեռնել բոլոր խաղափուլերը</string>
   <string name="resetRound">Հեռացնել այս խաղափուլը</string>

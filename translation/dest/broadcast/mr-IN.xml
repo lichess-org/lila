@@ -24,7 +24,6 @@
   <string name="fullDescriptionHelp">स्पर्धेचे पर्यायी संपूर्ण वर्णन. %1$s उपलब्ध आहे. %2$s अक्षरांपेक्षा कमी.</string>
   <string name="sourceUrlHelp">URL जी लाइसेस PGN अद्यतने मिळविण्यासाठी तपासणी करेल. ते इंटरनेट वरून सार्वजनिकरित्या प्रवेश करण्यायोग्य असणे आवश्यक आहे.</string>
   <string name="startDateHelp">पर्यायी, इव्हेंट कधी सुरू होतो हे आपल्याला माहिती असल्यास</string>
-  <string name="credits">Credit the source</string>
   <string name="currentGameUrl">चालू खेळाचा URL</string>
   <string name="downloadAllRounds">सर्व फेऱ्या डाउनलोड करा</string>
   <string name="resetRound">ही फेरी रेसेट करा</string>

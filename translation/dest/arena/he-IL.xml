@@ -63,28 +63,27 @@
   <string name="myTournaments">הטורנירים שלי</string>
   <string name="editTournament">עריכת הטורניר</string>
   <string name="editTeamBattle">עריכת קרב הקבוצות</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">האלוף היוצא</string>
+  <string name="defender">האלוף היוצא</string>
   <string name="pickYourTeam">בחר/י את הקבוצה שלך</string>
   <string name="whichTeamWillYouRepresentInThisBattle">איזו קבוצה תרצו לייצג בקרב?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">עליכם להצטרף לאחת מהקבוצות האלה כדי לשחק!</string>
   <string name="created">נוצר</string>
   <string name="recentlyPlayed">שוחק לאחרונה</string>
   <string name="bestResults">התוצאות הטובות ביותר</string>
-  <string name="stats">סטטיסטיקות</string>
   <string name="tournamentStats">נתוני הטורנירים</string>
   <string name="rankAvgHelp">ממוצע הדירוג הוא האחוזון של הדירוגים שלך. ככל שהוא נמוך יותר, כך הוא טוב יותר!
 
 לדוגמה, מי שזוכה מקום שלישי בטורניר עם 100 משתתפים הוא באחוזון השלישי (3%).
 
 מי שזוכה במקום העשירי מתוך אלף משתתפים הוא באחוזון העליון (1%).</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">חציונים</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">כל הממוצעים בעמוד זה הם למעשה %s.</string>
+  <string name="medians">חציונים</string>
+  <string name="allAveragesAreX">כל הממוצעים בעמוד זה הם למעשה %s.</string>
   <string name="total">סך הכל</string>
-  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">ממוצע הנקודות</string>
-  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">סכום הנקודות</string>
-  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">ממוצע הדירוג</string>
+  <string name="pointsAvg">ממוצע הנקודות</string>
+  <string name="pointsSum">סכום הנקודות</string>
+  <string name="rankAvg">ממוצע הדירוג</string>
   <string name="tournamentWinners">מנצחי הטורנירים</string>
   <string name="tournamentShields">מגיני הטורנירים</string>
   <string name="onlyTitled">שחקנים עטורי דרגות בלבד</string>
-  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">יהיה צורך בתואר רשמי כדי להצטרף לטורניר</string>
+  <string name="onlyTitledHelp">יהיה צורך בתואר רשמי כדי להצטרף לטורניר</string>
 </resources>

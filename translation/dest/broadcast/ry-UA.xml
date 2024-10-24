@@ -15,7 +15,6 @@
   <string name="fullDescriptionHelp">Немусайно повный опис турніра. %1$s приступный. Довжина має быти менша за %2$s сімболув.</string>
   <string name="sourceUrlHelp">Одкликованя, через якоє Lichess буде доставати обновеня PGN. Ун має быти приступный из Інтернета.</string>
   <string name="startDateHelp">Опціонално, кідь знаєте коли ся зачинат припад</string>
-  <string name="credits">Оддяка</string>
   <string name="currentGameUrl">Одкликованя теперішньої бавкы</string>
   <string name="downloadAllRounds">Стерьхати вшыткі рунды</string>
   <string name="resetRound">Перепустити сисю рунду</string>

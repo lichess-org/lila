@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
   <string name="startDateTimeZone">Datë fillimi në zonën kohore vendore të turneut: %s</string>
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
-  <string name="credits">Atriboji merita burimit</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
   <string name="deleteRound">Fshije këtë raund</string>
@@ -49,4 +48,23 @@
   <string name="ageThisYear">Moshë këtë vit</string>
   <string name="unrated">Pa pikë</string>
   <string name="recentTournaments">Turne së fundi</string>
+  <string name="openLichess">Hape në Lichess</string>
+  <string name="teams">Ekipe</string>
+  <string name="boards">Fusha</string>
+  <string name="overview">Përmbledhje</string>
+  <string name="subscribeTitle">Pajtohuni, që të noftoheni se kur fillon çdo raund. Mund të aktivizoni/çaktivizoni zilen, ose njoftimet “push” për transmetime, që nga parapëlqimet për llogarinë tuaj.</string>
+  <string name="uploadImage">Ngarkoni figurë turneu</string>
+  <string name="noBoardsYet">Ende pa fusha. Këto do të shfaqen sapo të ngrkohen lojërat.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Fushat mund të ngarkohen me një burim, ose përmes %s</string>
+  <string name="startsAfter">Fillon pas %s</string>
+  <string name="startVerySoon">Transmetimi do të fillojë shumë shpejt.</string>
+  <string name="notYetStarted">Transmetimi s’ka filluar ende.</string>
+  <string name="officialWebsite">Sajti zyrtar</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Më tepër mundësi te %s</string>
+  <string name="webmastersPage">faqe webmaster-ësh</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Një burim publik,, PGN, i atypëratyshëm për këtë raund. Ofrojmë gjithashtu edhe një %s, për njëkohësim më të shpejtë dhe më efikas.</string>
+  <string name="embedThisBroadcast">Trupëzojeni këtë transmetim në sajtin tuaj</string>
+  <string name="embedThisRound" comment="%s is &quot;this round&quot;&#10;embedThisRound">Trupëzojeni %s në sajtin tuaj</string>
+  <string name="gamesThisTournament">Lojëra në këtë turne</string>
+  <string name="score">Përfundim</string>
 </resources>

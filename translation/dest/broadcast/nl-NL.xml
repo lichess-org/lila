@@ -28,7 +28,6 @@
   <string name="sourceGameIds">Tot 64 Lichess partij-ID\'\'s, gescheiden door spaties.</string>
   <string name="startDateTimeZone">Startdatum in de lokale tijdzone van het tornooi: %s</string>
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
-  <string name="credits">Bronvermelding</string>
   <string name="currentGameUrl">Huidige partij-link</string>
   <string name="downloadAllRounds">Alle rondes downloaden</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
@@ -49,4 +48,25 @@
   <string name="ageThisYear">Leeftijd dit jaar</string>
   <string name="unrated">Zonder rating</string>
   <string name="recentTournaments">Recente toernooien</string>
+  <string name="openLichess">Openen in Lichess</string>
+  <string name="teams">Teams</string>
+  <string name="boards">Borden</string>
+  <string name="overview">Overzicht</string>
+  <string name="subscribeTitle">Krijg een melding wanneer elke ronde start. Je kunt bel- of pushmeldingen voor uitzendingen in je accountvoorkeuren in-/uitschakelen.</string>
+  <string name="uploadImage">Toernooifoto uploaden</string>
+  <string name="noBoardsYet">Nog geen borden. Deze zullen verschijnen van zodra er partijen worden geüpload.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Borden kunnen geladen worden met een bron of via de %s</string>
+  <string name="startsAfter">Start na %s</string>
+  <string name="startVerySoon">De uitzending begint binnenkort.</string>
+  <string name="notYetStarted">De uitzending is nog niet begonnen.</string>
+  <string name="officialWebsite">Officiële website</string>
+  <string name="standings">Klassement</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Meer opties voor de %s</string>
+  <string name="webmastersPage">pagina van de webmaster</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Een publieke real-time PGN-bron voor deze ronde. We bieden ook een %s aan voor een snellere en efficiëntere synchronisatie.</string>
+  <string name="embedThisBroadcast">Deze uitzending insluiten in je website</string>
+  <string name="embedThisRound" comment="%s is &quot;this round&quot;&#10;embedThisRound">%s insluiten in je website</string>
+  <string name="ratingDiff">Ratingverschil</string>
+  <string name="gamesThisTournament">Partijen in dit toernooi</string>
+  <string name="score">Score</string>
 </resources>

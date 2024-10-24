@@ -31,7 +31,6 @@
   <string name="sourceGameIds">Až 64 ID Lichess her, oddělených mezerama.</string>
   <string name="startDateTimeZone">Datum zahájení v lokálním čase turnaje: %s</string>
   <string name="startDateHelp">Nepovinné, pokud víte, kdy událost začíná</string>
-  <string name="credits">Uveďte zdroj</string>
   <string name="currentGameUrl">URL adresa právě probíhající partie</string>
   <string name="downloadAllRounds">Stáhnout hry ze všech kol</string>
   <string name="resetRound">Resetovat toto kolo</string>

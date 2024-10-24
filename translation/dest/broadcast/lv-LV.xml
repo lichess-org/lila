@@ -15,7 +15,6 @@
   <string name="fullDescriptionHelp">Neobligāts garš raidījuma apraksts. Pieejams %1$s. Garumam jābūt mazāk kā %2$s rakstzīmēm.</string>
   <string name="sourceUrlHelp">URL, ko Lichess aptaujās, lai iegūtu PGN atjauninājumus. Tam jābūt publiski piekļūstamam no interneta.</string>
   <string name="startDateHelp">Neobligāts, ja zināt, kad pasākums sākas</string>
-  <string name="credits">Kreditējiet avotu</string>
   <string name="currentGameUrl">Pašreizējās spēles URL</string>
   <string name="downloadAllRounds">Lejupielādēt visus raundus</string>
   <string name="resetRound">Atiestatīt šo raundu</string>

@@ -31,7 +31,6 @@
   <string name="sourceGameIds">До 64 идентификаторов (ID) игр Lichess, разделённых пробелами.</string>
   <string name="startDateTimeZone">Дата начала турнира в местном часовом поясе: %s</string>
   <string name="startDateHelp">Дополнительно, если вы знаете, когда событие начнётся</string>
-  <string name="credits">Признательность</string>
   <string name="currentGameUrl">URL-адрес текущей партии</string>
   <string name="downloadAllRounds">Скачать все туры</string>
   <string name="resetRound">Сбросить тур</string>
@@ -52,4 +51,25 @@
   <string name="ageThisYear">Возраст в этом году</string>
   <string name="unrated">Без рейтинга</string>
   <string name="recentTournaments">Недавние турниры</string>
+  <string name="openLichess">Открыть в Lichess</string>
+  <string name="teams">Клубы</string>
+  <string name="boards">Доски</string>
+  <string name="overview">Обзор</string>
+  <string name="subscribeTitle">Подпишитесь, чтобы получать уведомления о начале каждого раунда. Вы можете включить звуковое или пуш-уведомление для трансляций в своих настройках.</string>
+  <string name="uploadImage">Загрузить изображение турнира</string>
+  <string name="noBoardsYet">Пока нет досок. Они появятся после загрузки партий.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Доски могут быть загружены из источника или с помощью %s</string>
+  <string name="startsAfter">Начало после %s</string>
+  <string name="startVerySoon">Трансляция начнётся совсем скоро.</string>
+  <string name="notYetStarted">Трансляция ещё не началась.</string>
+  <string name="officialWebsite">Официальный веб-сайт</string>
+  <string name="standings">Турнирная таблица</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Больше опций на %s</string>
+  <string name="webmastersPage">странице веб-мастера</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публичный PGN-источник для этого раунда в реальном времени. Мы также предлагаем %s для более быстрой и эффективной синхронизации.</string>
+  <string name="embedThisBroadcast">Встройте эту трансляцию на ваш сайт</string>
+  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Встроить %s на свой сайт</string>
+  <string name="ratingDiff">Разница в рейтингах</string>
+  <string name="gamesThisTournament">Партии этого турнира</string>
+  <string name="score">Очки</string>
 </resources>

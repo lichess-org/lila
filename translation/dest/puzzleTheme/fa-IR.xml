@@ -114,7 +114,7 @@
   <string name="underPromotion">فرو-ارتقا</string>
   <string name="underPromotionDescription">ارتقا به اسب، فیل یا رخ.</string>
   <string name="veryLong">معمای خیلی طولانی</string>
-  <string name="veryLongDescription">چهار حرکت یا بیشتر برای برنده شدن.</string>
+  <string name="veryLongDescription">بُردن با چهار حرکت یا بیشتر.</string>
   <string name="xRayAttack">حمله پیکانی</string>
   <string name="xRayAttackDescription">یک مهره از طریق مهره حریف به یک خانه حمله میکند یا از آن دفاع می کند.</string>
   <string name="zugzwang">زوگزوانگ</string>

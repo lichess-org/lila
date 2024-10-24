@@ -29,7 +29,6 @@
   <string name="sourceGameIds">تا ۶۴ شناسه بازی لیچس٬ جداشده با فاصله.</string>
   <string name="startDateTimeZone">تاریخ آغاز در زمان-یانه محلی مسابقات: %s</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
-  <string name="credits">به منبع اعتبار دهید</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
   <string name="downloadAllRounds">بارگیری همه دورها</string>
   <string name="resetRound">ازنوکردن این دور</string>

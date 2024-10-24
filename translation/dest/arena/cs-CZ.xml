@@ -65,26 +65,25 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="myTournaments">Moje turnaje</string>
   <string name="editTournament">Upravit turnaj</string>
   <string name="editTeamBattle">Upravit týmové bitvy</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Obránce</string>
+  <string name="defender">Obránce</string>
   <string name="pickYourTeam">Vyber si tým</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Který tým budeš reprezentovat v této bitvě?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Musíš se připojit k jednomu z těchto týmů!</string>
   <string name="created">Vytvořeno</string>
   <string name="recentlyPlayed">Nedávno hrané</string>
   <string name="bestResults">Nejlepší výsledky</string>
-  <string name="stats">Statistika</string>
   <string name="tournamentStats">Turnajové statistiky</string>
   <string name="rankAvgHelp">Průměrný rank je procento umístění. Nižší je lepší.
 
 Například, umístíte se 3 v turnaji o 100 hráčích tak rank je 3%. Umístíte se 10 v turnaji o 1000 hráčích task rank je 1%.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mediány</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Všechny průměry na této stránce jsou %s.</string>
+  <string name="medians">mediány</string>
+  <string name="allAveragesAreX">Všechny průměry na této stránce jsou %s.</string>
   <string name="total">Celkem</string>
-  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Bodový průměr</string>
-  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Bodový součet</string>
-  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Průměrný rank</string>
+  <string name="pointsAvg">Bodový průměr</string>
+  <string name="pointsSum">Bodový součet</string>
+  <string name="rankAvg">Průměrný rank</string>
   <string name="tournamentWinners">Turnajoví vítězové</string>
   <string name="tournamentShields">Turnajové štíty</string>
   <string name="onlyTitled">Pouze hráči s titulem</string>
-  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Požadovat oficiální titul k připojení se do turnaje</string>
+  <string name="onlyTitledHelp">Požadovat oficiální titul k připojení se do turnaje</string>
 </resources>

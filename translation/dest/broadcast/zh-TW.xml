@@ -28,7 +28,6 @@
   <string name="sourceGameIds">最多 64 個以空格分開的 Lichess 棋局序號。</string>
   <string name="startDateTimeZone">當地時區的錦標賽起始日期：%s</string>
   <string name="startDateHelp">可選，如果知道比賽開始時間</string>
-  <string name="credits">提及來源</string>
   <string name="currentGameUrl">目前棋局連結</string>
   <string name="downloadAllRounds">下載所有棋局</string>
   <string name="resetRound">重設此回合</string>
