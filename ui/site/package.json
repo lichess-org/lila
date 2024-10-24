@@ -29,7 +29,8 @@
       "font/lichess.woff2",
       "lifat/background/montage*.webp",
       "npm/*",
-      "javascripts/**"
+      "javascripts/**",
+      "piece-css/*"
     ]
   }
 }
