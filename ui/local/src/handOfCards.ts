@@ -7,6 +7,7 @@ export interface CardData {
   label: string;
   domId: DomId;
   classList: string[];
+  group?: string; // user, advanced, intermediate, etc
 }
 
 export type Drop = { el: HTMLElement; selected?: DomId };
@@ -27,7 +28,10 @@ type DomId = string; // no selector chars allowed
 interface HandOpts {
   getCardData: () => Iterable<CardData>;
   getDrops: () => Drop[];
+  getGroup?: () => string;
+
   select: (drop: HTMLElement | undefined, domId?: DomId) => void;
+
   onRemove?: () => void;
 
   view: HTMLElement;
@@ -48,6 +52,8 @@ class HandOfCardsImpl {
   animFrame = 0;
   isAnimationReady = false;
   scaleFactor = 1;
+  groups: Set<string | undefined>;
+  group: string | undefined;
   pointerDownTime?: number;
   touchDragShape?: TouchDragShape;
   dragCard: HTMLElement | null = null;
@@ -64,6 +70,7 @@ class HandOfCardsImpl {
     this.events.addListener(this.view, 'mousemove', this.mouseMove);
     this.events.addListener(document, 'visibilitychange', () => this.placeCards(true));
     this.update();
+    this.group = opts.getGroup?.();
     setTimeout(this.resize);
     requestAnimationFrame(() => (this.isAnimationReady = true));
   }
@@ -87,19 +94,22 @@ class HandOfCardsImpl {
     const data = [...this.opts.getCardData()].reverse();
     if (isEquivalent(data, this.lastCardData)) return;
     const fragment = document.createDocumentFragment();
-    this.lastCardData = data;
     const cards: HTMLElement[] = [];
+    this.lastCardData = data;
     //let i = data.length;
+    this.groups = new Set(data.map(cd => cd.group));
+    if (!this.group || !this.groups.has(this.group)) this.group = this.groups.values().next().value;
+
     for (const cd of data) {
       const card = this.cards.find(x => x.id === cd.domId) ?? this.createCard(cd);
-      fragment.appendChild(card);
       const label = card.lastElementChild as HTMLElement;
-      if (cd.label !== label.textContent) label.textContent = cd.label;
       const img = card.firstElementChild as HTMLImageElement;
+      if (cd.group === this.group) fragment.appendChild(card);
       if (cd.imageUrl !== img.src) img.src = cd.imageUrl ?? '';
+      if (cd.label !== label.textContent) label.textContent = cd.label;
       //card.tabIndex = i--;
       card.className = 'card';
-      //if (firstTime) card.style.transition = 'none';
+      cd.group ? card.setAttribute('data-group', cd.group) : card.removeAttribute('data-group');
       cd.classList.forEach(c => card.classList.add(c));
       cards.push(card);
     }
@@ -149,8 +159,8 @@ class HandOfCardsImpl {
   private placeCards(now = false) {
     this.container.classList.toggle('no-transition', now || this.suppressAnimation); //!!this.dragCard);
     const hovered = this.view.querySelector('.card.pull');
-    const hoverIndex = this.cards.findIndex(x => x == hovered);
-    const unplaced = this.cards.filter(x => !this.selectedTransform(x));
+    const hoverIndex = this.visible.findIndex(x => x == hovered);
+    const unplaced = this.visible.filter(x => !this.selectedTransform(x));
     for (const [i, card] of unplaced.entries()) {
       if (!this.opts.opaque) card.style.backgroundColor = '';
       if (card === this.dragCard) continue;
@@ -175,9 +185,9 @@ class HandOfCardsImpl {
   private fanoutTransform(card: HTMLElement, hoverIndex: number) {
     const fanArc = Math.PI / 5;
     const centerCard = -this.cardSize / 2;
-    const visibleCards = this.cards.length; // this works for what few cards we have now
-    const index = this.cards.indexOf(card);
-    const rindex = this.cards.length - index - 0.5;
+    const visibleCards = this.visible.length; // this works for what few cards we have now
+    const index = this.visible.indexOf(card);
+    const rindex = this.visible.length - index - 0.5;
     const isHovered = hoverIndex === index;
     const isAfterHovered = hoverIndex > -1 && index > hoverIndex;
 
@@ -268,7 +278,7 @@ class HandOfCardsImpl {
     this.pointerDownTime = Date.now();
     if (e.pointerType === 'touch') {
       this.container.classList.add('no-transition');
-      this.touchDragShape = new TouchDragShape(e, this.cards, card, this.rect.width / this.cards.length);
+      this.touchDragShape = new TouchDragShape(e, this.visible, card, this.rect.width / this.visible.length);
       this.select(this.drops[0].el, card.id);
       this.redraw();
       return;
@@ -283,7 +293,7 @@ class HandOfCardsImpl {
   private pointerMove = (e: PointerEvent) => {
     if (e.pointerType === 'touch') {
       if (this.touchDragShape?.update(e)) {
-        this.select(this.drops[0].el, this.cards[this.touchDragShape.currentIndex].id);
+        this.select(this.drops[0].el, this.visible[this.touchDragShape.currentIndex].id);
         this.redraw();
         return;
       }
@@ -361,6 +371,9 @@ class HandOfCardsImpl {
   }
   private get deck() {
     return this.opts.deck;
+  }
+  private get visible() {
+    return this.cards.filter(card => card.dataset.group === this.group);
   }
   private get fanout() {
     return this.opts.transient || !this.deck || this.deck.classList.contains('fanout');

@@ -1,6 +1,6 @@
 export const randomToken = (): string => {
   try {
-    const data = window.crypto.getRandomValues(new Uint8Array(9));
+    const data = globalThis?.crypto.getRandomValues(new Uint8Array(9));
     return btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
   } catch (_) {
     return Math.random().toString(36).slice(2, 12);
@@ -9,6 +9,10 @@ export const randomToken = (): string => {
 
 export function clamp(value: number, bounds: { min?: number; max?: number }): number {
   return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+}
+
+export function quantize(n?: number, factor = 2000): number {
+  return Math.floor((n ?? 0) / factor) * factor;
 }
 
 export function shuffle<T>(array: T[]): T[] {
