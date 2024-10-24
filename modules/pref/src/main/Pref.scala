@@ -95,6 +95,15 @@ case class Pref(
   def showRatings       = ratings != Ratings.NO
   def hideRatingsInGame = ratings == Ratings.EXCEPT_GAME
 
+  def showRatingsIn(game: Option[lila.core.game.Game], amPlaying: Boolean)(using
+      myId: Option[MyId]
+  ): Boolean =
+    if ratings == Ratings.EXCEPT_GAME
+    then
+      game.fold(!amPlaying): g =>
+        !g.playable || !myId.exists(me => g.userIds.has(me.id))
+    else ratings == Ratings.YES
+
   def is2d = !is3d
 
   def agree = copy(agreement = Agreement.current)

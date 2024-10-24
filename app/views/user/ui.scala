@@ -34,15 +34,11 @@ def mini(
           val opponent = ~cross.showOpponentScore(myId)
           s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>"""
         )
-  val playing   = playingGame.map(views.game.mini(_))
-  def userMarks = views.mod.user.userMarks(u.user, None)
-  val flag      = u.profileOrDefault.flagInfo
-  val perfs     = u.perfs.best8Perfs
-  val showRating =
-    !ctx.pref.hideRatingsInGame ||
-      playingGame.match
-        case Some(pov) => !pov.game.playable || !ctx.userId.exists(pov.game.userIds.has)
-        case None      => !amPlaying
+  val playing    = playingGame.map(views.game.mini(_))
+  def userMarks  = views.mod.user.userMarks(u.user, None)
+  val flag       = u.profileOrDefault.flagInfo
+  val perfs      = u.perfs.best8Perfs
+  val showRating = ctx.pref.showRatingsIn(playingGame.map(_.game), amPlaying)
   show.ui.mini(u, playing, blocked, followable, ping, rel, crosstable, flag, perfs, userMarks, showRating)
 
 val perfStat = lila.perfStat.PerfStatUi(helpers)(views.user.bits.communityMenu("ratings"))

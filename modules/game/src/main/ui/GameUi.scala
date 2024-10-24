@@ -26,9 +26,7 @@ final class GameUi(helpers: Helpers):
       renderMini(
         pov,
         withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
-        showRatings =
-          if ctx.pref.hideRatingsInGame then !pov.game.playable || !ctx.userId.exists(pov.game.userIds.has)
-          else ctx.pref.showRatings
+        showRatings = ctx.pref.showRatingsIn(pov.game.some, false)(using ctx.myId)
       )
 
     def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =

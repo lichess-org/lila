@@ -2,7 +2,8 @@ package lila.core
 package pref
 
 import lila.core.user.User
-import lila.core.userId.UserId
+import lila.core.userId.{ MyId, UserId }
+import lila.core.game.Game
 
 trait Pref:
   val id: UserId
@@ -23,6 +24,7 @@ trait Pref:
   def hasVoice: Boolean
   def hideRatingsInGame: Boolean
   def showRatings: Boolean
+  def showRatingsIn(game: Option[Game], amPlaying: Boolean)(using Option[MyId]): Boolean
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int
   def pieceNotationIsLetter: Boolean
