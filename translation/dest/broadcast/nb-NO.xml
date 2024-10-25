@@ -49,4 +49,11 @@
   <string name="ageThisYear">Alder i år</string>
   <string name="unrated">Uratet</string>
   <string name="recentTournaments">Nylige turneringer</string>
+  <string name="openLichess">Åpne i Lichess</string>
+  <string name="teams">Lag</string>
+  <string name="boards">Brett</string>
+  <string name="overview">Oversikt</string>
+  <string name="uploadImage">Last opp bilde for turneringen</string>
+  <string name="noBoardsYet">Ingen brett. De vises når partiene er lastet opp.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Brett kan lastes med en kilde eller via %s</string>
 </resources>
