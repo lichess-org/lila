@@ -9,24 +9,23 @@ export default async function () {
     self.location.href,
   );
   workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url')!);
-  const reg =
-    (await navigator.serviceWorker.getRegistration().then(reg => reg?.update().then(() => reg))) ??
-    (await navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache: 'all' }));
-
-  const store = storage.make('push-subscribed');
-  const resub = parseInt(store.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
-  const vapid = document.body.getAttribute('data-vapid');
-  const sub = await reg.pushManager.getSubscription();
-
-  if (!vapid || Notification.permission !== 'granted') {
-    store.remove();
-    sub?.unsubscribe();
-    return;
-  } else if (sub && !resub) return;
-
-  const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
   let newSub: PushSubscription | undefined = undefined;
   try {
+    const reg = await navigator.serviceWorker.register(workerUrl.href, { scope: '/', updateViaCache: 'all' });
+
+    const store = storage.make('push-subscribed');
+    const resub = parseInt(store.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+    const vapid = document.body.getAttribute('data-vapid');
+    const sub = await reg.pushManager.getSubscription();
+
+    if (!vapid || Notification.permission !== 'granted') {
+      store.remove();
+      sub?.unsubscribe();
+      return;
+    } else if (sub && !resub) return;
+
+    const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+
     newSub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey });
 
     if (!newSub) throw new Error(JSON.stringify(await reg.pushManager.permissionState()));
@@ -40,7 +39,8 @@ export default async function () {
     if (res.ok && !res.redirected) store.set('' + Date.now());
     else throw new Error(res.statusText);
   } catch (err: any) {
-    log('push subscribe failed', err.message, newSub);
+    log('serviceWorker.ts:', err.message, newSub);
+    navigator.serviceWorker.getRegistration().then(reg => reg?.unregister());
     newSub?.unsubscribe();
   }
 }
