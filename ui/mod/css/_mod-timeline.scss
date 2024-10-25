@@ -57,8 +57,12 @@
   }
 }
 .mod-timeline__event__action {
+  @extend %flex-center;
   flex: 0 0 auto;
-  white-space: nowrap;
+  gap: 1ch;
+}
+.mod-timeline__event__action .button-link {
+  line-height: 1.2;
 }
 .mod-timeline__text {
   @extend %break-word-hard;

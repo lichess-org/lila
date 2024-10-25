@@ -107,8 +107,13 @@ final class ModTimelineUi(helpers: Helpers)(
           title := r.atoms.toList.map(_.by.id).map(usernameOrId).map(_.toString).mkString(", ")
         )(pluralize("player", r.atoms.size))
       ,
-      span(cls := "mod-timeline__event__action")(" opened a ", atoms.head.reason.name, " report"),
-      renderText(atoms.head.text, atoms.head.reason.isComm)
+      div(cls := "mod-timeline__event__action")(
+        " opened a ",
+        postForm(action := routes.Report.inquiry(report.id.value))(
+          submitButton(strong(atoms.head.reason.name), " report")(cls := "button-link")
+        )
+      ),
+      renderText(atoms.head.text, highlightBad = atoms.head.reason.isComm)
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(

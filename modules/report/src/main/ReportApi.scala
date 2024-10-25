@@ -567,15 +567,17 @@ final class ReportApi(
     /*
      * If the mod has no current inquiry, just start this one.
      * If they had another inquiry, cancel it and start this one instead.
-     * If they already are on this inquiry, cancel it.
+     * If they already are on this inquiry, and onlyOpen=false, cancel it.
      * Returns the previous and next inquiries
      */
-    def toggle(id: String | Either[ReportId, UserId])(using Me): Fu[(Option[Report], Option[Report])] =
+    def toggle(id: String | Either[ReportId, UserId], onlyOpen: Boolean)(using
+        Me
+    ): Fu[(Option[Report], Option[Report])] =
       workQueue:
-        doToggle(id)
+        doToggle(id, onlyOpen)
 
     private def doToggle(
-        id: String | Either[ReportId, UserId]
+        id: String | Either[ReportId, UserId], onlyOpen
     )(using mod: Me): Fu[(Option[Report], Option[Report])] =
       def findByUser(userId: UserId) = coll.one[Report]($doc("user" -> userId, "inquiry.mod".$exists(true)))
       for
