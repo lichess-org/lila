@@ -28,7 +28,7 @@ case class ModTimeline(
       r.done.map(ReportClose(r, _)).toList ::: reportAtoms(r)
     val appealMsgs: List[Event] = appeal.so: a =>
       a.msgs.toList.takeWhile: msg =>
-        a.mutedSince.fold(true)(mutedAt => msg.at.isBefore(mutedAt))
+        a.mutedSince.fold(true)(msg.at.isBefore)
     val playBans: List[Event] = playbanRecord.so(_.bans.toList).toNel.map(PlayBans(_)).toList
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: flaggedPublicLines
@@ -47,10 +47,8 @@ object ModTimeline:
     events.foldLeft(List.empty[Event])(mergeMany)
 
   private def mergeMany(prevs: List[Event], next: Event): List[Event] = (prevs, next) match
-    case (Nil, n)                      => List(n)
-    case (head :: rest, n: PublicLine) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
-    case (head :: rest, n: PlayBans)   => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
-    case (prevs, n)                    => prevs :+ n
+    case (Nil, n)          => List(n)
+    case (head :: rest, n) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
 
   private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
     case (p: PublicLine, n: PublicLine) => PublicLine.merge(p, n)
