@@ -2,9 +2,9 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 
 export default [
+  { ignores: ['*', '!ui/', '!bin/', '**/dist/'] },
   {
     files: ['**/*.ts'],
-    ignores: ['**/dist/**', '**/node_modules/**', '**/public/**'],
     plugins: { '@typescript-eslint': typescriptEslint },
     languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
     rules: {
