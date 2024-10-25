@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Boşluklarla ayrılmış 64 adede kadar Lichess oyun ID\'si.</string>
   <string name="startDateTimeZone">Turnuva yerel saati ile başlama zamanı: %s</string>
   <string name="startDateHelp">İsteğe bağlı, etkinliğin ne zaman başladığını biliyorsanız ekleyebilirsiniz.</string>
-  <string name="credits">Kaynağı görüntüle</string>
   <string name="currentGameUrl">Şu anki oyunun linki</string>
   <string name="downloadAllRounds">Bütün maçları indir</string>
   <string name="resetRound">Bu turu sıfırla</string>

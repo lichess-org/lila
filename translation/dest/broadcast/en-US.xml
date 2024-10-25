@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
   <string name="startDateTimeZone">Start date in the tournament local timezone: %s</string>
   <string name="startDateHelp">Optional, if you know when the event starts</string>
-  <string name="credits">Credit the source</string>
   <string name="currentGameUrl">Current game URL</string>
   <string name="downloadAllRounds">Download all rounds</string>
   <string name="resetRound">Reset this round</string>

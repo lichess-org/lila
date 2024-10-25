@@ -27,7 +27,6 @@
   <string name="sourceUrlHelp">Lichess が PGN を取得するための URL。インターネット上に公表されているもののみ。</string>
   <string name="sourceGameIds">Lichess ゲーム ID、半角スペースで区切って最大 64 個まで。</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
-  <string name="credits">ソースを表示する</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
   <string name="downloadAllRounds">全ラウンドをダウンロード</string>
   <string name="resetRound">このラウンドをリセット</string>
@@ -48,4 +47,25 @@
   <string name="ageThisYear">今年時点の年齢</string>
   <string name="unrated">レーティングなし</string>
   <string name="recentTournaments">最近のトーナメント</string>
+  <string name="openLichess">Lichess で開く</string>
+  <string name="teams">チーム</string>
+  <string name="boards">ボード</string>
+  <string name="overview">概要</string>
+  <string name="subscribeTitle">登録しておくと各ラウンドの開始時に通知が来ます。アカウント設定でベルやプッシュ通知の切り替えができます。</string>
+  <string name="uploadImage">トーナメントの画像をアップロード</string>
+  <string name="noBoardsYet">ボードはまだありません。棋譜がアップロードされると表示されます。</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ボードはソースまたは %s 経由で読み込めます</string>
+  <string name="startsAfter">%s 後に開始</string>
+  <string name="startVerySoon">中継はまもなく始まります。</string>
+  <string name="notYetStarted">中継はまだ始まっていません。</string>
+  <string name="officialWebsite">公式サイト</string>
+  <string name="standings">順位</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
+  <string name="webmastersPage">ウェブ管理者のページ</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
+  <string name="embedThisBroadcast">この中継をウェブサイトに埋め込む</string>
+  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">%s をウェブサイトに埋め込む</string>
+  <string name="ratingDiff">レーティングの差</string>
+  <string name="gamesThisTournament">このトーナメントの対局</string>
+  <string name="score">スコア</string>
 </resources>

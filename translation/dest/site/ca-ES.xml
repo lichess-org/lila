@@ -994,4 +994,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
+  <string name="stats">Estadístiques</string>
 </resources>

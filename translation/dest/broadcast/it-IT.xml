@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Fino a 64 ID di partite Lichess, separati da spazi.</string>
   <string name="startDateTimeZone">Data d\'inizio nel fuso orario locale del torneo: %s</string>
   <string name="startDateHelp">Facoltativo, se sai quando inizia l\'evento</string>
-  <string name="credits">Cita la fonte</string>
   <string name="currentGameUrl">URL della partita corrente</string>
   <string name="downloadAllRounds">Scarica tutti i round</string>
   <string name="resetRound">Reimposta questo turno</string>

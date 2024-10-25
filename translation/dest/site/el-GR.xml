@@ -995,4 +995,5 @@
   <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
   <string name="nothingToSeeHere">Τίποτα για να δείτε εδώ αυτή τη στιγμή.</string>
+  <string name="stats">Στατιστικά</string>
 </resources>
