@@ -51,9 +51,10 @@ object ModTimeline:
     case (head :: rest, n) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
 
   private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
-    case (p: PublicLine, n: PublicLine) => PublicLine.merge(p, n)
-    case (p: PlayBans, n: PlayBans)     => PlayBans(n.list ::: p.list).some
-    case _                              => none
+    case (p: PublicLine, n: PublicLine)                => PublicLine.merge(p, n)
+    case (p: PlayBans, n: PlayBans)                    => PlayBans(n.list ::: p.list).some
+    case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
+    case _                                             => none
 
   private def reportAtoms(report: Report): List[ReportNewAtom | PublicLine] =
     report.atoms
