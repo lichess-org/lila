@@ -404,15 +404,12 @@ final class ReportApi(
   def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
     allReportsAbout(user, nb, $doc("room" -> Room.Comm.key))
 
-  def byAndAbout(user: User, nb: Max)(using Me): Fu[Report.ByAndAbout] = for
-    by <-
-      coll
-        .find($doc("atoms.by" -> user.id))
-        .sort(sortLastAtomAt)
-        .cursor[Report](ReadPref.priTemp)
-        .list(nb.value)
-    about <- recent(Suspect(user), nb, _.priTemp)
-  yield Report.ByAndAbout(by, Room.filterGranted(about))
+  def by(user: User, nb: Max)(using Me): Fu[List[Report]] =
+    coll
+      .find($doc("atoms.by" -> user.id))
+      .sort(sortLastAtomAt)
+      .cursor[Report](ReadPref.priTemp)
+      .list(nb.value)
 
   def personalExport(user: User): Fu[List[Report.Atom]] =
     coll

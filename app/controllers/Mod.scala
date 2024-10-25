@@ -239,7 +239,7 @@ final class Mod(
           .mon(_.mod.comm.segment("recentPovs"))
           .flatMap: povs =>
             (
-              env.api.modTimeline(user, withPlayBans = false).mon(_.mod.comm.segment("modTimeline")),
+              env.api.modTimeline.load(user, withPlayBans = false).mon(_.mod.comm.segment("modTimeline")),
               priv.so:
                 env.chat.api.playerChat
                   .optionsByOrderedIds(povs.map(_.gameId.into(ChatId)))

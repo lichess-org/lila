@@ -8,6 +8,7 @@ import lila.ui.*
 import lila.user.WithPerfsAndEmails
 
 import ScalatagsTemplate.{ *, given }
+import lila.report.Report
 
 def mzSection(key: String) =
   div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
@@ -344,14 +345,15 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       )
     )
 
-  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Translate): Frag =
+  def reportLog(u: User, reports: List[Report])(using Translate): Frag =
+    val title = strong(cls := "text", dataIcon := Icon.CautionTriangle)(
+      pluralizeLocalize("report", reports.size),
+      " sent by ",
+      u.username
+    )
     mzSection("reports")(
-      div(cls := "mz_reports mz_reports--out")(
-        strong(cls := "text", dataIcon := Icon.CautionTriangle)(
-          s"Reports sent by ${u.username}",
-          reports.by.isEmpty.option(": nothing to show.")
-        ),
-        reports.by.map: r =>
+      form3.fieldset(title, false.some)(cls := "mz_reports mz_reports--out")(
+        reports.map: r =>
           r.atomBy(u.id.into(lila.report.ReporterId))
             .map: atom =>
               postForm(action := routes.Report.inquiry(r.id.value))(
@@ -363,29 +365,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                 ": ",
                 shorten(atom.text, 200)
               )
-      ),
-      div(cls := "mz_reports mz_reports--in")(
-        strong(cls := "text", dataIcon := Icon.CautionTriangle)(
-          s"Reports concerning ${u.username}",
-          reports.about.isEmpty.option(": nothing to show.")
-        ),
-        reports.about.map: r =>
-          postForm(action := routes.Report.inquiry(r.id.value))(
-            reportSubmitButton(r),
-            div(cls := "atoms")(
-              r.bestAtoms(3).map { atom =>
-                div(cls := "atom")(
-                  "By ",
-                  userIdLink(atom.by.userId.some),
-                  " ",
-                  momentFromNowServer(atom.at),
-                  ": ",
-                  shorten(atom.text, 200)
-                )
-              },
-              (r.atoms.size > 3).option(s"(and ${r.atoms.size - 3} more)")
-            )
-          )
       )
     )
 

@@ -71,7 +71,7 @@ final class ModTimelineUi(helpers: Helpers)(
       case e: Note          => renderNote(e)
       case e: ReportNewAtom => renderReportNew(e)
       case e: ReportClose   => renderReportClose(e)
-      case e: TempBan       => frag("Playban: ", e.mins, " minutes")
+      case e: PlayBans      => renderPlayBans(e)
       case e: PublicLine    => renderPublicLine(e)
 
   private def renderMod(userId: ModId)(using Translate) =
@@ -84,6 +84,9 @@ final class ModTimelineUi(helpers: Helpers)(
       val short = shorten(str, 200)
       if highlightBad then Analyser.highlightBad(short)
       else short
+
+  private def renderPlayBans(e: PlayBans) =
+    frag(pluralize("Playban", e.list.size), ": ", e.list.map(_.mins).toList.mkString(", "), " minutes")
 
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
     "Chat flag",
@@ -157,5 +160,6 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderNote(n: Note)(using Translate) =
     frag(
       renderMod(n.from.into(ModId)),
-      renderText(n.text, false)
+      div(cls := "mod-timeline__text"):
+        richText(n.text)
     )

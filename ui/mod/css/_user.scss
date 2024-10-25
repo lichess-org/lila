@@ -41,16 +41,12 @@
     white-space: nowrap;
   }
 
-  form {
-    display: inline;
-  }
-
   .proxy {
     color: $c-brag;
     font-weight: bold;
   }
 
-  strong {
+  .mz-section > strong {
     display: block;
     &.inline {
       display: inline;
@@ -376,10 +372,6 @@
           background-color: rgba(231, 59, 56, 0.4);
         }
       }
-    }
-
-    form {
-      display: block;
     }
 
     button {

@@ -354,15 +354,10 @@ final class User(
 
         val nbOthers = getInt("nbOthers") | 100
 
-        val timeline = env.api
-          .modTimeline(user, withPlayBans = false)
+        val timeline = env.api.modTimeline
+          .load(user, withPlayBans = true)
           .map(views.mod.timeline.renderGeneral)
           .map(lila.mod.ui.mzSection("timeline")(_))
-
-        val modLog = for
-          history <- env.mod.logApi.userHistory(user.id)
-          appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
-        yield views.user.mod.modLog(history, appeal)
 
         val plan =
           isGranted(_.Admin).so(
@@ -375,11 +370,10 @@ final class User(
         val student = env.clas.api.student.findManaged(user).map2(views.user.mod.student).dmap(~_)
 
         val reportLog = isGranted(_.SeeReport).so:
-          env.report.api
-            .byAndAbout(user, Max(20))
-            .flatMap: rs =>
-              lightUserApi.preloadMany(rs.userIds).inject(rs)
-            .map(ui.reportLog(user))
+          for
+            reports <- env.report.api.by(user, Max(30))
+            _       <- lightUserApi.preloadMany(reports.flatMap(_.userIds))
+          yield ui.reportLog(user, reports)
 
         val prefs = isGranted(_.CheatHunter).so:
           env.pref.api
@@ -433,12 +427,11 @@ final class User(
           Source
             .single(ui.menu)
             .merge(modZoneSegment(actions, "actions", user))
+            .merge(modZoneSegment(reportLog, "reportLog", user))
             .merge(modZoneSegment(timeline, "timeline", user))
-            .merge(modZoneSegment(modLog, "modLog", user))
             .merge(modZoneSegment(plan, "plan", user))
             .merge(modZoneSegment(student, "student", user))
             .merge(modZoneSegment(teacher, "teacher", user))
-            .merge(modZoneSegment(reportLog, "reportLog", user))
             .merge(modZoneSegment(prefs, "prefs", user))
             .merge(modZoneSegment(rageSit, "rageSit", user))
             .merge(modZoneSegment(othersAndLogins.map(_._1), "others", user))
