@@ -116,7 +116,7 @@ final class ModTimelineUi(helpers: Helpers)(
           submitButton(strong(atoms.head.reason.name), " report")(cls := "button-link")
         )
       ),
-      renderText(atoms.head.text, highlightBad = atoms.head.reason.isComm)
+      renderText(atoms.head.text, highlightBad = false)
     )
 
   private def renderReportClose(r: ReportClose)(using Translate) = frag(
