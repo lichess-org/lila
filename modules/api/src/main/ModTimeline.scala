@@ -26,8 +26,10 @@ case class ModTimeline(
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap: r =>
       r.done.map(ReportClose(r, _)).toList ::: reportAtoms(r)
-    val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
-    val playBans: List[Event]   = playbanRecord.so(_.bans.toList).toNel.map(PlayBans(_)).toList
+    val appealMsgs: List[Event] = appeal.so: a =>
+      a.msgs.toList.takeWhile: msg =>
+        a.mutedSince.fold(true)(mutedAt => msg.at.isBefore(mutedAt))
+    val playBans: List[Event] = playbanRecord.so(_.bans.toList).toNel.map(PlayBans(_)).toList
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: flaggedPublicLines
     // latest first
