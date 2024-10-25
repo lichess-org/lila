@@ -76,12 +76,12 @@
   <string name="copyVariationPgn">کپی PGN این شاخه</string>
   <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
-  <string name="variantWin">حرکت برنده</string>
+  <string name="variantWin">بُردِ شطرنج‌گونه</string>
   <string name="insufficientMaterial">مُهره ناکافی برای مات</string>
   <string name="pawnMove">حرکت پیاده</string>
   <string name="capture">گرفتن مهره</string>
   <string name="close">بستن</string>
-  <string name="winning">حرکت پیروزی‌بخش</string>
+  <string name="winning">حرکت برنده</string>
   <string name="losing">حرکت بازنده</string>
   <string name="drawn">حرکت تساوی‌دهنده</string>
   <string name="unknown">ناشناخته</string>
@@ -486,7 +486,7 @@
   <string name="tournamentComplete">مسابقات به پایان رسید</string>
   <string name="movesPlayed">حرکات انجام شده</string>
   <string name="whiteWins">پیروزی با مهره سفید</string>
-  <string name="blackWins">سیاه برنده شد</string>
+  <string name="blackWins">سیاه می‌برد</string>
   <string name="drawRate">نرخ تساوی</string>
   <string name="draws">مساوی</string>
   <string name="nextXTournament">مسابقه ی %s بعدی:</string>
@@ -830,8 +830,8 @@
   <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
   <string name="getAHint">راهنمایی</string>
   <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
-  <string name="whiteWinsGame">سفید برنده شد</string>
-  <string name="blackWinsGame">سیاه برنده شد</string>
+  <string name="whiteWinsGame">سفید می‌برد</string>
+  <string name="blackWinsGame">سیاه می‌برد</string>
   <string name="learnFromYourMistakes">از اشتباه‌های‌تان بیاموزید</string>
   <string name="learnFromThisMistake">از این اشتباه درس بگیرید</string>
   <string name="skipThisMove">رد کردن این حرکت</string>
@@ -925,7 +925,7 @@
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
   <string name="youHaveJoinedTeamX">شما به \"%1$s\" پیوستید.</string>
   <string name="someoneYouReportedWasBanned">شخصی که گزارش کردید مسدود شد</string>
-  <string name="congratsYouWon">تبریک، شما برنده شدید!</string>
+  <string name="congratsYouWon">شادباش، شما بُردید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
   <string name="lostAgainstTOSViolator">شما برابر کسی که قانون‌های Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>

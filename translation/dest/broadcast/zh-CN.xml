@@ -27,7 +27,6 @@
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
   <string name="sourceGameIds">多达64个 Lichess 棋局Id，用空格隔开。</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
-  <string name="credits">信任来源</string>
   <string name="currentGameUrl">当前棋局链接</string>
   <string name="downloadAllRounds">下载所有棋局</string>
   <string name="resetRound">重置此轮</string>

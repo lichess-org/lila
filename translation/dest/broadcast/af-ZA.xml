@@ -17,7 +17,6 @@
   <string name="sourceSingleUrl">PGN-Bronskakel</string>
   <string name="sourceUrlHelp">URL wat Lichess sal nagaan vir PGN opdaterings. Dit moet openbaar beskikbaar wees vanaf die Internet.</string>
   <string name="startDateHelp">Optioneel, indien jy weet wanner die geleentheid begin</string>
-  <string name="credits">Gee krediet aan die bron</string>
   <string name="currentGameUrl">Huidige spel se bronadres</string>
   <string name="downloadAllRounds">Laai al die rondes af</string>
   <string name="resetRound">Herstel die ronde</string>
