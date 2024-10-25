@@ -570,14 +570,15 @@ final class ReportApi(
      * If they already are on this inquiry, and onlyOpen=false, cancel it.
      * Returns the previous and next inquiries
      */
-    def toggle(id: String | Either[ReportId, UserId], onlyOpen: Boolean)(using
+    def toggle(id: String | Either[ReportId, UserId], onlyOpen: Boolean = false)(using
         Me
     ): Fu[(Option[Report], Option[Report])] =
       workQueue:
         doToggle(id, onlyOpen)
 
     private def doToggle(
-        id: String | Either[ReportId, UserId], onlyOpen
+        id: String | Either[ReportId, UserId],
+        onlyOpen: Boolean
     )(using mod: Me): Fu[(Option[Report], Option[Report])] =
       def findByUser(userId: UserId) = coll.one[Report]($doc("user" -> userId, "inquiry.mod".$exists(true)))
       for
@@ -586,7 +587,7 @@ final class ReportApi(
           case Right(userId)  => findByUser(userId)
           case anyId: String  => coll.byId[Report](anyId).orElse(findByUser(UserId(anyId)))
         current <- ofModId(mod.userId)
-        _       <- current.so(cancel)
+        _       <- current.ifFalse(onlyOpen).so(cancel)
         _ <-
           report.so: r =>
             r.inquiry.isEmpty.so(
@@ -598,12 +599,12 @@ final class ReportApi(
                 )
                 .void
             )
-      yield (current, report.filter(_.inquiry.isEmpty))
+      yield (current, report.filter(_.inquiry.isEmpty || onlyOpen))
 
     def toggleNext(room: Room)(using Me): Fu[Option[Report]] =
       workQueue:
         findNext(room).flatMapz { report =>
-          doToggle(Left(report.id)).dmap(_._2)
+          doToggle(Left(report.id), onlyOpen = false).dmap(_._2)
         }
 
     private def cancel(report: Report)(using mod: Me): Funit =

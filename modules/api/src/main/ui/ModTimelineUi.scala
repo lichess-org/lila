@@ -109,7 +109,7 @@ final class ModTimelineUi(helpers: Helpers)(
       ,
       div(cls := "mod-timeline__event__action")(
         " opened a ",
-        postForm(action := routes.Report.inquiry(report.id.value))(
+        postForm(action := s"${routes.Report.inquiry(report.id.value)}?onlyOpen=1")(
           submitButton(strong(atoms.head.reason.name), " report")(cls := "button-link")
         )
       ),
