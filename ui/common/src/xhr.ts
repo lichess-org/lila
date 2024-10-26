@@ -36,8 +36,15 @@ export const form = (data: any) => {
   return formData;
 };
 
-export const url = (base: string, params: any) => {
+export const urlWithParams = (base: string, params: Record<string, string | boolean | undefined>): string => {
   const searchParams = new URLSearchParams();
-  for (const k of Object.keys(params)) searchParams.append(k, params[k]);
-  return `${base}?${searchParams.toString()}`;
+  for (const k of Object.keys(params)) {
+    let value = params[k];
+    if (value !== undefined) {
+      if (typeof value === 'boolean') value = value ? '1' : '0';
+      searchParams.append(k, value);
+    }
+  }
+  const queryString = searchParams.toString();
+  return queryString ? `${base}?${queryString}` : base;
 };

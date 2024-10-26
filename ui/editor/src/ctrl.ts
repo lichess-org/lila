@@ -233,7 +233,7 @@ export default class EditorCtrl {
   }
 
   makeAnalysisUrl(legalSfen: string, orientation: Color = 'sente'): string {
-    return analysis(this.rules, legalSfen, orientation);
+    return analysis(this.rules, legalSfen, undefined, orientation);
   }
 
   makeEditorUrl(sfen: string): string {

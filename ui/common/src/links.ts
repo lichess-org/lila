@@ -1,8 +1,26 @@
 import { initialSfen } from 'shogiops/sfen';
+import { urlWithParams } from './xhr';
+import { defined } from './common';
 
-export function analysis(variant: VariantKey, sfen: Sfen, color?: Color): string {
-  const colorQuery = color && color !== 'sente' ? `?color=${color}` : '';
-  return `/analysis/${variant}/${encodeSfen(sfen)}${colorQuery}`;
+export function analysis(
+  variant: VariantKey,
+  sfen: Sfen,
+  usis?: string[],
+  color?: Color,
+  moveNumber?: number,
+  evaluation?: boolean
+) {
+  const variantPath = variant !== 'standard' ? `/${variant}` : '',
+    sfenPath = sfen === initialSfen(variant) ? '' : `/${encodeSfen(sfen)}`,
+    hash = defined(moveNumber) ? `#${moveNumber}` : '';
+
+  return (
+    urlWithParams(`/analysis${variantPath}${sfenPath}`, {
+      moves: usis && usis.length ? usis.join('_') : undefined,
+      evaluation,
+      color: color !== 'sente' ? color : undefined,
+    }) + hash
+  );
 }
 
 export function editor(variant: VariantKey, sfen: Sfen, color?: Color): string {
