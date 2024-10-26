@@ -19,6 +19,7 @@ import lila.study.Study.WithChapter
 import lila.study.actorApi.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
+import com.fasterxml.jackson.core.JsonParseException
 
 final class Study(
     env: Env,
@@ -534,7 +535,9 @@ final class Study(
   def setTopics = AuthBody { ctx ?=> me ?=>
     bindForm(StudyForm.topicsForm)(
       _ => Redirect(routes.Study.topics),
-      topics => env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
+      topics =>
+        try env.study.topicApi.userTopics(me, topics).inject(Redirect(routes.Study.topics))
+        catch case e: JsonParseException => BadRequest(e.getMessage)
     )
   }
 
