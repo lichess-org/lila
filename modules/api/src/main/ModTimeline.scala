@@ -24,8 +24,7 @@ case class ModTimeline(
   import ModTimeline.{ *, given }
 
   lazy val all: List[Event] =
-    val reportEvents: List[Event] = reports.flatMap: r =>
-      r.done.map(ReportClose(r, _)).toList ::: reportAtoms(r)
+    val reportEvents: List[Event] = reports.flatMap(reportAtoms)
     val appealMsgs: List[Event] = appeal.so: a =>
       a.msgs.toList.takeWhile: msg =>
         a.mutedSince.fold(true)(msg.at.isBefore)
@@ -37,11 +36,11 @@ case class ModTimeline(
 
 object ModTimeline:
 
-  case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom])
-  case class ReportClose(report: Report, done: Report.Done)
+  case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom]):
+    def like(r: Report): Boolean = report.room == r.room
   case class PlayBans(list: NonEmptyList[TempBan])
 
-  type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | PlayBans | PublicLine
+  type Event = Modlog | AppealMsg | Note | ReportNewAtom | PlayBans | PublicLine
 
   def aggregateEvents(events: List[Event]): List[Event] =
     events.foldLeft(List.empty[Event])(mergeMany)
@@ -54,7 +53,9 @@ object ModTimeline:
     case (p: PublicLine, n: PublicLine)                => PublicLine.merge(p, n)
     case (p: PlayBans, n: PlayBans)                    => PlayBans(p.list ::: n.list).some
     case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
-    case _                                             => none
+    case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) =>
+      p.copy(atoms = n.atoms ::: p.atoms).some
+    case _ => none
 
   private def reportAtoms(report: Report): List[ReportNewAtom | PublicLine] =
     report.atoms
@@ -72,7 +73,6 @@ object ModTimeline:
       case _: AppealMsg     => "appeal"
       case _: Note          => "note"
       case _: ReportNewAtom => "report-new"
-      case _: ReportClose   => "report-close"
       case _: PlayBans      => "playban"
       case _: PublicLine    => "flagged-line"
     def flair: Flair = Flair:
@@ -89,7 +89,6 @@ object ModTimeline:
         case _: AppealMsg     => "symbols.left-speech-bubble"
         case _: Note          => "objects.label"
         case _: ReportNewAtom => "symbols.exclamation-mark"
-        case _: ReportClose   => "objects.package"
         case _: PlayBans      => "objects.hourglass-not-done"
         case _: PublicLine    => "symbols.exclamation-mark"
     def at: Instant = e match
@@ -97,7 +96,6 @@ object ModTimeline:
       case e: AppealMsg            => e.at
       case e: Note                 => e.date
       case ReportNewAtom(_, atoms) => atoms.head.at
-      case ReportClose(_, done)    => done.at
       case e: PlayBans             => e.list.head.date
       case e: PublicLine           => e.date
     def url(u: User): String = e match
@@ -112,7 +110,6 @@ object ModTimeline:
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
       case _: PlayBans                                                        => angle != Angle.Comm
-      case _: ReportClose                                                     => angle != Angle.Comm
       case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
       case l: Modlog if l.action == Modlog.modMessage =>
         angle match
