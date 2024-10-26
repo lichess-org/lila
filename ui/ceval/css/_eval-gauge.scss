@@ -1,7 +1,8 @@
 .eval-gauge {
+  @extend %box-radius;
   width: $block-gap;
   position: relative;
-  background: if($theme-light, #888, #666);
+  background: if($theme-light, #888, #555);
   overflow: hidden;
   @include breakpoint($mq-col1-uniboard) {
     display: none;
@@ -28,10 +29,8 @@
     opacity: 0.4;
   }
   tick.zero {
-    top: 6px;
+    border-color: $c-accent;
     opacity: 1;
-    border-bottom: 7px solid fade-out($c-accent, 0.6);
-    margin-top: -3px;
   }
   .gote {
     width: 100%;

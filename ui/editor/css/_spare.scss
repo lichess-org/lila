@@ -96,7 +96,7 @@
   .outer .inner .selectable-wrap {
     &.selected-square {
       background-color: $c-accent;
-      border-radius: 3px;
+      border-radius: $box-radius-size;
       &:has(div) {
         background-color: unset;
         div {

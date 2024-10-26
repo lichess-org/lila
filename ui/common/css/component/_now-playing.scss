@@ -12,12 +12,6 @@
     justify-content: center;
     color: $c-font;
     padding: 0.3em;
-    @include transition(background);
-    background: fade-out($c-bg-box, 0.6);
-    &:hover {
-      background: fade-out($c-link, 0.6);
-      color: $c-font-clear;
-    }
   }
   .meta {
     display: block;

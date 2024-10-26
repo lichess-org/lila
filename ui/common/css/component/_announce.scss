@@ -13,7 +13,7 @@
   width: 100%;
   @include breakpoint($mq-xx-small) {
     width: auto;
-    border-top-right-radius: 3px;
+    border-top-right-radius: $box-radius-size;
   }
 
   a {

@@ -33,7 +33,7 @@ $f-dim-20: set-alpha($c-font-dim, 0.3); // rgba(192, 187, 167, 0.2);
   border: 0;
   font-size: 14px;
   line-height: 24px;
-  border-radius: 5px;
+  border-radius: $box-radius-size;
   position: absolute;
   width: 307.875px;
   -webkit-box-sizing: border-box;

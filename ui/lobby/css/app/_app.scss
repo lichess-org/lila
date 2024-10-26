@@ -16,7 +16,7 @@
   }
 
   &__content {
-    @extend %box-neat;
+    @extend %box-neat-bottom;
     flex: 1 1 100%;
     position: relative;
     @if $theme == 'transp' {

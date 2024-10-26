@@ -56,7 +56,7 @@ $c-slider: $c-setup;
     }
     border: solid $c-setup;
     border-width: 0 8px 8px 0;
-    border-radius: 3px;
+    border-radius: $box-radius-size;
     padding: 5px;
     transform: rotate(45deg);
     margin-top: 1rem;

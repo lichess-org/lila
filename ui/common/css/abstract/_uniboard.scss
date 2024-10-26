@@ -37,7 +37,7 @@ $col3-uniboard-main-max-height: calc(
 $col3-uniboard-main-size: Min(#{$col3-uniboard-main-max-width}, #{$col3-uniboard-main-max-height});
 
 $col3-uniboard-default-scale: 0.9; // zoom: 0.85*0.6+0.4 ≈ 0.91
-$col3-uniboard-default-min-width: 500px;
+$col3-uniboard-default-min-width: 600px;
 $col3-uniboard-default-max-width: calc(
   100vh * #{$col3-uniboard-default-scale} - #{$site-header-outer-height} - #{$col3-uniboard-controls}
 );
