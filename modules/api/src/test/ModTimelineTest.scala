@@ -20,6 +20,8 @@ class ModTimelineTest extends munit.FunSuite:
   val ban1                               = TempBan(now.minusDays(10), 5)
   val ban2                               = TempBan(now.minusDays(5), 10)
   val ban3                               = TempBan(now.minusDays(1), 15)
+  def bans(bs: TempBan*)                 = PlayBans(NonEmptyList.fromListUnsafe(bs.toList))
+  given Conversion[TempBan, Event]       = bans(_)
 
   test("merge empty"):
     assertEquals(aggregateEvents(Nil), Nil)
@@ -68,33 +70,30 @@ class ModTimelineTest extends munit.FunSuite:
   test("merge mixed events"):
     assertEquals(
       aggregateEvents(List(ban1, ban2)),
-      List(ban1, ban2)
+      List(bans(ban1, ban2))
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, ban2)),
-      List(ban1, l1, ban2)
+      List[Event](bans(ban1, ban2), l1)
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, l1)),
-      List(ban1, l1)
+      List[Event](ban1, l1)
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, l1, ban2)),
-      List(ban1, l1, ban2)
+      List[Event](bans(ban1, ban2), l1)
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, l4, l1, ban2)),
-      List(ban1, l1, l4, ban2)
+      List[Event](bans(ban1, ban2), l1, l4)
     )
     assertEquals(
       aggregateEvents(List(l1, ban1, l4, ban2, l2, l3, l5, ban3, ban3)),
-      List(
+      List[Event](
         l1.copy(text = s"linguine${sep}fusilli"),
-        ban1,
+        bans(ban1, ban2, ban3, ban3),
         l4.copy(text = s"bucatini${sep}rigatoni"),
-        ban2,
-        l3,
-        ban3,
-        ban3
+        l3
       )
     )
