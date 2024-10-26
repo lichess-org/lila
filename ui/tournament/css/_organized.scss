@@ -1,0 +1,86 @@
+.organizer-arrangement {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: calc(var(--box-padding) / 2);
+  padding-bottom: calc(var(--box-padding) / 2);
+
+  .field-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    label {
+      padding: 1.5rem 0 0.25rem 0;
+    }
+    &.disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    &.name {
+      label {
+        padding-top: 0;
+      }
+    }
+
+    &.players {
+      .search-wrap {
+        display: flex;
+        align-items: center;
+        & > span {
+          text-align: center;
+          width: 3rem;
+        }
+        select {
+          width: 12rem;
+          option:disabled {
+            color: $c-font-dimmer;
+          }
+        }
+      }
+    }
+
+    &.color {
+      select {
+        width: 12rem;
+        margin: 0 1.5rem;
+      }
+    }
+
+    &.points {
+      input {
+        width: 6rem;
+        margin: 0 0.75rem;
+      }
+    }
+  }
+
+  .button {
+    margin-top: 2rem;
+  }
+
+  .games-users-wrap {
+    margin-top: 2rem;
+    width: 100%;
+    h4 {
+      font-size: 1.3rem;
+      text-align: center;
+      margin-bottom: 3px;
+    }
+    .games-users {
+      overflow-x: scroll;
+      scrollbar-width: none;
+      border-top: $border;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      & > div {
+        display: flex;
+        .arr-thumb-wrap {
+          flex: 1;
+        }
+      }
+    }
+  }
+}

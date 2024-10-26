@@ -1,9 +1,10 @@
 import { MaybeVNodes, bind } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import TournamentController from './ctrl';
-import * as search from './search';
+import { searchOr } from './search';
+import { PageData } from './interfaces';
 
-const maxPerPage = 10;
+export const maxPerPage = 10;
 
 function button(text: string, icon: string, click: () => void, enable: boolean, ctrl: TournamentController): VNode {
   return h('button.fbt.is', {
@@ -31,23 +32,18 @@ export function renderPager(ctrl: TournamentController, pag): MaybeVNodes {
   const enabled = !!pag.currentPageResults,
     page = ctrl.page;
   return pag.nbPages > -1
-    ? [
-        search.button(ctrl),
-        ...(ctrl.searching
-          ? [search.input(ctrl)]
-          : [
-              button('First', 'W', () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
-              button('Prev', 'Y', ctrl.userPrevPage, enabled && page > 1, ctrl),
-              h('span.page', (pag.nbResults ? pag.from + 1 : 0) + '-' + pag.to + ' / ' + pag.nbResults),
-              button('Next', 'X', ctrl.userNextPage, enabled && page < pag.nbPages, ctrl),
-              button('Last', 'V', ctrl.userLastPage, enabled && page < pag.nbPages, ctrl),
-              scrollToMeButton(ctrl),
-            ]),
-      ]
+    ? searchOr(ctrl, [
+        button('First', 'W', () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
+        button('Prev', 'Y', ctrl.userPrevPage, enabled && page > 1, ctrl),
+        h('span.page', (pag.nbResults ? pag.from + 1 : 0) + '-' + pag.to + ' / ' + pag.nbResults),
+        button('Next', 'X', ctrl.userNextPage, enabled && page < pag.nbPages, ctrl),
+        button('Last', 'V', ctrl.userLastPage, enabled && page < pag.nbPages, ctrl),
+        scrollToMeButton(ctrl),
+      ])
     : [];
 }
 
-export function players(ctrl: TournamentController) {
+export function players(ctrl: TournamentController): PageData {
   const page = ctrl.page,
     nbResults = ctrl.data.nbPlayers,
     from = (page - 1) * maxPerPage,
@@ -64,5 +60,5 @@ export function players(ctrl: TournamentController) {
 }
 
 export function myPage(ctrl: TournamentController): number | undefined {
-  if (ctrl.data.me) return Math.floor((ctrl.data.me.rank - 1) / 10) + 1;
+  if (ctrl.data.me) return Math.floor((ctrl.data.me.rank - 1) / maxPerPage) + 1;
 }

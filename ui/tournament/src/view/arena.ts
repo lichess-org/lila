@@ -1,10 +1,9 @@
 import { MaybeVNodes, bind, dataIcon } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
-import * as pagination from '../pagination';
 import { teamName } from './battle';
-import * as button from './button';
-import { playerName, ratio2percent, player as renderPlayer } from './util';
+import { playerName, preloadUserTips, ratio2percent, player as renderPlayer } from './util';
+import { PageData } from '../interfaces';
 
 const scoreTagNames = ['score', 'streak', 'double'];
 
@@ -94,15 +93,7 @@ export function podium(ctrl: TournamentController) {
   ]);
 }
 
-function preloadUserTips(el: HTMLElement) {
-  window.lishogi.powertip.manualUserIn(el);
-}
-
-export function controls(ctrl: TournamentController, pag): VNode {
-  return h('div.tour__controls', [h('div.pager', pagination.renderPager(ctrl, pag)), button.joinWithdraw(ctrl)]);
-}
-
-export function standing(ctrl: TournamentController, pag, klass?: string): VNode {
+export function standing(ctrl: TournamentController, pag: PageData, klass?: string): VNode {
   const tableBody = pag.currentPageResults ? pag.currentPageResults.map(res => playerTr(ctrl, res)) : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h(

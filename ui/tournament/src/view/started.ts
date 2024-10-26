@@ -2,23 +2,16 @@ import { MaybeVNodes } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
 import * as pagination from '../pagination';
+import { arenaControls, robinControls, organizedControls } from './controls';
 import * as tour from '../tournament';
-import { controls, standing } from './arena';
-import {
-  howDoesThisWork,
-  playing,
-  controls as rControls,
-  recents,
-  standing as rStanding,
-  yourCurrent,
-  yourUpcoming,
-} from './robin';
+import { standing } from './arena';
+import { howDoesThisWork, playing, recents, standing as rStanding, upcoming, yourCurrent, yourUpcoming } from './robin';
+import { standing as oStanding } from './organized';
 import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import tourTable from './table';
 import teamInfo from './teamInfo';
-import { arrangement } from './arrangement';
 
 function joinTheGame(ctrl: TournamentController, gameId: string) {
   return h(
@@ -32,7 +25,7 @@ function joinTheGame(ctrl: TournamentController, gameId: string) {
 
 function notice(ctrl: TournamentController): VNode {
   return tour.willBePaired(ctrl)
-    ? h('div.tour__notice.bar-glider', ctrl.trans('standByX', ctrl.data.me.username))
+    ? h('div.tour__notice', ctrl.trans('standByX', ctrl.data.me.username))
     : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
 }
 
@@ -41,22 +34,36 @@ export const name = 'started';
 export function main(ctrl: TournamentController): MaybeVNodes {
   const gameId = ctrl.myGameId(),
     pag = pagination.players(ctrl);
-  if (ctrl.isRobin())
+  if (ctrl.isArena())
     return [
       header(ctrl),
-      rControls(ctrl),
-      ...(ctrl.arrangement
-        ? [arrangement(ctrl, ctrl.arrangement)]
-        : [rStanding(ctrl, 'started'), yourCurrent(ctrl), yourUpcoming(ctrl), playing(ctrl), recents(ctrl)]),
+      gameId ? joinTheGame(ctrl, gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
+      teamStanding(ctrl, 'started'),
+      arenaControls(ctrl, pag),
+      standing(ctrl, pag, 'started'),
+    ];
+  else if (ctrl.isRobin())
+    return [
+      header(ctrl),
+      robinControls(ctrl),
+      rStanding(ctrl, 'started'),
+      yourCurrent(ctrl),
+      yourUpcoming(ctrl),
+      playing(ctrl),
+      recents(ctrl),
       howDoesThisWork(),
     ];
   else
     return [
       header(ctrl),
-      gameId ? joinTheGame(ctrl, gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
-      teamStanding(ctrl, 'started'),
-      controls(ctrl, pag),
-      standing(ctrl, pag, 'started'),
+      organizedControls(ctrl, pag),
+      oStanding(ctrl, pag, 'started'),
+      yourCurrent(ctrl),
+      yourUpcoming(ctrl),
+      upcoming(ctrl),
+      playing(ctrl),
+      recents(ctrl),
+      howDoesThisWork(),
     ];
 }
 

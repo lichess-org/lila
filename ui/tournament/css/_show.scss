@@ -15,7 +15,11 @@ $mq-col3: $mq-col3-uniboard;
 @import 'actor-info';
 @import 'player-info';
 @import 'team-info';
+@import 'arrangement';
+@import 'arrangement-thumbnail';
 @import 'robin';
+@import 'organized';
+@import 'player-manage';
 
 .tour {
   .pull-quote {

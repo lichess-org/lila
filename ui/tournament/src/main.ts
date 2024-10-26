@@ -1,11 +1,11 @@
 import LishogiChat from 'chat';
 import { Shogiground } from 'shogiground';
-import { attributesModule, classModule, init } from 'snabbdom';
+import { attributesModule, classModule, eventListenersModule, init } from 'snabbdom';
 import makeCtrl from './ctrl';
 import { TournamentOpts } from './interfaces';
 import view from './view/main';
 
-const patch = init([classModule, attributesModule]);
+const patch = init([classModule, attributesModule, eventListenersModule]);
 
 export function start(opts: TournamentOpts) {
   opts.classes = opts.element.getAttribute('class');

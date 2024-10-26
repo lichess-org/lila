@@ -1,51 +1,62 @@
-import { bind, dataIcon } from 'common/snabbdom';
+import { bind, MaybeVNode } from 'common/snabbdom';
 import spinner from 'common/spinner';
-import { VNode, h } from 'snabbdom';
+import { h } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { isIn } from '../tournament';
 
-function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {
+function orJoinSpinner(ctrl: TournamentController, f: () => MaybeVNode): MaybeVNode {
   return ctrl.joinSpinner ? spinner() : f();
 }
 
-export function withdraw(ctrl: TournamentController): VNode {
+export function withdraw(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
-    const pause = ctrl.data.isStarted;
-    return h(
+    const candidate = ctrl.data.isCandidate,
+      pause = ctrl.data.isStarted && !candidate,
+      title = ctrl.trans.noarg(pause ? 'pause' : 'withdraw');
+
+    if (pause && !ctrl.isArena()) return;
+    const button = h(
       'button.fbt.text',
       {
-        attrs: dataIcon(pause ? 'Z' : 'b'),
+        attrs: {
+          title: title,
+          'data-icon': pause ? 'Z' : 'b',
+        },
         hook: bind('click', ctrl.withdraw, ctrl.redraw),
       },
-      ctrl.trans.noarg(pause ? 'pause' : 'withdraw')
+      !candidate ? title : undefined
     );
+    if (candidate) return h('div.waiting', [h('span', ctrl.trans.noarg('waitingForApproval' as I18nKey)), button]);
+    else return button;
   });
 }
 
-export function join(ctrl: TournamentController): VNode {
+export function join(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
-    const delay = ctrl.data.me && ctrl.data.me.pauseDelay;
-    const joinable = ctrl.data.verdicts.accepted && !delay && !ctrl.data.isBot;
-    const button = h(
-      'button.fbt.text' + (joinable ? '.highlight' : ''),
-      {
-        attrs: {
-          disabled: !joinable,
-          'data-icon': 'G',
-        },
-        hook: bind(
-          'click',
-          _ => {
-            if (ctrl.data.private && !ctrl.data.me) {
-              const p = prompt(ctrl.trans.noarg('password'));
-              if (p !== null) ctrl.join(p);
-            } else ctrl.join();
+    const askToJoin = ctrl.data.candidatesOnly && !ctrl.data.me,
+      delay = ctrl.data.me && ctrl.data.me.pauseDelay,
+      joinable = ctrl.data.verdicts.accepted && !delay && !ctrl.data.isBot,
+      highlightable = joinable && ctrl.data.createdBy !== ctrl.opts.userId,
+      button = h(
+        'button.fbt.text' + (highlightable ? '.highlight' : ''),
+        {
+          attrs: {
+            disabled: !joinable,
+            'data-icon': 'G',
           },
-          ctrl.redraw
-        ),
-      },
-      ctrl.trans.noarg('join')
-    );
+          hook: bind(
+            'click',
+            _ => {
+              if (ctrl.data.private && !ctrl.data.me) {
+                const p = prompt(ctrl.trans.noarg('password'));
+                if (p !== null) ctrl.join(p);
+              } else ctrl.join();
+            },
+            ctrl.redraw
+          ),
+        },
+        askToJoin ? ctrl.trans.noarg('askToJoin' as I18nKey) : ctrl.trans.noarg('join')
+      );
     return delay
       ? h(
           'div.delay-wrap',
@@ -69,7 +80,7 @@ export function join(ctrl: TournamentController): VNode {
                   },
                 },
               },
-              [button]
+              button
             ),
           ]
         )
@@ -77,7 +88,7 @@ export function join(ctrl: TournamentController): VNode {
   });
 }
 
-export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
+export function joinWithdraw(ctrl: TournamentController): MaybeVNode {
   if (!ctrl.opts.userId)
     return h(
       'a.fbt.text.highlight',
@@ -89,5 +100,25 @@ export function joinWithdraw(ctrl: TournamentController): VNode | undefined {
       },
       ctrl.trans.noarg('signIn')
     );
-  if (!ctrl.data.isFinished) return isIn(ctrl) ? withdraw(ctrl) : join(ctrl);
+  if (ctrl.data.isDenied) return h('div.fbt.denied', ctrl.trans.noarg('denied' as I18nKey));
+  else if (!ctrl.data.isFinished) return isIn(ctrl) || ctrl.data.isCandidate ? withdraw(ctrl) : join(ctrl);
+}
+
+export function managePlayers(ctrl: TournamentController): MaybeVNode {
+  if (ctrl.isCreator() && !ctrl.data.isFinished)
+    return h(
+      'button.fbt.manage-player.data-count',
+      {
+        class: {
+          text: !ctrl.isOrganized(),
+        },
+        attrs: {
+          disabled: ctrl.data.isFinished,
+          'data-icon': 'f',
+          'data-count': ctrl.data.candidates?.length || 0,
+        },
+        hook: bind('click', () => (ctrl.playerManagement = !ctrl.playerManagement), ctrl.redraw),
+      },
+      !ctrl.isOrganized() ? ctrl.trans.noarg('managePlayers' as I18nKey) : undefined
+    );
 }

@@ -23,6 +23,8 @@ export interface TournamentData extends Untyped {
   teamStanding?: RankedTeam[];
   myTeam?: RankedTeam;
   standing: Standing;
+  denied?: LightUser[];
+  candidates?: LightUser[];
 }
 
 export interface TeamBattle {
@@ -51,6 +53,16 @@ export type Page = StandingPlayer[];
 
 export interface Pages {
   [n: number]: Page;
+}
+
+export interface PageData {
+  currentPage: number;
+  maxPerPage: number;
+  from: number;
+  to: number;
+  currentPageResults: Page;
+  nbResults: number;
+  nbPages: number;
 }
 
 export interface PlayerInfo {
@@ -92,15 +104,18 @@ export interface DuelTeams {
 }
 
 export interface Arrangement {
+  id: string | undefined; // id doesn't exist for not saved arrangements
   user1: ArrangementUser;
   user2: ArrangementUser;
-  order?: number;
   name?: string;
   color?: Color;
+  points?: Points;
   gameId?: string;
+  startedAt?: number;
   status?: StatusId;
-  winner?: Color;
+  winner?: string;
   plies?: number;
+  allowGameBefore?: number;
   scheduledAt?: number;
   history?: string[];
 }
@@ -108,5 +123,19 @@ export interface Arrangement {
 export interface ArrangementUser {
   id: string;
   readyAt?: number;
+  scheduledAt?: number;
+}
+
+export interface Points {
+  w: number;
+  d: number;
+  l: number;
+}
+
+export type NewArrangement = Partial<Arrangement> & Required<Pick<Arrangement, 'points'>>;
+
+export interface NewArrangementSettings {
+  points: Points;
+  allowGameBefore?: number;
   scheduledAt?: number;
 }

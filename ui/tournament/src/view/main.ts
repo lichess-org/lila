@@ -5,6 +5,9 @@ import { joinWithTeamSelector } from './battle';
 import * as created from './created';
 import * as finished from './finished';
 import * as started from './started';
+import { arrangementView } from './arrangement';
+import { playerManagementView } from './playerManage';
+import { organizedArrangementView } from './organizedArrangement';
 
 export default function (ctrl: TournamentController) {
   let handler: {
@@ -16,7 +19,7 @@ export default function (ctrl: TournamentController) {
   else if (ctrl.data.isStarted) handler = started;
   else handler = created;
 
-  return h('main.' + ctrl.data.system + '.' + ctrl.opts.classes, [
+  return h('main.' + ctrl.data.system + (!ctrl.isArena() ? '.arr-table' : '') + '.' + ctrl.opts.classes, [
     h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
@@ -36,7 +39,13 @@ export default function (ctrl: TournamentController) {
         {
           class: { 'tour__main-finished': ctrl.data.isFinished },
         },
-        handler.main(ctrl)
+        ctrl.arrangement
+          ? arrangementView(ctrl, ctrl.arrangement)
+          : ctrl.playerManagement
+            ? playerManagementView(ctrl)
+            : ctrl.newArrangement
+              ? organizedArrangementView(ctrl)
+              : handler.main(ctrl)
       )
     ),
     ctrl.opts.chat

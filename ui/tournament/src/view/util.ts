@@ -1,5 +1,6 @@
 import { dataIcon } from 'common/snabbdom';
 import { h } from 'snabbdom';
+import { Arrangement } from '../interfaces';
 
 export function miniBoard(game) {
   return h(
@@ -65,4 +66,25 @@ export function numberRow(name: string, value: any, typ?: string) {
           : window.lishogi.numberFormat(value)
     ),
   ]);
+}
+
+export function preloadUserTips(el: HTMLElement) {
+  window.lishogi.powertip.manualUserIn(el);
+}
+
+export function arrangementHasUser(a: Arrangement, userId: string): boolean {
+  return a.user1.id === userId || a.user2.id === userId;
+}
+
+// hacky for flatpickr
+export function adjustDateToUTC(date) {
+  return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+}
+export function adjustDateToLocal(date) {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+}
+
+export function formattedDate(date: Date, utc: boolean): string {
+  if (utc) return date.toUTCString();
+  else return date.toLocaleString();
 }

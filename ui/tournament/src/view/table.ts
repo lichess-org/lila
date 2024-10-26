@@ -51,7 +51,7 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
 }
 
 export default function (ctrl: TournamentController): VNode | undefined {
-  return ctrl.isRobin()
+  return ctrl.isRobin() || ctrl.isOrganized()
     ? undefined
     : h('div.tour__table', [
         ctrl.data.featured ? featured(ctrl.data.featured) : null,

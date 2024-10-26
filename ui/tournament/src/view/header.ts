@@ -18,17 +18,17 @@ function clock(d, trans: Trans): VNode | undefined {
   if (d.isFinished) return;
   if (d.secondsToFinish) {
     if (d.secondsToFinish > oneDayInSeconds)
-      return h('div.clock', [
-        h('span.shy', trans.noarg('endsAt:' as I18nKey) + ' '),
+      return h('div.clock.clock-title', [
+        h('span.shy', trans.noarg('ending:' as I18nKey) + ' '),
         new Date(Date.now() + d.secondsToFinish * 1000).toLocaleString(),
       ]);
     else
       return h(
-        'div.clock',
+        'div.clock.clock-title',
         {
           hook: startClock(d.secondsToFinish),
         },
-        [h('span.shy', trans.noarg('endsAt:' as I18nKey)), h('div.time')]
+        [h('span.shy', trans.noarg('ending:' as I18nKey)), h('div.time')]
       );
   }
   if (d.secondsToStart) {
@@ -49,11 +49,11 @@ function clock(d, trans: Trans): VNode | undefined {
       );
     else
       return h(
-        'div.clock.clock-created',
+        'div.clock.clock-title',
         {
           hook: startClock(d.secondsToStart),
         },
-        [h('span.shy', 'Starting in'), h('span.time.text')]
+        [h('span.shy', trans.noarg('starting')), h('span.time.text')]
       );
   }
 }

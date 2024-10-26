@@ -1,8 +1,12 @@
-import { bind } from 'common/snabbdom';
+import { bind, MaybeVNodes } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import TournamentController from './ctrl';
 
-export function button(ctrl: TournamentController): VNode {
+export function searchOr(ctrl: TournamentController, nodes: MaybeVNodes): MaybeVNodes {
+  return [button(ctrl), ...(ctrl.searching ? [input(ctrl)] : nodes)];
+}
+
+function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
     class: { active: ctrl.searching },
     attrs: {
@@ -13,7 +17,7 @@ export function button(ctrl: TournamentController): VNode {
   });
 }
 
-export function input(ctrl: TournamentController): VNode {
+function input(ctrl: TournamentController): VNode {
   return h(
     'div.search',
     h('input', {

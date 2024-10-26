@@ -38,7 +38,7 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
     grid-template-areas:
       'main  side'
       'main  uchat'
-      'table table';
+      'table .';
 
     &__table {
       display: flex;

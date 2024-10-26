@@ -18,7 +18,7 @@ function result(win, stat): string {
 }
 
 function playerTitle(player) {
-  return h('h2', [h('span.rank', player.rank + '. '), renderPlayer(player, true, false, false)]);
+  return h('h2', [h('span.rank', player.rank ? player.rank + '. ' : ''), renderPlayer(player, true, false, false)]);
 }
 
 function setup(vnode: VNode) {
@@ -32,15 +32,18 @@ export default function (ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
   const noarg = ctrl.trans.noarg;
   const tag = 'div.tour__player-info.tour__actor-info';
+  console.log('PPPP:', !data, data?.player?.id !== ctrl.playerInfo.id);
+
   if (!data || data.player.id !== ctrl.playerInfo.id)
     return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player), spinner()])]);
   const nb = data.player.nb,
-    pairingsLen = data.pairings.length,
-    avgOp = pairingsLen
+    poa = data.pairings || data.arrangements,
+    poaLen = poa.length,
+    avgOp = poaLen
       ? Math.round(
-          data.pairings.reduce(function (a, b) {
+          poa.reduce(function (a, b) {
             return a + b.op.rating;
-          }, 0) / pairingsLen
+          }, 0) / poaLen
         )
       : undefined;
   return h(
@@ -92,7 +95,7 @@ export default function (ctrl: TournamentController): VNode {
               if (href) window.open(href, '_blank');
             }),
           },
-          data.pairings.map(function (p, i) {
+          poa.map(function (p, i) {
             const res = result(p.win, p.status);
             return h(
               'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),
@@ -104,7 +107,7 @@ export default function (ctrl: TournamentController): VNode {
                 },
               },
               [
-                h('th', '' + (Math.max(nb.game, pairingsLen) - i)),
+                h('th', '' + (Math.max(nb.game, poaLen) - i)),
                 h('td', playerName(p.op)),
                 h('td', p.op.rating),
                 h('td.is.color-icon.' + p.color),

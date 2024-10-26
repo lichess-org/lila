@@ -1,0 +1,49 @@
+.player-manage {
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    button {
+      margin: 0 0.5rem;
+    }
+  }
+  .candidates,
+  .denied {
+    h3.title {
+      font-size: 1.2rem;
+      padding: 0.75rem;
+      text-align: center;
+      background: $c-bg-zebra;
+    }
+    .table-wrap {
+      max-height: 32vh;
+      min-height: 60px;
+      overflow: auto;
+      tr.shaded {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    }
+  }
+  .denied .table-wrap {
+    border-bottom: $border;
+  }
+  .other-actions {
+    display: flex;
+    justify-content: space-between;
+    & > div {
+      padding: 1.5rem;
+    }
+    .ban {
+      display: flex;
+      align-items: center;
+      .title {
+        margin-right: 0.75rem;
+      }
+    }
+    .joining {
+      display: flex;
+      justify-content: center;
+      border-left: $border;
+    }
+  }
+}

@@ -7,11 +7,17 @@
       flex: 1 1 auto;
     }
   }
-  form.f-robin .f-arena {
-    display: none;
+  form.f-robin,
+  form.f-organized {
+    .f-arena {
+      display: none;
+    }
   }
-  form.f-arena .f-robin {
-    display: none;
+  form.f-arena {
+    .f-robin,
+    .f-organized {
+      display: none;
+    }
   }
   form.f-rt .f-corres {
     display: none;

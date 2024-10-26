@@ -2,9 +2,9 @@ import { bind, MaybeVNode } from 'common/snabbdom';
 import { ids } from 'game/status';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
-import * as buttons from './button';
-import { player as renderPlayer } from './util';
+import { arrangementHasUser, playerName, preloadUserTips, ratio2percent, player as renderPlayer } from './util';
 import { Arrangement } from '../interfaces';
+import { arrangementThumbnail } from './arrangementThumbnail';
 
 function tableClick(ctrl: TournamentController): (e: Event) => void {
   return (e: Event) => {
@@ -16,11 +16,7 @@ function tableClick(ctrl: TournamentController): (e: Event) => void {
   };
 }
 
-function preloadUserTips(el: HTMLElement) {
-  window.lishogi.powertip.manualUserIn(el);
-}
-
-function playerName(ctrl: TournamentController, player) {
+function playerNameStanding(_ctrl: TournamentController, player) {
   const userId = player.name.toLowerCase();
   return h(
     'div',
@@ -31,79 +27,13 @@ function playerName(ctrl: TournamentController, player) {
       player.withdraw
         ? h('i', {
             attrs: {
-              'data-icon': 'Z',
-              title: ctrl.trans.noarg('pause'),
+              'data-icon': player.kicked ? 'L' : 'Z',
             },
           })
         : undefined,
       renderPlayer(player, false, true),
     ]
   );
-}
-
-function button(text: string, icon: string, cls: string, el: MaybeVNode = undefined): VNode {
-  return h(
-    'button.fbt.is.' + cls,
-    {
-      attrs: {
-        'data-icon': icon,
-        title: text,
-      },
-    },
-    el
-  );
-}
-
-export function controls(ctrl: TournamentController): VNode {
-  if (ctrl.arrangement)
-    return h('div.tour__controls.arr', [
-      h(
-        'div.pager',
-        { hook: bind('click', () => ctrl.showArrangement(undefined)) },
-        button(ctrl.trans.noarg('back'), 'I', 'back.text', ctrl.trans.noarg('back'))
-      ),
-      h('div.switch', [
-        h('label.label', { attrs: { for: 'f-UTC' } }, 'UTC'),
-        h('input.cmn-toggle', {
-          attrs: {
-            id: 'f-UTC',
-            type: 'checkbox',
-            checked: ctrl.utc,
-          },
-          hook: bind(
-            'change',
-            e => {
-              const val = (e.target as HTMLInputElement).checked;
-              window.lishogi.storage.set('robin.utc', val ? '1' : '0');
-              ctrl.utc = val;
-            },
-            ctrl.redraw
-          ),
-        }),
-        h('label', { attrs: { for: 'f-UTC' } }),
-      ]),
-    ]);
-  else
-    return h(
-      'div.tour__controls',
-      {
-        hook: {
-          insert: () => {
-            arrowControls(ctrl);
-          },
-        },
-      },
-      [
-        h('div.pager', [
-          button(ctrl.trans.noarg('first'), 'W', 'first'),
-          button(ctrl.trans.noarg('previous'), 'Y', 'prev'),
-          button(ctrl.trans.noarg('next'), 'X', 'next'),
-          button(ctrl.trans.noarg('last'), 'V', 'last'),
-          ctrl.data.me ? button('Scroll to yourself', '7', 'scroll') : null,
-        ]),
-        buttons.joinWithdraw(ctrl),
-      ]
-    );
 }
 
 export function standing(ctrl: TournamentController, klass?: string): VNode {
@@ -125,10 +55,17 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
             },
           },
           ctrl.data.standing.players.map((player, i) =>
-            h('tr', { class: { me: ctrl.opts.userId === player.name.toLowerCase(), long: player.name.length > 15 } }, [
-              h('td', i + 1),
-              h('td.player-name', playerName(ctrl, player)),
-            ])
+            h(
+              'tr',
+              {
+                class: {
+                  me: ctrl.opts.userId === player.id,
+                  long: player.name.length > 15,
+                  kicked: player.kicked,
+                },
+              },
+              [h('td', i + 1), h('td.player-name', playerNameStanding(ctrl, player))]
+            )
           )
         ),
       ])
@@ -149,17 +86,24 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
           ctrl.data.standing.players.map((player, i) =>
             h(
               'tr',
+              {
+                class: {
+                  kicked: player.kicked,
+                },
+              },
               ctrl.data.standing.players.map((player2, j) => {
-                const arr = ctrl.findArrangement([player.id, player2.id]);
+                const arr = ctrl.findArrangement([player.id, player2.id]),
+                  key = player.id + ';' + player2.id;
                 return h(
                   'td',
                   {
                     attrs: {
                       title: `${player.name} vs ${player2.name}`,
-                      'data-p': player.id + ';' + player2.id,
+                      'data-p': key,
                     },
                     class: {
                       same: i === j,
+                      h: ctrl.highlightArrs.includes(key),
                     },
                   },
                   !!arr?.status
@@ -186,7 +130,11 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
         h(
           'tbody',
           ctrl.data.standing.players.map(player =>
-            h('tr', h('td', { class: { winner: !!maxScore && maxScore === player.score } }, player.score || 0))
+            h(
+              'tr',
+              { class: { kicked: player.kicked } },
+              h('td', { class: { winner: !!maxScore && maxScore === player.score } }, player.score || 0)
+            )
           )
         ),
       ])
@@ -194,86 +142,46 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
   ]);
 }
 
-function arrowControls(ctrl: TournamentController) {
-  const container = document.querySelector('.r-table-wrap-arrs') as HTMLElement,
-    table = container.querySelector('table') as HTMLElement,
-    controls = document.querySelector('.tour__controls') as HTMLElement,
-    firstArrow = controls.querySelector('button.first') as HTMLElement,
-    prevArrow = controls.querySelector('button.prev') as HTMLElement,
-    nextArrow = controls.querySelector('button.next') as HTMLElement,
-    lastArrow = controls.querySelector('button.last') as HTMLElement,
-    scroll = controls.querySelector('button.scroll') as HTMLElement | undefined;
-
-  function updateArrowState() {
-    const canScrollLeft = container.scrollLeft > 0,
-      canScrollRight = Math.round(container.scrollLeft) < container.scrollWidth - container.clientWidth - 1;
-
-    firstArrow.classList.toggle('disabled', !canScrollLeft);
-    prevArrow.classList.toggle('disabled', !canScrollLeft);
-
-    nextArrow.classList.toggle('disabled', !canScrollRight);
-    lastArrow.classList.toggle('disabled', !canScrollRight);
-  }
-
-  function calculateColumnWidth() {
-    const tableWidth = table.offsetWidth;
-    return tableWidth / ctrl.data.standing.players.length;
-  }
-
-  function scrollLeft(max = false) {
-    const columnWidth = calculateColumnWidth();
-    const scrollDistance = max
-      ? -container.scrollLeft
-      : -((Math.floor(container.clientWidth / columnWidth) - 1) * columnWidth);
-
-    container.scrollBy({
-      left: scrollDistance,
-      behavior: 'smooth',
-    });
-  }
-
-  function scrollRight(max = false) {
-    const columnWidth = calculateColumnWidth();
-    const maxScrollRight = container.scrollWidth - container.clientWidth;
-    const scrollDistance = max
-      ? maxScrollRight - container.scrollLeft
-      : (Math.floor(container.clientWidth / columnWidth) - 1) * columnWidth;
-
-    container.scrollBy({
-      left: scrollDistance,
-      behavior: 'smooth',
-    });
-  }
-
-  function scrollIntoView() {
-    const me = document.querySelector(`tr.me`) as HTMLElement;
-    if (me) {
-      me.classList.add('highlight');
-      me.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'center',
-      });
-      setTimeout(() => {
-        me.classList.remove('highlight');
-      }, 2000);
-    }
-  }
-
-  firstArrow.addEventListener('click', () => scrollLeft(true));
-  prevArrow.addEventListener('click', () => scrollLeft(false));
-  nextArrow.addEventListener('click', () => scrollRight(false));
-  lastArrow.addEventListener('click', () => scrollRight(true));
-  if (scroll) scroll.addEventListener('click', () => scrollIntoView());
-
-  container.addEventListener('scroll', updateArrowState);
-  window.addEventListener('resize', updateArrowState);
-
-  updateArrowState();
+function podiumUsername(p) {
+  return h(
+    'a.text.ulpt.user-link',
+    {
+      attrs: { href: '/@/' + p.name },
+    },
+    playerName(p)
+  );
 }
 
-function arrangementHasUser(a: Arrangement, userId: string): boolean {
-  return a.user1.id === userId || a.user2.id === userId;
+function podiumStats(ctrl: TournamentController, p, games: Arrangement[]): VNode {
+  const noarg = ctrl.trans.noarg,
+    userId = p.id,
+    gamesOfPlayer = games.filter(a => arrangementHasUser(a, userId));
+  return h('table.stats', [
+    p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
+    h('tr', [h('th', noarg('gamesPlayed')), h('td', gamesOfPlayer.length)]),
+    ...(gamesOfPlayer.length
+      ? [
+          h('tr', [
+            h('th', noarg('winRate')),
+            h('td', ratio2percent(gamesOfPlayer.filter(g => g.winner === userId).length / gamesOfPlayer.length)),
+          ]),
+        ]
+      : []),
+  ]);
+}
+
+function podiumPosition(ctrl: TournamentController, p, pos, games: Arrangement[]): VNode | undefined {
+  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(ctrl, p, games)]);
+}
+
+export function podium(ctrl: TournamentController) {
+  const p = [...ctrl.data.standing.players].sort((a, b) => b.score - a.score).slice(0, 3),
+    games = ctrl.data.standing.arrangements.filter(a => !!a.gameId);
+  return h('div.tour__podium', [
+    podiumPosition(ctrl, p[1], 'second', games),
+    podiumPosition(ctrl, p[0], 'first', games),
+    podiumPosition(ctrl, p[2], 'third', games),
+  ]);
 }
 
 export function yourCurrent(ctrl: TournamentController): MaybeVNode {
@@ -292,10 +200,18 @@ export function yourUpcoming(ctrl: TournamentController): MaybeVNode {
     .sort((a, b) => a.scheduledAt! - b.scheduledAt!)
     .map(a => arrangementThumbnail(ctrl, a));
   return arrs.some(a => !!a)
-    ? h('div.arrs.arrs-upcoming', [h('h2.arrs-title', 'Your upcoming games'), h('div.arrs-grid', arrs)])
+    ? h('div.arrs.arrs-your-upcoming', [h('h2.arrs-title', 'Your upcoming games'), h('div.arrs-grid', arrs)])
     : null;
 }
 
+export function upcoming(ctrl: TournamentController): MaybeVNode {
+  const arrs = (ctrl.data.standing.arrangements as Arrangement[])
+    .filter(a => !a.gameId)
+    .map(a => arrangementThumbnail(ctrl, a));
+  return arrs.some(a => !!a)
+    ? h('div.arrs.arrs-upcoming', [h('h2.arrs-title', 'Upcoming games'), h('div.arrs-grid', arrs)])
+    : null;
+}
 export function playing(ctrl: TournamentController): MaybeVNode {
   const arrs = (ctrl.data.standing.arrangements as Arrangement[])
     .filter(a => a.status === ids.started)
@@ -313,23 +229,6 @@ export function recents(ctrl: TournamentController): MaybeVNode {
   return arrs.some(a => !!a)
     ? h('div.arrs.arrs-recents', [h('h2.arrs-title', 'Recently played games'), h('div.arrs-grid', arrs)])
     : null;
-}
-
-function arrangementThumbnail(ctrl: TournamentController, a: Arrangement): MaybeVNode {
-  const players = ctrl.data.standing.players.filter(p => arrangementHasUser(a, p.name.toLowerCase())),
-    date = a.scheduledAt ? new Date(a.scheduledAt) : undefined;
-
-  if (players.length === 2)
-    return h('div.arr-thumb-wrap', { hook: bind('click', _ => ctrl.showArrangement(a)) }, [
-      h('div.arr-players', players[0].name + ' - ' + players[1].name),
-      date
-        ? h(
-            'div.arr-time',
-            h('time.timeago', { attrs: { datetime: date.getTime() } }, window.lishogi.timeago.format(date))
-          )
-        : null,
-    ]);
-  else null;
 }
 
 export function howDoesThisWork(): VNode {

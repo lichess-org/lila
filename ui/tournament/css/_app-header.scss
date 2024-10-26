@@ -50,9 +50,11 @@
     flex: 0 0 auto;
     font-weight: bold;
     color: $c-font-dim;
-    &-created {
+    margin-left: 1rem;
+    max-width: 25vw;
+    &-title {
       @extend %flex-column;
-      text-align: right;
+      // text-align: right; // ??
     }
   }
   .tour-sched & h1,

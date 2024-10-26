@@ -4,14 +4,15 @@ import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { TournamentData } from '../interfaces';
 import * as pagination from '../pagination';
-import { controls as rControls, recents, standing as rStanding } from './robin';
-import { controls, podium, standing } from './arena';
+import { arenaControls, robinControls, organizedControls } from './controls';
+import { recents, standing as rStanding, podium as rPodium } from './robin';
+import { podium, standing } from './arena';
+import { standing as oStanding } from './organized';
 import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from './util';
-import { arrangement } from './arrangement';
 
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && window.lishogi.once('tournament.end.canvas.' + data.id))
@@ -50,17 +51,25 @@ export const name = 'finished';
 export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
   const teamS = teamStanding(ctrl, 'finished');
-  if (ctrl.isRobin())
+  if (ctrl.isArena())
     return [
       ...(teamS ? [header(ctrl), teamS] : [h('div.big_top', [confetti(ctrl.data), header(ctrl), podium(ctrl)])]),
-      rControls(ctrl),
-      ...(ctrl.arrangement ? [arrangement(ctrl, ctrl.arrangement)] : [rStanding(ctrl, 'started'), recents(ctrl)]),
+      arenaControls(ctrl, pag),
+      standing(ctrl, pag),
+    ];
+  else if (ctrl.isRobin())
+    return [
+      ...(teamS ? [header(ctrl), teamS] : [h('div.big_top', [confetti(ctrl.data), header(ctrl), rPodium(ctrl)])]),
+      robinControls(ctrl),
+      rStanding(ctrl, 'finished'),
+      recents(ctrl),
     ];
   else
     return [
-      ...(teamS ? [header(ctrl), teamS] : [h('div.big_top', [confetti(ctrl.data), header(ctrl), podium(ctrl)])]),
-      controls(ctrl, pag),
-      standing(ctrl, pag),
+      ...(teamS ? [header(ctrl), teamS] : [h('div.big_top', [confetti(ctrl.data), header(ctrl), rPodium(ctrl)])]),
+      organizedControls(ctrl, pag),
+      oStanding(ctrl, pag, 'finished'),
+      recents(ctrl),
     ];
 }
 
