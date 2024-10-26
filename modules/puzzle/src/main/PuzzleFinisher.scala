@@ -184,7 +184,7 @@ final private[puzzle] class PuzzleFinisher(
 
     private def weightOf(angle: PuzzleAngle, win: PuzzleWin) =
       angle.asTheme.fold(1f): theme =>
-        if theme == PuzzleTheme.mix.key then 1
+        if theme == PuzzleTheme.healthyMix.key then 1
         else if isObvious(theme) then if win.yes then 0.1f else 0.4f
         else if isHinting(theme) then if win.yes then 0.2f else 0.7f
         else if win.yes then 0.7f
