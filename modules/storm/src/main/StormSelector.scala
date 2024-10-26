@@ -15,7 +15,7 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(using Executor
 
   def apply: Fu[List[StormPuzzle]] = current.get {}
 
-  private val theme        = lila.puzzle.PuzzleTheme.mix.key
+  private val theme        = lila.puzzle.PuzzleTheme.healthyMix.key
   private val tier         = lila.puzzle.PuzzleTier.good.key
   private val maxDeviation = 85
 

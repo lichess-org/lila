@@ -24,7 +24,7 @@
   },
   "//": "NOTE: lint-staged patterns must stay in sync with bin/git-hooks/pre-commit!",
   "lint-staged": {
-    "*.{json,scss,ts}": "prettier --write"
+    "*.{json,scss,ts}": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
@@ -41,9 +41,9 @@
     "typescript": "^5.6.2"
   },
   "scripts": {
-    "format": "prettier --write --log-level warn .",
-    "check-format": "prettier --check --log-level warn .",
-    "watch-format": "onchange \"**/*\" -- prettier --write --log-level warn {{changed}}",
+    "format": "prettier --write --ignore-unknown --log-level warn .",
+    "check-format": "prettier --check --ignore-unknown --log-level warn .",
+    "watch-format": "onchange \"**/*\" -- prettier --write --ignore-unknown --log-level warn {{changed}}",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint ui",

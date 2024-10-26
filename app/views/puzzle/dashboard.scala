@@ -19,7 +19,7 @@ object dashboard:
     )(dash =>
       (dash.mostPlayed.size > 2).option(
         div(cls := s"${baseClass}__global")(
-          metricsOf(days, PuzzleTheme.mix.key, dash.global),
+          metricsOf(days, PuzzleTheme.healthyMix.key, dash.global),
           canvas(cls := s"${baseClass}__radar")
         )
       )

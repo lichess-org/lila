@@ -47,7 +47,7 @@ object PuzzleHistory:
           for
             doc   <- r
             round <- doc.asOpt[PuzzleRound]
-            theme = doc.getAsOpt[PuzzleTheme.Key](PuzzleRound.BSONFields.theme) | PuzzleTheme.mix.key
+            theme = doc.getAsOpt[PuzzleTheme.Key](PuzzleRound.BSONFields.theme) | PuzzleTheme.healthyMix.key
             puzzle <- doc.getAsOpt[Puzzle]("puzzle")
           yield SessionRound(round, puzzle, theme)
         .map(groupBySessions)
