@@ -18,11 +18,8 @@ export default async function () {
     const vapid = document.body.getAttribute('data-vapid');
     const sub = await reg.pushManager.getSubscription();
 
-    if (!vapid || Notification.permission !== 'granted') {
-      store.remove();
-      sub?.unsubscribe();
-      return;
-    } else if (sub && !resub) return;
+    if (!vapid || Notification.permission !== 'granted') return store.remove();
+    else if (sub && !resub) return;
 
     const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
 
@@ -40,7 +37,6 @@ export default async function () {
     else throw new Error(res.statusText);
   } catch (err: any) {
     log('serviceWorker.ts:', err.message, newSub);
-    navigator.serviceWorker.getRegistration().then(reg => reg?.unregister());
-    newSub?.unsubscribe();
+    if (newSub?.endpoint) newSub.unsubscribe();
   }
 }
