@@ -404,15 +404,12 @@ final class ReportApi(
   def commReportsAbout(user: User, nb: Max): Fu[List[Report]] =
     allReportsAbout(user, nb, $doc("room" -> Room.Comm.key))
 
-  def byAndAbout(user: User, nb: Max)(using Me): Fu[Report.ByAndAbout] = for
-    by <-
-      coll
-        .find($doc("atoms.by" -> user.id))
-        .sort(sortLastAtomAt)
-        .cursor[Report](ReadPref.priTemp)
-        .list(nb.value)
-    about <- recent(Suspect(user), nb, _.priTemp)
-  yield Report.ByAndAbout(by, Room.filterGranted(about))
+  def by(user: User, nb: Max)(using Me): Fu[List[Report]] =
+    coll
+      .find($doc("atoms.by" -> user.id))
+      .sort(sortLastAtomAt)
+      .cursor[Report](ReadPref.priTemp)
+      .list(nb.value)
 
   def personalExport(user: User): Fu[List[Report.Atom]] =
     coll
@@ -567,15 +564,18 @@ final class ReportApi(
     /*
      * If the mod has no current inquiry, just start this one.
      * If they had another inquiry, cancel it and start this one instead.
-     * If they already are on this inquiry, cancel it.
+     * If they already are on this inquiry, and onlyOpen=false, cancel it.
      * Returns the previous and next inquiries
      */
-    def toggle(id: String | Either[ReportId, UserId])(using Me): Fu[(Option[Report], Option[Report])] =
+    def toggle(id: String | Either[ReportId, UserId], onlyOpen: Boolean = false)(using
+        Me
+    ): Fu[(Option[Report], Option[Report])] =
       workQueue:
-        doToggle(id)
+        doToggle(id, onlyOpen)
 
     private def doToggle(
-        id: String | Either[ReportId, UserId]
+        id: String | Either[ReportId, UserId],
+        onlyOpen: Boolean
     )(using mod: Me): Fu[(Option[Report], Option[Report])] =
       def findByUser(userId: UserId) = coll.one[Report]($doc("user" -> userId, "inquiry.mod".$exists(true)))
       for
@@ -584,7 +584,7 @@ final class ReportApi(
           case Right(userId)  => findByUser(userId)
           case anyId: String  => coll.byId[Report](anyId).orElse(findByUser(UserId(anyId)))
         current <- ofModId(mod.userId)
-        _       <- current.so(cancel)
+        _       <- current.ifFalse(onlyOpen).so(cancel)
         _ <-
           report.so: r =>
             r.inquiry.isEmpty.so(
@@ -596,12 +596,12 @@ final class ReportApi(
                 )
                 .void
             )
-      yield (current, report.filter(_.inquiry.isEmpty))
+      yield (current, report.filter(_.inquiry.isEmpty || onlyOpen))
 
     def toggleNext(room: Room)(using Me): Fu[Option[Report]] =
       workQueue:
         findNext(room).flatMapz { report =>
-          doToggle(Left(report.id)).dmap(_._2)
+          doToggle(Left(report.id), onlyOpen = false).dmap(_._2)
         }
 
     private def cancel(report: Report)(using mod: Me): Funit =

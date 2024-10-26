@@ -66,26 +66,25 @@ Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagot
   <string name="myTournaments">Moji turnirji</string>
   <string name="editTournament">Uredi turnir</string>
   <string name="editTeamBattle">Uredi ekipno bitko</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Branilec</string>
+  <string name="defender">Branilec</string>
   <string name="pickYourTeam">Izberite svojo ekipo</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Katero ekipo boste zastopali v tej bitki?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Za sodelovanje se morate pridružiti eni od teh ekip!</string>
   <string name="created">Ustvarjeno</string>
   <string name="recentlyPlayed">Nedavno predvajano</string>
   <string name="bestResults">Najboljši rezultati</string>
-  <string name="stats">Statistika</string>
   <string name="tournamentStats">Statistika turnirja</string>
   <string name="rankAvgHelp">Povprečje uvrstitve je odstotek vaše uvrstitve. Nižje je bolje.
 
 Na primer, 3. mesto na turnirju s 100 igralci = 3%. 10. mesto na turnirju s 1000 igralci = 1%.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">mediane</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Vsa povprečja na tej strani so %s.</string>
+  <string name="medians">mediane</string>
+  <string name="allAveragesAreX">Vsa povprečja na tej strani so %s.</string>
   <string name="total">Skupaj</string>
-  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Povprečje točk</string>
-  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Seštevek točk</string>
-  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Povprečje uvrstitve</string>
+  <string name="pointsAvg">Povprečje točk</string>
+  <string name="pointsSum">Seštevek točk</string>
+  <string name="rankAvg">Povprečje uvrstitve</string>
   <string name="tournamentWinners">Zmagovalci turnirjev</string>
   <string name="tournamentShields">Turnirski ščiti</string>
   <string name="onlyTitled">Samo igralci z nazivom</string>
-  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Za pridružitev turnirju zahtevajte uradni naziv</string>
+  <string name="onlyTitledHelp">Za pridružitev turnirju zahtevajte uradni naziv</string>
 </resources>

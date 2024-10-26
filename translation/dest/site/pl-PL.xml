@@ -1078,4 +1078,5 @@ Pozostaw puste, aby rozpoczynać partie z normalnej pozycji początkowej.</strin
   <string name="lichessPatronInfo">Lichess jest organizacją niedochodową i całkowicie darmowym otwartym oprogramowaniem.
 Wszystkie koszty operacyjne, rozwój i treści są finansowane wyłącznie z darowizn użytkowników.</string>
   <string name="nothingToSeeHere">W tej chwili nie ma nic do zobaczenia.</string>
+  <string name="stats">Statystyki</string>
 </resources>

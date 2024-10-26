@@ -38,12 +38,12 @@
     "typescript": "^5.6.2"
   },
   "scripts": {
-    "format": "prettier --write --log-level warn .",
-    "check-format": "prettier --check --log-level warn .",
-    "watch-format": "onchange \"**/*\" -- prettier --write --log-level warn {{changed}}",
+    "format": "prettier --cache --write --log-level warn .",
+    "check-format": "prettier --cache --check --log-level warn .",
+    "watch-format": "onchange \"**/*\" -- prettier --cache --write --log-level warn {{changed}}",
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
-    "lint": "eslint ui",
+    "lint": "eslint --cache",
     "lint-staged": "lint-staged --config bin/lint-staged.config.mjs",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",

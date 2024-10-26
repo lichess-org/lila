@@ -70,8 +70,7 @@ final class ModTimelineUi(helpers: Helpers)(
       case e: AppealMsg     => renderAppeal(t)(e)
       case e: Note          => renderNote(e)
       case e: ReportNewAtom => renderReportNew(e)
-      case e: ReportClose   => renderReportClose(e)
-      case e: TempBan       => frag("Playban: ", e.mins, " minutes")
+      case e: PlayBans      => renderPlayBans(e)
       case e: PublicLine    => renderPublicLine(e)
 
   private def renderMod(userId: ModId)(using Translate) =
@@ -84,6 +83,9 @@ final class ModTimelineUi(helpers: Helpers)(
       val short = shorten(str, 200)
       if highlightBad then Analyser.highlightBad(short)
       else short
+
+  private def renderPlayBans(e: PlayBans) =
+    frag(pluralize("Playban", e.list.size), ": ", e.list.map(_.mins).toList.mkString(", "), " minutes")
 
   private def renderPublicLine(l: PublicLine)(using Translate) = frag(
     "Chat flag",
@@ -99,7 +101,7 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
     frag(
-      if r.atoms.size == 1 && r.atoms.head.by.is(UserId.lichess)
+      if r.atoms.size == 1 && r.atoms.forall(_.by.is(UserId.lichess))
       then renderMod(UserId.lichess.into(ModId))
       else
         strong(
@@ -107,15 +109,19 @@ final class ModTimelineUi(helpers: Helpers)(
           title := r.atoms.toList.map(_.by.id).map(usernameOrId).map(_.toString).mkString(", ")
         )(pluralize("player", r.atoms.size))
       ,
-      span(cls := "mod-timeline__event__action")(" opened a ", atoms.head.reason.name, " report"),
-      renderText(atoms.head.text, true)
+      div(cls := "mod-timeline__event__action")(
+        " opened a ",
+        postForm(action := s"${routes.Report.inquiry(report.id.value)}?onlyOpen=1")(
+          cls := List("mod-timeline__report-form" -> true, "mod-timeline__report-form--open" -> r.report.open)
+        )(
+          submitButton(strong(atoms.head.reason.name), " report")(
+            cls   := "button button-thin",
+            title := r.report.done.fold("Open")(d => s"Closed by ${usernameOrId(d.by.id)}")
+          )
+        )
+      ),
+      renderText(atoms.head.text, highlightBad = false)
     )
-
-  private def renderReportClose(r: ReportClose)(using Translate) = frag(
-    renderMod(r.done.by),
-    " closed the report about ",
-    r.report.atoms.toList.map(_.reason.name).mkString(", ")
-  )
 
   private def renderModlog(user: User)(e: Modlog)(using Translate) =
     val author: Frag =
@@ -152,5 +158,6 @@ final class ModTimelineUi(helpers: Helpers)(
   private def renderNote(n: Note)(using Translate) =
     frag(
       renderMod(n.from.into(ModId)),
-      renderText(n.text, false)
+      div(cls := "mod-timeline__text"):
+        richText(n.text)
     )

@@ -20,7 +20,6 @@
   <string name="fullDescriptionHelp">Көрсетілімнің қосымша үлкен сипаттамасы. %1$s қолданысқа ашық. Ұзындығы %2$s таңбадан кем болуы керек.</string>
   <string name="sourceUrlHelp">PGN жаңартуларын алу үшін Личес тексеретін сілтеме. Ол интернетте баршалыққа ашық болуы керек.</string>
   <string name="startDateHelp">Міндетті емес, егер күнін біліп тұрсаңыз</string>
-  <string name="credits">Қайнар көзіне сілтеңіз</string>
   <string name="currentGameUrl">Қазіргі ойын сілтемесі</string>
   <string name="downloadAllRounds">Барлық айналымдарды жүктеп алу</string>
   <string name="resetRound">Бұл айналымды жаңарту</string>
