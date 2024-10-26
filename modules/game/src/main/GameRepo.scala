@@ -376,10 +376,10 @@ final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       )
     )
 
-  def findRandomStandardCheckmate(distribution: Int): Fu[Option[Game]] =
+  def findRandomMinishogiCheckmate(distribution: Int): Fu[Option[Game]] =
     coll.ext
       .find(
-        Query.mate ++ Query.variantStandard ++ Query.notFromPosition
+        Query.mate ++ Query.variantMinishogi ++ Query.notFromPosition
       )
       .sort(Query.sortCreated)
       .skip(ThreadLocalRandom nextInt distribution)

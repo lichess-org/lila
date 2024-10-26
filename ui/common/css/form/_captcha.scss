@@ -10,8 +10,19 @@
     background: mix($c-error, $c-bg-high, 10%);
   }
   .challenge {
-    flex: 0 0 280px;
+    flex: 0 0 210px;
     margin-left: 1em;
+    .mini-board {
+      padding-bottom: calc(100% / 11 * 12);
+      .sg-wrap {
+        grid-template-rows: 1fr;
+        grid-template-areas: 'sg-board';
+        padding: 0;
+        sg-squares sq.help {
+          animation: selected 1s ease-in-out infinite alternate;
+        }
+      }
+    }
   }
   .captcha-explanation {
     flex: 1 1 auto;

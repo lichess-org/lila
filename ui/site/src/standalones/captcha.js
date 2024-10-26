@@ -1,4 +1,5 @@
 var sfen = require('shogiops/sfen');
+var compat = require('shogiops/compat');
 var util = require('shogiops/variant/util');
 
 $(function () {
@@ -8,22 +9,26 @@ $(function () {
       var $board = $captcha.find('.mini-board');
       var $input = $captcha.find('input').val('');
       var sg = $board.data('shogiground');
-      var destsJson = JSON.parse(lishogi.readServerSfen($board.data('x')));
-      var dests = new Map();
-      for (var k in destsJson) dests.set(k, destsJson[k].match(/.{2}/g));
+      var hint = lishogi.readServerSfen($board.data('x'));
+      var sfenString = sg.getBoardSfen() + (sg.state.orientation === 'sente' ? ' b' : ' w');
+      var pos = sfen.parseSfen('minishogi', sfenString);
+      var dests = pos.isOk ? compat.shogigroundMoveDests(pos.value) : new Map();
       sg.set({
         activeColor: sg.state.orientation,
         turnColor: sg.state.orientation,
         movable: {
-          free: false,
-          dests: dests,
+          free: pos.isErr,
+          dests,
           color: sg.state.orientation,
           events: {
             after: function (orig, dest) {
               $captcha.removeClass('success failure');
-              submit(orig + ' ' + dest);
+              submit(orig + dest);
             },
           },
+        },
+        hands: {
+          inlined: false,
         },
       });
 
@@ -38,10 +43,10 @@ $(function () {
             $captcha.toggleClass('success', data == 1);
             $captcha.toggleClass('failure', data != 1);
             if (data == 1) {
-              const key = solution.slice(3, 5);
+              const key = solution.slice(2, 4);
               const piece = sg.state.pieces.get(key);
               const sfenStr = sg.getBoardSfen() + (piece.color === 'sente' ? ' w' : ' b');
-              const pos = sfen.parseSfen('standard', sfenStr, false);
+              const pos = sfen.parseSfen('minishogi', sfenStr, false);
               if (pos.isOk && !pos.value.isCheckmate()) {
                 sg.setPieces(
                   new Map([
@@ -49,23 +54,24 @@ $(function () {
                       key,
                       {
                         color: piece.color,
-                        role: util.promote('standard')(piece.role),
+                        role: util.promote('minishogi')(piece.role),
                         promoted: true,
                       },
                     ],
                   ])
                 );
               }
-              $board.data('shogiground').stop();
+              sg.stop();
             } else
               setTimeout(function () {
                 lishogi.parseSfen($board);
-                $board.data('shogiground').set({
+                sg.set({
                   turnColor: sg.state.orientation,
                   movable: {
                     dests: dests,
                   },
                 });
+                sg.setSquareHighlights([{ key: hint, className: 'help' }]);
               }, 300);
           },
         });

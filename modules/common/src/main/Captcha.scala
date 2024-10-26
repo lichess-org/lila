@@ -6,11 +6,12 @@ case class Captcha(
     gameId: String,
     sfenBoard: String,
     sente: Boolean,
-    solutions: Captcha.Solutions,
-    moves: Map[String, String]
+    solutions: Captcha.Solutions
 ) {
 
   def valid(solution: String) = solutions.toList contains solution
+
+  def hint = solutions.head.take(2)
 }
 
 object Captcha {
@@ -19,10 +20,9 @@ object Captcha {
 
   val default = Captcha(
     gameId = "00000000",
-    sfenBoard = "9/k1b6/1P+B6/9/9/9/9/9/9",
+    sfenBoard = "4k/4p/3R1/GG3/KG1R1",
     sente = true,
-    solutions = NonEmptyList.one("7c 8b"),
-    moves = Map("7c" -> "8b 6d", "8c" -> "8b")
+    solutions = NonEmptyList.one("2c2a")
   )
 
   val failMessage = "captcha.fail"

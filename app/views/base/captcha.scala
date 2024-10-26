@@ -1,7 +1,5 @@
 package views.html.base
 
-import lila.common.String.html.safeJsonValue
-import play.api.libs.json.Json
 import scala.language.reflectiveCalls
 
 import lila.api.Context
@@ -33,9 +31,11 @@ object captcha {
         )(
           div(cls := "challenge")(
             div(
-              cls          := "mini-board parse-sfen",
+              cls          := "mini-board parse-sfen " + variantClass(shogi.variant.Minishogi),
               dataPlayable := "1",
-              dataX        := encodeSfen(safeJsonValue(Json.toJson(captcha.moves))),
+              dataVariant  := "minishogi",
+              dataNoHands  := "1",
+              dataX        := encodeSfen(captcha.hint),
               dataY := encodeSfen(if (captcha.sente) {
                 "sente"
               } else {
