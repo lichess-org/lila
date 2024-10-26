@@ -22,17 +22,15 @@
       background: mix($c-secondary, $c-bg-zebra, 12%);
     }
 
-    .bar {
-      @extend %box-padding-horiz;
+    .bar-top {
+      @extend %box-padding;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      h1 {
+        margin: 0;
+      }
     }
-  }
-
-  .create-topic {
-    margin: 20px;
-  }
-
-  .bar {
-    @extend %flex-between;
-    margin-bottom: 1em;
   }
 }

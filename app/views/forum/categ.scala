@@ -69,32 +69,30 @@ object categ {
           }
         )
       )
-    val bar = div(cls := "bar")(
-      bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false),
-      newTopicButton
-    )
 
     views.html.base.layout(
-      title = categ.name,
+      title = categ.translatedName,
       moreCss = cssTag("forum"),
       openGraph = lila.app.ui
         .OpenGraph(
-          title = s"${trans.forum.txt()}: ${categ.name}",
+          title = s"${trans.forum.txt()}: ${categ.translatedName}",
           url = s"$netBaseUrl${routes.ForumCateg.show(categ.slug).url}",
           description = categ.desc
         )
         .some
     ) {
       main(cls := "forum forum-categ box")(
-        h1(
-          a(
-            href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
-            dataIcon := "I",
-            cls      := "text"
+        div(cls := "bar-top")(
+          h1(
+            a(
+              href     := categ.team.fold(routes.ForumCateg.index)(routes.Team.show(_)),
+              dataIcon := "I",
+              cls      := "text"
+            ),
+            categ.team.fold(frag(categ.translatedName))(teamIdToName)
           ),
-          categ.team.fold(frag(categ.name))(teamIdToName)
+          newTopicButton
         ),
-        bar,
         table(cls := "topics slist slist-pad")(
           thead(
             tr(
@@ -108,7 +106,7 @@ object categ {
             topics.currentPageResults map showTopic(false)
           )
         ),
-        bar
+        bits.pagination(routes.ForumCateg.show(categ.slug, 1), topics, showPost = false)
       )
     }
   }
@@ -127,7 +125,7 @@ object categ {
         categs.map { categ =>
           tr(
             td(cls := "subject")(
-              h2(a(href := routes.ForumCateg.show(categ.slug))(categ.name)),
+              h2(a(href := routes.ForumCateg.show(categ.slug))(categ.translatedName)),
               p(categ.desc)
             ),
             td(cls := "right")(categ.nbTopics.localize),

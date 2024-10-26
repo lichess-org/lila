@@ -26,8 +26,13 @@
 
   &__actions {
     @extend %flex-between;
-    margin-bottom: 3rem;
     div {
+      &:not(:empty) {
+        margin-bottom: 1.5rem;
+        @include breakpoint($mq-x-small) {
+          margin-bottom: 0;
+        }
+      }
       @extend %flex-wrap;
       .button {
         margin-left: 1rem;

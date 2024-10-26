@@ -32,6 +32,12 @@
       display: table-header-group;
     }
   }
+  tbody {
+    border-top: $border;
+    @include breakpoint($mq-xx-small) {
+      border-top: none;
+    }
+  }
 
   &.topics {
     margin-bottom: 2rem;

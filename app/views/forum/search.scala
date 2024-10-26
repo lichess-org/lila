@@ -44,7 +44,7 @@ object search {
                     frag(
                       td(
                         a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                          view.categ.name,
+                          view.categ.translatedName,
                           " - ",
                           view.topic.name,
                           "#",

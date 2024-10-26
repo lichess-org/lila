@@ -21,10 +21,10 @@ object topic {
         captchaTag
       )
     ) {
-      main(cls := "forum forum-topic topic-form page-small box box-pad")(
+      main(cls := "forum forum-topic topic-form box box-pad")(
         h1(
           a(href := routes.ForumCateg.show(categ.slug), dataIcon := "I", cls := "text"),
-          categ.name
+          categ.translatedName
         ),
         st.section(cls := "warning")(
           h2(dataIcon := "!", cls := "text")(trans.important()),
@@ -74,7 +74,7 @@ object topic {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title =
-        s"${topic.name} - ${trans.page.txt().toLowerCase} ${posts.currentPage}/${posts.nbPages} - ${categ.name}",
+        s"${topic.name} - ${trans.page.txt().toLowerCase} ${posts.currentPage}/${posts.nbPages} - ${categ.translatedName}",
       moreJs = frag(
         jsTag("forum-post.js"),
         formWithCaptcha.isDefined option captchaTag,
@@ -92,9 +92,8 @@ object topic {
         lila.common.CanonicalPath(routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)).some
     ) {
       val teamOnly = categ.team.filterNot(myTeam)
-      val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
-      main(cls := "forum forum-topic page-small box box-pad")(
+      main(cls := "forum forum-topic box box-pad")(
         h1(
           a(
             href     := routes.ForumCateg.show(categ.slug),
@@ -103,7 +102,6 @@ object topic {
           ),
           topic.name
         ),
-        pager,
         div(cls := "forum-topic__posts embed_analyse")(
           posts.currentPageResults.map { p =>
             post.show(
@@ -187,7 +185,7 @@ object topic {
             )
           )
         },
-        pager
+        bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
       )
     }
 }

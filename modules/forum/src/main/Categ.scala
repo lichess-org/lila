@@ -1,5 +1,7 @@
 package lila.forum
 
+import play.api.i18n.Lang
+
 import lila.user.User
 
 case class Categ(
@@ -18,6 +20,9 @@ case class Categ(
 ) {
 
   def id = _id
+
+  def translatedName(implicit lang: Lang): String =
+    publicCategIdsTranslated.get(id).map(_.txt()).getOrElse(name)
 
   def nbTopics(forUser: Option[User]): Int = if (forUser.exists(_.marks.troll)) nbTopicsTroll else nbTopics
   def nbPosts(forUser: Option[User]): Int  = if (forUser.exists(_.marks.troll)) nbPostsTroll else nbPosts

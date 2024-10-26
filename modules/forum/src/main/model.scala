@@ -1,6 +1,7 @@
 package lila.forum
 
 import org.joda.time.DateTime
+import play.api.i18n.Lang
 
 import lila.user.User
 
@@ -15,9 +16,10 @@ case class CategView(
   def lastPostId     = categ lastPostId forUser
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
-  def slug = categ.slug
-  def name = categ.name
-  def desc = categ.desc
+  def slug                                = categ.slug
+  def name                                = categ.name
+  def translatedName(implicit lang: Lang) = categ.translatedName
+  def desc                                = categ.desc
 }
 
 case class TopicView(

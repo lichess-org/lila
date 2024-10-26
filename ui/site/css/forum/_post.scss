@@ -64,9 +64,15 @@
   &__message {
     @extend %break-word;
     margin-bottom: 0.5em;
+    .embed-wrap {
+      @extend %box-neat-force;
+      max-width: calc(55vh * (16 / 9));
+      border: $border;
+      margin: $block-gap;
+      background: $c-bg-box;
+    }
     .embed:not(img) {
       @extend %embed;
-      margin: $block-gap auto;
       &.embed--game {
         @extend %game-embed;
       }

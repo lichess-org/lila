@@ -322,7 +322,7 @@ lazy val msg = module("msg",
 )
 
 lazy val forum = module("forum",
-  Seq(common, db, user, security, hub, mod, notifyModule),
+  Seq(common, db, user, security, i18n, hub, mod, notifyModule),
   reactivemongo.bundle
 )
 

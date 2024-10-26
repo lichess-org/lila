@@ -8,8 +8,7 @@ import lila.user.User
 final class Recent(
     postApi: PostApi,
     postRepo: PostRepo,
-    cacheApi: lila.memo.CacheApi,
-    categIds: List[String]
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type GetTeamIds = String => Fu[List[String]]
@@ -41,7 +40,7 @@ final class Recent(
           .map(_.language)
           .filter(defaultLang !=)
           .fold(defaultLang)(l => s"$defaultLang,$l")
-      val parts = langs :: categIds ::: teamIds.view.map(teamSlug).toList
+      val parts = langs :: publicCategIds ::: teamIds.view.map(teamSlug).toList
       parts.mkString(";")
     }
 
