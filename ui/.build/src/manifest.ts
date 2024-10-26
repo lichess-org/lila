@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 import es from 'esbuild';
 import { env, colors as c, warnMark } from './main.ts';
 import { globArray, globArrays } from './parse.ts';
-import { isUnmanagedAsset } from './copies.ts';
+import { isUnmanagedAsset } from './sync.ts';
 import { allSources } from './sass.ts';
 import { jsLogger } from './console.ts';
 

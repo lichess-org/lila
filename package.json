@@ -23,9 +23,6 @@
     "pnpm": "^9"
   },
   "//": "NOTE: lint-staged patterns must stay in sync with bin/git-hooks/pre-commit!",
-  "lint-staged": {
-    "*.{json,scss,ts}": "prettier --write"
-  },
   "dependencies": {
     "@types/lichess": "workspace:*",
     "@types/node": "^22.7.4",
@@ -47,6 +44,7 @@
     "add-hooks": "git config --add core.hooksPath bin/git-hooks",
     "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
     "lint": "eslint --cache",
+    "lint-staged": "lint-staged --config bin/lint-staged.config.mjs",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
