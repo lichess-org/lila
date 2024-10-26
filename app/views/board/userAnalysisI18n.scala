@@ -83,6 +83,8 @@ object userAnalysisI18n {
     trans.fast,
     trans.realtimeReplay,
     trans.byCPL,
+    trans.nbMoves,
+    trans.shareMainlineUrl,
     // context menu
     trans.promoteVariation,
     trans.makeMainLine,

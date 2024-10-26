@@ -105,6 +105,7 @@ export default class AnalyseCtrl {
   sfenInput?: string;
   kifInput?: string;
   csaInput?: string;
+  urlInput?: string;
 
   // other paths
   initialPath: Tree.Path;
@@ -139,12 +140,17 @@ export default class AnalyseCtrl {
 
     this.initialPath = treePath.root;
 
+    const params = new URLSearchParams(window.location.search);
     if (opts.initialPly) {
       const loc = window.location,
         intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
         plyStr = opts.initialPly === 'url' ? intHash || '' : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
-      if (intHash) window.history.pushState('', document.title, loc.pathname + loc.search);
+      // and remove moves query param
+      if (intHash || params.has('moves')) {
+        params.delete('moves');
+        window.history.pushState('', document.title, loc.pathname + (params.size ? '?' : '') + params.toString());
+      }
       const mainline = treeOps.mainlineNodeList(this.tree.root);
       if (plyStr === 'last') this.initialPath = treePath.fromNodeList(mainline);
       else {
@@ -158,6 +164,11 @@ export default class AnalyseCtrl {
     this.shogiground = Shogiground();
     this.onToggleComputer();
     this.startCeval();
+    const evalParam = params.get('evaluation') || params.get('eval');
+    if (defined(evalParam)) {
+      window.lishogi.requestIdleCallback(() => this.ensureCevalState(evalParam === '1'));
+    }
+
     this.study = opts.study ? makeStudy(opts.study, this, (opts.tagTypes || '').split(','), opts.practice) : undefined;
     this.setOrientation();
     this.studyPractice = this.study ? this.study.practice : undefined;
@@ -232,6 +243,7 @@ export default class AnalyseCtrl {
     this.sfenInput = undefined;
     this.kifInput = undefined;
     this.csaInput = undefined;
+    this.urlInput = undefined;
   };
 
   flip = () => {
@@ -356,8 +368,8 @@ export default class AnalyseCtrl {
   });
 
   private updateHref: () => void = li.debounce(() => {
-    if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
-  }, 750);
+    if (!this.opts.study && !this.synthetic) window.history.replaceState(null, '', '#' + this.node.ply);
+  }, 500);
 
   autoScroll(): void {
     this.autoScrollRequested = true;
@@ -856,6 +868,12 @@ export default class AnalyseCtrl {
     this.onToggleComputer();
     li.pubsub.emit('analysis.comp.toggle', value);
   };
+
+  ensureCevalState(shouldBeRunning: boolean) {
+    if (!this.showComputer()) this.toggleComputer();
+    if (this.ceval.enabled() !== shouldBeRunning) this.toggleCeval();
+    if (this.threatMode() && shouldBeRunning) this.toggleThreatMode();
+  }
 
   mergeAnalysisData(data: ServerEvalData): void {
     if (this.study && this.study.data.chapter.id !== data.ch) return;

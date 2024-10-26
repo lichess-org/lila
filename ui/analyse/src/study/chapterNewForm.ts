@@ -204,7 +204,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                           'compiled/lishogi.editor' + ($('body').data('dev') ? '' : '.min') + '.js'
                         ),
                         xhr.json(
-                          xhr.url('/editor.json', {
+                          xhr.urlWithParams('/editor.json', {
                             sfen: ctrl.root.node.sfen,
                           })
                         ),

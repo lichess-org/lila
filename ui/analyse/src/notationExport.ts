@@ -1,6 +1,6 @@
 import { defined } from 'common/common';
-import { makeCsaHeader, makeCsaMoveOrDrop } from 'shogiops/notation/csa/csa';
-import { makeKifHeader, makeKifMoveOrDrop } from 'shogiops/notation/kif/kif';
+import { makeCsaHeader, makeCsaMoveOrDrop } from 'shogiops/notation/csa';
+import { makeKifHeader, makeKifMoveOrDrop } from 'shogiops/notation/kif';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
 import { Square } from 'shogiops/types';
 import { parseUsi } from 'shogiops/util';
@@ -10,6 +10,8 @@ import { ops as treeOps } from 'tree';
 import { renderTime } from './clocks';
 import AnalyseCtrl from './ctrl';
 import { isHandicap } from 'shogiops/handicaps';
+import { analysis } from 'common/links';
+import { baseUrl } from './util';
 
 function makeKifTime(moveTime: number, totalTime: number): string {
   return '   (' + renderTime(moveTime, false) + '/' + renderTime(totalTime, true) + ')';
@@ -225,4 +227,20 @@ export function renderFullCsa(ctrl: AnalyseCtrl): string {
   const pos = parseSfen('standard', g.initialSfen ?? initialSfen('standard'), false).unwrap();
   const moves = makeCsaMainline(ctrl.tree.root, pos).join('\n');
   return [...tags, makeCsaHeader(pos), moves].join('\n');
+}
+
+export function renderUrlUsiLine(ctrl: AnalyseCtrl): string {
+  return (
+    baseUrl() +
+    analysis(
+      ctrl.data.game.variant.key,
+      ctrl.data.game.initialSfen ?? initialSfen(ctrl.data.game.variant.key),
+      treeOps
+        .mainlineNodeList(ctrl.tree.root)
+        .map(n => n.usi || '')
+        .filter(n => !!n),
+      ctrl.bottomColor(),
+      ctrl.node.ply !== 0 ? ctrl.node.ply : undefined
+    )
+  );
 }

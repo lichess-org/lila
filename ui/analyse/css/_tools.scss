@@ -1,6 +1,13 @@
+%border-bottom-active {
+  border-bottom: $border;
+  @include breakpoint($mq-col2-uniboard) {
+    border-bottom: 3px solid $c-secondary;
+  }
+}
+
 .analyse {
   &__tools {
-    @extend %box-shadow, %flex-column;
+    @extend %box-neat-force, %flex-column;
     max-height: 100vh; /* magically fixes fit-content on safari 10 */
     background: $c-bg-box;
     .ceval {
@@ -38,7 +45,7 @@
     .status {
       font-size: 1em;
       font-style: italic;
-      padding: 12px 0;
+      padding: 12px 3px;
     }
   }
 

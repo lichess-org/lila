@@ -18,6 +18,9 @@
       margin-right: 0.3em;
       vertical-align: middle;
     }
+    .index {
+      margin-right: 2px;
+    }
   }
   .downloads {
     @extend %flex-around;

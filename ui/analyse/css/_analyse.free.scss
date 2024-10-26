@@ -60,6 +60,19 @@
       overflow-x: hidden;
     }
   }
+  .url {
+    margin: 2em 0;
+    .form-help {
+      @include hand-width(margin-left);
+      font-size: 90%;
+      margin-top: 0.25rem;
+      color: $c-font-dim;
+      .error {
+        color: $c-bad;
+        margin-left: 2rem;
+      }
+    }
+  }
 }
 
 .mselect {

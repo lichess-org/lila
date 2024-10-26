@@ -193,6 +193,37 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           ]),
         ])
       : null,
+    h('div.url', [
+      h('div.pair', [
+        h('label.name', 'URL'),
+        h('input.copyable.autoselect', {
+          attrs: { spellCheck: false },
+          hook: {
+            ...onInsert(el => {
+              (el as HTMLTextAreaElement).value = defined(ctrl.urlInput)
+                ? ctrl.urlInput
+                : notationExport.renderUrlUsiLine(ctrl);
+              el.addEventListener('input', e => (ctrl.urlInput = (e.target as HTMLTextAreaElement).value));
+            }),
+            postpatch: (_, vnode) => {
+              (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.urlInput)
+                ? ctrl.urlInput
+                : notationExport.renderUrlUsiLine(ctrl);
+            },
+          },
+        }),
+      ]),
+      h(
+        'div.form-help.text',
+        {
+          attrs: { 'data-icon': '' },
+        },
+        [
+          ctrl.trans.noarg('shareMainlineUrl'),
+          ctrl.mainline.length > 300 ? h('span.error', 'MAX: ' + ctrl.trans('nbMoves', 300)) : null,
+        ]
+      ),
+    ]),
   ]);
 }
 
@@ -270,8 +301,8 @@ function controls(ctrl: AnalyseCtrl) {
                       title: noarg('practiceWithComputer'),
                       'data-act': 'practice',
                       'data-icon': '',
-                      hidden: menuIsOpen || !!ctrl.retro,
-                      disabled: !(ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()),
+                      hidden: !!ctrl.retro,
+                      disabled: menuIsOpen || !(ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()),
                     },
                     class: {
                       active: !!ctrl.practice,
@@ -280,10 +311,10 @@ function controls(ctrl: AnalyseCtrl) {
                 ]
           ),
       h('div.jumps', [
-        jumpButton('W', 'first', canJumpPrev),
+        !ctrl.embed ? jumpButton('W', 'first', canJumpPrev) : undefined,
         jumpButton('Y', 'prev', canJumpPrev),
         jumpButton('X', 'next', canJumpNext),
-        jumpButton('V', 'last', canJumpNext),
+        !ctrl.embed ? jumpButton('V', 'last', canJumpNext) : undefined,
       ]),
       ctrl.studyPractice
         ? h('div.noop')

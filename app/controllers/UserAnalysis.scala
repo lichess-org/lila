@@ -1,8 +1,8 @@
 package controllers
 
-import shogi.format.forsyth.Sfen.SituationPlus
 import shogi.format.forsyth.Sfen
-import shogi.Situation
+import shogi.format.usi.Usi
+import shogi.format.Reader
 import shogi.variant.{ Standard, Variant }
 import play.api.libs.json.Json
 import play.api.mvc._
@@ -41,7 +41,8 @@ final class UserAnalysis(
         .decodeUriPath(urlSfen)
         .filter(_.trim.nonEmpty)
         .orElse(get("sfen")) map Sfen.clean
-      val pov         = makePov(decodedSfen, variant)
+      val usis        = get("moves").flatMap(ms => Usi.readList(ms.split('_').toList.take(300)))
+      val pov         = usis.fold(makePov(decodedSfen, variant))(makePovWithUsis(decodedSfen, variant, _))
       val orientation = get("color").flatMap(shogi.Color.fromName) | pov.color
       env.api.roundApi
         .userAnalysisJson(
@@ -56,23 +57,35 @@ final class UserAnalysis(
     }
 
   private[controllers] def makePov(sfen: Option[Sfen], variant: Variant, imported: Boolean = false): Pov = {
-    val sitFrom = sfen.filter(_.value.nonEmpty).flatMap {
-      _.toSituationPlus(variant)
-    } | SituationPlus(Situation(variant), 1)
-    makePov(sitFrom, imported)
+    val g = shogi.Game(sfen, variant)
+    makePovWithShogi(g, g.toSfen.some, imported)
   }
 
-  private[controllers] def makePov(from: SituationPlus, imported: Boolean): Pov =
+  private def makePovWithUsis(
+      sfen: Option[Sfen],
+      variant: Variant,
+      usis: List[Usi],
+      imported: Boolean = false
+  ): Pov =
+    makePovWithShogi(
+      shogi.Replay(
+        usis = usis,
+        initialSfen = sfen,
+        variant = variant
+      ) match {
+        case Reader.Result.Complete(replay)      => replay.state
+        case Reader.Result.Incomplete(replay, _) => replay.state
+      },
+      sfen.flatMap(sf => sf.toSituationPlus(variant).map(_.toSfen)),
+      imported
+    )
+
+  private def makePovWithShogi(shogiGame: shogi.Game, initialSfen: Option[Sfen], imported: Boolean): Pov =
     Pov(
       lila.game.Game
         .make(
-          shogi = shogi.Game(
-            situation = from.situation,
-            plies = from.plies,
-            startedAtPly = from.plies,
-            startedAtStep = from.stepNumber
-          ),
-          initialSfen = Some(from.toSfen),
+          shogi = shogiGame,
+          initialSfen = initialSfen,
           sentePlayer = lila.game.Player.make(shogi.Sente),
           gotePlayer = lila.game.Player.make(shogi.Gote),
           mode = shogi.Mode.Casual,
@@ -80,7 +93,7 @@ final class UserAnalysis(
           notationImport = None
         )
         .withId("synthetic"),
-      from.situation.color
+      initialSfen.flatMap(_.color) | shogi.Color.Sente
     )
 
   def game(id: String, color: String) =
