@@ -12,6 +12,7 @@ import { ServerEvalCtrl } from './serverEval';
 import { StudyChaptersCtrl } from './studyChapters';
 import { GlyphCtrl } from './studyGlyph';
 import { TopicsCtrl } from './topics';
+import { StoredProp } from 'common/storage';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -69,7 +70,7 @@ export interface StudyVm {
   nextChapterId?: string;
   justSetChapterId?: string;
   tab: Prop<Tab>;
-  toolTab: Prop<ToolTab>;
+  toolTab: StoredProp<ToolTab>;
   chapterId: string;
   mode: {
     sticky: boolean;

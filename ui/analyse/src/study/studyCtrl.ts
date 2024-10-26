@@ -1,6 +1,7 @@
 import { prop } from 'common/common';
 import { makeNotation } from 'common/notation';
 import throttle from 'common/throttle';
+import { storedProp } from 'common/storage';
 import { path as treePath } from 'tree';
 import AnalyseCtrl from '../ctrl';
 import { CommentForm, ctrl as commentFormCtrl } from './commentForm';
@@ -41,7 +42,7 @@ export default function (
     return {
       loading: false,
       tab: prop<Tab>(data.chapters.length > 1 ? 'chapters' : 'members'),
-      toolTab: prop<ToolTab>('tags'),
+      toolTab: storedProp<ToolTab>('toolTab', 'tags'),
       chapterId: sticked ? data.position.chapterId : data.chapter.id,
       // path is at ctrl.path
       mode: {
