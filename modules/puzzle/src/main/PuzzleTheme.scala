@@ -15,7 +15,7 @@ object PuzzleTheme:
 
   case class WithCount(theme: PuzzleTheme, count: Int)
 
-  val healthyMix    = PuzzleTheme(i.healthyMix, i.healthyMixDescription)
+  val mix           = PuzzleTheme(i.mix, i.mixDescription)
   val advancedPawn  = PuzzleTheme(i.advancedPawn, i.advancedPawnDescription)
   val advantage     = PuzzleTheme(i.advantage, i.advantageDescription)
   val anastasiaMate = PuzzleTheme(i.anastasiaMate, i.anastasiaMateDescription)
@@ -85,7 +85,7 @@ object PuzzleTheme:
 
   val categorized = List[(I18nKey, List[PuzzleTheme])](
     I18nKey.puzzle.recommended -> List(
-      healthyMix
+      mix
     ),
     I18nKey.puzzle.phases -> List(
       opening,
@@ -233,10 +233,10 @@ object PuzzleTheme:
     theme.key -> id
   }.toMap
 
-  def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, healthyMix)
+  def apply(key: Key): PuzzleTheme = byKey.getOrElse(key, mix)
 
   def find(key: String) = byLowerKey.get(key.toLowerCase)
 
-  def findOrMix(key: String) = find(key) | healthyMix
+  def findOrMix(key: String) = find(key) | mix
 
   def findDynamic(key: String) = find(key).filterNot(t => staticThemes(t.key))

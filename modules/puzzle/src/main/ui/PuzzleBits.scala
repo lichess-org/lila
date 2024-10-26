@@ -16,7 +16,7 @@ final class PuzzleBits(helpers: Helpers):
     chessgroundMini(fen, p.color, lastMove.some)(span)
 
   lazy val jsonThemes = PuzzleTheme.visible
-    .collect { case t if t != PuzzleTheme.healthyMix => t.key }
+    .collect { case t if t != PuzzleTheme.mix => t.key }
     .partition(PuzzleTheme.staticThemes.contains) match
     case (static, dynamic) =>
       Json.obj(

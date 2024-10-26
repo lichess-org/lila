@@ -104,7 +104,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       div(cls := s"puzzle-themes__list ${cat.value.replace(":", "-")}")(
         themes.map: pt =>
           val url =
-            if pt.theme == PuzzleTheme.healthyMix then routes.Puzzle.home
+            if pt.theme == PuzzleTheme.mix then routes.Puzzle.home
             else routes.Puzzle.show(pt.theme.key.value)
           a(
             cls  := "puzzle-themes__link",

@@ -39,4 +39,4 @@ final private class PuzzleCountApi(
           colls
             .puzzle(_.countAll)
             .map: all =>
-              themed.toMap + (PuzzleTheme.healthyMix.key -> all.toInt)
+              themed.toMap + (PuzzleTheme.mix.key -> all.toInt)
