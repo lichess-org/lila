@@ -15,11 +15,7 @@ import lila.user.{ Title, User }
 trait GameHelper {
   self: I18nHelper with UserHelper with StringHelper with ShogigroundHelper with ColorNameHelper =>
 
-  private val dataLive    = attr("data-live")
-  private val dataColor   = attr("data-color")
-  private val dataSfen    = attr("data-sfen")
-  private val dataLastUsi = attr("data-lastmove")
-  private val dataVariant = attr("data-variant")
+  private val dataLive = attr("data-live")
 
   def netBaseUrl: String
   def cdnUrl(path: String): String

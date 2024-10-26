@@ -360,6 +360,7 @@
       var ground = $this.data('shogiground');
       var playable = !!$this.data('playable');
       var resizable = !!$this.data('resizable');
+      var noHands = !!$this.data('no-hands');
       var variant = $this.data('variant') || 'standard';
       var sfen = $this.data('sfen') || lishogi.readServerSfen($this.data('z'));
       var splitSfen = sfen.split(' ');
@@ -377,7 +378,7 @@
         resizable: resizable,
         sfen: { board: splitSfen[0], hands: splitSfen[2] },
         hands: {
-          inlined: variant !== 'chushogi',
+          inlined: !noHands && variant !== 'chushogi',
           roles: handRoles,
         },
         lastDests: lastDests,

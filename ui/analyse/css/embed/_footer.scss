@@ -1,10 +1,8 @@
 footer {
-  @extend %flex-center-nowrap;
+  @extend %flex-center-nowrap, %box-radius-bottom;
   font-size: 0.9em;
-  border: $border;
-  height: 2.5rem;
+  height: 3rem;
   padding: 0 1vw;
-  background: $c-bg-zebra;
   position: fixed;
   left: 0;
   right: 0;

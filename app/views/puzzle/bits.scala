@@ -12,8 +12,6 @@ import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
 
 object bits {
 
-  private val dataLastUsi = attr("data-lastmove")
-
   def miniTag(sfen: shogi.format.forsyth.Sfen, color: shogi.Color = shogi.Sente, lastUsi: String = "")(
       tag: Tag
   ): Tag =

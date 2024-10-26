@@ -147,12 +147,12 @@
   @extend %video;
   position: relative;
   height: 0;
-  padding-bottom: 56.25%;
+  padding-bottom: calc(56.25% + 3rem);
 }
 
 %game-embed {
   @include breakpoint($mq-not-xx-small) {
-    padding-bottom: calc(180% + 2.5rem);
+    padding-bottom: calc(170% + 3rem);
   }
 }
 

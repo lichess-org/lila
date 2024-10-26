@@ -2,10 +2,6 @@
 
 $mq-col1: 9999px;
 
-%border-bottom-active {
-  border-bottom: 3px solid $c-secondary;
-}
-
 @import '../tools';
 @import '../action-menu';
 @import '../controls';
@@ -13,10 +9,17 @@ $mq-col1: 9999px;
 @import 'footer';
 @import 'not-found';
 
+html {
+  background: $c-bg-zebra;
+  overflow: hidden;
+}
 body {
-  overflow-y: auto;
-  background: $c-bg-box;
-  border: $border;
+  overflow-y: hidden;
+  background: none;
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-corner {
+    background: $c-bg-zebra;
+  }
 }
 
 .chapter-name {
@@ -27,15 +30,46 @@ body {
   text-align: center;
 }
 
-.analyse__moves {
-  border-top: unset;
+.analyse__tools {
+  background: none;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
 }
-.analyse__moves,
+
+.analyse__moves {
+  .tview2-column > index {
+    background: none;
+  }
+}
 .analyse__controls {
-  border-left: $border;
+  overflow: hidden;
+  background: none;
+  border-top: $border;
+  border-bottom: $border;
+  .jumps .fbt {
+    border-right: $border;
+  }
+  .fbt {
+    border-radius: 0;
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+  }
 }
 
 sg-board {
   border-radius: 0;
   box-shadow: none;
+}
+
+@media (min-width: 400px) and (min-aspect-ratio: 1/1) {
+  .analyse__moves {
+    border-top: unset;
+    border-left: $border;
+  }
+  .analyse__controls {
+    border-bottom-left-radius: $box-radius-size;
+    border-left: $border;
+  }
 }

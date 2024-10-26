@@ -27,6 +27,8 @@ trait ScalatagsAttrs {
   val dataColor        = attr("data-color")
   val dataSfen         = attr("data-sfen")
   val dataVariant      = attr("data-variant")
+  val dataLastUsi      = attr("data-lastmove")
+  val dataNoHands      = attr("data-no-hands")
   val dataRel          = attr("data-rel")
   val novalidate       = attr("novalidate").empty
   val datetimeAttr     = attr("datetime")
