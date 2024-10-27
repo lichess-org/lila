@@ -8,17 +8,17 @@ import { quantize } from './algo.ts';
 const syncWatch: fs.FSWatcher[] = [];
 let watchTimeout: NodeJS.Timeout | undefined;
 
-export function stopCopies(): void {
+export function stopSync(): void {
   clearTimeout(watchTimeout);
   watchTimeout = undefined;
   for (const watcher of syncWatch) watcher.close();
   syncWatch.length = 0;
 }
 
-export async function copies(): Promise<void> {
-  if (!env.copies) return;
-  const updated = new Set<string>();
+export async function sync(): Promise<void> {
+  if (!env.sync) return;
   const watched = new Map<string, Sync[]>();
+  const updated = new Set<string>();
 
   for (const pkg of env.building) {
     for (const cp of pkg.sync ?? []) {

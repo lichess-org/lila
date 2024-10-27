@@ -5,7 +5,7 @@ import { parsePackages } from './parse.ts';
 import { tsc, stopTsc } from './tsc.ts';
 import { sass, stopSass } from './sass.ts';
 import { esbuild, stopEsbuild } from './esbuild.ts';
-import { copies, stopCopies } from './copies.ts';
+import { sync, stopSync } from './sync.ts';
 import { monitor, stopMonitor } from './monitor.ts';
 import { writeManifest } from './manifest.ts';
 import { clean } from './clean.ts';
@@ -38,7 +38,7 @@ export async function build(pkgs: string[]): Promise<void> {
     fs.promises.mkdir(env.buildTempDir),
   ]);
 
-  await Promise.all([sass(), copies(), i18n()]);
+  await Promise.all([sass(), sync(), i18n()]);
   await esbuild(tsc());
   monitor(pkgs);
 }
@@ -47,7 +47,7 @@ export async function stop(): Promise<void> {
   stopMonitor();
   stopSass();
   stopTsc();
-  stopCopies();
+  stopSync();
   stopI18n();
   await stopEsbuild();
 }
