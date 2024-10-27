@@ -20,9 +20,9 @@ object RatingCalculator:
     (ratingDeviation / MULTIPLIER)
 
 final class RatingCalculator(
-    advantage: Double = 0.0d,
     tau: Double = 0.75d,
-    ratingPeriodsPerDay: Double = 0
+    ratingPeriodsPerDay: Double = 0,
+    advantage: Double = 0
 ):
 
   import RatingCalculator.*

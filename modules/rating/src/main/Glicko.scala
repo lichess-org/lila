@@ -78,7 +78,7 @@ object Glicko:
 
   val tau                           = 0.75d
   val system                        = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
-  def calculator(advantage: Double) = glicko2.RatingCalculator(advantage, tau, ratingPeriodsPerDay)
+  def calculator(advantage: Double) = glicko2.RatingCalculator(tau, ratingPeriodsPerDay, advantage)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
     system.previewDeviation(p.toRating, nowInstant, reverse)
