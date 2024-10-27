@@ -16,7 +16,8 @@ class BinaryResult(first: Rating, second: Rating, score: Boolean) extends Result
   private val POINTS_FOR_WIN  = 1.0d
   private val POINTS_FOR_LOSS = 0.0d
 
-  def getAdvantage(advantage: Double, p: Rating) = 0.0d
+  def getAdvantage(advantage: Double, player: Rating) =
+    if player == first then advantage / 2.0d else -advantage / 2.0d
 
   def getScore(p: Rating) = if p == first then if score then POINTS_FOR_WIN else POINTS_FOR_LOSS
   else if score then POINTS_FOR_LOSS
