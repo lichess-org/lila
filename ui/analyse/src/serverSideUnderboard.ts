@@ -118,9 +118,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
-    $panels.find('form.future-game-analysis').on('submit', async function (this: HTMLFormElement, e: Event) {
+    $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
-        e.preventDefault();
         confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signIn, i18n.site.cancel).then(yes => {
           if (yes) location.href = '/login?referrer=' + window.location.pathname;
         });
@@ -129,11 +128,12 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
         else
-          res.text().then(t => {
-            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t).then(site.reload);
+          res.text().then(async t => {
+            if (t && !t.startsWith('<!DOCTYPE html>')) await alert(t);
+            site.reload();
           });
       });
-      return true;
+      return false;
     });
   }
 
