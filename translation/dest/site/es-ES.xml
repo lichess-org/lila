@@ -994,4 +994,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
 Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
+  <string name="stats">Estadísticas</string>
 </resources>

@@ -141,10 +141,6 @@ object Report:
         (isOnline.so(1000)) +
         (report.closed.so(-999999))
 
-  case class ByAndAbout(by: List[Report], about: List[Report]):
-    def all     = by ::: about
-    def userIds = all.flatMap(_.userIds)
-
   case class Candidate(
       reporter: Reporter,
       suspect: Suspect,

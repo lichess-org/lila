@@ -995,4 +995,5 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
 Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
+  <string name="stats">Estatísticas</string>
 </resources>

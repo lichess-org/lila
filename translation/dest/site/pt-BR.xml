@@ -993,4 +993,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="showMeEverything">Mostrar tudo</string>
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
+  <string name="stats">Estatísticas</string>
 </resources>

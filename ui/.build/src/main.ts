@@ -10,7 +10,7 @@ const args: Record<string, string> = {
   '--tsc': '',
   '--sass': '',
   '--esbuild': '',
-  '--copies': '',
+  '--sync': '',
   '--i18n': '',
   '--no-color': '',
   '--no-time': '',
@@ -48,13 +48,13 @@ export function main(): void {
     .filter(x => x.startsWith('--') && !Object.keys(args).includes(x.split('=')[0]))
     .forEach(arg => env.exit(`Unknown argument '${arg}'`));
 
-  if (['--tsc', '--sass', '--esbuild', '--copies', '--i18n'].filter(x => argv.includes(x)).length) {
+  if (['--tsc', '--sass', '--esbuild', '--sync', '--i18n'].filter(x => argv.includes(x)).length) {
     // including one or more of these disables the others
     if (!argv.includes('--sass')) env.exitCode.set('sass', false);
     if (!argv.includes('--tsc')) env.exitCode.set('tsc', false);
     if (!argv.includes('--esbuild')) env.exitCode.set('esbuild', false);
     env.i18n = argv.includes('--i18n');
-    env.copies = argv.includes('--copies');
+    env.sync = argv.includes('--sync');
   }
   if (argv.includes('--no-color')) env.color = undefined;
   if (argv.includes('--no-time')) env.logTime = false;
@@ -134,7 +134,7 @@ class Env {
   remoteLog: string | boolean = false;
   rgb = false;
   install = true;
-  copies = true;
+  sync = true;
   i18n = true;
   exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
@@ -147,7 +147,6 @@ class Env {
     esbuild: 'blue',
   };
 
-  constructor() {}
   get sass(): boolean {
     return this.exitCode.get('sass') !== false;
   }
@@ -256,9 +255,7 @@ class Env {
       this.log(
         `${code === 0 ? 'Done' : colors.red('Failed')}` +
           (this.watch ? ` - ${colors.grey('Watching')}...` : ''),
-        {
-          ctx: ctx,
-        },
+        { ctx },
       );
     if (allDone) {
       if (!err) postBuild();
@@ -266,9 +263,7 @@ class Env {
         this.log(`Done in ${colors.green((Date.now() - this.startTime) / 1000 + '')}s`);
       this.startTime = undefined; // it's pointless to time subsequent builds, they are too fast
     }
-    if (!env.watch && err) {
-      process.exitCode = err;
-    }
+    if (!env.watch && err) process.exitCode = err;
   }
 }
 

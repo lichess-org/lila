@@ -28,7 +28,7 @@
   <string name="cantClearHistory">امکان پاک کردن پیشینه بازی‌ها، پیشینه معماها یا درجه‌بندی وجود ندارد.</string>
   <string name="wantReport">می‌خواهم یک کاربر را گزارش کنم</string>
   <string name="toReportAPlayerUseForm">برای گزارش کردنِ یک کاربر، از فرم گزارش استفاده کنید</string>
-  <string name="youCanAlsoReachReportPage">همچنین می‌توانید با زدن روی دکمه گزارش %s در یک صفحه رُخ‌نما، به آن صفحه برسید.</string>
+  <string name="youCanAlsoReachReportPage">همچنین می‌توانید با زدن روی دکمهٔ گزارش %s در یک صفحهٔ رُخ‌نما، به آن صفحه برسید.</string>
   <string name="doNotReportInForum">در تالار گفت و گو کاربرها را گزارش نکنید.</string>
   <string name="doNotSendReportEmails">از ارسال رایانامه به ما برای گزارش خودداری کنید.</string>
   <string name="doNotMessageModerators">لطفا پیام مستقیم به مدیران سایت نفرستید.</string>

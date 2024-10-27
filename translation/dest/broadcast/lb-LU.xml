@@ -21,7 +21,6 @@
   <string name="sourceGameIds">Bis zu 64 Lichess-Partie-IDen, duerch Espacë getrennt.</string>
   <string name="startDateTimeZone">Startdatum vum Turnéier an der lokaler Zäitzon: %s</string>
   <string name="startDateHelp">Optional, wann du wees wéini den Turnéier ufänkt</string>
-  <string name="credits">Quell kreditéieren</string>
   <string name="currentGameUrl">URL vun der aktueller Partie</string>
   <string name="downloadAllRounds">All Ronnen eroflueden</string>
   <string name="resetRound">Ronn zerécksetzen</string>

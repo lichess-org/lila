@@ -31,6 +31,17 @@ export function toggle(t: ToggleSettings, redraw: () => void): VNode {
   );
 }
 
+export function toggleBoxInit(): void {
+  $('.toggle-box--toggle:not(.toggle-box--ready)').each(function (this: HTMLFieldSetElement) {
+    const toggle = () => this.classList.toggle('toggle-box--toggle-off');
+    $(this)
+      .addClass('toggle-box--ready')
+      .children('legend')
+      .on('click', toggle)
+      .on('keypress', e => e.key == 'Enter' && toggle());
+  });
+}
+
 export function rangeConfig(read: () => number, write: (value: number) => void): Hooks {
   return {
     insert: (v: VNode) => {

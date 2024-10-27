@@ -63,26 +63,25 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="myTournaments">Mis torneos</string>
   <string name="editTournament">Editar torneo</string>
   <string name="editTeamBattle">Editar batalla de equipo</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Defensor</string>
+  <string name="defender">Defensor</string>
   <string name="pickYourTeam">Elige tu equipo</string>
   <string name="whichTeamWillYouRepresentInThisBattle">¿A qué equipo representarás en esta batalla?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">¡Debes unirte a uno de estos equipos para participar!</string>
   <string name="created">Creado</string>
   <string name="recentlyPlayed">Jugado recientemente</string>
   <string name="bestResults">Mejores resultados</string>
-  <string name="stats">Estadísticas</string>
   <string name="tournamentStats">Estadísticas del torneo</string>
   <string name="rankAvgHelp">El promedio de clasificación es un porcentaje de tu clasificación. Más bajo es mejor.
 
 Por ejemplo, ocupar el puesto 3 en un torneo de 100 jugadores = 3%. Estar en el puesto 10 en un torneo de 1000 jugadores = 1%.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medianas</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Todos los promedios en esta página son %s.</string>
+  <string name="medians">medianas</string>
+  <string name="allAveragesAreX">Todos los promedios en esta página son %s.</string>
   <string name="total">Total</string>
-  <string name="pointsAvg" comment="The average number of points the player has attained across all the arena tournaments they have played. Players only earn points if they win or draw.&#10;&#10;&#10;See https://lichess.org/@/Assios/tournaments/chart for an example.&#10;&#10;For a practical illustration - bullet and ultrabullet lead to more games being played, so the points average will be higher for those variants.">Promedio de puntos</string>
-  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Suma de puntos</string>
-  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Promedio de clasificación</string>
+  <string name="pointsAvg">Promedio de puntos</string>
+  <string name="pointsSum">Suma de puntos</string>
+  <string name="rankAvg">Promedio de clasificación</string>
   <string name="tournamentWinners">Ganadores del torneo</string>
   <string name="tournamentShields">Escudos de torneo</string>
   <string name="onlyTitled">Solo jugadores titulados</string>
-  <string name="onlyTitledHelp" comment="This is a checkbox when you create a tournament, so &quot;require&quot; should be written as a verb.&#10;&#10;It is not a description for users but for the tournament's creator, when filling in the tournament creation form.">Exigir un título oficial para participar en el torneo</string>
+  <string name="onlyTitledHelp">Exigir un título oficial para participar en el torneo</string>
 </resources>

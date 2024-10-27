@@ -57,8 +57,15 @@
   }
 }
 .mod-timeline__event__action {
+  @extend %flex-center;
   flex: 0 0 auto;
-  white-space: nowrap;
+  gap: 1ch;
+}
+.mod-timeline__report-form .button {
+  line-height: 1.2;
+}
+.mod-timeline__report-form:not(.mod-timeline__report-form--open) .button {
+  @extend %button-none;
 }
 .mod-timeline__text {
   @extend %break-word-hard;

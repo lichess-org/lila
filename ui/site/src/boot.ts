@@ -15,6 +15,7 @@ import { dispatchChessgroundResize } from 'common/resize';
 import { userComplete } from 'common/userComplete';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
+import { toggleBoxInit } from 'common/controls';
 
 export function boot() {
   $('#user_tag').removeAttr('href');
@@ -28,6 +29,7 @@ export function boot() {
     pubsub.on('content-loaded', initMiniGames);
     updateTimeAgo(1000);
     pubsub.on('content-loaded', renderTimeAgo);
+    pubsub.on('content-loaded', toggleBoxInit);
   });
   requestIdleCallback(() => {
     const friendsEl = document.getElementById('friend_box');
@@ -114,13 +116,7 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.toggle-box--toggle').each(function (this: HTMLFieldSetElement) {
-      const toggle = () => this.classList.toggle('toggle-box--toggle-off');
-      $(this)
-        .children('legend')
-        .on('click', toggle)
-        .on('keypress', e => e.key == 'Enter' && toggle());
-    });
+    toggleBoxInit();
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 

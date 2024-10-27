@@ -98,31 +98,35 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     yield ()
 
   private object playersFromHttpFile:
-    def apply(): Funit =
-      ws.url(listUrl)
-        .stream()
-        .flatMap:
-          case res if res.status == 200 =>
-            val startAt = nowInstant
-            ZipInputStreamSource: () =>
-              ZipInputStream(res.bodyAsSource.runWith(StreamConverters.asInputStream()))
-            .map(_._2)
-              .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
-              .map(_.utf8String)
-              .drop(1) // first line is a header
-              .map(parseLine)
-              .mapConcat(_.toList)
-              .grouped(100)
-              .mapAsync(1)(upsert)
-              .runWith(lila.common.LilaStream.sinkCount)
-              .monSuccess(_.fideSync.time)
-              .flatMap: nb =>
-                lila.mon.fideSync.players.update(nb)
-                setDeletedFlags(startAt).map: deleted =>
-                  lila.mon.fideSync.deleted.update(deleted)
-                  logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
-
-          case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
+    def apply(): Funit = for
+      httpStream <- ws.url(listUrl).stream()
+      _ <-
+        if httpStream.status != 200 then
+          fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
+        else
+          val startAt = nowInstant
+          for
+            nbUpdated <-
+              ZipInputStreamSource: () =>
+                ZipInputStream(httpStream.bodyAsSource.runWith(StreamConverters.asInputStream()))
+              .map(_._2)
+                .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
+                .map(_.utf8String)
+                .drop(1) // first line is a header
+                .map(parseLine)
+                .mapConcat(_.toList)
+                .grouped(100) // only read 100 docs from mongodb sec
+                .mapAsync(1)(saveIfChanged)
+                .runWith(lila.common.LilaStream.sinkSum)
+                .monSuccess(_.fideSync.time)
+            _ = lila.mon.fideSync.updated.update(nbUpdated)
+            nbAll <- repo.player.countAll
+            _ = lila.mon.fideSync.players.update(nbAll)
+            nbDeleted <- setDeletedFlags(startAt)
+          yield
+            lila.mon.fideSync.deleted.update(nbDeleted)
+            logger.info(s"RelayFidePlayerApi.update upserted: $nbUpdated, deleted: $nbDeleted")
+    yield ()
 
     /*
   6502938        Acevedo Mendez, Lisseth                                      ISL F   WIM  WIM                     1795  0   20 1767  14  20 1740  0   20 1993  w
@@ -161,17 +165,24 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         fetchedAt = nowInstant
       )
 
-    private def upsert(ps: Seq[FidePlayer]) =
-      val update = repo.playerColl.update(ordered = false)
-      for
-        elements <- ps.toList.sequentially: p =>
-          update.element(
-            q = $id(p.id),
-            u = repo.player.handler.writeOpt(p).get,
-            upsert = true
-          )
-        _ <- elements.nonEmpty.so(update.many(elements).void)
-      yield ()
+    private def saveIfChanged(players: Seq[FidePlayer]): Future[Int] =
+      repo.player
+        .fetch(players.map(_.id))
+        .flatMap: inDb =>
+          val inDbMap: Map[FideId, FidePlayer] = inDb.mapBy(_.id)
+          val changed = players.filter: p =>
+            inDbMap.get(p.id).fold(true)(i => !i.isSame(p))
+          changed.nonEmpty.so:
+            val update = repo.playerColl.update(ordered = false)
+            for
+              elements <- changed.toList.sequentially: p =>
+                update.element(
+                  q = $id(p.id),
+                  u = repo.player.handler.writeOpt(p).get,
+                  upsert = true
+                )
+              _ <- elements.nonEmpty.so(update.many(elements).void)
+            yield elements.size
 
     private def setDeletedFlags(date: Instant): Fu[Int] = for
       nbDeleted <- repo.playerColl.update
