@@ -2,15 +2,15 @@ package lila.tutor
 
 class GlickoTest extends munit.FunSuite:
 
-  test("glicko for arbitrary outcomes") {
+  test("glicko for binary outcomes") {
     assertEquals(
-      TutorGlicko.scoresRating(
+      TutorGlicko.outcomesRating(
         lila.rating.Perf.default,
         List(
-          (1400, 0.8f),
-          (1700, 0.6f)
+          (1400, true),
+          (1600, false)
         )
       ),
-      1669
+      1500
     )
   }

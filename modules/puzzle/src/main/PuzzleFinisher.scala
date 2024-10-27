@@ -199,18 +199,16 @@ final private[puzzle] class PuzzleFinisher(
       if player.clueless then glicko._1
       else glicko._1.average(glicko._2, weightOf(angle, win))
 
-  private val VOLATILITY = lila.rating.Glicko.default.volatility
-  private val TAU        = 0.75d
-  private val calculator = glicko2.RatingCalculator(VOLATILITY, TAU)
+  private val calculator = lila.rating.Glicko.system
 
   def incPuzzlePlays(puzzleId: PuzzleId): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, win: PuzzleWin): Unit =
-    val results = glicko2.GameRatingPeriodResults(
+    val results = glicko2.BinaryRatingPeriodResults(
       List(
-        if win.yes then glicko2.GameResult(u1, u2, false)
-        else glicko2.GameResult(u2, u1, false)
+        if win.yes then glicko2.BinaryResult(u1, u2, false)
+        else glicko2.BinaryResult(u2, u1, false)
       )
     )
     try calculator.updateRatings(results)

@@ -35,35 +35,35 @@ final class PerfsUpdater(
               val ratingsB = mkRatings(black.perfs)
               game.ratingVariant match
                 case chess.variant.Chess960 =>
-                  updateRatings(ratingsW.chess960, ratingsB.chess960, game)
+                  updateRatings(35.0d, ratingsW.chess960, ratingsB.chess960, game)
                 case chess.variant.KingOfTheHill =>
-                  updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
+                  updateRatings(35.0d, ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
                 case chess.variant.ThreeCheck =>
-                  updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
+                  updateRatings(35.0d, ratingsW.threeCheck, ratingsB.threeCheck, game)
                 case chess.variant.Antichess =>
-                  updateRatings(ratingsW.antichess, ratingsB.antichess, game)
+                  updateRatings(35.0d, ratingsW.antichess, ratingsB.antichess, game)
                 case chess.variant.Atomic =>
-                  updateRatings(ratingsW.atomic, ratingsB.atomic, game)
+                  updateRatings(35.0d, ratingsW.atomic, ratingsB.atomic, game)
                 case chess.variant.Horde =>
-                  updateRatings(ratingsW.horde, ratingsB.horde, game)
+                  updateRatings(0.0d, ratingsW.horde, ratingsB.horde, game)
                 case chess.variant.RacingKings =>
-                  updateRatings(ratingsW.racingKings, ratingsB.racingKings, game)
+                  updateRatings(0.0d, ratingsW.racingKings, ratingsB.racingKings, game)
                 case chess.variant.Crazyhouse =>
-                  updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game)
+                  updateRatings(35.0d, ratingsW.crazyhouse, ratingsB.crazyhouse, game)
                 case chess.variant.Standard =>
                   game.speed match
                     case Speed.Bullet =>
-                      updateRatings(ratingsW.bullet, ratingsB.bullet, game)
+                      updateRatings(35.0d, ratingsW.bullet, ratingsB.bullet, game)
                     case Speed.Blitz =>
-                      updateRatings(ratingsW.blitz, ratingsB.blitz, game)
+                      updateRatings(35.0d, ratingsW.blitz, ratingsB.blitz, game)
                     case Speed.Rapid =>
-                      updateRatings(ratingsW.rapid, ratingsB.rapid, game)
+                      updateRatings(35.0d, ratingsW.rapid, ratingsB.rapid, game)
                     case Speed.Classical =>
-                      updateRatings(ratingsW.classical, ratingsB.classical, game)
+                      updateRatings(35.0d, ratingsW.classical, ratingsB.classical, game)
                     case Speed.Correspondence =>
-                      updateRatings(ratingsW.correspondence, ratingsB.correspondence, game)
+                      updateRatings(35.0d, ratingsW.correspondence, ratingsB.correspondence, game)
                     case Speed.UltraBullet =>
-                      updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
+                      updateRatings(35.0d, ratingsW.ultraBullet, ratingsB.ultraBullet, game)
                 case _ =>
               val perfsW                     = mkPerfs(ratingsW, white -> black, game)
               val perfsB                     = mkPerfs(ratingsB, black -> white, game)
@@ -123,16 +123,22 @@ final class PerfsUpdater(
       correspondence = perfs.correspondence.toRating
     )
 
-  private def updateRatings(white: glicko2.Rating, black: glicko2.Rating, game: Game): Unit =
+  private def updateRatings(
+      advantage: Double,
+      white: glicko2.Rating,
+      black: glicko2.Rating,
+      game: Game
+  ): Unit =
     val results = glicko2.GameRatingPeriodResults(
       List(
         game.winnerColor match
-          case None              => glicko2.GameResult(white, black, true)
-          case Some(chess.White) => glicko2.GameResult(white, black, false)
-          case Some(chess.Black) => glicko2.GameResult(black, white, false)
+          case Some(chess.White) => glicko2.GameResult(white, black, Some(true))
+          case Some(chess.Black) => glicko2.GameResult(black, white, Some(false))
+          case None              => glicko2.GameResult(white, black, None)
       )
     )
-    try Glicko.system.updateRatings(results, true)
+    // tuning TAU per game speed may improve accuracy
+    try Glicko.calculator(advantage).updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
   private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =

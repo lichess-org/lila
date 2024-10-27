@@ -8,5 +8,4 @@ trait RatingPeriodResults[R <: Result]():
 
 class GameRatingPeriodResults(val results: List[GameResult]) extends RatingPeriodResults[GameResult]
 
-class FloatingRatingPeriodResults(val results: List[FloatingResult])
-    extends RatingPeriodResults[FloatingResult]
+class BinaryRatingPeriodResults(val results: List[BinaryResult]) extends RatingPeriodResults[BinaryResult]

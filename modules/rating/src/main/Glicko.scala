@@ -76,8 +76,9 @@ object Glicko:
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
 
-  val tau    = 0.75d
-  val system = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
+  val tau                           = 0.75d
+  val system                        = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
+  def calculator(advantage: Double) = glicko2.RatingCalculator(advantage, tau, ratingPeriodsPerDay)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
     system.previewDeviation(p.toRating, nowInstant, reverse)
