@@ -27,7 +27,7 @@
   <string name="youPlayTheWhitePieces">Þú teflir með hvítu mennina</string>
   <string name="youPlayTheBlackPieces">Þú teflir með svörtu mennina</string>
   <string name="itsYourTurn">Þú átt leik!</string>
-  <string name="cheatDetected">Svindl greint</string>
+  <string name="cheatDetected">Svindl greindist</string>
   <string name="kingInTheCenter">Kóngur á miðborðinu</string>
   <string name="threeChecks">Þrjár skákir</string>
   <string name="raceFinished">Kapphlaupi lokið</string>
@@ -261,8 +261,8 @@
   <string name="customPosition">Sérsniðin staða</string>
   <string name="unlimited">Ótarkmarkað</string>
   <string name="mode">Tegund</string>
-  <string name="casual">Venjuleg</string>
-  <string name="rated">Stigaleikur</string>
+  <string name="casual">Æfingaskák</string>
+  <string name="rated">Stigaskák</string>
   <string name="casualTournament">Æfingamót</string>
   <string name="ratedTournament">Með stigagjöf</string>
   <string name="thisGameIsRated">Þessi skák telur til stiga</string>
@@ -361,7 +361,7 @@
   <string name="xCreatedTeamY">%1$s stofnaði liðið %2$s</string>
   <string name="startedStreaming">byrjaði að streyma</string>
   <string name="xStartedStreaming">%s byrjaði streymi</string>
-  <string name="averageElo">Meðal skákstig</string>
+  <string name="averageElo">Meðalskákstig</string>
   <string name="location">Staðsetning</string>
   <string name="filterGames">Sía skákir</string>
   <string name="reset">Hreinsa</string>
@@ -398,8 +398,8 @@
   <string name="follow">Fylgja</string>
   <string name="following">Fylgir</string>
   <string name="unfollow">Affylgja</string>
-  <string name="followX">Fylgja %s</string>
-  <string name="unfollowX">Affylgja %s</string>
+  <string name="followX">Fylgjast með %s</string>
+  <string name="unfollowX">Hætta að fylgjast með %s</string>
   <string name="block">Blokkera</string>
   <string name="blocked">Blokkaður</string>
   <string name="unblock">Afblokka</string>
@@ -492,6 +492,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Skipta sjálfkrafa yfir í næstu skák eftir leik</string>
   <string name="autoSwitch">Skipta sjálfkrafa</string>
   <string name="puzzles">Þrautir</string>
+  <string name="onlineBots">Tengdir þjarkar</string>
   <string name="name">Nafn</string>
   <string name="description">Lýsing</string>
   <string name="descPrivateHelp">Texti sem eingöngu liðsfélagar sjá. Ef texti er til staðar kemur hann í stað opinberu lýsingarinnar í sýn liðsfélaga.</string>
