@@ -89,8 +89,8 @@
   <string name="topGames">Bestu skákir</string>
   <string name="masterDbExplanation">OTB skákir %1$s+ FIDE-stiga skákmanna frá %2$s til %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mát eftir %s hálfleik</item>
-    <item quantity="other">Mát eftir %s hálfleikum</item>
+    <item quantity="one">Mát í %s hálfleik</item>
+    <item quantity="other">Mát í %s hálfleikum</item>
   </plurals>
   <string name="noGameFound">Engin skák fannst</string>
   <string name="maxDepthReached">Hámarks dýpt náð!</string>
