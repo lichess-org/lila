@@ -50,6 +50,7 @@ import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 interface GoneBerserk {
   white?: boolean;
@@ -895,9 +896,9 @@ export default class RoundController implements MoveRootCtrl {
       }
       wakeLock.request();
 
-      setTimeout(() => {
+      setTimeout(async () => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
-          alert('Play enhancement extensions are no longer allowed!');
+          await alert('Play enhancement extensions are no longer allowed!');
           site.socket.destroy();
           this.setRedirecting();
           location.href = '/page/play-extensions';

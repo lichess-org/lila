@@ -5,6 +5,7 @@ import * as sound from './sound';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 interface CtrlTeamInfo {
   requested?: string;

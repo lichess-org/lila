@@ -4,7 +4,7 @@ import { spinnerVdom as spinner } from 'common/spinner';
 import { option, emptyRedButton } from '../view/util';
 import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, ChapterPreview } from './interfaces';
 import { defined, prop } from 'common';
-import { snabDialog } from 'common/dialog';
+import { confirm, snabDialog } from 'common/dialog';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
@@ -142,8 +142,8 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         {
           hook: bind(
             'click',
-            () => {
-              if (confirm(i18n.study.clearAllCommentsInThisChapter)) ctrl.clearAnnotations(data.id);
+            async () => {
+              if (await confirm(i18n.study.clearAllCommentsInThisChapter)) ctrl.clearAnnotations(data.id);
             },
             ctrl.redraw,
           ),
@@ -156,8 +156,8 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         {
           hook: bind(
             'click',
-            () => {
-              if (confirm(i18n.study.clearVariations)) ctrl.clearVariations(data.id);
+            async () => {
+              if (await confirm(i18n.study.clearVariations)) ctrl.clearVariations(data.id);
             },
             ctrl.redraw,
           ),
@@ -172,8 +172,8 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         {
           hook: bind(
             'click',
-            () => {
-              if (confirm(i18n.study.deleteThisChapter)) ctrl.delete(data.id);
+            async () => {
+              if (await confirm(i18n.study.deleteThisChapter)) ctrl.delete(data.id);
             },
             ctrl.redraw,
           ),

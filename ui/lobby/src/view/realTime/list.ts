@@ -99,7 +99,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
         class: { stepping: ctrl.stepping },
         hook: bind(
           'click',
-          e => {
+          async e => {
             let el = e.target as HTMLElement;
             do {
               el = el.parentNode as HTMLElement;

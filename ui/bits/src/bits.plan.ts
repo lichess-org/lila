@@ -1,4 +1,5 @@
 import * as xhr from 'common/xhr';
+import { alert } from 'common/dialog';
 
 const showError = (error: string) => alert(error);
 

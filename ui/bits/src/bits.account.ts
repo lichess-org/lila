@@ -3,6 +3,8 @@ import * as xhr from 'common/xhr';
 import { storage } from 'common/storage';
 import { addPasswordVisibilityToggleListener } from 'common/password';
 import flairPickerLoader from './exports/flairPicker';
+import { confirm } from 'common/dialog';
+import { $as } from 'common';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
@@ -60,8 +62,12 @@ site.load.then(() => {
     };
     checkDanger();
     form.find('input').on('change', checkDanger);
-    submit.on('click', function (this: HTMLElement) {
-      return !isDanger || confirm(this.title);
+    submit.on('click', function (this: HTMLElement, e: Event) {
+      if (!isDanger) return true;
+      e.preventDefault();
+      confirm(this.title).then(yes => {
+        if (yes) $as<HTMLFormElement>(form).submit();
+      });
     });
   });
 
@@ -78,7 +84,10 @@ site.load.then(() => {
       clean = serialize();
     });
     window.addEventListener('beforeunload', e => {
-      if (clean != serialize() && !confirm('You have unsaved changes. Are you sure you want to leave?'))
+      if (
+        clean != serialize() &&
+        !window.confirm('You have unsaved changes. Are you sure you want to leave?')
+      )
         e.preventDefault();
     });
   });

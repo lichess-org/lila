@@ -5,7 +5,7 @@ import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
 import { AnalyseData } from './interfaces';
 import { ChartGame, AcplChart } from 'chart';
 import { stockfishName, spinnerHtml } from 'common/spinner';
-import { domDialog } from 'common/dialog';
+import { alert, confirm, domDialog } from 'common/dialog';
 import { FEN } from 'chessground/types';
 import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
@@ -118,21 +118,22 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
   }
   if (!data.analysis) {
-    $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
+    $panels.find('form.future-game-analysis').on('submit', async function (this: HTMLFormElement, e: Event) {
       if ($(this).hasClass('must-login')) {
-        if (confirm(i18n.site.youNeedAnAccountToDoThat))
-          location.href = '/login?referrer=' + window.location.pathname;
+        e.preventDefault();
+        confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signIn, i18n.site.cancel).then(yes => {
+          if (yes) location.href = '/login?referrer=' + window.location.pathname;
+        });
         return false;
       }
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
         else
           res.text().then(t => {
-            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
-            site.reload();
+            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t).then(site.reload);
           });
       });
-      return false;
+      return true;
     });
   }
 
