@@ -6,6 +6,7 @@ import scalatags.text.Builder
 import lila.ui.ScalatagsTemplate.*
 import scala.util.Try
 import play.api.i18n.Lang
+import lila.core.data.SimpleMemo
 
 trait FormHelper:
   self: I18nHelper =>
@@ -77,8 +78,7 @@ trait FormHelper:
     import java.time.{ ZoneId, ZoneOffset }
     import scala.jdk.CollectionConverters.*
 
-    // #TODO cache? ttl should be short so the offset can update during time savings
-    private def zones: List[(ZoneOffset, ZoneId)] =
+    private val zones: SimpleMemo[List[(ZoneOffset, ZoneId)]] = SimpleMemo(67.minutes.some): () =>
       val now = nowInstant
       ZoneId.getAvailableZoneIds.asScala.toList
         .flatMap: id =>
@@ -90,5 +90,7 @@ trait FormHelper:
           (offset, zone.getId)
 
     def translatedChoices(using lang: Lang): List[(String, String)] =
-      zones.map: (offset, zone) =>
-        zone.getId -> s"${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)} $offset"
+      zones
+        .get()
+        .map: (offset, zone) =>
+          zone.getId -> s"${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)} $offset"
