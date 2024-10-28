@@ -73,6 +73,10 @@ export async function alert(msg: string): Promise<void> {
   });
 }
 
+export async function alerts(msgs: string[]): Promise<void> {
+  for (const msg of msgs) await alert(msg);
+}
+
 // non-blocking window.confirm-alike
 export async function confirm(
   msg: string,

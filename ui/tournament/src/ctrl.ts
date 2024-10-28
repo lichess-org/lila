@@ -5,7 +5,7 @@ import * as sound from './sound';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
+import { alerts } from 'common/dialog';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -141,12 +141,10 @@ export default class TournamentController {
     this.focusOnMe = false;
   };
 
-  join = (team?: string) => {
+  join = async (team?: string) => {
     this.joinWithTeamSelector = false;
     if (!this.data.verdicts.accepted)
-      return this.data.verdicts.list.forEach(async v => {
-        if (v.verdict !== 'ok') await alert(v.verdict);
-      });
+      return await alerts(this.data.verdicts.list.map(v => v.verdict).filter(v => v != 'ok'));
     if (this.data.teamBattle && !team && !this.data.me) {
       this.joinWithTeamSelector = true;
     } else {
@@ -161,6 +159,7 @@ export default class TournamentController {
       this.joinSpinner = true;
       this.focusOnMe = true;
     }
+    return;
   };
 
   scrollToMe = () => this.setPage(myPage(this));
