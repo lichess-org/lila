@@ -77,7 +77,8 @@ trait FormHelper:
     import java.time.{ ZoneId, ZoneOffset }
     import scala.jdk.CollectionConverters.*
 
-    lazy val zones: List[(ZoneOffset, ZoneId)] =
+    // #TODO cache? ttl should be short so the offset can update during time savings
+    private def zones: List[(ZoneOffset, ZoneId)] =
       val now = nowInstant
       ZoneId.getAvailableZoneIds.asScala.toList
         .flatMap: id =>
@@ -87,6 +88,7 @@ trait FormHelper:
         .toList
         .sortBy: (offset, zone) =>
           (offset, zone.getId)
+
     def translatedChoices(using lang: Lang): List[(String, String)] =
       zones.map: (offset, zone) =>
         zone.getId -> s"${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)} $offset"
