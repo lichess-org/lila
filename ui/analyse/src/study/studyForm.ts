@@ -1,7 +1,7 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { prop } from 'common';
-import { snabDialog } from 'common/dialog';
+import { confirm, prompt, snabDialog } from 'common/dialog';
 import flairPickerLoader from 'bits/flairPicker';
 import { bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
@@ -254,11 +254,14 @@ export function view(ctrl: StudyForm): VNode {
                 'form',
                 {
                   attrs: { action: '/study/' + data.id + '/delete', method: 'post' },
-                  hook: bindNonPassive(
-                    'submit',
-                    _ =>
-                      isNew || prompt(i18n.study.confirmDeleteStudy(data.name))?.trim() === data.name.trim(),
-                  ),
+                  hook: bindNonPassive('submit', e => {
+                    if (isNew) return;
+
+                    e.preventDefault();
+                    prompt(i18n.study.confirmDeleteStudy(data.name)).then(userInput => {
+                      if (userInput?.trim() === data.name.trim()) (e.target as HTMLFormElement).submit();
+                    });
+                  }),
                 },
                 [h(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
               ),
@@ -267,7 +270,12 @@ export function view(ctrl: StudyForm): VNode {
                   'form',
                   {
                     attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
-                    hook: bindNonPassive('submit', _ => confirm(i18n.study.deleteTheStudyChatHistory)),
+                    hook: bindNonPassive('submit', e => {
+                      e.preventDefault();
+                      confirm(i18n.study.deleteTheStudyChatHistory).then(yes => {
+                        if (yes) (e.target as HTMLFormElement).submit();
+                      });
+                    }),
                   },
                   [h(emptyRedButton, i18n.study.clearChat)],
                 ),

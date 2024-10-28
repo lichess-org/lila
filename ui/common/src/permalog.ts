@@ -1,5 +1,6 @@
 import { objectStorage, ObjectStorage, DbInfo } from './objectStorage';
-import { alert } from './dialog';
+import { domDialog } from './dialog';
+import { escapeHtml } from './common';
 
 export const log: LichessLog = makeLog();
 
@@ -88,11 +89,21 @@ function makeLog(): LichessLog {
   window.addEventListener('error', async e => {
     const loc = e.filename ? ` - (${e.filename}:${e.lineno}:${e.colno})` : '';
     log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
-    if (site.debug) alert(`${e.message}${loc}\n${e.error?.stack ?? ''}`);
+    if (site.debug)
+      domDialog({
+        htmlText: escapeHtml(`${e.message}${loc}\n${e.error?.stack ?? ''}`),
+        class: 'debug',
+        show: true,
+      });
   });
   window.addEventListener('unhandledrejection', async e => {
     log(`${terseHref()} - ${e.reason}`);
-    if (site.debug) alert(`${e.reason}`);
+    if (site.debug)
+      domDialog({
+        htmlText: escapeHtml(e.reason),
+        class: 'debug',
+        show: true,
+      });
   });
 
   return log;
