@@ -455,10 +455,9 @@ export default class PuzzleCtrl implements ParentCtrl {
       if (this.streak && win) this.streak.onComplete(true, res.next);
     }
     this.redraw();
-    if (!next) {
-      if (!this.data.replay) {
-        alert('No more puzzles available! Try another theme.').then(() => site.redirect('/training/themes'));
-      }
+    if (!next && !this.data.replay) {
+      await alert('No more puzzles available! Try another theme.');
+      site.redirect('/training/themes');
     }
   };
 
