@@ -6,6 +6,6 @@ trait RatingPeriodResults[R <: Result]():
   def getResults(player: Rating): List[R] = results.filter(_.participated(player))
   def getParticipants: Set[Rating]        = results.flatMap(_.players).toSet
 
-class GameRatingPeriodResults(val results: List[GameResult]) extends RatingPeriodResults[GameResult]
-
 class BinaryRatingPeriodResults(val results: List[BinaryResult]) extends RatingPeriodResults[BinaryResult]
+
+class GameRatingPeriodResults(val results: List[GameResult]) extends RatingPeriodResults[GameResult]
