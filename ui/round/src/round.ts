@@ -12,7 +12,6 @@ import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
 import { pubsub } from 'common/pubsub';
-import { alert } from 'common/dialog';
 
 const patch = init([classModule, attributesModule]);
 
