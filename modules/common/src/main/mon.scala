@@ -726,4 +726,4 @@ object mon:
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
-  given Conversion[Map[String, Any], TagSet] = TagSet.from
+  private given Conversion[Map[String, Any], TagSet] = TagSet.from
