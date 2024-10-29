@@ -154,7 +154,8 @@ final class ModTimelineApi(
     else if note.text.startsWith("Appeal reply:") then false
     else true
 
-  private def filterReport(r: Report): Boolean = !r.isSpontaneous
+  private def filterReport(r: Report): Boolean =
+    !r.isSpontaneous && !r.isAppeal
 
   private object modsList:
     var all: Set[ModId]               = Set(UserId.lichess.into(ModId))
