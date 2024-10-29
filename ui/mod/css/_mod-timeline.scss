@@ -53,8 +53,9 @@
 }
 .mod-timeline__event:has(i.moderator) {
   .user-link,
-  .user-link i {
+  .user-link i.line {
     color: $c-brag;
+    opacity: 0.7;
   }
 }
 .mod-timeline__event__action {
