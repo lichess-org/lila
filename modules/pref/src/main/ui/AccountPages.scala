@@ -62,9 +62,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 ): f =>
                   form3.textarea(f)(rows := 5)
             ),
-            form3.flairPickerGroup(form("flair"), u.flair, label = trans.site.setFlair())(
-              userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
-            ):
+            form3.flairPickerGroup(form("flair"), u.flair):
               p(cls := "form-help"):
                 a(
                   href     := s"${routes.Pref.form("display")}#showFlairs",

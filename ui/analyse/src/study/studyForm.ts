@@ -123,29 +123,28 @@ export function view(ctrl: StudyForm): VNode {
         [
           h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
             h('div.form-group', [
-              h('label.form-label', 'Flair ▼'),
+              h('label.form-label', 'Flair'),
               h(
-                'details.form-control.emoji-details',
+                'div.form-control.emoji-details',
                 {
                   hook: onInsert(el => flairPickerLoader(el)),
                 },
                 [
-                  h('summary.button.button-metal.button-no-upper', [
-                    h('span.flair-container', [
-                      h('img.uflair', {
-                        attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' },
-                      }),
-                    ]),
+                  h('div.emoji-popup-button', [
+                    h(
+                      'select#study-flair.form-control',
+                      { attrs: { name: 'flair' } },
+                      data.flair && h('option', { attrs: { value: data.flair, selected: true } }),
+                    ),
+                    h('img', { attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' } }),
                   ]),
-                  h('input#study-flair', {
-                    attrs: { type: 'hidden', name: 'flair', value: data.flair || '' },
-                  }),
-                  h('div.flair-picker', {
-                    attrs: { 'data-except-emojis': 'activity.lichess' },
-                  }),
+                  h(
+                    'div.flair-picker.none',
+                    { attrs: { 'data-except-emojis': 'activity.lichess' } },
+                    h(removeEmojiButton, 'clear'),
+                  ),
                 ],
               ),
-              data.flair && h(removeEmojiButton, 'Delete'),
             ]),
             h('div.form-group', [
               h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
@@ -288,4 +287,4 @@ export function view(ctrl: StudyForm): VNode {
   });
 }
 
-const removeEmojiButton = emptyRedButton + '.text.emoji-remove';
+const removeEmojiButton = 'button.button.button-metal.emoji-remove';
