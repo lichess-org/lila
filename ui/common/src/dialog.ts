@@ -69,7 +69,7 @@ export async function alert(msg: string): Promise<void> {
   await domDialog({
     htmlText: escapeHtml(msg),
     class: 'alert',
-    show: 'modal',
+    show: true,
   });
 }
 
@@ -226,7 +226,6 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
   private actionEvents = eventJanitor();
   private dialogEvents = eventJanitor();
@@ -339,9 +338,6 @@ class DialogWrapper implements Dialog {
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    this.restore?.focus?.focus(); // one modal at a time please
-    if (this.restore?.overflow !== undefined) document.body.style.overflow = this.restore.overflow;
-    this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
     this.dialog.remove();

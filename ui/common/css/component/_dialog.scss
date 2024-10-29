@@ -1,3 +1,7 @@
+body:has(dialog.touch-scroll) {
+  overflow: hidden !important;
+}
+
 dialog {
   @extend %box-radius, %popup-shadow;
   position: fixed;
