@@ -53,9 +53,13 @@ object ModTimeline:
     case (p: PublicLine, n: PublicLine)                => PublicLine.merge(p, n)
     case (p: PlayBans, n: PlayBans)                    => PlayBans(p.list ::: n.list).some
     case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
-    case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) =>
-      p.copy(atoms = n.atoms ::: p.atoms).some
-    case _ => none
+    case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) => p.copy(atoms = n.atoms ::: p.atoms).some
+    case (p: Modlog, n: Modlog)                                   => mergeModlog(p, n)
+    case _                                                        => none
+
+  private def mergeModlog(p: Modlog, n: Modlog): Option[Modlog] =
+    (p.action == n.action && p.mod.is(n.mod)).option:
+      p.copy(details = some(List(p.details, n.details).flatten.distinct.mkString(" / ")))
 
   private def reportAtoms(report: Report): List[ReportNewAtom | PublicLine] =
     report.atoms
