@@ -7,8 +7,7 @@ import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.user.FlairApi
 import lila.ui.ScalatagsTemplate.{ *, given }
 
-final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
-
+final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: FlairApi):
   import formHelper.{ transKey, given }
 
   private val idPrefix = "form3"
@@ -246,29 +245,27 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")
-  def flairPickerGroup(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using Context): Tag =
+  def flairPickerGroup(field: Field, current: Option[Flair])(using Context): Tag =
     group(field, trans.site.flair(), half = true): f =>
-      flairPicker(f, current, label)(view)
+      flairPicker(f, current)
 
-  def flairPicker(field: Field, current: Option[Flair], label: Frag, anyFlair: Boolean = false)(view: Frag)(
-      using ctx: Context
+  def flairPicker(field: Field, current: Option[Flair], anyFlair: Boolean = false)(using
+      ctx: Context
   ): Frag =
     frag(
-      details(cls := "form-control emoji-details")(
-        summary(cls := "button button-metal button-no-upper")(
-          label,
-          ":",
-          nbsp,
-          view
+      div(cls := "form-control emoji-details")(
+        div(cls := "emoji-popup-button")(
+          st.select(st.id := id(field), name := field.name, cls := "form-control")(
+            current.map(f => option(value := f, selected := ""))
+          ),
+          img(src := current.fold("")(formHelper.flairSrc(_)))
         ),
-        hidden(field, current.map(_.value)),
         div(
-          cls := "flair-picker",
+          cls := "flair-picker none",
           (!ctx.me.exists(_.isAdmin) && !anyFlair).option(exceptEmojis)
+        )(
+          button(cls := "button button-metal emoji-remove")("clear")
         )
-      ),
-      current.isDefined.option(p:
-        button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.site.delete())
       )
     )
 

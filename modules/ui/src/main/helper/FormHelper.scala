@@ -9,7 +9,7 @@ import play.api.i18n.Lang
 import lila.core.data.SimpleMemo
 
 trait FormHelper:
-  self: I18nHelper =>
+  self: I18nHelper & AssetHelper =>
 
   protected def flairApi: lila.core.user.FlairApi
 
