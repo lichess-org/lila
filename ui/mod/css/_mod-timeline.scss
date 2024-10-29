@@ -51,7 +51,7 @@
     flex: 0 0 auto;
   }
 }
-.mod-timeline__event--modlog:has(i.moderator) {
+.mod-timeline__event:has(i.moderator) {
   .user-link,
   .user-link i {
     color: $c-brag;
