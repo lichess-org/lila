@@ -25,7 +25,6 @@
 
 .emoji-popup-button {
   position: relative;
-  width: 50px;
 
   select.form-control {
     position: absolute;
@@ -35,7 +34,7 @@
     display: none;
     position: absolute;
     pointer-events: none;
-    inset: 10px;
+    inset: 9px;
     width: 22px;
     height: 22px;
   }
