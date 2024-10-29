@@ -49,4 +49,11 @@
   <string name="ageThisYear">Bu yılki yaşı</string>
   <string name="unrated">Derecelendirilmemiş</string>
   <string name="recentTournaments">Son Turnuvalar</string>
+  <string name="openLichess">Lichess\'te aç</string>
+  <string name="teams">Takımlar</string>
+  <string name="boards">Tahtalar</string>
+  <string name="overview">Genel Bakış</string>
+  <string name="subscribeTitle">Tur başladığında bildirim almak için abone olun. Hesap tercihlerinizden anlık ya da çan bildirimi tercihinizi hesap tercihlerinizden belirleyebilirsiniz.</string>
+  <string name="uploadImage">Turnuva görseli yükleyin</string>
+  <string name="noBoardsYet">Henüz tahta bulunmamaktadır. Oyunlar yüklendikçe tahtalar ortaya çıkacaktır.</string>
 </resources>
