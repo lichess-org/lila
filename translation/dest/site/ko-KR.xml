@@ -952,4 +952,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
+  <string name="stats">통계</string>
 </resources>
