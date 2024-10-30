@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">Modstanderen har begrænsede muligheder for træk, og ethvert træk vil forværre positionen.</string>
   <string name="healthyMix">Sund blanding</string>
   <string name="healthyMixDescription">Lidt af hvert. Du kan ikke vide, hvad du skal forvente, så du skal være klar til alt! Præcis som i rigtige spil.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Sund blanding</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Lidt af hvert. Du kan ikke vide, hvad du skal forvente, så du skal være klar til alt! Præcis som i rigtige spil.</string>
   <string name="playerGames">Spiller-partier</string>
   <string name="playerGamesDescription">Find taktikopgaver lavet ud fra dine egne partier eller fra en anden spillers partier.</string>
   <string name="puzzleDownloadInformation">Disse opgaver er i offentligt domæne og kan downloades fra %s.</string>
