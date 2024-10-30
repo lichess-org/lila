@@ -34,12 +34,12 @@ final class RatingCalculator(
 
   import RatingCalculator.*
 
-  val DEFAULT_DEVIATION: Double     = 350
-  val CONVERGENCE_TOLERANCE: Double = 0.000001
-  val ITERATION_MAX: Int            = 1000
-  val DAYS_PER_MILLI: Double        = 1.0 / (1000 * 60 * 60 * 24)
+  private val DEFAULT_DEVIATION: Double     = 350
+  private val CONVERGENCE_TOLERANCE: Double = 0.000001
+  private val ITERATION_MAX: Int            = 1000
+  private val DAYS_PER_MILLI: Double        = 1.0 / (1000 * 60 * 60 * 24)
 
-  val ratingPeriodsPerMilli: Double = ratingPeriodsPerDay.value * DAYS_PER_MILLI
+  private val ratingPeriodsPerMilli: Double = ratingPeriodsPerDay.value * DAYS_PER_MILLI
 
   /** <p>Run through all players within a resultset and calculate their new ratings.</p> <p>Players within the
     * resultset who did not compete during the rating period will have see their deviation increase (in line
