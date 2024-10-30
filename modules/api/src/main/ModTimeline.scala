@@ -113,13 +113,20 @@ object ModTimeline:
     case Play
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
-      case _: PlayBans                                                        => angle != Angle.Comm
-      case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
+      case _: PlayBans                                     => angle != Angle.Comm
+      case l: Modlog if l.action == Modlog.chatTimeout     => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.deletePost      => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.disableTeam     => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.teamKick        => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.blankedPassword => angle == Angle.None
+      case l: Modlog if l.action == Modlog.weakPassword    => angle == Angle.None
       case l: Modlog if l.action == Modlog.modMessage =>
         angle match
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true
-      case _ => true
+      case r: ReportNewAtom if r.report.is(_.Comm) => angle != Angle.Play
+      case _: PublicLine                           => angle != Angle.Play
+      case _                                       => true
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,
