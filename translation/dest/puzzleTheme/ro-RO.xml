@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">Adversarul este limitat în mișcările pe care le poate face, iar toate mișcările îi înrăutățesc poziția.</string>
   <string name="healthyMix">Amestec sănătos</string>
   <string name="healthyMixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Amestec sănătos</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
   <string name="playerGames">Partide jucători</string>
   <string name="playerGamesDescription">Caută puzzle-uri generate din partidele tale sau din partidele unui alt jucător.</string>
   <string name="puzzleDownloadInformation">Aceste puzzle-uri sunt în domeniul public și pot fi descărcate de la %s.</string>
