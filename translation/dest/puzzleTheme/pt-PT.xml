@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">O adversário está limitado quanto aos seus movimentos, e todas as jogadas pioram a sua posição.</string>
   <string name="healthyMix">Mistura saudável</string>
   <string name="healthyMixDescription">Um pouco de tudo. Não sabes o que esperar, então ficas pronto para qualquer coisa! Exatamente como em jogos de verdade.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mistura saudável</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Um pouco de tudo. Não sabes o que esperar, então ficas pronto para qualquer coisa! Exatamente como em jogos de verdade.</string>
   <string name="playerGames">Jogos de jogadores</string>
   <string name="playerGamesDescription">Procura problemas gerados a partir dos teus jogos ou de jogos de outro jogador.</string>
   <string name="puzzleDownloadInformation">Esses problemas são do domínio público e podem ser obtidos em %s.</string>
