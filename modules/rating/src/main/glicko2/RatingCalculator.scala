@@ -5,6 +5,10 @@ opaque type Tau = Double
 object Tau extends OpaqueDouble[Tau]:
   val default: Tau = 0.75d
 
+opaque type RatingPeriodsPerDay = Double
+object RatingPeriodsPerDay extends OpaqueDouble[RatingPeriodsPerDay]:
+  val default: RatingPeriodsPerDay = 0d
+
 // rewrite from java https://github.com/goochjs/glicko2
 object RatingCalculator:
 
@@ -25,7 +29,7 @@ object RatingCalculator:
 
 final class RatingCalculator(
     tau: Tau = Tau.default,
-    ratingPeriodsPerDay: Double = 0
+    ratingPeriodsPerDay: RatingPeriodsPerDay = RatingPeriodsPerDay.default
 ):
 
   import RatingCalculator.*
@@ -35,7 +39,7 @@ final class RatingCalculator(
   val ITERATION_MAX: Int            = 1000
   val DAYS_PER_MILLI: Double        = 1.0 / (1000 * 60 * 60 * 24)
 
-  val ratingPeriodsPerMilli: Double = ratingPeriodsPerDay * DAYS_PER_MILLI
+  val ratingPeriodsPerMilli: Double = ratingPeriodsPerDay.value * DAYS_PER_MILLI
 
   /** <p>Run through all players within a resultset and calculate their new ratings.</p> <p>Players within the
     * resultset who did not compete during the rating period will have see their deviation increase (in line

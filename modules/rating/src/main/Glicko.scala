@@ -62,7 +62,7 @@ object Glicko:
   val defaultVolatility = 0.09d
 
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val ratingPeriodsPerDay = 0.21436d
+  val ratingPeriodsPerDay = glicko2.RatingPeriodsPerDay(0.21436d)
 
   val default = new Glicko(1500d, maxDeviation, defaultVolatility)
 
