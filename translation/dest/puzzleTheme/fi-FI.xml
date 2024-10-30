@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Nappula uhkaa tai puolustaa ruutua vastustajan nappulan läpi.</string>
   <string name="zugzwang">Siirtopakko</string>
   <string name="zugzwangDescription">Vastustajalla on rajoitettu määrä mahdollisia siirtoja, ja niistä kaikki heikentävät hänen asemaansa.</string>
-  <string name="healthyMix">Terve sekoitus</string>
-  <string name="healthyMixDescription">Vähän kaikkea. Et tiedä mitä tuleman pitää, joten olet valmiina mihin tahansa! Aivan kuten oikeissa peleissäkin.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Terve sekoitus</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Vähän kaikkea. Et tiedä mitä tuleman pitää, joten olet valmiina mihin tahansa! Aivan kuten oikeissa peleissäkin.</string>
+  <string name="mix">Terve sekoitus</string>
+  <string name="mixDescription">Vähän kaikkea. Et tiedä mitä tuleman pitää, joten olet valmiina mihin tahansa! Aivan kuten oikeissa peleissäkin.</string>
   <string name="playerGames">Pelaajan peleistä</string>
   <string name="playerGamesDescription">Tehtäviä sinun tai jonkun toisen yksittäisen pelaajan peleistä.</string>
   <string name="puzzleDownloadInformation">Nämä tehtävät ovat vapaasti käytettävissä ja ladattavissa osoitteesta %s.</string>
