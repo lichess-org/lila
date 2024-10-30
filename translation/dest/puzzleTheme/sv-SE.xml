@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">Motspelaren har begränsat antal möjliga drag, och alla möjliga drag förvärrar motspelarens position.</string>
   <string name="healthyMix">Blandad kompott</string>
   <string name="healthyMixDescription">Lite av varje. Du vet inte vad som kommer, så du behöver vara redo för allt! Precis som i riktiga partier.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Blandad kompott</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Lite av varje. Du vet inte vad som kommer, så du behöver vara redo för allt! Precis som i riktiga partier.</string>
   <string name="playerGames">Spelarspel</string>
   <string name="playerGamesDescription">Hitta pussel genererade från dina egna parti, eller från andra spelares parti.</string>
   <string name="puzzleDownloadInformation">Dessa pussel tillhör den allmänna egendomen, och kan laddas ner från %s.</string>
