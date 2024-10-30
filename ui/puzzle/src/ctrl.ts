@@ -467,7 +467,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
-  // take the eval as arg instead of taking it from the node to be sure it's the most up to date
+  // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
   private reportIfMultipleSolutions = (ev: Tree.ClientEval): void => {
     // if the eval depth is superior to 20, we're on the puzzle solution and two moves are good
@@ -508,8 +508,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       if (ev.depth > 20 && ev.pvs[1]?.cp && invertIfBlack(ev.pvs[1].cp) >= 400) {
           this.reportedForMultipleSolutions = true;
       //   //this.reportDialog()
-      //   // POST  /training/$id<\w{5}>/report      controllers.Puzzle.report(id: PuzzleId)
-        const reason = `Move ${node.san}, depth ${ev.depth}, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
+        const reason = `after move ${node.ply}${node.san}, at depth ${ev.depth}, they're multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
         xhr.report(this.data.puzzle.id, reason)
       }
     }
