@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Фігура, що атакує чи захищає поле, що знаходиться за фігурою суперника.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Суперник обмежений в своїх ходах, а кожен хід погіршує його позицію.</string>
-  <string name="healthyMix">Здорова суміш</string>
-  <string name="healthyMixDescription">Всього потроху. Ви не знаєте, чого очікувати, тому готуйтесь до всього! Як у справжніх партіях.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Здорова суміш</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Всього потроху. Ви не знаєте, чого очікувати, тому готуйтесь до всього! Як у справжніх партіях.</string>
+  <string name="mix">Здорова суміш</string>
+  <string name="mixDescription">Всього потроху. Ви не знаєте, чого очікувати, тому готуйтесь до всього! Як у справжніх партіях.</string>
   <string name="playerGames">Ігри гравця</string>
   <string name="playerGamesDescription">Пошук задач, згенерованих з ваших ігор або з ігор інших гравців.</string>
   <string name="puzzleDownloadInformation">Ці задачі є у публічному доступі та можуть бути завантажені з %s.</string>
