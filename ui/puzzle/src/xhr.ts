@@ -37,6 +37,12 @@ export const voteTheme = (puzzleId: string, theme: ThemeKey, vote: boolean | und
     body: defined(vote) ? xhr.form({ vote }) : undefined,
   });
 
+export const report = (puzzleId: string, reason: string): Promise<void> =>
+  xhr.json(`/training/${puzzleId}/report`, {
+    method: 'POST',
+    body: xhr.form({ reason: reason }),
+  });
+
 export const setZen = throttlePromiseDelay(
   () => 1000,
   zen =>

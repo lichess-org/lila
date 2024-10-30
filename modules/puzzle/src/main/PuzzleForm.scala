@@ -37,6 +37,10 @@ object PuzzleForm:
     single("vote" -> boolean)
   )
 
+  val report = Form(
+    single("reason" -> nonEmptyText(1,200))
+  )
+
   val themeVote = Form(
     single("vote" -> optional(boolean))
   )

@@ -12,7 +12,8 @@ private class PuzzleConfig(
     @ConfigName("mongodb.uri") val mongoUri: String,
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
-    @ConfigName("collection.path") val pathColl: CollName
+    @ConfigName("collection.path") val pathColl: CollName,
+    @ConfigName("collection.report") val reportColl: CollName
 )
 
 @Module
@@ -37,7 +38,8 @@ final class Env(
   val colls = new PuzzleColls(
     puzzle = db(config.puzzleColl),
     round = db(config.roundColl),
-    path = db(config.pathColl)
+    path = db(config.pathColl),
+    report = db(config.reportColl)
   )
 
   private val gameJson: GameJson = wire[GameJson]
@@ -112,5 +114,6 @@ final class Env(
 final class PuzzleColls(
     val puzzle: AsyncColl,
     val round: AsyncColl,
-    val path: AsyncColl
+    val path: AsyncColl,
+    val report: AsyncColl
 )

@@ -6,7 +6,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import { throttle } from 'common/timing';
-import * as licon from 'common/licon';
+// import * as licon from 'common/licon';
 import {
   PuzzleOpts,
   PuzzleData,
@@ -40,7 +40,7 @@ import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 import { pubsub } from 'common/pubsub';
-import { alert, domDialog } from 'common/dialog';
+import { alert } from 'common/dialog';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
@@ -467,58 +467,77 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
 
-
   // take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
+  // TODO only do if logged-in
   private reportIfMultipleSolutions = (ev: Tree.ClientEval): void => {
     // if the eval depth is superior to 20, we're on the puzzle solution and two moves are good
     // that is an absolute eval superior to 4, then log it
-    console.log("ev", ev, "node", this.node);
+    console.log('ev', ev, 'node', this.node);
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, mate puzzles
-    if (this.reportedForMultipleSolutions || this.mode != 'view' || this.threatMode() || this.data.puzzle.themes.includes("mate")) return;
-    console.log("good mode");
+    if (
+      this.reportedForMultipleSolutions ||
+      this.mode != 'view' ||
+      this.threatMode() ||
+      this.data.puzzle.themes.includes('mate')
+    )
+      return;
+    console.log('good mode');
     // know we want to check that we're evaluating from the opponent side, so that multiPV show moves for the solving
     // side. We also want to check we're at the first ply of the puzzle or later.
     const node = this.node;
-    // more resilient than checking the turn directly, if eventually puzzle get generated from position games 
+    // more resilient than checking the turn directly, if eventually puzzle get generated from position games
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
-    if (node.ply >= this.initialNode.ply && nodeTurn == this.pov && this.mainline.some(n => n.id == node.id)) {
-      console.log("correct position!");
+    if (
+      node.ply >= this.initialNode.ply &&
+      nodeTurn == this.pov &&
+      this.mainline.some(n => n.id == node.id)
+    ) {
+      console.log('correct position!');
       // if second pv.cp is > 400, it's a multi solution puzzle
-      const invertIfBlack = (cp: number) => this.pov == 'white' ? cp : -cp;
-      console.log("ev.depth > 20", ev!.depth > 20, "ev.depth > 20")
-      if  (ev.pvs[1]?.cp) {
-        console.log("ev!.pvs[1]!.cp", ev.pvs[1].cp, "ev.pvs[1].cp  >= cpThreshold", invertIfBlack(ev.pvs[1].cp) >= 400)
+      const invertIfBlack = (cp: number) => (this.pov == 'white' ? cp : -cp);
+      console.log('ev.depth > 20', ev!.depth > 20, 'ev.depth > 20');
+      if (ev.pvs[1]?.cp) {
+        console.log(
+          'ev!.pvs[1]!.cp',
+          ev.pvs[1].cp,
+          'ev.pvs[1].cp  >= cpThreshold',
+          invertIfBlack(ev.pvs[1].cp) >= 400,
+        );
       }
+      // TODO probably check what are really the conditions for a puzzle to have multiple solutions
       if (ev.depth > 20 && ev.pvs[1]?.cp && invertIfBlack(ev.pvs[1].cp) >= 400) {
-        this.reportedForMultipleSolutions = true
-        //this.reportDialog()
+      //   this.reportedForMultipleSolutions = true;
+      //   //this.reportDialog()
+      //   // POST  /training/$id<\w{5}>/report      controllers.Puzzle.report(id: PuzzleId)
+        const reason = `Move ${node.san}, depth ${ev.depth}, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
+        xhr.report(this.data.puzzle.id, reason)
       }
     }
-  }
+  };
 
   // TODO FIXME, does not work, dialogs...
-  private reportDialog = () => {
-    // html form yes/no report with a checkbox 'do not show this again for a week'
-    domDialog({
-      show: 'modal',
-      htmlText:
-        '<div><strong style="font-size:1.5em">' +
-        "Report multiple solutions" +
-        '</strong><br /><br />' +
-        '<pre>' +
-        "You have found a puzzle with multiple solutions, report it?" +
-        '</pre><br />' +
-        '<br /><br />' +
-        `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` + 
-        `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`
-    }).then(dlg => {
-    
-    $('.reset', dlg.view).on('click', dlg.close());
-    dlg.showModal();
-    });
-  }
+  // private reportDialog = () => {
+  //   // html form yes/no report with a checkbox 'do not show this again for a week'
+  //   domDialog({
+  //     show: 'modal',
+  //     htmlText:
+  //       '<div><strong style="font-size:1.5em">' +
+  //       'Report multiple solutions' +
+  //       '</strong><br /><br />' +
+  //       '<pre>' +
+  //       'You have found a puzzle with multiple solutions, report it?' +
+  //       '</pre><br />' +
+  //       '<br /><br />' +
+  //       `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
+  //       `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
+  //   }).then(_dlg => {
+  //     // No overload matches this call.
+  //     // $('.reset', dlg.view).on('click', dlg.close());
+  //     // dlg.showModal();
+  //   });
+  // };
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback != 'win') {

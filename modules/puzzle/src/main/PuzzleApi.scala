@@ -37,6 +37,25 @@ final class PuzzleApi(
     def setIssue(id: PuzzleId, issue: String): Fu[Boolean] =
       colls.puzzle(_.updateField($id(id), Puzzle.BSONFields.issue, issue).map(_.n > 0))
 
+  object report:
+    // return `true` if missing
+    def upsert(id: PuzzleId): Fu[Boolean] =
+      colls
+        .puzzle(_.exists($id(id)))
+        .flatMap(
+          _.so(
+            colls.report(
+              _.update
+                .one(
+                  $id(id),
+                  $doc("reported" -> true),
+                  upsert = true
+                )
+                .map(_.upserted.nonEmpty)
+            )
+          )
+        )
+
   private[puzzle] object round:
 
     def find(user: User, puzzleId: PuzzleId): Fu[Option[PuzzleRound]] =
