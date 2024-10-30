@@ -121,4 +121,6 @@
   <string name="zugzwangDescription">Mótleikarin hevur avmarkaðar møguleikar at flyta, og allir leikir gera støðu hansara verri.</string>
   <string name="healthyMix">Sunt bland</string>
   <string name="healthyMixDescription">Eitt sindur av øllum. Tú veitst ikki, hvat tú kanst vænta tær, so ver til reiðar til alt! Júst sum í veruligum talvum.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Sunt bland</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Eitt sindur av øllum. Tú veitst ikki, hvat tú kanst vænta tær, so ver til reiðar til alt! Júst sum í veruligum talvum.</string>
 </resources>
