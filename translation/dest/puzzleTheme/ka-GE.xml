@@ -3,7 +3,7 @@
   <string name="advancedPawn">წინ წაწეული პაიკი</string>
   <string name="advancedPawnDescription">ერთერთი თქვენი პაიკი მოწინააღმდეგის პოზიციაშია შეჭრილი, ის იმუქრება, რომ გაცოცხლედ ანუ ლაზიერად, ეტლად, კუდ ან მხედრად გადაიქცეს.</string>
   <string name="advantage">უპირატესობა</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">გამოიყენე შანსი სერიოზულად დაწინაურდე. (200ცპ ≤ გამოთვლა ≤ 600ცპ)</string>
+  <string name="advantageDescription">გამოიყენე შანსი სერიოზულად დაწინაურდე. (200ცპ ≤ გამოთვლა ≤ 600ცპ)</string>
   <string name="anastasiaMate">ანასტასიას შამათი</string>
   <string name="anastasiaMateDescription">მხედარი და ეტლი (ან ლაზიერი) ურთიერთშეთანხმებულად ცდილობენ გამოიჭირონ მოწინააღმდეგე მეფე დაფის კიდესა და მისივე სხვა ფიგურას შორის.</string>
   <string name="arabianMate">არაბული შამათი</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">აყვანა და დაცვა</string>
   <string name="capturingDefenderDescription">დამცველი ფიგურის მოშორება,დაუცველი ფიგურის ასაყვანად.</string>
   <string name="crushing">განადგურება</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">გამოიყენე მოწინააღმდეგის უხეში შეცდომა და მიირე გამანადგურებელი უპირატესონა</string>
+  <string name="crushingDescription">გამოიყენე მოწინააღმდეგის უხეში შეცდომა და მიირე გამანადგურებელი უპირატესონა</string>
   <string name="doubleBishopMate">შამათი ორი კუთი</string>
   <string name="doubleBishopMateDescription">შამათი დიაგონალებზე ორი შემტევი კუთი, როდესაც მოწინააღმდეგის მეფეს ხელს უშლიან საკუთარი ფიგურები.</string>
   <string name="dovetailMate">შამათი,, მერცხლის კუდი\"\'</string>
   <string name="dovetailMateDescription">შამათს აცხადებს ლაზიერი რომელიც გვერდიდან უცხადებს მეფეს ქიშს რომლის ორივე წასასვლელ უჯრაზე მისივე ფიგურები დგანან.</string>
   <string name="equality">გათანაბრება</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">უარესი მდგომარეობიდან გამოძრომა და გაყაიმება ან პოზიციის გათანაბრება</string>
+  <string name="equalityDescription">უარესი მდგომარეობიდან გამოძრომა და გაყაიმება ან პოზიციის გათანაბრება</string>
   <string name="kingsideAttack">შეტევა მეფის ფრთაზე</string>
   <string name="kingsideAttackDescription">მეფეზე შეტევა მოკლე როქის დროს.</string>
   <string name="clearance">უჯრის, ხაზის ან დიაგონალის განთავისუფლება</string>
@@ -37,7 +37,7 @@
   <string name="defensiveMove">დამცველი სვლა</string>
   <string name="defensiveMoveDescription">ზუსტი სვლა ან სვლების თანმიმდევრობა რომელიც აგვაცილებს მატერიალურ  ან რაიმე სხვა დანაკარგს.</string>
   <string name="discoveredAttack">გახსნილი დარტყმა</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">გახსნილი დარტყმა შეიძლება გააკეთოს ლაზიერის გარდა ნებისემიერმა ფიგურამ, რომლის მოძრაობის დროს იხსნება მის უკან მდგომი შორსმსროლელი ფიიგურის დარტყმა მოწინაარმდეგის ფიგურაზე.</string>
+  <string name="discoveredAttackDescription">გახსნილი დარტყმა შეიძლება გააკეთოს ლაზიერის გარდა ნებისემიერმა ფიგურამ, რომლის მოძრაობის დროს იხსნება მის უკან მდგომი შორსმსროლელი ფიიგურის დარტყმა მოწინაარმდეგის ფიგურაზე.</string>
   <string name="doubleCheck">ორმაგი ქიში</string>
   <string name="doubleCheckDescription">ერთდროული დარტყმა მეფეზე ორი ფიგურით , ერთი მოძრაობს და აცხადებს პირდაპირ ქიშს , ამავდროულად იხსნება უკან მდგომი შორსმსროლელი ფიგურაც.</string>
   <string name="endgame">ენდშპილი, დაბოლოება</string>
