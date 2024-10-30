@@ -469,7 +469,6 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   // take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
-  // TODO only do if logged-in
   private reportIfMultipleSolutions = (ev: Tree.ClientEval): void => {
     // if the eval depth is superior to 20, we're on the puzzle solution and two moves are good
     // that is an absolute eval superior to 4, then log it
@@ -477,6 +476,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
     if (
+      !this.session.userId ||
       this.reportedForMultipleSolutions ||
       this.mode != 'view' ||
       this.threatMode() ||
