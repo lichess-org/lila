@@ -98,14 +98,14 @@ dialog {
     width: 480px;
     max-width: 100%;
     font-size: 16px;
-  }
-  span {
-    display: flex;
-    justify-content: end;
-    gap: 2em;
-  }
-  input {
-    align-self: center;
-    width: 40ch;
+    span {
+      display: flex;
+      justify-content: end;
+      gap: 2em;
+    }
+    input {
+      align-self: center;
+      width: 40ch;
+    }
   }
 }
