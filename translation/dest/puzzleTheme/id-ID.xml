@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Bidak menyerang atau mempertahankan kotak, melalui bidak musuh.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Musuh dibatasi gerakan yang dapat mereka lakukan, dan semua gerakan memperburuk posisi mereka.</string>
-  <string name="healthyMix">Campuran baik</string>
-  <string name="healthyMixDescription">Sedikit dari segalanya. Anda tidak tahu apa yang akan terjadi, jadi Anda tetap siap untuk apapun! Sama seperti permainan sebenarnya.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Campuran baik</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Sedikit dari segalanya. Anda tidak tahu apa yang akan terjadi, jadi Anda tetap siap untuk apapun! Sama seperti permainan sebenarnya.</string>
+  <string name="mix">Campuran baik</string>
+  <string name="mixDescription">Sedikit dari segalanya. Anda tidak tahu apa yang akan terjadi, jadi Anda tetap siap untuk apapun! Sama seperti permainan sebenarnya.</string>
   <string name="playerGames">Permainan pemain</string>
   <string name="playerGamesDescription">Mengambil taktik yang dihasilkan dari permainan anda, atau pemain lain.</string>
   <string name="puzzleDownloadInformation">Taktik-taktik ini ada di domain publik, dan dapat di download dari %s.</string>
