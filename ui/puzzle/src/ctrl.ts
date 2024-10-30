@@ -514,7 +514,14 @@ export default class PuzzleCtrl implements ParentCtrl {
     }
   };
 
+
+
   private reportDialog = (reason: string) => {
+      // write switch button as raw html
+      const switchButton = `<div class="switch" title="report puzzle">` +
+    `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox" checked="false">` +
+    `<label for="analyse-toggle-report"></label>`;
+
     // html form yes/no report with a checkbox 'do not show this again for a week'
     domDialog({
       htmlText:
@@ -523,12 +530,15 @@ export default class PuzzleCtrl implements ParentCtrl {
         '</strong><br /><br />' +
         '<pre>' +
         'You have found a puzzle with multiple solutions, report it?' +
-        '</pre><br />' +
+        '</pre><br />' + switchButton +
         '<br /><br />' +
         `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
         `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
     }).then(dlg => {
-      console.log('dlg', dlg);
+      // FIXME this make the whole page crash, why?
+      $('#puzzle-toggle-report', dlg.view).on('click', () => {
+        console.log()
+      });
       $('.reset', dlg.view).on('click', () => dlg.close());
       $('.apply', dlg.view).on('click', () => {
         console.log('clicked apply');
