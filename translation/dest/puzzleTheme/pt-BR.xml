@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">O adversário tem os seus movimentos limitados, e qualquer movimento que ele faça vai enfraquecer sua própria posição.</string>
   <string name="healthyMix">Combinação saudável</string>
   <string name="healthyMixDescription">Um pouco de tudo. Você nunca sabe o que vai encontrar, então esteja pronto para tudo! Igualzinho aos jogos em tabuleiros reais.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Combinação saudável</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Um pouco de tudo. Você nunca sabe o que vai encontrar, então esteja pronto para tudo! Igualzinho aos jogos em tabuleiros reais.</string>
   <string name="playerGames">Partidas de jogadores</string>
   <string name="playerGamesDescription">Procure quebra-cabeças gerados a partir de suas partidas ou das de outro jogador.</string>
   <string name="puzzleDownloadInformation">Esses quebra-cabeças estão em domínio público, e você pode baixá-los em %s.</string>
