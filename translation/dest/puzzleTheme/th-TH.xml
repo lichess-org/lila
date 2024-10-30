@@ -105,6 +105,8 @@
   <string name="zugzwangDescription">ฝ่ายตรงข้ามมีตาเดินที่จำกัด และตาเดินเหล่านั้นก็แย่ทั้งหมด</string>
   <string name="healthyMix">รวมทั้งหมด</string>
   <string name="healthyMixDescription">มีทุกอย่างอยู่ในนี้ คุณไม่รู้ว่าจะเจออะไรบ้าง ดังนั้นคุณจะต้องเตรียมตัวให้ดี</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">รวมทั้งหมด</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">มีทุกอย่างอยู่ในนี้ คุณไม่รู้ว่าจะเจออะไรบ้าง ดังนั้นคุณจะต้องเตรียมตัวให้ดี</string>
   <string name="playerGames">เกมจากผู้เล่น</string>
   <string name="puzzleDownloadInformation">ปริศนาเหล่านี้ เป็นสาธารณสมบัติ สามารถดาวน์โหลดได้ที่ %s</string>
 </resources>
