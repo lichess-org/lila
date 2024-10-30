@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">\'N Stuk val of verdedig \'n vierkant deur \'n vyandige stuk.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Die opponent is beperk in die bewegings wat hulle kan maak, en alle bewegings vererger hul posisie.</string>
-  <string name="healthyMix">Gesonde mengsel</string>
-  <string name="healthyMixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Gesonde mengsel</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
+  <string name="mix">Gesonde mengsel</string>
+  <string name="mixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
   <string name="playerGames">Speler se spelle</string>
   <string name="playerGamesDescription">Beloer kopkrappers wat ontstaan van jou spelle, of van ander se spelle af.</string>
   <string name="puzzleDownloadInformation">Die raaisels is in openbare domain en kan afgelaai word vanaf %s.</string>
