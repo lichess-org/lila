@@ -8,7 +8,7 @@ case class PuzzleTheme(key: PuzzleTheme.Key, name: I18nKey, description: I18nKey
 object PuzzleTheme:
 
   private def apply(name: I18nKey, desc: I18nKey): PuzzleTheme =
-    PuzzleTheme(Key(name.value.split(":", 2).lastOption.getOrElse("puzzleTheme")), name, desc)
+    PuzzleTheme(Key(name.value.split(":", 2).lift(1).getOrElse(name.value)), name, desc)
 
   opaque type Key = String
   object Key extends OpaqueString[Key]
