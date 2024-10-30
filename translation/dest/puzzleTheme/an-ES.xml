@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Una pieza ataca u defiende un cuadret, a traviés d\'una pieza rival.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'oponent ye limitau en os movimientos que puede fer, y toz éls empioran la suya posición.</string>
-  <string name="healthyMix">Una miqueta de cada</string>
-  <string name="healthyMixDescription">Un poquet de tot. No sabes qué problemas t\'aguardan, asinas que está-te presto pa cualsequier cosa! Como en as partidas reals.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Una miqueta de cada</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Un poquet de tot. No sabes qué problemas t\'aguardan, asinas que está-te presto pa cualsequier cosa! Como en as partidas reals.</string>
+  <string name="mix">Una miqueta de cada</string>
+  <string name="mixDescription">Un poquet de tot. No sabes qué problemas t\'aguardan, asinas que está-te presto pa cualsequier cosa! Como en as partidas reals.</string>
   <string name="playerGames">Partidas de chugadors</string>
   <string name="playerGamesDescription">Problemas cheneraus a partir d\'as tuyas partidas u d\'as partidas d\'atros chugadors.</string>
   <string name="puzzleDownloadInformation">Estos problemas son en o dominio publico, y los puez descargar dende %s.</string>
