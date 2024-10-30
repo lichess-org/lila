@@ -3,7 +3,7 @@
   <string name="advancedPawn">แทงเบี้ย</string>
   <string name="advancedPawnDescription">หนึ่งในเบี้ยของคุณอยู่ในตำแหน่งฝั่งคู่แข่งคุณ และมีโอกาสที่เบี้ยจะเลื่อนขั้น</string>
   <string name="advantage">ความได้เปรียบ</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">ชิงโอกาสได้เปรียบมาให้ได้ (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">ชิงโอกาสได้เปรียบมาให้ได้ (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">การรุกจนแบบ Anastasia</string>
   <string name="anastasiaMateDescription">ม้า เรือ หรือ ควีน ช่วยกันต้อน คิง ของฝ่ายตรงข้ามไประหว่างริมกระดานกับหมากของฝ่ายเรา</string>
   <string name="arabianMate">การรุกจนแบบ Arabian</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">กินผู้ป้องกัน</string>
   <string name="capturingDefenderDescription">กีกกันหมากที่สำคัญออกไปจากการป้องหมากตัวอื่น ทำให้หมากที่สูญเสียการป้องกันสามารถถูกกินในตาต่อไปได้</string>
   <string name="crushing">บดขยี้</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">มองหาตาพลาดมหันต์ของฝ่ายตรงข้ามเพื่อทำให้เป็นต่อ (eval ≥ 600 cp)</string>
+  <string name="crushingDescription">มองหาตาพลาดมหันต์ของฝ่ายตรงข้ามเพื่อทำให้เป็นต่อ (eval ≥ 600 cp)</string>
   <string name="doubleBishopMate">รุกจนโดยบิชอปสองตัว</string>
   <string name="doubleBishopMateDescription">บิชอปที่ใช้โจมตี 2 ที่อยู่ในแนวทแยงเคียงข้างกัน ทำให้คิงที่ถูกหมากผ่ายตนเองขวางให้ถูกรุกจน</string>
   <string name="dovetailMate">รุกจนแบบ Dovetail</string>
   <string name="dovetailMateDescription">ควีน รุกจนคิงที่อยู่ข้างๆ เนื่องจากช่อง 2 ช่องที่คิงจะสามารถเดินไปได้ถูกขวางให้โดยหมากของตนเอง</string>
   <string name="equality">ความสมดุล</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">พลิกจากตำแหน่งที่เสียเปรียบและกลับมาเอาเสมอหรือ ทำให้ตำแหน่งเสมอได้ (eval ≤ 200cp)</string>
+  <string name="equalityDescription">พลิกจากตำแหน่งที่เสียเปรียบและกลับมาเอาเสมอหรือ ทำให้ตำแหน่งเสมอได้ (eval ≤ 200cp)</string>
   <string name="kingsideAttack">การบุกฝั่งคิง</string>
   <string name="kingsideAttackDescription">การโจมตีใส่คิง เมื่อคิงเข้าป้อมแล้ว</string>
   <string name="clearance">การเปิดทาง</string>
@@ -39,7 +39,7 @@
   <string name="deflection">การดึงดูด</string>
   <string name="deflectionDescription">การเดินที่หันเหความสนใจของหมากฝ่ายตรงข้ามจากสิ่งที่มันต้องทำ เช่น การป้องกันช่องที่เป็นกุญแจสำคัญ บางครั้งเรียกว่า \"โอเวอร์โหลด\"</string>
   <string name="discoveredAttack">เปิดเผยการโจมตี</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">การเดินหมาก (อย่างเช่นม้า) ที่ก่อนหน้านี้ขวางการโจมตีของหมากระยะยาว (เรือหรือควีน) ออกไป</string>
+  <string name="discoveredAttackDescription">การเดินหมาก (อย่างเช่นม้า) ที่ก่อนหน้านี้ขวางการโจมตีของหมากระยะยาว (เรือหรือควีน) ออกไป</string>
   <string name="doubleCheck">ดับเบิ้ลรุก</string>
   <string name="doubleCheckDescription">รุกด้วยหมากสองตัวในคราเดียวกันทำให้เป็นการเปิดโจมตี โดยหมากตัวที่ถูกเดินในตานี้และหมากที่อยู่ข้างหลังหมากตัวที่เดินทำการรุกคิงพร้อมกัน</string>
   <string name="endgame">ท้ายเกม</string>
