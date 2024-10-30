@@ -485,10 +485,8 @@ export default class PuzzleCtrl implements ParentCtrl {
     )
       return;
     console.log('good mode');
-    // know we want to check that we're evaluating from the opponent side, so that multiPV show moves for the solving
-    // side. We also want to check we're at the first ply of the puzzle or later.
     const node = this.node;
-    // more resilient than checking the turn directly, if eventually puzzle get generated from position games
+    // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
     if (
       node.ply >= this.initialNode.ply &&
@@ -496,7 +494,6 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.mainline.some(n => n.id == node.id)
     ) {
       console.log('correct position!');
-      // if second pv.cp is > 400, it's a multi solution puzzle
       const invertIfBlack = (cp: number) => (this.pov == 'white' ? cp : -cp);
       console.log('ev.depth > 20', ev!.depth > 20, 'ev.depth > 20');
       if (ev.pvs[1]?.cp) {
@@ -509,7 +506,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       }
       // TODO probably check what are really the conditions for a puzzle to have multiple solutions
       if (ev.depth > 20 && ev.pvs[1]?.cp && invertIfBlack(ev.pvs[1].cp) >= 400) {
-      //   this.reportedForMultipleSolutions = true;
+          this.reportedForMultipleSolutions = true;
       //   //this.reportDialog()
       //   // POST  /training/$id<\w{5}>/report      controllers.Puzzle.report(id: PuzzleId)
         const reason = `Move ${node.san}, depth ${ev.depth}, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
