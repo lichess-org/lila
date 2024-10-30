@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Figura napada ili brani polje kroz protivničku figuru.</string>
   <string name="zugzwang">Iznuđeni potez (Zugzwang)</string>
   <string name="zugzwangDescription">Protivnik je prisiljen odigrati potez koji mu pogoršava poziciju.</string>
-  <string name="healthyMix">Pomalo svega</string>
-  <string name="healthyMixDescription">Kao i u pravim partijama - budi spreman i očekuj bilo što! Kombinacija svih navedenih vrsta zadataka.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Pomalo svega</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Kao i u pravim partijama - budi spreman i očekuj bilo što! Kombinacija svih navedenih vrsta zadataka.</string>
+  <string name="mix">Pomalo svega</string>
+  <string name="mixDescription">Kao i u pravim partijama - budi spreman i očekuj bilo što! Kombinacija svih navedenih vrsta zadataka.</string>
   <string name="playerGames">Igračeve partije</string>
   <string name="playerGamesDescription">Pogledaj zadatke generirate iz vlastitih partija ili iz partija određenog igrača.</string>
   <string name="puzzleDownloadInformation">Ovi zadaci su u javnom vlasništvu i mogu biti preuzeti sa %s.</string>
