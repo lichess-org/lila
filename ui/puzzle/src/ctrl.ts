@@ -475,12 +475,13 @@ export default class PuzzleCtrl implements ParentCtrl {
     // that is an absolute eval superior to 4, then log it
     console.log('ev', ev, 'node', this.node);
     // first, make sure we're in view mode so we know the solution is the mainline
-    // do not check, mate puzzles
+    // do not check, checkmate puzzles
     if (
       this.reportedForMultipleSolutions ||
       this.mode != 'view' ||
       this.threatMode() ||
-      this.data.puzzle.themes.includes('mate')
+      // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
+      this.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate'))
     )
       return;
     console.log('good mode');
