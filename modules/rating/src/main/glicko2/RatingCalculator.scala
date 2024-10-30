@@ -1,6 +1,10 @@
 package lila.rating
 package glicko2
 
+opaque type Tau = Double
+object Tau extends OpaqueDouble[Tau]:
+  val default: Tau = 0.75d
+
 // rewrite from java https://github.com/goochjs/glicko2
 object RatingCalculator:
 
@@ -20,7 +24,7 @@ object RatingCalculator:
     (ratingDeviation / MULTIPLIER)
 
 final class RatingCalculator(
-    tau: Double = 0.75d,
+    tau: Tau = Tau.default,
     ratingPeriodsPerDay: Double = 0
 ):
 
@@ -89,6 +93,7 @@ final class RatingCalculator(
     val a     = Math.log(Math.pow(sigma, 2))
     val delta = deltaOf(player, results)
     val v     = vOf(player, results)
+    val tau   = this.tau.value
 
     // step 5.2 - set the initial values of the iterative algorithm to come in step 5.4
     var A: Double = a
