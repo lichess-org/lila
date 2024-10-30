@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">داشێک هێرش یان بەرگری دەکات لە خانەیەک لە بەرانبەر هێرشی داشی دوژمن.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">یاریزانی بەرامبەر سنووردارە لەو جوڵانەی کە دەتوانێت بیکات و هەموو جوڵەکان پێگەی لە یاریەکە خراپتر دەکەن.</string>
-  <string name="healthyMix">تێکەڵکردنێکی تەندروست</string>
-  <string name="healthyMixDescription">کەمێک لە زۆر شت. نازانی چاوەڕێی چی بکەیت، بۆیە ئامادەیی بۆ هەر شتێک و چاوڕێ دەکەیت! هەر وەک لە یارییە ڕاستەقینەکاندا.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">تێکەڵکردنێکی تەندروست</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">کەمێک لە زۆر شت. نازانی چاوەڕێی چی بکەیت، بۆیە ئامادەیی بۆ هەر شتێک و چاوڕێ دەکەیت! هەر وەک لە یارییە ڕاستەقینەکاندا.</string>
+  <string name="mix">تێکەڵکردنێکی تەندروست</string>
+  <string name="mixDescription">کەمێک لە زۆر شت. نازانی چاوەڕێی چی بکەیت، بۆیە ئامادەیی بۆ هەر شتێک و چاوڕێ دەکەیت! هەر وەک لە یارییە ڕاستەقینەکاندا.</string>
   <string name="playerGames">یاری یاریزانەکان</string>
   <string name="playerGamesDescription">لەو مەتەڵانە بگەڕێ کە لە یارییەکانتەوە دروست بوون، یان لە یارییەکانی یاریزانێکی ترەوە.</string>
   <string name="puzzleDownloadInformation">ئەو مەتەڵانە بۆ هەموو کەسێکە، دەتوانی لێرەوە دایانبەزێنیت %s.</string>
