@@ -20,6 +20,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
     me.foldUse(anonApi.getBatchFor(angle, difficulty, nb)): me ?=>
       val tier =
         if perf.nb > 5000 then PuzzleTier.good
+        else if angle.opening.isDefined then PuzzleTier.good
         else if PuzzleDifficulty.isExtreme(difficulty) then PuzzleTier.good
         else PuzzleTier.top
       pathApi
