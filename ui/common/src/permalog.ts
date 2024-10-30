@@ -100,7 +100,7 @@ function makeLog(): LichessLog {
     log(`${terseHref()} - ${e.reason}`);
     if (site.debug)
       domDialog({
-        htmlText: escapeHtml(e.reason),
+        htmlText: escapeHtml(e.reason.toString()),
         class: 'debug',
         show: true,
       });
