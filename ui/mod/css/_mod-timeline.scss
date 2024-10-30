@@ -1,6 +1,6 @@
 .mod-timeline {
   @extend %flex-column, %box-neat;
-  gap: 1em;
+  gap: 0.6em;
   background: $c-bg-zebra;
   padding: 1em 1em 1em 2em;
   max-height: 70vh;
@@ -11,16 +11,17 @@
   @extend %flex-center-nowrap;
   gap: 1em;
   h3 {
+    white-space: nowrap;
     flex: 0 0 11ch;
-    font-size: 1.2em;
+    font-size: 1.1em;
     text-transform: capitalize;
   }
   border-bottom: $border;
-  padding-bottom: 1em;
+  padding-bottom: 0.6em;
 }
 .mod-timeline__period__events {
   @extend %flex-column;
-  gap: 0.3em;
+  gap: 0.2em;
   flex: 1 1 auto;
 }
 .mod-timeline__event {
@@ -50,10 +51,11 @@
     flex: 0 0 auto;
   }
 }
-.mod-timeline__event--modlog:has(i.moderator) {
+.mod-timeline__event:has(i.moderator) {
   .user-link,
-  .user-link i {
+  .user-link i.line {
     color: $c-brag;
+    opacity: 0.7;
   }
 }
 .mod-timeline__event__action {

@@ -1,6 +1,6 @@
 export const randomToken = (): string => {
   try {
-    const data = window.crypto.getRandomValues(new Uint8Array(9));
+    const data = globalThis.crypto.getRandomValues(new Uint8Array(9));
     return btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
   } catch (_) {
     return Math.random().toString(36).slice(2, 12);
@@ -9,6 +9,10 @@ export const randomToken = (): string => {
 
 export function clamp(value: number, bounds: { min?: number; max?: number }): number {
   return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
+}
+
+export function quantize(n?: number, factor = 2000): number {
+  return Math.floor((n ?? 0) / factor) * factor;
 }
 
 export function shuffle<T>(array: T[]): T[] {
@@ -58,34 +62,4 @@ export function findMapped<T, U>(arr: T[], callback: (el: T) => U | undefined): 
     if (result) return result;
   }
   return undefined;
-}
-
-export type SparseSet<T> = Set<T> | T;
-export type SparseMap<V> = Map<string, SparseSet<V>>;
-
-export function spread<T>(v: undefined | SparseSet<T>): T[] {
-  return v === undefined ? [] : v instanceof Set ? [...v] : [v];
-}
-
-export function spreadMap<T>(m: SparseMap<T>): [string, T[]][] {
-  return [...m].map(([k, v]) => [k, spread(v)]);
-}
-
-export function getSpread<T>(m: SparseMap<T>, key: string): T[] {
-  return spread(m.get(key));
-}
-
-export function remove<T>(m: SparseMap<T>, key: string, val: T): void {
-  const v = m.get(key);
-  if (v === val) m.delete(key);
-  else if (v instanceof Set) v.delete(val);
-}
-
-export function pushMap<T>(m: SparseMap<T>, key: string, val: T): void {
-  const v = m.get(key);
-  if (!v) m.set(key, val);
-  else {
-    if (v instanceof Set) v.add(val);
-    else if (v !== val) m.set(key, new Set([v as T, val]));
-  }
 }

@@ -6,9 +6,10 @@ import scalatags.text.Builder
 import lila.ui.ScalatagsTemplate.*
 import scala.util.Try
 import play.api.i18n.Lang
+import lila.core.data.SimpleMemo
 
 trait FormHelper:
-  self: I18nHelper =>
+  self: I18nHelper & AssetHelper =>
 
   protected def flairApi: lila.core.user.FlairApi
 
@@ -77,7 +78,7 @@ trait FormHelper:
     import java.time.{ ZoneId, ZoneOffset }
     import scala.jdk.CollectionConverters.*
 
-    lazy val zones: List[(ZoneOffset, ZoneId)] =
+    private val zones: SimpleMemo[List[(ZoneOffset, ZoneId)]] = SimpleMemo(67.minutes.some): () =>
       val now = nowInstant
       ZoneId.getAvailableZoneIds.asScala.toList
         .flatMap: id =>
@@ -87,6 +88,9 @@ trait FormHelper:
         .toList
         .sortBy: (offset, zone) =>
           (offset, zone.getId)
+
     def translatedChoices(using lang: Lang): List[(String, String)] =
-      zones.map: (offset, zone) =>
-        zone.getId -> s"${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)} $offset"
+      zones
+        .get()
+        .map: (offset, zone) =>
+          zone.getId -> s"${zone.getDisplayName(java.time.format.TextStyle.NARROW, lang.locale)} $offset"

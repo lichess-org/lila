@@ -6,6 +6,7 @@ import * as enhance from './enhance';
 import { makeLinkPopups } from 'common/linkPopup';
 import { scroller } from './scroller';
 import MsgCtrl from '../ctrl';
+import { alert, confirm } from 'common/dialog';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h('div.msg-app__convo__msgs', { hook: { insert: setupMsgs(true), postpatch: setupMsgs(false) } }, [
@@ -120,8 +121,8 @@ const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   scroller.toMarker() || scroller.auto();
 };
 
-const teamUnsub = (form: HTMLFormElement) => {
-  if (confirm('Unsubscribe?'))
+const teamUnsub = async (form: HTMLFormElement) => {
+  if (await confirm('Unsubscribe?'))
     xhr
       .json(form.action, {
         method: 'post',

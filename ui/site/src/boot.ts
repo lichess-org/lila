@@ -16,6 +16,7 @@ import { userComplete } from 'common/userComplete';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
 import { toggleBoxInit } from 'common/controls';
+import { confirm } from 'common/dialog';
 
 export function boot() {
   $('#user_tag').removeAttr('href');
@@ -90,8 +91,10 @@ export function boot() {
       else $(this).one('focus', start);
     });
 
-    $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
-      return confirm(this.title || 'Confirm this action?');
+    $('input.confirm, button.confirm').on('click', async function (this: HTMLElement, e: Event) {
+      if (!e.isTrusted) return;
+      e.preventDefault();
+      if (await confirm(this.title || 'Confirm this action?')) (e.target as HTMLElement)?.click();
     });
 
     $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {

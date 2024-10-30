@@ -3,6 +3,7 @@ import { debounce } from 'common/timing';
 import { addPasswordVisibilityToggleListener } from 'common/password';
 import { storedJsonProp } from 'common/storage';
 import { spinnerHtml } from 'common/spinner';
+import { alert } from 'common/dialog';
 
 export function initModule(mode: 'login' | 'signup' | 'reset'): void {
   mode === 'login' ? loginStart() : mode === 'signup' ? signupStart() : resetStart();
@@ -73,8 +74,9 @@ function loginStart() {
                 addPasswordVisibilityToggleListener();
                 load();
               } else {
-                alert(text || res.statusText + '. Please wait some time before trying again.');
-                toggleSubmit($f.find('.submit'), true);
+                alert(
+                  (text || res.statusText).slice(0, 300) + '. Please wait some time before trying again.',
+                ).then(() => toggleSubmit($f.find('.submit'), true));
               }
             } catch (e) {
               console.warn(e);

@@ -69,17 +69,27 @@ export async function alert(msg: string): Promise<void> {
   await domDialog({
     htmlText: escapeHtml(msg),
     class: 'alert',
-    show: 'modal',
+    show: true,
   });
 }
 
+export async function alerts(msgs: string[]): Promise<void> {
+  for (const msg of msgs) await alert(msg);
+}
+
 // non-blocking window.confirm-alike
-export async function confirm(msg: string): Promise<boolean> {
+export async function confirm(
+  msg: string,
+  yes: string = i18n.site.yes,
+  no: string = i18n.site.no,
+): Promise<boolean> {
   return (
     (
       await domDialog({
-        htmlText: `<div>${escapeHtml(msg)}</div>
-          <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
+        htmlText:
+          `<div>${escapeHtml(msg)}</div>` +
+          `<span><button class="button no">${no}</button>` +
+          `<button class="button yes">${yes}</button></span>`,
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
@@ -91,6 +101,42 @@ export async function confirm(msg: string): Promise<boolean> {
       })
     ).returnValue === 'yes'
   );
+}
+
+// non-blocking window.prompt-alike
+export async function prompt(
+  msg: string,
+  def: string = '',
+  ok: string = 'OK',
+  cancel: string = i18n.site.cancel,
+): Promise<string | null> {
+  const res = await domDialog({
+    htmlText:
+      `<div>${escapeHtml(msg)}</div>` +
+      `<input type="text" value="${escapeHtml(def)}" />` +
+      `<span><button class="button cancel">${cancel}</button>` +
+      `<button class="button ok">${ok}</button></span>`,
+    class: 'alert',
+    noCloseButton: true,
+    noClickAway: true,
+    show: 'modal',
+    focus: 'input',
+    actions: [
+      { selector: '.ok', result: 'ok' },
+      { selector: '.cancel', result: 'cancel' },
+      {
+        selector: 'input',
+        event: 'keydown',
+        listener: (e: KeyboardEvent, dlg) => {
+          if (e.key !== 'Enter' && e.key !== 'Escape') return;
+          e.preventDefault();
+          if (e.key === 'Enter') dlg.close('ok');
+          else if (e.key === 'Escape') dlg.close('cancel');
+        },
+      },
+    ],
+  });
+  return res.returnValue === 'ok' ? (res.view.querySelector('input') as HTMLInputElement).value : null;
 }
 
 // when opts contains 'show', this promise resolves as show/showModal (on dialog close) so check returnValue
@@ -180,7 +226,6 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
   private actionEvents = eventJanitor();
   private dialogEvents = eventJanitor();
@@ -293,9 +338,6 @@ class DialogWrapper implements Dialog {
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    this.restore?.focus?.focus(); // one modal at a time please
-    if (this.restore?.overflow !== undefined) document.body.style.overflow = this.restore.overflow;
-    this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
     this.dialog.remove();
