@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">以敵方子攻擊或防守的戰術。</string>
   <string name="zugzwang">等著</string>
   <string name="zugzwangDescription">對方的棋子因為所移動的空間有限所以所到之處都會增加對方劣勢</string>
-  <string name="healthyMix">綜合</string>
-  <string name="healthyMixDescription">所有類型都有！你不知道會遇到什麼題型，所以請做好準備，就像在實戰一樣。</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">綜合</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">所有類型都有！你不知道會遇到什麼題型，所以請做好準備，就像在實戰一樣。</string>
+  <string name="mix">綜合</string>
+  <string name="mixDescription">所有類型都有！你不知道會遇到什麼題型，所以請做好準備，就像在實戰一樣。</string>
   <string name="playerGames">玩家謎題</string>
   <string name="playerGamesDescription">查詢從你或其他玩家的對奕所生成的謎題。</string>
   <string name="puzzleDownloadInformation">這些為公開謎題，並且在 %s 提供下載管道。</string>
