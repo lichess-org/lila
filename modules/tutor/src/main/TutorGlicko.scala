@@ -8,7 +8,7 @@ object TutorGlicko:
   private type Rating  = Int
   private type Outcome = Boolean
 
-  private val calculator = lila.rating.Glicko.system
+  private val calculator = glicko2.RatingCalculator()
 
   def outcomesRating(perf: Perf, outcomes: List[(Rating, Outcome)]): Rating =
     val player = perf.toRating

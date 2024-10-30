@@ -199,7 +199,7 @@ final private[puzzle] class PuzzleFinisher(
       if player.clueless then glicko._1
       else glicko._1.average(glicko._2, weightOf(angle, win))
 
-  private val calculator = lila.rating.Glicko.system
+  private val calculator = glicko2.RatingCalculator()
 
   def incPuzzlePlays(puzzleId: PuzzleId): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))

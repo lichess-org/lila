@@ -1,6 +1,14 @@
 package lila.rating
 package glicko2
 
+opaque type Tau = Double
+object Tau extends OpaqueDouble[Tau]:
+  val default: Tau = 0.75d
+
+opaque type RatingPeriodsPerDay = Double
+object RatingPeriodsPerDay extends OpaqueDouble[RatingPeriodsPerDay]:
+  val default: RatingPeriodsPerDay = 0d
+
 // rewrite from java https://github.com/goochjs/glicko2
 object RatingCalculator:
 
@@ -20,19 +28,19 @@ object RatingCalculator:
     (ratingDeviation / MULTIPLIER)
 
 final class RatingCalculator(
-    tau: Double = 0.75d,
-    ratingPeriodsPerDay: Double = 0,
+    tau: Tau = Tau.default,
+    ratingPeriodsPerDay: RatingPeriodsPerDay = RatingPeriodsPerDay.default,
     advantage: Double = 0
 ):
 
   import RatingCalculator.*
 
-  val DEFAULT_DEVIATION: Double     = 350
-  val CONVERGENCE_TOLERANCE: Double = 0.000001
-  val ITERATION_MAX: Int            = 1000
-  val DAYS_PER_MILLI: Double        = 1.0 / (1000 * 60 * 60 * 24)
+  private val DEFAULT_DEVIATION: Double     = 350
+  private val CONVERGENCE_TOLERANCE: Double = 0.000001
+  private val ITERATION_MAX: Int            = 1000
+  private val DAYS_PER_MILLI: Double        = 1.0 / (1000 * 60 * 60 * 24)
 
-  val ratingPeriodsPerMilli: Double = ratingPeriodsPerDay * DAYS_PER_MILLI
+  private val ratingPeriodsPerMilli: Double = ratingPeriodsPerDay.value * DAYS_PER_MILLI
 
   /** Run through all players within a resultset and calculate their new ratings. Players within the resultset
     * who did not compete during the rating period will have see their deviation increase (in line with Prof
@@ -89,6 +97,7 @@ final class RatingCalculator(
     val a     = Math.log(Math.pow(sigma, 2))
     val delta = deltaOf(player, results)
     val v     = vOf(player, results)
+    val tau   = this.tau.value
 
     // step 5.2 - set the initial values of the iterative algorithm to come in step 5.4
     var A: Double = a

@@ -62,7 +62,7 @@ object Glicko:
   val defaultVolatility = 0.09d
 
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val ratingPeriodsPerDay = 0.21436d
+  val ratingPeriodsPerDay = glicko2.RatingPeriodsPerDay(0.21436d)
 
   val default = new Glicko(1500d, maxDeviation, defaultVolatility)
 
@@ -76,9 +76,8 @@ object Glicko:
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
 
-  val tau                           = 0.75d
-  val system                        = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
-  def calculator(advantage: Double) = glicko2.RatingCalculator(tau, ratingPeriodsPerDay, advantage)
+  val system = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay)
+  def calculator(advantage: Double) = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay, advantage)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
     system.previewDeviation(p.toRating, nowInstant, reverse)
