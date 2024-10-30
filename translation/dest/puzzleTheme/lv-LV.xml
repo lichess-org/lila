@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Figūra uzbrūk vai apsargā lauciņu caur pretinieka figūru.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Pretiniekam ir ierobežoti iespējamie gājieni, un visi no tiem pasliktina pretinieka pozīciju.</string>
-  <string name="healthyMix">Veselīgs sajaukums</string>
-  <string name="healthyMixDescription">Mazliet no visa kā. Nezināsiet, ko sagaidīt, tāpēc paliksiet gatavs jebkam! Tieši kā īstās spēlēs.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Veselīgs sajaukums</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mazliet no visa kā. Nezināsiet, ko sagaidīt, tāpēc paliksiet gatavs jebkam! Tieši kā īstās spēlēs.</string>
+  <string name="mix">Veselīgs sajaukums</string>
+  <string name="mixDescription">Mazliet no visa kā. Nezināsiet, ko sagaidīt, tāpēc paliksiet gatavs jebkam! Tieši kā īstās spēlēs.</string>
   <string name="playerGames">Spēlētāja spēles</string>
   <string name="playerGamesDescription">Meklējiet uzdevumus, kas radīti no jūsu vai cita spēlētāja spēlēm.</string>
   <string name="puzzleDownloadInformation">Šie uzdevumi ir neaizsargājami darbi, un tos var lejupielādēt lapā %s.</string>
