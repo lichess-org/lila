@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Figura útočí nebo chrání pole skrze nepřátelskou figuru.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Soupeř musí zahrát jakýkoliv tah, přičemž všechny zhoršují jeho pozici a zlepšují naší pozici.</string>
-  <string name="healthyMix">Mix úloh</string>
-  <string name="healthyMixDescription">Troška od všeho. Nevíte co čekat, čili jste na vše připraveni! Jako v normální partii.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mix úloh</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Troška od všeho. Nevíte co čekat, čili jste na vše připraveni! Jako v normální partii.</string>
+  <string name="mix">Mix úloh</string>
+  <string name="mixDescription">Troška od všeho. Nevíte co čekat, čili jste na vše připraveni! Jako v normální partii.</string>
   <string name="playerGames">Z vašich her</string>
   <string name="playerGamesDescription">Vyhledejte úlohy vygenerované z vašich her, nebo z her jiného hráče.</string>
   <string name="puzzleDownloadInformation">Tyto hádanky jsou ve veřejné doméně a lze je stáhnout z %s.</string>
