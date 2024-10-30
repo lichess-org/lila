@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">القطعة تهاجم أو تدافع عن مربع, من خلال قطعة عدو.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">حركات الخصم محدودة و كل الحركات تؤدي إلى تفاقم الوضع نحو الأسوء.</string>
-  <string name="healthyMix">خليط</string>
-  <string name="healthyMixDescription">القليل من كل نوع، لذا لا يمكنك التنبؤ باللغز القادم فابقى مستعداً لأي شيء، تماماً كالمباريات الحقيقية.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">خليط</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">القليل من كل نوع، لذا لا يمكنك التنبؤ باللغز القادم فابقى مستعداً لأي شيء، تماماً كالمباريات الحقيقية.</string>
+  <string name="mix">خليط</string>
+  <string name="mixDescription">القليل من كل نوع، لذا لا يمكنك التنبؤ باللغز القادم فابقى مستعداً لأي شيء، تماماً كالمباريات الحقيقية.</string>
   <string name="playerGames">مبارايات اللاعب</string>
   <string name="playerGamesDescription">ابحث عن ألغاز من مبارياتك أو من مباريات لاعبين آخرين.</string>
   <string name="puzzleDownloadInformation">هذه الألغاز موجودة للعامة بإمكانك تحميلها من هنا%s.</string>
