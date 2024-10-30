@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">对手可选的着法是有限的，并且所有着法都会使其局面更加恶化。</string>
   <string name="healthyMix">健康搭配</string>
   <string name="healthyMixDescription">每个主题中选取一些。你不知道会出现什么，因此得时刻打起精神！ 就像在真实对局中一样。</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">健康搭配</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">每个主题中选取一些。你不知道会出现什么，因此得时刻打起精神！ 就像在真实对局中一样。</string>
   <string name="playerGames">玩家对局</string>
   <string name="playerGamesDescription">查找从你或其他玩家的对局中产生的谜题。</string>
   <string name="puzzleDownloadInformation">这些谜题都是公开的，可以在 %s 下载。</string>
