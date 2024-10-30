@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Eng Figur attackéiert oder verdeedegte Feld duerch eng géigneresch Figur.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">De Géigner huet eng begrenzten Unzuel un Zich an all Zuch verschlechtert seng Positioun.</string>
-  <string name="healthyMix">Gesonde Mix</string>
-  <string name="healthyMixDescription">E bësse vun allem. Du weess net wat dech erwaart, dowéinst muss op alles preparéiert sinn! Genau wéi bei echte Partien.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Gesonde Mix</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">E bësse vun allem. Du weess net wat dech erwaart, dowéinst muss op alles preparéiert sinn! Genau wéi bei echte Partien.</string>
+  <string name="mix">Gesonde Mix</string>
+  <string name="mixDescription">E bësse vun allem. Du weess net wat dech erwaart, dowéinst muss op alles preparéiert sinn! Genau wéi bei echte Partien.</string>
   <string name="playerGames">Partie vu Spiller</string>
   <string name="playerGamesDescription">Sich no Aufgaben, déi aus denge Partien, oder aus de Partie vun anere Spiller generéiert goufen.</string>
   <string name="puzzleDownloadInformation">Dës Aufgaben sinn ëffentlech zougänglech an kënnen ënner %s erofgelueden ginn.</string>
