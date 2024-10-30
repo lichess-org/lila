@@ -111,5 +111,3 @@ interface OneTimeHandler {
   promise: Promise<void>;
   resolve?: () => void;
 }
-
-//export default pubsub;
