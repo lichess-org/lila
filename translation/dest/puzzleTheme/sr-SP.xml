@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">Противник има ограничен избор потеза и сваким потезом погоршава своју позицију.</string>
   <string name="healthyMix">Здрава мешавина</string>
   <string name="healthyMixDescription">Свега по мало. Не знаш шта да очекујеш, па остајеш спреман за све! Баш као у правим партијама.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Здрава мешавина</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Свега по мало. Не знаш шта да очекујеш, па остајеш спреман за све! Баш као у правим партијама.</string>
   <string name="playerGames">Играчеве партије</string>
   <string name="playerGamesDescription">Потражи проблеме створене на основу твојих партија или партија других грача.</string>
   <string name="puzzleDownloadInformation">Ови проблеми су у јавном власништву и могуће их је презузети са %s.</string>
