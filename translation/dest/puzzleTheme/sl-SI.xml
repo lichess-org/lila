@@ -121,10 +121,8 @@ Eden od vaših kmetov je globoko na nasprotnikovem področju in ima morda možno
   <string name="xRayAttackDescription">Figura napada ali brani polje skozi nasprotnikovo figuro.</string>
   <string name="zugzwang">Nujnica</string>
   <string name="zugzwangDescription">Nasprotnik ima omejene poteze in vsaka poslabša njegovo pozicijo.</string>
-  <string name="healthyMix">Zdrava mešanica</string>
-  <string name="healthyMixDescription">Vsega po malo. Ne veste, kaj pričakovati, zato bodite pripravljeni na vse! Kot pri resničnih partijah.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Zdrava mešanica</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Vsega po malo. Ne veste, kaj pričakovati, zato bodite pripravljeni na vse! Kot pri resničnih partijah.</string>
+  <string name="mix">Zdrava mešanica</string>
+  <string name="mixDescription">Vsega po malo. Ne veste, kaj pričakovati, zato bodite pripravljeni na vse! Kot pri resničnih partijah.</string>
   <string name="playerGames">Igralske igre</string>
   <string name="playerGamesDescription">Iskanje ugank, ustvarjenih iz vaših iger ali iz iger drugega igralca.</string>
   <string name="puzzleDownloadInformation">Te uganke so v javni lasti in jih je mogoče prenesti s spletnega mesta %s.</string>
