@@ -119,8 +119,6 @@
   <string name="xRayAttackDescription">Fiqur, bir xanaya rəqib fiquru üzərindən hücum edir və ya müdafiə edir.</string>
   <string name="zugzwang">Suqsvanq</string>
   <string name="zugzwangDescription">Rəqibin edə biləcəyi gediş sayı məhduddur və istənilən gediş vəziyyəti daha da pisləşdirir.</string>
-  <string name="healthyMix">Həftəbecər</string>
-  <string name="healthyMixDescription">Hər şeydən bir az. Nə gözləyəcəyini bilmirsən, ona görə hər şeyə hazır olursan! Eynilə həqiqi oyunlarda olduğu kimi.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Həftəbecər</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Hər şeydən bir az. Nə gözləyəcəyini bilmirsən, ona görə hər şeyə hazır olursan! Eynilə həqiqi oyunlarda olduğu kimi.</string>
+  <string name="mix">Həftəbecər</string>
+  <string name="mixDescription">Hər şeydən bir az. Nə gözləyəcəyini bilmirsən, ona görə hər şeyə hazır olursan! Eynilə həqiqi oyunlarda olduğu kimi.</string>
 </resources>
