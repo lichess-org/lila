@@ -77,7 +77,8 @@ object Glicko:
   val maxRatingDelta = 700
 
   val system = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay)
-  def calculator(advantage: Double) = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay, advantage)
+  def calculator(advantage: Double) =
+    glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay, advantage)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
     system.previewDeviation(p.toRating, nowInstant, reverse)
