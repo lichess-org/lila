@@ -1324,6 +1324,8 @@ object I18nKey:
     val `zugzwangDescription`: I18nKey = "puzzleTheme:zugzwangDescription"
     val `healthyMix`: I18nKey = "puzzleTheme:healthyMix"
     val `healthyMixDescription`: I18nKey = "puzzleTheme:healthyMixDescription"
+    val `mix`: I18nKey = "puzzleTheme:mix"
+    val `mixDescription`: I18nKey = "puzzleTheme:mixDescription"
     val `playerGames`: I18nKey = "puzzleTheme:playerGames"
     val `playerGamesDescription`: I18nKey = "puzzleTheme:playerGamesDescription"
     val `puzzleDownloadInformation`: I18nKey = "puzzleTheme:puzzleDownloadInformation"

@@ -2495,6 +2495,10 @@ interface I18n {
     middlegame: string;
     /** A tactic during the second phase of the game. */
     middlegameDescription: string;
+    /** Healthy mix */
+    mix: string;
+    /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
+    mixDescription: string;
     /** One-move puzzle */
     oneMove: string;
     /** A puzzle that is only one move long. */
