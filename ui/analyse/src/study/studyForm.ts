@@ -1,7 +1,7 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { prop } from 'common';
-import { snabDialog } from 'common/dialog';
+import { confirm, prompt, snabDialog } from 'common/dialog';
 import flairPickerLoader from 'bits/flairPicker';
 import { bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
@@ -123,29 +123,28 @@ export function view(ctrl: StudyForm): VNode {
         [
           h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
             h('div.form-group', [
-              h('label.form-label', 'Flair ▼'),
+              h('label.form-label', 'Flair'),
               h(
-                'details.form-control.emoji-details',
+                'div.form-control.emoji-details',
                 {
                   hook: onInsert(el => flairPickerLoader(el)),
                 },
                 [
-                  h('summary.button.button-metal.button-no-upper', [
-                    h('span.flair-container', [
-                      h('img.uflair', {
-                        attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' },
-                      }),
-                    ]),
+                  h('div.emoji-popup-button', [
+                    h(
+                      'select#study-flair.form-control',
+                      { attrs: { name: 'flair' } },
+                      data.flair && h('option', { attrs: { value: data.flair, selected: true } }),
+                    ),
+                    h('img', { attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' } }),
                   ]),
-                  h('input#study-flair', {
-                    attrs: { type: 'hidden', name: 'flair', value: data.flair || '' },
-                  }),
-                  h('div.flair-picker', {
-                    attrs: { 'data-except-emojis': 'activity.lichess' },
-                  }),
+                  h(
+                    'div.flair-picker.none',
+                    { attrs: { 'data-except-emojis': 'activity.lichess' } },
+                    h(removeEmojiButton, 'clear'),
+                  ),
                 ],
               ),
-              data.flair && h(removeEmojiButton, 'Delete'),
             ]),
             h('div.form-group', [
               h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
@@ -254,11 +253,14 @@ export function view(ctrl: StudyForm): VNode {
                 'form',
                 {
                   attrs: { action: '/study/' + data.id + '/delete', method: 'post' },
-                  hook: bindNonPassive(
-                    'submit',
-                    _ =>
-                      isNew || prompt(i18n.study.confirmDeleteStudy(data.name))?.trim() === data.name.trim(),
-                  ),
+                  hook: bindNonPassive('submit', e => {
+                    if (isNew) return;
+
+                    e.preventDefault();
+                    prompt(i18n.study.confirmDeleteStudy(data.name)).then(userInput => {
+                      if (userInput?.trim() === data.name.trim()) (e.target as HTMLFormElement).submit();
+                    });
+                  }),
                 },
                 [h(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
               ),
@@ -267,7 +269,12 @@ export function view(ctrl: StudyForm): VNode {
                   'form',
                   {
                     attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
-                    hook: bindNonPassive('submit', _ => confirm(i18n.study.deleteTheStudyChatHistory)),
+                    hook: bindNonPassive('submit', e => {
+                      e.preventDefault();
+                      confirm(i18n.study.deleteTheStudyChatHistory).then(yes => {
+                        if (yes) (e.target as HTMLFormElement).submit();
+                      });
+                    }),
                   },
                   [h(emptyRedButton, i18n.study.clearChat)],
                 ),
@@ -280,4 +287,4 @@ export function view(ctrl: StudyForm): VNode {
   });
 }
 
-const removeEmojiButton = emptyRedButton + '.text.emoji-remove';
+const removeEmojiButton = 'button.button.button-metal.emoji-remove';

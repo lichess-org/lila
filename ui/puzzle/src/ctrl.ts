@@ -39,6 +39,7 @@ import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
@@ -454,11 +455,9 @@ export default class PuzzleCtrl implements ParentCtrl {
       if (this.streak && win) this.streak.onComplete(true, res.next);
     }
     this.redraw();
-    if (!next) {
-      if (!this.data.replay) {
-        alert('No more puzzles available! Try another theme.');
-        site.redirect('/training/themes');
-      }
+    if (!next && !this.data.replay) {
+      await alert('No more puzzles available! Try another theme.');
+      site.redirect('/training/themes');
     }
   };
 

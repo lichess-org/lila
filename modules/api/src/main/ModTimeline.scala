@@ -53,9 +53,13 @@ object ModTimeline:
     case (p: PublicLine, n: PublicLine)                => PublicLine.merge(p, n)
     case (p: PlayBans, n: PlayBans)                    => PlayBans(p.list ::: n.list).some
     case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
-    case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) =>
-      p.copy(atoms = n.atoms ::: p.atoms).some
-    case _ => none
+    case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) => p.copy(atoms = n.atoms ::: p.atoms).some
+    case (p: Modlog, n: Modlog)                                   => mergeModlog(p, n)
+    case _                                                        => none
+
+  private def mergeModlog(p: Modlog, n: Modlog): Option[Modlog] =
+    (p.action == n.action && p.mod.is(n.mod)).option:
+      p.copy(details = some(List(p.details, n.details).flatten.distinct.mkString(" / ")))
 
   private def reportAtoms(report: Report): List[ReportNewAtom | PublicLine] =
     report.atoms
@@ -109,13 +113,21 @@ object ModTimeline:
     case Play
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
-      case _: PlayBans                                                        => angle != Angle.Comm
-      case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
+      case _: PlayBans                                     => angle != Angle.Comm
+      case l: Modlog if l.action == Modlog.chatTimeout     => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.deletePost      => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.disableTeam     => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.teamKick        => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.blankedPassword => angle == Angle.None
+      case l: Modlog if l.action == Modlog.weakPassword    => angle == Angle.None
+      case l: Modlog if l.action == Modlog.troll           => angle != Angle.Play
       case l: Modlog if l.action == Modlog.modMessage =>
         angle match
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true
-      case _ => true
+      case r: ReportNewAtom if r.report.is(_.Comm) => angle != Angle.Play
+      case _: PublicLine                           => angle != Angle.Play
+      case _                                       => true
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,
@@ -150,7 +162,8 @@ final class ModTimelineApi(
     else if note.text.startsWith("Appeal reply:") then false
     else true
 
-  private def filterReport(r: Report): Boolean = !r.isSpontaneous
+  private def filterReport(r: Report): Boolean =
+    !r.isSpontaneous && !r.isAppeal
 
   private object modsList:
     var all: Set[ModId]               = Set(UserId.lichess.into(ModId))

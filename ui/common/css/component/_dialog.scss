@@ -1,3 +1,7 @@
+body:has(dialog.touch-scroll) {
+  overflow: hidden !important;
+}
+
 dialog {
   @extend %box-radius, %popup-shadow;
   position: fixed;
@@ -81,17 +85,27 @@ dialog {
   padding: 2em;
   color: $c-font;
 
-  &.alert {
+  &.alert,
+  &.debug {
     @extend %flex-column;
     gap: 2em;
-    padding: 2em;
     width: unset;
     height: unset;
-
-    span {
-      display: flex;
-      justify-content: end;
-      gap: 2em;
-    }
+    border-radius: 6px;
+    border: 3px solid $c-primary;
+  }
+  &.alert {
+    width: 480px;
+    max-width: 100%;
+    font-size: 16px;
+  }
+  span {
+    display: flex;
+    justify-content: end;
+    gap: 2em;
+  }
+  input {
+    align-self: center;
+    width: 40ch;
   }
 }

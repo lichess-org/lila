@@ -7,6 +7,7 @@ import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
 import ChatCtrl from './ctrl';
 import { pubsub } from 'common/pubsub';
+import { confirm } from 'common/dialog';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -60,8 +61,8 @@ export function report(ctrl: ChatCtrl, line: HTMLElement): void {
   const text = (line.querySelector('t') as HTMLElement).innerText;
   if (userA) reportUserText(ctrl.data.resourceId, userA.href.split('/')[4], text);
 }
-function reportUserText(resourceId: string, username: string, text: string) {
-  if (confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
+async function reportUserText(resourceId: string, username: string, text: string) {
+  if (await confirm(`Report "${text}" to moderators?`)) flag(resourceId, username, text);
 }
 
 export const lineAction = (): VNode => h('action.mod', { attrs: { 'data-icon': licon.Agent } });
@@ -137,8 +138,8 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
               'a.text',
               {
                 attrs: { 'data-icon': licon.Clock },
-                hook: bind('click', () => {
-                  reportUserText(ctrl.opts.resourceId, data.name, data.text);
+                hook: bind('click', async () => {
+                  await reportUserText(ctrl.opts.resourceId, data.name, data.text);
                   ctrl.timeout(ctrl.opts.reasons[0], data.text);
                 }),
               },

@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 export function initModule(): void {
   makeLinkPopups($('.social_links'));

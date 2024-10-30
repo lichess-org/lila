@@ -1,6 +1,6 @@
 import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { domDialog } from 'common/dialog';
+import { confirm, domDialog } from 'common/dialog';
 import { bind, looseH as h } from 'common/snabbdom';
 import SimulCtrl from '../ctrl';
 import { Applicant } from '../interfaces';
@@ -190,8 +190,8 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
         'a.button.button-red.text',
         {
           attrs: { 'data-icon': licon.X },
-          hook: bind('click', () => {
-            if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
+          hook: bind('click', async () => {
+            if (await confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
           }),
         },
         i18n.site.cancel,

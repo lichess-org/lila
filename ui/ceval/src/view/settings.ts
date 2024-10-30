@@ -8,6 +8,7 @@ import { onInsert, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import * as Licon from 'common/licon';
 import { onClickAway } from 'common';
 import { clamp } from 'common/algo';
+import { confirm } from 'common/dialog';
 
 const allSearchTicks: [number, string][] = [
   [4000, '4s'],
@@ -216,9 +217,9 @@ function engineSelection(ctrl: ParentCtrl) {
       external &&
         h('button.delete', {
           attrs: { ...dataIcon(Licon.X), title: 'Delete external engine' },
-          hook: bind('click', e => {
+          hook: bind('click', async e => {
             (e.currentTarget as HTMLElement).blur();
-            if (confirm('Remove external engine?'))
+            if (await confirm('Remove external engine?'))
               ceval.engines.deleteExternal(external.id).then(ok => ok && ctrl.redraw?.());
           }),
         }),
