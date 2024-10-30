@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">विरोधकाच्या चाली मर्यादित आहेत, आणि कोणतीही चाल खेळल्यास त्याची स्थिती अजूनच वाईट होईल.</string>
   <string name="healthyMix">सर्वसमावेशक मिसळ</string>
   <string name="healthyMixDescription">सर्व प्रकारांतून थोेडे-थोडेसे. कशाचीही अपेक्षा करू नका आणि सर्व गोष्टींसाठी तयार रहा, अगदी खऱ्या खेळाप्रमाणे.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">सर्वसमावेशक मिसळ</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">सर्व प्रकारांतून थोेडे-थोडेसे. कशाचीही अपेक्षा करू नका आणि सर्व गोष्टींसाठी तयार रहा, अगदी खऱ्या खेळाप्रमाणे.</string>
   <string name="playerGames">खेळाडूंचे खेळ</string>
   <string name="playerGamesDescription">तुमच्या किवा इतर खेळाडूंच्या डावांतून व्युत्पन्न कोडी.</string>
   <string name="puzzleDownloadInformation">ही कोडी सार्वजनिक वापरासाठी उपलब्ध आहेत. %s वरून उतरवून घेता येतील.</string>
