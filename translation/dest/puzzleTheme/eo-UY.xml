@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">La opcioj de la kontraŭulo por moviĝi estas limigitaj, kaj ĉiuj movoj plimalbonigas rian pozicion.</string>
   <string name="healthyMix">Sana miksaĵo</string>
   <string name="healthyMixDescription">Iom de ĉio. Vi ne scias kion atendi, do vi restas preta por io ajn! Same kiel en realaj ludoj.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Sana miksaĵo</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Iom de ĉio. Vi ne scias kion atendi, do vi restas preta por io ajn! Same kiel en realaj ludoj.</string>
   <string name="playerGames">Ludantaj ludoj</string>
   <string name="playerGamesDescription">Serĉu enigmojn generitajn de viaj ludoj, aŭ de la ludoj de alia ludanto.</string>
   <string name="puzzleDownloadInformation">Ĉi tiuj enigmoj estas en la publika domeno, kaj povas esti elŝutitaj de %s.</string>
