@@ -121,8 +121,8 @@
   <string name="zugzwangDescription">היריב מוגבל במסעים שביכולתו לבצע, וכל אחד מחמיר את מצבו.</string>
   <string name="healthyMix">שילוב בריא</string>
   <string name="healthyMixDescription">קצת מהכל. לא תדעו למה לצפות. עליכם להיות מוכנים להכל! בדיוק כמו משחקים אמיתיים.</string>
-  <string name="mix">שילוב בריא</string>
-  <string name="mixDescription">קצת מהכול. לא תדעו למה לצפות. עליכם להיות מוכנים להכול! בדיוק כמו במשחקים אמיתיים.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">שילוב בריא</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">קצת מהכול. לא תדעו למה לצפות. עליכם להיות מוכנים להכול! בדיוק כמו במשחקים אמיתיים.</string>
   <string name="playerGames">המשחקים שלי</string>
   <string name="playerGamesDescription">חפשו חידות אשר נוצרו ממשחקים שלכם או של שחקנים אחרים.</string>
   <string name="puzzleDownloadInformation">החידות האלו הן נחלת הכלל, וניתן להוריד אותן מ־%s.</string>
