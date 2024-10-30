@@ -2431,10 +2431,6 @@ interface I18n {
     hangingPiece: string;
     /** A tactic involving an opponent piece being undefended or insufficiently defended and free to capture. */
     hangingPieceDescription: string;
-    /** Healthy mix */
-    healthyMix: string;
-    /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
-    healthyMixDescription: string;
     /** Hook mate */
     hookMate: string;
     /** Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape. */
