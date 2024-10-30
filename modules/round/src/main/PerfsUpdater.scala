@@ -35,35 +35,35 @@ final class PerfsUpdater(
               val ratingsB = mkRatings(black.perfs)
               game.ratingVariant match
                 case chess.variant.Chess960 =>
-                  updateRatings(35.0d, ratingsW.chess960, ratingsB.chess960, game)
+                  updateRatings(7.786d, ratingsW.chess960, ratingsB.chess960, game)
                 case chess.variant.KingOfTheHill =>
-                  updateRatings(35.0d, ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
+                  updateRatings(7.786d, ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
                 case chess.variant.ThreeCheck =>
-                  updateRatings(35.0d, ratingsW.threeCheck, ratingsB.threeCheck, game)
+                  updateRatings(7.786d, ratingsW.threeCheck, ratingsB.threeCheck, game)
                 case chess.variant.Antichess =>
-                  updateRatings(35.0d, ratingsW.antichess, ratingsB.antichess, game)
+                  updateRatings(7.786d, ratingsW.antichess, ratingsB.antichess, game)
                 case chess.variant.Atomic =>
-                  updateRatings(35.0d, ratingsW.atomic, ratingsB.atomic, game)
+                  updateRatings(7.786d, ratingsW.atomic, ratingsB.atomic, game)
                 case chess.variant.Horde =>
                   updateRatings(0.0d, ratingsW.horde, ratingsB.horde, game)
                 case chess.variant.RacingKings =>
                   updateRatings(0.0d, ratingsW.racingKings, ratingsB.racingKings, game)
                 case chess.variant.Crazyhouse =>
-                  updateRatings(35.0d, ratingsW.crazyhouse, ratingsB.crazyhouse, game)
+                  updateRatings(7.786d, ratingsW.crazyhouse, ratingsB.crazyhouse, game)
                 case chess.variant.Standard =>
                   game.speed match
                     case Speed.Bullet =>
-                      updateRatings(35.0d, ratingsW.bullet, ratingsB.bullet, game)
+                      updateRatings(7.786d, ratingsW.bullet, ratingsB.bullet, game)
                     case Speed.Blitz =>
-                      updateRatings(35.0d, ratingsW.blitz, ratingsB.blitz, game)
+                      updateRatings(7.786d, ratingsW.blitz, ratingsB.blitz, game)
                     case Speed.Rapid =>
-                      updateRatings(35.0d, ratingsW.rapid, ratingsB.rapid, game)
+                      updateRatings(7.786d, ratingsW.rapid, ratingsB.rapid, game)
                     case Speed.Classical =>
-                      updateRatings(35.0d, ratingsW.classical, ratingsB.classical, game)
+                      updateRatings(7.786d, ratingsW.classical, ratingsB.classical, game)
                     case Speed.Correspondence =>
-                      updateRatings(35.0d, ratingsW.correspondence, ratingsB.correspondence, game)
+                      updateRatings(7.786d, ratingsW.correspondence, ratingsB.correspondence, game)
                     case Speed.UltraBullet =>
-                      updateRatings(35.0d, ratingsW.ultraBullet, ratingsB.ultraBullet, game)
+                      updateRatings(7.786d, ratingsW.ultraBullet, ratingsB.ultraBullet, game)
                 case _ =>
               val perfsW                     = mkPerfs(ratingsW, white -> black, game)
               val perfsB                     = mkPerfs(ratingsB, black -> white, game)

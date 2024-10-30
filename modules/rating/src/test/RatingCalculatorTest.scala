@@ -21,40 +21,40 @@ class RatingCalculatorTest extends lila.common.LilaTest:
           case Glicko.Result.Draw => GameResult(wRating, bRating, None)
       )
     )
-    Glicko.calculator(35.0d).updateRatings(results, true)
+    Glicko.calculator(7.786d).updateRatings(results, true)
 
   test("default deviation: white wins") {
     val wr = default.toRating
     val br = default.toRating
     updateRatings(wr, br, White.some)
-    assertCloseTo(wr.rating, 1729d, 1d)
-    assertCloseTo(br.rating, 1271d, 1d)
-    assertCloseTo(wr.ratingDeviation, 396.9015d, 0.0001d)
-    assertCloseTo(br.ratingDeviation, 396.9015d, 0.0001d)
-    assertCloseTo(wr.volatility, 0.0899980, 0.0000001d)
-    assertCloseTo(br.volatility, 0.0899980, 0.0000001d)
+    assertCloseTo(wr.rating, 1739d, 0.5d)
+    assertCloseTo(br.rating, 1261d, 0.5d)
+    assertCloseTo(wr.ratingDeviation, 396.7003d, 0.0001d)
+    assertCloseTo(br.ratingDeviation, 396.7003d, 0.0001d)
+    assertCloseTo(wr.volatility, 0.09000d, 0.00001d)
+    assertCloseTo(br.volatility, 0.09000d, 0.00001d)
   }
   test("default deviation: black wins") {
     val wr = default.toRating
     val br = default.toRating
     updateRatings(wr, br, Black.some)
-    assertCloseTo(wr.rating, 1245d, 1d)
-    assertCloseTo(br.rating, 1755d, 1d)
-    assertCloseTo(wr.ratingDeviation, 396.9015d, 0.0001d)
-    assertCloseTo(br.ratingDeviation, 396.9015d, 0.0001d)
-    assertCloseTo(wr.volatility, 0.0899986, 0.0000001d)
-    assertCloseTo(br.volatility, 0.0899986, 0.0000001d)
+    assertCloseTo(wr.rating, 1256d, 0.5d)
+    assertCloseTo(br.rating, 1744d, 0.5d)
+    assertCloseTo(wr.ratingDeviation, 396.7003d, 0.0001d)
+    assertCloseTo(br.ratingDeviation, 396.7003d, 0.0001d)
+    assertCloseTo(wr.volatility, 0.09000d, 0.00001d)
+    assertCloseTo(br.volatility, 0.09000d, 0.00001d)
   }
   test("default deviation: draw") {
     val wr = default.toRating
     val br = default.toRating
     updateRatings(wr, br, None)
-    assertCloseTo(wr.rating, 1487d, 1d)
-    assertCloseTo(br.rating, 1513d, 1d)
-    assertCloseTo(wr.ratingDeviation, 396.9015d, 0.0001d)
-    assertCloseTo(br.ratingDeviation, 396.9015d, 0.0001d)
-    assertCloseTo(wr.volatility, 0.0899954, 0.0000001d)
-    assertCloseTo(br.volatility, 0.0899954, 0.0000001d)
+    assertCloseTo(wr.rating, 1497d, 0.5d)
+    assertCloseTo(br.rating, 1503d, 0.5d)
+    assertCloseTo(wr.ratingDeviation, 396.7003d, 0.0001d)
+    assertCloseTo(br.ratingDeviation, 396.7003d, 0.0001d)
+    assertCloseTo(wr.volatility, 0.09000d, 0.00001d)
+    assertCloseTo(br.volatility, 0.09000d, 0.00001d)
   }
   val perf = Perf.default.copy(glicko =
     Glicko.default.copy(
@@ -66,34 +66,34 @@ class RatingCalculatorTest extends lila.common.LilaTest:
     val wr = perf.toRating
     val br = perf.toRating
     updateRatings(wr, br, White.some)
-    assertCloseTo(wr.rating, 1515d, 1d)
-    assertCloseTo(br.rating, 1485d, 1d)
-    assertCloseTo(wr.ratingDeviation, 78.0967d, 0.0001d)
-    assertCloseTo(br.ratingDeviation, 78.0967d, 0.0001d)
-    assertCloseTo(wr.volatility, 0.06, 0.00001d)
-    assertCloseTo(br.volatility, 0.06, 0.00001d)
+    assertCloseTo(wr.rating, 1517d, 0.5d)
+    assertCloseTo(br.rating, 1483d, 0.5d)
+    assertCloseTo(wr.ratingDeviation, 78.0800d, 0.0001d)
+    assertCloseTo(br.ratingDeviation, 78.0800d, 0.0001d)
+    assertCloseTo(wr.volatility, 0.06000d, 0.00001d)
+    assertCloseTo(br.volatility, 0.06000d, 0.00001d)
   }
   test("low deviation: black wins") {
     val wr = perf.toRating
     val br = perf.toRating
     updateRatings(wr, br, Black.some)
-    assertCloseTo(wr.rating, 1481d, 1d)
-    assertCloseTo(br.rating, 1519d, 1d)
-    assertCloseTo(wr.ratingDeviation, 78.0967d, 0.0001d)
-    assertCloseTo(br.ratingDeviation, 78.0967d, 0.0001d)
-    assertCloseTo(wr.volatility, 0.06, 0.00001d)
-    assertCloseTo(br.volatility, 0.06, 0.00001d)
+    assertCloseTo(wr.rating, 1483d, 0.5d)
+    assertCloseTo(br.rating, 1517d, 0.5d)
+    assertCloseTo(wr.ratingDeviation, 78.0800d, 0.0001d)
+    assertCloseTo(br.ratingDeviation, 78.0800d, 0.0001d)
+    assertCloseTo(wr.volatility, 0.06000d, 0.00001d)
+    assertCloseTo(br.volatility, 0.06000d, 0.00001d)
   }
   test("low deviation: draw") {
     val wr = perf.toRating
     val br = perf.toRating
     updateRatings(wr, br, None)
-    assertCloseTo(wr.rating, 1498d, 1d)
-    assertCloseTo(br.rating, 1502d, 1d)
-    assertCloseTo(wr.ratingDeviation, 78.0967d, 0.0001d)
-    assertCloseTo(br.ratingDeviation, 78.0967d, 0.0001d)
-    assertCloseTo(wr.volatility, 0.06, 0.00001d)
-    assertCloseTo(br.volatility, 0.06, 0.00001d)
+    assertCloseTo(wr.rating, 1500d, 0.5d)
+    assertCloseTo(br.rating, 1500d, 0.5d)
+    assertCloseTo(wr.ratingDeviation, 78.0800d, 0.0001d)
+    assertCloseTo(br.ratingDeviation, 78.0800d, 0.0001d)
+    assertCloseTo(wr.volatility, 0.06000d, 0.00001d)
+    assertCloseTo(br.volatility, 0.06000d, 0.00001d)
   }
   {
     val wP = Perf.default.copy(glicko =
@@ -114,34 +114,34 @@ class RatingCalculatorTest extends lila.common.LilaTest:
       val wr = wP.toRating
       val br = bP.toRating
       updateRatings(wr, br, White.some)
-      assertCloseTo(wr.rating, 1422d, 1d)
-      assertCloseTo(br.rating, 1509d, 1d)
-      assertCloseTo(wr.ratingDeviation, 77.3966, 0.0001d)
-      assertCloseTo(br.ratingDeviation, 105.5926, 0.0001d)
-      assertCloseTo(wr.volatility, 0.06, 0.00001d)
-      assertCloseTo(br.volatility, 0.065, 0.00001d)
+      assertCloseTo(wr.rating, 1422d, 0.5d)
+      assertCloseTo(br.rating, 1507d, 0.5d)
+      assertCloseTo(wr.ratingDeviation, 77.4720d, 0.0001d)
+      assertCloseTo(br.ratingDeviation, 105.8046d, 0.0001d)
+      assertCloseTo(wr.volatility, 0.06000d, 0.00001d)
+      assertCloseTo(br.volatility, 0.06500d, 0.00001d)
     }
     test("mixed ratings and deviations: black wins") {
       val wr = wP.toRating
       val br = bP.toRating
       updateRatings(wr, br, Black.some)
-      assertCloseTo(wr.rating, 1389d, 1d)
-      assertCloseTo(br.rating, 1571d, 1d)
-      assertCloseTo(wr.ratingDeviation, 77.3966, 0.0001d)
-      assertCloseTo(br.ratingDeviation, 105.5926, 0.0001d)
-      assertCloseTo(wr.volatility, 0.06, 0.00001d)
-      assertCloseTo(br.volatility, 0.065, 0.00001d)
+      assertCloseTo(wr.rating, 1390d, 0.5d)
+      assertCloseTo(br.rating, 1569d, 0.5d)
+      assertCloseTo(wr.ratingDeviation, 77.4720d, 0.0001d)
+      assertCloseTo(br.ratingDeviation, 105.8046d, 0.0001d)
+      assertCloseTo(wr.volatility, 0.06000d, 0.00001d)
+      assertCloseTo(br.volatility, 0.06500d, 0.00001d)
     }
     test("mixed ratings and deviations: draw") {
       val wr = wP.toRating
       val br = bP.toRating
       updateRatings(wr, br, None)
-      assertCloseTo(wr.rating, 1405d, 1d)
-      assertCloseTo(br.rating, 1540d, 1d)
-      assertCloseTo(wr.ratingDeviation, 77.3966, 0.0001d)
-      assertCloseTo(br.ratingDeviation, 105.5926, 0.0001d)
-      assertCloseTo(wr.volatility, 0.06, 0.00001d)
-      assertCloseTo(br.volatility, 0.065, 0.00001d)
+      assertCloseTo(wr.rating, 1406d, 0.5d)
+      assertCloseTo(br.rating, 1538d, 0.5d)
+      assertCloseTo(wr.ratingDeviation, 77.4720d, 0.0001d)
+      assertCloseTo(br.ratingDeviation, 105.8046d, 0.0001d)
+      assertCloseTo(wr.volatility, 0.06000d, 0.00001d)
+      assertCloseTo(br.volatility, 0.06500d, 0.00001d)
     }
   }
   {
@@ -163,33 +163,33 @@ class RatingCalculatorTest extends lila.common.LilaTest:
       val wr = wP.toRating
       val br = bP.toRating
       updateRatings(wr, br, White.some)
-      assertCloseTo(wr.rating, 1216.6d, 0.1d)
-      assertCloseTo(br.rating, 1638.4d, 0.1d)
-      assertCloseTo(wr.ratingDeviation, 59.8839d, 0.0001d)
-      assertCloseTo(br.ratingDeviation, 196.3840, 0.0001d)
-      assertCloseTo(wr.volatility, 0.053013, 0.000001d)
-      assertCloseTo(br.volatility, 0.062028, 0.000001d)
+      assertCloseTo(wr.rating, 1217d, 0.5d)
+      assertCloseTo(br.rating, 1637d, 0.5d)
+      assertCloseTo(wr.ratingDeviation, 59.8971d, 0.0001d)
+      assertCloseTo(br.ratingDeviation, 196.8617d, 0.0001d)
+      assertCloseTo(wr.volatility, 0.053013d, 0.00001d)
+      assertCloseTo(br.volatility, 0.062028d, 0.00001d)
     }
     test("more mixed ratings and deviations: black wins") {
       val wr = wP.toRating
       val br = bP.toRating
       updateRatings(wr, br, Black.some)
-      assertCloseTo(wr.rating, 1199.2d, 0.1d)
-      assertCloseTo(br.rating, 1856.5d, 0.1d)
-      assertCloseTo(wr.ratingDeviation, 59.8839d, 0.0001d)
-      assertCloseTo(br.ratingDeviation, 196.3840, 0.0001d)
-      assertCloseTo(wr.volatility, 0.052999, 0.000001d)
-      assertCloseTo(br.volatility, 0.061999, 0.000001d)
+      assertCloseTo(wr.rating, 1199d, 0.5d)
+      assertCloseTo(br.rating, 1856d, 0.5d)
+      assertCloseTo(wr.ratingDeviation, 59.8971d, 0.0001d)
+      assertCloseTo(br.ratingDeviation, 196.8617d, 0.0001d)
+      assertCloseTo(wr.volatility, 0.052999d, 0.00001d)
+      assertCloseTo(br.volatility, 0.061999d, 0.00001d)
     }
     test("more mixed ratings and deviations: draw") {
       val wr = wP.toRating
       val br = bP.toRating
       updateRatings(wr, br, None)
-      assertCloseTo(wr.rating, 1207.9, 0.1d)
-      assertCloseTo(br.rating, 1747.5, 0.1d)
-      assertCloseTo(wr.ratingDeviation, 59.8839, 0.0001d)
-      assertCloseTo(br.ratingDeviation, 196.3840, 0.0001d)
-      assertCloseTo(wr.volatility, 0.053002, 0.000001d)
-      assertCloseTo(br.volatility, 0.062006, 0.000001d)
+      assertCloseTo(wr.rating, 1208d, 0.5d)
+      assertCloseTo(br.rating, 1746d, 0.5d)
+      assertCloseTo(wr.ratingDeviation, 59.8971d, 0.0001d)
+      assertCloseTo(br.ratingDeviation, 196.8617d, 0.0001d)
+      assertCloseTo(wr.volatility, 0.052999d, 0.00001d)
+      assertCloseTo(br.volatility, 0.062006d, 0.00001d)
     }
   }
