@@ -3,7 +3,7 @@
   <string name="advancedPawn">Voľný pešiak</string>
   <string name="advancedPawnDescription">Premena pešiaka alebo hrozba premeny je kľúčom k taktike.</string>
   <string name="advantage">Výhoda</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Využite svoju šancu získať rozhodujúcu prevahu (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Využite svoju šancu získať rozhodujúcu prevahu (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastáziin mat</string>
   <string name="anastasiaMateDescription">Jazdec a veža alebo dáma sa spoja aby súperovho kráľa chytili do pasce medzi okrajom šachovnice a vlastnou figúrkou.</string>
   <string name="arabianMate">Arabský mat</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Odstránenie obrany</string>
   <string name="capturingDefenderDescription">Odstránenie figúry, ktorá je dôležitá pri obrane inej figúry, dovoľujúc branie novo nebránenej figúry v následujúcom ťahu.</string>
   <string name="crushing">Rozdrvenie</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Odhaľte súperovu hrubú chybu a získajte drvivú výhodu. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Odhaľte súperovu hrubú chybu a získajte drvivú výhodu. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat dvojicou strelcov</string>
   <string name="doubleBishopMateDescription">Dvaja útočiaci strelci na susediacich diagonálach zmatujú kráľa zablokovaného vlastnými figúrkami.</string>
   <string name="dovetailMate">Devetailov mat</string>
   <string name="dovetailMateDescription">Dáma zmatuje kráľa v tesnej blízkosti, pričom jediné dve únikové políčka kráľovi blokujú vlastné figúrky.</string>
   <string name="equality">Rovnováha</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Dostaňte sa z prehratej pozície, a zaistite remízu alebo vyrovnanú pozíciu. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Dostaňte sa z prehratej pozície, a zaistite remízu alebo vyrovnanú pozíciu. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Útok na kráľovskom krídle</string>
   <string name="kingsideAttackDescription">Útok na súperovho kráľa po tom ako súper zahral malú rošádu.</string>
   <string name="clearance">Uvoľnenie</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Odlákanie</string>
   <string name="deflectionDescription">Ťah, ktorý odvádza súperovu figúry od jej iných povinností, ako napríklad bránenie kľúčového poľa. Občas nazývané aj \"preťaženie\".</string>
   <string name="discoveredAttack">Odťažené napadnutie</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ťah figúrou, ktorá blokovala napadnutie inou figúrou, ako napr. ťah jazdcom, ktorý odkryje napadnutie vežou.</string>
+  <string name="discoveredAttackDescription">Ťah figúrou, ktorá blokovala napadnutie inou figúrou, ako napr. ťah jazdcom, ktorý odkryje napadnutie vežou.</string>
   <string name="doubleCheck">Dvojitý šach</string>
   <string name="doubleCheckDescription">Šachovanie dvoma figúrami naraz, ako výsledok odkryvného šachu, kedy aj figúra ktorou sa potiahlo aj odkrytá figúra napádajú súperovho kráľa.</string>
   <string name="endgame">Koncovka</string>
