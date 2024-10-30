@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">একটি গুটি যখন প্রতিপক্ষের গুটির ভিতর দিয়ে কোনো ঘরকে রক্ষা বা আক্রমন করে।</string>
   <string name="zugzwang">জুগজওয়াং(Zugzwang)</string>
   <string name="zugzwangDescription">প্রতিপক্ষের সীমিত চাল আছে, এবং সব চাল তাদের অবস্থান আরো খারাপ করবে।</string>
-  <string name="healthyMix">পরিমিত মিশ্রণ</string>
-  <string name="healthyMixDescription">সবকিছু একটু করে। আপনি জানবেন না কি আসতে চলেছে। অনেকটা বাস্তব খেলার মতো।</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">পরিমিত মিশ্রণ</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">সবকিছু একটু করে। আপনি জানবেন না কি আসতে চলেছে। অনেকটা বাস্তব খেলার মতো।</string>
+  <string name="mix">পরিমিত মিশ্রণ</string>
+  <string name="mixDescription">সবকিছু একটু করে। আপনি জানবেন না কি আসতে চলেছে। অনেকটা বাস্তব খেলার মতো।</string>
   <string name="playerGames">খেলোয়ারদের খেলা হতে</string>
   <string name="playerGamesDescription">খেলোয়ারদের খেলা থেকে বাছাই করে তৈরি করা ধাঁধা।</string>
   <string name="puzzleDownloadInformation">এই ধাঁধা গুলো সবার জন্য উন্মুক্ত এবং %s থেকে নামিয়ে নেয়া যাবে।</string>
