@@ -2,7 +2,6 @@ import { text, formToXhr } from 'common/xhr';
 import flairPickerLoader from './exports/flairPicker';
 import { spinnerHtml } from 'common/spinner';
 import { wireCropDialog } from './exports/crop';
-import { confirm } from 'common/dialog';
 
 // avoid node_modules and pay attention to imports here. we don't want to force people
 // to download the entire toastui editor library just to do some light form processing.
@@ -31,8 +30,6 @@ export function initModule(args: { fn: string } & any): void {
       return oauth(args);
     case 'pmAll':
       return pmAll();
-    case 'practiceNag':
-      return practiceNag();
     case 'relayForm':
       return relayForm();
     case 'setAssetInfo':
@@ -186,14 +183,6 @@ function importer() {
 function pmAll() {
   $('.copy-url-button').on('click', function (e) {
     $('#form3-message').val($('#form3-message').val() + e.target.dataset.copyurl + '\n');
-  });
-}
-
-function practiceNag() {
-  const el = document.querySelector('.do-reset');
-  if (!(el instanceof HTMLAnchorElement)) return;
-  el.addEventListener('click', async () => {
-    if (await confirm('You will lose your practice progress!')) (el.parentNode as HTMLFormElement).submit();
   });
 }
 
