@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">ಎದುರಾಳಿಯು ಅವರು ಮಾಡಬಹುದಾದ ಚಲನೆಗಳಲ್ಲಿ ಸೀಮಿತವಾಗಿದೆ ಮತ್ತು ಎಲ್ಲಾ ಚಲನೆಗಳು ಅವರ ಸ್ಥಾನವನ್ನು ಇನ್ನಷ್ಟು ಹದಗೆಡಿಸುತ್ತದೆ.</string>
   <string name="healthyMix">ಆರೋಗ್ಯಕರ ಮಿಶ್ರಣ</string>
   <string name="healthyMixDescription">ಎಲ್ಲದರಲ್ಲೂ ಸ್ವಲ್ಪ. ಏನನ್ನು ನಿರೀಕ್ಷಿಸಬೇಕೆಂದು ನಿಮಗೆ ತಿಳಿದಿಲ್ಲ, ಆದ್ದರಿಂದ ನೀವು ಯಾವುದಕ್ಕೂ ಸಿದ್ಧರಾಗಿರಿ! ನೈಜ ಆಟಗಳಂತೆಯೇ.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">ಆರೋಗ್ಯಕರ ಮಿಶ್ರಣ</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">ಎಲ್ಲದರಲ್ಲೂ ಸ್ವಲ್ಪ. ಏನನ್ನು ನಿರೀಕ್ಷಿಸಬೇಕೆಂದು ನಿಮಗೆ ತಿಳಿದಿಲ್ಲ, ಆದ್ದರಿಂದ ನೀವು ಯಾವುದಕ್ಕೂ ಸಿದ್ಧರಾಗಿರಿ! ನೈಜ ಆಟಗಳಂತೆಯೇ.</string>
   <string name="playerGames">ಆಟಗಾರರ ಆಟಗಳು</string>
   <string name="playerGamesDescription">ನಿಮ್ಮ ಆಟಗಳಿಂದ ಅಥವಾ ಇನ್ನೊಬ್ಬ ಆಟಗಾರನ ಆಟಗಳಿಂದ ರಚಿಸಲಾದ ಲುಕಪ್ ಒಗಟುಗಳು.</string>
   <string name="puzzleDownloadInformation">ಈ ಒಗಟುಗಳು ಸಾರ್ವಜನಿಕ ಡೊಮೇನ್‌ನಲ್ಲಿವೆ ಮತ್ತು %s ನಿಂದ ಡೌನ್‌ಲೋಡ್ ಮಾಡಬಹುದು.</string>
