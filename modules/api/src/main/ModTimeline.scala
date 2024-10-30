@@ -115,11 +115,12 @@ object ModTimeline:
     def filter(e: Event)(using angle: Angle): Boolean = e match
       case _: PlayBans                                     => angle != Angle.Comm
       case l: Modlog if l.action == Modlog.chatTimeout     => angle == Angle.Comm
-      case l: Modlog if l.action == Modlog.deletePost      => angle == Angle.Comm
-      case l: Modlog if l.action == Modlog.disableTeam     => angle == Angle.Comm
-      case l: Modlog if l.action == Modlog.teamKick        => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.deletePost      => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.disableTeam     => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.teamKick        => angle != Angle.Play
       case l: Modlog if l.action == Modlog.blankedPassword => angle == Angle.None
       case l: Modlog if l.action == Modlog.weakPassword    => angle == Angle.None
+      case l: Modlog if l.action == Modlog.troll           => angle != Angle.Play
       case l: Modlog if l.action == Modlog.modMessage =>
         angle match
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
