@@ -121,8 +121,8 @@
   <string name="zugzwangDescription">El oponente está limitado en los movimientos que puede realizar, y todos los movimientos empeoran su posición.</string>
   <string name="healthyMix">Mezcla equilibrada</string>
   <string name="healthyMixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
-  <string name="mix">Mezcla equilibrada</string>
-  <string name="mixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mezcla equilibrada</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
   <string name="playerGames">Partidas de jugadores</string>
   <string name="playerGamesDescription">Busca ejercicios generados a partir de tus partidas o de las de otros jugadores.</string>
   <string name="puzzleDownloadInformation">Estos ejercicios son de dominio público y pueden descargarse desde %s.</string>
