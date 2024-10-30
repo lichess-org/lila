@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">E Figur attackiert oder verteidigt es Fäld dur e gägnerischi Figur.</string>
   <string name="zugzwang">Zugszwang</string>
   <string name="zugzwangDescription">De Gägner hät nur e limitierti Azahl Züg und Jede verschlächteret sini Schtellig.</string>
-  <string name="healthyMix">En gsunde Mix</string>
-  <string name="healthyMixDescription">Es bitzli vu Allem, me weiss nöd was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpiel.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">En gsunde Mix</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Es bitzli vu Allem, me weiss nöd was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpiel.</string>
+  <string name="mix">En gsunde Mix</string>
+  <string name="mixDescription">Es bitzli vu Allem, me weiss nöd was eim erwartet, drum isch mer uf alles g\'fasst - genau wie bi richtige Schachschpiel.</string>
   <string name="playerGames">Schpiller-Schpiel</string>
   <string name="playerGamesDescription">Suech nach Ufgabe us dine Schpiel oder Ufgabe us Schpiel vu Andere.</string>
   <string name="puzzleDownloadInformation">Die Ufgabe sind öffentlich, mer channs abelade under %s.</string>
