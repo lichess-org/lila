@@ -121,6 +121,8 @@
   <string name="zugzwangDescription">Priešininkas apribotas ėjimais, kuriuos gali padaryti, ir visi jo ėjimai tik pabloginą jo poziciją.</string>
   <string name="healthyMix">Visko po truputį</string>
   <string name="healthyMixDescription">Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
+  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Visko po truputį</string>
+  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
   <string name="playerGames">Žaidėjų žaidimai</string>
   <string name="playerGamesDescription">Galvosūkiai sugeneruoti iš jūsų partijų ar iš kitų žaidėjų partijų.</string>
   <string name="puzzleDownloadInformation">Šie galvosūkiai yra laisvai prieinami ir gali būti parsisiųsti iš %s.</string>
