@@ -119,10 +119,8 @@
   <string name="xRayAttackDescription">Una peça ataca o defensa una casella, a través d\'una peça rival.</string>
   <string name="zugzwang">Atzucac</string>
   <string name="zugzwangDescription">El rival té els moviments limitats i cada jugada empitjora la seva posició.</string>
-  <string name="healthyMix">Una mica de cada</string>
-  <string name="healthyMixDescription">Una mica de tot. No sabràs el que t\'espera, així doncs estigues alerta pel que sigui! Igual que a les partides de veritat.</string>
-  <string name="mix" comment="This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Una mica de cada</string>
-  <string name="mixDescription" comment="This is identical to the old string with key 'healthyMixDescription', which has been recreated for technical reasons. Existing translations have been automatically copied.">Una mica de tot. No sabràs el que t\'espera, així doncs estigues alerta pel que sigui! Igual que a les partides de veritat.</string>
+  <string name="mix">Una mica de cada</string>
+  <string name="mixDescription">Una mica de tot. No sabràs el que t\'espera, així doncs estigues alerta pel que sigui! Igual que a les partides de veritat.</string>
   <string name="playerGames">Partides de jugadors</string>
   <string name="playerGamesDescription">Problemes generats a partir de les teves partides o de les partides d\'altres jugadors.</string>
   <string name="puzzleDownloadInformation">Aquests problemes són de domini públic i es poden descarregar des de %s.</string>
