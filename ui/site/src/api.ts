@@ -8,7 +8,17 @@ const publicEvents = new Set<PubsubEvent>([
   'socket.lag',
   'socket.close',
   'analysis.chart.click',
-  'analysis.close-all',
+  'analysis.closeAll',
+  'socket.in.mlat',
+  'socket.in.crowd',
+  'socket.in.fen',
+  'socket.in.following_playing',
+  'socket.in.following_stopped_playing',
+  'socket.in.following_onlines',
+  'socket.in.following_enters',
+  'socket.in.following_leaves',
+  'socket.in.notifications',
+  'socket.in.endData',
 ]);
 
 export const api = (ps: Pubsub) => ({
