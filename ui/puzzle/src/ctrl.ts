@@ -470,8 +470,6 @@ export default class PuzzleCtrl implements ParentCtrl {
   // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
   private reportIfMultipleSolutions = (ev: Tree.ClientEval): void => {
-    // if the eval depth is superior to 20, we're on the puzzle solution and two moves are good
-    // that is an absolute eval superior to 4, then log it
     console.log('ev', ev, 'node', this.node);
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
@@ -506,7 +504,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       }
       // TODO probably check what are really the conditions for a puzzle to have multiple solutions
       if (ev.depth > 20 && ev.pvs[1]?.cp && invertIfBlack(ev.pvs[1].cp) >= 400) {
-        // in all case, we do not want to show that more than once
+        // in all case, we do not want to show the dialog more than once
         this.reportedForMultipleSolutions = true;
         const reason = `after move ${node.ply}${node.san}, at depth ${ev.depth}, they're multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
         this.reportDialog(reason);
@@ -517,12 +515,10 @@ export default class PuzzleCtrl implements ParentCtrl {
 
 
   private reportDialog = (reason: string) => {
-      // write switch button as raw html
       const switchButton = `<div class="switch" title="report puzzle">` +
     `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox" checked="false">` +
     `<label for="analyse-toggle-report"></label>`;
 
-    // html form yes/no report with a checkbox 'do not show this again for a week'
     domDialog({
       htmlText:
         '<div><strong style="font-size:1.5em">' +
@@ -535,7 +531,6 @@ export default class PuzzleCtrl implements ParentCtrl {
         `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
         `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
     }).then(dlg => {
-      // FIXME this make the whole page crash, why?
       $('#puzzle-toggle-report', dlg.view).on('click', () => {
         console.log()
       });
