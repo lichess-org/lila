@@ -5,7 +5,7 @@ import * as sound from './sound';
 import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
-import { alerts } from 'common/dialog';
+import { alerts, prompt } from 'common/dialog';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -150,7 +150,7 @@ export default class TournamentController {
     } else {
       let password;
       if (this.data.private && !this.data.me) {
-        password = prompt(i18n.site.tournamentEntryCode);
+        password = await prompt(i18n.site.tournamentEntryCode);
         if (password === null) {
           return;
         }
