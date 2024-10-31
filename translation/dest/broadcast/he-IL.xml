@@ -58,17 +58,17 @@
   <string name="subscribeTitle">הירשמו כדי לקבל התראה בתחילת כל סבב. ניתן להפעיל או לבטל התראות קופצות או התראות ״פעמון״ בהגדרות החשבון שלך.</string>
   <string name="uploadImage">העלאת תמונה עבור הטורניר</string>
   <string name="noBoardsYet">אין עדיין לוחות. הם יופיעו כשיעלו המשחקים.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ניתן להעלות לוחות באמצעות קישור מקור או דרך %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">ניתן להעלות לוחות באמצעות קישור מקור או דרך %s</string>
   <string name="startsAfter">מתחיל אחרי %s</string>
   <string name="startVerySoon">ההקרנה תחל ממש בקרוב.</string>
   <string name="notYetStarted">ההקרנה טרם החלה.</string>
   <string name="officialWebsite">האתר הרשמי</string>
   <string name="standings">תוצאות</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">ישנן אפשרויות נוספות ב%s</string>
-  <string name="webmastersPage">עמוד המתכנתים</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">ישנן אפשרויות נוספות ב%s</string>
+  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">עמוד המתכנתים</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">קישור ל־PGN פומבי המתעדכן בשידור חי. אנו מציעים גם %s לסנכרון מיטבי ומהיר.</string>
   <string name="embedThisBroadcast">הטמעת ההקרנה באתר האינטרנט שלך</string>
-  <string name="embedThisRound">הטמעת %s באתר האינטרנט שלך</string>
+  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">הטמעת %s באתר האינטרנט שלך</string>
   <string name="ratingDiff">הפרש הדירוג</string>
   <string name="gamesThisTournament">משחקים בטורניר זה</string>
   <string name="score">ניקוד</string>

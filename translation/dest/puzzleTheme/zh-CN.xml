@@ -3,7 +3,7 @@
   <string name="advancedPawn">高位兵</string>
   <string name="advancedPawnDescription">你的兵已经深入对手的领地，可能威胁升变。</string>
   <string name="advantage">优势</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">抓住能让你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)</string>
+  <string name="advantageDescription">抓住能让你获得决定性优势的机会。(200厘兵 ≤ 评估 ≤ 600厘兵)</string>
   <string name="anastasiaMate">阿纳斯塔西亚杀法</string>
   <string name="anastasiaMateDescription">马与车或者后配合将对方的王将死在被同一方棋子卡住的边角。</string>
   <string name="arabianMate">阿拉伯杀法</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">消除保护</string>
   <string name="capturingDefenderDescription">消除保护另一个棋子的重要棋子，以在后续着法中吃掉已消除保护的棋子。</string>
   <string name="crushing">压倒性优势</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">抓住对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)。</string>
+  <string name="crushingDescription">抓住对手的失误以获得压倒性的优势 (评估 ≥ 600厘兵)。</string>
   <string name="doubleBishopMate">双象杀王</string>
   <string name="doubleBishopMateDescription">双象在相邻的斜线上将杀被同一方棋子阻挡的王。</string>
   <string name="dovetailMate">燕尾杀法</string>
   <string name="dovetailMateDescription">后贴面杀，王唯一能逃跑的两个格子被同一方的棋子阻挡。</string>
   <string name="equality">均势</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">从大劣的局面回到和棋或者均势 (评估 ≤ 200厘兵)。</string>
+  <string name="equalityDescription">从大劣的局面回到和棋或者均势 (评估 ≤ 200厘兵)。</string>
   <string name="kingsideAttack">王翼进攻</string>
   <string name="kingsideAttackDescription">在对方短易位后进攻对方的王。</string>
   <string name="clearance">腾挪</string>
@@ -39,7 +39,7 @@
   <string name="deflection">引离</string>
   <string name="deflectionDescription">一步棋使对方的棋子分散了其另一项任务，例如防守一个关键格。有时候也叫“过载”。</string>
   <string name="discoveredAttack">闪击</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">移动阻挡长距离棋子(例如车) 的己方棋子(例如马)，打通前者的路线。</string>
+  <string name="discoveredAttackDescription">移动阻挡长距离棋子(例如车) 的己方棋子(例如马)，打通前者的路线。</string>
   <string name="doubleCheck">双将</string>
   <string name="doubleCheckDescription">两个棋子同时将军，作为一种闪击，走动的棋子与后面闪露出来的棋子同时攻击对方的王。</string>
   <string name="endgame">残局</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">一个棋子穿过对方的棋子攻击或防守一个格子。</string>
   <string name="zugzwang">楚茨文克（无等着）</string>
   <string name="zugzwangDescription">对手可选的着法是有限的，并且所有着法都会使其局面更加恶化。</string>
-  <string name="healthyMix">健康搭配</string>
-  <string name="healthyMixDescription">每个主题中选取一些。你不知道会出现什么，因此得时刻打起精神！ 就像在真实对局中一样。</string>
+  <string name="mix">健康搭配</string>
+  <string name="mixDescription">每个主题中选取一些。你不知道会出现什么，因此得时刻打起精神！ 就像在真实对局中一样。</string>
   <string name="playerGames">玩家对局</string>
   <string name="playerGamesDescription">查找从你或其他玩家的对局中产生的谜题。</string>
   <string name="puzzleDownloadInformation">这些谜题都是公开的，可以在 %s 下载。</string>

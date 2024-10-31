@@ -3,7 +3,7 @@
   <string name="advancedPawn">Ceithearnach chun cinn</string>
   <string name="advancedPawnDescription">Tá ceithearnach ag ardú nó atá ag bagairt ardú ríthábhachtach don bheartaíocht.</string>
   <string name="advantage">Buntáiste</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Tóg do sheans buntáiste ceart a fháil. (200cp ≤ meast ≤ 600cp)</string>
+  <string name="advantageDescription">Tóg do sheans buntáiste ceart a fháil. (200cp ≤ meast ≤ 600cp)</string>
   <string name="anastasiaMate">Marbhsháinn Anastasia</string>
   <string name="anastasiaMateDescription">Oibríonn ridire agus caiseal nó banríon le chéile chun rí an namhaid a cheansaigh idir imeall an clár fichille agus píosa cairdiúil.</string>
   <string name="arabianMate">Marbhsháinn Arabaigh</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Marú an cosantóir</string>
   <string name="capturingDefenderDescription">Bain amach píosa atá ríthábhachtach do cosaint píosa eile, ag ceadaigh an píosa atá anois gan chosaint a mharú an sa chéad bheart ina dhiaidh.</string>
   <string name="crushing">Tubaisteach</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Féach ar earráid an chéile comhraic chun buntáiste cumhachtach a fháil. (meastóireacht ≥ 600cp)</string>
+  <string name="crushingDescription">Féach ar earráid an chéile comhraic chun buntáiste cumhachtach a fháil. (meastóireacht ≥ 600cp)</string>
   <string name="doubleBishopMate">Marbhsháinn dhá easpag</string>
   <string name="doubleBishopMateDescription">Dhá ionsaitheoir easpig ar trasnáin cóngarach dá chéile marbhsháinn ar rí ina bhfuil píosaí cairdiúla ag cuir bac air.</string>
   <string name="dovetailMate">Marbhsháinn déada</string>
   <string name="dovetailMateDescription">Déanann banríon marbhsháinn ar rí cóngarach dí, níl ach dhá chearnóg éalaithe aige agus tá a píosaí cairdiúla ag cuir cosc ar a soghluaisteacht chuig na cearnóga seo.</string>
   <string name="equality">Comhionannas</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Tar ar ais ó suíomh caillte, agus faigh cluiche cothrom nó suíomh cothrom. (meastóireacht ≤ 200cp)</string>
+  <string name="equalityDescription">Tar ar ais ó suíomh caillte, agus faigh cluiche cothrom nó suíomh cothrom. (meastóireacht ≤ 200cp)</string>
   <string name="kingsideAttack">Ionsaí ar taobh an rí</string>
   <string name="kingsideAttackDescription">Ionsaí ar rí an chéile comhraic, tar éis dóibh caisliú ar thaobh an rí.</string>
   <string name="clearance">Glanadh</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Sraonadh</string>
   <string name="deflectionDescription">Beart a cureann mearú ar píosa do chomhraic chéile atá gnóthach ar post eile, mar shampla ag déanamh cosaint ar cearnóg. Uaireanta tugtar \"ró-ualú\" air fosta.</string>
   <string name="discoveredAttack">Ionsaí nochta</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ag bogadh píosa (ridire b\'fhéidir), a chuir bac ar ionsaí roimhe seo le píosa fadraoin (caiseal b\'fhéidir), as bealach an phíosa sin.</string>
+  <string name="discoveredAttackDescription">Ag bogadh píosa (ridire b\'fhéidir), a chuir bac ar ionsaí roimhe seo le píosa fadraoin (caiseal b\'fhéidir), as bealach an phíosa sin.</string>
   <string name="doubleCheck">Sáinn faoi dhó</string>
   <string name="doubleCheckDescription">Ag sáiniú le dhá phíosa ag an am céanna, tar éis ionsaí nochta ina n-ionsaíonn an píosa gluaiseachta agus an píosa nochtaithe araon rí an chéile comhraic.</string>
   <string name="endgame">Cor deiridh</string>
@@ -120,8 +120,8 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Ciallaíonn Zugzwang gur gá le himreoir a s(h) eans a 
 thógáil cé nár mhaith leis nó léi toisc gur laige a bheith a s(h) uíomh cibé beart a dhéanfaidh sé/sí. Ba mhaith leis / léi \"háram\" a rá ach níl sé sin ceadaithe.</string>
-  <string name="healthyMix">Meascán sláintiúil</string>
-  <string name="healthyMixDescription">Giota de gach rud. Níl a fhios agat cad tá os do comhair, mar sin fanann tú réidh le haghaidh athan bith! Díreach mar atá i gcluichí fíor.</string>
+  <string name="mix">Meascán sláintiúil</string>
+  <string name="mixDescription">Giota de gach rud. Níl a fhios agat cad tá os do comhair, mar sin fanann tú réidh le haghaidh athan bith! Díreach mar atá i gcluichí fíor.</string>
   <string name="playerGames">Cluichí imreoir</string>
   <string name="playerGamesDescription">Cuardaigh fadhbanna a ghintear ó do chluichí, nó ó chluichí imreoir eile.</string>
   <string name="puzzleDownloadInformation">Tá na fadhbanna seo i mbéal an phobail, agus is féidir iad a íoslódáil ó %s.</string>

@@ -3,7 +3,7 @@
   <string name="advancedPawn">उन्नत पैदल</string>
   <string name="advancedPawnDescription">प्रचार करने या धमकी देने वाला पैदल रणनीति की कुंजी है।</string>
   <string name="advantage">लाभ</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
+  <string name="advantageDescription">निर्णायक लाभ प्राप्त करने के लिए अपने अवसर को जब्त करें। (200cp al eval ≤ 600cp)</string>
   <string name="anastasiaMate">अनास्तासिया के मात</string>
   <string name="anastasiaMateDescription">बोर्ड के किनारे और एक अनुकूल टुकड़े के बीच विरोधी राजा को फंसाने के लिए एक घोड़ा और हाथी या वज़ीर टीम।</string>
   <string name="arabianMate">अरेबियन मात</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">रक्षक को पकड़ना</string>
   <string name="capturingDefenderDescription">एक टुकड़े को निकालना जो दूसरे टुकड़े की रक्षा के लिए महत्वपूर्ण है, जिससे अब अपरिभाषित टुकड़ा को निम्नलिखित चाल पर कब्जा करने की अनुमति मिलती है।</string>
   <string name="crushing">मुंहतोड़</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी की बड़ी भूल को ढूंढे । (eval ≥ 600cp)</string>
+  <string name="crushingDescription">एक कुचल लाभ प्राप्त करने के लिए प्रतिद्वंद्वी की बड़ी भूल को ढूंढे । (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">डबल ऊँट मात</string>
   <string name="doubleBishopMateDescription">आसन्न विकर्णों पर दो हमलावर ऊँट मित्रवत टुकड़ों द्वारा बाधित एक राजा को चेकमेट वितरित करते हैं।</string>
   <string name="dovetailMate">डव्टेल मात</string>
   <string name="dovetailMateDescription">एक वज़ीर एक समीपवर्ती राजा को चेकमेट वितरित करती है, जिसके केवल दो भागने वाले वर्ग मैत्रीपूर्ण टुकड़ों द्वारा बाधित होते हैं।</string>
   <string name="equality">समानता</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">एक खोने की स्थिति से वापस आएँ, और एक ड्रॉ या संतुलित स्थिति को सुरक्षित करें। (eval ≤ 200cp)</string>
+  <string name="equalityDescription">एक खोने की स्थिति से वापस आएँ, और एक ड्रॉ या संतुलित स्थिति को सुरक्षित करें। (eval ≤ 200cp)</string>
   <string name="kingsideAttack">किंगसाइड का हमला</string>
   <string name="kingsideAttackDescription">प्रतिद्वंद्वी के राजा का एक हमला, बाद में वे राजा की तरफ झुक गए।</string>
   <string name="clearance">रास्ता साफ़ करना</string>
@@ -39,7 +39,7 @@
   <string name="deflection">नीचे को झुकाव</string>
   <string name="deflectionDescription">एक चाल जो एक प्रतिद्वंद्वी के टुकड़े को दूसरे कर्तव्य से विचलित करती है जो इसे निष्पादित करता है, जैसे कि एक प्रमुख वर्ग की रखवाली।</string>
   <string name="discoveredAttack">हमले की खोज की</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">एक टुकड़ा जो पहले एक और लंबी दूरी के टुकड़े द्वारा हमले को अवरुद्ध करता है, जैसे कि एक शूरवीर के रास्ते से बाहर एक नाइट।</string>
+  <string name="discoveredAttackDescription">एक टुकड़ा जो पहले एक और लंबी दूरी के टुकड़े द्वारा हमले को अवरुद्ध करता है, जैसे कि एक शूरवीर के रास्ते से बाहर एक नाइट।</string>
   <string name="doubleCheck">दोहरा शह</string>
   <string name="doubleCheckDescription">एक बार में दो टुकड़ों के साथ जाँच, एक खोज हमले के परिणामस्वरूप जहां चलती टुकड़ा और अनावरण टुकड़ा दोनों प्रतिद्वंद्वी के राजा पर हमला करते हैं।</string>
   <string name="endgame">एंडगेम</string>
@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">एक टुकड़ा एक दुश्मन के टुकड़े के माध्यम से एक वर्ग पर हमला करता है या बचाव करता है।</string>
   <string name="zugzwang">ज़ुग्ज्वांग</string>
   <string name="zugzwangDescription">प्रतिद्वंद्वी उन चालों में सीमित है जो वे कर सकते हैं, और सभी चालें उनकी स्थिति को खराब करती हैं।</string>
-  <string name="healthyMix">स्वस्थ मिश्रण</string>
-  <string name="healthyMixDescription">सब का कुछ कुछ। आप नहीं जानते कि क्या उम्मीद है, इसलिए आप किसी भी चीज़ के लिए तैयार रहें! बिल्कुल असली खेल की तरह।</string>
+  <string name="mix">स्वस्थ मिश्रण</string>
+  <string name="mixDescription">सब का कुछ कुछ। आप नहीं जानते कि क्या उम्मीद है, इसलिए आप किसी भी चीज़ के लिए तैयार रहें! बिल्कुल असली खेल की तरह।</string>
   <string name="playerGames">खिलाड़ियों के खेल</string>
 </resources>

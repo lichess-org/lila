@@ -20,6 +20,6 @@
   <string name="short">Poelladenn verr</string>
   <string name="veryLong">Poelladenn hir-tre</string>
   <string name="zugzwang">Zugzwang</string>
-  <string name="healthyMix">A bep seurt</string>
-  <string name="healthyMixDescription">A bep seurt. N\'ouzit ket petra gortoz hag e mod-se e voc\'h prest evit pep tra! Heñvel ouzh ar c\'hrogadoù gwir.</string>
+  <string name="mix">A bep seurt</string>
+  <string name="mixDescription">A bep seurt. N\'ouzit ket petra gortoz hag e mod-se e voc\'h prest evit pep tra! Heñvel ouzh ar c\'hrogadoù gwir.</string>
 </resources>

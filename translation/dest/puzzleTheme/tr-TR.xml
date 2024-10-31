@@ -3,7 +3,7 @@
   <string name="advancedPawn">İlerlemiş piyon</string>
   <string name="advancedPawnDescription">Terfi eden veya terfi etmek üzere olan bir piyon taktik bilgisinin olmazsa olmazıdır.</string>
   <string name="advantage">Avantaj</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
+  <string name="advantageDescription">Mutlak bir üstünlük kazanma şansını yakala. (200sp ≤ analiz ≤ 600sp)</string>
   <string name="anastasiaMate">Anastasia matı</string>
   <string name="anastasiaMateDescription">Kale veya vezir, atın yardımıyla tahtanın kenarı ve kendi taşı arasında sıkıştırılan rakip şahı mat eder.</string>
   <string name="arabianMate">Arap matı</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Savunmayı baltala</string>
   <string name="capturingDefenderDescription">Bir taşı savunan diğer bir taşı ortadan kaldırarak savunmasız kalan taşı sonraki hamlede ele geçir.</string>
   <string name="crushing">Ezici üstünlük</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
+  <string name="crushingDescription">Rakibin vahim hatasını yakalayarak ezici bir üstünlük elde et. (analiz ≥ 600sp)</string>
   <string name="doubleBishopMate">Çift fil matı</string>
   <string name="doubleBishopMateDescription">Yan yana konuşlanmış iki fil, kendi taşları tarafından kısıtlanmış şahı mat eder.</string>
   <string name="dovetailMate">Kurtağzı matı</string>
   <string name="dovetailMateDescription">İki kaçış yolu da kendi taşlarınca kapalı olan şah, hemen çaprazına konuşlanan vezir tarafından mat edilir.</string>
   <string name="equality">Eşitlik</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
+  <string name="equalityDescription">Kaybeden bir durumdan paçayı kurtararak beraberlik veya dengeli bir pozisyon elde et. (analiz ≤ 200sp)</string>
   <string name="kingsideAttack">Şah tarafına saldırı</string>
   <string name="kingsideAttackDescription">Kısa rok atan rahip şaha saldırı.</string>
   <string name="clearance">Boşaltma</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Saptırma</string>
   <string name="deflectionDescription">Rakip taşı önemli bir kareyi korumak gibi mühim bir görevden alıkoyan hamleler.</string>
   <string name="discoveredAttack">Açarak saldırı</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
+  <string name="discoveredAttackDescription">Uzun menzilli bir taşın yolunu kesen diğer bir taşı oynayarak yapılan saldırılar. Atı oynayarak kaleyle şah çekmek gibi.</string>
   <string name="doubleCheck">Çifte şah</string>
   <string name="doubleCheckDescription">Bir hamlede, hem hareket eden hem de bu hareket sonucu önü açılan taş ile rakibe aynı anda iki farklı yerden şah çek.</string>
   <string name="endgame">Oyunsonu</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Rakibin taşı üzerinden bir kareyi koruyan veya bir kareye saldıran taşları içeren taktikler.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Rakibin iyi bir hamlesinin kalmadığı, yapabileceği bütün hamlelerin kendisine zarar vereceği taktikler.</string>
-  <string name="healthyMix">Bir ondan bir bundan</string>
-  <string name="healthyMixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
+  <string name="mix">Bir ondan bir bundan</string>
+  <string name="mixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
   <string name="playerGames">Bireysel oyunlar</string>
   <string name="playerGamesDescription">Sizin veya başka bir oyuncunun maçlarından üretilen bulmacalar.</string>
   <string name="puzzleDownloadInformation">Bütün bulmacalar kamuya açıktır ve %s adresinden indirilebilir.</string>
