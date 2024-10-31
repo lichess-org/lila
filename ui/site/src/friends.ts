@@ -1,6 +1,5 @@
 import { notNull } from 'common/common';
 import * as licon from 'common/licon';
-import { pubsub } from 'common/pubsub';
 
 type TitleName = string;
 
@@ -18,20 +17,21 @@ export default class OnlineFriends {
   users: Map<string, Friend>;
 
   constructor(readonly el: HTMLElement) {
+    const api = window.lichess.onlineFriends;
     this.titleEl = this.el.querySelector('.friend_box_title') as HTMLElement;
     this.titleEl.addEventListener('click', () => {
       this.el.querySelector('.content_wrap')?.classList.toggle('none');
       if (!this.loaded) {
         this.loaded = true;
-        pubsub.emit('socket.send', 'following_onlines');
+        api.request();
       }
     });
     this.users = new Map();
-    pubsub.on('socket.in.following_onlines', this.receive);
-    pubsub.on('socket.in.following_enters', this.enters);
-    pubsub.on('socket.in.following_leaves', this.leaves);
-    pubsub.on('socket.in.following_playing', this.playing);
-    pubsub.on('socket.in.following_stopped_playing', this.stopped_playing);
+    api.events.on('onlines', this.receive);
+    api.events.on('enters', this.enters);
+    api.events.on('leaves', this.leaves);
+    api.events.on('playing', this.playing);
+    api.events.on('stopped_playing', this.stopped_playing);
   }
   receive = (friends: TitleName[], msg: { playing: string[]; patrons: string[] }) => {
     this.users.clear();

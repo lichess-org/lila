@@ -163,6 +163,13 @@ interface Fipr {
 
 interface Api {
   initializeDom: (root?: HTMLElement) => void;
+  onlineFriends: {
+    request: () => void;
+    events: {
+      on(key: string, cb: (...args: any[]) => void): void;
+      off(key: string, cb: (...args: any[]) => void): void;
+    };
+  };
 }
 
 interface Window {
