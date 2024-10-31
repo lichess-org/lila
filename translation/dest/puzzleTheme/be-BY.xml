@@ -3,7 +3,7 @@
   <string name="advancedPawn">Далёка прасунутая пешка</string>
   <string name="advancedPawnDescription">Адна з вашых пешак глыбока ў пазіцыі суперніка, магчыма пагражае ператварэннем.</string>
   <string name="advantage">Перавага</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Не ўпусціце шанец, каб атрымаць вырашальную перавагу. (200сп ≤ ацэнка ≤ 600сп)</string>
+  <string name="advantageDescription">Не ўпусціце шанец, каб атрымаць вырашальную перавагу. (200сп ≤ ацэнка ≤ 600сп)</string>
   <string name="anastasiaMate">Мат Анастасіі</string>
   <string name="anastasiaMateDescription">Конь і ладдзя (ці ферзь) працуюць разам, каб заматаваць караля суперніка паміж сваёй фігурай і краем дошкі.</string>
   <string name="arabianMate">Арабскі мат</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Узяцце абаронцы</string>
   <string name="capturingDefenderDescription">Адцягненне або ўзяцце фігуры, якая з\'яўляца крытычнай для абароны іншай фігуры, што дазваляе ўзяце неабароненую фігуру наступным ходам.</string>
   <string name="crushing">Зруйнаванне</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Знайдзіце позех суперніка і атрымайце разгромную перавагу. (ацэнка ≥ 600сп)</string>
+  <string name="crushingDescription">Знайдзіце позех суперніка і атрымайце разгромную перавагу. (ацэнка ≥ 600сп)</string>
   <string name="doubleBishopMate">Мат двума сланамі</string>
   <string name="doubleBishopMateDescription">Два нападаючых слана на суседніх дыяганалях матуюць караля, які акружаны сваімі фігурамі.</string>
   <string name="dovetailMate">Мат \"галубіны хвост\"</string>
   <string name="dovetailMateDescription">Ферзь ставіць мат сумежнаму каралю, адзіныя два палі адыхода якога заняты яго ж фігурамі.</string>
   <string name="equality">Выраўненне</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
+  <string name="equalityDescription">Адыграйцеся з прайгранай пазіцыі і забяспечце нічыйную або збалансаваную пазіцыю. (ацэнка пазіціі ≤ 200сп)</string>
   <string name="kingsideAttack">Атака на каралеўскім флангу</string>
   <string name="kingsideAttackDescription">Атака на караля суперніка, пасля ягонай кароткай ракіроўкі.</string>
   <string name="clearance">Расчыстка поля</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Адцягненне</string>
   <string name="deflectionDescription">Ход, які адцягвае фігуру суперніка ад выканання іншага абавязку, напрыклад, аховы ключавога поля. Часам таксама называецца \"перагрузка\".</string>
   <string name="discoveredAttack">Ўскрыты напад</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ход фігурай (напрыклад канём), якая раней блакавала фігуру далёкага дзеяння (напрыклад ладдзю), з лініі нападу гэтай фігуры.</string>
+  <string name="discoveredAttackDescription">Ход фігурай (напрыклад канём), якая раней блакавала фігуру далёкага дзеяння (напрыклад ладдзю), з лініі нападу гэтай фігуры.</string>
   <string name="doubleCheck">Падвойны шах</string>
   <string name="doubleCheckDescription">Шах дзвюма фігурамі адначасова, у выніку ўскрытыга нападу, калі і фігура, якая ходзіць, і раскрытая фігура атакуюць караля суперніка.</string>
   <string name="endgame">Эндшпіль</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Фігара нападае або бараніць поле праз варожую фігуру.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Супернік абмежаваны ў хадах і ўсе магчымыя хады пагаршаюць яго пазіцыю.</string>
-  <string name="healthyMix">Здаровая сумесь</string>
-  <string name="healthyMixDescription">Патрошкі ўсяго. Вы ня ведаеце чаго чакаць, таму гатовы да ўсяго! Як у сапраўдных гульнях.</string>
+  <string name="mix">Здаровая сумесь</string>
+  <string name="mixDescription">Патрошкі ўсяго. Вы ня ведаеце чаго чакаць, таму гатовы да ўсяго! Як у сапраўдных гульнях.</string>
   <string name="playerGames">З партый гульца</string>
   <string name="playerGamesDescription">Праглядзіце задачы ўзятыя з вашых гульняў, ці з партый іншага гульца.</string>
   <string name="puzzleDownloadInformation">Гэта публічныя задачы, іх магчыма спампаваць з %s.</string>

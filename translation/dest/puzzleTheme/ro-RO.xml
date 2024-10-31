@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pion avansat</string>
   <string name="advancedPawnDescription">Unul dintre pionii care este avansat in teritoriul inamic, poate amenință să promoveze.</string>
   <string name="advantage">Avantaj</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Profită de șansa ta pentru a obține un avantaj decisiv. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mat-ul Anastasiei</string>
   <string name="anastasiaMateDescription">Un cal şi o tură sau o regină fac echipă pentru a prinde regele opus între marginea tablei şi o piesă aliată.</string>
   <string name="arabianMate">Mat-ul arab</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Capturează apărătorul</string>
   <string name="capturingDefenderDescription">Capturarea unei piese esențiale apărării alteia, permițând captura piesei acum neapărată la o mutare ulterioară.</string>
   <string name="crushing">Zdrobitor</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Observă gafa adversarului pentru a obține un avantaj zdrobitor. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mat-ul cu doi nebuni</string>
   <string name="doubleBishopMateDescription">Doi nebuni care atacă pe diagonale adiacente livrează mat-ul unui rege blocat de piese aliate.</string>
   <string name="dovetailMate">Mat-ul dovertail</string>
   <string name="dovetailMateDescription">O regină livrează mat-ul unui rege adiacent, care are doar două patrate de scapare dar sunt blocate de piese aliate.</string>
   <string name="equality">Egalitate</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Întoarce-te dintr-o poziție de pierdere și asigură o remiză sau o poziție echilibrată. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Atac pe partea regelui</string>
   <string name="kingsideAttackDescription">Un atac al regelui adversarului, după ce a făcut rocada pe partea regelui.</string>
   <string name="clearance">Îndepărtare</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Deviere</string>
   <string name="deflectionDescription">O mutare care distrage o piesă adversară de la o altă funcție pe care o îndeplinește, cum ar fi apărarea unui pătrat esențial.</string>
   <string name="discoveredAttack">Atac prin descoperire</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mutarea unei piese care bloca anterior un atac de la o altă piesă cu rază lungă de acțiune, cum ar fi un cal din calea unui turn.</string>
+  <string name="discoveredAttackDescription">Mutarea unei piese care bloca anterior un atac de la o altă piesă cu rază lungă de acțiune, cum ar fi un cal din calea unui turn.</string>
   <string name="doubleCheck">Șah dublu</string>
   <string name="doubleCheckDescription">Șahul cu două piese deodată, ca rezultat al unui atac descoperit unde și piesa mutată, și cea descoperită atacă regele adversarului.</string>
   <string name="endgame">Final de partidă</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">O piesă atacă sau apară un patrat, printr-o piesă inamică.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Adversarul este limitat în mișcările pe care le poate face, iar toate mișcările îi înrăutățesc poziția.</string>
-  <string name="healthyMix">Amestec sănătos</string>
-  <string name="healthyMixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
+  <string name="mix">Amestec sănătos</string>
+  <string name="mixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
   <string name="playerGames">Partide jucători</string>
   <string name="playerGamesDescription">Caută puzzle-uri generate din partidele tale sau din partidele unui alt jucător.</string>
   <string name="puzzleDownloadInformation">Aceste puzzle-uri sunt în domeniul public și pot fi descărcate de la %s.</string>

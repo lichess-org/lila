@@ -62,8 +62,8 @@
   <string name="notYetStarted">A transmissão ainda não começou.</string>
   <string name="officialWebsite">Site oficial</string>
   <string name="standings">Classificação</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">Mais opções na %s</string>
-  <string name="webmastersPage">página dos webmasters</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Mais opções na %s</string>
+  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">página dos webmasters</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Uma fonte PGN pública ao vivo desta rodada. Há também a %s para uma sincronização mais rápida e eficiente.</string>
   <string name="embedThisBroadcast">Incorporar essa transmissão em seu site</string>
   <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Incorporar %s em seu site</string>
