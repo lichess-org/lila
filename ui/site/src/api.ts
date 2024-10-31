@@ -17,6 +17,7 @@ const publicEvents = new Set<PubsubEvent>([
 ]);
 
 export const api = (ps: Pubsub) => ({
+  initializeDom: (root?: HTMLElement) => ps.emit('content-loaded', root),
   events: {
     on(name: PubsubEvent, cb: PubsubCallback): void {
       if (!publicEvents.has(name)) throw 'This event is not part of the public API';
