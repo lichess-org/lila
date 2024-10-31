@@ -170,6 +170,9 @@ interface Api {
       off(key: string, cb: (...args: any[]) => void): void;
     };
   };
+  chat: {
+    post: (text: string) => void;
+  };
   overrides: {
     [key: string]: (...args: any[]) => unknown;
   };

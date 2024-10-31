@@ -45,7 +45,10 @@ export const api = (pubsub: Pubsub) => ({
       },
     },
   },
+  chat: {
+    post: (text: string) => pubsub.emit('socket.send', 'talk', text),
+  },
   // some functions will be exposed here
   // to be overriden by browser extensions
-  hackMe: {},
+  overrides: {},
 });
