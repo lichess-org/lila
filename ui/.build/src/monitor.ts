@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import ps from 'node:process';
-import { build, stop } from './build.ts';
+import { build, stopBuild } from './build.ts';
 import { env } from './main.ts';
+import { clean } from './clean.ts';
 import { globArray } from './parse.ts';
 import { stopTsc, tsc } from './tsc.ts';
 import { stopEsbuild, esbuild } from './esbuild.ts';
@@ -37,11 +38,11 @@ export async function monitor(pkgs: string[]): Promise<void> {
     }, 2000);
   };
   const packageChange = async () => {
-    if (env.rebuild) {
+    if (env.watch && env.install) {
       clearTimeout(tscTimeout);
       clearTimeout(reinitTimeout);
-      await stop();
-      reinitTimeout = setTimeout(() => build(pkgs), 2000);
+      await stopBuild();
+      reinitTimeout = setTimeout(() => clean().then(() => build(pkgs)), 2000);
       return;
     }
     env.warn('Exiting due to package.json change');
