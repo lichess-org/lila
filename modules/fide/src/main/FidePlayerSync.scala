@@ -104,7 +104,6 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         if httpStream.status != 200 then
           fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
         else
-          val startAt = nowInstant
           for
             nbUpdated <-
               ZipInputStreamSource: () =>
