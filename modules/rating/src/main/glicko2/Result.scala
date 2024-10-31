@@ -16,13 +16,14 @@ trait Result:
 
   private def players: List[Rating] = List(first, second)
 
-class BinaryResult(val first: Rating, val second: Rating, score: Boolean) extends Result:
+final class BinaryResult(val first: Rating, val second: Rating, score: Boolean) extends Result:
   private val POINTS_FOR_WIN  = 1.0d
   private val POINTS_FOR_LOSS = 0.0d
 
-  def getScore(p: Rating) = if p == first then if score then POINTS_FOR_WIN else POINTS_FOR_LOSS
-  else if score then POINTS_FOR_LOSS
-  else POINTS_FOR_WIN
+  def getScore(p: Rating) =
+    if p == first then if score then POINTS_FOR_WIN else POINTS_FOR_LOSS
+    else if score then POINTS_FOR_LOSS
+    else POINTS_FOR_WIN
 
 final class GameResult(val first: Rating, val second: Rating, outcome: Option[Boolean]) extends Result:
   private val POINTS_FOR_WIN  = 1.0d
