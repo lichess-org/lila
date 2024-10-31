@@ -4,12 +4,12 @@ Usage:
                                  # multiple short options can be preceded by a single dash
 
 Recommended:
-  ui/build -cdw                  # clean, build debug, and watch for changes with clean rebuilds
+  ui/build -cdw  # clean, build debug, and watch for changes with clean rebuilds
 
 Options:
   -h, --help          show this help and exit
   -w, --watch         build and watch for changes
-  -c, --clean-build   clean all non-i18n build artifacts and build fresh
+  -c, --clean         clean all build artifacts and build fresh
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
   -d, --debug         build assets with site.debug = true
@@ -22,7 +22,7 @@ Options:
   --no-context        don't log the context
 
 Exclusive Options: (any of these will disable other functions)
-  --clean             clean all build artifacts, including i18n/translation, and exit
+  --clean-exit        clean all build artifacts and exit
   --tsc               run tsc on {package}/tsconfig.json and dependencies
   --sass              run sass on {package}/css/build/*.scss and dependencies
   --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
@@ -30,10 +30,9 @@ Exclusive Options: (any of these will disable other functions)
   --i18n              build @types/lichess/i18n.d.ts and translation/js files
 
 Examples:
-  ./build -np                # no pnpm install, build minified
-  ./build analyse site msg   # build analyse, site, and msg packages (as opposed to everything)
-  ./build -w dasher chart    # watch mode for dasher and chart packages
-  ./build --tsc -w           # watch mode but type checking only
-  ./build --sass msg notify  # build css only for msg and notify packages
-  ./build -w -l=/path        # build, watch, and patch js console with POST to ${location.origin}/path. 
-                             # ui/build listens on 8666, displays received json as 'web' over stdout
+  ./build -np              # no pnpm install, build minified
+  ./build -w dasher chart  # watch mode for dasher and chart packages
+  ./build --tsc -w         # watch mode but type checking only
+  ./build -w -l=/path      # build, watch. patch console methods in emitted js to also POST messages
+                           # to ${location.origin}/path. ui/build watch process displays received
+                           # messages as 'web' in build logs

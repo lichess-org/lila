@@ -19,8 +19,8 @@ const args: Record<string, string> = {
   '--watch': 'w',
   '--prod': 'p',
   '--debug': 'd',
-  '--clean-build': 'c',
-  '--clean': '',
+  '--clean-exit': '',
+  '--clean': 'c',
   '--update': '',
   '--no-install': 'n',
   '--log': 'l',
@@ -28,7 +28,7 @@ const args: Record<string, string> = {
 
 type Builder = 'sass' | 'tsc' | 'esbuild';
 
-export function main(): void {
+export async function main(): Promise<void> {
   const argv = ps.argv.slice(2);
   const oneDashRe = /^-([a-z]+)(?:=[a-zA-Z0-9-_:./]+)?$/;
   const stringArg = (arg: string): string | boolean => {
@@ -66,17 +66,17 @@ export function main(): void {
   env.remoteLog = stringArg('--log');
   env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
   env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
-  env.rebuild = env.watch && env.install;
   env.rgb = argv.includes('--rgb');
 
   if (argv.length === 1 && (argv[0] === '--help' || argv[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(env.buildDir, 'readme'), 'utf8'));
-  } else if (argv.includes('--clean')) {
-    deepClean();
-  } else {
-    startConsole();
-    build(argv.filter(x => !x.startsWith('-')));
+    return;
+  } else if (env.clean) {
+    await deepClean();
+    if (argv.includes('--clean-exit')) return;
   }
+  startConsole();
+  build(argv.filter(x => !x.startsWith('-')));
 }
 
 export interface Package {
@@ -127,7 +127,6 @@ class Env {
   building: Package[] = [];
 
   watch = false;
-  rebuild = false;
   clean = false;
   prod = false;
   debug = false;
