@@ -170,6 +170,9 @@ interface Api {
       off(key: string, cb: (...args: any[]) => void): void;
     };
   };
+  hackMe: {
+    [key: string]: (...args: any[]) => unknown;
+  };
 }
 
 interface Window {

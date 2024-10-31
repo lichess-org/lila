@@ -11,7 +11,7 @@ const getId = (el: EleLoose) => el.getAttribute('href')?.substring(1, 9);
 let isRequestPending = false;
 const finishedIdQueue: string[] = [];
 
-const requestReplacementGame = () => {
+window.lichess.hackMe.requestReplacementGame = () => {
   // Make sure to only make one request at a time.
   // This avoids getting copies of the same game to replace two different finished games.
   if (isRequestPending) return;
@@ -37,13 +37,13 @@ const requestReplacementGame = () => {
 
 const done = () => {
   isRequestPending = false;
-  requestReplacementGame();
+  window.lichess.hackMe.requestReplacementGame();
 };
 
 const onFinish = (id: string) =>
   setTimeout(() => {
     finishedIdQueue.push(id);
-    requestReplacementGame();
+    window.lichess.hackMe.requestReplacementGame();
   }, 7000); // 7000 matches the rematch wait duration in /modules/tv/main/Tv.scala
 
 site.load.then(() => {

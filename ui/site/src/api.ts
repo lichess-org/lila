@@ -45,4 +45,7 @@ export const api = (pubsub: Pubsub) => ({
       },
     },
   },
+  // some functions will be exposed here
+  // to be overriden by browser extensions
+  hackMe: {},
 });
