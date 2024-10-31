@@ -100,8 +100,9 @@ export const requestIdleCallback = (f: () => void, timeout?: number): void => {
   else requestAnimationFrame(f);
 };
 
-export const escapeHtml = (str: string): string =>
-  /[&<>"']/.test(str)
+export function escapeHtml(str: string): string {
+  if (typeof str !== 'string') str = JSON.stringify(str); // throws
+  return /[&<>"']/.test(str)
     ? str
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
@@ -109,6 +110,7 @@ export const escapeHtml = (str: string): string =>
         .replace(/'/g, '&#39;')
         .replace(/"/g, '&quot;')
     : str;
+}
 
 export function frag<T extends Node = Node>(html: string): T {
   const div = document.createElement('div');
