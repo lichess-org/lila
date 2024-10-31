@@ -48,7 +48,11 @@ final class RatingCalculator(
     *
     * @param results
     */
-  def updateRatings(players: Iterable[Rating], results: RatingPeriodResults[?], skipDeviationIncrease: Boolean = false) =
+  def updateRatings(
+      players: Iterable[Rating],
+      results: RatingPeriodResults[?],
+      skipDeviationIncrease: Boolean = false
+  ) =
     players.foreach { player =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
       if results.getResults(player).sizeIs > 0 then
