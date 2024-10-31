@@ -131,7 +131,7 @@ export async function prompt(msg: string, def: string = ''): Promise<string | nu
       },
     ],
   });
-  return res.returnValue === 'ok' ? (res.view.querySelector('input') as HTMLInputElement).value : null;
+  return res.returnValue === 'ok' ? res.view.querySelector('input')!.value : null;
 }
 
 // when opts contains 'show', this promise resolves as show/showModal (on dialog close) so check returnValue
@@ -206,11 +206,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
               if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
               if (o.onInsert) o.onInsert(wrapper);
-              else {
-                wrapper.showModal();
-                const inputEl = view.querySelector('input');
-                if (inputEl && inputEl.autofocus) inputEl.focus();
-              }
+              else wrapper.showModal();
             }),
           },
           o.vnodes,
@@ -323,13 +319,14 @@ class DialogWrapper implements Dialog {
   };
 
   private autoFocus() {
-    const focus = (
-      this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelectorAll(focusQuery)[1]
-    ) as HTMLElement;
-    if (!focus) return;
+    const focus =
+      (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
+      this.view.querySelectorAll(focusQuery)[1];
+    if (!(focus instanceof HTMLElement)) return;
     focus.focus();
     if (focus instanceof HTMLInputElement) focus.select();
   }
+
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
