@@ -259,6 +259,7 @@
     <item quantity="one">%s game with you</item>
     <item quantity="other">%s games with you</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
   <string name="whiteTimeOut">White time out</string>
   <string name="blackTimeOut">Black time out</string>
