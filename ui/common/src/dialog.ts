@@ -37,7 +37,7 @@ export interface DialogOpts {
 
 export interface DomDialogOpts extends DialogOpts {
   parent?: Element; // for centering and dom placement, otherwise fixed on document.body
-  show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
+  show?: 'modal' | boolean; // if true, auto-show. if 'modal', auto-show as modal
 }
 
 //snabDialog automatically shows as 'modal' unless onInsert callback is supplied
@@ -48,7 +48,7 @@ export interface SnabDialogOpts extends DialogOpts {
 
 export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
 
-// Actions are managed listeners / results that are easily refreshed on DOM changes
+// Actions are managed listeners / results that are easily reattached on DOM changes
 // if no event is specified, then 'click' is assumed
 // if no selector is given, then the handler is attached to the view div
 export type Action =
@@ -104,18 +104,13 @@ export async function confirm(
 }
 
 // non-blocking window.prompt-alike
-export async function prompt(
-  msg: string,
-  def: string = '',
-  ok: string = 'OK',
-  cancel: string = i18n.site.cancel,
-): Promise<string | null> {
+export async function prompt(msg: string, def: string = ''): Promise<string | null> {
   const res = await domDialog({
     htmlText:
       `<div>${escapeHtml(msg)}</div>` +
       `<input type="text" value="${escapeHtml(def)}" />` +
-      `<span><button class="button cancel">${cancel}</button>` +
-      `<button class="button ok">${ok}</button></span>`,
+      `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
+      `<button class="button ok">${i18n.site.ok}</button></span>`,
     class: 'alert',
     noCloseButton: true,
     noClickAway: true,
