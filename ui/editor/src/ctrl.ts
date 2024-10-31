@@ -17,6 +17,7 @@ import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
 import { defined, prop, Prop } from 'common';
+import { prompt } from 'common/dialog';
 
 export default class EditorCtrl {
   options: Options;
@@ -220,11 +221,8 @@ export default class EditorCtrl {
   clearBoard = (): boolean => this.setFen(EMPTY_FEN);
 
   loadNewFen(fen: string | 'prompt'): void {
-    if (fen === 'prompt') {
-      fen = (prompt('Paste FEN position') || '').trim();
-      if (!fen) return;
-    }
-    this.setFen(fen);
+    if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
+    else this.setFen(fen);
   }
 
   private setSetup = (setup: Setup): void => {
