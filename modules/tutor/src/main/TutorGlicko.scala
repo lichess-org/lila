@@ -18,7 +18,8 @@ object TutorGlicko:
       }
     )
 
-    try calculator.updateRatings(results, true)
+    // for now (unlike puzzles) exercise ratings are fixed
+    try calculator.updateRatings(Set(player), results, true)
     catch case e: Exception => logger.error("TutorGlicko.outcomesRating", e)
 
     player.rating.toInt

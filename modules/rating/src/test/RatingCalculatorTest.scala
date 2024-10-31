@@ -9,6 +9,7 @@ import glicko2.*
 
 class RatingCalculatorTest extends lila.common.LilaTest:
   def updateRatings(wRating: Rating, bRating: Rating, winner: Option[Color]) =
+    val ratings = Set(wRating, bRating)
     val result = winner match
       case Some(chess.White) => Glicko.Result.Win
       case Some(chess.Black) => Glicko.Result.Loss
@@ -21,7 +22,7 @@ class RatingCalculatorTest extends lila.common.LilaTest:
           case Glicko.Result.Draw => GameResult(wRating, bRating, None)
       )
     )
-    Glicko.calculator(7.786d).updateRatings(results, true)
+    Glicko.calculator(7.786d).updateRatings(ratings, results, true)
 
   test("default deviation: white wins") {
     val wr = default.toRating

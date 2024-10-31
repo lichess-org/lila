@@ -4,7 +4,6 @@ package lila.rating.glicko2
 trait RatingPeriodResults[R <: Result]():
   val results: List[R]
   def getResults(player: Rating): List[R] = results.filter(_.participated(player))
-  def getParticipants: Set[Rating]        = results.flatMap(_.players).toSet
 
 class BinaryRatingPeriodResults(val results: List[BinaryResult]) extends RatingPeriodResults[BinaryResult]
 

@@ -129,6 +129,7 @@ final class PerfsUpdater(
       black: glicko2.Rating,
       game: Game
   ): Unit =
+    val ratings = Set(white, black)
     val results = glicko2.GameRatingPeriodResults(
       List(
         game.winnerColor match
@@ -138,7 +139,7 @@ final class PerfsUpdater(
       )
     )
     // tuning TAU per game speed may improve accuracy
-    try Glicko.calculator(advantage).updateRatings(results, true)
+    try Glicko.calculator(advantage).updateRatings(ratings, results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
   private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =

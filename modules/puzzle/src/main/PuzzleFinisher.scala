@@ -205,11 +205,12 @@ final private[puzzle] class PuzzleFinisher(
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, win: PuzzleWin): Unit =
+    val ratings = Set(u1, u2)
     val results = glicko2.BinaryRatingPeriodResults(
       List(
         if win.yes then glicko2.BinaryResult(u1, u2, false)
         else glicko2.BinaryResult(u2, u1, false)
       )
     )
-    try calculator.updateRatings(results)
+    try calculator.updateRatings(ratings, results)
     catch case e: Exception => logger.error("finisher", e)
