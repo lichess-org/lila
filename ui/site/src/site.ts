@@ -29,4 +29,4 @@ site.sound = sound;
 site.load.then(boot);
 
 // public API
-(window as any).lichess = api(pubsub);
+window.lichess = api(pubsub);

@@ -161,8 +161,13 @@ interface Fipr {
   x64hash128(input: string, seed: number): string;
 }
 
+interface Api {
+  initializeDom: (root?: HTMLElement) => void;
+}
+
 interface Window {
   site: Site;
+  lichess: Api;
   fipr: Fipr;
   i18n: I18n;
   $as<T>(cash: Cash): T;

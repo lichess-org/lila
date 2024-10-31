@@ -237,7 +237,7 @@ export default class StrongSocket implements SocketI {
     const mix = this.pongCount > 4 ? 0.1 : 1 / this.pongCount;
     this.averageLag += mix * (currentLag - this.averageLag);
 
-    pubsub.emit('socket.in.pong', this.averageLag);
+    pubsub.emit('socket.lag', this.averageLag);
     this.updateStats(currentLag);
   };
 
