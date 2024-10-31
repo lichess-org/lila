@@ -55,16 +55,16 @@
   <string name="subscribeTitle">Pajtohuni, që të noftoheni se kur fillon çdo raund. Mund të aktivizoni/çaktivizoni zilen, ose njoftimet “push” për transmetime, që nga parapëlqimet për llogarinë tuaj.</string>
   <string name="uploadImage">Ngarkoni figurë turneu</string>
   <string name="noBoardsYet">Ende pa fusha. Këto do të shfaqen sapo të ngrkohen lojërat.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Fushat mund të ngarkohen me një burim, ose përmes %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Fushat mund të ngarkohen me një burim, ose përmes %s</string>
   <string name="startsAfter">Fillon pas %s</string>
   <string name="startVerySoon">Transmetimi do të fillojë shumë shpejt.</string>
   <string name="notYetStarted">Transmetimi s’ka filluar ende.</string>
   <string name="officialWebsite">Sajti zyrtar</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page'">Më tepër mundësi te %s</string>
-  <string name="webmastersPage">faqe webmaster-ësh</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Më tepër mundësi te %s</string>
+  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">faqe webmaster-ësh</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Një burim publik,, PGN, i atypëratyshëm për këtë raund. Ofrojmë gjithashtu edhe një %s, për njëkohësim më të shpejtë dhe më efikas.</string>
   <string name="embedThisBroadcast">Trupëzojeni këtë transmetim në sajtin tuaj</string>
-  <string name="embedThisRound" comment="%s is &quot;this round&quot;&#10;embedThisRound">Trupëzojeni %s në sajtin tuaj</string>
+  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Trupëzojeni %s në sajtin tuaj</string>
   <string name="gamesThisTournament">Lojëra në këtë turne</string>
   <string name="score">Përfundim</string>
 </resources>

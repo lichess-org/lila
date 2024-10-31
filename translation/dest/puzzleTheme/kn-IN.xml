@@ -3,7 +3,7 @@
   <string name="advancedPawn">ಮುಂದುವರಿದ ದಳ</string>
   <string name="advancedPawnDescription">ನಿಮ್ಮ ಪ್ಯಾದೆಗಳಲ್ಲಿ ಒಬ್ಬರು ಎದುರಾಳಿಯ ಸ್ಥಾನಕ್ಕೆ ಆಳವಾಗಿದೆ, ಬಹುಶಃ ಪ್ರಚಾರ ಮಾಡಲು ಬೆದರಿಕೆ ಹಾಕಬಹುದು.</string>
   <string name="advantage">ಮೇಲುಗೈ</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">ನಿರ್ಣಾಯಕ ಪ್ರಯೋಜನವನ್ನು ಪಡೆಯಲು ನಿಮ್ಮ ಅವಕಾಶವನ್ನು ಪಡೆದುಕೊಳ್ಳಿ. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">ನಿರ್ಣಾಯಕ ಪ್ರಯೋಜನವನ್ನು ಪಡೆಯಲು ನಿಮ್ಮ ಅವಕಾಶವನ್ನು ಪಡೆದುಕೊಳ್ಳಿ. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">ಅನಸ್ತಾಸಿಯಾ ಸಂಗಾತಿ</string>
   <string name="anastasiaMateDescription">ಒಂದು ನೈಟ್ ಮತ್ತು ರೂಕ್ ಅಥವಾ ರಾಣಿ ತಂಡವು ಎದುರಾಳಿ ರಾಜನನ್ನು ಬೋರ್ಡ್‌ನ ಬದಿ ಮತ್ತು ಸ್ನೇಹಪರ ತುಣುಕಿನ ನಡುವೆ ಬಲೆಗೆ ಬೀಳಿಸುತ್ತದೆ.</string>
   <string name="arabianMate">ಅರೇಬಿಯನ್ ಸಂಗಾತಿ</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">ರಕ್ಷಕನನ್ನು ಸೆರೆಹಿಡಿಯಿರಿ</string>
   <string name="capturingDefenderDescription">ಮತ್ತೊಂದು ತುಣುಕಿನ ರಕ್ಷಣೆಗೆ ನಿರ್ಣಾಯಕವಾದ ತುಣುಕನ್ನು ತೆಗೆದುಹಾಕುವುದು, ಈಗ ರಕ್ಷಿಸದ ತುಂಡನ್ನು ಕೆಳಗಿನ ಚಲನೆಯಲ್ಲಿ ಸೆರೆಹಿಡಿಯಲು ಅನುವು ಮಾಡಿಕೊಡುತ್ತದೆ.</string>
   <string name="crushing">ಪುಡಿಮಾಡುವುದು</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">ಹೀನಾಯ ಪ್ರಯೋಜನವನ್ನು ಪಡೆಯಲು ಎದುರಾಳಿಯ ಪ್ರಮಾದವನ್ನು ಗುರುತಿಸಿ. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">ಹೀನಾಯ ಪ್ರಯೋಜನವನ್ನು ಪಡೆಯಲು ಎದುರಾಳಿಯ ಪ್ರಮಾದವನ್ನು ಗುರುತಿಸಿ. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">ಡಬಲ್ ಬಿಷಪ್ ಸಂಗಾತಿ</string>
   <string name="doubleBishopMateDescription">ಪಕ್ಕದ ಕರ್ಣಗಳ ಮೇಲೆ ದಾಳಿ ಮಾಡುವ ಇಬ್ಬರು ಬಿಷಪ್‌ಗಳು ಸ್ನೇಹಪರ ತುಣುಕುಗಳಿಂದ ಅಡ್ಡಿಪಡಿಸಿದ ರಾಜನಿಗೆ ಸಂಗಾತಿಯನ್ನು ತಲುಪಿಸುತ್ತಾರೆ.</string>
   <string name="dovetailMate">ಪಾರಿವಾಳ ಸಂಗಾತಿ</string>
   <string name="dovetailMateDescription">ಒಬ್ಬ ರಾಣಿ ಪಕ್ಕದ ರಾಜನಿಗೆ ಸಂಗಾತಿಯನ್ನು ತಲುಪಿಸುತ್ತಾಳೆ, ಅವರ ಎರಡು ತಪ್ಪಿಸಿಕೊಳ್ಳುವ ಚೌಕಗಳು ಸ್ನೇಹಪರ ತುಣುಕುಗಳಿಂದ ಅಡ್ಡಿಯಾಗುತ್ತವೆ.</string>
   <string name="equality">ಸಮಾನತೆ</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">ಸೋತ ಸ್ಥಾನದಿಂದ ಹಿಂತಿರುಗಿ ಮತ್ತು ಡ್ರಾ ಅಥವಾ ಸಮತೋಲಿತ ಸ್ಥಾನವನ್ನು ಪಡೆದುಕೊಳ್ಳಿ. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">ಸೋತ ಸ್ಥಾನದಿಂದ ಹಿಂತಿರುಗಿ ಮತ್ತು ಡ್ರಾ ಅಥವಾ ಸಮತೋಲಿತ ಸ್ಥಾನವನ್ನು ಪಡೆದುಕೊಳ್ಳಿ. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">ಕಿಂಗ್ಸೈಡ್ ದಾಳಿ</string>
   <string name="kingsideAttackDescription">ಎದುರಾಳಿಯ ರಾಜನ ಆಕ್ರಮಣ, ಅವರು ರಾಜನ ಬದಿಯಲ್ಲಿ ಕೋಟೆಯ ನಂತರ.</string>
   <string name="clearance">ಕ್ಲಿಯರೆನ್ಸ್</string>
@@ -39,7 +39,7 @@
   <string name="deflection">ವಿಚಲನ</string>
   <string name="deflectionDescription">ಪ್ರಮುಖ ಚೌಕವನ್ನು ಕಾಪಾಡುವಂತಹ ಮತ್ತೊಂದು ಕರ್ತವ್ಯದಿಂದ ಎದುರಾಳಿಯ ತುಣುಕನ್ನು ವಿಚಲಿತಗೊಳಿಸುವ ಕ್ರಮ. ಕೆಲವೊಮ್ಮೆ \"ಓವರ್‌ಲೋಡ್\" ಎಂದೂ ಕರೆಯುತ್ತಾರೆ.</string>
   <string name="discoveredAttack">ದಾಳಿಯನ್ನು ಪತ್ತೆ ಮಾಡಿದೆ</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">ತುಂಡನ್ನು (ಉದಾಹರಣೆಗೆ ನೈಟ್) ಸರಿಸುವುದು, ಅದು ಈ ಹಿಂದೆ ಆ ತುಣುಕಿನ ಮಾರ್ಗದಿಂದ ದೂರದ ವ್ಯಾಪ್ತಿಯ ತುಣುಕಿನಿಂದ (ಉದಾಹರಣೆಗೆ) ದಾಳಿಯನ್ನು ನಿರ್ಬಂಧಿಸಿದೆ.</string>
+  <string name="discoveredAttackDescription">ತುಂಡನ್ನು (ಉದಾಹರಣೆಗೆ ನೈಟ್) ಸರಿಸುವುದು, ಅದು ಈ ಹಿಂದೆ ಆ ತುಣುಕಿನ ಮಾರ್ಗದಿಂದ ದೂರದ ವ್ಯಾಪ್ತಿಯ ತುಣುಕಿನಿಂದ (ಉದಾಹರಣೆಗೆ) ದಾಳಿಯನ್ನು ನಿರ್ಬಂಧಿಸಿದೆ.</string>
   <string name="doubleCheck">ಎರಡುಸಲ ತಪಾಸಣೆ ಮಾಡು</string>
   <string name="doubleCheckDescription">ಚಲಿಸುವ ತುಂಡು ಮತ್ತು ಅನಾವರಣಗೊಂಡ ತುಂಡು ಎರಡೂ ಎದುರಾಳಿಯ ರಾಜನ ಮೇಲೆ ದಾಳಿ ಮಾಡುವ ಪತ್ತೆಯಾದ ದಾಳಿಯ ಪರಿಣಾಮವಾಗಿ ಎರಡು ತುಣುಕುಗಳೊಂದಿಗೆ ಏಕಕಾಲದಲ್ಲಿ ಪರಿಶೀಲಿಸಲಾಗುತ್ತಿದೆ.</string>
   <string name="endgame">ಎಂಡ್‌ಗೇಮ್</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">ಒಂದು ತುಂಡು ಶತ್ರುವಿನ ತುಣುಕಿನ ಮೂಲಕ ಚೌಕದ ಮೇಲೆ ದಾಳಿ ಮಾಡುತ್ತದೆ ಅಥವಾ ರಕ್ಷಿಸುತ್ತದೆ.</string>
   <string name="zugzwang">ಝುಗ್ಜ್ವಾಂಗ್</string>
   <string name="zugzwangDescription">ಎದುರಾಳಿಯು ಅವರು ಮಾಡಬಹುದಾದ ಚಲನೆಗಳಲ್ಲಿ ಸೀಮಿತವಾಗಿದೆ ಮತ್ತು ಎಲ್ಲಾ ಚಲನೆಗಳು ಅವರ ಸ್ಥಾನವನ್ನು ಇನ್ನಷ್ಟು ಹದಗೆಡಿಸುತ್ತದೆ.</string>
-  <string name="healthyMix">ಆರೋಗ್ಯಕರ ಮಿಶ್ರಣ</string>
-  <string name="healthyMixDescription">ಎಲ್ಲದರಲ್ಲೂ ಸ್ವಲ್ಪ. ಏನನ್ನು ನಿರೀಕ್ಷಿಸಬೇಕೆಂದು ನಿಮಗೆ ತಿಳಿದಿಲ್ಲ, ಆದ್ದರಿಂದ ನೀವು ಯಾವುದಕ್ಕೂ ಸಿದ್ಧರಾಗಿರಿ! ನೈಜ ಆಟಗಳಂತೆಯೇ.</string>
+  <string name="mix">ಆರೋಗ್ಯಕರ ಮಿಶ್ರಣ</string>
+  <string name="mixDescription">ಎಲ್ಲದರಲ್ಲೂ ಸ್ವಲ್ಪ. ಏನನ್ನು ನಿರೀಕ್ಷಿಸಬೇಕೆಂದು ನಿಮಗೆ ತಿಳಿದಿಲ್ಲ, ಆದ್ದರಿಂದ ನೀವು ಯಾವುದಕ್ಕೂ ಸಿದ್ಧರಾಗಿರಿ! ನೈಜ ಆಟಗಳಂತೆಯೇ.</string>
   <string name="playerGames">ಆಟಗಾರರ ಆಟಗಳು</string>
   <string name="playerGamesDescription">ನಿಮ್ಮ ಆಟಗಳಿಂದ ಅಥವಾ ಇನ್ನೊಬ್ಬ ಆಟಗಾರನ ಆಟಗಳಿಂದ ರಚಿಸಲಾದ ಲುಕಪ್ ಒಗಟುಗಳು.</string>
   <string name="puzzleDownloadInformation">ಈ ಒಗಟುಗಳು ಸಾರ್ವಜನಿಕ ಡೊಮೇನ್‌ನಲ್ಲಿವೆ ಮತ್ತು %s ನಿಂದ ಡೌನ್‌ಲೋಡ್ ಮಾಡಬಹುದು.</string>

@@ -3,7 +3,7 @@
   <string name="advancedPawn">Gevorderde pion</string>
   <string name="advancedPawnDescription">\'n Pion wat bevorder of dreig om te bevorder, is die sleutel tot die taktiek.</string>
   <string name="advantage">Voordeel</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Gryp u kans aan om \'n deurslaggewende voordeel te behaal. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Gryp u kans aan om \'n deurslaggewende voordeel te behaal. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia se mat</string>
   <string name="anastasiaMateDescription">\'n Ruiter en \'n toring of \'n dame span saam om die opposisie koning tussen die kant van die bord en \'n vriendelike stuk vas te vang.</string>
   <string name="arabianMate">Arebierse mat</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Vang die verdediger vas</string>
   <string name="capturingDefenderDescription">Verwyder \'n stuk wat van kritieke belang is vir die verdediging van \'n ander stuk, sodat die nou onverdedigde stuk op \'n volgende skuif vasgevang kan word.</string>
   <string name="crushing">Verpletter</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Let op die flater van die teenstander om \'n verpletterende voordeel te behaal. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Let op die flater van die teenstander om \'n verpletterende voordeel te behaal. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Dubbel loper mat</string>
   <string name="doubleBishopMateDescription">Twee aanvallende lopers op aaneengrensende diagonale mat \'n koning wat deur sy eie stukke vasgekeer is.</string>
   <string name="dovetailMate">Duifstert mat</string>
   <string name="dovetailMateDescription">\'n Dame mat \'n aangrensende koning, wie se twee onsnapping\'s blokkies deur sy eie stukke geblok is.</string>
   <string name="equality">Gelykheid</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Kom terug uit \'n verloorposisie en verseker \'n gelykopuitslag of \'n gebalanseerde posisie. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Kom terug uit \'n verloorposisie en verseker \'n gelykopuitslag of \'n gebalanseerde posisie. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside aanval</string>
   <string name="kingsideAttackDescription">\'N Aanval van die koning van die teenstander, nadat hulle aan die koningskant gegooi het.</string>
   <string name="clearance">Opruiming</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Buiging</string>
   <string name="deflectionDescription">\'N Skuif wat \'n teenstander se aandag aftrek van \'n ander plig wat dit uitvoer, soos die beskerming van \'n sleutelvierkant.</string>
   <string name="discoveredAttack">Ontdek aanval</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Om \'n stuk wat voorheen \'n aanval deur \'n ander langafstandstuk, soos \'n ridder, geblokkeer het, uit die pad van \'n toring te skuif.</string>
+  <string name="discoveredAttackDescription">Om \'n stuk wat voorheen \'n aanval deur \'n ander langafstandstuk, soos \'n ridder, geblokkeer het, uit die pad van \'n toring te skuif.</string>
   <string name="doubleCheck">Maak seker</string>
   <string name="doubleCheckDescription">Kontroleer met twee stukke gelyktydig, as gevolg van \'n ontdekte aanval waar beide die bewegende stuk en die onthulde stuk die teenstander se koning aanval.</string>
   <string name="endgame">Eindspel</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">\'N Stuk val of verdedig \'n vierkant deur \'n vyandige stuk.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Die opponent is beperk in die bewegings wat hulle kan maak, en alle bewegings vererger hul posisie.</string>
-  <string name="healthyMix">Gesonde mengsel</string>
-  <string name="healthyMixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
+  <string name="mix">Gesonde mengsel</string>
+  <string name="mixDescription">\'N Bietjie van alles. Jy weet nie wat om te verwag nie, dus bly jy gereed vir enigiets! Net soos in regte speletjies.</string>
   <string name="playerGames">Speler se spelle</string>
   <string name="playerGamesDescription">Beloer kopkrappers wat ontstaan van jou spelle, of van ander se spelle af.</string>
   <string name="puzzleDownloadInformation">Die raaisels is in openbare domain en kan afgelaai word vanaf %s.</string>

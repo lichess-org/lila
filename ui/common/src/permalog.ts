@@ -53,20 +53,24 @@ function makeLog(): LichessLog {
   }
 
   const log: LichessLog = async (...args: any[]) => {
-    const msg = `#${site.info ? `${site.info.commit.substring(0, 7)} - ` : ''}${args
-      .map(stringify)
-      .join(' ')}`;
-    let nextKey = Date.now();
-    console.log(...args);
-    if (nextKey === lastKey) {
-      nextKey += drift;
-      drift += 0.001;
-    } else {
-      drift = 0.001;
-      lastKey = nextKey;
+    try {
+      const msg = `#${site.info ? `${site.info.commit.substring(0, 7)} - ` : ''}${args
+        .map(stringify)
+        .join(' ')}`;
+      let nextKey = Date.now();
+      console.log(...args);
+      if (nextKey === lastKey) {
+        nextKey += drift;
+        drift += 0.001;
+      } else {
+        drift = 0.001;
+        lastKey = nextKey;
+      }
+      await ready;
+      await store?.put(nextKey, msg);
+    } catch (e) {
+      console.error(e);
     }
-    await ready;
-    await store?.put(nextKey, msg);
   };
 
   log.clear = async () => {
@@ -96,11 +100,19 @@ function makeLog(): LichessLog {
         show: true,
       });
   });
+
   window.addEventListener('unhandledrejection', async e => {
-    log(`${terseHref()} - ${e.reason}`);
+    let reason = e.reason;
+    if (typeof reason !== 'string')
+      try {
+        reason = JSON.stringify(e.reason);
+      } catch (_) {
+        reason = 'unhandled rejection, reason not a string';
+      }
+    log(`${terseHref()} - ${reason}`);
     if (site.debug)
       domDialog({
-        htmlText: escapeHtml(e.reason.toString()),
+        htmlText: escapeHtml(reason),
         class: 'debug',
         show: true,
       });
