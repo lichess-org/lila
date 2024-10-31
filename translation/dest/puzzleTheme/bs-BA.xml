@@ -3,7 +3,7 @@
   <string name="advancedPawn">Napredni pijun</string>
   <string name="advancedPawnDescription">Jedan od vaših pijuna je duboko u poziciji protivnika, možda prijeti promocijom.</string>
   <string name="advantage">Prednost</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Iskoristite svoju šansu da ostvarite odlučujuću prednost. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Iskoristite svoju šansu da ostvarite odlučujuću prednost. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasijin mat</string>
   <string name="anastasiaMateDescription">Skakač se udružuje s topom ili damom kako bi zarobili protivničkog kralja između ivice table i prijateljske figure.</string>
   <string name="arabianMate">Arapski mat</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Uzmite figuru koja brani drugu</string>
   <string name="capturingDefenderDescription">Uklanjanje figure koja je ključna za odbranu druge figure, što omogućuje da sada nebranjena figura bude uzeta u sljedećem potezu.</string>
   <string name="crushing">Uništavanje</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Uočite protivnikov grubi previd kako biste stekli razornu prednost (≥ 600 cp)</string>
+  <string name="crushingDescription">Uočite protivnikov grubi previd kako biste stekli razornu prednost (≥ 600 cp)</string>
   <string name="doubleBishopMate">Dvostruki biskupski mat</string>
   <string name="doubleBishopMateDescription">Dva napadačka biskupa na susjednim dijagonalama isporučuju partnera kralju spriječenom prijateljskim figurama.</string>
   <string name="dovetailMate">Mat lastinog repa</string>
   <string name="dovetailMateDescription">Kraljica isporučuje partnera susjednom kralju, čija su samo dva polja za bijeg spriječena prijateljskim figurama.</string>
   <string name="equality">Izjednačenost</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Vratite se iz izgubljene pozicije i osigurajte remi ili izjednačenu poziciju (≤ 200 cp)</string>
+  <string name="equalityDescription">Vratite se iz izgubljene pozicije i osigurajte remi ili izjednačenu poziciju (≤ 200 cp)</string>
   <string name="kingsideAttack">Napad na kraljevom krilu</string>
   <string name="kingsideAttackDescription">Napad na protivničkog kralja nakon što se on rokirao na kraljevo krilo.</string>
   <string name="clearance">Raščišćavanje</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Odvlačenje</string>
   <string name="deflectionDescription">Potez koji odvlači protivničku figuru od obavljanja njene trenutne dužnosti, kao što je čuvanje ključnog polja.</string>
   <string name="discoveredAttack">Otkriveni napad</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Pomjeranje figure koja je dotad blokirala napad druge dalekometne figure, kao, npr., sklanjanje skakača ispred topa.</string>
+  <string name="discoveredAttackDescription">Pomjeranje figure koja je dotad blokirala napad druge dalekometne figure, kao, npr., sklanjanje skakača ispred topa.</string>
   <string name="doubleCheck">Dvostruki šah</string>
   <string name="doubleCheckDescription">Šahiranje dvjema figurama istovremeno, kao rezultat otkrivenog napada, kad i otkrivena figura i ona koja ju je zaklanjala napadaju protivničkog kralja.</string>
   <string name="endgame">Završnica</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Figura napada ili brani polje kroz protivničku figuru.</string>
   <string name="zugzwang">Iznudica</string>
   <string name="zugzwangDescription">Protivnik ima ograničen broj poteza, a svaki od njih pogoršava mu poziciju.</string>
-  <string name="healthyMix">Zdrava mješavina</string>
-  <string name="healthyMixDescription">Svega pomalo. Ne znate šta možete očekivati, pa ostajete spremni na sve! Baš kao u pravim partijama.</string>
+  <string name="mix">Zdrava mješavina</string>
+  <string name="mixDescription">Svega pomalo. Ne znate šta možete očekivati, pa ostajete spremni na sve! Baš kao u pravim partijama.</string>
   <string name="playerGames">Igračke igre</string>
   <string name="playerGamesDescription">Potražite zagonetke stvorene iz vaših igara ili iz igara drugog igrača.</string>
   <string name="puzzleDownloadInformation">Ove zagonetke su u javnoj domeni i mogu se preuzeti sa %s.</string>

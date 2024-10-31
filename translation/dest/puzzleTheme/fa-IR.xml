@@ -3,7 +3,7 @@
   <string name="advancedPawn">پیاده پیش رفته</string>
   <string name="advancedPawnDescription">یکی از پیاده‌های‌تان به اردوگاه حریف پیش‌رویده، شاید تهدید به ارتقا کند.</string>
   <string name="advantage">برتری</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">از بخت‌تان برای رسیدن به برتری قطعی بهره برید. (۲۰۰ص‌پ ≤ ارزیابی ≤ ۶۰۰ص‌پ)</string>
+  <string name="advantageDescription">از بخت‌تان برای رسیدن به برتری قطعی بهره برید. (۲۰۰ص‌پ ≤ ارزیابی ≤ ۶۰۰ص‌پ)</string>
   <string name="anastasiaMate">مات آناستازیا</string>
   <string name="anastasiaMateDescription">یک اسب و یک رخ به همدیگر کمک میکنند تا شاه حریف را بین گوشه های زمین و یک مهره از حریف زندانی کنند.</string>
   <string name="arabianMate">مات عربی</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">مهره دفاع کننده را بگیرید</string>
   <string name="capturingDefenderDescription">گرفتن یک مهره که برای دفاع از یک مهره دیگر حیاتی است، اجازه می دهد مهره ای که اکنون بدون دفاع است در حرکت بعدی گرفته شود.</string>
   <string name="crushing">تخریب</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
+  <string name="crushingDescription">تشخیص اشتباه فاحش حریف، برای رسیدن به برتری‌ای کوبنده. (ارزیابی ≥ ۶۰۰ص‌پ)</string>
   <string name="doubleBishopMate">مات با دو فیل</string>
   <string name="doubleBishopMateDescription">دو فیل که همزمان به گوشه های مجاور حمله می کنند، شاهی که راهش با مهره های خودش سد شده را مات می کنند.</string>
   <string name="dovetailMate">مات بوسه ای</string>
   <string name="dovetailMateDescription">وزیری که شاه مجاور خودش را که تنها دو خانه ای که برای فرارش باقی مانده توسط مهره های خودش سد شده، مات می کند.</string>
   <string name="equality">برابری</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">از وضعیت باخت در‌آیید و به وضعیت تساوی یا تعادل برسید. (ارزیابی ≤ ۲۰۰ ص‌پ)</string>
+  <string name="equalityDescription">از وضعیت باخت در‌آیید و به وضعیت تساوی یا تعادل برسید. (ارزیابی ≤ ۲۰۰ ص‌پ)</string>
   <string name="kingsideAttack">حمله به جناح شاه</string>
   <string name="kingsideAttackDescription">حمله به شاه حریف، پس از آنکه آنها قلعه کوچک رفتند.</string>
   <string name="clearance">آزادسازی</string>
@@ -39,7 +39,7 @@
   <string name="deflection">منحرف کردن</string>
   <string name="deflectionDescription">حرکتی که حواس مهره حریف را از وظیفه ای که دارد پرت کند (مانند نگهبانی از یک خانه). گاهی اوقات \"بارگذاری بیش از حد\" نیز نامیده می شود.</string>
   <string name="discoveredAttack">حمله برخاست</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">حرکت دادن یک مهره (مانند اسب)، که قبلا جلوی حمله مهره خودمان به یکی از مهره های دور حریف (مانند رخ)، از جلوی راه مهره حمله کننده.</string>
+  <string name="discoveredAttackDescription">حرکت دادن یک مهره (مانند اسب)، که قبلا جلوی حمله مهره خودمان به یکی از مهره های دور حریف (مانند رخ)، از جلوی راه مهره حمله کننده.</string>
   <string name="doubleCheck">کیش دوگانه</string>
   <string name="doubleCheckDescription">کیش دادن به حریف با دو مهره به صورت هم زمان در نتیجهء یک حمله برخاستی که در آن هم مهره برخاست کننده و هم مهره پشت سر آن به شاه حریف حمله می کنند.</string>
   <string name="endgame">آخربازی</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">یک مهره از طریق مهره حریف به یک خانه حمله میکند یا از آن دفاع می کند.</string>
   <string name="zugzwang">زوگزوانگ</string>
   <string name="zugzwangDescription">حریف در حرکت‌هایش محدود است و همه‌شان وضعیتش را بدتر می‌کند.</string>
-  <string name="healthyMix">ترکیب سالم</string>
-  <string name="healthyMixDescription">یک ذره از همه چیز. شما نمی دانید چه چیزی پیش روی شماست، بنابراین شما باید برای هر چیزی آماده باشید! دقیقا مثل بازی های واقعی.</string>
+  <string name="mix">ترکیب سالم</string>
+  <string name="mixDescription">یک ذره از همه چیز. شما نمی دانید چه چیزی پیش روی شماست، بنابراین شما باید برای هر چیزی آماده باشید! دقیقا مثل بازی های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
   <string name="playerGamesDescription">دنبال معماهای ایجادشده از بازی‌های خودتان یا بازی‌های سایر بازیکنان، بگردید.</string>
   <string name="puzzleDownloadInformation">این معماها به صورت همگانی هستند و می‌توانید از %s بارگیریدشان.</string>

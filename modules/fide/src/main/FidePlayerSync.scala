@@ -119,13 +119,11 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
                 .mapAsync(1)(saveIfChanged)
                 .runWith(lila.common.LilaStream.sinkSum)
                 .monSuccess(_.fideSync.time)
-            _ = lila.mon.fideSync.updated.update(nbUpdated)
             nbAll <- repo.player.countAll
-            _ = lila.mon.fideSync.players.update(nbAll)
-            nbDeleted <- setDeletedFlags(startAt)
           yield
-            lila.mon.fideSync.deleted.update(nbDeleted)
-            logger.info(s"RelayFidePlayerApi.update upserted: $nbUpdated, deleted: $nbDeleted")
+            lila.mon.fideSync.updated.update(nbUpdated)
+            lila.mon.fideSync.players.update(nbAll)
+            logger.info(s"RelayFidePlayerApi.update upserted: $nbUpdated, total: $nbAll")
     yield ()
 
     /*
@@ -161,8 +159,7 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
         blitz = rating(139),
         blitzK = kFactor(149),
         year = year,
-        inactive = flags.exists(_.contains("i")),
-        fetchedAt = nowInstant
+        inactive = flags.exists(_.contains("i"))
       )
 
     private def saveIfChanged(players: Seq[FidePlayer]): Future[Int] =
@@ -183,11 +180,3 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
                 )
               _ <- elements.nonEmpty.so(update.many(elements).void)
             yield elements.size
-
-    private def setDeletedFlags(date: Instant): Fu[Int] = for
-      nbDeleted <- repo.playerColl.update
-        .one($doc("deleted".$ne(true), "fetchedAt".$lt(date)), $set("deleted" -> true), multi = true)
-        .map(_.n)
-      _ <- repo.playerColl.update
-        .one($doc("deleted" -> true, "fetchedAt".$gte(date)), $unset("deleted"), multi = true)
-    yield nbDeleted

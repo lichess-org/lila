@@ -60,56 +60,51 @@ export type PubsubOneTimeEvent = 'dialog.polyfill' | 'socket.hasConnected';
 
 export type PubsubCallback = (...data: any[]) => void;
 
-export interface Pubsub {
-  on(msg: PubsubEvent, f: PubsubCallback): void;
-  off(msg: PubsubEvent, f: PubsubCallback): void;
-  emit(msg: PubsubEvent, ...args: any[]): void;
+export class Pubsub {
+  private allSubs: Map<PubsubEvent, Set<() => void>> = new Map();
+  private oneTimeEvents: Map<PubsubOneTimeEvent, OneTimeHandler> = new Map();
 
-  after(event: PubsubOneTimeEvent): Promise<void>;
-  complete(event: PubsubOneTimeEvent): void;
-  past(event: PubsubOneTimeEvent): boolean;
-}
-
-export const pubsub: Pubsub = {
-  on(name: PubsubEvent, cb) {
-    const subs = allSubs.get(name);
+  on(name: PubsubEvent, cb: PubsubCallback): void {
+    const subs = this.allSubs.get(name);
     if (subs) subs.add(cb);
-    else allSubs.set(name, new Set([cb]));
-  },
-  off(name: PubsubEvent, cb) {
-    allSubs.get(name)?.delete(cb);
-  },
-  emit(name: PubsubEvent, ...args: any[]) {
-    for (const fn of allSubs.get(name) || []) fn.apply(null, args);
-  },
+    else this.allSubs.set(name, new Set([cb]));
+  }
+
+  off(name: PubsubEvent, cb: PubsubCallback): void {
+    this.allSubs.get(name)?.delete(cb);
+  }
+
+  emit(name: PubsubEvent, ...args: any[]): void {
+    for (const fn of this.allSubs.get(name) || []) fn.apply(null, args);
+  }
+
   after(event: PubsubOneTimeEvent): Promise<void> {
-    const found = oneTimeEvents.get(event);
+    const found = this.oneTimeEvents.get(event);
     if (found) return found.promise;
 
     const handler = {} as OneTimeHandler;
     handler.promise = new Promise<void>(resolve => (handler!.resolve = resolve));
-    oneTimeEvents.set(event, handler);
+    this.oneTimeEvents.set(event, handler);
 
     return handler.promise;
-  },
+  }
+
   complete(event: PubsubOneTimeEvent): void {
-    const found = oneTimeEvents.get(event);
+    const found = this.oneTimeEvents.get(event);
     if (found) {
       found.resolve?.();
       found.resolve = undefined;
-    } else oneTimeEvents.set(event, { promise: Promise.resolve() });
-  },
-  past(event: PubsubOneTimeEvent): boolean {
-    return oneTimeEvents.has(event) && !oneTimeEvents.get(event)?.resolve;
-  },
-};
+    } else this.oneTimeEvents.set(event, { promise: Promise.resolve() });
+  }
 
-const allSubs: Map<PubsubEvent, Set<() => void>> = new Map();
-const oneTimeEvents: Map<PubsubOneTimeEvent, OneTimeHandler> = new Map();
+  past(event: PubsubOneTimeEvent): boolean {
+    return this.oneTimeEvents.has(event) && !this.oneTimeEvents.get(event)?.resolve;
+  }
+}
+
+export const pubsub: Pubsub = new Pubsub();
 
 interface OneTimeHandler {
   promise: Promise<void>;
   resolve?: () => void;
 }
-
-//export default pubsub;

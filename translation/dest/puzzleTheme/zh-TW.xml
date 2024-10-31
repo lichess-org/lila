@@ -3,7 +3,7 @@
   <string name="advancedPawn">升變兵</string>
   <string name="advancedPawnDescription">你的其中一個兵已經深入了對方的棋位，或許要威脅升變。</string>
   <string name="advantage">取得優勢</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">把握機會以取得決定性優勢。（200 厘兵 ≤ 評估值 ≤ 600 厘兵）</string>
+  <string name="advantageDescription">把握機會以取得決定性優勢。（200 厘兵 ≤ 評估值 ≤ 600 厘兵）</string>
   <string name="anastasiaMate">阿納斯塔西亞殺法</string>
   <string name="anastasiaMateDescription">馬與車或后聯手在棋盤邊困住對手國王以及另一對手棋子</string>
   <string name="arabianMate">阿拉伯殺法</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">吃子 - 防守者</string>
   <string name="capturingDefenderDescription">移除防守其他棋子的防守者以攻擊未被保護的棋子</string>
   <string name="crushing">壓倒性優勢</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">察覺對方的漏著並藉此取得巨大優勢。(大於600百分兵)</string>
+  <string name="crushingDescription">察覺對方的漏著並藉此取得巨大優勢。(大於600百分兵)</string>
   <string name="doubleBishopMate">雙主教將死</string>
   <string name="doubleBishopMateDescription">相鄰對角線上的兩個主教將將死被自身棋子困住的王。</string>
   <string name="dovetailMate">柯齊奧將死</string>
   <string name="dovetailMateDescription">以皇后將死被自身棋子困住的國王</string>
   <string name="equality">均勢</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">從劣勢中反敗為和。（分析值 ≤ 200厘兵）</string>
+  <string name="equalityDescription">從劣勢中反敗為和。（分析值 ≤ 200厘兵）</string>
   <string name="kingsideAttack">王翼攻擊</string>
   <string name="kingsideAttackDescription">在對方於王翼易位後的攻擊。</string>
   <string name="clearance">騰挪</string>
@@ -39,7 +39,7 @@
   <string name="deflection">引離</string>
   <string name="deflectionDescription">為了分散敵人專注力所採取的戰術，容易搗亂敵人原本的計畫。</string>
   <string name="discoveredAttack">閃擊</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">將一子（例如騎士）移開長程攻擊格（例如城堡）。</string>
+  <string name="discoveredAttackDescription">將一子（例如騎士）移開長程攻擊格（例如城堡）。</string>
   <string name="doubleCheck">雙將</string>
   <string name="doubleCheckDescription">雙重將軍，讓我方能攻擊敵人的他子。</string>
   <string name="endgame">殘局</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">以敵方子攻擊或防守的戰術。</string>
   <string name="zugzwang">等著</string>
   <string name="zugzwangDescription">對方的棋子因為所移動的空間有限所以所到之處都會增加對方劣勢</string>
-  <string name="healthyMix">綜合</string>
-  <string name="healthyMixDescription">所有類型都有！你不知道會遇到什麼題型，所以請做好準備，就像在實戰一樣。</string>
+  <string name="mix">綜合</string>
+  <string name="mixDescription">所有類型都有！你不知道會遇到什麼題型，所以請做好準備，就像在實戰一樣。</string>
   <string name="playerGames">玩家謎題</string>
   <string name="playerGamesDescription">查詢從你或其他玩家的對奕所生成的謎題。</string>
   <string name="puzzleDownloadInformation">這些為公開謎題，並且在 %s 提供下載管道。</string>
