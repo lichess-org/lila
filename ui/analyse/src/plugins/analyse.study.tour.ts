@@ -206,7 +206,7 @@ class TourCtrl {
       },
       exitOnEsc: true,
     });
-    pubsub.on('analysis.close-all', this.tour.cancel);
+    pubsub.on('analysis.closeAll', this.tour.cancel);
   }
 
   buildTour(steps: Shepherd.Step.StepOptions[]) {

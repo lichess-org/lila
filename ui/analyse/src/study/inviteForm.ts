@@ -30,12 +30,12 @@ export function makeCtrl(
     spectators = prop<string[]>([]);
 
   const toggle = () => {
-    if (!open()) pubsub.emit('analysis.close-all');
+    if (!open()) pubsub.emit('analysis.closeAll');
     open(!open());
     redraw();
   };
 
-  pubsub.on('analysis.close-all', () => open(false));
+  pubsub.on('analysis.closeAll', () => open(false));
 
   const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {
