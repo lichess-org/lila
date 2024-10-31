@@ -1,6 +1,15 @@
 import { Pubsub, PubsubCallback, PubsubEvent } from 'common/pubsub';
 
-const publicEvents = new Set<PubsubEvent>(['content-loaded', 'zen']);
+// #TODO document these somewhere
+const publicEvents = new Set<PubsubEvent>([
+  'ply',
+  'analysis.change',
+  'chat.resize',
+  'socket.lag',
+  'socket.close',
+  'analysis.chart.click',
+  'analysis.close-all',
+]);
 
 export const api = (ps: Pubsub) => ({
   pubsub: {

@@ -1,6 +1,6 @@
 export type PubsubEvent =
   | 'ab.rep'
-  | 'analyse.close-all'
+  | 'analysis.close-all'
   | 'analysis.change'
   | 'analysis.chart.click'
   | 'analysis.comp.toggle'

@@ -48,11 +48,11 @@ export class StudyChapterNewForm {
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
-    pubsub.on('analyse.close-all', () => this.isOpen(false));
+    pubsub.on('analysis.close-all', () => this.isOpen(false));
   }
 
   open = () => {
-    pubsub.emit('analyse.close-all');
+    pubsub.emit('analysis.close-all');
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);

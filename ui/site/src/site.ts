@@ -15,7 +15,6 @@ const site = window.site;
 // site.manifest is fetched
 // site.info, site.debug are populated by ui/build
 // site.socket, site.quietMode, site.analysis are set elsewhere
-(site as any).api = api(pubsub); // do not declare in index.d.ts. some extensions need this here
 site.sri = randomToken();
 site.displayLocale = displayLocale;
 site.blindMode = document.body.classList.contains('blind-mode');
@@ -28,3 +27,6 @@ site.reload = reload;
 site.announce = announce;
 site.sound = sound;
 site.load.then(boot);
+
+// public API
+(window as any).lichess = api(pubsub);
