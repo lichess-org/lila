@@ -259,6 +259,7 @@
     <item quantity="one">%s игри с вас</item>
     <item quantity="other">%s игри с вас</item>
   </plurals>
+  <string name="ok">ОК</string>
   <string name="cancel">Отказ</string>
   <string name="whiteTimeOut">Времето на белите изтече</string>
   <string name="blackTimeOut">Времето на черните изтече</string>
