@@ -35,12 +35,12 @@ export function initModule(opts: LobbyOpts) {
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          pubsub.emit('content-loaded');
+          window.lichess.initializeDom();
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        pubsub.emit('content-loaded');
+        window.lichess.initializeDom();
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.setRedirecting();

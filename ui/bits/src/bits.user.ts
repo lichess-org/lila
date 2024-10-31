@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
-import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialog';
 
 export function initModule(): void {
@@ -48,7 +47,7 @@ export function initModule(): void {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          pubsub.emit('content-loaded', $content[0]);
+          window.lichess.initializeDom($content[0]);
           history.replaceState({}, '', path);
           site.asset.loadEsm('bits.infiniteScroll');
         });

@@ -5,7 +5,6 @@ import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 import { spinnerHtml } from 'common/spinner';
-import { pubsub } from 'common/pubsub';
 import { confirm } from 'common/dialog';
 
 site.load.then(() => {
@@ -64,7 +63,7 @@ site.load.then(() => {
   const getLocationHash = (a: HTMLAnchorElement) => a.href.replace(/.+(#\w+)$/, '$1');
 
   function userMod($inZone: Cash) {
-    pubsub.emit('content-loaded', $inZone[0]);
+    window.lichess.initializeDom($inZone[0]);
 
     const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls = 'ready') => {
       $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
