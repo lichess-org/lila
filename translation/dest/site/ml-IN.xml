@@ -213,6 +213,7 @@
   <string name="error.weakPassword">ഈ രഹസ്യവാക്ക് ഊഹിക്കുകാൻ വളരെ എളുപ്പമാണ്.</string>
   <string name="error.namePassword">ദയവായി താങ്ങളുടെ ഉപയോക്തൃനാമം രഹസ്യവാക്കയായി ഉപയോഗിക്കരുത്.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
+  <string name="neverTypeYourPassword">ഒരിക്കലും താങ്ങളുടെ Lichess രഹസ്യവാക്കു് മറ്റെ വെബ്സ്ഥാനത്തിൽ എഴുതരുതു്!</string>
   <string name="proceedToX">%s വരെ ചെല്ലുക</string>
   <string name="passwordSuggestion">മറ്റാരെങ്കിലും പറഞ്ഞ രഹസ്യവാക്ക് ഉപയോഗിക്കരുത്. അവർ താങ്ങളുടെ അക്കൌണ്ട് തട്ടിയെടുക്കാൻ ശ്രമിക്കും.</string>
   <string name="emailSuggestion">മറ്റെയാരുടേ ഉപദേശ പ്രകാരം ഇമെയിൽ-വിലാസം തിരഞ്ഞെടുക്കരുതു്. അവർക്കു് പിന്നേ താങ്ങളുടെ അക്കൌണ്ടു് മോഷ്ടിക്കാൻ സാധിക്കും.</string>
@@ -613,6 +614,7 @@
   <string name="error.min">%s എങ്കിലും ആയിരിക്കണം</string>
   <string name="error.max">പരമാവധി %s ആയിരിക്കണം</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
+  <string name="ifRegistered">പ്രവേശിക്കൽ ചെയ്തവർ മാതത്രം</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
   <string name="menu">പട്ടിക</string>
