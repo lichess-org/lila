@@ -1,7 +1,7 @@
 import { Pubsub, PubsubCallback, PubsubEvent } from 'common/pubsub';
 
 // #TODO document these somewhere
-const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.chart.click', 'analysis.closeAll'];
+const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'];
 const socketEvents = ['lag', 'close'];
 const socketInEvents = ['mlat', 'fen', 'notifications', 'endData'];
 const friendsEvents = ['playing', 'stopped_playing', 'onlines', 'enters', 'leaves'];

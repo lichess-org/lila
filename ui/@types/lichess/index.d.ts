@@ -170,7 +170,7 @@ interface Api {
       off(key: string, cb: (...args: any[]) => void): void;
     };
   };
-  hackMe: {
+  overrides: {
     [key: string]: (...args: any[]) => unknown;
   };
 }
