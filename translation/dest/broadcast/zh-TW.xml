@@ -40,7 +40,7 @@
   <string name="showScores">根據比賽結果顯示玩家分數</string>
   <string name="replacePlayerTags">取代玩家名字、評級、以及頭銜（選填）</string>
   <string name="fideFederations">FIDE 國別</string>
-  <string name="top10Rating">前 10 評級</string>
+  <string name="top10Rating">前 10 名平均評級</string>
   <string name="fidePlayers">FIDE 玩家</string>
   <string name="fidePlayerNotFound">找不到 FIDE 玩家</string>
   <string name="fideProfile">FIDE 序號</string>
