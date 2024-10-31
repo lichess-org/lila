@@ -17,9 +17,9 @@ class RatingCalculatorTest extends lila.common.LilaTest:
     val results = GameRatingPeriodResults(
       List(
         result match
-          case Glicko.Result.Win  => GameResult(wRating, bRating, Some(true))
-          case Glicko.Result.Loss => GameResult(wRating, bRating, Some(false))
-          case Glicko.Result.Draw => GameResult(wRating, bRating, None)
+          case Glicko.Result.Win  => DuelResult(wRating, bRating, Some(true))
+          case Glicko.Result.Loss => DuelResult(wRating, bRating, Some(false))
+          case Glicko.Result.Draw => DuelResult(wRating, bRating, None)
       )
     )
     Glicko.calculator(ColorAdvantage.standard).updateRatings(ratings, results, true)

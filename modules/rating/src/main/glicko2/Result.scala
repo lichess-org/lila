@@ -25,7 +25,7 @@ final class BinaryResult(val first: Rating, val second: Rating, score: Boolean) 
     else if score then POINTS_FOR_LOSS
     else POINTS_FOR_WIN
 
-final class GameResult(val first: Rating, val second: Rating, outcome: Option[Boolean]) extends Result:
+final class DuelResult(val first: Rating, val second: Rating, outcome: Option[Boolean]) extends Result:
   private val POINTS_FOR_WIN  = 1.0d
   private val POINTS_FOR_DRAW = 0.5d
   private val POINTS_FOR_LOSS = 0.0d

@@ -133,9 +133,9 @@ final class PerfsUpdater(
     val results = glicko2.GameRatingPeriodResults(
       List(
         game.winnerColor match
-          case Some(chess.White) => glicko2.GameResult(white, black, Some(true))
-          case Some(chess.Black) => glicko2.GameResult(black, white, Some(false))
-          case None              => glicko2.GameResult(white, black, None)
+          case Some(chess.White) => glicko2.DuelResult(white, black, Some(true))
+          case Some(chess.Black) => glicko2.DuelResult(black, white, Some(false))
+          case None              => glicko2.DuelResult(white, black, None)
       )
     )
     // tuning TAU per game speed may improve accuracy
