@@ -12,17 +12,12 @@ const publicEvents = new Set<PubsubEvent>([
   'socket.in.mlat',
   'socket.in.crowd',
   'socket.in.fen',
-  'socket.in.following_playing',
-  'socket.in.following_stopped_playing',
-  'socket.in.following_onlines',
-  'socket.in.following_enters',
-  'socket.in.following_leaves',
   'socket.in.notifications',
   'socket.in.endData',
 ]);
 
 export const api = (ps: Pubsub) => ({
-  pubsub: {
+  events: {
     on(name: PubsubEvent, cb: PubsubCallback): void {
       if (!publicEvents.has(name)) throw 'This event is not part of the public API';
       ps.on(name, cb);
@@ -31,4 +26,19 @@ export const api = (ps: Pubsub) => ({
       ps.off(name, cb);
     },
   },
+  onlineFriends: (() => {
+    const keys = ['playing', 'stopped_playing', 'onlines', 'enters', 'leaves'];
+    return {
+      request: () => ps.emit('socket.send', 'following_onlines'),
+      events: {
+        on(key: string, cb: PubsubCallback): void {
+          if (!keys.includes(key)) throw 'This event is not part of the public API';
+          ps.on(`socket.in.following_${key}` as PubsubEvent, cb);
+        },
+        off(key: string, cb: PubsubCallback): void {
+          ps.off(`socket.in.following_${key}` as PubsubEvent, cb);
+        },
+      },
+    };
+  })(),
 });
