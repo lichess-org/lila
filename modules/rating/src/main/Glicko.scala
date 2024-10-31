@@ -6,6 +6,7 @@ import lila.core.perf.Perf
 import lila.core.rating.Glicko
 import lila.db.BSON
 import lila.rating.PerfExt.*
+import lila.rating.glicko2.ColorAdvantage
 
 object GlickoExt:
 
@@ -77,7 +78,7 @@ object Glicko:
   val maxRatingDelta = 700
 
   val system = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay)
-  def calculator(advantage: Double) =
+  def calculator(advantage: ColorAdvantage) =
     glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay, advantage)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {

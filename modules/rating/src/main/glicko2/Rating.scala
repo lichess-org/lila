@@ -21,8 +21,8 @@ final class Rating(
     */
   def getGlicko2Rating: Double = convertRatingToGlicko2Scale(this.rating)
 
-  def getGlicko2RatingWithAdvantage(advantage: Double): Double = convertRatingToGlicko2Scale(
-    this.rating + advantage
+  def getGlicko2RatingWithAdvantage(advantage: ColorAdvantage): Double = convertRatingToGlicko2Scale(
+    this.rating + advantage.value
   )
 
   /** Set the average skill value, taking in a value in Glicko2 scale.

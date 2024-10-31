@@ -5,6 +5,12 @@ opaque type Tau = Double
 object Tau extends OpaqueDouble[Tau]:
   val default: Tau = 0.75d
 
+opaque type ColorAdvantage = Double
+object ColorAdvantage extends OpaqueDouble[ColorAdvantage]:
+  val zero: ColorAdvantage                                 = 0d
+  val standard: ColorAdvantage                             = 7.786d
+  extension (c: ColorAdvantage) def negate: ColorAdvantage = -c
+
 opaque type RatingPeriodsPerDay = Double
 object RatingPeriodsPerDay extends OpaqueDouble[RatingPeriodsPerDay]:
   val default: RatingPeriodsPerDay = 0d
@@ -30,7 +36,7 @@ object RatingCalculator:
 final class RatingCalculator(
     tau: Tau = Tau.default,
     ratingPeriodsPerDay: RatingPeriodsPerDay = RatingPeriodsPerDay.default,
-    advantage: Double = 0
+    advantage: ColorAdvantage = ColorAdvantage.zero
 ):
 
   import RatingCalculator.*
@@ -179,12 +185,16 @@ final class RatingCalculator(
       v = v + ((Math.pow(g(result.getOpponent(player).getGlicko2RatingDeviation), 2))
         * E(
           player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player)),
-          result.getOpponent(player).getGlicko2RatingWithAdvantage(-result.getAdvantage(advantage, player)),
+          result
+            .getOpponent(player)
+            .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player).negate),
           result.getOpponent(player).getGlicko2RatingDeviation
         )
         * (1.0 - E(
           player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player)),
-          result.getOpponent(player).getGlicko2RatingWithAdvantage(-result.getAdvantage(advantage, player)),
+          result
+            .getOpponent(player)
+            .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player).negate),
           result.getOpponent(player).getGlicko2RatingDeviation
         )))
     1 / v
@@ -206,7 +216,9 @@ final class RatingCalculator(
         + (g(result.getOpponent(player).getGlicko2RatingDeviation)
           * (result.getScore(player) - E(
             player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player)),
-            result.getOpponent(player).getGlicko2RatingWithAdvantage(-result.getAdvantage(advantage, player)),
+            result
+              .getOpponent(player)
+              .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player).negate),
             result.getOpponent(player).getGlicko2RatingDeviation
           )))
     outcomeBasedRating

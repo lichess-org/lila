@@ -5,8 +5,8 @@ trait Result:
   val first: Rating
   val second: Rating
 
-  def getAdvantage(advantage: Double, player: Rating): Double =
-    if player == first then advantage / 2.0d else -advantage / 2.0d
+  def getAdvantage(advantage: ColorAdvantage, player: Rating): ColorAdvantage =
+    if player == first then advantage.map(_ / 2.0d) else advantage.map(_ / 2.0d).negate
 
   def getScore(player: Rating): Double
 
