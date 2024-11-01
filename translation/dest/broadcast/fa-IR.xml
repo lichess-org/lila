@@ -49,4 +49,9 @@
   <string name="ageThisYear">سنِ امسال</string>
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
+  <string name="teams">تیم‌ها</string>
+  <string name="startVerySoon">پخش زنده به زودی آغاز خواهد شد.</string>
+  <string name="notYetStarted">پخش زنده هنوز آغاز نشده است.</string>
+  <string name="officialWebsite">تارنمای رسمی</string>
+  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">امتیاز</string>
 </resources>
