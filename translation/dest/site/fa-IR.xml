@@ -259,7 +259,7 @@
     <item quantity="one">%s بازی با شما</item>
     <item quantity="other">%s بازی با شما</item>
   </plurals>
-  <string name="ok">باشه</string>
+  <string name="ok">بسیار خب</string>
   <string name="cancel">لغو</string>
   <string name="whiteTimeOut">زمان سفید تمام شد</string>
   <string name="blackTimeOut">زمان سیاه تمام شد</string>
