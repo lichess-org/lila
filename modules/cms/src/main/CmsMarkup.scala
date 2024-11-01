@@ -26,5 +26,6 @@ final class CmsMarkup(cacheApi: CacheApi)(using Executor, play.api.Mode):
   private def process(id: CmsPageId): Markdown => Html =
     MarkdownToastUi.unescapeAtUsername.apply
       .andThen(renderer(s"cms:$id"))
+      .andThen(MarkdownToastUi.decodeHtmlEntities)
       .andThen(MarkdownToastUi.imageParagraph)
       .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)

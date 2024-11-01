@@ -52,6 +52,7 @@ final class UblogMarkup(
   private def process(id: UblogPostId): Markdown => Html = replaceGameGifs.apply
     .andThen(MarkdownToastUi.unescapeAtUsername.apply)
     .andThen(renderer(s"ublog:${id}"))
+    .andThen(MarkdownToastUi.decodeHtmlEntities)
     .andThen(MarkdownToastUi.imageParagraph)
     .andThen(MarkdownToastUi.unescapeUnderscoreInLinks.apply)
 
