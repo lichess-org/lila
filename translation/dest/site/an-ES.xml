@@ -560,7 +560,7 @@
   <string name="other">Atro</string>
   <string name="reportCheatBoostHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión.</string>
   <string name="reportUsernameHelp">Explica qué ye lo que te resulta ofensivo d\'este usuarios. No digas nomás \"ye ofensivo/inapropiau\", explica-nos cómo has arribau a esta conclusión, especialment si l\'insulto no ye obvio, no ye en anglés, ye en argot u ye una referencia historica u cultural.</string>
-  <string name="reportProcessedFasterInEnglish">Lo tuyo informe será procesau mas rapidament si ye escrito en anglés.</string>
+  <string name="reportProcessedFasterInEnglish">La tuya queixa será procesau mas rapidament si ye escrito en anglés.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importau per %s</string>
