@@ -491,6 +491,8 @@
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
   <string name="realName">യെഥാർത്ഥ പേര്</string>
+  <string name="setFlair">അടയാളം വയ്ക്കുക</string>
+  <string name="flair">അടയാളം</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">രാജ്യം അല്ലെങ്കിൽ പ്രദേശം</string>
   <string name="thankYou">നന്ദി!</string>
@@ -735,6 +737,7 @@
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
   <string name="disableKidMode">കിഡ്-മോഡ് ഒഴിവാക്കുക</string>
   <string name="security">സുരക്ഷിതത്വം</string>
+  <string name="sessions">പ്രവേശിക്കൽ ചെയ്ത ഉപകരണങ്ങൾ</string>
   <string name="revokeAllSessions">എല്ലാ സെഷനും പിൻവലിക്കാൻ</string>
   <string name="playChessEverywhere">എല്ലായിടത്തും ചതുരംഗം കളിക്കൂ</string>
   <string name="asFreeAsLichess">Lichess തികച്ചും സ്വതന്ത്രമാണ്</string>
@@ -936,6 +939,7 @@
   <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
   <string name="showHelpDialog">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
+  <string name="closedAccountChangedMind">താങ്ങൾ അക്കൗണ്ടു് അവസാനിച്ചിട്ടു് പിന്നെയും തുറക്കാൻ ആഗ്രഹം ഉണ്ടെങ്കിൽ താങ്ങൾക്കു് ഇതു് ഒരു വട്ടം ചെയ്യാം.</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
   <string name="cantDoThisTwice">താങ്ങൾ രണ്ടാം തവണ അവസാനിച്ചാൽ പിന്നെ വീണ്ടെടുപ്പു് ഒക്കത്തില്ല.</string>
   <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
@@ -951,8 +955,11 @@
   <string name="lichessDbExplanation">Lichess-ൽ കളിച്ചതുള്ള റേറ്റിങ്ങുള്ള കളികൾ</string>
   <string name="switchSides">പക്ഷം മാറുക</string>
   <string name="closingAccountWithdrawAppeal">താങ്ങളുടെ അക്കൌണ്ടു് അവസാനിച്ചാൽ താങ്ങളുടെ നിർവേദനം പിൻവലിക്കപെടും</string>
+  <string name="ourEventTips">പരിപാടി നടുത്താൻ ഞങ്ങളുടെ ഉപദേശങ്ങൾ</string>
   <string name="instructions">നിർദേശങ്ങൾ</string>
   <string name="showMeEverything">എല്ലാം കാണിക്കുക</string>
+  <string name="lichessPatronInfo">Lichess ഒരു സൗജന്യവും/ലിബർ തുറന്ന ഉറവിട യന്ത്രാംശം ആണു്. 
+നടത്തിപ്പിനും വികാസനത്തിനും ഉള്ളടക്കത്തിനും ചെലവു് എല്ലാം ഉപയോക്താവു് സംഭാവനതോടാണു് കഴിയുന്നതു്.</string>
   <string name="nothingToSeeHere">അല്പസമയത്തേക്കു് ഒന്നും കാണാനില്ല.</string>
   <string name="stats">സ്ഥിതിവിവരണങ്ങൾ</string>
 </resources>
