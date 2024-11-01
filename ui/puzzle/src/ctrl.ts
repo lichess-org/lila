@@ -470,7 +470,6 @@ export default class PuzzleCtrl implements ParentCtrl {
   // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
   private reportIfMultipleSolutions = (ev: Tree.ClientEval): void => {
-    console.log('ev', ev, 'node', this.node);
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
     if (
@@ -482,7 +481,10 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate'))
     )
       return;
-    console.log('good mode');
+    // DEBUG
+    this.reportedForMultipleSolutions = true;
+    this.reportDialog("foo");
+    // /DEBUG
     const node = this.node;
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
@@ -491,17 +493,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       nodeTurn == this.pov &&
       this.mainline.some(n => n.id == node.id)
     ) {
-      console.log('correct position!');
       const invertIfBlack = (cp: number) => (this.pov == 'white' ? cp : -cp);
-      console.log('ev.depth > 20', ev!.depth > 20, 'ev.depth > 20');
-      if (ev.pvs[1]?.cp) {
-        console.log(
-          'ev!.pvs[1]!.cp',
-          ev.pvs[1].cp,
-          'ev.pvs[1].cp  >= cpThreshold',
-          invertIfBlack(ev.pvs[1].cp) >= 400,
-        );
-      }
       // TODO probably check what are really the conditions for a puzzle to have multiple solutions
       if (ev.depth > 20 && ev.pvs[1]?.cp && invertIfBlack(ev.pvs[1].cp) >= 400) {
         // in all case, we do not want to show the dialog more than once
@@ -514,9 +506,9 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   private reportDialog = (reason: string) => {
     const switchButton =
-      `<div class="switch" title="report puzzle">` +
+      `<div class="switch switch-report-puzzle" title="report puzzle">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox" checked="false">` +
-      `<label for="analyse-toggle-report"></label>`;
+      `<label for="analyse-toggle-report"></label></div>`;
 
     domDialog({
       htmlText:
@@ -531,8 +523,10 @@ export default class PuzzleCtrl implements ParentCtrl {
         `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
         `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
     }).then(dlg => {
-      $('#puzzle-toggle-report').on('click', () => {
-        console.log('clicked');
+      $('.switch-report-puzzle label', dlg.view).on('click', () => {
+        console.log("clicked")
+        const input = document.querySelector('.switch-report-puzzle input') as unknown as HTMLInputElement
+        input.checked = !input.checked
       });
       $('.reset', dlg.view).on('click', () => dlg.close());
       $('.apply', dlg.view).on('click', () => {
