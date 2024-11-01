@@ -10,8 +10,8 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength">강도</string>
-  <string name="toggleTheChat">채팅 토글</string>
+  <string name="strength">난이도</string>
+  <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="chat">채팅</string>
   <string name="resign">기권</string>
   <string name="checkmate">체크메이트</string>
@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">이 URL로 가장 먼저 들어온 사람과 체스를 두게 됩니다.</string>
   <string name="whiteResigned">백 기권함</string>
   <string name="blackResigned">흑 기권함</string>
-  <string name="whiteLeftTheGame">백이 게임 퇴장</string>
-  <string name="blackLeftTheGame">흑이 게임 퇴장</string>
+  <string name="whiteLeftTheGame">백이 게임을 나갔습니다</string>
+  <string name="blackLeftTheGame">흑이 게임을 나갔습니다</string>
   <string name="whiteDidntMove">백이 두지 않음</string>
-  <string name="blackDidntMove">흑이 두지 않음</string>
+  <string name="blackDidntMove">흑이 수를 두지 않음</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
@@ -58,9 +58,9 @@
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
   <string name="usingServerAnalysis">서버 분석 사용하기</string>
-  <string name="loadingEngine">엔진 로드 중 ...</string>
+  <string name="loadingEngine">엔진 로드 중...</string>
   <string name="calculatingMoves">수 계산 중...</string>
-  <string name="engineFailed">엔진 불러오는 도중 에러 발생</string>
+  <string name="engineFailed">엔진 불러오는 도중 오류 발생</string>
   <string name="cloudAnalysis">클라우드 분석</string>
   <string name="goDeeper">더 깊게 분석하기</string>
   <string name="showThreat">위험요소 표시</string>
