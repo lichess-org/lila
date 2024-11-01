@@ -244,6 +244,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s ván cờ với bạn</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
   <string name="whiteTimeOut">Bên trắng hết giờ</string>
   <string name="blackTimeOut">Bên đen hết giờ</string>
