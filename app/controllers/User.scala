@@ -347,7 +347,7 @@ final class User(
       me: Me
   ): Fu[Result] =
     env.report.api.inquiries
-      .ofModId(me.id)
+      .ofModId(me)
       .zip(env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username"))
       .flatMap { case (inquiry, WithPerfsAndEmails(user, emails)) =>
         import views.mod.{ user as ui }
