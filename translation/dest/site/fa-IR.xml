@@ -124,7 +124,7 @@
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
-  <string name="infiniteAnalysis">آنالیز بی پایان</string>
+  <string name="infiniteAnalysis">تحلیل بی‌کران</string>
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
@@ -153,7 +153,7 @@
   </plurals>
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
   <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>
-  <string name="currentGames">بازی های در جریان</string>
+  <string name="currentGames">بازی‌های جاری</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
     <item quantity="other">%s بازی</item>
@@ -493,7 +493,7 @@
   <string name="nextXTournament">مسابقه ی %s بعدی:</string>
   <string name="averageOpponent">میانگین امتیاز حریف ها</string>
   <string name="boardEditor">مُهره‌چینی</string>
-  <string name="setTheBoard">مهره‌ها را بچینید</string>
+  <string name="setTheBoard">میز را بچینید</string>
   <string name="popularOpenings">گشایش‌های محبوب</string>
   <string name="endgamePositions">وضعیت‌های آخربازی</string>
   <string name="chess960StartPosition">وضعیت آغازین شطرنج۹۶۰: %s</string>
@@ -622,7 +622,7 @@
   <string name="clock">ساعت</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
-  <string name="studyMenu">مطالعه‌ها</string>
+  <string name="studyMenu">مطالعه</string>
   <string name="practice">تمرین</string>
   <string name="community">همدارگان</string>
   <string name="tools">ابزارها</string>
@@ -653,8 +653,8 @@
   <string name="watchGames">تماشای بازی‌ها</string>
   <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
   <string name="watch">تماشا</string>
-  <string name="videoLibrary">فیلم ها</string>
-  <string name="streamersMenu">بَرخَط-محتواسازها</string>
+  <string name="videoLibrary">فیلم‌ها</string>
+  <string name="streamersMenu">بَرخَط-محتواسازان</string>
   <string name="mobileApp">گوشی‌افزار</string>
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
@@ -808,7 +808,7 @@
   <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
   <string name="playChessInStyle">شطرنج‌بازیِ نوگارانه</string>
   <string name="chessBasics">پایه‌های شطرنج</string>
-  <string name="coaches">مربی ها</string>
+  <string name="coaches">مربیان</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
   <string name="invalidFen">وضعیت نامعتبر</string>
   <string name="custom">دلخواه</string>
@@ -823,7 +823,7 @@
   <string name="anotherWasX">حرکت مناسب دیگر %s بود</string>
   <string name="bestWasX">بهترین حرکت %s بود</string>
   <string name="youBrowsedAway">پوزیشن را به هم زدید!</string>
-  <string name="resumePractice">ادامه تمرین</string>
+  <string name="resumePractice">از سرگیری تمرین</string>
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
   <string name="computerThinking">محاسبه رایانه‌ای ...</string>
