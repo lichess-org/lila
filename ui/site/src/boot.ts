@@ -17,8 +17,10 @@ import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
 import { toggleBoxInit } from 'common/controls';
 import { confirm } from 'common/dialog';
+import { addExceptionListeners } from './unhandledError';
 
 export function boot() {
+  addExceptionListeners();
   $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');

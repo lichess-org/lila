@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import { spinnerHtml } from 'common/spinner';
 import { contactEmail } from './bits';
-import { alert } from 'common/dialog';
+import { alert, prompt } from 'common/dialog';
 
 export interface Pricing {
   currency: string;
@@ -56,9 +56,9 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
     toggleCheckout();
   });
 
-  $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
+  $checkout.find('group.amount .other label').on('click', async function (this: HTMLLabelElement) {
     let amount: number;
-    const raw: string = prompt(this.title) || '';
+    const raw: string = (await prompt(this.title)) ?? '';
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (_) {

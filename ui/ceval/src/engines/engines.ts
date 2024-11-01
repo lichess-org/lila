@@ -8,6 +8,7 @@ import { storedStringProp, StoredProp } from 'common/storage';
 import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
+import { log } from 'common/permalog';
 
 export class Engines {
   private activeEngine: EngineInfo | undefined = undefined;
@@ -29,7 +30,10 @@ export class Engines {
 
   status = (status: { download?: { bytes: number; total: number }; error?: string } = {}): void => {
     if (this.ctrl.enabled()) this.ctrl.download = status.download;
-    if (status.error) this.ctrl.engineFailed(status.error);
+    if (status.error) {
+      log(status.error);
+      this.ctrl.engineFailed(status.error);
+    }
     this.ctrl.opts.redraw();
   };
 

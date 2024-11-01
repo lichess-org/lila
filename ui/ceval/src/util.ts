@@ -37,7 +37,6 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
 };
 
 export function showEngineError(engine: string, error: string): void {
-  console.log(error);
   domDialog({
     class: 'engine-error',
     htmlText:

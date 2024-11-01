@@ -102,7 +102,7 @@ export default class ChatCtrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    pubsub.emit('socket.send', 'talk', text);
+    window.lichess.chat.post(text);
     return true;
   };
 

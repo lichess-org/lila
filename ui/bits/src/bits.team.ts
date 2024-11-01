@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import flairPickerLoader from './exports/flairPicker';
 import StrongSocket from 'common/socket';
 import { makeChat } from 'chat';
+import { prompt } from 'common/dialog';
 
 interface TeamOpts {
   id: string;
@@ -23,11 +24,14 @@ export function initModule(opts: TeamOpts): void {
   });
 }
 
-$('button.explain').on('click', e => {
-  let why = prompt('Please explain the reason for this action');
-  why = why && why.trim();
-  if (why && why.length > 3) $(e.target).parents('form').find('input[name="explain"]').val(why);
-  else return false;
+$('button.explain').on('click', async e => {
+  if (!e.isTrusted) return;
+  e.preventDefault();
+  const why = (await prompt('Please explain the reason for this action'))?.trim();
+  if (why && why.length > 3) {
+    $(e.target).parents('form').find('input[name="explain"]').val(why);
+    (e.target as HTMLElement).click();
+  }
 });
 
 $('.emoji-details').each(function (this: HTMLElement) {
