@@ -259,6 +259,7 @@
     <item quantity="one">%s بازی با شما</item>
     <item quantity="other">%s بازی با شما</item>
   </plurals>
+  <string name="ok">باشه</string>
   <string name="cancel">لغو</string>
   <string name="whiteTimeOut">زمان سفید تمام شد</string>
   <string name="blackTimeOut">زمان سیاه تمام شد</string>
@@ -994,4 +995,5 @@
   <string name="showMeEverything">همه چیز را به من نشان بده</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="nothingToSeeHere">فعلا هیچی اینجا نیست.</string>
+  <string name="stats">آمار</string>
 </resources>
