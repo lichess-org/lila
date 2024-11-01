@@ -6,7 +6,7 @@ const socketEvents = ['lag', 'close'];
 const socketInEvents = ['mlat', 'fen', 'notifications', 'endData'];
 const friendsEvents = ['playing', 'stopped_playing', 'onlines', 'enters', 'leaves'];
 
-export const api = (pubsub: Pubsub) => ({
+export const api = (pubsub: Pubsub): Api => ({
   initializeDom: (root?: HTMLElement) => pubsub.emit('content-loaded', root),
   events: {
     on(name: PubsubEvent, cb: PubsubCallback): void {

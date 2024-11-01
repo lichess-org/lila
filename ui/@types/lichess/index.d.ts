@@ -161,14 +161,21 @@ interface Fipr {
   x64hash128(input: string, seed: number): string;
 }
 
+interface Events {
+  on(key: string, cb: (...args: any[]) => void): void;
+  off(key: string, cb: (...args: any[]) => void): void;
+}
+
 interface Api {
   initializeDom: (root?: HTMLElement) => void;
+  events: Events;
+  socket: {
+    subscribeToMoveLatency: () => void;
+    events: Events;
+  };
   onlineFriends: {
     request: () => void;
-    events: {
-      on(key: string, cb: (...args: any[]) => void): void;
-      off(key: string, cb: (...args: any[]) => void): void;
-    };
+    events: Events;
   };
   chat: {
     post: (text: string) => void;
