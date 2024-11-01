@@ -512,12 +512,11 @@ export default class PuzzleCtrl implements ParentCtrl {
     }
   };
 
-
-
   private reportDialog = (reason: string) => {
-      const switchButton = `<div class="switch" title="report puzzle">` +
-    `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox" checked="false">` +
-    `<label for="analyse-toggle-report"></label>`;
+    const switchButton =
+      `<div class="switch" title="report puzzle">` +
+      `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox" checked="false">` +
+      `<label for="analyse-toggle-report"></label>`;
 
     domDialog({
       htmlText:
@@ -526,13 +525,14 @@ export default class PuzzleCtrl implements ParentCtrl {
         '</strong><br /><br />' +
         '<pre>' +
         'You have found a puzzle with multiple solutions, report it?' +
-        '</pre><br />' + switchButton +
+        '</pre><br />' +
+        switchButton +
         '<br /><br />' +
         `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
         `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
     }).then(dlg => {
-      $('#puzzle-toggle-report', dlg.view).on('click', () => {
-        console.log()
+      $('#puzzle-toggle-report').on('click', () => {
+        console.log('clicked');
       });
       $('.reset', dlg.view).on('click', () => dlg.close());
       $('.apply', dlg.view).on('click', () => {
