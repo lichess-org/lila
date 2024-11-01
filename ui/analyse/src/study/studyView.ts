@@ -123,7 +123,7 @@ function buttons(root: AnalyseCtrl): VNode {
 
 function metadata(ctrl: StudyCtrl): VNode {
   const d = ctrl.data,
-    title = `${d.name}: ${ctrl.currentChapter().name}`;
+    title = `${d.name}: ${ctrl.currentChapter()?.name}`;
   return h('div.study__metadata', [
     h('h2', [
       h('span.name', { attrs: { title } }, [

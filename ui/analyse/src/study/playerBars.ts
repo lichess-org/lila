@@ -13,7 +13,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   if (!study) return;
   const relayPlayers = study.relay?.players;
 
-  const players = study.currentChapter().players,
+  const players = study.currentChapter()?.players,
     tags = study.data.chapter.tags,
     clocks = renderClocks(ctrl),
     ticking = !isFinished(study.data.chapter) && ctrl.turnColor(),
