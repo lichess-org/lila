@@ -259,7 +259,7 @@
     <item quantity="one">%s partij met u</item>
     <item quantity="other">%s partijen met u</item>
   </plurals>
-  <string name="ok">OK</string>
+  <string name="ok">Oké</string>
   <string name="cancel">Annuleren</string>
   <string name="whiteTimeOut">Tijd om voor wit</string>
   <string name="blackTimeOut">Tijd om voor zwart</string>
