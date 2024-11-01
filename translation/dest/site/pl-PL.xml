@@ -289,6 +289,7 @@
     <item quantity="many">%s partii z Tobą</item>
     <item quantity="other">%s partii z Tobą</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Anuluj</string>
   <string name="whiteTimeOut">Upłynął czas białych</string>
   <string name="blackTimeOut">Upłynął czas czarnych</string>
