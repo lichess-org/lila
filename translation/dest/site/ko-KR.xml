@@ -126,7 +126,7 @@
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">블런더</string>
   <string name="mistake">실수</string>
-  <string name="inaccuracy">사소한 실수</string>
+  <string name="inaccuracy">부정확함</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
