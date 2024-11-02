@@ -24,7 +24,7 @@ final private[puzzle] class PuzzleFinisher(
     expiration = 5 minutes,
     timeout = 5 seconds,
     name = "puzzle.finish",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def batch(

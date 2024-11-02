@@ -110,7 +110,7 @@ final class ChallengeApi(
     maxSize = Max(64),
     timeout = 5 seconds,
     "challengeAccept",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def accept(

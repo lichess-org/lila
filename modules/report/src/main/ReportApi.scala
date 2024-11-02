@@ -533,7 +533,7 @@ final class ReportApi(
       maxSize = Max(32),
       timeout = 20 seconds,
       name = "report.inquiries",
-      lila.log.asyncActorMonitor
+      lila.log.asyncActorMonitor.full
     )
 
     def allBySuspect: Fu[Map[UserId, Report.Inquiry]] =

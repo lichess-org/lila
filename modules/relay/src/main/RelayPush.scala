@@ -25,7 +25,7 @@ final class RelayPush(
     expiration = 1 minute,
     timeout = 10 seconds,
     name = "relay.push",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   case class Failure(tags: Tags, error: String)
