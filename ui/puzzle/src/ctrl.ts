@@ -22,7 +22,7 @@ import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } fro
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
-import { CevalCtrl } from 'ceval';
+import { CevalCtrl, winningChances } from 'ceval';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, KeyboardMoveRootCtrl } from 'keyboardMove';
 import { Deferred, defer } from 'common/defer';
@@ -501,10 +501,16 @@ export default class PuzzleCtrl implements ParentCtrl {
       nodeTurn == this.pov &&
       this.mainline.some(n => n.id == node.id)
     ) {
-      const invertIfBlack = (cp: number) => (this.pov == 'white' ? cp : -cp);
-      // TODO probably check what are really the conditions for a puzzle to have multiple solutions
-      if (ev.depth > 20 && ev.pvs[1]?.cp && invertIfBlack(ev.pvs[1].cp) >= 400) {
+      const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
+      // stricly identical to lichess-puzzler v49 check
+      if (
+        (ev.depth > 50 || ev.nodes > 25_000_000) &&
+        bestEval &&
+        secondBestEval &&
+        winningChances.povDiff(this.pov, bestEval, secondBestEval) < 0.35
+      ) {
         // in all case, we do not want to show the dialog more than once
+        console.log('ev', ev);
         this.reportedForMultipleSolutions = true;
         const reason = `after move ${node.ply}${node.san}, at depth ${ev.depth}, they're multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
         this.reportDialog(reason);
