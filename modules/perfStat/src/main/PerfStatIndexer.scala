@@ -11,7 +11,7 @@ final class PerfStatIndexer(
     maxSize = Max(64),
     timeout = 10 seconds,
     name = "perfStatIndexer",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   private[perfStat] def userPerf(user: UserId, perfKey: PerfKey): Fu[PerfStat] =

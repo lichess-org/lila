@@ -41,7 +41,7 @@ final class SwissApi(
     expiration = 20 minutes,
     timeout = 10 seconds,
     name = "swiss.api",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   import BsonHandlers.{ *, given }
