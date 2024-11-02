@@ -60,7 +60,7 @@ final class PuzzleApi(
       expiration = 1 minute,
       timeout = 3 seconds,
       name = "puzzle.vote",
-      monitor = lila.log.asyncActorMonitor
+      monitor = lila.log.asyncActorMonitor.highCardinality
     )
 
     def update(id: PuzzleId, user: User, vote: Boolean): Funit =

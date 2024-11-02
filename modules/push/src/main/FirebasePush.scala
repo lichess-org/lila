@@ -26,7 +26,7 @@ final private class FirebasePush(
       maxSize = Max(512),
       timeout = 10 seconds,
       name = "firebasePush",
-      lila.log.asyncActorMonitor
+      lila.log.asyncActorMonitor.full
     )
 
   def apply(userId: UserId, data: LazyFu[PushApi.Data]): Funit =
