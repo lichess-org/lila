@@ -5,7 +5,8 @@ import chess.{ ByColor, Color, Speed }
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.GlickoExt.average
 import lila.rating.PerfExt.{ addOrReset, toRating }
-import lila.rating.{ Glicko, PerfType, RatingFactors, RatingRegulator, glicko2 }
+import lila.rating.glicko2.{ DuelResult, GameRatingPeriodResults, Rating, ColorAdvantage }
+import lila.rating.{ Glicko, PerfType, RatingFactors, RatingRegulator }
 import lila.user.{ RankingApi, UserApi }
 
 final class PerfsUpdater(
@@ -89,20 +90,20 @@ final class PerfsUpdater(
     }
 
   private case class Ratings(
-      chess960: glicko2.Rating,
-      kingOfTheHill: glicko2.Rating,
-      threeCheck: glicko2.Rating,
-      antichess: glicko2.Rating,
-      atomic: glicko2.Rating,
-      horde: glicko2.Rating,
-      racingKings: glicko2.Rating,
-      crazyhouse: glicko2.Rating,
-      ultraBullet: glicko2.Rating,
-      bullet: glicko2.Rating,
-      blitz: glicko2.Rating,
-      rapid: glicko2.Rating,
-      classical: glicko2.Rating,
-      correspondence: glicko2.Rating
+      chess960: Rating,
+      kingOfTheHill: Rating,
+      threeCheck: Rating,
+      antichess: Rating,
+      atomic: Rating,
+      horde: Rating,
+      racingKings: Rating,
+      crazyhouse: Rating,
+      ultraBullet: Rating,
+      bullet: Rating,
+      blitz: Rating,
+      rapid: Rating,
+      classical: Rating,
+      correspondence: Rating
   )
 
   private def mkRatings(perfs: UserPerfs) =
@@ -125,21 +126,21 @@ final class PerfsUpdater(
 
   private def updateRatings(
       advantage: Double,
-      white: glicko2.Rating,
-      black: glicko2.Rating,
+      white: Rating,
+      black: Rating,
       game: Game
   ): Unit =
     val ratings = Set(white, black)
-    val results = glicko2.GameRatingPeriodResults(
+    val results = GameRatingPeriodResults(
       List(
         game.winnerColor match
-          case Some(chess.White) => glicko2.DuelResult(white, black, Some(true))
-          case Some(chess.Black) => glicko2.DuelResult(black, white, Some(false))
-          case None              => glicko2.DuelResult(white, black, None)
+          case Some(chess.White) => DuelResult(white, black, Some(true))
+          case Some(chess.Black) => DuelResult(black, white, Some(false))
+          case None              => DuelResult(white, black, None)
       )
     )
     // tuning TAU per game speed may improve accuracy
-    try Glicko.calculator(glicko2.ColorAdvantage(advantage)).updateRatings(ratings, results, true)
+    try Glicko.calculator(ColorAdvantage(advantage)).updateRatings(ratings, results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
   private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =
@@ -148,7 +149,7 @@ final class PerfsUpdater(
     val speed              = game.speed
     val isStd              = game.ratingVariant.standard
     val isHumanVsMachine   = player.noBot && opponent.isBot
-    def addRatingIf(cond: Boolean, perf: Perf, rating: glicko2.Rating) =
+    def addRatingIf(cond: Boolean, perf: Perf, rating: Rating) =
       if cond then
         val p = perf.addOrReset(_.round.error.glicko, s"game ${game.id}")(rating, game.movedAt)
         if isHumanVsMachine
