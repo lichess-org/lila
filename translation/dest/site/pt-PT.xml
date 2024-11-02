@@ -259,6 +259,7 @@
     <item quantity="one">%s jogo contigo</item>
     <item quantity="other">%s jogos contigo</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Acabou o tempo das brancas</string>
   <string name="blackTimeOut">Acabou o tempo das pretas</string>
