@@ -74,8 +74,8 @@ importers:
         specifier: ^1.15.8
         version: 1.15.8
       '@types/yaireo__tagify':
-        specifier: 4.17.5
-        version: 4.17.5
+        specifier: 4.27.0
+        version: 4.27.0
       '@yaireo/tagify':
         specifier: 4.31.6
         version: 4.31.6(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -161,8 +161,8 @@ importers:
         specifier: ^1.5.5
         version: 1.5.5
       '@types/yaireo__tagify':
-        specifier: 4.17.5
-        version: 4.17.5
+        specifier: 4.27.0
+        version: 4.27.0
       '@types/zxcvbn':
         specifier: ^4.4.5
         version: 4.4.5
@@ -1195,9 +1195,6 @@ packages:
 
   '@types/webrtc@0.0.44':
     resolution: {integrity: sha512-4BJZdzrApNFeuXgucyqs24k69f7oti3wUcGEbFbaV08QBh7yEe3tnRRuYXlyXJNXiumpZujiZqUZZ2/gMSeO0g==}
-
-  '@types/yaireo__tagify@4.17.5':
-    resolution: {integrity: sha512-nYk4xqky1ZnbgTlP7dO24GA/Kz4Q7mvNGNOsRPygnaVV8kBXIhROFVLG141Y0EF+TZKbmIMUolaJ+Z69Pr9FwQ==}
 
   '@types/yaireo__tagify@4.27.0':
     resolution: {integrity: sha512-aMqj5QbXQL/Z47kevT4NODIaUgAhuMRWRUw4wAGNadgvegoLh3zbE56p2taXlmjRBw8S/yiqQoDek5I2i0CwiQ==}
@@ -2795,10 +2792,6 @@ snapshots:
   '@types/web@0.0.166': {}
 
   '@types/webrtc@0.0.44': {}
-
-  '@types/yaireo__tagify@4.17.5':
-    dependencies:
-      '@types/react': 18.3.12
 
   '@types/yaireo__tagify@4.27.0':
     dependencies:

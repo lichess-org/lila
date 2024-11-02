@@ -24,7 +24,7 @@
     "@types/debounce-promise": "^3.1.9",
     "@types/fnando__sparkline": "^0.3.7",
     "@types/qrcode": "^1.5.5",
-    "@types/yaireo__tagify": "4.17.5",
+    "@types/yaireo__tagify": "4.27.0",
     "@types/zxcvbn": "^4.4.5",
     "@yaireo/tagify": "4.31.6",
     "canvas-confetti": "^1.9.3",
