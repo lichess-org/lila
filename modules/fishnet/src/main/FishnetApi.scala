@@ -30,7 +30,7 @@ final class FishnetApi(
     maxSize = Max(256),
     timeout = 5 seconds,
     name = "fishnetApi",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)

@@ -28,8 +28,8 @@ const requestReplacementGame = () => {
       .json(url.toString())
       .then((data: ReplacementResponse) => {
         main.find(`.mini-game[href^="/${oldId}"]`).replaceWith(data.html);
-        if (data.html.includes('mini-game__result')) onFinish(data.id);
-        pubsub.emit('content-loaded');
+        if (data.html.includes('mini-game__result')) window.lichess.overrides.tvGamesOnFinish(data.id);
+        window.lichess.initializeDom();
       })
       .then(done, done);
   });
@@ -40,17 +40,17 @@ const done = () => {
   requestReplacementGame();
 };
 
-const onFinish = (id: string) =>
+window.lichess.overrides.tvGamesOnFinish = (id: string) =>
   setTimeout(() => {
     finishedIdQueue.push(id);
     requestReplacementGame();
   }, 7000); // 7000 matches the rematch wait duration in /modules/tv/main/Tv.scala
 
 site.load.then(() => {
-  pubsub.on('socket.in.finish', ({ id }) => onFinish(id));
+  pubsub.on('socket.in.finish', ({ id }) => window.lichess.overrides.tvGamesOnFinish(id));
   $('main.tv-games')
     .find('.mini-game')
     .each((_i, el) => {
-      if ($(el).find('.mini-game__result').length > 0) onFinish(getId(el)!);
+      if ($(el).find('.mini-game__result').length > 0) window.lichess.overrides.tvGamesOnFinish(getId(el)!);
     });
 });

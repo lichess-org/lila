@@ -3601,6 +3601,8 @@ interface I18n {
     notificationsX: I18nFormat;
     /** Offer draw */
     offerDraw: string;
+    /** OK */
+    ok: string;
     /** One day */
     oneDay: string;
     /** One URL per line. */

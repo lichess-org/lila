@@ -37,7 +37,7 @@ export interface DialogOpts {
 
 export interface DomDialogOpts extends DialogOpts {
   parent?: Element; // for centering and dom placement, otherwise fixed on document.body
-  show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
+  show?: 'modal' | boolean; // if true, auto-show. if 'modal', auto-show as modal
 }
 
 //snabDialog automatically shows as 'modal' unless onInsert callback is supplied
@@ -48,7 +48,7 @@ export interface SnabDialogOpts extends DialogOpts {
 
 export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
 
-// Actions are managed listeners / results that are easily refreshed on DOM changes
+// Actions are managed listeners / results that are easily reattached on DOM changes
 // if no event is specified, then 'click' is assumed
 // if no selector is given, then the handler is attached to the view div
 export type Action =
@@ -88,7 +88,7 @@ export async function confirm(
       await domDialog({
         htmlText:
           `<div>${escapeHtml(msg)}</div>` +
-          `<span><button class="button no">${no}</button>` +
+          `<span><button class="button button-empty no">${no}</button>` +
           `<button class="button yes">${yes}</button></span>`,
         class: 'alert',
         noCloseButton: true,
@@ -104,18 +104,13 @@ export async function confirm(
 }
 
 // non-blocking window.prompt-alike
-export async function prompt(
-  msg: string,
-  def: string = '',
-  ok: string = 'OK',
-  cancel: string = i18n.site.cancel,
-): Promise<string | null> {
+export async function prompt(msg: string, def: string = ''): Promise<string | null> {
   const res = await domDialog({
     htmlText:
       `<div>${escapeHtml(msg)}</div>` +
       `<input type="text" value="${escapeHtml(def)}" />` +
-      `<span><button class="button cancel">${cancel}</button>` +
-      `<button class="button ok">${ok}</button></span>`,
+      `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
+      `<button class="button ok">${i18n.site.ok}</button></span>`,
     class: 'alert',
     noCloseButton: true,
     noClickAway: true,
@@ -136,7 +131,7 @@ export async function prompt(
       },
     ],
   });
-  return res.returnValue === 'ok' ? (res.view.querySelector('input') as HTMLInputElement).value : null;
+  return res.returnValue === 'ok' ? res.view.querySelector('input')!.value : null;
 }
 
 // when opts contains 'show', this promise resolves as show/showModal (on dialog close) so check returnValue
@@ -211,11 +206,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
               if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
               if (o.onInsert) o.onInsert(wrapper);
-              else {
-                wrapper.showModal();
-                const inputEl = view.querySelector('input');
-                if (inputEl && inputEl.autofocus) inputEl.focus();
-              }
+              else wrapper.showModal();
             }),
           },
           o.vnodes,
@@ -328,13 +319,14 @@ class DialogWrapper implements Dialog {
   };
 
   private autoFocus() {
-    const focus = (
-      this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelectorAll(focusQuery)[1]
-    ) as HTMLElement;
-    if (!focus) return;
+    const focus =
+      (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
+      this.view.querySelectorAll(focusQuery)[1];
+    if (!(focus instanceof HTMLElement)) return;
     focus.focus();
     if (focus instanceof HTMLInputElement) focus.select();
   }
+
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';

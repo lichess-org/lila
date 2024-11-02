@@ -60,7 +60,7 @@ final class BatchProvider[A](name: String)(generateBatch: () => Fu[List[A]])(usi
     maxSize = Max(4096),
     timeout = 2.seconds,
     name = s"$name.workQueue",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   private var reserve = List.empty[A]
