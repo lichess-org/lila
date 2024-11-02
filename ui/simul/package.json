@@ -14,7 +14,7 @@
     "chat": "workspace:*",
     "common": "workspace:*",
     "game": "workspace:*",
-    "snabbdom": "3.5.1"
+    "snabbdom": "3.6.2"
   },
   "lichess": {
     "bundles": [

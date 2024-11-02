@@ -24,6 +24,6 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "common": "workspace:*",
-    "snabbdom": "3.5.1"
+    "snabbdom": "3.6.2"
   }
 }
