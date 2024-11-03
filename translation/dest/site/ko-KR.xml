@@ -405,7 +405,6 @@
   <string name="block">차단</string>
   <string name="blocked">차단됨</string>
   <string name="unblock">차단 해제</string>
-  <string name="followsYou">팔로워</string>
   <string name="xStartedFollowingY">%1$s(이)가 %2$s(을)를 팔로우했습니다</string>
   <plurals name="nbFollowers">
     <item quantity="other">팔로워 %s명</item>
