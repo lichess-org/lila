@@ -435,7 +435,6 @@
   <string name="block">Blokkeren</string>
   <string name="blocked">Geblokkeerd</string>
   <string name="unblock">Deblokkeren</string>
-  <string name="followsYou">Volgt u</string>
   <string name="xStartedFollowingY">%1$s volgt nu %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s volger</item>
