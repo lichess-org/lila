@@ -88,6 +88,6 @@
   <string name="veryLong">Väga pikk ülesanne</string>
   <string name="zugzwang">Vahekäik</string>
   <string name="zugzwangDescription">Vastasel on piiratud võimalused teha lubatud käike ja kõik halvendavad vastase olukorda.</string>
-  <string name="mix">Tervislik segu</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Tervislik segu</string>
   <string name="mixDescription">Natuke kõike. Kunagi ei tea mida oodata ehk ole valmis kõigeks! Täpselt nagu päris mängudes.</string>
 </resources>
