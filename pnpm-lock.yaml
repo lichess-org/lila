@@ -12,8 +12,8 @@ importers:
         specifier: workspace:*
         version: link:ui/@types/lichess
       '@types/node':
-        specifier: ^22.8.6
-        version: 22.8.6
+        specifier: ^22.8.7
+        version: 22.8.7
       '@types/web':
         specifier: ^0.0.166
         version: 0.0.166
@@ -58,7 +58,7 @@ importers:
         version: 25.0.1
       vitest:
         specifier: ^2.1.4
-        version: 2.1.4(@types/node@22.8.6)(jsdom@25.0.1)
+        version: 2.1.4(@types/node@22.8.7)(jsdom@25.0.1)
 
   ui/@types/lichess: {}
 
@@ -77,8 +77,8 @@ importers:
         specifier: 4.27.0
         version: 4.27.0
       '@yaireo/tagify':
-        specifier: 4.31.6
-        version: 4.31.6(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.17.9
+        version: 4.17.9(prop-types@15.8.1)
       bits:
         specifier: workspace:*
         version: link:../bits
@@ -122,8 +122,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       sortablejs:
         specifier: ^1.15.3
         version: 1.15.3
@@ -167,8 +167,8 @@ importers:
         specifier: ^4.4.5
         version: 4.4.5
       '@yaireo/tagify':
-        specifier: 4.31.6
-        version: 4.31.6(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.17.9
+        version: 4.17.9(prop-types@15.8.1)
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -221,8 +221,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/ceval:
     dependencies:
@@ -242,8 +242,8 @@ importers:
         specifier: 0.0.7
         version: 0.0.7
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       stockfish-mv.wasm:
         specifier: ^0.6.1
         version: 0.6.1
@@ -263,8 +263,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/chart:
     dependencies:
@@ -305,8 +305,8 @@ importers:
         specifier: workspace:*
         version: link:../palantir
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/chess:
     dependencies:
@@ -317,8 +317,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/cli:
     dependencies:
@@ -341,8 +341,8 @@ importers:
         specifier: ^2.1.3
         version: 2.1.3
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -359,8 +359,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       voice:
         specifier: workspace:*
         version: link:../voice
@@ -371,8 +371,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/dgt:
     dependencies:
@@ -389,8 +389,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/game:
     dependencies:
@@ -398,8 +398,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/insight:
     dependencies:
@@ -416,8 +416,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/keyboardMove:
     dependencies:
@@ -431,8 +431,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/learn:
     dependencies:
@@ -443,8 +443,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/lobby:
     dependencies:
@@ -464,8 +464,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/mod:
     dependencies:
@@ -476,8 +476,8 @@ importers:
         specifier: 4.27.0
         version: 4.27.0
       '@yaireo/tagify':
-        specifier: 4.31.6
-        version: 4.31.6(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: 4.17.9
+        version: 4.17.9(prop-types@15.8.1)
       apexcharts:
         specifier: ^3.54.1
         version: 3.54.1
@@ -500,8 +500,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/notify:
     dependencies:
@@ -509,8 +509,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/nvui:
     dependencies:
@@ -524,8 +524,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/opening:
     dependencies:
@@ -563,8 +563,8 @@ importers:
         specifier: ^1.5.4
         version: 1.5.4
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/puz:
     dependencies:
@@ -575,8 +575,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/puzzle:
     dependencies:
@@ -605,8 +605,8 @@ importers:
         specifier: workspace:*
         version: link:../nvui
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       tree:
         specifier: workspace:*
         version: link:../tree
@@ -629,8 +629,8 @@ importers:
         specifier: workspace:*
         version: link:../puz
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/round:
     dependencies:
@@ -659,8 +659,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       voice:
         specifier: workspace:*
         version: link:../voice
@@ -683,8 +683,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/site:
     dependencies:
@@ -725,8 +725,8 @@ importers:
         specifier: workspace:*
         version: link:../puz
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/swiss:
     dependencies:
@@ -743,8 +743,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/tournament:
     dependencies:
@@ -767,8 +767,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
 
   ui/tree:
     dependencies:
@@ -797,8 +797,8 @@ importers:
         specifier: workspace:*
         version: link:../game
       snabbdom:
-        specifier: 3.6.2
-        version: 3.6.2
+        specifier: 3.5.1
+        version: 3.5.1
       vosk-browser:
         specifier: ^0.0.8
         version: 0.0.8
@@ -1169,11 +1169,11 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@20.17.5':
-    resolution: {integrity: sha512-n8FYY/pRxu496441gIcAQFZPKXbhsd6VZygcq+PTSZ75eMh/Ke0hCAROdUa21qiFqKNsPPYic46yXDO1JGiPBQ==}
+  '@types/node@20.17.6':
+    resolution: {integrity: sha512-VEI7OdvK2wP7XHnsuXbAJnEpEkF6NjSN45QJlL4VGqZSXsnicpesdTWsg9RISeSdYd3yeRj/y3k5KGjUXYnFwQ==}
 
-  '@types/node@22.8.6':
-    resolution: {integrity: sha512-tosuJYKrIqjQIlVCM4PEGxOmyg3FCPa/fViuJChnGeEIhjA46oy8FMVoF9su1/v8PNs2a8Q0iFNyOx0uOF91nw==}
+  '@types/node@22.8.7':
+    resolution: {integrity: sha512-LidcG+2UeYIWcMuMUpBKOnryBWG/rnmOHQR5apjn8myTQcx3rinFRn7DcIFhMnS0PPFSC6OafdIKEad0lj6U0Q==}
 
   '@types/prop-types@15.7.13':
     resolution: {integrity: sha512-hCZTSvwbzWGvhqxp/RqVqwU999pBf2vp7hzIjiYOsl8wqOmUxkQ6ddw1cV3l8811+kdUFus/q4d1Y3E3SyEifA==}
@@ -1288,13 +1288,11 @@ packages:
   '@vitest/utils@2.1.4':
     resolution: {integrity: sha512-MXDnZn0Awl2S86PSNIim5PWXgIAx8CIkzu35mBdSApUip6RFOGXBCf3YFyeEu8n1IHk4bWD46DeYFu9mQlFIRg==}
 
-  '@yaireo/tagify@4.31.6':
-    resolution: {integrity: sha512-mEdz0eVXg2P0InSKE7xThTWjQ+foXZ0vBvGpHUcKvYbGFZnXPdfkPweZB7OEPibBRVP5VoW2U+7vgrJGcu/tdA==}
-    engines: {node: '>=16.15.0', npm: '>=9.0.0'}
+  '@yaireo/tagify@4.17.9':
+    resolution: {integrity: sha512-x9aZy22hzte7BNmMrFcYNrZH71ombgH5PnzcOVXqPevRV/m/ItSnWIvY5fOHYzpC9Uxy0+h/1P5v62fIvwq2MA==}
+    engines: {node: '>=14.20.0', npm: '>=8.0.0'}
     peerDependencies:
-      prop-types: '>15.5.7'
-      react: '*'
-      react-dom: '*'
+      prop-types: ^15.7.2
 
   '@yr/monotone-cubic-spline@1.0.3':
     resolution: {integrity: sha512-FQXkOta0XBSUPHndIKON2Y9JeQz5ZeMqLYZVVK93FliNBFm7LNMIZmY6FrMEB9XPcDbE2bekMbZD6kzDkxwYjA==}
@@ -2073,17 +2071,8 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
-    peerDependencies:
-      react: ^18.3.1
-
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
-    engines: {node: '>=0.10.0'}
 
   readdirp@3.6.0:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
@@ -2135,9 +2124,6 @@ packages:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
 
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
-
   sdp@3.2.0:
     resolution: {integrity: sha512-d7wDPgDV3DDiqulJjKiV2865wKsJ34YI+NDREbm+FySq6WuKOikwyNQcm+doLAZ1O6ltdO0SeKle2xMpN3Brgw==}
 
@@ -2175,6 +2161,10 @@ packages:
   slice-ansi@7.1.0:
     resolution: {integrity: sha512-bSiSngZ/jWeX93BqeIAbImyTbEihizcwNjFoRUIY/T1wWQsfsm2Vw1agPKylXvQTU7iASGdHhyqRlqQzfz+Htg==}
     engines: {node: '>=18'}
+
+  snabbdom@3.5.1:
+    resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
+    engines: {node: '>=8.3.0'}
 
   snabbdom@3.6.2:
     resolution: {integrity: sha512-ig5qOnCDbugFntKi6c7Xlib8bA6xiJVk8O+WdFrV3wxbMqeHO0hXFQC4nAhPVWfZfi8255lcZkNhtIBINCc4+Q==}
@@ -2766,11 +2756,11 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@20.17.5':
+  '@types/node@20.17.6':
     dependencies:
       undici-types: 6.19.8
 
-  '@types/node@22.8.6':
+  '@types/node@22.8.7':
     dependencies:
       undici-types: 6.19.8
 
@@ -2778,7 +2768,7 @@ snapshots:
 
   '@types/qrcode@1.5.5':
     dependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
 
   '@types/react@18.3.12':
     dependencies:
@@ -2887,13 +2877,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.4(vite@5.4.10(@types/node@22.8.6))':
+  '@vitest/mocker@2.1.4(vite@5.4.10(@types/node@22.8.7))':
     dependencies:
       '@vitest/spy': 2.1.4
       estree-walker: 3.0.3
       magic-string: 0.30.12
     optionalDependencies:
-      vite: 5.4.10(@types/node@22.8.6)
+      vite: 5.4.10(@types/node@22.8.7)
 
   '@vitest/pretty-format@2.1.4':
     dependencies:
@@ -2920,11 +2910,9 @@ snapshots:
       loupe: 3.1.2
       tinyrainbow: 1.2.0
 
-  '@yaireo/tagify@4.31.6(prop-types@15.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@yaireo/tagify@4.17.9(prop-types@15.8.1)':
     dependencies:
       prop-types: 15.8.1
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
 
   '@yr/monotone-cubic-spline@1.0.3': {}
 
@@ -3469,7 +3457,7 @@ snapshots:
 
   lichess-pgn-viewer@2.1.3:
     dependencies:
-      '@types/node': 20.17.5
+      '@types/node': 20.17.6
       chessground: 9.1.1
       chessops: 0.12.7
       snabbdom: 3.6.2
@@ -3726,17 +3714,7 @@ snapshots:
 
   queue-microtask@1.2.3: {}
 
-  react-dom@18.3.1(react@18.3.1):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.23.2
-
   react-is@16.13.1: {}
-
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
 
   readdirp@3.6.0:
     dependencies:
@@ -3797,10 +3775,6 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
-
   sdp@3.2.0: {}
 
   semver@7.6.3: {}
@@ -3831,6 +3805,8 @@ snapshots:
     dependencies:
       ansi-styles: 6.2.1
       is-fullwidth-code-point: 5.0.0
+
+  snabbdom@3.5.1: {}
 
   snabbdom@3.6.2: {}
 
@@ -3971,12 +3947,12 @@ snapshots:
 
   uuid@9.0.0: {}
 
-  vite-node@2.1.4(@types/node@22.8.6):
+  vite-node@2.1.4(@types/node@22.8.7):
     dependencies:
       cac: 6.7.14
       debug: 4.3.7
       pathe: 1.1.2
-      vite: 5.4.10(@types/node@22.8.6)
+      vite: 5.4.10(@types/node@22.8.7)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -3988,19 +3964,19 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.10(@types/node@22.8.6):
+  vite@5.4.10(@types/node@22.8.7):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
       rollup: 4.24.3
     optionalDependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
       fsevents: 2.3.3
 
-  vitest@2.1.4(@types/node@22.8.6)(jsdom@25.0.1):
+  vitest@2.1.4(@types/node@22.8.7)(jsdom@25.0.1):
     dependencies:
       '@vitest/expect': 2.1.4
-      '@vitest/mocker': 2.1.4(vite@5.4.10(@types/node@22.8.6))
+      '@vitest/mocker': 2.1.4(vite@5.4.10(@types/node@22.8.7))
       '@vitest/pretty-format': 2.1.4
       '@vitest/runner': 2.1.4
       '@vitest/snapshot': 2.1.4
@@ -4016,11 +3992,11 @@ snapshots:
       tinyexec: 0.3.1
       tinypool: 1.0.1
       tinyrainbow: 1.2.0
-      vite: 5.4.10(@types/node@22.8.6)
-      vite-node: 2.1.4(@types/node@22.8.6)
+      vite: 5.4.10(@types/node@22.8.7)
+      vite-node: 2.1.4(@types/node@22.8.7)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.8.6
+      '@types/node': 22.8.7
       jsdom: 25.0.1
     transitivePeerDependencies:
       - less

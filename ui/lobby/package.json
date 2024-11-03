@@ -17,7 +17,7 @@
     "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
     "game": "workspace:*",
-    "snabbdom": "3.6.2"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "bundles": "src/lobby.ts"

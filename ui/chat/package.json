@@ -10,6 +10,6 @@
   "dependencies": {
     "common": "workspace:*",
     "palantir": "workspace:*",
-    "snabbdom": "3.6.2"
+    "snabbdom": "3.5.1"
   }
 }
