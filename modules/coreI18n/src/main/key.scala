@@ -194,6 +194,8 @@ object I18nKey:
     val `ratingDiff`: I18nKey = "broadcast:ratingDiff"
     val `gamesThisTournament`: I18nKey = "broadcast:gamesThisTournament"
     val `score`: I18nKey = "broadcast:score"
+    val `perPage`: I18nKey = "broadcast:perPage"
+    val `allTeams`: I18nKey = "broadcast:allTeams"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:

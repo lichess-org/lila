@@ -229,6 +229,8 @@ interface I18n {
     addRound: string;
     /** Age this year */
     ageThisYear: string;
+    /** All teams */
+    allTeams: string;
     /** Boards */
     boards: string;
     /** Boards can be loaded with a source or via the %s */
@@ -301,6 +303,8 @@ interface I18n {
     openLichess: string;
     /** Overview */
     overview: string;
+    /** %s per page */
+    perPage: I18nFormat;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
     pgnSourceHelp: I18nFormat;
     /** Rating diff */

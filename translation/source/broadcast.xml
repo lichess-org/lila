@@ -70,4 +70,6 @@
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Games in this tournament</string>
   <string name="score">Score</string>
+  <string name="perPage">%s per page</string>
+  <string name="allTeams">All teams</string>
 </resources>
