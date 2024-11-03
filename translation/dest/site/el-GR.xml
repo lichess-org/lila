@@ -437,7 +437,6 @@
   <string name="block">Αποκλείστε</string>
   <string name="blocked">Αποκλεισμένος</string>
   <string name="unblock">Κατάργηση απόκλεισης</string>
-  <string name="followsYou">Σας ακολουθεί</string>
   <string name="xStartedFollowingY">Ο %1$s άρχισε να ακολουθεί τον %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s ακόλουθος</item>
