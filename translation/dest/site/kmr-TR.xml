@@ -378,7 +378,6 @@
   <string name="block">Asteng bike</string>
   <string name="blocked">Astengkirî ye</string>
   <string name="unblock">Astengiyê rake</string>
-  <string name="followsYou">Te dişopîne</string>
   <string name="xStartedFollowingY">%1$s dest bi şopandina %2$s kir</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s şopîner</item>
