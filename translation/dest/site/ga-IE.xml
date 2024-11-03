@@ -502,7 +502,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="block">Blocáil</string>
   <string name="blocked">Blocáilte</string>
   <string name="unblock">Bain bac de</string>
-  <string name="followsYou">Do leanúint</string>
   <string name="xStartedFollowingY">Thosaigh %1$s ag leanúint %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">leantóir amháin</item>
