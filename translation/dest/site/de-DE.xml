@@ -436,7 +436,6 @@
   <string name="block">Blockieren</string>
   <string name="blocked">Blockiert</string>
   <string name="unblock">Nicht mehr blockieren</string>
-  <string name="followsYou">Folgt dir</string>
   <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
