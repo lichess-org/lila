@@ -74,7 +74,7 @@
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="collapseVariations">Zwiń warianty</string>
   <string name="expandVariations">Rozwiń warianty</string>
-  <string name="forceVariation">Przedstaw jako wariant</string>
+  <string name="forceVariation">Zamień w wariant</string>
   <string name="copyVariationPgn">Skopiuj wariant PGN</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
