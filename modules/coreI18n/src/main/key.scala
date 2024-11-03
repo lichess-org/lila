@@ -203,6 +203,9 @@ object I18nKey:
     val `timezone`: I18nKey = "broadcast:timezone"
     val `fideRatingCategory`: I18nKey = "broadcast:fideRatingCategory"
     val `optionalDetails`: I18nKey = "broadcast:optionalDetails"
+    val `upcomingBroadcasts`: I18nKey = "broadcast:upcomingBroadcasts"
+    val `pastBroadcasts`: I18nKey = "broadcast:pastBroadcasts"
+    val `allBroadcastsByMonth`: I18nKey = "broadcast:allBroadcastsByMonth"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
 
   object challenge:

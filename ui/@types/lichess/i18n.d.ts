@@ -229,6 +229,8 @@ interface I18n {
     addRound: string;
     /** Age this year */
     ageThisYear: string;
+    /** View all broadcasts by month */
+    allBroadcastsByMonth: string;
     /** All teams */
     allTeams: string;
     /** Boards */
@@ -309,6 +311,8 @@ interface I18n {
     optionalDetails: string;
     /** Overview */
     overview: string;
+    /** Past broadcasts */
+    pastBroadcasts: string;
     /** %s per page */
     perPage: I18nFormat;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
@@ -371,6 +375,8 @@ interface I18n {
     unrated: string;
     /** Upcoming */
     upcoming: string;
+    /** Upcoming broadcasts */
+    upcomingBroadcasts: string;
     /** Upload tournament image */
     uploadImage: string;
     /** webmasters page */
