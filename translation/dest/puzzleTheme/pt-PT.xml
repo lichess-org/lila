@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Uma peça ataque ou defende uma casa através de uma peça inimiga.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">O adversário está limitado quanto aos seus movimentos, e todas as jogadas pioram a sua posição.</string>
-  <string name="mix">Mistura saudável</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mistura saudável</string>
   <string name="mixDescription">Um pouco de tudo. Não sabes o que esperar, então ficas pronto para qualquer coisa! Exatamente como em jogos de verdade.</string>
   <string name="playerGames">Jogos de jogadores</string>
   <string name="playerGamesDescription">Procura problemas gerados a partir dos teus jogos ou de jogos de outro jogador.</string>
