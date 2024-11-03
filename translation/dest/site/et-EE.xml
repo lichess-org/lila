@@ -414,7 +414,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="block">Blokeeri</string>
   <string name="blocked">Blokeeritud</string>
   <string name="unblock">Tühista blokeering</string>
-  <string name="followsYou">Jälgib sind</string>
   <string name="xStartedFollowingY">%1$s hakkas jälgima %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s jälgija</item>
