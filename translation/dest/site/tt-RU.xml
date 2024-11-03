@@ -339,7 +339,6 @@
   <string name="block">Блоклау</string>
   <string name="blocked">Блокланган</string>
   <string name="unblock">Блоктан чыгару</string>
-  <string name="followsYou">Сезгә язылган</string>
   <string name="xStartedFollowingY">%1$s %2$s исемле уенчыга язылган</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s язылучы</item>
