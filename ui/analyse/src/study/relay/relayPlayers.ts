@@ -167,7 +167,10 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                 ])
               : undefined,
             p.score
-              ? h('div.relay-tour__player__card', [h('em', i18n.broadcast.score), h('span', [p.score, ' / ', p.played])])
+              ? h('div.relay-tour__player__card', [
+                  h('em', i18n.broadcast.score),
+                  h('span', [p.score, ' / ', p.played]),
+                ])
               : undefined,
             p.performance
               ? h('div.relay-tour__player__card', [
