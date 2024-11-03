@@ -456,7 +456,6 @@
   <string name="block">Bloķēt</string>
   <string name="blocked">Bloķētie</string>
   <string name="unblock">Atbloķēt</string>
-  <string name="followsYou">Sekotāji</string>
   <string name="xStartedFollowingY">%1$s sāka sekot %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="zero">%s sekotāji</item>
