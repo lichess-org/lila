@@ -259,6 +259,7 @@
     <item quantity="one">%s partidas contra você</item>
     <item quantity="other">%s partidas contra você</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Tempo das brancas esgotado</string>
   <string name="blackTimeOut">Tempo das pretas esgotado</string>

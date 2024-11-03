@@ -259,6 +259,7 @@
     <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
+  <string name="ok">Ok</string>
   <string name="cancel">Annuller</string>
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>

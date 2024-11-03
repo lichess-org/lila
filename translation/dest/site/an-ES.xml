@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pa convidar a belún a chugar, comparte este vinclo</string>
   <string name="gameOver">Fin d\'a partida</string>
   <string name="waitingForOpponent">Aguardando a l\'oponent</string>
+  <string name="orLetYourOpponentScanQrCode">U deixa que lo tuyo oponent escaneye este codigo QR</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Lo tuyo redolín</string>
   <string name="aiNameLevelAiLevel">%1$s libel %2$s</string>
@@ -69,6 +70,8 @@
   <string name="promoteVariation">Promocionar variant</string>
   <string name="makeMainLine">Fer que siga la linia prencipal</string>
   <string name="deleteFromHere">Borrar a partir d\'aquí</string>
+  <string name="collapseVariations">Amagar variants</string>
+  <string name="expandVariations">Expandir variants</string>
   <string name="forceVariation">Fer que siga variant</string>
   <string name="copyVariationPgn">Copiar lo PGN d\'a variant</string>
   <string name="move">Movimiento</string>
@@ -176,6 +179,7 @@
   <string name="latestForumPosts">Zaguers mensaches d\'o foro</string>
   <string name="players">Chugadors</string>
   <string name="friends">Amigos</string>
+  <string name="otherPlayers">atros chugadors</string>
   <string name="discussions">Conversacions</string>
   <string name="today">Hue</string>
   <string name="yesterday">Ahiere</string>
@@ -255,6 +259,7 @@
     <item quantity="one">%s partida con tu</item>
     <item quantity="other">%s partidas con tu</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Cayida de bandera d\'as blancas</string>
   <string name="blackTimeOut">Cayida de bandera d\'as negras</string>
@@ -274,6 +279,7 @@
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Posición personalizada</string>
   <string name="unlimited">Ilimitau</string>
   <string name="mode">Modo</string>
   <string name="casual">Amistosa</string>
@@ -403,6 +409,7 @@
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Apegando lo PGN d\'una partida, s\'obtiene una repetición navegable, una analisi per ordinador, un chat de partida y un vinclo pa compartir.</string>
   <string name="importGameCaveat">Se borrarán las variants. Pa mantenir-la, importa lo PGN a traviés d\'un estudio.</string>
+  <string name="importGameDataPrivacyWarning">Este PGN ye accesible per lo publico. Pa importar una partida de manera privada, fe servir un estudio.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s partida importada</item>
     <item quantity="other">%s partidas importadas</item>
@@ -415,6 +422,7 @@
   <string name="blackCheckmatesInOneMove">Chugan negras y dan mate en una</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconnectando</string>
+  <string name="noNetwork">Sin Connexión</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amigo connectau</item>
     <item quantity="other">%s amigos connectaus</item>
@@ -499,6 +507,7 @@
   <string name="ifNoneLeaveEmpty">Si no aplica, deixa-lo en blanco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
+  <string name="realName">Nombre real</string>
   <string name="setFlair">Define lo tuyo estilo</string>
   <string name="flair">Estilo</string>
   <string name="youCanHideFlair">I hai un achuste pa amagar toz es estilos d\'usuario en tot lo puesto web.</string>
@@ -522,12 +531,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pasar automaticament a la siguient partida dimpués de mover</string>
   <string name="autoSwitch">Cambio automatico</string>
   <string name="puzzles">Problemas</string>
+  <string name="onlineBots">Bots en linia</string>
   <string name="name">Nombre</string>
   <string name="description">Descripción</string>
   <string name="descPrivate">Descripción privada</string>
   <string name="descPrivateHelp">Texto que nomás veyerán los miembros de l\'equipo. Si s\'emplega, los miembros de l\'equipo lo veyerán en cuentas d\'a descripción publica.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
+  <string name="website">Puesto web</string>
+  <string name="mobile">Móbil</string>
   <string name="help">Aduya:</string>
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
@@ -546,6 +558,9 @@
   <string name="cheat">Trapa</string>
   <string name="troll">Acoso</string>
   <string name="other">Atro</string>
+  <string name="reportCheatBoostHelp">Apega lo vinclo a la(s) partida(s) y explica-nos qué i hai de malo en o comportamiento d\'este usuario. No digas simplament \"fa trapazas\"; explica-nos cómo has arribau a esta conclusión.</string>
+  <string name="reportUsernameHelp">Explica qué ye lo que te resulta ofensivo d\'este usuarios. No digas nomás \"ye ofensivo/inapropiau\", explica-nos cómo has arribau a esta conclusión, especialment si l\'insulto no ye obvio, no ye en anglés, ye en argot u ye una referencia historica u cultural.</string>
+  <string name="reportProcessedFasterInEnglish">La tuya queixa será procesau mas rapidament si ye escrito en anglés.</string>
   <string name="error.provideOneCheatedGameLink">Per favor, da-nos a lo menos un vinclo a una partida en que s\'han feito trapazas.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importau per %s</string>
@@ -578,6 +593,7 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Adentro d\'o escaquero</string>
   <string name="outsideTheBoard">Difuera d\'o escaquero</string>
+  <string name="allSquaresOfTheBoard">Totas las casillas d\'o taulero</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
@@ -692,6 +708,7 @@
   <string name="toggleVariationArrows">Amuestra/amaga las flechas d\'as variants</string>
   <string name="cyclePreviousOrNextVariation">Cambia a la variant anterior/siguient</string>
   <string name="toggleGlyphAnnotations">Amuestra/amaga las anotacions con simbolos</string>
+  <string name="togglePositionAnnotations">Amuestra/amaga las anotacions d\'a posición</string>
   <string name="variationArrowsInfo">Las flechas de variants te permiten navegar sin fer servir la lista de movimientos.</string>
   <string name="playSelectedMove">chuga lo movimiento triau</string>
   <string name="newTournament">Nuevo torneyo</string>
@@ -776,6 +793,12 @@
   <string name="transparent">Transparent</string>
   <string name="deviceTheme">Tema d\'o dispositivo</string>
   <string name="backgroundImageUrl">URL d\'imachen de fondo:</string>
+  <string name="board">Taulero</string>
+  <string name="size">Grandaria</string>
+  <string name="opacity">Opacidat</string>
+  <string name="brightness">Brilo</string>
+  <string name="hue">Tonalidat</string>
+  <string name="boardReset">Restableix las colors per defecto</string>
   <string name="pieceSet">Estilo de piezas</string>
   <string name="embedInYourWebsite">Anyadir a lo mío puesto</string>
   <string name="usernameAlreadyUsed">Este nombre d\'usuario ya existe. Prebe con unatro, per favor.</string>
@@ -967,4 +990,6 @@
   <string name="showMeEverything">Amuestra-me-lo tot</string>
   <string name="lichessPatronInfo">Lichess ye una entidat sin animo de lucro y un software libre de tot y de codigo ubierto.
 Los gastos de funcionamiento, desenrollo y contenius se financian exclusivament con as donacions d\'os usuarios.</string>
+  <string name="nothingToSeeHere">Cosa a veyer per agora.</string>
+  <string name="stats">Estatisticas</string>
 </resources>
