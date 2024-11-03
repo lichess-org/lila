@@ -15,7 +15,7 @@
     "@fnando/sparkline": "^0.3.10",
     "@types/fnando__sparkline": "^0.3.7",
     "common": "workspace:*",
-    "snabbdom": "3.5.1",
+    "snabbdom": "3.6.2",
     "voice": "workspace:*"
   },
   "lichess": {

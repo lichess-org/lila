@@ -8,7 +8,7 @@ import lila.user.Flags
 
 final class Coach(env: Env) extends LilaController(env):
 
-  private def api = env.coach.api
+  import env.coach.api
 
   def homeLang =
     LangPage(routes.Learn.index)(searchResults("all", CoachPager.Order.Login.key, "all", 1))

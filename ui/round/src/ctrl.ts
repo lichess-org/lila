@@ -556,7 +556,10 @@ export default class RoundController implements MoveRootCtrl {
     }
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
-      site.sound.play(key);
+      // Delay 'victory'& 'defeat' sounds to avoid overlapping with 'checkmate' sound
+      setTimeout(() => {
+        site.sound.play(key);
+      }, 600);
       if (
         key != 'victory' &&
         d.game.turns > 6 &&

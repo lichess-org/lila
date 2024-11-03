@@ -289,6 +289,7 @@
     <item quantity="few">%s partije s teboj</item>
     <item quantity="other">%s partij s teboj</item>
   </plurals>
+  <string name="ok">V redu</string>
   <string name="cancel">Prekliči</string>
   <string name="whiteTimeOut">Belemu se je čas iztekel</string>
   <string name="blackTimeOut">Črnemu se je čas iztekel</string>

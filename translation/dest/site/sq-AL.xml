@@ -259,6 +259,7 @@
     <item quantity="one">%s lojë me ju</item>
     <item quantity="other">%s lojëra me ju</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Anuloje</string>
   <string name="whiteTimeOut">Të bardhit i mbaroi koha</string>
   <string name="blackTimeOut">Të ziut i mbaroi koha</string>
