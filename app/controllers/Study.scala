@@ -439,14 +439,15 @@ final class Study(
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
 
-  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
-    doChapterPgn(
-      id,
-      chapterId,
-      fuccess(studyNotFoundText),
-      _ => fuccess(privateUnauthorizedText),
-      _ => fuccess(privateForbiddenText)
-    )
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) =
+    AnonOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
+      doChapterPgn(
+        id,
+        chapterId,
+        fuccess(studyNotFoundText),
+        _ => fuccess(privateUnauthorizedText),
+        _ => fuccess(privateForbiddenText)
+      )
 
   private def doChapterPgn(
       id: StudyId,
