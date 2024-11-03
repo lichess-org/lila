@@ -431,7 +431,6 @@
   <string name="block">தடு</string>
   <string name="blocked">தடுபட்டது</string>
   <string name="unblock">தடைநீக்கு</string>
-  <string name="followsYou">நும்மைப் பின்தொடர்கின்றார்</string>
   <string name="xStartedFollowingY">%1$s என்பவர் %2$s-ஐப் பின்தொடரத் தொடங்கினார்</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s பின்தொடர்நர்கள்</item>
