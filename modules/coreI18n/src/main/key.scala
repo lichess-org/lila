@@ -1567,6 +1567,7 @@ object I18nKey:
     val `rank`: I18nKey = "rank"
     val `rankX`: I18nKey = "rankX"
     val `gamesPlayed`: I18nKey = "gamesPlayed"
+    val `ok`: I18nKey = "ok"
     val `cancel`: I18nKey = "cancel"
     val `whiteTimeOut`: I18nKey = "whiteTimeOut"
     val `blackTimeOut`: I18nKey = "blackTimeOut"
