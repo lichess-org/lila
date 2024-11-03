@@ -6,13 +6,13 @@
   "license": "AGPL-3.0-or-later",
   "type": "module",
   "dependencies": {
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.8.6",
     "@types/tinycolor2": "^1.4.6",
     "esbuild": "^0.24.0",
     "fast-glob": "^3.3.2",
     "fast-xml-parser": "^4.5.0",
     "tinycolor2": "^1.6.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "scripts": {
     "dev": "tsc && node dist/main.js"
