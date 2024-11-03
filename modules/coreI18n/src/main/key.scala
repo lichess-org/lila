@@ -1684,7 +1684,6 @@ object I18nKey:
     val `block`: I18nKey = "block"
     val `blocked`: I18nKey = "blocked"
     val `unblock`: I18nKey = "unblock"
-    val `followsYou`: I18nKey = "followsYou"
     val `xStartedFollowingY`: I18nKey = "xStartedFollowingY"
     val `more`: I18nKey = "more"
     val `memberSince`: I18nKey = "memberSince"
