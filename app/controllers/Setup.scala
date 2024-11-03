@@ -17,8 +17,7 @@ final class Setup(
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 
-  private def forms     = env.setup.forms
-  private def processor = env.setup.processor
+  import env.setup.{ forms, processor }
 
   def ai = OpenBody:
     limit.setupBotAi(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):

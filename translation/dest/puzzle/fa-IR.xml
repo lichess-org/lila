@@ -80,7 +80,7 @@
 
 بازی‌های سریع و مرسوم را انجام دهید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
   <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s یافت شد</string>
-  <string name="puzzleDashboardDescription">تمرین کن، تحلیل کن، پیشرفت کن</string>
+  <string name="puzzleDashboardDescription">آموزش، واکاوی، بهبود</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s بررسی شده</item>
     <item quantity="other">%s نفر بازی کردند</item>
@@ -91,6 +91,6 @@
   </plurals>
   <string name="percentSolved">%s حل‌شده</string>
   <string name="noPuzzlesToShow">چیزی برای نمایش نیست، نخست بروید و چند معما حل کنید!</string>
-  <string name="improvementAreasDescription">این‌ها را تمرین کنید تا روند پیشرفت خود را بهبود ببخشید!</string>
+  <string name="improvementAreasDescription">برای بهینیدن پیشرفت‌تان، این‌ها را بیاموزید!</string>
   <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
 </resources>

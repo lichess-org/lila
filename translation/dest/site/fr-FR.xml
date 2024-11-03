@@ -259,6 +259,7 @@
     <item quantity="one">%s partie avec vous</item>
     <item quantity="other">%s parties avec vous</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Annuler</string>
   <string name="whiteTimeOut">Temps blanc écoulé</string>
   <string name="blackTimeOut">Temps noir écoulé</string>

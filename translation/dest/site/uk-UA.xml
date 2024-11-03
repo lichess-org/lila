@@ -289,6 +289,7 @@
     <item quantity="many">%s партій з вами</item>
     <item quantity="other">%s партій з вами</item>
   </plurals>
+  <string name="ok">Гаразд</string>
   <string name="cancel">Скасувати</string>
   <string name="whiteTimeOut">Час білих вийшов</string>
   <string name="blackTimeOut">Час чорних вийшов</string>

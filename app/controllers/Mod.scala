@@ -22,17 +22,16 @@ final class Mod(
 )(using akka.stream.Materializer)
     extends LilaController(env):
 
-  private def modApi    = env.mod.api
-  private def assessApi = env.mod.assessApi
+  import env.mod.{ api, assessApi }
 
   private given Conversion[Me, AsMod] = me => AsMod(me)
 
   def alt(username: UserStr, v: Boolean) = OAuthModBody(_.CloseAccount) { me ?=>
     withSuspect(username): sus =>
       for
-        _ <- modApi.setAlt(sus, v)
+        _ <- api.setAlt(sus, v)
         _ <- (v && sus.user.enabled.yes).so(env.api.accountClosure.close(sus.user))
-        _ <- (!v && sus.user.enabled.no).so(modApi.reopenAccount(sus.user.id))
+        _ <- (!v && sus.user.enabled.no).so(api.reopenAccount(sus.user.id))
       yield sus.some
   }(reportC.onModAction)
 
@@ -41,7 +40,7 @@ final class Mod(
     Source(ctx.body.body.split(' ').toList.flatMap(UserStr.read))
       .mapAsync(1): username =>
         withSuspect(username): sus =>
-          modApi.setAlt(sus, true) >> (sus.user.enabled.yes.so(env.api.accountClosure.close(sus.user)))
+          api.setAlt(sus, true) >> (sus.user.enabled.yes.so(env.api.accountClosure.close(sus.user)))
       .runWith(Sink.ignore)
       .void
       .inject(NoContent)
@@ -50,7 +49,7 @@ final class Mod(
   def engine(username: UserStr, v: Boolean) =
     OAuthModBody(_.MarkEngine) { me ?=>
       withSuspect(username): sus =>
-        modApi.setEngine(sus, v).inject(sus.some)
+        api.setEngine(sus, v).inject(sus.some)
     }(reportC.onModAction)
 
   def publicChat = Secure(_.PublicChatView) { ctx ?=> _ ?=>
@@ -67,19 +66,19 @@ final class Mod(
 
   def booster(username: UserStr, v: Boolean) = OAuthModBody(_.MarkBooster) { me ?=>
     withSuspect(username): prev =>
-      modApi.setBoost(prev, v).map(some)
+      api.setBoost(prev, v).map(some)
   }(reportC.onModAction)
 
   def troll(username: UserStr, v: Boolean) = OAuthModBody(_.Shadowban) { me ?=>
     withSuspect(username): prev =>
-      for suspect <- modApi.setTroll(prev, v)
+      for suspect <- api.setTroll(prev, v)
       yield suspect.some
   }(reportC.onModAction)
 
   def isolate(username: UserStr, v: Boolean) = OAuthModBody(_.Shadowban) { me ?=>
     withSuspect(username): prev =>
       for
-        suspect <- modApi.setIsolate(prev, v)
+        suspect <- api.setIsolate(prev, v)
         _       <- env.relation.api.removeAllFollowers(suspect.user.id)
       yield suspect.some
   }(reportC.onModAction)
@@ -96,7 +95,7 @@ final class Mod(
   }(reportC.onModAction)
 
   def kid(username: UserStr) = OAuthMod(_.SetKidMode) { _ ?=> me ?=>
-    modApi.setKid(me.id.into(ModId), username).map(some)
+    api.setKid(me.id.into(ModId), username).map(some)
   }(actionResult(username))
 
   def deletePmsAndChats(username: UserStr) = OAuthMod(_.Shadowban) { _ ?=> _ ?=>
@@ -110,7 +109,7 @@ final class Mod(
   }(actionResult(username))
 
   def disableTwoFactor(username: UserStr) = OAuthMod(_.DisableTwoFactor) { _ ?=> me ?=>
-    modApi.disableTwoFactor(me.id.into(ModId), username).map(some)
+    api.disableTwoFactor(me.id.into(ModId), username).map(some)
   }(actionResult(username))
 
   def closeAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
@@ -119,27 +118,27 @@ final class Mod(
   }(actionResult(username))
 
   def reopenAccount(username: UserStr) = OAuthMod(_.CloseAccount) { _ ?=> me ?=>
-    modApi.reopenAccount(username).map(some)
+    api.reopenAccount(username).map(some)
   }(actionResult(username))
 
   def reportban(username: UserStr, v: Boolean) = OAuthMod(_.ReportBan) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      modApi.setReportban(sus, v).map(some)
+      api.setReportban(sus, v).map(some)
   }(actionResult(username))
 
   def rankban(username: UserStr, v: Boolean) = OAuthMod(_.RemoveRanking) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      modApi.setRankban(sus, v).map(some)
+      api.setRankban(sus, v).map(some)
   }(actionResult(username))
 
   def arenaBan(username: UserStr, v: Boolean) = OAuthMod(_.ArenaBan) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      modApi.setArenaBan(sus, v).map(some)
+      api.setArenaBan(sus, v).map(some)
   }(actionResult(username))
 
   def prizeban(username: UserStr, v: Boolean) = OAuthMod(_.PrizeBan) { _ ?=> me ?=>
     withSuspect(username): sus =>
-      modApi.setPrizeban(sus, v).map(some)
+      api.setPrizeban(sus, v).map(some)
   }(actionResult(username))
 
   def impersonate(username: String) = Auth { _ ?=> me ?=>
@@ -167,7 +166,7 @@ final class Mod(
   }
 
   protected[controllers] def doSetTitle(userId: UserId, title: Option[chess.PlayerTitle])(using Me) = for
-    _ <- modApi.setTitle(userId, title)
+    _ <- api.setTitle(userId, title)
     _ <- title.so(env.mailer.automaticEmail.onTitleSet(userId, _))
   yield ()
 
@@ -175,7 +174,7 @@ final class Mod(
     Found(env.user.repo.byId(username)): user =>
       bindForm(env.security.forms.modEmail(user))(
         err => BadRequest(err.toString),
-        email => modApi.setEmail(user.id, email).inject(redirect(user.username, mod = true))
+        email => api.setEmail(user.id, email).inject(redirect(user.username, mod = true))
       )
   }
 
@@ -222,7 +221,7 @@ final class Mod(
 
   def table = Secure(_.Admin) { ctx ?=> _ ?=>
     Ok.async:
-      modApi.allMods.map(views.mod.userTable.mods(_))
+      api.allMods.map(views.mod.userTable.mods(_))
   }
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
@@ -452,7 +451,7 @@ final class Mod(
         _ => BadRequest.page(views.mod.permissions(user)),
         permissions =>
           val newPermissions = Permission.ofDbKeys(permissions).diff(Permission(user))
-          (modApi.setPermissions(user.username, Permission.ofDbKeys(permissions)) >> {
+          (api.setPermissions(user.username, Permission.ofDbKeys(permissions)) >> {
             newPermissions(Permission.Coach).so(env.mailer.automaticEmail.onBecomeCoach(user))
           } >> {
             Permission
@@ -480,7 +479,7 @@ final class Mod(
               for
                 _ <- (!user.everLoggedIn).so {
                   lila.mon.user.register.modConfirmEmail.increment()
-                  modApi.setEmail(user.id, setEmail)
+                  api.setEmail(user.id, setEmail)
                 }
                 email <- env.user.repo.email(user.id)
                 page  <- renderPage(views.mod.ui.emailConfirm("", user.some, email))

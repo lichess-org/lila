@@ -88,7 +88,7 @@ export async function confirm(
       await domDialog({
         htmlText:
           `<div>${escapeHtml(msg)}</div>` +
-          `<span><button class="button no">${no}</button>` +
+          `<span><button class="button button-empty no">${no}</button>` +
           `<button class="button yes">${yes}</button></span>`,
         class: 'alert',
         noCloseButton: true,

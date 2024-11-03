@@ -3171,8 +3171,6 @@ interface I18n {
     followAndChallengeFriends: string;
     /** Following */
     following: string;
-    /** Follows you */
-    followsYou: string;
     /** Follow %s */
     followX: I18nFormat;
     /** Call draw */

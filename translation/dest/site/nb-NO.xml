@@ -259,6 +259,7 @@
     <item quantity="one">%s partier mot deg</item>
     <item quantity="other">%s partier mot deg</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Tiden er ute for hvit</string>
   <string name="blackTimeOut">Tiden er ute for svart</string>
