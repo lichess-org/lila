@@ -11,8 +11,7 @@ import Api.ApiResult
 
 final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def api       = env.team.api
-  private def paginator = env.team.paginator
+  import env.team.{ api, paginator }
 
   def all(page: Int) = Anon:
     import env.team.jsonView.given
