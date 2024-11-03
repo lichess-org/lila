@@ -436,7 +436,6 @@
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
-  <string name="followsYou">شما را می‌دنبالد</string>
   <string name="xStartedFollowingY">%1$s دنبالیدن %2$s را آغازید</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s دنبال‌گر</item>
