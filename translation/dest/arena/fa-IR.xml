@@ -54,7 +54,7 @@
   <string name="allowBerserk">مجاز کردن جنون</string>
   <string name="allowBerserkHelp">به بازیکنان اجازه دهید زمان خود را نصف کنند تا یک امتیاز بیشتر بگیرند</string>
   <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
-  <string name="arenaStreaks">آرنا استریکز</string>
+  <string name="arenaStreaks">حرکات عالی در تالار</string>
   <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی به‌جای 2 امتیاز 4 امتیاز می دهند.</string>
   <string name="noBerserkAllowed">جنون مجاز نیست</string>
   <string name="noArenaStreaks">سلسله برد ناموجود</string>
