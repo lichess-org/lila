@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">یک مهره از طریق مهره حریف به یک خانه حمله میکند یا از آن دفاع می کند.</string>
   <string name="zugzwang">زوگزوانگ</string>
   <string name="zugzwangDescription">حریف در حرکت‌هایش محدود است و همه‌شان وضعیتش را بدتر می‌کند.</string>
-  <string name="mix">آمیزهٔ همگن</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">آمیزهٔ همگن</string>
   <string name="mixDescription">ذره‌ای از هر چیزی. شما نمی‌دانید چه چیزی پیش روی شماست، بنابراین برای هر چیزی آماده می‌مانید! درست مانند بازی‌های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
   <string name="playerGamesDescription">دنبال معماهای ایجادشده از بازی‌های خودتان یا بازی‌های سایر بازیکنان، بگردید.</string>
