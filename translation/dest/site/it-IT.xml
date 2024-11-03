@@ -436,7 +436,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="block">Blocca</string>
   <string name="blocked">Bloccato</string>
   <string name="unblock">Sblocca</string>
-  <string name="followsYou">Ti segue</string>
   <string name="xStartedFollowingY">%1$s ha iniziato a seguire %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s lo segue</item>
