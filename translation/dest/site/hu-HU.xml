@@ -432,7 +432,6 @@
   <string name="block">Letiltás</string>
   <string name="blocked">Letiltva</string>
   <string name="unblock">Letiltás feloldása</string>
-  <string name="followsYou">Követ téged</string>
   <string name="xStartedFollowingY">%1$s %2$s követője lett</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s követő</item>
