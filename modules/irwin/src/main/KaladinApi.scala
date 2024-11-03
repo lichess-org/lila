@@ -33,7 +33,7 @@ final class KaladinApi(
     maxSize = Max(512),
     timeout = 2 minutes,
     name = "kaladinApi",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =

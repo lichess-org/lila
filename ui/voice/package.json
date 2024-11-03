@@ -16,7 +16,7 @@
     "chess": "workspace:*",
     "common": "workspace:*",
     "game": "workspace:*",
-    "snabbdom": "3.5.1",
+    "snabbdom": "3.6.2",
     "vosk-browser": "^0.0.8"
   },
   "lichess": {

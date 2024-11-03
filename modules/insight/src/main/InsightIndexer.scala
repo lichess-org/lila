@@ -20,7 +20,7 @@ final private class InsightIndexer(
     maxSize = Max(256),
     timeout = 1 minute,
     name = "insightIndexer",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def all(user: User): Funit =

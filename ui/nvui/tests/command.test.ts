@@ -3,22 +3,10 @@ import { commands } from '../src/command';
 import { Pieces } from 'chessground/types';
 
 const pieces: Pieces = new Map();
-pieces.set('a1', {
-  role: 'king',
-  color: 'white',
-});
-pieces.set('a2', {
-  role: 'queen',
-  color: 'white',
-});
-pieces.set('b1', {
-  role: 'knight',
-  color: 'white',
-});
-pieces.set('b2', {
-  role: 'knight',
-  color: 'white',
-});
+pieces.set('a1', { color: 'white', role: 'king' });
+pieces.set('a2', { color: 'white', role: 'queen' });
+pieces.set('b1', { color: 'white', role: 'knight' });
+pieces.set('b2', { color: 'white', role: 'knight' });
 
 test('piece command', () => {
   expect(commands.piece.apply('p N', pieces, 'san')).toBe('white knight: b1, b2');
