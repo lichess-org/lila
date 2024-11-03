@@ -259,6 +259,7 @@
     <item quantity="one">%s Partie mit dir</item>
     <item quantity="other">%s Partien mit dir</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Abbrechen</string>
   <string name="whiteTimeOut">Zeitüberschreitung von Weiß</string>
   <string name="blackTimeOut">Zeitüberschreitung von Schwarz</string>

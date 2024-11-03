@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">یک مهره از طریق مهره حریف به یک خانه حمله میکند یا از آن دفاع می کند.</string>
   <string name="zugzwang">زوگزوانگ</string>
   <string name="zugzwangDescription">حریف در حرکت‌هایش محدود است و همه‌شان وضعیتش را بدتر می‌کند.</string>
-  <string name="mix">ترکیب سالم</string>
-  <string name="mixDescription">یک ذره از همه چیز. شما نمی دانید چه چیزی پیش روی شماست، بنابراین شما باید برای هر چیزی آماده باشید! دقیقا مثل بازی های واقعی.</string>
+  <string name="mix">آمیزهٔ همگن</string>
+  <string name="mixDescription">ذره‌ای از هر چیزی. شما نمی‌دانید چه چیزی پیش روی شماست، بنابراین برای هر چیزی آماده می‌مانید! درست مانند بازی‌های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
   <string name="playerGamesDescription">دنبال معماهای ایجادشده از بازی‌های خودتان یا بازی‌های سایر بازیکنان، بگردید.</string>
   <string name="puzzleDownloadInformation">این معماها به صورت همگانی هستند و می‌توانید از %s بارگیریدشان.</string>

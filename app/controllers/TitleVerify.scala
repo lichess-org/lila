@@ -6,8 +6,9 @@ import lila.title.TitleRequest
 final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC: => User, modC: => Mod)
     extends LilaController(env):
 
-  private def api = env.title.api
-  private def ui  = views.title.ui
+  import env.title.api
+  import views.title.ui
+
   private def inSiteMenu(title: String = "Your title verification")(using Context) =
     views.site.ui.SitePage(title, "title", "page box box-pad force-ltr").css("bits.titleRequest")
 

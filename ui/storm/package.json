@@ -16,7 +16,7 @@
     "chessops": "^0.14.1",
     "common": "workspace:*",
     "puz": "workspace:*",
-    "snabbdom": "3.5.1"
+    "snabbdom": "3.6.2"
   },
   "lichess": {
     "bundles": "src/storm.ts"

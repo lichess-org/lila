@@ -289,6 +289,7 @@
     <item quantity="many">%s partií s Vami</item>
     <item quantity="other">%s partií s Vami</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Zrušiť</string>
   <string name="whiteTimeOut">Bielemu došiel čas</string>
   <string name="blackTimeOut">Čiernemu došiel čas</string>

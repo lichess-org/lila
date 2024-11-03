@@ -6,7 +6,7 @@ import lila.video.{ Filter, UserControl, View }
 
 final class Video(env: Env) extends LilaController(env):
 
-  private def api = env.video.api
+  import env.video.api
 
   private def WithUserControl[A](f: UserControl => Fu[A])(using Context): Fu[A] =
     val reqTags = get("tags").so(_.split('/').toList.map(_.trim.toLowerCase))
