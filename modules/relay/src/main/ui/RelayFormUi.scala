@@ -421,30 +421,30 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         (!Granter.opt(_.StudyAdmin)).option(div(cls := "form-group")(ui.howToUse)),
         form3.globalError(form),
         form3.group(form("name"), trb.tournamentName())(form3.input(_)(autofocus)),
-        form3.fieldset("Optional details", toggle = tg.exists(_.tour.info.nonEmpty).some)(
+        form3.fieldset(trb.optionalDetails(), toggle = tg.exists(_.tour.info.nonEmpty).some)(
           form3.split(
             form3.group(
               form("info.format"),
-              "Tournament format",
+              trb.tournamentFormat(),
               help = frag("""e.g. "8-player round-robin" or "5-round Swiss"""").some,
               half = true
             )(form3.input(_)),
             form3.group(
               form("info.location"),
-              "Tournament Location",
+              trb.tournamentLocation(),
               half = true
             )(form3.input(_))
           ),
           form3.split(
             form3.group(
               form("info.players"),
-              "Top players",
+              trb.topPlayers(),
               help = frag("Mention up to 4 of the best players participating").some,
               half = true
             )(form3.input(_)),
             form3.group(
               form("info.timeZone"),
-              "Time zone",
+              trb.timezone(),
               help = frag("Used to set round dates using their local time").some,
               half = true
             ):
@@ -453,13 +453,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           form3.split(
             form3.group(
               form("info.tc"),
-              "Time control",
+              trs.timeControl(),
               help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
               half = true
             )(form3.input(_)),
             form3.group(
               form("info.fideTc"),
-              "FIDE rating category",
+              trb.fideRatingCategory(),
               help = frag("Which FIDE ratings to use").some,
               half = true
             ):
@@ -472,13 +472,13 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           form3.split(
             form3.group(
               form("info.website"),
-              "Official Website",
+              trb.officialWebsite(),
               help = frag("External website URL").some,
               half = true
             )(form3.input(_)),
             form3.group(
               form("info.standings"),
-              "Official Standings",
+              trb.officialStandings(),
               help = frag("External website URL, e.g. chess-results.com, info64.org").some,
               half = true
             )(form3.input(_))
@@ -517,7 +517,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form3.split(
               form3.checkbox(
                 form("teamTable"),
-                "Team tournament",
+                trans.team.teamTournament(),
                 help = frag("Show a team leaderboard. Requires WhiteTeam and BlackTeam PGN tags.").some,
                 half = true
               )

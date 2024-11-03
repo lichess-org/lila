@@ -62,6 +62,7 @@
   <string name="notYetStarted">The broadcast has not yet started.</string>
   <string name="officialWebsite">Official website</string>
   <string name="standings">Standings</string>
+  <string name="officialStandings">Official Standings</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">More options on the %s</string>
   <string name="webmastersPage">webmasters page</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation.</string>
@@ -72,4 +73,10 @@
   <string name="score">Score</string>
   <string name="perPage">%s per page</string>
   <string name="allTeams">All teams</string>
+  <string name="tournamentFormat">Tournament format</string>
+  <string name="tournamentLocation">Tournament Location</string>
+  <string name="topPlayers">Top players</string>
+  <string name="timezone">Time zone</string>
+  <string name="fideRatingCategory">FIDE rating category</string>
+  <string name="optionalDetails">Optional details</string>
 </resources>
