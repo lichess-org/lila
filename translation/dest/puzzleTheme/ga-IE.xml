@@ -120,7 +120,7 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Ciallaíonn Zugzwang gur gá le himreoir a s(h) eans a 
 thógáil cé nár mhaith leis nó léi toisc gur laige a bheith a s(h) uíomh cibé beart a dhéanfaidh sé/sí. Ba mhaith leis / léi \"háram\" a rá ach níl sé sin ceadaithe.</string>
-  <string name="mix">Meascán sláintiúil</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Meascán sláintiúil</string>
   <string name="mixDescription">Giota de gach rud. Níl a fhios agat cad tá os do comhair, mar sin fanann tú réidh le haghaidh athan bith! Díreach mar atá i gcluichí fíor.</string>
   <string name="playerGames">Cluichí imreoir</string>
   <string name="playerGamesDescription">Cuardaigh fadhbanna a ghintear ó do chluichí, nó ó chluichí imreoir eile.</string>
