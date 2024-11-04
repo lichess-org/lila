@@ -324,7 +324,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   ),
                 },
                 [activeTab === 'pgn' && i18n.study.automatic, i18n.site.white, i18n.site.black].map(
-                  c => c && option(c, currentChapter.setup.orientation, c),
+                  c => c && option(c.toLowerCase(), currentChapter.setup.orientation, c),
                 ),
               ),
             ]),
