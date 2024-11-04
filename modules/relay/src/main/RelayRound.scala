@@ -128,6 +128,16 @@ object RelayRound:
     override def toString = upstream.toString
 
   object Sync:
+
+    object url:
+      private val lccRegex = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
+      extension (url: URL)
+        def lcc: Option[Lcc] = url.toString match
+          case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
+          case _                   => none
+        def looksLikeLcc = url.host.toString.endsWith("livechesscloud.com")
+    import url.*
+
     enum Upstream:
       case Url(url: URL)          extends Upstream
       case Urls(urls: List[URL])  extends Upstream
@@ -135,14 +145,11 @@ object RelayRound:
       def asUrl: Option[URL] = this match
         case Url(url) => url.some
         case _        => none
-      def isUrl = asUrl.isDefined
-      def lcc: Option[Lcc] = asUrl.flatMap:
-        _.toString match
-          case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
-          case _                   => none
+      def isUrl            = asUrl.isDefined
+      def lcc: Option[Lcc] = asUrl.flatMap(_.lcc)
       def hasLcc = this match
-        case Url(url)   => Sync.looksLikeLcc(url)
-        case Urls(urls) => urls.exists(Sync.looksLikeLcc)
+        case Url(url)   => url.looksLikeLcc
+        case Urls(urls) => urls.exists(_.looksLikeLcc)
         case _          => false
 
       def roundId: Option[RelayRoundId] = this match
@@ -163,9 +170,6 @@ object RelayRound:
       def pageUrl         = URL.parse(s"https://view.livechesscloud.com/#$id/$round")
       def indexUrl        = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json")
       def gameUrl(g: Int) = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/game-$g.json")
-
-    private val lccRegex               = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
-    private def looksLikeLcc(url: URL) = url.toString.contains(".livechesscloud.com/")
 
   trait AndTour:
     val tour: RelayTour
