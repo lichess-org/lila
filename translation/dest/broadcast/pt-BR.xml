@@ -62,6 +62,7 @@
   <string name="notYetStarted">A transmissão ainda não começou.</string>
   <string name="officialWebsite">Site oficial</string>
   <string name="standings">Classificação</string>
+  <string name="officialStandings">Classificação oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Mais opções na %s</string>
   <string name="webmastersPage">página dos webmasters</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Uma fonte PGN pública ao vivo desta rodada. Há também a %s para uma sincronização mais rápida e eficiente.</string>
@@ -70,4 +71,15 @@
   <string name="ratingDiff">Diferência de pontos</string>
   <string name="gamesThisTournament">Jogos neste torneio</string>
   <string name="score">Pontuação</string>
+  <string name="perPage">%s por página</string>
+  <string name="allTeams">Todas as equipes</string>
+  <string name="tournamentFormat">Formato do torneio</string>
+  <string name="tournamentLocation">Local do torneio</string>
+  <string name="topPlayers">Melhores jogadores</string>
+  <string name="timezone">Fuso horário</string>
+  <string name="fideRatingCategory">Categoria de pontuação FIDE</string>
+  <string name="optionalDetails">Detalhes opcionais</string>
+  <string name="upcomingBroadcasts">Próximas transmissões</string>
+  <string name="pastBroadcasts">Transmissões passadas</string>
+  <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
 </resources>
