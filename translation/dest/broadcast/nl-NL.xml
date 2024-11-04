@@ -54,19 +54,19 @@
   <string name="overview">Overzicht</string>
   <string name="subscribeTitle">Krijg een melding wanneer elke ronde start. Je kunt bel- of pushmeldingen voor uitzendingen in je accountvoorkeuren in-/uitschakelen.</string>
   <string name="uploadImage">Toernooifoto uploaden</string>
-  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">Nog geen borden. Deze zullen verschijnen van zodra er partijen worden geüpload.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Borden kunnen geladen worden met een bron of via de %s</string>
+  <string name="noBoardsYet">Nog geen borden. Deze zullen verschijnen van zodra er partijen worden geüpload.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Borden kunnen geladen worden met een bron of via de %s</string>
   <string name="startsAfter">Start na %s</string>
   <string name="startVerySoon">De uitzending begint binnenkort.</string>
   <string name="notYetStarted">De uitzending is nog niet begonnen.</string>
   <string name="officialWebsite">Officiële website</string>
   <string name="standings">Klassement</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Meer opties voor de %s</string>
-  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">pagina van de webmaster</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Meer opties voor de %s</string>
+  <string name="webmastersPage">pagina van de webmaster</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Een publieke real-time PGN-bron voor deze ronde. We bieden ook een %s aan voor een snellere en efficiëntere synchronisatie.</string>
   <string name="embedThisBroadcast">Deze uitzending insluiten in je website</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">%s insluiten in je website</string>
+  <string name="embedThisRound">%s insluiten in je website</string>
   <string name="ratingDiff">Ratingverschil</string>
   <string name="gamesThisTournament">Partijen in dit toernooi</string>
-  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Score</string>
+  <string name="score">Score</string>
 </resources>
