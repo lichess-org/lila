@@ -4,13 +4,11 @@ set -e
 
 cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
 
-update=$(echo "$*" | grep -q -- '--update' && echo true || echo false)
-
 if ! command -v pnpm &> /dev/null; then
   echo "The 'pnpm' tool is required. See https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding#tools-and-dependency-managers"
   exit 1
 fi
 
-pnpm install --silent --ignore-workspace --no-lockfile
+pnpm install --silent --ignore-workspace
 
 node --experimental-strip-types --no-warnings src/main.ts "$@"
