@@ -64,6 +64,7 @@
   <string name="notYetStarted">Трансляция ещё не началась.</string>
   <string name="officialWebsite">Официальный веб-сайт</string>
   <string name="standings">Турнирная таблица</string>
+  <string name="officialStandings">Официальная турнирная таблица</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Больше опций на %s</string>
   <string name="webmastersPage">странице веб-мастера</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публичный PGN-источник для этого раунда в реальном времени. Мы также предлагаем %s для более быстрой и эффективной синхронизации.</string>
@@ -72,4 +73,15 @@
   <string name="ratingDiff">Разница в рейтингах</string>
   <string name="gamesThisTournament">Партии этого турнира</string>
   <string name="score">Очки</string>
+  <string name="perPage">%s на страницу</string>
+  <string name="allTeams">Все клубы</string>
+  <string name="tournamentFormat">Формат турнира</string>
+  <string name="tournamentLocation">Местоположение турнира</string>
+  <string name="topPlayers">Лучшие игроки</string>
+  <string name="timezone">Часовой пояс</string>
+  <string name="fideRatingCategory">Категория рейтинга FIDE</string>
+  <string name="optionalDetails">Необязательные данные</string>
+  <string name="upcomingBroadcasts">Предстоящие трансляции</string>
+  <string name="pastBroadcasts">Завершённые трансляции</string>
+  <string name="allBroadcastsByMonth">Просмотр всех трансляций за месяц</string>
 </resources>
