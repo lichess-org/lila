@@ -55,19 +55,19 @@
   <string name="overview">Visión de conxunto</string>
   <string name="subscribeTitle">Subscríbete para ser notificado ó comezo de cada rolda. Podes activar/desactivar o son das notificacións ou as notificacións emerxentes para as emisións en directo nas preferencias da túa conta.</string>
   <string name="uploadImage">Subir a imaxe do torneo</string>
-  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">Aínda non hai taboleiros. Aparecerán cando se suban as partidas.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Os taboleiros pódense cargar dende a fonte ou a través da %s</string>
+  <string name="noBoardsYet">Aínda non hai taboleiros. Aparecerán cando se suban as partidas.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Os taboleiros pódense cargar dende a fonte ou a través da %s</string>
   <string name="startsAfter">Comeza en %s</string>
   <string name="startVerySoon">A emisión comeza decontado.</string>
   <string name="notYetStarted">A emisión aínda non comezou.</string>
   <string name="officialWebsite">Páxina web oficial</string>
   <string name="standings">Clasificación</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Máis opcións na %s</string>
-  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">páxina do administrador web</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Máis opcións na %s</string>
+  <string name="webmastersPage">páxina do administrador web</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Unha fonte dos PGN pública e en tempo real para esta rolda. Tamén ofrecemos unha %s para unha sincronización máis rápida e eficiente.</string>
   <string name="embedThisBroadcast">Incrustar esta emisión na túa páxina web</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Incrustar a %s na túa páxina web</string>
+  <string name="embedThisRound">Incrustar a %s na túa páxina web</string>
   <string name="ratingDiff">Diferenza de puntuación</string>
   <string name="gamesThisTournament">Partidas neste torneo</string>
-  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Resultado</string>
+  <string name="score">Resultado</string>
 </resources>
