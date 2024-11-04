@@ -49,7 +49,6 @@ export default class Report {
         winningChances.povDiff(this.ctrl.pov, bestEval, secondBestEval) < 0.35
       ) {
         // in all case, we do not want to show the dialog more than once
-        console.log('ev', ev);
         this.reported = true;
         const reason = `after move ${node.ply}${node.san}, at depth ${ev.depth}, they're multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
         this.reportDialog(reason);
@@ -93,7 +92,6 @@ export default class Report {
         dlg.close();
       });
       $('.apply', dlg.view).on('click', () => {
-        console.log('clicked apply');
         xhr.report(this.ctrl.data.puzzle.id, reason);
         dlg.close();
       });
