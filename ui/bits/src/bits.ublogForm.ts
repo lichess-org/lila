@@ -44,6 +44,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     theme: currentTheme(),
     initialValue: $('#form3-markdown').val() as string,
     initialEditType: initialEditType(),
+    previewStyle: 'tab',
     language: $('html').attr('lang') as string,
     toolbarItems: [
       ['heading', 'bold', 'italic', 'strike'],
