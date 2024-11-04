@@ -61,11 +61,14 @@ export default class Report {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox">` +
-      `<label for="analyse-toggle-report"></label></div>`;
+      `<label for="puzzle-toggle-report"></label></div>`;
+
+    const hideButtonDiv = `<div style="display:flex; flex-flow: row nowrap; align-items: center; justify-content: center">${switchButton}<span style="padding-left: 1em"> Hide this for a week</span></div>`;
 
     const hideDialogInput = () => document.querySelector('.switch-report-puzzle input') as HTMLInputElement;
 
     domDialog({
+      focus: '.apply',
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         'Report multiple solutions' +
@@ -73,13 +76,12 @@ export default class Report {
         '<p>' +
         'You have found a puzzle with multiple solutions, report it?' +
         '</p><br />' +
-        switchButton +
-        '<span>Hide this for a week</span>' +
+        hideButtonDiv +
         '<br /><br />' +
         `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
         `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
     }).then(dlg => {
-      $('.switch-report-puzzle label', dlg.view).on('click', () => {
+      $('.switch-report-puzzle', dlg.view).on('click', () => {
         const input = hideDialogInput();
         input.checked = !input.checked;
       });

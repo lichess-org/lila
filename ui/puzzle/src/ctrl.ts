@@ -79,7 +79,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded = false;
-  report: Report;
+  private readonly report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
