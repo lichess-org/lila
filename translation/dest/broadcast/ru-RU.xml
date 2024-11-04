@@ -57,19 +57,19 @@
   <string name="overview">Обзор</string>
   <string name="subscribeTitle">Подпишитесь, чтобы получать уведомления о начале каждого раунда. Вы можете включить звуковое или пуш-уведомление для трансляций в своих настройках.</string>
   <string name="uploadImage">Загрузить изображение турнира</string>
-  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">Пока нет досок. Они появятся после загрузки партий.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Доски могут быть загружены из источника или с помощью %s</string>
+  <string name="noBoardsYet">Пока нет досок. Они появятся после загрузки партий.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Доски могут быть загружены из источника или с помощью %s</string>
   <string name="startsAfter">Начало после %s</string>
   <string name="startVerySoon">Трансляция начнётся совсем скоро.</string>
   <string name="notYetStarted">Трансляция ещё не началась.</string>
   <string name="officialWebsite">Официальный веб-сайт</string>
   <string name="standings">Турнирная таблица</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Больше опций на %s</string>
-  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">странице веб-мастера</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Больше опций на %s</string>
+  <string name="webmastersPage">странице веб-мастера</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Публичный PGN-источник для этого раунда в реальном времени. Мы также предлагаем %s для более быстрой и эффективной синхронизации.</string>
   <string name="embedThisBroadcast">Встройте эту трансляцию на ваш сайт</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Встроить %s на свой сайт</string>
+  <string name="embedThisRound">Встроить %s на свой сайт</string>
   <string name="ratingDiff">Разница в рейтингах</string>
   <string name="gamesThisTournament">Партии этого турнира</string>
-  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Очки</string>
+  <string name="score">Очки</string>
 </resources>
