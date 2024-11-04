@@ -74,7 +74,7 @@
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="collapseVariations">Zwiń warianty</string>
   <string name="expandVariations">Rozwiń warianty</string>
-  <string name="forceVariation">Przedstaw jako wariant</string>
+  <string name="forceVariation">Zamień w wariant</string>
   <string name="copyVariationPgn">Skopiuj wariant PGN</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
@@ -496,7 +496,6 @@
   <string name="block">Zablokuj</string>
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
-  <string name="followsYou">Obserwuje Cię</string>
   <string name="xStartedFollowingY">%1$s obserwuje %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s obserwujący</item>

@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Një gur sulmon ose mbron një kuadrat, përmes një guri të kundërshtarit.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Kundërshtari është i kufizuar në lëvizjet që mund të bëjë dhe krejt lëvizjet përkeqësojnë pozicionin e tij.</string>
-  <string name="mix">Ushtrime të përzierë</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Ushtrime të përzierë</string>
   <string name="mixDescription">Pak nga të gjitha. S’dini ç’të prisni, ndaj mbeteni gati për gjithçka! Mu si në lojëra të njëmendta.</string>
   <string name="playerGames">Lojëra të lojëtarit</string>
   <string name="puzzleDownloadInformation">Këto ushtrime janë nën përkatësi publike dhe mund të shkarkohen nga %s.</string>

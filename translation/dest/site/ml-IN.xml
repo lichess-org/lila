@@ -419,7 +419,6 @@
   <string name="block">തടയുക</string>
   <string name="blocked">തടഞ്ഞു</string>
   <string name="unblock">തടയുന്നത് നിര്‍ത്തുക</string>
-  <string name="followsYou">നിങ്ങളെ പിന്തുടരുന്നു</string>
   <string name="xStartedFollowingY">%1$s പിന്തുടരാൻ %2$s തുടങ്ങി</string>
   <plurals name="nbFollowers">
     <item quantity="one">പിന്തുടർച്ചക്കാർ %s</item>

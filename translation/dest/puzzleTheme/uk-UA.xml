@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Фігура, що атакує чи захищає поле, що знаходиться за фігурою суперника.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Суперник обмежений в своїх ходах, а кожен хід погіршує його позицію.</string>
-  <string name="mix">Усього потрохи</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Усього потрохи</string>
   <string name="mixDescription">Усього потрохи. Ви не знатимете, чого очікувати, тому готуйтеся до всього! Як у справжніх партіях.</string>
   <string name="playerGames">Ігри гравця</string>
   <string name="playerGamesDescription">Пошук задач, згенерованих з ваших ігор або з ігор інших гравців.</string>

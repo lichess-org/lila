@@ -55,7 +55,7 @@
   <string name="overview">Überblick</string>
   <string name="subscribeTitle">Mäld dich a, zum über jede Rundeschtart informiert z\'werde. Du chasch de Alarm- oder d\'Push-Benachrichtigung, für Überträgige, i dine Kontoischtellige umschalte.</string>
   <string name="uploadImage">Turnier-Bild ufelade</string>
-  <string name="noBoardsYet">No kei Brätter. Die erschined, sobald Schpiel ufeglade sind.</string>
+  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">No kei Brätter. Die erschined, sobald Schpiel ufeglade sind.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Brätter chönd mit ere Quälle oder via %s ufeglade werde</string>
   <string name="startsAfter">Schtartet nach %s</string>
   <string name="startVerySoon">Die Überträgig schtartet sehr bald.</string>
@@ -63,11 +63,11 @@
   <string name="officialWebsite">Offizielli Website</string>
   <string name="standings">Tabälle</string>
   <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Meh Optionen uf %s</string>
-  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">Webmaster Site</string>
+  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">Webmaster Site</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Öffentlichi, real-time PGN Quälle, für die Rundi. Mir offeriered au %s für e schnälleri und effiziänteri Synchronisation.</string>
   <string name="embedThisBroadcast">Nimm die Überträgig uf dini Website</string>
   <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Nimm %s uf dini Website</string>
   <string name="ratingDiff">Wertigs Differänz</string>
   <string name="gamesThisTournament">Schpiel i dem Turnier</string>
-  <string name="score">Resultat</string>
+  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Resultat</string>
 </resources>

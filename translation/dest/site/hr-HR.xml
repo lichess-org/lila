@@ -449,7 +449,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="block">Blokiraj</string>
   <string name="blocked">Blokirani</string>
   <string name="unblock">Odblokiraj</string>
-  <string name="followsYou">Prati te</string>
   <string name="xStartedFollowingY">%1$s je počeo pratiti %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s pratitelj</item>

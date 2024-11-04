@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Figūra puola ar gina laukelį kiaurai priešininko figūros.</string>
   <string name="zugzwang">Priverstinis ėjimas</string>
   <string name="zugzwangDescription">Priešininkas apribotas ėjimais, kuriuos gali padaryti, ir visi jo ėjimai tik pabloginą jo poziciją.</string>
-  <string name="mix">Visko po truputį</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Visko po truputį</string>
   <string name="mixDescription">Nežinote ko tikėtis, todėl būkite pasiruošę bet kam! Visai kaip tikruose žaidimuose.</string>
   <string name="playerGames">Žaidėjų žaidimai</string>
   <string name="playerGamesDescription">Galvosūkiai sugeneruoti iš jūsų partijų ar iš kitų žaidėjų partijų.</string>

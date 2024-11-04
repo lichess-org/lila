@@ -424,7 +424,6 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="block">o pake</string>
   <string name="blocked">jan pake</string>
   <string name="unblock">o pake ala</string>
-  <string name="followsYou">jan pi tawa poka sina</string>
   <string name="xStartedFollowingY">jan %1$s li kama tawa poka jan %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">jan tawa poka %s</item>

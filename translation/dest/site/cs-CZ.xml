@@ -495,7 +495,6 @@
   <string name="block">Blokovat</string>
   <string name="blocked">Blokován</string>
   <string name="unblock">Odblokovat</string>
-  <string name="followsYou">Vás sleduje</string>
   <string name="xStartedFollowingY">%1$s začal sledovat %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s následovník</item>

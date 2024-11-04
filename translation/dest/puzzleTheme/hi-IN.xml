@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">एक टुकड़ा एक दुश्मन के टुकड़े के माध्यम से एक वर्ग पर हमला करता है या बचाव करता है।</string>
   <string name="zugzwang">ज़ुग्ज्वांग</string>
   <string name="zugzwangDescription">प्रतिद्वंद्वी उन चालों में सीमित है जो वे कर सकते हैं, और सभी चालें उनकी स्थिति को खराब करती हैं।</string>
-  <string name="mix">स्वस्थ मिश्रण</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">स्वस्थ मिश्रण</string>
   <string name="mixDescription">सब का कुछ कुछ। आप नहीं जानते कि क्या उम्मीद है, इसलिए आप किसी भी चीज़ के लिए तैयार रहें! बिल्कुल असली खेल की तरह।</string>
   <string name="playerGames">खिलाड़ियों के खेल</string>
 </resources>

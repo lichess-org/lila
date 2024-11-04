@@ -458,7 +458,6 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="block">Blokirajte</string>
   <string name="blocked">Blokiran</string>
   <string name="unblock">Odblokiraj</string>
-  <string name="followsYou">Prati vas</string>
   <string name="xStartedFollowingY">%1$s je počeo pratiti %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s pratitelj</item>
