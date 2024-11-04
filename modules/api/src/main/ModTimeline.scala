@@ -28,7 +28,7 @@ case class ModTimeline(
     val appealMsgs: List[Event] = appeal.so: a =>
       a.msgs.toList.takeWhile: msg =>
         a.mutedSince.fold(true)(msg.at.isBefore)
-    val playBans: List[Event] = playbanRecord.so(_.bans.toList).toNel.map(PlayBans(_)).toList
+    val playBans: List[Event] = playbanRecord.so(_.bans.toList).map(pb => PlayBans(NonEmptyList.one(pb)))
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: flaggedPublicLines
     // latest first
