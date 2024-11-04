@@ -116,11 +116,8 @@ object RelayTour:
           (round.hasStarted && round.sync.hasUpstream && !round.sync.ongoing)
             .option(List("Not syncing!"))
         .orElse:
-          (round.shouldHaveStarted1Hour && round.sync.isPush)
-            .option(List("Not Push yet!"))
-        .orElse:
-          (round.shouldHaveStarted1Hour && round.sync.hasUpstream)
-            .option(List("Not started yet!"))
+          round.shouldHaveStarted1Hour.option:
+            List(if round.sync.hasUpstream then "Upstream has not started" else "Nothing pushed yet")
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:
