@@ -9,7 +9,7 @@
   "types": "dist/dasher.d.ts",
   "dependencies": {
     "common": "workspace:*",
-    "snabbdom": "3.6.2"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "bundles": "src/dasher.ts"
