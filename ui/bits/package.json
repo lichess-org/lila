@@ -26,7 +26,7 @@
     "@types/qrcode": "^1.5.5",
     "@types/yaireo__tagify": "4.27.0",
     "@types/zxcvbn": "^4.4.5",
-    "@yaireo/tagify": "4.31.6",
+    "@yaireo/tagify": "4.17.9",
     "canvas-confetti": "^1.9.3",
     "chat": "workspace:*",
     "chess": "workspace:*",

@@ -55,7 +55,7 @@
   <string name="overview">Visió general</string>
   <string name="subscribeTitle">Subscriviu-vos per ser notificats quan comença cada ronda. Podeu activar/desactivara la campana o modificar les notificacions push a les preferències del vostre compte.</string>
   <string name="uploadImage">Puja una imatge del torneig</string>
-  <string name="noBoardsYet">Encara no hi ha taulers. Apareixeran en el moment que es carreguin les partides.</string>
+  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">Encara no hi ha taulers. Apareixeran en el moment que es carreguin les partides.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Els taulers es poden carregar per codi o a través de %s</string>
   <string name="startsAfter">Començar a les %s</string>
   <string name="startVerySoon">La retransmissió començarà aviat.</string>
@@ -63,11 +63,11 @@
   <string name="officialWebsite">Lloc web oficial</string>
   <string name="standings">Classificació</string>
   <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Més opcions a la %s</string>
-  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">pàgina d\'administració</string>
+  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">pàgina d\'administració</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Un origen públic en PGN públic en temps real d\'aquesta ronda. També oferim un %s per una sincronització més ràpida i eficient.</string>
   <string name="embedThisBroadcast">Incrusta aquesta retransmissió al vostre lloc web</string>
   <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Incrusta %s al vostre lloc web</string>
   <string name="ratingDiff">Diferència puntuació</string>
   <string name="gamesThisTournament">Partides en aquest torneig</string>
-  <string name="score">Puntuació</string>
+  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Puntuació</string>
 </resources>

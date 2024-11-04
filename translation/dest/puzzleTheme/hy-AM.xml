@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Իրավիճակ, երբ հեռահար խաղաքարի հարձակման կամ պաշտպանության գծին կանգնած է մրցակցի խաղաքարը։</string>
   <string name="zugzwang">Ցուգցվանգ</string>
   <string name="zugzwangDescription">Մրցակիցը ստիպված է անել հնարավոր փոքրաթիվ քայլերից մեկը,  բայց քայլերից ցանկացածը տանում է դիրքի վատացման։</string>
-  <string name="mix">Խառը խնդիրներ</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Խառը խնդիրներ</string>
   <string name="mixDescription">Ամեն ինչից` քիչ-քիչ։ Դուք չգիտեք` ինչ է սպասվում, այնպես որ, պատրաստ եղեք ամեն ինչի։ Ինչպես իսկական պարտիայում։</string>
   <string name="playerGames">Խաղացողի պարտիաները</string>
   <string name="playerGamesDescription">Գտնել խնդիրներ, որոնք ստեղծվել են Ձեր պարտիաներից, կամ այլ խաղացողների պարտիաներից։</string>

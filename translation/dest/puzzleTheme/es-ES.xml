@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Una pieza ataca o defiende una casilla, a través de una pieza del oponente.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">El oponente está limitado en los movimientos que puede realizar, y todos los movimientos empeoran su posición.</string>
-  <string name="mix">Mezcla equilibrada</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mezcla equilibrada</string>
   <string name="mixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
   <string name="playerGames">Partidas de jugadores</string>
   <string name="playerGamesDescription">Busca ejercicios generados a partir de tus partidas o de las de otros jugadores.</string>

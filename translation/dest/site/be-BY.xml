@@ -476,7 +476,6 @@
   <string name="block">Заблакаваць</string>
   <string name="blocked">Заблакаваны</string>
   <string name="unblock">Разблакіраваць</string>
-  <string name="followsYou">Падпісаны на вас</string>
   <string name="xStartedFollowingY">%1$s падпісаўся на %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s падпісчык</item>

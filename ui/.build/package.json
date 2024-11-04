@@ -14,7 +14,7 @@
     "sass-embedded-win32-x64": "1.80.5"
   },
   "dependencies": {
-    "@types/node": "^22.8.6",
+    "@types/node": "^22.8.7",
     "@types/tinycolor2": "^1.4.6",
     "esbuild": "^0.24.0",
     "fast-glob": "^3.3.2",

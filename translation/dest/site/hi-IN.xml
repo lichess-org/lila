@@ -430,7 +430,6 @@
   <string name="block">अवस्र्द्ध (ब्लॉक) करें</string>
   <string name="blocked">अवस्र्द्ध (ब्लॉक) कर दिया गया</string>
   <string name="unblock">अवस्र्द्ध (ब्लॉक) न करें</string>
-  <string name="followsYou">आपका अनुसरण कर रहे हैं</string>
   <string name="xStartedFollowingY">%1$s ने  %2$s का अनुसरण करना शुरू किया</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s अनुसरणकर्ता</item>

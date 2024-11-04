@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">相手の駒の向こうにあるマスを間接的に攻撃（または防御）する。</string>
   <string name="zugzwang">ツークツワンク</string>
   <string name="zugzwangDescription">相手の指せる手が、どれを選んでも局面を悪くしてしまう形。</string>
-  <string name="mix">混合</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">混合</string>
   <string name="mixDescription">いろいろな問題を少しずつ。どんな問題が来るかわからないので油断しないで！　実戦と同じです。</string>
   <string name="playerGames">プレイヤーの対局</string>
   <string name="playerGamesDescription">自分の対局、他のプレイヤーの対局から取られた問題を検索します。</string>

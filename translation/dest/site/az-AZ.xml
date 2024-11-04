@@ -428,7 +428,6 @@
   <string name="block">Blok</string>
   <string name="blocked">Bloklanıb</string>
   <string name="unblock">Blokdan çıxart</string>
-  <string name="followsYou">Səni izləyir</string>
   <string name="xStartedFollowingY">%1$s %2$s adlı oyunçunu izləməyə başladı</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s izləyici</item>

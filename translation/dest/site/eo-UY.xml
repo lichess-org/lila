@@ -434,7 +434,6 @@
   <string name="block">Bloki</string>
   <string name="blocked">Blokita</string>
   <string name="unblock">Malbloki</string>
-  <string name="followsYou">Sekvas vin</string>
   <string name="xStartedFollowingY">%1$s eksekvis %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sekvanto</item>

@@ -496,7 +496,6 @@
   <string name="block">חסמו</string>
   <string name="blocked">חסום</string>
   <string name="unblock">בטל חסימה</string>
-  <string name="followsYou">עוקב/ת אחריך</string>
   <string name="xStartedFollowingY">%1$s התחיל/ה לעקוב אחרי %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">עוקב %s</item>

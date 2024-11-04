@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Unha peza ataca ou defende un escaque a través dunha peza do opoñente.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">O rival ten os movementos limitados e calquera xogada que faga empeora a súa posición.</string>
-  <string name="mix">Mestura equilibrada</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mestura equilibrada</string>
   <string name="mixDescription">Un pouco de todo. Non sabes que vai vir, así que prepárate para calquera cousa! Coma nas partidas de verdade.</string>
   <string name="playerGames">Partidas de xogadores</string>
   <string name="playerGamesDescription">Busca crebacabezas xerados a partir das túas partidas ou das doutros xogadores.</string>

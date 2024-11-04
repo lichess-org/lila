@@ -403,7 +403,6 @@
   <string name="block">Blokkera</string>
   <string name="blocked">Blokkaður</string>
   <string name="unblock">Afblokka</string>
-  <string name="followsYou">Fylgir þér</string>
   <string name="xStartedFollowingY">%1$s byrjaði að fylgja %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s fylgjandi</item>

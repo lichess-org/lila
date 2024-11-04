@@ -45,6 +45,6 @@
   <string name="startsAfter">Fänkt no %s un</string>
   <string name="officialWebsite">Offiziell Websäit</string>
   <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Méi Optiounen op der %s</string>
-  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">Webmaster-Säit</string>
+  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">Webmaster-Säit</string>
   <string name="gamesThisTournament">Partien an dësem Turnéier</string>
 </resources>
