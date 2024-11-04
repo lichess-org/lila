@@ -6,7 +6,6 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import { throttle } from 'common/timing';
-import * as licon from 'common/licon';
 import {
   PuzzleOpts,
   PuzzleData,
@@ -22,7 +21,7 @@ import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } fro
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
 import { Config as CgConfig } from 'chessground/config';
-import { CevalCtrl, winningChances } from 'ceval';
+import { CevalCtrl } from 'ceval';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import { ctrl as makeKeyboardMove, KeyboardMove, KeyboardMoveRootCtrl } from 'keyboardMove';
 import { Deferred, defer } from 'common/defer';
@@ -33,20 +32,15 @@ import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/u
 import { pgnToTree, mergeSolution } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
 import { Role, Move, Outcome } from 'chessops/types';
-import {
-  StoredProp,
-  storedBooleanProp,
-  storedIntProp,
-  storedBooleanPropWithEffect,
-  storage,
-} from 'common/storage';
+import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
+import Report from './report';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 import { pubsub } from 'common/pubsub';
-import { alert, domDialog } from 'common/dialog';
+import { alert } from 'common/dialog';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
@@ -85,10 +79,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded = false;
-  // if local eval suspect multiple solutions, report the puzzle
-  reportedForMultipleSolutions = false;
-  // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
-  tsHideReportDialog: StoredProp<number>;
+  report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -136,7 +127,7 @@ export default class PuzzleCtrl implements ParentCtrl {
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === this.path) {
-            this.reportIfMultipleSolutions(ev);
+            this.report.checkForMultipleSolutions(ev);
             this.setAutoShapes();
             this.redraw();
           }
@@ -144,8 +135,6 @@ export default class PuzzleCtrl implements ParentCtrl {
       },
       setAutoShapes: this.setAutoShapes,
     });
-
-    this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
@@ -476,89 +465,6 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   private isPuzzleData = (d: PuzzleData | ReplayEnd): d is PuzzleData => 'puzzle' in d;
-
-  // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
-  // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
-  private reportIfMultipleSolutions = (ev: Tree.ClientEval): void => {
-    // first, make sure we're in view mode so we know the solution is the mainline
-    // do not check, checkmate puzzles
-    if (
-      !this.session.userId ||
-      this.reportedForMultipleSolutions ||
-      this.mode != 'view' ||
-      this.threatMode() ||
-      // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
-      this.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
-      // if the user has chosen to hide the dialog less than a week ago
-      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
-    )
-      return;
-    const node = this.node;
-    // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
-    const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
-    if (
-      node.ply >= this.initialNode.ply &&
-      nodeTurn == this.pov &&
-      this.mainline.some(n => n.id == node.id)
-    ) {
-      const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
-      // stricly identical to lichess-puzzler v49 check
-      if (
-        (ev.depth > 50 || ev.nodes > 25_000_000) &&
-        bestEval &&
-        secondBestEval &&
-        winningChances.povDiff(this.pov, bestEval, secondBestEval) < 0.35
-      ) {
-        // in all case, we do not want to show the dialog more than once
-        console.log('ev', ev);
-        this.reportedForMultipleSolutions = true;
-        const reason = `after move ${node.ply}${node.san}, at depth ${ev.depth}, they're multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
-        this.reportDialog(reason);
-      }
-    }
-  };
-
-  private reportDialog = (reason: string) => {
-    const switchButton =
-      `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
-      `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox">` +
-      `<label for="analyse-toggle-report"></label></div>`;
-
-    const hideDialogInput = () => document.querySelector('.switch-report-puzzle input') as HTMLInputElement;
-
-    domDialog({
-      htmlText:
-        '<div><strong style="font-size:1.5em">' +
-        'Report multiple solutions' +
-        '</strong><br /><br />' +
-        '<p>' +
-        'You have found a puzzle with multiple solutions, report it?' +
-        '</p><br />' +
-        switchButton +
-        '<span>Hide this for a week</span>' +
-        '<br /><br />' +
-        `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
-        `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
-    }).then(dlg => {
-      $('.switch-report-puzzle label', dlg.view).on('click', () => {
-        const input = hideDialogInput();
-        input.checked = !input.checked;
-      });
-      $('.reset', dlg.view).on('click', () => {
-        if (hideDialogInput().checked) {
-          this.tsHideReportDialog(Date.now());
-        }
-
-        dlg.close();
-      });
-      $('.apply', dlg.view).on('click', () => {
-        console.log('clicked apply');
-        xhr.report(this.data.puzzle.id, reason);
-        dlg.close();
-      });
-      dlg.showModal();
-    });
-  };
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback != 'win') {
