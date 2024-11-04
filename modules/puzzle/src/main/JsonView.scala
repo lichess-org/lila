@@ -209,6 +209,7 @@ object JsonView:
   private def puzzleJsonBase(puzzle: Puzzle): JsObject = Json.obj(
     "id"       -> puzzle.id,
     "rating"   -> puzzle.glicko.intRating,
+    "rd"       -> puzzle.glicko.intDeviation,
     "plays"    -> puzzle.plays,
     "solution" -> puzzle.line.tail.map(_.uci),
     "themes"   -> simplifyThemes(puzzle.themes)
