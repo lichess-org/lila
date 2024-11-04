@@ -531,11 +531,11 @@ export default class PuzzleCtrl implements ParentCtrl {
         '<div><strong style="font-size:1.5em">' +
         'Report multiple solutions' +
         '</strong><br /><br />' +
-        '<pre>' +
+        '<p>' +
         'You have found a puzzle with multiple solutions, report it?' +
-        '</pre><br />' +
+        '</p><br />' +
         switchButton +
-        '<span>Do not show me this again for a week</span>' +
+        '<span>Hide this for a week</span>' +
         '<br /><br />' +
         `<button type="reset" class="button button-empty button-red text reset" data-icon="${licon.X}">No</button>` +
         `<button type="submit" class="button button-green text apply" data-icon="${licon.Checkmark}">Yes</button>`,
