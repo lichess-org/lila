@@ -13,9 +13,6 @@ object MarkdownToastUi:
   def imageParagraph(markup: Html) =
     markup.map(_.replace("""<p><img src=""", """<p class="img-container"><img src="""))
 
-  def decodeHtmlEntities(markup: Html) =
-    markup.map(_.replace("""&gt;""", """>""").replace("""&lt;""", """<""").replace("""&amp;""", """&""").replace("""&quot;""", "\""))
-
   private def unescape(txt: String) = txt.replace("""\_""", "_")
 
   // https://github.com/lichess-org/lila/issues/9767
