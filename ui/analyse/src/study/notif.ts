@@ -7,12 +7,12 @@ interface Notif {
 
 export class NotifCtrl {
   current: Notif | undefined;
-  timeout: number;
+  timeoutId: number | undefined;
   constructor(readonly redraw: () => void) {}
   set = (n: Notif) => {
-    clearTimeout(this.timeout);
+    clearTimeout(this.timeoutId);
     this.current = n;
-    this.timeout = setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.current = undefined;
       this.redraw();
     }, n.duration);
