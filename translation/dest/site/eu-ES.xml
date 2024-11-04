@@ -435,7 +435,6 @@
   <string name="block">Blokeatu</string>
   <string name="blocked">Blokeatuta</string>
   <string name="unblock">Desblokeatu</string>
-  <string name="followsYou">Zu jarraitzen</string>
   <string name="xStartedFollowingY">%1$s  %2$s  jarraitzen hasi da</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s jarraitzaile</item>

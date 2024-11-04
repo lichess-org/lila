@@ -22,7 +22,7 @@
     "nvui": "workspace:*",
     "board": "workspace:*",
     "shepherd.js": "^11.2.0",
-    "snabbdom": "3.6.2"
+    "snabbdom": "3.5.1"
   },
   "lichess": {
     "bundles": [

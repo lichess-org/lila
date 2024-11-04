@@ -130,7 +130,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
       'select.study__multiboard__pager__max-per-page',
       { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
       [4, 6, 8, 10, 12, 16, 20, 24, 32].map(nb =>
-        h('option', { attrs: { value: nb, selected: nb == max } }, `${nb} per page`),
+        h('option', { attrs: { value: nb, selected: nb == max } }, i18n.broadcast.perPage(nb)),
       ),
     ),
   ]);
@@ -145,7 +145,7 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
         {
           hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
         },
-        ['All teams', ...allTeams].map((t, i) =>
+        [i18n.broadcast.allTeams, ...allTeams].map((t, i) =>
           h('option', { attrs: { value: i ? t : '', selected: i && t == currentTeam } }, t),
         ),
       )

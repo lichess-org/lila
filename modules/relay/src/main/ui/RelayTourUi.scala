@@ -39,13 +39,13 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             nonEmptyTier(_.NORMAL, "normal"),
             upcoming.nonEmpty.option(
               frag(
-                h2(cls := "relay-index__section")("Upcoming broadcasts"),
+                h2(cls := "relay-index__section")(trc.upcomingBroadcasts()),
                 st.section(cls := "relay-cards relay-cards--upcoming"):
                   upcoming.map:
                     card.render(_, live = _ => false)
               )
             ),
-            h2(cls := "relay-index__section")("Past broadcasts"),
+            h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards relay-cards--past"):
               past.map: t =>
                 card.render(t, live = _ => false)
@@ -53,7 +53,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             h2(cls := "relay-index__section relay-index__calendar"):
               a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
                 strong(trc.broadcastCalendar()),
-                small("View all broadcasts by month")
+                small(trc.allBroadcastsByMonth())
               )
           )
         )

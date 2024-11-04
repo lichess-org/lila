@@ -324,7 +324,6 @@
   <string name="block">fanta lo nu jikca</string>
   <string name="blocked">lo nu jikca gau se fanta</string>
   <string name="unblock">co\'u fanta lo nu jikca</string>
-  <string name="followsYou">ti do catlu</string>
   <string name="xStartedFollowingY">la\'oi %1$s la\'oi %2$s co\'a catlu</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s da catlu ti</item>

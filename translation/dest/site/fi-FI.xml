@@ -436,7 +436,6 @@
   <string name="block">Estä</string>
   <string name="blocked">Estetty</string>
   <string name="unblock">Poista esto</string>
-  <string name="followsYou">Seuraa sinua</string>
   <string name="xStartedFollowingY">%1$s alkoi seurata %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seuraaja</item>

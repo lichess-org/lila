@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Peco atakas aŭ defendas kvadraton, tra malamika peco.</string>
   <string name="zugzwang">Movdevigo</string>
   <string name="zugzwangDescription">La opcioj de la kontraŭulo por moviĝi estas limigitaj, kaj ĉiuj movoj plimalbonigas rian pozicion.</string>
-  <string name="mix">Sana miksaĵo</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Sana miksaĵo</string>
   <string name="mixDescription">Iom de ĉio. Vi ne scias kion atendi, do vi restas preta por io ajn! Same kiel en realaj ludoj.</string>
   <string name="playerGames">Ludantaj ludoj</string>
   <string name="playerGamesDescription">Serĉu enigmojn generitajn de viaj ludoj, aŭ de la ludoj de alia ludanto.</string>

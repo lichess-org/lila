@@ -237,7 +237,6 @@
   <string name="block">Чарса ларт</string>
   <string name="blocked">Чарса лартнӑ</string>
   <string name="unblock">Чарӑва сир</string>
-  <string name="followsYou">Сан ҫине ҫырӑнса тӑрать</string>
   <string name="xStartedFollowingY">%1$s -&gt; %2$s ҫине ҫырӑннӑ</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s ҫырӑнни</item>

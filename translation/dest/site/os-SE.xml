@@ -360,7 +360,6 @@
   <string name="block">Блокадæ бакæнын</string>
   <string name="blocked">Блокадæгондтæ</string>
   <string name="unblock">Блокадæ айсын</string>
-  <string name="followsYou">Дæумæ хъус дары</string>
   <string name="xStartedFollowingY">%1$s %2$s-мæ райдыдта хъус дарын</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s хъусдарæг</item>

@@ -167,7 +167,10 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                 ])
               : undefined,
             p.score
-              ? h('div.relay-tour__player__card', [h('em', 'Score'), h('span', [p.score, ' / ', p.played])])
+              ? h('div.relay-tour__player__card', [
+                  h('em', i18n.broadcast.score),
+                  h('span', [p.score, ' / ', p.played]),
+                ])
               : undefined,
             p.performance
               ? h('div.relay-tour__player__card', [
@@ -215,9 +218,9 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
       h(
         'thead',
         h('tr', [
-          h('th', 'Player'),
+          h('th', i18n.site.player),
           withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
-          withScores ? h('th', defaultSort, 'Score') : h('th', i18n.site.games),
+          withScores ? h('th', defaultSort, i18n.broadcast.score) : h('th', i18n.site.games),
         ]),
       ),
       h(

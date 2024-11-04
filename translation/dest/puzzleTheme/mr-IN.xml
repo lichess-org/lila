@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">सोंगटी शत्रूच्या सोंगटीमधून त्यामागील घरावर हल्ला किंवा बचाव करते.</string>
   <string name="zugzwang">झुगझ्वांग</string>
   <string name="zugzwangDescription">विरोधकाच्या चाली मर्यादित आहेत, आणि कोणतीही चाल खेळल्यास त्याची स्थिती अजूनच वाईट होईल.</string>
-  <string name="mix">सर्वसमावेशक मिसळ</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">सर्वसमावेशक मिसळ</string>
   <string name="mixDescription">सर्व प्रकारांतून थोेडे-थोडेसे. कशाचीही अपेक्षा करू नका आणि सर्व गोष्टींसाठी तयार रहा, अगदी खऱ्या खेळाप्रमाणे.</string>
   <string name="playerGames">खेळाडूंचे खेळ</string>
   <string name="playerGamesDescription">तुमच्या किवा इतर खेळाडूंच्या डावांतून व्युत्पन्न कोडी.</string>

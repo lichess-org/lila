@@ -496,7 +496,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="block">Blokuoti</string>
   <string name="blocked">Užblokuotas</string>
   <string name="unblock">Atblokuoti</string>
-  <string name="followsYou">Seka jus</string>
   <string name="xStartedFollowingY">%1$s pradėjo sekti %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sekėjas</item>

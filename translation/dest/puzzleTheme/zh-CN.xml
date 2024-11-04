@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">一个棋子穿过对方的棋子攻击或防守一个格子。</string>
   <string name="zugzwang">楚茨文克（无等着）</string>
   <string name="zugzwangDescription">对手可选的着法是有限的，并且所有着法都会使其局面更加恶化。</string>
-  <string name="mix">健康搭配</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">健康搭配</string>
   <string name="mixDescription">每个主题中选取一些。你不知道会出现什么，因此得时刻打起精神！ 就像在真实对局中一样。</string>
   <string name="playerGames">玩家对局</string>
   <string name="playerGamesDescription">查找从你或其他玩家的对局中产生的谜题。</string>
