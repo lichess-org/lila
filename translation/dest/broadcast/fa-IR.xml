@@ -54,5 +54,5 @@
   <string name="notYetStarted">پخش زنده هنوز آغاز نشده است.</string>
   <string name="officialWebsite">تارنمای رسمی</string>
   <string name="ratingDiff">ناسانی امتیازات</string>
-  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">امتیاز</string>
+  <string name="score">امتیاز</string>
 </resources>
