@@ -37,24 +37,7 @@ final class PuzzleApi(
     def setIssue(id: PuzzleId, issue: String): Fu[Boolean] =
       colls.puzzle(_.updateField($id(id), Puzzle.BSONFields.issue, issue).map(_.n > 0))
 
-  object report:
-    // return `true` if missing
-    def upsert(id: PuzzleId): Fu[Boolean] =
-      colls
-        .puzzle(_.exists($id(id)))
-        .flatMap(
-          _.so(
-            colls.report(
-              _.update
-                .one(
-                  $id(id),
-                  $doc("reported" -> true),
-                  upsert = true
-                )
-                .map(_.upserted.nonEmpty)
-            )
-          )
-        )
+    val reportDedup = scalalib.cache.OnceEvery[PuzzleId](7.days)
 
   private[puzzle] object round:
 
