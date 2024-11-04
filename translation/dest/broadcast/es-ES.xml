@@ -62,7 +62,7 @@
   <string name="notYetStarted">La transmisión aún no ha comenzado.</string>
   <string name="officialWebsite">Sitio oficial</string>
   <string name="standings">Clasificación</string>
-  <string name="officialStandings">Clasificación Oficial</string>
+  <string name="officialStandings">Clasificación oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Más opciones en %s</string>
   <string name="webmastersPage">la página del webmaster</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una fuente PGN pública en tiempo real para esta ronda. También ofrecemos %s para una sincronización más rápida y eficiente.</string>
@@ -79,7 +79,7 @@
   <string name="timezone">Zona horaria</string>
   <string name="fideRatingCategory">Categoría de calificación de FIDE</string>
   <string name="optionalDetails">Detalles opcionales</string>
-  <string name="upcomingBroadcasts">Próximas emisiones</string>
+  <string name="upcomingBroadcasts">Próximas transmisiones</string>
   <string name="pastBroadcasts">Transmisiones pasadas</string>
-  <string name="allBroadcastsByMonth">Ver todas las emisiones por mes</string>
+  <string name="allBroadcastsByMonth">Ver todas las transmisiones por mes</string>
 </resources>
