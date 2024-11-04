@@ -22,7 +22,6 @@
     "node": "^22.6",
     "pnpm": "^9"
   },
-  "//": "NOTE: lint-staged patterns must stay in sync with bin/git-hooks/pre-commit!",
   "dependencies": {
     "@types/lichess": "workspace:*",
     "@types/node": "^22.8.7",
