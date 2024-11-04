@@ -77,7 +77,7 @@
   <string name="tournamentLocation">Local do torneio</string>
   <string name="topPlayers">Melhores jogadores</string>
   <string name="timezone">Fuso horário</string>
-  <string name="fideRatingCategory">Categoria de pontuação FIDE</string>
+  <string name="fideRatingCategory">Categoria de rating FIDE</string>
   <string name="optionalDetails">Detalhes opcionais</string>
   <string name="upcomingBroadcasts">Próximas transmissões</string>
   <string name="pastBroadcasts">Transmissões passadas</string>
