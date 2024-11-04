@@ -315,6 +315,23 @@ object contact:
               )
             ),
             Leaf(
+              "contact-broadcast",
+              "Contact the Broadcast Team",
+              frag(
+                p(
+                  "If you want to make your broadcasts official on Lichess, ",
+                  "or have any questions about them."
+                ),
+                p(
+                  "Please contact ",
+                  contactEmailLink("broadcast@lichess.org"),
+                  " or ",
+                  a(href := "https://discord.gg/Syx9CbN8Jv")("our discord"),
+                  "."
+                )
+              )
+            ),
+            Leaf(
               "contact-other",
               noneOfTheAbove(),
               frag(
