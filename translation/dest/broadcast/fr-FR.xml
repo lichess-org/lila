@@ -78,4 +78,8 @@
   <string name="topPlayers">Meilleurs joueurs</string>
   <string name="timezone">Fuseau horaire</string>
   <string name="fideRatingCategory">Catégorie FIDE</string>
+  <string name="optionalDetails">Informations facultatives</string>
+  <string name="upcomingBroadcasts">Diffusions à venir</string>
+  <string name="pastBroadcasts">Diffusions passées</string>
+  <string name="allBroadcastsByMonth">Voir les diffusions par mois</string>
 </resources>
