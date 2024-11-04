@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">القطعة تهاجم أو تدافع عن مربع, من خلال قطعة عدو.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">حركات الخصم محدودة و كل الحركات تؤدي إلى تفاقم الوضع نحو الأسوء.</string>
-  <string name="mix">خليط</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">خليط</string>
   <string name="mixDescription">القليل من كل نوع، لذا لا يمكنك التنبؤ باللغز القادم فابقى مستعداً لأي شيء، تماماً كالمباريات الحقيقية.</string>
   <string name="playerGames">مبارايات اللاعب</string>
   <string name="playerGamesDescription">ابحث عن ألغاز من مبارياتك أو من مباريات لاعبين آخرين.</string>

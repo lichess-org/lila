@@ -259,6 +259,7 @@
     <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
+  <string name="ok">Ok</string>
   <string name="cancel">Annuller</string>
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>
@@ -435,7 +436,6 @@
   <string name="block">Blokér</string>
   <string name="blocked">Blokeret</string>
   <string name="unblock">Stop blokering</string>
-  <string name="followsYou">Følger dig</string>
   <string name="xStartedFollowingY">%1$s følger nu %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s som følger</item>

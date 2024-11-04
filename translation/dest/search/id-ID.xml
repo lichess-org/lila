@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">Cari</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Cari</string>
   <string name="advancedSearch">Pencarian lanjutan</string>
   <plurals name="searchInXGames">
     <item quantity="other">Cari dalam %s permainan catur</item>

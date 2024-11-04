@@ -13,9 +13,7 @@ import lila.team.{ Requesting, Team as TeamModel, TeamMember, TeamSecurity }
 
 final class Team(env: Env) extends LilaController(env):
 
-  private def forms     = env.team.forms
-  private def api       = env.team.api
-  private def paginator = env.team.paginator
+  import env.team.{ forms, api, paginator }
 
   def all(page: Int) = Open:
     Reasonable(page):

@@ -25,7 +25,7 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
         else PuzzleTier.top
       pathApi
         .nextFor(angle, tier, difficulty, Set.empty)
-        .orFail(s"No puzzle path for ${me.username} $tier")
+        .orFail(s"No puzzle path for batch ${me.username} $angle $tier")
         .flatMap: pathId =>
           colls.path:
             _.aggregateList(nb): framework =>

@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Figura atakuje albo broni pole przez wrogą figurę.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Ograniczone ruchy przeciwnika powodują, że każde posunięcie pogarsza jego pozycję.</string>
-  <string name="mix">Miszmasz</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Miszmasz</string>
   <string name="mixDescription">Po trochu wszystkiego. Nie wiesz czego się spodziewać, więc bądź gotów na wszystko! Tak jak w prawdziwej partii.</string>
   <string name="playerGames">Partie gracza</string>
   <string name="playerGamesDescription">Wyszukaj zadania wygenerowane z Twoich partii lub z partii innego gracza.</string>

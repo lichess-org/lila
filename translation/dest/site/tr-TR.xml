@@ -435,7 +435,6 @@
   <string name="block">Engelle</string>
   <string name="blocked">Engellendi</string>
   <string name="unblock">Engeli kaldır</string>
-  <string name="followsYou">Sizi takip ediyor</string>
   <string name="xStartedFollowingY">%1$s, %2$s isimli oyuncuyu takip etmeye başladı</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s takipçi</item>

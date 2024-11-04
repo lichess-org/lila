@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Aurkariaren pieza baten artetik, pieza batek lauki bat erasotu edo defendatzen duenean.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Aurkariak jokaldi mugatuak ditu eta jokaldi guztien bere posizioa okertu egiten dute.</string>
-  <string name="mix">Denetik pixkat</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Denetik pixkat</string>
   <string name="mixDescription">Denetatik. Ez dakizu zer espero, beraz prestatu zure burua edozertarako! Benetako partidetan bezala.</string>
   <string name="playerGames">Jokalarien partidak</string>
   <string name="playerGamesDescription">Ikusi zure edo beste jokalarien partidetatik sortutako ariketak.</string>

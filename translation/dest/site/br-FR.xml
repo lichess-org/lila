@@ -497,7 +497,6 @@
   <string name="block">Stankañ</string>
   <string name="blocked">Stanket</string>
   <string name="unblock">Distankañ</string>
-  <string name="followsYou">Ho heuilh</string>
   <string name="xStartedFollowingY">%1$s zo krog da heuliañ %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s den o heuliañ</item>

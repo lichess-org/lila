@@ -52,6 +52,8 @@ case class RelayRound(
   def hasStartedEarly   = startedAt.exists(at => startsAtTime.exists(_.isAfter(at)))
   def shouldHaveStarted = hasStarted || startsAtTime.exists(_.isBefore(nowInstant))
 
+  def shouldHaveStarted1Hour = !hasStarted && startsAtTime.exists(_.isBefore(nowInstant.minusHours(1)))
+
   def shouldGiveUp =
     !hasStarted && startsAtTime.match
       case Some(at) => at.isBefore(nowInstant.minusHours(3))

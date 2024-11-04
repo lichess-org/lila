@@ -55,7 +55,7 @@
   <string name="overview">Genel Bakış</string>
   <string name="subscribeTitle">Tur başladığında bildirim almak için abone olun. Hesap tercihlerinizden anlık ya da çan bildirimi tercihinizi hesap tercihlerinizden belirleyebilirsiniz.</string>
   <string name="uploadImage">Turnuva görseli yükleyin</string>
-  <string name="noBoardsYet">Henüz tahta bulunmamaktadır. Oyunlar yüklendikçe tahtalar ortaya çıkacaktır.</string>
+  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">Henüz tahta bulunmamaktadır. Oyunlar yüklendikçe tahtalar ortaya çıkacaktır.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Tahtalar bir kaynaktan ya da %sndan yüklenebilir</string>
   <string name="startsAfter">%s\'ten sonra başlar</string>
   <string name="startVerySoon">Yayın az sonra başlayacak.</string>
@@ -68,5 +68,5 @@
   <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">%su İnternet sitenizde gömülü paylaşın</string>
   <string name="ratingDiff">Puan farkı</string>
   <string name="gamesThisTournament">Bu turnuvadaki maçlar</string>
-  <string name="score">Skor</string>
+  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Skor</string>
 </resources>

@@ -57,7 +57,7 @@
   <string name="overview">Podgląd</string>
   <string name="subscribeTitle">Subskrybuj, aby dostawać powiadomienia o każdej rozpoczętej rundzie. W preferencjach konta możesz przełączać czy chcesz powiadomienia dźwiękowe czy wyskakujące notyfikacje tekstowe.</string>
   <string name="uploadImage">Prześlij logo turnieju</string>
-  <string name="noBoardsYet">Szachownice pojawią się jak tylko załadują się partie.</string>
+  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">Szachownice pojawią się jak tylko załadują się partie.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Szachownice mogą być załadowane bezpośrednio ze źródła lub przez %s</string>
   <string name="startsAfter">Rozpoczyna się po %s</string>
   <string name="startVerySoon">Transmisja wkrótce się rozpocznie.</string>
@@ -65,11 +65,11 @@
   <string name="officialWebsite">Oficjalna strona</string>
   <string name="standings">Klasyfikacja</string>
   <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Więcej opcji na %s</string>
-  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">stronie webmasterów</string>
+  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">stronie webmasterów</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Publiczne źródło PGN w czasie rzeczywistym dla tej rundy. Oferujemy również %s dla szybszej i skuteczniejszej synchronizacji.</string>
   <string name="embedThisBroadcast">Umieść tę transmisję na swojej stronie internetowej</string>
   <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Osadź %s na swojej stronie internetowej</string>
   <string name="ratingDiff">Różnica rankingu</string>
   <string name="gamesThisTournament">Partie w tym turnieju</string>
-  <string name="score">Wynik</string>
+  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Wynik</string>
 </resources>

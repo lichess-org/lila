@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Une pièce attaque ou défend une case, à travers une pièce ennemie.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'adversaire est limité dans les mouvements qu\'il peut effectuer, et tous les coups aggravent sa position.</string>
-  <string name="mix">Divers</string>
-  <string name="mixDescription">Un peu de tout. Vous ne savez pas à quoi vous attendre ! Comme dans une vraie partie.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Problèmes variés</string>
+  <string name="mixDescription">Un peu de tout. Vous ne savez pas à quoi vous attendre! Comme dans une vraie partie.</string>
   <string name="playerGames">Parties de joueurs</string>
   <string name="playerGamesDescription">Problèmes tirés de vos parties ou de celles d\'autres joueurs.</string>
   <string name="puzzleDownloadInformation">Ces problèmes sont du domaine public et peuvent être téléchargés sur %s.</string>

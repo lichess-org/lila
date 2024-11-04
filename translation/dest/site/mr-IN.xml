@@ -396,7 +396,6 @@
   <string name="block">अडवा</string>
   <string name="blocked">अडवलेले</string>
   <string name="unblock">आड दूर करा</string>
-  <string name="followsYou">तुमचा अनुयायी</string>
   <string name="xStartedFollowingY">%1$s %2$sचे अनुयायी बनले</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s अनुयायी</item>

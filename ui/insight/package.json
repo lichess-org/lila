@@ -13,7 +13,7 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chart": "workspace:^",
-    "chart.js": "4.4.4",
+    "chart.js": "4.4.6",
     "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*",
     "snabbdom": "3.5.1"

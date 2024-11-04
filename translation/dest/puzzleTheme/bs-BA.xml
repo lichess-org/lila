@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Figura napada ili brani polje kroz protivničku figuru.</string>
   <string name="zugzwang">Iznudica</string>
   <string name="zugzwangDescription">Protivnik ima ograničen broj poteza, a svaki od njih pogoršava mu poziciju.</string>
-  <string name="mix">Zdrava mješavina</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Zdrava mješavina</string>
   <string name="mixDescription">Svega pomalo. Ne znate šta možete očekivati, pa ostajete spremni na sve! Baš kao u pravim partijama.</string>
   <string name="playerGames">Igračke igre</string>
   <string name="playerGamesDescription">Potražite zagonetke stvorene iz vaših igara ili iz igara drugog igrača.</string>

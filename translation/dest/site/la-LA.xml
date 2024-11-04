@@ -368,7 +368,6 @@
   <string name="block">Excludere</string>
   <string name="blocked">Clausus est</string>
   <string name="unblock">Admittere</string>
-  <string name="followsYou">Sequens te</string>
   <string name="xStartedFollowingY">%1$s sequitur %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s spectatores</item>

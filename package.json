@@ -17,7 +17,7 @@
     "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lichess.org",
-  "packageManager": "pnpm@9.10.0+sha256.355a8ab8dbb6ad41befbef39bc4fd6b5df85e12761d2724bd01f13e878de4b13",
+  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
   "engines": {
     "node": "^22.6",
     "pnpm": "^9"
@@ -25,17 +25,17 @@
   "//": "NOTE: lint-staged patterns must stay in sync with bin/git-hooks/pre-commit!",
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.7.4",
+    "@types/node": "^22.8.7",
     "@types/web": "^0.0.166",
-    "@typescript-eslint/eslint-plugin": "^8.7.0",
-    "@typescript-eslint/parser": "^8.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.12.2",
+    "@typescript-eslint/parser": "^8.12.2",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
-    "eslint": "^9.11.1",
+    "eslint": "^9.14.0",
     "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "scripts": {
     "format": "prettier --cache --write --log-level warn .",

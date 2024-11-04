@@ -391,7 +391,6 @@ analisis komputer, perbualan dalam permainan dan URL kongsi bersama.</string>
   <string name="block">Menghalang</string>
   <string name="blocked">Dihalang</string>
   <string name="unblock">Nyah-halang</string>
-  <string name="followsYou">Mengikuti anda</string>
   <string name="xStartedFollowingY">%1$s mula mengikuti %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s pengikut</item>

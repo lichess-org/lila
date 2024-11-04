@@ -436,7 +436,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="block">Blokeer</string>
   <string name="blocked">Geblok</string>
   <string name="unblock">Ontblok</string>
-  <string name="followsYou">Volg jou</string>
   <string name="xStartedFollowingY">%1$s het begin om %2$s te volg</string>
   <plurals name="nbFollowers">
     <item quantity="one">Gevolg deur %s</item>

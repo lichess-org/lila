@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Κομμάτι που επιτίθεται ή αμύνεται ένα τετράγωνο, πίσω από εχθρικό κομμάτι.</string>
   <string name="zugzwang">Τσούγκτσβανγκ</string>
   <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνει και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
-  <string name="mix">Προτεινόμενο μίγμα</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Προτεινόμενο μίγμα</string>
   <string name="mixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
   <string name="playerGames">Παιχνίδια παίκτη</string>
   <string name="playerGamesDescription">Αναζητήστε γρίφους που δημιουργήθηκαν από παιχνίδια είτε δικά σας είτε άλλων παικτών.</string>

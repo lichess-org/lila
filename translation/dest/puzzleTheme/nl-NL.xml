@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Een stuk valt een veld aan of verdedigt een veld, door een vijandelijk stuk heen.</string>
   <string name="zugzwang">Zetdwang</string>
   <string name="zugzwangDescription">De tegenstander is beperkt in de zetten die hij kan doen, en elke zet verslechtert zijn stelling.</string>
-  <string name="mix">Gezonde mix</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Gezonde mix</string>
   <string name="mixDescription">Van alles wat. Je weet niet wat je te wachten staat, je moet dus op alles voorbereid zijn! Net als in echte partijen.</string>
   <string name="playerGames">Eigen partijen</string>
   <string name="playerGamesDescription">Zoek puzzels gegenereerd uit jouw partijen, of uit partijen van een andere speler.</string>

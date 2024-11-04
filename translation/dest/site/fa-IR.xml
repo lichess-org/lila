@@ -124,7 +124,7 @@
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
   <string name="memory">حافظه</string>
-  <string name="infiniteAnalysis">آنالیز بی پایان</string>
+  <string name="infiniteAnalysis">تحلیل بی‌کران</string>
   <string name="removesTheDepthLimit">محدودیت عمق را برمی‌دارد و رایانه‌تان داغ می‌ماند</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="mistake">اشتباه</string>
@@ -143,7 +143,7 @@
   </plurals>
   <string name="moveTimes">مدت حركت‌ها</string>
   <string name="flipBoard">چرخاندن صفحه</string>
-  <string name="threefoldRepetition">تکرار سه گانه</string>
+  <string name="threefoldRepetition">تکرار سه‌گانه</string>
   <string name="claimADraw">ادعای تساوی</string>
   <string name="offerDraw">پیشنهاد مساوی</string>
   <string name="draw">مساوی</string>
@@ -153,7 +153,7 @@
   </plurals>
   <string name="drawByMutualAgreement">تساوی با توافق طرفین</string>
   <string name="fiftyMovesWithoutProgress">قانون ۵۰ حرکت</string>
-  <string name="currentGames">بازی های در جریان</string>
+  <string name="currentGames">بازی‌های جاری</string>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
     <item quantity="other">%s بازی</item>
@@ -259,6 +259,7 @@
     <item quantity="one">%s بازی با شما</item>
     <item quantity="other">%s بازی با شما</item>
   </plurals>
+  <string name="ok">بسیار خب</string>
   <string name="cancel">لغو</string>
   <string name="whiteTimeOut">زمان سفید تمام شد</string>
   <string name="blackTimeOut">زمان سیاه تمام شد</string>
@@ -435,7 +436,6 @@
   <string name="block">مسدود کن</string>
   <string name="blocked">مسدود شده</string>
   <string name="unblock">لغو انسداد</string>
-  <string name="followsYou">شما را می‌دنبالد</string>
   <string name="xStartedFollowingY">%1$s دنبالیدن %2$s را آغازید</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s دنبال‌گر</item>
@@ -492,7 +492,7 @@
   <string name="nextXTournament">مسابقه ی %s بعدی:</string>
   <string name="averageOpponent">میانگین امتیاز حریف ها</string>
   <string name="boardEditor">مُهره‌چینی</string>
-  <string name="setTheBoard">مهره‌ها را بچینید</string>
+  <string name="setTheBoard">میز را بچینید</string>
   <string name="popularOpenings">گشایش‌های محبوب</string>
   <string name="endgamePositions">وضعیت‌های آخربازی</string>
   <string name="chess960StartPosition">وضعیت آغازین شطرنج۹۶۰: %s</string>
@@ -621,8 +621,8 @@
   <string name="clock">ساعت</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
-  <string name="studyMenu">مطالعه‌ها</string>
-  <string name="practice">تمرین کردن</string>
+  <string name="studyMenu">مطالعه</string>
+  <string name="practice">تمرین</string>
   <string name="community">همدارگان</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
@@ -652,8 +652,8 @@
   <string name="watchGames">تماشای بازی‌ها</string>
   <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
   <string name="watch">تماشا</string>
-  <string name="videoLibrary">فیلم ها</string>
-  <string name="streamersMenu">بَرخَط-محتواسازها</string>
+  <string name="videoLibrary">فیلم‌ها</string>
+  <string name="streamersMenu">بَرخَط-محتواسازان</string>
   <string name="mobileApp">گوشی‌افزار</string>
   <string name="webmasters">وبداران</string>
   <string name="about">درباره ما</string>
@@ -807,7 +807,7 @@
   <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
   <string name="playChessInStyle">شطرنج‌بازیِ نوگارانه</string>
   <string name="chessBasics">پایه‌های شطرنج</string>
-  <string name="coaches">مربی ها</string>
+  <string name="coaches">مربیان</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
   <string name="invalidFen">وضعیت نامعتبر</string>
   <string name="custom">دلخواه</string>
@@ -822,7 +822,7 @@
   <string name="anotherWasX">حرکت مناسب دیگر %s بود</string>
   <string name="bestWasX">بهترین حرکت %s بود</string>
   <string name="youBrowsedAway">پوزیشن را به هم زدید!</string>
-  <string name="resumePractice">ادامه تمرین</string>
+  <string name="resumePractice">از سرگیری تمرین</string>
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
   <string name="computerThinking">محاسبه رایانه‌ای ...</string>
@@ -994,4 +994,5 @@
   <string name="showMeEverything">همه چیز را به من نشان بده</string>
   <string name="lichessPatronInfo">لایچس یک خیریه و کاملا رایگان و نرم افزاری متن باز است. تمام هزینه های اجرا، توسعه و محتوا تنها بر پایه هدایای کاربران بنا شده است.</string>
   <string name="nothingToSeeHere">فعلا هیچی اینجا نیست.</string>
+  <string name="stats">آمار</string>
 </resources>
