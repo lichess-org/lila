@@ -138,6 +138,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
+    this.report = new Report(this);
 
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
