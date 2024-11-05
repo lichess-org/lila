@@ -186,7 +186,7 @@ final class JsonView(
             "fire"   -> player.fire,
             "nb"     -> sheetNbs(sheet)
           )
-          .add("performance" -> player.performanceOption)
+          .add("performance" -> player.performance)
           .add("rank" -> ranking.ranking.get(user.id).map(_ + 1))
           .add("provisional" -> player.provisional)
           .add("withdraw" -> player.withdraw)
@@ -340,7 +340,7 @@ final class JsonView(
                     )
                   yield json ++ Json
                     .obj("nb" -> sheetNbs(sheet))
-                    .add("performance" -> rp.player.performanceOption)
+                    .add("performance" -> rp.player.performance)
               .map: l =>
                 JsArray(l).some
   }
@@ -499,7 +499,7 @@ object JsonView:
         )
         .add("title" -> user.title)
         .add("flair" -> user.flair)
-        .add("performance" -> player.performanceOption)
+        .add("performance" -> player.performance)
         .add("team" -> player.team)
         .add("sheet", sheet.map(sheetJson(streakFire = false, withScores = true)))
 

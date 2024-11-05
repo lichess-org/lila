@@ -120,7 +120,7 @@
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Der Gegner ist in der Anzahl seiner Züge limitiert und jeder seiner Züge verschlechtert seine Stellung.</string>
   <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Gesunder Mix</string>
-  <string name="mixDescription">Ein bisschen von Allem. Du weißt nicht, was dich erwartet, deshalb bleibst du auf alles vorbereitet! Genau wie in echten Partien.</string>
+  <string name="mixDescription">Ein bisschen von allem. Du weißt nicht, was dich erwartet, deshalb bleibst du bereit für alles! Genau wie in echten Partien.</string>
   <string name="playerGames">Partien von Spielern</string>
   <string name="playerGamesDescription">Suche Aufgaben, die aus deinen Partien, oder den Partien eines anderen Spielers generiert wurden.</string>
   <string name="puzzleDownloadInformation">Diese Aufgaben sind öffentlich zugänglich und können unter %s heruntergeladen werden.</string>

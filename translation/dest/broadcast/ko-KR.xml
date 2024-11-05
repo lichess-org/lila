@@ -54,19 +54,31 @@
   <string name="overview">개요</string>
   <string name="subscribeTitle">라운드가 시작될 때 알림을 받으려면 구독하세요. 계정 설정에서 방송을 위한 벨이나 알림 푸시를 토글할 수 있습니다.</string>
   <string name="uploadImage">토너먼트 사진 업로드</string>
-  <string name="noBoardsYet" comment="This message appears on a tournament round which doesn't have any boards showing.&#10;&#10;The broadcaster (usually the tournament organiser) is meant to upload them.&#10;&#10;The round can sometimes be in the future, so it will be natural that there will not be any boards showing, since it's not known who will play against who.">아직 보드가 없습니다. 게임들이 업로드되면 나타납니다.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">보드들은 소스나 %s(으)로 로드될 수 있습니다</string>
+  <string name="noBoardsYet">아직 보드가 없습니다. 게임들이 업로드되면 나타납니다.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">보드들은 소스나 %s(으)로 로드될 수 있습니다</string>
   <string name="startsAfter">%s 후 시작</string>
   <string name="startVerySoon">방송이 곧 시작됩니다.</string>
   <string name="notYetStarted">아직 방송이 시작을 하지 않았습니다.</string>
   <string name="officialWebsite">공식 웹사이트</string>
   <string name="standings">순위</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">%s에서 더 많은 정보를 확인하실 수 있습니다</string>
-  <string name="webmastersPage" comment="Part of the longer sentence &quot;More options on the webmasters page&quot; (string: iframeHelp).&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">웹마스터 페이지</string>
+  <string name="officialStandings">공식 순위</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">%s에서 더 많은 정보를 확인하실 수 있습니다</string>
+  <string name="webmastersPage">웹마스터 페이지</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">이 라운드의 공개된, 실시간 PGN 소스 입니다. 보다 더 빠르고 효율적인 동기화를 위해 %s도 제공됩니다.</string>
   <string name="embedThisBroadcast">이 방송을 웹사이트에 삽입하세요</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">%s을(를) 웹사이트에 삼입하세요</string>
+  <string name="embedThisRound">%s을(를) 웹사이트에 삼입하세요</string>
   <string name="ratingDiff">레이팅 차이</string>
   <string name="gamesThisTournament">이 토너먼트의 게임들</string>
-  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">점수</string>
+  <string name="score">점수</string>
+  <string name="perPage">페이지 당 %s개</string>
+  <string name="allTeams">모든 팀</string>
+  <string name="tournamentFormat">토너먼트 형식</string>
+  <string name="tournamentLocation">토너먼트 장소</string>
+  <string name="topPlayers">상위 플레이어들</string>
+  <string name="timezone">시간대</string>
+  <string name="fideRatingCategory">FIDE 레이팅 범주</string>
+  <string name="optionalDetails">선택적 세부 정보</string>
+  <string name="upcomingBroadcasts">예정된 방송들</string>
+  <string name="pastBroadcasts">과거 방송들</string>
+  <string name="allBroadcastsByMonth">월별 방송들 모두 보기</string>
 </resources>

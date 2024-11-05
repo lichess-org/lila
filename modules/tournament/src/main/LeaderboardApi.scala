@@ -135,6 +135,7 @@ object LeaderboardApi:
       score: Int,
       rank: Rank,
       rankRatio: Ratio, // ratio * rankRatioMultiplier. function of rank and tour.nbPlayers. less is better.
+      performance: Option[IntRating],
       freq: Option[Schedule.Freq],
       speed: Option[Schedule.Speed],
       perf: PerfType,
