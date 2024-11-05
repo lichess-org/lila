@@ -30,6 +30,3 @@ site.load.then(boot);
 
 // public API
 window.lichess = api(pubsub);
-
-// deprecated and about to be removed
-(site as any).pubsub = pubsub;
