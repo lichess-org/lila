@@ -63,6 +63,7 @@
   <string name="notYetStarted">Vysielanie sa ešte nezačalo.</string>
   <string name="officialWebsite">Oficiálna webstránka</string>
   <string name="standings">Poradie</string>
+  <string name="officialStandings">Oficiálne poradie</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Viac možností nájdete na %s</string>
   <string name="webmastersPage">stránke tvorcu</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Verejný zdroj PGN v reálnom čase pre toto kolo. Ponúkame tiež %s na rýchlejšiu a efektívnejšiu synchronizáciu.</string>
@@ -71,4 +72,15 @@
   <string name="ratingDiff">Ratingový rozdiel</string>
   <string name="gamesThisTournament">Partie tohto turnaja</string>
   <string name="score">Skóre</string>
+  <string name="perPage">%s na stránku</string>
+  <string name="allTeams">Všetky tímy</string>
+  <string name="tournamentFormat">Formát turnaja</string>
+  <string name="tournamentLocation">Miesto konania turnaja</string>
+  <string name="topPlayers">Najlepší hráči</string>
+  <string name="timezone">Časové pásmo</string>
+  <string name="fideRatingCategory">Kategória FIDE ratingu</string>
+  <string name="optionalDetails">Nepovinné údaje</string>
+  <string name="upcomingBroadcasts">Najbližšie vysielanie</string>
+  <string name="pastBroadcasts">Predchádzajúce vysielania</string>
+  <string name="allBroadcastsByMonth">Zobraziť všetky vysielania podľa mesiacov</string>
 </resources>
