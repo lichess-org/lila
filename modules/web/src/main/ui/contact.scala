@@ -259,36 +259,6 @@ object contact:
           collaboration(),
           List(
             Leaf(
-              "monetize",
-              monetizing(),
-              frag(
-                p("We are not interested in any way of monetizing Lichess."),
-                p(
-                  "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
-                ),
-                p("Please do not email us about marketing, tracking, or advertising."),
-                br,
-                p(
-                  "We encourage everyone to ",
-                  a(href := "/ads")("block all ads and trackers.")
-                )
-              )
-            ),
-            Leaf(
-              "buy",
-              buyingLichess(),
-              p("We are not selling, to anyone, for any price. Ever.")
-            ),
-            Leaf(
-              "authorize",
-              authorizationToUse(),
-              frag(
-                p(welcomeToUse()),
-                p(videosAndBooks()),
-                p(creditAppreciated())
-              )
-            ),
-            Leaf(
               "gdpr",
               "GDPR",
               frag(
@@ -330,6 +300,36 @@ object contact:
                   "."
                 )
               )
+            ),
+            Leaf(
+              "authorize",
+              authorizationToUse(),
+              frag(
+                p(welcomeToUse()),
+                p(videosAndBooks()),
+                p(creditAppreciated())
+              )
+            ),
+            Leaf(
+              "monetize",
+              monetizing(),
+              frag(
+                p("We are not interested in any way of monetizing Lichess."),
+                p(
+                  "We will never display any kind of ads, we won't track our players, and we won't sell or buy traffic or users."
+                ),
+                p("Please do not email us about marketing, tracking, or advertising."),
+                br,
+                p(
+                  "We encourage everyone to ",
+                  a(href := "/ads")("block all ads and trackers.")
+                )
+              )
+            ),
+            Leaf(
+              "buy",
+              buyingLichess(),
+              p("We are not selling, to anyone, for any price. Ever.")
             ),
             Leaf(
               "contact-other",
