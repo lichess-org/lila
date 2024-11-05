@@ -61,6 +61,7 @@
   <string name="notYetStarted">Chương trình phát sóng vẫn chưa bắt đầu.</string>
   <string name="officialWebsite">Website chính thức</string>
   <string name="standings">Bảng xếp hạng</string>
+  <string name="officialStandings">Bảng xếp hạng Chính thức</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Thêm tùy chọn trên %s</string>
   <string name="webmastersPage">trang nhà phát triển web</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Nguồn PGN công khai, thời gian thực cho vòng này. Chúng tôi cũng cung cấp %s để đồng bộ hóa nhanh hơn và hiệu quả hơn.</string>
@@ -69,4 +70,15 @@
   <string name="ratingDiff">Độ thay đổi hệ số</string>
   <string name="gamesThisTournament">Các ván đấu trong giải này</string>
   <string name="score">Điểm số</string>
+  <string name="perPage">%s mỗi trang</string>
+  <string name="allTeams">Tất cả đội</string>
+  <string name="tournamentFormat">Điều lệ giải đấu</string>
+  <string name="tournamentLocation">Địa điểm tổ chức giải đấu</string>
+  <string name="topPlayers">Những kỳ thủ hàng đầu</string>
+  <string name="timezone">Múi giờ</string>
+  <string name="fideRatingCategory">Thể loại xếp hạng FIDE</string>
+  <string name="optionalDetails">Tùy chọn chi tiết</string>
+  <string name="upcomingBroadcasts">Các phát sóng sắp tới</string>
+  <string name="pastBroadcasts">Các phát sóng đã qua</string>
+  <string name="allBroadcastsByMonth">Xem tất cả phát sóng theo tháng</string>
 </resources>
