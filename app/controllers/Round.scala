@@ -290,11 +290,12 @@ final class Round(
         akka.pattern.after(500.millis, env.system.scheduler)(redirection)
 
   def mini(gameId: GameId, color: Color) = Open:
+    val showRating = ctx.pref.showRatingsIn(None, ctx.userId.so(env.round.playing(_)))(using ctx.myId)
     FoundSnip(
       env.round.proxyRepo
         .povIfPresent(gameId, color)
         .orElse(env.game.gameRepo.pov(gameId, color))
-    )(pov => Snippet(views.game.mini(pov)))
+    )(pov => Snippet(views.game.mini(pov, showRating = showRating)))
 
   def miniFullId(fullId: GameFullId) = Open:
     FoundSnip(env.round.proxyRepo.povIfPresent(fullId).orElse(env.game.gameRepo.pov(fullId))): pov =>

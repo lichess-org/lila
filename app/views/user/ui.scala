@@ -34,7 +34,7 @@ def mini(
           val opponent = ~cross.showOpponentScore(myId)
           s"""<strong>${cross.showScore(myId)}</strong> - <strong>$opponent</strong>"""
         )
-  val playing   = playingGame.map(views.game.mini(_))
+  val playing   = playingGame.map(views.game.mini(_, showRating = showRating))
   def userMarks = views.mod.user.userMarks(u.user, None)
   val flag      = u.profileOrDefault.flagInfo
   val perfs     = u.perfs.best8Perfs
