@@ -82,6 +82,8 @@ final private class ChapterMaker(
       case Orientation.Fixed(color)    => color
       case _ if isMe(tags.names.white) => Color.white
       case _ if isMe(tags.names.black) => Color.black
+      // If it is a concealed chapter (puzzles from a coach/book/course), start from side which moves first
+      case _ if data.isConceal && !data.fen.isDefined => root.color
       // if an outcome is known, then it's a finished game, which we show from white perspective by convention
       case _ if tags.outcome.isDefined => Color.white
       // in gamebooks (interactive chapter), we guess the orientation based on the last node
