@@ -259,6 +259,7 @@
     <item quantity="one">%s Partie mit dir</item>
     <item quantity="other">%s Partien mit dir</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Abbrechen</string>
   <string name="whiteTimeOut">Zeitüberschreitung von Weiß</string>
   <string name="blackTimeOut">Zeitüberschreitung von Schwarz</string>
@@ -435,7 +436,6 @@
   <string name="block">Blockieren</string>
   <string name="blocked">Blockiert</string>
   <string name="unblock">Nicht mehr blockieren</string>
-  <string name="followsYou">Folgt dir</string>
   <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
@@ -994,4 +994,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="nothingToSeeHere">Im Moment gibt es hier nichts zu sehen.</string>
+  <string name="stats">Statistiken</string>
 </resources>

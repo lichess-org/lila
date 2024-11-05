@@ -28,7 +28,6 @@
   <string name="sourceGameIds">Tối đa 64 ID ván cờ trên Lichess, phân tách bằng dấu cách.</string>
   <string name="startDateTimeZone">Thời gian bắt đầu của giải theo múi giờ địa phương: %s</string>
   <string name="startDateHelp">Tùy chọn, nếu bạn biết khi nào sự kiện bắt đầu</string>
-  <string name="credits">Công nhận nguồn</string>
   <string name="currentGameUrl">URL ván đấu hiện tại</string>
   <string name="downloadAllRounds">Tải về tất cả ván đấu</string>
   <string name="resetRound">Đặt lại vòng này</string>
@@ -49,4 +48,25 @@
   <string name="ageThisYear">Tuổi năm nay</string>
   <string name="unrated">Chưa xếp hạng</string>
   <string name="recentTournaments">Các giải đấu tham gia gần đây</string>
+  <string name="openLichess">Mở trên Lichess</string>
+  <string name="teams">Các đội</string>
+  <string name="boards">Các bàn đấu</string>
+  <string name="overview">Tổng quan</string>
+  <string name="subscribeTitle">Đăng ký để được thông báo khi mỗi vòng bắt đầu. Bạn có thể chuyển đổi chuông hoặc thông báo đẩy cho các chương trình phát sóng trong tùy chọn tài khoản của mình.</string>
+  <string name="uploadImage">Tải hình ảnh giải đấu lên</string>
+  <string name="noBoardsYet">Chưa có bàn nào. Chúng sẽ xuất hiện khi ván đấu được tải lên.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Bàn đấu có thể được tải bằng nguồn hoặc thông qua %s</string>
+  <string name="startsAfter">Bắt đầu sau %s</string>
+  <string name="startVerySoon">Chương trình phát sóng sẽ sớm bắt đầu.</string>
+  <string name="notYetStarted">Chương trình phát sóng vẫn chưa bắt đầu.</string>
+  <string name="officialWebsite">Website chính thức</string>
+  <string name="standings">Bảng xếp hạng</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Thêm tùy chọn trên %s</string>
+  <string name="webmastersPage">trang nhà phát triển web</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Nguồn PGN công khai, thời gian thực cho vòng này. Chúng tôi cũng cung cấp %s để đồng bộ hóa nhanh hơn và hiệu quả hơn.</string>
+  <string name="embedThisBroadcast">Nhúng chương trình phát sóng này vào trang web của bạn</string>
+  <string name="embedThisRound">Nhúng %s vào trang web của bạn</string>
+  <string name="ratingDiff">Độ thay đổi hệ số</string>
+  <string name="gamesThisTournament">Các ván đấu trong giải này</string>
+  <string name="score">Điểm số</string>
 </resources>

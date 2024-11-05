@@ -2,7 +2,7 @@ import * as emojis from 'emoji-mart';
 
 type Config = {
   element: HTMLElement;
-  close: () => void;
+  close: (e: PointerEvent) => void;
   onEmojiSelect: (i?: { id: string; src: string }) => void;
 };
 
@@ -28,7 +28,7 @@ export async function initModule(cfg: Config): Promise<void> {
   };
   const picker = new emojis.Picker(opts);
 
-  cfg.element.appendChild(picker as unknown as HTMLElement);
+  cfg.element.prepend(picker as unknown as HTMLElement);
   cfg.element.classList.add('emoji-done');
   $(cfg.element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
 }

@@ -289,6 +289,7 @@
     <item quantity="many">%s משחקים איתך</item>
     <item quantity="other">%s משחקים איתך</item>
   </plurals>
+  <string name="ok">אוקיי</string>
   <string name="cancel">ביטול</string>
   <string name="whiteTimeOut">נגמר הזמן ללבן</string>
   <string name="blackTimeOut">נגמר הזמן לשחור</string>
@@ -495,7 +496,6 @@
   <string name="block">חסמו</string>
   <string name="blocked">חסום</string>
   <string name="unblock">בטל חסימה</string>
-  <string name="followsYou">עוקב/ת אחריך</string>
   <string name="xStartedFollowingY">%1$s התחיל/ה לעקוב אחרי %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">עוקב %s</item>
@@ -1079,4 +1079,5 @@
   <string name="lichessPatronInfo">ליצ\'ס הוא ארגון לטובת הכלל ותוכנת קוד פתוח חינמית.
 כל עלויות התפעול, הפיתוח והתוכן ממומנות אך ורק על ידי תרומות משתמשים.</string>
   <string name="nothingToSeeHere">אין כלום להצגה כאן, בינתיים.</string>
+  <string name="stats">סטטיסטיקות</string>
 </resources>

@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
 import { spinnerHtml } from 'common/spinner';
 import { contactEmail } from './bits';
+import { alert, prompt } from 'common/dialog';
 
 export interface Pricing {
   currency: string;
@@ -13,10 +14,7 @@ export interface Pricing {
 const $checkout = $('div.plan_checkout');
 const getFreq = () => $checkout.find('group.freq input:checked').val();
 const getDest = () => $checkout.find('group.dest input:checked').val();
-const showErrorThenReload = (error: string) => {
-  alert(error);
-  location.assign('/patron');
-};
+const showErrorThenReload = (error: string) => alert(error).then(() => location.assign('/patron'));
 
 export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string; pricing: any }): void {
   contactEmail();
@@ -58,9 +56,9 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
     toggleCheckout();
   });
 
-  $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
+  $checkout.find('group.amount .other label').on('click', async function (this: HTMLLabelElement) {
     let amount: number;
-    const raw: string = prompt(this.title) || '';
+    const raw: string = (await prompt(this.title)) ?? '';
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
     } catch (_) {

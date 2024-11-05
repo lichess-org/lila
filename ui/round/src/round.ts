@@ -74,7 +74,7 @@ async function boot(
           $meta.length && $('.game__meta').replaceWith($meta);
           $('.crosstable').replaceWith($html.find('.crosstable'));
           startTournamentClock();
-          pubsub.emit('content-loaded');
+          window.lichess.initializeDom();
         });
       },
       tourStanding(s: TourPlayer[]) {

@@ -418,10 +418,11 @@ final class TournamentApi(
                 performance <- performanceOf(game, userId).map(_.value.toDouble)
                 nbGames = sheet.scores.size
                 if nbGames > 0
-              yield Math.round {
-                (player.performance * (nbGames - 1) + performance) / nbGames
-              }.toInt
-            } | player.performance
+              yield IntRating:
+                Math.round {
+                  (player.performance.so(_.value) * (nbGames - 1) + performance) / nbGames
+                }.toInt
+            }.orElse(player.performance)
           )
           _ = game.whitePlayer.userId.foreach: whiteUserId =>
             colorHistoryApi.inc(player.id, Color.fromWhite(player.is(whiteUserId)))

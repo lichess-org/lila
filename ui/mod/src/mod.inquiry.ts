@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 
 import { expandMentions } from 'common/richText';
 import { storage } from 'common/storage';
+import { alert } from 'common/dialog';
 
 site.load.then(() => {
   const noteStore = storage.make('inquiry-note');

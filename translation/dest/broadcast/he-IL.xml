@@ -31,7 +31,6 @@
   <string name="sourceGameIds">עד 64 מזהי משחק של Lichess, מופרדים ברווחים.</string>
   <string name="startDateTimeZone">שעת ההתחלה באזור הזמן המקומי של הטורניר: %s</string>
   <string name="startDateHelp">אופציונאלי, אם את/ה יודע/ת מתי האירוע צפוי להתחיל</string>
-  <string name="credits">תן/י קרדיט למקור</string>
   <string name="currentGameUrl">הקישור למשחק הנוכחי</string>
   <string name="downloadAllRounds">הורדת כל הסבבים</string>
   <string name="resetRound">אפס את הסיבוב הזה</string>
@@ -52,4 +51,37 @@
   <string name="ageThisYear">גיל השנה</string>
   <string name="unrated">לא מדורג</string>
   <string name="recentTournaments">טורנירים אחרונים</string>
+  <string name="openLichess">פתיחה ב־Lichess</string>
+  <string name="teams">קבוצות</string>
+  <string name="boards">לוחות</string>
+  <string name="overview">מידע כללי</string>
+  <string name="subscribeTitle">הירשמו כדי לקבל התראה בתחילת כל סבב. ניתן להפעיל או לבטל התראות קופצות או התראות ״פעמון״ בהגדרות החשבון שלך.</string>
+  <string name="uploadImage">העלאת תמונה עבור הטורניר</string>
+  <string name="noBoardsYet">אין עדיין לוחות. הם יופיעו כשיעלו המשחקים.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ניתן להעלות לוחות באמצעות קישור מקור או דרך %s</string>
+  <string name="startsAfter">מתחיל אחרי %s</string>
+  <string name="startVerySoon">ההקרנה תחל ממש בקרוב.</string>
+  <string name="notYetStarted">ההקרנה טרם החלה.</string>
+  <string name="officialWebsite">האתר הרשמי</string>
+  <string name="standings">תוצאות</string>
+  <string name="officialStandings">טבלת מובילים רשמית</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">ישנן אפשרויות נוספות ב%s</string>
+  <string name="webmastersPage">עמוד המתכנתים</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">קישור ל־PGN פומבי המתעדכן בשידור חי. אנו מציעים גם %s לסנכרון מיטבי ומהיר.</string>
+  <string name="embedThisBroadcast">הטמעת ההקרנה באתר האינטרנט שלך</string>
+  <string name="embedThisRound">הטמעת %s באתר האינטרנט שלך</string>
+  <string name="ratingDiff">הפרש הדירוג</string>
+  <string name="gamesThisTournament">משחקים בטורניר זה</string>
+  <string name="score">ניקוד</string>
+  <string name="perPage">%s לכל עמוד</string>
+  <string name="allTeams">כל הקבוצות</string>
+  <string name="tournamentFormat">שיטת הטורניר</string>
+  <string name="tournamentLocation">מיקום הטורניר</string>
+  <string name="topPlayers">שחקני צמרת</string>
+  <string name="timezone">אזור זמן</string>
+  <string name="fideRatingCategory">קטגוריית דירוג FIDE</string>
+  <string name="optionalDetails">פרטים אופציונאליים</string>
+  <string name="upcomingBroadcasts">הקרנות קרובות</string>
+  <string name="pastBroadcasts">הקרנות עבר</string>
+  <string name="allBroadcastsByMonth">צפו בכל ההקרנות לפי חודש</string>
 </resources>

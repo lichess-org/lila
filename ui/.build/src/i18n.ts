@@ -4,7 +4,7 @@ import { XMLParser } from 'fast-xml-parser';
 import { env, colors as c } from './main.ts';
 import { globArray } from './parse.ts';
 import { i18nManifest } from './manifest.ts';
-import { quantize } from './build.ts';
+import { quantize, zip } from './algo.ts';
 import { transform } from 'esbuild';
 
 type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
@@ -190,15 +190,6 @@ function parseXml(xmlData: string): Map<string, string | Plural> {
     i18nMap.set(plural.name, group);
   }
   return new Map([...i18nMap.entries()].sort(([a], [b]) => a.localeCompare(b)));
-}
-
-function zip<T, U>(arr1: T[], arr2: U[]): [T, U][] {
-  const length = Math.min(arr1.length, arr2.length);
-  const result: [T, U][] = [];
-  for (let i = 0; i < length; i++) {
-    result.push([arr1[i], arr2[i]]);
-  }
-  return result;
 }
 
 async function min(js: string): Promise<string> {

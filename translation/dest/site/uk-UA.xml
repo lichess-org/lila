@@ -289,6 +289,7 @@
     <item quantity="many">%s партій з вами</item>
     <item quantity="other">%s партій з вами</item>
   </plurals>
+  <string name="ok">Гаразд</string>
   <string name="cancel">Скасувати</string>
   <string name="whiteTimeOut">Час білих вийшов</string>
   <string name="blackTimeOut">Час чорних вийшов</string>
@@ -495,7 +496,6 @@
   <string name="block">Заблокувати</string>
   <string name="blocked">Заблоковано</string>
   <string name="unblock">Розблокувати</string>
-  <string name="followsYou">Спостерігає за вами</string>
   <string name="xStartedFollowingY">%1$s починає спостерігати за %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s спостерігач</item>
@@ -1077,4 +1077,5 @@
   <string name="lichessPatronInfo">Lichess — це благодійне й абсолютно безкоштовне програмне забезпечення з відкритим кодом.
 Усі витрати на обслуговування, розробку й контент фінансуються виключно пожертвуваннями користувачів.</string>
   <string name="nothingToSeeHere">Поки тут нічого немає.</string>
+  <string name="stats">Статистика</string>
 </resources>

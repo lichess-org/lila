@@ -3,7 +3,7 @@
   <string name="advancedPawn">Προωθημένο πιόνι</string>
   <string name="advancedPawnDescription">Ένα πιόνι που προάγεται ή απειλεί να προαχθεί είναι κλειδί για αυτή την τακτική.</string>
   <string name="advantage">Πλεονέκτημα</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Αρπάξτε την ευκαιρία ώστε να αποκτήσετε ένα αποφασιστικό πλεονέκτημα. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">To ματ της Αναστασίας</string>
   <string name="anastasiaMateDescription">Ένας ίππος και ένας πύργος ή βασίλισσα κάνουν ματ στον αντίπαλο βασιλιά στο περιθώριο της σκακιέρας, όταν ένα φιλικό κομμάτι του εμποδίζει την διαφυγή.</string>
   <string name="arabianMate">Αραβικό ματ</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Αιχμαλωτίστε τον αμυνόμενο</string>
   <string name="capturingDefenderDescription">Απομάκρυνση κομματιού που είναι σημαντικό για την υπεράσπιση άλλου κομματιού, επιτρέποντας την αιχμαλώτιση του πλέον ανυπεράσπιστου κομματιού στην επόμενη κίνηση.</string>
   <string name="crushing">Σύνθλιψη</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Εντοπίστε το σοβαρό λάθος του αντιπάλου για να αποκτήσετε συντριπτικό πλεονέκτημα. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Εντοπίστε το σοβαρό λάθος του αντιπάλου για να αποκτήσετε συντριπτικό πλεονέκτημα. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Ματ με δύο αξιωματικούς</string>
   <string name="doubleBishopMateDescription">Δύο επιτιθέμενοι αξιωματικοί σε κοντινή απόσταση κάνουν ματ σε βασιλιά που εμποδίζεται από φιλικά κομμάτια.</string>
   <string name="dovetailMate">Dovetail ματ</string>
   <string name="dovetailMateDescription">Βασίλισσα κάνει ματ σε παρακείμενο βασιλιά, του οποίου τα μοναδικά δύο τετράγωνα διαφυγής εμποδίζονται από φιλικά κομμάτια.</string>
   <string name="equality">Ισότητα</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Επιστρέψτε από μια χαμένη θέση και ασφαλίστε μια κλήρωση ή μια ισορροπημένη θέση. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Επιστρέψτε από μια χαμένη θέση και ασφαλίστε μια κλήρωση ή μια ισορροπημένη θέση. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Επίθεση στην πλευρά του βασιλιά</string>
   <string name="kingsideAttackDescription">Επίθεση στον αντίπαλο βασιλιά, μετά από μικρό ροκέ.</string>
   <string name="clearance">Ελευθέρωση</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Εκτροπή</string>
   <string name="deflectionDescription">Μία κίνηση που απομακρύνει ένα αντίπαλο κομμάτι από υφιστάμενο καθήκον, όπως η φύλαξη ενός τετραγώνου κλειδί. Μερικές φορές ονομάζεται και \"υπερφόρτωση\".</string>
   <string name="discoveredAttack">Επίθεση με αποκάλυψη</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Μετακίνηση κομματιού που προηγουμένως εμπόδιζε την επίθεση από κομμάτι μεγάλης εμβέλειας, όπως ένας ίππος που εμπόδιζε έναν πύργο.</string>
+  <string name="discoveredAttackDescription">Μετακίνηση κομματιού που προηγουμένως εμπόδιζε την επίθεση από κομμάτι μεγάλης εμβέλειας, όπως ένας ίππος που εμπόδιζε έναν πύργο.</string>
   <string name="doubleCheck">Διπλό σαχ</string>
   <string name="doubleCheckDescription">Διπλό σαχ ως αποτέλεσμα μίας επίθεσης με αποκάλυψη, όπου και το μετακινούμενο κομμάτι δίνει σαχ.</string>
   <string name="endgame">Φινάλε</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Κομμάτι που επιτίθεται ή αμύνεται ένα τετράγωνο, πίσω από εχθρικό κομμάτι.</string>
   <string name="zugzwang">Τσούγκτσβανγκ</string>
   <string name="zugzwangDescription">Ο αντίπαλος είναι περιορισμένος στις κινήσεις που μπορεί να κάνει και οποιαδήποτε κίνηση επιλέξει επιδεινώνει την θέση του.</string>
-  <string name="healthyMix">Προτεινόμενο μίγμα</string>
-  <string name="healthyMixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Προτεινόμενο μίγμα</string>
+  <string name="mixDescription">Λίγο απ\' όλα. Δεν ξέρετε τι να περιμένετε, οπότε παραμένετε σε ετοιμότητα! Όπως στα πραγματικά παιχνίδια.</string>
   <string name="playerGames">Παιχνίδια παίκτη</string>
   <string name="playerGamesDescription">Αναζητήστε γρίφους που δημιουργήθηκαν από παιχνίδια είτε δικά σας είτε άλλων παικτών.</string>
   <string name="puzzleDownloadInformation">Αυτοί οι γρίφοι είναι δημόσιοι και μπορείτε να τους κατεβάσετε εδώ %s.</string>

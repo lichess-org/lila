@@ -65,6 +65,6 @@ Bạn không thể xóa một đội nếu một kỳ thủ đã tham gia giải
     <item quantity="other">Trận chiến giữa %s đội</item>
   </plurals>
   <plurals name="nbLeadersPerTeam">
-    <item quantity="other">mỗi đội %s người dẫn đầu</item>
+    <item quantity="other">mỗi đội lấy %s người dẫn đầu</item>
   </plurals>
 </resources>

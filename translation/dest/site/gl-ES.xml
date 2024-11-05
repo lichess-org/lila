@@ -259,6 +259,7 @@
     <item quantity="one">%s partida contigo</item>
     <item quantity="other">%s partidas contigo</item>
   </plurals>
+  <string name="ok">Ok</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Acabou o tempo das brancas</string>
   <string name="blackTimeOut">Acabou o tempo das negras</string>
@@ -391,7 +392,7 @@
   <string name="startedStreaming">comezou unha retransmisión</string>
   <string name="xStartedStreaming">%s comezou unha retransmisión</string>
   <string name="averageElo">Puntuación media</string>
-  <string name="location">Ubicación</string>
+  <string name="location">Lugar</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
@@ -435,7 +436,6 @@
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
-  <string name="followsYou">Séguete</string>
   <string name="xStartedFollowingY">%1$s comezou a seguir a %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidor</item>
@@ -993,4 +993,5 @@ Deixa en branco para comezar as partidas dende a posición inicial normal.</stri
   <string name="lichessPatronInfo">Lichess é unha organización benéfica e un programa totalmente libre e de código aberto.
 Todos os custos de funcionamento, desenvolvemento e contidos fináncianse unicamente mediante as doazóns dos usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí polo de agora.</string>
+  <string name="stats">Estatísticas</string>
 </resources>

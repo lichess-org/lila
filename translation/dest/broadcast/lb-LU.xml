@@ -21,7 +21,6 @@
   <string name="sourceGameIds">Bis zu 64 Lichess-Partie-IDen, duerch Espacë getrennt.</string>
   <string name="startDateTimeZone">Startdatum vum Turnéier an der lokaler Zäitzon: %s</string>
   <string name="startDateHelp">Optional, wann du wees wéini den Turnéier ufänkt</string>
-  <string name="credits">Quell kreditéieren</string>
   <string name="currentGameUrl">URL vun der aktueller Partie</string>
   <string name="downloadAllRounds">All Ronnen eroflueden</string>
   <string name="resetRound">Ronn zerécksetzen</string>
@@ -40,4 +39,12 @@
   <string name="ageThisYear">Alter dëst Joer</string>
   <string name="unrated">Ongewäert</string>
   <string name="recentTournaments">Rezent Turnéieren</string>
+  <string name="teams">Ekippen</string>
+  <string name="overview">Iwwersiicht</string>
+  <string name="uploadImage">Turnéierbild eroplueden</string>
+  <string name="startsAfter">Fänkt no %s un</string>
+  <string name="officialWebsite">Offiziell Websäit</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Méi Optiounen op der %s</string>
+  <string name="webmastersPage">Webmaster-Säit</string>
+  <string name="gamesThisTournament">Partien an dësem Turnéier</string>
 </resources>

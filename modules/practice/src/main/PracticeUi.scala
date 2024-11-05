@@ -53,7 +53,12 @@ final class PracticeUi(helpers: Helpers)(
               div(cls := "bar", style := s"width: ${data.progressPercent}%")
             ),
             postForm(action := routes.Practice.reset)(
-              if ctx.isAuth then (data.nbDoneChapters > 0).option(a(cls := "do-reset")("Reset my progress"))
+              if ctx.isAuth then
+                (data.nbDoneChapters > 0).option(
+                  submitButton(cls := "button confirm", title := "You will lose your practice progress!")(
+                    "Reset my progress"
+                  )
+                )
               else a(href := routes.Auth.signup)("Sign up to save your progress")
             )
           ),

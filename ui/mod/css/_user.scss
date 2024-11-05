@@ -41,16 +41,12 @@
     white-space: nowrap;
   }
 
-  form {
-    display: inline;
-  }
-
   .proxy {
     color: $c-brag;
     font-weight: bold;
   }
 
-  strong {
+  .mz-section > strong {
     display: block;
     &.inline {
       display: inline;
@@ -347,10 +343,7 @@
       flex: 1 0 50ch;
       max-height: 50vh;
       overflow-y: auto;
-
-      &:first-child {
-        margin-inline-end: 1em;
-      }
+      padding: 0 1em 1em 2em;
 
       .score {
         display: inline-block;
@@ -376,10 +369,6 @@
           background-color: rgba(231, 59, 56, 0.4);
         }
       }
-    }
-
-    form {
-      display: block;
     }
 
     button {

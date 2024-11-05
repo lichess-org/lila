@@ -1,6 +1,7 @@
 package lila.relay
 
 import reactivemongo.api.bson.*
+import monocle.syntax.all.*
 
 import lila.db.dsl.{ *, given }
 import lila.relay.RelayTour.ActiveWithSomeRounds
@@ -128,8 +129,9 @@ final class RelayListing(
           doc   <- docs
           tour  <- doc.asOpt[RelayTour]
           round <- doc.getAsOpt[RelayRound]("round")
-          group = RelayListing.group.readFromOne(doc)
-        yield (tour, round, group)
+          group    = RelayListing.group.readFromOne(doc)
+          reTiered = decreaseTierOfDistantNextRound(tour, round)
+        yield (reTiered, round, group)
         sorted = tours.sortBy: (tour, round, _) =>
           (
             !round.hasStarted,                                 // ongoing tournaments first
@@ -149,6 +151,19 @@ final class RelayListing(
           .filter: tr =>
             tr.display.hasStarted || tr.display.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(30)))
         active
+
+  private def decreaseTierOfDistantNextRound(tour: RelayTour, round: RelayRound): RelayTour =
+    import RelayTour.Tier.*
+    val visualTier = for
+      tier   <- tour.tier
+      nextAt <- round.startsAtTime
+      days = scalalib.time.daysBetween(nowInstant.withTimeAtStartOfDay, nextAt)
+    yield
+      if tier == BEST && days > 10 then NORMAL
+      else if tier == BEST && days > 5 then HIGH
+      else if tier == HIGH && days > 5 then NORMAL
+      else tier
+    tour.copy(tier = visualTier.orElse(tour.tier))
 
   val upcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:
     _.refreshAfterWrite(14 seconds).buildAsyncFuture: _ =>

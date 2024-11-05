@@ -31,7 +31,6 @@
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
   <string name="startDateTimeZone">Data rozpoczęcia w lokalnej strefie czasowej turnieju: %s</string>
   <string name="startDateHelp">Opcjonalne, jeśli wiesz kiedy wydarzenie się rozpocznie</string>
-  <string name="credits">Potwierdź źródło</string>
   <string name="currentGameUrl">Adres URL bieżącej partii</string>
   <string name="downloadAllRounds">Pobierz wszystkie rundy</string>
   <string name="resetRound">Zresetuj tę rundę</string>
@@ -52,4 +51,37 @@
   <string name="ageThisYear">Wiek w tym roku</string>
   <string name="unrated">Bez rankingu</string>
   <string name="recentTournaments">Najnowsze turnieje</string>
+  <string name="openLichess">Otwórz w Lichess</string>
+  <string name="teams">Drużyny</string>
+  <string name="boards">Szachownice</string>
+  <string name="overview">Podgląd</string>
+  <string name="subscribeTitle">Subskrybuj, aby dostawać powiadomienia o każdej rozpoczętej rundzie. W preferencjach konta możesz przełączać czy chcesz powiadomienia dźwiękowe czy wyskakujące notyfikacje tekstowe.</string>
+  <string name="uploadImage">Prześlij logo turnieju</string>
+  <string name="noBoardsYet">Szachownice pojawią się jak tylko załadują się partie.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Szachownice mogą być załadowane bezpośrednio ze źródła lub przez %s</string>
+  <string name="startsAfter">Rozpoczyna się po %s</string>
+  <string name="startVerySoon">Transmisja wkrótce się rozpocznie.</string>
+  <string name="notYetStarted">Transmisja jeszcze się nie rozpoczęła.</string>
+  <string name="officialWebsite">Oficjalna strona</string>
+  <string name="standings">Klasyfikacja</string>
+  <string name="officialStandings">Oficjalna klasyfikacja</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Więcej opcji na %s</string>
+  <string name="webmastersPage">stronie webmasterów</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Publiczne źródło PGN w czasie rzeczywistym dla tej rundy. Oferujemy również %s dla szybszej i skuteczniejszej synchronizacji.</string>
+  <string name="embedThisBroadcast">Umieść tę transmisję na swojej stronie internetowej</string>
+  <string name="embedThisRound">Osadź %s na swojej stronie internetowej</string>
+  <string name="ratingDiff">Różnica rankingu</string>
+  <string name="gamesThisTournament">Partie w tym turnieju</string>
+  <string name="score">Wynik</string>
+  <string name="perPage">%s na stronie</string>
+  <string name="allTeams">Wszystkie kluby</string>
+  <string name="tournamentFormat">Format turnieju</string>
+  <string name="tournamentLocation">Lokalizacja turnieju</string>
+  <string name="topPlayers">Najlepsi gracze</string>
+  <string name="timezone">Strefa czasowa</string>
+  <string name="fideRatingCategory">Kategoria rankingu FIDE</string>
+  <string name="optionalDetails">Opcjonalne szczegóły</string>
+  <string name="upcomingBroadcasts">Nadchodzące transmisje</string>
+  <string name="pastBroadcasts">Poprzednie transmisje</string>
+  <string name="allBroadcastsByMonth">Zobacz wszystkie transmisje w danym miesiącu</string>
 </resources>

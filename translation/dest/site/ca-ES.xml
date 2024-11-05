@@ -435,7 +435,6 @@
   <string name="block">Bloqueja</string>
   <string name="blocked">Bloquejat</string>
   <string name="unblock">Desbloqueja</string>
-  <string name="followsYou">T\'està seguint</string>
   <string name="xStartedFollowingY">%1$s ha començat a seguir %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidors</item>
@@ -994,4 +993,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
+  <string name="stats">Estadístiques</string>
 </resources>

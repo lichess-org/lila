@@ -260,6 +260,7 @@ Au vum Erschtelle vu mehrere Konte wird dringend abgrate - übermässigs Multiko
     <item quantity="one">%s Schpiel mit dir</item>
     <item quantity="other">%s Schpiel mit dir</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Abbräche</string>
   <string name="whiteTimeOut">Wiss hät d\'Zit überschritte</string>
   <string name="blackTimeOut">Schwarz hät d\'Zit überschritte</string>
@@ -437,7 +438,6 @@ zum bewise dass du en Mänsch bisch.</string>
   <string name="block">Blockiärä</string>
   <string name="blocked">Blockiärt</string>
   <string name="unblock">Blockierig ufhebe</string>
-  <string name="followsYou">Folgt dir</string>
   <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
@@ -1004,4 +1004,5 @@ Fäld leer lah und all Schpiel normal schtarte.</string>
   <string name="lichessPatronInfo">Lichess isch e Wohltätigkeitsorganisation und e völlig choschtelosi/freii Open-Source-Software.
 Alli Betriebs-Choschte, d\'Entwicklig und d\'Inhält werded usschliesslich dur Benutzerschpände finanziert.</string>
   <string name="nothingToSeeHere">Da gits im monumäntan nüt z\'gseh.</string>
+  <string name="stats">Schtatistike</string>
 </resources>

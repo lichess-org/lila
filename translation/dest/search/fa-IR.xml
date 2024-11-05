@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">جستجو</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">جستجو</string>
   <string name="advancedSearch">جستجوی پیشرفته</string>
   <plurals name="searchInXGames">
     <item quantity="one">جستجو در %s بازی</item>
@@ -19,10 +19,10 @@
   <string name="source">منبع</string>
   <string name="nbTurns">تعداد حرکت</string>
   <string name="result">نتیجه</string>
-  <string name="winnerColor">رنگ مهره های بازیکن برنده</string>
+  <string name="winnerColor">رنگ برنده</string>
   <string name="date">تاریخ</string>
   <string name="sortBy">مرتب‌سازی بر اساس</string>
-  <string name="analysis">برسی بازی</string>
+  <string name="analysis">واکاوی</string>
   <string name="onlyAnalysed">فقط بازی‌هایی که تحلیل رایانه‌ای برای‌شان موجود است</string>
   <string name="color">رنگ</string>
   <string name="evaluation">ارزیابی</string>

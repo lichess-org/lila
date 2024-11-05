@@ -8,9 +8,19 @@ import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap } from 'common/algo';
-import { type Transform, movesTo, findTransforms, as } from '../util';
 import { MsgType } from '../interfaces';
+import {
+  type Transform,
+  type SparseMap,
+  spread,
+  spreadMap,
+  getSpread,
+  remove,
+  pushMap,
+  movesTo,
+  findTransforms,
+  as,
+} from '../util';
 
 export function initModule({
   root,
@@ -40,8 +50,8 @@ export function initModule({
   let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
   let choiceTimeout: number | undefined; // timeout for ambiguity choices
   const clarityPref = prop.storedIntProp('voice.clarity', 0);
-  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
-  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
+  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, () => initTimerRec());
+  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, () => initTimerRec());
 
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 

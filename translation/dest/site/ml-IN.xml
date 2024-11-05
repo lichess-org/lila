@@ -52,10 +52,10 @@
   <string name="blackLeftTheGame">കറുപ്പു കളി ഉപേക്ഷിച്ചു</string>
   <string name="whiteDidntMove">വൈറ്റ് നീക്കം നടത്തിയില്ല</string>
   <string name="blackDidntMove">ബ്ലാക്ക് നീക്കം നടത്തിയില്ല</string>
-  <string name="requestAComputerAnalysis">കമ്പ്യൂട്ടർ പരിശോധനക്ക് അപേക്ഷിക്കുക</string>
+  <string name="requestAComputerAnalysis">ഗണനിക പരിശോധനക്ക് അപേക്ഷിക്കുക</string>
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
-  <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് കമ്പ്യൂട്ടർ വിശകലനം ലഭ്യമാണ്</string>
-  <string name="computerAnalysisDisabled">കമ്പ്യൂട്ടർ വിശകലനം പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
+  <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് ഗണനിക വിശകലനം ലഭ്യമാണ്</string>
+  <string name="computerAnalysisDisabled">ഗണനിക വിശകലനം പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
   <string name="analysis">പരിശോധനാ ബോര്‍ഡ്</string>
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
@@ -70,7 +70,10 @@
   <string name="promoteVariation">ഈ വേരിയേഷൻ പ്രചരിപ്പിക്കുക</string>
   <string name="makeMainLine">മെയിൻ ലൈൻ ആകുക</string>
   <string name="deleteFromHere">ഇവിടംതൊട്ട് ഒഴിവാക്കുക</string>
+  <string name="collapseVariations">വ്യതിയാനങ്ങൾ ചുരുക്കുക</string>
+  <string name="expandVariations">വ്യതിയാനങ്ങൾ വ്യാപിപ്പിക്കുക</string>
   <string name="forceVariation">വേരിയഷൻ ഫോർസ് ചെയ്യുക</string>
+  <string name="copyVariationPgn">വ്യതിയാനം PGN പകർത്തുക</string>
   <string name="move">നീക്കം</string>
   <string name="variantLoss">തോൽക്കുന്ന വേരിയന്റ്</string>
   <string name="variantWin">ജയിക്കുന്ന വേരിയന്റ്</string>
@@ -112,10 +115,11 @@
   <string name="openStudy">തുറന്ന പഠനം</string>
   <string name="enable">വേണോ</string>
   <string name="bestMoveArrow">മികച്ച നീക്കത്തിന്റെ arrow</string>
+  <string name="showVariationArrows">വ്യതിയാനയമ്പുകൾ കാണിക്കുക</string>
   <string name="evaluationGauge">മൂല്യനിർണയ സംവിധാനം</string>
-  <string name="multipleLines">ഒന്നിലധികം ലൈനുകൾ</string>
+  <string name="multipleLines">ഒന്നിലധികം വരികൾ</string>
   <string name="cpus">CPUs</string>
-  <string name="memory">മെമ്മോറി</string>
+  <string name="memory">സ്മൃതി</string>
   <string name="infiniteAnalysis">അനന്തമായ വിശകലനം</string>
   <string name="removesTheDepthLimit">ആഴം കുറിച്ച് കംപ്യൂട്ടറിനെ ചൂടാക്കി വെയ്ക്കുന്നു</string>
   <string name="blunder">മണ്ടത്തരം</string>
@@ -209,6 +213,7 @@
   <string name="error.weakPassword">ഈ രഹസ്യവാക്ക് ഊഹിക്കുകാൻ വളരെ എളുപ്പമാണ്.</string>
   <string name="error.namePassword">ദയവായി താങ്ങളുടെ ഉപയോക്തൃനാമം രഹസ്യവാക്കയായി ഉപയോഗിക്കരുത്.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
+  <string name="neverTypeYourPassword">ഒരിക്കലും താങ്ങളുടെ Lichess രഹസ്യവാക്കു് മറ്റെ വെബ്സ്ഥാനത്തിൽ എഴുതരുതു്!</string>
   <string name="proceedToX">%s വരെ ചെല്ലുക</string>
   <string name="passwordSuggestion">മറ്റാരെങ്കിലും പറഞ്ഞ രഹസ്യവാക്ക് ഉപയോഗിക്കരുത്. അവർ താങ്ങളുടെ അക്കൌണ്ട് തട്ടിയെടുക്കാൻ ശ്രമിക്കും.</string>
   <string name="emailSuggestion">മറ്റെയാരുടേ ഉപദേശ പ്രകാരം ഇമെയിൽ-വിലാസം തിരഞ്ഞെടുക്കരുതു്. അവർക്കു് പിന്നേ താങ്ങളുടെ അക്കൌണ്ടു് മോഷ്ടിക്കാൻ സാധിക്കും.</string>
@@ -400,6 +405,7 @@
   <string name="blackCheckmatesInOneMove">കറുപ്പിന് ഒരു നീക്കത്തില്‍ ജയിക്കാം</string>
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
+  <string name="noNetwork">ഓഫ്ലൈൻ</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s സുഹൃത്ത് തൽസമയം</item>
     <item quantity="other">%s സുഹൃത്തുക്കൾ തൽസമയം</item>
@@ -413,7 +419,6 @@
   <string name="block">തടയുക</string>
   <string name="blocked">തടഞ്ഞു</string>
   <string name="unblock">തടയുന്നത് നിര്‍ത്തുക</string>
-  <string name="followsYou">നിങ്ങളെ പിന്തുടരുന്നു</string>
   <string name="xStartedFollowingY">%1$s പിന്തുടരാൻ %2$s തുടങ്ങി</string>
   <plurals name="nbFollowers">
     <item quantity="one">പിന്തുടർച്ചക്കാർ %s</item>
@@ -465,6 +470,7 @@
   <string name="movesPlayed">കളിച്ച കളികൾ</string>
   <string name="whiteWins">വെള്ള കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
   <string name="blackWins">കറുത്ത കരുക്കളാലുള്ള വിജയങ്ങൾ</string>
+  <string name="drawRate">സമനില നിരക്കു്</string>
   <string name="draws">സമനിലകൾ</string>
   <string name="nextXTournament">അടുത്ത %s ടൂർണമെന്റ്:</string>
   <string name="averageOpponent">ശരാശരി എതിരാളി</string>
@@ -484,6 +490,8 @@
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
   <string name="realName">യെഥാർത്ഥ പേര്</string>
+  <string name="setFlair">അടയാളം വയ്ക്കുക</string>
+  <string name="flair">അടയാളം</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">രാജ്യം അല്ലെങ്കിൽ പ്രദേശം</string>
   <string name="thankYou">നന്ദി!</string>
@@ -587,7 +595,7 @@
   </plurals>
   <string name="listBlockedPlayers">നിങ്ങൾ തടഞ്ഞ കളിക്കാരുടെ പട്ടിക</string>
   <string name="human">മനുഷ്യന്‍</string>
-  <string name="computer">കമ്പ്യൂട്ടര്‍</string>
+  <string name="computer">ഗണനിക</string>
   <string name="side">വശം</string>
   <string name="clock">ഘടികാരം</string>
   <string name="opponent">എതിരാളി</string>
@@ -608,6 +616,7 @@
   <string name="error.min">%s എങ്കിലും ആയിരിക്കണം</string>
   <string name="error.max">പരമാവധി %s ആയിരിക്കണം</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
+  <string name="ifRegistered">പ്രവേശിക്കൽ ചെയ്തവർ മാതത്രം</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
   <string name="menu">പട്ടിക</string>
@@ -639,6 +648,7 @@
   <string name="yourPendingSimuls">താങ്ങളുടെ തൂങ്ങുന്ന ഒരേവേളകളികൾ</string>
   <string name="createdSimuls">പുതിയ സിമുൽ</string>
   <string name="hostANewSimul">ഒരു പുതിയ സിമുലിന് ആതിഥ്യം നൽകൂ</string>
+  <string name="signUpToHostOrJoinASimul">ഒരേവേളകളിയിൽ കളിക്കുകാൻ അതോ നടുത്താൻ Lichess-ലേക്കു പ്രവേശിക്കൽ ചെയ്യുക</string>
   <string name="noSimulFound">സിമുൽ കണ്ടെത്തിയില്ല</string>
   <string name="noSimulExplanation">ഈ ഒരേ സമയത്തുള്ള പ്രദര്ശനം നിലവിലില്ല.</string>
   <string name="returnToSimulHomepage">സിമുൽ ഹോംപേജിലേക്ക് മടക്കം</string>
@@ -653,6 +663,8 @@
   <string name="simulClockHint">ഫിഷെറിന്റെ ക്ലോക്ക് ക്രമീകരണം. കൂടുതൽ കളിക്കാരെ നേരിടുമ്പോൾ കൂടുതൽ സമയം ആവശ്യമായി വരും.</string>
   <string name="simulAddExtraTime">Simul-മായി പൊരുത്തപ്പെടാൻ കുറച്ച് അധികം സമയം നിങ്ങൾക്ക് ചേർക്കാം.</string>
   <string name="simulHostExtraTime">ഹോസ്റ്റിന്റെ കൂടുതൽ ക്ലോക്ക് സമയം</string>
+  <string name="simulAddExtraTimePerPlayer">ഓരോ കളിക്കാരൻ ഒരേവേളകളിയിൽ കൂട്ടച്ചേരുമ്പോൾ താങ്ങളുടെ തുടക്കത്തിലുള്ള കളിസമയം കൂട്ടിക്കുക.</string>
+  <string name="simulHostExtraTimePerPlayer">അതിഥേയനിനു് ഓരോ കളിക്കാരനുമധിക നാഴികമണിയിൽ സമയം</string>
   <string name="lichessTournaments">Lichess പരമ്പരകൾ</string>
   <string name="tournamentFAQ">അറീന പരമ്പര</string>
   <string name="timeBeforeTournamentStarts">പരമ്പര തുടങ്ങുന്നതിനു മുൻപുള്ള സമയം</string>
@@ -661,14 +673,20 @@
   <string name="keyboardShortcuts">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
   <string name="keyMoveBackwardOrForward">നീക്കം പുറകോട്ട്/മുന്നോട്ട്</string>
   <string name="keyGoToStartOrEnd">പോകാം തുടക്കം/ഒടുക്കം</string>
+  <string name="keyCycleSelectedVariation">തിരഞ്ഞെടുക്കപെട്ട വ്യതിയാനം തോടു് കടന്നുപോവുക</string>
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
+  <string name="keyRequestComputerAnalysis">ഗണനികവിശകലനം ആവശ്യപെടൂ, താങ്ങളുടെ തെറ്റുകൾ നിന്നു് പഠിക്കുക</string>
   <string name="keyNextLearnFromYourMistakes">അടുത്ത (തെറ്റുകളിൽ നിന്ന് പഠിക്കുക)</string>
   <string name="keyNextBlunder">അടുത്ത അബദ്ധം</string>
   <string name="keyNextMistake">അടുത്ത തെറ്റ്</string>
   <string name="keyNextInaccuracy">അടുത്ത കൃത്യമില്ലായ്മ</string>
   <string name="keyPreviousBranch">മുമ്പുള്ള വിഭാഗം</string>
   <string name="keyNextBranch">അടുത്ത വിഭാഗം</string>
+  <string name="toggleVariationArrows">വ്യതിയാനം അമ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
+  <string name="cyclePreviousOrNextVariation">കഴിഞ്ഞ/അടുത്ത വ്യതിയാനം വയ്ക്കുക</string>
+  <string name="toggleGlyphAnnotations">നീക്കം കുറിപ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
+  <string name="togglePositionAnnotations">കരുനില കുറിപ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
   <string name="playSelectedMove">തിരഞ്ഞെടുത്ത നീക്കം കളിക്കുക</string>
   <string name="newTournament">പുതിയ പരമ്പര</string>
   <string name="tournamentHomeTitle">പല വിധം സമയപരിധികളും വേരിയന്റുകളും ഉള്ള ചെസ്സ് ടൂർണമെന്റ്</string>
@@ -703,6 +721,7 @@
   <string name="downloadImported">Import ചെയ്തത് ഡൌൺലോഡ് ചെയ്യുക</string>
   <string name="crosstable">ക്രോസ്സ്‌റ്റേബിൾ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">കരടുകാണാൻ ഗണനികവ്യതിയാനങ്ങൾ തോടെ ഗതിമാറ്റുക.</string>
   <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക.</string>
   <string name="letOtherPlayersMessageYou">മറ്റുള്ള കളിക്കാർ നിങ്ങൾക്ക് സന്ദേശമയക്കുന്നതിനുള്ള അനുവാദം</string>
   <string name="receiveForumNotifications">ആരെങ്കിലും ചർച്ചവേദിയിൽ എന്റെ പേരെടുത്താൽ എന്നെ സൂചിപിക്കണം</string>
@@ -717,6 +736,7 @@
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
   <string name="disableKidMode">കിഡ്-മോഡ് ഒഴിവാക്കുക</string>
   <string name="security">സുരക്ഷിതത്വം</string>
+  <string name="sessions">പ്രവേശിക്കൽ ചെയ്ത ഉപകരണങ്ങൾ</string>
   <string name="revokeAllSessions">എല്ലാ സെഷനും പിൻവലിക്കാൻ</string>
   <string name="playChessEverywhere">എല്ലായിടത്തും ചതുരംഗം കളിക്കൂ</string>
   <string name="asFreeAsLichess">Lichess തികച്ചും സ്വതന്ത്രമാണ്</string>
@@ -775,13 +795,13 @@
     <item quantity="one">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കന്റ് ബാക്കി നിൽക്കുന്നു</item>
     <item quantity="other">ആദ്യ നീക്കം കളിയ്ക്കാൻ %s സെക്കൻഡ്‌സ് ബാക്കി നിൽക്കുന്നു</item>
   </plurals>
-  <string name="practiceWithComputer">കമ്പ്യൂട്ടർ ഉപയോഗിച്ച് പരിശീലിക്കുക</string>
+  <string name="practiceWithComputer">ഗണനിക ഉപയോഗിച്ച് പരിശീലിക്കുക</string>
   <string name="anotherWasX">മറ്റൊന്ന് %s ആണ്</string>
   <string name="bestWasX">മികച്ചത് %s ആയിരുന്നു</string>
   <string name="youBrowsedAway">നിങ്ങൾ തുടർന്ന് നീങ്ങാൻ ശ്രമിച്ചു</string>
   <string name="resumePractice">പരിശീലനം തുടരുക</string>
   <string name="theGameIsADraw">ഗെയിം സമനിലയിൽ കലാശിച്ചിരിക്കുന്നു.</string>
-  <string name="computerThinking">ഗുരുജി ആലോചിക്കുകയാണ്...</string>
+  <string name="computerThinking">ഗണനിക ആലോചിക്കുകയാണ്...</string>
   <string name="seeBestMove">മികച്ച നീക്കം കാണുക</string>
   <string name="hideBestMove">മികച്ച നീക്കം മറയ്ക്കുക</string>
   <string name="getAHint">സൂചന ലഭിക്കുക</string>
@@ -825,6 +845,7 @@
     <item quantity="one">എന്നിട്ട് %s premove ലൈൻ സേവ് ചെയ്യൂ</item>
     <item quantity="other">എന്നിട്ട് %s premove ലൈനുകൾ സേവ് ചെയ്യൂ</item>
   </plurals>
+  <string name="showUnreadLichessMessage">താങ്ങൾക്കു് Lichess നിന്നു് ഒരു സ്വകാര്യ അറിയിപ്പു് കിട്ടിയിരിക്കുന്നു.</string>
   <string name="clickHereToReadIt">വായ്ക്കാൻ ഇവിടെ അമർത്തിക്കുക</string>
   <string name="sorry">ക്ഷമിക്കുക :(</string>
   <string name="weHadToTimeYouOutForAWhile">ഞങ്ങൾക്ക് നിങ്ങളെ കുറച്ചു സമയം പുറത്തു നിർത്തേണ്ടി വന്നു.</string>
@@ -863,6 +884,7 @@
   <string name="toRequestSupport">സഹായം ആവശ്യപെടുക, %1$s</string>
   <string name="tryTheContactPage">ബന്ധപെടാനുള്ള ഫോറേം ഉപയോഗിക്കുക</string>
   <string name="makeSureToRead">ഉറപ്പായിട്ടു്  %1$s വായിക്കുക</string>
+  <string name="theForumEtiquette">ചർച്ചാവേദി മര്യാദം</string>
   <string name="thisTopicIsArchived">ഈ വിഷയം ത്തിനു മറുപടി കൊടുക്കാൻ കഴിയുകയയില്ല.</string>
   <string name="joinTheTeamXToPost">%1$s ഇൽ ചേരുക, ഫോറത്തിൽ പോസ്റ്റ്‌ ചെയുന്നതിനു</string>
   <string name="teamNamedX">%1$s ടീം</string>
@@ -883,6 +905,9 @@
   <string name="refundXpointsTimeControlY">റിഫണ്ട്:%1$s%2$s റേറ്റിംഗ് പോയിന്റുകൾ.</string>
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
   <string name="clickToRevealEmailAddress">ഇമെയിൽ വിലാസം വെളിപ്പെടുത്തുകാൻ അമർത്തിക്കൂ</string>
+  <string name="download">ഇറക്കിവയ്ക്കുക</string>
+  <string name="coachManager">അധ്യാപകൻ കൈകാര്യവ്യവസ്ഥ</string>
+  <string name="streamerManager">സ്റ്റ്രീമർ കൈകാര്യവ്യവസ്ഥ</string>
   <string name="cancelTournament">മത്സരം വേണ്ടെന്നു വയ്ക്കുക</string>
   <string name="tournDescription">മത്സരം കുറിച്ചു്</string>
   <string name="onlyMembersOfTeam">കളിക്കൂട്ടത്തിന്റെ അംഗങ്ങൾ മാത്രം</string>
@@ -891,21 +916,34 @@
   <string name="minimumRating">ഏറ്റവും താഴ്ന്ന റേറ്റിങു്</string>
   <string name="maximumWeeklyRating">ഏറ്റവും കൂടിയ ആഴ്ചതോറ റേറ്റിങു്</string>
   <string name="cancelSimul">ഒരേവേളകളി വേണ്ട വെയ്ക്കുക</string>
+  <string name="simulHostcolor">ഓരോ കളിയിനു് അതിഥേയനിന്റെ കരുനിറം</string>
+  <string name="estimatedStart">നിർണ്ണയപിച്ച ആരംഭസമയം</string>
   <string name="simulFeatured">%s-ൽ കാണിക്കുക</string>
   <string name="simulFeaturedHelp">എല്ലാവർക്കും എന്റെ ഒരേവേളകളികൾ %s-ൽ കാണിക്കുക. സ്വകാര്യമായ ഒരേവേളകളികൾക്കു് ഇതു ചെയ്യരുതു്.</string>
   <string name="simulDescription">ഒരേവേളകളി കുറിച്ചു്</string>
   <string name="simulDescriptionHelp">കളിക്കാരേ എന്തെങ്കിലും പറയാനുണ്ടോ?</string>
+  <string name="markdownAvailable">പുരോഗമിച്ച വാക്യഘടനയിനു് %s ലഭ്യമാണു്.</string>
   <string name="embedsAvailable">ഉൾപെടുത്തുകാൻ ഒരു കളിയുടെ കണ്ണി അതോ ഒരു പാഠം കണ്ണി ഒട്ടിക്കുക.</string>
+  <string name="inYourLocalTimezone">താങ്ങളുടെ സ്വന്തം സമയപദ്ധതിയിൽ</string>
   <string name="tournChat">മത്സരസല്ലാപമുറി</string>
   <string name="noChat">സല്ലാപമുറി ഇല്ല</string>
   <string name="onlyTeamLeaders">കളികൂട്ടനേതാവ് മാത്രം</string>
   <string name="onlyTeamMembers">കളികൂട്ടം അംഗംക്കാർ മാത്രം</string>
+  <string name="navigateMoveTree">നീക്കചിത്രം കപ്പലോടുക</string>
+  <string name="mouseTricks">മൌസു് സൂത്രങ്ങൾ</string>
+  <string name="toggleLocalAnalysis">ഗണനികവിശകലനം ടോഗിൾ ചെയ്യുക</string>
+  <string name="toggleAllAnalysis">എല്ലാ ഗണനികവിശകലനം ടോഗിൾ ചെയ്യുക</string>
+  <string name="playComputerMove">മികച്ച ഗണനിക നീക്കം കളിക്കുക</string>
+  <string name="analysisOptions">വിശകലനം സാധ്യതകൾ</string>
   <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
   <string name="showHelpDialog">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
+  <string name="closedAccountChangedMind">താങ്ങൾ അക്കൗണ്ടു് അവസാനിച്ചിട്ടു് പിന്നെയും തുറക്കാൻ ആഗ്രഹം ഉണ്ടെങ്കിൽ താങ്ങൾക്കു് ഇതു് ഒരു വട്ടം ചെയ്യാം.</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
+  <string name="cantDoThisTwice">താങ്ങൾ രണ്ടാം തവണ അവസാനിച്ചാൽ പിന്നെ വീണ്ടെടുപ്പു് ഒക്കത്തില്ല.</string>
   <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
   <string name="sentEmailWithLink">ഞങ്ങൾ താങ്ങളേ ഒരു കണ്ണിയുള്ള ഇമെയിൽ അയച്ചിട്ടുണ്ട്.</string>
+  <string name="tournamentEntryCode">മത്സരം പ്രവേശന സങ്കേതം</string>
   <string name="hangOn">കാത്തിരിക്കൂ</string>
   <string name="gameInProgress">താങ്ങൾ ഇപ്പോഴ് %s-ിന്റെ കൂടെ കളിക്കുന്നുണ്ട്.</string>
   <string name="abortTheGame">കളി കയ്യൊഴിഞ്ഞ് പോവുക</string>
@@ -913,8 +951,14 @@
   <string name="youCantStartNewGame">ഈ കളി പൂർത്തികരിക്കുന്നവരെ താങ്ങൾക്കു് പുതിയ കളി തുടങ്ങാൻ സാധിക്കത്തില്ല.</string>
   <string name="since">മുതൽ</string>
   <string name="until">വരേ</string>
+  <string name="lichessDbExplanation">Lichess-ൽ കളിച്ചതുള്ള റേറ്റിങ്ങുള്ള കളികൾ</string>
   <string name="switchSides">പക്ഷം മാറുക</string>
+  <string name="closingAccountWithdrawAppeal">താങ്ങളുടെ അക്കൌണ്ടു് അവസാനിച്ചാൽ താങ്ങളുടെ നിർവേദനം പിൻവലിക്കപെടും</string>
+  <string name="ourEventTips">പരിപാടി നടുത്താൻ ഞങ്ങളുടെ ഉപദേശങ്ങൾ</string>
   <string name="instructions">നിർദേശങ്ങൾ</string>
   <string name="showMeEverything">എല്ലാം കാണിക്കുക</string>
+  <string name="lichessPatronInfo">Lichess ഒരു സൗജന്യവും/ലിബർ തുറന്ന ഉറവിട യന്ത്രാംശം ആണു്. 
+നടത്തിപ്പിനും വികാസനത്തിനും ഉള്ളടക്കത്തിനും ചെലവു് എല്ലാം ഉപയോക്താവു് സംഭാവനതോടാണു് കഴിയുന്നതു്.</string>
   <string name="nothingToSeeHere">അല്പസമയത്തേക്കു് ഒന്നും കാണാനില്ല.</string>
+  <string name="stats">സ്ഥിതിവിവരണങ്ങൾ</string>
 </resources>

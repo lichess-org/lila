@@ -3,7 +3,7 @@
   <string name="advancedPawn">Продвинутая пешка</string>
   <string name="advancedPawnDescription">Одна из Ваших пешек далеко продвинута, есть шанс превращения.</string>
   <string name="advantage">Преимущество</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
+  <string name="advantageDescription">Используйте свой шанс получить решающее преимущество. (от 200 до 600 сантипешек)</string>
   <string name="anastasiaMate">Мат Анастасии</string>
   <string name="anastasiaMateDescription">Конь и ладья (или ферзь) матуют короля противника между краем доски и другой фигурой противника.</string>
   <string name="arabianMate">Арабский мат</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Уничтожение защитника</string>
   <string name="capturingDefenderDescription">Взятие или размен фигуры, защищающей другую фигуру, с последующим взятием фигуры, оставшейся без защиты.</string>
   <string name="crushing">Разгром</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Используйте зевок противника для получения сокрушительного преимущества. (600 и более сантипешек)</string>
+  <string name="crushingDescription">Используйте зевок противника для получения сокрушительного преимущества. (600 и более сантипешек)</string>
   <string name="doubleBishopMate">Мат двумя слонами</string>
   <string name="doubleBishopMateDescription">Два слона атакующей стороны ставят мат на смежных диагоналях королю противника, окружённому своими же фигурами.</string>
   <string name="dovetailMate">Мат «ласточкин хвост»</string>
   <string name="dovetailMateDescription">Мат ферзём стоящему рядом королю противника, единственные два поля отхода которого занимают его же фигуры.</string>
   <string name="equality">Уравнение</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Отыграйтесь из проигранной позиции: сведите партию на ничью или получите позиционное равенство. (менее 200 сантипешек)</string>
+  <string name="equalityDescription">Отыграйтесь из проигранной позиции: сведите партию на ничью или получите позиционное равенство. (менее 200 сантипешек)</string>
   <string name="kingsideAttack">Атака на королевском фланге</string>
   <string name="kingsideAttackDescription">Атака на рокированного в короткую сторону короля противника.</string>
   <string name="clearance">Освобождение линии или поля</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Отвлечение</string>
   <string name="deflectionDescription">Ход, отвлекающий фигуру противника от важной задачи, например, от защиты ключевого поля.</string>
   <string name="discoveredAttack">Вскрытое нападение</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём, вскрывающий линию для стоящей за ним ладьи.</string>
+  <string name="discoveredAttackDescription">Ход фигурой, которая закрывает линию атаки дальнобойной фигуры. Например, ход конём, вскрывающий линию для стоящей за ним ладьи.</string>
   <string name="doubleCheck">Двойной шах</string>
   <string name="doubleCheckDescription">Шах двумя фигурами одновременно при помощи вскрытого нападения. Нельзя срубить обе атакующие фигуры и нельзя закрыться от них, поэтому король может только уйти от шаха.</string>
   <string name="endgame">Эндшпиль</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Ситуация, когда на линии нападения или защиты дальнобойной фигуры стоит фигура противника.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Противник вынужден сделать один из немногих возможных ходов, но любой ход ведёт к ухудшению его положения.</string>
-  <string name="healthyMix">Сборная солянка</string>
-  <string name="healthyMixDescription">Всего понемногу. Вы не знаете, чего ожидать, так что будьте готовы ко всему! Прямо как в настоящей партии.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Сборная солянка</string>
+  <string name="mixDescription">Всего понемногу. Вы не знаете, чего ожидать, так что будьте готовы ко всему! Прямо как в настоящей партии.</string>
   <string name="playerGames">Партии игрока</string>
   <string name="playerGamesDescription">Найти задачи, созданные из ваших партий, или партий других игроков.</string>
   <string name="puzzleDownloadInformation">Эти задачи находятся в общественном достоянии и вы можете скачать их: %s.</string>

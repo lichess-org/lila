@@ -29,7 +29,6 @@
   <string name="sourceGameIds">Bis zu 64 Lichess Schpiel-IDs, trännt dur en Leerschlag.</string>
   <string name="startDateTimeZone">Startdatum i de lokale Zitzone vum Turnier: %s</string>
   <string name="startDateHelp">Optional, falls du weisch, wänn das Ereignis afangt</string>
-  <string name="credits">Erwähn\' d\'Quälle</string>
   <string name="currentGameUrl">URL vom laufende Schpiel</string>
   <string name="downloadAllRounds">Alli Runde abelade</string>
   <string name="resetRound">Die Rundi zruggsetze</string>
@@ -50,4 +49,37 @@
   <string name="ageThisYear">Alter i dem Jahr</string>
   <string name="unrated">Ungwertet</string>
   <string name="recentTournaments">Aktuellschti Turnier</string>
+  <string name="openLichess">In Lichess öffne</string>
+  <string name="teams">Teams</string>
+  <string name="boards">Brätter</string>
+  <string name="overview">Überblick</string>
+  <string name="subscribeTitle">Mäld dich a, zum über jede Rundeschtart informiert z\'werde. Du chasch de Alarm- oder d\'Push-Benachrichtigung, für Überträgige, i dine Kontoischtellige umschalte.</string>
+  <string name="uploadImage">Turnier-Bild ufelade</string>
+  <string name="noBoardsYet">No kei Brätter. Die erschined, sobald Schpiel ufeglade sind.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brätter chönd mit ere Quälle oder via %s ufeglade werde</string>
+  <string name="startsAfter">Schtartet nach %s</string>
+  <string name="startVerySoon">Die Überträgig schtartet sehr bald.</string>
+  <string name="notYetStarted">Die Überträgig hät nonig agfange.</string>
+  <string name="officialWebsite">Offizielli Website</string>
+  <string name="standings">Tabälle</string>
+  <string name="officialStandings">Offizielli Ranglischte</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Meh Optionen uf %s</string>
+  <string name="webmastersPage">Webmaster Site</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Öffentlichi, real-time PGN Quälle, für die Rundi. Mir offeriered au %s für e schnälleri und effiziänteri Synchronisation.</string>
+  <string name="embedThisBroadcast">Nimm die Überträgig uf dini Website</string>
+  <string name="embedThisRound">Nimm %s uf dini Website</string>
+  <string name="ratingDiff">Wertigs Differänz</string>
+  <string name="gamesThisTournament">Schpiel i dem Turnier</string>
+  <string name="score">Resultat</string>
+  <string name="perPage">%s pro Site</string>
+  <string name="allTeams">Alli Teams</string>
+  <string name="tournamentFormat">Turnier-Format</string>
+  <string name="tournamentLocation">Turnier-Lokal</string>
+  <string name="topPlayers">Top-Schpiller</string>
+  <string name="timezone">Zitzone</string>
+  <string name="fideRatingCategory">FIDE-Wertigskategorie</string>
+  <string name="optionalDetails">Optionali Details</string>
+  <string name="upcomingBroadcasts">Kommendi Überträgige</string>
+  <string name="pastBroadcasts">G\'machti Überträgige</string>
+  <string name="allBroadcastsByMonth">Zeig alli Überträgige im Monet</string>
 </resources>

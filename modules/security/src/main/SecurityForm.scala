@@ -30,6 +30,7 @@ final class SecurityForm(
     LilaForm
       .cleanNonEmptyText(minLength = 6, maxLength = EmailAddress.maxLength)
       .verifying(Constraints.emailAddress)
+      .verifying("error.email", EmailAddress.isValid)
       .into[EmailAddress]
 
   private val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)

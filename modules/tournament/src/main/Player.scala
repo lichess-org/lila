@@ -14,7 +14,7 @@ case class Player(
     withdraw: Boolean = false,
     score: Int = 0,
     fire: Boolean = false,
-    performance: Int = 0,
+    performance: Option[IntRating] = None,
     team: Option[TeamId] = None
 ):
 
@@ -29,9 +29,7 @@ case class Player(
   def doWithdraw = copy(withdraw = true)
   def unWithdraw = copy(withdraw = false)
 
-  def magicScore = score * 10000 + (performanceOption | rating.value)
-
-  def performanceOption = (performance > 0).option(performance)
+  def magicScore = score * 10000 + (performance | rating).value
 
   def showRating = s"$rating${provisional.yes.so("?")}"
 

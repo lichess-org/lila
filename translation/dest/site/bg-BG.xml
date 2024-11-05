@@ -259,6 +259,7 @@
     <item quantity="one">%s игри с вас</item>
     <item quantity="other">%s игри с вас</item>
   </plurals>
+  <string name="ok">ОК</string>
   <string name="cancel">Отказ</string>
   <string name="whiteTimeOut">Времето на белите изтече</string>
   <string name="blackTimeOut">Времето на черните изтече</string>
@@ -434,7 +435,6 @@
   <string name="block">Блокирай</string>
   <string name="blocked">Блокирани</string>
   <string name="unblock">Отблокирай</string>
-  <string name="followsYou">Следва ви</string>
   <string name="xStartedFollowingY">%1$s започна да следва %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s последователи</item>
@@ -975,4 +975,5 @@
   <string name="instructions">Инструкции</string>
   <string name="showMeEverything">Покажи ми всичко</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
+  <string name="stats">Статистика</string>
 </resources>

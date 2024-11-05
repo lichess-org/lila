@@ -15,8 +15,12 @@ import { dispatchChessgroundResize } from 'common/resize';
 import { userComplete } from 'common/userComplete';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
+import { toggleBoxInit } from 'common/controls';
+import { confirm } from 'common/dialog';
+import { addExceptionListeners } from './unhandledError';
 
 export function boot() {
+  addExceptionListeners();
   $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
@@ -28,6 +32,7 @@ export function boot() {
     pubsub.on('content-loaded', initMiniGames);
     updateTimeAgo(1000);
     pubsub.on('content-loaded', renderTimeAgo);
+    pubsub.on('content-loaded', toggleBoxInit);
   });
   requestIdleCallback(() => {
     const friendsEl = document.getElementById('friend_box');
@@ -88,8 +93,10 @@ export function boot() {
       else $(this).one('focus', start);
     });
 
-    $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
-      return confirm(this.title || 'Confirm this action?');
+    $('input.confirm, button.confirm').on('click', async function (this: HTMLElement, e: Event) {
+      if (!e.isTrusted) return;
+      e.preventDefault();
+      if (await confirm(this.title || 'Confirm this action?')) (e.target as HTMLElement)?.click();
     });
 
     $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
@@ -114,13 +121,7 @@ export function boot() {
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
-    $('.toggle-box--toggle').each(function (this: HTMLFieldSetElement) {
-      const toggle = () => this.classList.toggle('toggle-box--toggle-off');
-      $(this)
-        .children('legend')
-        .on('click', toggle)
-        .on('keypress', e => e.key == 'Enter' && toggle());
-    });
+    toggleBoxInit();
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 

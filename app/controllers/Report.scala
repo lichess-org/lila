@@ -46,7 +46,7 @@ final class Report(env: Env, userC: => User, modC: => Mod) extends LilaControlle
 
   def inquiry(reportOrAppealId: String) = Secure(_.SeeReport) { _ ?=> me ?=>
     api.inquiries
-      .toggle(reportOrAppealId)
+      .toggle(reportOrAppealId, onlyOpen = getBool("onlyOpen"))
       .flatMap: (prev, next) =>
         prev
           .filter(_.isAppeal)

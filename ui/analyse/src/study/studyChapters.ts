@@ -27,6 +27,7 @@ import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 /* read-only interface for external use */
 export class StudyChapters {

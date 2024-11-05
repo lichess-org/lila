@@ -244,6 +244,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">キャンセル</string>
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
@@ -406,7 +407,6 @@
   <string name="block">ブロックする</string>
   <string name="blocked">ブロック済</string>
   <string name="unblock">ブロックを外す</string>
-  <string name="followsYou">あなたをフォローしています</string>
   <string name="xStartedFollowingY">%1$s が %2$s のフォローを開始</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s フォロワー</item>
@@ -952,4 +952,5 @@
   <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="nothingToSeeHere">今は何もありません。</string>
+  <string name="stats">統計</string>
 </resources>

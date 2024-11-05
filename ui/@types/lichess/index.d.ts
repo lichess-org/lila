@@ -161,8 +161,33 @@ interface Fipr {
   x64hash128(input: string, seed: number): string;
 }
 
+interface Events {
+  on(key: string, cb: (...args: any[]) => void): void;
+  off(key: string, cb: (...args: any[]) => void): void;
+}
+
+interface Api {
+  initializeDom: (root?: HTMLElement) => void;
+  events: Events;
+  socket: {
+    subscribeToMoveLatency: () => void;
+    events: Events;
+  };
+  onlineFriends: {
+    request: () => void;
+    events: Events;
+  };
+  chat: {
+    post: (text: string) => void;
+  };
+  overrides: {
+    [key: string]: (...args: any[]) => unknown;
+  };
+}
+
 interface Window {
   site: Site;
+  lichess: Api;
   fipr: Fipr;
   i18n: I18n;
   $as<T>(cash: Cash): T;

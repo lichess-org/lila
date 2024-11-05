@@ -1,36 +1,38 @@
-ui/build was lovingly crafted from a single block of wood as a personal gift to you.
+Usage:
+  ui/build <options> <packages>  # <packages> are top level directories in ui
+                                 # if no packages are specified, all will be processed
+                                 # multiple short options can be preceded by a single dash
 
-  ./build <options> <packages> # packages are top level directories in ui
-  one letter options can be consolidated after a single dash (e.g. -cdw)
-  if no packages are specified, all will be processed
+Recommended:
+  ui/build -cdw  # clean, build debug, and watch for changes with clean rebuilds
 
 Options:
   -h, --help          show this help and exit
   -w, --watch         build and watch for changes
-  -c, --clean-build   build fresh artifacts
+  -c, --clean         clean all build artifacts and build fresh
   -p, --prod          build minified assets (prod builds)
   -n, --no-install    don't run pnpm install
   -d, --debug         build assets with site.debug = true
   -l, --log=<url>     monkey patch console log functions in javascript manifest to POST log messages to
                       <url> or localhost:8666 (default). if used with --watch, the ui/build process
                       will listen for http on 8666 and display received json as 'web' in build logs
-  --clean             clean all build artifacts, including translation/js, and exit
-  --update            update ui/build's node_modules
+  --update            update ui/.build/node_modules with pnpm install
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context
-  --tsc               run tsc, any of [--tsc, --sass, --esbuild, --copies] will disable the others
+
+Exclusive Options: (any of these will disable other functions)
+  --clean-exit        clean all build artifacts and exit
+  --tsc               run tsc on {package}/tsconfig.json and dependencies
   --sass              run sass on {package}/css/build/*.scss and dependencies
   --esbuild           run esbuild (given in {package}/package.json/lichess/bundles array)
-  --copies            run copies (given in {package}/package.json/lichess/sync objects)
+  --sync              run sync copies (given in {package}/package.json/lichess/sync objects)
+  --i18n              build @types/lichess/i18n.d.ts and translation/js files
 
 Examples:
-  ./build -w                 # build and watch for changes <- this is the most common use case
-  ./build -wc                # clean build, watch <- recommended for maintainers
-  ./build -w --log=/path     # build, watch, and patch js console POST to ${location.origin}/path. 
-                             # ui/build listens on 8666, displays received json as 'web' over stdout
-  ./build -np                # no pnpm install, build minified
-  ./build analyse site msg   # build analyse, site, and msg packages (as opposed to everything)
-  ./build -w dasher chart    # watch mode for dasher and chart packages
-  ./build --tsc -w           # watch mode but type checking only
-  ./build --sass msg notify  # build css only for msg and notify packages
+  ./build -np              # no pnpm install, build minified
+  ./build -w dasher chart  # watch mode for dasher and chart packages
+  ./build --tsc -w         # watch mode but type checking only
+  ./build -w -l=/path      # build, watch. patch console methods in emitted js to also POST messages
+                           # to ${location.origin}/path. ui/build watch process displays received
+                           # messages as 'web' in build logs

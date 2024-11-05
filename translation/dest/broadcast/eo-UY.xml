@@ -25,7 +25,6 @@
   <string name="fullDescriptionHelp">Laŭvola longa priskribo de la elsendo. %1$s haveblas. Longeco devas esti malpli ol %2$s literoj.</string>
   <string name="sourceUrlHelp">URL kiun Lichess kontrolos por akiri PGN ĝisdatigojn. Ĝi devas esti publike alirebla en interreto.</string>
   <string name="startDateHelp">Laŭvola, se vi scias, kiam komenciĝas la evento</string>
-  <string name="credits">Citu la fonton</string>
   <string name="currentGameUrl">Nuna luda URL</string>
   <string name="downloadAllRounds">Elŝuti ĉiujn raŭndojn</string>
   <string name="resetRound">Restarigi ĉi tiun raŭndon</string>

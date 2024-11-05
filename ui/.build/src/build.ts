@@ -5,17 +5,13 @@ import { parsePackages } from './parse.ts';
 import { tsc, stopTsc } from './tsc.ts';
 import { sass, stopSass } from './sass.ts';
 import { esbuild, stopEsbuild } from './esbuild.ts';
-import { copies, stopCopies } from './copies.ts';
+import { sync, stopSync } from './sync.ts';
 import { monitor, stopMonitor } from './monitor.ts';
 import { writeManifest } from './manifest.ts';
-import { clean } from './clean.ts';
 import { type Package, env, errorMark, colors as c } from './main.ts';
 import { i18n, stopI18n } from './i18n.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
-  await stop();
-  await clean();
-
   if (env.install) cps.execSync('pnpm install', { cwd: env.rootDir, stdio: 'inherit' });
   if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
 
@@ -38,16 +34,16 @@ export async function build(pkgs: string[]): Promise<void> {
     fs.promises.mkdir(env.buildTempDir),
   ]);
 
-  await Promise.all([sass(), copies(), i18n()]);
+  await Promise.all([sass(), sync(), i18n()]);
   await esbuild(tsc());
   monitor(pkgs);
 }
 
-export async function stop(): Promise<void> {
+export async function stopBuild(): Promise<void> {
   stopMonitor();
   stopSass();
   stopTsc();
-  stopCopies();
+  stopSync();
   stopI18n();
   await stopEsbuild();
 }
@@ -70,8 +66,6 @@ export function prePackage(pkg: Package | undefined): void {
     if (stdout) env.log(stdout, { ctx: pkg.name });
   });
 }
-
-export const quantize = (n?: number, factor = 2000) => Math.floor((n ?? 0) / factor) * factor;
 
 function depsOne(pkgName: string): Package[] {
   const collect = (dep: string): string[] => [...(env.deps.get(dep) || []).flatMap(d => collect(d)), dep];

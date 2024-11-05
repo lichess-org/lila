@@ -28,7 +28,7 @@ object TournamentCsv:
         user.name.value,
         player.rating.toString,
         player.score.toString,
-        player.performanceOption.so(_.toString),
+        player.performance.so(_.toString),
         ~player.team.map(_.value),
         sheet.so(_.scoresToString)
       )

@@ -348,23 +348,23 @@ final class User(
       ctx: Context,
       me: Me
   ): Fu[Result] =
-    env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
-      case WithPerfsAndEmails(user, emails) =>
+    env.report.api.inquiries
+      .ofModId(me)
+      .zip(env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username"))
+      .flatMap { case (inquiry, WithPerfsAndEmails(user, emails)) =>
         import views.mod.{ user as ui }
         import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
 
         val nbOthers = getInt("nbOthers") | 100
 
-        val timeline = env.api
-          .modTimeline(user, withPlayBans = false)
-          .map(views.mod.timeline.renderGeneral)
+        val timeline = env.api.modTimeline
+          .load(user, withPlayBans = true)
+          .map: tl =>
+            if inquiry.exists(_.isPlay)
+            then views.mod.timeline.renderPlay(tl)
+            else views.mod.timeline.renderGeneral(tl)
           .map(lila.mod.ui.mzSection("timeline")(_))
-
-        val modLog = for
-          history <- env.mod.logApi.userHistory(user.id)
-          appeal  <- isGranted(_.Appeals).so(env.appeal.api.byId(user))
-        yield views.user.mod.modLog(history, appeal)
 
         val plan =
           isGranted(_.Admin).so(
@@ -377,11 +377,10 @@ final class User(
         val student = env.clas.api.student.findManaged(user).map2(views.user.mod.student).dmap(~_)
 
         val reportLog = isGranted(_.SeeReport).so:
-          env.report.api
-            .byAndAbout(user, Max(20))
-            .flatMap: rs =>
-              lightUserApi.preloadMany(rs.userIds).inject(rs)
-            .map(ui.reportLog(user))
+          for
+            reports <- env.report.api.by(user, Max(30))
+            _       <- lightUserApi.preloadMany(reports.flatMap(_.userIds))
+          yield ui.reportLog(user, reports)
 
         val prefs = isGranted(_.CheatHunter).so:
           env.pref.api
@@ -435,12 +434,11 @@ final class User(
           Source
             .single(ui.menu)
             .merge(modZoneSegment(actions, "actions", user))
+            .merge(modZoneSegment(reportLog, "reportLog", user))
             .merge(modZoneSegment(timeline, "timeline", user))
-            .merge(modZoneSegment(modLog, "modLog", user))
             .merge(modZoneSegment(plan, "plan", user))
             .merge(modZoneSegment(student, "student", user))
             .merge(modZoneSegment(teacher, "teacher", user))
-            .merge(modZoneSegment(reportLog, "reportLog", user))
             .merge(modZoneSegment(prefs, "prefs", user))
             .merge(modZoneSegment(rageSit, "rageSit", user))
             .merge(modZoneSegment(othersAndLogins.map(_._1), "others", user))
@@ -453,7 +451,7 @@ final class User(
             .log("User.renderModZone")
         .as(ContentTypes.EVENT_STREAM)
           .pipe(noProxyBuffer)
-    }
+      }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {

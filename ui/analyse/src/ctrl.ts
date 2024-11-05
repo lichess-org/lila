@@ -54,6 +54,7 @@ import ForecastCtrl from './forecast/forecastCtrl';
 import { ArrowKey, KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 import { PgnError } from 'chessops/pgn';
+import { confirm } from 'common/dialog';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -611,18 +612,18 @@ export default class AnalyseCtrl {
     this.withCg(cg => cg.playPremove());
   }
 
-  deleteNode(path: Tree.Path): void {
+  async deleteNode(path: Tree.Path): Promise<void> {
     const node = this.tree.nodeAtPath(path);
     if (!node) return;
     const count = treeOps.countChildrenAndComments(node);
     if (
       (count.nodes >= 10 || count.comments > 0) &&
-      !confirm(
+      !(await confirm(
         'Delete ' +
           plural('move', count.nodes) +
           (count.comments ? ' and ' + plural('comment', count.comments) : '') +
           '?',
-      )
+      ))
     )
       return;
     this.tree.deleteNodeAt(path);

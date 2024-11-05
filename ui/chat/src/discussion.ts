@@ -9,6 +9,7 @@ import { presetView } from './preset';
 import ChatCtrl from './ctrl';
 import { tempStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 

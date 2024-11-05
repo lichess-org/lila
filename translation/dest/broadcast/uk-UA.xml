@@ -30,7 +30,6 @@
   <string name="sourceUrlHelp">Посилання, яке Lichess перевірятиме, щоб отримати оновлення PGN. Воно має бути загальнодоступним в Інтернеті.</string>
   <string name="sourceGameIds">До 64 ігрових ID Lichess, відокремлені пробілами.</string>
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
-  <string name="credits">Вдячність джерелу</string>
   <string name="currentGameUrl">Посилання на поточну гру</string>
   <string name="downloadAllRounds">Завантажити всі тури</string>
   <string name="resetRound">Скинути цей раунд</string>
@@ -51,4 +50,14 @@
   <string name="ageThisYear">Вік цього року</string>
   <string name="unrated">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
+  <string name="officialWebsite">Офіційний вебсайт</string>
+  <string name="allTeams">Усі команди</string>
+  <string name="tournamentFormat">Формат турніру</string>
+  <string name="tournamentLocation">Місце турніру</string>
+  <string name="topPlayers">Найкращі гравці</string>
+  <string name="timezone">Часовий пояс</string>
+  <string name="fideRatingCategory">Категорія рейтингу FIDE</string>
+  <string name="optionalDetails">Додаткові деталі</string>
+  <string name="upcomingBroadcasts">Майбутні трансляції</string>
+  <string name="pastBroadcasts">Минулі трансляції</string>
 </resources>

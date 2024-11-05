@@ -17,38 +17,48 @@ case class ModTimeline(
     appeal: Option[Appeal],
     notes: List[Note],
     reports: List[Report],
-    playban: Option[lila.playban.UserRecord],
+    playbanRecord: Option[lila.playban.UserRecord],
     flaggedPublicLines: List[PublicLine]
 ):
   import ModTimeline.{ *, given }
 
   lazy val all: List[Event] =
-    val reportEvents: List[Event] = reports.flatMap: r =>
-      r.done.map(ReportClose(r, _)).toList ::: reportAtoms(r)
-    val appealMsgs: List[Event] = appeal.so(_.msgs.toList)
+    val reportEvents: List[Event] = reports.flatMap(reportAtoms)
+    val appealMsgs: List[Event] = appeal.so: a =>
+      a.msgs.toList.takeWhile: msg =>
+        a.mutedSince.fold(true)(msg.at.isBefore)
+    val playBans: List[Event] = playbanRecord.so(_.bans.toList).map(pb => PlayBans(NonEmptyList.one(pb)))
     val concat: List[Event] =
-      modLog ::: appealMsgs ::: notes ::: reportEvents ::: playban.so(_.bans.toList) ::: flaggedPublicLines
+      modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: flaggedPublicLines
     // latest first
     concat.sorted(using Ordering.by(at).reverse)
 
 object ModTimeline:
 
-  case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom])
-  case class ReportClose(report: Report, done: Report.Done)
+  case class ReportNewAtom(report: Report, atoms: NonEmptyList[Report.Atom]):
+    def like(r: Report): Boolean = report.room == r.room
+  case class PlayBans(list: NonEmptyList[TempBan])
 
-  type Event = Modlog | AppealMsg | Note | ReportNewAtom | ReportClose | TempBan | PublicLine
+  type Event = Modlog | AppealMsg | Note | ReportNewAtom | PlayBans | PublicLine
 
   def aggregateEvents(events: List[Event]): List[Event] =
     events.foldLeft(List.empty[Event])(mergeMany)
 
   private def mergeMany(prevs: List[Event], next: Event): List[Event] = (prevs, next) match
-    case (Nil, n)                      => List(n)
-    case (head :: rest, n: PublicLine) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
-    case (prevs, n)                    => prevs :+ n
+    case (Nil, n)          => List(n)
+    case (head :: rest, n) => mergeOne(head, n).fold(head :: mergeMany(rest, n))(_ :: rest)
 
   private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
-    case (p: PublicLine, n: PublicLine) => PublicLine.merge(p, n)
-    case _                              => none
+    case (p: PublicLine, n: PublicLine)                => PublicLine.merge(p, n)
+    case (p: PlayBans, n: PlayBans)                    => PlayBans(p.list ::: n.list).some
+    case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
+    case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) => p.copy(atoms = n.atoms ::: p.atoms).some
+    case (p: Modlog, n: Modlog)                                   => mergeModlog(p, n)
+    case _                                                        => none
+
+  private def mergeModlog(p: Modlog, n: Modlog): Option[Modlog] =
+    (p.action == n.action && p.mod.is(n.mod)).option:
+      p.copy(details = some(List(p.details, n.details).flatten.distinct.mkString(" / ")))
 
   private def reportAtoms(report: Report): List[ReportNewAtom | PublicLine] =
     report.atoms
@@ -66,8 +76,7 @@ object ModTimeline:
       case _: AppealMsg     => "appeal"
       case _: Note          => "note"
       case _: ReportNewAtom => "report-new"
-      case _: ReportClose   => "report-close"
-      case _: TempBan       => "playban"
+      case _: PlayBans      => "playban"
       case _: PublicLine    => "flagged-line"
     def flair: Flair = Flair:
       e match
@@ -83,16 +92,14 @@ object ModTimeline:
         case _: AppealMsg     => "symbols.left-speech-bubble"
         case _: Note          => "objects.label"
         case _: ReportNewAtom => "symbols.exclamation-mark"
-        case _: ReportClose   => "objects.package"
-        case _: TempBan       => "objects.hourglass-not-done"
+        case _: PlayBans      => "objects.hourglass-not-done"
         case _: PublicLine    => "symbols.exclamation-mark"
     def at: Instant = e match
       case e: Modlog               => e.date
       case e: AppealMsg            => e.at
       case e: Note                 => e.date
       case ReportNewAtom(_, atoms) => atoms.head.at
-      case ReportClose(_, done)    => done.at
-      case e: TempBan              => e.date
+      case e: PlayBans             => e.list.head.date
       case e: PublicLine           => e.date
     def url(u: User): String = e match
       case _: AppealMsg => routes.Appeal.show(u.username).url
@@ -105,14 +112,21 @@ object ModTimeline:
     case Play
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
-      case _: TempBan                                                         => angle != Angle.Comm
-      case _: ReportClose                                                     => angle != Angle.Comm
-      case l: Modlog if l.action == Modlog.chatTimeout && angle != Angle.Comm => false
+      case _: PlayBans                                     => angle != Angle.Comm
+      case l: Modlog if l.action == Modlog.chatTimeout     => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.deletePost      => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.disableTeam     => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.teamKick        => angle != Angle.Play
+      case l: Modlog if l.action == Modlog.blankedPassword => angle == Angle.None
+      case l: Modlog if l.action == Modlog.weakPassword    => angle == Angle.None
+      case l: Modlog if l.action == Modlog.troll           => angle != Angle.Play
       case l: Modlog if l.action == Modlog.modMessage =>
         angle match
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true
-      case _ => true
+      case r: ReportNewAtom if r.report.is(_.Comm) => angle != Angle.Play
+      case _: PublicLine                           => angle != Angle.Play
+      case _                                       => true
 
 final class ModTimelineApi(
     modLogApi: ModlogApi,
@@ -124,14 +138,15 @@ final class ModTimelineApi(
     userRepo: lila.user.UserRepo
 )(using Executor)(using scheduler: Scheduler):
 
-  def apply(user: User, withPlayBans: Boolean)(using Me): Fu[ModTimeline] =
+  def load(user: User, withPlayBans: Boolean)(using me: Me): Fu[ModTimeline] =
     for
       modLogAll <- Granter(_.ModLog).so(modLogApi.userHistory(user.id))
       modLog = modLogAll.filter(filterModLog)
       appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
-      notes = notesAll.filter(filterNote)
-      reportsAll <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
+      notes       = notesAll.filter(filterNote)
+      loadReports = Granter(_.SeeReport) && me.isnt(user)
+      reportsAll <- loadReports.so(reportApi.allReportsAbout(user, Max(50)))
       reports = reportsAll.filter(filterReport)
       playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))
@@ -147,7 +162,8 @@ final class ModTimelineApi(
     else if note.text.startsWith("Appeal reply:") then false
     else true
 
-  private def filterReport(r: Report): Boolean = !r.isSpontaneous
+  private def filterReport(r: Report): Boolean =
+    !r.isSpontaneous && !r.isAppeal
 
   private object modsList:
     var all: Set[ModId]               = Set(UserId.lichess.into(ModId))

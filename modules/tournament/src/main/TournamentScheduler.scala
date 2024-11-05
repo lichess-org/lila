@@ -341,7 +341,7 @@ Thank you all, you rock!""".some,
           atOption(today, hour + 2).map { date =>
             Schedule(Hourly, Blitz, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
           },
-          atOption(today, hour + 3).map { date =>
+          (hour < 21).so(atOption(today, hour + 3)).map { date =>
             Schedule(Hourly, Rapid, Standard, opening.fen.some, date.pipe(orTomorrow)).plan
           }
         ).flatten

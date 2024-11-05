@@ -259,6 +259,7 @@
     <item quantity="one">%s lojë me ju</item>
     <item quantity="other">%s lojëra me ju</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Anuloje</string>
   <string name="whiteTimeOut">Të bardhit i mbaroi koha</string>
   <string name="blackTimeOut">Të ziut i mbaroi koha</string>
@@ -437,7 +438,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="block">Bllokoje</string>
   <string name="blocked">I bllokuar</string>
   <string name="unblock">Zhbllokoje</string>
-  <string name="followsYou">Ju ndjek juve</string>
   <string name="xStartedFollowingY">%1$s nisi të ndjekë %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s ndjekës</item>
@@ -983,4 +983,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="nothingToSeeHere">S’ka ç’shihet këtu tani.</string>
+  <string name="stats">Statistika</string>
 </resources>

@@ -72,6 +72,7 @@ case class Report(
 
   def isRecentComm                 = open && room == Room.Comm
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
+  def isPlay                       = room == Room.Boost || room == Room.Cheat
 
   def isAppeal                            = room == Room.Other && atoms.head.text == Report.appealText
   def isAppealInquiryByMe(using me: MyId) = isAppeal && atoms.head.by.is(me)
@@ -140,10 +141,6 @@ object Report:
       report.score.value.toInt +
         (isOnline.so(1000)) +
         (report.closed.so(-999999))
-
-  case class ByAndAbout(by: List[Report], about: List[Report]):
-    def all     = by ::: about
-    def userIds = all.flatMap(_.userIds)
 
   case class Candidate(
       reporter: Reporter,

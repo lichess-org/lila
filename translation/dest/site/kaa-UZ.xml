@@ -236,7 +236,6 @@
   <string name="block">Bloklaw</string>
   <string name="blocked">Bloklanǵan</string>
   <string name="unblock">Bloktan shıǵarıw</string>
-  <string name="followsYou">Sizge jazılǵan</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s jazılıwshı</item>
     <item quantity="other">%s jazılıwshı</item>

@@ -59,8 +59,15 @@ function compile(sources: string[], logAll = true) {
   if (!sources.length) return sources.length;
 
   const sassExec =
-    process.env.SASS_PATH || path.join(env.buildDir, 'dart-sass', `${ps.platform}-${ps.arch}`, 'sass');
+    process.env.SASS_PATH ||
+    fs.realpathSync(
+      path.join(env.buildDir, 'node_modules', `sass-embedded-${ps.platform}-${ps.arch}`, 'dart-sass', 'sass'),
+    );
 
+  if (!fs.existsSync(sassExec)) {
+    env.error(`Sass executable not found '${c.cyan(sassExec)}'`, 'sass');
+    env.done(1, 'sass');
+  }
   if (logAll) sources.forEach(src => env.log(`Building '${c.cyan(src)}'`, { ctx: 'sass' }));
   else env.log('Building', { ctx: 'sass' });
 

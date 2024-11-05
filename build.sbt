@@ -491,7 +491,6 @@ lazy val tree = module("tree",
   Seq(chess.playJson)
 )
 
-// todo remove common, move common.Icon to ui.Icon
 lazy val ui = module("ui",
   Seq(core, coreI18n),
   Seq()

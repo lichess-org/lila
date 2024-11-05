@@ -109,7 +109,7 @@
   <string name="mateInOneIntro">شما زمانی برنده می شوید که حریفتان در برابر کیش نمی تواند از خودش دفاع کند.</string>
   <string name="attackYourOpponentsKing">به شاه حریف حمله کنید
 طوری که نتواند دفاع کند!</string>
-  <string name="mateInOneComplete">تبریک میگم! این گونه شما در بازی شطرنج برنده می شوید!</string>
+  <string name="mateInOneComplete">شادباش! اینگونه بازی شطرنج را می‌برید!</string>
   <string name="intermediate">متوسط</string>
   <string name="boardSetup">چیدمان صفحه</string>
   <string name="howTheGameStarts">بازی چگونه می‌آغازد</string>
@@ -211,11 +211,11 @@
   <string name="register">نام نویسی</string>
   <string name="getAFreeLichessAccount">یک حساب کاربری رایگان در لیچس دریافت کنید</string>
   <string name="practice">تمرین</string>
-  <string name="learnCommonChessPositions">وضعیت‌های رایج شطرنج را بیاموزید</string>
+  <string name="learnCommonChessPositions">یادگیریِ وضعیت‌های رایج شطرنج</string>
   <string name="puzzles">معماها</string>
   <string name="exerciseYourTacticalSkills">مهارت‌های راهکنشی‌تان را تمرین کنید</string>
   <string name="videos">ویدیو ها</string>
-  <string name="watchInstructiveChessVideos">فیلم های آموزنده شطرنج را ببینید</string>
+  <string name="watchInstructiveChessVideos">تماشای فیلم آموزندهٔ شطرنج</string>
   <string name="playPeople">با مردم بازی کنید</string>
   <string name="opponentsFromAroundTheWorld">حریف هایی از سراسر دنیا</string>
   <string name="playMachine">بازی در برابر رایانه</string>

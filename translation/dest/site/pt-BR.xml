@@ -259,6 +259,7 @@
     <item quantity="one">%s partidas contra você</item>
     <item quantity="other">%s partidas contra você</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Tempo das brancas esgotado</string>
   <string name="blackTimeOut">Tempo das pretas esgotado</string>
@@ -435,7 +436,6 @@
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
-  <string name="followsYou">Segue você</string>
   <string name="xStartedFollowingY">%1$s começou a seguir %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidores</item>
@@ -993,4 +993,5 @@ Deixe em branco para começar as partidas na posição inicial padrão.</string>
   <string name="showMeEverything">Mostrar tudo</string>
   <string name="lichessPatronInfo">Lichess é um software de código aberto, totalmente grátis e sem fins lucrativos. Todos os custos operacionais, de desenvolvimento, e os conteúdos são financiados unicamente através de doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
+  <string name="stats">Estatísticas</string>
 </resources>

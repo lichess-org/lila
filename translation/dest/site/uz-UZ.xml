@@ -434,7 +434,6 @@
   <string name="block">Bloklash</string>
   <string name="blocked">Bloklangan</string>
   <string name="unblock">Blokdan chiqarish</string>
-  <string name="followsYou">Sizni kuzatayabdi</string>
   <string name="xStartedFollowingY">%1$s o\'yinchi %2$s ni kuzatishni boshladi</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s kuzatuvchi</item>

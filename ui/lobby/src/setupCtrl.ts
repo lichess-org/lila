@@ -23,6 +23,7 @@ import {
   timeVToTime,
   variants,
 } from './options';
+import { alert } from 'common/dialog';
 
 const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf =>
   variant != 'standard' && variant != 'fromPosition'
@@ -319,7 +320,7 @@ export default class SetupController {
 
     if (!ok) {
       const errs: { [key: string]: string } = await response.json();
-      alert(
+      await alert(
         errs
           ? Object.keys(errs)
               .map(k => `${k}: ${errs[k]}`)
