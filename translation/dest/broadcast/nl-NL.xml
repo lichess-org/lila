@@ -70,7 +70,7 @@
   <string name="ratingDiff">Ratingverschil</string>
   <string name="gamesThisTournament">Partijen in dit toernooi</string>
   <string name="score">Score</string>
-  <string name="perPage">%s Per pagina</string>
+  <string name="perPage">%s per pagina</string>
   <string name="allTeams">Alle teams</string>
   <string name="tournamentFormat">Toernooivorm</string>
   <string name="tournamentLocation">Toernooilocatie</string>
@@ -79,6 +79,6 @@
   <string name="fideRatingCategory">FIDE-rating categorie</string>
   <string name="optionalDetails">Optionele info</string>
   <string name="upcomingBroadcasts">Aankomende uitzendingen</string>
-  <string name="pastBroadcasts">Uitzendingen in het verleden</string>
+  <string name="pastBroadcasts">Afgelopen uitzendingen</string>
   <string name="allBroadcastsByMonth">Alle uitzendingen per maand weergeven</string>
 </resources>
