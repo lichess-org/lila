@@ -107,7 +107,7 @@
   <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="openingEndgameExplorer">Biblioteka otwarć i końcówek</string>
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Zagraj pierwsze posunięcie z przeglądarki otwarć/końcówek</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Zagraj pierwsze posunięcie z biblioteki otwarć</string>
   <string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Bez przegranej ze względu na regułę 50 ruchów</string>
   <string name="winOr50MovesByPriorMistake">Zwycięstwo lub 50 posunięć bez rozstrzygnięcia</string>
