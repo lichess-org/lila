@@ -201,6 +201,7 @@ object BSONHandlers:
         "s"   -> o.score,
         "r"   -> o.rank,
         "w"   -> o.rankRatio,
+        "e"   -> o.performance,
         "f"   -> o.freq.map(_.id),
         "p"   -> o.speed.map(_.id),
         "v"   -> o.perf.id,
