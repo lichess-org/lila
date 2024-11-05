@@ -41,5 +41,5 @@
   <string name="officialWebsite">Официален уебсайт</string>
   <string name="standings">Класиране</string>
   <string name="gamesThisTournament">Игри в този турнир</string>
-  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Резултат</string>
+  <string name="score">Резултат</string>
 </resources>

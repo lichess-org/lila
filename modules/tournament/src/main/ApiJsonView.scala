@@ -85,9 +85,10 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
     Json.obj(
       "tournament" -> baseJson(e.tour),
       "player" -> Json.obj(
-        "games" -> e.entry.nbGames,
-        "score" -> e.entry.score,
-        "rank"  -> e.entry.rank
+        "games"       -> e.entry.nbGames,
+        "score"       -> e.entry.score,
+        "rank"        -> e.entry.rank,
+        "performance" -> e.entry.performance
       )
     )
 

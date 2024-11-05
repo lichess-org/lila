@@ -392,7 +392,7 @@
   <string name="startedStreaming">comezou unha retransmisión</string>
   <string name="xStartedStreaming">%s comezou unha retransmisión</string>
   <string name="averageElo">Puntuación media</string>
-  <string name="location">Ubicación</string>
+  <string name="location">Lugar</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
