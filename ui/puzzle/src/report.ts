@@ -1,6 +1,6 @@
 import * as xhr from './xhr';
 import PuzzleCtrl from './ctrl';
-import { ThemeKey } from './interfaces';
+import { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
 import { StoredProp, storedIntProp } from 'common/storage';
@@ -12,33 +12,33 @@ export default class Report {
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
   tsHideReportDialog: StoredProp<number>;
 
-  constructor(readonly ctrl: PuzzleCtrl) {
+  constructor(readonly id: PuzzleId) {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
   }
 
   // (?)take the eval as arg instead of taking it from the node to be sure it's the most up to date
   // All non-mates puzzle should have one and only one solution, if that is not the case, report it back to backend
-  checkForMultipleSolutions(ev: Tree.ClientEval): void {
+  checkForMultipleSolutions(ev: Tree.ClientEval, ctrl: PuzzleCtrl): void {
     // first, make sure we're in view mode so we know the solution is the mainline
     // do not check, checkmate puzzles
     if (
-      !this.ctrl.session.userId ||
+      !ctrl.session.userId ||
       this.reported ||
-      this.ctrl.mode != 'view' ||
-      this.ctrl.threatMode() ||
+      ctrl.mode != 'view' ||
+      ctrl.threatMode() ||
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
-      this.ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
+      ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // if the user has chosen to hide the dialog less than a week ago
       this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
     )
       return;
-    const node = this.ctrl.node;
+    const node = ctrl.node;
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
     if (
-      node.ply >= this.ctrl.initialNode.ply &&
-      nodeTurn == this.ctrl.pov &&
-      this.ctrl.mainline.some((n: Tree.Node) => n.id == node.id)
+      node.ply >= ctrl.initialNode.ply &&
+      nodeTurn == ctrl.pov &&
+      ctrl.mainline.some((n: Tree.Node) => n.id == node.id)
     ) {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
       // stricly identical to lichess-puzzler v49 check
@@ -46,7 +46,7 @@ export default class Report {
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
-        winningChances.povDiff(this.ctrl.pov, bestEval, secondBestEval) < 0.35
+        winningChances.povDiff(ctrl.pov, bestEval, secondBestEval) < 0.35
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
@@ -92,7 +92,7 @@ export default class Report {
         dlg.close();
       });
       $('.apply', dlg.view).on('click', () => {
-        xhr.report(this.ctrl.data.puzzle.id, reason);
+        xhr.report(this.id, reason);
         dlg.close();
       });
       dlg.showModal();

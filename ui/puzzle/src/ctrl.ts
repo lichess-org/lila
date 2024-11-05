@@ -127,7 +127,7 @@ export default class PuzzleCtrl implements ParentCtrl {
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === this.path) {
-            this.report.checkForMultipleSolutions(ev);
+            this.report.checkForMultipleSolutions(ev, this);
             this.setAutoShapes();
             this.redraw();
           }
@@ -138,7 +138,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
-    this.report = new Report(this);
+    this.report = new Report(this.data.puzzle.id);
 
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
