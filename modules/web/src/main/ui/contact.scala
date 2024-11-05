@@ -316,16 +316,16 @@ object contact:
             ),
             Leaf(
               "contact-broadcast",
-              "Contact the Broadcast Team",
+              "Broadcast a tournament on Lichess",
               frag(
                 p(
-                  "If you want to make your broadcasts official on Lichess, ",
-                  "or have any questions about them."
+                  "If you want to officially broadcast a tournament on Lichess, ",
+                  "or have any questions about our broadcasts:"
                 ),
                 p(
-                  "Please contact ",
+                  "Please contact our Broadcast Team at ",
                   contactEmailLink("broadcast@lichess.org"),
-                  " or ",
+                  " or on ",
                   a(href := "https://discord.gg/Syx9CbN8Jv")("our discord"),
                   "."
                 )
