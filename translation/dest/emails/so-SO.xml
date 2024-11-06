@@ -8,7 +8,7 @@
   <string name="passwordReset_clickOrIgnore">Haddii uu codsigani adiga kaa yimid, riix mareegtan hoose. Haddii kale, iska dhaaf farriintan.</string>
   <string name="emailChange_subject">Hubi cinwaankaaga cusub, %s</string>
   <string name="emailChange_intro">Waxaad codsatay beddelidda cinwaankaaga.</string>
-  <string name="emailChange_click">Si aad u hubsatid in aad cinwaankan leedahay, fadlan riix mareegtan hoose:</string>
+  <string name="emailChange_click">Si aad u caddaysid in aad cinwaankan leedahay, fadlan riix mareegtan hoose:</string>
   <string name="welcome_subject">Ku soo dhawow lichess.org, %s</string>
   <string name="welcome_text">Waxaad si guul leh akoon uga samaysatay https://lichess.org.
 
