@@ -259,6 +259,7 @@
     <item quantity="one">%s mar buu kula kulmay</item>
     <item quantity="other">%s mar buu kula kulmay</item>
   </plurals>
+  <string name="ok">Waayahay</string>
   <string name="cancel">Ka noqo</string>
   <string name="whiteTimeOut">Wakhtigii ba ka dhamaaday cadaanka</string>
   <string name="blackTimeOut">Wakhtigaa ka dhacay madowga</string>
@@ -305,11 +306,29 @@
   <string name="send">Dir</string>
   <string name="incrementInSeconds">Taran ah sikino</string>
   <string name="freeOnlineChess">Shataranjiga Onlineka ah ee bilaashka ah</string>
+  <plurals name="nbWins">
+    <item quantity="one">%s guulood</item>
+    <item quantity="other">%s guulood</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s guuldarro</item>
+    <item quantity="other">%s guuldarro</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s baraaje</item>
+    <item quantity="other">%s baraaje</item>
+  </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s ciyaaraya</item>
     <item quantity="other">%s ciyaaraya</item>
   </plurals>
+  <string name="exportGames">La bax ciyaaro</string>
   <string name="ratingRange">Qiimayntayda</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Sii %s sikin</item>
+    <item quantity="other">Sii %s sikin</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Akoonkani wuxu jabiyey xeerarka adeegga ee Lichess</string>
   <string name="yourOpponentProposesATakeback">Horjeedahaagu wuxuu kaa dalbaday ka noqosho</string>
   <plurals name="nbStudies">
     <item quantity="one">%s cashar</item>
