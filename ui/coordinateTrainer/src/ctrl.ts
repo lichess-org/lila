@@ -1,7 +1,7 @@
 import { sparkline } from '@fnando/sparkline';
 import * as xhr from 'common/xhr';
 import { throttlePromiseDelay } from 'common/timing';
-import { withEffect } from 'common';
+import { myUserId, withEffect } from 'common';
 import { makeVoice, VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'common/storage';
 import { Api as CgApi } from 'chessground/api';
@@ -63,7 +63,7 @@ export default class CoordinateTrainerCtrl {
   chessground: CgApi | undefined;
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
-  isAuth = document.body.hasAttribute('data-user');
+  isAuth = !!myUserId();
   keyboardInput: HTMLInputElement;
   voice: VoiceCtrl;
   modeScores: ModeScores = this.config.scores;

@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { Toggle, onClickAway } from 'common/common';
+import { Toggle, myUserId, onClickAway } from 'common/common';
 import { bindMobileMousedown } from 'common/device';
 import * as licon from 'common/licon';
 import { MaybeVNode, MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
@@ -28,7 +28,7 @@ export const menu = (
     : undefined;
 
 export class BoardMenu {
-  anonymous: boolean = document.querySelector('body[data-user]') === null;
+  anonymous: boolean = !myUserId();
 
   constructor(readonly redraw: Redraw) {}
 

@@ -2,7 +2,7 @@ import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interface
 import { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
 import { StudyMemberCtrl } from '../studyMembers';
 import { AnalyseSocketSend } from '../../socket';
-import { Prop, Toggle, defined, notNull, prop, toggle } from 'common';
+import { Prop, Toggle, defined, myUserId, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
 import { StudyChapters } from '../studyChapters';
@@ -129,7 +129,7 @@ export default class RelayCtrl {
 
   isOfficial = () => !!this.data.tour.tier;
 
-  isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
+  isStreamer = () => this.streams.some(([id]) => id === myUserId());
 
   pinStreamer = () =>
     defined(this.data.pinnedStream) &&

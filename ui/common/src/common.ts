@@ -125,3 +125,7 @@ export function frag<T extends Node = Node>(html: string): T {
 export function $as<T>(cashOrHtml: Cash | string): T {
   return (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 }
+
+export function myUserId(): string | undefined {
+  return document.body.dataset.user;
+}

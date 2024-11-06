@@ -1,5 +1,5 @@
 import { h, VNode } from 'snabbdom';
-import { Prop, prop } from 'common';
+import { myUserId, Prop, prop } from 'common';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
@@ -55,7 +55,7 @@ export class ExplorerConfigCtrl {
     readonly onClose: () => void,
     previous?: ExplorerConfigCtrl,
   ) {
-    this.myName = document.body.dataset['user'];
+    this.myName = myUserId();
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
       name => name && name != this.myName,
     );
@@ -82,7 +82,7 @@ export class ExplorerConfigCtrl {
       byDbData,
       playerName: {
         open: prevData?.playerName.open || prop(false),
-        value: storedStringProp('analyse.explorer.player.name', document.body.dataset['user'] || ''),
+        value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
       color: prevData?.color || prop('white'),

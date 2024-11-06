@@ -3,6 +3,7 @@ import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
 import { objectStorage, dbExists, type ObjectStorage } from './objectStorage';
 import { pubsub, type PubsubEvent } from './pubsub';
+import { myUserId } from './common';
 
 type Sri = string;
 type Tpe = string;
@@ -85,7 +86,7 @@ export default class StrongSocket implements SocketI {
       pongTimeout: 9000,
       autoReconnectDelay: 3500,
       protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-      isAuth: document.body.hasAttribute('data-user'),
+      isAuth: !!myUserId(),
       ...(settings.options || {}),
       pingDelay: 2500,
     };
@@ -370,14 +371,14 @@ export default class StrongSocket implements SocketI {
     if (this.stats.n > 1) data.stdev = Math.sqrt(this.stats.m2 / (this.stats.n - 1));
     this.stats.m2 = this.stats.n = this.stats.mean = 0;
 
-    localStorage.setItem(`socket.test.${document.body.dataset.user}`, JSON.stringify(data));
+    localStorage.setItem(`socket.test.${myUserId()}`, JSON.stringify(data));
     return this.flushStats();
   }
 
   private async flushStats() {
     if (!this.isTestUser) return;
 
-    const storeKey = `socket.test.${document.body.dataset.user}`;
+    const storeKey = `socket.test.${myUserId()}`;
     const last = localStorage.getItem(storeKey);
 
     if (!last && !this.isTestRunning && !(await dbExists({ store: storeKey }))) return;
