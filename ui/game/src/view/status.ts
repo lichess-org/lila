@@ -60,7 +60,7 @@ export default function status(ctrl: Ctrl): string {
           return `${d.game.turns % 2 === 0 ? i18n.site.whiteLeftTheGame : i18n.site.blackLeftTheGame} • ${i18n.site.draw}`;
       }
     case 'draw': {
-      if (d.game.fen.split(' ')[4] === '100')
+      if (d.game.fiftyMoves || d.game.fen.split(' ')[4] === '100')
         return `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`;
       if (d.game.threefold) return `${i18n.site.threefoldRepetition} • ${i18n.site.draw}`;
       if (insufficientMaterial(d.game.variant.key, d.game.fen))

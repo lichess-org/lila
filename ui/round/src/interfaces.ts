@@ -138,6 +138,7 @@ export interface ApiMove {
   winner?: Color;
   check?: boolean;
   threefold?: boolean;
+  fiftyMoves?: boolean;
   wDraw?: boolean;
   bDraw?: boolean;
   crazyhouse?: CrazyData;

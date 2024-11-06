@@ -445,6 +445,7 @@ export default class RoundController implements MoveRootCtrl {
       pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
+    d.game.fiftyMoves = !!o.fiftyMoves;
     const step = {
       ply: this.lastPly() + 1,
       fen: o.fen,
