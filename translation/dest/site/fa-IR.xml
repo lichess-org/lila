@@ -60,7 +60,7 @@
   <string name="depthX">عمق %s</string>
   <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
   <string name="loadingEngine">پردازشگر بارمی‌گذارد...</string>
-  <string name="calculatingMoves">در حال محاسبه حرکات...</string>
+  <string name="calculatingMoves">محاسبهٔ حرکت‌ها...</string>
   <string name="engineFailed">خطا در بارگذاری پردازشگر</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">بررسی عمیق‌تر</string>
@@ -273,8 +273,8 @@
   <string name="yourOpponentOffersADraw">حریف شما پیشنهاد تساوی می دهد</string>
   <string name="accept">پذیرفتن</string>
   <string name="decline">رد کردن</string>
-  <string name="playingRightNow">بازی در حال انجام</string>
-  <string name="eventInProgress">بازی در حال انجام</string>
+  <string name="playingRightNow">هم‌اکنون بازی می‌کنند</string>
+  <string name="eventInProgress">اکنون بازی می‌کنند</string>
   <string name="finished">تمام شده</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
@@ -323,8 +323,8 @@
     <item quantity="other">%s مساوی</item>
   </plurals>
   <plurals name="nbPlaying">
-    <item quantity="one">%s بازی در حال انجام</item>
-    <item quantity="other">%s بازی در حال انجام</item>
+    <item quantity="one">%s بازیِ اکنونی</item>
+    <item quantity="other">%s بازیِ اکنونی</item>
   </plurals>
   <string name="exportGames">برون‏بُرد بازی‌ها</string>
   <string name="ratingRange">محدوده درجه‌بندی</string>
@@ -421,7 +421,7 @@
   <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
   <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
-  <string name="reconnecting">در حال بازاتصال</string>
+  <string name="reconnecting">بازاتصال...</string>
   <string name="noNetwork">بُرون‌خط</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s دوست بَرخط</item>
@@ -461,7 +461,7 @@
   <string name="winner">برنده</string>
   <string name="standing">رده‌بندی</string>
   <string name="createANewTournament">درست کردن یک مسابقه ی جدید</string>
-  <string name="tournamentCalendar">برنامه ی مسابقات</string>
+  <string name="tournamentCalendar">گاهشمار مسابقات</string>
   <string name="conditionOfEntry">شرایط ورود:</string>
   <string name="advancedSettings">تنظیمات پیشرفته</string>
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
@@ -811,8 +811,8 @@
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
   <string name="invalidFen">وضعیت نامعتبر</string>
   <string name="custom">دلخواه</string>
-  <string name="notifications">گزارش</string>
-  <string name="notificationsX">هشدار: %1$s</string>
+  <string name="notifications">اعلان</string>
+  <string name="notificationsX">اعلان: %1$s</string>
   <string name="perfRatingX">درجه‌بندی: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s ثانیه برای شروع اولین حرکت</item>
@@ -825,11 +825,11 @@
   <string name="resumePractice">از سرگیری تمرین</string>
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>
-  <string name="computerThinking">محاسبه رایانه‌ای ...</string>
+  <string name="computerThinking">محاسبهٔ رایانه‌ای...</string>
   <string name="seeBestMove">دیدن بهترین حرکت</string>
   <string name="hideBestMove">پنهان کردن بهترین حرکت</string>
   <string name="getAHint">راهنمایی</string>
-  <string name="evaluatingYourMove">در حال بررسی حرکت شما...</string>
+  <string name="evaluatingYourMove">حرکت‌تان را می‌ارزیابد...</string>
   <string name="whiteWinsGame">سفید می‌برد</string>
   <string name="blackWinsGame">سیاه می‌برد</string>
   <string name="learnFromYourMistakes">از اشتباه‌های‌تان بیاموزید</string>
