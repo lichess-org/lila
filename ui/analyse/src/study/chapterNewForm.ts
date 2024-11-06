@@ -45,6 +45,7 @@ export class StudyChapterNewForm {
   constructor(
     private readonly send: StudySocketSend,
     readonly chapters: StudyChapters,
+    readonly isBroadcast: boolean,
     readonly setTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
@@ -331,7 +332,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               ),
             ]),
           ]),
-          h('div.form-group', [
+          h('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
             h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
             h(
               'select#chapter-mode.form-control',

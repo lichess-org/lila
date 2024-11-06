@@ -15,6 +15,7 @@ export class StudyChapterEditForm {
   constructor(
     private readonly send: StudySocketSend,
     private readonly chapterConfig: (id: string) => Promise<StudyChapterConfig>,
+    readonly isBroadcast: boolean,
     readonly redraw: Redraw,
   ) {}
 
@@ -118,7 +119,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
           (['white', 'black'] as const).map(color => option(color, data.orientation, i18n.site[color])),
         ),
       ]),
-      h('div.form-group.form-half', [
+      h('div.form-group.form-half' + (ctrl.isBroadcast ? '.none' : ''), [
         h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
         h(
           'select#chapter-mode.form-control',
@@ -126,7 +127,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         ),
       ]),
     ]),
-    h('div.form-group', [
+    h('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
       h('label.form-label', { attrs: { for: 'chapter-description' } }, i18n.study.pinnedChapterComment),
       h(
         'select#chapter-description.form-control',

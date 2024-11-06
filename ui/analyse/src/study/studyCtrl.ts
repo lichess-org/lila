@@ -151,6 +151,7 @@ export default class StudyCtrl {
     this.chapters = new StudyChaptersCtrl(
       data.chapters!,
       this.send,
+      defined(relayData),
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
       () => this.data.federations,
