@@ -214,7 +214,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private val spaceRegex      = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
-  val lichessFontFaceCss = spaceless:
+  def lichessFontFaceCss = spaceless:
     s"""<style>@font-face {
         font-family: 'lichess';
         font-display: block;

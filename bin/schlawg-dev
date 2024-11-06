@@ -4,5 +4,5 @@ cd "$(dirname "${BASH_SOURCE:-$0}")/.."
 trap 'tmux kill-session -t muxlog1234 2>/dev/null' EXIT
 # l=/ui-build
 tmux new-session -d -s muxlog1234 \
-  'journalctl --user -fu lila -o cat | grep -E -v fishnet & ui/build -cdw & wait; exec bash' \; \
+  'journalctl --user -fu lila -o cat | grep -E -v fishnet & ui/build -cdwl=/ui-build & wait; exec bash' \; \
   attach-session -d -t muxlog1234 \;

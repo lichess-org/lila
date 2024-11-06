@@ -177,6 +177,28 @@ export function view(ctrl: StudyShare): VNode {
               },
               'GIF',
             ),
+            h(
+              'button.button.text',
+              {
+                hook: bind('click', () =>
+                  xhrText(`/study/${studyId}.pgn`).then(pgn =>
+                    site.asset.loadEsm('local.dev', { init: { pgn, name: ctrl.data.name } }),
+                  ),
+                ),
+              },
+              'bot editor',
+            ),
+            /*h(
+              'button.button.text',
+              {
+                hook: bind('click', () =>
+                  xhrText(`/study/${studyId}/${chapter.id}.pgn`).then(pgn =>
+                    site.asset.loadEsm('local.dev', { init: { pgn, name: chapter.name } }),
+                  ),
+                ),
+              },
+              'chapter to bot editor',
+            ),*/
           ]),
           h('form.form3', [
             ...(ctrl.relay

@@ -12,6 +12,7 @@ object ContentSecurityPolicy:
       frameSrc = List("'self'", assetDomain.value, "www.youtube.com", "player.twitch.tv", "player.vimeo.com"),
       workerSrc = List("'self'", assetDomain.value, "blob:"),
       imgSrc = List("'self'", "blob:", "data:", "*"),
+      mediaSrc = List("'self'", "blob:", assetDomain.value),
       scriptSrc = List("'self'", assetDomain.value),
       fontSrc = List("'self'", assetDomain.value),
       baseUri = List("'none'")
@@ -26,6 +27,7 @@ object ContentSecurityPolicy:
       "frame-src "   -> frameSrc,
       "worker-src "  -> workerSrc,
       "img-src "     -> imgSrc,
+      "media-src "   -> mediaSrc,
       "script-src "  -> scriptSrc,
       "font-src "    -> fontSrc,
       "base-uri "    -> baseUri

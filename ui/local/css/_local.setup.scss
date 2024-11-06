@@ -1,0 +1,118 @@
+body:has(.base-view.setup-view) {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+.setup-view {
+  max-width: 640px;
+  max-height: 800px;
+  user-select: none;
+
+  div.player {
+    aspect-ratio: 1;
+    width: min(70%, 28vh);
+  }
+  .vs {
+    @extend %flex-column;
+    align-items: center;
+    gap: 0.5em;
+  }
+  .actions {
+    @extend %flex-around;
+    align-items: start;
+    gap: calc(20px * $scale-factor);
+
+    button {
+      font-size: calc(40px * $scale-factor);
+      padding: calc(6px * $scale-factor);
+      color: $c-font;
+      &:hover {
+        color: $c-font-clear;
+      }
+    }
+  }
+
+  .switch {
+    @extend %flex-around;
+    font-size: 1.5em;
+    cursor: pointer;
+    align-items: center;
+    padding: 0.5em;
+    border-radius: 10px;
+    width: min(70%, 28vh);
+
+    &[data-color='white'] {
+      @extend %metal-light;
+      color: $c-dark;
+      &:hover {
+        @extend %metal-light-hover;
+      }
+    }
+    &[data-color='black'] {
+      @extend %metal-dark;
+      color: #ddd;
+      &:hover {
+        @extend %metal-dark-hover;
+      }
+    }
+    &::after {
+      font-family: lichess;
+      font-size: 32px;
+      content: $licon-Switch;
+    }
+  }
+  .switch.disabled,
+  .random.disabled {
+    pointer-events: none;
+  }
+
+  .clock {
+    @extend %flex-column;
+    gap: 4px;
+  }
+  .chin {
+    @extend %flex-around;
+    align-items: center;
+
+    padding: 1em;
+    border-radius: 5px;
+    border-top: 1px solid $c-border;
+    background-color: $c-bg-zebra2;
+    label {
+      @extend %flex-center;
+      justify-content: end;
+      gap: 1ch;
+    }
+    select {
+      padding: 4px;
+    }
+  }
+}
+
+@media (max-width: at-most($x-large)) {
+  div#main-wrap {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100vw;
+    > * {
+      display: none;
+    }
+    &::before {
+      content: '';
+      display: block;
+      background-image: url('/assets/lifat/bots/image/not-worthy.webp');
+      background-size: contain;
+      background-repeat: no-repeat;
+      min-width: 320px;
+      min-height: 320px;
+    }
+    &::after {
+      content: '\A Your device is not worthy.';
+      font-size: 32px;
+      text-align: center;
+    }
+  }
+}

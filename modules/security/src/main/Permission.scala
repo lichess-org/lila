@@ -65,7 +65,8 @@ object Permission:
       PuzzleCurator,
       OpeningWiki,
       Presets,
-      Feed
+      Feed,
+      BotEditor
     ),
     "Dev" -> List(
       Cli,

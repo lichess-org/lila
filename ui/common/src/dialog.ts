@@ -1,7 +1,7 @@
 import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
 import { escapeHtml, frag, $as } from './common';
-import { eventJanitor } from './event';
+import { Janitor } from './event';
 import * as xhr from './xhr';
 import * as licon from './licon';
 import { pubsub } from './pubsub';
@@ -218,8 +218,8 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 
 class DialogWrapper implements Dialog {
   private resolve?: (dialog: Dialog) => void;
-  private actionEvents = eventJanitor();
-  private dialogEvents = eventJanitor();
+  private actionEvents = new Janitor();
+  private dialogEvents = new Janitor();
   private observer: MutationObserver = new MutationObserver(list => {
     for (const m of list)
       if (m.type === 'childList')
@@ -305,7 +305,7 @@ class DialogWrapper implements Dialog {
 
   // attach/reattach existing listeners or provide a set of new ones
   updateActions = (actions = this.o.actions) => {
-    this.actionEvents.removeAll();
+    this.actionEvents.cleanup();
     if (!actions) return;
     for (const a of Array.isArray(actions) ? actions : [actions]) {
       for (const event of Array.isArray(a.event) ? a.event : a.event ? [a.event] : ['click']) {
@@ -337,8 +337,8 @@ class DialogWrapper implements Dialog {
       if ('hashed' in css) site.asset.removeCssPath(css.hashed);
       else if ('url' in css) site.asset.removeCss(css.url);
     }
-    this.actionEvents.removeAll();
-    this.dialogEvents.removeAll();
+    this.actionEvents.cleanup();
+    this.dialogEvents.cleanup();
   };
 }
 
@@ -361,6 +361,7 @@ function onKeydown(e: KeyboardEvent) {
       first = $as<HTMLElement>($focii.first()),
       last = $as<HTMLElement>($focii.last()),
       focus = document.activeElement as HTMLElement;
+    $focii.each((_, el) => console.log(el.id));
     if (focus === last && !e.shiftKey) first.focus();
     else if (focus === first && e.shiftKey) last.focus();
     else return;
@@ -376,5 +377,5 @@ function onResize() {
 
 const focusQuery = ['button', 'input', 'select', 'textarea']
   .map(sel => `${sel}:not(:disabled)`)
-  .concat(['[href]', '[tabindex="0"]', '[role="tab"]'])
+  .concat(['[href]', '[tabindex]', '[role="tab"]'])
   .join(',');

@@ -96,6 +96,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     const tryQuality = (quality = 0.9) => {
       canvas.toBlob(
         blob => {
+          console.log(blob?.size, quality, opts.max?.megabytes);
           if (blob && blob.size < (opts.max?.megabytes ?? 100) * 1024 * 1024) submit(blob);
           else if (blob && quality > 0.05) tryQuality(quality * 0.9);
           else submit(false, 'Rendering failed');

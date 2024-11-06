@@ -1,0 +1,56 @@
+#bot-view {
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: hidden;
+  max-height: var(---cg-height);
+
+  #bot-content {
+    flex: 1 1 auto;
+    overflow: auto;
+  }
+}
+
+.fancy-bot {
+  @extend %flex-center;
+
+  img {
+    width: 80px;
+  }
+  span {
+    @extend %flex-center-nowrap;
+    margin-inline-end: auto;
+  }
+}
+
+#bot-content .fancy-bot {
+  &:nth-child(odd) {
+    background: $c-bg-box;
+  }
+  &:nth-child(even) {
+    background: $c-bg-zebra;
+  }
+
+  &:hover {
+    background: $m-primary_bg--mix-15;
+  }
+
+  img {
+    width: 128px;
+  }
+  h2 {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: $c-font-clearer;
+  }
+  p {
+    margin-left: 1em;
+  }
+  .overview {
+    padding: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-self: stretch;
+    flex: auto;
+    flex-flow: column;
+  }
+}

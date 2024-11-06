@@ -4,6 +4,7 @@ import * as ab from 'ab';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
 import * as status from 'game/status';
+import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import * as ground from './ground';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
@@ -20,7 +21,6 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { MoveRootCtrl } from 'chess/moveRootCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
 import { makeVoiceMove, VoiceMove } from 'voice';
 import * as renderUser from './view/user';
@@ -36,8 +36,6 @@ import {
   CrazyPocket,
   RoundOpts,
   RoundData,
-  ApiMove,
-  ApiEnd,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -45,6 +43,8 @@ import {
   Position,
   NvuiPlugin,
   RoundTour,
+  ApiMove,
+  ApiEnd,
 } from './interfaces';
 import { defined, Toggle, toggle, requestIdleCallback } from 'common';
 import { Redraw } from 'common/snabbdom';
@@ -246,7 +246,7 @@ export default class RoundController implements MoveRootCtrl {
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = this.stepAt(ply),
+    const s = this.stepAt(this.ply),
       config: CgConfig = {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
@@ -907,7 +907,6 @@ export default class RoundController implements MoveRootCtrl {
           location.href = '/page/play-extensions';
         }
       }, 1000);
-
       this.onChange();
     }, 800);
   };
