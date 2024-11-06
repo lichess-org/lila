@@ -13,7 +13,8 @@ import lila.rating.PerfType
 
 final class LeaderboardApi(
     val repo: LeaderboardRepo,
-    tournamentRepo: TournamentRepo
+    tournamentRepo: TournamentRepo,
+    playerRepo: PlayerRepo
 )(using Executor, akka.stream.Materializer)
     extends lila.core.tournament.leaderboard.Api:
 
@@ -66,10 +67,15 @@ final class LeaderboardApi(
       repo.coll.delete.one($inIds(entries.map(_.id))).void
   yield entries.map(_.tourId)
 
-  def byPlayerStream(user: User, perSecond: MaxPerSecond, nb: Int): Source[TourEntry, ?] =
+  def byPlayerStream(
+      user: User,
+      withPerformance: Boolean,
+      perSecond: MaxPerSecond,
+      nb: Int
+  ): Source[TourEntry, ?] =
     repo.coll
       .aggregateWith[Bdoc](): fw =>
-        aggregateByPlayer(user, fw, fw.Descending("d"), nb, offset = 0).toList
+        aggregateByPlayer(user, fw, fw.Descending("d"), withPerformance, nb, offset = 0).toList
       .documentSource()
       .mapConcat(readTourEntry)
 
@@ -77,25 +83,41 @@ final class LeaderboardApi(
       user: User,
       framework: repo.coll.AggregationFramework.type,
       sort: framework.SortOrder,
+      withPerformance: Boolean,
       nb: Int,
       offset: Int = 0
   ): NonEmptyList[framework.PipelineOperator] =
     import framework.*
-    NonEmptyList.of(
-      Match($doc("u" -> user.id)),
-      Sort(sort),
-      Skip(offset),
-      Limit(nb),
-      PipelineOperator(
-        $lookup.simple(
-          from = tournamentRepo.coll,
-          as = "tour",
-          local = "t",
-          foreign = "_id"
-        )
-      ),
-      UnwindField("tour")
-    )
+    NonEmptyList
+      .of(
+        Match($doc("u" -> user.id)),
+        Sort(sort),
+        Skip(offset),
+        Limit(nb),
+        PipelineOperator(
+          $lookup.simple(
+            from = tournamentRepo.coll,
+            as = "tour",
+            local = "t",
+            foreign = "_id"
+          )
+        ),
+        UnwindField("tour")
+      )
+      .concat:
+        withPerformance.so:
+          List(
+            PipelineOperator:
+              $lookup.pipelineBC(
+                from = playerRepo.coll,
+                as = "player",
+                local = "_id",
+                foreign = "_id",
+                pipe = List($doc("$project" -> $doc("_id" -> false, "e" -> true)))
+              )
+            ,
+            AddFields($doc("perf" -> $doc("$first" -> "$player.e")))
+          )
 
   private def paginator(user: User, page: Int, sortBest: Boolean): Fu[Paginator[TourEntry]] =
     Paginator(
@@ -109,7 +131,7 @@ final class LeaderboardApi(
             .aggregateList(length, _.sec): framework =>
               import framework.*
               val sort = if sortBest then framework.Ascending("w") else framework.Descending("d")
-              val pipe = aggregateByPlayer(user, framework, sort, length, offset)
+              val pipe = aggregateByPlayer(user, framework, sort, false, length, offset)
               pipe.head -> pipe.tail
             .map(_.flatMap(readTourEntry))
     )
@@ -117,7 +139,8 @@ final class LeaderboardApi(
   private def readTourEntry(doc: Bdoc): Option[TourEntry] = for
     entry <- doc.asOpt[Entry]
     tour  <- doc.getAsOpt[Tournament]("tour")
-  yield TourEntry(tour, entry)
+    performance = doc.getAsOpt[IntRating]("perf")
+  yield TourEntry(tour, entry, performance)
 
 object LeaderboardApi:
 
@@ -125,7 +148,7 @@ object LeaderboardApi:
 
   private val rankRatioMultiplier = 100 * 1000
 
-  case class TourEntry(tour: Tournament, entry: Entry)
+  case class TourEntry(tour: Tournament, entry: Entry, performance: Option[IntRating])
 
   case class Entry(
       id: TourPlayerId,
@@ -135,7 +158,6 @@ object LeaderboardApi:
       score: Int,
       rank: Rank,
       rankRatio: Ratio, // ratio * rankRatioMultiplier. function of rank and tour.nbPlayers. less is better.
-      performance: Option[IntRating],
       freq: Option[Schedule.Freq],
       speed: Option[Schedule.Speed],
       perf: PerfType,

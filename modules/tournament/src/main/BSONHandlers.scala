@@ -185,7 +185,6 @@ object BSONHandlers:
         score = r.int("s"),
         rank = r.get("r"),
         rankRatio = r.get("w"),
-        performance = r.getO[IntRating]("e"),
         freq = r.intO("f").flatMap(Schedule.Freq.byId.get),
         speed = r.intO("p").flatMap(Schedule.Speed.byId.get),
         perf = PerfType.byId.get(r.get("v")).err("Invalid leaderboard perf"),
