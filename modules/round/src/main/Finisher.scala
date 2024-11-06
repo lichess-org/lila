@@ -153,22 +153,10 @@ final private class Finisher(
     (!isVsSelf && !game.aborted).so:
       users.tupled
         .so: (white, black) =>
-          if !white.user.isBot && !black.user.isBot then countFideGWR(game)
           crosstableApi.add(game).zip(perfsUpdater.save(game, white, black)).dmap(_._2)
         .zip(users.white.so(incNbGames(game)))
         .zip(users.black.so(incNbGames(game)))
         .dmap(_._1._1)
-
-  private def countFideGWR(game: Game): Unit =
-    def statusOk = game.status >= Status.Mate || game.status <= Status.Outoftime
-    def clockOk = game.clock
-      .map(c => c.config.limitSeconds.value + c.config.incrementSeconds.value * 60)
-      .exists(total => total >= 5 * 60 && total <= 8 * 60 * 60)
-    def toCESTDay(date: Instant) =
-      java.time.LocalDate.ofInstant(date, java.time.ZoneId.of("CET")).getDayOfMonth()
-    def datesOk = toCESTDay(game.createdAt) == toCESTDay(game.movedAt)
-    if game.rated && game.variant.standard && game.playedTurns >= 30 && statusOk && clockOk && datesOk
-    then lila.mon.round.fideGWR.increment()
 
   private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
     game.finished.so { user.noBot || game.nonAi }.so {
