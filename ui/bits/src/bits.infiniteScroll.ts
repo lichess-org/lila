@@ -1,6 +1,5 @@
 import * as xhr from 'common/xhr';
 import { spinnerHtml } from 'common/spinner';
-import { pubsub } from 'common/pubsub';
 
 export function initModule(selector: string = '.infinite-scroll'): void {
   $(selector).each(function (this: HTMLElement) {
@@ -37,7 +36,7 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
           nav.remove();
           $(el).append(($(html).is(selector) ? $(html) : $(html).find(selector)).html());
           dedupEntries(el);
-          pubsub.emit('content-loaded', el);
+          window.lichess.initializeDom(el);
           setTimeout(() => register(el, selector, backoff * 1.05), backoff); // recursion with backoff
         },
         e => {

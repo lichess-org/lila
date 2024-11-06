@@ -3,7 +3,7 @@
   <string name="advancedPawn">Zaawansowany pion</string>
   <string name="advancedPawnDescription">Zaawansowany pion lub pion grożący przemianą jest kluczowy w taktyce.</string>
   <string name="advantage">Przewaga</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Wykorzystaj szansę na uzyskanie decydującej przewagi. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mat Anastazji</string>
   <string name="anastasiaMateDescription">Skoczek, wieża lub hetman łączą siły, aby złapać przeciwnego króla w pułapkę pomiędzy bandą szachownicy, a jego inną figurą.</string>
   <string name="arabianMate">Mat arabski</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Zabicie obrońcy</string>
   <string name="capturingDefenderDescription">Usunięcie obrońcy który jest kluczowy do obrony innej figury, pozwalając na zbicie niebronionej figury w następnym ruchu.</string>
   <string name="crushing">Decydująca przewaga</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
+  <string name="crushingDescription">Znajdź błąd przeciwnika i zdobądź decydującą przewagę (ocena pozycji: powyżej 600cp)</string>
   <string name="doubleBishopMate">Mat dwoma gońcami</string>
   <string name="doubleBishopMateDescription">Dwa atakujące gońce na sąsiednich przekątnych matują króla ograniczonego przez własne bierki.</string>
   <string name="dovetailMate">Jaskółczy ogon</string>
   <string name="dovetailMateDescription">Hetman matuje sąsiedniego króla, którego jedyne dwa pola ucieczki są zablokowane przez własne bierki.</string>
   <string name="equality">Równowaga</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
+  <string name="equalityDescription">Odzyskaj remis bądź równowagę wychodząc z przegrywającej pozycji. (ocena pozycji: poniżej 200cp)</string>
   <string name="kingsideAttack">Atak skrzydłem królewskim</string>
   <string name="kingsideAttackDescription">Atak na króla przeciwnika po krótkiej roszadzie.</string>
   <string name="clearance">Zwolnienie</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Odciągnięcie</string>
   <string name="deflectionDescription">Posunięcie odciągające bierkę przeciwnika od innego wykonywanego przez nią zadania, np. ochrony kluczowego pola.</string>
   <string name="discoveredAttack">Atak z odsłony</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Ruch bierką, która blokuje atak innej figury dalekiego zasięgu, np. ruch skoczkiem uaktywniający wieżę.</string>
+  <string name="discoveredAttackDescription">Ruch bierką, która blokuje atak innej figury dalekiego zasięgu, np. ruch skoczkiem uaktywniający wieżę.</string>
   <string name="doubleCheck">Podwójny szach</string>
   <string name="doubleCheckDescription">Szach dwoma bierkami jednocześnie będący wynikiem ataku z odkrycia, w którym zarówno bierka poruszana, jak i odkryta atakują króla.</string>
   <string name="endgame">Końcówka</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Figura atakuje albo broni pole przez wrogą figurę.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Ograniczone ruchy przeciwnika powodują, że każde posunięcie pogarsza jego pozycję.</string>
-  <string name="healthyMix">Miszmasz</string>
-  <string name="healthyMixDescription">Bądź gotów na wszystko! Jak podczas prawdziwej partii.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Miszmasz</string>
+  <string name="mixDescription">Po trochu wszystkiego. Nie wiesz czego się spodziewać, więc bądź gotów na wszystko! Tak jak w prawdziwej partii.</string>
   <string name="playerGames">Partie gracza</string>
   <string name="playerGamesDescription">Wyszukaj zadania wygenerowane z Twoich partii lub z partii innego gracza.</string>
   <string name="puzzleDownloadInformation">Te zadania dostępne są w domenie publicznej i mogą być pobrane z %s.</string>

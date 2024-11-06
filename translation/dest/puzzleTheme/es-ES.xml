@@ -3,7 +3,7 @@
   <string name="advancedPawn">Peón avanzado</string>
   <string name="advancedPawnDescription">Uno de tus peones está bien avanzado en territorio enemigo, quizás amenazando promocionar.</string>
   <string name="advantage">Ventaja</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Aprovecha la oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Aprovecha la oportunidad de obtener una ventaja decisiva. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Mate de Anastasia</string>
   <string name="anastasiaMateDescription">Un caballo y una torre o dama se unen para atrapar al rey contrario entre un extremo del tablero y una pieza de su bando.</string>
   <string name="arabianMate">Mate árabe</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Capturar al defensor</string>
   <string name="capturingDefenderDescription">Eliminar una pieza fundamental para la defensa de otra, permitiendo capturar la pieza, ahora indefensa, en el futuro.</string>
   <string name="crushing">Aplastante</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Detecta el error del oponente para obtener una ventaja ganadora. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Mate de los dos alfiles</string>
   <string name="doubleBishopMateDescription">Dos alfiles atacantes en diagonales adyacentes dan mate al rey obstruido por piezas de su bando.</string>
   <string name="dovetailMate">Mate de Cozio</string>
   <string name="dovetailMateDescription">Una dama da mate al rey adyacente, cuyas únicas dos casillas de escape están obstruidas por piezas de su bando.</string>
   <string name="equality">Igualdad</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Recupérate de una posición perdedora y asegura las tablas o una posición de igualdad. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Recupérate de una posición perdedora y asegura las tablas o una posición de igualdad. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Ataque en el flanco de rey</string>
   <string name="kingsideAttackDescription">Un ataque contra el enroque corto.</string>
   <string name="clearance">Despeje</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Desviación</string>
   <string name="deflectionDescription">Un movimiento que distrae una pieza del oponente de alguna de las tareas que desempeña, como la protección de una casilla clave. También conocido como \"sobrecarga\".</string>
   <string name="discoveredAttack">Ataque a la descubierta</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mover una pieza que bloqueaba el ataque de otra pieza de largo alcance, como por ejemplo, quitar un caballo del camino de una torre.</string>
+  <string name="discoveredAttackDescription">Mover una pieza que bloqueaba el ataque de otra pieza de largo alcance, como por ejemplo, quitar un caballo del camino de una torre.</string>
   <string name="doubleCheck">Jaque doble</string>
   <string name="doubleCheckDescription">Dar jaque con dos piezas a la vez, como consecuencia de una ataque a la descubierta, donde tanto la pieza movida como la revelada atacan al rey del oponente.</string>
   <string name="endgame">Final</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Una pieza ataca o defiende una casilla, a través de una pieza del oponente.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">El oponente está limitado en los movimientos que puede realizar, y todos los movimientos empeoran su posición.</string>
-  <string name="healthyMix">Mezcla equilibrada</string>
-  <string name="healthyMixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mezcla equilibrada</string>
+  <string name="mixDescription">Un poco de todo. No sabes lo que te espera, así que estate listo para cualquier cosa, como en las partidas reales.</string>
   <string name="playerGames">Partidas de jugadores</string>
   <string name="playerGamesDescription">Busca ejercicios generados a partir de tus partidas o de las de otros jugadores.</string>
   <string name="puzzleDownloadInformation">Estos ejercicios son de dominio público y pueden descargarse desde %s.</string>

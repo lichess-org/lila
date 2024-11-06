@@ -62,6 +62,7 @@
   <string name="notYetStarted">La retransmissió encara no ha començat.</string>
   <string name="officialWebsite">Lloc web oficial</string>
   <string name="standings">Classificació</string>
+  <string name="officialStandings">Classificació oficial</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Més opcions a la %s</string>
   <string name="webmastersPage">pàgina d\'administració</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Un origen públic en PGN públic en temps real d\'aquesta ronda. També oferim un %s per una sincronització més ràpida i eficient.</string>
@@ -70,4 +71,15 @@
   <string name="ratingDiff">Diferència puntuació</string>
   <string name="gamesThisTournament">Partides en aquest torneig</string>
   <string name="score">Puntuació</string>
+  <string name="perPage">%s per pàgina</string>
+  <string name="allTeams">Tots els equips</string>
+  <string name="tournamentFormat">Format del torneig</string>
+  <string name="tournamentLocation">Ubicació del torneig</string>
+  <string name="topPlayers">Millors jugadors</string>
+  <string name="timezone">Zona horària</string>
+  <string name="fideRatingCategory">Categoria puntuació FIDE</string>
+  <string name="optionalDetails">Detalls opcionals</string>
+  <string name="upcomingBroadcasts">Pròximes retransmissions</string>
+  <string name="pastBroadcasts">Retransmissions finalitzades</string>
+  <string name="allBroadcastsByMonth">Veure totes les retransmissions per més</string>
 </resources>

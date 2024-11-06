@@ -64,6 +64,7 @@
   <string name="notYetStarted">ההקרנה טרם החלה.</string>
   <string name="officialWebsite">האתר הרשמי</string>
   <string name="standings">תוצאות</string>
+  <string name="officialStandings">טבלת מובילים רשמית</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">ישנן אפשרויות נוספות ב%s</string>
   <string name="webmastersPage">עמוד המתכנתים</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">קישור ל־PGN פומבי המתעדכן בשידור חי. אנו מציעים גם %s לסנכרון מיטבי ומהיר.</string>
@@ -72,4 +73,15 @@
   <string name="ratingDiff">הפרש הדירוג</string>
   <string name="gamesThisTournament">משחקים בטורניר זה</string>
   <string name="score">ניקוד</string>
+  <string name="perPage">%s לכל עמוד</string>
+  <string name="allTeams">כל הקבוצות</string>
+  <string name="tournamentFormat">שיטת הטורניר</string>
+  <string name="tournamentLocation">מיקום הטורניר</string>
+  <string name="topPlayers">שחקני צמרת</string>
+  <string name="timezone">אזור זמן</string>
+  <string name="fideRatingCategory">קטגוריית דירוג FIDE</string>
+  <string name="optionalDetails">פרטים אופציונאליים</string>
+  <string name="upcomingBroadcasts">הקרנות קרובות</string>
+  <string name="pastBroadcasts">הקרנות עבר</string>
+  <string name="allBroadcastsByMonth">צפו בכל ההקרנות לפי חודש</string>
 </resources>

@@ -66,7 +66,7 @@
   <string name="webmastersPage">administratoren si side</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Ei offentleg PGN-kjelde i sanntid for denne runden. Vi tilbyr og ei %s for raskare og meir effektiv synkronisering.</string>
   <string name="embedThisBroadcast">Bygg inn denne sendinga på nettstaden din</string>
-  <string name="embedThisRound" comment="%s is &quot;this round&quot;&#10;embedThisRound">Bygg inn %s på nettstaden din</string>
+  <string name="embedThisRound">Bygg inn %s på nettstaden din</string>
   <string name="ratingDiff">Rangeringsdiff</string>
   <string name="gamesThisTournament">Spel i denne turneringa</string>
   <string name="score">Poengskår</string>

@@ -29,6 +29,7 @@ export interface Game {
   initialFen?: string;
   importedBy?: string;
   threefold?: boolean;
+  fiftyMoves?: boolean;
   boosted?: boolean;
   rematch?: string;
   rated?: boolean;

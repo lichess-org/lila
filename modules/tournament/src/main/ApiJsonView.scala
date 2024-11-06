@@ -84,11 +84,13 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
   def byPlayer(e: LeaderboardApi.TourEntry)(using Translate): JsObject =
     Json.obj(
       "tournament" -> baseJson(e.tour),
-      "player" -> Json.obj(
-        "games" -> e.entry.nbGames,
-        "score" -> e.entry.score,
-        "rank"  -> e.entry.rank
-      )
+      "player" -> Json
+        .obj(
+          "games" -> e.entry.nbGames,
+          "score" -> e.entry.score,
+          "rank"  -> e.entry.rank
+        )
+        .add("performance" -> e.performance)
     )
 
   private val perfPositions: Map[PerfKey, Int] = {

@@ -114,12 +114,7 @@ final class PlaybanApi(
 
   def other(game: Game, status: Status, winner: Option[Color]): Funit =
     if game.casual && blameableSource(game) && isQuickResign(game, status)
-    then
-      winner
-        .map(game.opponent)
-        .flatMap(_.userId)
-        .so: loserId =>
-          save(Outcome.Sandbag, loserId, RageSit.Update.Noop, game.source)
+    then winner.map(game.opponent).flatMap(_.userId).so(handleQuickResign(game, _))
     else
       IfBlameable(game) {
         ~(for
@@ -155,14 +150,17 @@ final class PlaybanApi(
       game.durationSeconds.exists(_ < veryQuick)
     }
 
+  private def handleQuickResign(game: Game, userId: UserId): Funit =
+    Pov(game, userId).foreach(feedback.quickResign)
+    save(Outcome.Sandbag, userId, RageSit.Update.Noop, game.source)
+
   private def good(game: Game, status: Status, loserColor: Color): Funit =
     if isQuickResign(game, status) then
       val blameUsers =
         if game.sourceIs(_.Friend)
         then game.userIds
         else game.player(loserColor).userId.toList
-      blameUsers.parallelVoid: userId =>
-        save(Outcome.Sandbag, userId, RageSit.Update.Noop, game.source)
+      blameUsers.parallelVoid(handleQuickResign(game, _))
     else
       game
         .player(loserColor)

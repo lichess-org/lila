@@ -37,7 +37,7 @@ export interface DialogOpts {
 
 export interface DomDialogOpts extends DialogOpts {
   parent?: Element; // for centering and dom placement, otherwise fixed on document.body
-  show?: 'modal' | boolean; // if not falsy, auto-show, and if 'modal' remove from dom on close
+  show?: 'modal' | boolean; // if true, auto-show. if 'modal', auto-show as modal
 }
 
 //snabDialog automatically shows as 'modal' unless onInsert callback is supplied
@@ -48,7 +48,7 @@ export interface SnabDialogOpts extends DialogOpts {
 
 export type ActionListener = (e: Event, dialog: Dialog, action: Action) => void;
 
-// Actions are managed listeners / results that are easily refreshed on DOM changes
+// Actions are managed listeners / results that are easily reattached on DOM changes
 // if no event is specified, then 'click' is assumed
 // if no selector is given, then the handler is attached to the view div
 export type Action =
@@ -69,17 +69,27 @@ export async function alert(msg: string): Promise<void> {
   await domDialog({
     htmlText: escapeHtml(msg),
     class: 'alert',
-    show: 'modal',
+    show: true,
   });
 }
 
+export async function alerts(msgs: string[]): Promise<void> {
+  for (const msg of msgs) await alert(msg);
+}
+
 // non-blocking window.confirm-alike
-export async function confirm(msg: string): Promise<boolean> {
+export async function confirm(
+  msg: string,
+  yes: string = i18n.site.yes,
+  no: string = i18n.site.no,
+): Promise<boolean> {
   return (
     (
       await domDialog({
-        htmlText: `<div>${escapeHtml(msg)}</div>
-          <span><button class="button no">no</button><button class="button yes">yes</button></span>`,
+        htmlText:
+          `<div>${escapeHtml(msg)}</div>` +
+          `<span><button class="button button-empty no">${no}</button>` +
+          `<button class="button yes">${yes}</button></span>`,
         class: 'alert',
         noCloseButton: true,
         noClickAway: true,
@@ -91,6 +101,37 @@ export async function confirm(msg: string): Promise<boolean> {
       })
     ).returnValue === 'yes'
   );
+}
+
+// non-blocking window.prompt-alike
+export async function prompt(msg: string, def: string = ''): Promise<string | null> {
+  const res = await domDialog({
+    htmlText:
+      `<div>${escapeHtml(msg)}</div>` +
+      `<input type="text" value="${escapeHtml(def)}" />` +
+      `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
+      `<button class="button ok">${i18n.site.ok}</button></span>`,
+    class: 'alert',
+    noCloseButton: true,
+    noClickAway: true,
+    show: 'modal',
+    focus: 'input',
+    actions: [
+      { selector: '.ok', result: 'ok' },
+      { selector: '.cancel', result: 'cancel' },
+      {
+        selector: 'input',
+        event: 'keydown',
+        listener: (e: KeyboardEvent, dlg) => {
+          if (e.key !== 'Enter' && e.key !== 'Escape') return;
+          e.preventDefault();
+          if (e.key === 'Enter') dlg.close('ok');
+          else if (e.key === 'Escape') dlg.close('cancel');
+        },
+      },
+    ],
+  });
+  return res.returnValue === 'ok' ? res.view.querySelector('input')!.value : null;
 }
 
 // when opts contains 'show', this promise resolves as show/showModal (on dialog close) so check returnValue
@@ -165,11 +206,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
               if (!o.vnodes && html) view.innerHTML = html;
               const wrapper = new DialogWrapper(dialog, view, o);
               if (o.onInsert) o.onInsert(wrapper);
-              else {
-                wrapper.showModal();
-                const inputEl = view.querySelector('input');
-                if (inputEl && inputEl.autofocus) inputEl.focus();
-              }
+              else wrapper.showModal();
             }),
           },
           o.vnodes,
@@ -180,7 +217,6 @@ export function snabDialog(o: SnabDialogOpts): VNode {
 }
 
 class DialogWrapper implements Dialog {
-  private restore?: { focus?: HTMLElement; overflow: string };
   private resolve?: (dialog: Dialog) => void;
   private actionEvents = new Janitor();
   private dialogEvents = new Janitor();
@@ -283,19 +319,17 @@ class DialogWrapper implements Dialog {
   };
 
   private autoFocus() {
-    const focus = (
-      this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelectorAll(focusQuery)[1]
-    ) as HTMLElement;
-    if (!focus) return;
+    const focus =
+      (this.o.focus ? this.view.querySelector(this.o.focus) : this.view.querySelector('input[autofocus]')) ??
+      this.view.querySelectorAll(focusQuery)[1];
+    if (!(focus instanceof HTMLElement)) return;
     focus.focus();
     if (focus instanceof HTMLInputElement) focus.select();
   }
+
   private onRemove = () => {
     this.observer.disconnect();
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
-    this.restore?.focus?.focus(); // one modal at a time please
-    if (this.restore?.overflow !== undefined) document.body.style.overflow = this.restore.overflow;
-    this.restore = undefined;
     this.resolve?.(this);
     this.o.onClose?.(this);
     this.dialog.remove();

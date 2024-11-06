@@ -289,6 +289,7 @@
     <item quantity="many">%s partií s Vami</item>
     <item quantity="other">%s partií s Vami</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Zrušiť</string>
   <string name="whiteTimeOut">Bielemu došiel čas</string>
   <string name="blackTimeOut">Čiernemu došiel čas</string>
@@ -495,7 +496,6 @@
   <string name="block">Blokovať</string>
   <string name="blocked">Blokovaný</string>
   <string name="unblock">Odblokovať</string>
-  <string name="followsYou">Sleduje Vás</string>
   <string name="xStartedFollowingY">%1$s začal sledovať %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sledujúci</item>
@@ -1077,4 +1077,5 @@ Nechajte prázdne pre začatie partií zo základnej pozície!</string>
   <string name="showMeEverything">Ukázať všetko</string>
   <string name="lichessPatronInfo">Lichess je bezplatný a úplne slobodný/nezávislý softvér s otvoreným zdrojovým kódom. Všetky prevádzkové náklady, vývoj a obsah sú financované výlučne z darov používateľov.</string>
   <string name="nothingToSeeHere">Momentálne tu nie je nič k zobrazeniu.</string>
+  <string name="stats">Štatistiky</string>
 </resources>

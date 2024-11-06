@@ -5,7 +5,7 @@ import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 import { spinnerHtml } from 'common/spinner';
-import { pubsub } from 'common/pubsub';
+import { confirm } from 'common/dialog';
 
 site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
@@ -63,7 +63,7 @@ site.load.then(() => {
   const getLocationHash = (a: HTMLAnchorElement) => a.href.replace(/.+(#\w+)$/, '$1');
 
   function userMod($inZone: Cash) {
-    pubsub.emit('content-loaded', $inZone[0]);
+    window.lichess.initializeDom($inZone[0]);
 
     const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls = 'ready') => {
       $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
@@ -74,8 +74,9 @@ site.load.then(() => {
     const confirmButton = (el: HTMLElement) =>
       $(el)
         .find('input.confirm, button.confirm')
-        .on('click', function (this: HTMLElement) {
-          return confirm(this.title || 'Confirm this action?');
+        .on('click', async function (this: HTMLElement, e: Event) {
+          e.preventDefault();
+          if (await confirm(this.title || 'Confirm this action?')) this.closest('form')?.submit();
         });
 
     $('.mz-section--menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
@@ -136,7 +137,7 @@ site.load.then(() => {
                   .find('td:last-child input:checked')
                   .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort')),
               );
-              if (usernames.length > 0 && confirm(`Close ${usernames.length} alt accounts?`)) {
+              if (usernames.length > 0 && (await confirm(`Close ${usernames.length} alt accounts?`))) {
                 await xhr.text('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
                 reloadZone();
               }

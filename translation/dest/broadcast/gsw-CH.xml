@@ -62,12 +62,24 @@
   <string name="notYetStarted">Die Überträgig hät nonig agfange.</string>
   <string name="officialWebsite">Offizielli Website</string>
   <string name="standings">Tabälle</string>
+  <string name="officialStandings">Offizielli Ranglischte</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Meh Optionen uf %s</string>
   <string name="webmastersPage">Webmaster Site</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Öffentlichi, real-time PGN Quälle, für die Rundi. Mir offeriered au %s für e schnälleri und effiziänteri Synchronisation.</string>
   <string name="embedThisBroadcast">Nimm die Überträgig uf dini Website</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Nimm %s uf dini Website</string>
+  <string name="embedThisRound">Nimm %s uf dini Website</string>
   <string name="ratingDiff">Wertigs Differänz</string>
   <string name="gamesThisTournament">Schpiel i dem Turnier</string>
   <string name="score">Resultat</string>
+  <string name="perPage">%s pro Site</string>
+  <string name="allTeams">Alli Teams</string>
+  <string name="tournamentFormat">Turnier-Format</string>
+  <string name="tournamentLocation">Turnier-Lokal</string>
+  <string name="topPlayers">Top-Schpiller</string>
+  <string name="timezone">Zitzone</string>
+  <string name="fideRatingCategory">FIDE-Wertigskategorie</string>
+  <string name="optionalDetails">Optionali Details</string>
+  <string name="upcomingBroadcasts">Kommendi Überträgige</string>
+  <string name="pastBroadcasts">G\'machti Überträgige</string>
+  <string name="allBroadcastsByMonth">Zeig alli Überträgige im Monet</string>
 </resources>

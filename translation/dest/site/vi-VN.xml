@@ -46,15 +46,15 @@
   <string name="talkInChat">Hãy cư xử thân thiện trong cuộc trò chuyện!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Người đầu tiên sử dụng URL này sẽ bắt đầu chơi với bạn.</string>
   <string name="whiteResigned">Bên trắng chịu thua</string>
-  <string name="blackResigned">Đen chịu thua</string>
+  <string name="blackResigned">Bên đen chịu thua</string>
   <string name="whiteLeftTheGame">Bên trắng đã rời khỏi ván cờ</string>
   <string name="blackLeftTheGame">Bên đen đã rời khỏi ván cờ</string>
   <string name="whiteDidntMove">Bên trắng không đi quân</string>
   <string name="blackDidntMove">Bên đen không đi quân</string>
   <string name="requestAComputerAnalysis">Yêu cầu máy tính phân tích</string>
-  <string name="computerAnalysis">Máy tính phân tích</string>
-  <string name="computerAnalysisAvailable">Có sẵn máy tính phân tích</string>
-  <string name="computerAnalysisDisabled">Phân tích máy tính bị vô hiệu hóa</string>
+  <string name="computerAnalysis">Phân tích từ máy tính</string>
+  <string name="computerAnalysisAvailable">Có sẵn phân tích từ máy tính</string>
+  <string name="computerAnalysisDisabled">Phân tích từ máy tính bị vô hiệu hóa</string>
   <string name="analysis">Bàn cờ phân tích</string>
   <string name="depthX">Độ sâu %s</string>
   <string name="usingServerAnalysis">Sử dụng phân tích nhờ máy chủ</string>
@@ -244,6 +244,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">%s ván cờ với bạn</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
   <string name="whiteTimeOut">Bên trắng hết giờ</string>
   <string name="blackTimeOut">Bên đen hết giờ</string>
@@ -406,7 +407,6 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="block">Chặn</string>
   <string name="blocked">Đã chặn</string>
   <string name="unblock">Bỏ chặn</string>
-  <string name="followsYou">Theo dõi bạn</string>
   <string name="xStartedFollowingY">%1$s đã bắt đầu theo dõi %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s người theo dõi</item>
@@ -952,4 +952,5 @@ Bỏ trống để bắt đầu tất cả ván đấu bằng thế trận ban �
   <string name="lichessPatronInfo">Lichess là một tổ chức phi lợi nhuận và là phần mềm hoàn toàn miễn phí/mã nguồn mở.
 Mọi chi phí vận hành, phát triển, và nội dung được tài trợ bởi những đóng góp của người dùng.</string>
   <string name="nothingToSeeHere">Không có gì để xem ở đây vào lúc này.</string>
+  <string name="stats">Thống kê</string>
 </resources>

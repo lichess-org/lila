@@ -62,12 +62,24 @@
   <string name="notYetStarted">A transmissão ainda não começou.</string>
   <string name="officialWebsite">Website oficial</string>
   <string name="standings">Classificações</string>
+  <string name="officialStandings">Classificações oficiais</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Mais opções na %s</string>
   <string name="webmastersPage">página webmasters</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Uma fonte PGN pública em tempo real para esta ronda. Oferecemos também a %s para uma sincronização mais rápida e eficiente.</string>
   <string name="embedThisBroadcast">Incorporar esta transmissão no teu website</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Incorporar %s no teu website</string>
+  <string name="embedThisRound">Incorporar %s no teu website</string>
   <string name="ratingDiff">Diferença de Elo</string>
   <string name="gamesThisTournament">Jogos deste torneio</string>
   <string name="score">Pontuação</string>
+  <string name="perPage">%s por página</string>
+  <string name="allTeams">Todas as equipas</string>
+  <string name="tournamentFormat">Formato do torneio</string>
+  <string name="tournamentLocation">Localização do Torneio</string>
+  <string name="topPlayers">Melhores jogadores</string>
+  <string name="timezone">Fuso horário</string>
+  <string name="fideRatingCategory">Categoria do Elo FIDE</string>
+  <string name="optionalDetails">Detalhes opcionais</string>
+  <string name="upcomingBroadcasts">Próximas transmissões</string>
+  <string name="pastBroadcasts">Transmissões anteriores</string>
+  <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
 </resources>

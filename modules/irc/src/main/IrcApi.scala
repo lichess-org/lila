@@ -105,6 +105,10 @@ final class IrcApi(
     zulip(_.content, "/opening edits"):
       s"${markdown.userLink(user)} edited ${markdown.lichessLink(s"/opening/$opening/$moves", opening)}"
 
+  def reportPuzzle(user: LightUser, puzzleId: PuzzleId, reportText: String): Funit =
+    zulip(_.content, "puzzle reports"):
+      s"${markdown.userLink(user)} reported ${markdown.lichessLink(s"/training/$puzzleId", puzzleId)} because $reportText"
+
   def broadcastStart(id: RelayRoundId, fullName: String): Funit =
     zulip(_.broadcast, "non-tiered broadcasts"):
       s":note: ${markdown.broadcastLink(id, fullName)}"

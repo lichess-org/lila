@@ -428,7 +428,6 @@
   <string name="block">Արգելափակել</string>
   <string name="blocked">Արգելափակված է</string>
   <string name="unblock">Հանել արգելափակումը</string>
-  <string name="followsYou">Հետևում են ձեզ</string>
   <string name="xStartedFollowingY">%1$s-ը այժմ հետևում է %2$s-ին</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s հետևողներ</item>

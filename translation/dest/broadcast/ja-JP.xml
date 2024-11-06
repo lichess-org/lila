@@ -64,7 +64,7 @@
   <string name="webmastersPage">ウェブ管理者のページ</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
   <string name="embedThisBroadcast">この中継をウェブサイトに埋め込む</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">%s をウェブサイトに埋め込む</string>
+  <string name="embedThisRound">%s をウェブサイトに埋め込む</string>
   <string name="ratingDiff">レーティングの差</string>
   <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>

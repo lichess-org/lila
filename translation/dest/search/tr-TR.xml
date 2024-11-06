@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">Ara</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Ara</string>
   <string name="advancedSearch">Gelişmiş Arama</string>
   <plurals name="searchInXGames">
     <item quantity="one">%s satranç maçı içinde ara</item>

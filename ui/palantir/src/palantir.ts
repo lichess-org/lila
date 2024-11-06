@@ -2,6 +2,7 @@ import type * as snabbdom from 'snabbdom';
 import * as licon from 'common/licon';
 import Peer from 'peerjs';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 type State =
   | 'off'

@@ -49,4 +49,10 @@
   <string name="ageThisYear">سنِ امسال</string>
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
+  <string name="teams">تیم‌ها</string>
+  <string name="startVerySoon">پخش زنده به زودی آغاز خواهد شد.</string>
+  <string name="notYetStarted">پخش زنده هنوز آغاز نشده است.</string>
+  <string name="officialWebsite">تارنمای رسمی</string>
+  <string name="ratingDiff">ناسانی امتیازات</string>
+  <string name="score">امتیاز</string>
 </resources>

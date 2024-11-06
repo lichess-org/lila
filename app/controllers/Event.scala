@@ -4,7 +4,7 @@ import lila.app.*
 
 final class Event(env: Env) extends LilaController(env):
 
-  private def api = env.event.api
+  import env.event.api
 
   def show(id: String) = Open:
     FoundPage(api.oneEnabled(id))(views.event.show)

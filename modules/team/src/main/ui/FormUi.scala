@@ -45,7 +45,7 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
           standardFlash,
           t.enabled.option(
             postForm(cls := "form3", action := routes.Team.update(t.id))(
-              flairField(form, t),
+              flairField(form),
               entryFields(form),
               textFields(form),
               accessFields(form),
@@ -92,9 +92,8 @@ final class FormUi(helpers: Helpers, bits: TeamUi)(
 
   private val explainInput = input(st.name := "explain", tpe := "hidden")
 
-  private def flairField(form: Form[?], team: Team)(using Context) =
-    form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value), label = trans.site.setFlair()):
-      span(cls := "flair-container".some)(team.name, teamFlair(team.light))
+  private def flairField(form: Form[?])(using Context) =
+    form3.flairPickerGroup(form("flair"), Flair.from(form("flair").value))
 
   private def textFields(form: Form[?])(using Context) = frag(
     form3.group(

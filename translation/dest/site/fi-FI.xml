@@ -259,6 +259,7 @@
     <item quantity="one">%s pelejä kanssasi</item>
     <item quantity="other">%s pelejä kanssasi</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Peruuta</string>
   <string name="whiteTimeOut">Valkealta loppui aika</string>
   <string name="blackTimeOut">Mustalta loppui aika</string>
@@ -435,7 +436,6 @@
   <string name="block">Estä</string>
   <string name="blocked">Estetty</string>
   <string name="unblock">Poista esto</string>
-  <string name="followsYou">Seuraa sinua</string>
   <string name="xStartedFollowingY">%1$s alkoi seurata %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seuraaja</item>
@@ -994,4 +994,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
   <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
+  <string name="stats">Tilastot</string>
 </resources>

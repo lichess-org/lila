@@ -64,7 +64,18 @@
   <string name="webmastersPage">faqe webmaster-ësh</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Një burim publik,, PGN, i atypëratyshëm për këtë raund. Ofrojmë gjithashtu edhe një %s, për njëkohësim më të shpejtë dhe më efikas.</string>
   <string name="embedThisBroadcast">Trupëzojeni këtë transmetim në sajtin tuaj</string>
-  <string name="embedThisRound" comment="%s is &quot;this round&quot;&#10;embedThisRound">Trupëzojeni %s në sajtin tuaj</string>
+  <string name="embedThisRound">Trupëzojeni %s në sajtin tuaj</string>
   <string name="gamesThisTournament">Lojëra në këtë turne</string>
   <string name="score">Përfundim</string>
+  <string name="perPage">%s për faqe</string>
+  <string name="allTeams">Krejt ekipet</string>
+  <string name="tournamentFormat">Format turneu</string>
+  <string name="tournamentLocation">Vendndodhje Turney</string>
+  <string name="topPlayers">Lojtarët kryesues</string>
+  <string name="timezone">Zonë kohore</string>
+  <string name="fideRatingCategory">Kategori vlerësimi FIDE</string>
+  <string name="optionalDetails">Hollësi opsionale</string>
+  <string name="upcomingBroadcasts">Transmetime së afërmi</string>
+  <string name="pastBroadcasts">Transmetime të kaluara</string>
+  <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
 </resources>

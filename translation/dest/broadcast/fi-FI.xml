@@ -38,6 +38,7 @@
   <string name="editRoundStudy">Kierrostutkielman muokkaus</string>
   <string name="deleteTournament">Poista tämä turnaus</string>
   <string name="definitivelyDeleteTournament">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
+  <string name="showScores">Näytä pelaajien pisteet pelien tulosten pohjalta</string>
   <string name="replacePlayerTags">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
   <string name="fideFederations">FIDEn liitot</string>
   <string name="top10Rating">Top 10 -vahvuuslukulista</string>
@@ -46,5 +47,38 @@
   <string name="fideProfile">FIDE-profiili</string>
   <string name="federation">Kansallinen liitto</string>
   <string name="ageThisYear">Ikä tänä vuonna</string>
+  <string name="unrated">Pisteyttämätön</string>
   <string name="recentTournaments">Viimeisimmät turnaukset</string>
+  <string name="openLichess">Avaa Lichessissä</string>
+  <string name="teams">Joukkueet</string>
+  <string name="boards">Laudat</string>
+  <string name="overview">Pääsivu</string>
+  <string name="subscribeTitle">Tilaa ilmoitukset kunkin kierroksen alkamisesta. Käyttäjätunnuksesi asetuksista voit kytkeä ääni- ja puskuilmoitukset päälle tai pois.</string>
+  <string name="uploadImage">Lisää turnauksen kuva</string>
+  <string name="noBoardsYet">Pelilautoja ei vielä ole. Ne tulevat näkyviin sitä mukaa, kun pelit ladataan tänne.</string>
+  <string name="startsAfter">Alkuun on aikaa %s</string>
+  <string name="startVerySoon">Lähetys alkaa aivan pian.</string>
+  <string name="notYetStarted">Lähetys ei ole vielä alkanut.</string>
+  <string name="officialWebsite">Virallinen verkkosivu</string>
+  <string name="standings">Tulostaulu</string>
+  <string name="officialStandings">Virallinen tulostaulu</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Lisäasetuksia löytyy %s</string>
+  <string name="webmastersPage">webmasterin sivulta</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Tämän kierroksen julkinen ja reaaliaikainen PGN-tiedosto. Nopeampaan ja tehokkaampaan synkronisointiin on tarjolla myös %s.</string>
+  <string name="embedThisBroadcast">Upota tämä lähetys sivustoosi</string>
+  <string name="embedThisRound">Upota %s sivustoosi</string>
+  <string name="ratingDiff">Vahvuuslukujen erotus</string>
+  <string name="gamesThisTournament">Pelit tässä turnauksessa</string>
+  <string name="score">Pisteet</string>
+  <string name="perPage">%s per sivu</string>
+  <string name="allTeams">Kaikki joukkueet</string>
+  <string name="tournamentFormat">Turnauksen laji</string>
+  <string name="tournamentLocation">Turnauksen sijainti</string>
+  <string name="topPlayers">Parhaat pelaajat</string>
+  <string name="timezone">Aikavyöhyke</string>
+  <string name="fideRatingCategory">Kategoria (FIDE-vahvuuslukujen mukaan)</string>
+  <string name="optionalDetails">Mahdolliset lisätiedot</string>
+  <string name="upcomingBroadcasts">Tulevat lähetykset</string>
+  <string name="pastBroadcasts">Menneet lähetykset</string>
+  <string name="allBroadcastsByMonth">Näytä kaikki lähetykset kuukausikohtaisesti</string>
 </resources>

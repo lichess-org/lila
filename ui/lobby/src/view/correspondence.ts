@@ -4,6 +4,7 @@ import { tds, perfNames } from './util';
 import LobbyController from '../ctrl';
 import { Seek } from '../interfaces';
 import perfIcons from 'common/perfIcons';
+import { confirm } from 'common/dialog';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
@@ -66,13 +67,14 @@ export default function (ctrl: LobbyController): MaybeVNodes {
       h(
         'tbody',
         {
-          hook: bind('click', e => {
+          hook: bind('click', async e => {
             let el = e.target as HTMLElement;
             do {
               el = el.parentNode as HTMLElement;
               if (el.nodeName === 'TR') {
                 if (!ctrl.me) {
-                  if (confirm(i18n.site.youNeedAnAccountToDoThat)) location.href = '/signup';
+                  if (await confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signUp, i18n.site.cancel))
+                    location.href = '/signup';
                   return;
                 }
                 return ctrl.clickSeek(el.dataset['id']!);

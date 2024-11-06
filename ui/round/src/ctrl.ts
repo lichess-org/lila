@@ -160,7 +160,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
-    if (!this.keyboardMove?.usedSan) ab.move(this, meta);
+    if (!this.keyboardMove?.usedSan) ab.move(this, meta, pubsub.emit);
     if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
@@ -445,6 +445,7 @@ export default class RoundController implements MoveRootCtrl {
       pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
+    d.game.fiftyMoves = !!o.fiftyMoves;
     const step = {
       ply: this.lastPly() + 1,
       fen: o.fen,
@@ -556,7 +557,10 @@ export default class RoundController implements MoveRootCtrl {
     }
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
-      site.sound.play(key);
+      // Delay 'victory'& 'defeat' sounds to avoid overlapping with 'checkmate' sound
+      setTimeout(() => {
+        site.sound.play(key);
+      }, 600);
       if (
         key != 'victory' &&
         d.game.turns > 6 &&

@@ -86,7 +86,7 @@ final class PuzzleReplayApi(
                   $doc(
                     "$match" -> $doc(
                       $expr {
-                        if theme == PuzzleTheme.healthyMix.key then $doc("$eq" -> $arr("$_id", "$$pid"))
+                        if theme == PuzzleTheme.mix.key then $doc("$eq" -> $arr("$_id", "$$pid"))
                         else
                           $doc(
                             $and(

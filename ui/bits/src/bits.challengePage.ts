@@ -1,7 +1,6 @@
 import * as xhr from 'common/xhr';
 import StrongSocket from 'common/socket';
 import { userComplete } from 'common/userComplete';
-import { pubsub } from 'common/pubsub';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -19,7 +18,7 @@ export function initModule(opts: ChallengeOpts): void {
         xhr.text(opts.xhrUrl).then(html => {
           $(selector).replaceWith($(html).find(selector));
           init();
-          pubsub.emit('content-loaded', $(selector)[0]);
+          window.lichess.initializeDom($(selector)[0]);
         });
       },
     },

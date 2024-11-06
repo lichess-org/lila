@@ -72,6 +72,7 @@ case class Report(
 
   def isRecentComm                 = open && room == Room.Comm
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
+  def isPlay                       = room == Room.Boost || room == Room.Cheat
 
   def isAppeal                            = room == Room.Other && atoms.head.text == Report.appealText
   def isAppealInquiryByMe(using me: MyId) = isAppeal && atoms.head.by.is(me)

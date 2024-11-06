@@ -405,7 +405,6 @@
   <string name="block">加入黑名单</string>
   <string name="blocked">已加入黑名单</string>
   <string name="unblock">移出黑名单</string>
-  <string name="followsYou">关注了你</string>
   <string name="xStartedFollowingY">%1$s开始关注%2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s 关注者</item>

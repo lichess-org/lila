@@ -3,7 +3,6 @@ package ui
 
 import java.time.{ Month, YearMonth }
 import scalalib.paginator.Paginator
-import monocle.syntax.all.*
 
 import lila.core.LightUser
 import lila.relay.RelayTour.{ WithLastRound, WithFirstRound }
@@ -21,9 +20,8 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       upcoming: List[WithLastRound],
       past: Seq[WithLastRound]
   )(using Context) =
-    val reTiered = decreaseTierOfDistantNextRound(active)
     def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
-      val selected = reTiered.filter(_.tour.tierIs(selector))
+      val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map:
           card.render(_, live = _.display.hasStarted)
@@ -35,19 +33,19 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           pageMenu("index"),
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
-            Granter.opt(_.StudyAdmin).option(adminIndex(reTiered)),
+            Granter.opt(_.StudyAdmin).option(adminIndex(active)),
             nonEmptyTier(_.BEST, "best"),
             nonEmptyTier(_.HIGH, "high"),
             nonEmptyTier(_.NORMAL, "normal"),
             upcoming.nonEmpty.option(
               frag(
-                h2(cls := "relay-index__section")("Upcoming broadcasts"),
+                h2(cls := "relay-index__section")(trc.upcomingBroadcasts()),
                 st.section(cls := "relay-cards relay-cards--upcoming"):
                   upcoming.map:
                     card.render(_, live = _ => false)
               )
             ),
-            h2(cls := "relay-index__section")("Past broadcasts"),
+            h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards relay-cards--past"):
               past.map: t =>
                 card.render(t, live = _ => false)
@@ -55,7 +53,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             h2(cls := "relay-index__section relay-index__calendar"):
               a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
                 strong(trc.broadcastCalendar()),
-                small("View all broadcasts by month")
+                small(trc.allBroadcastsByMonth())
               )
           )
         )
@@ -69,21 +67,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           errored.map: (tr, errors) =>
             card.render(tr.copy(link = tr.display), live = _.display.hasStarted, errors = errors.take(5))
       )
-
-  private def decreaseTierOfDistantNextRound(active: List[RelayTour.ActiveWithSomeRounds]) =
-    val now = nowInstant.withTimeAtStartOfDay
-    active.map: a =>
-      import RelayTour.Tier.*
-      val visualTier = for
-        tier   <- a.tour.tier
-        nextAt <- a.display.startsAtTime
-        days = scalalib.time.daysBetween(now, nextAt)
-      yield
-        if tier == BEST && days > 10 then NORMAL
-        else if tier == BEST && days > 5 then HIGH
-        else if tier == HIGH && days > 5 then NORMAL
-        else tier
-      a.focus(_.tour.tier).replace(visualTier.orElse(a.tour.tier))
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
     Page(title)

@@ -3,7 +3,7 @@
   <string name="advancedPawn">Advanced pawn</string>
   <string name="advancedPawnDescription">One of your pawns is deep into the opponent position, maybe threatening to promote.</string>
   <string name="advantage">Advantage</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia\'s mate</string>
   <string name="anastasiaMateDescription">A knight and rook or queen team up to trap the opposing king between the side of the board and a friendly piece.</string>
   <string name="arabianMate">Arabian mate</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Capture the defender</string>
   <string name="capturingDefenderDescription">Removing a piece that is critical to defense of another piece, allowing the now undefended piece to be captured on a following move.</string>
   <string name="crushing">Crushing</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
+  <string name="crushingDescription">Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp)</string>
   <string name="doubleBishopMate">Double bishop mate</string>
   <string name="doubleBishopMateDescription">Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces.</string>
   <string name="dovetailMate">Dovetail mate</string>
   <string name="dovetailMateDescription">A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces.</string>
   <string name="equality">Equality</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
+  <string name="equalityDescription">Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp)</string>
   <string name="kingsideAttack">Kingside attack</string>
   <string name="kingsideAttackDescription">An attack of the opponent\'s king, after they castled on the king side.</string>
   <string name="clearance">Clearance</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Deflection</string>
   <string name="deflectionDescription">A move that distracts an opponent piece from another duty that it performs, such as guarding a key square. Sometimes also called \"overloading\".</string>
   <string name="discoveredAttack">Discovered attack</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Moving a piece that previously blocked an attack by another long range piece, such as a knight out of the way of a rook.</string>
+  <string name="discoveredAttackDescription">Moving a piece that previously blocked an attack by another long range piece, such as a knight out of the way of a rook.</string>
   <string name="doubleCheck">Double check</string>
   <string name="doubleCheckDescription">Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent\'s king.</string>
   <string name="endgame">Endgame</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">A piece attacks or defends a square, through an enemy piece.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">The opponent is limited in the moves they can make, and all moves worsen their position.</string>
-  <string name="healthyMix">Healthy mix</string>
-  <string name="healthyMixDescription">A bit of everything. You don\'t know what to expect, so you remain ready for anything! Just like in real games.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Healthy mix</string>
+  <string name="mixDescription">A bit of everything. You don\'t know what to expect, so you remain ready for anything! Just like in real games.</string>
   <string name="playerGames">Player games</string>
   <string name="playerGamesDescription">Lookup puzzles generated from your games, or from another player\'s games.</string>
   <string name="puzzleDownloadInformation">These puzzles are in the public domain, and can be downloaded from %s.</string>
