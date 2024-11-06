@@ -479,7 +479,7 @@
   <string name="standByX">حریف %s است،آماده باشید!</string>
   <string name="pause">توقف</string>
   <string name="resume">ادامه دادن</string>
-  <string name="youArePlaying">شما بازی میکنید!</string>
+  <string name="youArePlaying">شما بازی می‌کنید!</string>
   <string name="winRate">درصد برد</string>
   <string name="berserkRate">میزان جنون</string>
   <string name="performance">عملکرد</string>
