@@ -106,6 +106,8 @@ export default class ChatCtrl {
     return true;
   };
 
+  listenToIncoming = (cb: (line: Line) => void): void => pubsub.on('socket.in.message', cb);
+
   private onTimeout = (userId: string): void => {
     let change = false;
     this.data.lines.forEach(l => {
