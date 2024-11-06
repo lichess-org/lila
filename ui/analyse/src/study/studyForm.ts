@@ -67,6 +67,7 @@ const select = (s: Select): VNode =>
 export function view(ctrl: StudyForm): VNode {
   const data = ctrl.getData();
   const isNew = ctrl.isNew();
+  const isEditable = !ctrl.relay?.isOfficial();
   const updateName = (vnode: VNode, isUpdate: boolean) => {
     const el = vnode.elm as HTMLInputElement;
     if (!isUpdate && !el.value) {
@@ -82,6 +83,168 @@ export function view(ctrl: StudyForm): VNode {
     ['member', i18n.study.members],
     ['everyone', i18n.study.everyone],
   ];
+  const formFields = isEditable
+    ? [
+        h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
+          h('div.form-group', [
+            h('label.form-label', 'Flair'),
+            h(
+              'div.form-control.emoji-details',
+              {
+                hook: onInsert(el => flairPickerLoader(el)),
+              },
+              [
+                h('div.emoji-popup-button', [
+                  h(
+                    'select#study-flair.form-control',
+                    { attrs: { name: 'flair' } },
+                    data.flair && h('option', { attrs: { value: data.flair, selected: true } }),
+                  ),
+                  h('img', { attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' } }),
+                ]),
+                h(
+                  'div.flair-picker.none',
+                  { attrs: { 'data-except-emojis': 'activity.lichess' } },
+                  h(removeEmojiButton, 'clear'),
+                ),
+              ],
+            ),
+          ]),
+          h('div.form-group', [
+            h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
+            h('input#study-name.form-control', {
+              attrs: { minlength: 3, maxlength: 100 },
+              hook: {
+                insert: vnode => {
+                  updateName(vnode, false);
+                  const el = vnode.elm as HTMLInputElement;
+                  el.addEventListener('focus', () => el.select());
+                  // set initial modal focus
+                  setTimeout(() => el.focus());
+                },
+                postpatch: (_, vnode) => updateName(vnode, true),
+              },
+            }),
+          ]),
+        ]),
+        h('div.form-split', [
+          select({
+            key: 'visibility',
+            name: i18n.study.visibility,
+            choices: [
+              ['public', i18n.study.public],
+              ['unlisted', i18n.study.unlisted],
+              ['private', i18n.study.inviteOnly],
+            ],
+            selected: data.visibility,
+          }),
+          select({
+            key: 'chat',
+            name: i18n.site.chat,
+            choices: userSelectionChoices,
+            selected: data.settings.chat,
+          }),
+        ]),
+        h('div.form-split', [
+          select({
+            key: 'computer',
+            name: i18n.site.computerAnalysis,
+            choices: userSelectionChoices,
+            selected: data.settings.computer,
+          }),
+          select({
+            key: 'explorer',
+            name: i18n.site.openingExplorerAndTablebase,
+            choices: userSelectionChoices,
+            selected: data.settings.explorer,
+          }),
+        ]),
+        h('div.form-split', [
+          select({
+            key: 'cloneable',
+            name: i18n.study.allowCloning,
+            choices: userSelectionChoices,
+            selected: data.settings.cloneable,
+          }),
+          select({
+            key: 'shareable',
+            name: i18n.study.shareAndExport,
+            choices: userSelectionChoices,
+            selected: data.settings.shareable,
+          }),
+        ]),
+        h('div.form-split', [
+          select({
+            key: 'sticky',
+            name: i18n.study.enableSync,
+            choices: [
+              ['true', i18n.study.yesKeepEveryoneOnTheSamePosition],
+              ['false', i18n.study.noLetPeopleBrowseFreely],
+            ],
+            selected: '' + data.settings.sticky,
+          }),
+          select({
+            key: 'description',
+            name: i18n.study.pinnedStudyComment,
+            choices: [
+              ['false', i18n.study.noPinnedComment],
+              ['true', i18n.study.rightUnderTheBoard],
+            ],
+            selected: '' + data.settings.description,
+          }),
+        ]),
+      ]
+    : [];
+  const relayLinks =
+    ctrl.relay &&
+    h('div.form-actions-secondary', [
+      h(
+        'a.text',
+        {
+          attrs: {
+            'data-icon': licon.RadioTower,
+            href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
+          },
+        },
+        'Tournament settings',
+      ),
+      h(
+        'a.text',
+        { attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` } },
+        'Round settings',
+      ),
+    ]);
+  const deleteForms = h('div', { attrs: { style: 'display: flex' } }, [
+    h(
+      'form',
+      {
+        attrs: { action: '/study/' + data.id + '/delete', method: 'post' },
+        hook: bindNonPassive('submit', e => {
+          if (isNew) return;
+
+          e.preventDefault();
+          prompt(i18n.study.confirmDeleteStudy(data.name)).then(userInput => {
+            if (userInput?.trim() === data.name.trim()) (e.target as HTMLFormElement).submit();
+          });
+        }),
+      },
+      [h(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
+    ),
+    !isNew &&
+      h(
+        'form',
+        {
+          attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
+          hook: bindNonPassive('submit', e => {
+            e.preventDefault();
+            confirm(i18n.study.deleteTheStudyChatHistory).then(yes => {
+              if (yes) (e.target as HTMLFormElement).submit();
+            });
+          }),
+        },
+        [h(emptyRedButton, i18n.study.clearChat)],
+      ),
+  ]);
   return snabDialog({
     class: 'study-edit',
     onClose() {
@@ -94,195 +257,47 @@ export function view(ctrl: StudyForm): VNode {
         'h2',
         ctrl.relay ? i18n.broadcast.editRoundStudy : isNew ? i18n.study.createStudy : i18n.study.editStudy,
       ),
-      h(
-        'form.form3',
-        {
-          hook: bindSubmit(e => {
-            const getVal = (name: string): string => {
-              const el = (e.target as HTMLElement).querySelector('#study-' + name) as HTMLInputElement;
-              if (el) return el.value;
-              else throw `Missing form input: ${name}`;
-            };
-            ctrl.save(
-              {
-                name: getVal('name'),
-                flair: getVal('flair'),
-                visibility: getVal('visibility'),
-                computer: getVal('computer'),
-                explorer: getVal('explorer'),
-                cloneable: getVal('cloneable'),
-                shareable: getVal('shareable'),
-                chat: getVal('chat'),
-                sticky: getVal('sticky') as 'true' | 'false',
-                description: getVal('description') as 'true' | 'false',
-              },
-              isNew,
-            );
-          }, ctrl.redraw),
-        },
-        [
-          h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
-            h('div.form-group', [
-              h('label.form-label', 'Flair'),
-              h(
-                'div.form-control.emoji-details',
-                {
-                  hook: onInsert(el => flairPickerLoader(el)),
-                },
-                [
-                  h('div.emoji-popup-button', [
-                    h(
-                      'select#study-flair.form-control',
-                      { attrs: { name: 'flair' } },
-                      data.flair && h('option', { attrs: { value: data.flair, selected: true } }),
-                    ),
-                    h('img', { attrs: { src: data.flair ? site.asset.flairSrc(data.flair) : '' } }),
-                  ]),
-                  h(
-                    'div.flair-picker.none',
-                    { attrs: { 'data-except-emojis': 'activity.lichess' } },
-                    h(removeEmojiButton, 'clear'),
-                  ),
-                ],
-              ),
-            ]),
-            h('div.form-group', [
-              h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
-              h('input#study-name.form-control', {
-                attrs: { minlength: 3, maxlength: 100 },
-                hook: {
-                  insert: vnode => {
-                    updateName(vnode, false);
-                    const el = vnode.elm as HTMLInputElement;
-                    el.addEventListener('focus', () => el.select());
-                    // set initial modal focus
-                    setTimeout(() => el.focus());
-                  },
-                  postpatch: (_, vnode) => updateName(vnode, true),
-                },
-              }),
-            ]),
-          ]),
-          h('div.form-split', [
-            select({
-              key: 'visibility',
-              name: i18n.study.visibility,
-              choices: [
-                ['public', i18n.study.public],
-                ['unlisted', i18n.study.unlisted],
-                ['private', i18n.study.inviteOnly],
-              ],
-              selected: data.visibility,
-            }),
-            select({
-              key: 'chat',
-              name: i18n.site.chat,
-              choices: userSelectionChoices,
-              selected: data.settings.chat,
-            }),
-          ]),
-          h('div.form-split', [
-            select({
-              key: 'computer',
-              name: i18n.site.computerAnalysis,
-              choices: userSelectionChoices,
-              selected: data.settings.computer,
-            }),
-            select({
-              key: 'explorer',
-              name: i18n.site.openingExplorerAndTablebase,
-              choices: userSelectionChoices,
-              selected: data.settings.explorer,
-            }),
-          ]),
-          h('div.form-split', [
-            select({
-              key: 'cloneable',
-              name: i18n.study.allowCloning,
-              choices: userSelectionChoices,
-              selected: data.settings.cloneable,
-            }),
-            select({
-              key: 'shareable',
-              name: i18n.study.shareAndExport,
-              choices: userSelectionChoices,
-              selected: data.settings.shareable,
-            }),
-          ]),
-          h('div.form-split', [
-            select({
-              key: 'sticky',
-              name: i18n.study.enableSync,
-              choices: [
-                ['true', i18n.study.yesKeepEveryoneOnTheSamePosition],
-                ['false', i18n.study.noLetPeopleBrowseFreely],
-              ],
-              selected: '' + data.settings.sticky,
-            }),
-            select({
-              key: 'description',
-              name: i18n.study.pinnedStudyComment,
-              choices: [
-                ['false', i18n.study.noPinnedComment],
-                ['true', i18n.study.rightUnderTheBoard],
-              ],
-              selected: '' + data.settings.description,
-            }),
-          ]),
-          ctrl.relay &&
-            h('div.form-actions-secondary', [
-              h(
-                'a.text',
-                {
-                  attrs: {
-                    'data-icon': licon.RadioTower,
-                    href: `/broadcast/${ctrl.relay.data.tour.id}/edit`,
-                  },
-                },
-                'Tournament settings',
-              ),
-              h(
-                'a.text',
-                { attrs: { 'data-icon': licon.RadioTower, href: `/broadcast/round/${data.id}/edit` } },
-                'Round settings',
-              ),
-            ]),
-          h('div.form-actions', [
-            h('div', { attrs: { style: 'display: flex' } }, [
-              h(
-                'form',
-                {
-                  attrs: { action: '/study/' + data.id + '/delete', method: 'post' },
-                  hook: bindNonPassive('submit', e => {
-                    if (isNew) return;
-
-                    e.preventDefault();
-                    prompt(i18n.study.confirmDeleteStudy(data.name)).then(userInput => {
-                      if (userInput?.trim() === data.name.trim()) (e.target as HTMLFormElement).submit();
-                    });
-                  }),
-                },
-                [h(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
-              ),
-              !isNew &&
-                h(
-                  'form',
+      isEditable
+        ? h(
+            'form.form3',
+            {
+              hook: bindSubmit(e => {
+                const getVal = (name: string): string => {
+                  const el = (e.target as HTMLElement).querySelector('#study-' + name) as HTMLInputElement;
+                  if (el) return el.value;
+                  else throw `Missing form input: ${name}`;
+                };
+                ctrl.save(
                   {
-                    attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
-                    hook: bindNonPassive('submit', e => {
-                      e.preventDefault();
-                      confirm(i18n.study.deleteTheStudyChatHistory).then(yes => {
-                        if (yes) (e.target as HTMLFormElement).submit();
-                      });
-                    }),
+                    name: getVal('name'),
+                    flair: getVal('flair'),
+                    visibility: getVal('visibility'),
+                    computer: getVal('computer'),
+                    explorer: getVal('explorer'),
+                    cloneable: getVal('cloneable'),
+                    shareable: getVal('shareable'),
+                    chat: getVal('chat'),
+                    sticky: getVal('sticky') as 'true' | 'false',
+                    description: getVal('description') as 'true' | 'false',
                   },
-                  [h(emptyRedButton, i18n.study.clearChat)],
-                ),
-            ]),
-            h('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.study.save),
+                  isNew,
+                );
+              }, ctrl.redraw),
+            },
+            [
+              ...formFields,
+              relayLinks,
+              h('div.form-actions', [
+                deleteForms,
+                h('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.study.save),
+              ]),
+            ],
+          )
+        : h('div', [
+            h('p', 'Official broadcasts have no study settings.'),
+            relayLinks,
+            h('div.form-actions', deleteForms),
           ]),
-        ],
-      ),
     ],
   });
 }

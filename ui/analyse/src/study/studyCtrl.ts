@@ -303,7 +303,7 @@ export default class StudyCtrl {
     this.vm.mode.write = this.vm.mode.write && canContribute;
     pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
-    pubsub.emit('chat.permissions', { local: canContribute && !this.relayData?.tour.official });
+    pubsub.emit('chat.permissions', { local: canContribute && !this.relay?.isOfficial() });
     pubsub.emit('palantir.toggle', this.data.features.chat && !!this.members.myMember());
     const computer: boolean =
       !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);
