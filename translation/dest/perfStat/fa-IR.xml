@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="perfStats">وضعیت %s</string>
+  <string name="perfStats">آمار %s</string>
   <string name="viewTheGames">دیدن بازی‌ها</string>
   <string name="provisional">موقت</string>
   <string name="notEnoughRatedGames">بازی های رسمی کافی برای تعیین کردن یک درجه‌بندی قابل‌اتکا انجام نشده است.</string>
