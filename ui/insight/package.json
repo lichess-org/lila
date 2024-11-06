@@ -15,8 +15,7 @@
     "chart": "workspace:^",
     "chart.js": "4.4.6",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "common": "workspace:*",
-    "snabbdom": "3.5.1"
+    "common": "workspace:*"
   },
   "lichess": {
     "bundles": [
