@@ -27,11 +27,6 @@ export const hooks = (ctrl: LobbyController): Hooks => {
       el.addEventListener('click', handler);
       el.addEventListener('keydown', handler);
     },
-    destroy: (vnode: VNode) => {
-      const el = vnode.elm as HTMLElement;
-      el.removeEventListener('click', handler);
-      el.removeEventListener('keydown', handler);
-    },
   };
 };
 
