@@ -1,6 +1,7 @@
-import { h, Hooks, VNode } from 'snabbdom';
+import { h, Hooks } from 'snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import LobbyController from '../ctrl';
+import { onInsert } from 'common/snabbdom';
 
 const createHandler = (ctrl: LobbyController) => (e: Event) => {
   if (ctrl.redirecting) return;
@@ -19,16 +20,12 @@ const createHandler = (ctrl: LobbyController) => (e: Event) => {
   ctrl.redraw();
 };
 
-export const hooks = (ctrl: LobbyController): Hooks => {
-  return {
-    insert: (vnode: VNode) => {
-      const el = vnode.elm as HTMLElement;
-      const handler = createHandler(ctrl);
-      el.addEventListener('click', handler);
-      el.addEventListener('keydown', handler);
-    },
-  };
-};
+export const hooks = (ctrl: LobbyController): Hooks =>
+  onInsert(el => {
+    const handler = createHandler(ctrl);
+    el.addEventListener('click', handler);
+    el.addEventListener('keydown', handler);
+  });
 
 export function render(ctrl: LobbyController) {
   const member = ctrl.poolMember;
