@@ -3,7 +3,7 @@
   <string name="preferences">تنظیمات</string>
   <string name="display">صفحه نمایش</string>
   <string name="privacy">امنیت و حریم شخصی</string>
-  <string name="notifications">اعلانات</string>
+  <string name="notifications">اعلان</string>
   <string name="pieceAnimation">حرکت مهره ها</string>
   <string name="materialDifference">تفاوت مُهره‌ها</string>
   <string name="boardHighlights">رنگ‌نمایی صفحه (آخرین حرکت و کیش)</string>
@@ -53,14 +53,14 @@
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">گفتن \"بازی خوبی بود، خوب بازی کردی\" در هنگام باخت یا تساوی</string>
   <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">تغییرات شما ذخیره شده است</string>
   <string name="scrollOnTheBoardToReplayMoves">برای بازپخش حرکت‌ها، روی صفحه بازی بِنَوَردید</string>
-  <string name="correspondenceEmailNotification">ایمیل های روزانه که بازی های شبیه شما را به صورت لیست درمی‌آورند</string>
-  <string name="notifyStreamStart">استریمر شروع به فعالیت کرد</string>
+  <string name="correspondenceEmailNotification">فهرست رایانامهٔ روزانه از بازی‌های مکاتبه‌ای‌تان</string>
+  <string name="notifyStreamStart">بَرخَط-محتواساز روی پخش است</string>
   <string name="notifyInboxMsg">پیام جدید</string>
   <string name="notifyForumMention">در انجمن از شما نام‌بُرده‌اند</string>
   <string name="notifyInvitedStudy">دعوت به مطالعه</string>
-  <string name="notifyGameEvent">اعلان به روزرسانی بازی</string>
+  <string name="notifyGameEvent">به‌روزرسانی‌های بازی مکاتبه‌ای</string>
   <string name="notifyChallenge">پیشنهاد بازی</string>
-  <string name="notifyTournamentSoon">تورنمت به زودی آغاز می شود</string>
+  <string name="notifyTournamentSoon">مسابقات به‌زودی می‌آغازد</string>
   <string name="notifyTimeAlarm">هشدار تنگی زمان</string>
   <string name="notifyBell">زنگوله اعلانات لیچس</string>
   <string name="notifyPush">اعلانات برای زمانی که شما در لیچس نیستید</string>
