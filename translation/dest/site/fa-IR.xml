@@ -183,7 +183,7 @@
   <string name="discussions">مکالمات</string>
   <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
-  <string name="minutesPerSide">زمان برای هر بازیکن(به دقیقه)</string>
+  <string name="minutesPerSide">هر بازیکن چند دقیقه</string>
   <string name="variant">گونه</string>
   <string name="variants">گونه‌ها</string>
   <string name="timeControl">زمان</string>
@@ -221,7 +221,7 @@
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
   <string name="error.weakPassword">این رمز به شدت معمول و قابل حدس است.</string>
   <string name="error.namePassword">لطفا رمز خود را متفاوت از نام کاربری خود انتخاب کنید.</string>
-  <string name="blankedPassword">شما از همین رمز عبور در سایت دیگری استفاده کرده اید و آن سایت در معرض خطر قرار گرفته است. برای اطمینان از ایمنی حساب لیچس خود، لازم است که شما یک رمز عبور جدید ایجاد کنید. ممنون از همکاری شما.</string>
+  <string name="blankedPassword">شما از گذرواژهٔ یکسانی در وبگاه دیگری بهراییده‌اید و آن وبگاه به خطر افتاده است. برای اطمینان از ایمنی حساب Lichessتان، به شما نیاز داریم تا گذرواژهٔ نویی را تعیین کنید. از درک‌تان سپاسگزاریم.</string>
   <string name="youAreLeavingLichess">در حال ترک lichess هستید</string>
   <string name="neverTypeYourPassword">هرگز رمز خود را در سایت دیگر وارد نکنید!</string>
   <string name="proceedToX">بروید به %s</string>
@@ -358,7 +358,7 @@
     <item quantity="other">%s سیمولتانه</item>
   </plurals>
   <string name="viewTournament">دیدن مسابقات</string>
-  <string name="backToTournament">برگشت به مسابقه</string>
+  <string name="backToTournament">بازگشت به مسابقات</string>
   <string name="noDrawBeforeSwissLimit">شما نمی‌توانید در مسابقات سوییس تا قبل از حرکت ۳۰ام بازی را مساوی کنید.</string>
   <string name="thematic">موضوعی</string>
   <plurals name="moreThanNbRatedGames">
@@ -459,7 +459,7 @@
   <string name="openTournaments">باز کردن مسابقه</string>
   <string name="duration">مدت</string>
   <string name="winner">برنده</string>
-  <string name="standing">رتبه بندی</string>
+  <string name="standing">رده‌بندی</string>
   <string name="createANewTournament">درست کردن یک مسابقه ی جدید</string>
   <string name="tournamentCalendar">برنامه ی مسابقات</string>
   <string name="conditionOfEntry">شرایط ورود:</string>
