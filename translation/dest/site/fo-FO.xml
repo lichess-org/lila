@@ -378,7 +378,6 @@
   <string name="block">Forða</string>
   <string name="blocked">Forðaður</string>
   <string name="unblock">Forða ikki</string>
-  <string name="followsYou">Fylgir tær</string>
   <string name="xStartedFollowingY">%1$s byrjaði at fylgja %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s fylgjari</item>

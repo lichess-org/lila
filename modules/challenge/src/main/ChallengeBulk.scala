@@ -36,7 +36,7 @@ final class ChallengeBulkApi(
     expiration = 10 minutes,
     timeout = 10 seconds,
     name = "challenge.bulk",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =

@@ -229,6 +229,10 @@ interface I18n {
     addRound: string;
     /** Age this year */
     ageThisYear: string;
+    /** View all broadcasts by month */
+    allBroadcastsByMonth: string;
+    /** All teams */
+    allTeams: string;
     /** Boards */
     boards: string;
     /** Boards can be loaded with a source or via the %s */
@@ -271,6 +275,8 @@ interface I18n {
     fidePlayers: string;
     /** FIDE profile */
     fideProfile: string;
+    /** FIDE rating category */
+    fideRatingCategory: string;
     /** Full tournament description */
     fullDescription: string;
     /** Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters. */
@@ -293,14 +299,22 @@ interface I18n {
     noBoardsYet: string;
     /** The broadcast has not yet started. */
     notYetStarted: string;
+    /** Official Standings */
+    officialStandings: string;
     /** Official website */
     officialWebsite: string;
     /** Ongoing */
     ongoing: string;
     /** Open in Lichess */
     openLichess: string;
+    /** Optional details */
+    optionalDetails: string;
     /** Overview */
     overview: string;
+    /** Past broadcasts */
+    pastBroadcasts: string;
+    /** %s per page */
+    perPage: I18nFormat;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
     pgnSourceHelp: I18nFormat;
     /** Rating diff */
@@ -343,16 +357,26 @@ interface I18n {
     teams: string;
     /** The new round will have the same members and contributors as the previous one. */
     theNewRoundHelp: string;
+    /** Time zone */
+    timezone: string;
     /** Top 10 rating */
     top10Rating: string;
+    /** Top players */
+    topPlayers: string;
     /** Short tournament description */
     tournamentDescription: string;
+    /** Tournament format */
+    tournamentFormat: string;
+    /** Tournament Location */
+    tournamentLocation: string;
     /** Tournament name */
     tournamentName: string;
     /** Unrated */
     unrated: string;
     /** Upcoming */
     upcoming: string;
+    /** Upcoming broadcasts */
+    upcomingBroadcasts: string;
     /** Upload tournament image */
     uploadImage: string;
     /** webmasters page */
@@ -2431,10 +2455,6 @@ interface I18n {
     hangingPiece: string;
     /** A tactic involving an opponent piece being undefended or insufficiently defended and free to capture. */
     hangingPieceDescription: string;
-    /** Healthy mix */
-    healthyMix: string;
-    /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
-    healthyMixDescription: string;
     /** Hook mate */
     hookMate: string;
     /** Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape. */
@@ -2495,6 +2515,10 @@ interface I18n {
     middlegame: string;
     /** A tactic during the second phase of the game. */
     middlegameDescription: string;
+    /** Healthy mix */
+    mix: string;
+    /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
+    mixDescription: string;
     /** One-move puzzle */
     oneMove: string;
     /** A puzzle that is only one move long. */
@@ -3173,8 +3197,6 @@ interface I18n {
     followAndChallengeFriends: string;
     /** Following */
     following: string;
-    /** Follows you */
-    followsYou: string;
     /** Follow %s */
     followX: I18nFormat;
     /** Call draw */
@@ -3603,6 +3625,8 @@ interface I18n {
     notificationsX: I18nFormat;
     /** Offer draw */
     offerDraw: string;
+    /** OK */
+    ok: string;
     /** One day */
     oneDay: string;
     /** One URL per line. */

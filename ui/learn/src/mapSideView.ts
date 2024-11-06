@@ -5,6 +5,7 @@ import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
 import { LearnCtrl } from './ctrl';
+import { confirm } from 'common/dialog';
 
 export function mapSideView(ctrl: LearnCtrl) {
   if (ctrl.inStage()) return renderInStage(ctrl.sideCtrl);
@@ -69,7 +70,9 @@ function renderHome(ctrl: SideCtrl) {
         ? h(
             'a.confirm',
             {
-              hook: bind('click', () => confirm(i18n.learn.youWillLoseAllYourProgress) && ctrl.reset()),
+              hook: bind('click', async () => {
+                if (await confirm(i18n.learn.youWillLoseAllYourProgress)) ctrl.reset();
+              }),
             },
             i18n.learn.resetMyProgress,
           )

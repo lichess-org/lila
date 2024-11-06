@@ -98,7 +98,7 @@
   .threads .post.author {
     opacity: 1;
     cursor: pointer;
-    border-bottom: 1px dashed $c-accent;
+    border-bottom: 1px dashed $m-accent--fade-50;
     min-width: 6ch;
     &:hover {
       background: $m-accent--fade-80;

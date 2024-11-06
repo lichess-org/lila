@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">Փնտրել</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Փնտրել</string>
   <string name="advancedSearch">Ընդլայնված որոնում</string>
   <plurals name="searchInXGames">
     <item quantity="one">Փնտրել %s շախմատային խաղում</item>

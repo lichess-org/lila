@@ -62,12 +62,24 @@
   <string name="notYetStarted">Udsendelsen er endnu ikke startet.</string>
   <string name="officialWebsite">Officielt websted</string>
   <string name="standings">Stillinger</string>
+  <string name="officialStandings">Officiel stilling</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere muligheder på %s</string>
   <string name="webmastersPage">webmasters side</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">En offentlig, realtids PGN-kilde til denne runde. Vi tilbyder også en %s for hurtigere og mere effektiv synkronisering.</string>
   <string name="embedThisBroadcast">Indlejr denne udsendelse på dit website</string>
-  <string name="embedThisRound" comment="%s is &quot;this round&quot;&#10;embedThisRound">Indlejr %s på dit website</string>
+  <string name="embedThisRound">Indlejr %s på dit website</string>
   <string name="ratingDiff">Rating-forskel</string>
   <string name="gamesThisTournament">Partier i denne turnering</string>
   <string name="score">Score</string>
+  <string name="perPage">%s pr. side</string>
+  <string name="allTeams">Alle hold</string>
+  <string name="tournamentFormat">Turneringsformat</string>
+  <string name="tournamentLocation">Turneringssted</string>
+  <string name="topPlayers">Topspillere</string>
+  <string name="timezone">Tidszone</string>
+  <string name="fideRatingCategory">FIDE-ratingkategori</string>
+  <string name="optionalDetails">Valgfri detaljer</string>
+  <string name="upcomingBroadcasts">Kommende udsendelser</string>
+  <string name="pastBroadcasts">Tidligere udsendelser</string>
+  <string name="allBroadcastsByMonth">Vis alle udsendelser efter måned</string>
 </resources>

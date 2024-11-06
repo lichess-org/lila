@@ -292,7 +292,6 @@
   <string name="block">Block</string>
   <string name="blocked">Bahano</string>
   <string name="unblock">Aza bahanana</string>
-  <string name="followsYou">Manaraka anao</string>
   <string name="xStartedFollowingY">%1$s dia nanomboka nanaraka an\'i %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s mpanaraka</item>

@@ -16,8 +16,11 @@ import { userComplete } from 'common/userComplete';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
 import { toggleBoxInit } from 'common/controls';
+import { confirm } from 'common/dialog';
+import { addExceptionListeners } from './unhandledError';
 
 export function boot() {
+  addExceptionListeners();
   $('#user_tag').removeAttr('href');
   const setBlind = location.hash === '#blind';
   const showDebug = location.hash.startsWith('#debug');
@@ -90,8 +93,10 @@ export function boot() {
       else $(this).one('focus', start);
     });
 
-    $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
-      return confirm(this.title || 'Confirm this action?');
+    $('input.confirm, button.confirm').on('click', async function (this: HTMLElement, e: Event) {
+      if (!e.isTrusted) return;
+      e.preventDefault();
+      if (await confirm(this.title || 'Confirm this action?')) (e.target as HTMLElement)?.click();
     });
 
     $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {

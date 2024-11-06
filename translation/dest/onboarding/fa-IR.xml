@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="welcome">خوش آمدید!</string>
-  <string name="welcomeToLichess">به لیچس خوش آمدید!</string>
+  <string name="welcomeToLichess">به lichess.org خوش آمدید!</string>
   <string name="thisIsYourProfilePage">این صفحه رُخ‌نمای‌تان است.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">آیا یک کودک قرار است از این حساب استفاده کند؟ شاید بخواهید %s را فعال کنید.</string>
   <string name="whatNowSuggestions">حالا چی؟ این‌ها پیشنهاد ماست:</string>

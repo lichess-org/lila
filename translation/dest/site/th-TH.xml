@@ -405,7 +405,6 @@
   <string name="block">กีดกัน</string>
   <string name="blocked">ถูกกีดกัน</string>
   <string name="unblock">เลิกกีดกัน</string>
-  <string name="followsYou">ติดตามคุณ</string>
   <string name="xStartedFollowingY">%1$s ได้เริ่มติดตาม %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">ผู้ติดตาม %s</item>

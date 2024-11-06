@@ -46,7 +46,7 @@ export interface Seek {
     key: Exclude<Perf, 'fromPosition'>;
   };
   provisional?: boolean;
-  variant?: string;
+  variant?: { key: VariantKey };
   action: 'joinSeek' | 'cancelSeek';
 }
 

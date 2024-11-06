@@ -1,5 +1,5 @@
 import { load as loadDasher } from 'dasher';
-import { domDialog } from 'common/dialog';
+import { alert, domDialog } from 'common/dialog';
 import { escapeHtml } from 'common';
 import { userComplete } from 'common/userComplete';
 

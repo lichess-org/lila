@@ -20,8 +20,7 @@ case class FidePlayer(
     blitz: Option[Elo],
     blitzK: Option[KFactor],
     year: Option[Int],
-    inactive: Boolean,
-    fetchedAt: Instant
+    inactive: Boolean
 ) extends lila.core.fide.Player:
 
   def ratingOf(tc: FideTC): Option[Elo] = tc match

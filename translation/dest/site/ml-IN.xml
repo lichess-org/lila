@@ -213,6 +213,7 @@
   <string name="error.weakPassword">ഈ രഹസ്യവാക്ക് ഊഹിക്കുകാൻ വളരെ എളുപ്പമാണ്.</string>
   <string name="error.namePassword">ദയവായി താങ്ങളുടെ ഉപയോക്തൃനാമം രഹസ്യവാക്കയായി ഉപയോഗിക്കരുത്.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
+  <string name="neverTypeYourPassword">ഒരിക്കലും താങ്ങളുടെ Lichess രഹസ്യവാക്കു് മറ്റെ വെബ്സ്ഥാനത്തിൽ എഴുതരുതു്!</string>
   <string name="proceedToX">%s വരെ ചെല്ലുക</string>
   <string name="passwordSuggestion">മറ്റാരെങ്കിലും പറഞ്ഞ രഹസ്യവാക്ക് ഉപയോഗിക്കരുത്. അവർ താങ്ങളുടെ അക്കൌണ്ട് തട്ടിയെടുക്കാൻ ശ്രമിക്കും.</string>
   <string name="emailSuggestion">മറ്റെയാരുടേ ഉപദേശ പ്രകാരം ഇമെയിൽ-വിലാസം തിരഞ്ഞെടുക്കരുതു്. അവർക്കു് പിന്നേ താങ്ങളുടെ അക്കൌണ്ടു് മോഷ്ടിക്കാൻ സാധിക്കും.</string>
@@ -404,6 +405,7 @@
   <string name="blackCheckmatesInOneMove">കറുപ്പിന് ഒരു നീക്കത്തില്‍ ജയിക്കാം</string>
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
+  <string name="noNetwork">ഓഫ്ലൈൻ</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s സുഹൃത്ത് തൽസമയം</item>
     <item quantity="other">%s സുഹൃത്തുക്കൾ തൽസമയം</item>
@@ -417,7 +419,6 @@
   <string name="block">തടയുക</string>
   <string name="blocked">തടഞ്ഞു</string>
   <string name="unblock">തടയുന്നത് നിര്‍ത്തുക</string>
-  <string name="followsYou">നിങ്ങളെ പിന്തുടരുന്നു</string>
   <string name="xStartedFollowingY">%1$s പിന്തുടരാൻ %2$s തുടങ്ങി</string>
   <plurals name="nbFollowers">
     <item quantity="one">പിന്തുടർച്ചക്കാർ %s</item>
@@ -489,6 +490,8 @@
   <string name="profile">രൂപരേഖ</string>
   <string name="editProfile">രൂപരേഖ തിരുത്താം</string>
   <string name="realName">യെഥാർത്ഥ പേര്</string>
+  <string name="setFlair">അടയാളം വയ്ക്കുക</string>
+  <string name="flair">അടയാളം</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">രാജ്യം അല്ലെങ്കിൽ പ്രദേശം</string>
   <string name="thankYou">നന്ദി!</string>
@@ -613,6 +616,7 @@
   <string name="error.min">%s എങ്കിലും ആയിരിക്കണം</string>
   <string name="error.max">പരമാവധി %s ആയിരിക്കണം</string>
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
+  <string name="ifRegistered">പ്രവേശിക്കൽ ചെയ്തവർ മാതത്രം</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
   <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
   <string name="menu">പട്ടിക</string>
@@ -669,6 +673,7 @@
   <string name="keyboardShortcuts">കീബോർഡ് ഷോർട് കട്ടുകൾ</string>
   <string name="keyMoveBackwardOrForward">നീക്കം പുറകോട്ട്/മുന്നോട്ട്</string>
   <string name="keyGoToStartOrEnd">പോകാം തുടക്കം/ഒടുക്കം</string>
+  <string name="keyCycleSelectedVariation">തിരഞ്ഞെടുക്കപെട്ട വ്യതിയാനം തോടു് കടന്നുപോവുക</string>
   <string name="keyShowOrHideComments">അഭിപ്രായ പ്രകടനം കാണിക്കുക/മറയ്ക്കുക</string>
   <string name="keyEnterOrExitVariation">വേരിയേഷനിലേക്ക് കടക്കുക / പുറത്തുപോകുക</string>
   <string name="keyRequestComputerAnalysis">ഗണനികവിശകലനം ആവശ്യപെടൂ, താങ്ങളുടെ തെറ്റുകൾ നിന്നു് പഠിക്കുക</string>
@@ -678,6 +683,10 @@
   <string name="keyNextInaccuracy">അടുത്ത കൃത്യമില്ലായ്മ</string>
   <string name="keyPreviousBranch">മുമ്പുള്ള വിഭാഗം</string>
   <string name="keyNextBranch">അടുത്ത വിഭാഗം</string>
+  <string name="toggleVariationArrows">വ്യതിയാനം അമ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
+  <string name="cyclePreviousOrNextVariation">കഴിഞ്ഞ/അടുത്ത വ്യതിയാനം വയ്ക്കുക</string>
+  <string name="toggleGlyphAnnotations">നീക്കം കുറിപ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
+  <string name="togglePositionAnnotations">കരുനില കുറിപ്പുകൾ ടോഗിൾ ചെയ്യുക</string>
   <string name="playSelectedMove">തിരഞ്ഞെടുത്ത നീക്കം കളിക്കുക</string>
   <string name="newTournament">പുതിയ പരമ്പര</string>
   <string name="tournamentHomeTitle">പല വിധം സമയപരിധികളും വേരിയന്റുകളും ഉള്ള ചെസ്സ് ടൂർണമെന്റ്</string>
@@ -727,6 +736,7 @@
   <string name="enableKidMode">കിഡ്-മോഡ് സജ്ജമാക്കുക</string>
   <string name="disableKidMode">കിഡ്-മോഡ് ഒഴിവാക്കുക</string>
   <string name="security">സുരക്ഷിതത്വം</string>
+  <string name="sessions">പ്രവേശിക്കൽ ചെയ്ത ഉപകരണങ്ങൾ</string>
   <string name="revokeAllSessions">എല്ലാ സെഷനും പിൻവലിക്കാൻ</string>
   <string name="playChessEverywhere">എല്ലായിടത്തും ചതുരംഗം കളിക്കൂ</string>
   <string name="asFreeAsLichess">Lichess തികച്ചും സ്വതന്ത്രമാണ്</string>
@@ -896,6 +906,8 @@
   <string name="timeAlmostUp">സമയം അവസാനിക്കാറായി!</string>
   <string name="clickToRevealEmailAddress">ഇമെയിൽ വിലാസം വെളിപ്പെടുത്തുകാൻ അമർത്തിക്കൂ</string>
   <string name="download">ഇറക്കിവയ്ക്കുക</string>
+  <string name="coachManager">അധ്യാപകൻ കൈകാര്യവ്യവസ്ഥ</string>
+  <string name="streamerManager">സ്റ്റ്രീമർ കൈകാര്യവ്യവസ്ഥ</string>
   <string name="cancelTournament">മത്സരം വേണ്ടെന്നു വയ്ക്കുക</string>
   <string name="tournDescription">മത്സരം കുറിച്ചു്</string>
   <string name="onlyMembersOfTeam">കളിക്കൂട്ടത്തിന്റെ അംഗങ്ങൾ മാത്രം</string>
@@ -926,6 +938,7 @@
   <string name="focusChat">ഏകാഗ്രസല്ലാപമുറി</string>
   <string name="showHelpDialog">തുണസന്ദേശപെട്ടി കാണിക്കുക</string>
   <string name="reopenYourAccount">അക്കൌണ്ട് വീണ്ടും തുറക്കുക</string>
+  <string name="closedAccountChangedMind">താങ്ങൾ അക്കൗണ്ടു് അവസാനിച്ചിട്ടു് പിന്നെയും തുറക്കാൻ ആഗ്രഹം ഉണ്ടെങ്കിൽ താങ്ങൾക്കു് ഇതു് ഒരു വട്ടം ചെയ്യാം.</string>
   <string name="onlyWorksOnce">ഇത് ഒരു വട്ടമേ നടക്കും.</string>
   <string name="cantDoThisTwice">താങ്ങൾ രണ്ടാം തവണ അവസാനിച്ചാൽ പിന്നെ വീണ്ടെടുപ്പു് ഒക്കത്തില്ല.</string>
   <string name="emailAssociatedToaccount">ഈ അക്കൌണ്ടുബന്ധിത ഇ-തപാൽ വിലാസം</string>
@@ -941,8 +954,11 @@
   <string name="lichessDbExplanation">Lichess-ൽ കളിച്ചതുള്ള റേറ്റിങ്ങുള്ള കളികൾ</string>
   <string name="switchSides">പക്ഷം മാറുക</string>
   <string name="closingAccountWithdrawAppeal">താങ്ങളുടെ അക്കൌണ്ടു് അവസാനിച്ചാൽ താങ്ങളുടെ നിർവേദനം പിൻവലിക്കപെടും</string>
+  <string name="ourEventTips">പരിപാടി നടുത്താൻ ഞങ്ങളുടെ ഉപദേശങ്ങൾ</string>
   <string name="instructions">നിർദേശങ്ങൾ</string>
   <string name="showMeEverything">എല്ലാം കാണിക്കുക</string>
+  <string name="lichessPatronInfo">Lichess ഒരു സൗജന്യവും/ലിബർ തുറന്ന ഉറവിട യന്ത്രാംശം ആണു്. 
+നടത്തിപ്പിനും വികാസനത്തിനും ഉള്ളടക്കത്തിനും ചെലവു് എല്ലാം ഉപയോക്താവു് സംഭാവനതോടാണു് കഴിയുന്നതു്.</string>
   <string name="nothingToSeeHere">അല്പസമയത്തേക്കു് ഒന്നും കാണാനില്ല.</string>
   <string name="stats">സ്ഥിതിവിവരണങ്ങൾ</string>
 </resources>

@@ -2,7 +2,6 @@ import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from
 import { Protocol } from '../protocol';
 import { objectStorage, ObjectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
-import { log } from 'common/permalog';
 import type StockfishWeb from 'lila-stockfish-web';
 
 export class StockfishWebEngine implements CevalEngine {
@@ -18,7 +17,6 @@ export class StockfishWebEngine implements CevalEngine {
   ) {
     this.protocol = new Protocol(variantMap);
     this.boot().catch(e => {
-      console.error(e);
       this.failed = e;
       this.status?.({ error: String(e) });
     });
@@ -75,10 +73,10 @@ export class StockfishWebEngine implements CevalEngine {
         req.onprogress = e => this.status?.({ download: { bytes: e.loaded, total: e.total } });
 
         const nnueBuffer = await new Promise<Uint8Array>((resolve, reject) => {
-          req.onerror = () => reject(new Error(`NNUE download failed: ${req.status}`));
+          req.onerror = () => reject(new Error(`fetch '${nnueFilename}' failed: ${req.status}`));
           req.onload = () => {
             if (req.status / 100 === 2) resolve(new Uint8Array(req.response));
-            else reject(new Error(`NNUE download failed: ${req.status}`));
+            else reject(new Error(`fetch '${nnueFilename}' failed: ${req.status}`));
           };
           req.send();
         });
@@ -91,7 +89,6 @@ export class StockfishWebEngine implements CevalEngine {
 
   makeErrorHandler(module: StockfishWeb) {
     return (msg: string): void => {
-      log(this.info.assets.js, msg);
       if (msg.startsWith('BAD_NNUE') && this.store) {
         // if we got this from IDB, we must remove it. but wait for getModels::store.put to finish first
         const index = Math.max(0, Number(msg.slice(9)));

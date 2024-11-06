@@ -51,7 +51,6 @@ export interface RelayTour {
   slug: string;
   description?: string;
   info: RelayTourInfo;
-  official?: boolean;
   image?: string;
   teamTable?: boolean;
   tier?: number;

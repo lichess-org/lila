@@ -259,6 +259,7 @@
     <item quantity="one">%s partier mot deg</item>
     <item quantity="other">%s partier mot deg</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Tiden er ute for hvit</string>
   <string name="blackTimeOut">Tiden er ute for svart</string>
@@ -435,7 +436,6 @@
   <string name="block">Blokker</string>
   <string name="blocked">Blokkert</string>
   <string name="unblock">Fjern blokkering</string>
-  <string name="followsYou">Følger deg</string>
   <string name="xStartedFollowingY">%1$s begynte å følge %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s følger</item>
@@ -994,4 +994,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerbidrag.</string>
   <string name="nothingToSeeHere">Ingenting her for nå.</string>
+  <string name="stats">Statistikk</string>
 </resources>

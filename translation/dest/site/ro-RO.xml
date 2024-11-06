@@ -274,6 +274,7 @@
     <item quantity="few">%s partide cu tine</item>
     <item quantity="other">%s partide cu tine</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Anulare</string>
   <string name="whiteTimeOut">Timpul pentru alb a expirat</string>
   <string name="blackTimeOut">Timpul pentru negru a expirat</string>
@@ -465,7 +466,6 @@
   <string name="block">Blocare</string>
   <string name="blocked">Blocat</string>
   <string name="unblock">Deblocare</string>
-  <string name="followsYou">Vă urmărește</string>
   <string name="xStartedFollowingY">%1$s a început să vă urmărească %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s urmăritor</item>
@@ -1036,4 +1036,5 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
 Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
   <string name="nothingToSeeHere">Nimic de văzut aici momentan.</string>
+  <string name="stats">Statistici</string>
 </resources>

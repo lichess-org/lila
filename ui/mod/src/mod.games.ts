@@ -3,6 +3,7 @@ import tablesort from 'tablesort';
 import { debounce } from 'common/timing';
 import { formToXhr } from 'common/xhr';
 import { checkBoxAll, expandCheckboxZone, shiftClickCheckboxRange } from './checkBoxes';
+import { confirm } from 'common/dialog';
 
 site.load.then(() => {
   setupTable();
@@ -35,23 +36,20 @@ const setupActionForm = () => {
   const form = document.querySelector('.mod-games__analysis-form') as HTMLFormElement;
   const debouncedSubmit = debounce(
     () =>
-      formToXhr(form).then(() => {
-        const reload = confirm('Analysis completed. Reload the page?');
-        if (reload) site.reload();
+      formToXhr(form).then(async () => {
+        if (await confirm('Analysis completed. Reload the page?')) site.reload();
       }),
     1000,
   );
-  $(form).on('click', 'button', (e: Event) => {
+  $(form).on('click', 'button', async (e: Event) => {
     const button = e.target as HTMLButtonElement;
     const action = button.getAttribute('value');
     const nbSelected = form.querySelectorAll('input:checked').length;
-    if (nbSelected < 1) return false;
-    if (action == 'analyse') {
-      if (nbSelected >= 20 && !confirm(`Analyse ${nbSelected} games?`)) return;
-      $(form).find('button[value="analyse"]').text('Sent').prop('disabled', true);
-      debouncedSubmit();
-      return false;
-    }
-    return;
+    if (action !== 'analyse') return;
+    e.preventDefault();
+    if (nbSelected < 1) return;
+    if (nbSelected >= 20 && !(await confirm(`Analyse ${nbSelected} games?`))) return;
+    $(form).find('button[value="analyse"]').text('Sent').prop('disabled', true);
+    debouncedSubmit();
   });
 };

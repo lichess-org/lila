@@ -413,7 +413,6 @@
   <string name="block">Заблоковати</string>
   <string name="blocked">Заблокованоє</string>
   <string name="unblock">Розблоковати</string>
-  <string name="followsYou">Подписаный на вас</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s подписник</item>
     <item quantity="few">%s подписника</item>

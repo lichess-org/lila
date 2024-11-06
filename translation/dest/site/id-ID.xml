@@ -399,7 +399,6 @@
   <string name="block">Blokir</string>
   <string name="blocked">Diblokir</string>
   <string name="unblock">Buka blokir</string>
-  <string name="followsYou">Mengikuti anda</string>
   <string name="xStartedFollowingY">%1$s mulai mengikuti %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s pengikut</item>

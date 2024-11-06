@@ -126,7 +126,7 @@ object BSONHandlers:
         withdraw = r.boolD("w"),
         score = r.intD("s"),
         fire = r.boolD("f"),
-        performance = r.intD("e"),
+        performance = r.getO[IntRating]("e"),
         team = r.getO[TeamId]("t")
       )
     def writes(w: BSON.Writer, o: Player) =

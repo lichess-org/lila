@@ -289,6 +289,7 @@
     <item quantity="many">%s партий с вами</item>
     <item quantity="other">%s партий с вами</item>
   </plurals>
+  <string name="ok">ОК</string>
   <string name="cancel">Отменить</string>
   <string name="whiteTimeOut">Белые просрочили время</string>
   <string name="blackTimeOut">Чёрные просрочили время</string>
@@ -495,7 +496,6 @@
   <string name="block">Заблокировать</string>
   <string name="blocked">Заблокированные</string>
   <string name="unblock">Разблокировать</string>
-  <string name="followsYou">Подписан на вас</string>
   <string name="xStartedFollowingY">%1$s подписался на %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s подписчик</item>

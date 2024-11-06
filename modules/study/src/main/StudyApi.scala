@@ -614,6 +614,7 @@ final class StudyApi(
     _ <- chapterRepo.insert(chapter)
     newStudy = study.withChapter(chapter)
     _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
+    _ = preview.invalidate(study.id)
   yield sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
 
   def setChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =

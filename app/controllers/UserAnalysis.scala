@@ -54,11 +54,16 @@ final class UserAnalysis(
   def pgn(pgn: String) = Open:
     val pov         = makePov(none, Standard)
     val orientation = get("color").flatMap(Color.fromName) | pov.color
+    val decodedPgn =
+      lila.common.String
+        .decodeUriPath(pgn.take(5000))
+        .map(_.replace("_", " ").replace("+", " ").trim)
+        .filter(_.nonEmpty)
     Ok.async:
       env.api.roundApi
         .userAnalysisJson(pov, ctx.pref, none, orientation, owner = false)
         .map: data =>
-          views.board.userAnalysis(data, pov, inlinePgn = pgn.replace("_", " ").some)
+          views.board.userAnalysis(data, pov, inlinePgn = decodedPgn)
     .map(_.enforceCrossSiteIsolation)
 
   private[controllers] def makePov(fen: Option[Fen.Full], variant: Variant): Pov =
