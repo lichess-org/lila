@@ -20,10 +20,10 @@ const createHandler = (ctrl: LobbyController) => (e: Event) => {
 };
 
 export const hooks = (ctrl: LobbyController): Hooks => {
-  const handler = createHandler(ctrl);
   return {
     insert: (vnode: VNode) => {
       const el = vnode.elm as HTMLElement;
+      const handler = createHandler(ctrl);
       el.addEventListener('click', handler);
       el.addEventListener('keydown', handler);
     },
