@@ -49,4 +49,24 @@
   <string name="ageThisYear">Bu yılki yaşı</string>
   <string name="unrated">Derecelendirilmemiş</string>
   <string name="recentTournaments">Son Turnuvalar</string>
+  <string name="openLichess">Lichess\'te aç</string>
+  <string name="teams">Takımlar</string>
+  <string name="boards">Tahtalar</string>
+  <string name="overview">Genel Bakış</string>
+  <string name="subscribeTitle">Tur başladığında bildirim almak için abone olun. Hesap tercihlerinizden anlık ya da çan bildirimi tercihinizi hesap tercihlerinizden belirleyebilirsiniz.</string>
+  <string name="uploadImage">Turnuva görseli yükleyin</string>
+  <string name="noBoardsYet">Henüz tahta bulunmamaktadır. Oyunlar yüklendikçe tahtalar ortaya çıkacaktır.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tahtalar bir kaynaktan ya da %sndan yüklenebilir</string>
+  <string name="startsAfter">%s\'ten sonra başlar</string>
+  <string name="startVerySoon">Yayın az sonra başlayacak.</string>
+  <string name="notYetStarted">Yayın henüz başlamadı.</string>
+  <string name="officialWebsite">Resmî site</string>
+  <string name="standings">Sıralamalar</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">%snda daha fazla seçenek</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Bu turun açık, gerçek zamanlı PGN kaynağı. Daha hızlı ve verimli senkronizasyon için %s\'ımız da bulunmaktadır.</string>
+  <string name="embedThisBroadcast">İnternet sitenizde bu yayını gömülü paylaşın</string>
+  <string name="embedThisRound">%su İnternet sitenizde gömülü paylaşın</string>
+  <string name="ratingDiff">Puan farkı</string>
+  <string name="gamesThisTournament">Bu turnuvadaki maçlar</string>
+  <string name="score">Skor</string>
 </resources>

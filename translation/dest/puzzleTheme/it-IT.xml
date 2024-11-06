@@ -3,7 +3,7 @@
   <string name="advancedPawn">Pedone avanzato</string>
   <string name="advancedPawnDescription">Un pedone che promuove o che minaccia di promuovere è la chiave della tattica.</string>
   <string name="advantage">Vantaggio</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Cogli l\'occasione per guadagnare un vantaggio decisivo. (200cp ≤ valutazione ≤ 600cp)</string>
+  <string name="advantageDescription">Cogli l\'occasione per guadagnare un vantaggio decisivo. (200cp ≤ valutazione ≤ 600cp)</string>
   <string name="anastasiaMate">Matto di Anastasia</string>
   <string name="anastasiaMateDescription">Un cavallo e una torre o una donna si coordinano nell\'intrappolare il re avversario tra un suo pezzo e il bordo della scacchiera.</string>
   <string name="arabianMate">Matto arabo</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Cattura del difensore</string>
   <string name="capturingDefenderDescription">Rimozione di un pezzo essenziale per la difesa di un altro pezzo, che permette al pezzo ora indifeso di essere catturato con una mossa successiva.</string>
   <string name="crushing">Posizione schiacciante</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
+  <string name="crushingDescription">Trova l\'errore grave del tuo avversario per ottenere un vantaggio schiacciante. (valutazione ≥ 600cp)</string>
   <string name="doubleBishopMate">Matto dei due alfieri</string>
   <string name="doubleBishopMateDescription">Due alfieri danno matto lungo diagonali adiacenti ad un re ostruito dai suoi stessi pezzi.</string>
   <string name="dovetailMate">Matto a coda di rondine</string>
   <string name="dovetailMateDescription">Una donna dà matto al re in una casa adiacente, mentre le due uniche case di fuga sono occupate da suoi pezzi.</string>
   <string name="equality">Parità</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Recupera una posizione persa e assicurati la patta o una posizione pari. (valutazione ≤ 200cp)</string>
+  <string name="equalityDescription">Recupera una posizione persa e assicurati la patta o una posizione pari. (valutazione ≤ 200cp)</string>
   <string name="kingsideAttack">Attacco sull\'ala di re</string>
   <string name="kingsideAttackDescription">Un attacco al re avversario, dopo che ha arroccato corto.</string>
   <string name="clearance">Sgombero</string>
@@ -39,7 +39,7 @@
   <string name="deflection">Deviazione</string>
   <string name="deflectionDescription">Una mossa che rimuove un pezzo avversario da un compito, come ad esempio difendere una casa chiave.</string>
   <string name="discoveredAttack">Attacco di scoperta</string>
-  <string name="discoveredAttackDescription" comment="Please note this string was changed as it was inaccurate:&#10;https://github.com/lichess-org/lila/commit/40e5cbf064e315d291f706331bf8a9866754bcfd">Mossa di un pezzo che precedentemente bloccava un attacco di un pezzo a lungo raggio, come ad esempio un cavallo che si sposta da una casa in fronte ad una torre.</string>
+  <string name="discoveredAttackDescription">Mossa di un pezzo che precedentemente bloccava un attacco di un pezzo a lungo raggio, come ad esempio un cavallo che si sposta da una casa in fronte ad una torre.</string>
   <string name="doubleCheck">Doppio scacco</string>
   <string name="doubleCheckDescription">Scacco con due pezzi contemporaneamente, conseguente a un attacco di scoperta in cui sia il pezzo appena mosso che il pezzo scoperto attaccano il re avversario.</string>
   <string name="endgame">Finale</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Un pezzo che attacca o difende una casa attraverso un pezzo nemico.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">L\'avversario è limitato nella sua scelta della mossa, e tutte le mosse possibili peggiorano la sua posizione.</string>
-  <string name="healthyMix">Mix generale</string>
-  <string name="healthyMixDescription">Un po\' di tutto. Nessuna aspettativa, affinché si possa rimanere pronti a qualsiasi cosa! Proprio come nelle partite vere.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mix generale</string>
+  <string name="mixDescription">Un po\' di tutto. Nessuna aspettativa, affinché si possa rimanere pronti a qualsiasi cosa! Proprio come nelle partite vere.</string>
   <string name="playerGames">Partite tra giocatori</string>
   <string name="playerGamesDescription">Trova problemi tratti dalle tue partite o dalle partite di altri giocatori.</string>
   <string name="puzzleDownloadInformation">Questi problemi sono nel pubblico dominio e possono essere scaricati da %s.</string>

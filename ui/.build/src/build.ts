@@ -8,14 +8,10 @@ import { esbuild, stopEsbuild } from './esbuild.ts';
 import { sync, stopSync } from './sync.ts';
 import { monitor, stopMonitor } from './monitor.ts';
 import { writeManifest } from './manifest.ts';
-import { clean } from './clean.ts';
 import { type Package, env, errorMark, colors as c } from './main.ts';
 import { i18n, stopI18n } from './i18n.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
-  await stop();
-  await clean();
-
   if (env.install) cps.execSync('pnpm install', { cwd: env.rootDir, stdio: 'inherit' });
   if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
 
@@ -43,7 +39,7 @@ export async function build(pkgs: string[]): Promise<void> {
   monitor(pkgs);
 }
 
-export async function stop(): Promise<void> {
+export async function stopBuild(): Promise<void> {
   stopMonitor();
   stopSass();
   stopTsc();

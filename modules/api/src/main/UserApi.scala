@@ -68,7 +68,6 @@ final class UserApi(
             withFollows.soFu(relationApi.countFollowing(u.id)),
             as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
-            as.map(_.userId).so(relationApi.fetchFollows(u.id, _)),
             bookmarkApi.countByUser(u.user),
             gameCache.nbPlaying(u.id),
             gameCache.nbImportedBy(u.id),
@@ -83,7 +82,6 @@ final class UserApi(
                 following,
                 followable,
                 relation,
-                isFollowed,
                 nbBookmarks,
                 nbPlaying,
                 nbImported,
@@ -140,8 +138,7 @@ final class UserApi(
                     Json.obj(
                       "followable" -> followable,
                       "following"  -> relation.exists(_.isFollow),
-                      "blocking"   -> relation.exists(!_.isFollow),
-                      "followsYou" -> isFollowed
+                      "blocking"   -> relation.exists(!_.isFollow)
                     )
               }.noNull
 

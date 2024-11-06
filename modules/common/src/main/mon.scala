@@ -160,7 +160,6 @@ object mon:
     object farming:
       val bot         = counter("round.farming.bot").withoutTags()
       val provisional = counter("round.farming.provisional").withoutTags()
-    val fideGWR = counter("round.fideGWR").withoutTags()
   object playban:
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
     object ban:
@@ -726,4 +725,4 @@ object mon:
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
-  given Conversion[Map[String, Any], TagSet] = TagSet.from
+  private given Conversion[Map[String, Any], TagSet] = TagSet.from

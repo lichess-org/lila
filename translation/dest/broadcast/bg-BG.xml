@@ -34,4 +34,12 @@
   <string name="fideFederations">ФИДЕ федерации</string>
   <string name="fideProfile">ФИДЕ профил</string>
   <string name="federation">Федерация</string>
+  <string name="openLichess">Отвори в Lichess</string>
+  <string name="teams">Отбори</string>
+  <string name="boards">Дъски</string>
+  <string name="overview">Общ преглед</string>
+  <string name="officialWebsite">Официален уебсайт</string>
+  <string name="standings">Класиране</string>
+  <string name="gamesThisTournament">Игри в този турнир</string>
+  <string name="score">Резултат</string>
 </resources>

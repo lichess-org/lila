@@ -1,5 +1,4 @@
 import { escapeHtml } from 'common';
-import { pubsub } from 'common/pubsub';
 
 let timeout: Timeout | undefined;
 
@@ -25,7 +24,7 @@ const announce = (d: LichessAnnouncement) => {
     const millis = d.date ? new Date(d.date).getTime() - Date.now() : 5000;
     if (millis > 0) timeout = setTimeout(kill, millis);
     else kill();
-    if (d.date) pubsub.emit('content-loaded');
+    if (d.date) window.lichess.initializeDom();
   }
 };
 

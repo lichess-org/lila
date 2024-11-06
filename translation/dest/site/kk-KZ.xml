@@ -429,7 +429,6 @@
   <string name="block">Бұғаттау</string>
   <string name="blocked">Бұғатталған</string>
   <string name="unblock">Бұғаттан шығару</string>
-  <string name="followsYou">Сізге серік</string>
   <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s серігі бар</item>

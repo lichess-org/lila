@@ -18,8 +18,7 @@ final class Auth(
     accountC: => Account
 ) extends LilaController(env):
 
-  private def api   = env.security.api
-  private def forms = env.security.forms
+  import env.security.{ api, forms }
 
   private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] = for
     povs  <- env.round.proxyRepo.urgentGames(u)

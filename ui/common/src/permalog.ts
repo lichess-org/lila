@@ -1,10 +1,9 @@
 import { objectStorage, ObjectStorage, DbInfo } from './objectStorage';
-import { alert } from './dialog';
 
 export const log: LichessLog = makeLog();
 
 interface LichessLog {
-  (...args: any[]): Promise<void>;
+  (...args: any[]): Promise<number | void>;
   clear(): Promise<void>;
   get(): Promise<string>;
 }
@@ -24,6 +23,10 @@ function makeLog(): LichessLog {
   let drift = 0.001;
 
   const ready = new Promise<void>(resolve => (resolveReady = resolve));
+
+  (Error.prototype as any).toJSON ??= function () {
+    return { [this.name]: this.message, stack: this.stack };
+  };
 
   objectStorage<string, number>(dbInfo)
     .then(async s => {
@@ -51,12 +54,12 @@ function makeLog(): LichessLog {
     return !val || typeof val === 'string' ? String(val) : JSON.stringify(val);
   }
 
-  const log: LichessLog = async (...args: any[]) => {
+  const log: LichessLog = (...args: any[]) => {
+    console.log(...args);
     const msg = `#${site.info ? `${site.info.commit.substring(0, 7)} - ` : ''}${args
       .map(stringify)
       .join(' ')}`;
     let nextKey = Date.now();
-    console.log(...args);
     if (nextKey === lastKey) {
       nextKey += drift;
       drift += 0.001;
@@ -64,8 +67,7 @@ function makeLog(): LichessLog {
       drift = 0.001;
       lastKey = nextKey;
     }
-    await ready;
-    await store?.put(nextKey, msg);
+    return ready.then(() => store?.put(nextKey, msg)).catch(console.error);
   };
 
   log.clear = async () => {
@@ -80,20 +82,6 @@ function makeLog(): LichessLog {
     const [keys, vals] = await Promise.all([store.list(), store.getMany()]);
     return keys.map((k, i) => `${new Date(k).toISOString().replace(/[TZ]/g, ' ')}${vals[i]}`).join('\n');
   };
-
-  function terseHref(): string {
-    return window.location.href.replace(/^(https:\/\/)?(?:lichess|lichess1)\.org\//, '/');
-  }
-
-  window.addEventListener('error', async e => {
-    const loc = e.filename ? ` - (${e.filename}:${e.lineno}:${e.colno})` : '';
-    log(`${terseHref()} - ${e.message}${loc}\n${e.error?.stack ?? ''}`.trim());
-    if (site.debug) alert(`${e.message}${loc}\n${e.error?.stack ?? ''}`);
-  });
-  window.addEventListener('unhandledrejection', async e => {
-    log(`${terseHref()} - ${e.reason}`);
-    if (site.debug) alert(`${e.reason}`);
-  });
 
   return log;
 }

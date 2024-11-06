@@ -34,11 +34,13 @@ import { PromotionCtrl } from 'chess/promotion';
 import { Role, Move, Outcome } from 'chessops/types';
 import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
+import Report from './report';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
 import { ParentCtrl } from 'ceval/src/types';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 export default class PuzzleCtrl implements ParentCtrl {
   data: PuzzleData;
@@ -77,6 +79,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded = false;
+  private readonly report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -124,6 +127,7 @@ export default class PuzzleCtrl implements ParentCtrl {
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === this.path) {
+            this.report.checkForMultipleSolutions(ev, this);
             this.setAutoShapes();
             this.redraw();
           }
@@ -134,6 +138,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
+    this.report = new Report(this.data.puzzle.id);
 
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
@@ -454,11 +459,9 @@ export default class PuzzleCtrl implements ParentCtrl {
       if (this.streak && win) this.streak.onComplete(true, res.next);
     }
     this.redraw();
-    if (!next) {
-      if (!this.data.replay) {
-        alert('No more puzzles available! Try another theme.');
-        site.redirect('/training/themes');
-      }
+    if (!next && !this.data.replay) {
+      await alert('No more puzzles available! Try another theme.');
+      site.redirect('/training/themes');
     }
   };
 

@@ -431,7 +431,6 @@
   <string name="block">বাধা দিন</string>
   <string name="blocked">বাধাগ্রস্ত</string>
   <string name="unblock">বাধা উঠিয়ে নিন</string>
-  <string name="followsYou">আপনাকে অনুসরণ করছে</string>
   <string name="xStartedFollowingY">%1$s অনুসরণ করা শুরু করেছেন %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s অনুসরণকারী</item>

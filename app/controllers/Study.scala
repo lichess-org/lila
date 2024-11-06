@@ -417,7 +417,7 @@ final class Study(
   def pgn(id: StudyId) = Open:
     pgnWithFlags(id, identity)
 
-  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read): ctx ?=>
+  def apiPgn(id: StudyId) = AnonOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     pgnWithFlags(id, identity)
 
   def pgnWithFlags(id: StudyId, flags: Update[WithFlags])(using Context) =
@@ -439,14 +439,15 @@ final class Study(
   def chapterPgn(id: StudyId, chapterId: StudyChapterId) = Open:
     doChapterPgn(id, chapterId, notFound, privateUnauthorizedFu, privateForbiddenFu)
 
-  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) = AnonOrScoped(_.Study.Read): ctx ?=>
-    doChapterPgn(
-      id,
-      chapterId,
-      fuccess(studyNotFoundText),
-      _ => fuccess(privateUnauthorizedText),
-      _ => fuccess(privateForbiddenText)
-    )
+  def apiChapterPgn(id: StudyId, chapterId: StudyChapterId) =
+    AnonOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
+      doChapterPgn(
+        id,
+        chapterId,
+        fuccess(studyNotFoundText),
+        _ => fuccess(privateUnauthorizedText),
+        _ => fuccess(privateForbiddenText)
+      )
 
   private def doChapterPgn(
       id: StudyId,
@@ -467,7 +468,7 @@ final class Study(
       }
     }
 
-  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read): ctx ?=>
+  def exportPgn(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val name =
       if username.value == "me"
       then ctx.me.fold(UserName("me"))(_.username)
@@ -485,7 +486,7 @@ final class Study(
         .pipe(asAttachmentStream(s"${name}-${if isMe then "all" else "public"}-studies.pgn"))
         .as(pgnContentType)
 
-  def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read): ctx ?=>
+  def apiListByOwner(username: UserStr) = OpenOrScoped(_.Study.Read, _.Web.Mobile): ctx ?=>
     val isMe = ctx.is(username)
     apiC.jsonDownload:
       env.study.studyRepo

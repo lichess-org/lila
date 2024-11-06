@@ -1,6 +1,7 @@
 import { storage } from 'common/storage';
+import { confirm } from 'common/dialog';
 
-const variantConfirms = {
+const variantConfirms: Record<string, string> = {
   chess960:
     "This is a Chess960 game!\n\nThe starting position of the pieces on the players' home ranks is randomized.",
   kingOfTheHill:
@@ -20,15 +21,9 @@ const variantConfirms = {
 
 const storageKey = (key: string) => 'lobby.variant.' + key;
 
-export default function (variant?: string) {
-  return (
-    !variant ||
-    Object.keys(variantConfirms).every(function (key: keyof typeof variantConfirms) {
-      if (variant === key && !storage.get(storageKey(key))) {
-        const c = confirm(variantConfirms[key]);
-        if (c) storage.set(storageKey(key), '1');
-        return c;
-      } else return true;
-    })
-  );
+export default async function (variant: string | undefined) {
+  if (!variant || !variantConfirms[variant] || storage.get(storageKey(variant))) return true;
+  const confirmed = await confirm(variantConfirms[variant]);
+  if (confirmed) storage.set(storageKey(variant), '1');
+  return confirmed;
 }

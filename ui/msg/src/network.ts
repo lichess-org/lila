@@ -61,23 +61,22 @@ export function typing(dest: string) {
 }
 
 export function websocketHandler(ctrl: MsgCtrl) {
-  const listen = pubsub.on;
-  listen('socket.in.msgNew', msg => {
+  pubsub.on('socket.in.msgNew', msg => {
     ctrl.receive({
       ...upgradeMsg(msg),
       read: false,
     });
   });
-  listen('socket.in.msgType', ctrl.receiveTyping);
-  listen('socket.in.blockedBy', ctrl.changeBlockBy);
-  listen('socket.in.unblockedBy', ctrl.changeBlockBy);
+  pubsub.on('socket.in.msgType', ctrl.receiveTyping);
+  pubsub.on('socket.in.blockedBy', ctrl.changeBlockBy);
+  pubsub.on('socket.in.unblockedBy', ctrl.changeBlockBy);
 
   let connected = true;
-  listen('socket.close', () => {
+  pubsub.on('socket.close', () => {
     connected = false;
     ctrl.redraw();
   });
-  listen('socket.open', () => {
+  pubsub.on('socket.open', () => {
     if (!connected) {
       connected = true;
       ctrl.onReconnect();

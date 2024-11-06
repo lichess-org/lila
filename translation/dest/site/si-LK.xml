@@ -383,7 +383,6 @@ You are playing chess.</string>
   <string name="block">අවහිර කරන්න</string>
   <string name="blocked">අවහිර කර ඇත</string>
   <string name="unblock">අවහිර නොකරන්න</string>
-  <string name="followsYou">ඔබව අනුගමනය කරයි</string>
   <string name="xStartedFollowingY">%1$s අනුගමනය ආරම්භ කළය​%2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%sඅනුගාමිකයා</item>

@@ -191,7 +191,7 @@ object header:
                     profile.nonEmptyRealName.map: name =>
                       strong(cls := "name")(name),
                     profile.nonEmptyBio.map: bio =>
-                      p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
+                      p(cls := "bio")(richText(bio, nl2br = true))
                   )
                 ),
                 div(cls := "stats")(

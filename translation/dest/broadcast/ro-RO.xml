@@ -48,4 +48,8 @@
   <string name="ageThisYear">Vârsta în acest an</string>
   <string name="unrated">Fără rating</string>
   <string name="recentTournaments">Turnee recente</string>
+  <string name="openLichess">Deschide în Lichess</string>
+  <string name="teams">Echipe</string>
+  <string name="standings">Clasament</string>
+  <string name="score">Scor</string>
 </resources>

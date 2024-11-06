@@ -45,9 +45,8 @@ final private class RelayFormatApi(
         cache.invalidate(url -> proxy)
 
   private def guessFormat(url: URL)(using CanProxy): Fu[RelayFormat] =
-    RelayRound.Sync.Upstream
-      .Url(url)
-      .lcc
+    import RelayRound.Sync.url.*
+    url.lcc
       .match
         case Some(lcc) =>
           looksLikeJson(lcc.indexUrl).flatMapz:

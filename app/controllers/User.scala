@@ -346,8 +346,10 @@ final class User(
       ctx: Context,
       me: Me
   ): Fu[Result] =
-    env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {
-      case WithPerfsAndEmails(user, emails) =>
+    env.report.api.inquiries
+      .ofModId(me)
+      .zip(env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username"))
+      .flatMap { case (inquiry, WithPerfsAndEmails(user, emails)) =>
         import views.mod.{ user as ui }
         import lila.ui.ScalatagsExtensions.{ emptyFrag, given }
         given lila.mod.IpRender.RenderIp = env.mod.ipRender.apply
@@ -356,7 +358,10 @@ final class User(
 
         val timeline = env.api.modTimeline
           .load(user, withPlayBans = true)
-          .map(views.mod.timeline.renderGeneral)
+          .map: tl =>
+            if inquiry.exists(_.isPlay)
+            then views.mod.timeline.renderPlay(tl)
+            else views.mod.timeline.renderGeneral(tl)
           .map(lila.mod.ui.mzSection("timeline")(_))
 
         val plan =
@@ -444,7 +449,7 @@ final class User(
             .log("User.renderModZone")
         .as(ContentTypes.EVENT_STREAM)
           .pipe(noProxyBuffer)
-    }
+      }
 
   protected[controllers] def renderModZoneActions(username: UserStr)(using ctx: Context) =
     env.user.api.withPerfsAndEmails(username).orFail(s"No such user $username").flatMap {

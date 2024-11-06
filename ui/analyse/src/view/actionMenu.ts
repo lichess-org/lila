@@ -211,7 +211,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     !isTouchDevice() &&
       ctrlToggle(
         {
-          name: 'showVariationArrows',
+          name: i18n.site.showVariationArrows,
           title: 'Variation navigation arrows',
           id: 'variationArrows',
           checked: ctrl.variationArrowsProp(),

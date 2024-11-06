@@ -116,7 +116,7 @@ final class StudyTopicApi(topicRepo: StudyTopicRepo, userTopicRepo: StudyUserTop
     maxSize = Max(1),
     timeout = 61 seconds,
     name = "studyTopicAggregation",
-    lila.log.asyncActorMonitor.copy(overflow = _ => ())
+    lila.log.asyncActorMonitor.unhandled
   )
 
   def recompute(): Unit =

@@ -17,6 +17,7 @@ import { once } from 'common/storage';
 import { initMiniGames } from 'common/miniBoard';
 import { watchers } from 'common/watchers';
 import { makeChat } from 'chat';
+import { prompt } from 'common/dialog';
 
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
@@ -141,9 +142,9 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
             attrs: dataIcon(licon.PlayTriangle),
             hook: bind(
               'click',
-              _ => {
+              async () => {
                 if (d.password) {
-                  const p = prompt(i18n.site.tournamentEntryCode);
+                  const p = await prompt(i18n.site.tournamentEntryCode);
                   if (p !== null) ctrl.join(p);
                 } else ctrl.join();
               },

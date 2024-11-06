@@ -249,6 +249,18 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       )
   }
 
+  def report(id: PuzzleId) = AuthBody { _ ?=> me ?=>
+    NoBot:
+      bindForm(env.puzzle.forms.report)(
+        badJsonFormError,
+        reportText =>
+          env.puzzle.api.puzzle
+            .reportDedup(id)
+            .so(env.irc.api.reportPuzzle(me.light, id, reportText))
+            .inject(jsonOkResult)
+      )
+  }
+
   def voteTheme(id: PuzzleId, themeStr: String) = AuthBody { _ ?=> me ?=>
     NoBot:
       PuzzleTheme

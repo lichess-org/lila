@@ -10,8 +10,8 @@
   <string name="yourTurn">내 차례</string>
   <string name="aiNameLevelAiLevel">%1$s 레벨 %2$s</string>
   <string name="level">레벨</string>
-  <string name="strength">강도</string>
-  <string name="toggleTheChat">채팅 토글</string>
+  <string name="strength">난이도</string>
+  <string name="toggleTheChat">채팅 끄기/켜기</string>
   <string name="chat">채팅</string>
   <string name="resign">기권</string>
   <string name="checkmate">체크메이트</string>
@@ -47,10 +47,10 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">이 URL로 가장 먼저 들어온 사람과 체스를 두게 됩니다.</string>
   <string name="whiteResigned">백 기권함</string>
   <string name="blackResigned">흑 기권함</string>
-  <string name="whiteLeftTheGame">백이 게임 퇴장</string>
-  <string name="blackLeftTheGame">흑이 게임 퇴장</string>
+  <string name="whiteLeftTheGame">백이 게임을 나갔습니다</string>
+  <string name="blackLeftTheGame">흑이 게임을 나갔습니다</string>
   <string name="whiteDidntMove">백이 두지 않음</string>
-  <string name="blackDidntMove">흑이 두지 않음</string>
+  <string name="blackDidntMove">흑이 수를 두지 않음</string>
   <string name="requestAComputerAnalysis">컴퓨터 분석 요청하기</string>
   <string name="computerAnalysis">컴퓨터 분석</string>
   <string name="computerAnalysisAvailable">컴퓨터 분석이 가능합니다.</string>
@@ -58,9 +58,9 @@
   <string name="analysis">분석</string>
   <string name="depthX">%s 수까지 탐색</string>
   <string name="usingServerAnalysis">서버 분석 사용하기</string>
-  <string name="loadingEngine">엔진 로드 중 ...</string>
+  <string name="loadingEngine">엔진 로드 중...</string>
   <string name="calculatingMoves">수 계산 중...</string>
-  <string name="engineFailed">엔진 불러오는 도중 에러 발생</string>
+  <string name="engineFailed">엔진 불러오는 도중 오류 발생</string>
   <string name="cloudAnalysis">클라우드 분석</string>
   <string name="goDeeper">더 깊게 분석하기</string>
   <string name="showThreat">위험요소 표시</string>
@@ -76,9 +76,9 @@
   <string name="move">수</string>
   <string name="variantLoss">변형 체스에서 패배</string>
   <string name="variantWin">변형 체스에서 승리</string>
-  <string name="insufficientMaterial">기물 부족으로 무승부입니다.</string>
+  <string name="insufficientMaterial">기물 부족</string>
   <string name="pawnMove">폰 이동</string>
-  <string name="capture">말 포획</string>
+  <string name="capture">기물 잡기</string>
   <string name="close">닫기</string>
   <string name="winning">이기는 수</string>
   <string name="losing">지는 수</string>
@@ -88,7 +88,7 @@
   <string name="whiteDrawBlack">백 / 무승부 / 흑</string>
   <string name="averageRatingX">평균 레이팅: %s</string>
   <string name="recentGames">최근 게임</string>
-  <string name="topGames">탑 게임</string>
+  <string name="topGames">최고 레이팅 게임</string>
   <string name="masterDbExplanation">%2$s년과 %3$s년 사이 FIDE 레이팅이 최소 %1$s였던 선수들의 기보가 약 2백만개 있습니다.</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s개의 반수 후 체크메이트</item>
@@ -113,20 +113,20 @@
   <string name="deleteThisImportedGame">가져온 게임을 삭제할까요?</string>
   <string name="replayMode">게임 다시보기</string>
   <string name="realtimeReplay">실시간</string>
-  <string name="byCPL">평가치변화</string>
-  <string name="openStudy">공부하기</string>
+  <string name="byCPL">센티폰 손실</string>
+  <string name="openStudy">연구를 시작하기</string>
   <string name="enable">활성화</string>
   <string name="bestMoveArrow">최선의 수 화살표</string>
   <string name="showVariationArrows">바리에이션 화살표 표시하기</string>
   <string name="evaluationGauge">평가 게이지</string>
-  <string name="multipleLines">다중 분석</string>
+  <string name="multipleLines">다중 라인 수</string>
   <string name="cpus">CPU 수</string>
   <string name="memory">메모리</string>
   <string name="infiniteAnalysis">무한 분석</string>
   <string name="removesTheDepthLimit">탐색 깊이 제한을 없애고 컴퓨터를 따뜻하게 해줍니다</string>
   <string name="blunder">블런더</string>
   <string name="mistake">실수</string>
-  <string name="inaccuracy">사소한 실수</string>
+  <string name="inaccuracy">부정확한 수</string>
   <plurals name="nbBlunders">
     <item quantity="other">%s 블런더</item>
   </plurals>
@@ -134,10 +134,10 @@
     <item quantity="other">%s 실수</item>
   </plurals>
   <plurals name="nbInaccuracies">
-    <item quantity="other">%s 사소한 실수</item>
+    <item quantity="other">%s 부정확한 수</item>
   </plurals>
   <string name="moveTimes">이동 시간</string>
-  <string name="flipBoard">보드 뒤집기</string>
+  <string name="flipBoard">보드 돌리기</string>
   <string name="threefoldRepetition">3회 동형반복</string>
   <string name="claimADraw">무승부 처리</string>
   <string name="offerDraw">무승부 요청</string>
@@ -171,13 +171,13 @@
   <string name="players">플레이어</string>
   <string name="friends">친구들</string>
   <string name="otherPlayers">다른 플레이어들</string>
-  <string name="discussions">채팅</string>
+  <string name="discussions">대화</string>
   <string name="today">오늘</string>
   <string name="yesterday">어제</string>
   <string name="minutesPerSide">양쪽 시간(분)</string>
   <string name="variant">게임 종류</string>
   <string name="variants">변형</string>
-  <string name="timeControl">타임 컨트롤</string>
+  <string name="timeControl">제한 시간(분)</string>
   <string name="realTime">차례 없음</string>
   <string name="correspondence">긴 대국</string>
   <string name="daysPerTurn">수당 일수</string>
@@ -195,11 +195,11 @@
   <string name="rating">레이팅</string>
   <string name="ratingStats">레이팅 통계</string>
   <string name="username">유저네임</string>
-  <string name="usernameOrEmail">유저네임 또는 이메일</string>
-  <string name="changeUsername">유저네임 변경</string>
+  <string name="usernameOrEmail">사용자 이름이나 이메일 주소</string>
+  <string name="changeUsername">사용자 이름 변경</string>
   <string name="changeUsernameNotSame">글자의 대소문자 변경만 가능합니다 예: \"chulsoo\"에서 \"ChulSoo\"로.</string>
-  <string name="changeUsernameDescription">유저네임 변경하기: 대/소문자만의 변경이 허용되며, 단 한번만 가능합니다.</string>
-  <string name="signupUsernameHint">유저네임이 모두에게 적절한지 확인하세요. 나중에 변경할 수 없으며 부적절한 유저네임을 가진 계정은 폐쇄됩니다!</string>
+  <string name="changeUsernameDescription">사용자명 변경하기: 대/소문자만의 변경이 허용되며, 단 한번만 가능합니다.</string>
+  <string name="signupUsernameHint">사용자 이름이 어린이를 포함해 모두에게 적절한지 확인하세요. 나중에 변경할 수 없으며 부적절한 사용자 이름을 가진 계정은 폐쇄됩니다!</string>
   <string name="signupEmailHint">비밀번호 초기화를 위해서만 사용됩니다.</string>
   <string name="password">비밀번호</string>
   <string name="changePassword">비밀번호 변경</string>
@@ -208,7 +208,7 @@
   <string name="passwordReset">비밀번호 초기화</string>
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
   <string name="error.weakPassword">이 비밀번호는 매우 흔하며 추측하기 쉽습니다.</string>
-  <string name="error.namePassword">유저네임을 비밀번호로 사용하지 마세요.</string>
+  <string name="error.namePassword">사용자 이름을 비밀번호로 사용하지 마세요.</string>
   <string name="blankedPassword">당신이 다른 사이트에서 동일한 비밀번호를 사용했으며, 해당 사이트가 유출되었습니다. Lichess 계정의 안전을 위해 새 비밀번호를 설정해 주세요. 양해해 주셔서 감사합니다.</string>
   <string name="youAreLeavingLichess">Lichess에서 나갑니다</string>
   <string name="neverTypeYourPassword">다른 사이트에서는 절대로 Lichess 비밀번호를 입력하지 마세요!</string>
@@ -218,8 +218,8 @@
   <string name="emailConfirmHelp">이메일 확인 도움말</string>
   <string name="emailConfirmNotReceived">가입 후 확인 이메일을 받지 못하셨나요?</string>
   <string name="whatSignupUsername">가입할 때 어떤 사용자 이름을 사용하셨나요?</string>
-  <string name="usernameNotFound">다음 유저네임을 찾을 수 없습니다: %s.</string>
-  <string name="usernameCanBeUsedForNewAccount">이 유저네임을 사용하여 새 계정을 만들 수 있습니다</string>
+  <string name="usernameNotFound">사용자 이름을 찾을 수 없습니다: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">이 사용자 이름을 사용하여 새 계정을 만들 수 있습니다</string>
   <string name="emailSent">%s(으)로 이메일을 전송했습니다.</string>
   <string name="emailCanTakeSomeTime">이메일이 도착하는데 시간이 좀 걸릴 수 있습니다.</string>
   <string name="refreshInboxAfterFiveMinutes">5분 가량 기다린 후 이메일 수신함을 새로고침 해주세요.</string>
@@ -244,6 +244,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">나와 %s번 대국 함</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">취소</string>
   <string name="whiteTimeOut">백 시간 초과</string>
   <string name="blackTimeOut">흑 시간 초과</string>
@@ -282,7 +283,7 @@
   <string name="play">플레이</string>
   <string name="inbox">편지함</string>
   <string name="chatRoom">채팅</string>
-  <string name="loginToChat">채팅할려면 로그인하세요</string>
+  <string name="loginToChat">채팅하려면 로그인하세요</string>
   <string name="youHaveBeenTimedOut">채팅에서 타임아웃 되었습니다.</string>
   <string name="spectatorRoom">관전자 채팅</string>
   <string name="composeMessage">메시지 작성</string>
@@ -376,7 +377,7 @@
   <string name="orUploadPgnFile">또는 PGN 파일을 업로드하세요</string>
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
-  <string name="toStudy">공부</string>
+  <string name="toStudy">연구</string>
   <string name="importGame">게임 불러오기</string>
   <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
   <string name="importGameCaveat">변형은 지워집니다. 변형을 유지하려면 스터디를 통해 PGN을 가져오세요.</string>
@@ -405,7 +406,6 @@
   <string name="block">차단</string>
   <string name="blocked">차단됨</string>
   <string name="unblock">차단 해제</string>
-  <string name="followsYou">팔로워</string>
   <string name="xStartedFollowingY">%1$s(이)가 %2$s(을)를 팔로우했습니다</string>
   <plurals name="nbFollowers">
     <item quantity="other">팔로워 %s명</item>
@@ -448,7 +448,7 @@
   <string name="resume">재개</string>
   <string name="youArePlaying">참가중!</string>
   <string name="winRate">승률</string>
-  <string name="berserkRate">버서크율</string>
+  <string name="berserkRate">버서크 비율</string>
   <string name="performance">퍼포먼스 레이팅</string>
   <string name="tournamentComplete">대회 종료</string>
   <string name="movesPlayed">말 이동 횟수</string>
@@ -506,8 +506,8 @@
   <string name="website">웹사이트</string>
   <string name="mobile">모바일</string>
   <string name="help">힌트:</string>
-  <string name="createANewTopic">새 토픽</string>
-  <string name="topics">토픽</string>
+  <string name="createANewTopic">새 주제 만들기</string>
+  <string name="topics">주제</string>
   <string name="posts">글</string>
   <string name="lastPost">최근 글</string>
   <string name="views">조회</string>
@@ -515,7 +515,7 @@
   <string name="replyToThisTopic">답글 달기</string>
   <string name="reply">전송</string>
   <string name="message">내용</string>
-  <string name="createTheTopic">새 토픽 생성</string>
+  <string name="createTheTopic">새 주제 생성</string>
   <string name="reportAUser">사용자 신고</string>
   <string name="user">신고할 사용자 이름</string>
   <string name="reason">이유</string>
@@ -529,7 +529,7 @@
   <string name="error.provideOneCheatedGameLink">부정행위가 존재하는 게임의 링크를 적어도 하나는 적어주세요.</string>
   <string name="by">작성: %s</string>
   <string name="importedByX">%s가 불러옴</string>
-  <string name="thisTopicIsNowClosed">이 토픽은 닫혔습니다.</string>
+  <string name="thisTopicIsNowClosed">이 주제는 닫혔습니다.</string>
   <string name="blog">블로그</string>
   <string name="notes">노트</string>
   <string name="typePrivateNotesHere">여기에 비공개 메모 작성하기</string>
@@ -806,13 +806,13 @@
   <string name="solution">해답</string>
   <string name="waitingForAnalysis">분석을 기다리는 중</string>
   <string name="noMistakesFoundForWhite">백에게 악수는 없었습니다</string>
-  <string name="noMistakesFoundForBlack">흑에게 악수는 없었습니다</string>
+  <string name="noMistakesFoundForBlack">흑에게 실수는 없었습니다</string>
   <string name="doneReviewingWhiteMistakes">백의 악수 체크가 종료됨</string>
-  <string name="doneReviewingBlackMistakes">흑의 실수 리뷰 끝마침</string>
+  <string name="doneReviewingBlackMistakes">흑의 실수 탐색이 종료됨</string>
   <string name="doItAgain">다시 하기</string>
   <string name="reviewWhiteMistakes">백의 악수를 체크</string>
   <string name="reviewBlackMistakes">흑의 실수 리뷰</string>
-  <string name="advantage">이득</string>
+  <string name="advantage">이점</string>
   <plurals name="nbSeconds">
     <item quantity="other">%s초</item>
   </plurals>
@@ -952,4 +952,5 @@ FEN 포지션을 생성하기 위해 %s를 사용할 수 있습니다.
   <string name="lichessPatronInfo">Lichess는 비영리 기구이며 완전한 무료/자유 오픈소스 소프트웨어입니다.
 모든 운영 비용, 개발, 컨텐츠 조달은 전적으로 사용자들의 기부로 이루어집니다.</string>
   <string name="nothingToSeeHere">지금은 여기에 볼 것이 없습니다.</string>
+  <string name="stats">통계</string>
 </resources>

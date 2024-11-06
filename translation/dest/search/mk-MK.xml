@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">Пребарај</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">Пребарај</string>
   <string name="advancedSearch">Напредно пребарување</string>
   <plurals name="searchInXGames">
     <item quantity="one">Пребарување во %s партија</item>

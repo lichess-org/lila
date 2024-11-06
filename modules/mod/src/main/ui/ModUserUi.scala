@@ -359,7 +359,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               postForm(action := routes.Report.inquiry(r.id.value))(
                 reportSubmitButton(r),
                 " ",
-                userIdLink(r.user.some),
+                userIdLink(r.user.some, withOnline = false),
                 " ",
                 momentFromNowServer(atom.at),
                 ": ",

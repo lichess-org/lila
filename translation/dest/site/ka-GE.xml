@@ -427,7 +427,6 @@
   <string name="block">დაბლოკვა</string>
   <string name="blocked">დაბლოკილი</string>
   <string name="unblock">ბლოკის მოხსნა</string>
-  <string name="followsYou">მოგყვება</string>
   <string name="xStartedFollowingY">%1$s დაიწყო მოყოლა %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s მომყოლები</item>

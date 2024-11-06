@@ -27,6 +27,7 @@ import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
 import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -55,6 +56,7 @@ export default class StudyChaptersCtrl {
   constructor(
     initChapters: ChapterPreviewFromServer[],
     readonly send: StudySocketSend,
+    readonly isBroadcast: boolean,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     private readonly federations: () => Federations | undefined,
@@ -62,8 +64,8 @@ export default class StudyChaptersCtrl {
   ) {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
-    this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
-    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.redraw);
+    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, isBroadcast, root.redraw);
   }
 
   sort = (ids: string[]) => this.send('sortChapters', ids);

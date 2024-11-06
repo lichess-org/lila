@@ -10,6 +10,7 @@ import lila.common.Form.{ cleanText, formatter, into, stringIn, LocalDateTimeOrT
 import lila.core.perm.Granter
 import lila.relay.RelayRound.Sync
 import lila.relay.RelayRound.Sync.Upstream
+import lila.relay.RelayRound.Sync.url.*
 import lila.common.Form.PrettyDateTime
 
 final class RelayRoundForm(using mode: Mode):
@@ -17,9 +18,10 @@ final class RelayRoundForm(using mode: Mode):
   import RelayRoundForm.*
   import lila.common.Form.ISOInstantOrTimestamp
 
-  private given Formatter[Upstream.Url] =
+  private given (using Me): Formatter[Upstream.Url] =
     formatter.stringTryFormatter(str => validateUpstreamUrl(str).map(Upstream.Url.apply), _.url.toString)
-  private given Formatter[Upstream.Urls] = formatter.stringTryFormatter(
+
+  private given (using Me): Formatter[Upstream.Urls] = formatter.stringTryFormatter(
     _.linesIterator.toList
       .map(_.trim)
       .filter(_.nonEmpty)
@@ -33,8 +35,6 @@ final class RelayRoundForm(using mode: Mode):
       .map(_.trim)
       .traverse: i =>
         GameId.from(i.trim).toRight(s"Invalid game ID: $i")
-      .left
-      .map(_.mkString(", "))
       .filterOrElse(
         _.sizeIs <= RelayFetch.maxChaptersToShow.value,
         s"Max games: ${RelayFetch.maxChaptersToShow}"
@@ -44,22 +44,12 @@ final class RelayRoundForm(using mode: Mode):
     _.ids.mkString(" ")
   )
 
-  private def lccIsComplete(url: Upstream.Url) =
-    url.lcc.isDefined || !url.url.host.toString.endsWith("livechesscloud.com")
-
-  def roundMapping(tour: RelayTour)(using Me) =
+  def roundMapping(tour: RelayTour)(using Me): Mapping[Data] =
     mapping(
-      "name"       -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
-      "caption"    -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
-      "syncSource" -> optional(stringIn(sourceTypes.map(_._1).toSet)),
-      "syncUrl" -> optional(
-        of[Upstream.Url]
-          .verifying("LCC URLs must end with /{round-number}, e.g. /5 for round 5", lccIsComplete)
-          .verifying(
-            "Invalid source URL",
-            u => !u.url.host.toString.endsWith("lichess.org") || Granter(_.Relay)
-          )
-      ),
+      "name"                -> cleanText(minLength = 3, maxLength = 80).into[RelayRound.Name],
+      "caption"             -> optional(cleanText(minLength = 3, maxLength = 80).into[RelayRound.Caption]),
+      "syncSource"          -> optional(stringIn(sourceTypes.map(_._1).toSet)),
+      "syncUrl"             -> optional(of[Upstream.Url]),
       "syncUrls"            -> optional(of[Upstream.Urls]),
       "syncIds"             -> optional(of[Upstream.Ids]),
       "startsAt"            -> optional(LocalDateTimeOrTimestamp(tour.info.timeZoneOrDefault).mapping),
@@ -157,9 +147,17 @@ object RelayRoundForm:
       if !subdomain(host, "chess.com") || url.toString.startsWith("https://api.chess.com/pub")
     yield url
 
-  private def validateUpstreamUrl(s: String)(using Mode): Either[String, URL] = for
+  private def validateUpstreamUrl(s: String)(using Me, Mode): Either[String, URL] = for
     url <- cleanUrl(s).toRight("Invalid source URL")
     url <- if !validSourcePort(url) then Left("The source URL cannot specify a port") else Right(url)
+    url <-
+      if url.looksLikeLcc && !url.lcc.isDefined
+      then Left("LCC URLs must end with /{round-number}, e.g. /5 for round 5")
+      else Right(url)
+    url <-
+      if url.host.toString.endsWith("lichess.org") && !Granter(_.Relay)
+      then Left("Invalid source URL")
+      else Right(url)
   yield url
 
   private val validPorts                                           = Set(-1, 80, 443, 8080, 8491)

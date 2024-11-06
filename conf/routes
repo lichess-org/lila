@@ -173,6 +173,7 @@ GET   /training/:angle/$color<white|black|random> controllers.Puzzle.angleAndCol
 GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle, id: PuzzleId)
 POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: PuzzleId)
+POST  /training/$id<\w{5}>/report      controllers.Puzzle.report(id: PuzzleId)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: PuzzleId, theme)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme, id: PuzzleId)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme)

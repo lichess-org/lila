@@ -17,6 +17,7 @@ import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub, PubsubEvent, PubsubCallback } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 export default class ChatCtrl {
   data: ChatData;
@@ -101,7 +102,7 @@ export default class ChatCtrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    pubsub.emit('socket.send', 'talk', text);
+    window.lichess.chat.post(text);
     return true;
   };
 

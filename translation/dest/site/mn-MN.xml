@@ -395,7 +395,6 @@
   <string name="block">Энэ гишүүнд хориг тавих</string>
   <string name="blocked">Энэ гишүүнд хориг тавилаа</string>
   <string name="unblock">Энэ гишүүнд тавьсан хоригийг цуцлах</string>
-  <string name="followsYou">Таныг дагаж байгаа</string>
   <string name="xStartedFollowingY">%1$s дараахь гишүүнийг дагаж эхэллээ: %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s гишүүн дагадаг</item>

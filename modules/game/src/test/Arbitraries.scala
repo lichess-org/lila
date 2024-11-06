@@ -64,6 +64,7 @@ object Arbitraries:
       fen           <- Arbitrary.arbitrary[format.BoardFen]
       check         <- Arbitrary.arbitrary[Check]
       threefold     <- Arbitrary.arbitrary[Boolean]
+      fiftyMoves    <- Arbitrary.arbitrary[Boolean]
       promotion     <- Gen.option(Arbitrary.arbitrary[Event.Promotion])
       enpassant     <- Gen.option(Arbitrary.arbitrary[Event.Enpassant])
       castle        <- Gen.option(Arbitrary.arbitrary[Event.Castling])
@@ -79,6 +80,7 @@ object Arbitraries:
       fen,
       check,
       threefold,
+      fiftyMoves,
       promotion,
       enpassant,
       castle,

@@ -127,6 +127,8 @@ export default class RelayCtrl {
     else history.replaceState({}, '', url);
   };
 
+  isOfficial = () => !!this.data.tour.tier;
+
   isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
 
   pinStreamer = () =>

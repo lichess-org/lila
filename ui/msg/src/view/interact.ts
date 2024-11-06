@@ -4,6 +4,7 @@ import { bindSubmit } from 'common/snabbdom';
 import { User } from '../interfaces';
 import MsgCtrl from '../ctrl';
 import { throttle } from 'common/timing';
+import { alert } from 'common/dialog';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();
@@ -49,7 +50,10 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
     if (prev > now - 1000 || !ctrl.connected()) return;
     prev = now;
     const txt = area.value.trim();
-    if (txt.length > 8000) return alert('The message is too long.');
+    if (txt.length > 8000) {
+      alert('The message is too long.');
+      return;
+    }
     if (txt) ctrl.post(txt);
     area.value = '';
     area.dispatchEvent(new Event('input')); // resize the textarea
