@@ -16,6 +16,8 @@ final private class PlaybanFeedback(
   def sitting(pov: Pov): Unit =
     tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
 
+  def quickResign(pov: Pov): Unit = tell(pov, s"Warning, {user}. Resigning games too quickly $tempBan")
+
   private def tell(pov: Pov, template: String): Unit =
     pov.player.userId.foreach { userId =>
       lightUser(userId).foreach { light =>
