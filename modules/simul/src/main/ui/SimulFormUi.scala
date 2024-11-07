@@ -51,7 +51,7 @@ final class SimulFormUi(helpers: Helpers)(
           ),
           form.isRight.option:
             postForm(cls := "terminate", action := routes.Simul.abort(simul.id))(
-              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
                 trans.site.cancelSimul()
               )
             )

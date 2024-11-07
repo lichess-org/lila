@@ -49,7 +49,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           div(cls := "clas-show__archived archived")(
             ui.showArchived(archived),
             postForm(action := routes.Clas.archive(c.id, v = false)):
-              form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
+              form3.submit(trans.clas.reopen(), icon = none)(cls := "yes-no-confirm button-empty")
           )
       )
 
