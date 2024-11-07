@@ -163,4 +163,5 @@
   <string name="playAgain">もう一度プレイ</string>
   <string name="whatWouldYouPlay">この局面、あなたならどう指す？</string>
   <string name="youCompletedThisLesson">おめでとう ！　このレッスンを修了しました。</string>
+  <string name="perPage">%s 件/ページ</string>
 </resources>
