@@ -69,7 +69,6 @@
   <string name="ratingDiff">レーティングの差</string>
   <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>
-  <string name="perPage">%s 件/ページ</string>
   <string name="allTeams">すべてのチーム</string>
   <string name="tournamentFormat">トーナメント形式</string>
   <string name="tournamentLocation">開催地</string>
