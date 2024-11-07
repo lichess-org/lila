@@ -167,4 +167,5 @@
   <string name="playAgain">Opnieuw spelen</string>
   <string name="whatWouldYouPlay">Wat zou je in deze stelling spelen?</string>
   <string name="youCompletedThisLesson">Gefeliciteerd! Je hebt deze les voltooid.</string>
+  <string name="perPage">%s per pagina</string>
 </resources>
