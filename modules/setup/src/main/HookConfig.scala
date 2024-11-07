@@ -6,7 +6,7 @@ import scalalib.model.Days
 
 import lila.core.perf.UserWithPerfs
 import lila.core.rating.RatingRange
-import lila.lobby.{ Hook, Seek }
+import lila.lobby.{ Hook, Seek, TriColor }
 import lila.rating.RatingRange.withinLimits
 
 case class HookConfig(
@@ -16,6 +16,7 @@ case class HookConfig(
     increment: Clock.IncrementSeconds,
     days: Days,
     mode: Mode,
+    color: TriColor,
     ratingRange: RatingRange
 ) extends HumanConfig:
 
@@ -23,7 +24,17 @@ case class HookConfig(
     if me.isEmpty then this
     else copy(ratingRange = ratingRange.withinLimits(perf.intRating, 500))
 
-  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some).some
+  def fixColor = copy(
+    color =
+      if mode == Mode.Rated &&
+        variantsWhereWhiteIsBetter(variant) &&
+        color != TriColor.Random
+      then TriColor.Random
+      else color
+  )
+
+  def >> =
+    (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
 
   def withTimeModeString(tc: Option[String]) =
     tc match
@@ -100,7 +111,8 @@ object HookConfig extends BaseHumanConfig:
       increment = i,
       days = d,
       mode = realMode,
-      ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault)
+      ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
+      color = TriColor.Random
     )
 
   def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))
@@ -112,7 +124,8 @@ object HookConfig extends BaseHumanConfig:
     increment = Clock.IncrementSeconds(3),
     days = Days(2),
     mode = Mode.default,
-    ratingRange = RatingRange.default
+    ratingRange = RatingRange.default,
+    color = TriColor.Random
   )
 
   import lila.db.BSON
@@ -128,7 +141,8 @@ object HookConfig extends BaseHumanConfig:
         increment = r.get("i"),
         days = r.get("d"),
         mode = Mode.orDefault(r.int("m")),
-        ratingRange = r.strO("e").flatMap(RatingRange.parse).getOrElse(RatingRange.default)
+        ratingRange = r.strO("e").flatMap(RatingRange.parse).getOrElse(RatingRange.default),
+        color = TriColor.Random
       )
 
     def writes(w: BSON.Writer, o: HookConfig) =
