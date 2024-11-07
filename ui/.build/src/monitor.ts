@@ -10,15 +10,15 @@ import { stopEsbuild, esbuild } from './esbuild.ts';
 
 const watchers: fs.FSWatcher[] = [];
 
-let reinitTimeout: NodeJS.Timeout | undefined;
+let packageTimeout: NodeJS.Timeout | undefined;
 let tscTimeout: NodeJS.Timeout | undefined;
 
 export function stopMonitor(): void {
   for (const w of watchers) w.close();
   watchers.length = 0;
   clearTimeout(tscTimeout);
-  clearTimeout(reinitTimeout);
-  tscTimeout = reinitTimeout = undefined;
+  clearTimeout(packageTimeout);
+  tscTimeout = packageTimeout = undefined;
 }
 
 export async function monitor(pkgs: string[]): Promise<void> {
@@ -28,21 +28,21 @@ export async function monitor(pkgs: string[]): Promise<void> {
     globArray('*/*.d.ts', { cwd: env.typesDir }),
   ]);
   const tscChange = async () => {
-    if (reinitTimeout) return;
+    if (packageTimeout) return;
     await stopTsc();
     await stopEsbuild();
     clearTimeout(tscTimeout);
     tscTimeout = setTimeout(() => {
-      if (reinitTimeout) return;
+      if (packageTimeout) return;
       esbuild(tsc());
     }, 2000);
   };
   const packageChange = async () => {
     if (env.watch && env.install) {
       clearTimeout(tscTimeout);
-      clearTimeout(reinitTimeout);
+      clearTimeout(packageTimeout);
       await stopBuild();
-      reinitTimeout = setTimeout(() => clean().then(() => build(pkgs)), 2000);
+      packageTimeout = setTimeout(() => clean().then(() => build(pkgs)), 2000);
       return;
     }
     env.warn('Exiting due to package.json change');

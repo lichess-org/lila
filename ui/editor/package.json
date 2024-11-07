@@ -14,8 +14,7 @@
   "types": "dist/editor.d.ts",
   "dependencies": {
     "chessops": "^0.14.1",
-    "common": "workspace:*",
-    "snabbdom": "3.5.1"
+    "common": "workspace:*"
   },
   "lichess": {
     "bundles": "src/editor.ts"

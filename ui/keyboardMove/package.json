@@ -16,8 +16,7 @@
   "dependencies": {
     "chess": "workspace:*",
     "common": "workspace:*",
-    "game": "workspace:*",
-    "snabbdom": "3.5.1"
+    "game": "workspace:*"
   },
   "lichess": {
     "bundles": "src/keyboardMove.ts"
