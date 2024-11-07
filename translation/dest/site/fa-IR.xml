@@ -442,8 +442,8 @@
     <item quantity="other">%s دنبال‌گر</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s دنبالنده</item>
-    <item quantity="other">%s دنبالنده</item>
+    <item quantity="one">%s دنبال‌شده</item>
+    <item quantity="other">%s دنبال‌شده</item>
   </plurals>
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
