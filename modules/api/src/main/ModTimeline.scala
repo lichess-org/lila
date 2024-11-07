@@ -125,7 +125,7 @@ object ModTimeline:
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true
       case r: ReportNewAtom if r.report.is(_.Comm) => angle != Angle.Play
-      case _: PublicLine                           => angle != Angle.Play
+      case _: PublicLine                           => angle == Angle.Comm
       case _                                       => true
 
 final class ModTimelineApi(
