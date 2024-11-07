@@ -174,4 +174,5 @@
   <string name="playAgain">Igrajte ponovno</string>
   <string name="whatWouldYouPlay">Kaj bi igrali v tem položaju?</string>
   <string name="youCompletedThisLesson">Čestitke! Končali ste to lekcijo.</string>
+  <string name="perPage">%s na stran</string>
 </resources>
