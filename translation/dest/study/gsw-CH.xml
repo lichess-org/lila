@@ -167,4 +167,5 @@
   <string name="playAgain">Vo vornä</string>
   <string name="whatWouldYouPlay">Was würdisch du ih derä Stellig spiele?</string>
   <string name="youCompletedThisLesson">Gratulation! Du häsch die Lektion abgschlosse.</string>
+  <string name="perPage">%s pro Site</string>
 </resources>
