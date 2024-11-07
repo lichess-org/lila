@@ -113,7 +113,7 @@ object ModTimeline:
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
       case _: PlayBans                                     => angle != Angle.Comm
-      case l: Modlog if l.action == Modlog.chatTimeout     => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.chatTimeout     => angle != Angle.Play
       case l: Modlog if l.action == Modlog.deletePost      => angle != Angle.Play
       case l: Modlog if l.action == Modlog.disableTeam     => angle != Angle.Play
       case l: Modlog if l.action == Modlog.teamKick        => angle != Angle.Play
