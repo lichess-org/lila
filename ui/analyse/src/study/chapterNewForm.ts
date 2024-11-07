@@ -41,13 +41,13 @@ export class StudyChapterNewForm {
   editor: LichessEditor | null = null;
   editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
-  orientation: Color;
+  orientation: Color | 'automatic';
 
   constructor(
     private readonly send: StudySocketSend,
     readonly chapters: StudyChapters,
     readonly isBroadcast: boolean,
-    readonly setTab: () => void,
+    readonly setChaptersTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
     pubsub.on('analysis.closeAll', () => this.isOpen(false));
@@ -63,6 +63,12 @@ export class StudyChapterNewForm {
   };
 
   toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
+
+  setTab = (key: ChapterTab) => {
+    this.tab(key);
+    if (key != 'pgn' && this.orientation == 'automatic') this.orientation = 'white';
+    this.root.redraw();
+  };
 
   loadVariants = () => {
     if (!this.variants.length)
@@ -82,7 +88,7 @@ export class StudyChapterNewForm {
     if (!dd.pgn) this.send('addChapter', dd);
     else importPgn(study.data.id, dd);
     this.isOpen(false);
-    this.setTab();
+    this.setChaptersTab();
   };
   startTour = async () => {
     const [tour] = await Promise.all([
@@ -109,8 +115,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
         attrs: { role: 'tab', title, tabindex: '0' },
         hook: onInsert(el => {
           const select = (e: Event) => {
-            ctrl.tab(key);
-            ctrl.root.redraw();
+            ctrl.setTab(key);
             e.preventDefault();
           };
           el.addEventListener('click', select);
