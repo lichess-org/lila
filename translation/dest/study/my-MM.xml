@@ -2,7 +2,7 @@
 <resources>
   <string name="downloadAllGames">ပွဲအားလုံး ဒေါင်းလုပ်ဆွဲပါ</string>
   <string name="downloadGame">ပွဲကို ဒေါင်းလုပ်ဆွဲပါ</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Embed လုပ်ရန် အတွက် ဤစာများကို ဖိရမ်တွင် ကူးထည့်နိုင်ပါသည်</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Embed လုပ်ရန် အတွက် ဤစာများကို ဖိရမ်တွင် ကူးထည့်နိုင်ပါသည်</string>
   <string name="embedInYourWebsite">မိမိ ဝက်ဗ်ဆိုက် သို့မဟုတ် ဘလော့ဂ်တွင် embed လုပ်ပါ</string>
   <string name="readMoreAboutEmbedding">Embed လုပ်ခြင်းနှင့် ပတ်သက်၍ နောက်ထပ် ဖတ်ရှုမည်</string>
   <string name="importFromChapterX">%s မှ တင်သွင်းပါ</string>
