@@ -175,4 +175,5 @@
   <string name="playAgain">Сыграть снова</string>
   <string name="whatWouldYouPlay">Как бы вы сыграли в этой позиции?</string>
   <string name="youCompletedThisLesson">Поздравляем! Вы прошли этот урок.</string>
+  <string name="perPage">%s на страницу</string>
 </resources>
