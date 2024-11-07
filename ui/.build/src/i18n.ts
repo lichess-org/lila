@@ -9,12 +9,18 @@ import { transform } from 'esbuild';
 
 type Plural = { [key in 'zero' | 'one' | 'two' | 'few' | 'many' | 'other']?: string };
 type Dict = Map<string, string | Plural>;
+type TranslationState = {
+  dicts: Map<string, Dict>;
+  locales: string[];
+  cats: string[];
+  siteInit: string | undefined;
+};
 
-let dicts: Map<string, Dict> = new Map();
-let locales: string[], cats: string[];
-let watchTimeout: NodeJS.Timeout | undefined;
+const current: TranslationState = { dicts: new Map(), locales: [], cats: [], siteInit: undefined };
 const i18nWatch: fs.FSWatcher[] = [];
-const isFormat = /%(?:[\d]\$)?s/;
+const isFormatRe = /%(?:[\d]\$)?s/;
+
+let watchTimeout: NodeJS.Timeout | undefined;
 
 export function stopI18n(): void {
   clearTimeout(watchTimeout);
@@ -26,12 +32,24 @@ export function stopI18n(): void {
 export async function i18n(isBoot = true): Promise<void> {
   if (!env.i18n) return;
 
-  [locales, cats] = (
+  [current.locales, current.cats] = (
     await Promise.all([
       globArray('*.xml', { cwd: path.join(env.i18nDestDir, 'site'), absolute: false }),
       globArray('*.xml', { cwd: env.i18nSrcDir, absolute: false }),
     ])
   ).map(list => list.map(x => x.split('.')[0]));
+
+  current.siteInit = await min(
+    `window.i18n = function(k) {
+        for (let v of Object.values(window.i18n)) {
+          if (v[k]) return v[k];
+        }
+        return k;
+      };` +
+      current.cats
+        .map(cat => `window.i18n.${cat} = new Proxy({}, { get: (obj, k) => k in obj ? obj[k] : k });`)
+        .join('\n'),
+  );
 
   await compileTypings();
   compileJavascripts(isBoot); // no await
@@ -43,7 +61,7 @@ export async function i18n(isBoot = true): Promise<void> {
     watchTimeout = setTimeout(() => i18n(false), 2000);
   };
   i18nWatch.push(fs.watch(env.i18nSrcDir, onChange));
-  for (const d of cats) {
+  for (const d of current.cats) {
     await fs.promises.mkdir(path.join(env.i18nDestDir, d)).catch(() => {});
     i18nWatch.push(fs.watch(path.join(env.i18nDestDir, d), onChange));
   }
@@ -55,22 +73,24 @@ async function compileTypings(): Promise<void> {
     fs.promises.stat(typingsPathname).catch(() => undefined),
     fs.promises.mkdir(env.i18nJsDir).catch(() => {}),
   ]);
-  const catStats = await Promise.all(cats.map(d => updated(d)));
+  const catStats = await Promise.all(current.cats.map(d => updated(d)));
 
   if (!tstat || catStats.some(x => x)) {
     env.log(`Building ${c.grey('i18n')}`);
-    dicts = new Map(
+    current.dicts = new Map(
       zip(
-        cats,
+        current.cats,
         await Promise.all(
-          cats.map(d => fs.promises.readFile(path.join(env.i18nSrcDir, `${d}.xml`), 'utf8').then(parseXml)),
+          current.cats.map(cat =>
+            fs.promises.readFile(path.join(env.i18nSrcDir, `${cat}.xml`), 'utf8').then(parseXml),
+          ),
         ),
       ),
     );
     await fs.promises.writeFile(
       typingsPathname,
       tsPrelude +
-        [...dicts]
+        [...current.dicts]
           .map(
             ([cat, dict]) =>
               `  ${cat}: {\n` +
@@ -78,7 +98,7 @@ async function compileTypings(): Promise<void> {
                 .map(([k, v]) => {
                   if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
                   const tpe =
-                    typeof v !== 'string' ? 'I18nPlural' : isFormat.test(v) ? 'I18nFormat' : 'string';
+                    typeof v !== 'string' ? 'I18nPlural' : isFormatRe.test(v) ? 'I18nFormat' : 'string';
                   const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
                   return `    /** ${comment} */\n    ${k}: ${tpe};`;
                 })
@@ -97,11 +117,11 @@ async function compileTypings(): Promise<void> {
 }
 
 async function compileJavascripts(dirty: boolean = true): Promise<void> {
-  for (const cat of cats) {
+  for (const cat of current.cats) {
     const u = await updated(cat);
     if (u) await writeJavascript(cat, undefined, u);
     await Promise.all(
-      locales.map(locale =>
+      current.locales.map(locale =>
         updated(cat, locale).then(xstat => {
           if (!u && !xstat) return;
           if (!dirty) env.log(`Building ${c.grey('i18n')}`);
@@ -115,14 +135,14 @@ async function compileJavascripts(dirty: boolean = true): Promise<void> {
 }
 
 async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | false = false) {
-  if (!dicts.has(cat))
-    dicts.set(
+  if (!current.dicts.has(cat))
+    current.dicts.set(
       cat,
       await fs.promises.readFile(path.join(env.i18nSrcDir, `${cat}.xml`), 'utf8').then(parseXml),
     );
 
   const translations = new Map([
-    ...dicts.get(cat)!,
+    ...current.dicts.get(cat)!,
     ...(locale
       ? await fs.promises
           .readFile(path.join(env.i18nDestDir, cat, `${locale}.xml`), 'utf-8')
@@ -134,21 +154,21 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
   const jsInit =
     cat !== 'site'
       ? ''
-      : siteInit +
+      : current.siteInit +
         'window.i18n.quantity=' +
         (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
         ';';
   const code =
     jsPrelude +
     jsInit +
-    `let i=window.i18n.${cat}={};` +
+    `let i=window.i18n.${cat};` +
     [...translations]
       .map(
         ([k, v]) =>
           `i['${k}']=` +
           (typeof v !== 'string'
             ? `p(${JSON.stringify(v)})`
-            : isFormat.test(v)
+            : isFormatRe.test(v)
               ? `s(${JSON.stringify(v)})`
               : JSON.stringify(v)),
       )
@@ -240,15 +260,6 @@ const jsPrelude =
         return n;
       }`,
   ));
-
-const siteInit = await min(
-  `window.i18n = function(k) {
-      for (let v of Object.values(window.i18n)) {
-        if (v[k]) return v[k];
-        return k;
-      }
-  }`,
-);
 
 const jsQuantity = [
   {
