@@ -41,8 +41,8 @@
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">수 확인</string>
   <string name="explainCanThenBeTemporarilyDisabled">경기 도중 보드 메뉴에서 비활성화될 수 있습니다.</string>
-  <string name="inCorrespondenceGames">통신전</string>
-  <string name="correspondenceAndUnlimited">통신과 무제한</string>
+  <string name="inCorrespondenceGames">통신 대국</string>
+  <string name="correspondenceAndUnlimited">통신 대국과 무제한</string>
   <string name="confirmResignationAndDrawOffers">기권 또는 무승부 제안시 물음</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">캐슬링 방법</string>
   <string name="castleByMovingTwoSquares">킹을 2칸 옮기기</string>
@@ -58,12 +58,12 @@
   <string name="notifyInboxMsg">새로운 받은 편지함 메시지</string>
   <string name="notifyForumMention">포럼 댓글에서 당신이 언급됨</string>
   <string name="notifyInvitedStudy">연구 초대</string>
-  <string name="notifyGameEvent">통신전 업데이트</string>
+  <string name="notifyGameEvent">통신 대국 업데이트</string>
   <string name="notifyChallenge">도전 과제</string>
   <string name="notifyTournamentSoon">곧 토너먼트 시작할 때</string>
-  <string name="notifyTimeAlarm">통신전 시간 곧 만료됨</string>
-  <string name="notifyBell">리체스 내에서 벨 알림</string>
-  <string name="notifyPush">리체스를 사용하지 않을 때 기기 알림</string>
+  <string name="notifyTimeAlarm">통신 대국 시간 곧 만료됨</string>
+  <string name="notifyBell">Lichess 내에서 벨 알림</string>
+  <string name="notifyPush">Lichess를 사용하지 않을 때 기기 알림</string>
   <string name="notifyWeb">브라우저</string>
   <string name="notifyDevice">기기 정보</string>
   <string name="bellNotificationSound">벨 알림 음</string>
