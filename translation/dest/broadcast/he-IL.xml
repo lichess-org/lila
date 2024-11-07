@@ -73,7 +73,6 @@
   <string name="ratingDiff">הפרש הדירוג</string>
   <string name="gamesThisTournament">משחקים בטורניר זה</string>
   <string name="score">ניקוד</string>
-  <string name="perPage">%s לכל עמוד</string>
   <string name="allTeams">כל הקבוצות</string>
   <string name="tournamentFormat">שיטת הטורניר</string>
   <string name="tournamentLocation">מיקום הטורניר</string>
