@@ -54,7 +54,6 @@
 .mod-timeline__event:has(i.moderator) {
   .user-link,
   .user-link i.line {
-    color: $c-brag;
     color: $m-brag_font--mix-50;
   }
 }
