@@ -45,9 +45,8 @@ export function attachDomHandlers() {
     if (focus) start();
     else $(this).one('focus', start);
   });
-  console.log('got one!', $('.yes-no-confirm, .ok-cancel-confirm'));
+
   $('.yes-no-confirm, .ok-cancel-confirm').on('click', async function (this: HTMLElement, e: Event) {
-    console.log(e.isTrusted);
     if (!e.isTrusted) return;
     e.preventDefault();
     const [confirmText, cancelText] = this.classList.contains('yes-no-confirm')
