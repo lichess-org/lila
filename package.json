@@ -37,9 +37,9 @@
     "snabbdom": "3.5.1",
     "typescript": "^5.6.3"
   },
-  "_comments": [
+  "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
-    "typescript above just to allow manual tsc. ui/.build/package.json's typesript version is the truth"
+    "typescript is only for manual tsc. ui/.build/package.json's typesript version is the truth"
   ],
   "scripts": {
     "format": "prettier --cache --write --log-level warn .",
