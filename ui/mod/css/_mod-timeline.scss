@@ -12,7 +12,7 @@
   gap: 1em;
   h3 {
     white-space: nowrap;
-    flex: 0 0 11ch;
+    flex: 0 0 12ch;
     font-size: 1.1em;
     text-transform: capitalize;
   }
@@ -21,13 +21,12 @@
 }
 .mod-timeline__period__events {
   @extend %flex-column;
-  gap: 0.2em;
   flex: 1 1 auto;
 }
 .mod-timeline__event {
   @extend %flex-center-nowrap;
   gap: 1em;
-  padding: 0 1em;
+  padding: 0.1em 1em;
 }
 .mod-timeline__event__from {
   white-space: nowrap;
@@ -54,7 +53,7 @@
 .mod-timeline__event:has(i.moderator) {
   .user-link,
   .user-link i.line {
-    color: $m-brag_font--mix-50;
+    color: $m-brag_font--mix-60;
   }
 }
 .mod-timeline__event__action {
@@ -65,6 +64,9 @@
 .mod-timeline__report-form .button {
   line-height: 1.2;
 }
+.mod-timeline__report-form--open .button {
+  background: $c-bad;
+}
 .mod-timeline__report-form:not(.mod-timeline__report-form--open) .button {
   @extend %button-none;
 }
@@ -72,13 +74,22 @@
   @extend %break-word-hard;
   font-size: 0.9em;
 }
+.mod-timeline__event--report-new {
+  @extend %box-radius;
+  background: $m-bad_bg--mix-10;
+}
+.mod-timeline__event:has(.mod-timeline__event__action--modMessage),
+.mod-timeline__event:has(.mod-timeline__event__action--sentence),
+.mod-timeline__event:has(.mod-timeline__event__action--undo) {
+  @extend %box-radius;
+  background: $m-brag_bg--mix-15;
+}
 .mod-timeline__event--recent:has(.mod-timeline__event__action--modMessage),
 .mod-timeline__event--recent:has(.mod-timeline__event__action--sentence),
 .mod-timeline__event--recent:has(.mod-timeline__event__action--undo) {
   padding: 0.5em 1em;
   border-left: 4px solid $c-brag;
   margin-left: -4px;
-  background: $c-bg-zebra2;
   .mod-timeline__event__flair {
     padding: 0;
     img {
