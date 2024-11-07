@@ -163,4 +163,5 @@
   <string name="playAgain">Chơi lại</string>
   <string name="whatWouldYouPlay">Bạn sẽ làm gì ở thế cờ này?</string>
   <string name="youCompletedThisLesson">Chúc mừng! Bạn đã hoàn thành bài học này.</string>
+  <string name="perPage">%s mỗi trang</string>
 </resources>
