@@ -119,4 +119,7 @@
   <string name="deleteTheStudyChatHistory">पाठको वार्तालाप इतिहास मेट्ने पक्का हो? पछि कुनै उपाय हुनेछैन!</string>
   <string name="deleteStudy">पाठ मेटौं</string>
   <string name="whereDoYouWantToStudyThat">यो अध्ययनलाई कहाँ राख्न चाहनुहुन्छ?</string>
+  <string name="goodMove">राम्रो चाल</string>
+  <string name="mistake">सानो भुल</string>
+  <string name="blunder">ठुलो भुल</string>
 </resources>
