@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Dato tilføjet (ældste)</string>
   <string name="recentlyUpdated">Nyligt opdateret</string>
   <string name="mostPopular">Mest populære</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alfabetisk</string>
+  <string name="alphabetical">Alfabetisk</string>
   <string name="addNewChapter">Tilføj et nyt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapitel</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">Download parti</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Nuværende kapitel URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Du kan indsætte dette i forummet for at indlejre</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Du kan indsætte dette i forummet for at indlejre</string>
   <string name="startAtInitialPosition">Start ved indledende stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedInYourWebsite">Indlejr på din hjemmeside eller blog</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">Start ved indledende stilling</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Start fra brugerdefinerede stilling</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Indlæs et parti fra URL</string>
+  <string name="loadAGameByUrl">Indlæs et parti fra URL</string>
   <string name="loadAPositionFromFen">Indlæs en stilling fra FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Indlæs et parti fra PGN</string>
+  <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
   <string name="automatic">Automatisk</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Indsæt din PGN-tekst her, op til %s parti</item>
@@ -164,7 +164,7 @@
   <string name="popularTopics">Populære emner</string>
   <string name="manageTopics">Administrér emner</string>
   <string name="back">Tilbage</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Spil igen</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Hvad ville du spille i denne position?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Tillykke! Du har fuldført denne lektion.</string>
+  <string name="playAgain">Spil igen</string>
+  <string name="whatWouldYouPlay">Hvad ville du spille i denne position?</string>
+  <string name="youCompletedThisLesson">Tillykke! Du har fuldført denne lektion.</string>
 </resources>
