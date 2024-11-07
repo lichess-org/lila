@@ -129,4 +129,7 @@
   <string name="deleteTheStudyChatHistory">Избриши историју ћаскања студије? Нема повратка назад!</string>
   <string name="deleteStudy">Избриши студију</string>
   <string name="whereDoYouWantToStudyThat">Где желите то проучити?</string>
+  <string name="goodMove">Добар потез</string>
+  <string name="mistake">Грешка</string>
+  <string name="blunder">Груба грешка</string>
 </resources>
