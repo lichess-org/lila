@@ -87,5 +87,7 @@ val challenge = lila.challenge.ui.ChallengeUi(helpers)
 
 val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
 
+val local = lila.local.ui.LocalUi(helpers)
+
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))

@@ -60,6 +60,7 @@ export function isUnmanagedAsset(absfile: string): boolean {
   if (!absfile.startsWith(env.outDir)) return false;
   const name = absfile.slice(env.outDir.length + 1);
   if (['compiled/', 'hashed/', 'css/'].some(dir => name.startsWith(dir))) return false;
+  if (/json\/manifest.*.json/.test(name)) return false;
   return true;
 }
 

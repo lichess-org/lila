@@ -143,9 +143,15 @@ interface AssetUrlOpts {
   version?: false | string;
 }
 
+interface Dictionary<T> {
+  [key: string]: T | undefined;
+}
+
+type SocketHandlers = Dictionary<(d: any) => void>;
+
 type Timeout = ReturnType<typeof setTimeout>;
 
-declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
+type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
 interface LichessAnnouncement {
   msg?: string;
@@ -230,7 +236,7 @@ interface Navigator {
   deviceMemory?: number; // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/deviceMemory
 }
 
-declare type VariantKey =
+type VariantKey =
   | 'standard'
   | 'chess960'
   | 'antichess'
@@ -242,21 +248,18 @@ declare type VariantKey =
   | 'racingKings'
   | 'crazyhouse';
 
-declare type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
-
-declare type Perf = Exclude<VariantKey, 'standard'> | Speed;
-
-declare type Color = 'white' | 'black';
-
-declare type Files = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h';
-declare type Ranks = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
-declare type Key = 'a0' | `${Files}${Ranks}`;
-declare type Uci = string;
-declare type San = string;
-declare type Ply = number;
-declare type Seconds = number;
-declare type Centis = number;
-declare type Millis = number;
+type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
+type Perf = Exclude<VariantKey, 'standard'> | Speed;
+type Color = 'white' | 'black';
+type Files = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h';
+type Ranks = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
+type Key = 'a0' | `${Files}${Ranks}`;
+type Uci = string;
+type San = string;
+type Ply = number;
+type Seconds = number;
+type Centis = number;
+type Millis = number;
 
 interface Variant {
   key: VariantKey;
@@ -320,12 +323,6 @@ declare namespace PowerTip {
     closeEvents?: string[];
   }
 }
-
-interface Dictionary<T> {
-  [key: string]: T | undefined;
-}
-
-type SocketHandlers = Dictionary<(d: any) => void>;
 
 declare const site: Site;
 declare const fipr: Fipr;

@@ -63,3 +63,5 @@ export function looseH(sel: string, dataOrKids?: VNodeData | VNodeKids, kids?: V
     return snabH(sel, filterKids(dataOrKids as VNodeKids));
   else return snabH(sel, dataOrKids as VNodeData);
 }
+
+//export function snabHook<InsertHook| UpdateHook | DestroyHook>((vnode))
