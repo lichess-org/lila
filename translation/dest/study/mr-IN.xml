@@ -51,7 +51,9 @@
   <string name="open">उघडा</string>
   <string name="orientation">अभिमुखता</string>
   <string name="startFromInitialPosition">प्रारंभिक स्थितीपासून सुरूवात</string>
+  <string name="save">जतन करा</string>
   <string name="goodMove">चांगली चाल</string>
+  <string name="mistake">चुक</string>
   <string name="brilliantMove">तल्लख चाल</string>
   <string name="blunder">घोडचूक</string>
   <string name="interestingMove">चित्तवेधक चाल</string>
