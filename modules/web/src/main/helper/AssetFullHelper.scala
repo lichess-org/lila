@@ -17,10 +17,7 @@ trait AssetFullHelper:
 
   export lila.common.String.html.safeJsonValue
 
-  def jsName(key: String): String = manifest.js(key).fold(key)(_.name)
-
   private lazy val socketDomains = netConfig.socketDomains ::: netConfig.socketAlts
-  // lazy val vapidPublicKey         = env.push.vapidPublicKey
 
   lazy val sameAssetDomain = netConfig.domain == netConfig.assetDomain
 
@@ -48,10 +45,6 @@ trait AssetFullHelper:
           case json: JsValue => safeJsonValue(json).value
           case json          => json.toString
 
-  def jsDeps(keys: List[String]): Frag = frag:
-    manifest.deps(keys).map { dep =>
-      script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
-    }
   def roundNvuiTag(using ctx: Context) = ctx.blind.option(Esm("round.nvui"))
   lazy val cashTag: Frag               = iifeModule("javascripts/vendor/cash.min.js")
   lazy val chessgroundTag: Frag        = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))

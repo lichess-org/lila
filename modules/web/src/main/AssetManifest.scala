@@ -9,7 +9,8 @@ import java.nio.file.Files
 
 import lila.core.config.NetConfig
 
-case class SplitAsset(name: String, imports: List[String])
+case class SplitAsset(name: String, imports: List[String]):
+  def all = name :: imports
 case class AssetMaps(
     js: Map[String, SplitAsset],
     css: Map[String, String],
@@ -25,11 +26,11 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   private val filename = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
   private val logger   = lila.log("assetManifest")
 
-  def js(key: String): Option[SplitAsset]    = maps.js.get(key)
-  def css(key: String): Option[String]       = maps.css.get(key)
-  def hashed(path: String): Option[String]   = maps.hashed.get(path)
-  def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
-  def lastUpdate: Instant                    = maps.modified
+  def js(key: String): Option[SplitAsset]         = maps.js.get(key)
+  def css(key: String): Option[String]            = maps.css.get(key)
+  def hashed(path: String): Option[String]        = maps.hashed.get(path)
+  def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.all) }.distinct
+  def lastUpdate: Instant                         = maps.modified
 
   def jsName(key: String): String = js(key).fold(key)(_.name)
 

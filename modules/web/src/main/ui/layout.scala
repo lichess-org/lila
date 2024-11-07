@@ -16,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, jsName, siteName }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
 
   val doctype                                 = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang, ctx: Context) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -150,14 +150,12 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def scriptsPreload(keys: List[String]) =
     frag(
-      jsTag("manifest"),
       cashTag,
-      keys.map(jsTag),
-      assetHelper.manifest.deps(keys).map(jsTag)
+      assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag)
     )
 
-  private def jsTag(key: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
+  private def jsTag(name: String): Frag =
+    script(tpe := "module", src := staticAssetUrl(s"compiled/$name"))
 
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body
