@@ -60,6 +60,7 @@
   <string name="notYetStarted">中継はまだ始まっていません。</string>
   <string name="officialWebsite">公式サイト</string>
   <string name="standings">順位</string>
+  <string name="officialStandings">公式順位</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
   <string name="webmastersPage">ウェブ管理者のページ</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
@@ -68,4 +69,15 @@
   <string name="ratingDiff">レーティングの差</string>
   <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>
+  <string name="perPage">%s 件/ページ</string>
+  <string name="allTeams">すべてのチーム</string>
+  <string name="tournamentFormat">トーナメント形式</string>
+  <string name="tournamentLocation">開催地</string>
+  <string name="topPlayers">トッププレイヤー</string>
+  <string name="timezone">タイムゾーン</string>
+  <string name="fideRatingCategory">FIDE レーティング カテゴリー</string>
+  <string name="optionalDetails">その他詳細（オプション）</string>
+  <string name="upcomingBroadcasts">今後の中継</string>
+  <string name="pastBroadcasts">過去の中継</string>
+  <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
 </resources>
