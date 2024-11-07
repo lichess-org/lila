@@ -81,7 +81,7 @@
   <string name="pinnedChapterComment">챕터 댓글 고정하기</string>
   <string name="saveChapter">챕터 저장</string>
   <string name="clearAnnotations">주석 지우기</string>
-  <string name="clearVariations">파생 초기화</string>
+  <string name="clearVariations">바리에이션 초기화</string>
   <string name="deleteChapter">챕터 지우기</string>
   <string name="deleteThisChapter">이 챕터를 지울까요? 되돌릴 수 없습니다!</string>
   <string name="clearAllCommentsInThisChapter">이 챕터의 모든 코멘트와 기호를 지울까요?</string>
@@ -148,7 +148,7 @@
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">발전</string>
   <string name="initiative">주도권</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">공격</string>
-  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">카운터플레이</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">반격</string>
   <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">시간이 부족함</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">보상이 있음</string>
   <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">아이디어</string>
