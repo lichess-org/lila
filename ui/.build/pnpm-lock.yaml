@@ -461,7 +461,7 @@ snapshots:
       '@nodelib/fs.walk': 1.2.8
       glob-parent: 5.1.2
       merge2: 1.4.1
-      micromatch: 4.0.8
+      micromatch: 4.0.7
 
   fast-xml-parser@4.5.0:
     dependencies:
@@ -489,7 +489,7 @@ snapshots:
 
   merge2@1.4.1: {}
 
-  micromatch@4.0.8:
+  micromatch@4.0.7:
     dependencies:
       braces: 3.0.3
       picomatch: 2.3.1
