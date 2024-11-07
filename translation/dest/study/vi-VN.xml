@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Ngày được thêm (cũ nhất)</string>
   <string name="recentlyUpdated">Được cập nhật gần đây</string>
   <string name="mostPopular">Phổ biến nhất</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Theo thứ tự chữ cái</string>
+  <string name="alphabetical">Theo thứ tự chữ cái</string>
   <string name="addNewChapter">Thêm một chương mới</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Chương</item>
@@ -64,7 +64,7 @@
   <string name="downloadGame">Tải về ván cờ</string>
   <string name="studyUrl">URL nghiên cứu</string>
   <string name="currentChapterUrl">URL chương hiện tại</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Bạn có thể dán cái này để nhúng vào diễn đàn hoặc blog Lichess cá nhân của bạn</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Bạn có thể dán cái này để nhúng vào diễn đàn hoặc blog Lichess cá nhân của bạn</string>
   <string name="startAtInitialPosition">Bắt đầu từ thế cờ ban đầu</string>
   <string name="startAtX">Bắt đầu tại nước %s</string>
   <string name="embedInYourWebsite">Nhúng vào trang web của bạn</string>
@@ -95,9 +95,9 @@
   <string name="startFromInitialPosition">Bắt đầu từ thế cờ ban đầu</string>
   <string name="editor">Chỉnh sửa bàn cờ</string>
   <string name="startFromCustomPosition">Bắt đầu từ thế cờ tùy chỉnh</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Tải ván cờ bằng URL</string>
+  <string name="loadAGameByUrl">Tải ván cờ bằng URL</string>
   <string name="loadAPositionFromFen">Tải thế cờ từ chuỗi FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Tải ván cờ từ PGN</string>
+  <string name="loadAGameFromPgn">Tải ván cờ từ PGN</string>
   <string name="automatic">Tự động</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">Dán PGN ở đây, tối đa %s ván</item>
@@ -160,7 +160,7 @@
   <string name="popularTopics">Chủ đề phổ biến</string>
   <string name="manageTopics">Quản lý chủ đề</string>
   <string name="back">Quay Lại</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Chơi lại</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Bạn sẽ làm gì ở thế cờ này?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Chúc mừng! Bạn đã hoàn thành bài học này.</string>
+  <string name="playAgain">Chơi lại</string>
+  <string name="whatWouldYouPlay">Bạn sẽ làm gì ở thế cờ này?</string>
+  <string name="youCompletedThisLesson">Chúc mừng! Bạn đã hoàn thành bài học này.</string>
 </resources>
