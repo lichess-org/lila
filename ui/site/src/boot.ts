@@ -7,16 +7,14 @@ import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
 import StrongSocket from 'common/socket';
-import topBar from './topBar';
 import { watchers } from 'common/watchers';
 import { isIOS } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
-import { userComplete } from 'common/userComplete';
+import { attachDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
 import { toggleBoxInit } from 'common/controls';
-import { confirm } from 'common/dialog';
 import { addExceptionListeners } from './unhandledError';
 
 export function boot() {
@@ -44,68 +42,10 @@ export function boot() {
     $('.subnav__inner').each(function (this: HTMLElement) {
       scrollToInnerSelector(this, '.active', true);
     });
-    $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {
-      const showCheckmark = () => {
-        $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
-        setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
-      };
-      $(this.parentElement!.firstElementChild!).each(function (this: any) {
-        try {
-          navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
-        } catch (e) {
-          console.error(e);
-        }
-      });
-      return false;
-    });
-
-    $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
-      const $a = $(this).addClass('processing').css('opacity', 0.3);
-      xhr.text(this.href, { method: 'post' }).then(html => {
-        if ($a.hasClass('aclose')) $a.hide();
-        else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-        else $a.replaceWith(html);
-      });
-      return false;
-    });
 
     powertip.watchMouse();
 
-    setTimeout(() => {
-      if (!site.socket) site.socket = new StrongSocket('/socket/v5', false);
-    }, 300);
-
-    topBar();
-
-    window.addEventListener('resize', dispatchChessgroundResize);
-
-    $('.user-autocomplete').each(function (this: HTMLInputElement) {
-      const focus = !!this.autofocus;
-      const start = () =>
-        userComplete({
-          input: this,
-          friend: !!this.dataset.friend,
-          tag: this.dataset.tag as any,
-          focus,
-        });
-
-      if (focus) start();
-      else $(this).one('focus', start);
-    });
-
-    $('input.confirm, button.confirm').on('click', async function (this: HTMLElement, e: Event) {
-      if (!e.isTrusted) return;
-      e.preventDefault();
-      if (await confirm(this.title || 'Confirm this action?')) (e.target as HTMLElement)?.click();
-    });
-
-    $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
-      const t = $(this).toggleClass('bookmarked');
-      xhr.text(this.href, { method: 'post' });
-      const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
-      t.find('span').html('' + (count > 0 ? count : ''));
-      return false;
-    });
+    attachDomHandlers();
 
     /* Edge randomly fails to rasterize SVG on page load
      * A different SVG must be loaded so a new image can be rasterized */
@@ -113,7 +53,7 @@ export function boot() {
       setTimeout(() => {
         const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
         sprite.href = sprite.href.replace('.css', '.external.css');
-      }, 1000);
+      }, 1000); // TODO check if this is still needed
 
     // prevent zoom when keyboard shows on iOS
     if (isIOS() && !('MSStream' in window)) {
@@ -122,6 +62,11 @@ export function boot() {
     }
 
     toggleBoxInit();
+
+    setTimeout(() => {
+      if (!site.socket) site.socket = new StrongSocket('/socket/v5', false);
+    }, 300); // TODO fix this
+    window.addEventListener('resize', dispatchChessgroundResize);
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 

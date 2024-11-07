@@ -134,7 +134,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
-                cls := "button button-red button-empty confirm"
+                cls := "button button-red button-empty yes-no-confirm"
               )(
                 strong(trb.resetRound()),
                 em(trb.deleteAllGamesOfThisRound())
@@ -142,7 +142,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             ),
             postForm(action := routes.Study.delete(r.studyId))(
               submitButton(
-                cls := "button button-red button-empty confirm"
+                cls := "button button-red button-empty yes-no-confirm"
               )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
             )
           )
@@ -398,7 +398,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayTour.delete(nav.tour.id))(
               submitButton(
-                cls := "button button-red button-empty confirm"
+                cls := "button button-red button-empty yes-no-confirm"
               )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
             ),
             Granter
@@ -406,7 +406,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               .option(
                 postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
-                    cls := "button button-green button-empty confirm"
+                    cls := "button button-green button-empty yes-no-confirm"
                   )(
                     strong("Clone as broadcast admin"),
                     em("Clone this broadcast, its rounds, and their studies")

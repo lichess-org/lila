@@ -55,7 +55,10 @@ final class PracticeUi(helpers: Helpers)(
             postForm(action := routes.Practice.reset)(
               if ctx.isAuth then
                 (data.nbDoneChapters > 0).option(
-                  submitButton(cls := "button confirm", title := "You will lose your practice progress!")(
+                  submitButton(
+                    cls   := "button ok-cancel-confirm",
+                    title := "You will lose your practice progress!"
+                  )(
                     "Reset my progress"
                   )
                 )

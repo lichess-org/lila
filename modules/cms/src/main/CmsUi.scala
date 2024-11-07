@@ -143,7 +143,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           inForm(form, none)
         ,
         postForm(action := routes.Cms.delete(page.id))(cls := "cms__delete"):
-          submitButton(cls := "button button-red button-empty confirm")("Delete")
+          submitButton(cls := "button button-red button-empty yes-no-confirm")("Delete")
       )
 
   private def inForm(form: Form[CmsPageData], key: Option[CmsPageKey])(using Context) =

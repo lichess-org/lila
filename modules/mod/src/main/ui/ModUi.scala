@@ -32,7 +32,7 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
       cls := (!allowed).option("disabled"),
       title := {
         if allowed
-        then "Definitely erase everything about this user"
+        then "Definitely erase everything about this user?"
         else "This user has some history, only admins can erase"
       },
       (!allowed).option(disabled)

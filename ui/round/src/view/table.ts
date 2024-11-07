@@ -123,7 +123,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
   return [
     replay.render(ctrl),
     h('div.rcontrols', [
-      h('div.ricons', { class: { confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm) } }, icons),
+      h('div.ricons', { class: { 'yes-no-confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) } }, icons),
       ...buttons,
     ]),
   ];

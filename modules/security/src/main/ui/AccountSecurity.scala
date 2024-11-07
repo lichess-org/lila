@@ -37,7 +37,7 @@ final class AccountSecurity(helpers: Helpers)(
               div(
                 "You can also ",
                 postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                  submitButton(cls := "button button-empty button-red confirm")(
+                  submitButton(cls := "button button-empty button-red yes-no-confirm")(
                     trans.site.revokeAllSessions()
                   )
                 ),
