@@ -65,15 +65,15 @@ object Team:
       v.key -> LightTeam(nameToId(name), name, none)
   }.toMap
 
-  val maxLeaders     = 10
-  val maxJoinCeiling = 50
+  val maxLeaders      = Max(10)
+  val maxJoin         = Max(50)
+  val verifiedMaxJoin = Max(100)
 
-  def maxJoin(u: User) =
-    if u.isVerified then maxJoinCeiling * 2
+  def maxJoin(u: User): Max =
+    if u.isVerified then verifiedMaxJoin
     else
-      {
-        15 + daysBetween(u.createdAt, nowInstant) / 7
-      }.atMost(maxJoinCeiling)
+      maxJoin.map:
+        _.atMost(15 + daysBetween(u.createdAt, nowInstant) / 7)
 
   case class IdsStr(value: String) extends AnyVal:
 
