@@ -429,7 +429,7 @@
   </plurals>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
   <string name="follow">دنبالیدن</string>
-  <string name="following">دنبالنده</string>
+  <string name="following">دنبال‌شدگان</string>
   <string name="unfollow">وادنبالیدن</string>
   <string name="followX">دنبالیدن %s</string>
   <string name="unfollowX">وادنبالیدن %s</string>
