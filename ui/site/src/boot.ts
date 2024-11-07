@@ -47,14 +47,6 @@ export function boot() {
 
     attachDomHandlers();
 
-    /* Edge randomly fails to rasterize SVG on page load
-     * A different SVG must be loaded so a new image can be rasterized */
-    if (navigator.userAgent.includes('Edge/'))
-      setTimeout(() => {
-        const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-        sprite.href = sprite.href.replace('.css', '.external.css');
-      }, 1000); // TODO check if this is still needed
-
     // prevent zoom when keyboard shows on iOS
     if (isIOS() && !('MSStream' in window)) {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
