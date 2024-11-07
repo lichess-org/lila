@@ -62,6 +62,7 @@
   <string name="notYetStarted">Overføringen har ikke startet.</string>
   <string name="officialWebsite">Offisiell nettside</string>
   <string name="standings">Resultatliste</string>
+  <string name="officialStandings">Offisiell tabell</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Flere alternativer på %s</string>
   <string name="webmastersPage">administratorens side</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">En offentlig PGN-kilde i sanntid for denne runden. Vi tilbyr også en %s for raskere og mer effektiv synkronisering.</string>
