@@ -32,6 +32,9 @@ object email:
           case Array(_, domain) => Domain.from(domain.toLowerCase)
           case _                => none
 
+      def nameAndDomain: Option[(String, Domain)] = domain.map: d =>
+        e.takeWhile(_ != '@') -> d
+
       def similarTo(other: EmailAddress) =
         e.normalize.eliminateDomainAlias == other.normalize.eliminateDomainAlias
 
@@ -39,26 +42,25 @@ object email:
       def isSendable = !e.isNoReply
 
       def looksLikeFakeEmail =
-        e.domain.map(_.lower.value).exists(EmailAddress.gmailDomains.contains) &&
+        e.domain.map(_.lower).exists(EmailAddress.gmailDomains.contains) &&
           e.username.count('.' == _) >= 4
 
       def eliminateDomainAlias: EmailAddress =
-        e.split('@') match
-          case Array(name, domain) =>
-            val newDomain =
-              if yandexDomains.contains(domain) then "yandex.com"
-              else if gmailDomains.contains(domain) then "gmail.com"
-              else domain
-            s"$name@$newDomain"
-          case _ => e
+        e.nameAndDomain.fold(e): (name, domain) =>
+          val newDomain =
+            if yandexDomains.contains(domain.lower) then "yandex.com"
+            else if gmailDomains.contains(domain.lower) then "gmail.com"
+            else domain
+          s"$name@$newDomain"
 
     private val regex =
       """(?i)^[a-z0-9.!#$%&'*+/=?^_`{|}~\-]+@[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?(?:\.[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?)*$""".r
 
     val maxLength = 320
 
-    val gmailDomains  = Set("gmail.com", "googlemail.com")
-    val yandexDomains = Set("yandex.com", "yandex.ru", "ya.ru", "yandex.ua", "yandex.kz", "yandex.by")
+    val gmailDomains: Set[Domain.Lower] = Domain.Lower.from(Set("gmail.com", "googlemail.com"))
+    val yandexDomains: Set[Domain.Lower] =
+      Domain.Lower.from(Set("yandex.com", "yandex.ru", "ya.ru", "yandex.ua", "yandex.kz", "yandex.by"))
 
     // adding normalized domains requires database migration!
     private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
