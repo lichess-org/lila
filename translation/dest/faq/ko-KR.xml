@@ -17,7 +17,7 @@
   <string name="areThereWebsitesBasedOnLichess">Lichess를 기반으로 하는 웹사이트가 있나요?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">예, Lichess는 실제로 다른 오픈 소스 웹사이트에 영감을 주었으며 우리 %1$s, %2$s, %3$s를 사용합니다.</string>
   <string name="keyboardShortcuts">키보드 단축키는 어떤 것이 있나요?</string>
-  <string name="keyboardShortcutsExplanation">일부 리체스 페이지에는 사용할 수 있는 키보드 단축키가 있습니다. 학습, 분석, 퍼즐 또는 게임 페이지에서 \'?\' 키를 누르면 사용 가능한 키보드 단축키가 나열됩니다.</string>
+  <string name="keyboardShortcutsExplanation">일부 Lichess 페이지에는 사용할 수 있는 키보드 단축키가 있습니다. 연구, 분석, 퍼즐 또는 게임 페이지에서 \'?\' 키를 누르면 사용 가능한 키보드 단축키가 나열됩니다.</string>
   <string name="fairPlay">페어플레이</string>
   <string name="whenAmIEligibleRatinRefund">부정행위자로 인한 레이팅 자동 환급은 언제 되나요?</string>
   <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
@@ -29,7 +29,7 @@
   <string name="isCorrespondenceDifferent">통신 체스는 일반 체스와 다른점이 있나요?</string>
   <string name="pleaseReadFairPlayPage">더 자세한 정보는 %s를 읽어주세요.</string>
   <string name="fairPlayPage">공정한 경기 페이지</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichess의 경우 통신 체스(Correspondence chess)에서의 가장 큰 차이점은 오프닝 북이 허용된다는 점입니다. 엔진 사용은 여전히 금지되며 사용할 경우 엔진 사용자로 표기될 수 있습니다. ICCF는 통신전에서 엔진 사용을 허용하지만 Lichess는 허락하지 않습니다.</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess의 경우 통신 체스(Correspondence chess)에서의 가장 큰 차이점은 오프닝 북이 허용된다는 점입니다. 엔진 사용은 여전히 금지되며 사용할 경우 엔진 사용자로 표기될 수 있습니다. ICCF는 통신 대국에서 엔진 사용을 허용하지만 Lichess는 허락하지 않습니다.</string>
   <string name="gameplay">게임 플레이</string>
   <string name="howBulletBlitzEtcDecided">불렛, 블리츠와 다른 시간 제한은 어떻게 결정되나요?</string>
   <string name="basedOnGameDuration">Lichess의 시간 제한은 예상 게임 시간에 기반합니다 = %1$s
@@ -148,7 +148,7 @@ LM 타이틀에 대해 문의하지 마세요.</string>
 
 브라우저에서 lichess.org가 소리를 재생하는 것을 방지했을 때 붉은 음소거 아이콘이 나타납니다. 보통 무언가를 클릭하면 이 제한은 없어집니다. 일부 모바일 브라우저에서는, 기물을 드래그하는 것은 클릭으로 간주되지 않습니다. 이 경우 소리 재생을 허용하려면 매 게임이 시작할 때마다 체스판을 탭해야 합니다.
 
-리체스는 이러한 경우가 발생했을 때 알려주기 위하여 붉은색 아이콘을 보여줍니다. 당신은 lichess.org가 소리를 재생하도록 명시적으로 허용할 수 있습니다. 다음은 최근 버전의 몇몇 인기 브라우저에서 소리 재생을 허용하는 방법입니다.</string>
+저희는 이러한 경우가 발생했을 때 알려주기 위하여 붉은색 아이콘을 보여줍니다. 당신은 lichess.org가 소리를 재생하도록 명시적으로 허용할 수 있습니다. 다음은 최근 버전의 몇몇 인기 브라우저에서 소리 재생을 허용하는 방법입니다.</string>
   <string name="desktop">데스크탑</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org 이동
 2. 리눅스/윈도우에서 Ctrl-i, 맥OS에서 cmd-i 입력
@@ -173,7 +173,7 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">적은 로비 인원</string>
   <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">우리는 정기적으로 사용자로부터 너무 많이 플레이하는 것을 방지해달라고 도움을 요청하는 메시지를 받고 있습니다.
 
-Lichess는 서비스 약관 위반을 제외하고는 플레이어를 금지하거나 차단하지 않기 때문에, 과도한 플레이를 제한하기 위해서는 외부 도구를 사용하는 것이 좋습니다. 웹 사이트 차단기에 대한 일반적인 제안으로는 %1$s, %2$s 및 %3$s가 있습니다. 사이트를 계속 사용하고 싶지만 빠른 시간 제어의 유혹을 받지 않으려면 %4$s에도 관심이 있을 수 있습니다. %5$s도 있습니다.
+Lichess는 서비스 약관 위반을 제외하고는 플레이어를 금지하거나 차단하지 않기 때문에, 과도한 플레이를 제한하기 위해서는 외부 도구를 사용하는 것이 좋습니다. 웹 사이트 차단기에 대한 일반적인 제안으로는 %1$s, %2$s 및 %3$s가 있습니다. 사이트를 계속 사용하고 싶지만 빠른 시간 제한의 유혹을 받지 않으려면 %4$s에도 관심이 있을 수 있습니다. %5$s도 있습니다.
 
 일부 플레이어들은 게임을 하는 행동이 중독으로 변하는 것처럼 느낄 수 있습니다. 사실, 세계보건기구는 게임 장애를 %6$s로 분류하고 있으며, 필수적인 특징은 1) 게임에 대한 통제 장애, 2) 게임에 우선권을 부여하는 것, 3) 부정적인 결과에도 불구하고 게임의 우선 순위를 높이는 것입니다. 만약 여러분의 체스 두는 행동이 이 패턴을 따른다고 생각한다면, 친구나 가족, 또는 전문가와 함께 이에 대해 이야기하는 것을 권장합니다.</string>
 </resources>

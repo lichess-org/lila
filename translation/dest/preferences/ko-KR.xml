@@ -2,20 +2,20 @@
 <resources>
   <string name="preferences">설정</string>
   <string name="display">화면</string>
-  <string name="privacy">프라이버시</string>
-  <string name="notifications">공지 사항</string>
+  <string name="privacy">보안</string>
+  <string name="notifications">알림</string>
   <string name="pieceAnimation">기물 움직임 애니메이션</string>
   <string name="materialDifference">기물 차이</string>
-  <string name="boardHighlights">보드 하이라이트 (마지막 수 및 체크)</string>
+  <string name="boardHighlights">보드 강조 (마지막 수 및 체크)</string>
   <string name="pieceDestinations">기물 착지점 (유효한 움직임 및 미리두기)</string>
   <string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
-  <string name="moveListWhilePlaying">피스 움직임 기록</string>
+  <string name="moveListWhilePlaying">기물 움직임 기록</string>
   <string name="pgnPieceNotation">PGN 기물표기방식</string>
-  <string name="chessPieceSymbol">체스 말 기호</string>
+  <string name="chessPieceSymbol">체스 기물 기호</string>
   <string name="pgnLetter">알파벳 (K, Q, R, B, N)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">젠 모드</string>
   <string name="showPlayerRatings">플레이어 레이팅 보기</string>
-  <string name="showFlairs">플레이어 레이팅 보기</string>
+  <string name="showFlairs">플레이어 아이콘 보기</string>
   <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">체스에 집중할 수 있도록 웹사이트에서 레이팅을 모두 숨깁니다. 경기는 여전히 레이팅에 반영될 것이며, 눈으로 보이는 정보에만 영향을 줍니다.</string>
   <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
   <string name="onlyOnInitialPosition">초기 상태에서만</string>
@@ -39,13 +39,13 @@
   <string name="whenPremoving">미리둘 때만</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3회 동형반복시 자동으로 무승부 요청</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
-  <string name="moveConfirmation">피스를 움직이기 전에 물음</string>
+  <string name="moveConfirmation">수 확인</string>
   <string name="explainCanThenBeTemporarilyDisabled">경기 도중 보드 메뉴에서 비활성화될 수 있습니다.</string>
-  <string name="inCorrespondenceGames">통신전</string>
-  <string name="correspondenceAndUnlimited">통신과 무제한</string>
+  <string name="inCorrespondenceGames">통신 대국</string>
+  <string name="correspondenceAndUnlimited">통신 대국과 무제한</string>
   <string name="confirmResignationAndDrawOffers">기권 또는 무승부 제안시 물음</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">캐슬링 방법</string>
-  <string name="castleByMovingTwoSquares">왕을 2칸 옮기기</string>
+  <string name="castleByMovingTwoSquares">킹을 2칸 옮기기</string>
   <string name="castleByMovingOntoTheRook">킹을 룩한테 이동</string>
   <string name="inputMovesWithTheKeyboard">키보드 입력</string>
   <string name="inputMovesWithVoice">음성으로 기물 이동</string>
@@ -57,13 +57,13 @@
   <string name="notifyStreamStart">스트리머가 생방송 시작</string>
   <string name="notifyInboxMsg">새로운 받은 편지함 메시지</string>
   <string name="notifyForumMention">포럼 댓글에서 당신이 언급됨</string>
-  <string name="notifyInvitedStudy">스터디 초대</string>
-  <string name="notifyGameEvent">통신전 업데이트</string>
+  <string name="notifyInvitedStudy">연구 초대</string>
+  <string name="notifyGameEvent">통신 대국 업데이트</string>
   <string name="notifyChallenge">도전 과제</string>
   <string name="notifyTournamentSoon">곧 토너먼트 시작할 때</string>
-  <string name="notifyTimeAlarm">통신전 시간 곧 만료됨</string>
-  <string name="notifyBell">리체스 내에서 벨 알림</string>
-  <string name="notifyPush">리체스를 사용하지 않을 때 기기 알림</string>
+  <string name="notifyTimeAlarm">통신 대국 시간 곧 만료됨</string>
+  <string name="notifyBell">Lichess 내에서 벨 알림</string>
+  <string name="notifyPush">Lichess를 사용하지 않을 때 기기 알림</string>
   <string name="notifyWeb">브라우저</string>
   <string name="notifyDevice">기기 정보</string>
   <string name="bellNotificationSound">벨 알림 음</string>

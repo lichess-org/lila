@@ -16,7 +16,7 @@
   <string name="phoneticAlphabetIsBest">포네틱 알파벳 (음성 기호) 사용 권장</string>
   <string name="cancelTimerOrDenyARequest">타이머 취소 또는 요청 거절</string>
   <string name="playPreferredMoveOrConfirmSomething">선호하는 수 플레이, 또는 무언가를 확인하기</string>
-  <string name="sleep">슬리프 모드 (활성화 단어를 지정 한 경우)</string>
+  <string name="sleep">수면 모드 (활성화 단어를 지정 한 경우)</string>
   <string name="turnOffVoiceRecognition">음성 인식 끄기</string>
   <string name="showPuzzleSolution">퍼즐 해답 보기</string>
 </resources>
