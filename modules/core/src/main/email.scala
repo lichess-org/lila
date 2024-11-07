@@ -32,7 +32,8 @@ object email:
           case Array(_, domain) => Domain.from(domain.toLowerCase)
           case _                => none
 
-      def similarTo(other: EmailAddress) = e.normalize == other.normalize
+      def similarTo(other: EmailAddress) =
+        e.normalize.eliminateDomainAlias == other.normalize.eliminateDomainAlias
 
       def isNoReply  = e.startsWith("noreply.") && e.endsWith("@lichess.org")
       def isSendable = !e.isNoReply
@@ -41,12 +42,23 @@ object email:
         e.domain.map(_.lower.value).exists(EmailAddress.gmailDomains.contains) &&
           e.username.count('.' == _) >= 4
 
+      def eliminateDomainAlias: EmailAddress =
+        e.split('@') match
+          case Array(name, domain) =>
+            val newDomain =
+              if yandexDomains.contains(domain) then "yandex.com"
+              else if gmailDomains.contains(domain) then "gmail.com"
+              else domain
+            s"$name@$newDomain"
+          case _ => e
+
     private val regex =
       """(?i)^[a-z0-9.!#$%&'*+/=?^_`{|}~\-]+@[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?(?:\.[a-z0-9](?:[a-z0-9-]{0,62}+(?<!-))?)*$""".r
 
     val maxLength = 320
 
-    val gmailDomains = Set("gmail.com", "googlemail.com")
+    val gmailDomains  = Set("gmail.com", "googlemail.com")
+    val yandexDomains = Set("yandex.com", "yandex.ru", "ya.ru", "yandex.ua", "yandex.kz", "yandex.by")
 
     // adding normalized domains requires database migration!
     private val gmailLikeNormalizedDomains = gmailDomains ++ Set("protonmail.com", "protonmail.ch", "pm.me")
