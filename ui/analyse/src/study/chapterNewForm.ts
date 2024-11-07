@@ -41,6 +41,7 @@ export class StudyChapterNewForm {
   editor: LichessEditor | null = null;
   editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
+  orientation: Color;
 
   constructor(
     private readonly send: StudySocketSend,
@@ -50,10 +51,12 @@ export class StudyChapterNewForm {
     readonly root: AnalyseCtrl,
   ) {
     pubsub.on('analysis.closeAll', () => this.isOpen(false));
+    this.orientation = root.bottomColor();
   }
 
   open = () => {
     pubsub.emit('analysis.closeAll');
+    this.orientation = this.root.bottomColor();
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);
@@ -196,7 +199,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       data.embed = true;
                       data.options = {
                         inlineCastling: true,
-                        orientation: currentChapter.setup.orientation,
+                        orientation: ctrl.orientation,
                         onChange: ctrl.editorFen,
                         coordinates: true,
                       };
@@ -320,15 +323,16 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h(
                 'select#chapter-orientation.form-control',
                 {
-                  hook: bind('change', e =>
-                    ctrl.editor?.setOrientation((e.target as HTMLInputElement).value as Color),
-                  ),
+                  hook: bind('change', e => {
+                    ctrl.orientation = (e.target as HTMLInputElement).value as Color;
+                    ctrl.editor?.setOrientation(ctrl.orientation);
+                  }),
                 },
                 [
                   ...(activeTab === 'pgn' ? [['automatic', i18n.study.automatic]] : []),
                   ['white', i18n.site.white],
                   ['black', i18n.site.black],
-                ].map(([value, name]) => value && option(value, currentChapter.setup.orientation, name)),
+                ].map(([value, name]) => value && option(value, ctrl.orientation, name)),
               ),
             ]),
           ]),
