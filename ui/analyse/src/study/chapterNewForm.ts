@@ -196,7 +196,9 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       data.embed = true;
                       data.options = {
                         inlineCastling: true,
-                        orientation: currentChapter.setup.orientation,
+                        orientation:
+                          ((document.getElementById('chapter-orientation') as HTMLSelectElement)
+                            ?.value as Color) || currentChapter.setup.orientation,
                         onChange: ctrl.editorFen,
                         coordinates: true,
                       };
