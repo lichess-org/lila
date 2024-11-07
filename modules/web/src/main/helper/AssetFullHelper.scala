@@ -34,7 +34,7 @@ trait AssetFullHelper:
   def cssTag(key: String): Frag =
     link(
       dataCssKey := key,
-      href       := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
+      href       := staticAssetUrl(s"css/${manifest.css(key)}"),
       rel        := "stylesheet"
     )
 
