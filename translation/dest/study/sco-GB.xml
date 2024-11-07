@@ -36,4 +36,6 @@
   <string name="annotateWithGlyphs">Shaw wae glyphs</string>
   <string name="theChapterIsTooShortToBeAnalysed">The chaipter is ower short tae be scance\'t.</string>
   <string name="onlyContributorsCanRequestAnalysis">Onny thae muise inpiters can requeest a computer scance.</string>
+  <string name="mistake">Mistak</string>
+  <string name="blunder">Blunner</string>
 </resources>
