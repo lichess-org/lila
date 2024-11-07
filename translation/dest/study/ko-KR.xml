@@ -163,4 +163,5 @@
   <string name="playAgain">다시 플레이</string>
   <string name="whatWouldYouPlay">이 포지션에서 무엇을 하시겠습니까?</string>
   <string name="youCompletedThisLesson">축하합니다! 이 레슨을 완료했습니다.</string>
+  <string name="perPage">페이지 당 %s개</string>
 </resources>
