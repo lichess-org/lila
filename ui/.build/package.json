@@ -14,13 +14,22 @@
     "sass-embedded-win32-x64": "1.80.5"
   },
   "dependencies": {
-    "@types/node": "^22.8.7",
+    "@types/node": "^22.9.0",
     "@types/tinycolor2": "^1.4.6",
     "esbuild": "^0.24.0",
     "fast-glob": "^3.3.2",
     "fast-xml-parser": "^4.5.0",
     "tinycolor2": "^1.6.0",
     "typescript": "^5.6.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "micromatch": "^4.0.8"
+    },
+    "//": [
+      "https://github.com/lichess-org/lila/security/dependabot/41",
+      "micromatch is a dependency of fast-glob. remove this once fast-glob patches past v3.3.2"
+    ]
   },
   "scripts": {
     "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"
