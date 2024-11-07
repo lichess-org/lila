@@ -67,7 +67,7 @@ object Team:
 
   val maxLeaders      = Max(10)
   val maxJoin         = Max(50)
-  val verifiedMaxJoin = Max(100)
+  val verifiedMaxJoin = Max(150)
 
   def maxJoin(u: User): Max =
     if u.isVerified then verifiedMaxJoin
