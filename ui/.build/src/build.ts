@@ -35,7 +35,7 @@ export async function build(pkgs: string[]): Promise<void> {
   ]);
 
   await Promise.all([sass(), sync(), i18n()]);
-  await esbuild(tsc());
+  await tsc().then(esbuild);
   monitor(pkgs);
 }
 
