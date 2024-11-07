@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Dodano (starejše)</string>
   <string name="recentlyUpdated">Nazadnje objavljeno</string>
   <string name="mostPopular">Najbolj popularno</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Po abecednem redu</string>
+  <string name="alphabetical">Po abecednem redu</string>
   <string name="addNewChapter">Dodaj poglavje</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Poglavje</item>
@@ -72,7 +72,7 @@
   <string name="downloadGame">Prenesi igro</string>
   <string name="studyUrl">URL študije</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">To lahko prilepite na forum, da vstavite</string>
+  <string name="youCanPasteThisInTheForumToEmbed">To lahko prilepite na forum, da vstavite</string>
   <string name="startAtInitialPosition">Začni v začetni poziciji</string>
   <string name="startAtX">Začni z %s</string>
   <string name="embedInYourWebsite">Vstavite v vašo spletno stran ali blog</string>
@@ -103,9 +103,9 @@
   <string name="startFromInitialPosition">Začni v začetni poziciji</string>
   <string name="editor">Urejevalnik</string>
   <string name="startFromCustomPosition">Začni v prilagojeni poziciji</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Naloži partijo iz URL</string>
+  <string name="loadAGameByUrl">Naloži partijo iz URL</string>
   <string name="loadAPositionFromFen">Naloži pozicijo iz FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Naloži partijo iz PGN</string>
+  <string name="loadAGameFromPgn">Naloži partijo iz PGN</string>
   <string name="automatic">Samodejno</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Prilepite PGN besedilo, z največ %s partijo</item>
@@ -171,7 +171,7 @@
   <string name="popularTopics">Priljubljene teme</string>
   <string name="manageTopics">Upravljaj teme</string>
   <string name="back">Nazaj</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Igrajte ponovno</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Kaj bi igrali v tem položaju?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Čestitke! Končali ste to lekcijo.</string>
+  <string name="playAgain">Igrajte ponovno</string>
+  <string name="whatWouldYouPlay">Kaj bi igrali v tem položaju?</string>
+  <string name="youCompletedThisLesson">Čestitke! Končali ste to lekcijo.</string>
 </resources>
