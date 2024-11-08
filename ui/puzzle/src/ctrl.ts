@@ -504,10 +504,15 @@ export default class PuzzleCtrl implements ParentCtrl {
         computeAutoShapes({
           ...this,
           node: this.node,
-          hint: this.showHint() ? nextCorrectMove(this) : undefined,
+          hint: this.hintSquare(),
         }),
       ),
     );
+
+  private hintSquare = () => {
+    const hint = this.showHint() ? nextCorrectMove(this) : undefined;
+    return hint?.from;
+  };
 
   canUseCeval = (): boolean => this.mode === 'view' && !this.outcome();
 
@@ -594,6 +599,8 @@ export default class PuzzleCtrl implements ParentCtrl {
     }
     this.showHint.toggle();
     this.setAutoShapes();
+    const hint = this.hintSquare();
+    this.withGround(g => g.selectSquare(hint ? makeSquare(hint) : null));
     this.redraw();
   };
 
