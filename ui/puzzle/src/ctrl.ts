@@ -29,9 +29,9 @@ import { defined, prop, Prop, propWithEffect, Toggle, toggle, requestIdleCallbac
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
-import { pgnToTree, mergeSolution } from './moveTree';
+import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
-import { Role, Move, Outcome, SquareName } from 'chessops/types';
+import { Role, Move, Outcome } from 'chessops/types';
 import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import Report from './report';
@@ -74,7 +74,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   canViewSolution = toggle(false);
-  showHint = toggle(true);
+  showHint = toggle(false);
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   voteDisabled?: boolean;
@@ -169,6 +169,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList)!;
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.showHint(false);
   };
 
   setChessground = (cg: CgApi): void => {
@@ -316,10 +317,11 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   userMove = (orig: Key, dest: Key): void => {
     this.justPlayed = orig;
-    if (
-      !this.promotion.start(orig, dest, { submit: this.playUserMove, show: this.voiceMove?.promotionHook() })
-    )
-      this.playUserMove(orig, dest);
+    const isPromoting = this.promotion.start(orig, dest, {
+      submit: this.playUserMove,
+      show: this.voiceMove?.promotionHook(),
+    });
+    if (!isPromoting) this.playUserMove(orig, dest);
     this.pluginUpdate(this.node.fen);
   };
 
@@ -499,12 +501,10 @@ export default class PuzzleCtrl implements ParentCtrl {
         computeAutoShapes({
           ...this,
           node: this.node,
-          hint: this.hintSquare(),
+          hint: this.showHint() ? nextCorrectMove(this) : undefined,
         }),
       ),
     );
-
-  private hintSquare = (): SquareName | undefined => 'e4';
 
   canUseCeval = (): boolean => this.mode === 'view' && !this.outcome();
 
@@ -582,6 +582,14 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (last(this.mainline)?.puzzle == 'fail' && this.mode != 'view') maxValidPly -= 1;
     const newPly = Math.min(Math.max(this.node.ply + plyDelta, 0), maxValidPly);
     this.userJump(fromNodeList(this.mainline.slice(0, newPly + 1)));
+  };
+
+  toggleHint = (): void => {
+    if (!this.showHint())
+      this.userJump(treePath.fromNodeList(this.mainline.filter(node => node.puzzle != 'fail')));
+    this.showHint.toggle();
+    this.setAutoShapes();
+    this.redraw();
   };
 
   viewSolution = (): void => {

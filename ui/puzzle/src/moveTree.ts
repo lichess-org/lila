@@ -4,7 +4,9 @@ import { makeSan, parseSan } from 'chessops/san';
 import { makeSquare, makeUci, parseUci } from 'chessops/util';
 import { scalachessCharPair } from 'chessops/compat';
 import { TreeWrapper } from 'tree';
-import { Move } from 'chessops/types';
+import { path as pathOps } from 'tree';
+import { isNormal, Move, NormalMove } from 'chessops/types';
+import PuzzleCtrl from './ctrl';
 
 export function pgnToTree(pgn: San[]): Tree.Node {
   const pos = Chess.default();
@@ -49,3 +51,17 @@ const makeNode = (pos: Chess, move: Move, ply: number, san: San): Tree.Node => (
   check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
   children: [],
 });
+
+export function nextCorrectMove(ctrl: PuzzleCtrl): NormalMove | undefined {
+  if (ctrl.mode === 'view') return;
+  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return;
+
+  const playedByColor = ctrl.node.ply % 2 === 1 ? 'white' : 'black';
+  if (playedByColor == ctrl.pov) return;
+
+  const nodes = ctrl.nodeList.slice(pathOps.size(ctrl.initialPath) + 1);
+  const nextUci = ctrl.data.puzzle.solution[nodes.length];
+  const move = nextUci && parseUci(nextUci);
+
+  return move && isNormal(move) ? move : undefined;
+}
