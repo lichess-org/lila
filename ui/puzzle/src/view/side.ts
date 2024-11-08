@@ -104,18 +104,20 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
       h('a.button', { attrs: { href: router.withLang('/signup') } }, i18n.site.signUp),
     ]);
   const diff = ctrl.round?.ratingDiff,
-    ratedId = 'puzzle-toggle-rated';
+    ratedId = `puzzle-toggle-rated_hint-${ctrl.hintHasBeenShown()}`;
   return h('div.puzzle__side__user', [
     !data.replay &&
       !ctrl.streak &&
       data.user &&
       h('div.puzzle__side__config__toggle', [
         h('div.switch', [
-          h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle`, {
-            attrs: { type: 'checkbox', checked: ctrl.rated(), disabled: ctrl.lastFeedback != 'init' },
-            hook: {
-              insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
+          h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle.`, {
+            attrs: {
+              type: 'checkbox',
+              checked: ctrl.rated() && !ctrl.hintHasBeenShown(),
+              disabled: ctrl.lastFeedback != 'init' || ctrl.hintHasBeenShown(),
             },
+            hook: onInsert(el => el.addEventListener('change', ctrl.toggleRated)),
           }),
           h('label', { attrs: { for: ratedId } }),
         ]),

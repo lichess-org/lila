@@ -75,6 +75,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   canViewSolution = toggle(false);
   showHint = toggle(false);
+  hintHasBeenShown = toggle(false);
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   voteDisabled?: boolean;
@@ -460,6 +461,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (next) {
       this.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
       if (this.streak && win) this.streak.onComplete(true, res.next);
+      this.hintHasBeenShown(false);
     }
     this.redraw();
     if (!next && !this.data.replay) {
@@ -585,8 +587,10 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   toggleHint = (): void => {
-    if (!this.showHint())
+    if (!this.showHint()) {
+      this.hintHasBeenShown(true);
       this.userJump(treePath.fromNodeList(this.mainline.filter(node => node.puzzle != 'fail')));
+    }
     this.showHint.toggle();
     this.setAutoShapes();
     this.redraw();
