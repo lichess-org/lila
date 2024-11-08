@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">(کۆنترین) داتای زیادکراو</string>
   <string name="recentlyUpdated">بەم دواییە نوێکرایەوە</string>
   <string name="mostPopular">دیارترین</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">ڕیزکردن بەپێی ئەلفوبێ</string>
+  <string name="alphabetical">ڕیزکردن بەپێی ئەلفوبێ</string>
   <string name="addNewChapter">بەشێکی نوێ زیاد بکە</string>
   <plurals name="nbChapters">
     <item quantity="one">%s بەشەکان</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">دابەزاندی یاری</string>
   <string name="studyUrl">خوێندنی URL</string>
   <string name="currentChapterUrl">لینکی یاریەکانی ئێستا</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">دەتوانیت ئەمە لە مەکۆکە یان بلۆگی لیچێسەکەتدا لێبدەیت بۆ جێگیرکردن</string>
+  <string name="youCanPasteThisInTheForumToEmbed">دەتوانیت ئەمە لە مەکۆکە یان بلۆگی لیچێسەکەتدا لێبدەیت بۆ جێگیرکردن</string>
   <string name="startAtInitialPosition">له شوێنێکی سەرەتایی دەستپێبکە</string>
   <string name="startAtX">دەس پێ ئەکات لە %s</string>
   <string name="embedInYourWebsite">لە ماڵپەڕەکەتدا جێگیر بکە</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">دەستپێکردن لە پێگەی سەرەتاوە</string>
   <string name="editor">دەستکاریکەر</string>
   <string name="startFromCustomPosition">لە شوێنی تایبەتمەندەوە دەست پێ بکە</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">یارییەکان بەپێی URL بار بکە</string>
+  <string name="loadAGameByUrl">یارییەکان بەپێی URL بار بکە</string>
   <string name="loadAPositionFromFen">لە FEN ەوە پۆستێک بار بکە</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">یارییەکان لە PGN ەوە بار بکە</string>
+  <string name="loadAGameFromPgn">یارییەکان لە PGN ەوە بار بکە</string>
   <string name="automatic">خوودکاری</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">دانانی تیکستی PGN لێرە، بۆ %s یاریانە</item>
@@ -164,7 +164,7 @@
   <string name="popularTopics">بابەتە بەناوبانگەکان</string>
   <string name="manageTopics">ڕێکخستنی بابەتەکان</string>
   <string name="back">گەڕانەوە</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">یاریکردنەوە</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">چۆن یاریدەکەی لەم پۆزشنەدا؟</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">پیرۆزە! ئەم دەرسەت تەواوکرد.</string>
+  <string name="playAgain">یاریکردنەوە</string>
+  <string name="whatWouldYouPlay">چۆن یاریدەکەی لەم پۆزشنەدا؟</string>
+  <string name="youCompletedThisLesson">پیرۆزە! ئەم دەرسەت تەواوکرد.</string>
 </resources>

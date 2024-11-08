@@ -71,7 +71,6 @@
   <string name="ratingDiff">Puan farkı</string>
   <string name="gamesThisTournament">Bu turnuvadaki maçlar</string>
   <string name="score">Skor</string>
-  <string name="perPage">Sayfa başına %s</string>
   <string name="allTeams">Tüm takımlar</string>
   <string name="tournamentFormat">Turnuva biçimi</string>
   <string name="tournamentLocation">Turnuva Konumu</string>

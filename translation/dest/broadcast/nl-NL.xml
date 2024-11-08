@@ -70,7 +70,6 @@
   <string name="ratingDiff">Ratingverschil</string>
   <string name="gamesThisTournament">Partijen in dit toernooi</string>
   <string name="score">Score</string>
-  <string name="perPage">%s per pagina</string>
   <string name="allTeams">Alle teams</string>
   <string name="tournamentFormat">Toernooivorm</string>
   <string name="tournamentLocation">Toernooilocatie</string>
