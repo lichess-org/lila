@@ -71,7 +71,6 @@
   <string name="ratingDiff">Diferença de Elo</string>
   <string name="gamesThisTournament">Jogos deste torneio</string>
   <string name="score">Pontuação</string>
-  <string name="perPage">%s por página</string>
   <string name="allTeams">Todas as equipas</string>
   <string name="tournamentFormat">Formato do torneio</string>
   <string name="tournamentLocation">Localização do Torneio</string>

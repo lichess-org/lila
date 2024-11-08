@@ -205,6 +205,7 @@ final private class PovToEntry(
       ratingDiff = ~pov.player.ratingDiff,
       analysed = analysis.isDefined,
       provisional = provisional,
+      source = game.source,
       date = game.createdAt
     )
 

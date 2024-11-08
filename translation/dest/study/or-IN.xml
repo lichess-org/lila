@@ -74,6 +74,8 @@
   <string name="noLetPeopleBrowseFreely">ନା: ଲୋକଙ୍କୁ ମୁକ୍ତ ଭାବରେ ବ୍ରାଉଜ୍ କରିବାକୁ ଦିଅନ୍ତୁ</string>
   <string name="start">ଆରମ୍ଭ କର</string>
   <string name="whereDoYouWantToStudyThat">ଆପଣ ଏହାକୁ କେଉଁଠାରେ ଅଧ୍ୟୟନ କରିବାକୁ ଚାହାଁନ୍ତି?</string>
+  <string name="mistake">ଭୁଲ</string>
+  <string name="blunder">ଗମ୍ଭୀର ଭୁଲ</string>
   <string name="whiteIsWinning">ଧଳା ଜିତୁଛି</string>
   <string name="blackIsWinning">କଳା ଜିତୁଛି</string>
   <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">ବିକାଶ</string>

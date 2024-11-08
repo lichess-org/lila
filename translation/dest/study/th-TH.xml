@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">วันที่เพิ่ม (เก่าสุด)</string>
   <string name="recentlyUpdated">อัพเดตเร็วๆนี้</string>
   <string name="mostPopular">นิยมที่สุด</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">ตามอักษร</string>
+  <string name="alphabetical">ตามอักษร</string>
   <string name="addNewChapter">เพิ่มบทใหม่</string>
   <plurals name="nbChapters">
     <item quantity="other">%s บท</item>
@@ -64,7 +64,7 @@
   <string name="downloadGame">ดาวน์โหลดเกม</string>
   <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">คุณสามารถวางลิงค์นี้ในฟอรั่ม Lichess หรือบล็อก Lichess ของคุณเพื่อฝังโค้ด</string>
+  <string name="youCanPasteThisInTheForumToEmbed">คุณสามารถวางลิงค์นี้ในฟอรั่ม Lichess หรือบล็อก Lichess ของคุณเพื่อฝังโค้ด</string>
   <string name="startAtInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
   <string name="startAtX">เริ่มที่ %s</string>
   <string name="embedInYourWebsite">ฝังในเว็บไซต์ของคุณ</string>
@@ -95,9 +95,9 @@
   <string name="startFromInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
   <string name="editor">ตัวแก้ไข</string>
   <string name="startFromCustomPosition">เริ่มที่ตำแหน่งที่กำหนดเอง</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">โหลดเกมโดย URL</string>
+  <string name="loadAGameByUrl">โหลดเกมโดย URL</string>
   <string name="loadAPositionFromFen">โหลดตำแหน่งจาก FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">โหลดเกมจาก PGN</string>
+  <string name="loadAGameFromPgn">โหลดเกมจาก PGN</string>
   <string name="automatic">อัตโนมัติ</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="other">วางข้อความ PGN ของคุณที่นี่, ได้ถึง %s เกม</item>
@@ -160,7 +160,7 @@
   <string name="popularTopics">หัวข้อยอดนิยม</string>
   <string name="manageTopics">จัดการหัวข้อ</string>
   <string name="back">กลับ</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">เล่นใหม่</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">คุณจะเดินอะไรในตำแหน่งนี้</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">ยินดีด้วย! คุณจบบทเรียนนี้แล้ว</string>
+  <string name="playAgain">เล่นใหม่</string>
+  <string name="whatWouldYouPlay">คุณจะเดินอะไรในตำแหน่งนี้</string>
+  <string name="youCompletedThisLesson">ยินดีด้วย! คุณจบบทเรียนนี้แล้ว</string>
 </resources>

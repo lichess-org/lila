@@ -36,7 +36,7 @@ export default class Report {
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
     if (
-      node.ply >= ctrl.initialNode.ply &&
+      nextMoveInSolution(node) &&
       nodeTurn == ctrl.pov &&
       ctrl.mainline.some((n: Tree.Node) => n.id == node.id)
     ) {
@@ -99,3 +99,10 @@ export default class Report {
     });
   };
 }
+
+// since we check the nodes of the opposite side, to know if we're
+// in the solution we need to check the following move
+const nextMoveInSolution = (before: Tree.Node) => {
+  const node = before.children[0];
+  return node && (node.puzzle === 'good' || node.puzzle === 'win');
+};

@@ -70,7 +70,6 @@
   <string name="ratingDiff">레이팅 차이</string>
   <string name="gamesThisTournament">이 토너먼트의 게임들</string>
   <string name="score">점수</string>
-  <string name="perPage">페이지 당 %s개</string>
   <string name="allTeams">모든 팀</string>
   <string name="tournamentFormat">토너먼트 형식</string>
   <string name="tournamentLocation">토너먼트 장소</string>

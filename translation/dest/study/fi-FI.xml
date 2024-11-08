@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Julkaisupäivä (vanhimmat)</string>
   <string name="recentlyUpdated">Viimeksi päivitetyt</string>
   <string name="mostPopular">Suosituimmat</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Aakkosjärjestyksessä</string>
+  <string name="alphabetical">Aakkosjärjestyksessä</string>
   <string name="addNewChapter">Lisää uusi luku</string>
   <plurals name="nbChapters">
     <item quantity="one">%s luku</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">Lataa peli</string>
   <string name="studyUrl">Tutkielman URL</string>
   <string name="currentChapterUrl">Tämän luvun URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Voit upottaa tämän foorumiin liittämällä</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Voit upottaa tämän foorumiin liittämällä</string>
   <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
   <string name="startAtX">Aloita siirrosta %s</string>
   <string name="embedInYourWebsite">Upota sivustoosi tai blogiisi</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">Aloita alkuasemasta</string>
   <string name="editor">Editori</string>
   <string name="startFromCustomPosition">Aloita haluamastasi asemasta</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Lataa peli URL:stä</string>
+  <string name="loadAGameByUrl">Lataa peli URL:stä</string>
   <string name="loadAPositionFromFen">Lataa asema FEN:istä</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Ota peli PGN:stä</string>
+  <string name="loadAGameFromPgn">Ota peli PGN:stä</string>
   <string name="automatic">Automaattinen</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Liitä PGN tähän, enintään %s peli</item>
@@ -164,7 +164,8 @@
   <string name="popularTopics">Suositut aiheet</string>
   <string name="manageTopics">Aiheiden hallinta</string>
   <string name="back">Takaisin</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Pelaa uudelleen</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Mitä pelaisit tässä asemassa?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Onnittelut! Olet suorittanut tämän oppiaiheen.</string>
+  <string name="playAgain">Pelaa uudelleen</string>
+  <string name="whatWouldYouPlay">Mitä pelaisit tässä asemassa?</string>
+  <string name="youCompletedThisLesson">Onnittelut! Olet suorittanut tämän oppiaiheen.</string>
+  <string name="perPage">%s per sivu</string>
 </resources>

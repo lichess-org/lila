@@ -1,5 +1,5 @@
 import { fixCrazySan } from 'chess';
-import { attributesModule, classModule, eventListenersModule, init, h } from 'snabbdom';
+import { attributesModule, classModule, eventListenersModule, init, h, VNodeData } from 'snabbdom';
 import { plyToTurn } from '../util';
 
 export const patch = init([classModule, attributesModule, eventListenersModule]);
@@ -20,5 +20,5 @@ export function titleNameToId(titleName: string): string {
   return (split.length === 1 ? split[0] : split[1]).toLowerCase();
 }
 
-export const option = (value: string, current: string | undefined, name: string) =>
-  h('option', { attrs: { value: value, selected: value === current } }, name);
+export const option = (value: string, current: string | undefined, name: string, data?: VNodeData) =>
+  h('option', { attrs: { value: value, selected: value === current }, ...data }, name);

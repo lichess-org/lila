@@ -24,13 +24,12 @@ final private class InsightIndexer(
   )
 
   def all(user: User): Funit =
-    workQueue {
-      storage.fetchLast(user.id).flatMap {
-        _.fold(fromScratch(user)) { e =>
-          computeFrom(user, e.date.plusSeconds(1))
-        }
-      }
-    }
+    workQueue:
+      storage
+        .fetchLast(user.id)
+        .flatMap:
+          _.fold(fromScratch(user)): e =>
+            computeFrom(user, e.date.plusSeconds(1))
 
   def update(game: Game, userId: UserId, previous: InsightEntry): Funit =
     povToEntry(game, userId, previous.provisional).flatMap {
@@ -39,11 +38,8 @@ final private class InsightIndexer(
     }
 
   private def fromScratch(user: User): Funit =
-    fetchFirstGame(user).flatMap {
-      _.so { g =>
-        computeFrom(user, g.createdAt)
-      }
-    }
+    fetchFirstGame(user).flatMapz: g =>
+      computeFrom(user, g.createdAt)
 
   private def gameQuery(user: User) =
     Query.user(user.id) ++
@@ -58,25 +54,23 @@ final private class InsightIndexer(
   private def fetchFirstGame(user: User): Fu[Option[Game]] =
     if user.count.rated == 0 then fuccess(none)
     else
-      {
-        (user.count.rated >= maxGames).so(
+      (user.count.rated >= maxGames)
+        .so:
           gameRepo.coll
             .find(gameQuery(user))
             .sort(Query.sortCreated)
             .skip(maxGames - 1)
             .one[Game](ReadPref.sec)
-        )
-      }.orElse(
-        gameRepo.coll
-          .find(gameQuery(user))
-          .sort(Query.sortChronological)
-          .one[Game](ReadPref.sec)
-      )
+        .orElse:
+          gameRepo.coll
+            .find(gameQuery(user))
+            .sort(Query.sortChronological)
+            .one[Game](ReadPref.sec)
 
   private def computeFrom(user: User, from: Instant): Funit =
     storage
       .nbByPerf(user.id)
-      .flatMap { nbs =>
+      .flatMap: nbs =>
         var nbByPerf = nbs
         def toEntry(game: Game): Fu[Option[InsightEntry]] =
           val nb = nbByPerf.getOrElse(game.perfKey, 0) + 1
@@ -94,4 +88,4 @@ final private class InsightIndexer(
           .grouped(100.atMost(maxGames))
           .map(storage.bulkInsert)
           .runWith(Sink.ignore)
-      } void
+          .void

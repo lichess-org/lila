@@ -70,7 +70,6 @@
   <string name="ratingDiff">Độ thay đổi hệ số</string>
   <string name="gamesThisTournament">Các ván đấu trong giải này</string>
   <string name="score">Điểm số</string>
-  <string name="perPage">%s mỗi trang</string>
   <string name="allTeams">Tất cả đội</string>
   <string name="tournamentFormat">Điều lệ giải đấu</string>
   <string name="tournamentLocation">Địa điểm tổ chức giải đấu</string>
