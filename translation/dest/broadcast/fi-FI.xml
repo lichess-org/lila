@@ -70,7 +70,6 @@
   <string name="ratingDiff">Vahvuuslukujen erotus</string>
   <string name="gamesThisTournament">Pelit tässä turnauksessa</string>
   <string name="score">Pisteet</string>
-  <string name="perPage">%s per sivu</string>
   <string name="allTeams">Kaikki joukkueet</string>
   <string name="tournamentFormat">Turnauksen laji</string>
   <string name="tournamentLocation">Turnauksen sijainti</string>

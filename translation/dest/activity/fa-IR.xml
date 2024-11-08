@@ -39,7 +39,7 @@
     <item quantity="other">تکمیل %1$s بازی مکاتبه‌ای %2$s</item>
   </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">%s بازیکن را دنبال کرد</item>
+    <item quantity="one">شروع به دنبالیدن %s بازیکن کرد</item>
     <item quantity="other">شروع به دنبالیدن %s بازیکن کرد</item>
   </plurals>
   <plurals name="gainedNbFollowers">

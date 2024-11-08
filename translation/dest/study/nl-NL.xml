@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Datum toegevoegd (oudste)</string>
   <string name="recentlyUpdated">Recent bijgewerkt</string>
   <string name="mostPopular">Meest populair</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alfabetisch</string>
+  <string name="alphabetical">Alfabetisch</string>
   <string name="addNewChapter">Nieuw hoofdstuk toevoegen</string>
   <plurals name="nbChapters">
     <item quantity="one">%s hoofdstuk</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">Partij downloaden</string>
   <string name="studyUrl">Studie URL</string>
   <string name="currentChapterUrl">Huidige hoofdstuk URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Je kunt deze link plakken wanneer je een bericht schrijft op het forum om de partij interactief weer te geven</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Je kunt deze link plakken wanneer je een bericht schrijft op het forum om de partij interactief weer te geven</string>
   <string name="startAtInitialPosition">Begin bij de startpositie</string>
   <string name="startAtX">Beginnen bij %s</string>
   <string name="embedInYourWebsite">Insluiten in blog of website</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">Start bij de initiële positie</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Start bij een aangepaste positie</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Laad partijen via een URL</string>
+  <string name="loadAGameByUrl">Laad partijen via een URL</string>
   <string name="loadAPositionFromFen">Laad een spel via een FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Laad partijen via een PGN</string>
+  <string name="loadAGameFromPgn">Laad partijen via een PGN</string>
   <string name="automatic">Automatisch</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Plak je PGN tekst hier, tot %s spel mogelijk</item>
@@ -164,7 +164,8 @@
   <string name="popularTopics">Populaire onderwerpen</string>
   <string name="manageTopics">Onderwerpen beheren</string>
   <string name="back">Terug</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Opnieuw spelen</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Wat zou je in deze stelling spelen?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Gefeliciteerd! Je hebt deze les voltooid.</string>
+  <string name="playAgain">Opnieuw spelen</string>
+  <string name="whatWouldYouPlay">Wat zou je in deze stelling spelen?</string>
+  <string name="youCompletedThisLesson">Gefeliciteerd! Je hebt deze les voltooid.</string>
+  <string name="perPage">%s per pagina</string>
 </resources>

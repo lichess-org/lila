@@ -71,7 +71,6 @@
   <string name="ratingDiff">Diferência de pontos</string>
   <string name="gamesThisTournament">Jogos neste torneio</string>
   <string name="score">Pontuação</string>
-  <string name="perPage">%s por página</string>
   <string name="allTeams">Todas as equipes</string>
   <string name="tournamentFormat">Formato do torneio</string>
   <string name="tournamentLocation">Local do torneio</string>

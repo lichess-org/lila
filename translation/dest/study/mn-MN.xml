@@ -44,6 +44,7 @@
   <string name="chapterPgn">Бүлэг PGN</string>
   <string name="studyUrl">Судалгааны URL</string>
   <string name="currentChapterUrl">Одоогийн бүлгийн URL</string>
+  <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
   <string name="open">Нээлттэй байна</string>
   <string name="studyNotFound">Судалгаагүй байна</string>
   <string name="empty">Хоосон</string>
@@ -62,6 +63,7 @@
   <string name="deleteStudy">Судалгаа устгах</string>
   <string name="goodMove">Сайн нүүдэл</string>
   <string name="mistake">Алдаа</string>
+  <string name="blunder">Ноцтой алдаа</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Зэрэгцээ</string>
   <string name="equalPosition">Тэнцүү байрлал</string>
 </resources>
