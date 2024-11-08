@@ -30,13 +30,13 @@ export function vert(ctrl: Ctrl, attrs: any = null) {
       ),
       h(
         'tbody',
-        answer.xAxis.categories.map((c, i) => {
-          return h('tr', [
+        answer.xAxis.categories.map((c, i) =>
+          h('tr', [
             h('th', formatSerieName(answer.xAxis.dataType, c)),
             ...answer.series.map(serie => h('td.data', formatNumber(serie.dataType, serie.data[i]))),
             h('td.size', formatNumber(answer.sizeSerie.dataType, answer.sizeSerie.data[i])),
-          ]);
-        }),
+          ]),
+        ),
       ),
     ]),
   );

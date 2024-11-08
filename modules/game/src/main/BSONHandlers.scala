@@ -56,7 +56,7 @@ object BSONHandlers:
 
   given BSONHandler[GameRule] = valueMapHandler[String, GameRule](GameRule.byKey)(_.toString)
 
-  given BSONHandler[Source] = valueMapHandler[Int, Source](Source.byId)(_.id)
+  given sourceHandler: BSONHandler[Source] = valueMapHandler[Int, Source](Source.byId)(_.id)
 
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
@@ -221,9 +221,9 @@ object BSONHandlers:
         F.status        -> o.status,
         F.turns         -> o.chess.ply,
         F.startedAtTurn -> w.intO(o.chess.startedAtPly.value),
-        F.clock -> (o.chess.clock.flatMap { c =>
+        F.clock -> o.chess.clock.flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
-        }),
+        },
         F.daysPerTurn       -> o.daysPerTurn,
         F.moveTimes         -> o.binaryMoveTimes,
         F.whiteClockHistory -> clockHistory(Color.White, o.clockHistory, o.chess.clock, o.flagged),
