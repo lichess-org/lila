@@ -9,6 +9,7 @@ import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
 import AnalyseCtrl from '../ctrl';
+import { opposite } from 'chessops';
 
 export class StudyChapterEditForm {
   current = prop<ChapterPreview | StudyChapterConfig | null>(null);
@@ -121,7 +122,11 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         h(
           'select#chapter-orientation.form-control',
           (['white', 'black'] as const).map(color =>
-            option(color, ctrl.root.bottomColor(), i18n.site[color]),
+            option(
+              ctrl.root.flipped ? opposite(color) : color,
+              ctrl.root.flipped ? opposite(ctrl.root.getOrientation()) : ctrl.root.getOrientation(),
+              i18n.site[color],
+            ),
           ),
         ),
       ]),
