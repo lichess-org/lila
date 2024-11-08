@@ -337,7 +337,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   ...(activeTab === 'pgn' ? [['automatic', i18n.study.automatic]] : []),
                   ['white', i18n.site.white],
                   ['black', i18n.site.black],
-                ].map(([value, name]) => value && option(value, ctrl.orientation, name)),
+                ].map(([value, name]) => value && option(value, ctrl.orientation, name, { key: value })),
               ),
             ]),
           ]),
