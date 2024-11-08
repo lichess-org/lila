@@ -162,9 +162,8 @@ final class RelayRound(
           group       <- env.relay.api.withTours.get(rt.tour.id)
           previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           targetRound <- env.relay.api.officialTarget(rt.round)
-        yield JsonOk(
+        yield JsonOk:
           env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound)
-        )
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -257,7 +256,7 @@ final class RelayRound(
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me
-        .soUse { env.relay.api.canUpdate(tour) }
+        .soUse(env.relay.api.canUpdate(tour))
         .elseNotFound:
           env.relay.api.formNavigation(tour).flatMap(f)
 
