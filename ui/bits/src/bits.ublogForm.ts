@@ -87,4 +87,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   $(el)
     .find('button.link')
     .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());
+  $('.toastui-editor-tabs > .tab-item').on('click', () => {
+    editor.setMarkdown(editor.getMarkdown().replace(/(?<!\\)</g, '\\<'), false);
+  });
 };
