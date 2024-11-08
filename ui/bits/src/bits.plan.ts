@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
 import { alert } from 'common/dialog';
+import { log } from 'common/permalog';
 
 const showError = (error: string) => alert(error);
 
@@ -26,7 +27,11 @@ export function stripeStart(publicKey: string): void {
           .redirectToCheckout({
             sessionId: data.session.id,
           })
-          .then((result: any) => showError(result.error.message));
+          .then((result: any) => showError(result.error.message))
+          .catch((e: any) => {
+            log('Stripe.redirectToCheckout', e);
+            showError('message' in e ? e.message : e);
+          });
       } else {
         location.assign('/patron');
       }
