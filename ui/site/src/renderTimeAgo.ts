@@ -40,7 +40,7 @@ export const updateTimeAgo = (interval: number): void => {
 // format the diff second to *** time remaining
 const formatRemaining = (seconds: number): string =>
   seconds < 1
-    ? i18n.timeago.completed
+    ? i18n.timeago.completed()
     : seconds < 3600
       ? i18n.timeago.nbMinutesRemaining(Math.floor(seconds / 60))
       : i18n.timeago.nbHoursRemaining(Math.floor(seconds / 3600));

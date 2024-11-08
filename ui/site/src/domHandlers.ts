@@ -50,8 +50,8 @@ export function attachDomHandlers() {
     if (!e.isTrusted) return;
     e.preventDefault();
     const [confirmText, cancelText] = this.classList.contains('yes-no-confirm')
-      ? [i18n.site.yes, i18n.site.no]
-      : [i18n.site.ok, i18n.site.cancel];
+      ? [i18n.site.yes(), i18n.site.no()]
+      : [i18n.site.ok(), i18n.site.cancel()];
     if (await confirm(this.title || 'Confirm this action?', confirmText, cancelText))
       (e.target as HTMLElement)?.click();
   });

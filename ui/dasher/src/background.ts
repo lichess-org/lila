@@ -29,9 +29,9 @@ export class BackgroundCtrl extends PaneCtrl {
   constructor(root: DasherCtrl) {
     super(root);
     this.list = [
-      { key: 'system', name: i18n.site.deviceTheme },
-      { key: 'light', name: i18n.site.light },
-      { key: 'dark', name: i18n.site.dark },
+      { key: 'system', name: i18n.site.deviceTheme() },
+      { key: 'light', name: i18n.site.light() },
+      { key: 'dark', name: i18n.site.dark() },
       { key: 'transp', name: 'Picture' },
     ];
   }
@@ -40,7 +40,7 @@ export class BackgroundCtrl extends PaneCtrl {
     const cur = this.get();
 
     return h('div.sub.background', [
-      header(i18n.site.background, this.close),
+      header(i18n.site.background(), this.close),
       h(
         'div.selector.large',
         this.list.map(bg => {
@@ -112,7 +112,7 @@ export class BackgroundCtrl extends PaneCtrl {
 
   private imageInput = () =>
     h('div.image', [
-      h('p', i18n.site.backgroundImageUrl),
+      h('p', i18n.site.backgroundImageUrl()),
       h('input', {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
         hook: {

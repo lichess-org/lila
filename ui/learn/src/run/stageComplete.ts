@@ -53,7 +53,7 @@ export default function (ctrl: RunCtrl) {
               h('i', { attrs: { 'data-icon': '' } }),
             ])
           : null,
-        h('a.back.text[data-icon=]', { hook: bind('click', () => hashNavigate()) }, i18n.learn.backToMenu),
+        h('a.back.text[data-icon=]', { hook: bind('click', () => hashNavigate()) }, i18n.learn.backToMenu()),
       ]),
     ]),
   );

@@ -6,7 +6,7 @@ export const levelButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
   return site.blindMode
     ? [
-        h('label', { attrs: { for: 'sf_level' } }, i18n.site.strength),
+        h('label', { attrs: { for: 'sf_level' } }, i18n.site.strength()),
         h(
           'select#sf_level',
           {
@@ -17,7 +17,7 @@ export const levelButtons = (ctrl: LobbyController) => {
       ]
     : [
         h('br'),
-        i18n.site.strength,
+        i18n.site.strength(),
         h('div.level.buttons', [
           h(
             'div.config_level',

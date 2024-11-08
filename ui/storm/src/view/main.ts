@@ -13,8 +13,8 @@ import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 
 export default function (ctrl: StormCtrl): VNode {
-  if (ctrl.vm.dupTab) return renderReload(i18n.storm.thisRunWasOpenedInAnotherTab);
-  if (ctrl.vm.lateStart) return renderReload(i18n.storm.thisRunHasExpired);
+  if (ctrl.vm.dupTab) return renderReload(i18n.storm.thisRunWasOpenedInAnotherTab());
+  if (ctrl.vm.lateStart) return renderReload(i18n.storm.thisRunHasExpired());
   if (!ctrl.run.endAt)
     return h('div.storm.storm-app.storm--play', { class: playModifiers(ctrl.run) }, renderPlay(ctrl));
   return h('main.storm.storm--end', renderEnd(ctrl));
@@ -69,26 +69,26 @@ const renderControls = (ctrl: StormCtrl): VNode =>
   h('div.puz-side__control', [
     h('a.puz-side__control__flip.button', {
       class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
-      attrs: { 'data-icon': licon.ChasingArrows, title: i18n.site.flipBoard + ' (Keyboard: f)' },
+      attrs: { 'data-icon': licon.ChasingArrows, title: i18n.site.flipBoard() + ' (Keyboard: f)' },
       hook: onInsert(el => el.addEventListener('click', ctrl.flip)),
     }),
     h('a.puz-side__control__reload.button.button-empty', {
-      attrs: { href: '/storm', 'data-icon': licon.Trash, title: i18n.storm.newRun },
+      attrs: { href: '/storm', 'data-icon': licon.Trash, title: i18n.storm.newRun() },
     }),
     h('a.puz-side__control__end.button.button-empty', {
-      attrs: { 'data-icon': licon.FlagOutline, title: i18n.storm.endRun },
+      attrs: { 'data-icon': licon.FlagOutline, title: i18n.storm.endRun() },
       hook: onInsert(el => el.addEventListener('click', ctrl.endNow)),
     }),
   ]);
 
 const renderStart = () =>
   h('div.puz-side__top.puz-side__start', [
-    h('div.puz-side__start__text', [h('strong', 'Puzzle Storm'), h('span', i18n.storm.moveToStart)]),
+    h('div.puz-side__start__text', [h('strong', 'Puzzle Storm'), h('span', i18n.storm.moveToStart())]),
   ]);
 
 const renderReload = (text: string) =>
   h('div.storm.storm--reload.box.box-pad', [
     h('i', { attrs: { 'data-icon': licon.Storm } }),
     h('p', text),
-    h('a.storm--dup__reload.button', { attrs: { href: '/storm' } }, i18n.storm.clickToReload),
+    h('a.storm--dup__reload.button', { attrs: { href: '/storm' } }, i18n.storm.clickToReload()),
   ]);

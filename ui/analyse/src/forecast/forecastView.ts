@@ -28,7 +28,7 @@ function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefine
         h('strong', i18n.site.playX(fixCrazySan(cNodes[0].san))),
         lines.length
           ? h('span', i18n.site.andSaveNbPremoveLines(lines.length))
-          : h('span', i18n.site.noConditionalPremoves),
+          : h('span', i18n.site.noConditionalPremoves()),
       ]),
     ],
   );
@@ -53,7 +53,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
   return h('div.forecast', { class: { loading: fctrl.loading() } }, [
     fctrl.loading() ? h('div.overlay', spinner()) : null,
     h('div.box', [
-      h('div.top', i18n.site.conditionalPremoves),
+      h('div.top', i18n.site.conditionalPremoves()),
       h(
         'div.list',
         fctrl.forecasts().map((nodes, i) =>
@@ -89,8 +89,8 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         },
         [
           isCandidate
-            ? h('span', [h('span', i18n.site.addCurrentVariation), h('sans', renderNodesHtml(cNodes))])
-            : h('span', i18n.site.playVariationToCreateConditionalPremoves),
+            ? h('span', [h('span', i18n.site.addCurrentVariation()), h('sans', renderNodesHtml(cNodes))])
+            : h('span', i18n.site.playVariationToCreateConditionalPremoves()),
         ],
       ),
     ]),

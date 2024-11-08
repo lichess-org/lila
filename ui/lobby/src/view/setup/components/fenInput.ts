@@ -10,7 +10,7 @@ export const fenInput = (ctrl: LobbyController) => {
   return h('div.fen.optional-config', [
     h('div.fen__form', [
       h('input#fen-input', {
-        attrs: { placeholder: i18n.site.pasteTheFenStringHere, value: fen },
+        attrs: { placeholder: i18n.site.pasteTheFenStringHere(), value: fen },
         on: {
           input: (e: InputEvent) => {
             setupCtrl.fen((e.target as HTMLInputElement).value.trim());
@@ -23,7 +23,7 @@ export const fenInput = (ctrl: LobbyController) => {
       h('a.button.button-empty', {
         attrs: {
           'data-icon': licon.Pencil,
-          title: i18n.site.boardEditor,
+          title: i18n.site.boardEditor(),
           href: '/editor' + (fen && !setupCtrl.fenError ? `/${fen.replace(' ', '_')}` : ''),
         },
       }),

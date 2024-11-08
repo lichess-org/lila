@@ -21,7 +21,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         : undefined,
     },
     [
-      i18n.site.ratingRange,
+      i18n.site.ratingRange(),
       h('div.rating-range', [
         h('input.range.rating-range__min', {
           attrs: {

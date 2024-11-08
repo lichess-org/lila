@@ -18,12 +18,12 @@ export const onClick = (a: HTMLLinkElement): boolean => {
     htmlText: `
       <div class="link-popup__content">
         <div class="link-popup__content__title">
-          <h2>${i18n.site.youAreLeavingLichess}</h2>
-          <p class="link-popup__content__advice">${i18n.site.neverTypeYourPassword}</p>
+          <h2>${i18n.site.youAreLeavingLichess()}</h2>
+          <p class="link-popup__content__advice">${i18n.site.neverTypeYourPassword()}</p>
         </div>
       </div>
       <div class="link-popup__actions">
-        <button class="cancel button-link" type="button">${i18n.site.cancel}</button>
+        <button class="cancel button-link" type="button">${i18n.site.cancel()}</button>
         <a href="${a.href}" target="_blank" class="button button-red button-no-upper">
           ${i18n.site.proceedToX(url.host)}
         </a>

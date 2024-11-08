@@ -97,12 +97,12 @@ export class StudyMemberCtrl {
       if (once('study-tour')) this.opts.startTour();
       this.opts.onBecomingContributor();
       this.opts.notif.set({
-        text: i18n.study.youAreNowAContributor,
+        text: i18n.study.youAreNowAContributor(),
         duration: 3000,
       });
     } else if (wasContrib && !this.canContribute())
       this.opts.notif.set({
-        text: i18n.study.youAreNowASpectator,
+        text: i18n.study.youAreNowASpectator(),
         duration: 3000,
       });
     this.updateOnline();
@@ -146,7 +146,7 @@ export function view(ctrl: StudyCtrl): VNode {
           active: members.active.has(member.user.id),
           online: members.isOnline(member.user.id),
         },
-        attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator'] },
+        attrs: { title: i18n.study[contrib ? 'contributor' : 'spectator']() },
       },
       [iconTag(contrib ? licon.User : licon.Eye)],
     );
@@ -164,7 +164,7 @@ export function view(ctrl: StudyCtrl): VNode {
       });
     if (!isOwner && member.user.id === members.opts.myId)
       return h('i.act.leave', {
-        attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy },
+        attrs: { 'data-icon': licon.InternalArrow, title: i18n.study.leaveTheStudy() },
         hook: bind('click', members.leave, ctrl.redraw),
       });
     return undefined;
@@ -191,14 +191,14 @@ export function view(ctrl: StudyCtrl): VNode {
             }),
             h('label', { attrs: { for: roleId } }),
           ]),
-          h('label', { attrs: { for: roleId } }, i18n.study.contributor),
+          h('label', { attrs: { for: roleId } }, i18n.study.contributor()),
         ]),
         h(
           'div.kick',
           h(
             'a.button.button-red.button-empty.text',
             { attrs: dataIcon(licon.X), hook: bind('click', _ => members.kick(member.user.id), ctrl.redraw) },
-            i18n.study.kick,
+            i18n.study.kick(),
           ),
         ),
       ],
@@ -225,7 +225,7 @@ export function view(ctrl: StudyCtrl): VNode {
       h('button.add', { key: 'add', hook: bind('click', members.inviteForm.toggle) }, [
         h('div.left', [
           h('span.status', iconTag(licon.PlusButton)),
-          h('div.user-link', i18n.study.addMembers),
+          h('div.user-link', i18n.study.addMembers()),
         ]),
       ]),
     !members.canContribute() &&

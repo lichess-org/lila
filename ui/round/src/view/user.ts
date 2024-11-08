@@ -46,7 +46,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {
-            attrs: { 'data-icon': licon.CautionCircle, title: i18n.site.thisAccountViolatedTos },
+            attrs: { 'data-icon': licon.CautionCircle, title: i18n.site.thisAccountViolatedTos() },
           }),
       ],
     );
@@ -61,7 +61,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
         },
       }),
-      h('name', player.name || i18n.site.anonymous),
+      h('name', player.name || i18n.site.anonymous()),
     ],
   );
 }
@@ -77,4 +77,4 @@ export const userTxt = (player: Player): string =>
     ? (player.user.title ? player.user.title + ' ' : '') + player.user.username
     : player.ai
       ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)
-      : i18n.site.anonymous;
+      : i18n.site.anonymous();

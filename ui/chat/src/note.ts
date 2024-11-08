@@ -28,7 +28,7 @@ export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   const text = ctrl.text();
   if (text == undefined) return h('div.loading', { hook: { insert: ctrl.fetch } });
   return h('textarea.mchat__note', {
-    attrs: { placeholder: i18n.site.typePrivateNotesHere },
+    attrs: { placeholder: i18n.site.typePrivateNotesHere() },
     hook: {
       insert(vnode) {
         const el = vnode.elm as HTMLTextAreaElement;

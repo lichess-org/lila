@@ -243,7 +243,7 @@ export function view(ctrl: StudyCtrl): VNode {
           ? [
               h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
                 h('span', iconTag(licon.PlusButton)),
-                h('h3', i18n.study.addNewChapter),
+                h('h3', i18n.study.addNewChapter()),
               ]),
             ]
           : [],

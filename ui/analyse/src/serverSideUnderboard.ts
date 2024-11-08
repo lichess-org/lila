@@ -120,7 +120,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
-        confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signIn, i18n.site.cancel).then(yes => {
+        confirm(i18n.site.youNeedAnAccountToDoThat(), i18n.site.signIn(), i18n.site.cancel()).then(yes => {
           if (yes) location.href = '/login?referrer=' + window.location.pathname;
         });
         return false;

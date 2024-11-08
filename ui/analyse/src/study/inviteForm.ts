@@ -66,12 +66,12 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
     },
     noScrollable: true,
     vnodes: [
-      h('h2', i18n.study.inviteToTheStudy),
-      h('p.info', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
+      h('h2', i18n.study.inviteToTheStudy()),
+      h('p.info', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.study.pleaseOnlyInvitePeopleYouKnow()),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {
-          attrs: { placeholder: i18n.study.searchByUsername, spellcheck: 'false' },
+          attrs: { placeholder: i18n.study.searchByUsername(), spellcheck: 'false' },
           hook: onInsert<HTMLInputElement>(input =>
             userComplete({
               input,

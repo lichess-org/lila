@@ -18,7 +18,7 @@ function formatClockTime(time: Millis) {
     // days : hours
     const days = date.getUTCDate() - 1;
     hours = date.getUTCHours();
-    str += (days === 1 ? i18n.site.oneDay : i18n.site.nbDays(days)) + ' ';
+    str += (days === 1 ? i18n.site.oneDay() : i18n.site.nbDays(days)) + ' ';
     if (hours !== 0) str += i18n.site.nbHours(hours);
   } else if (time >= 3600 * 1000) {
     // hours : minutes

@@ -55,7 +55,7 @@ export function render(ctrl: LobbyController) {
           class: { transp: !!member },
           attrs: { role: 'button', 'data-id': 'custom', tabindex: '0' },
         },
-        i18n.site.custom,
+        i18n.site.custom(),
       ),
     );
 }

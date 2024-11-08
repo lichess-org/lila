@@ -14,8 +14,8 @@ import { promotionView } from '../promotionView';
 
 const renderFailed = (ctrl: RunCtrl): VNode =>
   h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
-    h('h2', i18n.learn.puzzleFailed),
-    h('button', i18n.learn.retry),
+    h('h2', i18n.learn.puzzleFailed()),
+    h('button', i18n.learn.retry()),
   ]);
 
 const renderCompleted = (level: LevelCtrl): VNode =>
@@ -27,7 +27,9 @@ const renderCompleted = (level: LevelCtrl): VNode =>
     },
     [
       h('h2', congrats()),
-      level.blueprint.nextButton ? h('button', i18n.learn.next) : makeStars(level.blueprint, level.vm.score),
+      level.blueprint.nextButton
+        ? h('button', i18n.learn.next())
+        : makeStars(level.blueprint, level.vm.score),
     ],
   );
 

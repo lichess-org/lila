@@ -95,7 +95,7 @@ export function boot() {
               .append(
                 $(`<a class="withdraw text" data-icon="${licon.Pause}">`)
                   .attr('href', url + '/withdraw')
-                  .text(i18n.site.pause)
+                  .text(i18n.site.pause())
                   .on('click', function (this: HTMLAnchorElement) {
                     xhr.text(this.href, { method: 'post' });
                     $('#announce').remove();
@@ -105,7 +105,7 @@ export function boot() {
               .append(
                 $(`<a class="text" data-icon="${licon.PlayTriangle}">`)
                   .attr('href', url)
-                  .text(i18n.site.resume),
+                  .text(i18n.site.resume()),
               ),
           ),
       );

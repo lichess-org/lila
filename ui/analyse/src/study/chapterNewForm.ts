@@ -18,10 +18,10 @@ import type { LichessEditor } from 'editor';
 import { pubsub } from 'common/pubsub';
 
 export const modeChoices = [
-  ['normal', i18n.study.normalAnalysis],
-  ['practice', i18n.site.practiceWithComputer],
-  ['conceal', i18n.study.hideNextMoves],
-  ['gamebook', i18n.study.interactiveLesson],
+  ['normal', i18n.study.normalAnalysis()],
+  ['practice', i18n.site.practiceWithComputer()],
+  ['conceal', i18n.study.hideNextMoves()],
+  ['gamebook', i18n.study.interactiveLesson()],
 ];
 
 export const fieldValue = (e: Event, id: string) =>
@@ -147,7 +147,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
     vnodes: [
       activeTab !== 'edit' &&
         h('h2', [
-          i18n.study.newChapter,
+          i18n.study.newChapter(),
           h('i.help', { attrs: { 'data-icon': licon.InfoCircle }, hook: bind('click', ctrl.startTour) }),
         ]),
       h(
@@ -170,7 +170,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
         },
         [
           h('div.form-group', [
-            h('label.form-label', { attrs: { for: 'chapter-name' } }, i18n.site.name),
+            h('label.form-label', { attrs: { for: 'chapter-name' } }, i18n.site.name()),
             h('input#chapter-name.form-control', {
               attrs: { minlength: 2, maxlength: 80 },
               hook: onInsert<HTMLInputElement>(el => {
@@ -186,11 +186,11 @@ export function view(ctrl: StudyChapterNewForm): VNode {
             }),
           ]),
           h('div.tabs-horiz', { attrs: { role: 'tablist' } }, [
-            makeTab('init', i18n.study.empty, i18n.study.startFromInitialPosition),
-            makeTab('edit', i18n.study.editor, i18n.study.startFromCustomPosition),
-            makeTab('game', 'URL', i18n.study.loadAGameByUrl),
-            makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen),
-            makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn),
+            makeTab('init', i18n.study.empty(), i18n.study.startFromInitialPosition()),
+            makeTab('edit', i18n.study.editor(), i18n.study.startFromCustomPosition()),
+            makeTab('game', 'URL', i18n.study.loadAGameByUrl()),
+            makeTab('fen', 'FEN', i18n.study.loadAPositionFromFen()),
+            makeTab('pgn', 'PGN', i18n.study.loadAGameFromPgn()),
           ]),
           activeTab === 'edit' &&
             h(
@@ -225,7 +225,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 i18n.study.loadAGameFromXOrY('lichess.org', 'chessgames.com'),
               ),
               h('textarea#chapter-game.form-control', {
-                attrs: { placeholder: i18n.study.urlOfTheGame },
+                attrs: { placeholder: i18n.study.urlOfTheGame() },
                 hook: onInsert((el: HTMLTextAreaElement) => {
                   el.addEventListener('change', () => el.reportValidity());
                   el.addEventListener('input', () => {
@@ -251,7 +251,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h('input#chapter-fen.form-control', {
                 attrs: {
                   value: ctrl.root.node.fen,
-                  placeholder: i18n.study.loadAPositionFromFen,
+                  placeholder: i18n.study.loadAPositionFromFen(),
                   spellcheck: 'false',
                 },
                 hook: onInsert((el: HTMLInputElement) => {
@@ -269,7 +269,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   hook: bind('click', () => ctrl.tab('edit'), ctrl.root.redraw),
                 },
-                [h('i.text', { attrs: dataIcon(licon.Eye) }), i18n.study.editor],
+                [h('i.text', { attrs: dataIcon(licon.Eye) }), i18n.study.editor()],
               ),
             ]),
           activeTab === 'pgn' &&
@@ -314,17 +314,17 @@ export function view(ctrl: StudyChapterNewForm): VNode {
             ]),
           h('div.form-split', [
             h('div.form-group.form-half', [
-              h('label.form-label', { attrs: { for: 'chapter-variant' } }, i18n.site.variant),
+              h('label.form-label', { attrs: { for: 'chapter-variant' } }, i18n.site.variant()),
               h(
                 'select#chapter-variant.form-control',
                 { attrs: { disabled: gameOrPgn } },
                 gameOrPgn
-                  ? [h('option', { attrs: { value: 'standard' } }, i18n.study.automatic)]
+                  ? [h('option', { attrs: { value: 'standard' } }, i18n.study.automatic())]
                   : ctrl.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),
               ),
             ]),
             h('div.form-group.form-half', [
-              h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
+              h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation()),
               h(
                 'select#chapter-orientation.form-control',
                 {
@@ -334,15 +334,15 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   }),
                 },
                 [
-                  ...(activeTab === 'pgn' ? [['automatic', i18n.study.automatic]] : []),
-                  ['white', i18n.site.white],
-                  ['black', i18n.site.black],
+                  ...(activeTab === 'pgn' ? [['automatic', i18n.study.automatic()]] : []),
+                  ['white', i18n.site.white()],
+                  ['black', i18n.site.black()],
                 ].map(([value, name]) => value && option(value, ctrl.orientation, name)),
               ),
             ]),
           ]),
           h('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
-            h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
+            h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode()),
             h(
               'select#chapter-mode.form-control',
               modeChoices.map(c => option(c[0], mode, c[1])),
@@ -350,7 +350,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
           ]),
           h(
             'div.form-actions.single',
-            h('button.button', { attrs: { type: 'submit' } }, i18n.study.createChapter),
+            h('button.button', { attrs: { type: 'submit' } }, i18n.study.createChapter()),
           ),
         ],
       ),

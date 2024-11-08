@@ -376,7 +376,7 @@ export default class RoundController implements MoveRootCtrl {
     const joined = `${opponent}\njoined the game.`;
     if (game.isPlayerTurn(d))
       notify(() => {
-        let txt = i18n.site.yourTurn;
+        let txt = i18n.site.yourTurn();
         if (this.ply < 1) txt = `${joined}\n${txt}`;
         else {
           let move = d.steps[d.steps.length - 1].san;
@@ -632,26 +632,26 @@ export default class RoundController implements MoveRootCtrl {
     if (this.moveToSubmit || this.dropToSubmit) {
       setTimeout(() => this.voiceMove?.listenForResponse('submitMove', this.submitMove));
       return {
-        prompt: i18n.site.confirmMove,
+        prompt: i18n.site.confirmMove(),
         yes: { action: () => this.submitMove(true) },
-        no: { action: () => this.submitMove(false), text: i18n.site.cancel },
+        no: { action: () => this.submitMove(false), text: i18n.site.cancel() },
       };
     } else if (this.data.player.proposingTakeback) {
       this.voiceMove?.listenForResponse('cancelTakeback', this.cancelTakebackPreventDraws);
       return {
-        prompt: i18n.site.takebackPropositionSent,
-        no: { action: this.cancelTakebackPreventDraws, text: i18n.site.cancel },
+        prompt: i18n.site.takebackPropositionSent(),
+        no: { action: this.cancelTakebackPreventDraws, text: i18n.site.cancel() },
       };
-    } else if (this.data.player.offeringDraw) return { prompt: i18n.site.drawOfferSent };
+    } else if (this.data.player.offeringDraw) return { prompt: i18n.site.drawOfferSent() };
     else if (this.data.opponent.offeringDraw)
       return {
-        prompt: i18n.site.yourOpponentOffersADraw,
+        prompt: i18n.site.yourOpponentOffersADraw(),
         yes: { action: () => this.socket.send('draw-yes'), icon: licon.OneHalf },
         no: { action: () => this.socket.send('draw-no') },
       };
     else if (this.data.opponent.proposingTakeback)
       return {
-        prompt: i18n.site.yourOpponentProposesATakeback,
+        prompt: i18n.site.yourOpponentProposesATakeback(),
         yes: { action: this.takebackYes, icon: licon.Back },
         no: { action: () => this.socket.send('takeback-no') },
       };

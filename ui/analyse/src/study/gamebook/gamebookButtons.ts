@@ -19,7 +19,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { 'data-icon': licon.LessThan, type: 'button' },
           hook: bind('click', () => root.userJump(''), ctrl.redraw),
         },
-        i18n.study.back,
+        i18n.study.back(),
       ),
     myTurn &&
       h(
@@ -28,7 +28,7 @@ export function playButtons(root: AnalyseCtrl): VNode | undefined {
           attrs: { 'data-icon': licon.PlayTriangle, type: 'button' },
           hook: bind('click', ctrl.solution, ctrl.redraw),
         },
-        i18n.site.viewTheSolution,
+        i18n.site.viewTheSolution(),
       ),
     overrideButton(study),
   ]);
@@ -66,7 +66,7 @@ export function overrideButton(study: StudyCtrl): VNode | undefined {
               study.redraw,
             ),
           },
-          i18n.site.analysis,
+          i18n.site.analysis(),
         );
     }
   }

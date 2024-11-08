@@ -77,7 +77,7 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
                             'data-icon': licon.Back,
                           },
                         },
-                        i18n.site.backToGame,
+                        i18n.site.backToGame(),
                       ),
                     ),
                 ],
