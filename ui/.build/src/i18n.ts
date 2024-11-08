@@ -39,20 +39,15 @@ export async function i18n(isBoot = true): Promise<void> {
   ).map(list => list.map(x => x.split('.')[0]));
 
   current.siteInit = await min(
-    `function key(k) {
-      const f = function() { return k; };
-      f.asArray = () => [k];
-      return f;
-    }
-    window.i18n =
-      function(k) {
-        for (let v of Object.values(window.i18n)) {
-          if (v[k]) return v[k];
-        }
-        return k;
-      };` +
+    ` window.i18n =
+        function(k) {
+          for (let v of Object.values(window.i18n)) {
+            if (v[k]) return v[k];
+          }
+          return k;
+        };` +
       current.cats.map(cat => `window.i18n.${cat}`).join('=') +
-      `= new Proxy({}, { get: (_, k) => key(k) });`,
+      `= new Proxy({}, { get: (_, k) => d(k) });`,
   );
 
   await compileTypings();
@@ -226,9 +221,14 @@ interface I18n {
 const jsPrelude =
   '"use strict";(()=>{' +
   (await min(
-    // s(...) is the standard format function, p(...) is the plural format function.
-    // both have an asArray method for vdom.
-    ` function p(t) {
+    // d(...) is a constructor for dummy objects that just return keys
+    // s(...) is the standard format constructor, p(...) is the plural format constructor.
+    // all have an asArray method (for vdom).
+    ` function d(k) {
+        const f = () => k;
+        return (f.asArray = () => [k]), f;
+      }
+      function p(t) {
         let r = (n, ...e) => l(o(t, n), n, ...e).join('');
         return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
       }
