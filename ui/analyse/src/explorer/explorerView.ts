@@ -52,9 +52,9 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
   return h('table.moves', [
     h('thead', [
       h('tr', [
-        h('th', i18n.site.move),
-        h('th', { attrs: { colspan: 2 } }, i18n.site.games),
-        h('th', i18n.site.whiteDrawBlack),
+        h('th', i18n.site.move()),
+        h('th', { attrs: { colspan: 2 } }, i18n.site.games()),
+        h('th', i18n.site.whiteDrawBlack()),
       ]),
     ]),
     h(
@@ -196,7 +196,7 @@ const closeButton = (ctrl: AnalyseCtrl): VNode =>
   h(
     'button.button.button-empty.text',
     { attrs: dataIcon(licon.X), hook: bind('click', ctrl.toggleExplorer, ctrl.redraw) },
-    i18n.site.close,
+    i18n.site.close(),
   );
 
 const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
@@ -206,18 +206,18 @@ const showEmpty = (ctrl: AnalyseCtrl, data?: OpeningData): VNode =>
     h('div.message', [
       h(
         'strong',
-        ctrl.explorer.root.node.ply >= MAX_DEPTH ? i18n.site.maxDepthReached : i18n.site.noGameFound,
+        ctrl.explorer.root.node.ply >= MAX_DEPTH ? i18n.site.maxDepthReached() : i18n.site.noGameFound(),
       ),
       data?.queuePosition
         ? h('p.explanation', `Indexing ${data.queuePosition} other players first ...`)
         : !ctrl.explorer.config.fullHouse() &&
-          h('p.explanation', i18n.site.maybeIncludeMoreGamesFromThePreferencesMenu),
+          h('p.explanation', i18n.site.maybeIncludeMoreGamesFromThePreferencesMenu()),
     ]),
   ]);
 
 const showGameEnd = (ctrl: AnalyseCtrl, title: string): VNode =>
   h('div.data.empty', [
-    h('div.title', i18n.site.gameOver),
+    h('div.title', i18n.site.gameOver()),
     h('div.message', [h('i', { attrs: dataIcon(licon.InfoCircle) }), h('h3', title), closeButton(ctrl)]),
   ]);
 
@@ -242,8 +242,8 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
   const data = ctrl.explorer.current();
   if (data && isOpening(data)) {
     const moveTable = showMoveTable(ctrl, data),
-      recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames, data.recentGames || []),
-      topTable = showGameTable(ctrl, data.fen, i18n.site.topGames, data.topGames || []);
+      recentTable = showGameTable(ctrl, data.fen, i18n.site.recentGames(), data.recentGames || []),
+      topTable = showGameTable(ctrl, data.fen, i18n.site.topGames(), data.topGames || []);
     if (moveTable || recentTable || topTable)
       lastShow = h('div.data', [
         explorerTitle(ctrl.explorer),
@@ -264,17 +264,17 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
       );
     if (data.moves.length)
       lastShow = h('div.data', [
-        ...row('loss', i18n.site.winning),
-        ...row('unknown', i18n.site.unknown),
-        ...row('maybe-loss', i18n.site.winOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
-        ...row('blessed-loss', i18n.site.winPreventedBy50MoveRule),
-        ...row('draw', i18n.site.drawn),
-        ...row('cursed-win', i18n.site.lossSavedBy50MoveRule),
-        ...row('maybe-win', i18n.site.lossOr50MovesByPriorMistake, i18n.site.unknownDueToRounding),
-        ...row('win', i18n.site.losing),
+        ...row('loss', i18n.site.winning()),
+        ...row('unknown', i18n.site.unknown()),
+        ...row('maybe-loss', i18n.site.winOr50MovesByPriorMistake(), i18n.site.unknownDueToRounding()),
+        ...row('blessed-loss', i18n.site.winPreventedBy50MoveRule()),
+        ...row('draw', i18n.site.drawn()),
+        ...row('cursed-win', i18n.site.lossSavedBy50MoveRule()),
+        ...row('maybe-win', i18n.site.lossOr50MovesByPriorMistake(), i18n.site.unknownDueToRounding()),
+        ...row('win', i18n.site.losing()),
       ]);
-    else if (data.checkmate) lastShow = showGameEnd(ctrl, i18n.site.checkmate);
-    else if (data.stalemate) lastShow = showGameEnd(ctrl, i18n.site.stalemate);
+    else if (data.checkmate) lastShow = showGameEnd(ctrl, i18n.site.checkmate());
+    else if (data.stalemate) lastShow = showGameEnd(ctrl, i18n.site.stalemate());
     else if (data.variant_win || data.variant_loss) lastShow = showGameEnd(ctrl, 'variantEnding');
     else lastShow = showEmpty(ctrl);
   }
@@ -310,7 +310,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           explorer.reload,
         ),
       },
-      i18n.site.player,
+      i18n.site.player(),
     );
   const active = (nodes: LooseVNodes, title: string) =>
     h(
@@ -323,7 +323,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
     );
   const playerName = explorer.config.data.playerName.value();
   const masterDbExplanation = i18n.site.masterDbExplanation(2200, '1952', '2024-08'),
-    lichessDbExplanation = i18n.site.lichessDbExplanation;
+    lichessDbExplanation = i18n.site.lichessDbExplanation();
   const data = explorer.current();
   const queuePosition = data && isOpening(data) && data.queuePosition;
   return h('div.explorer-title', [
@@ -349,7 +349,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
                   },
                 }),
             ],
-            i18n.site.switchSides,
+            i18n.site.switchSides(),
           )
         : active([h('strong', 'Player'), ' database'], '')
       : playerLink(),
@@ -357,7 +357,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
 };
 
 function showTitle(variant: Variant) {
-  if (variant.key === 'standard' || variant.key === 'fromPosition') return i18n.site.openingExplorer;
+  if (variant.key === 'standard' || variant.key === 'fromPosition') return i18n.site.openingExplorer();
   return i18n.site.xOpeningExplorer(variant.name);
 }
 

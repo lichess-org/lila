@@ -49,9 +49,9 @@ export function promotionView(ctrl: RunCtrl) {
 
 function renderExplanation() {
   return h('div.explanation', [
-    h('h2', i18n.learn.pawnPromotion),
-    h('p', i18n.learn.yourPawnReachedTheEndOfTheBoard),
-    h('p', i18n.learn.itNowPromotesToAStrongerPiece),
-    h('p', i18n.learn.selectThePieceYouWant),
+    h('h2', i18n.learn.pawnPromotion()),
+    h('p', i18n.learn.yourPawnReachedTheEndOfTheBoard()),
+    h('p', i18n.learn.itNowPromotesToAStrongerPiece()),
+    h('p', i18n.learn.selectThePieceYouWant()),
   ]);
 }

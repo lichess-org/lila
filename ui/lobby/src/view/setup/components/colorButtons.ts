@@ -8,7 +8,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   ...(ctrl.setupCtrl.gameType === 'hook'
     ? []
     : [
-        h('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
+        h('label', { attrs: { for: 'sf_color' } }, i18n.site.side()),
         h(
           'select#sf_color',
           {

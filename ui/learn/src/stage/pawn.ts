@@ -4,14 +4,14 @@ import { StageNoID } from './list';
 
 const stage: StageNoID = {
   key: 'pawn',
-  title: i18n.learn.thePawn,
-  subtitle: i18n.learn.itMovesForwardOnly,
+  title: i18n.learn.thePawn(),
+  subtitle: i18n.learn.itMovesForwardOnly(),
   image: assetUrl + 'images/learn/pieces/P.svg',
-  intro: i18n.learn.pawnIntro,
+  intro: i18n.learn.pawnIntro(),
   illustration: pieceImg('pawn'),
   levels: [
     {
-      goal: i18n.learn.pawnsMoveOneSquareOnly,
+      goal: i18n.learn.pawnsMoveOneSquareOnly(),
       fen: '8/8/8/P7/8/8/8/8 w - -',
       apples: 'f3',
       nbMoves: 4,
@@ -19,13 +19,13 @@ const stage: StageNoID = {
       explainPromotion: true,
     },
     {
-      goal: i18n.learn.mostOfTheTimePromotingToAQueenIsBest,
+      goal: i18n.learn.mostOfTheTimePromotingToAQueenIsBest(),
       fen: '8/8/8/5P2/8/8/8/8 w - -',
       apples: 'b6 c4 d7 e5 a8',
       nbMoves: 8,
     },
     {
-      goal: i18n.learn.pawnsMoveForward,
+      goal: i18n.learn.pawnsMoveForward(),
       fen: '8/8/8/8/8/4P3/8/8 w - -',
       apples: 'c6 d5 d7',
       nbMoves: 4,
@@ -33,26 +33,26 @@ const stage: StageNoID = {
       failure: noPieceOn('e3 e4 c6 d5 d7'),
     },
     {
-      goal: i18n.learn.captureThenPromote,
+      goal: i18n.learn.captureThenPromote(),
       fen: '8/8/8/8/8/1P6/8/8 w - -',
       apples: 'b4 b6 c4 c6 c7 d6',
       nbMoves: 8,
     },
     {
-      goal: i18n.learn.captureThenPromote,
+      goal: i18n.learn.captureThenPromote(),
       fen: '8/8/8/8/8/3P4/8/8 w - -',
       apples: 'c4 b5 b6 d5 d7 e6 c8',
       failure: whitePawnOnAnyOf('b5 d4 d6 c7'),
       nbMoves: 8,
     },
     {
-      goal: i18n.learn.useAllThePawns,
+      goal: i18n.learn.useAllThePawns(),
       fen: '8/8/8/8/8/P1PP3P/8/8 w - -',
       apples: 'b5 c5 d4 e5 g4',
       nbMoves: 7,
     },
     {
-      goal: i18n.learn.aPawnOnTheSecondRank,
+      goal: i18n.learn.aPawnOnTheSecondRank(),
       fen: '8/8/8/8/8/8/4P3/8 w - -',
       apples: 'd6',
       nbMoves: 3,
@@ -61,12 +61,12 @@ const stage: StageNoID = {
       cssClass: 'highlight-2nd-rank',
     },
     {
-      goal: i18n.learn.grabAllTheStarsNoNeedToPromote,
+      goal: i18n.learn.grabAllTheStarsNoNeedToPromote(),
       fen: '8/8/8/8/8/8/2PPPP2/8 w - -',
       apples: 'c5 d5 e5 f5 d3 e4',
       nbMoves: 9,
     },
   ].map(toLevel),
-  complete: i18n.learn.pawnComplete,
+  complete: i18n.learn.pawnComplete(),
 };
 export default stage;

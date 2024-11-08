@@ -64,7 +64,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
           ctrl.redraw();
         },
         vnodes: [
-          h('h2', i18n.study.editChapter),
+          h('h2', i18n.study.editChapter()),
           h(
             'form.form3',
             {
@@ -79,7 +79,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
             },
             [
               h('div.form-group', [
-                h('label.form-label', { attrs: { for: 'chapter-name' } }, i18n.site.name),
+                h('label.form-label', { attrs: { for: 'chapter-name' } }, i18n.site.name()),
                 h('input#chapter-name.form-control', {
                   attrs: { minlength: 2, maxlength: 80 },
                   hook: onInsert<HTMLInputElement>(el => {
@@ -113,14 +113,14 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
   return [
     h('div.form-split', [
       h('div.form-group.form-half', [
-        h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
+        h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation()),
         h(
           'select#chapter-orientation.form-control',
-          (['white', 'black'] as const).map(color => option(color, data.orientation, i18n.site[color])),
+          (['white', 'black'] as const).map(color => option(color, data.orientation, i18n.site[color]())),
         ),
       ]),
       h('div.form-group.form-half' + (ctrl.isBroadcast ? '.none' : ''), [
-        h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
+        h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode()),
         h(
           'select#chapter-mode.form-control',
           chapterForm.modeChoices.map(c => option(c[0], mode, c[1])),
@@ -128,12 +128,12 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
       ]),
     ]),
     h('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
-      h('label.form-label', { attrs: { for: 'chapter-description' } }, i18n.study.pinnedChapterComment),
+      h('label.form-label', { attrs: { for: 'chapter-description' } }, i18n.study.pinnedChapterComment()),
       h(
         'select#chapter-description.form-control',
         [
-          ['', i18n.study.noPinnedComment],
-          ['1', i18n.study.rightUnderTheBoard],
+          ['', i18n.study.noPinnedComment()],
+          ['1', i18n.study.rightUnderTheBoard()],
         ].map(v => option(v[0], data.description ? '1' : '', v[1])),
       ),
     ]),
@@ -144,13 +144,13 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
           hook: bind(
             'click',
             async () => {
-              if (await confirm(i18n.study.clearAllCommentsInThisChapter)) ctrl.clearAnnotations(data.id);
+              if (await confirm(i18n.study.clearAllCommentsInThisChapter())) ctrl.clearAnnotations(data.id);
             },
             ctrl.redraw,
           ),
-          attrs: { type: 'button', title: i18n.study.clearAllCommentsInThisChapter },
+          attrs: { type: 'button', title: i18n.study.clearAllCommentsInThisChapter() },
         },
-        i18n.study.clearAnnotations,
+        i18n.study.clearAnnotations(),
       ),
       h(
         emptyRedButton,
@@ -158,13 +158,13 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
           hook: bind(
             'click',
             async () => {
-              if (await confirm(i18n.study.clearVariations)) ctrl.clearVariations(data.id);
+              if (await confirm(i18n.study.clearVariations())) ctrl.clearVariations(data.id);
             },
             ctrl.redraw,
           ),
           attrs: { type: 'button' },
         },
-        i18n.study.clearVariations,
+        i18n.study.clearVariations(),
       ),
     ]),
     h('div.form-actions', [
@@ -174,15 +174,15 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
           hook: bind(
             'click',
             async () => {
-              if (await confirm(i18n.study.deleteThisChapter)) ctrl.delete(data.id);
+              if (await confirm(i18n.study.deleteThisChapter())) ctrl.delete(data.id);
             },
             ctrl.redraw,
           ),
-          attrs: { type: 'button', title: i18n.study.deleteThisChapter },
+          attrs: { type: 'button', title: i18n.study.deleteThisChapter() },
         },
-        i18n.study.deleteChapter,
+        i18n.study.deleteChapter(),
       ),
-      h('button.button', { attrs: { type: 'submit' } }, i18n.study.saveChapter),
+      h('button.button', { attrs: { type: 'submit' } }, i18n.study.saveChapter()),
     ]),
   ];
 }

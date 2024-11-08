@@ -121,7 +121,7 @@ function renderLines(ctx: Ctx, parentNode: Tree.Node, nodes: Tree.Node[], opts: 
       ? h('line', { class: { expand: true } }, [
           h('branch'),
           h('a', {
-            attrs: { 'data-icon': licon.PlusButton, title: i18n.site.expandVariations },
+            attrs: { 'data-icon': licon.PlusButton, title: i18n.site.expandVariations() },
             on: { click: () => ctx.ctrl.setCollapsed(opts.parentPath, false) },
           }),
         ])

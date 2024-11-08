@@ -64,7 +64,7 @@ export const tourSide = (ctx: RelayViewContext) => {
                   attrs: {
                     'data-icon': licon.Mic,
                     'data-count': relay.streams.length,
-                    title: i18n.site.streamersMenu,
+                    title: i18n.site.streamersMenu(),
                   },
                   class: {
                     disabled: !relay.streams.length,
@@ -100,9 +100,9 @@ const startCountdown = (relay: RelayCtrl) => {
     h('strong', round.name),
     ...(startsAt
       ? startsAt.getTime() < Date.now() + 1000 * 10 * 60 // in the last 10 minutes, only say it's soon.
-        ? [i18n.broadcast.startVerySoon, date]
+        ? [i18n.broadcast.startVerySoon(), date]
         : [h('strong', timeago(startsAt)), date]
-      : [i18n.broadcast.notYetStarted]),
+      : [i18n.broadcast.notYetStarted()]),
   ]);
 };
 
@@ -118,8 +118,8 @@ const showInfo = (i: RelayTourInfo, dates?: RelayTourDates) => {
     ['tc', i.tc, 'objects.mantelpiece-clock'],
     ['location', i.location, 'travel-places.globe-showing-europe-africa'],
     ['players', i.players, 'activity.sparkles'],
-    ['website', i.website, null, i18n.broadcast.officialWebsite],
-    ['standings', i.standings, null, i18n.broadcast.standings],
+    ['website', i.website, null, i18n.broadcast.officialWebsite()],
+    ['standings', i.standings, null, i18n.broadcast.standings()],
   ]
     .map(
       ([key, value, icon, linkName]) =>
@@ -184,7 +184,7 @@ const share = (ctx: RelayViewContext) => {
   const iframeHelp = h(
     'div.form-help',
     i18n.broadcast.iframeHelp.asArray(
-      h('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage),
+      h('a', { attrs: { href: '/developers#broadcast' } }, i18n.broadcast.webmastersPage()),
     ),
   );
   const roundName = ctx.relay.roundName();
@@ -207,7 +207,7 @@ const share = (ctx: RelayViewContext) => {
           ),
         ),
       ],
-      [i18n.broadcast.embedThisBroadcast, iframe(ctx.relay.tourPath()), iframeHelp],
+      [i18n.broadcast.embedThisBroadcast(), iframe(ctx.relay.tourPath()), iframeHelp],
       [i18n.broadcast.embedThisRound(roundName), iframe(ctx.relay.roundPath()), iframeHelp],
     ].map(([text, path, help]: [string, string, VNode]) =>
       h('div.form-group', [
@@ -328,7 +328,7 @@ const games = (ctx: RelayViewContext) => [
     ? h(
         'div.relay-tour__note',
         h('div', [
-          h('div', i18n.broadcast.noBoardsYet),
+          h('div', i18n.broadcast.noBoardsYet()),
           ctx.study.members.myMember() &&
             h(
               'small',
@@ -375,7 +375,7 @@ const header = (ctx: RelayViewContext) => {
               ? h(
                   'a.button.relay-tour__header__image-upload',
                   { attrs: { href: `/broadcast/${d.tour.id}/edit` } },
-                  i18n.broadcast.uploadImage,
+                  i18n.broadcast.uploadImage(),
                 )
               : undefined,
       ),
@@ -398,9 +398,9 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
     ? [
         toggle(
           {
-            name: i18n.site.subscribe,
+            name: i18n.site.subscribe(),
             id: 'tour-subscribe',
-            title: i18n.broadcast.subscribeTitle,
+            title: i18n.broadcast.subscribeTitle(),
             cls: 'relay-tour__subscribe',
             checked: relay.data.isSubscribed,
             change: (v: boolean) => {
@@ -430,19 +430,19 @@ const makeTabs = (ctrl: AnalyseCtrl) => {
       name,
     );
   return h('nav.relay-tour__tabs', { attrs: { role: 'tablist' } }, [
-    makeTab('overview', i18n.broadcast.overview),
-    makeTab('boards', i18n.broadcast.boards),
-    makeTab('players', i18n.site.players),
-    relay.teams && makeTab('teams', i18n.broadcast.teams),
+    makeTab('overview', i18n.broadcast.overview()),
+    makeTab('boards', i18n.broadcast.boards()),
+    makeTab('players', i18n.site.players()),
+    relay.teams && makeTab('teams', i18n.broadcast.teams()),
     study.members.myMember() && relay.data.tour.tier
-      ? makeTab('stats', i18n.site.stats)
+      ? makeTab('stats', i18n.site.stats())
       : ctrl.isEmbed
         ? h(
             'a.relay-tour__tabs--open.text',
             {
               attrs: { href: relay.tourPath(), target: '_blank', 'data-icon': licon.Expand },
             },
-            i18n.broadcast.openLichess,
+            i18n.broadcast.openLichess(),
           )
         : undefined,
   ]);
@@ -452,12 +452,12 @@ const roundStateIcon = (round: RelayRound, titleAsText: boolean) =>
   round.ongoing
     ? h(
         'span.round-state.ongoing',
-        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing } },
-        titleAsText && i18n.broadcast.ongoing,
+        { attrs: { ...dataIcon(licon.DiscBig), title: !titleAsText && i18n.broadcast.ongoing() } },
+        titleAsText && i18n.broadcast.ongoing(),
       )
     : round.finished &&
       h(
         'span.round-state.finished',
-        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished } },
-        titleAsText && i18n.site.finished,
+        { attrs: { ...dataIcon(licon.Checkmark), title: !titleAsText && i18n.site.finished() } },
+        titleAsText && i18n.site.finished(),
       );

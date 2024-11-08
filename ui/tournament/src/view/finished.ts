@@ -24,20 +24,22 @@ function stats(ctrl: TournamentController): VNode | undefined {
   const data = ctrl.data;
   if (!data.stats) return undefined;
   const tableData = [
-    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, data.stats.averageRating, 'raw') : null,
-    numberRow(i18n.site.gamesPlayed, data.stats.games),
-    numberRow(i18n.site.movesPlayed, data.stats.moves),
-    numberRow(i18n.site.whiteWins, [data.stats.whiteWins, data.stats.games], 'percent'),
-    numberRow(i18n.site.blackWins, [data.stats.blackWins, data.stats.games], 'percent'),
-    numberRow(i18n.site.drawRate, [data.stats.draws, data.stats.games], 'percent'),
+    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo(), data.stats.averageRating, 'raw') : null,
+    numberRow(i18n.site.gamesPlayed(), data.stats.games),
+    numberRow(i18n.site.movesPlayed(), data.stats.moves),
+    numberRow(i18n.site.whiteWins(), [data.stats.whiteWins, data.stats.games], 'percent'),
+    numberRow(i18n.site.blackWins(), [data.stats.blackWins, data.stats.games], 'percent'),
+    numberRow(i18n.site.drawRate(), [data.stats.draws, data.stats.games], 'percent'),
   ];
 
   if (data.berserkable) {
-    tableData.push(numberRow(i18n.site.berserkRate, [data.stats.berserks / 2, data.stats.games], 'percent'));
+    tableData.push(
+      numberRow(i18n.site.berserkRate(), [data.stats.berserks / 2, data.stats.games], 'percent'),
+    );
   }
 
   return h('div.tour__stats', [
-    h('h2', i18n.site.tournamentComplete),
+    h('h2', i18n.site.tournamentComplete()),
     h('table', tableData),
     h('div.tour__stats__links.force-ltr', [
       ...(data.teamBattle
@@ -53,7 +55,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        i18n.study.downloadAllGames,
+        i18n.study.downloadAllGames(),
       ),
       data.me &&
         h(

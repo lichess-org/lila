@@ -115,7 +115,7 @@ export default class StrongSocket implements SocketI {
     if (!isOnline()) {
       document.body.classList.remove('online');
       document.body.classList.add('offline');
-      $('#network-status').text(i18n?.site?.noNetwork ?? 'Offline');
+      $('#network-status').text(i18n?.site.noNetwork() ?? 'Offline');
       this.scheduleConnect(4000);
       return;
     }
@@ -196,7 +196,7 @@ export default class StrongSocket implements SocketI {
     this.connectSchedule = setTimeout(() => {
       document.body.classList.add('offline');
       document.body.classList.remove('online');
-      $('#network-status').text(i18n?.site?.reconnecting ?? 'Reconnecting');
+      $('#network-status').text(i18n?.site.reconnecting() ?? 'Reconnecting');
       this.tryOtherUrl = true;
       this.connect();
     }, delay);

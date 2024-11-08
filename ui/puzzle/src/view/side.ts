@@ -32,7 +32,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
         'p',
         i18n.puzzle.puzzleId.asArray(
           ctrl.streak && ctrl.mode === 'play'
-            ? h('span.hidden', i18n.puzzle.hidden)
+            ? h('span.hidden', i18n.puzzle.hidden())
             : h(
                 'a',
                 {
@@ -50,7 +50,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
           'p',
           i18n.puzzle.ratingX.asArray(
             !ctrl.streak && ctrl.mode === 'play'
-              ? h('span.hidden', i18n.puzzle.hidden)
+              ? h('span.hidden', i18n.puzzle.hidden())
               : h('strong', `${puzzle.rating}`),
           ),
         ),
@@ -87,7 +87,7 @@ const renderStreak = (streak: PuzzleStreak) =>
     streak.data.index == 0
       ? h('div.puzzle__side__streak__info', [
           h('h1.text', { attrs: dataIcon(licon.ArrowThruApple) }, 'Puzzle Streak'),
-          h('p', i18n.puzzle.streakDescription),
+          h('p', i18n.puzzle.streakDescription()),
         ])
       : h(
           'div.puzzle__side__streak__score.text',
@@ -100,8 +100,8 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
   const data = ctrl.data;
   if (!data.user)
     return h('div.puzzle__side__user', [
-      h('p', i18n.puzzle.toGetPersonalizedPuzzles),
-      h('a.button', { attrs: { href: router.withLang('/signup') } }, i18n.site.signUp),
+      h('p', i18n.puzzle.toGetPersonalizedPuzzles()),
+      h('a.button', { attrs: { href: router.withLang('/signup') } }, i18n.site.signUp()),
     ]);
   const diff = ctrl.round?.ratingDiff,
     ratedId = 'puzzle-toggle-rated';
@@ -119,7 +119,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
           }),
           h('label', { attrs: { for: ratedId } }),
         ]),
-        h('label', { attrs: { for: ratedId } }, i18n.site.rated),
+        h('label', { attrs: { for: ratedId } }, i18n.site.rated()),
       ]),
     h(
       'div.puzzle__side__user__rating',
@@ -130,7 +130,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
               ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
               ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
             ])
-        : h('p.puzzle__side__user__rating__casual', i18n.puzzle.yourPuzzleRatingWillNotChange),
+        : h('p.puzzle__side__user__rating__casual', i18n.puzzle.yourPuzzleRatingWillNotChange()),
     ),
   ]);
 };
@@ -186,7 +186,7 @@ export function config(ctrl: PuzzleCtrl): MaybeVNode {
         }),
         h('label', { attrs: { for: autoNextId } }),
       ]),
-      h('label', { attrs: { for: autoNextId } }, i18n.puzzle.jumpToNextPuzzleImmediately),
+      h('label', { attrs: { for: autoNextId } }, i18n.puzzle.jumpToNextPuzzleImmediately()),
     ]),
     !data.user || data.replay || ctrl.streak ? null : renderDifficultyForm(ctrl),
   ]);
@@ -197,7 +197,7 @@ export const renderDifficultyForm = (ctrl: PuzzleCtrl): VNode =>
     'form.puzzle__side__config__difficulty',
     { attrs: { action: `/training/difficulty/${ctrl.data.angle.key}`, method: 'post' } },
     [
-      h('label', { attrs: { for: 'puzzle-difficulty' } }, i18n.puzzle.difficultyLevel),
+      h('label', { attrs: { for: 'puzzle-difficulty' } }, i18n.puzzle.difficultyLevel()),
       h(
         'select#puzzle-difficulty.puzzle__difficulty__selector',
         {
@@ -219,7 +219,7 @@ export const renderDifficultyForm = (ctrl: PuzzleCtrl): VNode =>
                     : i18n.puzzle.nbPointsAboveYourPuzzleRating(Math.abs(delta)),
               },
             },
-            [i18n.puzzle[key], delta ? ` (${delta > 0 ? '+' : ''}${delta})` : ''],
+            [i18n.puzzle[key](), delta ? ` (${delta > 0 ? '+' : ''}${delta})` : ''],
           ),
         ),
       ),
@@ -236,7 +236,7 @@ export const renderColorForm = (ctrl: PuzzleCtrl): VNode =>
           h(
             `a.label.color-${key}${key === (ctrl.opts.settings.color || 'random') ? '.active' : ''}`,
             {
-              attrs: { href: `/training/${ctrl.data.angle.key}/${key}`, title: i18n.site[i18nKey] },
+              attrs: { href: `/training/${ctrl.data.angle.key}/${key}`, title: i18n.site[i18nKey]() },
             },
             h('i'),
           ),

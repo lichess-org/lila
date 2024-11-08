@@ -34,12 +34,12 @@ const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {
 
 const explanation = (ctrl: CoordinateTrainerCtrl): VNode => {
   return h('div.explanation.box', [
-    h('h1', i18n.coordinates.coordinates),
-    h('p', i18n.coordinates.knowingTheChessBoard),
+    h('h1', i18n.coordinates.coordinates()),
+    h('p', i18n.coordinates.knowingTheChessBoard()),
     h('ul', [
-      h('li', i18n.coordinates.mostChessCourses),
-      h('li', i18n.coordinates.talkToYourChessFriends),
-      h('li', i18n.coordinates.youCanAnalyseAGameMoreEffectively),
+      h('li', i18n.coordinates.mostChessCourses()),
+      h('li', i18n.coordinates.talkToYourChessFriends()),
+      h('li', i18n.coordinates.youCanAnalyseAGameMoreEffectively()),
     ]),
     h('strong', i18n.coordinates[ctrl.mode()]),
     h(
@@ -62,7 +62,7 @@ const table = (ctrl: CoordinateTrainerCtrl): VNode => {
       h(
         'button.start.button.button-fat',
         { hook: bind('click', ctrl.start) },
-        i18n.coordinates.startTraining,
+        i18n.coordinates.startTraining(),
       ),
   ]);
 };

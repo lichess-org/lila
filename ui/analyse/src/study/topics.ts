@@ -28,7 +28,7 @@ export const view = (ctrl: StudyCtrl): VNode =>
       ? h(
           'a.manage',
           { hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw) },
-          i18n.study.manageTopics,
+          i18n.study.manageTopics(),
         )
       : null,
   ]);
@@ -43,7 +43,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
       ctrl.redraw();
     },
     vnodes: [
-      h('h2', i18n.study.topics),
+      h('h2', i18n.study.topics()),
       h(
         'form',
         {
@@ -61,7 +61,7 @@ export const formView = (ctrl: TopicsCtrl, userId?: string): VNode =>
             { hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)) },
             ctrl.getTopics().join(', ').replace(/[<>]/g, ''),
           ),
-          h('button.button', { type: 'submit' }, i18n.study.save),
+          h('button.button', { type: 'submit' }, i18n.study.save()),
         ],
       ),
     ],

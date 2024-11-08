@@ -16,8 +16,8 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
         role: 'button',
         title:
           seek.action === 'joinSeek'
-            ? i18n.site.joinTheGame + ' - ' + perfNames[seek.perf.key]
-            : i18n.site.cancel,
+            ? i18n.site.joinTheGame() + ' - ' + perfNames[seek.perf.key]
+            : i18n.site.cancel(),
         'data-id': seek.id,
       },
     },
@@ -29,7 +29,7 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
       seek.days ? i18n.site.nbDays(seek.days) : '∞',
       h('span', [
         h('span.varicon', { attrs: { 'data-icon': perfIcons[seek.perf.key] } }),
-        seek.mode === 1 ? i18n.site.rated : i18n.site.casual,
+        seek.mode === 1 ? i18n.site.rated() : i18n.site.casual(),
       ]),
     ]),
   );
@@ -47,7 +47,7 @@ function createSeek(ctrl: LobbyController): VNode | undefined {
             ctrl.redraw,
           ),
         },
-        i18n.site.createAGame,
+        i18n.site.createAGame(),
       ),
     ]);
   return;
@@ -73,7 +73,13 @@ export default function (ctrl: LobbyController): MaybeVNodes {
               el = el.parentNode as HTMLElement;
               if (el.nodeName === 'TR') {
                 if (!ctrl.me) {
-                  if (await confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signUp, i18n.site.cancel))
+                  if (
+                    await confirm(
+                      i18n.site.youNeedAnAccountToDoThat(),
+                      i18n.site.signUp(),
+                      i18n.site.cancel(),
+                    )
+                  )
                     location.href = '/signup';
                   return;
                 }

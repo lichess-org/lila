@@ -78,11 +78,11 @@ export function view(ctrl: StudyForm): VNode {
     }
   };
   const userSelectionChoices: Choice[] = [
-    ['nobody', i18n.study.nobody],
-    ['owner', i18n.study.onlyMe],
-    ['contributor', i18n.study.contributors],
-    ['member', i18n.study.members],
-    ['everyone', i18n.study.everyone],
+    ['nobody', i18n.study.nobody()],
+    ['owner', i18n.study.onlyMe()],
+    ['contributor', i18n.study.contributors()],
+    ['member', i18n.study.members()],
+    ['everyone', i18n.study.everyone()],
   ];
   const formFields = [
     h('div.form-split.flair-and-name' + (ctrl.relay ? '.none' : ''), [
@@ -111,7 +111,7 @@ export function view(ctrl: StudyForm): VNode {
         ),
       ]),
       h('div.form-group', [
-        h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name),
+        h('label.form-label', { attrs: { for: 'study-name' } }, i18n.site.name()),
         h('input#study-name.form-control', {
           attrs: { minlength: 3, maxlength: 100 },
           hook: {
@@ -130,18 +130,18 @@ export function view(ctrl: StudyForm): VNode {
     h('div.form-split', [
       select({
         key: 'visibility',
-        name: i18n.study.visibility,
+        name: i18n.study.visibility(),
         choices: [
-          ['public', i18n.study.public],
-          ['unlisted', i18n.study.unlisted],
-          ['private', i18n.study.inviteOnly],
+          ['public', i18n.study.public()],
+          ['unlisted', i18n.study.unlisted()],
+          ['private', i18n.study.inviteOnly()],
         ],
         selected: data.visibility,
         visible: isEditable,
       }),
       select({
         key: 'chat',
-        name: i18n.site.chat,
+        name: i18n.site.chat(),
         choices: userSelectionChoices,
         selected: data.settings.chat,
         visible: isEditable,
@@ -150,14 +150,14 @@ export function view(ctrl: StudyForm): VNode {
     h('div.form-split', [
       select({
         key: 'computer',
-        name: i18n.site.computerAnalysis,
+        name: i18n.site.computerAnalysis(),
         choices: userSelectionChoices,
         selected: data.settings.computer,
         visible: isEditable,
       }),
       select({
         key: 'explorer',
-        name: i18n.site.openingExplorerAndTablebase,
+        name: i18n.site.openingExplorerAndTablebase(),
         choices: userSelectionChoices,
         selected: data.settings.explorer,
         visible: isEditable,
@@ -166,14 +166,14 @@ export function view(ctrl: StudyForm): VNode {
     h('div.form-split', [
       select({
         key: 'cloneable',
-        name: i18n.study.allowCloning,
+        name: i18n.study.allowCloning(),
         choices: userSelectionChoices,
         selected: data.settings.cloneable,
         visible: isEditable,
       }),
       select({
         key: 'shareable',
-        name: i18n.study.shareAndExport,
+        name: i18n.study.shareAndExport(),
         choices: userSelectionChoices,
         selected: data.settings.shareable,
         visible: isEditable,
@@ -182,20 +182,20 @@ export function view(ctrl: StudyForm): VNode {
     h('div.form-split', [
       select({
         key: 'sticky',
-        name: i18n.study.enableSync,
+        name: i18n.study.enableSync(),
         choices: [
-          ['true', i18n.study.yesKeepEveryoneOnTheSamePosition],
-          ['false', i18n.study.noLetPeopleBrowseFreely],
+          ['true', i18n.study.yesKeepEveryoneOnTheSamePosition()],
+          ['false', i18n.study.noLetPeopleBrowseFreely()],
         ],
         selected: '' + data.settings.sticky,
         visible: isEditable,
       }),
       select({
         key: 'description',
-        name: i18n.study.pinnedStudyComment,
+        name: i18n.study.pinnedStudyComment(),
         choices: [
-          ['false', i18n.study.noPinnedComment],
-          ['true', i18n.study.rightUnderTheBoard],
+          ['false', i18n.study.noPinnedComment()],
+          ['true', i18n.study.rightUnderTheBoard()],
         ],
         selected: '' + data.settings.description,
         visible: true,
@@ -235,7 +235,7 @@ export function view(ctrl: StudyForm): VNode {
           });
         }),
       },
-      [h(emptyRedButton, isNew ? i18n.site.cancel : i18n.study.deleteStudy)],
+      [h(emptyRedButton, isNew ? i18n.site.cancel() : i18n.study.deleteStudy())],
     ),
     !isNew &&
       h(
@@ -244,12 +244,12 @@ export function view(ctrl: StudyForm): VNode {
           attrs: { action: '/study/' + data.id + '/clear-chat', method: 'post' },
           hook: bindNonPassive('submit', e => {
             e.preventDefault();
-            confirm(i18n.study.deleteTheStudyChatHistory).then(yes => {
+            confirm(i18n.study.deleteTheStudyChatHistory()).then(yes => {
               if (yes) (e.target as HTMLFormElement).submit();
             });
           }),
         },
-        [h(emptyRedButton, i18n.study.clearChat)],
+        [h(emptyRedButton, i18n.study.clearChat())],
       ),
   ]);
   return snabDialog({
@@ -262,7 +262,11 @@ export function view(ctrl: StudyForm): VNode {
     vnodes: [
       h(
         'h2',
-        ctrl.relay ? i18n.broadcast.editRoundStudy : isNew ? i18n.study.createStudy : i18n.study.editStudy,
+        ctrl.relay
+          ? i18n.broadcast.editRoundStudy()
+          : isNew
+            ? i18n.study.createStudy()
+            : i18n.study.editStudy(),
       ),
       h(
         'form.form3',
@@ -295,7 +299,7 @@ export function view(ctrl: StudyForm): VNode {
           relayLinks,
           h('div.form-actions', [
             deleteForms,
-            h('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start : i18n.study.save),
+            h('button.button', { attrs: { type: 'submit' } }, isNew ? i18n.study.start() : i18n.study.save()),
           ]),
         ],
       ),

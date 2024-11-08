@@ -11,16 +11,16 @@ import { MaybeVNodes } from 'common/snabbdom';
 
 function joinTheGame(gameId: string) {
   return h('a.tour__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
-    i18n.site.youArePlaying,
+    i18n.site.youArePlaying(),
     h('br'),
-    i18n.site.joinTheGame,
+    i18n.site.joinTheGame(),
   ]);
 }
 
 function notice(ctrl: TournamentController): VNode {
   return ctrl.willBePaired()
     ? h('div.tour__notice.bar-glider', i18n.site.standByX(ctrl.data.myUsername!))
-    : h('div.tour__notice.closed', i18n.site.tournamentPairingsAreNowClosed);
+    : h('div.tour__notice.closed', i18n.site.tournamentPairingsAreNowClosed());
 }
 
 export const name = 'started';

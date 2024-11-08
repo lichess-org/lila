@@ -26,7 +26,11 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
             ? isHost
               ? [startOrCancel(ctrl, accepted), randomButton(ctrl)]
               : ctrl.containsMe()
-                ? h('a.button', { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) }, i18n.site.withdraw)
+                ? h(
+                    'a.button',
+                    { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) },
+                    i18n.site.withdraw(),
+                  )
                 : h(
                     'a.button.text' + (canJoin ? '' : '.disabled'),
                     {
@@ -48,7 +52,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                           })
                         : {},
                     },
-                    i18n.site.join,
+                    i18n.site.join(),
                   )
             : h(
                 'a.button.text',
@@ -58,7 +62,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                     href: '/login?referrer=' + window.location.pathname,
                   },
                 },
-                i18n.site.signIn,
+                i18n.site.signIn(),
               ),
         ),
       ]),
@@ -194,5 +198,5 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
             if (await confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
           }),
         },
-        i18n.site.cancel,
+        i18n.site.cancel(),
       );

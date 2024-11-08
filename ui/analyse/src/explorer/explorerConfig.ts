@@ -152,7 +152,7 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
       h(
         'button.button.button-green.text',
         { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
-        i18n.site.allSet,
+        i18n.site.allSet(),
       ),
     ),
   ];
@@ -165,7 +165,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
-      h('label', i18n.site.player),
+      h('label', i18n.site.player()),
       h('div', [
         h(
           'div.choices',
@@ -197,9 +197,9 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.date', [
-      h('label', [i18n.site.since, yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+      h('label', [i18n.site.since(), yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
       h('label', [
-        i18n.site.until,
+        i18n.site.until(),
         yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
       ]),
     ]),
@@ -221,7 +221,7 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     speedSection(ctrl),
     h('section.rating', [
-      h('label', i18n.site.averageElo),
+      h('label', i18n.site.averageElo()),
       h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
     ]),
     monthSection(ctrl),
@@ -229,13 +229,13 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
-    h('label', i18n.site.timeControl),
+    h('label', i18n.site.timeControl()),
     h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perfIcons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [
-    h('label', i18n.site.mode),
+    h('label', i18n.site.mode()),
     h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
   ]);
 
@@ -307,9 +307,9 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.date', [
-    h('label', [i18n.site.since, monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
+    h('label', [i18n.site.since(), monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
     h('label', [
-      i18n.site.until,
+      i18n.site.until(),
       monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
     ]),
   ]);
@@ -340,7 +340,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       h('div.input-wrapper', [
         h('input', {
           attrs: {
-            placeholder: i18n.study.searchByUsername,
+            placeholder: i18n.study.searchByUsername(),
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>

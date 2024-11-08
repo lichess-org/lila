@@ -9,7 +9,7 @@ export default function makeRenderers(): Renderers {
       html: n =>
         generic(n, `/streamer/${n.content.sid}/redirect`, licon.Mic, [
           h('span', [h('strong', n.content.name), drawTime(n)]),
-          h('span', i18n.site.startedStreaming),
+          h('span', i18n.site.startedStreaming()),
         ]),
       text: n => i18n.site.xStartedStreaming(n.content.streamerName),
     },
@@ -57,7 +57,7 @@ export default function makeRenderers(): Renderers {
       html: n =>
         generic(n, '/team/' + n.content.id, licon.Group, [
           h('span', [h('strong', n.content.name), drawTime(n)]),
-          h('span', i18n.site.youAreNowPartOfTeam),
+          h('span', i18n.site.youAreNowPartOfTeam()),
         ]),
       text: n => i18n.site.youHaveJoinedTeamX(n.content.name),
     },
@@ -72,23 +72,23 @@ export default function makeRenderers(): Renderers {
     reportedBanned: {
       html: n =>
         generic(n, undefined, licon.InfoCircle, [
-          h('span', [h('strong', i18n.site.someoneYouReportedWasBanned)]),
-          h('span', i18n.site.thankYou),
+          h('span', [h('strong', i18n.site.someoneYouReportedWasBanned())]),
+          h('span', i18n.site.thankYou()),
         ]),
-      text: _ => i18n.site.someoneYouReportedWasBanned,
+      text: _ => i18n.site.someoneYouReportedWasBanned(),
     },
     gameEnd: {
       html: n => {
         let result;
         switch (n.content.win) {
           case true:
-            result = i18n.site.congratsYouWon;
+            result = i18n.site.congratsYouWon();
             break;
           case false:
-            result = i18n.site.defeat;
+            result = i18n.site.defeat();
             break;
           default:
-            result = i18n.site.draw;
+            result = i18n.site.draw();
         }
         return generic(n, '/' + n.content.id, licon.PaperAirplane, [
           h('span', [h('strong', i18n.site.gameVsX(userFullName(n.content.opponent))), drawTime(n)]),
@@ -99,13 +99,13 @@ export default function makeRenderers(): Renderers {
         let result;
         switch (n.content.win) {
           case true:
-            result = i18n.site.victory;
+            result = i18n.site.victory();
             break;
           case false:
-            result = i18n.site.defeat;
+            result = i18n.site.defeat();
             break;
           default:
-            result = i18n.site.draw;
+            result = i18n.site.draw();
         }
         return i18n.site.resVsX(result, userFullName(n.content.opponent));
       },
@@ -125,7 +125,7 @@ export default function makeRenderers(): Renderers {
     ratingRefund: {
       html: n =>
         generic(n, '/faq#rating-refund', licon.InfoCircle, [
-          h('span', [h('strong', i18n.site.lostAgainstTOSViolator), drawTime(n)]),
+          h('span', [h('strong', i18n.site.lostAgainstTOSViolator()), drawTime(n)]),
           h('span', i18n.site.refundXpointsTimeControlY(n.content.points, n.content.perf)),
         ]),
       text: n => i18n.site.refundXpointsTimeControlY(n.content.points, n.content.perf),
@@ -133,11 +133,11 @@ export default function makeRenderers(): Renderers {
     corresAlarm: {
       html: n =>
         generic(n, '/' + n.content.id, licon.PaperAirplane, [
-          h('span', [h('strong', i18n.site.timeAlmostUp), drawTime(n)]),
+          h('span', [h('strong', i18n.site.timeAlmostUp()), drawTime(n)]),
           // not a `LightUser`, could be a game against Stockfish
           h('span', i18n.site.gameVsX(n.content.op)),
         ]),
-      text: _ => i18n.site.timeAlmostUp,
+      text: _ => i18n.site.timeAlmostUp(),
     },
     irwinDone: jobDone('Irwin'),
     kaladinDone: jobDone('Kaladin'),

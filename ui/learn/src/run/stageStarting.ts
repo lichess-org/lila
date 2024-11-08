@@ -19,7 +19,7 @@ export default function (ctrl: RunCtrl) {
             key: ctrl.stage.id,
             hook: bind('click', ctrl.hideStartingPane),
           },
-          i18n.learn.letsGo,
+          i18n.learn.letsGo(),
         ),
       ),
     ]),

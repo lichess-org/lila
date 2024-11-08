@@ -123,14 +123,14 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
     return h(
       'a.fbt.text.highlight',
       { attrs: { href: '/login?referrer=' + window.location.pathname, 'data-icon': licon.PlayTriangle } },
-      i18n.site.signIn,
+      i18n.site.signIn(),
     );
 
   if (d.joinTeam)
     return h(
       'a.fbt.text.highlight',
       { attrs: { href: `/team/${d.joinTeam}`, 'data-icon': licon.Group } },
-      i18n.team.joinTeam,
+      i18n.team.joinTeam(),
     );
 
   if (d.canJoin)
@@ -144,14 +144,14 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
               'click',
               async () => {
                 if (d.password) {
-                  const p = await prompt(i18n.site.tournamentEntryCode);
+                  const p = await prompt(i18n.site.tournamentEntryCode());
                   if (p !== null) ctrl.join(p);
                 } else ctrl.join();
               },
               ctrl.redraw,
             ),
           },
-          i18n.site.join,
+          i18n.site.join(),
         );
 
   if (d.me && d.status != 'finished')
@@ -161,14 +161,14 @@ function joinButton(ctrl: SwissCtrl): VNode | undefined {
         : h(
             'button.fbt.text.highlight',
             { attrs: dataIcon(licon.PlayTriangle), hook: bind('click', _ => ctrl.join(), ctrl.redraw) },
-            i18n.site.join,
+            i18n.site.join(),
           )
       : ctrl.joinSpinner
         ? spinner()
         : h(
             'button.fbt.text',
             { attrs: dataIcon(licon.FlagOutline), hook: bind('click', ctrl.withdraw, ctrl.redraw) },
-            i18n.site.withdraw,
+            i18n.site.withdraw(),
           );
 
   return;
@@ -179,9 +179,9 @@ function joinTheGame(ctrl: SwissCtrl) {
   return (
     gameId &&
     h('a.swiss__ur-playing.button.is.is-after', { attrs: { href: '/' + gameId } }, [
-      i18n.site.youArePlaying,
+      i18n.site.youArePlaying(),
       h('br'),
-      i18n.site.joinTheGame,
+      i18n.site.joinTheGame(),
     ])
   );
 }
@@ -204,15 +204,15 @@ function stats(ctrl: SwissCtrl) {
     slots = ctrl.data.round * ctrl.data.nbPlayers;
   if (!s) return undefined;
   return h('div.swiss__stats', [
-    h('h2', i18n.site.tournamentComplete),
+    h('h2', i18n.site.tournamentComplete()),
     h('table', [
-      ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, s.averageRating, 'raw') : null,
-      numberRow(i18n.site.gamesPlayed, s.games),
-      numberRow(i18n.site.whiteWins, [s.whiteWins, slots], 'percent'),
-      numberRow(i18n.site.blackWins, [s.blackWins, slots], 'percent'),
-      numberRow(i18n.site.drawRate, [s.draws, slots], 'percent'),
-      numberRow(i18n.swiss.byes, [s.byes, slots], 'percent'),
-      numberRow(i18n.swiss.absences, [s.absences, slots], 'percent'),
+      ctrl.opts.showRatings ? numberRow(i18n.site.averageElo(), s.averageRating, 'raw') : null,
+      numberRow(i18n.site.gamesPlayed(), s.games),
+      numberRow(i18n.site.whiteWins(), [s.whiteWins, slots], 'percent'),
+      numberRow(i18n.site.blackWins(), [s.blackWins, slots], 'percent'),
+      numberRow(i18n.site.drawRate(), [s.draws, slots], 'percent'),
+      numberRow(i18n.swiss.byes(), [s.byes, slots], 'percent'),
+      numberRow(i18n.swiss.absences(), [s.absences, slots], 'percent'),
     ]),
     h('div.swiss__stats__links', [
       h(
@@ -229,7 +229,7 @@ function stats(ctrl: SwissCtrl) {
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/swiss/${ctrl.data.id}/games`, download: true } },
-        i18n.study.downloadAllGames,
+        i18n.study.downloadAllGames(),
       ),
       h(
         'a.text',

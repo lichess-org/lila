@@ -18,18 +18,18 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
         title: hook.disabled
           ? ''
           : hook.action === 'join'
-            ? i18n.site.joinTheGame + ' | ' + perfNames[hook.perf]
-            : i18n.site.cancel,
+            ? i18n.site.joinTheGame() + ' | ' + perfNames[hook.perf]
+            : i18n.site.cancel(),
         'data-id': hook.id,
       },
     },
     tds([
       hook.rating
         ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
-        : i18n.site.anonymous,
+        : i18n.site.anonymous(),
       hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
       hook.clock,
-      h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']),
+      h('span', { attrs: { 'data-icon': perfIcons[hook.perf] } }, i18n.site[hook.ra ? 'rated' : 'casual']()),
     ]),
   );
 }
@@ -43,7 +43,7 @@ const isNotMine = (hook: Hook) => !isMine(hook);
 export const toggle = (ctrl: LobbyController) =>
   h('i.toggle', {
     key: 'set-mode-chart',
-    attrs: { title: i18n.site.graph, 'data-icon': licon.LineGraph },
+    attrs: { title: i18n.site.graph(), 'data-icon': licon.LineGraph },
     hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 
@@ -63,7 +63,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
     ...standards.map(render),
     variants.length
       ? h('tr.variants', { key: 'variants' }, [
-          h('td', { attrs: { colspan: 5 } }, '— ' + i18n.site.variant + ' —'),
+          h('td', { attrs: { colspan: 5 } }, '— ' + i18n.site.variant() + ' —'),
         ])
       : null,
     ...variants.map(render),
@@ -80,7 +80,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
             class: { sortable: true, sort: ctrl.sort === 'rating' },
             hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
           },
-          [h('i.is'), i18n.site.rating],
+          [h('i.is'), i18n.site.rating()],
         ),
         h(
           'th',
@@ -88,9 +88,9 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
             class: { sortable: true, sort: ctrl.sort === 'time' },
             hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
           },
-          [h('i.is'), i18n.site.time],
+          [h('i.is'), i18n.site.time()],
         ),
-        h('th', i18n.site.mode),
+        h('th', i18n.site.mode()),
       ]),
     ),
     h(

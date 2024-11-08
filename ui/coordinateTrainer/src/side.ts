@@ -5,9 +5,9 @@ import { ColorChoice, TimeControl, Mode } from './interfaces';
 import { toggle } from 'common/controls';
 
 const colors: [ColorChoice, string][] = [
-  ['black', i18n.site.asBlack],
-  ['random', i18n.site.randomColor],
-  ['white', i18n.site.asWhite],
+  ['black', i18n.site.asBlack()],
+  ['random', i18n.site.randomColor()],
+  ['white', i18n.site.asWhite()],
 ];
 
 const timeControls: [TimeControl, string][] = [
@@ -112,10 +112,10 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
                 title:
                   i18n.coordinates[
                     mode === 'findSquare' ? 'aCoordinateAppears' : 'aSquareIsHighlightedExplanation'
-                  ],
+                  ](),
               },
             },
-            i18n.coordinates[mode],
+            i18n.coordinates[mode](),
           ),
         ]),
       ),
@@ -150,7 +150,7 @@ const configurationButtons = (ctrl: CoordinateTrainerCtrl): VNodes => [
                 title:
                   i18n.coordinates[
                     timeControl === 'thirtySeconds' ? 'youHaveThirtySeconds' : 'goAsLongAsYouWant'
-                  ],
+                  ](),
               },
             },
             timeControlLabel,
@@ -196,7 +196,7 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
       [
         ['white', i18n.coordinates.averageScoreAsWhiteX, ctrl.modeScores[ctrl.mode()].white],
         ['black', i18n.coordinates.averageScoreAsBlackX, ctrl.modeScores[ctrl.mode()].black],
-      ].map(([color, fmt, scoreList]: [Color, I18nFormat, number[]]) =>
+      ].map(([color, fmt, scoreList]: [Color, I18nString, number[]]) =>
         scoreList.length
           ? h('div.color-chart', [
               h('p', fmt.asArray(h('strong', `${average(scoreList).toFixed(2)}`))),
@@ -211,16 +211,16 @@ const scoreCharts = (ctrl: CoordinateTrainerCtrl): VNode =>
   );
 
 const scoreBox = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.box.current-status', [h('h1', i18n.storm.score), h('div.score', ctrl.score)]);
+  h('div.box.current-status', [h('h1', i18n.storm.score()), h('div.score', ctrl.score)]);
 
 const timeBox = (ctrl: CoordinateTrainerCtrl): VNode =>
   h('div.box.current-status', [
-    h('h1', i18n.site.time),
+    h('h1', i18n.site.time()),
     h('div.timer', { class: { hurry: ctrl.timeLeft <= 10 * 1000 } }, (ctrl.timeLeft / 1000).toFixed(1)),
   ]);
 
 const backButton = (ctrl: CoordinateTrainerCtrl): VNode =>
-  h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${i18n.study.back}`));
+  h('div.back', h('a.back-button', { hook: bind('click', ctrl.stop) }, `« ${i18n.study.back()}`));
 
 const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
   const { redraw, showCoordinates, showCoordsOnAllSquares, showPieces } = ctrl;

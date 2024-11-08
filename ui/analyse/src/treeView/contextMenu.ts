@@ -75,22 +75,22 @@ function view(opts: Opts, coords: Coords): VNode {
       h('p.title', nodeFullName(node)),
 
       !onMainline &&
-        action(licon.UpTriangle, i18n.site.promoteVariation, () => ctrl.promote(opts.path, false)),
+        action(licon.UpTriangle, i18n.site.promoteVariation(), () => ctrl.promote(opts.path, false)),
 
-      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine, () => ctrl.promote(opts.path, true)),
+      !onMainline && action(licon.Checkmark, i18n.site.makeMainLine(), () => ctrl.promote(opts.path, true)),
 
-      action(licon.Trash, i18n.site.deleteFromHere, () => ctrl.deleteNode(opts.path)),
+      action(licon.Trash, i18n.site.deleteFromHere(), () => ctrl.deleteNode(opts.path)),
 
-      action(licon.PlusButton, i18n.site.expandVariations, () => ctrl.setAllCollapsed(opts.path, false)),
+      action(licon.PlusButton, i18n.site.expandVariations(), () => ctrl.setAllCollapsed(opts.path, false)),
 
-      action(licon.MinusButton, i18n.site.collapseVariations, () => ctrl.setAllCollapsed(opts.path, true)),
+      action(licon.MinusButton, i18n.site.collapseVariations(), () => ctrl.setAllCollapsed(opts.path, true)),
 
       ...(ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []),
 
       onMainline &&
-        action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
+        action(licon.InternalArrow, i18n.site.forceVariation(), () => ctrl.forceVariation(opts.path, true)),
 
-      action(licon.Clipboard, i18n.site.copyVariationPgn, () =>
+      action(licon.Clipboard, i18n.site.copyVariationPgn(), () =>
         navigator.clipboard.writeText(renderVariationPgn(opts.root.tree.getNodeList(opts.path))),
       ),
     ],

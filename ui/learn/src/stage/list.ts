@@ -84,22 +84,22 @@ interface RawCateg {
 const rawCategs: RawCateg[] = [
   {
     key: 'chess-pieces',
-    name: i18n.learn.chessPieces,
+    name: i18n.learn.chessPieces(),
     stages: [rook, bishop, queen, king, knight, pawn],
   },
   {
     key: 'fundamentals',
-    name: i18n.learn.fundamentals,
+    name: i18n.learn.fundamentals(),
     stages: [capture, protection, combat, check1, outOfCheck, checkmate1],
   },
   {
     key: 'intermediate',
-    name: i18n.learn.intermediate,
+    name: i18n.learn.intermediate(),
     stages: [setup, castling, enpassant, stalemate],
   },
   {
     key: 'advanced',
-    name: i18n.learn.advanced,
+    name: i18n.learn.advanced(),
     stages: [
       value,
       // draw,

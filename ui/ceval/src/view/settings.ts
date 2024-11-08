@@ -87,7 +87,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                   'div.setting',
                   { attrs: { title: 'Set number of evaluation lines and move arrows on the board' } },
                   [
-                    h('label', { attrs: { for: id } }, i18n.site.multipleLines),
+                    h('label', { attrs: { for: id } }, i18n.site.multipleLines()),
                     h('input#' + id, {
                       attrs: { type: 'range', min: 0, max, step: 1 },
                       hook: rangeConfig(
@@ -152,7 +152,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
               })('analyse-threads'),
             (id =>
               h('div.setting', { attrs: { title: 'Higher values may improve performance' } }, [
-                h('label', { attrs: { for: id } }, i18n.site.memory),
+                h('label', { attrs: { for: id } }, i18n.site.memory()),
                 h('input#' + id, {
                   attrs: {
                     type: 'range',

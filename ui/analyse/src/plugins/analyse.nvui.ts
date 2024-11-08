@@ -98,7 +98,7 @@ export function initModule(ctrl: AnalyseController) {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
                     hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
                   },
-                  i18n.site.openingExplorerAndTablebase,
+                  i18n.site.openingExplorerAndTablebase(),
                 ),
                 explorerView(ctrl),
               ]

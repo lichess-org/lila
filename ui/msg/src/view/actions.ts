@@ -15,7 +15,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       attrs: {
         'data-icon': licon.Swords,
         href: `/?user=${convo.user.name}#friend`,
-        title: i18n.challenge.challengeToPlay,
+        title: i18n.challenge.challengeToPlay(),
       },
     }),
   );
@@ -26,9 +26,9 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         key: 'unblock',
         attrs: {
           'data-icon': licon.NotAllowed,
-          title: i18n.site.blocked,
+          title: i18n.site.blocked(),
           type: 'button',
-          'data-hover-text': i18n.site.unblock,
+          'data-hover-text': i18n.site.unblock(),
         },
         hook: bind('click', ctrl.unblock),
       }),
@@ -40,7 +40,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         attrs: {
           'data-icon': licon.NotAllowed,
           type: 'button',
-          title: i18n.site.block,
+          title: i18n.site.block(),
         },
         hook: bind('click', withConfirm(ctrl.block)),
       }),
@@ -48,7 +48,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   nodes.push(
     h(`button.${cls}.bad`, {
       key: 'delete',
-      attrs: { 'data-icon': licon.Trash, type: 'button', title: i18n.site.delete },
+      attrs: { 'data-icon': licon.Trash, type: 'button', title: i18n.site.delete() },
       hook: bind('click', withConfirm(ctrl.delete)),
     }),
   );

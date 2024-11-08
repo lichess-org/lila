@@ -27,19 +27,21 @@ export default function (ctrl: TournamentController): VNode | undefined {
     h('div.stats', [
       h('h2', [teamTag]),
       h('table', [
-        numberRow(i18n.site.players, data.nbPlayers),
+        numberRow(i18n.site.players(), data.nbPlayers),
         ...(data.rating
           ? [
-              ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, data.rating, 'raw') : null,
+              ctrl.opts.showRatings ? numberRow(i18n.site.averageElo(), data.rating, 'raw') : null,
               ...(data.perf
                 ? [
-                    ctrl.opts.showRatings ? numberRow(i18n.arena.averagePerformance, data.perf, 'raw') : null,
-                    numberRow(i18n.arena.averageScore, data.score, 'raw'),
+                    ctrl.opts.showRatings
+                      ? numberRow(i18n.arena.averagePerformance(), data.perf, 'raw')
+                      : null,
+                    numberRow(i18n.arena.averageScore(), data.score, 'raw'),
                   ]
                 : []),
             ]
           : []),
-        h('tr', h('th', h('a', { attrs: { href: '/team/' + data.id } }, i18n.team.teamPage))),
+        h('tr', h('th', h('a', { attrs: { href: '/team/' + data.id } }, i18n.team.teamPage()))),
       ]),
     ]),
     h('div', [

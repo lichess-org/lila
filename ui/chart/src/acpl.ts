@@ -92,7 +92,7 @@ export default async function (
     });
     return {
       acpl: {
-        label: i18n.site.advantage,
+        label: i18n.site.advantage(),
         data: winChances,
         borderWidth: 1,
         fill: {
@@ -162,7 +162,7 @@ export default async function (
                 e = ev.mate;
                 mateSymbol = '#';
               }
-              return i18n.site.advantage + ': ' + mateSymbol + advantageSign + e;
+              return i18n.site.advantage() + ': ' + mateSymbol + advantageSign + e;
             },
             title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },

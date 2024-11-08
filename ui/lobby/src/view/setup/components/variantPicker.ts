@@ -8,7 +8,7 @@ export const variantPicker = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
   const baseVariants = site.blindMode ? variantsBlindMode : variants;
   return h('div.variant.label-select', [
-    h('label', { attrs: { for: 'sf_variant' } }, i18n.site.variant),
+    h('label', { attrs: { for: 'sf_variant' } }, i18n.site.variant()),
     h(
       'select#sf_variant',
       {

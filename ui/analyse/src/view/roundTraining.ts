@@ -46,12 +46,12 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     ...advices.map(a => error(d.analysis![color][a.kind], color, a)),
     h('div.advice-summary__acpl', [
       h('strong', sideData.acpl),
-      h('span', ` ${i18n.site.averageCentipawnLoss}`),
+      h('span', ` ${i18n.site.averageCentipawnLoss()}`),
     ]),
     h('div.advice-summary__accuracy', [
       h('strong', [sideData.accuracy, '%']),
       h('span', [
-        i18n.site.accuracy,
+        i18n.site.accuracy(),
         ' ',
         h('a', {
           attrs: { 'data-icon': licon.InfoCircle, href: '/page/accuracy', target: '_blank' },
@@ -91,7 +91,7 @@ const doRender = (ctrl: AnalyseCtrl): VNode => {
               attrs: dataIcon(licon.PlayTriangle),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            i18n.site.learnFromYourMistakes,
+            i18n.site.learnFromYourMistakes(),
           ),
       playerTable(ctrl, 'black'),
     ],

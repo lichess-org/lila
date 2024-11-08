@@ -38,12 +38,12 @@ export function set(ctrl: RoundController, text?: string): void {
   if (ctrl.data.player.spectator) return;
   if (!text) {
     if (aborted(ctrl.data) || finished(ctrl.data)) {
-      text = i18n.site.gameOver;
+      text = i18n.site.gameOver();
     } else if (isPlayerTurn(ctrl.data)) {
-      text = i18n.site.yourTurn;
+      text = i18n.site.yourTurn();
       if (!document.hasFocus()) startTicker();
     } else {
-      text = i18n.site.waitingForOpponent;
+      text = i18n.site.waitingForOpponent();
       resetTicker();
     }
   }

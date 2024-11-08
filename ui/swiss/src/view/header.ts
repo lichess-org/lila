@@ -25,7 +25,7 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
       }),
     ]);
   return h(`div.clock.clock-created.time-cache-${next.at}`, [
-    h('span.shy', ctrl.data.status == 'created' ? i18n.swiss.startingIn : i18n.swiss.nextRound),
+    h('span.shy', ctrl.data.status == 'created' ? i18n.swiss.startingIn() : i18n.swiss.nextRound()),
     h('span.time.text', { hook: startClock(next.in + 1) }),
   ]);
 }

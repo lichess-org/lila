@@ -80,8 +80,8 @@ export async function alerts(msgs: string[]): Promise<void> {
 // non-blocking window.confirm-alike
 export async function confirm(
   msg: string,
-  yes: string = i18n.site.yes,
-  no: string = i18n.site.no,
+  yes: string = i18n.site.yes(),
+  no: string = i18n.site.no(),
 ): Promise<boolean> {
   return (
     (
@@ -109,8 +109,8 @@ export async function prompt(msg: string, def: string = ''): Promise<string | nu
     htmlText:
       `<div>${escapeHtml(msg)}</div>` +
       `<input type="text" value="${escapeHtml(def)}" />` +
-      `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
-      `<button class="button ok">${i18n.site.ok}</button></span>`,
+      `<span><button class="button button-empty cancel">${i18n.site.cancel()}</button>` +
+      `<button class="button ok">${i18n.site.ok()}</button></span>`,
     class: 'alert',
     noCloseButton: true,
     noClickAway: true,

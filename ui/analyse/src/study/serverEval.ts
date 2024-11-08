@@ -64,18 +64,22 @@ function requestButton(ctrl: ServerEval) {
   return h(
     'div.study__message',
     root.mainline.length < 5
-      ? h('p', i18n.study.theChapterIsTooShortToBeAnalysed)
+      ? h('p', i18n.study.theChapterIsTooShortToBeAnalysed())
       : !root.study!.members.canContribute()
-        ? [i18n.study.onlyContributorsCanRequestAnalysis]
+        ? [i18n.study.onlyContributorsCanRequestAnalysis()]
         : [
-            h('p', [i18n.study.getAFullComputerAnalysis, h('br'), i18n.study.makeSureTheChapterIsComplete]),
+            h('p', [
+              i18n.study.getAFullComputerAnalysis(),
+              h('br'),
+              i18n.study.makeSureTheChapterIsComplete(),
+            ]),
             h(
               'a.button.text',
               {
                 attrs: { 'data-icon': licon.BarChart, disabled: root.mainline.length < 5 },
                 hook: bind('click', ctrl.request, root.redraw),
               },
-              i18n.site.requestAComputerAnalysis,
+              i18n.site.requestAComputerAnalysis(),
             ),
           ],
   );

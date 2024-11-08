@@ -76,8 +76,8 @@ const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
 function renderDate(date: Date) {
-  if (sameDay(date, today)) return i18n.site.today.toUpperCase();
-  if (sameDay(date, yesterday)) return i18n.site.yesterday.toUpperCase();
+  if (sameDay(date, today)) return i18n.site.today().toUpperCase();
+  if (sameDay(date, yesterday)) return i18n.site.yesterday().toUpperCase();
   return renderFullDate(date);
 }
 

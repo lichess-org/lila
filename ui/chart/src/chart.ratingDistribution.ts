@@ -46,7 +46,7 @@ export async function initModule(data: DistributionData): Promise<void> {
         ...seriesCommonData('#dddf0d'),
         data: cumul,
         yAxisID: 'y2',
-        label: i18n.site.cumulative,
+        label: i18n.site.cumulative(),
         pointRadius: 0,
         datalabels: { display: false },
         pointHitRadius: 200,
@@ -57,7 +57,7 @@ export async function initModule(data: DistributionData): Promise<void> {
         backgroundColor: gradient,
         yAxisID: 'y',
         fill: true,
-        label: i18n.site.players,
+        label: i18n.site.players(),
         pointRadius: 4,
         datalabels: { display: false },
         pointHitRadius: 200,
@@ -85,7 +85,7 @@ export async function initModule(data: DistributionData): Promise<void> {
         },
       });
     if (data.myRating && data.myRating <= maxRating)
-      pushLine('#55bf3b', data.myRating, `${i18n.site.yourRating} (${data.myRating})`);
+      pushLine('#55bf3b', data.myRating, `${i18n.site.yourRating()} (${data.myRating})`);
     if (data.otherRating && data.otherPlayer) {
       pushLine('#eeaaee', Math.min(data.otherRating, maxRating), `${data.otherPlayer} (${data.otherRating})`);
     }
@@ -114,7 +114,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
             title: {
               display: true,
-              text: i18n.site.glicko2Rating,
+              text: i18n.site.glicko2Rating(),
             },
           },
           y: {
@@ -127,7 +127,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
             title: {
               display: true,
-              text: i18n.site.players,
+              text: i18n.site.players(),
             },
           },
           y2: {
@@ -143,7 +143,7 @@ export async function initModule(data: DistributionData): Promise<void> {
             },
             title: {
               display: true,
-              text: i18n.site.cumulative,
+              text: i18n.site.cumulative(),
             },
           },
         },

@@ -27,7 +27,7 @@ export class PieceCtrl extends PaneCtrl {
         : `piece/${t}/wN.svg`;
 
     return h('div.sub.piece.' + this.dimension, [
-      header(i18n.site.pieceSet, () => this.close()),
+      header(i18n.site.pieceSet(), () => this.close()),
       h(
         'div.list',
         { attrs: { style: `max-height:${maxHeight}px;` } },

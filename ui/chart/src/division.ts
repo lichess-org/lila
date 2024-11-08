@@ -5,12 +5,12 @@ import { ChartDataset, Point } from 'chart.js';
 export default function (div?: Division): ChartDataset<'line'>[] {
   const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
-    if (div.middle > 1) lines.push({ div: i18n.site.opening, loc: 1 });
-    lines.push({ div: i18n.site.middlegame, loc: div.middle });
+    if (div.middle > 1) lines.push({ div: i18n.site.opening(), loc: 1 });
+    lines.push({ div: i18n.site.middlegame(), loc: div.middle });
   }
   if (div?.end) {
-    if (div.end > 1 && !div?.middle) lines.push({ div: i18n.site.middlegame, loc: 0 });
-    lines.push({ div: i18n.site.endgame, loc: div.end });
+    if (div.end > 1 && !div?.middle) lines.push({ div: i18n.site.middlegame(), loc: 0 });
+    lines.push({ div: i18n.site.endgame(), loc: div.end });
   }
   const annotationColor = '#707070';
 

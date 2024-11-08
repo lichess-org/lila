@@ -62,12 +62,12 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
     return h('input.mchat__say', {
-      attrs: { placeholder: i18n.site.loginToChat, disabled: true },
+      attrs: { placeholder: i18n.site.loginToChat(), disabled: true },
     });
   let placeholder: string;
-  if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
+  if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut();
   else if (ctrl.opts.blind) placeholder = 'Chat';
-  else placeholder = i18n.site.talkInChat;
+  else placeholder = i18n.site.talkInChat();
   return h('input.mchat__say', {
     attrs: {
       placeholder,

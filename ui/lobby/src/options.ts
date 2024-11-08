@@ -50,9 +50,9 @@ export const speeds: { key: Speed; name: string; icon: string }[] = [
 ];
 
 export const timeModes: { id: number; key: TimeMode; name: string }[] = [
-  { id: 1, key: 'realTime', name: i18n.site.realTime },
-  { id: 2, key: 'correspondence', name: i18n.site.correspondence },
-  { id: 0, key: 'unlimited', name: i18n.site.unlimited },
+  { id: 1, key: 'realTime', name: i18n.site.realTime() },
+  { id: 2, key: 'correspondence', name: i18n.site.correspondence() },
+  { id: 0, key: 'unlimited', name: i18n.site.unlimited() },
 ];
 
 export const keyToId = (key: string, items: { id: number; key: string }[]): number =>
@@ -157,12 +157,12 @@ export const sliderInitVal = (
 };
 
 export const gameModes: { key: GameMode; name: string }[] = [
-  { key: 'casual', name: i18n.site.casual },
-  { key: 'rated', name: i18n.site.rated },
+  { key: 'casual', name: i18n.site.casual() },
+  { key: 'rated', name: i18n.site.rated() },
 ];
 
 export const colors: { key: Color | 'random'; name: string }[] = [
-  { key: 'black', name: i18n.site.black },
-  { key: 'random', name: i18n.site.randomColor },
-  { key: 'white', name: i18n.site.white },
+  { key: 'black', name: i18n.site.black() },
+  { key: 'random', name: i18n.site.randomColor() },
+  { key: 'white', name: i18n.site.white() },
 ];

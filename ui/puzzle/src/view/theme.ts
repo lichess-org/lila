@@ -18,7 +18,10 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   return ctrl.streak
     ? null
     : ctrl.isDaily
-      ? h('div.puzzle__side__theme.puzzle__side__theme--daily', puzzleMenu(h('h2', i18n.puzzle.dailyPuzzle)))
+      ? h(
+          'div.puzzle__side__theme.puzzle__side__theme--daily',
+          puzzleMenu(h('h2', i18n.puzzle.dailyPuzzle())),
+        )
       : h('div.puzzle__side__theme', [
           puzzleMenu(h('h2', { class: { long: angle.name.length > 20 } }, ['« ', angle.name])),
           angle.opening
@@ -32,7 +35,7 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
                   h(
                     'a.puzzle__side__theme__chapter.text',
                     { attrs: { href: `${studyUrl}/${angle.chapter}`, target: '_blank', rel: 'noopener' } },
-                    [' ', i18n.puzzle.example],
+                    [' ', i18n.puzzle.example()],
                   ),
               ]),
           showEditor
@@ -111,7 +114,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
               },
             },
             [
-              h('option', { attrs: { value: '', selected: true } }, i18n.puzzle.addAnotherTheme),
+              h('option', { attrs: { value: '', selected: true } }, i18n.puzzle.addAnotherTheme()),
               ...availableThemes.map(theme =>
                 h(
                   'option',
