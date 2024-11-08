@@ -34,7 +34,7 @@ export async function monitor(pkgs: string[]): Promise<void> {
     clearTimeout(tscTimeout);
     tscTimeout = setTimeout(() => {
       if (packageTimeout) return;
-      esbuild(tsc());
+      tsc().then(esbuild);
     }, 2000);
   };
   const packageChange = async () => {

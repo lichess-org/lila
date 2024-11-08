@@ -61,7 +61,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
         "name" -> lila.common.Form.username.historicalField
           .verifying(
             s"No more than ${Team.maxLeaders} leaders, please",
-            _ => t.leaders.sizeIs < Team.maxLeaders
+            _ => t.leaders.sizeIs < Team.maxLeaders.value
           )
           .verifying(
             "You can't make Lichess a leader",
@@ -103,7 +103,7 @@ final class TeamSecurity(memberRepo: TeamMemberRepo, userApi: lila.core.user.Use
         )
         .verifying(
           s"No more than ${Team.maxLeaders} leaders, please",
-          _.sizeIs <= Team.maxLeaders
+          _.sizeIs <= Team.maxLeaders.value
         )
         .verifying(
           "Duplicated leader name",
