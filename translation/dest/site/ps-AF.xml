@@ -5,10 +5,12 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">که غواړئ څوک لوبې ته راوبولئ، دا پته ورکړئ</string>
   <string name="gameOver">د لوبې پای</string>
   <string name="waitingForOpponent">سیال ته تم شئ</string>
+  <string name="orLetYourOpponentScanQrCode">یا اجازه راکړئ خپل مخالف دا QR کوډ سکین کړئ</string>
   <string name="waiting">تم کېدل</string>
   <string name="yourTurn">ستا نوبت</string>
   <string name="aiNameLevelAiLevel">%1$s سويه %2$s</string>
   <string name="level">سويه</string>
+  <string name="strength">ځواک</string>
   <string name="toggleTheChat">دبنډار څرنګتیاونج تڼۍ</string>
   <string name="chat">بنډار</string>
   <string name="resign">پرښودنه</string>
@@ -16,6 +18,8 @@
   <string name="stalemate">بندون</string>
   <string name="white">سپين</string>
   <string name="black">تور</string>
+  <string name="asWhite">لکه سپین</string>
+  <string name="asBlack">لکه سپین</string>
   <string name="randomColor">توکلي</string>
   <string name="createAGame">لوبه جوړه کړئ</string>
   <string name="whiteIsVictorious">سپین فاتح دی</string>
