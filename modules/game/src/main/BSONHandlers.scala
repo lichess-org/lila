@@ -56,6 +56,8 @@ object BSONHandlers:
 
   given BSONHandler[GameRule] = valueMapHandler[String, GameRule](GameRule.byKey)(_.toString)
 
+  given BSONHandler[Source] = valueMapHandler[Int, Source](Source.byId)(_.id)
+
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
     def reads(r: BSON.Reader) =
@@ -191,7 +193,7 @@ object BSONHandlers:
         createdAt = createdAt,
         movedAt = r.dateD(F.movedAt, createdAt),
         metadata = GameMetadata(
-          source = r.intO(F.source).flatMap(Source.apply),
+          source = r.getO[Source](F.source),
           pgnImport = r.getO[PgnImport](F.pgnImport),
           tournamentId = r.getO[TourId](F.tournamentId),
           swissId = r.getO[SwissId](F.swissId),
@@ -231,7 +233,7 @@ object BSONHandlers:
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),
-        F.source            -> o.metadata.source.map(_.id),
+        F.source            -> o.metadata.source,
         F.pgnImport         -> o.metadata.pgnImport,
         F.tournamentId      -> o.metadata.tournamentId,
         F.swissId           -> o.metadata.swissId,
