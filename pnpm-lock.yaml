@@ -98,8 +98,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -179,8 +179,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -227,8 +227,8 @@ importers:
         specifier: ^0.2.13
         version: 0.2.13
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -299,8 +299,8 @@ importers:
   ui/chess:
     dependencies:
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -353,14 +353,14 @@ importers:
   ui/dgt:
     dependencies:
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
 
   ui/editor:
     dependencies:
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -401,8 +401,8 @@ importers:
   ui/learn:
     dependencies:
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -470,8 +470,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -515,8 +515,8 @@ importers:
   ui/puz:
     dependencies:
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -536,8 +536,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -560,8 +560,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -647,8 +647,8 @@ importers:
         specifier: workspace:*
         version: link:../chess
       chessops:
-        specifier: ^0.14.1
-        version: 0.14.1
+        specifier: ^0.14.2
+        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -1355,8 +1355,8 @@ packages:
   chessops@0.12.7:
     resolution: {integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==}
 
-  chessops@0.14.1:
-    resolution: {integrity: sha512-CnMcfypDVrl/+MkErK0YMAEvivAAnUQ/2f32C54F9HbmDVEDjvoXJYLnS//+4HWGLqGA5+yDs+Y2T0gsxxLgpQ==}
+  chessops@0.14.2:
+    resolution: {integrity: sha512-7DghoMODSN8a17L9JHYBWhLBaSKROKS7+NDsvseNJ502UTbuZ7EYueIAmo1oD+f0TeEqh+jo2gsUFRhGRKAR3g==}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -2966,7 +2966,7 @@ snapshots:
     dependencies:
       '@badrap/result': 0.2.13
 
-  chessops@0.14.1:
+  chessops@0.14.2:
     dependencies:
       '@badrap/result': 0.2.13
 
