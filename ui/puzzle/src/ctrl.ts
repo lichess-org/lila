@@ -228,6 +228,8 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.initialNode = this.tree.nodeAtPath(initialPath);
     this.pov = this.initialNode.ply % 2 == 1 ? 'black' : 'white';
     this.isDaily = location.href.endsWith('/daily');
+    this.hintHasBeenShown(false);
+    this.canViewSolution(false);
 
     this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -461,7 +463,6 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (next) {
       this.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
       if (this.streak && win) this.streak.onComplete(true, res.next);
-      this.hintHasBeenShown(false);
     }
     this.redraw();
     if (!next && !this.data.replay) {
