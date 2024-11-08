@@ -1,7 +1,6 @@
 import { winningChances, CevalCtrl } from 'ceval';
 import { annotationShapes } from 'chess/glyphs';
 import { DrawModifiers, DrawShape } from 'chessground/draw';
-import { Api as CgApi } from 'chessground/api';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
 import { NormalMove } from 'chessops/types';
 
@@ -10,7 +9,6 @@ interface Opts {
   nodeList: Tree.Node[];
   showComputer(): boolean;
   ceval: CevalCtrl;
-  ground: CgApi;
   nextNodeBest(): Uci | undefined;
   threatMode(): boolean;
 }

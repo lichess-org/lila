@@ -497,7 +497,6 @@ export default class PuzzleCtrl implements ParentCtrl {
       g.setAutoShapes(
         computeAutoShapes({
           ...this,
-          ground: g,
           node: this.node,
         }),
       ),
