@@ -497,7 +497,6 @@ export default class PuzzleCtrl implements ParentCtrl {
       g.setAutoShapes(
         computeAutoShapes({
           ...this,
-          ground: g,
           node: this.node,
         }),
       ),
@@ -662,9 +661,6 @@ export default class PuzzleCtrl implements ParentCtrl {
     static: new Set(this.opts.themes.static.split(' ')),
   };
   toggleRated = () => this.rated(!this.rated());
-  // tsc 5.6 --noCheck can generate conflicts on private member types of the same class imported
-  // from different paths. This ts-ignore is a workaround to avoid the error. TODO
-  // @ts-ignore
   getCeval = () => this.ceval;
   ongoing = false;
   getNode = () => this.node;
