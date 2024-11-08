@@ -18,7 +18,7 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
     renderTimeModePicker(ctrl, allowAnonymous),
     setupCtrl.timeMode() === 'realTime' &&
       h('div.time-choice', [
-        h('label', { attrs: { for: 'sf_time' } }, i18n.site.minutesPerSide),
+        h('label', { attrs: { for: 'sf_time' } }, i18n.site.minutesPerSide()),
         h(
           'select#sf_time',
           {
@@ -31,7 +31,7 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
       ]),
     setupCtrl.timeMode() === 'realTime' &&
       h('div.increment-choice', [
-        h('label', { attrs: { for: 'sf_increment' } }, i18n.site.incrementInSeconds),
+        h('label', { attrs: { for: 'sf_increment' } }, i18n.site.incrementInSeconds()),
         h(
           'select#sf_increment',
           {
@@ -50,7 +50,7 @@ const renderBlindModeTimePickers = (ctrl: LobbyController, allowAnonymous: boole
       ]),
     setupCtrl.timeMode() === 'correspondence' &&
       h('div.days-choice', [
-        h('label', { attrs: { for: 'sf_days' } }, i18n.site.daysPerTurn),
+        h('label', { attrs: { for: 'sf_days' } }, i18n.site.daysPerTurn()),
         h(
           'select#sf_days',
           {
@@ -73,7 +73,7 @@ const renderTimeModePicker = (ctrl: LobbyController, allowAnonymous = false) => 
   return (
     (ctrl.me || allowAnonymous) &&
     h('div.label-select', [
-      h('label', { attrs: { for: 'sf_timeMode' } }, i18n.site.timeControl),
+      h('label', { attrs: { for: 'sf_timeMode' } }, i18n.site.timeControl()),
       h(
         'select#sf_timeMode',
         {
@@ -104,7 +104,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
           renderTimeModePicker(ctrl, allowAnonymous),
           setupCtrl.timeMode() === 'realTime' &&
             h('div.time-choice.range', [
-              `${i18n.site.minutesPerSide}: `,
+              `${i18n.site.minutesPerSide()}: `,
               h('span', showTime(setupCtrl.time())),
               inputRange(0, 38, setupCtrl.timeV, {
                 failure: !setupCtrl.validTime() || !setupCtrl.validAiTime(),
@@ -112,7 +112,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
             ]),
           setupCtrl.timeMode() === 'realTime'
             ? h('div.increment-choice.range', [
-                `${i18n.site.incrementInSeconds}: `,
+                `${i18n.site.incrementInSeconds()}: `,
                 h('span', `${setupCtrl.increment()}`),
                 inputRange(0, 30, setupCtrl.incrementV, { failure: !setupCtrl.validTime() }),
               ])
@@ -120,7 +120,7 @@ export const timePickerAndSliders = (ctrl: LobbyController, allowAnonymous = fal
               h(
                 'div.correspondence',
                 h('div.days-choice.range', [
-                  `${i18n.site.daysPerTurn}: `,
+                  `${i18n.site.daysPerTurn()}: `,
                   h('span', `${setupCtrl.days()}`),
                   inputRange(1, 7, setupCtrl.daysV),
                 ]),

@@ -89,13 +89,13 @@ function tabName(ctrl: ChatCtrl, tab: Tab) {
             h('label', {
               attrs: {
                 for: id,
-                title: i18n.site.toggleTheChat,
+                title: i18n.site.toggleTheChat(),
               },
             }),
           ]),
     ];
   }
-  if (tab === 'note') return [h('span', i18n.site.notes)];
+  if (tab === 'note') return [h('span', i18n.site.notes())];
   if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];
   return [];
 }

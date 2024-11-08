@@ -69,7 +69,7 @@ function studyButton(ctrl: AnalyseCtrl) {
           'data-icon': licon.StudyBoard,
         },
       },
-      i18n.site.openStudy,
+      i18n.site.openStudy(),
     );
   if (ctrl.study || ctrl.ongoing) return;
   return h(
@@ -89,7 +89,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
-      h('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, i18n.site.toStudy),
+      h('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, i18n.site.toStudy()),
     ],
   );
 }
@@ -106,7 +106,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       h(
         'a',
         { hook: bind('click', ctrl.flip), attrs: { 'data-icon': licon.ChasingArrows, title: 'Hotkey: f' } },
-        i18n.site.flipBoard,
+        i18n.site.flipBoard(),
       ),
       !ctrl.ongoing &&
         h(
@@ -125,7 +125,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          i18n.site.boardEditor,
+          i18n.site.boardEditor(),
         ),
       canContinue &&
         h(
@@ -134,7 +134,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             hook: bind('click', () => domDialog({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' })),
             attrs: dataIcon(licon.Swords),
           },
-          i18n.site.continueFromHere,
+          i18n.site.continueFromHere(),
         ),
       studyButton(ctrl),
       ctrl.persistence?.isDirty &&
@@ -142,12 +142,12 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             attrs: {
-              title: i18n.site.clearSavedMoves,
+              title: i18n.site.clearSavedMoves(),
               'data-icon': licon.Trash,
             },
             hook: bind('click', ctrl.persistence.clear),
           },
-          i18n.site.clearSavedMoves,
+          i18n.site.clearSavedMoves(),
         ),
     ]),
   ];
@@ -155,10 +155,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const cevalConfig: MaybeVNodes =
     ceval?.possible && ceval.allowed()
       ? [
-          h('h2', i18n.site.computerAnalysis),
+          h('h2', i18n.site.computerAnalysis()),
           ctrlToggle(
             {
-              name: i18n.site.enable,
+              name: i18n.site.enable(),
               title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
               id: 'all',
               checked: ctrl.showComputer(),
@@ -171,7 +171,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             ? [
                 ctrlToggle(
                   {
-                    name: i18n.site.bestMoveArrow,
+                    name: i18n.site.bestMoveArrow(),
                     title: 'Hotkey: a',
                     id: 'shapes',
                     checked: ctrl.showAutoShapes(),
@@ -181,7 +181,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 ),
                 ctrlToggle(
                   {
-                    name: i18n.site.evaluationGauge,
+                    name: i18n.site.evaluationGauge(),
                     id: 'gauge',
                     checked: ctrl.showGauge(),
                     change: ctrl.toggleGauge,
@@ -197,7 +197,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     h('h2', 'Display'),
     ctrlToggle(
       {
-        name: i18n.site.inlineNotation,
+        name: i18n.site.inlineNotation(),
         title: 'Shift+I',
         id: 'inline',
         checked: ctrl.treeView.inline(),
@@ -211,7 +211,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     !isTouchDevice() &&
       ctrlToggle(
         {
-          name: i18n.site.showVariationArrows,
+          name: i18n.site.showVariationArrows(),
           title: 'Variation navigation arrows',
           id: 'variationArrows',
           checked: ctrl.variationArrowsProp(),
@@ -236,7 +236,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ...tools,
     ...displayConfig,
     ...cevalConfig,
-    ...(ctrl.mainline.length > 4 ? [h('h2', i18n.site.replayMode), autoplayButtons(ctrl)] : []),
+    ...(ctrl.mainline.length > 4 ? [h('h2', i18n.site.replayMode()), autoplayButtons(ctrl)] : []),
     canContinue &&
       h('div.continue-with.none.g_' + d.game.id, [
         h(
@@ -249,7 +249,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          i18n.site.playWithTheMachine,
+          i18n.site.playWithTheMachine(),
         ),
         h(
           'a.button',
@@ -261,7 +261,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               ...linkAttrs,
             },
           },
-          i18n.site.playWithAFriend,
+          i18n.site.playWithAFriend(),
         ),
       ]),
   ]);

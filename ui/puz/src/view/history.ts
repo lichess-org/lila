@@ -28,12 +28,12 @@ export default (ctrl: PuzCtrl): VNode => {
   const slowIds = slowPuzzleIds(ctrl),
     filters = ctrl.filters,
     buttons: VNode[] = [
-      toggleButton(filters.fail, i18n.storm.failedPuzzles),
-      toggleButton(filters.slow, i18n.storm.slowPuzzles),
+      toggleButton(filters.fail, i18n.storm.failedPuzzles()),
+      toggleButton(filters.slow, i18n.storm.slowPuzzles()),
     ];
-  if (filters.skip) buttons.push(toggleButton(filters.skip, i18n.storm.skippedPuzzle));
+  if (filters.skip) buttons.push(toggleButton(filters.skip, i18n.storm.skippedPuzzle()));
   return h('div.puz-history.box.box-pad', [
-    h('div.box__top', [h('h2', i18n.storm.puzzlesPlayed), h('div.box__top__actions', buttons)]),
+    h('div.box__top', [h('h2', i18n.storm.puzzlesPlayed()), h('div.box__top__actions', buttons)]),
     h(
       'div.puz-history__rounds',
       ctrl.run.history

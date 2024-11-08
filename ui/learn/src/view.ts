@@ -53,7 +53,7 @@ const makeStars = (rank: scoring.Rank): VNode[] =>
 
 const ongoingStr = (ctrl: LearnCtrl, s: Stage): string => {
   const progress = ctrl.stageProgress(s);
-  return progress[0] ? progress.join(' / ') : i18n.learn.play;
+  return progress[0] ? progress.join(' / ') : i18n.learn.play();
 };
 
 const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, stageProgress: StageProgress) =>
@@ -76,28 +76,33 @@ function whatNext(ctrl: LearnCtrl) {
   };
   const userId = ctrl.data._id;
   return h('div.categ.what_next', [
-    h('h2', i18n.learn.whatNext),
-    h('p', i18n.learn.youKnowHowToPlayChess),
+    h('h2', i18n.learn.whatNext()),
+    h('p', i18n.learn.youKnowHowToPlayChess()),
     h('div.categ_stages', [
       userId
         ? makeStage(
             '/@/' + userId,
             'beams-aura',
-            i18n.learn.register,
-            i18n.learn.getAFreeLichessAccount,
+            i18n.learn.register(),
+            i18n.learn.getAFreeLichessAccount(),
             true,
           )
-        : makeStage('/signup', 'beams-aura', i18n.learn.register, i18n.learn.getAFreeLichessAccount),
-      makeStage('/practice', 'robot-golem', i18n.learn.practice, i18n.learn.learnCommonChessPositions),
-      makeStage('/training', 'bullseye', i18n.learn.puzzles, i18n.learn.exerciseYourTacticalSkills),
+        : makeStage('/signup', 'beams-aura', i18n.learn.register(), i18n.learn.getAFreeLichessAccount()),
+      makeStage('/practice', 'robot-golem', i18n.learn.practice(), i18n.learn.learnCommonChessPositions()),
+      makeStage('/training', 'bullseye', i18n.learn.puzzles(), i18n.learn.exerciseYourTacticalSkills()),
       makeStage(
         '/video?tags=beginner',
         'tied-scroll',
-        i18n.learn.videos,
-        i18n.learn.watchInstructiveChessVideos,
+        i18n.learn.videos(),
+        i18n.learn.watchInstructiveChessVideos(),
       ),
-      makeStage('/#hook', 'sword-clash', i18n.learn.playPeople, i18n.learn.opponentsFromAroundTheWorld),
-      makeStage('/#ai', 'vintage-robot', i18n.learn.playMachine, i18n.learn.testYourSkillsWithTheComputer),
+      makeStage('/#hook', 'sword-clash', i18n.learn.playPeople(), i18n.learn.opponentsFromAroundTheWorld()),
+      makeStage(
+        '/#ai',
+        'vintage-robot',
+        i18n.learn.playMachine(),
+        i18n.learn.testYourSkillsWithTheComputer(),
+      ),
     ]),
   ]);
 }

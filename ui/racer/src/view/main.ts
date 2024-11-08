@@ -75,7 +75,7 @@ const selectScreen = (ctrl: RacerCtrl): MaybeVNodes => {
     }
     case 'post': {
       const nextRace = ctrl.race.lobby ? lobbyNext(ctrl) : friendNext(ctrl);
-      const raceComplete = h('h2', i18n.storm.raceComplete);
+      const raceComplete = h('h2', i18n.storm.raceComplete());
       return ctrl.isPlayer()
         ? [playerScore(ctrl), h('div.racer__post', [raceComplete, yourRank(ctrl), nextRace]), comboZone(ctrl)]
         : [spectating(), h('div.racer__post', [raceComplete, nextRace]), comboZone(ctrl)];
@@ -88,26 +88,26 @@ const renderSkip = (ctrl: RacerCtrl) =>
     'button.racer__skip.button.button-red',
     {
       class: { disabled: !ctrl.canSkip() },
-      attrs: { title: i18n.storm.skipExplanation },
+      attrs: { title: i18n.storm.skipExplanation() },
       hook: bind('click', ctrl.skip),
     },
-    i18n.storm.skip,
+    i18n.storm.skip(),
   );
 
-const skipHelp = () => h('p', i18n.storm.skipHelp);
+const skipHelp = () => h('p', i18n.storm.skipHelp());
 
 const puzzleRacer = () => h('strong', 'Puzzle Racer');
 
 const waitingToStart = () =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [puzzleRacer(), h('span', i18n.storm.waitingToStart)]),
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', i18n.storm.waitingToStart())]),
   );
 
 const spectating = () =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [puzzleRacer(), h('span', i18n.storm.spectating)]),
+    h('div.puz-side__start__text', [puzzleRacer(), h('span', i18n.storm.spectating())]),
   );
 
 const renderBonus = (bonus: number) => `+${bonus}`;
@@ -117,7 +117,7 @@ const renderControls = (ctrl: RacerCtrl): VNode =>
     'div.puz-side__control',
     h('a.puz-side__control__flip.button', {
       class: { active: ctrl.flipped, 'button-empty': !ctrl.flipped },
-      attrs: { 'data-icon': licon.ChasingArrows, title: i18n.site.flipBoard + ' (Keyboard: f)' },
+      attrs: { 'data-icon': licon.ChasingArrows, title: i18n.site.flipBoard() + ' (Keyboard: f)' },
       hook: bind('click', ctrl.flip),
     }),
   );
@@ -130,7 +130,7 @@ const playerScore = (ctrl: RacerCtrl): VNode =>
 
 const renderLink = (ctrl: RacerCtrl) =>
   h('div.puz-side__link', [
-    h('p', i18n.site.toInviteSomeoneToPlayGiveThisUrl),
+    h('p', i18n.site.toInviteSomeoneToPlayGiveThisUrl()),
     copyMeInput(`${window.location.protocol}//${window.location.host}/racer/${ctrl.race.id}`),
   ]);
 
@@ -146,14 +146,14 @@ const renderStart = (ctrl: RacerCtrl) =>
         hook: bind('click', ctrl.start),
         attrs: { disabled: ctrl.players().length < 2 },
       },
-      i18n.storm.startTheRace,
+      i18n.storm.startTheRace(),
     ),
   );
 
 const renderJoin = (ctrl: RacerCtrl) =>
   h(
     'div.puz-side__join',
-    h('button.button.button-fat', { hook: bind('click', ctrl.join) }, i18n.storm.joinTheRace),
+    h('button.button.button-fat', { hook: bind('click', ctrl.join) }, i18n.storm.joinTheRace()),
   );
 
 const yourRank = (ctrl: RacerCtrl) => {
@@ -168,14 +168,14 @@ const waitForRematch = () =>
   h(
     `a.racer__new-race.button.button-fat.button-navaway.disabled`,
     { attrs: { disabled: true } },
-    i18n.storm.waitForRematch,
+    i18n.storm.waitForRematch(),
   );
 
 const lobbyNext = (ctrl: RacerCtrl) =>
   h('form', { attrs: { action: '/racer/lobby', method: 'post' } }, [
     h(
       `button.racer__new-race.button.button-navaway${ctrl.race.lobby ? '.button-fat' : '.button-empty'}`,
-      i18n.storm.nextRace,
+      i18n.storm.nextRace(),
     ),
   ]);
 
@@ -184,7 +184,7 @@ const friendNext = (ctrl: RacerCtrl) =>
     h(
       `a.racer__rematch.button.button-fat.button-navaway`,
       { attrs: { href: `/racer/${ctrl.race.id}/rematch` } },
-      i18n.storm.joinRematch,
+      i18n.storm.joinRematch(),
     ),
     h(
       'form.racer__post__next__new',
@@ -192,7 +192,7 @@ const friendNext = (ctrl: RacerCtrl) =>
       h(
         'button.racer__post__next__button.button.button-empty',
         { attrs: { type: 'submit' } },
-        i18n.storm.createNewGame,
+        i18n.storm.createNewGame(),
       ),
     ),
   ]);

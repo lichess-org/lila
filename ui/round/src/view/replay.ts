@@ -120,7 +120,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
       {
         class: { text: !!forecastCount },
         attrs: {
-          title: i18n.site.analysis,
+          title: i18n.site.analysis(),
           href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
           'data-icon': licon.Microscope,
         },
@@ -162,7 +162,7 @@ function renderButtons(ctrl: RoundController) {
           attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
         });
       }),
-      boardMenuToggleButton(ctrl.menu, i18n.site.menu),
+      boardMenuToggleButton(ctrl.menu, i18n.site.menu()),
     ],
   );
 }
@@ -177,7 +177,7 @@ function initMessage(ctrl: RoundController) {
     h('div.message', util.justIcon(licon.InfoCircle), [
       h('div', [
         i18n.site[d.player.color === 'white' ? 'youPlayTheWhitePieces' : 'youPlayTheBlackPieces'],
-        ...(d.player.color === 'white' ? [h('br'), h('strong', i18n.site.itsYourTurn)] : []),
+        ...(d.player.color === 'white' ? [h('br'), h('strong', i18n.site.itsYourTurn())] : []),
       ]),
     ])
   );

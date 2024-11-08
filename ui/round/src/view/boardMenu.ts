@@ -10,7 +10,7 @@ export default function (ctrl: RoundController): LooseVNode {
     const d = ctrl.data,
       spectator = d.player.spectator;
     return [
-      h('section', [menu.flip(i18n.site.flipBoard, ctrl.flip, ctrl.flipNow)]),
+      h('section', [menu.flip(i18n.site.flipBoard(), ctrl.flip, ctrl.flipNow)]),
       h('section', [
         menu.zenMode(true),
         menu.blindfold(

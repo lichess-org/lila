@@ -93,7 +93,7 @@ function renderPgnTags(tags: TagsForm, showRatings: boolean): VNode {
           },
         },
         [
-          h('option', i18n.study.newTag),
+          h('option', i18n.study.newTag()),
           ...tags.types.map(t => (!existingTypes.includes(t) ? option(t, '', t) : undefined)),
         ],
       ),

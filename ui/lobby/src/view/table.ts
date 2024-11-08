@@ -16,9 +16,9 @@ export default function table(ctrl: LobbyController) {
       'div.lobby__start',
       (site.blindMode ? [h('h2', 'Play')] : []).concat(
         [
-          ['hook', i18n.site.createAGame, hookDisabled],
-          ['friend', i18n.site.playWithAFriend, hasOngoingRealTimeGame],
-          ['ai', i18n.site.playWithTheMachine, hasOngoingRealTimeGame],
+          ['hook', i18n.site.createAGame(), hookDisabled],
+          ['friend', i18n.site.playWithAFriend(), hasOngoingRealTimeGame],
+          ['ai', i18n.site.playWithTheMachine(), hasOngoingRealTimeGame],
         ].map(([gameType, text, disabled]: [Exclude<GameType, 'local'>, string, boolean]) =>
           h(
             `button.button.button-metal.config_${gameType}`,

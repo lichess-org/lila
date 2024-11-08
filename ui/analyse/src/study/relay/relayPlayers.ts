@@ -115,9 +115,9 @@ export const playersView = (ctrl: RelayPlayers, tour: RelayTour): VNode =>
   ctrl.show ? playerView(ctrl, ctrl.show, tour) : playersList(ctrl);
 
 const ratingCategs = [
-  ['standard', i18n.site.classical],
-  ['rapid', i18n.site.rapid],
-  ['blitz', i18n.site.blitz],
+  ['standard', i18n.site.classical()],
+  ['rapid', i18n.site.rapid()],
+  ['blitz', i18n.site.blitz()],
 ];
 
 const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VNode => {
@@ -147,11 +147,11 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
                 )
               : []),
             age
-              ? h('div.relay-tour__player__card', [h('em', i18n.broadcast.ageThisYear), h('span', [age])])
+              ? h('div.relay-tour__player__card', [h('em', i18n.broadcast.ageThisYear()), h('span', [age])])
               : undefined,
             p.fed
               ? h('div.relay-tour__player__card', [
-                  h('em', i18n.broadcast.federation),
+                  h('em', i18n.broadcast.federation()),
                   h('a.relay-tour__player__fed', { attrs: { href: `/fide/federation/${p.fed.name}` } }, [
                     h('img.mini-game__flag', {
                       attrs: { src: site.asset.url(`images/fide-fed/${p.fed.id}.svg`) },
@@ -168,21 +168,21 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
               : undefined,
             p.score
               ? h('div.relay-tour__player__card', [
-                  h('em', i18n.broadcast.score),
+                  h('em', i18n.broadcast.score()),
                   h('span', [p.score, ' / ', p.played]),
                 ])
               : undefined,
             p.performance
               ? h('div.relay-tour__player__card', [
-                  h('em', i18n.site.performance),
+                  h('em', i18n.site.performance()),
                   h('span', [p.performance, p.games.length < 4 ? '?' : '']),
                 ])
               : undefined,
             p.ratingDiff &&
-              h('div.relay-tour__player__card', [h('em', i18n.broadcast.ratingDiff), ratingDiff(p)]),
+              h('div.relay-tour__player__card', [h('em', i18n.broadcast.ratingDiff()), ratingDiff(p)]),
           ]),
           h('table.relay-tour__player__games.slist.slist-pad', [
-            h('thead', h('tr', h('td', { attrs: { colspan: 69 } }, i18n.broadcast.gamesThisTournament))),
+            h('thead', h('tr', h('td', { attrs: { colspan: 69 } }, i18n.broadcast.gamesThisTournament()))),
             renderPlayerGames(ctrl, p, true),
           ]),
         ]
@@ -218,9 +218,9 @@ const renderPlayers = (ctrl: RelayPlayers, players: RelayPlayer[]): VNode => {
       h(
         'thead',
         h('tr', [
-          h('th', i18n.site.player),
+          h('th', i18n.site.player()),
           withRating ? h('th', !withScores && defaultSort, 'Elo') : undefined,
-          withScores ? h('th', defaultSort, i18n.broadcast.score) : h('th', i18n.site.games),
+          withScores ? h('th', defaultSort, i18n.broadcast.score()) : h('th', i18n.site.games()),
         ]),
       ),
       h(

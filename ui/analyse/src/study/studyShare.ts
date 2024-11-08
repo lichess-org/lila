@@ -21,7 +21,7 @@ function fromPly(ctrl: StudyShare): VNode {
         }),
         ...(renderedMove
           ? i18n.study.startAtX.asArray(h('strong', renderedMove))
-          : [i18n.study.startAtInitialPosition]),
+          : [i18n.study.startAtInitialPosition()]),
       ]),
   );
 }
@@ -70,7 +70,11 @@ export function view(ctrl: StudyShare): VNode {
   const addPly = (path: string) =>
     ctrl.onMainline() ? (ctrl.withPly() ? `${path}#${ctrl.currentNode().ply}` : path) : `${path}#last`;
   const youCanPasteThis = () =>
-    h('p.form-help.text', { attrs: dataIcon(licon.InfoCircle) }, i18n.study.youCanPasteThisInTheForumToEmbed);
+    h(
+      'p.form-help.text',
+      { attrs: dataIcon(licon.InfoCircle) },
+      i18n.study.youCanPasteThisInTheForumToEmbed(),
+    );
   return h(
     'div.study__share',
     ctrl.shareable()
@@ -80,7 +84,7 @@ export function view(ctrl: StudyShare): VNode {
               h(
                 'a.button.text',
                 { attrs: { ...dataIcon(licon.StudyBoard), href: `/study/${studyId}/clone` } },
-                i18n.study.cloneStudy,
+                i18n.study.cloneStudy(),
               ),
             ctrl.relay &&
               h(
@@ -92,7 +96,7 @@ export function view(ctrl: StudyShare): VNode {
                     download: true,
                   },
                 },
-                i18n.broadcast.downloadAllRounds,
+                i18n.broadcast.downloadAllRounds(),
               ),
             h(
               'a.button.text',
@@ -103,7 +107,7 @@ export function view(ctrl: StudyShare): VNode {
                   download: true,
                 },
               },
-              ctrl.relay ? i18n.study.downloadAllGames : i18n.study.studyPgn,
+              ctrl.relay ? i18n.study.downloadAllGames() : i18n.study.studyPgn(),
             ),
             h(
               'a.button.text',
@@ -114,7 +118,7 @@ export function view(ctrl: StudyShare): VNode {
                   download: true,
                 },
               },
-              ctrl.relay ? i18n.study.downloadGame : i18n.study.chapterPgn,
+              ctrl.relay ? i18n.study.downloadGame() : i18n.study.chapterPgn(),
             ),
             h(
               'a.button.text',
@@ -143,7 +147,7 @@ export function view(ctrl: StudyShare): VNode {
                   );
                 }),
               },
-              i18n.study.copyChapterPgn,
+              i18n.study.copyChapterPgn(),
             ),
             h(
               'a.button.text',
@@ -183,11 +187,11 @@ export function view(ctrl: StudyShare): VNode {
               ? [
                   [ctrl.relay.data.tour.name, ctrl.relay.tourPath()],
                   [ctrl.data.name, ctrl.relay.roundPath()],
-                  [i18n.broadcast.currentGameUrl, addPly(`${ctrl.relay.roundPath()}/${chapter.id}`), true],
+                  [i18n.broadcast.currentGameUrl(), addPly(`${ctrl.relay.roundPath()}/${chapter.id}`), true],
                 ]
               : [
-                  [i18n.study.studyUrl, `/study/${studyId}`],
-                  [i18n.study.currentChapterUrl, addPly(`/study/${studyId}/${chapter.id}`), true],
+                  [i18n.study.studyUrl(), `/study/${studyId}`],
+                  [i18n.study.currentChapterUrl(), addPly(`/study/${studyId}/${chapter.id}`), true],
                 ]
             ).map(([text, path, pastable]: [string, string, boolean]) =>
               h('div.form-group', [
@@ -201,7 +205,7 @@ export function view(ctrl: StudyShare): VNode {
               ? []
               : [
                   h('div.form-group', [
-                    h('label.form-label', i18n.study.embedInYourWebsite),
+                    h('label.form-label', i18n.study.embedInYourWebsite()),
                     copyMeInput(
                       !isPrivate
                         ? `<iframe ${
@@ -209,7 +213,7 @@ export function view(ctrl: StudyShare): VNode {
                           } src="${baseUrl()}${addPly(
                             `/study/embed/${studyId}/${chapter.id}`,
                           )}" frameborder=0></iframe>`
-                        : i18n.study.onlyPublicStudiesCanBeEmbedded,
+                        : i18n.study.onlyPublicStudiesCanBeEmbedded(),
                       { disabled: isPrivate },
                     ),
                     fromPly(ctrl),
@@ -223,7 +227,7 @@ export function view(ctrl: StudyShare): VNode {
                           ...dataIcon(licon.InfoCircle),
                         },
                       },
-                      i18n.study.readMoreAboutEmbedding,
+                      i18n.study.readMoreAboutEmbedding(),
                     ),
                   ]),
                 ]),

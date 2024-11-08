@@ -64,7 +64,7 @@ function buttons(root: AnalyseCtrl): VNode {
         h(
           'a.mode.sync',
           {
-            attrs: { title: i18n.study.allSyncMembersRemainOnTheSamePosition },
+            attrs: { title: i18n.study.allSyncMembersRemainOnTheSamePosition() },
             class: { on: ctrl.vm.mode.sticky },
             hook: bind('click', ctrl.toggleSticky),
           },
@@ -74,18 +74,18 @@ function buttons(root: AnalyseCtrl): VNode {
         h(
           'a.mode.write',
           {
-            attrs: { title: i18n.study.shareChanges },
+            attrs: { title: i18n.study.shareChanges() },
             class: { on: ctrl.vm.mode.write },
             hook: bind('click', ctrl.toggleWrite),
           },
           [h('i.is'), 'REC'],
         ),
-      toolButton({ ctrl, tab: 'tags', hint: i18n.study.pgnTags, icon: iconTag(licon.Tag) }),
+      toolButton({ ctrl, tab: 'tags', hint: i18n.study.pgnTags(), icon: iconTag(licon.Tag) }),
       canContribute &&
         toolButton({
           ctrl,
           tab: 'comments',
-          hint: i18n.study.commentThisPosition,
+          hint: i18n.study.commentThisPosition(),
           icon: iconTag(licon.BubbleSpeech),
           onClick() {
             ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
@@ -96,7 +96,7 @@ function buttons(root: AnalyseCtrl): VNode {
         toolButton({
           ctrl,
           tab: 'glyphs',
-          hint: i18n.study.annotateWithGlyphs,
+          hint: i18n.study.annotateWithGlyphs(),
           icon: h('i.glyph-icon'),
           count: (root.node.glyphs || []).length,
         }),
@@ -104,12 +104,17 @@ function buttons(root: AnalyseCtrl): VNode {
         toolButton({
           ctrl,
           tab: 'serverEval',
-          hint: i18n.site.computerAnalysis,
+          hint: i18n.site.computerAnalysis(),
           icon: iconTag(licon.BarChart),
           count: root.data.analysis && '✓',
         }),
       toolButton({ ctrl, tab: 'multiBoard', hint: 'Multiboard', icon: iconTag(licon.Multiboard) }),
-      toolButton({ ctrl, tab: 'share', hint: i18n.study.shareAndExport, icon: iconTag(licon.NodeBranching) }),
+      toolButton({
+        ctrl,
+        tab: 'share',
+        hint: i18n.study.shareAndExport(),
+        icon: iconTag(licon.NodeBranching),
+      }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         h('span.help', {
@@ -136,7 +141,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           class: { liked: d.liked },
           attrs: {
             ...dataIcon(d.liked ? licon.Heart : licon.HeartOutline),
-            title: d.liked ? i18n.study.unlike : i18n.study.like,
+            title: d.liked ? i18n.study.unlike() : i18n.study.like(),
           },
           hook: bind('click', ctrl.toggleLike),
         },
@@ -198,7 +203,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
               ctrl.commentForm.start(ctrl.currentChapter().id, path, node);
             }),
           },
-          i18n.study.commentThisMove,
+          i18n.study.commentThisMove(),
         ),
         h(
           'a.glyph-icon',
@@ -208,7 +213,7 @@ export function contextMenu(ctrl: StudyCtrl, path: Tree.Path, node: Tree.Node): 
               ctrl.ctrl.userJump(path);
             }),
           },
-          i18n.study.annotateWithGlyphs,
+          i18n.study.annotateWithGlyphs(),
         ),
       ]
     : [];

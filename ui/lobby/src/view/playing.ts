@@ -37,7 +37,7 @@ export default function (ctrl: LobbyController) {
             pov.isMyTurn
               ? pov.secondsLeft && pov.hasMoved
                 ? timer(pov)
-                : [i18n.site.yourTurn]
+                : [i18n.site.yourTurn()]
               : h('span', '\xa0'),
           ), // &nbsp;
         ]),

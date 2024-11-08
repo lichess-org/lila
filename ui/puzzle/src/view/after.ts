@@ -12,8 +12,8 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
       ctrl.session.isNew() &&
         ctrl.data.user?.provisional &&
         h('div.puzzle__vote__help', [
-          h('p', i18n.puzzle.didYouLikeThisPuzzle),
-          h('p', i18n.puzzle.voteToLoadNextOne),
+          h('p', i18n.puzzle.didYouLikeThisPuzzle()),
+          h('p', i18n.puzzle.voteToLoadNextOne()),
         ]),
       h('div.puzzle__vote__buttons', { class: { enabled: !ctrl.voteDisabled } }, [
         h('div.vote.vote-up', { hook: bind('click', () => ctrl.vote(true)) }),
@@ -25,7 +25,7 @@ const renderVote = (ctrl: PuzzleCtrl): VNode =>
 const renderContinue = (ctrl: PuzzleCtrl) =>
   h('a.continue', { hook: bind('click', ctrl.nextPuzzle) }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
-    i18n.puzzle.continueTraining,
+    i18n.puzzle.continueTraining(),
   ]);
 
 const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
@@ -35,7 +35,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
   ]),
   h('a.continue', { attrs: { href: router.withLang('/streak') } }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
-    i18n.puzzle.newStreak,
+    i18n.puzzle.newStreak(),
   ]),
 ];
 
@@ -54,7 +54,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
               attrs: {
                 'data-icon': licon.Bullseye,
                 href: `/analysis/${ctrl.node.fen.replace(/ /g, '_')}?color=${ctrl.pov}#practice`,
-                title: i18n.site.playWithTheMachine,
+                title: i18n.site.playWithTheMachine(),
                 target: '_blank',
                 rel: 'noopener',
               },
@@ -64,7 +64,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
               h(
                 'a',
                 { hook: bind('click', ctrl.nextPuzzle) },
-                i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'],
+                i18n.puzzle[ctrl.streak ? 'continueTheStreak' : 'continueTraining'](),
               ),
           ]),
         ],

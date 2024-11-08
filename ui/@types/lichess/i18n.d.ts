@@ -1,6 +1,6 @@
 // Generated
-interface I18nFormat {
-  (...args: (string | number)[]): string; // formatted
+interface I18nString {
+  (...args: (string | number)[]): string; // singular & formatted
   asArray: <T>(...args: T[]) => (T | string)[]; // vdom
 }
 interface I18nPlural {
@@ -14,7 +14,7 @@ interface I18n {
 
   activity: {
     /** Activity */
-    activity: string;
+    activity: I18nString;
     /** Competed in %s Swiss tournaments */
     competedInNbSwissTournaments: I18nPlural;
     /** Competed in %s Arena tournaments */
@@ -30,7 +30,7 @@ interface I18n {
     /** Gained %s new followers */
     gainedNbFollowers: I18nPlural;
     /** Hosted a live stream */
-    hostedALiveStream: string;
+    hostedALiveStream: I18nString;
     /** Hosted %s simultaneous exhibitions */
     hostedNbSimuls: I18nPlural;
     /** in %1$s correspondence games */
@@ -48,11 +48,11 @@ interface I18n {
     /** Practised %1$s positions on %2$s */
     practicedNbPositions: I18nPlural;
     /** Ranked #%1$s in %2$s */
-    rankedInSwissTournament: I18nFormat;
+    rankedInSwissTournament: I18nString;
     /** Ranked #%1$s (top %2$s%%) with %3$s games in %4$s */
     rankedInTournament: I18nPlural;
     /** Signed up to lichess.org */
-    signedUp: string;
+    signedUp: I18nString;
     /** Solved %s training puzzles */
     solvedNbPuzzles: I18nPlural;
     /** Supported lichess.org for %1$s months as a %2$s */
@@ -60,467 +60,467 @@ interface I18n {
   };
   appeal: {
     /** Your account is muted. */
-    accountMuted: string;
+    accountMuted: I18nString;
     /** Read our %s. Failure to follow the communication guidelines can result in accounts being muted. */
-    accountMutedInfo: I18nFormat;
+    accountMutedInfo: I18nString;
     /** Your account is banned from joining arenas. */
-    arenaBanned: string;
+    arenaBanned: I18nString;
     /** blog rules */
-    blogRules: string;
+    blogRules: I18nString;
     /** Your account is marked for rating manipulation. */
-    boosterMarked: string;
+    boosterMarked: I18nString;
     /** We define this as deliberately manipulating rating by losing games on purpose or by playing against another account that is deliberately losing games. */
-    boosterMarkedInfo: string;
+    boosterMarkedInfo: I18nString;
     /** Your account is not marked or restricted. You're all good! */
-    cleanAllGood: string;
+    cleanAllGood: I18nString;
     /** Your account was closed by moderators. */
-    closedByModerators: string;
+    closedByModerators: I18nString;
     /** communication guidelines */
-    communicationGuidelines: string;
+    communicationGuidelines: I18nString;
     /** Your account is marked for external assistance in games. */
-    engineMarked: string;
+    engineMarked: I18nString;
     /** We define this as using any external help to reinforce your knowledge and/or calculation skills in order to gain an unfair advantage over your opponent. See the %s page for more details. */
-    engineMarkedInfo: I18nFormat;
+    engineMarkedInfo: I18nString;
     /** Your account has been excluded from leaderboards. */
-    excludedFromLeaderboards: string;
+    excludedFromLeaderboards: I18nString;
     /** We define this as using any unfair way to get on the leaderboard. */
-    excludedFromLeaderboardsInfo: string;
+    excludedFromLeaderboardsInfo: I18nString;
     /** Fair Play */
-    fairPlay: string;
+    fairPlay: I18nString;
     /** Your blogs have been hidden by moderators. */
-    hiddenBlog: string;
+    hiddenBlog: I18nString;
     /** Make sure to read again our %s. */
-    hiddenBlogInfo: I18nFormat;
+    hiddenBlogInfo: I18nString;
     /** You have a play timeout. */
-    playTimeout: string;
+    playTimeout: I18nString;
     /** Your account is banned from tournaments with real prizes. */
-    prizeBanned: string;
+    prizeBanned: I18nString;
   };
   arena: {
     /** All averages on this page are %s. */
-    allAveragesAreX: I18nFormat;
+    allAveragesAreX: I18nString;
     /** Allow Berserk */
-    allowBerserk: string;
+    allowBerserk: I18nString;
     /** Let players halve their clock time to gain an extra point */
-    allowBerserkHelp: string;
+    allowBerserkHelp: I18nString;
     /** Let players discuss in a chat room */
-    allowChatHelp: string;
+    allowChatHelp: I18nString;
     /** Arena */
-    arena: string;
+    arena: I18nString;
     /** Arena streaks */
-    arenaStreaks: string;
+    arenaStreaks: I18nString;
     /** After 2 wins, consecutive wins grant 4 points instead of 2. */
-    arenaStreaksHelp: string;
+    arenaStreaksHelp: I18nString;
     /** Arena tournaments */
-    arenaTournaments: string;
+    arenaTournaments: I18nString;
     /** Average performance */
-    averagePerformance: string;
+    averagePerformance: I18nString;
     /** Average score */
-    averageScore: string;
+    averageScore: I18nString;
     /** Arena Berserk */
-    berserk: string;
+    berserk: I18nString;
     /** When a player clicks the Berserk button at the beginning of the game, they lose half of their clock time, but the win is worth one extra tournament point. */
-    berserkAnswer: string;
+    berserkAnswer: I18nString;
     /** Best results */
-    bestResults: string;
+    bestResults: I18nString;
     /** Created */
-    created: string;
+    created: I18nString;
     /** Custom start date */
-    customStartDate: string;
+    customStartDate: I18nString;
     /** In your own local timezone. This overrides the "Time before tournament starts" setting */
-    customStartDateHelp: string;
+    customStartDateHelp: I18nString;
     /** Defender */
-    defender: string;
+    defender: I18nString;
     /** Drawing the game within the first %s moves will earn neither player any points. */
     drawingWithinNbMoves: I18nPlural;
     /** Draw streaks: When a player has consecutive draws in an arena, only the first draw will result in a point or draws lasting more than %s moves in standard games. The draw streak can only be broken by a win, not a loss or a draw. */
-    drawStreakStandard: I18nFormat;
+    drawStreakStandard: I18nString;
     /** The minimum game length for drawn games to award points differs by variant. The table below lists the threshold for each variant. */
-    drawStreakVariants: string;
+    drawStreakVariants: I18nString;
     /** Edit team battle */
-    editTeamBattle: string;
+    editTeamBattle: I18nString;
     /** Edit tournament */
-    editTournament: string;
+    editTournament: I18nString;
     /** Arena History */
-    history: string;
+    history: I18nString;
     /** How are scores calculated? */
-    howAreScoresCalculated: string;
+    howAreScoresCalculated: I18nString;
     /** A win has a base score of 2 points, a draw 1 point, and a loss is worth no points. */
-    howAreScoresCalculatedAnswer: string;
+    howAreScoresCalculatedAnswer: I18nString;
     /** How does it end? */
-    howDoesItEnd: string;
+    howDoesItEnd: I18nString;
     /** The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however, they don't count for the tournament. */
-    howDoesItEndAnswer: string;
+    howDoesItEndAnswer: I18nString;
     /** How does the pairing work? */
-    howDoesPairingWork: string;
+    howDoesPairingWork: I18nString;
     /** At the beginning of the tournament, players are paired based on their rating. */
-    howDoesPairingWorkAnswer: string;
+    howDoesPairingWorkAnswer: I18nString;
     /** How is the winner decided? */
-    howIsTheWinnerDecided: string;
+    howIsTheWinnerDecided: I18nString;
     /** The player(s) with the most points after the tournament's set time limit will be announced the winner(s). */
-    howIsTheWinnerDecidedAnswer: string;
+    howIsTheWinnerDecidedAnswer: I18nString;
     /** Is it rated? */
-    isItRated: string;
+    isItRated: I18nString;
     /** This tournament is *not* rated and will *not* affect your rating. */
-    isNotRated: string;
+    isNotRated: I18nString;
     /** This tournament is rated and will affect your rating. */
-    isRated: string;
+    isRated: I18nString;
     /** medians */
-    medians: string;
+    medians: I18nString;
     /** Minimum game length */
-    minimumGameLength: string;
+    minimumGameLength: I18nString;
     /** My tournaments */
-    myTournaments: string;
+    myTournaments: I18nString;
     /** New Team Battle */
-    newTeamBattle: string;
+    newTeamBattle: I18nString;
     /** No Arena streaks */
-    noArenaStreaks: string;
+    noArenaStreaks: I18nString;
     /** No Berserk allowed */
-    noBerserkAllowed: string;
+    noBerserkAllowed: I18nString;
     /** Only titled players */
-    onlyTitled: string;
+    onlyTitled: I18nString;
     /** Require an official title to join the tournament */
-    onlyTitledHelp: string;
+    onlyTitledHelp: I18nString;
     /** Other important rules */
-    otherRules: string;
+    otherRules: I18nString;
     /** Pick your team */
-    pickYourTeam: string;
+    pickYourTeam: I18nString;
     /** Points average */
-    pointsAvg: string;
+    pointsAvg: I18nString;
     /** Points sum */
-    pointsSum: string;
+    pointsSum: I18nString;
     /** Rank average */
-    rankAvg: string;
+    rankAvg: I18nString;
     /** The rank average is a percentage of your ranking. Lower is better. */
-    rankAvgHelp: string;
+    rankAvgHelp: I18nString;
     /** Recently played */
-    recentlyPlayed: string;
+    recentlyPlayed: I18nString;
     /** Share this URL to let people join: %s */
-    shareUrl: I18nFormat;
+    shareUrl: I18nString;
     /** Some tournaments are rated and will affect your rating. */
-    someRated: string;
+    someRated: I18nString;
     /** There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent. */
-    thereIsACountdown: string;
+    thereIsACountdown: I18nString;
     /** This is a private tournament */
-    thisIsPrivate: string;
+    thisIsPrivate: I18nString;
     /** Total */
-    total: string;
+    total: I18nString;
     /** Tournament shields */
-    tournamentShields: string;
+    tournamentShields: I18nString;
     /** Tournament stats */
-    tournamentStats: string;
+    tournamentStats: I18nString;
     /** Tournament winners */
-    tournamentWinners: string;
+    tournamentWinners: I18nString;
     /** Variant */
-    variant: string;
+    variant: I18nString;
     /** View all %s teams */
     viewAllXTeams: I18nPlural;
     /** Which team will you represent in this battle? */
-    whichTeamWillYouRepresentInThisBattle: string;
+    whichTeamWillYouRepresentInThisBattle: I18nString;
     /** You will be notified when the tournament starts, so it is safe to play in another tab while waiting. */
-    willBeNotified: string;
+    willBeNotified: I18nString;
     /** You must join one of these teams to participate! */
-    youMustJoinOneOfTheseTeamsToParticipate: string;
+    youMustJoinOneOfTheseTeamsToParticipate: I18nString;
   };
   broadcast: {
     /** About broadcasts */
-    aboutBroadcasts: string;
+    aboutBroadcasts: I18nString;
     /** Add a round */
-    addRound: string;
+    addRound: I18nString;
     /** Age this year */
-    ageThisYear: string;
+    ageThisYear: I18nString;
     /** View all broadcasts by month */
-    allBroadcastsByMonth: string;
+    allBroadcastsByMonth: I18nString;
     /** All teams */
-    allTeams: string;
+    allTeams: I18nString;
     /** Boards */
-    boards: string;
+    boards: I18nString;
     /** Boards can be loaded with a source or via the %s */
-    boardsCanBeLoaded: I18nFormat;
+    boardsCanBeLoaded: I18nString;
     /** Broadcast calendar */
-    broadcastCalendar: string;
+    broadcastCalendar: I18nString;
     /** Broadcasts */
-    broadcasts: string;
+    broadcasts: I18nString;
     /** Completed */
-    completed: string;
+    completed: I18nString;
     /** Lichess detects round completion, but can get it wrong. Use this to set it manually. */
-    completedHelp: string;
+    completedHelp: I18nString;
     /** Current game URL */
-    currentGameUrl: string;
+    currentGameUrl: I18nString;
     /** Definitively delete the round and all its games. */
-    definitivelyDeleteRound: string;
+    definitivelyDeleteRound: I18nString;
     /** Definitively delete the entire tournament, all its rounds and all its games. */
-    definitivelyDeleteTournament: string;
+    definitivelyDeleteTournament: I18nString;
     /** Delete all games of this round. The source will need to be active in order to re-create them. */
-    deleteAllGamesOfThisRound: string;
+    deleteAllGamesOfThisRound: I18nString;
     /** Delete this round */
-    deleteRound: string;
+    deleteRound: I18nString;
     /** Delete this tournament */
-    deleteTournament: string;
+    deleteTournament: I18nString;
     /** Download all rounds */
-    downloadAllRounds: string;
+    downloadAllRounds: I18nString;
     /** Edit round study */
-    editRoundStudy: string;
+    editRoundStudy: I18nString;
     /** Embed this broadcast in your website */
-    embedThisBroadcast: string;
+    embedThisBroadcast: I18nString;
     /** Embed %s in your website */
-    embedThisRound: I18nFormat;
+    embedThisRound: I18nString;
     /** Federation */
-    federation: string;
+    federation: I18nString;
     /** FIDE federations */
-    fideFederations: string;
+    fideFederations: I18nString;
     /** FIDE player not found */
-    fidePlayerNotFound: string;
+    fidePlayerNotFound: I18nString;
     /** FIDE players */
-    fidePlayers: string;
+    fidePlayers: I18nString;
     /** FIDE profile */
-    fideProfile: string;
+    fideProfile: I18nString;
     /** FIDE rating category */
-    fideRatingCategory: string;
+    fideRatingCategory: I18nString;
     /** Full tournament description */
-    fullDescription: string;
+    fullDescription: I18nString;
     /** Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters. */
-    fullDescriptionHelp: I18nFormat;
+    fullDescriptionHelp: I18nString;
     /** Games in this tournament */
-    gamesThisTournament: string;
+    gamesThisTournament: I18nString;
     /** How to use Lichess Broadcasts. */
-    howToUseLichessBroadcasts: string;
+    howToUseLichessBroadcasts: I18nString;
     /** More options on the %s */
-    iframeHelp: I18nFormat;
+    iframeHelp: I18nString;
     /** Live tournament broadcasts */
-    liveBroadcasts: string;
+    liveBroadcasts: I18nString;
     /** My broadcasts */
-    myBroadcasts: string;
+    myBroadcasts: I18nString;
     /** %s broadcasts */
     nbBroadcasts: I18nPlural;
     /** New live broadcast */
-    newBroadcast: string;
+    newBroadcast: I18nString;
     /** No boards yet. These will appear once games are uploaded. */
-    noBoardsYet: string;
+    noBoardsYet: I18nString;
     /** The broadcast has not yet started. */
-    notYetStarted: string;
+    notYetStarted: I18nString;
     /** Official Standings */
-    officialStandings: string;
+    officialStandings: I18nString;
     /** Official website */
-    officialWebsite: string;
+    officialWebsite: I18nString;
     /** Ongoing */
-    ongoing: string;
+    ongoing: I18nString;
     /** Open in Lichess */
-    openLichess: string;
+    openLichess: I18nString;
     /** Optional details */
-    optionalDetails: string;
+    optionalDetails: I18nString;
     /** Overview */
-    overview: string;
+    overview: I18nString;
     /** Past broadcasts */
-    pastBroadcasts: string;
+    pastBroadcasts: I18nString;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
-    pgnSourceHelp: I18nFormat;
+    pgnSourceHelp: I18nString;
     /** Rating diff */
-    ratingDiff: string;
+    ratingDiff: I18nString;
     /** Recent tournaments */
-    recentTournaments: string;
+    recentTournaments: I18nString;
     /** Optional: replace player names, ratings and titles */
-    replacePlayerTags: string;
+    replacePlayerTags: I18nString;
     /** Reset this round */
-    resetRound: string;
+    resetRound: I18nString;
     /** Round name */
-    roundName: string;
+    roundName: I18nString;
     /** Round number */
-    roundNumber: string;
+    roundNumber: I18nString;
     /** Score */
-    score: string;
+    score: I18nString;
     /** Show players scores based on game results */
-    showScores: string;
+    showScores: I18nString;
     /** Up to 64 Lichess game IDs, separated by spaces. */
-    sourceGameIds: string;
+    sourceGameIds: I18nString;
     /** PGN Source URL */
-    sourceSingleUrl: string;
+    sourceSingleUrl: I18nString;
     /** URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet. */
-    sourceUrlHelp: string;
+    sourceUrlHelp: I18nString;
     /** Standings */
-    standings: string;
+    standings: I18nString;
     /** Optional, if you know when the event starts */
-    startDateHelp: string;
+    startDateHelp: I18nString;
     /** Start date in the tournament local timezone: %s */
-    startDateTimeZone: I18nFormat;
+    startDateTimeZone: I18nString;
     /** Starts after %s */
-    startsAfter: I18nFormat;
+    startsAfter: I18nString;
     /** The broadcast will start very soon. */
-    startVerySoon: string;
+    startVerySoon: I18nString;
     /** Subscribed broadcasts */
-    subscribedBroadcasts: string;
+    subscribedBroadcasts: I18nString;
     /** Subscribe to be notified when each round starts. You can toggle bell or push notifications for broadcasts in your account preferences. */
-    subscribeTitle: string;
+    subscribeTitle: I18nString;
     /** Teams */
-    teams: string;
+    teams: I18nString;
     /** The new round will have the same members and contributors as the previous one. */
-    theNewRoundHelp: string;
+    theNewRoundHelp: I18nString;
     /** Time zone */
-    timezone: string;
+    timezone: I18nString;
     /** Top 10 rating */
-    top10Rating: string;
+    top10Rating: I18nString;
     /** Top players */
-    topPlayers: string;
+    topPlayers: I18nString;
     /** Short tournament description */
-    tournamentDescription: string;
+    tournamentDescription: I18nString;
     /** Tournament format */
-    tournamentFormat: string;
+    tournamentFormat: I18nString;
     /** Tournament Location */
-    tournamentLocation: string;
+    tournamentLocation: I18nString;
     /** Tournament name */
-    tournamentName: string;
+    tournamentName: I18nString;
     /** Unrated */
-    unrated: string;
+    unrated: I18nString;
     /** Upcoming */
-    upcoming: string;
+    upcoming: I18nString;
     /** Upcoming broadcasts */
-    upcomingBroadcasts: string;
+    upcomingBroadcasts: I18nString;
     /** Upload tournament image */
-    uploadImage: string;
+    uploadImage: I18nString;
     /** webmasters page */
-    webmastersPage: string;
+    webmastersPage: I18nString;
   };
   challenge: {
     /** Cannot challenge due to provisional %s rating. */
-    cannotChallengeDueToProvisionalXRating: I18nFormat;
+    cannotChallengeDueToProvisionalXRating: I18nString;
     /** Challenge accepted! */
-    challengeAccepted: string;
+    challengeAccepted: I18nString;
     /** Challenge cancelled. */
-    challengeCanceled: string;
+    challengeCanceled: I18nString;
     /** Challenge declined. */
-    challengeDeclined: string;
+    challengeDeclined: I18nString;
     /** Challenges: %1$s */
-    challengesX: I18nFormat;
+    challengesX: I18nString;
     /** Challenge to a game */
-    challengeToPlay: string;
+    challengeToPlay: I18nString;
     /** Please send me a casual challenge instead. */
-    declineCasual: string;
+    declineCasual: I18nString;
     /** I'm not accepting challenges at the moment. */
-    declineGeneric: string;
+    declineGeneric: I18nString;
     /** This is not the right time for me, please ask again later. */
-    declineLater: string;
+    declineLater: I18nString;
     /** I'm not accepting challenges from bots. */
-    declineNoBot: string;
+    declineNoBot: I18nString;
     /** I'm only accepting challenges from bots. */
-    declineOnlyBot: string;
+    declineOnlyBot: I18nString;
     /** Please send me a rated challenge instead. */
-    declineRated: string;
+    declineRated: I18nString;
     /** I'm not accepting variant challenges right now. */
-    declineStandard: string;
+    declineStandard: I18nString;
     /** I'm not accepting challenges with this time control. */
-    declineTimeControl: string;
+    declineTimeControl: I18nString;
     /** This time control is too fast for me, please challenge again with a slower game. */
-    declineTooFast: string;
+    declineTooFast: I18nString;
     /** This time control is too slow for me, please challenge again with a faster game. */
-    declineTooSlow: string;
+    declineTooSlow: I18nString;
     /** I'm not willing to play this variant right now. */
-    declineVariant: string;
+    declineVariant: I18nString;
     /** Or invite a Lichess user: */
-    inviteLichessUser: string;
+    inviteLichessUser: I18nString;
     /** Please register to send challenges to this user. */
-    registerToSendChallenges: string;
+    registerToSendChallenges: I18nString;
     /** %s does not accept challenges. */
-    xDoesNotAcceptChallenges: I18nFormat;
+    xDoesNotAcceptChallenges: I18nString;
     /** %s only accepts challenges from friends. */
-    xOnlyAcceptsChallengesFromFriends: I18nFormat;
+    xOnlyAcceptsChallengesFromFriends: I18nString;
     /** You cannot challenge %s. */
-    youCannotChallengeX: I18nFormat;
+    youCannotChallengeX: I18nString;
     /** Your %1$s rating is too far from %2$s. */
-    yourXRatingIsTooFarFromY: I18nFormat;
+    yourXRatingIsTooFarFromY: I18nString;
   };
   class: {
     /** Add Lichess usernames to invite them as teachers. One per line. */
-    addLichessUsernames: string;
+    addLichessUsernames: I18nString;
     /** Add student */
-    addStudent: string;
+    addStudent: I18nString;
     /** A link to the class will be automatically added at the end of the message, so you don't need to include it yourself. */
-    aLinkToTheClassWillBeAdded: string;
+    aLinkToTheClassWillBeAdded: I18nString;
     /** An invitation has been sent to %s */
-    anInvitationHasBeenSentToX: I18nFormat;
+    anInvitationHasBeenSentToX: I18nString;
     /** Apply to be a Lichess Teacher */
-    applyToBeLichessTeacher: string;
+    applyToBeLichessTeacher: I18nString;
     /** Class description */
-    classDescription: string;
+    classDescription: I18nString;
     /** Class name */
-    className: string;
+    className: I18nString;
     /** Class news */
-    classNews: string;
+    classNews: I18nString;
     /** Click the link to view the invitation: */
-    clickToViewInvitation: string;
+    clickToViewInvitation: I18nString;
     /** Close class */
-    closeClass: string;
+    closeClass: I18nString;
     /** The student will never be able to use this account again. Closing is final. Make sure the student understands and agrees. */
-    closeDesc1: string;
+    closeDesc1: I18nString;
     /** You may want to give the student control over the account instead so that they can continue using it. */
-    closeDesc2: string;
+    closeDesc2: I18nString;
     /** Close account */
-    closeStudent: string;
+    closeStudent: I18nString;
     /** Close the student account permanently. */
-    closeTheAccount: string;
+    closeTheAccount: I18nString;
     /** Create a new Lichess account */
-    createANewLichessAccount: string;
+    createANewLichessAccount: I18nString;
     /** If the student doesn't have a Lichess account yet, you can create one for them here. */
-    createDesc1: string;
+    createDesc1: I18nString;
     /** No email address is required. A password will be generated, and you will have to transmit it to the student so that they can log in. */
-    createDesc2: string;
+    createDesc2: I18nString;
     /** Important: a student must not have multiple accounts. */
-    createDesc3: string;
+    createDesc3: I18nString;
     /** If they already have one, use the invite form instead. */
-    createDesc4: string;
+    createDesc4: I18nString;
     /** create more classes */
-    createMoreClasses: string;
+    createMoreClasses: I18nString;
     /** Create multiple Lichess accounts at once */
-    createMultipleAccounts: string;
+    createMultipleAccounts: I18nString;
     /** Only create accounts for real students. Do not use this to make multiple accounts for yourself. You would get banned. */
-    createStudentWarning: string;
+    createStudentWarning: I18nString;
     /** Edit news */
-    editNews: string;
+    editNews: I18nString;
     /** Features */
-    features: string;
+    features: I18nString;
     /** 100% free for all, forever, with no ads or trackers */
-    freeForAllForever: string;
+    freeForAllForever: I18nString;
     /** Generate a new password for the student */
-    generateANewPassword: string;
+    generateANewPassword: I18nString;
     /** Generate a new username */
-    generateANewUsername: string;
+    generateANewUsername: I18nString;
     /** You are invited to join the class "%s" as a student. */
-    invitationToClass: I18nFormat;
+    invitationToClass: I18nString;
     /** Invite */
-    invite: string;
+    invite: I18nString;
     /** Invite a Lichess account */
-    inviteALichessAccount: string;
+    inviteALichessAccount: I18nString;
     /** If the student already has a Lichess account, you can invite them to the class. */
-    inviteDesc1: string;
+    inviteDesc1: I18nString;
     /** They will receive a message on Lichess with a link to join the class. */
-    inviteDesc2: string;
+    inviteDesc2: I18nString;
     /** Important: only invite students you know, and who actively want to join the class. */
-    inviteDesc3: string;
+    inviteDesc3: I18nString;
     /** Never send unsolicited invites to arbitrary players. */
-    inviteDesc4: string;
+    inviteDesc4: I18nString;
     /** Invited to %1$s by %2$s */
-    invitedToXByY: I18nFormat;
+    invitedToXByY: I18nString;
     /** Invite the student back */
-    inviteTheStudentBack: string;
+    inviteTheStudentBack: I18nString;
     /** Active */
-    lastActiveDate: string;
+    lastActiveDate: I18nString;
     /** Classes */
-    lichessClasses: string;
+    lichessClasses: I18nString;
     /** Lichess profile %1$s created for %2$s. */
-    lichessProfileXCreatedForY: I18nFormat;
+    lichessProfileXCreatedForY: I18nString;
     /** Lichess username */
-    lichessUsername: string;
+    lichessUsername: I18nString;
     /** Make sure to copy or write down the password now. You won’t ever be able to see it again! */
-    makeSureToCopy: string;
+    makeSureToCopy: I18nString;
     /** Managed */
-    managed: string;
+    managed: I18nString;
     /** Note that a class can have up to %1$s students. To manage more students, %2$s. */
-    maxStudentsNote: I18nFormat;
+    maxStudentsNote: I18nString;
     /** Message all students about new class material */
-    messageAllStudents: string;
+    messageAllStudents: I18nString;
     /** You can also %s to create multiple Lichess accounts from a list of student names. */
-    multipleAccsFormDescription: I18nFormat;
+    multipleAccsFormDescription: I18nString;
     /** N/A */
-    na: string;
+    na: I18nString;
     /** %s pending invitations */
     nbPendingInvitations: I18nPlural;
     /** %s students */
@@ -528,1751 +528,1751 @@ interface I18n {
     /** %s teachers */
     nbTeachers: I18nPlural;
     /** New class */
-    newClass: string;
+    newClass: I18nString;
     /** News */
-    news: string;
+    news: I18nString;
     /** All class news in a single field. */
-    newsEdit1: string;
+    newsEdit1: I18nString;
     /** Add the recent news at the top. Don't delete previous news. */
-    newsEdit2: string;
+    newsEdit2: I18nString;
     /** Separate news with --- */
-    newsEdit3: string;
+    newsEdit3: I18nString;
     /** No classes yet. */
-    noClassesYet: string;
+    noClassesYet: I18nString;
     /** No removed students. */
-    noRemovedStudents: string;
+    noRemovedStudents: I18nString;
     /** No students in the class, yet. */
-    noStudents: string;
+    noStudents: I18nString;
     /** Nothing here, yet. */
-    nothingHere: string;
+    nothingHere: I18nString;
     /** Notify all students */
-    notifyAllStudents: string;
+    notifyAllStudents: I18nString;
     /** Only visible to the class teachers */
-    onlyVisibleToTeachers: string;
+    onlyVisibleToTeachers: I18nString;
     /** or */
-    orSeparator: string;
+    orSeparator: I18nString;
     /** Over days */
-    overDays: string;
+    overDays: I18nString;
     /** Overview */
-    overview: string;
+    overview: I18nString;
     /** Password: %s */
-    passwordX: I18nFormat;
+    passwordX: I18nString;
     /** Private. Will never be shown outside the class. Helps you remember who the student is. */
-    privateWillNeverBeShown: string;
+    privateWillNeverBeShown: I18nString;
     /** Progress */
-    progress: string;
+    progress: I18nString;
     /** Quickly generate safe usernames and passwords for students */
-    quicklyGenerateSafeUsernames: string;
+    quicklyGenerateSafeUsernames: I18nString;
     /** Real name */
-    realName: string;
+    realName: I18nString;
     /** Real, unique email address of the student. We will send a confirmation email to it, with a link to graduate the account. */
-    realUniqueEmail: string;
+    realUniqueEmail: I18nString;
     /** Graduate */
-    release: string;
+    release: I18nString;
     /** A graduated account cannot be managed again. The student will be able to toggle kid mode and reset password themselves. */
-    releaseDesc1: string;
+    releaseDesc1: I18nString;
     /** The student will remain in the class after their account is graduated. */
-    releaseDesc2: string;
+    releaseDesc2: I18nString;
     /** Graduate the account so the student can manage it autonomously. */
-    releaseTheAccount: string;
+    releaseTheAccount: I18nString;
     /** Removed by %s */
-    removedByX: I18nFormat;
+    removedByX: I18nString;
     /** Removed */
-    removedStudents: string;
+    removedStudents: I18nString;
     /** Remove student */
-    removeStudent: string;
+    removeStudent: I18nString;
     /** Reopen */
-    reopen: string;
+    reopen: I18nString;
     /** Reset password */
-    resetPassword: string;
+    resetPassword: I18nString;
     /** Send a message to all students. */
-    sendAMessage: string;
+    sendAMessage: I18nString;
     /** Student:  %1$s */
-    studentCredentials: I18nFormat;
+    studentCredentials: I18nString;
     /** Students */
-    students: string;
+    students: I18nString;
     /** Students' real names, one per line */
-    studentsRealNamesOnePerLine: string;
+    studentsRealNamesOnePerLine: I18nString;
     /** Teach classes of chess students with the Lichess Classes tool suite. */
-    teachClassesOfChessStudents: string;
+    teachClassesOfChessStudents: I18nString;
     /** Teachers */
-    teachers: string;
+    teachers: I18nString;
     /** Teachers of the class */
-    teachersOfTheClass: string;
+    teachersOfTheClass: I18nString;
     /** Teachers: %s */
-    teachersX: I18nFormat;
+    teachersX: I18nString;
     /** This student account is managed */
-    thisStudentAccountIsManaged: string;
+    thisStudentAccountIsManaged: I18nString;
     /** Time playing */
-    timePlaying: string;
+    timePlaying: I18nString;
     /** Track student progress in games and puzzles */
-    trackStudentProgress: string;
+    trackStudentProgress: I18nString;
     /** Upgrade from managed to autonomous */
-    upgradeFromManaged: string;
+    upgradeFromManaged: I18nString;
     /** use this form */
-    useThisForm: string;
+    useThisForm: I18nString;
     /** %1$s over last %2$s */
-    variantXOverLastY: I18nFormat;
+    variantXOverLastY: I18nString;
     /** Visible by both teachers and students of the class */
-    visibleByBothStudentsAndTeachers: string;
+    visibleByBothStudentsAndTeachers: I18nString;
     /** Welcome to your class: %s. */
-    welcomeToClass: I18nFormat;
+    welcomeToClass: I18nString;
     /** Win rate */
-    winrate: string;
+    winrate: I18nString;
     /** %s already has a pending invitation */
-    xAlreadyHasAPendingInvitation: I18nFormat;
+    xAlreadyHasAPendingInvitation: I18nString;
     /** %1$s is a kid account and can't receive your message. You must give them the invitation URL manually: %2$s */
-    xIsAKidAccountWarning: I18nFormat;
+    xIsAKidAccountWarning: I18nString;
     /** %s is now a student of the class */
-    xisNowAStudentOfTheClass: I18nFormat;
+    xisNowAStudentOfTheClass: I18nString;
     /** You accepted this invitation. */
-    youAcceptedThisInvitation: string;
+    youAcceptedThisInvitation: I18nString;
     /** You declined this invitation. */
-    youDeclinedThisInvitation: string;
+    youDeclinedThisInvitation: I18nString;
     /** You have been invited by %s. */
-    youHaveBeenInvitedByX: I18nFormat;
+    youHaveBeenInvitedByX: I18nString;
   };
   coach: {
     /** About me */
-    aboutMe: string;
+    aboutMe: I18nString;
     /** Accepting students */
-    accepting: string;
+    accepting: I18nString;
     /** Are you a great chess coach with a %s? */
-    areYouCoach: I18nFormat;
+    areYouCoach: I18nString;
     /** Availability */
-    availability: string;
+    availability: I18nString;
     /** Best skills */
-    bestSkills: string;
+    bestSkills: I18nString;
     /** Confirm your title here and we will review your application. */
-    confirmTitle: string;
+    confirmTitle: I18nString;
     /** Hourly rate */
-    hourlyRate: string;
+    hourlyRate: I18nString;
     /** Languages */
-    languages: string;
+    languages: I18nString;
     /** Lichess coach */
-    lichessCoach: string;
+    lichessCoach: I18nString;
     /** Lichess coaches */
-    lichessCoaches: string;
+    lichessCoaches: I18nString;
     /** Location */
-    location: string;
+    location: I18nString;
     /** NM or FIDE title */
-    nmOrFideTitle: string;
+    nmOrFideTitle: I18nString;
     /** Not accepting students at the moment */
-    notAccepting: string;
+    notAccepting: I18nString;
     /** Other experiences */
-    otherExperiences: string;
+    otherExperiences: I18nString;
     /** Playing experience */
-    playingExperience: string;
+    playingExperience: I18nString;
     /** Public studies */
-    publicStudies: string;
+    publicStudies: I18nString;
     /** Rating */
-    rating: string;
+    rating: I18nString;
     /** Send us an email at %s and we will review your application. */
-    sendApplication: I18nFormat;
+    sendApplication: I18nString;
     /** Send a private message */
-    sendPM: string;
+    sendPM: I18nString;
     /** Teaching experience */
-    teachingExperience: string;
+    teachingExperience: I18nString;
     /** Teaching methodology */
-    teachingMethod: string;
+    teachingMethod: I18nString;
     /** View %s Lichess profile */
-    viewXProfile: I18nFormat;
+    viewXProfile: I18nString;
     /** %s coaches chess students */
-    xCoachesStudents: I18nFormat;
+    xCoachesStudents: I18nString;
     /** YouTube videos */
-    youtubeVideos: string;
+    youtubeVideos: I18nString;
   };
   contact: {
     /** However if you indeed used engine assistance, even just once, then your account is unfortunately lost. */
-    accountLost: string;
+    accountLost: I18nString;
     /** I need account support */
-    accountSupport: string;
+    accountSupport: I18nString;
     /** Authorisation to use Lichess */
-    authorizationToUse: string;
+    authorizationToUse: I18nString;
     /** Appeal for a ban or IP restriction */
-    banAppeal: string;
+    banAppeal: I18nString;
     /** In certain circumstances when playing against a bot account, a rated game may not award points if it is determined that the player is abusing the bot for rating points. */
-    botRatingAbuse: string;
+    botRatingAbuse: I18nString;
     /** Buying Lichess */
-    buyingLichess: string;
+    buyingLichess: I18nString;
     /** It is called "en passant" and is one of the rules of chess. */
-    calledEnPassant: string;
+    calledEnPassant: I18nString;
     /** We can't change more than the case. For technical reasons, it's downright impossible. */
-    cantChangeMore: string;
+    cantChangeMore: I18nString;
     /** It's not possible to clear your game history, puzzle history, or ratings. */
-    cantClearHistory: string;
+    cantClearHistory: I18nString;
     /** If you imported the game, or started it from a position, make sure you correctly set the castling rights. */
-    castlingImported: string;
+    castlingImported: I18nString;
     /** Castling is only prevented if the king goes through a controlled square. */
-    castlingPrevented: string;
+    castlingPrevented: I18nString;
     /** Make sure you understand the castling rules */
-    castlingRules: string;
+    castlingRules: I18nString;
     /** Visit this page to change the case of your username */
-    changeUsernameCase: string;
+    changeUsernameCase: I18nString;
     /** You can close your account on this page */
-    closeYourAccount: string;
+    closeYourAccount: I18nString;
     /** Collaboration, legal, commercial */
-    collaboration: string;
+    collaboration: I18nString;
     /** Contact */
-    contact: string;
+    contact: I18nString;
     /** Contact Lichess */
-    contactLichess: string;
+    contactLichess: I18nString;
     /** Credit is appreciated but not required. */
-    creditAppreciated: string;
+    creditAppreciated: I18nString;
     /** Do not ask us by email to close an account, we won't do it. */
-    doNotAskByEmail: string;
+    doNotAskByEmail: I18nString;
     /** Do not ask us by email to reopen an account, we won't do it. */
-    doNotAskByEmailToReopen: string;
+    doNotAskByEmailToReopen: I18nString;
     /** Do not deny having cheated. If you want to be allowed to create a new account, just admit to what you did, and show that you understood that it was a mistake. */
-    doNotDeny: string;
+    doNotDeny: I18nString;
     /** Please do not send direct messages to moderators. */
-    doNotMessageModerators: string;
+    doNotMessageModerators: I18nString;
     /** Do not report players in the forum. */
-    doNotReportInForum: string;
+    doNotReportInForum: I18nString;
     /** Do not send us report emails. */
-    doNotSendReportEmails: string;
+    doNotSendReportEmails: I18nString;
     /** Complete a password reset to remove your second factor */
-    doPasswordReset: string;
+    doPasswordReset: I18nString;
     /** Engine or cheat mark */
-    engineAppeal: string;
+    engineAppeal: I18nString;
     /** Error page */
-    errorPage: string;
+    errorPage: I18nString;
     /** Please explain your request clearly and thoroughly. State your Lichess username, and any information that could help us help you. */
-    explainYourRequest: string;
+    explainYourRequest: I18nString;
     /** False positives do happen sometimes, and we're sorry about that. */
-    falsePositives: string;
+    falsePositives: I18nString;
     /** According to the FIDE Laws of Chess §6.9, if a checkmate is possible with any legal sequence of moves, then the game is not a draw */
-    fideMate: string;
+    fideMate: I18nString;
     /** I forgot my password */
-    forgotPassword: string;
+    forgotPassword: I18nString;
     /** I forgot my username */
-    forgotUsername: string;
+    forgotUsername: I18nString;
     /** Please describe what the bug looks like, what you expected to happen instead, and the steps to reproduce the bug. */
-    howToReportBug: string;
+    howToReportBug: I18nString;
     /** I can't log in */
-    iCantLogIn: string;
+    iCantLogIn: I18nString;
     /** If your appeal is legitimate, we will lift the ban ASAP. */
-    ifLegit: string;
+    ifLegit: I18nString;
     /** Illegal or impossible castling */
-    illegalCastling: string;
+    illegalCastling: I18nString;
     /** Illegal pawn capture */
-    illegalPawnCapture: string;
+    illegalPawnCapture: I18nString;
     /** Insufficient mating material */
-    insufficientMaterial: string;
+    insufficientMaterial: I18nString;
     /** It is possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board. */
-    knightMate: string;
+    knightMate: I18nString;
     /** Learn how to make your own broadcasts on Lichess */
-    learnHowToMakeBroadcasts: string;
+    learnHowToMakeBroadcasts: I18nString;
     /** I lost access to my two-factor authentication codes */
-    lost2FA: string;
+    lost2FA: I18nString;
     /** Monetising Lichess */
-    monetizing: string;
+    monetizing: I18nString;
     /** I didn't receive my confirmation email */
-    noConfirmationEmail: string;
+    noConfirmationEmail: I18nString;
     /** None of the above */
-    noneOfTheAbove: string;
+    noneOfTheAbove: I18nString;
     /** No rating points were awarded */
-    noRatingPoints: string;
+    noRatingPoints: I18nString;
     /** Only reporting players through the report form is effective. */
-    onlyReports: string;
+    onlyReports: I18nString;
     /** However, you can close your current account, and create a new one. */
-    orCloseAccount: string;
+    orCloseAccount: I18nString;
     /** Other restriction */
-    otherRestriction: string;
+    otherRestriction: I18nString;
     /** Make sure you played a rated game. Casual games do not affect the players ratings. */
-    ratedGame: string;
+    ratedGame: I18nString;
     /** You can reopen your account on this page. It only works once. */
-    reopenOnThisPage: string;
+    reopenOnThisPage: I18nString;
     /** In the Lichess Discord server */
-    reportBugInDiscord: string;
+    reportBugInDiscord: I18nString;
     /** In the Lichess Feedback section of the forum */
-    reportBugInForum: string;
+    reportBugInForum: I18nString;
     /** If you faced an error page, you may report it: */
-    reportErrorPage: string;
+    reportErrorPage: I18nString;
     /** As a Lichess mobile app issue on GitHub */
-    reportMobileIssue: string;
+    reportMobileIssue: I18nString;
     /** As a Lichess website issue on GitHub */
-    reportWebsiteIssue: string;
+    reportWebsiteIssue: I18nString;
     /** You may send an appeal to %s. */
-    sendAppealTo: I18nFormat;
+    sendAppealTo: I18nString;
     /** Send us an email at %s. */
-    sendEmailAt: I18nFormat;
+    sendEmailAt: I18nString;
     /** To report a player, use the report form */
-    toReportAPlayerUseForm: string;
+    toReportAPlayerUseForm: I18nString;
     /** Try this little interactive game to practice castling in chess */
-    tryCastling: string;
+    tryCastling: I18nString;
     /** Try this little interactive game to learn more about "en passant". */
-    tryEnPassant: string;
+    tryEnPassant: I18nString;
     /** You can show it in your videos, and you can print screenshots of Lichess in your books. */
-    videosAndBooks: string;
+    videosAndBooks: I18nString;
     /** Visit this page to solve the issue */
-    visitThisPage: string;
+    visitThisPage: I18nString;
     /** To show your title on your Lichess profile, and participate in Titled Arenas, visit the title confirmation page */
-    visitTitleConfirmation: string;
+    visitTitleConfirmation: I18nString;
     /** I want to change my username */
-    wantChangeUsername: string;
+    wantChangeUsername: I18nString;
     /** I want to clear my history or rating */
-    wantClearHistory: string;
+    wantClearHistory: I18nString;
     /** I want to close my account */
-    wantCloseAccount: string;
+    wantCloseAccount: I18nString;
     /** I want to reopen my account */
-    wantReopen: string;
+    wantReopen: I18nString;
     /** I want to report a player */
-    wantReport: string;
+    wantReport: I18nString;
     /** I want to report a bug */
-    wantReportBug: string;
+    wantReportBug: I18nString;
     /** I want my title displayed on Lichess */
-    wantTitle: string;
+    wantTitle: I18nString;
     /** You are welcome to use Lichess for your activity, even commercial. */
-    welcomeToUse: string;
+    welcomeToUse: I18nString;
     /** What can we help you with? */
-    whatCanWeHelpYouWith: string;
+    whatCanWeHelpYouWith: I18nString;
     /** You can also reach that page by clicking the %s report button on a profile page. */
-    youCanAlsoReachReportPage: I18nFormat;
+    youCanAlsoReachReportPage: I18nString;
     /** You can login with the email address you signed up with */
-    youCanLoginWithEmail: string;
+    youCanLoginWithEmail: I18nString;
   };
   coordinates: {
     /** A coordinate appears on the board and you must click on the corresponding square. */
-    aCoordinateAppears: string;
+    aCoordinateAppears: I18nString;
     /** A square is highlighted on the board and you must enter its coordinate (e.g. "e4"). */
-    aSquareIsHighlightedExplanation: string;
+    aSquareIsHighlightedExplanation: I18nString;
     /** Average score as black: %s */
-    averageScoreAsBlackX: I18nFormat;
+    averageScoreAsBlackX: I18nString;
     /** Average score as white: %s */
-    averageScoreAsWhiteX: I18nFormat;
+    averageScoreAsWhiteX: I18nString;
     /** Coordinates */
-    coordinates: string;
+    coordinates: I18nString;
     /** Coordinate training */
-    coordinateTraining: string;
+    coordinateTraining: I18nString;
     /** Find square */
-    findSquare: string;
+    findSquare: I18nString;
     /** Go as long as you want, there is no time limit! */
-    goAsLongAsYouWant: string;
+    goAsLongAsYouWant: I18nString;
     /** Knowing the chessboard coordinates is a very important skill for several reasons: */
-    knowingTheChessBoard: string;
+    knowingTheChessBoard: I18nString;
     /** Most chess courses and exercises use the algebraic notation extensively. */
-    mostChessCourses: string;
+    mostChessCourses: I18nString;
     /** Name square */
-    nameSquare: string;
+    nameSquare: I18nString;
     /** Show coordinates */
-    showCoordinates: string;
+    showCoordinates: I18nString;
     /** Coordinates on every square */
-    showCoordsOnAllSquares: string;
+    showCoordsOnAllSquares: I18nString;
     /** Show pieces */
-    showPieces: string;
+    showPieces: I18nString;
     /** Start training */
-    startTraining: string;
+    startTraining: I18nString;
     /** It makes it easier to talk to your chess friends, since you both understand the 'language of chess'. */
-    talkToYourChessFriends: string;
+    talkToYourChessFriends: I18nString;
     /** You can analyse a game more effectively if you can quickly recognise coordinates. */
-    youCanAnalyseAGameMoreEffectively: string;
+    youCanAnalyseAGameMoreEffectively: I18nString;
     /** You have 30 seconds to correctly map as many squares as possible! */
-    youHaveThirtySeconds: string;
+    youHaveThirtySeconds: I18nString;
   };
   dgt: {
     /** Announce All Moves */
-    announceAllMoves: string;
+    announceAllMoves: I18nString;
     /** Announce Move Format */
-    announceMoveFormat: string;
+    announceMoveFormat: I18nString;
     /** As a last resort, setup the board identically as Lichess, then %s */
-    asALastResort: I18nFormat;
+    asALastResort: I18nString;
     /** The board will auto connect to any game that is already on course or any new game that starts. Ability to choose which game to play is coming soon. */
-    boardWillAutoConnect: string;
+    boardWillAutoConnect: I18nString;
     /** Check that you have made your opponent's move on the DGT board first. Revert your move. Play again. */
-    checkYouHaveMadeOpponentsMove: string;
+    checkYouHaveMadeOpponentsMove: I18nString;
     /** Click to generate one */
-    clickToGenerateOne: string;
+    clickToGenerateOne: I18nString;
     /** Configuration Section */
-    configurationSection: string;
+    configurationSection: I18nString;
     /** Configure */
-    configure: string;
+    configure: I18nString;
     /** Configure voice narration of the played moves, so you can keep your eyes on the board. */
-    configureVoiceNarration: string;
+    configureVoiceNarration: I18nString;
     /** Debug */
-    debug: string;
+    debug: I18nString;
     /** DGT board */
-    dgtBoard: string;
+    dgtBoard: I18nString;
     /** DGT board connectivity */
-    dgtBoardConnectivity: string;
+    dgtBoardConnectivity: I18nString;
     /** DGT Board Limitations */
-    dgtBoardLimitations: string;
+    dgtBoardLimitations: I18nString;
     /** DGT Board Requirements */
-    dgtBoardRequirements: string;
+    dgtBoardRequirements: I18nString;
     /** DGT - Configure */
-    dgtConfigure: string;
+    dgtConfigure: I18nString;
     /** A %s entry was added to your PLAY menu at the top. */
-    dgtPlayMenuEntryAdded: I18nFormat;
+    dgtPlayMenuEntryAdded: I18nString;
     /** You can download the software here: %s. */
-    downloadHere: I18nFormat;
+    downloadHere: I18nString;
     /** Enable Speech Synthesis */
-    enableSpeechSynthesis: string;
+    enableSpeechSynthesis: I18nString;
     /** If %1$s is running on a different machine or different port, you will need to set the IP address and port here in the %2$s. */
-    ifLiveChessRunningElsewhere: I18nFormat;
+    ifLiveChessRunningElsewhere: I18nString;
     /** If %1$s is running on this computer, you can check your connection to it by %2$s. */
-    ifLiveChessRunningOnThisComputer: I18nFormat;
+    ifLiveChessRunningOnThisComputer: I18nString;
     /** If a move is not detected */
-    ifMoveNotDetected: string;
+    ifMoveNotDetected: I18nString;
     /** The play page needs to remain open on your browser. It does not need to be visible, you can minimize it or set it side to side with the Lichess game page, but don't close it or the board will stop working. */
-    keepPlayPageOpen: string;
+    keepPlayPageOpen: I18nString;
     /** Keywords are in JSON format. They are used to translate moves and results into your language. Default is English, but feel free to change it. */
-    keywordFormatDescription: string;
+    keywordFormatDescription: I18nString;
     /** Keywords */
-    keywords: string;
+    keywords: I18nString;
     /** Lichess & DGT */
-    lichessAndDgt: string;
+    lichessAndDgt: I18nString;
     /** Lichess connectivity */
-    lichessConnectivity: string;
+    lichessConnectivity: I18nString;
     /** SAN is the standard on Lichess like "Nf6". UCI is common on engines like "g8f6". */
-    moveFormatDescription: string;
+    moveFormatDescription: I18nString;
     /** No suitable OAuth token has been created. */
-    noSuitableOauthToken: string;
+    noSuitableOauthToken: I18nString;
     /** opening this link */
-    openingThisLink: string;
+    openingThisLink: I18nString;
     /** Play with a DGT board */
-    playWithDgtBoard: string;
+    playWithDgtBoard: I18nString;
     /** Reload this page */
-    reloadThisPage: string;
+    reloadThisPage: I18nString;
     /** Select YES to announce both your moves and your opponent's moves. Select NO to announce only your opponent's moves. */
-    selectAnnouncePreference: string;
+    selectAnnouncePreference: I18nString;
     /** Speech synthesis voice */
-    speechSynthesisVoice: string;
+    speechSynthesisVoice: I18nString;
     /** Text to speech */
-    textToSpeech: string;
+    textToSpeech: I18nString;
     /** This page allows you to connect your DGT board to Lichess, and to use it for playing games. */
-    thisPageAllowsConnectingDgtBoard: string;
+    thisPageAllowsConnectingDgtBoard: I18nString;
     /** Time controls for casual games: Classical, Correspondence and Rapid only. */
-    timeControlsForCasualGames: string;
+    timeControlsForCasualGames: I18nString;
     /** Time controls for rated games: Classical, Correspondence and some Rapids including 15+10 and 20+0 */
-    timeControlsForRatedGames: string;
+    timeControlsForRatedGames: I18nString;
     /** To connect to the DGT Electronic Board you will need to install %s. */
-    toConnectTheDgtBoard: I18nFormat;
+    toConnectTheDgtBoard: I18nString;
     /** To see console message press Command + Option + C (Mac) or Control + Shift + C (Windows, Linux, Chrome OS) */
-    toSeeConsoleMessage: string;
+    toSeeConsoleMessage: I18nString;
     /** Use "%1$s" unless %2$s is running on a different machine or different port. */
-    useWebSocketUrl: I18nFormat;
+    useWebSocketUrl: I18nString;
     /** You have an OAuth token suitable for DGT play. */
-    validDgtOauthToken: string;
+    validDgtOauthToken: I18nString;
     /** Verbose logging */
-    verboseLogging: string;
+    verboseLogging: I18nString;
     /** %s WebSocket URL */
-    webSocketUrl: I18nFormat;
+    webSocketUrl: I18nString;
     /** When ready, setup your board and then click %s. */
-    whenReadySetupBoard: I18nFormat;
+    whenReadySetupBoard: I18nString;
   };
   emails: {
     /** To contact us, please use %s. */
-    common_contact: I18nFormat;
+    common_contact: I18nString;
     /** This is a service email related to your use of %s. */
-    common_note: I18nFormat;
+    common_note: I18nString;
     /** (Clicking not working? Try pasting it into your browser!) */
-    common_orPaste: string;
+    common_orPaste: I18nString;
     /** To confirm you have access to this email, please click the link below: */
-    emailChange_click: string;
+    emailChange_click: I18nString;
     /** You have requested to change your email address. */
-    emailChange_intro: string;
+    emailChange_intro: I18nString;
     /** Confirm new email address, %s */
-    emailChange_subject: I18nFormat;
+    emailChange_subject: I18nString;
     /** Click the link to enable your Lichess account: */
-    emailConfirm_click: string;
+    emailConfirm_click: I18nString;
     /** If you did not register with Lichess you can safely ignore this message. */
-    emailConfirm_ignore: string;
+    emailConfirm_ignore: I18nString;
     /** Confirm your lichess.org account, %s */
-    emailConfirm_subject: I18nFormat;
+    emailConfirm_subject: I18nString;
     /** Log in to lichess.org, %s */
-    logInToLichess: I18nFormat;
+    logInToLichess: I18nString;
     /** If you made this request, click the link below. If not, you can ignore this email. */
-    passwordReset_clickOrIgnore: string;
+    passwordReset_clickOrIgnore: I18nString;
     /** We received a request to reset the password for your account. */
-    passwordReset_intro: string;
+    passwordReset_intro: I18nString;
     /** Reset your lichess.org password, %s */
-    passwordReset_subject: I18nFormat;
+    passwordReset_subject: I18nString;
     /** Welcome to lichess.org, %s */
-    welcome_subject: I18nFormat;
+    welcome_subject: I18nString;
     /** You have successfully created your account on https://lichess.org. */
-    welcome_text: I18nFormat;
+    welcome_text: I18nString;
   };
   faq: {
     /** Accounts */
-    accounts: string;
+    accounts: I18nString;
     /** The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions. */
-    acplExplanation: string;
+    acplExplanation: I18nString;
     /** We regularly receive messages from users asking us for help to stop them from playing too much. */
-    adviceOnMitigatingAddiction: I18nFormat;
+    adviceOnMitigatingAddiction: I18nString;
     /** an hourly Bullet tournament */
-    aHourlyBulletTournament: string;
+    aHourlyBulletTournament: I18nString;
     /** Are there websites based on Lichess? */
-    areThereWebsitesBasedOnLichess: string;
+    areThereWebsitesBasedOnLichess: I18nString;
     /** many national master titles */
-    asWellAsManyNMtitles: string;
+    asWellAsManyNMtitles: I18nString;
     /** Lichess time controls are based on estimated game duration = %1$s. */
-    basedOnGameDuration: I18nFormat;
+    basedOnGameDuration: I18nString;
     /** being a patron */
-    beingAPatron: string;
+    beingAPatron: I18nString;
     /** be in the top 10 in this rating. */
-    beInTopTen: string;
+    beInTopTen: I18nString;
     /** breakdown of our costs */
-    breakdownOfOurCosts: string;
+    breakdownOfOurCosts: I18nString;
     /** Can I get the Lichess Master (LM) title? */
-    canIbecomeLM: string;
+    canIbecomeLM: I18nString;
     /** Can I change my username? */
-    canIChangeMyUsername: string;
+    canIChangeMyUsername: I18nString;
     /** configure */
-    configure: string;
+    configure: I18nString;
     /** I lost a game due to lag/disconnection. Can I get my rating points back? */
-    connexionLostCanIGetMyRatingBack: string;
+    connexionLostCanIGetMyRatingBack: I18nString;
     /** desktop */
-    desktop: string;
+    desktop: I18nString;
     /** Why can a pawn capture another pawn when it is already passed? (en passant) */
-    discoveringEnPassant: string;
+    discoveringEnPassant: I18nString;
     /** display preferences */
-    displayPreferences: string;
+    displayPreferences: I18nString;
     /** (clock initial time in seconds) + 40 × (clock increment) */
-    durationFormula: string;
+    durationFormula: I18nString;
     /** 8 chess variants */
-    eightVariants: string;
+    eightVariants: I18nString;
     /** Most browsers can prevent sound from playing on a freshly loaded page to protect users. Imagine if every website could immediately bombard you with audio ads. */
-    enableAutoplayForSoundsA: string;
+    enableAutoplayForSoundsA: I18nString;
     /** 1. Go to lichess.org */
-    enableAutoplayForSoundsChrome: string;
+    enableAutoplayForSoundsChrome: I18nString;
     /** 1. Go to lichess.org */
-    enableAutoplayForSoundsFirefox: string;
+    enableAutoplayForSoundsFirefox: I18nString;
     /** 1. Click the three dots in the top right corner */
-    enableAutoplayForSoundsMicrosoftEdge: string;
+    enableAutoplayForSoundsMicrosoftEdge: I18nString;
     /** Enable autoplay for sounds? */
-    enableAutoplayForSoundsQ: string;
+    enableAutoplayForSoundsQ: I18nString;
     /** 1. Go to lichess.org */
-    enableAutoplayForSoundsSafari: string;
+    enableAutoplayForSoundsSafari: I18nString;
     /** Enable or disable notification popups? */
-    enableDisableNotificationPopUps: string;
+    enableDisableNotificationPopUps: I18nString;
     /** Enable Zen-mode in the %1$s, or by pressing %2$s during a game. */
-    enableZenMode: I18nFormat;
+    enableZenMode: I18nString;
     /** This is a legal move known as "en passant". The Wikipedia article gives a %1$s. */
-    explainingEnPassant: I18nFormat;
+    explainingEnPassant: I18nString;
     /** Fair Play */
-    fairPlay: string;
+    fairPlay: I18nString;
     /** fair play page */
-    fairPlayPage: string;
+    fairPlayPage: I18nString;
     /** FAQ */
-    faqAbbreviation: string;
+    faqAbbreviation: I18nString;
     /** fewer lobby pools */
-    fewerLobbyPools: string;
+    fewerLobbyPools: I18nString;
     /** FIDE handbook */
-    fideHandbook: string;
+    fideHandbook: I18nString;
     /** FIDE handbook %s */
-    fideHandbookX: I18nFormat;
+    fideHandbookX: I18nString;
     /** You can find out more about %1$s (including a %2$s). If you want to help Lichess by volunteering your time and skills, there are many %3$s. */
-    findMoreAndSeeHowHelp: I18nFormat;
+    findMoreAndSeeHowHelp: I18nString;
     /** Frequently Asked Questions */
-    frequentlyAskedQuestions: string;
+    frequentlyAskedQuestions: I18nString;
     /** Gameplay */
-    gameplay: string;
+    gameplay: I18nString;
     /** ZugAddict was streaming and for the last 2 hours he had been trying to defeat A.I. level 8 in a 1+0 game, without success. Thibault told him that if he successfully did it on stream, he'd get a unique trophy. One hour later, he smashed Stockfish, and the promise was honoured. */
-    goldenZeeExplanation: string;
+    goldenZeeExplanation: I18nString;
     /** good introduction */
-    goodIntroduction: string;
+    goodIntroduction: I18nString;
     /** guidelines */
-    guidelines: string;
+    guidelines: I18nString;
     /** have played a rated game within the last week for this rating, */
-    havePlayedARatedGameAtLeastOneWeekAgo: string;
+    havePlayedARatedGameAtLeastOneWeekAgo: I18nString;
     /** have played at least 30 rated games in a given rating, */
-    havePlayedMoreThanThirtyGamesInThatRating: string;
+    havePlayedMoreThanThirtyGamesInThatRating: I18nString;
     /** Hear it pronounced by a specialist. */
-    hearItPronouncedBySpecialist: string;
+    hearItPronouncedBySpecialist: I18nString;
     /** How are Bullet, Blitz and other time controls decided? */
-    howBulletBlitzEtcDecided: string;
+    howBulletBlitzEtcDecided: I18nString;
     /** How can I become a moderator? */
-    howCanIBecomeModerator: string;
+    howCanIBecomeModerator: I18nString;
     /** How can I contribute to Lichess? */
-    howCanIContributeToLichess: string;
+    howCanIContributeToLichess: I18nString;
     /** How do ranks and leaderboards work? */
-    howDoLeaderoardsWork: string;
+    howDoLeaderoardsWork: I18nString;
     /** How to hide ratings while playing? */
-    howToHideRatingWhilePlaying: string;
+    howToHideRatingWhilePlaying: I18nString;
     /** How to... */
-    howToThreeDots: string;
+    howToThreeDots: I18nString;
     /** ≤ %1$ss = %2$s */
-    inferiorThanXsEqualYtimeControl: I18nFormat;
+    inferiorThanXsEqualYtimeControl: I18nString;
     /** In order to get on the %1$s you must: */
-    inOrderToAppearsYouMust: I18nFormat;
+    inOrderToAppearsYouMust: I18nString;
     /** Losing on time, drawing and insufficient material */
-    insufficientMaterial: string;
+    insufficientMaterial: I18nString;
     /** Is correspondence different from normal chess? */
-    isCorrespondenceDifferent: string;
+    isCorrespondenceDifferent: I18nString;
     /** What keyboard shortcuts are there? */
-    keyboardShortcuts: string;
+    keyboardShortcuts: I18nString;
     /** Some Lichess pages have keyboard shortcuts you can use. Try pressing the '?' key on a study, analysis, puzzle, or game page to list available keyboard shortcuts. */
-    keyboardShortcutsExplanation: string;
+    keyboardShortcutsExplanation: I18nString;
     /** If your opponent frequently aborts/leaves games, they get "play banned", which means they're temporarily banned from playing games. This is not publicly indicated on their profile. If this behaviour continues, the length of the playban increases - and prolonged behaviour of this nature may lead to account closure. */
-    leavingGameWithoutResigningExplanation: string;
+    leavingGameWithoutResigningExplanation: I18nString;
     /** lee-chess */
-    leechess: string;
+    leechess: I18nString;
     /** Lichess can optionally send popup notifications, for example when it is your turn or you received a private message. */
-    lichessCanOptionnalySendPopUps: string;
+    lichessCanOptionnalySendPopUps: I18nString;
     /** Lichess is a combination of live/light/libre and chess. It is pronounced %1$s. */
-    lichessCombinationLiveLightLibrePronounced: I18nFormat;
+    lichessCombinationLiveLightLibrePronounced: I18nString;
     /** In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player's king by any possible series of legal moves (%1$s). */
-    lichessFollowFIDErules: I18nFormat;
+    lichessFollowFIDErules: I18nString;
     /** Lichess is powered by donations from patrons and the efforts of a team of volunteers. */
-    lichessPoweredByDonationsAndVolunteers: string;
+    lichessPoweredByDonationsAndVolunteers: I18nString;
     /** Lichess ratings */
-    lichessRatings: string;
+    lichessRatings: I18nString;
     /** Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as %1$s. Here is a list of FIDE titles: */
-    lichessRecognizeAllOTBtitles: I18nFormat;
+    lichessRecognizeAllOTBtitles: I18nString;
     /** Lichess supports standard chess and %1$s. */
-    lichessSupportChessAnd: I18nFormat;
+    lichessSupportChessAnd: I18nString;
     /** Lichess training */
-    lichessTraining: string;
+    lichessTraining: I18nString;
     /** Lichess userstyles */
-    lichessUserstyles: string;
+    lichessUserstyles: I18nString;
     /** This honorific title is unofficial and only exists on Lichess. */
-    lMtitleComesToYouDoNotRequestIt: string;
+    lMtitleComesToYouDoNotRequestIt: I18nString;
     /** stand-alone mental health condition */
-    mentalHealthCondition: string;
+    mentalHealthCondition: I18nString;
     /** The player has not yet finished enough rated games against %1$s in the rating category. */
-    notPlayedEnoughRatedGamesAgainstX: I18nFormat;
+    notPlayedEnoughRatedGamesAgainstX: I18nString;
     /** The player hasn't played enough recent games. Depending on the number of games you've played, it might take around a year of inactivity for your rating to become provisional again. */
-    notPlayedRecently: string;
+    notPlayedRecently: I18nString;
     /** We did not repeat moves. Why was the game still drawn by repetition? */
-    notRepeatedMoves: string;
+    notRepeatedMoves: I18nString;
     /** No. */
-    noUpperCaseDot: string;
+    noUpperCaseDot: I18nString;
     /** other ways to help */
-    otherWaysToHelp: string;
+    otherWaysToHelp: I18nString;
     /** That trophy is unique in the history of Lichess, nobody other than %1$s will ever have it. */
-    ownerUniqueTrophies: I18nFormat;
+    ownerUniqueTrophies: I18nString;
     /** For more information, please read our %s */
-    pleaseReadFairPlayPage: I18nFormat;
+    pleaseReadFairPlayPage: I18nString;
     /** positions */
-    positions: string;
+    positions: I18nString;
     /** What is done about players leaving games without resigning? */
-    preventLeavingGameWithoutResigning: string;
+    preventLeavingGameWithoutResigning: I18nString;
     /** The question mark means the rating is provisional. Reasons include: */
-    provisionalRatingExplanation: string;
+    provisionalRatingExplanation: I18nString;
     /** have a rating deviation lower than %1$s, in standard chess, and lower than %2$s in variants, */
-    ratingDeviationLowerThanXinChessYinVariants: I18nFormat;
+    ratingDeviationLowerThanXinChessYinVariants: I18nString;
     /** Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating. */
-    ratingDeviationMorethanOneHundredTen: string;
+    ratingDeviationMorethanOneHundredTen: I18nString;
     /** rating leaderboard */
-    ratingLeaderboards: string;
+    ratingLeaderboards: I18nString;
     /** One minute after a player is marked, their 40 latest rated games in the last 5 days are taken. If you were their opponent in one of those games, you lost rating (because of a loss or a draw), and your rating was not provisional, you get a rating refund. The refund is capped based on your peak rating and your rating progress after the game. (For example, if your rating greatly increased after that game, you might get no refund or only a partial refund.) A refund will never exceed 150 points. */
-    ratingRefundExplanation: string;
+    ratingRefundExplanation: I18nString;
     /** Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system). */
-    ratingSystemUsedByLichess: string;
+    ratingSystemUsedByLichess: I18nString;
     /** Threefold repetition is about repeated %1$s, not moves. Repetition does not have to occur consecutively. */
-    repeatedPositionsThatMatters: I18nFormat;
+    repeatedPositionsThatMatters: I18nString;
     /** The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards. */
-    secondRequirementToStopOldPlayersTrustingLeaderboards: string;
+    secondRequirementToStopOldPlayersTrustingLeaderboards: I18nString;
     /** If you have an OTB title, you can apply to have this displayed on your account by completing the %1$s, including a clear image of an identifying document/card and a selfie of you holding the document/card. */
-    showYourTitle: I18nFormat;
+    showYourTitle: I18nString;
     /** opponents of similar strength */
-    similarOpponents: string;
+    similarOpponents: I18nString;
     /** Stop myself from playing? */
-    stopMyselfFromPlaying: string;
+    stopMyselfFromPlaying: I18nString;
     /** ≥ %1$ss = %2$s */
-    superiorThanXsEqualYtimeControl: I18nFormat;
+    superiorThanXsEqualYtimeControl: I18nString;
     /** Repetition needs to be claimed by one of the players. You can do so by pressing the button that is shown, or by offering a draw before your final repeating move, it won't matter if your opponent rejects the draw offer, the threefold repetition draw will be claimed anyway. You can also %1$s Lichess to automatically claim repetitions for you. Additionally, fivefold repetition always immediately ends the game. */
-    threeFoldHasToBeClaimed: I18nFormat;
+    threeFoldHasToBeClaimed: I18nString;
     /** Threefold repetition */
-    threefoldRepetition: string;
+    threefoldRepetition: I18nString;
     /** If a position occurs three times, players can claim a draw by %1$s. Lichess implements the official FIDE rules, as described in Article 9.2 of the %2$s. */
-    threefoldRepetitionExplanation: I18nFormat;
+    threefoldRepetitionExplanation: I18nString;
     /** threefold repetition */
-    threefoldRepetitionLowerCase: string;
+    threefoldRepetitionLowerCase: I18nString;
     /** What titles are there on Lichess? */
-    titlesAvailableOnLichess: string;
+    titlesAvailableOnLichess: I18nString;
     /** Unique trophies */
-    uniqueTrophies: string;
+    uniqueTrophies: I18nString;
     /** No, usernames cannot be changed for technical and practical reasons. Usernames are materialized in too many places: databases, exports, logs, and people's minds. You can adjust the capitalization once. */
-    usernamesCannotBeChanged: string;
+    usernamesCannotBeChanged: I18nString;
     /** In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the %1$s. */
-    usernamesNotOffensive: I18nFormat;
+    usernamesNotOffensive: I18nString;
     /** verification form */
-    verificationForm: string;
+    verificationForm: I18nString;
     /** View site information popup */
-    viewSiteInformationPopUp: string;
+    viewSiteInformationPopUp: I18nString;
     /** Watch International Master Eric Rosen checkmate %s. */
-    watchIMRosenCheckmate: I18nFormat;
+    watchIMRosenCheckmate: I18nString;
     /** To get it, hiimgosu challenged himself to berserk and win all games of %s. */
-    wayOfBerserkExplanation: I18nFormat;
+    wayOfBerserkExplanation: I18nString;
     /** Unfortunately, we cannot give back rating points for games lost due to lag or disconnection, regardless of whether the problem was at your end or our end. The latter is very rare though. Also note that when Lichess restarts and you lose on time because of that, we abort the game to prevent an unfair loss. */
-    weCannotDoThatEvenIfItIsServerSideButThatsRare: string;
+    weCannotDoThatEvenIfItIsServerSideButThatsRare: I18nString;
     /** We repeated a position three times. Why was the game not drawn? */
-    weRepeatedthreeTimesPosButNoDraw: string;
+    weRepeatedthreeTimesPosButNoDraw: I18nString;
     /** What is the average centipawn loss (ACPL)? */
-    whatIsACPL: string;
+    whatIsACPL: I18nString;
     /** Why is there a question mark (?) next to a rating? */
-    whatIsProvisionalRating: string;
+    whatIsProvisionalRating: I18nString;
     /** What can my username be? */
-    whatUsernameCanIchoose: string;
+    whatUsernameCanIchoose: I18nString;
     /** What variants can I play on Lichess? */
-    whatVariantsCanIplay: string;
+    whatVariantsCanIplay: I18nString;
     /** When am I eligible for the automatic rating refund from cheaters? */
-    whenAmIEligibleRatinRefund: string;
+    whenAmIEligibleRatinRefund: I18nString;
     /** What rating system does Lichess use? */
-    whichRatingSystemUsedByLichess: string;
+    whichRatingSystemUsedByLichess: I18nString;
     /** Why are ratings higher compared to other sites and organisations such as FIDE, USCF and the ICC? */
-    whyAreRatingHigher: string;
+    whyAreRatingHigher: I18nString;
     /** It is best not to think of ratings as absolute numbers, or compare them against other organisations. Different organisations have different levels of players, different rating systems (Elo, Glicko, Glicko-2, or a modified version of the aforementioned). These factors can drastically affect the absolute numbers (ratings). */
-    whyAreRatingHigherExplanation: string;
+    whyAreRatingHigherExplanation: I18nString;
     /** Why is Lichess called Lichess? */
-    whyIsLichessCalledLichess: string;
+    whyIsLichessCalledLichess: I18nString;
     /** Similarly, the source code for Lichess, %1$s, stands for li[chess in sca]la, seeing as the bulk of Lichess is written in %2$s, an intuitive programming language. */
-    whyIsLilaCalledLila: I18nFormat;
+    whyIsLilaCalledLila: I18nString;
     /** Live, because games are played and watched in real-time 24/7; light and libre for the fact that Lichess is open-source and unencumbered by proprietary junk that plagues other websites. */
-    whyLiveLightLibre: string;
+    whyLiveLightLibre: I18nString;
     /** Yes. Lichess has indeed inspired other open-source sites that use our %1$s, %2$s, or %3$s. */
-    yesLichessInspiredOtherOpenSourceWebsites: I18nFormat;
+    yesLichessInspiredOtherOpenSourceWebsites: I18nString;
     /** It’s not possible to apply to become a moderator. If we see someone who we think would be good as a moderator, we will contact them directly. */
-    youCannotApply: string;
+    youCannotApply: I18nString;
     /** On Lichess, the main difference in rules for correspondence chess is that an opening book is allowed. The use of engines is still prohibited and will result in being flagged for engine assistance. Although ICCF allows engine use in correspondence, Lichess does not. */
-    youCanUseOpeningBookNoEngine: string;
+    youCanUseOpeningBookNoEngine: I18nString;
   };
   features: {
     /** All chess basics lessons */
-    allChessBasicsLessons: string;
+    allChessBasicsLessons: I18nString;
     /** All features are free for everybody, forever! */
-    allFeaturesAreFreeForEverybody: string;
+    allFeaturesAreFreeForEverybody: I18nString;
     /** All features to come, forever! */
-    allFeaturesToCome: string;
+    allFeaturesToCome: I18nString;
     /** Board editor and analysis board with %s */
-    boardEditorAndAnalysisBoardWithEngine: I18nFormat;
+    boardEditorAndAnalysisBoardWithEngine: I18nString;
     /** Chess insights (detailed analysis of your play) */
-    chessInsights: string;
+    chessInsights: I18nString;
     /** Cloud engine analysis */
-    cloudEngineAnalysis: string;
+    cloudEngineAnalysis: I18nString;
     /** Contribute to Lichess and get a cool looking Patron icon */
-    contributeToLichessAndGetIcon: string;
+    contributeToLichessAndGetIcon: I18nString;
     /** Correspondence chess with conditional premoves */
-    correspondenceWithConditionalPremoves: string;
+    correspondenceWithConditionalPremoves: I18nString;
     /** Deep %s server analysis */
-    deepXServerAnalysis: I18nFormat;
+    deepXServerAnalysis: I18nString;
     /** Download/Upload any game as PGN */
-    downloadOrUploadAnyGameAsPgn: string;
+    downloadOrUploadAnyGameAsPgn: I18nString;
     /** 7-piece endgame tablebase */
-    endgameTablebase: string;
+    endgameTablebase: I18nString;
     /** Yes, both accounts have the same features! */
-    everybodyGetsAllFeaturesForFree: string;
+    everybodyGetsAllFeaturesForFree: I18nString;
     /** %s games per day */
     gamesPerDay: I18nPlural;
     /** Global opening explorer (%s games!) */
-    globalOpeningExplorerInNbGames: I18nFormat;
+    globalOpeningExplorerInNbGames: I18nString;
     /** If you love Lichess, */
-    ifYouLoveLichess: string;
+    ifYouLoveLichess: I18nString;
     /** iPhone & Android phones and tablets, landscape support */
-    landscapeSupportOnApp: string;
+    landscapeSupportOnApp: I18nString;
     /** Light/Dark theme, custom boards, pieces and background */
-    lightOrDarkThemeCustomBoardsPiecesAndBackground: string;
+    lightOrDarkThemeCustomBoardsPiecesAndBackground: I18nString;
     /** Personal opening explorer */
-    personalOpeningExplorer: string;
+    personalOpeningExplorer: I18nString;
     /** %1$s (also works on %2$s) */
-    personalOpeningExplorerX: I18nFormat;
+    personalOpeningExplorerX: I18nString;
     /** Standard chess and %s */
-    standardChessAndX: I18nFormat;
+    standardChessAndX: I18nString;
     /** Studies (shareable and persistent analysis) */
-    studies: string;
+    studies: I18nString;
     /** Support Lichess */
-    supportLichess: string;
+    supportLichess: I18nString;
     /** Support us with a Patron account! */
-    supportUsWithAPatronAccount: string;
+    supportUsWithAPatronAccount: I18nString;
     /** Tactical puzzles from user games */
-    tacticalPuzzlesFromUserGames: string;
+    tacticalPuzzlesFromUserGames: I18nString;
     /** Blog, forum, teams, TV, messaging, friends, challenges */
-    tvForumBlogTeamsMessagingFriendsChallenges: string;
+    tvForumBlogTeamsMessagingFriendsChallenges: I18nString;
     /** UltraBullet, Bullet, Blitz, Rapid, Classical, Correspondence Chess */
-    ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess: string;
+    ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess: I18nString;
     /** We believe every chess player deserves the best, and so: */
-    weBelieveEveryChessPlayerDeservesTheBest: string;
+    weBelieveEveryChessPlayerDeservesTheBest: I18nString;
     /** Zero advertisement, no tracking */
-    zeroAdsAndNoTracking: string;
+    zeroAdsAndNoTracking: I18nString;
   };
   insight: {
     /** Sorry, you cannot see %s's chess insights. */
-    cantSeeInsights: I18nFormat;
+    cantSeeInsights: I18nString;
     /** Now crunching data just for you! */
-    crunchingData: string;
+    crunchingData: I18nString;
     /** Generate %s's chess insights. */
-    generateInsights: I18nFormat;
+    generateInsights: I18nString;
     /** %s's chess insights are protected */
-    insightsAreProtected: I18nFormat;
+    insightsAreProtected: I18nString;
     /** insights settings */
-    insightsSettings: string;
+    insightsSettings: I18nString;
     /** Maybe ask them to change their %s? */
-    maybeAskThemToChangeTheir: I18nFormat;
+    maybeAskThemToChangeTheir: I18nString;
     /** %s's chess insights */
-    xChessInsights: I18nFormat;
+    xChessInsights: I18nString;
     /** %s has no chess insights yet! */
-    xHasNoChessInsights: I18nFormat;
+    xHasNoChessInsights: I18nString;
   };
   keyboardMove: {
     /** Both the letter "o" and the digit zero "0" can be used when castling */
-    bothTheLetterOAndTheDigitZero: string;
+    bothTheLetterOAndTheDigitZero: I18nString;
     /** Capitalization only matters in ambiguous situations involving a bishop and the b-pawn */
-    capitalizationOnlyMattersInAmbiguousSituations: string;
+    capitalizationOnlyMattersInAmbiguousSituations: I18nString;
     /** Drop a rook at b4 (Crazyhouse variant only) */
-    dropARookAtB4: string;
+    dropARookAtB4: I18nString;
     /** If it is legal to castle both ways, use enter to kingside castle */
-    ifItIsLegalToCastleBothWays: string;
+    ifItIsLegalToCastleBothWays: I18nString;
     /** If the above move notation is unfamiliar, learn more here: */
-    ifTheAboveMoveNotationIsUnfamiliar: string;
+    ifTheAboveMoveNotationIsUnfamiliar: I18nString;
     /** Including an "x" to indicate a capture is optional */
-    includingAXToIndicateACapture: string;
+    includingAXToIndicateACapture: I18nString;
     /** Keyboard input commands */
-    keyboardInputCommands: string;
+    keyboardInputCommands: I18nString;
     /** Kingside castle */
-    kingsideCastle: string;
+    kingsideCastle: I18nString;
     /** Move knight to c3 */
-    moveKnightToC3: string;
+    moveKnightToC3: I18nString;
     /** Move piece from e2 to e4 */
-    movePieceFromE2ToE4: string;
+    movePieceFromE2ToE4: I18nString;
     /** Offer or accept draw */
-    offerOrAcceptDraw: string;
+    offerOrAcceptDraw: I18nString;
     /** Other commands */
-    otherCommands: string;
+    otherCommands: I18nString;
     /** Perform a move */
-    performAMove: string;
+    performAMove: I18nString;
     /** Promote c8 to queen */
-    promoteC8ToQueen: string;
+    promoteC8ToQueen: I18nString;
     /** Queenside castle */
-    queensideCastle: string;
+    queensideCastle: I18nString;
     /** Read out clocks */
-    readOutClocks: string;
+    readOutClocks: I18nString;
     /** Read out opponent's name */
-    readOutOpponentName: string;
+    readOutOpponentName: I18nString;
     /** Tips */
-    tips: string;
+    tips: I18nString;
     /** To premove, simply type the desired premove before it is your turn */
-    toPremoveSimplyTypeTheDesiredPremove: string;
+    toPremoveSimplyTypeTheDesiredPremove: I18nString;
   };
   lag: {
     /** And now, the long answer! Game lag is composed of two unrelated values (lower is better): */
-    andNowTheLongAnswerLagComposedOfTwoValues: string;
+    andNowTheLongAnswerLagComposedOfTwoValues: I18nString;
     /** Is Lichess lagging? */
-    isLichessLagging: string;
+    isLichessLagging: I18nString;
     /** Lag compensation */
-    lagCompensation: string;
+    lagCompensation: I18nString;
     /** Lichess compensates network lag. This includes sustained lag and occasional lag spikes. There are limits and heuristics based on time control and the compensated lag so far, so that the result should feel reasonable for both players. As a result, having a higher network lag than your opponent is not a handicap! */
-    lagCompensationExplanation: string;
+    lagCompensationExplanation: I18nString;
     /** Lichess server latency */
-    lichessServerLatency: string;
+    lichessServerLatency: I18nString;
     /** The time it takes to process a move on the server. It's the same for everybody, and only depends on the servers load. The more players, the higher it gets, but Lichess developers do their best to keep it low. It rarely exceeds 10ms. */
-    lichessServerLatencyExplanation: string;
+    lichessServerLatencyExplanation: I18nString;
     /** Measurements in progress... */
-    measurementInProgressThreeDot: string;
+    measurementInProgressThreeDot: I18nString;
     /** Network between Lichess and you */
-    networkBetweenLichessAndYou: string;
+    networkBetweenLichessAndYou: I18nString;
     /** The time it takes to send a move from your computer to Lichess server, and get the response back. It's specific to your distance to Lichess (France), and to the quality of your Internet connection. Lichess developers cannot fix your wifi or make light go faster. */
-    networkBetweenLichessAndYouExplanation: string;
+    networkBetweenLichessAndYouExplanation: I18nString;
     /** No. And your network is bad. */
-    noAndYourNetworkIsBad: string;
+    noAndYourNetworkIsBad: I18nString;
     /** No. And your network is good. */
-    noAndYourNetworkIsGood: string;
+    noAndYourNetworkIsGood: I18nString;
     /** Yes. It will be fixed soon! */
-    yesItWillBeFixedSoon: string;
+    yesItWillBeFixedSoon: I18nString;
     /** You can find both these values at any time, by clicking your username in the top bar. */
-    youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername: string;
+    youCanFindTheseValuesAtAnyTimeByClickingOnYourUsername: I18nString;
   };
   learn: {
     /** Advanced */
-    advanced: string;
+    advanced: I18nString;
     /** A pawn on the second rank can move 2 squares at once! */
-    aPawnOnTheSecondRank: string;
+    aPawnOnTheSecondRank: I18nString;
     /** Attack the opponent's king */
-    attackTheOpponentsKing: string;
+    attackTheOpponentsKing: I18nString;
     /** Attack your opponent's king */
-    attackYourOpponentsKing: string;
+    attackYourOpponentsKing: I18nString;
     /** Awesome! */
-    awesome: string;
+    awesome: I18nString;
     /** Back to menu */
-    backToMenu: string;
+    backToMenu: I18nString;
     /** Congratulations! You can command a bishop. */
-    bishopComplete: string;
+    bishopComplete: I18nString;
     /** Next we will learn how to manoeuvre a bishop! */
-    bishopIntro: string;
+    bishopIntro: I18nString;
     /** Black just moved the pawn */
-    blackJustMovedThePawnByTwoSquares: string;
+    blackJustMovedThePawnByTwoSquares: I18nString;
     /** Board setup */
-    boardSetup: string;
+    boardSetup: I18nString;
     /** Congratulations! You know how to set up the chess board. */
-    boardSetupComplete: string;
+    boardSetupComplete: I18nString;
     /** The two armies face each other, ready for the battle. */
-    boardSetupIntro: string;
+    boardSetupIntro: I18nString;
     /** by playing! */
-    byPlaying: string;
+    byPlaying: I18nString;
     /** Capture */
-    capture: string;
+    capture: I18nString;
     /** Capture and defend pieces */
-    captureAndDefendPieces: string;
+    captureAndDefendPieces: I18nString;
     /** Congratulations! You know how to fight with chess pieces! */
-    captureComplete: string;
+    captureComplete: I18nString;
     /** Identify the opponent's undefended pieces, and capture them! */
-    captureIntro: string;
+    captureIntro: I18nString;
     /** Capture, then promote! */
-    captureThenPromote: string;
+    captureThenPromote: I18nString;
     /** Move your king two squares */
-    castleKingSide: string;
+    castleKingSide: I18nString;
     /** Castle king-side! */
-    castleKingSideMovePiecesFirst: string;
+    castleKingSideMovePiecesFirst: I18nString;
     /** Move your king two squares */
-    castleQueenSide: string;
+    castleQueenSide: I18nString;
     /** Castle queen-side! */
-    castleQueenSideMovePiecesFirst: string;
+    castleQueenSideMovePiecesFirst: I18nString;
     /** Castling */
-    castling: string;
+    castling: I18nString;
     /** Congratulations! You should almost always castle in a game. */
-    castlingComplete: string;
+    castlingComplete: I18nString;
     /** Bring your king to safety, and deploy your rook for attack! */
-    castlingIntro: string;
+    castlingIntro: I18nString;
     /** Check in one */
-    checkInOne: string;
+    checkInOne: I18nString;
     /** Congratulations! You checked your opponent, forcing them to defend their king! */
-    checkInOneComplete: string;
+    checkInOneComplete: I18nString;
     /** Aim at the opponent's king */
-    checkInOneGoal: string;
+    checkInOneGoal: I18nString;
     /** To check your opponent, attack their king. They must defend it! */
-    checkInOneIntro: string;
+    checkInOneIntro: I18nString;
     /** Check in two */
-    checkInTwo: string;
+    checkInTwo: I18nString;
     /** Congratulations! You checked your opponent, forcing them to defend their king! */
-    checkInTwoComplete: string;
+    checkInTwoComplete: I18nString;
     /** Threaten the opponent's king */
-    checkInTwoGoal: string;
+    checkInTwoGoal: I18nString;
     /** Find the right combination of two moves that checks the opponent's king! */
-    checkInTwoIntro: string;
+    checkInTwoIntro: I18nString;
     /** Chess pieces */
-    chessPieces: string;
+    chessPieces: I18nString;
     /** Combat */
-    combat: string;
+    combat: I18nString;
     /** Congratulations! You know how to fight with chess pieces! */
-    combatComplete: string;
+    combatComplete: I18nString;
     /** A good warrior knows both attack and defence! */
-    combatIntro: string;
+    combatIntro: I18nString;
     /** Defeat the opponent's king */
-    defeatTheOpponentsKing: string;
+    defeatTheOpponentsKing: I18nString;
     /** Defend your king */
-    defendYourKing: string;
+    defendYourKing: I18nString;
     /** Don't let them take */
-    dontLetThemTakeAnyUndefendedPiece: string;
+    dontLetThemTakeAnyUndefendedPiece: I18nString;
     /** En passant */
-    enPassant: string;
+    enPassant: I18nString;
     /** Congratulations! You can now take en passant. */
-    enPassantComplete: string;
+    enPassantComplete: I18nString;
     /** When the opponent pawn moved by two squares, you can take it like if it moved by one square. */
-    enPassantIntro: string;
+    enPassantIntro: I18nString;
     /** En passant only works */
-    enPassantOnlyWorksImmediately: string;
+    enPassantOnlyWorksImmediately: I18nString;
     /** En passant only works */
-    enPassantOnlyWorksOnFifthRank: string;
+    enPassantOnlyWorksOnFifthRank: I18nString;
     /** You're under attack! */
-    escape: string;
+    escape: I18nString;
     /** Escape with the king */
-    escapeOrBlock: string;
+    escapeOrBlock: I18nString;
     /** Escape with the king! */
-    escapeWithTheKing: string;
+    escapeWithTheKing: I18nString;
     /** Evaluate piece strength */
-    evaluatePieceStrength: string;
+    evaluatePieceStrength: I18nString;
     /** Excellent! */
-    excellent: string;
+    excellent: I18nString;
     /** Exercise your tactical skills */
-    exerciseYourTacticalSkills: string;
+    exerciseYourTacticalSkills: I18nString;
     /** Find a way to */
-    findAWayToCastleKingSide: string;
+    findAWayToCastleKingSide: I18nString;
     /** Find a way to */
-    findAWayToCastleQueenSide: string;
+    findAWayToCastleQueenSide: I18nString;
     /** First place the rooks! */
-    firstPlaceTheRooks: string;
+    firstPlaceTheRooks: I18nString;
     /** Fundamentals */
-    fundamentals: string;
+    fundamentals: I18nString;
     /** Get a free Lichess account */
-    getAFreeLichessAccount: string;
+    getAFreeLichessAccount: I18nString;
     /** Grab all the stars! */
-    grabAllTheStars: string;
+    grabAllTheStars: I18nString;
     /** Grab all the stars! */
-    grabAllTheStarsNoNeedToPromote: string;
+    grabAllTheStarsNoNeedToPromote: I18nString;
     /** Great job! */
-    greatJob: string;
+    greatJob: I18nString;
     /** How the game starts */
-    howTheGameStarts: string;
+    howTheGameStarts: I18nString;
     /** Intermediate */
-    intermediate: string;
+    intermediate: I18nString;
     /** It moves diagonally */
-    itMovesDiagonally: string;
+    itMovesDiagonally: I18nString;
     /** It moves forward only */
-    itMovesForwardOnly: string;
+    itMovesForwardOnly: I18nString;
     /** It moves in an L shape */
-    itMovesInAnLShape: string;
+    itMovesInAnLShape: I18nString;
     /** It moves in straight lines */
-    itMovesInStraightLines: string;
+    itMovesInStraightLines: I18nString;
     /** It now promotes to a stronger piece. */
-    itNowPromotesToAStrongerPiece: string;
+    itNowPromotesToAStrongerPiece: I18nString;
     /** Keep your pieces safe */
-    keepYourPiecesSafe: string;
+    keepYourPiecesSafe: I18nString;
     /** You can now command the commander! */
-    kingComplete: string;
+    kingComplete: I18nString;
     /** You are the king. If you fall in battle, the game is lost. */
-    kingIntro: string;
+    kingIntro: I18nString;
     /** Congratulations! You have mastered the knight. */
-    knightComplete: string;
+    knightComplete: I18nString;
     /** Here's a challenge for you. The knight is... a tricky piece. */
-    knightIntro: string;
+    knightIntro: I18nString;
     /** Knights can jump over obstacles! */
-    knightsCanJumpOverObstacles: string;
+    knightsCanJumpOverObstacles: I18nString;
     /** Knights have a fancy way */
-    knightsHaveAFancyWay: string;
+    knightsHaveAFancyWay: I18nString;
     /** Last one! */
-    lastOne: string;
+    lastOne: I18nString;
     /** Learn chess */
-    learnChess: string;
+    learnChess: I18nString;
     /** Learn common chess positions */
-    learnCommonChessPositions: string;
+    learnCommonChessPositions: I18nString;
     /** Let's go! */
-    letsGo: string;
+    letsGo: I18nString;
     /** Mate in one */
-    mateInOne: string;
+    mateInOne: I18nString;
     /** Congratulations! That is how you win chess games! */
-    mateInOneComplete: string;
+    mateInOneComplete: I18nString;
     /** You win when your opponent cannot defend against a check. */
-    mateInOneIntro: string;
+    mateInOneIntro: I18nString;
     /** Menu */
-    menu: string;
+    menu: I18nString;
     /** Most of the time promoting to a queen is the best. */
-    mostOfTheTimePromotingToAQueenIsBest: string;
+    mostOfTheTimePromotingToAQueenIsBest: I18nString;
     /** Nailed it. */
-    nailedIt: string;
+    nailedIt: I18nString;
     /** Next */
-    next: string;
+    next: I18nString;
     /** Next: %s */
-    nextX: I18nFormat;
+    nextX: I18nString;
     /** There is no escape, */
-    noEscape: string;
+    noEscape: I18nString;
     /** Opponents from around the world */
-    opponentsFromAroundTheWorld: string;
+    opponentsFromAroundTheWorld: I18nString;
     /** Out of check */
-    outOfCheck: string;
+    outOfCheck: I18nString;
     /** Congratulations! Your king can never be taken, make sure you can defend against a check! */
-    outOfCheckComplete: string;
+    outOfCheckComplete: I18nString;
     /** You are in check! You must escape or block the attack. */
-    outOfCheckIntro: string;
+    outOfCheckIntro: I18nString;
     /** Outstanding! */
-    outstanding: string;
+    outstanding: I18nString;
     /** Congratulations! Pawns have no secrets for you. */
-    pawnComplete: string;
+    pawnComplete: I18nString;
     /** Pawns are weak, but they pack a lot of potential. */
-    pawnIntro: string;
+    pawnIntro: I18nString;
     /** Pawn promotion */
-    pawnPromotion: string;
+    pawnPromotion: I18nString;
     /** Pawns form the front line. */
-    pawnsFormTheFrontLine: string;
+    pawnsFormTheFrontLine: I18nString;
     /** Pawns move forward, */
-    pawnsMoveForward: string;
+    pawnsMoveForward: I18nString;
     /** Pawns move one square only. */
-    pawnsMoveOneSquareOnly: string;
+    pawnsMoveOneSquareOnly: I18nString;
     /** Perfect! */
-    perfect: string;
+    perfect: I18nString;
     /** Piece value */
-    pieceValue: string;
+    pieceValue: I18nString;
     /** Congratulations! You know the value of material! */
-    pieceValueComplete: string;
+    pieceValueComplete: I18nString;
     /** Take the piece with the highest value! */
-    pieceValueExchange: string;
+    pieceValueExchange: I18nString;
     /** Pieces with high mobility have a higher value! */
-    pieceValueIntro: string;
+    pieceValueIntro: I18nString;
     /** Take the piece */
-    pieceValueLegal: string;
+    pieceValueLegal: I18nString;
     /** Place the bishops! */
-    placeTheBishops: string;
+    placeTheBishops: I18nString;
     /** Place the king! */
-    placeTheKing: string;
+    placeTheKing: I18nString;
     /** Place the queen! */
-    placeTheQueen: string;
+    placeTheQueen: I18nString;
     /** play! */
-    play: string;
+    play: I18nString;
     /** Play machine */
-    playMachine: string;
+    playMachine: I18nString;
     /** Play people */
-    playPeople: string;
+    playPeople: I18nString;
     /** Practise */
-    practice: string;
+    practice: I18nString;
     /** Progress: %s */
-    progressX: I18nFormat;
+    progressX: I18nString;
     /** Protection */
-    protection: string;
+    protection: I18nString;
     /** Congratulations! A piece you don't lose is a piece you win! */
-    protectionComplete: string;
+    protectionComplete: I18nString;
     /** Identify the pieces your opponent attacks, and defend them! */
-    protectionIntro: string;
+    protectionIntro: I18nString;
     /** Puzzle failed! */
-    puzzleFailed: string;
+    puzzleFailed: I18nString;
     /** Puzzles */
-    puzzles: string;
+    puzzles: I18nString;
     /** Queen = rook + bishop */
-    queenCombinesRookAndBishop: string;
+    queenCombinesRookAndBishop: I18nString;
     /** Congratulations! Queens have no secrets for you. */
-    queenComplete: string;
+    queenComplete: I18nString;
     /** The most powerful chess piece enters. Her majesty the queen! */
-    queenIntro: string;
+    queenIntro: I18nString;
     /** Take the piece */
-    queenOverBishop: string;
+    queenOverBishop: I18nString;
     /** Register */
-    register: string;
+    register: I18nString;
     /** Reset my progress */
-    resetMyProgress: string;
+    resetMyProgress: I18nString;
     /** Retry */
-    retry: string;
+    retry: I18nString;
     /** Right on! */
-    rightOn: string;
+    rightOn: I18nString;
     /** Congratulations! You have successfully mastered the rook. */
-    rookComplete: string;
+    rookComplete: I18nString;
     /** Click on the rook */
-    rookGoal: string;
+    rookGoal: I18nString;
     /** The rook is a powerful piece. Are you ready to command it? */
-    rookIntro: string;
+    rookIntro: I18nString;
     /** Select the piece you want! */
-    selectThePieceYouWant: string;
+    selectThePieceYouWant: I18nString;
     /** Stage %s */
-    stageX: I18nFormat;
+    stageX: I18nString;
     /** Stage %s complete */
-    stageXComplete: I18nFormat;
+    stageXComplete: I18nString;
     /** Stalemate */
-    stalemate: string;
+    stalemate: I18nString;
     /** Congratulations! Better be stalemated than checkmated! */
-    stalemateComplete: string;
+    stalemateComplete: I18nString;
     /** To stalemate black: */
-    stalemateGoal: string;
+    stalemateGoal: I18nString;
     /** When a player is not in check and does not have a legal move, it's a stalemate. The game is drawn: no one wins, no one loses. */
-    stalemateIntro: string;
+    stalemateIntro: I18nString;
     /** Take all the pawns en passant! */
-    takeAllThePawnsEnPassant: string;
+    takeAllThePawnsEnPassant: I18nString;
     /** Take the black pieces! */
-    takeTheBlackPieces: string;
+    takeTheBlackPieces: I18nString;
     /** Take the black pieces! */
-    takeTheBlackPiecesAndDontLoseYours: string;
+    takeTheBlackPiecesAndDontLoseYours: I18nString;
     /** Take the enemy pieces */
-    takeTheEnemyPieces: string;
+    takeTheEnemyPieces: I18nString;
     /** Take the piece */
-    takeThePieceWithTheHighestValue: string;
+    takeThePieceWithTheHighestValue: I18nString;
     /** Test your skills with the computer */
-    testYourSkillsWithTheComputer: string;
+    testYourSkillsWithTheComputer: I18nString;
     /** The bishop */
-    theBishop: string;
+    theBishop: I18nString;
     /** The fewer moves you make, */
-    theFewerMoves: string;
+    theFewerMoves: I18nString;
     /** The game is a draw */
-    theGameIsADraw: string;
+    theGameIsADraw: I18nString;
     /** The king */
-    theKing: string;
+    theKing: I18nString;
     /** The king cannot escape, */
-    theKingCannotEscapeButBlock: string;
+    theKingCannotEscapeButBlock: I18nString;
     /** The king is slow. */
-    theKingIsSlow: string;
+    theKingIsSlow: I18nString;
     /** The knight */
-    theKnight: string;
+    theKnight: I18nString;
     /** The knight is in the way! */
-    theKnightIsInTheWay: string;
+    theKnightIsInTheWay: I18nString;
     /** The most important piece */
-    theMostImportantPiece: string;
+    theMostImportantPiece: I18nString;
     /** Then place the knights! */
-    thenPlaceTheKnights: string;
+    thenPlaceTheKnights: I18nString;
     /** The pawn */
-    thePawn: string;
+    thePawn: I18nString;
     /** The queen */
-    theQueen: string;
+    theQueen: I18nString;
     /** The rook */
-    theRook: string;
+    theRook: I18nString;
     /** The special king move */
-    theSpecialKingMove: string;
+    theSpecialKingMove: I18nString;
     /** The special pawn move */
-    theSpecialPawnMove: string;
+    theSpecialPawnMove: I18nString;
     /** This is the initial position */
-    thisIsTheInitialPosition: string;
+    thisIsTheInitialPosition: I18nString;
     /** This knight is checking */
-    thisKnightIsCheckingThroughYourDefenses: string;
+    thisKnightIsCheckingThroughYourDefenses: I18nString;
     /** Two moves to give a check */
-    twoMovesToGiveCheck: string;
+    twoMovesToGiveCheck: I18nString;
     /** Use all the pawns! */
-    useAllThePawns: string;
+    useAllThePawns: I18nString;
     /** Use two rooks */
-    useTwoRooks: string;
+    useTwoRooks: I18nString;
     /** Videos */
-    videos: string;
+    videos: I18nString;
     /** Watch instructive chess videos */
-    watchInstructiveChessVideos: string;
+    watchInstructiveChessVideos: I18nString;
     /** Way to go! */
-    wayToGo: string;
+    wayToGo: I18nString;
     /** What next? */
-    whatNext: string;
+    whatNext: I18nString;
     /** Yes, yes, yes! */
-    yesYesYes: string;
+    yesYesYes: I18nString;
     /** You can get out of check */
-    youCanGetOutOfCheckByTaking: string;
+    youCanGetOutOfCheckByTaking: I18nString;
     /** You cannot castle if */
-    youCannotCastleIfAttacked: string;
+    youCannotCastleIfAttacked: I18nString;
     /** You cannot castle if */
-    youCannotCastleIfMoved: string;
+    youCannotCastleIfMoved: I18nString;
     /** You know how to play chess, congratulations! Do you want to become a stronger player? */
-    youKnowHowToPlayChess: string;
+    youKnowHowToPlayChess: I18nString;
     /** One light-squared bishop, */
-    youNeedBothBishops: string;
+    youNeedBothBishops: I18nString;
     /** You're good at this! */
-    youreGoodAtThis: string;
+    youreGoodAtThis: I18nString;
     /** Your pawn reached the end of the board! */
-    yourPawnReachedTheEndOfTheBoard: string;
+    yourPawnReachedTheEndOfTheBoard: I18nString;
     /** You will lose all your progress! */
-    youWillLoseAllYourProgress: string;
+    youWillLoseAllYourProgress: I18nString;
   };
   oauthScope: {
     /** You already have played games! */
-    alreadyHavePlayedGames: string;
+    alreadyHavePlayedGames: I18nString;
     /** API access tokens */
-    apiAccessTokens: string;
+    apiAccessTokens: I18nString;
     /** API documentation */
-    apiDocumentation: string;
+    apiDocumentation: I18nString;
     /** Here's a %1$s and the %2$s. */
-    apiDocumentationLinks: I18nFormat;
+    apiDocumentationLinks: I18nString;
     /** Note for the attention of developers only: */
-    attentionOfDevelopers: string;
+    attentionOfDevelopers: I18nString;
     /** authorization code flow */
-    authorizationCodeFlow: string;
+    authorizationCodeFlow: I18nString;
     /** Play games with board API */
-    boardPlay: string;
+    boardPlay: I18nString;
     /** Play games with the bot API */
-    botPlay: string;
+    botPlay: I18nString;
     /** You can make OAuth requests without going through the %s. */
-    canMakeOauthRequests: I18nFormat;
+    canMakeOauthRequests: I18nString;
     /** Carefully select what it is allowed to do on your behalf. */
-    carefullySelect: string;
+    carefullySelect: I18nString;
     /** Create many games at once for other players */
-    challengeBulk: string;
+    challengeBulk: I18nString;
     /** Read incoming challenges */
-    challengeRead: string;
+    challengeRead: I18nString;
     /** Send, accept and reject challenges */
-    challengeWrite: string;
+    challengeWrite: I18nString;
     /** Make sure to copy your new personal access token now. You won’t be able to see it again! */
-    copyTokenNow: string;
+    copyTokenNow: I18nString;
     /** Created %s */
-    created: I18nFormat;
+    created: I18nString;
     /** The token will grant access to your account. Do NOT share it with anyone! */
-    doNotShareIt: string;
+    doNotShareIt: I18nString;
     /** Read email address */
-    emailRead: string;
+    emailRead: I18nString;
     /** View and use your external engines */
-    engineRead: string;
+    engineRead: I18nString;
     /** Create and update external engines */
-    engineWrite: string;
+    engineWrite: I18nString;
     /** Read followed players */
-    followRead: string;
+    followRead: I18nString;
     /** Follow and unfollow other players */
-    followWrite: string;
+    followWrite: I18nString;
     /** For example: %s */
-    forExample: I18nFormat;
+    forExample: I18nString;
     /** generate a personal access token */
-    generatePersonalToken: string;
+    generatePersonalToken: I18nString;
     /** Giving these pre-filled URLs to your users will help them get the right token scopes. */
-    givingPrefilledUrls: string;
+    givingPrefilledUrls: I18nString;
     /** Guard these tokens carefully! They are like passwords. The advantage to using tokens over putting your password into a script is that tokens can be revoked, and you can generate lots of them. */
-    guardTokensCarefully: string;
+    guardTokensCarefully: I18nString;
     /** Instead, %s that you can directly use in API requests. */
-    insteadGenerateToken: I18nFormat;
+    insteadGenerateToken: I18nString;
     /** Last used %s */
-    lastUsed: I18nFormat;
+    lastUsed: I18nString;
     /** Send private messages to other players */
-    msgWrite: string;
+    msgWrite: I18nString;
     /** New personal API access token */
-    newAccessToken: string;
+    newAccessToken: I18nString;
     /** New access token */
-    newToken: string;
+    newToken: I18nString;
     /** Personal API access tokens */
-    personalAccessTokens: string;
+    personalAccessTokens: I18nString;
     /** personal token app example */
-    personalTokenAppExample: string;
+    personalTokenAppExample: I18nString;
     /** It is possible to pre-fill this form by tweaking the query parameters of the URL. */
-    possibleToPrefill: string;
+    possibleToPrefill: I18nString;
     /** Read preferences */
-    preferenceRead: string;
+    preferenceRead: I18nString;
     /** Write preference */
-    preferenceWrite: string;
+    preferenceWrite: I18nString;
     /** Read puzzle activity */
-    puzzleRead: string;
+    puzzleRead: I18nString;
     /** Create and join puzzle races */
-    racerWrite: string;
+    racerWrite: I18nString;
     /** So you remember what this token is for */
-    rememberTokenUse: string;
+    rememberTokenUse: I18nString;
     /** The scope codes can be found in the HTML code of the form. */
-    scopesCanBeFound: string;
+    scopesCanBeFound: I18nString;
     /** Read private studies and broadcasts */
-    studyRead: string;
+    studyRead: I18nString;
     /** Create, update, delete studies and broadcasts */
-    studyWrite: string;
+    studyWrite: I18nString;
     /** Manage teams you lead: send PMs, kick members */
-    teamLead: string;
+    teamLead: I18nString;
     /** Read private team information */
-    teamRead: string;
+    teamRead: I18nString;
     /** Join and leave teams */
-    teamWrite: string;
+    teamWrite: I18nString;
     /** ticks the %1$s and %2$s scopes, and sets the token description. */
-    ticksTheScopes: I18nFormat;
+    ticksTheScopes: I18nString;
     /** Token description */
-    tokenDescription: string;
+    tokenDescription: I18nString;
     /** A token grants other people permission to use your account. */
-    tokenGrantsPermission: string;
+    tokenGrantsPermission: I18nString;
     /** Create, update, and join tournaments */
-    tournamentWrite: string;
+    tournamentWrite: I18nString;
     /** Create authenticated website sessions (grants full access!) */
-    webLogin: string;
+    webLogin: I18nString;
     /** Use moderator tools (within bounds of your permission) */
-    webMod: string;
+    webMod: I18nString;
     /** What the token can do on your behalf: */
-    whatTheTokenCanDo: string;
+    whatTheTokenCanDo: I18nString;
   };
   onboarding: {
     /** Configure Lichess to your liking. */
-    configureLichess: string;
+    configureLichess: I18nString;
     /** Will a child use this account? You might want to enable %s. */
-    enabledKidModeSuggestion: I18nFormat;
+    enabledKidModeSuggestion: I18nString;
     /** Explore the site and have fun :) */
-    exploreTheSiteAndHaveFun: string;
+    exploreTheSiteAndHaveFun: I18nString;
     /** Follow your friends on Lichess. */
-    followYourFriendsOnLichess: string;
+    followYourFriendsOnLichess: I18nString;
     /** Improve with chess tactics puzzles. */
-    improveWithChessTacticsPuzzles: string;
+    improveWithChessTacticsPuzzles: I18nString;
     /** Learn chess rules */
-    learnChessRules: string;
+    learnChessRules: I18nString;
     /** Learn from %1$s and %2$s. */
-    learnFromXAndY: I18nFormat;
+    learnFromXAndY: I18nString;
     /** Play in tournaments. */
-    playInTournaments: string;
+    playInTournaments: I18nString;
     /** Play opponents from around the world. */
-    playOpponentsFromAroundTheWorld: string;
+    playOpponentsFromAroundTheWorld: I18nString;
     /** Play the Artificial Intelligence. */
-    playTheArtificialIntelligence: string;
+    playTheArtificialIntelligence: I18nString;
     /** This is your profile page. */
-    thisIsYourProfilePage: string;
+    thisIsYourProfilePage: I18nString;
     /** Welcome! */
-    welcome: string;
+    welcome: I18nString;
     /** Welcome to lichess.org! */
-    welcomeToLichess: string;
+    welcomeToLichess: I18nString;
     /** What now? Here are a few suggestions: */
-    whatNowSuggestions: string;
+    whatNowSuggestions: I18nString;
   };
   patron: {
     /** Yes, here's the act of creation (in French) */
-    actOfCreation: string;
+    actOfCreation: I18nString;
     /** Amount */
-    amount: string;
+    amount: I18nString;
     /** We also accept bank transfers */
-    bankTransfers: string;
+    bankTransfers: I18nString;
     /** Become a Lichess Patron */
-    becomePatron: string;
+    becomePatron: I18nString;
     /** Cancel your support */
-    cancelSupport: string;
+    cancelSupport: I18nString;
     /** The celebrated Patrons who make Lichess possible */
-    celebratedPatrons: string;
+    celebratedPatrons: I18nString;
     /** Change currency */
-    changeCurrency: string;
+    changeCurrency: I18nString;
     /** Change the monthly amount (%s) */
-    changeMonthlyAmount: I18nFormat;
+    changeMonthlyAmount: I18nString;
     /** Can I change/cancel my monthly support? */
-    changeMonthlySupport: string;
+    changeMonthlySupport: I18nString;
     /** Yes, at any time, from this page. */
-    changeOrContact: I18nFormat;
+    changeOrContact: I18nString;
     /** Check out your profile page! */
-    checkOutProfile: string;
+    checkOutProfile: I18nString;
     /** contact Lichess support */
-    contactSupport: string;
+    contactSupport: I18nString;
     /** See the detailed cost breakdown */
-    costBreakdown: string;
+    costBreakdown: I18nString;
     /** Current status */
-    currentStatus: string;
+    currentStatus: I18nString;
     /** Date */
-    date: string;
+    date: I18nString;
     /** Decide what Lichess is worth to you: */
-    decideHowMuch: string;
+    decideHowMuch: I18nString;
     /** Donate */
-    donate: string;
+    donate: I18nString;
     /** Donate as %s */
-    donateAsX: I18nFormat;
+    donateAsX: I18nString;
     /** In one month, you will NOT be charged again, and your Lichess account will revert to a regular account. */
-    downgradeNextMonth: string;
+    downgradeNextMonth: I18nString;
     /** See the detailed feature comparison */
-    featuresComparison: string;
+    featuresComparison: I18nString;
     /** Free account */
-    freeAccount: string;
+    freeAccount: I18nString;
     /** Free chess for everyone, forever! */
-    freeChess: string;
+    freeChess: I18nString;
     /** Gift Patron wings to a player */
-    giftPatronWings: string;
+    giftPatronWings: I18nString;
     /** Gift Patron wings */
-    giftPatronWingsShort: string;
+    giftPatronWingsShort: I18nString;
     /** If not renewed, your account will then revert to a regular account. */
-    ifNotRenewedThenAccountWillRevert: string;
+    ifNotRenewedThenAccountWillRevert: I18nString;
     /** Lichess is registered with %s. */
-    lichessIsRegisteredWith: I18nFormat;
+    lichessIsRegisteredWith: I18nString;
     /** Lichess Patron */
-    lichessPatron: string;
+    lichessPatron: I18nString;
     /** Lifetime */
-    lifetime: string;
+    lifetime: I18nString;
     /** Lifetime Lichess Patron */
-    lifetimePatron: string;
+    lifetimePatron: I18nString;
     /** Log in to donate */
-    logInToDonate: string;
+    logInToDonate: I18nString;
     /** Make an additional donation */
-    makeAdditionalDonation: string;
+    makeAdditionalDonation: I18nString;
     /** Monthly */
-    monthly: string;
+    monthly: I18nString;
     /** New Patrons */
-    newPatrons: string;
+    newPatrons: I18nString;
     /** Next payment */
-    nextPayment: string;
+    nextPayment: I18nString;
     /** No ads, no subscriptions; but open-source and passion. */
-    noAdsNoSubs: string;
+    noAdsNoSubs: I18nString;
     /** No longer support Lichess */
-    noLongerSupport: string;
+    noLongerSupport: I18nString;
     /** No, because Lichess is entirely free, forever, and for everyone. That's a promise. */
-    noPatronFeatures: string;
+    noPatronFeatures: I18nString;
     /** You are now a lifetime Lichess Patron! */
-    nowLifetime: string;
+    nowLifetime: I18nString;
     /** You are now a Lichess Patron for one month! */
-    nowOneMonth: string;
+    nowOneMonth: I18nString;
     /** Is Lichess an official non-profit? */
-    officialNonProfit: string;
+    officialNonProfit: I18nString;
     /** One-time */
-    onetime: string;
+    onetime: I18nString;
     /** Please note that only the donation form above will grant the Patron status. */
-    onlyDonationFromAbove: string;
+    onlyDonationFromAbove: I18nString;
     /** Other */
-    otherAmount: string;
+    otherAmount: I18nString;
     /** Other methods of donation? */
-    otherMethods: string;
+    otherMethods: I18nString;
     /** Are some features reserved to Patrons? */
-    patronFeatures: string;
+    patronFeatures: I18nString;
     /** Lichess Patron for %s months */
     patronForMonths: I18nPlural;
     /** You have a Patron account until %s. */
-    patronUntil: I18nFormat;
+    patronUntil: I18nString;
     /** Pay %s once. Be a Lichess Patron forever! */
-    payLifetimeOnce: I18nFormat;
+    payLifetimeOnce: I18nString;
     /** Payment details */
-    paymentDetails: string;
+    paymentDetails: I18nString;
     /** You now have a permanent Patron account. */
-    permanentPatron: string;
+    permanentPatron: I18nString;
     /** Please enter an amount in %s */
-    pleaseEnterAmountInX: I18nFormat;
+    pleaseEnterAmountInX: I18nString;
     /** Recurring billing, renewing your Patron wings every month. */
-    recurringBilling: string;
+    recurringBilling: I18nString;
     /** First of all, powerful servers. */
-    serversAndDeveloper: I18nFormat;
+    serversAndDeveloper: I18nString;
     /** A single donation that grants you the Patron wings for one month. */
-    singleDonation: string;
+    singleDonation: I18nString;
     /** Withdraw your credit card and stop payments: */
-    stopPayments: string;
+    stopPayments: I18nString;
     /** Cancel PayPal subscription and stop payments: */
-    stopPaymentsPayPal: string;
+    stopPaymentsPayPal: I18nString;
     /** Manage your subscription and download your invoices and receipts */
-    stripeManageSub: string;
+    stripeManageSub: I18nString;
     /** Thank you for your donation! */
-    thankYou: string;
+    thankYou: I18nString;
     /** Your transaction has been completed, and a receipt for your donation has been emailed to you. */
-    transactionCompleted: string;
+    transactionCompleted: I18nString;
     /** Thank you very much for your help. You rock! */
-    tyvm: string;
+    tyvm: I18nString;
     /** Update */
-    update: string;
+    update: I18nString;
     /** Update payment method */
-    updatePaymentMethod: string;
+    updatePaymentMethod: I18nString;
     /** View other Lichess Patrons */
-    viewOthers: string;
+    viewOthers: I18nString;
     /** We are a non‑profit association because we believe everyone should have access to a free, world-class chess platform. */
-    weAreNonProfit: string;
+    weAreNonProfit: I18nString;
     /** We are a small team, so your support makes a huge difference! */
-    weAreSmallTeam: string;
+    weAreSmallTeam: I18nString;
     /** We rely on support from people like you to make it possible. If you enjoy using Lichess, please consider supporting us by donating and becoming a Patron! */
-    weRelyOnSupport: string;
+    weRelyOnSupport: I18nString;
     /** Where does the money go? */
-    whereMoneyGoes: string;
+    whereMoneyGoes: I18nString;
     /** Credit Card */
-    withCreditCard: string;
+    withCreditCard: I18nString;
     /** %s became a Lichess Patron */
-    xBecamePatron: I18nFormat;
+    xBecamePatron: I18nString;
     /** %1$s is a Lichess Patron for %2$s months */
     xIsPatronForNbMonths: I18nPlural;
     /** %1$s or %2$s */
-    xOrY: I18nFormat;
+    xOrY: I18nString;
     /** You have a Lifetime Patron account. That's pretty awesome! */
-    youHaveLifetime: string;
+    youHaveLifetime: I18nString;
     /** You support lichess.org with %s per month. */
-    youSupportWith: I18nFormat;
+    youSupportWith: I18nString;
     /** You will be charged %1$s on %2$s. */
-    youWillBeChargedXOnY: I18nFormat;
+    youWillBeChargedXOnY: I18nString;
   };
   perfStat: {
     /** Average opponent */
-    averageOpponent: string;
+    averageOpponent: I18nString;
     /** Berserked games */
-    berserkedGames: string;
+    berserkedGames: I18nString;
     /** Best rated victories */
-    bestRated: string;
+    bestRated: I18nString;
     /** Current streak: %s */
-    currentStreak: I18nFormat;
+    currentStreak: I18nString;
     /** Defeats */
-    defeats: string;
+    defeats: I18nString;
     /** Disconnections */
-    disconnections: string;
+    disconnections: I18nString;
     /** from %1$s to %2$s */
-    fromXToY: I18nFormat;
+    fromXToY: I18nString;
     /** Games played in a row */
-    gamesInARow: string;
+    gamesInARow: I18nString;
     /** Highest rating: %s */
-    highestRating: I18nFormat;
+    highestRating: I18nString;
     /** Less than one hour between games */
-    lessThanOneHour: string;
+    lessThanOneHour: I18nString;
     /** Longest streak: %s */
-    longestStreak: I18nFormat;
+    longestStreak: I18nString;
     /** Losing streak */
-    losingStreak: string;
+    losingStreak: I18nString;
     /** Lowest rating: %s */
-    lowestRating: I18nFormat;
+    lowestRating: I18nString;
     /** Max time spent playing */
-    maxTimePlaying: string;
+    maxTimePlaying: I18nString;
     /** Not enough games played */
-    notEnoughGames: string;
+    notEnoughGames: I18nString;
     /** Not enough rated games have been played to establish a reliable rating. */
-    notEnoughRatedGames: string;
+    notEnoughRatedGames: I18nString;
     /** now */
-    now: string;
+    now: I18nString;
     /** %s stats */
-    perfStats: I18nFormat;
+    perfStats: I18nString;
     /** Progression over the last %s games: */
-    progressOverLastXGames: I18nFormat;
+    progressOverLastXGames: I18nString;
     /** provisional */
-    provisional: string;
+    provisional: I18nString;
     /** Rated games */
-    ratedGames: string;
+    ratedGames: I18nString;
     /** Rating deviation: %s. */
-    ratingDeviation: I18nFormat;
+    ratingDeviation: I18nString;
     /** Lower value means the rating is more stable. Above %1$s, the rating is considered provisional. To be included in the rankings, this value should be below %2$s (standard chess) or %3$s (variants). */
-    ratingDeviationTooltip: I18nFormat;
+    ratingDeviationTooltip: I18nString;
     /** Time spent playing */
-    timeSpentPlaying: string;
+    timeSpentPlaying: I18nString;
     /** Total games */
-    totalGames: string;
+    totalGames: I18nString;
     /** Tournament games */
-    tournamentGames: string;
+    tournamentGames: I18nString;
     /** Victories */
-    victories: string;
+    victories: I18nString;
     /** View the games */
-    viewTheGames: string;
+    viewTheGames: I18nString;
     /** Winning streak */
-    winningStreak: string;
+    winningStreak: I18nString;
   };
   preferences: {
     /** Bell notification sound */
-    bellNotificationSound: string;
+    bellNotificationSound: I18nString;
     /** Board coordinates (A-H, 1-8) */
-    boardCoordinates: string;
+    boardCoordinates: I18nString;
     /** Board highlights (last move and check) */
-    boardHighlights: string;
+    boardHighlights: I18nString;
     /** Either */
-    bothClicksAndDrag: string;
+    bothClicksAndDrag: I18nString;
     /** Move king onto rook */
-    castleByMovingOntoTheRook: string;
+    castleByMovingOntoTheRook: I18nString;
     /** Castling method */
-    castleByMovingTheKingTwoSquaresOrOntoTheRook: string;
+    castleByMovingTheKingTwoSquaresOrOntoTheRook: I18nString;
     /** Move king two squares */
-    castleByMovingTwoSquares: string;
+    castleByMovingTwoSquares: I18nString;
     /** Chess clock */
-    chessClock: string;
+    chessClock: I18nString;
     /** Chess piece symbol */
-    chessPieceSymbol: string;
+    chessPieceSymbol: I18nString;
     /** Claim draw on threefold repetition automatically */
-    claimDrawOnThreefoldRepetitionAutomatically: string;
+    claimDrawOnThreefoldRepetitionAutomatically: I18nString;
     /** Click two squares */
-    clickTwoSquares: string;
+    clickTwoSquares: I18nString;
     /** Confirm resignation and draw offers */
-    confirmResignationAndDrawOffers: string;
+    confirmResignationAndDrawOffers: I18nString;
     /** Correspondence and unlimited */
-    correspondenceAndUnlimited: string;
+    correspondenceAndUnlimited: I18nString;
     /** Daily email listing your correspondence games */
-    correspondenceEmailNotification: string;
+    correspondenceEmailNotification: I18nString;
     /** Display */
-    display: string;
+    display: I18nString;
     /** Show board resize handle */
-    displayBoardResizeHandle: string;
+    displayBoardResizeHandle: I18nString;
     /** Drag a piece */
-    dragPiece: string;
+    dragPiece: I18nString;
     /** Can be disabled during a game with the board menu */
-    explainCanThenBeTemporarilyDisabled: string;
+    explainCanThenBeTemporarilyDisabled: I18nString;
     /** Hold the <ctrl> key while promoting to temporarily disable auto-promotion */
-    explainPromoteToQueenAutomatically: string;
+    explainPromoteToQueenAutomatically: I18nString;
     /** This hides all ratings from Lichess, to help focus on the chess. Rated games still impact your rating, this is only about what you get to see. */
-    explainShowPlayerRatings: string;
+    explainShowPlayerRatings: I18nString;
     /** Game behaviour */
-    gameBehavior: string;
+    gameBehavior: I18nString;
     /** Give more time */
-    giveMoreTime: string;
+    giveMoreTime: I18nString;
     /** Horizontal green progress bars */
-    horizontalGreenProgressBars: string;
+    horizontalGreenProgressBars: I18nString;
     /** How do you move pieces? */
-    howDoYouMovePieces: string;
+    howDoYouMovePieces: I18nString;
     /** In casual games only */
-    inCasualGamesOnly: string;
+    inCasualGamesOnly: I18nString;
     /** Correspondence games */
-    inCorrespondenceGames: string;
+    inCorrespondenceGames: I18nString;
     /** In-game only */
-    inGameOnly: string;
+    inGameOnly: I18nString;
     /** Input moves with the keyboard */
-    inputMovesWithTheKeyboard: string;
+    inputMovesWithTheKeyboard: I18nString;
     /** Input moves with your voice */
-    inputMovesWithVoice: string;
+    inputMovesWithVoice: I18nString;
     /** Material difference */
-    materialDifference: string;
+    materialDifference: I18nString;
     /** Move confirmation */
-    moveConfirmation: string;
+    moveConfirmation: I18nString;
     /** Move list while playing */
-    moveListWhilePlaying: string;
+    moveListWhilePlaying: I18nString;
     /** Notifications */
-    notifications: string;
+    notifications: I18nString;
     /** Bell notification within Lichess */
-    notifyBell: string;
+    notifyBell: I18nString;
     /** Challenges */
-    notifyChallenge: string;
+    notifyChallenge: I18nString;
     /** Device */
-    notifyDevice: string;
+    notifyDevice: I18nString;
     /** Forum comment mentions you */
-    notifyForumMention: string;
+    notifyForumMention: I18nString;
     /** Correspondence game updates */
-    notifyGameEvent: string;
+    notifyGameEvent: I18nString;
     /** New inbox message */
-    notifyInboxMsg: string;
+    notifyInboxMsg: I18nString;
     /** Study invite */
-    notifyInvitedStudy: string;
+    notifyInvitedStudy: I18nString;
     /** Device notification when you're not on Lichess */
-    notifyPush: string;
+    notifyPush: I18nString;
     /** Streamer goes live */
-    notifyStreamStart: string;
+    notifyStreamStart: I18nString;
     /** Correspondence clock running out */
-    notifyTimeAlarm: string;
+    notifyTimeAlarm: I18nString;
     /** Tournament starting soon */
-    notifyTournamentSoon: string;
+    notifyTournamentSoon: I18nString;
     /** Browser */
-    notifyWeb: string;
+    notifyWeb: I18nString;
     /** Only on initial position */
-    onlyOnInitialPosition: string;
+    onlyOnInitialPosition: I18nString;
     /** Letter (K, Q, R, B, N) */
-    pgnLetter: string;
+    pgnLetter: I18nString;
     /** Move notation */
-    pgnPieceNotation: string;
+    pgnPieceNotation: I18nString;
     /** Piece animation */
-    pieceAnimation: string;
+    pieceAnimation: I18nString;
     /** Piece destinations (valid moves and premoves) */
-    pieceDestinations: string;
+    pieceDestinations: I18nString;
     /** Preferences */
-    preferences: string;
+    preferences: I18nString;
     /** Premoves (playing during opponent turn) */
-    premovesPlayingDuringOpponentTurn: string;
+    premovesPlayingDuringOpponentTurn: I18nString;
     /** Privacy */
-    privacy: string;
+    privacy: I18nString;
     /** Promote to Queen automatically */
-    promoteToQueenAutomatically: string;
+    promoteToQueenAutomatically: I18nString;
     /** Say "Good game, well played" upon defeat or draw */
-    sayGgWpAfterLosingOrDrawing: string;
+    sayGgWpAfterLosingOrDrawing: I18nString;
     /** Scroll on the board to replay moves */
-    scrollOnTheBoardToReplayMoves: string;
+    scrollOnTheBoardToReplayMoves: I18nString;
     /** Show player flairs */
-    showFlairs: string;
+    showFlairs: I18nString;
     /** Show player ratings */
-    showPlayerRatings: string;
+    showPlayerRatings: I18nString;
     /** Snap arrows to valid moves */
-    snapArrowsToValidMoves: string;
+    snapArrowsToValidMoves: I18nString;
     /** Sound when time gets critical */
-    soundWhenTimeGetsCritical: string;
+    soundWhenTimeGetsCritical: I18nString;
     /** Takebacks (with opponent approval) */
-    takebacksWithOpponentApproval: string;
+    takebacksWithOpponentApproval: I18nString;
     /** Tenths of seconds */
-    tenthsOfSeconds: string;
+    tenthsOfSeconds: I18nString;
     /** When premoving */
-    whenPremoving: string;
+    whenPremoving: I18nString;
     /** When time remaining < 10 seconds */
-    whenTimeRemainingLessThanTenSeconds: string;
+    whenTimeRemainingLessThanTenSeconds: I18nString;
     /** When time remaining < 30 seconds */
-    whenTimeRemainingLessThanThirtySeconds: string;
+    whenTimeRemainingLessThanThirtySeconds: I18nString;
     /** Your preferences have been saved. */
-    yourPreferencesHaveBeenSaved: string;
+    yourPreferencesHaveBeenSaved: I18nString;
     /** Zen mode */
-    zenMode: string;
+    zenMode: I18nString;
   };
   puzzle: {
     /** Add another theme */
-    addAnotherTheme: string;
+    addAnotherTheme: I18nString;
     /** Advanced */
-    advanced: string;
+    advanced: I18nString;
     /** Best move! */
-    bestMove: string;
+    bestMove: I18nString;
     /** By openings */
-    byOpenings: string;
+    byOpenings: I18nString;
     /** Click to solve */
-    clickToSolve: string;
+    clickToSolve: I18nString;
     /** Continue the streak */
-    continueTheStreak: string;
+    continueTheStreak: I18nString;
     /** Continue training */
-    continueTraining: string;
+    continueTraining: I18nString;
     /** Daily Puzzle */
-    dailyPuzzle: string;
+    dailyPuzzle: I18nString;
     /** Did you like this puzzle? */
-    didYouLikeThisPuzzle: string;
+    didYouLikeThisPuzzle: I18nString;
     /** Difficulty level */
-    difficultyLevel: string;
+    difficultyLevel: I18nString;
     /** Down vote puzzle */
-    downVote: string;
+    downVote: I18nString;
     /** Easier */
-    easier: string;
+    easier: I18nString;
     /** Easiest */
-    easiest: string;
+    easiest: I18nString;
     /** Example */
-    example: string;
+    example: I18nString;
     /** incorrect */
-    failed: string;
+    failed: I18nString;
     /** Find the best move for black. */
-    findTheBestMoveForBlack: string;
+    findTheBestMoveForBlack: I18nString;
     /** Find the best move for white. */
-    findTheBestMoveForWhite: string;
+    findTheBestMoveForWhite: I18nString;
     /** From game %s */
-    fromGameLink: I18nFormat;
+    fromGameLink: I18nString;
     /** From my games */
-    fromMyGames: string;
+    fromMyGames: I18nString;
     /** You have no puzzles in the database, but Lichess still loves you very much. */
-    fromMyGamesNone: string;
+    fromMyGamesNone: I18nString;
     /** Puzzles from %s' games */
-    fromXGames: I18nFormat;
+    fromXGames: I18nString;
     /** %1$s puzzles found in %2$s games */
-    fromXGamesFound: I18nFormat;
+    fromXGamesFound: I18nString;
     /** Goals */
-    goals: string;
+    goals: I18nString;
     /** Good move */
-    goodMove: string;
+    goodMove: I18nString;
     /** Harder */
-    harder: string;
+    harder: I18nString;
     /** Hardest */
-    hardest: string;
+    hardest: I18nString;
     /** hidden */
-    hidden: string;
+    hidden: I18nString;
     /** Puzzle history */
-    history: string;
+    history: I18nString;
     /** Improvement areas */
-    improvementAreas: string;
+    improvementAreas: I18nString;
     /** Train these to optimize your progress! */
-    improvementAreasDescription: string;
+    improvementAreasDescription: I18nString;
     /** Jump to next puzzle immediately */
-    jumpToNextPuzzleImmediately: string;
+    jumpToNextPuzzleImmediately: I18nString;
     /** Keep going… */
-    keepGoing: string;
+    keepGoing: I18nString;
     /** Lengths */
-    lengths: string;
+    lengths: I18nString;
     /** Lookup puzzles from a player's games */
-    lookupOfPlayer: string;
+    lookupOfPlayer: I18nString;
     /** Mates */
-    mates: string;
+    mates: I18nString;
     /** Motifs */
-    motifs: string;
+    motifs: I18nString;
     /** %s played */
     nbPlayed: I18nPlural;
     /** %s points above your puzzle rating */
@@ -2282,1223 +2282,1223 @@ interface I18n {
     /** %s to replay */
     nbToReplay: I18nPlural;
     /** New streak */
-    newStreak: string;
+    newStreak: I18nString;
     /** Next puzzle */
-    nextPuzzle: string;
+    nextPuzzle: I18nString;
     /** Nothing to show, go play some puzzles first! */
-    noPuzzlesToShow: string;
+    noPuzzlesToShow: I18nString;
     /** Normal */
-    normal: string;
+    normal: I18nString;
     /** That's not the move! */
-    notTheMove: string;
+    notTheMove: I18nString;
     /** Openings you played the most in rated games */
-    openingsYouPlayedTheMost: string;
+    openingsYouPlayedTheMost: I18nString;
     /** Origin */
-    origin: string;
+    origin: I18nString;
     /** %s solved */
-    percentSolved: I18nFormat;
+    percentSolved: I18nString;
     /** Phases */
-    phases: string;
+    phases: I18nString;
     /** Played %s times */
     playedXTimes: I18nPlural;
     /** Puzzle complete! */
-    puzzleComplete: string;
+    puzzleComplete: I18nString;
     /** Puzzle Dashboard */
-    puzzleDashboard: string;
+    puzzleDashboard: I18nString;
     /** Train, analyse, improve */
-    puzzleDashboardDescription: string;
+    puzzleDashboardDescription: I18nString;
     /** Puzzle %s */
-    puzzleId: I18nFormat;
+    puzzleId: I18nString;
     /** Puzzle of the day */
-    puzzleOfTheDay: string;
+    puzzleOfTheDay: I18nString;
     /** Puzzles */
-    puzzles: string;
+    puzzles: I18nString;
     /** Puzzles by openings */
-    puzzlesByOpenings: string;
+    puzzlesByOpenings: I18nString;
     /** Success! */
-    puzzleSuccess: string;
+    puzzleSuccess: I18nString;
     /** Puzzle Themes */
-    puzzleThemes: string;
+    puzzleThemes: I18nString;
     /** Rating: %s */
-    ratingX: I18nFormat;
+    ratingX: I18nString;
     /** Recommended */
-    recommended: string;
+    recommended: I18nString;
     /** Search puzzles */
-    searchPuzzles: string;
+    searchPuzzles: I18nString;
     /** solved */
-    solved: string;
+    solved: I18nString;
     /** Special moves */
-    specialMoves: string;
+    specialMoves: I18nString;
     /** Solve progressively harder puzzles and build a win streak. There is no clock, so take your time. One wrong move, and it's game over! But you can skip one move per session. */
-    streakDescription: string;
+    streakDescription: I18nString;
     /** Skip this move to preserve your streak! Only works once per run. */
-    streakSkipExplanation: string;
+    streakSkipExplanation: I18nString;
     /** You perform the best in these themes */
-    strengthDescription: string;
+    strengthDescription: I18nString;
     /** Strengths */
-    strengths: string;
+    strengths: I18nString;
     /** To get personalized puzzles: */
-    toGetPersonalizedPuzzles: string;
+    toGetPersonalizedPuzzles: I18nString;
     /** Try something else. */
-    trySomethingElse: string;
+    trySomethingElse: I18nString;
     /** Up vote puzzle */
-    upVote: string;
+    upVote: I18nString;
     /** Use Ctrl+f to find your favourite opening! */
-    useCtrlF: string;
+    useCtrlF: I18nString;
     /** Use "Find in page" in the browser menu to find your favourite opening! */
-    useFindInPage: string;
+    useFindInPage: I18nString;
     /** Vote to load the next one! */
-    voteToLoadNextOne: string;
+    voteToLoadNextOne: I18nString;
     /** Your puzzle rating will not change. Note that puzzles are not a competition. Your rating helps selecting the best puzzles for your current skill. */
-    yourPuzzleRatingWillNotChange: string;
+    yourPuzzleRatingWillNotChange: I18nString;
     /** Your streak: %s */
-    yourStreakX: I18nFormat;
+    yourStreakX: I18nString;
   };
   puzzleTheme: {
     /** Advanced pawn */
-    advancedPawn: string;
+    advancedPawn: I18nString;
     /** One of your pawns is deep into the opponent position, maybe threatening to promote. */
-    advancedPawnDescription: string;
+    advancedPawnDescription: I18nString;
     /** Advantage */
-    advantage: string;
+    advantage: I18nString;
     /** Seize your chance to get a decisive advantage. (200cp ≤ eval ≤ 600cp) */
-    advantageDescription: string;
+    advantageDescription: I18nString;
     /** Anastasia's mate */
-    anastasiaMate: string;
+    anastasiaMate: I18nString;
     /** A knight and rook or queen team up to trap the opposing king between the side of the board and a friendly piece. */
-    anastasiaMateDescription: string;
+    anastasiaMateDescription: I18nString;
     /** Arabian mate */
-    arabianMate: string;
+    arabianMate: I18nString;
     /** A knight and a rook team up to trap the opposing king on a corner of the board. */
-    arabianMateDescription: string;
+    arabianMateDescription: I18nString;
     /** Attacking f2 or f7 */
-    attackingF2F7: string;
+    attackingF2F7: I18nString;
     /** An attack focusing on the f2 or f7 pawn, such as in the fried liver opening. */
-    attackingF2F7Description: string;
+    attackingF2F7Description: I18nString;
     /** Attraction */
-    attraction: string;
+    attraction: I18nString;
     /** An exchange or sacrifice encouraging or forcing an opponent piece to a square that allows a follow-up tactic. */
-    attractionDescription: string;
+    attractionDescription: I18nString;
     /** Back rank mate */
-    backRankMate: string;
+    backRankMate: I18nString;
     /** Checkmate the king on the home rank, when it is trapped there by its own pieces. */
-    backRankMateDescription: string;
+    backRankMateDescription: I18nString;
     /** Bishop endgame */
-    bishopEndgame: string;
+    bishopEndgame: I18nString;
     /** An endgame with only bishops and pawns. */
-    bishopEndgameDescription: string;
+    bishopEndgameDescription: I18nString;
     /** Boden's mate */
-    bodenMate: string;
+    bodenMate: I18nString;
     /** Two attacking bishops on criss-crossing diagonals deliver mate to a king obstructed by friendly pieces. */
-    bodenMateDescription: string;
+    bodenMateDescription: I18nString;
     /** Capture the defender */
-    capturingDefender: string;
+    capturingDefender: I18nString;
     /** Removing a piece that is critical to defence of another piece, allowing the now undefended piece to be captured on a following move. */
-    capturingDefenderDescription: string;
+    capturingDefenderDescription: I18nString;
     /** Castling */
-    castling: string;
+    castling: I18nString;
     /** Bring the king to safety, and deploy the rook for attack. */
-    castlingDescription: string;
+    castlingDescription: I18nString;
     /** Clearance */
-    clearance: string;
+    clearance: I18nString;
     /** A move, often with tempo, that clears a square, file or diagonal for a follow-up tactical idea. */
-    clearanceDescription: string;
+    clearanceDescription: I18nString;
     /** Crushing */
-    crushing: string;
+    crushing: I18nString;
     /** Spot the opponent blunder to obtain a crushing advantage. (eval ≥ 600cp) */
-    crushingDescription: string;
+    crushingDescription: I18nString;
     /** Defensive move */
-    defensiveMove: string;
+    defensiveMove: I18nString;
     /** A precise move or sequence of moves that is needed to avoid losing material or another advantage. */
-    defensiveMoveDescription: string;
+    defensiveMoveDescription: I18nString;
     /** Deflection */
-    deflection: string;
+    deflection: I18nString;
     /** A move that distracts an opponent piece from another duty that it performs, such as guarding a key square. Sometimes also called "overloading". */
-    deflectionDescription: string;
+    deflectionDescription: I18nString;
     /** Discovered attack */
-    discoveredAttack: string;
+    discoveredAttack: I18nString;
     /** Moving a piece (such as a knight), that previously blocked an attack by a long range piece (such as a rook), out of the way of that piece. */
-    discoveredAttackDescription: string;
+    discoveredAttackDescription: I18nString;
     /** Double bishop mate */
-    doubleBishopMate: string;
+    doubleBishopMate: I18nString;
     /** Two attacking bishops on adjacent diagonals deliver mate to a king obstructed by friendly pieces. */
-    doubleBishopMateDescription: string;
+    doubleBishopMateDescription: I18nString;
     /** Double check */
-    doubleCheck: string;
+    doubleCheck: I18nString;
     /** Checking with two pieces at once, as a result of a discovered attack where both the moving piece and the unveiled piece attack the opponent's king. */
-    doubleCheckDescription: string;
+    doubleCheckDescription: I18nString;
     /** Dovetail mate */
-    dovetailMate: string;
+    dovetailMate: I18nString;
     /** A queen delivers mate to an adjacent king, whose only two escape squares are obstructed by friendly pieces. */
-    dovetailMateDescription: string;
+    dovetailMateDescription: I18nString;
     /** Endgame */
-    endgame: string;
+    endgame: I18nString;
     /** A tactic during the last phase of the game. */
-    endgameDescription: string;
+    endgameDescription: I18nString;
     /** A tactic involving the en passant rule, where a pawn can capture an opponent pawn that has bypassed it using its initial two-square move. */
-    enPassantDescription: string;
+    enPassantDescription: I18nString;
     /** Equality */
-    equality: string;
+    equality: I18nString;
     /** Come back from a losing position, and secure a draw or a balanced position. (eval ≤ 200cp) */
-    equalityDescription: string;
+    equalityDescription: I18nString;
     /** Exposed king */
-    exposedKing: string;
+    exposedKing: I18nString;
     /** A tactic involving a king with few defenders around it, often leading to checkmate. */
-    exposedKingDescription: string;
+    exposedKingDescription: I18nString;
     /** Fork */
-    fork: string;
+    fork: I18nString;
     /** A move where the moved piece attacks two opponent pieces at once. */
-    forkDescription: string;
+    forkDescription: I18nString;
     /** Hanging piece */
-    hangingPiece: string;
+    hangingPiece: I18nString;
     /** A tactic involving an opponent piece being undefended or insufficiently defended and free to capture. */
-    hangingPieceDescription: string;
+    hangingPieceDescription: I18nString;
     /** Hook mate */
-    hookMate: string;
+    hookMate: I18nString;
     /** Checkmate with a rook, knight, and pawn along with one enemy pawn to limit the enemy king's escape. */
-    hookMateDescription: string;
+    hookMateDescription: I18nString;
     /** Interference */
-    interference: string;
+    interference: I18nString;
     /** Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks. */
-    interferenceDescription: string;
+    interferenceDescription: I18nString;
     /** Intermezzo */
-    intermezzo: string;
+    intermezzo: I18nString;
     /** Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between". */
-    intermezzoDescription: string;
+    intermezzoDescription: I18nString;
     /** Kingside attack */
-    kingsideAttack: string;
+    kingsideAttack: I18nString;
     /** An attack of the opponent's king, after they castled on the king side. */
-    kingsideAttackDescription: string;
+    kingsideAttackDescription: I18nString;
     /** Knight endgame */
-    knightEndgame: string;
+    knightEndgame: I18nString;
     /** An endgame with only knights and pawns. */
-    knightEndgameDescription: string;
+    knightEndgameDescription: I18nString;
     /** Long puzzle */
-    long: string;
+    long: I18nString;
     /** Three moves to win. */
-    longDescription: string;
+    longDescription: I18nString;
     /** Master games */
-    master: string;
+    master: I18nString;
     /** Puzzles from games played by titled players. */
-    masterDescription: string;
+    masterDescription: I18nString;
     /** Master vs Master games */
-    masterVsMaster: string;
+    masterVsMaster: I18nString;
     /** Puzzles from games between two titled players. */
-    masterVsMasterDescription: string;
+    masterVsMasterDescription: I18nString;
     /** Checkmate */
-    mate: string;
+    mate: I18nString;
     /** Win the game with style. */
-    mateDescription: string;
+    mateDescription: I18nString;
     /** Mate in 1 */
-    mateIn1: string;
+    mateIn1: I18nString;
     /** Deliver checkmate in one move. */
-    mateIn1Description: string;
+    mateIn1Description: I18nString;
     /** Mate in 2 */
-    mateIn2: string;
+    mateIn2: I18nString;
     /** Deliver checkmate in two moves. */
-    mateIn2Description: string;
+    mateIn2Description: I18nString;
     /** Mate in 3 */
-    mateIn3: string;
+    mateIn3: I18nString;
     /** Deliver checkmate in three moves. */
-    mateIn3Description: string;
+    mateIn3Description: I18nString;
     /** Mate in 4 */
-    mateIn4: string;
+    mateIn4: I18nString;
     /** Deliver checkmate in four moves. */
-    mateIn4Description: string;
+    mateIn4Description: I18nString;
     /** Mate in 5 or more */
-    mateIn5: string;
+    mateIn5: I18nString;
     /** Figure out a long mating sequence. */
-    mateIn5Description: string;
+    mateIn5Description: I18nString;
     /** Middlegame */
-    middlegame: string;
+    middlegame: I18nString;
     /** A tactic during the second phase of the game. */
-    middlegameDescription: string;
+    middlegameDescription: I18nString;
     /** Healthy mix */
-    mix: string;
+    mix: I18nString;
     /** A bit of everything. You don't know what to expect, so you remain ready for anything! Just like in real games. */
-    mixDescription: string;
+    mixDescription: I18nString;
     /** One-move puzzle */
-    oneMove: string;
+    oneMove: I18nString;
     /** A puzzle that is only one move long. */
-    oneMoveDescription: string;
+    oneMoveDescription: I18nString;
     /** Opening */
-    opening: string;
+    opening: I18nString;
     /** A tactic during the first phase of the game. */
-    openingDescription: string;
+    openingDescription: I18nString;
     /** Pawn endgame */
-    pawnEndgame: string;
+    pawnEndgame: I18nString;
     /** An endgame with only pawns. */
-    pawnEndgameDescription: string;
+    pawnEndgameDescription: I18nString;
     /** Pin */
-    pin: string;
+    pin: I18nString;
     /** A tactic involving pins, where a piece is unable to move without revealing an attack on a higher value piece. */
-    pinDescription: string;
+    pinDescription: I18nString;
     /** Player games */
-    playerGames: string;
+    playerGames: I18nString;
     /** Lookup puzzles generated from your games, or from another player's games. */
-    playerGamesDescription: string;
+    playerGamesDescription: I18nString;
     /** Promotion */
-    promotion: string;
+    promotion: I18nString;
     /** Promote one of your pawn to a queen or minor piece. */
-    promotionDescription: string;
+    promotionDescription: I18nString;
     /** These puzzles are in the public domain, and can be downloaded from %s. */
-    puzzleDownloadInformation: I18nFormat;
+    puzzleDownloadInformation: I18nString;
     /** Queen endgame */
-    queenEndgame: string;
+    queenEndgame: I18nString;
     /** An endgame with only queens and pawns. */
-    queenEndgameDescription: string;
+    queenEndgameDescription: I18nString;
     /** Queen and Rook */
-    queenRookEndgame: string;
+    queenRookEndgame: I18nString;
     /** An endgame with only queens, rooks and pawns. */
-    queenRookEndgameDescription: string;
+    queenRookEndgameDescription: I18nString;
     /** Queenside attack */
-    queensideAttack: string;
+    queensideAttack: I18nString;
     /** An attack of the opponent's king, after they castled on the queen side. */
-    queensideAttackDescription: string;
+    queensideAttackDescription: I18nString;
     /** Quiet move */
-    quietMove: string;
+    quietMove: I18nString;
     /** A move that does neither make a check or capture, nor an immediate threat to capture, but does prepare a more hidden unavoidable threat for a later move. */
-    quietMoveDescription: string;
+    quietMoveDescription: I18nString;
     /** Rook endgame */
-    rookEndgame: string;
+    rookEndgame: I18nString;
     /** An endgame with only rooks and pawns. */
-    rookEndgameDescription: string;
+    rookEndgameDescription: I18nString;
     /** Sacrifice */
-    sacrifice: string;
+    sacrifice: I18nString;
     /** A tactic involving giving up material in the short-term, to gain an advantage again after a forced sequence of moves. */
-    sacrificeDescription: string;
+    sacrificeDescription: I18nString;
     /** Short puzzle */
-    short: string;
+    short: I18nString;
     /** Two moves to win. */
-    shortDescription: string;
+    shortDescription: I18nString;
     /** Skewer */
-    skewer: string;
+    skewer: I18nString;
     /** A motif involving a high value piece being attacked, moving out the way, and allowing a lower value piece behind it to be captured or attacked, the inverse of a pin. */
-    skewerDescription: string;
+    skewerDescription: I18nString;
     /** Smothered mate */
-    smotheredMate: string;
+    smotheredMate: I18nString;
     /** A checkmate delivered by a knight in which the mated king is unable to move because it is surrounded (or smothered) by its own pieces. */
-    smotheredMateDescription: string;
+    smotheredMateDescription: I18nString;
     /** Super GM games */
-    superGM: string;
+    superGM: I18nString;
     /** Puzzles from games played by the best players in the world. */
-    superGMDescription: string;
+    superGMDescription: I18nString;
     /** Trapped piece */
-    trappedPiece: string;
+    trappedPiece: I18nString;
     /** A piece is unable to escape capture as it has limited moves. */
-    trappedPieceDescription: string;
+    trappedPieceDescription: I18nString;
     /** Underpromotion */
-    underPromotion: string;
+    underPromotion: I18nString;
     /** Promotion to a knight, bishop, or rook. */
-    underPromotionDescription: string;
+    underPromotionDescription: I18nString;
     /** Very long puzzle */
-    veryLong: string;
+    veryLong: I18nString;
     /** Four moves or more to win. */
-    veryLongDescription: string;
+    veryLongDescription: I18nString;
     /** X-Ray attack */
-    xRayAttack: string;
+    xRayAttack: I18nString;
     /** A piece attacks or defends a square, through an enemy piece. */
-    xRayAttackDescription: string;
+    xRayAttackDescription: I18nString;
     /** Zugzwang */
-    zugzwang: string;
+    zugzwang: I18nString;
     /** The opponent is limited in the moves they can make, and all moves worsen their position. */
-    zugzwangDescription: string;
+    zugzwangDescription: I18nString;
   };
   search: {
     /** Advanced search */
-    advancedSearch: string;
+    advancedSearch: I18nString;
     /** A.I. level */
-    aiLevel: string;
+    aiLevel: I18nString;
     /** Analysis */
-    analysis: string;
+    analysis: I18nString;
     /** Ascending */
-    ascending: string;
+    ascending: I18nString;
     /** Colour */
-    color: string;
+    color: I18nString;
     /** Date */
-    date: string;
+    date: I18nString;
     /** Descending */
-    descending: string;
+    descending: I18nString;
     /** Evaluation */
-    evaluation: string;
+    evaluation: I18nString;
     /** From */
-    from: string;
+    from: I18nString;
     /** %s games found */
     gamesFound: I18nPlural;
     /** Whether the player's opponent was human or a computer */
-    humanOrComputer: string;
+    humanOrComputer: I18nString;
     /** Include */
-    include: string;
+    include: I18nString;
     /** Loser */
-    loser: string;
+    loser: I18nString;
     /** Maximum number */
-    maxNumber: string;
+    maxNumber: I18nString;
     /** The maximum number of games to return */
-    maxNumberExplanation: string;
+    maxNumberExplanation: I18nString;
     /** Number of turns */
-    nbTurns: string;
+    nbTurns: I18nString;
     /** Only games where a computer analysis is available */
-    onlyAnalysed: string;
+    onlyAnalysed: I18nString;
     /** Opponent name */
-    opponentName: string;
+    opponentName: I18nString;
     /** The average rating of both players */
-    ratingExplanation: string;
+    ratingExplanation: I18nString;
     /** Result */
-    result: string;
+    result: I18nString;
     /** Search */
-    search: string;
+    search: I18nString;
     /** Search in %s chess games */
     searchInXGames: I18nPlural;
     /** Sort by */
-    sortBy: string;
+    sortBy: I18nString;
     /** Source */
-    source: string;
+    source: I18nString;
     /** To */
-    to: string;
+    to: I18nString;
     /** Winner colour */
-    winnerColor: string;
+    winnerColor: I18nString;
     /** %s games found */
     xGamesFound: I18nPlural;
   };
   settings: {
     /** You will not be allowed to open a new account with the same name, even if the case is different. */
-    cantOpenSimilarAccount: string;
+    cantOpenSimilarAccount: I18nString;
     /** I changed my mind, don't close my account */
-    changedMindDoNotCloseAccount: string;
+    changedMindDoNotCloseAccount: I18nString;
     /** Close account */
-    closeAccount: string;
+    closeAccount: I18nString;
     /** Are you sure you want to close your account? Closing your account is a permanent decision. You will NEVER be able to log in EVER AGAIN. */
-    closeAccountExplanation: string;
+    closeAccountExplanation: I18nString;
     /** Closing is definitive. There is no going back. Are you sure? */
-    closingIsDefinitive: string;
+    closingIsDefinitive: I18nString;
     /** Your account is managed, and cannot be closed. */
-    managedAccountCannotBeClosed: string;
+    managedAccountCannotBeClosed: I18nString;
     /** Settings */
-    settings: string;
+    settings: I18nString;
     /** This account is closed. */
-    thisAccountIsClosed: string;
+    thisAccountIsClosed: I18nString;
   };
   site: {
     /** Abort game */
-    abortGame: string;
+    abortGame: I18nString;
     /** Abort the game */
-    abortTheGame: string;
+    abortTheGame: I18nString;
     /** About */
-    about: string;
+    about: I18nString;
     /** Simuls involve a single player facing several players at once. */
-    aboutSimul: string;
+    aboutSimul: I18nString;
     /** Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1. */
-    aboutSimulImage: string;
+    aboutSimulImage: I18nString;
     /** The concept is taken from real world events. In real life, this involves the simul host moving from table to table to play a single move. */
-    aboutSimulRealLife: string;
+    aboutSimulRealLife: I18nString;
     /** When the simul starts, every player starts a game with the host. The simul ends when all games are complete. */
-    aboutSimulRules: string;
+    aboutSimulRules: I18nString;
     /** Simuls are always casual. Rematches, takebacks and adding time are disabled. */
-    aboutSimulSettings: string;
+    aboutSimulSettings: I18nString;
     /** About %s */
-    aboutX: I18nFormat;
+    aboutX: I18nString;
     /** Accept */
-    accept: string;
+    accept: I18nString;
     /** You can login right now as %s. */
-    accountCanLogin: I18nFormat;
+    accountCanLogin: I18nString;
     /** The account %s is closed. */
-    accountClosed: I18nFormat;
+    accountClosed: I18nString;
     /** You do not need a confirmation email. */
-    accountConfirmationEmailNotNeeded: string;
+    accountConfirmationEmailNotNeeded: I18nString;
     /** The user %s is successfully confirmed. */
-    accountConfirmed: I18nFormat;
+    accountConfirmed: I18nString;
     /** The account %s was registered without an email. */
-    accountRegisteredWithoutEmail: I18nFormat;
+    accountRegisteredWithoutEmail: I18nString;
     /** Accuracy */
-    accuracy: string;
+    accuracy: I18nString;
     /** Active players */
-    activePlayers: string;
+    activePlayers: I18nString;
     /** Add current variation */
-    addCurrentVariation: string;
+    addCurrentVariation: I18nString;
     /** Advanced settings */
-    advancedSettings: string;
+    advancedSettings: I18nString;
     /** Advantage */
-    advantage: string;
+    advantage: I18nString;
     /** I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person). */
-    agreementAssistance: string;
+    agreementAssistance: I18nString;
     /** I agree that I will not create multiple accounts (except for the reasons stated in the %s). */
-    agreementMultipleAccounts: I18nFormat;
+    agreementMultipleAccounts: I18nString;
     /** I agree that I will always be respectful to other players. */
-    agreementNice: string;
+    agreementNice: I18nString;
     /** I agree that I will follow all Lichess policies. */
-    agreementPolicy: string;
+    agreementPolicy: I18nString;
     /** %1$s level %2$s */
-    aiNameLevelAiLevel: I18nFormat;
+    aiNameLevelAiLevel: I18nString;
     /** All information is public and optional. */
-    allInformationIsPublicAndOptional: string;
+    allInformationIsPublicAndOptional: I18nString;
     /** All set! */
-    allSet: string;
+    allSet: I18nString;
     /** All squares of the board */
-    allSquaresOfTheBoard: string;
+    allSquaresOfTheBoard: I18nString;
     /** Always */
-    always: string;
+    always: I18nString;
     /** Analysis board */
-    analysis: string;
+    analysis: I18nString;
     /** Analysis options */
-    analysisOptions: string;
+    analysisOptions: I18nString;
     /** Press shift+click or right-click to draw circles and arrows on the board. */
-    analysisShapesHowTo: string;
+    analysisShapesHowTo: I18nString;
     /** and save %s premove lines */
     andSaveNbPremoveLines: I18nPlural;
     /** Anonymous */
-    anonymous: string;
+    anonymous: I18nString;
     /** Another was %s */
-    anotherWasX: I18nFormat;
+    anotherWasX: I18nString;
     /** Submit */
-    apply: string;
+    apply: I18nString;
     /** as black */
-    asBlack: string;
+    asBlack: I18nString;
     /** As free as Lichess */
-    asFreeAsLichess: string;
+    asFreeAsLichess: I18nString;
     /** Your account is managed. Ask your chess teacher about lifting kid mode. */
-    askYourChessTeacherAboutLiftingKidMode: string;
+    askYourChessTeacherAboutLiftingKidMode: I18nString;
     /** as white */
-    asWhite: string;
+    asWhite: I18nString;
     /** Automatically proceed to next game after moving */
-    automaticallyProceedToNextGameAfterMoving: string;
+    automaticallyProceedToNextGameAfterMoving: I18nString;
     /** Auto switch */
-    autoSwitch: string;
+    autoSwitch: I18nString;
     /** Available in %s languages! */
     availableInNbLanguages: I18nPlural;
     /** Average centipawn loss */
-    averageCentipawnLoss: string;
+    averageCentipawnLoss: I18nString;
     /** Average rating */
-    averageElo: string;
+    averageElo: I18nString;
     /** Average opponent */
-    averageOpponent: string;
+    averageOpponent: I18nString;
     /** Average rating: %s */
-    averageRatingX: I18nFormat;
+    averageRatingX: I18nString;
     /** Background */
-    background: string;
+    background: I18nString;
     /** Background image URL: */
-    backgroundImageUrl: string;
+    backgroundImageUrl: I18nString;
     /** Back to game */
-    backToGame: string;
+    backToGame: I18nString;
     /** Back to tournament */
-    backToTournament: string;
+    backToTournament: I18nString;
     /** Berserk rate */
-    berserkRate: string;
+    berserkRate: I18nString;
     /** Best move arrow */
-    bestMoveArrow: string;
+    bestMoveArrow: I18nString;
     /** Best was %s */
-    bestWasX: I18nFormat;
+    bestWasX: I18nString;
     /** Better than %1$s of %2$s players */
-    betterThanPercentPlayers: I18nFormat;
+    betterThanPercentPlayers: I18nString;
     /** Beware, the game is rated but has no clock! */
-    bewareTheGameIsRatedButHasNoClock: string;
+    bewareTheGameIsRatedButHasNoClock: I18nString;
     /** Biography */
-    biography: string;
+    biography: I18nString;
     /** Talk about yourself, your interests, what you like in chess, your favourite openings, players, ... */
-    biographyDescription: string;
+    biographyDescription: I18nString;
     /** Black */
-    black: string;
+    black: I18nString;
     /** Black O-O */
-    blackCastlingKingside: string;
+    blackCastlingKingside: I18nString;
     /** Black to checkmate in one move */
-    blackCheckmatesInOneMove: string;
+    blackCheckmatesInOneMove: I18nString;
     /** Black declines draw */
-    blackDeclinesDraw: string;
+    blackDeclinesDraw: I18nString;
     /** Black didn't move */
-    blackDidntMove: string;
+    blackDidntMove: I18nString;
     /** Black is victorious */
-    blackIsVictorious: string;
+    blackIsVictorious: I18nString;
     /** Black left the game */
-    blackLeftTheGame: string;
+    blackLeftTheGame: I18nString;
     /** Black offers draw */
-    blackOffersDraw: string;
+    blackOffersDraw: I18nString;
     /** Black to play */
-    blackPlays: string;
+    blackPlays: I18nString;
     /** Black resigned */
-    blackResigned: string;
+    blackResigned: I18nString;
     /** Black time out */
-    blackTimeOut: string;
+    blackTimeOut: I18nString;
     /** Black wins */
-    blackWins: string;
+    blackWins: I18nString;
     /** Black wins */
-    blackWinsGame: string;
+    blackWinsGame: I18nString;
     /** You have used the same password on another site, and that site has been compromised. To ensure the safety of your Lichess account, we need you to set a new password. Thank you for your understanding. */
-    blankedPassword: string;
+    blankedPassword: I18nString;
     /** Blitz */
-    blitz: string;
+    blitz: I18nString;
     /** Fast games: 3 to 8 minutes */
-    blitzDesc: string;
+    blitzDesc: I18nString;
     /** Block */
-    block: string;
+    block: I18nString;
     /** Blocked */
-    blocked: string;
+    blocked: I18nString;
     /** %s blocks */
     blocks: I18nPlural;
     /** Blog */
-    blog: string;
+    blog: I18nString;
     /** Blunder */
-    blunder: string;
+    blunder: I18nString;
     /** Board */
-    board: string;
+    board: I18nString;
     /** Board editor */
-    boardEditor: string;
+    boardEditor: I18nString;
     /** Reset colours to default */
-    boardReset: string;
+    boardReset: I18nString;
     /** Bookmark this game */
-    bookmarkThisGame: string;
+    bookmarkThisGame: I18nString;
     /** Brightness */
-    brightness: string;
+    brightness: I18nString;
     /** Built for the love of chess, not money */
-    builtForTheLoveOfChessNotMoney: string;
+    builtForTheLoveOfChessNotMoney: I18nString;
     /** Bullet */
-    bullet: string;
+    bullet: I18nString;
     /** Bullet, blitz, classical */
-    bulletBlitzClassical: string;
+    bulletBlitzClassical: I18nString;
     /** Very fast games: less than 3 minutes */
-    bulletDesc: string;
+    bulletDesc: I18nString;
     /** by %s */
-    by: I18nFormat;
+    by: I18nString;
     /** By CPL */
-    byCPL: string;
+    byCPL: I18nString;
     /** By registering, you agree to the %s. */
-    byRegisteringYouAgreeToBeBoundByOur: I18nFormat;
+    byRegisteringYouAgreeToBeBoundByOur: I18nString;
     /** Calculating moves... */
-    calculatingMoves: string;
+    calculatingMoves: I18nString;
     /** Cancel */
-    cancel: string;
+    cancel: I18nString;
     /** Cancel rematch offer */
-    cancelRematchOffer: string;
+    cancelRematchOffer: I18nString;
     /** Cancel the simul */
-    cancelSimul: string;
+    cancelSimul: I18nString;
     /** Cancel the tournament */
-    cancelTournament: string;
+    cancelTournament: I18nString;
     /** If you close your account a second time, there will be no way of recovering it. */
-    cantDoThisTwice: string;
+    cantDoThisTwice: I18nString;
     /** Please solve the chess captcha. */
-    'captcha.fail': string;
+    'captcha.fail': I18nString;
     /** Capture */
-    capture: string;
+    capture: I18nString;
     /** Castling */
-    castling: string;
+    castling: I18nString;
     /** Casual */
-    casual: string;
+    casual: I18nString;
     /** Casual */
-    casualTournament: string;
+    casualTournament: I18nString;
     /** Change email */
-    changeEmail: string;
+    changeEmail: I18nString;
     /** Change password */
-    changePassword: string;
+    changePassword: I18nString;
     /** Change username */
-    changeUsername: string;
+    changeUsername: I18nString;
     /** Change your username. This can only be done once and you are only allowed to change the case of the letters in your username. */
-    changeUsernameDescription: string;
+    changeUsernameDescription: I18nString;
     /** Only the case of the letters can change. For example "johndoe" to "JohnDoe". */
-    changeUsernameNotSame: string;
+    changeUsernameNotSame: I18nString;
     /** Chat */
-    chat: string;
+    chat: I18nString;
     /** Chat room */
-    chatRoom: string;
+    chatRoom: I18nString;
     /** Cheat */
-    cheat: string;
+    cheat: I18nString;
     /** Cheat Detected */
-    cheatDetected: string;
+    cheatDetected: I18nString;
     /** Checkmate */
-    checkmate: string;
+    checkmate: I18nString;
     /** Also check your spam folder, it might end up there. If so, mark it as not spam. */
-    checkSpamFolder: string;
+    checkSpamFolder: I18nString;
     /** Check your Email */
-    checkYourEmail: string;
+    checkYourEmail: I18nString;
     /** Chess960 start position: %s */
-    chess960StartPosition: I18nFormat;
+    chess960StartPosition: I18nString;
     /** Chess basics */
-    chessBasics: string;
+    chessBasics: I18nString;
     /** Claim a draw */
-    claimADraw: string;
+    claimADraw: I18nString;
     /** Classical */
-    classical: string;
+    classical: I18nString;
     /** Classical games: 25 minutes and more */
-    classicalDesc: string;
+    classicalDesc: I18nString;
     /** Clear board */
-    clearBoard: string;
+    clearBoard: I18nString;
     /** Clear moves */
-    clearSavedMoves: string;
+    clearSavedMoves: I18nString;
     /** Click here to read it */
-    clickHereToReadIt: string;
+    clickHereToReadIt: I18nString;
     /** Click on the board to make your move, and prove you are human. */
-    clickOnTheBoardToMakeYourMove: string;
+    clickOnTheBoardToMakeYourMove: I18nString;
     /** [Click to reveal email address] */
-    clickToRevealEmailAddress: string;
+    clickToRevealEmailAddress: I18nString;
     /** Clock */
-    clock: string;
+    clock: I18nString;
     /** Clock increment */
-    clockIncrement: string;
+    clockIncrement: I18nString;
     /** Clock initial time */
-    clockInitialTime: string;
+    clockInitialTime: I18nString;
     /** Close */
-    close: string;
+    close: I18nString;
     /** If you closed your account, but have since changed your mind, you get one chance of getting your account back. */
-    closedAccountChangedMind: string;
+    closedAccountChangedMind: I18nString;
     /** Closing your account will withdraw your appeal */
-    closingAccountWithdrawAppeal: string;
+    closingAccountWithdrawAppeal: I18nString;
     /** Cloud analysis */
-    cloudAnalysis: string;
+    cloudAnalysis: I18nString;
     /** Coaches */
-    coaches: string;
+    coaches: I18nString;
     /** Coach manager */
-    coachManager: string;
+    coachManager: I18nString;
     /** Collapse variations */
-    collapseVariations: string;
+    collapseVariations: I18nString;
     /** Community */
-    community: string;
+    community: I18nString;
     /** Compose message */
-    composeMessage: string;
+    composeMessage: I18nString;
     /** Computer */
-    computer: string;
+    computer: I18nString;
     /** Computer analysis */
-    computerAnalysis: string;
+    computerAnalysis: I18nString;
     /** Computer analysis available */
-    computerAnalysisAvailable: string;
+    computerAnalysisAvailable: I18nString;
     /** Computer analysis disabled */
-    computerAnalysisDisabled: string;
+    computerAnalysisDisabled: I18nString;
     /** Computers and computer-assisted players are not allowed to play. Please do not get assistance from chess engines, databases, or from other players while playing. Also note that making multiple accounts is strongly discouraged and excessive multi-accounting will lead to being banned. */
-    computersAreNotAllowedToPlay: string;
+    computersAreNotAllowedToPlay: I18nString;
     /** Computer thinking ... */
-    computerThinking: string;
+    computerThinking: I18nString;
     /** Conditional premoves */
-    conditionalPremoves: string;
+    conditionalPremoves: I18nString;
     /** Entry requirements: */
-    conditionOfEntry: string;
+    conditionOfEntry: I18nString;
     /** Confirm move */
-    confirmMove: string;
+    confirmMove: I18nString;
     /** Congratulations, you won! */
-    congratsYouWon: string;
+    congratsYouWon: I18nString;
     /** Continue from here */
-    continueFromHere: string;
+    continueFromHere: I18nString;
     /** Contribute */
-    contribute: string;
+    contribute: I18nString;
     /** Copy and paste the above text and send it to %s */
-    copyTextToEmail: I18nFormat;
+    copyTextToEmail: I18nString;
     /** Copy variation PGN */
-    copyVariationPgn: string;
+    copyVariationPgn: I18nString;
     /** Correspondence */
-    correspondence: string;
+    correspondence: I18nString;
     /** Correspondence chess */
-    correspondenceChess: string;
+    correspondenceChess: I18nString;
     /** Correspondence games: one or several days per move */
-    correspondenceDesc: string;
+    correspondenceDesc: I18nString;
     /** Country or region */
-    countryRegion: string;
+    countryRegion: I18nString;
     /** CPUs */
-    cpus: string;
+    cpus: I18nString;
     /** Create */
-    create: string;
+    create: I18nString;
     /** Create a game */
-    createAGame: string;
+    createAGame: I18nString;
     /** Create a new topic */
-    createANewTopic: string;
+    createANewTopic: I18nString;
     /** Create a new tournament */
-    createANewTournament: string;
+    createANewTournament: I18nString;
     /** Created by */
-    createdBy: string;
+    createdBy: I18nString;
     /** Newly created simuls */
-    createdSimuls: string;
+    createdSimuls: I18nString;
     /** Create the topic */
-    createTheTopic: string;
+    createTheTopic: I18nString;
     /** Crosstable */
-    crosstable: string;
+    crosstable: I18nString;
     /** Cumulative */
-    cumulative: string;
+    cumulative: I18nString;
     /** Current games */
-    currentGames: string;
+    currentGames: I18nString;
     /** Current match score */
-    currentMatchScore: string;
+    currentMatchScore: I18nString;
     /** Current password */
-    currentPassword: string;
+    currentPassword: I18nString;
     /** Custom */
-    custom: string;
+    custom: I18nString;
     /** Custom position */
-    customPosition: string;
+    customPosition: I18nString;
     /** Cycle previous/next variation */
-    cyclePreviousOrNextVariation: string;
+    cyclePreviousOrNextVariation: I18nString;
     /** Dark */
-    dark: string;
+    dark: I18nString;
     /** Database */
-    database: string;
+    database: I18nString;
     /** Days per turn */
-    daysPerTurn: string;
+    daysPerTurn: I18nString;
     /** Decline */
-    decline: string;
+    decline: I18nString;
     /** Defeat */
-    defeat: string;
+    defeat: I18nString;
     /** %1$s vs %2$s in %3$s */
-    defeatVsYInZ: I18nFormat;
+    defeatVsYInZ: I18nString;
     /** Delete */
-    delete: string;
+    delete: I18nString;
     /** Delete from here */
-    deleteFromHere: string;
+    deleteFromHere: I18nString;
     /** Delete this imported game? */
-    deleteThisImportedGame: string;
+    deleteThisImportedGame: I18nString;
     /** Depth %s */
-    depthX: I18nFormat;
+    depthX: I18nString;
     /** Private description */
-    descPrivate: string;
+    descPrivate: I18nString;
     /** Text that only the team members will see. If set, replaces the public description for team members. */
-    descPrivateHelp: string;
+    descPrivateHelp: I18nString;
     /** Description */
-    description: string;
+    description: I18nString;
     /** Device theme */
-    deviceTheme: string;
+    deviceTheme: I18nString;
     /** Disable Kid mode */
-    disableKidMode: string;
+    disableKidMode: I18nString;
     /** Conversations */
-    discussions: string;
+    discussions: I18nString;
     /** Do it again */
-    doItAgain: string;
+    doItAgain: I18nString;
     /** Done reviewing black mistakes */
-    doneReviewingBlackMistakes: string;
+    doneReviewingBlackMistakes: I18nString;
     /** Done reviewing white mistakes */
-    doneReviewingWhiteMistakes: string;
+    doneReviewingWhiteMistakes: I18nString;
     /** Download */
-    download: string;
+    download: I18nString;
     /** Download annotated */
-    downloadAnnotated: string;
+    downloadAnnotated: I18nString;
     /** Download imported */
-    downloadImported: string;
+    downloadImported: I18nString;
     /** Download raw */
-    downloadRaw: string;
+    downloadRaw: I18nString;
     /** Draw */
-    draw: string;
+    draw: I18nString;
     /** The game has been drawn by the fifty move rule. */
-    drawByFiftyMoves: string;
+    drawByFiftyMoves: I18nString;
     /** Draw by mutual agreement */
-    drawByMutualAgreement: string;
+    drawByMutualAgreement: I18nString;
     /** Drawn */
-    drawn: string;
+    drawn: I18nString;
     /** Draw offer accepted */
-    drawOfferAccepted: string;
+    drawOfferAccepted: I18nString;
     /** Draw offer cancelled */
-    drawOfferCanceled: string;
+    drawOfferCanceled: I18nString;
     /** Draw offer sent */
-    drawOfferSent: string;
+    drawOfferSent: I18nString;
     /** Draw rate */
-    drawRate: string;
+    drawRate: I18nString;
     /** Draws */
-    draws: string;
+    draws: I18nString;
     /** %1$s vs %2$s in %3$s */
-    drawVsYInZ: I18nFormat;
+    drawVsYInZ: I18nString;
     /** DTZ50'' with rounding, based on number of half-moves until next capture or pawn move */
-    dtzWithRounding: string;
+    dtzWithRounding: I18nString;
     /** Duration */
-    duration: string;
+    duration: I18nString;
     /** Edit */
-    edit: string;
+    edit: I18nString;
     /** Edit profile */
-    editProfile: string;
+    editProfile: I18nString;
     /** Email */
-    email: string;
+    email: I18nString;
     /** Email address associated to the account */
-    emailAssociatedToaccount: string;
+    emailAssociatedToaccount: I18nString;
     /** It can take some time to arrive. */
-    emailCanTakeSomeTime: string;
+    emailCanTakeSomeTime: I18nString;
     /** Help with email confirmation */
-    emailConfirmHelp: string;
+    emailConfirmHelp: I18nString;
     /** Didn't receive your confirmation email after signing up? */
-    emailConfirmNotReceived: string;
+    emailConfirmNotReceived: I18nString;
     /** If everything else fails, then send us this email: */
-    emailForSignupHelp: string;
+    emailForSignupHelp: I18nString;
     /** Email me a link */
-    emailMeALink: string;
+    emailMeALink: I18nString;
     /** We have sent an email to %s. */
-    emailSent: I18nFormat;
+    emailSent: I18nString;
     /** Do not set an email address suggested by someone else. They will use it to steal your account. */
-    emailSuggestion: string;
+    emailSuggestion: I18nString;
     /** Embed in your website */
-    embedInYourWebsite: string;
+    embedInYourWebsite: I18nString;
     /** Paste a game URL or a study chapter URL to embed it. */
-    embedsAvailable: string;
+    embedsAvailable: I18nString;
     /** Leave empty to name the tournament after a notable chess player. */
-    emptyTournamentName: string;
+    emptyTournamentName: I18nString;
     /** Enable */
-    enable: string;
+    enable: I18nString;
     /** Enable Kid mode */
-    enableKidMode: string;
+    enableKidMode: I18nString;
     /** Endgame */
-    endgame: string;
+    endgame: I18nString;
     /** Endgame positions */
-    endgamePositions: string;
+    endgamePositions: I18nString;
     /** Error loading engine */
-    engineFailed: string;
+    engineFailed: I18nString;
     /** This email address is invalid */
-    'error.email': string;
+    'error.email': I18nString;
     /** This email address is not acceptable. Please double-check it, and try again. */
-    'error.email_acceptable': string;
+    'error.email_acceptable': I18nString;
     /** This is already your email address */
-    'error.email_different': string;
+    'error.email_different': I18nString;
     /** Email address invalid or already taken */
-    'error.email_unique': string;
+    'error.email_unique': I18nString;
     /** Must be at most %s */
-    'error.max': I18nFormat;
+    'error.max': I18nString;
     /** Must be at most %s characters long */
-    'error.maxLength': I18nFormat;
+    'error.maxLength': I18nString;
     /** Must be at least %s */
-    'error.min': I18nFormat;
+    'error.min': I18nString;
     /** Must be at least %s characters long */
-    'error.minLength': I18nFormat;
+    'error.minLength': I18nString;
     /** Please don't use your username as your password. */
-    'error.namePassword': string;
+    'error.namePassword': I18nString;
     /** Please provide at least one link to a cheated game. */
-    'error.provideOneCheatedGameLink': string;
+    'error.provideOneCheatedGameLink': I18nString;
     /** This field is required */
-    'error.required': string;
+    'error.required': I18nString;
     /** Invalid value */
-    'error.unknown': string;
+    'error.unknown': I18nString;
     /** This password is extremely common, and too easy to guess. */
-    'error.weakPassword': string;
+    'error.weakPassword': I18nString;
     /** Estimated start time */
-    estimatedStart: string;
+    estimatedStart: I18nString;
     /** Evaluating your move ... */
-    evaluatingYourMove: string;
+    evaluatingYourMove: I18nString;
     /** Evaluation gauge */
-    evaluationGauge: string;
+    evaluationGauge: I18nString;
     /** Playing now */
-    eventInProgress: string;
+    eventInProgress: I18nString;
     /** Everybody gets all features for free */
-    everybodyGetsAllFeaturesForFree: string;
+    everybodyGetsAllFeaturesForFree: I18nString;
     /** Expand variations */
-    expandVariations: string;
+    expandVariations: I18nString;
     /** Export games */
-    exportGames: string;
+    exportGames: I18nString;
     /** Fast */
-    fast: string;
+    fast: I18nString;
     /** Favourite opponents */
-    favoriteOpponents: string;
+    favoriteOpponents: I18nString;
     /** Fifty moves without progress */
-    fiftyMovesWithoutProgress: string;
+    fiftyMovesWithoutProgress: I18nString;
     /** Filter games */
-    filterGames: string;
+    filterGames: I18nString;
     /** Find a better move for black */
-    findBetterMoveForBlack: string;
+    findBetterMoveForBlack: I18nString;
     /** Find a better move for white */
-    findBetterMoveForWhite: string;
+    findBetterMoveForWhite: I18nString;
     /** Finished */
-    finished: string;
+    finished: I18nString;
     /** Flair */
-    flair: string;
+    flair: I18nString;
     /** Flip board */
-    flipBoard: string;
+    flipBoard: I18nString;
     /** Focus chat */
-    focusChat: string;
+    focusChat: I18nString;
     /** Follow */
-    follow: string;
+    follow: I18nString;
     /** Follow and challenge friends */
-    followAndChallengeFriends: string;
+    followAndChallengeFriends: I18nString;
     /** Following */
-    following: string;
+    following: I18nString;
     /** Follow %s */
-    followX: I18nFormat;
+    followX: I18nString;
     /** Call draw */
-    forceDraw: string;
+    forceDraw: I18nString;
     /** Claim victory */
-    forceResignation: string;
+    forceResignation: I18nString;
     /** Force variation */
-    forceVariation: string;
+    forceVariation: I18nString;
     /** Forgot password? */
-    forgotPassword: string;
+    forgotPassword: I18nString;
     /** Forum */
-    forum: string;
+    forum: I18nString;
     /** Free Online Chess */
-    freeOnlineChess: string;
+    freeOnlineChess: I18nString;
     /** Friends */
-    friends: string;
+    friends: I18nString;
     /** From position */
-    fromPosition: string;
+    fromPosition: I18nString;
     /** Full featured */
-    fullFeatured: string;
+    fullFeatured: I18nString;
     /** Game aborted */
-    gameAborted: string;
+    gameAborted: I18nString;
     /** Game analysis */
-    gameAnalysis: string;
+    gameAnalysis: I18nString;
     /** Game as GIF */
-    gameAsGIF: string;
+    gameAsGIF: I18nString;
     /** You have a game in progress with %s. */
-    gameInProgress: I18nFormat;
+    gameInProgress: I18nString;
     /** Game Over */
-    gameOver: string;
+    gameOver: I18nString;
     /** Games */
-    games: string;
+    games: I18nString;
     /** Games played */
-    gamesPlayed: string;
+    gamesPlayed: I18nString;
     /** Game vs %1$s */
-    gameVsX: I18nFormat;
+    gameVsX: I18nString;
     /** Get a hint */
-    getAHint: string;
+    getAHint: I18nString;
     /** Give %s seconds */
     giveNbSeconds: I18nPlural;
     /** Glicko-2 rating */
-    glicko2Rating: string;
+    glicko2Rating: I18nString;
     /** Go deeper */
-    goDeeper: string;
+    goDeeper: I18nString;
     /** To that effect, we must ensure that all players follow good practice. */
-    goodPractice: string;
+    goodPractice: I18nString;
     /** Graph */
-    graph: string;
+    graph: I18nString;
     /** Hang on! */
-    hangOn: string;
+    hangOn: I18nString;
     /** Help: */
-    help: string;
+    help: I18nString;
     /** Hide best move */
-    hideBestMove: string;
+    hideBestMove: I18nString;
     /** Host */
-    host: string;
+    host: I18nString;
     /** Host a new simul */
-    hostANewSimul: string;
+    hostANewSimul: I18nString;
     /** Host colour: %s */
-    hostColorX: I18nFormat;
+    hostColorX: I18nString;
     /** How to avoid this? */
-    howToAvoidThis: string;
+    howToAvoidThis: I18nString;
     /** Hue */
-    hue: string;
+    hue: I18nString;
     /** Human */
-    human: string;
+    human: I18nString;
     /** If none, leave empty */
-    ifNoneLeaveEmpty: string;
+    ifNoneLeaveEmpty: I18nString;
     /** If rating is ± %s */
-    ifRatingIsPlusMinusX: I18nFormat;
+    ifRatingIsPlusMinusX: I18nString;
     /** If registered */
-    ifRegistered: string;
+    ifRegistered: I18nString;
     /** If you don't see the email, check other places it might be, like your junk, spam, social, or other folders. */
-    ifYouDoNotSeeTheEmailCheckOtherPlaces: string;
+    ifYouDoNotSeeTheEmailCheckOtherPlaces: I18nString;
     /** Important */
-    important: string;
+    important: I18nString;
     /** Imported by %s */
-    importedByX: I18nFormat;
+    importedByX: I18nString;
     /** Import game */
-    importGame: string;
+    importGame: I18nString;
     /** Variations will be erased. To keep them, import the PGN via a study. */
-    importGameCaveat: string;
+    importGameCaveat: I18nString;
     /** This PGN can be accessed by the public. To import a game privately, use a study. */
-    importGameDataPrivacyWarning: string;
+    importGameDataPrivacyWarning: I18nString;
     /** Paste a game PGN to get a browsable replay, computer analysis, game chat and public shareable URL. */
-    importGameExplanation: string;
+    importGameExplanation: I18nString;
     /** Import PGN */
-    importPgn: string;
+    importPgn: I18nString;
     /** Inaccuracy */
-    inaccuracy: string;
+    inaccuracy: I18nString;
     /** Anything even slightly inappropriate could get your account closed. */
-    inappropriateNameWarning: string;
+    inappropriateNameWarning: I18nString;
     /** Inbox */
-    inbox: string;
+    inbox: I18nString;
     /** Incorrect password */
-    incorrectPassword: string;
+    incorrectPassword: I18nString;
     /** Increment */
-    increment: string;
+    increment: I18nString;
     /** Increment in seconds */
-    incrementInSeconds: string;
+    incrementInSeconds: I18nString;
     /** Infinite analysis */
-    infiniteAnalysis: string;
+    infiniteAnalysis: I18nString;
     /** In kid mode, the Lichess logo gets a %s icon, so you know your kids are safe. */
-    inKidModeTheLichessLogoGetsIconX: I18nFormat;
+    inKidModeTheLichessLogoGetsIconX: I18nString;
     /** Inline notation */
-    inlineNotation: string;
+    inlineNotation: I18nString;
     /** in local browser */
-    inLocalBrowser: string;
+    inLocalBrowser: I18nString;
     /** Inside the board */
-    insideTheBoard: string;
+    insideTheBoard: I18nString;
     /** Instructions */
-    instructions: string;
+    instructions: I18nString;
     /** Insufficient material */
-    insufficientMaterial: string;
+    insufficientMaterial: I18nString;
     /** in the FAQ */
-    inTheFAQ: string;
+    inTheFAQ: I18nString;
     /** Invalid authentication code */
-    invalidAuthenticationCode: string;
+    invalidAuthenticationCode: I18nString;
     /** Invalid FEN */
-    invalidFen: string;
+    invalidFen: I18nString;
     /** Invalid PGN */
-    invalidPgn: string;
+    invalidPgn: I18nString;
     /** Invalid username or password */
-    invalidUsernameOrPassword: string;
+    invalidUsernameOrPassword: I18nString;
     /** invited you to "%1$s". */
-    invitedYouToX: I18nFormat;
+    invitedYouToX: I18nString;
     /** In your own local timezone */
-    inYourLocalTimezone: string;
+    inYourLocalTimezone: I18nString;
     /** Private */
-    isPrivate: string;
+    isPrivate: I18nString;
     /** It's your turn! */
-    itsYourTurn: string;
+    itsYourTurn: I18nString;
     /** Join */
-    join: string;
+    join: I18nString;
     /** Join the game */
-    joinTheGame: string;
+    joinTheGame: I18nString;
     /** Join the %1$s, to post in this forum */
-    joinTheTeamXToPost: I18nFormat;
+    joinTheTeamXToPost: I18nString;
     /** Keyboard shortcuts */
-    keyboardShortcuts: string;
+    keyboardShortcuts: I18nString;
     /** Cycle selected variation */
-    keyCycleSelectedVariation: string;
+    keyCycleSelectedVariation: I18nString;
     /** enter/exit variation */
-    keyEnterOrExitVariation: string;
+    keyEnterOrExitVariation: I18nString;
     /** go to start/end */
-    keyGoToStartOrEnd: string;
+    keyGoToStartOrEnd: I18nString;
     /** move backward/forward */
-    keyMoveBackwardOrForward: string;
+    keyMoveBackwardOrForward: I18nString;
     /** Next blunder */
-    keyNextBlunder: string;
+    keyNextBlunder: I18nString;
     /** Next branch */
-    keyNextBranch: string;
+    keyNextBranch: I18nString;
     /** Next inaccuracy */
-    keyNextInaccuracy: string;
+    keyNextInaccuracy: I18nString;
     /** Next (Learn from your mistakes) */
-    keyNextLearnFromYourMistakes: string;
+    keyNextLearnFromYourMistakes: I18nString;
     /** Next mistake */
-    keyNextMistake: string;
+    keyNextMistake: I18nString;
     /** Previous branch */
-    keyPreviousBranch: string;
+    keyPreviousBranch: I18nString;
     /** Request computer analysis, Learn from your mistakes */
-    keyRequestComputerAnalysis: string;
+    keyRequestComputerAnalysis: I18nString;
     /** show/hide comments */
-    keyShowOrHideComments: string;
+    keyShowOrHideComments: I18nString;
     /** Kid mode */
-    kidMode: string;
+    kidMode: I18nString;
     /** This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users. */
-    kidModeExplanation: string;
+    kidModeExplanation: I18nString;
     /** Kid mode is enabled. */
-    kidModeIsEnabled: string;
+    kidModeIsEnabled: I18nString;
     /** King in the centre */
-    kingInTheCenter: string;
+    kingInTheCenter: I18nString;
     /** Language */
-    language: string;
+    language: I18nString;
     /** Last post */
-    lastPost: string;
+    lastPost: I18nString;
     /** Active %s */
-    lastSeenActive: I18nFormat;
+    lastSeenActive: I18nString;
     /** Latest forum posts */
-    latestForumPosts: string;
+    latestForumPosts: I18nString;
     /** Leaderboard */
-    leaderboard: string;
+    leaderboard: I18nString;
     /** Learn from this mistake */
-    learnFromThisMistake: string;
+    learnFromThisMistake: I18nString;
     /** Learn from your mistakes */
-    learnFromYourMistakes: string;
+    learnFromYourMistakes: I18nString;
     /** Learn */
-    learnMenu: string;
+    learnMenu: I18nString;
     /** Less than %s minutes */
     lessThanNbMinutes: I18nPlural;
     /** Let other players challenge you */
-    letOtherPlayersChallengeYou: string;
+    letOtherPlayersChallengeYou: I18nString;
     /** Let other players follow you */
-    letOtherPlayersFollowYou: string;
+    letOtherPlayersFollowYou: I18nString;
     /** Let other players invite you to study */
-    letOtherPlayersInviteYouToStudy: string;
+    letOtherPlayersInviteYouToStudy: I18nString;
     /** Let other players message you */
-    letOtherPlayersMessageYou: string;
+    letOtherPlayersMessageYou: I18nString;
     /** Level */
-    level: string;
+    level: I18nString;
     /** Rated games played on Lichess */
-    lichessDbExplanation: string;
+    lichessDbExplanation: I18nString;
     /** Lichess is a charity and entirely free/libre open source software. */
-    lichessPatronInfo: string;
+    lichessPatronInfo: I18nString;
     /** Lichess tournaments */
-    lichessTournaments: string;
+    lichessTournaments: I18nString;
     /** Lifetime score */
-    lifetimeScore: string;
+    lifetimeScore: I18nString;
     /** Light */
-    light: string;
+    light: I18nString;
     /** List */
-    list: string;
+    list: I18nString;
     /** List players you have blocked */
-    listBlockedPlayers: string;
+    listBlockedPlayers: I18nString;
     /** Loading engine... */
-    loadingEngine: string;
+    loadingEngine: I18nString;
     /** Load position */
-    loadPosition: string;
+    loadPosition: I18nString;
     /** Lobby */
-    lobby: string;
+    lobby: I18nString;
     /** Location */
-    location: string;
+    location: I18nString;
     /** Sign in to chat */
-    loginToChat: string;
+    loginToChat: I18nString;
     /** Sign out */
-    logOut: string;
+    logOut: I18nString;
     /** Losing */
-    losing: string;
+    losing: I18nString;
     /** Losses */
-    losses: string;
+    losses: I18nString;
     /** Loss or 50 moves by prior mistake */
-    lossOr50MovesByPriorMistake: string;
+    lossOr50MovesByPriorMistake: I18nString;
     /** Loss prevented by 50-move rule */
-    lossSavedBy50MoveRule: string;
+    lossSavedBy50MoveRule: I18nString;
     /** You lost rating points to someone who violated the Lichess TOS */
-    lostAgainstTOSViolator: string;
+    lostAgainstTOSViolator: I18nString;
     /** For safekeeping and sharing, consider making a study. */
-    makeAStudy: string;
+    makeAStudy: I18nString;
     /** Make mainline */
-    makeMainLine: string;
+    makeMainLine: I18nString;
     /** Make the tournament private, and restrict access with a password */
-    makePrivateTournament: string;
+    makePrivateTournament: I18nString;
     /** Make sure to read %1$s */
-    makeSureToRead: I18nFormat;
+    makeSureToRead: I18nString;
     /** %s is available for more advanced syntax. */
-    markdownAvailable: I18nFormat;
+    markdownAvailable: I18nString;
     /** OTB games of %1$s+ FIDE-rated players from %2$s to %3$s */
-    masterDbExplanation: I18nFormat;
+    masterDbExplanation: I18nString;
     /** Mate in %s half-moves */
     mateInXHalfMoves: I18nPlural;
     /** Max depth reached! */
-    maxDepthReached: string;
+    maxDepthReached: I18nString;
     /** Maximum: %s characters. */
     maximumNbCharacters: I18nPlural;
     /** Maximum weekly rating */
-    maximumWeeklyRating: string;
+    maximumWeeklyRating: I18nString;
     /** Maybe include more games from the preferences menu? */
-    maybeIncludeMoreGamesFromThePreferencesMenu: string;
+    maybeIncludeMoreGamesFromThePreferencesMenu: I18nString;
     /** Member since */
-    memberSince: string;
+    memberSince: I18nString;
     /** Memory */
-    memory: string;
+    memory: I18nString;
     /** mentioned you in "%1$s". */
-    mentionedYouInX: I18nFormat;
+    mentionedYouInX: I18nString;
     /** Menu */
-    menu: string;
+    menu: I18nString;
     /** Message */
-    message: string;
+    message: I18nString;
     /** Middlegame */
-    middlegame: string;
+    middlegame: I18nString;
     /** Minimum rated games */
-    minimumRatedGames: string;
+    minimumRatedGames: I18nString;
     /** Minimum rating */
-    minimumRating: string;
+    minimumRating: I18nString;
     /** Minutes per side */
-    minutesPerSide: string;
+    minutesPerSide: I18nString;
     /** Mistake */
-    mistake: string;
+    mistake: I18nString;
     /** Mobile */
-    mobile: string;
+    mobile: I18nString;
     /** Mobile App */
-    mobileApp: string;
+    mobileApp: I18nString;
     /** Mode */
-    mode: string;
+    mode: I18nString;
     /** More */
-    more: string;
+    more: I18nString;
     /** ≥ %1$s %2$s rated games */
     moreThanNbPerfRatedGames: I18nPlural;
     /** ≥ %s rated games */
     moreThanNbRatedGames: I18nPlural;
     /** Mouse tricks */
-    mouseTricks: string;
+    mouseTricks: I18nString;
     /** Move */
-    move: string;
+    move: I18nString;
     /** Moves played */
-    movesPlayed: string;
+    movesPlayed: I18nString;
     /** Move times */
-    moveTimes: string;
+    moveTimes: I18nString;
     /** Multiple lines */
-    multipleLines: string;
+    multipleLines: I18nString;
     /** Must be in team %s */
-    mustBeInTeam: I18nFormat;
+    mustBeInTeam: I18nString;
     /** Name */
-    name: string;
+    name: I18nString;
     /** Navigate the move tree */
-    navigateMoveTree: string;
+    navigateMoveTree: I18nString;
     /** %s blunders */
     nbBlunders: I18nPlural;
     /** %s bookmarks */
@@ -3560,1215 +3560,1215 @@ interface I18n {
     /** You need to play %1$s more %2$s rated games */
     needNbMorePerfGames: I18nPlural;
     /** Network lag between you and Lichess */
-    networkLagBetweenYouAndLichess: string;
+    networkLagBetweenYouAndLichess: I18nString;
     /** Never */
-    never: string;
+    never: I18nString;
     /** Never type your Lichess password on another site! */
-    neverTypeYourPassword: string;
+    neverTypeYourPassword: I18nString;
     /** New opponent */
-    newOpponent: string;
+    newOpponent: I18nString;
     /** New password */
-    newPassword: string;
+    newPassword: I18nString;
     /** New password (again) */
-    newPasswordAgain: string;
+    newPasswordAgain: I18nString;
     /** The new passwords don't match */
-    newPasswordsDontMatch: string;
+    newPasswordsDontMatch: I18nString;
     /** Password strength */
-    newPasswordStrength: string;
+    newPasswordStrength: I18nString;
     /** New tournament */
-    newTournament: string;
+    newTournament: I18nString;
     /** Next */
-    next: string;
+    next: I18nString;
     /** Next %s tournament: */
-    nextXTournament: I18nFormat;
+    nextXTournament: I18nString;
     /** No */
-    no: string;
+    no: I18nString;
     /** No chat */
-    noChat: string;
+    noChat: I18nString;
     /** No conditional premoves */
-    noConditionalPremoves: string;
+    noConditionalPremoves: I18nString;
     /** You cannot draw before 30 moves are played in a Swiss tournament. */
-    noDrawBeforeSwissLimit: string;
+    noDrawBeforeSwissLimit: I18nString;
     /** No game found */
-    noGameFound: string;
+    noGameFound: I18nString;
     /** No mistakes found for black */
-    noMistakesFoundForBlack: string;
+    noMistakesFoundForBlack: I18nString;
     /** No mistakes found for white */
-    noMistakesFoundForWhite: string;
+    noMistakesFoundForWhite: I18nString;
     /** None */
-    none: string;
+    none: I18nString;
     /** Offline */
-    noNetwork: string;
+    noNetwork: I18nString;
     /** No note yet */
-    noNoteYet: string;
+    noNoteYet: I18nString;
     /** No restriction */
-    noRestriction: string;
+    noRestriction: I18nString;
     /** Normal */
-    normal: string;
+    normal: I18nString;
     /** This simultaneous exhibition does not exist. */
-    noSimulExplanation: string;
+    noSimulExplanation: I18nString;
     /** Simul not found */
-    noSimulFound: string;
+    noSimulFound: I18nString;
     /** Not a checkmate */
-    notACheckmate: string;
+    notACheckmate: I18nString;
     /** Notes */
-    notes: string;
+    notes: I18nString;
     /** Nothing to see here at the moment. */
-    nothingToSeeHere: string;
+    nothingToSeeHere: I18nString;
     /** Notifications */
-    notifications: string;
+    notifications: I18nString;
     /** Notifications: %1$s */
-    notificationsX: I18nFormat;
+    notificationsX: I18nString;
     /** Offer draw */
-    offerDraw: string;
+    offerDraw: I18nString;
     /** OK */
-    ok: string;
+    ok: I18nString;
     /** One day */
-    oneDay: string;
+    oneDay: I18nString;
     /** One URL per line. */
-    oneUrlPerLine: string;
+    oneUrlPerLine: I18nString;
     /** Online and offline play */
-    onlineAndOfflinePlay: string;
+    onlineAndOfflinePlay: I18nString;
     /** Online bots */
-    onlineBots: string;
+    onlineBots: I18nString;
     /** Online players */
-    onlinePlayers: string;
+    onlinePlayers: I18nString;
     /** Only existing conversations */
-    onlyExistingConversations: string;
+    onlyExistingConversations: I18nString;
     /** Only friends */
-    onlyFriends: string;
+    onlyFriends: I18nString;
     /** Only members of team */
-    onlyMembersOfTeam: string;
+    onlyMembersOfTeam: I18nString;
     /** Only team leaders */
-    onlyTeamLeaders: string;
+    onlyTeamLeaders: I18nString;
     /** Only team members */
-    onlyTeamMembers: string;
+    onlyTeamMembers: I18nString;
     /** This will only work once. */
-    onlyWorksOnce: string;
+    onlyWorksOnce: I18nString;
     /** On slow games */
-    onSlowGames: string;
+    onSlowGames: I18nString;
     /** Opacity */
-    opacity: string;
+    opacity: I18nString;
     /** Opening */
-    opening: string;
+    opening: I18nString;
     /** Opening/endgame explorer */
-    openingEndgameExplorer: string;
+    openingEndgameExplorer: I18nString;
     /** Opening explorer */
-    openingExplorer: string;
+    openingExplorer: I18nString;
     /** Opening explorer & tablebase */
-    openingExplorerAndTablebase: string;
+    openingExplorerAndTablebase: I18nString;
     /** Openings */
-    openings: string;
+    openings: I18nString;
     /** Open study */
-    openStudy: string;
+    openStudy: I18nString;
     /** Open tournaments */
-    openTournaments: string;
+    openTournaments: I18nString;
     /** Opponent */
-    opponent: string;
+    opponent: I18nString;
     /** Your opponent left the game. You can claim victory, call the game a draw, or wait. */
-    opponentLeftChoices: string;
+    opponentLeftChoices: I18nString;
     /** Your opponent left the game. You can claim victory in %s seconds. */
     opponentLeftCounter: I18nPlural;
     /** Or let your opponent scan this QR code */
-    orLetYourOpponentScanQrCode: string;
+    orLetYourOpponentScanQrCode: I18nString;
     /** Or upload a PGN file */
-    orUploadPgnFile: string;
+    orUploadPgnFile: I18nString;
     /** Other */
-    other: string;
+    other: I18nString;
     /** other players */
-    otherPlayers: string;
+    otherPlayers: I18nString;
     /** Our tips for organising events */
-    ourEventTips: string;
+    ourEventTips: I18nString;
     /** Outside the board */
-    outsideTheBoard: string;
+    outsideTheBoard: I18nString;
     /** Password */
-    password: string;
+    password: I18nString;
     /** Password reset */
-    passwordReset: string;
+    passwordReset: I18nString;
     /** Do not set a password suggested by someone else. They will use it to steal your account. */
-    passwordSuggestion: string;
+    passwordSuggestion: I18nString;
     /** Paste the FEN text here */
-    pasteTheFenStringHere: string;
+    pasteTheFenStringHere: I18nString;
     /** Paste the PGN text here */
-    pasteThePgnStringHere: string;
+    pasteThePgnStringHere: I18nString;
     /** Pause */
-    pause: string;
+    pause: I18nString;
     /** Pawn move */
-    pawnMove: string;
+    pawnMove: I18nString;
     /** Performance */
-    performance: string;
+    performance: I18nString;
     /** Rating: %s */
-    perfRatingX: I18nFormat;
+    perfRatingX: I18nString;
     /** Phone and tablet */
-    phoneAndTablet: string;
+    phoneAndTablet: I18nString;
     /** Piece set */
-    pieceSet: string;
+    pieceSet: I18nString;
     /** Play */
-    play: string;
+    play: I18nString;
     /** Play chess everywhere */
-    playChessEverywhere: string;
+    playChessEverywhere: I18nString;
     /** Play chess in style */
-    playChessInStyle: string;
+    playChessInStyle: I18nString;
     /** Play best computer move */
-    playComputerMove: string;
+    playComputerMove: I18nString;
     /** Player */
-    player: string;
+    player: I18nString;
     /** Players */
-    players: string;
+    players: I18nString;
     /** Play every game you start. */
-    playEveryGame: string;
+    playEveryGame: I18nString;
     /** Play first opening/endgame-explorer move */
-    playFirstOpeningEndgameExplorerMove: string;
+    playFirstOpeningEndgameExplorerMove: I18nString;
     /** Playing right now */
-    playingRightNow: string;
+    playingRightNow: I18nString;
     /** play selected move */
-    playSelectedMove: string;
+    playSelectedMove: I18nString;
     /** Play a variation to create conditional premoves */
-    playVariationToCreateConditionalPremoves: string;
+    playVariationToCreateConditionalPremoves: I18nString;
     /** Play with a friend */
-    playWithAFriend: string;
+    playWithAFriend: I18nString;
     /** Play with the computer */
-    playWithTheMachine: string;
+    playWithTheMachine: I18nString;
     /** Play %s */
-    playX: I18nFormat;
+    playX: I18nString;
     /** We aim to provide a pleasant chess experience for everyone. */
-    pleasantChessExperience: string;
+    pleasantChessExperience: I18nString;
     /** Points */
-    points: string;
+    points: I18nString;
     /** Popular openings */
-    popularOpenings: string;
+    popularOpenings: I18nString;
     /** Paste a valid FEN to start every game from a given position. */
-    positionInputHelp: I18nFormat;
+    positionInputHelp: I18nString;
     /** Posts */
-    posts: string;
+    posts: I18nString;
     /** When a potential problem is detected, we display this message. */
-    potentialProblem: string;
+    potentialProblem: I18nString;
     /** Practice */
-    practice: string;
+    practice: I18nString;
     /** Practice with computer */
-    practiceWithComputer: string;
+    practiceWithComputer: I18nString;
     /** Previously on Lichess TV */
-    previouslyOnLichessTV: string;
+    previouslyOnLichessTV: I18nString;
     /** Privacy */
-    privacy: string;
+    privacy: I18nString;
     /** Privacy policy */
-    privacyPolicy: string;
+    privacyPolicy: I18nString;
     /** Proceed to %s */
-    proceedToX: I18nFormat;
+    proceedToX: I18nString;
     /** Profile */
-    profile: string;
+    profile: I18nString;
     /** Profile completion: %s */
-    profileCompletion: I18nFormat;
+    profileCompletion: I18nString;
     /** Promote variation */
-    promoteVariation: string;
+    promoteVariation: I18nString;
     /** Propose a takeback */
-    proposeATakeback: string;
+    proposeATakeback: I18nString;
     /** Chess tactics trainer */
-    puzzleDesc: string;
+    puzzleDesc: I18nString;
     /** Puzzles */
-    puzzles: string;
+    puzzles: I18nString;
     /** Quick pairing */
-    quickPairing: string;
+    quickPairing: I18nString;
     /** Race finished */
-    raceFinished: string;
+    raceFinished: I18nString;
     /** Random side */
-    randomColor: string;
+    randomColor: I18nString;
     /** Rank */
-    rank: string;
+    rank: I18nString;
     /** Rank is updated every %s minutes */
     rankIsUpdatedEveryNbMinutes: I18nPlural;
     /** Rank: %s */
-    rankX: I18nFormat;
+    rankX: I18nString;
     /** Rapid */
-    rapid: string;
+    rapid: I18nString;
     /** Rapid games: 8 to 25 minutes */
-    rapidDesc: string;
+    rapidDesc: I18nString;
     /** Rated */
-    rated: string;
+    rated: I18nString;
     /** Games are rated and impact players ratings */
-    ratedFormHelp: string;
+    ratedFormHelp: I18nString;
     /** Rated ≤ %1$s in %2$s for the last week */
-    ratedLessThanInPerf: I18nFormat;
+    ratedLessThanInPerf: I18nString;
     /** Rated ≥ %1$s in %2$s */
-    ratedMoreThanInPerf: I18nFormat;
+    ratedMoreThanInPerf: I18nString;
     /** Rated */
-    ratedTournament: string;
+    ratedTournament: I18nString;
     /** Rating */
-    rating: string;
+    rating: I18nString;
     /** Rating range */
-    ratingRange: string;
+    ratingRange: I18nString;
     /** Rating stats */
-    ratingStats: string;
+    ratingStats: I18nString;
     /** %1$s rating over %2$s games */
     ratingXOverYGames: I18nPlural;
     /** Read about our %s. */
-    readAboutOur: I18nFormat;
+    readAboutOur: I18nString;
     /** really */
-    really: string;
+    really: I18nString;
     /** Real name */
-    realName: string;
+    realName: I18nString;
     /** Real time */
-    realTime: string;
+    realTime: I18nString;
     /** Realtime */
-    realtimeReplay: string;
+    realtimeReplay: I18nString;
     /** Reason */
-    reason: string;
+    reason: I18nString;
     /** Receive notifications when mentioned in the forum */
-    receiveForumNotifications: string;
+    receiveForumNotifications: I18nString;
     /** Recent games */
-    recentGames: string;
+    recentGames: I18nString;
     /** Reconnecting */
-    reconnecting: string;
+    reconnecting: I18nString;
     /** Wait 5 minutes and refresh your email inbox. */
-    refreshInboxAfterFiveMinutes: string;
+    refreshInboxAfterFiveMinutes: I18nString;
     /** Refund: %1$s %2$s rating points. */
-    refundXpointsTimeControlY: I18nFormat;
+    refundXpointsTimeControlY: I18nString;
     /** Rematch */
-    rematch: string;
+    rematch: I18nString;
     /** Rematch offer accepted */
-    rematchOfferAccepted: string;
+    rematchOfferAccepted: I18nString;
     /** Rematch offer cancelled */
-    rematchOfferCanceled: string;
+    rematchOfferCanceled: I18nString;
     /** Rematch offer declined */
-    rematchOfferDeclined: string;
+    rematchOfferDeclined: I18nString;
     /** Rematch offer sent */
-    rematchOfferSent: string;
+    rematchOfferSent: I18nString;
     /** Keep me logged in */
-    rememberMe: string;
+    rememberMe: I18nString;
     /** Removes the depth limit, and keeps your computer warm */
-    removesTheDepthLimit: string;
+    removesTheDepthLimit: I18nString;
     /** Reopen your account */
-    reopenYourAccount: string;
+    reopenYourAccount: I18nString;
     /** Replay mode */
-    replayMode: string;
+    replayMode: I18nString;
     /** Replies */
-    replies: string;
+    replies: I18nString;
     /** Reply */
-    reply: string;
+    reply: I18nString;
     /** Reply to this topic */
-    replyToThisTopic: string;
+    replyToThisTopic: I18nString;
     /** Report a user */
-    reportAUser: string;
+    reportAUser: I18nString;
     /** Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. */
-    reportCheatBoostHelp: string;
+    reportCheatBoostHelp: I18nString;
     /** Your report will be processed faster if written in English. */
-    reportProcessedFasterInEnglish: string;
+    reportProcessedFasterInEnglish: I18nString;
     /** Explain what about this username is offensive. Don't just say "it's offensive/inappropriate", but tell us how you came to this conclusion, especially if the insult is obfuscated, not in english, is in slang, or is a historical/cultural reference. */
-    reportUsernameHelp: string;
+    reportUsernameHelp: I18nString;
     /** Report %s to moderators */
-    reportXToModerators: I18nFormat;
+    reportXToModerators: I18nString;
     /** Request a computer analysis */
-    requestAComputerAnalysis: string;
+    requestAComputerAnalysis: I18nString;
     /** Required. */
-    required: string;
+    required: I18nString;
     /** Reset */
-    reset: string;
+    reset: I18nString;
     /** Resign */
-    resign: string;
+    resign: I18nString;
     /** Resign lost games (don't let the clock run down). */
-    resignLostGames: string;
+    resignLostGames: I18nString;
     /** Resign the game */
-    resignTheGame: string;
+    resignTheGame: I18nString;
     /** Resume */
-    resume: string;
+    resume: I18nString;
     /** Resume learning */
-    resumeLearning: string;
+    resumeLearning: I18nString;
     /** Resume practice */
-    resumePractice: string;
+    resumePractice: I18nString;
     /** %1$s vs %2$s */
-    resVsX: I18nFormat;
+    resVsX: I18nString;
     /** Retry */
-    retry: string;
+    retry: I18nString;
     /** Return to simul homepage */
-    returnToSimulHomepage: string;
+    returnToSimulHomepage: I18nString;
     /** Return to tournaments homepage */
-    returnToTournamentsHomepage: string;
+    returnToTournamentsHomepage: I18nString;
     /** Review black mistakes */
-    reviewBlackMistakes: string;
+    reviewBlackMistakes: I18nString;
     /** Review white mistakes */
-    reviewWhiteMistakes: string;
+    reviewWhiteMistakes: I18nString;
     /** revoke all sessions */
-    revokeAllSessions: string;
+    revokeAllSessions: I18nString;
     /** Pick a very safe name for the tournament. */
-    safeTournamentName: string;
+    safeTournamentName: I18nString;
     /** Save */
-    save: string;
+    save: I18nString;
     /** Screenshot current position */
-    screenshotCurrentPosition: string;
+    screenshotCurrentPosition: I18nString;
     /** Scroll over computer variations to preview them. */
-    scrollOverComputerVariationsToPreviewThem: string;
+    scrollOverComputerVariationsToPreviewThem: I18nString;
     /** Search or start new conversation */
-    searchOrStartNewDiscussion: string;
+    searchOrStartNewDiscussion: I18nString;
     /** Security */
-    security: string;
+    security: I18nString;
     /** See best move */
-    seeBestMove: string;
+    seeBestMove: I18nString;
     /** Send */
-    send: string;
+    send: I18nString;
     /** We've sent you an email with a link. */
-    sentEmailWithLink: string;
+    sentEmailWithLink: I18nString;
     /** Sessions */
-    sessions: string;
+    sessions: I18nString;
     /** Set your flair */
-    setFlair: string;
+    setFlair: I18nString;
     /** Set the board */
-    setTheBoard: string;
+    setTheBoard: I18nString;
     /** Share your chess insights data */
-    shareYourInsightsData: string;
+    shareYourInsightsData: I18nString;
     /** Show this help dialog */
-    showHelpDialog: string;
+    showHelpDialog: I18nString;
     /** Show me everything */
-    showMeEverything: string;
+    showMeEverything: I18nString;
     /** Show threat */
-    showThreat: string;
+    showThreat: I18nString;
     /** You have received a private message from Lichess. */
-    showUnreadLichessMessage: string;
+    showUnreadLichessMessage: I18nString;
     /** Show variation arrows */
-    showVariationArrows: string;
+    showVariationArrows: I18nString;
     /** Side */
-    side: string;
+    side: I18nString;
     /** Sign in */
-    signIn: string;
+    signIn: I18nString;
     /** Register */
-    signUp: string;
+    signUp: I18nString;
     /** We will only use it for password reset. */
-    signupEmailHint: string;
+    signupEmailHint: I18nString;
     /** Sign up to host or join a simul */
-    signUpToHostOrJoinASimul: string;
+    signUpToHostOrJoinASimul: I18nString;
     /** Make sure to choose a family-friendly username. You cannot change it later and any accounts with inappropriate usernames will get closed! */
-    signupUsernameHint: string;
+    signupUsernameHint: I18nString;
     /** You may add extra initial time to your clock to help you cope with the simul. */
-    simulAddExtraTime: string;
+    simulAddExtraTime: I18nString;
     /** Add initial time to your clock for each player joining the simul. */
-    simulAddExtraTimePerPlayer: string;
+    simulAddExtraTimePerPlayer: I18nString;
     /** Fischer Clock setup. The more players you take on, the more time you may need. */
-    simulClockHint: string;
+    simulClockHint: I18nString;
     /** Simul description */
-    simulDescription: string;
+    simulDescription: I18nString;
     /** Anything you want to tell the participants? */
-    simulDescriptionHelp: string;
+    simulDescriptionHelp: I18nString;
     /** Feature on %s */
-    simulFeatured: I18nFormat;
+    simulFeatured: I18nString;
     /** Show your simul to everyone on %s. Disable for private simuls. */
-    simulFeaturedHelp: I18nFormat;
+    simulFeaturedHelp: I18nString;
     /** Host colour for each game */
-    simulHostcolor: string;
+    simulHostcolor: I18nString;
     /** Host extra initial clock time */
-    simulHostExtraTime: string;
+    simulHostExtraTime: I18nString;
     /** Host extra clock time per player */
-    simulHostExtraTimePerPlayer: string;
+    simulHostExtraTimePerPlayer: I18nString;
     /** Simultaneous exhibitions */
-    simultaneousExhibitions: string;
+    simultaneousExhibitions: I18nString;
     /** If you select several variants, each player gets to choose which one to play. */
-    simulVariantsHint: string;
+    simulVariantsHint: I18nString;
     /** Since */
-    since: string;
+    since: I18nString;
     /** Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents. */
-    siteDescription: string;
+    siteDescription: I18nString;
     /** Size */
-    size: string;
+    size: I18nString;
     /** Skip this move */
-    skipThisMove: string;
+    skipThisMove: I18nString;
     /** Slow */
-    slow: string;
+    slow: I18nString;
     /** Social media links */
-    socialMediaLinks: string;
+    socialMediaLinks: I18nString;
     /** Solution */
-    solution: string;
+    solution: I18nString;
     /** Someone you reported was banned */
-    someoneYouReportedWasBanned: string;
+    someoneYouReportedWasBanned: I18nString;
     /** Sorry :( */
-    sorry: string;
+    sorry: I18nString;
     /** Sound */
-    sound: string;
+    sound: I18nString;
     /** Source Code */
-    sourceCode: string;
+    sourceCode: I18nString;
     /** Spectator room */
-    spectatorRoom: string;
+    spectatorRoom: I18nString;
     /** Stalemate */
-    stalemate: string;
+    stalemate: I18nString;
     /** Standard */
-    standard: string;
+    standard: I18nString;
     /** Stand by %s, pairing players, get ready! */
-    standByX: I18nFormat;
+    standByX: I18nString;
     /** Standing */
-    standing: string;
+    standing: I18nString;
     /** started streaming */
-    startedStreaming: string;
+    startedStreaming: I18nString;
     /** Starting: */
-    starting: string;
+    starting: I18nString;
     /** Starting position */
-    startPosition: string;
+    startPosition: I18nString;
     /** Stats */
-    stats: string;
+    stats: I18nString;
     /** Streamer manager */
-    streamerManager: string;
+    streamerManager: I18nString;
     /** Streamers */
-    streamersMenu: string;
+    streamersMenu: I18nString;
     /** Strength */
-    strength: string;
+    strength: I18nString;
     /** Study */
-    studyMenu: string;
+    studyMenu: I18nString;
     /** Subject */
-    subject: string;
+    subject: I18nString;
     /** Subscribe */
-    subscribe: string;
+    subscribe: I18nString;
     /** Success */
-    success: string;
+    success: I18nString;
     /** Switch sides */
-    switchSides: string;
+    switchSides: I18nString;
     /** Takeback */
-    takeback: string;
+    takeback: I18nString;
     /** Takeback accepted */
-    takebackPropositionAccepted: string;
+    takebackPropositionAccepted: I18nString;
     /** Takeback cancelled */
-    takebackPropositionCanceled: string;
+    takebackPropositionCanceled: I18nString;
     /** Takeback declined */
-    takebackPropositionDeclined: string;
+    takebackPropositionDeclined: I18nString;
     /** Takeback sent */
-    takebackPropositionSent: string;
+    takebackPropositionSent: I18nString;
     /** Please be nice in the chat! */
-    talkInChat: string;
+    talkInChat: I18nString;
     /** %1$s team */
-    teamNamedX: I18nFormat;
+    teamNamedX: I18nString;
     /** We apologise for the temporary inconvenience, */
-    temporaryInconvenience: string;
+    temporaryInconvenience: I18nString;
     /** Terms of Service */
-    termsOfService: string;
+    termsOfService: I18nString;
     /** Thank you! */
-    thankYou: string;
+    thankYou: I18nString;
     /** Thank you for reading! */
-    thankYouForReading: string;
+    thankYouForReading: I18nString;
     /** The first person to come to this URL will play with you. */
-    theFirstPersonToComeOnThisUrlWillPlayWithYou: string;
+    theFirstPersonToComeOnThisUrlWillPlayWithYou: I18nString;
     /** the forum etiquette */
-    theForumEtiquette: string;
+    theForumEtiquette: I18nString;
     /** The game is a draw. */
-    theGameIsADraw: string;
+    theGameIsADraw: I18nString;
     /** Thematic */
-    thematic: string;
+    thematic: I18nString;
     /** This account violated the Lichess Terms of Service */
-    thisAccountViolatedTos: string;
+    thisAccountViolatedTos: I18nString;
     /** This game is rated */
-    thisGameIsRated: string;
+    thisGameIsRated: I18nString;
     /** This is a chess CAPTCHA. */
-    thisIsAChessCaptcha: string;
+    thisIsAChessCaptcha: I18nString;
     /** This topic has been archived and can no longer be replied to. */
-    thisTopicIsArchived: string;
+    thisTopicIsArchived: I18nString;
     /** This topic is now closed. */
-    thisTopicIsNowClosed: string;
+    thisTopicIsNowClosed: I18nString;
     /** Three checks */
-    threeChecks: string;
+    threeChecks: I18nString;
     /** Threefold repetition */
-    threefoldRepetition: string;
+    threefoldRepetition: I18nString;
     /** Time */
-    time: string;
+    time: I18nString;
     /** Time is almost up! */
-    timeAlmostUp: string;
+    timeAlmostUp: I18nString;
     /** Time before tournament starts */
-    timeBeforeTournamentStarts: string;
+    timeBeforeTournamentStarts: I18nString;
     /** Time control */
-    timeControl: string;
+    timeControl: I18nString;
     /** Timeline */
-    timeline: string;
+    timeline: I18nString;
     /** Time to process a move on Lichess's server */
-    timeToProcessAMoveOnLichessServer: string;
+    timeToProcessAMoveOnLichessServer: I18nString;
     /** Today */
-    today: string;
+    today: I18nString;
     /** Toggle all computer analysis */
-    toggleAllAnalysis: string;
+    toggleAllAnalysis: I18nString;
     /** Toggle move annotations */
-    toggleGlyphAnnotations: string;
+    toggleGlyphAnnotations: I18nString;
     /** Toggle local computer analysis */
-    toggleLocalAnalysis: string;
+    toggleLocalAnalysis: I18nString;
     /** Toggle local evaluation */
-    toggleLocalEvaluation: string;
+    toggleLocalEvaluation: I18nString;
     /** Toggle position annotations */
-    togglePositionAnnotations: string;
+    togglePositionAnnotations: I18nString;
     /** Toggle the chat */
-    toggleTheChat: string;
+    toggleTheChat: I18nString;
     /** Toggle variation arrows */
-    toggleVariationArrows: string;
+    toggleVariationArrows: I18nString;
     /** To invite someone to play, give this URL */
-    toInviteSomeoneToPlayGiveThisUrl: string;
+    toInviteSomeoneToPlayGiveThisUrl: I18nString;
     /** Tools */
-    tools: string;
+    tools: I18nString;
     /** Top games */
-    topGames: string;
+    topGames: I18nString;
     /** Topics */
-    topics: string;
+    topics: I18nString;
     /** To report a user for cheating or bad behaviour, %1$s */
-    toReportSomeoneForCheatingOrBadBehavior: I18nFormat;
+    toReportSomeoneForCheatingOrBadBehavior: I18nString;
     /** To request support, %1$s */
-    toRequestSupport: I18nFormat;
+    toRequestSupport: I18nString;
     /** Study */
-    toStudy: string;
+    toStudy: I18nString;
     /** Tournament */
-    tournament: string;
+    tournament: I18nString;
     /** Tournament calendar */
-    tournamentCalendar: string;
+    tournamentCalendar: I18nString;
     /** Tournament complete */
-    tournamentComplete: string;
+    tournamentComplete: I18nString;
     /** This tournament does not exist. */
-    tournamentDoesNotExist: string;
+    tournamentDoesNotExist: I18nString;
     /** Tournament entry code */
-    tournamentEntryCode: string;
+    tournamentEntryCode: I18nString;
     /** Arena tournament FAQ */
-    tournamentFAQ: string;
+    tournamentFAQ: I18nString;
     /** Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun. */
-    tournamentHomeDescription: string;
+    tournamentHomeDescription: I18nString;
     /** Chess tournaments featuring various time controls and variants */
-    tournamentHomeTitle: string;
+    tournamentHomeTitle: I18nString;
     /** The tournament is starting */
-    tournamentIsStarting: string;
+    tournamentIsStarting: I18nString;
     /** The tournament may have been cancelled if all players left before it started. */
-    tournamentMayHaveBeenCanceled: string;
+    tournamentMayHaveBeenCanceled: I18nString;
     /** Tournament not found */
-    tournamentNotFound: string;
+    tournamentNotFound: I18nString;
     /** The tournament pairings are now closed. */
-    tournamentPairingsAreNowClosed: string;
+    tournamentPairingsAreNowClosed: I18nString;
     /** Tournament points */
-    tournamentPoints: string;
+    tournamentPoints: I18nString;
     /** Tournaments */
-    tournaments: string;
+    tournaments: I18nString;
     /** Tournament chat */
-    tournChat: string;
+    tournChat: I18nString;
     /** Tournament description */
-    tournDescription: string;
+    tournDescription: I18nString;
     /** Anything special you want to tell the participants? Try to keep it short. Markdown links are available: [name](https://url) */
-    tournDescriptionHelp: string;
+    tournDescriptionHelp: I18nString;
     /** Time featured on TV: %s */
-    tpTimeSpentOnTV: I18nFormat;
+    tpTimeSpentOnTV: I18nString;
     /** Time spent playing: %s */
-    tpTimeSpentPlaying: I18nFormat;
+    tpTimeSpentPlaying: I18nString;
     /** Transparent */
-    transparent: string;
+    transparent: I18nString;
     /** Troll */
-    troll: string;
+    troll: I18nString;
     /** Try another move for black */
-    tryAnotherMoveForBlack: string;
+    tryAnotherMoveForBlack: I18nString;
     /** Try another move for white */
-    tryAnotherMoveForWhite: string;
+    tryAnotherMoveForWhite: I18nString;
     /** try the contact page */
-    tryTheContactPage: string;
+    tryTheContactPage: I18nString;
     /** Try to win (or at least draw) every game you play. */
-    tryToWin: string;
+    tryToWin: I18nString;
     /** Type private notes here */
-    typePrivateNotesHere: string;
+    typePrivateNotesHere: I18nString;
     /** Insanely fast games: less than 30 seconds */
-    ultraBulletDesc: string;
+    ultraBulletDesc: I18nString;
     /** Unblock */
-    unblock: string;
+    unblock: I18nString;
     /** Unfollow */
-    unfollow: string;
+    unfollow: I18nString;
     /** Unfollow %s */
-    unfollowX: I18nFormat;
+    unfollowX: I18nString;
     /** Unknown */
-    unknown: string;
+    unknown: I18nString;
     /** Win/loss only guaranteed if recommended tablebase line has been followed since the last capture or pawn move, due to possible rounding of DTZ values in Syzygy tablebases. */
-    unknownDueToRounding: string;
+    unknownDueToRounding: I18nString;
     /** Unlimited */
-    unlimited: string;
+    unlimited: I18nString;
     /** Unsubscribe */
-    unsubscribe: string;
+    unsubscribe: I18nString;
     /** Until */
-    until: string;
+    until: I18nString;
     /** User */
-    user: string;
+    user: I18nString;
     /** %1$s is better than %2$s of %3$s players. */
-    userIsBetterThanPercentOfPerfTypePlayers: I18nFormat;
+    userIsBetterThanPercentOfPerfTypePlayers: I18nString;
     /** User name */
-    username: string;
+    username: I18nString;
     /** This username is already in use, please try another one. */
-    usernameAlreadyUsed: string;
+    usernameAlreadyUsed: I18nString;
     /** You can use this username to create a new account */
-    usernameCanBeUsedForNewAccount: string;
+    usernameCanBeUsedForNewAccount: I18nString;
     /** The username must only contain letters, numbers, underscores, and hyphens. Consecutive underscores and hyphens are not allowed. */
-    usernameCharsInvalid: string;
+    usernameCharsInvalid: I18nString;
     /** We couldn't find any user by this name: %s. */
-    usernameNotFound: I18nFormat;
+    usernameNotFound: I18nString;
     /** User name or email */
-    usernameOrEmail: string;
+    usernameOrEmail: I18nString;
     /** The username must start with a letter. */
-    usernamePrefixInvalid: string;
+    usernamePrefixInvalid: I18nString;
     /** The username must end with a letter or a number. */
-    usernameSuffixInvalid: string;
+    usernameSuffixInvalid: I18nString;
     /** This username is not acceptable. */
-    usernameUnacceptable: string;
+    usernameUnacceptable: I18nString;
     /** use the report form */
-    useTheReportForm: string;
+    useTheReportForm: I18nString;
     /** Using server analysis */
-    usingServerAnalysis: string;
+    usingServerAnalysis: I18nString;
     /** Variant */
-    variant: string;
+    variant: I18nString;
     /** Variant ending */
-    variantEnding: string;
+    variantEnding: I18nString;
     /** Variant loss */
-    variantLoss: string;
+    variantLoss: I18nString;
     /** Variants */
-    variants: string;
+    variants: I18nString;
     /** Variant win */
-    variantWin: string;
+    variantWin: I18nString;
     /** Variation arrows let you navigate without using the move list. */
-    variationArrowsInfo: string;
+    variationArrowsInfo: I18nString;
     /** Victory */
-    victory: string;
+    victory: I18nString;
     /** %1$s vs %2$s in %3$s */
-    victoryVsYInZ: I18nFormat;
+    victoryVsYInZ: I18nString;
     /** Video library */
-    videoLibrary: string;
+    videoLibrary: I18nString;
     /** View in full size */
-    viewInFullSize: string;
+    viewInFullSize: I18nString;
     /** View rematch */
-    viewRematch: string;
+    viewRematch: I18nString;
     /** Views */
-    views: string;
+    views: I18nString;
     /** View the solution */
-    viewTheSolution: string;
+    viewTheSolution: I18nString;
     /** View tournament */
-    viewTournament: string;
+    viewTournament: I18nString;
     /** We will come back to you shortly to help you complete your signup. */
-    waitForSignupHelp: string;
+    waitForSignupHelp: I18nString;
     /** Waiting */
-    waiting: string;
+    waiting: I18nString;
     /** Waiting for analysis */
-    waitingForAnalysis: string;
+    waitingForAnalysis: I18nString;
     /** Waiting for opponent */
-    waitingForOpponent: string;
+    waitingForOpponent: I18nString;
     /** Watch */
-    watch: string;
+    watch: I18nString;
     /** Watch games */
-    watchGames: string;
+    watchGames: I18nString;
     /** Webmasters */
-    webmasters: string;
+    webmasters: I18nString;
     /** Website */
-    website: string;
+    website: I18nString;
     /** Weekly %s rating distribution */
-    weeklyPerfTypeRatingDistribution: I18nFormat;
+    weeklyPerfTypeRatingDistribution: I18nString;
     /** We had to time you out for a while. */
-    weHadToTimeYouOutForAWhile: string;
+    weHadToTimeYouOutForAWhile: I18nString;
     /** We've sent you an email. Click the link in the email to activate your account. */
-    weHaveSentYouAnEmailClickTheLink: string;
+    weHaveSentYouAnEmailClickTheLink: I18nString;
     /** We've sent an email to %s. Click the link in the email to reset your password. */
-    weHaveSentYouAnEmailTo: I18nFormat;
+    weHaveSentYouAnEmailTo: I18nString;
     /** What's the matter? */
-    whatIsIheMatter: string;
+    whatIsIheMatter: I18nString;
     /** What username did you use to sign up? */
-    whatSignupUsername: string;
+    whatSignupUsername: I18nString;
     /** When you create a Simul, you get to play several players at once. */
-    whenCreateSimul: string;
+    whenCreateSimul: I18nString;
     /** White */
-    white: string;
+    white: I18nString;
     /** White O-O */
-    whiteCastlingKingside: string;
+    whiteCastlingKingside: I18nString;
     /** White to checkmate in one move */
-    whiteCheckmatesInOneMove: string;
+    whiteCheckmatesInOneMove: I18nString;
     /** White declines draw */
-    whiteDeclinesDraw: string;
+    whiteDeclinesDraw: I18nString;
     /** White didn't move */
-    whiteDidntMove: string;
+    whiteDidntMove: I18nString;
     /** White / Draw / Black */
-    whiteDrawBlack: string;
+    whiteDrawBlack: I18nString;
     /** White is victorious */
-    whiteIsVictorious: string;
+    whiteIsVictorious: I18nString;
     /** White left the game */
-    whiteLeftTheGame: string;
+    whiteLeftTheGame: I18nString;
     /** White offers draw */
-    whiteOffersDraw: string;
+    whiteOffersDraw: I18nString;
     /** White to play */
-    whitePlays: string;
+    whitePlays: I18nString;
     /** White resigned */
-    whiteResigned: string;
+    whiteResigned: I18nString;
     /** White time out */
-    whiteTimeOut: string;
+    whiteTimeOut: I18nString;
     /** White wins */
-    whiteWins: string;
+    whiteWins: I18nString;
     /** White wins */
-    whiteWinsGame: string;
+    whiteWinsGame: I18nString;
     /** Why? */
-    why: string;
+    why: I18nString;
     /** Winner */
-    winner: string;
+    winner: I18nString;
     /** Winning */
-    winning: string;
+    winning: I18nString;
     /** Win or 50 moves by prior mistake */
-    winOr50MovesByPriorMistake: string;
+    winOr50MovesByPriorMistake: I18nString;
     /** Win prevented by 50-move rule */
-    winPreventedBy50MoveRule: string;
+    winPreventedBy50MoveRule: I18nString;
     /** Win rate */
-    winRate: string;
+    winRate: I18nString;
     /** Wins */
-    wins: string;
+    wins: I18nString;
     /** and wish you great games on lichess.org. */
-    wishYouGreatGames: string;
+    wishYouGreatGames: I18nString;
     /** Withdraw */
-    withdraw: string;
+    withdraw: I18nString;
     /** With everybody */
-    withEverybody: string;
+    withEverybody: I18nString;
     /** With friends */
-    withFriends: string;
+    withFriends: I18nString;
     /** With nobody */
-    withNobody: string;
+    withNobody: I18nString;
     /** Write a private note about this user */
-    writeAPrivateNoteAboutThisUser: string;
+    writeAPrivateNoteAboutThisUser: I18nString;
     /** %1$s competes in %2$s */
-    xCompetesInY: I18nFormat;
+    xCompetesInY: I18nString;
     /** %1$s created team %2$s */
-    xCreatedTeamY: I18nFormat;
+    xCreatedTeamY: I18nString;
     /** %1$s hosts %2$s */
-    xHostsY: I18nFormat;
+    xHostsY: I18nString;
     /** %1$s invited you to "%2$s". */
-    xInvitedYouToY: I18nFormat;
+    xInvitedYouToY: I18nString;
     /** %1$s is a free (%2$s), libre, no-ads, open source chess server. */
-    xIsAFreeYLibreOpenSourceChessServer: I18nFormat;
+    xIsAFreeYLibreOpenSourceChessServer: I18nString;
     /** %1$s joined team %2$s */
-    xJoinedTeamY: I18nFormat;
+    xJoinedTeamY: I18nString;
     /** %1$s joins %2$s */
-    xJoinsY: I18nFormat;
+    xJoinsY: I18nString;
     /** %1$s likes %2$s */
-    xLikesY: I18nFormat;
+    xLikesY: I18nString;
     /** %1$s mentioned you in "%2$s". */
-    xMentionedYouInY: I18nFormat;
+    xMentionedYouInY: I18nString;
     /** %s opening explorer */
-    xOpeningExplorer: I18nFormat;
+    xOpeningExplorer: I18nString;
     /** %1$s posted in topic %2$s */
-    xPostedInForumY: I18nFormat;
+    xPostedInForumY: I18nString;
     /** %s rating */
-    xRating: I18nFormat;
+    xRating: I18nString;
     /** %1$s started following %2$s */
-    xStartedFollowingY: I18nFormat;
+    xStartedFollowingY: I18nString;
     /** %s started streaming */
-    xStartedStreaming: I18nFormat;
+    xStartedStreaming: I18nString;
     /** %s was played */
-    xWasPlayed: I18nFormat;
+    xWasPlayed: I18nString;
     /** Yes */
-    yes: string;
+    yes: I18nString;
     /** Yesterday */
-    yesterday: string;
+    yesterday: I18nString;
     /** You are better than %1$s of %2$s players. */
-    youAreBetterThanPercentOfPerfTypePlayers: I18nFormat;
+    youAreBetterThanPercentOfPerfTypePlayers: I18nString;
     /** You are leaving Lichess */
-    youAreLeavingLichess: string;
+    youAreLeavingLichess: I18nString;
     /** You are not in the team %s */
-    youAreNotInTeam: I18nFormat;
+    youAreNotInTeam: I18nString;
     /** You are now part of the team. */
-    youAreNowPartOfTeam: string;
+    youAreNowPartOfTeam: I18nString;
     /** You are playing! */
-    youArePlaying: string;
+    youArePlaying: I18nString;
     /** You browsed away */
-    youBrowsedAway: string;
+    youBrowsedAway: I18nString;
     /** Scroll over the board to move in the game. */
-    youCanAlsoScrollOverTheBoardToMoveInTheGame: string;
+    youCanAlsoScrollOverTheBoardToMoveInTheGame: I18nString;
     /** You can do better */
-    youCanDoBetter: string;
+    youCanDoBetter: I18nString;
     /** There is a setting to hide all user flairs across the entire site. */
-    youCanHideFlair: string;
+    youCanHideFlair: I18nString;
     /** You can't post in the forums yet. Play some games! */
-    youCannotPostYetPlaySomeGames: string;
+    youCannotPostYetPlaySomeGames: I18nString;
     /** You can't start a new game until this one is finished. */
-    youCantStartNewGame: string;
+    youCantStartNewGame: I18nString;
     /** You do not have an established %s rating. */
-    youDoNotHaveAnEstablishedPerfTypeRating: I18nFormat;
+    youDoNotHaveAnEstablishedPerfTypeRating: I18nString;
     /** You have been timed out. */
-    youHaveBeenTimedOut: string;
+    youHaveBeenTimedOut: I18nString;
     /** You have joined "%1$s". */
-    youHaveJoinedTeamX: I18nFormat;
+    youHaveJoinedTeamX: I18nString;
     /** You need an account to do that */
-    youNeedAnAccountToDoThat: string;
+    youNeedAnAccountToDoThat: I18nString;
     /** You play the black pieces */
-    youPlayTheBlackPieces: string;
+    youPlayTheBlackPieces: I18nString;
     /** You play the white pieces */
-    youPlayTheWhitePieces: string;
+    youPlayTheWhitePieces: I18nString;
     /** Your opponent offers a draw */
-    yourOpponentOffersADraw: string;
+    yourOpponentOffersADraw: I18nString;
     /** Your opponent proposes a takeback */
-    yourOpponentProposesATakeback: string;
+    yourOpponentProposesATakeback: I18nString;
     /** Your opponent wants to play a new game with you */
-    yourOpponentWantsToPlayANewGameWithYou: string;
+    yourOpponentWantsToPlayANewGameWithYou: I18nString;
     /** Your pending simuls */
-    yourPendingSimuls: string;
+    yourPendingSimuls: I18nString;
     /** Your %s rating is provisional */
-    yourPerfRatingIsProvisional: I18nFormat;
+    yourPerfRatingIsProvisional: I18nString;
     /** Your %1$s rating (%2$s) is too high */
-    yourPerfRatingIsTooHigh: I18nFormat;
+    yourPerfRatingIsTooHigh: I18nString;
     /** Your %1$s rating (%2$s) is too low */
-    yourPerfRatingIsTooLow: I18nFormat;
+    yourPerfRatingIsTooLow: I18nString;
     /** Your %1$s rating is %2$s. */
-    yourPerfTypeRatingIsRating: I18nFormat;
+    yourPerfTypeRatingIsRating: I18nString;
     /** Your question may already have an answer %1$s */
-    yourQuestionMayHaveBeenAnswered: I18nFormat;
+    yourQuestionMayHaveBeenAnswered: I18nString;
     /** Your rating */
-    yourRating: string;
+    yourRating: I18nString;
     /** Your score: %s */
-    yourScore: I18nFormat;
+    yourScore: I18nString;
     /** Your top weekly %1$s rating (%2$s) is too high */
-    yourTopWeeklyPerfRatingIsTooHigh: I18nFormat;
+    yourTopWeeklyPerfRatingIsTooHigh: I18nString;
     /** Your turn */
-    yourTurn: string;
+    yourTurn: I18nString;
     /** Zero advertisement */
-    zeroAdvertisement: string;
+    zeroAdvertisement: I18nString;
   };
   storm: {
     /** Accuracy */
-    accuracy: string;
+    accuracy: I18nString;
     /** All-time */
-    allTime: string;
+    allTime: I18nString;
     /** Best run of day */
-    bestRunOfDay: string;
+    bestRunOfDay: I18nString;
     /** Click to reload */
-    clickToReload: string;
+    clickToReload: I18nString;
     /** Combo */
-    combo: string;
+    combo: I18nString;
     /** Create a new game */
-    createNewGame: string;
+    createNewGame: I18nString;
     /** End run (hotkey: Enter) */
-    endRun: string;
+    endRun: I18nString;
     /** Failed puzzles */
-    failedPuzzles: string;
+    failedPuzzles: I18nString;
     /** Get ready! */
-    getReady: string;
+    getReady: I18nString;
     /** Highest solved */
-    highestSolved: string;
+    highestSolved: I18nString;
     /** Highscores */
-    highscores: string;
+    highscores: I18nString;
     /** Highscore: %s */
-    highscoreX: I18nFormat;
+    highscoreX: I18nString;
     /** Join a public race */
-    joinPublicRace: string;
+    joinPublicRace: I18nString;
     /** Join rematch */
-    joinRematch: string;
+    joinRematch: I18nString;
     /** Join the race! */
-    joinTheRace: string;
+    joinTheRace: I18nString;
     /** Moves */
-    moves: string;
+    moves: I18nString;
     /** Move to start */
-    moveToStart: string;
+    moveToStart: I18nString;
     /** New all-time highscore! */
-    newAllTimeHighscore: string;
+    newAllTimeHighscore: I18nString;
     /** New daily highscore! */
-    newDailyHighscore: string;
+    newDailyHighscore: I18nString;
     /** New monthly highscore! */
-    newMonthlyHighscore: string;
+    newMonthlyHighscore: I18nString;
     /** New run (hotkey: Space) */
-    newRun: string;
+    newRun: I18nString;
     /** New weekly highscore! */
-    newWeeklyHighscore: string;
+    newWeeklyHighscore: I18nString;
     /** Next race */
-    nextRace: string;
+    nextRace: I18nString;
     /** Play again */
-    playAgain: string;
+    playAgain: I18nString;
     /** Played %1$s runs of %2$s */
     playedNbRunsOfPuzzleStorm: I18nPlural;
     /** Previous highscore was %s */
-    previousHighscoreWasX: I18nFormat;
+    previousHighscoreWasX: I18nString;
     /** Puzzles played */
-    puzzlesPlayed: string;
+    puzzlesPlayed: I18nString;
     /** puzzles solved */
-    puzzlesSolved: string;
+    puzzlesSolved: I18nString;
     /** Race complete! */
-    raceComplete: string;
+    raceComplete: I18nString;
     /** Race your friends */
-    raceYourFriends: string;
+    raceYourFriends: I18nString;
     /** Runs */
-    runs: string;
+    runs: I18nString;
     /** Score */
-    score: string;
+    score: I18nString;
     /** skip */
-    skip: string;
+    skip: I18nString;
     /** Skip this move to preserve your combo! Only works once per race. */
-    skipExplanation: string;
+    skipExplanation: I18nString;
     /** You can skip one move per race: */
-    skipHelp: string;
+    skipHelp: I18nString;
     /** Skipped puzzle */
-    skippedPuzzle: string;
+    skippedPuzzle: I18nString;
     /** Slow puzzles */
-    slowPuzzles: string;
+    slowPuzzles: I18nString;
     /** Spectating */
-    spectating: string;
+    spectating: I18nString;
     /** Start the race */
-    startTheRace: string;
+    startTheRace: I18nString;
     /** This month */
-    thisMonth: string;
+    thisMonth: I18nString;
     /** This run has expired! */
-    thisRunHasExpired: string;
+    thisRunHasExpired: I18nString;
     /** This run was opened in another tab! */
-    thisRunWasOpenedInAnotherTab: string;
+    thisRunWasOpenedInAnotherTab: I18nString;
     /** This week */
-    thisWeek: string;
+    thisWeek: I18nString;
     /** Time */
-    time: string;
+    time: I18nString;
     /** Time per move */
-    timePerMove: string;
+    timePerMove: I18nString;
     /** View best runs */
-    viewBestRuns: string;
+    viewBestRuns: I18nString;
     /** Wait for rematch */
-    waitForRematch: string;
+    waitForRematch: I18nString;
     /** Waiting for more players to join... */
-    waitingForMorePlayers: string;
+    waitingForMorePlayers: I18nString;
     /** Waiting to start */
-    waitingToStart: string;
+    waitingToStart: I18nString;
     /** %s runs */
     xRuns: I18nPlural;
     /** You play the black pieces in all puzzles */
-    youPlayTheBlackPiecesInAllPuzzles: string;
+    youPlayTheBlackPiecesInAllPuzzles: I18nString;
     /** You play the white pieces in all puzzles */
-    youPlayTheWhitePiecesInAllPuzzles: string;
+    youPlayTheWhitePiecesInAllPuzzles: I18nString;
     /** Your rank: %s */
-    yourRankX: I18nFormat;
+    yourRankX: I18nString;
   };
   streamer: {
     /** All streamers */
-    allStreamers: string;
+    allStreamers: I18nString;
     /** Your stream is approved. */
-    approved: string;
+    approved: I18nString;
     /** Become a Lichess streamer */
-    becomeStreamer: string;
+    becomeStreamer: I18nString;
     /** Change/delete your picture */
-    changePicture: string;
+    changePicture: I18nString;
     /** Currently streaming: %s */
-    currentlyStreaming: I18nFormat;
+    currentlyStreaming: I18nString;
     /** Download streamer kit */
-    downloadKit: string;
+    downloadKit: I18nString;
     /** Do you have a Twitch or YouTube channel? */
-    doYouHaveStream: string;
+    doYouHaveStream: I18nString;
     /** Edit streamer page */
-    editPage: string;
+    editPage: I18nString;
     /** Headline */
-    headline: string;
+    headline: I18nString;
     /** Here we go! */
-    hereWeGo: string;
+    hereWeGo: I18nString;
     /** Keep it short: %s characters max */
     keepItShort: I18nPlural;
     /** Last stream %s */
-    lastStream: I18nFormat;
+    lastStream: I18nString;
     /** Lichess streamer */
-    lichessStreamer: string;
+    lichessStreamer: I18nString;
     /** Lichess streamers */
-    lichessStreamers: string;
+    lichessStreamers: I18nString;
     /** LIVE! */
-    live: string;
+    live: I18nString;
     /** Long description */
-    longDescription: string;
+    longDescription: I18nString;
     /** Max size: %s */
-    maxSize: I18nFormat;
+    maxSize: I18nString;
     /** OFFLINE */
-    offline: string;
+    offline: I18nString;
     /** Optional. Leave empty if none */
-    optionalOrEmpty: string;
+    optionalOrEmpty: I18nString;
     /** Your stream is being reviewed by moderators. */
-    pendingReview: string;
+    pendingReview: I18nString;
     /** Get a flaming streamer icon on your Lichess profile. */
-    perk1: string;
+    perk1: I18nString;
     /** Get bumped up to the top of the streamers list. */
-    perk2: string;
+    perk2: I18nString;
     /** Notify your Lichess followers. */
-    perk3: string;
+    perk3: I18nString;
     /** Show your stream in your games, tournaments and studies. */
-    perk4: string;
+    perk4: I18nString;
     /** Benefits of streaming with the keyword */
-    perks: string;
+    perks: I18nString;
     /** Please fill in your streamer information, and upload a picture. */
-    pleaseFillIn: string;
+    pleaseFillIn: I18nString;
     /** request a moderator review */
-    requestReview: string;
+    requestReview: I18nString;
     /** Include the keyword "lichess.org" in your stream title and use the category "Chess" when you stream on Lichess. */
-    rule1: string;
+    rule1: I18nString;
     /** Remove the keyword when you stream non-Lichess stuff. */
-    rule2: string;
+    rule2: I18nString;
     /** Lichess will detect your stream automatically and enable the following perks: */
-    rule3: string;
+    rule3: I18nString;
     /** Read our %s to ensure fair play for everyone during your stream. */
-    rule4: I18nFormat;
+    rule4: I18nString;
     /** Streaming rules */
-    rules: string;
+    rules: I18nString;
     /** The Lichess streamer page targets your audience with the language provided by your streaming platform. Set the correct default language for your chess streams in the app or service you use to broadcast. */
-    streamerLanguageSettings: string;
+    streamerLanguageSettings: I18nString;
     /** Your streamer name on Lichess */
-    streamerName: string;
+    streamerName: I18nString;
     /** streaming Fairplay FAQ */
-    streamingFairplayFAQ: string;
+    streamingFairplayFAQ: I18nString;
     /** Tell us about your stream in one sentence */
-    tellUsAboutTheStream: string;
+    tellUsAboutTheStream: I18nString;
     /** Your Twitch username or URL */
-    twitchUsername: string;
+    twitchUsername: I18nString;
     /** Upload a picture */
-    uploadPicture: string;
+    uploadPicture: I18nString;
     /** Visible on the streamers page */
-    visibility: string;
+    visibility: I18nString;
     /** When approved by moderators */
-    whenApproved: string;
+    whenApproved: I18nString;
     /** When you are ready to be listed as a Lichess streamer, %s */
-    whenReady: I18nFormat;
+    whenReady: I18nString;
     /** %s is streaming */
-    xIsStreaming: I18nFormat;
+    xIsStreaming: I18nString;
     /** %s streamer picture */
-    xStreamerPicture: I18nFormat;
+    xStreamerPicture: I18nString;
     /** Your streamer page */
-    yourPage: string;
+    yourPage: I18nString;
     /** Your YouTube channel ID */
-    youTubeChannelId: string;
+    youTubeChannelId: I18nString;
   };
   study: {
     /** Add members */
-    addMembers: string;
+    addMembers: I18nString;
     /** Add a new chapter */
-    addNewChapter: string;
+    addNewChapter: I18nString;
     /** Allow cloning */
-    allowCloning: string;
+    allowCloning: I18nString;
     /** All studies */
-    allStudies: string;
+    allStudies: I18nString;
     /** All SYNC members remain on the same position */
-    allSyncMembersRemainOnTheSamePosition: string;
+    allSyncMembersRemainOnTheSamePosition: I18nString;
     /** Alphabetical */
-    alphabetical: string;
+    alphabetical: I18nString;
     /** Analysis mode */
-    analysisMode: string;
+    analysisMode: I18nString;
     /** Annotate with glyphs */
-    annotateWithGlyphs: string;
+    annotateWithGlyphs: I18nString;
     /** Attack */
-    attack: string;
+    attack: I18nString;
     /** Automatic */
-    automatic: string;
+    automatic: I18nString;
     /** Back */
-    back: string;
+    back: I18nString;
     /** Black is better */
-    blackIsBetter: string;
+    blackIsBetter: I18nString;
     /** Black is slightly better */
-    blackIsSlightlyBetter: string;
+    blackIsSlightlyBetter: I18nString;
     /** Black is winning */
-    blackIsWinning: string;
+    blackIsWinning: I18nString;
     /** Blunder */
-    blunder: string;
+    blunder: I18nString;
     /** Brilliant move */
-    brilliantMove: string;
+    brilliantMove: I18nString;
     /** Chapter PGN */
-    chapterPgn: string;
+    chapterPgn: I18nString;
     /** Chapter %s */
-    chapterX: I18nFormat;
+    chapterX: I18nString;
     /** Clear all comments, glyphs and drawn shapes in this chapter */
-    clearAllCommentsInThisChapter: string;
+    clearAllCommentsInThisChapter: I18nString;
     /** Clear annotations */
-    clearAnnotations: string;
+    clearAnnotations: I18nString;
     /** Clear chat */
-    clearChat: string;
+    clearChat: I18nString;
     /** Clear variations */
-    clearVariations: string;
+    clearVariations: I18nString;
     /** Clone */
-    cloneStudy: string;
+    cloneStudy: I18nString;
     /** Comment on this move */
-    commentThisMove: string;
+    commentThisMove: I18nString;
     /** Comment on this position */
-    commentThisPosition: string;
+    commentThisPosition: I18nString;
     /** Delete the entire study? There is no going back! Type the name of the study to confirm: %s */
-    confirmDeleteStudy: I18nFormat;
+    confirmDeleteStudy: I18nString;
     /** Contributor */
-    contributor: string;
+    contributor: I18nString;
     /** Contributors */
-    contributors: string;
+    contributors: I18nString;
     /** Copy PGN */
-    copyChapterPgn: string;
+    copyChapterPgn: I18nString;
     /** Counterplay */
-    counterplay: string;
+    counterplay: I18nString;
     /** Create chapter */
-    createChapter: string;
+    createChapter: I18nString;
     /** Create study */
-    createStudy: string;
+    createStudy: I18nString;
     /** Current chapter URL */
-    currentChapterUrl: string;
+    currentChapterUrl: I18nString;
     /** Date added (newest) */
-    dateAddedNewest: string;
+    dateAddedNewest: I18nString;
     /** Date added (oldest) */
-    dateAddedOldest: string;
+    dateAddedOldest: I18nString;
     /** Delete chapter */
-    deleteChapter: string;
+    deleteChapter: I18nString;
     /** Delete study */
-    deleteStudy: string;
+    deleteStudy: I18nString;
     /** Delete the study chat history? There is no going back! */
-    deleteTheStudyChatHistory: string;
+    deleteTheStudyChatHistory: I18nString;
     /** Delete this chapter. There is no going back! */
-    deleteThisChapter: string;
+    deleteThisChapter: I18nString;
     /** Development */
-    development: string;
+    development: I18nString;
     /** Download all games */
-    downloadAllGames: string;
+    downloadAllGames: I18nString;
     /** Download game */
-    downloadGame: string;
+    downloadGame: I18nString;
     /** Dubious move */
-    dubiousMove: string;
+    dubiousMove: I18nString;
     /** Edit chapter */
-    editChapter: string;
+    editChapter: I18nString;
     /** Editor */
-    editor: string;
+    editor: I18nString;
     /** Edit study */
-    editStudy: string;
+    editStudy: I18nString;
     /** Embed in your website */
-    embedInYourWebsite: string;
+    embedInYourWebsite: I18nString;
     /** Empty */
-    empty: string;
+    empty: I18nString;
     /** Enable sync */
-    enableSync: string;
+    enableSync: I18nString;
     /** Equal position */
-    equalPosition: string;
+    equalPosition: I18nString;
     /** Everyone */
-    everyone: string;
+    everyone: I18nString;
     /** First */
-    first: string;
+    first: I18nString;
     /** Get a full server-side computer analysis of the mainline. */
-    getAFullComputerAnalysis: string;
+    getAFullComputerAnalysis: I18nString;
     /** Good move */
-    goodMove: string;
+    goodMove: I18nString;
     /** Hide next moves */
-    hideNextMoves: string;
+    hideNextMoves: I18nString;
     /** Hot */
-    hot: string;
+    hot: I18nString;
     /** Import from %s */
-    importFromChapterX: I18nFormat;
+    importFromChapterX: I18nString;
     /** Initiative */
-    initiative: string;
+    initiative: I18nString;
     /** Interactive lesson */
-    interactiveLesson: string;
+    interactiveLesson: I18nString;
     /** Interesting move */
-    interestingMove: string;
+    interestingMove: I18nString;
     /** Invite only */
-    inviteOnly: string;
+    inviteOnly: I18nString;
     /** Invite to the study */
-    inviteToTheStudy: string;
+    inviteToTheStudy: I18nString;
     /** Kick */
-    kick: string;
+    kick: I18nString;
     /** Last */
-    last: string;
+    last: I18nString;
     /** Leave the study */
-    leaveTheStudy: string;
+    leaveTheStudy: I18nString;
     /** Like */
-    like: string;
+    like: I18nString;
     /** Load games by URLs */
-    loadAGameByUrl: string;
+    loadAGameByUrl: I18nString;
     /** Load games from PGN */
-    loadAGameFromPgn: string;
+    loadAGameFromPgn: I18nString;
     /** Load games from %1$s or %2$s */
-    loadAGameFromXOrY: I18nFormat;
+    loadAGameFromXOrY: I18nString;
     /** Load a position from FEN */
-    loadAPositionFromFen: string;
+    loadAPositionFromFen: I18nString;
     /** Make sure the chapter is complete. You can only request analysis once. */
-    makeSureTheChapterIsComplete: string;
+    makeSureTheChapterIsComplete: I18nString;
     /** Manage topics */
-    manageTopics: string;
+    manageTopics: I18nString;
     /** Members */
-    members: string;
+    members: I18nString;
     /** Mistake */
-    mistake: string;
+    mistake: I18nString;
     /** Most popular */
-    mostPopular: string;
+    mostPopular: I18nString;
     /** My favourite studies */
-    myFavoriteStudies: string;
+    myFavoriteStudies: I18nString;
     /** My private studies */
-    myPrivateStudies: string;
+    myPrivateStudies: I18nString;
     /** My public studies */
-    myPublicStudies: string;
+    myPublicStudies: I18nString;
     /** My studies */
-    myStudies: string;
+    myStudies: I18nString;
     /** My topics */
-    myTopics: string;
+    myTopics: I18nString;
     /** %s Chapters */
     nbChapters: I18nPlural;
     /** %s Games */
@@ -4776,323 +4776,323 @@ interface I18n {
     /** %s Members */
     nbMembers: I18nPlural;
     /** New chapter */
-    newChapter: string;
+    newChapter: I18nString;
     /** New tag */
-    newTag: string;
+    newTag: I18nString;
     /** Next */
-    next: string;
+    next: I18nString;
     /** Next chapter */
-    nextChapter: string;
+    nextChapter: I18nString;
     /** Nobody */
-    nobody: string;
+    nobody: I18nString;
     /** No: let people browse freely */
-    noLetPeopleBrowseFreely: string;
+    noLetPeopleBrowseFreely: I18nString;
     /** None yet. */
-    noneYet: string;
+    noneYet: I18nString;
     /** None */
-    noPinnedComment: string;
+    noPinnedComment: I18nString;
     /** Normal analysis */
-    normalAnalysis: string;
+    normalAnalysis: I18nString;
     /** Novelty */
-    novelty: string;
+    novelty: I18nString;
     /** Only the study contributors can request a computer analysis. */
-    onlyContributorsCanRequestAnalysis: string;
+    onlyContributorsCanRequestAnalysis: I18nString;
     /** Only me */
-    onlyMe: string;
+    onlyMe: I18nString;
     /** Only move */
-    onlyMove: string;
+    onlyMove: I18nString;
     /** Only public studies can be embedded! */
-    onlyPublicStudiesCanBeEmbedded: string;
+    onlyPublicStudiesCanBeEmbedded: I18nString;
     /** Open */
-    open: string;
+    open: I18nString;
     /** Orientation */
-    orientation: string;
+    orientation: I18nString;
     /** Paste your PGN text here, up to %s games */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
     /** %s per page */
-    perPage: I18nFormat;
+    perPage: I18nString;
     /** PGN tags */
-    pgnTags: string;
+    pgnTags: I18nString;
     /** Pinned chapter comment */
-    pinnedChapterComment: string;
+    pinnedChapterComment: I18nString;
     /** Pinned study comment */
-    pinnedStudyComment: string;
+    pinnedStudyComment: I18nString;
     /** Play again */
-    playAgain: string;
+    playAgain: I18nString;
     /** Playing */
-    playing: string;
+    playing: I18nString;
     /** Please only invite people who know you, and who actively want to join this study. */
-    pleaseOnlyInvitePeopleYouKnow: string;
+    pleaseOnlyInvitePeopleYouKnow: I18nString;
     /** Popular topics */
-    popularTopics: string;
+    popularTopics: I18nString;
     /** Previous chapter */
-    prevChapter: string;
+    prevChapter: I18nString;
     /** Previous */
-    previous: string;
+    previous: I18nString;
     /** Private */
-    private: string;
+    private: I18nString;
     /** Public */
-    public: string;
+    public: I18nString;
     /** Read more about embedding */
-    readMoreAboutEmbedding: string;
+    readMoreAboutEmbedding: I18nString;
     /** Recently updated */
-    recentlyUpdated: string;
+    recentlyUpdated: I18nString;
     /** Right under the board */
-    rightUnderTheBoard: string;
+    rightUnderTheBoard: I18nString;
     /** Save */
-    save: string;
+    save: I18nString;
     /** Save chapter */
-    saveChapter: string;
+    saveChapter: I18nString;
     /** Search by username */
-    searchByUsername: string;
+    searchByUsername: I18nString;
     /** Share & export */
-    shareAndExport: string;
+    shareAndExport: I18nString;
     /** Share changes with spectators and save them on the server */
-    shareChanges: string;
+    shareChanges: I18nString;
     /** Evaluation bars */
-    showEvalBar: string;
+    showEvalBar: I18nString;
     /** Spectator */
-    spectator: string;
+    spectator: I18nString;
     /** Start */
-    start: string;
+    start: I18nString;
     /** Start at initial position */
-    startAtInitialPosition: string;
+    startAtInitialPosition: I18nString;
     /** Start at %s */
-    startAtX: I18nFormat;
+    startAtX: I18nString;
     /** Start from custom position */
-    startFromCustomPosition: string;
+    startFromCustomPosition: I18nString;
     /** Start from initial position */
-    startFromInitialPosition: string;
+    startFromInitialPosition: I18nString;
     /** Studies created by %s */
-    studiesCreatedByX: I18nFormat;
+    studiesCreatedByX: I18nString;
     /** Studies I contribute to */
-    studiesIContributeTo: string;
+    studiesIContributeTo: I18nString;
     /** Study actions */
-    studyActions: string;
+    studyActions: I18nString;
     /** Study not found */
-    studyNotFound: string;
+    studyNotFound: I18nString;
     /** Study PGN */
-    studyPgn: string;
+    studyPgn: I18nString;
     /** Study URL */
-    studyUrl: string;
+    studyUrl: I18nString;
     /** The chapter is too short to be analysed. */
-    theChapterIsTooShortToBeAnalysed: string;
+    theChapterIsTooShortToBeAnalysed: I18nString;
     /** Time trouble */
-    timeTrouble: string;
+    timeTrouble: I18nString;
     /** Topics */
-    topics: string;
+    topics: I18nString;
     /** Unclear position */
-    unclearPosition: string;
+    unclearPosition: I18nString;
     /** Unlike */
-    unlike: string;
+    unlike: I18nString;
     /** Unlisted */
-    unlisted: string;
+    unlisted: I18nString;
     /** URL of the games, one per line */
-    urlOfTheGame: string;
+    urlOfTheGame: I18nString;
     /** Visibility */
-    visibility: string;
+    visibility: I18nString;
     /** What are studies? */
-    whatAreStudies: string;
+    whatAreStudies: I18nString;
     /** What would you play in this position? */
-    whatWouldYouPlay: string;
+    whatWouldYouPlay: I18nString;
     /** Where do you want to study that? */
-    whereDoYouWantToStudyThat: string;
+    whereDoYouWantToStudyThat: I18nString;
     /** White is better */
-    whiteIsBetter: string;
+    whiteIsBetter: I18nString;
     /** White is slightly better */
-    whiteIsSlightlyBetter: string;
+    whiteIsSlightlyBetter: I18nString;
     /** White is winning */
-    whiteIsWinning: string;
+    whiteIsWinning: I18nString;
     /** With compensation */
-    withCompensation: string;
+    withCompensation: I18nString;
     /** With the idea */
-    withTheIdea: string;
+    withTheIdea: I18nString;
     /** %1$s, brought to you by %2$s */
-    xBroughtToYouByY: I18nFormat;
+    xBroughtToYouByY: I18nString;
     /** Yes: keep everyone on the same position */
-    yesKeepEveryoneOnTheSamePosition: string;
+    yesKeepEveryoneOnTheSamePosition: I18nString;
     /** You are now a contributor */
-    youAreNowAContributor: string;
+    youAreNowAContributor: I18nString;
     /** You are now a spectator */
-    youAreNowASpectator: string;
+    youAreNowASpectator: I18nString;
     /** You can paste this in the forum or your Lichess blog to embed */
-    youCanPasteThisInTheForumToEmbed: string;
+    youCanPasteThisInTheForumToEmbed: I18nString;
     /** Congratulations! You completed this lesson. */
-    youCompletedThisLesson: string;
+    youCompletedThisLesson: I18nString;
     /** Zugzwang */
-    zugzwang: string;
+    zugzwang: I18nString;
   };
   swiss: {
     /** Absences */
-    absences: string;
+    absences: I18nString;
     /** Byes */
-    byes: string;
+    byes: I18nString;
     /** Comparison */
-    comparison: string;
+    comparison: I18nString;
     /** Predefined max rounds, but duration unknown */
-    durationUnknown: string;
+    durationUnknown: I18nString;
     /** Dutch system */
-    dutchSystem: string;
+    dutchSystem: I18nString;
     /** In Swiss games, players cannot draw before 30 moves are played. While this measure cannot prevent pre-arranged draws, it at least makes it harder to agree to a draw on the fly. */
-    earlyDrawsAnswer: string;
+    earlyDrawsAnswer: I18nString;
     /** What happens with early draws? */
-    earlyDrawsQ: string;
+    earlyDrawsQ: I18nString;
     /** FIDE handbook */
-    FIDEHandbook: string;
+    FIDEHandbook: I18nString;
     /** If this list is non-empty, then users absent from this list will be forbidden to join. One username per line. */
-    forbiddedUsers: string;
+    forbiddedUsers: I18nString;
     /** Forbidden pairings */
-    forbiddenPairings: string;
+    forbiddenPairings: I18nString;
     /** Usernames of players that must not play together (Siblings, for instance). Two usernames per line, separated by a space. */
-    forbiddenPairingsHelp: string;
+    forbiddenPairingsHelp: I18nString;
     /** Forbidden */
-    identicalForbidden: string;
+    identicalForbidden: I18nString;
     /** Identical pairing */
-    identicalPairing: string;
+    identicalPairing: I18nString;
     /** Join or create a team */
-    joinOrCreateTeam: string;
+    joinOrCreateTeam: I18nString;
     /** Late join */
-    lateJoin: string;
+    lateJoin: I18nString;
     /** Yes, until more than half the rounds have started; for example in a 11-rounds Swiss, players can join before round 6 starts and in a 12-rounds before round 7 starts. */
-    lateJoinA: string;
+    lateJoinA: I18nString;
     /** Can players late-join? */
-    lateJoinQ: string;
+    lateJoinQ: I18nString;
     /** Yes until more than half the rounds have started */
-    lateJoinUntil: string;
+    lateJoinUntil: I18nString;
     /** Manual pairings in next round */
-    manualPairings: string;
+    manualPairings: I18nString;
     /** Specify all pairings of the next round manually. One player pair per line. Example: */
-    manualPairingsHelp: string;
+    manualPairingsHelp: I18nString;
     /** When all possible pairings have been played, the tournament will be ended and a winner declared. */
-    moreRoundsThanPlayersA: string;
+    moreRoundsThanPlayersA: I18nString;
     /** What happens if the tournament has more rounds than players? */
-    moreRoundsThanPlayersQ: string;
+    moreRoundsThanPlayersQ: I18nString;
     /** Must have played their last swiss game */
-    mustHavePlayedTheirLastSwissGame: string;
+    mustHavePlayedTheirLastSwissGame: I18nString;
     /** Only let players join if they have played their last swiss game. If they failed to show up in a recent swiss event, they won't be able to enter yours. This results in a better swiss experience for the players who actually show up. */
-    mustHavePlayedTheirLastSwissGameHelp: string;
+    mustHavePlayedTheirLastSwissGameHelp: I18nString;
     /** %s rounds */
     nbRounds: I18nPlural;
     /** New Swiss tournament */
-    newSwiss: string;
+    newSwiss: I18nString;
     /** Next round */
-    nextRound: string;
+    nextRound: I18nString;
     /** Now playing */
-    nowPlaying: string;
+    nowPlaying: I18nString;
     /** A player gets a bye of one point every time the pairing system can't find a pairing for them. */
-    numberOfByesA: string;
+    numberOfByesA: I18nString;
     /** How many byes can a player get? */
-    numberOfByesQ: string;
+    numberOfByesQ: I18nString;
     /** Number of games */
-    numberOfGames: string;
+    numberOfGames: I18nString;
     /** As many as can be played in the allotted duration */
-    numberOfGamesAsManyAsPossible: string;
+    numberOfGamesAsManyAsPossible: I18nString;
     /** Decided in advance, same for all players */
-    numberOfGamesPreDefined: string;
+    numberOfGamesPreDefined: I18nString;
     /** Number of rounds */
-    numberOfRounds: string;
+    numberOfRounds: I18nString;
     /** An odd number of rounds allows optimal colour balance. */
-    numberOfRoundsHelp: string;
+    numberOfRoundsHelp: I18nString;
     /** One round every %s days */
     oneRoundEveryXDays: I18nPlural;
     /** Ongoing games */
     ongoingGames: I18nPlural;
     /** We don't plan to add more tournament systems to Lichess at the moment. */
-    otherSystemsA: string;
+    otherSystemsA: I18nString;
     /** What about other tournament systems? */
-    otherSystemsQ: string;
+    otherSystemsQ: I18nString;
     /** With the %1$s, implemented by %2$s, in accordance with the %3$s. */
-    pairingsA: I18nFormat;
+    pairingsA: I18nString;
     /** How are pairings decided? */
-    pairingsQ: string;
+    pairingsQ: I18nString;
     /** Pairing system */
-    pairingSystem: string;
+    pairingSystem: I18nString;
     /** Any available opponent with similar ranking */
-    pairingSystemArena: string;
+    pairingSystemArena: I18nString;
     /** Best pairing based on points and tie breaks */
-    pairingSystemSwiss: string;
+    pairingSystemSwiss: I18nString;
     /** Pairing wait time */
-    pairingWaitTime: string;
+    pairingWaitTime: I18nString;
     /** Fast: doesn't wait for all players */
-    pairingWaitTimeArena: string;
+    pairingWaitTimeArena: I18nString;
     /** Slow: waits for all players */
-    pairingWaitTimeSwiss: string;
+    pairingWaitTimeSwiss: I18nString;
     /** Pause */
-    pause: string;
+    pause: I18nString;
     /** Yes but might reduce the number of rounds */
-    pauseSwiss: string;
+    pauseSwiss: I18nString;
     /** Play your games */
-    playYourGames: string;
+    playYourGames: I18nString;
     /** A win is worth one point, a draw is a half point, and a loss is zero points. */
-    pointsCalculationA: string;
+    pointsCalculationA: I18nString;
     /** How are points calculated? */
-    pointsCalculationQ: string;
+    pointsCalculationQ: I18nString;
     /** Possible, but not consecutive */
-    possibleButNotConsecutive: string;
+    possibleButNotConsecutive: I18nString;
     /** Predefined duration in minutes */
-    predefinedDuration: string;
+    predefinedDuration: I18nString;
     /** Only allow pre-defined users to join */
-    predefinedUsers: string;
+    predefinedUsers: I18nString;
     /** Players who sign up for Swiss events but don't play their games can be problematic. */
-    protectionAgainstNoShowA: string;
+    protectionAgainstNoShowA: I18nString;
     /** What is done regarding no-shows? */
-    protectionAgainstNoShowQ: string;
+    protectionAgainstNoShowQ: I18nString;
     /** Swiss tournaments were not designed for online chess. They demand punctuality, dedication and patience from players. */
-    restrictedToTeamsA: string;
+    restrictedToTeamsA: I18nString;
     /** Why is it restricted to teams? */
-    restrictedToTeamsQ: string;
+    restrictedToTeamsQ: I18nString;
     /** Interval between rounds */
-    roundInterval: string;
+    roundInterval: I18nString;
     /** We'd like to add it, but unfortunately Round Robin doesn't work online. */
-    roundRobinA: string;
+    roundRobinA: I18nString;
     /** What about Round Robin? */
-    roundRobinQ: string;
+    roundRobinQ: I18nString;
     /** Rounds are started manually */
-    roundsAreStartedManually: string;
+    roundsAreStartedManually: I18nString;
     /** Similar to OTB tournaments */
-    similarToOTB: string;
+    similarToOTB: I18nString;
     /** Sonneborn–Berger score */
-    sonnebornBergerScore: string;
+    sonnebornBergerScore: I18nString;
     /** Starting in */
-    startingIn: string;
+    startingIn: I18nString;
     /** Starting soon */
-    startingSoon: string;
+    startingSoon: I18nString;
     /** Streaks and Berserk */
-    streaksAndBerserk: string;
+    streaksAndBerserk: I18nString;
     /** Swiss */
-    swiss: string;
+    swiss: I18nString;
     /** In a Swiss tournament %1$s, each competitor does not necessarily play all other entrants. Competitors meet one-on-one in each round and are paired using a set of rules designed to ensure that each competitor plays opponents with a similar running score, but not the same opponent more than once. The winner is the competitor with the highest aggregate points earned in all rounds. All competitors play in each round unless there is an odd number of players. */
-    swissDescription: I18nFormat;
+    swissDescription: I18nString;
     /** Swiss tournaments */
-    swissTournaments: string;
+    swissTournaments: I18nString;
     /** In a Swiss tournament, all participants play the same number of games, and can only play each other once. */
-    swissVsArenaA: string;
+    swissVsArenaA: I18nString;
     /** When to use Swiss tournaments instead of arenas? */
-    swissVsArenaQ: string;
+    swissVsArenaQ: I18nString;
     /** Swiss tournaments can only be created by team leaders, and can only be played by team members. */
-    teamOnly: I18nFormat;
+    teamOnly: I18nString;
     /** Tie Break */
-    tieBreak: string;
+    tieBreak: I18nString;
     /** With the %s. */
-    tiebreaksCalculationA: I18nFormat;
+    tiebreaksCalculationA: I18nString;
     /** How are tie breaks calculated? */
-    tiebreaksCalculationQ: string;
+    tiebreaksCalculationQ: I18nString;
     /** Duration of the tournament */
-    tournDuration: string;
+    tournDuration: I18nString;
     /** Tournament start date */
-    tournStartDate: string;
+    tournStartDate: I18nString;
     /** Unlimited and free */
-    unlimitedAndFree: string;
+    unlimitedAndFree: I18nString;
     /** View all %s rounds */
     viewAllXRounds: I18nPlural;
     /** Their clock will tick, they will flag, and lose the game. */
-    whatIfOneDoesntPlayA: string;
+    whatIfOneDoesntPlayA: I18nString;
     /** What happens if a player doesn't play a game? */
-    whatIfOneDoesntPlayQ: string;
+    whatIfOneDoesntPlayQ: I18nString;
     /** No. They're complementary features. */
-    willSwissReplaceArenasA: string;
+    willSwissReplaceArenasA: I18nString;
     /** Will Swiss replace arena tournaments? */
-    willSwissReplaceArenasQ: string;
+    willSwissReplaceArenasQ: I18nString;
     /** %s minutes between rounds */
     xMinutesBetweenRounds: I18nPlural;
     /** %s rounds Swiss */
@@ -5102,145 +5102,145 @@ interface I18n {
   };
   team: {
     /** All teams */
-    allTeams: string;
+    allTeams: I18nString;
     /** Battle of %s teams */
     battleOfNbTeams: I18nPlural;
     /** Your join request is being reviewed by a team leader. */
-    beingReviewed: string;
+    beingReviewed: I18nString;
     /** Close team */
-    closeTeam: string;
+    closeTeam: I18nString;
     /** Closes the team forever. */
-    closeTeamDescription: string;
+    closeTeamDescription: I18nString;
     /** Completed tournaments */
-    completedTourns: string;
+    completedTourns: I18nString;
     /** Declined Requests */
-    declinedRequests: string;
+    declinedRequests: I18nString;
     /** Team entry code */
-    entryCode: string;
+    entryCode: I18nString;
     /** (Optional) An entry code that new members must know to join this team. */
-    entryCodeDescriptionForLeader: string;
+    entryCodeDescriptionForLeader: I18nString;
     /** Incorrect entry code. */
-    incorrectEntryCode: string;
+    incorrectEntryCode: I18nString;
     /** Inner team */
-    innerTeam: string;
+    innerTeam: I18nString;
     /** Join the official %s team for news and events */
-    joinLichessVariantTeam: I18nFormat;
+    joinLichessVariantTeam: I18nString;
     /** Join team */
-    joinTeam: string;
+    joinTeam: I18nString;
     /** Kick someone out of the team */
-    kickSomeone: string;
+    kickSomeone: I18nString;
     /** Leaders chat */
-    leadersChat: string;
+    leadersChat: I18nString;
     /** Leader teams */
-    leaderTeams: string;
+    leaderTeams: I18nString;
     /** List the teams that will compete in this battle. */
-    listTheTeamsThatWillCompete: string;
+    listTheTeamsThatWillCompete: I18nString;
     /** Manually review admission requests */
-    manuallyReviewAdmissionRequests: string;
+    manuallyReviewAdmissionRequests: I18nString;
     /** If checked, players will need to write a request to join the team, which you can decline or accept. */
-    manuallyReviewAdmissionRequestsHelp: string;
+    manuallyReviewAdmissionRequestsHelp: I18nString;
     /** Message all members */
-    messageAllMembers: string;
+    messageAllMembers: I18nString;
     /** Send a private message to ALL members of the team. */
-    messageAllMembersLongDescription: string;
+    messageAllMembersLongDescription: I18nString;
     /** Send a private message to every member of the team */
-    messageAllMembersOverview: string;
+    messageAllMembersOverview: I18nString;
     /** My teams */
-    myTeams: string;
+    myTeams: I18nString;
     /** %s leaders per team */
     nbLeadersPerTeam: I18nPlural;
     /** %s members */
     nbMembers: I18nPlural;
     /** New team */
-    newTeam: string;
+    newTeam: I18nString;
     /** No team found */
-    noTeamFound: string;
+    noTeamFound: I18nString;
     /** Number of leaders per team. The sum of their score is the score of the team. */
-    numberOfLeadsPerTeam: string;
+    numberOfLeadsPerTeam: I18nString;
     /** You really shouldn't change this value after the tournament has started! */
-    numberOfLeadsPerTeamHelp: string;
+    numberOfLeadsPerTeamHelp: I18nString;
     /** One team per line. Use the auto-completion. */
-    oneTeamPerLine: string;
+    oneTeamPerLine: I18nString;
     /** You can copy-paste this list from a tournament to another! */
-    oneTeamPerLineHelp: string;
+    oneTeamPerLineHelp: I18nString;
     /** Please add a new team leader before leaving, or close the team. */
-    onlyLeaderLeavesTeam: string;
+    onlyLeaderLeavesTeam: I18nString;
     /** Leave team */
-    quitTeam: string;
+    quitTeam: I18nString;
     /** Your join request was declined by a team leader. */
-    requestDeclined: string;
+    requestDeclined: I18nString;
     /** Subscribe to team messages */
-    subToTeamMessages: string;
+    subToTeamMessages: I18nString;
     /** A Swiss tournament that only members of your team can join */
-    swissTournamentOverview: string;
+    swissTournamentOverview: I18nString;
     /** Team */
-    team: string;
+    team: I18nString;
     /** This team already exists. */
-    teamAlreadyExists: string;
+    teamAlreadyExists: I18nString;
     /** Team Battle */
-    teamBattle: string;
+    teamBattle: I18nString;
     /** A battle of multiple teams, each player scores points for their team */
-    teamBattleOverview: string;
+    teamBattleOverview: I18nString;
     /** Team leaders */
     teamLeaders: I18nPlural;
     /** Team page */
-    teamPage: string;
+    teamPage: I18nString;
     /** Recent members */
-    teamRecentMembers: string;
+    teamRecentMembers: I18nString;
     /** Teams */
-    teams: string;
+    teams: I18nString;
     /** Teams I lead */
-    teamsIlead: string;
+    teamsIlead: I18nString;
     /** Team tournament */
-    teamTournament: string;
+    teamTournament: I18nString;
     /** An Arena tournament that only members of your team can join */
-    teamTournamentOverview: string;
+    teamTournamentOverview: I18nString;
     /** This tournament is over, and the teams can no longer be updated. */
-    thisTeamBattleIsOver: string;
+    thisTeamBattleIsOver: I18nString;
     /** Upcoming tournaments */
-    upcomingTournaments: string;
+    upcomingTournaments: I18nString;
     /** Who do you want to kick out of the team? */
-    whoToKick: string;
+    whoToKick: I18nString;
     /** Your join request will be reviewed by a team leader. */
-    willBeReviewed: string;
+    willBeReviewed: I18nString;
     /** %s join requests */
     xJoinRequests: I18nPlural;
     /** You may want to link one of these upcoming tournaments? */
-    youWayWantToLinkOneOfTheseTournaments: string;
+    youWayWantToLinkOneOfTheseTournaments: I18nString;
   };
   tfa: {
     /** Authentication code */
-    authenticationCode: string;
+    authenticationCode: I18nString;
     /** Disable two-factor authentication */
-    disableTwoFactor: string;
+    disableTwoFactor: I18nString;
     /** Enable two-factor authentication */
-    enableTwoFactor: string;
+    enableTwoFactor: I18nString;
     /** Enter your password and the authentication code generated by the app to complete the setup. You will need an authentication code every time you log in. */
-    enterPassword: string;
+    enterPassword: I18nString;
     /** If you cannot scan the code, enter the secret key %s into your app. */
-    ifYouCannotScanEnterX: I18nFormat;
+    ifYouCannotScanEnterX: I18nString;
     /** Note: If you lose access to your two-factor authentication codes, you can do a %s via email. */
-    ifYouLoseAccessTwoFactor: I18nFormat;
+    ifYouLoseAccessTwoFactor: I18nString;
     /** Open the two-factor authentication app on your device to view your authentication code and verify your identity. */
-    openTwoFactorApp: string;
+    openTwoFactorApp: I18nString;
     /** Scan the QR code with the app. */
-    scanTheCode: string;
+    scanTheCode: I18nString;
     /** Please enable two-factor authentication to secure your account at https://lichess.org/account/twofactor. */
-    setupReminder: string;
+    setupReminder: I18nString;
     /** Get an app for two-factor authentication. We recommend the following apps: */
-    twoFactorAppRecommend: string;
+    twoFactorAppRecommend: I18nString;
     /** Two-factor authentication */
-    twoFactorAuth: string;
+    twoFactorAuth: I18nString;
     /** Two-factor authentication enabled */
-    twoFactorEnabled: string;
+    twoFactorEnabled: I18nString;
     /** Two-factor authentication adds another layer of security to your account. */
-    twoFactorHelp: string;
+    twoFactorHelp: I18nString;
     /** You need your password and an authentication code from your authenticator app to disable two-factor authentication. */
-    twoFactorToDisable: string;
+    twoFactorToDisable: I18nString;
   };
   timeago: {
     /** completed */
-    completed: string;
+    completed: I18nString;
     /** in %s days */
     inNbDays: I18nPlural;
     /** in %s hours */
@@ -5256,7 +5256,7 @@ interface I18n {
     /** in %s years */
     inNbYears: I18nPlural;
     /** just now */
-    justNow: string;
+    justNow: I18nString;
     /** %s days ago */
     nbDaysAgo: I18nPlural;
     /** %s hours ago */
@@ -5274,224 +5274,224 @@ interface I18n {
     /** %s years ago */
     nbYearsAgo: I18nPlural;
     /** right now */
-    rightNow: string;
+    rightNow: I18nString;
   };
   tourname: {
     /** Classical Shield */
-    classicalShield: string;
+    classicalShield: I18nString;
     /** Classical Shield Arena */
-    classicalShieldArena: string;
+    classicalShieldArena: I18nString;
     /** Daily Classical */
-    dailyClassical: string;
+    dailyClassical: I18nString;
     /** Daily Classical Arena */
-    dailyClassicalArena: string;
+    dailyClassicalArena: I18nString;
     /** Daily Rapid */
-    dailyRapid: string;
+    dailyRapid: I18nString;
     /** Daily Rapid Arena */
-    dailyRapidArena: string;
+    dailyRapidArena: I18nString;
     /** Daily %s */
-    dailyX: I18nFormat;
+    dailyX: I18nString;
     /** Daily %s Arena */
-    dailyXArena: I18nFormat;
+    dailyXArena: I18nString;
     /** Eastern Classical */
-    easternClassical: string;
+    easternClassical: I18nString;
     /** Eastern Classical Arena */
-    easternClassicalArena: string;
+    easternClassicalArena: I18nString;
     /** Eastern Rapid */
-    easternRapid: string;
+    easternRapid: I18nString;
     /** Eastern Rapid Arena */
-    easternRapidArena: string;
+    easternRapidArena: I18nString;
     /** Eastern %s */
-    easternX: I18nFormat;
+    easternX: I18nString;
     /** Eastern %s Arena */
-    easternXArena: I18nFormat;
+    easternXArena: I18nString;
     /** Elite %s */
-    eliteX: I18nFormat;
+    eliteX: I18nString;
     /** Elite %s Arena */
-    eliteXArena: I18nFormat;
+    eliteXArena: I18nString;
     /** Hourly Rapid */
-    hourlyRapid: string;
+    hourlyRapid: I18nString;
     /** Hourly Rapid Arena */
-    hourlyRapidArena: string;
+    hourlyRapidArena: I18nString;
     /** Hourly %s */
-    hourlyX: I18nFormat;
+    hourlyX: I18nString;
     /** Hourly %s Arena */
-    hourlyXArena: I18nFormat;
+    hourlyXArena: I18nString;
     /** Monthly Classical */
-    monthlyClassical: string;
+    monthlyClassical: I18nString;
     /** Monthly Classical Arena */
-    monthlyClassicalArena: string;
+    monthlyClassicalArena: I18nString;
     /** Monthly Rapid */
-    monthlyRapid: string;
+    monthlyRapid: I18nString;
     /** Monthly Rapid Arena */
-    monthlyRapidArena: string;
+    monthlyRapidArena: I18nString;
     /** Monthly %s */
-    monthlyX: I18nFormat;
+    monthlyX: I18nString;
     /** Monthly %s Arena */
-    monthlyXArena: I18nFormat;
+    monthlyXArena: I18nString;
     /** Rapid Shield */
-    rapidShield: string;
+    rapidShield: I18nString;
     /** Rapid Shield Arena */
-    rapidShieldArena: string;
+    rapidShieldArena: I18nString;
     /** Weekly Classical */
-    weeklyClassical: string;
+    weeklyClassical: I18nString;
     /** Weekly Classical Arena */
-    weeklyClassicalArena: string;
+    weeklyClassicalArena: I18nString;
     /** Weekly Rapid */
-    weeklyRapid: string;
+    weeklyRapid: I18nString;
     /** Weekly Rapid Arena */
-    weeklyRapidArena: string;
+    weeklyRapidArena: I18nString;
     /** Weekly %s */
-    weeklyX: I18nFormat;
+    weeklyX: I18nString;
     /** Weekly %s Arena */
-    weeklyXArena: I18nFormat;
+    weeklyXArena: I18nString;
     /** %s Arena */
-    xArena: I18nFormat;
+    xArena: I18nString;
     /** %s Shield */
-    xShield: I18nFormat;
+    xShield: I18nString;
     /** %s Shield Arena */
-    xShieldArena: I18nFormat;
+    xShieldArena: I18nString;
     /** %s Team Battle */
-    xTeamBattle: I18nFormat;
+    xTeamBattle: I18nString;
     /** Yearly Classical */
-    yearlyClassical: string;
+    yearlyClassical: I18nString;
     /** Yearly Classical Arena */
-    yearlyClassicalArena: string;
+    yearlyClassicalArena: I18nString;
     /** Yearly Rapid */
-    yearlyRapid: string;
+    yearlyRapid: I18nString;
     /** Yearly Rapid Arena */
-    yearlyRapidArena: string;
+    yearlyRapidArena: I18nString;
     /** Yearly %s */
-    yearlyX: I18nFormat;
+    yearlyX: I18nString;
     /** Yearly %s Arena */
-    yearlyXArena: I18nFormat;
+    yearlyXArena: I18nString;
   };
   ublog: {
     /** Our simple tips to write great blog posts */
-    blogTips: string;
+    blogTips: I18nString;
     /** Blog topics */
-    blogTopics: string;
+    blogTopics: I18nString;
     /** Community blogs */
-    communityBlogs: string;
+    communityBlogs: I18nString;
     /** Continue reading this post */
-    continueReadingPost: string;
+    continueReadingPost: I18nString;
     /** Enable comments */
-    createBlogDiscussion: string;
+    createBlogDiscussion: I18nString;
     /** A forum topic will be created for people to comment on your post */
-    createBlogDiscussionHelp: string;
+    createBlogDiscussionHelp: I18nString;
     /** Delete this blog post definitively */
-    deleteBlog: string;
+    deleteBlog: I18nString;
     /** Discuss this blog post in the forum */
-    discussThisBlogPostInTheForum: string;
+    discussThisBlogPostInTheForum: I18nString;
     /** Drafts */
-    drafts: string;
+    drafts: I18nString;
     /** Edit your blog post */
-    editYourBlogPost: string;
+    editYourBlogPost: I18nString;
     /** Friends blogs */
-    friendBlogs: string;
+    friendBlogs: I18nString;
     /** Image alternative text */
-    imageAlt: string;
+    imageAlt: I18nString;
     /** Image credit */
-    imageCredit: string;
+    imageCredit: I18nString;
     /** Anything inappropriate could get your account closed. */
-    inappropriateContentAccountClosed: string;
+    inappropriateContentAccountClosed: I18nString;
     /** Latest blog posts */
-    latestBlogPosts: string;
+    latestBlogPosts: I18nString;
     /** Lichess blog posts in %s */
-    lichessBlogPostsFromXYear: I18nFormat;
+    lichessBlogPostsFromXYear: I18nString;
     /** Lichess Official Blog */
-    lichessOfficialBlog: string;
+    lichessOfficialBlog: I18nString;
     /** Liked blog posts */
-    likedBlogs: string;
+    likedBlogs: I18nString;
     /** More blog posts by %s */
-    moreBlogPostsBy: I18nFormat;
+    moreBlogPostsBy: I18nString;
     /** %s views */
     nbViews: I18nPlural;
     /** New post */
-    newPost: string;
+    newPost: I18nString;
     /** No drafts to show. */
-    noDrafts: string;
+    noDrafts: I18nString;
     /** No posts in this blog, yet. */
-    noPostsInThisBlogYet: string;
+    noPostsInThisBlogYet: I18nString;
     /** Post body */
-    postBody: string;
+    postBody: I18nString;
     /** Post intro */
-    postIntro: string;
+    postIntro: I18nString;
     /** Post title */
-    postTitle: string;
+    postTitle: I18nString;
     /** Previous blog posts */
-    previousBlogPosts: string;
+    previousBlogPosts: I18nString;
     /** Published */
-    published: string;
+    published: I18nString;
     /** Published %s blog posts */
     publishedNbBlogPosts: I18nPlural;
     /** If checked, the post will be listed on your blog. If not, it will be private, in your draft posts */
-    publishHelp: string;
+    publishHelp: I18nString;
     /** Publish on your blog */
-    publishOnYourBlog: string;
+    publishOnYourBlog: I18nString;
     /** Please only post safe and respectful content. Do not copy someone else's content. */
-    safeAndRespectfulContent: string;
+    safeAndRespectfulContent: I18nString;
     /** It is safe to use images from the following websites: */
-    safeToUseImages: string;
+    safeToUseImages: I18nString;
     /** Save draft */
-    saveDraft: string;
+    saveDraft: I18nString;
     /** Select the topics your post is about */
-    selectPostTopics: string;
+    selectPostTopics: I18nString;
     /** This is a draft */
-    thisIsADraft: string;
+    thisIsADraft: I18nString;
     /** This post is published */
-    thisPostIsPublished: string;
+    thisPostIsPublished: I18nString;
     /** Upload an image for your post */
-    uploadAnImageForYourPost: string;
+    uploadAnImageForYourPost: I18nString;
     /** You can also use images that you made yourself, pictures you took, screenshots of Lichess... anything that is not copyrighted by someone else. */
-    useImagesYouMadeYourself: string;
+    useImagesYouMadeYourself: I18nString;
     /** View all %s posts */
     viewAllNbPosts: I18nPlural;
     /** %s's Blog */
-    xBlog: I18nFormat;
+    xBlog: I18nString;
     /** %1$s published %2$s */
-    xPublishedY: I18nFormat;
+    xPublishedY: I18nString;
     /** You are blocked by the blog author. */
-    youBlockedByBlogAuthor: string;
+    youBlockedByBlogAuthor: I18nString;
   };
   voiceCommands: {
     /** Cancel timer or deny a request */
-    cancelTimerOrDenyARequest: string;
+    cancelTimerOrDenyARequest: I18nString;
     /** Castle (either side) */
-    castle: string;
+    castle: I18nString;
     /** Use the %1$s button to toggle voice recognition, the %2$s button to open this help dialog, and the %3$s menu to change speech settings. */
-    instructions1: I18nFormat;
+    instructions1: I18nString;
     /** We show arrows for multiple moves when we are not sure. Speak the colour or number of a move arrow to select it. */
-    instructions2: string;
+    instructions2: I18nString;
     /** If an arrow shows a sweeping radar, that move will be played when the circle is complete. During this time, you may only say %1$s to play the move immediately, %2$s to cancel, or speak the colour/number of a different arrow. This timer can be adjusted or turned off in settings. */
-    instructions3: I18nFormat;
+    instructions3: I18nString;
     /** Enable %s in noisy surroundings. Hold shift while speaking commands when this is on. */
-    instructions4: I18nFormat;
+    instructions4: I18nString;
     /** Use the phonetic alphabet to improve recognition of chessboard files. */
-    instructions5: string;
+    instructions5: I18nString;
     /** %s explains the voice move settings in detail. */
-    instructions6: I18nFormat;
+    instructions6: I18nString;
     /** Move to e4 or select e4 piece */
-    moveToE4OrSelectE4Piece: string;
+    moveToE4OrSelectE4Piece: I18nString;
     /** Phonetic alphabet is best */
-    phoneticAlphabetIsBest: string;
+    phoneticAlphabetIsBest: I18nString;
     /** Play preferred move or confirm something */
-    playPreferredMoveOrConfirmSomething: string;
+    playPreferredMoveOrConfirmSomething: I18nString;
     /** Select or capture a bishop */
-    selectOrCaptureABishop: string;
+    selectOrCaptureABishop: I18nString;
     /** Show puzzle solution */
-    showPuzzleSolution: string;
+    showPuzzleSolution: I18nString;
     /** Sleep (if wake word enabled) */
-    sleep: string;
+    sleep: I18nString;
     /** Take rook with queen */
-    takeRookWithQueen: string;
+    takeRookWithQueen: I18nString;
     /** This blog post */
-    thisBlogPost: string;
+    thisBlogPost: I18nString;
     /** Turn off voice recognition */
-    turnOffVoiceRecognition: string;
+    turnOffVoiceRecognition: I18nString;
     /** Voice commands */
-    voiceCommands: string;
+    voiceCommands: I18nString;
     /** Watch the video tutorial */
-    watchTheVideoTutorial: string;
+    watchTheVideoTutorial: I18nString;
   };
 }

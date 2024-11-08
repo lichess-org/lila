@@ -54,13 +54,13 @@ export default function (ctrl: TournamentController): VNode {
       h('table', [
         ctrl.opts.showRatings &&
           data.player.performance &&
-          numberRow(i18n.site.performance, data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
-        numberRow(i18n.site.gamesPlayed, nb.game),
+          numberRow(i18n.site.performance(), data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
+        numberRow(i18n.site.gamesPlayed(), nb.game),
         ...(nb.game
           ? [
-              numberRow(i18n.site.winRate, [nb.win, nb.game], 'percent'),
-              numberRow(i18n.site.berserkRate, [nb.berserk, nb.game], 'percent'),
-              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
+              numberRow(i18n.site.winRate(), [nb.win, nb.game], 'percent'),
+              numberRow(i18n.site.berserkRate(), [nb.berserk, nb.game], 'percent'),
+              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent(), avgOp, 'raw'),
             ]
           : []),
       ]),

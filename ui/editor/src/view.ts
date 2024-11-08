@@ -41,7 +41,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         attrs: { type: 'submit', 'data-icon': licon.StudyBoard, disabled: !state.legalFen },
         class: { button: true, 'button-empty': true, text: true, disabled: !state.legalFen },
       },
-      i18n.site.toStudy,
+      i18n.site.toStudy(),
     ),
   ]);
 }
@@ -50,7 +50,7 @@ function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
     { attrs: { value: key, selected: key == ctrl.rules } },
-    `${i18n.site.variant} | ${name}`,
+    `${i18n.site.variant()} | ${name}`,
   );
 }
 
@@ -74,13 +74,13 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
     h(
       `a.button.button-empty${icon ? '.text' : ''}`,
       { on: { click: ctrl.startPosition }, attrs: icon ? dataIcon(icon) : {} },
-      i18n.site.startPosition,
+      i18n.site.startPosition(),
     );
   const buttonClear = (icon?: string) =>
     h(
       `a.button.button-empty${icon ? '.text' : ''}`,
       { on: { click: ctrl.clearBoard }, attrs: icon ? dataIcon(icon) : {} },
-      i18n.site.clearBoard,
+      i18n.site.clearBoard(),
     );
 
   return h('div.board-editor__tools', [
@@ -103,19 +103,19 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
               {
                 attrs: { value: key[0] === 'w' ? 'white' : 'black', selected: key[0] === ctrl.turn[0] },
               },
-              i18n.site[key],
+              i18n.site[key](),
             );
           }),
         ),
       ),
       h('div.castling', [
-        h('strong', i18n.site.castling),
+        h('strong', i18n.site.castling()),
         h('div', [
-          castleCheckBox(ctrl, 'K', i18n.site.whiteCastlingKingside, !!ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'K', i18n.site.whiteCastlingKingside(), !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'Q', 'O-O-O', true),
         ]),
         h('div', [
-          castleCheckBox(ctrl, 'k', i18n.site.blackCastlingKingside, !!ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'k', i18n.site.blackCastlingKingside(), !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'q', 'O-O-O', true),
         ]),
       ]),
@@ -181,9 +181,9 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 },
               },
               [
-                h('option', { attrs: { value: '' } }, i18n.site.setTheBoard),
-                optgroup(i18n.site.popularOpenings, ctrl.cfg.positions.map(positionOption)),
-                optgroup(i18n.site.endgamePositions, ctrl.cfg.endgamePositions.map(endgamePosition2option)),
+                h('option', { attrs: { value: '' } }, i18n.site.setTheBoard()),
+                optgroup(i18n.site.popularOpenings(), ctrl.cfg.positions.map(positionOption)),
+                optgroup(i18n.site.endgamePositions(), ctrl.cfg.endgamePositions.map(endgamePosition2option)),
               ],
             );
           })(),
@@ -219,7 +219,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              i18n.site.flipBoard,
+              i18n.site.flipBoard(),
             ),
             h(
               'a',
@@ -238,7 +238,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   disabled: !state.legalFen,
                 },
               },
-              i18n.site.analysis,
+              i18n.site.analysis(),
             ),
             h(
               'button',
@@ -250,7 +250,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                   },
                 },
               },
-              [h('span.text', { attrs: { 'data-icon': licon.Swords } }, i18n.site.continueFromHere)],
+              [h('span.text', { attrs: { 'data-icon': licon.Swords } }, i18n.site.continueFromHere())],
             ),
             studyButton(ctrl, state),
           ]),
@@ -258,12 +258,12 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#ai', rel: 'nofollow' } },
-              i18n.site.playWithTheMachine,
+              i18n.site.playWithTheMachine(),
             ),
             h(
               'a.button',
               { attrs: { href: '/?fen=' + state.legalFen + '#friend', rel: 'nofollow' } },
-              i18n.site.playWithAFriend,
+              i18n.site.playWithAFriend(),
             ),
           ]),
         ]),

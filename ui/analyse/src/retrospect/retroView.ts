@@ -8,15 +8,15 @@ import { h, VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
-    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, i18n.site.viewTheSolution),
-    h('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove),
+    h('a', { hook: bind('click', ctrl.viewSolution, ctrl.redraw) }, i18n.site.viewTheSolution()),
+    h('a', { hook: bind('click', ctrl.skip) }, i18n.site.skipThisMove()),
   ]);
 }
 
 function jumpToNext(ctrl: RetroCtrl) {
   return h('a.half.continue', { hook: bind('click', ctrl.jumpToNext) }, [
     h('i', { attrs: dataIcon(licon.PlayTriangle) }),
-    i18n.site.next,
+    i18n.site.next(),
   ]);
 }
 
@@ -66,8 +66,10 @@ const feedback = {
       h('div.player', [
         h('div.icon.off', '!'),
         h('div.instruction', [
-          h('strong', i18n.site.youBrowsedAway),
-          h('div.choices.off', [h('a', { hook: bind('click', ctrl.jumpToNext) }, i18n.site.resumeLearning)]),
+          h('strong', i18n.site.youBrowsedAway()),
+          h('div.choices.off', [
+            h('a', { hook: bind('click', ctrl.jumpToNext) }, i18n.site.resumeLearning()),
+          ]),
         ]),
       ]),
     ];
@@ -77,7 +79,7 @@ const feedback = {
       h('div.player', [
         h('div.icon', '✗'),
         h('div.instruction', [
-          h('strong', i18n.site.youCanDoBetter),
+          h('strong', i18n.site.youCanDoBetter()),
           h('em', i18n.site[ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack']),
           skipOrViewSolution(ctrl),
         ]),
@@ -88,7 +90,7 @@ const feedback = {
     return [
       h(
         'div.half.top',
-        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', i18n.study.goodMove))]),
+        h('div.player', [h('div.icon', '✓'), h('div.instruction', h('strong', i18n.study.goodMove()))]),
       ),
       jumpToNext(ctrl),
     ];
@@ -100,7 +102,7 @@ const feedback = {
         h('div.player', [
           h('div.icon', '✓'),
           h('div.instruction', [
-            h('strong', i18n.site.solution),
+            h('strong', i18n.site.solution()),
             h(
               'em',
               i18n.site.bestWasX.asArray(
@@ -121,7 +123,10 @@ const feedback = {
       h(
         'div.half.top',
         h('div.player.center', [
-          h('div.instruction', [h('strong', i18n.site.evaluatingYourMove), renderEvalProgress(ctrl.node())]),
+          h('div.instruction', [
+            h('strong', i18n.site.evaluatingYourMove()),
+            renderEvalProgress(ctrl.node()),
+          ]),
         ]),
       ),
     ];
@@ -131,7 +136,7 @@ const feedback = {
       return [
         h(
           'div.half.top',
-          h('div.player', [h('div.icon', spinner()), h('div.instruction', i18n.site.waitingForAnalysis)]),
+          h('div.player', [h('div.icon', spinner()), h('div.instruction', i18n.site.waitingForAnalysis())]),
         ),
       ];
     const nothing = !ctrl.completion()[1];
@@ -160,7 +165,7 @@ const feedback = {
                     key: 'reset',
                     hook: bind('click', ctrl.reset),
                   },
-                  i18n.site.doItAgain,
+                  i18n.site.doItAgain(),
                 ),
             h(
               'a',
@@ -168,7 +173,7 @@ const feedback = {
                 key: 'flip',
                 hook: bind('click', ctrl.flip),
               },
-              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'],
+              i18n.site[ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'](),
             ),
           ]),
         ]),
@@ -192,7 +197,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
     completion = ctrl.completion();
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
-      h('span', i18n.site.learnFromYourMistakes),
+      h('span', i18n.site.learnFromYourMistakes()),
       h('span', `${Math.min(completion[0] + 1, completion[1])} / ${completion[1]}`),
       h('button.fbt', {
         hook: bind('click', root.toggleRetro, root.redraw),

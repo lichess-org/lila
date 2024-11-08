@@ -150,7 +150,7 @@ export default class TournamentController {
     } else {
       let password;
       if (this.data.private && !this.data.me) {
-        password = await prompt(i18n.site.tournamentEntryCode);
+        password = await prompt(i18n.site.tournamentEntryCode());
         if (password === null) {
           return;
         }

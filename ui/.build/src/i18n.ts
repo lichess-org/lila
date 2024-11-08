@@ -18,7 +18,6 @@ type TranslationState = {
 
 const current: TranslationState = { dicts: new Map(), locales: [], cats: [], siteInit: undefined };
 const i18nWatch: fs.FSWatcher[] = [];
-const isFormatRe = /%(?:[\d]\$)?s/;
 
 let watchTimeout: NodeJS.Timeout | undefined;
 
@@ -40,15 +39,20 @@ export async function i18n(isBoot = true): Promise<void> {
   ).map(list => list.map(x => x.split('.')[0]));
 
   current.siteInit = await min(
-    `window.i18n = function(k) {
+    `function key(k) {
+      const f = function() { return k; };
+      f.asArray = () => [k];
+      return f;
+    }
+    window.i18n =
+      function(k) {
         for (let v of Object.values(window.i18n)) {
           if (v[k]) return v[k];
         }
         return k;
       };` +
-      current.cats
-        .map(cat => `window.i18n.${cat} = new Proxy({}, { get: (obj, k) => k in obj ? obj[k] : k });`)
-        .join('\n'),
+      current.cats.map(cat => `window.i18n.${cat}`).join('=') +
+      `= new Proxy({}, { get: (_, k) => key(k) });`,
   );
 
   await compileTypings();
@@ -97,8 +101,7 @@ async function compileTypings(): Promise<void> {
               [...dict.entries()]
                 .map(([k, v]) => {
                   if (!/^[A-Za-z_]\w*$/.test(k)) k = `'${k}'`;
-                  const tpe =
-                    typeof v !== 'string' ? 'I18nPlural' : isFormatRe.test(v) ? 'I18nFormat' : 'string';
+                  const tpe = typeof v !== 'string' ? 'I18nPlural' : 'I18nString';
                   const comment = typeof v === 'string' ? v.split('\n')[0] : v['other']?.split('\n')[0];
                   return `    /** ${comment} */\n    ${k}: ${tpe};`;
                 })
@@ -141,6 +144,7 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
       await fs.promises.readFile(path.join(env.i18nSrcDir, `${cat}.xml`), 'utf8').then(parseXml),
     );
 
+  const lang = locale?.split('-')[0] ?? 'en';
   const translations = new Map([
     ...current.dicts.get(cat)!,
     ...(locale
@@ -150,29 +154,18 @@ async function writeJavascript(cat: string, locale?: string, xstat: fs.Stats | f
           .then(parseXml)
       : []),
   ]);
-  const lang = locale?.split('-')[0];
-  const jsInit =
-    cat !== 'site'
-      ? ''
-      : current.siteInit +
-        'window.i18n.quantity=' +
-        (jsQuantity.find(({ l }) => l.includes(lang ?? ''))?.q ?? `o=>o==1?'one':'other'`) +
-        ';';
-  const code =
-    jsPrelude +
-    jsInit +
-    `let i=window.i18n.${cat};` +
-    [...translations]
-      .map(
-        ([k, v]) =>
-          `i['${k}']=` +
-          (typeof v !== 'string'
-            ? `p(${JSON.stringify(v)})`
-            : isFormatRe.test(v)
-              ? `s(${JSON.stringify(v)})`
-              : JSON.stringify(v)),
-      )
-      .join(';') +
+
+  let code = jsPrelude;
+  if (cat === 'site') {
+    code +=
+      current.siteInit +
+      'window.i18n.quantity=' +
+      (jsQuantity.find(({ l }) => l.includes(lang))?.q ?? `o=>o==1?'one':'other'`) +
+      ';';
+  }
+  code +=
+    `let i=window.i18n.${cat}=new Proxy({},{get:(o,k)=>k in o?typeof o[k]=='object'?p(o[k]):s(o[k]):key(k)});` +
+    [...translations].map(([k, v]) => `i['${k}']=${JSON.stringify(v)}`).join(';') +
     '})()';
 
   const filename = path.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
@@ -217,8 +210,8 @@ async function min(js: string): Promise<string> {
 }
 
 const tsPrelude = `// Generated
-interface I18nFormat {
-  (...args: (string | number)[]): string; // formatted
+interface I18nString {
+  (...args: (string | number)[]): string; // singular & formatted
   asArray: <T>(...args: T[]) => (T | string)[]; // vdom
 }
 interface I18nPlural {
@@ -235,7 +228,7 @@ const jsPrelude =
   (await min(
     // s(...) is the standard format function, p(...) is the plural format function.
     // both have an asArray method for vdom.
-    `function p(t) {
+    ` function p(t) {
         let r = (n, ...e) => l(o(t, n), n, ...e).join('');
         return (r.asArray = (n, ...e) => l(o(t, n), ...e)), r;
       }

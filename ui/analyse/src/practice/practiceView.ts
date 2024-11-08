@@ -31,8 +31,10 @@ function renderOffTrack(ctrl: PracticeCtrl): VNode {
   return h('div.player.off', [
     h('div.icon.off', '!'),
     h('div.instruction', [
-      h('strong', i18n.site.youBrowsedAway),
-      h('div.choices', [h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, i18n.site.resumePractice)]),
+      h('strong', i18n.site.youBrowsedAway()),
+      h('div.choices', [
+        h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, i18n.site.resumePractice()),
+      ]),
     ]),
   ]);
 }
@@ -43,12 +45,12 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
   return h('div.player', [
     color ? h('div.no-square', h('piece.king.' + color)) : h('div.icon.off', '!'),
     h('div.instruction', [
-      h('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
+      h('strong', end.winner ? i18n.site.checkmate() : i18n.site.draw()),
       end.winner
         ? h('em', h('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
         : isFiftyMoves
           ? i18n.site.drawByFiftyMoves
-          : h('em', i18n.site.theGameIsADraw),
+          : h('em', i18n.site.theGameIsADraw()),
     ]),
   ]);
 }
@@ -75,9 +77,9 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
     h(
       'div.instruction',
       (ctrl.isMyTurn()
-        ? [h('strong', i18n.site.yourTurn)]
+        ? [h('strong', i18n.site.yourTurn())]
         : [
-            h('strong', i18n.site.computerThinking),
+            h('strong', i18n.site.computerThinking()),
             renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth()),
           ]
       ).concat(
@@ -88,9 +90,9 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
                 { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
                 hint
                   ? hint.mode === 'piece'
-                    ? i18n.site.seeBestMove
-                    : i18n.site.hideBestMove
-                  : i18n.site.getAHint,
+                    ? i18n.site.seeBestMove()
+                    : i18n.site.hideBestMove()
+                  : i18n.site.getAHint(),
               )
             : '',
         ]),
@@ -107,7 +109,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.outcome();
   return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
-    h('div.title', i18n.site.practiceWithComputer),
+    h('div.title', i18n.site.practiceWithComputer()),
     h(
       'div.feedback',
       !running ? renderOffTrack(ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
@@ -121,12 +123,12 @@ export default function (root: AnalyseCtrl): VNode | undefined {
                   [
                     h(
                       'span.verdict',
-                      comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment!.verdict],
+                      comment.verdict === 'goodMove' ? i18n.study.goodMove() : i18n.site[comment!.verdict](),
                     ),
                     ' ',
                   ] as MaybeVNodes
                 ).concat(commentBest(comment, ctrl))
-              : [ctrl.isMyTurn() || end ? '' : h('span.wait', i18n.site.evaluatingYourMove)]),
+              : [ctrl.isMyTurn() || end ? '' : h('span.wait', i18n.site.evaluatingYourMove())]),
         )
       : null,
   ]);

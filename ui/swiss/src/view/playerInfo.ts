@@ -27,15 +27,15 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
     h('div.stats', [
       h('h2', [h('span.rank', data.rank + '. '), renderPlayer(data, true, false)]),
       h('table', [
-        numberRow(i18n.site.points, data.points, 'raw'),
-        numberRow(i18n.swiss.tieBreak, data.tieBreak, 'raw'),
+        numberRow(i18n.site.points(), data.points, 'raw'),
+        numberRow(i18n.swiss.tieBreak(), data.tieBreak, 'raw'),
         ...(games
           ? [
               data.performance &&
                 ctrl.opts.showRatings &&
-                numberRow(i18n.site.performance, data.performance + (games < 3 ? '?' : ''), 'raw'),
-              numberRow(i18n.site.winRate, [wins, games], 'percent'),
-              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
+                numberRow(i18n.site.performance(), data.performance + (games < 3 ? '?' : ''), 'raw'),
+              numberRow(i18n.site.winRate(), [wins, games], 'percent'),
+              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent(), avgOp, 'raw'),
             ]
           : []),
       ]),

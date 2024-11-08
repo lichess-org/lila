@@ -20,7 +20,7 @@ function renderInStage(ctrl: SideCtrl) {
         {
           attrs: { href: BASE_LEARN_PATH },
         },
-        [h('img', { attrs: { src: util.assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
+        [h('img', { attrs: { src: util.assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu()],
       ),
       ...stages.categs.map((categ, categId) =>
         h(
@@ -55,8 +55,8 @@ function renderHome(ctrl: SideCtrl) {
   const progress = ctrl.progress();
   return h('div.learn__side-home', [
     h('i.fat'),
-    h('h1', i18n.learn.learnChess),
-    h('h2', i18n.learn.byPlaying),
+    h('h1', i18n.learn.learnChess()),
+    h('h2', i18n.learn.byPlaying()),
     h('div.progress', [
       h('div.text', i18n.learn.progressX(progress + '%')),
       h('div.bar', {
@@ -71,10 +71,10 @@ function renderHome(ctrl: SideCtrl) {
             'a.confirm',
             {
               hook: bind('click', async () => {
-                if (await confirm(i18n.learn.youWillLoseAllYourProgress)) ctrl.reset();
+                if (await confirm(i18n.learn.youWillLoseAllYourProgress())) ctrl.reset();
               }),
             },
-            i18n.learn.resetMyProgress,
+            i18n.learn.resetMyProgress(),
           )
         : null,
     ]),

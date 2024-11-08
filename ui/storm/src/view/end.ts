@@ -7,10 +7,10 @@ import { onInsert, LooseVNodes, looseH as h } from 'common/snabbdom';
 const renderEnd = (ctrl: StormCtrl): LooseVNodes => [...renderSummary(ctrl), renderHistory(ctrl)];
 
 const newHighI18n = {
-  day: i18n.storm.newDailyHighscore,
-  week: i18n.storm.newWeeklyHighscore,
-  month: i18n.storm.newMonthlyHighscore,
-  allTime: i18n.storm.newAllTimeHighscore,
+  day: i18n.storm.newDailyHighscore(),
+  week: i18n.storm.newWeeklyHighscore(),
+  month: i18n.storm.newMonthlyHighscore(),
+  allTime: i18n.storm.newAllTimeHighscore(),
 };
 
 const renderSummary = (ctrl: StormCtrl): LooseVNodes => {
@@ -35,27 +35,27 @@ const renderSummary = (ctrl: StormCtrl): LooseVNodes => {
         { hook: onInsert(el => numberSpread(el, scoreSteps, Math.round(scoreSteps * 50), 0)(run.score)) },
         '0',
       ),
-      h('p', i18n.storm.puzzlesSolved),
+      h('p', i18n.storm.puzzlesSolved()),
     ]),
     h('div.storm--end__stats.box.box-pad', [
       h('table.slist', [
         h('tbody', [
-          h('tr', [h('th', i18n.storm.moves), h('td', h('number', `${run.moves}`))]),
-          h('tr', [h('th', i18n.storm.accuracy), h('td', [h('number', Number(accuracy).toFixed(1)), '%'])]),
-          h('tr', [h('th', i18n.storm.combo), h('td', h('number', `${ctrl.run.combo.best}`))]),
-          h('tr', [h('th', i18n.storm.time), h('td', [h('number', `${Math.round(run.time)}`), 's'])]),
+          h('tr', [h('th', i18n.storm.moves()), h('td', h('number', `${run.moves}`))]),
+          h('tr', [h('th', i18n.storm.accuracy()), h('td', [h('number', Number(accuracy).toFixed(1)), '%'])]),
+          h('tr', [h('th', i18n.storm.combo()), h('td', h('number', `${ctrl.run.combo.best}`))]),
+          h('tr', [h('th', i18n.storm.time()), h('td', [h('number', `${Math.round(run.time)}`), 's'])]),
           h('tr', [
-            h('th', i18n.storm.timePerMove),
+            h('th', i18n.storm.timePerMove()),
             h('td', [h('number', Number(run.time / run.moves).toFixed(2)), 's']),
           ]),
-          h('tr', [h('th', i18n.storm.highestSolved), h('td', h('number', `${run.highest}`))]),
+          h('tr', [h('th', i18n.storm.highestSolved()), h('td', h('number', `${run.highest}`))]),
         ]),
       ]),
     ]),
     h(
       'a.storm-play-again.button',
       { attrs: ctrl.run.endAt! < getNow() - 900 ? { href: '/storm' } : {} },
-      i18n.storm.playAgain,
+      i18n.storm.playAgain(),
     ),
   ];
 };

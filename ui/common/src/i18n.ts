@@ -63,7 +63,7 @@ export const formatAgo = (seconds: number): string => {
   const strIndex = seconds < 0 ? 1 : 0;
   const unit = agoUnits.find(unit => absSeconds >= unit[2] * unit[3] && unit[strIndex])!;
   const fmt = i18n.timeago[unit[strIndex]!];
-  return typeof fmt === 'string' ? fmt : fmt(Math.floor(absSeconds / unit[2]));
+  return fmt(Math.floor(absSeconds / unit[2]));
 };
 
 type DateLike = Date | number | string;
