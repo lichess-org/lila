@@ -72,14 +72,15 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
           yield leads
 
   def teamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
-    import env.team.jsonView.given
-    JsonOk:
-      for
-        ids   <- api.joinedTeamIdsOfUserAsSeenBy(username)
-        teams <- api.teamsByIds(ids)
-        teams <- env.team.memberRepo.addPublicLeaderIds(teams)
-        _     <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
-      yield teams
+    Found(meOrFetch(username)): user =>
+      import env.team.jsonView.given
+      JsonOk:
+        for
+          ids   <- api.joinedTeamIdsOfUserAsSeenBy(user)
+          teams <- api.teamsByIds(ids)
+          teams <- env.team.memberRepo.addPublicLeaderIds(teams)
+          _     <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
+        yield teams
 
   def requests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Request): team =>
