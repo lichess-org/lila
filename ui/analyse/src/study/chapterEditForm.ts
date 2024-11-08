@@ -8,16 +8,20 @@ import { confirm, snabDialog } from 'common/dialog';
 import { h, VNode } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudySocketSend } from '../socket';
+import AnalyseCtrl from '../ctrl';
 
 export class StudyChapterEditForm {
   current = prop<ChapterPreview | StudyChapterConfig | null>(null);
+  redraw: Redraw;
 
   constructor(
     private readonly send: StudySocketSend,
     private readonly chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     readonly isBroadcast: boolean,
-    readonly redraw: Redraw,
-  ) {}
+    readonly root: AnalyseCtrl,
+  ) {
+    this.redraw = root.redraw;
+  }
 
   open = (data: ChapterPreview) => {
     this.current(data);
@@ -116,7 +120,9 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         h('label.form-label', { attrs: { for: 'chapter-orientation' } }, i18n.study.orientation),
         h(
           'select#chapter-orientation.form-control',
-          (['white', 'black'] as const).map(color => option(color, data.orientation, i18n.site[color])),
+          (['white', 'black'] as const).map(color =>
+            option(color, ctrl.root.bottomColor(), i18n.site[color]),
+          ),
         ),
       ]),
       h('div.form-group.form-half' + (ctrl.isBroadcast ? '.none' : ''), [
