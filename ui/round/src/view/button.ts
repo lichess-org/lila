@@ -16,17 +16,13 @@ export interface ButtonState {
   overrideHint?: string;
 }
 
-function analysisBoardOrientation(data: RoundData) {
-  return data.game.variant.key === 'racingKings' ? 'white' : data.player.color;
-}
-
 function poolUrl(clock: ClockData, blocking?: game.PlayerUser) {
   return '/#pool/' + clock.initial / 60 + '+' + clock.increment + (blocking ? '/' + blocking.id : '');
 }
 
 function analysisButton(ctrl: RoundController): VNode | false {
   const d = ctrl.data,
-    url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
+    url = gameRoute(d, d.player.color) + '#' + ctrl.ply;
   return (
     game.replayable(d) &&
     h(

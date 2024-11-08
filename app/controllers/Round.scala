@@ -143,9 +143,6 @@ final class Round(
   ): Fu[Result] =
     playablePovForReq(pov.game) match
       case Some(player) if userTv.isEmpty => renderPlayer(pov.withColor(player.color))
-      case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
-        if userTv.isDefined then watch(!pov, userTv)
-        else Redirect(routes.Round.watcher(pov.gameId, Color.white))
       case _ =>
         isBlockedByPlayer(pov.game).flatMap:
           if _ then notFound
