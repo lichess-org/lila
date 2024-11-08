@@ -246,7 +246,7 @@ export default class PuzzleCtrl implements ParentCtrl {
         this.canViewSolution(true);
         this.redraw();
       },
-      this.rated() ? 4000 : 1000,
+      this.rated() ? 4000 : 2000,
     );
 
     this.withGround(g => {
