@@ -31,7 +31,7 @@ import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
-import { Role, Move, Outcome } from 'chessops/types';
+import { Role, Move, Outcome, SquareName } from 'chessops/types';
 import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import Report from './report';
@@ -74,6 +74,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   canViewSolution = toggle(false);
+  showHint = toggle(true);
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   voteDisabled?: boolean;
@@ -498,9 +499,12 @@ export default class PuzzleCtrl implements ParentCtrl {
         computeAutoShapes({
           ...this,
           node: this.node,
+          hint: this.hintSquare(),
         }),
       ),
     );
+
+  private hintSquare = (): SquareName | undefined => 'e4';
 
   canUseCeval = (): boolean => this.mode === 'view' && !this.outcome();
 
