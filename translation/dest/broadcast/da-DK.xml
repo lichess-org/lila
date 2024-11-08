@@ -71,7 +71,6 @@
   <string name="ratingDiff">Rating-forskel</string>
   <string name="gamesThisTournament">Partier i denne turnering</string>
   <string name="score">Score</string>
-  <string name="perPage">%s pr. side</string>
   <string name="allTeams">Alle hold</string>
   <string name="tournamentFormat">Turneringsformat</string>
   <string name="tournamentLocation">Turneringssted</string>

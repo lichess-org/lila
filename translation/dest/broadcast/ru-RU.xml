@@ -73,7 +73,6 @@
   <string name="ratingDiff">Разница в рейтингах</string>
   <string name="gamesThisTournament">Партии этого турнира</string>
   <string name="score">Очки</string>
-  <string name="perPage">%s на страницу</string>
   <string name="allTeams">Все клубы</string>
   <string name="tournamentFormat">Формат турнира</string>
   <string name="tournamentLocation">Местоположение турнира</string>

@@ -429,7 +429,7 @@
   </plurals>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
   <string name="follow">دنبالیدن</string>
-  <string name="following">دنبالنده</string>
+  <string name="following">دنبال‌شدگان</string>
   <string name="unfollow">وادنبالیدن</string>
   <string name="followX">دنبالیدن %s</string>
   <string name="unfollowX">وادنبالیدن %s</string>
@@ -442,8 +442,8 @@
     <item quantity="other">%s دنبال‌گر</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s دنبالنده</item>
-    <item quantity="other">%s دنبالنده</item>
+    <item quantity="one">%s دنبال‌شده</item>
+    <item quantity="other">%s دنبال‌شده</item>
   </plurals>
   <string name="more">بیشتر</string>
   <string name="memberSince">عضویت از تاریخ</string>
