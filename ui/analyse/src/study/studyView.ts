@@ -218,7 +218,7 @@ export const overboard = (ctrl: StudyCtrl) =>
   ctrl.chapters.newForm.isOpen()
     ? chapterNewFormView(ctrl.chapters.newForm)
     : ctrl.chapters.editForm.current()
-      ? chapterEditFormView(ctrl.chapters.editForm)
+      ? chapterEditFormView(ctrl.chapters.editForm, ctrl.currentChapter().id)
       : ctrl.members.inviteForm.open()
         ? inviteFormView(ctrl.members.inviteForm)
         : ctrl.topics.open()

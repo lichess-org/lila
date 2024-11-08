@@ -59,7 +59,7 @@ export class StudyChapterEditForm {
   };
 }
 
-export function view(ctrl: StudyChapterEditForm): VNode | undefined {
+export function view(ctrl: StudyChapterEditForm, rootChapterId: string): VNode | undefined {
   const data = ctrl.current();
   return data
     ? snabDialog({
@@ -96,7 +96,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
                   }),
                 }),
               ]),
-              ...(isLoaded(data) ? viewLoaded(ctrl, data) : [spinner()]),
+              ...(isLoaded(data) ? viewLoaded(ctrl, data, rootChapterId) : [spinner()]),
             ],
           ),
         ],
@@ -107,7 +107,7 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
 const isLoaded = (data: ChapterPreview | StudyChapterConfig): data is StudyChapterConfig =>
   'orientation' in data;
 
-function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode[] {
+function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig, rootChapterId: string): VNode[] {
   const mode = data.practice
     ? 'practice'
     : defined(data.conceal)
@@ -122,11 +122,13 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         h(
           'select#chapter-orientation.form-control',
           (['white', 'black'] as const).map(color =>
-            option(
-              ctrl.root.flipped ? opposite(color) : color,
-              ctrl.root.flipped ? opposite(ctrl.root.getOrientation()) : ctrl.root.getOrientation(),
-              i18n.site[color],
-            ),
+            data.id === rootChapterId
+              ? option(
+                  ctrl.root.flipped ? opposite(color) : color,
+                  ctrl.root.flipped ? opposite(ctrl.root.getOrientation()) : ctrl.root.getOrientation(),
+                  i18n.site[color],
+                )
+              : option(color, data.orientation, i18n.site[color]),
           ),
         ),
       ]),
