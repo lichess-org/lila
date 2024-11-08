@@ -14,9 +14,8 @@ body {
   @media (min-width: at-least($small)) {
     ---main-margin: 1vw;
     ---block-gap: 15px;
+    overflow-y: hidden;
   }
-
-  overflow-y: hidden;
 }
 
 /* game view */
