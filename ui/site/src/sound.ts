@@ -137,8 +137,9 @@ export default new (class implements SoundI {
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
+    if (typeof window.speechSynthesis === 'undefined') return false;
     try {
-      if (cut) speechSynthesis.cancel();
+      if (cut) window.speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
@@ -148,7 +149,7 @@ export default new (class implements SoundI {
         msg.onstart = () => this.listeners.forEach(l => l('start', text));
         msg.onend = () => this.listeners.forEach(l => l('stop'));
       }
-      speechSynthesis.speak(msg);
+      window.speechSynthesis.speak(msg);
       return true;
     } catch (err) {
       console.error(err);
