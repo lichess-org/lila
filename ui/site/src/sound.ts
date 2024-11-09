@@ -224,13 +224,10 @@ export default new (class implements SoundI {
           $('#warn-no-autoplay').addClass('shown');
           resolve();
         }, 400);
-        this.ctx
-          ?.resume()
-          .then(() => {
-            clearTimeout(resumeTimer);
-            resolve();
-          })
-          .catch(resolve);
+        this.ctx?.resume().then(() => {
+          clearTimeout(resumeTimer);
+          resolve();
+        });
       });
     if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
@@ -274,6 +271,6 @@ function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
     ? new window.webkitAudioContext()
     : typeof AudioContext !== 'undefined'
-      ? new AudioContext()
+      ? new AudioContext({ latencyHint: 'interactive' })
       : undefined;
 }
