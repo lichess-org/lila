@@ -109,7 +109,14 @@ final class ModTimelineUi(helpers: Helpers)(
         strong(
           cls   := "mod-timeline__event__from",
           title := r.atoms.toList.map(_.by.id).map(usernameOrId).map(_.toString).mkString(", ")
-        )(fragList(reporters))
+        )(
+          if r.atoms.size > 3
+          then pluralize("player", r.atoms.size)
+          else
+            fragList:
+              r.atoms.toList.map: atom =>
+                userIdLink(atom.by.some, withOnline = false)
+        )
       ,
       div(cls := "mod-timeline__event__action")(
         " opened a ",
