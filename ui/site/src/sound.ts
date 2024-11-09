@@ -1,8 +1,8 @@
 import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
-import { charRole } from 'chess';
 import { defined } from 'common';
+import { charRole } from 'common/chessDefs';
 
 type Name = string;
 type Path = string;
@@ -139,7 +139,9 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) => {
     if (typeof window.speechSynthesis === 'undefined') return false;
     try {
-      if (cut) window.speechSynthesis.cancel();
+      if (cut || !speechSynthesis.speaking || !speechSynthesis.pending) {
+        speechSynthesis.cancel();
+      }
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
@@ -166,7 +168,7 @@ export default new (class implements SoundI {
 
   set = () => this.theme;
 
-  saySan(san?: San, cut?: boolean) {
+  saySan(san?: San, cut?: boolean, force?: boolean) {
     const text = !san
       ? 'Game start'
       : san.includes('O-O-O#')
@@ -200,7 +202,7 @@ export default new (class implements SoundI {
                       .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
                       .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
                       .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
-    this.say(text, cut);
+    this.say(text, cut, force);
   }
 
   preloadBoardSounds() {
@@ -269,7 +271,7 @@ class Sound {
 
 function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
-    ? new window.webkitAudioContext()
+    ? new window.webkitAudioContext({ latencyHint: 'interactive' })
     : typeof AudioContext !== 'undefined'
       ? new AudioContext({ latencyHint: 'interactive' })
       : undefined;
