@@ -72,13 +72,13 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit =
     coll.update.one($id(userId), $set(pk.value -> perf), upsert = true).void
 
-  def glicko(userId: UserId, perf: PerfKey): Fu[Glicko] =
+  def glicko(userId: UserId, perf: PerfKey): Fu[Option[Glicko]] =
     coll
       .find($id(userId), $doc(s"$perf.gl" -> true).some)
       .one[Bdoc]
       .dmap:
         _.flatMap(_.child(perf.value))
-          .flatMap(_.getAsOpt[Glicko]("gl")) | lila.rating.Glicko.default
+          .flatMap(_.getAsOpt[Glicko]("gl"))
 
   def addPuzRun(field: String, userId: UserId, score: Int): Funit =
     coll.update
