@@ -81,7 +81,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded = false;
-  private readonly report: Report;
+  private report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -140,7 +140,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
-    this.report = new Report(this.data.puzzle.id);
+    this.report = new Report();
 
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
@@ -230,6 +230,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.isDaily = location.href.endsWith('/daily');
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
+    this.report = new Report();
 
     this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(

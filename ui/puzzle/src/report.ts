@@ -13,9 +13,9 @@ export default class Report {
   tsHideReportDialog: StoredProp<number>;
 
   // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 1;
+  private version = 2;
 
-  constructor(readonly id: PuzzleId) {
+  constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
   }
 
@@ -53,13 +53,13 @@ export default class Report {
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const reason = `v${this.version}: after move ${node.ply}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
-        this.reportDialog(reason);
+        const reason = `(v${this.version}) after move ${node.ply}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
+        this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }
   }
 
-  private reportDialog = (reason: string) => {
+  private reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox">` +
@@ -95,7 +95,7 @@ export default class Report {
         dlg.close();
       });
       $('.apply', dlg.view).on('click', () => {
-        xhr.report(this.id, reason);
+        xhr.report(puzzleId, reason);
         dlg.close();
       });
       dlg.showModal();
