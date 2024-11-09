@@ -1,7 +1,9 @@
 import { FEN } from 'chessground/types';
 import { Ctrl } from '../interfaces';
 
-function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
+export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
+  if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
+
   for (let row = 0; row < 8; row++) {
     for (let col = row % 2 === offset ? 0 : 1; col < 8; col += 2) {
       if (/[bB]/.test(expandedFen[row * 8 + col])) return true;
@@ -10,7 +12,14 @@ function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   return false;
 }
 
-function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean {
+export function expandFen(fullFen: FEN): string {
+  return fullFen
+    .split(' ')[0]
+    .replace(/\d/g, n => '1'.repeat(+n))
+    .replace(/\//g, '');
+}
+
+export function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean {
   // TODO: atomic and antichess
   if (
     variant === 'horde' ||
@@ -18,18 +27,17 @@ function insufficientMaterial(variant: VariantKey, fullFen: FEN): boolean {
     variant === 'racingKings' ||
     variant === 'crazyhouse' ||
     variant === 'atomic' ||
-    variant === 'antichess'
+    variant === 'antichess' ||
+    variant === 'threeCheck'
   )
     return false;
-  let fen = fullFen.split(' ')[0].replace(/[^a-z]/gi, '');
-  if (/^[Kk]{2}$/.test(fen)) return true;
-  if (variant === 'threeCheck') return false;
-  if (/[prq]/i.test(fen)) return false;
-  if (/n/.test(fen)) return fen.length - fen.replace(/[a-z]/g, '').length <= 2 && !/[PBNR]/.test(fen);
-  if (/N/.test(fen)) return fen.length - fen.replace(/[A-Z]/g, '').length <= 2 && !/[pbnr]/.test(fen);
-  if (/b/i.test(fen)) {
-    for (let i = 8; i > 1; i--) fen = fen.replace('' + i, '1' + (i - 1));
-    return (!bishopOnColor(fen, 0) || !bishopOnColor(fen, 1)) && !/[pPnN]/.test(fen);
+  const pieces = fullFen.split(' ')[0].replace(/[^a-z]/gi, '');
+  if (/^[Kk]{2}$/.test(pieces)) return true;
+  if (/[prq]/i.test(pieces)) return false;
+  if (/^[KkNn]{3}$/.test(pieces)) return true;
+  if (/b/i.test(pieces)) {
+    const expandedFen = expandFen(fullFen);
+    return (!bishopOnColor(expandedFen, 0) || !bishopOnColor(expandedFen, 1)) && !/[pPnN]/.test(pieces);
   }
   return false;
 }
@@ -60,7 +68,7 @@ export default function status(ctrl: Ctrl): string {
           return `${d.game.turns % 2 === 0 ? i18n.site.whiteLeftTheGame : i18n.site.blackLeftTheGame} • ${i18n.site.draw}`;
       }
     case 'draw': {
-      if (d.game.fen.split(' ')[4] === '100')
+      if (d.game.fiftyMoves || d.game.fen.split(' ')[4] === '100')
         return `${i18n.site.fiftyMovesWithoutProgress} • ${i18n.site.draw}`;
       if (d.game.threefold) return `${i18n.site.threefoldRepetition} • ${i18n.site.draw}`;
       if (insufficientMaterial(d.game.variant.key, d.game.fen))

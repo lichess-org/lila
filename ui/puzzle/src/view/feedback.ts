@@ -13,6 +13,13 @@ const viewSolution = (ctrl: PuzzleCtrl): VNode =>
         ),
       ])
     : h('div.view_solution', { class: { show: ctrl.canViewSolution() } }, [
+        ctrl.mode != 'view'
+          ? h(
+              'a.button' + (ctrl.showHint() ? '' : '.button-empty'),
+              { hook: bind('click', ctrl.toggleHint) },
+              'Hint',
+            )
+          : undefined,
         h('a.button.button-empty', { hook: bind('click', ctrl.viewSolution) }, i18n.site.viewTheSolution),
       ]);
 

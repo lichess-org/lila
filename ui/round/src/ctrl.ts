@@ -445,6 +445,7 @@ export default class RoundController implements MoveRootCtrl {
       pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
+    d.game.fiftyMoves = !!o.fiftyMoves;
     const step = {
       ply: this.lastPly() + 1,
       fen: o.fen,
@@ -556,10 +557,9 @@ export default class RoundController implements MoveRootCtrl {
     }
     if (!d.player.spectator && d.game.turns > 1) {
       const key = o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw';
-      // Delay 'victory'& 'defeat' sounds to avoid overlapping with 'checkmate' sound
-      setTimeout(() => {
-        site.sound.play(key);
-      }, 600);
+      // Delay 'victory' & 'defeat' sounds to avoid overlapping with 'checkmate' sound
+      if (o.status.name === 'mate') site.sound.playAndDelayMateResultIfNecessary(key);
+      else site.sound.play(key);
       if (
         key != 'victory' &&
         d.game.turns > 6 &&

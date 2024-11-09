@@ -226,7 +226,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.coll
       .aggregateList(max, _.priTemp): framework =>
         import framework.*
-        Match($inIds(ids) ++ userRepo.botWithBioSelect) -> List(
+        Match($inIds(ids) ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
           Sort(Descending(BSONFields.roles), Descending(BSONFields.playTimeTotal)),
           Limit(max),
           PipelineOperator(perfsRepo.aggregate.lookup)

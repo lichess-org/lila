@@ -388,7 +388,6 @@
   <string name="block">Bluccà</string>
   <string name="blocked">Bluccatu</string>
   <string name="unblock">Sbluccà</string>
-  <string name="followsYou">Vi segue</string>
   <string name="xStartedFollowingY">%1$s hà principiatu à segue%2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sustenidore</item>

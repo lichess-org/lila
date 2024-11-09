@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Rakibin taşı üzerinden bir kareyi koruyan veya bir kareye saldıran taşları içeren taktikler.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Rakibin iyi bir hamlesinin kalmadığı, yapabileceği bütün hamlelerin kendisine zarar vereceği taktikler.</string>
-  <string name="mix">Bir ondan bir bundan</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Bir ondan bir bundan</string>
   <string name="mixDescription">Ortaya karışık bulmacalar. Karşına ne tür bir pozisyonun çıkacağı tam bir muamma. Tıpkı gerçek maçlardaki gibi her şeye hazırlıklı olmakta fayda var.</string>
   <string name="playerGames">Bireysel oyunlar</string>
   <string name="playerGamesDescription">Sizin veya başka bir oyuncunun maçlarından üretilen bulmacalar.</string>

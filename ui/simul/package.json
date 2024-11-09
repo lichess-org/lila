@@ -13,8 +13,7 @@
   "dependencies": {
     "chat": "workspace:*",
     "common": "workspace:*",
-    "game": "workspace:*",
-    "snabbdom": "3.6.2"
+    "game": "workspace:*"
   },
   "lichess": {
     "bundles": [

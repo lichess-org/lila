@@ -16,11 +16,10 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@badrap/result": "^0.2.13",
-    "chessops": "^0.14.1",
+    "chessops": "^0.14.2",
     "common": "workspace:*",
     "idb-keyval": "^6.2.1",
     "lila-stockfish-web": "0.0.7",
-    "snabbdom": "3.6.2",
     "stockfish-mv.wasm": "^0.6.1",
     "stockfish-nnue.wasm": "1.0.0-1946a675.smolnet",
     "stockfish.js": "^10.0.2",

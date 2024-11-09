@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para mag-anyaya ng iba, ibigay itong URL</string>
   <string name="gameOver">Tapos</string>
   <string name="waitingForOpponent">Hinihintay ang Kalaban</string>
+  <string name="orLetYourOpponentScanQrCode">O ipa-scan ang QR code na ito sa kalaban</string>
   <string name="waiting">Naghihintay</string>
   <string name="yourTurn">Tira mo</string>
   <string name="aiNameLevelAiLevel">%1$s antas %2$s</string>
@@ -59,6 +60,8 @@
   <string name="depthX">Lalim %s</string>
   <string name="usingServerAnalysis">Gamit ang pagsusuri ng server</string>
   <string name="loadingEngine">Nagloload pa ang makina...</string>
+  <string name="calculatingMoves">Nagkakalkula ng mga tira...</string>
+  <string name="engineFailed">Nag-error sa pag-load ng engine</string>
   <string name="cloudAnalysis">Pagsusuri ng Cloud</string>
   <string name="goDeeper">Pumuntas sa mas malalim</string>
   <string name="showThreat">Magpakita ng pagbabanta</string>
@@ -67,7 +70,10 @@
   <string name="promoteVariation">Itaguyod ang pagkakaiba</string>
   <string name="makeMainLine">Gawing pangunahing linya</string>
   <string name="deleteFromHere">Buharin mula dito</string>
+  <string name="collapseVariations">Itaga ang mga baryasyon</string>
+  <string name="expandVariations">Ipakita ang mga baryasyon</string>
   <string name="forceVariation">Itaguyod ang pagkakaiba</string>
+  <string name="copyVariationPgn">Kopyahin ang PGN ng baryasyon</string>
   <string name="move">Galaw</string>
   <string name="variantLoss">Pagkakaiba ng pagkatalo</string>
   <string name="variantWin">Kakaibang pagkapanalo</string>
@@ -91,10 +97,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50 \"na may pag-ikot, batay sa bilang ng mga kalahating ilipat hanggang sa susunod na pagkuha o paglipat ng pawn</string>
   <string name="noGameFound">Walang nakitang laro</string>
+  <string name="maxDepthReached">Naabot na ang pinakamaatas na lalim!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maaring magsama ng maraming laro mula sa ginustong menu?</string>
+  <string name="openings">Mga Pagbubukas</string>
   <string name="openingExplorer">Pagbubukas ng tagalakbay</string>
   <string name="openingEndgameExplorer">Pagbubukas / endgame explorer</string>
   <string name="xOpeningExplorer">%s pagbubukas ng tagalakbay</string>
+  <string name="playFirstOpeningEndgameExplorerMove">I-play ang unang pagbubukas/tirang endgame-explorer</string>
   <string name="winPreventedBy50MoveRule">Nanalo na pinigilan ng 50-alituntunin ng galaw</string>
   <string name="lossSavedBy50MoveRule">Natalo naisave sa 50-alituntunin ng galaw</string>
   <string name="winOr50MovesByPriorMistake">Manalo o 50 gumagalaw sa pamamagitan ng dating pagkakamali</string>
@@ -366,6 +375,7 @@
   <string name="blackCheckmatesInOneMove">Magmamate ang Itim sa isang tira</string>
   <string name="retry">Subukan muli</string>
   <string name="reconnecting">Muling Kumukonekta</string>
+  <string name="noNetwork">Offline</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s kaibigan sa online</item>
     <item quantity="other">%s mga kaibigan sa online</item>
@@ -379,7 +389,6 @@
   <string name="block">Harangan</string>
   <string name="blocked">Naharangan</string>
   <string name="unblock">Huwag harangan</string>
-  <string name="followsYou">Sumusunod sa iyo</string>
   <string name="xStartedFollowingY">%1$s sinumulang sumunod sa iyo %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s tagasunod</item>
@@ -431,6 +440,7 @@
   <string name="movesPlayed">Mga Galaw na nagawa</string>
   <string name="whiteWins">Nanalo ang puti</string>
   <string name="blackWins">Nanalo ang itim</string>
+  <string name="drawRate">Porsiyento ng tabla</string>
   <string name="draws">Mga tabla</string>
   <string name="nextXTournament">Sunod na %s paligsahan:</string>
   <string name="averageOpponent">Karaniwang kalaban</string>
@@ -449,7 +459,10 @@
   <string name="ifNoneLeaveEmpty">Kung wala, iwang walang laman</string>
   <string name="profile">Profile</string>
   <string name="editProfile">I-edit ang profile</string>
+  <string name="setFlair">Itakda ang iyong flair</string>
+  <string name="flair">Flair</string>
   <string name="biography">Talambuhay</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Bansa o rehiyon</string>
   <string name="thankYou">Salamat!</string>
   <string name="socialMediaLinks">Mga link ng social media</string>
   <string name="oneUrlPerLine">Isang URL kada linya.</string>
@@ -474,6 +487,8 @@
   <string name="descPrivateHelp">Text na makikita lang ng mga team members mo. Pag na-set na, mapapalitan yung publikong deskripsyon para sa mga team members.</string>
   <string name="no">Hindi</string>
   <string name="yes">Oo</string>
+  <string name="website">Website</string>
+  <string name="mobile">Mobile</string>
   <string name="help">Tulong:</string>
   <string name="createANewTopic">Gumawa ng bagong paksa</string>
   <string name="topics">Mga paksa</string>

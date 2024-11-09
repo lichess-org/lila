@@ -45,7 +45,12 @@ final class UserTournament(env: Env, apiC: => Api) extends LilaController(env):
     Found(meOrFetch(name)): user =>
       apiC.jsonDownload:
         env.tournament.leaderboardApi
-          .byPlayerStream(user, maxPerSecond(name), getInt("nb") | Int.MaxValue)
+          .byPlayerStream(
+            user,
+            withPerformance = getBool("performance"),
+            maxPerSecond(name),
+            getInt("nb") | Int.MaxValue
+          )
           .map(env.tournament.apiJsonView.byPlayer)
 
   private def maxPerSecond(of: UserStr)(using ctx: Context) =

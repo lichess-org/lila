@@ -496,7 +496,6 @@
   <string name="block">Заблокувати</string>
   <string name="blocked">Заблоковано</string>
   <string name="unblock">Розблокувати</string>
-  <string name="followsYou">Спостерігає за вами</string>
   <string name="xStartedFollowingY">%1$s починає спостерігати за %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s спостерігач</item>

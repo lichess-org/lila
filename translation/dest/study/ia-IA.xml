@@ -36,6 +36,7 @@
   <string name="cloneStudy">Duplicar</string>
   <string name="studyPgn">PGN del studio</string>
   <string name="downloadAllGames">Discargar tote le partitas</string>
+  <string name="embedInYourWebsite">Incorpora in tu sito web</string>
   <string name="open">Aperir</string>
   <string name="studyNotFound">Studio non trovate</string>
   <string name="editChapter">Modificar capitulo</string>
@@ -79,4 +80,7 @@
   <string name="deleteTheStudyChatHistory">Deler le chronologia del chat in le studio? Iste action es irreversibile!</string>
   <string name="deleteStudy">Deler studio</string>
   <string name="whereDoYouWantToStudyThat">Ubi tu vole studiar isto?</string>
+  <string name="goodMove">Bon movimento</string>
+  <string name="mistake">Error</string>
+  <string name="blunder">Error grave</string>
 </resources>

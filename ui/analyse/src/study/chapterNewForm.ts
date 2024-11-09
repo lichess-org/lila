@@ -41,24 +41,34 @@ export class StudyChapterNewForm {
   editor: LichessEditor | null = null;
   editorFen: Prop<FEN | null> = prop(null);
   isDefaultName = toggle(true);
+  orientation: Color | 'automatic';
 
   constructor(
     private readonly send: StudySocketSend,
     readonly chapters: StudyChapters,
-    readonly setTab: () => void,
+    readonly isBroadcast: boolean,
+    readonly setChaptersTab: () => void,
     readonly root: AnalyseCtrl,
   ) {
     pubsub.on('analysis.closeAll', () => this.isOpen(false));
+    this.orientation = root.bottomColor();
   }
 
   open = () => {
     pubsub.emit('analysis.closeAll');
+    this.orientation = this.root.bottomColor();
     this.isOpen(true);
     this.loadVariants();
     this.initial(false);
   };
 
   toggle = () => (this.isOpen() ? this.isOpen(false) : this.open());
+
+  setTab = (key: ChapterTab) => {
+    this.tab(key);
+    if (key != 'pgn' && this.orientation == 'automatic') this.orientation = 'white';
+    this.root.redraw();
+  };
 
   loadVariants = () => {
     if (!this.variants.length)
@@ -78,7 +88,7 @@ export class StudyChapterNewForm {
     if (!dd.pgn) this.send('addChapter', dd);
     else importPgn(study.data.id, dd);
     this.isOpen(false);
-    this.setTab();
+    this.setChaptersTab();
   };
   startTour = async () => {
     const [tour] = await Promise.all([
@@ -105,8 +115,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
         attrs: { role: 'tab', title, tabindex: '0' },
         hook: onInsert(el => {
           const select = (e: Event) => {
-            ctrl.tab(key);
-            ctrl.root.redraw();
+            ctrl.setTab(key);
             e.preventDefault();
           };
           el.addEventListener('click', select);
@@ -195,7 +204,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       data.embed = true;
                       data.options = {
                         inlineCastling: true,
-                        orientation: currentChapter.setup.orientation,
+                        orientation: ctrl.orientation,
                         onChange: ctrl.editorFen,
                         coordinates: true,
                       };
@@ -319,17 +328,20 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h(
                 'select#chapter-orientation.form-control',
                 {
-                  hook: bind('change', e =>
-                    ctrl.editor?.setOrientation((e.target as HTMLInputElement).value as Color),
-                  ),
+                  hook: bind('change', e => {
+                    ctrl.orientation = (e.target as HTMLInputElement).value as Color;
+                    ctrl.editor?.setOrientation(ctrl.orientation);
+                  }),
                 },
-                [activeTab === 'pgn' && i18n.study.automatic, i18n.site.white, i18n.site.black].map(
-                  c => c && option(c, currentChapter.setup.orientation, c),
-                ),
+                [
+                  ...(activeTab === 'pgn' ? [['automatic', i18n.study.automatic]] : []),
+                  ['white', i18n.site.white],
+                  ['black', i18n.site.black],
+                ].map(([value, name]) => value && option(value, ctrl.orientation, name, { key: value })),
               ),
             ]),
           ]),
-          h('div.form-group', [
+          h('div.form-group' + (ctrl.isBroadcast ? '.none' : ''), [
             h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
             h(
               'select#chapter-mode.form-control',

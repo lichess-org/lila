@@ -56,18 +56,29 @@
   <string name="subscribeTitle">Suscríbete para ser notificado cuando comience cada ronda. Puedes alternar entre notificaciones de campana o de dispositivo para emisiones en las preferencias de tu cuenta.</string>
   <string name="uploadImage">Subir imagen del torneo</string>
   <string name="noBoardsYet">Aún no hay tableros. Estos aparecerán una vez se suban las partidas.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Los tableros pueden cargarse gracias a una fuente o a través de %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Los tableros pueden cargarse gracias a una fuente o a través de %s</string>
   <string name="startsAfter">Comienza en %s</string>
   <string name="startVerySoon">La transmisión comenzará muy pronto.</string>
   <string name="notYetStarted">La transmisión aún no ha comenzado.</string>
   <string name="officialWebsite">Sitio oficial</string>
   <string name="standings">Clasificación</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Más opciones en %s</string>
-  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">la página del webmaster</string>
+  <string name="officialStandings">Clasificación oficial</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Más opciones en %s</string>
+  <string name="webmastersPage">la página del webmaster</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una fuente PGN pública en tiempo real para esta ronda. También ofrecemos %s para una sincronización más rápida y eficiente.</string>
   <string name="embedThisBroadcast">Inserta esta transmisión en tu sitio web</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Inserta la %s en tu sitio web</string>
+  <string name="embedThisRound">Inserta la %s en tu sitio web</string>
   <string name="ratingDiff">Diferencia de valoración</string>
   <string name="gamesThisTournament">Partidas en este torneo</string>
   <string name="score">Resultado</string>
+  <string name="allTeams">Todos los equipos</string>
+  <string name="tournamentFormat">Formato del torneo</string>
+  <string name="tournamentLocation">Ubicación del torneo</string>
+  <string name="topPlayers">Mejores jugadores</string>
+  <string name="timezone">Zona horaria</string>
+  <string name="fideRatingCategory">Categoría de calificación de FIDE</string>
+  <string name="optionalDetails">Detalles opcionales</string>
+  <string name="upcomingBroadcasts">Próximas transmisiones</string>
+  <string name="pastBroadcasts">Transmisiones pasadas</string>
+  <string name="allBroadcastsByMonth">Ver todas las transmisiones por mes</string>
 </resources>

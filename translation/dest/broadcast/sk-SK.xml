@@ -58,17 +58,28 @@
   <string name="subscribeTitle">Prihláste sa, aby ste boli informovaní o začiatku každého kola. V nastaveniach účtu môžete prepnúť zvončekové alebo push upozornenia na vysielanie.</string>
   <string name="uploadImage">Nahrať obrázok pre turnaj</string>
   <string name="noBoardsYet">Zatiaľ žiadne šachovnice. Objavia sa po nahratí partií.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Šachovnice možno načítať pomocou zdroja alebo pomocou %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Šachovnice možno načítať pomocou zdroja alebo pomocou %s</string>
   <string name="startVerySoon">Vysielanie sa začne čoskoro.</string>
   <string name="notYetStarted">Vysielanie sa ešte nezačalo.</string>
   <string name="officialWebsite">Oficiálna webstránka</string>
   <string name="standings">Poradie</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Viac možností nájdete na %s</string>
-  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">stránke tvorcu</string>
+  <string name="officialStandings">Oficiálne poradie</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Viac možností nájdete na %s</string>
+  <string name="webmastersPage">stránke tvorcu</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Verejný zdroj PGN v reálnom čase pre toto kolo. Ponúkame tiež %s na rýchlejšiu a efektívnejšiu synchronizáciu.</string>
   <string name="embedThisBroadcast">Vložiť toto vysielanie na webovú stránku</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Vložiť %s na webovú stránku</string>
+  <string name="embedThisRound">Vložiť %s na webovú stránku</string>
   <string name="ratingDiff">Ratingový rozdiel</string>
   <string name="gamesThisTournament">Partie tohto turnaja</string>
   <string name="score">Skóre</string>
+  <string name="allTeams">Všetky tímy</string>
+  <string name="tournamentFormat">Formát turnaja</string>
+  <string name="tournamentLocation">Miesto konania turnaja</string>
+  <string name="topPlayers">Najlepší hráči</string>
+  <string name="timezone">Časové pásmo</string>
+  <string name="fideRatingCategory">Kategória FIDE ratingu</string>
+  <string name="optionalDetails">Nepovinné údaje</string>
+  <string name="upcomingBroadcasts">Najbližšie vysielanie</string>
+  <string name="pastBroadcasts">Predchádzajúce vysielania</string>
+  <string name="allBroadcastsByMonth">Zobraziť všetky vysielania podľa mesiacov</string>
 </resources>

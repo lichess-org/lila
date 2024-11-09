@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Figúra bráni alebo útočí na pole cez súperovu figúru.</string>
   <string name="zugzwang">Nevýhoda ťahu</string>
   <string name="zugzwangDescription">Súper je limitovaný vo svojich ťahoch a každý ťah zhorší jeho pozíciu.</string>
-  <string name="mix">Zdravá zmes</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Zdravá zmes</string>
   <string name="mixDescription">Od všetkého trochu. Neviete, čo môžete očakávať, a tak ste neustále pripravení na všetko! Presne ako v skutočných partiách.</string>
   <string name="playerGames">Vaše partie</string>
   <string name="playerGamesDescription">Vyhľadajte si úlohy vygenerované z Vašich partií alebo z partií iných hráčov.</string>

@@ -56,18 +56,29 @@
   <string name="subscribeTitle">Abonner på at blive underrettet, når hver runde starter. Du kan skifte mellem klokke- eller push-meddelelser for udsendelser i dine kontoindstillinger.</string>
   <string name="uploadImage">Upload turneringsbillede</string>
   <string name="noBoardsYet">Ingen brætter endnu. Disse vises når partier er uploadet.</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App', and links to https://lichess.org/broadcast/app">Brætter kan indlæses med en kilde eller via %s</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brætter kan indlæses med en kilde eller via %s</string>
   <string name="startsAfter">Starter efter %s</string>
   <string name="startVerySoon">Udsendelsen starter meget snart.</string>
   <string name="notYetStarted">Udsendelsen er endnu ikke startet.</string>
   <string name="officialWebsite">Officielt websted</string>
   <string name="standings">Stillinger</string>
-  <string name="iframeHelp" comment="%s is 'webmasters page', which is available for translation separately.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast.">Flere muligheder på %s</string>
-  <string name="webmastersPage" comment="Part of the longer string iframeHelp.&#10;&#10;Appears on broadcast pages for the person who set up the tournament broadcast. Links to https://lichess.org/developers#broadcast">webmasters side</string>
+  <string name="officialStandings">Officiel stilling</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Flere muligheder på %s</string>
+  <string name="webmastersPage">webmasters side</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">En offentlig, realtids PGN-kilde til denne runde. Vi tilbyder også en %s for hurtigere og mere effektiv synkronisering.</string>
   <string name="embedThisBroadcast">Indlejr denne udsendelse på dit website</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is defined by the creator of the broadcast and may be in a different language.">Indlejr %s på dit website</string>
+  <string name="embedThisRound">Indlejr %s på dit website</string>
   <string name="ratingDiff">Rating-forskel</string>
   <string name="gamesThisTournament">Partier i denne turnering</string>
   <string name="score">Score</string>
+  <string name="allTeams">Alle hold</string>
+  <string name="tournamentFormat">Turneringsformat</string>
+  <string name="tournamentLocation">Turneringssted</string>
+  <string name="topPlayers">Topspillere</string>
+  <string name="timezone">Tidszone</string>
+  <string name="fideRatingCategory">FIDE-ratingkategori</string>
+  <string name="optionalDetails">Valgfri detaljer</string>
+  <string name="upcomingBroadcasts">Kommende udsendelser</string>
+  <string name="pastBroadcasts">Tidligere udsendelser</string>
+  <string name="allBroadcastsByMonth">Vis alle udsendelser efter måned</string>
 </resources>

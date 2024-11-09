@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Дата додавання (старіші)</string>
   <string name="recentlyUpdated">Нещодавно оновлені</string>
   <string name="mostPopular">Найпопулярніші</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">За алфавітом</string>
+  <string name="alphabetical">За алфавітом</string>
   <string name="addNewChapter">Додати новий розділ</string>
   <plurals name="nbChapters">
     <item quantity="one">%s розділ</item>
@@ -73,7 +73,7 @@
   <string name="downloadGame">Завантажити гру</string>
   <string name="studyUrl">Посилання на дослідження</string>
   <string name="currentChapterUrl">Посилання на цей розділ</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Ви можете вставити цей код на форумі для вбудування</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Ви можете вставити цей код на форумі для вбудування</string>
   <string name="startAtInitialPosition">Старт з початкової позиції</string>
   <string name="startAtX">Почати з %s</string>
   <string name="embedInYourWebsite">Вбудувати на своєму сайті</string>
@@ -104,9 +104,9 @@
   <string name="startFromInitialPosition">Старт з початкової позиції</string>
   <string name="editor">Редактор</string>
   <string name="startFromCustomPosition">Почати з обраної позиції</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Завантажте гру за посиланням</string>
+  <string name="loadAGameByUrl">Завантажте гру за посиланням</string>
   <string name="loadAPositionFromFen">Завантажити позицію з FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Завантажити гру з PGN</string>
+  <string name="loadAGameFromPgn">Завантажити гру з PGN</string>
   <string name="automatic">Автоматично</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Вставте ваш PGN текст тут, до %s гри</item>
@@ -172,7 +172,7 @@
   <string name="popularTopics">Популярні теми</string>
   <string name="manageTopics">Управління темами</string>
   <string name="back">Назад</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Грати знову</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Що б ви грали в цій позиції?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Вітаємо! Ви завершили цей урок.</string>
+  <string name="playAgain">Грати знову</string>
+  <string name="whatWouldYouPlay">Що б ви грали в цій позиції?</string>
+  <string name="youCompletedThisLesson">Вітаємо! Ви завершили цей урок.</string>
 </resources>

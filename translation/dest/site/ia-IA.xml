@@ -348,7 +348,6 @@
   <string name="block">Blocar</string>
   <string name="blocked">Blocate</string>
   <string name="unblock">Disblocar</string>
-  <string name="followsYou">Te seque</string>
   <string name="xStartedFollowingY">%1$s comenciava a sequer %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sequitores</item>

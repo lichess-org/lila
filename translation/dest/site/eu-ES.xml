@@ -435,7 +435,6 @@
   <string name="block">Blokeatu</string>
   <string name="blocked">Blokeatuta</string>
   <string name="unblock">Desblokeatu</string>
-  <string name="followsYou">Zu jarraitzen</string>
   <string name="xStartedFollowingY">%1$s  %2$s  jarraitzen hasi da</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s jarraitzaile</item>
@@ -993,4 +992,5 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="lichessPatronInfo">Lichess software librea da.
 Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
   <string name="nothingToSeeHere">Hemen ez dago ezer zuretzat.</string>
+  <string name="stats">Estatistikak</string>
 </resources>

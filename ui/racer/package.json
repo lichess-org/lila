@@ -13,10 +13,9 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chess": "workspace:*",
-    "chessops": "^0.14.1",
+    "chessops": "^0.14.2",
     "common": "workspace:*",
-    "puz": "workspace:*",
-    "snabbdom": "3.6.2"
+    "puz": "workspace:*"
   },
   "lichess": {
     "bundles": "src/racer.ts"

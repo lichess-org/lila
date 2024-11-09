@@ -432,7 +432,6 @@
   <string name="block">بلۆک</string>
   <string name="blocked">بلۆککراو</string>
   <string name="unblock">لابردنی بلۆک</string>
-  <string name="followsYou">شوێنکەوتووەکانت</string>
   <string name="xStartedFollowingY">%1$s شوێنی تۆ کەوت %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s شوێنکەوتوو</item>

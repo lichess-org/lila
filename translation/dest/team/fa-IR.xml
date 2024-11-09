@@ -53,7 +53,7 @@
   <string name="upcomingTournaments">مسابقات پیش رو</string>
   <string name="completedTourns">مسابقاتِ کامل شده</string>
   <string name="declinedRequests">درخواست‌های رد شده</string>
-  <string name="joinLichessVariantTeam">برای خبرها و رویدادها به تیم رسمی %s بپیوندید</string>
+  <string name="joinLichessVariantTeam">برای خبرها و رویدادها به یَران رسمی %s بپیوندید</string>
   <string name="teamPage">صفحه تیم ها</string>
   <string name="thisTeamBattleIsOver">این مسابقات به پایان رسیده‌است و تیم‌ها دیگر نمی‌توانند به‌روز شوند.</string>
   <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>

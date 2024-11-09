@@ -293,9 +293,6 @@ final class PlayerRepo(private[tournament] val coll: Coll)(using Executor):
       case _                                        => none
     }
 
-  def setPerformance(player: Player, performance: Int) =
-    coll.updateField($id(player.id), "e", performance).void
-
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players
       .flatMap: p =>

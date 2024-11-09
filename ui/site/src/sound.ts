@@ -2,6 +2,7 @@ import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
 import { charRole } from 'chess';
+import { defined } from 'common';
 
 type Name = string;
 type Path = string;
@@ -88,6 +89,11 @@ export default new (class implements SoundI {
     this.music(o);
   }
 
+  async playAndDelayMateResultIfNecessary(name: Name): Promise<void> {
+    if (this.theme === 'standard') this.play(name);
+    else setTimeout(() => this.play(name), 600);
+  }
+
   async countdown(count: number, interval = 500): Promise<void> {
     if (!this.enabled()) return;
     try {
@@ -126,13 +132,14 @@ export default new (class implements SoundI {
   enabled = () => this.theme !== 'silent';
 
   speech = (v?: boolean): boolean => {
-    if (v !== undefined) this.speechStorage.set(v);
+    if (defined(v)) this.speechStorage.set(v);
     return this.speechStorage.get();
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
+    if (typeof window.speechSynthesis === 'undefined') return false;
     try {
-      if (cut) speechSynthesis.cancel();
+      if (cut) window.speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
@@ -142,7 +149,7 @@ export default new (class implements SoundI {
         msg.onstart = () => this.listeners.forEach(l => l('start', text));
         msg.onend = () => this.listeners.forEach(l => l('stop'));
       }
-      speechSynthesis.speak(msg);
+      window.speechSynthesis.speak(msg);
       return true;
     } catch (err) {
       console.error(err);

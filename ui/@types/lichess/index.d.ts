@@ -105,6 +105,7 @@ interface SoundI {
   move: SoundMove;
   load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
+  playAndDelayMateResultIfNecessary(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
   countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;

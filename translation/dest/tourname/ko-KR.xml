@@ -14,8 +14,8 @@
   <string name="easternRapid" comment="easternRapid&#10;Eastern refers to the time zone these tournaments are scheduled in for, accommodating East Asia, Oceania and the Pacific.&#10;&#10;Please keep this string short and consistent with 'Eastern Rapid Arena' and 'Eastern %s Arena'.">이스턴 래피드</string>
   <string name="easternClassicalArena">이스턴 클래시컬 경기장</string>
   <string name="easternClassical">이스턴 클래시컬</string>
-  <string name="easternXArena">이스턴 %s 경기장</string>
-  <string name="easternX">이스턴 %s</string>
+  <string name="easternXArena">동부 %s 경기장</string>
+  <string name="easternX">동부 %s</string>
   <string name="weeklyRapidArena">주간 래피드 아레나</string>
   <string name="weeklyRapid">주간 래피드</string>
   <string name="weeklyClassicalArena">주간 클래시컬 아레나</string>

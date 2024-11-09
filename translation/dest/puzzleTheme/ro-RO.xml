@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">O piesă atacă sau apară un patrat, printr-o piesă inamică.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Adversarul este limitat în mișcările pe care le poate face, iar toate mișcările îi înrăutățesc poziția.</string>
-  <string name="mix">Mixt</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Mixt</string>
   <string name="mixDescription">Un pic din toate. Nu știi la ce să te aștepți, așa că rămâi gata pentru orice! La fel ca în jocurile reale.</string>
   <string name="playerGames">Partide jucători</string>
   <string name="playerGamesDescription">Caută puzzle-uri generate din partidele tale sau din partidele unui alt jucător.</string>

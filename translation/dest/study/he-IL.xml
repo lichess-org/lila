@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">תאריך הוספה (הישן ביותר)</string>
   <string name="recentlyUpdated">עודכן לאחרונה</string>
   <string name="mostPopular">הכי פופולריים</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">בסדר האלפבית</string>
+  <string name="alphabetical">בסדר האלפבית</string>
   <string name="addNewChapter">הוסיפו פרק חדש</string>
   <plurals name="nbChapters">
     <item quantity="one">פרק %s</item>
@@ -73,7 +73,7 @@
   <string name="downloadGame">הורדת המשחק</string>
   <string name="studyUrl">כתובת לוח הלמידה</string>
   <string name="currentChapterUrl">כתובת האינטרנט של הפרק הנוכחי</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">את/ה יכול/ה לפרסם את זה בפורום כדי להטמיע</string>
+  <string name="youCanPasteThisInTheForumToEmbed">את/ה יכול/ה לפרסם את זה בפורום כדי להטמיע</string>
   <string name="startAtInitialPosition">התחילו בעמדת הפתיחה</string>
   <string name="startAtX">התחילו ב%s</string>
   <string name="embedInYourWebsite">הטמעה באתר שלך</string>
@@ -104,9 +104,9 @@
   <string name="startFromInitialPosition">התחילו מהעמדה ההתחלתית</string>
   <string name="editor">עורך</string>
   <string name="startFromCustomPosition">התחילו מעמדה מותאמת אישית</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">טען משחק ע\"י כתובת אינטרנט</string>
+  <string name="loadAGameByUrl">טען משחק ע\"י כתובת אינטרנט</string>
   <string name="loadAPositionFromFen">טען עמדה מFEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">טען משחק מPGN</string>
+  <string name="loadAGameFromPgn">טען משחק מPGN</string>
   <string name="automatic">אוטומטי</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">הדבק את טקסט הPGN שלך כאן, עד למשחק %s</item>
@@ -172,7 +172,8 @@
   <string name="popularTopics">נושאים פופולריים</string>
   <string name="manageTopics">עריכת נושאים</string>
   <string name="back">חזרה</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">הפעל שוב</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">מה הייתם משחקים בעמדה הזו?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">מזל טוב! סיימתם את השיעור.</string>
+  <string name="playAgain">הפעל שוב</string>
+  <string name="whatWouldYouPlay">מה הייתם משחקים בעמדה הזו?</string>
+  <string name="youCompletedThisLesson">מזל טוב! סיימתם את השיעור.</string>
+  <string name="perPage">%s לכל עמוד</string>
 </resources>

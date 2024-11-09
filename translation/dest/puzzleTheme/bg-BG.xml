@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Фигура атакува или защитава поле зад противникова фигура.</string>
   <string name="zugzwang">Цугцванг</string>
   <string name="zugzwangDescription">Опонентът има малко възможни ходове и всеки един от тях води до влошаване на положението му.</string>
-  <string name="mix">От всичко по малко</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">От всичко по малко</string>
   <string name="mixDescription">По малко от всичко. Не знаете какво да очаквате, така че бъдете готови за всичко! Точно като в истинските игри.</string>
   <string name="playerGames">Партии на играча</string>
   <string name="playerGamesDescription">Разгледайте пъзели генерирани от вашите игри, или игрите на други играчи.</string>

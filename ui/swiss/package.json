@@ -15,8 +15,7 @@
     "chat": "workspace:*",
     "common": "workspace:*",
     "flatpickr": "^4.6.13",
-    "game": "workspace:*",
-    "snabbdom": "3.6.2"
+    "game": "workspace:*"
   },
   "lichess": {
     "bundles": "src/swiss.ts"

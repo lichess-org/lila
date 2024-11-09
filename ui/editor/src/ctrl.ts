@@ -235,10 +235,10 @@ export default class EditorCtrl {
     this.fullmoves = setup.fullmoves;
 
     const castles = Castles.fromSetup(setup);
-    this.castlingToggles['K'] = defined(castles.rook.white.h);
-    this.castlingToggles['Q'] = defined(castles.rook.white.a);
-    this.castlingToggles['k'] = defined(castles.rook.black.h);
-    this.castlingToggles['q'] = defined(castles.rook.black.a);
+    this.castlingToggles['Q'] = defined(castles.rook.white.a) || this.castlingRights.has(0);
+    this.castlingToggles['K'] = defined(castles.rook.white.h) || this.castlingRights.has(7);
+    this.castlingToggles['q'] = defined(castles.rook.black.a) || this.castlingRights.has(56);
+    this.castlingToggles['k'] = defined(castles.rook.black.h) || this.castlingRights.has(63);
   };
 
   setFen = (fen: string): boolean =>

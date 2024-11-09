@@ -74,7 +74,7 @@
   <string name="deleteFromHere">Usuń od tego miejsca</string>
   <string name="collapseVariations">Zwiń warianty</string>
   <string name="expandVariations">Rozwiń warianty</string>
-  <string name="forceVariation">Przedstaw jako wariant</string>
+  <string name="forceVariation">Zamień w wariant</string>
   <string name="copyVariationPgn">Skopiuj wariant PGN</string>
   <string name="move">Ruch</string>
   <string name="variantLoss">Wariant przegrywający</string>
@@ -107,7 +107,7 @@
   <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="openingEndgameExplorer">Biblioteka otwarć i końcówek</string>
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
-  <string name="playFirstOpeningEndgameExplorerMove">Zagraj pierwsze posunięcie z przeglądarki otwarć/końcówek</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Zagraj pierwsze posunięcie z biblioteki otwarć</string>
   <string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
   <string name="lossSavedBy50MoveRule">Bez przegranej ze względu na regułę 50 ruchów</string>
   <string name="winOr50MovesByPriorMistake">Zwycięstwo lub 50 posunięć bez rozstrzygnięcia</string>
@@ -496,7 +496,6 @@
   <string name="block">Zablokuj</string>
   <string name="blocked">Zablokowany</string>
   <string name="unblock">Odblokuj</string>
-  <string name="followsYou">Obserwuje Cię</string>
   <string name="xStartedFollowingY">%1$s obserwuje %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s obserwujący</item>

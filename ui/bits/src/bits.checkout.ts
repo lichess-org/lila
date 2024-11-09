@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import { spinnerHtml } from 'common/spinner';
 import { contactEmail } from './bits';
 import { alert, prompt } from 'common/dialog';
+import { myUserId } from 'common';
 
 export interface Pricing {
   currency: string;
@@ -71,14 +72,14 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
     }
     amount = Math.max(pricing.min, Math.min(pricing.max, amount));
     $(this).text(`${pricing.currency} ${amount}`);
-    $(this).siblings('input').data('amount', amount);
+    ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
   });
 
   const $userInput = $checkout.find('input.user-autocomplete');
 
   const getGiftDest = () => {
     const raw = ($userInput.val() as string).trim().toLowerCase();
-    return raw != document.body.dataset.user && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
+    return raw != myUserId() && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
   };
 
   const toggleCheckout = () => {

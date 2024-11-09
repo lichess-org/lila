@@ -29,11 +29,12 @@ import { defined, prop, Prop, propWithEffect, Toggle, toggle, requestIdleCallbac
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
-import { pgnToTree, mergeSolution } from './moveTree';
+import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
 import { Role, Move, Outcome } from 'chessops/types';
 import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
+import Report from './report';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
 import { Redraw } from 'common/snabbdom';
@@ -73,11 +74,14 @@ export default class PuzzleCtrl implements ParentCtrl {
   resultSent: boolean;
   lastFeedback: 'init' | 'fail' | 'win' | 'good' | 'retry';
   canViewSolution = toggle(false);
+  showHint = toggle(false);
+  hintHasBeenShown = toggle(false);
   autoScrollRequested: boolean;
   autoScrollNow: boolean;
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded = false;
+  private readonly report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -125,6 +129,7 @@ export default class PuzzleCtrl implements ParentCtrl {
             if (!node.threat || node.threat.depth <= threat.depth) node.threat = threat;
           } else if (!node.ceval || node.ceval.depth <= ev.depth) node.ceval = ev;
           if (work.path === this.path) {
+            this.report.checkForMultipleSolutions(ev, this);
             this.setAutoShapes();
             this.redraw();
           }
@@ -135,6 +140,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
+    this.report = new Report(this.data.puzzle.id);
 
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
@@ -164,6 +170,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList)!;
     this.mainline = treeOps.mainlineNodeList(this.tree.root);
+    this.showHint(false);
   };
 
   setChessground = (cg: CgApi): void => {
@@ -221,6 +228,8 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.initialNode = this.tree.nodeAtPath(initialPath);
     this.pov = this.initialNode.ply % 2 == 1 ? 'black' : 'white';
     this.isDaily = location.href.endsWith('/daily');
+    this.hintHasBeenShown(false);
+    this.canViewSolution(false);
 
     this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -237,7 +246,7 @@ export default class PuzzleCtrl implements ParentCtrl {
         this.canViewSolution(true);
         this.redraw();
       },
-      this.rated() ? 4000 : 1000,
+      this.rated() ? 4000 : 2000,
     );
 
     this.withGround(g => {
@@ -311,10 +320,11 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   userMove = (orig: Key, dest: Key): void => {
     this.justPlayed = orig;
-    if (
-      !this.promotion.start(orig, dest, { submit: this.playUserMove, show: this.voiceMove?.promotionHook() })
-    )
-      this.playUserMove(orig, dest);
+    const isPromoting = this.promotion.start(orig, dest, {
+      submit: this.playUserMove,
+      show: this.voiceMove?.promotionHook(),
+    });
+    if (!isPromoting) this.playUserMove(orig, dest);
     this.pluginUpdate(this.node.fen);
   };
 
@@ -493,11 +503,16 @@ export default class PuzzleCtrl implements ParentCtrl {
       g.setAutoShapes(
         computeAutoShapes({
           ...this,
-          ground: g,
           node: this.node,
+          hint: this.hintSquare(),
         }),
       ),
     );
+
+  private hintSquare = () => {
+    const hint = this.showHint() ? nextCorrectMove(this) : undefined;
+    return hint?.from;
+  };
 
   canUseCeval = (): boolean => this.mode === 'view' && !this.outcome();
 
@@ -575,6 +590,18 @@ export default class PuzzleCtrl implements ParentCtrl {
     if (last(this.mainline)?.puzzle == 'fail' && this.mode != 'view') maxValidPly -= 1;
     const newPly = Math.min(Math.max(this.node.ply + plyDelta, 0), maxValidPly);
     this.userJump(fromNodeList(this.mainline.slice(0, newPly + 1)));
+  };
+
+  toggleHint = (): void => {
+    if (!this.showHint()) {
+      this.hintHasBeenShown(true);
+      this.userJump(treePath.fromNodeList(this.mainline.filter(node => node.puzzle != 'fail')));
+    }
+    this.showHint.toggle();
+    this.setAutoShapes();
+    const hint = this.hintSquare();
+    this.withGround(g => g.selectSquare(hint ? makeSquare(hint) : null));
+    this.redraw();
   };
 
   viewSolution = (): void => {
@@ -658,9 +685,6 @@ export default class PuzzleCtrl implements ParentCtrl {
     static: new Set(this.opts.themes.static.split(' ')),
   };
   toggleRated = () => this.rated(!this.rated());
-  // tsc 5.6 --noCheck can generate conflicts on private member types of the same class imported
-  // from different paths. This ts-ignore is a workaround to avoid the error. TODO
-  // @ts-ignore
   getCeval = () => this.ceval;
   ongoing = false;
   getNode = () => this.node;

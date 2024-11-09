@@ -38,7 +38,7 @@ final class PuzzleSelector(
         def switchPath(withRetries: Int)(tier: PuzzleTier) =
           pathApi
             .nextFor(angle, tier, session.settings.difficulty, session.previousPaths)
-            .orFail(s"No puzzle path for ${me.username} $angle $tier")
+            .orFail(s"No puzzle path for selection ${me.username} $angle $tier")
             .flatMap { pathId =>
               val newSession = session.switchTo(pathId)
               sessionApi.set(newSession)

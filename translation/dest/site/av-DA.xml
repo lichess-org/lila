@@ -426,7 +426,6 @@
   <string name="block">Гьукъизе</string>
   <string name="blocked">Гьукъана</string>
   <string name="unblock">Гьукъи нахъе босизе</string>
-  <string name="followsYou">Дуда нахъвилълъуна</string>
   <string name="xStartedFollowingY">%1$s %2$s-(и)да нахъвилълъана</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s нахъвилълъунев</item>

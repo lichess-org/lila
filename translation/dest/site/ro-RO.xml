@@ -466,7 +466,6 @@
   <string name="block">Blocare</string>
   <string name="blocked">Blocat</string>
   <string name="unblock">Deblocare</string>
-  <string name="followsYou">Vă urmărește</string>
   <string name="xStartedFollowingY">%1$s a început să vă urmărească %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s urmăritor</item>

@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">Ein situasjon der ei brikke går til åtak gjennom ei eller fleire andre brikker, gjerne brikker som høyrer til motspelaren.</string>
   <string name="zugzwang">Trekktvang</string>
   <string name="zugzwangDescription">Ei stilling der alle moglege trekk skadar stillinga.</string>
-  <string name="mix">Blanda drops</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Blanda drops</string>
   <string name="mixDescription">Litt av alt. Du veit ikkje kva du blir møtt med, så du må vera førebudd på det meste. Nett som i verkelege parti.</string>
   <string name="playerGames">Spelar parti</string>
   <string name="playerGamesDescription">Finn oppgåver generert frå dine eller andre sine parti.</string>

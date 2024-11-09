@@ -78,7 +78,7 @@ final class TournamentForm(val helpers: Helpers, showUi: TournamentShow)(
             br,
             br,
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id)):
-              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm"):
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm"):
                 trans.site.cancelTournament()
           )
         )

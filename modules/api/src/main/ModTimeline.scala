@@ -10,7 +10,6 @@ import lila.playban.{ TempBan, PlaybanApi }
 import lila.shutup.{ PublicLine, ShutupApi }
 import lila.core.perm.{ Permission, Granter }
 import lila.core.userId.ModId
-import lila.report.Reason
 
 case class ModTimeline(
     user: User,
@@ -28,7 +27,7 @@ case class ModTimeline(
     val appealMsgs: List[Event] = appeal.so: a =>
       a.msgs.toList.takeWhile: msg =>
         a.mutedSince.fold(true)(msg.at.isBefore)
-    val playBans: List[Event] = playbanRecord.so(_.bans.toList).toNel.map(PlayBans(_)).toList
+    val playBans: List[Event] = playbanRecord.so(_.bans.toList).map(pb => PlayBans(NonEmptyList.one(pb)))
     val concat: List[Event] =
       modLog ::: appealMsgs ::: notes ::: reportEvents ::: playBans ::: flaggedPublicLines
     // latest first
@@ -114,7 +113,7 @@ object ModTimeline:
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
       case _: PlayBans                                     => angle != Angle.Comm
-      case l: Modlog if l.action == Modlog.chatTimeout     => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.chatTimeout     => angle != Angle.Play
       case l: Modlog if l.action == Modlog.deletePost      => angle != Angle.Play
       case l: Modlog if l.action == Modlog.disableTeam     => angle != Angle.Play
       case l: Modlog if l.action == Modlog.teamKick        => angle != Angle.Play
@@ -126,7 +125,7 @@ object ModTimeline:
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true
       case r: ReportNewAtom if r.report.is(_.Comm) => angle != Angle.Play
-      case _: PublicLine                           => angle != Angle.Play
+      case _: PublicLine                           => angle == Angle.Comm
       case _                                       => true
 
 final class ModTimelineApi(
@@ -139,14 +138,15 @@ final class ModTimelineApi(
     userRepo: lila.user.UserRepo
 )(using Executor)(using scheduler: Scheduler):
 
-  def load(user: User, withPlayBans: Boolean)(using Me): Fu[ModTimeline] =
+  def load(user: User, withPlayBans: Boolean)(using me: Me): Fu[ModTimeline] =
     for
       modLogAll <- Granter(_.ModLog).so(modLogApi.userHistory(user.id))
       modLog = modLogAll.filter(filterModLog)
       appeal   <- Granter(_.Appeals).so(appealApi.byId(user))
       notesAll <- noteApi.getForMyPermissions(user, Max(50))
-      notes = notesAll.filter(filterNote)
-      reportsAll <- Granter(_.SeeReport).so(reportApi.allReportsAbout(user, Max(50)))
+      notes       = notesAll.filter(filterNote)
+      loadReports = Granter(_.SeeReport) && me.isnt(user)
+      reportsAll <- loadReports.so(reportApi.allReportsAbout(user, Max(50)))
       reports = reportsAll.filter(filterReport)
       playban <- withPlayBans.so(Granter(_.SeeReport)).so(playBanApi.fetchRecord(user))
       lines   <- Granter(_.ChatTimeout).so(shutupApi.getPublicLines(user.id))

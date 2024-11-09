@@ -187,9 +187,7 @@ final private class RelaySync(
       relay = makeRelayFor(game, game.root.mainlinePath).some
     )
     _ <- studyApi.doAddChapter(study, chapter, sticky = false, who(study.ownerId))
-  yield
-    preview.invalidate(study.id)
-    chapter
+  yield chapter
 
   private val moveOpts = MoveOpts(
     write = true,

@@ -194,7 +194,7 @@ function oauth({ danger }: { danger: boolean }) {
       const el = document.getElementById('oauth-authorize')!;
       el.removeAttribute('disabled');
       el.className = 'button';
-      if (danger) el.classList.add('button-red', 'confirm', 'text');
+      if (danger) el.classList.add('button-red', 'ok-cancel-confirm', 'text');
     },
     danger ? 5000 : 2000,
   );

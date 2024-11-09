@@ -330,7 +330,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="block">Blokla</string>
   <string name="blocked">Bloklanan</string>
   <string name="unblock">Blokdan aç</string>
-  <string name="followsYou">Sizi yzarlaýar</string>
   <string name="xStartedFollowingY">%1$s %2$s agzany yzarlamaga başlady</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s yzarlaýjy</item>

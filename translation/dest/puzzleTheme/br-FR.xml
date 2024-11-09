@@ -20,6 +20,6 @@
   <string name="short">Poelladenn verr</string>
   <string name="veryLong">Poelladenn hir-tre</string>
   <string name="zugzwang">Zugzwang</string>
-  <string name="mix">A bep seurt</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">A bep seurt</string>
   <string name="mixDescription">A bep seurt. N\'ouzit ket petra gortoz hag e mod-se e voc\'h prest evit pep tra! Heñvel ouzh ar c\'hrogadoù gwir.</string>
 </resources>

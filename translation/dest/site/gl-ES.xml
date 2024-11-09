@@ -392,7 +392,7 @@
   <string name="startedStreaming">comezou unha retransmisión</string>
   <string name="xStartedStreaming">%s comezou unha retransmisión</string>
   <string name="averageElo">Puntuación media</string>
-  <string name="location">Ubicación</string>
+  <string name="location">Lugar</string>
   <string name="filterGames">Filtrar partidas</string>
   <string name="reset">Restablecer</string>
   <string name="apply">Aplicar</string>
@@ -436,7 +436,6 @@
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
-  <string name="followsYou">Séguete</string>
   <string name="xStartedFollowingY">%1$s comezou a seguir a %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidor</item>

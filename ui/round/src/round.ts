@@ -12,6 +12,8 @@ import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
 import { pubsub } from 'common/pubsub';
+import { myUserId } from 'common';
+import { alert } from 'common/dialog';
 
 const patch = init([classModule, attributesModule]);
 
@@ -115,8 +117,13 @@ async function boot(
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
     chatOpts.instance = makeChat(chatOpts);
-    if (!data.tournament && !data.simul && !data.swiss)
+    if (!data.tournament && !data.simul && !data.swiss) {
       opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));
+      if (myUserId())
+        chatOpts.instance.listenToIncoming(line => {
+          if (line.u == 'lichess' && line.t.toLowerCase().startsWith(`warning, ${myUserId()}`)) alert(line.t);
+        });
+    }
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')

@@ -16,8 +16,7 @@
   "dependencies": {
     "@types/webrtc": "^0.0.44",
     "common": "workspace:*",
-    "peerjs": "^1.5.4",
-    "snabbdom": "3.6.2"
+    "peerjs": "^1.5.4"
   },
   "lichess": {
     "bundles": "src/palantir.ts"

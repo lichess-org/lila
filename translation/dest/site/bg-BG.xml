@@ -435,7 +435,6 @@
   <string name="block">Блокирай</string>
   <string name="blocked">Блокирани</string>
   <string name="unblock">Отблокирай</string>
-  <string name="followsYou">Следва ви</string>
   <string name="xStartedFollowingY">%1$s започна да следва %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s последователи</item>
