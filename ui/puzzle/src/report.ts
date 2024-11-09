@@ -12,7 +12,6 @@ export default class Report {
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
   tsHideReportDialog: StoredProp<number>;
 
-
   // bump when logic is changed, to distinguish cached clients from new ones
   private version = 1;
 
