@@ -1,10 +1,15 @@
 import { propWithEffect, toggle as commonToggle } from 'common';
-import * as prop from 'common/storage';
 import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import type { VoiceCtrl, VoiceModule } from './interfaces';
 import type { VoiceMove } from './move/interfaces';
 import { Mic } from './mic';
 import { flash } from './view';
+import {
+  once,
+  storedBooleanProp,
+  storedStringPropWithEffect,
+  storedBooleanPropWithEffect,
+} from 'common/storage';
 
 export * from './interfaces';
 export * from './move/interfaces';
@@ -30,16 +35,16 @@ export function makeVoice(opts: {
 }): VoiceCtrl {
   let keyupTimeout: number;
   const mic = new Mic();
-  const enabled = prop.storedBooleanProp('voice.on', false);
+  const enabled = storedBooleanProp('voice.on', false);
   const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
 
-  const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
+  const pushTalk = storedBooleanPropWithEffect('voice.pushTalk', false, val => {
     mic.stop();
     enabled(val);
     if (enabled()) mic.start(!val);
   });
 
-  const lang = prop.storedStringPropWithEffect('voice.lang', 'en', code => {
+  const lang = storedStringPropWithEffect('voice.lang', 'en', code => {
     if (code === mic.lang) return;
     mic.setLang(code);
     opts
@@ -84,7 +89,7 @@ export function makeVoice(opts: {
       enabled(false);
       pushTalk(false);
     } else enabled(!enabled()) ? mic.start() : mic.stop();
-    if (opts.tpe === 'move' && prop.once('voice.rtfm')) showHelp(true);
+    if (opts.tpe === 'move' && once('voice.rtfm')) showHelp(true);
   }
 
   function micId(deviceId?: string) {

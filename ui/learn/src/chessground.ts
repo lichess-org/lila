@@ -1,7 +1,6 @@
-import { Config as CgConfig } from 'chessground/config';
-import { h, VNode } from 'snabbdom';
-import { RunCtrl } from './run/runCtrl';
-import * as Prefs from 'common/prefs';
+import { h, type VNode } from 'snabbdom';
+import type { RunCtrl } from './run/runCtrl';
+import { Coords } from 'common/prefs';
 import { Chessground as makeChessground } from 'chessground';
 
 export interface Shape {
@@ -32,7 +31,7 @@ const makeConfig = (ctrl: RunCtrl): CgConfig => ({
   fen: '8/8/8/8/8/8/8/8',
   blockTouchScroll: true,
   coordinates: true,
-  coordinatesOnSquares: ctrl.pref.coords === Prefs.Coords.All,
+  coordinatesOnSquares: ctrl.pref.coords === Coords.All,
   movable: { free: false, color: undefined, showDests: ctrl.pref.destination },
   drawable: { enabled: false },
   draggable: { enabled: true },

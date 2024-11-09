@@ -1,4 +1,4 @@
-import { GameData, StatusName, Status } from './interfaces';
+import type { GameData, StatusName, Status } from './interfaces';
 
 // https://github.com/lichess-org/scalachess/blob/master/core/src/main/scala/Status.scala
 

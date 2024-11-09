@@ -1,8 +1,7 @@
 import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
-import { charRole } from 'chess';
-import { defined } from 'common';
+import { defined, charToRole } from 'common';
 
 type Name = string;
 type Path = string;
@@ -139,7 +138,9 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) => {
     if (typeof window.speechSynthesis === 'undefined') return false;
     try {
-      if (cut) window.speechSynthesis.cancel();
+      if (cut || !speechSynthesis.speaking || !speechSynthesis.pending) {
+        speechSynthesis.cancel();
+      }
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
@@ -166,7 +167,7 @@ export default new (class implements SoundI {
 
   set = () => this.theme;
 
-  saySan(san?: San, cut?: boolean) {
+  saySan(san?: San, cut?: boolean, force?: boolean) {
     const text = !san
       ? 'Game start'
       : san.includes('O-O-O#')
@@ -192,7 +193,7 @@ export default new (class implements SoundI {
                         const code = c.charCodeAt(0);
                         if (code > 48 && code < 58) return c; // 1-8
                         if (code > 96 && code < 105) return c.toUpperCase();
-                        return charRole(c) || c;
+                        return charToRole(c) || c;
                       })
                       .join(' ')
                       .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
@@ -200,7 +201,7 @@ export default new (class implements SoundI {
                       .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
                       .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
                       .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
-    this.say(text, cut);
+    this.say(text, cut, force);
   }
 
   preloadBoardSounds() {
@@ -224,13 +225,10 @@ export default new (class implements SoundI {
           $('#warn-no-autoplay').addClass('shown');
           resolve();
         }, 400);
-        this.ctx
-          ?.resume()
-          .then(() => {
-            clearTimeout(resumeTimer);
-            resolve();
-          })
-          .catch(resolve);
+        this.ctx?.resume().then(() => {
+          clearTimeout(resumeTimer);
+          resolve();
+        });
       });
     if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
@@ -272,8 +270,8 @@ class Sound {
 
 function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
-    ? new window.webkitAudioContext()
+    ? new window.webkitAudioContext({ latencyHint: 'interactive' })
     : typeof AudioContext !== 'undefined'
-      ? new AudioContext()
+      ? new AudioContext({ latencyHint: 'interactive' })
       : undefined;
 }

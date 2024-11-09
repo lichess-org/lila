@@ -1,8 +1,8 @@
 import { throttlePromiseDelay } from 'common/timing';
 import { json, form } from 'common/xhr';
-import SwissCtrl from './ctrl';
+import type SwissCtrl from './ctrl';
 import { isOutcome } from './util';
-import { Sheet } from './interfaces';
+import type { Sheet } from './interfaces';
 
 // when the tournament no longer exists
 const onFail = () => site.reload();

@@ -1,4 +1,4 @@
-import { Pubsub, PubsubCallback, PubsubEvent } from 'common/pubsub';
+import type { Pubsub, PubsubCallback, PubsubEvent } from 'common/pubsub';
 
 // #TODO document these somewhere
 const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'];

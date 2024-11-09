@@ -24,7 +24,6 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chess": "workspace:*",
-    "chessops": "^0.14.2",
     "common": "workspace:*"
   }
 }

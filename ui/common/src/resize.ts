@@ -1,7 +1,7 @@
-import * as cg from 'chessground/types';
+import type { Elements } from 'chessground/types';
 import * as xhr from './xhr';
 import { debounce } from './timing';
-import * as Prefs from './prefs';
+import { ShowResizeHandle } from './prefs';
 import { pubsub } from './pubsub';
 
 type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
@@ -15,12 +15,12 @@ export const bindChessgroundResize = (f: () => void): void =>
   document.body.addEventListener('chessground.resize', f);
 
 export default function resizeHandle(
-  els: cg.Elements,
-  pref: Prefs.ShowResizeHandle,
+  els: Elements,
+  pref: ShowResizeHandle,
   ply: number,
   visible?: Visible,
 ): void {
-  if (pref === Prefs.ShowResizeHandle.Never) return;
+  if (pref === ShowResizeHandle.Never) return;
 
   const el = document.createElement('cg-resize');
   els.container.appendChild(el);
@@ -65,7 +65,7 @@ export default function resizeHandle(
   el.addEventListener('touchstart', startResize, { passive: false });
   el.addEventListener('mousedown', startResize, { passive: false });
 
-  if (pref === Prefs.ShowResizeHandle.OnlyAtStart) {
+  if (pref === ShowResizeHandle.OnlyAtStart) {
     const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);
     toggle(ply);
     pubsub.on('ply', toggle);

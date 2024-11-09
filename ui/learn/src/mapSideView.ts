@@ -1,10 +1,10 @@
-import * as util from './util';
-import * as stages from './stage/list';
-import { SideCtrl } from './sideCtrl';
+import { assetUrl } from './util';
+import { categs } from './stage/list';
+import type { SideCtrl } from './sideCtrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { BASE_LEARN_PATH, hashHref } from './hashRouting';
-import { LearnCtrl } from './ctrl';
+import type { LearnCtrl } from './ctrl';
 import { confirm } from 'common/dialog';
 
 export function mapSideView(ctrl: LearnCtrl) {
@@ -20,9 +20,9 @@ function renderInStage(ctrl: SideCtrl) {
         {
           attrs: { href: BASE_LEARN_PATH },
         },
-        [h('img', { attrs: { src: util.assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
+        [h('img', { attrs: { src: assetUrl + 'images/learn/brutal-helm.svg' } }), i18n.site.menu],
       ),
-      ...stages.categs.map((categ, categId) =>
+      ...categs.map((categ, categId) =>
         h(
           'div.categ',
           {

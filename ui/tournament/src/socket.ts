@@ -1,4 +1,4 @@
-import TournamentController from './ctrl';
+import type TournamentController from './ctrl';
 
 export interface TournamentSocket {
   send: SocketSend;

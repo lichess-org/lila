@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
-import { NoteCtrl, NoteOpts } from './interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
 import { debounce } from 'common/timing';
 

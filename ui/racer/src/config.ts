@@ -1,4 +1,4 @@
-import { RacerConfig } from './interfaces';
+import type { RacerConfig } from './interfaces';
 
 const config: RacerConfig = {
   clock: {
