@@ -12,6 +12,10 @@ export default class Report {
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
   tsHideReportDialog: StoredProp<number>;
 
+
+  // bump when logic is changed, to distinguish cached clients from new ones
+  private version = 1;
+
   constructor(readonly id: PuzzleId) {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
   }
@@ -50,7 +54,7 @@ export default class Report {
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const reason = `after move ${node.ply}${node.san}, at depth ${ev.depth}, they're multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
+        const reason = `v${this.version}: after move ${node.ply}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
         this.reportDialog(reason);
       }
     }
