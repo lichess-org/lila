@@ -19,9 +19,20 @@ site.load.then(() => {
     noteTextArea.focus();
   });
 
+  function addToNote(str: string) {
+    const storedNote = noteStore.get();
+    noteStore.set((storedNote ? storedNote + '\n' : '') + str);
+    flashNotes();
+  }
+
   const loadNotes = () => {
     const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
+    $notes.find('form button[value=copy-url]').on('click', event => {
+      event.preventDefault();
+      addToNote(location.href);
+      syncNoteValue();
+    });
     $notes.find('form button[type=submit]').on('click', function (this: HTMLButtonElement) {
       $(this)
         .parents('form')
@@ -87,12 +98,6 @@ site.load.then(() => {
       ),
     );
   });
-
-  function addToNote(str: string) {
-    const storedNote = noteStore.get();
-    noteStore.set((storedNote ? storedNote + '\n' : '') + str);
-    flashNotes();
-  }
 
   $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
     // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B

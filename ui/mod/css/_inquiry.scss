@@ -408,8 +408,8 @@ body.no-inquiry {
     .submission {
       display: flex;
 
-      button[value='dox'] {
-        margin-left: 1.5em;
+      button:not(:first-child) {
+        margin-inline-start: 1.5em;
       }
     }
   }
