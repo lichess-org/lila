@@ -33,3 +33,12 @@ export const povChances = (color: Color, ev: EvalScore): WinningChances =>
 // -1 = e1 is infinitely worse  than e2
 export const povDiff = (color: Color, e1: EvalScore, e2: EvalScore): number =>
   (povChances(color, e1) - povChances(color, e2)) / 2;
+
+// used to check if two evaluations are similar enough
+// to report puzzles as faulty
+//
+// stricter than lichess-puzzler v49 check
+// to avoid false positives and only report really faulty puzzles
+export const areSimilarEvals = (pov: Color, bestEval: EvalScore, secondBestEval: EvalScore): boolean => {
+  return povDiff(pov, bestEval, secondBestEval) < 0.15;
+};
