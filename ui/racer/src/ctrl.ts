@@ -1,8 +1,7 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
 import { throttle, throttlePromiseDelay } from 'common/timing';
-import * as xhr from 'common/xhr';
-import { Api as CgApi } from 'chessground/api';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { Boost } from './boost';
 import { Clock } from 'puz/clock';
 import { Combo } from 'puz/combo';
@@ -10,10 +9,10 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { PuzCtrl, Run } from 'puz/interfaces';
+import type { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { defined, prop } from 'common';
-import {
+import type {
   RacerOpts,
   RacerData,
   RacerVm,
@@ -23,7 +22,6 @@ import {
   RaceStatus,
   WithGround,
 } from './interfaces';
-import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
 import StrongSocket from 'common/socket';
@@ -264,9 +262,9 @@ export default class RacerCtrl implements PuzCtrl {
   private setZen = throttlePromiseDelay(
     () => 1000,
     zen =>
-      xhr.text('/pref/zen', {
+      xhrText('/pref/zen', {
         method: 'post',
-        body: xhr.form({ zen: zen ? 1 : 0 }),
+        body: xhrForm({ zen: zen ? 1 : 0 }),
       }),
   );
 

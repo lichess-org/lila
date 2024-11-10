@@ -8,7 +8,7 @@ import {
 } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import view from './view';
-import { CoordinateTrainerConfig } from './interfaces';
+import type { CoordinateTrainerConfig } from './interfaces';
 import CoordinateTrainerCtrl from './ctrl';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);

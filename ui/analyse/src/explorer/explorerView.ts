@@ -1,23 +1,22 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
-import { bind, dataIcon, MaybeVNode, LooseVNodes, looseH as h } from 'common/snabbdom';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import {
   isOpening,
   isTablebase,
-  TablebaseCategory,
-  OpeningData,
-  OpeningMoveStats,
-  OpeningGame,
-  ExplorerDb,
+  type TablebaseCategory,
+  type OpeningData,
+  type OpeningMoveStats,
+  type OpeningGame,
+  type ExplorerDb,
 } from './interfaces';
 import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
-import { FEN } from 'chessground/types';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;

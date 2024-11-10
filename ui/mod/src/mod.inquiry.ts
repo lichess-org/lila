@@ -1,4 +1,4 @@
-import * as xhr from 'common/xhr';
+import { formToXhr } from 'common/xhr';
 
 import { expandMentions } from 'common/richText';
 import { storage } from 'common/storage';
@@ -26,8 +26,7 @@ site.load.then(() => {
       $(this)
         .parents('form')
         .each((_, form: HTMLFormElement) =>
-          xhr
-            .formToXhr(form, this)
+          formToXhr(form, this)
             .then(html => $notes.replaceWith(html))
             .then(noteStore.remove)
             .then(() => loadNotes())

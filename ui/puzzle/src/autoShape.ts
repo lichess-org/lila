@@ -1,8 +1,8 @@
-import { winningChances, CevalCtrl } from 'ceval';
+import { winningChances, type CevalCtrl } from 'ceval';
 import { annotationShapes } from 'chess/glyphs';
-import { DrawModifiers, DrawShape } from 'chessground/draw';
+import type { DrawModifiers, DrawShape } from 'chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
-import { NormalMove, Square } from 'chessops/types';
+import type { NormalMove, Square } from 'chessops/types';
 
 interface Opts {
   node: Tree.Node;

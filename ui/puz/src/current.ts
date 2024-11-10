@@ -1,6 +1,6 @@
 import { Chess, opposite, parseUci, san } from 'chessops';
 import { parseFen } from 'chessops/fen';
-import { Puzzle } from './interfaces';
+import type { Puzzle } from './interfaces';
 import { getNow } from './util';
 
 export default class CurrentPuzzle {

@@ -1,9 +1,9 @@
 import {
+  type ChartConfiguration,
+  type ChartDataset,
+  type ChartType,
   ArcElement,
   Chart,
-  ChartConfiguration,
-  ChartDataset,
-  ChartType,
   DoughnutController,
   Title,
 } from 'chart.js';

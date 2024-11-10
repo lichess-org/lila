@@ -1,4 +1,4 @@
-import * as xhr from 'common/xhr';
+import { text as xhrText } from 'common/xhr';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { checkBoxAll, expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
@@ -9,7 +9,7 @@ site.load.then(() => {
     .find('.mark-alt')
     .on('click', async function (this: HTMLAnchorElement) {
       if (await confirm('Close alt account?')) {
-        xhr.text(this.getAttribute('href')!, { method: 'post' });
+        xhrText(this.getAttribute('href')!, { method: 'post' });
         $(this).remove();
       }
     });
@@ -34,7 +34,7 @@ site.load.then(() => {
           );
           if (usernames.length > 0 && (await confirm(`Close ${usernames.length} alt accounts?`))) {
             console.log(usernames);
-            await xhr.text('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
+            await xhrText('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
             location.reload();
           }
         }

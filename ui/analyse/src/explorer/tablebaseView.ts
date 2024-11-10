@@ -1,8 +1,7 @@
-import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { moveArrowAttributes, winnerOf } from './explorerUtil';
-import { TablebaseMoveStats } from './interfaces';
-import { FEN } from 'chessground/types';
+import type { TablebaseMoveStats } from './interfaces';
 
 export function showTablebase(
   ctrl: AnalyseCtrl,

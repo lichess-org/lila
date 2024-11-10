@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { MaybeVNodes } from 'common/snabbdom';
+import type { MaybeVNodes } from 'common/snabbdom';
 
 export function tds(bits: MaybeVNodes): MaybeVNodes {
   return bits.map(bit => h('td', [bit]));

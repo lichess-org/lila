@@ -1,4 +1,4 @@
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 
 import { path as treePath } from 'tree';
 

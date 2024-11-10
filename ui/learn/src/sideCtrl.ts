@@ -1,4 +1,4 @@
-import * as stages from './stage/list';
+import { stageIdToCategId, byKey as stageByKey, list as stageList } from './stage/list';
 import * as scoring from './score';
 import { Prop, propWithEffect } from 'common';
 import { LearnProgress, LearnOpts } from './learn';
@@ -20,14 +20,14 @@ export class SideCtrl {
   reset = () => this.opts.storage.reset();
 
   activeStageId = () => this.opts.stageId || 1;
-  getCategIdFromStageId = () => stages.stageIdToCategId(this.activeStageId());
+  getCategIdFromStageId = () => stageIdToCategId(this.activeStageId());
   updateCategId = () => this.categId(this.getCategIdFromStageId() || this.categId());
 
   progress = () => {
-    const max = stages.list.length * 10;
+    const max = stageList.length * 10;
     const data = this.data.stages;
     const total = Object.keys(data).reduce((t, key) => {
-      const rank = scoring.getStageRank(stages.byKey[key], data[key].scores);
+      const rank = scoring.getStageRank(stageByKey[key], data[key].scores);
       if (rank === 1) return t + 10;
       if (rank === 2) return t + 8;
       return t + 5;

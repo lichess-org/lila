@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import * as xhr from 'common/xhr';
+import { text as xhrText } from 'common/xhr';
 import { requestIdleCallback, $as } from 'common';
 import { spinnerHtml } from 'common/spinner';
 
@@ -10,7 +10,7 @@ const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?
 const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el: HTMLAnchorElement) => {
   const url = (el.dataset.href || el.href).replace(/\?.+$/, '');
   if (preload) preload(url);
-  xhr.text(url + '/mini').then(html => {
+  xhrText(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
     el.innerHTML = html;
     window.lichess.initializeDom(el);

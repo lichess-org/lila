@@ -1,9 +1,9 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import { looseH as h } from 'common/snabbdom';
 import renderClocks from '../view/clocks';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
-import { StudyPlayers, Federation, TagArray } from './interfaces';
+import type { StudyPlayers, Federation, TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'common/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';

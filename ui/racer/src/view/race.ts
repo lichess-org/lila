@@ -1,7 +1,7 @@
-import RacerCtrl from '../ctrl';
-import { h, VNodes } from 'snabbdom';
-import { PlayerWithScore } from '../interfaces';
-import { Boost } from '../boost';
+import type RacerCtrl from '../ctrl';
+import { h, type VNodes } from 'snabbdom';
+import type { PlayerWithScore } from '../interfaces';
+import type { Boost } from '../boost';
 import { userLink } from 'common/userLink';
 
 // to [0,1]

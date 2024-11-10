@@ -1,4 +1,4 @@
-import { Hooks } from 'snabbdom';
+import { type Hooks } from 'snabbdom';
 import { memoize } from './common';
 import { bind } from './snabbdom';
 

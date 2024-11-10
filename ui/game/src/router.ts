@@ -1,4 +1,4 @@
-import { GameData, ContinueMode } from './interfaces';
+import type { GameData, ContinueMode } from './interfaces';
 
 export function game(data: GameData, color?: Color, embed?: boolean): string;
 export function game(data: string, color?: Color, embed?: boolean): string;

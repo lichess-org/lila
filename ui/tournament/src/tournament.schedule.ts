@@ -1,7 +1,7 @@
 import view from './view/scheduleView';
 
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { Tournament } from './interfaces';
+import { init, type VNode, classModule, attributesModule } from 'snabbdom';
+import type { Tournament } from './interfaces';
 import StrongSocket from 'common/socket';
 import { pubsub } from 'common/pubsub';
 

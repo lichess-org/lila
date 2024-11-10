@@ -1,5 +1,5 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { SimulOpts } from './interfaces';
+import type { SimulOpts } from './interfaces';
 import SimulCtrl from './ctrl';
 import StrongSocket from 'common/socket';
 
