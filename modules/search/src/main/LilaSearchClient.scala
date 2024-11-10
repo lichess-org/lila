@@ -3,7 +3,7 @@ package lila.search
 import lila.search.client.{ SearchClient, SearchError }
 import lila.search.spec.*
 
-class LilaSearchClient(client: SearchClient, writeable: Boolean)(using Executor) extends SearchClient:
+class LilaSearchClient(client: SearchClient)(using Executor) extends SearchClient:
 
   override def count(query: Query): Future[CountOutput] =
     monitor("count", query.index):
