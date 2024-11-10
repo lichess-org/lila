@@ -29,7 +29,8 @@
   padding: 0.1em 1em;
 }
 .mod-timeline__event__from {
-  white-space: nowrap;
+  @extend %nowrap-ellipsis;
+  max-width: 25em;
 }
 .mod-timeline__event__flair {
   @extend %flex-center;

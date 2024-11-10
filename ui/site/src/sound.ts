@@ -1,8 +1,8 @@
 import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
-import { charRole } from 'chess';
 import { defined } from 'common';
+import { charRole } from 'chess';
 
 type Name = string;
 type Path = string;
@@ -139,7 +139,7 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) => {
     if (typeof window.speechSynthesis === 'undefined') return false;
     try {
-      if (cut) window.speechSynthesis.cancel();
+      if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
@@ -224,13 +224,10 @@ export default new (class implements SoundI {
           $('#warn-no-autoplay').addClass('shown');
           resolve();
         }, 400);
-        this.ctx
-          ?.resume()
-          .then(() => {
-            clearTimeout(resumeTimer);
-            resolve();
-          })
-          .catch(resolve);
+        this.ctx?.resume().then(() => {
+          clearTimeout(resumeTimer);
+          resolve();
+        });
       });
     if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
@@ -272,8 +269,8 @@ class Sound {
 
 function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
-    ? new window.webkitAudioContext()
+    ? new window.webkitAudioContext({ latencyHint: 'interactive' })
     : typeof AudioContext !== 'undefined'
-      ? new AudioContext()
+      ? new AudioContext({ latencyHint: 'interactive' })
       : undefined;
 }

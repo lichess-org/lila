@@ -66,6 +66,10 @@ object Glicko:
 
   val default = new Glicko(1500d, maxDeviation, defaultVolatility)
 
+  // Virtual rating for first pairing to make the expected score 50% without
+  // actually changing the default rating
+  val pairingDefault = new Glicko(1460d, maxDeviation, defaultVolatility)
+
   // managed is for students invited to a class
   val defaultManaged       = new Glicko(800d, 400d, defaultVolatility)
   val defaultManagedPuzzle = new Glicko(800d, 400d, defaultVolatility)
