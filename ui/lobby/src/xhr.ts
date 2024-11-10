@@ -1,15 +1,15 @@
-import * as xhr from 'common/xhr';
+import { json as xhrJson, form } from 'common/xhr';
 import debounce from 'debounce-promise';
-import { Pool, Seek } from './interfaces';
+import type { Pool, Seek } from './interfaces';
 
-export const seeks: () => Promise<Seek[]> = debounce(() => xhr.json('/lobby/seeks'), 2000);
+export const seeks: () => Promise<Seek[]> = debounce(() => xhrJson('/lobby/seeks'), 2000);
 
-export const nowPlaying = () => xhr.json('/account/now-playing').then(o => o.nowPlaying);
+export const nowPlaying = () => xhrJson('/account/now-playing').then(o => o.nowPlaying);
 
 export const anonPoolSeek = (pool: Pool) =>
-  xhr.json('/setup/hook/' + site.sri, {
+  xhrJson('/setup/hook/' + site.sri, {
     method: 'POST',
-    body: xhr.form({
+    body: form({
       variant: 1,
       timeMode: 1,
       time: pool.lim,

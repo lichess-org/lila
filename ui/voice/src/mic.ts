@@ -1,5 +1,5 @@
 import { objectStorage } from 'common/objectStorage';
-import { Switch, Selectable } from './switch';
+import { Switch, type Selectable } from './switch';
 import { storedStringProp } from 'common/storage';
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 

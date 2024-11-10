@@ -1,12 +1,12 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { controls, standing } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
 import tourTable from './table';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
-import * as pagination from '../pagination';
-import TournamentController from '../ctrl';
+import { players } from '../pagination';
+import type TournamentController from '../ctrl';
 import { MaybeVNodes } from 'common/snabbdom';
 
 function joinTheGame(gameId: string) {
@@ -27,7 +27,7 @@ export const name = 'started';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
   const gameId = ctrl.myGameId(),
-    pag = pagination.players(ctrl);
+    pag = players(ctrl);
   return [
     header(ctrl),
     gameId ? joinTheGame(gameId) : ctrl.isIn() ? notice(ctrl) : null,

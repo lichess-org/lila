@@ -9,6 +9,6 @@ if ! command -v pnpm &> /dev/null; then
   exit 1
 fi
 
-pnpm install --silent --ignore-workspace
+pnpm install --silent --ignore-workspace --prefer-frozen-lockfile
 
 node --experimental-strip-types --no-warnings src/main.ts "$@"

@@ -1,10 +1,8 @@
-import * as keyboard from '../keyboard';
-import * as util from '../util';
+import { next, prev, view } from '../keyboard';
 import crazyView from '../crazy/crazyView';
-import RoundController from '../ctrl';
+import type RoundController from '../ctrl';
 import { stepwiseScroll } from 'common/controls';
-import { VNode } from 'snabbdom';
-import { looseH as h } from 'common/snabbdom';
+import { type VNode, looseH as h, bind } from 'common/snabbdom';
 import { render as renderKeyboardMove } from 'keyboardMove';
 import { render as renderGround } from '../ground';
 import { renderTable } from './table';
@@ -35,13 +33,13 @@ export function main(ctrl: RoundController): VNode {
             hook:
               'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
                 ? undefined
-                : util.bind(
+                : bind(
                     'wheel',
                     stepwiseScroll((e: WheelEvent, scroll: boolean) => {
                       if (!ctrl.isPlaying()) {
                         e.preventDefault();
-                        if (e.deltaY > 0 && scroll) keyboard.next(ctrl);
-                        else if (e.deltaY < 0 && scroll) keyboard.prev(ctrl);
+                        if (e.deltaY > 0 && scroll) next(ctrl);
+                        else if (e.deltaY < 0 && scroll) prev(ctrl);
                         ctrl.redraw();
                       }
                     }),
@@ -52,7 +50,7 @@ export function main(ctrl: RoundController): VNode {
           [renderGround(ctrl), ctrl.promotion.view(ctrl.data.game.variant.key === 'antichess')],
         ),
         ctrl.voiceMove && renderVoiceBar(ctrl.voiceMove.ctrl, ctrl.redraw),
-        ctrl.keyboardHelp && keyboard.view(ctrl),
+        ctrl.keyboardHelp && view(ctrl),
         crazyView(ctrl, topColor, 'top') || materialDiffs[0],
         ...renderTable(ctrl),
         crazyView(ctrl, bottomColor, 'bottom') || materialDiffs[1],

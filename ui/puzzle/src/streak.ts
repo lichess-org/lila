@@ -1,5 +1,6 @@
-import { StoredJsonProp, storedJsonProp } from 'common/storage';
-import { PuzzleData, Puzzle, PuzzleId, PuzzleGame } from './interfaces';
+import type { Prop } from 'common';
+import { storedJsonProp } from 'common/storage';
+import type { PuzzleData, Puzzle, PuzzleId, PuzzleGame } from './interfaces';
 
 interface Current {
   puzzle: Puzzle;
@@ -16,7 +17,7 @@ interface StreakData {
 export default class PuzzleStreak {
   data: StreakData;
   fail = false;
-  store: StoredJsonProp<StreakData | null>;
+  store: Prop<StreakData | null>;
 
   constructor(data: PuzzleData) {
     this.store = storedJsonProp<StreakData | null>(`puzzle.streak.${data.user?.id || 'anon'}`, () => null);

@@ -1,7 +1,7 @@
 import * as licon from 'common/licon';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
 import { prefersLight } from 'common/theme';
-import * as xhr from 'common/xhr';
+import { text as xhrText } from 'common/xhr';
 import announce from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
@@ -97,7 +97,7 @@ export function boot() {
                   .attr('href', url + '/withdraw')
                   .text(i18n.site.pause)
                   .on('click', function (this: HTMLAnchorElement) {
-                    xhr.text(this.href, { method: 'post' });
+                    xhrText(this.href, { method: 'post' });
                     $('#announce').remove();
                     return false;
                   }),

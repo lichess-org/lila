@@ -1,6 +1,6 @@
-import { MaybeVNode } from 'common/snabbdom';
+import type { MaybeVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import type LobbyController from '../../../ctrl';
 import { speeds, variants } from '../../../options';
 
 export const ratingView = (ctrl: LobbyController): MaybeVNode => {

@@ -1,10 +1,17 @@
-import { AnalyseData, Game } from './interfaces';
+import type { AnalyseData, Game } from './interfaces';
 import { makeFen } from 'chessops/fen';
 import { makeSanAndPlay, parseSan } from 'chessops/san';
 import { makeUci, Rules } from 'chessops';
-import { makeVariant, parsePgn, parseVariant, startingPosition, ChildNode, PgnNodeData } from 'chessops/pgn';
-import { IllegalSetup, Position } from 'chessops/chess';
-import { Player } from 'game';
+import {
+  makeVariant,
+  parsePgn,
+  parseVariant,
+  startingPosition,
+  type ChildNode,
+  type PgnNodeData,
+} from 'chessops/pgn';
+import { IllegalSetup, type Position } from 'chessops/chess';
+import type { Player } from 'game';
 import { scalachessCharPair } from 'chessops/compat';
 import { makeSquare } from 'chessops/util';
 

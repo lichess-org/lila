@@ -1,8 +1,7 @@
 import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
-import { charRole } from 'chess';
-import { defined } from 'common';
+import { defined, charToRole } from 'common';
 
 type Name = string;
 type Path = string;
@@ -139,7 +138,7 @@ export default new (class implements SoundI {
   say = (text: string, cut = false, force = false, translated = false) => {
     if (typeof window.speechSynthesis === 'undefined') return false;
     try {
-      if (cut) window.speechSynthesis.cancel();
+      if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
@@ -192,7 +191,7 @@ export default new (class implements SoundI {
                         const code = c.charCodeAt(0);
                         if (code > 48 && code < 58) return c; // 1-8
                         if (code > 96 && code < 105) return c.toUpperCase();
-                        return charRole(c) || c;
+                        return charToRole(c) || c;
                       })
                       .join(' ')
                       .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
@@ -269,7 +268,7 @@ class Sound {
 
 function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
-    ? new window.webkitAudioContext()
+    ? new window.webkitAudioContext({ latencyHint: 'interactive' })
     : typeof AudioContext !== 'undefined'
       ? new AudioContext({ latencyHint: 'interactive' })
       : undefined;

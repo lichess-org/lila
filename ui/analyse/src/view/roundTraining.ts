@@ -1,7 +1,7 @@
-import { h, thunk, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { h, thunk, type VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { findTag } from '../study/studyChapters';
-import * as game from 'game';
+import { getPlayer } from 'game';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 import { ratingDiff } from 'common/userLink';
@@ -15,7 +15,7 @@ interface Advice {
 }
 
 const renderPlayer = (ctrl: AnalyseCtrl, color: Color): VNode => {
-  const p = game.getPlayer(ctrl.data, color);
+  const p = getPlayer(ctrl.data, color);
   if (p.user)
     return h('a.user-link.ulpt', { attrs: { href: '/@/' + p.user.username } }, [
       p.user.username,

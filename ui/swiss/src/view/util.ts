@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { BasePlayer } from '../interfaces';
+import type { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
 import { fullName, userRating } from 'common/userLink';
 

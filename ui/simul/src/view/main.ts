@@ -1,6 +1,6 @@
 import { onInsert, looseH as h } from 'common/snabbdom';
-import SimulCtrl from '../ctrl';
-import * as util from './util';
+import type SimulCtrl from '../ctrl';
+import { title } from './util';
 import created from './created';
 import { richHTML } from 'common/richText';
 import results from './results';
@@ -31,14 +31,14 @@ const showText = (ctrl: SimulCtrl) =>
   ctrl.data.text.length > 0 && h('div.simul-text', [h('p', { hook: richHTML(ctrl.data.text) })]);
 
 const started = (ctrl: SimulCtrl) => [
-  h('div.box__top', util.title(ctrl)),
+  h('div.box__top', title(ctrl)),
   showText(ctrl),
   results(ctrl),
   pairings(ctrl),
 ];
 
 const finished = (ctrl: SimulCtrl) => [
-  h('div.box__top', [util.title(ctrl), h('div.box__top__actions', h('div.finished', i18n.site.finished))]),
+  h('div.box__top', [title(ctrl), h('div.box__top__actions', h('div.finished', i18n.site.finished))]),
   showText(ctrl),
   results(ctrl),
   pairings(ctrl),

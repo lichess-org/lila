@@ -1,14 +1,13 @@
-import { h, VNode, VNodeChildren } from 'snabbdom';
-import { Dests, Pieces, Rank, File, files } from 'chessground/types';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
+import { type Pieces, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
-import { Api } from 'chessground/api';
-import { Setting, makeSetting } from './setting';
+import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
-import { SquareName, RULES, Rules } from 'chessops/types';
+import { type SquareName, RULES, type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { parseUci } from 'chessops/util';
-import { SanToUci, sanWriter } from 'chess';
+import { type SanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
@@ -321,7 +320,7 @@ export function renderBoard(
   positionStyle: PositionStyle,
   boardStyle: BoardStyle,
 ): VNode {
-  const doRankHeader = (rank: Rank): VNode => {
+  const doRankHeader = (rank: Ranks): VNode => {
     return h('th', { attrs: { scope: 'row' } }, rank);
   };
   const doFileHeaders = (): VNode => {
@@ -329,7 +328,7 @@ export function renderBoard(
     if (pov === 'black') ths.reverse();
     return h('tr', [h('td'), ...ths, h('td')]);
   };
-  const renderPositionStyle = (rank: Rank, file: File, orig: string) => {
+  const renderPositionStyle = (rank: Ranks, file: Files, orig: string) => {
     switch (positionStyle) {
       case 'before':
         return file.toUpperCase() + rank + ' ' + orig;
@@ -340,8 +339,8 @@ export function renderBoard(
     }
   };
   const doPieceButton = (
-    rank: Rank,
-    file: File,
+    rank: Ranks,
+    file: Files,
     letter: string,
     color: Color | 'none',
     text: string,
@@ -354,7 +353,7 @@ export function renderBoard(
       text,
     );
   };
-  const doPiece = (rank: Rank, file: File): VNode => {
+  const doPiece = (rank: Ranks, file: Files): VNode => {
     const key = (file + rank) as Key;
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
@@ -370,7 +369,7 @@ export function renderBoard(
       return h(pieceWrapper, doPieceButton(rank, file, letter, 'none', text));
     }
   };
-  const doRank = (pov: Color, rank: Rank): VNode => {
+  const doRank = (pov: Color, rank: Ranks): VNode => {
     const rankElements = [];
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
     rankElements.push(...files.map(file => doPiece(rank, file)));
@@ -682,7 +681,7 @@ function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   return;
 }
 
-export function inputToLegalUci(input: string, fen: string, chessground: Api): string | undefined {
+export function inputToLegalUci(input: string, fen: string, chessground: CgApi): string | undefined {
   const legalUcis = destsToUcis(chessground.state.movable.dests!),
     legalSans = sanWriter(fen, legalUcis);
   let uci = sanToUci(input, legalSans) || input,

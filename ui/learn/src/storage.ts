@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import type { LearnProgress } from './learn';
-import { Stage } from './stage/list';
+import type { Stage } from './stage/list';
 import { storage } from 'common/storage';
 
 export interface Storage {

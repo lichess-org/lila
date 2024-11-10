@@ -1,12 +1,12 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, dataIcon, MaybeVNodes } from 'common/snabbdom';
-import TournamentController from '../ctrl';
+import { bind, dataIcon, type MaybeVNodes } from 'common/snabbdom';
+import type TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent } from './util';
 import { teamName } from './battle';
-import { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
-import * as button from './button';
-import * as pagination from '../pagination';
+import type { Pagination, PodiumPlayer, StandingPlayer } from '../interfaces';
+import { joinWithdraw } from './button';
+import { renderPager } from '../pagination';
 import { userLink } from 'common/userLink';
 
 const renderScoreString = (scoreString: string, streakable: boolean) => {
@@ -103,10 +103,7 @@ export function podium(ctrl: TournamentController) {
 }
 
 export function controls(ctrl: TournamentController, pag: Pagination): VNode {
-  return h('div.tour__controls', [
-    h('div.pager', pagination.renderPager(ctrl, pag)),
-    button.joinWithdraw(ctrl),
-  ]);
+  return h('div.tour__controls', [h('div.pager', renderPager(ctrl, pag)), joinWithdraw(ctrl)]);
 }
 
 export function standing(ctrl: TournamentController, pag: Pagination, klass?: string): VNode {

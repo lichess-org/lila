@@ -1,6 +1,12 @@
-import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from '../types';
+import {
+  CevalState,
+  type Work,
+  type CevalEngine,
+  type BrowserEngineInfo,
+  type EngineNotifier,
+} from '../types';
 import { Protocol } from '../protocol';
-import { objectStorage, ObjectStorage } from 'common/objectStorage';
+import { objectStorage, type ObjectStorage } from 'common/objectStorage';
 import { sharedWasmMemory } from '../util';
 import type StockfishWeb from 'lila-stockfish-web';
 

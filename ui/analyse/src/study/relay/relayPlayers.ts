@@ -1,15 +1,22 @@
-import { Redraw, VNode, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
+import { type Redraw, type VNode, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
+import { json as xhrJson } from 'common/xhr';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { RelayTour, RoundId, TourId } from './interfaces';
+import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
-import { ChapterId, Federations, FideId, PointsStr, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
+import type {
+  ChapterId,
+  Federations,
+  FideId,
+  PointsStr,
+  StudyPlayer,
+  StudyPlayerFromServer,
+} from '../interfaces';
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import { defined } from 'common';
-import { Attrs, Hooks, init as initSnabbdom, attributesModule, VNodeData } from 'snabbdom';
+import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
 import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'common/device';
 
@@ -90,7 +97,7 @@ export default class RelayPlayers {
       this.loading = true;
       this.redraw();
     }
-    const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhr.json(
+    const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhrJson(
       `/broadcast/${this.tourId}/players`,
     );
     this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
@@ -99,9 +106,9 @@ export default class RelayPlayers {
 
   loadPlayerWithGames = async (id: RelayPlayerId) => {
     const feds = this.federations();
-    const full: RelayPlayerWithGames = await xhr
-      .json(`/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`)
-      .then(p => convertPlayerFromServer(p, feds));
+    const full: RelayPlayerWithGames = await xhrJson(
+      `/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`,
+    ).then(p => convertPlayerFromServer(p, feds));
     full.games.forEach((g: RelayPlayerGame) => {
       g.opponent = convertPlayerFromServer(g.opponent as RelayPlayer & StudyPlayerFromServer, feds);
     });

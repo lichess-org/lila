@@ -1,10 +1,9 @@
-import { GameData, Player } from './interfaces';
-import * as status from './status';
+import type { GameData, Player } from './interfaces';
+import { finished, aborted, ids } from './status';
 
 export * from './interfaces';
 
-export const playable = (data: GameData): boolean =>
-  data.game.status.id < status.ids.aborted && !imported(data);
+export const playable = (data: GameData): boolean => data.game.status.id < ids.aborted && !imported(data);
 
 export const isPlayerPlaying = (data: GameData): boolean => playable(data) && !data.player.spectator;
 
@@ -50,7 +49,7 @@ export const moretimeable = (data: GameData): boolean =>
 const imported = (data: GameData): boolean => data.game.source === 'import';
 
 export const replayable = (data: GameData): boolean =>
-  imported(data) || status.finished(data) || (status.aborted(data) && bothPlayersHavePlayed(data));
+  imported(data) || finished(data) || (aborted(data) && bothPlayersHavePlayed(data));
 
 export function getPlayer(data: GameData, color: Color): Player;
 export function getPlayer(data: GameData, color?: Color): Player | null {
@@ -62,7 +61,7 @@ export function getPlayer(data: GameData, color?: Color): Player | null {
 export const hasAi = (data: GameData): boolean => !!(data.player.ai || data.opponent.ai);
 
 export const userAnalysable = (data: GameData): boolean =>
-  status.finished(data) || (playable(data) && (!data.clock || !isPlayerPlaying(data)));
+  finished(data) || (playable(data) && (!data.clock || !isPlayerPlaying(data)));
 
 export const isCorrespondence = (data: GameData): boolean => data.game.speed === 'correspondence';
 
