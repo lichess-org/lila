@@ -78,7 +78,7 @@ final class Cached(
           nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
         yield nbReqs
 
-  private[team] val forumAccess = cacheApi[TeamId, Access](1_024, "team.forum.access"):
+  private[team] val forumAccess = cacheApi[TeamId, Access](256, "team.forum.access"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Access.None))
 
   val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):

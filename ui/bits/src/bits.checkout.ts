@@ -72,7 +72,7 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
     }
     amount = Math.max(pricing.min, Math.min(pricing.max, amount));
     $(this).text(`${pricing.currency} ${amount}`);
-    $(this).siblings('input').data('amount', amount);
+    ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
   });
 
   const $userInput = $checkout.find('input.user-autocomplete');

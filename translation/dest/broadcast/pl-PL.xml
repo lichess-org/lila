@@ -73,7 +73,6 @@
   <string name="ratingDiff">Różnica rankingu</string>
   <string name="gamesThisTournament">Partie w tym turnieju</string>
   <string name="score">Wynik</string>
-  <string name="perPage">%s na stronie</string>
   <string name="allTeams">Wszystkie kluby</string>
   <string name="tournamentFormat">Format turnieju</string>
   <string name="tournamentLocation">Lokalizacja turnieju</string>

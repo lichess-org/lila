@@ -1,16 +1,15 @@
 import * as licon from 'common/licon';
-import { Position } from '../interfaces';
-import { bind } from '../util';
-import * as game from 'game';
-import * as status from 'game/status';
+import type { Position } from '../interfaces';
+import { abortable, playable, drawableSwiss, resignable, takebackable } from 'game';
+import { aborted, finished } from 'game/status';
 import { renderClock } from '../clock/clockView';
 import renderCorresClock from '../corresClock/corresClockView';
-import * as replay from './replay';
+import { render as renderReplay, analysisButton } from './replay';
 import renderExpiration from './expiration';
-import * as renderUser from './user';
+import { userHtml } from './user';
 import * as button from './button';
-import RoundController from '../ctrl';
-import { LooseVNodes, looseH as h } from 'common/snabbdom';
+import type RoundController from '../ctrl';
+import { type LooseVNodes, looseH as h, bind } from 'common/snabbdom';
 import { toggleButton as boardMenuToggleButton } from 'board/menu';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
@@ -22,7 +21,7 @@ function renderPlayer(ctrl: RoundController, position: Position) {
           h('i.line'),
           h('name', i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)),
         ])
-      : (ctrl.opts.local?.userVNode(player, position) ?? renderUser.userHtml(ctrl, player, position));
+      : (ctrl.opts.local?.userVNode(player, position) ?? userHtml(ctrl, player, position));
 }
 
 const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redirecting;
@@ -30,7 +29,7 @@ const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redir
 const loader = () => h('i.ddloader');
 
 const renderTableWith = (ctrl: RoundController, buttons: LooseVNodes) => [
-  replay.render(ctrl),
+  renderReplay(ctrl),
   buttons.find(x => !!x) && h('div.rcontrols', buttons),
 ];
 
@@ -43,7 +42,7 @@ export const renderTableEnd = (ctrl: RoundController): LooseVNodes =>
 
 export const renderTableWatch = (ctrl: RoundController): LooseVNodes =>
   renderTableWith(ctrl, [
-    isLoading(ctrl) ? loader() : game.playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
+    isLoading(ctrl) ? loader() : playable(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
   ]);
 
 const prompt = (ctrl: RoundController) => {
@@ -73,11 +72,11 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
       loading || isQuestion
         ? []
         : [
-            game.abortable(d)
+            abortable(d)
               ? button.standard(ctrl, undefined, licon.X, i18n.site.abortGame, 'abort')
               : button.standard(
                   ctrl,
-                  d => ({ enabled: game.takebackable(d) }),
+                  d => ({ enabled: takebackable(d) }),
                   licon.Back,
                   i18n.site.proposeATakeback,
                   'takeback-yes',
@@ -87,7 +86,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
               ? button.drawConfirm(ctrl)
               : ctrl.data.game.threefold
                 ? button.claimThreefold(ctrl, d => {
-                    const threefoldable = game.drawableSwiss(d);
+                    const threefoldable = drawableSwiss(d);
                     return {
                       enabled: threefoldable,
                       overrideHint: threefoldable ? undefined : i18n.site.noDrawBeforeSwissLimit,
@@ -97,7 +96,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
                     ctrl,
                     d => ({
                       enabled: ctrl.canOfferDraw(),
-                      overrideHint: game.drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
+                      overrideHint: drawableSwiss(d) ? undefined : i18n.site.noDrawBeforeSwissLimit,
                     }),
                     licon.OneHalf,
                     i18n.site.offerDraw,
@@ -108,22 +107,22 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
               ? button.resignConfirm(ctrl)
               : button.standard(
                   ctrl,
-                  d => ({ enabled: game.resignable(d) }),
+                  d => ({ enabled: resignable(d) }),
                   licon.FlagOutline,
                   i18n.site.resign,
                   'resign',
                   () => ctrl.resign(true),
                 ),
-            replay.analysisButton(ctrl),
+            analysisButton(ctrl),
             boardMenuToggleButton(ctrl.menu, i18n.site.menu),
           ],
     buttons = loading
       ? [loader()]
       : [promptVNode, button.opponentGone(ctrl), button.threefoldSuggestion(ctrl)];
   return [
-    replay.render(ctrl),
+    renderReplay(ctrl),
     h('div.rcontrols', [
-      h('div.ricons', { class: { confirm: !!(ctrl.drawConfirm || ctrl.resignConfirm) } }, icons),
+      h('div.ricons', { class: { 'yes-no-confirm': !!(ctrl.drawConfirm || ctrl.resignConfirm) } }, icons),
       ...buttons,
     ]),
   ];
@@ -131,7 +130,7 @@ export const renderTablePlay = (ctrl: RoundController): LooseVNodes => {
 
 function whosTurn(ctrl: RoundController, color: Color, position: Position) {
   const d = ctrl.data;
-  if (status.finished(d) || status.aborted(d)) return;
+  if (finished(d) || aborted(d)) return;
   return h(
     'div.rclock.rclock-turn.rclock-' + position,
     d.game.player === color &&
@@ -158,7 +157,7 @@ export const renderTable = (ctrl: RoundController): LooseVNodes => [
   renderPlayer(ctrl, 'top'),
   ...(ctrl.data.player.spectator
     ? renderTableWatch(ctrl)
-    : game.playable(ctrl.data)
+    : playable(ctrl.data)
       ? renderTablePlay(ctrl)
       : renderTableEnd(ctrl)),
   renderPlayer(ctrl, 'bottom'),

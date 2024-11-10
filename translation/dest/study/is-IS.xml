@@ -24,4 +24,8 @@
   <string name="studyUrl">URL greiningar</string>
   <string name="open">Opna</string>
   <string name="studyNotFound">Greining fannst ekki</string>
+  <string name="save">Vista</string>
+  <string name="goodMove">Góður leikur</string>
+  <string name="mistake">Mistök</string>
+  <string name="blunder">Afleikur</string>
 </resources>

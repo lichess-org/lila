@@ -1,15 +1,15 @@
-import AnalyseCtrl from '../../ctrl';
-import RelayCtrl, { RelayTab } from './relayCtrl';
+import type AnalyseCtrl from '../../ctrl';
+import RelayCtrl, { type RelayTab } from './relayCtrl';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import { innerHTML, richHTML } from 'common/richText';
-import { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
+import type { RelayData, RelayGroup, RelayRound, RelayTourDates, RelayTourInfo } from './interfaces';
 import { view as multiBoardView } from '../multiBoard';
 import { defined, memoize } from 'common';
-import StudyCtrl from '../studyCtrl';
+import type StudyCtrl from '../studyCtrl';
 import { toggle } from 'common/controls';
-import * as xhr from 'common/xhr';
+import { text as xhrText } from 'common/xhr';
 import { teamsView } from './relayTeams';
 import { statsView } from './relayStats';
 import { makeChatEl, type RelayViewContext } from '../../view/components';
@@ -404,7 +404,7 @@ const subscribe = (relay: RelayCtrl, ctrl: AnalyseCtrl) =>
             cls: 'relay-tour__subscribe',
             checked: relay.data.isSubscribed,
             change: (v: boolean) => {
-              xhr.text(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
+              xhrText(`/broadcast/${relay.data.tour.id}/subscribe?set=${v}`, { method: 'post' });
               relay.data.isSubscribed = v;
               ctrl.redraw();
             },

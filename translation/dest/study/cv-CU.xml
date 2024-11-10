@@ -29,5 +29,5 @@
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Тапӑну</string>
   <string name="topics">Темӑ</string>
   <string name="back">Кайалла</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Тепре выльа</string>
+  <string name="playAgain">Тепре выльа</string>
 </resources>

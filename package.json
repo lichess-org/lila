@@ -24,18 +24,24 @@
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.8.7",
-    "@types/web": "^0.0.166",
-    "@typescript-eslint/eslint-plugin": "^8.12.2",
-    "@typescript-eslint/parser": "^8.12.2",
+    "@types/node": "^22.9.0",
+    "@types/web": "^0.0.176",
+    "@typescript-eslint/eslint-plugin": "^8.13.0",
+    "@typescript-eslint/parser": "^8.13.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
+    "chessops": "^0.14.2",
     "eslint": "^9.14.0",
     "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
+    "snabbdom": "3.5.1",
     "typescript": "^5.6.3"
   },
+  "_comments": [
+    "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
+    "typescript above just to allow manual tsc. ui/.build/package.json's typesript version is the truth"
+  ],
   "scripts": {
     "format": "prettier --cache --write --log-level warn .",
     "check-format": "prettier --cache --check --log-level warn .",
@@ -49,6 +55,7 @@
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "trans-dump": "pnpx tsx bin/trans-dump.ts",
+    "test": "cd ui/ && pnpm test",
     "multilog": "pnpm serverlog & ui/build -w"
   }
 }

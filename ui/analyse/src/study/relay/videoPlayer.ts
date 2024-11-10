@@ -1,13 +1,12 @@
-import { looseH as h, Redraw, VNode } from 'common/snabbdom';
-import RelayCtrl from './relayCtrl';
+import { looseH as h, type Redraw, type VNode } from 'common/snabbdom';
+import type RelayCtrl from './relayCtrl';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {
   private iframe: HTMLIFrameElement;
   private close: HTMLImageElement;
   private autoplay: boolean;
-
-  animationFrameId: number;
+  private animationFrameId?: number;
 
   constructor(
     private url: string,
@@ -45,7 +44,9 @@ export class VideoPlayer {
   };
 
   cover = (el?: HTMLElement) => {
-    cancelAnimationFrame(this.animationFrameId);
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
     if (!el) {
       if (!document.body.contains(this.iframe)) return;
       document.body.removeChild(this.iframe);

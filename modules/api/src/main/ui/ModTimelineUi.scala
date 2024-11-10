@@ -100,6 +100,8 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
+    val reporters = r.atoms.toList.map: atom =>
+      userIdLink(atom.by.some, withOnline = false)
     frag(
       if r.atoms.size == 1 && r.atoms.forall(_.by.is(UserId.lichess))
       then renderMod(UserId.lichess.into(ModId))
@@ -107,7 +109,14 @@ final class ModTimelineUi(helpers: Helpers)(
         strong(
           cls   := "mod-timeline__event__from",
           title := r.atoms.toList.map(_.by.id).map(usernameOrId).map(_.toString).mkString(", ")
-        )(pluralize("player", r.atoms.size))
+        )(
+          if r.atoms.size > 3
+          then pluralize("player", r.atoms.size)
+          else
+            fragList:
+              r.atoms.toList.map: atom =>
+                userIdLink(atom.by.some, withOnline = false)
+        )
       ,
       div(cls := "mod-timeline__event__action")(
         " opened a ",

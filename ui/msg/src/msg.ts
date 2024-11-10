@@ -2,7 +2,7 @@ import view from './view/main';
 
 import { init, classModule, attributesModule } from 'snabbdom';
 
-import { MsgOpts } from './interfaces';
+import type { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
 import MsgCtrl from './ctrl';
 

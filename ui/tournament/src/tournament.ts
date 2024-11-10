@@ -1,5 +1,5 @@
 import { init, classModule, attributesModule } from 'snabbdom';
-import { TournamentOpts } from './interfaces';
+import type { TournamentOpts } from './interfaces';
 import StrongSocket from 'common/socket';
 
 const patch = init([classModule, attributesModule]);

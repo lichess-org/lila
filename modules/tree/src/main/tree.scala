@@ -240,6 +240,14 @@ case class Root(
       copy(children = children.update(main.updateMainlineLast(f)))
     }
 
+  def clearAnnotationsRecursively =
+    copy(
+      comments = Comments(Nil),
+      shapes = Shapes(Nil),
+      glyphs = Glyphs.empty,
+      children = children.updateAllWith(_.clearAnnotations)
+    )
+
   def clearVariations =
     copy(
       children = children.first.fold(Branches.empty) { child =>

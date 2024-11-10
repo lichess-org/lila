@@ -1,16 +1,16 @@
 import * as util from './util';
+import { onInsert } from 'common/snabbdom';
 import resizeHandle from 'common/resize';
-import RoundController from './ctrl';
-import { Config } from 'chessground/config';
-import { h, VNode } from 'snabbdom';
+import type RoundController from './ctrl';
+import { h, type VNode } from 'snabbdom';
 import { plyStep } from './util';
-import { RoundData } from './interfaces';
+import type { RoundData } from './interfaces';
 import { uciToMove } from 'chessground/util';
-import * as Prefs from 'common/prefs';
+import { ShowResizeHandle, Coords, MoveEvent } from 'common/prefs';
 import { storage } from 'common/storage';
 import { Chessground as makeChessground } from 'chessground';
 
-export function makeConfig(ctrl: RoundController): Config {
+export function makeConfig(ctrl: RoundController): CgConfig {
   const data = ctrl.data,
     hooks = ctrl.makeCgHooks(),
     step = plyStep(data, ctrl.ply),
@@ -21,8 +21,8 @@ export function makeConfig(ctrl: RoundController): Config {
     turnColor: step.ply % 2 === 0 ? 'white' : 'black',
     lastMove: uciToMove(step.uci),
     check: !!step.check,
-    coordinates: data.pref.coords !== Prefs.Coords.Hidden,
-    coordinatesOnSquares: data.pref.coords === Prefs.Coords.All,
+    coordinates: data.pref.coords !== Coords.Hidden,
+    coordinatesOnSquares: data.pref.coords === Coords.All,
     addPieceZIndex: ctrl.data.pref.is3d,
     addDimensionsCssVarsTo: document.body,
     highlight: {
@@ -38,7 +38,7 @@ export function makeConfig(ctrl: RoundController): Config {
         const showUntil = firstPly + 2 + +isSecond;
         resizeHandle(
           elements,
-          playing ? ctrl.data.pref.resizeHandle : Prefs.ShowResizeHandle.Always,
+          playing ? ctrl.data.pref.resizeHandle : ShowResizeHandle.Always,
           ctrl.ply,
           p => p <= showUntil,
         );
@@ -78,11 +78,11 @@ export function makeConfig(ctrl: RoundController): Config {
       },
     },
     draggable: {
-      enabled: data.pref.moveEvent !== Prefs.MoveEvent.Click,
+      enabled: data.pref.moveEvent !== MoveEvent.Click,
       showGhost: data.pref.highlight,
     },
     selectable: {
-      enabled: data.pref.moveEvent !== Prefs.MoveEvent.Drag,
+      enabled: data.pref.moveEvent !== MoveEvent.Drag,
     },
     drawable: {
       enabled: true,
@@ -105,5 +105,5 @@ export const boardOrientation = (data: RoundData, flip: boolean): Color =>
 
 export const render = (ctrl: RoundController): VNode =>
   h('div.cg-wrap', {
-    hook: util.onInsert(el => ctrl.setChessground(makeChessground(el, makeConfig(ctrl)))),
+    hook: onInsert(el => ctrl.setChessground(makeChessground(el, makeConfig(ctrl)))),
   });

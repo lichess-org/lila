@@ -314,9 +314,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          val newChapter = chapter.updateRoot { root =>
-            root.withChildren(_.updateAllWith(_.clearAnnotations).some)
-          } | chapter
+          val newChapter = chapter.updateRoot(_.clearAnnotationsRecursively.some) | chapter
           for _ <- chapterRepo.update(newChapter) yield onChapterChange(study.id, chapter.id, who)
 
   def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =

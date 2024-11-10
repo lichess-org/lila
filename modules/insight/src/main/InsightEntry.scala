@@ -1,6 +1,7 @@
 package lila.insight
 
 import lila.common.SimpleOpening
+import lila.core.game.Source
 
 case class InsightEntry(
     id: String, // gameId + w/b
@@ -20,6 +21,7 @@ case class InsightEntry(
     ratingDiff: IntRatingDiff,
     analysed: Boolean,
     provisional: Boolean,
+    source: Option[Source],
     date: Instant
 )
 
@@ -48,4 +50,5 @@ case object InsightEntry:
     val ratingDiff               = "rd"
     val analysed                 = "a"
     val provisional              = "pr"
+    val source                   = "so"
     val date                     = "d"

@@ -16,7 +16,7 @@ final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser
   )
 
   private def buttonClass(prompt: AuthorizationRequest.Prompt) =
-    s"button${prompt.isDanger.so(" button-red confirm text")}"
+    s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")}"
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using
       Context

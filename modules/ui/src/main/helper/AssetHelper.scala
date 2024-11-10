@@ -10,7 +10,6 @@ trait AssetHelper:
 
   export lila.ui.Esm
 
-  def manifest: AssetManifest
   def assetBaseUrl: AssetBaseUrl
   def assetUrl(path: String): String
   def safeJsonValue(jsValue: JsValue): SafeJsonStr

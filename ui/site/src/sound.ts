@@ -1,7 +1,7 @@
 import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
-import { charRole } from 'chess';
+import { defined, charToRole } from 'common';
 
 type Name = string;
 type Path = string;
@@ -88,6 +88,11 @@ export default new (class implements SoundI {
     this.music(o);
   }
 
+  async playAndDelayMateResultIfNecessary(name: Name): Promise<void> {
+    if (this.theme === 'standard') this.play(name);
+    else setTimeout(() => this.play(name), 600);
+  }
+
   async countdown(count: number, interval = 500): Promise<void> {
     if (!this.enabled()) return;
     try {
@@ -126,11 +131,12 @@ export default new (class implements SoundI {
   enabled = () => this.theme !== 'silent';
 
   speech = (v?: boolean): boolean => {
-    if (v !== undefined) this.speechStorage.set(v);
+    if (defined(v)) this.speechStorage.set(v);
     return this.speechStorage.get();
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
+    if (typeof window.speechSynthesis === 'undefined') return false;
     try {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
@@ -142,7 +148,7 @@ export default new (class implements SoundI {
         msg.onstart = () => this.listeners.forEach(l => l('start', text));
         msg.onend = () => this.listeners.forEach(l => l('stop'));
       }
-      speechSynthesis.speak(msg);
+      window.speechSynthesis.speak(msg);
       return true;
     } catch (err) {
       console.error(err);
@@ -185,7 +191,7 @@ export default new (class implements SoundI {
                         const code = c.charCodeAt(0);
                         if (code > 48 && code < 58) return c; // 1-8
                         if (code > 96 && code < 105) return c.toUpperCase();
-                        return charRole(c) || c;
+                        return charToRole(c) || c;
                       })
                       .join(' ')
                       .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
@@ -217,13 +223,10 @@ export default new (class implements SoundI {
           $('#warn-no-autoplay').addClass('shown');
           resolve();
         }, 400);
-        this.ctx
-          ?.resume()
-          .then(() => {
-            clearTimeout(resumeTimer);
-            resolve();
-          })
-          .catch(resolve);
+        this.ctx?.resume().then(() => {
+          clearTimeout(resumeTimer);
+          resolve();
+        });
       });
     if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
@@ -265,8 +268,8 @@ class Sound {
 
 function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
-    ? new window.webkitAudioContext()
+    ? new window.webkitAudioContext({ latencyHint: 'interactive' })
     : typeof AudioContext !== 'undefined'
-      ? new AudioContext()
+      ? new AudioContext({ latencyHint: 'interactive' })
       : undefined;
 }

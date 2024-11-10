@@ -1,11 +1,11 @@
-import { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Requires } from '../types';
-import CevalCtrl from '../ctrl';
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Requires } from '../types';
+import type CevalCtrl from '../ctrl';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
 import { storedStringProp, StoredProp } from 'common/storage';
-import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, Feature } from 'common/device';
+import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, type Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
 import { log } from 'common/permalog';
