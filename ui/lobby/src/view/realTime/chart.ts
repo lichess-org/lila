@@ -106,7 +106,7 @@ function renderYAxis() {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('i.toggle', {
+  return h('i.toggle-padding-left', {
     key: 'set-mode-list',
     attrs: { title: i18n.site.list, 'data-icon': licon.List },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
