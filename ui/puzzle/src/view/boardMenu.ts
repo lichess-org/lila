@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import { toggle } from 'common';
 import { menu as menuDropdown } from 'board/menu';
 import { boolPrefXhrToggle } from 'common/controls';
-import PuzzleCtrl from '../ctrl';
+import type PuzzleCtrl from '../ctrl';
 
 export default function (ctrl: PuzzleCtrl) {
   return menuDropdown(ctrl.redraw, ctrl.menu, menu => [

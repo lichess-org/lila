@@ -1,11 +1,10 @@
-import * as winningChances from '../winningChances';
+import { povChances } from '../winningChances';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/controls';
-import { onInsert, bind, LooseVNodes, looseH as h } from 'common/snabbdom';
+import { type VNode, type LooseVNodes, onInsert, bind, looseH as h } from 'common/snabbdom';
 import { defined, notNull, requestIdleCallback } from 'common';
-import { ParentCtrl, NodeEvals, CevalState } from '../types';
-import { VNode } from 'snabbdom';
-import { Position } from 'chessops/chess';
+import { type ParentCtrl, type NodeEvals, CevalState } from '../types';
+import type { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
@@ -14,7 +13,7 @@ import { renderEval } from '../util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
 import { renderCevalSettings } from './settings';
-import CevalCtrl from '../ctrl';
+import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
@@ -143,7 +142,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   const bestEv = getBestEval(ctrl.currentEvals());
   let ev;
   if (bestEv) {
-    ev = winningChances.povChances('white', bestEv);
+    ev = povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
   return h(

@@ -1,4 +1,4 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 
 export interface NotifyOpts {
   el: Element;

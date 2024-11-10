@@ -129,3 +129,13 @@ export function $as<T>(cashOrHtml: Cash | string): T {
 export function myUserId(): string | undefined {
   return document.body.dataset.user;
 }
+
+export const charToRole = (char: string) =>
+  ({
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen',
+    K: 'king',
+  })[char.toUpperCase()] as Role;

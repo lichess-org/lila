@@ -9,8 +9,8 @@ import { vert } from './table';
 import help from './help';
 import info from './info';
 import boards from './boards';
-import Ctrl from './ctrl';
-import { ViewTab } from './interfaces';
+import type Ctrl from './ctrl';
+import type { ViewTab } from './interfaces';
 import { bind, looseH as h } from 'common/snabbdom';
 
 let forceRender = false;

@@ -1,4 +1,4 @@
-import { RoundStats } from './interface';
+import type { RoundStats } from './interface';
 import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
 import { hoverBorderColor, gridColor, tooltipBgColor, fontColor, fontFamily, animation } from './common';

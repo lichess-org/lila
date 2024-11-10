@@ -1,4 +1,4 @@
-import { Square } from 'chessops';
+import type { Square } from 'chessops';
 
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: string]: Uci };

@@ -1,5 +1,5 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { SwissOpts } from './interfaces';
+import type { SwissOpts } from './interfaces';
 import SwissCtrl from './ctrl';
 import StrongSocket from 'common/socket';
 

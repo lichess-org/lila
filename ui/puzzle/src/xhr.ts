@@ -1,5 +1,5 @@
-import * as xhr from 'common/xhr';
-import PuzzleStreak from './streak';
+import { json as xhrJson, form as xhrForm, text as xhrText } from 'common/xhr';
+import type PuzzleStreak from './streak';
 import { throttlePromiseDelay } from 'common/timing';
 import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
@@ -14,9 +14,9 @@ export const complete = (
   streak?: PuzzleStreak,
   color?: Color,
 ): Promise<PuzzleResult> =>
-  xhr.json(`/training/complete/${theme}/${puzzleId}`, {
+  xhrJson(`/training/complete/${theme}/${puzzleId}`, {
     method: 'POST',
-    body: xhr.form({
+    body: xhrForm({
       win,
       ...(replay ? { replayDays: replay.days } : {}),
       ...(streak ? { streakId: streak.nextId(), streakScore: streak.data.index } : {}),
@@ -26,28 +26,28 @@ export const complete = (
   });
 
 export const vote = (puzzleId: string, vote: boolean): Promise<void> =>
-  xhr.json(`/training/${puzzleId}/vote`, {
+  xhrJson(`/training/${puzzleId}/vote`, {
     method: 'POST',
-    body: xhr.form({ vote }),
+    body: xhrForm({ vote }),
   });
 
 export const voteTheme = (puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> =>
-  xhr.json(`/training/${puzzleId}/vote/${theme}`, {
+  xhrJson(`/training/${puzzleId}/vote/${theme}`, {
     method: 'POST',
-    body: defined(vote) ? xhr.form({ vote }) : undefined,
+    body: defined(vote) ? xhrForm({ vote }) : undefined,
   });
 
 export const report = (puzzleId: string, reason: string): Promise<void> =>
-  xhr.json(`/training/${puzzleId}/report`, {
+  xhrJson(`/training/${puzzleId}/report`, {
     method: 'POST',
-    body: xhr.form({ reason: reason }),
+    body: xhrForm({ reason: reason }),
   });
 
 export const setZen = throttlePromiseDelay(
   () => 1000,
   zen =>
-    xhr.text('/pref/zen', {
+    xhrText('/pref/zen', {
       method: 'post',
-      body: xhr.form({ zen: zen ? 1 : 0 }),
+      body: xhrForm({ zen: zen ? 1 : 0 }),
     }),
 );

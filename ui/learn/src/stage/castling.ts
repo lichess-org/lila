@@ -1,6 +1,6 @@
 import { and, lastMoveSan, not, or, pieceNotOn, mate } from '../assert';
 import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
-import { LevelPartial, StageNoID } from './list';
+import type { LevelPartial, StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/castle.svg';
 

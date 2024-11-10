@@ -1,5 +1,5 @@
 import { defined } from 'common';
-import { Work } from './types';
+import type { Work } from './types';
 
 export class Protocol {
   public engineName: string | undefined;

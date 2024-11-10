@@ -1,9 +1,9 @@
-import * as xhr from './xhr';
-import PuzzleCtrl from './ctrl';
-import { PuzzleId, ThemeKey } from './interfaces';
+import { report as xhrReport } from './xhr';
+import type PuzzleCtrl from './ctrl';
+import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
-import { StoredProp, storedIntProp } from 'common/storage';
+import { type StoredProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 
 export default class Report {
@@ -95,7 +95,7 @@ export default class Report {
         dlg.close();
       });
       $('.apply', dlg.view).on('click', () => {
-        xhr.report(puzzleId, reason);
+        xhrReport(puzzleId, reason);
         dlg.close();
       });
       dlg.showModal();

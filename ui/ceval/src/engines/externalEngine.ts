@@ -1,4 +1,10 @@
-import { Work, ExternalEngineInfo, CevalEngine, CevalState, EngineNotifier } from '../types';
+import {
+  type Work,
+  type ExternalEngineInfo,
+  type CevalEngine,
+  type EngineNotifier,
+  CevalState,
+} from '../types';
 import { randomToken } from 'common/algo';
 import { readNdJson } from 'common/xhr';
 import { throttle } from 'common/timing';

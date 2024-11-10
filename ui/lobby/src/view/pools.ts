@@ -1,6 +1,6 @@
-import { h, Hooks } from 'snabbdom';
+import { h, type Hooks } from 'snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import LobbyController from '../ctrl';
+import type LobbyController from '../ctrl';
 import { onInsert } from 'common/snabbdom';
 
 const createHandler = (ctrl: LobbyController) => (e: Event) => {

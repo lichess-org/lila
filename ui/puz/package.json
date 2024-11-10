@@ -17,7 +17,6 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "chessops": "^0.14.2",
     "common": "workspace:*"
   }
 }

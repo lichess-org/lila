@@ -1,6 +1,6 @@
 import { onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import type LobbyController from '../../../ctrl';
 import { variantsBlindMode, variants, variantsForGameType } from '../../../options';
 import { option } from './option';
 

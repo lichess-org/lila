@@ -1,13 +1,13 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
-import { ForecastStep } from './interfaces';
-import AnalyseCtrl from '../ctrl';
+import type { ForecastStep } from './interfaces';
+import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
 import { findCurrentPath } from '../treeView/common';
-import ForecastCtrl from './forecastCtrl';
+import type ForecastCtrl from './forecastCtrl';
 
 function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];

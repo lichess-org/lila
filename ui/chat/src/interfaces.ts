@@ -1,8 +1,8 @@
-import { VNode } from 'snabbdom';
-import { Prop } from 'common';
+import type { VNode } from 'snabbdom';
+import type { Prop } from 'common';
 
 import type { Palantir } from 'palantir';
-import { EnhanceOpts } from 'common/richText';
+import type { EnhanceOpts } from 'common/richText';
 
 export interface ChatOpts {
   el: HTMLElement;

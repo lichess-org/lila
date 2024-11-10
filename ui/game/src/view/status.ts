@@ -1,5 +1,4 @@
-import { FEN } from 'chessground/types';
-import { Ctrl } from '../interfaces';
+import type { Ctrl } from '../interfaces';
 
 export function bishopOnColor(expandedFen: string, offset: 0 | 1): boolean {
   if (expandedFen.length !== 64) throw new Error('Expanded FEN expected to be 64 characters');
