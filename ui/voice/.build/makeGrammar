@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+cd "$(dirname "${BASH_SOURCE:-$0}")"
+
+node --experimental-strip-types --no-warnings makeGrammar.mts "$@"

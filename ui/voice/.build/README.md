@@ -18,9 +18,9 @@ vocabulary words that lack a sufficient sample in the crowdv data.
 # usage:
 
 ```
-node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
-                         --count=6 \
-                         moves-en # give the lexicon/patch prefix as a standard argument
+./.build/makeGrammar --freq=.002 \ # default values given explicitly here
+                     --count=6 \
+                       moves-en # give the lexicon/patch prefix as a standard argument
 ```
 
 ## arguments:
@@ -35,7 +35,7 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
   {in} is a crowdv json resolved in the following manner:
     - as a local file either absolute or relative to the .build/crowdv directory
     - as a https url
-    - otherwise, downloaded from https://raw.githubusercontent.com/lichess-org/lifat/dev/crowdv
+    - otherwise, downloaded from https://raw.githubusercontent.com/lichess-org/lifat/master/crowdv
 
   {grammar}
 ```
@@ -85,7 +85,7 @@ node dist/makeGrammar.js --freq=.002 \ # default values given explicitly here
 # see also:
 
 ```
-  * src/makeGrammar.ts
-  * ui/site/component/mic.ts
-  * ui/voice/src/plugins/voiceMove.ts
+  * ./.build/makeGrammar.mts
+  * ./src/mic.ts
+  * ./src/move/voice.move.ts
 ```
