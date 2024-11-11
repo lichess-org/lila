@@ -13,7 +13,7 @@
   <string name="doPasswordReset">بازیابی گذرواژه را تکمیل کنید تا هویت‌سنجیِ دومِ شما برداشته شود</string>
   <string name="accountSupport">به پشتیبانی حساب کاربری نیاز دارم</string>
   <string name="wantTitle">می خواهم عنوانم در Lichess نشان داده شود</string>
-  <string name="visitTitleConfirmation">برای آن که عنوان‌تان روی رُخ‌نمای Lichessتان نمایانده شود، و در میدان‌های عنوان‌دار شرکت کنید، به صفحه تاییدِ عنوان سَر بزنید</string>
+  <string name="visitTitleConfirmation">برای آن که عنوان‌تان روی رُخ‌نمای Lichessتان نمایانده شود، و در راوان‌های عنوان‌دار شرکت کنید، به صفحهٔ تاییدِ عنوان سَر بزنید</string>
   <string name="wantCloseAccount">می خواهم حساب کاربری ام را ببندم</string>
   <string name="closeYourAccount">شما می‌توانید در این صفحه حساب کاربری خود را ببندید</string>
   <string name="doNotAskByEmail">از طریق رایانامه از ما نخواهید که یک حساب کاربری را ببندیم، ما آن را انجام نخواهیم داد.</string>
