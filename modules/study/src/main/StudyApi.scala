@@ -740,6 +740,12 @@ final class StudyApi(
             sendTo(study.id)(_.setTopics(topics, who))
             topicApi.recompute()
 
+  def setVisibility(studyId: StudyId, visibility: hub.Visibility): Funit =
+    sequenceStudy(studyId): study =>
+      (study.visibility != visibility).so:
+        for _ <- studyRepo.updateSomeFields(study.copy(visibility = visibility))
+        yield sendTo(study.id)(_.reloadAll)
+
   def addTopics(studyId: StudyId, topics: List[String]) =
     sequenceStudy(studyId): study =>
       studyRepo.updateTopics(study.addTopics(StudyTopics.fromStrs(topics, StudyTopics.studyMax)))

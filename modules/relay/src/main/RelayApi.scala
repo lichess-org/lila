@@ -33,6 +33,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     players: RelayPlayerApi,
+    studyPropagation: RelayStudyPropagation,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer, play.api.Mode):
 
@@ -231,6 +232,7 @@ final class RelayApi(
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
       _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
+      _ <- (tour.tier != prev.tier).so(studyPropagation.onTierChange(tour))
     yield
       players.invalidate(tour.id)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
@@ -265,6 +267,7 @@ final class RelayApi(
         me,
         withRatings = true,
         _.copy(
+          visibility = tour.studyVisibility,
           members = lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
         )
       )
@@ -415,7 +418,7 @@ final class RelayApi(
               s,
               _.copy(
                 id = round.studyId,
-                visibility = lila.core.study.Visibility.public
+                visibility = to.studyVisibility
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))

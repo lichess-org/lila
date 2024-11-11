@@ -59,6 +59,8 @@ final class Env(
 
   private lazy val notifier = wire[RelayNotifier]
 
+  private lazy val studyPropagation = wire[RelayStudyPropagation]
+
   lazy val jsonView = wire[JsonView]
 
   lazy val listing: RelayListing = wire[RelayListing]
@@ -123,8 +125,6 @@ final class Env(
   ).taggedWith[ProxyDomainRegex]
 
   private val relayFidePlayerApi = wire[RelayFidePlayerApi]
-
-  private val studyPropagation = wire[RelayStudyPropagation]
 
   import lila.common.config.given
   private val syncOnlyIds = config.getOptional[List[String]]("relay.syncOnlyIds").map(RelayTourId.from)
