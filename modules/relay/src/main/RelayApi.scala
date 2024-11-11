@@ -33,6 +33,7 @@ final class RelayApi(
     formatApi: RelayFormatApi,
     cacheApi: CacheApi,
     players: RelayPlayerApi,
+    studyPropagation: RelayStudyPropagation,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer, play.api.Mode):
 
@@ -231,6 +232,7 @@ final class RelayApi(
       )
       _ <- data.grouping.so(updateGrouping(tour, _))
       _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
+      _ <- (tour.tier != prev.tier).so(studyPropagation.onTierChange(tour))
     yield
       players.invalidate(tour.id)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
@@ -265,6 +267,7 @@ final class RelayApi(
         me,
         withRatings = true,
         _.copy(
+          visibility = tour.studyVisibility,
           members = lastStudy.fold(StudyMembers.empty)(_.members) + StudyMember(me, StudyMember.Role.Write)
         )
       )
@@ -373,12 +376,6 @@ final class RelayApi(
           _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true
 
-  def getOngoing(id: RelayRoundId): Fu[Option[WithTour]] =
-    roundRepo.coll
-      .one[RelayRound]($doc("_id" -> id, "finished" -> false))
-      .flatMapz: relay =>
-        tourById(relay.tourId).map2(relay.withTour)
-
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
     fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
       roundRepo
@@ -421,7 +418,7 @@ final class RelayApi(
               s,
               _.copy(
                 id = round.studyId,
-                visibility = lila.core.study.Visibility.public
+                visibility = to.studyVisibility
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
@@ -514,24 +511,6 @@ final class RelayApi(
       .flatMapz: tourId =>
         roundIdsById(tourId).flatMap:
           _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
-
-  // if the study is a round, propagate members to all round studies of the tournament group
-  private[relay] def onStudyMembersChange(study: Study) =
-    study.isRelay.so:
-      roundRepo
-        .tourIdByStudyId(study.id)
-        .flatMapz: tourId =>
-          studyRepo
-            .membersDoc(study.id)
-            .flatMapz: members =>
-              groupRepo
-                .allTourIdsOfGroup(tourId)
-                .flatMap:
-                  _.sequentiallyVoid: tourId =>
-                    roundRepo
-                      .studyIdsOf(tourId)
-                      .flatMap:
-                        studyRepo.setMembersDoc(_, members)
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {

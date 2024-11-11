@@ -59,6 +59,8 @@ final class Env(
 
   private lazy val notifier = wire[RelayNotifier]
 
+  private lazy val studyPropagation = wire[RelayStudyPropagation]
+
   lazy val jsonView = wire[JsonView]
 
   lazy val listing: RelayListing = wire[RelayListing]
@@ -155,7 +157,7 @@ final class Env(
   )
 
   lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
-    api.onStudyMembersChange(change.study)
+    studyPropagation.onStudyMembersChange(change.study)
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))

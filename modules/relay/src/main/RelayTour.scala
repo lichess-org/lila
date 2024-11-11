@@ -8,6 +8,7 @@ import lila.core.i18n.Language
 import lila.core.id.ImageId
 import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC
+import lila.core.study.Visibility
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
@@ -46,6 +47,11 @@ case class RelayTour(
 
   def tierIs(selector: RelayTour.Tier.Selector) =
     tier.fold(false)(_ == selector(RelayTour.Tier))
+
+  def studyVisibility: Visibility =
+    if tier.has(RelayTour.Tier.PRIVATE)
+    then Visibility.`private`
+    else Visibility.public
 
 object RelayTour:
 
