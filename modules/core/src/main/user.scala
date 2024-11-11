@@ -209,7 +209,7 @@ object user:
         perf: PerfKey,
         useCache: Boolean = true
     ): Fu[Option[ByColor[WithPerf]]]
-    def glicko(userId: UserId, perf: PerfKey): Fu[Glicko]
+    def glicko(userId: UserId, perf: PerfKey): Fu[Option[Glicko]]
     def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean]
     def containsEngine(userIds: List[UserId]): Fu[Boolean]
     def usingPerfOf[A, U: UserIdOf](u: U, perfKey: PerfKey)(f: Perf ?=> Fu[A]): Fu[A]

@@ -1,10 +1,10 @@
 import * as licon from 'common/licon';
-import * as xhr from 'common/xhr';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { throttle, throttlePromiseDelay } from 'common/timing';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { header } from './util';
 import { bind } from 'common/snabbdom';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
 
 type Key = string;
@@ -77,9 +77,9 @@ export class SoundCtrl extends PaneCtrl {
   private postSet = throttlePromiseDelay(
     () => 1000,
     (soundSet: string) =>
-      xhr
-        .text('/pref/soundSet', { body: xhr.form({ soundSet }), method: 'post' })
-        .catch(() => site.announce({ msg: 'Failed to save sound preference' })),
+      xhrText('/pref/soundSet', { body: xhrForm({ soundSet }), method: 'post' }).catch(() =>
+        site.announce({ msg: 'Failed to save sound preference' }),
+      ),
   );
 
   private makeList = () => {

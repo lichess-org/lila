@@ -1,20 +1,19 @@
-import { VNode } from 'snabbdom';
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
-import { LooseVNodes, looseH as h } from 'common/snabbdom';
+import { type VNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { fixCrazySan } from 'chess';
 import { path as treePath, ops as treeOps } from 'tree';
 import * as moveView from '../view/moveView';
-import AnalyseCtrl from '../ctrl';
-import { ConcealOf, Conceal } from '../interfaces';
+import type AnalyseCtrl from '../ctrl';
+import type { ConcealOf, Conceal } from '../interfaces';
 import {
+  type Ctx as BaseCtx,
+  type Opts as BaseOpts,
   nonEmpty,
   mainHook,
   nodeClasses,
   renderInlineCommentsOf,
   retroLine,
-  Ctx as BaseCtx,
-  Opts as BaseOpts,
   renderComment,
   renderingCtx,
 } from './common';

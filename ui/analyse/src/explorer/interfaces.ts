@@ -1,5 +1,3 @@
-import { FEN } from 'chessground/types';
-
 export interface Hovering {
   fen: FEN;
   uci: Uci;
@@ -96,6 +94,7 @@ export interface OpeningMoveStats extends MoveStats {
   averageOpponentRating?: number;
   performance?: number;
   game?: OpeningGame;
+  opening?: Opening;
 }
 export interface TablebaseMoveStats extends MoveStats {
   dtz: number | null;

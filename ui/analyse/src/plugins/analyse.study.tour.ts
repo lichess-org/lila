@@ -1,6 +1,6 @@
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import Shepherd from 'shepherd.js';
-import { ChapterTab, StudyTour, Tab } from '../study/interfaces';
+import type { ChapterTab, StudyTour, Tab } from '../study/interfaces';
 import { pubsub } from 'common/pubsub';
 
 export function initModule(): StudyTour {

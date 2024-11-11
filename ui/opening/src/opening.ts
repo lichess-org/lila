@@ -1,12 +1,11 @@
 import Lpv from 'lichess-pgn-viewer';
 import { initMiniBoards } from 'common/miniBoard';
 import { requestIdleCallback } from 'common';
-import { OpeningPage } from './interfaces';
+import type { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';
 import { init as searchEngine } from './search';
 import panels from './panels';
 import renderPlaceholderWiki from './wiki';
-import { Config } from 'chessground/config';
 
 export function initModule(data?: OpeningPage): void {
   data ? page(data) : searchEngine();
@@ -41,7 +40,7 @@ function page(data: OpeningPage) {
   });
 }
 
-const cgConfig: Config = {
+const cgConfig: CgConfig = {
   coordinates: false,
 };
 

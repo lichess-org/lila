@@ -1,11 +1,10 @@
-import { VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import * as licon from 'common/licon';
-import { bind, onInsert, looseH as h } from 'common/snabbdom';
+import { type VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { player as renderPlayer } from './util';
-import { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
+import type { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
 import { teamName } from './battle';
-import TournamentController from '../ctrl';
+import type TournamentController from '../ctrl';
 import { initMiniGames } from 'common/miniBoard';
 
 function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) {

@@ -4,7 +4,6 @@ import type { ClockData } from './clock/clockCtrl';
 import type { CorresClockData } from './corresClock/corresClockCtrl';
 import type RoundController from './ctrl';
 import type { ChatCtrl, ChatPlugin } from 'chat';
-import * as cg from 'chessground/types';
 import * as Prefs from 'common/prefs';
 import type { EnhanceOpts } from 'common/richText';
 import type { RoundSocket } from './socket';
@@ -38,8 +37,8 @@ export interface SocketMove {
   b?: 1;
 }
 export interface SocketDrop {
-  role: cg.Role;
-  pos: cg.Key;
+  role: Role;
+  pos: Key;
   b?: 1;
 }
 
@@ -48,7 +47,6 @@ export type EncodedDests =
   | {
       [key: string]: string;
     };
-export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
   clock?: ClockData;
@@ -116,7 +114,7 @@ export interface ChatOpts {
 
 export interface Step {
   ply: Ply;
-  fen: cg.FEN;
+  fen: FEN;
   san: San;
   uci: Uci;
   check?: boolean;
@@ -142,15 +140,15 @@ export interface ApiMove {
   wDraw?: boolean;
   bDraw?: boolean;
   crazyhouse?: CrazyData;
-  role?: cg.Role;
+  role?: Role;
   drops?: string;
   promotion?: {
-    key: cg.Key;
-    pieceClass: cg.Role;
+    key: Key;
+    pieceClass: Role;
   };
   castle?: {
-    king: [cg.Key, cg.Key];
-    rook: [cg.Key, cg.Key];
+    king: [Key, Key];
+    rook: [Key, Key];
     color: Color;
   };
   isMove?: true;
@@ -200,8 +198,8 @@ export interface Pref {
 
 export interface MoveMetadata {
   premove?: boolean;
-  justDropped?: cg.Role;
-  justCaptured?: cg.Piece;
+  justDropped?: Role;
+  justCaptured?: Piece;
 }
 
 export type Position = 'top' | 'bottom';

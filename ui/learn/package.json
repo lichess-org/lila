@@ -11,8 +11,7 @@
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "common": "workspace:*",
-    "chessops": "^0.14.1"
+    "common": "workspace:*"
   },
   "lichess": {
     "bundles": "src/learn.ts"

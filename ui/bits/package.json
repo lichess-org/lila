@@ -30,7 +30,6 @@
     "canvas-confetti": "^1.9.3",
     "chat": "workspace:*",
     "chess": "workspace:*",
-    "chessops": "^0.14.1",
     "common": "workspace:*",
     "cropperjs": "^1.6.2",
     "debounce-promise": "^3.1.2",

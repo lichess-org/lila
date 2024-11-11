@@ -1,4 +1,4 @@
-import { ChartGame, AcplChart } from './interface';
+import type { ChartGame, AcplChart } from './interface';
 import movetime from './movetime';
 import acpl from './acpl';
 import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill, colorSeries } from './common';

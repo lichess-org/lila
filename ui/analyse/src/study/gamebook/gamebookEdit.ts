@@ -1,10 +1,10 @@
-import * as control from '../../control';
-import AnalyseCtrl from '../../ctrl';
+import { prev } from '../../control';
+import type AnalyseCtrl from '../../ctrl';
 import { requestIdleCallback } from 'common';
 import * as licon from 'common/licon';
 import { throttle } from 'common/timing';
-import { iconTag, bind, MaybeVNodes } from 'common/snabbdom';
-import { h, Hooks, VNode } from 'snabbdom';
+import { iconTag, bind, type MaybeVNodes } from 'common/snabbdom';
+import { h, type Hooks, type VNode } from 'snabbdom';
 
 export function running(ctrl: AnalyseCtrl): boolean {
   return (
@@ -79,7 +79,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
         ]),
         hasVariation
           ? null
-          : h('div.legend.clickable', { hook: bind('click', () => control.prev(ctrl), ctrl.redraw) }, [
+          : h('div.legend.clickable', { hook: bind('click', () => prev(ctrl), ctrl.redraw) }, [
               iconTag(licon.PlayTriangle),
               h('p', 'Add variation moves to explain why specific other moves are wrong.'),
             ]),

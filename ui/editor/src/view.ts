@@ -1,15 +1,15 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { copyMeInput } from 'common/copyMe';
-import { MouchEvent, NumberPair } from 'chessground/types';
+import type { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
-import { Rules } from 'chessops/types';
+import type { Rules } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
-import EditorCtrl from './ctrl';
+import type EditorCtrl from './ctrl';
 import chessground from './chessground';
-import { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
+import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { dataIcon } from 'common/snabbdom';
 import { domDialog } from 'common/dialog';
 

@@ -30,6 +30,7 @@
     "@typescript-eslint/parser": "^8.13.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
+    "chessops": "^0.14.2",
     "eslint": "^9.14.0",
     "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
@@ -54,6 +55,7 @@
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "trans-dump": "pnpx tsx bin/trans-dump.ts",
+    "test": "cd ui/ && pnpm test",
     "multilog": "pnpm serverlog & ui/build -w"
   }
 }

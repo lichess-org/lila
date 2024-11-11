@@ -1,11 +1,9 @@
-import { winningChances, Search } from 'ceval';
+import { winningChances, type Search } from 'ceval';
 import { path as treePath } from 'tree';
 import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
-import AnalyseCtrl from '../ctrl';
-import { Redraw } from '../interfaces';
-import { defined, prop, Prop, requestIdleCallback } from 'common';
-import { altCastles } from 'chess';
+import type AnalyseCtrl from '../ctrl';
+import { defined, prop, type Prop, requestIdleCallback } from 'common';
 import { parseUci } from 'chessops/util';
 import { makeSan } from 'chessops/san';
 
@@ -56,7 +54,13 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     comment = prop<Comment | null>(null),
     hovering = prop<{ uci: string } | null>(null),
     hinting = prop<Hinting | null>(null),
-    played = prop(false);
+    played = prop(false),
+    altCastles = {
+      e1a1: 'e1c1',
+      e1h1: 'e1g1',
+      e8a8: 'e8c8',
+      e8h8: 'e8g8',
+    };
 
   function commentable(node: Tree.Node, bonus = 0): boolean {
     if (node.tbhit || root.outcome(node)) return true;

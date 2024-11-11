@@ -1,9 +1,9 @@
-import MsgCtrl from '../ctrl';
+import type MsgCtrl from '../ctrl';
 import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';
-import { Convo } from '../interfaces';
-import { h, VNode } from 'snabbdom';
+import type { Convo } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { hookMobileMousedown } from 'common/device';
 import { userLink } from 'common/userLink';

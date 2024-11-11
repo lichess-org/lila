@@ -1,18 +1,17 @@
-import { Prop, prop, defined } from 'common';
+import { type Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { defer } from 'common/defer';
 import { fenColor } from 'common/miniBoard';
 import { debounce } from 'common/timing';
-import { sync, Sync } from 'common/promise';
+import { sync, type Sync } from 'common/promise';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
-import * as gameUtil from 'game';
-import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
+import { replayable } from 'game';
+import type AnalyseCtrl from '../ctrl';
+import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
-import { FEN } from 'chessground/types';
 
 export const MAX_DEPTH = 50;
 
@@ -61,7 +60,7 @@ export default class ExplorerCtrl {
   ) {
     this.allowed = prop(previous ? previous.allowed() : true);
     this.enabled = storedBooleanProp('analyse.explorer.enabled', false);
-    this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
+    this.withGames = root.synthetic || replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant =
       root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
     this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload, previous?.config);

@@ -1,8 +1,7 @@
-import { h, VNode } from 'snabbdom';
-import { Config as CgConfig } from 'chessground/config';
-import * as cg from 'chessground/types';
+import { h, type VNode } from 'snabbdom';
+import type { Elements } from 'chessground/types';
 import resizeHandle from 'common/resize';
-import CoordinateTrainerCtrl from './ctrl';
+import type CoordinateTrainerCtrl from './ctrl';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 
@@ -35,7 +34,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
     draggable: { enabled: false },
     selectable: { enabled: false },
     events: {
-      insert(elements: cg.Elements) {
+      insert(elements: Elements) {
         resizeHandle(elements, ctrl.config.resizePref, ctrl.playing ? 2 : 0);
       },
       select: ctrl.onChessgroundSelect,

@@ -13,7 +13,6 @@
   "license": "AGPL-3.0-or-later",
   "types": "dist/editor.d.ts",
   "dependencies": {
-    "chessops": "^0.14.1",
     "common": "workspace:*"
   },
   "lichess": {

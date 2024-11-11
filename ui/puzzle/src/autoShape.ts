@@ -1,8 +1,8 @@
-import { winningChances, CevalCtrl } from 'ceval';
+import { winningChances, type CevalCtrl } from 'ceval';
 import { annotationShapes } from 'chess/glyphs';
-import { DrawModifiers, DrawShape } from 'chessground/draw';
+import type { DrawModifiers, DrawShape } from 'chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
-import { NormalMove } from 'chessops/types';
+import type { NormalMove, Square } from 'chessops/types';
 
 interface Opts {
   node: Tree.Node;
@@ -11,6 +11,7 @@ interface Opts {
   ceval: CevalCtrl;
   nextNodeBest(): Uci | undefined;
   threatMode(): boolean;
+  hint?: Square;
 }
 
 function makeAutoShapesFromUci(
@@ -71,7 +72,13 @@ export default function (opts: Opts): DrawShape[] {
     } else shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'red'));
   }
   const feedback = feedbackAnnotation(n);
-  return shapes.concat(annotationShapes(n)).concat(feedback ? annotationShapes(feedback) : []);
+  const hint = opts.hint && { orig: makeSquare(opts.hint), brush: 'green' };
+  return [
+    ...shapes,
+    ...annotationShapes(n),
+    ...(feedback ? annotationShapes(feedback) : []),
+    ...(hint ? [hint] : []),
+  ];
 }
 
 function feedbackAnnotation(n: Tree.Node): Tree.Node | undefined {

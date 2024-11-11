@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
-import * as xhr from 'common/xhr';
+import { h, type VNode } from 'snabbdom';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { header, elementScrollBarWidthSlowGuess } from './util';
 import { bind } from 'common/snabbdom';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
 
 type Piece = string;
@@ -63,9 +63,9 @@ export class PieceCtrl extends PaneCtrl {
   private set = (t: Piece) => {
     this.apply(t);
     const field = `pieceSet${this.is3d ? '3d' : ''}`;
-    xhr
-      .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
-      .catch(() => site.announce({ msg: 'Failed to save piece set  preference' }));
+    xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
+      site.announce({ msg: 'Failed to save piece set  preference' }),
+    );
     this.redraw();
   };
 }
