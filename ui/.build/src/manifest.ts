@@ -5,7 +5,6 @@ import crypto from 'node:crypto';
 import es from 'esbuild';
 import { env, colors as c, warnMark } from './main.ts';
 import { globArray, globArrays } from './parse.ts';
-import { isUnmanagedAsset } from './sync.ts';
 import { allSources } from './sass.ts';
 import { jsLogger } from './console.ts';
 
@@ -64,12 +63,10 @@ export async function cssManifest(): Promise<void> {
 export async function hashedManifest(): Promise<void> {
   const newHashLinks = new Map<string, number>();
   const alreadyHashed = new Map<string, string>();
-  const sources: string[] = (
-    await globArrays(
-      env.building.flatMap(x => x.hashGlobs ?? []),
-      { cwd: env.outDir },
-    )
-  ).filter(isUnmanagedAsset);
+  const sources: string[] = await globArrays(
+    env.building.flatMap(x => x.hashGlobs ?? []),
+    { cwd: env.outDir },
+  );
   const sourceStats = await Promise.all(sources.map(file => fs.promises.stat(file)));
 
   for (const [i, stat] of sourceStats.entries()) {
