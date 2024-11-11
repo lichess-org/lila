@@ -5,7 +5,7 @@ import { bind } from './snabbdom';
 const longPressDuration = 610;
 
 export function bindMobileTapHold(el: HTMLElement, f: (e: Event) => unknown, redraw?: () => void): void {
-  let longPressCountdown: number;
+  let longPressCountdown: Timeout;
 
   el.addEventListener('touchstart', e => {
     longPressCountdown = setTimeout(() => {
