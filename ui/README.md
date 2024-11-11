@@ -25,8 +25,6 @@ Usage examples:
 The frontend uses the [Vitest](https://vitest.dev/) testing framework.
 
 ```bash
-cd ui
-
 pnpm test
 ## or
 pnpm test:watch
