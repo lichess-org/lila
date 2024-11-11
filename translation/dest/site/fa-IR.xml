@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
-  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف شما این QR کد را پویش کند</string>
+  <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف‌تان این کد QR را بِروبینَد</string>
   <string name="waiting">در حال انتظار</string>
   <string name="yourTurn">نوبت شماست</string>
   <string name="aiNameLevelAiLevel">%1$s سطح %2$s</string>
@@ -807,7 +807,7 @@
   <string name="playChessInStyle">شطرنج‌بازیِ نوگارانه</string>
   <string name="chessBasics">پایه‌های شطرنج</string>
   <string name="coaches">مربیان</string>
-  <string name="invalidPgn">فایل PGN نامعتبر است</string>
+  <string name="invalidPgn">PGN ِ نامعتبر</string>
   <string name="invalidFen">وضعیت نامعتبر</string>
   <string name="custom">دلخواه</string>
   <string name="notifications">اعلان</string>
