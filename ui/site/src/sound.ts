@@ -147,7 +147,7 @@ export default new (class implements SoundI {
       if (!isIOS()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
         msg.onstart = () => this.listeners.forEach(l => l('start', text));
-        msg.onend = () => this.listeners.forEach(l => l('stop'));
+        msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
       }
       window.speechSynthesis.speak(msg);
       return true;
