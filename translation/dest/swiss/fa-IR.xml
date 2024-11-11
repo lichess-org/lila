@@ -49,9 +49,9 @@
 اگر این خانه را خالی گذارید، Lichess خودکار رویارویی‌ها را می‌چیند.</string>
   <string name="mustHavePlayedTheirLastSwissGame">باید آخرین بازی سوییسی‌شان را کرده باشند</string>
   <string name="newSwiss">مسابقات سوئیسی جدید</string>
-  <string name="swissVsArenaQ">چه زمانی از مسابقات با ساختار سوئیسی به جای آرنا استفاده کنیم؟</string>
-  <string name="swissVsArenaA">در مسابقه با فرم سوئیسی، تمام شرکت کننده ها به تعداد برابر بازی انجام می دهند و هر دو بازیکن فقط یک بار با یکدیگر بازی می کنند.
-این شکل از مسابقه می تواند گزینه مناسبی برای باشگاه ها و مسابقات رسمی باشد.</string>
+  <string name="swissVsArenaQ">کِی از مسابقات سوئیسی به جای راوان استفاده کنیم؟</string>
+  <string name="swissVsArenaA">در یک مسابقهٔ سوئیسی، همه شرکت‌گران به تعداد یکسان و فقط یک‌بار می‌توانند با یکدیگر بازی کنند.
+می‌تواند گزینهٔ خوبی برای باشگاه‌ها و مسابقات رسمی باشد.</string>
   <string name="pointsCalculationQ">چگونه امتیازات محاسبه میشوند؟</string>
   <string name="pointsCalculationA">به هر برد یک امتیاز و هر مساوی یک امتیاز تعلق می گیرد و باخت هیچ امتیازی ندارد.
 زمانی که یک بازیکن در یک دور هیچ حریفی نداشته باشد، یک استراحت به ایشان تعلق می گیرد که یک امتیاز به حسب می آید.</string>
@@ -103,11 +103,11 @@
   <string name="numberOfGamesAsManyAsPossible">هر تعداد که می توان در مدت زمان تعیین شده بازی کرد</string>
   <string name="numberOfGamesPreDefined">از قبل تصمیم گرفته شده است، برای همه بازیکنان یکسان است</string>
   <string name="pairingSystem">روش تعیین حریف</string>
-  <string name="pairingSystemArena">هر حریف در دسترس با رنکینگ مشابه</string>
+  <string name="pairingSystemArena">هر حریف در دسترس با رتبهٔ همسان</string>
   <string name="pairingSystemSwiss">بهترین جفت بر اساس امتیاز و امتیاز شکنی</string>
   <string name="pairingWaitTime">زمان انتظار برای حریف‌یابی</string>
-  <string name="pairingWaitTimeArena">سریع: برای همه بازیکنان صبر نمیکند</string>
-  <string name="pairingWaitTimeSwiss">اهسته: منتظر ماندن برای همه بازیکنان</string>
+  <string name="pairingWaitTimeArena">تُند: منتظر همهٔ بازیکنان نمی‌ماند</string>
+  <string name="pairingWaitTimeSwiss">کُند: منتظر همهٔ بازیکنان می‌ماند</string>
   <string name="identicalPairing">بازی دوباره با یک فرد</string>
   <string name="possibleButNotConsecutive">ممکن است، اما متوالی نیست</string>
   <string name="identicalForbidden">ممنوع</string>
