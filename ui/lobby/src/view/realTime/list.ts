@@ -90,7 +90,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
           },
           [h('i.is'), i18n.site.time],
         ),
-        h('th', i18n.site.mode),
+        h('th', [h('i.is'), i18n.site.mode]),
       ]),
     ),
     h(
