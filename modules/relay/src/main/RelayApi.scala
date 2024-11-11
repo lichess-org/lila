@@ -509,24 +509,6 @@ final class RelayApi(
         roundIdsById(tourId).flatMap:
           _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
 
-  // if the study is a round, propagate members to all round studies of the tournament group
-  private[relay] def onStudyMembersChange(study: Study) =
-    study.isRelay.so:
-      roundRepo
-        .tourIdByStudyId(study.id)
-        .flatMapz: tourId =>
-          studyRepo
-            .membersDoc(study.id)
-            .flatMapz: members =>
-              groupRepo
-                .allTourIdsOfGroup(tourId)
-                .flatMap:
-                  _.sequentiallyVoid: tourId =>
-                    roundRepo
-                      .studyIdsOf(tourId)
-                      .flatMap:
-                        studyRepo.setMembersDoc(_, members)
-
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {
       _.map(_.contributorIds).withFilter(_.nonEmpty).foreach { userIds =>

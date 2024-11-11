@@ -124,6 +124,8 @@ final class Env(
 
   private val relayFidePlayerApi = wire[RelayFidePlayerApi]
 
+  private val studyPropagation = wire[RelayStudyPropagation]
+
   import lila.common.config.given
   private val syncOnlyIds = config.getOptional[List[String]]("relay.syncOnlyIds").map(RelayTourId.from)
 
@@ -155,7 +157,7 @@ final class Env(
   )
 
   lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
-    api.onStudyMembersChange(change.study)
+    studyPropagation.onStudyMembersChange(change.study)
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))
