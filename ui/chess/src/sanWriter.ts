@@ -185,7 +185,7 @@ export function speakable(san?: San): string {
                       );
                     })
                     .join(' ')
-                    .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
+                    .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
                     .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
                     .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
                     .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
