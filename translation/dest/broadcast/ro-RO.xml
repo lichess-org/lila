@@ -8,7 +8,6 @@
     <item quantity="other">%s de transmisiuni</item>
   </plurals>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
-  <string name="broadcastCalendar"></string>
   <string name="newBroadcast">O nouă difuzare în direct</string>
   <string name="subscribedBroadcasts">Transmisii abonate</string>
   <string name="aboutBroadcasts">Despre emisiuni</string>
