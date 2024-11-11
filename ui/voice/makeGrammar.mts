@@ -56,7 +56,7 @@ async function main() {
       []) {
       builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
     }
-  writeGrammar(`../grammar/${grammar}.json`);
+  writeGrammar(`grammar/${grammar}.json`);
 }
 
 // flatten list of transforms into sub map
