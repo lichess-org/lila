@@ -727,6 +727,7 @@
   <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
   <string name="simulHostExtraTime">Дадатковы час для арганізатара</string>
+  <string name="simulHostExtraTimePerPlayer"></string>
   <string name="lichessTournaments">Турніры Lichess</string>
   <string name="tournamentFAQ">Частыя пытанні пра турніры арэны</string>
   <string name="timeBeforeTournamentStarts">Турнір пачнецца праз</string>
