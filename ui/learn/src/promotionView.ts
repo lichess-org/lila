@@ -1,5 +1,5 @@
-import { RunCtrl } from './run/runCtrl';
-import { PromotionRole } from './util';
+import type { RunCtrl } from './run/runCtrl';
+import type { PromotionRole } from './util';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { opposite, key2pos } from 'chessground/util';

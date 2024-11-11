@@ -1,4 +1,4 @@
-import { AnalyseApi, AnalyseOpts } from './interfaces';
+import type { AnalyseApi, AnalyseOpts } from './interfaces';
 import StrongSocket from 'common/socket';
 
 export default function (start: (opts: AnalyseOpts) => AnalyseApi) {

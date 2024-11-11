@@ -1,5 +1,3 @@
-import * as cg from 'chessground/types';
-
 export interface GameData {
   game: Game;
   player: Player;
@@ -18,7 +16,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
-  fen: cg.FEN;
+  fen: FEN;
   startedAtTurn?: number;
   source: Source;
   speed: Speed;
@@ -193,7 +191,7 @@ export interface CheckCount {
 }
 
 export type MaterialDiffSide = {
-  [role in cg.Role]: number;
+  [role in Role]: number;
 };
 
 export interface MaterialDiff {

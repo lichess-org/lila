@@ -1,5 +1,5 @@
-import LobbyController from './ctrl';
-import { Seek } from './interfaces';
+import type LobbyController from './ctrl';
+import type { Seek } from './interfaces';
 
 function order(a: Seek, b: Seek) {
   return a.rating > b.rating ? -1 : 1;

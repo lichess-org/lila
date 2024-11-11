@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
-import Ctrl from './ctrl';
-import { Dimension } from './interfaces';
+import type Ctrl from './ctrl';
+import type { Dimension } from './interfaces';
 
 const select = (ctrl: Ctrl) => (dimension: Dimension) => {
   if (dimension.key === 'date') return;

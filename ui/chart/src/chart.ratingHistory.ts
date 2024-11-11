@@ -1,4 +1,8 @@
 import {
+  type ChartDataset,
+  type Point,
+  type ChartConfiguration,
+  type PointStyle,
   Chart,
   PointElement,
   LinearScale,
@@ -6,16 +10,12 @@ import {
   LineController,
   Tooltip,
   LineElement,
-  ChartDataset,
-  Point,
-  ChartConfiguration,
-  PointStyle,
 } from 'chart.js';
-import { PerfRatingHistory } from './interface';
+import type { PerfRatingHistory } from './interface';
 import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor, resizePolyfill } from './common';
 import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import noUiSlider, { Options, PipsMode } from 'nouislider';
+import noUiSlider, { type Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';

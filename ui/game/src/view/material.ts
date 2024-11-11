@@ -1,6 +1,5 @@
-import * as cg from 'chessground/types';
-import { h, VNode } from 'snabbdom';
-import { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { CheckCount, CheckState, MaterialDiffSide } from '../interfaces';
 import { countChecks, getMaterialDiff, getScore, NO_CHECKS } from '../material';
 import { opposite } from 'chessground/util';
 
@@ -11,7 +10,7 @@ function renderMaterialDiff(
   checks?: number,
 ): VNode {
   const children: VNode[] = [];
-  let role: cg.Role;
+  let role: Role;
   for (role in material) {
     if (material[role] > 0) {
       const content: VNode[] = [];
@@ -27,7 +26,7 @@ function renderMaterialDiff(
 export function renderMaterialDiffs(
   showCaptured: boolean,
   bottomColor: Color,
-  fen: cg.FEN,
+  fen: FEN,
   showChecks: boolean,
   checkStates: CheckState[],
   ply: Ply,

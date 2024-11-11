@@ -1,6 +1,6 @@
-import AnalyseCtrl from '../../ctrl';
-import { Goal } from './interfaces';
-import { Comment } from '../../practice/practiceCtrl';
+import type AnalyseCtrl from '../../ctrl';
+import type { Goal } from './interfaces';
+import type { Comment } from '../../practice/practiceCtrl';
 
 // returns null if not deep enough to know
 const isDrawish = (node: Tree.Node): boolean | null =>

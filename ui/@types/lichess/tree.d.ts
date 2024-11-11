@@ -4,7 +4,7 @@ declare namespace Tree {
   export type Path = string;
 
   interface ClientEvalBase extends EvalScore {
-    fen: Cg.FEN;
+    fen: FEN;
     depth: number;
     nodes: number;
     pvs: PvData[];
@@ -21,7 +21,7 @@ declare namespace Tree {
 
   export interface ServerEval extends EvalScore {
     best?: Uci;
-    fen: Cg.FEN;
+    fen: FEN;
     knodes: number;
     depth: number;
     pvs: PvDataServer[];
@@ -45,7 +45,7 @@ declare namespace Tree {
     id: string;
     ply: Ply;
     uci?: Uci;
-    fen: Cg.FEN;
+    fen: FEN;
     comments?: Comment[];
     gamebook?: Gamebook;
     dests?: string;

@@ -1,12 +1,11 @@
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
 import * as licon from 'common/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
-import { AnalyseData } from './interfaces';
-import { ChartGame, AcplChart } from 'chart';
+import type { AnalyseData } from './interfaces';
+import type { ChartGame, AcplChart } from 'chart';
 import { stockfishName, spinnerHtml } from 'common/spinner';
 import { alert, confirm, domDialog } from 'common/dialog';
-import { FEN } from 'chessground/types';
 import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';

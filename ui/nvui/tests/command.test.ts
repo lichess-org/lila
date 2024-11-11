@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest';
 import { commands } from '../src/command';
-import { Pieces } from 'chessground/types';
+import type { Pieces } from 'chessground/types';
 
 const pieces: Pieces = new Map();
 pieces.set('a1', { color: 'white', role: 'king' });

@@ -1,8 +1,7 @@
-import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, onInsert, looseH as h } from 'common/snabbdom';
+import { type VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 import { confirm } from 'common/dialog';
 
 export type Save = (t: string) => void;

@@ -2,9 +2,9 @@ import { header } from './util';
 import { hyphenToCamel, toggle } from 'common';
 import { debounce } from 'common/timing';
 import * as licon from 'common/licon';
-import * as xhr from 'common/xhr';
-import { bind, looseH as h, VNode } from 'common/snabbdom';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
+import { bind, looseH as h, type VNode } from 'common/snabbdom';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
 
 type Board = string;
@@ -88,9 +88,9 @@ export class BoardCtrl extends PaneCtrl {
   private setBoard = (t: Board) => {
     this.apply(t);
     const field = `theme${this.is3d ? '3d' : ''}`;
-    xhr
-      .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
-      .catch(() => site.announce({ msg: 'Failed to save theme preference' }));
+    xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
+      site.announce({ msg: 'Failed to save theme preference' }),
+    );
     this.redraw();
   };
 
@@ -121,15 +121,15 @@ export class BoardCtrl extends PaneCtrl {
     const body = new FormData();
     body.set(hyphenToCamel(prop), this.getVar(prop).toString());
     const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
-    xhr.text(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
+    xhrText(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
   private set3d = async (v: boolean) => {
     if (this.is3d === v) return;
     this.data.is3d = v;
-    xhr
-      .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
-      .catch(() => site.announce({ msg: 'Failed to save preference' }));
+    xhrText('/pref/is3d', { body: xhrForm({ is3d: v }), method: 'post' }).catch(() =>
+      site.announce({ msg: 'Failed to save preference' }),
+    );
 
     if (v) await site.asset.loadCssPath('common.board-3d');
     else site.asset.removeCssPath('common.board-3d');

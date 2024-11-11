@@ -1,10 +1,10 @@
 import { renderIndexAndMove } from '../view/moveView';
-import { RetroCtrl } from './retroCtrl';
-import AnalyseCtrl from '../ctrl';
+import type { RetroCtrl } from './retroCtrl';
+import type AnalyseCtrl from '../ctrl';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 
 function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [

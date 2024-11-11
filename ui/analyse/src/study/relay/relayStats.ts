@@ -1,7 +1,7 @@
-import { Redraw } from 'common/snabbdom';
+import type { Redraw } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { RelayRound } from './interfaces';
-import * as xhr from 'common/xhr';
+import type { RelayRound } from './interfaces';
+import { json as xhrJson } from 'common/xhr';
 import { h } from 'snabbdom';
 
 export default class RelayStats {
@@ -13,7 +13,7 @@ export default class RelayStats {
   ) {}
 
   loadFromXhr = async () => {
-    this.data = await xhr.json(`/broadcast/round/${this.round.id}/stats`);
+    this.data = await xhrJson(`/broadcast/round/${this.round.id}/stats`);
     this.redraw();
     await site.asset.loadEsm('chart.relayStats', {
       init: {

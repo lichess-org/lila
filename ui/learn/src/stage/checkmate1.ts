@@ -1,6 +1,6 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
 import { mate, not } from '../assert';
-import { StageNoID } from './list';
+import type { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/guillotine.svg';
 

@@ -171,7 +171,7 @@ export function debounce<T extends (...args: any) => void>(
 
 export function browserTaskQueueMonitor(interval = 1000): { wasSuspended: boolean; reset: () => void } {
   let lastTime: number;
-  let timeout: number;
+  let timeout: Timeout;
   let suspended = false;
 
   start();

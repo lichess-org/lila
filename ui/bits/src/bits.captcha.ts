@@ -1,7 +1,5 @@
 import * as xhr from 'common/xhr';
 import * as domData from 'common/data';
-import type { Api as ChessgroundApi } from 'chessground/api';
-import type { Key } from 'chessground/types';
 
 function init() {
   let failed = false;
@@ -12,7 +10,7 @@ function init() {
     const $captcha = $(this),
       $board = $captcha.find('.mini-board'),
       $input = $captcha.find('input').val(''),
-      cg = domData.get($board[0]!, 'chessground') as ChessgroundApi;
+      cg = domData.get($board[0]!, 'chessground') as CgApi;
     if (!cg) {
       failed = true;
       return;

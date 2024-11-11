@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { confirm } from 'common/dialog';
 import { Convo } from '../interfaces';
-import MsgCtrl from '../ctrl';
+import type MsgCtrl from '../ctrl';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   if (convo.user.id == 'lichess') return [];

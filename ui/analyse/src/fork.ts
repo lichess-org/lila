@@ -1,8 +1,8 @@
 import { defined } from 'common';
 import { onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import AnalyseCtrl from './ctrl';
-import { ConcealOf } from './interfaces';
+import type AnalyseCtrl from './ctrl';
+import type { ConcealOf } from './interfaces';
 import { renderIndexAndMove } from './view/moveView';
 
 export interface ForkCtrl {

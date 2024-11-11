@@ -1,12 +1,11 @@
 import * as commentForm from './commentForm';
 import * as glyphForm from './studyGlyph';
 import * as practiceView from './practice/studyPracticeView';
-import AnalyseCtrl from '../ctrl';
-import { VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import * as licon from 'common/licon';
-import { iconTag, bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
+import { type VNode, iconTag, bind, dataIcon, type MaybeVNodes, looseH as h } from 'common/snabbdom';
 import { playButtons as gbPlayButtons, overrideButton as gbOverrideButton } from './gamebook/gamebookButtons';
-import { Tab, ToolTab } from './interfaces';
+import type { Tab, ToolTab } from './interfaces';
 import { view as chapterEditFormView } from './chapterEditForm';
 import { view as chapterNewFormView } from './chapterNewForm';
 import { view as chapterView } from './studyChapters';
@@ -22,7 +21,7 @@ import { view as tagsView } from './studyTags';
 import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
 import { render as renderTrainingView } from '../view/roundTraining';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;

@@ -1,5 +1,4 @@
-import { Redraw } from 'chessground/types';
-import { toggle, Toggle } from 'common';
+import { toggle, type Toggle } from 'common';
 
 export class PuzFilters {
   fail: Toggle;

@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
-import { LooseVNode } from 'common/snabbdom';
-import RoundController from '../ctrl';
+import type { LooseVNode } from 'common/snabbdom';
+import type RoundController from '../ctrl';
 import { menu as menuDropdown } from 'board/menu';
 import { toggle } from 'common';
 import { boolPrefXhrToggle } from 'common/controls';

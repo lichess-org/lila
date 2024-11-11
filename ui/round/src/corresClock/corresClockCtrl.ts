@@ -1,4 +1,4 @@
-import RoundController from '../ctrl';
+import type RoundController from '../ctrl';
 
 export interface CorresClockData {
   daysPerTurn: number;

@@ -1,7 +1,7 @@
 import { defined } from 'common';
 import { getNow } from '../util';
-import { h, VNode } from 'snabbdom';
-import { Run, TimeMod } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { Run, TimeMod } from '../interfaces';
 
 type OnFlag = () => void;
 

@@ -1,8 +1,7 @@
 import { defined, prop } from 'common';
 import { throttle } from 'common/timing';
-import { EvalHit, EvalGetData, EvalPutData } from './interfaces';
-import { AnalyseSocketSend } from './socket';
-import { FEN } from 'chessground/types';
+import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
+import type { AnalyseSocketSend } from './socket';
 import { pubsub } from 'common/pubsub';
 
 export interface EvalCacheOpts {

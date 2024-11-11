@@ -2,16 +2,16 @@ import {
   BarController,
   BarElement,
   Chart,
-  ChartDataset,
+  type ChartDataset,
   LineController,
   LineElement,
   LinearScale,
   PointElement,
-  PointStyle,
+  type PointStyle,
   Tooltip,
 } from 'chart.js';
 import {
-  MovePoint,
+  type MovePoint,
   animation,
   blackFill,
   fontColor,
@@ -25,7 +25,7 @@ import {
   axisOpts,
   resizePolyfill,
 } from './common';
-import { AnalyseData, Player, PlyChart } from './interface';
+import type { AnalyseData, Player, PlyChart } from './interface';
 import division from './division';
 import { pubsub } from 'common/pubsub';
 

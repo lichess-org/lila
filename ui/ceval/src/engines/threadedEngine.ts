@@ -1,5 +1,11 @@
 import { Protocol } from '../protocol';
-import { Work, CevalEngine, CevalState, BrowserEngineInfo, EngineNotifier } from '../types';
+import {
+  CevalState,
+  type Work,
+  type CevalEngine,
+  type BrowserEngineInfo,
+  type EngineNotifier,
+} from '../types';
 import { sharedWasmMemory } from '../util';
 import { Cache } from '../cache';
 

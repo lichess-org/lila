@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
-import TournamentController from './ctrl';
+import type TournamentController from './ctrl';
 import { userComplete } from 'common/userComplete';
 
 export function button(ctrl: TournamentController): VNode {

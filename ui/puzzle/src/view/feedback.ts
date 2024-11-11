@@ -1,7 +1,7 @@
-import { bind, MaybeVNode } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
+import { bind, type MaybeVNode } from 'common/snabbdom';
+import { h, type VNode } from 'snabbdom';
 import afterView from './after';
-import PuzzleCtrl from '../ctrl';
+import type PuzzleCtrl from '../ctrl';
 
 const viewSolution = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak
@@ -17,7 +17,7 @@ const viewSolution = (ctrl: PuzzleCtrl): VNode =>
           ? h(
               'a.button' + (ctrl.showHint() ? '' : '.button-empty'),
               { hook: bind('click', ctrl.toggleHint) },
-              'Hint',
+              i18n.site.getAHint,
             )
           : undefined,
         h('a.button.button-empty', { hook: bind('click', ctrl.viewSolution) }, i18n.site.viewTheSolution),

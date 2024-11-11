@@ -1,7 +1,7 @@
-import * as game from 'game';
+import { type Simul, setOnGame, isPlayerTurn } from 'game';
 import { throttle } from 'common/timing';
-import * as xhr from './xhr';
-import RoundController from './ctrl';
+import { reload as xhrReload } from './xhr';
+import type RoundController from './ctrl';
 import { defined } from 'common';
 import { domDialog } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
@@ -55,7 +55,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.setLoading(false);
       handlers[o.t]!(o.d);
     } else
-      xhr.reload(ctrl).then(data => {
+      xhrReload(ctrl).then(data => {
         const version = site.socket.getVersion();
         if (version !== false && version > data.player.version) {
           // race condition! try to reload again
@@ -93,7 +93,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     crowd(o: { white: boolean; black: boolean }) {
       (['white', 'black'] as const).forEach(c => {
-        if (defined(o[c])) game.setOnGame(ctrl.data, c, o[c]);
+        if (defined(o[c])) setOnGame(ctrl.data, c, o[c]);
       });
       ctrl.redraw();
     },
@@ -139,14 +139,14 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.opts.userId == ctrl.data.simul.hostId &&
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
-        !game.isPlayerTurn(ctrl.data)
+        !isPlayerTurn(ctrl.data)
       ) {
         ctrl.setRedirecting();
         site.sound.play('move');
         location.href = '/' + gameId;
       }
     },
-    simulEnd(simul: game.Simul) {
+    simulEnd(simul: Simul) {
       domDialog({
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +

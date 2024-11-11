@@ -1,8 +1,8 @@
 import { h } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { renderClock } from 'common/miniBoard';
-import SimulCtrl from '../ctrl';
-import { Pairing } from '../interfaces';
+import type SimulCtrl from '../ctrl';
+import type { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
 import { userFlair } from 'common/userLink';
 

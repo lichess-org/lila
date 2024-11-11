@@ -1,6 +1,6 @@
-import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
+import type { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
 
-import * as xhr from 'common/xhr';
+import { json as xhrJson, url as xhrUrl, text as xhrText } from 'common/xhr';
 import { storage } from 'common/storage';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
@@ -36,7 +36,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   }
 
   const loadPage = (page: number) =>
-    xhr.json(xhr.url('/notify', { page: page || 1 })).then(
+    xhrJson(xhrUrl('/notify', { page: page || 1 })).then(
       d => update(d),
       _ => site.announce({ msg: 'Failed to load notifications' }),
     );
@@ -92,7 +92,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   };
 
   function clear() {
-    xhr.text('/notify/clear', { method: 'post' }).then(
+    xhrText('/notify/clear', { method: 'post' }).then(
       _ => update(emptyNotifyData),
       _ => site.announce({ msg: 'Failed to clear notifications' }),
     );

@@ -1,7 +1,6 @@
 import * as licon from 'common/licon';
-import { bind, onInsert, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { type VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import * as studyView from '../study/studyView';
 import { patch, nodeFullName } from '../view/util';
 import { renderVariationPgn } from '../pgnExport';

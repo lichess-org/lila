@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import Ctrl from './ctrl';
+import type Ctrl from './ctrl';
 
 export function formatNumber(dt: string, n: number) {
   const percent = dt == 'percent';

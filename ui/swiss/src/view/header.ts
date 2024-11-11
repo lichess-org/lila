@@ -1,7 +1,7 @@
-import { h, Hooks, VNode } from 'snabbdom';
+import { h, type Hooks, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { dataIcon } from 'common/snabbdom';
-import SwissCtrl from '../ctrl';
+import type SwissCtrl from '../ctrl';
 import { setClockWidget } from 'common/clock';
 
 const startClock = (time: number): Hooks => ({

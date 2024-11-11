@@ -1,13 +1,12 @@
 import { prop } from 'common';
 import * as licon from 'common/licon';
-import { bind, dataIcon, looseH as h } from 'common/snabbdom';
+import { type VNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { copyMeInput } from 'common/copyMe';
 import { text as xhrText, url as xhrUrl } from 'common/xhr';
-import { VNode } from 'snabbdom';
 import { renderIndexAndMove } from '../view/moveView';
 import { baseUrl } from '../view/util';
-import { ChapterPreview, StudyData } from './interfaces';
-import RelayCtrl from './relay/relayCtrl';
+import type { ChapterPreview, StudyData } from './interfaces';
+import type RelayCtrl from './relay/relayCtrl';
 
 function fromPly(ctrl: StudyShare): VNode {
   const renderedMove = renderIndexAndMove({ withDots: true, showEval: false }, ctrl.currentNode());

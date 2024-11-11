@@ -1,4 +1,4 @@
-import { Puzzle } from './interfaces';
+import type { Puzzle } from './interfaces';
 import { opposite } from 'chessops';
 import { parseFen } from 'chessops/fen';
 

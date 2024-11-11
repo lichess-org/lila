@@ -1,5 +1,3 @@
-import { FEN } from 'chessground/types';
-
 export interface StandingPlayer extends SimplePlayer {
   id: string;
   withdraw?: boolean;

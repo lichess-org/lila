@@ -1,5 +1,5 @@
-import SimulCtrl from './ctrl';
-import { SimulData } from './interfaces';
+import type SimulCtrl from './ctrl';
+import type { SimulData } from './interfaces';
 
 export interface SimulSocket {
   send: SocketSend;

@@ -1,13 +1,13 @@
-import { MaybeVNodes, Redraw, VNode, onInsert, looseH as h } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
-import { RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
-import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
+import { type MaybeVNodes, type Redraw, type VNode, onInsert, looseH as h } from 'common/snabbdom';
+import { json as xhrJson } from 'common/xhr';
+import type { RoundId } from './interfaces';
+import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
+import { type MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'common/userLink';
-import RelayPlayers from './relayPlayers';
+import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {
   name: string;
@@ -42,7 +42,7 @@ export default class RelayTeams {
       this.loading = true;
       this.redraw();
     }
-    this.teams = await xhr.json(`/broadcast/${this.roundId}/teams`);
+    this.teams = await xhrJson(`/broadcast/${this.roundId}/teams`);
     this.redraw();
   };
 }

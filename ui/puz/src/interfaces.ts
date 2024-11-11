@@ -1,8 +1,8 @@
 import type { Clock } from './clock';
 import type { Combo } from './combo';
 import type CurrentPuzzle from './current';
-import { PuzFilters } from './filters';
-import * as Prefs from 'common/prefs';
+import type { PuzFilters } from './filters';
+import type { Coords } from 'common/prefs';
 
 export interface PuzCtrl {
   run: Run;
@@ -11,7 +11,7 @@ export interface PuzCtrl {
 }
 
 export interface PuzPrefs {
-  coords: Prefs.Coords;
+  coords: Coords;
   is3d: boolean;
   destination: boolean;
   rookCastle: boolean;

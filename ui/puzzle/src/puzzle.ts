@@ -2,7 +2,7 @@ import { attributesModule, classModule, init } from 'snabbdom';
 import PuzzleCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import view from './view/main';
-import { PuzzleOpts, NvuiPlugin } from './interfaces';
+import type { PuzzleOpts, NvuiPlugin } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 

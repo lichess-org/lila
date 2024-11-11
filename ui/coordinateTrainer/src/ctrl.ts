@@ -1,11 +1,11 @@
 import { sparkline } from '@fnando/sparkline';
-import * as xhr from 'common/xhr';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { throttlePromiseDelay } from 'common/timing';
 import { myUserId, withEffect } from 'common';
-import { makeVoice, VoiceCtrl } from 'voice';
+import { makeVoice, type VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'common/storage';
-import { Api as CgApi } from 'chessground/api';
-import {
+import type { Api as CgApi } from 'chessground/api';
+import type {
   ColorChoice,
   TimeControl,
   CoordinateTrainerConfig,
@@ -83,9 +83,9 @@ export default class CoordinateTrainerCtrl {
     const setZen = throttlePromiseDelay(
       () => 1000,
       zen =>
-        xhr.text('/pref/zen', {
+        xhrText('/pref/zen', {
           method: 'post',
-          body: xhr.form({ zen: zen ? 1 : 0 }),
+          body: xhrForm({ zen: zen ? 1 : 0 }),
         }),
     );
 
@@ -281,9 +281,9 @@ export default class CoordinateTrainerCtrl {
     if (this.timeControl() === 'thirtySeconds') {
       this.updateScoreList();
       if (this.isAuth)
-        xhr.text('/training/coordinate/score', {
+        xhrText('/training/coordinate/score', {
           method: 'post',
-          body: xhr.form({ mode: this.mode(), color: this.orientation, score: this.score }),
+          body: xhrForm({ mode: this.mode(), color: this.orientation, score: this.score }),
         });
     }
 

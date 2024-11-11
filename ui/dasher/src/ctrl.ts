@@ -5,9 +5,9 @@ import { BackgroundCtrl } from './background';
 import { BoardCtrl } from './board';
 import { PieceCtrl } from './piece';
 import { LinksCtrl } from './links';
-import { MaybeVNode, Redraw } from 'common/snabbdom';
-import { DasherData, Mode, PaneCtrl } from './interfaces';
-import { Prop, prop } from 'common';
+import type { MaybeVNode, Redraw } from 'common/snabbdom';
+import type { DasherData, Mode, PaneCtrl } from './interfaces';
+import { type Prop, prop } from 'common';
 import { pubsub } from 'common/pubsub';
 
 const defaultMode = 'links';

@@ -1,5 +1,3 @@
-import { FEN } from 'chessground/types';
-
 export interface Hovering {
   fen: FEN;
   uci: Uci;

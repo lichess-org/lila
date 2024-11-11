@@ -1,11 +1,11 @@
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { titleNameToId } from '../view/util';
-import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common';
-import { StudyMemberMap } from './interfaces';
-import { AnalyseSocketSend } from '../socket';
-import { storedSet, StoredSet } from 'common/storage';
+import { h, type VNode } from 'snabbdom';
+import { prop, type Prop } from 'common';
+import type { StudyMemberMap } from './interfaces';
+import type { AnalyseSocketSend } from '../socket';
+import { storedSet, type StoredSet } from 'common/storage';
 import { snabDialog } from 'common/dialog';
 import { userComplete } from 'common/userComplete';
 import { pubsub } from 'common/pubsub';

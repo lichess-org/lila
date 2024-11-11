@@ -1,4 +1,4 @@
-import { Attrs, VNode, h } from 'snabbdom';
+import { type Attrs, type VNode, h } from 'snabbdom';
 import * as licon from './licon';
 
 export function copyMeInput(content: string, inputAttrs: Attrs = {}): VNode {

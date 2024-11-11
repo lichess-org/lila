@@ -1,4 +1,4 @@
-import { Chart } from 'chart.js';
+import type { Chart } from 'chart.js';
 
 export interface PlyChart extends Chart<'line'> {
   selectPly(ply: number, isMainline: boolean): void;

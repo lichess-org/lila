@@ -1,7 +1,7 @@
 import { init, attributesModule, classModule } from 'snabbdom';
 
 import view from './view';
-import { ChatOpts } from './interfaces';
+import type { ChatOpts } from './interfaces';
 import ChatCtrl from './ctrl';
 
 export type { ChatPlugin } from './interfaces';

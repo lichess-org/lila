@@ -1,4 +1,4 @@
-import { Chart, ChartDataset, ChartOptions } from 'chart.js';
+import { Chart, type ChartDataset, type ChartOptions } from 'chart.js';
 import { currentTheme } from 'common/theme';
 
 export interface MovePoint {

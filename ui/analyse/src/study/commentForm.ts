@@ -1,8 +1,8 @@
 import { prop } from 'common';
 import { onInsert } from 'common/snabbdom';
 import { throttle } from 'common/timing';
-import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { currentComments, isAuthorObj } from './studyComments';
 import { storage } from 'common/storage';
 

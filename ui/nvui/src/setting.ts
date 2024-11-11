@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
-import { type LichessStorage } from 'common/storage';
+import { h, type VNode } from 'snabbdom';
+import type { LichessStorage } from 'common/storage';
 
 export interface Setting<A> {
   choices: Choices<A>;

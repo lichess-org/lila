@@ -1,5 +1,4 @@
-import { Run } from './interfaces';
-import { Config as CgConfig } from 'chessground/config';
+import type { Run } from './interfaces';
 import { opposite, uciToMove } from 'chessground/util';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';

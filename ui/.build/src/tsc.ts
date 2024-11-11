@@ -1,4 +1,4 @@
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import { env, colors as c, errorMark } from './main.ts';
@@ -16,30 +16,29 @@ export async function stopTsc(): Promise<void> {
 export async function tsc(): Promise<void> {
   if (!env.tsc) return;
   await Promise.allSettled([
-    fs.mkdir(path.join(env.buildTempDir, 'noCheck')),
-    fs.mkdir(path.join(env.buildTempDir, 'noEmit')),
+    fs.promises.mkdir(path.join(env.buildTempDir, 'noCheck')),
+    fs.promises.mkdir(path.join(env.buildTempDir, 'noEmit')),
   ]);
 
   const buildPaths = (await globArray('*/tsconfig*.json', { cwd: env.uiDir }))
     .sort((a, b) => a.localeCompare(b)) // repeatable build order
     .filter(x => env.building.some(pkg => x.startsWith(`${pkg.root}/`)));
 
-  const configs = (await Promise.all(buildPaths.map(splitConfig))).sort((a, b) => b.size - a.size);
-
-  const noCheckWorkerBuckets: SplitConfig[][] = Array.from({ length: 4 }, () => []);
-  const noEmitWorkerBuckets: SplitConfig[][] = Array.from({ length: 8 }, () => []);
+  const workerBuckets = {
+    noCheck: Array.from({ length: 4 }, () => []),
+    noEmit: Array.from({ length: 8 }, () => []),
+  };
 
   // traverse packages by descending src folder size and assign to emptiest available worker buckets
-  for (const config of configs) {
-    if (config.noCheck) addToBucket(config, noCheckWorkerBuckets, 'noCheck');
-    addToBucket(config, noEmitWorkerBuckets, 'noEmit');
+  for (const cfg of (await Promise.all(buildPaths.map(splitConfig))).flat().sort((a, b) => b.size - a.size)) {
+    addToBucket(cfg, workerBuckets[cfg.type]);
   }
 
   env.log(`Transpiling ${c.grey('noCheck')}`, { ctx: 'tsc' });
-  await watchMonitor(noCheckWorkerBuckets, 'noCheck');
+  await watchMonitor(workerBuckets.noCheck, 'noCheck');
 
   env.log(`Typechecking ${c.grey('noEmit')}`, { ctx: 'tsc' });
-  await watchMonitor(noEmitWorkerBuckets, 'noEmit');
+  await watchMonitor(workerBuckets.noEmit, 'noEmit');
 }
 
 function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
@@ -65,7 +64,7 @@ function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
 
   for (const bucket of buckets) {
     const workerData: WorkerData = {
-      projects: bucket.map(p => p[key]!.file),
+      projects: bucket.map(p => p.configFile),
       watch: env.watch,
       index: status.length,
     };
@@ -92,11 +91,11 @@ function logMessage(msg: Message): void {
   if (!env.exitCode.get('tsc')) env.done(1, 'tsc');
 }
 
-function addToBucket(config: SplitConfig, buckets: SplitConfig[][], key: keyof SplitConfig) {
+function addToBucket(config: SplitConfig, buckets: SplitConfig[][]) {
   buckets
     .reduce((smallest, current) => {
-      const smallestSize = smallest.reduce((sum, cfg) => sum + (cfg[key] ? cfg.size : 0), 0);
-      const currentSize = current.reduce((sum, cfg) => sum + (cfg[key] ? cfg.size : 0), 0);
+      const smallestSize = smallest.reduce((sum, cfg) => sum + cfg.size, 0);
+      const currentSize = current.reduce((sum, cfg) => sum + cfg.size, 0);
       return currentSize < smallestSize ? current : smallest;
     })
     .push(config);
@@ -107,19 +106,18 @@ function addToBucket(config: SplitConfig, buckets: SplitConfig[][], key: keyof S
 // then we do a --noEmit pass on EVERY package to verify things, regardless of its original emit.
 // this allows more parallel type checking.
 
-// splitConfig expects current lichess tsconfig conventions
-
 interface SplitConfig {
-  noEmit: { file: string; data: any };
-  noCheck?: { file: string; data: any };
+  type: 'noEmit' | 'noCheck';
+  configFile: string;
   pkgName: string;
   size: number;
 }
 
-async function splitConfig(cfgPath: string): Promise<SplitConfig> {
+async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   const root = path.dirname(cfgPath);
   const pkgName = path.basename(root);
   const { config, error } = ts.readConfigFile(cfgPath, ts.sys.readFile);
+  const io: Promise<any>[] = [];
 
   if (error) throw new Error(`Error reading tsconfig.json: ${error.messageText}`);
 
@@ -139,40 +137,44 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig> {
     path.resolve(root, glob.replace('${configDir}', '.')),
   );
   config.include ??= [co.rootDir ? `${co.rootDir}/**/*` : `${root}/src/**/*`];
-  config.exclude = config.exclude?.map((glob: string) =>
-    path.resolve(root, glob.replace('${configDir}', '.')),
-  );
+  config.exclude = config.exclude
+    ?.filter((glob: string) => !env.test || !glob.includes('tests'))
+    .map((glob: string) => path.resolve(root, glob.replace('${configDir}', '.')));
   config.extends = undefined;
   config.references = env.deps
     .get(pkgName)
     ?.map(ref => ({ path: path.join(env.buildTempDir, 'noCheck', `${ref}.tsconfig.json`) }));
 
-  const noEmit = {
-    data: structuredClone(config),
-    file: path.join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`),
-  };
-  noEmit.data.compilerOptions.noEmit = true;
-  noEmit.data.compilerOptions.tsBuildInfoFile = path.join(
+  const noEmitData = structuredClone(config);
+  const noEmit = path.join(env.buildTempDir, 'noEmit', `${pkgName}.tsconfig.json`);
+  noEmitData.compilerOptions.noEmit = true;
+  noEmitData.compilerOptions.tsBuildInfoFile = path.join(
     env.buildTempDir,
     'noEmit',
     `${pkgName}.tsbuildinfo`,
   );
-  await fs.writeFile(noEmit.file, JSON.stringify(noEmit.data, undefined, 2));
+  if (env.test && fs.existsSync(path.join(root, 'tests'))) {
+    noEmitData.include.push(path.join(root, 'tests'));
+    noEmitData.compilerOptions.rootDir = root;
+    noEmitData.compilerOptions.skipLibCheck = true;
+    noEmitData.size += await folderSize(path.join(root, 'tests'));
+  }
+  io.push(fs.promises.writeFile(noEmit, JSON.stringify(noEmitData, undefined, 2)));
 
-  const res: SplitConfig = { noEmit, pkgName, size: await folderSize(path.join(root, 'src')) };
+  const res: SplitConfig[] = [{ type: 'noEmit', configFile: noEmit, pkgName, size: config.size }];
 
   if (!co.noEmit) {
-    res.noCheck = {
-      data: structuredClone(config),
-      file: path.join(env.buildTempDir, 'noCheck', `${pkgName}.tsconfig.json`),
-    };
-    res.noCheck.data.compilerOptions.noCheck = true;
-    res.noCheck.data.compilerOptions.tsBuildInfoFile = path.join(
+    const noCheckData = structuredClone(config);
+    const noCheck = path.join(env.buildTempDir, 'noCheck', `${pkgName}.tsconfig.json`);
+    noCheckData.compilerOptions.noCheck = true;
+    noCheckData.compilerOptions.tsBuildInfoFile = path.join(
       env.buildTempDir,
       'noCheck',
       `${pkgName}.tsbuildinfo`,
     );
-    await fs.writeFile(res.noCheck.file, JSON.stringify(res.noCheck.data, undefined, 2));
+    res.push({ type: 'noCheck', configFile: noCheck, pkgName, size: config.size });
+    io.push(fs.promises.writeFile(noCheck, JSON.stringify(noCheckData, undefined, 2)));
   }
+  await Promise.all(io);
   return res;
 }

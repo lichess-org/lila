@@ -1,22 +1,22 @@
 import {
-  EditorState,
-  Selected,
-  Redraw,
-  Options,
-  Config,
-  CastlingToggle,
-  CastlingToggles,
+  type EditorState,
+  type Selected,
+  type Redraw,
+  type Options,
+  type Config,
+  type CastlingToggle,
+  type CastlingToggles,
   CASTLING_TOGGLES,
 } from './interfaces';
-import { Api as CgApi } from 'chessground/api';
-import { Rules, Square } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
+import type { Api as CgApi } from 'chessground/api';
+import type { Rules, Square } from 'chessops/types';
+import type { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
-import { Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
+import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
 import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, type Prop } from 'common';
 import { prompt } from 'common/dialog';
 
 export default class EditorCtrl {

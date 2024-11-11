@@ -1,9 +1,9 @@
-import { LangsData } from './langs';
-import { BackgroundData } from './background';
-import { BoardData } from './board';
-import { PieceData } from './piece';
-import { DasherCtrl } from './ctrl';
-import { Redraw, VNode } from 'common/snabbdom';
+import type { LangsData } from './langs';
+import type { BackgroundData } from './background';
+import type { BoardData } from './board';
+import type { PieceData } from './piece';
+import type { DasherCtrl } from './ctrl';
+import type { Redraw, VNode } from 'common/snabbdom';
 
 export { DasherCtrl };
 

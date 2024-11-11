@@ -1,5 +1,3 @@
-import { FEN } from 'chessground/types';
-
 export interface ChallengeOpts {
   el: Element;
   data?: ChallengeData;

@@ -1,6 +1,6 @@
-import { Outcome } from 'chessops/types';
-import { Prop } from 'common';
-import { Feature } from 'common/device';
+import type { Outcome } from 'chessops/types';
+import type { Prop } from 'common';
+import type { Feature } from 'common/device';
 import type CevalCtrl from './ctrl';
 
 export type WinningChances = number;

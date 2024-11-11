@@ -1,8 +1,8 @@
-import * as cg from 'chessground/types';
-import { onInsert, LooseVNode } from 'common/snabbdom';
+import type { MouchEvent } from 'chessground/types';
+import { onInsert, type LooseVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import RoundController from '../ctrl';
-import { Position } from '../interfaces';
+import type RoundController from '../ctrl';
+import type { Position } from '../interfaces';
 import { plyStep } from '../util';
 import { crazyKeys, drag, pieceRoles } from './crazyCtrl';
 
@@ -25,7 +25,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
       class: { usable },
       hook: onInsert(el =>
         eventNames.forEach(name =>
-          el.addEventListener(name, (e: cg.MouchEvent) => {
+          el.addEventListener(name, (e: MouchEvent) => {
             if (position === (ctrl.flip ? 'top' : 'bottom') && crazyKeys.length == 0) drag(ctrl, e);
           }),
         ),

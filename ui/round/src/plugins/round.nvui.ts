@@ -1,15 +1,15 @@
-import { VNode } from 'snabbdom';
-import { looseH as h } from 'common/snabbdom';
-import RoundController from '../ctrl';
+import { type VNode, looseH as h, onInsert } from 'common/snabbdom';
+import type RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
-import { onInsert, plyStep } from '../util';
-import { Step, Position, NvuiPlugin } from '../interfaces';
-import * as game from 'game';
+import { plyStep } from '../util';
+import type { Step, Position, NvuiPlugin } from '../interfaces';
+import { type Player, playable } from 'game';
 import {
+  type Style,
   renderSan,
   renderPieces,
   renderBoard,
@@ -27,7 +27,6 @@ import {
   pieceJumpingHandler,
   castlingFlavours,
   supportedVariant,
-  Style,
   inputToLegalUci,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
@@ -143,7 +142,7 @@ export function initModule(): NvuiPlugin {
         h('h2', 'Actions'),
         ...(ctrl.data.player.spectator
           ? renderTableWatch(ctrl)
-          : game.playable(ctrl.data)
+          : playable(ctrl.data)
             ? renderTablePlay(ctrl)
             : renderTableEnd(ctrl)),
         h('h2', 'Board'),
@@ -363,7 +362,7 @@ function renderMoves(steps: Step[], style: Style) {
   return res;
 }
 
-function playerHtml(ctrl: RoundController, player: game.Player) {
+function playerHtml(ctrl: RoundController, player: Player) {
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const d = ctrl.data,
     user = player.user,
@@ -384,7 +383,7 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
     : 'Anonymous';
 }
 
-function playerText(ctrl: RoundController, player: game.Player) {
+function playerText(ctrl: RoundController, player: Player) {
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const d = ctrl.data,
     user = player.user,

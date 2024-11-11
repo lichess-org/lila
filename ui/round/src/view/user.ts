@@ -1,8 +1,8 @@
-import { looseH as h, VNode } from 'common/snabbdom';
+import { looseH as h, type VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
-import { Player } from 'game';
-import { Position } from '../interfaces';
-import RoundController from '../ctrl';
+import type { Player } from 'game';
+import type { Position } from '../interfaces';
+import type RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'common/userLink';
 
 export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {

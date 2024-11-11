@@ -1,6 +1,6 @@
-import Ctrl from './ctrl';
+import type Ctrl from './ctrl';
 import { h } from 'snabbdom';
-import { Game } from './interfaces';
+import type { Game } from './interfaces';
 import { initMiniBoard } from 'common/miniBoard';
 
 const miniGame = (game: Game) =>

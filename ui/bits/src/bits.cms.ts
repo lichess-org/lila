@@ -3,7 +3,7 @@ import { throttle } from 'common/timing';
 import { currentTheme } from 'common/theme';
 import tablesort from 'tablesort';
 import { storedJsonProp } from 'common/storage';
-import { Editor, EditorType } from '@toast-ui/editor';
+import { Editor, type EditorType } from '@toast-ui/editor';
 
 site.load.then(() => {
   $('.markdown-editor').each(function (this: HTMLTextAreaElement) {

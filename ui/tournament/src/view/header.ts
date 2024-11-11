@@ -1,9 +1,9 @@
-import { h, Hooks, VNode } from 'snabbdom';
+import { h, type Hooks, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { dataIcon } from 'common/snabbdom';
-import TournamentController from '../ctrl';
+import type TournamentController from '../ctrl';
 import perfIcons from 'common/perfIcons';
-import { TournamentData } from '../interfaces';
+import type { TournamentData } from '../interfaces';
 import { setClockWidget } from 'common/clock';
 
 const startClock = (time: number): Hooks => ({

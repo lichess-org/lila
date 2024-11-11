@@ -1,6 +1,6 @@
 import flatpickr from 'flatpickr';
 import { use24h } from 'common/i18n';
-import { Options } from 'flatpickr/dist/types/options';
+import type { Options } from 'flatpickr/dist/types/options';
 
 site.load.then(() => {
   $('.flatpickr').each(function (this: HTMLInputElement) {

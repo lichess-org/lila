@@ -1,5 +1,4 @@
 import { winningChances } from 'ceval';
-import { FEN } from 'chessground/types';
 import { defined } from 'common';
 import { zip } from 'common/algo';
 

@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bindSubmit } from 'common/snabbdom';
-import { User } from '../interfaces';
-import MsgCtrl from '../ctrl';
+import type { User } from '../interfaces';
+import type MsgCtrl from '../ctrl';
 import { throttle } from 'common/timing';
 import { alert } from 'common/dialog';
 

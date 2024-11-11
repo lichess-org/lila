@@ -1,5 +1,5 @@
 import { path as treePath } from 'tree';
-import PuzzleCtrl from './ctrl';
+import type PuzzleCtrl from './ctrl';
 
 export function canGoForward(ctrl: PuzzleCtrl): boolean {
   return ctrl.node.children.length > 0;

@@ -2,11 +2,10 @@ import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { isTouchDevice } from 'common/device';
 import { domDialog } from 'common/dialog';
-import { bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import { AutoplayDelay } from '../autoplay';
-import { toggle, ToggleSettings } from 'common/controls';
-import AnalyseCtrl from '../ctrl';
+import { type VNode, bind, dataIcon, type MaybeVNodes, looseH as h } from 'common/snabbdom';
+import type { AutoplayDelay } from '../autoplay';
+import { toggle, type ToggleSettings } from 'common/controls';
+import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'game/router';
 import * as pgnExport from '../pgnExport';
 

@@ -1,15 +1,15 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import TournamentController from '../ctrl';
-import { TournamentData } from '../interfaces';
-import * as pagination from '../pagination';
+import type TournamentController from '../ctrl';
+import type { TournamentData } from '../interfaces';
+import { players } from '../pagination';
 import { controls, standing, podium } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from './util';
-import { MaybeVNodes } from 'common/snabbdom';
+import { type MaybeVNodes } from 'common/snabbdom';
 import { once } from 'common/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
@@ -98,7 +98,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
 export const name = 'finished';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const pag = pagination.players(ctrl);
+  const pag = players(ctrl);
   const teamS = teamStanding(ctrl, 'finished');
   return [
     ...(teamS

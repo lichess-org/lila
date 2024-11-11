@@ -1,6 +1,6 @@
 import { throttlePromiseDelay } from 'common/timing';
-import * as xhr from 'common/xhr';
-import {
+import { json as xhrJson } from 'common/xhr';
+import type {
   InsightData,
   Dimension,
   Env,
@@ -88,16 +88,15 @@ export default class {
       return new Promise<void>(resolve => {
         setTimeout(
           () =>
-            xhr
-              .json(this.env.postUrl, {
-                method: 'post',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  metric: this.vm.metric.key,
-                  dimension: this.vm.dimension.key,
-                  filters: this.vm.filters,
-                }),
-              })
+            xhrJson(this.env.postUrl, {
+              method: 'post',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                metric: this.vm.metric.key,
+                dimension: this.vm.dimension.key,
+                filters: this.vm.filters,
+              }),
+            })
               .then(
                 (answer: InsightData) => {
                   this.vm.answer = answer;

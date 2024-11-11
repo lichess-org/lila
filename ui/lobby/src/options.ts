@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 
-import { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
+import type { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
 
 export const variants: Variant[] = [
   { id: 1, icon: licon.Crown, key: 'standard', name: 'Standard' },

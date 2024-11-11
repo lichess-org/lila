@@ -1,8 +1,7 @@
-import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
-import { CheckCount, CheckState, MaterialDiff } from './interfaces';
+import type { CheckCount, CheckState, MaterialDiff } from './interfaces';
 
-const ROLES: { [key: string]: cg.Role | undefined } = {
+const ROLES: { [key: string]: Role | undefined } = {
   p: 'pawn',
   n: 'knight',
   b: 'bishop',

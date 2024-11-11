@@ -1,11 +1,11 @@
 import { h } from 'snabbdom';
-import LobbyController from '../../ctrl';
+import type LobbyController from '../../ctrl';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { tds, perfNames } from '../util';
 import perfIcons from 'common/perfIcons';
 import * as hookRepo from '../../hookRepo';
-import { Hook } from '../../interfaces';
+import type { Hook } from '../../interfaces';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   return h(
@@ -90,7 +90,7 @@ export const render = (ctrl: LobbyController, allHooks: Hook[]) => {
           },
           [h('i.is'), i18n.site.time],
         ),
-        h('th', i18n.site.mode),
+        h('th', [h('i.is'), i18n.site.mode]),
       ]),
     ),
     h(

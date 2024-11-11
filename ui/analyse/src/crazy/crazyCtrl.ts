@@ -1,14 +1,13 @@
 import { dragNewPiece } from 'chessground/drag';
 import { readDrops } from 'chess';
-import AnalyseCtrl from '../ctrl';
-import * as cg from 'chessground/types';
-import { Api as ChessgroundApi } from 'chessground/api';
+import type AnalyseCtrl from '../ctrl';
+import type { MouchEvent } from 'chessground/types';
 
-export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
+export function drag(ctrl: AnalyseCtrl, color: Color, e: MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.chessground.state.movable.color !== color) return;
   const el = e.target as HTMLElement;
-  const role = el.getAttribute('data-role') as cg.Role,
+  const role = el.getAttribute('data-role') as Role,
     number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
   e.stopPropagation();
@@ -17,9 +16,9 @@ export function drag(ctrl: AnalyseCtrl, color: Color, e: cg.MouchEvent): void {
 }
 
 export function valid(
-  chessground: ChessgroundApi,
+  chessground: CgApi,
   possibleDrops: string | undefined | null,
-  piece: cg.Piece,
+  piece: Piece,
   pos: Key,
 ): boolean {
   if (piece.color !== chessground.state.movable.color) return false;

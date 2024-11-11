@@ -1,10 +1,10 @@
 import { prop, notEmpty, Prop } from 'common';
-import * as xhr from 'common/xhr';
-import { ForecastData, ForecastList, ForecastStep } from './interfaces';
-import { AnalyseData } from '../interfaces';
+import { json as xhrJson } from 'common/xhr';
+import type { ForecastData, ForecastList, ForecastStep } from './interfaces';
+import type { AnalyseData } from '../interfaces';
 import { scalachessCharPair } from 'chessops/compat';
 import { parseUci } from 'chessops';
-import { TreeWrapper } from 'tree';
+import type { TreeWrapper } from 'tree';
 
 export default class ForecastCtrl {
   forecasts: Prop<ForecastList> = prop<ForecastList>([]);
@@ -76,44 +76,40 @@ export default class ForecastCtrl {
     if (this.cfg.onMyTurn) return;
     this.loading(true);
     this.redraw();
-    xhr
-      .json(this.saveUrl(), {
-        method: 'POST',
-        body: JSON.stringify(this.forecasts()),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then(data => {
-        if (data.reload) this.reloadToLastPly();
-        else {
-          this.loading(false);
-          this.forecasts(data.steps || []);
-        }
-        this.redraw();
-      });
+    xhrJson(this.saveUrl(), {
+      method: 'POST',
+      body: JSON.stringify(this.forecasts()),
+      headers: { 'Content-Type': 'application/json' },
+    }).then(data => {
+      if (data.reload) this.reloadToLastPly();
+      else {
+        this.loading(false);
+        this.forecasts(data.steps || []);
+      }
+      this.redraw();
+    });
   };
 
   playAndSave = (node: ForecastStep) => {
     if (!this.cfg.onMyTurn) return;
     this.loading(true);
     this.redraw();
-    xhr
-      .json(`${this.saveUrl()}/${node.uci}`, {
-        method: 'POST',
-        body: JSON.stringify(
-          this.findStartingWithNode(node)
-            .filter(notEmpty)
-            .map(fc => fc.slice(1)),
-        ),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      .then(data => {
-        if (data.reload) this.reloadToLastPly();
-        else {
-          this.loading(false);
-          this.forecasts(data.steps || []);
-        }
-        this.redraw();
-      });
+    xhrJson(`${this.saveUrl()}/${node.uci}`, {
+      method: 'POST',
+      body: JSON.stringify(
+        this.findStartingWithNode(node)
+          .filter(notEmpty)
+          .map(fc => fc.slice(1)),
+      ),
+      headers: { 'Content-Type': 'application/json' },
+    }).then(data => {
+      if (data.reload) this.reloadToLastPly();
+      else {
+        this.loading(false);
+        this.forecasts(data.steps || []);
+      }
+      this.redraw();
+    });
   };
 
   showForecast = (path: string, tree: TreeWrapper, nodes: ForecastStep[]) => {

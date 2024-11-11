@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
-import { Prop } from 'common';
+import { h, type VNode } from 'snabbdom';
+import type { Prop } from 'common';
 import { bind } from 'common/snabbdom';
 import { rangeConfig } from 'common/controls';
 

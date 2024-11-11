@@ -1,10 +1,10 @@
-import { Prop, propWithEffect } from 'common';
+import { type Prop, propWithEffect } from 'common';
 import { debounce } from 'common/timing';
 import * as xhr from 'common/xhr';
-import { storedJsonProp, StoredJsonProp } from 'common/storage';
+import { storedJsonProp } from 'common/storage';
 import { clockToSpeed } from 'game';
-import LobbyController from './ctrl';
-import {
+import type LobbyController from './ctrl';
+import type {
   ForceSetupOptions,
   GameMode,
   GameType,
@@ -34,7 +34,7 @@ const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, incre
 
 export default class SetupController {
   root: LobbyController;
-  store: Record<Exclude<GameType, 'local'>, StoredJsonProp<SetupStore>>;
+  store: Record<Exclude<GameType, 'local'>, Prop<SetupStore>>;
   gameType: Exclude<GameType, 'local'> | null = null;
   lastValidFen = '';
   fenError = false;

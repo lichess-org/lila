@@ -1,14 +1,14 @@
 import { winningChances } from 'ceval';
 import {
+  type ChartConfiguration,
+  type ChartDataset,
+  type PointStyle,
   Chart,
-  ChartConfiguration,
-  ChartDataset,
   Filler,
   LineController,
   LineElement,
   LinearScale,
   PointElement,
-  PointStyle,
   Tooltip,
 } from 'chart.js';
 import {
@@ -26,7 +26,7 @@ import {
   resizePolyfill,
 } from './common';
 import division from './division';
-import { AcplChart, AnalyseData, Player } from './interface';
+import type { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { pubsub } from 'common/pubsub';
 

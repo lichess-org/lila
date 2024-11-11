@@ -1,29 +1,28 @@
-import * as cg from 'chessground/types';
-import { SanToUci } from 'chess';
-import { h, VNode } from 'snabbdom';
+import type { SanToUci } from 'chess';
+import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { promote } from 'chess/promotion';
-import { propWithEffect, Prop } from 'common';
+import { propWithEffect, type Prop } from 'common';
 import { snabDialog } from 'common/dialog';
-import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import { load as loadKeyboardMove } from './keyboardMove';
 import KeyboardChecker from './keyboardChecker';
 
-export type KeyboardMoveHandler = (fen: cg.FEN, dests?: cg.Dests, yourMove?: boolean) => void;
+export type KeyboardMoveHandler = (fen: FEN, dests?: Dests, yourMove?: boolean) => void;
 
 export const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
 export type ArrowKey = (typeof arrowKeys)[number];
 export const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
 
 export interface KeyboardMove {
-  drop(key: cg.Key, piece: string): void;
-  promote(orig: cg.Key, dest: cg.Key, piece: string): void;
+  drop(key: Key, piece: string): void;
+  promote(orig: Key, dest: Key, piece: string): void;
   update(up: MoveUpdate): void;
   registerHandler(h: KeyboardMoveHandler): void;
   isFocused: Prop<boolean>;
-  san(orig: cg.Key, dest: cg.Key): void;
-  select(key: cg.Key): void;
-  hasSelected(): cg.Key | undefined;
+  san(orig: Key, dest: Key): void;
+  select(key: Key): void;
+  hasSelected(): Key | undefined;
   confirmMove(): void;
   usedSan: boolean;
   legalSans: SanToUci | null;
@@ -40,7 +39,7 @@ export interface KeyboardMove {
   goBerserk?: () => void;
 }
 
-const sanToRole: { [key: string]: cg.Role } = {
+const sanToRole: { [key: string]: Role } = {
   P: 'pawn',
   N: 'knight',
   B: 'bishop',
@@ -60,11 +59,11 @@ export interface RootData {
 }
 
 export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
-  sendNewPiece?: (role: cg.Role, key: cg.Key, isPredrop: boolean) => void;
+  sendNewPiece?: (role: Role, key: Key, isPredrop: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
   handleArrowKey?: (arrowKey: ArrowKey) => void;
   submitMove?: (v: boolean) => void;
-  crazyValid?: (role: cg.Role, key: cg.Key) => boolean;
+  crazyValid?: (role: Role, key: Key) => boolean;
   getCrazyhousePockets?: () => [CrazyPocket, CrazyPocket] | undefined;
   data: RootData;
 }
@@ -76,7 +75,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   let preHandlerBuffer: string | undefined;
   let lastSelect = performance.now();
   let cg: CgApi;
-  const select = (key: cg.Key): void => {
+  const select = (key: Key): void => {
     if (cg.state.selected === key) cg.cancelMove();
     else {
       cg.selectSquare(key, true);

@@ -1,8 +1,8 @@
 import config from '../config';
 import renderClock from 'puz/view/clock';
 import renderEnd from './end';
-import StormCtrl from '../ctrl';
-import { VNode } from 'snabbdom';
+import type StormCtrl from '../ctrl';
+import type { VNode } from 'snabbdom';
 import { makeCgOpts, povMessage } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
 import { getNow } from 'puz/util';

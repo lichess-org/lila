@@ -1,9 +1,8 @@
-import { TablebaseMoveStats } from './interfaces';
+import type { TablebaseMoveStats } from './interfaces';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { FEN } from 'chessground/types';
+import type { VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 
 export function winnerOf(fen: FEN, move: TablebaseMoveStats): Color | undefined {
   const stm = fenColor(fen);

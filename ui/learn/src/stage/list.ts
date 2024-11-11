@@ -16,11 +16,11 @@ import enpassant from './enpassant';
 import stalemate from './stalemate';
 import value from './value';
 import check2 from './check2';
-import { AssertData } from '../levelCtrl';
-import { ScenarioLevel } from '../scenario';
-import type { SquareName as Key } from 'chessops';
-import { VNode } from 'snabbdom';
-import { Shape } from '../chessground';
+import type { AssertData } from '../levelCtrl';
+import type { ScenarioLevel } from '../scenario';
+import type { SquareName } from 'chessops';
+import type { VNode } from 'snabbdom';
+import type { Shape } from '../chessground';
 
 export type Level = LevelBase & LevelDefaults;
 export type LevelPartial = LevelBase & Partial<LevelDefaults>;
@@ -49,7 +49,7 @@ export interface LevelBase {
 
 export interface LevelDefaults {
   id: number;
-  apples: string | Key[];
+  apples: string | SquareName[];
   color: Color;
   detectCapture: 'unprotected' | boolean;
 }

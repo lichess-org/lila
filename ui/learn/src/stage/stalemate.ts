@@ -1,6 +1,6 @@
 import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
 import { scenarioComplete, scenarioFailed } from '../assert';
-import { StageNoID } from './list';
+import type { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/scales.svg';
 

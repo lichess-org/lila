@@ -1,10 +1,9 @@
-import { Move } from 'chessops/types';
-import { VNode } from 'snabbdom';
-import * as Prefs from 'common/prefs';
+import type { Move } from 'chessops/types';
+import type { VNode } from 'snabbdom';
+import type { Coords } from 'common/prefs';
 import perfIcons from 'common/perfIcons';
-import PuzzleCtrl from './ctrl';
-import { FEN } from 'chessground/types';
-import { ExternalEngineInfo } from 'ceval';
+import type PuzzleCtrl from './ctrl';
+import type { ExternalEngineInfo } from 'ceval';
 
 export type PuzzleId = string;
 export type ThemeKey = keyof I18n['puzzleTheme'];
@@ -40,7 +39,7 @@ export interface PuzzleOpts {
 }
 
 export interface PuzzlePrefs {
-  coords: Prefs.Coords;
+  coords: Coords;
   is3d: boolean;
   destination: boolean;
   rookCastle: boolean;

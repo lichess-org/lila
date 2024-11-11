@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest';
-import { Prop, propWithEffect } from 'common';
+import { type Prop, propWithEffect } from 'common';
 import { makeSubmit } from '../src/keyboardSubmit';
-import { Dests, destsToUcis, sanWriter } from 'chess';
+import { destsToUcis, sanWriter } from 'chess';
 
 // Tips for working with this file:
 // - tests will often require a FEN position and a map of legal moves, e.g.:

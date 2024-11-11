@@ -1,6 +1,6 @@
 import { scenarioComplete, scenarioFailed } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
-import { StageNoID } from './list';
+import type { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/spinning-blades.svg';
 

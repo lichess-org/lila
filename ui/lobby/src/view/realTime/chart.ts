@@ -1,8 +1,8 @@
-import LobbyController from '../../ctrl';
+import type LobbyController from '../../ctrl';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
-import { Hook } from '../../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { Hook } from '../../interfaces';
 import perfIcons from 'common/perfIcons';
 
 const percents = (v: number) => v + '%';

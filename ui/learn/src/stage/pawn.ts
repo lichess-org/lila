@@ -1,6 +1,6 @@
 import { noPieceOn, whitePawnOnAnyOf } from '../assert';
 import { arrow, assetUrl, pieceImg, toLevel } from '../util';
-import { StageNoID } from './list';
+import type { StageNoID } from './list';
 
 const stage: StageNoID = {
   key: 'pawn',

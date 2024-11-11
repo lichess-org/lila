@@ -1,6 +1,6 @@
 import { prop } from 'common';
 import { storedJsonProp } from 'common/storage';
-import { ThemeKey } from './interfaces';
+import type { ThemeKey } from './interfaces';
 
 interface SessionRound {
   id: string;

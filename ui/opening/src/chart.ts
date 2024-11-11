@@ -1,7 +1,7 @@
 import * as chart from 'chart.js';
 import 'chartjs-adapter-dayjs-4';
 import dayjs from 'dayjs';
-import { OpeningPage } from './interfaces';
+import type { OpeningPage } from './interfaces';
 
 chart.Chart.register(
   chart.LineController,

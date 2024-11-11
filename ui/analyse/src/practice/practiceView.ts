@@ -1,8 +1,8 @@
-import { Outcome } from 'chessops/types';
-import { h, VNode } from 'snabbdom';
-import { bind, MaybeVNodes } from 'common/snabbdom';
-import { PracticeCtrl, Comment } from './practiceCtrl';
-import AnalyseCtrl from '../ctrl';
+import type { Outcome } from 'chessops/types';
+import { h, type VNode } from 'snabbdom';
+import { bind, type MaybeVNodes } from 'common/snabbdom';
+import type { PracticeCtrl, Comment } from './practiceCtrl';
+import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';
 
 function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {

@@ -2,10 +2,10 @@ import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { spinnerVdom, chartSpinner } from 'common/spinner';
 import { requestIdleCallback } from 'common';
-import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { ChartGame, AcplChart } from 'chart';
-import { AnalyseData } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { ChartGame, AcplChart } from 'chart';
+import type { AnalyseData } from '../interfaces';
 import { pubsub } from 'common/pubsub';
 
 export default class ServerEval {

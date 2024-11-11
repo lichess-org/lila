@@ -1,9 +1,9 @@
 import * as licon from 'common/licon';
-import { onInsert, bind, looseH as h, VNode } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
-import { snabDialog, Dialog } from 'common/dialog';
+import { onInsert, bind, looseH as h, type VNode } from 'common/snabbdom';
+import { jsonSimple } from 'common/xhr';
+import { snabDialog, type Dialog } from 'common/dialog';
 import { onClickAway, $as } from 'common';
-import { Entry, VoiceCtrl, MsgType } from './interfaces';
+import type { Entry, VoiceCtrl, MsgType } from './interfaces';
 import { supportedLangs } from './voice';
 
 export function renderVoiceBar(ctrl: VoiceCtrl, redraw: () => void, cls?: string): VNode {
@@ -166,7 +166,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
       const grammar =
         ctrl.moduleId === 'coords'
           ? []
-          : await xhr.jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
+          : await jsonSimple(site.asset.url(`compiled/grammar/${ctrl.moduleId}-${ctrl.lang()}.json`));
 
       const valToWord = (val: string, phonetic: boolean) =>
         grammar.entries.find(

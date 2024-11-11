@@ -1,8 +1,7 @@
 import { lastStep } from './util';
-import RoundController from './ctrl';
-import { ApiMove, RoundData } from './interfaces';
-import * as xhr from 'common/xhr';
-import { FEN } from 'chessground/types';
+import type RoundController from './ctrl';
+import type { ApiMove, RoundData } from './interfaces';
+import { text as xhrText } from 'common/xhr';
 import { storage } from 'common/storage';
 
 let found = false;
@@ -30,7 +29,7 @@ export function subscribe(ctrl: RoundController): void {
       e.value &&
       truncateFen(step.fen) === truncateFen(e.value)
     ) {
-      xhr.text(`/jslog/${d.game.id}${d.player.id}?n=ceval`, { method: 'post' });
+      xhrText(`/jslog/${d.game.id}${d.player.id}?n=ceval`, { method: 'post' });
       found = true;
     }
   });

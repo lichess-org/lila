@@ -1,17 +1,16 @@
-import { PromotionRole, WithGround, arrow, oppColor } from './util';
-import { Items, ctrl as makeItems } from './item';
-import { Level } from './stage/list';
-import * as scoring from './score';
+import { type PromotionRole, type WithGround, arrow, oppColor } from './util';
+import { type Items, ctrl as makeItems } from './item';
+import type { Level } from './stage/list';
+import { scenario as scoreScenario, pieceValue, capture, apple, getLevelBonus } from './score';
 import * as timeouts from './timeouts';
-import * as sound from './sound';
-import makeChess, { ChessCtrl } from './chess';
-import makeScenario, { Scenario } from './scenario';
-import { SquareName as Key, makeSquare, makeUci } from 'chessops';
-import { CgMove } from './chessground';
-import * as cg from 'chessground/types';
+import { failure, levelStart, levelEnd, take, move as moveSound } from './sound';
+import makeChess, { type ChessCtrl } from './chess';
+import makeScenario, { type Scenario } from './scenario';
+import { type SquareName, makeSquare, makeUci } from 'chessops';
+import type { CgMove } from './chessground';
 import { PromotionCtrl } from './promotionCtrl';
-import { Prop, prop } from 'common';
-import { DrawShape } from 'chessground/draw';
+import { type Prop, prop } from 'common';
+import type { DrawShape } from 'chessground/draw';
 import { makeAppleShape } from './apple';
 
 export interface LevelVm {
@@ -95,7 +94,7 @@ export class LevelCtrl {
         rookCastle: false,
       },
       events: {
-        move: (orig: Key, dest: Key) => {
+        move: (orig: SquareName, dest: SquareName) => {
           const piece = ground.state.pieces.get(dest);
           if (!piece || piece.color !== blueprint.color) return;
           if (!this.promotionCtrl.start(orig, dest, sendMove)) sendMove(orig, dest);
@@ -120,7 +119,7 @@ export class LevelCtrl {
     const assertData = (): AssertData => ({ scenario, chess, vm });
     const detectFailure = () => {
       const failed = !!blueprint.failure?.(assertData());
-      if (failed) sound.failure();
+      if (failed) failure();
       return failed;
     };
     const detectSuccess = () => (blueprint.success ? blueprint.success(assertData()) : items.isEmpty());
@@ -132,11 +131,11 @@ export class LevelCtrl {
       vm.failed = true;
       ground.stop();
       this.showCapture(move);
-      sound.failure();
+      failure();
       return true;
     };
 
-    return (orig: Key, dest: Key, prom?: PromotionRole) => {
+    return (orig: SquareName, dest: SquareName, prom?: PromotionRole) => {
       vm.nbMoves++;
       const move = chess.move(orig, dest, prom);
       if (move) this.setFen(chess.fen(), blueprint.color, new Map());
@@ -144,7 +143,7 @@ export class LevelCtrl {
         // moving into check
         vm.failed = true;
         this.showKingAttackers();
-        sound.failure();
+        failure();
         redraw();
         return;
       }
@@ -152,18 +151,18 @@ export class LevelCtrl {
         inScenario,
         captured = false;
       items.doIfKeyExists(makeSquare(move.to), () => {
-        vm.score += scoring.apple;
+        vm.score += apple;
         items.remove(makeSquare(move.to));
         took = true;
       });
       const pieceAtKey = chess.instance.board.get(move.to);
       if (!took && pieceAtKey && blueprint.pointsForCapture && pieceAtKey.role != 'king') {
-        vm.score += blueprint.showPieceValues ? scoring.pieceValue(pieceAtKey.role) : scoring.capture;
+        vm.score += blueprint.showPieceValues ? pieceValue(pieceAtKey.role) : capture;
         took = true;
       }
       this.setCheck();
       if (scenario.player(makeUci(move))) {
-        vm.score += scoring.scenario;
+        vm.score += scoreScenario;
         inScenario = true;
       } else {
         captured = detectCapture();
@@ -172,15 +171,18 @@ export class LevelCtrl {
       if (this.isAppleLevel()) this.setShapes();
       if (!vm.failed && detectSuccess()) this.complete();
       if (vm.willComplete) return;
-      if (took) sound.take();
-      else if (inScenario) sound.take();
-      else sound.move();
+      if (took) take();
+      else if (inScenario) take();
+      else moveSound();
       if (vm.failed) {
         if (blueprint.showFailureFollowUp && !captured)
           timeouts.setTimeout(() => {
             const rm = chess.playRandomMove();
             if (!rm) return;
-            this.setFen(chess.fen(), blueprint.color, new Map(), [rm.orig, rm.dest] as [Key, Key]);
+            this.setFen(chess.fen(), blueprint.color, new Map(), [rm.orig, rm.dest] as [
+              SquareName,
+              SquareName,
+            ]);
           }, 600);
       } else {
         ground.selectSquare(dest);
@@ -193,7 +195,7 @@ export class LevelCtrl {
     };
   };
 
-  setFen = (fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key]) =>
+  setFen = (fen: string, color: Color, dests: Dests, lastMove?: [SquareName, SquareName]) =>
     this.withGround(g =>
       g.set({
         turnColor: color,
@@ -239,7 +241,7 @@ export class LevelCtrl {
       if (checks) this.setShapes(checks.map(move => arrow(move.orig + move.dest, 'yellow')));
     });
 
-  setColorDests = (color: Color, dests: cg.Dests) =>
+  setColorDests = (color: Color, dests: Dests) =>
     this.withGround(ground =>
       ground.set({
         turnColor: color,
@@ -248,20 +250,20 @@ export class LevelCtrl {
     );
 
   start = () => {
-    sound.levelStart();
+    levelStart();
     if (this.chess.getColor() !== this.blueprint.color) timeouts.setTimeout(this.scenario.opponent, 1000);
   };
 
   complete = () => {
     this.vm.willComplete = true;
-    this.vm.score += scoring.getLevelBonus(this.blueprint, this.vm.nbMoves);
+    this.vm.score += getLevelBonus(this.blueprint, this.vm.nbMoves);
     this.opts.onCompleteImmediate();
     this.withGround(g =>
       timeouts.setTimeout(
         () => {
           this.vm.lastStep = false;
           this.vm.completed = true;
-          sound.levelEnd();
+          levelEnd();
           this.withGround(g => g.stop());
           this.redraw();
           if (!this.blueprint.nextButton) timeouts.setTimeout(this.opts.onComplete, 1200);

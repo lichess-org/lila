@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { throttle } from 'common/timing';
-import MsgCtrl from '../ctrl';
-import { SearchResult, User } from '../interfaces';
+import type MsgCtrl from '../ctrl';
+import type { SearchResult, User } from '../interfaces';
 import renderContacts, { userIcon } from './contact';
 import { fullName } from 'common/userLink';
 import { hookMobileMousedown } from 'common/device';

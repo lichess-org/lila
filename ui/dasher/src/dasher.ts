@@ -1,8 +1,8 @@
-import { Redraw } from 'common/snabbdom';
+import type { Redraw } from 'common/snabbdom';
 import { DasherCtrl } from './ctrl';
-import * as xhr from 'common/xhr';
+import { json as xhrJson } from 'common/xhr';
 import { spinnerVdom, spinnerHtml } from 'common/spinner';
-import { init as initSnabbdom, VNode, classModule, attributesModule, h } from 'snabbdom';
+import { init as initSnabbdom, type VNode, classModule, attributesModule, h } from 'snabbdom';
 
 const patch = initSnabbdom([classModule, attributesModule]);
 
@@ -26,7 +26,7 @@ export default async function initModule(): Promise<DasherCtrl> {
 
   redraw();
 
-  const data = await xhr.json('/dasher');
+  const data = await xhrJson('/dasher');
   ctrl = new DasherCtrl(data, redraw);
   redraw();
 

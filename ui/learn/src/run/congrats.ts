@@ -1,11 +1,4 @@
-function shuffle<T>(a: T[]) {
-  for (let i = a.length; i; i -= 1) {
-    const j = Math.floor(Math.random() * i);
-    const x = a[i - 1];
-    a[i - 1] = a[j];
-    a[j] = x;
-  }
-}
+import { shuffle } from 'common/algo';
 
 const list: string[] = [
   i18n.learn.awesome,

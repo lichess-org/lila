@@ -1,6 +1,6 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
-import MsgCtrl from '../ctrl';
+import type MsgCtrl from '../ctrl';
 import renderConvo from './convo';
 import renderContact from './contact';
 import * as search from './search';

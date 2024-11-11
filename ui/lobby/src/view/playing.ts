@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
-import LobbyController from '../ctrl';
-import { NowPlaying } from '../interfaces';
+import type LobbyController from '../ctrl';
+import type { NowPlaying } from '../interfaces';
 import { initMiniBoard } from 'common/miniBoard';
 import { timeago } from 'common/i18n';
 

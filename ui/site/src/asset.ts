@@ -1,4 +1,4 @@
-import * as xhr from 'common/xhr';
+import { script as xhrScript } from 'common/xhr';
 import { memoize } from 'common';
 
 export const baseUrl = memoize(() => document.body.getAttribute('data-asset-url') || '');
@@ -53,7 +53,7 @@ export const jsModule = (name: string, prefix: string = 'compiled/') => {
 const scriptCache = new Map<string, Promise<void>>();
 
 export const loadIife = (u: string, opts: AssetUrlOpts = {}): Promise<void> => {
-  if (!scriptCache.has(u)) scriptCache.set(u, xhr.script(url(u, opts)));
+  if (!scriptCache.has(u)) scriptCache.set(u, xhrScript(url(u, opts)));
   return scriptCache.get(u)!;
 };
 

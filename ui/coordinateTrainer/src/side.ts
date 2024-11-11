@@ -1,7 +1,7 @@
-import { h, VNode, VNodes } from 'snabbdom';
+import { h, type VNode, type VNodes } from 'snabbdom';
 import { bind } from 'common/snabbdom';
-import CoordinateTrainerCtrl from './ctrl';
-import { ColorChoice, TimeControl, Mode } from './interfaces';
+import type CoordinateTrainerCtrl from './ctrl';
+import type { ColorChoice, TimeControl, Mode } from './interfaces';
 import { toggle } from 'common/controls';
 
 const colors: [ColorChoice, string][] = [

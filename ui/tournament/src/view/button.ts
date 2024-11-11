@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
-import TournamentController from '../ctrl';
+import type TournamentController from '../ctrl';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => VNode): VNode {
   return ctrl.joinSpinner ? spinner() : f();

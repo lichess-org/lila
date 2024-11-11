@@ -1,7 +1,7 @@
-import { MaybeVNode } from 'common/snabbdom';
+import type { MaybeVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
-import { GameMode } from '../../../interfaces';
+import type LobbyController from '../../../ctrl';
+import type { GameMode } from '../../../interfaces';
 import { gameModes } from '../../../options';
 
 export const gameModeButtons = (ctrl: LobbyController): MaybeVNode => {

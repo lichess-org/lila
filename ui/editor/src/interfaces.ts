@@ -1,5 +1,3 @@
-import { Role } from 'chessground/types';
-
 export type CastlingToggle = 'K' | 'Q' | 'k' | 'q';
 
 export const CASTLING_TOGGLES: CastlingToggle[] = ['K', 'Q', 'k', 'q'];
@@ -20,7 +18,7 @@ export type Redraw = () => void;
 export type Selected = 'pointer' | 'trash' | [Color, Role];
 
 export interface LichessEditor {
-  getFen(): Cg.FEN;
+  getFen(): FEN;
   setOrientation(o: Color): void;
 }
 

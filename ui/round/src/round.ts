@@ -1,12 +1,12 @@
-import { RoundData, RoundOpts, NvuiPlugin } from './interfaces';
+import type { RoundData, RoundOpts, NvuiPlugin } from './interfaces';
 import { attributesModule, classModule, init } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import RoundController from './ctrl';
 import { main as view } from './view/main';
-import * as xhr from 'common/xhr';
-import MoveOn from './moveOn';
-import { TourPlayer } from 'game';
-import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
+import { text as xhrText } from 'common/xhr';
+import type MoveOn from './moveOn';
+import type { TourPlayer } from 'game';
+import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
 import StrongSocket from 'common/socket';
 import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
@@ -70,7 +70,7 @@ async function boot(
           );
       },
       endData() {
-        xhr.text(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
+        xhrText(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
           const $html = $(html),
             $meta = $html.find('.game__meta');
           $meta.length && $('.game__meta').replaceWith($meta);

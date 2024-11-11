@@ -1,4 +1,4 @@
-import { LevelPartial, StageNoID } from './list';
+import type { LevelPartial, StageNoID } from './list';
 import { arrow, assetUrl, pieceImg, toLevel } from '../util';
 
 const stage: StageNoID = {

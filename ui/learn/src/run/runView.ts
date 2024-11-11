@@ -1,12 +1,12 @@
-import * as util from '../util';
+import { withLinebreaks } from '../util';
 import chessground from '../chessground';
 import congrats from './congrats';
 import stageStarting from './stageStarting';
 import stageComplete from './stageComplete';
-import { LevelCtrl } from '../levelCtrl';
-import { RunCtrl } from './runCtrl';
+import type { LevelCtrl } from '../levelCtrl';
+import type { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
-import { LearnCtrl } from '../ctrl';
+import type { LearnCtrl } from '../ctrl';
 import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { makeStars, progressView } from '../progressView';
@@ -62,7 +62,7 @@ export const runView = (ctrl: LearnCtrl) => {
             ? renderFailed(runCtrl)
             : levelCtrl.vm.completed
               ? renderCompleted(levelCtrl)
-              : h('div.goal', util.withLinebreaks(levelCtrl.blueprint.goal)),
+              : h('div.goal', withLinebreaks(levelCtrl.blueprint.goal)),
           progressView(runCtrl),
         ]),
       ]),

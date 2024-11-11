@@ -1,9 +1,9 @@
-import { VNode, VNodeStyle } from 'snabbdom';
+import type { VNode, VNodeStyle } from 'snabbdom';
 import { bind, looseH as h } from 'common/snabbdom';
 import { renderVoiceBar } from 'voice';
 import chessground from './chessground';
 import CoordinateTrainerCtrl, { DURATION } from './ctrl';
-import { CoordModifier } from './interfaces';
+import type { CoordModifier } from './interfaces';
 import side from './side';
 
 const textOverlay = (ctrl: CoordinateTrainerCtrl): VNode | false => {

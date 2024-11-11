@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { bind } from 'common/snabbdom';
-import LobbyController from '../../ctrl';
+import type LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
   const f = ctrl.filter.data?.form,

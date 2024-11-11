@@ -1,13 +1,13 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import { Tab } from './interfaces';
+import type { Tab } from './interfaces';
 import discussionView from './discussion';
 import { noteView } from './note';
 import { moderationView } from './moderation';
 
 import type * as palantir from 'palantir';
-import ChatCtrl from './ctrl';
+import type ChatCtrl from './ctrl';
 
 export default function (ctrl: ChatCtrl): VNode {
   return h(

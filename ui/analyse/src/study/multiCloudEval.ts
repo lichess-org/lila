@@ -1,13 +1,11 @@
-import { Prop, defined } from 'common';
-import { EvalHitMulti } from '../interfaces';
+import { type Prop, defined } from 'common';
+import type { EvalHitMulti } from '../interfaces';
 import { storedBooleanPropWithEffect } from 'common/storage';
 import { povChances } from 'ceval/src/winningChances';
-import { bind, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import { FEN } from 'chessground/types';
-import { StudyChapters } from './studyChapters';
+import { type VNode, bind, looseH as h } from 'common/snabbdom';
+import type { StudyChapters } from './studyChapters';
 import { debounce } from 'common/timing';
-import { ServerNodeMsg } from './interfaces';
+import type { ServerNodeMsg } from './interfaces';
 
 export interface CloudEval extends EvalHitMulti {
   chances: number;

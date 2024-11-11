@@ -3,10 +3,9 @@ import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { makeSquare, makeUci, parseUci } from 'chessops/util';
 import { scalachessCharPair } from 'chessops/compat';
-import { TreeWrapper } from 'tree';
-import { path as pathOps } from 'tree';
-import { isNormal, Move, NormalMove } from 'chessops/types';
-import PuzzleCtrl from './ctrl';
+import { type TreeWrapper, path as pathOps } from 'tree';
+import { isNormal, type Move, type NormalMove } from 'chessops/types';
+import type PuzzleCtrl from './ctrl';
 
 export function pgnToTree(pgn: San[]): Tree.Node {
   const pos = Chess.default();

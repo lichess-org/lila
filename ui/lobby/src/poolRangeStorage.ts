@@ -1,4 +1,4 @@
-import { LobbyMe, PoolMember } from './interfaces';
+import type { LobbyMe, PoolMember } from './interfaces';
 import { storage } from 'common/storage';
 
 const makeKey = (me: LobbyMe | undefined, poolId: string) =>

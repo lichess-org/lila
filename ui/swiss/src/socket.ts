@@ -1,4 +1,4 @@
-import SwissCtrl from './ctrl';
+import type SwissCtrl from './ctrl';
 
 export interface SwissSocket {
   send: SocketSend;

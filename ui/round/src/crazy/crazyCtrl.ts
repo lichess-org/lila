@@ -1,20 +1,20 @@
 import { isPlayerTurn } from 'game/game';
 import { dragNewPiece } from 'chessground/drag';
 import { setDropMode, cancelDropMode } from 'chessground/drop';
-import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
-import { RoundData } from '../interfaces';
+import type RoundController from '../ctrl';
+import type { MouchEvent } from 'chessground/types';
+import type { RoundData } from '../interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 
-export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+export const pieceRoles: Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
-export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
+export function drag(ctrl: RoundController, e: MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-    role = el.getAttribute('data-role') as cg.Role,
-    color = el.getAttribute('data-color') as cg.Color,
+    role = el.getAttribute('data-role') as Role,
+    color = el.getAttribute('data-color') as Color,
     number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
   e.stopPropagation();
@@ -26,7 +26,7 @@ let dropWithKey = false;
 let dropWithDrag = false;
 let mouseIconsLoaded = false;
 
-export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
+export function valid(data: RoundData, role: Role, key: Key): boolean {
   if (crazyKeys.length === 0) dropWithDrag = true;
   else {
     dropWithKey = true;

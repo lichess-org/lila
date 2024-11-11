@@ -1,13 +1,12 @@
 import { parseUci, makeSquare } from 'chessops/util';
 import { isDrop } from 'chessops/types';
 import { winningChances } from 'ceval';
-import * as cg from 'chessground/types';
 import { opposite } from 'chessground/util';
-import { DrawModifiers, DrawShape } from 'chessground/draw';
+import type { DrawModifiers, DrawShape } from 'chessground/draw';
 import { annotationShapes } from 'chess/glyphs';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 
-const pieceDrop = (key: cg.Key, role: cg.Role, color: Color): DrawShape => ({
+const pieceDrop = (key: Key, role: Role, color: Color): DrawShape => ({
   orig: key,
   piece: {
     color,

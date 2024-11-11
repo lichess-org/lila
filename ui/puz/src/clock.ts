@@ -1,4 +1,4 @@
-import { Config } from './interfaces';
+import type { Config } from './interfaces';
 import { getNow } from './util';
 
 export class Clock {

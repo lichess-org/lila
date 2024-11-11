@@ -1,5 +1,5 @@
-import MsgCtrl from './ctrl';
-import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
+import type MsgCtrl from './ctrl';
+import type { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
 import { json, form } from 'common/xhr';
 import { pubsub } from 'common/pubsub';
 

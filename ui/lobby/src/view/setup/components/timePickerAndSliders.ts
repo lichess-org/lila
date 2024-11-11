@@ -1,7 +1,7 @@
-import { Prop } from 'common';
+import type { Prop } from 'common';
 import { looseH as h } from 'common/snabbdom';
-import LobbyController from '../../../ctrl';
-import { InputValue, TimeMode } from '../../../interfaces';
+import type LobbyController from '../../../ctrl';
+import type { InputValue, TimeMode } from '../../../interfaces';
 import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';
 import { option } from './option';
 

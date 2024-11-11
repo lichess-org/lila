@@ -1,4 +1,4 @@
-import RoundController from './ctrl';
+import type RoundController from './ctrl';
 import { aborted, finished } from 'game/status';
 import { isPlayerTurn } from 'game';
 

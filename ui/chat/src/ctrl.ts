@@ -1,4 +1,4 @@
-import {
+import type {
   ChatOpts,
   Line,
   Tab,
@@ -11,12 +11,12 @@ import {
   ChatPalantir,
   ChatPlugin,
 } from './interfaces';
-import { PresetCtrl, presetCtrl } from './preset';
+import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
-import { pubsub, PubsubEvent, PubsubCallback } from 'common/pubsub';
+import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
 import { alert } from 'common/dialog';
 
 export default class ChatCtrl {

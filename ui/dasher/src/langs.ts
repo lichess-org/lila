@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { header } from './util';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
 
 type Code = string;
 type Name = string;

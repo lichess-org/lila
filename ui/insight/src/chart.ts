@@ -1,18 +1,18 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import Ctrl from './ctrl';
-import { InsightChart, InsightData } from './interfaces';
+import type Ctrl from './ctrl';
+import type { InsightChart, InsightData } from './interfaces';
 import {
   Chart,
-  ChartDataset,
-  ChartConfiguration,
+  type ChartDataset,
+  type ChartConfiguration,
   BarController,
   BarElement,
   CategoryScale,
   Legend,
   LinearScale,
   Tooltip,
-  ChartOptions,
+  type ChartOptions,
 } from 'chart.js';
 import { currentTheme } from 'common/theme';
 import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill, colorSeries } from 'chart';

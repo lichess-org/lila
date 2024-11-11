@@ -9,25 +9,25 @@ importers:
   .:
     dependencies:
       '@types/node':
-        specifier: ^22.8.7
+        specifier: 22.9.0
         version: 22.9.0
       '@types/tinycolor2':
-        specifier: ^1.4.6
+        specifier: 1.4.6
         version: 1.4.6
       esbuild:
-        specifier: ^0.24.0
+        specifier: 0.24.0
         version: 0.24.0
       fast-glob:
-        specifier: ^3.3.2
+        specifier: 3.3.2
         version: 3.3.2
       fast-xml-parser:
-        specifier: ^4.5.0
+        specifier: 4.5.0
         version: 4.5.0
       tinycolor2:
-        specifier: ^1.6.0
+        specifier: 1.6.0
         version: 1.6.0
       typescript:
-        specifier: ^5.6.3
+        specifier: 5.6.3
         version: 5.6.3
     optionalDependencies:
       sass-embedded-darwin-arm64:

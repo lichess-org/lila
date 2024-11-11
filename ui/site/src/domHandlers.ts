@@ -1,5 +1,5 @@
 import * as licon from 'common/licon';
-import * as xhr from 'common/xhr';
+import { text as xhrText } from 'common/xhr';
 import topBar from './topBar';
 import { userComplete } from 'common/userComplete';
 import { confirm } from 'common/dialog';
@@ -24,7 +24,7 @@ export function attachDomHandlers() {
 
   $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
     const $a = $(this).addClass('processing').css('opacity', 0.3);
-    xhr.text(this.href, { method: 'post' }).then(html => {
+    xhrText(this.href, { method: 'post' }).then(html => {
       if ($a.hasClass('aclose')) $a.hide();
       else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
       else $a.replaceWith(html);
@@ -58,7 +58,7 @@ export function attachDomHandlers() {
 
   $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
     const t = $(this).toggleClass('bookmarked');
-    xhr.text(this.href, { method: 'post' });
+    xhrText(this.href, { method: 'post' });
     const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
     t.find('span').html('' + (count > 0 ? count : ''));
     return false;

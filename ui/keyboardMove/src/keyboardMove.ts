@@ -1,7 +1,6 @@
-import { Dests } from 'chessground/types';
 import { sanWriter, destsToUcis } from 'chess';
-import { KeyboardMoveHandler, KeyboardMove, isArrowKey } from './ctrl';
-import { Submit, makeSubmit } from './keyboardSubmit';
+import { type KeyboardMoveHandler, type KeyboardMove, isArrowKey } from './ctrl';
+import { type Submit, makeSubmit } from './keyboardSubmit';
 
 export interface Opts {
   input: HTMLInputElement;

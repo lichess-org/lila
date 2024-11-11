@@ -1,10 +1,10 @@
 import { onInsert } from 'common/snabbdom';
 import { throttle } from 'common/timing';
-import { h, thunk, VNode } from 'snabbdom';
+import { h, thunk, type VNode } from 'snabbdom';
 import { option } from '../view/util';
 import { looksLikeLichessGame } from './studyChapters';
 import { prop } from 'common';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 
 export class TagsForm {
   selectedType = prop<string | undefined>(undefined);

@@ -71,7 +71,7 @@ trait ResponseBuilder(using Executor)
     then json.dmap(_.withHeaders(VARY -> "Accept").as(JSON))
     else html.dmap(_.withHeaders(VARY -> "Accept"))
 
-  def negotiateJson(result: => Fu[Result])(using Context) =
+  def negotiateJson(result: => Fu[Result])(using Context): Fu[Result] =
     negotiate(
       notFound("This endpoint only returns JSON, add the header `Accept: application/json`".some),
       result
@@ -120,17 +120,17 @@ trait ResponseBuilder(using Executor)
       InternalServerError(jsonError(msg))
     )
 
-  def notForBotAccounts(using Context) = negotiate(
+  def notForBotAccounts(using Context): Fu[Result] = negotiate(
     Forbidden.page(views.site.message.noBot),
     forbiddenJson("This API endpoint is not for Bot accounts.")
   )
 
-  def notForLameAccounts(using Context, Me) = negotiate(
+  def notForLameAccounts(using Context, Me): Fu[Result] = negotiate(
     Forbidden.page(views.site.message.noLame),
     forbiddenJson("The access to this resource is restricted.")
   )
 
-  def playbanJsonError(ban: lila.playban.TempBan) =
+  def playbanJsonError(ban: lila.playban.TempBan): Result =
     Forbidden(
       jsonError(
         s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."

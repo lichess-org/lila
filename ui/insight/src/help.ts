@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import Ctrl from './ctrl';
+import type Ctrl from './ctrl';
 
 export default function (ctrl: Ctrl) {
   return h('div.help.box', [

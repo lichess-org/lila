@@ -1,4 +1,4 @@
-import { StormConfig } from './interfaces';
+import type { StormConfig } from './interfaces';
 
 const config: StormConfig = {
   // all times in seconds

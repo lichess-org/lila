@@ -1,13 +1,12 @@
-import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { bind, dataIcon, looseH as h } from 'common/snabbdom';
+import { type VNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { numberRow, player as renderPlayer } from './util';
 import { fullName } from 'common/userLink';
 import { teamName } from './battle';
-import * as status from 'game/status';
-import TournamentController from '../ctrl';
-import { Player } from '../interfaces';
+import { ids } from 'game/status';
+import type TournamentController from '../ctrl';
+import type { Player } from '../interfaces';
 
 function result(win: boolean, stat: number): string {
   switch (win) {
@@ -16,7 +15,7 @@ function result(win: boolean, stat: number): string {
     case false:
       return '0';
     default:
-      return stat >= status.ids.mate ? '½' : '*';
+      return stat >= ids.mate ? '½' : '*';
   }
 }
 

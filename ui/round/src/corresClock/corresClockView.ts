@@ -1,6 +1,6 @@
-import { looseH as h, VNode } from 'common/snabbdom';
-import { Position } from '../interfaces';
-import { CorresClockController } from './corresClockCtrl';
+import { looseH as h, type VNode } from 'common/snabbdom';
+import type { Position } from '../interfaces';
+import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
 
 const prefixInteger = (num: number, length: number): string =>

@@ -1,7 +1,7 @@
 import { h, thunk } from 'snabbdom';
 import { bind, onInsert } from 'common/snabbdom';
-import LobbyController from '../ctrl';
-import { GameType } from '../interfaces';
+import type LobbyController from '../ctrl';
+import type { GameType } from '../interfaces';
 import renderSetupModal from './setup/modal';
 import { numberFormat } from 'common/number';
 

@@ -1,11 +1,11 @@
-import * as xhr from '../studyXhr';
-import { Prop, prop } from 'common';
+import { practiceComplete } from '../studyXhr';
+import { type Prop, prop } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import { readOnlyProp } from '../../util';
-import { StudyPracticeData, Goal } from './interfaces';
-import { StudyData } from '../interfaces';
-import AnalyseCtrl from '../../ctrl';
+import type { StudyPracticeData, Goal } from './interfaces';
+import type { StudyData } from '../interfaces';
+import type AnalyseCtrl from '../../ctrl';
 
 export default class StudyPracticeCtrl {
   goal: Prop<Goal>;
@@ -70,7 +70,7 @@ export default class StudyPracticeCtrl {
       former = this.data.completion[chapterId];
     if (typeof former === 'undefined' || this.nbMoves() < former) {
       this.data.completion[chapterId] = this.nbMoves();
-      xhr.practiceComplete(chapterId, this.nbMoves());
+      practiceComplete(chapterId, this.nbMoves());
     }
   };
 

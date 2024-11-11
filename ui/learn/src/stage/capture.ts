@@ -1,5 +1,5 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
-import { LevelPartial, StageNoID } from './list';
+import type { LevelPartial, StageNoID } from './list';
 import { extinct } from '../assert';
 
 const imgUrl = assetUrl + 'images/learn/bowman.svg';

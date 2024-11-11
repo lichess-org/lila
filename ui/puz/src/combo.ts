@@ -1,4 +1,4 @@
-import { Config, TimeMod } from './interfaces';
+import type { Config, TimeMod } from './interfaces';
 import { getNow } from './util';
 
 export class Combo {

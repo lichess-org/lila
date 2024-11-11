@@ -1,4 +1,4 @@
-import { onInsert, looseH as h, VNode, Attrs, LooseVNodes } from './snabbdom';
+import { onInsert, looseH as h, type VNode, type Attrs, type LooseVNodes } from './snabbdom';
 import { isTouchDevice } from './device';
 import { escapeHtml, frag, $as } from './common';
 import { eventJanitor } from './event';

@@ -1,4 +1,4 @@
-import * as xhr from 'common/xhr';
+import { formToXhr } from 'common/xhr';
 
 import { expandMentions } from 'common/richText';
 import { storage } from 'common/storage';
@@ -19,15 +19,25 @@ site.load.then(() => {
     noteTextArea.focus();
   });
 
+  function addToNote(str: string) {
+    const storedNote = noteStore.get();
+    noteStore.set((storedNote ? storedNote + '\n' : '') + str);
+    flashNotes();
+  }
+
   const loadNotes = () => {
     const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
+    $notes.find('form button[value=copy-url]').on('click', event => {
+      event.preventDefault();
+      addToNote(location.href);
+      syncNoteValue();
+    });
     $notes.find('form button[type=submit]').on('click', function (this: HTMLButtonElement) {
       $(this)
         .parents('form')
         .each((_, form: HTMLFormElement) =>
-          xhr
-            .formToXhr(form, this)
+          formToXhr(form, this)
             .then(html => $notes.replaceWith(html))
             .then(noteStore.remove)
             .then(() => loadNotes())
@@ -88,12 +98,6 @@ site.load.then(() => {
       ),
     );
   });
-
-  function addToNote(str: string) {
-    const storedNote = noteStore.get();
-    noteStore.set((storedNote ? storedNote + '\n' : '') + str);
-    flashNotes();
-  }
 
   $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
     // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B

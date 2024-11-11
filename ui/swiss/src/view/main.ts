@@ -1,11 +1,10 @@
-import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { dataIcon, bind, onInsert, LooseVNodes, looseH as h } from 'common/snabbdom';
+import { type VNode, dataIcon, bind, onInsert, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { numberRow } from './util';
-import SwissCtrl from '../ctrl';
-import * as pagination from '../pagination';
-import { SwissData, Pager } from '../interfaces';
+import type SwissCtrl from '../ctrl';
+import { players, renderPager } from '../pagination';
+import type { SwissData, Pager } from '../interfaces';
 import header from './header';
 import standing from './standing';
 import * as boards from './boards';
@@ -40,7 +39,7 @@ export default function (ctrl: SwissCtrl) {
 }
 
 function created(ctrl: SwissCtrl): LooseVNodes {
-  const pag = pagination.players(ctrl);
+  const pag = players(ctrl);
   return [
     header(ctrl),
     nextRound(ctrl),
@@ -63,7 +62,7 @@ const notice = (ctrl: SwissCtrl) => {
 };
 
 function started(ctrl: SwissCtrl): LooseVNodes {
-  const pag = pagination.players(ctrl);
+  const pag = players(ctrl);
   return [
     header(ctrl),
     joinTheGame(ctrl) || notice(ctrl),
@@ -74,7 +73,7 @@ function started(ctrl: SwissCtrl): LooseVNodes {
 }
 
 function finished(ctrl: SwissCtrl): LooseVNodes {
-  const pag = pagination.players(ctrl);
+  const pag = players(ctrl);
   return [
     h('div.podium-wrap', [confetti(ctrl.data), header(ctrl), podium(ctrl)]),
     controls(ctrl, pag),
@@ -83,7 +82,7 @@ function finished(ctrl: SwissCtrl): LooseVNodes {
 }
 
 function controls(ctrl: SwissCtrl, pag: Pager): VNode {
-  return h('div.swiss__controls', [h('div.pager', pagination.renderPager(ctrl, pag)), joinButton(ctrl)]);
+  return h('div.swiss__controls', [h('div.pager', renderPager(ctrl, pag)), joinButton(ctrl)]);
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
