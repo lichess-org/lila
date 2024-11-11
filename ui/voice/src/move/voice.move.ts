@@ -52,7 +52,7 @@ export function initModule({
   let command: Confirm | undefined; // confirm player commands (before sending request)
   let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
   let choiceTimeout: number | undefined; // timeout for ambiguity choices
-  const clarityPref = storedIntProp('voice.clarity', 0);
+  const clarityPref = storedIntProp('voice.clarity', 1);
   const colorsPref = storedBooleanPropWithEffect('voice.useColors', true, () => initTimerRec());
   const timerPref = storedIntPropWithEffect('voice.timer', 3, () => initTimerRec());
 
@@ -73,6 +73,9 @@ export function initModule({
     downvote: as(['ok', 'clear'], () => root.vote?.(false)),
     solve: as(['ok', 'clear'], () => root.solve?.()),
     clock: as(['ok'], () => root.speakClock?.()),
+    pieces: as(['ok'], () => speakBoard?.()),
+    'white-pieces': as(['ok'], () => speakBoard?.('white')),
+    'black-pieces': as(['ok'], () => speakBoard?.('black')),
     blindfold: as(['ok'], () => root.blindfold?.(!root.blindfold())),
   };
 
@@ -537,6 +540,17 @@ export function initModule({
           : false;
   }
 
+  function speakBoard(filter?: Color) {
+    const k = cg.state.orientation === 'white' ? 1 : -1;
+    const fullBoard = [...cg.state.pieces]
+      .filter(([, p]) => p && (!filter || p.color === filter))
+      .map(([sq, p]) => ({ file: sq.charAt(0), rank: sq.charAt(1), p }))
+      .sort((a, b) => k * a.rank.localeCompare(b.rank) || k * a.file.localeCompare(b.file))
+      .map(({ file, rank, p }) => `${p.color} ${p.role} on ${file === 'a' ? '"A"' : file} ${rank}`)
+      .join(', ');
+    site.sound.say(fullBoard, false, true);
+  }
+
   function prefNodes() {
     return settingNodes(colorsPref, clarityPref, timerPref, root.redraw);
   }
@@ -546,7 +560,7 @@ export function initModule({
   }
 
   function timer(): number {
-    return root.blindfold?.() ? 0 : [0, 1.5, 2, 2.5, 3, 5][timerPref()];
+    return [0, 1.5, 2, 2.5, 3, 5][timerPref()];
   }
 
   function moveInProgress() {
