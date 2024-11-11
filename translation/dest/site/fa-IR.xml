@@ -465,7 +465,7 @@
   <string name="advancedSettings">تنظیمات پیشرفته</string>
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
-  <string name="emptyTournamentName">این مکان را خالی بگذارید تا به صورت تصادفی اسم یک استاد بزرگ برای مسابقات انتخاب شود.</string>
+  <string name="emptyTournamentName">برای نامیدن مسابقات به نام یک شطرنج‌باز برجسته، خالی بگذارید.</string>
   <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
   <string name="join">ملحق شدن</string>
   <string name="withdraw">منصرف شدن</string>
@@ -480,7 +480,7 @@
   <string name="resume">ادامه دادن</string>
   <string name="youArePlaying">شما بازی می‌کنید!</string>
   <string name="winRate">درصد برد</string>
-  <string name="berserkRate">میزان جنون</string>
+  <string name="berserkRate">میزان دیوانگی</string>
   <string name="performance">عملکرد</string>
   <string name="tournamentComplete">مسابقات به پایان رسید</string>
   <string name="movesPlayed">حرکات انجام شده</string>
@@ -686,7 +686,7 @@
   <string name="simulAddExtraTimePerPlayer">به ازای پیوستن هر بازیکن، به زمان اولیه خود اضافه کنید.</string>
   <string name="simulHostExtraTimePerPlayer">زمان اضافه میزبان به ازای بازیکن</string>
   <string name="lichessTournaments">مسابقات لی چس</string>
-  <string name="tournamentFAQ">سوالات متداول مسابقات</string>
+  <string name="tournamentFAQ">پرسش‌های پربسامد مسابقات راوان</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
   <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
   <string name="accuracy">دقت</string>
