@@ -1,4 +1,5 @@
 {
+  "//": "This file is generated from sources in ../lexicon. Do not edit.",
   "crowdv": "en-1.json",
   "partials": {
     "commands": ["yes", "no"],

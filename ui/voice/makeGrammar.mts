@@ -3,8 +3,6 @@ import * as fs from 'node:fs';
 import { Readable } from 'node:stream';
 import { finished } from 'node:stream/promises';
 
-// requires node 18.x
-
 let builder: Builder;
 
 const buildMode: SubRestriction = { del: true, sub: 2 }; // allow dels and/or specify max sub length
@@ -28,35 +26,42 @@ function buildCostMap(
 }
 
 async function main() {
-  const subMap = new Map<string, SubInfo>();
   const opThreshold = Number(getArg('max-ops') ?? '1');
   const freqThreshold = Number(getArg('freq') ?? '0.002');
   const countThreshold = Number(getArg('count') ?? '6');
-  const grammar = ps.argv.slice(2).filter(x => !x.startsWith('-'))[0] ?? getArg('grammar') ?? 'move-en';
-  const lexicon = JSON.parse(fs.readFileSync(`lexicon/${grammar}-lex.json`, 'utf-8')) as Lexicon;
+  const grammars = ps.argv.slice(2).filter(x => !x.startsWith('-'));
+  if (grammars.length === 0) grammars.push('move-en');
+  for (const grammar of grammars) {
+    const subMap = new Map<string, SubInfo>();
+    const lexicon = {
+      '//': 'This file is generated from sources in ../lexicon. Do not edit.',
+      ...JSON.parse(fs.readFileSync(`lexicon/${grammar}-lex.json`, 'utf-8')),
+    } as Lexicon;
 
-  builder = new Builder(lexicon);
-  const entries = lexicon.crowdv
-    ? ((await parseCrowdvData(lexicon.crowdv)).map(data => makeLexEntry(data)).filter(x => x) as LexEntry[])
-    : [];
+    builder = new Builder(lexicon);
+    const entries = lexicon.crowdv
+      ? ((await parseCrowdvData(lexicon.crowdv)).map(data => makeLexEntry(data)).filter(x => x) as LexEntry[])
+      : [];
 
-  for (const e of entries.filter(e => e.h != e.x)) {
-    parseTransforms(findTransforms(e.h, e.x, buildMode), e, subMap, opThreshold);
-  }
-  subMap.forEach(v => (v.freq = v.count / v.all));
-
-  buildCostMap(subMap, freqThreshold, countThreshold).forEach((sub, key) => {
-    ppCost(key, sub);
-    const [from, to] = key.split(' ');
-    builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
-  });
-  const patch = `lexicon/${grammar}-patch.json`;
-  if (fs.existsSync(patch))
-    for (const patch of (JSON.parse(fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8')) as Patch[]) ??
-      []) {
-      builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
+    for (const e of entries.filter(e => e.h != e.x)) {
+      parseTransforms(findTransforms(e.h, e.x, buildMode), e, subMap, opThreshold);
     }
-  writeGrammar(`grammar/${grammar}.json`);
+    subMap.forEach(v => (v.freq = v.count / v.all));
+
+    buildCostMap(subMap, freqThreshold, countThreshold).forEach((sub, key) => {
+      ppCost(key, sub);
+      const [from, to] = key.split(' ');
+      builder.addSub(from, { to: to, cost: sub.cost ?? 1 });
+    });
+    const patch = `lexicon/${grammar}-patch.json`;
+    if (fs.existsSync(patch))
+      for (const patch of (JSON.parse(
+        fs.readFileSync(`lexicon/${grammar}-patch.json`, 'utf-8'),
+      ) as Patch[]) ?? []) {
+        builder.addSub(builder.tokenOf(patch.from), { to: builder.tokenOf(patch.to), cost: patch.cost });
+      }
+    writeGrammar(`grammar/${grammar}.json`);
+  }
 }
 
 // flatten list of transforms into sub map
@@ -171,10 +176,6 @@ function getArg(arg: string): string | undefined {
 
 async function parseCrowdvData(file: string) {
   if (!fs.existsSync(file)) {
-    if (parseInt(ps.versions.node.split('.')[0]) < 18) {
-      console.log(`Node 18+ required, you're running ${ps.version}\n\n`);
-      ps.exit(1);
-    }
     if (!fs.existsSync('crowdv')) fs.mkdirSync('crowdv');
     let url = file;
     if (/https?:/.test(url)) file = file.split('/').pop()!;
