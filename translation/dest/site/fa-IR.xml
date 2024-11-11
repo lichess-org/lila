@@ -690,7 +690,7 @@
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
   <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
   <string name="accuracy">دقت</string>
-  <string name="keyboardShortcuts">میانبر های صفحه کلید</string>
+  <string name="keyboardShortcuts">میانبرهای صفحه‌کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
   <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
@@ -758,7 +758,7 @@
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>
-  <string name="sessions">جلسات</string>
+  <string name="sessions">جلسه</string>
   <string name="revokeAllSessions">باطل کردن تمامی موارد</string>
   <string name="playChessEverywhere">همه جا شطرنج بازی کنید</string>
   <string name="asFreeAsLichess">کاملا رایگان</string>
@@ -789,7 +789,7 @@
   <string name="light">روشن</string>
   <string name="dark">تیره</string>
   <string name="transparent">شفاف</string>
-  <string name="deviceTheme">طرح زمینه دستگاه</string>
+  <string name="deviceTheme">پوستهٔ اَفزاره</string>
   <string name="backgroundImageUrl">وب‌نشانی تصویر پس‌زمینه:</string>
   <string name="board">صفحه شطرنج</string>
   <string name="size">اندازه</string>
@@ -917,7 +917,7 @@
   <string name="youCannotPostYetPlaySomeGames">هنوز نمی‌توانید در انجمن‌ها فرسته گذارید. چند بازی کنید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
-  <string name="mentionedYouInX">در «%1$s» از شما نام برده شد.</string>
+  <string name="mentionedYouInX">در «%1$s» از شما نام‌برده شد.</string>
   <string name="xMentionedYouInY">%1$s از شما در \"%2$s\" نام برد.</string>
   <string name="invitedYouToX">به «%1$s» دعوت شده‌اید.</string>
   <string name="xInvitedYouToY">%1$s شما را به «%2$s» دعوت کرده است.</string>
