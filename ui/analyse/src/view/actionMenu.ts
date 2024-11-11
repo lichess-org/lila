@@ -57,19 +57,6 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
 const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study && !ctrl.ongoing)
-    return h(
-      'a',
-      {
-        attrs: {
-          href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
-          target: '_blank',
-          rel: 'noopener',
-          'data-icon': licon.StudyBoard,
-        },
-      },
-      i18n.site.openStudy,
-    );
   if (ctrl.study || ctrl.ongoing) return;
   return h(
     'form',

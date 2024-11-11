@@ -19,6 +19,7 @@ const args: Record<string, string> = {
   '--watch': 'w',
   '--prod': 'p',
   '--debug': 'd',
+  '--test': 't',
   '--clean-exit': '',
   '--clean': 'c',
   '--update': '',
@@ -67,6 +68,7 @@ export async function main(): Promise<void> {
   env.clean = argv.some(x => x.startsWith('--clean')) || oneDashArgs.includes('c');
   env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
   env.rgb = argv.includes('--rgb');
+  env.test = argv.includes('--test') || oneDashArgs.includes('t');
 
   if (argv.length === 1 && (argv[0] === '--help' || argv[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(env.buildDir, 'readme'), 'utf8'));
@@ -135,6 +137,7 @@ class Env {
   install = true;
   sync = true;
   i18n = true;
+  test = false;
   exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
   logTime = true;
