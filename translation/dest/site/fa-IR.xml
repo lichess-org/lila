@@ -441,7 +441,7 @@
     <item quantity="other">%s دنبال‌گر</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s دنبال‌شده</item>
+    <item quantity="one">%s دنبالیده</item>
     <item quantity="other">%s دنبال‌شده</item>
   </plurals>
   <string name="more">بیشتر</string>
@@ -745,7 +745,7 @@
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی شاخه‌های رایانه‌ای بِنَوَردید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
-  <string name="receiveForumNotifications">دریافت اعلان در هنگام ذکر شدن در انجمن</string>
+  <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>
   <string name="withNobody">هیچکس</string>
   <string name="withFriends">با دوستان</string>
@@ -917,19 +917,19 @@
   <string name="youCannotPostYetPlaySomeGames">هنوز نمی‌توانید در انجمن‌ها فرسته گذارید. چند بازی کنید!</string>
   <string name="subscribe">مشترک شدن</string>
   <string name="unsubscribe">لغو اشتراک</string>
-  <string name="mentionedYouInX">از شما در %1$s نام برده شد.</string>
+  <string name="mentionedYouInX">در «%1$s» از شما نام برده شد.</string>
   <string name="xMentionedYouInY">%1$s از شما در \"%2$s\" نام برد.</string>
   <string name="invitedYouToX">به «%1$s» دعوت شده‌اید.</string>
   <string name="xInvitedYouToY">%1$s شما را به «%2$s» دعوت کرده است.</string>
   <string name="youAreNowPartOfTeam">شما در حال حاضر عضوی از تیم هستید.</string>
-  <string name="youHaveJoinedTeamX">شما به \"%1$s\" پیوستید.</string>
+  <string name="youHaveJoinedTeamX">شما به «%1$s» پیوسته‌اید.</string>
   <string name="someoneYouReportedWasBanned">شخصی که گزارش کردید مسدود شد</string>
   <string name="congratsYouWon">شادباش، شما بُردید!</string>
   <string name="gameVsX">بازی در برابر %1$s</string>
   <string name="resVsX">%1$s در برابر %2$s</string>
   <string name="lostAgainstTOSViolator">شما برابر کسی که قانون‌های Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
   <string name="refundXpointsTimeControlY">پس‌دادن: %1$s امتیاز به درجه‌بندی %2$s.</string>
-  <string name="timeAlmostUp">زمان تقریباً تمام شده است!</string>
+  <string name="timeAlmostUp">زمان نزدیک به پایان است!</string>
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانی رایانامه بتلیکید]</string>
   <string name="download">بارگیری</string>
   <string name="coachManager">تنظیمات مربی</string>
