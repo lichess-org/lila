@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arena">عرصه</string>
-  <string name="arenaTournaments">میدان مسابقات</string>
+  <string name="arena">راوان</string>
+  <string name="arenaTournaments">مسابقات راوان</string>
   <string name="isItRated">آیا رسمی است؟</string>
   <string name="willBeNotified">هنگامی که مسابقات می‌آغازد آگاهانده خواهید شد، بنابراین می‌توانید هنگام انتظار، در زبانهٔ دیگری بازی کنید.</string>
   <string name="isRated">این مسابقات رسمی است و بر درجه‌بندی‌تان اثر می‌گذارد.</string>
