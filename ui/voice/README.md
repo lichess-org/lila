@@ -18,9 +18,9 @@ vocabulary words that lack a sufficient sample in the crowdv data.
 # usage:
 
 ```
-./makeGrammar --freq=.002 \ # default values given explicitly here
-              --count=6 \
-                moves-en # give the lexicon/patch prefix as a standard argument
+./pnpm build --freq=.002 \ # default values given explicitly here
+             --count=6 \
+               moves-en # give the lexicon/patch prefix as a standard argument
 ```
 
 ## arguments:
