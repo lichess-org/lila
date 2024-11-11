@@ -77,13 +77,16 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
   def following(username: UserStr, page: Int) = Open:
     Reasonable(page, Max(20)):
       Found(meOrFetch(username)): user =>
-        RelatedPager(api.followingPaginatorAdapter(user.id), page).flatMap: pag =>
-          negotiate(
+        for
+          _   <- (page == 1).so(api.unfollowInactiveAccounts(user.id))
+          pag <- RelatedPager(api.followingPaginatorAdapter(user.id), page)
+          res <- negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
             then Ok.page(views.relation.friends(user, pag))
             else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
+        yield res
 
   def followers(username: UserStr, page: Int) = Open:
     negotiateJson:
