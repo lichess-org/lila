@@ -12,7 +12,8 @@ import { type Package, env, errorMark, colors as c } from './main.ts';
 import { i18n, stopI18n } from './i18n.ts';
 
 export async function build(pkgs: string[]): Promise<void> {
-  if (env.install) cps.execSync('pnpm install', { cwd: env.rootDir, stdio: 'inherit' });
+  if (env.install)
+    cps.execSync('pnpm install --prefer-frozen-lockfile', { cwd: env.rootDir, stdio: 'inherit' });
   if (!pkgs.length) env.log(`Parsing packages in '${c.cyan(env.uiDir)}'`);
 
   ps.chdir(env.uiDir);

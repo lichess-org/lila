@@ -1,8 +1,7 @@
 import { storage } from 'common/storage';
 import { isIOS } from 'common/device';
 import { throttle } from 'common/timing';
-import { defined } from 'common';
-import { charRole } from 'chess';
+import { defined, charToRole } from 'common';
 
 type Name = string;
 type Path = string;
@@ -192,7 +191,7 @@ export default new (class implements SoundI {
                         const code = c.charCodeAt(0);
                         if (code > 48 && code < 58) return c; // 1-8
                         if (code > 96 && code < 105) return c.toUpperCase();
-                        return charRole(c) || c;
+                        return charToRole(c) || c;
                       })
                       .join(' ')
                       .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced

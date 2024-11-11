@@ -1,5 +1,5 @@
-import { looseH as h, Redraw, VNode } from 'common/snabbdom';
-import RelayCtrl from './relayCtrl';
+import { looseH as h, type Redraw, type VNode } from 'common/snabbdom';
+import type RelayCtrl from './relayCtrl';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {

@@ -1,14 +1,14 @@
-import * as xhr from 'common/xhr';
-import * as prop from 'common/storage';
+import { jsonSimple } from 'common/xhr';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'common/storage';
 import * as licon from 'common/licon';
-import * as cs from 'chess';
-import { from as src, to as dest } from 'chess';
-import { PromotionCtrl, promote } from 'chess/promotion';
-import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
-import { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
+import { sanOf, readFen, destsToUcis, square, type Board } from 'chess';
+import { charToRole } from 'common';
+import { type PromotionCtrl, promote } from 'chess/promotion';
+import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { MsgType } from '../interfaces';
+import type { MsgType } from '../interfaces';
 import {
   type Transform,
   type SparseMap,
@@ -20,6 +20,9 @@ import {
   movesTo,
   findTransforms,
   as,
+  src,
+  dest,
+  promo,
 } from '../util';
 
 export function initModule({
@@ -35,7 +38,7 @@ export function initModule({
   let cg: CgApi;
   let entries: Entry[] = [];
   let partials: Record<string, string[]> = { commands: [], colors: [], numbers: [] };
-  let board: cs.Board;
+  let board: Board;
   let ucis: Uci[]; // every legal move in uci
   const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
   const byTok: Map<string, Entry> = new Map(); // map token chars to lexicon entries
@@ -49,9 +52,9 @@ export function initModule({
   let command: Confirm | undefined; // confirm player commands (before sending request)
   let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
   let choiceTimeout: number | undefined; // timeout for ambiguity choices
-  const clarityPref = prop.storedIntProp('voice.clarity', 0);
-  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, () => initTimerRec());
-  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, () => initTimerRec());
+  const clarityPref = storedIntProp('voice.clarity', 0);
+  const colorsPref = storedBooleanPropWithEffect('voice.useColors', true, () => initTimerRec());
+  const timerPref = storedIntPropWithEffect('voice.timer', 3, () => initTimerRec());
 
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 
@@ -88,7 +91,7 @@ export function initModule({
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await xhr.jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`));
+    const g = await jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -130,7 +133,6 @@ export function initModule({
 
         if (results.includes('ok')) {
           if (results.includes('clear')) clearConfirm();
-          root.redraw();
           return;
         }
       }
@@ -327,9 +329,9 @@ export function initModule({
     let arrows = true;
     if (root.blindfold?.()) {
       if (preferred) {
-        site.sound.saySan(cs.sanOf(board, options[0][0]));
-        arrows = !site.sound.say('confirm?');
-      }
+        site.sound.saySan(sanOf(board, options[0][0]), false, true);
+        arrows = !site.sound.say('confirm?', false, true);
+      } else site.sound.say('try again', false, true);
     }
     if (arrows) {
       const arrowTime = choiceTimeout ? timer() : undefined;
@@ -346,9 +348,9 @@ export function initModule({
       cg = up.cg;
       for (const [color, brush] of brushes) cg.state.drawable.brushes[`v-${color}`] = brush;
     }
-    board = cs.readFen(up.fen);
+    board = readFen(up.fen);
     cg.setShapes([]);
-    ucis = up.canMove && cg.state.movable.dests ? cs.destsToUcis(cg.state.movable.dests) : [];
+    ucis = up.canMove && cg.state.movable.dests ? destsToUcis(cg.state.movable.dests) : [];
     buildMoves();
     buildSquares();
   }
@@ -363,7 +365,7 @@ export function initModule({
       cg.redrawAll();
       return true;
     }
-    const role = cs.promo(uci);
+    const role = promo(uci);
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
     root.pluginMove(src(uci), dest(uci), role);
@@ -371,13 +373,13 @@ export function initModule({
   }
 
   function promotionHook() {
-    return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
+    return (ctrl: PromotionCtrl, roles: Role[] | false) =>
       roles
         ? voice.mic.addListener(
             (text: string) => {
               const val = matchOneTags(text, ['role'], ['no']);
               voice.mic.stopPropagation();
-              if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
+              if (val && roles.includes(charToRole(val))) ctrl.finish(charToRole(val));
               else if (val === 'no') ctrl.cancel();
             },
             { listenerId: 'promotion' },
@@ -398,8 +400,8 @@ export function initModule({
     for (const uci of ucis) {
       const usrc = src(uci),
         udest = dest(uci),
-        nsrc = cs.square(usrc),
-        ndest = cs.square(udest),
+        nsrc = square(usrc),
+        ndest = square(udest),
         dp = board.pieces[ndest],
         srole = board.pieces[nsrc].toUpperCase();
 
@@ -467,16 +469,14 @@ export function initModule({
       if (sel && !uci.startsWith(sel)) continue;
       const usrc = src(uci),
         udest = dest(uci),
-        nsrc = cs.square(usrc),
-        ndest = cs.square(udest),
+        nsrc = square(usrc),
+        ndest = square(udest),
         dp = board.pieces[ndest],
         srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
       pushMap(squares, `${usrc[0]},${usrc[1]}`, usrc);
       pushMap(squares, `${udest[0]},${udest[1]}`, uci);
-      //if (srole !== 'P') {
       pushMap(squares, srole, uci);
       pushMap(squares, srole, usrc);
-      //}
       if (dp && !isOurs(dp)) pushMap(squares, dp.toUpperCase(), uci);
     }
     // deconflict role partials for move & select

@@ -1,16 +1,16 @@
 import { view as cevalView } from 'ceval';
-import { VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
 import {
+  type VNode,
+  type VNodeKids,
+  type MaybeVNode,
   bind,
   bindNonPassive,
   onInsert,
   dataIcon,
-  VNodeKids,
   looseH as h,
-  MaybeVNode,
 } from 'common/snabbdom';
 import { playable } from 'game';
 import { bindMobileMousedown, isMobile } from 'common/device';
@@ -24,8 +24,8 @@ import { view as forkView } from '../fork';
 import renderClocks from './clocks';
 import * as control from '../control';
 import * as chessground from '../ground';
-import AnalyseCtrl from '../ctrl';
-import { ConcealOf } from '../interfaces';
+import type AnalyseCtrl from '../ctrl';
+import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import * as Prefs from 'common/prefs';
@@ -36,8 +36,8 @@ import { render as renderTreeView } from '../treeView/treeView';
 import * as gridHacks from './gridHacks';
 import { dispatchChessgroundResize } from 'common/resize';
 import serverSideUnderboard from '../serverSideUnderboard';
-import StudyCtrl from '../study/studyCtrl';
-import RelayCtrl from '../study/relay/relayCtrl';
+import type StudyCtrl from '../study/studyCtrl';
+import type RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
 import { storage } from 'common/storage';

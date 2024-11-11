@@ -1,6 +1,6 @@
 import { init, classModule, attributesModule, eventListenersModule } from 'snabbdom';
 import { requestIdleCallback } from 'common';
-import { LobbyOpts } from './interfaces';
+import type { LobbyOpts } from './interfaces';
 import makeCtrl from './ctrl';
 import appView from './view/main';
 import tableView from './view/table';

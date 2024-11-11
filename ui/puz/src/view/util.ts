@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
-import { Config, Run } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { Config, Run } from '../interfaces';
 import { getNow } from '../util';
 
 export const playModifiers = (

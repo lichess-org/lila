@@ -1,8 +1,7 @@
-import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, dataIcon, looseH as h } from 'common/snabbdom';
-import AnalyseCtrl from '../../ctrl';
-import StudyCtrl from '../studyCtrl';
+import { bind, dataIcon, type VNode, looseH as h } from 'common/snabbdom';
+import type AnalyseCtrl from '../../ctrl';
+import type StudyCtrl from '../studyCtrl';
 
 export function playButtons(root: AnalyseCtrl): VNode | undefined {
   const study = root.study!,

@@ -1,5 +1,5 @@
 import EditorCtrl from './ctrl';
-import { LichessEditor, Config } from './interfaces';
+import type { LichessEditor, Config } from './interfaces';
 import menuHover from 'common/menuHover';
 import view from './view';
 import { init, attributesModule, eventListenersModule, classModule, propsModule } from 'snabbdom';

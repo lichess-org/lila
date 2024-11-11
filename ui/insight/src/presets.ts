@@ -1,8 +1,8 @@
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import Ctrl from './ctrl';
-import { Preset } from './interfaces';
+import type Ctrl from './ctrl';
+import type { Preset } from './interfaces';
 
 export default function (ctrl: Ctrl) {
   return h(

@@ -10,5 +10,5 @@
 !/ui/**
 dist/
 readme
-/ui/.build/pnpm-lock.yaml
+pnpm-lock.yaml
 /ui/voice/@build/crowdv/*.json

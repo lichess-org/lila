@@ -1,10 +1,10 @@
 import * as licon from 'common/licon';
-import { looseH as h, bind, onInsert, dataIcon, MaybeVNode } from 'common/snabbdom';
-import { LogEvent } from './interfaces';
-import RelayCtrl from './relayCtrl';
+import { looseH as h, bind, onInsert, dataIcon, type MaybeVNode } from 'common/snabbdom';
+import type { LogEvent } from './interfaces';
+import type RelayCtrl from './relayCtrl';
 import { memoize } from 'common';
 import { side as studyViewSide } from '../studyView';
-import StudyCtrl from '../studyCtrl';
+import type StudyCtrl from '../studyCtrl';
 
 export default function (ctrl: RelayCtrl, study: StudyCtrl): MaybeVNode {
   const contributor = ctrl.members.canContribute(),

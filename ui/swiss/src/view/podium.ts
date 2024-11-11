@@ -1,6 +1,6 @@
-import { h, VNode } from 'snabbdom';
-import SwissCtrl from '../ctrl';
-import { PodiumPlayer } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type SwissCtrl from '../ctrl';
+import type { PodiumPlayer } from '../interfaces';
 import { userLink } from 'common/userLink';
 
 const podiumStats = (p: PodiumPlayer, ctrl: SwissCtrl): VNode =>

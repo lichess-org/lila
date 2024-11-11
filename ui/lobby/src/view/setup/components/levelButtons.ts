@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import type LobbyController from '../../../ctrl';
 import { option } from './option';
 
 export const levelButtons = (ctrl: LobbyController) => {

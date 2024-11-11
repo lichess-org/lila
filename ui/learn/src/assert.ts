@@ -1,5 +1,5 @@
-import { charToRole, SquareName as Key, Piece } from 'chessops';
-import { AssertData } from './levelCtrl';
+import { charToRole, type SquareName } from 'chessops';
+import type { AssertData } from './levelCtrl';
 import { readKeys } from './util';
 
 type Assert = (level: AssertData) => boolean;
@@ -10,7 +10,7 @@ const pieceMatch = (piece: Piece | undefined, matcher: Piece): boolean =>
   piece?.role === matcher.role && piece.color === matcher.color;
 
 const pieceOnAnyOf =
-  (matcher: Piece, keys: Key[]): Assert =>
+  (matcher: Piece, keys: SquareName[]): Assert =>
   (level: AssertData) =>
     keys.some(key => pieceMatch(level.chess.get(key), matcher));
 
@@ -20,21 +20,21 @@ const fenToMatcher = (fenPiece: FenPiece): Piece => ({
 });
 
 export const pieceOn =
-  (fenPiece: FenPiece, key: Key): Assert =>
+  (fenPiece: FenPiece, key: SquareName): Assert =>
   (level: AssertData) =>
     pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
 
 export const pieceNotOn =
-  (fenPiece: FenPiece, key: Key): Assert =>
+  (fenPiece: FenPiece, key: SquareName): Assert =>
   (level: AssertData) =>
     !pieceMatch(level.chess.get(key), fenToMatcher(fenPiece));
 
-export const noPieceOn = (keys: string | Key[]): Assert => {
+export const noPieceOn = (keys: string | SquareName[]): Assert => {
   const keyArr = readKeys(keys);
   return (level: AssertData) => level.chess.occupiedKeys().some(sq => !keyArr.includes(sq));
 };
 
-export const whitePawnOnAnyOf = (keys: string | Key[]): Assert =>
+export const whitePawnOnAnyOf = (keys: string | SquareName[]): Assert =>
   pieceOnAnyOf(fenToMatcher('P'), readKeys(keys));
 
 export const extinct =

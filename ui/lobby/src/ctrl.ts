@@ -2,10 +2,10 @@ import { numberFormat } from 'common/number';
 import variantConfirm from './variant';
 import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
-import { make as makeStores, Stores } from './store';
+import { make as makeStores, type Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import {
+import type {
   LobbyOpts,
   LobbyData,
   Tab,

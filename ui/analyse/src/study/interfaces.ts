@@ -1,9 +1,8 @@
-import * as cg from 'chessground/types';
-import { Prop } from 'common';
-import { AnalyseData } from '../interfaces';
-import { GamebookOverride } from './gamebook/interfaces';
-import { Opening } from '../explorer/interfaces';
-import AnalyseCtrl from '../ctrl';
+import type { Prop } from 'common';
+import type { AnalyseData } from '../interfaces';
+import type { GamebookOverride } from './gamebook/interfaces';
+import type { Opening } from '../explorer/interfaces';
+import type AnalyseCtrl from '../ctrl';
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
@@ -235,7 +234,7 @@ export interface ChapterData {
   name: string;
   game?: string;
   variant?: VariantKey;
-  fen?: cg.FEN | null;
+  fen?: FEN | null;
   pgn?: string;
   orientation: Orientation;
   mode: ChapterMode;
@@ -261,18 +260,18 @@ export interface AnaDests {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: cg.FEN;
+  fen: FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
-  promotion?: cg.Role;
+  promotion?: Role;
 }
 
 export interface AnaDrop {
-  role: cg.Role;
+  role: Role;
   pos: Key;
   variant?: VariantKey;
-  fen: cg.FEN;
+  fen: FEN;
   path: string;
   ch?: string;
 }

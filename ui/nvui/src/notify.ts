@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { requestIdleCallback } from 'common';
 
 type Notification = {

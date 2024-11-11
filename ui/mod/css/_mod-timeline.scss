@@ -30,7 +30,8 @@
 }
 .mod-timeline__event__from {
   @extend %nowrap-ellipsis;
-  max-width: 25em;
+  min-width: 15ch;
+  max-width: 40ch;
 }
 .mod-timeline__event__flair {
   @extend %flex-center;

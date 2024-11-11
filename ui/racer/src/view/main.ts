@@ -1,11 +1,10 @@
 import config from '../config';
-import RacerCtrl from '../ctrl';
+import type RacerCtrl from '../ctrl';
 import renderClock from 'puz/view/clock';
 import renderHistory from 'puz/view/history';
 import * as licon from 'common/licon';
 import { copyMeInput } from 'common/copyMe';
-import { MaybeVNodes, bind, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
+import { type VNode, type MaybeVNodes, bind, looseH as h } from 'common/snabbdom';
 import { playModifiers, renderCombo } from 'puz/view/util';
 import { renderRace } from './race';
 import { renderBoard } from './board';

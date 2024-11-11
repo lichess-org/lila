@@ -1,13 +1,11 @@
-import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { prop } from 'common';
 import { confirm, prompt, snabDialog } from 'common/dialog';
 import flairPickerLoader from 'bits/flairPicker';
-import { bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
+import { type VNode, bindSubmit, bindNonPassive, onInsert, looseH as h } from 'common/snabbdom';
 import { emptyRedButton } from '../view/util';
-import { StudyData } from './interfaces';
-import { Redraw } from '../interfaces';
-import RelayCtrl from './relay/relayCtrl';
+import type { StudyData } from './interfaces';
+import type RelayCtrl from './relay/relayCtrl';
 
 export interface FormData {
   name: string;

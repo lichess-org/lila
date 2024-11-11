@@ -1,8 +1,8 @@
 import * as control from './control';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import * as xhr from 'common/xhr';
 import { snabDialog } from 'common/dialog';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import { pubsub } from 'common/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
