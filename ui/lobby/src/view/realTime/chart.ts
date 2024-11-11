@@ -20,7 +20,7 @@ function ratingY(e?: number) {
   } else {
     ratio = mid - (ratingLog(1500 - rating) / ratingLog(500)) * mid;
   }
-  return Math.round(ratio * 94);
+  return Math.round(ratio * 92);
 }
 
 const clockMax = 2000;
@@ -106,7 +106,7 @@ function renderYAxis() {
 }
 
 export function toggle(ctrl: LobbyController) {
-  return h('i.toggle-shift-right', {
+  return h('i.toggle', {
     key: 'set-mode-list',
     attrs: { title: i18n.site.list, 'data-icon': licon.List },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),

@@ -62,11 +62,6 @@
     }
   }
 
-  .toggle-shift-right {
-    @extend .toggle;
-    right: 6%;
-  }
-
   .gamesFiltered {
     color: $c-accent;
 
