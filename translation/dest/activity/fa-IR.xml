@@ -59,8 +59,8 @@
     <item quantity="other">%s درس جدید ساخت</item>
   </plurals>
   <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
-    <item quantity="one">در %s مسابقه آرنا رقابت کرد</item>
-    <item quantity="other">در %s مسابقه آرنا رقابت کرد</item>
+    <item quantity="one">در %s مسابقهٔ راوان رقابت کرد</item>
+    <item quantity="other">در %s مسابقهٔ راوان رقابت کرد</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">رتبه #%1$s (%2$s%% برتر) با %3$s بازی در %4$s</item>
