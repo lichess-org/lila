@@ -59,9 +59,9 @@
   <string name="analysis">تحلیل بازی</string>
   <string name="depthX">عمق %s</string>
   <string name="usingServerAnalysis">با استفاده از کارسازِ تحلیل</string>
-  <string name="loadingEngine">پردازشگر بارمی‌گذارد...</string>
+  <string name="loadingEngine">موتور بارمی‌گذارد...</string>
   <string name="calculatingMoves">محاسبهٔ حرکت‌ها...</string>
-  <string name="engineFailed">خطا در بارگذاری پردازشگر</string>
+  <string name="engineFailed">خطا در بارگذاری موتور</string>
   <string name="cloudAnalysis">تحلیل ابری</string>
   <string name="goDeeper">بررسی عمیق‌تر</string>
   <string name="showThreat">نمایش تهدید</string>
