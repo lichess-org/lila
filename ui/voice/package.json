@@ -25,6 +25,9 @@
     ],
     "sync": {
       "grammar/**": "public/compiled/grammar"
-    }
+    },
+    "hashed": [
+      "compiled/grammar/*"
+    ]
   }
 }
