@@ -12,7 +12,7 @@
   <string name="disableTwoFactor">غیر فعال کردن احراز هویت دو مرحله ای</string>
   <string name="twoFactorEnabled">هویت‌سنجی دو مرحله‌ای فعال شد</string>
   <string name="twoFactorToDisable">شما به رمز عبور خود و یک کد هویت سنجی از برنامه هویت سنج نیاز دارید تا بتوانید ورود دو مرحله ای را غیرفعال کنید.</string>
-  <string name="openTwoFactorApp">برنامه هویت‌سنجی دو مرحله‌ای را بر روی دستگاه خود باز نمایید تا کد هویت‌سنجی را ببینید و هویت خود را تایید نمایید.</string>
+  <string name="openTwoFactorApp">کارآیهٔ راستین‌آزمایی دوگامی را در اَفزاره‌تان باز کنید تا کد راستین‌آزمایی را ببینید و هویت‌تان را تایید کنید.</string>
   <string name="setupReminder">لطفا برای امن کردن حساب خود احراز هویت دومرحله ای را در https://lichess.org/account/twofactor فعال کنید.
 دلیل ارسال این پیام وجود نقش های مهم در حساب شما مانند لیدر تیم، مربی، مدرس یا استریمر می‌باشد.</string>
 </resources>
