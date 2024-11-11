@@ -373,12 +373,6 @@ final class RelayApi(
           _      <- rounds.map(_.into(StudyId)).sequentiallyVoid(studyApi.deleteById)
         yield true
 
-  def getOngoing(id: RelayRoundId): Fu[Option[WithTour]] =
-    roundRepo.coll
-      .one[RelayRound]($doc("_id" -> id, "finished" -> false))
-      .flatMapz: relay =>
-        tourById(relay.tourId).map2(relay.withTour)
-
   def canUpdate(tour: RelayTour)(using me: Me): Fu[Boolean] =
     fuccess(Granter(_.StudyAdmin) || me.is(tour.ownerId)) >>|
       roundRepo
