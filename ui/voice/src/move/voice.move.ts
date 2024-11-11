@@ -1,7 +1,7 @@
 import { jsonSimple } from 'common/xhr';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'common/storage';
 import * as licon from 'common/licon';
-import { sanOf, readFen, destsToUcis, square, type Board } from 'chess';
+import { readFen, destsToUcis, square, type Board } from 'chess';
 import { charToRole } from 'common';
 import { type PromotionCtrl, promote } from 'chess/promotion';
 import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
@@ -294,7 +294,7 @@ export function initModule({
     // trim choices to clarity window
     options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
 
-    if (!root.blindfold?.() && !timer() && options.length === 1 && options[0][1].cost < 0.3) {
+    if (!timer() && options.length === 1 && options[0][1].cost < 0.3) {
       console.info('chooseMoves', `chose '${options[0][0]}' cost=${options[0][1].cost}`);
       submit(options[0][0]);
       return true;
@@ -326,19 +326,10 @@ export function initModule({
       );
       voice.mic.setRecognizer('timer');
     }
-    let arrows = true;
-    if (root.blindfold?.()) {
-      if (preferred) {
-        site.sound.saySan(sanOf(board, options[0][0]), false, true);
-        arrows = !site.sound.say('confirm?', false, true);
-      } else site.sound.say('try again', false, true);
-    }
-    if (arrows) {
-      const arrowTime = choiceTimeout ? timer() : undefined;
-      cg.setShapes(
-        colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
-      );
-    }
+    const arrowTime = choiceTimeout ? timer() : undefined;
+    cg.setShapes(
+      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
+    );
     cg.redrawAll();
     return true;
   }

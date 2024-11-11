@@ -49,6 +49,7 @@ import type {
 import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+import { readFen, sanOf, speakable } from 'chess/sanWriter';
 
 interface GoneBerserk {
   white?: boolean;
@@ -71,7 +72,7 @@ export default class RoundController implements MoveRootCtrl {
   firstSeconds = true;
   flip = false;
   menu: Toggle;
-  confirmMoveEnabled: Toggle = toggle(true);
+  confirmMoveToggle: Toggle = toggle(true);
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -335,28 +336,28 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   sendMove = (orig: Key, dest: Key, prom: Role | undefined, meta: CgMoveMetadata): void => {
-    const move: SocketMove = {
-      u: orig + dest,
-    };
+    const move: SocketMove = { u: orig + dest };
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
+
+    if (this.data.pref.submitMove && this.confirmMoveToggle() && !meta.premove) {
+      if (site.sound.speech()) {
+        const spoken = `${speakable(sanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
+        site.sound.say(spoken, false, true);
+      }
       this.toSubmit = move;
       this.redraw();
-    } else {
-      this.actualSendMove('move', move, {
-        justCaptured: meta.captured,
-        premove: meta.premove,
-      });
+      return;
     }
+    this.actualSendMove('move', move, { justCaptured: meta.captured, premove: meta.premove });
   };
 
   sendNewPiece = (role: Role, key: Key, isPredrop: boolean): void => {
     const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
+    if (this.data.pref.submitMove && this.confirmMoveToggle() && !isPredrop) {
       this.toSubmit = drop;
       this.redraw();
     } else {
