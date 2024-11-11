@@ -2,7 +2,7 @@
 
 ```
 the idea is that no transform on a heard phrase should be allowed if the sum of its
-substitution costs exceed some value (currently 1.0). the makeGrammar script generates json
+substitution costs exceed some value (currently 1.0). the makeGrammar.mts script generates json
 arrays defining word grammars (tokens, substitution rules, etc) at grammar/<type-lang>.json.
 these are built from the inputs in ./lexicon/*.json and hopefully a crowdv.json
 
@@ -20,7 +20,7 @@ vocabulary words that lack a sufficient sample in the crowdv data.
 ```
 ./pnpm build --freq=.002 \ # default values given explicitly here
              --count=6 \
-               moves-en # give the lexicon/patch prefix as a standard argument
+               moves-en # give the lexicon/patch prefixes to build as standard arguments
 ```
 
 ## arguments:
@@ -33,7 +33,7 @@ vocabulary words that lack a sufficient sample in the crowdv data.
   {count} is minimum occurrences of a substitution in the input data
 
   {in} is a crowdv json resolved in the following manner:
-    - as a local file either absolute or relative to the .build/crowdv directory
+    - as a local file either absolute or relative to ui/voice/crowdv/
     - as a https url
     - otherwise, downloaded from https://raw.githubusercontent.com/lichess-org/lifat/master/crowdv
 
@@ -74,7 +74,7 @@ vocabulary words that lack a sufficient sample in the crowdv data.
 
   xvals - an exact phrase in the val space
 
-  in voiceMove, class lookup methods for lexicon entry fields take the form <fromTo> where <from>
+  in voice.move.ts, class lookup methods for lexicon entry fields take the form <fromTo> where <from>
   is the input field and <to> is the output. for example: tokWord fetches the input word corresponding
   to a token, and wordTok fetches the token corresponding to an input word
 
@@ -86,6 +86,5 @@ vocabulary words that lack a sufficient sample in the crowdv data.
 
 ```
   * ./makeGrammar.mts
-  * ./src/mic.ts
   * ./src/move/voice.move.ts
 ```
