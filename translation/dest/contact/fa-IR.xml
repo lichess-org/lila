@@ -57,11 +57,11 @@
   <string name="reportErrorPage">اگر با صفحه خطا مواجه شدید، می‌توانید آن را گزارش کنید:</string>
   <string name="learnHowToMakeBroadcasts">یاد بگیرید که چطور پخش زنده خود را در لیچس بسازید</string>
   <string name="banAppeal">درخواست بازنگری برای یک ممنوعیت یا محدودیتِ IP</string>
-  <string name="engineAppeal">علامت‌گذاری استفاده از رایانه یا تقلب</string>
+  <string name="engineAppeal">علامتِ موتور یا تقلب</string>
   <string name="sendAppealTo">شما می‌توانید یک درخواست بررسی مجدد به %s ارسال کنید.</string>
   <string name="falsePositives">مثبتهای اشتباهی حتماً گاهی اتفاق می‌افتد، و ما درباره آن متاسفیم.</string>
   <string name="ifLegit">اگر درخواست بازنگری شما مشروع و قانونی باشد، ما در نزدیکترین زمان ممکن ممنوعیت را رفع خواهیم کرد.</string>
-  <string name="accountLost">اما اگر به‌واقع از کمک موتور بهراسته‌اید، حتی فقط یک‌بار، بدبختانه حساب‌تان از دست رفته است.</string>
+  <string name="accountLost">اما اگر به‌واقع از کمک موتور بهراسته‌اید، حتی فقط یک‌بار، بدبختانه حساب‌تان از دست می‌رود.</string>
   <string name="doNotDeny">این که تقلب کرده‌اید را انکار نکنید. اگر می‌خواهید به شما اجازه داده شود تا یک حساب کاربری جدید بسازید، فقط به کاری که کرده‌اید اذعان کنید، و نشان دهید که شما متوجه شدید آن کار اشتباه بوده است.</string>
   <string name="otherRestriction">محدودیتِ دیگر</string>
   <string name="collaboration">تعامل، قانونی، تجاری</string>
