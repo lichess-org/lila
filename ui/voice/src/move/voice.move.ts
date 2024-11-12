@@ -297,9 +297,9 @@ export function initModule({
     // trim choices to clarity window
     options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
 
-    if (!timer() && options.length === 1 && options[0][1].cost < 0.3) {
+    if (!timer() && options.length === 1 && (options[0][1].cost < 0.3 || root.shouldConfirmMove?.())) {
       console.info('chooseMoves', `chose '${options[0][0]}' cost=${options[0][1].cost}`);
-      submit(options[0][0]);
+      submit(options[0][0], false);
       return true;
     }
     return ambiguate(options);
@@ -321,7 +321,7 @@ export function initModule({
     if (preferred && timer()) {
       choiceTimeout = setTimeout(
         () => {
-          submit(options[0][0]);
+          submit(options[0][0], false);
           choiceTimeout = undefined;
           voice.mic.setRecognizer('default');
         },
@@ -349,7 +349,7 @@ export function initModule({
     buildSquares();
   }
 
-  function submit(uci: Uci) {
+  function submit(uci: Uci, preConfirmed = true) {
     clearMoveProgress();
     if (uci.length < 3) {
       const dests = [...new Set(ucis.filter(x => x.length === 4 && x.startsWith(uci)))];
@@ -362,7 +362,7 @@ export function initModule({
     const role = promo(uci);
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
-    root.pluginMove(src(uci), dest(uci), role);
+    root.pluginMove(src(uci), dest(uci), role, preConfirmed);
     return true;
   }
 

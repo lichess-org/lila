@@ -11,7 +11,6 @@ import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'game/view/status';
-import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
@@ -72,7 +71,7 @@ export default class RoundController implements MoveRootCtrl {
   firstSeconds = true;
   flip = false;
   menu: Toggle;
-  confirmMoveToggle: Toggle = toggle(true);
+  confirmMoveToggle: Toggle;
   loading = false;
   loadingTimeout: number;
   redirecting = false;
@@ -123,7 +122,7 @@ export default class RoundController implements MoveRootCtrl {
     );
 
     this.setQuietMode();
-
+    this.confirmMoveToggle = toggle(d.pref.submitMove);
     this.moveOn = new MoveOn(this, 'move-on');
     if (!opts.local) this.transientMove = new TransientMove(this.socket);
 
@@ -158,12 +157,12 @@ export default class RoundController implements MoveRootCtrl {
     setTimeout(this.showExpiration, 250);
   };
 
-  private onUserMove = (orig: Key, dest: Key, meta: CgMoveMetadata) => {
+  private onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
     if (!this.keyboardMove?.usedSan) ab.move(this, meta, pubsub.emit);
     if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
-  private onUserNewPiece = (role: Role, key: Key, meta: CgMoveMetadata) => {
+  private onUserNewPiece = (role: Role, key: Key, meta: MoveMetadata) => {
     if (!this.replaying() && crazyValid(this.data, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
@@ -178,7 +177,7 @@ export default class RoundController implements MoveRootCtrl {
     } else site.sound.move({ name: 'move', filter: 'game' });
   };
 
-  private startPromotion = (orig: Key, dest: Key, meta: CgMoveMetadata) =>
+  private startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
     this.promotion.start(
       orig,
       dest,
@@ -190,7 +189,7 @@ export default class RoundController implements MoveRootCtrl {
       this.keyboardMove?.justSelected(),
     );
 
-  private onPremove = (orig: Key, dest: Key, meta: CgMoveMetadata) => this.startPromotion(orig, dest, meta);
+  private onPremove = (orig: Key, dest: Key, meta: MoveMetadata) => this.startPromotion(orig, dest, meta);
 
   private onCancelPremove = () => this.promotion.cancelPrePromotion();
 
@@ -293,7 +292,7 @@ export default class RoundController implements MoveRootCtrl {
 
   setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}): void => {
+  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = { premove: false }): void => {
     const socketOpts: SocketOpts = {
       sign: this.sign,
       ackable: true,
@@ -319,7 +318,7 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  pluginMove = (orig: Key, dest: Key, role?: Role): void => {
+  pluginMove = (orig: Key, dest: Key, role?: Role, preConfirmed?: boolean): void => {
     if (!role) {
       this.chessground.move(orig, dest);
       this.chessground.state.movable.dests = undefined;
@@ -327,7 +326,7 @@ export default class RoundController implements MoveRootCtrl {
 
       if (this.startPromotion(orig, dest, { premove: false })) return;
     }
-    this.sendMove(orig, dest, role, { premove: false });
+    this.sendMove(orig, dest, role, { premove: false, preConfirmed });
   };
 
   pluginUpdate = (fen: string): void => {
@@ -335,13 +334,16 @@ export default class RoundController implements MoveRootCtrl {
     this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
 
-  sendMove = (orig: Key, dest: Key, prom: Role | undefined, meta: CgMoveMetadata): void => {
+  shouldConfirmMove = (): boolean =>
+    (this.data.pref.submitMove && this.confirmMoveToggle()) || this.confirmMoveToggle();
+
+  sendMove = (orig: Key, dest: Key, prom: Role | undefined, meta: MoveMetadata): void => {
     const move: SocketMove = { u: orig + dest };
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
 
-    if (this.data.pref.submitMove && this.confirmMoveToggle() && !meta.premove) {
+    if (!meta.preConfirmed && this.shouldConfirmMove() && !meta.premove) {
       if (site.sound.speech()) {
         const spoken = `${speakable(sanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
         site.sound.say(spoken, false, true);
@@ -357,7 +359,7 @@ export default class RoundController implements MoveRootCtrl {
     const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && this.confirmMoveToggle() && !isPredrop) {
+    if (this.shouldConfirmMove() && !isPredrop) {
       this.toSubmit = drop;
       this.redraw();
     } else {
