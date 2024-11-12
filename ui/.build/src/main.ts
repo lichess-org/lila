@@ -58,9 +58,9 @@ export async function main(): Promise<void> {
     env.sync = argv.includes('--sync');
   }
   if (argv.includes('--no-color')) env.color = undefined;
-  if (argv.includes('--no-time')) env.logTime = false;
-  if (argv.includes('--no-context')) env.logContext = false;
 
+  env.logTime = !argv.includes('--no-time');
+  env.logContext = !argv.includes('--no-context');
   env.watch = argv.includes('--watch') || oneDashArgs.includes('w');
   env.prod = argv.includes('--prod') || oneDashArgs.includes('p');
   env.debug = argv.includes('--debug') || oneDashArgs.includes('d');
