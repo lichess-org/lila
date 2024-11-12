@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import { env, colors as c, errorMark } from './main.ts';
@@ -24,9 +25,10 @@ export async function tsc(): Promise<void> {
     .sort((a, b) => a.localeCompare(b)) // repeatable build order
     .filter(x => env.building.some(pkg => x.startsWith(`${pkg.root}/`)));
 
+  const maxCores = os.cpus().length;
   const workerBuckets = {
-    noCheck: Array.from({ length: 4 }, () => []),
-    noEmit: Array.from({ length: 8 }, () => []),
+    noCheck: Array.from({ length: Math.min(4, maxCores) }, () => []),
+    noEmit: Array.from({ length: Math.min(8, maxCores) }, () => []),
   };
 
   // traverse packages by descending src folder size and assign to emptiest available worker buckets
@@ -34,10 +36,10 @@ export async function tsc(): Promise<void> {
     addToBucket(cfg, workerBuckets[cfg.type]);
   }
 
-  env.log(`Transpiling ${c.grey('noCheck')}`, { ctx: 'tsc' });
+  tscLog(`Transpiling ${c.grey('noCheck')} (${workerBuckets.noCheck.length} workers)`);
   await watchMonitor(workerBuckets.noCheck, 'noCheck');
 
-  env.log(`Typechecking ${c.grey('noEmit')}`, { ctx: 'tsc' });
+  tscLog(`Typechecking ${c.grey('noEmit')} (${workerBuckets.noEmit.length} workers)`);
   await watchMonitor(workerBuckets.noEmit, 'noEmit');
 }
 
@@ -52,7 +54,7 @@ function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
 
     status[msg.index] = msg.type;
 
-    if (msg.type === 'error') return logMessage(msg);
+    if (msg.type === 'error') return tscError(msg);
     if (status.some(s => s !== 'ok')) return;
 
     resolve?.();
@@ -77,7 +79,11 @@ function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
   return ok;
 }
 
-function logMessage(msg: Message): void {
+function tscLog(msg: string): void {
+  env.log(msg, { ctx: 'tsc' });
+}
+
+function tscError(msg: Message): void {
   const { code, text, file, line, col } = msg.data;
   const prelude = `${errorMark} ts${code} `;
   const message = `${ts.flattenDiagnosticMessageText(text, '\n', 0)}`;
@@ -87,17 +93,17 @@ function logMessage(msg: Message): void {
     if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
     location += `' - `;
   }
-  env.log(`${prelude}${location}${message}`, { ctx: 'tsc' });
+  tscLog(`${prelude}${location}${message}`);
   if (!env.exitCode.get('tsc')) env.done(1, 'tsc');
 }
 
 function addToBucket(config: SplitConfig, buckets: SplitConfig[][]) {
   buckets
-    .reduce((smallest, current) => {
-      const smallestSize = smallest.reduce((sum, cfg) => sum + cfg.size, 0);
-      const currentSize = current.reduce((sum, cfg) => sum + cfg.size, 0);
-      return currentSize < smallestSize ? current : smallest;
-    })
+    .reduce((smallest, current) =>
+      current.reduce((sum, cfg) => sum + cfg.size, 0) < smallest.reduce((sum, cfg) => sum + cfg.size, 0)
+        ? current
+        : smallest,
+    )
     .push(config);
 }
 
@@ -126,9 +132,8 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   if (co.moduleResolution) co.moduleResolution = ts.ModuleResolutionKind[co.moduleResolution];
   if (co.module) co.module = ts.ModuleKind[co.module];
   if (co.target) co.target = ts.ScriptTarget[co.target];
-  co.lib?.forEach((lib: string, i: number) => {
-    if (lib.startsWith('lib.')) co.lib[i] = lib.split('.')[1];
-  });
+
+  co.lib = co.lib?.map((lib: string) => (lib.startsWith('lib.') ? lib.split('.')[1] : lib));
   co.incremental = true;
 
   config.compilerOptions = co;
