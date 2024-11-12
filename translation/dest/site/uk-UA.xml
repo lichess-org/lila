@@ -234,6 +234,7 @@
 		<item quantity="many">%s ігор з тобою</item>
 		<item quantity="other">%s ігор з тобою</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Скасуй</string>
 	<string name="timeOut">Уплив часу</string>
 	<string name="drawOfferSent">Подана нічия</string>
@@ -264,6 +265,7 @@
 	<string name="finishesX">завершується %s</string>
 	<string name="abortGame">Перерви гру</string>
 	<string name="gameAborted">Гру перервано</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Уставно</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -510,9 +512,7 @@
 	<string name="advancedSettings">Додаткові лашти</string>
 	<string name="safeTournamentName">Назви́ змаг незлободенно.</string>
 	<string name="inappropriateNameWarning">Будь-яка невідповідність спричине закрити твою обліківку.</string>
-	<string name="emptyTournamentName">Залиш назву змага пустим на честь відомого гравця по шьоґі.</string>
-	<string name="recommendNotTouching">Радимо не торкатися цього.</string>
-	<string name="fewerPlayers">Якщо встановиш умови вступу, то змаг матиме менше гравців.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Покаж додаткові лашти</string>
 	<string name="makePrivateTournament">Зроби особистий змаг з ключним доступом</string>
 	<string name="join">Долучись</string>
@@ -668,6 +668,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Поразка</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s з %2$s в %3$s</string>
 	<string name="defeatVsYInZ">%1$s з %2$s в %3$s</string>
 	<string name="drawVsYInZ">%1$s з %2$s в %3$s</string>
@@ -947,6 +948,12 @@
 		<item quantity="few">%s секунди</item>
 		<item quantity="many">%s секунд</item>
 		<item quantity="other">%s секунди</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="few">%s minutes</item>
+		<item quantity="many">%s minutes</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Дебют</string>
 	<string name="middlegame">Міттельшпіль</string>

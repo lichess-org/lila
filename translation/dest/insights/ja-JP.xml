@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">Insights</string>
-  <string name="moves">Moves</string>
-  <string name="drops">Drops</string>
-  <string name="movesAndDrops">Moves and drops</string>
+  <string name="moves">動かす</string>
+  <string name="drops">打つ</string>
+  <string name="movesAndDrops">指す</string>
   <string name="total" comment="Usually in chart legend or tooltip summing other bars">Total</string>
   <string name="count" comment="Example: Count: 11 moves">Count</string>
   <string name="average">Average</string>
@@ -11,7 +11,7 @@
   <string name="outcomes" comment="win/draw/loss">Outcomes</string>
   <string name="color" comment="Meaning sente or gote">Color</string>
   <string name="termination" comment="Checkmate, repetition, timeout, etc">Termination</string>
-  <string name="resign" comment="Game termination status">Resignation</string>
+  <string name="resign" comment="Game termination status">投了</string>
   <string name="noStart" comment="Game termination status - game didn't start">No start</string>
   <string name="speed" comment="Bulltet, blitz, rapid, etc.">Speed</string>
   <string name="game">Game</string>
@@ -31,8 +31,8 @@
   <string name="averageTimePerMoveOrDrop">Average time per move or drop</string>
   <string name="timeSpentThinkingByPiece">Time spent by piece</string>
   <string name="movesAndDropsByPiece">Moves and drops by piece</string>
-  <string name="capturesByPiece">Captured pieces</string>
-  <string name="promotionsByPiece">Promoted pieces</string>
+  <string name="capturesByPiece">持ち駒</string>
+  <string name="promotionsByPiece">成り駒</string>
   <string name="mostPlayedOpenings">Most played openings</string>
   <string name="openingMoves">Opening moves</string>
   <string name="insightsUpdate">Insights are refreshed every few hours.</string>
@@ -47,5 +47,5 @@
   <string name="nbOfGames">Number of games</string>
   <string name="weekday">Weekday</string>
   <string name="timeOfDay" comment="Morning,afternoon, evening, night">Time of day</string>
-  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Early bishop exchange</string>
+  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">角交換</string>
 </resources>

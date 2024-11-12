@@ -204,6 +204,7 @@
 	<plurals name="nbGamesWithYou">
 		<item quantity="other">나와 %s번 대국 함</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">취소</string>
 	<string name="timeOut">시간 초과</string>
 	<string name="drawOfferSent">무승부를 요청했습니다</string>
@@ -234,6 +235,7 @@
 	<string name="finishesX">%s 남음</string>
 	<string name="abortGame">게임 중단</string>
 	<string name="gameAborted">게임 중단됨</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">표준</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -425,9 +427,7 @@
 	<string name="advancedSettings">고급 설정</string>
 	<string name="safeTournamentName">토너먼트 이름은 무난한 것으로 정해주십시오.</string>
 	<string name="inappropriateNameWarning">조금이라도 부적절한 이름일 경우에는 계정이 정지될 수도 있습니다.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">이 설정은 되도록이면 그대로 두는 것을 추천합니다.</string>
-	<string name="fewerPlayers">참가조건을 설정하면, 참가자 수가 적어집니다.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">고급 설정 보기</string>
 	<string name="makePrivateTournament">토너먼트를 비공개로 바꾸고, 비밀번호가 있어야만 들어갈 수 있습니다.</string>
 	<string name="join">참가하기</string>
@@ -577,6 +577,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">패배</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s: %2$s / %3$s</string>
 	<string name="defeatVsYInZ">%1$s: %2$s / %3$s</string>
 	<string name="drawVsYInZ">%1$s: %2$s / %3$s</string>
@@ -832,6 +833,9 @@
 	<string name="advantage">이득</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s초</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">오프닝</string>
 	<string name="middlegame">미들게임</string>

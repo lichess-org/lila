@@ -2,7 +2,7 @@
 <resources>
 	<string name="preferences">Préférences</string>
 	<string name="gameDisplay">Affichage de la partie</string>
-	<string name="boardLayout">tableau de bord</string>
+	<string name="boardLayout">Tableau de bord</string>
 	<string name="clearHands">Cacher les pièces invisibles à la main</string>
 	<string name="handsBackground">Afficher l\'arrière-plan derrière les pièces en main</string>
 	<string name="pieceAnimation">Animation des pièces</string>
@@ -14,7 +14,7 @@
 	<string name="boardCoordinates">Coordonnées (a-h, 1-8)</string>
 	<string name="moveListWhilePlaying">Liste des coups durant la partie</string>
 	<string name="colorName">Nom utilisé pour chaque joueur</string>
-	<string name="displayTouchSquareOverlay">Square highlight overlay on touch devices</string>
+	<string name="displayTouchSquareOverlay">Souligner les cases sur les appareils tactiles</string>
 	<string name="zenMode">Mode Zen</string>
 	<string name="displayBoardResizeHandle">Afficher la poignée de redimensionnement de l\'échiquier</string>
 	<string name="onlyOnInitialPosition">Seulement dans la position initiale</string>
@@ -40,11 +40,11 @@
 	<string name="correspondenceAndUnlimited">Correspondance et illimité</string>
 	<string name="confirmResignationAndDrawOffers">Confirmer l\'abandon et la proposition de nulle</string>
 	<string name="inputMovesWithTheKeyboard">Saisir les coups au clavier</string>
-	<string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
+	<string name="scrollOnTheBoardToReplayMoves">Faire défiler le tableau pour repasser les coups</string>
 	<string name="westernNotation">Notation occidentale</string>
 	<string name="japaneseNotation">Notation japonaise</string>
-	<string name="kitaoKawasakiNotation">Kitao-Kawasaki</string>
-	<string name="kifNotation">Kif notation</string>
+	<string name="kitaoKawasakiNotation">Notation Kitao-Kawasaki</string>
+	<string name="kifNotation">Notation Kif</string>
 	<string name="yourPreferencesHaveBeenSaved">Vos préférences ont été sauvegardées.</string>
-	<string name="smallMoves">Small moves</string>
+	<string name="smallMoves">Coups minuscules</string>
 </resources>

@@ -31,7 +31,7 @@
 	<string name="whereMoneyGoes">このお金は何に使われますか？</string>
 	<string name="costBreakdown">費用の内訳を見る</string>
 	<string name="changeMonthlySupport">毎月の寄付を変更／キャンセルできますか？</string>
-	<string name="changeOrContact">はい、このページでいつでも。
+	<string name="changeOrContact">はい、PayPalまたはPatreonのページでいつでも。
 あるいは %s を。</string>
 	<string name="contactSupport">Lishogi サポートに連絡</string>
 	<string name="otherMethods">寄付するのにほかの方法は？</string>

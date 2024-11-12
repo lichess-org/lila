@@ -214,6 +214,7 @@
 		<item quantity="one">%s pelejä kanssasi</item>
 		<item quantity="other">%s pelejä kanssasi</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Peruuta</string>
 	<string name="timeOut">Aika loppui</string>
 	<string name="drawOfferSent">Tasapeliehdotus lähetetty</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">päättyy %s</string>
 	<string name="abortGame">Keskeytä peli</string>
 	<string name="gameAborted">Peli keskeytetty</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Tavallinen</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">Lisäasetukset</string>
 	<string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
 	<string name="inappropriateNameWarning">Hiemankin epäasiallinen voi aiheuttaa tunnuksesi sulkemisen.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
-	<string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Näytä lisäasetukset</string>
 	<string name="makePrivateTournament">Tee turnauksesta yksityinen ja aseta salasana, jolla siihen pääsee</string>
 	<string name="join">Liity</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Tappio</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s vastustajasta %2$s pelissä %3$s</string>
 	<string name="defeatVsYInZ">%1$s vastustajalta %2$s pelissä %3$s</string>
 	<string name="drawVsYInZ">%1$s vastustajaa %2$s vastaan pelissä %3$s</string>
@@ -870,6 +871,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s sekunti</item>
 		<item quantity="other">%s sekuntia</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Avausvaihe</string>
 	<string name="middlegame">Keskipeli</string>

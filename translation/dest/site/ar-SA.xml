@@ -254,6 +254,7 @@
 		<item quantity="many">%s مباراة معك</item>
 		<item quantity="other">%s مباراة معك</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">إلغاء</string>
 	<string name="timeOut">انتهى الوقت</string>
 	<string name="drawOfferSent">تم ارسال عرض التعادل</string>
@@ -284,6 +285,7 @@
 	<string name="finishesX">تنتهي %s</string>
 	<string name="abortGame">إلغاء اللعبة</string>
 	<string name="gameAborted">اللعبة ألغيت</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">عادي</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -565,9 +567,7 @@
 	<string name="advancedSettings">إعدادات متقدمة</string>
 	<string name="safeTournamentName">اختر اسماً ملائماً لهذه البطولة.</string>
 	<string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">نوصي بعدم تغيير هذه الخيارات.</string>
-	<string name="fewerPlayers">إذا قمت بتعيين شروط دخول للبطولة فقد يكون لديك عدد لاعبين أقل.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
 	<string name="makePrivateTournament">جعل البطولة خاصة، وتقييد الوصول بكلمة مرور</string>
 	<string name="join">إشترك</string>
@@ -727,6 +727,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">هزيمة</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s ضد %2$s في %3$s</string>
 	<string name="defeatVsYInZ">%1$s ضد %2$s في %3$s</string>
 	<string name="drawVsYInZ">%1$s ضد %2$s في %3$s</string>
@@ -1022,6 +1023,14 @@
 		<item quantity="few">%s ثوانِ</item>
 		<item quantity="many">%s ثوانِ</item>
 		<item quantity="other">%s ثوانِ</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="zero">%s minutes</item>
+		<item quantity="one">%s minute</item>
+		<item quantity="two">%s minutes</item>
+		<item quantity="few">%s minutes</item>
+		<item quantity="many">%s minutes</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">افتتاحية</string>
 	<string name="middlegame">جزء منتصف اللعبة</string>

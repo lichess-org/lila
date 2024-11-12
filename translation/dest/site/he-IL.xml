@@ -234,6 +234,7 @@
 		<item quantity="many">%s משחקים איתך</item>
 		<item quantity="other">%s משחקים איתך</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">בטל</string>
 	<string name="timeOut">נגמר הזמן</string>
 	<string name="drawOfferSent">הצעת תיקו נשלחה</string>
@@ -264,6 +265,7 @@
 	<string name="finishesX">נגמר/ה %s</string>
 	<string name="abortGame">בטל משחק</string>
 	<string name="gameAborted">משחק בוטל</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">רגיל</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -509,9 +511,7 @@
 	<string name="advancedSettings">הגדרות מתקדמות</string>
 	<string name="safeTournamentName">בחר שם בטוח מאוד לטורניר.</string>
 	<string name="inappropriateNameWarning">כל דבר לא הולם במקצת יכול לגרום לסגירת החשבון.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">אנו ממליצים לא לגעת בזה.</string>
-	<string name="fewerPlayers">אם אתה מגדיר תנאי כניסה, יהיו לטורניר פחות שחקנים.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">הצג הגדרות מתקדמות</string>
 	<string name="makePrivateTournament">הפוך את הטורניר לפרטי, והגבל כניסה עם סיסמה</string>
 	<string name="join">הצטרף</string>
@@ -667,6 +667,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">הפסד</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s נגד %2$s
 ב%3$s</string>
 	<string name="defeatVsYInZ">%1$s נגד %2$s
@@ -949,6 +950,12 @@
 		<item quantity="two">%s שניות</item>
 		<item quantity="many">%s שניות</item>
 		<item quantity="other">%s שניות</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="two">%s minutes</item>
+		<item quantity="many">%s minutes</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">פתיחה</string>
 	<string name="middlegame">מציעה</string>

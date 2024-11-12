@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">Problème d\'appli mobile Lishogi - GitHub</string>
   <string name="reportBugInDiscord">Sur le serveur «discord» de Lishogi</string>
   <string name="howToReportBug">Veuillez décrire le bug, ce qui devrait se produire à la place et les étapes pour reproduire le bug.</string>
-  <string name="illegalPawnCapture">Capture de pion illégale</string>
-  <string name="tryEnPassant">Essayez ce petit jeu interactif pour en savoir plus sur la «prise en passant».</string>
-  <string name="illegalCastling">Roque impossible ou illégal</string>
-  <string name="castlingPrevented">Impossible de roquer si le roi doit traverser une case contrôlée par l\'adversaire.</string>
-  <string name="castlingRules">Assurez-vous de bien comprendre les règles du roque.</string>
-  <string name="castlingImported">Si vous importez une partie ou une position, assurez-vous que les règles du roque soient bien définies.</string>
   <string name="insufficientMaterial">Matériel insuffisant pour mater</string>
   <string name="noRatingPoints">Aucun point de cote attribué</string>
   <string name="ratedGame">Seules les parties classées sont prises en compte dans le calcul du classement. Les parties amicales ne sont pas comptées.</string>

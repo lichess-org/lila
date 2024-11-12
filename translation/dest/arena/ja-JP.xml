@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">アリーナ トーナメント</string>
   <string name="isItRated">レート戦ですか？</string>
   <string name="willBeNotified">トーナメントが始まると通知が来るので、それまで別のタブでプレイしていても大丈夫です。</string>

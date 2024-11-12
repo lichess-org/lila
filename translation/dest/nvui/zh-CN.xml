@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="textualRepresentation">Textual representation</string>
-  <string name="gameInfo">Game info</string>
-  <string name="pieces">Pieces</string>
-  <string name="board">Board</string>
-  <string name="hands">Hands</string>
-  <string name="none" comment="No hands in hand">None</string>
+  <string name="textualRepresentation">文字表示</string>
+  <string name="gameInfo">对局信息</string>
+  <string name="pieces">棋驹</string>
+  <string name="board">棋盘</string>
+  <string name="hands">持驹</string>
+  <string name="none" comment="No pieces in hand">无持驹</string>
   <string name="moves" comment="Followed by list of moves">Moves</string>
-  <string name="currentPosition">Current position</string>
+  <string name="currentPosition">当前盘面</string>
   <string name="moveForm">Move form</string>
   <string name="commandInput">Command input</string>
   <string name="commands">Commands</string>
-  <string name="useArrowKeys">Use arrow keys to navigate in the game</string>
+  <string name="useArrowKeys">使用方向键浏览棋局</string>
 </resources>

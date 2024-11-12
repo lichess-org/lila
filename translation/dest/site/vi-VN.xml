@@ -204,6 +204,7 @@
 	<plurals name="nbGamesWithYou">
 		<item quantity="other">%s ván cờ với bạn</item>
 	</plurals>
+	<string name="confirm">Xác nhận</string>
 	<string name="cancel">Hủy bỏ</string>
 	<string name="timeOut">Hết giờ</string>
 	<string name="drawOfferSent">Đã gửi đề nghị hòa</string>
@@ -234,6 +235,7 @@
 	<string name="finishesX">kết thúc %s</string>
 	<string name="abortGame">Hủy ván cờ</string>
 	<string name="gameAborted">Ván cờ đã bị hủy bỏ</string>
+	<string name="rules" comment="As in what you can and can't do">Quy tắc</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Tiêu chuẩn</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -426,9 +428,7 @@ phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL
 	<string name="advancedSettings">Thiết lập nâng cao</string>
 	<string name="safeTournamentName">Hãy chọn tên chuẩn mực cho giải đấu.</string>
 	<string name="inappropriateNameWarning">Chỉ một hành động dù không thích hợp, tài khoản của bạn có thể bị khoá.</string>
-	<string name="emptyTournamentName">Hãy để trống tên giải đấu để lấy tên theo một kì thủ shogi nào đó.</string>
-	<string name="recommendNotTouching">Chúng tôi khuyến nghị không nên thay đổi.</string>
-	<string name="fewerPlayers">Nếu bạn thiết lập điều kiện tham gia, giải của bạn sẽ có ít người chơi hơn.</string>
+	<string name="emptyTournamentAnimalName">Để trống để đặt tên giải theo một con vật ngẫu nhiên.</string>
 	<string name="showAdvancedSettings">Hiện thiết lập nâng cao</string>
 	<string name="makePrivateTournament">Đặt giải đấu riêng tư và giới hạn truy cập bởi mật khẩu</string>
 	<string name="join">Tham gia</string>
@@ -578,6 +578,7 @@ phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL
 	<string name="youWon">Bạn thắng</string>
 	<string name="defeat">Thua</string>
 	<string name="youLost">Bạn thua</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s với %2$s</string>
 	<string name="victoryVsYInZ">%1$s %2$s trong %3$s</string>
 	<string name="defeatVsYInZ">%1$s %2$s trong %3$s</string>
 	<string name="drawVsYInZ">%1$s %2$s trong %3$s</string>
@@ -834,6 +835,9 @@ phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL
 	<plurals name="nbSeconds">
 		<item quantity="other">%s giây</item>
 	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="other">%s phút</item>
+	</plurals>
 	<string name="opening">Khai cuộc</string>
 	<string name="middlegame">Trung cuộc</string>
 	<string name="endgame">Tàn cuộc</string>
@@ -939,9 +943,9 @@ phân tích bằng máy tính, trò chuyện trong ván đấu và có một URL
 	<string name="preview">Xem chi tiết</string>
 	<string name="variantNotSupported" comment="Used in engine evaluation for variants like chushogi, annanshogi, etc.">Biến thể không được hỗ trợ</string>
 	<string name="readyToPlay" comment="Used as a help on a game that can be immediately started without waiting (ai games for example, or timecontrol where another player is already waiting)">Sẵn sàng chơi</string>
-	<string name="general-shogi-discussion">General Shogi Discussion</string>
-	<string name="game-analysis">Game Analysis</string>
-	<string name="lishogi-feedback">Lishogi Feedback</string>
-	<string name="off-topic-discussion">Off-Topic Discussion</string>
-	<string name="teamXForum">Forum of the team %s</string>
+	<string name="general-shogi-discussion">Thảo luận Chung về Lishogi</string>
+	<string name="game-analysis">Phân Tích Ván Cờ</string>
+	<string name="lishogi-feedback">Phản Hồi Lishogi</string>
+	<string name="off-topic-discussion">Thảo Luận Ngoài Chủ Đề</string>
+	<string name="teamXForum">Diễn đàn của đội %s</string>
 </resources>

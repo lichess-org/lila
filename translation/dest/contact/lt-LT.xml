@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">Kaip Lishogi mobilios programėlės problemą GitHub</string>
   <string name="reportBugInDiscord">Lishogi Discord serveryje</string>
   <string name="howToReportBug">Apibūdinkite kaip atrodo klaida, ko tikėjotės, kas įvyko, ir žingsnius, kaip atkartoti klaidą.</string>
-  <string name="illegalPawnCapture">Neteisingas pėstininko kirtimas</string>
-  <string name="tryEnPassant">Šis mažas interaktyvus žaidimas padės sužinoti daugiau apie \"en passant\".</string>
-  <string name="illegalCastling">Netinkama arba neįmanoma rokiruotė</string>
-  <string name="castlingPrevented">Rokiruotės blokuojamos tik jeigu karalius eina per valdomą langelį.</string>
-  <string name="castlingRules">Įsitikinkite, kad suprantante rokiruočių taisykles</string>
-  <string name="castlingImported">Jei importavote žaidimą, ar pradėjote jį nuo pozicijos, įsitikinkite, kad teisingai nustatėte rokiruotės teises.</string>
   <string name="insufficientMaterial">Nepakanka figūrų matui</string>
   <string name="noRatingPoints">Nebuvo skirta reitingo taškų</string>
   <string name="ratedGame">Įsitikinkite, kad žaidėte reitinguotą partiją. Nevertinamos partijos nedaro įtakos žaidėjų reitingams.</string>

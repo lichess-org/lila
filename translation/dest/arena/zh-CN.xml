@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">竞技场比赛</string>
   <string name="isItRated">锦标赛有积分吗？</string>
   <string name="willBeNotified">当锦标赛开始时，您将收到通知，所以在其他标签页中下棋没有问题。</string>

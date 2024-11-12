@@ -214,6 +214,7 @@
 		<item quantity="one">%s játszma veled</item>
 		<item quantity="other">%s játék veled</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Mégse</string>
 	<string name="timeOut">Lejárt az idő</string>
 	<string name="drawOfferSent">Döntetlen felajánlás elküldve</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">vége %s</string>
 	<string name="abortGame">Játszma elvetése</string>
 	<string name="gameAborted">Játszma elvetve</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Hagyományos</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">Haladó beállítások</string>
 	<string name="safeTournamentName">Válassz egy nagyon biztonságos nevet a versenynek.</string>
 	<string name="inappropriateNameWarning">Akár a legkisebb pontatlanság is a fiókod zárolását eredményezheti.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">Azt javasoljuk, hogy ne változtass ezeken.</string>
-	<string name="fewerPlayers">Feltétel beállítása esetén kevesebb játékos lesz a versenyen.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Haladó beállítások megjelenítése</string>
 	<string name="makePrivateTournament">Készíts privát tornát és a hozzáférést védd le jelszóval</string>
 	<string name="join">Csatlakozás</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Vereség</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s %2$s ellen %3$s játékban</string>
 	<string name="defeatVsYInZ">%1$s %2$s ellen %3$s játékban</string>
 	<string name="drawVsYInZ">%1$s %2$s ellen %3$s játékban</string>
@@ -870,6 +871,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s másodperc</item>
 		<item quantity="other">%s másodperc</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Megnyitás</string>
 	<string name="middlegame">Középjáték</string>

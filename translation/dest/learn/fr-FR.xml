@@ -12,8 +12,8 @@
 	<string name="introBasics">Apprenons les bases.</string>
 	<string name="introIntro">Votre parcours commence ici.</string>
 	<string name="clickHereAfterYouveChosen">Cliquez ici après avoir choisi le type de pièces que vous aimez.</string>
-	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
-	<string name="howToSelectPieceSet">How to select your piece set?</string>
+	<string name="tellYourPiecesApart">C\'est important que vous puissiez distinguer vos pièces, donc choisissiez l\'ensemble de pièces convenable pour vous.</string>
+	<string name="howToSelectPieceSet">Comment sélectionner votre ensemble de pièces ?</string>
 	<string name="choosePieceDesign">Il est important que vous puissiez distinguer vos pièces, alors assurez-vous de choisir le jeu de pièces convenable pour vous. \n Pour le faire, cliquez sur la roue dentée ou sur votre nom d\'utilisateur (en haut à droite) puis cliquez sur \"Jeu de pièces\".</string>
 	<string name="promotionZone">Lorsque certaines de vos pièces atteignent ou quittent les trois premières rangées du territoire de votre adversaire, vous avez l\'option de promouvoir cette pièce et la rendre plus forte.</string>
 	<string name="senteGoesFirst">Dans le jeu de shogi, le joueur qui joue le premier coup s\'appelle sente et l\'autre, gote. Sente est parfois représenté par la couleur noire et gote par la couleur blanche. Jouez un coup pour sente pour continuer.</string>
@@ -21,7 +21,7 @@
 	<string name="introCompleteTwo">Vous connaissez maintenant les bases ! Maintenant, apprenez comment chaque pièce se déplace.</string>
 	<string name="theRook">La Tour</string>
 	<string name="itMovesInStraightLines">Elle se déplace sur une ligne droite</string>
-	<string name="rookIntro">La Tour est une pièce puissante. Es-tu prêt à la manoeuvrer ?</string>
+	<string name="rookIntro">La Tour est une pièce puissante. Êtes-vous prêt à la manœuvrer ?</string>
 	<string name="rookGoal">Cliquer sur la tour et la déplacer jusqu\'à l\'étoile!</string>
 	<string name="grabAllTheStarsRemember">Collectez toutes les étoiles ! Rappelez-vous, regardez à l\'extérieur du plateau.</string>
 	<string name="rookPromotion">La tour se promeut en dragon. N\'oubliez pas qu\'une pièce peut se promouvoir en quittant la zone de promotion.</string>

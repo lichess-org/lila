@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">Ως πρόβλημα στην εφαρμογή κινητών του Lishogi στο GitHub</string>
   <string name="reportBugInDiscord">Στο discord σερβερ του Lishogi</string>
   <string name="howToReportBug">Περιγράψτε το σφάλμα, τι περιμένατε να συμβεί κανονικά, και τα βήματα για αναπαραγωγή του σφάλματος.</string>
-  <string name="illegalPawnCapture">Μη νόμιμο κόψιμο πιονιού</string>
-  <string name="tryEnPassant">Δοκιμάστε την μικρή διαδραστική παρτίδα για να μάθετε περισσότερα για το \"en passant\".</string>
-  <string name="illegalCastling">Μη νόμιμο ή αδύνατο ροκέ</string>
-  <string name="castlingPrevented">Το ροκέ δεν επιτρέπεται αν ο βασιλιάς διέρχεται από επιτεθειμένο τετράγωνο.</string>
-  <string name="castlingRules">Σιγουρευτείτε ότι καταλαβαίνετε τους κανόνες του ροκέ</string>
-  <string name="castlingImported">Αν εισάγατε παρτίδα, ή την ξεκινήσατε από μια θέση, εξακριβώστε αν εισάγατε σωστά τα δικαιώματα για ροκέ.</string>
   <string name="insufficientMaterial">Ανεπαρκές υλικό για ματ</string>
   <string name="noRatingPoints">Δεν προστέθηκαν βαθμοί αξιολόγησης</string>
   <string name="ratedGame">Σιγουρευτείτε ότι η παρτίδα ήταν με αξιολόγηση. Οι φιλικές παρτίδες δεν επηρεάζουν την αξιολόγηση των παικτών.</string>

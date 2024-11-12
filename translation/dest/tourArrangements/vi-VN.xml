@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="roundRobin" comment="https://en.wikipedia.org/wiki/Round-robin_tournament">Vòng tròn</string>
+	<string name="startGame">Bắt đầu ván đấu</string>
+	<string name="goToGame">Đi đến ván cờ</string>
+	<string name="waitingForOther" comment="Waiting for other player (opponent) to join the game">Đang chờ kì thủ khác tham gia</string>
+	<string name="proposeTime" comment="Time that you propose to your opponent to start a game">Đề xuất thời gian ván cờ</string>
+	<string name="cancelScheduled">Hủy trận đấu đã lên lịch</string>
+	<string name="scheduledAt" comment="Date/time when game is scheduled for">Đã lên lịch lúc</string>
+	<string name="yourUpcomingGames">Các ván đấu sắp tới của bạn</string>
+	<string name="playingRightNow" comment="Games in tournament that are being played right now">Đang chơi ngay bây giờ</string>
+	<string name="recentlyPlayedGames">Các ván được chơi gần đây</string>
+	<string name="gameWillNotStart">Ván đấu sẽ không tự động bắt đầu!</string>
+	<string name="organized" comment="Tournament format - organized, players can only play games created by the organizer">Được Tổ Chức</string>
+</resources>

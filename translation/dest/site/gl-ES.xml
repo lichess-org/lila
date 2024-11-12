@@ -214,6 +214,7 @@
 		<item quantity="one">%s partida contigo</item>
 		<item quantity="other">%s partidas contigo</item>
 	</plurals>
+	<string name="confirm">Confirmar</string>
 	<string name="cancel">Cancelar</string>
 	<string name="timeOut">Esgotouse o tempo</string>
 	<string name="drawOfferSent">Oferta de táboas enviada</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">remata %s</string>
 	<string name="abortGame">Abortar partida</string>
 	<string name="gameAborted">Partida abortada</string>
+	<string name="rules" comment="As in what you can and can't do">Regras</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Estándar</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">Axustes avanzados</string>
 	<string name="safeTournamentName">Escolle un nome seguro para o torneo.</string>
 	<string name="inappropriateNameWarning">Calquera comportamento minimamente inadecuado podería levar ao peche da túa conta.</string>
-	<string name="emptyTournamentName">Deixar en branco para poñerlle ó torneo o nome dun Grande Mestre notable.</string>
-	<string name="recommendNotTouching">Non recomendamos cambiar estes axustes.</string>
-	<string name="fewerPlayers">Se estableces condicións de entrada, o teu torneo terá menos xogadores.</string>
+	<string name="emptyTournamentAnimalName">Deixar en branco para poñerlle ó torneo o nome dun animal ó chou.</string>
 	<string name="showAdvancedSettings">Amosar axustes avanzados</string>
 	<string name="makePrivateTournament">Fai que o torneo sexa privado e restrinxe o acceso cun contrasinal</string>
 	<string name="join">Unirse</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">Gañaches</string>
 	<string name="defeat">Derrota</string>
 	<string name="youLost">Perdiches</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s contra %2$s</string>
 	<string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
 	<string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
 	<string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
@@ -727,7 +728,7 @@
 		<item quantity="other">%1$s xogadores de %2$s esta semana.</item>
 	</plurals>
 	<plurals name="nbPerfTypePlayersThisMonth">
-		<item quantity="one">%1$s %2$s player this month.</item>
+		<item quantity="one">%1$s xogador de %2$s este mes.</item>
 		<item quantity="other">%1$s xogadores de %2$s este mes.</item>
 	</plurals>
 	<string name="yourPerfTypeRatingIsRating">A túa puntuación en %1$s é %2$s.</string>
@@ -870,6 +871,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s segundo</item>
 		<item quantity="other">%s segundos</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minuto</item>
+		<item quantity="other">%s minutos</item>
 	</plurals>
 	<string name="opening">Apertura</string>
 	<string name="middlegame">Medio xogo</string>

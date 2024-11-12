@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Đấu trường</string>
   <string name="arenaTournaments">Các giải đấu đấu trường</string>
   <string name="isItRated">Có xếp hạng?</string>
   <string name="willBeNotified">Bạn sẽ được thông báo khi giải đấu bắt đầu, vì vậy hãy yên tâm mở tab khác trong lúc chờ.</string>

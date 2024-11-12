@@ -214,6 +214,7 @@
 		<item quantity="one">%s παιχνίδι με εσάς</item>
 		<item quantity="other">%s παιχνίδια με εσάς</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Ακύρωση</string>
 	<string name="timeOut">Τέλος χρόνου</string>
 	<string name="drawOfferSent">Πρόταση ισοπαλίας εστάλη</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">τελειώνει %s</string>
 	<string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
 	<string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Κανονικό</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">Ρυθμίσεις για προχωρημένους</string>
 	<string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
 	<string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
-	<string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
 	<string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
 	<string name="join">Συμμετοχή</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Ήττα</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
 	<string name="defeatVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
 	<string name="drawVsYInZ">%1$s εναντίον %2$s σε %3$s</string>
@@ -870,6 +871,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s δευτερόλεπτο</item>
 		<item quantity="other">%s δευτερόλεπτα</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Άνοιγμα</string>
 	<string name="middlegame">Μέση φάση παιχνιδιού</string>

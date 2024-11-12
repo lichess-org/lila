@@ -234,6 +234,7 @@
 		<item quantity="many">%s partií s Vámi</item>
 		<item quantity="other">%s partií s Vámi</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Zrušit</string>
 	<string name="timeOut">Čas vypršel</string>
 	<string name="drawOfferSent">Nabídka remízy byla odeslána</string>
@@ -264,6 +265,7 @@
 	<string name="finishesX">končí za %s</string>
 	<string name="abortGame">Zrušit hru</string>
 	<string name="gameAborted">Hra byla zrušena</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Standard</string>
 	<string name="minishogi">Minišógi</string>
 	<string name="chushogi">Čú šógi</string>
@@ -509,9 +511,7 @@
 	<string name="advancedSettings">Pokročilá nastavení</string>
 	<string name="safeTournamentName">Vyberte \"bezpečné\" jméno turnaje.</string>
 	<string name="inappropriateNameWarning">Cokoli i mírně nevhodného může způsobit uzavření vašeho účtu.</string>
-	<string name="emptyTournamentName">Pokud jméno turnaje nevyplníte, bude pojmenován po náhodném velmistrovi.</string>
-	<string name="recommendNotTouching">Doporučujeme tato nastavení neměnit.</string>
-	<string name="fewerPlayers">Pokud nastavíte podmínky vstupu, zúčastní se vašeho turnaje méně hráčů.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Zobrazit pokročilá nastavení</string>
 	<string name="makePrivateTournament">Udělejte turnaj soukromý a omezte přístup heslem</string>
 	<string name="join">Přidat se</string>
@@ -667,6 +667,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Porážka</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
 	<string name="defeatVsYInZ">%1$s proti %2$s v %3$s</string>
 	<string name="drawVsYInZ">%1$s proti %2$s v %3$s</string>
@@ -946,6 +947,12 @@
 		<item quantity="few">%s sekundy</item>
 		<item quantity="many">%s sekund</item>
 		<item quantity="other">%s sekund</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="few">%s minutes</item>
+		<item quantity="many">%s minutes</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Zahájení</string>
 	<string name="middlegame">Střední hra</string>

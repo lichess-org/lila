@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">Como un problema da aplicación móbil de Lishogi en GitHub</string>
   <string name="reportBugInDiscord">No servidor de Discord de Lishogi</string>
   <string name="howToReportBug">Por favor, describe o erro, o que esperabas que sucedese no seu lugar e os pasos para reproducilo.</string>
-  <string name="illegalPawnCapture">Captura de peón ilegal</string>
-  <string name="tryEnPassant">Proba este pequeno exercicio interactivo para aprender máis da \"captura ao paso\".</string>
-  <string name="illegalCastling">Enroque ilegal ou imposible</string>
-  <string name="castlingPrevented">O enroque está prohibido se o rei pasa por unha casa atacada polo rival.</string>
-  <string name="castlingRules">Asegúrate que entendes as normas do enroque</string>
-  <string name="castlingImported">Se importas unha partida ou comezas desde unha posición, asegúrate de establecer correctamente os dereitos do enroque.</string>
   <string name="insufficientMaterial">Material insuficiente para dar mate</string>
   <string name="noRatingPoints">Non se concederon puntos</string>
   <string name="ratedGame">Asegúrate de que xogaches unha partida puntuada. As partidas amistosas non afectan á puntuación dos xogadores.</string>

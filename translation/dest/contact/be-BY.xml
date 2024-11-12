@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">Як памылку мабільнай прылады Lishogi на GitHub</string>
   <string name="reportBugInDiscord">Ва Discord cерверы Lishogi</string>
   <string name="howToReportBug">Калі ласка, апішыце што гэта за памылка, як яна выгядае, што на вашу думку павінна было адбыцца, а таксама крокі каб аднавіць памылку.</string>
-  <string name="illegalPawnCapture">Недазволенае ўзяцце пешкі</string>
-  <string name="tryEnPassant">Паспрабуйце гэтую маленькую інтэрактыўную гульню, каб дазнацца больш пра \"ўзяцце на праходзе\".</string>
-  <string name="illegalCastling">Недазволеная або немагчымая ракіроўка</string>
-  <string name="castlingPrevented">Ракіроўка не магчыма толькі ў выпадку, калі поле, праз якое праходзіць кароль, кантралюецца. (Кароль апынецца пад шахам).</string>
-  <string name="castlingRules">Пераканайцеся, што вы разумееце правілы ракіроўкі</string>
-  <string name="castlingImported">Калі вы імпартавалі гульню або пачынале яе з пазіцыі, пераканайцеся, што вы правільна ўсталявалі права на рокіроўку.</string>
   <string name="insufficientMaterial">Недастаткова матэрыялу, каб паставіць мат</string>
   <string name="noRatingPoints">Рэйтынг ня быў даданы</string>
   <string name="ratedGame">Пераканайцеся, што вы згулялі рэйтынгавую гульню. Таварыскія гульні не ўплываюць на рэйтынг гульцоў.</string>

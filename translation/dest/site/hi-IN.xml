@@ -214,6 +214,7 @@
 		<item quantity="one">आपके साथ %s खेल</item>
 		<item quantity="other">आपके साथ %s खेल</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">रद्द करें</string>
 	<string name="timeOut">समय समाप्त</string>
 	<string name="drawOfferSent">बराबरी पे खेल समाप्त करने का प्रस्ताव भेजा गया</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">%s में खत्म</string>
 	<string name="abortGame">खेल रद्द करें</string>
 	<string name="gameAborted">खेल रद्द किया गया</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">स्टैण्डर्ड</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -454,9 +456,7 @@
 	<string name="advancedSettings">एडवांस सेटिंग</string>
 	<string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए।</string>
 	<string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
-	<string name="emptyTournamentName">खाली रखने पर बेतरतीब ढंग से कोई एक सर्वश्रेष्ठ shogi के खिलाड़ी के बाद टूर्नामेंट का नाम चुना जाएगा।</string>
-	<string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते।</string>
-	<string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
 	<string name="makePrivateTournament">प्रतियोगिता को निजी बनाएं, और पासवर्ड के साथ पहुंच को प्रतिबंधित करें</string>
 	<string name="join">शामिल हों</string>
@@ -608,6 +608,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">हार</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s बनाम (vs) %2$s %3$s में</string>
 	<string name="defeatVsYInZ">%1$s बनाम (vs) %2$s %3$s में</string>
 	<string name="drawVsYInZ">%1$s बनाम (vs) %2$s %3$s में</string>
@@ -871,6 +872,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s सेकंड</item>
 		<item quantity="other">%s सेकंड</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">प्रारंभिक</string>
 	<string name="middlegame">मिडलगेम</string>

@@ -214,6 +214,7 @@
 		<item quantity="one">%s partides amb tu</item>
 		<item quantity="other">%s partides amb tu</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Cancel·la</string>
 	<string name="timeOut">Temps exhaurit</string>
 	<string name="drawOfferSent">S\'ha enviat l\'oferta de taules</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">finalitza %s</string>
 	<string name="abortGame">Avorta la partida</string>
 	<string name="gameAborted">Partida avortada</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Estàndard</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">Configuració avançada</string>
 	<string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
 	<string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
-	<string name="fewerPlayers">Si s\'estableixen les condicions d\'entrada, el torneig tindrà menys jugadors.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Configuració avançada</string>
 	<string name="makePrivateTournament">Fes el torneig privat, i restringeix l\'accés amb clau d\'entrada</string>
 	<string name="join">Inscriu-t\'hi</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Derrota</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s contra %2$s
 en %3$s</string>
 	<string name="defeatVsYInZ">%1$s contra %2$s
@@ -873,6 +874,10 @@ en %3$s</string>
 	<plurals name="nbSeconds">
 		<item quantity="one">%s segon</item>
 		<item quantity="other">%s segon</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Obertura</string>
 	<string name="middlegame">Joc mitjà</string>

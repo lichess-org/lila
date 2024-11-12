@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Змаги «Арена»</string>
   <string name="isItRated">Це сходове?</string>
   <string name="willBeNotified">Повідомимо про початок змага, тож можна вільно грати в іншій вкладці поки чекаєте.</string>

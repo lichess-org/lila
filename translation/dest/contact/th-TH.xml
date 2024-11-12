@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">เป็นปัญหาแอปมือถือ Lishogi บน GitHub</string>
   <string name="reportBugInDiscord">ใน Lishogi discord server</string>
   <string name="howToReportBug">โปรดอธิบายข้อบกพร่องที่ประสบ สิ่งที่คุณหวังจะให้เกิดขึ้นแทน และขั้นตอนในการเจอข้อบกพร่อง</string>
-  <string name="illegalPawnCapture">การกินเบี้ยแบบผิดกติกา</string>
-  <string name="tryEnPassant">ลองเล่นเกมนี้ดูเล็กน้อย เพื่อเรียนรู้เกี่ยวกับ \"การกินผ่าน\"</string>
-  <string name="illegalCastling">การเข้าป้อมผิดกติกาหรือที่เป็นไปไม่ได้</string>
-  <string name="castlingPrevented">การเข้าป้อมจะถูกกัน ถ้าคิงเดินจะผ่านช่องที่ถูกคุมไว้</string>
-  <string name="castlingRules">โปรดแน่ใจว่าคุณเข้าใจกติกาการเข้าป้อม</string>
-  <string name="castlingImported">If you imported the game, or started it from a position, make sure you correctly set the castling rights.</string>
   <string name="insufficientMaterial">หมากไม่พอให้รุกจน</string>
   <string name="noRatingPoints">No rating points were awarded</string>
   <string name="ratedGame">Make sure you played a rated game. Casual games do not affect the players ratings.</string>

@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">כבעיה באפליקציות הסלולריות של ליצ\'ס בGitHub</string>
   <string name="reportBugInDiscord">בשרת הDiscord של ליצ\'ס</string>
   <string name="howToReportBug">אנא תאר כיצד ניראת התקלה, כיצד ציפית שיקרה במקום זאת, ואת הצעדים לשחזור התקלה.</string>
-  <string name="illegalPawnCapture">אכילת חייל לא חוקית</string>
-  <string name="tryEnPassant">נסה את המשחק האינטראקטיבי הקטן הזה כדי ללמוד עוד על \"דרך הילוכו\".</string>
-  <string name="illegalCastling">הצרחה לא חוקית או לא אפשרית</string>
-  <string name="castlingPrevented">הצרחה מנועה זמנית אם המלך יצטרך לעבור דרך ערוגה מותקפת.</string>
-  <string name="castlingRules">היה בטוח שהבנת את חוקי ההצרחה</string>
-  <string name="castlingImported">אם ייבאת את המשחק, או התחלת אותו מעמדה, בדוק אם הגדרת את זכויות ההצרחה בצורה נכונה.</string>
   <string name="insufficientMaterial">אין מספיק כלים</string>
   <string name="noRatingPoints">נקודות מד כושר לא הוענקו</string>
   <string name="ratedGame">בדוק אם שיחקת משחק מדורג. משחק לא מדורג לא משפיע על מד הכושר.</string>

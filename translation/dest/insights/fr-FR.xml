@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">Insights</string>
-  <string name="moves">Moves</string>
-  <string name="drops">Drops</string>
-  <string name="movesAndDrops">Moves and drops</string>
+  <string name="insights" comment="Feel free to translate to something more natural (like statistics) in your language if insights seems awkward">Aperçus</string>
+  <string name="moves">Coups</string>
+  <string name="drops">Parachutages</string>
+  <string name="movesAndDrops">Déplacements et Parachutages</string>
   <string name="total" comment="Usually in chart legend or tooltip summing other bars">Total</string>
-  <string name="count" comment="Example: Count: 11 moves">Count</string>
-  <string name="average">Average</string>
-  <string name="percentage">Percentage</string>
-  <string name="outcomes" comment="win/draw/loss">Outcomes</string>
-  <string name="color" comment="Meaning sente or gote">Color</string>
-  <string name="termination" comment="Checkmate, repetition, timeout, etc">Termination</string>
-  <string name="resign" comment="Game termination status">Resignation</string>
-  <string name="noStart" comment="Game termination status - game didn't start">No start</string>
-  <string name="speed" comment="Bulltet, blitz, rapid, etc.">Speed</string>
-  <string name="game">Game</string>
-  <string name="opponents">Opponents</string>
-  <string name="averageOpponentRating">Average opponent rating</string>
-  <string name="averageOpponentRatingDiff">Average opponent rating difference</string>
-  <string name="mostPlayedOpponents">Most played opponents</string>
-  <string name="averageAccuracy">Average accuracy</string>
-  <string name="wins">Wins</string>
-  <string name="draws">Draws</string>
-  <string name="losses">Losses</string>
-  <string name="accuracyByMoveNumber">Accuracy by game turn</string>
-  <string name="accuracyByPiece">Accuracy by piece</string>
-  <string name="times" comment="Move and drop times">Times</string>
-  <string name="totalTimeSpentThinking">Total time spent on player\'s turn</string>
-  <string name="averageTimePerGame">Average time spent on player\'s turn per game</string>
-  <string name="averageTimePerMoveOrDrop">Average time per move or drop</string>
-  <string name="timeSpentThinkingByPiece">Time spent by piece</string>
-  <string name="movesAndDropsByPiece">Moves and drops by piece</string>
-  <string name="capturesByPiece">Captured pieces</string>
-  <string name="promotionsByPiece">Promoted pieces</string>
-  <string name="mostPlayedOpenings">Most played openings</string>
-  <string name="openingMoves">Opening moves</string>
-  <string name="insightsUpdate">Insights are refreshed every few hours.</string>
-  <string name="accuracy">Accuracy</string>
-  <string name="nbOfMovesAndDrops">Number of moves and drops made by player</string>
-  <string name="nbOfMovesAndDropsPerGame">Number of moves and drops made by player per game</string>
-  <string name="nbOfCaptures">Number of pieces captured</string>
-  <string name="nbOfPromotions">Number of promoted pieces</string>
-  <string name="opponentRating">Opponent rating</string>
-  <string name="opponentRatingDiff">Opponent rating difference</string>
-  <string name="totalTimeOfMovesAndDrops">Total time of moves and drops</string>
-  <string name="nbOfGames">Number of games</string>
-  <string name="weekday">Weekday</string>
-  <string name="timeOfDay" comment="Morning,afternoon, evening, night">Time of day</string>
-  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Early bishop exchange</string>
+  <string name="count" comment="Example: Count: 11 moves">Nombre</string>
+  <string name="average">Moyen</string>
+  <string name="percentage">Pourcentage</string>
+  <string name="outcomes" comment="win/draw/loss">Résultats</string>
+  <string name="color" comment="Meaning sente or gote">Couleur </string>
+  <string name="termination" comment="Checkmate, repetition, timeout, etc">Fin</string>
+  <string name="resign" comment="Game termination status">Démission</string>
+  <string name="noStart" comment="Game termination status - game didn't start">Aucun départ</string>
+  <string name="speed" comment="Bulltet, blitz, rapid, etc.">Vitesse</string>
+  <string name="game">Partie</string>
+  <string name="opponents">Adversaires</string>
+  <string name="averageOpponentRating">Classement moyen des adversaires</string>
+  <string name="averageOpponentRatingDiff">Différence de classement moyen des adversaires</string>
+  <string name="mostPlayedOpponents">Adversaires les plus joués</string>
+  <string name="averageAccuracy">Précision moyenne</string>
+  <string name="wins">Victoires</string>
+  <string name="draws">Parties nulles</string>
+  <string name="losses">Défaites</string>
+  <string name="accuracyByMoveNumber">Précision par tour de partie</string>
+  <string name="accuracyByPiece">Précision par pièce</string>
+  <string name="times" comment="Move and drop times">Temps</string>
+  <string name="totalTimeSpentThinking">Temps total passé au tour du joueur</string>
+  <string name="averageTimePerGame">Temps moyen passé au tour du joueur par partie</string>
+  <string name="averageTimePerMoveOrDrop">Temps moyen par coup ou par parachutage</string>
+  <string name="timeSpentThinkingByPiece">Temps passé par pièce</string>
+  <string name="movesAndDropsByPiece">Coups par pièce</string>
+  <string name="capturesByPiece">Pièces capturées</string>
+  <string name="promotionsByPiece">Pièces promues</string>
+  <string name="mostPlayedOpenings">Ouvertures les plus jouées</string>
+  <string name="openingMoves">Coups d\'ouverture</string>
+  <string name="insightsUpdate">Les aperçus sont actualisés à un intervalle de quelques heures.</string>
+  <string name="accuracy">Précision</string>
+  <string name="nbOfMovesAndDrops">Nombre de coups et de parachutages faits par le joueur</string>
+  <string name="nbOfMovesAndDropsPerGame">Nombre de coups et de parachutages faits par le joueur par partie</string>
+  <string name="nbOfCaptures">Nombre de pièces capturées</string>
+  <string name="nbOfPromotions">Nombre de pièces promues</string>
+  <string name="opponentRating">Classement de l\'adversaire</string>
+  <string name="opponentRatingDiff">Différence de classement de l\'adversaire</string>
+  <string name="totalTimeOfMovesAndDrops">Temps total de coups et de parachutages</string>
+  <string name="nbOfGames">Nombre de parties</string>
+  <string name="weekday">Jour de la semaine</string>
+  <string name="timeOfDay" comment="Morning,afternoon, evening, night">Heure</string>
+  <string name="earlyBishopExchange" comment="Were bishops exchanged by the players early in the game">Échange du fou tôt</string>
 </resources>

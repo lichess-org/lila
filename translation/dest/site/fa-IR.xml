@@ -214,6 +214,7 @@
 		<item quantity="one">%s بازی با شما</item>
 		<item quantity="other">%s بازی با شما</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">انصراف</string>
 	<string name="timeOut">Time out</string>
 	<string name="drawOfferSent">پیشنهاد تساوی ارسال شد</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">به پایان می‌رسد %s</string>
 	<string name="abortGame">انصراف از بازی</string>
 	<string name="gameAborted">بازی لغو شد</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">استاندارد</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">تنظیمات پیشرفته</string>
 	<string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
 	<string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
-	<string name="emptyTournamentName">این مکان را خالی بگذارید تا به صورت تصادفی اسم یک استاد بزرگ برای مسابقات انتخاب شود.</string>
-	<string name="recommendNotTouching">توصیه میکنیم که تنظیمات پیشرفته را تغییر ندهید.</string>
-	<string name="fewerPlayers">اگر برای مسابقات شرایط ورود تعیین کنید بازیکنان کمتری وارد می شوند.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">نمایش تنظیمات پیشرفته</string>
 	<string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
 	<string name="join">وارد شدن</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">شکست!</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
 	<string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
 	<string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
@@ -870,6 +871,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s ثانیه</item>
 		<item quantity="other">%s ثانیه</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">گشایش</string>
 	<string name="middlegame">وسط بازی</string>

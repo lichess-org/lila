@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="roundRobin" comment="https://en.wikipedia.org/wiki/Round-robin_tournament">Round-robin</string>
+	<string name="startGame">Start game</string>
+	<string name="goToGame">Go to game</string>
+	<string name="waitingForOther" comment="Waiting for other player (opponent) to join the game">Waiting for other player to join</string>
+	<string name="proposeTime" comment="Time that you propose to your opponent to start a game">Propose time for game</string>
+	<string name="cancelScheduled">Cancel scheduled game</string>
+	<string name="scheduledAt" comment="Date/time when game is scheduled for">Scheduled at</string>
+	<string name="yourUpcomingGames">Your upcoming games</string>
+	<string name="playingRightNow" comment="Games in tournament that are being played right now">Playing right now</string>
+	<string name="recentlyPlayedGames">Recently played games</string>
+	<string name="gameWillNotStart">Game will not start automatically!</string>
+	<string name="organized" comment="Tournament format - organized, players can only play games created by the organizer">Organized</string>
+</resources>

@@ -234,6 +234,7 @@
 		<item quantity="many">%s partijų su jumis</item>
 		<item quantity="other">%s partijų su jumis</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Atšaukti</string>
 	<string name="timeOut">Time out</string>
 	<string name="drawOfferSent">Lygiųjų pasiūlymas išsiųstas</string>
@@ -264,6 +265,7 @@
 	<string name="finishesX">baigiasi %s</string>
 	<string name="abortGame">Nutraukti partiją</string>
 	<string name="gameAborted">Partija nutraukta</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Standartinis</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -509,9 +511,7 @@
 	<string name="advancedSettings">Papildomos nuostatos</string>
 	<string name="safeTournamentName">Pasirinkite labai saugų turnyro pavadinimą.</string>
 	<string name="inappropriateNameWarning">Kas nors bent kiek netinkamo gali lemti jūsų paskyros uždarymą.</string>
-	<string name="emptyTournamentName">Palikus tuščią, turnyras bus pavadintas pagal atsitiktinį didmeistrį.</string>
-	<string name="recommendNotTouching">Rekomenduojame šitų neliesti.</string>
-	<string name="fewerPlayers">Jeigu pridėsite dalyvavimo sąlygų, jūsų turnyre bus mažiau žaidėjų.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Rodyti papildomas nuostatas</string>
 	<string name="makePrivateTournament">Padaryti turnyrą privačiu, ir apriboti patekimą su slaptažodžiu</string>
 	<string name="join">Prisijungti</string>
@@ -667,6 +667,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Pralaimėjimas</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s prieš %2$s žaidžiant %3$s</string>
 	<string name="defeatVsYInZ">%1$s prieš %2$s žaidžiant %3$s</string>
 	<string name="drawVsYInZ">%1$s su %2$s žaidžiant %3$s</string>
@@ -946,6 +947,12 @@
 		<item quantity="few">%s sekundės</item>
 		<item quantity="many">%s sekundžių</item>
 		<item quantity="other">%s sekundžių</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="few">%s minutes</item>
+		<item quantity="many">%s minutes</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Debiutas</string>
 	<string name="middlegame">Mitelšpilis</string>

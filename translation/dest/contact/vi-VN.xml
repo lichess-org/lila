@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">Bằng một vấn đề (issue) cho ứng dụng điện thoại Lishogi trên Github</string>
   <string name="reportBugInDiscord">Trong máy chủ Discord của Lishogi</string>
   <string name="howToReportBug">Xin vui lòng mô tả hiện tượng của lỗi, bạn đã mong muốn điều gì xảy ra và các bước để tái hiện lỗi.</string>
-  <string name="illegalPawnCapture">Nước ăn tốt không hợp lệ</string>
-  <string name="tryEnPassant">Thử trò chơi tương tác nhỏ này để học thêm về \"Bắt tốt qua đường\".</string>
-  <string name="illegalCastling">Nước nhập thành không hợp lệ hoặc không khả thi</string>
-  <string name="castlingPrevented">Nhập thành chỉ bị cấm khi vua đi qua ô bị đối phương kiểm soát.</string>
-  <string name="castlingRules">Hãy chắc việc bạn hiểu luật nhập thành</string>
-  <string name="castlingImported">Nếu bạn nhập ván đấu, hoặc bắt đầu từ một vị trí ván đấu, đảm bảo rằng bạn đặt đúng quyền được nhập thành.</string>
   <string name="insufficientMaterial">Không đủ quân để chiếu hết</string>
   <string name="noRatingPoints">Hệ số Elo không được tăng</string>
   <string name="ratedGame">Xin hãy chắc việc bạn chơi ván cờ có xếp hạng. Các ván đấu không xếp hạng sẽ không ảnh hưởng đến hệ số Elo của người chơi.</string>

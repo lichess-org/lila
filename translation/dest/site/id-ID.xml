@@ -204,6 +204,7 @@
 	<plurals name="nbGamesWithYou">
 		<item quantity="other">%s kali bermain dengan anda</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Batal</string>
 	<string name="timeOut">Time out</string>
 	<string name="drawOfferSent">Tawaran remis terkirim</string>
@@ -234,6 +235,7 @@
 	<string name="finishesX">berakhir dalam %s</string>
 	<string name="abortGame">Batalkan permainan</string>
 	<string name="gameAborted">Permainan dibatalkan</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Standar</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -425,9 +427,7 @@
 	<string name="advancedSettings">Pengaturan lanjutan</string>
 	<string name="safeTournamentName">Pilih nama yang paling aman untuk turnamen.</string>
 	<string name="inappropriateNameWarning">Nama apapun yang bahkan sedikit tidak pantas akan mengakibatkan akun Anda ditutup.</string>
-	<string name="emptyTournamentName">Biarkan kosong untuk nama turnamen setelah pengacakan Grandmaster.</string>
-	<string name="recommendNotTouching">Kita rekomendasikan jangan sentuh ini.</string>
-	<string name="fewerPlayers">Jika Anda atur persyaratan masuk, turnamen yang Anda buat akan memiliki lebih sedikit pemain.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Tampilkan pengaturan lanjutan</string>
 	<string name="makePrivateTournament">Jadikan turnamen pribadi, dan batasi akses dengan kata sandi</string>
 	<string name="join">Gabung</string>
@@ -577,6 +577,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Kalah</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s melawan %2$s dalam permainan %3$s</string>
 	<string name="defeatVsYInZ">%1$s melawan %2$s dalam permainan %3$s</string>
 	<string name="drawVsYInZ">%1$s melawan %2$s dalam permainan %3$s</string>
@@ -832,6 +833,9 @@
 	<string name="advantage">Keuntungan</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s detik</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Pembuka</string>
 	<string name="middlegame">Setengah permainan</string>

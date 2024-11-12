@@ -224,6 +224,7 @@
 		<item quantity="few">%s игара са вама</item>
 		<item quantity="other">%s игара са вама</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Откажи</string>
 	<string name="timeOut">Истекло време</string>
 	<string name="drawOfferSent">Захтев за реми је послат</string>
@@ -254,6 +255,7 @@
 	<string name="finishesX">завршава се %s</string>
 	<string name="abortGame">Прекините партију</string>
 	<string name="gameAborted">Партија прекинута</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Стандардно</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -481,9 +483,7 @@
 	<string name="advancedSettings">Напредна подешавања</string>
 	<string name="safeTournamentName">Изаберите веома сигурно име за турнир.</string>
 	<string name="inappropriateNameWarning">Било које име које је бар мало неприкладно може да вам затвори налог.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">Препоручујемо да немењате ове.</string>
-	<string name="fewerPlayers">Ако ставите услове за улаз, ваш турнир ће имати мање играча.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Покажи напредна подешавања</string>
 	<string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
 	<string name="join">Придружи се</string>
@@ -637,6 +637,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Пораз</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s против %2$s у %3$s</string>
 	<string name="defeatVsYInZ">%1$s против %2$s у %3$s</string>
 	<string name="drawVsYInZ">%1$s против %2$s у %3$s</string>
@@ -908,6 +909,11 @@
 		<item quantity="one">%s секунд</item>
 		<item quantity="few">%s секунде</item>
 		<item quantity="other">%s секунди</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="few">%s minutes</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Отварање</string>
 	<string name="middlegame">Средишњица</string>

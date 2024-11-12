@@ -204,6 +204,7 @@
 	<plurals name="nbGamesWithYou">
 		<item quantity="other">%s เกมเล่นกับคุณ</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">ยกเลิก</string>
 	<string name="timeOut">Time out</string>
 	<string name="drawOfferSent">ส่งการขอเสมอแล้ว</string>
@@ -234,6 +235,7 @@
 	<string name="finishesX">เสร็จสิ้น%s</string>
 	<string name="abortGame">ยกเลิกเกม</string>
 	<string name="gameAborted">เกมถูกยกเลิก</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">มาตรฐาน</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -425,9 +427,7 @@
 	<string name="advancedSettings">การตั้งค่าขั้นสูง</string>
 	<string name="safeTournamentName">เลือกชื่อที่ปลอดภัยสุดสำหรับทัวร์นาเมนต์</string>
 	<string name="inappropriateNameWarning">อะไรที่ไม่เหมาะสมแม้เพียงเล็กน้อย ก็สามารถทำให้บัญชีของคุณถูกปิดได้</string>
-	<string name="emptyTournamentName">ปล่อยว่างไว้เพื่อตั้งชื่อทัวร์นาเมนต์หลังจากสุ่มแกรนด์มาสเตอร์</string>
-	<string name="recommendNotTouching">เราแนะนำว่าอย่าแตะต้องสิ่งเหล่านี้</string>
-	<string name="fewerPlayers">ถ้าคุณตั้งค่าเงื่อนไขการเข้าร่วม ทัวร์นาเมนต์ของคุณจะมีผู้เข้าเล่นได้น้อยลง</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">แสดงการตั้งค่าขั้นสูง</string>
 	<string name="makePrivateTournament">ทำทัวร์นาเมนต์ให้เป็นส่วนตัว และจำกัดการเข้าถึงด้วยรหัสผ่าน</string>
 	<string name="join">เข้าร่วม</string>
@@ -577,6 +577,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">ปราชัย</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s vs %2$s ใน %3$s</string>
 	<string name="defeatVsYInZ">%1$s vs %2$s ใน %3$s</string>
 	<string name="drawVsYInZ">%1$s vs %2$s ใน %3$s</string>
@@ -832,6 +833,9 @@
 	<string name="advantage">ความได้เปรียบ</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s วินาที</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">การเปิดเกม</string>
 	<string name="middlegame">กลางเกม</string>

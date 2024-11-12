@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Saha</string>
   <string name="arenaTournaments">Arena turnuvaları</string>
   <string name="isItRated">Bu turnuva puanlı mı?</string>
   <string name="willBeNotified">Turnuva başladığında sana haber vereceğiz, bu süre zarfında başka bir sekmede oynamanın bir sakıncası yok.</string>
@@ -37,12 +38,12 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
   <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
   <string name="drawStreak">Beraberlik serisi: Bir oyuncu turnuvada üst üste berabere kaldığında yalnızca ilk beraberlikten veya %s hamleden uzun süren maçın sonunda elde edilen beraberlikten puan kazanır. Beraberlik serisi sadece oyuncu bir maç kazandığı vakit sona erer; mağlubiyet veya beraberlik ile sonuçlanan maçlarda bu seri devam eder.</string>
-  <string name="noBerserkAllowed">No Berserk allowed</string>
-  <string name="noArenaStreaks">No Arena streaks</string>
-  <string name="averagePerformance">Average performance</string>
-  <string name="averageScore">Average score</string>
+  <string name="noBerserkAllowed">Berserk oyunu yasaktır</string>
+  <string name="noArenaStreaks">Saha serisi yok</string>
+  <string name="averagePerformance">Ortalama performans</string>
+  <string name="averageScore">Ortalama puan</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
-    <item quantity="one">View the team</item>
-    <item quantity="other">View all %s teams</item>
+    <item quantity="one">Ekipi görüntüle</item>
+    <item quantity="other">Tüm %s takımları görüntüle</item>
   </plurals>
 </resources>

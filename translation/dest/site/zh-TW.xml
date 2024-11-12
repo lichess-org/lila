@@ -204,6 +204,7 @@
 	<plurals name="nbGamesWithYou">
 		<item quantity="other">與您下過%s盤棋</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">取消</string>
 	<string name="timeOut">時間到</string>
 	<string name="drawOfferSent">和棋請求已發送</string>
@@ -234,6 +235,7 @@
 	<string name="finishesX">%s 後結束</string>
 	<string name="abortGame">中止本局</string>
 	<string name="gameAborted">棋局已中止</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">標準</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -425,9 +427,7 @@
 	<string name="advancedSettings">高級設定</string>
 	<string name="safeTournamentName">幫錦標賽挑選一個適合的名字</string>
 	<string name="inappropriateNameWarning">即便只是一點點的違規都有可能導致您的帳號被封鎖。</string>
-	<string name="emptyTournamentName">若不填入錦標賽的名稱，將會用一位著名棋手名字來做為錦標賽名稱。</string>
-	<string name="recommendNotTouching">我們建議您不要調整這些數據</string>
-	<string name="fewerPlayers">如果你設定入場限制，你的錦標賽選手會比較少。</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">顯示進階設定</string>
 	<string name="makePrivateTournament">把錦標賽設定為私人，並設定密碼來限制進入。</string>
 	<string name="join">加入</string>
@@ -577,6 +577,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">戰敗</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s在%3$s模式下贏了%2$s</string>
 	<string name="defeatVsYInZ">%1$s在%3$s模式下輸給了%2$s</string>
 	<string name="drawVsYInZ">%1$s在%3$s模式下和%2$s平手</string>
@@ -832,6 +833,9 @@
 	<string name="advantage">優勢</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s 秒</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">序盤</string>
 	<string name="middlegame">中盤</string>

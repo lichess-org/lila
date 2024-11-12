@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">Como um problema no aplicação móvel do Lishogi no GitHub</string>
   <string name="reportBugInDiscord">No servidor Lishogi Discord</string>
   <string name="howToReportBug">Por favor, descreve o aspeto do erro, o que esperavas que acontecesse, e os passos para reproduzir o erro.</string>
-  <string name="illegalPawnCapture">Captura de peão ilegal</string>
-  <string name="tryEnPassant">Experimenta este pequeno jogo interativo para aprenderes mais sobre o \"en passant\".</string>
-  <string name="illegalCastling">Roque ilegal ou impossível</string>
-  <string name="castlingPrevented">O roque só é impedido se o rei passar por uma casa controlada.</string>
-  <string name="castlingRules">Certifica-te que entendes as regras do roque</string>
-  <string name="castlingImported">Se importaste o jogo, ou começaste a partir de uma posição, certifica-te que definiste corretamente os direitos de roque.</string>
   <string name="insufficientMaterial">Material insuficiente para fazer xeque-mate</string>
   <string name="noRatingPoints">Não foram atribuídos pontos</string>
   <string name="ratedGame">Certifica-te que jogaste uma partida a valer pontos. Jogos amigáveis não afetam as pontuações dos jogadores.</string>

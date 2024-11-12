@@ -234,6 +234,7 @@
 		<item quantity="many">%s партий с вами</item>
 		<item quantity="other">%s партий с вами</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Отменить</string>
 	<string name="timeOut">Время истекло</string>
 	<string name="drawOfferSent">Предложение ничьей отправлено</string>
@@ -264,6 +265,7 @@
 	<string name="finishesX">завершится %s</string>
 	<string name="abortGame">Отменить игру</string>
 	<string name="gameAborted">Игра отменена</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Классические сёги</string>
 	<string name="minishogi">Минисёги</string>
 	<string name="chushogi">Чу Сёги</string>
@@ -509,9 +511,7 @@
 	<string name="advancedSettings">Дополнительные настройки</string>
 	<string name="safeTournamentName">Выберите для турнира как можно более безопасное название.</string>
 	<string name="inappropriateNameWarning">Если название хотя бы немного покажется неуместным, вас могут заблокировать.</string>
-	<string name="emptyTournamentName">Оставьте пустым, чтобы назвать турнир в честь случайного известного игрока в сёги.</string>
-	<string name="recommendNotTouching">Мы не рекомендуем задавать эти условия.</string>
-	<string name="fewerPlayers">Если вы зададите условия участия, то в вашем турнире сможет принять участие меньше игроков.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Показать дополнительные настройки</string>
 	<string name="makePrivateTournament">Сделать турнир закрытым и ограничить доступ паролем</string>
 	<string name="join">Участвовать</string>
@@ -667,6 +667,7 @@
 	<string name="youWon">Вы выиграли</string>
 	<string name="defeat">Поражение</string>
 	<string name="youLost">Вы проиграли</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s против %2$s в %3$s</string>
 	<string name="defeatVsYInZ">%1$s против %2$s в %3$s</string>
 	<string name="drawVsYInZ">%1$s против %2$s в %3$s</string>
@@ -946,6 +947,12 @@
 		<item quantity="few">%s секунды</item>
 		<item quantity="many">%s секунд</item>
 		<item quantity="other">%s секунд</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="few">%s minutes</item>
+		<item quantity="many">%s minutes</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Дебют</string>
 	<string name="middlegame">Миттельшпиль</string>

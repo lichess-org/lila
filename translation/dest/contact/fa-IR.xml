@@ -44,12 +44,6 @@
   <string name="reportMobileIssue">به عنوان یک مشکلِ اپلیکیشن موبایل Lishogi روی GitHub</string>
   <string name="reportBugInDiscord">در سرورِ دیسکوردِ Lishogi</string>
   <string name="howToReportBug">لطفاً توصیف کنید که نقصان فنی چگونه است، شما انتظار داشتید به جای آن چه اتفاقی رخ می‌داد، و گامهایی که نقصان را مجدداً ایجاد می‌کند را شرح دهید.</string>
-  <string name="illegalPawnCapture">زدنِ غیرقانونیِ سرباز</string>
-  <string name="tryEnPassant">این بازی تعاملی کوچک را امتحان کنید تا در مورد \"en passant\" بیشتر یاد بگیرید.</string>
-  <string name="illegalCastling">قلعه رفتن غیر ممکن یا غیر مجاز</string>
-  <string name="castlingPrevented">از قلعه‌زدن فقط وقتی جلوگیری می‌شود که شاه حرکتهای کنترل‌شده‌ای را انجام می‌دهد.</string>
-  <string name="castlingRules">مطمئن شوید که قوانین قلعه زدن را می‌فهمید</string>
-  <string name="castlingImported">اگر که شما بازی را وارد و بارگذاری کرده‌اید، یا از یک موقعیت میانی (وسطِ بازی در جریان و به جز وضعیت اولیه) شروع کرده‌اید، مطمئن شوید که قوانین قلعه‌زدن را درست تنظیم می‌کنید.</string>
   <string name="insufficientMaterial">نبودِ مهره کافی برای مات کردن</string>
   <string name="noRatingPoints">هیچ امتیازی اختصاص داده نشد</string>
   <string name="ratedGame">مطمئن شوید که یک بازی امتیازگذاری شده را بازی کرده‌اید. بازیهای دست‌گرمی و بدون امتیاز، تاثیری در رده‌بندی بازیکنان ندارند.</string>

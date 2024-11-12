@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="roundRobin" comment="https://en.wikipedia.org/wiki/Round-robin_tournament">Todos contra todos</string>
+	<string name="startGame">Comezar a partida</string>
+	<string name="goToGame">Ir á partida</string>
+	<string name="waitingForOther" comment="Waiting for other player (opponent) to join the game">Agardando polo rival</string>
+	<string name="proposeTime" comment="Time that you propose to your opponent to start a game">Propoñer a hora de comezo da partida</string>
+	<string name="cancelScheduled">Cancelar a partida programada</string>
+	<string name="scheduledAt" comment="Date/time when game is scheduled for">Programada para</string>
+	<string name="yourUpcomingGames">As túas próximas partidas</string>
+	<string name="playingRightNow" comment="Games in tournament that are being played right now">Xogando agora mesmo</string>
+	<string name="recentlyPlayedGames">Partidas recentes</string>
+	<string name="gameWillNotStart">A partida non comezará automaticamente!</string>
+	<string name="organized" comment="Tournament format - organized, players can only play games created by the organizer">Programado</string>
+</resources>

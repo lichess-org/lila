@@ -33,7 +33,7 @@
 	<string name="premovesPlayingDuringOpponentTurn">预先走棋（在对手的回合走棋）</string>
 	<string name="takebacksWithOpponentApproval">悔棋（需要对手同意）</string>
 	<string name="inCasualGamesOnly">仅限于无积分对局</string>
-	<string name="whenPremoving">预先走棋時</string>
+	<string name="whenPremoving">预先走棋时</string>
 	<string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒时</string>
 	<string name="moveConfirmation">确认走棋</string>
 	<string name="inCorrespondenceGames">通信棋局</string>

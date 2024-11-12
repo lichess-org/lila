@@ -204,6 +204,7 @@
 	<plurals name="nbGamesWithYou">
 		<item quantity="other">あなたと %s 局対局</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">キャンセル</string>
 	<string name="timeOut">時間切れ</string>
 	<string name="drawOfferSent">引き分けの申し込みを送信しました</string>
@@ -234,6 +235,7 @@
 	<string name="finishesX">終了まで %s</string>
 	<string name="abortGame">対局を中止する</string>
 	<string name="gameAborted">対局を中止しました</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">本将棋</string>
 	<string name="minishogi">5五将棋</string>
 	<string name="chushogi">中将棋</string>
@@ -426,9 +428,7 @@
 	<string name="advancedSettings">高度な設定</string>
 	<string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
 	<string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを停止することがあります。</string>
-	<string name="emptyTournamentName">トーナメントを空白のままにしておくと、自動でランダムな有名プレーヤーの名前がつきます。</string>
-	<string name="recommendNotTouching">ここは触らないことを推奨します。</string>
-	<string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">「高度な設定」を表示</string>
 	<string name="makePrivateTournament">トーナメントを「非公開」にすると参加にパスワードが必要になります</string>
 	<string name="join">参加する</string>
@@ -578,6 +578,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">負け</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
 	<string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
 	<string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
@@ -833,6 +834,9 @@
 	<string name="advantage">優位</string>
 	<plurals name="nbSeconds">
 		<item quantity="other">%s 秒</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">序盤</string>
 	<string name="middlegame">中盤</string>

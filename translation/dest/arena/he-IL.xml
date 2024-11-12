@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">טורנירי ארנה</string>
   <string name="isItRated">האם זה נכלל בדרוג?</string>
   <string name="willBeNotified">תישלח הודעה על תחילת התחרות, כך שבינתיים אתה יכול לשחק במקביל.</string>

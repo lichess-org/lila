@@ -8,29 +8,29 @@
 	<string name="waitingForOpponent">Rakip bekleniyor</string>
 	<string name="waiting">Bekleniyor</string>
 	<string name="yourTurn">Sıra sizde</string>
-	<string name="defeatedAiNameAiLevel" comment="Example: Defeated Stockfish level 3">Defeated %1$s level %2$s</string>
+	<string name="defeatedAiNameAiLevel" comment="Example: Defeated Stockfish level 3">%1$s\'ı %2$s. seviyede yendiniz</string>
 	<string name="level">Seviye</string>
-	<string name="levelX" comment="Engine difficulty level">Level %s</string>
+	<string name="levelX" comment="Engine difficulty level">Seviye %s</string>
 	<string name="strength">Güç</string>
 	<string name="toggleTheChat">Sohbeti aç/kapat</string>
 	<string name="toggleSound">Sesi aç/kapat</string>
 	<string name="chat">Sohbet</string>
-	<string name="page" comment="Used for numbering; Example: Page 10">Page</string>
+	<string name="page" comment="Used for numbering; Example: Page 10">Sayfa</string>
 	<string name="resign">Oyundan Çekil</string>
 	<string name="checkmate">Şah Mat</string>
 	<string name="stalemate">Pat</string>
-	<string name="check">Check</string>
+	<string name="check">Şah</string>
 	<string name="impasse">Çıkmaz</string>
-	<string name="repetition" comment="Status of a game ending due to repeated positions">Repetition</string>
+	<string name="repetition" comment="Status of a game ending due to repeated positions">Tekrarlama</string>
 	<string name="perpetualCheck">Sürekli şah</string>
 	<string name="royalsLost" comment="Used in chushogi">Tüm kraliyet taşları kaybedildi</string>
 	<string name="bareKing" comment="Used in chushogi">Yalnız şah</string>
-	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s played %2$s</string>
-	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s is playing %2$s</string>
-	<string name="xWon" comment="Example: Player won!">%s won!</string>
-	<string name="xLost" comment="Example: Player lost!">%s lost!</string>
-	<string name="gameWasDraw">Game was a draw!</string>
-	<string name="winnerIsNotYetDecided">Winner is not yet decided.</string>
+	<string name="xPlayedY" comment="Played in the past, game is now over">%1$s %2$s oynadı</string>
+	<string name="xIsPlayingY" comment="Playing right now, game is still being played">%1$s, %2$s\'e karşı oynuyor</string>
+	<string name="xWon" comment="Example: Player won!">%s kazandı!</string>
+	<string name="xLost" comment="Example: Player lost!">%s kaybetti!</string>
+	<string name="gameWasDraw">Oyun berabere bitti!</string>
+	<string name="winnerIsNotYetDecided">Kazanan henüz belli değil.</string>
 	<string name="gote" comment="Should be 'Gote', unless equivalent written differently exists (ex. 後手 in JP; し - ši in CZ instead of shi)">Gote</string>
 	<string name="white" comment="Alternative to gote">Beyaz</string>
 	<string name="sente" comment="Should be 'Sente', unless equivalent written differently exists (ex. 先手 in JP; し - ši in CZ instead of shi)">Sente</string>
@@ -68,13 +68,13 @@
 	<string name="computerAnalysis">Bilgisayar analizi</string>
 	<string name="computerAnalysisAvailable">Bilgisayar analizi mevcut</string>
 	<string name="analysis">Analiz tahtası</string>
-	<string name="analysisDescription">Analyse shogi positions and variations on an interactive shogi board</string>
+	<string name="analysisDescription">Etkileşimli bir shogi panosunda shogi konumlarını ve varyasyonlarını analiz edin</string>
 	<string name="depthX">Derinlik %s</string>
-	<string name="serverAnalysis">Server analysis</string>
+	<string name="serverAnalysis">Sunucu analizi</string>
 	<string name="usingServerAnalysis">Sunucu analizi yapılıyor</string>
 	<string name="loadingEngine">Satranç motoru yükleniyor...</string>
 	<string name="cloudAnalysis">Bulut analizi</string>
-	<string name="localAnalysis">Local analysis</string>
+	<string name="localAnalysis">Yerel analizi</string>
 	<string name="goDeeper" comment="Engine depth">Daha derine in</string>
 	<string name="showThreat">Tehdidi göster</string>
 	<string name="inLocalBrowser">yerel tarayıcı üzerinde</string>
@@ -133,12 +133,12 @@
 	<string name="flipBoard">Tahtayı döndür</string>
 	<string name="claimADraw">Beraberlik talep et</string>
 	<string name="offerDraw">Beraberlik teklif et</string>
-	<string name="offerAdjournment">Offer adjournment</string>
-	<string name="offerResumption">Offer resumption</string>
-	<string name="acceptResumption">Accept resumption</string>
+	<string name="offerAdjournment">Erteleme teklif et</string>
+	<string name="offerResumption">Yeniden başlama teklif et</string>
+	<string name="acceptResumption">Yeniden başlama kabul et</string>
 	<string name="draw">Berabere</string>
-	<string name="gameAdjourned">Game was adjourned</string>
-	<string name="gameResumed">Game was resumed</string>
+	<string name="gameAdjourned">Oyun ertelenildi</string>
+	<string name="gameResumed">Oyun yeniden başlatıldı</string>
 	<plurals name="nbPlayers">
 		<item quantity="one">%s çevrimiçi oyuncu</item>
 		<item quantity="other">%s çevrimiçi oyuncu</item>
@@ -160,7 +160,7 @@
 	<string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncuların oynamasına izin yoktur. Lütfen maçlarda satranç motorlarından, veri tabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmanız kesinlikle önerilmez. Çok fazla hesap açmak, hesapların kapatılmasına neden olacaktır.</string>
 	<string name="games">Oyunlar</string>
 	<string name="forum">Forum</string>
-	<string name="forumDescription">Shogi discussions and feedback about Lishogi development</string>
+	<string name="forumDescription">Lishogi gelişimi hakkında Shogi tartışmaları ve geri bildirimler</string>
 	<string name="xPostedInForumY">%1$s, %2$s konusu altına bir mesaj yazdı</string>
 	<string name="latestForumPosts">En son forum gönderileri</string>
 	<string name="players">Oyuncular</string>
@@ -197,7 +197,7 @@
 	<string name="changeEmail">E-posta adresini değiştir</string>
 	<string name="email">E-posta</string>
 	<string name="passwordReset">Şifreyi yenile</string>
-	<string name="loginByEmail">Log in by email</string>
+	<string name="loginByEmail">Email ile oturum aç</string>
 	<string name="forgotPassword">Şifremi unuttum</string>
 	<string name="rank">Sıralama</string>
 	<string name="rankX">Sıralama: %s</string>
@@ -214,17 +214,18 @@
 		<item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
 		<item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
 	</plurals>
+	<string name="confirm">Onayla</string>
 	<string name="cancel">İptal et</string>
 	<string name="timeOut">Zaman doldu</string>
 	<string name="drawOfferSent">Beraberlik teklifi gönderildi</string>
 	<string name="drawOfferDeclined">Beraberlik teklifi reddedildi</string>
 	<string name="drawOfferAccepted">Beraberlik teklifi kabul edildi</string>
 	<string name="drawOfferCanceled">Beraberlik teklifi iptal edildi</string>
-	<string name="adjournmentOfferSent">Adjournment offer sent</string>
-	<string name="adjournmentOfferCanceled">Adjournment offer cancelled</string>
-	<string name="adjournmentOfferAccepted">Adjournment offer accepted</string>
-	<string name="resumptionOfferSent">Resumption offer sent</string>
-	<string name="resumptionOfferCanceled">Resumption offer cancelled</string>
+	<string name="adjournmentOfferSent">Erteleme teklifi gönderildi</string>
+	<string name="adjournmentOfferCanceled">Erteleme teklifi iptal edildi</string>
+	<string name="adjournmentOfferAccepted">Erteleme teklifi kabul edildi</string>
+	<string name="resumptionOfferSent">Yeniden başlama teklifi yollandı</string>
+	<string name="resumptionOfferCanceled">Yeniden başlama teklifi reddedildi</string>
 	<string name="xOffersDraw" comment="%s - sente(black)/gote(white)">%s beraberlik teklif ediyor</string>
 	<string name="xDeclinesDraw" comment="%s - sente(black)/gote(white)">%s beraberliği kabul etmedi</string>
 	<string name="yourOpponentOffersADraw">Rakibiniz beraberlik teklif ediyor</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">%s sona erecek</string>
 	<string name="abortGame">Oyunu iptal et</string>
 	<string name="gameAborted">Oyun iptal edildi</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Standart</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">Gelişmiş ayarlar</string>
 	<string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
 	<string name="inappropriateNameWarning">Herhangi bir uygunsuz isim, hesabınızın yasaklanmasına yol açabilir.</string>
-	<string name="emptyTournamentName">Kutuyu boş bırakarak turnuvaya rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
-	<string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
-	<string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
 	<string name="makePrivateTournament">Turnuvayı özel olarak ayarlayın ve şifre koyarak erişimi kısıtlayın</string>
 	<string name="join">Katıl</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Yenilgi</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
 	<string name="defeatVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
 	<string name="drawVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
@@ -870,6 +871,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s saniye</item>
 		<item quantity="other">%s saniye</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Açılış</string>
 	<string name="middlegame">Oyunortası</string>

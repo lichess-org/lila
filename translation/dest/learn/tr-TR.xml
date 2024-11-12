@@ -12,8 +12,8 @@
 	<string name="introBasics">Bazı temel bilgileri öğrenin.</string>
 	<string name="introIntro">Yolculuğunuz şimdi başlıyor.</string>
 	<string name="clickHereAfterYouveChosen">Beğendiğiniz taş setini seçtikten sonra buraya tıklayın.</string>
-	<string name="tellYourPiecesApart">It\'s important that you can tell your pieces apart, so make sure you choose the right piece set.</string>
-	<string name="howToSelectPieceSet">How to select your piece set?</string>
+	<string name="tellYourPiecesApart">Parçalarınızı birbirinden ayırt edebilmeniz önemlidir, bu yüzden doğru parça setini seçtiğinizden emin olun.</string>
+	<string name="howToSelectPieceSet">Nasıl parça seti seçiliyor?</string>
 	<string name="choosePieceDesign">Parçaları birbirlerinden ayırt edebilmen çok önemli, bu yüzden sana en uygun olan taş setini seçtiğinden emin ol. Bunu yapmak için, dişli çarka veya kendi kullanıcı adının üstüne tıkla, (sağ üst köşe) ve \"Taş seti\"nin üzerine tıkla.</string>
 	<string name="promotionZone">Taşlarınızdan bazıları rakibinizin bölgesinde ilk üç sıraya ulaştığında veya bu sırayı terk ettiğinde, taşınızı yükseltmeyi ve daha güçlü hale getirmeyi seçebilirsiniz.</string>
 	<string name="senteGoesFirst">Shogi\'de ilk hamleyi yapan kişi Sente, ikinci hamleyi yapan kişi ise Gote olarak adlandırılır. Sente siyah, Gote ise beyaz renkle oynar. Sente olarak oynamak için bir hamle yapın.</string>

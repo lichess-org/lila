@@ -214,6 +214,7 @@
 		<item quantity="one">%s partier med dig</item>
 		<item quantity="other">%s partier med dig</item>
 	</plurals>
+	<string name="confirm">Confirm</string>
 	<string name="cancel">Avbryt</string>
 	<string name="timeOut">Tiden är ute</string>
 	<string name="drawOfferSent">Remierbjudande skickat</string>
@@ -244,6 +245,7 @@
 	<string name="finishesX">slutar %s</string>
 	<string name="abortGame">Avbryt partiet</string>
 	<string name="gameAborted">Partiet avbröts</string>
+	<string name="rules" comment="As in what you can and can't do">Rules</string>
 	<string name="standard" comment="Variant - meaning standard shogi">Standard</string>
 	<string name="minishogi">Minishogi</string>
 	<string name="chushogi">Chushogi</string>
@@ -453,9 +455,7 @@
 	<string name="advancedSettings">Avancerade inställningar</string>
 	<string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
 	<string name="inappropriateNameWarning">Någonting, om än bara lite, olämpligt skulle kunna få ditt konto att stängas.</string>
-	<string name="emptyTournamentName">Leave empty to name the tournament after a notable shogi player.</string>
-	<string name="recommendNotTouching">Vi rekommenderar att inte röra dessa.</string>
-	<string name="fewerPlayers">Om du anger inträdesvillkor kommer din turnering att ha färre spelare.</string>
+	<string name="emptyTournamentAnimalName">Leave empty to name the tournament after a random animal.</string>
 	<string name="showAdvancedSettings">Visa avancerade inställningar</string>
 	<string name="makePrivateTournament">Gör turneringen privat, och begränsa åtkomst med ett lösenord</string>
 	<string name="join">Delta</string>
@@ -607,6 +607,7 @@
 	<string name="youWon">You won</string>
 	<string name="defeat">Förlust</string>
 	<string name="youLost">You lost</string>
+	<string name="xVsY" comment="Meaning: Player A versus Player B">%1$s vs %2$s</string>
 	<string name="victoryVsYInZ">%1$s mot %2$s i %3$s</string>
 	<string name="defeatVsYInZ">%1$s mot %2$s i %3$s</string>
 	<string name="drawVsYInZ">%1$s mot %2$s i %3$s</string>
@@ -870,6 +871,10 @@
 	<plurals name="nbSeconds">
 		<item quantity="one">%s sekunder</item>
 		<item quantity="other">%s av sekunder</item>
+	</plurals>
+	<plurals name="nbMinutes">
+		<item quantity="one">%s minute</item>
+		<item quantity="other">%s minutes</item>
 	</plurals>
 	<string name="opening">Öppning</string>
 	<string name="middlegame">Mittparti</string>

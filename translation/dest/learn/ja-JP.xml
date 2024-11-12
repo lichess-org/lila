@@ -99,7 +99,7 @@
 	<string name="reuseCapturedPieces">取った駒を使いましょう！</string>
 	<string name="dropIntro">もう一度、自分の駒を取られずに相手のすべての駒を取りましょう！</string>
 	<string name="capturedPiecesCanBeDropped">取った駒は自分の手番に盤面へ打って戻すことができます！</string>
-	<string name="dropLimitations">他の駒がいるところや合法手のないマスに駒を打つことはできません。成れる場所に駒を打っても成ることはできません、
+	<string name="dropLimitations">他の駒がいるところや合法手のないマスに駒を打つことはできません。成れる場所に駒を打っても成ることはできません。
 相手の駒を取りましょう！</string>
 	<string name="youCannotHaveTwoUnpromotedPawns">同じ縦の列にまだ成っていない歩兵を2枚置いてはいけません。「二歩」という反則です。</string>
 	<string name="protection">守り</string>
@@ -164,7 +164,7 @@
 	<string name="dropTheLances">同じように香車も置きましょう。おや？相手は先に左側の歩兵から並べるみたいですね。これが伊藤流です。</string>
 	<string name="placeTheBishopThenRook">角行を左側の桂馬の上に置き、飛車を右側の桂馬の上に置きましょう。もちろん、実際の対局では、相手のペースに合わせて駒を置く必要はなく、自分のペースで置いて構いません。</string>
 	<string name="placeThePawns">最後に、下から3段目に、一番下の段と同じように歩兵を置いていきます。丸の位置に歩兵を置きましょう。</string>
-	<string name="pushingThe3rdPawn">左から3番目の歩兵を進めて角行の開けてあげるのが最も一般的な初手とされています。やってみましょう。</string>
+	<string name="pushingThe3rdPawn">左から3番目の歩兵を進めて角行の道を開けてあげるのが最も一般的な初手とされています。やってみましょう。</string>
 	<string name="boardSetupComplete">おめでとう！駒の並べ方を覚えました！</string>
 	<string name="repetition">千日手</string>
 	<string name="fourfoldRepetitionIsADrawExcept">同じ盤面が4回現れたら引き分け。ただし…</string>

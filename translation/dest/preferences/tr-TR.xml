@@ -4,7 +4,7 @@
 	<string name="gameDisplay">Oyun görünümü</string>
 	<string name="boardLayout">Tahta düzeni</string>
 	<string name="clearHands">Elindeki parçaların hayaletlerini gizle</string>
-	<string name="handsBackground">Show background behind pieces in hand</string>
+	<string name="handsBackground">Elindeki taşların arkasındaki arka planı göster.</string>
 	<string name="pieceAnimation">Hamle animasyonu</string>
 	<string name="materialDifference">Taş farkı</string>
 	<string name="boardHighlightsLastDests">Tahta vurgulari - son hamle/bırakma</string>
@@ -44,7 +44,7 @@
 	<string name="westernNotation">Batı notasyonu</string>
 	<string name="japaneseNotation">Japon notasyonu</string>
 	<string name="kitaoKawasakiNotation">Kitao-Kawasaki notasyonu</string>
-	<string name="kifNotation">Kif notation</string>
+	<string name="kifNotation">Kif gösterimi</string>
 	<string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
-	<string name="smallMoves">Small moves</string>
+	<string name="smallMoves">Küçük hareketler</string>
 </resources>
