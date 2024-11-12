@@ -66,6 +66,12 @@ export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
 export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+export const getSafariMajorVersion = (): number | undefined => {
+  if (!isSafari()) return undefined;
+  const match = /Version\/(\d*)/.exec(navigator.userAgent);
+  return match && match.length > 1 ? parseInt(match[1]) : undefined;
+};
+
 export const isIOS = (constraint?: { below?: number; atLeast?: number }): boolean => {
   let answer = ios();
   if (!constraint || !answer) return answer;
