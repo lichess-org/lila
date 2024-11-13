@@ -15,8 +15,8 @@
     <item quantity="other">%s مساله تاکتیکی را حل کرد</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">%1$s بازی %2$s را انجام داد</item>
-    <item quantity="other">%1$s بازی %2$s را انجام داد</item>
+    <item quantity="one">%1$s بازی %2$s کرد</item>
+    <item quantity="other">%1$s بازی %2$s کرد</item>
   </plurals>
   <plurals name="postedNbMessages">
     <item quantity="one">%1$s پیام را در %2$s فرستاد</item>
