@@ -57,8 +57,8 @@
 زمانی که یک بازیکن در یک دور هیچ حریفی نداشته باشد، یک استراحت به ایشان تعلق می گیرد که یک امتیاز به حسب می آید.</string>
   <string name="tiebreaksCalculationQ">امتیاز شکنی چطور محاسبه میشود؟</string>
   <string name="sonnebornBergerScore">امتیاز Sonneborn–Berger</string>
-  <string name="tiebreaksCalculationA">با %s .
-امتیازهای هر حریفی را که بازیکن شکست می دهد و نیمی از امتیاز هر بازی که مساوی میشود را اضافه کنید.</string>
+  <string name="tiebreaksCalculationA">با %s.
+امتیازهای هر حریفی را که این بازیکن می‌بَرد و نیمی از امتیاز هر حریفی که این بازیکن مساوی می‌کند را بیفزایید.</string>
   <string name="pairingsQ">سیستم جفت سازی چطور کار میکند؟</string>
   <string name="dutchSystem">سیستم هلندی</string>
   <string name="FIDEHandbook">کتابچه فدراسیون جهانی شطرنج</string>
