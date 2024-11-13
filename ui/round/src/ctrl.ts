@@ -334,16 +334,13 @@ export default class RoundController implements MoveRootCtrl {
     this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
 
-  shouldConfirmMove = (): boolean =>
-    (this.data.pref.submitMove && this.confirmMoveToggle()) || this.confirmMoveToggle();
-
   sendMove = (orig: Key, dest: Key, prom: Role | undefined, meta: MoveMetadata): void => {
     const move: SocketMove = { u: orig + dest };
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
 
-    if (!meta.preConfirmed && this.shouldConfirmMove() && !meta.premove) {
+    if (!meta.preConfirmed && this.confirmMoveToggle() && !meta.premove) {
       if (site.sound.speech()) {
         const spoken = `${speakable(sanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
         site.sound.say(spoken, false, true);
@@ -359,7 +356,7 @@ export default class RoundController implements MoveRootCtrl {
     const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.shouldConfirmMove() && !isPredrop) {
+    if (this.confirmMoveToggle() && !isPredrop) {
       this.toSubmit = drop;
       this.redraw();
     } else {

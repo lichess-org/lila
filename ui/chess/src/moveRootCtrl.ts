@@ -12,7 +12,7 @@ export interface MoveRootCtrl {
   blindfold?: (v?: boolean) => boolean;
   speakClock?: () => void;
   goBerserk?: () => void;
-  shouldConfirmMove?: () => boolean;
+  confirmMoveToggle?: () => boolean;
 }
 
 export interface MoveUpdate {

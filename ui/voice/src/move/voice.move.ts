@@ -297,7 +297,7 @@ export function initModule({
     // trim choices to clarity window
     options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
 
-    if (!timer() && options.length === 1 && (options[0][1].cost < 0.3 || root.shouldConfirmMove?.())) {
+    if (!timer() && options.length === 1 && (options[0][1].cost < 0.3 || root.confirmMoveToggle?.())) {
       console.info('chooseMoves', `chose '${options[0][0]}' cost=${options[0][1].cost}`);
       submit(options[0][0], false);
       return true;
