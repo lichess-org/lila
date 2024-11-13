@@ -71,7 +71,7 @@
     <item quantity="other">در %s مسابقه سوئیسی رقابت کرد</item>
   </plurals>
   <string name="rankedInSwissTournament">رتبه #%1$s را در %2$s به دست آورد</string>
-  <string name="signedUp">در لیچس ثبت نام کرد</string>
+  <string name="signedUp">در lichess.org نام‌نوشت</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">به %s تیم پیوست</item>
     <item quantity="other">به %s تیم پیوست</item>
