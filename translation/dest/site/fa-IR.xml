@@ -711,7 +711,7 @@
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
   <string name="tournamentHomeTitle">مسابقات شطرنج با وَرتاها و زمان‌بندی‌های گوناگون</string>
-  <string name="tournamentHomeDescription">هرچه زودتر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را بسازید. شطرنج گلوله‌ای، برق‌آسا، مرسوم، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترسند.</string>
+  <string name="tournamentHomeDescription">هرچه زودتر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را بسازید. شطرنج گلوله‌ای، برق‌آسا، فکری، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترسند.</string>
   <string name="tournamentNotFound">مسابقات یافت نشد</string>
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>
   <string name="tournamentMayHaveBeenCanceled">ممکن است مسابقه لغو شده باشد,شاید همه ی بازیکنان مسابقه را قبل از شروع ترک کرده باشند</string>
@@ -767,7 +767,7 @@
   <string name="zeroAdvertisement">بدون تبلیغات</string>
   <string name="fullFeatured">با تمامی امکانات</string>
   <string name="phoneAndTablet">گوشی و رایانک</string>
-  <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، مرسوم</string>
+  <string name="bulletBlitzClassical">گلوله‌ای، برق‌آسا، فکری</string>
   <string name="correspondenceChess">شطرنج مکاتبه ای</string>
   <string name="onlineAndOfflinePlay">بازی بَرخط و بُرون‌خط</string>
   <string name="viewTheSolution">دیدن راه‌حل</string>
@@ -894,12 +894,12 @@
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">گلوله‌ای</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">برق‌آسا</string>
   <string name="rapid">سریع</string>
-  <string name="classical">کلاسیک</string>
+  <string name="classical">فکری</string>
   <string name="ultraBulletDesc">بازی‌های سرعتی دیوانه‌وار: کمتر از ۳۰ ثانیه</string>
   <string name="bulletDesc">بازی‌های خیلی سرعتی: کمتر از ۳ دقیقه</string>
   <string name="blitzDesc">بازی های سرعتی: ۳ تا ۸ دقیقه</string>
   <string name="rapidDesc">بازی های سریع: ۸ تا ۲۵ دقیقه</string>
-  <string name="classicalDesc">بازی های کلاسیک : 25 دقیقه یا بیشتر</string>
+  <string name="classicalDesc">بازی های فکری: ۲۵ دقیقه یا بیشتر</string>
   <string name="correspondenceDesc">بازی های مکاتبه ای : یک  یا چند روز برای هر حرکت</string>
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
