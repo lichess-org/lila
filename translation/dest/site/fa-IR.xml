@@ -67,7 +67,7 @@
   <string name="showThreat">نمایش تهدید</string>
   <string name="inLocalBrowser">در مرورگر محلی</string>
   <string name="toggleLocalEvaluation">کلید ارزیابی محلی</string>
-  <string name="promoteVariation">افزایش وَرتِش</string>
+  <string name="promoteVariation">ارتقای وَرتِش</string>
   <string name="makeMainLine">خط کنونی را به خط اصلی تبدیل کنید</string>
   <string name="deleteFromHere">از اینجا به بعد را پاک کنید</string>
   <string name="collapseVariations">بستن وَرتِش‌ها</string>
@@ -102,7 +102,7 @@
   <string name="openings">گشایش‌ها</string>
   <string name="openingExplorer">پویشگر گشایش‌</string>
   <string name="openingEndgameExplorer">پویشگر گشایش/آخربازی</string>
-  <string name="xOpeningExplorer">جستجوگر گشایش %s</string>
+  <string name="xOpeningExplorer">پویشگر گشایش %s</string>
   <string name="playFirstOpeningEndgameExplorerMove">نخستین حرکت گشایش/آخربازی پویشگر را برو</string>
   <string name="winPreventedBy50MoveRule">قانون پنجاه حرکت جلوی پیروزی را گرفت</string>
   <string name="lossSavedBy50MoveRule">قانون ۵۰ حرکت از شکست جلوگیری کرد</string>
@@ -118,7 +118,7 @@
   <string name="byCPL">درنگ هنگام اشتباه</string>
   <string name="enable">فعال سازی</string>
   <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
-  <string name="showVariationArrows">نمایش پیکان‌های شاخه اصلی</string>
+  <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
   <string name="evaluationGauge">میله ارزیابی</string>
   <string name="multipleLines">شاخه های متعدد</string>
   <string name="cpus">پردازنده(ها)</string>
@@ -159,7 +159,7 @@
   </plurals>
   <plurals name="ratingXOverYGames">
     <item quantity="one">درجه‌بندی %1$s در %2$s بازی</item>
-    <item quantity="other">%1$s ریتینگ در %2$s بازی</item>
+    <item quantity="other">درجه‌بندی %1$s در %2$s بازی</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s نشانک</item>
@@ -183,8 +183,8 @@
   <string name="today">امروز</string>
   <string name="yesterday">دیروز</string>
   <string name="minutesPerSide">هر بازیکن چند دقیقه</string>
-  <string name="variant">گونه</string>
-  <string name="variants">گونه‌ها</string>
+  <string name="variant">وَرتا</string>
+  <string name="variants">وَرتا</string>
   <string name="timeControl">زمان</string>
   <string name="realTime">زمان محدود</string>
   <string name="correspondence">مکاتبه ای</string>
@@ -369,8 +369,8 @@
     <item quantity="other">بیشتر از %1$s بازی رسمی %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">شما باید%1$s بازی رسمی%2$s انجام دهید.</item>
-    <item quantity="other">شما باید%1$s بازی رسمی%2$s انجام دهید.</item>
+    <item quantity="one">شما باید %1$s بازی رسمی %2$s دیگر کنید</item>
+    <item quantity="other">شما باید %1$s بازی رسمی %2$s دیگر کنید</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">شما باید%s بازی رسمی دیگر انجام دهید.</item>
@@ -407,7 +407,7 @@
   <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">برای دریافت بازپخش مرورپذیر، واکاوی رایانه‌ای، گپ‌های بازی، و وب‌نشانی همگانی همرسانی‌پذیر، PGN یک بازی را جای‌گذاری کنید.</string>
-  <string name="importGameCaveat">تغییرات پاک خواهند شد. برای حفظ آنها، PGN را از طریق مطالعه وارد کنید.</string>
+  <string name="importGameCaveat">ورتش‌ها پاک خواهند شد. برای حفظشان، PGN را از طریق مطالعه درون‌بَرید.</string>
   <string name="importGameDataPrivacyWarning">این PGN برای عموم در دسترس است، برای وارد کردن یک بازی خصوصی، از *مطالعه* استفاده کنید.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s بارگذاری شده</item>
@@ -649,7 +649,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی‌ها</string>
-  <string name="tpTimeSpentOnTV">مدت گذرانده در تلویزیون: %s</string>
+  <string name="tpTimeSpentOnTV">مدت گذرانده در پویاتاب: %s</string>
   <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم‌ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازان</string>
@@ -679,7 +679,7 @@
   <string name="aboutSimulSettings">نمایش های همزمان همیشه غیر رسمی هستند. بازی دوباره، پس گرفتن حرکت و اضافه کردن زمان غیرفعال شده اند.</string>
   <string name="create">ساختن</string>
   <string name="whenCreateSimul">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
-  <string name="simulVariantsHint">اگر چندین گونه را انتخاب کنید، هر بازیکن می‌تواند انتخاب کند که کدام یک را بازی کند.</string>
+  <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
