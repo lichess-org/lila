@@ -11,6 +11,8 @@
   <string name="openingThisLink">باز کردن این پیوند</string>
   <string name="ifLiveChessRunningElsewhere">اگر %1$s روی دستگاه یا پورت دیگری در حال اجرا است، باید آدرس IP و پورت را در اینجا در %2$s تنظیم کنید.</string>
   <string name="configurationSection">بخش پیکربندی</string>
+  <string name="timeControlsForCasualGames">زمان‌بندی برای بازی‌های نارسمی: تنها در فکری، مکاتبه‌ای و سریع.</string>
+  <string name="timeControlsForRatedGames">زمان‌بندی برای بازی‌های رسمی: فکری، مکاتبه‌ای و برخی سریع‌ها از جمله ۱۵+۱۰ و ۲۰+۰</string>
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
   <string name="dgtConfigure">DGT - پیکربندی</string>
   <string name="lichessConnectivity">اتصال به لیچس</string>
