@@ -40,8 +40,8 @@
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این وب‌نشانی را برای پیوستن دیگران به اشتراک گذارید: %s</string>
   <string name="drawStreakStandard">ریسهٔ مساوی: وقتی بازیکنی در یک راوان، مساوی‌های پیاپی داشته باشد، فقط یکمین مساوی یا مساوی با بیش از %s حرکت در بازی‌های استاندارد، منجر به امتیاز می‌شود. «ریسهٔ مساوی» تنها با بُرد می‌شکند، نه باخت یا مساوی.</string>
-  <string name="drawStreakVariants">حداقل طول بازی برای بازی های قرعه کشی شده برای کسب امتیاز بر اساس نوع بازی متفاوت است. جدول زیر آستانه انواع مختلف را فهرست می کند.</string>
-  <string name="variant">انواع دیگر</string>
+  <string name="drawStreakVariants">حداقل حرکت برای بازی‌های مساوی‌شدهٔ امتیازدار، بر پایهٔ وَرتا، متفاوت است. جدول زیر، آستانهٔ هر وَرتا را می‌نمایاند.</string>
+  <string name="variant">وَرتا</string>
   <string name="minimumGameLength">حداقل طول بازی</string>
   <string name="history">پیشینهٔ راوان</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
@@ -63,7 +63,7 @@
   <string name="myTournaments">مسابقات من</string>
   <string name="editTournament">ویرایش مسابقه</string>
   <string name="editTeamBattle">ویرایش نبرد تیمی</string>
-  <string name="defender">مدافع</string>
+  <string name="defender">دفاع‌گر</string>
   <string name="pickYourTeam">تیم خود را انتخاب کنید</string>
   <string name="whichTeamWillYouRepresentInThisBattle">نماینده کدام تیم در این نبرد خواهید بود؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">برای شرکت کردن، شما باید عضو یکی از این تیم ها شوید!</string>
