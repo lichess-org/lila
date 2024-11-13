@@ -17,13 +17,13 @@
   <string name="rules">قونین استریم</string>
   <string name="rule1">Twitch این گروه را \"شطرنج\" در همه زبانها می نامد: https://www.twitch.tv/directory/game/Chess - بنابراین توصیه می کنیم متن انگلیسی را در اینجا نگه دارید.</string>
   <string name="rule2">هنگام پخش چیزهای غیر مجوز ، کلمه کلیدی را حذف کنید.</string>
-  <string name="rule3">لیچس جریان شما را به صورت خودکار تشخیص داده و قدرت پردازش زیر را فعال می کند:</string>
+  <string name="rule3">وبگاه Lichess جریان شما را خودکار شناسایی می‌کند و مزیت‌های زیر را فعال می‌کند:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">%s ما را بخوانید تا در مدت استریم شما از بازی جوانمردانه برای همه اطمینان حاصل شود.</string>
   <string name="streamingFairplayFAQ">پرسشها و پاسخهای متداول درباره استریم نمودن به صورت منصفانه</string>
   <string name="perks">مزایای جریان با کلمه کلیدی</string>
-  <string name="perk1">یک نقشک بَرخَط-محتواساز شعله‌ور در رُخ‌نمای Lichessتان دریافت کنید.</string>
+  <string name="perk1">یک نقشک بَرخَط-محتواساز شعله‌ور در رُخ‌نمای Lichessتان بگیرید.</string>
   <string name="perk2">در بالای لیست پخش کننده ها پرش کنید.</string>
-  <string name="perk3">دنبال‌گران لیچس‌تان را بیآگاهانید.</string>
+  <string name="perk3">دنبال‌گران Lichessتان را بیآگاهانید.</string>
   <string name="perk4">جریان خود را در بازی ها مسابقات و مطالعات خود نشان دهید</string>
   <string name="approved">استریم شما تایید شده است</string>
   <string name="pendingReview">استریم شما توسط مدیران سایت درحال بررسی است</string>
