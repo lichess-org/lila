@@ -66,13 +66,14 @@ export function initModule(opts: ChallengeOpts): void {
             this.submit();
           });
       });
-    if (isTouchDevice() && typeof navigator.share === 'function') {
-      const details = document.querySelector<HTMLElement>(`${selector} .details-wrapper`)!;
-      if (isIOS()) details.classList.add('ios');
+    const inviteUrl = document.querySelector<HTMLElement>('.invite__url');
+    if (inviteUrl && isTouchDevice() && typeof navigator.share === 'function') {
+      inviteUrl.classList.add('none');
+      const details = document.querySelector<HTMLElement>(`.details-wrapper`)!;
       details.classList.add('mobile');
       details.onclick = () =>
         navigator.share({ title: `Fancy a game of chess?`, url: details.dataset.url }).catch(() => {});
-      document.querySelector<HTMLElement>(`${selector} .invite__url`)?.classList.add('none'); // ?
+      if (isIOS()) details.classList.add('ios');
     }
   }
 
