@@ -753,7 +753,7 @@
   <string name="kidMode">حالت کودکان</string>
   <string name="kidModeIsEnabled">حالت کودک فعال است.</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودک، نماد Lichess نقشک %s را می‌گیرد، بنابراین می‌دانید کودکان‌تان در امانند.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">حسابتان مدیریت می‌شود. از آموزگار شطرنج‌تان درباره برداشتن حالت کودک بپرسید.</string>
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
