@@ -78,7 +78,7 @@
   <string name="searchPuzzles">جستجوی معما</string>
   <string name="fromMyGamesNone">شما هیچ معمایی در دادگان ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
 
-بازی‌های سریع و مرسوم را انجام دهید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
+بازی‌های سریع و فکری را انجام دهید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
   <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s یافت شد</string>
   <string name="puzzleDashboardDescription">آموزش، واکاوی، بهبود</string>
   <plurals name="nbPlayed">
