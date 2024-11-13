@@ -649,7 +649,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">زمان بازی کردن: %s</string>
   <string name="watchGames">تماشای بازی‌ها</string>
-  <string name="tpTimeSpentOnTV">مدت گذرانده در پویاتاب: %s</string>
+  <string name="tpTimeSpentOnTV">مدت آرنگیده در تلویزیون: %s</string>
   <string name="watch">تماشا</string>
   <string name="videoLibrary">فیلم‌ها</string>
   <string name="streamersMenu">بَرخَط-محتواسازان</string>
@@ -679,7 +679,7 @@
   <string name="aboutSimulSettings">نمایش های همزمان همیشه غیر رسمی هستند. بازی دوباره، پس گرفتن حرکت و اضافه کردن زمان غیرفعال شده اند.</string>
   <string name="create">ساختن</string>
   <string name="whenCreateSimul">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
-  <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام یک را بازی کند.</string>
+  <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام‌یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
@@ -693,9 +693,9 @@
   <string name="keyboardShortcuts">میانبرهای صفحه‌کلید</string>
   <string name="keyMoveBackwardOrForward">حرکت به عقب/جلو</string>
   <string name="keyGoToStartOrEnd">رفتن به آغاز/پایان</string>
-  <string name="keyCycleSelectedVariation">چرخه شاخه اصلی انتخاب‌شده</string>
+  <string name="keyCycleSelectedVariation">چرخاندن وَرتِش گزیده</string>
   <string name="keyShowOrHideComments">نمایش/پنهان کردن نظرها</string>
-  <string name="keyEnterOrExitVariation">ورود / خروج به شاخه</string>
+  <string name="keyEnterOrExitVariation">ورود/خروج به وَرتِش</string>
   <string name="keyRequestComputerAnalysis">درخواست تحلیل رایانه‌ای، از اشتباه‌های‌تان بیاموزید</string>
   <string name="keyNextLearnFromYourMistakes">بعدی (از اشتباه‌های‌تان بیاموزید)</string>
   <string name="keyNextBlunder">اشتباه فاحش بعدی</string>
@@ -703,14 +703,14 @@
   <string name="keyNextInaccuracy">بی‌دقتی بعدی</string>
   <string name="keyPreviousBranch">شاخه پیشین</string>
   <string name="keyNextBranch">شاخه بعدی</string>
-  <string name="toggleVariationArrows">کلید پیکان‌های شاخه اصلی</string>
-  <string name="cyclePreviousOrNextVariation">چرخه پیشین/پسین شاخه اصلی</string>
+  <string name="toggleVariationArrows">کلید پیکان‌های وَرتِش</string>
+  <string name="cyclePreviousOrNextVariation">چرخاندن پیشین/پسین وَرتِش</string>
   <string name="toggleGlyphAnnotations">کلید علائم حرکت‌نویسی</string>
   <string name="togglePositionAnnotations">تغییر حرکت‌نویسی وضعیت</string>
-  <string name="variationArrowsInfo">پیکان های شاخه اصلی به شما امکان می‌دهد بدون استفاده از فهرست حرکت، پیمایش کنید.</string>
+  <string name="variationArrowsInfo">پیکان های وَرتِش به شما امکان ناوِش بدون استفاده از فهرستِ حرکت را می‌دهد.</string>
   <string name="playSelectedMove">حرکت انتخاب شده را بازی کن</string>
   <string name="newTournament">مسابقه جدید</string>
-  <string name="tournamentHomeTitle">مسابقات شطرنج با گونه‌ها و زمان‌بندی‌های مختلف</string>
+  <string name="tournamentHomeTitle">مسابقات شطرنج با وَرتاها و زمان‌بندی‌های گوناگون</string>
   <string name="tournamentHomeDescription">هرچه زودتر شطرنج بازی کنید! به یک مسابقه رسمی برنامه‌ریزی‌شده بپیوندید یا مسابقات خودتان را بسازید. شطرنج گلوله‌ای، برق‌آسا، مرسوم، ۹۶۰، پادشاه تپه‌ها، سه‌کیش و دیگر گزینه‌ها، برای لذت بی‌پایان از شطرنج در دسترسند.</string>
   <string name="tournamentNotFound">مسابقات یافت نشد</string>
   <string name="tournamentDoesNotExist">این مسابقات وجود ندارد</string>
@@ -718,13 +718,13 @@
   <string name="returnToTournamentsHomepage">بازگشت به صفحه اصلی مسابقات</string>
   <string name="weeklyPerfTypeRatingDistribution">توزیع درجه‌بندی %s هفتگی</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">%1$s بازیکن %2$s این هفته فعالیت داشته‌ است.</item>
-    <item quantity="other">%1$s بازیکن %2$s این هفته فعالیت داشته‌اند.</item>
+    <item quantity="one">این هفته، %1$s بازیکن %2$s.</item>
+    <item quantity="other">این هفته، %1$s بازیکن %2$s.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">درجه‌بندی %1$s شما %2$s است.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s بهتر از %2$s بازیکنان %3$s است.</string>
-  <string name="betterThanPercentPlayers">بهتر از %1$s بازیکنان در %2$s</string>
+  <string name="betterThanPercentPlayers">بهتر از %1$s بازیکنان %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">شما درجه‌بندی %s تثبیت‌شده‌ای ندارید.</string>
   <string name="yourRating">درجه‌بندی شما</string>
   <string name="cumulative">تجمعی</string>
@@ -742,7 +742,7 @@
   <string name="downloadImported">بارگیری درونبُرد</string>
   <string name="crosstable">رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی صفحه بازی بِنَوَردید.</string>
-  <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی شاخه‌های رایانه‌ای بِغَرالید.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی وَرتِش‌های رایانه‌ای بِغَرالید.</string>
   <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
@@ -860,8 +860,8 @@
   <string name="middlegame">وسط بازی</string>
   <string name="endgame">آخربازی</string>
   <string name="conditionalPremoves">پیش‌حرکت‌های شرطی</string>
-  <string name="addCurrentVariation">اضافه کردن این نوع حرکات</string>
-  <string name="playVariationToCreateConditionalPremoves">یک نوع حرکات را بازی کنید تا پیش حرکت های شرطی را بسازید</string>
+  <string name="addCurrentVariation">افزودن وَرتِش جاری</string>
+  <string name="playVariationToCreateConditionalPremoves">بازی کردن یک وَرتِش، برای ایجاد پیش‌حرکت‌های شرطی</string>
   <string name="noConditionalPremoves">بدون پیش‌حرکت‌های شرطی</string>
   <string name="playX">%s را انجام دهید</string>
   <plurals name="andSaveNbPremoveLines">
@@ -946,13 +946,13 @@
   <string name="minimumRating">حداقل درجه‌بندی</string>
   <string name="maximumWeeklyRating">حداکثر درجه‌بندی هفتگی</string>
   <string name="positionInputHelp">برای آغاز هر بازی از یک وضعیت مشخص، یک FEN معتبر جای‌گذارید.
-تنها برای شطرنج معیار کار می‌کند، نه با شطرنج‌گونه‌ها.
-می‌توانید از %s برای آزانیدن وضعیت FEN استفاده کنید، سپس آن را اینجا جای‌گذارید.
+تنها برای شطرنج معیار کار می‌کند، نه با وَرتاها.
+می‌توانید از %s برای آزانیدن وضعیت FEN بهرایید، سپس آن را اینجا جای‌گذارید.
 برای آغاز بازی از وضعیت نخستین معمولی، خالی بگذارید.</string>
   <string name="cancelSimul">بازی هم‌زمان (سیمولتانه) را لغو نمایید</string>
   <string name="simulHostcolor">رنگ مربوط به نمایش‌دهنده یا میزبان برای هر بازی</string>
   <string name="estimatedStart">زمان تقریبی شروع بازی</string>
-  <string name="simulFeatured">نمایش در %s</string>
+  <string name="simulFeatured">آرنگیدن در %s</string>
   <string name="simulFeaturedHelp">بازی هم‌زمان خود را برای همه بر روی لینک %s نشان بدهید. برای دسترسی خصوصی آن را غیرفعال نمایید.</string>
   <string name="simulDescription">توصیف بازی هم‌زمان</string>
   <string name="simulDescriptionHelp">آیا می‌خواهید مطلبی را به شرکت‌کنندگان بگویید؟</string>
