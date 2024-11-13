@@ -247,6 +247,7 @@
     <item quantity="one">നിങ്ങളോടോത്തു %s കളികൾ</item>
     <item quantity="other">നിങ്ങളോടോത്തു %s കളികൾ</item>
   </plurals>
+  <string name="ok">ശരി</string>
   <string name="cancel">ഒഴിവാക്കുക</string>
   <string name="whiteTimeOut">വെള്ള സമയം കഴിഞു</string>
   <string name="blackTimeOut">കറുപ്പ് സമയം കഴിഞ്ഞു</string>
@@ -383,6 +384,7 @@
   <string name="apply">പ്രയോഗിക്കുക</string>
   <string name="save">സേവ് ചെയ്യുക</string>
   <string name="leaderboard">മികച്ച കളിക്കാര്‍</string>
+  <string name="screenshotCurrentPosition">താൽകാലിക കരുനില പ്രതലവെട്ടുക</string>
   <string name="gameAsGIF">കളി GIF ആയി ഇറക്കവയ്ക്കുക</string>
   <string name="pasteTheFenStringHere">FEN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
   <string name="pasteThePgnStringHere">PGN ടെക്സ്റ്റ്‌ ഇവിടെ കൊടുക്കുക</string>
@@ -491,6 +493,7 @@
   <string name="realName">യെഥാർത്ഥ പേര്</string>
   <string name="setFlair">അടയാളം വയ്ക്കുക</string>
   <string name="flair">അടയാളം</string>
+  <string name="youCanHideFlair">വെബ്സ്ഥാനത്തിന്റെ എല്ലാ ഉപയോക്താക്കളുടെ അടയാളം മറക്കാനൊരു ക്രമീകരണം ഉണ്ടു്.</string>
   <string name="biography">ജീവചരിത്രം</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">രാജ്യം അല്ലെങ്കിൽ പ്രദേശം</string>
   <string name="thankYou">നന്ദി!</string>
@@ -799,6 +802,7 @@
   <string name="bestWasX">മികച്ചത് %s ആയിരുന്നു</string>
   <string name="youBrowsedAway">നിങ്ങൾ തുടർന്ന് നീങ്ങാൻ ശ്രമിച്ചു</string>
   <string name="resumePractice">പരിശീലനം തുടരുക</string>
+  <string name="drawByFiftyMoves">ഈ കളി അമ്പതുനീക്കം ചട്ടം കാരണം സമനില എത്തിയിരിക്കുന്നു.</string>
   <string name="theGameIsADraw">ഗെയിം സമനിലയിൽ കലാശിച്ചിരിക്കുന്നു.</string>
   <string name="computerThinking">ഗണനിക ആലോചിക്കുകയാണ്...</string>
   <string name="seeBestMove">മികച്ച നീക്കം കാണുക</string>
