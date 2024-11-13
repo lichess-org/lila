@@ -118,6 +118,7 @@ export class Mic implements Microphone {
     if (this.micTrack) this.micTrack.enabled = false;
     this.download?.abort();
     this.download = undefined;
+    this.paused = 0;
     this.busy = false;
     this.recs.set(false);
     this.vosk?.select(false);

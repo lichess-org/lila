@@ -20,7 +20,7 @@ function ratingY(e?: number) {
   } else {
     ratio = mid - (ratingLog(1500 - rating) / ratingLog(500)) * mid;
   }
-  return Math.round(ratio * 94);
+  return Math.round(ratio * 92);
 }
 
 const clockMax = 2000;

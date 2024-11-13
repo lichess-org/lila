@@ -18,6 +18,9 @@
     "game": "workspace:*",
     "vosk-browser": "^0.0.8"
   },
+  "scripts": {
+    "build": "node --experimental-strip-types --no-warnings makeGrammar.mts"
+  },
   "lichess": {
     "bundles": [
       "src/voice.vosk.ts",
@@ -25,6 +28,9 @@
     ],
     "sync": {
       "grammar/**": "public/compiled/grammar"
-    }
+    },
+    "hashed": [
+      "compiled/grammar/*"
+    ]
   }
 }

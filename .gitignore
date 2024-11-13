@@ -25,7 +25,7 @@ dist/
 node_modules/
 ui/common/css/theme/gen/*.scss
 ui/.build/build
-ui/voice/.build/crowdv
+ui/voice/crowdv
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log

@@ -57,8 +57,11 @@ export function makeVoice(opts: {
   mic.setLang(lang());
 
   document.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Shift' || !pushTalk()) return;
-    mic.start();
+    if (e.key !== 'Shift') return;
+    const start = mic.isListening || pushTalk();
+    mic.stop();
+    window.speechSynthesis.cancel();
+    if (start) mic.start();
     clearTimeout(keyupTimeout);
   });
   document.addEventListener('keyup', (e: KeyboardEvent) => {

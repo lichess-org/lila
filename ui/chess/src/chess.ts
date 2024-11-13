@@ -1,6 +1,4 @@
 import { uciChar } from './uciChar';
-import { type NormalMove, type Chess, parseUci, makeUci } from 'chessops';
-import { normalizeMove } from 'chessops/chess';
 
 export * from './sanWriter';
 export const initialFen: FEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
@@ -38,10 +36,4 @@ export function readDests(lines?: string): Dests | null {
 export function readDrops(line?: string | null): Key[] | null {
   if (typeof line === 'undefined' || line === null) return null;
   return (line.match(/.{2}/g) as Key[]) || [];
-}
-
-export function normalMove(chess: Chess, unsafeUci: Uci): { uci: Uci; move: NormalMove } | undefined {
-  const unsafe = parseUci(unsafeUci);
-  const move = unsafe && 'from' in unsafe ? { ...unsafe, ...normalizeMove(chess, unsafe) } : undefined;
-  return move && chess.isLegal(move) ? { uci: makeUci(move), move } : undefined;
 }

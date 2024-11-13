@@ -19,7 +19,7 @@ export default function (ctrl: RoundController): LooseVNode {
         ),
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
         menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
-        !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
+        !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveToggle) : undefined,
       ]),
       h('section.board-menu__links', [
         h(
