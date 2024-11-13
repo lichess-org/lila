@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
 import StrongSocket from 'common/socket';
 import { userComplete } from 'common/userComplete';
+import { isTouchDevice, isIOS } from 'common/device';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -65,6 +66,14 @@ export function initModule(opts: ChallengeOpts): void {
             this.submit();
           });
       });
+    if (isTouchDevice() && typeof navigator.share === 'function') {
+      const details = document.querySelector<HTMLElement>(`${selector} .details-wrapper`)!;
+      if (isIOS()) details.classList.add('ios');
+      details.classList.add('mobile');
+      details.onclick = () =>
+        navigator.share({ title: `Fancy a game of chess?`, url: details.dataset.url }).catch(() => {});
+      document.querySelector<HTMLElement>(`${selector} .invite__url`)?.classList.add('none'); // ?
+    }
   }
 
   init();

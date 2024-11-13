@@ -138,6 +138,27 @@
         }
       }
     }
+
+    .mobile-instructions {
+      display: none;
+    }
+
+    &.mobile .mobile-instructions {
+      @extend %flex-center;
+      justify-content: center;
+      font-size: 1.5rem;
+      &::after {
+        font-family: 'lichess';
+        font-size: 6rem;
+        padding-inline-start: 1rem;
+        color: $c-primary;
+        content: $licon-ShareAndroid;
+      }
+    }
+
+    &.ios .mobile-instructions::after {
+      content: $licon-ShareIos;
+    }
   }
 
   &.challenge--declined .details {

@@ -133,3 +133,5 @@ export const Mute = ''; // e077
 export const AccountCircle = ''; // e078
 export const Logo = ''; // e079
 export const Switch = ''; // e07a
+export const ShareIos = ''; // e07b
+export const ShareAndroid = ''; // e07c
