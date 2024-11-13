@@ -19,7 +19,6 @@ cg-board::before {
   width: 100%;
   background-size: cover;
   position: absolute;
-  border-radius: inherit;
   box-shadow: inherit;
 
   body:not(.simple-board) & {
