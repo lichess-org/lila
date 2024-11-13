@@ -26,28 +26,33 @@ export async function tsc(): Promise<void> {
     .filter(x => env.building.some(pkg => x.startsWith(`${pkg.root}/`)));
 
   const maxCores = os.cpus().length;
-  const workerBuckets = {
+  const workBuckets: { [T in 'noCheck' | 'noEmit']: SplitConfig[][] } = {
     noCheck: Array.from({ length: Math.min(4, maxCores) }, () => []),
     noEmit: Array.from({ length: Math.min(8, maxCores) }, () => []),
   };
 
-  // traverse packages by descending src folder size and assign to emptiest available worker buckets
-  for (const cfg of (await Promise.all(buildPaths.map(splitConfig))).flat().sort((a, b) => b.size - a.size)) {
-    addToBucket(cfg, workerBuckets[cfg.type]);
-  }
+  // traverse packages by descending source folder size and assign to emptiest available worker buckets
+  for (const cfg of (await Promise.all(buildPaths.map(splitConfig))).flat().sort((a, b) => b.size - a.size))
+    workBuckets[cfg.type]
+      .reduce((bucket, otherBucket) =>
+        bucket.reduce((sz, c) => sz + c.size, 0) < otherBucket.reduce((sz, c) => sz + c.size, 0)
+          ? bucket
+          : otherBucket,
+      )
+      .push(cfg);
 
-  tscLog(`Transpiling ${c.grey('noCheck')} (${workerBuckets.noCheck.length} workers)`);
-  await watchMonitor(workerBuckets.noCheck, 'noCheck');
+  tscLog(`Transpiling ${c.grey('noCheck')} (${workBuckets.noCheck.length} workers)`);
+  await assignWork(workBuckets.noCheck, 'noCheck');
 
-  tscLog(`Typechecking ${c.grey('noEmit')} (${workerBuckets.noEmit.length} workers)`);
-  await watchMonitor(workerBuckets.noEmit, 'noEmit');
+  tscLog(`Typechecking ${c.grey('noEmit')} (${workBuckets.noEmit.length} workers)`);
+  await assignWork(workBuckets.noEmit, 'noEmit');
 }
 
-function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
-  const status: ('ok' | 'busy' | 'error')[] = [];
+function assignWork(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
   let resolve: (() => void) | undefined = undefined;
+  const status: ('ok' | 'busy' | 'error')[] = [];
   const ok = new Promise<void>(res => (resolve = res));
-
+  const onError = (err: Error): void => env.exit(err.message, 'tsc');
   const onMessage = (msg: Message): void => {
     // the watch builder always gives us a 6194 first time thru, even when errors are found
     if (env.watch && resolve && msg.type === 'ok' && status[msg.index] === 'error') return;
@@ -58,10 +63,7 @@ function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
     if (status.some(s => s !== 'ok')) return;
 
     resolve?.();
-    if (key === 'noEmit' && env.exitCode.get('tsc') !== 0) env.done(0, 'tsc');
-  };
-  const onError = (err: Error): void => {
-    env.exit(err.message, 'tsc');
+    if (key === 'noEmit' && env.exitCode.get('tsc') !== 0) env.done(0, 'tsc'); // TODO - no more exitCode
   };
 
   for (const bucket of buckets) {
@@ -79,38 +81,10 @@ function watchMonitor(buckets: SplitConfig[][], key: 'noCheck' | 'noEmit') {
   return ok;
 }
 
-function tscLog(msg: string): void {
-  env.log(msg, { ctx: 'tsc' });
-}
-
-function tscError(msg: Message): void {
-  const { code, text, file, line, col } = msg.data;
-  const prelude = `${errorMark} ts${code} `;
-  const message = `${ts.flattenDiagnosticMessageText(text, '\n', 0)}`;
-  let location = '';
-  if (file) {
-    location = `${c.grey('in')} '${c.cyan(path.relative(env.uiDir, file))}`;
-    if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
-    location += `' - `;
-  }
-  tscLog(`${prelude}${location}${message}`);
-  if (!env.exitCode.get('tsc')) env.done(1, 'tsc');
-}
-
-function addToBucket(config: SplitConfig, buckets: SplitConfig[][]) {
-  buckets
-    .reduce((smallest, current) =>
-      current.reduce((sum, cfg) => sum + cfg.size, 0) < smallest.reduce((sum, cfg) => sum + cfg.size, 0)
-        ? current
-        : smallest,
-    )
-    .push(config);
-}
-
 // the splitConfig transform generates noCheck and noEmit tsconfigs within the 'build' temp folder.
 // each package that emits gets a --noCheck pass for fast transpilations and declarations.
 // then we do a --noEmit pass on EVERY package to verify things, regardless of its original emit.
-// this allows more parallel type checking.
+// the declarations from the --noCheck pass allow efficient parallel type checking.
 
 interface SplitConfig {
   type: 'noEmit' | 'noCheck';
@@ -125,7 +99,7 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   const { config, error } = ts.readConfigFile(cfgPath, ts.sys.readFile);
   const io: Promise<any>[] = [];
 
-  if (error) throw new Error(`Error reading tsconfig.json: ${error.messageText}`);
+  if (error) throw new Error(`'${cfgPath}': ${error.messageText}`);
 
   const co: any = ts.parseJsonConfigFileContent(config, ts.sys, path.dirname(cfgPath)).options;
 
@@ -182,4 +156,22 @@ async function splitConfig(cfgPath: string): Promise<SplitConfig[]> {
   }
   await Promise.all(io);
   return res;
+}
+
+function tscLog(msg: string): void {
+  env.log(msg, { ctx: 'tsc' });
+}
+
+function tscError(msg: Message): void {
+  const { code, text, file, line, col } = msg.data;
+  const prelude = `${errorMark} ts${code} `;
+  const message = `${ts.flattenDiagnosticMessageText(text, '\n', 0)}`;
+  let location = '';
+  if (file) {
+    location = `${c.grey('in')} '${c.cyan(path.relative(env.uiDir, file))}`;
+    if (line !== undefined) location += c.grey(`:${line + 1}:${col + 1}`);
+    location += `' - `;
+  }
+  tscLog(`${prelude}${location}${message}`);
+  if (!env.exitCode.get('tsc')) env.done(1, 'tsc'); // TODO - no more exitCode
 }
