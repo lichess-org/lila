@@ -15,9 +15,9 @@
   <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
   <string name="otherWaysToHelp">راه دیگر برای کمک</string>
   <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. در واقع سایت های متن باز از %1$s و %2$s و %3$s لیچس استفاده میکنند.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. Lichess در واقع الهام‌بخش دیگر وبگاه‌های متن‌باز است که از %1$s، %2$s، یا %3$s ما می‌بهرایند.</string>
   <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
-  <string name="keyboardShortcutsExplanation">برخی از صفحات Lichess دارای کلیدهای میانبر هستند که می‌توانید از آنها استفاده کنید. برای مشاهده کلیدهای میانبر موجود در صفحات مطالعه، تجزیه و تحلیل، معما یا بازی، کلید «؟» را فشار دهید.</string>
+  <string name="keyboardShortcutsExplanation">برخی از صفحه‌های Lichess دارای میانبرهای صفحه‌کلید هستند که می‌توانید از آنها بهرایید. برای دیدن فهرست میانبرهای صفحه‌کلید، درون صفحهٔ مطالعه، تحلیل، معما یا بازی، کلید «؟» را بزنید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی برای پس‌گیری خودکار درجه‌بندی‌ام از تقلب‌کارها، واجد شرایط‌ هستم؟</string>
   <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
@@ -28,12 +28,11 @@
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
-  <string name="youCanUseOpeningBookNoEngine">در Lichess، تفاوت اصلی در قانون‌ها برای شطرنج مکاتبه‌ای آن است که، کتاب گشایش مجاز است. استفاده از موتورها همچنان ممنوع است و منجر به نشانه‌گذاری «کمک از موتور» می‌شود. اگرچه ICCF اجازه استفاده از موتور را در مکاتبه می‌دهد، Lichess اجازه نمی‌دهد.</string>
+  <string name="youCanUseOpeningBookNoEngine">در Lichess، تفاوت اصلی در قانون‌های شطرنج مکاتبه‌ای آن است که، کتاب گشایش مجاز است. استفاده از موتورها همچنان ممنوع است و منجر به نشانه‌گذاری «کمک از موتور» می‌شود. اگرچه ICCF اجازه استفاده از موتور را در مکاتبه می‌دهد، Lichess اجازه نمی‌دهد.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
-  <string name="basedOnGameDuration">کنترل زمانی لیچس بر اساس مدت زمان تخمینی بازی است = %1$s
-برای مثال، مدت زمان تخمینی یک بازی 3+5:
-ثانیه 420 = 40 × 3 + 60 × 5</string>
+  <string name="basedOnGameDuration">زمان‌بندی‌های Lichess بر پایهٔ مدت برآوردشدهٔ بازی است = %1$s.
+برای نمونه، مدت برآوردشدهٔ یک بازی ۵+۳ می‌شود ۵ × ۶۰ + ۴۰ × ۳۰ = ۴۲۰ ثانیه.</string>
   <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
