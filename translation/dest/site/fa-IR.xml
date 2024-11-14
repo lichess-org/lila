@@ -685,7 +685,7 @@
   <string name="simulHostExtraTime">زمان اضافی میزبان</string>
   <string name="simulAddExtraTimePerPlayer">به ازای پیوستن هر بازیکن، به زمان اولیه خود اضافه کنید.</string>
   <string name="simulHostExtraTimePerPlayer">زمان اضافه میزبان به ازای بازیکن</string>
-  <string name="lichessTournaments">مسابقات لی چس</string>
+  <string name="lichessTournaments">مسابقات Lichess</string>
   <string name="tournamentFAQ">پرسش‌های پربسامد مسابقات راوان</string>
   <string name="timeBeforeTournamentStarts">زمان باقی مانده به شروع مسابقه</string>
   <string name="averageCentipawnLoss">میانگین سرباز از دست داده</string>
@@ -735,7 +735,7 @@
   <string name="weHaveSentYouAnEmailTo">ما یک رایانامه به %s فرستاده‌ایم. برای بازنشانی گذرواژه‌تان، روی پیوند موجود در رایانامه بزنید.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">با ثبت‌نام، با %s موافقت می‌کنید.</string>
   <string name="readAboutOur">درباره %s ما بخوانید.</string>
-  <string name="networkLagBetweenYouAndLichess">تاخیر شبکه بین شما و Lichess</string>
+  <string name="networkLagBetweenYouAndLichess">تاخیر شبکه میان شما و Lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">زمان سپری شده برای پردازش یک حرکت</string>
   <string name="downloadAnnotated">بارگیری حرکت‌نویسی</string>
   <string name="downloadRaw">بارگیری خام</string>
@@ -904,7 +904,7 @@
   <string name="puzzleDesc">تمرین تاکتیک های شطرنج</string>
   <string name="important">مهم!</string>
   <string name="yourQuestionMayHaveBeenAnswered">سوال شما ممکن است که از قبل پاسخی داشته باشد %1$s</string>
-  <string name="inTheFAQ">در سوالات متداول باشد.</string>
+  <string name="inTheFAQ">در پرسش‌های پُربسامد</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">برای گزارش دادن یک کاربر به علت تقلب یا بدرفتاری، %1$s</string>
   <string name="useTheReportForm">از فرم گزارش استفاده کنید.</string>
   <string name="toRequestSupport">جهت درخواست پشتیبانی، %1$s</string>
