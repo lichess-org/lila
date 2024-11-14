@@ -30,10 +30,13 @@ final class ModTimelineUi(helpers: Helpers)(
   private val eventOrdering = summon[Ordering[Instant]].reverse
 
   private def render(t: ModTimeline)(using angle: Angle)(using Translate) = div(cls := "mod-timeline"):
+    val today = nowInstant.date
     t.all
       .filter(Angle.filter)
       .map: e =>
-        daysFromNow(e.at.date) -> e
+        if e.at.date == today
+        then momentFromNowServerText(e.at) -> e
+        else daysFromNow(e.at.date)        -> e
       .groupBy(_._1)
       .view
       .mapValues(_.map(_._2))
