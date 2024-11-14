@@ -17,7 +17,7 @@
   <string name="ongoing">ادامه‌دار</string>
   <string name="upcoming">آینده</string>
   <string name="completed">کامل‌شده</string>
-  <string name="completedHelp">Lichess تکمیل دور را بر اساس بازی‌های منبع تشخیص می‌دهد. اگر منبعی وجود ندارد، از این کلید استفاده کنید.</string>
+  <string name="completedHelp">Lichess تکمیل دور را شناسایی می‌کند، اما می‌تواند آن را اشتباه بگیرد. از این کلید برای تنظیم دستی بهرایید.</string>
   <string name="roundName">نام دور</string>
   <string name="roundNumber">شماره دور</string>
   <string name="tournamentName">نام مسابقات</string>
