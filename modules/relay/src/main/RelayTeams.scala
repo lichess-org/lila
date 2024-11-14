@@ -14,7 +14,7 @@ private class RelayTeamsTextarea(val text: String):
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
   /* We need this because `PlayerName | FideId` doesn't work
-   * the compilear can't differentiate between the two types
+   * the compiler can't differentiate between the two types
    * at runtime using pattern matching. */
   private type PlayerNameStr = String
 
