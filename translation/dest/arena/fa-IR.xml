@@ -53,7 +53,7 @@
   <string name="customStartDateHelp">در منطقه زمانی محلی خودتان. تنظیمات \"زمان قبل شروع شدن مسابقه\" را نادیده می گیرد</string>
   <string name="allowBerserk">مجاز کردن جنون</string>
   <string name="allowBerserkHelp">به بازیکنان اجازه دهید زمان خود را نصف کنند تا یک امتیاز بیشتر بگیرند</string>
-  <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
+  <string name="allowChatHelp">اجازه‌دهی به بازیکنان برای بحث در گپ‌سَرا</string>
   <string name="arenaStreaks">ریسهٔ راوان</string>
   <string name="arenaStreaksHelp">پس از دو بُرد، بُردهای پَیاپی به‌جای ۲، ۴ امتیاز می‌دهد.</string>
   <string name="noBerserkAllowed">دیوانگی مجاز نیست</string>
