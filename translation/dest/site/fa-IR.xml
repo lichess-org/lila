@@ -960,7 +960,7 @@
   <string name="embedsAvailable">وب‌نشانی بازی یا وب‌نشانی بخشی از مطالعه را، برای جاسازی آن، جایگذاری کنید.</string>
   <string name="inYourLocalTimezone">ذر منطقه زمانی شما</string>
   <string name="tournChat">چت مسابقه</string>
-  <string name="noChat">بدون چت</string>
+  <string name="noChat">بدون گپ</string>
   <string name="onlyTeamLeaders">تنها مسئولان تیم</string>
   <string name="onlyTeamMembers">تنها اعضای تیم</string>
   <string name="navigateMoveTree">ناویدن فهرست حرکت‌ها</string>
