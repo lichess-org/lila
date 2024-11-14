@@ -52,7 +52,7 @@ final class ChallengeUi(helpers: Helpers):
     s"$speed$variant ${c.mode.name} Chess • $players"
 
   private def details(c: Challenge, requestedColor: Option[Color])(using ctx: Context) =
-    div(cls := "details-wrapper", attr("data-url") := challengeLink(c))(
+    div(cls := "details-wrapper")(
       div(cls := "content")(
         div(
           cls      := "variant",
@@ -81,7 +81,7 @@ final class ChallengeUi(helpers: Helpers):
           div(fragList(c.rules.toList.map(showRule), "/"))
         )
       ),
-      div(cls := "mobile-instructions")("Tap here to share")
+      div(cls := "mobile-instructions none")("Tap here to share")
     )
 
   private def showRule(r: GameRule) =
@@ -112,6 +112,7 @@ final class ChallengeUi(helpers: Helpers):
         submitButton(cls := "button button-red text", dataIcon := Icon.X)(trans.site.cancel())
 
     page(c, json, owner = true):
+      val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white).url}"
       main(cls := s"page-small challenge-page box box-pad challenge--${c.status.name}")(
         c.status match
           case Status.Created | Status.Offline =>
@@ -142,7 +143,7 @@ final class ChallengeUi(helpers: Helpers):
                       div(cls := "invite__url")(
                         h2(cls := "ninja-title", trans.site.toInviteSomeoneToPlayGiveThisUrl()),
                         br,
-                        copyMeInput(challengeLink(c)),
+                        copyMeInput(challengeLink),
                         br,
                         p(trans.site.theFirstPersonToComeOnThisUrlWillPlayWithYou())
                       ),
@@ -172,7 +173,7 @@ final class ChallengeUi(helpers: Helpers):
                       ),
                       div(cls := "invite__qrcode")(
                         h2(cls := "ninja-title", trans.site.orLetYourOpponentScanQrCode()),
-                        qrcode(challengeLink(c), width = 150)
+                        qrcode(challengeLink, width = 150)
                       )
                     )
                 },
@@ -290,6 +291,3 @@ final class ChallengeUi(helpers: Helpers):
               details(c, color),
               a(cls := "button button-fat", href := routes.Lobby.home)(trans.site.newOpponent())
             )
-
-  private def challengeLink(c: Challenge) =
-    s"$netBaseUrl${routes.Round.watcher(c.gameId, Color.white).url}"

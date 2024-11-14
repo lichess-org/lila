@@ -66,14 +66,20 @@ export function initModule(opts: ChallengeOpts): void {
             this.submit();
           });
       });
-    const inviteUrl = document.querySelector<HTMLElement>('.invite__url');
-    if (inviteUrl && isTouchDevice() && typeof navigator.share === 'function') {
+    if (isTouchDevice() && typeof navigator.share === 'function') {
+      const inviteUrl = document.querySelector<HTMLElement>('.invite__url');
+      if (!inviteUrl) return;
+      const instructions = document.querySelector<HTMLElement>(`.mobile-instructions`)!;
+      instructions.classList.remove('none');
       inviteUrl.classList.add('none');
-      const details = document.querySelector<HTMLElement>(`.details-wrapper`)!;
-      details.classList.add('mobile');
-      details.onclick = () =>
-        navigator.share({ title: `Fancy a game of chess?`, url: details.dataset.url }).catch(() => {});
-      if (isIOS()) details.classList.add('ios');
+      instructions.closest<HTMLElement>('.details-wrapper')!.onclick = () =>
+        navigator
+          .share({
+            title: `Fancy a game of chess?`,
+            url: inviteUrl.querySelector<HTMLInputElement>('input')?.value,
+          })
+          .catch(() => {});
+      if (isIOS()) instructions.classList.add('is-ios');
     }
   }
 
