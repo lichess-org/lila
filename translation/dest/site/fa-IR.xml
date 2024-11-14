@@ -388,8 +388,8 @@
   <string name="siteDescription">کارساز برخط و رایگان شطرنج. با میانایی روان، شطرنج بازی کنید. بدون نام‌نویسی، بدون تبلیغ، بدون نیاز به افزونه. با رایانه، دوستان یا حریفان تصادفی شطرنج بازی کنید.</string>
   <string name="xJoinedTeamY">%1$s به تیم %2$s پیوست</string>
   <string name="xCreatedTeamY">%1$s تیم %2$s را ایجاد کرد</string>
-  <string name="startedStreaming">پخش را آغازید</string>
-  <string name="xStartedStreaming">%s پخش را آغازید</string>
+  <string name="startedStreaming">جریان‌سازی را آغازید</string>
+  <string name="xStartedStreaming">%s جریان‌سازی را آغازید</string>
   <string name="averageElo">میانگین درجه‌بندی</string>
   <string name="location">محل</string>
   <string name="filterGames">پالابش بازی‌ها</string>
@@ -632,7 +632,7 @@
   <string name="error.email_unique">آدرس ایمیل نامعتبر است یا قبلا در سیستم ثبت شده است</string>
   <string name="error.email_different">اکنون، این نشانی رایانامه‌تان شما است</string>
   <string name="error.minLength">باید حداقل %s حرف داشته باشد</string>
-  <string name="error.maxLength">باید حداقل دارای %s حرف باشد</string>
+  <string name="error.maxLength">باید حداکثر %s نویسه داشته باشد</string>
   <string name="error.min">باید حداقل %s باشد</string>
   <string name="error.max">باید حداکثر %s باشد</string>
   <string name="ifRatingIsPlusMinusX">اگر درجه‌بندی‌شان %s± است</string>
@@ -933,7 +933,7 @@
   <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانی رایانامه بتلیکید]</string>
   <string name="download">بارگیری</string>
   <string name="coachManager">تنظیمات مربی</string>
-  <string name="streamerManager">مدیریت پخش</string>
+  <string name="streamerManager">مدیریت جریان‌سازی</string>
   <string name="cancelTournament">لغو مسابقه</string>
   <string name="tournDescription">توضیحات مسابقه</string>
   <string name="tournDescriptionHelp">نکته خاصی را می‌خواهید به شرکت‌کنندگان گویید؟ بکوشید کوتاه باشد. پیوندهای فرونشان موجودند:
