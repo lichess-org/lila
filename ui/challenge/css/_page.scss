@@ -155,7 +155,7 @@
       content: $licon-ShareAndroid;
     }
 
-    &.is-ios .mobile-instructions::after {
+    .mobile-instructions.is-ios::after {
       content: $licon-ShareIos;
     }
   }
