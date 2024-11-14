@@ -570,7 +570,7 @@
   <string name="noNoteYet">تاکنون، بدون یادداشت</string>
   <string name="invalidUsernameOrPassword">نام کاربری یا گذرواژهٔ نامعتبر</string>
   <string name="incorrectPassword">گذرواژهٔ نادرست</string>
-  <string name="invalidAuthenticationCode">کد اصالت سنجی نامعتبر</string>
+  <string name="invalidAuthenticationCode">کد راستین‌آزمایی نامعتبر</string>
   <string name="emailMeALink">یک لینک به من ایمیل کنید</string>
   <string name="currentPassword">گذرواژهٔ جاری</string>
   <string name="newPassword">گذرواژهٔ نو</string>
