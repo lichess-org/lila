@@ -69,17 +69,21 @@ export function initModule(opts: ChallengeOpts): void {
     if (isTouchDevice() && typeof navigator.share === 'function') {
       const inviteUrl = document.querySelector<HTMLElement>('.invite__url');
       if (!inviteUrl) return;
+      inviteUrl.classList.add('none');
+
       const instructions = document.querySelector<HTMLElement>(`.mobile-instructions`)!;
       instructions.classList.remove('none');
-      inviteUrl.classList.add('none');
-      instructions.closest<HTMLElement>('.details-wrapper')!.onclick = () =>
+      if (isIOS()) instructions.classList.add('is-ios');
+
+      const details = instructions.closest<HTMLElement>('.details-wrapper')!;
+      details.role = 'button';
+      details.onclick = () =>
         navigator
           .share({
             title: `Fancy a game of chess?`,
             url: inviteUrl.querySelector<HTMLInputElement>('input')?.value,
           })
           .catch(() => {});
-      if (isIOS()) instructions.classList.add('is-ios');
     }
   }
 
