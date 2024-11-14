@@ -140,10 +140,8 @@
     }
 
     .mobile-instructions {
-      display: flex;
-      flex-flow: row wrap;
+      @extend %flex-center;
       justify-content: center;
-      align-items: center;
       font-size: 1.5rem;
     }
 
