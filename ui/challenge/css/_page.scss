@@ -146,15 +146,14 @@
     font-size: 1.5rem;
   }
 
-  .mobile-instructions::after {
+  .mobile-instructions::before {
     font-family: 'lichess';
-    font-size: 6rem;
-    padding-inline-start: 1rem;
-    color: $c-primary;
+    font-size: 3rem;
+    padding-inline-end: 1rem;
     content: $licon-ShareAndroid;
   }
 
-  .mobile-instructions.is-ios::after {
+  .mobile-instructions.is-ios::before {
     content: $licon-ShareIos;
   }
 
