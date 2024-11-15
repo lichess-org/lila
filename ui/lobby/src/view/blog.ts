@@ -37,17 +37,13 @@ export function rotateBlogs() {
     clearInterval(blogRotateTimer);
     blogRotateTimer = setInterval(rotateBlogInner, 10000);
 
-    const shiftCards = (toLeft: boolean, numTimes: number) => {
+    const shiftCards = (numTimes: number) => {
       if (numTimes <= 0) {
         return;
       }
-      if (toLeft) {
-        el.append(el.firstChild!);
-      } else {
-        el.prepend(el.lastChild!);
-      }
+      el.append(el.firstChild!);
       fix();
-      shiftCards(toLeft, numTimes - 1);
+      shiftCards(numTimes - 1);
     };
 
     const stopDragging = (xPosition: number) => {
@@ -59,9 +55,8 @@ export function rotateBlogs() {
         });
       }
       if (isDragging && currentCard) {
-        const deltaX = xPosition - startX;
-        const factor = Math.abs(deltaX) / (colW + gridGap);
-        shiftCards(deltaX < 0, Math.min(3, Math.ceil(factor - 0.7)));
+        const factor = (startX - xPosition) / (colW + gridGap);
+        shiftCards(Math.max(0, Math.min(3, Math.ceil(factor - 0.7))));
       }
       isDragging = false;
       currentCard = null;
