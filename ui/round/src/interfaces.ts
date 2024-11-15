@@ -7,6 +7,7 @@ import type { ChatCtrl, ChatPlugin } from 'chat';
 import * as Prefs from 'common/prefs';
 import type { EnhanceOpts } from 'common/richText';
 import type { RoundSocket } from './socket';
+import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
 
 export { type RoundSocket } from './socket';
 export { type CorresClockData } from './corresClock/corresClockCtrl';
@@ -196,8 +197,8 @@ export interface Pref {
   resizeHandle: Prefs.ShowResizeHandle;
 }
 
-export interface MoveMetadata {
-  premove?: boolean;
+export interface MoveMetadata extends CgMoveMetadata {
+  preConfirmed?: boolean;
   justDropped?: Role;
   justCaptured?: Piece;
 }

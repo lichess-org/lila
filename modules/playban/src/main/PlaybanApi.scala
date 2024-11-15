@@ -151,7 +151,7 @@ final class PlaybanApi(
       val veryQuick = (game.clock.fold(600)(_.estimateTotalSeconds / 3)).atMost(60)
       game.durationSeconds.exists(_ < veryQuick)
     } && {
-      game.mode.rated || game.loserUserId.exists(loser => !quickResignCasualOnce(loser))
+      game.loserUserId.exists(loser => !quickResignCasualOnce(loser))
     }
 
   private def handleQuickResign(game: Game, userId: UserId): Funit =
