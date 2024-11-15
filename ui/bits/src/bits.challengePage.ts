@@ -75,9 +75,8 @@ export function initModule(opts: ChallengeOpts): void {
       instructions.classList.remove('none');
       if (isIOS()) instructions.classList.add('is-ios');
 
-      const details = instructions.closest<HTMLElement>('.details-wrapper')!;
-      details.role = 'button';
-      details.onclick = () =>
+      instructions.role = 'button';
+      instructions.onclick = () =>
         navigator
           .share({
             title: `Fancy a game of chess?`,
