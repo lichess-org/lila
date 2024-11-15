@@ -80,7 +80,8 @@ final class ChallengeUi(helpers: Helpers):
           h2("Custom rules:"),
           div(fragList(c.rules.toList.map(showRule), "/"))
         )
-      )
+      ),
+      div(cls := "mobile-instructions none")("Tap here to share")
     )
 
   private def showRule(r: GameRule) =
@@ -139,7 +140,7 @@ final class ChallengeUi(helpers: Helpers):
                     )
                   else
                     div(cls := "invite")(
-                      div(
+                      div(cls := "invite__url")(
                         h2(cls := "ninja-title", trans.site.toInviteSomeoneToPlayGiveThisUrl()),
                         br,
                         copyMeInput(challengeLink),
