@@ -114,19 +114,28 @@ def parse_codes():
     unnamed_re = re.compile(r'$|uni[a-f0-9]{4}', re.IGNORECASE)
     codes = {}
     warnings = []
+    corrected = []
     with open('lichess.sfd', 'r') as f:
         lines = f.readlines()
         name = None
+        n = 0
+        line_ok = True
         for line in lines:
             if line.startswith('StartChar:'):
                 name = dash_camel(line.split(': ')[1].strip())
             elif line.startswith('Encoding:') and name is not None:
                 code_point = int(line.split(' ')[1])
                 if code_point >= 0xe000 and code_point <= 0xefff:
+                    code_point = 57344 + n
+                    n += 1
+                    line = f'Encoding: {code_point} {code_point} {n}\n'
                     if unnamed_re.match(name):
                         warnings.append(f'  Unnamed glyph "{name}" at code point {code_point}\n')
-                        continue
-                    codes[name] = code_point
+                    else:
+                        codes[name] = code_point
+            corrected.append(line)
+    with open('lichess.sfd', 'w') as f:
+        f.write(''.join(corrected))
     print('' if not warnings else f'\nWarnings:\n{"".join(warnings)}')
     return dict(sorted(codes.items(), key=lambda x: x[1]))
 
