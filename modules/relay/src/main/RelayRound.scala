@@ -95,14 +95,15 @@ object RelayRound:
     def hasUpstream = upstream.isDefined
     def isPush      = upstream.isEmpty
 
-    def renew(official: Boolean) =
-      if hasUpstream then copy(until = nowInstant.plusHours(if official then 3 else 1).some)
-      else pause
-
     def ongoing = until.so(_.isAfterNow)
 
     def play(official: Boolean) =
-      if hasUpstream then renew(official).copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
+      if hasUpstream
+      then
+        copy(
+          until = nowInstant.plusHours(if official then 3 else 1).some,
+          nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some)
+        )
       else pause
 
     def pause =
