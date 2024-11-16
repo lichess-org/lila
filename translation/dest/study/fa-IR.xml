@@ -84,7 +84,7 @@
   <string name="pinnedChapterComment">یادداشت سنجاقیده‌ٔ بخش</string>
   <string name="saveChapter">ذخیره بخش</string>
   <string name="clearAnnotations">پاک کردن حرکت‌نویسی</string>
-  <string name="clearVariations">پاک کردن تغییرات</string>
+  <string name="clearVariations">پاکیدن وَرتِش‌ها</string>
   <string name="deleteChapter">حذف بخش</string>
   <string name="deleteThisChapter">حذف این بخش. بازگشت وجود ندارد!</string>
   <string name="clearAllCommentsInThisChapter">همه دیدگاه‌ها، نمادها و شکل‌های ترسیم شده در این بخش، پاک شوند</string>
@@ -167,4 +167,5 @@
   <string name="playAgain">دوباره بازی کنید</string>
   <string name="whatWouldYouPlay">در این وضعیت چطور بازی می‌کنید؟</string>
   <string name="youCompletedThisLesson">تبریک! شما این درس را کامل کردید.</string>
+  <string name="perPage">%s میز</string>
 </resources>

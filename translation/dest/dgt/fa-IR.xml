@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">تخته DGT</string>
-  <string name="lichessAndDgt">لیچس و DGT</string>
+  <string name="lichessAndDgt">Lichess و DGT</string>
   <string name="dgtBoardRequirements">پیش‌نیازهای تخته DGT</string>
   <string name="dgtBoardLimitations">ملزومات تخته DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">این صفحه به شما امکان می‌دهد میز DGTتان را به Lichess وصل کنید و از آن برای انجام بازی‌ها بهرایید.</string>
@@ -11,13 +11,16 @@
   <string name="openingThisLink">باز کردن این پیوند</string>
   <string name="ifLiveChessRunningElsewhere">اگر %1$s روی دستگاه یا پورت دیگری در حال اجرا است، باید آدرس IP و پورت را در اینجا در %2$s تنظیم کنید.</string>
   <string name="configurationSection">بخش پیکربندی</string>
+  <string name="timeControlsForCasualGames">زمان‌بندی برای بازی‌های نارسمی: تنها در فکری، مکاتبه‌ای و سریع.</string>
+  <string name="timeControlsForRatedGames">زمان‌بندی برای بازی‌های رسمی: فکری، مکاتبه‌ای و برخی سریع‌ها از جمله ۱۵+۱۰ و ۲۰+۰</string>
   <string name="reloadThisPage">بارگذاری مجدد صفحه</string>
   <string name="dgtConfigure">DGT - پیکربندی</string>
-  <string name="lichessConnectivity">اتصال به لیچس</string>
+  <string name="lichessConnectivity">اتصال‏دهندگی Lichess</string>
   <string name="dgtPlayMenuEntryAdded">دَرآیه %s به نام‌چین پخش‌تان در بالا افزوده شد.</string>
   <string name="clickToGenerateOne">برای تولید یکی، اینجا کلیک کنید</string>
   <string name="useWebSocketUrl">از «%1$s» استفاده کنید، مگر اینکه %2$s روی دستگاه یا درگاه دیگری اجرا می‌شود.</string>
   <string name="textToSpeech">متن به گفتار</string>
+  <string name="moveFormatDescription">SAN استانداردی در Lichess مانند «Nf6» است. UCI در موتورهایی مانند «g8f6» رایج است.</string>
   <string name="keywords">کلیدواژه‌ها</string>
   <string name="debug">اشکال‌یابی</string>
   <string name="verboseLogging">گزارش‌دهی مفصل</string>

@@ -4,7 +4,7 @@
   <string name="xHasNoChessInsights">%s تا الان درون شطرنج نداشته است!</string>
   <string name="insightsAreProtected">درون شطرنج %s محافظت شده هستند</string>
   <string name="cantSeeInsights">متاسفیم، شما نمی توانید درون شطرنج %s را ببینید.</string>
-  <string name="generateInsights">درست کردن درون شطرنج %s.</string>
+  <string name="generateInsights">آزانیدنِ بینش‌های شطرنجی %s.</string>
   <string name="crunchingData">و حالا اطلاعات خرد کننده فقط برای شما!</string>
   <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">شاید از او تغییر %s را بخواهد؟</string>
   <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">تنظیمات درون شطرنج</string>

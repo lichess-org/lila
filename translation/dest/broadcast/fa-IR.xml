@@ -17,7 +17,7 @@
   <string name="ongoing">ادامه‌دار</string>
   <string name="upcoming">آینده</string>
   <string name="completed">کامل‌شده</string>
-  <string name="completedHelp">Lichess تکمیل دور را بر اساس بازی‌های منبع تشخیص می‌دهد. اگر منبعی وجود ندارد، از این کلید استفاده کنید.</string>
+  <string name="completedHelp">Lichess تکمیل دور را شناسایی می‌کند، اما می‌تواند آن را اشتباه بگیرد. از این کلید برای تنظیم دستی بهرایید.</string>
   <string name="roundName">نام دور</string>
   <string name="roundNumber">شماره دور</string>
   <string name="tournamentName">نام مسابقات</string>
@@ -26,7 +26,7 @@
   <string name="fullDescriptionHelp">توضیحات بلند و اختیاری پخش همگانی. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
   <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
-  <string name="sourceGameIds">تا ۶۴ شناسه بازی لیچس٬ جداشده با فاصله.</string>
+  <string name="sourceGameIds">تا ۶۴ شناسهٔ بازی Lichess، جداشده با فاصله.</string>
   <string name="startDateTimeZone">تاریخ آغاز در زمان-یانه محلی مسابقات: %s</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
@@ -49,7 +49,7 @@
   <string name="ageThisYear">سنِ امسال</string>
   <string name="unrated">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
-  <string name="openLichess">آزاد در لیچس</string>
+  <string name="openLichess">آزاد در Lichess</string>
   <string name="teams">یَران‌ها</string>
   <string name="boards">میز‌ها</string>
   <string name="overview">نمای کلی</string>
