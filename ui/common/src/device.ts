@@ -1,6 +1,7 @@
 import { type Hooks } from 'snabbdom';
 import { memoize } from './common';
 import { bind } from './snabbdom';
+import * as licon from './licon';
 
 const longPressDuration = 610;
 
@@ -60,11 +61,12 @@ export function isCol1(): boolean {
   return col1cache;
 }
 
+export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice()
+// only use other matches for workarounds or specific presentation issues
+
 export const isMobile = (): boolean => isAndroid() || isIOS();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
-
-export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export const isIOS = (constraint?: { below?: number; atLeast?: number }): boolean => {
   let answer = ios();
@@ -75,6 +77,9 @@ export const isIOS = (constraint?: { below?: number; atLeast?: number }): boolea
   return answer;
 };
 
+export const isIPad = (): boolean =>
+  navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
+
 export const isChrome = (): boolean => /Chrome\//.test(navigator.userAgent);
 
 export const isFirefox = (): boolean => /Firefox/.test(navigator.userAgent);
@@ -84,12 +89,13 @@ export const getFirefoxMajorVersion = (): number | undefined => {
   return match && match.length > 1 ? parseInt(match[1]) : undefined;
 };
 
+export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
-export const isTouchDevice = (): boolean => !hasMouse();
-
-export const isIPad = (): boolean =>
-  navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
+export const shareIcon: string = /Macintosh|iPhone|iPad|iPod/.test(navigator.userAgent) // macOS or iOS
+  ? licon.ShareIos
+  : licon.ShareAndroid;
 
 export type Feature = 'wasm' | 'sharedMem' | 'simd';
 
