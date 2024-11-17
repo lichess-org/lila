@@ -98,6 +98,7 @@ final class Env(
   val racer: lila.racer.Env             = wire[lila.racer.Env]
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
+  val recap: lila.recap.Env             = wire[lila.recap.Env]
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
   val web: lila.web.Env                 = wire[lila.web.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]
