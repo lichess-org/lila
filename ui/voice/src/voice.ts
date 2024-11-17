@@ -34,6 +34,7 @@ export function makeVoice(opts: {
   tpe: 'move' | 'coords';
 }): VoiceCtrl {
   let keyupTimeout: number;
+  let shiftDown = false;
   const mic = new Mic();
   const enabled = storedBooleanProp('voice.on', false);
   const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
@@ -57,15 +58,19 @@ export function makeVoice(opts: {
   mic.setLang(lang());
 
   document.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Shift') return;
+    if (e.key !== 'Shift' || shiftDown) return;
     const start = mic.isListening || pushTalk();
+    shiftDown = true;
     mic.stop();
     window.speechSynthesis.cancel();
     if (start) mic.start();
     clearTimeout(keyupTimeout);
   });
+
   document.addEventListener('keyup', (e: KeyboardEvent) => {
-    if (e.key !== 'Shift' || !pushTalk()) return;
+    if (e.key !== 'Shift') return;
+    shiftDown = false;
+    if (!pushTalk()) return;
     clearTimeout(keyupTimeout);
     keyupTimeout = setTimeout(() => mic.stop(), 600);
   });
