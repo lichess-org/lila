@@ -116,7 +116,6 @@
   <string name="replayMode">Mode de reproducció</string>
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
-  <string name="openStudy">Obrir estudi</string>
   <string name="enable">Habilitar</string>
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="showVariationArrows">Mostrar fletxes de les variants</string>

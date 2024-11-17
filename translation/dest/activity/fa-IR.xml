@@ -15,12 +15,12 @@
     <item quantity="other">%s مساله تاکتیکی را حل کرد</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">%1$s بازی %2$s را انجام داد</item>
-    <item quantity="other">%1$s بازی %2$s را انجام داد</item>
+    <item quantity="one">%1$s بازی %2$s کرد</item>
+    <item quantity="other">%1$s بازی %2$s کرد</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">%1$s پیام را در %2$s فرستاد</item>
-    <item quantity="other">%1$s پیام را در %2$s فرستاد</item>
+    <item quantity="one">%1$s پیام در %2$s فرستاد</item>
+    <item quantity="other">%1$s پیام در %2$s فرستاد</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s حرکت انجام داد</item>
@@ -59,8 +59,8 @@
     <item quantity="other">%s درس جدید ساخت</item>
   </plurals>
   <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
-    <item quantity="one">در %s مسابقه آرنا رقابت کرد</item>
-    <item quantity="other">در %s مسابقه آرنا رقابت کرد</item>
+    <item quantity="one">در %s مسابقهٔ راوان رقابت کرد</item>
+    <item quantity="other">در %s مسابقهٔ راوان رقابت کرد</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">رتبه #%1$s (%2$s%% برتر) با %3$s بازی در %4$s</item>
@@ -71,7 +71,7 @@
     <item quantity="other">در %s مسابقه سوئیسی رقابت کرد</item>
   </plurals>
   <string name="rankedInSwissTournament">رتبه #%1$s را در %2$s به دست آورد</string>
-  <string name="signedUp">در لیچس ثبت نام کرد</string>
+  <string name="signedUp">در lichess.org نام‌نوشت</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">به %s تیم پیوست</item>
     <item quantity="other">به %s تیم پیوست</item>

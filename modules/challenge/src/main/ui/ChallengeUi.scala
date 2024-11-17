@@ -139,7 +139,8 @@ final class ChallengeUi(helpers: Helpers):
                     )
                   else
                     div(cls := "invite")(
-                      div(
+                      button(cls := "mobile-instructions button none")("Tap here to share"),
+                      div(cls := "invite__url")(
                         h2(cls := "ninja-title", trans.site.toInviteSomeoneToPlayGiveThisUrl()),
                         br,
                         copyMeInput(challengeLink),

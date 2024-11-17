@@ -61,7 +61,7 @@
   <string name="analysis">Дошка для аналіза</string>
   <string name="depthX">Глыбіня %s</string>
   <string name="usingServerAnalysis">Выкарыстоўваецца серверны аналіз</string>
-  <string name="loadingEngine">Загружаем шахматную праграму...</string>
+  <string name="loadingEngine">Загружаем рухавічок...</string>
   <string name="calculatingMoves">Пралічваем хады...</string>
   <string name="engineFailed">Памылка пры загрузцы шахматнай праграмы</string>
   <string name="cloudAnalysis">Воблачны аналіз</string>
@@ -118,7 +118,6 @@
   <string name="replayMode">Рэжым паўтору</string>
   <string name="realtimeReplay">У рэальным часе</string>
   <string name="byCPL">Цікавае</string>
-  <string name="openStudy">Адкрыць навучанне</string>
   <string name="enable">Уключыць</string>
   <string name="bestMoveArrow">Паказваць стрэлкай найлепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
