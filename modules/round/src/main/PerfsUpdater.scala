@@ -1,5 +1,5 @@
 package lila.round
-import chess.{ ByColor, Color, Speed }
+import chess.{ ByColor, Color, Speed, Outcome }
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.GlickoExt.average
@@ -133,9 +133,9 @@ final class PerfsUpdater(
     val results = GameRatingPeriodResults(
       List(
         game.winnerColor match
-          case Some(chess.White) => DuelResult(white, black, Some(true))
-          case Some(chess.Black) => DuelResult(black, white, Some(false))
-          case None              => DuelResult(white, black, None)
+          case Some(chess.White) => DuelResult(white, black, Outcome.white)
+          case Some(chess.Black) => DuelResult(black, white, Outcome.black)
+          case None              => DuelResult(white, black, Outcome.draw)
       )
     )
     // tuning TAU per game speed may improve accuracy

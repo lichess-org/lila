@@ -1,6 +1,6 @@
 package lila.rating
 
-import chess.{ Black, Color, White }
+import chess.{ Black, Color, White, Outcome }
 
 import lila.rating.Perf.default
 import lila.rating.PerfExt.*
@@ -17,9 +17,9 @@ class RatingCalculatorTest extends lila.common.LilaTest:
     val results = GameRatingPeriodResults(
       List(
         result match
-          case Glicko.Result.Win  => DuelResult(wRating, bRating, Some(true))
-          case Glicko.Result.Loss => DuelResult(wRating, bRating, Some(false))
-          case Glicko.Result.Draw => DuelResult(wRating, bRating, None)
+          case Glicko.Result.Win  => DuelResult(wRating, bRating, Outcome.white)
+          case Glicko.Result.Loss => DuelResult(wRating, bRating, Outcome.black)
+          case Glicko.Result.Draw => DuelResult(wRating, bRating, Outcome.draw)
       )
     )
     Glicko.calculatorWithAdvantage(ColorAdvantage.standard).updateRatings(ratings, results, true)
