@@ -172,9 +172,9 @@ object JsonView:
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
 
-  given OWrites[RelayStats.RoundStats] = OWrites: r =>
+  def statsJson(stats: RelayStats.RoundStats) =
     Json.obj(
-      "viewers" -> r.viewers.map: (minute, crowd) =>
+      "viewers" -> stats.viewers.map: (minute, crowd) =>
         Json.arr(minute * 60, crowd)
     )
 

@@ -227,11 +227,7 @@ final class RelayRound(
       }(Unauthorized, Forbidden)
 
   def stats(id: RelayRoundId) = Open:
-    env.relay.stats
-      .get(id)
-      .map: stats =>
-        import lila.relay.JsonView.given
-        JsonOk(stats)
+    env.relay.statsJson(id).map(JsonOk)
 
   private def WithRoundAndTour(
       @nowarn ts: String,

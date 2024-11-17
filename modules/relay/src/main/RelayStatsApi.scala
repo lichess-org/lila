@@ -4,13 +4,13 @@ import scalalib.cache.ExpireSetMemo
 
 import lila.db.dsl.{ *, given }
 
-object RelayStats:
+private object RelayStats:
   type Minute = Int
   type Crowd  = Int
   type Graph  = List[(Minute, Crowd)]
   case class RoundStats(viewers: Graph)
 
-final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
+private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
     Executor
 ):
   import RelayStats.*
@@ -27,6 +27,8 @@ final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
             case List(minute, crowd) => (minute, crowd)
           .toList
       .map(RoundStats.apply)
+
+  def getJson(id: RelayRoundId) = get(id).map(JsonView.statsJson)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
