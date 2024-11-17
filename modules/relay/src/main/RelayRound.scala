@@ -20,15 +20,18 @@ case class RelayRound(
     startedAt: Option[Instant],
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
-    finished: Boolean,
+    finishedAt: Option[Instant],
     createdAt: Instant,
     crowd: Option[Int]
+    // crowdAt: Option[Instant], // in DB but not used by RelayRound
 ):
   inline def studyId = id.into(StudyId)
 
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)
     if s.isEmpty then "-" else s
+
+  def isFinished = finishedAt.isDefined
 
   def startsAtTime = startsAt.flatMap:
     case RelayRound.Starts.At(at) => at.some
@@ -37,13 +40,13 @@ case class RelayRound(
 
   def finish =
     copy(
-      finished = true,
+      finishedAt = finishedAt.orElse(nowInstant.some),
       sync = sync.pause
     )
 
   def resume(official: Boolean) =
     copy(
-      finished = false,
+      finishedAt = none,
       sync = sync.play(official)
     )
 

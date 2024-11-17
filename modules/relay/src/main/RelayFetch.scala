@@ -109,9 +109,9 @@ final private class RelayFetch(
           nbGamesFinished > nbGamesUnstarted
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
         autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
-        roundUpdate = updating:
-          _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-            .copy(finished = autoFinishNow)
+        roundUpdate = updating: r =>
+          r.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
+            .copy(finishedAt = r.finishedAt.orElse(autoFinishNow.option(nowInstant)))
       yield res -> roundUpdate
       syncFu
         .recover:
