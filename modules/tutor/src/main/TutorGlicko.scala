@@ -5,21 +5,22 @@ import lila.rating.{ Glicko, glicko2 }
 
 object TutorGlicko:
 
-  private type Rating  = Int
-  private type Outcome = Boolean
+  private type Rating = Int
+  private type Score  = Float
 
-  private val calculator = glicko2.RatingCalculator()
+  private val VOLATILITY = Glicko.default.volatility
+  private val TAU        = 0.75d
 
-  def outcomesRating(perf: Perf, outcomes: List[(Rating, Outcome)]): Rating =
-    val player = perf.toRating
-    val results = glicko2.BinaryRatingPeriodResults(
-      outcomes.map { case (rating, outcome) =>
-        glicko2.BinaryResult(player, glicko2.Rating(rating, 60, 0.06, 10), outcome)
+  def scoresRating(perf: Perf, scores: List[(Rating, Score)]): Rating =
+    val calculator = glicko2.RatingCalculator(VOLATILITY, TAU)
+    val player     = perf.toRating
+    val results = glicko2.FloatingRatingPeriodResults(
+      scores.map { case (rating, score) =>
+        glicko2.FloatingResult(player, glicko2.Rating(rating, 60, 0.06, 10), score)
       }
     )
 
-    // for now (unlike puzzles) exercise ratings are fixed
-    try calculator.updateRatings(Set(player), results, true)
-    catch case e: Exception => logger.error("TutorGlicko.outcomesRating", e)
+    try calculator.updateRatings(results, true)
+    catch case e: Exception => logger.error("TutorGlicko.scoresRating", e)
 
     player.rating.toInt
