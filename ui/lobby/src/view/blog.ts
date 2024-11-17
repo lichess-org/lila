@@ -35,20 +35,18 @@ export function rotateBlogs() {
     clearInterval(blogRotateTimer);
     blogRotateTimer = setInterval(rotateBlogInner, 10000);
 
-    const shiftCards = (numTimes: number) => {
-      if (numTimes <= 0) {
-        return;
-      }
-      el.append(el.firstChild!);
-      fix();
-      shiftCards(numTimes - 1);
-    };
-
     const stopDragging = (xPosition: number) => {
       if (isDragging && currentCard) {
-        fix();
         const factor = (startX - xPosition) / (colW + gridGap);
-        shiftCards(Math.max(0, Math.min(3, Math.ceil(factor - 0.7))));
+        const shiftCount = Math.max(0, Math.min(3, Math.ceil(factor - 0.7)));
+        const transition_amount_ms = 400;
+        translate_cards(-shiftCount * (colW + gridGap), `transform ${transition_amount_ms / 1000}s ease`);
+        setTimeout(() => {
+          for (let i = 0; i < shiftCount; i++) {
+            el.append(el.firstChild!);
+          }
+          fix();
+        }, transition_amount_ms);
       }
       isDragging = false;
       currentCard = null;
