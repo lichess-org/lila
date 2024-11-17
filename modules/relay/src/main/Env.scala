@@ -145,7 +145,7 @@ final class Env(
       studyApi
         .isContributor(id, who.u)
         .foreach:
-          _.so(api.requestPlay(id.into(RelayRoundId), v))
+          _.so(api.requestPlay(id.into(RelayRoundId), v, "manual toggle"))
     },
     "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
