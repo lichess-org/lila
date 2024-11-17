@@ -20,10 +20,17 @@ final class BinaryResult(val first: Rating, val second: Rating, score: Boolean) 
   private val POINTS_FOR_WIN  = 1.0d
   private val POINTS_FOR_LOSS = 0.0d
 
-  def getScore(p: Rating) =
+  def getScore(p: Rating): Double =
     if p == first then if score then POINTS_FOR_WIN else POINTS_FOR_LOSS
     else if score then POINTS_FOR_LOSS
     else POINTS_FOR_WIN
+
+
+final class FloatingResult(val first: Rating, val second: Rating, score: Double) extends Result:
+  private val ONE_HUNDRED_PCT = 1.0d
+
+  def getScore(p: Rating): Double =
+    if p == first then score else ONE_HUNDRED_PCT - score
 
 final class DuelResult(val first: Rating, val second: Rating, outcome: Option[Boolean]) extends Result:
   private val POINTS_FOR_WIN  = 1.0d

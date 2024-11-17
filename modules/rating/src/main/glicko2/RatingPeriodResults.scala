@@ -8,4 +8,7 @@ trait RatingPeriodResults[R <: Result]():
 final class BinaryRatingPeriodResults(val results: List[BinaryResult])
     extends RatingPeriodResults[BinaryResult]
 
+final class FloatingRatingPeriodResults(val results: List[FloatingResult])
+    extends RatingPeriodResults[FloatingResult]
+
 final class GameRatingPeriodResults(val results: List[DuelResult]) extends RatingPeriodResults[DuelResult]
