@@ -22,6 +22,7 @@ import { view as topicsView, formView as topicsFormView } from './topics';
 import { view as searchView } from './studySearch';
 import { render as renderTrainingView } from '../view/roundTraining';
 import type StudyCtrl from './studyCtrl';
+import { shareIcon } from 'common/device';
 
 interface ToolButtonOpts {
   ctrl: StudyCtrl;
@@ -108,7 +109,7 @@ function buttons(root: AnalyseCtrl): VNode {
           count: root.data.analysis && '✓',
         }),
       toolButton({ ctrl, tab: 'multiBoard', hint: 'Multiboard', icon: iconTag(licon.Multiboard) }),
-      toolButton({ ctrl, tab: 'share', hint: i18n.study.shareAndExport, icon: iconTag(licon.NodeBranching) }),
+      toolButton({ ctrl, tab: 'share', hint: i18n.study.shareAndExport, icon: iconTag(shareIcon()) }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         h('span.help', {
