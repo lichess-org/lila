@@ -421,7 +421,8 @@ final class RelayApi(
               s,
               _.copy(
                 id = round.studyId,
-                visibility = to.studyVisibility
+                visibility = to.studyVisibility,
+                from = Study.From.Relay(s.id.some)
               )
             ) >>
             studyApi.addTopics(round.studyId, List(StudyTopic.broadcast.value))
