@@ -129,17 +129,22 @@ final class PerfsUpdater(
       game: Game,
       advantage: ColorAdvantage = ColorAdvantage.standard
   ): Unit =
-    val ratings = Set(white, black)
     val results = GameRatingPeriodResults(
-      List(
+      white -> List(
         game.winnerColor match
-          case Some(chess.White) => DuelResult(white, black, Outcome.white)
-          case Some(chess.Black) => DuelResult(black, white, Outcome.black)
-          case None              => DuelResult(white, black, Outcome.draw)
+          case Some(chess.White) => DuelResult(black, 1.0d)
+          case Some(chess.Black) => DuelResult(black, 0.0d)
+          case None              => DuelResult(black, 0.5d)
+      ),
+      black -> List(
+        game.winnerColor match
+          case Some(chess.White) => DuelResult(white, 0.0d)
+          case Some(chess.Black) => DuelResult(white, 1.0d)
+          case None              => DuelResult(white, 0.5d)
       )
     )
     // tuning TAU per game speed may improve accuracy
-    try Glicko.calculatorWithAdvantage(advantage).updateRatings(ratings, results, true)
+    try Glicko.calculatorWithAdvantage(advantage).updateRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
   private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =

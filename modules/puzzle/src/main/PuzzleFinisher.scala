@@ -206,11 +206,15 @@ final private[puzzle] class PuzzleFinisher(
 
   private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, win: PuzzleWin): Unit =
     val ratings = Set(u1, u2)
-    val results = glicko2.BinaryRatingPeriodResults(
-      List(
-        if win.yes then glicko2.BinaryResult(u1, u2, false)
-        else glicko2.BinaryResult(u2, u1, false)
+    val results = glicko2.RatingPeriodResults[BinaryResult](
+      u1 -> List(
+        if win.yes then glicko2.BinaryResult(u2, true)
+        else glicko2.BinaryResult(u2, false)
+      ),
+      u2 -> List(
+        if win.yes then glicko2.BinaryResult(u1, false)
+        else glicko2.BinaryResult(u1, true)
       )
     )
-    try calculator.updateRatings(ratings, results)
+    try calculator.updateRatings(results)
     catch case e: Exception => logger.error("finisher", e)

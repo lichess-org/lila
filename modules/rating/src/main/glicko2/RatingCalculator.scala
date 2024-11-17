@@ -56,7 +56,7 @@ final class RatingCalculator(
     * @param results
     */
   def updateRatings(
-      results: RatingPeriodResults[?],
+      results: RatingPeriodResults[Result],
       skipDeviationIncrease: Boolean = false
   ) =
     results.foreach { case (player, results) =>

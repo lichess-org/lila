@@ -14,7 +14,7 @@ class RatingCalculatorTest extends lila.common.LilaTest:
       case Some(chess.White) => Glicko.Result.Win
       case Some(chess.Black) => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
-    val results = GameRatingPeriodResults(
+    val results = RatingPeriodResults[DuelResult](
       List(
         result match
           case Glicko.Result.Win  => DuelResult(wRating, bRating, Outcome.white)
