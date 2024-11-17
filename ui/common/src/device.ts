@@ -93,9 +93,11 @@ export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(nav
 
 export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
-export const shareIcon: string = /Macintosh|iPhone|iPad|iPod/.test(navigator.userAgent) // macOS or iOS
-  ? licon.ShareIos
-  : licon.ShareAndroid;
+export const isApple: () => boolean = memoize<boolean>(
+  () => /Macintosh|iPhone|iPad|iPod/.test(navigator.userAgent), // macOS or iOS
+);
+
+export const shareIcon: () => string = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
 export type Feature = 'wasm' | 'sharedMem' | 'simd';
 

@@ -109,7 +109,7 @@ function buttons(root: AnalyseCtrl): VNode {
           count: root.data.analysis && '✓',
         }),
       toolButton({ ctrl, tab: 'multiBoard', hint: 'Multiboard', icon: iconTag(licon.Multiboard) }),
-      toolButton({ ctrl, tab: 'share', hint: i18n.study.shareAndExport, icon: iconTag(shareIcon) }),
+      toolButton({ ctrl, tab: 'share', hint: i18n.study.shareAndExport, icon: iconTag(shareIcon()) }),
       !ctrl.relay &&
         !ctrl.data.chapter.gamebook &&
         h('span.help', {
