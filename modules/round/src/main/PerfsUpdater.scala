@@ -4,7 +4,7 @@ import chess.{ ByColor, Color, Speed, Outcome }
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.GlickoExt.average
 import lila.rating.PerfExt.{ addOrReset, toRating }
-import lila.rating.glicko2.{ DuelResult, GameRatingPeriodResults, Rating, ColorAdvantage }
+import lila.rating.glicko2.{ DuelResult, RatingPeriodResults, Rating, ColorAdvantage }
 import lila.rating.{ Glicko, PerfType, RatingFactors, RatingRegulator }
 import lila.user.{ RankingApi, UserApi }
 
@@ -129,7 +129,7 @@ final class PerfsUpdater(
       game: Game,
       advantage: ColorAdvantage = ColorAdvantage.standard
   ): Unit =
-    val results = GameRatingPeriodResults(
+    val results = RatingPeriodResults(
       white -> List(
         game.winnerColor match
           case Some(chess.White) => DuelResult(black, 1.0d, true)
