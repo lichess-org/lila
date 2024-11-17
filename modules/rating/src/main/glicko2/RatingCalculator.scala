@@ -185,17 +185,17 @@ final class RatingCalculator(
     for result <- results do
       v = v + ((Math.pow(g(result.getOpponent(player).getGlicko2RatingDeviation), 2))
         * E(
-          player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player)),
+          player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage)),
           result
             .getOpponent(player)
-            .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player).negate),
+            .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage).negate),
           result.getOpponent(player).getGlicko2RatingDeviation
         )
         * (1.0 - E(
-          player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player)),
+          player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage)),
           result
             .getOpponent(player)
-            .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player).negate),
+            .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage).negate),
           result.getOpponent(player).getGlicko2RatingDeviation
         )))
     1 / v
@@ -216,10 +216,10 @@ final class RatingCalculator(
       outcomeBasedRating = outcomeBasedRating
         + (g(result.getOpponent(player).getGlicko2RatingDeviation)
           * (result.getScore(player) - E(
-            player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player)),
+            player.getGlicko2RatingWithAdvantage(result.getAdvantage(advantage)),
             result
               .getOpponent(player)
-              .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage, player).negate),
+              .getGlicko2RatingWithAdvantage(result.getAdvantage(advantage).negate),
             result.getOpponent(player).getGlicko2RatingDeviation
           )))
     outcomeBasedRating

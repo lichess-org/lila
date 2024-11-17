@@ -6,9 +6,8 @@ trait RatingPeriodResults[R <: Result]():
   def getResults(player: Rating): List[R] = results.filter(_.participated(player))
 
 final class BinaryRatingPeriodResults(val results: List[BinaryResult])
-    extends RatingPeriodResults[BinaryResult]
 
-final class FloatingRatingPeriodResults(val results: List[FloatingResult])
-    extends RatingPeriodResults[FloatingResult]
+final class FloatingRatingPeriodResults(val results: List[Result])
+    extends RatingPeriodResults[Result]
 
 final class GameRatingPeriodResults(val results: List[DuelResult]) extends RatingPeriodResults[DuelResult]

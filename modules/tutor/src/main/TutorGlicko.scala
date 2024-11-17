@@ -13,7 +13,7 @@ object TutorGlicko:
     val player     = perf.toRating
     val results = glicko2.FloatingRatingPeriodResults(
       scores.map: (rating, score) =>
-        glicko2.FloatingResult(player, glicko2.Rating(rating, 60, 0.06, 10), score)
+        glicko2.Result(player, glicko2.Rating(rating, 60, 0.06, 10), score)
     )
 
     try calculator.updateRatings(Set(player), results, true)
