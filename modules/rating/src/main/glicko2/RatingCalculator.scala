@@ -56,14 +56,13 @@ final class RatingCalculator(
     * @param results
     */
   def updateRatings(
-      players: Iterable[Rating],
       results: RatingPeriodResults[?],
       skipDeviationIncrease: Boolean = false
   ) =
-    players.foreach { player =>
+    results.foreach { case (player, results) =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
-      if results.get(player).sizeIs > 0 then
-        calculateNewRating(player, results.get(player), elapsedRatingPeriods)
+      if results.sizeIs > 0 then
+        calculateNewRating(player, results, elapsedRatingPeriods)
       else
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
@@ -74,7 +73,7 @@ final class RatingCalculator(
     }
 
     // now iterate through the participants and confirm their new ratings
-    players.foreach { _.finaliseRating() }
+    results.keySet.foreach { _.finaliseRating() }
 
   /** This is the formula defined in step 6. It is also used for players who have not competed during the
     * rating period.
