@@ -12,7 +12,7 @@ import lila.common.LilaScheduler
  * - stores the queue in mongodb, allowing unbounded queue size and resiliency
  * - allows parallel processing of the queue with dynamic worker size
  */
-trait ParallelQueue[A, B]:
+trait ParallelQueue[A]:
   def enqueue(a: A): Fu[ParallelQueue.Status]
   def status(a: A): Fu[ParallelQueue.Status]
 
@@ -27,13 +27,13 @@ object ParallelQueue:
     val requestedAt = "requestedAt"
     val startedAt   = "startedAt"
 
-final private class ParallelMongoQueue[A: BSONHandler, B](
+final class ParallelMongoQueue[A: BSONHandler](
     coll: Coll,
     parallelism: () => Int,
     computationTimeout: FiniteDuration,
     name: String
-)(computation: A => Fu[B])(using Executor, Scheduler)
-    extends ParallelQueue[A, B]:
+)(computation: A => Funit)(using Executor, Scheduler)
+    extends ParallelQueue[A]:
 
   import ParallelQueue.*
   private given BSONDocumentHandler[Entry[A]] = Macros.handler[Entry[A]]

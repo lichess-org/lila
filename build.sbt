@@ -482,7 +482,7 @@ lazy val notifyModule = module("notify",
 )
 
 lazy val recap = module("recap",
-  Seq(memo, ui),
+  Seq(memo, ui, user, game),
   Seq()
 )
 

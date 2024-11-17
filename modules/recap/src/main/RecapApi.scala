@@ -4,7 +4,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
 
-final class RecapApi(coll: Coll)(using Executor):
+final class RecapApi(colls: RecapColls, queue: lila.memo.ParallelMongoQueue[UserId])(using Executor):
 
   private given BSONHandler[FiniteDuration] =
     BSONIntegerHandler.as[FiniteDuration](_.seconds, _.toSeconds.toInt)
@@ -12,4 +12,4 @@ final class RecapApi(coll: Coll)(using Executor):
   private given BSONDocumentHandler[Recap]         = Macros.handler
 
   def get(userId: UserId): Fu[Option[Recap]] =
-    coll.byId[Recap](userId)
+    colls.recap.byId[Recap](userId)
