@@ -62,8 +62,8 @@ final class RatingCalculator(
   ) =
     players.foreach { player =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
-      if results.getResults(player).sizeIs > 0 then
-        calculateNewRating(player, results.getResults(player), elapsedRatingPeriods)
+      if results.get(player).sizeIs > 0 then
+        calculateNewRating(player, results.get(player), elapsedRatingPeriods)
       else
         // if a player does not compete during the rating period, then only Step 6 applies.
         // the player's rating and volatility parameters remain the same but deviation increases
