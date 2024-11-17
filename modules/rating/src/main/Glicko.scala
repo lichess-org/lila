@@ -81,12 +81,12 @@ object Glicko:
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
 
-  val system = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay)
-  def calculator(advantage: ColorAdvantage) =
+  val calculator = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay)
+  def calculatorWithAdvantage(advantage: ColorAdvantage) =
     glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay, advantage)
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, nowInstant, reverse)
+    calculator.previewDeviation(p.toRating, nowInstant, reverse)
   }.atLeast(minDeviation).atMost(maxDeviation)
 
   given glickoHandler: BSONDocumentHandler[Glicko] = new BSON[Glicko]:

@@ -22,7 +22,7 @@ class RatingCalculatorTest extends lila.common.LilaTest:
           case Glicko.Result.Draw => DuelResult(wRating, bRating, None)
       )
     )
-    Glicko.calculator(ColorAdvantage.standard).updateRatings(ratings, results, true)
+    Glicko.calculatorWithAdvantage(ColorAdvantage.standard).updateRatings(ratings, results, true)
 
   test("default deviation: white wins") {
     val wr = default.toRating

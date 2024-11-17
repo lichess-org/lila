@@ -139,7 +139,7 @@ final class PerfsUpdater(
       )
     )
     // tuning TAU per game speed may improve accuracy
-    try Glicko.calculator(advantage).updateRatings(ratings, results, true)
+    try Glicko.calculatorWithAdvantage(advantage).updateRatings(ratings, results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
   private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =
