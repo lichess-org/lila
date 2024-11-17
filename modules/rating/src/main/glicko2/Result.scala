@@ -9,8 +9,6 @@ class Result(opponent: Rating, score: Double):
 
   def getOpponent(player: Rating): Rating = opponent
 
-  def participated(player: Rating): Boolean = player == opponent
-
 class BinaryResult(val opponent: Rating, val success: Boolean) extends Result(opponent, if (success) 1.0d else 0.0d)
 
 class DuelResult(val opponent: Rating, val score: Double, first: Boolean) extends Result(opponent, score):
