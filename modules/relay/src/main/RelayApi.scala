@@ -316,8 +316,8 @@ final class RelayApi(
         round   <- copyRoundSourceSettings(updated)
         _       <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
         setters <- tryBdoc(round).toEither.toFuture
-        unsetters = (from.caption.isDefined && updated.caption.isEmpty).option("caption").toList
-        _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ $unset(unsetters)).void
+        unsets = $unsetCompute(from, updated, ("caption", _.caption), ("finishedAt", _.finishedAt))
+        _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _                <- denormalizeTour(round.tourId)

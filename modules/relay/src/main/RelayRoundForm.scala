@@ -217,9 +217,7 @@ object RelayRoundForm:
         caption = if Granter(_.StudyAdmin) then caption else relay.caption,
         sync = if relay.sync.playing then sync.play(official) else sync,
         startsAt = relayStartsAt,
-        finishedAt = finished.fold(relay.finishedAt):
-          if _ then relay.finishedAt.orElse(nowInstant.some)
-          else none
+        finishedAt = finished.orZero.option(relay.finishedAt.|(nowInstant))
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
