@@ -69,6 +69,7 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
         Match($doc("crowdAt".$gt(nowInstant.minusMinutes(1)))) ->
           List(Project($doc("_id" -> 1, "crowd" -> 1)))
       .map: docs =>
+        lila.mon.relay.crowdMonitor.update(docs.size)
         if docs.size == max
         then logger.warn(s"RelayStats.fetchRoundCrowds: $max docs fetched")
         for
