@@ -166,8 +166,9 @@ object JsonView:
         "slug"      -> r.slug,
         "createdAt" -> r.createdAt
       )
-      .add("finished" -> r.finished)
-      .add("ongoing" -> (r.hasStarted && !r.finished))
+      .add("finishedAt" -> r.finishedAt)
+      .add("finished" -> r.isFinished) // BC
+      .add("ongoing" -> (r.hasStarted && !r.isFinished))
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
 

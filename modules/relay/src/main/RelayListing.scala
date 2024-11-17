@@ -147,7 +147,7 @@ final class RelayListing(
       yield
         spotlightCache = active
           .filter(_.tour.spotlight.exists(_.enabled))
-          .filterNot(_.display.finished)
+          .filterNot(_.display.isFinished)
           .filter: tr =>
             tr.display.hasStarted || tr.display.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(30)))
         active
@@ -256,7 +256,7 @@ private object RelayListing:
         .match
           case None => trs.rounds.headOption
           case Some(last) =>
-            trs.rounds.find(!_.finished) match
+            trs.rounds.find(!_.isFinished) match
               case None => last.some
               case Some(next) =>
                 if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))

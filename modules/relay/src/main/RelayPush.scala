@@ -65,9 +65,10 @@ final class RelayPush(
         allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>
-          val r2 = r1.withSync(_.addLog(event))
-          val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
-          r3.copy(finished = allGamesFinished)
+          val r2         = r1.withSync(_.addLog(event))
+          val r3         = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
+          val finishedAt = allGamesFinished.option(r3.finishedAt.|(nowInstant))
+          r3.copy(finishedAt = finishedAt)
         _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
       yield ()
 
