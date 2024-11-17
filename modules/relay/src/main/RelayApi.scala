@@ -292,7 +292,7 @@ final class RelayApi(
         _.fold(relay): sourceRound =>
           relay.copy(startsAt = sourceRound.startsAt)
 
-  def requestPlay(id: RelayRoundId, v: Boolean): Funit =
+  def requestPlay(id: RelayRoundId, v: Boolean, logMsg: => String): Funit =
     WithRelay(id): relay =>
       relay.sync.upstream.collect:
         case Sync.Upstream.Url(url)   => formatApi.refresh(url)
@@ -300,7 +300,10 @@ final class RelayApi(
       isOfficial(relay.id).flatMap: official =>
         update(relay): r =>
           if v
-          then r.withSync(_.play(official))
+          then
+            if !r.sync.playing
+            then logger.info(s"requestPlay $id $logMsg")
+            r.withSync(_.play(official))
           else r.withSync(_.pause)
         .void
 
@@ -316,13 +319,13 @@ final class RelayApi(
         round   <- copyRoundSourceSettings(updated)
         _       <- (from.name != round.name).so(studyApi.rename(round.studyId, round.name.into(StudyName)))
         setters <- tryBdoc(round).toEither.toFuture
-        unsetters = (from.caption.isDefined && updated.caption.isEmpty).option("caption").toList
-        _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ $unset(unsetters)).void
+        unsets = $unsetCompute(from, updated, ("caption", _.caption), ("finishedAt", _.finishedAt))
+        _ <- roundRepo.coll.update.one($id(round.id), $set(setters) ++ unsets).void
         _ <- (round.sync.playing != from.sync.playing)
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _                <- denormalizeTour(round.tourId)
-        nextRoundToStart <- round.finished.so(nextRoundThatStartsAfterThisOneCompletes(round))
-        _                <- nextRoundToStart.so(next => requestPlay(next.id, v = true))
+        nextRoundToStart <- round.isFinished.so(nextRoundThatStartsAfterThisOneCompletes(round))
+        _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nexRoundToStart"))
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
@@ -357,7 +360,7 @@ final class RelayApi(
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
       yield players.invalidate(relay.tourId)
-    } >> requestPlay(old.id, v = true)
+    } >> requestPlay(old.id, v = true, "reset")
 
   def deleteRound(roundId: RelayRoundId): Fu[Option[RelayTour]] =
     byIdWithTour(roundId).flatMapz: rt =>
@@ -480,7 +483,7 @@ final class RelayApi(
             .exists(_.isBefore(nowInstant.plusMinutes(earlyMinutes)))
             .so:
               logger.info(s"Automatically start $relay")
-              requestPlay(relay.id, v = true)
+              requestPlay(relay.id, v = true, "autoStart")
 
   private[relay] def autoFinishNotSyncing(onlyIds: Option[List[RelayTourId]] = None): Funit =
     roundRepo.coll

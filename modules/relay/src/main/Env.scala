@@ -65,8 +65,6 @@ final class Env(
 
   lazy val listing: RelayListing = wire[RelayListing]
 
-  lazy val stats = wire[RelayStatsApi]
-
   lazy val api: RelayApi = wire[RelayApi]
 
   lazy val tourStream: RelayTourStream = wire[RelayTourStream]
@@ -100,6 +98,10 @@ final class Env(
   private lazy val formatApi = wire[RelayFormatApi]
 
   private lazy val delay = wire[RelayDelay]
+
+  // eager init to start the scheduler
+  private val stats = wire[RelayStatsApi]
+  export stats.{ getJson as statsJson }
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](
@@ -143,7 +145,7 @@ final class Env(
       studyApi
         .isContributor(id, who.u)
         .foreach:
-          _.so(api.requestPlay(id.into(RelayRoundId), v))
+          _.so(api.requestPlay(id.into(RelayRoundId), v, "manual toggle"))
     },
     "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
