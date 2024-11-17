@@ -38,7 +38,7 @@ export function rotateBlogs() {
     const stopDragging = (xPosition: number) => {
       if (isDragging && currentCard) {
         const factor = (startX - xPosition) / (colW + gridGap);
-        const shiftCount = Math.max(0, Math.min(3, Math.ceil(factor - 0.7)));
+        const shiftCount = Math.max(0, Math.min(3, Math.ceil(factor - 0.6)));
         const transition_amount_ms = 400;
         translate_cards(-shiftCount * (colW + gridGap), `transform ${transition_amount_ms / 1000}s ease`);
         setTimeout(() => {
