@@ -59,11 +59,9 @@ export function makeVoice(opts: {
 
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.key !== 'Shift' || shiftDown) return;
-    const start = mic.isListening || pushTalk();
     shiftDown = true;
-    mic.stop();
     window.speechSynthesis.cancel();
-    if (start) mic.start();
+    if (pushTalk()) mic.start();
     clearTimeout(keyupTimeout);
   });
 
