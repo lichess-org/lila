@@ -70,11 +70,11 @@ class ModTimelineTest extends munit.FunSuite:
   test("merge mixed events"):
     assertEquals(
       aggregateEvents(List(ban1, ban2)),
-      List(bans(ban1, ban2))
+      List(bans(ban2, ban1))
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, ban2)),
-      List[Event](bans(ban1, ban2), l1)
+      List[Event](bans(ban2, ban1), l1)
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, l1)),
@@ -82,17 +82,17 @@ class ModTimelineTest extends munit.FunSuite:
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, l1, ban2)),
-      List[Event](bans(ban1, ban2), l1)
+      List[Event](bans(ban2, ban1), l1)
     )
     assertEquals(
       aggregateEvents(List(ban1, l1, l4, l1, ban2)),
-      List[Event](bans(ban1, ban2), l1, l4)
+      List[Event](bans(ban2, ban1), l1, l4)
     )
     assertEquals(
       aggregateEvents(List(l1, ban1, l4, ban2, l2, l3, l5, ban3, ban3)),
       List[Event](
         l1.copy(text = s"linguine${sep}fusilli"),
-        bans(ban1, ban2, ban3, ban3),
+        bans(ban3, ban3, ban2, ban1),
         l4.copy(text = s"bucatini${sep}rigatoni"),
         l3
       )

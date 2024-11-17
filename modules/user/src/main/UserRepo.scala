@@ -65,8 +65,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   ): Fu[List[User]] =
     coll.list[User]($doc(F.prevEmail -> email), readPref)
 
-  def idByEmail(email: NormalizedEmailAddress): Fu[Option[UserId]] =
-    coll.primitiveOne[UserId]($doc(F.email -> email), "_id")
+  def idByAnyEmail(emails: List[NormalizedEmailAddress]): Fu[Option[UserId]] =
+    coll.primitiveOne[UserId](F.email.$in(emails), "_id")
 
   def countRecentByPrevEmail(email: NormalizedEmailAddress, since: Instant): Fu[Int] =
     coll.countSel($doc(F.prevEmail -> email, F.createdAt.$gt(since)))

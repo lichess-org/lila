@@ -101,8 +101,8 @@
   <string name="youAcceptedThisInvitation">초대를 수락했습니다.</string>
   <string name="youDeclinedThisInvitation">초대를 거절했습니다.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">또는</string>
-  <string name="createMultipleAccounts">여러 리체스 계정을 한번에 만들기</string>
-  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s 를 통해 학생 이름 목록으로부터 중복 리체스 계정을 만들 수 있습니다.</string>
+  <string name="createMultipleAccounts">여러 Lichess 계정을 한번에 만들기</string>
+  <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">%s 를 통해 학생 이름 목록으로부터 중복 Lichess 계정을 만들 수 있습니다.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">이 양식을 작성해주세요.</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">수업은 최대 %1$s 명의 학생을 받을 수 있습니다. 더 많은 학생을 받으려면, %2$s.</string>
   <string name="createMoreClasses" comment="Link text in maxStudentsNote">수업을 더 만들기</string>

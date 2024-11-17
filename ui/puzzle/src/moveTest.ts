@@ -1,10 +1,15 @@
-import { altCastles } from 'chess';
 import { parseUci } from 'chessops/util';
 import { path as pathOps } from 'tree';
-import { MoveTest } from './interfaces';
-import PuzzleCtrl from './ctrl';
+import type { MoveTest } from './interfaces';
+import type PuzzleCtrl from './ctrl';
 
 type MoveTestReturn = undefined | 'fail' | 'win' | MoveTest;
+const altCastles = {
+  e1a1: 'e1c1',
+  e1h1: 'e1g1',
+  e8a8: 'e8c8',
+  e8h8: 'e8g8',
+};
 
 type AltCastle = keyof typeof altCastles;
 

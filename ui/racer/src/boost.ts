@@ -1,5 +1,5 @@
 import { getNow } from 'puz/util';
-import { PlayerWithScore } from './interfaces';
+import type { PlayerWithScore } from './interfaces';
 
 type Timestamp = number;
 

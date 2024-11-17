@@ -24,7 +24,6 @@
     "chart": "workspace:*",
     "chat": "workspace:*",
     "chess": "workspace:*",
-    "chessops": "^0.14.1",
     "common": "workspace:*",
     "debounce-promise": "^3.1.2",
     "editor": "workspace:*",
@@ -33,7 +32,6 @@
     "nvui": "workspace:*",
     "prop-types": "^15.8.1",
     "shepherd.js": "^11.2.0",
-    "snabbdom": "3.5.1",
     "sortablejs": "^1.15.3",
     "tablesort": "^5.3.0",
     "tree": "workspace:*"

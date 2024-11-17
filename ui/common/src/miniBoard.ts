@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as domData from './data';
 import { lichessClockIsRunning, setClockWidget } from './clock';
 import { uciToMove } from 'chessground/util';
@@ -110,7 +110,7 @@ export const finishMiniGame = (node: HTMLElement, win?: 'black' | 'white'): void
   });
 
 interface MiniGameUpdateData {
-  fen: Cg.FEN;
+  fen: FEN;
   lm: Uci;
   wc?: number;
   bc?: number;

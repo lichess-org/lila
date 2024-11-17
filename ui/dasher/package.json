@@ -8,8 +8,7 @@
   "module": "dist/dasher.js",
   "types": "dist/dasher.d.ts",
   "dependencies": {
-    "common": "workspace:*",
-    "snabbdom": "3.5.1"
+    "common": "workspace:*"
   },
   "lichess": {
     "bundles": "src/dasher.ts"

@@ -125,3 +125,17 @@ export function frag<T extends Node = Node>(html: string): T {
 export function $as<T>(cashOrHtml: Cash | string): T {
   return (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 }
+
+export function myUserId(): string | undefined {
+  return document.body.dataset.user;
+}
+
+export const charToRole = (char: string) =>
+  ({
+    P: 'pawn',
+    N: 'knight',
+    B: 'bishop',
+    R: 'rook',
+    Q: 'queen',
+    K: 'king',
+  })[char.toUpperCase()] as Role;

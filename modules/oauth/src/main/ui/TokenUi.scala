@@ -80,7 +80,7 @@ final class TokenUi(helpers: Helpers)(
               td(cls := "action")(
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
-                    cls := "button button-red button-empty confirm"
+                    cls := "button button-red button-empty yes-no-confirm"
                   )(trans.site.delete())
                 )
               )

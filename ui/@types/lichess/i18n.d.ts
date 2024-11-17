@@ -313,8 +313,6 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
-    /** %s per page */
-    perPage: I18nFormat;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
     pgnSourceHelp: I18nFormat;
     /** Rating diff */
@@ -3661,8 +3659,6 @@ interface I18n {
     openingExplorerAndTablebase: string;
     /** Openings */
     openings: string;
-    /** Open study */
-    openStudy: string;
     /** Open tournaments */
     openTournaments: string;
     /** Opponent */
@@ -4811,6 +4807,8 @@ interface I18n {
     orientation: string;
     /** Paste your PGN text here, up to %s games */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
+    /** %s per page */
+    perPage: I18nFormat;
     /** PGN tags */
     pgnTags: string;
     /** Pinned chapter comment */

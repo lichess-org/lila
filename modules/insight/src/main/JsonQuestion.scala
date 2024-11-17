@@ -46,6 +46,7 @@ case class JsonQuestion(
               case ClockPercentRange.key    => build(ClockPercentRange)
               case Blur.key                 => build(Blur)
               case TimeVariance.key         => build(TimeVariance)
+              case GameSource.key           => build(GameSource)
               case _                        => none
           }
           .filterNot(_.isEmpty)
@@ -75,6 +76,7 @@ case class JsonQuestion(
           case AccuracyPercentRange.key => build(AccuracyPercentRange)
           case Blur.key                 => build(Blur)
           case TimeVariance.key         => build(TimeVariance)
+          case GameSource.key           => build(GameSource)
           case _                        => none
     yield question
 

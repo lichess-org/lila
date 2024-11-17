@@ -16,8 +16,10 @@
     "chess": "workspace:*",
     "common": "workspace:*",
     "game": "workspace:*",
-    "snabbdom": "3.5.1",
     "vosk-browser": "^0.0.8"
+  },
+  "scripts": {
+    "build": "node --experimental-strip-types --no-warnings makeGrammar.mts"
   },
   "lichess": {
     "bundles": [
@@ -26,6 +28,9 @@
     ],
     "sync": {
       "grammar/**": "public/compiled/grammar"
-    }
+    },
+    "hashed": [
+      "compiled/grammar/*"
+    ]
   }
 }

@@ -1,7 +1,7 @@
 import { attributesModule, classModule, init } from 'snabbdom';
 
 import Ctrl from './ctrl';
-import { Env } from './interfaces';
+import type { Env } from './interfaces';
 import { view } from './view';
 import { registerMultipleSelect } from './multipleSelect';
 

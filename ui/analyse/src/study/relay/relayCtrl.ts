@@ -1,12 +1,12 @@
-import { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
-import { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
-import { StudyMemberCtrl } from '../studyMembers';
-import { AnalyseSocketSend } from '../../socket';
-import { Prop, Toggle, defined, notNull, prop, toggle } from 'common';
+import type { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './interfaces';
+import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
+import type { StudyMemberCtrl } from '../studyMembers';
+import type { AnalyseSocketSend } from '../../socket';
+import { type Prop, type Toggle, defined, myUserId, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
-import { StudyChapters } from '../studyChapters';
-import { MultiCloudEval } from '../multiCloudEval';
+import type { StudyChapters } from '../studyChapters';
+import type { MultiCloudEval } from '../multiCloudEval';
 import { VideoPlayer } from './videoPlayer';
 import RelayStats from './relayStats';
 import { pubsub } from 'common/pubsub';
@@ -127,7 +127,9 @@ export default class RelayCtrl {
     else history.replaceState({}, '', url);
   };
 
-  isStreamer = () => this.streams.some(([id]) => id === document.body.dataset.user);
+  isOfficial = () => !!this.data.tour.tier;
+
+  isStreamer = () => this.streams.some(([id]) => id === myUserId());
 
   pinStreamer = () =>
     defined(this.data.pinnedStream) &&

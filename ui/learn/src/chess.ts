@@ -1,42 +1,33 @@
-import * as cg from 'chessground/types';
 import { parseFen, makeBoardFen } from 'chessops/fen';
-import {
-  parseSquare,
-  makeSquare,
-  Piece,
-  Chess,
-  NormalMove as Move,
-  SquareName as Key,
-  charToRole,
-} from 'chessops';
-import { Antichess, Context } from 'chessops/variant';
+import { parseSquare, makeSquare, Chess, type NormalMove, type SquareName, charToRole } from 'chessops';
+import { Antichess, type Context } from 'chessops/variant';
 import { chessgroundDests } from 'chessops/compat';
-import { CgMove } from './chessground';
+import type { CgMove } from './chessground';
 import { makeSan } from 'chessops/san';
-import { isRole, oppColor, PromotionChar, PromotionRole } from './util';
+import { isRole, oppColor, type PromotionChar, type PromotionRole } from './util';
 
 type LearnVariant = Chess | Antichess;
 
 export interface ChessCtrl {
-  dests(pos: LearnVariant, opts?: { illegal?: boolean }): cg.Dests;
+  dests(pos: LearnVariant, opts?: { illegal?: boolean }): Dests;
   setColor(c: Color): void;
   getColor(): Color;
   fen(): string;
-  move(orig: Key, dest: Key, prom?: PromotionRole | PromotionChar | ''): Move | null;
-  moves(pos: LearnVariant): Move[];
-  occupiedKeys(): Key[];
-  kingKey(color: Color): Key | undefined;
+  move(orig: SquareName, dest: SquareName, prom?: PromotionRole | PromotionChar | ''): NormalMove | null;
+  moves(pos: LearnVariant): NormalMove[];
+  occupiedKeys(): SquareName[];
+  kingKey(color: Color): SquareName | undefined;
   findCapture(): CgMove | undefined;
   findUnprotectedCapture(): CgMove | undefined;
   checks(): CgMove[] | undefined;
   playRandomMove(): CgMove | undefined;
-  get(square: Key): Piece | undefined;
+  get(square: SquareName): Piece | undefined;
   instance: LearnVariant;
   sanHistory(): string[];
   defaultChessMate(): boolean;
 }
 
-export default function (fen: string, appleKeys: Key[]): ChessCtrl {
+export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
   const setup = parseFen(fen).unwrap();
   const chess = Chess.fromSetup(setup);
   // Use antichess when there are less than 2 kings
@@ -96,20 +87,23 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
 
   const history: string[] = [];
 
-  const moves = (pos: LearnVariant): Move[] =>
-    Array.from(dests(pos)).reduce<Move[]>(
+  const moves = (pos: LearnVariant): NormalMove[] =>
+    Array.from(dests(pos)).reduce<NormalMove[]>(
       (prev, [orig, dests]) =>
-        prev.concat(dests.map((dest): Move => ({ from: parseSquare(orig), to: parseSquare(dest) }))),
+        prev.concat(dests.map((dest): NormalMove => ({ from: parseSquare(orig), to: parseSquare(dest) }))),
       [],
     );
 
-  const findCaptures = (pos: LearnVariant): Move[] => moves(pos).filter(move => pos.board.get(move.to));
+  const findCaptures = (pos: LearnVariant): NormalMove[] => moves(pos).filter(move => pos.board.get(move.to));
 
   const setColor = (c: Color): void => {
     pos.turn = c;
   };
 
-  const moveToCgMove = (move: Move): CgMove => ({ orig: makeSquare(move.from), dest: makeSquare(move.to) });
+  const moveToCgMove = (move: NormalMove): CgMove => ({
+    orig: makeSquare(move.from),
+    dest: makeSquare(move.to),
+  });
 
   const kingKey = (color: Color) => {
     const kingSq = pos.board.kingOf(color);
@@ -127,8 +121,8 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
     setColor: setColor,
     fen: () => makeBoardFen(pos.board),
     moves: moves,
-    move: (orig: Key, dest: Key, prom?: PromotionChar | PromotionRole | '') => {
-      const move: Move = {
+    move: (orig: SquareName, dest: SquareName, prom?: PromotionChar | PromotionRole | '') => {
+      const move: NormalMove = {
         from: parseSquare(orig),
         to: parseSquare(dest),
         promotion: prom ? (isRole(prom) ? prom : charToRole(prom)) : undefined,
@@ -173,7 +167,7 @@ export default function (fen: string, appleKeys: Key[]): ChessCtrl {
       }
       return undefined;
     },
-    get: (key: Key) => pos.board.get(parseSquare(key)),
+    get: (key: SquareName) => pos.board.get(parseSquare(key)),
     instance: pos,
     sanHistory: () => history,
     defaultChessMate: (): boolean => cloneWithChessDests(pos).isCheckmate(),

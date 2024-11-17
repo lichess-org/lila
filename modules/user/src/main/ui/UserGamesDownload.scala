@@ -160,6 +160,10 @@ final class UserGamesDownload(helpers: Helpers):
         div(
           form3.cmnToggle("dl-opening", "opening", false),
           label(`for` := "dl-opening")(trans.site.opening())
+        ),
+        div(
+          form3.cmnToggle("dl-literate", "literate", false),
+          label(`for` := "dl-literate")("Textual annotations")
         )
       )
     )

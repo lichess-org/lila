@@ -20,15 +20,18 @@ case class RelayRound(
     startedAt: Option[Instant],
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
-    finished: Boolean,
+    finishedAt: Option[Instant],
     createdAt: Instant,
     crowd: Option[Int]
+    // crowdAt: Option[Instant], // in DB but not used by RelayRound
 ):
   inline def studyId = id.into(StudyId)
 
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)
     if s.isEmpty then "-" else s
+
+  def isFinished = finishedAt.isDefined
 
   def startsAtTime = startsAt.flatMap:
     case RelayRound.Starts.At(at) => at.some
@@ -37,13 +40,13 @@ case class RelayRound(
 
   def finish =
     copy(
-      finished = true,
+      finishedAt = finishedAt.orElse(nowInstant.some),
       sync = sync.pause
     )
 
   def resume(official: Boolean) =
     copy(
-      finished = false,
+      finishedAt = none,
       sync = sync.play(official)
     )
 
@@ -95,14 +98,15 @@ object RelayRound:
     def hasUpstream = upstream.isDefined
     def isPush      = upstream.isEmpty
 
-    def renew(official: Boolean) =
-      if hasUpstream then copy(until = nowInstant.plusHours(if official then 3 else 1).some)
-      else pause
-
     def ongoing = until.so(_.isAfterNow)
 
     def play(official: Boolean) =
-      if hasUpstream then renew(official).copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
+      if hasUpstream
+      then
+        copy(
+          until = nowInstant.plusHours(if official then 3 else 1).some,
+          nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some)
+        )
       else pause
 
     def pause =
@@ -128,6 +132,16 @@ object RelayRound:
     override def toString = upstream.toString
 
   object Sync:
+
+    object url:
+      private val lccRegex = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
+      extension (url: URL)
+        def lcc: Option[Lcc] = url.toString match
+          case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
+          case _                   => none
+        def looksLikeLcc = url.host.toString.endsWith("livechesscloud.com")
+    import url.*
+
     enum Upstream:
       case Url(url: URL)          extends Upstream
       case Urls(urls: List[URL])  extends Upstream
@@ -135,14 +149,11 @@ object RelayRound:
       def asUrl: Option[URL] = this match
         case Url(url) => url.some
         case _        => none
-      def isUrl = asUrl.isDefined
-      def lcc: Option[Lcc] = asUrl.flatMap:
-        _.toString match
-          case lccRegex(id, round) => round.toIntOption.map(Lcc(id, _))
-          case _                   => none
+      def isUrl            = asUrl.isDefined
+      def lcc: Option[Lcc] = asUrl.flatMap(_.lcc)
       def hasLcc = this match
-        case Url(url)   => Sync.looksLikeLcc(url)
-        case Urls(urls) => urls.exists(Sync.looksLikeLcc)
+        case Url(url)   => url.looksLikeLcc
+        case Urls(urls) => urls.exists(_.looksLikeLcc)
         case _          => false
 
       def roundId: Option[RelayRoundId] = this match
@@ -163,9 +174,6 @@ object RelayRound:
       def pageUrl         = URL.parse(s"https://view.livechesscloud.com/#$id/$round")
       def indexUrl        = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/index.json")
       def gameUrl(g: Int) = URL.parse(s"http://1.pool.livechesscloud.com/get/$id/round-$round/game-$g.json")
-
-    private val lccRegex               = """view\.livechesscloud\.com/?#?([0-9a-f\-]+)/(\d+)""".r.unanchored
-    private def looksLikeLcc(url: URL) = url.toString.contains(".livechesscloud.com/")
 
   trait AndTour:
     val tour: RelayTour

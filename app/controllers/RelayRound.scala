@@ -162,9 +162,8 @@ final class RelayRound(
           group       <- env.relay.api.withTours.get(rt.tour.id)
           previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           targetRound <- env.relay.api.officialTarget(rt.round)
-        yield JsonOk(
+        yield JsonOk:
           env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound)
-        )
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -228,11 +227,7 @@ final class RelayRound(
       }(Unauthorized, Forbidden)
 
   def stats(id: RelayRoundId) = Open:
-    env.relay.stats
-      .get(id)
-      .map: stats =>
-        import lila.relay.JsonView.given
-        JsonOk(stats)
+    env.relay.statsJson(id).map(JsonOk)
 
   private def WithRoundAndTour(
       @nowarn ts: String,
@@ -257,7 +252,7 @@ final class RelayRound(
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me
-        .soUse { env.relay.api.canUpdate(tour) }
+        .soUse(env.relay.api.canUpdate(tour))
         .elseNotFound:
           env.relay.api.formNavigation(tour).flatMap(f)
 
@@ -275,7 +270,7 @@ final class RelayRound(
           case VideoEmbed.Auto =>
             fuccess:
               rt.tour.pinnedStream
-                .ifFalse(rt.round.finished)
+                .ifFalse(rt.round.isFinished)
                 .flatMap(_.upstream)
                 .map(_.urls(netDomain).toPair)
           case VideoEmbed.No => fuccess(none)

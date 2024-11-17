@@ -1,16 +1,14 @@
 import { h, VNode } from 'snabbdom';
-import { Prop, prop } from 'common';
+import { myUserId, type Prop, prop } from 'common';
 import * as licon from 'common/licon';
 import { snabDialog } from 'common/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
-import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
+import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';
 import perfIcons from 'common/perfIcons';
 import { ucfirst } from './explorerUtil';
-import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
-import { Redraw } from '../interfaces';
 import { userComplete } from 'common/userComplete';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
@@ -30,14 +28,14 @@ type ByDbSettings = {
 export interface ExplorerConfigData {
   open: Prop<boolean>;
   db: StoredProp<ExplorerDb>;
-  rating: StoredJsonProp<number[]>;
-  speed: StoredJsonProp<ExplorerSpeed[]>;
-  mode: StoredJsonProp<ExplorerMode[]>;
+  rating: Prop<number[]>;
+  speed: Prop<ExplorerSpeed[]>;
+  mode: Prop<ExplorerMode[]>;
   byDbData: ByDbSettings;
   playerName: {
     open: Prop<boolean>;
     value: StoredProp<string>;
-    previous: StoredJsonProp<string[]>;
+    previous: Prop<string[]>;
   };
   color: Prop<Color>;
   byDb(): ByDbSetting;
@@ -55,7 +53,7 @@ export class ExplorerConfigCtrl {
     readonly onClose: () => void,
     previous?: ExplorerConfigCtrl,
   ) {
-    this.myName = document.body.dataset['user'];
+    this.myName = myUserId();
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
       name => name && name != this.myName,
     );
@@ -82,7 +80,7 @@ export class ExplorerConfigCtrl {
       byDbData,
       playerName: {
         open: prevData?.playerName.open || prop(false),
-        value: storedStringProp('analyse.explorer.player.name', document.body.dataset['user'] || ''),
+        value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
       color: prevData?.color || prop('white'),
@@ -116,7 +114,7 @@ export class ExplorerConfigCtrl {
   };
 
   toggleMany =
-    <T>(c: StoredJsonProp<T[]>) =>
+    <T>(c: Prop<T[]>) =>
     (value: T) => {
       if (!c().includes(value)) c(c().concat([value]));
       else if (c().length > 1) c(c().filter(v => v !== value));
@@ -206,7 +204,7 @@ const masterDb = (ctrl: ExplorerConfigCtrl) =>
   ]);
 
 const radioButton =
-  <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>, render?: (t: T) => VNode) =>
+  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render?: (t: T) => VNode) =>
   (v: T) =>
     h(
       'button',

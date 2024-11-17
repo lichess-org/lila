@@ -7,7 +7,7 @@
   <string name="becomePatron">Lichess 후원자가 되세요</string>
   <string name="xBecamePatron">%s가 Lichess 후원자가 되었습니다</string>
   <plurals name="xIsPatronForNbMonths">
-    <item quantity="other">%1$s는 %2$s달 동안 리체스의 후원자가 되었습니다</item>
+    <item quantity="other">%1$s는 %2$s달 동안 Lichess의 후원자입니다</item>
   </plurals>
   <string name="newPatrons">새 후원자</string>
   <string name="freeChess">무료 체스를 모두에게, 영원히!</string>
@@ -50,7 +50,7 @@
 하지만 후원자들은 새롭고 멋진 프로필 아이콘을 자랑할 수 있습니다.</string>
   <string name="featuresComparison">자세한 기능 비교 보기</string>
   <plurals name="patronForMonths">
-    <item quantity="other">%s달 동안 리체스의 후원자가 되었습니다</item>
+    <item quantity="other">%s달 동안 Lichess의 후원자입니다</item>
   </plurals>
   <string name="youSupportWith">당신은 lichess.org에 매달 %s를 지원합니다.</string>
   <string name="tyvm">당신의 지원에 대단히 감사합니다. 예압!</string>

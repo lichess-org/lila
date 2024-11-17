@@ -116,7 +116,6 @@
   <string name="replayMode">Rejouer la partie</string>
   <string name="realtimeReplay">Temps réel</string>
   <string name="byCPL">Par erreurs</string>
-  <string name="openStudy">Ouvrir l\'analyse</string>
   <string name="enable">Activée</string>
   <string name="bestMoveArrow">Flèche du meilleur coup</string>
   <string name="showVariationArrows">Afficher les flèches de variantes</string>

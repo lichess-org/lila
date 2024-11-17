@@ -5,7 +5,7 @@
 # the commit by .15s or so, which is annoying.
 if \git --no-pager diff-index -z --name-only --no-renames --cached HEAD | \
   \grep -qzE '\.(json|scss|ts)$'; then
-  # NOTE! grep must be kept in sync with lint-staged in package.json!
+  # NOTE! grep must be kept in sync with lint-staged config (bin/lint-staged-config.mjs)
 
   BIN_DIR="$(dirname -- $0)/.."
   LINT_STAGED="$BIN_DIR/../node_modules/.bin/lint-staged"

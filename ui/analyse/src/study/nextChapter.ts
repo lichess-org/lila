@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { ops as treeOps } from 'tree';
 
 export const renderNextChapter = (ctrl: AnalyseCtrl) =>

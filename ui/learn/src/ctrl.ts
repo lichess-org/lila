@@ -1,7 +1,6 @@
-import { LearnProgress, LearnOpts } from './learn';
-import { Stage } from './stage/list';
-import * as stages from './stage/list';
-import * as scoring from './score';
+import type { LearnProgress, LearnOpts } from './learn';
+import { type Stage, byId as stageById } from './stage/list';
+import { gtz } from './score';
 import { SideCtrl } from './sideCtrl';
 import { clearTimeouts } from './timeouts';
 import { extractHashParameters } from './hashRouting';
@@ -41,7 +40,7 @@ export class LearnCtrl {
       // otherwise find a level id based on the last completed level
       (() => {
         if (!stageId) return;
-        const stage = stages.byId[stageId];
+        const stage = stageById[stageId];
         if (!stage) return;
         const result = this.data.stages[stage.key];
         let it = 0;
@@ -58,16 +57,16 @@ export class LearnCtrl {
   inStage = () => this.opts.stageId !== null;
 
   isStageIdComplete = (stageId: number) => {
-    const stage = stages.byId[stageId];
+    const stage = stageById[stageId];
     if (!stage) return true;
     const result = this.data.stages[stage.key];
     if (!result) return false;
-    return result.scores.filter(scoring.gtz).length >= stage.levels.length;
+    return result.scores.filter(gtz).length >= stage.levels.length;
   };
 
   stageProgress = (stage: Stage) => {
     const result = this.data.stages[stage.key];
-    const complete = result ? result.scores.filter(scoring.gtz).length : 0;
+    const complete = result ? result.scores.filter(gtz).length : 0;
     return [complete, stage.levels.length];
   };
 }

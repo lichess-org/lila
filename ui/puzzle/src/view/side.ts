@@ -1,13 +1,12 @@
-import { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
+import type { Puzzle, PuzzleGame, PuzzleDifficulty } from '../interfaces';
 import * as licon from 'common/licon';
-import { dataIcon, onInsert, MaybeVNode, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
+import { type VNode, dataIcon, onInsert, type MaybeVNode, looseH as h } from 'common/snabbdom';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
-import * as router from 'common/router';
+import { withLang } from 'common/router';
 import { userLink } from 'common/userLink';
-import PuzzleStreak from '../streak';
-import PuzzleCtrl from '../ctrl';
+import type PuzzleStreak from '../streak';
+import type PuzzleCtrl from '../ctrl';
 
 export function puzzleBox(ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;
@@ -37,7 +36,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
                 'a',
                 {
                   attrs: {
-                    href: router.withLang(`/training/${puzzle.id}`),
+                    href: withLang(`/training/${puzzle.id}`),
                     ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
                   },
                 },
@@ -101,21 +100,23 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
   if (!data.user)
     return h('div.puzzle__side__user', [
       h('p', i18n.puzzle.toGetPersonalizedPuzzles),
-      h('a.button', { attrs: { href: router.withLang('/signup') } }, i18n.site.signUp),
+      h('a.button', { attrs: { href: withLang('/signup') } }, i18n.site.signUp),
     ]);
   const diff = ctrl.round?.ratingDiff,
-    ratedId = 'puzzle-toggle-rated';
+    ratedId = `puzzle-toggle-rated_hint-${ctrl.hintHasBeenShown()}`;
   return h('div.puzzle__side__user', [
     !data.replay &&
       !ctrl.streak &&
       data.user &&
       h('div.puzzle__side__config__toggle', [
         h('div.switch', [
-          h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle`, {
-            attrs: { type: 'checkbox', checked: ctrl.rated(), disabled: ctrl.lastFeedback != 'init' },
-            hook: {
-              insert: vnode => (vnode.elm as HTMLElement).addEventListener('change', ctrl.toggleRated),
+          h(`input#${ratedId}.cmn-toggle.cmn-toggle--subtle.`, {
+            attrs: {
+              type: 'checkbox',
+              checked: ctrl.rated() && !ctrl.hintHasBeenShown(),
+              disabled: ctrl.lastFeedback != 'init' || ctrl.hintHasBeenShown(),
             },
+            hook: onInsert(el => el.addEventListener('change', ctrl.toggleRated)),
           }),
           h('label', { attrs: { for: ratedId } }),
         ]),

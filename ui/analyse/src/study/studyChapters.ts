@@ -1,12 +1,11 @@
 import { defined, prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
-import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { StudySocketSend } from '../socket';
+import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import {
+import type {
   LocalPaths,
   StudyChapter,
   StudyChapterConfig,
@@ -21,7 +20,7 @@ import {
   ChapterSelect,
   StatusStr,
 } from './interfaces';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';
@@ -56,6 +55,7 @@ export default class StudyChaptersCtrl {
   constructor(
     initChapters: ChapterPreviewFromServer[],
     readonly send: StudySocketSend,
+    readonly isBroadcast: boolean,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     private readonly federations: () => Federations | undefined,
@@ -63,8 +63,8 @@ export default class StudyChaptersCtrl {
   ) {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
-    this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
-    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.redraw);
+    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, isBroadcast, root.redraw);
   }
 
   sort = (ids: string[]) => this.send('sortChapters', ids);

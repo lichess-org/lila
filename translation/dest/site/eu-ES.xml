@@ -116,7 +116,6 @@
   <string name="replayMode">Partida berriz ikusteko modua</string>
   <string name="realtimeReplay">Denbora errealean</string>
   <string name="byCPL">CPL</string>
-  <string name="openStudy">Ikerketa ireki</string>
   <string name="enable">Aktibatu</string>
   <string name="bestMoveArrow">Jokaldi onenaren gezia</string>
   <string name="showVariationArrows">Erakutsi aldaeren geziak</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s partida zure aurka</item>
     <item quantity="other">%s partida zure aurka</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Ezeztatu</string>
   <string name="whiteTimeOut">Zuriaren denbora agortu egin da</string>
   <string name="blackTimeOut">Beltzaren denbora agortu egin da</string>
@@ -992,4 +992,5 @@ Utzi hutsik partidak ohiko posizioarekin hasteko.</string>
   <string name="lichessPatronInfo">Lichess software librea da.
 Garapen eta mantentze-kostu guztiak erabiltzaileen dohaintzekin ordaintzen dira.</string>
   <string name="nothingToSeeHere">Hemen ez dago ezer zuretzat.</string>
+  <string name="stats">Estatistikak</string>
 </resources>

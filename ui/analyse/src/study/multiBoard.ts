@@ -1,14 +1,14 @@
 import * as licon from 'common/licon';
 import { otbClockIsRunning, formatMs } from 'common/clock';
 import { fenColor } from 'common/miniBoard';
-import { MaybeVNode, VNode, bind, onInsert } from 'common/snabbdom';
+import { type MaybeVNode, type VNode, bind, onInsert } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
-import { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
-import StudyCtrl from './studyCtrl';
-import { CloudEval, MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
-import { Prop, Toggle, defined, notNull, prop, toggle } from 'common';
-import { Color } from 'chessops';
-import { StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
+import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
+import type StudyCtrl from './studyCtrl';
+import { type CloudEval, type MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
+import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'common';
+import type { Color } from 'chessops';
+import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
 import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
 import { h } from 'snabbdom';
@@ -130,7 +130,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
       'select.study__multiboard__pager__max-per-page',
       { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
       [4, 6, 8, 10, 12, 16, 20, 24, 32].map(nb =>
-        h('option', { attrs: { value: nb, selected: nb == max } }, i18n.broadcast.perPage(nb)),
+        h('option', { attrs: { value: nb, selected: nb == max } }, i18n.study.perPage(nb)),
       ),
     ),
   ]);

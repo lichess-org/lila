@@ -116,7 +116,6 @@
   <string name="replayMode">Tekrar modu</string>
   <string name="realtimeReplay">Gerçek Zamanlı</string>
   <string name="byCPL">CPL ile</string>
-  <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
@@ -259,6 +258,7 @@
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
   </plurals>
+  <string name="ok">Tamam</string>
   <string name="cancel">İptal et</string>
   <string name="whiteTimeOut">Beyazın zamanı tükendi</string>
   <string name="blackTimeOut">Siyahın zamanı tükendi</string>

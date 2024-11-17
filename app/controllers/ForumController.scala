@@ -51,8 +51,7 @@ private[controllers] trait ForumController:
       if granted | isGranted(_.ModerateForum)
       then a
       else
-        getTopic.flatMap { topic =>
+        getTopic.flatMap: topic =>
           if topic.exists(_.isUblogAuthor(me)) then a
           else Forbidden("You cannot moderate this forum")
-        }
     }

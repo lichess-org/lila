@@ -7,7 +7,7 @@
   <string name="kingsideCastle">قلعه کوچک</string>
   <string name="queensideCastle">قلعه بزرگ</string>
   <string name="promoteC8ToQueen">ارتقا c8 به وزیر</string>
-  <string name="dropARookAtB4">رُخ را در b4 بکارید (فقط در شطرنج‌گونه دیوانه‌خانه)</string>
+  <string name="dropARookAtB4">رُخ را در b4 بکارید (فقط در وَرتای دیوانه‌خانه)</string>
   <string name="offerOrAcceptDraw">پیشنهاد یا قبول تساوی</string>
   <string name="readOutClocks">اعلام ساعت</string>
   <string name="readOutOpponentName">نام حریف را بخوانید</string>

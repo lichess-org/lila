@@ -29,8 +29,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
           _ <- SwissPlayer.fields: f =>
             prevPlayers
               .zip(players)
-              .withFilter: (a, b) =>
-                a != b
+              .withFilter(_ != _)
               .map: (_, player) =>
                 mongo.player.update
                   .one(
@@ -63,8 +62,9 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
         .listAll()
 
   private def fetchPairings(swiss: Swiss) =
-    (!swiss.isCreated).so(SwissPairing.fields: f =>
-      mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id)))
+    (!swiss.isCreated).so:
+      SwissPairing.fields: f =>
+        mongo.pairing.list[SwissPairing]($doc(f.swissId -> swiss.id))
 
 private object SwissScoring:
 

@@ -1,4 +1,4 @@
-import {
+import type {
   ChatOpts,
   Line,
   Tab,
@@ -11,12 +11,12 @@ import {
   ChatPalantir,
   ChatPlugin,
 } from './interfaces';
-import { PresetCtrl, presetCtrl } from './preset';
+import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
-import { pubsub, PubsubEvent, PubsubCallback } from 'common/pubsub';
+import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
 import { alert } from 'common/dialog';
 
 export default class ChatCtrl {
@@ -106,7 +106,9 @@ export default class ChatCtrl {
     return true;
   };
 
-  onTimeout = (userId: string): void => {
+  listenToIncoming = (cb: (line: Line) => void): void => pubsub.on('socket.in.message', cb);
+
+  private onTimeout = (userId: string): void => {
     let change = false;
     this.data.lines.forEach(l => {
       if (l.u && l.u.toLowerCase() == userId) {
@@ -121,14 +123,14 @@ export default class ChatCtrl {
     }
   };
 
-  onReinstate = (userId: string): void => {
+  private onReinstate = (userId: string): void => {
     if (userId == this.data.userId) {
       this.vm.timeout = false;
       this.redraw();
     }
   };
 
-  onMessage = (line: Line): void => {
+  private onMessage = (line: Line): void => {
     this.data.lines.push(line);
     const nb = this.data.lines.length;
     if (nb > this.maxLines) {
@@ -138,12 +140,12 @@ export default class ChatCtrl {
     this.redraw();
   };
 
-  onWriteable = (v: boolean): void => {
+  private onWriteable = (v: boolean): void => {
     this.vm.writeable = v;
     this.redraw();
   };
 
-  onPermissions = (obj: Permissions): void => {
+  private onPermissions = (obj: Permissions): void => {
     let p: keyof Permissions;
     for (p in obj) this.opts.permissions[p] = obj[p];
     this.instanciateModeration();
@@ -166,7 +168,7 @@ export default class ChatCtrl {
     this.subs.forEach(([eventName, callback]) => pubsub.off(eventName, callback));
   };
 
-  emitEnabled = (): void => pubsub.emit('chat.enabled', this.vm.enabled);
+  private emitEnabled = (): void => pubsub.emit('chat.enabled', this.vm.enabled);
 
   setTab = (t: Tab): void => {
     this.vm.tab = t;

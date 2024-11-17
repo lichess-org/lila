@@ -1,10 +1,9 @@
-import { h, VNode } from 'snabbdom';
-import { Toggle, onClickAway } from 'common/common';
+import { h, type VNode } from 'snabbdom';
+import { type Toggle, myUserId, onClickAway } from 'common/common';
 import { bindMobileMousedown } from 'common/device';
 import * as licon from 'common/licon';
-import { MaybeVNode, MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
-import { Redraw } from 'chessground/types';
-import * as controls from 'common/controls';
+import { type MaybeVNode, type MaybeVNodes, dataIcon, onInsert } from 'common/snabbdom';
+import { type ToggleSettings, toggle } from 'common/controls';
 import { pubsub } from 'common/pubsub';
 
 export const toggleButton = (toggle: Toggle, title: string): VNode =>
@@ -28,7 +27,7 @@ export const menu = (
     : undefined;
 
 export class BoardMenu {
-  anonymous: boolean = document.querySelector('body[data-user]') === null;
+  anonymous: boolean = !myUserId();
 
   constructor(readonly redraw: Redraw) {}
 
@@ -90,5 +89,5 @@ export class BoardMenu {
       disabled: !enabled,
     });
 
-  private cmnToggle = (t: controls.ToggleSettings) => controls.toggle(t, this.redraw);
+  private cmnToggle = (t: ToggleSettings) => toggle(t, this.redraw);
 }

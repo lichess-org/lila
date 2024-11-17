@@ -1,6 +1,5 @@
-import { Level, Stage } from './stage/list';
-import * as util from './util';
-import { Role } from 'chessops';
+import type { Level, Stage } from './stage/list';
+import { readKeys } from './util';
 
 export const apple = 50;
 export const capture = 50;
@@ -20,9 +19,7 @@ export const getLevelBonus = (l: Level, nbMoves: number) => {
 };
 
 const getLevelMaxScore = (l: Level): number =>
-  util.readKeys(l.apples).length * apple +
-  (l.pointsForCapture ? (l.captures || 0) * capture : 0) +
-  levelBonus[1];
+  readKeys(l.apples).length * apple + (l.pointsForCapture ? (l.captures || 0) * capture : 0) + levelBonus[1];
 
 export const getLevelRank = (l: Level, score: number): Rank => {
   const max = getLevelMaxScore(l);

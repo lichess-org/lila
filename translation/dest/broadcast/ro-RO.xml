@@ -51,5 +51,10 @@
   <string name="openLichess">Deschide în Lichess</string>
   <string name="teams">Echipe</string>
   <string name="standings">Clasament</string>
-  <string name="score" comment="The player's score in a broadcasted tournament, if they use a scoring system in that tournament. See for example https://lichess.org/broadcast/european-chess-club-cup--open/round-7/bmF7F8zb#players">Scor</string>
+  <string name="officialStandings">Clasament oficial</string>
+  <string name="score">Scor</string>
+  <string name="allTeams">Toate echipele</string>
+  <string name="tournamentFormat">Format turneu</string>
+  <string name="tournamentLocation">Locație turneu</string>
+  <string name="timezone">Fus orar</string>
 </resources>

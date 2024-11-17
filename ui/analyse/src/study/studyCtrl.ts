@@ -1,11 +1,10 @@
-import { Config as CgConfig } from 'chessground/config';
-import { DrawShape } from 'chessground/draw';
+import type { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
 import { debounce, throttle, throttlePromise } from 'common/timing';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';
-import { StudyPracticeData } from './practice/interfaces';
+import type { StudyPracticeData } from './practice/interfaces';
 import { CommentForm } from './commentForm';
 import { GlyphForm } from './studyGlyph';
 import { StudyForm } from './studyForm';
@@ -16,7 +15,7 @@ import { TagsForm } from './studyTags';
 import ServerEval from './serverEval';
 import * as xhr from './studyXhr';
 import { path as treePath, ops as treeOps } from 'tree';
-import {
+import type {
   StudyVm,
   Tab,
   ToolTab,
@@ -40,15 +39,15 @@ import {
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
-import { RelayData } from './relay/interfaces';
+import type { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
-import { StudySocketSendParams } from '../socket';
+import type { StudySocketSendParams } from '../socket';
 import { storedMap } from 'common/storage';
 import { opposite } from 'chessops/util';
 import StudyChaptersCtrl from './studyChapters';
 import { SearchCtrl } from './studySearch';
-import { GamebookOverride } from './gamebook/interfaces';
-import { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
+import type { GamebookOverride } from './gamebook/interfaces';
+import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
 import { MultiCloudEval } from './multiCloudEval';
 import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialog';
@@ -151,6 +150,7 @@ export default class StudyCtrl {
     this.chapters = new StudyChaptersCtrl(
       data.chapters!,
       this.send,
+      defined(relayData),
       () => this.setTab('chapters'),
       chapterId => xhr.chapterConfig(data.id, chapterId),
       () => this.data.federations,
@@ -303,7 +303,7 @@ export default class StudyCtrl {
     this.vm.mode.write = this.vm.mode.write && canContribute;
     pubsub.emit('chat.writeable', this.data.features.chat);
     // official broadcasts cannot have local mods
-    pubsub.emit('chat.permissions', { local: canContribute && !this.relayData?.tour.official });
+    pubsub.emit('chat.permissions', { local: canContribute && !this.relay?.isOfficial() });
     pubsub.emit('palantir.toggle', this.data.features.chat && !!this.members.myMember());
     const computer: boolean =
       !this.isGamebookPlay() && !!(this.data.chapter.features.computer || this.data.chapter.practice);

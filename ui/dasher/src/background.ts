@@ -1,11 +1,11 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { elementScrollBarWidthSlowGuess, header } from './util';
 import { debounce, throttlePromiseDelay } from 'common/timing';
 import { prefersLight } from 'common/theme';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'common/xhr';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
 
 export interface BackgroundData {
@@ -65,9 +65,10 @@ export class BackgroundCtrl extends PaneCtrl {
       this.data.current = c;
       this.apply();
       this.redraw();
-      return xhr
-        .text('/pref/bg', { body: xhr.form({ bg: c }), method: 'post' })
-        .then(this.reloadAllTheThings, this.announceFail);
+      return xhrText('/pref/bg', { body: xhrForm({ bg: c }), method: 'post' }).then(
+        this.reloadAllTheThings,
+        this.announceFail,
+      );
     },
   );
 
@@ -86,8 +87,7 @@ export class BackgroundCtrl extends PaneCtrl {
   private getImage = () => this.data.image;
   private setImage = (i: string) => {
     this.data.image = i;
-    xhr
-      .textRaw('/pref/bgImg', { body: xhr.form({ bgImg: i }), method: 'post' })
+    xhrTextRaw('/pref/bgImg', { body: xhrForm({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
       .then(this.reloadAllTheThings, err => err.then(this.announceFail));
     this.apply();

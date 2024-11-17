@@ -160,7 +160,6 @@ object mon:
     object farming:
       val bot         = counter("round.farming.bot").withoutTags()
       val provisional = counter("round.farming.provisional").withoutTags()
-    val fideGWR = counter("round.fideGWR").withoutTags()
   object playban:
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
     object ban:
@@ -284,6 +283,7 @@ object mon:
     private def relay(official: Boolean, id: RelayTourId, slug: String) =
       tags("by" -> by(official), "slug" -> s"$slug/$id")
     def ongoing(official: Boolean) = gauge("relay.ongoing").withTag("by", by(official))
+    val crowdMonitor               = gauge("relay.crowdMonitor").withoutTags()
     def games(official: Boolean, id: RelayTourId, slug: String) =
       gauge("relay.games").withTags(relay(official, id, slug))
     def moves(official: Boolean, id: RelayTourId, slug: String) =

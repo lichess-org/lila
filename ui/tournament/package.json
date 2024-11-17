@@ -17,8 +17,7 @@
     "common": "workspace:*",
     "date-fns": "2.30.0",
     "dragscroll": "^0.0.8",
-    "game": "workspace:*",
-    "snabbdom": "3.5.1"
+    "game": "workspace:*"
   },
   "lichess": {
     "bundles": [

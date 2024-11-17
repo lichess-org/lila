@@ -49,16 +49,16 @@
 اگر این خانه را خالی گذارید، Lichess خودکار رویارویی‌ها را می‌چیند.</string>
   <string name="mustHavePlayedTheirLastSwissGame">باید آخرین بازی سوییسی‌شان را کرده باشند</string>
   <string name="newSwiss">مسابقات سوئیسی جدید</string>
-  <string name="swissVsArenaQ">چه زمانی از مسابقات با ساختار سوئیسی به جای آرنا استفاده کنیم؟</string>
-  <string name="swissVsArenaA">در مسابقه با فرم سوئیسی، تمام شرکت کننده ها به تعداد برابر بازی انجام می دهند و هر دو بازیکن فقط یک بار با یکدیگر بازی می کنند.
-این شکل از مسابقه می تواند گزینه مناسبی برای باشگاه ها و مسابقات رسمی باشد.</string>
+  <string name="swissVsArenaQ">کِی از مسابقات سوئیسی به جای راوان استفاده کنیم؟</string>
+  <string name="swissVsArenaA">در یک مسابقهٔ سوئیسی، همه شرکت‌گران به تعداد یکسان و فقط یک‌بار می‌توانند با یکدیگر بازی کنند.
+می‌تواند گزینهٔ خوبی برای باشگاه‌ها و مسابقات رسمی باشد.</string>
   <string name="pointsCalculationQ">چگونه امتیازات محاسبه میشوند؟</string>
   <string name="pointsCalculationA">به هر برد یک امتیاز و هر مساوی یک امتیاز تعلق می گیرد و باخت هیچ امتیازی ندارد.
 زمانی که یک بازیکن در یک دور هیچ حریفی نداشته باشد، یک استراحت به ایشان تعلق می گیرد که یک امتیاز به حسب می آید.</string>
   <string name="tiebreaksCalculationQ">امتیاز شکنی چطور محاسبه میشود؟</string>
   <string name="sonnebornBergerScore">امتیاز Sonneborn–Berger</string>
-  <string name="tiebreaksCalculationA">با %s .
-امتیازهای هر حریفی را که بازیکن شکست می دهد و نیمی از امتیاز هر بازی که مساوی میشود را اضافه کنید.</string>
+  <string name="tiebreaksCalculationA">با %s.
+امتیازهای هر حریفی را که این بازیکن می‌بَرد و نیمی از امتیاز هر حریفی که این بازیکن مساوی می‌کند را بیفزایید.</string>
   <string name="pairingsQ">سیستم جفت سازی چطور کار میکند؟</string>
   <string name="dutchSystem">سیستم هلندی</string>
   <string name="FIDEHandbook">کتابچه فدراسیون جهانی شطرنج</string>
@@ -88,7 +88,7 @@
 دلیل آن این است که هیچ راه عادلانه ای برای برخورد با افرادی که زودتر از موعد مسابقات را ترک می کنند، ندارد. ما نمی توانیم انتظار داشته باشیم که همه بازیکنان تمام بازی های خود را در یک رویداد آنلاین انجام دهند. این اتفاق نمی افتد، و در نتیجه در اکثر مسابقات راند رابین ناقص و ناعادلانه خواهند بود، که مخالف دلیل وجود آن است. 
 نزدیک ترین چیزی که می توانید به راند رابین آنلاین داشته باشید، بازی در یک تورنمنت سوئیس با تعداد راندهای بسیار بالا است. سپس تمام جفت های ممکن قبل از پایان مسابقات انجام می شود.</string>
   <string name="otherSystemsQ">در مورد سایر سیستم های مسابقه ای چطور؟</string>
-  <string name="otherSystemsA">در حال حاضر ما قصد اضافه کردن روش برگزاری مسابقه ی دیگری به لیچس نداریم.</string>
+  <string name="otherSystemsA">ما اکنون برنامه‌ای برای افزودن شیوه‌ٔ برگزاری دیگری در Lichess را نداریم.</string>
   <string name="swissDescription">در یک تورنمنت سوئیسی %1$s، هر شرکت کننده لزوماً با سایر شرکت کنندگان بازی نمی کند. رقبا در هر دور یک به یک بازی میکنند و با استفاده از مجموعه‌ای از قوانین طراحی‌شده برای اطمینان از اینکه هر رقیب با حریفانی با امتیاز مشابه بازی می‌کند، جفت می‌شوند، اما با هر حریف بیشتر از یک بار نه. برنده مسابقه کسی هست که بیشترین امتیاز را در همه راندها کسب کرده باشد. همه باهم در هر دور بازی می کنند مگر اینکه تعداد بازیکنان فرد وجود داشته باشد.\"</string>
   <string name="teamOnly">مسابقات سوئیسی تنها میتوانند توسط رهبران تیم ایجاد شود، و تنها توسط اعضای تیم بازی شود. 
 %1$s تا شروع بازی در مسابقات سوئیسی.</string>
@@ -103,11 +103,11 @@
   <string name="numberOfGamesAsManyAsPossible">هر تعداد که می توان در مدت زمان تعیین شده بازی کرد</string>
   <string name="numberOfGamesPreDefined">از قبل تصمیم گرفته شده است، برای همه بازیکنان یکسان است</string>
   <string name="pairingSystem">روش تعیین حریف</string>
-  <string name="pairingSystemArena">هر حریف در دسترس با رنکینگ مشابه</string>
+  <string name="pairingSystemArena">هر حریف در دسترس با رتبهٔ همسان</string>
   <string name="pairingSystemSwiss">بهترین جفت بر اساس امتیاز و امتیاز شکنی</string>
   <string name="pairingWaitTime">زمان انتظار برای حریف‌یابی</string>
-  <string name="pairingWaitTimeArena">سریع: برای همه بازیکنان صبر نمیکند</string>
-  <string name="pairingWaitTimeSwiss">اهسته: منتظر ماندن برای همه بازیکنان</string>
+  <string name="pairingWaitTimeArena">تُند: منتظر همهٔ بازیکنان نمی‌ماند</string>
+  <string name="pairingWaitTimeSwiss">کُند: منتظر همهٔ بازیکنان می‌ماند</string>
   <string name="identicalPairing">بازی دوباره با یک فرد</string>
   <string name="possibleButNotConsecutive">ممکن است، اما متوالی نیست</string>
   <string name="identicalForbidden">ممنوع</string>

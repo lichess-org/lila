@@ -1,4 +1,4 @@
-import { Square } from 'chessops';
+import type { Square } from 'chessops';
 
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: string]: Uci };
@@ -145,4 +145,50 @@ export function sanWriter(fen: string, ucis: string[]): SanToUci {
     if (san.includes('x')) sans[san.replace('x', '')] = uci;
   });
   return sans;
+}
+
+export function speakable(san?: San): string {
+  const text = !san
+    ? 'Game start'
+    : san.includes('O-O-O#')
+      ? 'long castle checkmate'
+      : san.includes('O-O-O+')
+        ? 'long castle check'
+        : san.includes('O-O-O')
+          ? 'long castle'
+          : san.includes('O-O#')
+            ? 'short castle checkmate'
+            : san.includes('O-O+')
+              ? 'short castle check'
+              : san.includes('O-O')
+                ? 'short castle'
+                : san
+                    .split('')
+                    .map(c => {
+                      if (c == 'x') return 'takes';
+                      if (c == '+') return 'check';
+                      if (c == '#') return 'checkmate';
+                      if (c == '=') return 'promotes to';
+                      if (c == '@') return 'at';
+                      const code = c.charCodeAt(0);
+                      if (code > 48 && code < 58) return c; // 1-8
+                      if (code > 96 && code < 105) return c.toUpperCase();
+                      return (
+                        {
+                          P: 'pawn',
+                          N: 'knight',
+                          B: 'bishop',
+                          R: 'rook',
+                          Q: 'queen',
+                          K: 'king',
+                        }[c.toUpperCase()] ?? c
+                      );
+                    })
+                    .join(' ')
+                    .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
+                    .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
+                    .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
+                    .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
+                    .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
+  return text;
 }
