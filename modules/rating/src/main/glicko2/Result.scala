@@ -25,7 +25,7 @@ final class BinaryResult(val first: Rating, val second: Rating, score: Boolean) 
     else if score then POINTS_FOR_LOSS
     else POINTS_FOR_WIN
 
-
+// ASSUME score is between unit interval [0.0d, 1.0d]
 final class FloatingResult(val first: Rating, val second: Rating, score: Double) extends Result:
   private val ONE_HUNDRED_PCT = 1.0d
 
