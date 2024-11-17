@@ -13,7 +13,6 @@ import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 final class RelayPush(
     sync: RelaySync,
     api: RelayApi,
-    stats: RelayStatsApi,
     chapterPreview: ChapterPreviewApi,
     fidePlayers: RelayFidePlayerApi,
     playerEnrich: RelayPlayerEnrich,
@@ -61,7 +60,6 @@ final class RelayPush(
             case e: Exception => SyncLog.event(0, e.some)
         _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
           irc.broadcastStart(rt.round.id, rt.fullName)
-        _ = stats.setActive(rt.round.id)
         allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>

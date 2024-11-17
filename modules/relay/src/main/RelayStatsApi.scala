@@ -28,11 +28,6 @@ final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
           .toList
       .map(RoundStats.apply)
 
-  def setActive(id: RelayRoundId) = activeRounds.put(id)
-
-  // keep monitoring rounds for some time after they stopped syncing
-  private val activeRounds = ExpireSetMemo[RelayRoundId](2 hours)
-
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
     nowMinutes = nowSeconds / 60
@@ -63,20 +58,14 @@ final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
   yield ()
 
   private def fetchRoundCrowds: Fu[List[(RelayRoundId, Crowd)]] =
-    val max = 500
+    val max = 200
     colls.round
       .aggregateList(maxDocs = max, _.sec): framework =>
         import framework.*
-        Match(
-          $doc(
-            $or(
-              $doc("sync.until" -> $exists(true)),
-              $inIds(activeRounds.keys)
-            ),
-            "crowd".$gt(0)
-          )
-        ) ->
-          List(Project($doc("_id" -> 1, "crowd" -> 1, "syncing" -> "$sync.until")))
+        // lila-ws sets crowdAt along with crowd
+        // so we can use crowdAt to know which rounds are being monitored
+        Match($doc("crowdAt".$gt(nowInstant.minusMinutes(1)))) ->
+          List(Project($doc("_id" -> 1, "crowd" -> 1)))
       .map: docs =>
         if docs.size == max
         then logger.warn(s"RelayStats.fetchRoundCrowds: $max docs fetched")
@@ -84,5 +73,4 @@ final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
           doc   <- docs
           id    <- doc.getAsOpt[RelayRoundId]("_id")
           crowd <- doc.getAsOpt[Crowd]("crowd")
-          _ = if doc.contains("syncing") then activeRounds.put(id)
         yield (id, crowd)

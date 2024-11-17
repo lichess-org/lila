@@ -23,6 +23,7 @@ case class RelayRound(
     finishedAt: Option[Instant],
     createdAt: Instant,
     crowd: Option[Int]
+    // crowdAt: Option[Instant], // in DB but not used by RelayRound
 ):
   inline def studyId = id.into(StudyId)
 
