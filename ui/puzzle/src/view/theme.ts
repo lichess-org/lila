@@ -1,10 +1,9 @@
 import * as licon from 'common/licon';
-import * as router from 'common/router';
-import { MaybeVNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import { ThemeKey, RoundThemes } from '../interfaces';
+import { withLang } from 'common/router';
+import { type VNode, type MaybeVNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
+import type { ThemeKey, RoundThemes } from '../interfaces';
 import { renderColorForm } from './side';
-import PuzzleCtrl from '../ctrl';
+import type PuzzleCtrl from '../ctrl';
 
 const studyUrl = 'https://lichess.org/study/viiWlKjv';
 
@@ -14,7 +13,7 @@ export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   const showEditor = ctrl.mode == 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   const puzzleMenu = (v: VNode): VNode =>
-    h('a', { attrs: { href: router.withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
+    h('a', { attrs: { href: withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
   return ctrl.streak
     ? null
     : ctrl.isDaily

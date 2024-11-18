@@ -1,6 +1,6 @@
-import { h, VNode } from 'snabbdom';
-import { Contact, LastMsg, User } from '../interfaces';
-import MsgCtrl from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+import type { Contact, LastMsg, User } from '../interfaces';
+import type MsgCtrl from '../ctrl';
 import * as licon from 'common/licon';
 import { hookMobileMousedown } from 'common/device';
 import { fullName, userLine } from 'common/userLink';

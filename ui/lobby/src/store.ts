@@ -1,4 +1,4 @@
-import { Tab, Mode, Sort } from './interfaces';
+import type { Tab, Mode, Sort } from './interfaces';
 import { storage } from 'common/storage';
 
 interface Store<A> {

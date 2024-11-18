@@ -3659,8 +3659,6 @@ interface I18n {
     openingExplorerAndTablebase: string;
     /** Openings */
     openings: string;
-    /** Open study */
-    openStudy: string;
     /** Open tournaments */
     openTournaments: string;
     /** Opponent */

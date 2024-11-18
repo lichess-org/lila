@@ -34,7 +34,7 @@
   <string name="teamBattle">مبارزه تیمی</string>
   <string name="teamBattleOverview">مبارزه ی چندین تیم، امتیاز هر بازیکن برای تیم اش حساب می شود</string>
   <string name="teamTournament">مسابقه تیمی</string>
-  <string name="teamTournamentOverview">یک میدان مسابقه که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
+  <string name="teamTournamentOverview">مسابقهٔ راوانی که فقط عضوهای تیم‌تان می‌توانند به آن بپیوندند</string>
   <string name="swissTournamentOverview">یک میدان مسابقه سوئیسی که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
   <string name="messageAllMembers">پیام به همه ی اعضا</string>
   <string name="messageAllMembersOverview">یک پیام خصوصی به هر یک از اعضای تیم ارسال نمایید</string>

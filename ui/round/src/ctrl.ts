@@ -3,15 +3,14 @@
 import * as ab from 'ab';
 import * as game from 'game';
 import { game as gameRoute } from 'game/router';
-import * as status from 'game/status';
-import * as ground from './ground';
+import { playing } from 'game/status';
+import { boardOrientation, reload as groundReload } from './ground';
 import * as licon from 'common/licon';
 import notify from 'common/notification';
-import { make as makeSocket, RoundSocket } from './socket';
+import { make as makeSocket, type RoundSocket } from './socket';
 import * as title from './title';
 import * as blur from './blur';
 import viewStatus from 'game/view/status';
-import * as cg from 'chessground/types';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
@@ -20,18 +19,18 @@ import * as atomic from './atomic';
 import * as util from './util';
 import * as xhr from './xhr';
 import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
-import { MoveRootCtrl } from 'chess/moveRootCtrl';
-import { ctrl as makeKeyboardMove, KeyboardMove } from 'keyboardMove';
-import { makeVoiceMove, VoiceMove } from 'voice';
-import * as renderUser from './view/user';
+import type { MoveRootCtrl } from 'chess/moveRootCtrl';
+import { ctrl as makeKeyboardMove, type KeyboardMove } from 'keyboardMove';
+import { makeVoiceMove, type VoiceMove } from 'voice';
+import { userTxt } from './view/user';
 import * as cevalSub from './cevalSub';
-import * as keyboard from './keyboard';
+import { init as keyboardInit } from './keyboard';
 import { PromotionCtrl, promote } from 'chess/promotion';
 import * as wakeLock from 'common/wakeLock';
 import { opposite, uciToMove } from 'chessground/util';
-import * as Prefs from 'common/prefs';
+import { Replay } from 'common/prefs';
 import { endGameView } from './view/main';
-import {
+import type {
   Step,
   CrazyPocket,
   RoundOpts,
@@ -46,10 +45,10 @@ import {
   NvuiPlugin,
   RoundTour,
 } from './interfaces';
-import { defined, Toggle, toggle, requestIdleCallback } from 'common';
-import { Redraw } from 'common/snabbdom';
+import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+import { readFen, sanOf, speakable } from 'chess/sanWriter';
 
 interface GoneBerserk {
   white?: boolean;
@@ -72,23 +71,22 @@ export default class RoundController implements MoveRootCtrl {
   firstSeconds = true;
   flip = false;
   menu: Toggle;
-  confirmMoveEnabled: Toggle = toggle(true);
+  confirmMoveToggle: Toggle;
   loading = false;
   loadingTimeout: number;
   redirecting = false;
   transientMove?: TransientMove;
-  moveToSubmit?: SocketMove;
-  dropToSubmit?: SocketDrop;
+  toSubmit?: SocketMove | SocketDrop;
   goneBerserk: GoneBerserk = {};
   resignConfirm?: Timeout = undefined;
   drawConfirm?: Timeout = undefined;
   preventDrawOffer?: Timeout = undefined;
   // will be replaced by view layer
   autoScroll: () => void = () => {};
-  justDropped?: cg.Role;
-  justCaptured?: cg.Piece;
+  justDropped?: Role;
+  justCaptured?: Piece;
   shouldSendMoveTime = false;
-  preDrop?: cg.Role;
+  preDrop?: Role;
   sign: string = Math.random().toString(36);
   keyboardHelp: boolean = location.hash === '#keyboard';
   blindfoldStorage: LichessBooleanStorage;
@@ -124,7 +122,7 @@ export default class RoundController implements MoveRootCtrl {
     );
 
     this.setQuietMode();
-
+    this.confirmMoveToggle = toggle(d.pref.submitMove);
     this.moveOn = new MoveOn(this, 'move-on');
     if (!opts.local) this.transientMove = new TransientMove(this.socket);
 
@@ -159,18 +157,18 @@ export default class RoundController implements MoveRootCtrl {
     setTimeout(this.showExpiration, 250);
   };
 
-  private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
+  private onUserMove = (orig: Key, dest: Key, meta: MoveMetadata) => {
     if (!this.keyboardMove?.usedSan) ab.move(this, meta, pubsub.emit);
     if (!this.startPromotion(orig, dest, meta)) this.sendMove(orig, dest, undefined, meta);
   };
 
-  private onUserNewPiece = (role: cg.Role, key: cg.Key, meta: cg.MoveMetadata) => {
+  private onUserNewPiece = (role: Role, key: Key, meta: MoveMetadata) => {
     if (!this.replaying() && crazyValid(this.data, role, key)) {
       this.sendNewPiece(role, key, !!meta.predrop);
     } else this.jump(this.ply);
   };
 
-  private onMove = (orig: cg.Key, dest: cg.Key, captured?: cg.Piece) => {
+  private onMove = (orig: Key, dest: Key, captured?: Piece) => {
     if (captured || this.enpassant(orig, dest)) {
       if (this.data.game.variant.key === 'atomic') {
         site.sound.play('explosion');
@@ -179,7 +177,7 @@ export default class RoundController implements MoveRootCtrl {
     } else site.sound.move({ name: 'move', filter: 'game' });
   };
 
-  private startPromotion = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
+  private startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
     this.promotion.start(
       orig,
       dest,
@@ -191,26 +189,25 @@ export default class RoundController implements MoveRootCtrl {
       this.keyboardMove?.justSelected(),
     );
 
-  private onPremove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) =>
-    this.startPromotion(orig, dest, meta);
+  private onPremove = (orig: Key, dest: Key, meta: MoveMetadata) => this.startPromotion(orig, dest, meta);
 
   private onCancelPremove = () => this.promotion.cancelPrePromotion();
 
-  private onNewPiece = (piece: cg.Piece, key: cg.Key): void => {
+  private onNewPiece = (piece: Piece, key: Key): void => {
     if (piece.role === 'pawn' && (key[1] === '1' || key[1] === '8')) return;
     site.sound.move();
   };
 
-  private onPredrop = (role: cg.Role | undefined, _?: Key) => {
+  private onPredrop = (role: Role | undefined, _?: Key) => {
     this.preDrop = role;
     this.redraw();
   };
 
   private isSimulHost = () => this.data.simul && this.data.simul.hostId === this.opts.userId;
 
-  private enpassant = (orig: cg.Key, dest: cg.Key): boolean => {
+  private enpassant = (orig: Key, dest: Key): boolean => {
     if (orig[0] === dest[0] || this.chessground.state.pieces.get(dest)?.role !== 'pawn') return false;
-    const pos = (dest[0] + orig[1]) as cg.Key;
+    const pos = (dest[0] + orig[1]) as Key;
     this.chessground.setPieces(new Map([[pos, undefined]]));
     return true;
   };
@@ -230,7 +227,7 @@ export default class RoundController implements MoveRootCtrl {
   replaying = (): boolean => this.ply !== this.lastPly() && !this.opts.local;
 
   userJump = (ply: Ply): void => {
-    this.cancelMove();
+    this.toSubmit = undefined;
     this.chessground.selectSquare(null);
     if (ply != this.ply && this.jump(ply)) site.sound.saySan(this.stepAt(this.ply).san, true);
     else this.redraw();
@@ -259,6 +256,7 @@ export default class RoundController implements MoveRootCtrl {
         color: this.isPlaying() ? this.data.player.color : undefined,
         dests: util.parsePossibleMoves(this.data.possibleMoves),
       };
+    this.chessground.cancelPremove();
     this.chessground.set(config);
     if (s.san && isForwardStep) site.sound.move(s);
     this.autoScroll();
@@ -272,13 +270,13 @@ export default class RoundController implements MoveRootCtrl {
   replayEnabledByPref = (): boolean => {
     const d = this.data;
     return (
-      d.pref.replay === Prefs.Replay.Always ||
-      (d.pref.replay === Prefs.Replay.OnlySlowGames &&
+      d.pref.replay === Replay.Always ||
+      (d.pref.replay === Replay.OnlySlowGames &&
         (d.game.speed === 'classical' || d.game.speed === 'correspondence'))
     );
   };
 
-  isLate = (): boolean => this.replaying() && status.playing(this.data);
+  isLate = (): boolean => this.replaying() && playing(this.data);
 
   playerAt = (position: Position): game.Player =>
     this.flip != (position === 'top') ? this.data.opponent : this.data.player;
@@ -286,7 +284,7 @@ export default class RoundController implements MoveRootCtrl {
   flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;
     this.chessground.set({
-      orientation: ground.boardOrientation(this.data, this.flip),
+      orientation: boardOrientation(this.data, this.flip),
     });
     pubsub.emit('flip', this.flip);
     this.redraw();
@@ -294,7 +292,7 @@ export default class RoundController implements MoveRootCtrl {
 
   setTitle = (): void => title.set(this);
 
-  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}): void => {
+  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = { premove: false }): void => {
     const socketOpts: SocketOpts = {
       sign: this.sign,
       ackable: true,
@@ -320,7 +318,7 @@ export default class RoundController implements MoveRootCtrl {
     this.redraw();
   };
 
-  pluginMove = (orig: cg.Key, dest: cg.Key, role?: cg.Role): void => {
+  pluginMove = (orig: Key, dest: Key, role?: Role, preConfirmed?: boolean): void => {
     if (!role) {
       this.chessground.move(orig, dest);
       this.chessground.state.movable.dests = undefined;
@@ -328,7 +326,7 @@ export default class RoundController implements MoveRootCtrl {
 
       if (this.startPromotion(orig, dest, { premove: false })) return;
     }
-    this.sendMove(orig, dest, role, { premove: false });
+    this.sendMove(orig, dest, role, { premove: false, preConfirmed });
   };
 
   pluginUpdate = (fen: string): void => {
@@ -336,30 +334,30 @@ export default class RoundController implements MoveRootCtrl {
     this.keyboardMove?.update({ fen, canMove: this.canMove() });
   };
 
-  sendMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined, meta: cg.MoveMetadata): void => {
-    const move: SocketMove = {
-      u: orig + dest,
-    };
+  sendMove = (orig: Key, dest: Key, prom: Role | undefined, meta: MoveMetadata): void => {
+    const move: SocketMove = { u: orig + dest };
     if (prom) move.u += prom === 'knight' ? 'n' : prom[0];
     if (blur.get()) move.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !meta.premove) {
-      this.moveToSubmit = move;
+
+    if (!meta.preConfirmed && this.confirmMoveToggle() && !meta.premove) {
+      if (site.sound.speech()) {
+        const spoken = `${speakable(sanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
+        site.sound.say(spoken, false, true);
+      }
+      this.toSubmit = move;
       this.redraw();
-    } else {
-      this.actualSendMove('move', move, {
-        justCaptured: meta.captured,
-        premove: meta.premove,
-      });
+      return;
     }
+    this.actualSendMove('move', move, { justCaptured: meta.captured, premove: meta.premove });
   };
 
-  sendNewPiece = (role: cg.Role, key: cg.Key, isPredrop: boolean): void => {
+  sendNewPiece = (role: Role, key: Key, isPredrop: boolean): void => {
     const drop: SocketDrop = { role, pos: key };
     if (blur.get()) drop.b = 1;
     this.resign(false);
-    if (this.data.pref.submitMove && this.confirmMoveEnabled() && !isPredrop) {
-      this.dropToSubmit = drop;
+    if (this.confirmMoveToggle() && !isPredrop) {
+      this.toSubmit = drop;
       this.redraw();
     } else {
       this.actualSendMove('drop', drop, {
@@ -372,7 +370,7 @@ export default class RoundController implements MoveRootCtrl {
   showYourMoveNotification = (): void => {
     if (this.opts.local) return;
     const d = this.data;
-    const opponent = $('body').hasClass('zen') ? 'Your opponent' : renderUser.userTxt(d.opponent);
+    const opponent = $('body').hasClass('zen') ? 'Your opponent' : userTxt(d.opponent);
     const joined = `${opponent}\njoined the game.`;
     if (game.isPlayerTurn(d))
       notify(() => {
@@ -414,7 +412,7 @@ export default class RoundController implements MoveRootCtrl {
             role: o.role,
             color: playedColor,
           },
-          o.uci.slice(2, 4) as cg.Key,
+          o.uci.slice(2, 4) as Key,
         );
       else {
         // This block needs to be idempotent, even for castling moves in
@@ -497,7 +495,7 @@ export default class RoundController implements MoveRootCtrl {
     return true; // prevents default socket pubsub
   };
 
-  crazyValid = (role: cg.Role, key: cg.Key): boolean => crazyValid(this.data, role, key);
+  crazyValid = (role: Role, key: Key): boolean => crazyValid(this.data, role, key);
 
   getCrazyhousePockets = (): [CrazyPocket, CrazyPocket] | undefined => this.data.crazyhouse?.pockets;
 
@@ -522,7 +520,7 @@ export default class RoundController implements MoveRootCtrl {
     this.updateClockCtrl();
     if (this.clock) this.clock.setClock(d, d.clock!.white, d.clock!.black);
     if (this.corresClock) this.corresClock.update(d.correspondence!.white, d.correspondence!.black);
-    if (!this.replaying() && !this.opts.local) ground.reload(this);
+    if (!this.replaying() && !this.opts.local) groundReload(this);
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
@@ -629,7 +627,7 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   question = (): QuestionOpts | false => {
-    if (this.moveToSubmit || this.dropToSubmit) {
+    if (this.toSubmit) {
       setTimeout(() => this.voiceMove?.listenForResponse('submitMove', this.submitMove));
       return {
         prompt: i18n.site.confirmMove,
@@ -729,23 +727,16 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   submitMove = (v: boolean): void => {
-    const toSubmit = this.moveToSubmit || this.dropToSubmit;
-    if (v && toSubmit) {
-      if (this.moveToSubmit) this.actualSendMove('move', this.moveToSubmit);
-      else this.actualSendMove('drop', this.dropToSubmit);
+    if (!this.toSubmit) return;
+
+    const submit = this.toSubmit;
+    this.toSubmit = undefined;
+    this.setLoading(true, 300);
+
+    if (v) {
+      this.actualSendMove('u' in submit ? 'move' : 'drop', submit);
       site.sound.play('confirmation');
     } else this.jump(this.ply);
-    this.cancelMove();
-    //cancel premove when you cancel move
-    if (!v && toSubmit) {
-      this.chessground.cancelPremove();
-    }
-    if (toSubmit) this.setLoading(true, 300);
-  };
-
-  cancelMove = (): void => {
-    this.moveToSubmit = undefined;
-    this.dropToSubmit = undefined;
   };
 
   private onChange = () => {
@@ -892,7 +883,7 @@ export default class RoundController implements MoveRootCtrl {
         cevalSub.subscribe(this);
       }
 
-      if (!this.nvui) keyboard.init(this);
+      if (!this.nvui) keyboardInit(this);
       if (this.isPlaying() && d.steps.length === 1) {
         this.blindfold(this.blindfoldStorage.get());
       }

@@ -1,6 +1,6 @@
 import { finallyDelay, throttlePromiseDelay } from 'common/timing';
 import * as xhr from 'common/xhr';
-import TournamentController from './ctrl';
+import type TournamentController from './ctrl';
 import { alert } from 'common/dialog';
 
 // when the tournament no longer exists

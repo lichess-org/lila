@@ -10,10 +10,9 @@ import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { PromotionCtrl } from 'chess/promotion';
 import { prop, type Prop } from 'common';
-import { PuzCtrl, Run } from 'puz/interfaces';
+import type { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
-import { Role } from 'chessground/types';
-import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 

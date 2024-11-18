@@ -116,7 +116,6 @@
   <string name="replayMode">Repriza partije</string>
   <string name="realtimeReplay">U stvarnom vremenu</string>
   <string name="byCPL">Po SDP</string>
-  <string name="openStudy">Otvori studiju</string>
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
   <string name="showVariationArrows">Pokaži strelice varijacija</string>
@@ -216,7 +215,7 @@
   <string name="changeUsernameNotSame">Jedino se veličina slova može promijeniti. Primjerice, \'\'johndoe\'\' u \'\'JohnDoe\'\'.</string>
   <string name="changeUsernameDescription">Promijeni korisničko ime. Ovo možeš učiniti samo jednom i samo možeš promijeniti veličinu slova svog korisničkog imena.</string>
   <string name="signupUsernameHint">Obavezno odaberi obiteljsko korisničko ime. Ne možeš ga kasnije promijeniti i svi računi s neprikladnim korisničkim imenima bit će zatvoreni!</string>
-  <string name="signupEmailHint">Koristit ćemo ga samo za ponovno postavljanje lozinke.</string>
+  <string name="signupEmailHint">Koristiti ćemo ga samo za ponovno postavljanje lozinke.</string>
   <string name="password">Lozinka</string>
   <string name="changePassword">Promijeni lozinku</string>
   <string name="changeEmail">Promijeni email</string>
@@ -224,7 +223,7 @@
   <string name="passwordReset">Resetiraj lozinku</string>
   <string name="forgotPassword">Zaboravio/la si lozinku?</string>
   <string name="error.weakPassword">Ova je lozinka iznimno česta i previše je lako pogoditi.</string>
-  <string name="error.namePassword">Molimo da ne koristitiš svoje korisničko ime kao lozinku.</string>
+  <string name="error.namePassword">Molimo da ne koristiš svoje korisničko ime kao lozinku.</string>
   <string name="blankedPassword">Koristio si istu lozinku na drugom mjestu, a to je mjesto ugroženo. Kako bismo osigurali sigurnost tvoga Lichess računa, potrebno je da postaviš novu lozinku. Hvala na razumijevanju.</string>
   <string name="youAreLeavingLichess">Odlazite sa Lichess-a</string>
   <string name="neverTypeYourPassword">Nikada nemojte upisivati svoju Lichess lozinku na drugom mjestu!</string>
@@ -521,7 +520,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="ifNoneLeaveEmpty">Nemaš rejting? Ostavi polje prazno</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
+  <string name="realName">Puno ime</string>
   <string name="biography">Životopis</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Država ili regija</string>
   <string name="thankYou">Hvala!</string>
   <string name="socialMediaLinks">Linkovi društvenih mreža</string>
   <string name="oneUrlPerLine">Jedan URL po liniji.</string>
@@ -701,6 +702,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="keyGoToStartOrEnd">idi na početak/kraj</string>
   <string name="keyShowOrHideComments">pokaži/sakrij komentare</string>
   <string name="keyEnterOrExitVariation">otvori/zatvori varijantu</string>
+  <string name="keyRequestComputerAnalysis">Zatraži računalnu analizu, Uči na svojim greškama</string>
+  <string name="keyNextLearnFromYourMistakes">Sljedeće (Uči na svojim greškama)</string>
   <string name="newTournament">Novi turnir</string>
   <string name="tournamentHomeTitle">Šahovski turniri s različitim vremenima partije i varijantama</string>
   <string name="tournamentHomeDescription">Igraj brze turnire! Pridruži se turniru ili stvori svoj turnir. Bullet, Blitz, Klasični šah, Šah 960 (Fischerov nasumični šah), Kralj na centru, Tri šaha, i još više opcija za neograničenu šahovsku zabavu.</string>
@@ -783,6 +786,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="transparent">Prozirna</string>
   <string name="deviceTheme">Tema uređaja</string>
   <string name="backgroundImageUrl">URL pozadinske slike:</string>
+  <string name="board">Ploča</string>
+  <string name="size">Veličina</string>
+  <string name="brightness">Svjetlina</string>
   <string name="pieceSet">Set figura</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu</string>
   <string name="usernameAlreadyUsed">Ovo korisničko ime je već u uporabi, molimo probaj s drugim.</string>
@@ -797,6 +803,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="invalidFen">Nevaljan FEN</string>
   <string name="custom">Prilagođeno</string>
   <string name="notifications">Obavijesti</string>
+  <string name="notificationsX">Obavijesti: %1$s</string>
   <string name="perfRatingX">Rejting: %s</string>
   <plurals name="nbSecondsToPlayTheFirstMove">
     <item quantity="one">%s sekunda da odigrate prvi potez</item>
@@ -856,6 +863,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
     <item quantity="few">i uštedi %s predpoteza</item>
     <item quantity="other">i uštedi %s predpoteza</item>
   </plurals>
+  <string name="clickHereToReadIt">Klikni ovdje da pročitaš</string>
   <string name="sorry">Oprosti :(</string>
   <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
   <string name="why">Zašto?</string>
@@ -931,7 +939,7 @@ i utječu na ocjene igrača</string>
   <string name="maximumWeeklyRating">Maksimalni tjedni rejting</string>
   <string name="positionInputHelp">Zalijepite važeći FEN da biste započeli svaku igru s određene pozicije.
 Radi samo za standardne igre, ne i za varijante.
-Možete koristiti %s za generiranje FEN pozicije, a zatim ga zalijepite ovdje.
+Možete koristiti %s za generiranje FEN pozicije, zatim ga zalijepite ovdje.
 Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="cancelSimul">Otkaži simultanku</string>
   <string name="simulHostcolor">Boja domaćina u svakoj igri</string>
@@ -975,4 +983,5 @@ Ostavite prazno za početak igre s normalne početne pozicije.</string>
   <string name="ourEventTips">Naši savjeti za organizaciju događaja</string>
   <string name="lichessPatronInfo">Lichess je dobrotvorni i potpuno besplatan softver otvorenog koda.
 Svi operativni troškovi, razvoj i sadržaj financiraju se isključivo donacijama korisnika.</string>
+  <string name="stats">Statistika</string>
 </resources>

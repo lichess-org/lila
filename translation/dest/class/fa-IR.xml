@@ -60,8 +60,8 @@
   <string name="onlyVisibleToTeachers">دسترس‌پذیر فقط برای آموزگاران کلاس</string>
   <string name="lastActiveDate">فعال</string>
   <string name="managed">مدیریت‌شده</string>
-  <string name="thisStudentAccountIsManaged">حساب کاربری این دانشجو توسط معلم مدیریت و ایجاد شده است</string>
-  <string name="upgradeFromManaged">ارتقاء از مدیریت شده به خودمختار</string>
+  <string name="thisStudentAccountIsManaged">این حساب شطرنج‌آموز، مدیریت می‌شود</string>
+  <string name="upgradeFromManaged">ارتقا از مدیریت‌شده به خودمختار</string>
   <string name="release">حساب کاربری تبدیل شده به حساب اصلی</string>
   <string name="releaseTheAccount">حساب را فارغ التحصیل کنید تا دانش آموز بتواند به صورت مستقل آن را مدیریت کند.</string>
   <string name="releaseDesc1">یک حساب فارغ التحصیل شده را نمی توان دوباره مدیریت کرد. دانش‌آموز می‌تواند حالت کودک را ببندد و رمز عبور خود را عوض کند.</string>
@@ -93,7 +93,7 @@
   <string name="news">اخبار</string>
   <string name="classNews">اخبار کلاس</string>
   <string name="editNews">خبرها را ویرایش نمایید</string>
-  <string name="notifyAllStudents">اطلاع دادن به تمام دانش آموزان</string>
+  <string name="notifyAllStudents">آگاهاندنِ همهٔ شطرنج‌آموزان</string>
   <string name="nothingHere">اینجا هنوز چیزی نیست.</string>
   <string name="newsEdit1">همه اخبار کلاس در جایی واحد.</string>
   <string name="newsEdit2">اخبار جدید را بالا بگذار. اخبار قبلی را پاک نکن.</string>
@@ -104,7 +104,7 @@
   <string name="youAcceptedThisInvitation">دعوتنامه را پذیرفتید.</string>
   <string name="youDeclinedThisInvitation">دعوتنامه را رد کردید.</string>
   <string name="orSeparator" comment="Used as separator between invite sections. Shown as large '~ or ~'.">یا</string>
-  <string name="createMultipleAccounts">چندین حساب لیچس را همزمان ایجاد کنید</string>
+  <string name="createMultipleAccounts">ایجاد همزمان چند حساب Lichess</string>
   <string name="multipleAccsFormDescription" comment="%s is a link and will be replaced with the translation of useThisForm. Make sure both strings fit together.">همچنین می‌توانید %s کنید برای ایجاد چندین حساب Lichess از فهرست نام‌های دانش‌آموزان.</string>
   <string name="useThisForm" comment="Link text in multipleAccsFromDescription">از این فرم استفاده کنید</string>
   <string name="maxStudentsNote" comment="%1$s will be replaced with a large number (currently 100).\n%2$s is a link and will be replaced with the translation of createMoreClasses. Make sure both strings fit together.">توجه داشته باشید که یک کلاس می‌تواند تا %1$s دانش‌آموز داشته باشد. برای مدیریت دانش‌آموزان بیشتر، %2$s.</string>
@@ -113,5 +113,5 @@
   <string name="xisNowAStudentOfTheClass">%s الان دانش آموز کلاس است</string>
   <string name="anInvitationHasBeenSentToX">یک دعوتنامه به %s فرستاده شد</string>
   <string name="xAlreadyHasAPendingInvitation">%s از قبل یک دعوتنامه در حال انتظار دارد</string>
-  <string name="xIsAKidAccountWarning">%1$s حساب کودک است و نمی‌تواند پیام شما را دریافت کن. شما باید وب‌نشانی دعوت را، دستی به آن‌ها دهید: %2$s</string>
+  <string name="xIsAKidAccountWarning">%1$s حساب کودک است و نمی‌تواند پیام‌تان را دریافت کند. شما باید وب‌نشانی دعوت را، دستی به آن‌ها دهید: %2$s</string>
 </resources>

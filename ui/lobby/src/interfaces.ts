@@ -1,5 +1,3 @@
-import { FEN } from 'chessground/types';
-
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';

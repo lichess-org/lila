@@ -182,7 +182,7 @@ final class Study(
     if HTTPRequest.isRedirectable(ctx.req)
     then
       env.relay.api
-        .getOngoing(id.into(RelayRoundId))
+        .byIdWithTour(id.into(RelayRoundId))
         .flatMap:
           _.fold(f): rt =>
             Redirect(chapterId.fold(rt.path)(rt.path))

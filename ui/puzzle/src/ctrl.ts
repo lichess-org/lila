@@ -6,7 +6,7 @@ import moveTest from './moveTest';
 import PuzzleSession from './session';
 import PuzzleStreak from './streak';
 import { throttle } from 'common/timing';
-import {
+import type {
   PuzzleOpts,
   PuzzleData,
   MoveTest,
@@ -16,29 +16,26 @@ import {
   PuzzleRound,
   RoundThemes,
 } from './interfaces';
-import { Api as CgApi } from 'chessground/api';
-import { build as treeBuild, ops as treeOps, path as treePath, TreeWrapper } from 'tree';
+import { build as treeBuild, ops as treeOps, path as treePath, type TreeWrapper } from 'tree';
 import { Chess, normalizeMove } from 'chessops/chess';
 import { chessgroundDests, scalachessCharPair } from 'chessops/compat';
-import { Config as CgConfig } from 'chessground/config';
 import { CevalCtrl } from 'ceval';
-import { makeVoiceMove, VoiceMove } from 'voice';
-import { ctrl as makeKeyboardMove, KeyboardMove, KeyboardMoveRootCtrl } from 'keyboardMove';
-import { Deferred, defer } from 'common/defer';
-import { defined, prop, Prop, propWithEffect, Toggle, toggle, requestIdleCallback } from 'common';
+import { makeVoiceMove, type VoiceMove } from 'voice';
+import { ctrl as makeKeyboardMove, type KeyboardMove, type KeyboardMoveRootCtrl } from 'keyboardMove';
+import { type Deferred, defer } from 'common/defer';
+import { defined, prop, type Prop, propWithEffect, type Toggle, toggle, requestIdleCallback } from 'common';
 import { makeSanAndPlay } from 'chessops/san';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseSquare, parseUci, makeSquare, makeUci, opposite } from 'chessops/util';
 import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
-import { Role, Move, Outcome } from 'chessops/types';
-import { StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
+import type { Role, Move, Outcome } from 'chessops/types';
+import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
 import { fromNodeList } from 'tree/dist/path';
 import Report from './report';
 import { last } from 'tree/dist/ops';
 import { uciToMove } from 'chessground/util';
-import { Redraw } from 'common/snabbdom';
-import { ParentCtrl } from 'ceval/src/types';
+import type { ParentCtrl } from 'ceval/src/types';
 import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialog';
 
@@ -81,7 +78,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   voteDisabled?: boolean;
   isDaily: boolean;
   blindfolded = false;
-  private readonly report: Report;
+  private report: Report;
 
   constructor(
     readonly opts: PuzzleOpts,
@@ -140,7 +137,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     this.keyboardHelp = propWithEffect(location.hash === '#keyboard', this.redraw);
     keyboard(this);
-    this.report = new Report(this.data.puzzle.id);
+    this.report = new Report();
 
     // If the page loads while being hidden (like when changing settings),
     // chessground is not displayed, and the first move is not fully applied.
@@ -230,6 +227,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.isDaily = location.href.endsWith('/daily');
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
+    this.report = new Report();
 
     this.setPath(site.blindMode ? initialPath : treePath.init(initialPath));
     setTimeout(
@@ -447,7 +445,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.data.puzzle.id,
       this.data.angle.key,
       win,
-      this.rated,
+      this.rated() && !this.hintHasBeenShown(),
       this.data.replay,
       this.streak,
       this.opts.settings.color,

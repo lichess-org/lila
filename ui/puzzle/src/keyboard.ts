@@ -1,5 +1,5 @@
 import * as control from './control';
-import PuzzleCtrl from './ctrl';
+import type PuzzleCtrl from './ctrl';
 import { snabDialog } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
 

@@ -1,9 +1,9 @@
-import * as xhr from './xhr';
-import PuzzleCtrl from './ctrl';
-import { PuzzleId, ThemeKey } from './interfaces';
+import { report as xhrReport } from './xhr';
+import type PuzzleCtrl from './ctrl';
+import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
-import { StoredProp, storedIntProp } from 'common/storage';
+import { type StoredProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
 
 export default class Report {
@@ -13,9 +13,9 @@ export default class Report {
   tsHideReportDialog: StoredProp<number>;
 
   // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 1;
+  private version = 3;
 
-  constructor(readonly id: PuzzleId) {
+  constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
   }
 
@@ -49,17 +49,17 @@ export default class Report {
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
-        winningChances.povDiff(ctrl.pov, bestEval, secondBestEval) < 0.35
+        winningChances.areSimilarEvals(ctrl.pov, bestEval, secondBestEval)
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const reason = `v${this.version}: after move ${node.ply}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
-        this.reportDialog(reason);
+        const reason = `(v${this.version}) after move ${node.ply}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
+        this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }
   }
 
-  private reportDialog = (reason: string) => {
+  private reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox">` +
@@ -95,7 +95,7 @@ export default class Report {
         dlg.close();
       });
       $('.apply', dlg.view).on('click', () => {
-        xhr.report(this.id, reason);
+        xhrReport(puzzleId, reason);
         dlg.close();
       });
       dlg.showModal();

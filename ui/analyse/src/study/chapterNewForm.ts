@@ -1,19 +1,17 @@
 import { parseFen } from 'chessops/fen';
-import { defined, prop, Prop, toggle } from 'common';
+import { defined, prop, type Prop, toggle } from 'common';
 import { snabDialog } from 'common/dialog';
 import * as licon from 'common/licon';
-import { bind, bindSubmit, onInsert, looseH as h, dataIcon } from 'common/snabbdom';
+import { bind, bindSubmit, onInsert, looseH as h, dataIcon, type VNode } from 'common/snabbdom';
 import { storedProp } from 'common/storage';
-import * as xhr from 'common/xhr';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { StudySocketSend } from '../socket';
+import { json as xhrJson, text as xhrText } from 'common/xhr';
+import type AnalyseCtrl from '../ctrl';
+import type { StudySocketSend } from '../socket';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option } from '../view/util';
-import { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
+import type { ChapterData, ChapterMode, ChapterTab, Orientation, StudyTour } from './interfaces';
 import { importPgn, variants as xhrVariants } from './studyXhr';
-import { StudyChapters } from './studyChapters';
-import { FEN } from 'chessground/types';
+import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'common/pubsub';
 
@@ -198,7 +196,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               {
                 hook: {
                   insert(vnode) {
-                    xhr.json('/editor.json').then(async data => {
+                    xhrJson('/editor.json').then(async data => {
                       data.el = vnode.elm;
                       data.fen = ctrl.root.node.fen;
                       data.embed = true;
@@ -286,9 +284,9 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   hook: bind(
                     'click',
                     () => {
-                      xhr
-                        .text(`/study/${study.data.id}/${study.vm.chapterId}.pgn`)
-                        .then(pgnData => $('#chapter-pgn').val(pgnData));
+                      xhrText(`/study/${study.data.id}/${study.vm.chapterId}.pgn`).then(pgnData =>
+                        $('#chapter-pgn').val(pgnData),
+                      );
                       return false;
                     },
                     undefined,

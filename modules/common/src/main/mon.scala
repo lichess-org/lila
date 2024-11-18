@@ -283,6 +283,7 @@ object mon:
     private def relay(official: Boolean, id: RelayTourId, slug: String) =
       tags("by" -> by(official), "slug" -> s"$slug/$id")
     def ongoing(official: Boolean) = gauge("relay.ongoing").withTag("by", by(official))
+    val crowdMonitor               = gauge("relay.crowdMonitor").withoutTags()
     def games(official: Boolean, id: RelayTourId, slug: String) =
       gauge("relay.games").withTags(relay(official, id, slug))
     def moves(official: Boolean, id: RelayTourId, slug: String) =

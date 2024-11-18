@@ -1,12 +1,11 @@
 import { defined, prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
-import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { StudySocketSend } from '../socket';
+import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import {
+import type {
   LocalPaths,
   StudyChapter,
   StudyChapterConfig,
@@ -21,7 +20,7 @@ import {
   ChapterSelect,
   StatusStr,
 } from './interfaces';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
 import { initialFen } from 'chess';

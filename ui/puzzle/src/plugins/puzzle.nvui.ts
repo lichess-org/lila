@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
 import {
@@ -26,11 +26,10 @@ import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import * as control from '../control';
+import { next as controlNext } from '../control';
 import { bind, onInsert } from 'common/snabbdom';
-import { Api } from 'chessground/api';
 import { throttle } from 'common/timing';
-import PuzzleCtrl from '../ctrl';
+import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
@@ -246,7 +245,7 @@ function onSubmit(
   notify: (txt: string) => void,
   style: () => Style,
   $input: Cash,
-  ground: Api,
+  ground: CgApi,
 ): () => false {
   return () => {
     let input = castlingFlavours(($input.val() as string).trim());
@@ -309,7 +308,7 @@ function viewOrAdvanceSolution(ctrl: PuzzleCtrl, notify: (txt: string) => void):
       next = nextNode(node),
       nextNext = nextNode(next);
     if (isInSolution(next) || (isInSolution(node) && isInSolution(nextNext))) {
-      control.next(ctrl);
+      controlNext(ctrl);
       ctrl.redraw();
     } else if (isInSolution(node)) {
       notify('Puzzle complete!');

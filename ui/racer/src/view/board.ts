@@ -1,7 +1,7 @@
-import RacerCtrl from '../ctrl';
+import type RacerCtrl from '../ctrl';
 import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';

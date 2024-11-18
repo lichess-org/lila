@@ -50,7 +50,7 @@ object ModTimeline:
 
   private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
     case (p: PublicLine, n: PublicLine)                => PublicLine.merge(p, n)
-    case (p: PlayBans, n: PlayBans)                    => PlayBans(p.list ::: n.list).some
+    case (p: PlayBans, n: PlayBans)                    => PlayBans(n.list ::: p.list).some
     case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
     case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) => p.copy(atoms = n.atoms ::: p.atoms).some
     case (p: Modlog, n: Modlog)                                   => mergeModlog(p, n)

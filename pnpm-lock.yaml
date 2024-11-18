@@ -29,9 +29,15 @@ importers:
       chessground:
         specifier: ^9.1.1
         version: 9.1.1
+      chessops:
+        specifier: ^0.14.2
+        version: 0.14.2
       eslint:
         specifier: ^9.14.0
         version: 9.14.0
+      jsdom:
+        specifier: ^25.0.1
+        version: 25.0.1
       lint-staged:
         specifier: ^15.2.10
         version: 15.2.10
@@ -47,21 +53,15 @@ importers:
       typescript:
         specifier: ^5.6.3
         version: 5.6.3
+      vitest:
+        specifier: ^2.1.4
+        version: 2.1.4(@types/node@22.9.0)(jsdom@25.0.1)
 
   bin:
     dependencies:
       fast-xml-parser:
         specifier: ^4.5.0
         version: 4.5.0
-
-  ui:
-    dependencies:
-      jsdom:
-        specifier: ^25.0.1
-        version: 25.0.1
-      vitest:
-        specifier: ^2.1.4
-        version: 2.1.4(@types/node@22.9.0)(jsdom@25.0.1)
 
   ui/@types/lichess: {}
 
@@ -97,9 +97,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -178,9 +175,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -226,9 +220,6 @@ importers:
       '@badrap/result':
         specifier: ^0.2.13
         version: 0.2.13
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -298,9 +289,6 @@ importers:
 
   ui/chess:
     dependencies:
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -350,17 +338,10 @@ importers:
         specifier: workspace:*
         version: link:../common
 
-  ui/dgt:
-    dependencies:
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
+  ui/dgt: {}
 
   ui/editor:
     dependencies:
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -400,9 +381,6 @@ importers:
 
   ui/learn:
     dependencies:
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -469,9 +447,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -514,9 +489,6 @@ importers:
 
   ui/puz:
     dependencies:
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -535,9 +507,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -559,9 +528,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common
@@ -646,9 +612,6 @@ importers:
       chess:
         specifier: workspace:*
         version: link:../chess
-      chessops:
-        specifier: ^0.14.2
-        version: 0.14.2
       common:
         specifier: workspace:*
         version: link:../common

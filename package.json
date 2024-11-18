@@ -30,14 +30,17 @@
     "@typescript-eslint/parser": "^8.13.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
+    "chessops": "^0.14.2",
     "eslint": "^9.14.0",
+    "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
     "prettier": "^3.3.3",
     "snabbdom": "3.5.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.4"
   },
-  "_comments": [
+  "//": [
     "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
     "typescript above just to allow manual tsc. ui/.build/package.json's typesript version is the truth"
   ],
@@ -54,6 +57,8 @@
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "trans-dump": "pnpx tsx bin/trans-dump.ts",
+    "test": "vitest run -c ui/vitest.config.mts",
+    "test:watch": "vitest -c ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
   }
 }

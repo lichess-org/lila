@@ -1,5 +1,5 @@
 import { objectStorage } from 'common/objectStorage';
-import { Switch, Selectable } from './switch';
+import { Switch, type Selectable } from './switch';
 import { storedStringProp } from 'common/storage';
 import type { VoskModule, Listener, Microphone, MsgType } from './interfaces';
 
@@ -118,6 +118,7 @@ export class Mic implements Microphone {
     if (this.micTrack) this.micTrack.enabled = false;
     this.download?.abort();
     this.download = undefined;
+    this.paused = 0;
     this.busy = false;
     this.recs.set(false);
     this.vosk?.select(false);

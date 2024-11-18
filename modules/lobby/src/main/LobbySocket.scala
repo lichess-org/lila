@@ -8,7 +8,7 @@ import lila.core.game.ChangeFeatured
 import lila.core.pool.PoolConfigId
 import lila.core.socket.{ protocol as P, * }
 import lila.core.timeline.*
-import lila.rating.RatingRange
+import lila.rating.{ Glicko, RatingRange }
 
 case class LobbyCounters(members: Int, rounds: Int)
 
@@ -193,12 +193,14 @@ final class LobbySocket(
         yield
           lobby ! CancelHook(member.sri) // in case there's one...
           userApi.glicko(user.id, perfType).foreach { glicko =>
+            val pairingGlicko = glicko | Glicko.pairingDefault
             poolApi.join(
               PoolConfigId(id),
               lila.core.pool.Joiner(
                 sri = member.sri,
-                rating = glicko.establishedIntRating | IntRating(
-                  scalalib.Maths.boxedNormalDistribution(glicko.intRating.value, glicko.intDeviation, 0.3)
+                rating = pairingGlicko.establishedIntRating | IntRating(
+                  scalalib.Maths
+                    .boxedNormalDistribution(pairingGlicko.intRating.value, pairingGlicko.intDeviation, 0.3)
                 ),
                 ratingRange = ratingRange,
                 lame = user.lame,

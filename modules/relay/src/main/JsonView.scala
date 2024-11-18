@@ -166,14 +166,15 @@ object JsonView:
         "slug"      -> r.slug,
         "createdAt" -> r.createdAt
       )
-      .add("finished" -> r.finished)
-      .add("ongoing" -> (r.hasStarted && !r.finished))
+      .add("finishedAt" -> r.finishedAt)
+      .add("finished" -> r.isFinished) // BC
+      .add("ongoing" -> (r.hasStarted && !r.isFinished))
       .add("startsAt" -> r.startsAtTime.orElse(r.startedAt))
       .add("startsAfterPrevious" -> r.startsAfterPrevious)
 
-  given OWrites[RelayStats.RoundStats] = OWrites: r =>
+  def statsJson(stats: RelayStats.RoundStats) =
     Json.obj(
-      "viewers" -> r.viewers.map: (minute, crowd) =>
+      "viewers" -> stats.viewers.map: (minute, crowd) =>
         Json.arr(minute * 60, crowd)
     )
 
