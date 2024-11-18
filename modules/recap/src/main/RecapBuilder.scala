@@ -20,6 +20,7 @@ private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(
   private def scanToRecap(userId: UserId, scan: Scan): Recap =
     Recap(
       id = userId,
+      year = yearToRecap,
       nbGames = scan.nbGames,
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
@@ -28,6 +29,10 @@ private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(
       results = scan.results,
       timePlaying = scan.secondsPlaying.seconds,
       opponent = scan.opponents.toList.sortBy(-_._2).headOption.map(Recap.Counted.apply),
+      perfs = scan.perfs.toList
+        .sortBy(-_._2._1)
+        .map:
+          case (key, (seconds, games)) => Recap.Perf(key, seconds, games),
       createdAt = nowInstant
     )
 
@@ -49,7 +54,8 @@ private case class Scan(
     results: Recap.Results,
     openings: ByColor[Map[SimpleOpening, Int]],
     firstMoves: Map[SanStr, Int],
-    opponents: Map[UserId, Int]
+    opponents: Map[UserId, Int],
+    perfs: Map[PerfKey, (Int, Int)]
 ):
   def addGame(userId: UserId)(g: Game): Scan =
     g.player(userId)
@@ -58,11 +64,10 @@ private case class Scan(
         val winner   = g.winnerUserId
         val opening = g.variant.standard.so:
           OpeningDb.search(g.sans).map(_.opening).flatMap(SimpleOpening.apply)
+        val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
         copy(
           nbGames = nbGames + 1,
-          secondsPlaying = secondsPlaying + {
-            g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
-          },
+          secondsPlaying = secondsPlaying + durationSeconds,
           results = results.copy(
             win = results.win + winner.exists(_.is(userId)).so(1),
             draw = results.draw + winner.isEmpty.so(1),
@@ -75,10 +80,14 @@ private case class Scan(
             .fold(firstMoves): fm =>
               firstMoves.updatedWith(fm)(_.fold(1)(_ + 1).some),
           opponents = opponent.fold(opponents): op =>
-            opponents.updatedWith(op)(_.fold(1)(_ + 1).some)
+            opponents.updatedWith(op)(_.fold(1)(_ + 1).some),
+          perfs = perfs.updatedWith(g.perfKey): pk =>
+            pk.fold((durationSeconds, 1).some): (seconds, games) =>
+              (seconds + durationSeconds, games + 1).some
         )
 
 private object Scan:
-  def zero = Scan(0, 0, Recap.Results(0, 0, 0), ByColor(Map.empty, Map.empty), Map.empty, Map.empty)
+  def zero =
+    Scan(0, 0, Recap.Results(0, 0, 0), ByColor.fill(Map.empty), Map.empty, Map.empty, Map.empty)
   val createdThisYear =
-    Query.createdBetween(instantOf(2024, 1, 1, 0, 0).some, instantOf(2025, 1, 1, 0, 0).some)
+    Query.createdBetween(instantOf(yearToRecap, 1, 1, 0, 0).some, instantOf(yearToRecap + 1, 1, 1, 0, 0).some)

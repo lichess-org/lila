@@ -1,0 +1,65 @@
+$c-recap-1: #264653;
+$c-recap-2: #2a9d8f;
+$c-recap-3: #b88200;
+$c-recap-4: #f4a261;
+$c-recap-5: #e76f51;
+
+.recap__content {
+  @extend %flex-column;
+  gap: 2em;
+  font-size: 2em;
+}
+
+.recap__title {
+  margin: 2em 0;
+}
+
+.recap__box {
+  @extend %box-neat;
+  padding: 2em 3em;
+}
+.recap__games {
+  background: $c-recap-1;
+}
+
+.recap--massive {
+  font-size: 5em;
+}
+
+.recap__perfs {
+  @extend %flex-column;
+  gap: 1em;
+}
+.recap__perf {
+  position: relative;
+  color: white;
+}
+
+.recap__perf__duration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  background: $c-recap-3;
+  padding: 1em 2em;
+  border-radius: 0 5em 5em 0;
+  color: $c-over;
+  padding-right: 0.5em;
+}
+.recap__perf__data {
+  @extend %flex-center-nowrap;
+  gap: 3rem;
+  padding: 0 2rem;
+  i {
+    font-size: 3em;
+  }
+  strong {
+    font-size: 1.7em;
+    line-height: 1;
+  }
+}
+.recap__perf__games strong {
+  display: block;
+  font-weight: 2em;
+}

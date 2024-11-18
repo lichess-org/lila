@@ -10,6 +10,7 @@ private final class RecapRepo(colls: RecapColls)(using Executor):
 
   private given BSONDocumentHandler[Recap.Results]              = Macros.handler
   private given [A: BSONHandler]: BSONHandler[Recap.Counted[A]] = Macros.handler
+  private given BSONDocumentHandler[Recap.Perf]                 = Macros.handler
   private given BSONDocumentHandler[Recap]                      = Macros.handler
 
   def get(userId: UserId): Fu[Option[Recap]] = colls.recap.byId[Recap](userId)
