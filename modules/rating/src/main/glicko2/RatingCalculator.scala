@@ -59,7 +59,7 @@ final class RatingCalculator(
       results: RatingPeriodResults[Result],
       skipDeviationIncrease: Boolean = false
   ) =
-    results.foreach { case (player, results) =>
+    results.map { case (player, results) =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
       if results.sizeIs > 0 then calculateNewRating(player, results, elapsedRatingPeriods)
       else
@@ -99,7 +99,7 @@ final class RatingCalculator(
     * @param results
     * @param elapsedRatingPeriods
     */
-  def calculateNewRating(player: Rating, results: List[Result], elapsedRatingPeriods: Double): Unit =
+  def calculateNewRating(player: Rating, results: List[Result], elapsedRatingPeriods: Double): Rating =
     val phi   = player.getGlicko2RatingDeviation
     val sigma = player.volatility
     val a     = Math.log(Math.pow(sigma, 2))

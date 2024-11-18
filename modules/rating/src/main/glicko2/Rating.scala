@@ -2,9 +2,9 @@ package lila.rating.glicko2
 
 // rewrite from java https://github.com/goochjs/glicko2
 final class Rating(
-    val rating: Double,
-    val ratingDeviation: Double,
-    val volatility: Double,
+    var rating: Double,
+    var ratingDeviation: Double,
+    var volatility: Double,
     val numberOfResults: Int,
     val lastRatingPeriodEnd: Option[java.time.Instant] = None
 ):
@@ -53,4 +53,4 @@ final class Rating(
   override def toString = s"$rating / $ratingDeviation / $volatility / $numberOfResults"
 
   def incrementNumberOfResults(increment: Int) =
-    numberOfResults = numberOfResults + increment
+    Rating(rating, ratingDeviation, volatility, numberOfResults + increment, lastRatingPeriodEnd)
