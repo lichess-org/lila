@@ -205,8 +205,7 @@ final private[puzzle] class PuzzleFinisher(
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
   private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, win: PuzzleWin): Unit =
-    val ratings = Set(u1, u2)
-    val results = glicko2.RatingPeriodResults[BinaryResult](
+    val results = glicko2.RatingPeriodResults[glicko2.BinaryResult](
       u1 -> List(
         if win.yes then glicko2.BinaryResult(u2, true)
         else glicko2.BinaryResult(u2, false)
