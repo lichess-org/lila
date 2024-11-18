@@ -99,7 +99,7 @@ export const isApple: () => boolean = memoize<boolean>(
 
 export const shareIcon: () => string = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
-export type Feature = 'wasm' | 'sharedMem' | 'simd';
+export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'dynamicImportFromWorker';
 
 export const hasFeature = (feat?: string): boolean => !feat || features().includes(feat as Feature);
 
@@ -120,6 +120,16 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
         1, 11,
       ]);
       if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
+    }
+    try {
+      new Worker(
+        URL.createObjectURL(
+          new Blob(["import('data:text/javascript,export default {}')"], { type: 'application/javascript' }),
+        ),
+      ).terminate();
+      features.push('dynamicImportFromWorker');
+    } catch {
+      // no dynamic import from worker
     }
   }
   return Object.freeze(features);
