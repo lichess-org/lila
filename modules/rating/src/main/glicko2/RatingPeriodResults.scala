@@ -1,7 +1,5 @@
 package lila.rating.glicko2
 
-import scala.collection.immutable.Map
-
 // rewrite from java https://github.com/goochjs/glicko2
 type RatingPeriodResults[R <: Result] = Map[Rating, List[R]]
 
