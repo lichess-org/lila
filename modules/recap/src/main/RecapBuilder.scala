@@ -10,6 +10,12 @@ private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(
     Executor,
     akka.stream.Materializer
 ):
+  def compute(userId: UserId): Funit =
+    for
+      scan <- runScan(userId)
+      recap = scanToRecap(userId, scan)
+      _ <- repo.insert(recap)
+    yield ()
 
   private def scanToRecap(userId: UserId, scan: Scan): Recap =
     Recap(
@@ -37,16 +43,6 @@ private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(
       .documentSource()
       .runFold(Scan.zero)(_.addGame(userId)(_))
 
-  def compute(userId: UserId): Funit =
-    println(s"RecapBuilder.compute $userId")
-    println(Scan.zero)
-    println("WTFFFFFFFFFFFFFFF")
-    for
-      scan <- fuccess(Scan.zero) // Scan.run(userId.pp("Scan.run"))
-      recap = scanToRecap(userId, scan).pp
-      _ <- repo.insert(recap)
-    yield ()
-
 private case class Scan(
     nbGames: Int,
     secondsPlaying: Int,
@@ -56,7 +52,6 @@ private case class Scan(
     opponents: Map[UserId, Int]
 ):
   def addGame(userId: UserId)(g: Game): Scan =
-    println(s"${g.id} ${nbGames}")
     g.player(userId)
       .fold(this): player =>
         val opponent = g.opponent(player).userId
@@ -84,7 +79,6 @@ private case class Scan(
         )
 
 private object Scan:
-
-  def zero = Scan(0, 0, Recap.Results(0, 0, 0), ByColor(Map.empty), Map.empty, Map.empty)
+  def zero = Scan(0, 0, Recap.Results(0, 0, 0), ByColor(Map.empty, Map.empty), Map.empty, Map.empty)
   val createdThisYear =
     Query.createdBetween(instantOf(2024, 1, 1, 0, 0).some, instantOf(2025, 1, 1, 0, 0).some)

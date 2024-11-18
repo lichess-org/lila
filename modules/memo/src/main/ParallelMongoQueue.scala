@@ -71,9 +71,9 @@ final class ParallelMongoQueue[A: BSONHandler](
 
     // we only wait for enqueuing - NOT for the computation
     def computeThenRemoveFromQueue(id: A): Funit =
-      for _ <- start(id).thenPp("updated start")
-      yield computation(id.pp("computation")).foreach: _ =>
-        remove(id.pp("completed"))
+      for _ <- start(id)
+      yield computation(id).foreach: _ =>
+        remove(id)
 
     def remove(id: A): Funit = coll.delete.one($id(id)).void
 
@@ -86,6 +86,6 @@ final class ParallelMongoQueue[A: BSONHandler](
               started.isBefore(Uptime.startedAt)
           expired.so:
             for
-              _ <- remove(next.id.pp("expired"))
+              _ <- remove(next.id)
               _ = monitoring.computeTimeout.increment()
             yield ()
