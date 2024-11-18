@@ -445,7 +445,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.data.puzzle.id,
       this.data.angle.key,
       win,
-      this.rated,
+      this.rated() && !this.hintHasBeenShown(),
       this.data.replay,
       this.streak,
       this.opts.settings.color,
