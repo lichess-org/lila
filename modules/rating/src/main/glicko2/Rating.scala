@@ -2,11 +2,11 @@ package lila.rating.glicko2
 
 // rewrite from java https://github.com/goochjs/glicko2
 final class Rating(
-    var rating: Double,
-    var ratingDeviation: Double,
-    var volatility: Double,
-    var numberOfResults: Int,
-    var lastRatingPeriodEnd: Option[java.time.Instant] = None
+    val rating: Double,
+    val ratingDeviation: Double,
+    val volatility: Double,
+    val numberOfResults: Int,
+    val lastRatingPeriodEnd: Option[java.time.Instant] = None
 ):
 
   import RatingCalculator.*
