@@ -10,7 +10,7 @@ import lila.memo.CacheApi
 @Module
 final class Env(
     db: lila.db.Db,
-    userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo,
     cacheApi: CacheApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using
@@ -20,20 +20,23 @@ final class Env(
 
   lazy val parallelismSetting = settingStore[Int](
     "recapParallelism",
-    default = 5,
+    default = 4,
     text = "Number of yearly recaps to build in parallel".some
   ).taggedWith[Parallelism]
 
   private val colls = RecapColls(db(CollName("recap_report")), db(CollName("recap_queue")))
+
+  private val repo = wire[RecapRepo]
 
   private val builder = wire[RecapBuilder]
 
   private val queue = lila.memo.ParallelMongoQueue[UserId](
     coll = colls.queue,
     parallelism = () => parallelismSetting.get(),
-    computationTimeout = 15.seconds,
+    computationTimeout = 1.minute,
     name = "recap"
-  )(builder.compute)
+  ): uid =>
+    builder.compute(uid)
 
   lazy val api = wire[RecapApi]
 

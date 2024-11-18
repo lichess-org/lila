@@ -4,6 +4,7 @@ package i18n
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import scalatags.Text.RawFrag
+import scala.concurrent.duration.FiniteDuration
 export scalalib.newtypes.{ given, * }
 
 /* play.api.i18n.Lang is composed of language and country.
@@ -74,3 +75,6 @@ def translateDuration(duration: java.time.Duration)(using Translate): String =
     .dropWhile { (_, dropZero, nb) => dropZero && nb == 0 }
     .map { (key, _, nb) => key.pluralSameTxt(nb) }
     .mkString(" ")
+
+def translateDuration(duration: FiniteDuration)(using Translate): String =
+  translateDuration(java.time.Duration.ofSeconds(duration.toSeconds))
