@@ -40,13 +40,13 @@ cg-board::before {
       background-image: img-url('staunton/board/#{$name}.png');
     }
 
-    $coord-color-white: map-get($board-theme, coord-color-white);
-    $coord-color-black: map-get($board-theme, coord-color-black);
+    $coor-txt-color-on-dark-sq: map-get($board-theme, coor-txt-color-on-dark-sq);
+    $coor-txt-color-on-light-sq: map-get($board-theme, coor-txt-color-on-light-sq);
 
-    @if $coord-color-white and $coord-color-black {
+    @if $coor-txt-color-on-dark-sq and $coor-txt-color-on-light-sq {
       coords {
-        ---cg-ccw: #{$coord-color-white};
-        ---cg-ccb: #{$coord-color-black};
+        ---cg-ccw: #{$coor-txt-color-on-dark-sq};
+        ---cg-ccb: #{$coor-txt-color-on-light-sq};
         ---cg-cs: none;
       }
     }
