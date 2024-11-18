@@ -47,24 +47,27 @@ final class RecapUi(helpers: Helpers):
               span(cls := "recap__perf__time")(lila.core.i18n.translateDuration(p.duration))
             )
           )
+      ),
+      recap.openings
+        .mapWithColor: (color, c) =>
+          div("Favourite opening as ", color.name, ": ", c.value.name, " (", c.count, " games)")
+        .toList,
+      div(
+        "Results",
+        p(pluralizeLocalize("win", recap.results.win)),
+        p(pluralizeLocalize("draw", recap.results.draw)),
+        p(recap.results.loss.localize, if recap.results.loss == 1 then " loss" else " losses")
+      ),
+      div(
+        "Best opponent",
+        recap.opponent.map: c =>
+          p(userIdLink(c.value.some), pluralize("game", c.count))
+      ),
+      div(
+        "Preferred first move",
+        recap.firstMove.map: c =>
+          p(strong(c.value), " played in ", pluralizeLocalize("game", c.count))
       )
-      // fragList:
-      //   recap.openings
-      //     .mapWithColor: (color, c) =>
-      //       div("Favourite opening as ", color.name, ": ", c.value.name, " (", c.count, " games)")
-      //     .toList
-      // ,
-      // div("Results", recap.results.toString),
-      // div(
-      //   "Best opponent",
-      //   recap.opponent.map: c =>
-      //     frag(userIdLink(c.value.some), pluralize("game", c.count))
-      // ),
-      // div(
-      //   "Preferred first move",
-      //   recap.firstMove.map: c =>
-      //     frag(c.value, pluralize("game", c.count))
-      // )
     )
   )
 
