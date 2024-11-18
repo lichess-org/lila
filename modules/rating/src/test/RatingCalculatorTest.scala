@@ -9,20 +9,25 @@ import glicko2.*
 
 class RatingCalculatorTest extends lila.common.LilaTest:
   def updateRatings(wRating: Rating, bRating: Rating, winner: Option[Color]) =
-    val ratings = Set(wRating, bRating)
     val result = winner match
       case Some(chess.White) => Glicko.Result.Win
       case Some(chess.Black) => Glicko.Result.Loss
       case None              => Glicko.Result.Draw
     val results = RatingPeriodResults[DuelResult](
-      List(
+      wRating -> List(
         result match
-          case Glicko.Result.Win  => DuelResult(wRating, bRating, Outcome.white)
-          case Glicko.Result.Loss => DuelResult(wRating, bRating, Outcome.black)
-          case Glicko.Result.Draw => DuelResult(wRating, bRating, Outcome.draw)
+          case Glicko.Result.Win  => DuelResult(bRating, 1.0d, true)
+          case Glicko.Result.Loss => DuelResult(bRating, 0.0d, true)
+          case Glicko.Result.Draw => DuelResult(bRating, 0.5d, true)
+      ),
+      bRating -> List(
+        result match
+          case Glicko.Result.Win  => DuelResult(wRating, 0.0d, false)
+          case Glicko.Result.Loss => DuelResult(wRating, 1.0d, false)
+          case Glicko.Result.Draw => DuelResult(wRating, 0.5d, false)
       )
     )
-    Glicko.calculatorWithAdvantage(ColorAdvantage.standard).updateRatings(ratings, results, true)
+    Glicko.calculatorWithAdvantage(ColorAdvantage.standard).updateRatings(results, true)
 
   test("default deviation: white wins") {
     val wr = default.toRating
