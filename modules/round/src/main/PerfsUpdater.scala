@@ -35,35 +35,35 @@ final class PerfsUpdater(
               val ratingsB = mkRatings(black.perfs)
               game.ratingVariant match
                 case chess.variant.Chess960 =>
-                  updateRatings(ratingsW.chess960, ratingsB.chess960, game)
+                  computeRatings(ratingsW.chess960, ratingsB.chess960, game)
                 case chess.variant.KingOfTheHill =>
-                  updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
+                  computeRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, game)
                 case chess.variant.ThreeCheck =>
-                  updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
+                  computeRatings(ratingsW.threeCheck, ratingsB.threeCheck, game)
                 case chess.variant.Antichess =>
-                  updateRatings(ratingsW.antichess, ratingsB.antichess, game)
+                  computeRatings(ratingsW.antichess, ratingsB.antichess, game)
                 case chess.variant.Atomic =>
-                  updateRatings(ratingsW.atomic, ratingsB.atomic, game)
+                  computeRatings(ratingsW.atomic, ratingsB.atomic, game)
                 case chess.variant.Horde =>
-                  updateRatings(ratingsW.horde, ratingsB.horde, game, ColorAdvantage.zero)
+                  computeRatings(ratingsW.horde, ratingsB.horde, game, ColorAdvantage.zero)
                 case chess.variant.RacingKings =>
-                  updateRatings(ratingsW.racingKings, ratingsB.racingKings, game, ColorAdvantage.zero)
+                  computeRatings(ratingsW.racingKings, ratingsB.racingKings, game, ColorAdvantage.zero)
                 case chess.variant.Crazyhouse =>
-                  updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game, ColorAdvantage.crazyhouse)
+                  computeRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, game, ColorAdvantage.crazyhouse)
                 case chess.variant.Standard =>
                   game.speed match
                     case Speed.Bullet =>
-                      updateRatings(ratingsW.bullet, ratingsB.bullet, game)
+                      computeRatings(ratingsW.bullet, ratingsB.bullet, game)
                     case Speed.Blitz =>
-                      updateRatings(ratingsW.blitz, ratingsB.blitz, game)
+                      computeRatings(ratingsW.blitz, ratingsB.blitz, game)
                     case Speed.Rapid =>
-                      updateRatings(ratingsW.rapid, ratingsB.rapid, game)
+                      computeRatings(ratingsW.rapid, ratingsB.rapid, game)
                     case Speed.Classical =>
-                      updateRatings(ratingsW.classical, ratingsB.classical, game)
+                      computeRatings(ratingsW.classical, ratingsB.classical, game)
                     case Speed.Correspondence =>
-                      updateRatings(ratingsW.correspondence, ratingsB.correspondence, game)
+                      computeRatings(ratingsW.correspondence, ratingsB.correspondence, game)
                     case Speed.UltraBullet =>
-                      updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
+                      computeRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, game)
                 case _ =>
               val perfsW                     = mkPerfs(ratingsW, white -> black, game)
               val perfsB                     = mkPerfs(ratingsB, black -> white, game)
@@ -123,12 +123,12 @@ final class PerfsUpdater(
       correspondence = perfs.correspondence.toRating
     )
 
-  private def updateRatings(
+  private def computeRatings(
       white: Rating,
       black: Rating,
       game: Game,
       advantage: ColorAdvantage = ColorAdvantage.standard
-  ): Unit =
+  ): Set[Rating] =
     val results = RatingPeriodResults[DuelResult](
       white -> List(
         game.winnerColor match
@@ -144,7 +144,7 @@ final class PerfsUpdater(
       )
     )
     // tuning TAU per game speed may improve accuracy
-    try Glicko.calculatorWithAdvantage(advantage).updateRatings(results, true)
+    try Glicko.calculatorWithAdvantage(advantage).computeRatings(results, true)
     catch case e: Exception => logger.error(s"update ratings #${game.id}", e)
 
   private def mkPerfs(ratings: Ratings, users: PairOf[UserWithPerfs], game: Game): UserPerfs =

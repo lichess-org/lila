@@ -78,15 +78,15 @@ final private[puzzle] class PuzzleFinisher(
                     )
                     (round, none, perf)
                 case None =>
-                  val userRating = perf.toRating
-                  val puzzleRating = glicko2.Rating(
+                  val userOldRating = perf.toRating
+                  val puzzleOldRating = glicko2.Rating(
                     puzzle.glicko.rating.atLeast(lila.rating.Glicko.minRating.value),
                     puzzle.glicko.deviation,
                     puzzle.glicko.volatility,
                     puzzle.plays,
                     none
                   )
-                  updateRatings(userRating, puzzleRating, win)
+                  val (userRating, puzzleRating) = computeRatings(userOldRating, puzzleOldRating, win)
                   userApi
                     .dubiousPuzzle(me.userId, perf)
                     .map: dubiousPuzzleRating =>
@@ -204,7 +204,7 @@ final private[puzzle] class PuzzleFinisher(
   def incPuzzlePlays(puzzleId: PuzzleId): Funit =
     colls.puzzle.map(_.incFieldUnchecked($id(puzzleId), Puzzle.BSONFields.plays))
 
-  private def updateRatings(u1: glicko2.Rating, u2: glicko2.Rating, win: PuzzleWin): Unit =
+  private def computeRatings(u1: glicko2.Rating, u2: glicko2.Rating, win: PuzzleWin): Set[glicko2.Rating] =
     val results = glicko2.RatingPeriodResults[glicko2.BinaryResult](
       u1 -> List(
         if win.yes then glicko2.BinaryResult(u2, true)
@@ -215,5 +215,5 @@ final private[puzzle] class PuzzleFinisher(
         else glicko2.BinaryResult(u1, true)
       )
     )
-    try calculator.updateRatings(results)
+    try calculator.computeRatings(results)
     catch case e: Exception => logger.error("finisher", e)

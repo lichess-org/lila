@@ -2,9 +2,9 @@ package lila.rating.glicko2
 
 // rewrite from java https://github.com/goochjs/glicko2
 final class Rating(
-    var rating: Double,
-    var ratingDeviation: Double,
-    var volatility: Double,
+    val rating: Double,
+    val ratingDeviation: Double,
+    val volatility: Double,
     val numberOfResults: Int,
     val lastRatingPeriodEnd: Option[java.time.Instant] = None
 ):
@@ -12,9 +12,9 @@ final class Rating(
   import RatingCalculator.*
 
   // the following variables are used to hold values temporarily whilst running calculations
-  private[glicko2] var workingRating: Double          = scala.compiletime.uninitialized
-  private[glicko2] var workingRatingDeviation: Double = scala.compiletime.uninitialized
-  private[glicko2] var workingVolatility: Double      = scala.compiletime.uninitialized
+  private[glicko2] var workingRating: Double          = 0d
+  private[glicko2] var workingRatingDeviation: Double = 0d
+  private[glicko2] var workingVolatility: Double      = 0d
 
   /** Return the average skill value of the player scaled down to the scale used by the algorithm's internal
     * workings.
@@ -27,8 +27,8 @@ final class Rating(
 
   /** Set the average skill value, taking in a value in Glicko2 scale.
     */
-  def setGlicko2Rating(r: Double) =
-    rating = convertRatingToOriginalGlickoScale(r)
+  private def setGlicko2Rating(r: Double) =
+    convertRatingToOriginalGlickoScale(r)
 
   /** Return the rating deviation of the player scaled down to the scale used by the algorithm's internal
     * workings.
@@ -37,18 +37,20 @@ final class Rating(
 
   /** Set the rating deviation, taking in a value in Glicko2 scale.
     */
-  def setGlicko2RatingDeviation(rd: Double) =
-    ratingDeviation = convertRatingDeviationToOriginalGlickoScale(rd)
+  private def setGlicko2RatingDeviation(rd: Double) =
+    convertRatingDeviationToOriginalGlickoScale(rd)
 
   /** Used by the calculation engine, to move interim calculations into their "proper" places.
     */
   def finaliseRating() =
-    setGlicko2Rating(workingRating)
-    setGlicko2RatingDeviation(workingRatingDeviation)
-    volatility = workingVolatility
-    workingRatingDeviation = 0d
-    workingRating = 0d
-    workingVolatility = 0d
+    Rating(
+    convertRatingToOriginalGlickoScale(workingRating),
+    convertRatingDeviationToOriginalGlickoScale(workingRatingDeviation),
+    workingVolatility,
+    numberOfResults,
+    lastRatingPeriodEnd
+    )
+
 
   override def toString = s"$rating / $ratingDeviation / $volatility / $numberOfResults"
 

@@ -10,14 +10,11 @@ object TutorGlicko:
 
   def scoresRating(perf: Perf, scores: List[(Rating, Score)]): Rating =
     val calculator = glicko2.RatingCalculator()
-    val player     = perf.toRating
     val results = glicko2.RatingPeriodResults[glicko2.Result](
-      player ->
+      perf.toRating ->
         scores.map: (rating, score) =>
           glicko2.Result(glicko2.Rating(rating, 60, 0.06, 10), score)
     )
 
-    try calculator.updateRatings(results, true)
+    try calculator.computeRatings(results, true)
     catch case e: Exception => logger.error("TutorGlicko.scoresRating", e)
-
-    player.rating.toInt

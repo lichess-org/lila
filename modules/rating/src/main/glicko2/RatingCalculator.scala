@@ -55,10 +55,10 @@ final class RatingCalculator(
     *
     * @param results
     */
-  def updateRatings(
+  def computeRatings(
       results: RatingPeriodResults[Result],
       skipDeviationIncrease: Boolean = false
-  ) =
+  ): Set[Rating] =
     results.map { case (player, results) =>
       val elapsedRatingPeriods = if skipDeviationIncrease then 0 else 1
       if results.sizeIs > 0 then calculateNewRating(player, results, elapsedRatingPeriods)
@@ -72,7 +72,7 @@ final class RatingCalculator(
     }
 
     // now iterate through the participants and confirm their new ratings
-    results.keySet.foreach { _.finaliseRating() }
+    results.keySet.map { _.finaliseRating() }
 
   /** This is the formula defined in step 6. It is also used for players who have not competed during the
     * rating period.
