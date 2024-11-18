@@ -11,9 +11,10 @@ object TutorGlicko:
   def scoresRating(perf: Perf, scores: List[(Rating, Score)]): Rating =
     val calculator = glicko2.RatingCalculator()
     val player     = perf.toRating
-    val results = glicko2.RatingPeriodResults[glicko2.Result](player ->
-      scores.map: (rating, score) =>
-        glicko2.Result(glicko2.Rating(rating, 60, 0.06, 10), score)
+    val results = glicko2.RatingPeriodResults[glicko2.Result](
+      player ->
+        scores.map: (rating, score) =>
+          glicko2.Result(glicko2.Rating(rating, 60, 0.06, 10), score)
     )
 
     try calculator.updateRatings(results, true)
