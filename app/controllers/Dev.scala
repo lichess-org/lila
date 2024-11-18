@@ -27,6 +27,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.web.settings.noDelaySecret,
     env.web.settings.prizeTournamentMakers,
     env.web.settings.sitewideCoepCredentiallessHeader,
+    env.web.socketTest.distributionSetting,
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
@@ -85,7 +86,7 @@ final class Dev(env: Env) extends LilaController(env):
       .fold(
         err => BadRequest(Json.obj("error" -> err.toString)),
         results =>
-          env.api.socketTestResult
+          env.web.socketTest
             .put(Json.obj(me.userId.toString -> results))
             .inject(jsonOkResult)
       )
