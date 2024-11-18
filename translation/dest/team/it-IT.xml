@@ -64,6 +64,10 @@ Non puoi rimuovere una squadra se un giocatore ha già aderito al torneo.</strin
   <string name="numberOfLeadsPerTeam">Numero di leader per squadra. La somma del loro punteggio è il punteggio della squadra.</string>
   <string name="numberOfLeadsPerTeamHelp">Una volta che il torneo è iniziato non dovresti proprio cambiare questo valore!</string>
   <string name="innerTeam">Squadra interna</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Battaglia ad %s squadra</item>
+    <item quantity="other">Battaglia a %s squadre</item>
+  </plurals>
   <plurals name="nbLeadersPerTeam">
     <item quantity="one">Un leader per squadra</item>
     <item quantity="other">%s leader per squadra</item>
