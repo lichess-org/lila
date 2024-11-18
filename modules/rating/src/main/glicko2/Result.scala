@@ -1,5 +1,7 @@
 package lila.rating.glicko2
 
+import chess.{ Color, White }
+
 // ASSUME score is between unit interval [0.0d, 1.0d]
 class Result(opponent: Rating, score: Double):
 
@@ -12,7 +14,7 @@ class Result(opponent: Rating, score: Double):
 class BinaryResult(val opponent: Rating, val win: Boolean)
     extends Result(opponent, if win then 1.0d else 0.0d)
 
-class DuelResult(val opponent: Rating, val score: Double, first: Boolean) extends Result(opponent, score):
+class DuelResult(val opponent: Rating, val score: Double, color: Color) extends Result(opponent, score):
 
   override def getAdvantage(advantage: ColorAdvantage): ColorAdvantage =
-    if first then advantage.map(_ / 2.0d) else advantage.map(_ / 2.0d).negate
+    if color == White then advantage.map(_ / 2.0d) else advantage.map(_ / 2.0d).negate

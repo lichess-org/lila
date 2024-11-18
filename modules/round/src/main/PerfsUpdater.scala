@@ -132,15 +132,15 @@ final class PerfsUpdater(
     val results = RatingPeriodResults[DuelResult](
       white -> List(
         game.winnerColor match
-          case Some(chess.White) => DuelResult(black, 1.0d, true)
-          case Some(chess.Black) => DuelResult(black, 0.0d, true)
-          case None              => DuelResult(black, 0.5d, true)
+          case Some(chess.White) => DuelResult(black, 1.0d, chess.White)
+          case Some(chess.Black) => DuelResult(black, 0.0d, chess.White)
+          case None              => DuelResult(black, 0.5d, chess.White)
       ),
       black -> List(
         game.winnerColor match
-          case Some(chess.White) => DuelResult(white, 0.0d, false)
-          case Some(chess.Black) => DuelResult(white, 1.0d, false)
-          case None              => DuelResult(white, 0.5d, false)
+          case Some(chess.White) => DuelResult(white, 0.0d, chess.Black)
+          case Some(chess.Black) => DuelResult(white, 1.0d, chess.Black)
+          case None              => DuelResult(white, 0.5d, chess.Black)
       )
     )
     // tuning TAU per game speed may improve accuracy
