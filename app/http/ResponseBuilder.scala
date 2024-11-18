@@ -44,8 +44,6 @@ trait ResponseBuilder(using Executor)
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =
       fua.flatMap { _.fold(notFound)(f) }
-    def orNotFoundEmbed(f: A => Fu[Result])(using EmbedContext): Fu[Result] =
-      fua.flatMap { _.fold(notFoundEmbed)(f) }
   extension [A](fua: Fu[Boolean])
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
       fua.flatMap { if _ then f else notFound }
@@ -87,9 +85,8 @@ trait ResponseBuilder(using Executor)
       json = msg.fold(notFoundJson())(notFoundJson)
     )
 
-  def notFoundEmbed(using ctx: EmbedContext): Fu[Result] = notFoundEmbed(none)
-  def notFoundEmbed(msg: Option[String])(using ctx: EmbedContext): Fu[Result] =
-    keyPages.notFoundEmbed(msg)
+  def notFoundEmbed(using EmbedContext): Fu[Result]                      = notFoundEmbed(none)
+  def notFoundEmbed(msg: Option[String])(using EmbedContext): Fu[Result] = keyPages.notFoundEmbed(msg)
 
   def authenticationFailed(using ctx: Context): Fu[Result] =
     negotiate(

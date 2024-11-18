@@ -128,29 +128,30 @@ final class RelayRound(
     env.study.preview
       .firstId(rt.round.studyId)
       .flatMapz(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _))
-      .orNotFoundEmbed: oldSc =>
-        studyC.CanView(oldSc.study)(
-          for
-            (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
-            rounds          <- env.relay.api.byTourOrdered(rt.tour)
-            group           <- env.relay.api.withTours.get(rt.tour.id)
-            data = env.relay.jsonView.makeData(
-              rt.tour.withRounds(rounds.map(_.round)),
-              rt.round.id,
-              studyData,
-              group,
-              canContribute = false,
-              isSubscribed = none,
-              videoUrls = none,
-              pinned = none
-            )
-            sVersion <- NoCrawlers(env.study.version(sc.study.id))
-            embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
-          yield Ok(embed).enforceCrossSiteIsolation
-        )(
-          studyC.privateUnauthorizedFu(oldSc.study),
-          studyC.privateForbiddenFu(oldSc.study)
-        )
+      .flatMap:
+        _.fold(notFoundEmbed): oldSc =>
+          studyC.CanView(oldSc.study)(
+            for
+              (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
+              rounds          <- env.relay.api.byTourOrdered(rt.tour)
+              group           <- env.relay.api.withTours.get(rt.tour.id)
+              data = env.relay.jsonView.makeData(
+                rt.tour.withRounds(rounds.map(_.round)),
+                rt.round.id,
+                studyData,
+                group,
+                canContribute = false,
+                isSubscribed = none,
+                videoUrls = none,
+                pinned = none
+              )
+              sVersion <- NoCrawlers(env.study.version(sc.study.id))
+              embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+            yield Ok(embed).enforceCrossSiteIsolation
+          )(
+            studyC.privateUnauthorizedFu(oldSc.study),
+            studyC.privateForbiddenFu(oldSc.study)
+          )
 
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
     Found(env.relay.api.byIdWithTour(id))(doApiShow)
