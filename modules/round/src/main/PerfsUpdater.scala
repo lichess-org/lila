@@ -129,7 +129,7 @@ final class PerfsUpdater(
       game: Game,
       advantage: ColorAdvantage = ColorAdvantage.standard
   ): Unit =
-    val results = RatingPeriodResults(
+    val results = RatingPeriodResults[DuelResult](
       white -> List(
         game.winnerColor match
           case Some(chess.White) => DuelResult(black, 1.0d, true)
