@@ -1,5 +1,7 @@
 package lila.insight
 
+import chess.glicko.{ IntRating, IntRatingDiff }
+
 import lila.common.SimpleOpening
 import lila.core.game.Source
 

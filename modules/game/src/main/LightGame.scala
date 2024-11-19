@@ -1,6 +1,7 @@
 package lila.game
 
 import chess.Color
+import chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
 
 import lila.core.game.LightPlayer
 

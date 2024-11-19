@@ -1,6 +1,7 @@
 package lila.racer
 
 import chess.format.{ Fen, Uci }
+import chess.glicko.IntRating
 import reactivemongo.api.bson.*
 
 import lila.core.id.PuzzleId

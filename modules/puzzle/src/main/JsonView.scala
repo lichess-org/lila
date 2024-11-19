@@ -1,6 +1,7 @@
 package lila.puzzle
 
 import chess.format.*
+import chess.glicko.{ IntRating, IntRatingDiff }
 import play.api.libs.json.*
 
 import lila.common.Json.given

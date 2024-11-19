@@ -1,6 +1,7 @@
 package lila.tutor
 
 import chess.{ ByColor, Color }
+import chess.glicko.IntRating
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily

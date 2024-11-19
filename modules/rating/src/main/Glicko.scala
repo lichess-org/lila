@@ -1,9 +1,9 @@
 package lila.rating
 
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
+import chess.glicko.{ Glicko, IntRating }
 
 import lila.core.perf.Perf
-import lila.core.rating.Glicko
 import lila.db.BSON
 import lila.rating.PerfExt.*
 
@@ -36,21 +36,11 @@ object GlickoExt:
         volatility = g.volatility.atMost(Glicko.maxVolatility)
       )
 
-    def average(other: Glicko, weight: Float = 0.5f): Glicko =
-      if weight >= 1 then other
-      else if weight <= 0 then g
-      else
-        new Glicko(
-          rating = g.rating * (1 - weight) + other.rating * weight,
-          deviation = g.deviation * (1 - weight) + other.deviation * weight,
-          volatility = g.volatility * (1 - weight) + other.volatility * weight
-        )
-
 object Glicko:
-  export lila.core.rating.Glicko.*
+  export chess.glicko.Glicko.*
 
-  val minRating = IntRating(400)
-  val maxRating = IntRating(4000)
+  val minRating: IntRating = IntRating(400)
+  val maxRating: IntRating = IntRating(4000)
 
   val minDeviation              = 45
   val variantRankableDeviation  = 65

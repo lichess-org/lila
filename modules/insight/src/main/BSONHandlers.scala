@@ -1,6 +1,7 @@
 package lila.insight
 
 import chess.{ Color, Role }
+import chess.glicko.{ IntRating, IntRatingDiff }
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ AccuracyPercent, WinPercent }

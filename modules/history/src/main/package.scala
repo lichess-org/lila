@@ -1,5 +1,6 @@
 package lila.history
 
+import chess.glicko.IntRating
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 

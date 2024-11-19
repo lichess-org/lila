@@ -1,10 +1,10 @@
 package lila.clas
 
+import java.time.Duration
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 import scalalib.model.Days
-
-import java.time.Duration
+import chess.glicko.{ IntRating, IntRatingDiff }
 
 import lila.core.game.GameRepo
 import lila.core.user.WithPerf

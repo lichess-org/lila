@@ -38,10 +38,10 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
       .path:
         _.aggregateOne(): framework =>
           import framework.*
-          val rating     = perf.glicko.intRating + difficulty.ratingDelta
+          val rating     = perf.glicko.intRating.map(_ + difficulty.ratingDelta)
           val ratingFlex = (100 + math.abs(1500 - rating.value) / 4) * compromise.atMost(4)
           Match(
-            select(angle, actualTier, (rating - ratingFlex).value to (rating + ratingFlex).value) ++
+            select(angle, actualTier, (rating.value - ratingFlex) to (rating.value + ratingFlex)) ++
               ((compromise != 5 && previousPaths.nonEmpty).so($doc("_id".$nin(previousPaths))))
           ) -> List(
             Sample(1),

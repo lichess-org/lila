@@ -2,12 +2,11 @@ package lila.core
 
 import _root_.chess.variant.Variant
 import _root_.chess.{ Speed, variant as ChessVariant }
+import _root_.chess.glicko.{ Glicko, IntRating, IntRatingDiff }
 import monocle.syntax.all.*
-
-import lila.core.rating.Glicko
-import lila.core.rating.data.{ IntRating, IntRatingDiff }
-import lila.core.userId.{ UserId, UserIdOf }
 import monocle.syntax.AppliedPLens
+
+import lila.core.userId.{ UserId, UserIdOf }
 
 object perf:
 

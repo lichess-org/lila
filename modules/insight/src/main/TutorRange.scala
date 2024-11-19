@@ -1,5 +1,7 @@
 package lila.insight
 
+import chess.glicko.{ IntRating, IntRatingDiff }
+
 import lila.analyse.{ AccuracyPercent, WinPercent }
 
 enum RelativeStrength(val id: Int, val name: String):
@@ -14,7 +16,7 @@ object RelativeStrength:
   def apply(myRating: IntRating, opRating: IntRating): RelativeStrength = apply(
     (opRating - myRating).into(IntRatingDiff)
   )
-  def apply(diff: IntRatingDiff): RelativeStrength = diff match
+  def apply(diff: IntRatingDiff): RelativeStrength = diff.value match
     case d if d < -200 => MuchWeaker
     case d if d < -100 => Weaker
     case d if d > 200  => MuchStronger

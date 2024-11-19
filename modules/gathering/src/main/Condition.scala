@@ -1,6 +1,7 @@
 package lila.gathering
 
 import scalalib.model.Days
+import chess.glicko.IntRating
 
 import lila.core.LightUser.Me
 import lila.core.i18n.{ I18nKey as trans, Translate }

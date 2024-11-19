@@ -2,6 +2,7 @@ package lila.tutor
 
 import alleycats.Zero
 import scalalib.Iso
+import chess.glicko.IntRating
 
 import lila.analyse.AccuracyPercent
 import lila.insight.ClockPercent

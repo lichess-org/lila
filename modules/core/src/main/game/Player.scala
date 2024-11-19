@@ -6,7 +6,7 @@ import cats.kernel.Eq
 
 import lila.core.id.GamePlayerId
 import lila.core.perf.Perf
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
+import _root_.chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.user.WithPerf
 import lila.core.userId.{ UserId, UserIdOf }
 

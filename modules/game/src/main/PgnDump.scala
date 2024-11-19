@@ -3,6 +3,7 @@ package lila.game
 import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
+import chess.glicko.IntRatingDiff
 
 import lila.core.LightUser
 import lila.core.config.BaseUrl
@@ -70,7 +71,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
       .getOrElse(s"${game.mode} $perf game")
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
-    p.ratingDiff.map(rd => Tag(tag(Tag), s"${if rd >= 0 then "+" else ""}$rd"))
+    p.ratingDiff.map(rd => Tag(tag(Tag), s"${if !rd.negative then "+" else ""}$rd"))
 
   def tags(
       game: Game,

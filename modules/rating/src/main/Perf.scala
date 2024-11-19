@@ -3,8 +3,8 @@ package lila.rating
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
 import chess.glicko
+import chess.glicko.{ Glicko, IntRating }
 import lila.core.perf.{ Perf, PuzPerf }
-import lila.core.rating.Glicko
 import lila.db.BSON
 import lila.db.dsl.given
 import lila.rating.GlickoExt.*
@@ -13,7 +13,27 @@ object PerfExt:
 
   extension (p: Perf)
 
-    def addRating(g: Glicko, date: Instant): Perf =
+    def addOrReset(
+        monitor: lila.mon.CounterPath,
+        msg: => String
+    )(player: Glicko, date: Instant): Perf =
+      p.addPlayer(player, date) | {
+        lila.log("rating").error(s"Crazy Glicko2 $msg")
+        monitor(lila.mon).increment()
+        p.addGlicko(lila.rating.Glicko.default, date)
+      }
+
+    private def addPlayer(player: Glicko, date: Instant): Option[Perf] =
+      val newGlicko = Glicko(
+        rating = player.rating
+          .atMost(p.glicko.rating + lila.rating.Glicko.maxRatingDelta)
+          .atLeast(p.glicko.rating - lila.rating.Glicko.maxRatingDelta),
+        deviation = player.deviation,
+        volatility = player.volatility
+      )
+      newGlicko.sanityCheck.option(p.addGlicko(newGlicko, date))
+
+    private def addGlicko(g: Glicko, date: Instant): Perf =
       val capped = g.cap
       p.copy(
         glicko = capped,
@@ -21,36 +41,6 @@ object PerfExt:
         recent = p.updateRecentWith(capped),
         latest = date.some
       )
-
-    def addRating(r: glicko2.Rating, date: Instant): Option[Perf] =
-      val newGlicko = Glicko(
-        rating = r.rating
-          .atMost(p.glicko.rating + lila.rating.Glicko.maxRatingDelta)
-          .atLeast(p.glicko.rating - lila.rating.Glicko.maxRatingDelta),
-        deviation = r.ratingDeviation,
-        volatility = r.volatility
-      )
-      newGlicko.sanityCheck.option(p.addRating(newGlicko, date))
-
-    def addPlayer(player: glicko.Player, date: Instant): Option[Perf] =
-      val newGlicko = Glicko(
-        rating = player.rating
-          .atMost(p.glicko.rating + lila.rating.Glicko.maxRatingDelta)
-          .atLeast(p.glicko.rating - lila.rating.Glicko.maxRatingDelta),
-        deviation = player.ratingDeviation,
-        volatility = player.volatility
-      )
-      newGlicko.sanityCheck.option(p.addRating(newGlicko, date))
-
-    def addOrReset(
-        monitor: lila.mon.CounterPath,
-        msg: => String
-    )(player: glicko.Player, date: Instant): Perf =
-      p.addPlayer(player, date) | {
-        lila.log("rating").error(s"Crazy Glicko2 $msg")
-        monitor(lila.mon).increment()
-        p.addRating(lila.rating.Glicko.default, date)
-      }
 
     def refund(points: Int): Perf =
       val newGlicko = p.glicko.copy(rating = p.glicko.rating + points)
@@ -65,22 +55,7 @@ object PerfExt:
 
     def clearRecent = p.copy(recent = Nil)
 
-    def toRating =
-      glicko2.Rating(
-        math.max(lila.rating.Glicko.minRating.value, p.glicko.rating),
-        p.glicko.deviation,
-        p.glicko.volatility,
-        p.nb,
-        p.latest
-      )
-
-    def toGlickoPlayer = chess.glicko.Player(
-      math.max(lila.rating.Glicko.minRating.value, p.glicko.rating),
-      p.glicko.deviation,
-      p.glicko.volatility,
-      p.nb,
-      p.latest
-    )
+    def toGlickoPlayer = glicko.Player(p.glicko.cap, p.nb, p.latest)
 
     def showRatingProvisional = p.glicko.display
     def established           = p.glicko.established

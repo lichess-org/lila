@@ -1,5 +1,7 @@
 package lila.game
+
 import chess.{ ByColor, Color, Elo, PlayerName, Ply }
+import chess.glicko.{ IntRating, RatingProvisional }
 
 import lila.core.game.{ Blurs, LightGame, Player }
 import lila.core.user.WithPerf

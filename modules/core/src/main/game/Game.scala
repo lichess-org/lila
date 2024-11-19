@@ -6,6 +6,7 @@ import _root_.chess.format.Uci
 import _root_.chess.format.pgn.SanStr
 import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ FromPosition, Standard, Variant }
+import _root_.chess.glicko.IntRating
 import _root_.chess.{
   ByColor,
   Centis,
@@ -16,7 +17,8 @@ import _root_.chess.{
   Mode,
   Ply,
   Speed,
-  Status
+  Status,
+  Outcome
 }
 import scalalib.model.Days
 
@@ -193,6 +195,7 @@ case class Game(
   def loser: Option[Player] = winner.map(opponent)
 
   def winnerColor: Option[Color] = winner.map(_.color)
+  def outcome: Option[Outcome]   = finished.option(Outcome(winnerColor))
 
   def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
 
@@ -254,9 +257,9 @@ case class Game(
     if w != b
   yield w -> b
 
-  def averageUsersRating = players.flatMap(_.rating) match
-    case a :: b :: Nil => Some((a + b).value / 2)
-    case a :: Nil      => Some((a + 1500).value / 2)
+  def averageUsersRating: Option[IntRating] = players.flatMap(_.rating) match
+    case a :: b :: Nil => Some((a + b).map(_ / 2))
+    case a :: Nil      => Some((a + IntRating(1500)).map(_ / 2))
     case _             => None
 
   def isPgnImport = pgnImport.isDefined

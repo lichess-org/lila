@@ -10,22 +10,22 @@ object RatingFactor extends OpaqueDouble[RatingFactor]:
 
   def write(rfs: RatingFactors): String =
     rfs
-      .map: (pt, f) =>
-        s"${pt.key}=$f"
+      .map: (pk, f) =>
+        s"$pk=$f"
       .mkString(separator)
 
   private def read(s: String): RatingFactors =
     s.split(separator)
       .toList
       .map(_.trim.split('='))
-      .flatMap {
+      .flatMap:
         case Array(ptk, fs) =>
           for
             pk <- PerfKey(ptk)
             f  <- fs.toDoubleOption
-          yield PerfType(pk) -> RatingFactor(f)
+          yield pk -> RatingFactor(f)
         case _ => None
-      } toMap
+      .toMap
 
   given Iso.StringIso[RatingFactors] = Iso.string(read, write)
 

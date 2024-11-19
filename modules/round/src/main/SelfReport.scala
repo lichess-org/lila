@@ -2,8 +2,8 @@ package lila.round
 
 import com.softwaremill.tagging.*
 import scalalib.ThreadLocalRandom
-
 import scala.util.matching.Regex
+import chess.glicko.IntRating
 
 import lila.core.net.{ IpAddress, IpAddressStr }
 import lila.memo.SettingStore
@@ -54,10 +54,10 @@ final class SelfReport(
                 if markUserSetting.get().matches(name) then
                   val rating = u.perfs.bestRating
                   val hours =
-                    if rating > 2500 then 0
-                    else if rating > 2300 then 1
-                    else if rating > 2000 then 6
-                    else if rating > 1800 then 12
+                    if rating > IntRating(2500) then 0
+                    else if rating > IntRating(2300) then 1
+                    else if rating > IntRating(2000) then 6
+                    else if rating > IntRating(1800) then 12
                     else 24
                   scheduler.scheduleOnce(
                     (2 + hours + ThreadLocalRandom.nextInt(hours * 60)).minutes

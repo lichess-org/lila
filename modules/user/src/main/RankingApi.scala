@@ -1,8 +1,8 @@
 package lila.user
 
 import reactivemongo.api.bson.*
-
 import scala.util.Success
+import chess.glicko.{ IntRating, IntRatingDiff }
 
 import lila.core.perf.{ PerfId, UserPerfs }
 import lila.core.user.LightPerf

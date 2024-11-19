@@ -2,12 +2,12 @@ package lila.core
 package pool
 
 import _root_.chess.{ ByColor, Clock }
+import _root_.chess.glicko.IntRating
 import alleycats.Zero
 
 import lila.core.id.GameFullId
 import lila.core.perf.PerfKey
 import lila.core.rating.RatingRange
-import lila.core.rating.data.IntRating
 import lila.core.socket.Sri
 import lila.core.userId.*
 

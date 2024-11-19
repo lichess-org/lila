@@ -1,6 +1,7 @@
 package lila.ui
 
 import chess.PlayerTitle
+import chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
 
 import lila.core.LightUser
 import lila.core.perf.{ KeyedPerf, UserPerfs, UserWithPerfs }
@@ -201,8 +202,8 @@ trait UserHelper:
       )
 
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =
-    if progress > 0 then goodTag(cls := "rp")(progress).some
-    else if progress < 0 then badTag(cls := "rp")(math.abs(progress.value)).some
+    if progress.positive then goodTag(cls := "rp")(progress).some
+    else if progress.negative then badTag(cls := "rp")(math.abs(progress.value)).some
     else none
 
   def showPerfRating(

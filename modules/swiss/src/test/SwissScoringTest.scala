@@ -1,5 +1,7 @@
 package lila.swiss
 
+import chess.glicko.{ IntRating, RatingProvisional }
+
 class SwissScoringTest extends munit.FunSuite:
 
   import SwissScoring.*

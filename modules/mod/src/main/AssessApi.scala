@@ -1,6 +1,7 @@
 package lila.mod
 
 import chess.{ Black, ByColor, Color, White }
+import chess.glicko.IntRatingDiff
 import reactivemongo.api.bson.*
 import scalalib.ThreadLocalRandom
 
@@ -171,7 +172,7 @@ final class AssessApi(
       game.playerBlurPercent(player.color) >= 70
 
     def winnerGreatProgress(player: Player): Boolean =
-      game.winner.has(player) && players(player.color).perf.progress >= 80
+      game.winner.has(player) && players(player.color).perf.progress >= IntRatingDiff(80)
 
     def noFastCoefVariation(player: Player): Option[Float] =
       Statistics.noFastMoves(Pov(game, player)).so(Statistics.moveTimeCoefVariation(Pov(game, player)))
@@ -188,7 +189,7 @@ final class AssessApi(
       loser  <- game.loser
       wR     <- winner.rating
       lR     <- loser.stableRating
-    yield wR <= lR - 250)
+    yield wR <= lR.map(_ - 250))
 
     val shouldAnalyse: Fu[Option[AutoAnalysis.Reason]] =
       if !gameApi.analysable(game) then fuccess(none)

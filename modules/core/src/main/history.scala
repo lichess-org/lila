@@ -2,9 +2,9 @@ package lila.core
 package history
 
 import scalalib.model.Days
+import _root_.chess.glicko.IntRating
 
 import lila.core.perf.{ Perf, PerfKey }
-import lila.core.rating.data.IntRating
 import lila.core.user.{ User, WithPerf }
 import lila.core.userId.UserId
 

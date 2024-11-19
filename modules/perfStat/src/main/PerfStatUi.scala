@@ -121,8 +121,8 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
         tps.progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if perf.progress > 0 then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
-          else if perf.progress < 0 then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
+          if perf.progress.positive then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
+          else if perf.progress.negative then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",

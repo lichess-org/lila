@@ -1,6 +1,7 @@
 package lila.swiss
 
 import chess.format.Fen
+import chess.glicko.IntRating
 import reactivemongo.api.bson.*
 
 import lila.db.BSON

@@ -3,10 +3,10 @@ package challenge
 
 import _root_.chess.variant.Variant
 import _root_.chess.{ Color, Mode }
+import _root_.chess.glicko.*
 import scalalib.model.Days
 
 import lila.core.id.ChallengeId
-import lila.core.rating.data.*
 import lila.core.userId.UserId
 
 trait Challenge:

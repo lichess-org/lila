@@ -1,14 +1,14 @@
 package lila.puzzle
 
 import chess.{ Mode, ByColor, glicko }
+import chess.glicko.{ Glicko, IntRatingDiff }
 import scalalib.actor.AsyncActorSequencers
 
 import lila.common.Bus
 import lila.core.perf.Perf
-import lila.core.rating.Glicko
 import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
-import lila.rating.GlickoExt.{ average, cap, sanityCheck }
+import lila.rating.GlickoExt.{ cap, sanityCheck }
 import lila.rating.PerfExt.*
 import lila.rating.{ PerfType, glicko2 }
 
@@ -80,23 +80,18 @@ final private[puzzle] class PuzzleFinisher(
                     )
                     (round, none, perf)
                 case None =>
-                  val (userPlayer, puzzlePlayer) =
+                  val (userGlicko, puzzleGlicko) =
                     val players = ByColor(
                       perf.toGlickoPlayer,
-                      glicko.Player(
-                        puzzle.glicko.rating.atLeast(lila.rating.Glicko.minRating.value),
-                        puzzle.glicko.deviation,
-                        puzzle.glicko.volatility,
-                        puzzle.plays,
-                        none
-                      )
+                      glicko.Player(puzzle.glicko.cap, puzzle.plays, none)
                     )
                     calculator
                       .computeGame(glicko.Game(players, chess.Outcome(Color.fromWhite(win.yes).some)))
+                      .map(_.map(_.glicko))
                       .fold(
                         err =>
                           logger.error(s"Failed to compute glicko for puzzle ${puzzle.id}", err)
-                          players.toPair
+                          players.map(_.glicko).toPair
                         ,
                         _.toPair
                       )
@@ -108,13 +103,13 @@ final private[puzzle] class PuzzleFinisher(
                           .puzzle(
                             angle,
                             win,
-                            puzzle.glicko -> Glicko(
-                              rating = puzzlePlayer.rating
-                                .atMost(puzzle.glicko.rating + lila.rating.Glicko.maxRatingDelta)
-                                .atLeast(puzzle.glicko.rating - lila.rating.Glicko.maxRatingDelta),
-                              deviation = puzzlePlayer.ratingDeviation,
-                              volatility = puzzlePlayer.volatility
-                            ).cap,
+                            puzzle.glicko -> puzzleGlicko
+                              .copy(
+                                rating = puzzleGlicko.rating
+                                  .atMost(puzzle.glicko.rating + lila.rating.Glicko.maxRatingDelta)
+                                  .atLeast(puzzle.glicko.rating - lila.rating.Glicko.maxRatingDelta)
+                              )
+                              .cap,
                             player = perf.glicko
                           )
                           .some
@@ -129,7 +124,7 @@ final private[puzzle] class PuzzleFinisher(
                           date = now
                         )
                       val userPerf = perf
-                        .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userPlayer, now)
+                        .addOrReset(_.puzzle.crazyGlicko, s"puzzle ${puzzle.id}")(userGlicko, now)
                         .pipe: p =>
                           p.copy(glicko = ponder.player(angle, win, perf.glicko -> p.glicko, puzzle.glicko))
                       (round, newPuzzleGlicko, userPerf)

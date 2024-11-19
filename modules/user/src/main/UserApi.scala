@@ -1,6 +1,7 @@
 package lila.user
 
 import chess.{ ByColor, PlayerTitle }
+import chess.glicko.IntRating
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 

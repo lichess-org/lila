@@ -1,6 +1,7 @@
 package lila.mod
 
 import com.github.blemale.scaffeine.Cache
+import chess.glicko.IntRatingDiff
 
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.report.ReportApi
@@ -80,7 +81,7 @@ final private class SandbagWatch(
     game.playedTurns <= {
       if game.variant == chess.variant.Atomic then 3
       else 8
-    } && game.winner.so(~_.ratingDiff > 0)
+    } && game.winner.exists(_.ratingDiff.exists(_.positive))
 
 private object SandbagWatch:
 

@@ -1,6 +1,7 @@
 package lila.rating
 
 import chess.Speed
+import chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
 import scalalib.HeapSort.*
 
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }
@@ -92,7 +93,7 @@ object UserPerfsExt:
     def bestProgress: IntRatingDiff = bestProgressIn(PerfType.leaderboardable)
 
     def bestProgressIn(types: List[PerfKey]): IntRatingDiff =
-      types.foldLeft(IntRatingDiff(0)): (max, t) =>
+      types.foldLeft[IntRatingDiff](IntRatingDiff(0)): (max, t) =>
         val p = apply(t).progress
         if p > max then p else max
 
@@ -117,10 +118,10 @@ object UserPerfs:
   def dubiousPuzzle(perfs: UserPerfs): Boolean = dubiousPuzzle(perfs.puzzle, perfs.standard)
 
   def dubiousPuzzle(puzzle: Perf, standard: Perf): Boolean =
-    puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > 2100) ||
-      puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > 2000) ||
-      puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > 1900) ||
-      puzzle.glicko.rating > 2500 && !standard.glicko.establishedIntRating.exists(_ > 1800)
+    puzzle.glicko.rating > 3000 && !standard.glicko.establishedIntRating.exists(_ > IntRating(2100)) ||
+      puzzle.glicko.rating > 2900 && !standard.glicko.establishedIntRating.exists(_ > IntRating(2000)) ||
+      puzzle.glicko.rating > 2700 && !standard.glicko.establishedIntRating.exists(_ > IntRating(1900)) ||
+      puzzle.glicko.rating > 2500 && !standard.glicko.establishedIntRating.exists(_ > IntRating(1800))
 
   private val puzPerfDefault = PuzPerf(0, 0)
 

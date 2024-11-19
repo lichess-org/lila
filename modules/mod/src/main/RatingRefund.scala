@@ -1,5 +1,7 @@
 package lila.mod
 
+import chess.glicko.{ IntRating, IntRatingDiff }
+
 import lila.core.game.GameRepo
 import lila.core.user.WithPerf
 import lila.db.dsl.*
@@ -46,7 +48,7 @@ final private class RatingRefund(
               if op.provisional.no
               victim <- op.userId
               diff   <- op.ratingDiff
-              if diff < 0
+              if diff < IntRatingDiff(0)
               rating <- op.rating
             yield refs.add(victim, g.perfKey, -diff, rating)) | refs
 

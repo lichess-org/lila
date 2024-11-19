@@ -3,6 +3,7 @@ package lila.game
 import chess.format.Fen
 import chess.format.pgn.SanStr
 import chess.{ ByColor, Color, Status }
+import chess.glicko.IntRatingDiff
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult

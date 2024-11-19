@@ -4,6 +4,7 @@ import cats.derived.*
 import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.format.Fen
 import chess.variant.Variant
+import chess.glicko.IntRating
 
 import lila.core.i18n.{ I18nKey, Translate }
 import lila.gathering.Condition

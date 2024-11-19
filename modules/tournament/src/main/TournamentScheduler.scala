@@ -1,6 +1,7 @@
 package lila.tournament
 
 import chess.StartingPosition
+import chess.glicko.IntRating
 
 import java.time.DayOfWeek.*
 import java.time.Month.*

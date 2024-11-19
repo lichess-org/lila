@@ -1,6 +1,7 @@
 package lila.round
 
 import chess.{ ByColor, Color, DecayingStats, Status }
+import chess.glicko.IntRatingDiff
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.{ AbortedBy, FinishGame }
@@ -152,7 +153,7 @@ final private class Finisher(
     val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
     (!isVsSelf && !game.aborted).so:
       users.tupled
-        .map(ByColor.apply)
+        .map(ByColor.fromPair)
         .so: users =>
           crosstableApi.add(game).zip(perfsUpdater.save(game, users)).dmap(_._2)
         .zip(users.white.so(incNbGames(game)))

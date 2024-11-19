@@ -5,7 +5,7 @@ import _root_.chess.{ Color, Status }
 import _root_.chess.variant.Variant
 
 import lila.core.id.GameId
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
+import _root_.chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.userId.UserId
 
 case class LightGame(

@@ -1,5 +1,7 @@
 package lila.storm
 
+import chess.glicko.IntRating
+
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.puzzle.PuzzleColls
