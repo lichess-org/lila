@@ -111,27 +111,23 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
     WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
   ) {
     features.push('wasm');
-    if (sharedMemoryTest()) {
-      features.push('sharedMem');
-      // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
-      const sourceWithSimd = Uint8Array.from([
-        0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7,
-        9, 2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253,
-        1, 11,
-      ]);
-      if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
-    }
-    try {
-      new Worker(
-        URL.createObjectURL(
-          new Blob(["import('data:text/javascript,export default {}')"], { type: 'application/javascript' }),
-        ),
-      ).terminate();
-      features.push('dynamicImportFromWorker');
-    } catch {
-      // no dynamic import from worker
-    }
+    // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
+    const sourceWithSimd = Uint8Array.from([
+      0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9,
+      2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1,
+      11,
+    ]);
+    if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
+    if (sharedMemoryTest()) features.push('sharedMem');
   }
+  try {
+    new Worker(
+      URL.createObjectURL(
+        new Blob(["import('data:text/javascript,export default {}')"], { type: 'application/javascript' }),
+      ),
+    ).terminate();
+    features.push('dynamicImportFromWorker');
+  } catch {}
   return Object.freeze(features);
 });
 
@@ -153,7 +149,7 @@ function sharedMemoryTest(): boolean {
     if (!(mem.buffer instanceof SharedArrayBuffer)) return false;
 
     window.postMessage(mem.buffer, '*');
-  } catch (_) {
+  } catch {
     return false;
   }
   return mem.buffer instanceof SharedArrayBuffer;
