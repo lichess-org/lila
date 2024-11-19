@@ -152,8 +152,9 @@ final private class Finisher(
     val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
     (!isVsSelf && !game.aborted).so:
       users.tupled
-        .so: (white, black) =>
-          crosstableApi.add(game).zip(perfsUpdater.save(game, white, black)).dmap(_._2)
+        .map(ByColor.apply)
+        .so: users =>
+          crosstableApi.add(game).zip(perfsUpdater.save(game, users)).dmap(_._2)
         .zip(users.white.so(incNbGames(game)))
         .zip(users.black.so(incNbGames(game)))
         .dmap(_._1._1)

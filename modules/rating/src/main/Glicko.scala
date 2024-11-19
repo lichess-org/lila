@@ -61,9 +61,6 @@ object Glicko:
   val maxVolatility     = 0.1d
   val defaultVolatility = 0.09d
 
-  // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val ratingPeriodsPerDay = glicko2.RatingPeriodsPerDay(0.21436d)
-
   val default = new Glicko(1500d, maxDeviation, defaultVolatility)
 
   // Virtual rating for first pairing to make the expected score 50% without
@@ -80,10 +77,15 @@ object Glicko:
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
 
-  val system = glicko2.RatingCalculator(glicko2.Tau.default, ratingPeriodsPerDay)
+  val calculator = chess.glicko.GlickoCalculator(
+    chess.glicko.Config(
+      // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
+      ratingPeriodsPerDay = chess.glicko.impl.RatingPeriodsPerDay(0.21436d)
+    )
+  )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, nowInstant, reverse)
+    calculator.previewDeviation(p.toGlickoPlayer, nowInstant, reverse)
   }.atLeast(minDeviation).atMost(maxDeviation)
 
   given glickoHandler: BSONDocumentHandler[Glicko] = new BSON[Glicko]:
