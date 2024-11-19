@@ -20,10 +20,8 @@ final class SocketTest(
   def put(results: JsObject) = resultsDb: coll =>
     coll.insert.one(JSON.bdoc(results)).void
 
-  def isTestRunning() = distributionSetting.get() > 0
-
   def isUserInTestBucket()(using ctx: Context) =
-    isTestRunning() &&
+    distributionSetting.get() > 0 &&
       ctx.pref.usingAltSocket.isEmpty &&
       ctx.userId.exists(_.value.hashCode % distributionSetting.get() == 0)
 
