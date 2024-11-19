@@ -64,7 +64,7 @@
   <string name="standings">Sıralamalar</string>
   <string name="officialStandings">Resmi Sıralamalar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%snda daha fazla seçenek</string>
-  <string name="webmastersPage">webmasterlar sayfası</string>
+  <string name="webmastersPage">ağ yöneticileri sayfası</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Bu turun açık, gerçek zamanlı PGN kaynağı. Daha hızlı ve verimli senkronizasyon için %s\'ımız da bulunmaktadır.</string>
   <string name="embedThisBroadcast">İnternet sitenizde bu yayını gömülü paylaşın</string>
   <string name="embedThisRound">%su İnternet sitenizde gömülü paylaşın</string>
