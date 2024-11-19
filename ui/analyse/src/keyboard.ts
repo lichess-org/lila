@@ -132,7 +132,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
     // = ∞ ⩲ ⩱ ± ∓ +- -+
     for (let i = 1; i < 9; i++)
-      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i == 1 ? 10 : 11 + i));
+      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
   }
 };
 

@@ -442,7 +442,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
+  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 

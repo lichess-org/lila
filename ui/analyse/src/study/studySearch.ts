@@ -62,7 +62,7 @@ export function view(ctrl: SearchCtrl) {
           el.addEventListener('input', (e: KeyboardEvent) =>
             ctrl.query((e.target as HTMLInputElement).value.trim()),
           );
-          el.addEventListener('keydown', (e: KeyboardEvent) => e.key == 'Enter' && ctrl.setFirstChapter());
+          el.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'Enter' && ctrl.setFirstChapter());
         }),
       }),
       h(

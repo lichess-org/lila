@@ -90,7 +90,7 @@ const renderTeams = (
           const players = chap?.players;
           if (!players) return;
           const sortedPlayers =
-            game.pov == 'white' ? [players.white, players.black] : [players.black, players.white];
+            game.pov === 'white' ? [players.white, players.black] : [players.black, players.white];
           return (
             chap &&
             h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
@@ -114,10 +114,10 @@ const playerView = (players: RelayPlayers, p: StudyPlayer) =>
   ]);
 
 const statusView = (g: ChapterPreview, pov: Color, chapters: StudyChapters, cloudEval?: MultiCloudEval) => {
-  const status = pov == 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
+  const status = pov === 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
   return h(
     'span.relay-tour__team-match__game__status',
-    status && status != '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
+    status && status !== '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
   );
 };
 

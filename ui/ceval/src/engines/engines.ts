@@ -43,7 +43,7 @@ export class Engines {
     const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
     const makeVariant = ([key, nnue]: Variant): WithMake => ({
       info: {
-        id: `__fsfnnue-${key == 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
+        id: `__fsfnnue-${key === 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
         name: 'Fairy Stockfish 14+ NNUE',
         short: 'FSF 14+',
         tech: 'NNUE',

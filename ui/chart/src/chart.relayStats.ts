@@ -81,7 +81,7 @@ const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDatase
         align: 'top',
         offset: -5,
         display: 'auto',
-        formatter: (value: chart.Point) => (value.y == 0 ? '' : 'Round Start'),
+        formatter: (value: chart.Point) => (value.y === 0 ? '' : 'Round Start'),
         color: pink,
       },
       pointRadius: 0,
@@ -158,7 +158,7 @@ const makeChart = ($el: Cash, data: RoundStats) => {
       },
       plugins: {
         tooltip: {
-          filter: i => i.datasetIndex == 0,
+          filter: i => i.datasetIndex === 0,
           backgroundColor: tooltipBgColor,
           bodyColor: fontColor,
           titleColor: fontColor,

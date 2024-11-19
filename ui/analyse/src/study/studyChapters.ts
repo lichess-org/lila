@@ -41,7 +41,7 @@ export class StudyChapters {
   first = () => this.list()[0];
   looksNew = () => {
     const cs = this.all();
-    return cs.length === 1 && cs[0].name == 'Chapter 1';
+    return cs.length === 1 && cs[0].name === 'Chapter 1';
   };
 }
 
@@ -139,8 +139,8 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
 
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
   const both = findTag(tags, 'result')?.split('-');
-  const mine = both && both.length == 2 ? both[isWhite ? 0 : 1] : undefined;
-  return mine == '1/2' ? '½' : mine;
+  const mine = both && both.length === 2 ? both[isWhite ? 0 : 1] : undefined;
+  return mine === '1/2' ? '½' : mine;
 }
 
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({

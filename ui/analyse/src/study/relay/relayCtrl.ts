@@ -106,7 +106,7 @@ export default class RelayCtrl {
       });
   };
 
-  roundById = (id: string) => this.data.rounds.find(r => r.id == id);
+  roundById = (id: string) => this.data.rounds.find(r => r.id === id);
   currentRound = () => this.roundById(this.id)!;
   roundName = () => this.currentRound().name;
 
