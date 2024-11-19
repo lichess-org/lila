@@ -34,8 +34,9 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
           .result[PendingAuthorization]
           .toRight(Protocol.Error.AuthorizationCodeInvalid)
           .ensure(Protocol.Error.AuthorizationCodeExpired)(_.expires.isAfter(nowInstant))
-          .ensure(Protocol.Error.MismatchingRedirectUri)(_.redirectUri.matches(request.redirectUri))
-          .ensure(Protocol.Error.MismatchingClient)(_.clientId == request.clientId)
+          .ensure(Protocol.Error.MismatchingRedirectUri(request.redirectUri.value)):
+            _.redirectUri.matches(request.redirectUri)
+          .ensure(Protocol.Error.MismatchingClient(request.clientId))(_.clientId == request.clientId)
         _ <- pending.challenge match
           case Left(hashedClientSecret) =>
             request.clientSecret

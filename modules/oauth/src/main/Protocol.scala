@@ -147,9 +147,9 @@ object Protocol:
     case object AuthorizationCodeInvalid
         extends InvalidGrant("authorization code invalid, expired or consumed")
     case object AuthorizationCodeExpired extends InvalidGrant("authorization code expired")
-    case object MismatchingRedirectUri
-        extends InvalidGrant("authorization code was issued for a different redirect_uri")
-    case object MismatchingClient
-        extends InvalidGrant("authorization code was issued for a different client_Id")
+    case class MismatchingRedirectUri(url: String)
+        extends InvalidGrant(s"authorization code was issued for a different redirect_uri: $url")
+    case class MismatchingClient(id: ClientId)
+        extends InvalidGrant(s"authorization code was issued for a different client_id: $id")
     case object MismatchingCodeVerifier
         extends InvalidGrant("hash of code_verifier does not match code_challenge")
