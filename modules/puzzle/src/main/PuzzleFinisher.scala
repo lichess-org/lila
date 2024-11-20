@@ -11,7 +11,7 @@ import lila.db.dsl.{ *, given }
 import lila.puzzle.PuzzleForm.batch.Solution
 import lila.rating.GlickoExt.{ cap, sanityCheck }
 import lila.rating.PerfExt.*
-import lila.rating.{ PerfType, glicko2 }
+import lila.rating.PerfType
 
 final private[puzzle] class PuzzleFinisher(
     api: PuzzleApi,

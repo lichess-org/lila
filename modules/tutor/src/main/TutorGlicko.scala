@@ -1,7 +1,5 @@
 package lila.tutor
 
-import lila.rating.{ Glicko, glicko2 }
-
 object TutorGlicko:
 
   private type Rating = Int
