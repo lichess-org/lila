@@ -58,7 +58,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function findNextNode(): Tree.Node | undefined {
-    const colorModulo = color == 'white' ? 1 : 0;
+    const colorModulo = color === 'white' ? 1 : 0;
     candidateNodes = evalSwings(
       root.mainline,
       n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply),
@@ -248,7 +248,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     },
     preventGoingToNextMove: () => {
       const cur = current();
-      return isSolving() && !!cur && root.path == cur.prev.path;
+      return isSolving() && !!cur && root.path === cur.prev.path;
     },
     close: root.toggleRetro,
     node: () => root.node,

@@ -4,7 +4,6 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.ui.RenderedPage
-import lila.api.SocketTest
 
 object page:
 
@@ -114,9 +113,8 @@ object page:
             .option(env.push.vapidPublicKey),
           dataUser                         := ctx.userId,
           dataSoundSet                     := pref.currentSoundSet.toString,
-          attr("data-socket-domains")      := SocketTest.socketEndpoints(netConfig).mkString(","),
-          attr("data-socket-test-user")    := SocketTest.isUserInTestBucket(netConfig),
-          attr("data-socket-test-running") := netConfig.socketTest,
+          attr("data-socket-domains")      := socketTest.socketEndpoints(netConfig).mkString(","),
+          attr("data-socket-test-running") := socketTest.isUserInTestBucket(),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),

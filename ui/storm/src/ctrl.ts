@@ -105,10 +105,10 @@ export default class StormCtrl implements PuzCtrl {
       this.run.clock.start();
       this.run.moves++;
       this.promotion.cancel();
-      const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
+      const uci = `${orig}${dest}${promotion ? (promotion === 'knight' ? 'n' : promotion[0]) : ''}`;
       const pos = puzzle.position();
       pos.play(parseUci(uci)!);
-      const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
+      const correct = pos.isCheckmate() || uci === puzzle.expectedMove();
       if (correct) {
         puzzle.moveIndex++;
         this.run.combo.inc();
@@ -200,7 +200,7 @@ export default class StormCtrl implements PuzCtrl {
     const dupTabMsg = storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
     dupTabMsg.listen(ev => {
-      if (!this.run.clock.startAt && ev.value == this.data.puzzles[0].id) {
+      if (!this.run.clock.startAt && ev.value === this.data.puzzles[0].id) {
         this.vm.dupTab = true;
         this.redraw();
       }

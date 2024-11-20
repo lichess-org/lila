@@ -58,8 +58,8 @@ function init() {
     const submit = function (solution: string) {
       $input.val(solution);
       xhr.text(xhr.url($captcha.data('check-url'), { solution })).then(data => {
-        $captcha.toggleClass('success', data == '1').toggleClass('failure', data != '1');
-        if (data == '1') domData.get($board[0]!, 'chessground').stop();
+        $captcha.toggleClass('success', data === '1').toggleClass('failure', data !== '1');
+        if (data === '1') domData.get($board[0]!, 'chessground').stop();
         else
           setTimeout(
             () =>

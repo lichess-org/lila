@@ -49,7 +49,7 @@ val parseImport: (PgnStr, Option[UserId]) => Either[ErrorStr, ImportedGame] = (p
       .newImportedGame(
         chess = game,
         players = ByColor: c =>
-          lila.game.Player.makeImported(c, parsed.tags.names(c), parsed.tags.elos(c)),
+          lila.game.Player.makeImported(c, parsed.tags.names(c), parsed.tags.ratings(c)),
         mode = Mode.Casual,
         source = lila.core.game.Source.Import,
         pgnImport = PgnImport.make(user = user, date = parsed.tags.anyDate, pgn = pgn).some

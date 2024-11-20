@@ -1,11 +1,11 @@
-import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine, Requires } from '../types';
+import type { BrowserEngineInfo, ExternalEngineInfo, EngineInfo, CevalEngine } from '../types';
 import type CevalCtrl from '../ctrl';
 import { SimpleEngine } from './simpleEngine';
 import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
 import { storedStringProp, StoredProp } from 'common/storage';
-import { isAndroid, isIOS, isIPad, getFirefoxMajorVersion, features, type Feature } from 'common/device';
+import { isAndroid, isIOS, isIPad, features as browserSupport, type Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
 import { log } from 'common/permalog';
@@ -16,12 +16,8 @@ export class Engines {
   localEngineMap: Map<string, WithMake>;
   externalEngines: ExternalEngineInfo[];
   selectProp: StoredProp<string>;
-  browserSupport: Requires[] = features().slice();
 
   constructor(private ctrl: CevalCtrl) {
-    const firefox = getFirefoxMajorVersion();
-    if (!firefox || firefox > 113) this.browserSupport.push('allowLsfw');
-
     this.localEngineMap = this.makeEngineMap();
     this.localEngines = [...this.localEngineMap.values()].map(e => e.info);
     this.externalEngines = this.ctrl.opts.externalEngines?.map(e => ({ tech: 'EXTERNAL', ...e })) ?? [];
@@ -43,11 +39,11 @@ export class Engines {
     const variantMap = (v: VariantKey): string => (v === 'threeCheck' ? '3check' : v.toLowerCase());
     const makeVariant = ([key, nnue]: Variant): WithMake => ({
       info: {
-        id: `__fsfnnue-${key == 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
+        id: `__fsfnnue-${key === 'kingOfTheHill' ? 'koth' : variantMap(key)}`,
         name: 'Fairy Stockfish 14+ NNUE',
         short: 'FSF 14+',
         tech: 'NNUE',
-        requires: ['simd', 'allowLsfw'],
+        requires: ['simd', 'dynamicImportFromWorker'],
         variants: [key],
         assets: {
           version: 'sfw006',
@@ -75,7 +71,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: ['simd', 'allowLsfw'],
+            requires: ['simd', 'dynamicImportFromWorker'],
             minMem: 1536,
             assets: {
               version: 'sfw006',
@@ -91,7 +87,7 @@ export class Engines {
             name: 'Stockfish 17 NNUE · 79MB',
             short: 'SF 17 · 79MB',
             tech: 'NNUE',
-            requires: ['simd', 'allowLsfw'],
+            requires: ['simd', 'dynamicImportFromWorker'],
             minMem: 2560,
             assets: {
               version: 'sfw006',
@@ -126,7 +122,7 @@ export class Engines {
             name: 'Fairy Stockfish 14+ HCE',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: ['simd', 'allowLsfw'],
+            requires: ['simd', 'dynamicImportFromWorker'],
             variants: variants.map(v => v[0]),
             assets: {
               version: 'sfw006',
@@ -214,8 +210,8 @@ export class Engines {
       ]
         .filter(
           e =>
-            e.info.requires.every((req: Requires) => this.browserSupport.includes(req)) &&
-            !(e.info.obsoletedBy && this.browserSupport.includes(e.info.obsoletedBy as Feature)),
+            e.info.requires.every((req: Feature) => browserSupport().includes(req)) &&
+            !(e.info.obsoletedBy && browserSupport().includes(e.info.obsoletedBy as Feature)),
         )
         .map(e => [e.info.id, { info: withDefaults(e.info as BrowserEngineInfo), make: e.make }]),
     );

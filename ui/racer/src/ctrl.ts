@@ -170,7 +170,7 @@ export default class RacerCtrl implements PuzCtrl {
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void =>
-    this.playUci(`${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`);
+    this.playUci(`${orig}${dest}${promotion ? (promotion === 'knight' ? 'n' : promotion[0]) : ''}`);
 
   playUci = (uci: Uci): void => {
     const now = getNow();
@@ -181,7 +181,7 @@ export default class RacerCtrl implements PuzCtrl {
       this.promotion.cancel();
       const pos = puzzle.position();
       pos.play(parseUci(uci)!);
-      if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
+      if (pos.isCheckmate() || uci === puzzle.expectedMove()) {
         puzzle.moveIndex++;
         this.localScore++;
         this.run.combo.inc();

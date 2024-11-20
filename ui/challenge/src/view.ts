@@ -35,9 +35,9 @@ const allChallenges = (ctrl: ChallengeCtrl, d: ChallengeData, nb: number): VNode
 
 function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
-    const fromPosition = c.variant.key == 'fromPosition';
-    const origColor = c.color == 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
-    const myColor = dir == 'out' ? origColor : origColor == 'random' ? 'random' : opposite(origColor);
+    const fromPosition = c.variant.key === 'fromPosition';
+    const origColor = c.color === 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
+    const myColor = dir === 'out' ? origColor : origColor === 'random' ? 'random' : opposite(origColor);
     const opponent = dir === 'in' ? c.challenger : c.destUser;
     return h(
       `div.challenge.${dir}.c-${c.id}`,
@@ -106,7 +106,7 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
         },
       },
       Object.entries(ctrl.reasons).map(([key, name]) =>
-        h('option', { attrs: { value: key } }, key == 'generic' ? '' : name),
+        h('option', { attrs: { value: key } }, key === 'generic' ? '' : name),
       ),
     ),
   ];

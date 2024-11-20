@@ -70,12 +70,12 @@ export default class ExplorerCtrl {
 
   private checkHash = (e?: HashChangeEvent) => {
     const parts = location.hash.split('/');
-    if (parts[0] == '#explorer' || parts[0] == '#opening') {
+    if (parts[0] === '#explorer' || parts[0] === '#opening') {
       this.enabled(true);
-      if (parts[1] == 'lichess' || parts[1] === 'masters') this.config.data.db(parts[1]);
+      if (parts[1] === 'lichess' || parts[1] === 'masters') this.config.data.db(parts[1]);
       else if (parts[1]?.match(/[A-Za-z0-9_-]{2,30}/)) {
         this.config.selectPlayer(parts[1]);
-        this.config.data.color(parts[2] == 'black' ? 'black' : 'white');
+        this.config.data.color(parts[2] === 'black' ? 'black' : 'white');
       }
       if (e) this.reload();
     }
@@ -195,7 +195,7 @@ export default class ExplorerCtrl {
     this.root.setAutoShapes();
   };
   onFlip = () => {
-    if (this.db() == 'player') {
+    if (this.db() === 'player') {
       this.cache = {};
       this.setNode();
     }
@@ -218,7 +218,7 @@ export default class ExplorerCtrl {
   fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
     const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
     const move = res.moves[0];
-    if (move && move.dtz == null) throw 'unknown tablebase position';
+    if (move && move.dtz === null) throw 'unknown tablebase position';
     return {
       fen,
       best: move && move.uci,

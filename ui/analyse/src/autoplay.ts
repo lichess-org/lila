@@ -61,7 +61,7 @@ export class Autoplay {
     this.stop();
     this.delay = delay;
     this.schedule();
-    if (delay == 'realtime') this.redrawInterval = setInterval(this.ctrl.redraw, 100);
+    if (delay === 'realtime') this.redrawInterval = setInterval(this.ctrl.redraw, 100);
   }
 
   stop(): void {

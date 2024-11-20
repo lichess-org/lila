@@ -27,6 +27,7 @@ object BuildSettings {
       alleycats,
       play.api,
       chess.core,
+      chess.rating,
       kittens
     )
 
