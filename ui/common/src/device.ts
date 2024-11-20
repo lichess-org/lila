@@ -151,32 +151,24 @@ function sharedMemoryTest(): boolean {
   return mem.buffer instanceof SharedArrayBuffer;
 }
 
-export function isVersionCompatible(version: string, constraint?: VersionConstraint): boolean {
-  if (!constraint) return true;
-  const split = (v: string) =>
-    v
+export function isVersionCompatible(version: string, vc?: VersionConstraint): boolean {
+  if (!vc) return true;
+  const v = split(version);
+
+  if (vc.atLeast && isGreaterThan(split(vc.atLeast), v)) return false; // atLeast is an inclusive min
+
+  return vc.below ? isGreaterThan(split(vc.below), v) : true; // below is an exclusive max
+
+  function split(v: string): number[] {
+    return v
       .split(/[._]/)
       .map(x => parseInt(x) || 0)
       .concat([0, 0, 0]);
-
-  const [major, minor, patch] = split(version);
-
-  if (constraint.atLeast) {
-    const [majorMin, minorMin, patchMin] = split(constraint.atLeast); // atLeast is inclusive min
-    if (major < majorMin) return false;
-    else if (major === majorMin) {
-      if (minor < minorMin) return false;
-      else if (minor === minorMin && patch < patchMin) return false;
-    }
   }
-  if (!constraint.below) return true;
-
-  const [majorMax, minorMax, patchMax] = split(constraint.below); // below is an exclusive max
-
-  if (major < majorMax) return true;
-  else if (major === majorMax) {
-    if (minor < minorMax) return true;
-    else if (minor === minorMax && patch < patchMax) return true;
+  function isGreaterThan(left: number[], right: number[]): boolean {
+    for (let i = 0; i < 3; i++)
+      if (left[i] > right[i]) return true;
+      else if (left[i] < right[i]) return false;
+    return false;
   }
-  return false;
 }
