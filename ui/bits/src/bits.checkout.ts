@@ -32,9 +32,9 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
 
   const onFreqChange = function () {
     const freq = getFreq();
-    $checkout.find('.amount_fixed').toggleClass('none', freq !== 'lifetime');
-    $checkout.find('.amount_choice').toggleClass('none', freq === 'lifetime');
-    const sub = freq === 'monthly';
+    $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
+    $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
+    const sub = freq == 'monthly';
     $checkout.find('.paypal--order').toggle(!sub);
     $checkout.find('.paypal--subscription').toggle(sub);
   };
@@ -43,7 +43,7 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
   $checkout.find('group.freq input').on('change', onFreqChange);
 
   $checkout.find('group.dest input').on('change', () => {
-    const isGift = getDest() === 'gift';
+    const isGift = getDest() == 'gift';
     const $monthly = $('#freq_monthly');
     toggleInput($monthly, !isGift);
     $checkout.find('.gift').toggleClass('none', !isGift).find('input').val('');
@@ -84,7 +84,7 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
 
   const toggleCheckout = () => {
     const giftDest = getGiftDest();
-    const enabled = getDest() !== 'gift' || !!giftDest;
+    const enabled = getDest() != 'gift' || !!giftDest;
     toggleInput($checkout.find('.service button'), enabled);
     $checkout.find('.service .paypal--disabled').toggleClass('none', enabled);
     $checkout.find('.service .paypal:not(.paypal--disabled)').toggleClass('none', !enabled);
@@ -95,7 +95,7 @@ export function initModule({ stripePublicKey, pricing }: { stripePublicKey: stri
   const getAmountToCharge = () => {
     const freq = getFreq(),
       amount =
-        freq === 'lifetime'
+        freq == 'lifetime'
           ? pricing.lifetime
           : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
