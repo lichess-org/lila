@@ -19,7 +19,7 @@ export function wikiToggleBox() {
     $(box)
       .children('legend')
       .on('click', toggle)
-      .on('keypress', e => e.key == 'Enter' && toggle());
+      .on('keypress', e => e.key === 'Enter' && toggle());
   });
 }
 

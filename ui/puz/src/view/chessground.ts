@@ -31,7 +31,7 @@ export function makeConfig(opts: CgConfig, pref: PuzPrefs, userMove: UserMove): 
     events: {
       move: userMove,
       insert(elements) {
-        resizeHandle(elements, ShowResizeHandle.OnlyAtStart, 0, p => p == 0);
+        resizeHandle(elements, ShowResizeHandle.OnlyAtStart, 0, p => p === 0);
       },
     },
     premovable: {

@@ -64,7 +64,7 @@ export class StudyChapterNewForm {
 
   setTab = (key: ChapterTab) => {
     this.tab(key);
-    if (key != 'pgn' && this.orientation == 'automatic') this.orientation = 'white';
+    if (key != 'pgn' && this.orientation === 'automatic') this.orientation = 'white';
     this.root.redraw();
   };
 

@@ -40,7 +40,7 @@ export function readFen(fen: string): Board {
     .forEach((row, y) => {
       let x = 0;
       row.split('').forEach(v => {
-        if (v == '~') return;
+        if (v === '~') return;
         const nb = parseInt(v, 10);
         if (nb) x += nb;
         else {
@@ -104,7 +104,7 @@ export function sanOf(board: Board, uci: string): San {
   }
 
   // castling
-  if (pt == 'k' && ((d && isBlack(p) === isBlack(d)) || squareDist(from, to) > 1)) {
+  if (pt === 'k' && ((d && isBlack(p) === isBlack(d)) || squareDist(from, to) > 1)) {
     if (to < from) return 'O-O-O';
     else return 'O-O';
   }
@@ -113,11 +113,11 @@ export function sanOf(board: Board, uci: string): San {
 
   // disambiguate normal moves
   let candidates: number[] = [];
-  if (pt == 'k') candidates = kingMovesTo(to);
-  else if (pt == 'n') candidates = knightMovesTo(to);
-  else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
-  else if (pt == 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
-  else if (pt == 'q') candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
+  if (pt === 'k') candidates = kingMovesTo(to);
+  else if (pt === 'n') candidates = knightMovesTo(to);
+  else if (pt === 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
+  else if (pt === 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
+  else if (pt === 'q') candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
 
   let rank = false,
     file = false;
@@ -165,11 +165,11 @@ export function speakable(san?: San): string {
                 : san
                     .split('')
                     .map(c => {
-                      if (c == 'x') return 'takes';
-                      if (c == '+') return 'check';
-                      if (c == '#') return 'checkmate';
-                      if (c == '=') return 'promotes to';
-                      if (c == '@') return 'at';
+                      if (c === 'x') return 'takes';
+                      if (c === '+') return 'check';
+                      if (c === '#') return 'checkmate';
+                      if (c === '=') return 'promotes to';
+                      if (c === '@') return 'at';
                       const code = c.charCodeAt(0);
                       if (code > 48 && code < 58) return c; // 1-8
                       if (code > 96 && code < 105) return c.toUpperCase();

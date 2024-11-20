@@ -41,7 +41,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   return h(
     'div.autoplay',
     speeds.map(speed => {
-      const active = ctrl.autoplay.getDelay() == speed.delay;
+      const active = ctrl.autoplay.getDelay() === speed.delay;
       return h(
         'a.button',
         {
