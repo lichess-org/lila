@@ -76,10 +76,34 @@ export async function dbConnect(dbInfo: DbInfo): Promise<IDBDatabase> {
   });
 }
 
-export async function dbExists(dbInfo: DbInfo): Promise<boolean> {
-  const dbName = dbInfo?.db || `${dbInfo.store}--db`;
-  const found = (await window.indexedDB.databases()).some(db => db.name === dbName);
-  if (!found) return false;
-  const store = await objectStorage(dbInfo);
-  return (await store.count()) > 0;
+export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
+  const dbName = info?.db || `${info.store}--db`;
+  return new Promise<boolean>(resolve => {
+    const dbs = window.indexedDB.databases?.(); // not all browsers support
+    if (!dbs) storeExists();
+    else
+      dbs.then(dbList => {
+        if (dbList.every(db => db.name !== dbName)) resolve(false);
+        else storeExists();
+      });
+
+    function storeExists() {
+      const request = window.indexedDB.open(dbName);
+
+      request.onerror = () => resolve(false);
+      request.onsuccess = (e: Event) => {
+        const db = (e.target as IDBOpenDBRequest).result;
+        try {
+          const cursor = db.transaction(info.store, 'readonly').objectStore(info.store).openCursor();
+          cursor.onsuccess = () => {
+            db.close();
+            resolve(cursor.result !== null);
+          };
+        } catch {
+          db.close();
+          resolve(false);
+        }
+      };
+    }
+  });
 }

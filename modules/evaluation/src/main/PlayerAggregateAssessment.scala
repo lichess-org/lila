@@ -1,6 +1,7 @@
 package lila.evaluation
 
 import scala.math.sqrt
+import chess.IntRating
 
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRating
@@ -98,7 +99,7 @@ case class PlayerAggregateAssessment(
   val sfAvgHold   = sfAvgGiven(_.basics.hold)
   val sfAvgNoHold = sfAvgGiven(!_.basics.hold)
 
-  def isGreatUser = user.perfs.bestRating > 2500 && user.count.rated >= 100
+  def isGreatUser = user.perfs.bestRating > IntRating(2500) && user.count.rated >= 100
 
   def isNewRatedUser = user.count.rated < 10
 

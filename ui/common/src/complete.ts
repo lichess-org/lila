@@ -35,7 +35,7 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
     },
     moveSelection = (offset: number) => {
       const nb = renderedResults.length;
-      selectedIndex = (selectedIndex === null ? (offset == 1 ? 0 : -1) : selectedIndex + offset) % nb;
+      selectedIndex = (selectedIndex === null ? (offset === 1 ? 0 : -1) : selectedIndex + offset) % nb;
       if (selectedIndex < 0) selectedIndex += nb;
       renderSelection();
       const result = selectedResult();
@@ -70,15 +70,15 @@ export function complete<Result>(opts: CompleteOpts<Result>): void {
     },
     keydown(e: KeyboardEvent) {
       if ($container.hasClass('none')) return;
-      if (e.code == 'ArrowDown') {
+      if (e.code === 'ArrowDown') {
         moveSelection(1);
         return false;
       }
-      if (e.code == 'ArrowUp') {
+      if (e.code === 'ArrowUp') {
         moveSelection(-1);
         return false;
       }
-      if (e.code == 'Enter') {
+      if (e.code === 'Enter') {
         $container.addClass('none');
         const result =
           selectedResult() ||

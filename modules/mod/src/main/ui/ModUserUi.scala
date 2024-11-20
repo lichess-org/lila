@@ -276,6 +276,18 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
     Granter.opt(_.ChangePermission) || (Granter.opt(_.Admin) && user.roles.nonEmpty)
 
   def prefs(u: User, hasKeyboardMove: Boolean, botCompatible: Boolean)(using Context) =
+    val prefList = List(
+      hasKeyboardMove.option(li("keyboard moves")),
+      botCompatible.option:
+        li:
+          strong:
+            a(
+              cls      := "text",
+              dataIcon := Icon.CautionCircle,
+              href := lila.common.String.base64
+                .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+            )("BOT-COMPATIBLE SETTINGS")
+    ).flatten
     frag(
       canViewRolesOf(u).option(
         mzSection("roles")(
@@ -285,24 +297,11 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           )
         )
       ),
-      mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := Icon.Gear)("Notable preferences"),
-        ul(
-          hasKeyboardMove.option(li("keyboard moves")),
-          botCompatible.option(
-            li(
-              strong(
-                a(
-                  cls      := "text",
-                  dataIcon := Icon.CautionCircle,
-                  href := lila.common.String.base64
-                    .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-                )("BOT-COMPATIBLE SETTINGS")
-              )
-            )
-          )
+      prefList.nonEmpty.option:
+        mzSection("preferences")(
+          strong(cls := "text inline", dataIcon := Icon.Gear)("Notable preferences"),
+          ul(prefList)
         )
-      )
     )
 
   def showRageSitAndPlaybans(rageSit: RageSit, playbans: Int): Frag =

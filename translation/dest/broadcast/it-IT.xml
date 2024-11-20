@@ -49,4 +49,36 @@
   <string name="ageThisYear">Età quest\'anno</string>
   <string name="unrated">Non classificato</string>
   <string name="recentTournaments">Tornei recenti</string>
+  <string name="openLichess">Apri con Lichess</string>
+  <string name="teams">Squadre</string>
+  <string name="boards">Scacchiere</string>
+  <string name="overview">Panoramica</string>
+  <string name="subscribeTitle">Iscriviti per ricevere notifiche sull\'inizio di ogni round. Puoi attivare o disattivare la campanella o le notifiche push per le dirette nelle preferenze del tuo account.</string>
+  <string name="uploadImage">Carica immagine del torneo</string>
+  <string name="noBoardsYet">Non sono ancora presenti scacchiere. Esse compariranno non appena i giochi saranno stati caricati.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Le scacchiere possono essere caricate con una sorgente o tramite %s</string>
+  <string name="startsAfter">Inizia tra %s</string>
+  <string name="startVerySoon">Questa trasmissione inizierà a breve.</string>
+  <string name="notYetStarted">Questa trasmissione non è ancora cominciata.</string>
+  <string name="officialWebsite">Sito web ufficiale</string>
+  <string name="standings">Classifica</string>
+  <string name="officialStandings">Classifica Ufficiale</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Altre opzioni si trovano nella %s</string>
+  <string name="webmastersPage">pagina dei gestori web</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una sorgente PGN pubblica per questo round. Viene offerta anche un\'%s per una sincronizzazione più rapida ed efficiente.</string>
+  <string name="embedThisBroadcast">Incorpora questa trasmissione nel tuo sito web</string>
+  <string name="embedThisRound">Incorpora %s nel tuo sito web</string>
+  <string name="ratingDiff">Differenza di punteggio</string>
+  <string name="gamesThisTournament">Partite in questo torneo</string>
+  <string name="score">Punteggio</string>
+  <string name="allTeams">Tutte le squadre</string>
+  <string name="tournamentFormat">Formato del torneo</string>
+  <string name="tournamentLocation">Luogo del Torneo</string>
+  <string name="topPlayers">Giocatori migliori</string>
+  <string name="timezone">Fuso orario</string>
+  <string name="fideRatingCategory">Categoria di punteggio FIDE</string>
+  <string name="optionalDetails">Dettagli facoltativi</string>
+  <string name="upcomingBroadcasts">Prossime trasmissioni</string>
+  <string name="pastBroadcasts">Trasmissioni precedenti</string>
+  <string name="allBroadcastsByMonth">Visualizza tutte le trasmissioni per mese</string>
 </resources>

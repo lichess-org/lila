@@ -2,12 +2,13 @@ package lila.user
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import chess.IntRating
+import chess.rating.glicko.Glicko
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.rating.Glicko
 import lila.core.user.WithPerf
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Glicko, Perf, PerfType, UserPerfs }
+import lila.rating.{ Perf, PerfType, UserPerfs }
 
 final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsRepo(c):
 

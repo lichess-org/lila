@@ -22,6 +22,15 @@
     "tinycolor2": "1.6.0",
     "typescript": "5.6.3"
   },
+  "pnpm": {
+    "overrides": {
+      "micromatch": "^4.0.8"
+    },
+    "//": [
+      "https://github.com/lichess-org/lila/security/dependabot/41",
+      "micromatch is a dependency of fast-glob. remove this once fast-glob patches past v3.3.2"
+    ]
+  },
   "scripts": {
     "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"
   }

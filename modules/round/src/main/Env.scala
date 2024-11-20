@@ -14,7 +14,7 @@ import lila.core.round.{ Abort, Resign }
 import lila.core.user.{ FlairGet, FlairGetMap }
 import lila.game.GameRepo
 import lila.memo.SettingStore
-import lila.rating.{ PerfType, RatingFactor }
+import lila.rating.RatingFactor
 import lila.round.RoundGame.*
 
 @Module
@@ -97,20 +97,20 @@ final class Env(
       .foreach:
         _.foreach { pov => roundApi.tell(pov.gameId, Resign(pov.playerId)) }
 
-  lazy val ratingFactorsSetting =
+  lazy val ratingFactorsSetting: SettingStore[RatingFactor.ByKey] =
     import play.api.data.Form
     import play.api.data.Forms.{ single, text }
     import lila.memo.SettingStore.{ Formable, StringReader }
-    import lila.rating.{ RatingFactor, RatingFactors }
     import lila.rating.RatingFactor.given
-    given StringReader[RatingFactors] = StringReader.fromIso
-    given Formable[RatingFactors] = Formable(rfs => Form(single("v" -> text)).fill(RatingFactor.write(rfs)))
-    settingStore[lila.rating.RatingFactors](
+    given StringReader[RatingFactor.ByKey] = StringReader.fromIso
+    given Formable[RatingFactor.ByKey] =
+      Formable(rfs => Form(single("v" -> text)).fill(RatingFactor.write(rfs)))
+    settingStore[RatingFactor.ByKey](
       "ratingFactor",
       default = Map.empty,
       text = "Rating gain factor per perf type".some
     )
-  private val getFactors: () => Map[PerfType, RatingFactor] = ratingFactorsSetting.get
+  private val getFactors: () => Map[PerfKey, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.core.security.CloseAccount(userId) =>

@@ -111,12 +111,11 @@ export default async function (
     }
     if (clock) {
       label += '\n' + formatClock(clock);
-    }
-    if (clock)
       totalSeries[colorName].push({
         x: node ? node.ply : tree[x].ply + 1,
         y: color ? clock : -clock,
       });
+    }
     labels.push(label);
   });
 
@@ -133,7 +132,7 @@ export default async function (
         y: point.y / (moveSeries ? moveSeriesMax : totalSeriesMax),
       })),
       backgroundColor: color,
-      borderColor: moveSeries && showTotal ? (color == 'white' ? '#838383' : '#3d3d3d') : blueLineColor,
+      borderColor: moveSeries && showTotal ? (color === 'white' ? '#838383' : '#3d3d3d') : blueLineColor,
       borderWidth: moveSeries && showTotal ? 1 : 1.5,
       pointHitRadius: moveSeries && showTotal ? 0 : 200,
       pointHoverBorderColor: moveSeries && !showTotal ? orangeAccent : blueLineColor,
@@ -158,7 +157,7 @@ export default async function (
         categoryPercentage: 2,
         barPercentage: 1,
         order: 2,
-        borderColor: color == 'white' ? '#838383' : '#616161',
+        borderColor: color === 'white' ? '#838383' : '#616161',
         borderWidth: 1,
         datalabels: { display: false },
       }))
@@ -197,7 +196,7 @@ export default async function (
           displayColors: false,
           callbacks: {
             title: items =>
-              labels[items[0].dataset.label == 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x],
+              labels[items[0].dataset.label === 'bar' ? items[0].parsed.x * 2 : items[0].parsed.x],
             label: () => '',
           },
         },

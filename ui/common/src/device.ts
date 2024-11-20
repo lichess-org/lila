@@ -1,6 +1,7 @@
 import { type Hooks } from 'snabbdom';
 import { memoize } from './common';
 import { bind } from './snabbdom';
+import * as licon from './licon';
 
 const longPressDuration = 610;
 
@@ -60,11 +61,12 @@ export function isCol1(): boolean {
   return col1cache;
 }
 
+export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice()
+// only use other matches for workarounds or specific presentation issues
+
 export const isMobile = (): boolean => isAndroid() || isIOS();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
-
-export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export const getSafariMajorVersion = (): number | undefined => {
   const regex = /^((?!chrome|android).)*Version\/(\d+).*Safari/i;
@@ -81,6 +83,9 @@ export const isIOS = (constraint?: { below?: number; atLeast?: number }): boolea
   return answer;
 };
 
+export const isIPad = (): boolean =>
+  navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
+
 export const isChrome = (): boolean => /Chrome\//.test(navigator.userAgent);
 
 export const isFirefox = (): boolean => /Firefox/.test(navigator.userAgent);
@@ -90,14 +95,17 @@ export const getFirefoxMajorVersion = (): number | undefined => {
   return match && match.length > 1 ? parseInt(match[1]) : undefined;
 };
 
+export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
-export const isTouchDevice = (): boolean => !hasMouse();
+export const isApple: () => boolean = memoize<boolean>(
+  () => /Macintosh|iPhone|iPad|iPod/.test(navigator.userAgent), // macOS or iOS
+);
 
-export const isIPad = (): boolean =>
-  navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
+export const shareIcon: () => string = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
-export type Feature = 'wasm' | 'sharedMem' | 'simd';
+export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'dynamicImportFromWorker';
 
 export const hasFeature = (feat?: string): boolean => !feat || features().includes(feat as Feature);
 
@@ -109,17 +117,23 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
     WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
   ) {
     features.push('wasm');
-    if (sharedMemoryTest()) {
-      features.push('sharedMem');
-      // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
-      const sourceWithSimd = Uint8Array.from([
-        0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7,
-        9, 2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253,
-        1, 11,
-      ]);
-      if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
-    }
+    // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
+    const sourceWithSimd = Uint8Array.from([
+      0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9,
+      2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1,
+      11,
+    ]);
+    if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
+    if (sharedMemoryTest()) features.push('sharedMem');
   }
+  try {
+    new Worker(
+      URL.createObjectURL(
+        new Blob(["import('data:text/javascript,export default {}')"], { type: 'application/javascript' }),
+      ),
+    ).terminate();
+    features.push('dynamicImportFromWorker');
+  } catch {}
   return Object.freeze(features);
 });
 
@@ -141,7 +155,7 @@ function sharedMemoryTest(): boolean {
     if (!(mem.buffer instanceof SharedArrayBuffer)) return false;
 
     window.postMessage(mem.buffer, '*');
-  } catch (_) {
+  } catch {
     return false;
   }
   return mem.buffer instanceof SharedArrayBuffer;

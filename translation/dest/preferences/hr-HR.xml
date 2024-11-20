@@ -60,7 +60,7 @@
   <string name="notifyTournamentSoon">Turnir započinje ubrzo</string>
   <string name="notifyTimeAlarm">Sat za dopisivanje ističe</string>
   <string name="notifyBell">Obavijest zvonom unutar Lichessa</string>
-  <string name="notifyPush">Obavijest uređaja kada niste na Lichessu</string>
+  <string name="notifyPush">Obavijest uređaja kada niste na Lichess-u</string>
   <string name="notifyWeb">Preglednik</string>
   <string name="notifyDevice">Uređaj</string>
   <string name="bellNotificationSound">Obavijest kao zvuk</string>

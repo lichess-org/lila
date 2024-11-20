@@ -74,8 +74,8 @@ object userId:
     given Conversion[Option[UserName], Option[UserStr]] = _.map(_.value)
     given Conversion[UserId, UserStr]                   = _.value
     def read(str: String): Option[UserStr] =
-      val clean = str.trim.takeWhile(' ' !=)
-      Option.when(UserName.historicalRegex.matches(clean))(UserStr(clean))
+      val trimmed = str.trim
+      Option.when(UserName.historicalRegex.matches(trimmed))(UserStr(trimmed))
 
   // the prefix, or entirety, of a user name.
   // "chess-" is a valid username prefix, but not a valid username

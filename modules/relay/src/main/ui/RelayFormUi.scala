@@ -46,7 +46,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             href := routes.RelayRound.edit(r.id),
             cls  := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
             dataIcon := (
-              if r.finished then Icon.Checkmark
+              if r.isFinished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
               else Icon.DiscOutline
             )

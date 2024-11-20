@@ -105,6 +105,12 @@ trait dsl:
     "$unset" -> fields.nonEmpty.so($doc(fields.map(k => (k, BSONString("")))))
   def $unset(field: String, fields: String*): Bdoc = $doc:
     "$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
+
+  def $unsetCompute[A](prev: A, next: A, fields: (String, A => Option[?])*): Bdoc =
+    $unset:
+      fields.flatMap: (key, accessor) =>
+        (accessor(prev).isDefined && accessor(next).isEmpty).option(key)
+
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc =
     if value then $set(field -> true) else $unset(field)
   def $setsAndUnsets(items: (String, Option[BSONValue])*): Bdoc =

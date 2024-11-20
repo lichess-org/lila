@@ -8,17 +8,17 @@ export default class KeyboardChecker {
 
   press = (e: KeyboardEvent): void => {
     const v = (e.target as HTMLInputElement).value;
-    if (v == this.prev) return;
+    if (v === this.prev) return;
     this.prev = v;
-    if (e.key.length == 1) this.keys.push(e.key);
+    if (e.key.length === 1) this.keys.push(e.key);
     else {
-      if (v == '') this.clear();
-      else if (e.key == 'Enter') {
+      if (v === '') this.clear();
+      else if (e.key === 'Enter') {
         if (v.length > 1) {
           if (v.split('').every(c => this.keys.includes(c))) this.oks++;
           else {
             this.kos++;
-            if (this.kos == 9 && this.kos > this.oks) pubsub.emit('ab.rep', 'kbc');
+            if (this.kos === 9 && this.kos > this.oks) pubsub.emit('ab.rep', 'kbc');
           }
         }
       }

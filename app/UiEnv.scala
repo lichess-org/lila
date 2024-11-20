@@ -25,6 +25,7 @@ object UiEnv
   def netConfig           = env.net
   def contactEmailInClear = env.net.email.value
   def picfitUrl           = env.memo.picfitUrl
+  def socketTest          = env.web.socketTest
 
   given lila.core.config.NetDomain                           = env.net.domain
   given (using ctx: PageContext): Option[Nonce]              = ctx.nonce

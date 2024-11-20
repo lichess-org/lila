@@ -119,7 +119,6 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="replayMode">නැවත කිරීමේ අන්දම</string>
   <string name="realtimeReplay">එසැණින්</string>
   <string name="byCPL">CPL තුල</string>
-  <string name="openStudy">විවෘත අධ්‍යයනය</string>
   <string name="enable">සක්‍රීය කරන්න</string>
   <string name="bestMoveArrow">හොඳම ඇදීම පෙන්නන්න</string>
   <string name="showVariationArrows">වෙනස්කම් ඊතල පෙන්වන්න</string>

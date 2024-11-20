@@ -27,7 +27,7 @@ final class RelayListing(
         local = "_id",
         foreign = "tourId",
         pipe = List(
-          $doc("$match" -> $doc("finished" -> false)),
+          $doc("$match" -> RelayRoundRepo.selectors.finished(false)),
           $doc("$sort"  -> RelayRoundRepo.sort.asc),
           $doc("$limit" -> 1)
         )
@@ -147,7 +147,7 @@ final class RelayListing(
       yield
         spotlightCache = active
           .filter(_.tour.spotlight.exists(_.enabled))
-          .filterNot(_.display.finished)
+          .filterNot(_.display.isFinished)
           .filter: tr =>
             tr.display.hasStarted || tr.display.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(30)))
         active
@@ -186,7 +186,7 @@ final class RelayListing(
                   $doc("$limit" -> 1),
                   $doc(
                     "$match" -> $doc(
-                      "finished" -> false,
+                      RelayRoundRepo.selectors.finished(false),
                       $doc(
                         "$or" -> $arr(
                           $doc("startsAt".$gte(nowInstant)),
@@ -223,7 +223,7 @@ final class RelayListing(
         .sort($doc("startedAt" -> -1))
         .one[RelayRound]
       val next = colls.round
-        .find($doc("tourId" -> tourId, "finished" -> false))
+        .find(RelayRoundRepo.selectors.finished(false) ++ RelayRoundRepo.selectors.tour(tourId))
         .sort(sort.asc)
         .one[RelayRound]
       lastStarted.zip(next).flatMap {
@@ -256,7 +256,7 @@ private object RelayListing:
         .match
           case None => trs.rounds.headOption
           case Some(last) =>
-            trs.rounds.find(!_.finished) match
+            trs.rounds.find(!_.isFinished) match
               case None => last.some
               case Some(next) =>
                 if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))

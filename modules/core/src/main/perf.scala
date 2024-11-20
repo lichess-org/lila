@@ -1,10 +1,12 @@
 package lila.core
 
 import _root_.chess.variant.Variant
-import _root_.chess.{ Speed, variant as ChessVariant }
+import _root_.chess.{ Speed, IntRating, variant as ChessVariant }
+import _root_.chess.rating.{ IntRatingDiff }
+import _root_.chess.rating.glicko.Glicko
+import monocle.syntax.all.*
+import monocle.syntax.AppliedPLens
 
-import lila.core.rating.Glicko
-import lila.core.rating.data.{ IntRating, IntRatingDiff }
 import lila.core.userId.{ UserId, UserIdOf }
 
 object perf:
@@ -170,6 +172,26 @@ object perf:
       case key => sys.error(s"Unknown perf key: $key")
 
     def keyed(key: PerfKey): KeyedPerf = KeyedPerf(key, apply(key))
+
+    def focusKey(key: PerfKey): AppliedPLens[UserPerfs, UserPerfs, Perf, Perf] = key match
+      case "bullet"         => this.focus(_.bullet)
+      case "blitz"          => this.focus(_.blitz)
+      case "rapid"          => this.focus(_.rapid)
+      case "classical"      => this.focus(_.classical)
+      case "correspondence" => this.focus(_.correspondence)
+      case "ultraBullet"    => this.focus(_.ultraBullet)
+      case "standard"       => this.focus(_.standard)
+      case "chess960"       => this.focus(_.chess960)
+      case "kingOfTheHill"  => this.focus(_.kingOfTheHill)
+      case "threeCheck"     => this.focus(_.threeCheck)
+      case "antichess"      => this.focus(_.antichess)
+      case "atomic"         => this.focus(_.atomic)
+      case "horde"          => this.focus(_.horde)
+      case "racingKings"    => this.focus(_.racingKings)
+      case "crazyhouse"     => this.focus(_.crazyhouse)
+      case "puzzle"         => this.focus(_.puzzle)
+      // impossible because PerfKey can't be instantiated with arbitrary values
+      case key => sys.error(s"Unknown perf key: $key")
 
   case class UserWithPerfs(user: lila.core.user.User, perfs: UserPerfs):
     export user.*

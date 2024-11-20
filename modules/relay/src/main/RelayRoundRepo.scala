@@ -98,3 +98,4 @@ private object RelayRoundRepo:
 
   object selectors:
     def tour(id: RelayTourId) = $doc("tourId" -> id)
+    def finished(v: Boolean)  = $doc("finishedAt".$exists(v))

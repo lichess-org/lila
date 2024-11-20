@@ -21,7 +21,7 @@ site.load.then(() => {
       .each(function (this: HTMLTableRowElement) {
         const match =
           $(this).find('.title').text().toLowerCase().includes(query) ||
-          $(this).find('.lang').text().toLowerCase() == query;
+          $(this).find('.lang').text().toLowerCase() === query;
         this.hidden = !!query && !match;
       });
   });

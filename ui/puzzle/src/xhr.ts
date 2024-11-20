@@ -3,13 +3,12 @@ import type PuzzleStreak from './streak';
 import { throttlePromiseDelay } from 'common/timing';
 import { defined } from 'common';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
-import { StoredProp } from 'common/storage';
 
 export const complete = (
   puzzleId: string,
   theme: ThemeKey,
   win: boolean,
-  rated: StoredProp<boolean>,
+  rated: boolean,
   replay?: PuzzleReplay,
   streak?: PuzzleStreak,
   color?: Color,
@@ -20,7 +19,7 @@ export const complete = (
       win,
       ...(replay ? { replayDays: replay.days } : {}),
       ...(streak ? { streakId: streak.nextId(), streakScore: streak.data.index } : {}),
-      rated: rated(),
+      rated,
       color,
     }),
   });

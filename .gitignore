@@ -30,6 +30,7 @@ ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 dependency-graph.png
+dump.rdb
 
 RUNNING_PID
 .DS_Store

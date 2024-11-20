@@ -63,7 +63,7 @@ export default async function (
     const blurs = [toBlurArray(d.player), toBlurArray(d.opponent)];
     if (d.player.color === 'white') blurs.reverse();
     mainline.slice(1).map(node => {
-      const isWhite = (node.ply & 1) == 1;
+      const isWhite = (node.ply & 1) === 1;
       let cp: number | undefined = node.eval && 0;
       if (node.eval && node.eval.mate) cp = node.eval.mate > 0 ? Infinity : -Infinity;
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
@@ -146,7 +146,7 @@ export default async function (
           bodyFont: fontFamily(13),
           caretPadding: 10,
           displayColors: false,
-          filter: item => item.datasetIndex == 0,
+          filter: item => item.datasetIndex === 0,
           callbacks: {
             label: item => {
               const ev = mainline[item.dataIndex + 1]?.eval;
@@ -169,7 +169,7 @@ export default async function (
         },
       },
       onClick(_event, elements, _chart) {
-        const data = elements[elements.findIndex(element => element.datasetIndex == 0)];
+        const data = elements[elements.findIndex(element => element.datasetIndex === 0)];
         if (data) pubsub.emit('analysis.chart.click', data.index);
       },
     },
@@ -192,9 +192,9 @@ export default async function (
 
 type Advice = 'blunder' | 'mistake' | 'inaccuracy';
 const glyphProperties = (node: Tree.Node): { advice?: Advice; color?: string } => {
-  if (node.glyphs?.some(g => g.id == 4)) return { advice: 'blunder', color: '#db3031' };
-  else if (node.glyphs?.some(g => g.id == 2)) return { advice: 'mistake', color: '#e69d00' };
-  else if (node.glyphs?.some(g => g.id == 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
+  if (node.glyphs?.some(g => g.id === 4)) return { advice: 'blunder', color: '#db3031' };
+  else if (node.glyphs?.some(g => g.id === 2)) return { advice: 'mistake', color: '#e69d00' };
+  else if (node.glyphs?.some(g => g.id === 6)) return { advice: 'inaccuracy', color: '#4da3d5' };
   else return { advice: undefined, color: undefined };
 };
 
@@ -203,14 +203,14 @@ const toBlurArray = (player: Player) => player.blurs?.bits?.split('') ?? [];
 function christmasTree(chart: AcplChart, mainline: Tree.Node[], hoverColors: string[]) {
   $('div.advice-summary').on('mouseenter', 'div.symbol', function (this: HTMLElement) {
     const symbol = this.getAttribute('data-symbol');
-    const playerColorBit = this.getAttribute('data-color') == 'white' ? 1 : 0;
+    const playerColorBit = this.getAttribute('data-color') === 'white' ? 1 : 0;
     const acplDataset = chart.data.datasets[0];
-    if (symbol == '??' || symbol == '?!' || symbol == '?') {
+    if (symbol === '??' || symbol === '?!' || symbol === '?') {
       acplDataset.pointHoverBackgroundColor = hoverColors;
       acplDataset.pointBorderColor = hoverColors;
       const points = mainline
         .filter(
-          node => node.glyphs?.some(glyph => glyph.symbol == symbol) && (node.ply & 1) == playerColorBit,
+          node => node.glyphs?.some(glyph => glyph.symbol === symbol) && (node.ply & 1) === playerColorBit,
         )
         .map(node => ({ datasetIndex: 0, index: node.ply - mainline[0].ply - 1 }));
       chart.setActiveElements(points);

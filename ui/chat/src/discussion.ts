@@ -203,7 +203,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     !!myUserId &&
     !!line.t
       .match(enhance.userPattern)
-      ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
+      ?.find(mention => mention.trim().toLowerCase() === `@${ctrl.data.userId}`);
 
   return h(
     'li',
