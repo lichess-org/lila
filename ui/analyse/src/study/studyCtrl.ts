@@ -633,7 +633,7 @@ export default class StudyCtrl {
       this.redraw();
     },
     addNode: d => {
-      if (d.relayPath == '!') d.relayPath = d.p.path + d.n.id;
+      if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       const position = d.p,
         node = {
           ...d.n,

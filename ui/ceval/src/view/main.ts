@@ -28,8 +28,8 @@ function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string>
     state = ceval.state;
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
-    if (state == CevalState.Failed) return [i18n.site.engineFailed];
-    const localEvalText = state == CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
+    if (state === CevalState.Failed) return [i18n.site.engineFailed];
+    const localEvalText = state === CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];
   }
 
@@ -330,7 +330,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   else pvs = [];
   if (threat) {
     setup.turn = opposite(setup.turn);
-    if (setup.turn == 'white') setup.fullmoves += 1;
+    if (setup.turn === 'white') setup.fullmoves += 1;
   }
   const pos = setupPosition(lichessRules(ceval.opts.variant.key), setup);
 

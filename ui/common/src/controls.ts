@@ -38,7 +38,7 @@ export function toggleBoxInit(): void {
       .addClass('toggle-box--ready')
       .children('legend')
       .on('click', toggle)
-      .on('keypress', e => e.key == 'Enter' && toggle());
+      .on('keypress', e => e.key === 'Enter' && toggle());
   });
 }
 
