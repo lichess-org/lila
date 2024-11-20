@@ -1,8 +1,10 @@
 package lila.ublog
+
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
+import chess.IntRating
 import lila.core.i18n.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.timeline.{ Propagate, UblogPostLike }
@@ -21,7 +23,7 @@ object UblogRank:
 
     def default(user: UserWithPerfs) =
       if user.marks.troll then Tier.HIDDEN
-      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)
+      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > IntRating(2200))
       then Tier.NORMAL
       else Tier.LOW
     val options = List(

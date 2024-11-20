@@ -1,6 +1,7 @@
 package lila.lobby
 
 import chess.variant.Variant
+import chess.IntRating
 import chess.{ Clock, Mode, Speed }
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom
@@ -47,7 +48,7 @@ case class Hook(
   private def nonWideRatingRange =
     val r = rating | lila.rating.Glicko.default.intRating
     manualRatingRange.filter:
-      _ != RatingRange(r - 500, r + 500)
+      _ != RatingRange(r - IntRating(500), r + IntRating(500))
 
   lazy val ratingRangeOrDefault: RatingRange =
     nonWideRatingRange.orElse(rating.map(lila.rating.RatingRange.defaultFor)).getOrElse(RatingRange.default)

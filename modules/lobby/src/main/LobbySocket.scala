@@ -2,6 +2,7 @@ package lila.lobby
 
 import play.api.libs.json.*
 import scalalib.actor.SyncActor
+import chess.IntRating
 
 import lila.common.Json.given
 import lila.core.game.ChangeFeatured

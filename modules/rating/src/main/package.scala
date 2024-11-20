@@ -1,14 +1,12 @@
 package lila.rating
 
 import alleycats.Zero
+import chess.IntRating
 
 export lila.core.lilaism.Lilaism.{ Perf as _, *, given }
 export lila.common.extensions.*
 
-type UserRankMap   = Map[PerfKey, Int]
-type RatingFactors = Map[PerfType, RatingFactor]
-
-given intZero: Zero[IntRating] = Zero(IntRating(0))
+type UserRankMap = Map[PerfKey, Int]
 
 val formMapping: play.api.data.Mapping[IntRating] =
   import play.api.data.Forms.number

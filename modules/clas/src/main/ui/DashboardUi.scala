@@ -181,7 +181,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                     tr(
                       studentTd(c, s),
                       td(dataSort := perf.intRating, cls := "rating")(perf.glicko.display),
-                      td(dataSort := prog.ratingProgress)(
+                      td(dataSort := prog.ratingProgress.value)(
                         ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
                       ),
                       td(prog.nb),

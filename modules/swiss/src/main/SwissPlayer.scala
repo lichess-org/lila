@@ -1,5 +1,8 @@
 package lila.swiss
 
+import chess.IntRating
+import chess.rating.RatingProvisional
+
 import lila.core.LightUser
 import lila.core.user.WithPerf
 
