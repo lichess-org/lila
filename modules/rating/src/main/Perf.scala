@@ -13,34 +13,25 @@ object PerfExt:
 
   extension (p: Perf)
 
-    def addOrReset(
-        monitor: lila.mon.CounterPath,
-        msg: => String
-    )(player: Glicko, date: Instant): Perf =
-      p.addPlayer(player, date) | {
-        lila.log("rating").error(s"Crazy Glicko2 $msg")
-        monitor(lila.mon).increment()
-        p.addGlicko(lila.rating.Glicko.default, date)
-      }
-
-    private def addPlayer(player: Glicko, date: Instant): Option[Perf] =
-      val newGlicko = Glicko(
+    def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(player: Glicko, date: Instant): Perf =
+      val newGlicko = player.copy(
         rating = player.rating
           .atMost(p.glicko.rating + lila.rating.Glicko.maxRatingDelta)
-          .atLeast(p.glicko.rating - lila.rating.Glicko.maxRatingDelta),
-        deviation = player.deviation,
-        volatility = player.volatility
+          .atLeast(p.glicko.rating - lila.rating.Glicko.maxRatingDelta)
       )
-      newGlicko.sanityCheck.option(p.addGlicko(newGlicko, date))
-
-    private def addGlicko(g: Glicko, date: Instant): Perf =
-      val capped = g.cap
-      p.copy(
-        glicko = capped,
-        nb = p.nb + 1,
-        recent = p.updateRecentWith(capped),
-        latest = date.some
-      )
+      def append(g: Glicko): Perf =
+        val capped = g.cap
+        p.copy(
+          glicko = capped,
+          nb = p.nb + 1,
+          recent = p.updateRecentWith(capped),
+          latest = date.some
+        )
+      if newGlicko.sanityCheck then append(newGlicko)
+      else
+        lila.log("rating").error(s"Crazy Glicko2 $msg")
+        monitor(lila.mon).increment()
+        append(lila.rating.Glicko.default)
 
     def refund(points: Int): Perf =
       val newGlicko = p.glicko.copy(rating = p.glicko.rating + points)
