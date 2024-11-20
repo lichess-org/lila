@@ -6,8 +6,7 @@ import chess.glicko.IntRating
 export lila.core.lilaism.Lilaism.{ Perf as _, *, given }
 export lila.common.extensions.*
 
-type UserRankMap   = Map[PerfKey, Int]
-type RatingFactors = Map[PerfKey, RatingFactor]
+type UserRankMap = Map[PerfKey, Int]
 
 val formMapping: play.api.data.Mapping[IntRating] =
   import play.api.data.Forms.number

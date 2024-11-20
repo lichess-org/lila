@@ -1,9 +1,41 @@
 package lila.rating
 
+import reactivemongo.api.bson.BSONHandler
 import chess.ByColor
 import chess.glicko.Glicko
+import scalalib.Iso
 
-final class RatingRegulator(factors: RatingFactors):
+opaque type RatingFactor = Double
+object RatingFactor extends OpaqueDouble[RatingFactor]:
+
+  type ByKey = Map[PerfKey, RatingFactor]
+
+  private val separator = ","
+
+  def write(rfs: ByKey): String =
+    rfs
+      .map: (pk, f) =>
+        s"$pk=$f"
+      .mkString(separator)
+
+  private def read(s: String): ByKey =
+    s.split(separator)
+      .toList
+      .map(_.trim.split('='))
+      .flatMap:
+        case Array(ptk, fs) =>
+          for
+            pk <- PerfKey(ptk)
+            f  <- fs.toDoubleOption
+          yield pk -> RatingFactor(f)
+        case _ => None
+      .toMap
+
+  given Iso.StringIso[ByKey] = Iso.string(read, write)
+
+  given BSONHandler[ByKey] = lila.db.dsl.isoHandler
+
+final class RatingRegulator(factors: RatingFactor.ByKey):
 
   def apply(
       key: PerfKey,

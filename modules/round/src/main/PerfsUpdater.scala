@@ -6,7 +6,7 @@ import chess.glicko.{ Glicko, IntRating, IntRatingDiff, RatingProvisional }
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.PerfExt.addOrReset
-import lila.rating.{ PerfType, RatingFactors, RatingRegulator }
+import lila.rating.{ PerfType, RatingFactor, RatingRegulator }
 import lila.user.{ RankingApi, UserApi }
 import monocle.syntax.AppliedPLens
 import lila.rating.PerfExt.toGlickoPlayer
@@ -16,7 +16,7 @@ final class PerfsUpdater(
     userApi: UserApi,
     rankingApi: RankingApi,
     farming: FarmBoostDetection,
-    ratingFactors: () => RatingFactors
+    ratingFactors: () => RatingFactor.ByKey
 )(using Executor):
 
   def save(game: Game, users: ByColor[UserWithPerfs]): Fu[Option[ByColor[IntRatingDiff]]] =
