@@ -1,6 +1,6 @@
 package lila.perfStat
 
-import chess.glicko.IntRating
+import chess.IntRating
 import reactivemongo.api.bson.Macros.Annotations.Key
 import java.time.Duration
 import scalalib.HeapSort

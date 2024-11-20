@@ -1,7 +1,7 @@
 package lila.tv
 
 import chess.PlayerTitle
-import chess.glicko.IntRating
+import chess.IntRating
 import scalalib.actor.SyncActor
 
 import lila.core.LightUser

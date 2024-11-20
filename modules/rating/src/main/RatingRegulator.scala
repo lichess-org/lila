@@ -2,7 +2,7 @@ package lila.rating
 
 import reactivemongo.api.bson.BSONHandler
 import chess.ByColor
-import chess.glicko.Glicko
+import chess.rating.glicko.Glicko
 import scalalib.Iso
 
 opaque type RatingFactor = Double

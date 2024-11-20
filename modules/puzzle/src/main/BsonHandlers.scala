@@ -1,7 +1,7 @@
 package lila.puzzle
 
 import chess.format.{ Fen, Uci }
-import chess.glicko.Glicko
+import chess.rating.glicko.Glicko
 import reactivemongo.api.bson.*
 import scala.util.{ Success, Try }
 

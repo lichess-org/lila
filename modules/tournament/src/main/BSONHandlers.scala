@@ -3,7 +3,7 @@ package lila.tournament
 import chess.Mode
 import chess.format.Fen
 import chess.variant.Variant
-import chess.glicko.IntRating
+import chess.IntRating
 import reactivemongo.api.bson.*
 
 import lila.core.id.TourPlayerId

@@ -1,7 +1,7 @@
 package lila.tutor
 
 import alleycats.Zero
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.analyse.AccuracyPercent
 import lila.core.data.Percent

@@ -1,7 +1,8 @@
 package lila.tournament
 
 import scalalib.ThreadLocalRandom
-import chess.glicko.{ IntRating, RatingProvisional }
+import chess.IntRating
+import chess.rating.RatingProvisional
 
 import lila.core.LightUser
 import lila.core.user.WithPerf

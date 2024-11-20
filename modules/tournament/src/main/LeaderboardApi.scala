@@ -5,7 +5,7 @@ import reactivemongo.api.bson.*
 import reactivemongo.akkastream.cursorProducer
 import scalalib.Maths
 import scalalib.paginator.{ AdapterLike, Paginator }
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.chess.Rank
 import lila.core.perf.PerfId

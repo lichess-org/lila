@@ -1,7 +1,8 @@
 package lila.core
 
-import _root_.chess.{ Color, ByColor, PlayerTitle }
-import _root_.chess.glicko.{ Glicko, IntRating, IntRatingDiff }
+import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
+import _root_.chess.rating.IntRatingDiff
+import _root_.chess.rating.glicko.Glicko
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key

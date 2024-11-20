@@ -1,7 +1,8 @@
 package lila.rating
 
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
-import chess.glicko.{ Glicko, IntRating }
+import chess.IntRating
+import chess.rating.glicko.{ Glicko, GlickoCalculator, RatingPeriodsPerDay }
 
 import lila.core.perf.Perf
 import lila.db.BSON
@@ -37,7 +38,7 @@ object GlickoExt:
       )
 
 object Glicko:
-  export chess.glicko.Glicko.*
+  export chess.rating.glicko.Glicko.*
 
   val minRating: IntRating = IntRating(400)
   val maxRating: IntRating = IntRating(4000)
@@ -67,11 +68,9 @@ object Glicko:
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
 
-  val calculator = chess.glicko.GlickoCalculator(
-    chess.glicko.Config(
-      // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
-      ratingPeriodsPerDay = chess.glicko.impl.RatingPeriodsPerDay(0.21436d)
-    )
+  val calculator = GlickoCalculator(
+    // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
+    ratingPeriodsPerDay = RatingPeriodsPerDay(0.21436d)
   )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {

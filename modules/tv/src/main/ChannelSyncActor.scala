@@ -1,7 +1,7 @@
 package lila.tv
 
 import chess.{ Color, Ply }
-import chess.glicko.IntRating
+import chess.IntRating
 import monocle.syntax.all.*
 import scalalib.actor.SyncActor
 

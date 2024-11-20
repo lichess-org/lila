@@ -6,7 +6,7 @@ import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.common.{ Bus, Debouncer }
 import lila.core.game.LightPov

@@ -6,7 +6,6 @@ import _root_.chess.format.Uci
 import _root_.chess.format.pgn.SanStr
 import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ FromPosition, Standard, Variant }
-import _root_.chess.glicko.IntRating
 import _root_.chess.{
   ByColor,
   Centis,
@@ -18,7 +17,8 @@ import _root_.chess.{
   Ply,
   Speed,
   Status,
-  Outcome
+  Outcome,
+  IntRating
 }
 import scalalib.model.Days
 
@@ -258,7 +258,8 @@ case class Game(
   yield w -> b
 
   def averageUsersRating: Option[IntRating] = players.flatMap(_.rating) match
-    case a :: b :: Nil => Some((a + b).map(_ / 2))
+    // case a :: b :: Nil => Some((a + b).map(_ / 2))
+    case a :: b :: Nil => Some((a + b))
     case a :: Nil      => Some((a + IntRating(1500)).map(_ / 2))
     case _             => None
 

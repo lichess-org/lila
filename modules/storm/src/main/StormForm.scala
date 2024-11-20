@@ -1,6 +1,6 @@
 package lila.storm
 
-import chess.glicko.IntRating
+import chess.IntRating
 import play.api.data.*
 import play.api.data.Forms.*
 

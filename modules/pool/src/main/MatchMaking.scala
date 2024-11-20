@@ -2,7 +2,7 @@ package lila.pool
 
 import scalalib.WMMatching
 import scala.math.abs
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.pool.PoolMember
 

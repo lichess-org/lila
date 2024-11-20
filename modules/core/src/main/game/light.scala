@@ -1,11 +1,11 @@
 package lila.core
 package game
 
-import _root_.chess.{ Color, Status }
+import _root_.chess.{ Color, Status, IntRating }
 import _root_.chess.variant.Variant
+import _root_.chess.rating.{ IntRatingDiff, RatingProvisional }
 
 import lila.core.id.GameId
-import _root_.chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.userId.UserId
 
 case class LightGame(

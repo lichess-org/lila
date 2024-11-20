@@ -3,7 +3,7 @@ package lila.opening
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.opening.Opening
-import chess.glicko.IntRating
+import chess.IntRating
 import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*

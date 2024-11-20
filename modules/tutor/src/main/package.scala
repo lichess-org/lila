@@ -1,6 +1,6 @@
 package lila.tutor
 
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.perf.UserWithPerfs
 import lila.insight.ClockPercent

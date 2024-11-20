@@ -3,7 +3,7 @@ package lila.game
 import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
-import chess.glicko.IntRatingDiff
+import chess.rating.IntRatingDiff
 
 import lila.core.LightUser
 import lila.core.config.BaseUrl

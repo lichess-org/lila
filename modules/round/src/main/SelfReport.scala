@@ -3,7 +3,7 @@ package lila.round
 import com.softwaremill.tagging.*
 import scalalib.ThreadLocalRandom
 import scala.util.matching.Regex
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.net.{ IpAddress, IpAddressStr }
 import lila.memo.SettingStore

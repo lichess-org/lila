@@ -1,7 +1,7 @@
 package lila.ui
 
-import chess.PlayerTitle
-import chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
+import chess.{ PlayerTitle, IntRating }
+import chess.rating.{ IntRatingDiff, RatingProvisional }
 
 import lila.core.LightUser
 import lila.core.perf.{ KeyedPerf, UserPerfs, UserWithPerfs }

@@ -1,7 +1,7 @@
 package lila.round
 
 import chess.{ ByColor, Color, DecayingStats, Status }
-import chess.glicko.IntRatingDiff
+import chess.rating.IntRatingDiff
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.{ AbortedBy, FinishGame }

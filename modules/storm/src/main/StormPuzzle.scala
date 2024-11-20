@@ -1,7 +1,7 @@
 package lila.storm
 
 import chess.format.{ Fen, Uci }
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.id.PuzzleId
 

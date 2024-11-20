@@ -2,7 +2,7 @@ package lila.activity
 
 import reactivemongo.api.bson.*
 import scala.util.Success
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.common.LichessDay
 import lila.core.chess.Rank

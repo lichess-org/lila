@@ -1,6 +1,7 @@
 package lila.insight
 
-import chess.glicko.{ IntRating, IntRatingDiff }
+import chess.IntRating
+import chess.rating.IntRatingDiff
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
 

@@ -1,7 +1,7 @@
 package lila.mod
 
 import com.github.blemale.scaffeine.Cache
-import chess.glicko.IntRatingDiff
+import chess.rating.IntRatingDiff
 
 import lila.core.msg.{ MsgApi, MsgPreset }
 import lila.report.ReportApi

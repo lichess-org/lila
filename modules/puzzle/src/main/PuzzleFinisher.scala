@@ -1,7 +1,8 @@
 package lila.puzzle
 
-import chess.{ Mode, ByColor, glicko }
-import chess.glicko.{ Glicko, IntRatingDiff }
+import chess.{ Mode, ByColor }
+import chess.rating.IntRatingDiff
+import chess.rating.glicko.{ Glicko, GlickoCalculator }
 import scalalib.actor.AsyncActorSequencers
 
 import lila.common.Bus
@@ -27,7 +28,7 @@ final private[puzzle] class PuzzleFinisher(
     lila.log.asyncActorMonitor.full
   )
 
-  private val calculator = glicko.GlickoCalculator(glicko.Config())
+  private val calculator = GlickoCalculator()
 
   def batch(
       angle: PuzzleAngle,
@@ -80,13 +81,16 @@ final private[puzzle] class PuzzleFinisher(
                     )
                     (round, none, perf)
                 case None =>
+                  // for rating computation, we treat the solve as a game
+                  // where the player is white and the puzzle is black
                   val (userGlicko, puzzleGlicko) =
                     val players = ByColor(
                       perf.toGlickoPlayer,
-                      glicko.Player(puzzle.glicko.cap, puzzle.plays, none)
+                      chess.rating.glicko.Player(puzzle.glicko.cap, puzzle.plays, none)
                     )
                     calculator
-                      .computeGame(glicko.Game(players, chess.Outcome(Color.fromWhite(win.yes).some)))
+                      .computeGame:
+                        chess.rating.glicko.Game(players, chess.Outcome(Color.fromWhite(win.yes).some))
                       .map(_.map(_.glicko))
                       .fold(
                         err =>

@@ -1,7 +1,7 @@
 package lila.history
 
 import chess.Speed
-import chess.glicko.IntRating
+import chess.IntRating
 import reactivemongo.api.bson.*
 import scalalib.model.Days
 

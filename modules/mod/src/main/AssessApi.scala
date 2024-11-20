@@ -1,7 +1,7 @@
 package lila.mod
 
 import chess.{ Black, ByColor, Color, White }
-import chess.glicko.IntRatingDiff
+import chess.rating.IntRatingDiff
 import reactivemongo.api.bson.*
 import scalalib.ThreadLocalRandom
 

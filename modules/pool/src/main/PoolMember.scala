@@ -1,6 +1,6 @@
 package lila.pool
 
-import chess.glicko.IntRatingDiff
+import chess.rating.IntRatingDiff
 
 import lila.core.playban.RageSit
 import lila.core.pool.{ Joiner, PoolMember }

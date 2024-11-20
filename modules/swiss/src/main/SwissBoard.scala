@@ -1,6 +1,6 @@
 package lila.swiss
 
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.LightUser
 import lila.core.chess.Rank

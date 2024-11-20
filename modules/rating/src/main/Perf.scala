@@ -2,8 +2,8 @@ package lila.rating
 
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, Macros }
 
-import chess.glicko
-import chess.glicko.{ Glicko, IntRating }
+import chess.IntRating
+import chess.rating.glicko.Glicko
 import lila.core.perf.{ Perf, PuzPerf }
 import lila.db.BSON
 import lila.db.dsl.given
@@ -55,7 +55,7 @@ object PerfExt:
 
     def clearRecent = p.copy(recent = Nil)
 
-    def toGlickoPlayer = glicko.Player(p.glicko.cap, p.nb, p.latest)
+    def toGlickoPlayer = chess.rating.glicko.Player(p.glicko.cap, p.nb, p.latest)
 
     def showRatingProvisional = p.glicko.display
     def established           = p.glicko.established

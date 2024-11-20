@@ -1,6 +1,6 @@
 package lila.storm
 
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi

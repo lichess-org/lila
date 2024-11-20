@@ -1,13 +1,15 @@
 package lila.relay
 
+import scala.collection.immutable.SeqMap
+import play.api.libs.json.*
 import scalalib.Json.writeAs
-import chess.{ ByColor, Color, Elo, FideId, Outcome, PlayerName }
+import chess.{ ByColor, Color, FideId, Outcome, PlayerName, IntRating }
+import chess.rating.{ Elo, IntRatingDiff }
+
 import lila.db.dsl.*
 import lila.study.{ ChapterPreviewApi, StudyPlayer }
 import lila.study.StudyPlayer.json.given
-import scala.collection.immutable.SeqMap
 import lila.memo.CacheApi
-import play.api.libs.json.*
 import lila.core.fide.{ Player as FidePlayer }
 import lila.common.Json.given
 import lila.common.Debouncer
@@ -17,8 +19,8 @@ import lila.core.fide.FideTC
 case class RelayPlayer(
     player: StudyPlayer.WithFed,
     score: Option[Float],
-    ratingDiff: Option[Int],
-    performance: Option[Elo],
+    ratingDiff: Option[IntRatingDiff],
+    performance: Option[IntRating],
     games: Vector[RelayPlayer.Game]
 ):
   export player.player.*
@@ -40,7 +42,7 @@ object RelayPlayer:
       pp <- playerPoints
       if isRated
       opRating <- opponent.rating
-    yield Elo.Game(pp, opRating)
+    yield Elo.Game(pp, opRating.into(Elo))
 
   object json:
     given Writes[Outcome]            = Json.writes
@@ -58,9 +60,10 @@ object RelayPlayer:
     def full(tour: RelayTour)(p: RelayPlayer, fidePlayer: Option[FidePlayer]): JsObject =
       val tc = tour.info.fideTcOrGuess
       lazy val eloPlayer = p.rating
+        .map(_.into(Elo))
         .orElse(fidePlayer.flatMap(_.ratingOf(tc)))
         .map:
-          Elo.Player(_, fidePlayer.fold(chess.KFactor.default)(_.kFactorOf(tc)))
+          Elo.Player(_, fidePlayer.fold(chess.rating.KFactor.default)(_.kFactorOf(tc)))
       val gamesJson = p.games.map: g =>
         val rd = tour.showRatingDiffs.so:
           (eloPlayer, g.eloGame).tupled.map: (ep, eg) =>
@@ -174,7 +177,7 @@ private final class RelayPlayerApi(
           score = p.games
             .foldMap(_.playerPoints.so(_.value))
             .some,
-          performance = Elo.computePerformanceRating(p.eloGames)
+          performance = Elo.computePerformanceRating(p.eloGames).map(_.into(IntRating))
         )
       .to(SeqMap)
 
@@ -186,7 +189,7 @@ private final class RelayPlayerApi(
           .map: fidePlayerOpt =>
             for
               fidePlayer <- fidePlayerOpt
-              r          <- player.rating.orElse(fidePlayer.ratingOf(tc))
+              r          <- player.rating.map(_.into(Elo)).orElse(fidePlayer.ratingOf(tc))
               p     = Elo.Player(r, fidePlayer.kFactorOf(tc))
               games = player.eloGames
             yield player.copy(ratingDiff = games.nonEmpty.option(Elo.computeRatingDiff(p, games)))

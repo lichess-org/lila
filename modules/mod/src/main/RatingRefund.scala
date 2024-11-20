@@ -1,6 +1,7 @@
 package lila.mod
 
-import chess.glicko.{ IntRating, IntRatingDiff }
+import chess.IntRating
+import chess.rating.IntRatingDiff
 
 import lila.core.game.GameRepo
 import lila.core.user.WithPerf

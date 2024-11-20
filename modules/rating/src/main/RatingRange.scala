@@ -1,6 +1,6 @@
 package lila.rating
 
-import chess.glicko.IntRating
+import chess.IntRating
 import lila.core.rating as hub
 
 object RatingRange:

@@ -1,9 +1,10 @@
 package lila.ublog
+
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import chess.glicko.IntRating
+import chess.IntRating
 import lila.core.i18n.Language
 import lila.core.perf.UserWithPerfs
 import lila.core.timeline.{ Propagate, UblogPostLike }

@@ -1,14 +1,14 @@
 package lila.round
 
 import monocle.syntax.all.*
-import chess.{ ByColor, Color, Speed, glicko }
-import chess.glicko.{ Glicko, IntRating, IntRatingDiff, RatingProvisional }
+import chess.{ ByColor, Color, Speed, IntRating }
+import chess.rating.{ IntRatingDiff, RatingProvisional }
+import chess.rating.glicko.Glicko
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.PerfExt.addOrReset
 import lila.rating.{ PerfType, RatingFactor, RatingRegulator }
 import lila.user.{ RankingApi, UserApi }
-import monocle.syntax.AppliedPLens
 import lila.rating.PerfExt.toGlickoPlayer
 
 final class PerfsUpdater(
@@ -36,7 +36,7 @@ final class PerfsUpdater(
           val prevPerfs   = users.map(_.perfs)
           val prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
           lila.rating.Glicko.calculator
-            .computeGame(glicko.Game(prevPlayers, outcome))
+            .computeGame(chess.rating.glicko.Game(prevPlayers, outcome))
             .fold(
               err =>
                 lila.log("rating").error(s"Error computing Glicko2 for game ${game.id}", err)

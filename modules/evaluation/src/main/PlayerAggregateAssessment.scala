@@ -1,7 +1,7 @@
 package lila.evaluation
 
 import scala.math.sqrt
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRating

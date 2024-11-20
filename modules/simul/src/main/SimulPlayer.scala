@@ -1,7 +1,8 @@
 package lila.simul
 
 import chess.variant.Variant
-import chess.glicko.{ IntRating, RatingProvisional }
+import chess.IntRating
+import chess.rating.RatingProvisional
 
 import lila.core.user.WithPerf
 

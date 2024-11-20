@@ -42,11 +42,12 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.4.0.1"
+    val version  = "16.5.0"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
-    def bundle   = Seq(core, testKit, playJson)
+    val rating   = "org.lichess" %% "scalachess-rating"    % version
+    def bundle   = Seq(core, testKit, playJson, rating)
   }
 
   object scalalib {

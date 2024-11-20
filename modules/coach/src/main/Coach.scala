@@ -1,7 +1,7 @@
 package lila.coach
 
 import reactivemongo.api.bson.Macros.Annotations.Key
-import chess.glicko.IntRating
+import chess.IntRating
 
 import lila.core.id.ImageId
 import lila.core.perf.UserWithPerfs

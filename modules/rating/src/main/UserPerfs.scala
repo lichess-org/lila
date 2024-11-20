@@ -1,7 +1,7 @@
 package lila.rating
 
-import chess.Speed
-import chess.glicko.{ IntRating, IntRatingDiff, RatingProvisional }
+import chess.{ Speed, IntRating }
+import chess.rating.{ IntRatingDiff, RatingProvisional }
 import scalalib.HeapSort.*
 
 import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs }

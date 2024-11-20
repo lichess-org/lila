@@ -1,7 +1,7 @@
 package lila.lobby
 
 import chess.variant.Variant
-import chess.glicko.IntRating
+import chess.IntRating
 import chess.{ Clock, Mode, Speed }
 import play.api.libs.json.*
 import scalalib.ThreadLocalRandom

@@ -1,6 +1,6 @@
 package lila.perfStat
 
-import chess.glicko.IntRating
+import chess.IntRating
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.perm.Granter
 import lila.rating.Glicko.minRating

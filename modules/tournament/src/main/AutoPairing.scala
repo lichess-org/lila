@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.{ Black, ByColor, Color, White }
-import chess.glicko.IntRating
+import chess.IntRating
 import monocle.syntax.all.*
 
 import lila.core.game.Source

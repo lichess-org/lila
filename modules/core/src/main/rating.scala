@@ -2,7 +2,8 @@ package lila.core
 package rating
 
 import alleycats.Zero
-import _root_.chess.glicko.{ IntRating, IntRatingDiff }
+import _root_.chess.IntRating
+import _root_.chess.rating.IntRatingDiff
 
 case class RatingProg(before: IntRating, after: IntRating):
   def diff    = IntRatingDiff(after.value - before.value)

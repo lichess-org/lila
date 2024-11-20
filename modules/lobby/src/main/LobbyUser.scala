@@ -1,6 +1,7 @@
 package lila.lobby
 
-import chess.glicko.{ IntRating, RatingProvisional }
+import chess.IntRating
+import chess.rating.RatingProvisional
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.pool.Blocking

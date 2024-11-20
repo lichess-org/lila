@@ -4,7 +4,7 @@ import chess.bitboard.Bitboard
 import chess.format.pgn.SanStr
 import chess.format.{ BoardFen, Fen }
 import chess.variant.Crazyhouse
-import chess.glicko.IntRatingDiff
+import chess.rating.IntRatingDiff
 import chess.{
   Centis,
   Check,

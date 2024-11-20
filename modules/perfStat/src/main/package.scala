@@ -1,6 +1,6 @@
 package lila.perfStat
 
-import chess.glicko.IntRating
+import chess.IntRating
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 
