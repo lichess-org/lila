@@ -13,8 +13,12 @@ export interface Pricing {
 }
 
 const $checkout = $('div.plan_checkout');
-const getFreq = () => $checkout.find('group.freq input:checked').val();
-const getDest = () => $checkout.find('group.dest input:checked').val();
+const getVal = (selector: string): string => {
+  const values = $checkout.find(selector).val();
+  return typeof values === 'string' ? values : values[0];
+};
+const getFreq = (): string => getVal('group.freq input:checked');
+const getDest = (): string => getVal('group.dest input:checked');
 const showErrorThenReload = (error: string) => alert(error).then(() => location.assign('/patron'));
 
 export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string; pricing: any }): void {
