@@ -116,7 +116,7 @@ export default class ChatCtrl {
         change = true;
       }
     });
-    if (userId == this.data.userId) this.vm.timeout = change = true;
+    if (userId === this.data.userId) this.vm.timeout = change = true;
     if (change) {
       this.vm.domVersion++;
       this.redraw();
@@ -124,7 +124,7 @@ export default class ChatCtrl {
   };
 
   private onReinstate = (userId: string): void => {
-    if (userId == this.data.userId) {
+    if (userId === this.data.userId) {
       this.vm.timeout = false;
       this.redraw();
     }

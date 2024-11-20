@@ -66,7 +66,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
         log('Connected to: ' + c.peer);
       })
       .on('disconnected', () => {
-        if (state == 'stopping') destroyPeer();
+        if (state === 'stopping') destroyPeer();
         else {
           setState('opening', 'reconnect');
           peer.reconnect();
@@ -215,7 +215,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
               attrs: {
                 'data-icon': licon.Handset,
                 title: `Voice chat: ${state}`,
-                'data-count': state == 'on' ? connections.length + 1 : 0,
+                'data-count': state === 'on' ? connections.length + 1 : 0,
               },
               hook: {
                 insert(vnode) {
@@ -223,7 +223,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
                 },
               },
             },
-            state == 'on'
+            state === 'on'
               ? connections.map(c =>
                   h('audio.palantir__audio.' + c.peer, {
                     attrs: { autoplay: true },

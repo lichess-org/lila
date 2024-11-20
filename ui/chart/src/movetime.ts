@@ -102,7 +102,7 @@ export default async function (
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;
-    if (clock == undefined) {
+    if (clock === undefined) {
       if (data.game.status.name === 'outoftime') clock = 0;
       else if (data.clock) {
         const prevClock = tree[x - 1].clock;

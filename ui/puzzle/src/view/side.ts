@@ -64,7 +64,7 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
       h(
         'p',
         i18n.puzzle.fromGameLink.asArray(
-          ctrl.mode == 'play'
+          ctrl.mode === 'play'
             ? h('span', gameName)
             : h('a', { attrs: { href: `/${game.id}/${ctrl.pov}#${puzzle.initialPly}` } }, gameName),
         ),
@@ -83,7 +83,7 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
 const renderStreak = (streak: PuzzleStreak) =>
   h(
     'div.puzzle__side__streak',
-    streak.data.index == 0
+    streak.data.index === 0
       ? h('div.puzzle__side__streak__info', [
           h('h1.text', { attrs: dataIcon(licon.ArrowThruApple) }, 'Puzzle Streak'),
           h('p', i18n.puzzle.streakDescription),
@@ -154,7 +154,7 @@ const colors = [
 export function replay(ctrl: PuzzleCtrl): MaybeVNode {
   const replay = ctrl.data.replay;
   if (!replay) return;
-  const i = replay.i + (ctrl.mode == 'play' ? 0 : 1);
+  const i = replay.i + (ctrl.mode === 'play' ? 0 : 1);
   const text = i18n.puzzleTheme[ctrl.data.angle.key];
   return h('div.puzzle__side__replay', [
     h('a', { attrs: { href: `/training/dashboard/${replay.days}` } }, ['« ', `Replaying ${text} puzzles`]),
@@ -213,7 +213,7 @@ export const renderDifficultyForm = (ctrl: PuzzleCtrl): VNode =>
             {
               attrs: {
                 value: key,
-                selected: key == ctrl.opts.settings.difficulty,
+                selected: key === ctrl.opts.settings.difficulty,
                 title:
                   !!delta && delta < 0
                     ? i18n.puzzle.nbPointsBelowYourPuzzleRating(Math.abs(delta))

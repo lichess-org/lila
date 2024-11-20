@@ -14,7 +14,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
   const tag = 'div.tour__team-info.tour__actor-info';
   if (!data || data.id !== ctrl.teamInfo.requested)
     return h(tag, [h('div.stats', [h('h2', [teamTag]), spinner()])]);
-  const nbLeaders = ctrl.data.teamStanding?.find(s => s.id == data.id)?.players.length || 0;
+  const nbLeaders = ctrl.data.teamStanding?.find(s => s.id === data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {
     site.powertip.manualUserIn(vnode.elm as HTMLElement);

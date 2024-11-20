@@ -10,7 +10,7 @@ const studyUrl = 'https://lichess.org/study/viiWlKjv';
 export default function theme(ctrl: PuzzleCtrl): MaybeVNode {
   const data = ctrl.data,
     angle = data.angle;
-  const showEditor = ctrl.mode == 'view' && !ctrl.autoNexting();
+  const showEditor = ctrl.mode === 'view' && !ctrl.autoNexting();
   if (data.replay) return showEditor ? h('div.puzzle__side__theme', editor(ctrl)) : null;
   const puzzleMenu = (v: VNode): VNode =>
     h('a', { attrs: { href: withLang(`/training/${angle.opening ? 'openings' : 'themes'}`) } }, v);
@@ -55,7 +55,7 @@ const editor = (ctrl: PuzzleCtrl): VNode[] => {
       (t: ThemeKey): t is ThemeKey => votedThemes[t] && !data.puzzle.themes.includes(t),
     ),
   ].sort();
-  const allThemes = location.pathname == '/training/daily' ? null : ctrl.allThemes;
+  const allThemes = location.pathname === '/training/daily' ? null : ctrl.allThemes;
   const availableThemes = allThemes ? allThemes.dynamic.filter((t: ThemeKey) => !votedThemes[t]) : null;
   if (availableThemes) availableThemes.sort((a, b) => (themeTrans(a) < themeTrans(b) ? -1 : 1));
   return [

@@ -104,7 +104,7 @@ export default function () {
           isVisible: () => isVisible(selector),
           updateUnread(nb: number | 'increment') {
             const existing = ($countSpan.data('count') as number) || 0;
-            if (nb == 'increment') nb = existing + 1;
+            if (nb === 'increment') nb = existing + 1;
             if (this.isVisible()) nb = 0;
             const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
             $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);

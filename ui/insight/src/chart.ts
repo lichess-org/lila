@@ -24,7 +24,7 @@ resizePolyfill();
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
 Chart.defaults.font = fontFamily();
 
-const light = currentTheme() == 'light';
+const light = currentTheme() === 'light';
 
 const resultColors = {
   Victory: '#759900',
@@ -83,7 +83,7 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
 
 function datasetBuilder(d: InsightData) {
   const color = (i: number, name: string, stack: boolean) => {
-    if (d.valueYaxis.name == 'Game result') return resultColors[name as 'Victory' | 'Draw' | 'Defeat'];
+    if (d.valueYaxis.name === 'Game result') return resultColors[name as 'Victory' | 'Draw' | 'Defeat'];
     else if (!stack && light) return '#7cb5ec';
     return colorSeries[i % colorSeries.length];
   };
@@ -101,10 +101,10 @@ function barBuilder(
   color: string,
   opts?: { stack?: string },
 ): ChartDataset<'bar'> {
-  const percent = serie.dataType == 'percent';
+  const percent = serie.dataType === 'percent';
   return {
     label: serie.name,
-    data: serie.data.map(nb => nb / (serie.dataType == 'percent' ? 100 : 1)),
+    data: serie.data.map(nb => nb / (serie.dataType === 'percent' ? 100 : 1)),
     borderWidth: 1.5,
     yAxisID: id,
     backgroundColor: color,
@@ -112,7 +112,7 @@ function barBuilder(
     stack: opts?.stack,
     minBarLength: !percent ? 5 : undefined,
     datalabels:
-      id == 'y2'
+      id === 'y2'
         ? { display: false }
         : {
             color: tooltipFontColor,
@@ -129,13 +129,13 @@ function barBuilder(
 
 function labelBuilder(d: InsightData) {
   return d.xAxis.categories.map(ts =>
-    d.xAxis.dataType == 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
+    d.xAxis.dataType === 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
   );
 }
 
 function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   const stacked = !!d.series[0].stack;
-  const percent = stacked || d.valueYaxis.dataType == 'percent';
+  const percent = stacked || d.valueYaxis.dataType === 'percent';
   return {
     x: {
       type: 'category',

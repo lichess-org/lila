@@ -40,7 +40,7 @@ export function userComplete(opts: UserCompleteOpts): void {
   complete<LightUserOnline>({
     input: opts.input,
     fetch: t =>
-      debounced(t).then(({ term, result }) => (t == term ? result : Promise.reject('Debounced ' + t))),
+      debounced(t).then(({ term, result }) => (t === term ? result : Promise.reject('Debounced ' + t))),
     render(o: LightUserOnline) {
       const tag = opts.tag || 'a';
       return (
@@ -58,7 +58,7 @@ export function userComplete(opts: UserCompleteOpts): void {
         '"></i>' +
         (o.title
           ? '<span class="utitle"' +
-            (o.title == 'BOT' ? ' data-bot="data-bot" ' : '') +
+            (o.title === 'BOT' ? ' data-bot="data-bot" ' : '') +
             '>' +
             o.title +
             '</span>&nbsp;'

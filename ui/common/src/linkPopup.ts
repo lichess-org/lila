@@ -36,7 +36,7 @@ export const onClick = (a: HTMLLinkElement): boolean => {
   return false;
 };
 
-const isPassList = (url: URL) => passList().find(h => h == url.host || url.host.endsWith('.' + h));
+const isPassList = (url: URL) => passList().find(h => h === url.host || url.host.endsWith('.' + h));
 
 const passList = () =>
   `lichess.org lichess4545.com ligacatur.com

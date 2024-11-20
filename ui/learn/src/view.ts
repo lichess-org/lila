@@ -60,7 +60,7 @@ const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, st
     'span.ribbon-wrapper',
     h(
       `span.ribbon.${status}`,
-      status == 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores)),
+      status === 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores)),
     ),
   );
 

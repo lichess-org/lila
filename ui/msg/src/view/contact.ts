@@ -14,7 +14,7 @@ export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: 
     'div.msg-app__side__contact',
     {
       key: user.id,
-      class: { active: active == user.id },
+      class: { active: active === user.id },
       hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
     },
     [

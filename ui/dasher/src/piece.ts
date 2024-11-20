@@ -23,7 +23,7 @@ export class PieceCtrl extends PaneCtrl {
     const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 4;
     const pieceImage = (t: Piece) =>
       this.is3d
-        ? `images/staunton/piece/${t}/White-Knight${t == 'Staunton' ? '-Preview' : ''}.png`
+        ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.png`
         : `piece/${t}/wN.svg`;
 
     return h('div.sub.piece.' + this.dimension, [

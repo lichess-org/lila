@@ -55,7 +55,7 @@ export const userLine = (u: HasLine): VNode | undefined =>
 
 export const userTitle = (u: HasTitle): VNode | undefined =>
   u.title
-    ? h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
+    ? h('span.utitle', u.title === 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
     : undefined;
 
 export const fullName = (u: AnyUser): MaybeVNode[] => [userTitle(u), u.name, userFlair(u)];

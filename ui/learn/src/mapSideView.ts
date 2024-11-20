@@ -26,7 +26,7 @@ function renderInStage(ctrl: SideCtrl) {
         h(
           'div.categ',
           {
-            class: { active: categId == ctrl.categId() },
+            class: { active: categId === ctrl.categId() },
           },
           [
             h('h2', { hook: bind('click', () => ctrl.categId(categId)) }, categ.name),

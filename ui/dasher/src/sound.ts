@@ -88,7 +88,7 @@ export class SoundCtrl extends PaneCtrl {
   };
 
   private set = (k: Key) => {
-    site.sound.speech(k == 'speech');
+    site.sound.speech(k === 'speech');
     pubsub.emit('speech.enabled', site.sound.speech());
     if (site.sound.speech()) {
       site.sound.changeSet('standard');

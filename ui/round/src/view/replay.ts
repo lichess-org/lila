@@ -24,7 +24,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     if (ctrl.data.steps.length < 7) return;
     let st: number | undefined;
     if (ctrl.ply < 3) st = 0;
-    else if (ctrl.ply == util.lastPly(ctrl.data)) st = scrollMax;
+    else if (ctrl.ply === util.lastPly(ctrl.data)) st = scrollMax;
     else {
       const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
       if (plyEl)
@@ -32,8 +32,8 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
           ? plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2
           : plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
     }
-    if (typeof st == 'number') {
-      if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+    if (typeof st === 'number') {
+      if (st === scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
       else if (isCol1()) movesEl.scrollLeft = st;
       else movesEl.scrollTop = st;
     }
@@ -228,9 +228,9 @@ export function render(ctrl: RoundController): LooseVNode {
       initMessage(ctrl) ||
         (isCol1()
           ? h('div.col1-moves', [
-              col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == util.firstPly(d)),
+              col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply === util.firstPly(d)),
               renderMovesOrResult,
-              col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == util.lastPly(d)),
+              col1Button(ctrl, 1, licon.JumpNext, ctrl.ply === util.lastPly(d)),
             ])
           : renderMovesOrResult),
     ])

@@ -209,7 +209,7 @@ function engineSelection(ctrl: ParentCtrl) {
         },
         [
           ...engines.map(engine =>
-            h('option', { attrs: { value: engine.id, selected: active?.id == engine.id } }, engine.name),
+            h('option', { attrs: { value: engine.id, selected: active?.id === engine.id } }, engine.name),
           ),
         ],
       ),

@@ -166,8 +166,8 @@ export default class StrongSocket implements SocketI {
     }
 
     const message = JSON.stringify(msg);
-    if (t == 'racerScore' && o.sign != this._sign) return;
-    if (t == 'move' && o.sign != this._sign) {
+    if (t === 'racerScore' && o.sign != this._sign) return;
+    if (t === 'move' && o.sign != this._sign) {
       let stack: string;
       try {
         stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
@@ -210,7 +210,7 @@ export default class StrongSocket implements SocketI {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     const pingData =
-      this.options.isAuth && this.pongCount % 10 == 2
+      this.options.isAuth && this.pongCount % 10 === 2
         ? JSON.stringify({
             t: 'p',
             l: Math.round(0.1 * this.averageLag),

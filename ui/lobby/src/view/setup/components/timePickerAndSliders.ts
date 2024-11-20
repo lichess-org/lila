@@ -6,9 +6,9 @@ import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../.
 import { option } from './option';
 
 const showTime = (v: number) => {
-  if (v == 1 / 4) return '¼';
-  if (v == 1 / 2) return '½';
-  if (v == 3 / 4) return '¾';
+  if (v === 1 / 4) return '¼';
+  if (v === 1 / 2) return '½';
+  if (v === 3 / 4) return '¾';
   return v.toString();
 };
 

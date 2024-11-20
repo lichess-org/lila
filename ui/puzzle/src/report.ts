@@ -42,8 +42,8 @@ export default class Report {
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
     if (
       nextMoveInSolution(node) &&
-      nodeTurn == ctrl.pov &&
-      ctrl.mainline.some((n: Tree.Node) => n.id == node.id)
+      nodeTurn === ctrl.pov &&
+      ctrl.mainline.some((n: Tree.Node) => n.id === node.id)
     ) {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
       // stricly identical to lichess-puzzler v49 check

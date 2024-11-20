@@ -35,7 +35,7 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
     const san = makeSan(pos, move);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);
-    if ((pov == 'white') == (node.ply % 2 == 1)) node.puzzle = 'good';
+    if ((pov === 'white') === (node.ply % 2 === 1)) node.puzzle = 'good';
     return node;
   });
   root.addNodes(nodes, initialPath);
@@ -56,7 +56,7 @@ export function nextCorrectMove(ctrl: PuzzleCtrl): NormalMove | undefined {
   if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return;
 
   const playedByColor = ctrl.node.ply % 2 === 1 ? 'white' : 'black';
-  if (playedByColor == ctrl.pov) return;
+  if (playedByColor === ctrl.pov) return;
 
   const nodes = ctrl.nodeList.slice(pathOps.size(ctrl.initialPath) + 1);
   const nextUci = ctrl.data.puzzle.solution[nodes.length];

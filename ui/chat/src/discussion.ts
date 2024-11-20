@@ -162,7 +162,7 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
     if (
       !line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId) &&
+      (!line.r || (line.u || '').toLowerCase() === ctrl.data.userId) &&
       !spam.skip(line.t)
     )
       ls.push(line);

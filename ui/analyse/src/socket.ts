@@ -132,8 +132,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
   const handlers = {
     node(data: { ch?: string; node: Tree.Node; path: string }) {
       clearTimeout(anaMoveTimeout);
-      // no strict equality here!
-      if (data.ch == currentChapterId()) ctrl.addNode(data.node, data.path);
+      if (data.ch === currentChapterId()) ctrl.addNode(data.node, data.path);
       else console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure() {
