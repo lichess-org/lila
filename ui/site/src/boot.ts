@@ -8,7 +8,7 @@ import powertip from './powertip';
 import serviceWorker from './serviceWorker';
 import StrongSocket from 'common/socket';
 import { watchers } from 'common/watchers';
-import { isIOS } from 'common/device';
+import { isIos } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
 import { attachDomHandlers } from './domHandlers';
@@ -48,7 +48,7 @@ export function boot() {
     attachDomHandlers();
 
     // prevent zoom when keyboard shows on iOS
-    if (isIOS() && !('MSStream' in window)) {
+    if (isIos() && !('MSStream' in window)) {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }

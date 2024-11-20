@@ -64,40 +64,32 @@ export function isCol1(): boolean {
 export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice()
 // only use other matches for workarounds or specific presentation issues
 
-export const isMobile = (): boolean => isAndroid() || isIOS();
+export const isMobile = (): boolean => isAndroid() || isIos();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
-export const getSafariMajorVersion = (): number | undefined => {
-  const regex = /^((?!chrome|android).)*Version\/(\d+).*Safari/i;
-  const result = regex.exec(navigator.userAgent);
-  return result ? parseInt(result[2]) : undefined;
-};
-
-export const isIOS = (constraint?: { below?: number; atLeast?: number }): boolean => {
-  let answer = ios();
-  if (!constraint || !answer) return answer;
-  const version = parseFloat(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8));
-  if (constraint?.below) answer = version < constraint.below;
-  if (answer && constraint?.atLeast) answer = version >= constraint.atLeast;
-  return answer;
-};
+export const isIos: () => boolean = memoize<boolean>(
+  () => /iPhone|iPod/.test(navigator.userAgent) || isIPad(),
+);
 
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
 export const isChrome = (): boolean => /Chrome\//.test(navigator.userAgent);
 
-export const isFirefox = (): boolean => /Firefox/.test(navigator.userAgent);
+export type VersionConstraint = { atLeast?: string; below?: string }; // '11', '14.1.x', '127_2_7'
 
-export const getFirefoxMajorVersion = (): number | undefined => {
-  const match = /Firefox\/(\d*)/.exec(navigator.userAgent);
-  return match && match.length > 1 ? parseInt(match[1]) : undefined;
-};
+export const isFirefox = (constraint?: VersionConstraint): boolean =>
+  /Firefox/.test(navigator.userAgent) &&
+  isVersionCompatible(navigator.userAgent.slice(navigator.userAgent.indexOf('Firefox/') + 8), constraint);
 
-export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+export const isSafari = (constraint?: VersionConstraint): boolean =>
+  /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
+  isVersionCompatible(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8), constraint);
 
-export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
+export const isIosSafari = (constraint?: VersionConstraint): boolean => isIos() && isSafari(constraint);
+
+export const isIosChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
 export const isApple: () => boolean = memoize<boolean>(
   () => /Macintosh|iPhone|iPad|iPod/.test(navigator.userAgent), // macOS or iOS
@@ -137,8 +129,6 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
   return Object.freeze(features);
 });
 
-const ios = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
-
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
 export const reducedMotion: () => boolean = memoize<boolean>(
@@ -159,4 +149,34 @@ function sharedMemoryTest(): boolean {
     return false;
   }
   return mem.buffer instanceof SharedArrayBuffer;
+}
+
+export function isVersionCompatible(version: string, constraint?: VersionConstraint): boolean {
+  if (!constraint) return true;
+  const split = (v: string) =>
+    v
+      .split(/[._]/)
+      .map(x => parseInt(x) || 0)
+      .concat([0, 0, 0]);
+
+  const [major, minor, patch] = split(version);
+
+  if (constraint.atLeast) {
+    const [majorMin, minorMin, patchMin] = split(constraint.atLeast); // atLeast is inclusive min
+    if (major < majorMin) return false;
+    else if (major === majorMin) {
+      if (minor < minorMin) return false;
+      else if (minor === minorMin && patch < patchMin) return false;
+    }
+  }
+  if (!constraint.below) return true;
+
+  const [majorMax, minorMax, patchMax] = split(constraint.below); // below is an exclusive max
+
+  if (major < majorMax) return true;
+  else if (major === majorMax) {
+    if (minor < minorMax) return true;
+    else if (minor === minorMax && patch < patchMax) return true;
+  }
+  return false;
 }
