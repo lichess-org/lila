@@ -266,7 +266,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .list(100)
 
   def userHistory(userId: UserId): Fu[List[Modlog]] =
-    coll.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
+    coll.secondaryPreferred.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
     coll.secondaryPreferred.countSel:
@@ -289,11 +289,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       )
 
   def recentBy(mod: Mod) =
-    coll.tempPrimary
+    coll.secondaryPreferred
       .find($doc("mod" -> mod.id))
       .sort($sort.desc("date"))
       .cursor[Modlog]()
-      .list(100)
+      .list(200)
 
   def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
     coll.tempPrimary

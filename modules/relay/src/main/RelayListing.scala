@@ -33,7 +33,7 @@ final class RelayListing(
         )
       )
       for
-        upcoming <- upcoming.get({})
+        upcoming <- upcomingCache.get({})
         max = 100
         tourIds <- colls.tour.distinctEasy[RelayTourId, List](
           "_id",
@@ -165,7 +165,7 @@ final class RelayListing(
       else tier
     tour.copy(tier = visualTier.orElse(tour.tier))
 
-  val upcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:
+  val upcomingCache = cacheApi.unit[List[RelayTour.WithLastRound]]:
     _.refreshAfterWrite(14 seconds).buildAsyncFuture: _ =>
       val max = 64
       colls.tour
