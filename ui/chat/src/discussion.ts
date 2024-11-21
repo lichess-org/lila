@@ -217,7 +217,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
+          myUserId && line.u && myUserId !== line.u
             ? h('action.flag', {
                 attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
               })

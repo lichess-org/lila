@@ -27,7 +27,7 @@ export default class Report {
     if (
       !ctrl.session.userId ||
       this.reported ||
-      ctrl.mode != 'view' ||
+      ctrl.mode !== 'view' ||
       ctrl.threatMode() ||
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||

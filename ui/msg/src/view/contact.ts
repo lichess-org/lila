@@ -9,7 +9,7 @@ import { timeago } from 'common/i18n';
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
   const user = contact.user,
     msg = contact.lastMsg,
-    isNew = !msg.read && msg.user != ctrl.data.me.id;
+    isNew = !msg.read && msg.user !== ctrl.data.me.id;
   return h(
     'div.msg-app__side__contact',
     {

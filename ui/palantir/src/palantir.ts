@@ -112,7 +112,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function stop() {
-    if (peer && state != 'off') {
+    if (peer && state !== 'off') {
       setState('stopping');
       peer.disconnect();
     }
@@ -185,7 +185,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function ping() {
-    if (state != 'off') pubsub.emit('socket.send', 'palantirPing');
+    if (state !== 'off') pubsub.emit('socket.send', 'palantirPing');
   }
 
   pubsub.on('socket.in.palantir', uids => uids.forEach(call));

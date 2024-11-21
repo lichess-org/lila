@@ -203,7 +203,7 @@ export default async function (
       },
       onClick(_event, elements, _chart) {
         let blackOffset = elements[0].datasetIndex & 1;
-        if ((firstPly & 1) != 0) blackOffset = blackOffset ^ 1;
+        if ((firstPly & 1) !== 0) blackOffset = blackOffset ^ 1;
         pubsub.emit('analysis.chart.click', elements[0].index * 2 + blackOffset);
       },
     },

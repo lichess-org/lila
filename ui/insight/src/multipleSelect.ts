@@ -8,7 +8,7 @@ export const registerMultipleSelect = () => {
 
   function isVisible(this: EleLoose) {
     const display = window.getComputedStyle(this).display;
-    return !!display && display != 'none';
+    return !!display && display !== 'none';
   }
 
   class MultipleSelectState {

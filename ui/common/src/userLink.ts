@@ -36,7 +36,7 @@ export const userLink = (u: AnyUser): VNode =>
     'a',
     {
       // can't be inlined because of thunks
-      class: { 'user-link': true, ulpt: u.name != 'ghost', online: !!u.online },
+      class: { 'user-link': true, ulpt: u.name !== 'ghost', online: !!u.online },
       attrs: { href: `/@/${u.name}`, ...u.attrs },
     },
     [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `],

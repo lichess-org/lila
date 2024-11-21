@@ -114,7 +114,7 @@ export const userBox = (ctrl: PuzzleCtrl): VNode => {
             attrs: {
               type: 'checkbox',
               checked: ctrl.rated() && !ctrl.hintHasBeenShown(),
-              disabled: ctrl.lastFeedback != 'init' || ctrl.hintHasBeenShown(),
+              disabled: ctrl.lastFeedback !== 'init' || ctrl.hintHasBeenShown(),
             },
             hook: onInsert(el => el.addEventListener('change', ctrl.toggleRated)),
           }),

@@ -17,7 +17,7 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     [
       h(
         'td.rank',
-        player.absent && ctrl.data.status != 'finished'
+        player.absent && ctrl.data.status !== 'finished'
           ? h('i', { attrs: { 'data-icon': licon.Pause, title: 'Absent' } })
           : [player.rank],
       ),

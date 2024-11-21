@@ -95,7 +95,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
         ctrl.chessground!.state.drawable.current = undefined;
         ctrl.chessground!.state.drawable.shapes = [];
 
-        if (e.type === 'contextmenu' && sel != 'trash') {
+        if (e.type === 'contextmenu' && sel !== 'trash') {
           ctrl.chessground!.cancelMove();
           sel[0] = opposite(sel[0]);
           ctrl.redraw();

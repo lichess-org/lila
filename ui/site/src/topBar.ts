@@ -11,7 +11,7 @@ export default function () {
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
         display = el && window.getComputedStyle(el).display;
-      return display && display != 'none';
+      return display && display !== 'none';
     };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
@@ -108,7 +108,7 @@ export default function () {
             if (this.isVisible()) nb = 0;
             const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
             $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
-            return nb && nb != existing;
+            return nb && nb !== existing;
           },
           show() {
             if (!isVisible(selector)) $toggle.trigger('click');

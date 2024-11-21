@@ -26,7 +26,7 @@ import {
 import { alert } from 'common/dialog';
 
 const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf =>
-  variant != 'standard' && variant != 'fromPosition'
+  variant !== 'standard' && variant !== 'fromPosition'
     ? variant
     : timeMode !== 'realTime'
       ? 'correspondence'

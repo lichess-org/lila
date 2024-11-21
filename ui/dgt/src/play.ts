@@ -516,7 +516,7 @@ export default function (token: string): void {
         }
       } else {
         //Position match found
-        if (currentGameId != playableGames[Number(index)].gameId) {
+        if (currentGameId !== playableGames[Number(index)].gameId) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
             console.log(
@@ -546,12 +546,12 @@ export default function (token: string): void {
   function initializeChessBoard(gameId: string, data: { initialFen: string; state: { moves: string } }) {
     try {
       let initialFen: string = INITIAL_FEN;
-      if (data.initialFen != 'startpos') initialFen = data.initialFen;
+      if (data.initialFen !== 'startpos') initialFen = data.initialFen;
       const setup = parseFen(initialFen).unwrap();
       const chess: Chess = Chess.fromSetup(setup).unwrap();
       const moves = data.state.moves.split(' ');
       for (let i = 0; i < moves.length; i++) {
-        if (moves[i] != '') {
+        if (moves[i] !== '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
           const uciMove = <NormalMove>parseUci(moves[i]);
           const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
@@ -589,7 +589,7 @@ export default function (token: string): void {
         }
         const moves = pendingMoves.split(' ');
         for (let i = 0; i < moves.length; i++) {
-          if (moves[i] != '') {
+          if (moves[i] !== '') {
             //Make the new move
             const uciMove = <NormalMove>parseUci(moves[i]);
             const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
@@ -885,7 +885,7 @@ export default function (token: string): void {
           console.info('Webscoket - about to send the following message \n' + JSON.stringify(subscription));
         liveChessConnection.send(JSON.stringify(subscription));
         //Check if the board is properly connected
-        if (boards[0].state != 'ACTIVE' && boards[0].state != 'INACTIVE')
+        if (boards[0].state !== 'ACTIVE' && boards[0].state !== 'INACTIVE')
           // "NOTRESPONDING" || "DELAYED"
           console.error(`Board with serial ${currentSerialnr} is not properly connected. Please fix`);
         //Send setup with stating position
@@ -896,7 +896,7 @@ export default function (token: string): void {
           gameStateMap.get(currentGameId).status == 'started'
         ) {
           //There is a game in progress, setup the board as per lichess board
-          if (currentGameId != DGTgameId) {
+          if (currentGameId !== DGTgameId) {
             //We know we have not synchronized yet
             if (verbose) console.info('There is a game in progress, calling liveChessBoardSetUp...');
             sendBoardToLiveChess(gameChessBoardMap.get(currentGameId)!);
@@ -936,7 +936,7 @@ export default function (token: string): void {
               const quarantinedlastLegalParam = lastLegalParam;
               await sleep(2500);
               //Check if a different move was received and processed during quarantine
-              if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarantinedlastLegalParam.san)) {
+              if (JSON.stringify(lastLegalParam.san) !== JSON.stringify(quarantinedlastLegalParam.san)) {
                 //lastLegalParam was altered, this mean a new move was received from LiveChess during quarantine
                 console.warn(
                   'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretation received.',
@@ -1038,7 +1038,7 @@ export default function (token: string): void {
       do {
         //Just sleep five seconds while there is a valid currentSerialnr
         await sleep(5000);
-      } while (currentSerialnr != '0' && isLiveChessConnected);
+      } while (currentSerialnr !== '0' && isLiveChessConnected);
       //currentSerialnr is 0 so still no connection to board. Retry
       if (!isLiveChessConnected) {
         console.warn('No connection to DGT Live Chess. Attempting re-connection. Attempt: ' + attempts);
@@ -1076,7 +1076,7 @@ export default function (token: string): void {
       },
     };
     if (verbose) console.log('setUp -: ' + JSON.stringify(setupMessage));
-    if (isLiveChessConnected && currentSerialnr != '0') {
+    if (isLiveChessConnected && currentSerialnr !== '0') {
       liveChessConnection.send(JSON.stringify(setupMessage));
       //Store the gameId so we now we already synchronized
       DGTgameId = currentGameId;
