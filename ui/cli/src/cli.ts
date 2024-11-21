@@ -11,7 +11,7 @@ export function initModule({ input }: { input: HTMLInputElement }) {
     onSelect: r => execute(r.name),
   });
   $(input).on('keydown', (e: KeyboardEvent) => {
-    if (e.key == 'Enter') {
+    if (e.key === 'Enter') {
       execute(input.value);
       input.blur();
     }
@@ -20,7 +20,7 @@ export function initModule({ input }: { input: HTMLInputElement }) {
 
 function execute(q: string) {
   if (!q) return;
-  if (q[0] == '/') return command(q.replace(/\//g, ''));
+  if (q[0] === '/') return command(q.replace(/\//g, ''));
   // 5kr1/p1p2p2/2b2Q2/3q2r1/2p4p/2P4P/P2P1PP1/1R1K3R b - - 1 23
   if (q.match(/^([1-8pnbrqk]+\/){7}.*/i))
     return (location.href = '/analysis/standard/' + q.replace(/ /g, '_'));

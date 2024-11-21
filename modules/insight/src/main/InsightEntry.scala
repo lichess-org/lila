@@ -1,5 +1,8 @@
 package lila.insight
 
+import chess.IntRating
+import chess.rating.IntRatingDiff
+
 import lila.common.SimpleOpening
 import lila.core.game.Source
 

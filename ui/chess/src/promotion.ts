@@ -21,7 +21,7 @@ const PROMOTABLE_ROLES: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
 export function promote(g: CgApi, key: Key, role: Role): void {
   const piece = g.state.pieces.get(key);
-  if (piece && piece.role == 'pawn') {
+  if (piece && piece.role === 'pawn') {
     g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
   }
 }
@@ -42,8 +42,9 @@ export class PromotionCtrl {
       const premovePiece = g.state.pieces.get(orig);
       const piece = premovePiece || g.state.pieces.get(dest);
       if (
-        piece?.role == 'pawn' &&
-        ((dest[1] == '8' && g.state.turnColor == 'black') || (dest[1] == '1' && g.state.turnColor == 'white'))
+        piece?.role === 'pawn' &&
+        ((dest[1] === '8' && g.state.turnColor === 'black') ||
+          (dest[1] === '1' && g.state.turnColor === 'white'))
       ) {
         if (this.prePromotionRole && meta?.premove) {
           this.doPromote({ orig, dest, hooks }, this.prePromotionRole);

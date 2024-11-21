@@ -1,7 +1,7 @@
 package lila.relay
 
 import chess.format.pgn.{ Tag, Tags }
-import chess.{ Elo, FideId, PlayerName, PlayerTitle }
+import chess.{ FideId, PlayerName, PlayerTitle, IntRating }
 import play.api.data.Forms.*
 import akka.stream.scaladsl.Sink
 
@@ -12,7 +12,7 @@ import lila.study.{ Chapter, ChapterRepo, StudyApi }
 // used to change names and ratings of broadcast players
 private case class RelayPlayerLine(
     name: Option[PlayerName],
-    rating: Option[Elo],
+    rating: Option[IntRating],
     title: Option[PlayerTitle],
     fideId: Option[FideId] = none
 )
@@ -67,7 +67,7 @@ private case class RelayPlayersTextarea(text: String):
           .map: fromName =>
             PlayerName(fromName) -> RelayPlayerLine(
               name = PlayerName.from(arr.lift(3).filter(_.nonEmpty)),
-              rating = Elo.from(arr.lift(1).flatMap(_.toIntOption)),
+              rating = IntRating.from(arr.lift(1).flatMap(_.toIntOption)),
               title = arr.lift(2).flatMap(PlayerTitle.get)
             )
 

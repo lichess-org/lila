@@ -97,7 +97,7 @@ export default class ChatCtrl {
   post = (text: string): boolean => {
     text = text.trim();
     if (!text) return false;
-    if (text == 'You too!' && !this.data.lines.some(l => l.u != this.data.userId)) return false;
+    if (text === 'You too!' && !this.data.lines.some(l => l.u != this.data.userId)) return false;
     if (text.length > 140) {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
@@ -111,7 +111,7 @@ export default class ChatCtrl {
   private onTimeout = (userId: string): void => {
     let change = false;
     this.data.lines.forEach(l => {
-      if (l.u && l.u.toLowerCase() == userId) {
+      if (l.u && l.u.toLowerCase() === userId) {
         l.d = true;
         change = true;
       }

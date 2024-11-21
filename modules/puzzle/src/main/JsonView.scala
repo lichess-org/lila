@@ -1,6 +1,8 @@
 package lila.puzzle
 
 import chess.format.*
+import chess.IntRating
+import chess.rating.IntRatingDiff
 import play.api.libs.json.*
 
 import lila.common.Json.given

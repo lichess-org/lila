@@ -32,7 +32,9 @@ export default class Report {
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // if the user has chosen to hide the dialog less than a week ago
-      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
+      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7 ||
+      // dynamic import from web worker feature is shared by all stockfish 16+ WASMs
+      !ctrl.ceval.engines.active?.requires?.includes('dynamicImportFromWorker')
     )
       return;
     const node = ctrl.node;

@@ -1,6 +1,7 @@
 package lila.fide
 
-import chess.{ FideId, PlayerName, PlayerTitle, Elo, KFactor }
+import chess.{ FideId, PlayerName, PlayerTitle }
+import chess.rating.{ Elo, KFactor }
 import reactivemongo.api.bson.Macros.Annotations.Key
 
 import java.text.Normalizer

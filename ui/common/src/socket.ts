@@ -1,7 +1,7 @@
 import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
-import { objectStorage, dbExists, type ObjectStorage } from './objectStorage';
+import { objectStorage, nonEmptyStore, type ObjectStorage } from './objectStorage';
 import { pubsub, type PubsubEvent } from './pubsub';
 import { myUserId } from './common';
 
@@ -67,7 +67,6 @@ export default class StrongSocket implements SocketI {
 
   private lastUrl?: string;
   private heartbeat = browserTaskQueueMonitor(1000);
-  private isTestUser = document.body.dataset.socketTestUser === 'true';
   private isTestRunning = document.body.dataset.socketTestRunning === 'true';
   private stats: { store?: ObjectStorage<any>; m2: number; n: number; mean: number } = {
     m2: 0,
@@ -346,7 +345,7 @@ export default class StrongSocket implements SocketI {
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
       this.storage.set(url);
-    } else if ((this.isTestUser && this.isTestRunning) || this.tryOtherUrl) {
+    } else if (this.isTestRunning || this.tryOtherUrl) {
       const i = this.baseUrls.findIndex(u => u === url);
       url = this.baseUrls[(i + 1) % this.baseUrls.length];
       this.storage.set(url);
@@ -359,7 +358,7 @@ export default class StrongSocket implements SocketI {
   getVersion = (): number | false => this.version;
 
   private async storeStats(event?: any) {
-    if (!this.lastUrl || !this.isTestUser || !this.isTestRunning) return;
+    if (!this.lastUrl || !this.isTestRunning) return;
     if (!event && this.stats.n < 2) return;
 
     const data = {
@@ -376,33 +375,31 @@ export default class StrongSocket implements SocketI {
   }
 
   private async flushStats() {
-    if (!this.isTestUser) return;
+    const dbInfo = { db: `socket.test.${myUserId()}--db`, store: `socket.test.${myUserId()}` };
+    const last = localStorage.getItem(dbInfo.store);
 
-    const storeKey = `socket.test.${myUserId()}`;
-    const last = localStorage.getItem(storeKey);
+    if (this.isTestRunning || last || (await nonEmptyStore(dbInfo))) {
+      try {
+        this.stats.store ??= await objectStorage<any, number>(dbInfo);
+        if (last) await this.stats.store.put(await this.stats.store.count(), JSON.parse(last));
 
-    if (!last && !this.isTestRunning && !(await dbExists({ store: storeKey }))) return;
+        if (this.isTestRunning) return;
 
-    this.stats.store ??= await objectStorage<any, number>({ store: storeKey });
-    if (last) await this.stats.store.put(await this.stats.store.count(), JSON.parse(last));
-
-    localStorage.removeItem(storeKey);
-
-    if (this.isTestRunning) return;
-
-    const data = await this.stats.store.getMany();
-    const rsp = await fetch('/dev/socket-test', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    if (!rsp.ok) return;
-
-    window.indexedDB.deleteDatabase(`${storeKey}--db`);
+        const data = await this.stats.store.getMany();
+        const rsp = await fetch('/dev/socket-test', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (rsp.ok) window.indexedDB.deleteDatabase(dbInfo.db);
+      } finally {
+        localStorage.removeItem(dbInfo.store);
+      }
+    }
   }
 
   private updateStats(lag: number) {
-    if (!this.isTestUser || !this.isTestRunning) return;
+    if (!this.isTestRunning) return;
 
     this.stats.n++;
     const delta = lag - this.stats.mean;
