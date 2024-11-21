@@ -48,6 +48,24 @@ final class AppealApi(
 
   def countUnread = coll.countSel($doc("status" -> Appeal.Status.Unread.key))
 
+  def myLog(since: Instant)(using me: Me): Fu[List[(UserId, AppealMsg)]] =
+    coll
+      .aggregateList(maxDocs = 50, _.sec): framework =>
+        import framework.*
+        Match($doc("msgs.by" -> me.userId)) -> List(
+          Project($doc("msgs" -> 1)),
+          Unwind("msgs"),
+          Match($doc("msgs.by" -> me.userId, "msgs.at".$gt(since))),
+          Sort(Descending("msgs.at")),
+          Limit(50)
+        )
+      .map: docs =>
+        for
+          doc    <- docs
+          userId <- doc.getAsOpt[UserId]("_id")
+          msg    <- doc.getAsOpt[AppealMsg]("msgs")
+        yield userId -> msg
+
   def myQueue(filter: Option[Filter])(using me: Me) =
     bothQueues(filter, snoozer.snoozedKeysOf(me.userId).map(_.appealId.userId))
 
