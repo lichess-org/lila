@@ -1,6 +1,7 @@
 package lila.storm
 
 import scalalib.paginator.Paginator
+import chess.IntRating
 
 import lila.common.{ Bus, LichessDay }
 import lila.db.dsl.*

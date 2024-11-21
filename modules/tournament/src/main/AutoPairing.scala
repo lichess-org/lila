@@ -1,9 +1,11 @@
 package lila.tournament
 
 import chess.{ Black, ByColor, Color, White }
+import chess.IntRating
 import monocle.syntax.all.*
 
 import lila.core.game.Source
+import alleycats.Zero
 
 final class AutoPairing(
     gameRepo: lila.core.game.GameRepo,
@@ -40,7 +42,7 @@ final class AutoPairing(
       _ <- gameRepo.insertDenormalized(game)
       _ =
         onStart.exec(game.id)
-        import lila.rating.intZero
+        given Zero[IntRating] = Zero(IntRating(0))
         duelStore.add(
           tour = tour,
           game = game,

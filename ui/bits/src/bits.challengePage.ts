@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import StrongSocket from 'common/socket';
 import { userComplete } from 'common/userComplete';
-import { isTouchDevice, isIOS } from 'common/device';
+import { isTouchDevice, isIos } from 'common/device';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -73,7 +73,7 @@ export function initModule(opts: ChallengeOpts): void {
 
       const instructions = document.querySelector<HTMLElement>(`.mobile-instructions`)!;
       instructions.classList.remove('none');
-      if (isIOS()) instructions.classList.add('is-ios');
+      if (isIos()) instructions.classList.add('is-ios');
 
       instructions.role = 'button';
       instructions.onclick = () =>

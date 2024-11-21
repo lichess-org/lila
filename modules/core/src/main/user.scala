@@ -1,6 +1,8 @@
 package lila.core
 
-import _root_.chess.{ Color, ByColor, PlayerTitle }
+import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
+import _root_.chess.rating.IntRatingDiff
+import _root_.chess.rating.glicko.Glicko
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import reactivemongo.api.bson.Macros.Annotations.Key
@@ -11,8 +13,6 @@ import scalalib.model.Days
 import lila.core.email.*
 import lila.core.id.Flair
 import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
-import lila.core.rating.Glicko
-import lila.core.rating.data.{ IntRating, IntRatingDiff }
 import lila.core.userId.*
 
 object user:

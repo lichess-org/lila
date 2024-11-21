@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.{ ByColor, PlayerName, PlayerTitle, Elo, FideId, Centis }
+import chess.{ ByColor, PlayerName, PlayerTitle, FideId, Centis, IntRating }
 import chess.format.pgn.Tags
 import lila.core.fide.Federation
 
@@ -10,7 +10,7 @@ case class StudyPlayer(
     fideId: Option[FideId],
     title: Option[PlayerTitle],
     name: Option[PlayerName],
-    rating: Option[Elo],
+    rating: Option[IntRating],
     team: Option[String]
 ):
   def id: Option[StudyPlayer.Id] = fideId.filter(_ != FideId(0)).orElse(name)
@@ -25,8 +25,8 @@ object StudyPlayer:
   def fromTags(tags: Tags): Option[Players] =
     val names = tags.names
     Option.when(names.exists(_.isDefined)):
-      val elos = tags.elos.map(_.filter(_ > 0))
-      (tags.fideIds, tags.titles, names, elos, tags.teams).mapN(StudyPlayer.apply)
+      val ratings = tags.ratings.map(_.filter(_ > IntRating(0)))
+      (tags.fideIds, tags.titles, names, ratings, tags.teams).mapN(StudyPlayer.apply)
 
   object json:
     import play.api.libs.json.*

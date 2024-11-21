@@ -44,4 +44,5 @@ github.com discord.com discord.gg mastodon.online
 twitter.com facebook.com twitch.tv
 wikipedia.org wikimedia.org
 chess24.com chess.com chessable.com
+lc0.org lczero.org stockfishchess.org
 `.split(/[ \n]/);

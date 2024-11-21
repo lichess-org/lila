@@ -5,7 +5,7 @@ import { StockfishWebEngine } from './stockfishWebEngine';
 import { ThreadedEngine } from './threadedEngine';
 import { ExternalEngine } from './externalEngine';
 import { storedStringProp, StoredProp } from 'common/storage';
-import { isAndroid, isIOS, isIPad, features as browserSupport, type Feature } from 'common/device';
+import { isAndroid, isIos, isIPad, features as browserSupport, type Feature } from 'common/device';
 import { xhrHeader } from 'common/xhr';
 import { lichessRules } from 'chessops/compat';
 import { log } from 'common/permalog';
@@ -285,7 +285,7 @@ function maxHashMB() {
     return 64; // budget androids are easy to crash @ 128
   else if (isIPad())
     return 64; // iPadOS safari pretends to be desktop but acts more like iphone
-  else if (isIOS()) return 32;
+  else if (isIos()) return 32;
   return 512; // allocating 1024 often fails and offers little benefit over 512, or 16 for that matter
 }
 const maxHash = maxHashMB();
