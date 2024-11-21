@@ -235,7 +235,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min != min || chart.scales.x.max != max)
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
         chart.zoomScale('x', { min: min, max: max });
     };
     slider.on('update', slide);
