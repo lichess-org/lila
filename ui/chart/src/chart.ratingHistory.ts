@@ -235,7 +235,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min != min || chart.scales.x.max != max)
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
         chart.zoomScale('x', { min: min, max: max });
     };
     slider.on('update', slide);
@@ -269,7 +269,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
       chart.zoomScale('x', { min: min, max: endDate.valueOf() });
     };
     $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
-      const min = buttons.find(b => b.t == this.textContent);
+      const min = buttons.find(b => b.t === this.textContent);
       if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
       this.classList.add('active');
     });

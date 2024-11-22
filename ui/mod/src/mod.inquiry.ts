@@ -8,7 +8,7 @@ site.load.then(() => {
   const noteStore = storage.make('inquiry-note');
   const usernameNoteStore = storage.make('inquiry-note-user');
   const username = $('#inquiry .meat > .user-link').text().split(' ')[0];
-  if (username != usernameNoteStore.get()) noteStore.remove();
+  if (username !== usernameNoteStore.get()) noteStore.remove();
   usernameNoteStore.set(username);
   const noteTextArea = $('#inquiry .notes').find('textarea')[0] as HTMLTextAreaElement;
   const syncNoteValue = () => (noteTextArea.value = noteStore.get() || '');

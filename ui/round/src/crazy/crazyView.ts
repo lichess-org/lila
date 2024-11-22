@@ -26,7 +26,7 @@ export default function pocket(ctrl: RoundController, color: Color, position: Po
       hook: onInsert(el =>
         eventNames.forEach(name =>
           el.addEventListener(name, (e: MouchEvent) => {
-            if (position === (ctrl.flip ? 'top' : 'bottom') && crazyKeys.length == 0) drag(ctrl, e);
+            if (position === (ctrl.flip ? 'top' : 'bottom') && crazyKeys.length === 0) drag(ctrl, e);
           }),
         ),
       ),

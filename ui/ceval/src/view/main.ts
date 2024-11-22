@@ -356,7 +356,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             'wheel',
             stepwiseScroll((e: WheelEvent, scroll: boolean) => {
               e.preventDefault();
-              if (pvIndex != null && pvMoves != null) {
+              if (pvIndex !== null) {
                 if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
                 else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
                 const pvBoard = pvMoves[pvIndex];

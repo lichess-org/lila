@@ -14,7 +14,7 @@ export class Notify {
 
   set = (msg: string): void => {
     // make sure it's different from previous, so it gets read again
-    if (this.notification && this.notification.text == msg) msg += ' ';
+    if (this.notification && this.notification.text === msg) msg += ' ';
     this.notification = { text: msg, date: new Date() };
     requestIdleCallback(() => this.redraw && this.redraw(), 500);
   };

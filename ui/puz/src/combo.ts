@@ -35,7 +35,7 @@ export class Combo {
   };
 
   bonus = (): TimeMod | undefined => {
-    if (this.percent() == 0) {
+    if (this.percent() === 0) {
       const level = this.level();
       if (level > 0)
         return {

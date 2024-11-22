@@ -31,7 +31,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   function attention() {
     const id = data?.pager.currentPageResults.find(n => !n.read)?.content.user?.id;
     const playBell = storage.boolean('playBellSound').getOrDefault(true);
-    if ((!site.quietMode || id == 'lichess') && playBell) site.sound.playOnce('newPM');
+    if ((!site.quietMode || id === 'lichess') && playBell) site.sound.playOnce('newPM');
     opts.pulse();
   }
 
@@ -71,7 +71,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   function setMsgRead(user: string) {
     data?.pager.currentPageResults.forEach(n => {
-      if (n.type == 'privateMessage' && n.content.user?.id == user && !n.read) {
+      if (n.type === 'privateMessage' && n.content.user?.id === user && !n.read) {
         n.read = true;
         data!.unread = Math.max(0, data!.unread - 1);
         opts.updateUnread(data!.unread);

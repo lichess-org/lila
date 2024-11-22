@@ -21,7 +21,7 @@ import { prompt } from 'common/dialog';
 export default function (ctrl: SwissCtrl) {
   const d = ctrl.data;
   const content =
-    d.status == 'created' ? created(ctrl) : d.status == 'started' ? started(ctrl) : finished(ctrl);
+    d.status === 'created' ? created(ctrl) : d.status === 'started' ? started(ctrl) : finished(ctrl);
   return h('main.' + ctrl.opts.classes, { hook: { postpatch: () => initMiniGames() } }, [
     h('aside.swiss__side', {
       hook: onInsert(el => {
@@ -55,7 +55,7 @@ const notice = (ctrl: SwissCtrl) => {
   return (
     d.me &&
     !d.me.absent &&
-    d.status == 'started' &&
+    d.status === 'started' &&
     d.nextRound &&
     h('div.swiss__notice.bar-glider', i18n.site.standByX(d.me.name))
   );
@@ -86,7 +86,7 @@ function controls(ctrl: SwissCtrl, pag: Pager): VNode {
 }
 
 function nextRound(ctrl: SwissCtrl): VNode | undefined {
-  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round == 0) return;
+  if (!ctrl.opts.schedule || ctrl.data.nbOngoing || ctrl.data.round === 0) return;
   return h(
     'form.schedule-next-round',
     {

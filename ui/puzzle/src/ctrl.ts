@@ -223,7 +223,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.lastFeedback = 'init';
     this.initialPath = initialPath;
     this.initialNode = this.tree.nodeAtPath(initialPath);
-    this.pov = this.initialNode.ply % 2 == 1 ? 'black' : 'white';
+    this.pov = this.initialNode.ply % 2 === 1 ? 'black' : 'white';
     this.isDaily = location.href.endsWith('/daily');
     this.hintHasBeenShown(false);
     this.canViewSolution(false);
@@ -265,7 +265,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     const color: Color = node.ply % 2 === 0 ? 'white' : 'black';
     const dests = chessgroundDests(this.position());
     const nextNode = this.node.children[0];
-    const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle == 'fail'));
+    const canMove = this.mode === 'view' || (color === this.pov && (!nextNode || nextNode.puzzle === 'fail'));
     const movable = canMove
       ? {
           color: dests.size > 0 ? color : undefined,
@@ -345,7 +345,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     const check = pos.isCheck() ? pos.board.kingOf(pos.turn) : undefined;
     this.addNode(
       {
-        ply: 2 * (pos.fullmoves - 1) + (pos.turn == 'white' ? 0 : 1),
+        ply: 2 * (pos.fullmoves - 1) + (pos.turn === 'white' ? 0 : 1),
         fen: makeFen(pos.toSetup()),
         id: scalachessCharPair(move),
         uci: makeUci(move),
@@ -374,8 +374,8 @@ export default class PuzzleCtrl implements ParentCtrl {
     const node = this.tree.nodeAtPath(path);
     node.children.sort((c1, _) => {
       const p = c1.puzzle;
-      if (p == 'fail') return 1;
-      if (p == 'good' || p == 'win') return -1;
+      if (p === 'fail') return 1;
+      if (p === 'good' || p === 'win') return -1;
       return 0;
     });
     if (recursive) node.children.forEach(child => this.reorderChildren(path + child.id, true));
@@ -409,11 +409,11 @@ export default class PuzzleCtrl implements ParentCtrl {
           this.sendResult(false);
         }
       }
-    } else if (progress == 'win') {
+    } else if (progress === 'win') {
       if (this.streak) this.sound.good();
       this.lastFeedback = 'win';
       if (this.mode != 'view') {
-        const sent = this.mode == 'play' ? this.sendResult(true) : Promise.resolve();
+        const sent = this.mode === 'play' ? this.sendResult(true) : Promise.resolve();
         this.mode = 'view';
         this.withGround(this.showGround);
         sent.then(_ => (this.autoNext() ? this.nextPuzzle() : this.startCeval()));
@@ -473,7 +473,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
   nextPuzzle = (): void => {
     if (this.streak && this.lastFeedback != 'win') {
-      if (this.lastFeedback == 'fail') site.redirect(router.withLang('/streak'));
+      if (this.lastFeedback === 'fail') site.redirect(router.withLang('/streak'));
       return;
     }
     if (this.mode !== 'view') return;
@@ -577,7 +577,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   };
 
   userJump = (path: Tree.Path): void => {
-    if (this.tree.nodeAtPath(path)?.puzzle == 'fail' && this.mode != 'view') return;
+    if (this.tree.nodeAtPath(path)?.puzzle === 'fail' && this.mode != 'view') return;
     this.withGround(g => g.selectSquare(null));
     this.jump(path);
   };
@@ -585,7 +585,7 @@ export default class PuzzleCtrl implements ParentCtrl {
   userJumpPlyDelta = (plyDelta: Ply) => {
     // ensure we are jumping to a valid ply
     let maxValidPly = this.mainline.length - 1;
-    if (last(this.mainline)?.puzzle == 'fail' && this.mode != 'view') maxValidPly -= 1;
+    if (last(this.mainline)?.puzzle === 'fail' && this.mode != 'view') maxValidPly -= 1;
     const newPly = Math.min(Math.max(this.node.ply + plyDelta, 0), maxValidPly);
     this.userJump(fromNodeList(this.mainline.slice(0, newPly + 1)));
   };
@@ -674,7 +674,7 @@ export default class PuzzleCtrl implements ParentCtrl {
     const uci = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
     if (uci) this.playUci(uci);
   };
-  autoNexting = () => this.lastFeedback == 'win' && this.autoNext();
+  autoNexting = () => this.lastFeedback === 'win' && this.autoNext();
   currentEvals = () => ({ client: this.node.ceval });
   showEvalGauge = () => this.showComputer() && this.ceval.enabled() && !this.outcome();
   getOrientation = () => this.withGround(g => g.state.orientation)!;

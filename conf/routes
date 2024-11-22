@@ -1,4 +1,4 @@
-# Run `./lila playRoutes` after modifying this file
+# Run `./lila.sh playRoutes` after modifying this file
 
 # Lobby
 GET   /                                controllers.Lobby.home

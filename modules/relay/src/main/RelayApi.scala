@@ -325,7 +325,7 @@ final class RelayApi(
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _                <- denormalizeTour(round.tourId)
         nextRoundToStart <- round.isFinished.so(nextRoundThatStartsAfterThisOneCompletes(round))
-        _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nexRoundToStart"))
+        _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nextRoundToStart"))
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)

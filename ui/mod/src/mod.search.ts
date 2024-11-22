@@ -26,7 +26,7 @@ site.load.then(() => {
         table,
         select as HTMLSelectElement,
       )(async action => {
-        if (action == 'alt') {
+        if (action === 'alt') {
           const usernames = Array.from(
             $(table)
               .find('td:last-child input:checked')

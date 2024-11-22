@@ -30,7 +30,7 @@ function renderIn(run: Run, onFlag: OnFlag, el: HTMLElement, withBonus: boolean)
   const millis = run.clock.millis();
   const diffs = withBonus ? computeModifierDiff(now, mods.bonus) - computeModifierDiff(now, mods.malus) : 0;
   const text = formatMs(millis - diffs);
-  if (text != lastText) el.innerText = text;
+  if (text !== lastText) el.innerText = text;
   lastText = text;
   if (millis < 1 && !run.endAt) onFlag();
 }

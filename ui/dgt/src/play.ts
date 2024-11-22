@@ -13,12 +13,12 @@ export default function (token: string): void {
    * CONFIGURATION VALUES
    */
   const liveChessURL = localStorage.getItem('dgt-livechess-url');
-  const announceAllMoves = localStorage.getItem('dgt-speech-announce-all-moves') == 'true';
-  const verbose = localStorage.getItem('dgt-verbose') == 'true';
+  const announceAllMoves = localStorage.getItem('dgt-speech-announce-all-moves') === 'true';
+  const verbose = localStorage.getItem('dgt-verbose') === 'true';
   const announceMoveFormat = localStorage.getItem('dgt-speech-announce-move-format')
     ? localStorage.getItem('dgt-speech-announce-move-format')
     : 'san';
-  const speechSynthesisOn = localStorage.getItem('dgt-speech-synthesis') == 'true';
+  const speechSynthesisOn = localStorage.getItem('dgt-speech-synthesis') === 'true';
   const voice = localStorage.getItem('dgt-speech-voice');
   let keywords = {
     K: 'King',
@@ -371,7 +371,7 @@ export default function (token: string): void {
               gameStateMap.set(gameId, data);
               //Log the state. Note that we are doing this after storing the state and updating the chessops board
               //Update for Multiple Game Support. Log only current game
-              if (gameId == currentGameId) {
+              if (gameId === currentGameId) {
                 logGameState(gameId);
               } else {
                 if (verbose) console.log('connectToGameStream - State received was not for current game.');
@@ -459,14 +459,14 @@ export default function (token: string): void {
     const playableGames = playableGamesArray();
     //If there is only one started game, then it's easy
     /*
-    if (playableGames.length == 1) {
+    if (playableGames.length === 1) {
       currentGameId = playableGames[0].gameId;
       attachCurrentGameIdToDGTBoard(); //Let the board know which color the player is actually playing and setup the position
       console.log('Active game updated. currentGameId: ' + currentGameId);
     }
     else
     */
-    if (playableGames.length == 0) {
+    if (playableGames.length === 0) {
       console.log(
         'No started playable games, challenges or games are disconnected. Please start a new game or fix connection.',
       );
@@ -490,11 +490,11 @@ export default function (token: string): void {
         //makeBoardFen return only the board, ideal for comparison
         const tmpFEN = fen.makeBoardFen(gameChessBoardMap.get(playableGames[i].gameId)!.board);
         if (verbose) console.log(`GameId: ${playableGames[i].gameId} FEN: ${tmpFEN}`);
-        if (tmpFEN == lastLiveChessBoard) {
+        if (tmpFEN === lastLiveChessBoard) {
           index = i;
         }
       }
-      if (index == -1) {
+      if (index === -1) {
         console.error('Position on board does not match any ongoing game.');
         //No position match found
         if (
@@ -516,7 +516,7 @@ export default function (token: string): void {
         }
       } else {
         //Position match found
-        if (currentGameId != playableGames[Number(index)].gameId) {
+        if (currentGameId !== playableGames[Number(index)].gameId) {
           //This is the happy path, board matches and game needs to be updated
           if (verbose)
             console.log(
@@ -546,12 +546,12 @@ export default function (token: string): void {
   function initializeChessBoard(gameId: string, data: { initialFen: string; state: { moves: string } }) {
     try {
       let initialFen: string = INITIAL_FEN;
-      if (data.initialFen != 'startpos') initialFen = data.initialFen;
+      if (data.initialFen !== 'startpos') initialFen = data.initialFen;
       const setup = parseFen(initialFen).unwrap();
       const chess: Chess = Chess.fromSetup(setup).unwrap();
       const moves = data.state.moves.split(' ');
       for (let i = 0; i < moves.length; i++) {
-        if (moves[i] != '') {
+        if (moves[i] !== '') {
           //Make any move that may have been already played on the ChessBoard. Useful when reconnecting
           const uciMove = <NormalMove>parseUci(moves[i]);
           const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
@@ -589,13 +589,13 @@ export default function (token: string): void {
         }
         const moves = pendingMoves.split(' ');
         for (let i = 0; i < moves.length; i++) {
-          if (moves[i] != '') {
+          if (moves[i] !== '') {
             //Make the new move
             const uciMove = <NormalMove>parseUci(moves[i]);
             const normalizedMove = normalizeMove(chess, uciMove); //This is because chessops uses UCI_960
             if (normalizedMove && chess.isLegal(normalizedMove)) {
               //This is a good chance to get the move in SAN format
-              if (chess.turn == 'black')
+              if (chess.turn === 'black')
                 lastSanMove = {
                   player: 'black',
                   move: makeSan(chess, normalizedMove),
@@ -711,7 +711,7 @@ export default function (token: string): void {
         `<tr><td>White</td><td>${gameInfo.white.title ? gameInfo.white.title : '@'}</td><td>${
           gameInfo.white.name
         }</td><td>${gameInfo.white.rating}</td><td>${formattedTimer(gameState.wtime)}</td><td>${
-          lastMove.player == 'white' ? lastMove.move : '?'
+          lastMove.player === 'white' ? lastMove.move : '?'
         }</td><td>${
           gameInfo.speed +
           ' ' +
@@ -722,7 +722,7 @@ export default function (token: string): void {
         `<tr><td>Black</td><td>${gameInfo.black.title ? gameInfo.black.title : '@'}</td><td>${
           gameInfo.black.name
         }</td><td>${gameInfo.black.rating}</td><td>${formattedTimer(gameState.btime)}</td><td>${
-          lastMove.player == 'black' ? lastMove.move : '?'
+          lastMove.player === 'black' ? lastMove.move : '?'
         }</td><td>Status: ${gameState.status}</td></tr>`;
       console.log(innerTable);
       switch (gameState.status) {
@@ -800,14 +800,14 @@ export default function (token: string): void {
     //ttsSay(lastMove.player);
     //Now play it using text to speech library
     let moveText: string;
-    if (announceMoveFormat && announceMoveFormat.toLowerCase() == 'san' && lastSanMove) {
+    if (announceMoveFormat && announceMoveFormat.toLowerCase() === 'san' && lastSanMove) {
       moveText = lastSanMove.move;
       ttsSay(replaceKeywords(padBeforeNumbers(lastSanMove.move)));
     } else {
       moveText = lastMove.move;
       ttsSay(padBeforeNumbers(lastMove.move));
     }
-    if (lastMove.player == 'white') {
+    if (lastMove.player === 'white') {
       console.log('<span class="dgt-white-move">' + moveText + ' by White' + '</span>');
     } else {
       console.log('<span class="dgt-black-move">' + moveText + ' by Black' + '</span>');
@@ -817,7 +817,7 @@ export default function (token: string): void {
   }
 
   function announceWinner(winner: string, status: string, message: string) {
-    if (winner == 'white') {
+    if (winner === 'white') {
       console.log('  ' + status + '  -  ' + message);
     } else {
       console.log('  ' + status + '  -  ' + message);
@@ -827,7 +827,7 @@ export default function (token: string): void {
   }
 
   function announceInvalidMove() {
-    if (currentGameColor == 'white') {
+    if (currentGameColor === 'white') {
       console.warn('  [ X X ]  - Illegal move by white.');
     } else {
       console.warn('  [ X X ]  - Illegal move by black.');
@@ -885,7 +885,7 @@ export default function (token: string): void {
           console.info('Webscoket - about to send the following message \n' + JSON.stringify(subscription));
         liveChessConnection.send(JSON.stringify(subscription));
         //Check if the board is properly connected
-        if (boards[0].state != 'ACTIVE' && boards[0].state != 'INACTIVE')
+        if (boards[0].state !== 'ACTIVE' && boards[0].state !== 'INACTIVE')
           // "NOTRESPONDING" || "DELAYED"
           console.error(`Board with serial ${currentSerialnr} is not properly connected. Please fix`);
         //Send setup with stating position
@@ -896,7 +896,7 @@ export default function (token: string): void {
           gameStateMap.get(currentGameId).status == 'started'
         ) {
           //There is a game in progress, setup the board as per lichess board
-          if (currentGameId != DGTgameId) {
+          if (currentGameId !== DGTgameId) {
             //We know we have not synchronized yet
             if (verbose) console.info('There is a game in progress, calling liveChessBoardSetUp...');
             sendBoardToLiveChess(gameChessBoardMap.get(currentGameId)!);
@@ -911,7 +911,7 @@ export default function (token: string): void {
           if (verbose) console.info('onmessage - san is empty');
         } else if (
           lastLegalParam !== undefined &&
-          JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)
+          JSON.stringify(lastLegalParam.san) === JSON.stringify(message.param.san)
         ) {
           //Prevent duplicates since LiveChess may send the same move twice
           //It looks like a duplicate, so just ignore it
@@ -930,13 +930,13 @@ export default function (token: string): void {
               console.warn(
                 'onmessage - Multiple moves received on single message - movesToProcess: ' + movesToProcess,
               );
-            if (localBoard.turn == currentGameColor) {
+            if (localBoard.turn === currentGameColor) {
               //If more than one move is received when it's the DGT board player's turn this may be an invalid move
               //Move will be quarantined by 2.5 seconds
               const quarantinedlastLegalParam = lastLegalParam;
               await sleep(2500);
               //Check if a different move was received and processed during quarantine
-              if (JSON.stringify(lastLegalParam.san) != JSON.stringify(quarantinedlastLegalParam.san)) {
+              if (JSON.stringify(lastLegalParam.san) !== JSON.stringify(quarantinedlastLegalParam.san)) {
                 //lastLegalParam was altered, this mean a new move was received from LiveChess during quarantine
                 console.warn(
                   'onmessage - Invalid moved quarantined and not sent to lichess. Newer move interpretation received.',
@@ -946,7 +946,7 @@ export default function (token: string): void {
               //There is a chance that the same move came twice and quarantined twice before updating lastLegalParam
               else if (
                 lastLegalParam !== undefined &&
-                JSON.stringify(lastLegalParam.san) == JSON.stringify(message.param.san)
+                JSON.stringify(lastLegalParam.san) === JSON.stringify(message.param.san)
               ) {
                 //It looks like a duplicate, so just ignore it
                 if (verbose)
@@ -968,7 +968,7 @@ export default function (token: string): void {
             if (moveObject && localBoard.isLegal(moveObject)) {
               if (verbose) console.info('onmessage - Move is legal');
               //if received move.color == this.currentGameColor
-              if (localBoard.turn == currentGameColor) {
+              if (localBoard.turn === currentGameColor) {
                 //This is a valid new move send it to lichess
                 if (verbose) console.info('onmessage - Valid Move played: ' + SANMove);
                 await validateAndSendBoardMove(moveObject);
@@ -1000,7 +1000,7 @@ export default function (token: string): void {
             } else {
               //Move was valid on DGT Board but not legal on localBoard
               if (verbose) console.info('onmessage - Move is NOT legal');
-              if (lastMove.move == SANMove) {
+              if (lastMove.move === SANMove) {
                 //This is fine, the same last move was received again and seems illegal
                 if (verbose)
                   console.warn('onmessage - Move received is the same as the last move played: ' + SANMove);
@@ -1038,7 +1038,7 @@ export default function (token: string): void {
       do {
         //Just sleep five seconds while there is a valid currentSerialnr
         await sleep(5000);
-      } while (currentSerialnr != '0' && isLiveChessConnected);
+      } while (currentSerialnr !== '0' && isLiveChessConnected);
       //currentSerialnr is 0 so still no connection to board. Retry
       if (!isLiveChessConnected) {
         console.warn('No connection to DGT Live Chess. Attempting re-connection. Attempt: ' + attempts);
@@ -1076,7 +1076,7 @@ export default function (token: string): void {
       },
     };
     if (verbose) console.log('setUp -: ' + JSON.stringify(setupMessage));
-    if (isLiveChessConnected && currentSerialnr != '0') {
+    if (isLiveChessConnected && currentSerialnr !== '0') {
       liveChessConnection.send(JSON.stringify(setupMessage));
       //Store the gameId so we now we already synchronized
       DGTgameId = currentGameId;
@@ -1146,7 +1146,7 @@ export default function (token: string): void {
       })
         .then(response => {
           try {
-            if (response.status == 200 || response.status == 201) {
+            if (response.status === 200 || response.status === 201) {
               //Move successfully sent
               if (verbose) console.log('sendMove - Move successfully sent.');
             } else {
@@ -1235,7 +1235,7 @@ export default function (token: string): void {
     try {
       const uciMove = makeUci(moveObject);
       if (verbose) console.log(`Comparing ${lastMove} with ${uciMove}`);
-      if (lastMove == uciMove) {
+      if (lastMove === uciMove) {
         //it's the same move
         return true;
       }

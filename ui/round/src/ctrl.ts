@@ -469,7 +469,7 @@ export default class RoundController implements MoveRootCtrl {
       else this.data.expiration.movedAt = Date.now();
     }
     this.redraw();
-    if (playing && playedColor == d.player.color) {
+    if (playing && playedColor === d.player.color) {
       this.transientMove?.clear();
       this.moveOn.next();
       cevalSub.publish(d, o);

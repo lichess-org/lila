@@ -85,7 +85,7 @@ export function boot() {
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
-      if ($('#announce').length || document.body.dataset.tournamentId == data.id) return;
+      if ($('#announce').length || document.body.dataset.tournamentId === data.id) return;
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')

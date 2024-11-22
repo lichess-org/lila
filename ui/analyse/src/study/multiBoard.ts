@@ -72,7 +72,7 @@ export class MultiBoardCtrl {
     };
   };
   setPage = (page: number) => {
-    if (this.page != page) {
+    if (this.page !== page) {
       this.page = page;
       this.redraw();
     }
@@ -251,7 +251,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
               const elm = vnode.elm as HTMLElement;
               const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
               const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
-              if (cev?.chances != prevNodeCloud?.chances) {
+              if (cev?.chances !== prevNodeCloud?.chances) {
                 (elm.firstChild as HTMLElement).style.height = `${Math.round(
                   ((1 - (cev?.chances || 0)) / 2) * 100,
                 )}%`;

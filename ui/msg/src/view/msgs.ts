@@ -52,7 +52,7 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
 }
 
 function renderMsg(ctrl: MsgCtrl, msg: Msg) {
-  const tag = msg.user == ctrl.data.me.id ? 'mine' : 'their';
+  const tag = msg.user === ctrl.data.me.id ? 'mine' : 'their';
   return h(tag, [renderText(msg), h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`)]);
 }
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
@@ -63,7 +63,7 @@ function groupMsgs(msgs: Msg[]): Daily[] {
   const dailies: Daily[] = [{ date: prev.date, msgs: [[prev]] }];
   msgs.slice(1).forEach(msg => {
     if (sameDay(msg.date, prev.date)) {
-      if (msg.user == prev.user) dailies[0].msgs[0].unshift(msg);
+      if (msg.user === prev.user) dailies[0].msgs[0].unshift(msg);
       else dailies[0].msgs.unshift([msg]);
     } else dailies.unshift({ date: msg.date, msgs: [[msg]] });
     prev = msg;
@@ -92,7 +92,7 @@ const renderFullDate = (date: Date) => {
 };
 
 const sameDay = (d: Date, e: Date) =>
-  d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
+  d.getDate() === e.getDate() && d.getMonth() === e.getMonth() && d.getFullYear() === e.getFullYear();
 
 const renderText = (msg: Msg) =>
   isMoreThanText(msg.text)
