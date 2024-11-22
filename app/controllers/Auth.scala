@@ -46,14 +46,14 @@ final class Auth(
         ).map(authenticateCookie(sessionId, remember))
       .recoverWith(authRecovery)
 
-  private def authenticateAppealUser(u: UserModel, redirect: String => Result)(using
+  private def authenticateAppealUser(u: UserModel, redirect: String => Result, url: String)(using
       ctx: Context
   ): Fu[Result] =
     api.appeal
       .saveAuthentication(u.id)
       .flatMap: sessionId =>
         authenticateCookie(sessionId, remember = false):
-          redirect(routes.Appeal.landing.url)
+          redirect(url)
       .recoverWith(authRecovery)
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(
@@ -124,9 +124,14 @@ final class Auth(
                         case None => InternalServerError("Authentication error")
                         case Some(u) if u.enabled.no =>
                           negotiate(
-                            env.mod.logApi.closedByMod(u).flatMap {
-                              if _ then authenticateAppealUser(u, redirectTo)
-                              else redirectTo(routes.Account.reopen.url)
+                            env.mod.logApi.closedByTeacher(u).flatMap {
+                              if _ then
+                                authenticateAppealUser(u, redirectTo, routes.Appeal.closedByTeacher.url)
+                              else
+                                env.mod.logApi.closedByMod(u).flatMap {
+                                  if _ then authenticateAppealUser(u, redirectTo, routes.Appeal.landing.url)
+                                  else redirectTo(routes.Account.reopen.url)
+                                }
                             },
                             Unauthorized(jsonError("This account is closed."))
                           )
