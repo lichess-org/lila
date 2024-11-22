@@ -28,6 +28,7 @@ export interface Hook {
   perf: Exclude<Perf, 'fromPosition'>;
   prov?: true; // is rating provisional
   u?: string; // username
+  title?: string;
   rating?: number;
   ra?: 1; // rated
   action: 'cancel' | 'join';
@@ -37,6 +38,7 @@ export interface Hook {
 export interface Seek {
   id: string;
   username: string;
+  title?: string;
   rating: number;
   mode: number;
   days?: number;

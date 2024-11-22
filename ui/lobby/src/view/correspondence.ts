@@ -5,6 +5,7 @@ import type LobbyController from '../ctrl';
 import type { Seek } from '../interfaces';
 import perfIcons from 'common/perfIcons';
 import { confirm } from 'common/dialog';
+import { userTitle } from 'common/userLink';
 
 function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
   const klass = seek.action === 'joinSeek' ? 'join' : 'cancel';
@@ -23,7 +24,10 @@ function renderSeek(ctrl: LobbyController, seek: Seek): VNode {
     },
     tds([
       seek.rating
-        ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, seek.username)
+        ? h('span.ulpt', { attrs: { 'data-href': '/@/' + seek.username } }, [
+            userTitle({ title: seek.title }),
+            seek.username,
+          ])
         : 'Anonymous',
       seek.rating && ctrl.opts.showRatings ? seek.rating + (seek.provisional ? '?' : '') : '',
       seek.days ? i18n.site.nbDays(seek.days) : '∞',

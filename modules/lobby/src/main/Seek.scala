@@ -51,6 +51,7 @@ case class Seek(
       .obj(
         "id"       -> _id,
         "username" -> user.username,
+        "title"    -> user.title,
         "rating"   -> rating,
         "variant"  -> Json.obj("key" -> realVariant.key),
         "perf"     -> Json.obj("key" -> perfType.key),

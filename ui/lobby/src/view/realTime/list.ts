@@ -6,6 +6,7 @@ import { tds, perfNames } from '../util';
 import perfIcons from 'common/perfIcons';
 import * as hookRepo from '../../hookRepo';
 import type { Hook } from '../../interfaces';
+import { userTitle } from 'common/userLink';
 
 function renderHook(ctrl: LobbyController, hook: Hook) {
   return h(
@@ -25,7 +26,7 @@ function renderHook(ctrl: LobbyController, hook: Hook) {
     },
     tds([
       hook.rating
-        ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, hook.u)
+        ? h('span.ulink.ulpt', { attrs: { 'data-href': '/@/' + hook.u } }, [userTitle(hook), hook.u])
         : i18n.site.anonymous,
       hook.rating && ctrl.opts.showRatings ? hook.rating + (hook.prov ? '?' : '') : '',
       hook.clock,
