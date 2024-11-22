@@ -8,7 +8,6 @@ import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.pool.Blocking
 import lila.rating.UserPerfsExt.perfsList
 import lila.rating.{ Glicko, PerfType }
-import lila.core.game.Player
 
 private[lobby] case class LobbyUser(
     id: UserId,
