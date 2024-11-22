@@ -36,7 +36,7 @@ final class PerfsUpdater(
           val prevPerfs   = users.map(_.perfs)
           val prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
           lila.rating.Glicko.calculator
-            .computeGame(chess.rating.glicko.Game(prevPlayers, outcome))
+            .computeGame(chess.rating.glicko.Game(prevPlayers, outcome), skipDeviationIncrease = true)
             .fold(
               err =>
                 lila.log("rating").error(s"Error computing Glicko2 for game ${game.id}", err)
