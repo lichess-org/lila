@@ -89,7 +89,7 @@ case class Study(
 
 object Study:
 
-  val maxChapters = Max(64)
+  val maxChapters = Max(256)
 
   val previewNbMembers  = 4
   val previewNbChapters = 4
