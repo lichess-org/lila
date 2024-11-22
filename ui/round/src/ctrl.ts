@@ -174,7 +174,12 @@ export default class RoundController implements MoveRootCtrl {
       atomic.capture(this, dest);
       return;
     }
-    const san = sanOf(readFen(this.stepAt(this.ply - 1).fen), orig + dest);
+    const fen =
+      this.ply === 0
+        ? (this.data.game.initialFen ?? 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR')
+        : this.stepAt(this.ply - 1).fen;
+    const san = sanOf(readFen(fen), orig + dest);
+
     site.sound.move({ san, uci: orig + dest });
     site.sound.saySan(san);
   };

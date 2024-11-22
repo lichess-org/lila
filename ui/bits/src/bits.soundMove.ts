@@ -51,7 +51,6 @@ export async function initModule(): Promise<SoundMove> {
   await Promise.all(promises);
 
   return o => {
-    if (o?.filter === 'game') return;
     const volume = o?.volume ?? 1;
     if (o?.san && o.uci) {
       const pitch = keyToPitch(o.uci.slice(2));
