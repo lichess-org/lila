@@ -3,6 +3,7 @@ package lila.tournament
 import com.softwaremill.tagging.*
 import play.api.i18n.Lang
 import play.api.libs.json.*
+import chess.IntRating
 
 import lila.common.Json.given
 import lila.common.Json.lightUser.writeNoId

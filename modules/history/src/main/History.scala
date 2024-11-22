@@ -1,5 +1,6 @@
 package lila.history
 
+import chess.IntRating
 import scala.util.Success
 
 case class History(

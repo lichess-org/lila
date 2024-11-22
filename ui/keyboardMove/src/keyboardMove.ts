@@ -52,11 +52,11 @@ function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
     if (v.includes('/')) {
       focusChat();
       clear();
-    } else if (v == '' && e.key == 'Enter') opts.ctrl.confirmMove();
+    } else if (v === '' && e.key === 'Enter') opts.ctrl.confirmMove();
     else {
       opts.ctrl.checker?.press(e);
       submit(v, {
-        force: e.key == 'Enter',
+        force: e.key === 'Enter',
         isTrusted: true,
       });
     }

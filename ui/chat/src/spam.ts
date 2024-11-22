@@ -10,7 +10,7 @@ export const selfReport = (txt: string): void => {
   if (hasSuspLink || followMe(txt)) storage.set('chat-spam', '1');
 };
 
-const isKnownSpammer = () => storage.get('chat-spam') == '1';
+const isKnownSpammer = () => storage.get('chat-spam') === '1';
 
 const spamRegex = new RegExp(
   [

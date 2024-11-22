@@ -80,7 +80,7 @@ export async function initModule(data: DistributionData): Promise<void> {
           align: 'top',
           offset: 0,
           display: 'auto',
-          formatter: (value: Point) => (value.y == 0 ? '' : label),
+          formatter: (value: Point) => (value.y === 0 ? '' : label),
           color: color,
         },
       });

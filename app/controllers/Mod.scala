@@ -12,7 +12,7 @@ import lila.core.net.IpAddress
 import lila.core.perm.Permission
 import lila.core.security.FingerHash
 import lila.core.userId.ModId
-import lila.mod.ModUserSearch
+import lila.mod.{ Modlog, ModUserSearch }
 import lila.report.{ Mod as AsMod, Suspect }
 
 final class Mod(
@@ -226,7 +226,13 @@ final class Mod(
 
   def log = Secure(_.GamifyView) { ctx ?=> me ?=>
     Ok.async:
-      env.mod.logApi.recentBy(me).map(views.mod.ui.myLogs(_))
+      for
+        log     <- env.mod.logApi.recentBy(me)
+        appeals <- env.appeal.api.myLog(log.lastOption.map(_.date).|(nowInstant.minusMonths(1)))
+        appealsLog = appeals.map: (user, msg) =>
+          Modlog(user.some, "appeal", msg.text.some).copy(date = msg.at)
+        sorted = (log ::: appealsLog).sortBy(_.date).reverse
+      yield views.mod.ui.myLogs(sorted)
   }
 
   private def communications(username: UserStr, priv: Boolean) =

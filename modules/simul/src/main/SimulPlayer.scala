@@ -1,6 +1,8 @@
 package lila.simul
 
 import chess.variant.Variant
+import chess.IntRating
+import chess.rating.RatingProvisional
 
 import lila.core.user.WithPerf
 
@@ -16,7 +18,7 @@ private[simul] case class SimulPlayer(
 private[simul] object SimulPlayer:
 
   private[simul] def make(user: WithPerf, variant: Variant): SimulPlayer =
-    new SimulPlayer(
+    SimulPlayer(
       user = user.id,
       variant = variant,
       rating = user.perf.intRating,

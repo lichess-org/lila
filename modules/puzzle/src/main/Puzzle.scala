@@ -1,9 +1,8 @@
 package lila.puzzle
 
-import chess.Ply
+import chess.{ Ply, IntRating }
 import chess.format.{ Fen, Uci }
-
-import lila.core.rating.Glicko
+import chess.rating.glicko.Glicko
 
 case class Puzzle(
     id: PuzzleId,

@@ -34,7 +34,7 @@ export interface BaseEngineInfo {
   minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
-  requires?: Requires[];
+  requires?: Feature[];
 }
 
 export interface ExternalEngineInfo extends BaseEngineInfo {
@@ -46,13 +46,11 @@ export interface ExternalEngineInfo extends BaseEngineInfo {
 export interface BrowserEngineInfo extends BaseEngineInfo {
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
-  requires: Requires[];
+  requires: Feature[];
   obsoletedBy?: Feature;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
-
-export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };

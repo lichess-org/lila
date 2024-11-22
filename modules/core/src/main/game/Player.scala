@@ -1,12 +1,12 @@
 package lila.core
 package game
 
-import _root_.chess.{ Color, PlayerName, Ply }
+import _root_.chess.{ Color, PlayerName, Ply, IntRating }
+import _root_.chess.rating.{ IntRatingDiff, RatingProvisional }
 import cats.kernel.Eq
 
 import lila.core.id.GamePlayerId
 import lila.core.perf.Perf
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 import lila.core.user.WithPerf
 import lila.core.userId.{ UserId, UserIdOf }
 
@@ -43,11 +43,17 @@ case class Player(
       case ((None, _), (Some(_), _))              => false
       case ((_, a), (_, b))                       => a.value < b.value
 
-  def ratingAfter = rating.map(_.applyDiff(~ratingDiff))
+  def ratingAfter = for
+    r <- rating
+    d <- ratingDiff
+  yield r.map(_ + d.value)
 
   def stableRating = rating.ifFalse(provisional.value)
 
-  def stableRatingAfter = stableRating.map(_.applyDiff(~ratingDiff))
+  def stableRatingAfter = for
+    r <- stableRating
+    d <- ratingDiff
+  yield r.map(_ + d.value)
 
   def light = LightPlayer(color, aiLevel, userId, rating, ratingDiff, provisional, berserk)
 
