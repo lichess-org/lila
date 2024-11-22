@@ -34,8 +34,8 @@ site.load.then(() => {
     $form.find('input').on('change', function (this: HTMLInputElement) {
       computeBitChoices($form, 'behavior.submitMove');
       localPrefs.forEach(([categ, name, storeKey]) => {
-        if (this.name == `${categ}.${name}`) {
-          storage.boolean(storeKey).set(this.value == '1');
+        if (this.name === `${categ}.${name}`) {
+          storage.boolean(storeKey).set(this.value === '1');
           showSaved();
         }
       });
@@ -85,7 +85,7 @@ site.load.then(() => {
     });
     window.addEventListener('beforeunload', e => {
       if (
-        clean != serialize() &&
+        clean !== serialize() &&
         !window.confirm('You have unsaved changes. Are you sure you want to leave?')
       )
         e.preventDefault();

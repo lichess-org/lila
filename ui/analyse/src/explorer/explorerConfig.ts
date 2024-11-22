@@ -55,7 +55,7 @@ export class ExplorerConfigCtrl {
   ) {
     this.myName = myUserId();
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
-      name => name && name != this.myName,
+      name => name && name !== this.myName,
     );
     if (variant === 'standard') this.allDbs.unshift('masters');
     const byDbData = {} as ByDbSettings;
@@ -91,9 +91,9 @@ export class ExplorerConfigCtrl {
   }
 
   selectPlayer = (name?: string) => {
-    name = name == 'me' ? this.myName : name;
+    name = name === 'me' ? this.myName : name;
     if (!name) return;
-    if (name != this.myName && !this.participants.includes(name)) {
+    if (name !== this.myName && !this.participants.includes(name)) {
       const previous = this.data.playerName.previous().filter(n => n !== name);
       previous.unshift(name);
       this.data.playerName.previous(previous.slice(0, 20));
@@ -125,7 +125,7 @@ export class ExplorerConfigCtrl {
   toggleOpen = () => {
     this.data.open(!this.data.open());
     if (!this.data.open()) {
-      if (this.data.db() == 'player' && !this.data.playerName.value()) this.data.db('lichess');
+      if (this.data.db() === 'player' && !this.data.playerName.value()) this.data.db('lichess');
       this.onClose();
     }
   };
@@ -133,9 +133,9 @@ export class ExplorerConfigCtrl {
   fullHouse = () =>
     this.data.byDb().since() <= `${minYear}-01` &&
     (!this.data.byDb().until() || new Date().toISOString().slice(0, 7) <= this.data.byDb().until()) &&
-    (this.data.db() === 'masters' || this.data.speed().length == allSpeeds.length) &&
-    (this.data.db() !== 'lichess' || this.data.rating().length == allRatings.length) &&
-    (this.data.db() !== 'player' || this.data.mode().length == allModes.length);
+    (this.data.db() === 'masters' || this.data.speed().length === allSpeeds.length) &&
+    (this.data.db() !== 'lichess' || this.data.rating().length === allRatings.length) &&
+    (this.data.db() !== 'player' || this.data.mode().length === allModes.length);
 }
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
@@ -182,7 +182,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ` ${i18n.site[ctrl.data.color() == 'white' ? 'asWhite' : 'asBlack']}`,
+          ` ${i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
         ),
       ]),
     ]),

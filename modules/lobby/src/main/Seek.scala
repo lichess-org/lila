@@ -1,5 +1,7 @@
 package lila.lobby
 
+import chess.IntRating
+import chess.rating.RatingProvisional
 import chess.variant.Variant
 import chess.{ Mode, Speed }
 import play.api.libs.json.*

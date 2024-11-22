@@ -98,7 +98,7 @@ export function renderMain(
         insert: vn => {
           const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars != document.body.classList.contains('header-margin')) {
+          if (!!playerBars !== document.body.classList.contains('header-margin')) {
             $('body').toggleClass('header-margin', !!playerBars);
           }
           !hasRelayTour && makeChatEl(ctrl, c => elm.appendChild(c));
@@ -214,7 +214,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
             if (!defined(ctrl.fenInput)) {
               el.value = ctrl.node.fen;
               el.setCustomValidity('');
-            } else if (el.value != ctrl.fenInput) el.value = ctrl.fenInput;
+            } else if (el.value !== ctrl.fenInput) el.value = ctrl.fenInput;
           },
         },
       }),
@@ -234,7 +234,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
               el.addEventListener('input', () => (ctrl.pgnInput = el.value));
 
               el.addEventListener('keypress', (e: KeyboardEvent) => {
-                if (e.key != 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
+                if (e.key !== 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
                   return;
                 else if (changePgnIfDifferent()) e.preventDefault();
               });
@@ -442,7 +442,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
+  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 

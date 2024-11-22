@@ -61,7 +61,7 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
                     userIdLink(u.some, params = "?mod")
                   }),
                   td(log.showAction.capitalize),
-                  td(log.details)
+                  td(shorten(~log.details, 100))
                 )
             )
           )

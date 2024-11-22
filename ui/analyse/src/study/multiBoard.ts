@@ -45,7 +45,9 @@ export class MultiBoardCtrl {
 
   private chapterFilter = (c: ChapterPreview) => {
     const t = this.teamSelect();
-    return (!this.playing() || c.playing) && (!t || c.players?.white.team == t || c.players?.black.team == t);
+    return (
+      (!this.playing() || c.playing) && (!t || c.players?.white.team === t || c.players?.black.team === t)
+    );
   };
 
   setMaxPerPage = (nb: string) => {
@@ -70,7 +72,7 @@ export class MultiBoardCtrl {
     };
   };
   setPage = (page: number) => {
-    if (this.page != page) {
+    if (this.page !== page) {
       this.page = page;
       this.redraw();
     }
@@ -130,7 +132,7 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
       'select.study__multiboard__pager__max-per-page',
       { hook: bind('change', (e: Event) => ctrl.setMaxPerPage((e.target as HTMLOptionElement).value)) },
       [4, 6, 8, 10, 12, 16, 20, 24, 32].map(nb =>
-        h('option', { attrs: { value: nb, selected: nb == max } }, i18n.study.perPage(nb)),
+        h('option', { attrs: { value: nb, selected: nb === max } }, i18n.study.perPage(nb)),
       ),
     ),
   ]);
@@ -146,7 +148,7 @@ const teamSelector = (ctrl: MultiBoardCtrl) => {
           hook: bind('change', e => ctrl.teamSelect((e.target as HTMLOptionElement).value), ctrl.redraw),
         },
         [i18n.broadcast.allTeams, ...allTeams].map((t, i) =>
-          h('option', { attrs: { value: i ? t : '', selected: i && t == currentTeam } }, t),
+          h('option', { attrs: { value: i ? t : '', selected: i && t === currentTeam } }, t),
         ),
       )
     : undefined;
@@ -229,13 +231,13 @@ const makePreview =
   };
 
 export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEval): MaybeVNode => {
-  const tag = `span.mini-game__gauge${chap.orientation == 'black' ? ' mini-game__gauge--flip' : ''}${
-    chap.check == '#' ? ' mini-game__gauge--set' : ''
+  const tag = `span.mini-game__gauge${chap.orientation === 'black' ? ' mini-game__gauge--flip' : ''}${
+    chap.check === '#' ? ' mini-game__gauge--set' : ''
   }`;
-  return chap.check == '#'
+  return chap.check === '#'
     ? h(tag, { attrs: { 'data-id': chap.id, title: 'Checkmate' } }, [
         h('span.mini-game__gauge__black', {
-          attrs: { style: `height: ${fenColor(chap.fen) == 'white' ? 100 : 0}%` },
+          attrs: { style: `height: ${fenColor(chap.fen) === 'white' ? 100 : 0}%` },
         }),
         h('tick'),
       ])
@@ -249,7 +251,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
               const elm = vnode.elm as HTMLElement;
               const prevNodeCloud: CloudEval | undefined = old.data?.cloud;
               const cev = cloudEval.getCloudEval(chap.fen) || prevNodeCloud;
-              if (cev?.chances != prevNodeCloud?.chances) {
+              if (cev?.chances !== prevNodeCloud?.chances) {
                 (elm.firstChild as HTMLElement).style.height = `${Math.round(
                   ((1 - (cev?.chances || 0)) / 2) * 100,
                 )}%`;
@@ -276,7 +278,7 @@ const renderUser = (player: StudyPlayer): VNode =>
 export const renderClock = (chapter: ChapterPreview, color: Color) => {
   const turnColor = fenColor(chapter.fen);
   const timeleft = computeTimeLeft(chapter, color);
-  const ticking = turnColor == color && otbClockIsRunning(chapter.fen);
+  const ticking = turnColor === color && otbClockIsRunning(chapter.fen);
   return defined(timeleft)
     ? h(
         'span.mini-game__clock.mini-game__clock',
@@ -289,7 +291,7 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
 const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
   const clock = preview.players?.[color]?.clock;
   if (notNull(clock)) {
-    if (defined(preview.lastMoveAt) && fenColor(preview.fen) == color) {
+    if (defined(preview.lastMoveAt) && fenColor(preview.fen) === color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
       return Math.max(0, clock / 100 - spent);
     } else {

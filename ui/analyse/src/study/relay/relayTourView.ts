@@ -26,13 +26,13 @@ import { watchers } from 'common/watchers';
 export function renderRelayTour(ctx: RelayViewContext): VNode | undefined {
   const tab = ctx.relay.tab();
   const content =
-    tab == 'boards'
+    tab === 'boards'
       ? games(ctx)
-      : tab == 'teams'
+      : tab === 'teams'
         ? teams(ctx)
-        : tab == 'stats'
+        : tab === 'stats'
           ? stats(ctx)
-          : tab == 'players'
+          : tab === 'players'
             ? players(ctx)
             : overview(ctx);
 
@@ -231,7 +231,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
       h(
         'label.mselect__label',
         clickHook,
-        group.tours.find(t => t.id == ctx.relay.data.tour.id)?.name || ctx.relay.data.tour.name,
+        group.tours.find(t => t.id === ctx.relay.data.tour.id)?.name || ctx.relay.data.tour.name,
       ),
       ...(toggle()
         ? [
@@ -240,7 +240,7 @@ const groupSelect = (ctx: RelayViewContext, group: RelayGroup) => {
               'nav.mselect__list',
               group.tours.map(tour =>
                 h(
-                  `a.mselect__item${tour.id == ctx.relay.data.tour.id ? '.current' : ''}`,
+                  `a.mselect__item${tour.id === ctx.relay.data.tour.id ? '.current' : ''}`,
                   { attrs: { href: ctx.study.embeddablePath(`/broadcast/-/${tour.id}`) } },
                   tour.name,
                 ),
@@ -282,12 +282,12 @@ const roundSelect = (relay: RelayCtrl, study: StudyCtrl) => {
                   {
                     hook: bind('click', (e: MouseEvent) => {
                       const target = e.target as HTMLElement;
-                      if (target.tagName != 'A')
+                      if (target.tagName !== 'A')
                         site.redirect($(target).parents('tr').find('a').attr('href')!);
                     }),
                   },
                   relay.data.rounds.map((round, i) =>
-                    h(`tr.mselect__item${round.id == study.data.id ? '.current-round' : ''}`, [
+                    h(`tr.mselect__item${round.id === study.data.id ? '.current-round' : ''}`, [
                       h(
                         'td.name',
                         h(

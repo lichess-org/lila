@@ -502,7 +502,7 @@ export default class StudyCtrl {
   nextChapter = () => this.deltaChapter(+1);
   hasNextChapter = () => {
     const chs = this.chapters.list.all();
-    return chs[chs.length - 1].id != this.vm.chapterId;
+    return chs[chs.length - 1].id !== this.vm.chapterId;
   };
 
   isUpdatedRecently = () => Date.now() - this.vm.updatedAt < 300 * 1000;
@@ -633,7 +633,7 @@ export default class StudyCtrl {
       this.redraw();
     },
     addNode: d => {
-      if (d.relayPath == '!') d.relayPath = d.p.path + d.n.id;
+      if (d.relayPath === '!') d.relayPath = d.p.path + d.n.id;
       const position = d.p,
         node = {
           ...d.n,

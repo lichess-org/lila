@@ -20,12 +20,12 @@ export function getMaterialDiff(fenLike: string): MaterialDiff {
     const lower = ch.toLowerCase();
     const role = ROLES[lower];
     if (role) {
-      const color = ch == lower ? 'black' : 'white';
+      const color = ch === lower ? 'black' : 'white';
       const them = diff[opposite(color)];
       if (them[role] > 0) them[role]--;
       else diff[color][role]++;
-    } else if (ch == '[' || ch == ' ') break;
-    else if (ch == '/') part++;
+    } else if (ch === '[' || ch === ' ') break;
+    else if (ch === '/') part++;
   }
   return diff;
 }

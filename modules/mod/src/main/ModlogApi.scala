@@ -85,6 +85,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def closeAccount(user: UserId)(using me: Me) = add:
     Modlog(me, user.some, Modlog.closeAccount)
 
+  def teacherCloseAccount(user: UserId)(using me: Me) = add:
+    Modlog(me, user.some, Modlog.teacherCloseAccount)
+
   def selfCloseAccount(user: UserId, openReports: List[Report]) = add:
     Modlog(
       UserId.lichess.into(ModId),
@@ -95,6 +98,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
 
   def closedByMod(user: User): Fu[Boolean] =
     fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
+
+  def closedByTeacher(user: User): Fu[Boolean] =
+    fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.teacherCloseAccount))
 
   def reopenAccount(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.reopenAccount)
@@ -266,7 +272,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .list(100)
 
   def userHistory(userId: UserId): Fu[List[Modlog]] =
-    coll.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
+    coll.secondaryPreferred.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
     coll.secondaryPreferred.countSel:
@@ -289,11 +295,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       )
 
   def recentBy(mod: Mod) =
-    coll.tempPrimary
+    coll.secondaryPreferred
       .find($doc("mod" -> mod.id))
       .sort($sort.desc("date"))
       .cursor[Modlog]()
-      .list(100)
+      .list(200)
 
   def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
     coll.tempPrimary

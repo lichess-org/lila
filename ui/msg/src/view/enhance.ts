@@ -90,7 +90,7 @@ export function expandLpvs(el: HTMLElement) {
       });
   });
 
-  expandGames(expandables.filter(e => e.link.type == 'game'));
+  expandGames(expandables);
 }
 
 function expandGames(games: Expandable[]): void {

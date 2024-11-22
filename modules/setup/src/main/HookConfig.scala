@@ -2,6 +2,7 @@ package lila.setup
 
 import chess.variant.Variant
 import chess.{ Clock, Mode }
+import chess.IntRating
 import scalalib.model.Days
 
 import lila.core.perf.UserWithPerfs

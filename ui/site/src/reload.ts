@@ -14,7 +14,7 @@ export const redirect = async (opts: string | Opts, beep?: boolean) => {
     console.warn(e);
   }
   let url: string;
-  if (typeof opts == 'string') url = opts;
+  if (typeof opts === 'string') url = opts;
   else {
     url = opts.url;
     if (opts.cookie) {

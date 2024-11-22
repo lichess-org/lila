@@ -205,7 +205,7 @@ export default class AnalyseCtrl {
     this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (this.data.game.status.name == 'draw') add3or5FoldGlyphs(mainline);
+    if (this.data.game.status.name === 'draw') add3or5FoldGlyphs(mainline);
 
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
@@ -251,7 +251,7 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
-    if (this.wiki && this.data.game.variant.key == 'standard') this.wiki(this.nodeList);
+    if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
     this.persistence?.save();
   };
 
@@ -396,7 +396,7 @@ export default class AnalyseCtrl {
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length == this.path.length + 2;
+      isForwardStep = pathChanged && path.length === this.path.length + 2;
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
@@ -584,7 +584,7 @@ export default class AnalyseCtrl {
     }
 
     const relayPath = this.study?.data.chapter.relayPath;
-    if (relayPath && relayPath != newPath) this.forceVariation(newPath, true);
+    if (relayPath && relayPath !== newPath) this.forceVariation(newPath, true);
     else this.jump(newPath);
 
     this.redraw();

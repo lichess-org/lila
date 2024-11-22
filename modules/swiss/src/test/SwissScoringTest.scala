@@ -1,5 +1,8 @@
 package lila.swiss
 
+import chess.IntRating
+import chess.rating.RatingProvisional
+
 class SwissScoringTest extends munit.FunSuite:
 
   import SwissScoring.*

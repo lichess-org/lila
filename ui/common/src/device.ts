@@ -44,8 +44,8 @@ export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
 let col1cache: 'init' | 'rec' | boolean = 'init';
 
 export function isCol1(): boolean {
-  if (typeof col1cache == 'string') {
-    if (col1cache == 'init') {
+  if (typeof col1cache === 'string') {
+    if (col1cache === 'init') {
       // only once
       window.addEventListener('resize', () => {
         col1cache = 'rec';
@@ -64,34 +64,32 @@ export function isCol1(): boolean {
 export const isTouchDevice = (): boolean => !hasMouse(); // prefer isTouchDevice()
 // only use other matches for workarounds or specific presentation issues
 
-export const isMobile = (): boolean => isAndroid() || isIOS();
+export const isMobile = (): boolean => isAndroid() || isIos();
 
 export const isAndroid = (): boolean => /Android/.test(navigator.userAgent);
 
-export const isIOS = (constraint?: { below?: number; atLeast?: number }): boolean => {
-  let answer = ios();
-  if (!constraint || !answer) return answer;
-  const version = parseFloat(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8));
-  if (constraint?.below) answer = version < constraint.below;
-  if (answer && constraint?.atLeast) answer = version >= constraint.atLeast;
-  return answer;
-};
+export const isIos: () => boolean = memoize<boolean>(
+  () => /iPhone|iPod/.test(navigator.userAgent) || isIPad(),
+);
 
 export const isIPad = (): boolean =>
   navigator?.maxTouchPoints > 2 && /iPad|Macintosh/.test(navigator.userAgent);
 
 export const isChrome = (): boolean => /Chrome\//.test(navigator.userAgent);
 
-export const isFirefox = (): boolean => /Firefox/.test(navigator.userAgent);
+export type VersionConstraint = { atLeast?: string; below?: string }; // '11', '14.1.x', '127_2_7'
 
-export const getFirefoxMajorVersion = (): number | undefined => {
-  const match = /Firefox\/(\d*)/.exec(navigator.userAgent);
-  return match && match.length > 1 ? parseInt(match[1]) : undefined;
-};
+export const isFirefox = (constraint?: VersionConstraint): boolean =>
+  /Firefox/.test(navigator.userAgent) &&
+  isVersionCompatible(navigator.userAgent.slice(navigator.userAgent.indexOf('Firefox/') + 8), constraint);
 
-export const isSafari = (): boolean => /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+export const isSafari = (constraint?: VersionConstraint): boolean =>
+  /^((?!chrome|android).)*safari/i.test(navigator.userAgent) &&
+  isVersionCompatible(navigator.userAgent.slice(navigator.userAgent.indexOf('Version/') + 8), constraint);
 
-export const isIOSChrome = (): boolean => /CriOS/.test(navigator.userAgent);
+export const isIosSafari = (constraint?: VersionConstraint): boolean => isIos() && isSafari(constraint);
+
+export const isIosChrome = (): boolean => /CriOS/.test(navigator.userAgent);
 
 export const isApple: () => boolean = memoize<boolean>(
   () => /Macintosh|iPhone|iPad|iPod/.test(navigator.userAgent), // macOS or iOS
@@ -99,7 +97,7 @@ export const isApple: () => boolean = memoize<boolean>(
 
 export const shareIcon: () => string = () => (isApple() ? licon.ShareIos : licon.ShareAndroid);
 
-export type Feature = 'wasm' | 'sharedMem' | 'simd';
+export type Feature = 'wasm' | 'sharedMem' | 'simd' | 'dynamicImportFromWorker';
 
 export const hasFeature = (feat?: string): boolean => !feat || features().includes(feat as Feature);
 
@@ -111,21 +109,25 @@ export const features: () => readonly Feature[] = memoize<readonly Feature[]>(()
     WebAssembly.validate(Uint8Array.from([0, 97, 115, 109, 1, 0, 0, 0]))
   ) {
     features.push('wasm');
-    if (sharedMemoryTest()) {
-      features.push('sharedMem');
-      // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
-      const sourceWithSimd = Uint8Array.from([
-        0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7,
-        9, 2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253,
-        1, 11,
-      ]);
-      if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
-    }
+    // i32x4.dot_i16x8_s, i32x4.trunc_sat_f64x2_u_zero
+    const sourceWithSimd = Uint8Array.from([
+      0, 97, 115, 109, 1, 0, 0, 0, 1, 12, 2, 96, 2, 123, 123, 1, 123, 96, 1, 123, 1, 123, 3, 3, 2, 0, 1, 7, 9,
+      2, 1, 97, 0, 0, 1, 98, 0, 1, 10, 19, 2, 9, 0, 32, 0, 32, 1, 253, 186, 1, 11, 7, 0, 32, 0, 253, 253, 1,
+      11,
+    ]);
+    if (WebAssembly.validate(sourceWithSimd)) features.push('simd');
+    if (sharedMemoryTest()) features.push('sharedMem');
   }
+  try {
+    new Worker(
+      URL.createObjectURL(
+        new Blob(["import('data:text/javascript,export default {}')"], { type: 'application/javascript' }),
+      ),
+    ).terminate();
+    features.push('dynamicImportFromWorker');
+  } catch {}
   return Object.freeze(features);
 });
-
-const ios = memoize<boolean>(() => /iPhone|iPod/.test(navigator.userAgent) || isIPad());
 
 const hasMouse = memoize<boolean>(() => window.matchMedia('(hover: hover) and (pointer: fine)').matches);
 
@@ -143,8 +145,30 @@ function sharedMemoryTest(): boolean {
     if (!(mem.buffer instanceof SharedArrayBuffer)) return false;
 
     window.postMessage(mem.buffer, '*');
-  } catch (_) {
+  } catch {
     return false;
   }
   return mem.buffer instanceof SharedArrayBuffer;
+}
+
+export function isVersionCompatible(version: string, vc?: VersionConstraint): boolean {
+  if (!vc) return true;
+  const v = split(version);
+
+  if (vc.atLeast && isGreaterThan(split(vc.atLeast), v)) return false; // atLeast is an inclusive min
+
+  return vc.below ? isGreaterThan(split(vc.below), v) : true; // below is an exclusive max
+
+  function split(v: string): number[] {
+    return v
+      .split(/[._]/)
+      .map(x => parseInt(x) || 0)
+      .concat([0, 0, 0]);
+  }
+  function isGreaterThan(left: number[], right: number[]): boolean {
+    for (let i = 0; i < 3; i++)
+      if (left[i] > right[i]) return true;
+      else if (left[i] < right[i]) return false;
+    return false;
+  }
 }

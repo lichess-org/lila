@@ -14,7 +14,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
       isHost = ctrl.createdByMe(),
       canJoin = ctrl.data.canJoin;
     const variantIconFor = (a: Applicant) => {
-      const variant = ctrl.data.variants.find(v => a.variant == v.key);
+      const variant = ctrl.data.variants.find(v => a.variant === v.key);
       return variant && h('td.variant', { attrs: { 'data-icon': variant.icon } });
     };
     return [

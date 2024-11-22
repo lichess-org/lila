@@ -27,13 +27,13 @@ final class RelayListing(
         local = "_id",
         foreign = "tourId",
         pipe = List(
-          $doc("$match" -> $doc("finished" -> false)),
+          $doc("$match" -> RelayRoundRepo.selectors.finished(false)),
           $doc("$sort"  -> RelayRoundRepo.sort.asc),
           $doc("$limit" -> 1)
         )
       )
       for
-        upcoming <- upcoming.get({})
+        upcoming <- upcomingCache.get({})
         max = 100
         tourIds <- colls.tour.distinctEasy[RelayTourId, List](
           "_id",
@@ -165,7 +165,7 @@ final class RelayListing(
       else tier
     tour.copy(tier = visualTier.orElse(tour.tier))
 
-  val upcoming = cacheApi.unit[List[RelayTour.WithLastRound]]:
+  val upcomingCache = cacheApi.unit[List[RelayTour.WithLastRound]]:
     _.refreshAfterWrite(14 seconds).buildAsyncFuture: _ =>
       val max = 64
       colls.tour
@@ -186,7 +186,7 @@ final class RelayListing(
                   $doc("$limit" -> 1),
                   $doc(
                     "$match" -> $doc(
-                      "finished" -> false,
+                      RelayRoundRepo.selectors.finished(false),
                       $doc(
                         "$or" -> $arr(
                           $doc("startsAt".$gte(nowInstant)),
@@ -223,7 +223,7 @@ final class RelayListing(
         .sort($doc("startedAt" -> -1))
         .one[RelayRound]
       val next = colls.round
-        .find($doc("tourId" -> tourId, "finished" -> false))
+        .find(RelayRoundRepo.selectors.finished(false) ++ RelayRoundRepo.selectors.tour(tourId))
         .sort(sort.asc)
         .one[RelayRound]
       lastStarted.zip(next).flatMap {

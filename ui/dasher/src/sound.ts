@@ -6,6 +6,7 @@ import { header } from './util';
 import { bind } from 'common/snabbdom';
 import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
+import { isSafari } from 'common/device';
 
 type Key = string;
 
@@ -46,6 +47,7 @@ export class SoundCtrl extends PaneCtrl {
               step: 0.01,
               value: site.sound.getVolume(),
               orient: 'vertical',
+              style: isSafari({ below: '18' }) ? 'appearance: slider-vertical' : '',
             },
             hook: {
               insert: vnode => {
@@ -84,11 +86,11 @@ export class SoundCtrl extends PaneCtrl {
 
   private makeList = () => {
     const canSpeech = window.speechSynthesis?.getVoices().length;
-    return this.list.filter(s => s[0] != 'speech' || canSpeech);
+    return this.list.filter(s => s[0] !== 'speech' || canSpeech);
   };
 
   private set = (k: Key) => {
-    site.sound.speech(k == 'speech');
+    site.sound.speech(k === 'speech');
     pubsub.emit('speech.enabled', site.sound.speech());
     if (site.sound.speech()) {
       site.sound.changeSet('standard');

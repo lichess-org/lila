@@ -31,7 +31,7 @@ function page(data: OpeningPage) {
   initMiniBoards();
   highlightNextPieces();
   panels($('.opening__panels'), id => {
-    if (id == 'opening-panel-games') loadExampleGames();
+    if (id === 'opening-panel-games') loadExampleGames();
   });
   searchEngine();
   requestIdleCallback(() => {

@@ -84,7 +84,7 @@ case class Chapter(
     updateRoot(_.setClockAt(clock, path))
       .map(_.updateDenorm)
       .map: chapter =>
-        chapter -> chapter.denorm.map(_.clocks).filter(chapter.denorm != _)
+        chapter -> chapter.denorm.filter(denorm != _).map(_.clocks)
 
   def forceVariation(force: Boolean, path: UciPath): Option[Chapter] =
     updateRoot(_.forceVariationAt(force, path))

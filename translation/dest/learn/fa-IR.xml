@@ -62,7 +62,7 @@
   <string name="pawnComplete">تبریک! هیچ رازی از پیاده ها بر شما پنهان نیست.</string>
   <string name="pawnPromotion">ارتقا پیاده</string>
   <string name="yourPawnReachedTheEndOfTheBoard">پیاده‌تان به عرض آخر رسید!</string>
-  <string name="itNowPromotesToAStrongerPiece">اکنون به مهره نیرومندتری ارتقا می‌یابد.</string>
+  <string name="itNowPromotesToAStrongerPiece">اکنون به مهرهٔ نیرومندتری ارتقا می‌یابد.</string>
   <string name="selectThePieceYouWant">مهره‌ای که می‌خواهید را برگزینید!</string>
   <string name="fundamentals">اصول</string>
   <string name="capture">زدن</string>

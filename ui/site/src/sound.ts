@@ -1,5 +1,5 @@
 import { storage } from 'common/storage';
-import { isIOS } from 'common/device';
+import { isIos } from 'common/device';
 import { throttle } from 'common/timing';
 import { defined } from 'common';
 import { speakable } from 'chess/sanWriter';
@@ -144,7 +144,7 @@ export default new (class implements SoundI {
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
       msg.lang = translated ? document.documentElement.lang : 'en-US';
-      if (!isIOS()) {
+      if (!isIos()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
         msg.onstart = () => this.listeners.forEach(l => l('start', text));
         msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
@@ -162,7 +162,7 @@ export default new (class implements SoundI {
   sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
 
   changeSet = (s: string) => {
-    if (isIOS()) this.ctx?.resume();
+    if (isIos()) this.ctx?.resume();
     this.theme = s;
   };
 

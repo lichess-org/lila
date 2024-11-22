@@ -8,7 +8,7 @@ export const justIcon = (icon: string): VNodeData => ({
 export function parsePossibleMoves(dests?: EncodedDests): Dests {
   const dec = new Map();
   if (!dests) return dec;
-  if (typeof dests == 'string')
+  if (typeof dests === 'string')
     for (const ds of dests.split(' ')) {
       dec.set(ds.slice(0, 2), ds.slice(2).match(/.{2}/g) as Key[]);
     }

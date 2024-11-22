@@ -24,6 +24,13 @@ final class Appeal(env: Env, reportC: => report.Report, userC: => User) extends 
     else notFound
   }
 
+  def closedByTeacher = Auth { ctx ?=> _ ?=>
+    if ctx.isAppealUser || isGranted(_.Appeals) then
+      FoundPage(env.cms.renderKey("account-closed-by-teacher")):
+        views.site.page.lone
+    else notFound
+  }
+
   private def renderAppealOrTree(
       err: Option[Form[String]] = None
   )(using Context)(using me: Me) = env.appeal.api.byId(me).flatMap {

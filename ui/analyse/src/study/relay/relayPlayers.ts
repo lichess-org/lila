@@ -147,7 +147,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
           h('div.relay-tour__player__cards', [
             ...(p.fide?.ratings
               ? ratingCategs.map(([key, name]) =>
-                  h(`div.relay-tour__player__card${key == tc ? '.active' : ''}`, [
+                  h(`div.relay-tour__player__card${key === tc ? '.active' : ''}`, [
                     h('em', name),
                     h('span', [p.fide?.ratings[key] || '-']),
                   ]),
@@ -323,7 +323,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
         playerFed(p.fed),
         ...(p.rating ? [`${p.rating}`, isRelayPlayer(p) ? ratingDiff(p) : undefined] : []),
       ]),
-      isRelayPlayer(p) && p.score != null ? h('div', `${p.score}/${p.played}`) : undefined,
+      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}/${p.played}`) : undefined,
     ]),
   ]);
 
@@ -368,7 +368,13 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           h('td.is.color-icon.' + game.color),
           h(
             'td.tpp__games__status',
-            points ? (points == '1' ? h('good', '1') : points == '0' ? h('bad', '0') : h('span', '½')) : '*',
+            points
+              ? points === '1'
+                ? h('good', '1')
+                : points === '0'
+                  ? h('bad', '0')
+                  : h('span', '½')
+              : '*',
           ),
           h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
         ],

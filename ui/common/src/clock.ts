@@ -11,7 +11,7 @@ export const formatMs = (msTime: number): string => {
 export const otbClockIsRunning = (fen: string): boolean => !fen.includes('PPPPPPPP/RNBQKBNR');
 
 export const lichessClockIsRunning = (fen: string, color: Color): boolean =>
-  color == 'white' ? !fen.includes('PPPPPPPP/RNBQKBNR') : !fen.startsWith('rnbqkbnr/pppppppp');
+  color === 'white' ? !fen.includes('PPPPPPPP/RNBQKBNR') : !fen.startsWith('rnbqkbnr/pppppppp');
 
 export function setClockWidget(el: HTMLElement, opts: Opts): void {
   const instance = data.get(el, 'clock') as ClockWidget;

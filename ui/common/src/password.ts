@@ -7,7 +7,7 @@ export const addPasswordVisibilityToggleListener = (): void => {
       const $input = $wrapper.find('input');
       const type = $input.attr('type') === 'password' ? 'text' : 'password';
       $input.attr('type', type);
-      $button.toggleClass('revealed', type == 'text');
+      $button.toggleClass('revealed', type === 'text');
     });
   });
 };

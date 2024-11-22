@@ -42,11 +42,12 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.3.4"
+    val version  = "16.5.0"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
-    def bundle   = Seq(core, testKit, playJson)
+    val rating   = "org.lichess" %% "scalachess-rating"    % version
+    def bundle   = Seq(core, testKit, playJson, rating)
   }
 
   object scalalib {
@@ -69,7 +70,7 @@ object Dependencies {
   }
 
   object macwire {
-    val version = "2.6.3"
+    val version = "2.6.4"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"

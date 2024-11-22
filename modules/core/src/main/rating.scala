@@ -2,42 +2,8 @@ package lila.core
 package rating
 
 import alleycats.Zero
-
-object data:
-
-  opaque type IntRating = Int
-  object IntRating extends RelaxedOpaqueInt[IntRating]:
-    extension (r: IntRating) def applyDiff(diff: IntRatingDiff): IntRating = r + diff.value
-
-  opaque type IntRatingDiff = Int
-  object IntRatingDiff extends RelaxedOpaqueInt[IntRatingDiff]:
-    given Zero[IntRatingDiff] = Zero(0)
-
-  opaque type Rating = Double
-  object Rating extends OpaqueDouble[Rating]
-
-  opaque type RatingProvisional = Boolean
-  object RatingProvisional extends YesNo[RatingProvisional]
-
-import data.*
-
-case class Glicko(
-    rating: Double,
-    deviation: Double,
-    volatility: Double
-):
-  override def toString    = f"$intRating/$intDeviation/${volatility}%.3f"
-  def intRating: IntRating = IntRating(rating.toInt)
-  def intDeviation         = deviation.toInt
-  def provisional          = RatingProvisional(deviation >= Glicko.provisionalDeviation)
-  def established          = provisional.no
-  def establishedIntRating = Option.when(established)(intRating)
-  def clueless             = deviation >= Glicko.cluelessDeviation
-  def display              = s"$intRating${if provisional.yes then "?" else ""}"
-
-object Glicko:
-  val provisionalDeviation = 110
-  val cluelessDeviation    = 230
+import _root_.chess.IntRating
+import _root_.chess.rating.IntRatingDiff
 
 case class RatingProg(before: IntRating, after: IntRating):
   def diff    = IntRatingDiff(after.value - before.value)
@@ -53,8 +19,8 @@ case class RatingRange(min: IntRating, max: IntRating):
 
 object RatingRange:
 
-  val min = IntRating(400)
-  val max = IntRating(2900)
+  val min: IntRating = IntRating(400)
+  val max: IntRating = IntRating(2900)
 
   val broad   = RatingRange(min, max)
   val default = broad

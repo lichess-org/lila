@@ -27,12 +27,14 @@ export default class Report {
     if (
       !ctrl.session.userId ||
       this.reported ||
-      ctrl.mode != 'view' ||
+      ctrl.mode !== 'view' ||
       ctrl.threatMode() ||
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // if the user has chosen to hide the dialog less than a week ago
-      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
+      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7 ||
+      // dynamic import from web worker feature is shared by all stockfish 16+ WASMs
+      !ctrl.ceval.engines.active?.requires?.includes('dynamicImportFromWorker')
     )
       return;
     const node = ctrl.node;
@@ -40,8 +42,8 @@ export default class Report {
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
     if (
       nextMoveInSolution(node) &&
-      nodeTurn == ctrl.pov &&
-      ctrl.mainline.some((n: Tree.Node) => n.id == node.id)
+      nodeTurn === ctrl.pov &&
+      ctrl.mainline.some((n: Tree.Node) => n.id === node.id)
     ) {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
       // stricly identical to lichess-puzzler v49 check

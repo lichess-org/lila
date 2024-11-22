@@ -136,9 +136,9 @@ def games(
                         case None        => span(cls := "result")("½")
                       ,
                       pov.player.ratingDiff match
-                        case Some(d) if d > 0 => goodTag(s"+$d")
-                        case Some(d) if d < 0 => badTag(d)
-                        case _                => span("-")
+                        case Some(d) if d.positive => goodTag(s"+$d")
+                        case Some(d) if d.negative => badTag(d)
+                        case _                     => span("-")
                     ),
                     assessment match
                       case Some(Left(full)) => td(dataSort := full.analysis.avg)(full.analysis.toString)

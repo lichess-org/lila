@@ -1,5 +1,6 @@
 package lila.web
 
+import chess.IntRating
 import chess.format.pgn.{ Pgn, Tag, Tags }
 import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient

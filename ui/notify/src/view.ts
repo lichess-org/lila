@@ -44,7 +44,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
 
   if (!('Notification' in window))
     nodes.push(h('div.browser-notification', 'Browser does not support notification popups'));
-  else if (Notification.permission == 'denied') nodes.push(notificationDenied());
+  else if (Notification.permission === 'denied') nodes.push(notificationDenied());
 
   return nodes;
 }

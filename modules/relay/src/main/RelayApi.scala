@@ -105,7 +105,7 @@ final class RelayApi(
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour.id).dmap(tour.withRounds)
 
   def denormalizeTour(tourId: RelayTourId): Funit =
-    val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ $doc("finished" -> false)
+    val unfinished = RelayRoundRepo.selectors.tour(tourId) ++ RelayRoundRepo.selectors.finished(false)
     for
       active <- roundRepo.coll.exists(unfinished)
       live   <- active.so(roundRepo.coll.exists(unfinished ++ $doc("startedAt".$exists(true))))
@@ -325,7 +325,7 @@ final class RelayApi(
           .so(sendToContributors(round.id, "relaySync", jsonView.sync(round)))
         _                <- denormalizeTour(round.tourId)
         nextRoundToStart <- round.isFinished.so(nextRoundThatStartsAfterThisOneCompletes(round))
-        _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nexRoundToStart"))
+        _ <- nextRoundToStart.so(next => requestPlay(next.id, v = true, "update->nextRoundToStart"))
       yield
         round.sync.log.events.lastOption
           .ifTrue(round.sync.log != from.sync.log)
@@ -355,7 +355,7 @@ final class RelayApi(
     WithRelay(old.id) { relay =>
       for
         _ <- studyApi.deleteAllChapters(relay.studyId, me)
-        _ <- roundRepo.coll.updateField($id(relay.id), "finished", false)
+        _ <- roundRepo.coll.unsetField($id(relay.id), "finishedAt")
         _ <- old.hasStartedEarly.so:
           roundRepo.coll.unsetField($id(relay.id), "startedAt").void
         _ <- roundRepo.coll.update.one($id(relay.id), $set("sync.log" -> $arr()))
@@ -489,15 +489,15 @@ final class RelayApi(
   private[relay] def autoFinishNotSyncing(onlyIds: Option[List[RelayTourId]] = None): Funit =
     roundRepo.coll
       .list[RelayRound]:
-        $doc(
-          "sync.until".$exists(false),
-          "finished" -> false,
-          "startedAt".$lt(nowInstant.minusHours(3)),
-          $or(
-            "startsAt".$exists(false),
-            "startsAt".$lt(nowInstant)
-          )
-        ) ++ onlyIds.so(ids => $doc("tourId".$in(ids)))
+        RelayRoundRepo.selectors.finished(false) ++
+          $doc(
+            "sync.until".$exists(false),
+            "startedAt".$lt(nowInstant.minusHours(3)),
+            $or(
+              "startsAt".$exists(false),
+              "startsAt".$lt(nowInstant)
+            )
+          ) ++ onlyIds.so(ids => $doc("tourId".$in(ids)))
       .flatMap:
         _.sequentiallyVoid: relay =>
           logger.info(s"Automatically finish $relay")
