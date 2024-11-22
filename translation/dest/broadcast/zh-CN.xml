@@ -47,4 +47,7 @@
   <string name="ageThisYear">今年的年龄</string>
   <string name="unrated">未评级</string>
   <string name="recentTournaments">最近的比赛</string>
+  <string name="upcomingBroadcasts">即将开始的转播</string>
+  <string name="pastBroadcasts">结束的转播</string>
+  <string name="allBroadcastsByMonth">按月查看所有转播</string>
 </resources>
