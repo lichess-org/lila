@@ -2,7 +2,7 @@ package lila.mod
 package ui
 
 import lila.core.config.NetDomain
-import lila.report.{ Reason, Report }
+import lila.report.Report
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
