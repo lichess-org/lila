@@ -72,21 +72,21 @@ export default new (class implements SoundI {
 
   async move(o?: SoundMoveOpts) {
     const volume = o?.volume ?? 1;
-    if (o?.filter !== 'music' && this.theme !== 'music') {
-      if (o?.name) this.throttled(o.name, volume);
-      else {
-        if (o?.san?.includes('x')) this.throttled('capture', volume);
-        else this.throttled('move', volume);
-        if (o?.san?.includes('#')) {
-          this.throttled('checkmate', volume);
-        } else if (o?.san?.includes('+')) {
-          this.throttled('check', volume);
-        }
+    if (this.theme === 'music') {
+      this.music ??= await site.asset.loadEsm<SoundMove>('bits.soundMove');
+      this.music(o);
+      return;
+    }
+    if (o?.name) this.throttled(o.name, volume);
+    else {
+      if (o?.san?.includes('x')) this.throttled('capture', volume);
+      else this.throttled('move', volume);
+      if (o?.san?.includes('#')) {
+        this.throttled('checkmate', volume);
+      } else if (o?.san?.includes('+')) {
+        this.throttled('check', volume);
       }
     }
-    if (o?.filter === 'game' || this.theme !== 'music') return;
-    this.music ??= await site.asset.loadEsm<SoundMove>('bits.soundMove');
-    this.music(o);
   }
 
   async playAndDelayMateResultIfNecessary(name: Name): Promise<void> {

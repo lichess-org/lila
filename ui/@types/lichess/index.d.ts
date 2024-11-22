@@ -91,7 +91,6 @@ type SoundMoveOpts = {
   san?: string;
   uci?: string;
   volume?: number;
-  filter?: 'music' | 'game';
 };
 
 type SoundMove = (opts?: SoundMoveOpts) => void;

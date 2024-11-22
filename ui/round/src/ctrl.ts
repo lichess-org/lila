@@ -169,12 +169,14 @@ export default class RoundController implements MoveRootCtrl {
   };
 
   private onMove = (orig: Key, dest: Key, captured?: Piece) => {
-    if (captured || this.enpassant(orig, dest)) {
-      if (this.data.game.variant.key === 'atomic') {
-        site.sound.play('explosion');
-        atomic.capture(this, dest);
-      } else site.sound.move({ name: 'capture', filter: 'game' });
-    } else site.sound.move({ name: 'move', filter: 'game' });
+    if ((captured || this.enpassant(orig, dest)) && this.data.game.variant.key === 'atomic') {
+      site.sound.play('explosion');
+      atomic.capture(this, dest);
+      return;
+    }
+    const san = sanOf(readFen(this.stepAt(this.ply - 1).fen), orig + dest);
+    site.sound.move({ san, uci: orig + dest });
+    site.sound.saySan(san);
   };
 
   private startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
@@ -490,8 +492,6 @@ export default class RoundController implements MoveRootCtrl {
     this.autoScroll();
     this.onChange();
     this.pluginUpdate(step.fen);
-    if (!this.opts.local) site.sound.move({ ...o, filter: 'music' });
-    site.sound.saySan(step.san);
     return true; // prevents default socket pubsub
   };
 
