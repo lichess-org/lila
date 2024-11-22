@@ -8,7 +8,7 @@ export const playable = (data: GameData): boolean => data.game.status.id < ids.a
 export const isPlayerPlaying = (data: GameData): boolean => playable(data) && !data.player.spectator;
 
 export const isPlayerTurn = (data: GameData): boolean =>
-  isPlayerPlaying(data) && data.game.player == data.player.color;
+  isPlayerPlaying(data) && data.game.player === data.player.color;
 
 export const mandatory = (data: GameData): boolean => !!data.tournament || !!data.simul || !!data.swiss;
 
@@ -79,7 +79,7 @@ export const setGone = (data: GameData, color: Color, gone: number | boolean): v
 };
 
 export const nbMoves = (data: GameData, color: Color): number =>
-  Math.floor((playedTurns(data) + (color == 'white' ? 1 : 0)) / 2);
+  Math.floor((playedTurns(data) + (color === 'white' ? 1 : 0)) / 2);
 
 export const isSwitchable = (data: GameData): boolean =>
   !hasAi(data) && (!!data.simul || isCorrespondence(data));

@@ -24,7 +24,7 @@ function tournamentClass(tour: Tournament, day: Date): Classes {
 const iconOf = (tour: Tournament) =>
   tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key];
 
-const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
+const startDirection = () => (document.dir === 'rtl' ? 'right' : 'left');
 
 function renderTournament(tour: Tournament, day: Date) {
   let left = ((getHours(tour.bounds.start) + getMinutes(tour.bounds.start) / 60) / 24) * 100;

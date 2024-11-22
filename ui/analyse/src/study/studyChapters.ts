@@ -95,7 +95,7 @@ export default class StudyChaptersCtrl {
       node = d.n;
     const cp = this.list.get(pos.chapterId);
     if (cp) {
-      const onRelayPath = d.relayPath == d.p.path + d.n.id;
+      const onRelayPath = d.relayPath === d.p.path + d.n.id;
       if (onRelayPath || !d.relayPath) {
         cp.fen = node.fen;
         cp.lastMove = node.uci;

@@ -158,6 +158,7 @@ object Modlog:
   val disableTwoFactor    = "disableTwoFactor"
   val closeAccount        = "closeAccount"
   val selfCloseAccount    = "selfCloseAccount"
+  val teacherCloseAccount = "teacherCloseAccount"
   val reopenAccount       = "reopenAccount"
   val deletePost          = "deletePost"
   val openTopic           = "openTopic"

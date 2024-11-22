@@ -138,7 +138,7 @@ site.load.then(() => {
           threadParticipants.then(function (participants) {
             const forumParticipantCandidates = searchCandidates(term, participants);
 
-            if (forumParticipantCandidates.length != 0) {
+            if (forumParticipantCandidates.length !== 0) {
               // We always prefer a match on the forum thread participants' usernames
               callback(forumParticipantCandidates);
             } else if (term.length >= 3) {

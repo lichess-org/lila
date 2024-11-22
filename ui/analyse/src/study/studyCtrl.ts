@@ -502,7 +502,7 @@ export default class StudyCtrl {
   nextChapter = () => this.deltaChapter(+1);
   hasNextChapter = () => {
     const chs = this.chapters.list.all();
-    return chs[chs.length - 1].id != this.vm.chapterId;
+    return chs[chs.length - 1].id !== this.vm.chapterId;
   };
 
   isUpdatedRecently = () => Date.now() - this.vm.updatedAt < 300 * 1000;

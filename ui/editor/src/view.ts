@@ -49,7 +49,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
 function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
-    { attrs: { value: key, selected: key == ctrl.rules } },
+    { attrs: { value: key, selected: key === ctrl.rules } },
     `${i18n.site.variant} | ${name}`,
   );
 }
@@ -163,7 +163,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
             const value =
               (
                 ctrl.cfg.positions.find(p => p.fen.startsWith(epd)) ||
-                ctrl.cfg.endgamePositions.find(p => p.epd == epd)
+                ctrl.cfg.endgamePositions.find(p => p.epd === epd)
               )?.epd || '';
             return h(
               'select.positions',

@@ -187,5 +187,5 @@ export class ClockController {
 }
 
 function simplePlural(nb: number, word: string) {
-  return `${nb} ${word}${nb != 1 ? 's' : ''}`;
+  return `${nb} ${word}${nb !== 1 ? 's' : ''}`;
 }

@@ -86,11 +86,11 @@ export class SoundCtrl extends PaneCtrl {
 
   private makeList = () => {
     const canSpeech = window.speechSynthesis?.getVoices().length;
-    return this.list.filter(s => s[0] != 'speech' || canSpeech);
+    return this.list.filter(s => s[0] !== 'speech' || canSpeech);
   };
 
   private set = (k: Key) => {
-    site.sound.speech(k == 'speech');
+    site.sound.speech(k === 'speech');
     pubsub.emit('speech.enabled', site.sound.speech());
     if (site.sound.speech()) {
       site.sound.changeSet('standard');

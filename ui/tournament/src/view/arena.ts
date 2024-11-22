@@ -16,7 +16,7 @@ const renderScoreString = (scoreString: string, streakable: boolean) => {
   const nodes = [];
   let streak = 0;
   for (const v of values) {
-    const win = v == 2 ? streak < 2 : v > 2;
+    const win = v === 2 ? streak < 2 : v > 2;
     const tag = streak > 1 && v > 1 ? 'double' : win ? 'streak' : 'score';
     if (win) {
       streak++;

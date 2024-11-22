@@ -103,3 +103,24 @@
     font-weight: bold;
   }
 }
+
+@media (max-width: at-most($large)) {
+  .mod-timeline {
+    padding: 1em;
+  }
+  .mod-timeline__period {
+    display: block;
+    h3 {
+      line-height: 2em;
+    }
+  }
+  .mod-timeline__event {
+    padding: 0;
+  }
+  .mod-timeline__event__flair {
+    display: none;
+  }
+  .mod-timeline__event__body {
+    margin: 0;
+  }
+}

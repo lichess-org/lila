@@ -323,7 +323,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
         playerFed(p.fed),
         ...(p.rating ? [`${p.rating}`, isRelayPlayer(p) ? ratingDiff(p) : undefined] : []),
       ]),
-      isRelayPlayer(p) && p.score != null ? h('div', `${p.score}/${p.played}`) : undefined,
+      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}/${p.played}`) : undefined,
     ]),
   ]);
 

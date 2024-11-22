@@ -109,7 +109,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     stored &&
     $menu.children(`[data-panel="${stored}"]`).filter(function (this: HTMLElement) {
       const display = window.getComputedStyle(this).display;
-      return !!display && display != 'none';
+      return !!display && display !== 'none';
     }).length;
   if (foundStored) setPanel(stored);
   else {

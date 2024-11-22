@@ -49,4 +49,4 @@ export const withLinebreaks = (text: string) =>
 export const decomposeUci = (uci: string) =>
   [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)] as [SquareName, SquareName, PromotionChar | ''];
 
-export const oppColor = (color: Color): Color => (color == 'white' ? 'black' : 'white');
+export const oppColor = (color: Color): Color => (color === 'white' ? 'black' : 'white');
