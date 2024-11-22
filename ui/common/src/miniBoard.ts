@@ -64,7 +64,7 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
       setClockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
-        pause: color != turnColor || !lichessClockIsRunning(fen, color),
+        pause: color !== turnColor || !lichessClockIsRunning(fen, color),
       });
     }),
   );
@@ -92,7 +92,7 @@ export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): voi
     if (clockEl && !isNaN(time!))
       setClockWidget(clockEl, {
         time: time!,
-        pause: color != turnColor || !lichessClockIsRunning(data.fen, color),
+        pause: color !== turnColor || !lichessClockIsRunning(data.fen, color),
       });
   };
   updateClock(data.wc, 'white');

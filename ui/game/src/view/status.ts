@@ -54,7 +54,7 @@ export default function status(ctrl: Ctrl): string {
     case 'mate':
       return i18n.site.checkmate + winnerSuffix;
     case 'resign':
-      return i18n.site[d.game.winner == 'white' ? 'blackResigned' : 'whiteResigned'] + winnerSuffix;
+      return i18n.site[d.game.winner === 'white' ? 'blackResigned' : 'whiteResigned'] + winnerSuffix;
     case 'stalemate':
       return i18n.site.stalemate + winnerSuffix;
     case 'timeout':
@@ -80,7 +80,7 @@ export default function status(ctrl: Ctrl): string {
         winnerSuffix || ` • ${i18n.site.draw}`
       }`;
     case 'noStart':
-      return (d.game.winner == 'white' ? i18n.site.blackDidntMove : i18n.site.whiteDidntMove) + winnerSuffix;
+      return (d.game.winner === 'white' ? i18n.site.blackDidntMove : i18n.site.whiteDidntMove) + winnerSuffix;
     case 'cheat':
       return i18n.site.cheatDetected + winnerSuffix;
     case 'variantEnd':

@@ -121,7 +121,8 @@ async function boot(
       opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));
       if (myUserId())
         chatOpts.instance.listenToIncoming(line => {
-          if (line.u == 'lichess' && line.t.toLowerCase().startsWith(`warning, ${myUserId()}`)) alert(line.t);
+          if (line.u === 'lichess' && line.t.toLowerCase().startsWith(`warning, ${myUserId()}`))
+            alert(line.t);
         });
     }
   }

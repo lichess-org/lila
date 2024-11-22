@@ -234,13 +234,13 @@ function builder(storage: Storage): LichessStorageHelper {
       };
     },
     boolean: (k: string) => ({
-      get: () => api.get(k) == '1',
+      get: () => api.get(k) === '1',
       getOrDefault: (defaultValue: boolean) => {
         const stored = api.get(k);
-        return stored === null ? defaultValue : stored == '1';
+        return stored === null ? defaultValue : stored === '1';
       },
       set: (v: boolean): void => api.set(k, v ? '1' : '0'),
-      toggle: () => api.set(k, api.get(k) == '1' ? '0' : '1'),
+      toggle: () => api.set(k, api.get(k) === '1' ? '0' : '1'),
     }),
   };
   return api;

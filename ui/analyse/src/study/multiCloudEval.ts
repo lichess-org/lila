@@ -69,7 +69,7 @@ export class MultiCloudEval {
         const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
         this.send('evalGetMulti', {
           fens: Array.from(fensToRequest),
-          ...(variant != 'standard' ? { variant } : {}),
+          ...(variant !== 'standard' ? { variant } : {}),
         });
       }
     }

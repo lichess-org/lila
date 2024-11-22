@@ -44,9 +44,9 @@ export default class SwissCtrl {
     this.redrawNbRounds();
   };
 
-  isCreated = () => this.data.status == 'created';
-  isStarted = () => this.data.status == 'started';
-  isFinished = () => this.data.status == 'finished';
+  isCreated = () => this.data.status === 'created';
+  isStarted = () => this.data.status === 'started';
+  isFinished = () => this.data.status === 'finished';
 
   myGameId = () => this.data.me?.gameId;
 
@@ -100,7 +100,7 @@ export default class SwissCtrl {
       this.page = data.page;
       this.searching = false;
       this.focusOnMe = false;
-      this.pages[this.page].filter(p => p.user.id == userId).forEach(this.showPlayerInfo);
+      this.pages[this.page].filter(p => p.user.id === userId).forEach(this.showPlayerInfo);
       this.redraw();
     });
   };

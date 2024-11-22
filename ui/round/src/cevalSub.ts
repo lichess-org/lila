@@ -12,7 +12,7 @@ export function subscribe(ctrl: RoundController): void {
   // allow everyone to cheat against the AI
   if (ctrl.data.opponent.ai) return;
   // bots can cheat alright
-  if (ctrl.data.player.user?.title == 'BOT') return;
+  if (ctrl.data.player.user?.title === 'BOT') return;
 
   // Notify tabs to disable ceval. Unless this game is loaded directly on a
   // position being analysed, there is plenty of time (7 moves, in most cases)

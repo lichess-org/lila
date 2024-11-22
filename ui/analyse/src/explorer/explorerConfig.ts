@@ -55,7 +55,7 @@ export class ExplorerConfigCtrl {
   ) {
     this.myName = myUserId();
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
-      name => name && name != this.myName,
+      name => name && name !== this.myName,
     );
     if (variant === 'standard') this.allDbs.unshift('masters');
     const byDbData = {} as ByDbSettings;

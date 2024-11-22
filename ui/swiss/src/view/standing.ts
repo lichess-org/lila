@@ -11,13 +11,13 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     'tr',
     {
       key: userId,
-      class: { me: ctrl.data.me?.id == userId, active: ctrl.playerInfoId === userId },
+      class: { me: ctrl.data.me?.id === userId, active: ctrl.playerInfoId === userId },
       hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw),
     },
     [
       h(
         'td.rank',
-        player.absent && ctrl.data.status != 'finished'
+        player.absent && ctrl.data.status !== 'finished'
           ? h('i', { attrs: { 'data-icon': licon.Pause, title: 'Absent' } })
           : [player.rank],
       ),

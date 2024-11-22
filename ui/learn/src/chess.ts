@@ -144,7 +144,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       const maybeCapture = findCaptures(pos).find(capture => {
         const clone = cloneWithCtx(pos);
         clone.play({ from: capture.from, to: capture.to });
-        return !findCaptures(clone).find(m => m.to == capture.to);
+        return !findCaptures(clone).find(m => m.to === capture.to);
       });
       return maybeCapture ? moveToCgMove(maybeCapture) : undefined;
     },
@@ -153,10 +153,10 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       const color = pos.turn;
       setColor(oppColor(color));
       const checks = moves(pos)
-        .filter(m => pos.board.get(m.to)?.role == 'king')
+        .filter(m => pos.board.get(m.to)?.role === 'king')
         .map(moveToCgMove);
       setColor(color);
-      return checks.length == 0 ? undefined : checks;
+      return checks.length === 0 ? undefined : checks;
     },
     playRandomMove: () => {
       const all = moves(pos);

@@ -102,7 +102,7 @@ export default class RacerCtrl implements PuzCtrl {
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    if (data.startsIn && this.status() == 'pre') {
+    if (data.startsIn && this.status() === 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
       this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
@@ -114,18 +114,18 @@ export default class RacerCtrl implements PuzCtrl {
 
   players = () => this.data.players;
 
-  isPlayer = () => !this.vm.alreadyStarted && this.data.players.some(p => p.name == this.data.player.name);
+  isPlayer = () => !this.vm.alreadyStarted && this.data.players.some(p => p.name === this.data.player.name);
 
   raceFull = () => this.data.players.length >= 10;
 
   status = (): RaceStatus => (this.run.clock.started() ? (this.run.clock.flag() ? 'post' : 'racing') : 'pre');
 
-  isRacing = () => this.status() == 'racing';
+  isRacing = () => this.status() === 'racing';
 
   isOwner = () => this.data.owner;
 
   myScore = (): number | undefined => {
-    const p = this.data.players.find(p => p.name == this.data.player.name);
+    const p = this.data.players.find(p => p.name === this.data.player.name);
     return p?.score;
   };
 
@@ -138,7 +138,7 @@ export default class RacerCtrl implements PuzCtrl {
   });
 
   countdownSeconds = (): number | undefined =>
-    this.status() == 'pre' && this.vm.startsAt && this.vm.startsAt > new Date()
+    this.status() === 'pre' && this.vm.startsAt && this.vm.startsAt > new Date()
       ? Math.min(10, Math.ceil((this.vm.startsAt.getTime() - Date.now()) / 1000))
       : undefined;
 

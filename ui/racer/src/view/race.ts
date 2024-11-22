@@ -19,7 +19,7 @@ export const renderRace = (ctrl: RacerCtrl) => {
   const myName = ctrl.player().name;
   const tracks: VNodes = [];
   players.forEach((p, i) => {
-    const isMe = p.name == myName;
+    const isMe = p.name === myName;
     const track = renderTrack(relative, isMe, bestScore, ctrl.boost, p, i);
     if (isMe) tracks.unshift(track);
     else tracks.push(track);
@@ -44,7 +44,7 @@ const renderTrack = (
     {
       class: {
         'racer__race__track--me': isMe,
-        'racer__race__track--first': !!player.score && player.score == bestScore,
+        'racer__race__track--first': !!player.score && player.score === bestScore,
         'racer__race__track--boost': boost.isBoosting(index),
       },
     },
