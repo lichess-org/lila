@@ -24,7 +24,7 @@ final class PerfsUpdater(
       .flatMap:
         if _ then fuccess(none)
         else if farming.newAccountBoosting(game, users) then fuccess(none)
-        else calculateRatingAndPerfs(game, users).fold(fuccess(none))(saveRatings(_, _, _, _, _, _))
+        else calculateRatingAndPerfs(game, users).fold(fuccess(none))(saveRatings)
 
   private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]) =
     for
