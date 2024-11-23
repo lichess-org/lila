@@ -7,20 +7,16 @@ import ScalatagsTemplate.{ *, given }
 import lila.mod.Modlog
 import lila.appeal.AppealMsg
 import lila.user.Note
-import lila.report.Report
-import lila.playban.TempBan
-import java.time.LocalDate
 import lila.core.config.NetDomain
 import lila.core.userId.ModId
 import lila.shutup.{ PublicLine, Analyser }
 import lila.core.shutup.PublicSource
 import lila.core.i18n.Translate
-import lila.core.id.RelayRoundId
 
 final class ModTimelineUi(helpers: Helpers)(
     publicLineSource: PublicSource => Translate ?=> Frag
 )(using NetDomain):
-  import helpers.{ *, given }
+  import helpers.*
   import ModTimeline.*
 
   def renderGeneral(t: ModTimeline)(using Translate) = render(t)(using Angle.None)
@@ -103,8 +99,6 @@ final class ModTimelineUi(helpers: Helpers)(
 
   private def renderReportNew(r: ReportNewAtom)(using Translate) =
     import r.*
-    val reporters = r.atoms.toList.map: atom =>
-      userIdLink(atom.by.some, withOnline = false)
     frag(
       if r.atoms.size == 1 && r.atoms.forall(_.by.is(UserId.lichess))
       then renderMod(UserId.lichess.into(ModId))

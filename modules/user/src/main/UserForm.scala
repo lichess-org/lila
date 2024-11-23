@@ -6,7 +6,6 @@ import lila.common.Form.{
   cleanNoSymbolsAndNonEmptyText,
   cleanNoSymbolsText,
   cleanNonEmptyText,
-  cleanText,
   cleanTextWithSymbols,
   into,
   playerTitle
