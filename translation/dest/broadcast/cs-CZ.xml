@@ -51,4 +51,18 @@
   <string name="ageThisYear">Věk tento rok</string>
   <string name="unrated">Nehodnocen</string>
   <string name="recentTournaments">Nedávné tournamenty</string>
+  <string name="openLichess">Otevřít v Lichess</string>
+  <string name="teams">Týmy</string>
+  <string name="boards">Šachovnice</string>
+  <string name="overview">Přehled</string>
+  <string name="uploadImage">Nahrát obrázek turnaje</string>
+  <string name="noBoardsYet">Zatím žádné šachovnice. Ty se zobrazí se po nahrání partií.</string>
+  <string name="startsAfter">Začíná po %s</string>
+  <string name="startVerySoon">Vysílání začne velmi brzy.</string>
+  <string name="notYetStarted">Vysílání ještě nezačalo.</string>
+  <string name="officialWebsite">Oficiální stránka</string>
+  <string name="standings">Pořadí</string>
+  <string name="officialStandings">Oficiální pořadí</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Více možností na %s</string>
+  <string name="score">Skóre</string>
 </resources>
