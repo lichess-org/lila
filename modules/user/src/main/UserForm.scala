@@ -42,7 +42,7 @@ final class UserForm:
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
-      "cfcRating"  -> optional(number(min = 0, max = 3000)),
+      "cfcRating"  -> optional(number(min = 200, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
       "links"      -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 3000))
     )(Profile.apply)(unapply)
