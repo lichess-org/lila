@@ -101,12 +101,16 @@ object Form:
     addLengthConstraints(cleanTextWithSymbols, minLength, maxLength)
 
   def cleanFewSymbolsText(
-    minLength: Int = 0, maxLength: Int = Int.MaxValue, maxSymbols: Int = 0
+      minLength: Int = 0,
+      maxLength: Int = Int.MaxValue,
+      maxSymbols: Int = 0
   ): Mapping[String] =
     cleanTextWithSymbols(minLength, maxLength).verifying(fewSymbolsConstraint(maxSymbols))
 
   def cleanFewSymbolsAndNonEmptyText(
-    minLength: Int = 0, maxLength: Int = Int.MaxValue, maxSymbols: Int = 0
+      minLength: Int = 0,
+      maxLength: Int = Int.MaxValue,
+      maxSymbols: Int = 0
   ): Mapping[String] =
     cleanFewSymbolsText(minLength, maxLength, maxSymbols).verifying(nonEmptyOrSpace)
 
@@ -119,9 +123,11 @@ object Form:
     raw"[\p{So}\p{block=Emoticons}\p{block=Miscellaneous Symbols and Pictographs}\p{block=Supplemental Symbols and Pictographs}]".r
 
   def fewSymbolsConstraint(maxSymbols: Int): V.Constraint[String] = V.Constraint[String] { t =>
-    if symbolsRegex.findAllMatchIn(t).size > maxSymbols then V.Invalid(
-      V.ValidationError(s"Must not contain more than $maxSymbols emojis or other symbols")
-    ) else V.Valid
+    if symbolsRegex.findAllMatchIn(t).size > maxSymbols then
+      V.Invalid(
+        V.ValidationError(s"Must not contain more than $maxSymbols emojis or other symbols")
+      )
+    else V.Valid
   }
 
   val slugConstraint: V.Constraint[String] =
