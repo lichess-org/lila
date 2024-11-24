@@ -173,6 +173,7 @@
   <string name="latestForumPosts">Ахирисел форумалъул публикацияби</string>
   <string name="players">ХӀалел</string>
   <string name="friends">Гьудулзаби</string>
+  <string name="otherPlayers">цогидал хӀалел</string>
   <string name="discussions">Гара-чӀвариял</string>
   <string name="today">Жакъа</string>
   <string name="yesterday">Сон</string>
@@ -252,6 +253,7 @@
     <item quantity="one">%s мунгун хӀай</item>
     <item quantity="other">%s мунгун хӀай</item>
   </plurals>
+  <string name="ok">ЛъикӀ</string>
   <string name="cancel">ГьабичӀого тезе</string>
   <string name="whiteTimeOut">ХъахӀазул заман тӀагӀана</string>
   <string name="blackTimeOut">ЧӀегӀеразул заман тӀагӀана</string>
@@ -494,7 +496,9 @@
   <string name="ifNoneLeaveEmpty">ГьечӀеб батани, чӀобого те</string>
   <string name="profile">Дур гьумер</string>
   <string name="editProfile">Дур гьумер хисизе</string>
+  <string name="realName">Унгояб цӀар</string>
   <string name="biography">ГӀумрухъвай</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Улка яги мухъ</string>
   <string name="thankYou">Баркала!</string>
   <string name="socialMediaLinks">Социалиял медиабазул бухьенал</string>
   <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
@@ -519,6 +523,8 @@
   <string name="descPrivateHelp">ЦохӀо къокъаялда бихьизе бугеб бицин. Гъун батани, халкъияб бицин къокъадул лугбазе хисула.</string>
   <string name="no">Гуро</string>
   <string name="yes">У</string>
+  <string name="website">Сайт</string>
+  <string name="mobile">Мобилияб</string>
   <string name="help">Квербакъи:</string>
   <string name="createANewTopic">ЦӀияб тема гьабизе</string>
   <string name="topics">Темаби</string>
@@ -749,6 +755,11 @@
   <string name="transparent">Гъорлъан канлъи бихьулеб</string>
   <string name="deviceTheme">Девайсалъул куц</string>
   <string name="backgroundImageUrl">НахъабакӀалъул сураталъул URL:</string>
+  <string name="board">Хъарщи</string>
+  <string name="size">КӀодолъи</string>
+  <string name="opacity">Гъорлъан канлъи бихьулареблъи</string>
+  <string name="brightness">Гвангъи</string>
+  <string name="hue">Кьералъул къуват</string>
   <string name="pieceSet">Кескил куц</string>
   <string name="embedInYourWebsite">Дур сайталда лъезе</string>
   <string name="usernameAlreadyUsed">Гьеб хӀалтӀизабулесда цӀар ккун буго, хӀалбихье цогидаб.</string>
