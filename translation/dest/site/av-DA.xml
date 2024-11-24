@@ -651,7 +651,7 @@
   <string name="aboutSimulImage">50 хӀаялдаса Фишер бергьана 47-ялда, ващад ккан 2-ялда, къуна 1-ялда.</string>
   <string name="aboutSimulRules">Сеанс байбихьараб мехалъ щивав хӀалев чи сеанс гьабуравгун хӀаялде лъугьуна. Сеанс лъугӀула кинабго хӀай лъугӀараб мехалъ.</string>
   <string name="create">Гьабизе</string>
-  <string name="whenCreateSimul">Дуца сеанс гьабуни, мун чангоязда данде цого заманалда хӀазе ккола.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Дуца сеанс гьабуни, мун чангоязда данде цого заманалда хӀазе ккола.</string>
   <string name="simulHostExtraTime">Хосталъул тӀаде жубалеб заман</string>
   <string name="simulHostExtraTimePerPlayer">Щивав хӀалесе хосталъул тӀаде жубалеб заман</string>
   <string name="lichessTournaments">Lichess турнирал</string>
@@ -830,7 +830,7 @@
   <string name="wishYouGreatGames">цӀакъал хӀаял кьеги дуе lichess.org-алда.</string>
   <string name="thankYouForReading">ЦӀаларалъухъ баркала!</string>
   <string name="currentMatchScore">Гьанжесеб мачалъул рикӀкӀин</string>
-  <string name="agreementAssistance">Дун рази вуго дица дир хӀаязда квербакъи босичӀого тезе (шахматазул компутералдаса, тӀехьалдаса, яги цогидал чиясдаса).</string>
+  <string name="agreementAssistance">Дун рази вуго дица дир хӀаязда квербакъи босичӀого тезе (шахматазул компутералдаса, тӀехьалдаса, яги цогидав чиясдаса).</string>
   <string name="agreementNice">Дун рузи вуго цогидал хӀалезул хӀурмат гьабулев вукӀине.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Дун рази вуго дица чанги аккаунт гьабичӀого тезе (%s-да рехсарал гӀиллабаз гурони).</string>
   <string name="agreementPolicy">Дун рази вуго Lichess-алъул къагӀидаби цӀунизе.</string>
