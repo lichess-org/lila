@@ -24,7 +24,12 @@
   <string name="wantReport">എനിക്കൊരു കളിക്കാരനെ കുറ്റപെടുത്തണം</string>
   <string name="doNotReportInForum">കളിക്കാരേ ചർച്ചാവേദിയിൽ കുറ്റപെടരുതു്.</string>
   <string name="doNotSendReportEmails">ഞങ്ങളേ കുറ്റാരോപണ ഇമെയിലുകൾ അയക്കരുതു്.</string>
+  <string name="reportBugInDiscord">Lichess ഡിസ്ക്കോർടു് ദായിനിയിൽ</string>
+  <string name="errorPage">പിഴതാൾ</string>
+  <string name="sendAppealTo">താങ്ങൾക്കു് %s-ന് ഒരു അപേക്ഷ അയക്കാം.</string>
+  <string name="otherRestriction">മറ്റു് അതിരിടലുകൾ</string>
   <string name="buyingLichess">Lichess വാങ്ങൽ</string>
+  <string name="authorizationToUse">Lichess ഉപയോഗിക്കാൻ അനുമതി</string>
   <string name="noneOfTheAbove">മുകളിൽ കൊടുത്തിരിക്കുന്നതിൽ ഒന്നുമല്ല</string>
   <string name="sendEmailAt">ഞങ്ങളേയൊരു ഇമെയിൽ ഇവിടേ അയക്കുക: %s.</string>
 </resources>
