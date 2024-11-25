@@ -43,6 +43,7 @@ const themes: string[] = [
     'shapes',
     'letter',
     'disguised',
+    'mini',
   ],
 ];
 
