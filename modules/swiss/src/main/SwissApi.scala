@@ -88,37 +88,35 @@ final class SwissApi(
         if old.isCreated || old.settings.position.isDefined then
           data.realVariant.standard.so(data.realPosition)
         else old.settings.position
-      val swiss =
-        old
-          .copy(
-            name = data.name | old.name,
-            clock = if old.isCreated then data.clock else old.clock,
-            variant = if old.isCreated && data.variant.isDefined then data.realVariant else old.variant,
-            startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
-            nextRoundAt =
-              if old.isCreated then Some(data.startsAt | old.startsAt)
-              else old.nextRoundAt,
-            settings = old.settings.copy(
-              nbRounds = data.nbRounds,
-              rated = position.isEmpty && (data.rated | old.settings.rated),
-              description = data.description.orElse(old.settings.description),
-              position = position,
-              chatFor = data.chatFor | old.settings.chatFor,
-              roundInterval =
-                if data.roundInterval.isDefined then data.realRoundInterval
-                else old.settings.roundInterval,
-              password = data.password,
-              conditions = data.conditions,
-              forbiddenPairings = ~data.forbiddenPairings,
-              manualPairings = ~data.manualPairings
-            )
+      val swiss = old
+        .copy(
+          name = data.name | old.name,
+          clock = if old.isCreated then data.clock else old.clock,
+          variant = if old.isCreated && data.variant.isDefined then data.realVariant else old.variant,
+          startsAt = data.startsAt.ifTrue(old.isCreated) | old.startsAt,
+          nextRoundAt =
+            if old.isCreated then Some(data.startsAt | old.startsAt)
+            else old.nextRoundAt,
+          settings = old.settings.copy(
+            nbRounds = data.nbRounds,
+            rated = position.isEmpty && (data.rated | old.settings.rated),
+            description = data.description.orElse(old.settings.description),
+            position = position,
+            chatFor = data.chatFor | old.settings.chatFor,
+            roundInterval =
+              if data.roundInterval.isDefined then data.realRoundInterval
+              else old.settings.roundInterval,
+            password = data.password,
+            conditions = data.conditions,
+            forbiddenPairings = ~data.forbiddenPairings,
+            manualPairings = ~data.manualPairings
           )
-          .pipe { s =>
-            if s.isStarted && s.nbOngoing == 0 && (s.nextRoundAt.isEmpty || old.settings.manualRounds) && !s.settings.manualRounds
-            then s.copy(nextRoundAt = nowInstant.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
-            else if s.settings.manualRounds && !old.settings.manualRounds then s.copy(nextRoundAt = none)
-            else s
-          }
+        )
+        .pipe: s =>
+          if s.isStarted && s.nbOngoing == 0 && (s.nextRoundAt.isEmpty || old.settings.manualRounds) && !s.settings.manualRounds
+          then s.copy(nextRoundAt = nowInstant.plusSeconds(s.settings.roundInterval.toSeconds.toInt).some)
+          else if s.settings.manualRounds && !old.settings.manualRounds then s.copy(nextRoundAt = none)
+          else s
       for
         _ <- mongo.swiss.update.one($id(old.id), addFeaturable(swiss))
         _ <- (swiss.perfType != old.perfType).so(recomputePlayerRatings(swiss))
@@ -547,20 +545,19 @@ final class SwissApi(
                   doFinish(swiss)
                 else
                   for
-                    next <- director.startRound(swiss)
-                    _ <- next.fold {
-                      systemChat(swiss.id, "All possible pairings were played.")
-                      doFinish(swiss)
-                    } {
-                      case s if s.nextRoundAt.isEmpty =>
+                    next <- director.startRound(swiss.pp).thenPp
+                    _ <- next match
+                      case None =>
+                        systemChat(swiss.id, "All possible pairings were played.")
+                        doFinish(swiss)
+                      case Some(s) if s.nextRoundAt.isEmpty =>
                         systemChat(s.id, s"Round ${s.round.value} started.")
                         funit
-                      case s =>
+                      case Some(s) =>
                         systemChat(s.id, s"Round ${s.round.value} failed.", volatile = true)
                         mongo.swiss.update
                           .one($id(s.id), $set("nextRoundAt" -> nowInstant.plusSeconds(61)))
                           .void
-                    }
                   yield cache.swissCache.clear(swiss.id)
               }
             else if swiss.startsAt.isBefore(nowInstant.minusMinutes(60)) then destroy(swiss)

@@ -47,13 +47,11 @@ final class Swiss(
               isInTeam = isInTeam
             )
             canChat <- canHaveChat(swiss.roundInfo)
-            chat <-
-              canChat.soFu(
-                env.chat.api.userChat.cached
-                  .findMine(swiss.id.into(ChatId))
-                  .map:
-                    _.copy(locked = !env.api.chatFreshness.of(swiss))
-              )
+            chat <- canChat.soFu:
+              env.chat.api.userChat.cached
+                .findMine(swiss.id.into(ChatId))
+                .map:
+                  _.copy(locked = !env.api.chatFreshness.of(swiss))
             streamers  <- streamerCache.get(swiss.id)
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
             page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
