@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "exclude": [ "makeGrammar.mts" ],
+  "exclude": ["makeGrammar.mts"],
   "references": [
     { "path": "../common/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
