@@ -501,7 +501,7 @@ final class SwissApi(
   def teamOf(id: SwissId): Fu[Option[TeamId]] =
     mongo.swiss.primitiveOne[TeamId]($id(id), "teamId")
 
-  def recomputeAndUpdateAll(id: SwissId): Funit =
+  private def recomputeAndUpdateAll(id: SwissId): Funit =
     scoring(id).flatMapz: res =>
       rankingApi.update(res)
       for
