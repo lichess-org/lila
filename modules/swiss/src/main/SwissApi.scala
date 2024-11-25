@@ -416,28 +416,31 @@ final class SwissApi(
                         .updateField($doc(f.swissId -> swiss.id, f.userId -> absent), f.absent, true)
                         .void
                   }
-                  _ <-
-                    (swiss.nbOngoing <= 1).so {
-                      if swiss.round.value == swiss.settings.nbRounds then doFinish(swiss)
-                      else if swiss.settings.manualRounds then
-                        fuccess:
-                          systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
-                      else
-                        for _ <- mongo.swiss.updateField(
-                            $id(swiss.id),
-                            "nextRoundAt",
-                            swiss.settings.dailyInterval match
-                              case Some(days) => game.createdAt.plusDays(days)
-                              case None =>
-                                nowInstant.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt)
-                          )
-                        yield systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
-                    }
+                  _ <- (swiss.nbOngoing <= 1).so(onRoundFinish(swiss, game.some))
                 yield true
             _ = cache.swissCache.clear(swiss.id)
           yield isModified
       .flatMapz:
         recomputeAndUpdateAll(swissId) >> banApi.onGameFinish(game)
+
+  private def onRoundFinish(swiss: Swiss, lastGame: Option[Game]): Funit =
+    if swiss.round.value == swiss.settings.nbRounds then doFinish(swiss)
+    else if swiss.settings.manualRounds then
+      fuccess:
+        systemChat(swiss.id, s"Round ${swiss.round.value + 1} needs to be scheduled.")
+    else
+      for
+        nextRoundAt <- swiss.settings.dailyInterval match
+          case Some(days) =>
+            lastGame match
+              case Some(g) => fuccess(g.createdAt.plusDays(days))
+              case None    => lastRoundAt(swiss).map(_ | nowInstant)
+          case None => fuccess(nowInstant.plusSeconds(swiss.settings.roundInterval.toSeconds.toInt))
+        _ <- mongo.swiss.updateField($id(swiss.id), "nextRoundAt", nextRoundAt)
+      yield systemChat(swiss.id, s"Round ${swiss.round.value + 1} will start soon.")
+
+  private def lastRoundAt(swiss: Swiss): Fu[Option[Instant]] =
+    mongo.swiss.primitiveOne[Instant]($id(swiss.id), "lastRoundAt")
 
   private[swiss] def destroy(swiss: Swiss): Funit = for
     _ <- mongo.swiss.delete.one($id(swiss.id))
@@ -501,13 +504,31 @@ final class SwissApi(
   def teamOf(id: SwissId): Fu[Option[TeamId]] =
     mongo.swiss.primitiveOne[TeamId]($id(id), "teamId")
 
+  def maybeRecompute(swiss: Swiss): Unit =
+    if swiss.isStarted && periodicRecompute(swiss.id)
+    then
+      Sequencing(swiss.id)(cache.swissCache.notFinishedById): s =>
+        recomputeAndUpdateAll(s.id)
+
+  private val periodicRecompute = scalalib.cache.OnceEvery[SwissId](10.minutes)
+
   private def recomputeAndUpdateAll(id: SwissId): Funit =
-    scoring(id).flatMapz: res =>
-      rankingApi.update(res)
-      for
-        _ <- standingApi.update(res)
-        _ <- boardApi.update(res)
-      yield socket.reload(id)
+    scoring
+      .compute(id)
+      .flatMapz: res =>
+        rankingApi.update(res)
+        for
+          _ <- standingApi.update(res)
+          _ <- boardApi.update(res)
+          ongoingPairings = res.countOngoingPairings
+          _ <- (ongoingPairings != res.swiss.nbOngoing).so:
+            logger.warn:
+              s"Swiss(${id}).nbOngoing = ${res.swiss.nbOngoing}, but res.countOngoingPairings = ${ongoingPairings}"
+            for
+              _ <- mongo.swiss.updateField($id(id), "nbOngoing", ongoingPairings)
+              _ <- (ongoingPairings == 0).so(onRoundFinish(res.swiss, none))
+            yield ()
+        yield socket.reload(id)
 
   private[swiss] def startPendingRounds: Funit =
     mongo.swiss

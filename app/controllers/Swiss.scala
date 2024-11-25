@@ -30,6 +30,7 @@ final class Swiss(
   def show(id: SwissId) = Open:
     cachedSwissAndTeam(id).flatMap: swissOption =>
       val page = getInt("page").filter(0.<)
+      swissOption.foreach((s, _) => env.swiss.api.maybeRecompute(s))
       negotiate(
         html = swissOption.fold(swissNotFound): (swiss, team) =>
           for
