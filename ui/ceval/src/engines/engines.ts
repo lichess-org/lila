@@ -233,7 +233,7 @@ export class Engines {
   }
 
   get external(): ExternalEngineInfo | undefined {
-    return this.active && 'endpoint' in this.active ? this.active : undefined;
+    return this.active && this.isExternalEngineInfo(this.active) ? this.active : undefined;
   }
 
   get maxMovetime(): number {
@@ -275,9 +275,13 @@ export class Engines {
     const e = (this.activeEngine = this.getEngine(selector));
     if (!e) throw Error(`Engine not found ${selector?.id ?? selector?.variant ?? this.selectProp()}}`);
 
-    return e.tech !== 'EXTERNAL'
-      ? this.localEngineMap.get(e.id)!.make(e as BrowserEngineInfo)
-      : new ExternalEngine(e as ExternalEngineInfo, this.status);
+    return !this.isExternalEngineInfo(e)
+      ? this.localEngineMap.get(e.id)!.make(e)
+      : new ExternalEngine(e, this.status);
+  }
+
+  isExternalEngineInfo(e: EngineInfo): e is ExternalEngineInfo {
+    return e.tech === 'EXTERNAL';
   }
 }
 
