@@ -913,3 +913,6 @@ GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
 GET   /*path                           controllers.User.redirect(path)
+
+# metrics
+GET   /metrics/metrics                 controllers.Metrics.metrics
