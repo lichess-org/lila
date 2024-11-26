@@ -14,6 +14,7 @@ import { importPgn, variants as xhrVariants } from './studyXhr';
 import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'common/pubsub';
+import { lichessRules } from 'chessops/compat';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -318,9 +319,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 {
                   attrs: { disabled: gameOrPgn },
                   hook: bind('change', e => {
-                    if ((e.target as HTMLSelectElement).value === 'racingKings') {
-                      ctrl.editor?.setFEN('8/8/8/8/8/8/krbnNBRK/qrbnNBRQ w - - 0 1');
-                    }
+                    ctrl.editor?.setRules(lichessRules((e.target as HTMLSelectElement).value as VariantKey));
                   }),
                 },
                 gameOrPgn

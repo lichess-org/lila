@@ -28,6 +28,6 @@ export function initModule(config: Config): LichessEditor {
   return {
     getFen: ctrl.getFen.bind(ctrl),
     setOrientation: ctrl.setOrientation.bind(ctrl),
-    setFEN: ctrl.setFen.bind(ctrl),
+    setRules: ctrl.setRules.bind(ctrl),
   };
 }
