@@ -60,7 +60,6 @@ public/piece/mpchess | [Maxime Chupin](https://github.com/chupinmaxime) | [GPL3v
 public/piece/cooke | [fejfar](https://github.com/fejfar) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/monarchy | [slither77](https://github.com/slither77) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/mini | [BrazilKing](Discord = brazilking90) | "Only use piece set for lichess"
-public/piece/mega | [BrazilKing](Discord = brazilking90) | "Only use piece set for lichess"
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -84,7 +83,6 @@ public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
 public/piece/celtic | [Maurizio Monge](https://github.com/maurimo/chess-art) | "give credit in a suitable way"
 public/piece/mini | [BrazilKing](Discord = brazilking90) | "Only use piece set for lichess"
-public/piece/mega | [BrazilKing](Discord = brazilking90) | "Only use piece set for lichess"
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
 - The other sounds in public/sound
