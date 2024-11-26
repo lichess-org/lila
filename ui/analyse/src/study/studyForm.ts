@@ -102,7 +102,7 @@ export function view(ctrl: StudyForm): VNode {
             ]),
             h(
               'div.flair-picker.none',
-              { attrs: { 'data-except-emojis': 'activity.lichess' } },
+              data.admin || { attrs: { 'data-except-emojis': 'activity.lichess' } },
               h(removeEmojiButton, 'clear'),
             ),
           ],

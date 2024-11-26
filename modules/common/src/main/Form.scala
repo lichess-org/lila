@@ -100,11 +100,19 @@ object Form:
   def cleanTextWithSymbols(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     addLengthConstraints(cleanTextWithSymbols, minLength, maxLength)
 
-  def cleanNoSymbolsText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    cleanTextWithSymbols(minLength, maxLength).verifying(noSymbolsConstraint)
+  def cleanFewSymbolsText(
+      minLength: Int = 0,
+      maxLength: Int = Int.MaxValue,
+      maxSymbols: Int = 0
+  ): Mapping[String] =
+    cleanTextWithSymbols(minLength, maxLength).verifying(fewSymbolsConstraint(maxSymbols))
 
-  def cleanNoSymbolsAndNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    cleanNoSymbolsText(minLength, maxLength).verifying(nonEmptyOrSpace)
+  def cleanFewSymbolsAndNonEmptyText(
+      minLength: Int = 0,
+      maxLength: Int = Int.MaxValue,
+      maxSymbols: Int = 0
+  ): Mapping[String] =
+    cleanFewSymbolsText(minLength, maxLength, maxSymbols).verifying(nonEmptyOrSpace)
 
   private val eventNameConstraint = Constraints.pattern(
     regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
@@ -113,9 +121,14 @@ object Form:
 
   private val symbolsRegex =
     raw"[\p{So}\p{block=Emoticons}\p{block=Miscellaneous Symbols and Pictographs}\p{block=Supplemental Symbols and Pictographs}]".r
-  val noSymbolsConstraint = V.Constraint[String]: t =>
-    if symbolsRegex.find(t) then V.Invalid(V.ValidationError("Must not contain emojis or other symbols"))
+
+  def fewSymbolsConstraint(maxSymbols: Int): V.Constraint[String] = V.Constraint[String] { t =>
+    if symbolsRegex.findAllMatchIn(t).size > maxSymbols then
+      V.Invalid(
+        V.ValidationError(s"Must not contain more than $maxSymbols emojis or other symbols")
+      )
     else V.Valid
+  }
 
   val slugConstraint: V.Constraint[String] =
     Constraints.pattern(
