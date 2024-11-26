@@ -577,7 +577,7 @@ final class Study(
       case _                                            => forbidden
 
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
+    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
       _.expireAfterWrite(10.seconds).buildAsyncFuture: studyId =>
         env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
 
