@@ -318,9 +318,28 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 'select#chapter-variant.form-control',
                 {
                   attrs: { disabled: gameOrPgn },
-                  hook: bind('change', e => {
-                    ctrl.editor?.setRules(lichessRules((e.target as HTMLSelectElement).value as VariantKey));
-                  }),
+                  hook: {
+                    insert: vnode => {
+                      // Reselect the default value programmatically:
+                      const selectEl = vnode.elm as HTMLSelectElement;
+                      selectEl.value = gameOrPgn ? 'standard' : currentChapter.setup.variant.key;
+                      const waitForEditor = () => {
+                        if (ctrl.editor) {
+                          selectEl.dispatchEvent(new Event('change'));
+                        } else {
+                          setTimeout(waitForEditor, 1);
+                        }
+                      };
+                      waitForEditor();
+                    },
+                  },
+                  on: {
+                    change: e => {
+                      ctrl.editor?.setRules(
+                        lichessRules((e.target as HTMLSelectElement).value as VariantKey),
+                      );
+                    },
+                  },
                 },
                 gameOrPgn
                   ? [h('option', { attrs: { value: 'standard' } }, i18n.study.automatic)]
