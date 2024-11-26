@@ -10,6 +10,7 @@ final class WebConfig(
     val apiToken: Secret,
     val influxEventEndpoint: String,
     val influxEventEnv: String,
+    val prometheusKey: String,
     val pagerDuty: WebConfig.PagerDuty
 )
 
@@ -32,6 +33,7 @@ object WebConfig:
       c.get[Secret]("api.token"),
       c.get[String]("api.influx_event.endpoint"),
       c.get[String]("api.influx_event.env"),
+      c.get[String]("kamon.prometheus.lilaKey"),
       new PagerDuty(
         c.get[String]("pagerDuty.serviceId"),
         c.get[Secret]("pagerDuty.apiKey")

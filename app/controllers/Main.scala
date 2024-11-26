@@ -112,6 +112,11 @@ final class Main(
         env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
+  def prometheusMetrics(key: String) = Action:
+    if key == env.web.config.prometheusKey
+    then kamon.prometheus.PrometheusReporter.latestScrapeData().fold(NotFound("No metrics found"))(Ok(_))
+    else NotFound("Invalid prometheus key")
+
   def legacyQaQuestion(id: Int, _slug: String) = Open:
     MovedPermanently:
       StaticContent.legacyQaQuestion(id)

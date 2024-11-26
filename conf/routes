@@ -874,6 +874,7 @@ POST  /dev/cli                         controllers.Dev.cliPost
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 
+GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
 POST  /dev/socket-test                 controllers.Dev.socketTestResult
 
 # Push
@@ -913,6 +914,3 @@ GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
 GET   /*path                           controllers.User.redirect(path)
-
-# metrics
-GET   /metrics/metrics                 controllers.Metrics.metrics
