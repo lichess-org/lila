@@ -320,25 +320,20 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                   attrs: { disabled: gameOrPgn },
                   hook: {
                     insert: vnode => {
-                      // Reselect the default value programmatically:
                       const selectEl = vnode.elm as HTMLSelectElement;
                       selectEl.value = gameOrPgn ? 'standard' : currentChapter.setup.variant.key;
-                      const waitForEditor = () => {
-                        if (ctrl.editor) {
-                          selectEl.dispatchEvent(new Event('change'));
-                        } else {
-                          setTimeout(waitForEditor, 1);
-                        }
-                      };
-                      waitForEditor();
+                      const triggerChange = () =>
+                        ctrl.editor
+                          ? selectEl.dispatchEvent(new Event('change'))
+                          : setTimeout(triggerChange, 1);
+                      triggerChange();
                     },
                   },
                   on: {
-                    change: e => {
+                    change: e =>
                       ctrl.editor?.setRules(
                         lichessRules((e.target as HTMLSelectElement).value as VariantKey),
-                      );
-                    },
+                      ),
                   },
                 },
                 gameOrPgn
