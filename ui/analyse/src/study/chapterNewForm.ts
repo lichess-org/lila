@@ -315,7 +315,14 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h('label.form-label', { attrs: { for: 'chapter-variant' } }, i18n.site.variant),
               h(
                 'select#chapter-variant.form-control',
-                { attrs: { disabled: gameOrPgn } },
+                {
+                  attrs: { disabled: gameOrPgn },
+                  hook: bind('change', e => {
+                    if ((e.target as HTMLSelectElement).value === 'racingKings') {
+                      ctrl.editor?.setFEN('8/8/8/8/8/8/krbnNBRK/qrbnNBRQ w - - 0 1');
+                    }
+                  }),
+                },
                 gameOrPgn
                   ? [h('option', { attrs: { value: 'standard' } }, i18n.study.automatic)]
                   : ctrl.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),

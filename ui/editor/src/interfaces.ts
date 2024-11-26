@@ -20,6 +20,7 @@ export type Selected = 'pointer' | 'trash' | [Color, Role];
 export interface LichessEditor {
   getFen(): FEN;
   setOrientation(o: Color): void;
+  setFEN(f: String): void;
 }
 
 export interface Config {
