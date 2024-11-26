@@ -206,7 +206,7 @@
   <string name="rating">درجه‌بندی</string>
   <string name="ratingStats">آماره‌های درجه‌بندی</string>
   <string name="username">نام کاربری</string>
-  <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
+  <string name="usernameOrEmail">نام کاربری یا رایانامه</string>
   <string name="changeUsername">تغییر نام کاربری</string>
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">وقتی نمایش همزمان شروع شود، هر بازیکن یک بازی را با میزبان که با مهره سفید بازی میکند آغاز میکند. نمایش وقتی تمام می شود که تمام بازی ها تمام شده باشند.</string>
   <string name="aboutSimulSettings">نمایش های همزمان همیشه غیر رسمی هستند. بازی دوباره، پس گرفتن حرکت و اضافه کردن زمان غیرفعال شده اند.</string>
   <string name="create">ساختن</string>
-  <string name="whenCreateSimul">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
   <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام‌یک را بازی کند.</string>
   <string name="simulClockHint">تنظیم ساعت فیشر. هرچه از بازیکنان بیشتری برنده شوید، زمان بیشتری نیاز دارید</string>
   <string name="simulAddExtraTime">برای کمک به شما میتوانید برای خود زمان اضافی در نظر بگیرید.</string>
@@ -803,7 +803,7 @@
   <string name="usernamePrefixInvalid">نام کاربری باید با حرف شروع شود.</string>
   <string name="usernameSuffixInvalid">نام کاربری باید با حرف یا شماره خاتمه یابد.</string>
   <string name="usernameCharsInvalid">نام کاربری فقط می تواند شامل حروف،اعداد،خط فاصله یا زیر خط(under line) باشد.</string>
-  <string name="usernameUnacceptable">این نام کاربری قابل قبول نیست.</string>
+  <string name="usernameUnacceptable">این نام کاربری پذیرفتنی نیست.</string>
   <string name="playChessInStyle">شطرنج‌بازیِ نوگارانه</string>
   <string name="chessBasics">پایه‌های شطرنج</string>
   <string name="coaches">مربیان</string>
@@ -930,7 +930,7 @@
   <string name="lostAgainstTOSViolator">شما برابر کسی که قانون‌های Lichess را نقض کرده، امتیاز درجه‌بندی از دست دادید</string>
   <string name="refundXpointsTimeControlY">پس‌دادن: %1$s امتیاز به درجه‌بندی %2$s.</string>
   <string name="timeAlmostUp">زمان نزدیک به پایان است!</string>
-  <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانی رایانامه بتلیکید]</string>
+  <string name="clickToRevealEmailAddress">[برای آشکارسازی نشانیِ رایانامه بتِلیکید]</string>
   <string name="download">بارگیری</string>
   <string name="coachManager">تنظیمات مربی</string>
   <string name="streamerManager">مدیریت جریان‌سازی</string>
