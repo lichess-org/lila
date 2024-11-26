@@ -30,12 +30,13 @@ final class Swiss(
   def show(id: SwissId) = Open:
     cachedSwissAndTeam(id).flatMap: swissOption =>
       val page = getInt("page").filter(0.<)
+      swissOption.foreach((s, _) => env.swiss.api.maybeRecompute(s))
       negotiate(
         html = swissOption.fold(swissNotFound): (swiss, team) =>
           for
             verdicts <- env.swiss.api.verdicts(swiss)
             version  <- env.swiss.version(swiss.id)
-            isInTeam <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
+            isInTeam <- isUserInTheTeam(swiss.teamId)
             json <- env.swiss.json(
               swiss = swiss,
               me = ctx.me,
@@ -46,20 +47,18 @@ final class Swiss(
               isInTeam = isInTeam
             )
             canChat <- canHaveChat(swiss.roundInfo)
-            chat <-
-              canChat.soFu(
-                env.chat.api.userChat.cached
-                  .findMine(swiss.id.into(ChatId))
-                  .map:
-                    _.copy(locked = !env.api.chatFreshness.of(swiss))
-              )
+            chat <- canChat.soFu:
+              env.chat.api.userChat.cached
+                .findMine(swiss.id.into(ChatId))
+                .map:
+                  _.copy(locked = !env.api.chatFreshness.of(swiss))
             streamers  <- streamerCache.get(swiss.id)
             isLocalMod <- ctx.me.so { env.team.api.hasPerm(swiss.teamId, _, _.Comm) }
             page <- renderPage(views.swiss.show(swiss, team, verdicts, json, chat, streamers, isLocalMod))
           yield Ok(page),
         json = swissOption.fold[Fu[Result]](notFoundJson("No such Swiss tournament")): (swiss, _) =>
           for
-            isInTeam      <- ctx.me.so(isUserInTheTeam(swiss.teamId)(_))
+            isInTeam      <- isUserInTheTeam(swiss.teamId)
             verdicts      <- env.swiss.api.verdicts(swiss)
             socketVersion <- getBool("socketVersion").soFu(env.swiss.version(swiss.id))
             playerInfo <- getUserStr("playerInfo").so: u =>
@@ -89,8 +88,9 @@ final class Swiss(
       json     <- env.swiss.json.api(swiss, verdicts)
     yield json
 
-  private def isUserInTheTeam(teamId: lila.team.TeamId)(user: UserId) =
-    env.team.cached.teamIds(user).dmap(_.contains(teamId))
+  private def isUserInTheTeam(teamId: lila.team.TeamId)(using me: Option[Me]) =
+    me.so: u =>
+      env.team.cached.teamIds(u).dmap(_.contains(teamId))
 
   private def cachedSwissAndTeam(id: SwissId): Fu[Option[(SwissModel, LightTeam)]] =
     env.swiss.cache.swissCache

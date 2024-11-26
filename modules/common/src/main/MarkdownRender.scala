@@ -131,7 +131,7 @@ object MarkdownRender:
         "googleusercontent.com",
         "i.ibb.co",
         "i.postimg.cc",
-        "xkcd.com",
+        "imgs.xkcd.com",
         "image.lichess1.org",
         "pic.lichess.org",
         "127.0.0.1"
