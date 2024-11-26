@@ -81,6 +81,7 @@ if (!existsSync(destDir)) {
 }
 
 generateBase64Css();
+
 console.log(`✅ Generated piece CSS files in ${destDir}`);
 
 function validateThemeDirectories() {
