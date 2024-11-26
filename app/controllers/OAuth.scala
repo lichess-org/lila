@@ -9,7 +9,7 @@ import lila.app.*
 import lila.common.HTTPRequest
 import lila.common.Json.given
 import lila.core.net.Bearer
-import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes }
+import lila.oauth.{ AccessTokenRequest, AuthorizationRequest, OAuthScopes, OAuthScope }
 
 import Api.ApiResult
 
@@ -137,3 +137,21 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
           }))
         }
       .map(apiC.toHttp)
+
+  def openIdConfiguration = Anon:
+    // https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata
+    JsonOk(
+      Json.obj(
+        "issuer"                 -> env.net.baseUrl,
+        "authorization_endpoint" -> s"${env.net.baseUrl}${routes.OAuth.authorize.url}",
+        "token_endpoint"         -> s"${env.net.baseUrl}${routes.OAuth.tokenApply.url}",
+        // "userinfo_endpoint" -> ???,
+        // "jwks_uri" -> ???,
+        "scopes_supported"         -> OAuthScope.all.map(_.key),
+        "response_types_supported" -> List("code"),
+        "response_modes_supported" -> List("query"),
+        "grant_types_supported"    -> List("authorization_code"),
+        // "subject_types_supported" -> ???,
+        "id_token_signing_alg_values_supported" -> List("RS256")
+      )
+    )

@@ -820,6 +820,7 @@ POST   /account/oauth/token/create     controllers.OAuthToken.createApply
 POST   /account/oauth/token/:id/delete controllers.OAuthToken.delete(id)
 POST   /api/token/admin-challenge      controllers.OAuth.challengeTokens
 POST   /api/token/test                 controllers.OAuth.testTokens
+GET    /.well-known/openid-configuration controllers.OAuth.openIdConfiguration
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id)
