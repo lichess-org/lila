@@ -66,7 +66,8 @@ object AccessTokenRequest:
   case class Granted(
       userId: UserId,
       scopes: TokenScopes,
-      redirectUri: RedirectUri
+      redirectUri: RedirectUri,
+      nonce: Option[OpenIdNonce]
   )
 
   case class BasicAuth(clientId: ClientId, clientSecret: LegacyClientApi.ClientSecret)

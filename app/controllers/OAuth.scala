@@ -25,6 +25,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
       codeChallengeMethod = get("code_challenge_method"),
       codeChallenge = getAs[CodeChallenge]("code_challenge"),
       scope = get("scope"),
+      nonce = getAs[OpenIdNonce]("nonce"),
       username = getAs[UserStr]("username")
     )
 

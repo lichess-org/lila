@@ -20,6 +20,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
             request.redirectUri,
             request.challenge,
             request.scopes,
+            request.nonce,
             nowInstant.plusSeconds(120)
           )
       )
@@ -46,7 +47,7 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
             request.codeVerifier
               .toRight(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
-      yield AccessTokenRequest.Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri)
+      yield AccessTokenRequest.Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri, pending.nonce)
     }
 
 private object AuthorizationApi:
@@ -58,6 +59,7 @@ private object AuthorizationApi:
     val codeChallenge      = "codeChallenge"
     val hashedClientSecret = "hashedClientSecret"
     val scopes             = "scopes"
+    val nonce              = "nonce"
     val expires            = "expires"
 
   case class PendingAuthorization(
@@ -67,6 +69,7 @@ private object AuthorizationApi:
       redirectUri: Protocol.RedirectUri,
       challenge: Either[LegacyClientApi.HashedClientSecret, Protocol.CodeChallenge],
       scopes: OAuthScopes,
+      nonce: Option[Protocol.OpenIdNonce],
       expires: Instant
   )
 
@@ -86,6 +89,7 @@ private object AuthorizationApi:
           case None                     => Right(Protocol.CodeChallenge(r.str(F.codeChallenge)))
         ,
         scopes = r.get[OAuthScopes](F.scopes),
+        nonce = r.strO(F.nonce).map(Protocol.OpenIdNonce.apply),
         expires = r.get[Instant](F.expires)
       )
 
@@ -98,5 +102,6 @@ private object AuthorizationApi:
         F.codeChallenge      -> o.challenge.toOption,
         F.hashedClientSecret -> o.challenge.swap.toOption.map(_.value),
         F.scopes             -> o.scopes,
+        F.nonce              -> o.nonce.map(_.value),
         F.expires            -> o.expires
       )

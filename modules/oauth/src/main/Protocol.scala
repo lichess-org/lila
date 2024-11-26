@@ -22,6 +22,9 @@ object Protocol:
   opaque type State = String
   object State extends OpaqueString[State]
 
+  opaque type OpenIdNonce = String
+  object OpenIdNonce extends OpaqueString[OpenIdNonce]
+
   object CodeChallengeMethod:
     def from(codeChallengeMethod: String): Either[Error, Unit] =
       codeChallengeMethod match
@@ -55,7 +58,6 @@ object Protocol:
         case _                    => Error.UnsupportedGrantType.asLeft
 
   case class RedirectUri(value: URL) extends AnyVal:
-
     def host: Option[String] = Option(value.host).map(_.toHostString)
 
     // https://github.com/smola/galimatias/issues/72 will be more precise

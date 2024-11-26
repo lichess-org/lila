@@ -11,6 +11,7 @@ object AuthorizationRequest:
       codeChallengeMethod: Option[String],
       codeChallenge: Option[CodeChallenge],
       scope: Option[String],
+      nonce: Option[OpenIdNonce],
       username: Option[UserStr]
   ):
     // In order to show a prompt and redirect back with error codes a valid
@@ -26,6 +27,7 @@ object AuthorizationRequest:
       codeChallengeMethod = codeChallengeMethod,
       codeChallenge = codeChallenge,
       scope = scope,
+      nonce = nonce,
       userId = username.map(_.id)
     )
 
@@ -37,6 +39,7 @@ object AuthorizationRequest:
       codeChallengeMethod: Option[String],
       codeChallenge: Option[CodeChallenge],
       scope: Option[String],
+      nonce: Option[OpenIdNonce],
       userId: Option[UserId]
   ):
     def errorUrl(error: Error) = redirectUri.error(error, state)
@@ -90,7 +93,7 @@ object AuthorizationRequest:
             challenge <- challenge
             scopes    <- validScopes
             _         <- responseType.toRight(Error.ResponseTypeRequired).flatMap(ResponseType.from)
-          yield Authorized(clientId, redirectUri, state, user, scopes, challenge)
+          yield Authorized(clientId, redirectUri, state, user, scopes, challenge, nonce)
 
   case class Authorized(
       clientId: ClientId,
@@ -98,7 +101,8 @@ object AuthorizationRequest:
       state: Option[State],
       user: UserId,
       scopes: OAuthScopes,
-      challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge]
+      challenge: Either[LegacyClientApi.HashedClientSecret, CodeChallenge],
+      nonce: Option[OpenIdNonce]
   ):
     def redirectUrl(code: AuthorizationCode) = redirectUri.code(code, state)
 
