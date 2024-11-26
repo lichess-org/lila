@@ -43,7 +43,7 @@ export class Engines {
         name: 'Fairy Stockfish 14+ NNUE',
         short: 'FSF 14+',
         tech: 'NNUE',
-        requires: ['simd', 'dynamicImportFromWorker'],
+        requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
         variants: [key],
         assets: {
           version: 'sfw006',
@@ -71,7 +71,7 @@ export class Engines {
             name: 'Stockfish 16 NNUE · 7MB',
             short: 'SF 16 · 7MB',
             tech: 'NNUE',
-            requires: ['simd', 'dynamicImportFromWorker'],
+            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
             minMem: 1536,
             assets: {
               version: 'sfw006',
@@ -87,7 +87,7 @@ export class Engines {
             name: 'Stockfish 17 NNUE · 79MB',
             short: 'SF 17 · 79MB',
             tech: 'NNUE',
-            requires: ['simd', 'dynamicImportFromWorker'],
+            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
             minMem: 2560,
             assets: {
               version: 'sfw006',
@@ -104,7 +104,7 @@ export class Engines {
             short: 'SF 14',
             tech: 'NNUE',
             obsoletedBy: 'allowLsfw',
-            requires: ['simd'],
+            requires: ['sharedMem', 'simd'],
             minMem: 2048,
             assets: {
               version: 'b6939d',
@@ -122,7 +122,7 @@ export class Engines {
             name: 'Fairy Stockfish 14+ HCE',
             short: 'FSF 14+',
             tech: 'HCE',
-            requires: ['simd', 'dynamicImportFromWorker'],
+            requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
             variants: variants.map(v => v[0]),
             assets: {
               version: 'sfw006',
