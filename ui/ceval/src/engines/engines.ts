@@ -102,7 +102,7 @@ export class Engines {
           name: 'Stockfish 14 NNUE',
           short: 'SF 14',
           tech: 'NNUE',
-          obsoletedBy: 'allowLsfw',
+          obsoletedBy: 'dynamicImportFromWorker',
           requires: ['sharedMem', 'simd'],
           minMem: 2048,
           assets: {
