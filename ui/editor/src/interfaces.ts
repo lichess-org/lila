@@ -1,3 +1,5 @@
+import type { Rules } from 'chessops/types';
+
 export type CastlingToggle = 'K' | 'Q' | 'k' | 'q';
 
 export const CASTLING_TOGGLES: CastlingToggle[] = ['K', 'Q', 'k', 'q'];
@@ -20,7 +22,7 @@ export type Selected = 'pointer' | 'trash' | [Color, Role];
 export interface LichessEditor {
   getFen(): FEN;
   setOrientation(o: Color): void;
-  setRules(f: String): void;
+  setRules(rules: Rules): void;
 }
 
 export interface Config {
