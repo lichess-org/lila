@@ -45,6 +45,7 @@ export class Engines {
         tech: 'NNUE',
         requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
         variants: [key],
+        cloudEval: true,
         assets: {
           version: 'sfw006',
           root: 'npm/lila-stockfish-web',
@@ -72,6 +73,7 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 1536,
+          cloudEval: true,
           assets: {
             version: 'sfw006',
             root: 'npm/lila-stockfish-web',
@@ -88,6 +90,7 @@ export class Engines {
           tech: 'NNUE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           minMem: 2560,
+          cloudEval: true,
           assets: {
             version: 'sfw006',
             root: 'npm/lila-stockfish-web',
@@ -123,6 +126,7 @@ export class Engines {
           tech: 'HCE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: variants.map(v => v[0]),
+          cloudEval: true,
           assets: {
             version: 'sfw006',
             root: 'npm/lila-stockfish-web',
