@@ -40,14 +40,14 @@ object JsonView:
     Json.obj(
       "study" -> us.practiceStudy,
       "url"   -> us.url,
-      "completion" -> JsObject {
+      "completion" -> JsObject:
         us.practiceStudy.chapters.flatMap: c =>
           us.practice.progress.chapters.collectFirst:
-            case (id, nbMoves) if id == c.id => id.value -> Json.toJson(nbMoves)
-      },
+            case (id, nbMoves) if id == c.id => id.value -> Json.toJson(nbMoves),
       "structure" -> us.practice.structure.sections
     )
 
   def api(us: UserPractice) = Json.obj(
-    "sections" -> us.structure.sections
+    "sections" -> us.structure.sections,
+    "progress" -> us.progress.chapters
   )

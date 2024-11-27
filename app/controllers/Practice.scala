@@ -15,13 +15,13 @@ final class Practice(
 
   private val api = env.practice.api
 
-  def index = Open:
+  def index = OpenOrScoped(_.Web.Mobile):
     negotiate(
       html =
         pageHit
         Ok.async(api.get(ctx.me).map(views.practice.index)).map(_.noCache)
       ,
-      json = api.get(none).map(lila.practice.JsonView.api).map(JsonOk)
+      json = api.get(ctx.me).map(lila.practice.JsonView.api).map(JsonOk)
     )
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
