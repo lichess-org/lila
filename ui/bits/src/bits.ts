@@ -42,6 +42,8 @@ export function initModule(args: { fn: string } & any): void {
       return titleRequest();
     case 'validEmail':
       return validateEmail();
+    default:
+      console.error('Unknown bits function', args.fn);
   }
 }
 
