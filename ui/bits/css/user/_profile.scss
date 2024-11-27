@@ -105,10 +105,9 @@
   .bio {
     @extend %break-word, %zalgoverflow;
 
-    font-style: italic;
-
     img {
       max-width: 100%;
+      max-height: 300px;
     }
   }
 }

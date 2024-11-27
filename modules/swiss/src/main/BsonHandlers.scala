@@ -44,6 +44,11 @@ object BsonHandlers:
         byes        -> o.byes.some.filter(_.nonEmpty)
       )
 
+  /* true = ongoing
+   * 0 = white won
+   * 1 = black won
+   * null = draw
+   */
   given BSONHandler[SwissPairing.Status] = lila.db.dsl.quickHandler(
     {
       case BSONBoolean(true)  => Left(SwissPairing.Ongoing)

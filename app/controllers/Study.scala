@@ -257,7 +257,7 @@ final class Study(
         .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 
-  def show(id: StudyId) = Open:
+  def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
       showQuery(env.study.api.byIdWithChapter(id))
 
@@ -577,7 +577,7 @@ final class Study(
       case _                                            => forbidden
 
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
+    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
       _.expireAfterWrite(10.seconds).buildAsyncFuture: studyId =>
         env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
 

@@ -31,7 +31,7 @@
   <string name="theKing">Къирал</string>
   <string name="theMostImportantPiece">Бищун кӀвар бугеб кесек</string>
   <string name="kingIntro">Мун къирал вуго. Мун рагъда хвани, мун къола.</string>
-  <string name="theKingIsSlow">Къирал гӀодове виччарав вуго.</string>
+  <string name="theKingIsSlow">Къирал гӀодобе биччараб буго.</string>
   <string name="lastOne">Ахирисеб!</string>
   <string name="kingComplete">Дуда гьанже бетӀерасе бетӀерлъи гьабизе кӀола!</string>
   <string name="theKnight">Чу</string>
@@ -64,7 +64,7 @@
   <string name="fundamentals">КьучӀал</string>
   <string name="capture">ЧӀвай</string>
   <string name="takeTheEnemyPieces">Тушманасул кескал нахъе росе</string>
-  <string name="captureIntro">Дандиясул цӀунчӀел кескал ралагье, гьел чӀвазеги чӀвай!</string>
+  <string name="captureIntro">Дандиясул цӀуничӀел кескал ралагье, гьел чӀвазеги чӀвай!</string>
   <string name="takeTheBlackPieces">ЧӀегӀеразул кескал нахъе росе!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">ЧӀегӀеразул кескал нахъе росе!
 Дурал тӀагӀине риччаге.</string>
@@ -84,10 +84,10 @@
   <string name="combatComplete">Баркула! Дуда кесказ тӀадекӀанцӀизе кколеб куц лъала!</string>
   <string name="checkInOne">Цо хъурщиялъ шах</string>
   <string name="attackTheOpponentsKing">Дандиясул къираласда тӀадекӀанцӀе</string>
-  <string name="checkInOneIntro">Дур дандиясда шах лъазабизе, къираласда тӀадекӀанцӀе. Гьес гьев цӀунизе ккола!</string>
+  <string name="checkInOneIntro">Дур дандиясда шах лъазабизе, къираласда тӀадекӀанцӀе. Гьес гьеб цӀунизе ккола!</string>
   <string name="checkInOneGoal">Кираласде ишан босе
 цо хъурщиялъ!</string>
-  <string name="checkInOneComplete">Баркула! Дуца дандиясда шах лъазабун, гьев жиндир къирал цӀунизавуна!</string>
+  <string name="checkInOneComplete">Баркула! Дуца дандиясда шах лъазабун, гьев жиндир къирал цӀунизе тӀамуна!</string>
   <string name="outOfCheck">Шахалдаса борчӀи</string>
   <string name="defendYourKing">Дур къирал цӀуне</string>
   <string name="outOfCheckIntro">Дуда шах лъазабуна! Мун нахъе ине ккола яги тӀадекӀанцӀи нахъчӀвазе ккола.</string>
@@ -105,7 +105,7 @@
   <string name="defeatTheOpponentsKing">Дандиясул къирал къезабе</string>
   <string name="mateInOneIntro">Дур дандиясда шахалдаса ворчӀизе кӀолареб мехалъ мун бергьуна.</string>
   <string name="attackYourOpponentsKing">Дур дандиясул къираласда тӀадекӀанцӀе
-гьев цӀунизе кӀоларев куцалъ!</string>
+гьеб цӀунизе кӀолареб куцалъ!</string>
   <string name="mateInOneComplete">Баркула! Гьеле гьедин бергьуна шахматазда!</string>
   <string name="intermediate">Гьоркьохъеб</string>
   <string name="boardSetup">Кескал кколе-кколелъур лъей</string>
@@ -179,7 +179,7 @@
 Пил = 3
 Чу = 3
 Пешка = 1
-Къирал къимат кьезе кӀолареб вуго! Гьев къуни мун тӀубанго хӀаялда къола.</string>
+Къирал къимат кьезе кӀолареб буго! Гьеб къуни мун тӀубанго хӀаялда къола.</string>
   <string name="queenOverBishop">Бищун кӀудаб 
 багьа бугеб кесек чӀвай!
 Къиралай &gt; Пил</string>
@@ -202,11 +202,11 @@
   <string name="checkInTwoIntro">Дандиясул къираласда шах лъазабулеб кӀиго хъурщиялъул комбинация балагье!</string>
   <string name="checkInTwoGoal">Дандиясул къираласе хӀинкъи кье
 кӀиго хъурщиялъ!</string>
-  <string name="checkInTwoComplete">Баркула! Дуца дандиясда шах лъазабун, гьев жиндир къирал цӀунизавуна!</string>
+  <string name="checkInTwoComplete">Баркула! Дуца дандиясда шах лъазабун, гьев жиндир къирал цӀунизе тӀамуна!</string>
   <string name="whatNext">Щиб хадуб?</string>
   <string name="youKnowHowToPlayChess">Дуда шахматал хӀалеб куц лъала, баркула! Дуе жеги кутакав хӀалев чилъун ккезе бокьун бугищ?</string>
   <string name="register">ХӀисабалде воси</string>
-  <string name="getAFreeLichessAccount">ЧӀобого Lichess хъвай-хъвагӀай гьабе</string>
+  <string name="getAFreeLichessAccount">ЧӀобого Lichess-алъул хъвай-хъвагӀай гьабе</string>
   <string name="practice">Ругьунлъизави</string>
   <string name="learnCommonChessPositions">Аслиял шахматазул позицияби лъазаре</string>
   <string name="puzzles">Масъалаби</string>

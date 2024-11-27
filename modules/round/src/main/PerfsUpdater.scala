@@ -1,9 +1,8 @@
 package lila.round
 
-import monocle.syntax.all.*
 import chess.{ ByColor, Color, Speed, IntRating }
 import chess.rating.{ IntRatingDiff, RatingProvisional }
-import chess.rating.glicko.Glicko
+import chess.rating.glicko.{ Glicko, Player }
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.rating.PerfExt.addOrReset
@@ -20,51 +19,60 @@ final class PerfsUpdater(
 )(using Executor):
 
   def save(game: Game, users: ByColor[UserWithPerfs]): Fu[Option[ByColor[IntRatingDiff]]] =
-    farming.botFarming(game).flatMap {
-      if _ then fuccess(none)
-      else if farming.newAccountBoosting(game, users) then fuccess(none)
-      else
-        val ratingDiffs = for
-          outcome <- game.outcome
-          perfKey <-
-            if game.variant.fromPosition
-            then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
-            else game.perfKey.some
-          if game.rated && game.finished && (game.playedTurns >= 2 || game.isTournament)
-          if !users.exists(_.user.lame)
-        yield
-          val prevPerfs   = users.map(_.perfs)
-          val prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
-          lila.rating.Glicko.calculator
-            .computeGame(chess.rating.glicko.Game(prevPlayers, outcome), skipDeviationIncrease = true)
-            .fold(
-              err =>
-                lila.log("rating").error(s"Error computing Glicko2 for game ${game.id}", err)
-                fuccess(none)
-              ,
-              computedPlayers =>
-                val newGlickos = RatingRegulator(ratingFactors())(
-                  perfKey,
-                  prevPlayers.map(_.glicko),
-                  computedPlayers.map(_.glicko),
-                  users.map(_.isBot)
-                )
-                val newPerfs =
-                  prevPerfs.zip(newGlickos, (perfs, gl) => addToPerfs(game, perfs, perfKey, gl))
-                val ratingDiffs =
-                  def ratingOf(perfs: UserPerfs) = perfs(perfKey).glicko.intRating.value
-                  prevPerfs.zip(newPerfs, (prev, next) => IntRatingDiff(ratingOf(next) - ratingOf(prev)))
-                val newUsers = users.zip(newPerfs, (user, perfs) => user.copy(perfs = perfs))
-                lila.common.Bus.publish(lila.core.game.PerfsUpdate(game, newUsers), "perfsUpdate")
-                gameRepo
-                  .setRatingDiffs(game.id, ratingDiffs)
-                  .zip(userApi.updatePerfs(prevPerfs.zip(newPerfs), perfKey))
-                  .zip(rankingApi.save(users.white.user, perfKey, newPerfs.white))
-                  .zip(rankingApi.save(users.black.user, perfKey, newPerfs.black))
-                  .inject(ratingDiffs.some)
-            )
-        ~ratingDiffs
-    }
+    farming
+      .botFarming(game)
+      .flatMap:
+        if _ then fuccess(none)
+        else if farming.newAccountBoosting(game, users) then fuccess(none)
+        else calculateRatingAndPerfs(game, users).fold(fuccess(none))(saveRatings)
+
+  private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]) =
+    for
+      outcome <- game.outcome
+      perfKey <-
+        if game.variant.fromPosition
+        then game.isTournament.option(PerfKey(game.ratingVariant, game.speed))
+        else game.perfKey.some
+      if game.rated && game.finished && (game.playedTurns >= 2 || game.isTournament)
+      if !users.exists(_.user.lame)
+      prevPerfs   = users.map(_.perfs)
+      prevPlayers = prevPerfs.map(_(perfKey).toGlickoPlayer)
+      computedPlayers <- computeGlicko(game.id, prevPlayers, outcome)
+    yield
+      val newGlickos = RatingRegulator(ratingFactors())(
+        perfKey,
+        prevPlayers.map(_.glicko),
+        computedPlayers.map(_.glicko),
+        users.map(_.isBot)
+      )
+      val newPerfs = prevPerfs.zip(newGlickos, (perfs, gl) => addToPerfs(game, perfs, perfKey, gl))
+      val ratingDiffs =
+        def ratingOf(perfs: UserPerfs) = perfs(perfKey).glicko.intRating.value
+        prevPerfs.zip(newPerfs, (prev, next) => IntRatingDiff(ratingOf(next) - ratingOf(prev)))
+      val newUsers = users.zip(newPerfs, (user, perfs) => user.copy(perfs = perfs))
+      lila.common.Bus.publish(lila.core.game.PerfsUpdate(game, newUsers), "perfsUpdate")
+      (game.id, ratingDiffs, prevPerfs, newPerfs, users, perfKey)
+
+  private def computeGlicko(gameId: GameId, prevPlayers: ByColor[Player], outcome: chess.Outcome) =
+    lila.rating.Glicko.calculator
+      .computeGame(chess.rating.glicko.Game(prevPlayers, outcome), skipDeviationIncrease = true)
+      .onError(_ => scala.util.Success(lila.log("rating").warn(s"Error computing Glicko2 for game $gameId")))
+      .toOption
+
+  private def saveRatings(
+      gameId: GameId,
+      ratingDiffs: ByColor[IntRatingDiff],
+      prevPerfs: ByColor[UserPerfs],
+      newPerfs: ByColor[UserPerfs],
+      users: ByColor[UserWithPerfs],
+      perfKey: PerfKey
+  ): Fu[Option[ByColor[IntRatingDiff]]] =
+    gameRepo
+      .setRatingDiffs(gameId, ratingDiffs)
+      .zip(userApi.updatePerfs(prevPerfs.zip(newPerfs), perfKey))
+      .zip(rankingApi.save(users.white.user, perfKey, newPerfs.white))
+      .zip(rankingApi.save(users.black.user, perfKey, newPerfs.black))
+      .inject(ratingDiffs.some)
 
   private def addToPerfs(game: Game, perfs: UserPerfs, perfKey: PerfKey, player: Glicko) =
     val newPerfs = perfs

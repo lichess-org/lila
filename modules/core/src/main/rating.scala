@@ -1,7 +1,6 @@
 package lila.core
 package rating
 
-import alleycats.Zero
 import _root_.chess.IntRating
 import _root_.chess.rating.IntRatingDiff
 

@@ -1,7 +1,5 @@
 package lila.api
 
-import java.time.LocalDate
-
 import lila.mod.{ Modlog, ModlogApi }
 import lila.appeal.{ Appeal, AppealMsg, AppealApi }
 import lila.user.{ Note, NoteApi }
@@ -20,7 +18,7 @@ case class ModTimeline(
     playbanRecord: Option[lila.playban.UserRecord],
     flaggedPublicLines: List[PublicLine]
 ):
-  import ModTimeline.{ *, given }
+  import ModTimeline.*
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap(reportAtoms)
