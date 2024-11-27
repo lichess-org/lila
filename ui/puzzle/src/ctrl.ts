@@ -364,7 +364,7 @@ export default class PuzzleCtrl implements ParentCtrl {
 
     const progress = moveTest(this);
     this.setAutoShapes();
-    if (progress === 'fail') site.sound.say('incorrect');
+    if (progress === 'fail') site.sound.say(() => 'incorrect');
     if (progress) this.applyProgress(progress);
     this.reorderChildren(path);
     this.redraw();
@@ -457,7 +457,7 @@ export default class PuzzleCtrl implements ParentCtrl {
       this.round = res.round;
       if (res.round?.ratingDiff) this.session.setRatingDiff(this.data.puzzle.id, res.round.ratingDiff);
     }
-    if (win) site.sound.say('Success!');
+    if (win) site.sound.say(() => 'Success!');
     if (next) {
       this.next.resolve(this.data.replay && res.replayComplete ? this.data.replay : next);
       if (this.streak && win) this.streak.onComplete(true, res.next);
@@ -562,8 +562,11 @@ export default class PuzzleCtrl implements ParentCtrl {
     this.withGround(this.showGround);
     if (pathChanged) {
       if (isForwardStep) {
-        site.sound.saySan(this.node.san);
-        site.sound.move(this.node);
+        site.sound.saySan(() => this.node.san);
+        site.sound.move({
+          uci: this.node.uci,
+          lazySan: () => this.node.san,
+        });
       }
       this.threatMode(false);
       this.ceval.stop();

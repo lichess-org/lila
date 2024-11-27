@@ -174,11 +174,13 @@ export default class RoundController implements MoveRootCtrl {
       atomic.capture(this, dest);
       return;
     }
-    const fen = this.ply === 0 ? this.data.game.fen : this.stepAt(this.ply - 1).fen;
-    const san = sanOf(readFen(fen), orig + dest);
+    const lazySan = () => {
+      const fen = this.ply === 0 ? this.data.game.fen : this.stepAt(this.ply - 1).fen;
+      return sanOf(readFen(fen), orig + dest);
+    };
 
-    site.sound.move({ san, uci: orig + dest });
-    site.sound.saySan(san);
+    site.sound.move({ lazySan, uci: orig + dest });
+    site.sound.saySan(lazySan);
   };
 
   private startPromotion = (orig: Key, dest: Key, meta: MoveMetadata) =>
@@ -233,7 +235,7 @@ export default class RoundController implements MoveRootCtrl {
   userJump = (ply: Ply): void => {
     this.toSubmit = undefined;
     this.chessground.selectSquare(null);
-    if (ply != this.ply && this.jump(ply)) site.sound.saySan(this.stepAt(this.ply).san, true);
+    if (ply != this.ply && this.jump(ply)) site.sound.saySan(() => this.stepAt(this.ply).san, true);
     else this.redraw();
   };
 
@@ -262,7 +264,11 @@ export default class RoundController implements MoveRootCtrl {
       };
     this.chessground.cancelPremove();
     this.chessground.set(config);
-    if (s.san && isForwardStep) site.sound.move(s);
+    if (s.san && isForwardStep)
+      site.sound.move({
+        uci: s.uci,
+        lazySan: () => s.san,
+      });
     this.autoScroll();
     this.pluginUpdate(s.fen);
     pubsub.emit('ply', ply);
@@ -346,7 +352,7 @@ export default class RoundController implements MoveRootCtrl {
 
     if (!meta.preConfirmed && this.confirmMoveToggle() && !meta.premove) {
       if (site.sound.speech()) {
-        const spoken = `${speakable(sanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
+        const spoken = () => `${speakable(sanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
         site.sound.say(spoken, false, true);
       }
       this.toSubmit = move;
@@ -582,8 +588,8 @@ export default class RoundController implements MoveRootCtrl {
     this.onChange();
     if (d.tv) setTimeout(site.reload, 10000);
     wakeLock.release();
-    if (this.data.game.status.name === 'started') site.sound.saySan(this.stepAt(this.ply).san, false);
-    else site.sound.say(viewStatus(this), false, false, true);
+    if (this.data.game.status.name === 'started') site.sound.saySan(() => this.stepAt(this.ply).san, false);
+    else site.sound.say(() => viewStatus(this), false, false, true);
   };
 
   challengeRematch = async (): Promise<void> => {

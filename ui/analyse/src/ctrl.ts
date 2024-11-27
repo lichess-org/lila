@@ -402,11 +402,15 @@ export default class AnalyseCtrl {
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
-      if (isForwardStep) site.sound.move(this.node);
+      if (isForwardStep)
+        site.sound.move({
+          uci: this.node.uci,
+          lazySan: () => this.node.san,
+        });
       this.threatMode(false);
       this.ceval?.stop();
       this.startCeval();
-      site.sound.saySan(this.node.san, true);
+      site.sound.saySan(() => this.node.san, true);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();

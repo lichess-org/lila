@@ -170,22 +170,22 @@ export class ClockController {
 
   isRunning = (): boolean => this.times.activeColor !== undefined;
 
-  speak = (): void => {
-    const msgs = ['white', 'black'].map(color => {
-      const time = this.millisOf(color as Color);
-      const date = new Date(time);
-      const msg =
-        (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') +
-        ' ' +
-        simplePlural(date.getUTCMinutes(), 'minute') +
-        ' ' +
-        simplePlural(date.getUTCSeconds(), 'second');
-      return `${color} ${msg}`;
-    });
-    site.sound.say(msgs.join('. '));
-  };
+  speak = (): boolean =>
+    site.sound.say(() =>
+      ['white', 'black']
+        .map(color => {
+          const time = this.millisOf(color as Color);
+          const date = new Date(time);
+          const msg =
+            (time >= 3600000 ? naivePlural(Math.floor(time / 3600000), 'hour') : '') +
+            ' ' +
+            naivePlural(date.getUTCMinutes(), 'minute') +
+            ' ' +
+            naivePlural(date.getUTCSeconds(), 'second');
+          return `${color} ${msg}`;
+        })
+        .join('. '),
+    );
 }
 
-function simplePlural(nb: number, word: string) {
-  return `${nb} ${word}${nb !== 1 ? 's' : ''}`;
-}
+const naivePlural = (nb: number, word: string) => `${nb} ${word}${nb !== 1 ? 's' : ''}`;

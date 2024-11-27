@@ -88,7 +88,7 @@ interface QuestionOpts {
 
 type SoundMoveOpts = {
   name?: string; // either provide this or valid san/uci
-  san?: string;
+  lazySan: () => string | undefined;
   uci?: string;
   volume?: number;
 };
@@ -110,9 +110,9 @@ interface SoundI {
   setVolume(v: number): void;
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
-  say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
-  saySan(san?: San, cut?: boolean, force?: boolean): void;
-  sayOrPlay(name: string, text: string): void;
+  say(lazyText: () => string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
+  saySan(lazySan: () => San | undefined, cut?: boolean, force?: boolean): void;
+  sayOrPlay(name: string, lazyText: () => string): void;
   preloadBoardSounds(): void;
   url(name: string): string;
 }

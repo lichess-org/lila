@@ -136,11 +136,12 @@ export default new (class implements SoundI {
     return this.speechStorage.get();
   };
 
-  say = (text: string, cut = false, force = false, translated = false) => {
+  say = (lazyText: () => string, cut = false, force = false, translated = false) => {
     if (typeof window.speechSynthesis === 'undefined') return false;
     try {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
+      const text = lazyText();
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
       msg.lang = translated ? document.documentElement.lang : 'en-US';
@@ -157,9 +158,10 @@ export default new (class implements SoundI {
     }
   };
 
-  saySan = (san?: San, cut?: boolean, force?: boolean) => this.say(speakable(san), cut, force);
+  saySan = (lazySan: () => San | undefined, cut?: boolean, force?: boolean) =>
+    this.say(() => speakable(lazySan()), cut, force);
 
-  sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
+  sayOrPlay = (name: string, lazyText: () => string) => this.say(lazyText) || this.play(name);
 
   changeSet = (s: string) => {
     if (isIos()) this.ctx?.resume();
