@@ -257,7 +257,7 @@ final class Study(
         .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 
-  def show(id: StudyId) = Open:
+  def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
       showQuery(env.study.api.byIdWithChapter(id))
 
