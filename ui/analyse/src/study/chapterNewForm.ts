@@ -319,12 +319,9 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 'select#chapter-variant.form-control',
                 {
                   attrs: { disabled: gameOrPgn },
-                  on: {
-                    change: e =>
-                      ctrl.editor?.setRules(
-                        lichessRules((e.target as HTMLSelectElement).value as VariantKey),
-                      ),
-                  },
+                  hook: bind('change', e => {
+                    ctrl.editor?.setRules(lichessRules((e.target as HTMLSelectElement).value as VariantKey));
+                  }),
                 },
                 gameOrPgn
                   ? [h('option', { attrs: { value: 'standard' } }, i18n.study.automatic)]
