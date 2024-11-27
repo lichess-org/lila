@@ -76,11 +76,12 @@ private object SwissScoring:
   ):
     def countOngoingPairings: Int = leaderboard
       .collect:
-        case (player, _) if player.present => player
-      .flatMap(player => pairings.get(player.userId))
+        case (player, _) if player.present => player.userId
+      .flatMap(pairings.get)
       .flatMap(_.get(swiss.round))
       .filter(_.isOngoing)
       .map(_.gameId)
+      .distinct
       .size
 
   def computePlayers(
