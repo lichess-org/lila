@@ -249,6 +249,7 @@ type Perf = Exclude<VariantKey, 'standard'> | Speed;
 
 type Uci = string;
 type San = string;
+type AlmostSan = string;
 type Ply = number;
 type Seconds = number;
 type Centis = number;

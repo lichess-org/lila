@@ -48,7 +48,7 @@ import type {
 import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
-import { readFen, sanOf, speakable } from 'chess/sanWriter';
+import { readFen, almostSanOf, speakable } from 'chess/sanWriter';
 
 interface GoneBerserk {
   white?: boolean;
@@ -342,7 +342,7 @@ export default class RoundController implements MoveRootCtrl {
 
     if (!meta.preConfirmed && this.confirmMoveToggle() && !meta.premove) {
       if (site.sound.speech()) {
-        const spoken = `${speakable(sanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
+        const spoken = `${speakable(almostSanOf(readFen(this.stepAt(this.ply).fen), move.u))}. confirm?`;
         site.sound.say(spoken, false, true);
       }
       this.toSubmit = move;
