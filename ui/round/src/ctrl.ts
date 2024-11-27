@@ -175,7 +175,7 @@ export default class RoundController implements MoveRootCtrl {
       return;
     }
     const fen = this.ply === 0 ? this.data.game.fen : this.stepAt(this.ply - 1).fen;
-    const san = sanOf(readFen(fen), orig + dest);
+    const san = almostSanOf(readFen(fen), orig + dest);
 
     site.sound.move({ san, uci: orig + dest });
     site.sound.saySan(san);
