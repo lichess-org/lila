@@ -143,19 +143,31 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
     // https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata
     JsonOk(
       Json.obj(
-        "issuer"                 -> env.net.baseUrl,
-        "authorization_endpoint" -> s"${env.net.baseUrl}${routes.OAuth.authorize.url}",
-        "token_endpoint"         -> s"${env.net.baseUrl}${routes.OAuth.tokenApply.url}",
-        // "userinfo_endpoint" -> ???,
-        "jwks_uri" -> s"${env.net.baseUrl}/${routes.OAuth.openIdKeys.url}",
-        "scopes_supported"         -> OAuthScope.all.map(_.key),
-        "response_types_supported" -> List("code"),
-        "response_modes_supported" -> List("query"),
-        "grant_types_supported"    -> List("authorization_code"),
-        // "subject_types_supported" -> ???,
+        "issuer"                                -> env.net.baseUrl,
+        "authorization_endpoint"                -> s"${env.net.baseUrl}${routes.OAuth.authorize.url}",
+        "token_endpoint"                        -> s"${env.net.baseUrl}${routes.OAuth.tokenApply.url}",
+        "userinfo_endpoint"                     -> s"${env.net.baseUrl}${routes.OAuth.openIdUserinfo.url}",
+        "jwks_uri"                              -> s"${env.net.baseUrl}/${routes.OAuth.openIdKeys.url}",
+        "scopes_supported"                      -> OAuthScope.all.map(_.key),
+        "response_types_supported"              -> List("code"),
+        "response_modes_supported"              -> List("query"),
+        "grant_types_supported"                 -> List("authorization_code"),
+        "subject_types_supported"               -> List("public"),
         "id_token_signing_alg_values_supported" -> List("RS256")
       )
     )
 
   def openIdKeys = Anon:
     JsonOk(Json.obj("keys" -> Json.arr()))
+
+  def openIdUserinfo = Scoped() { ctx ?=> me ?=>
+    JsonOk(
+      Json
+        .obj(
+          "sub"                -> me.userId,
+          "preferred_username" -> me.username,
+          "profile"            -> s"${env.net.baseUrl}${routes.User.show(me.username).url}"
+        )
+        .add("name" -> me.profile.map(_.realName))
+    )
+  }

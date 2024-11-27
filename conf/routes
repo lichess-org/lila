@@ -821,7 +821,8 @@ POST   /account/oauth/token/:id/delete controllers.OAuthToken.delete(id)
 POST   /api/token/admin-challenge      controllers.OAuth.challengeTokens
 POST   /api/token/test                 controllers.OAuth.testTokens
 GET    /.well-known/openid-configuration controllers.OAuth.openIdConfiguration
-GET    /oauth/jwks                     controllers.OAuth.openIdKeys
+GET    /api/openid/jwks                controllers.OAuth.openIdKeys
+GET    /api/openid/userinfo            controllers.OAuth.openIdUserinfo
 
 # Events
 GET   /event/$id<\w{8}>                controllers.Event.show(id)

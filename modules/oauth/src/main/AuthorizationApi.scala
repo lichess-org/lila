@@ -47,7 +47,8 @@ final class AuthorizationApi(val coll: Coll)(using Executor):
             request.codeVerifier
               .toRight(LegacyClientApi.CodeVerifierIgnored)
               .ensure(Protocol.Error.MismatchingCodeVerifier)(_.matches(codeChallenge))
-      yield AccessTokenRequest.Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri, pending.nonce)
+      yield AccessTokenRequest
+        .Granted(pending.userId, pending.scopes.into(TokenScopes), pending.redirectUri, pending.nonce)
     }
 
 private object AuthorizationApi:
