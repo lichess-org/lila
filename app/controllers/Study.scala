@@ -30,7 +30,7 @@ final class Study(
 
   import env.user.flairApi.given
 
-  def search(text: String, page: Int) = OpenBody:
+  def search(text: String, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
     Reasonable(page):
       if text.trim.isEmpty then
         for
@@ -54,7 +54,7 @@ final class Study(
 
   def allDefault(page: Int) = all(Order.hot, page)
 
-  def all(order: Order, page: Int) = Open:
+  def all(order: Order, page: Int) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     allResults(order, page)
 
   private def allResults(order: Order, page: Int)(using ctx: Context) =
@@ -261,19 +261,18 @@ final class Study(
     orRelayRedirect(id):
       showQuery(env.study.api.byIdWithChapter(id))
 
-  def chapter(id: StudyId, chapterId: StudyChapterId) =
-    Open:
-      orRelayRedirect(id, chapterId.some):
-        env.study.api
-          .byIdWithChapter(id, chapterId)
-          .flatMap:
-            case None =>
-              env.study.studyRepo
-                .exists(id)
-                .flatMap:
-                  if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
-                  else showQuery(fuccess(none))
-            case sc => showQuery(fuccess(sc))
+  def chapter(id: StudyId, chapterId: StudyChapterId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
+    orRelayRedirect(id, chapterId.some):
+      env.study.api
+        .byIdWithChapter(id, chapterId)
+        .flatMap:
+          case None =>
+            env.study.studyRepo
+              .exists(id)
+              .flatMap:
+                if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
+                else showQuery(fuccess(none))
+          case sc => showQuery(fuccess(sc))
 
   def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
     Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
