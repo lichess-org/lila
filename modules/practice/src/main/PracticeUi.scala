@@ -57,9 +57,7 @@ final class PracticeUi(helpers: Helpers)(
                   submitButton(
                     cls   := "button ok-cancel-confirm",
                     title := "You will lose your practice progress!"
-                  )(
-                    "Reset my progress"
-                  )
+                  )("Reset my progress")
                 )
               else a(href := routes.Auth.signup)("Sign up to save your progress")
             )
@@ -105,13 +103,13 @@ final class PracticeUi(helpers: Helpers)(
               errMsg(form("text")),
               submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Save")
             ),
-            div(cls := "preview")(
-              ol(
-                structure.sections.map { section =>
+            div(cls := "preview"):
+              ol:
+                structure.sections.map: section =>
                   li(
                     h2(section.name, "#", section.id, section.hide.so(" [hidden]")),
                     ol(
-                      section.studies.map { stud =>
+                      section.studies.map: stud =>
                         li(
                           i(cls := s"practice icon ${stud.id}")(
                             h3(
@@ -123,19 +121,13 @@ final class PracticeUi(helpers: Helpers)(
                               )
                             ),
                             em(stud.desc),
-                            ol(
-                              stud.chapters.map { cha =>
+                            ol:
+                              stud.chapters.map: cha =>
                                 li(a(href := routes.Study.chapter(stud.id, cha.id))(cha.name))
-                              }
-                            )
                           )
                         )
-                      }
                     )
                   )
-                }
-              )
-            )
           )
         )
       )
