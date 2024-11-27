@@ -147,7 +147,7 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         "authorization_endpoint" -> s"${env.net.baseUrl}${routes.OAuth.authorize.url}",
         "token_endpoint"         -> s"${env.net.baseUrl}${routes.OAuth.tokenApply.url}",
         // "userinfo_endpoint" -> ???,
-        // "jwks_uri" -> ???,
+        "jwks_uri" -> s"${env.net.baseUrl}/${routes.OAuth.openIdKeys.url}",
         "scopes_supported"         -> OAuthScope.all.map(_.key),
         "response_types_supported" -> List("code"),
         "response_modes_supported" -> List("query"),
@@ -156,3 +156,6 @@ final class OAuth(env: Env, apiC: => Api) extends LilaController(env):
         "id_token_signing_alg_values_supported" -> List("RS256")
       )
     )
+
+  def openIdKeys = Anon:
+    JsonOk(Json.obj("keys" -> Json.arr()))
