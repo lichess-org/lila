@@ -79,7 +79,9 @@ private object SwissScoring:
         case (player, _) if player.present => player
       .flatMap(player => pairings.get(player.userId))
       .flatMap(_.get(swiss.round))
-      .count(_.isOngoing)
+      .filter(_.isOngoing)
+      .map(_.gameId)
+      .size
 
   def computePlayers(
       rounds: SwissRoundNumber,
