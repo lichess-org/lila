@@ -183,6 +183,7 @@ interface Api {
   overrides: {
     [key: string]: (...args: any[]) => unknown;
   };
+  analysis?: any;
 }
 
 interface Window {
