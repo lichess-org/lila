@@ -2,7 +2,7 @@ import { h, type VNode } from 'snabbdom';
 import { fixCrazySan } from 'chess';
 import { defined } from 'common';
 import { view as cevalView, renderEval as normalizeEval } from 'ceval';
-import { plyToTurn } from '../util';
+import { plyToTurn } from 'chess';
 
 export interface Ctx {
   withDots?: boolean;

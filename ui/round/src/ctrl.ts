@@ -49,6 +49,7 @@ import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { readFen, almostSanOf, speakable } from 'chess/sanWriter';
+import { plyToTurn } from 'chess';
 
 interface GoneBerserk {
   white?: boolean;
@@ -378,7 +379,7 @@ export default class RoundController implements MoveRootCtrl {
         if (this.ply < 1) txt = `${joined}\n${txt}`;
         else {
           let move = d.steps[d.steps.length - 1].san;
-          const turn = Math.floor((this.ply - 1) / 2) + 1;
+          const turn = plyToTurn(this.ply);
           move = `${turn}${this.ply % 2 === 1 ? '.' : '...'} ${move}`;
           txt = `${opponent}\nplayed ${move}.\n${txt}`;
         }

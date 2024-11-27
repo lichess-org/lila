@@ -42,7 +42,7 @@ import { makeSan } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from '../util';
+import { plyToTurn } from 'chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 

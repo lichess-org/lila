@@ -5,7 +5,7 @@ import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
 import { type StoredProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
-import { plyToTurn } from './util';
+import { plyToTurn } from 'chess';
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
