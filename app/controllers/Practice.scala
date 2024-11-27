@@ -95,7 +95,7 @@ final class Practice(
         analysisJson <- env.analyse.externalEngine.withExternalEngines(analysis)
       yield (analysisJson, studyJson)
 
-  def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
+  def complete(chapterId: StudyChapterId, nbMoves: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)).inject(NoContent)
   }
 
