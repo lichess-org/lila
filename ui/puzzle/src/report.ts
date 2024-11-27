@@ -5,6 +5,7 @@ import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
 import { type StoredProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
+import { plyToTurn } from './util';
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
@@ -13,7 +14,7 @@ export default class Report {
   tsHideReportDialog: StoredProp<number>;
 
   // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 3;
+  private version = 5;
 
   constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
@@ -55,7 +56,7 @@ export default class Report {
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const reason = `(v${this.version}) after move ${node.ply}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
+        const reason = `(v${this.version}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${showPv(pv)}`).join(', ')}`;
         this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }
@@ -110,4 +111,8 @@ export default class Report {
 const nextMoveInSolution = (before: Tree.Node) => {
   const node = before.children[0];
   return node && (node.puzzle === 'good' || node.puzzle === 'win');
+};
+
+const showPv = (pv: Tree.PvData): string => {
+  return pv.mate ? `#${pv.mate}` : `${pv.cp}`;
 };

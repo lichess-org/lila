@@ -309,8 +309,14 @@ object Form:
       formatter
         .stringFormatter[List[String]](_.mkString(sep), _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
 
-  def inTheFuture(m: Mapping[Instant]) =
-    m.verifying("The date must be set in the future", _.isAfterNow)
+  private val dateHumanFormatter =
+    import java.time.format.*
+    DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+
+  def inTheFuture(m: Mapping[Instant], max: Instant = nowInstant.plusYears(11)) =
+    m
+      .verifying("The date must be set in the future", _.isAfterNow)
+      .verifying(s"The date must be set before ${dateHumanFormatter.print(max)}", _.isBefore(max))
 
   object ISODate:
     val pattern                      = "yyyy-MM-dd"
