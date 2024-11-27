@@ -126,7 +126,6 @@ export class Engines {
           tech: 'HCE',
           requires: ['sharedMem', 'simd', 'dynamicImportFromWorker'],
           variants: variants.map(v => v[0]),
-          cloudEval: true,
           assets: {
             version: 'sfw006',
             root: 'npm/lila-stockfish-web',
