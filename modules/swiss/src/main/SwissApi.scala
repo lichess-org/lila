@@ -545,7 +545,7 @@ final class SwissApi(
                   doFinish(swiss)
                 else
                   for
-                    next <- director.startRound(swiss.pp).thenPp
+                    next <- director.startRound(swiss)
                     _ <- next match
                       case None =>
                         systemChat(swiss.id, "All possible pairings were played.")
