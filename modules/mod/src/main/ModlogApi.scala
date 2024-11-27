@@ -100,7 +100,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
     fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
 
   def closedByTeacher(user: User): Fu[Boolean] =
-    fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.teacherCloseAccount))
+    coll.exists($doc("user" -> user.id, "action" -> Modlog.teacherCloseAccount))
 
   def reopenAccount(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.reopenAccount)
