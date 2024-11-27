@@ -95,11 +95,11 @@ object HTTPRequest:
   def printClient(req: RequestHeader) =
     s"${ipAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${userAgent(req).so(_.value)}"
 
-  def bearer(req: RequestHeader): Option[Bearer] =
-    req.headers.get(HeaderNames.AUTHORIZATION).flatMap { authorization =>
-      val prefix = "Bearer "
-      authorization.startsWith(prefix).option(Bearer(authorization.stripPrefix(prefix)))
-    }
+  def bearer(req: RequestHeader): Option[Bearer] = for
+    authorization <- req.headers.get(HeaderNames.AUTHORIZATION)
+    prefix = "Bearer "
+    if authorization.startsWith(prefix)
+  yield Bearer(authorization.stripPrefix(prefix))
 
   def isOAuth(req: RequestHeader) = bearer(req).isDefined
 
