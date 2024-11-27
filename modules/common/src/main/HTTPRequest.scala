@@ -12,7 +12,7 @@ import lila.core.net.*
 object HTTPRequest:
 
   def isXhr(req: RequestHeader): Boolean =
-    req.headers.get("X-Requested-With") contains "XMLHttpRequest"
+    req.headers.get("X-Requested-With").contains("XMLHttpRequest")
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req)
 
