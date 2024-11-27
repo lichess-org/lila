@@ -209,6 +209,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       };
                       ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
+                      ctrl.editor.setRules(lichessRules(currentChapter.setup.variant.key));
                     });
                   },
                   destroy: () => (ctrl.editor = null),
@@ -318,17 +319,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                 'select#chapter-variant.form-control',
                 {
                   attrs: { disabled: gameOrPgn },
-                  hook: {
-                    insert: vnode => {
-                      const selectEl = vnode.elm as HTMLSelectElement;
-                      selectEl.value = gameOrPgn ? 'standard' : currentChapter.setup.variant.key;
-                      const triggerChange = () =>
-                        ctrl.editor
-                          ? selectEl.dispatchEvent(new Event('change'))
-                          : setTimeout(triggerChange, 1);
-                      triggerChange();
-                    },
-                  },
                   on: {
                     change: e =>
                       ctrl.editor?.setRules(
