@@ -97,7 +97,7 @@ Non chiedere il titolo di LM.</string>
   <string name="usernamesNotOffensive">In generale, i nomi utente non dovrebbero essere: offensivi, volti ad impersonare qualcun altro, o costituire un messaggio pubblicitario. Puoi leggere di più su %1$s.</string>
   <string name="guidelines">linee guida</string>
   <string name="canIChangeMyUsername">Posso cambiare il mio nome utente?</string>
-  <string name="usernamesCannotBeChanged">No, i nomi utenti non possono essere modificati per ragioni tecniche e pratiche. I nomi utente compaiono in troppi posti: database, esportazioni, log, e nella testa delle persone. Puoi solo cambiare le maiuscole una volta sola.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">No, i nomi utenti non possono essere modificati per ragioni tecniche e pratiche. I nomi utente compaiono in troppi posti: database, esportazioni, log, e nella testa delle persone. Puoi solo cambiare le maiuscole una volta sola.</string>
   <string name="uniqueTrophies">Trofei unici</string>
   <string name="ownerUniqueTrophies">Questo trofeo è unico nella storia di Lichess, nessun altro tranne %1$s lo potrà mai avere.</string>
   <string name="wayOfBerserkExplanation">Per ottenerlo hiimgosu si è superato nel vincere il 100%% delle partite di un %s in berserk.</string>
@@ -175,5 +175,5 @@ Ti mostriamo l\'icona rossa di muto per avvisarti quando questo succede. Spesso 
 
 Mentre Lichess non banna o blocca giocatori tranne per le violazioni dei Termini di Servizio, consigliamo l\'uso di strumenti esterni per limitare il comportamento di gioco eccessivo. Alcuni bloccanti di siti web suggeriti frequentemente sono %1$s, %2$s, e %3$s. Se desideri continuare a utilizzare il sito ma non venire tentato dalle partite ad alta cadenza di gioco, potresti anche essere interessato a degli %4$s, eccone uno con %5$s.
 
-Alcuni giocatori potrebbero ritenere che il loro comportamento di gioco si stia trasformando in dipendenza. Infatti, l\'OMS classifica il disordine di gioco come una %6$s, con caratteristiche essenziali essere 1) scarso autocontrollo sil gioco, 2) aumento della priorità data al gioco e 3) continuare a giocare nonostante le conseguenze negative. Se pensi che il tuo comportamento di gioco a scacchi rientra in questi criteri, ti invitiamo a parlarne con un amico o un familiare e/o con un professionista.</string>
+Alcuni giocatori potrebbero ritenere che il loro comportamento di gioco si stia trasformando in dipendenza. Infatti, l\'OMS classifica il disturbo da gioco come una %6$s, con caratteristiche essenziali essere 1) scarso autocontrollo sul gioco, 2) aumento della priorità data al gioco e 3) continuare a giocare nonostante le conseguenze negative. Se pensi che il tuo comportamento di gioco a scacchi rientra in questi criteri, ti invitiamo a parlarne con un amico o un familiare e/o con un professionista.</string>
 </resources>

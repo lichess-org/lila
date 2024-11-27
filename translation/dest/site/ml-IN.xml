@@ -169,7 +169,7 @@
   <string name="xPostedInForumY">%1$s കുറിച്ചു %2$s എന്ന വിഷയത്തെ പറ്റി</string>
   <string name="latestForumPosts">ഏറ്റവും പുതിയ ഫോറം പോസ്റ്റുകള്‍</string>
   <string name="players">കളിക്കാര്</string>
-  <string name="friends">സുഹൃത്തുക്കള്‍</string>
+  <string name="friends">കൂട്ടുകാർ</string>
   <string name="otherPlayers">മറ്റേ കളിക്കാർ</string>
   <string name="discussions">ചര്‍ച്ചകള്‍</string>
   <string name="today">ഇന്ന്</string>
@@ -202,6 +202,7 @@
   <string name="changeUsername">ഉപയോക്തൃനാമം മാറ്റുക</string>
   <string name="changeUsernameNotSame">അക്ഷരങ്ങളുടെ കേസിനു മാത്രമേ മാറാൻ കഴിയുകയുള്ളൂ. ഉദാഹരണത്തിന് \"johndoe\" എന്നത് \"JohnDoe\" എന്നായി മാറും.</string>
   <string name="changeUsernameDescription">നിങ്ങളുടെ ഉപയോക്തൃനാമം മാറ്റുക. ഇത് ഒരിക്കൽ മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളു. അതിൽ തന്നെ യൂസർനെയിമിന്റെ അക്ഷരങ്ങളുടെ കേസ് മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളൂ.</string>
+  <string name="signupUsernameHint">ദയവായിയൊരു സംസ്കാരമുള്ള ഉപയോക്തൃപേരു് തിരഞ്ഞെടുക്കുക. ഈ ഉപയോക്തൃപേരു് താങ്ങൾക്കു് പിന്നിടു് മാറ്റാൻ പറ്റത്തില്ല. അനുചിതമായ ഉപയോക്തൃപേരുള്ള അക്കൌണ്ടുകൾ അടച്ചുപൂട്ടിയിരിക്കും!</string>
   <string name="signupEmailHint">ഞങ്ങൾ ഇത് വെരും രഹസ്യവാക്ക് മാറ്റാൻ ഉപയോഗിക്കും.</string>
   <string name="password">രഹസ്യവാക്ക്</string>
   <string name="changePassword">രഹസ്യവാക്ക് മാറ്റുക</string>
@@ -620,7 +621,7 @@
   <string name="ifRatingIsPlusMinusX">± %s ക്രമത്തിലാണോ</string>
   <string name="ifRegistered">പ്രവേശിക്കൽ ചെയ്തവർ മാതത്രം</string>
   <string name="onlyExistingConversations">നിലവിലുള്ള സംഭാഷങ്ങൾ മാത്രം</string>
-  <string name="onlyFriends">സുഹൃത്തുക്കൾക്കു മാത്രം</string>
+  <string name="onlyFriends">കൂട്ടുകാർ മാത്രം</string>
   <string name="menu">പട്ടിക</string>
   <string name="castling">കേസ്‌ലിങ്</string>
   <string name="whiteCastlingKingside">വെള്ള O-O</string>
@@ -660,7 +661,7 @@
   <string name="aboutSimulRules">Simul തുടങ്ങുമ്പോൾ, എല്ലാ വെള്ള കരുക്കളുമായി കളിക്കുന്ന കളിക്കാരും ഹോസ്റ്റുമായി ഗെയിം തുടങ്ങും. Simul അവസാനിക്കുന്നത് എല്ലാ ഗെയിമും പൂർത്തിയാവുമ്പോഴാണ്.</string>
   <string name="aboutSimulSettings">Simuls എപ്പോഴും സാധാരണ ഗെയിമുകളാണ്. പുനർകളികളും, \"കൂടുതൽ സമയവും\", തിരിച്ചെടുക്കലും ഒഴിവാക്കിയെന്ന വ്യത്യാസം മാത്രമേയുള്ളൂ.</string>
   <string name="create">തുടങ്ങുക</string>
-  <string name="whenCreateSimul">ഒരു simul ഉണ്ടാക്കുമ്പോൾ, നിങ്ങൾ ഒരുപാടു പേരെ ഒരുമിച്ചു കളിക്കുന്നു.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">ഒരു simul ഉണ്ടാക്കുമ്പോൾ, നിങ്ങൾ ഒരുപാടു പേരെ ഒരുമിച്ചു കളിക്കുന്നു.</string>
   <string name="simulVariantsHint">കുറെ വേരിയന്റുകൾ നിങ്ങൾ തിരഞ്ഞെടുത്താൽ ഓരോ കളിക്കാർക്കും അവരുടെ വേരിയന്റ് തീരുമാനിക്കും.</string>
   <string name="simulClockHint">ഫിഷെറിന്റെ ക്ലോക്ക് ക്രമീകരണം. കൂടുതൽ കളിക്കാരെ നേരിടുമ്പോൾ കൂടുതൽ സമയം ആവശ്യമായി വരും.</string>
   <string name="simulAddExtraTime">Simul-മായി പൊരുത്തപ്പെടാൻ കുറച്ച് അധികം സമയം നിങ്ങൾക്ക് ചേർക്കാം.</string>
@@ -729,7 +730,7 @@
   <string name="receiveForumNotifications">ആരെങ്കിലും ചർച്ചവേദിയിൽ എന്റെ പേരെടുത്താൽ എന്നെ സൂചിപിക്കണം</string>
   <string name="shareYourInsightsData">നിങ്ങളെ കുറിച്ച് കൂടുതൽ വിവരം പങ്കു വെക്കൂ</string>
   <string name="withNobody">ആരോടും വേണ്ട</string>
-  <string name="withFriends">കൂട്ടുകാരുമൊത്ത്‌</string>
+  <string name="withFriends">കൂട്ടുകാരോടൊപ്പം</string>
   <string name="withEverybody">എല്ലാവർക്കുമൊപ്പം</string>
   <string name="kidMode">കുട്ടികൾക്ക് വേണ്ട വിധം</string>
   <string name="kidModeIsEnabled">കിട്ടിരീതി വച്ചിരിക്കുന്നു.</string>
