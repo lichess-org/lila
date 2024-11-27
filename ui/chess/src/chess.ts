@@ -37,3 +37,5 @@ export function readDrops(line?: string | null): Key[] | null {
   if (typeof line === 'undefined' || line === null) return null;
   return (line.match(/.{2}/g) as Key[]) || [];
 }
+
+export const plyToTurn = (ply: number): number => Math.floor((ply - 1) / 2) + 1;

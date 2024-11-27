@@ -2,7 +2,7 @@ import type AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
 import { initialFen, fixCrazySan } from 'chess';
 import { type MaybeVNodes } from 'common/snabbdom';
-import { plyToTurn } from './util';
+import { plyToTurn } from 'chess';
 
 interface PgnNode {
   ply: Ply;

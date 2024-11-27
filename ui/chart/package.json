@@ -15,6 +15,7 @@
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-zoom": "^2.0.1",
+    "chess": "workspace:*",
     "common": "workspace:*",
     "dayjs": "^1.11.13",
     "nouislider": "^15.8.1"

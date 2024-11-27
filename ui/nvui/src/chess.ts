@@ -7,7 +7,7 @@ import { chessgroundDests } from 'chessops/compat';
 import { type SquareName, RULES, type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { parseUci } from 'chessops/util';
-import { type SanToUci, sanWriter } from 'chess';
+import { plyToTurn, type SanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
@@ -721,8 +721,6 @@ export function renderMainline(
   });
   return res;
 }
-
-const plyToTurn = (ply: Ply): number => Math.floor((ply - 1) / 2) + 1;
 
 export function renderComments(node: Tree.Node, style: Style): string {
   if (!node.comments) return '';
