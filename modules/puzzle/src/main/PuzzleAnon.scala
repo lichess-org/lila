@@ -39,46 +39,44 @@ final class PuzzleAnon(
     cacheApi[(PuzzleAngle, PuzzleDifficulty), Vector[Puzzle]](
       initialCapacity = 64,
       name = "puzzle.byTheme.anon"
-    ) {
-      _.expireAfterWrite(1 minute)
-        .buildAsyncFuture: (angle, difficulty) =>
-          countApi.byAngle(angle).flatMap { count =>
-            val tier =
-              if count > 5000 then PuzzleTier.top
-              else if count > 2000 then PuzzleTier.good
-              else PuzzleTier.all
-            def rd(rating: Int) = rating + difficulty.ratingDelta
-            val ratingRange: Range =
-              if count > 9000 then rd(1300) to rd(1600)
-              else if count > 5000 then rd(1100) to rd(1800)
-              else 0 to 9999
-            val pathSampleSize =
-              if count > 9000 then 3
-              else if count > 5000 then 5
-              else if count > 2000 then 8
-              else 15
-            colls.path:
-              _.aggregateList(poolSize): framework =>
-                import framework.*
-                Match(pathApi.select(angle, tier, ratingRange)) -> List(
-                  Sample(pathSampleSize),
-                  Project($doc("puzzleId" -> "$ids", "_id" -> false)),
-                  Unwind("puzzleId"),
-                  Sample(poolSize),
-                  PipelineOperator:
-                    $doc(
-                      "$lookup" -> $doc(
-                        "from"         -> colls.puzzle.name.value,
-                        "localField"   -> "puzzleId",
-                        "foreignField" -> "_id",
-                        "as"           -> "puzzle"
-                      )
+    ):
+      _.expireAfterWrite(1 minute).buildAsyncFuture: (angle, difficulty) =>
+        countApi.byAngle(angle).flatMap { count =>
+          val tier =
+            if count > 5000 then PuzzleTier.top
+            else if count > 2000 then PuzzleTier.good
+            else PuzzleTier.all
+          def rd(rating: Int) = rating + difficulty.ratingDelta
+          val ratingRange: Range =
+            if count > 9000 then rd(1300) to rd(1600)
+            else if count > 5000 then rd(1100) to rd(1800)
+            else 0 to 9999
+          val pathSampleSize =
+            if count > 9000 then 3
+            else if count > 5000 then 5
+            else if count > 2000 then 8
+            else 15
+          colls.path:
+            _.aggregateList(poolSize): framework =>
+              import framework.*
+              Match(pathApi.select(angle, tier, ratingRange)) -> List(
+                Sample(pathSampleSize),
+                Project($doc("puzzleId" -> "$ids", "_id" -> false)),
+                Unwind("puzzleId"),
+                Sample(poolSize),
+                PipelineOperator:
+                  $doc(
+                    "$lookup" -> $doc(
+                      "from"         -> colls.puzzle.name.value,
+                      "localField"   -> "puzzleId",
+                      "foreignField" -> "_id",
+                      "as"           -> "puzzle"
                     )
-                  ,
-                  PipelineOperator:
-                    $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
-                )
-              .map:
-                _.view.flatMap(puzzleReader.readOpt).toVector
-          }
-    }
+                  )
+                ,
+                PipelineOperator:
+                  $doc("$replaceWith" -> $doc("$arrayElemAt" -> $arr("$puzzle", 0)))
+              )
+            .map:
+              _.view.flatMap(puzzleReader.readOpt).toVector
+        }
