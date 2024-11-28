@@ -1,10 +1,10 @@
 import { parseFen, makeBoardFen } from 'chessops/fen';
-import { parseSquare, makeSquare, Chess, type NormalMove, type SquareName, charToRole } from 'chessops';
+import { parseSquare, makeSquare, Chess, type NormalMove, type SquareName, charToRole, opposite } from 'chessops';
 import { Antichess, type Context } from 'chessops/variant';
 import { chessgroundDests } from 'chessops/compat';
 import type { CgMove } from './chessground';
 import { makeSan } from 'chessops/san';
-import { isRole, oppColor, type PromotionChar, type PromotionRole } from './util';
+import { isRole, type PromotionChar, type PromotionRole } from './util';
 
 type LearnVariant = Chess | Antichess;
 
@@ -35,7 +35,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
 
   // adds enemy pawns on apples, for collisions
   if (appleKeys) {
-    const color = oppColor(pos.turn);
+    const color = opposite(pos.turn);
     appleKeys.forEach(key => {
       pos.board.set(parseSquare(key), { color: color, role: 'pawn' });
     });
@@ -50,7 +50,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
     return king
       ? {
           blockers: occupied,
-          checkers: pos.kingAttackers(king, oppColor(pos.turn), occupied),
+          checkers: pos.kingAttackers(king, opposite(pos.turn), occupied),
           king: king,
           mustCapture: false,
           variantEnd: false,
@@ -129,7 +129,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
       };
       const clone = cloneWithCtx(pos);
       clone.play(move);
-      clone.turn = oppColor(clone.turn);
+      clone.turn = opposite(clone.turn);
       history.push(makeSan(pos, move));
       pos.play(move);
       return !clone.isCheck() ? move : null;
@@ -151,7 +151,7 @@ export default function (fen: string, appleKeys: SquareName[]): ChessCtrl {
     checks: () => {
       if (!pos.isCheck()) return undefined;
       const color = pos.turn;
-      setColor(oppColor(color));
+      setColor(opposite(color));
       const checks = moves(pos)
         .filter(m => pos.board.get(m.to)?.role === 'king')
         .map(moveToCgMove);
