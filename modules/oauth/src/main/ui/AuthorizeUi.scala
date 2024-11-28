@@ -9,7 +9,7 @@ import ScalatagsTemplate.{ *, given }
 final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
   import helpers.{ *, given }
 
-  private val ringsImage = img(
+  private def ringsImage = img(
     cls := "oauth__logo",
     alt := "linked rings icon",
     src := assetUrl("images/icons/linked-rings.png")
