@@ -14,32 +14,29 @@ object mon:
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
-    private val reqTime = timer("http.time")
-    private val mobTime = timer("http.mobile")
-    def time(action: String, client: String, method: String, code: Int) =
-      reqTime.withTags:
-        tags(
-          "action" -> action,
-          "client" -> client,
-          "method" -> method,
-          "code"   -> code.toLong
-        )
-    def error(action: String, client: String, method: String, code: Int) =
+    private val reqTime  = timer("http.time")
+    private val reqCount = counter("http.count")
+    private val mobCount = counter("http.mobile.count")
+
+    def time(action: String) = reqTime.withTag("action", action)
+
+    def count(action: String, client: String, method: String, code: Int) =
+      reqCount.withTags:
+        tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
+
+    def errorCount(action: String, client: String, method: String, code: Int) =
       counter("http.error").withTags:
-        tags(
-          "action" -> action,
-          "client" -> client,
-          "method" -> method,
-          "code"   -> code.toLong
-        )
-    def mobile(action: String, version: String, auth: Boolean, os: String) =
-      mobTime.withTags:
+        tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
+
+    def mobileCount(action: String, version: String, auth: Boolean, os: String) =
+      mobCount.withTags:
         tags(
           "action"  -> action,
           "version" -> version,
           "auth"    -> (if auth then "auth" else "anon"),
           "os"      -> os
         )
+
     def path(p: String) = counter("http.path.count").withTag("path", p)
     val userGamesCost   = counter("http.userGames.cost").withoutTags()
     def csrfError(tpe: String, action: String, client: String) =
@@ -467,33 +464,20 @@ object mon:
       object user:
         def time(theme: String)    = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
         def retries(theme: String) = histogram("puzzle.selector.user.retries").withTag("theme", theme)
-        def vote(theme: String)    = histogram("puzzle.selector.user.vote").withTag("theme", theme)
-        def ratingDiff(theme: String, difficulty: String) =
-          histogram("puzzle.selector.user.ratingDiff").withTags:
-            tags("theme" -> theme, "difficulty" -> difficulty)
-        def ratingDev(theme: String) = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
+        val vote                   = histogram("puzzle.selector.user.vote").withoutTags()
         def tier(t: String, theme: String, difficulty: String) =
           counter("puzzle.selector.user.tier").withTags:
             tags("tier" -> t, "theme" -> theme, "difficulty" -> difficulty)
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       object anon:
-        def time(theme: String) = timer("puzzle.selector.anon.puzzle").withTag("theme", theme)
-        def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
-        def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
-      def nextPuzzleResult(theme: String, difficulty: String, color: String, result: String) =
-        timer("puzzle.selector.user.puzzleResult").withTags(
-          tags("theme" -> theme, "difficulty" -> difficulty, "color" -> color, "result" -> result)
-        )
+        val time           = timer("puzzle.selector.anon.puzzle").withoutTags()
+        def batch(nb: Int) = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+        val vote           = histogram("puzzle.selector.anon.vote").withoutTags()
+      def nextPuzzleResult(theme: String, result: String) =
+        timer("puzzle.selector.user.puzzleResult").withTags:
+          tags("theme" -> theme, "result" -> result)
     object path:
-      def nextFor(theme: String, tier: String, difficulty: String, previousPaths: Int, compromise: Int) =
-        timer("puzzle.path.nextFor").withTags:
-          tags(
-            "theme"         -> theme,
-            "tier"          -> tier,
-            "difficulty"    -> difficulty,
-            "previousPaths" -> previousPaths.toString,
-            "compromise"    -> compromise.toString
-          )
+      def nextFor(theme: String) = timer("puzzle.path.nextFor").withTag("theme", theme)
 
     object batch:
       object selector:
@@ -704,6 +688,9 @@ object mon:
         _ = total.withTags(tags("name" -> group.name)).update(group.total)
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
+
+  object prometheus:
+    val lines = gauge("prometheus.lines").withoutTags()
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A]
 

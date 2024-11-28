@@ -24,7 +24,7 @@ final class ErrorHandler(
     Future {
       val actionName = HTTPRequest.actionName(req)
       val client     = HTTPRequest.clientName(req)
-      lila.mon.http.error(actionName, client, req.method, 500).increment()
+      lila.mon.http.errorCount(actionName, client, req.method, 500).increment()
       lila.log("http").error(s"ERROR 500 $actionName", exception)
       if canShowErrorPage(req) then
         given PageContext = PageContext(

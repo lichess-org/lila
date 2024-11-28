@@ -114,7 +114,12 @@ final class Main(
 
   def prometheusMetrics(key: String) = Anon:
     if key == env.web.config.prometheusKey
-    then prometheus.PrometheusReporter.latestScrapeData().fold(NotFound("No metrics found"))(Ok(_))
+    then
+      prometheus.PrometheusReporter
+        .latestScrapeData()
+        .fold(NotFound("No metrics found")): data =>
+          lila.mon.prometheus.lines.update(data.lines.count.toDouble)
+          Ok(data)
     else NotFound("Invalid prometheus key")
 
   def legacyQaQuestion(id: Int, _slug: String) = Anon:
