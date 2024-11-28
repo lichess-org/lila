@@ -2,37 +2,24 @@ import { uciChar } from './uciChar';
 
 export * from './sanWriter';
 
-export function fixCrazySan(san: San): San {
-  return san[0] === 'P' ? san.slice(1) : san;
-}
+export const fixCrazySan = (san: San): San => (san[0] === 'P' ? san.slice(1) : san);
 
-export function destsToUcis(dests: Dests): Uci[] {
-  const ucis: string[] = [];
-  for (const [orig, d] of dests) {
-    d.forEach(function (dest) {
-      ucis.push(orig + dest);
-    });
-  }
-  return ucis;
-}
+export const destsToUcis = (destMap: Dests): Uci[] =>
+  Array.from(destMap).reduce<Uci[]>((acc, [orig, dests]) => acc.concat(dests.map(dest => orig + dest)), []);
 
-export function readDests(lines?: string): Dests | null {
-  if (typeof lines === 'undefined') return null;
-  const dests = new Map();
-  if (lines)
-    for (const line of lines.split(' ')) {
-      dests.set(
-        uciChar[line[0]],
-        line
-          .slice(1)
-          .split('')
-          .map(c => uciChar[c]),
-      );
-    }
-  return dests;
-}
+export const readDests = (lines?: string): Dests | null =>
+  lines
+    ? lines.split(' ').reduce<Dests>((dests, line) => {
+        dests.set(
+          uciChar[line[0]],
+          line
+            .slice(1)
+            .split('')
+            .map(c => uciChar[c]),
+        );
+        return dests;
+      }, new Map())
+    : null;
 
-export function readDrops(line?: string | null): Key[] | null {
-  if (typeof line === 'undefined' || line === null) return null;
-  return (line.match(/.{2}/g) as Key[]) || [];
-}
+export const readDrops = (line?: string | null): Key[] | null =>
+  line ? (line.match(/.{2}/g) as Key[]) || [] : null;
