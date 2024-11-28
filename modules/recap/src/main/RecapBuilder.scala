@@ -5,6 +5,7 @@ import lila.game.Query
 import chess.opening.OpeningDb
 import lila.common.SimpleOpening
 import chess.format.pgn.SanStr
+import scalalib.model.Days
 
 private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(using
     Executor,
@@ -22,6 +23,7 @@ private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(
       id = userId,
       year = yearToRecap,
       nbGames = scan.nbGames,
+      streakDays = Days(scan.streak.max),
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
       ,
@@ -52,6 +54,7 @@ private case class Scan(
     nbGames: Int,
     secondsPlaying: Int,
     results: Recap.Results,
+    streak: Scan.Streak,
     openings: ByColor[Map[SimpleOpening, Int]],
     firstMoves: Map[SanStr, Int],
     opponents: Map[UserId, Int],
@@ -73,6 +76,7 @@ private case class Scan(
             draw = results.draw + winner.isEmpty.so(1),
             loss = results.loss + winner.exists(_.isnt(userId)).so(1)
           ),
+          streak = streak.addGame(g.createdAt),
           openings = opening.fold(openings): op =>
             openings.update(player.color, _.updatedWith(op)(_.fold(1)(_ + 1).some)),
           firstMoves = player.color.white
@@ -87,7 +91,27 @@ private case class Scan(
         )
 
 private object Scan:
-  def zero =
-    Scan(0, 0, Recap.Results(0, 0, 0), ByColor.fill(Map.empty), Map.empty, Map.empty, Map.empty)
+  def zero = Scan(
+    0,
+    0,
+    Recap.Results(0, 0, 0),
+    Streak(0, 0, java.time.Instant.MIN),
+    ByColor.fill(Map.empty),
+    Map.empty,
+    Map.empty,
+    Map.empty
+  )
   val createdThisYear =
     Query.createdBetween(instantOf(yearToRecap, 1, 1, 0, 0).some, instantOf(yearToRecap + 1, 1, 1, 0, 0).some)
+
+  case class Streak(current: Int, max: Int, lastPlayed: Instant):
+    def addGame(playedAt: Instant): Streak =
+      val newStreak =
+        if playedAt.toEpochMilli - lastPlayed.toEpochMilli < 24 * 3600 * 1000
+        then current + 1
+        else 1
+      copy(
+        current = newStreak,
+        max = newStreak.atLeast(max),
+        lastPlayed = playedAt
+      )

@@ -6,11 +6,13 @@ import chess.opening.OpeningFamily
 import lila.common.SimpleOpening
 import chess.format.pgn.SanStr
 import lila.recap.Recap.Counted
+import scalalib.model.Days
 
 case class Recap(
     @Key("_id") id: UserId,
     year: Int,
     nbGames: Int,
+    streakDays: Days,
     openings: Recap.Openings,
     firstMove: Option[Counted[SanStr]],
     results: Recap.Results,
