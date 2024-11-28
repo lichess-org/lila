@@ -689,6 +689,9 @@ object mon:
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
 
+  object prometheus:
+    val lines = gauge("prometheus.lines").withoutTags()
+
   def chronoSync[A] = lila.common.Chronometer.syncMon[A]
 
   type TimerPath   = lila.mon.type => Timer
