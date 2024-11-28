@@ -39,6 +39,6 @@ function boardPlayer(board: Board, color: Color, opts: SwissOpts) {
     h('span.mini-game__user', [h('strong', '#' + player.rank), renderPlayer(player, true, opts.showRatings)]),
     board.clock
       ? renderClock(color, board.clock[color])
-      : h('span.mini-game__result', board.winner ? (board.winner == color ? 1 : 0) : '½'),
+      : h('span.mini-game__result', board.winner ? (board.winner === color ? 1 : 0) : '½'),
   ]);
 }

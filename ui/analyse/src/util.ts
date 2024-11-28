@@ -6,8 +6,6 @@ export function readOnlyProp<A>(value: A): () => A {
   };
 }
 
-export const plyToTurn = (ply: number): number => Math.floor((ply - 1) / 2) + 1;
-
 export function treeReconstruct(parts: Tree.Node[], sidelines?: Tree.Node[][]): Tree.Node {
   const root = parts[0],
     nb = parts.length;

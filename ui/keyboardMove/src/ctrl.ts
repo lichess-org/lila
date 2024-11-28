@@ -104,7 +104,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     promote(orig, dest, piece) {
       const role = sanToRole[piece];
       const variant = root.data.game.variant.key;
-      if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
+      if (!role || role === 'pawn' || (role === 'king' && variant !== 'antichess')) return;
       cg.cancelMove();
       promote(cg, dest, role);
       root.pluginMove(orig, dest, role);

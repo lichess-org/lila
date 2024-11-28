@@ -1,11 +1,10 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-import lila.common.String.html.richText
 import lila.core.shutup.PublicSource
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
-import lila.shutup.{ Analyser, PublicLine }
+import lila.shutup.Analyser
 
 def publicLineSource(source: lila.core.shutup.PublicSource)(using Translate): Frag = source match
   case PublicSource.Tournament(id) => views.tournament.ui.tournamentLink(id)

@@ -1,7 +1,6 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-import lila.core.id.{ ForumPostId, RelayRoundId }
 import lila.report.Report
 import lila.shutup.Analyser
 

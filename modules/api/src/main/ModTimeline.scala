@@ -1,7 +1,5 @@
 package lila.api
 
-import java.time.LocalDate
-
 import lila.mod.{ Modlog, ModlogApi }
 import lila.appeal.{ Appeal, AppealMsg, AppealApi }
 import lila.user.{ Note, NoteApi }
@@ -20,7 +18,7 @@ case class ModTimeline(
     playbanRecord: Option[lila.playban.UserRecord],
     flaggedPublicLines: List[PublicLine]
 ):
-  import ModTimeline.{ *, given }
+  import ModTimeline.*
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap(reportAtoms)
@@ -82,6 +80,7 @@ object ModTimeline:
       e match
         case e: Modlog =>
           if e.action == Modlog.permissions then "objects.key"
+          else if Modlog.isWarning(e) then "symbols.large-orange-diamond"
           else if e.action == Modlog.modMessage then "objects.megaphone"
           else if e.action == Modlog.garbageCollect then "objects.broom"
           else if e.action == Modlog.selfCloseAccount then "objects.locked"

@@ -40,5 +40,5 @@ export const povDiff = (color: Color, e1: EvalScore, e2: EvalScore): number =>
 // stricter than lichess-puzzler v49 check
 // to avoid false positives and only report really faulty puzzles
 export const areSimilarEvals = (pov: Color, bestEval: EvalScore, secondBestEval: EvalScore): boolean => {
-  return povDiff(pov, bestEval, secondBestEval) < 0.15;
+  return povDiff(pov, bestEval, secondBestEval) < 0.14;
 };

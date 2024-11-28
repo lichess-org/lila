@@ -24,7 +24,7 @@ final class Main(
     makeContext.flatMap:
       keyPages.notFound(msg)(using _)
 
-  def captchaCheck(id: GameId) = Open:
+  def captchaCheck(id: GameId) = Anon:
     env.game.captcha.validate(id, ~get("solution")).map { valid =>
       Ok(if valid then 1 else 0)
     }
@@ -112,14 +112,24 @@ final class Main(
         env.security.lilaCookie.withSession(remember = true): s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
 
-  def legacyQaQuestion(id: Int, _slug: String) = Open:
+  def prometheusMetrics(key: String) = Anon:
+    if key == env.web.config.prometheusKey
+    then
+      kamon.prometheus.PrometheusReporter
+        .latestScrapeData()
+        .fold(NotFound("No metrics found")): data =>
+          lila.mon.prometheus.lines.update(data.lines.count.toDouble)
+          Ok(data)
+    else NotFound("Invalid prometheus key")
+
+  def legacyQaQuestion(id: Int, _slug: String) = Anon:
     MovedPermanently:
       StaticContent.legacyQaQuestion(id)
 
   def devAsset(v: String, path: String, file: String) = assetsC.at(path, file)
 
   private val externalMonitorOnce = scalalib.cache.OnceEvery.hashCode[String](10.minutes)
-  def externalLink(tag: String) = Anon:
+  def externalLink(tag: String) = Open:
     StaticContent.externalLinks
       .get(tag)
       .so: url =>

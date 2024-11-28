@@ -42,7 +42,7 @@
   <string name="moveConfirmation">Підтвердження ходу</string>
   <string name="explainCanThenBeTemporarilyDisabled">Можна вимкнути під час гри в меню дошки</string>
   <string name="inCorrespondenceGames">У заочних партіях</string>
-  <string name="correspondenceAndUnlimited">За листуванням та необмежені</string>
+  <string name="correspondenceAndUnlimited">Заочні та необмежені</string>
   <string name="confirmResignationAndDrawOffers">Підтверджувати повернення ходу та пропозиції нічий</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Спосіб рокіровки</string>
   <string name="castleByMovingTwoSquares">Перемістити короля на два поля</string>

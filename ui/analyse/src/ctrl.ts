@@ -46,6 +46,7 @@ import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyb
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
 import { confirm } from 'common/dialog';
+import api from './api';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -194,6 +195,7 @@ export default class AnalyseCtrl {
     });
     pubsub.on('board.change', redraw);
     this.persistence?.merge();
+    window.lichess.analysis = api(this);
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
@@ -584,7 +586,7 @@ export default class AnalyseCtrl {
     }
 
     const relayPath = this.study?.data.chapter.relayPath;
-    if (relayPath && relayPath != newPath) this.forceVariation(newPath, true);
+    if (relayPath && relayPath !== newPath) this.forceVariation(newPath, true);
     else this.jump(newPath);
 
     this.redraw();
@@ -882,7 +884,7 @@ export default class AnalyseCtrl {
     return !n.eval && !!n.children.length && n.ply <= 300 && n.ply > 0;
   }
 
-  playUci(uci: Uci, uciQueue?: Uci[]) {
+  playUci = (uci: Uci, uciQueue?: Uci[]) => {
     this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);
@@ -903,7 +905,7 @@ export default class AnalyseCtrl {
         },
         to,
       );
-  }
+  };
 
   playUciList(uciList: Uci[]): void {
     this.pvUciQueue = uciList;

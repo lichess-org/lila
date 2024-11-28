@@ -14,7 +14,7 @@ export function ctrl(blueprint: { apples: string | SquareName[] }): Items {
   return {
     doIfKeyExists: <U>(key: SquareName, f: () => U) => (items.has(key) ? f() : undefined),
     remove: (key: SquareName) => items.delete(key),
-    isEmpty: () => items.size == 0,
+    isEmpty: () => items.size === 0,
     appleKeys: () => Array.from(items),
   };
 }

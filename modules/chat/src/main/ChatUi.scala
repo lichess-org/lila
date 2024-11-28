@@ -8,7 +8,7 @@ import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 
 final class ChatUi(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(

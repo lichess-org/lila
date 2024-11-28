@@ -79,10 +79,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def serveHome(using Context) = NoBot:
     val angle = PuzzleAngle.mix
-    nextPuzzleForMe(angle, none).flatMap {
+    nextPuzzleForMe(angle, none).flatMap:
       _.fold(redirectNoPuzzle):
         renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
-    }
 
   private def nextPuzzleForMe(
       angle: PuzzleAngle,
@@ -360,6 +359,18 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
           nextPuzzleForMe(angle, color.some).flatMap {
             _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
           }
+
+  def apiNext = AnonOrScoped(_.Puzzle.Read):
+    WithPuzzlePerf:
+      validateParam("angle", PuzzleAngle.find, PuzzleAngle.mix): angle =>
+        validateParam("difficulty", PuzzleDifficulty.find, PuzzleDifficulty.Normal): difficulty =>
+          FoundOk(nextPuzzleForMe(angle, none, difficulty))(env.puzzle.jsonView(_, none, none))
+
+  private def validateParam[A](name: String, read: String => Option[A], default: A)(
+      f: A => Fu[Result]
+  )(using Context): Fu[Result] =
+    get(name).fold(f(default)): param =>
+      read(param).fold(BadRequest(s"Invalid $name=$param").toFuccess)(f)
 
   def frame = Anon:
     InEmbedContext:

@@ -40,11 +40,13 @@ final class RelayPush(
         parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
       val andSyncTargets = response.exists(_.isRight)
 
-      rt.round.sync.nonEmptyDelay match
-        case None => push(rt, games, andSyncTargets).inject(response)
-        case Some(delay) =>
-          after(delay.value.seconds)(push(rt, games, andSyncTargets))
-          fuccess(response)
+      rt.round.sync.nonEmptyDelay
+        .ifTrue(games.exists(_.root.children.nonEmpty))
+        .match
+          case None => push(rt, games, andSyncTargets).inject(response)
+          case Some(delay) =>
+            after(delay.value.seconds)(push(rt, games, andSyncTargets))
+            fuccess(response)
 
   private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):

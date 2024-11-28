@@ -156,7 +156,7 @@ export class LevelCtrl {
         took = true;
       });
       const pieceAtKey = chess.instance.board.get(move.to);
-      if (!took && pieceAtKey && blueprint.pointsForCapture && pieceAtKey.role != 'king') {
+      if (!took && pieceAtKey && blueprint.pointsForCapture && pieceAtKey.role !== 'king') {
         vm.score += blueprint.showPieceValues ? pieceValue(pieceAtKey.role) : capture;
         took = true;
       }

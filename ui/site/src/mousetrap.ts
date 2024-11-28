@@ -88,7 +88,7 @@ const SPECIAL_ALIASES: Record<string, string> = {
 };
 
 const keyFromEvent = (e: KeyboardEvent): string => {
-  if (e.type == 'keypress') {
+  if (e.type === 'keypress') {
     const character = String.fromCharCode(e.which);
     return e.shiftKey ? character : character.toLowerCase(); // ignore caps lock
   }
@@ -106,7 +106,8 @@ const eventModifiers = (e: KeyboardEvent): string[] => {
   return modifiers;
 };
 
-const isModifier = (key: string): boolean => key == 'shift' || key == 'ctrl' || key == 'alt' || key == 'meta';
+const isModifier = (key: string): boolean =>
+  key === 'shift' || key === 'ctrl' || key === 'alt' || key === 'meta';
 
 const getReverseMap = (() => {
   let REVERSE_MAP: Record<string, string> | undefined;
@@ -126,7 +127,7 @@ const getReverseMap = (() => {
 
 const pickBestAction = (key: string, modifiers: string[], action?: Action): Action => {
   action = action || (getReverseMap()[key] ? 'keydown' : 'keypress');
-  if (action == 'keypress' && modifiers.length) return 'keydown'; // modifiers incompatible with keypress
+  if (action === 'keypress' && modifiers.length) return 'keydown'; // modifiers incompatible with keypress
   return action;
 };
 
@@ -193,10 +194,10 @@ export default class Mousetrap {
 
     for (const binding of this.getMatches(e)) {
       if (
-        binding.combination == 'esc' ||
-        (el.tagName != 'INPUT' &&
-          el.tagName != 'SELECT' &&
-          el.tagName != 'TEXTAREA' &&
+        binding.combination === 'esc' ||
+        (el.tagName !== 'INPUT' &&
+          el.tagName !== 'SELECT' &&
+          el.tagName !== 'TEXTAREA' &&
           !el.isContentEditable &&
           !el.hasAttribute('trap-bypass'))
       ) {
@@ -210,14 +211,14 @@ export default class Mousetrap {
   private getMatches = (e: KeyboardEvent): Binding[] => {
     const key = keyFromEvent(e);
     const action = e.type;
-    const modifiers = action == 'keyup' && isModifier(key) ? [key] : eventModifiers(e);
+    const modifiers = action === 'keyup' && isModifier(key) ? [key] : eventModifiers(e);
     return (this.bindings[key] || []).filter(
       binding =>
-        action == binding.action &&
+        action === binding.action &&
         // Chrome will not fire a keypress if meta or control is down,
         // Safari will fire a keypress if meta or meta+shift is down,
         // Firefox will fire a keypress if meta or control is down
-        ((action == 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, binding.modifiers)),
+        ((action === 'keypress' && !e.metaKey && !e.ctrlKey) || modifiersMatch(modifiers, binding.modifiers)),
     );
   };
 }

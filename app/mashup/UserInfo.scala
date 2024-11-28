@@ -6,7 +6,6 @@ import play.api.data.Form
 import lila.bookmark.BookmarkApi
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
-import lila.core.perm.Granter
 import lila.core.user.User
 import lila.forum.ForumPostApi
 import lila.game.Crosstable

@@ -85,7 +85,7 @@ site.load.then(() => {
     });
     window.addEventListener('beforeunload', e => {
       if (
-        clean != serialize() &&
+        clean !== serialize() &&
         !window.confirm('You have unsaved changes. Are you sure you want to leave?')
       )
         e.preventDefault();

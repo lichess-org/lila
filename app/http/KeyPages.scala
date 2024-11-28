@@ -1,9 +1,7 @@
 package lila.app
 package http
 
-import play.api.libs.json.Json
 import play.api.mvc.*
-
 import lila.app.{ *, given }
 import lila.memo.CacheApi.*
 

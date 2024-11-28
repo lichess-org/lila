@@ -399,7 +399,7 @@ export function initModule({
         dp = board.pieces[ndest],
         srole = board.pieces[nsrc].toUpperCase();
 
-      if (srole == 'K') {
+      if (srole === 'K') {
         if (isOurs(dp)) {
           pushMap(moves, 'castle', uci);
           moves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));

@@ -698,9 +698,9 @@ function isMouseOver(element: Cash) {
   const elementPosition = element.offset()!;
   return (
     session.currentX >= elementPosition.left &&
-    session.currentX <= elementPosition.left + element.width() &&
+    session.currentX <= elementPosition.left + element.outerWidth() &&
     session.currentY >= elementPosition.top &&
-    session.currentY <= elementPosition.top + element.height()
+    session.currentY <= elementPosition.top + element.outerHeight()
   );
 }
 

@@ -34,7 +34,7 @@ export class Mic implements Microphone {
   async getMics(): Promise<MediaDeviceInfo[]> {
     return navigator.mediaDevices
       .enumerateDevices()
-      .then(d => d.filter(d => d.kind == 'audioinput' && d.label));
+      .then(d => d.filter(d => d.kind === 'audioinput' && d.label));
   }
 
   get micId(): string {

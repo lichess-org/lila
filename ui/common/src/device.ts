@@ -44,8 +44,8 @@ export const hookMobileMousedown = (f: (e: Event) => any): Hooks =>
 let col1cache: 'init' | 'rec' | boolean = 'init';
 
 export function isCol1(): boolean {
-  if (typeof col1cache == 'string') {
-    if (col1cache == 'init') {
+  if (typeof col1cache === 'string') {
+    if (col1cache === 'init') {
       // only once
       window.addEventListener('resize', () => {
         col1cache = 'rec';

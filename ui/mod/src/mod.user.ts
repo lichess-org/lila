@@ -131,7 +131,7 @@ site.load.then(() => {
             table,
             select as HTMLSelectElement,
           )(async action => {
-            if (action == 'alt') {
+            if (action === 'alt') {
               const usernames = Array.from(
                 $(table)
                   .find('td:last-child input:checked')
@@ -171,7 +171,7 @@ site.load.then(() => {
         .find('tr')
         .on('click', function (this: HTMLTableRowElement) {
           const v = this.dataset.value;
-          selected = selected == v ? undefined : v;
+          selected = selected === v ? undefined : v;
           applyFilter(selected);
           $('.spy_filter tr.selected').removeClass('selected');
           $(this).toggleClass('selected', !!selected);
