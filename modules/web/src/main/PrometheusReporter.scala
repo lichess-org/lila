@@ -4,7 +4,7 @@ import java.time.Duration
 
 import com.typesafe.config.Config
 import kamon.metric.*
-import kamon.module.{ MetricReporter, Module }
+import kamon.module.{ MetricReporter, Module, ModuleFactory }
 import kamon.prometheus.PrometheusReporter.DefaultConfigPath
 import kamon.prometheus.*
 import kamon.Kamon
@@ -79,6 +79,12 @@ object PrometheusReporter:
     */
   def latestScrapeData(): Option[String] =
     _lastCreatedInstance.map(_.scrapeData())
+
+  class Factory extends ModuleFactory:
+    override def create(settings: ModuleFactory.Settings): Module =
+      val reporter = new PrometheusReporter(DefaultConfigPath, settings.config)
+      _lastCreatedInstance = Some(reporter)
+      reporter
 
   def create(): PrometheusReporter =
     new PrometheusReporter()
