@@ -114,7 +114,7 @@ final class Main(
 
   def prometheusMetrics(key: String) = Anon:
     if key == env.web.config.prometheusKey
-    then kamon.prometheus.PrometheusReporter.latestScrapeData().fold(NotFound("No metrics found"))(Ok(_))
+    then prometheus.PrometheusReporter.latestScrapeData().fold(NotFound("No metrics found"))(Ok(_))
     else NotFound("Invalid prometheus key")
 
   def legacyQaQuestion(id: Int, _slug: String) = Anon:
