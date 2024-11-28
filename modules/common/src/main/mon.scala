@@ -480,9 +480,9 @@ object mon:
         def time(theme: String) = timer("puzzle.selector.anon.puzzle").withTag("theme", theme)
         def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
         def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
-      def nextPuzzleResult(theme: String, difficulty: String, color: String, result: String) =
+      def nextPuzzleResult(theme: String, result: String) =
         timer("puzzle.selector.user.puzzleResult").withTags:
-          tags("theme" -> theme, "difficulty" -> difficulty, "color" -> color, "result" -> result)
+          tags("theme" -> theme, "result" -> result)
     object path:
       def nextFor(theme: String) = timer("puzzle.path.nextFor").withTag("theme", theme)
 

@@ -128,7 +128,5 @@ final class PuzzleSelector(
       .monValue: result =>
         _.puzzle.selector.nextPuzzleResult(
           theme = session.path.angle.key,
-          difficulty = session.settings.difficulty.key,
-          color = session.settings.color.fold("random")(_.name),
           result = result.name
         )
