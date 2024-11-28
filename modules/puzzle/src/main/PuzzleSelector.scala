@@ -48,7 +48,7 @@ final class PuzzleSelector(
         def serveAndMonitor(puzzle: Puzzle) =
           val mon = lila.mon.puzzle.selector.user
           mon.retries(angle.key).record(retries)
-          mon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
+          mon.vote.record(100 + math.round(puzzle.vote * 100))
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment()
           puzzle
 

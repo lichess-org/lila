@@ -21,7 +21,7 @@ final class PuzzleAnon(
       .mon(_.puzzle.selector.anon.time)
       .addEffect:
         _.foreach: puzzle =>
-          lila.mon.puzzle.selector.anon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
+          lila.mon.puzzle.selector.anon.vote.record(100 + math.round(puzzle.vote * 100))
 
   private def selectWithColor(color: Color)(puzzles: Vector[Puzzle]): Option[Puzzle] =
     def nextTry(attempts: Int): Option[Puzzle] =
