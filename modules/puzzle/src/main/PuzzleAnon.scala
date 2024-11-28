@@ -18,7 +18,7 @@ final class PuzzleAnon(
     pool
       .get(angle -> diff)
       .map(color.fold[Vector[Puzzle] => Option[Puzzle]](ThreadLocalRandom.oneOf)(selectWithColor))
-      .mon(_.puzzle.selector.anon.time(angle.key))
+      .mon(_.puzzle.selector.anon.time)
       .addEffect:
         _.foreach: puzzle =>
           lila.mon.puzzle.selector.anon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))

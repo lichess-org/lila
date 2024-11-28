@@ -470,7 +470,7 @@ object mon:
             tags("tier" -> t, "theme" -> theme, "difficulty" -> difficulty)
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       object anon:
-        def time(theme: String) = timer("puzzle.selector.anon.puzzle").withTag("theme", theme)
+        val time                = timer("puzzle.selector.anon.puzzle").withoutTags()
         def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
         def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
       def nextPuzzleResult(theme: String, result: String) =
