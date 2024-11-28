@@ -465,10 +465,6 @@ object mon:
         def time(theme: String)    = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
         def retries(theme: String) = histogram("puzzle.selector.user.retries").withTag("theme", theme)
         def vote(theme: String)    = histogram("puzzle.selector.user.vote").withTag("theme", theme)
-        def ratingDiff(theme: String, difficulty: String) =
-          histogram("puzzle.selector.user.ratingDiff").withTags:
-            tags("theme" -> theme, "difficulty" -> difficulty)
-        def ratingDev(theme: String) = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
         def tier(t: String, theme: String, difficulty: String) =
           counter("puzzle.selector.user.tier").withTags:
             tags("tier" -> t, "theme" -> theme, "difficulty" -> difficulty)

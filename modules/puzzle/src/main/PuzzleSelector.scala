@@ -49,10 +49,6 @@ final class PuzzleSelector(
           val mon = lila.mon.puzzle.selector.user
           mon.retries(angle.key).record(retries)
           mon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
-          mon
-            .ratingDiff(angle.key, session.settings.difficulty.key)
-            .record(math.abs(puzzle.glicko.intRating.value - perf.intRating.value))
-          mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
           mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment()
           puzzle
 
