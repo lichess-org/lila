@@ -209,10 +209,7 @@ export default class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    //>=sf16 or fsf14+nnue
-    return (
-      this.engines.active?.tech === 'NNUE' && this.engines.active.requires.includes('dynamicImportFromWorker')
-    );
+    return !!this.engines.active?.cloudEval;
   }
 
   get showingCloud(): boolean {

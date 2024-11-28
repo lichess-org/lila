@@ -48,6 +48,7 @@ export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
 
 export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
   tech: 'EXTERNAL';
+  cloudEval?: false;
 }
 
 export interface BrowserEngineInfo extends BaseEngineInfo {
@@ -57,6 +58,7 @@ export interface BrowserEngineInfo extends BaseEngineInfo {
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Feature[];
   obsoletedBy?: Feature;
+  cloudEval?: boolean;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
