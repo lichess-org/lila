@@ -20,6 +20,7 @@ import lila.puzzle.{
 }
 import lila.rating.PerfType
 import lila.ui.LangPath
+import scalalib.model.Days
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -388,12 +389,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config))(jsToNdJson)
   }
 
-  def apiDashboard(days: Int) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me ?=>
+  def apiDashboard(days: Days) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me ?=>
     JsonOptionOk:
       env.puzzle.dashboard(me, days).map2 { env.puzzle.jsonView.dashboardJson(_, days) }
   }
 
-  def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
+  def dashboard(days: Days, path: String = "home", u: Option[UserStr]) =
     DashboardPage(u) { ctx ?=> user =>
       env.puzzle.dashboard(user, days).flatMap { dashboard =>
         path match
@@ -406,7 +407,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def replay(days: Int, themeKey: String) = Auth { ctx ?=> me ?=>
+  def replay(days: Days, themeKey: String) = Auth { ctx ?=> me ?=>
     val theme         = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
     env.puzzle.replay(me, checkedDayOpt, theme.key).flatMap {
