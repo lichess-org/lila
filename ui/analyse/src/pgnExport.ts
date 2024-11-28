@@ -1,8 +1,9 @@
 import type AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
-import { initialFen, fixCrazySan } from 'chess';
+import { fixCrazySan } from 'chess';
 import { type MaybeVNodes } from 'common/snabbdom';
 import { plyToTurn } from './util';
+import { INITIAL_FEN } from 'chessops/fen';
 
 interface PgnNode {
   ply: Ply;
@@ -39,7 +40,7 @@ export function renderFullTxt(ctrl: AnalyseCtrl): string {
   let txt = renderNodesTxt(ctrl.tree.root, true);
   const tags: Array<[string, string]> = [];
   if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
-  if (g.initialFen && g.initialFen !== initialFen) tags.push(['FEN', g.initialFen]);
+  if (g.initialFen && g.initialFen !== INITIAL_FEN) tags.push(['FEN', g.initialFen]);
   if (tags.length) txt = tags.map(t => '[' + t[0] + ' "' + t[1] + '"]').join('\n') + '\n\n' + txt;
   return txt;
 }
