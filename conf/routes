@@ -159,9 +159,9 @@ GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/openings               controllers.Puzzle.openings(order ?= "popular")
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[UserStr] ?= None, page: Int ?= 1)
-GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path = "home", u: Option[UserStr])
-GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path, u: Option[UserStr])
-GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme)
+GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Days, path = "home", u: Option[UserStr])
+GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Days, path, u: Option[UserStr])
+GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Days, theme)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[UserStr])
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
@@ -668,7 +668,7 @@ GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
-GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
+GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Days)
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id: PuzzleId)
 GET   /api/puzzle/next                 controllers.Puzzle.apiNext
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
