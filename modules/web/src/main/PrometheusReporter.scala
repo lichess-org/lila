@@ -1,5 +1,4 @@
-package lila.app
-package prometheus
+package lila.web
 
 import java.time.Duration
 
