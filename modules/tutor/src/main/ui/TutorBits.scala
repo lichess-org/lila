@@ -23,7 +23,7 @@ final class TutorBits(helpers: Helpers)(
           div(cls := "page-menu__content")(mods, body)
         )
 
-  val mascot =
+  def mascot =
     img(
       cls := "mascot",
       src := assetUrl("images/mascot/octopus-shadow.svg")
