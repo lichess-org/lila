@@ -23,3 +23,6 @@ export const readDests = (lines?: string): Dests | null =>
 
 export const readDrops = (line?: string | null): Key[] | null =>
   line ? (line.match(/.{2}/g) as Key[]) || [] : null;
+
+// Extended Position Description
+export const fenToEpd = (fen: FEN): string => fen.split(' ').slice(0, 4).join(' ');

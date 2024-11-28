@@ -342,6 +342,9 @@ importers:
 
   ui/editor:
     dependencies:
+      chess:
+        specifier: workspace:*
+        version: link:../chess
       common:
         specifier: workspace:*
         version: link:../common
