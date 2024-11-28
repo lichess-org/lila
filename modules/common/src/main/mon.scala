@@ -14,32 +14,29 @@ object mon:
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
-    private val reqTime = timer("http.time")
-    private val mobTime = timer("http.mobile")
-    def time(action: String, client: String, method: String, code: Int) =
-      reqTime.withTags:
-        tags(
-          "action" -> action,
-          "client" -> client,
-          "method" -> method,
-          "code"   -> code.toLong
-        )
-    def error(action: String, client: String, method: String, code: Int) =
+    private val reqTime  = timer("http.time")
+    private val reqCount = counter("http.count")
+    private val mobCount = counter("http.mobile.count")
+
+    def time(action: String) = reqTime.withTag("action", action)
+
+    def count(action: String, client: String, method: String, code: Int) =
+      reqCount.withTags:
+        tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
+
+    def errorCount(action: String, client: String, method: String, code: Int) =
       counter("http.error").withTags:
-        tags(
-          "action" -> action,
-          "client" -> client,
-          "method" -> method,
-          "code"   -> code.toLong
-        )
-    def mobile(action: String, version: String, auth: Boolean, os: String) =
-      mobTime.withTags:
+        tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
+
+    def mobileCount(action: String, version: String, auth: Boolean, os: String) =
+      mobCount.withTags:
         tags(
           "action"  -> action,
           "version" -> version,
           "auth"    -> (if auth then "auth" else "anon"),
           "os"      -> os
         )
+
     def path(p: String) = counter("http.path.count").withTag("path", p)
     val userGamesCost   = counter("http.userGames.cost").withoutTags()
     def csrfError(tpe: String, action: String, client: String) =
