@@ -464,15 +464,15 @@ object mon:
       object user:
         def time(theme: String)    = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
         def retries(theme: String) = histogram("puzzle.selector.user.retries").withTag("theme", theme)
-        def vote(theme: String)    = histogram("puzzle.selector.user.vote").withTag("theme", theme)
+        val vote                   = histogram("puzzle.selector.user.vote").withoutTags()
         def tier(t: String, theme: String, difficulty: String) =
           counter("puzzle.selector.user.tier").withTags:
             tags("tier" -> t, "theme" -> theme, "difficulty" -> difficulty)
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       object anon:
-        val time                = timer("puzzle.selector.anon.puzzle").withoutTags()
-        def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
-        def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
+        val time           = timer("puzzle.selector.anon.puzzle").withoutTags()
+        def batch(nb: Int) = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+        val vote           = histogram("puzzle.selector.anon.vote").withoutTags()
       def nextPuzzleResult(theme: String, result: String) =
         timer("puzzle.selector.user.puzzleResult").withTags:
           tags("theme" -> theme, "result" -> result)
