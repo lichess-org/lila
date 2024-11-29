@@ -57,7 +57,8 @@ final private class PuzzlePathApi(colls: PuzzleColls)(using Executor):
         case _ if compromise < 5 =>
           nextFor(angle, actualTier, difficulty, previousPaths, compromise + 1)
         case _ => fuccess(none)
-  }.mon(_.puzzle.path.nextFor(angle.key))
+  }.mon:
+    _.puzzle.path.nextFor(angle.categ)
 
   def select(angle: PuzzleAngle, tier: PuzzleTier, rating: Range) = $doc(
     "min".$lte(f"${angle.key}${sep}${tier}${sep}${rating.max}%04d"),
