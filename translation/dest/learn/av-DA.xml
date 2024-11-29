@@ -43,24 +43,24 @@
   <string name="knightComplete">Баркула! Дуца чол гъваридго лъазабуна.</string>
   <string name="thePawn">Пешка</string>
   <string name="itMovesForwardOnly">ГӀицӀго цебехун хъурщула</string>
-  <string name="pawnIntro">Пешкаби загӀипал руго, амма гьезул цо кӀудияб рес буго.</string>
+  <string name="pawnIntro">Пешкаби загӀипал руго, амма гьел церетӀезе кӀудияб рес буго.</string>
   <string name="pawnsMoveOneSquareOnly">Пешкаби цохӀо майданалдасан хъурщула.
 Амма гьел батӀияб рахъалде щваралъур кутакаб кесекалде сверула!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">ГӀемерисеб мехалъ пешка къиралалде сверизе лъикӀ.
+  <string name="mostOfTheTimePromotingToAQueenIsBest">ГӀемерисеб мехалъ пешка къиралалде сверизе бищун лъикӀаб буго.
 Амма цо-цо мехалъ чу хӀажалъизе бегьула!</string>
   <string name="pawnsMoveForward">Пешка цебехун хъурщула,
 амма диагоналалда чӀвала!</string>
   <string name="captureThenPromote">ЧӀвай, хадуб сверизабе!</string>
   <string name="useAllThePawns">Киналго пешкаби хӀалтӀизаре!
 Сверизабизе хӀажалъи гьечӀо.</string>
-  <string name="aPawnOnTheSecondRank">2-б мухъалда бугеб пешка цого мехалъ 2 майданалдасан хъурщизе кӀола!</string>
+  <string name="aPawnOnTheSecondRank">КӀиабилеб мухъалда бугеб пешка цого мехалъ 2 майданалдасан хъурщизе кӀола!</string>
   <string name="grabAllTheStarsNoNeedToPromote">Киналго цӀваби росе!
 Сверизабизе хӀажалъи гьечӀо.</string>
   <string name="pawnComplete">Баркула! Дуда пешкаялъул кинабго лъала.</string>
   <string name="pawnPromotion">Пешка сверизаби</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Дур пешка хъорщол рагӀалде щвана!</string>
   <string name="itNowPromotesToAStrongerPiece">Гьанже гьеб кутакаб кесекалде сверула.</string>
-  <string name="selectThePieceYouWant">Дуе рокьарал кескал рище!</string>
+  <string name="selectThePieceYouWant">Дуего бокьараб кесек бище!</string>
   <string name="fundamentals">КьучӀал</string>
   <string name="capture">ЧӀвай</string>
   <string name="takeTheEnemyPieces">Тушманасул кескал нахъе росе</string>
@@ -165,7 +165,7 @@
   <string name="enPassantComplete">Баркула! Дуда гьанже нахъаса чӀвазе кӀола.</string>
   <string name="stalemate">Пат</string>
   <string name="theGameIsADraw">Ращад ккана</string>
-  <string name="stalemateIntro">ХӀалесда шахги гьечӀони гьесе хъурщизе бакӀги гьечӀони, гьеб пат ккола. ХӀаялда ращад ккана: щивго бергьинчӀо, щивго къечӀо.</string>
+  <string name="stalemateIntro">ХӀалесда шахги лъазабун гьечӀони гьесие хъурщизе бакӀги гьечӀони, гьеб пат ккола. ХӀаялда ращад ккана: щивго бергьинчӀо, щивго къечӀо.</string>
   <string name="stalemateGoal">ЧӀегӀеразда пат лъазабизе:
 - ЧӀегӀеразда кирениги хъурщизе кӀоларо
 - Шах гьечӀо.</string>
@@ -180,7 +180,7 @@
 Чу = 3
 Пешка = 1
 Къирал къимат кьезе кӀолареб буго! Гьеб къуни мун тӀубанго хӀаялда къола.</string>
-  <string name="queenOverBishop">Бищун кӀудаб 
+  <string name="queenOverBishop">Бищун кӀудияб 
 багьа бугеб кесек чӀвай!
 Къиралай &gt; Пил</string>
   <string name="pieceValueExchange">Бищун хирияб багьа бугеб кесек чӀвай!
