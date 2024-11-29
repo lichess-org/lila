@@ -87,7 +87,9 @@ $puzzle-block-gap: $block-gap;
       'side    . session .     controls'
       'side    . kb-move .     controls'
       'side    . .       .     .';
-    grid-template-columns: $col3-uniboard-side $puzzle-block-gap var(---col3-uniboard-width) $puzzle-block-gap $col3-uniboard-table;
+    grid-template-columns:
+      $col3-uniboard-side $puzzle-block-gap var(---col3-uniboard-width)
+      $puzzle-block-gap $col3-uniboard-table;
   }
 
   &__side {

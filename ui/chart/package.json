@@ -14,7 +14,7 @@
     "chart.js": "4.4.6",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "chartjs-plugin-zoom": "^2.0.1",
+    "chartjs-plugin-zoom": "^2.2.0",
     "chess": "workspace:*",
     "common": "workspace:*",
     "dayjs": "^1.11.13",
