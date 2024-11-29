@@ -80,14 +80,9 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
 
   object bodyImage:
     val sizePx = Left(800)
-    private val RateLimitPerIp = RateLimit.composite[IpAddress](key = "image.body.upload.ip")(
-      ("fast", 10, 2.minutes),
-      ("slow", 60, 1.day)
-    )
-    def upload(rel: String, image: FilePart, me: UserId, ip: IpAddress): Fu[Option[String]] =
-      RateLimitPerIp(ip, fuccess(none)):
-        uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
-          .map(pic => url.resize(pic.id, sizePx).some)
+    def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
+      uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+        .map(pic => url.resize(pic.id, sizePx).some)
 
   private object picfitServer:
 

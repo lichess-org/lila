@@ -137,12 +137,12 @@ final class Main(
         then lila.mon.link.external(tag, ctx.isAuth).increment()
         Redirect(url)
 
-  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
+  def uploadImage(rel: String) = AuthBody(parse.multipartFormData) { ctx ?=> _ ?=>
     ctx.body.body.file("image") match
       case Some(image) =>
         limit.imageUpload(ctx.ip, rateLimited):
           env.memo.picfitApi.bodyImage
-            .upload(rel = rel, image = image, me = me, ip = ctx.ip)
+            .upload(rel, image)
             .map(url => JsonOk(Json.obj("imageUrl" -> url)))
       case None => JsonBadRequest(jsonError("Image content only"))
   }
