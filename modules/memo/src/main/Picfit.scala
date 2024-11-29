@@ -44,7 +44,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     uploadSource(rel, source, userId)
 
   def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
-    if part.fileSize > uploadMaxBytes then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
+    if part.fileSize > uploadMaxBytes
+    then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
       part.contentType
         .collect:
