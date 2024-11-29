@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
-  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este QR Code</string>
+  <string name="orLetYourOpponentScanQrCode">Ou deixe seu oponente ler este código QR</string>
   <string name="waiting">Aguardando</string>
   <string name="yourTurn">Sua vez</string>
   <string name="aiNameLevelAiLevel">%1$s nível %2$s</string>
@@ -50,8 +50,8 @@
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
   <string name="blackLeftTheGame">Pretas deixaram a partida</string>
-  <string name="whiteDidntMove">As brancas não se moveram</string>
-  <string name="blackDidntMove">As pretas não se moveram</string>
+  <string name="whiteDidntMove">Brancas não moveram</string>
+  <string name="blackDidntMove">Pretas não moveram</string>
   <string name="requestAComputerAnalysis">Solicitar uma análise do computador</string>
   <string name="computerAnalysis">Análise do computador</string>
   <string name="computerAnalysisAvailable">Análise de computador disponível</string>
@@ -70,8 +70,8 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Transformar em linha principal</string>
   <string name="deleteFromHere">Excluir a partir daqui</string>
-  <string name="collapseVariations">Esconder variantes</string>
-  <string name="expandVariations">Mostrar variantes</string>
+  <string name="collapseVariations">Recolher variações</string>
+  <string name="expandVariations">Expandir variações</string>
   <string name="forceVariation">Variante forçada</string>
   <string name="copyVariationPgn">Copiar PGN da variante</string>
   <string name="move">Movimentos</string>
@@ -95,7 +95,7 @@
     <item quantity="one">Mate em %s lance</item>
     <item quantity="other">Mate em %s lances</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\" com arredondamento, baseado no número de meias-jogadas até a próxima captura ou jogada de peão</string>
+  <string name="dtzWithRounding">DTZ50\" com arredondamento, baseado no número de lances até a próxima captura ou movimento de peão</string>
   <string name="noGameFound">Nenhuma partida encontrada</string>
   <string name="maxDepthReached">Profundidade máxima alcançada!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Talvez você queira incluir mais jogos a partir do menu de preferências</string>
@@ -246,7 +246,7 @@
   <string name="rank">Rank</string>
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">O ranking é atualizado a cada %s minutos</item>
+    <item quantity="one">O ranking é atualizado a cada %s minuto</item>
     <item quantity="other">O ranking é atualizado a cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -404,7 +404,7 @@
   <string name="orUploadPgnFile">Ou carregue um arquivo PGN</string>
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
-  <string name="toStudy">Estudo</string>
+  <string name="toStudy">Estudar</string>
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Após colar uma partida em PGN você poderá revisá-la interativamente, consultar uma análise de computador, utilizar o chat e compartilhar um link.</string>
   <string name="importGameCaveat">As variantes serão apagadas. Para salvá-las, importe o PGN em um estudo.</string>
@@ -488,7 +488,7 @@
   <string name="blackWins">Pretas venceram</string>
   <string name="drawRate">Taxa de empates</string>
   <string name="draws">Empates</string>
-  <string name="nextXTournament">Próximo torneio %s:</string>
+  <string name="nextXTournament">Próximo torneio de %s:</string>
   <string name="averageOpponent">Pontuação média adversários</string>
   <string name="boardEditor">Editor de tabuleiro</string>
   <string name="setTheBoard">Defina a posição</string>
@@ -577,7 +577,7 @@
   <string name="newPasswordAgain">Nova senha (novamente)</string>
   <string name="newPasswordsDontMatch">As novas senhas não correspondem</string>
   <string name="newPasswordStrength">Senha forte</string>
-  <string name="clockInitialTime">Tempo de relógio</string>
+  <string name="clockInitialTime">Tempo inicial no relógio</string>
   <string name="clockIncrement">Incremento do relógio</string>
   <string name="privacy">Privacidade</string>
   <string name="privacyPolicy">Política de privacidade</string>
@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">Quando a simultânea começa, cada jogador começa sua partida contra o simultanista, o qual sempre tem as brancas. A simultânea termina quando todas as partidas são finalizadas.</string>
   <string name="aboutSimulSettings">As simultâneas sempre são partidas amigáveis. Revanches, voltar jogadas e tempo adicional estão desativados.</string>
   <string name="create">Criar</string>
-  <string name="whenCreateSimul">Quando cria uma simultânea, você joga com vários adversários ao mesmo tempo.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quando cria uma simultânea, você joga com vários adversários ao mesmo tempo.</string>
   <string name="simulVariantsHint">Se você selecionar diversas variantes, cada jogador poderá escolher qual delas jogar.</string>
   <string name="simulClockHint">Configuração de acréscimos no relógio. Quanto mais jogadores admitir, mais tempo pode necessitar.</string>
   <string name="simulAddExtraTime">Você pode acrescentar tempo adicional a seu relógio, para ajudá-lo a lidar com a simultânea.</string>
