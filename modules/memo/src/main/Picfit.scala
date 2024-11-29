@@ -56,7 +56,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
-              id = ImageId(s"$userId:$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
+              id = ImageId(s"$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
               user = userId,
               rel = rel,
               name = part.filename,
