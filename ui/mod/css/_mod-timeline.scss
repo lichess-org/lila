@@ -16,8 +16,10 @@
     font-size: 1.1em;
     text-transform: capitalize;
   }
-  border-bottom: $border;
   padding-bottom: 0.6em;
+}
+.mod-timeline__period:not(:last-child) {
+  border-bottom: 1px solid $c-font-dimmer;
 }
 .mod-timeline__period__events {
   @extend %flex-column;
