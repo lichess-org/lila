@@ -1,17 +1,8 @@
 import { sanWriter, destsToUcis } from 'chess';
-import { type KeyboardMoveHandler, type KeyboardMove, isArrowKey } from './ctrl';
+import type { KeyboardMoveHandler, Opts, ArrowKey } from './exports';
 import { type Submit, makeSubmit } from './keyboardSubmit';
 
-export interface Opts {
-  input: HTMLInputElement;
-  ctrl: KeyboardMove;
-}
-
-export function load(opts: Opts): Promise<KeyboardMoveHandler> {
-  return site.asset.loadEsm('keyboardMove', { init: opts });
-}
-
-export function initModule(opts: Opts) {
+export function initModule(opts: Opts): KeyboardMoveHandler | undefined {
   if (opts.input.classList.contains('ready')) return;
   opts.input.classList.add('ready');
 
@@ -40,6 +31,9 @@ function makeClear(opts: Opts) {
 }
 
 function makeBindings(opts: Opts, submit: Submit, clear: () => void) {
+  const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
+  const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
+
   site.mousetrap.bind('enter', () => opts.input.focus());
   /* keypress doesn't cut it here;
    * at the time it fires, the last typed char
