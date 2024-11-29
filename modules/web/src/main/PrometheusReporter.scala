@@ -9,8 +9,6 @@ import kamon.prometheus.PrometheusReporter.DefaultConfigPath
 import kamon.prometheus.*
 import kamon.Kamon
 
-import org.slf4j.LoggerFactory
-
 // copy paste with some minor changes/scalafmtAll from https://github.com/kamon-io/Kamon/blob/master/reporters/kamon-prometheus/src/main/scala/kamon/prometheus/PrometheusReporter.scala
 // unused http server has been removed
 class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: Config = Kamon.config())
@@ -19,8 +17,6 @@ class PrometheusReporter(configPath: String = DefaultConfigPath, initialConfig: 
 
   import PrometheusReporter.readSettings
   import kamon.prometheus.PrometheusSettings.environmentTags
-
-  private val _logger = LoggerFactory.getLogger(classOf[PrometheusReporter])
 
   private val stalePeriod = Duration.ofSeconds(2 * 24 * 60 * 60 + 1) // 2 days + 1 second
   private val _snapshotAccumulator =
