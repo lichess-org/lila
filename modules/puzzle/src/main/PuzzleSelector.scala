@@ -122,7 +122,4 @@ final class PuzzleSelector(
                     PuzzleAlreadyPlayed(puzzle)
                   else PuzzleFound(puzzle)
       .monValue: result =>
-        _.puzzle.selector.nextPuzzleResult(
-          theme = session.path.angle.key,
-          result = result.name
-        )
+        _.puzzle.selector.nextPuzzleResult(result.name)
