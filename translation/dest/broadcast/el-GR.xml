@@ -52,4 +52,8 @@
   <string name="ratingDiff">Διαφορά βαθμολογίας</string>
   <string name="gamesThisTournament">Παρτίδες σε αυτό το τουρνουά</string>
   <string name="score">Βαθμολογία</string>
+  <string name="allTeams">Όλες οι ομάδες</string>
+  <string name="tournamentLocation">Τοποθεσία Τουρνουά</string>
+  <string name="timezone">Ζώνη ώρας</string>
+  <string name="optionalDetails">Προαιρετικές λεπτομέρειες</string>
 </resources>
