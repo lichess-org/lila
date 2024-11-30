@@ -9,7 +9,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'wayOfBerserk',
   name: 'The way of Berserk',
-  icon: '',
+  icon: '',
   url: '//lichess.org/faq#trophies',
   klass: 'fire-trophy',
   order: NumberInt(2),
@@ -18,7 +18,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'marathonWinner',
   name: 'Marathon Winner',
-  icon: '',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(3),
   withCustomImage: false,
@@ -26,7 +26,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'marathonTopTen',
   name: 'Marathon Top 10',
-  icon: '',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(4),
   withCustomImage: false,
@@ -34,7 +34,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'marathonTopFifty',
   name: 'Marathon Top 50',
-  icon: '',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(5),
   withCustomImage: false,
@@ -42,7 +42,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'marathonTopHundred',
   name: 'Marathon Top 100',
-  icon: '',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(6),
   withCustomImage: false,
@@ -50,7 +50,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'marathonTopFivehundred',
   name: 'Marathon Top 500',
-  icon: '',
+  icon: '',
   klass: 'fire-trophy',
   order: NumberInt(7),
   withCustomImage: false,
@@ -67,7 +67,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'developer',
   name: 'Lichess developer',
-  icon: '',
+  icon: '',
   url: 'https://github.com/lichess-org/lila/graphs/contributors',
   klass: 'icon3d',
   order: NumberInt(100),
@@ -76,7 +76,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'moderator',
   name: 'Lichess moderator',
-  icon: '',
+  icon: '',
   url: '//lichess.org/report',
   klass: 'icon3d',
   order: NumberInt(101),
@@ -85,7 +85,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'verified',
   name: 'Verified account',
-  icon: '',
+  icon: '',
   klass: 'icon3d',
   order: NumberInt(102),
   withCustomImage: false,
@@ -93,7 +93,7 @@ db.trophyKind.insertOne({
 db.trophyKind.insertOne({
   _id: 'contentTeam',
   name: 'Lichess Content Team',
-  icon: '',
+  icon: '',
   klass: 'icon3d',
   order: NumberInt(103),
   withCustomImage: false,
