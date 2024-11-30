@@ -6,7 +6,7 @@
   <string name="notifications">알림</string>
   <string name="pieceAnimation">기물 움직임 애니메이션</string>
   <string name="materialDifference">기물 차이</string>
-  <string name="boardHighlights">보드 강조 (마지막 수 및 체크)</string>
+  <string name="boardHighlights">보드 하이라이트 (마지막 수 및 체크)</string>
   <string name="pieceDestinations">기물 착지점 (유효한 움직임 및 미리두기)</string>
   <string name="boardCoordinates">보드 좌표 (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">기물 움직임 기록</string>
@@ -31,12 +31,12 @@
   <string name="clickTwoSquares">현재 위치와 원하는 위치에 클릭하기</string>
   <string name="dragPiece">드래그</string>
   <string name="bothClicksAndDrag">아무 방법으로</string>
-  <string name="premovesPlayingDuringOpponentTurn">미리두기 (상대 턴일 때 수를 두기)</string>
+  <string name="premovesPlayingDuringOpponentTurn">미리두기 (상대 차례일 때 수를 두기)</string>
   <string name="takebacksWithOpponentApproval">무르기 (상대 승인과 함께)</string>
   <string name="inCasualGamesOnly">캐주얼 모드에서만</string>
   <string name="promoteToQueenAutomatically">퀸으로 자동 승진</string>
   <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승진을 끄기 위해 승진하는 동안 &lt;ctrl&gt;를 누르세요</string>
-  <string name="whenPremoving">미리둘 때만</string>
+  <string name="whenPremoving">미리두기 때만</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3회 동형반복시 자동으로 무승부 요청</string>
   <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">수 확인</string>
