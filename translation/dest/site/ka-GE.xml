@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">მეტოქეს, მოსაწვევად, გაუგზავნეთ აღნიშნული ბმული</string>
   <string name="gameOver">თამაში დასრულებულია</string>
   <string name="waitingForOpponent">მეტოქის მოლოდინი</string>
+  <string name="orLetYourOpponentScanQrCode"></string>
   <string name="waiting">მეტოქის სვლაა</string>
   <string name="yourTurn">თქვენი სვლაა</string>
   <string name="aiNameLevelAiLevel">%1$s, სირთულის დონე: %2$s</string>
@@ -655,7 +656,7 @@
   <string name="aboutSimulRules">\"Simul\" _ის დროს ყველა მოთამაშე თამაშობს \"Simul\" _ის შემქნელთან შავი ფერით. ის მთავრდება მაშინ როცა ყველა თამაში დასულდება</string>
   <string name="aboutSimulSettings">ერთდროული თამაშები არასარეიტინგოა. საპასუხო გამოწვევები, სვლის დაბრუნება და დროის დამატება შესაძლებელი არ არის.</string>
   <string name="create">შექმნა</string>
-  <string name="whenCreateSimul">როდესაც ქმნით ერთდროულ თამაშს, პარალელურ რეჟიმში გიწევთ რამდენიმე მოთამაშესთან დაპირისპირება.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">როდესაც ქმნით ერთდროულ თამაშს, პარალელურ რეჟიმში გიწევთ რამდენიმე მოთამაშესთან დაპირისპირება.</string>
   <string name="simulVariantsHint">თუ აირჩევთ რამდენიმე ვარიანტს, თითოეული მოთამაშეს ეძლევა საშუალება აირჩიოს მათგან ერთ-ერთი.</string>
   <string name="simulClockHint">ფიშერის საათის გამართვა. რაც მეტ მოთამაშეს დაუპირისპირდებით, შესაძლოა მით მეტი დრო დაგჭირდეთ.</string>
   <string name="simulAddExtraTime">თქვენ შეგიძლიათ დროის დამატება ერთდროული თამაშისას.</string>
