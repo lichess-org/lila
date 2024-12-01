@@ -6,6 +6,7 @@ import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { snabDialog } from 'common/dialog';
 import { promote } from 'chess/promotion';
+import { charToRole } from 'chessops';
 
 export interface Opts {
   input: HTMLInputElement;
@@ -105,7 +106,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   let usedSan = false;
   return {
     drop(key, piece) {
-      const role = sanToRole[piece];
+      const role = charToRole(piece);
       const crazyhousePockets = root.getCrazyhousePockets?.();
       const color = root.data.player.color === 'both' ? cg.state.movable.color : root.data.player.color;
       // Unable to determine what color we are
@@ -122,7 +123,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
       root.sendNewPiece(role, key, false);
     },
     promote(orig, dest, piece) {
-      const role = sanToRole[piece];
+      const role = charToRole(piece);
       const variant = root.data.game.variant.key;
       if (!role || role === 'pawn' || (role === 'king' && variant !== 'antichess')) return;
       cg.cancelMove();
@@ -178,12 +179,3 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     goBerserk: root.goBerserk,
   };
 }
-
-const sanToRole: { [key: string]: Role } = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king',
-};

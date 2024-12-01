@@ -25,7 +25,6 @@ import {
   pieceJumpingHandler,
   castlingFlavours,
   inputToLegalUci,
-  namePiece,
   lastCapturedCommandHandler,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
@@ -39,7 +38,7 @@ import { view as cevalView, renderEval } from 'ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
-import { opposite, parseUci } from 'chessops/util';
+import { charToRole, opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from 'chess';
@@ -370,12 +369,7 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
     else {
       const uci = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
       if (uci)
-        ctrl.sendMove(
-          uci.slice(0, 2) as Key,
-          uci.slice(2, 4) as Key,
-          undefined,
-          namePiece[uci.slice(4)] as Role | undefined,
-        );
+        ctrl.sendMove(uci.slice(0, 2) as Key, uci.slice(2, 4) as Key, undefined, charToRole(uci.slice(4)));
       else notify('Invalid command');
     }
     $input.val('');

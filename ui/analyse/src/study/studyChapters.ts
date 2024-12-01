@@ -23,10 +23,10 @@ import type {
 import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
-import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
 import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialog';
+import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -76,7 +76,7 @@ export default class StudyChaptersCtrl {
     this.store(
       chapters.map(c => ({
         ...c,
-        fen: c.fen || initialFen,
+        fen: c.fen || INITIAL_FEN,
         players: c.players ? this.convertPlayersFromServer(c.players) : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',

@@ -1,4 +1,4 @@
-import { readDests, readDrops } from 'chess';
+import { fenToEpd, readDests, readDrops } from 'chess';
 import { playable, playedTurns } from 'game';
 import * as keyboard from './keyboard';
 import { treeReconstruct, plyColor } from './util';
@@ -930,10 +930,10 @@ export default class AnalyseCtrl {
     const fens = new Set();
     for (let i = this.nodeList.length - 1; i >= 0; i--) {
       const node = this.nodeList[i];
-      const fen = node.fen.split(' ').slice(0, 4).join(' ');
-      if (fens.has(fen)) return false;
+      const epd = fenToEpd(node.fen);
+      if (fens.has(epd)) return false;
       if (node.san && sanIrreversible(this.data.game.variant.key, node.san)) return true;
-      fens.add(fen);
+      fens.add(epd);
     }
     return true;
   };
