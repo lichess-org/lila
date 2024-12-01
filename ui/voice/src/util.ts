@@ -1,5 +1,5 @@
 import { squareDist, type Board } from 'chess';
-import { charToRole } from 'common';
+import { charToRole } from 'chessops';
 
 // findTransforms & validOps also found in .build/src/makeGrammar.ts
 
@@ -123,6 +123,4 @@ export function dest(uci: Uci) {
   return uci.slice(2, 4) as Key;
 }
 
-export function promo(uci: Uci): Role {
-  return charToRole(uci.slice(4, 5));
-}
+export const promo = (uci: Uci): Role | undefined => charToRole(uci.slice(4, 5));
