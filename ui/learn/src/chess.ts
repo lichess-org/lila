@@ -1,5 +1,13 @@
 import { parseFen, makeBoardFen } from 'chessops/fen';
-import { parseSquare, makeSquare, Chess, type NormalMove, type SquareName, charToRole, opposite } from 'chessops';
+import {
+  parseSquare,
+  makeSquare,
+  Chess,
+  type NormalMove,
+  type SquareName,
+  charToRole,
+  opposite,
+} from 'chessops';
 import { Antichess, type Context } from 'chessops/variant';
 import { chessgroundDests } from 'chessops/compat';
 import type { CgMove } from './chessground';
