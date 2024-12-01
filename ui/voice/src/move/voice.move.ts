@@ -2,7 +2,7 @@ import { jsonSimple } from 'common/xhr';
 import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'common/storage';
 import * as licon from 'common/licon';
 import { readFen, destsToUcis, square, type Board } from 'chess';
-import { charToRole } from 'common';
+import { charToRole } from 'chessops';
 import { type PromotionCtrl, promote } from 'chess/promotion';
 import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
@@ -373,7 +373,9 @@ export function initModule({
             (text: string) => {
               const val = matchOneTags(text, ['role'], ['no']);
               voice.mic.stopPropagation();
-              if (val && roles.includes(charToRole(val))) ctrl.finish(charToRole(val));
+              if (!val) return;
+              const role = charToRole(val);
+              if (role && roles.includes(role)) ctrl.finish(role);
               else if (val === 'no') ctrl.cancel();
             },
             { listenerId: 'promotion' },

@@ -1,4 +1,4 @@
-import { type PromotionRole, type WithGround, arrow, oppColor } from './util';
+import { type PromotionRole, type WithGround, arrow } from './util';
 import { type Items, ctrl as makeItems } from './item';
 import type { Level } from './stage/list';
 import { scenario as scoreScenario, pieceValue, capture, apple, getLevelBonus } from './score';
@@ -6,7 +6,7 @@ import * as timeouts from './timeouts';
 import { failure, levelStart, levelEnd, take, move as moveSound } from './sound';
 import makeChess, { type ChessCtrl } from './chess';
 import makeScenario, { type Scenario } from './scenario';
-import { type SquareName, makeSquare, makeUci } from 'chessops';
+import { type SquareName, makeSquare, makeUci, opposite } from 'chessops';
 import type { CgMove } from './chessground';
 import { PromotionCtrl } from './promotionCtrl';
 import { type Prop, prop } from 'common';
@@ -224,7 +224,7 @@ export class LevelCtrl {
   showKingAttackers = () =>
     this.withGround(ground => {
       const turn = this.chess.getColor();
-      const kingKey = this.chess.kingKey(oppColor(turn));
+      const kingKey = this.chess.kingKey(opposite(turn));
       const shapes = this.chess
         .moves(this.chess.instance)
         .filter(m => makeSquare(m.to) === kingKey)

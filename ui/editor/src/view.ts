@@ -12,6 +12,7 @@ import chessground from './chessground';
 import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { dataIcon } from 'common/snabbdom';
 import { domDialog } from 'common/dialog';
+import { fenToEpd } from 'chess';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -159,7 +160,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } },
                 pos.eco ? `${pos.eco} ${pos.name}` : pos.name,
               );
-            const epd = state.fen.split(' ').slice(0, 4).join(' ');
+            const epd = fenToEpd(state.fen);
             const value =
               (
                 ctrl.cfg.positions.find(p => p.fen.startsWith(epd)) ||
@@ -171,7 +172,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 props: { value },
                 on: {
                   insert(vnode) {
-                    (vnode.elm as HTMLSelectElement).value = state.fen.split(' ').slice(0, 4).join(' ');
+                    (vnode.elm as HTMLSelectElement).value = fenToEpd(state.fen);
                   },
                   change(e) {
                     const el = e.target as HTMLSelectElement;

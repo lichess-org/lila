@@ -191,8 +191,8 @@ importers:
         specifier: ^4.6.13
         version: 4.6.13
       lichess-pgn-viewer:
-        specifier: ^2.1.3
-        version: 2.1.3
+        specifier: ^2.2.0
+        version: 2.2.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -314,8 +314,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^2.1.3
-        version: 2.1.3
+        specifier: ^2.2.0
+        version: 2.2.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -345,6 +345,9 @@ importers:
 
   ui/editor:
     dependencies:
+      chess:
+        specifier: workspace:*
+        version: link:../chess
       common:
         specifier: workspace:*
         version: link:../common
@@ -475,8 +478,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^2.1.3
-        version: 2.1.3
+        specifier: ^2.2.0
+        version: 2.2.0
 
   ui/palantir:
     dependencies:
@@ -601,8 +604,8 @@ importers:
         specifier: 0.5.6
         version: 0.5.6
       lichess-pgn-viewer:
-        specifier: ^2.1.3
-        version: 2.1.3
+        specifier: ^2.2.0
+        version: 2.2.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -670,8 +673,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^2.1.3
-        version: 2.1.3
+        specifier: ^2.2.0
+        version: 2.2.0
 
   ui/voice:
     dependencies:
@@ -1057,9 +1060,6 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@20.17.6':
-    resolution: {integrity: sha512-VEI7OdvK2wP7XHnsuXbAJnEpEkF6NjSN45QJlL4VGqZSXsnicpesdTWsg9RISeSdYd3yeRj/y3k5KGjUXYnFwQ==}
-
   '@types/node@22.10.1':
     resolution: {integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==}
 
@@ -1325,9 +1325,6 @@ packages:
 
   chessground@9.1.1:
     resolution: {integrity: sha512-X4xrBICrixaLATCn+jGEzk58UXcas+9QqJnwVq9nT7AaX2M1CJLMA0vC7noG0s6Tr2zoAHZ1FOviE5b05MgduQ==}
-
-  chessops@0.12.7:
-    resolution: {integrity: sha512-ylWwKOudgTNJCDq7vx/Rs9fkZwPB3CEk0AJ8NtAfEYOoA3DGRQdS/Z/oQRsnQvs92rUu0yEobn4ZIPzLh8y9/w==}
 
   chessops@0.14.2:
     resolution: {integrity: sha512-7DghoMODSN8a17L9JHYBWhLBaSKROKS7+NDsvseNJ502UTbuZ7EYueIAmo1oD+f0TeEqh+jo2gsUFRhGRKAR3g==}
@@ -1722,8 +1719,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  lichess-pgn-viewer@2.1.3:
-    resolution: {integrity: sha512-JSkItYKZb23N6q4LQW9ycF96zSmJn2jhvlITLIrFYBOdJLy52FJxCILwOabq4k+f74/xGFHHN57z4C7qSKw0mQ==}
+  lichess-pgn-viewer@2.2.0:
+    resolution: {integrity: sha512-qpgNWVvPBKwyQBrkwzsAK/+NzU+NqseNfflIhqXTVAHrZQ357Rx8ENuGc4ZTgTxYXsw5Gvxkn42POhWp0vk/HQ==}
 
   lila-stockfish-web@0.0.7:
     resolution: {integrity: sha512-W+NBi/y19zubvnAlxdSC3oh9QrM9dLA46pw/tT/0NvBKrR/ZLDgYgm1jiBizQPAjq7gp4Kl7jp6yidO1JoJgJw==}
@@ -2064,10 +2061,6 @@ packages:
   snabbdom@3.5.1:
     resolution: {integrity: sha512-wHMNIOjkm/YNE5EM3RCbr/+DVgPg6AqQAX1eOxO46zYNvCXjKP5Y865tqQj3EXnaMBjkxmQA5jFuDpDK/dbfiA==}
     engines: {node: '>=8.3.0'}
-
-  snabbdom@3.6.2:
-    resolution: {integrity: sha512-ig5qOnCDbugFntKi6c7Xlib8bA6xiJVk8O+WdFrV3wxbMqeHO0hXFQC4nAhPVWfZfi8255lcZkNhtIBINCc4+Q==}
-    engines: {node: '>=12.17.0'}
 
   sortablejs@1.15.6:
     resolution: {integrity: sha512-aNfiuwMEpfBM/CN6LY0ibyhxPfPbyFeBTYJKCvzkJ2GkUpazIt3H+QIPAMHwqQ7tMKaHz1Qj+rJJCqljnf4p3A==}
@@ -2663,10 +2656,6 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@20.17.6':
-    dependencies:
-      undici-types: 6.19.8
-
   '@types/node@22.10.1':
     dependencies:
       undici-types: 6.20.0
@@ -2948,10 +2937,6 @@ snapshots:
   check-error@2.1.1: {}
 
   chessground@9.1.1: {}
-
-  chessops@0.12.7:
-    dependencies:
-      '@badrap/result': 0.2.13
 
   chessops@0.14.2:
     dependencies:
@@ -3369,12 +3354,12 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  lichess-pgn-viewer@2.1.3:
+  lichess-pgn-viewer@2.2.0:
     dependencies:
-      '@types/node': 20.17.6
+      '@types/node': 22.10.1
       chessground: 9.1.1
-      chessops: 0.12.7
-      snabbdom: 3.6.2
+      chessops: 0.14.2
+      snabbdom: 3.5.1
 
   lila-stockfish-web@0.0.7: {}
 
@@ -3721,8 +3706,6 @@ snapshots:
       is-fullwidth-code-point: 5.0.0
 
   snabbdom@3.5.1: {}
-
-  snabbdom@3.6.2: {}
 
   sortablejs@1.15.6: {}
 
