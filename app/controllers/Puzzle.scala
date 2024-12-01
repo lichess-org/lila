@@ -20,6 +20,7 @@ import lila.puzzle.{
 }
 import lila.rating.PerfType
 import lila.ui.LangPath
+import scalalib.model.Days
 
 final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -79,10 +80,9 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
 
   private def serveHome(using Context) = NoBot:
     val angle = PuzzleAngle.mix
-    nextPuzzleForMe(angle, none).flatMap {
+    nextPuzzleForMe(angle, none).flatMap:
       _.fold(redirectNoPuzzle):
         renderShow(_, angle, langPath = LangPath(routes.Puzzle.home).some)
-    }
 
   private def nextPuzzleForMe(
       angle: PuzzleAngle,
@@ -361,6 +361,18 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
             _.fold(redirectNoPuzzle) { renderShow(_, angle, color = color) }
           }
 
+  def apiNext = AnonOrScoped(_.Puzzle.Read):
+    WithPuzzlePerf:
+      validateParam("angle", PuzzleAngle.find, PuzzleAngle.mix): angle =>
+        validateParam("difficulty", PuzzleDifficulty.find, PuzzleDifficulty.Normal): difficulty =>
+          FoundOk(nextPuzzleForMe(angle, none, difficulty))(env.puzzle.jsonView(_, none, none))
+
+  private def validateParam[A](name: String, read: String => Option[A], default: A)(
+      f: A => Fu[Result]
+  )(using Context): Fu[Result] =
+    get(name).fold(f(default)): param =>
+      read(param).fold(BadRequest(s"Invalid $name=$param").toFuccess)(f)
+
   def frame = Anon:
     InEmbedContext:
       env.puzzle.daily.get.flatMap:
@@ -377,12 +389,12 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
     apiC.GlobalConcurrencyLimitPerIpAndUserOption(me.some)(env.puzzle.activity.stream(config))(jsToNdJson)
   }
 
-  def apiDashboard(days: Int) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me ?=>
+  def apiDashboard(days: Days) = AuthOrScoped(_.Puzzle.Read, _.Web.Mobile) { _ ?=> me ?=>
     JsonOptionOk:
       env.puzzle.dashboard(me, days).map2 { env.puzzle.jsonView.dashboardJson(_, days) }
   }
 
-  def dashboard(days: Int, path: String = "home", u: Option[UserStr]) =
+  def dashboard(days: Days, path: String = "home", u: Option[UserStr]) =
     DashboardPage(u) { ctx ?=> user =>
       env.puzzle.dashboard(user, days).flatMap { dashboard =>
         path match
@@ -395,7 +407,7 @@ final class Puzzle(env: Env, apiC: => Api) extends LilaController(env):
       }
     }
 
-  def replay(days: Int, themeKey: String) = Auth { ctx ?=> me ?=>
+  def replay(days: Days, themeKey: String) = Auth { ctx ?=> me ?=>
     val theme         = PuzzleTheme.findOrMix(themeKey)
     val checkedDayOpt = lila.puzzle.PuzzleDashboard.getClosestDay(days)
     env.puzzle.replay(me, checkedDayOpt, theme.key).flatMap {

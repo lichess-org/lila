@@ -1,4 +1,6 @@
 package views.puzzle
+
+import scalalib.model.Days
 import lila.app.UiEnv.{ *, given }
 import lila.puzzle.{ PuzzleDashboard, PuzzleTheme }
 
@@ -6,7 +8,7 @@ object dashboard:
 
   import bits.dashboard.*
 
-  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: Context) =
+  def home(user: User, dashOpt: Option[PuzzleDashboard], days: Days)(using ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
@@ -25,7 +27,7 @@ object dashboard:
       )
     ).js(pageModule(dashOpt))
 
-  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: Context) =
+  def improvementAreas(user: User, dashOpt: Option[PuzzleDashboard], days: Days)(using ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
@@ -38,7 +40,7 @@ object dashboard:
     ): dash =>
       dash.weakThemes.nonEmpty.option(themeSelection(days, dash.weakThemes))
 
-  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Int)(using ctx: Context) =
+  def strengths(user: User, dashOpt: Option[PuzzleDashboard], days: Days)(using ctx: Context) =
     dashboardLayout(
       user = user,
       days = days,
@@ -53,7 +55,7 @@ object dashboard:
 
   private def dashboardLayout(
       user: User,
-      days: Int,
+      days: Days,
       path: String,
       title: String,
       subtitle: String,
@@ -70,12 +72,12 @@ object dashboard:
             ),
             lila.ui.bits.mselect(
               s"${baseClass}__day-select box__top__actions",
-              span(trans.site.nbDays.pluralSame(days)),
+              span(trans.site.nbDays.pluralSame(days.value)),
               PuzzleDashboard.dayChoices.map: d =>
                 a(
                   cls  := (d == days).option("current"),
                   href := routes.Puzzle.dashboard(d, path, user.username.some)
-                )(trans.site.nbDays.pluralSame(d))
+                )(trans.site.nbDays.pluralSame(d.value))
             )
           ),
           dashOpt.flatMap(body) |

@@ -26,3 +26,5 @@ export const readDrops = (line?: string | null): Key[] | null =>
 
 // Extended Position Description
 export const fenToEpd = (fen: FEN): string => fen.split(' ').slice(0, 4).join(' ');
+
+export const plyToTurn = (ply: number): number => Math.floor((ply - 1) / 2) + 1;

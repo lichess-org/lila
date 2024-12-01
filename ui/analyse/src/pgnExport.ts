@@ -1,8 +1,7 @@
 import type AnalyseCtrl from './ctrl';
 import { h } from 'snabbdom';
-import { fixCrazySan } from 'chess';
+import { fixCrazySan, plyToTurn } from 'chess';
 import { type MaybeVNodes } from 'common/snabbdom';
-import { plyToTurn } from './util';
 import { INITIAL_FEN } from 'chessops/fen';
 
 interface PgnNode {

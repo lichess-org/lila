@@ -8,6 +8,7 @@ import lila.core.i18n.I18nKey
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
+import scalalib.model.Days
 
 final class PuzzleBits(helpers: Helpers):
   import helpers.{ *, given }
@@ -24,7 +25,7 @@ final class PuzzleBits(helpers: Helpers):
         "static"  -> static.mkString(" ")
       )
 
-  def pageMenu(active: String, user: Option[User], days: Int = 30)(using ctx: Context) =
+  def pageMenu(active: String, user: Option[User], days: Days = Days(30))(using ctx: Context) =
     val u = user.filterNot(ctx.is).map(_.username)
     lila.ui.bits.pageMenuSubnav(
       a(href := routes.Puzzle.home)(
@@ -101,7 +102,7 @@ final class PuzzleBits(helpers: Helpers):
           )
       ).some
 
-    def themeSelection(days: Int, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
+    def themeSelection(days: Days, themes: List[(PuzzleTheme.Key, PuzzleDashboard.Results)])(using
         ctx: Context
     ) =
       themes.map: (key, results) =>
@@ -115,7 +116,7 @@ final class PuzzleBits(helpers: Helpers):
           metricsOf(days, key, results)
         )
 
-    def metricsOf(days: Int, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
+    def metricsOf(days: Days, theme: PuzzleTheme.Key, results: PuzzleDashboard.Results)(using
         ctx: Context
     ) =
       div(cls := s"${baseClass}__metrics")(

@@ -1,19 +1,19 @@
 import type { SanToUci } from 'chess';
+import { type Prop, propWithEffect } from 'common';
+import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import KeyboardChecker from './keyboardChecker';
 import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
-import { promote } from 'chess/promotion';
-import { propWithEffect, type Prop } from 'common';
 import { snabDialog } from 'common/dialog';
-import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
-import { load as loadKeyboardMove } from './keyboardMove';
-import KeyboardChecker from './keyboardChecker';
+import { promote } from 'chess/promotion';
 import { charToRole } from 'chessops';
 
-export type KeyboardMoveHandler = (fen: FEN, dests?: Dests, yourMove?: boolean) => void;
+export interface Opts {
+  input: HTMLInputElement;
+  ctrl: KeyboardMove;
+}
 
-export const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
-export type ArrowKey = (typeof arrowKeys)[number];
-export const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
+export type KeyboardMoveHandler = (fen: FEN, dests?: Dests, yourMove?: boolean) => void;
 
 export interface KeyboardMove {
   drop(key: Key, piece: string): void;
@@ -50,6 +50,8 @@ export interface RootData {
   opponent?: { color: Color; user?: { username: string } };
 }
 
+export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight';
+
 export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   sendNewPiece?: (role: Role, key: Key, isPredrop: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
@@ -58,6 +60,33 @@ export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   crazyValid?: (role: Role, key: Key) => boolean;
   getCrazyhousePockets?: () => [CrazyPocket, CrazyPocket] | undefined;
   data: RootData;
+}
+
+export function loadKeyboardMove(opts: Opts): Promise<KeyboardMoveHandler> {
+  return site.asset.loadEsm('keyboardMove', { init: opts });
+}
+
+export function render(ctrl: KeyboardMove): VNode {
+  return h('div.keyboard-move', [
+    h('input', {
+      attrs: { spellcheck: 'false', autocomplete: 'off' },
+      hook: onInsert((input: HTMLInputElement) =>
+        site.asset
+          .loadEsm<KeyboardMoveHandler>('keyboardMove', { init: { input, ctrl } })
+          .then(m => ctrl.registerHandler(m)),
+      ),
+    }),
+    ctrl.isFocused()
+      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
+      : h('strong', 'Press <enter> to focus'),
+    ctrl.helpModalOpen()
+      ? snabDialog({
+          class: 'help.keyboard-move-help',
+          htmlUrl: '/help/keyboard-move',
+          onClose: () => ctrl.helpModalOpen(false),
+        })
+      : null,
+  ]);
 }
 
 export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
@@ -149,25 +178,4 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     speakClock: root.speakClock,
     goBerserk: root.goBerserk,
   };
-}
-
-export function render(ctrl: KeyboardMove): VNode {
-  return h('div.keyboard-move', [
-    h('input', {
-      attrs: { spellcheck: 'false', autocomplete: 'off' },
-      hook: onInsert((input: HTMLInputElement) =>
-        loadKeyboardMove({ input, ctrl }).then((m: KeyboardMoveHandler) => ctrl.registerHandler(m)),
-      ),
-    }),
-    ctrl.isFocused()
-      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
-      : h('strong', 'Press <enter> to focus'),
-    ctrl.helpModalOpen()
-      ? snabDialog({
-          class: 'help.keyboard-move-help',
-          htmlUrl: '/help/keyboard-move',
-          onClose: () => ctrl.helpModalOpen(false),
-        })
-      : null,
-  ]);
 }

@@ -333,13 +333,13 @@
   </plurals>
   <string name="thisAccountViolatedTos">این حساب قوانین را نقض کرده است</string>
   <string name="openingExplorerAndTablebase">پویشگر گشایش و آخربازی</string>
-  <string name="takeback">پس گرفتن حرکت</string>
-  <string name="proposeATakeback">پیشنهاد پس گرفتن حرکت</string>
-  <string name="takebackPropositionSent">پیشنهاد پس گرفتن حرکت فرستاده شد</string>
-  <string name="takebackPropositionDeclined">پیشنهاد پس گرفتن حرکت رد شد</string>
-  <string name="takebackPropositionAccepted">پیشنهاد پس گرفتن حرکت پذیرفته شد</string>
-  <string name="takebackPropositionCanceled">پیشنهاد پس گرفتن حرکت لغو شد</string>
-  <string name="yourOpponentProposesATakeback">حریف پیشنهاد پس گرفتن حرکت می دهد</string>
+  <string name="takeback">برگردان</string>
+  <string name="proposeATakeback">پیشنهاد برگردان</string>
+  <string name="takebackPropositionSent">برگردان فرستاده شد</string>
+  <string name="takebackPropositionDeclined">برگردان رد شد</string>
+  <string name="takebackPropositionAccepted">برگردان پذیرفته شد</string>
+  <string name="takebackPropositionCanceled">برگردان لغو شد</string>
+  <string name="yourOpponentProposesATakeback">حریف‌تان پیشنهاد «برگرداندن» می‌دهد</string>
   <string name="bookmarkThisGame">نشانک‌گذاری</string>
   <string name="tournament">مسابقه</string>
   <string name="tournaments">مسابقات</string>
@@ -399,7 +399,7 @@
   <string name="leaderboard">جدول رده‌بندی</string>
   <string name="screenshotCurrentPosition">نماگرفت از وضعیت فعلی</string>
   <string name="gameAsGIF">بارگیری GIF بازی</string>
-  <string name="pasteTheFenStringHere">پوزیشن دلخواه(FEN) را در این قسمت وارد کنید</string>
+  <string name="pasteTheFenStringHere">رشته FEN را در این قسمت قرار دهید</string>
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="orUploadPgnFile">یا یک فایل PGN بارگذاری کنید</string>
   <string name="fromPosition">از وضعیت</string>
@@ -676,7 +676,7 @@
   <string name="aboutSimulImage">از ۵۰ بازی فیشر موفق به کسب ۴۷ برد و ۲ تساوی و یک باخت شد.</string>
   <string name="aboutSimulRealLife">این مفهوم از رویدادهای واقعی الهام گرفته شده است. در آن جا میزبان میز به میز برای انجام حرکت خود، حرکت می کند.</string>
   <string name="aboutSimulRules">وقتی نمایش همزمان شروع شود، هر بازیکن یک بازی را با میزبان که با مهره سفید بازی میکند آغاز میکند. نمایش وقتی تمام می شود که تمام بازی ها تمام شده باشند.</string>
-  <string name="aboutSimulSettings">نمایش های همزمان همیشه غیر رسمی هستند. بازی دوباره، پس گرفتن حرکت و اضافه کردن زمان غیرفعال شده اند.</string>
+  <string name="aboutSimulSettings">نمایشگاه همزمان همیشه نارسمی است. بازرویارویی، برگرداندن و زمان افزاینده نافعال شده‌اند.</string>
   <string name="create">ساختن</string>
   <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">وقتی یک نمایش همزمان ایجاد میکنید باید با چند نفر همزمان بازی کنید.</string>
   <string name="simulVariantsHint">اگر چندین وَرتا را برگزینید، هر بازیکن می‌تواند انتخاب کند که کدام‌یک را بازی کند.</string>
@@ -820,7 +820,7 @@
   <string name="practiceWithComputer">تمرین با رایانه</string>
   <string name="anotherWasX">حرکت مناسب دیگر %s بود</string>
   <string name="bestWasX">بهترین حرکت %s بود</string>
-  <string name="youBrowsedAway">پوزیشن را به هم زدید!</string>
+  <string name="youBrowsedAway">دور شُدید</string>
   <string name="resumePractice">از سرگیری تمرین</string>
   <string name="drawByFiftyMoves">بازی با قانون پنجاه حرکت مساوی شده است.</string>
   <string name="theGameIsADraw">بازی مساوی است.</string>

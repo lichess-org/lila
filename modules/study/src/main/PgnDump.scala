@@ -77,6 +77,9 @@ final class PgnDump(
         Tag(_.Opening, opening.fold("?")(_.name)),
         Tag(_.Result, "*"), // required for SCID to import
         annotatorTag(study)
+      ) ::: List(
+        Tag("StudyName", study.name),
+        Tag("ChapterName", chapter.name)
       ) ::: (!chapter.root.fen.isInitial).so(
         List(
           Tag(_.FEN, chapter.root.fen.value),
@@ -93,7 +96,8 @@ final class PgnDump(
         chapter.isGamebook.so(List(Tag("ChapterMode", "gamebook")))
       genTags
         .foldLeft(chapter.tagsExport.value.reverse): (tags, tag) =>
-          if tags.exists(t => tag.name == t.name) then tags
+          if tags.exists(t => tag.name == t.name)
+          then tags
           else tag :: tags
         .reverse
 

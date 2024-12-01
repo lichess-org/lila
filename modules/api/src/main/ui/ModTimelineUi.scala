@@ -139,18 +139,18 @@ final class ModTimelineUi(helpers: Helpers)(
         cls := List(
           "mod-timeline__event__action"               -> true,
           s"mod-timeline__event__action--${e.action}" -> true,
+          "mod-timeline__event__action--warning"      -> Modlog.isWarning(e),
           "mod-timeline__event__action--sentence"     -> Modlog.isSentence(e.action),
           "mod-timeline__event__action--undo"         -> Modlog.isUndo(e.action)
         )
-      )(
-        e.showAction
-      ),
+      ):
+        if Modlog.isWarning(e) then "sends warning"
+        else e.showAction
+      ,
       div(cls := "mod-timeline__text"):
-        e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
-          a(href := s"${routes.Round.watcher(gameId, Color.white).url}?pov=${e.user.so(_.value)}")(
+        e.gameId.fold[Frag](e.details.orZero: String): gameId =>
+          a(href := s"${routes.Round.watcher(gameId, Color.white).url}?pov=${e.user.so(_.value)}"):
             e.details.orZero: String
-          )
-        }
     )
 
   private def renderAppeal(t: ModTimeline)(a: AppealMsg)(using Translate) =
