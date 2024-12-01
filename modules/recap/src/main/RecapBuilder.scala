@@ -1,35 +1,82 @@
 package lila.recap
 
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import chess.ByColor
-import lila.game.Query
 import chess.opening.OpeningDb
-import lila.common.SimpleOpening
 import chess.format.pgn.SanStr
 import scalalib.model.Days
 
-private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(using
-    Executor,
-    akka.stream.Materializer
-):
-  def compute(userId: UserId): Funit =
-    for
-      scan <- runScan(userId)
-      recap = scanToRecap(userId, scan)
-      _ <- repo.insert(recap)
-    yield ()
+import lila.common.SimpleOpening
+import lila.db.dsl.{ *, given }
+import lila.game.Query
+import lila.puzzle.PuzzleRound
+import lila.common.LichessDay
+import lila.core.game.Source
 
-  private def scanToRecap(userId: UserId, scan: Scan): Recap =
-    Recap(
-      id = userId,
-      year = yearToRecap,
-      nbGames = scan.nbGames,
-      streakDays = Days(scan.streak.max),
+private final class RecapBuilder(
+    repo: RecapRepo,
+    gameRepo: lila.game.GameRepo,
+    puzzleColls: lila.puzzle.PuzzleColls
+)(using Executor, akka.stream.Materializer):
+
+  def compute(userId: UserId): Funit = for
+    recap <- (
+      runGameScan(userId).map(makeGameRecap),
+      runPuzzleScan(userId).map(makePuzzleRecap)
+    ).mapN: (game, puzzle) =>
+      Recap(userId, yearToRecap, game, puzzle)
+    _ <- repo.insert(recap)
+  yield ()
+
+  private def makePuzzleRecap(scan: PuzzleScan): RecapPuzzles =
+    RecapPuzzles(
+      nb = NbAndStreak(scan.nb, Days(scan.streak.current)),
+      results = scan.results,
+      votes = scan.votes
+    )
+
+  private def runPuzzleScan(userId: UserId): Fu[PuzzleScan] =
+    import lila.puzzle.BsonHandlers.roundHandler
+    puzzleColls.round:
+      _.find($doc("u" -> userId, "d" -> $doc("$gt" -> dateStart, "$lt" -> dateEnd)))
+        .sort($sort.desc("d"))
+        .cursor[PuzzleRound]()
+        .documentSource()
+        .runFold(PuzzleScan())(_.addRound(_))
+
+  private case class PuzzleScan(
+      nb: Int = 0,
+      results: Results = Results(),
+      streak: Streak = Streak(),
+      votes: PuzzleVotes = PuzzleVotes()
+  ):
+    def addRound(r: PuzzleRound): PuzzleScan =
+      val win = r.firstWin
+      copy(
+        nb = nb + 1,
+        results = results
+          .copy(
+            win = results.win + win.so(1),
+            loss = results.loss + (!win).so(1)
+          ),
+        streak = streak.add(r.date),
+        votes = votes.copy(
+          up = votes.up + r.vote.exists(_ > 0).so(1),
+          down = votes.down + r.vote.exists(_ < 0).so(1),
+          themes = votes.themes + r.themes.size
+        )
+      )
+
+  private def makeGameRecap(scan: GameScan): RecapGames =
+    RecapGames(
+      nb = NbAndStreak(scan.nb, Days(scan.streak.current)),
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
       ,
       firstMove = scan.firstMoves.toList.sortBy(-_._2).headOption.map(Recap.Counted.apply),
       results = scan.results,
       timePlaying = scan.secondsPlaying.seconds,
+      sources = scan.sources,
       opponent = scan.opponents.toList.sortBy(-_._2).headOption.map(Recap.Counted.apply),
       perfs = scan.perfs.toList
         .sortBy(-_._2._1)
@@ -38,9 +85,9 @@ private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(
       createdAt = nowInstant
     )
 
-  private def runScan(userId: UserId): Fu[Scan] =
+  private def runGameScan(userId: UserId): Fu[GameScan] =
     val query =
-      Scan.createdThisYear ++
+      Query.createdBetween(dateStart.some, dateEnd.some) ++
         Query.user(userId) ++
         Query.finished ++
         Query.turnsGt(2) ++
@@ -48,69 +95,58 @@ private final class RecapBuilder(repo: RecapRepo, gameRepo: lila.game.GameRepo)(
     gameRepo
       .sortedCursor(query, Query.sortChronological)
       .documentSource()
-      .runFold(Scan.zero)(_.addGame(userId)(_))
+      .runFold(GameScan())(_.addGame(userId)(_))
 
-private case class Scan(
-    nbGames: Int,
-    secondsPlaying: Int,
-    results: Recap.Results,
-    streak: Scan.Streak,
-    openings: ByColor[Map[SimpleOpening, Int]],
-    firstMoves: Map[SanStr, Int],
-    opponents: Map[UserId, Int],
-    perfs: Map[PerfKey, (Int, Int)]
-):
-  def addGame(userId: UserId)(g: Game): Scan =
-    g.player(userId)
-      .fold(this): player =>
-        val opponent = g.opponent(player).userId
-        val winner   = g.winnerUserId
-        val opening = g.variant.standard.so:
-          OpeningDb.search(g.sans).map(_.opening).flatMap(SimpleOpening.apply)
-        val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
-        copy(
-          nbGames = nbGames + 1,
-          secondsPlaying = secondsPlaying + durationSeconds,
-          results = results.copy(
-            win = results.win + winner.exists(_.is(userId)).so(1),
-            draw = results.draw + winner.isEmpty.so(1),
-            loss = results.loss + winner.exists(_.isnt(userId)).so(1)
-          ),
-          streak = streak.addGame(g.createdAt),
-          openings = opening.fold(openings): op =>
-            openings.update(player.color, _.updatedWith(op)(_.fold(1)(_ + 1).some)),
-          firstMoves = player.color.white
-            .so(g.sans.headOption)
-            .fold(firstMoves): fm =>
-              firstMoves.updatedWith(fm)(_.fold(1)(_ + 1).some),
-          opponents = opponent.fold(opponents): op =>
-            opponents.updatedWith(op)(_.fold(1)(_ + 1).some),
-          perfs = perfs.updatedWith(g.perfKey): pk =>
-            pk.fold((durationSeconds, 1).some): (seconds, games) =>
-              (seconds + durationSeconds, games + 1).some
-        )
+  private case class GameScan(
+      nb: Int = 0,
+      secondsPlaying: Int = 0,
+      results: Results = Results(),
+      streak: Streak = Streak(),
+      openings: ByColor[Map[SimpleOpening, Int]] = ByColor.fill(Map.empty),
+      firstMoves: Map[SanStr, Int] = Map.empty,
+      sources: Map[Source, Int] = Map.empty,
+      opponents: Map[UserId, Int] = Map.empty,
+      perfs: Map[PerfKey, (Int, Int)] = Map.empty
+  ):
+    def addGame(userId: UserId)(g: Game): GameScan =
+      g.player(userId)
+        .fold(this): player =>
+          val opponent = g.opponent(player).userId
+          val winner   = g.winnerUserId
+          val opening = g.variant.standard.so:
+            OpeningDb.search(g.sans).map(_.opening).flatMap(SimpleOpening.apply)
+          val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
+          copy(
+            nb = nb + 1,
+            secondsPlaying = secondsPlaying + durationSeconds,
+            results = results.copy(
+              win = results.win + winner.exists(_.is(userId)).so(1),
+              draw = results.draw + winner.isEmpty.so(1),
+              loss = results.loss + winner.exists(_.isnt(userId)).so(1)
+            ),
+            streak = streak.add(g.createdAt),
+            openings = opening.fold(openings): op =>
+              openings.update(player.color, _.updatedWith(op)(_.fold(1)(_ + 1).some)),
+            firstMoves = player.color.white
+              .so(g.sans.headOption)
+              .fold(firstMoves): fm =>
+                firstMoves.updatedWith(fm)(_.fold(1)(_ + 1).some),
+            sources = g.source.fold(sources): source =>
+              sources.updatedWith(source)(_.fold(1)(_ + 1).some),
+            opponents = opponent.fold(opponents): op =>
+              opponents.updatedWith(op)(_.fold(1)(_ + 1).some),
+            perfs = perfs.updatedWith(g.perfKey): pk =>
+              pk.fold((durationSeconds, 1).some): (seconds, games) =>
+                (seconds + durationSeconds, games + 1).some
+          )
 
-private object Scan:
-  def zero = Scan(
-    0,
-    0,
-    Recap.Results(0, 0, 0),
-    Streak(0, 0, java.time.Instant.MIN),
-    ByColor.fill(Map.empty),
-    Map.empty,
-    Map.empty,
-    Map.empty
-  )
-  val createdThisYear =
-    Query.createdBetween(instantOf(yearToRecap, 1, 1, 0, 0).some, instantOf(yearToRecap + 1, 1, 1, 0, 0).some)
-
-  case class Streak(current: Int, max: Int, lastPlayed: Instant):
-    def addGame(playedAt: Instant): Streak =
+  private case class Streak(current: Int = 0, max: Int = 0, lastPlayed: Instant = LichessDay.genesis):
+    def add(playedAt: Instant): Streak =
       val newStreak =
         if playedAt.toEpochMilli - lastPlayed.toEpochMilli < 24 * 3600 * 1000
         then current + 1
         else 1
-      copy(
+      Streak(
         current = newStreak,
         max = newStreak.atLeast(max),
         lastPlayed = playedAt

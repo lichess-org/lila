@@ -11,6 +11,7 @@ import lila.memo.CacheApi
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
+    puzzleColls: lila.puzzle.PuzzleColls,
     cacheApi: CacheApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using
