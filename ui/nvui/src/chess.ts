@@ -6,7 +6,7 @@ import { parseFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
 import { type SquareName, RULES, type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
-import { parseUci } from 'chessops/util';
+import { charToRole, parseUci, roleToChar } from 'chessops/util';
 import { type SanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
@@ -39,72 +39,6 @@ const anna: { [letter: string]: string } = {
   f: 'felix',
   g: 'gustav',
   h: 'hector',
-};
-const roles: { [letter: string]: string } = {
-  P: 'pawn',
-  R: 'rook',
-  N: 'knight',
-  B: 'bishop',
-  Q: 'queen',
-  K: 'king',
-};
-const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
-
-const letterPiece: { [letter: string]: string } = {
-  p: 'p',
-  r: 'r',
-  n: 'n',
-  b: 'b',
-  q: 'q',
-  k: 'k',
-  P: 'p',
-  R: 'r',
-  N: 'n',
-  B: 'b',
-  Q: 'q',
-  K: 'k',
-};
-const whiteUpperLetterPiece: { [letter: string]: string } = {
-  p: 'p',
-  r: 'r',
-  n: 'n',
-  b: 'b',
-  q: 'q',
-  k: 'k',
-  P: 'P',
-  R: 'R',
-  N: 'N',
-  B: 'B',
-  Q: 'Q',
-  K: 'K',
-};
-export const namePiece: { [letter: string]: string } = {
-  p: 'pawn',
-  r: 'rook',
-  n: 'knight',
-  b: 'bishop',
-  q: 'queen',
-  k: 'king',
-  P: 'pawn',
-  R: 'rook',
-  N: 'knight',
-  B: 'bishop',
-  Q: 'queen',
-  K: 'king',
-};
-const whiteUpperNamePiece: { [letter: string]: string } = {
-  p: 'pawn',
-  r: 'rook',
-  n: 'knight',
-  b: 'bishop',
-  q: 'queen',
-  k: 'king',
-  P: 'Pawn',
-  R: 'Rook',
-  N: 'Knight',
-  B: 'Bishop',
-  Q: 'Queen',
-  K: 'King',
 };
 const skipToFile: { [letter: string]: string } = {
   '!': 'a',
@@ -191,13 +125,13 @@ export function positionSetting(): Setting<PositionStyle> {
 const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
   switch (pieceStyle) {
     case 'letter':
-      return letterPiece[piece];
+      return piece.toLowerCase();
     case 'white uppercase letter':
-      return whiteUpperLetterPiece[piece];
+      return piece;
     case 'name':
-      return namePiece[piece];
+      return charToRole(piece);
     case 'white uppercase name':
-      return whiteUpperNamePiece[piece];
+      return `${piece}${charToRole(piece)?.slice(1)}`;
   }
 };
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
@@ -255,7 +189,7 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style): string 
         const code = c.charCodeAt(0);
         if (code > 48 && code < 58) return c; // 1-8
         if (code > 96 && code < 105) return renderFile(c, style); // a-g
-        return roles[c] || c;
+        return charToRole(c) || c;
       })
       .join(' ');
   }
@@ -293,7 +227,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
 }
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
-  const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
+  const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${charToRole(p)}`;
   const res: Key[] = [];
   for (const [k, piece] of pieces) {
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
@@ -358,7 +292,7 @@ export function renderBoard(
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
-      const role = letters[piece.role];
+      const role = roleToChar(piece.role);
       const pieceText = renderPieceStyle(piece.color === 'white' ? role.toUpperCase() : role, pieceStyle);
       const prefix = renderPrefixStyle(piece.color, prefixStyle);
       const text = renderPositionStyle(rank, file, prefix + pieceText);

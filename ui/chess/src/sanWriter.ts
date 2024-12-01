@@ -1,4 +1,4 @@
-import type { Square } from 'chessops';
+import { charToRole, type Square } from 'chessops';
 
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: string]: Uci };
@@ -177,16 +177,7 @@ export function speakable(san?: San): string {
                       const code = c.charCodeAt(0);
                       if (code > 48 && code < 58) return c; // 1-8
                       if (code > 96 && code < 105) return c.toUpperCase();
-                      return (
-                        {
-                          P: 'pawn',
-                          N: 'knight',
-                          B: 'bishop',
-                          R: 'rook',
-                          Q: 'queen',
-                          K: 'king',
-                        }[c.toUpperCase()] ?? c
-                      );
+                      return charToRole(c) ?? c;
                     })
                     .join(' ')
                     .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
