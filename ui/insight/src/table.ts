@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import type Ctrl from './ctrl';
 
 export function formatNumber(dt: string, n: number) {
-  const percent = dt == 'percent';
+  const percent = dt === 'percent';
   const opts: Intl.NumberFormatOptions = {
     style: percent ? 'percent' : 'decimal',
     maximumFractionDigits: percent ? 1 : 2,

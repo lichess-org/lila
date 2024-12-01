@@ -2,7 +2,6 @@ package views.user
 
 import lila.app.UiEnv.{ *, given }
 import lila.appeal.Appeal
-import lila.core.i18n.Translate
 import lila.mod.IpRender.RenderIp
 import lila.mod.UserWithModlog
 import lila.mod.ui.{ mzSection, ModUserTableUi }
@@ -11,7 +10,6 @@ import lila.security.{ Dated, UserAgentParser, UserClient, UserLogins }
 object mod:
 
   import views.mod.user.*
-  import views.mod.{ user as ui }
 
   def student(managed: lila.clas.Student.ManagedInfo)(using Context): Frag =
     mzSection("student")(

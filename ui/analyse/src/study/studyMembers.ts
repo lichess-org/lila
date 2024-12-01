@@ -157,7 +157,7 @@ export function view(ctrl: StudyCtrl): VNode {
         attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
-          () => members.confing(members.confing() == member.user.id ? null : member.user.id),
+          () => members.confing(members.confing() === member.user.id ? null : member.user.id),
           ctrl.redraw,
         ),
       });

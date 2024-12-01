@@ -89,7 +89,7 @@ final class Env(
 
   def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
     active   <- (page == 1).so(listing.active.get({}))
-    upcoming <- (page == 1).so(listing.upcoming.get({}))
+    upcoming <- (page == 1).so(listing.upcomingCache.get({}))
     past     <- pager.inactive(page)
   yield (active, upcoming, past)
 

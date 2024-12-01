@@ -7,7 +7,7 @@ import { chessgroundDests } from 'chessops/compat';
 import { type SquareName, RULES, type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { parseUci } from 'chessops/util';
-import { type SanToUci, sanWriter } from 'chess';
+import { plyToTurn, type SanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
@@ -248,10 +248,10 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style): string 
       .replace(/[\+#]/, '')
       .split('')
       .map(c => {
-        if (c == 'x') return 'takes';
-        if (c == '+') return 'check';
-        if (c == '#') return 'checkmate';
-        if (c == '=') return 'promotion';
+        if (c === 'x') return 'takes';
+        if (c === '+') return 'check';
+        if (c === '#') return 'checkmate';
+        if (c === '=') return 'promotion';
         const code = c.charCodeAt(0);
         if (code > 48 && code < 58) return c; // 1-8
         if (code > 96 && code < 105) return renderFile(c, style); // a-g
@@ -693,7 +693,7 @@ export function inputToLegalUci(input: string, fen: string, chessground: CgApi):
   } else if (input.match(uciPromotionRegex)) {
     uci = input.slice(0, -1);
     promotion = input.slice(-1).toLowerCase();
-  } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role == 'pawn')
+  } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role === 'pawn')
     promotion = 'q';
 
   if (legalUcis.includes(uci.toLowerCase())) return uci + promotion;
@@ -721,8 +721,6 @@ export function renderMainline(
   });
   return res;
 }
-
-const plyToTurn = (ply: Ply): number => Math.floor((ply - 1) / 2) + 1;
 
 export function renderComments(node: Tree.Node, style: Style): string {
   if (!node.comments) return '';

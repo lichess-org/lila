@@ -114,7 +114,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     'tr',
     {
       key: team.id,
-      class: { active: ctrl.teamInfo.requested == team.id },
+      class: { active: ctrl.teamInfo.requested === team.id },
       hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw),
     },
     [

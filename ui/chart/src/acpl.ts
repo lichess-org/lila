@@ -29,6 +29,7 @@ import division from './division';
 import type { AcplChart, AnalyseData, Player } from './interface';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { pubsub } from 'common/pubsub';
+import { plyToTurn } from 'chess';
 
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
@@ -69,7 +70,7 @@ export default async function (
       else if (node.san?.includes('#')) cp = isWhite ? Infinity : -Infinity;
       if (cp && d.game.variant.key === 'antichess' && node.san?.includes('#')) cp = -cp;
       else if (node.eval?.cp) cp = node.eval.cp;
-      const turn = Math.floor((node.ply - 1) / 2) + 1;
+      const turn = plyToTurn(node.ply);
       const dots = isWhite ? '.' : '...';
       const winchance = winningChances.povChances('white', { cp: cp });
       // Plot winchance because logarithmic but display the corresponding cp.eval from AnalyseData in the tooltip

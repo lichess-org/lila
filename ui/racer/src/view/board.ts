@@ -45,7 +45,7 @@ const renderCountdown = (seconds: number) =>
   h('div.racer__countdown', [
     h('div.racer__countdown__lights', [
       h('light.red', { class: { active: seconds > 4 } }),
-      h('light.orange', { class: { active: seconds == 3 || seconds == 4 } }),
+      h('light.orange', { class: { active: seconds === 3 || seconds === 4 } }),
       h('light.green', { class: { active: seconds <= 2 } }),
     ]),
     h('div.racer__countdown__seconds', seconds),

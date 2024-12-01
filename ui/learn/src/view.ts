@@ -32,7 +32,7 @@ const mapView = (ctrl: LearnCtrl) =>
                 `a.stage.${status}.${titleVerbosityClass(title)}`,
                 { attrs: { href: hashHref(stage.id) } },
                 [
-                  status != 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
+                  status !== 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
                   h('img', { attrs: { src: stage.image } }),
                   h('div.text', [h('h3', title), h('p.subtitle', stage.subtitle)]),
                 ],
@@ -60,7 +60,7 @@ const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, st
     'span.ribbon-wrapper',
     h(
       `span.ribbon.${status}`,
-      status == 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores)),
+      status === 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores)),
     ),
   );
 

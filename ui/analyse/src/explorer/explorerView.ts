@@ -305,7 +305,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           'click',
           () => {
             explorer.config.selectPlayer(playerName || 'me');
-            if (explorer.db() != 'player') {
+            if (explorer.db() !== 'player') {
               explorer.config.data.db('player');
               explorer.config.data.open(true);
             }

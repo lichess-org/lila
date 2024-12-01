@@ -14,6 +14,7 @@ import { importPgn, variants as xhrVariants } from './studyXhr';
 import type { StudyChapters } from './studyChapters';
 import type { LichessEditor } from 'editor';
 import { pubsub } from 'common/pubsub';
+import { lichessRules } from 'chessops/compat';
 
 export const modeChoices = [
   ['normal', i18n.study.normalAnalysis],
@@ -64,7 +65,7 @@ export class StudyChapterNewForm {
 
   setTab = (key: ChapterTab) => {
     this.tab(key);
-    if (key != 'pgn' && this.orientation === 'automatic') this.orientation = 'white';
+    if (key !== 'pgn' && this.orientation === 'automatic') this.orientation = 'white';
     this.root.redraw();
   };
 
@@ -208,6 +209,7 @@ export function view(ctrl: StudyChapterNewForm): VNode {
                       };
                       ctrl.editor = await site.asset.loadEsm<LichessEditor>('editor', { init: data });
                       ctrl.editorFen(ctrl.editor.getFen());
+                      ctrl.editor.setRules(lichessRules(currentChapter.setup.variant.key));
                     });
                   },
                   destroy: () => (ctrl.editor = null),
@@ -315,7 +317,12 @@ export function view(ctrl: StudyChapterNewForm): VNode {
               h('label.form-label', { attrs: { for: 'chapter-variant' } }, i18n.site.variant),
               h(
                 'select#chapter-variant.form-control',
-                { attrs: { disabled: gameOrPgn } },
+                {
+                  attrs: { disabled: gameOrPgn },
+                  hook: bind('change', e => {
+                    ctrl.editor?.setRules(lichessRules((e.target as HTMLSelectElement).value as VariantKey));
+                  }),
+                },
                 gameOrPgn
                   ? [h('option', { attrs: { value: 'standard' } }, i18n.study.automatic)]
                   : ctrl.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)),

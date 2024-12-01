@@ -76,7 +76,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           role: sel[1],
         };
         const samePiece =
-          existingPiece && piece.color == existingPiece.color && piece.role == existingPiece.role;
+          existingPiece && piece.color === existingPiece.color && piece.role === existingPiece.role;
 
         if ((e.type === 'mousedown' || e.type === 'touchstart') && samePiece) {
           deleteOrHidePiece(ctrl, key, e);
@@ -95,7 +95,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
         ctrl.chessground!.state.drawable.current = undefined;
         ctrl.chessground!.state.drawable.shapes = [];
 
-        if (e.type === 'contextmenu' && sel != 'trash') {
+        if (e.type === 'contextmenu' && sel !== 'trash') {
           ctrl.chessground!.cancelMove();
           sel[0] = opposite(sel[0]);
           ctrl.redraw();

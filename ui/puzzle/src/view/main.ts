@@ -34,7 +34,7 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
 function controls(ctrl: PuzzleCtrl): VNode {
   const node = ctrl.node;
   const nextNode = node.children[0];
-  const notOnLastMove = ctrl.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  const notOnLastMove = ctrl.mode === 'play' && nextNode && nextNode.puzzle !== 'fail';
   return lh('div.puzzle__controls.analyse-controls', [
     lh(
       'div.jumps',
@@ -157,7 +157,7 @@ function session(ctrl: PuzzleCtrl) {
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
           key: round.id,
-          class: { current: current == round.id },
+          class: { current: current === round.id },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
@@ -166,7 +166,7 @@ function session(ctrl: PuzzleCtrl) {
         rd,
       );
     }),
-    rounds.find(r => r.id == current)
+    rounds.find(r => r.id === current)
       ? !ctrl.streak &&
         lh('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
       : lh(

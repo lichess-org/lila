@@ -45,7 +45,7 @@ abstract private[controllers] class LilaController(val env: Env)
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
-  val limit = new lila.web.Limiters(using env.executor, env.net.rateLimit)
+  val limit = lila.web.Limiters(using env.executor, env.net.rateLimit)
 
   /* Anonymous requests */
   def Anon(f: Context ?=> Fu[Result]): EssentialAction =

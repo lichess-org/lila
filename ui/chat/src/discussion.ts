@@ -162,7 +162,7 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
     if (
       !line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId) &&
+      (!line.r || (line.u || '').toLowerCase() === ctrl.data.userId) &&
       !spam.skip(line.t)
     )
       ls.push(line);
@@ -217,7 +217,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
+          myUserId && line.u && myUserId !== line.u
             ? h('action.flag', {
                 attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
               })

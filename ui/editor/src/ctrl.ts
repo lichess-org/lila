@@ -176,7 +176,7 @@ export default class EditorCtrl {
     return {
       fen: this.getFen(),
       legalFen: legalFen,
-      playable: this.rules == 'chess' && this.isPlayable(),
+      playable: this.rules === 'chess' && this.isPlayable(),
       enPassantOptions: legalFen ? this.getEnPassantOptions(legalFen) : [],
     };
   }
@@ -200,7 +200,7 @@ export default class EditorCtrl {
     this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
 
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
-    if (this.castlingToggles[id] != value) this.castlingRights = undefined;
+    if (this.castlingToggles[id] !== value) this.castlingRights = undefined;
     this.castlingToggles[id] = value;
     this.onChange();
   }
@@ -254,9 +254,9 @@ export default class EditorCtrl {
 
   setRules(rules: Rules): void {
     this.rules = rules;
-    if (rules != 'crazyhouse') this.pockets = undefined;
+    if (rules !== 'crazyhouse') this.pockets = undefined;
     else if (!this.pockets) this.pockets = Material.empty();
-    if (rules != '3check') this.remainingChecks = undefined;
+    if (rules !== '3check') this.remainingChecks = undefined;
     else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();
     this.onChange();
   }

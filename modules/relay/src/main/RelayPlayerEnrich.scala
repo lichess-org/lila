@@ -28,6 +28,7 @@ private object RelayPlayerLine:
         .split:
           java.text.Normalizer
             .normalize(str.trim, java.text.Normalizer.Form.NFD)
+            .replace(",", " ")
             .replaceAllIn(titleRegex, "")
             .replaceAllIn(nonLetterRegex, "")
             .toLowerCase

@@ -16,8 +16,8 @@ final class UblogMarkup(
   type PgnSourceId = String
 
   private val pgnCache =
-    cacheApi.notLoadingSync[PgnSourceId, LpvEmbed](256, "ublogMarkup.pgn"):
-      _.expireAfterWrite(1 second).build()
+    cacheApi.notLoadingSync[PgnSourceId, LpvEmbed](32, "ublogMarkup.pgn"):
+      _.expireAfterWrite(2 second).build()
 
   private val renderer = MarkdownRender(
     autoLink = true,

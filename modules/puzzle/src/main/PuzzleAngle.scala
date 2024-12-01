@@ -10,6 +10,10 @@ sealed abstract class PuzzleAngle(val key: String):
   def description: I18nKey
   def asTheme: Option[PuzzleTheme.Key]
   def opening: Option[Opening]
+  def categ = this match
+    case PuzzleAngle.Theme(PuzzleTheme.mix) => "mix"
+    case PuzzleAngle.Theme(_)               => "theme"
+    case PuzzleAngle.Opening(_)             => "opening"
 
 object PuzzleAngle:
   case class Theme(theme: PuzzleTheme.Key) extends PuzzleAngle(theme.value):

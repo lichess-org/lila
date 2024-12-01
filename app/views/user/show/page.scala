@@ -73,7 +73,6 @@ object page:
         )
 
   private def esModules(withSearch: Boolean = false)(using Context): EsmList =
-    import play.api.libs.json.Json
     infiniteScrollEsmInit
       ++ esmInit("bits.user")
       ++ withSearch.so(Esm("bits.gameSearch"))

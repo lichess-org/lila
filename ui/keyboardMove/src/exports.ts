@@ -1,18 +1,18 @@
 import type { SanToUci } from 'chess';
+import { type Prop, propWithEffect } from 'common';
+import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import KeyboardChecker from './keyboardChecker';
 import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
-import { promote } from 'chess/promotion';
-import { propWithEffect, type Prop } from 'common';
 import { snabDialog } from 'common/dialog';
-import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
-import { load as loadKeyboardMove } from './keyboardMove';
-import KeyboardChecker from './keyboardChecker';
+import { promote } from 'chess/promotion';
+
+export interface Opts {
+  input: HTMLInputElement;
+  ctrl: KeyboardMove;
+}
 
 export type KeyboardMoveHandler = (fen: FEN, dests?: Dests, yourMove?: boolean) => void;
-
-export const arrowKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'] as const;
-export type ArrowKey = (typeof arrowKeys)[number];
-export const isArrowKey = (v: string): v is ArrowKey => arrowKeys.includes(v as ArrowKey);
 
 export interface KeyboardMove {
   drop(key: Key, piece: string): void;
@@ -39,15 +39,6 @@ export interface KeyboardMove {
   goBerserk?: () => void;
 }
 
-const sanToRole: { [key: string]: Role } = {
-  P: 'pawn',
-  N: 'knight',
-  B: 'bishop',
-  R: 'rook',
-  Q: 'queen',
-  K: 'king',
-};
-
 interface CrazyPocket {
   [role: string]: number;
 }
@@ -58,6 +49,8 @@ export interface RootData {
   opponent?: { color: Color; user?: { username: string } };
 }
 
+export type ArrowKey = 'ArrowUp' | 'ArrowDown' | 'ArrowLeft' | 'ArrowRight';
+
 export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   sendNewPiece?: (role: Role, key: Key, isPredrop: boolean) => void;
   userJumpPlyDelta?: (plyDelta: Ply) => void;
@@ -66,6 +59,33 @@ export interface KeyboardMoveRootCtrl extends MoveRootCtrl {
   crazyValid?: (role: Role, key: Key) => boolean;
   getCrazyhousePockets?: () => [CrazyPocket, CrazyPocket] | undefined;
   data: RootData;
+}
+
+export function loadKeyboardMove(opts: Opts): Promise<KeyboardMoveHandler> {
+  return site.asset.loadEsm('keyboardMove', { init: opts });
+}
+
+export function render(ctrl: KeyboardMove): VNode {
+  return h('div.keyboard-move', [
+    h('input', {
+      attrs: { spellcheck: 'false', autocomplete: 'off' },
+      hook: onInsert((input: HTMLInputElement) =>
+        site.asset
+          .loadEsm<KeyboardMoveHandler>('keyboardMove', { init: { input, ctrl } })
+          .then(m => ctrl.registerHandler(m)),
+      ),
+    }),
+    ctrl.isFocused()
+      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
+      : h('strong', 'Press <enter> to focus'),
+    ctrl.helpModalOpen()
+      ? snabDialog({
+          class: 'help.keyboard-move-help',
+          htmlUrl: '/help/keyboard-move',
+          onClose: () => ctrl.helpModalOpen(false),
+        })
+      : null,
+  ]);
 }
 
 export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
@@ -104,7 +124,7 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
     promote(orig, dest, piece) {
       const role = sanToRole[piece];
       const variant = root.data.game.variant.key;
-      if (!role || role == 'pawn' || (role == 'king' && variant !== 'antichess')) return;
+      if (!role || role === 'pawn' || (role === 'king' && variant !== 'antichess')) return;
       cg.cancelMove();
       promote(cg, dest, role);
       root.pluginMove(orig, dest, role);
@@ -159,23 +179,11 @@ export function ctrl(root: KeyboardMoveRootCtrl): KeyboardMove {
   };
 }
 
-export function render(ctrl: KeyboardMove): VNode {
-  return h('div.keyboard-move', [
-    h('input', {
-      attrs: { spellcheck: 'false', autocomplete: 'off' },
-      hook: onInsert((input: HTMLInputElement) =>
-        loadKeyboardMove({ input, ctrl }).then((m: KeyboardMoveHandler) => ctrl.registerHandler(m)),
-      ),
-    }),
-    ctrl.isFocused()
-      ? h('em', 'Enter SAN (Nc3), ICCF (2133) or UCI (b1c3) moves, type ? to learn more')
-      : h('strong', 'Press <enter> to focus'),
-    ctrl.helpModalOpen()
-      ? snabDialog({
-          class: 'help.keyboard-move-help',
-          htmlUrl: '/help/keyboard-move',
-          onClose: () => ctrl.helpModalOpen(false),
-        })
-      : null,
-  ]);
-}
+const sanToRole: { [key: string]: Role } = {
+  P: 'pawn',
+  N: 'knight',
+  B: 'bishop',
+  R: 'rook',
+  Q: 'queen',
+  K: 'king',
+};

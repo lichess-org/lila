@@ -40,7 +40,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
 
 export default function (ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;
-  const win = ctrl.lastFeedback == 'win';
+  const win = ctrl.lastFeedback === 'win';
   return h(
     'div.puzzle__feedback.after',
     ctrl.streak && !win

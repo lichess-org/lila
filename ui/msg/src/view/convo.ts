@@ -17,7 +17,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           attrs: { 'data-icon': licon.LessThan },
           hook: hookMobileMousedown(ctrl.showSide),
         }),
-        userLink({ ...user, moderator: user.id == 'lichess' }),
+        userLink({ ...user, moderator: user.id === 'lichess' }),
       ]),
       h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),
     ]),

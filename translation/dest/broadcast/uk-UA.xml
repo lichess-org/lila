@@ -50,9 +50,23 @@
   <string name="ageThisYear">Вік цього року</string>
   <string name="unrated">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
+  <string name="openLichess">Відкрити в Lichess</string>
+  <string name="teams">Команди</string>
+  <string name="boards">Дошки</string>
+  <string name="overview">Огляд</string>
+  <string name="uploadImage">Завантажити зображення турніру</string>
+  <string name="noBoardsYet">Ще немає дощок. Вони з\'являться, коли ігри будуть завантажені.</string>
+  <string name="startVerySoon">Трансляція розпочнеться дуже скоро.</string>
+  <string name="notYetStarted">Трансляція ще не розпочалася.</string>
   <string name="officialWebsite">Офіційний вебсайт</string>
+  <string name="standings">Турнірна таблиця</string>
+  <string name="officialStandings">Офіційна турнірна таблиця</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Більше опцій на %s</string>
+  <string name="embedThisBroadcast">Вбудувати цю трансляцію на своєму сайті</string>
+  <string name="embedThisRound">Вбудувати %s на своєму сайті</string>
   <string name="ratingDiff">Різниця у рейтингу</string>
   <string name="gamesThisTournament">Ігри в цьому турнірі</string>
+  <string name="score">Очки</string>
   <string name="allTeams">Усі команди</string>
   <string name="tournamentFormat">Формат турніру</string>
   <string name="tournamentLocation">Місце турніру</string>

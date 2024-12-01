@@ -26,8 +26,8 @@ export class PromotionCtrl {
       const piece = ground.state.pieces.get(dest);
       if (
         piece &&
-        piece.role == 'pawn' &&
-        ((dest[1] == '1' && piece.color == 'black') || (dest[1] == '8' && piece.color == 'white'))
+        piece.role === 'pawn' &&
+        ((dest[1] === '1' && piece.color === 'black') || (dest[1] === '8' && piece.color === 'white'))
       ) {
         this.promoting = {
           orig: orig,

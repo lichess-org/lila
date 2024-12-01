@@ -34,7 +34,7 @@ export default function moveTest(ctrl: PuzzleCtrl): MoveTestReturn {
     if (nodes[i].checkmate) return (ctrl.node.puzzle = 'win');
     const uci = nodes[i].uci!,
       solUci = ctrl.data.puzzle.solution[i];
-    if (uci != solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] != solUci))
+    if (uci !== solUci && (!nodes[i].castle || !isAltCastle(uci) || altCastles[uci] !== solUci))
       return (ctrl.node.puzzle = 'fail');
   }
 
