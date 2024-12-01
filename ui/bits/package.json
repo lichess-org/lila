@@ -35,7 +35,7 @@
     "debounce-promise": "^3.1.2",
     "emoji-mart": "^5.6.0",
     "flatpickr": "^4.6.13",
-    "lichess-pgn-viewer": "^2.1.3",
+    "lichess-pgn-viewer": "^2.2.0",
     "prop-types": "^15.8.1",
     "qrcode": "^1.5.4",
     "shepherd.js": "^11.2.0",
