@@ -1,5 +1,6 @@
 {
   "exclude": ["${configDir}/tests", "${configDir}/dist"],
+  "include": ["${configDir}/src"],
   "compilerOptions": {
     "outDir": "${configDir}/dist",
     "rootDir": "${configDir}/src",

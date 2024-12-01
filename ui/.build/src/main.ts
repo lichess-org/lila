@@ -24,6 +24,7 @@ const args: Record<string, string> = {
   '--clean': 'c',
   '--update': '',
   '--no-install': 'n',
+  '--tsc-external': 'x',
   '--log': 'l',
 };
 
@@ -69,6 +70,7 @@ export async function main(): Promise<void> {
   env.install = !argv.includes('--no-install') && !oneDashArgs.includes('n');
   env.rgb = argv.includes('--rgb');
   env.test = argv.includes('--test') || oneDashArgs.includes('t');
+  env.tscExternal = argv.includes('--tsc-external') || oneDashArgs.includes('x');
 
   if (argv.length === 1 && (argv[0] === '--help' || argv[0] === '-h')) {
     console.log(fs.readFileSync(path.resolve(env.buildDir, 'readme'), 'utf8'));
@@ -138,6 +140,8 @@ class Env {
   sync = true;
   i18n = true;
   test = false;
+  tscExternal = false;
+
   exitCode: Map<Builder, number | false> = new Map();
   startTime: number | undefined = Date.now();
   logTime = true;

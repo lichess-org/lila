@@ -5,17 +5,20 @@ import { Worker } from 'node:worker_threads';
 import { env, colors as c, errorMark } from './main.ts';
 import { globArray, folderSize } from './parse.ts';
 import type { WorkerData, Message } from './tscWorker.ts';
+import { tscExternal, stopTscExternal } from './tscExternal.ts';
 import ts from 'typescript';
 
 const workers: Worker[] = [];
 
 export async function stopTsc(): Promise<void> {
+  if (env.tscExternal) return stopTscExternal();
   await Promise.allSettled(workers.map(w => w.terminate()));
   workers.length = 0;
 }
 
 export async function tsc(): Promise<void> {
   if (!env.tsc) return;
+  if (env.tscExternal) return tscExternal();
   await Promise.allSettled([
     fs.promises.mkdir(path.join(env.buildTempDir, 'noCheck')),
     fs.promises.mkdir(path.join(env.buildTempDir, 'noEmit')),
