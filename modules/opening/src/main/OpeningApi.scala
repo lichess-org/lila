@@ -20,7 +20,7 @@ final class OpeningApi(
   import OpeningQuery.Query
 
   private val defaultCache = cacheApi.notLoading[Query, Option[OpeningPage]](1024, "opening.defaultCache"):
-    _.maximumSize(4096).expireAfterWrite(5 minute).buildAsync()
+    _.maximumSize(4096).expireAfterWrite(10.minutes).buildAsync()
 
   def index(using RequestHeader, OpeningAccessControl): Fu[Option[OpeningPage]] =
     lookup(Query("", none), withWikiRevisions = false, crawler = Crawler.No)
