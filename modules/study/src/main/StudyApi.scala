@@ -269,7 +269,7 @@ final class StudyApi(
                 _ <- updateConceal(study, chapter, newPosition)
                 _ = sendTo(study.id):
                   _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
-                isMainline        = newPosition.path.isMainline(chapter.root).pp("isMainline")
+                isMainline        = newPosition.path.isMainline(chapter.root)
                 promoteToMainline = opts.promoteToMainline && !isMainline
               yield promoteToMainline.option: () =>
                 promote(study.id, position.ref + node, toMainline = true)(who)
