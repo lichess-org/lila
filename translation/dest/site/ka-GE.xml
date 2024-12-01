@@ -5,7 +5,6 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">მეტოქეს, მოსაწვევად, გაუგზავნეთ აღნიშნული ბმული</string>
   <string name="gameOver">თამაში დასრულებულია</string>
   <string name="waitingForOpponent">მეტოქის მოლოდინი</string>
-  <string name="orLetYourOpponentScanQrCode"></string>
   <string name="waiting">მეტოქის სვლაა</string>
   <string name="yourTurn">თქვენი სვლაა</string>
   <string name="aiNameLevelAiLevel">%1$s, სირთულის დონე: %2$s</string>
