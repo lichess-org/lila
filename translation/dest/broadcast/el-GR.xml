@@ -46,9 +46,10 @@
   <string name="boards">Σκακιέρες</string>
   <string name="overview">Επισκόπηση</string>
   <string name="uploadImage">Ανεβάστε εικόνα τουρνουά</string>
-  <string name="startsAfter">Ξεκινάει μετά από %s</string>
+  <string name="startsAfter" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;).&#10;&#10;The round name is set by the creator of the broadcast, and may be in a different language.">Ξεκινάει μετά από %s</string>
   <string name="officialWebsite">Επίσημη ιστοσελίδα</string>
   <string name="standings">Κατάταξη</string>
+  <string name="officialStandings">Επίσημη Κατάταξη</string>
   <string name="ratingDiff">Διαφορά βαθμολογίας</string>
   <string name="gamesThisTournament">Παρτίδες σε αυτό το τουρνουά</string>
   <string name="score">Βαθμολογία</string>
@@ -56,4 +57,7 @@
   <string name="tournamentLocation">Τοποθεσία Τουρνουά</string>
   <string name="timezone">Ζώνη ώρας</string>
   <string name="optionalDetails">Προαιρετικές λεπτομέρειες</string>
+  <string name="upcomingBroadcasts">Επερχόμενες αναμετάδοσεις</string>
+  <string name="pastBroadcasts">Προηγούμενες αναμετάδοσεις</string>
+  <string name="allBroadcastsByMonth">Προβολή όλων των αναμεταδόσεων ανά μήνα</string>
 </resources>
