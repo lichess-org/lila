@@ -268,24 +268,24 @@ final class StudyRepo(private[study] val coll: AsyncColl)(using
   def isMember(studyId: StudyId, userId: UserId) =
     coll(_.exists($id(studyId) ++ (s"members.$userId".$exists(true))))
 
-  def like(studyId: StudyId, userId: UserId, v: Boolean): Fu[Study.Likes] =
-    coll: c =>
-      c.update.one($id(studyId), if v then $addToSet(F.likers -> userId) else $pull(F.likers -> userId)) >> {
-        countLikes(studyId).flatMap:
-          case None                     => fuccess(Study.Likes(0))
-          case Some((likes, createdAt)) =>
-            // Multiple updates may race to set denormalized likes and rank,
-            // but values should be approximately correct, match a real like
-            // count (though perhaps not the latest one), and any uncontended
-            // query will set the precisely correct value.
-            for
-              _ <- c.update.one(
-                $id(studyId),
-                $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
-              )
-              _ = updateNow(studyId)
-            yield likes
-      }
+  def like(studyId: StudyId, userId: UserId, v: Boolean): Fu[Study.Likes] = for
+    c <- coll.get
+    _ <- c.update.one($id(studyId), if v then $addToSet(F.likers -> userId) else $pull(F.likers -> userId))
+    likes <- countLikes(studyId)
+    updated <- likes match
+      case None                     => fuccess(Study.Likes(0))
+      case Some((likes, createdAt)) =>
+        // Multiple updates may race to set denormalized likes and rank,
+        // but values should be approximately correct, match a real like
+        // count (though perhaps not the latest one), and any uncontended
+        // query will set the precisely correct value.
+        c.update
+          .one(
+            $id(studyId),
+            $set(F.likes -> likes, F.rank -> Study.Rank.compute(likes, createdAt))
+          )
+          .inject(likes)
+  yield updated
 
   def liked(study: Study, user: User): Fu[Boolean] =
     coll(_.exists($id(study.id) ++ selectLiker(user.id)))
