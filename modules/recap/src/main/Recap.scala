@@ -9,7 +9,13 @@ import lila.recap.Recap.Counted
 import scalalib.model.Days
 import lila.core.game.Source
 
-case class Recap(@Key("_id") id: UserId, year: Int, games: RecapGames, puzzles: RecapPuzzles)
+case class Recap(
+    @Key("_id") id: UserId,
+    year: Int,
+    games: RecapGames,
+    puzzles: RecapPuzzles,
+    createdAt: Instant
+)
 
 case class RecapGames(
     nb: NbAndStreak,
@@ -19,8 +25,7 @@ case class RecapGames(
     timePlaying: FiniteDuration,
     sources: Map[Source, Int],
     opponent: Option[Counted[UserId]],
-    perfs: List[Recap.Perf],
-    createdAt: Instant
+    perfs: List[Recap.Perf]
 ):
   def significantPerfs: List[Recap.Perf] = perfs.filter: p =>
     (p.games > (nb.nb / 20)) || (p.seconds > (timePlaying.toSeconds / 20))

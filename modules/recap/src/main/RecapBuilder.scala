@@ -12,6 +12,7 @@ import lila.game.Query
 import lila.puzzle.PuzzleRound
 import lila.common.LichessDay
 import lila.core.game.Source
+import java.time.LocalDate
 
 private final class RecapBuilder(
     repo: RecapRepo,
@@ -24,13 +25,13 @@ private final class RecapBuilder(
       runGameScan(userId).map(makeGameRecap),
       runPuzzleScan(userId).map(makePuzzleRecap)
     ).mapN: (game, puzzle) =>
-      Recap(userId, yearToRecap, game, puzzle)
+      Recap(userId, yearToRecap, game, puzzle, nowInstant)
     _ <- repo.insert(recap)
   yield ()
 
   private def makePuzzleRecap(scan: PuzzleScan): RecapPuzzles =
     RecapPuzzles(
-      nb = NbAndStreak(scan.nb, Days(scan.streak.current)),
+      nb = NbAndStreak(scan.nb, Days(scan.streak.max)),
       results = scan.results,
       votes = scan.votes
     )
@@ -39,7 +40,7 @@ private final class RecapBuilder(
     import lila.puzzle.BsonHandlers.roundHandler
     puzzleColls.round:
       _.find($doc("u" -> userId, "d" -> $doc("$gt" -> dateStart, "$lt" -> dateEnd)))
-        .sort($sort.desc("d"))
+        .sort($sort.asc("d"))
         .cursor[PuzzleRound]()
         .documentSource()
         .runFold(PuzzleScan())(_.addRound(_))
@@ -54,11 +55,7 @@ private final class RecapBuilder(
       val win = r.firstWin
       copy(
         nb = nb + 1,
-        results = results
-          .copy(
-            win = results.win + win.so(1),
-            loss = results.loss + (!win).so(1)
-          ),
+        results = results.copy(win = results.win + win.so(1), loss = results.loss + (!win).so(1)),
         streak = streak.add(r.date),
         votes = votes.copy(
           up = votes.up + r.vote.exists(_ > 0).so(1),
@@ -69,7 +66,7 @@ private final class RecapBuilder(
 
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
-      nb = NbAndStreak(scan.nb, Days(scan.streak.current)),
+      nb = NbAndStreak(scan.nb, Days(scan.streak.max)),
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
       ,
@@ -81,8 +78,7 @@ private final class RecapBuilder(
       perfs = scan.perfs.toList
         .sortBy(-_._2._1)
         .map:
-          case (key, (seconds, games)) => Recap.Perf(key, seconds, games),
-      createdAt = nowInstant
+          case (key, (seconds, games)) => Recap.Perf(key, seconds, games)
     )
 
   private def runGameScan(userId: UserId): Fu[GameScan] =
@@ -140,14 +136,20 @@ private final class RecapBuilder(
                 (seconds + durationSeconds, games + 1).some
           )
 
-  private case class Streak(current: Int = 0, max: Int = 0, lastPlayed: Instant = LichessDay.genesis):
+  private case class Streak(
+      current: Int = 0,
+      max: Int = 0,
+      lastPlayed: LichessDay = LichessDay(0)
+  ):
+
     def add(playedAt: Instant): Streak =
+      val day = LichessDay.dayOf(playedAt)
       val newStreak =
-        if playedAt.toEpochMilli - lastPlayed.toEpochMilli < 24 * 3600 * 1000
-        then current + 1
+        if day == lastPlayed then current
+        else if day == lastPlayed.map(_ + 1) then current + 1
         else 1
       Streak(
         current = newStreak,
         max = newStreak.atLeast(max),
-        lastPlayed = playedAt
+        lastPlayed = day
       )
