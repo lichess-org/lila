@@ -4,6 +4,7 @@ import path from 'node:path';
 import { Worker } from 'node:worker_threads';
 import { env, colors as c, errorMark } from './main.ts';
 import { globArray, folderSize } from './parse.ts';
+import { clamp } from './algo.ts';
 import type { WorkerData, Message } from './tscWorker.ts';
 import ts from 'typescript';
 
@@ -25,10 +26,10 @@ export async function tsc(): Promise<void> {
     .sort((a, b) => a.localeCompare(b)) // repeatable build order
     .filter(x => env.building.some(pkg => x.startsWith(`${pkg.root}/`)));
 
-  const maxCores = os.cpus().length;
+  const logicalCores = os.cpus().length;
   const workBuckets: { [T in 'noCheck' | 'noEmit']: SplitConfig[][] } = {
-    noCheck: Array.from({ length: Math.min(4, maxCores) }, () => []),
-    noEmit: Array.from({ length: Math.min(8, maxCores) }, () => []),
+    noCheck: Array.from({ length: clamp(logicalCores / 4, { min: 1, max: 4 }) }, () => []),
+    noEmit: Array.from({ length: clamp(logicalCores / 2, { min: 1, max: 8 }) }, () => []),
   };
 
   // traverse packages by descending source folder size and assign to emptiest available worker buckets
