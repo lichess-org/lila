@@ -221,8 +221,8 @@
     <item quantity="other">%s часов</item>
   </plurals>
   <plurals name="nbMinutes">
-    <item quantity="one">%s одна минута</item>
-    <item quantity="few">%s минуты</item>
+    <item quantity="one">%s Одна минута</item>
+    <item quantity="few">%s Минуты</item>
     <item quantity="many">%s минут</item>
     <item quantity="other">%s минут</item>
   </plurals>
@@ -752,7 +752,7 @@
   <string name="aboutSimulRules">Когда начинается сеанс одновременной игры, каждый игрок начинает игру с сеансёром, который играет белыми. Сеанс закончится, когда все партии будут сыграны.</string>
   <string name="aboutSimulSettings">Сеансы одновременной игры не предполагают партий на рейтинг. Переигровки, отмены ходов и «добавки времени» запрещены.</string>
   <string name="create">Создать</string>
-  <string name="whenCreateSimul">Если вы создадите сеанс одновременной игры, вам придётся сыграть против нескольких игроков одновременно.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Если вы создадите сеанс одновременной игры, вам придётся сыграть против нескольких игроков одновременно.</string>
   <string name="simulVariantsHint">Если вы выберете несколько вариантов игры, тогда каждый игрок выберет тот из них, в который он хочет сыграть с вами.</string>
   <string name="simulClockHint">Настройка часов Фишера. Чем больше игроков играет против вас, тем больше времени вам может понадобится.</string>
   <string name="simulAddExtraTime">Вы можете взять себе дополнительное время на обдумывание партий.</string>
