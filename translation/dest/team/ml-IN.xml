@@ -19,9 +19,25 @@
     <item quantity="other">കളികൂട്ടത്തിന്റെ നേതാവുകൾ</item>
   </plurals>
   <string name="teamRecentMembers">പുതിയ അംഗങ്ങള്‍</string>
-  <string name="teamsIlead">ഞാന്‍ ലീഡര്‍ ആയ കളികൂട്ടങ്ങൾ</string>
+  <string name="kickSomeone">കളിക്കൂട്ടം നിന്നു് ഒരാളെ പുറത്താക്കുക</string>
+  <string name="whoToKick">കളിക്കൂട്ടം നിന്നു് ആരേ പുറത്താക്കണം?</string>
+  <plurals name="xJoinRequests">
+    <item quantity="one">%s ചേർക്കൽ അപേക്ഷ</item>
+    <item quantity="other">%s ചേർക്കൽ അപേക്ഷകൾ</item>
+  </plurals>
+  <string name="willBeReviewed">താങ്ങളുടെ ചേർക്കൽ അപേക്ഷയൊരു കളിക്കൂട്ടനേതാവു് പരിശോധിക്കും.</string>
+  <string name="beingReviewed">താങ്ങളുടെ ചേർക്കൽ അപേക്ഷയൊരു കളിക്കൂട്ടനേതാവു് പരിശോധിക്കുന്നു.</string>
+  <string name="requestDeclined">താങ്ങളുടെ ചേർക്കൽ അപേക്ഷയൊരു കളിക്കൂട്ടനേതാവു് തള്ളി.</string>
+  <string name="teamBattle">കളിക്കൂട്ടപോരാട്ടം</string>
+  <string name="teamTournament">കളിക്കൂട്ടമത്സരം</string>
+  <string name="teamsIlead">ഞാന്‍ നേതാവായ കളികൂട്ടങ്ങൾ</string>
+  <string name="leadersChat">നേതാവുകളുടെ സല്ലാപമറി</string>
   <string name="closeTeam">കളികൂട്ടം അടച്ചുപൂട്ടുക</string>
   <string name="closeTeamDescription">ഇത് ഈ കളികൂട്ടത്തിന് എന്നേക്കുമായി അടച്ചുപൂട്ടും.</string>
+  <string name="entryCode">കളിക്കൂട്ടപ്രവേശനസങ്കേതം</string>
+  <string name="incorrectEntryCode">തെറ്റിയ പ്രവേശനസങ്കേതം.</string>
+  <string name="teamAlreadyExists">ഈ കളിക്കൂട്ടം നേരത്തെതന്നെ നിർമ്മിച്ചിരിക്കുന്നു.</string>
   <string name="upcomingTournaments">വരാനിരിക്കുന്ന മത്സരങ്ങൾ</string>
   <string name="completedTourns">കഴിഞ്ഞ മത്സരങ്ങൾ</string>
+  <string name="teamPage">കളിക്കൂട്ടതാൾ</string>
 </resources>
