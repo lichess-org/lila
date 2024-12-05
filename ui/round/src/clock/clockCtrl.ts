@@ -182,7 +182,7 @@ export class ClockController {
         simplePlural(date.getUTCSeconds(), 'second');
       return `${color} ${msg}`;
     });
-    site.sound.say(msgs.join('. '));
+    site.sound.say(msgs.join('. '), false, true);
   };
 }
 
