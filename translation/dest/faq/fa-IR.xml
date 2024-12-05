@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">پ‌پ‌ب</string>
-  <string name="frequentlyAskedQuestions">پرسش‌های پُربَسامد</string>
+  <string name="faqAbbreviation">پرسش‌های متداول</string>
+  <string name="frequentlyAskedQuestions">پرسش‌های متداول</string>
   <string name="whyIsLichessCalledLichess">نامگذاری Lichess بر چه پایه‌ایست؟</string>
   <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess آمیخته‌ای از واژگان live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess %1$s است.</string>
   <string name="leechess">لی-چِس</string>
@@ -56,6 +56,12 @@
   <string name="fideHandbook">دستینه فیده</string>
   <string name="fideHandbookX">بخش %s از دستینه فیده</string>
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
+  <string name="explainingEnPassant">این یک حرکت قانونی است که به عنوان \"آن‌پاسان\" شناخته می‌شود. این مقاله ویکی‌پدیا اطلاعاتی در مورد آن ارائه می‌دهد: %1$s.
+
+این موضوع در بخش‌های 3.7.3.1 و 3.7.3.2 از %2$s توضیح داده شده است:
+\"یک پیاده که در یک خانه در همان عرض و در یک ستون مجاور با پیاده حریف قرار دارد و اخیراً دو خانه به جلو حرکت کرده است، می‌تواند این پیاده حریف را به‌گونه‌ای بگیرد که گویی پیاده حریف فقط یک خانه حرکت کرده است. این گرفتن تنها در حرکت بعد از این پیشرفت قانونی است و به عنوان گرفتن \'آن‌پاسان\' نامیده می‌شود.\"
+
+برای تمرین این حرکت، به %3$s مراجعه کنید.</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
   <string name="lichessTraining">آموزش Lichess</string>
   <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
@@ -69,6 +75,7 @@
   <string name="configure">پیکربندی نمایید</string>
   <string name="accounts">حساب‌های کاربری</string>
   <string name="titlesAvailableOnLichess">چه عناوینی در Lichess وجود دارند؟</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess تمام عناوین فیده را که از بازی‌های OTB (بر روی صفحه) به دست آمده‌اند، به رسمیت می‌شناسد، همچنین %1$s. در اینجا فهرستی از عناوین فیده آورده شده است:</string>
   <string name="asWellAsManyNMtitles">تعداد زیادی عناوین استادی ملی</string>
   <string name="verificationForm">فرم تایید</string>
   <string name="canIbecomeLM">آیا می‌توانم عنوان Lichess Master (LM) را دریافت کنم؟</string>
@@ -77,7 +84,7 @@
   <string name="usernamesNotOffensive">به طور کلی، نام های کاربری نباید: توهین آمیز، جعل هویت شخص دیگری یا تبلیغاتی باشند. می‌توانید درباره %1$s بیشتر بخوانید.</string>
   <string name="guidelines">دستورالعمل‌ها</string>
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
-  <string name="usernamesCannotBeChanged">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="wayOfBerserkExplanation">برای به دست آوردنش، hiimgosu خود را به چالش کشید تا تمام بازی های %s با استفاده از جنون برنده شود.</string>
   <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>
