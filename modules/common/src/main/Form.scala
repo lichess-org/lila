@@ -5,7 +5,7 @@ import play.api.data.Forms.*
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Form as PlayForm, FormError, Mapping, validation as V }
+import play.api.data.{ Form as PlayForm, FormError, Mapping, FieldMapping, validation as V }
 import java.lang
 import java.time.{ LocalDate, LocalDateTime, ZoneId }
 import scala.util.Try
@@ -63,6 +63,12 @@ object Form:
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
       case None =>
         field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
+
+  def empty[T]: FieldMapping[Option[T]] =
+    given Formatter[Option[T]] = new:
+      def bind(key: String, data: Map[String, String]) = Right(None)
+      def unbind(key: String, value: Option[T])        = Map.empty
+    FieldMapping()
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
