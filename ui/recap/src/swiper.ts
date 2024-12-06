@@ -12,7 +12,7 @@ export const makeSwiper =
     console.log(element);
     const options: SwiperOptions = {
       modules: [Pagination],
-      initialSlide: 6,
+      initialSlide: 0,
       direction: 'vertical',
       loop: false,
       cssMode: true,
