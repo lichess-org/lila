@@ -8,8 +8,9 @@ import { jsLogger } from './console.ts';
 import { shallowSort, isEquivalent } from './algo.ts';
 let writeTimer: NodeJS.Timeout;
 
+type SplitAsset = { hash?: string; imports?: string[]; inline?: string; mtime?: number };
 export type Manifest = {
-  [key: string]: { hash?: string; imports?: string[]; inline?: string; mtime?: number };
+  [key: string]: SplitAsset;
 };
 
 export const current: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
@@ -51,18 +52,20 @@ async function writeManifest() {
     `window.site.info.commit='${cps.execSync('git rev-parse -q HEAD', { encoding: 'utf-8' }).trim()}';`,
     `window.site.info.message='${commitMessage}';`,
     `window.site.debug=${env.debug};`,
-    'const m=window.site.manifest={css:{},js:{},hashed:{}};',
   ];
   if (env.remoteLog) clientJs.push(jsLogger());
-  for (const [name, info] of Object.entries(current.js)) {
-    if (!/common\.[A-Z0-9]{8}/.test(name)) clientJs.push(`m.js['${name}']='${info.hash}';`);
-  }
-  for (const [name, info] of Object.entries(current.css)) {
-    clientJs.push(`m.css['${name}']='${info.hash}';`);
-  }
-  for (const [path, info] of Object.entries(current.hashed)) {
-    clientJs.push(`m.hashed[${JSON.stringify(path)}]='${info.hash}';`);
-  }
+  const pairLine = ([name, info]: [string, SplitAsset]) => `'${name}':'${info.hash}'`;
+  const jsLines = Object.entries(current.js)
+    .filter(([name, _]) => !/common\.[A-Z0-9]{8}/.test(name))
+    .map(pairLine)
+    .join(',');
+  const cssLines = Object.entries(current.css).map(pairLine).join(',');
+  const hashedLines = Object.entries(current.hashed).map(pairLine).join(',');
+  clientJs.push(`window.site.manifest={
+css:{${cssLines}},
+js:{${jsLines}},
+hashed:{${hashedLines}}
+};`);
   const hashable = clientJs.join('\n');
   const hash = crypto.createHash('sha256').update(hashable).digest('hex').slice(0, 8);
   // add the date after hashing
