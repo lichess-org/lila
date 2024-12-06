@@ -4,6 +4,10 @@ $c-recap-3: #b88200;
 $c-recap-4: #f4a261;
 $c-recap-5: #e76f51;
 
+.recap {
+  height: calc(98vh - $site-header-height);
+  background: $c-bad;
+}
 .recap__content {
   @extend %flex-column;
   gap: 2em;
@@ -62,4 +66,9 @@ $c-recap-5: #e76f51;
 .recap__perf__games strong {
   display: block;
   font-weight: 2em;
+}
+
+.swiper {
+  background: $c-bg-box;
+  height: 100%;
 }

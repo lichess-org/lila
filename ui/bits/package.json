@@ -40,7 +40,8 @@
     "qrcode": "^1.5.4",
     "shepherd.js": "^11.2.0",
     "tablesort": "^5.3.0",
-    "zxcvbn": "^4.4.2"
+    "zxcvbn": "^4.4.2",
+    "swiper": "^11.1.5"
   },
   "lichess": {
     "bundles": [
@@ -78,7 +79,8 @@
       "src/bits.ublog.ts",
       "src/bits.ublogForm.ts",
       "src/bits.user.ts",
-      "src/bits.userGamesDownload.ts"
+      "src/bits.userGamesDownload.ts",
+      "src/bits.recap.ts"
     ],
     "sync": {
       "node_modules/cropperjs/dist/cropper.min.css": "public/npm",

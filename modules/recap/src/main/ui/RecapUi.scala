@@ -15,12 +15,26 @@ final class RecapUi(helpers: Helpers):
 
   def home(av: Availability, user: User)(using Context) =
     Page(title(user))
+      .csp(_.withInlineIconFont) // swiper's data: font
+      .js(esmInit("bits.recap"))
       .css("bits.recap"):
         main(cls := "recap")(
           av match
-            case Availability.Available(recap) => showRecap(recap)
+            case Availability.Available(recap) => recapSwiper(recap)
             case _                             => showEmpty(av, user)
         )
+
+  private def recapSwiper(recap: Recap)(using Context) =
+    div(cls := "swiper")(
+      div(cls := "swiper-wrapper")(
+        div(cls := "swiper-slide")("Slide 1"),
+        div(cls := "swiper-slide")("Slide 2"),
+        div(cls := "swiper-slide")("Slide 3")
+      ),
+      div(cls := "swiper-pagination")
+      // div(cls := "swiper-button-prev"),
+      // div(cls := "swiper-button-next")
+    )
 
   private def showRecap(recap: Recap)(using Context) =
     import recap.*
