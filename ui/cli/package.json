@@ -9,7 +9,7 @@
     "common": "workspace:*",
     "dasher": "workspace:*"
   },
-  "lichess": {
-    "bundles": "src/cli.ts"
+  "build": {
+    "bundle": "src/cli.ts"
   }
 }

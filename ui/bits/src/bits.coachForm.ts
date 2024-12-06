@@ -3,7 +3,7 @@ import * as xhr from 'common/xhr';
 import { isSafari } from 'common/device';
 import { notNull } from 'common';
 import Tagify from '@yaireo/tagify';
-import { wireCropDialog } from './exports/crop';
+import { wireCropDialog } from './crop';
 import { spinnerHtml } from 'common/spinner';
 
 if (isSafari()) wireCropDialog(); // preload

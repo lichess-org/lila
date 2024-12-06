@@ -9,7 +9,7 @@
     "common": "workspace:*",
     "lichess-pgn-viewer": "^2.2.0"
   },
-  "lichess": {
-    "bundles": "src/tutor.ts"
+  "build": {
+    "bundle": "src/tutor.ts"
   }
 }

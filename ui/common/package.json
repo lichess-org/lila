@@ -3,25 +3,19 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org common utils",
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "module": "common.js",
-  "type": "module",
   "typings": "common",
-  "exports": {
-    ".": "./dist/common.js",
-    "./*": "./dist/*.js"
-  },
   "typesVersions": {
     "*": {
       "*": [
         "dist/*"
       ]
     }
+  },
+  "exports": {
+    ".": "./src/common.ts",
+    "./*": "./src/*.ts"
   },
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",

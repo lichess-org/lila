@@ -3,9 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org non-visual user interface",
-  "exports": {
-    "./*": "./dist/*.js"
-  },
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
   "typesVersions": {
     "*": {
       "*": [
@@ -13,15 +12,9 @@
       ]
     }
   },
-  "keywords": [
-    "chess",
-    "lichess",
-    "non-visual",
-    "blind",
-    "accessibility"
-  ],
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
   "dependencies": {
     "chess": "workspace:*",
     "common": "workspace:*"

@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess insights",
-  "keywords": [
-    "chess",
-    "lichess",
-    "insight",
-    "analysis"
-  ],
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
@@ -17,10 +11,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "common": "workspace:*"
   },
-  "lichess": {
-    "bundles": [
-      "src/insight.ts",
-      "src/insight.refresh.ts"
-    ]
+  "build": {
+    "bundle": "src/insight.*ts"
   }
 }

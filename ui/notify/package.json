@@ -8,7 +8,7 @@
   "dependencies": {
     "common": "workspace:*"
   },
-  "lichess": {
-    "bundles": "src/notify.ts"
+  "build": {
+    "bundle": "src/notify.ts"
   }
 }

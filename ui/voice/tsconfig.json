@@ -1,9 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
-  "exclude": ["makeGrammar.mts"],
+  "exclude": ["makeGrammar.mts", "dist"],
   "references": [
-    { "path": "../common/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
     { "path": "../game/tsconfig.json" }
   ]
 }

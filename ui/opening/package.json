@@ -14,7 +14,7 @@
     "debounce-promise": "^3.1.2",
     "lichess-pgn-viewer": "^2.2.0"
   },
-  "lichess": {
-    "bundles": "src/opening.ts"
+  "build": {
+    "bundle": "src/opening.ts"
   }
 }

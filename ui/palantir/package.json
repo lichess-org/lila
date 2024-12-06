@@ -3,22 +3,15 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org webrtc media calls",
-  "type": "module",
-  "module": "dist/palantir.js",
-  "types": "dist/palantir.d.ts",
-  "keywords": [
-    "chess",
-    "lichess",
-    "webrtc"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "types": "dist/palantir.d.ts",
   "dependencies": {
     "@types/webrtc": "^0.0.44",
     "common": "workspace:*",
     "peerjs": "^1.5.4"
   },
-  "lichess": {
-    "bundles": "src/palantir.ts"
+  "build": {
+    "bundle": "src/palantir.ts"
   }
 }
