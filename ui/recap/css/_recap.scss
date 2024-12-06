@@ -22,6 +22,11 @@ body {
   height: 100%;
 }
 
+.recap a {
+  color: #fff;
+  border-bottom: 1px dotted #ddd;
+}
+
 .swiper {
   height: 100%;
   opacity: 0;
@@ -39,11 +44,29 @@ body {
   gap: 3em;
 }
 
-.recap__slide--init {
-  img {
+.recap {
+  img,
+  .lpv {
+    width: 384px;
     max-width: 90vw;
     max-height: 50vh;
   }
+  .lpv {
+    --c-lpv-bg: transparent;
+    outline: none;
+    box-shadow: none;
+    &,
+    .lpv__controls,
+    .lpv__fbt {
+      border: none;
+    }
+    .lpv__fbt {
+      padding: 0.1em 1em;
+    }
+  }
+}
+
+.recap__slide--init {
   h2 {
     font-size: 5rem;
   }

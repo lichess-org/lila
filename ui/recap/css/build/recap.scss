@@ -1,6 +1,7 @@
 @use '../../node_modules/swiper/swiper-bundle.css';
-
 @import '../../../common/css/plugin';
-@import '../../../common/css/component/mascot';
+
+$c-lpv-bg: transparent;
+@import '../../../common/css/component/lichess-pgn-viewer';
 
 @import '../recap';

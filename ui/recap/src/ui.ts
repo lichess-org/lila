@@ -1,3 +1,7 @@
+import Lpv from 'lichess-pgn-viewer';
+import PgnViewer from 'lichess-pgn-viewer/pgnViewer';
+import { Opening } from './interfaces';
+
 const numberFormat = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
 const formatNumber = (n: number) => (numberFormat ? numberFormat.format(n) : '' + n);
 
@@ -18,3 +22,22 @@ export const animateNumber = (counter: HTMLElement, duration: number = 1500): vo
   };
   animate();
 };
+
+export const loadOpeningLpv = (el: HTMLElement, color: Color, opening: Opening): PgnViewer =>
+  Lpv(el, {
+    pgn: opening.pgn,
+    initialPly: 99,
+    showMoves: 'bottom',
+    showClocks: false,
+    showPlayers: false,
+    chessground: {
+      coordinates: false,
+    },
+    orientation: color,
+    menu: {
+      getPgn: {
+        enabled: true,
+        fileName: opening.name + '.pgn',
+      },
+    },
+  });

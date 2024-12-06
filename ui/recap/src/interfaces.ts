@@ -10,6 +10,7 @@ export interface Results {
 export interface Opening {
   key: string;
   name: string;
+  pgn: string;
 }
 export interface Counted<A> {
   value: A;

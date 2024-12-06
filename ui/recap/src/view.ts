@@ -1,6 +1,8 @@
 import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap } from './interfaces';
 import { h, type VNode } from 'snabbdom';
+import { onInsert } from 'common/snabbdom';
+import { loadOpeningLpv } from './ui';
 
 export default function view(r: Recap): VNode {
   return h('div#recap-swiper.swiper', [
@@ -68,7 +70,19 @@ const firstMove = (r: Recap): VNode => {
 const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
   const o = os[color];
   return h(slideTag('openings'), [
-    h('div.recap--big', o.value.name),
+    h('div.lpv.lpv--todo.lpv--moves-bottom.is2d', {
+      hook: onInsert(el => loadOpeningLpv(el, color, o.value)),
+    }),
+    h(
+      'div.recap--big',
+      h(
+        'a',
+        {
+          attrs: { href: `/opening/${o.value.key}`, target: '_blank' },
+        },
+        o.value.name,
+      ),
+    ),
     h('div', [
       h('p', [
         'Your most played opening as ',

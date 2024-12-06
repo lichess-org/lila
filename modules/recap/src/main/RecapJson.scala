@@ -27,7 +27,8 @@ object RecapJson:
     def writes(o: SimpleOpening): JsObject =
       Json.obj(
         "key"  -> o.key,
-        "name" -> o.name
+        "name" -> o.name,
+        "pgn"  -> o.ref.pgn
       )
 
   given Writes[NbAndStreak]  = Json.writes
