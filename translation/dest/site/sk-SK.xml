@@ -752,7 +752,7 @@
   <string name="aboutSimulRules">Keď simultánka začne, každý hráč hrá s hostiteľom, ktorý má biele figúrky. Simultánka končí, keď sa dohrajú všetky partie.</string>
   <string name="aboutSimulSettings">Simultánky sú vždy nebodované. Odvety, vrátenie ťahu a \"pridávania času\" sú zakázané.</string>
   <string name="create">Vytvoriť</string>
-  <string name="whenCreateSimul">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Po vytvorení simultánky, môžete hrať s niekoľkými hráčmi naraz.</string>
   <string name="simulVariantsHint">Ak vyberiete viacero variantov, každý hráč si môže vybrať, ktorý bude hrať.</string>
   <string name="simulClockHint">Nastavenie (Fisherových) hodín. Čím viac súperov, tým viac času budete potrebovat.</string>
   <string name="simulAddExtraTime">Môžete si pridať dodatočný čas k vašim hodinám pre zlepšenie behu simultánky.</string>
