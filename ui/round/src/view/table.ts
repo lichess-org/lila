@@ -10,7 +10,7 @@ import { userHtml } from './user';
 import * as button from './button';
 import type RoundController from '../ctrl';
 import { type LooseVNodes, looseH as h, bind } from 'common/snabbdom';
-import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
