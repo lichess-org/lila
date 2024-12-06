@@ -31,7 +31,7 @@ const clockX = (dur: number) => {
 };
 
 function renderPlot(ctrl: LobbyController, hook: Hook) {
-  const isMobilePhone = window.screen.width < 480;
+  const isMobilePhone = window.screen.width <= 480;
   const bottom = Math.max(0, ratingY(hook.rating) - (isMobilePhone ? 3 : 2)),
     left = Math.max(0, clockX(hook.t) - (isMobilePhone ? 2.75 : 2)),
     klass = [
