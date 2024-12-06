@@ -2,27 +2,20 @@ interface NbStreak {
   nb: number;
   streak: number;
 }
-interface Results {
+export interface Results {
   win: number;
   draw: number;
   loss: number;
 }
-interface Opening {
-  ref: {
-    eco: string;
-    name: string;
-  };
+export interface Opening {
+  key: string;
   name: string;
-  family: {
-    key: string;
-    name: string;
-  };
 }
-interface Counted<A> {
+export interface Counted<A> {
   value: A;
   count: number;
 }
-interface ByColor<A> {
+export interface ByColor<A> {
   white: A;
   black: A;
 }

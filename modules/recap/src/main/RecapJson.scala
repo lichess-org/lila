@@ -23,11 +23,17 @@ object RecapJson:
 
   given Writes[Map[Source, Int]] = writeAs(_.mapKeys(_.name))
 
-  given Writes[SimpleOpening] = Json.writes
-  given Writes[NbAndStreak]   = Json.writes
-  given Writes[Results]       = Json.writes
-  given Writes[PuzzleVotes]   = Json.writes
-  given Writes[RecapPuzzles]  = Json.writes
-  given Writes[Recap.Perf]    = Json.writes
-  given Writes[RecapGames]    = Json.writes
-  given Writes[Recap]         = Json.writes
+  given Writes[SimpleOpening] = new:
+    def writes(o: SimpleOpening): JsObject =
+      Json.obj(
+        "key"  -> o.key,
+        "name" -> o.name
+      )
+
+  given Writes[NbAndStreak]  = Json.writes
+  given Writes[Results]      = Json.writes
+  given Writes[PuzzleVotes]  = Json.writes
+  given Writes[RecapPuzzles] = Json.writes
+  given Writes[Recap.Perf]   = Json.writes
+  given Writes[RecapGames]   = Json.writes
+  given Writes[Recap]        = Json.writes

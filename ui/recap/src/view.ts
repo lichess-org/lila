@@ -1,10 +1,18 @@
 import { pieceGrams, totalGames } from './constants';
-import type { Recap } from './interfaces';
+import type { ByColor, Counted, Opening, Recap } from './interfaces';
 import { h, type VNode } from 'snabbdom';
 
 export default function view(r: Recap): VNode {
   return h('div#recap-swiper.swiper', [
-    h('div.swiper-wrapper', [init(), nbGames(r), timeSpentPlaying(r), nbMoves(r)]),
+    h('div.swiper-wrapper', [
+      init(),
+      nbGames(r),
+      timeSpentPlaying(r),
+      nbMoves(r),
+      firstMove(r),
+      openingColor(r.games.openings, 'white'),
+      openingColor(r.games.openings, 'black'),
+    ]),
     h('div.swiper-pagination'),
   ]);
 }
@@ -19,24 +27,56 @@ const nbGames = (r: Recap): VNode => {
   const gamesPercentOfTotal = (r.games.nb.nb * 100) / totalGames;
   const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
   return h(slideTag('games'), [
-    h('strong.recap--massive', [h('strong', animateNumber(r.games.nb.nb)), 'games played']),
+    h('div.recap--massive', [h('strong', animateNumber(r.games.nb.nb)), 'games played']),
     h('div', [h('p', [h('strong', showGamesPercentOfTotal), ' of all games played this year!'])]),
   ]);
 };
 
 const timeSpentPlaying = (r: Recap): VNode => {
   return h(slideTag('time'), [
-    h('strong.recap--massive', [h('strong', showDuration(r.games.timePlaying)), 'spent playing!']),
+    h('div.recap--massive', [h('strong', showDuration(r.games.timePlaying)), 'spent playing!']),
     h('div', [h('p', 'Time well wasted, really.')]),
   ]);
 };
 
 const nbMoves = (r: Recap): VNode => {
   return h(slideTag('moves'), [
-    h('strong.recap--massive', [h('strong', animateNumber(r.games.moves)), 'moves played']),
+    h('div.recap--massive', [h('strong', animateNumber(r.games.moves)), 'moves played']),
     h('div', [
       h('p', ["That's ", h('strong', showGrams(r.games.moves * pieceGrams)), ' of wood pushed!']),
-      h('p', [h('small', 'Standard pieces weight about 40g each')]),
+      h('p', [h('small', 'Standard pieces weigh about 40g each')]),
+    ]),
+  ]);
+};
+
+const firstMove = (r: Recap): VNode => {
+  const percent = Math.round((r.games.firstMove.count * 100) / r.games.nb.nb);
+  return h(slideTag('first'), [
+    h('div.recap--massive', [h('strong', '1. ' + r.games.firstMove.value)]),
+    h('div', [
+      h('p', [
+        'is how you started ',
+        h('strong', animateNumber(r.games.firstMove.count)),
+        ' (',
+        animateNumber(percent),
+        '%) of your games as white',
+      ]),
+    ]),
+  ]);
+};
+
+const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
+  const o = os[color];
+  return h(slideTag('openings'), [
+    h('div.recap--big', o.value.name),
+    h('div', [
+      h('p', [
+        'Your most played opening as ',
+        color,
+        ', with ',
+        h('strong', animateNumber(o.count)),
+        ' games.',
+      ]),
     ]),
   ]);
 };
