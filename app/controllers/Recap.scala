@@ -22,7 +22,7 @@ final class Recap(env: Env) extends LilaController(env):
     Secure(_.Beta) { ctx ?=> me ?=>
       def proceed(user: lila.core.user.User) = for
         av  <- env.recap.api.availability(user.id)
-        res <- f(user)(av)
+        res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
       yield res
       if me.is(username) then proceed(me)
       else

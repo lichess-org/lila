@@ -202,9 +202,6 @@ importers:
       shepherd.js:
         specifier: ^11.2.0
         version: 11.2.0
-      swiper:
-        specifier: ^11.1.5
-        version: 11.1.15
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -543,6 +540,18 @@ importers:
       puz:
         specifier: workspace:*
         version: link:../puz
+
+  ui/recap:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+      lichess-pgn-viewer:
+        specifier: ^2.2.0
+        version: 2.2.0
+      swiper:
+        specifier: ^11.1.5
+        version: 11.1.15
 
   ui/round:
     dependencies:

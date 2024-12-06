@@ -67,6 +67,7 @@ private final class RecapBuilder(
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
       nb = NbAndStreak(scan.nb, Days(scan.streak.max)),
+      moves = scan.nbMoves,
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
       ,
@@ -95,6 +96,7 @@ private final class RecapBuilder(
 
   private case class GameScan(
       nb: Int = 0,
+      nbMoves: Int = 0,
       secondsPlaying: Int = 0,
       results: Results = Results(),
       streak: Streak = Streak(),
@@ -114,6 +116,7 @@ private final class RecapBuilder(
           val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
           copy(
             nb = nb + 1,
+            nbMoves = nbMoves + g.playerMoves(player.color),
             secondsPlaying = secondsPlaying + durationSeconds,
             results = results.copy(
               win = results.win + winner.exists(_.is(userId)).so(1),
