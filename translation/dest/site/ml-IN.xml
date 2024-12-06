@@ -56,7 +56,7 @@
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
   <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് ഗണനിക വിശകലനം ലഭ്യമാണ്</string>
   <string name="computerAnalysisDisabled">ഗണനിക വിശകലനം പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
-  <string name="analysis">പരിശോധനാ ബോര്‍ഡ്</string>
+  <string name="analysis">പരിശോധനാ കളം</string>
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
   <string name="loadingEngine">എൻജിൻ സജ്ജമാക്കുന്നു ...</string>
@@ -108,7 +108,7 @@
   <string name="winOr50MovesByPriorMistake">വിജയം അല്ലെങ്കിൽ മുൻപറ്റിയ പിഴകൊണ്ടു് 50 നീക്കങ്ങളിൽ സമനില</string>
   <string name="lossOr50MovesByPriorMistake">തോൽവി അല്ലെങ്കിൽ മുൻപറ്റിയ പിഴകൊണ്ടു് 50 നീക്കങ്ങളിൽ സമനില</string>
   <string name="allSet">എല്ലാം തയ്യാറാണ്!</string>
-  <string name="importPgn">PGN import ചെയ്യുക</string>
+  <string name="importPgn">PGN ഇറക്കുമതി ചെയ്യുക</string>
   <string name="delete">നീക്കം ചെയ്യുക</string>
   <string name="deleteThisImportedGame">Import ചെയ്ത ഗെയിം നീക്കം ചെയ്യണോ?</string>
   <string name="replayMode">പുനരാവിഷ്കരണം</string>
@@ -139,7 +139,7 @@
     <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
   </plurals>
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
-  <string name="flipBoard">ബോര്‍ഡ്‌ തിരിക്കുക</string>
+  <string name="flipBoard">കളം തിരിക്കുക</string>
   <string name="threefoldRepetition">മൂന്നാമതും ആവര്‍ത്തിച്ചിരിക്കുന്നു</string>
   <string name="claimADraw">സമനില ആവശ്യപ്പെടുക</string>
   <string name="offerDraw">സമനിലയ്ക്ക് സമ്മതിക്കുക</string>
