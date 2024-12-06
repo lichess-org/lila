@@ -5,7 +5,7 @@
   "description": "lichess.org dgt",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "lichess": {
-    "bundles": "src/dgt.ts"
+  "build": {
+    "bundle": "src/dgt.ts"
   }
 }

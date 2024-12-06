@@ -155,7 +155,7 @@ object page:
             )
           )(p.transform(p.body)),
           bottomHtml,
-          ctx.nonce.map(inlineJs.apply),
+          ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
           p.pageModule.map { mod => frag(jsonScript(mod.data)) }

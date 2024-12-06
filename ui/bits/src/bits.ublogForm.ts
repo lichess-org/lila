@@ -3,7 +3,7 @@ import { throttle } from 'common/timing';
 import { Editor, type EditorType } from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
-import { wireCropDialog } from './exports/crop';
+import { wireCropDialog } from './crop';
 import { storedJsonProp } from 'common/storage';
 
 site.load.then(() => {

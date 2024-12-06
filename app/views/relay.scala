@@ -52,5 +52,5 @@ def embed(
     div(id := "main-wrap", cls := "is2d"):
       ui.showPreload(rt, data)(cls := "relay-embed")
     ,
-    views.base.page.ui.inlineJs(ctx.nonce)
+    views.base.page.ui.inlineJs(ctx.nonce, List(Esm("site").some))
   )

@@ -3,15 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "description": "lichess.org voice rec",
-  "type": "module",
-  "module": "dist/voice.js",
-  "types": "dist/voice.d.ts",
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
+  "types": "dist/voice.d.ts",
+  "exports": {
+    ".": "./src/voice.ts"
+  },
   "dependencies": {
     "chess": "workspace:*",
     "common": "workspace:*",
@@ -19,17 +16,17 @@
     "vosk-browser": "^0.0.8"
   },
   "scripts": {
-    "build": "node --experimental-strip-types --no-warnings makeGrammar.mts"
+    "make-grammar": "node --experimental-strip-types --no-warnings makeGrammar.mts"
   },
-  "lichess": {
-    "bundles": [
-      "src/voice.vosk.ts",
+  "build": {
+    "bundle": [
+      "src/**/voice.*.ts",
       "src/move/voice.move.ts"
     ],
     "sync": {
       "grammar/**": "public/compiled/grammar"
     },
-    "hashed": [
+    "hash": [
       "compiled/grammar/*"
     ]
   }

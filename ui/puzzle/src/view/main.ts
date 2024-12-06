@@ -13,7 +13,7 @@ import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
-import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import boardMenu from './boardMenu';
 import { Coords } from 'common/prefs';
 import type PuzzleCtrl from '../ctrl';

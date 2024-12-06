@@ -3,13 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess utils",
-  "type": "module",
-  "module": "chess.js",
-  "types": "chess.d.ts",
-  "exports": {
-    ".": "./dist/chess.js",
-    "./*": "./dist/*.js"
-  },
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "typings": "chess",
   "typesVersions": {
     "*": {
       "*": [
@@ -17,12 +13,10 @@
       ]
     }
   },
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "exports": {
+    ".": "./src/chess.ts",
+    "./*": "./src/*.ts"
+  },
   "dependencies": {
     "common": "workspace:*"
   }

@@ -34,13 +34,12 @@ interface Site {
   sound: SoundI; // file://./../../site/src/sound.ts
   displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
-
-  // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
   socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
+  // file://./../../.build/src/manifest.ts
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
 }
 
