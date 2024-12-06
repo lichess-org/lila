@@ -18,3 +18,9 @@ replacements.forEach(([variantId, icon]) => {
   );
   print('done: ' + res.modifiedCount);
 });
+
+const res = db.tournament2.updateMany(
+  { 'schedule.freq': 'shield', 'spotlight.iconFont': '' },
+  { $set: { 'spotlight.iconFont': '' } }
+);
+print('done: ' + res.modifiedCount);

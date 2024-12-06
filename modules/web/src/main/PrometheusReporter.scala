@@ -5,7 +5,6 @@ import java.time.Duration
 import com.typesafe.config.Config
 import kamon.metric.*
 import kamon.module.{ MetricReporter, Module, ModuleFactory }
-import kamon.prometheus.PrometheusReporter.DefaultConfigPath
 import kamon.prometheus.*
 import kamon.Kamon
 
