@@ -27,8 +27,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
                 views.relay.tour.search(pager, query)
         case None =>
           for
-            (active, upcoming, past) <- env.relay.top(page)
-            res <- Ok.async(views.relay.tour.index(active, upcoming, past.currentPageResults))
+            (active, past) <- env.relay.top(page)
+            res            <- Ok.async(views.relay.tour.index(active, past.currentPageResults))
           yield res
 
   def calendarMonth(year: Int, month: Int) = Open:
@@ -169,7 +169,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
 
   def show(slug: String, id: RelayTourId) = Open:
     Found(env.relay.api.tourById(id)): tour =>
-      env.relay.listing.defaultRoundToShow
+      env.relay.listing.defaultRoundToLink
         .get(tour.id)
         .flatMap:
           case None =>
@@ -183,7 +183,7 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def embedShow(slug: String, id: RelayTourId) = Anon:
     InEmbedContext:
       FoundEmbed(env.relay.api.tourById(id)): tour =>
-        env.relay.listing.defaultRoundToShow
+        env.relay.listing.defaultRoundToLink
           .get(tour.id)
           .flatMap:
             _.map(_.withTour(tour)).fold(emptyBroadcastPage(tour))(roundC.embedShow)
@@ -218,8 +218,8 @@ final class RelayTour(env: Env, apiC: => Api, roundC: => RelayRound) extends Lil
   def apiTop(page: Int) = Anon:
     Reasonable(page, Max(20)):
       for
-        (active, upcoming, past) <- env.relay.top(page)
-        res                      <- JsonOk(env.relay.jsonView.top(active, upcoming, past))
+        (active, past) <- env.relay.top(page)
+        res            <- JsonOk(env.relay.jsonView.top(active, past))
       yield res
 
   def player(tourId: RelayTourId, id: String) = Anon:

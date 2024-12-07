@@ -181,5 +181,5 @@ final class RelayPager(
     tour   <- doc.asOpt[RelayTour]
     rounds <- doc.getAsOpt[List[RelayRound]]("round")
     round = rounds.headOption
-    group = RelayListing.group.readFrom(doc)
+    group = RelayTourRepo.group.readFrom(doc)
   yield round.fold(tour)(WithLastRound(tour, _, group))

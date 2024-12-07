@@ -80,8 +80,8 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   ) =
     onlyKeepGroupFirst.so(
       List(
-        framework.PipelineOperator(RelayListing.group.firstLookup(otherColls.group)),
-        framework.Match(RelayListing.group.firstFilter)
+        framework.PipelineOperator(group.firstLookup(otherColls.group)),
+        framework.Match(group.firstFilter)
       )
     ) ::: List(
       framework.PipelineOperator(
@@ -100,6 +100,38 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
     )
 
 private object RelayTourRepo:
+
+  object group:
+
+    // look at the groups where the tour appears.
+    // only keep the tour if there is no group,
+    // or if the tour is the first in the group.
+    def firstLookup(groupColl: Coll) = $lookup.pipelineFull(
+      from = groupColl.name,
+      as = "group",
+      let = $doc("tourId" -> "$_id"),
+      pipe = List(
+        $doc("$match" -> $doc("$expr" -> $doc("$in" -> $arr("$$tourId", "$tours")))),
+        $doc:
+          "$project" -> $doc(
+            "_id"     -> false,
+            "name"    -> true,
+            "isFirst" -> $doc("$eq" -> $arr("$$tourId", $doc("$first" -> "$tours")))
+          )
+      )
+    )
+    val firstFilter = $doc("group.0.isFirst".$ne(false))
+
+    def readFrom(doc: Bdoc): Option[RelayGroup.Name] = for
+      garr <- doc.getAsOpt[Barr]("group")
+      gdoc <- garr.getAsOpt[Bdoc](0)
+      name <- gdoc.getAsOpt[RelayGroup.Name]("name")
+    yield name
+
+    def readFromOne(doc: Bdoc): Option[RelayGroup.Name] = for
+      gdoc <- doc.getAsOpt[Bdoc]("group")
+      name <- gdoc.getAsOpt[RelayGroup.Name]("name")
+    yield name
 
   object selectors:
     val official                = $doc("tier".$exists(true))
@@ -122,5 +154,5 @@ private object RelayTourRepo:
     doc   <- docs
     tour  <- doc.asOpt[RelayTour]
     round <- doc.getAsOpt[RelayRound]("round")
-    group = RelayListing.group.readFrom(doc)
-  yield as(tour, round, group)
+    g = group.readFrom(doc)
+  yield as(tour, round, g)

@@ -17,7 +17,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
 
   def index(
       active: List[RelayTour.ActiveWithSomeRounds],
-      upcoming: List[WithLastRound],
       past: Seq[WithLastRound]
   )(using Context) =
     def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
@@ -37,14 +36,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             nonEmptyTier(_.BEST, "best"),
             nonEmptyTier(_.HIGH, "high"),
             nonEmptyTier(_.NORMAL, "normal"),
-            upcoming.nonEmpty.option(
-              frag(
-                h2(cls := "relay-index__section")(trc.upcomingBroadcasts()),
-                st.section(cls := "relay-cards relay-cards--upcoming"):
-                  upcoming.map:
-                    card.render(_, live = _ => false)
-              )
-            ),
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards relay-cards--past"):
               past.map: t =>

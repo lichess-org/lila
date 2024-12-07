@@ -64,7 +64,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
           withUrl(round.withTour(trs.tour), withTour = false)
       )
       .add("group" -> group)
-      .add("defaultRoundId" -> RelayListing.defaultRoundToShow(trs).map(_.id))
+      .add("defaultRoundId" -> RelayListing.defaultRoundToLink(trs).map(_.id))
 
   def tourWithAnyRound(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
@@ -138,12 +138,11 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
 
   def top(
       active: List[ActiveWithSomeRounds],
-      upcoming: List[WithLastRound],
       past: Paginator[WithLastRound]
   )(using Config) =
     Json.obj(
       "active"   -> active.sortBy(t => -(~t.tour.tier)).map(tourWithAnyRound(_)),
-      "upcoming" -> upcoming.map(tourWithAnyRound(_)),
+      "upcoming" -> Json.arr(), // BC
       "past"     -> paginatorWriteNoNbResults.writes(past.map(tourWithAnyRound(_)))
     )
 

@@ -373,8 +373,6 @@ interface I18n {
     unrated: string;
     /** Upcoming */
     upcoming: string;
-    /** Upcoming broadcasts */
-    upcomingBroadcasts: string;
     /** Upload tournament image */
     uploadImage: string;
     /** webmasters page */
