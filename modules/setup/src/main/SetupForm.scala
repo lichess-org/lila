@@ -66,7 +66,8 @@ object SetupForm:
       "increment"   -> increment,
       "days"        -> days,
       "mode"        -> mode(me.isDefined),
-      "ratingRange" -> optional(ratingRange)
+      "ratingRange" -> optional(ratingRange),
+      "color"       -> lila.common.Form.empty
     )(HookConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited game", !_.isRatedUnlimited)
@@ -78,8 +79,9 @@ object SetupForm:
       "days"        -> optional(days),
       "variant"     -> optional(boardApiVariantKeys),
       "rated"       -> optional(boolean),
-      "ratingRange" -> optional(ratingRange)
-    )((t, i, d, v, r, g) =>
+      "ratingRange" -> optional(ratingRange),
+      "color"       -> optional(color)
+    )((t, i, d, v, r, g, c) =>
       HookConfig(
         variant = Variant.orDefault(v),
         timeMode = if d.isDefined then TimeMode.Correspondence else TimeMode.RealTime,
@@ -87,20 +89,20 @@ object SetupForm:
         increment = i | Clock.IncrementSeconds(5),
         days = d | Days(7),
         mode = chess.Mode(~r),
-        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
+        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault),
+        color = lila.lobby.TriColor.orDefault(c)
       )
     )(_ => none)
       .verifying("Invalid clock", _.validClock)
 
   def boardApiHook(allowFastGames: Boolean) = Form:
-    boardApiHookBase
-      .verifying(
-        "Invalid time control",
-        hook =>
-          allowFastGames || hook.makeClock.exists(
-            lila.core.game.isBoardCompatible
-          ) || hook.makeDaysPerTurn.isDefined
-      )
+    boardApiHookBase.verifying(
+      "Invalid time control",
+      hook =>
+        allowFastGames || hook.makeClock.exists(
+          lila.core.game.isBoardCompatible
+        ) || hook.makeDaysPerTurn.isDefined
+    )
 
   def toFriend = Form(single("username" -> lila.common.Form.username.historicalField))
 

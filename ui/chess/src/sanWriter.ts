@@ -1,4 +1,4 @@
-import type { Square } from 'chessops';
+import { charToRole, type Square } from 'chessops';
 
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: string]: Uci };
@@ -84,7 +84,11 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   return result;
 }
 
-export function sanOf(board: Board, uci: string): San {
+/* Produces a string that resembles a SAN,
+ * but lacks the check/checkmate flag,
+ * and probably has incomplete disambiguation.
+ * But it's quick. */
+export function almostSanOf(board: Board, uci: string): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);
@@ -96,7 +100,7 @@ export function sanOf(board: Board, uci: string): San {
 
   // pawn moves
   if (pt === 'p') {
-    let san: string;
+    let san: AlmostSan;
     if (uci[0] === uci[2]) san = move[1];
     else san = uci[0] + 'x' + move[1];
     if (move[2]) san += '=' + move[2].toUpperCase();
@@ -140,7 +144,7 @@ export function sanWriter(fen: string, ucis: string[]): SanToUci {
   const board = readFen(fen);
   const sans: SanToUci = {};
   ucis.forEach(function (uci) {
-    const san = sanOf(board, uci);
+    const san = almostSanOf(board, uci);
     sans[san] = uci;
     if (san.includes('x')) sans[san.replace('x', '')] = uci;
   });
@@ -173,16 +177,7 @@ export function speakable(san?: San): string {
                       const code = c.charCodeAt(0);
                       if (code > 48 && code < 58) return c; // 1-8
                       if (code > 96 && code < 105) return c.toUpperCase();
-                      return (
-                        {
-                          P: 'pawn',
-                          N: 'knight',
-                          B: 'bishop',
-                          R: 'rook',
-                          Q: 'queen',
-                          K: 'king',
-                        }[c.toUpperCase()] ?? c
-                      );
+                      return charToRole(c) ?? c;
                     })
                     .join(' ')
                     .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced

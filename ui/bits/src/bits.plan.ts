@@ -4,8 +4,8 @@ import { log } from 'common/permalog';
 
 const showError = (error: string) => alert(error);
 
-export function initModule(stripePublicKey?: string): void {
-  if (stripePublicKey) stripeStart(stripePublicKey);
+export function initModule(opts?: { stripePublicKey: string }): void {
+  if (opts?.stripePublicKey) stripeStart(opts.stripePublicKey);
   else payPalStart();
 }
 

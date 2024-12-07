@@ -20,6 +20,7 @@ case class Hook(
     variant: Variant.Id,
     clock: Clock.Config,
     mode: Int,
+    color: TriColor,
     user: Option[LobbyUser],
     ratingRange: String,
     createdAt: Instant,
@@ -37,6 +38,7 @@ case class Hook(
       mode == h.mode &&
       variant == h.variant &&
       clock == h.clock &&
+      color.compatibleWith(h.color) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
 
@@ -80,7 +82,7 @@ case class Hook(
     .add("ra" -> realMode.rated.option(1))
 
   def compatibleWithPools(using isClockCompatible: IsClockCompatible) =
-    realMode.rated && realVariant.standard && isClockCompatible.exec(clock)
+    realMode.rated && realVariant.standard && isClockCompatible.exec(clock) && color == TriColor.Random
 
   def compatibleWithPool(poolClock: chess.Clock.Config)(using IsClockCompatible) =
     compatibleWithPools && clock == poolClock
@@ -96,6 +98,7 @@ object Hook:
       variant: chess.variant.Variant,
       clock: Clock.Config,
       mode: Mode,
+      color: TriColor,
       user: Option[UserWithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,
@@ -108,6 +111,7 @@ object Hook:
       variant = variant.id,
       clock = clock,
       mode = mode.id,
+      color = color,
       user = user.map(LobbyUser.make(_, blocking)),
       sid = sid,
       ratingRange = ratingRange.toString,

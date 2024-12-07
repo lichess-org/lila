@@ -51,7 +51,7 @@ ThisBuild / libraryDependencySchemes ++= Seq(
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
-  kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
+  kamon.core, kamon.influxdb, kamon.metrics,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
 ) ++ tests.bundle
 
@@ -504,7 +504,10 @@ lazy val ui = module("ui",
 
 lazy val web = module("web",
   Seq(ui, memo),
-  playWs.bundle ++ tests.bundle ++ Seq(play.logback, play.server, play.netty)
+  playWs.bundle ++ tests.bundle ++ Seq(
+    play.logback, play.server, play.netty,
+    kamon.prometheus,
+  )
 )
 
 lazy val api = module("api",

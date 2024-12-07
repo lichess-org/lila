@@ -28,7 +28,6 @@ export interface Work {
 export interface BaseEngineInfo {
   id: string;
   name: string;
-  tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
   short?: string;
   variants?: VariantKey[];
   minThreads?: number;
@@ -37,17 +36,29 @@ export interface BaseEngineInfo {
   requires?: Feature[];
 }
 
-export interface ExternalEngineInfo extends BaseEngineInfo {
+export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
+  variants: VariantKey[];
+  maxHash: number;
+  maxThreads: number;
+  providerData?: string;
   clientSecret: string;
   officialStockfish?: boolean;
   endpoint: string;
 }
 
+export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
+  tech: 'EXTERNAL';
+  cloudEval?: false;
+}
+
 export interface BrowserEngineInfo extends BaseEngineInfo {
+  tech: 'HCE' | 'NNUE';
+  short: string;
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
   requires: Feature[];
   obsoletedBy?: Feature;
+  cloudEval?: boolean;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
@@ -90,7 +101,7 @@ export interface CevalOpts {
   redraw: Redraw;
   search?: Search;
   onSelectEngine?: () => void;
-  externalEngines?: ExternalEngineInfo[];
+  externalEngines?: ExternalEngineInfoFromServer[];
 }
 
 export interface Hovering {

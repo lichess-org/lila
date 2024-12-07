@@ -51,10 +51,8 @@ object RelayPlayer:
     given Writes[RelayPlayer.Game]   = Json.writes
     given OWrites[RelayPlayer] = OWrites: p =>
       Json.toJsObject(p.player) ++ Json
-        .obj(
-          "score"  -> p.score,
-          "played" -> p.games.count(_.points.isDefined)
-        )
+        .obj("played" -> p.games.count(_.points.isDefined))
+        .add("score" -> p.score)
         .add("ratingDiff" -> p.ratingDiff)
         .add("performance" -> p.performance)
     def full(tour: RelayTour)(p: RelayPlayer, fidePlayer: Option[FidePlayer]): JsObject =

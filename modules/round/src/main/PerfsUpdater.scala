@@ -24,9 +24,11 @@ final class PerfsUpdater(
       .flatMap:
         if _ then fuccess(none)
         else if farming.newAccountBoosting(game, users) then fuccess(none)
-        else calculateRatingAndPerfs(game, users).fold(fuccess(none))(saveRatings)
+        else calculateRatingAndPerfs(game, users).fold(fuccess(none))(saveRatings(game.id, users))
 
-  private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]) =
+  private def calculateRatingAndPerfs(game: Game, users: ByColor[UserWithPerfs]): Option[
+    (ByColor[IntRatingDiff], ByColor[UserWithPerfs], PerfKey)
+  ] =
     for
       outcome <- game.outcome
       perfKey <-
@@ -51,27 +53,24 @@ final class PerfsUpdater(
         prevPerfs.zip(newPerfs, (prev, next) => IntRatingDiff(ratingOf(next) - ratingOf(prev)))
       val newUsers = users.zip(newPerfs, (user, perfs) => user.copy(perfs = perfs))
       lila.common.Bus.publish(lila.core.game.PerfsUpdate(game, newUsers), "perfsUpdate")
-      (game.id, ratingDiffs, prevPerfs, newPerfs, users, perfKey)
+      (ratingDiffs, newUsers, perfKey)
 
   private def computeGlicko(gameId: GameId, prevPlayers: ByColor[Player], outcome: chess.Outcome) =
     lila.rating.Glicko.calculator
       .computeGame(chess.rating.glicko.Game(prevPlayers, outcome), skipDeviationIncrease = true)
-      .onError(_ => scala.util.Success(lila.log("rating").warn(s"Error computing Glicko2 for game $gameId")))
+      .onError: err =>
+        scala.util.Success(lila.log("rating").warn(s"Error computing Glicko2 for game $gameId", err))
       .toOption
 
-  private def saveRatings(
-      gameId: GameId,
+  private def saveRatings(gameId: GameId, prevUsers: ByColor[UserWithPerfs])(
       ratingDiffs: ByColor[IntRatingDiff],
-      prevPerfs: ByColor[UserPerfs],
-      newPerfs: ByColor[UserPerfs],
-      users: ByColor[UserWithPerfs],
+      newUsers: ByColor[UserWithPerfs],
       perfKey: PerfKey
   ): Fu[Option[ByColor[IntRatingDiff]]] =
     gameRepo
       .setRatingDiffs(gameId, ratingDiffs)
-      .zip(userApi.updatePerfs(prevPerfs.zip(newPerfs), perfKey))
-      .zip(rankingApi.save(users.white.user, perfKey, newPerfs.white))
-      .zip(rankingApi.save(users.black.user, perfKey, newPerfs.black))
+      .zip(userApi.updatePerfs(prevUsers.map(_.perfs).zip(newUsers.map(_.perfs)), perfKey))
+      .zip(rankingApi.save(newUsers, perfKey))
       .inject(ratingDiffs.some)
 
   private def addToPerfs(game: Game, perfs: UserPerfs, perfKey: PerfKey, player: Glicko) =

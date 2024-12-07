@@ -3,22 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "description": "lichess.org keyboard move",
-  "type": "module",
-  "module": "dist/ctrl.js",
-  "types": "dist/ctrl.d.ts",
-  "keywords": [
-    "chess",
-    "lichess",
-    "keyboard"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "types": "dist/exports.d.ts",
+  "exports": {
+    ".": "./src/exports.ts"
+  },
   "dependencies": {
     "chess": "workspace:*",
     "common": "workspace:*",
     "game": "workspace:*"
   },
-  "lichess": {
-    "bundles": "src/keyboardMove.ts"
+  "build": {
+    "bundle": "src/keyboardMove.ts"
   }
 }

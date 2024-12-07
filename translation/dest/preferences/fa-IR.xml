@@ -32,7 +32,7 @@
   <string name="dragPiece">کشیدن یک مهره</string>
   <string name="bothClicksAndDrag">هر دو</string>
   <string name="premovesPlayingDuringOpponentTurn">پیش‌حرکت (بازی در نوبت حریف)</string>
-  <string name="takebacksWithOpponentApproval">پس گرفتن حرکت (با تایید حریف)</string>
+  <string name="takebacksWithOpponentApproval">برگردان (با تایید حریف)</string>
   <string name="inCasualGamesOnly">فقط در بازی‌های نارسمی</string>
   <string name="promoteToQueenAutomatically">ارتقا خودکار به وزیر</string>
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; را در هنگام تبلیغ بزنید تا به طور موقت تبلیغات خودکار را غیرفعال کنید</string>

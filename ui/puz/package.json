@@ -3,10 +3,8 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org fast puzzle utils",
-  "type": "module",
-  "exports": {
-    "./*": "./dist/*.js"
-  },
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
   "typesVersions": {
     "*": {
       "*": [
@@ -14,8 +12,9 @@
       ]
     }
   },
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "exports": {
+    "./*": "./src/*.ts"
+  },
   "dependencies": {
     "common": "workspace:*"
   }

@@ -662,7 +662,8 @@ export default class StudyCtrl {
       if (sticky) this.data.position.path = newPath;
       if (
         (sticky && this.vm.mode.sticky) ||
-        (position.path === this.ctrl.path && position.path === treePath.fromNodeList(this.ctrl.mainline))
+        (position.path === this.ctrl.path &&
+          (position.path === treePath.fromNodeList(this.ctrl.mainline) || d.relayPath === newPath))
       )
         this.ctrl.jump(newPath);
       return this.redraw();

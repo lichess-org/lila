@@ -8,7 +8,7 @@ import { throttle } from 'common/timing';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { Step } from '../interfaces';
-import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
 

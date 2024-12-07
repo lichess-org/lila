@@ -36,6 +36,7 @@ describe('similarEvals', () => {
     ['black', -293, -9],
     ['black', -179, 61],
     ['black', -816, -357],
+    ['black', -225, -51],
   ])('be different', (color, bestEval, secondBestEval) => {
     expect(similarEvalsCp(color, bestEval, secondBestEval)).toBe(false);
   });

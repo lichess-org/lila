@@ -91,28 +91,27 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 }
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const engine = ctrl.engines.active,
-    engineTech = engine?.tech ?? 'EXTERNAL';
+  const engine = ctrl.engines.active;
   return engine
     ? [
-        h('span', { attrs: { title: engine?.name || '' } }, engine.short ?? engine.name),
-        engineTech === 'EXTERNAL'
+        h('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
+        ctrl.engines.isExternalEngineInfo(engine)
           ? h(
               'span.technology.good',
               { attrs: { title: 'Engine running outside of the browser' } },
-              engineTech,
+              engine.tech,
             )
-          : engine.requires?.includes('simd')
+          : engine.requires.includes('simd')
             ? h(
                 'span.technology.good',
                 { attrs: { title: 'Multi-threaded WebAssembly with SIMD' } },
-                engineTech,
+                engine.tech,
               )
-            : engine.requires?.includes('sharedMem')
-              ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
-              : engine.requires?.includes('wasm')
-                ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
-                : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
+            : engine.requires.includes('sharedMem')
+              ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engine.tech)
+              : engine.requires.includes('wasm')
+                ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engine.tech)
+                : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engine.tech),
       ]
     : [];
 }

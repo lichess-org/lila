@@ -6,25 +6,27 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "dialog-polyfill": "0.5.6",
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",
-    "lichess-pgn-viewer": "^2.1.3",
-    "voice": "workspace:*",
+    "dialog-polyfill": "0.5.6",
+    "lichess-pgn-viewer": "^2.2.0",
     "tablesort": "^5.3.0"
   },
-  "lichess": {
-    "bundles": [
-      "src/site.ts",
-      "src/site.tvEmbed.ts",
+  "build": {
+    "bundle": [
+      "src/site.lpvEmbed.ts",
       "src/site.puzzleEmbed.ts",
-      "src/site.lpvEmbed.ts"
+      "src/site.tvEmbed.ts",
+      {
+        "module": "src/site.ts",
+        "inline": "src/site.inline.ts"
+      }
     ],
     "sync": {
       "node_modules/dialog-polyfill/dist/dialog-polyfill.esm.js": "public/npm"
     },
-    "hashed": [
+    "hash": [
       "font/lichess.woff",
       "font/lichess.woff2",
       "lifat/background/montage*.webp",

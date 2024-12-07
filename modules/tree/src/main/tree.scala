@@ -14,11 +14,13 @@ import scalalib.json.Json.{ *, given }
 
 import Node.{ Comments, Comment, Gamebook, Shapes }
 
-//opaque type not working due to cyclic ref try again later
+// opaque type not working due to cyclic ref try again later
 // either we decide that branches strictly represent all the children from a node
 // with the first being the mainline, OR we just use it as an List with extra functionalities
 case class Branches(nodes: List[Branch]) extends AnyVal:
-  def first      = nodes.headOption
+  def first = nodes.headOption
+  def mainlineFirst = nodes.collectFirst:
+    case node if !node.forceVariation => node
   def variations = nodes.drop(1)
   def isEmpty    = nodes.isEmpty
   def nonEmpty   = !isEmpty

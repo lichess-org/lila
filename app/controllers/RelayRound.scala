@@ -296,7 +296,6 @@ final class RelayRound(
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
-        _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
         else Ok(page).withHeaders(crossOriginPolicy.unsafe*)

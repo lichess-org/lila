@@ -1,10 +1,10 @@
 package lila.clas
 package ui
 
+import scalalib.model.Days
 import lila.core.config.NetDomain
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   import helpers.{ *, given }
@@ -114,7 +114,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
             cls  := "button button-empty"
           )(trans.site.profile()),
           a(
-            href := routes.Puzzle.dashboard(7, "home", s.user.username.some),
+            href := routes.Puzzle.dashboard(Days(7), "home", s.user.username.some),
             cls  := "button button-empty"
           )(trans.puzzle.puzzleDashboard()),
           Granter

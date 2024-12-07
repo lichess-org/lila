@@ -1,14 +1,6 @@
 import { opposite } from 'chessground/util';
 import type { CheckCount, CheckState, MaterialDiff } from './interfaces';
-
-const ROLES: { [key: string]: Role | undefined } = {
-  p: 'pawn',
-  n: 'knight',
-  b: 'bishop',
-  r: 'rook',
-  q: 'queen',
-  k: 'king',
-};
+import { charToRole } from 'chessops';
 
 export function getMaterialDiff(fenLike: string): MaterialDiff {
   const diff: MaterialDiff = {
@@ -18,7 +10,7 @@ export function getMaterialDiff(fenLike: string): MaterialDiff {
   for (let i = 0, part = 0; i < fenLike.length && part < 8; i++) {
     const ch = fenLike[i];
     const lower = ch.toLowerCase();
-    const role = ROLES[lower];
+    const role = charToRole(ch);
     if (role) {
       const color = ch === lower ? 'black' : 'white';
       const them = diff[opposite(color)];

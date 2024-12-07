@@ -80,6 +80,7 @@ object ModTimeline:
       e match
         case e: Modlog =>
           if e.action == Modlog.permissions then "objects.key"
+          else if Modlog.isWarning(e) then "symbols.large-orange-diamond"
           else if e.action == Modlog.modMessage then "objects.megaphone"
           else if e.action == Modlog.garbageCollect then "objects.broom"
           else if e.action == Modlog.selfCloseAccount then "objects.locked"

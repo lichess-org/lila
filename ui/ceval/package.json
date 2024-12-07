@@ -3,17 +3,20 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org local computer analysis",
-  "type": "module",
-  "module": "dist/ceval.js",
-  "types": "dist/ceval.d.ts",
-  "keywords": [
-    "chess",
-    "lichess",
-    "play",
-    "replay"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "typings": "ceval",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./src/ceval.ts",
+    "./*": "./src/*.ts"
+  },
   "dependencies": {
     "@badrap/result": "^0.2.13",
     "common": "workspace:*",
@@ -24,7 +27,7 @@
     "stockfish.js": "^10.0.2",
     "stockfish.wasm": "^0.10.0"
   },
-  "lichess": {
+  "build": {
     "sync": {
       "node_modules/*stockfish*/*.{js,wasm}": "public/npm"
     }

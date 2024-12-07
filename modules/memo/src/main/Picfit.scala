@@ -44,7 +44,8 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
     uploadSource(rel, source, userId)
 
   def uploadSource(rel: String, part: SourcePart, userId: UserId): Fu[PicfitImage] =
-    if part.fileSize > uploadMaxBytes then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
+    if part.fileSize > uploadMaxBytes
+    then fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else
       part.contentType
         .collect:
@@ -55,7 +56,7 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
           case None => fufail(s"Invalid file type: ${part.contentType | "unknown"}")
           case Some(extension) =>
             val image = PicfitImage(
-              id = ImageId(s"$userId:$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
+              id = ImageId(s"$rel:${ThreadLocalRandom.nextString(8)}.$extension"),
               user = userId,
               rel = rel,
               name = part.filename,
@@ -80,14 +81,9 @@ final class PicfitApi(coll: Coll, val url: PicfitUrl, ws: StandaloneWSClient, co
 
   object bodyImage:
     val sizePx = Left(800)
-    private val RateLimitPerIp = RateLimit.composite[IpAddress](key = "image.body.upload.ip")(
-      ("fast", 10, 2.minutes),
-      ("slow", 60, 1.day)
-    )
-    def upload(rel: String, image: FilePart, me: UserId, ip: IpAddress): Fu[Option[String]] =
-      RateLimitPerIp(ip, fuccess(none)):
-        uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
-          .map(pic => url.resize(pic.id, sizePx).some)
+    def upload(rel: String, image: FilePart)(using me: Me): Fu[Option[String]] =
+      uploadFile(s"$rel:${scalalib.ThreadLocalRandom.nextString(12)}", image, me)
+        .map(pic => url.resize(pic.id, sizePx).some)
 
   private object picfitServer:
 

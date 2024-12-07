@@ -3,8 +3,8 @@ import play.api.data.*
 import play.api.data.Forms.*
 
 import lila.common.Form.{
-  cleanNoSymbolsAndNonEmptyText,
-  cleanNoSymbolsText,
+  cleanFewSymbolsAndNonEmptyText,
+  cleanFewSymbolsText,
   cleanNonEmptyText,
   cleanTextWithSymbols,
   into,
@@ -35,16 +35,16 @@ final class UserForm:
   val profile: Form[Profile] = Form:
     mapping(
       "flag"       -> optional(text.verifying(Flags.codeSet contains _)),
-      "location"   -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 80)),
-      "bio"        -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 400)),
-      "realName"   -> optional(cleanNoSymbolsText(minLength = 1, maxLength = 100)),
+      "location"   -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 80)),
+      "bio"        -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 400, maxSymbols = 10)),
+      "realName"   -> optional(cleanFewSymbolsText(minLength = 1, maxLength = 100)),
       "fideRating" -> optional(number(min = 1400, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
       "cfcRating"  -> optional(number(min = 200, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
-      "links"      -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 3000))
+      "links"      -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 3000))
     )(Profile.apply)(unapply)
 
   def profileOf(user: User) = profile.fill(user.profileOrDefault)

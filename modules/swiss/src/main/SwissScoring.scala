@@ -8,7 +8,7 @@ final private class SwissScoring(mongo: SwissMongo)(using Scheduler, Executor):
 
   import BsonHandlers.given
 
-  def apply(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
+  def compute(id: SwissId): Fu[Option[SwissScoring.Result]] = sequencer(id).monSuccess(_.swiss.scoringGet)
 
   private val sequencer = scalalib.actor.AskPipelines[SwissId, Option[SwissScoring.Result]](
     compute = recompute,
@@ -73,7 +73,16 @@ private object SwissScoring:
       leaderboard: List[(SwissPlayer, SwissSheet)],
       playerMap: SwissPlayer.PlayerMap,
       pairings: SwissPairing.PairingMap
-  )
+  ):
+    def countOngoingPairings: Int = leaderboard
+      .collect:
+        case (player, _) if player.present => player.userId
+      .flatMap(pairings.get)
+      .flatMap(_.get(swiss.round))
+      .filter(_.isOngoing)
+      .map(_.gameId)
+      .distinct
+      .size
 
   def computePlayers(
       rounds: SwissRoundNumber,

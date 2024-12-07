@@ -8,7 +8,7 @@
   "dependencies": {
     "@types/serviceworker": "^0.0.101"
   },
-  "lichess": {
-    "bundles": "src/serviceWorker.ts"
+  "build": {
+    "bundle": "src/serviceWorker.ts"
   }
 }

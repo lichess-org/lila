@@ -209,7 +209,7 @@ export default class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    return this.engines.active?.tech === 'NNUE';
+    return !!this.engines.active?.cloudEval;
   }
 
   get showingCloud(): boolean {

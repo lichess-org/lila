@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org puzzle storm",
-  "keywords": [
-    "chess",
-    "lichess",
-    "puzzle",
-    "storm"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
@@ -16,7 +10,7 @@
     "common": "workspace:*",
     "puz": "workspace:*"
   },
-  "lichess": {
-    "bundles": "src/storm.ts"
+  "build": {
+    "bundle": "src/storm.ts"
   }
 }

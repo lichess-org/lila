@@ -85,7 +85,7 @@
         $name-override: map-get($theme, name-override);
         $file-name: if($name-override, $name-override, $name);
 
-        @if index(('brown', 'blue', 'purple', 'green', 'ic', 'newspaper'), $file-name) {
+        @if $file-name == 'newspaper' {
           background-image: img-url('board/svg/#{$file-name}.svg');
           background-size: 256px;
         } @else {

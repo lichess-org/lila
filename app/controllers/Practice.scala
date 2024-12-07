@@ -15,11 +15,14 @@ final class Practice(
 
   private val api = env.practice.api
 
-  def index = Open:
-    pageHit
-    Ok.async:
-      api.get(ctx.me).map { views.practice.index(_) }
-    .map(_.noCache)
+  def index = OpenOrScoped(_.Web.Mobile):
+    negotiate(
+      html =
+        pageHit
+        Ok.async(api.get(ctx.me).map(views.practice.index)).map(_.noCache)
+      ,
+      json = api.get(ctx.me).map(lila.practice.JsonView.api).map(JsonOk)
+    )
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
     Found(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
@@ -92,7 +95,7 @@ final class Practice(
         analysisJson <- env.analyse.externalEngine.withExternalEngines(analysis)
       yield (analysisJson, studyJson)
 
-  def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
+  def complete(chapterId: StudyChapterId, nbMoves: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)).inject(NoContent)
   }
 

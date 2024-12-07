@@ -27,7 +27,7 @@ final private class SwissBoardApi(
     .expireAfterWrite(60 minutes)
     .build[SwissId, List[SwissBoard]]()
 
-  def apply(id: SwissId): Fu[List[SwissBoard.WithGame]] =
+  def get(id: SwissId): Fu[List[SwissBoard.WithGame]] =
     boardsCache.getIfPresent(id).so {
       _.parallel { board =>
         gameProxy.game(board.gameId).map2 {
@@ -37,37 +37,29 @@ final private class SwissBoardApi(
     }
 
   def update(data: SwissScoring.Result): Funit =
-    data match
-      case SwissScoring.Result(swiss, leaderboard, playerMap, pairings) =>
-        rankingApi(swiss).map { ranks =>
-          boardsCache
-            .put(
-              swiss.id,
-              leaderboard
-                .collect {
-                  case (player, _) if player.present => player
-                }
-                .flatMap { player =>
-                  pairings.get(player.userId).flatMap {
-                    _.get(swiss.round)
-                  }
-                }
-                .filter(_.isOngoing)
-                .distinct
-                .take(displayBoards)
-                .flatMap { pairing =>
-                  for
-                    p1 <- playerMap.get(pairing.white)
-                    p2 <- playerMap.get(pairing.black)
-                    u1 <- lightUserApi.sync(p1.userId)
-                    u2 <- lightUserApi.sync(p2.userId)
-                    r1 <- ranks.get(p1.userId)
-                    r2 <- ranks.get(p2.userId)
-                  yield SwissBoard(
-                    pairing.gameId,
-                    white = SwissBoard.Player(u1, r1, p1.rating),
-                    black = SwissBoard.Player(u2, r2, p2.rating)
-                  )
-                }
-            )
-        }
+    import data.*
+    rankingApi(swiss).map: ranks =>
+      val boards = leaderboard
+        .collect:
+          case (player, _) if player.present => player
+        .flatMap: player =>
+          pairings.get(player.userId).flatMap {
+            _.get(swiss.round)
+          }
+        .filter(_.isOngoing)
+        .distinct
+        .take(displayBoards)
+        .flatMap: pairing =>
+          for
+            p1 <- playerMap.get(pairing.white)
+            p2 <- playerMap.get(pairing.black)
+            u1 <- lightUserApi.sync(p1.userId)
+            u2 <- lightUserApi.sync(p2.userId)
+            r1 <- ranks.get(p1.userId)
+            r2 <- ranks.get(p2.userId)
+          yield SwissBoard(
+            pairing.gameId,
+            white = SwissBoard.Player(u1, r1, p1.rating),
+            black = SwissBoard.Player(u2, r2, p2.rating)
+          )
+      boardsCache.put(swiss.id, boards)

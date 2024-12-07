@@ -16,7 +16,7 @@ POST  /class/$id<\w{8}>/notifyPost     controllers.clas.Clas.notifyPost(id: Clas
 GET   /class/$id<\w{8}>/students       controllers.clas.Clas.students(id: ClasId)
 POST  /class/$id<\w{8}>/archive        controllers.clas.Clas.archive(id: ClasId, v: Boolean)
 GET   /class/$id<\w{8}>/progress/learn controllers.clas.Clas.learn(id: ClasId)
-GET   /class/$id<\w{8}>/progress/:pk/:days controllers.clas.Clas.progress(id: ClasId, pk: PerfKey, days: Int)
+GET   /class/$id<\w{8}>/progress/:pk/:days controllers.clas.Clas.progress(id: ClasId, pk: PerfKey, days: Days)
 GET   /class/$id<\w{8}>/student/add    controllers.clas.Clas.studentForm(id: ClasId)
 POST  /class/$id<\w{8}>/student/new    controllers.clas.Clas.studentCreate(id: ClasId)
 GET   /class/$id<\w{8}>/student/many   controllers.clas.Clas.studentManyForm(id: ClasId)

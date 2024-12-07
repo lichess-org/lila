@@ -1,5 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
-  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../dasher/tsconfig.json" }]
+  "references": [
+    { "path": "../common/tsconfig.json" },
+    { "path": "../dasher/tsconfig.json" },
+    { "path": "../game/tsconfig.json" }
+  ]
 }
