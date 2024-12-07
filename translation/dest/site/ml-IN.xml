@@ -793,7 +793,7 @@
   <string name="coaches">പരിശീലകർ</string>
   <string name="invalidPgn">അസാധുവായ PGN</string>
   <string name="invalidFen">അസാധുവായ FEN</string>
-  <string name="custom">ഇച്ഛാനുസൃതം</string>
+  <string name="custom">ഇഷ്ടമ്പോലെ</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
   <string name="notificationsX">അറിയിക്കൽ: %1$s</string>
   <string name="perfRatingX">നിലവാരം: %s</string>
