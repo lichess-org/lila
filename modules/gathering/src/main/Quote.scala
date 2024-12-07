@@ -1653,7 +1653,8 @@ object Quote:
     Quote("...the threat is stronger than the execution.", "Aron Nimzowitsch"),
     Quote("I can never get mated with a knight on f8.", "Bent Larsen"),
     Quote(
-      "As for knight endings with an extra pawn...they are, as a rule, won.", "Mark Dvoretsky"
+      "As for knight endings with an extra pawn...they are, as a rule, won.",
+      "Mark Dvoretsky"
     ),
     // lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),
