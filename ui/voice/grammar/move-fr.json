@@ -29,7 +29,7 @@
       ]
     },
     {
-      "in": "ç",
+      "in": "c'est",
       "tok": "c",
       "tags": ["file", "move"],
       "subs": [
