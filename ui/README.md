@@ -105,7 +105,6 @@ When that parent module is requested by a browser, the lila server injects its i
         "module": "src/site.ts",
         "inline": "src/site.inline.ts"
       }
-    ],
 ```
 
 ## Sync
