@@ -160,6 +160,13 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body
 
+  def inlineJs(nonce: Nonce, modules: EsmList = Nil): Frag =
+    val code =
+      (Esm("site").some :: modules)
+        .flatMap(_.flatMap(m => assetHelper.manifest.inlineJs(m.key).map(js => s"(()=>{${js}})()")))
+        .mkString(";")
+    embedJsUnsafe(code)(nonce.some)
+
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
 
@@ -331,17 +338,3 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               .getOrElse { (!error).option(anonDasher) }
         )
       )
-
-  object inlineJs:
-    def apply(nonce: Nonce)(using Translate): Frag = embedJsUnsafe(jsCode)(nonce.some)
-
-    private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
-    lila.common.Bus.subscribeFun("i18n.load"):
-      case lang: Lang => cache.remove(lang)
-
-    private def jsCode(using t: Translate) =
-      cache.computeIfAbsent(
-        t.lang,
-        _ => """window.site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r))};"""
-      )
-  end inlineJs

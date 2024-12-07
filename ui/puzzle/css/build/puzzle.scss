@@ -1,6 +1,7 @@
 @import '../../../common/css/plugin';
 @import '../../../common/css/theme/board/coords';
 @import '../../../common/css/layout/uniboard';
+@import '../../../common/css/component/board-menu';
 @import '../../../common/css/component/board-resize';
 @import '../../../common/css/form/radio';
 @import '../../../common/css/component/color-icon';
@@ -14,6 +15,5 @@
 @import '../../../chess/css/control';
 @import '../../../chess/css/promotion';
 @import '../../../chess/css/blindfold';
-@import '../../../board/css/menu';
 
 @import '../puzzle';

@@ -1,4 +1,4 @@
-import type { OpeningBook, PolyglotResult, PgnProgress, PgnFilter } from '../bits.polyglot';
+import type { OpeningBook, PolyglotResult, PgnProgress, PgnFilter } from './bits.polyglot';
 
 export type {
   OpeningMove,
@@ -7,7 +7,7 @@ export type {
   PgnFilter,
   PolyglotOpts,
   PolyglotResult,
-} from '../bits.polyglot';
+} from './bits.polyglot';
 
 export async function makeBookFromPolyglot(init: {
   bytes: DataView;

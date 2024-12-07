@@ -1,6 +1,6 @@
 import { isSafari } from 'common/device';
-import { type CropOpts } from '../bits.cropDialog';
-export { type CropOpts } from '../bits.cropDialog';
+import { type CropOpts } from './bits.cropDialog';
+export { type CropOpts } from './bits.cropDialog';
 
 export function wireCropDialog(
   opts?: CropOpts & {

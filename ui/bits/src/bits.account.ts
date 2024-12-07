@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { storage } from 'common/storage';
 import { addPasswordVisibilityToggleListener } from 'common/password';
-import flairPickerLoader from './exports/flairPicker';
+import flairPickerLoader from './flairPicker';
 import { confirm } from 'common/dialog';
 import { $as } from 'common';
 

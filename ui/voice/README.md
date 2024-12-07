@@ -7,10 +7,10 @@ arrays defining word grammars (tokens, substitution rules, etc) at grammar/<type
 these are built from the inputs in ./lexicon/*.json and hopefully a crowdv.json
 
 crowdv.jsons are kept in the lifat repo due to their size, they'll be downloaded as
-needed by makeGrammar
+needed by makeGrammar.mts (use `pnpm make-grammar` to run it)
 
-the lexicon folder contains <grammar>-lex.jsons and optional <grammar>-patch.jsons (where
-manual substitutions can be defined). patch entries should only be applied to
+the lexicon folder contains <grammar>-lex.jsons and optional <grammar>-patch.jsons where
+manual substitutions can be defined. patch entries should only be applied to
 vocabulary words that lack a sufficient sample in the crowdv data.
 
 ```
@@ -18,9 +18,9 @@ vocabulary words that lack a sufficient sample in the crowdv data.
 # usage:
 
 ```
-./pnpm build --freq=.002 \ # default values given explicitly here
-             --count=6 \
-               moves-en # give the lexicon/patch prefixes to build as standard arguments
+./pnpm make-grammar --freq=.002 \ # default values given explicitly here
+                    --count=6 \
+                    moves-en # give the lexicon/patch prefixes to make-grammar as standard arguments
 ```
 
 ## arguments:

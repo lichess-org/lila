@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import type { LooseVNode } from 'common/snabbdom';
 import type RoundController from '../ctrl';
-import { menu as menuDropdown } from 'board/menu';
+import { boardMenu as menuDropdown } from 'common/boardMenu';
 import { toggle } from 'common';
 import { boolPrefXhrToggle } from 'common/controls';
 
