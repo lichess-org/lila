@@ -60,6 +60,9 @@ final private class RelayTourRepo(val coll: Coll)(using Executor):
   def info(tourId: RelayTourId): Fu[Option[RelayTour.Info]] =
     coll.primitiveOne[RelayTour.Info]($id(tourId), "info")
 
+  def allActivePublicTours(max: Max): Fu[List[RelayTour]] =
+    coll.find(selectors.officialActive).sort($sort.desc("tier")).cursor[RelayTour]().list(max.value)
+
   def aggregateRoundAndUnwind(
       otherColls: RelayColls,
       framework: coll.AggregationFramework.type,

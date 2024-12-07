@@ -58,6 +58,9 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
     coll.find($doc("tours" -> tourId)).one[RelayGroup]
 
+  def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
+    coll.find($doc("tours".$in(tourIds))).cursor[RelayGroup]().listAll()
+
   def allTourIdsOfGroup(tourId: RelayTourId): Fu[List[RelayTourId]] =
     byTour(tourId).map(_.fold(List(tourId))(_.tours))
 

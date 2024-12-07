@@ -4,12 +4,18 @@ import reactivemongo.api.bson.*
 import monocle.syntax.all.*
 
 import lila.db.dsl.{ *, given }
-import lila.relay.RelayTour.ActiveWithSomeRounds
+import lila.relay.RelayTour.{ WithLastRound, ActiveWithSomeRounds }
+import com.github.blemale.scaffeine.AsyncLoadingCache
+
+trait RelayListingTrait:
+  def getActive: Fu[List[ActiveWithSomeRounds]]
+  def getUpcoming: Fu[List[WithLastRound]]
 
 final class RelayListing(
     colls: RelayColls,
     cacheApi: lila.memo.CacheApi
-)(using Executor):
+)(using Executor)
+    extends RelayListingTrait:
 
   import RelayListing.*
   import BSONHandlers.{ *, given }
@@ -18,7 +24,10 @@ final class RelayListing(
 
   def spotlight: List[ActiveWithSomeRounds] = spotlightCache
 
-  val active = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
+  def getActive   = active.get(())
+  def getUpcoming = upcomingCache.get(())
+
+  private val active = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
     _.refreshAfterWrite(5 seconds).buildAsyncFuture: _ =>
 
       val roundLookup = $lookup.pipelineBC(
@@ -165,7 +174,7 @@ final class RelayListing(
       else tier
     tour.copy(tier = visualTier.orElse(tour.tier))
 
-  val upcomingCache = cacheApi.unit[List[RelayTour.WithLastRound]]:
+  private val upcomingCache = cacheApi.unit[List[RelayTour.WithLastRound]]:
     _.refreshAfterWrite(14 seconds).buildAsyncFuture: _ =>
       val max = 64
       colls.tour

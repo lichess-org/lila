@@ -53,6 +53,9 @@ case class RelayTour(
     then Visibility.`private`
     else Visibility.public
 
+  // highest is first, no tier is last (0)
+  def tierPriority = -(~tier)
+
 object RelayTour:
 
   val maxRelays = 64
