@@ -23,10 +23,7 @@ final class RelayListing(
     case UngroupedTour(tour: RelayTour.WithRounds)                                    extends Spot
     case GroupWithTours(group: RelayGroup, tours: NonEmptyList[RelayTour.WithRounds]) extends Spot
 
-  private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name]):
-    export t.tour
-  private given Ordering[Selected] = Ordering.by[Selected, (Int, Boolean)]: s =>
-    (0 - ~s.tour.tier, !s.round.hasStarted)
+  private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
   def active: Fu[List[ActiveWithSomeRounds]] = activeCache.get({})
 
@@ -42,10 +39,11 @@ final class RelayListing(
               tour  <- tours.toList
               round <- tour.rounds
             yield Selected(tour, round, group.name.some)
-            all.sorted.headOption
+            // sorted preserves the original ordering while adding its own
+            all.sorted(using Ordering.by(s => (0 - ~s.t.tour.tier, !s.round.hasStarted))).headOption
         withLinkRound = selected.map: s =>
           ActiveWithSomeRounds(
-            s.tour,
+            s.t.tour,
             s.round,
             link = RelayListing.defaultRoundToLink(s.t) | s.round,
             s.group
@@ -81,7 +79,7 @@ final class RelayListing(
   yield t.focus(_.tour.tier).replace(visualTier.some)
 
   private def getSpots: Fu[List[Spot]] = for
-    rawTours <- toursWithRounds
+    rawTours <- toursWithUnfinishedRounds
     tours = rawTours.flatMap(decreaseTierIfDistantNextRound)
     groups <- groupRepo.byTours(tours.map(_.tour.id))
   yield
@@ -92,65 +90,57 @@ final class RelayListing(
       tours.filter(t => group.tours.contains(t.tour.id)).toNel.map(Spot.GroupWithTours(group, _))
     ungroupedTours ::: groupedTours
 
-  private def toursWithRounds: Fu[List[RelayTour.WithRounds]] =
+  private def toursWithUnfinishedRounds: Fu[List[RelayTour.WithRounds]] =
     val max = 200
     colls.tour
       .aggregateList(max): framework =>
         import framework.*
         Match(RelayTourRepo.selectors.officialActive) -> List(
-          // unset heavy fields that we don't use for listing
-          Project($doc("subscribers" -> false, "notified" -> false, "teams" -> false, "players" -> false)),
+          Project(tourUnsets),
           Sort(Descending("tier")),
           Limit(max),
-          PipelineOperator:
-            $lookup.pipelineBC(
-              from = colls.round,
-              as = "rounds",
-              local = "_id",
-              foreign = "tourId",
-              pipe = List(
-                $doc("$match" -> $doc("finishedAt".$exists(false))),
-                $doc("$sort"  -> RelayRoundRepo.sort.asc)
-              )
-            )
+          PipelineOperator(tourRoundPipeline)
         )
-      .map: docs =>
-        for
-          doc    <- docs
-          tour   <- doc.asOpt[RelayTour]
-          rounds <- doc.getAsOpt[List[RelayRound]]("rounds")
-          if rounds.nonEmpty
-        yield tour.withRounds(rounds)
+      .map(_.flatMap(readTourRound))
+
+    // unset heavy fields that we don't use for listing
+  private val tourUnsets =
+    $doc("subscribers" -> false, "notified" -> false, "teams" -> false, "players" -> false)
+
+  private val tourRoundPipeline: Bdoc =
+    $lookup.pipelineBC(
+      from = colls.round,
+      as = "rounds",
+      local = "_id",
+      foreign = "tourId",
+      pipe = List(
+        $doc("$match" -> $doc("finishedAt".$exists(false))),
+        $doc("$sort"  -> RelayRoundRepo.sort.asc)
+      )
+    )
+
+  private def readTourRound(doc: Bdoc): Option[RelayTour.WithRounds] = for
+    tour   <- doc.asOpt[RelayTour]
+    rounds <- doc.getAsOpt[List[RelayRound]]("rounds")
+    if rounds.nonEmpty
+  yield tour.withRounds(rounds)
+
+  private def tourWithUnfinishedRounds(id: RelayTourId): Fu[Option[RelayTour.WithRounds]] =
+    colls.tour
+      .aggregateOne(): framework =>
+        import framework.*
+        Match($id(id)) -> List(
+          Project(tourUnsets),
+          PipelineOperator(tourRoundPipeline)
+        )
+      .map(_.flatMap(readTourRound))
 
   val defaultRoundToLink = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.defaultRoundToLink"):
     _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
-      import RelayRoundRepo.sort
-      val lastStarted = colls.round
-        .find($doc("tourId" -> tourId, "startedAt".$exists(true)))
-        .sort($doc("startedAt" -> -1))
-        .one[RelayRound]
-      val next = colls.round
-        .find(RelayRoundRepo.selectors.finished(false) ++ RelayRoundRepo.selectors.tour(tourId))
-        .sort(sort.asc)
-        .one[RelayRound]
-      lastStarted.zip(next).flatMap {
-        case (None, _) => // no round started yet, show the first one
-          colls.round
-            .find($doc("tourId" -> tourId))
-            .sort(sort.asc)
-            .one[RelayRound]
-        case (Some(last), Some(next)) => // show the next one if it's less than an hour away
-          fuccess:
-            if next.startsAtTime.exists(_.isBefore(nowInstant.plusHours(1)))
-            then next.some
-            else last.some
-        case (Some(last), None) =>
-          fuccess(last.some)
-      }
+      tourWithUnfinishedRounds(tourId).mapz(RelayListing.defaultRoundToLink)
 
 private object RelayListing:
 
-  // same logic but we have all the rounds in memory already
   def defaultRoundToLink(trs: RelayTour.WithRounds): Option[RelayRound] =
     if !trs.tour.active then trs.rounds.headOption
     else
@@ -159,10 +149,9 @@ private object RelayListing:
           round.startedAt.map(_ -> round)
         .sortBy(-_._1.getEpochSecond)
         .headOption
-        .map(_._2)
         .match
           case None => trs.rounds.headOption
-          case Some(last) =>
+          case Some((_, last)) =>
             trs.rounds.find(!_.isFinished) match
               case None => last.some
               case Some(next) =>
