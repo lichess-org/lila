@@ -1,12 +1,12 @@
 # Getting Started
 
-Client assets are built with the [/ui/build](./.build/readme) script.
+Client assets are built with the [/ui/build](./build) script.
 
 ```bash
 ui/build --help
 ```
 
-You can usually start up `ui/build -wc` and leave it running. This performs a clean build and continuously rebuilds source files when changes are detected. Keep an eye on stdout for build errors. On success, a browser page reload will show the results.
+You can usually start up `ui/build -wc` and leave it running. This performs a clean build and continuously rebuilds source files when changes are detected. Keep an eye on stdout for build errors. On success, reload the browser page for the results.
 
 # UI packages
 
@@ -105,7 +105,6 @@ When that parent module is requested by a browser, the lila server injects its i
         "module": "src/site.ts",
         "inline": "src/site.inline.ts"
       }
-    ],
 ```
 
 ## Sync
