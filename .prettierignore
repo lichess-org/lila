@@ -9,6 +9,6 @@
 !/ui/
 !/ui/**
 dist/
-readme
+README.md
 pnpm-lock.yaml
 /ui/voice/crowdv/
