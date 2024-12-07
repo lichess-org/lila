@@ -175,7 +175,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
   const ass = loadAssets(o);
   let dialog: HTMLDialogElement;
 
-  return h(
+  const dialogVNode = h(
     `dialog${isTouchDevice() ? '.touch-scroll' : ''}`,
     {
       key: o.class ?? 'dialog',
@@ -204,9 +204,7 @@ export function snabDialog(o: SnabDialogOpts): VNode {
             hook: onInsert(async view => {
               const [html] = await ass;
               if (!o.vnodes && html) view.innerHTML = html;
-              const wrapper = new DialogWrapper(dialog, view, o);
-              if (o.onInsert) o.onInsert(wrapper);
-              else wrapper.showModal();
+              new DialogWrapper(dialog, view, o).show();
             }),
           },
           o.vnodes,
@@ -214,6 +212,8 @@ export function snabDialog(o: SnabDialogOpts): VNode {
       ),
     ],
   );
+  if (o.onInsert) return dialogVNode;
+  return h('div.snab-modal-mask', dialogVNode);
 }
 
 class DialogWrapper implements Dialog {
@@ -332,7 +332,8 @@ class DialogWrapper implements Dialog {
     if (!this.dialog.returnValue) this.dialog.returnValue = 'cancel';
     this.resolve?.(this);
     this.o.onClose?.(this);
-    this.dialog.remove();
+    if (this.dialog.parentElement?.classList.contains('snab-modal-mask')) this.dialog.parentElement.remove();
+    else this.dialog.remove();
     for (const css of this.o.css ?? []) {
       if ('hashed' in css) site.asset.removeCssPath(css.hashed);
       else if ('url' in css) site.asset.removeCss(css.url);
