@@ -52,13 +52,15 @@ async function writeManifest() {
     `window.site.debug=${env.debug};`,
   ];
   if (env.remoteLog) clientJs.push(jsLogger());
-  const pairLine = ([name, info]: [string, SplitAsset]) => `'${name.replace(/'/g, "\\'")}':'${info.hash}'`;
+
+  const pairLine = ([name, info]: [string, SplitAsset]) => `'${name.replaceAll("'", "\\'")}':'${info.hash}'`;
   const jsLines = Object.entries(current.js)
     .filter(([name, _]) => !/common\.[A-Z0-9]{8}/.test(name))
     .map(pairLine)
     .join(',');
   const cssLines = Object.entries(current.css).map(pairLine).join(',');
   const hashedLines = Object.entries(current.hashed).map(pairLine).join(',');
+
   clientJs.push(`window.site.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
 
   const hashable = clientJs.join('\n');
