@@ -77,7 +77,7 @@ final class AccountPref(helpers: Helpers, helper: PrefHelper, bits: AccountUi):
             setting(
               trp.showPlayerRatings(),
               frag(
-                radios(form("ratings"), booleanChoices),
+                radios(form("ratings"), translatedRatingsChoices),
                 div(cls := "help text shy", dataIcon := Icon.InfoCircle)(trp.explainShowPlayerRatings())
               ),
               "showRatings"

@@ -92,7 +92,17 @@ case class Pref(
   def isZen     = zen == Zen.YES
   def isZenAuto = zen == Zen.GAME_AUTO
 
-  val showRatings = ratings == Ratings.YES
+  def showRatings       = ratings != Ratings.NO
+  def hideRatingsInGame = ratings == Ratings.EXCEPT_GAME
+
+  def showRatingsIn(game: Option[lila.core.game.Game], amPlaying: Boolean)(using
+      myId: Option[MyId]
+  ): Boolean =
+    if ratings == Ratings.EXCEPT_GAME
+    then
+      game.fold(!amPlaying): g =>
+        !g.playable || !myId.exists(me => g.userIds.has(me.id))
+    else ratings == Ratings.YES
 
   def is2d = !is3d
 
@@ -425,7 +435,16 @@ object Pref:
       GAME_AUTO -> "In-game only"
     )
 
-  object Ratings extends BooleanPref
+  object Ratings:
+    val NO          = 0
+    val YES         = 1
+    val EXCEPT_GAME = 2
+
+    val choices = Seq(
+      NO          -> "No",
+      YES         -> "Yes",
+      EXCEPT_GAME -> "Except in-game"
+    )
 
   val darkByDefaultSince   = instantOf(2021, 11, 7, 8, 0)
   val systemByDefaultSince = instantOf(2022, 12, 23, 8, 0)
