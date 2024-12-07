@@ -479,14 +479,14 @@
   <string name="draws">സമനിലകൾ</string>
   <string name="nextXTournament">അടുത്ത %s ടൂർണമെന്റ്:</string>
   <string name="averageOpponent">ശരാശരി എതിരാളി</string>
-  <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
+  <string name="boardEditor">കളിക്കളം ചിട്ടപ്പെടുത്തുക</string>
   <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
   <string name="endgamePositions">ഏൻഡ് ഗെയിം പൊസിഷനുകൾ</string>
   <string name="chess960StartPosition">ചതുരംഗം960 ആരംഭ സ്ഥാനം: %s</string>
   <string name="startPosition">പ്രാരംഭ സ്ഥാനം</string>
-  <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
-  <string name="loadPosition">സ്ഥാനത്തു നിന്ന്</string>
+  <string name="clearBoard">കളിക്കളം വ്യക്തമാക്കുക</string>
+  <string name="loadPosition">കരുനില നിന്ന്</string>
   <string name="isPrivate">സ്വകാര്യം</string>
   <string name="reportXToModerators">നിയന്ത്രകരോട് %s നെ സൂചിപ്പിക്കാം</string>
   <string name="profileCompletion">പ്രൊഫൈൽ പൂർത്തിയാക്കൽ: %s</string>
@@ -575,8 +575,8 @@
   <string name="fast">ശീഘ്രം</string>
   <string name="normal">സ്വാഭാവികം</string>
   <string name="slow">മന്ദം</string>
-  <string name="insideTheBoard">പലകയിൽ</string>
-  <string name="outsideTheBoard">പലകക്ക് അപ്പുറം</string>
+  <string name="insideTheBoard">കളിക്കളമിൽ</string>
+  <string name="outsideTheBoard">കളിക്കളം അപ്പുറം</string>
   <string name="allSquaresOfTheBoard">എല്ലാ ചതുരങ്ങളിലും</string>
   <string name="onSlowGames">വേഗം കുറഞ്ഞ കളികളിൽ</string>
   <string name="always">നിരന്തരം</string>
@@ -728,7 +728,7 @@
   <string name="crosstable">ക്രോസ്സ്‌റ്റേബിൾ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">കരടുകാണാൻ ഗണനികവ്യതിയാനങ്ങൾ തോടെ ഗതിമാറ്റുക.</string>
-  <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക.</string>
+  <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ വലത്ത ക്ലിക്ക് അമർത്തുക.</string>
   <string name="letOtherPlayersMessageYou">മറ്റുള്ള കളിക്കാർ നിങ്ങൾക്ക് സന്ദേശമയക്കുന്നതിനുള്ള അനുവാദം</string>
   <string name="receiveForumNotifications">ആരെങ്കിലും ചർച്ചവേദിയിൽ എന്റെ പേരെടുത്താൽ എന്നെ സൂചിപിക്കണം</string>
   <string name="shareYourInsightsData">നിങ്ങളെ കുറിച്ച് കൂടുതൽ വിവരം പങ്കു വെക്കൂ</string>
@@ -775,7 +775,7 @@
   <string name="transparent">സുതാര്യത</string>
   <string name="deviceTheme">ഉപകരണയലങ്കാരം</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
-  <string name="board">ബോർഡ്</string>
+  <string name="board">കളിക്കളം</string>
   <string name="size">വലിപ്പം</string>
   <string name="opacity">ഇരുൾ</string>
   <string name="brightness">കൂരിരുട്ട്</string>
