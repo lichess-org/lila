@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arenaTournaments">கோதா போட்டிகள்</string>
-  <string name="isItRated">மதிப்பிடப்பட்டதா?</string>
+  <string name="arena">களம்</string>
+  <string name="arenaTournaments">களப் போட்டிகள் </string>
+  <string name="isItRated">அது மதிப்பிடப்படுமா?</string>
   <string name="willBeNotified">போட்டி தொடங்கும் போது உங்களுக்குத் தெரிவிக்கப்படும், எனவே காத்திருக்கும் போது மற்றொரு தாவலில் விளையாடுவது பாதுகாப்பானது.</string>
   <string name="isRated">இந்தப் போட்டி மதிப்பிடப்பட்டது மற்றும் உங்கள் மதிப்பீட்டைப் பாதிக்கும்.</string>
   <string name="isNotRated">இந்தப் போட்டி * மதிப்பிடப்படவில்லை* மேலும் உங்கள் மதிப்பீட்டைப் பாதிக்காது.</string>
