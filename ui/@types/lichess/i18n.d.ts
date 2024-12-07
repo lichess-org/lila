@@ -2755,6 +2755,8 @@ interface I18n {
     asBlack: string;
     /** As free as Lichess */
     asFreeAsLichess: string;
+    /** %1$s posted results for %2$s */
+    askConcluded: I18nFormat;
     /** Your account is managed. Ask your chess teacher about lifting kid mode. */
     askYourChessTeacherAboutLiftingKidMode: string;
     /** as white */

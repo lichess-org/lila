@@ -7,7 +7,10 @@ import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
 
-final class PostUi(helpers: Helpers, bits: ForumBits):
+final class PostUi(helpers: Helpers, bits: ForumBits)(
+    askRender: (Frag) => Context ?=> Frag,
+    unfreeze: String => String
+):
   import helpers.{ *, given }
 
   def show(
@@ -102,7 +105,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
         frag:
           val postFrag = div(cls := s"forum-post__message expand-text")(
             if post.erased then "<Comment deleted by user>"
-            else body
+            else askRender(body)
           )
           if hide then
             div(cls := "forum-post__blocked")(
@@ -124,15 +127,13 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 cls            := "post-text-area edit-post-box",
                 minlength      := 3,
                 required
-              )(post.text),
+              )(unfreeze(post.text)),
               div(cls := "edit-buttons")(
                 a(
                   cls   := "edit-post-cancel",
                   href  := routes.ForumPost.redirect(post.id),
                   style := "margin-left:20px"
-                ):
-                  trans.site.cancel()
-                ,
+                )(trans.site.cancel()),
                 submitButton(cls := "button")(trans.site.apply())
               )
             )

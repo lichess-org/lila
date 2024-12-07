@@ -11,7 +11,8 @@ lazy val ui = lila.ublog.ui.UblogUi(helpers, views.atomUi)(picfitUrl)
 
 lazy val post = lila.ublog.ui.UblogPostUi(helpers, ui)(
   ublogRank = env.ublog.rank,
-  connectLinks = views.bits.connectLinks
+  connectLinks = views.bits.connectLinks,
+  askRender = views.askUi.render
 )
 
 lazy val form = lila.ublog.ui.UblogFormUi(helpers, ui)(
