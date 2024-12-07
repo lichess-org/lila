@@ -31,11 +31,11 @@ import { pgnToTree, mergeSolution, nextCorrectMove } from './moveTree';
 import { PromotionCtrl } from 'chess/promotion';
 import type { Role, Move, Outcome } from 'chessops/types';
 import { type StoredProp, storedBooleanProp, storedBooleanPropWithEffect, storage } from 'common/storage';
-import { fromNodeList } from 'tree/dist/path';
+import { fromNodeList } from 'tree/path';
 import Report from './report';
-import { last } from 'tree/dist/ops';
+import { last } from 'tree/ops';
 import { uciToMove } from 'chessground/util';
-import type { ParentCtrl } from 'ceval/src/types';
+import type { ParentCtrl } from 'ceval/types';
 import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialog';
 

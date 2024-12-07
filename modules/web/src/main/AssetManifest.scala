@@ -9,7 +9,7 @@ import java.nio.file.Files
 
 import lila.core.config.NetConfig
 
-case class SplitAsset(name: String, imports: List[String]):
+case class SplitAsset(name: String, imports: List[String], inlineJs: Option[String]):
   def all = name :: imports
 case class AssetMaps(
     js: Map[String, SplitAsset],
@@ -31,7 +31,8 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
   def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
     maps.js.get(key).so(_.all)
   }.distinct
-  def lastUpdate: Instant = maps.modified
+  def inlineJs(key: String): Option[String] = maps.js.get(key).flatMap(_.inlineJs)
+  def lastUpdate: Instant                   = maps.modified
 
   def update(): Unit =
     if environment.mode.isProd || net.externalManifest then
@@ -73,9 +74,10 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .as[JsObject]
       .value
       .map { (k, value) =>
-        val name    = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
-        val imports = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
-        (k, SplitAsset(name, imports))
+        val name     = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
+        val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
+        val inlineJs = (value \ "inline").asOpt[String]
+        (k, SplitAsset(name, imports, inlineJs))
       }
       .toMap
 

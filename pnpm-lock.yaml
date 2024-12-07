@@ -209,12 +209,6 @@ importers:
         specifier: ^4.4.2
         version: 4.4.2
 
-  ui/board:
-    dependencies:
-      common:
-        specifier: workspace:*
-        version: link:../common
-
   ui/ceval:
     dependencies:
       '@badrap/result':
@@ -501,9 +495,6 @@ importers:
 
   ui/puzzle:
     dependencies:
-      board:
-        specifier: workspace:*
-        version: link:../board
       ceval:
         specifier: workspace:*
         version: link:../ceval
@@ -543,9 +534,6 @@ importers:
 
   ui/round:
     dependencies:
-      board:
-        specifier: workspace:*
-        version: link:../board
       chat:
         specifier: workspace:*
         version: link:../chat
@@ -609,9 +597,6 @@ importers:
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
-      voice:
-        specifier: workspace:*
-        version: link:../voice
 
   ui/storm:
     dependencies:
