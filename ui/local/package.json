@@ -23,8 +23,8 @@
     "import-assets": "mongoimport --db=lichess --collection=local_assets --drop --jsonArray --file",
     "export-assets": "mongoexport --db=lichess --collection=local_assets --jsonArray --out"
   },
-  "lichess": {
-    "bundles": [
+  "build": {
+    "bundle": [
       "src/local.setup.ts",
       "src/local.ts",
       "src/dev/local.dev.ts"
