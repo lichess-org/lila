@@ -101,10 +101,10 @@ A bundle may also be described with an object containing a "module" path and an 
 When that parent module is requested by a browser, the lila server injects its inline statements into a \<script> tag following the assembled DOM within the \<body> element. This allows blocking setup code to manipulate the DOM based on viewport calculations before rendering. This should be done sparingly and globs are not supported here. The final object in [/ui/site/package.json](./site/package.json)'s bundle array shows a valid example:
 
 ```json
-{
-  "module": "src/site.ts",
-  "inline": "src/site.inline.ts"
-}
+      {
+        "module": "src/site.ts",
+        "inline": "src/site.inline.ts"
+      }
 ```
 
 ## Sync
