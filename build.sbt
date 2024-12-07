@@ -79,7 +79,7 @@ lazy val modules = Seq(
   notifyModule, clas, perfStat, opening, timeline,
   setup, video, fide, title, push,
   // and then the smaller ones
-  pool, lobby, relation, tv, coordinate, feed, history,
+  pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
   practice, evalCache, irwin, bot, racer, cms, i18n,
   socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
@@ -478,6 +478,11 @@ lazy val explorer = module("explorer",
 
 lazy val notifyModule = module("notify",
   Seq(memo, ui),
+  Seq()
+)
+
+lazy val recap = module("recap",
+  Seq(memo, ui, user, game, puzzle),
   Seq()
 )
 

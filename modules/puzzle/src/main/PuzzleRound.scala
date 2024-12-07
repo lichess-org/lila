@@ -14,9 +14,8 @@ case class PuzzleRound(
   def themeVote(theme: PuzzleTheme.Key, vote: Option[Boolean]): Option[List[PuzzleRound.Theme]] =
     themes.find(_.theme == theme) match
       case None =>
-        vote.map { v =>
+        vote.map: v =>
           PuzzleRound.Theme(theme, v) :: themes
-        }
       case Some(prev) =>
         vote match
           case None                      => themes.filter(_.theme != theme).some

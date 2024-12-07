@@ -1,0 +1,141 @@
+// dark theme is forced on this page
+body {
+  // background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --c-font-page: #fff;
+  --c-font-shadow: hsla(0, 0, 0%, 0);
+  &,
+  .site-title,
+  .site-buttons .link {
+    &,
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+.recap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+}
+
+.recap a {
+  color: #fff;
+  border-bottom: 1px dotted #ddd;
+}
+
+.swiper {
+  height: 100%;
+  opacity: 0;
+  @include transition(opacity 0.2s);
+  &-initialized {
+    opacity: 1;
+  }
+}
+
+.swiper-slide {
+  @extend %flex-column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5em;
+  gap: 3em;
+}
+
+.recap {
+  img,
+  .lpv {
+    width: 384px;
+    max-width: 90vw;
+    max-height: 50vh;
+  }
+  .lpv {
+    --c-lpv-bg: transparent;
+    outline: none;
+    box-shadow: none;
+    &,
+    .lpv__controls,
+    .lpv__fbt {
+      border: none;
+    }
+    .lpv__fbt {
+      padding: 0.1em 1em;
+    }
+  }
+}
+
+.recap__slide--init {
+  h2 {
+    font-size: 5rem;
+  }
+}
+
+.recap__content {
+  @extend %flex-column;
+  gap: 2em;
+  font-size: 1.6em;
+}
+
+.recap__title {
+  margin: 2em 0;
+}
+
+.recap--massive {
+  @extend %flex-column;
+  align-items: center;
+  font-size: 3em;
+  strong {
+    font-size: 3em;
+  }
+}
+.recap--big {
+  font-size: 2em;
+}
+
+.recap__slide--time .recap--massive strong {
+  font-size: 2em;
+}
+
+.recap__perfs {
+  @extend %flex-column;
+  gap: 1em;
+}
+.recap__perf {
+  position: relative;
+  color: white;
+}
+
+.recap__perf__duration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  padding: 1em 2em;
+  border-radius: 0 5em 5em 0;
+  color: $c-over;
+  padding-right: 0.5em;
+}
+.recap__perf__data {
+  @extend %flex-center-nowrap;
+  gap: 3rem;
+  padding: 0 2rem;
+  i {
+    font-size: 3em;
+  }
+  strong {
+    font-size: 1.7em;
+    line-height: 1;
+  }
+}
+.recap__perf__games strong {
+  display: block;
+  font-weight: 2em;
+}
+
+.recap small {
+  font-size: 0.8em;
+  opacity: 0.6;
+}

@@ -161,7 +161,7 @@ final private class Finisher(
         .dmap(_._1._1)
 
   private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
-    game.finished.so { user.noBot || game.nonAi }.so {
+    (game.finished && (user.noBot || game.nonAi)).so:
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))
       val result =
@@ -171,4 +171,3 @@ final private class Finisher(
       userRepo
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
         .void
-    }

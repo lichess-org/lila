@@ -172,10 +172,13 @@ trait Handlers:
   given perfKeyFailingIso: Iso.StringIso[PerfKey] =
     Iso.string[PerfKey](str => PerfKey(str).err(s"Unknown perf $str"), _.value)
 
-  given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
+  given pairHandler[T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
     { case arr: BSONArray => for a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) yield (a, b) },
     { case (a, b) => BSONArray(a, b) }
   )
+
+  given [T: BSONHandler]: BSONHandler[chess.ByColor[T]] =
+    pairHandler[T].as[chess.ByColor[T]](c => chess.ByColor.fromPair(c), _.toPair)
 
   given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
 
