@@ -56,6 +56,7 @@
   <string name="subscribeTitle">Tilaa ilmoitukset kunkin kierroksen alkamisesta. Käyttäjätunnuksesi asetuksista voit kytkeä ääni- ja puskuilmoitukset päälle tai pois.</string>
   <string name="uploadImage">Lisää turnauksen kuva</string>
   <string name="noBoardsYet">Pelilautoja ei vielä ole. Ne tulevat näkyviin sitä mukaa, kun pelit ladataan tänne.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Laudat voidaan ladata lähteen kautta tai %s kautta</string>
   <string name="startsAfter" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;).&#10;&#10;The round name is set by the creator of the broadcast, and may be in a different language.">Alkaa %s:n jälkeen</string>
   <string name="startVerySoon">Lähetys alkaa aivan pian.</string>
   <string name="notYetStarted">Lähetys ei ole vielä alkanut.</string>
