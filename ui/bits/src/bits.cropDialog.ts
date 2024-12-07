@@ -18,7 +18,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   const url =
     opts.source instanceof Blob
       ? URL.createObjectURL(opts.source)
-      : typeof opts.source == 'string'
+      : typeof opts.source === 'string'
         ? URL.createObjectURL((opts.source = await (await fetch(opts.source)).blob()))
         : URL.createObjectURL((opts.source = await chooseImage()));
   if (!url) {
@@ -114,7 +114,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
       const formData = new FormData();
       formData.append(opts.post.field ?? 'picture', cropped);
       const rsp = await fetch(opts.post.url, { method: 'POST', body: formData });
-      if (rsp.status / 100 == 3) redirect = rsp.headers.get('Location')!;
+      if (rsp.status / 100 === 3) redirect = rsp.headers.get('Location')!;
       else if (!rsp.ok) {
         cropped = false;
         const body = await rsp.text();

@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
 import main from './main';
-import { LobbyOpts } from './interfaces';
+import type { LobbyOpts } from './interfaces';
 import StrongSocket from 'common/socket';
 import { pubsub } from 'common/pubsub';
 

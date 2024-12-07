@@ -1,7 +1,6 @@
 package views.lobby
 
 import lila.app.UiEnv.{ *, given }
-import lila.rating.PerfType
 
 object bits:
 

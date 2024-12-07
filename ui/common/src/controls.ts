@@ -1,6 +1,6 @@
-import { h, Hooks, VNode } from 'snabbdom';
+import { h, type Hooks, type VNode } from 'snabbdom';
 import { bind } from './snabbdom';
-import { toggle as baseToggle, Toggle } from './common';
+import { toggle as baseToggle, type Toggle } from './common';
 import * as xhr from './xhr';
 
 export interface ToggleSettings {
@@ -38,7 +38,7 @@ export function toggleBoxInit(): void {
       .addClass('toggle-box--ready')
       .children('legend')
       .on('click', toggle)
-      .on('keypress', e => e.key == 'Enter' && toggle());
+      .on('keypress', e => e.key === 'Enter' && toggle());
   });
 }
 

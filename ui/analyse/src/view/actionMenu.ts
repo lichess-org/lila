@@ -2,11 +2,10 @@ import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { isTouchDevice } from 'common/device';
 import { domDialog } from 'common/dialog';
-import { bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import { AutoplayDelay } from '../autoplay';
-import { toggle, ToggleSettings } from 'common/controls';
-import AnalyseCtrl from '../ctrl';
+import { type VNode, bind, dataIcon, type MaybeVNodes, looseH as h } from 'common/snabbdom';
+import type { AutoplayDelay } from '../autoplay';
+import { toggle, type ToggleSettings } from 'common/controls';
+import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'game/router';
 import * as pgnExport from '../pgnExport';
 
@@ -42,7 +41,7 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   return h(
     'div.autoplay',
     speeds.map(speed => {
-      const active = ctrl.autoplay.getDelay() == speed.delay;
+      const active = ctrl.autoplay.getDelay() === speed.delay;
       return h(
         'a.button',
         {
@@ -58,19 +57,6 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
 const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study && !ctrl.ongoing)
-    return h(
-      'a',
-      {
-        attrs: {
-          href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
-          target: '_blank',
-          rel: 'noopener',
-          'data-icon': licon.StudyBoard,
-        },
-      },
-      i18n.site.openStudy,
-    );
   if (ctrl.study || ctrl.ongoing) return;
   return h(
     'form',

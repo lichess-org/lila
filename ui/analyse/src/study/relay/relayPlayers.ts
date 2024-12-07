@@ -1,15 +1,22 @@
-import { Redraw, VNode, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
+import { type Redraw, type VNode, dataIcon, looseH as h, onInsert } from 'common/snabbdom';
+import { json as xhrJson } from 'common/xhr';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { RelayTour, RoundId, TourId } from './interfaces';
+import type { RelayTour, RoundId, TourId } from './interfaces';
 import { playerFed } from '../playerBars';
 import { userTitle } from 'common/userLink';
-import { ChapterId, Federations, FideId, PointsStr, StudyPlayer, StudyPlayerFromServer } from '../interfaces';
+import type {
+  ChapterId,
+  Federations,
+  FideId,
+  PointsStr,
+  StudyPlayer,
+  StudyPlayerFromServer,
+} from '../interfaces';
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import { defined } from 'common';
-import { Attrs, Hooks, init as initSnabbdom, attributesModule, VNodeData } from 'snabbdom';
+import { type Attrs, type Hooks, init as initSnabbdom, attributesModule, type VNodeData } from 'snabbdom';
 import { convertPlayerFromServer } from '../studyChapters';
 import { isTouchDevice } from 'common/device';
 
@@ -90,7 +97,7 @@ export default class RelayPlayers {
       this.loading = true;
       this.redraw();
     }
-    const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhr.json(
+    const players: (RelayPlayer & StudyPlayerFromServer)[] = await xhrJson(
       `/broadcast/${this.tourId}/players`,
     );
     this.players = players.map(p => convertPlayerFromServer(p, this.federations()));
@@ -99,9 +106,9 @@ export default class RelayPlayers {
 
   loadPlayerWithGames = async (id: RelayPlayerId) => {
     const feds = this.federations();
-    const full: RelayPlayerWithGames = await xhr
-      .json(`/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`)
-      .then(p => convertPlayerFromServer(p, feds));
+    const full: RelayPlayerWithGames = await xhrJson(
+      `/broadcast/${this.tourId}/players/${encodeURIComponent(id)}`,
+    ).then(p => convertPlayerFromServer(p, feds));
     full.games.forEach((g: RelayPlayerGame) => {
       g.opponent = convertPlayerFromServer(g.opponent as RelayPlayer & StudyPlayerFromServer, feds);
     });
@@ -140,7 +147,7 @@ const playerView = (ctrl: RelayPlayers, show: PlayerToShow, tour: RelayTour): VN
           h('div.relay-tour__player__cards', [
             ...(p.fide?.ratings
               ? ratingCategs.map(([key, name]) =>
-                  h(`div.relay-tour__player__card${key == tc ? '.active' : ''}`, [
+                  h(`div.relay-tour__player__card${key === tc ? '.active' : ''}`, [
                     h('em', name),
                     h('span', [p.fide?.ratings[key] || '-']),
                   ]),
@@ -316,7 +323,7 @@ const renderPlayerTipHead = (ctrl: RelayPlayers, p: StudyPlayer | RelayPlayer): 
         playerFed(p.fed),
         ...(p.rating ? [`${p.rating}`, isRelayPlayer(p) ? ratingDiff(p) : undefined] : []),
       ]),
-      isRelayPlayer(p) && p.score != null ? h('div', `${p.score}/${p.played}`) : undefined,
+      isRelayPlayer(p) && p.score !== undefined ? h('div', `${p.score}/${p.played}`) : undefined,
     ]),
   ]);
 
@@ -361,7 +368,13 @@ const renderPlayerGames = (ctrl: RelayPlayers, p: RelayPlayerWithGames, withTips
           h('td.is.color-icon.' + game.color),
           h(
             'td.tpp__games__status',
-            points ? (points == '1' ? h('good', '1') : points == '0' ? h('bad', '0') : h('span', '½')) : '*',
+            points
+              ? points === '1'
+                ? h('good', '1')
+                : points === '0'
+                  ? h('bad', '0')
+                  : h('span', '½')
+              : '*',
           ),
           h('td', defined(game.ratingDiff) ? ratingDiff(game) : undefined),
         ],

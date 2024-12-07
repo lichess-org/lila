@@ -12,7 +12,7 @@ import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
 import lila.swiss.Swiss
 import lila.timeline.Entry
-import lila.tournament.{ Tournament, Winner }
+import lila.tournament.Tournament
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
 

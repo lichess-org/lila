@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as domData from './data';
 import { lichessClockIsRunning, setClockWidget } from './clock';
 import { uciToMove } from 'chessground/util';
@@ -64,7 +64,7 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
       setClockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
-        pause: color != turnColor || !lichessClockIsRunning(fen, color),
+        pause: color !== turnColor || !lichessClockIsRunning(fen, color),
       });
     }),
   );
@@ -92,7 +92,7 @@ export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): voi
     if (clockEl && !isNaN(time!))
       setClockWidget(clockEl, {
         time: time!,
-        pause: color != turnColor || !lichessClockIsRunning(data.fen, color),
+        pause: color !== turnColor || !lichessClockIsRunning(data.fen, color),
       });
   };
   updateClock(data.wc, 'white');
@@ -110,7 +110,7 @@ export const finishMiniGame = (node: HTMLElement, win?: 'black' | 'white'): void
   });
 
 interface MiniGameUpdateData {
-  fen: Cg.FEN;
+  fen: FEN;
   lm: Uci;
   wc?: number;
   bc?: number;

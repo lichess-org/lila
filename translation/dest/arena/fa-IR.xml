@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="arena">عرصه</string>
-  <string name="arenaTournaments">میدان مسابقات</string>
+  <string name="arena">راوان</string>
+  <string name="arenaTournaments">مسابقات راوان</string>
   <string name="isItRated">آیا رسمی است؟</string>
-  <string name="willBeNotified">هنگام شروع تورنومنت به شما اطلاع داده خواهد شد، پس در زمان انتظار بازی کردن در تب های دیگر بلامانع است.</string>
+  <string name="willBeNotified">هنگامی که مسابقات می‌آغازد آگاهانده خواهید شد، بنابراین می‌توانید هنگام انتظار، در زبانهٔ دیگری بازی کنید.</string>
   <string name="isRated">این مسابقات رسمی است و بر درجه‌بندی‌تان اثر می‌گذارد.</string>
   <string name="isNotRated">این مسابقات رسمی *نیست* و بر درجه‌بندی‌تان اثر *نمی‌گذارد*.</string>
   <string name="someRated">برخی مسابقات رسمی‌اَند و بر درجه‌بندی‌تان اثر می‌گذارند.</string>
@@ -14,7 +14,7 @@
 یعنی در حالت شعله، ارزش هر برد ۴ امتیاز، هر مساوی ۲ امتیاز خواهد شد، و هر باخت باز هم هیچ امتیازی ندارد.
 
 برای مثال، دو برد و سپس یک مساوی ارزشش ۶ امتیاز می‌شود: (۱×۲)+۲+۲</string>
-  <string name="berserk">جنون در میدان مسابقات</string>
+  <string name="berserk">دیوانگیِ راوان</string>
   <string name="berserkAnswer">وقتی یک بازیکن در ابتدای بازی بر روی دکمه جنون کلیک میکند، نصف زمانش را از دست میدهد، اما بردش یک امتیاز بیشتر به همراه دارد.
 
 جنون در بازی هایی که پاداش زمانی دارد، پاداش زمانی را لغو میکند. (2+1 یک استثنا است، که به 0+1 تبدیل می‌شود.)
@@ -39,11 +39,11 @@
   </plurals>
   <string name="thisIsPrivate">این یک تورنومنت خصوصی است</string>
   <string name="shareUrl">این وب‌نشانی را برای پیوستن دیگران به اشتراک گذارید: %s</string>
-  <string name="drawStreakStandard">سلسله تساوی: وقتی یک بازیکن در Arena چند تساوی پشت سر هم بدست بیاورد، تنها اولین تساوی یا تساوی‌هایی با حداقل %s حرکت، دارای امتیاز خواهند بود. سلسله تساوی تنها با برد شکسته خواهد شد، نه با باخت یا تساوی.</string>
-  <string name="drawStreakVariants">حداقل طول بازی برای بازی های قرعه کشی شده برای کسب امتیاز بر اساس نوع بازی متفاوت است. جدول زیر آستانه انواع مختلف را فهرست می کند.</string>
-  <string name="variant">انواع دیگر</string>
+  <string name="drawStreakStandard">ریسهٔ مساوی: وقتی بازیکنی در یک راوان، مساوی‌های پیاپی داشته باشد، فقط یکمین مساوی یا مساوی با بیش از %s حرکت در بازی‌های استاندارد، منجر به امتیاز می‌شود. «ریسهٔ مساوی» تنها با بُرد می‌شکند، نه باخت یا مساوی.</string>
+  <string name="drawStreakVariants">حداقل حرکت برای بازی‌های مساوی‌شدهٔ امتیازدار، بر پایهٔ وَرتا، متفاوت است. جدول زیر، آستانهٔ هر وَرتا را می‌نمایاند.</string>
+  <string name="variant">وَرتا</string>
   <string name="minimumGameLength">حداقل طول بازی</string>
-  <string name="history">تاریخچه مسابقات</string>
+  <string name="history">پیشینهٔ راوان</string>
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="one">دیدن تیم</item>
     <item quantity="other">دیدن همه‌ی %s تیم</item>
@@ -53,17 +53,17 @@
   <string name="customStartDateHelp">در منطقه زمانی محلی خودتان. تنظیمات \"زمان قبل شروع شدن مسابقه\" را نادیده می گیرد</string>
   <string name="allowBerserk">مجاز کردن جنون</string>
   <string name="allowBerserkHelp">به بازیکنان اجازه دهید زمان خود را نصف کنند تا یک امتیاز بیشتر بگیرند</string>
-  <string name="allowChatHelp">اجازه دادن بحث به بازیکنان در چت روم</string>
-  <string name="arenaStreaks">حرکات عالی در تالار</string>
-  <string name="arenaStreaksHelp">بعد از دو برد، بردهای پی در پی به‌جای 2 امتیاز 4 امتیاز می دهند.</string>
-  <string name="noBerserkAllowed">جنون مجاز نیست</string>
-  <string name="noArenaStreaks">سلسله برد ناموجود</string>
+  <string name="allowChatHelp">اجازه‌دهی به بازیکنان برای بحث در گپ‌سَرا</string>
+  <string name="arenaStreaks">ریسهٔ راوان</string>
+  <string name="arenaStreaksHelp">پس از دو بُرد، بُردهای پَیاپی به‌جای ۲، ۴ امتیاز می‌دهد.</string>
+  <string name="noBerserkAllowed">دیوانگی مجاز نیست</string>
+  <string name="noArenaStreaks">بدون ریسهٔ راوان</string>
   <string name="averagePerformance">میانگین عملکرد</string>
   <string name="averageScore">میانگین امتیاز</string>
   <string name="myTournaments">مسابقات من</string>
   <string name="editTournament">ویرایش مسابقه</string>
   <string name="editTeamBattle">ویرایش نبرد تیمی</string>
-  <string name="defender">مدافع</string>
+  <string name="defender">دفاع‌گر</string>
   <string name="pickYourTeam">تیم خود را انتخاب کنید</string>
   <string name="whichTeamWillYouRepresentInThisBattle">نماینده کدام تیم در این نبرد خواهید بود؟</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">برای شرکت کردن، شما باید عضو یکی از این تیم ها شوید!</string>
@@ -77,7 +77,7 @@
   <string name="medians">میانه</string>
   <string name="allAveragesAreX">همه میانگین ها در این صفحه %s هستند.</string>
   <string name="total">همه</string>
-  <string name="pointsAvg">میانگین امتیازات</string>
+  <string name="pointsAvg">میانگین امتیاز</string>
   <string name="pointsSum">جمع امتیازات</string>
   <string name="rankAvg">میانگین رتبه</string>
   <string name="tournamentWinners">برندگان مسابقات</string>

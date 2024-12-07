@@ -59,11 +59,11 @@ final class Env(
 
   private lazy val notifier = wire[RelayNotifier]
 
+  private lazy val studyPropagation = wire[RelayStudyPropagation]
+
   lazy val jsonView = wire[JsonView]
 
   lazy val listing: RelayListing = wire[RelayListing]
-
-  lazy val stats = wire[RelayStatsApi]
 
   lazy val api: RelayApi = wire[RelayApi]
 
@@ -89,7 +89,7 @@ final class Env(
 
   def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
     active   <- (page == 1).so(listing.active.get({}))
-    upcoming <- (page == 1).so(listing.upcoming.get({}))
+    upcoming <- (page == 1).so(listing.upcomingCache.get({}))
     past     <- pager.inactive(page)
   yield (active, upcoming, past)
 
@@ -98,6 +98,10 @@ final class Env(
   private lazy val formatApi = wire[RelayFormatApi]
 
   private lazy val delay = wire[RelayDelay]
+
+  // eager init to start the scheduler
+  private val stats = wire[RelayStatsApi]
+  export stats.{ getJson as statsJson }
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](
@@ -141,7 +145,7 @@ final class Env(
       studyApi
         .isContributor(id, who.u)
         .foreach:
-          _.so(api.requestPlay(id.into(RelayRoundId), v))
+          _.so(api.requestPlay(id.into(RelayRoundId), v, "manual toggle"))
     },
     "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
@@ -155,7 +159,7 @@ final class Env(
   )
 
   lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
-    api.onStudyMembersChange(change.study)
+    studyPropagation.onStudyMembersChange(change.study)
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))

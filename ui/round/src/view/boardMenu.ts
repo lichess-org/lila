@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
-import { LooseVNode } from 'common/snabbdom';
-import RoundController from '../ctrl';
-import { menu as menuDropdown } from 'board/menu';
+import type { LooseVNode } from 'common/snabbdom';
+import type RoundController from '../ctrl';
+import { boardMenu as menuDropdown } from 'common/boardMenu';
 import { toggle } from 'common';
 import { boolPrefXhrToggle } from 'common/controls';
 
@@ -19,7 +19,9 @@ export default function (ctrl: RoundController): LooseVNode {
         ),
         menu.voiceInput(boolPrefXhrToggle('voice', !!ctrl.voiceMove), !spectator),
         menu.keyboardInput(boolPrefXhrToggle('keyboardMove', !!ctrl.keyboardMove), !spectator),
-        !spectator && d.pref.submitMove ? menu.confirmMove(ctrl.confirmMoveEnabled) : undefined,
+        !spectator && (d.pref.submitMove || ctrl.voiceMove)
+          ? menu.confirmMove(ctrl.confirmMoveToggle)
+          : undefined,
       ]),
       h('section.board-menu__links', [
         h(

@@ -1,8 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { globArray, globArrays } from './parse.ts';
-import { hashedManifest, writeManifest } from './manifest.ts';
-import { type Sync, env, errorMark, colors as c } from './main.ts';
+import crypto from 'node:crypto';
+import { type Sync, globArray, globArrays } from './parse.ts';
+import { updateManifest, current } from './manifest.ts';
+import { env, errorMark, colors as c } from './env.ts';
 import { quantize } from './algo.ts';
 
 const syncWatch: fs.FSWatcher[] = [];
@@ -10,7 +11,6 @@ let watchTimeout: NodeJS.Timeout | undefined;
 
 export function stopSync(): void {
   clearTimeout(watchTimeout);
-  watchTimeout = undefined;
   for (const watcher of syncWatch) watcher.close();
   syncWatch.length = 0;
 }
@@ -21,7 +21,7 @@ export async function sync(): Promise<void> {
   const updated = new Set<string>();
 
   for (const pkg of env.building) {
-    for (const cp of pkg.sync ?? []) {
+    for (const cp of pkg.sync) {
       for (const src of await globSync(cp)) {
         if (env.watch) watched.set(src, [...(watched.get(src) ?? []), cp]);
       }
@@ -33,6 +33,7 @@ export async function sync(): Promise<void> {
       if (!watched.has(path.dirname(src))) watched.set(path.dirname(src), []);
     }
   }
+  hashedManifest();
   if (env.watch)
     for (const dir of watched.keys()) {
       const watcher = fs.watch(dir);
@@ -40,20 +41,16 @@ export async function sync(): Promise<void> {
       watcher.on('change', () => {
         updated.add(dir);
         clearTimeout(watchTimeout);
-
         watchTimeout = setTimeout(() => {
-          Promise.all([...updated].flatMap(d => (watched.get(d) ?? []).map(x => globSync(x)))).then(() => {
-            hashedManifest();
-            writeManifest();
-          });
+          Promise.all([...updated].flatMap(d => (watched.get(d) ?? []).map(x => globSync(x)))).then(
+            hashedManifest,
+          );
           updated.clear();
-          watchTimeout = undefined;
         }, 2000);
       });
       watcher.on('error', (err: Error) => env.error(err));
       syncWatch.push(watcher);
     }
-  hashedManifest();
 }
 
 export function isUnmanagedAsset(absfile: string): boolean {
@@ -106,4 +103,55 @@ async function syncOne(absSrc: string, absDest: string, pkgName: string) {
   } catch (_) {
     env.log(`[${c.grey(pkgName)}] - ${errorMark} - failed sync '${c.cyan(absSrc)}' to '${c.cyan(absDest)}'`);
   }
+}
+
+async function hashedManifest(): Promise<void> {
+  const newHashLinks = new Map<string, number>();
+  const alreadyHashed = new Map<string, string>();
+  const sources: string[] = await globArrays(
+    env.building.flatMap(x => x.hashGlobs),
+    { cwd: env.outDir },
+  );
+  const sourceStats = await Promise.all(sources.map(file => fs.promises.stat(file)));
+
+  for (const [i, stat] of sourceStats.entries()) {
+    const name = sources[i].slice(env.outDir.length + 1);
+
+    if (stat.mtimeMs === current.hashed[name]?.mtime) alreadyHashed.set(name, current.hashed[name].hash!);
+    else newHashLinks.set(name, stat.mtimeMs);
+  }
+  await Promise.allSettled([...alreadyHashed].map(([name, hash]) => link(name, hash)));
+
+  for (const { name, hash } of await Promise.all([...newHashLinks.keys()].map(hashLink))) {
+    current.hashed[name] = Object.defineProperty({ hash }, 'mtime', { value: newHashLinks.get(name) });
+  }
+
+  if (newHashLinks.size === 0 && alreadyHashed.size === Object.keys(current.hashed).length) return;
+
+  for (const name of Object.keys(current.hashed)) {
+    if (!sources.some(x => x.endsWith(name))) delete current.hashed[name];
+  }
+  updateManifest({ dirty: true });
+}
+
+async function hashLink(name: string) {
+  const src = path.join(env.outDir, name);
+  const hash = crypto
+    .createHash('sha256')
+    .update(await fs.promises.readFile(src))
+    .digest('hex')
+    .slice(0, 8);
+  link(name, hash);
+  return { name, hash };
+}
+
+function link(name: string, hash: string) {
+  const link = path.join(env.hashOutDir, asHashed(name, hash));
+  fs.promises.symlink(path.join('..', name), link).catch(() => {});
+}
+
+function asHashed(path: string, hash: string) {
+  const name = path.slice(path.lastIndexOf('/') + 1);
+  const extPos = name.indexOf('.');
+  return extPos < 0 ? `${name}.${hash}` : `${name.slice(0, extPos)}.${hash}${name.slice(extPos)}`;
 }

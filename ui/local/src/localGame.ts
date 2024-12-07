@@ -166,12 +166,12 @@ export class LocalGame {
     return dests;
   }
 
-  get cgDests(): Map<Cg.Key, Cg.Key[]> {
+  get cgDests(): Map<Key, Key[]> {
     // TODO: use chessops
     const dec = new Map();
     const dests = this.dests;
     if (!dests) return dec;
-    for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Cg.Key[]);
+    for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Key[]);
     return dec;
   }
 }

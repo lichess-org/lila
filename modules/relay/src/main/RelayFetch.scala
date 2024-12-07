@@ -86,9 +86,6 @@ final private class RelayFetch(
       val syncFu = for
         allGamesInSourceNoLimit <- fetchGames(rt).mon:
           _.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
-        _ = lila.mon.relay
-          .games(rt.tour.official, rt.tour.id, rt.round.slug)
-          .update(allGamesInSourceNoLimit.size)
         allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
@@ -109,9 +106,10 @@ final private class RelayFetch(
           nbGamesFinished > nbGamesUnstarted
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
         autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
-      yield res -> updating:
-        _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-          .copy(finished = autoFinishNow)
+        roundUpdate = updating: r =>
+          r.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
+            .copy(finishedAt = r.finishedAt.orElse(autoFinishNow.option(nowInstant)))
+      yield res -> roundUpdate
       syncFu
         .recover:
           case e: Exception =>

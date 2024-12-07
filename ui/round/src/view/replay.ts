@@ -1,16 +1,15 @@
 import * as licon from 'common/licon';
-import * as game from 'game';
-import * as status from 'game/status';
+import { userAnalysable, playable } from 'game';
+import { finished, aborted } from 'game/status';
 import * as util from '../util';
 import { isCol1 } from 'common/device';
-import RoundController from '../ctrl';
+import type RoundController from '../ctrl';
 import { throttle } from 'common/timing';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
-import { VNode } from 'snabbdom';
-import { Step } from '../interfaces';
-import { toggleButton as boardMenuToggleButton } from 'board/menu';
-import { LooseVNodes, LooseVNode, looseH as h } from 'common/snabbdom';
+import type { Step } from '../interfaces';
+import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
+import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
 
 const scrollMax = 99999,
@@ -25,7 +24,7 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
     if (ctrl.data.steps.length < 7) return;
     let st: number | undefined;
     if (ctrl.ply < 3) st = 0;
-    else if (ctrl.ply == util.lastPly(ctrl.data)) st = scrollMax;
+    else if (ctrl.ply === util.lastPly(ctrl.data)) st = scrollMax;
     else {
       const plyEl = movesEl.querySelector('.a1t') as HTMLElement | undefined;
       if (plyEl)
@@ -33,8 +32,8 @@ const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =
           ? plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2
           : plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
     }
-    if (typeof st == 'number') {
-      if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+    if (typeof st === 'number') {
+      if (st === scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
       else if (isCol1()) movesEl.scrollLeft = st;
       else movesEl.scrollTop = st;
     }
@@ -53,7 +52,7 @@ const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Se
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
   let result: string | undefined;
-  if (status.finished(ctrl.data))
+  if (finished(ctrl.data))
     switch (ctrl.data.game.winner) {
       case 'white':
         result = '1-0';
@@ -64,13 +63,13 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       default:
         result = '½-½';
     }
-  if (result || status.aborted(ctrl.data)) {
+  if (result || aborted(ctrl.data)) {
     return h('div.result-wrap', [
       h('p.result', result || ''),
       h(
         'p.status',
         {
-          hook: util.onInsert(() => {
+          hook: onInsert(() => {
             if (ctrl.autoScroll) ctrl.autoScroll();
             else setTimeout(() => ctrl.autoScroll(), 200);
           }),
@@ -114,7 +113,7 @@ function renderMoves(ctrl: RoundController): LooseVNodes {
 export function analysisButton(ctrl: RoundController): LooseVNode {
   const forecastCount = ctrl.data.forecastCount;
   return (
-    game.userAnalysable(ctrl.data) &&
+    userAnalysable(ctrl.data) &&
     h(
       'a.fbt.analysis',
       {
@@ -138,7 +137,7 @@ function renderButtons(ctrl: RoundController) {
   return h(
     'div.buttons',
     {
-      hook: util.bind(
+      hook: bind(
         'mousedown',
         e => {
           const target = e.target as HTMLElement;
@@ -171,7 +170,7 @@ function initMessage(ctrl: RoundController) {
   const d = ctrl.data;
   return (
     (ctrl.replayEnabledByPref() || !isCol1()) &&
-    game.playable(d) &&
+    playable(d) &&
     d.game.turns === 0 &&
     !d.player.spectator &&
     h('div.message', util.justIcon(licon.InfoCircle), [
@@ -186,7 +185,7 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: util.bind('mousedown', e => {
+    hook: bind('mousedown', e => {
       e.preventDefault();
       ctrl.userJump(ctrl.ply + dir);
       ctrl.redraw();
@@ -200,7 +199,7 @@ export function render(ctrl: RoundController): LooseVNode {
       h(
         movesTag,
         {
-          hook: util.onInsert(el => {
+          hook: onInsert(el => {
             el.addEventListener('mousedown', e => {
               let node = e.target as HTMLElement,
                 offset = -2;
@@ -229,9 +228,9 @@ export function render(ctrl: RoundController): LooseVNode {
       initMessage(ctrl) ||
         (isCol1()
           ? h('div.col1-moves', [
-              col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply == util.firstPly(d)),
+              col1Button(ctrl, -1, licon.JumpPrev, ctrl.ply === util.firstPly(d)),
               renderMovesOrResult,
-              col1Button(ctrl, 1, licon.JumpNext, ctrl.ply == util.lastPly(d)),
+              col1Button(ctrl, 1, licon.JumpNext, ctrl.ply === util.lastPly(d)),
             ])
           : renderMovesOrResult),
     ])

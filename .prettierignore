@@ -9,6 +9,6 @@
 !/ui/
 !/ui/**
 dist/
-readme
-/ui/.build/src/algo.ts
-/ui/voice/@build/crowdv/*.json
+README.md
+pnpm-lock.yaml
+/ui/voice/crowdv/

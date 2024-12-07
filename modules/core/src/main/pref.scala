@@ -18,6 +18,7 @@ trait Pref:
   val resizeHandle: Int
   val theme: String
   val pieceSet: String
+  val usingAltSocket: Option[Boolean]
 
   def hasKeyboardMove: Boolean
   def hasVoice: Boolean

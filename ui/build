@@ -5,7 +5,8 @@ set -e
 cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
 
 if ! command -v pnpm &> /dev/null; then
-  echo "The 'pnpm' tool is required. See https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding#tools-and-dependency-managers"
+  echo "The 'pnpm' tool is required. cd to the repo directory and type 'corepack enable'"
+  echo "https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding"
   exit 1
 fi
 

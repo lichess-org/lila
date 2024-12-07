@@ -1,5 +1,6 @@
 package lila.rating
 
+import chess.IntRating
 import lila.core.rating as hub
 
 object RatingRange:
@@ -8,8 +9,8 @@ object RatingRange:
     def notBroad: Option[hub.RatingRange] = Option.when(r != hub.RatingRange.broad)(r)
     def withinLimits(rating: IntRating, delta: Int) =
       r.copy(
-        min = IntRating(r.min.atMost(rating + delta).value),
-        max = IntRating(r.max.atLeast(rating - delta).value)
+        min = r.min.atMost(rating.map(_ + delta)),
+        max = r.max.atLeast(rating.map(_ - delta))
       )
 
   export hub.RatingRange.*
@@ -17,15 +18,17 @@ object RatingRange:
   private val distribution = Gaussian(1500d, 350d)
 
   def defaultFor(rating: IntRating) =
-    val (rangeMin, rangeMax) = distribution.range(rating.value.toDouble, 0.2)
-    hub.RatingRange(IntRating(rangeMin.toInt).atLeast(min), IntRating(rangeMax.toInt).atMost(max))
+    val (rangeMinD, rangeMaxD) = distribution.range(rating.value.toDouble, 0.2)
+    val rangeMin: IntRating    = IntRating(rangeMinD.toInt)
+    val rangeMax: IntRating    = IntRating(rangeMaxD.toInt)
+    hub.RatingRange(rangeMin.atLeast(min), rangeMax.atMost(max))
 
   def apply(rating: IntRating, deltaMin: Option[String], deltaMax: Option[String]): Option[hub.RatingRange] =
     for
-      dmin <- deltaMin.flatMap(_.toIntOption)
+      dmin <- IntRating.from(deltaMin.flatMap(_.toIntOption))
       min = rating + dmin
       if acceptable(min)
-      dmax <- deltaMax.flatMap(_.toIntOption)
+      dmax <- IntRating.from(deltaMax.flatMap(_.toIntOption))
       max = rating + dmax
       if acceptable(max)
       if min < max

@@ -2,6 +2,7 @@
 
 package routes:
 
+  export scalalib.model.Days
   export chess.Color
   export chess.format.Uci
   export chess.opening.OpeningKey
@@ -15,6 +16,7 @@ package routes:
 
 package router.router:
 
+  export scalalib.model.Days
   export chess.Color
   export chess.format.Uci
   export chess.opening.OpeningKey
@@ -34,6 +36,7 @@ package router.team:
 
 package router.clas:
 
+  export scalalib.model.Days
   export lila.core.id.{ ClasId, ClasInviteId }
   export lila.core.perf.PerfKey
   export lila.core.userId.UserStr

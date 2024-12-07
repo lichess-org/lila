@@ -9,9 +9,6 @@ import lila.core.perf.{ KeyedPerf, UserPerfs }
 
 export lila.core.lilaism.Lilaism.{ *, given }
 
-trait AssetManifest:
-  def jsName(key: String): String
-
 trait RatingApi:
   val toNameKey: PerfKey => I18nKey
   val toDescKey: PerfKey => I18nKey

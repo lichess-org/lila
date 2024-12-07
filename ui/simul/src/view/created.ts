@@ -1,9 +1,9 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { confirm, domDialog } from 'common/dialog';
 import { bind, looseH as h } from 'common/snabbdom';
-import SimulCtrl from '../ctrl';
-import { Applicant } from '../interfaces';
+import type SimulCtrl from '../ctrl';
+import type { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
 
@@ -14,7 +14,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
       isHost = ctrl.createdByMe(),
       canJoin = ctrl.data.canJoin;
     const variantIconFor = (a: Applicant) => {
-      const variant = ctrl.data.variants.find(v => a.variant == v.key);
+      const variant = ctrl.data.variants.find(v => a.variant === v.key);
       return variant && h('td.variant', { attrs: { 'data-icon': variant.icon } });
     };
     return [

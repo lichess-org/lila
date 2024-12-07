@@ -8,10 +8,10 @@ import {
 } from 'snabbdom';
 import { LearnCtrl } from './ctrl';
 import { view } from './view';
-import * as Prefs from 'common/prefs';
+import { Coords } from 'common/prefs';
 import { pubsub } from 'common/pubsub';
 
-import storage, { Storage } from './storage';
+import storage, { type Storage } from './storage';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
@@ -33,7 +33,7 @@ export interface LearnOpts {
 }
 
 export interface LearnPrefs {
-  coords: Prefs.Coords;
+  coords: Coords;
   destination: boolean;
 }
 

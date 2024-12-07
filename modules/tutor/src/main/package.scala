@@ -1,8 +1,9 @@
 package lila.tutor
 
+import chess.IntRating
+
 import lila.core.perf.UserWithPerfs
 import lila.insight.ClockPercent
-
 export lila.core.lilaism.Lilaism.{ *, given }
 export lila.common.extensions.*
 

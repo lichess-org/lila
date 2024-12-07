@@ -1,11 +1,10 @@
 import * as licon from 'common/licon';
-import { h, VNode } from 'snabbdom';
-import { LearnCtrl } from './ctrl';
-import { Stage } from './stage/list';
-import * as stages from './stage/list';
-import { StageProgress } from './learn';
+import { h, type VNode } from 'snabbdom';
+import type { LearnCtrl } from './ctrl';
+import { type Stage, categs } from './stage/list';
+import type { StageProgress } from './learn';
 import * as scoring from './score';
-import * as util from './util';
+import { assetUrl } from './util';
 import { mapSideView } from './mapSideView';
 import { hashHref } from './hashRouting';
 import { runView } from './run/runView';
@@ -18,7 +17,7 @@ const mapView = (ctrl: LearnCtrl) =>
   h('div.learn.learn--map', [
     h('div.learn__side', mapSideView(ctrl)),
     h('div.learn__main.learn-stages', [
-      ...stages.categs.map(categ =>
+      ...categs.map(categ =>
         h('div.categ', [
           h('h2', categ.name),
           h(
@@ -33,7 +32,7 @@ const mapView = (ctrl: LearnCtrl) =>
                 `a.stage.${status}.${titleVerbosityClass(title)}`,
                 { attrs: { href: hashHref(stage.id) } },
                 [
-                  status != 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
+                  status !== 'future' ? ribbon(ctrl, stage, status, stageProgress) : undefined,
                   h('img', { attrs: { src: stage.image } }),
                   h('div.text', [h('h3', title), h('p.subtitle', stage.subtitle)]),
                 ],
@@ -61,7 +60,7 @@ const ribbon = (ctrl: LearnCtrl, s: Stage, status: Exclude<Status, 'future'>, st
     'span.ribbon-wrapper',
     h(
       `span.ribbon.${status}`,
-      status == 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores)),
+      status === 'ongoing' ? ongoingStr(ctrl, s) : makeStars(scoring.getStageRank(s, stageProgress.scores)),
     ),
   );
 
@@ -70,7 +69,7 @@ function whatNext(ctrl: LearnCtrl) {
     const transTitle = title;
     return h(`a.stage.done.${titleVerbosityClass(transTitle)}`, { attrs: { href: href } }, [
       done ? h('span.ribbon-wrapper', h('span.ribbon.done', makeStars(1))) : null,
-      h('img', { attrs: { src: util.assetUrl + 'images/learn/' + img + '.svg' } }),
+      h('img', { attrs: { src: assetUrl + 'images/learn/' + img + '.svg' } }),
       h('div.text', [h('h3', transTitle), h('p.subtitle', subtitle)]),
     ]);
   };

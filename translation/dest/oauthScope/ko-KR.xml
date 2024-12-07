@@ -14,8 +14,8 @@
   <string name="challengeRead" comment="In the context of an authentication token, this is a setting that gives a third-party app permission to view game challenges from other players.&#10;&#10;There is a separate setting to let applications send, accept or reject challenges.">새로운 도전 과제 읽기</string>
   <string name="challengeWrite" comment="challengeWrite&#10;&#10;In the context of an authentication token, a setting that permits third party software to send, accept and reject challenges on behalf of the player.">도전 과제 보내기, 수락 및 거부</string>
   <string name="challengeBulk">다른 플레이어를 위해 한 번에 여러 게임을 생성하세요</string>
-  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">개인 학습 및 방송 보기</string>
-  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">스터디 및 방송 생성, 업데이트, 삭제하기</string>
+  <string name="studyRead" comment="Gives permission to third-party software to *read* information that already exists. However it won't be able to write (create) private studies or broadcasts.">비공개 연구 및 방송 보기</string>
+  <string name="studyWrite" comment="In the context of an access token, a setting that enables third party software to create, update or delete studies and broadcasts.">연구 및 방송 생성, 업데이트, 삭제하기</string>
   <string name="tournamentWrite" comment="In the context of an access token, a setting that permits third party software to create, update or delete studies and join tournaments.">토너먼트 생성, 업데이트 및 참여하기</string>
   <string name="racerWrite" comment="In the context of an access token, a setting which permits third party software to create, and join puzzle races (this is for the activity/minigame Puzzle Racer: https://lichess.org/racer)">퍼즐 레이스 생성 및 참여</string>
   <string name="puzzleRead" comment="In the context of an access token, a setting which permits third-party software to view the user's puzzle solving history.">퍼즐 액티비티 읽기</string>

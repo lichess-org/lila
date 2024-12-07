@@ -12,7 +12,7 @@ final class SwissCache(
   import BsonHandlers.given
 
   object swissCache:
-    private val cache = cacheApi[SwissId, Option[Swiss]](512, "swiss.swiss"):
+    private val cache = cacheApi[SwissId, Option[Swiss]](64, "swiss.swiss"):
       _.expireAfterWrite(1 second)
         .buildAsyncFuture(id => mongo.swiss.byId[Swiss](id))
 
@@ -24,7 +24,7 @@ final class SwissCache(
 
   val name = cacheApi.sync[SwissId, Option[String]](
     name = "swiss.name",
-    initialCapacity = 4096,
+    initialCapacity = 8_192,
     compute = id => mongo.swiss.primitiveOne[String]($id(id), "name"),
     default = _ => none,
     strategy = Syncache.Strategy.WaitAfterUptime(20 millis),

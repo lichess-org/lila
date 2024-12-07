@@ -2,6 +2,7 @@ package lila.tournament
 
 import java.util.concurrent.ConcurrentHashMap
 import scala.collection.immutable.TreeSet
+import chess.IntRating
 
 import lila.core.chess.Rank
 

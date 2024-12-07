@@ -1,15 +1,14 @@
-import { AnalyseSocketSend } from '../socket';
-import { VNode } from 'snabbdom';
+import type { AnalyseSocketSend } from '../socket';
 import * as licon from 'common/licon';
-import { iconTag, bind, onInsert, dataIcon, bindNonPassive, looseH as h } from 'common/snabbdom';
-import { makeCtrl as inviteFormCtrl, StudyInviteFormCtrl } from './inviteForm';
-import { NotifCtrl } from './notif';
+import { type VNode, iconTag, bind, onInsert, dataIcon, bindNonPassive, looseH as h } from 'common/snabbdom';
+import { makeCtrl as inviteFormCtrl, type StudyInviteFormCtrl } from './inviteForm';
+import type { NotifCtrl } from './notif';
 import { prop, Prop, scrollTo } from 'common';
 import { titleNameToId } from '../view/util';
-import { StudyMember, StudyMemberMap, Tab } from './interfaces';
+import type { StudyMember, StudyMemberMap, Tab } from './interfaces';
 import { textRaw as xhrTextRaw } from 'common/xhr';
 import { userLink } from 'common/userLink';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 import { once } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 
@@ -158,7 +157,7 @@ export function view(ctrl: StudyCtrl): VNode {
         attrs: dataIcon(licon.Gear),
         hook: bind(
           'click',
-          () => members.confing(members.confing() == member.user.id ? null : member.user.id),
+          () => members.confing(members.confing() === member.user.id ? null : member.user.id),
           ctrl.redraw,
         ),
       });

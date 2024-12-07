@@ -1,8 +1,8 @@
 import makeCtrl from './ctrl';
 import menuHover from 'common/menuHover';
 import makeView from './view/main';
-import { AnalyseApi, AnalyseOpts } from './interfaces';
-import { VNode } from 'snabbdom';
+import type { AnalyseApi, AnalyseOpts } from './interfaces';
+import type { VNode } from 'snabbdom';
 import type * as studyDeps from './study/studyDeps';
 
 export default function (

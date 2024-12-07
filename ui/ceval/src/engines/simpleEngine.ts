@@ -1,5 +1,5 @@
 import { Protocol } from '../protocol';
-import { Work, CevalState, CevalEngine, BrowserEngineInfo } from '../types';
+import { CevalState, type Work, type CevalEngine, type BrowserEngineInfo } from '../types';
 
 export class SimpleEngine implements CevalEngine {
   private failed: Error;

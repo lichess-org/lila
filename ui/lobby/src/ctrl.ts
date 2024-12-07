@@ -2,10 +2,10 @@ import { numberFormat } from 'common/number';
 import variantConfirm from './variant';
 import * as hookRepo from './hookRepo';
 import * as seekRepo from './seekRepo';
-import { make as makeStores, Stores } from './store';
+import { make as makeStores, type Stores } from './store';
 import * as xhr from './xhr';
 import * as poolRangeStorage from './poolRangeStorage';
-import {
+import type {
   LobbyOpts,
   LobbyData,
   Tab,
@@ -63,7 +63,7 @@ export default class LobbyController {
     this.socket = new LobbySocket(opts.socketSend, this);
 
     this.stores = makeStores(this.me?.username.toLowerCase());
-    if (!this.me?.isBot && this.stores.tab.get() == 'now_playing' && this.data.nbNowPlaying == 0) {
+    if (!this.me?.isBot && this.stores.tab.get() === 'now_playing' && this.data.nbNowPlaying === 0) {
       this.stores.tab.set('pools');
     }
     this.tab = this.me?.isBot ? 'now_playing' : this.stores.tab.get();
@@ -231,7 +231,7 @@ export default class LobbyController {
 
   clickPool = (id: string) => {
     if (!this.me) {
-      xhr.anonPoolSeek(this.pools.find(p => p.id == id)!);
+      xhr.anonPoolSeek(this.pools.find(p => p.id === id)!);
       this.setTab('real_time');
     } else if (this.poolMember && this.poolMember.id === id) this.leavePool();
     else this.enterPool({ id });

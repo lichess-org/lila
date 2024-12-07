@@ -1,18 +1,17 @@
-import { Prop, prop, defined } from 'common';
+import { type Prop, prop, defined } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import { defer } from 'common/defer';
 import { fenColor } from 'common/miniBoard';
 import { debounce } from 'common/timing';
-import { sync, Sync } from 'common/promise';
+import { sync, type Sync } from 'common/promise';
 import { opposite } from 'chessground/util';
 import * as xhr from './explorerXhr';
 import { winnerOf } from './explorerUtil';
-import * as gameUtil from 'game';
-import AnalyseCtrl from '../ctrl';
-import { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
+import { replayable } from 'game';
+import type AnalyseCtrl from '../ctrl';
+import type { Hovering, ExplorerData, OpeningData, SimpleTablebaseHit, ExplorerOpts } from './interfaces';
 import { ExplorerConfigCtrl } from './explorerConfig';
 import { clearLastShow } from './explorerView';
-import { FEN } from 'chessground/types';
 
 export const MAX_DEPTH = 50;
 
@@ -61,7 +60,7 @@ export default class ExplorerCtrl {
   ) {
     this.allowed = prop(previous ? previous.allowed() : true);
     this.enabled = storedBooleanProp('analyse.explorer.enabled', false);
-    this.withGames = root.synthetic || gameUtil.replayable(root.data) || !!root.data.opponent.ai;
+    this.withGames = root.synthetic || replayable(root.data) || !!root.data.opponent.ai;
     this.effectiveVariant =
       root.data.game.variant.key === 'fromPosition' ? 'standard' : root.data.game.variant.key;
     this.config = new ExplorerConfigCtrl(root, this.effectiveVariant, this.reload, previous?.config);
@@ -71,12 +70,12 @@ export default class ExplorerCtrl {
 
   private checkHash = (e?: HashChangeEvent) => {
     const parts = location.hash.split('/');
-    if (parts[0] == '#explorer' || parts[0] == '#opening') {
+    if (parts[0] === '#explorer' || parts[0] === '#opening') {
       this.enabled(true);
-      if (parts[1] == 'lichess' || parts[1] === 'masters') this.config.data.db(parts[1]);
+      if (parts[1] === 'lichess' || parts[1] === 'masters') this.config.data.db(parts[1]);
       else if (parts[1]?.match(/[A-Za-z0-9_-]{2,30}/)) {
         this.config.selectPlayer(parts[1]);
-        this.config.data.color(parts[2] == 'black' ? 'black' : 'white');
+        this.config.data.color(parts[2] === 'black' ? 'black' : 'white');
       }
       if (e) this.reload();
     }
@@ -196,7 +195,7 @@ export default class ExplorerCtrl {
     this.root.setAutoShapes();
   };
   onFlip = () => {
-    if (this.db() == 'player') {
+    if (this.db() === 'player') {
       this.cache = {};
       this.setNode();
     }
@@ -219,7 +218,7 @@ export default class ExplorerCtrl {
   fetchTablebaseHit = async (fen: FEN): Promise<SimpleTablebaseHit> => {
     const res = await xhr.tablebase(this.opts.tablebaseEndpoint, this.effectiveVariant, fen);
     const move = res.moves[0];
-    if (move && move.dtz == null) throw 'unknown tablebase position';
+    if (move && move.dtz === null) throw 'unknown tablebase position';
     return {
       fen,
       best: move && move.uci,

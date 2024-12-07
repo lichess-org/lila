@@ -40,7 +40,8 @@ object Link:
             .split(' ')
             .toList
         )
-    case Twitter               extends Site("Twitter/X", List("twitter.com", "x.com"))
+    case Bluesky               extends Site("Bluesky", List("bsky.app"))
+    case Twitter               extends Site("X", List("twitter.com", "x.com"))
     case Facebook              extends Site("Facebook", List("facebook.com"))
     case Instagram             extends Site("Instagram", List("instagram.com"))
     case YouTube               extends Site("YouTube", List("youtube.com"))
@@ -55,6 +56,7 @@ object Link:
   object Site:
     val allKnown: List[Site] = List(
       Mastodon,
+      Bluesky,
       Twitter,
       Facebook,
       Instagram,

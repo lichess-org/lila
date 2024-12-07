@@ -1,13 +1,11 @@
-import { Prop, defined } from 'common';
-import { EvalHitMulti } from '../interfaces';
+import { type Prop, defined } from 'common';
+import type { EvalHitMulti } from '../interfaces';
 import { storedBooleanPropWithEffect } from 'common/storage';
-import { povChances } from 'ceval/src/winningChances';
-import { bind, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import { FEN } from 'chessground/types';
-import { StudyChapters } from './studyChapters';
+import { povChances } from 'ceval/winningChances';
+import { type VNode, bind, looseH as h } from 'common/snabbdom';
+import type { StudyChapters } from './studyChapters';
 import { debounce } from 'common/timing';
-import { ServerNodeMsg } from './interfaces';
+import type { ServerNodeMsg } from './interfaces';
 
 export interface CloudEval extends EvalHitMulti {
   chances: number;
@@ -71,7 +69,7 @@ export class MultiCloudEval {
         const variant = chapters[0].variant; // lila-ws only supports one variant for all fens
         this.send('evalGetMulti', {
           fens: Array.from(fensToRequest),
-          ...(variant != 'standard' ? { variant } : {}),
+          ...(variant !== 'standard' ? { variant } : {}),
         });
       }
     }

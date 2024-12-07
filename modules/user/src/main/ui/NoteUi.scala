@@ -38,7 +38,7 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
           postForm(
             action := routes.User.setDoxNote(note._id, !note.dox)
           ):
-            submitButton(cls := "button-empty confirm button text")("Toggle Dox")
+            submitButton(cls := "button-empty yes-no-confirm button text")("Toggle Dox")
         ),
         p(cls := "note__meta")(
           userIdLink(note.from.some),
@@ -51,7 +51,7 @@ final class NoteUi(helpers: Helpers)(using NetDomain):
               br,
               postForm(action := routes.User.deleteNote(note._id))(
                 submitButton(
-                  cls      := "button-empty button-red confirm button text",
+                  cls      := "button-empty button-red yes-no-confirm button text",
                   style    := "float:right",
                   dataIcon := Icon.Trash
                 )(trans.site.delete())

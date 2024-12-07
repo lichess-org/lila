@@ -119,7 +119,7 @@ final class ClasPages(helpers: Helpers, clasUi: ClasUi, dashUi: DashboardUi):
             cls    := "clas-edit__archive"
           )(
             form3.submit(trans.clas.closeClass(), icon = none)(
-              cls := "confirm button-red button-empty"
+              cls := "yes-no-confirm button-red button-empty"
             )
           )
         )

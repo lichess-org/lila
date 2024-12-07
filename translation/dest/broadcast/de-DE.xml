@@ -71,11 +71,10 @@
   <string name="ratingDiff">Wertungsdifferenz</string>
   <string name="gamesThisTournament">Partien in diesem Turnier</string>
   <string name="score">Punktestand</string>
-  <string name="perPage">%s pro Seite</string>
   <string name="allTeams">Alle Teams</string>
   <string name="tournamentFormat">Turnierformat</string>
   <string name="tournamentLocation">Turnierort</string>
-  <string name="topPlayers">Topspieler</string>
+  <string name="topPlayers">Spitzenspieler</string>
   <string name="timezone">Zeitzone</string>
   <string name="fideRatingCategory">FIDE-Wertungskategorie</string>
   <string name="optionalDetails">Optionale Details</string>

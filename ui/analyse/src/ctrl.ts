@@ -1,60 +1,52 @@
-import * as cg from 'chessground/types';
-import * as chessUtil from 'chess';
-import * as game from 'game';
+import { fenToEpd, readDests, readDrops } from 'chess';
+import { playable, playedTurns } from 'game';
 import * as keyboard from './keyboard';
-import * as util from './util';
+import { treeReconstruct, plyColor } from './util';
 import { plural } from './view/util';
 import { debounce, throttle } from 'common/timing';
-import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
-import StudyCtrl from './study/studyCtrl';
+import type GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
+import type StudyCtrl from './study/studyCtrl';
 import { isTouchDevice } from 'common/device';
-import {
-  AnalyseOpts,
-  AnalyseData,
-  ServerEvalData,
-  Key,
-  JustCaptured,
-  NvuiPlugin,
-  Redraw,
-} from './interfaces';
-import { Api as ChessgroundApi } from 'chessground/api';
+import type { AnalyseOpts, AnalyseData, ServerEvalData, JustCaptured, NvuiPlugin } from './interfaces';
+import type { Api as ChessgroundApi } from 'chessground/api';
 import { Autoplay, AutoplayDelay } from './autoplay';
-import { build as makeTree, path as treePath, ops as treeOps, TreeWrapper } from 'tree';
+import { build as makeTree, path as treePath, ops as treeOps, type TreeWrapper } from 'tree';
 import { compute as computeAutoShapes } from './autoShape';
-import { Config as ChessgroundConfig } from 'chessground/config';
-import { CevalCtrl, isEvalBetter, sanIrreversible, EvalMeta } from 'ceval';
+import type { Config as ChessgroundConfig } from 'chessground/config';
+import { CevalCtrl, isEvalBetter, sanIrreversible, type EvalMeta } from 'ceval';
 import { TreeView } from './treeView/treeView';
-import { defined, prop, Prop, toggle, Toggle, requestIdleCallback } from 'common';
+import { defined, prop, type Prop, toggle, type Toggle, requestIdleCallback } from 'common';
 import { pubsub } from 'common/pubsub';
-import { DrawShape } from 'chessground/draw';
+import type { DrawShape } from 'chessground/draw';
 import { lichessRules } from 'chessops/compat';
 import EvalCache from './evalCache';
-import { make as makeFork, ForkCtrl } from './fork';
-import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
-import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
-import { make as makeSocket, Socket } from './socket';
+import { make as makeFork, type ForkCtrl } from './fork';
+import { make as makePractice, type PracticeCtrl } from './practice/practiceCtrl';
+import { make as makeRetro, type RetroCtrl } from './retrospect/retroCtrl';
+import { make as makeSocket, type Socket } from './socket';
 import { nextGlyphSymbol, add3or5FoldGlyphs } from './nodeFinder';
 import { opposite, parseUci, makeSquare, roleToChar } from 'chessops/util';
-import { Outcome, isNormal } from 'chessops/types';
+import { type Outcome, isNormal } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
-import { Position, PositionError } from 'chessops/chess';
-import { Result } from '@badrap/result';
+import type { Position, PositionError } from 'chessops/chess';
+import type { Result } from '@badrap/result';
 import { setupPosition } from 'chessops/variant';
 import { storedBooleanProp } from 'common/storage';
-import { AnaMove } from './study/interfaces';
-import StudyPracticeCtrl from './study/practice/studyPracticeCtrl';
+import type { AnaMove } from './study/interfaces';
+import type StudyPracticeCtrl from './study/practice/studyPracticeCtrl';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import { PromotionCtrl } from 'chess/promotion';
-import wikiTheory, { wikiClear, WikiTheory } from './wiki';
+import wikiTheory, { wikiClear, type WikiTheory } from './wiki';
 import ExplorerCtrl from './explorer/explorerCtrl';
 import { uciToMove } from 'chessground/util';
 import Persistence from './persistence';
 import pgnImport from './pgnImport';
 import ForecastCtrl from './forecast/forecastCtrl';
-import { ArrowKey, KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
+import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
-import { PgnError } from 'chessops/pgn';
+import type { PgnError } from 'chessops/pgn';
 import { confirm } from 'common/dialog';
+import api from './api';
 
 export default class AnalyseCtrl {
   data: AnalyseData;
@@ -203,18 +195,19 @@ export default class AnalyseCtrl {
     });
     pubsub.on('board.change', redraw);
     this.persistence?.merge();
+    window.lichess.analysis = api(this);
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
     this.synthetic = data.game.id === 'synthetic';
-    this.ongoing = !this.synthetic && game.playable(data);
+    this.ongoing = !this.synthetic && playable(data);
 
     const prevTree = merge && this.tree.root;
-    this.tree = makeTree(util.treeReconstruct(this.data.treeParts, this.data.sidelines));
+    this.tree = makeTree(treeReconstruct(this.data.treeParts, this.data.sidelines));
     if (prevTree) this.tree.merge(prevTree);
     const mainline = treeOps.mainlineNodeList(this.tree.root);
-    if (this.data.game.status.name == 'draw') add3or5FoldGlyphs(mainline);
+    if (this.data.game.status.name === 'draw') add3or5FoldGlyphs(mainline);
 
     this.autoplay = new Autoplay(this);
     if (this.socket) this.socket.clearCache();
@@ -260,7 +253,7 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path);
     this.fenInput = undefined;
     this.pgnInput = undefined;
-    if (this.wiki && this.data.game.variant.key == 'standard') this.wiki(this.nodeList);
+    if (this.wiki && this.data.game.variant.key === 'standard') this.wiki(this.nodeList);
     this.persistence?.save();
   };
 
@@ -301,7 +294,7 @@ export default class AnalyseCtrl {
   }
 
   turnColor(): Color {
-    return util.plyColor(this.node.ply);
+    return plyColor(this.node.ply);
   }
 
   togglePlay(delay: AutoplayDelay): void {
@@ -328,13 +321,13 @@ export default class AnalyseCtrl {
       });
   });
 
-  serverMainline = () => this.mainline.slice(0, game.playedTurns(this.data) + 1);
+  serverMainline = () => this.mainline.slice(0, playedTurns(this.data) + 1);
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
       color = this.turnColor(),
-      dests = chessUtil.readDests(this.node.dests),
-      drops = chessUtil.readDrops(this.node.drops),
+      dests = readDests(this.node.dests),
+      drops = readDrops(this.node.drops),
       gamebookPlay = this.gamebookPlay(),
       movableColor = gamebookPlay
         ? gamebookPlay.movableColor()
@@ -405,7 +398,7 @@ export default class AnalyseCtrl {
 
   jump(path: Tree.Path): void {
     const pathChanged = path !== this.path,
-      isForwardStep = pathChanged && path.length == this.path.length + 2;
+      isForwardStep = pathChanged && path.length === this.path.length + 2;
     this.setPath(path);
     if (pathChanged) {
       if (this.study) this.study.setPath(path, this.node);
@@ -497,7 +490,7 @@ export default class AnalyseCtrl {
     return undefined;
   }
 
-  changeFen(fen: cg.FEN): void {
+  changeFen(fen: FEN): void {
     this.redirecting = true;
     window.location.href =
       '/analysis/' +
@@ -506,7 +499,7 @@ export default class AnalyseCtrl {
       encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
-  crazyValid = (role: cg.Role, key: cg.Key): boolean => {
+  crazyValid = (role: Role, key: Key): boolean => {
     const color = this.chessground.state.movable.color;
     return (
       (color === 'white' || color === 'black') &&
@@ -516,12 +509,12 @@ export default class AnalyseCtrl {
 
   getCrazyhousePockets = () => this.node.crazy?.pockets;
 
-  sendNewPiece = (role: cg.Role, key: cg.Key): void => {
+  sendNewPiece = (role: Role, key: Key): void => {
     const color = this.chessground.state.movable.color;
     if (color === 'white' || color === 'black') this.userNewPiece({ color, role }, key);
   };
 
-  userNewPiece = (piece: cg.Piece, pos: Key): void => {
+  userNewPiece = (piece: Piece, pos: Key): void => {
     if (crazyValid(this.chessground, this.node.drops, piece, pos)) {
       this.justPlayed = roleToChar(piece.role).toUpperCase() + '@' + pos;
       this.justDropped = piece.role;
@@ -552,7 +545,7 @@ export default class AnalyseCtrl {
     }
   };
 
-  sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: cg.Role): void => {
+  sendMove = (orig: Key, dest: Key, capture?: JustCaptured, prom?: Role): void => {
     const move: AnaMove = {
       orig,
       dest,
@@ -570,9 +563,9 @@ export default class AnalyseCtrl {
 
   private preparePremoving(): void {
     this.chessground.set({
-      turnColor: this.chessground.state.movable.color as cg.Color,
+      turnColor: this.chessground.state.movable.color as Color,
       movable: {
-        color: opposite(this.chessground.state.movable.color as cg.Color),
+        color: opposite(this.chessground.state.movable.color as Color),
       },
       premovable: {
         enabled: true,
@@ -593,7 +586,7 @@ export default class AnalyseCtrl {
     }
 
     const relayPath = this.study?.data.chapter.relayPath;
-    if (relayPath && relayPath != newPath) this.forceVariation(newPath, true);
+    if (relayPath && relayPath !== newPath) this.forceVariation(newPath, true);
     else this.jump(newPath);
 
     this.redraw();
@@ -664,7 +657,7 @@ export default class AnalyseCtrl {
     this.redraw();
   }
 
-  encodeNodeFen(): cg.FEN {
+  encodeNodeFen(): FEN {
     return this.node.fen.replace(/\s/g, '_');
   }
 
@@ -712,7 +705,7 @@ export default class AnalyseCtrl {
     const opts = {
       variant: this.data.game.variant,
       initialFen: this.data.game.initialFen,
-      possible: (this.synthetic || !game.playable(this.data)) && !location.search.includes('evals=0'),
+      possible: (this.synthetic || !playable(this.data)) && !location.search.includes('evals=0'),
       emit: (ev: Tree.ClientEval, work: EvalMeta) => {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
@@ -891,7 +884,7 @@ export default class AnalyseCtrl {
     return !n.eval && !!n.children.length && n.ply <= 300 && n.ply > 0;
   }
 
-  playUci(uci: Uci, uciQueue?: Uci[]) {
+  playUci = (uci: Uci, uciQueue?: Uci[]) => {
     this.pvUciQueue = uciQueue ?? [];
     const move = parseUci(uci)!;
     const to = makeSquare(move.to);
@@ -912,7 +905,7 @@ export default class AnalyseCtrl {
         },
         to,
       );
-  }
+  };
 
   playUciList(uciList: Uci[]): void {
     this.pvUciQueue = uciList;
@@ -937,10 +930,10 @@ export default class AnalyseCtrl {
     const fens = new Set();
     for (let i = this.nodeList.length - 1; i >= 0; i--) {
       const node = this.nodeList[i];
-      const fen = node.fen.split(' ').slice(0, 4).join(' ');
-      if (fens.has(fen)) return false;
+      const epd = fenToEpd(node.fen);
+      if (fens.has(epd)) return false;
       if (node.san && sanIrreversible(this.data.game.variant.key, node.san)) return true;
-      fens.add(fen);
+      fens.add(epd);
     }
     return true;
   };
@@ -1025,7 +1018,7 @@ export default class AnalyseCtrl {
     this.redraw();
   };
 
-  pluginMove = (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => {
+  pluginMove = (orig: Key, dest: Key, prom: Role | undefined) => {
     const capture = this.chessground.state.pieces.get(dest);
     this.sendMove(orig, dest, capture, prom);
   };

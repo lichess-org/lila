@@ -1,6 +1,6 @@
 import { files } from 'chessground/types';
 import type { SanToUci } from 'chess';
-import type { Opts } from './keyboardMove';
+import type { Opts } from './exports';
 
 const keyRegex = /^[a-h][1-8]$/;
 const fileRegex = /^[a-h]$/;

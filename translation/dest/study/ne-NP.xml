@@ -86,9 +86,9 @@
   <string name="startFromInitialPosition">प्रारम्भिक पोजिशनमा शुरु गर्नुहोस्</string>
   <string name="editor">सम्पादक</string>
   <string name="startFromCustomPosition">कष्टम पोजिशनमा शुरु गर्नुहोस्</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">खेलको URL लोड गरौं</string>
+  <string name="loadAGameByUrl">खेलको URL लोड गरौं</string>
   <string name="loadAPositionFromFen">FEN बाट पोजिसन लोड गरौं</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">PGN बाट खेल लोड गरौं</string>
+  <string name="loadAGameFromPgn">PGN बाट खेल लोड गरौं</string>
   <string name="automatic">स्वचालित</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं, %s खेल सम्म</item>
@@ -119,4 +119,7 @@
   <string name="deleteTheStudyChatHistory">पाठको वार्तालाप इतिहास मेट्ने पक्का हो? पछि कुनै उपाय हुनेछैन!</string>
   <string name="deleteStudy">पाठ मेटौं</string>
   <string name="whereDoYouWantToStudyThat">यो अध्ययनलाई कहाँ राख्न चाहनुहुन्छ?</string>
+  <string name="goodMove">राम्रो चाल</string>
+  <string name="mistake">सानो भुल</string>
+  <string name="blunder">ठुलो भुल</string>
 </resources>

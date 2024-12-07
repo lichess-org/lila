@@ -1,12 +1,12 @@
 package lila.tournament
 
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
-
-import java.nio.charset.StandardCharsets.UTF_8
-import java.security.MessageDigest
+import chess.IntRating
 
 import lila.common.{ Bus, Debouncer }
 import lila.core.game.LightPov
@@ -433,7 +433,7 @@ final class TournamentApi(
     opponent       <- g.opponentOf(userId)
     opponentRating <- opponent.rating
     multiplier = g.winnerUserId.so(winner => if winner == userId then 1 else -1)
-  yield opponentRating + 500 * multiplier
+  yield opponentRating.map(_ + 500 * multiplier)
 
   private def withdrawNonMover(game: Game): Unit =
     if game.status == chess.Status.NoStart then

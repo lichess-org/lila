@@ -1,20 +1,27 @@
 import { propWithEffect, toggle as commonToggle } from 'common';
-import * as prop from 'common/storage';
 import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
 import type { VoiceCtrl, VoiceModule } from './interfaces';
 import type { VoiceMove } from './move/interfaces';
 import { Mic } from './mic';
 import { flash } from './view';
+import {
+  once,
+  storedBooleanProp,
+  storedStringPropWithEffect,
+  storedBooleanPropWithEffect,
+} from 'common/storage';
 
 export * from './interfaces';
 export * from './move/interfaces';
 export { renderVoiceBar } from './view';
 
-export const supportedLangs: [string, string][] = [['en', 'English']];
+export const supportedLangs: [string, string][] = [
+  ['en', 'English'],
+  ['fr', 'Français'],
+];
 
 if (site.debug)
   supportedLangs.push(
-    ['fr', 'Français'],
     ['de', 'Deutsch'],
     ['tr', 'Türkçe'],
     ['vi', 'Tiếng Việt'],
@@ -29,17 +36,18 @@ export function makeVoice(opts: {
   tpe: 'move' | 'coords';
 }): VoiceCtrl {
   let keyupTimeout: number;
+  let shiftDown = false;
   const mic = new Mic();
-  const enabled = prop.storedBooleanProp('voice.on', false);
+  const enabled = storedBooleanProp('voice.on', false);
   const showHelp = propWithEffect<boolean | 'list'>(false, opts.redraw);
 
-  const pushTalk = prop.storedBooleanPropWithEffect('voice.pushTalk', false, val => {
+  const pushTalk = storedBooleanPropWithEffect('voice.pushTalk', false, val => {
     mic.stop();
     enabled(val);
     if (enabled()) mic.start(!val);
   });
 
-  const lang = prop.storedStringPropWithEffect('voice.lang', 'en', code => {
+  const lang = storedStringPropWithEffect('voice.lang', 'en', code => {
     if (code === mic.lang) return;
     mic.setLang(code);
     opts
@@ -52,12 +60,17 @@ export function makeVoice(opts: {
   mic.setLang(lang());
 
   document.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.key !== 'Shift' || !pushTalk()) return;
-    mic.start();
+    if (e.key !== 'Shift' || shiftDown) return;
+    shiftDown = true;
+    window.speechSynthesis.cancel();
+    if (pushTalk()) mic.start();
     clearTimeout(keyupTimeout);
   });
+
   document.addEventListener('keyup', (e: KeyboardEvent) => {
-    if (e.key !== 'Shift' || !pushTalk()) return;
+    if (e.key !== 'Shift') return;
+    shiftDown = false;
+    if (!pushTalk()) return;
     clearTimeout(keyupTimeout);
     keyupTimeout = setTimeout(() => mic.stop(), 600);
   });
@@ -84,7 +97,7 @@ export function makeVoice(opts: {
       enabled(false);
       pushTalk(false);
     } else enabled(!enabled()) ? mic.start() : mic.stop();
-    if (opts.tpe === 'move' && prop.once('voice.rtfm')) showHelp(true);
+    if (opts.tpe === 'move' && once('voice.rtfm')) showHelp(true);
   }
 
   function micId(deviceId?: string) {

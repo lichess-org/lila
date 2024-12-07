@@ -1,12 +1,12 @@
 import { h } from 'snabbdom';
 
-import { Player } from '../interfaces';
-import SimulCtrl from '../ctrl';
+import type { Player } from '../interfaces';
+import type SimulCtrl from '../ctrl';
 import { fullName, userLine, userRating } from 'common/userLink';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
-    'a.ulpt.user-link.' + (p.online || ctrl.data.host.id != p.id ? 'online' : 'offline'),
+    'a.ulpt.user-link.' + (p.online || ctrl.data.host.id !== p.id ? 'online' : 'offline'),
     {
       attrs: { href: '/@/' + p.name },
       hook: { destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement) },

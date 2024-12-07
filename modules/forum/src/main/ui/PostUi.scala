@@ -52,7 +52,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits)(
                 then
                   postForm(action := routes.ForumPost.delete(post.id))(
                     submitButton(
-                      cls      := "mod delete button button-empty confirm",
+                      cls      := "mod delete button button-empty yes-no-confirm",
                       dataIcon := Icon.Trash,
                       title    := "Delete"
                     )

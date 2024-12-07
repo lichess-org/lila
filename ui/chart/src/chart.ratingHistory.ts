@@ -1,4 +1,8 @@
 import {
+  type ChartDataset,
+  type Point,
+  type ChartConfiguration,
+  type PointStyle,
   Chart,
   PointElement,
   LinearScale,
@@ -6,16 +10,12 @@ import {
   LineController,
   Tooltip,
   LineElement,
-  ChartDataset,
-  Point,
-  ChartConfiguration,
-  PointStyle,
 } from 'chart.js';
-import { PerfRatingHistory } from './interface';
+import type { PerfRatingHistory } from './interface';
 import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor, resizePolyfill } from './common';
 import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import noUiSlider, { Options, PipsMode } from 'nouislider';
+import noUiSlider, { type Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
@@ -184,7 +184,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
           borderWidth: 1,
           yAlign: 'center',
           caretPadding: 10,
-          rtl: document.dir == 'rtl',
+          rtl: document.dir === 'rtl',
           callbacks: {
             title: items => dateFormat()(dayjs.utc(items[0].parsed.x).valueOf()),
           },
@@ -196,9 +196,9 @@ export function initModule({ data, singlePerfName }: Opts): void {
   const handlesSlider = $('#time-range-slider')[0];
   let yearPips = [];
   for (let i = startDate; i.isBefore(endDate); i = i.add(1, 'd')) {
-    if (i.date() == 1 && i.month() == 0) yearPips.push(i);
+    if (i.date() === 1 && i.month() === 0) yearPips.push(i);
   }
-  if (yearPips.length >= 7) yearPips = yearPips.filter((_, i) => i % 2 == 0);
+  if (yearPips.length >= 7) yearPips = yearPips.filter((_, i) => i % 2 === 0);
   const opts: Options = {
     start: [initial.valueOf(), endDate.valueOf()],
     connect: true,
@@ -213,7 +213,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
     pips: {
       mode: PipsMode.Values,
       values: yearPips.map(y => y.valueOf()),
-      filter: (val, tpe) => (tpe == 1 ? val : -1),
+      filter: (val, tpe) => (tpe === 1 ? val : -1),
       format: {
         to: val => dayjs.utc(val).format('YYYY'),
       },
@@ -235,7 +235,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min != min || chart.scales.x.max != max)
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
         chart.zoomScale('x', { min: min, max: max });
     };
     slider.on('update', slide);
@@ -259,7 +259,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
     ];
     $('.time-selector-buttons').html(
       buttons
-        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t == 'all')
+        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
         .map(b => timeBtn(b))
         .join(''),
     );
@@ -269,7 +269,7 @@ export function initModule({ data, singlePerfName }: Opts): void {
       chart.zoomScale('x', { min: min, max: endDate.valueOf() });
     };
     $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
-      const min = buttons.find(b => b.t == this.textContent);
+      const min = buttons.find(b => b.t === this.textContent);
       if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
       this.classList.add('active');
     });
@@ -299,7 +299,7 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
       borderColor: perfStyle.color,
       hoverBorderColor: hoverBorderColor,
       backgroundColor: perfStyle.color,
-      pointRadius: data.length == 1 ? 3 : 0,
+      pointRadius: data.length === 1 ? 3 : 0,
       pointHoverRadius: 6,
       data: data,
       pointStyle: perfStyle.symbol,

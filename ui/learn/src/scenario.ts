@@ -1,6 +1,5 @@
-import * as cg from 'chessground/types';
 import * as timeouts from './timeouts';
-import { ChessCtrl } from './chess';
+import type { ChessCtrl } from './chess';
 import { decomposeUci } from './util';
 import { Shape } from './chessground';
 
@@ -21,8 +20,8 @@ export type ScenarioLevel = (
 
 interface ScenarioOpts {
   chess: ChessCtrl;
-  makeChessDests(): cg.Dests;
-  setFen(fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key]): void;
+  makeChessDests(): Dests;
+  setFen(fen: string, color: Color, dests: Dests, lastMove?: [Key, Key]): void;
   setShapes(shapes: Shape[]): void;
 }
 

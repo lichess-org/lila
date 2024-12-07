@@ -1,14 +1,14 @@
-import { Prop } from 'common';
+import type { Prop } from 'common';
 import { looseH as h } from 'common/snabbdom';
-import LobbyController from '../../../ctrl';
-import { InputValue, TimeMode } from '../../../interfaces';
+import type LobbyController from '../../../ctrl';
+import type { InputValue, TimeMode } from '../../../interfaces';
 import { daysVToDays, incrementVToIncrement, sliderTimes, timeModes } from '../../../options';
 import { option } from './option';
 
 const showTime = (v: number) => {
-  if (v == 1 / 4) return '¼';
-  if (v == 1 / 2) return '½';
-  if (v == 3 / 4) return '¾';
+  if (v === 1 / 4) return '¼';
+  if (v === 1 / 2) return '½';
+  if (v === 3 / 4) return '¾';
   return v.toString();
 };
 

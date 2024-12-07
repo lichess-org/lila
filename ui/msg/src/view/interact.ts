@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bindSubmit } from 'common/snabbdom';
-import { User } from '../interfaces';
-import MsgCtrl from '../ctrl';
+import type { User } from '../interfaces';
+import type MsgCtrl from '../ctrl';
 import { throttle } from 'common/timing';
 import { alert } from 'common/dialog';
 
@@ -82,7 +82,7 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
 
   // send the content on <enter.
   area.addEventListener('keypress', (e: KeyboardEvent) => {
-    if ((e.which == 10 || e.which == 13) && !e.shiftKey) {
+    if ((e.which === 10 || e.which === 13) && !e.shiftKey) {
       e.preventDefault();
       setTimeout(send);
     }

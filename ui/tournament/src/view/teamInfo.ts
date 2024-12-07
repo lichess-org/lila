@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon } from 'common/snabbdom';
-import TournamentController from '../ctrl';
+import type TournamentController from '../ctrl';
 import { numberRow, player as renderPlayer } from './util';
 import { teamName } from './battle';
 
@@ -14,7 +14,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
   const tag = 'div.tour__team-info.tour__actor-info';
   if (!data || data.id !== ctrl.teamInfo.requested)
     return h(tag, [h('div.stats', [h('h2', [teamTag]), spinner()])]);
-  const nbLeaders = ctrl.data.teamStanding?.find(s => s.id == data.id)?.players.length || 0;
+  const nbLeaders = ctrl.data.teamStanding?.find(s => s.id === data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {
     site.powertip.manualUserIn(vnode.elm as HTMLElement);

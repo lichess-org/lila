@@ -64,10 +64,6 @@ const storageProxy: { [key: string]: { storageKey: string; validate: (val?: stri
     storageKey: 'socket.host',
     validate: (val?: string) => val?.endsWith('.lichess.org') ?? false,
   },
-  allowLsfw: {
-    storageKey: 'ceval.lsfw.forceEnable',
-    validate: (val?: string) => val === 'true' || val === 'false',
-  },
   logWindow: {
     storageKey: 'log.window',
     validate: (val?: string) => parseInt(val ?? '') >= 0,

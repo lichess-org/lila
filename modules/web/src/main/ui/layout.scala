@@ -16,7 +16,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, jsName, siteName }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
 
   val doctype                                 = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang, ctx: Context) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -150,17 +150,22 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 
   def scriptsPreload(keys: List[String]) =
     frag(
-      jsTag("manifest"),
       cashTag,
-      keys.map(jsTag),
-      assetHelper.manifest.deps(keys).map(jsTag)
+      assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag)
     )
 
-  private def jsTag(key: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
+  private def jsTag(name: String): Frag =
+    script(tpe := "module", src := staticAssetUrl(s"compiled/$name"))
 
   def modulesInit(modules: EsmList, nonce: Optionce) =
     modules.flatMap(_.map(_.init(nonce))) // in body
+
+  def inlineJs(nonce: Nonce, modules: EsmList = Nil): Frag =
+    val code =
+      (Esm("site").some :: modules)
+        .flatMap(_.flatMap(m => assetHelper.manifest.inlineJs(m.key).map(js => s"(()=>{${js}})()")))
+        .mkString(";")
+    embedJsUnsafe(code)(nonce.some)
 
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
@@ -333,17 +338,3 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               .getOrElse { (!error).option(anonDasher) }
         )
       )
-
-  object inlineJs:
-    def apply(nonce: Nonce)(using Translate): Frag = embedJsUnsafe(jsCode)(nonce.some)
-
-    private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
-    lila.common.Bus.subscribeFun("i18n.load"):
-      case lang: Lang => cache.remove(lang)
-
-    private def jsCode(using t: Translate) =
-      cache.computeIfAbsent(
-        t.lang,
-        _ => """window.site={load:new Promise(r=>document.addEventListener("DOMContentLoaded",r))};"""
-      )
-  end inlineJs

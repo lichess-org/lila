@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { isFinished } from '../study/studyChapters';
 import { notNull } from 'common';
 

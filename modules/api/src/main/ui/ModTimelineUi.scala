@@ -7,20 +7,16 @@ import ScalatagsTemplate.{ *, given }
 import lila.mod.Modlog
 import lila.appeal.AppealMsg
 import lila.user.Note
-import lila.report.Report
-import lila.playban.TempBan
-import java.time.LocalDate
 import lila.core.config.NetDomain
 import lila.core.userId.ModId
 import lila.shutup.{ PublicLine, Analyser }
 import lila.core.shutup.PublicSource
 import lila.core.i18n.Translate
-import lila.core.id.RelayRoundId
 
 final class ModTimelineUi(helpers: Helpers)(
     publicLineSource: PublicSource => Translate ?=> Frag
 )(using NetDomain):
-  import helpers.{ *, given }
+  import helpers.*
   import ModTimeline.*
 
   def renderGeneral(t: ModTimeline)(using Translate) = render(t)(using Angle.None)
@@ -30,10 +26,13 @@ final class ModTimelineUi(helpers: Helpers)(
   private val eventOrdering = summon[Ordering[Instant]].reverse
 
   private def render(t: ModTimeline)(using angle: Angle)(using Translate) = div(cls := "mod-timeline"):
+    val today = nowInstant.date
     t.all
       .filter(Angle.filter)
       .map: e =>
-        daysFromNow(e.at.date) -> e
+        if e.at.date == today
+        then momentFromNowServerText(e.at) -> e
+        else daysFromNow(e.at.date)        -> e
       .groupBy(_._1)
       .view
       .mapValues(_.map(_._2))
@@ -107,7 +106,14 @@ final class ModTimelineUi(helpers: Helpers)(
         strong(
           cls   := "mod-timeline__event__from",
           title := r.atoms.toList.map(_.by.id).map(usernameOrId).map(_.toString).mkString(", ")
-        )(pluralize("player", r.atoms.size))
+        )(
+          if r.atoms.size > 3
+          then pluralize("player", r.atoms.size)
+          else
+            fragList:
+              r.atoms.toList.map: atom =>
+                userIdLink(atom.by.some, withOnline = false)
+        )
       ,
       div(cls := "mod-timeline__event__action")(
         " opened a ",
@@ -133,18 +139,18 @@ final class ModTimelineUi(helpers: Helpers)(
         cls := List(
           "mod-timeline__event__action"               -> true,
           s"mod-timeline__event__action--${e.action}" -> true,
+          "mod-timeline__event__action--warning"      -> Modlog.isWarning(e),
           "mod-timeline__event__action--sentence"     -> Modlog.isSentence(e.action),
           "mod-timeline__event__action--undo"         -> Modlog.isUndo(e.action)
         )
-      )(
-        e.showAction
-      ),
+      ):
+        if Modlog.isWarning(e) then "sends warning"
+        else e.showAction
+      ,
       div(cls := "mod-timeline__text"):
-        e.gameId.fold[Frag](e.details.orZero: String) { gameId =>
-          a(href := s"${routes.Round.watcher(gameId, Color.white).url}?pov=${e.user.so(_.value)}")(
+        e.gameId.fold[Frag](e.details.orZero: String): gameId =>
+          a(href := s"${routes.Round.watcher(gameId, Color.white).url}?pov=${e.user.so(_.value)}"):
             e.details.orZero: String
-          )
-        }
     )
 
   private def renderAppeal(t: ModTimeline)(a: AppealMsg)(using Translate) =

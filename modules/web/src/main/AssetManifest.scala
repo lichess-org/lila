@@ -9,7 +9,8 @@ import java.nio.file.Files
 
 import lila.core.config.NetConfig
 
-case class SplitAsset(name: String, imports: List[String])
+case class SplitAsset(name: String, imports: List[String], inlineJs: Option[String]):
+  def all = name :: imports
 case class AssetMaps(
     js: Map[String, SplitAsset],
     css: Map[String, String],
@@ -19,19 +20,19 @@ case class AssetMaps(
 
 final class AssetManifest(environment: Environment, net: NetConfig)(using ws: StandaloneWSClient)(using
     Executor
-) extends lila.ui.AssetManifest:
+):
   private var maps: AssetMaps = AssetMaps(Map.empty, Map.empty, Map.empty, java.time.Instant.MIN)
 
   private val filename = s"manifest.${if net.minifiedAssets then "prod" else "dev"}.json"
   private val logger   = lila.log("assetManifest")
 
-  def js(key: String): Option[SplitAsset]    = maps.js.get(key)
-  def css(key: String): Option[String]       = maps.css.get(key)
-  def hashed(path: String): Option[String]   = maps.hashed.get(path)
-  def deps(keys: List[String]): List[String] = keys.flatMap { key => js(key).so(_.imports) }.distinct
-  def lastUpdate: Instant                    = maps.modified
-
-  def jsName(key: String): String = js(key).fold(key)(_.name)
+  def css(key: String): String             = maps.css.getOrElse(key, key)
+  def hashed(path: String): Option[String] = maps.hashed.get(path)
+  def jsAndDeps(keys: List[String]): List[String] = keys.flatMap { key =>
+    maps.js.get(key).so(_.all)
+  }.distinct
+  def inlineJs(key: String): Option[String] = maps.js.get(key).flatMap(_.inlineJs)
+  def lastUpdate: Instant                   = maps.modified
 
   def update(): Unit =
     if environment.mode.isProd || net.externalManifest then
@@ -73,9 +74,10 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
       .as[JsObject]
       .value
       .map { (k, value) =>
-        val name    = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
-        val imports = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
-        (k, SplitAsset(name, imports))
+        val name     = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
+        val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
+        val inlineJs = (value \ "inline").asOpt[String]
+        (k, SplitAsset(name, imports, inlineJs))
       }
       .toMap
 

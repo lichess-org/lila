@@ -114,7 +114,6 @@
   <string name="replayMode">再現の方式</string>
   <string name="realtimeReplay">リアルタイム</string>
   <string name="byCPL">評価値で</string>
-  <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>

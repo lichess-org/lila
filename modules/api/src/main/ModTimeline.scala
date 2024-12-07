@@ -1,7 +1,5 @@
 package lila.api
 
-import java.time.LocalDate
-
 import lila.mod.{ Modlog, ModlogApi }
 import lila.appeal.{ Appeal, AppealMsg, AppealApi }
 import lila.user.{ Note, NoteApi }
@@ -20,7 +18,7 @@ case class ModTimeline(
     playbanRecord: Option[lila.playban.UserRecord],
     flaggedPublicLines: List[PublicLine]
 ):
-  import ModTimeline.{ *, given }
+  import ModTimeline.*
 
   lazy val all: List[Event] =
     val reportEvents: List[Event] = reports.flatMap(reportAtoms)
@@ -50,7 +48,7 @@ object ModTimeline:
 
   private def mergeOne(prev: Event, next: Event): Option[Event] = (prev, next) match
     case (p: PublicLine, n: PublicLine)                => PublicLine.merge(p, n)
-    case (p: PlayBans, n: PlayBans)                    => PlayBans(p.list ::: n.list).some
+    case (p: PlayBans, n: PlayBans)                    => PlayBans(n.list ::: p.list).some
     case (p: AppealMsg, n: AppealMsg) if p.by.is(n.by) => p.copy(text = s"${n.text}\n\n${p.text}").some
     case (p: ReportNewAtom, n: ReportNewAtom) if n.like(p.report) => p.copy(atoms = n.atoms ::: p.atoms).some
     case (p: Modlog, n: Modlog)                                   => mergeModlog(p, n)
@@ -82,6 +80,7 @@ object ModTimeline:
       e match
         case e: Modlog =>
           if e.action == Modlog.permissions then "objects.key"
+          else if Modlog.isWarning(e) then "symbols.large-orange-diamond"
           else if e.action == Modlog.modMessage then "objects.megaphone"
           else if e.action == Modlog.garbageCollect then "objects.broom"
           else if e.action == Modlog.selfCloseAccount then "objects.locked"
@@ -113,7 +112,7 @@ object ModTimeline:
   object Angle:
     def filter(e: Event)(using angle: Angle): Boolean = e match
       case _: PlayBans                                     => angle != Angle.Comm
-      case l: Modlog if l.action == Modlog.chatTimeout     => angle == Angle.Comm
+      case l: Modlog if l.action == Modlog.chatTimeout     => angle != Angle.Play
       case l: Modlog if l.action == Modlog.deletePost      => angle != Angle.Play
       case l: Modlog if l.action == Modlog.disableTeam     => angle != Angle.Play
       case l: Modlog if l.action == Modlog.teamKick        => angle != Angle.Play
@@ -125,7 +124,7 @@ object ModTimeline:
           case Comm => !l.details.has(lila.playban.PlaybanFeedback.sittingAutoPreset.name)
           case _    => true
       case r: ReportNewAtom if r.report.is(_.Comm) => angle != Angle.Play
-      case _: PublicLine                           => angle != Angle.Play
+      case _: PublicLine                           => angle == Angle.Comm
       case _                                       => true
 
 final class ModTimelineApi(

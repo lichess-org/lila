@@ -62,11 +62,23 @@
   <string name="notYetStarted">Yayın henüz başlamadı.</string>
   <string name="officialWebsite">Resmî site</string>
   <string name="standings">Sıralamalar</string>
+  <string name="officialStandings">Resmi Sıralamalar</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">%snda daha fazla seçenek</string>
+  <string name="webmastersPage">ağ yöneticileri sayfası</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Bu turun açık, gerçek zamanlı PGN kaynağı. Daha hızlı ve verimli senkronizasyon için %s\'ımız da bulunmaktadır.</string>
   <string name="embedThisBroadcast">İnternet sitenizde bu yayını gömülü paylaşın</string>
   <string name="embedThisRound">%su İnternet sitenizde gömülü paylaşın</string>
   <string name="ratingDiff">Puan farkı</string>
   <string name="gamesThisTournament">Bu turnuvadaki maçlar</string>
   <string name="score">Skor</string>
+  <string name="allTeams">Tüm takımlar</string>
+  <string name="tournamentFormat">Turnuva biçimi</string>
+  <string name="tournamentLocation">Turnuva Konumu</string>
+  <string name="topPlayers">En iyi oyuncular</string>
+  <string name="timezone">Zaman dilimi</string>
+  <string name="fideRatingCategory">FIDE derecelendirme kategorisi</string>
+  <string name="optionalDetails">İsteğe bağlı ayrıntılar</string>
+  <string name="upcomingBroadcasts">Yaklaşan yayınlar</string>
+  <string name="pastBroadcasts">Geçmiş yayınlar</string>
+  <string name="allBroadcastsByMonth">Tüm yayınları aylara göre görüntüleyin</string>
 </resources>

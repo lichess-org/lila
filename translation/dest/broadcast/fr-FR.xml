@@ -71,7 +71,6 @@
   <string name="ratingDiff">Différence de cote</string>
   <string name="gamesThisTournament">Partie de ce tournoi</string>
   <string name="score">Résultat</string>
-  <string name="perPage">%s par page</string>
   <string name="allTeams">Toutes les équipes</string>
   <string name="tournamentFormat">Format du tournoi</string>
   <string name="tournamentLocation">Lieu du tournoi</string>

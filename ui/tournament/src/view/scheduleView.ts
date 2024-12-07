@@ -1,8 +1,8 @@
-import { Classes, h, VNode } from 'snabbdom';
+import { type Classes, h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
-import { Tournament, Clock } from '../interfaces';
-import { Ctrl, Lane } from '../tournament.schedule';
+import type { Tournament, Clock } from '../interfaces';
+import type { Ctrl, Lane } from '../tournament.schedule';
 import dragscroll from 'dragscroll';
 
 const scale = 8;
@@ -10,7 +10,7 @@ let now: number, startTime: number, stopTime: number;
 
 const i18nNames: Record<string, string> = {};
 
-const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
+const startDirection = () => (document.dir === 'rtl' ? 'right' : 'left');
 
 function i18nName(t: Tournament) {
   if (!i18nNames[t.id]) i18nNames[t.id] = t.fullName;
@@ -259,7 +259,7 @@ export default function (ctrl: Ctrl) {
             const el = vnode.elm as HTMLElement;
             const bitLater = now + 15 * 60 * 1000;
             const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
-            el.scrollLeft = document.dir == 'rtl' ? -1 * scroll : scroll;
+            el.scrollLeft = document.dir === 'rtl' ? -1 * scroll : scroll;
 
             dragscroll.reset();
 

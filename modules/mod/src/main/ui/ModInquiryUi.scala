@@ -2,7 +2,7 @@ package lila.mod
 package ui
 
 import lila.core.config.NetDomain
-import lila.report.{ Reason, Report }
+import lila.report.Report
 import lila.ui.*
 
 import ScalatagsTemplate.{ *, given }
@@ -17,23 +17,22 @@ final class ModInquiryUi(helpers: Helpers):
   )
 
   def renderReport(renderAtomText: (Report.Atom, Boolean) => Frag)(r: Report)(using Translate) =
-    div(cls := "doc report")(
-      r.bestAtoms(10).map { atom =>
-        div(cls := "atom")(
-          h3(
-            lila.report.ui.ReportUi.reportScore(atom.score),
-            userIdLink(atom.by.userId.some, withOnline = false),
-            " for ",
-            if r.is(_.Comm)
-            then a(href := routes.Mod.communicationPublic(r.user))(strong(r.room.name))
-            else strong(r.room.name),
-            " ",
-            momentFromNow(atom.at)
-          ),
-          p(renderAtomText(atom, r.is(_.Comm)))
-        )
-      }
-    )
+    div(cls := "doc report"):
+      r.bestAtoms(10)
+        .map: atom =>
+          div(cls := "atom")(
+            h3(
+              lila.report.ui.ReportUi.reportScore(atom.score),
+              userIdLink(atom.by.userId.some, withOnline = false),
+              " for ",
+              if r.is(_.Comm)
+              then a(href := routes.Mod.communicationPublic(r.user))(strong(atom.reason.name))
+              else strong(atom.reason.name),
+              " ",
+              momentFromNow(atom.at)
+            ),
+            p(renderAtomText(atom, r.is(_.Comm)))
+          )
 
   def noteZone(u: User, notes: List[lila.user.Note])(using Context, NetDomain) = div(
     cls := List(
@@ -52,6 +51,12 @@ final class ModInquiryUi(helpers: Helpers):
         ),
         div(cls := "submission")(
           submitButton(cls := "button thin", name := "noteType", value := "mod")("SEND"),
+          button(
+            cls   := "button thin",
+            name  := "noteType",
+            value := "copy-url",
+            title := "copy current URL to note"
+          )("ADD URL"),
           Granter
             .opt(_.Admin)
             .option(

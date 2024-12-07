@@ -1,10 +1,9 @@
-import { VNode } from 'snabbdom';
-import { ParentCtrl } from '../types';
-import CevalCtrl from '../ctrl';
+import type { ParentCtrl } from '../types';
+import type CevalCtrl from '../ctrl';
 import { fewerCores } from '../util';
 import { rangeConfig } from 'common/controls';
 import { isChrome } from 'common/device';
-import { onInsert, bind, dataIcon, looseH as h } from 'common/snabbdom';
+import { type VNode, onInsert, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import * as Licon from 'common/licon';
 import { onClickAway } from 'common';
 import { clamp } from 'common/algo';
@@ -210,7 +209,7 @@ function engineSelection(ctrl: ParentCtrl) {
         },
         [
           ...engines.map(engine =>
-            h('option', { attrs: { value: engine.id, selected: active?.id == engine.id } }, engine.name),
+            h('option', { attrs: { value: engine.id, selected: active?.id === engine.id } }, engine.name),
           ),
         ],
       ),

@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import flairPickerLoader from './exports/flairPicker';
+import flairPickerLoader from './flairPicker';
 import StrongSocket from 'common/socket';
 import { makeChat } from 'chat';
 import { prompt } from 'common/dialog';

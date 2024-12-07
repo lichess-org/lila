@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Ημερομηνία προσθήκης (παλαιότερες)</string>
   <string name="recentlyUpdated">Πρόσφατα ενημερωμένες</string>
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Αλφαβητικά</string>
+  <string name="alphabetical">Αλφαβητικά</string>
   <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Κεφάλαιο</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">Λήψη παιχνιδιού</string>
   <string name="studyUrl">URL μελέτης</string>
   <string name="currentChapterUrl">Τρέχον κεφάλαιο URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Επικολλήστε το παρόν για ενσωμάτωση στο φόρουμ</string>
   <string name="startAtInitialPosition">Ξεκινάει από αρχική θέση</string>
   <string name="startAtX">Ξεκινάει με %s</string>
   <string name="embedInYourWebsite">Ενσωματώστε στην ιστοσελίδα σας ή το μπλογκ σας</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">Έναρξη από τρέχουσα θέση</string>
   <string name="editor">Επεξεργαστής</string>
   <string name="startFromCustomPosition">Έναρξη από τρέχουσα θέση</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Φόρτωση παρτίδας με URL</string>
+  <string name="loadAGameByUrl">Φόρτωση παρτίδας με URL</string>
   <string name="loadAPositionFromFen">Φόρτωση θέσης από FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Φόρτωσε μια παρτίδα από PGN</string>
+  <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
   <string name="automatic">Αυτόματο</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Επικολλήστε το PGN εδώ, μέχρι %s παρτίδα</item>
@@ -164,7 +164,7 @@
   <string name="popularTopics">Δημοφιλή θέματα</string>
   <string name="manageTopics">Διαχείριση θεμάτων</string>
   <string name="back">Πίσω</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Παίξτε ξανά</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Τι θα παίζατε σε αυτή τη θέση;</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
+  <string name="playAgain">Παίξτε ξανά</string>
+  <string name="whatWouldYouPlay">Τι θα παίζατε σε αυτή τη θέση;</string>
+  <string name="youCompletedThisLesson">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
 </resources>

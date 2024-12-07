@@ -1,9 +1,9 @@
 import {
+  type ChartConfiguration,
+  type ChartDataset,
+  type ChartType,
   ArcElement,
   Chart,
-  ChartConfiguration,
-  ChartDataset,
-  ChartType,
   DoughnutController,
   Title,
 } from 'chart.js';
@@ -100,7 +100,7 @@ export async function initModule(): Promise<void> {
       ],
     };
     const chart = new Chart(this, config);
-    if (index == 0)
+    if (index === 0)
       pubsub.on('socket.in.mlat', (d: number) => {
         v.server = d;
         if (v.server <= 0) return;

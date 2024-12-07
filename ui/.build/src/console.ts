@@ -1,5 +1,5 @@
 import { createServer, IncomingMessage, ServerResponse } from 'node:http';
-import { env, errorMark, warnMark, colors as c } from './main.ts';
+import { env, errorMark, warnMark, colors as c } from './env.ts';
 
 export async function startConsole() {
   if (!env.remoteLog || !env.watch) return;

@@ -1,6 +1,9 @@
 package lila.puzzle
 
 import chess.format.*
+import chess.IntRating
+import chess.rating.IntRatingDiff
+import scalalib.model.Days
 import play.api.libs.json.*
 
 import lila.common.Json.given
@@ -90,7 +93,7 @@ final class JsonView(
       "is3d"         -> p.is3d
     )
 
-  def dashboardJson(dash: PuzzleDashboard, days: Int)(using Translate) = Json.obj(
+  def dashboardJson(dash: PuzzleDashboard, days: Days)(using Translate) = Json.obj(
     "days"   -> days,
     "global" -> dashboardResults(dash.global),
     "themes" -> JsObject(dash.byTheme.toList.sortBy(-_._2.nb).map { (key, res) =>

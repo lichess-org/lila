@@ -1,10 +1,8 @@
-import { h, VNode } from 'snabbdom';
-import { Api as CgApi } from 'chessground/api';
-import { Config as CgConfig } from 'chessground/config';
-import * as cg from 'chessground/types';
+import { h, type VNode } from 'snabbdom';
+import type { Elements } from 'chessground/types';
 import resizeHandle from 'common/resize';
 import { storage } from 'common/storage';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import * as Prefs from 'common/prefs';
 import { Chessground as makeChessground } from 'chessground';
 
@@ -16,9 +14,9 @@ export const render = (ctrl: AnalyseCtrl): VNode =>
     },
   });
 
-export function promote(ground: CgApi, key: Key, role: cg.Role) {
+export function promote(ground: CgApi, key: Key, role: Role) {
   const piece = ground.state.pieces.get(key);
-  if (piece && piece.role == 'pawn') {
+  if (piece && piece.role === 'pawn') {
     ground.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
   }
 }
@@ -48,7 +46,7 @@ export function makeConfig(ctrl: AnalyseCtrl): CgConfig {
     events: {
       move: ctrl.userMove,
       dropNewPiece: ctrl.userNewPiece,
-      insert(elements: cg.Elements) {
+      insert(elements: Elements) {
         resizeHandle(elements, Prefs.ShowResizeHandle.Always, ctrl.node.ply);
       },
     },

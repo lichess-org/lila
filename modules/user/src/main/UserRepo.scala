@@ -20,6 +20,10 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   import lila.user.{ BSONFields as F }
   export lila.user.BSONHandlers.given
 
+  private def recoverErased(user: Fu[Option[User]]): Fu[Option[User]] =
+    user.recover:
+      case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException => none
+
   def withColl[A](f: Coll => A): A = f(coll)
 
   def topNbGame(nb: Int): Fu[List[User]] =
@@ -27,11 +31,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
 
   def byId[U: UserIdOf](u: U): Fu[Option[User]] =
     u.id.noGhost.so:
-      coll
-        .byId[User](u.id)
-        .recover:
-          case _: reactivemongo.api.bson.exceptions.BSONValueNotFoundException =>
-            none // probably GDPRed user
+      recoverErased:
+        coll.byId[User](u.id)
 
   def byIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
@@ -41,7 +42,9 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
     coll.byIds[User, UserId](ids, _.sec)
 
   def enabledById[U: UserIdOf](u: U): Fu[Option[User]] =
-    u.id.noGhost.so(coll.one[User](enabledSelect ++ $id(u.id)))
+    u.id.noGhost.so:
+      recoverErased:
+        coll.one[User](enabledSelect ++ $id(u.id))
 
   def enabledByIds[U: UserIdOf](us: Iterable[U]): Fu[List[User]] =
     val ids = us.map(_.id).filter(_.noGhost)
@@ -65,8 +68,8 @@ final class UserRepo(c: Coll)(using Executor) extends lila.core.user.UserRepo(c)
   ): Fu[List[User]] =
     coll.list[User]($doc(F.prevEmail -> email), readPref)
 
-  def idByEmail(email: NormalizedEmailAddress): Fu[Option[UserId]] =
-    coll.primitiveOne[UserId]($doc(F.email -> email), "_id")
+  def idByAnyEmail(emails: List[NormalizedEmailAddress]): Fu[Option[UserId]] =
+    coll.primitiveOne[UserId](F.email.$in(emails), "_id")
 
   def countRecentByPrevEmail(email: NormalizedEmailAddress, since: Instant): Fu[Int] =
     coll.countSel($doc(F.prevEmail -> email, F.createdAt.$gt(since)))

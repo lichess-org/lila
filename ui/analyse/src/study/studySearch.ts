@@ -1,11 +1,10 @@
-import { Prop, Toggle, propWithEffect, toggle } from 'common';
+import { type Prop, type Toggle, propWithEffect, toggle } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
 import { snabDialog } from 'common/dialog';
-import { h, VNode } from 'snabbdom';
-import { Redraw } from '../interfaces';
-import { ChapterPreview } from './interfaces';
-import { StudyChapters } from './studyChapters';
+import { h, type VNode } from 'snabbdom';
+import type { ChapterPreview } from './interfaces';
+import type { StudyChapters } from './studyChapters';
 import { pubsub } from 'common/pubsub';
 
 export class SearchCtrl {
@@ -63,7 +62,7 @@ export function view(ctrl: SearchCtrl) {
           el.addEventListener('input', (e: KeyboardEvent) =>
             ctrl.query((e.target as HTMLInputElement).value.trim()),
           );
-          el.addEventListener('keydown', (e: KeyboardEvent) => e.key == 'Enter' && ctrl.setFirstChapter());
+          el.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'Enter' && ctrl.setFirstChapter());
         }),
       }),
       h(

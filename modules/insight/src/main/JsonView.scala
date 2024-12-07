@@ -38,7 +38,8 @@ final class JsonView:
           dimWrites.writes(D.Period),
           dimWrites.writes(D.Perf),
           dimWrites.writes(D.Color),
-          dimWrites.writes(D.OpponentStrength)
+          dimWrites.writes(D.OpponentStrength),
+          dimWrites.writes(D.GameSource)
         )
       ),
       Categ(

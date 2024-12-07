@@ -101,7 +101,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             inForm(form)
           ,
           postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete"):
-            submitButton(cls := "button button-red button-empty confirm")("Delete")
+            submitButton(cls := "button button-red button-empty yes-no-confirm")("Delete")
         )
       )
 

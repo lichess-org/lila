@@ -1,12 +1,12 @@
-import { Classes, h, VNode } from 'snabbdom';
+import { type Classes, h, type VNode } from 'snabbdom';
 import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import addDays from 'date-fns/addDays';
 import getHours from 'date-fns/getHours';
 import getMinutes from 'date-fns/getMinutes';
 import areIntervalsOverlapping from 'date-fns/areIntervalsOverlapping';
 import format from 'date-fns/format';
-import { Tournament } from '../interfaces';
-import { Ctrl, Lanes } from '../tournament.calendar';
+import type { Tournament } from '../interfaces';
+import type { Ctrl, Lanes } from '../tournament.calendar';
 import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
 
@@ -24,7 +24,7 @@ function tournamentClass(tour: Tournament, day: Date): Classes {
 const iconOf = (tour: Tournament) =>
   tour.schedule?.freq === 'shield' ? licon.Shield : perfIcons[tour.perf.key];
 
-const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
+const startDirection = () => (document.dir === 'rtl' ? 'right' : 'left');
 
 function renderTournament(tour: Tournament, day: Date) {
   let left = ((getHours(tour.bounds.start) + getMinutes(tour.bounds.start) / 60) / 24) * 100;

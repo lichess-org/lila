@@ -1,6 +1,7 @@
 package lila.tv
 
 import chess.PlayerTitle
+import chess.IntRating
 import scalalib.actor.SyncActor
 
 import lila.core.LightUser
@@ -190,8 +191,8 @@ object Tv:
     val list  = values.toList
     val byKey = values.mapBy(_.key)
 
-  private def rated(min: Int)           = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
-  private def speed(speed: chess.Speed) = (c: Candidate) => c.game.speed == speed
+  private def rated(min: Int) = (c: Candidate) => c.game.rated && hasMinRating(c.game, IntRating(min))
+  private def speed(speed: chess.Speed)                 = (c: Candidate) => c.game.speed == speed
   private def variant(variant: chess.variant.Variant)   = (c: Candidate) => c.game.variant == variant
   private val standard                                  = variant(V.Standard)
   private val freshBlitz                                = 60 * 2
@@ -204,7 +205,8 @@ object Tv:
     (game.isBeingPlayed && !olderThan(game, seconds)) ||
       (game.finished && !olderThan(game, 7)) // rematch time
 
-  private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
+  private def hasMinRating(g: Game, min: IntRating) =
+    g.players.exists(_.rating.exists(_ >= min))
 
   private[tv] val titleScores: Map[PlayerTitle, Int] = Map(
     PlayerTitle.GM  -> 500,
