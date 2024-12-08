@@ -6,12 +6,9 @@ import { env, colors as c, warnMark } from './env.ts';
 import { allSources as allCssSources } from './sass.ts';
 import { jsLogger } from './console.ts';
 import { shallowSort, isEquivalent } from './algo.ts';
-let writeTimer: NodeJS.Timeout;
 
 type SplitAsset = { hash?: string; imports?: string[]; inline?: string; mtime?: number };
-export type Manifest = {
-  [key: string]: SplitAsset;
-};
+export type Manifest = { [key: string]: SplitAsset };
 
 export const current: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Manifest; dirty: boolean } = {
   i18n: {},
@@ -20,6 +17,7 @@ export const current: { js: Manifest; i18n: Manifest; css: Manifest; hashed: Man
   hashed: {},
   dirty: false,
 };
+let writeTimer: NodeJS.Timeout;
 
 export function stopManifest(): void {
   clearTimeout(writeTimer);
@@ -54,18 +52,17 @@ async function writeManifest() {
     `window.site.debug=${env.debug};`,
   ];
   if (env.remoteLog) clientJs.push(jsLogger());
-  const pairLine = ([name, info]: [string, SplitAsset]) => `'${name}':'${info.hash}'`;
+
+  const pairLine = ([name, info]: [string, SplitAsset]) => `'${name.replaceAll("'", "\\'")}':'${info.hash}'`;
   const jsLines = Object.entries(current.js)
     .filter(([name, _]) => !/common\.[A-Z0-9]{8}/.test(name))
     .map(pairLine)
     .join(',');
   const cssLines = Object.entries(current.css).map(pairLine).join(',');
   const hashedLines = Object.entries(current.hashed).map(pairLine).join(',');
-  clientJs.push(`window.site.manifest={
-css:{${cssLines}},
-js:{${jsLines}},
-hashed:{${hashedLines}}
-};`);
+
+  clientJs.push(`window.site.manifest={\ncss:{${cssLines}},\njs:{${jsLines}},\nhashed:{${hashedLines}}\n};`);
+
   const hashable = clientJs.join('\n');
   const hash = crypto.createHash('sha256').update(hashable).digest('hex').slice(0, 8);
   // add the date after hashing

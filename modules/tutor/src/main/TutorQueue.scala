@@ -8,6 +8,7 @@ import reactivemongo.api.bson.*
 import lila.db.dsl.{ *, given }
 import lila.memo.{ CacheApi, SettingStore }
 
+// #TODO use lila.memo.ParallelMongoQueue instead!
 final private class TutorQueue(
     colls: TutorColls,
     gameRepo: lila.game.GameRepo,
