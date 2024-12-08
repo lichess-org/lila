@@ -9,6 +9,8 @@ import lila.core.game.Source
 
 object RecapJson:
 
+  def apply(recap: Recap, user: User) = Json.obj("recap" -> recap, "user" -> user.light)
+
   given [A: Writes]: Writes[ByColor[A]] = new:
     def writes(o: ByColor[A]): JsObject =
       Json.obj("white" -> o.white, "black" -> o.black)

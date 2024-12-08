@@ -12,8 +12,13 @@ final class Recap(env: Env) extends LilaController(env):
     Redirect(routes.Recap.user(me.username))
   }
 
-  def user(username: UserStr) = RecapPage(username) { _ ?=> user => r =>
-    Ok.page(views.recap.home(r, user))
+  def user(username: UserStr) = RecapPage(username) { _ ?=> user => data =>
+    negotiate(
+      html = Ok.page(views.recap.home(data, user)),
+      json = data match
+        case Availability.Available(data) => Ok(data).toFuccess
+        case Availability.Queued(_)       => env.recap.api.awaiter(user).map(Ok(_))
+    )
   }
 
   private def RecapPage(
@@ -21,11 +26,12 @@ final class Recap(env: Env) extends LilaController(env):
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
     Secure(_.Beta) { ctx ?=> me ?=>
       def proceed(user: lila.core.user.User) = for
-        av  <- env.recap.api.availability(user.id)
+        av  <- env.recap.api.availability(user)
         res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)
       yield res
       if me.is(username) then proceed(me)
       else
         Found(env.user.api.byId(username)): user =>
-          isGranted(_.SeeInsight).so(proceed(user))
+          val canView = isGranted(_.SeeInsight) || !env.net.isProd
+          canView.so(proceed(user))
     }
