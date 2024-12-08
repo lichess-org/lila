@@ -42,6 +42,7 @@
   <string name="fideProfile">Προφίλ FIDE</string>
   <string name="federation">Ομοσπονδία</string>
   <string name="ageThisYear">Φετινή ηλικία</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Μη βαθμολογημένο</string>
   <string name="recentTournaments">Πρόσφατα τουρνουά</string>
   <string name="openLichess">Άνοιγμα στο Lichess</string>
   <string name="teams">Ομάδες</string>
