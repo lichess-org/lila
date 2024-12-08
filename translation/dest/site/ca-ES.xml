@@ -677,7 +677,7 @@
   <string name="aboutSimulRules">Quan comencen les simultànies, cada jugador comença la partida amb l\'amfitrió, que  té les blanques. L\'exibició acaba quan s\'han completat totes les partides.</string>
   <string name="aboutSimulSettings">Les simultànies són sempre amistoses. Les opcions de revenja, desfer la jugada i donar més temps estan desactivades.</string>
   <string name="create">Crea</string>
-  <string name="whenCreateSimul">Quan crees una exhibició de simultànies, has de jugar amb diversos jugadors alhora.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quan crees una exhibició de simultànies, has de jugar amb diversos jugadors alhora.</string>
   <string name="simulVariantsHint">Si selecciones diverses variants, cada jugador podrà escollir quina es jugarà.</string>
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
