@@ -77,7 +77,6 @@
   <string name="timezone">Tijdzone</string>
   <string name="fideRatingCategory">FIDE-rating categorie</string>
   <string name="optionalDetails">Optionele info</string>
-  <string name="upcomingBroadcasts">Aankomende uitzendingen</string>
   <string name="pastBroadcasts">Afgelopen uitzendingen</string>
   <string name="allBroadcastsByMonth">Alle uitzendingen per maand weergeven</string>
 </resources>
