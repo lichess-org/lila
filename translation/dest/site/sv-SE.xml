@@ -667,7 +667,7 @@
   <string name="aboutSimulRules">När simultanmatchen börjar startar varje spelare ett parti med värden som spelar vit i alla partier.  Simultanmatchen slutar när alla partier är avklarade.</string>
   <string name="aboutSimulSettings">Simultanpartier är alltid orankade. Returmatch, ångerdrag och \"extratid\" är inaktiverat.</string>
   <string name="create">Skapa</string>
-  <string name="whenCreateSimul">När du skapar en simultan får du spela mot flera spelare samtidigt.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">När du skapar en simultan får du spela mot flera spelare samtidigt.</string>
   <string name="simulVariantsHint">Om du väljer flera varianter får varje spelare välja vilken de vill spela.</string>
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>

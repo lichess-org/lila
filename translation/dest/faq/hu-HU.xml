@@ -97,12 +97,12 @@ Ne kérj LM címet.</string>
   <string name="usernamesNotOffensive">Általánosságban, egy felhasználói név nem lehet: bántó, más valódi neve vagy reklám. Erről bővebben a %1$s olvashatsz.</string>
   <string name="guidelines">szabályokban</string>
   <string name="canIChangeMyUsername">Megváltoztathatom a felhasználói nevem?</string>
-  <string name="usernamesCannotBeChanged">Nem, a felhasználói nevek nem módosíthatók technikai és gyakorlati okok miatt. A felhasználói nevek jelen vannak adatbázisokban, exportált fájlokban, naplófájlokban és az emberek fejében. Kis- és nagybetűt változtathatsz egyszer.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nem, a felhasználói nevek nem módosíthatók technikai és gyakorlati okok miatt. A felhasználói nevek jelen vannak adatbázisokban, exportált fájlokban, naplófájlokban és az emberek fejében. Kis- és nagybetűt változtathatsz egyszer.</string>
   <string name="uniqueTrophies">Egyedi trófeák</string>
   <string name="ownerUniqueTrophies">Ezek a trófeák egyediek a Lichess történelmében, %1$s kivéve senki más nem szerezhet ilyet.</string>
   <string name="wayOfBerserkExplanation">Megszerzéséhez, hiimgosu bevállalta, hogy berserkel és megnyeri 100%%-át az %s.</string>
   <string name="aHourlyBulletTournament">óránkénti Bullet arénának</string>
-  <string name="goldenZeeExplanation">ZugAddict élő közvetítés közben két órán keresztül próbálta megverni a 8-as szintű gépet, sikertelenül. Erre Thibault mondta neki, ha mégis sikerül a közvetítés ideje alatt, kap érte egy egyedi trófeát. Egy órával később lealázta Stockfish-t és az ígéret megvalósult.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict élő közvetítés közben két órán keresztül próbálta megverni a 8-as szintű gépet, sikertelenül. Erre Thibault mondta neki, ha mégis sikerül a közvetítés ideje alatt, kap érte egy egyedi trófeát. Egy órával később lealázta Stockfish-t és az ígéret megvalósult.</string>
   <string name="lichessRatings">Lichess értékszámok</string>
   <string name="whichRatingSystemUsedByLichess">Milyen értékelő rendszert használ a Lichess?</string>
   <string name="ratingSystemUsedByLichess">Az értékszámok a Glicko-2 módszer alapján számolódnak, amit Mark Glickman dolgozott ki. Ez egy igen népszerű értékelési rendszer, számos sakkszövetség használja (a FIDE a legismertebb ellenpélda, ahol még mindig az Élő-pont rendszer használatos).

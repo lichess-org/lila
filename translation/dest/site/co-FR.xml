@@ -613,7 +613,7 @@
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucadore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
   <string name="create">Creà</string>
-  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
   <string name="simulVariantsHint">Sèè vo sceglite parechji modi di ghjocu, ogni ghjucadore hà da sceglia a soia pè a partita.</string>
   <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucadore, più averete bisognu di tempu.</string>
   <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>

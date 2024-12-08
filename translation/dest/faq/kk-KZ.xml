@@ -95,12 +95,12 @@
   <string name="usernamesNotOffensive">Жалпы, тіркеулі атта қорлау, басқа біреудің аты, жарнама сияқты нәрселер болмау керек. Бұл туралы %1$s - де көбірек жазылған.</string>
   <string name="guidelines">нұсқаулық</string>
   <string name="canIChangeMyUsername">Мен тіркеулі атымды өзгерте аламын ба?</string>
-  <string name="usernamesCannotBeChanged">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
   <string name="uniqueTrophies">Ерекше олжалар</string>
   <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
   <string name="wayOfBerserkExplanation">Оған жету үшін, hiimgosu өзін берсеркке шақырып, %s-ның 100%% ойындарын жеңді.</string>
   <string name="aHourlyBulletTournament">әрсағаттық Буллит жарысы</string>
-  <string name="goldenZeeExplanation">ZugAddict стрим жүргізе отырып, 2 сағат бойы 1+0 қалыпта 8-нші деңгейдегі Жасанды зият жүйесін жеңе алмай тұрған. Thibault оған стрим кезінде сәтті ойнасаң, ерекше олжа аласың деп уәде берген еді. Бір сағаттан соң, ол Стокфиштің тас талқанын шығарып, уәдеге сай олжасына ие болды.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict стрим жүргізе отырып, 2 сағат бойы 1+0 қалыпта 8-нші деңгейдегі Жасанды зият жүйесін жеңе алмай тұрған. Thibault оған стрим кезінде сәтті ойнасаң, ерекше олжа аласың деп уәде берген еді. Бір сағаттан соң, ол Стокфиштің тас талқанын шығарып, уәдеге сай олжасына ие болды.</string>
   <string name="lichessRatings">Личес рейтингтері</string>
   <string name="whichRatingSystemUsedByLichess">Личес қандай рейтинг жүйесін қолданады?</string>
   <string name="ratingSystemUsedByLichess">Личес рейтингті Mark Glickman жасаған Glicko-2 тәсілімен есептейді. Бұл өте танымал тәсіл, оны көптеген шахмат ұйымдары қолданады (FIDE көз түсер қарсы мысал, ол әлі де Elo рейтинг жүйесін қолданады).

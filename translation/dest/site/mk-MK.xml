@@ -650,7 +650,7 @@
   <string name="aboutSimulRules">Кога симултаната партија почнува, секој играч почнува игра со домаќинот, кој игра со белите. Симултаната партија завршува кога сите партии се готови.</string>
   <string name="aboutSimulSettings">Симултаните партии се секогаш пријателски. Нема реванши, враќање потези и додавање време.</string>
   <string name="create">Создади</string>
-  <string name="whenCreateSimul">Кога создаваш симултана партија, играш со повеќе противници наеднаш.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Кога создаваш симултана партија, играш со повеќе противници наеднаш.</string>
   <string name="simulVariantsHint">Ако одбереш повеќе видови, секој играч може да одбере како ќе игра.</string>
   <string name="simulClockHint">Поставување на Фишерскиот часовник. Што повеќе противници, толку повеќе време ти треба.</string>
   <string name="simulAddExtraTime">Можеш да додадеш додатно време на часовникот, за да ти помогне со симултаната партија.</string>

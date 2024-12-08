@@ -78,7 +78,6 @@
   <string name="timezone">Fuso horário</string>
   <string name="fideRatingCategory">Categoria de rating FIDE</string>
   <string name="optionalDetails">Detalhes opcionais</string>
-  <string name="upcomingBroadcasts">Próximas transmissões</string>
   <string name="pastBroadcasts">Transmissões passadas</string>
   <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
 </resources>

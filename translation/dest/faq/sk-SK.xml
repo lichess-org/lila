@@ -99,12 +99,12 @@ Nepýtajte si titul LM.</string>
   <string name="usernamesNotOffensive">Všeobecne, používateľské mená by nemali byť: urážlivé, vydávajúce sa za niekoho iného, alebo reklamné. Môžete si prečítať viac o %1$s.</string>
   <string name="guidelines">pokyny</string>
   <string name="canIChangeMyUsername">Môžem si zmeniť svoje užívateľské meno?</string>
-  <string name="usernamesCannotBeChanged">Nie, užívateľské mená sa nemôžu meniť kvôli technickým a praktickým dôvodom. Užívateľské mená sú zhmotnené na príliš mnohých miestach: databázy, exporty, logy, a ľudské mysle. Môžete nastaviť veľkosť písmen jeden raz.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nie, užívateľské mená sa nemôžu meniť kvôli technickým a praktickým dôvodom. Užívateľské mená sú zhmotnené na príliš mnohých miestach: databázy, exporty, logy, a ľudské mysle. Môžete nastaviť veľkosť písmen jeden raz.</string>
   <string name="uniqueTrophies">Unikátne trofeje</string>
   <string name="ownerUniqueTrophies">Táto trofej je unikátna v histórii Lichessu, nikto iný okrem %1$s ju nebude nikdy mať.</string>
   <string name="wayOfBerserkExplanation">Aby ju dostal, hiimgosu sa vyzval, že bude besniť a vyhrá 100%% partií v %s.</string>
   <string name="aHourlyBulletTournament">hodinový Bullet turnaj</string>
-  <string name="goldenZeeExplanation">ZugAddict streamoval a posledné 2 hodiny sa snažil poraziť A.I. úroveň 8 v hre 1 + 0, bez úspechu. Thibault mu povedal, že ak to úspešne zvládne v prúde, získa jedinečnú trofej. O hodinu neskôr rozbil Stockfisha a sľub bol splnený.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict streamoval a posledné 2 hodiny sa snažil poraziť A.I. úroveň 8 v hre 1 + 0, bez úspechu. Thibault mu povedal, že ak to úspešne zvládne v prúde, získa jedinečnú trofej. O hodinu neskôr rozbil Stockfisha a sľub bol splnený.</string>
   <string name="lichessRatings">Lichess ratingy</string>
   <string name="whichRatingSystemUsedByLichess">Aký ratingový systém používa Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratingy sa počítajú pomocou hodnotiacej metódy Glicko-2 vyvinutej Markom Glickmanom. Toto je veľmi populárna metóda hodnotenia a používa ju veľké množstvo šachových organizácií (FIDE je pozoruhodný protiklad, pretože stále používa datovaný systém hodnotenia Elo).

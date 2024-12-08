@@ -60,7 +60,7 @@ At enda er ærisheitið: %2$s.</string>
   <string name="whatUsernameCanIchoose">Hvat kann brúkaranavn mítt vera?</string>
   <string name="usernamesNotOffensive">Sum heild eiga brúkaranøvn ikki at vera stoytandi og eiga ikki at lýsa fyri onkrari ávísari vøru ella virki. Við brúkaranavninum eigur tú ei heldur at látast at vera onkur annar, enn tú ert. Tú kanst lesa meir um hetta: %1$s.</string>
   <string name="canIChangeMyUsername">Kann eg broyta brúkaranavn mítt?</string>
-  <string name="usernamesCannotBeChanged">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nei, av tøkniligum og verkligum ávum, ber ikki til at broyta brúkaranøvn. Brúkaranøvn koma fyri ov nógv støð: í dátugrunnum, útflutningum, skráum, og í huganum á fólki. Til ber at broyta, um navnið verður skrivað við stórum ella smáum stavum eina ferð.</string>
   <string name="lichessRatings">Lichess styrkitøl</string>
   <string name="whichRatingSystemUsedByLichess">Hvørja styrkitalaskipan nýtir Lichess?</string>
 </resources>

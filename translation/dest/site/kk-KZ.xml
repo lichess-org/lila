@@ -658,7 +658,7 @@
   <string name="aboutSimulRules">Қалың ойын басталысымен әр ойыншы бас ойыншымен бел ұстасады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
   <string name="aboutSimulSettings">Қалың ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
-  <string name="whenCreateSimul">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Қалың ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>

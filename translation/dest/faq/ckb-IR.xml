@@ -94,12 +94,12 @@
 دەتوانی زیاتر بزانی لەسەر %1$s.</string>
   <string name="guidelines">ڕێنماییەکان</string>
   <string name="canIChangeMyUsername">ئەتوانم ناوی بەکارھێنراوم بگۆڕم ؟</string>
-  <string name="usernamesCannotBeChanged">نەخێر ناتوانی بیگۆڕیت بەھۆی ئەو داتازۆرەی تۆمار ئەکرێت بەشێکی لای ئەوانەیە کە یاریت لەگەل کردون بەشێکیشی لای رێکخستنی تیمی لیچیسە .</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">نەخێر ناتوانی بیگۆڕیت بەھۆی ئەو داتازۆرەی تۆمار ئەکرێت بەشێکی لای ئەوانەیە کە یاریت لەگەل کردون بەشێکیشی لای رێکخستنی تیمی لیچیسە .</string>
   <string name="uniqueTrophies">جامە ناوازەکە</string>
   <string name="ownerUniqueTrophies">ئەو جامە لە مێژووی لیچێسدا ناوازەیە، جگە لە %1$s کەسی تر هەرگیز ئەو جامەی نابێت.</string>
   <string name="wayOfBerserkExplanation">بۆ بەدەست هێنانی ئەوە، هیمگسۆ ڕکابەری خۆی دەکرد بە بریسێرگ وە بردنەوەی هەموو یاریەکان لە%s.</string>
   <string name="aHourlyBulletTournament">پاڵەوانێتی فیشەک ی سەعاتی</string>
-  <string name="goldenZeeExplanation">ZugAddict ستریمی دەکرد و لە ماوەی ٢ کاتژمێری ڕابردوودا هەوڵی شکستی بە A.I. ئاستی ٨ لە یارییەکی ١+٠، بەبێ سەرکەوتن. تیبۆڵ پێی وت ئەگەر بە سەرکەوتوویی لە ستریمدا ئەو کارە بکات، ئەوا جامێکی ناوازە بەدەست دەهێنێت. دوای کاتژمێرێک، ستۆکفیشی شکاند و بەڵێنەکە جێبەجێ کرا.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict ستریمی دەکرد و لە ماوەی ٢ کاتژمێری ڕابردوودا هەوڵی شکستی بە A.I. ئاستی ٨ لە یارییەکی ١+٠، بەبێ سەرکەوتن. تیبۆڵ پێی وت ئەگەر بە سەرکەوتوویی لە ستریمدا ئەو کارە بکات، ئەوا جامێکی ناوازە بەدەست دەهێنێت. دوای کاتژمێرێک، ستۆکفیشی شکاند و بەڵێنەکە جێبەجێ کرا.</string>
   <string name="lichessRatings">ڕاھێنان کردن لە لیچێس</string>
   <string name="whichRatingSystemUsedByLichess">لیچێس چ سیستەمێک بەکار دێنێت بۆ پێدانی ڕەیتینگ ؟</string>
   <string name="ratingSystemUsedByLichess">هەڵسەنگاندنەکان بە بەکارهێنانی شێوازی هەڵسەنگاندنی گلیکۆ-٢ کە لەلایەن مارک گلیکمانەوە پەرەی پێدراوە، حیسابی بۆ دەکرێت. ئەمە شێوازێکی هەڵسەنگاندنی زۆر بەناوبانگە، و لەلایەن ژمارەیەکی بەرچاو لە ڕێکخراوەکانی شەترەنجەوە بەکاردەهێنرێت (FIDE نموونەیەکی دژە بەرچاوە، چونکە هێشتا سیستەمی هەڵسەنگاندنی ئیلۆی بەروارکراو بەکاردەهێنن).

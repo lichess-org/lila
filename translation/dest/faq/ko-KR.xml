@@ -97,12 +97,12 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="usernamesNotOffensive">일반적으로, 사용자 이름으로 불쾌감을 주거나, 다른 사람을 사칭하거나, 광고를 해서는 안됩니다. 이것에 대해서는 %1$s을 읽어주세요.</string>
   <string name="guidelines">가이드라인</string>
   <string name="canIChangeMyUsername">사용자 이름을 변경할 수 있나요?</string>
-  <string name="usernamesCannotBeChanged">아뇨. 사용자명은 기술적, 실질적인 이유로 변경할 수 없습니다. 사용자 이름은 테이터베이스, 내보내기, 로그, 사람들의 마음 속 등 여러 위치에서 사용됩니다. 대소문자만 한 번 변경할 수 있습니다.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">아뇨. 사용자명은 기술적, 실질적인 이유로 변경할 수 없습니다. 사용자 이름은 테이터베이스, 내보내기, 로그, 사람들의 마음 속 등 여러 위치에서 사용됩니다. 대소문자만 한 번 변경할 수 있습니다.</string>
   <string name="uniqueTrophies">하나뿐인 트로피</string>
   <string name="ownerUniqueTrophies">이 트로피는 Lichess 역사에서 단 하나 뿐입니다. 오직 %1$s만이 가지고 있습니다.</string>
   <string name="wayOfBerserkExplanation">hiimgosu는 %s에 출전해 모든 경기를 버서크 모드로 승리해 이 트로피를 획득했습니다.</string>
   <string name="aHourlyBulletTournament">hourly 불렛 토너먼트</string>
-  <string name="goldenZeeExplanation">ZugAddict는 1+0 게임에서 레벨8 AI을 이기기 위해 2시간 동안 스트리밍 중이었습니다. Thibault는 그에게 스트리밍을 성공하면 트로피를 주겠다고 말했습니다. 1시간 후 그는 Stockfish를 박살내었고, 약속은 지켜졌습니다.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict는 1+0 게임에서 레벨8 AI을 이기기 위해 2시간 동안 스트리밍 중이었습니다. Thibault는 그에게 스트리밍을 성공하면 트로피를 주겠다고 말했습니다. 1시간 후 그는 Stockfish를 박살내었고, 약속은 지켜졌습니다.</string>
   <string name="lichessRatings">Lichess 레이팅</string>
   <string name="whichRatingSystemUsedByLichess">Lichess가 사용하는 레이팅 시스템은 무엇인가요?</string>
   <string name="ratingSystemUsedByLichess">레이팅 점수는 Mark Glickman이 개발한 Glicko-2 레이팅 방식을 사용하여 계산됩니다. 이것은 매우 인기 있는 레이팅 시스템이며 상당수의 체스 조직에서 사용합니다 (FIDE는 ​​여전히 오래된 Elo 레이팅 시스템을 사용하기 때문에 주목할만한 반례입니다).

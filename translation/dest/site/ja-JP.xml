@@ -642,7 +642,7 @@
   <string name="aboutSimulRules">同時対局が始まると、全員がホスト（白番）と対戦します。同時対局はすべての対局が終わった時に終了します。</string>
   <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>
   <string name="create">作成する</string>
-  <string name="whenCreateSimul">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
   <string name="simulVariantsHint">複数のバリアントを選ぶと、どのバリアントにするか相手が選べます。</string>
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>

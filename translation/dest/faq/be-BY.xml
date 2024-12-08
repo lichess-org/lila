@@ -97,12 +97,12 @@
   <string name="usernamesNotOffensive">Увогуле, імёны карыстальнікай не павінны баць: абражаючымі, рэкламнымі, або выдаючымі вас за кагосьці іншага. Больш чытайце ў %1$s.</string>
   <string name="guidelines">рэкамендацыях</string>
   <string name="canIChangeMyUsername">Ці магу я змяніць сваё імя карыстальніка?</string>
-  <string name="usernamesCannotBeChanged">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Не, імя карыстальніка нельга змяніць па тэхнічных та прыктычных прычынах. Імя карыстальнікаў выкарыстоўваюцца шмат дзе: базах дадзеных, выгрузках, логах і ў памяці людзей. Вы можаце наладзіць рэгістр літар аднаразова.</string>
   <string name="uniqueTrophies">Унікальныя трафеі</string>
   <string name="ownerUniqueTrophies">Гэта трэфей унікальны ў гісторыі Lichess, ніхто акрамя %1$s ніколі не будзе маць такі.</string>
   <string name="wayOfBerserkExplanation">Каб атрымаць яго, hiimgosu кінуў сабе выклік і ў шаленым рэжыме выйграў усе гульні %s.</string>
   <string name="aHourlyBulletTournament">у штогадзінным Куля турніры</string>
-  <string name="goldenZeeExplanation">ZugAddict стрыміў і на працягу 2 гадзін спрабаваў перамагчы штучны інтэлект 8 узроўня ў гульне 1+0, беспаспяхова. Thibault прапанаваў яму, калі ён пераможа на працягу страма, то ён атрымае ўнікальны трафей. Гадзіну апасля, ён разбіў Stockfish, і абяцанне было выканана.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict стрыміў і на працягу 2 гадзін спрабаваў перамагчы штучны інтэлект 8 узроўня ў гульне 1+0, беспаспяхова. Thibault прапанаваў яму, калі ён пераможа на працягу страма, то ён атрымае ўнікальны трафей. Гадзіну апасля, ён разбіў Stockfish, і абяцанне было выканана.</string>
   <string name="lichessRatings">Рэйтынгавая сістэма Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Якую рэйтынг сыстэму выкарыстоўвае Lichess?</string>
   <string name="ratingSystemUsedByLichess">Рэйтынгі падлючваюцца з дапамогай метада Glicko-2, распрацаванага Маркам Глікманам. Гэта вельмі папулярны метад падліку, які выкарыстоўваецца значнай колькасцю шахматных арганізацый (заўважальны працілеглы прыклад - ФІДЭ, яны працягваюць выкарыстанне састарэлай сістэмы Эло).

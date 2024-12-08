@@ -95,12 +95,12 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="usernamesNotOffensive">一般而言，用户名不应该是攻击性、冒用他人或广告。你可以阅读更多关于%1$s 的信息。</string>
   <string name="guidelines">指南</string>
   <string name="canIChangeMyUsername">我能变更我的用户名吗?</string>
-  <string name="usernamesCannotBeChanged">不可以，由于技术和实际原因，不能更改用户名。 用户名在很多地方都得到了体现：数据库，导出，日志和人们的想法。 你可以调整一次用户名大小写。</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">不可以，由于技术和实际原因，不能更改用户名。 用户名在很多地方都得到了体现：数据库，导出，日志和人们的想法。 你可以调整一次用户名大小写。</string>
   <string name="uniqueTrophies">独一无二的奖杯</string>
   <string name="ownerUniqueTrophies">这个奖杯在 Lichess 历史上是独一无二的，除了%1$s，任何人都不会有。</string>
   <string name="wayOfBerserkExplanation">为了获得它，hiimgosu 疯狂挑战他自己并赢得100%%的 %s。</string>
   <string name="aHourlyBulletTournament">一小时子弹快棋锦标赛</string>
-  <string name="goldenZeeExplanation">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么等级分系统？</string>
   <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织（FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统）所采用。

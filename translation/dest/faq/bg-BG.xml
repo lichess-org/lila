@@ -90,7 +90,7 @@
   <string name="usernamesNotOffensive">Като цяло, потребителските имена не трябва да са обидни, представляващи другиго, или с цел реклама. Можете да прочетете повече в %1$s.</string>
   <string name="guidelines">упътванията</string>
   <string name="canIChangeMyUsername">Мога ли да променя потребителското си име?</string>
-  <string name="usernamesCannotBeChanged">Не, поради технични и практически причини, промяната на потребителски имена не е позволена. Потребителските имена се използват на прекалено много места: бази данни, изтеглени файлове, записи, и в паметта на хората. Разрешено е да се разменят главни и малки букви, но само веднъж.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Не, поради технични и практически причини, промяната на потребителски имена не е позволена. Потребителските имена се използват на прекалено много места: бази данни, изтеглени файлове, записи, и в паметта на хората. Разрешено е да се разменят главни и малки букви, но само веднъж.</string>
   <string name="uniqueTrophies">Уникални трофеи</string>
   <string name="whatIsProvisionalRating">Защо има въпросителна (?) до моя ранк?</string>
   <string name="similarOpponents">опоненти на подобно ниво</string>

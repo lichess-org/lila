@@ -687,7 +687,7 @@ Nächschte und macht bi jedem Brätt 1 Zug.</string>
   <string name="aboutSimulSettings">Zugsrücknahme, zuesätzlichi Zit oder Revanche 
 gits nöd und es isch nie g\'wertet.</string>
   <string name="create">Erschtelle</string>
-  <string name="whenCreateSimul">Wänn du dir es Simultanschach machsch, chasch du glichzitig gäge mehreri Gägner schpille.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wänn du dir es Simultanschach machsch, chasch du glichzitig gäge mehreri Gägner schpille.</string>
   <string name="simulVariantsHint">Wänn du mehreri Variante wählsch, chann jede Simultangägner ussueche, was er schpille will.</string>
   <string name="simulClockHint">Fischer Uhr: Je meh Gägner, umso meh Zit bruchsch wahrschinlich.</string>
   <string name="simulAddExtraTime">Du chasch dir Extrazit geh, dass du z\'rächt chunsch.</string>

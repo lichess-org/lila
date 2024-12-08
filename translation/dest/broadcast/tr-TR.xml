@@ -78,7 +78,6 @@
   <string name="timezone">Zaman dilimi</string>
   <string name="fideRatingCategory">FIDE derecelendirme kategorisi</string>
   <string name="optionalDetails">İsteğe bağlı ayrıntılar</string>
-  <string name="upcomingBroadcasts">Yaklaşan yayınlar</string>
   <string name="pastBroadcasts">Geçmiş yayınlar</string>
   <string name="allBroadcastsByMonth">Tüm yayınları aylara göre görüntüleyin</string>
 </resources>

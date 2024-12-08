@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza una partida con el anfitrión, que juega con blancas. La simultánea termina cuando se acaban todas las partidas.</string>
   <string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Las opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
   <string name="simulVariantsHint">Si seleccionas diferentes variantes, cada jugador escoge cuál jugar.</string>
   <string name="simulClockHint">Configuración de reloj Fischer. Cuantos más oponentes, más tiempo se necesita.</string>
   <string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>

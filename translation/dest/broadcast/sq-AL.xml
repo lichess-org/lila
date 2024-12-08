@@ -74,7 +74,6 @@
   <string name="timezone">Zonë kohore</string>
   <string name="fideRatingCategory">Kategori vlerësimi FIDE</string>
   <string name="optionalDetails">Hollësi opsionale</string>
-  <string name="upcomingBroadcasts">Transmetime së afërmi</string>
   <string name="pastBroadcasts">Transmetime të kaluara</string>
   <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
 </resources>

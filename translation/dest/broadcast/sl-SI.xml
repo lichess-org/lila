@@ -49,7 +49,6 @@
   <string name="timezone">Časovni pas</string>
   <string name="fideRatingCategory">FIDE rating kategorija</string>
   <string name="optionalDetails">Neobvezne podrobnosti</string>
-  <string name="upcomingBroadcasts">Prihajajoče oddaje</string>
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
 </resources>

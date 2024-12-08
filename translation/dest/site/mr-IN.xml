@@ -620,7 +620,7 @@
   <string name="aboutSimulRules">जेव्हा अनेकांविरुद्ध प्रदर्शन सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपते.</string>
   <string name="aboutSimulSettings">अनेकांविरूद्धची प्रदर्शने नेहमीच अनौपचारिक असतात. पुनर्खेळ, चाल परत घेणे आणि वेळ वाढवणे या गोष्टींची परवानगी नसते.</string>
   <string name="create">तयार करा</string>
-  <string name="whenCreateSimul">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
   <string name="simulVariantsHint">आपण कित्येक प्रकार निवडल्यास प्रत्येक खेळाडू कोणता प्रकार खेळायचा ते ठरवू शकेल.</string>
   <string name="simulClockHint">फिशर क्लॉक सेटअप. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">एकाच वेळी अनेकांचा सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>

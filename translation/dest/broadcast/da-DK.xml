@@ -78,7 +78,6 @@
   <string name="timezone">Tidszone</string>
   <string name="fideRatingCategory">FIDE-ratingkategori</string>
   <string name="optionalDetails">Valgfri detaljer</string>
-  <string name="upcomingBroadcasts">Kommende udsendelser</string>
   <string name="pastBroadcasts">Tidligere udsendelser</string>
   <string name="allBroadcastsByMonth">Vis alle udsendelser efter måned</string>
 </resources>

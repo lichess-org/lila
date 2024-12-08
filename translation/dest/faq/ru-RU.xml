@@ -97,12 +97,12 @@
   <string name="usernamesNotOffensive">В целом, имя пользователя не должно быть оскорбительным, выдающим вас за кого-то другого и рекламирующем что-то. Узнайте больше в наших %1$s.</string>
   <string name="guidelines">рекомендациях</string>
   <string name="canIChangeMyUsername">Могу ли я изменить своё имя пользователя?</string>
-  <string name="usernamesCannotBeChanged">Нет, по техническим и практическим причинам нельзя изменять имена пользователей. Они прописываются в слишком многих местах: базах данных, файлах экспорта, журналах и, конечно, в памяти людей. Вы можете изменить регистр символов, но только один раз.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Нет, по техническим и практическим причинам нельзя изменять имена пользователей. Они прописываются в слишком многих местах: базах данных, файлах экспорта, журналах и, конечно, в памяти людей. Вы можете изменить регистр символов, но только один раз.</string>
   <string name="uniqueTrophies">Уникальные трофеи</string>
   <string name="ownerUniqueTrophies">Это уникальные трофеи за всю историю Lichess, и ни у кого, кроме %1$s их не было.</string>
   <string name="wayOfBerserkExplanation">Чтобы его получить, hiimgosu бросил вызов самому себе выиграть с Берсерком 100%% игр в %s.</string>
   <string name="aHourlyBulletTournament">ежечасном турнире в Пулю</string>
-  <string name="goldenZeeExplanation">ZugAddict во время стрима два часа безуспешно пытался обыграть компьютер на 8-м уровне в игре 1+0. Тибо пообещал наградить его уникальным трофеем, если он всё же сделает это во время стрима. Спустя час он разгромил Стокфиш, и обещание было исполнено.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict во время стрима два часа безуспешно пытался обыграть компьютер на 8-м уровне в игре 1+0. Тибо пообещал наградить его уникальным трофеем, если он всё же сделает это во время стрима. Спустя час он разгромил Стокфиш, и обещание было исполнено.</string>
   <string name="lichessRatings">Рейтинги Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Какая система рейтинга используется на Lichess?</string>
   <string name="ratingSystemUsedByLichess">Рейтинги считаются на основе метода Glicko-2, разработанного Марком Гликманом. Это очень распространённый метод, используемый большим количеством шахматных организаций (ФИДЕ при этом, наоборот, всё ещё использует устаревший метод Эло).

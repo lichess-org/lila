@@ -669,7 +669,7 @@
   <string name="aboutSimulRules">کاتێک سیمول دەست پێدەکات، هەموو یاریزانێک یارییەک لەگەڵ هۆستەکە دەستپێدەکات. سیمولەکە کاتێک کۆتایی دێت کە هەموو یارییەکان تەواو بوون.</string>
   <string name="aboutSimulSettings">سیمولەکان، کات زیادکردن، دووبارە کردنەوە یان وەرگرتنەوەی نییە.</string>
   <string name="create">دروستکردن</string>
-  <string name="whenCreateSimul">کاتێک سیموڵێک دروست دەکەی، ئەوە بەدەستدێنی کە بتوانی لە یەک کاتدا لەگەڵ چەند یاریزانێک یاری بکەیت.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">کاتێک سیموڵێک دروست دەکەی، ئەوە بەدەستدێنی کە بتوانی لە یەک کاتدا لەگەڵ چەند یاریزانێک یاری بکەیت.</string>
   <string name="simulVariantsHint">ئەگەر چەند جۆرێک هەڵبژێریت، هەر یاریزانێک دەتوانێت ئەوە هەڵبژێرێت کە دەیەوێت یاری پێبکات.</string>
   <string name="simulClockHint">ڕێکخستنی کاتژمێری فیشەر. تا یاریزانی زیاتر وەربگریت، ڕەنگە پێویستت بە کاتێکی زیاتر بێت.</string>
   <string name="simulAddExtraTime">لەوانەیە کاتێکی زیاتر بۆ کاتژمێرەکەت زیاد بکەیت بۆ ئەوەی یارمەتیت بدات لەگەڵ سیموڵدا ڕوبەڕو ببیتەوە.</string>

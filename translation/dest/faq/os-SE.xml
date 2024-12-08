@@ -72,7 +72,7 @@ LM хуындады райстыл ма кур.</string>
   <string name="usernamesNotOffensive">Æмткæй зæгъгæйæ, пайдакæнæджыты нæмттæ хъуамæ нæ уой: æфхæрæн, рекламæ кæнæн, ави дæу æндæр адæймаджы хуызæн æвдисгæ кæй кæнынц, ахæмтæ. Дæ бон у фылдæр бакæсын нæ %1$s.</string>
   <string name="guidelines">рекомендациты</string>
   <string name="canIChangeMyUsername">Ис дзы мæ бон пайдакæнæджы ном баивын?</string>
-  <string name="usernamesCannotBeChanged">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты æвæрæнты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Нæ, пайдакæнæджы номæн баивын нæй, уымæн ис техникон æмæ практикон аххостæ. Пайдакæнæджы нæмттæ фыст ысты æгæр бирæ бынæтты: бæрæггæнæнты æвæрæнты, экспорты, логты æмæ адæмы зæрдæты. Дæ бон у баивын символты регистр, фæлæ æрмæст иу хатт.</string>
   <string name="uniqueTrophies">Уникалон лæвартæ</string>
   <string name="ownerUniqueTrophies">Уыцы лæвар у уникалон Lichess-ы историйы, %1$s-æй уæлдай никæмæн уыдзæн ахæм.</string>
   <string name="howToThreeDots">Базон, куыд...</string>

@@ -66,7 +66,7 @@
   <string name="webmastersPage">صفحهٔ وبداران</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">یک منبع عمومی و بی‌درنگ PGN برای این دور. ما همچنین %s را برای همگامِش تندتر و کارآمدتر پیشنهاد می‌دهیم.</string>
   <string name="embedThisBroadcast">جاسازی این پخش زنده در وبگاه‌تان</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is set by the creator of the broadcast and may be in a different language.">جاسازی %s در وبگاه‌تان</string>
+  <string name="embedThisRound">جاسازی %s در وبگاه‌تان</string>
   <string name="ratingDiff">اختلاف درجه‌بندی</string>
   <string name="gamesThisTournament">بازی‌های این مسابقات</string>
   <string name="score">امتیاز</string>
@@ -77,7 +77,6 @@
   <string name="timezone">زمان-یانه</string>
   <string name="fideRatingCategory">رسته‌بندی درجه‌بندی فیده</string>
   <string name="optionalDetails">جزئیات اختیاری</string>
-  <string name="upcomingBroadcasts">پخش‌های آینده</string>
   <string name="pastBroadcasts">پخش‌های گذشته</string>
   <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
 </resources>

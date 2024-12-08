@@ -78,7 +78,6 @@
   <string name="timezone">Time zone</string>
   <string name="fideRatingCategory">FIDE rating category</string>
   <string name="optionalDetails">Optional details</string>
-  <string name="upcomingBroadcasts">Upcoming broadcasts</string>
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
 </resources>

@@ -77,7 +77,6 @@
   <string name="timezone">Múi giờ</string>
   <string name="fideRatingCategory">Thể loại xếp hạng FIDE</string>
   <string name="optionalDetails">Tùy chọn chi tiết</string>
-  <string name="upcomingBroadcasts">Các phát sóng sắp tới</string>
   <string name="pastBroadcasts">Các phát sóng đã qua</string>
   <string name="allBroadcastsByMonth">Xem tất cả phát sóng theo tháng</string>
 </resources>
