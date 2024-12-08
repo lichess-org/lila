@@ -24,6 +24,8 @@ export function view(r: Recap, user: LightUser): VNode {
       r.games.firstMoves[0] && firstMoves(r, r.games.firstMoves[0]),
       openingColor(r.games.openings, 'white'),
       openingColor(r.games.openings, 'black'),
+      malware(),
+      bye(),
     ]),
     h('div.swiper-pagination'),
   ]);
@@ -107,6 +109,26 @@ const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
     ]),
   ]);
 };
+
+const malware = () =>
+  h(slideTag('malware'), [
+    h('div.recap--massive', [h('strong', '0'), 'ads and trackers loaded']),
+    h('p', "We didn't sell your personal data, and we didn't use your device against you."),
+    h(
+      'p',
+      h('small', [
+        'But other websites do, so ',
+        h('a', { attrs: { href: '/ads', target: '_blank' } }, 'be careful'),
+      ]),
+    ),
+  ]);
+
+const bye = () =>
+  h(slideTag('bye'), [
+    h('div.recap--massive', 'Thank you for playing on Lichess!'),
+    h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
+    h('div', "May your pieces find their way to your opponent's kings."),
+  ]);
 
 const slideTag = (key: string) => `div.swiper-slide.recap__slide--${key}`;
 
