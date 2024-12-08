@@ -397,7 +397,7 @@
   <string name="aboutSimulImage">50 ӑмӑртуҫран, Фишӗр 47 ҫӗнтернӗ, 2 парма-пар выльанӑ, 1 выльаса йанӑ.</string>
   <string name="aboutSimulSettings">Пӗр вӑхӑтри вӑйӑ йаланах ахаль вӑйӑ. Рематч выльама, тавӑрма тата \"ытлаши вӑхӑт\" илме ҫук.</string>
   <string name="create">Йӗркелес</string>
-  <string name="whenCreateSimul">Пӗр вӑхӑтри вӑйӑ йӗрекелесен, санӑн темиҫе ӑмӑртуҫпа пӗр вӑхӑтра выльамалла.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Пӗр вӑхӑтри вӑйӑ йӗрекелесен, санӑн темиҫе ӑмӑртуҫпа пӗр вӑхӑтра выльамалла.</string>
   <string name="lichessTournaments">Lichess турнирӗсем</string>
   <string name="tournamentFAQ">Аренӑ турнирӗн ТЛЫӗ</string>
   <string name="timeBeforeTournamentStarts">Турнир пуҫланиччен хушши</string>
