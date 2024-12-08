@@ -142,7 +142,6 @@ export function view(ctrl: StudyChapterNewForm): VNode {
       ctrl.redraw();
     },
     noClickAway: true,
-    onInsert: dlg => dlg.show(),
     vnodes: [
       activeTab !== 'edit' &&
         h('h2', [
