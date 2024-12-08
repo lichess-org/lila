@@ -23,7 +23,6 @@ export interface ByColor<A> {
 
 export interface Recap {
   year: number;
-  id: string;
   createdAt: number;
   puzzles: {
     nb: NbStreak;

@@ -1,10 +1,12 @@
 package lila.recap
 package ui
 
+import play.api.libs.json.Json
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.recap.Recap.Availability
 import lila.recap.RecapJson.given
+import lila.common.Json.given
 
 final class RecapUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -18,7 +20,7 @@ final class RecapUi(helpers: Helpers):
     case Availability.Available(recap) =>
       Page(title(user))
         .csp(_.withInlineIconFont) // swiper's data: font
-        .js(esmInit("recap", recap))
+        .js(esmInit("recap", Json.obj("recap" -> recap, "user" -> user.light)))
         .css("recap"):
           main(cls := "recap"):
             div(id := "recap-swiper", cls := "swiper")

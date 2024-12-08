@@ -3,11 +3,12 @@ import type { ByColor, Counted, Opening, Recap } from './interfaces';
 import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { loadOpeningLpv } from './ui';
+import { fullName } from 'common/userLink';
 
-export default function view(r: Recap): VNode {
+export default function view(r: Recap, user: LightUser): VNode {
   return h('div#recap-swiper.swiper', [
     h('div.swiper-wrapper', [
-      init(),
+      init(user),
       nbGames(r),
       timeSpentPlaying(r),
       nbMoves(r),
@@ -19,9 +20,10 @@ export default function view(r: Recap): VNode {
   ]);
 }
 
-const init = (): VNode =>
+const init = (user: LightUser): VNode =>
   h(slideTag('init'), [
-    h('img', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
+    h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]),
+    h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     h('h2', 'What a chess year you had!'),
   ]);
 
