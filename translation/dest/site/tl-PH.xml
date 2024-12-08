@@ -620,7 +620,7 @@
   <string name="aboutSimulRules">Kapag ang isang simul ay nagsimula, bawat manlalaro ay nagsisimula maglaro ng isang laro kasama ang host, kung sino ang makakalaro sa puting mga piraso. Ang simuls ay natatapos kapag ang lahat ng mga laro ay nakompleto.</string>
   <string name="aboutSimulSettings">Ang simuls ay palaging kaswal, Pagtutugma muli, pagbawi at \'maraming oras\" ay hindi pinagana.</string>
   <string name="create">Gumawa</string>
-  <string name="whenCreateSimul">Kapag ikaw ay gumawa ng isang Simul, ikaw ay makakapaglaro sa maraming mga manlalaro ng sabay-sabay.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kapag ikaw ay gumawa ng isang Simul, ikaw ay makakapaglaro sa maraming mga manlalaro ng sabay-sabay.</string>
   <string name="simulVariantsHint">Kapag ikaw ay pumili ng maraming mga magkakaiba, bawat manlalaro ay pwedeng pumili kung sino ang kanyang makakalaro.</string>
   <string name="simulClockHint">Fischer na Orasan ng pagaayos. Mas maraming manlalaro na iyong nilaro, mas maraming oras ang iyong maaring kailanganin.</string>
   <string name="simulAddExtraTime">Maaring magdadag ng sobrang oras sa iyong orasan upang tumulong na makaya ang simul.</string>
