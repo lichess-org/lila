@@ -63,7 +63,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val listing: RelayListing = wire[RelayListing]
+  lazy val listing = wire[RelayListing]
 
   lazy val api: RelayApi = wire[RelayApi]
 
@@ -87,11 +87,8 @@ final class Env(
 
   lazy val videoEmbed = wire[lila.relay.RelayVideoEmbedStore]
 
-  def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
-    active   <- (page == 1).so(listing.active.get({}))
-    upcoming <- (page == 1).so(listing.upcomingCache.get({}))
-    past     <- pager.inactive(page)
-  yield (active, upcoming, past)
+  def top(page: Int): Fu[(List[ActiveWithSomeRounds], Paginator[WithLastRound])] =
+    (page == 1).so(listing.active).zip(pager.inactive(page))
 
   private lazy val sync = wire[RelaySync]
 

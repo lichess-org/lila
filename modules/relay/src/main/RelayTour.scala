@@ -49,41 +49,39 @@ case class RelayTour(
     tier.fold(false)(_ == selector(RelayTour.Tier))
 
   def studyVisibility: Visibility =
-    if tier.has(RelayTour.Tier.PRIVATE)
+    if tier.contains(RelayTour.Tier.`private`)
     then Visibility.`private`
     else Visibility.public
 
 object RelayTour:
 
-  val maxRelays = 64
+  val maxRelays = Max(64)
 
   opaque type Name = String
   object Name extends OpaqueString[Name]
 
-  type Tier = Int
-  object Tier:
-    val PRIVATE = -1
-    val NORMAL  = 3
-    val HIGH    = 4
-    val BEST    = 5
+  enum Tier(val v: Int):
+    case `private` extends Tier(-1)
+    case normal    extends Tier(3)
+    case high      extends Tier(4)
+    case best      extends Tier(5)
+    def key = toString
 
-    val options = List(
-      ""               -> "Non official",
-      NORMAL.toString  -> "Official: normal tier",
-      HIGH.toString    -> "Official: high tier",
-      BEST.toString    -> "Official: best tier",
-      PRIVATE.toString -> "Private"
-    )
-    def name(tier: Tier) = options.collectFirst {
-      case (t, n) if t == tier.toString => n
-    } | "???"
-    val keys: Map[Tier, String] = Map(
-      NORMAL  -> "normal",
-      HIGH    -> "high",
-      BEST    -> "best",
-      PRIVATE -> "private"
-    )
+  object Tier:
     type Selector = RelayTour.Tier.type => RelayTour.Tier
+
+    given cats.Order[Tier] = cats.Order.by(_.v)
+
+    def apply(s: Selector) = s(Tier)
+
+    val byV = values.mapBy(_.v)
+    val options = List(
+      ""                   -> "Non official",
+      normal.v.toString    -> "Official: normal tier",
+      high.v.toString      -> "Official: high tier",
+      best.v.toString      -> "Official: best tier",
+      `private`.v.toString -> "Private"
+    )
 
   case class Info(
       format: Option[String],

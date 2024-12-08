@@ -15,7 +15,7 @@ private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)
 ):
   import RelayStats.*
 
-  // on measurement by minute at most; the storage depends on it.
+  // one measurement by minute at most; the storage depends on it.
   scheduler.scheduleWithFixedDelay(2 minutes, 2 minutes)(() => record())
 
   def get(id: RelayRoundId): Fu[RoundStats] =

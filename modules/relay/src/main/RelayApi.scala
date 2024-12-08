@@ -396,7 +396,7 @@ final class RelayApi(
       ownerId = me.userId,
       createdAt = nowInstant,
       syncedAt = none,
-      tier = from.tier.map(_ => RelayTour.Tier.PRIVATE)
+      tier = from.tier.map(_ => RelayTour.Tier.`private`)
     )
     tourRepo.coll.insert.one(tour) >>
       roundRepo

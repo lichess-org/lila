@@ -123,8 +123,8 @@ final class RelayPager(
 
     // Special case of querying so that users can filter broadcasts by year
     val yearOpt = """\b(20)\d{2}\b""".r.findFirstIn(query)
-    val selector = yearOpt.foldLeft(textSelector): (selector, year) =>
-      selector ++ "name".$regex(s"\\b$year\\b")
+    val selector = yearOpt.foldLeft(textSelector): (sel, year) =>
+      sel ++ "name".$regex(s"\\b$year\\b")
 
     forSelector(
       selector = selector,
@@ -134,7 +134,7 @@ final class RelayPager(
         "searchDate" -> $doc(
           "$add" -> $arr(
             $doc("$ifNull"   -> $arr("$syncedAt", "$createdAt")),
-            $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.NORMAL)), 60 * day)),
+            $doc("$multiply" -> $arr($doc("$add" -> $arr("$tier", -RelayTour.Tier.normal.v)), 60 * day)),
             $doc("$multiply" -> $arr($doc("$meta" -> "textScore"), 30 * day))
           )
         )
@@ -181,5 +181,5 @@ final class RelayPager(
     tour   <- doc.asOpt[RelayTour]
     rounds <- doc.getAsOpt[List[RelayRound]]("round")
     round = rounds.headOption
-    group = RelayListing.group.readFrom(doc)
+    group = RelayTourRepo.group.readFrom(doc)
   yield round.fold(tour)(WithLastRound(tour, _, group))

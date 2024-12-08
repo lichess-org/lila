@@ -160,8 +160,8 @@ final private class RelayFetch(
             .filterNot(_.contains("Found an empty PGN"))
             .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(tour.tier.fold(60):
-            case RelayTour.Tier.BEST => 10
-            case RelayTour.Tier.HIGH => 20
+            case RelayTour.Tier.best => 10
+            case RelayTour.Tier.high => 20
             case _                   => 40
           )
         else round.sync.period | dynamicPeriod(tour, round, upstream)
@@ -181,7 +181,7 @@ final private class RelayFetch(
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
-      if tour.tier.exists(_ > RelayTour.Tier.NORMAL) then 1
+      if tour.tier.exists(_ > RelayTour.Tier.normal) then 1
       else if tour.official then 2
       else 3
     } * {
