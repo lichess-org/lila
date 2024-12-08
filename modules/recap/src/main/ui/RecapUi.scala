@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.ui.*
 import ScalatagsTemplate.{ *, given }
 import lila.recap.Recap.Availability
-import lila.recap.RecapJson.given
 import lila.common.Json.given
 import lila.ui.HtmlHelper.spinner
 
@@ -25,13 +24,13 @@ final class RecapUi(helpers: Helpers):
         .css("recap"):
           main(cls := "recap"):
             div(id := "recap-swiper", cls := "swiper")
-    case _ =>
+    case Availability.Queued(data) =>
       Page(title(user))
-        .js(esmInit("recap"))
+        .js(esmInit("recap", data))
         .css("recap"):
           main(cls := "recap"):
             div(id := "recap-swiper", cls := "swiper")(
               h1("Hi, ", userSpan(user)),
-              p("Did you have a great year playing chess?"),
+              p("What have you been up to this year?"),
               spinner
             )

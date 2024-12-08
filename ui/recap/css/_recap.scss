@@ -66,6 +66,10 @@ body {
   }
 }
 
+.recap__slide--await .spinner {
+  margin: 0;
+}
+
 .recap__slide--init {
   h2 {
     @include fluid-size('font-size', 24px, 38px);

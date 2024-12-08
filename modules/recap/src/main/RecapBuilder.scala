@@ -21,7 +21,6 @@ private final class RecapBuilder(
 )(using Executor, akka.stream.Materializer):
 
   def compute(userId: UserId): Funit = for
-    _ <- Future(Thread.sleep(5000))
     recap <- (
       runGameScan(userId).map(makeGameRecap),
       runPuzzleScan(userId).map(makePuzzleRecap)

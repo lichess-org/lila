@@ -42,10 +42,7 @@ export interface Recap {
     moves: number;
     openings: ByColor<Counted<Opening>>;
     nb: NbStreak;
-    opponent: {
-      value: string;
-      count: number;
-    };
+    opponents: Counted<LightUser>[];
     timePlaying: number;
     sources: {
       friend: number;
@@ -54,10 +51,7 @@ export interface Recap {
       ai: number;
       arena: number;
     };
-    firstMove: {
-      value: string;
-      count: number;
-    };
+    firstMoves: Counted<string>[];
     results: Results;
   };
 }

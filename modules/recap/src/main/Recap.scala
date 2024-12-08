@@ -16,7 +16,8 @@ case class Recap(
     games: RecapGames,
     puzzles: RecapPuzzles,
     createdAt: Instant
-)
+):
+  def userIds = games.opponents.map(_.value)
 
 case class RecapGames(
     nb: NbAndStreak,
@@ -47,7 +48,7 @@ object Recap:
 
   enum Availability:
     case Available(data: JsObject)
-    case Queued(entry: QueueEntry)
+    case Queued(data: JsObject)
 
 case class Results(win: Int = 0, draw: Int = 0, loss: Int = 0)
 case class NbAndStreak(nb: Int, streak: Days)

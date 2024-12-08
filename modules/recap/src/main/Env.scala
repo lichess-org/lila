@@ -13,6 +13,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     puzzleColls: lila.puzzle.PuzzleColls,
     cacheApi: CacheApi,
+    lightUserApi: lila.core.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder
 )(using Executor, Scheduler, akka.stream.Materializer):
 
@@ -23,6 +24,8 @@ final class Env(
   ).taggedWith[Parallelism]
 
   private val colls = RecapColls(db(CollName("recap_report")), db(CollName("recap_queue")))
+
+  private val json = wire[RecapJson]
 
   private val repo = wire[RecapRepo]
 
