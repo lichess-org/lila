@@ -30,11 +30,21 @@ const clockX = (dur: number) => {
   return Math.round((durLog(Math.min(clockMax, dur || clockMax)) / durLog(clockMax)) * 100);
 };
 
-function renderPlot(ctrl: LobbyController, hook: Hook) {
+let iconTranslateAmts: [number, number] | null = null;
+
+function getIconTranslateAmts(): [number, number] {
+  if (iconTranslateAmts) {
+    return iconTranslateAmts;
+  }
   const chart = document.querySelector('.hooks__chart') as HTMLElement;
   const fontSize = parseFloat(window.getComputedStyle(chart).fontSize);
-  const bottom = Math.max(0, ratingY(hook.rating) - (fontSize / chart.clientHeight) * 75),
-    left = Math.max(0, clockX(hook.t) - (fontSize / chart.clientWidth) * 95),
+  iconTranslateAmts = [(fontSize / chart.clientWidth) * 95, (fontSize / chart.clientHeight) * 75];
+  return iconTranslateAmts;
+}
+
+function renderPlot(ctrl: LobbyController, hook: Hook) {
+  const bottom = Math.max(0, ratingY(hook.rating) - getIconTranslateAmts()[1]),
+    left = Math.max(0, clockX(hook.t) - getIconTranslateAmts()[0]),
     klass = [
       hook.id,
       'plot.new',
