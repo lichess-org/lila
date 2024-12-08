@@ -2065,6 +2065,8 @@ interface I18n {
   preferences: {
     /** Bell notification sound */
     bellNotificationSound: string;
+    /** Blindfold */
+    blindFold: string;
     /** Board coordinates (A-H, 1-8) */
     boardCoordinates: string;
     /** Board highlights (last move and check) */
@@ -2121,6 +2123,8 @@ interface I18n {
     inputMovesWithTheKeyboard: string;
     /** Input moves with your voice */
     inputMovesWithVoice: string;
+    /** Keyboard input */
+    keyboardInput: string;
     /** Material difference */
     materialDifference: string;
     /** Move confirmation */
@@ -2187,6 +2191,8 @@ interface I18n {
     takebacksWithOpponentApproval: string;
     /** Tenths of seconds */
     tenthsOfSeconds: string;
+    /** Voice input */
+    voiceInput: string;
     /** When premoving */
     whenPremoving: string;
     /** When time remaining < 10 seconds */

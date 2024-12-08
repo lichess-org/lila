@@ -202,7 +202,6 @@ object I18nKey:
     val `timezone`: I18nKey = "broadcast:timezone"
     val `fideRatingCategory`: I18nKey = "broadcast:fideRatingCategory"
     val `optionalDetails`: I18nKey = "broadcast:optionalDetails"
-    val `upcomingBroadcasts`: I18nKey = "broadcast:upcomingBroadcasts"
     val `pastBroadcasts`: I18nKey = "broadcast:pastBroadcasts"
     val `allBroadcastsByMonth`: I18nKey = "broadcast:allBroadcastsByMonth"
     val `nbBroadcasts`: I18nKey = "broadcast:nbBroadcasts"
@@ -1134,6 +1133,9 @@ object I18nKey:
     val `notifyWeb`: I18nKey = "preferences:notifyWeb"
     val `notifyDevice`: I18nKey = "preferences:notifyDevice"
     val `bellNotificationSound`: I18nKey = "preferences:bellNotificationSound"
+    val `blindFold`: I18nKey = "preferences:blindFold"
+    val `voiceInput`: I18nKey = "preferences:voiceInput"
+    val `keyboardInput`: I18nKey = "preferences:keyboardInput"
 
   object puzzle:
     val `puzzles`: I18nKey = "puzzle:puzzles"
