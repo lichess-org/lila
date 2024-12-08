@@ -20,7 +20,7 @@ export default function (ctrl: PuzzleCtrl) {
       h(
         'a',
         { attrs: { target: '_blank', href: '/account/preferences/display' } },
-        'Game display preferences',
+        i18n.preferences.display,
       ),
     ]),
   ]);
