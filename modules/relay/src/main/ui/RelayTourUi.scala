@@ -19,7 +19,8 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       active: List[RelayTour.ActiveWithSomeRounds],
       past: Seq[WithLastRound]
   )(using Context) =
-    def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
+    def nonEmptyTier(selector: RelayTour.Tier.Selector) =
+      val tier     = RelayTour.Tier(selector)
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map:
@@ -33,9 +34,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
             Granter.opt(_.StudyAdmin).option(adminIndex(active)),
-            nonEmptyTier(_.BEST, "best"),
-            nonEmptyTier(_.HIGH, "high"),
-            nonEmptyTier(_.NORMAL, "normal"),
+            nonEmptyTier(_.best),
+            nonEmptyTier(_.high),
+            nonEmptyTier(_.normal),
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards relay-cards--past"):
               past.map: t =>
@@ -265,8 +266,8 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       )
 
     def renderCalendar(tr: RelayTour.WithFirstRound)(using Context) =
-      val highTier = tr.tour.tier.exists(_ >= RelayTour.Tier.HIGH)
-      link(tr.tour, tr.path, false)(cls := s"relay-card--tier-${~tr.tour.tier}")(
+      val highTier = tr.tour.tier.exists(_ >= RelayTour.Tier.high)
+      link(tr.tour, tr.path, false)(cls := s"relay-card--tier-${tr.tour.tier.so(_.v)}")(
         highTier.option(image(tr.tour)),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
