@@ -555,7 +555,7 @@
   <string name="aboutSimulRules">Cum simultanea incepit, omnes lusores ludum cum hospite incipiunt, qui cum calculis albis ludit. Cum omnes ludi finiti sunt, sumultanea completa erit.</string>
   <string name="aboutSimulSettings">Simultaneae semper leviores sunt. Vindictas, receptus, atque \"plus temporis\" tibi non licet.</string>
   <string name="create">Creare</string>
-  <string name="whenCreateSimul">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
   <string name="simulVariantsHint">Si variationes plures legis quas ludere quisque lusor eligere potest.</string>
   <string name="simulClockHint">Fischer Horologica fabrica. Tot lusores ludeabis ut plurem tempus requireas.</string>
   <string name="simulAddExtraTime">Plurem tempus in tuo horologio addeas ut exhibitio simultanea molliatur.</string>
