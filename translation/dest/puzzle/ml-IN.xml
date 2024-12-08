@@ -60,6 +60,7 @@
   <string name="fromMyGames">എന്റെ കളികൾ നിന്നു്</string>
   <string name="fromXGames">%s-യുടെ കളികൾ നിന്നു് പസ്സിലുകൾ</string>
   <string name="searchPuzzles">പസ്സിലുകൾ തിരയുക</string>
+  <string name="fromXGamesFound">%1$s പസ്സിലുകൾ %2$s കളികളിൽ കണ്ടെത്താൻ കഴിഞ്ഞു</string>
   <string name="puzzleDashboardDescription">അഭ്യാസിക്കുക, പരിശോധിക്കുക, മെച്ചപ്പെടുത്തുക</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s കളിച്ചിരിക്കുന്നു</item>
