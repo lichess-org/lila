@@ -96,12 +96,12 @@
   <string name="usernamesNotOffensive">Загалом, імена користувачів не повинні бути образливими, уособлювати когось іншого або рекламувати щось. Ви можете прочитати більше у %1$s.</string>
   <string name="guidelines">настановах</string>
   <string name="canIChangeMyUsername">Чи можу я змінити ім\'я користувача?</string>
-  <string name="usernamesCannotBeChanged">Ні, імена користувачів не можуть бути зміненими з технічних та практичних причин. Імена користувачів матеріалізовані в надто багатьох місцях: базах даних, експорті, журналах та в свідомості людей. Велику літеру можна підправити лише один раз.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ні, імена користувачів не можуть бути зміненими з технічних та практичних причин. Імена користувачів матеріалізовані в надто багатьох місцях: базах даних, експорті, журналах та в свідомості людей. Велику літеру можна підправити лише один раз.</string>
   <string name="uniqueTrophies">Унікальні нагороди</string>
   <string name="ownerUniqueTrophies">Ця нагорода є унікальною за всю історію Lichess, ніхто крім %1$s не зможе нею заволодіти.</string>
   <string name="wayOfBerserkExplanation">Щоб отримати його, hiimgosu кинув собі шалений виклик та виграв всі ігри в %s.</string>
   <string name="aHourlyBulletTournament">щогодинному турнірі з Кулі</string>
-  <string name="goldenZeeExplanation">ZugAddict транслював і 2 години він безуспішно намагався перемогти комп\'ютер 8 рівня в грі 1+0. Тібо пообіцяв йому, що якщо він успішно зробить це на трансляції, він отримає унікальну нагороду. Через годину він розгромив Stockfish і обіцянку було виконано.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict транслював і 2 години він безуспішно намагався перемогти комп\'ютер 8 рівня в грі 1+0. Тібо пообіцяв йому, що якщо він успішно зробить це на трансляції, він отримає унікальну нагороду. Через годину він розгромив Stockfish і обіцянку було виконано.</string>
   <string name="lichessRatings">Рейтинги Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Яку рейтингову систему використовує Lichess?</string>
   <string name="ratingSystemUsedByLichess">Рейтинг розраховується з використанням методу Glicko-2, розробленого Марком Глікманом. Це дуже популярний метод рейтингу і використовується значною кількістю шахових організацій (FIDE є відомим виключенням, оскільки вона досі використовує рейтингову систему Elo).
