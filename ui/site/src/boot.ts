@@ -6,7 +6,6 @@ import announce from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
-import StrongSocket from 'common/socket';
 import { watchers } from 'common/watchers';
 import { isIos } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
@@ -55,9 +54,6 @@ export function boot() {
 
     toggleBoxInit();
 
-    setTimeout(() => {
-      if (!site.socket) site.socket = new StrongSocket('/socket/v5', false);
-    }, 300); // TODO fix this
     window.addEventListener('resize', dispatchChessgroundResize);
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);

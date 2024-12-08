@@ -10,6 +10,7 @@ import {
 import dataLabels from 'chartjs-plugin-datalabels';
 import { fontColor, fontFamily, resizePolyfill } from './common';
 import { pubsub } from 'common/pubsub';
+import { wsSend, wsAverageLag } from 'common/socket';
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -30,7 +31,7 @@ const v = {
 };
 
 export async function initModule(): Promise<void> {
-  pubsub.after('socket.hasConnected').then(() => site.socket.send('moveLat', true));
+  pubsub.after('socket.hasConnected').then(() => wsSend('moveLat', true));
   $('.meter canvas').each(function (this: HTMLCanvasElement, index) {
     const colors = ['#55bf3b', '#dddf0d', '#df5353'];
     const dataset: ChartDataset<'doughnut'>[] = [
@@ -110,7 +111,7 @@ export async function initModule(): Promise<void> {
       });
     else {
       setInterval(function () {
-        v.network = Math.round(site.socket.averageLag);
+        v.network = Math.round(wsAverageLag());
         if (v.network <= 0) return;
         chart.options.plugins!.needle!.value = Math.min(750, v.network);
         chart.options.plugins!.title!.text = makeTitle(index, v.network);

@@ -3,6 +3,7 @@ import { memoize } from 'common';
 import { spinnerHtml } from 'common/spinner';
 import { clamp } from 'common/algo';
 import { pubsub } from 'common/pubsub';
+import { wsSend } from 'common/socket';
 
 export default function () {
   const top = document.getElementById('top')!;
@@ -114,7 +115,7 @@ export default function () {
             if (!isVisible(selector)) $toggle.trigger('click');
           },
           setNotified() {
-            site.socket.send('notified');
+            wsSend('notified');
           },
           pulse() {
             $toggle.addClass('pulse');
