@@ -76,7 +76,6 @@
   <string name="timezone">タイムゾーン</string>
   <string name="fideRatingCategory">FIDE レーティング カテゴリー</string>
   <string name="optionalDetails">その他詳細（オプション）</string>
-  <string name="upcomingBroadcasts">今後の中継</string>
   <string name="pastBroadcasts">過去の中継</string>
   <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
 </resources>
