@@ -57,7 +57,7 @@
   <string name="uploadImage">Subir a imaxe do torneo</string>
   <string name="noBoardsYet">Aínda non hai taboleiros. Aparecerán cando se suban as partidas.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Os taboleiros pódense cargar dende a fonte ou a través da %s</string>
-  <string name="startsAfter" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;).&#10;&#10;The round name is set by the creator of the broadcast, and may be in a different language.">Comeza tras a %s</string>
+  <string name="startsAfter">Comeza tras a %s</string>
   <string name="startVerySoon">A emisión comeza decontado.</string>
   <string name="notYetStarted">A emisión aínda non comezou.</string>
   <string name="officialWebsite">Páxina web oficial</string>
@@ -67,7 +67,7 @@
   <string name="webmastersPage">páxina do administrador web</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Unha fonte dos PGN pública e en tempo real para esta rolda. Tamén ofrecemos unha %s para unha sincronización máis rápida e eficiente.</string>
   <string name="embedThisBroadcast">Incrustar esta emisión na túa páxina web</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is set by the creator of the broadcast and may be in a different language.">Incrustar a %s na túa páxina web</string>
+  <string name="embedThisRound">Incrustar a %s na túa páxina web</string>
   <string name="ratingDiff">Diferenza de puntuación</string>
   <string name="gamesThisTournament">Partidas neste torneo</string>
   <string name="score">Resultado</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Zona horaria</string>
   <string name="fideRatingCategory">Categoría de puntuación FIDE</string>
   <string name="optionalDetails">Detalles opcionais</string>
-  <string name="upcomingBroadcasts">Vindeiras emisións</string>
   <string name="pastBroadcasts">Emisións finalizadas</string>
   <string name="allBroadcastsByMonth">Ver todas as emisións por mes</string>
 </resources>
