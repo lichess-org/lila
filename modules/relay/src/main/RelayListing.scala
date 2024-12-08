@@ -32,7 +32,7 @@ final class RelayListing(
   private var spotlightCache: List[RelayTour.ActiveWithSomeRounds] = Nil
 
   private val activeCache = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
-    _.refreshAfterWrite(5 seconds).buildAsyncFuture: _ =>
+    _.expireAfterWrite(5 seconds).buildAsyncFuture: _ =>
       for
         spots <- getSpots
         selected = spots.flatMap:
