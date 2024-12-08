@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import StrongSocket from 'common/socket';
+import { wsConnect, wsSend } from 'common/socket';
 import { userComplete } from 'common/userComplete';
 import { isTouchDevice, isIos } from 'common/device';
 
@@ -13,7 +13,7 @@ export function initModule(opts: ChallengeOpts): void {
   const selector = '.challenge-page';
   let accepting: boolean;
 
-  site.socket = new StrongSocket(`/challenge/${opts.data.challenge.id}/socket/v5`, opts.data.socketVersion, {
+  wsConnect(`/challenge/${opts.data.challenge.id}/socket/v5`, opts.data.socketVersion, {
     events: {
       reload() {
         xhr.text(opts.xhrUrl).then(html => {
@@ -90,7 +90,7 @@ export function initModule(opts: ChallengeOpts): void {
 
   function pingNow() {
     if (document.getElementById('ping-challenge')) {
-      site.socket.send('ping');
+      wsSend('ping');
       setTimeout(pingNow, 9000);
     }
   }

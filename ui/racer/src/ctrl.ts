@@ -24,7 +24,7 @@ import type {
 } from './interfaces';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
-import StrongSocket from 'common/socket';
+import { wsConnect, wsSend } from 'common/socket';
 import { pubsub } from 'common/pubsub';
 
 export default class RacerCtrl implements PuzCtrl {
@@ -79,7 +79,7 @@ export default class RacerCtrl implements PuzCtrl {
     );
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
-    site.socket = new StrongSocket(`/racer/${this.race.id}`, false, {
+    wsConnect(`/racer/${this.race.id}`, false, {
       events: {
         racerState: (data: UpdatableData) => {
           this.serverUpdate(data);
@@ -87,8 +87,7 @@ export default class RacerCtrl implements PuzCtrl {
           this.redrawSlow();
         },
       },
-    });
-    site.socket.sign(this.sign);
+    }).sign(this.sign);
     pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
@@ -257,7 +256,7 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = (tpe: string, data?: any) => site.socket.send(tpe, data, { sign: this.sign });
+  private socketSend = (tpe: string, data?: any) => wsSend(tpe, data, { sign: this.sign });
 
   private setZen = throttlePromiseDelay(
     () => 1000,
