@@ -31,9 +31,10 @@ const clockX = (dur: number) => {
 };
 
 function renderPlot(ctrl: LobbyController, hook: Hook) {
-  const isMobilePhone = window.screen.width <= 480;
-  const bottom = Math.max(0, ratingY(hook.rating) - (isMobilePhone ? 3 : 2)),
-    left = Math.max(0, clockX(hook.t) - (isMobilePhone ? 2.75 : 2)),
+  const chart = document.querySelector('.hooks__chart') as HTMLElement;
+  const fontSize = parseFloat(window.getComputedStyle(chart).fontSize);
+  const bottom = Math.max(0, ratingY(hook.rating) - (fontSize / chart.clientHeight) * 75),
+    left = Math.max(0, clockX(hook.t) - (fontSize / chart.clientWidth) * 95),
     klass = [
       hook.id,
       'plot.new',
