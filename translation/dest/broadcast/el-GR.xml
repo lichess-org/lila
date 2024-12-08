@@ -7,6 +7,7 @@
     <item quantity="other">%s αναμεταδόσεις</item>
   </plurals>
   <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
+  <string name="broadcastCalendar">Ημερολόγιο αναμεταδόσεων</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
   <string name="subscribedBroadcasts">Εγγεγραμμένες μεταδώσεις</string>
   <string name="aboutBroadcasts">Σχετικά με εκπομπές</string>
@@ -23,6 +24,7 @@
   <string name="tournamentDescription">Σύντομη περιγραφή τουρνουά</string>
   <string name="fullDescription">Πλήρης περιγραφή γεγονότος</string>
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Πηγαίο URL για PGN</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
   <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
@@ -46,10 +48,17 @@
   <string name="boards">Σκακιέρες</string>
   <string name="overview">Επισκόπηση</string>
   <string name="uploadImage">Ανεβάστε εικόνα τουρνουά</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Οι σκακιέρες μπορούν να φορτωθούν απο μια πηγή ή μέσω του %s</string>
   <string name="startsAfter">Ξεκινάει μετά από %s</string>
+  <string name="startVerySoon">Η αναμετάδοση θα ξεκινήσει πολύ σύντομα.</string>
+  <string name="notYetStarted">Η αναμετάδοση δεν έχει ξεκινήσει ακόμα.</string>
   <string name="officialWebsite">Επίσημη ιστοσελίδα</string>
   <string name="standings">Κατάταξη</string>
   <string name="officialStandings">Επίσημη Κατάταξη</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Περισσότερες επιλογές στη %s</string>
+  <string name="webmastersPage">σελίδα για webmasters</string>
+  <string name="embedThisBroadcast">Ενσωμάτωση αυτήν την αναμετάδοση στην ιστοσελίδα σας</string>
+  <string name="embedThisRound">Ενσωματώστε τον %s στην ιστοσελίδα σας</string>
   <string name="ratingDiff">Διαφορά βαθμολογίας</string>
   <string name="gamesThisTournament">Παρτίδες σε αυτό το τουρνουά</string>
   <string name="score">Βαθμολογία</string>
