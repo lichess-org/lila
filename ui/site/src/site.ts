@@ -11,10 +11,10 @@ import { api } from './api';
 import { pubsub } from 'common/pubsub';
 
 const site = window.site;
-// site.load is initialized in layout.scala embedded script tags
+// site.load is initialized in site.inline.ts (body script)
 // site.manifest is fetched
 // site.info, site.debug are populated by ui/build
-// site.socket, site.quietMode, site.analysis are set elsewhere
+// site.quietMode, site.analysis are set elsewhere
 site.sri = randomToken();
 site.displayLocale = displayLocale;
 site.blindMode = document.body.classList.contains('blind-mode');

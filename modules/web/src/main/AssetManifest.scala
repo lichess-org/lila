@@ -1,7 +1,7 @@
 package lila.web
 
 import play.api.Environment
-import play.api.libs.json.{ JsObject, JsValue, Json }
+import play.api.libs.json.{ JsObject, JsValue, Json, JsString }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
@@ -73,12 +73,13 @@ final class AssetManifest(environment: Environment, net: NetConfig)(using ws: St
     val splits: Map[String, SplitAsset] = (manifest \ "js")
       .as[JsObject]
       .value
-      .map { (k, value) =>
-        val name     = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
-        val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
-        val inlineJs = (value \ "inline").asOpt[String]
-        (k, SplitAsset(name, imports, inlineJs))
-      }
+      .map:
+        case (k, JsString(h)) => (k, SplitAsset(s"$k.$h.js", Nil, None))
+        case (k, value) =>
+          val name     = (value \ "hash").asOpt[String].fold(s"$k.js")(h => s"$k.$h.js")
+          val imports  = (value \ "imports").asOpt[List[String]].getOrElse(Nil)
+          val inlineJs = (value \ "inline").asOpt[String]
+          (k, SplitAsset(name, imports, inlineJs))
       .toMap
 
     val js = splits.view.mapValues: asset =>

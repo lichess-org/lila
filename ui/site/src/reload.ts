@@ -1,4 +1,5 @@
 import { promiseTimeout } from 'common/promise';
+import { wsDestroy } from 'common/socket';
 
 let redirectInProgress: false | string = false;
 
@@ -40,7 +41,7 @@ export const reload = (err?: any) => {
   if (err) console.warn(err);
   if (redirectInProgress) return;
   unload.expected = true;
-  site.socket.destroy();
+  wsDestroy();
   if (location.hash) location.reload();
   else location.assign(location.href);
 };

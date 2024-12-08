@@ -10,6 +10,7 @@ object BSONHandlers:
 
   given BSONHandler[RelayPlayersTextarea] = stringAnyValHandler(_.text, RelayPlayersTextarea(_))
   given BSONHandler[RelayTeamsTextarea]   = stringAnyValHandler(_.text, RelayTeamsTextarea(_))
+  given BSONHandler[RelayTour.Tier]       = intAnyValHandler(_.v, RelayTour.Tier.byV(_))
 
   import RelayRound.Sync
   import Sync.Upstream

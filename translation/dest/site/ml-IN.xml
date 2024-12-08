@@ -56,7 +56,7 @@
   <string name="computerAnalysis">കമ്പ്യൂട്ടർ പരിശോധന</string>
   <string name="computerAnalysisAvailable">നിങ്ങൾക്ക് ഗണനിക വിശകലനം ലഭ്യമാണ്</string>
   <string name="computerAnalysisDisabled">ഗണനിക വിശകലനം പ്രവർത്തനരഹിതമാക്കിയിരിക്കുന്നു</string>
-  <string name="analysis">പരിശോധനാ ബോര്‍ഡ്</string>
+  <string name="analysis">പരിശോധനാ കളം</string>
   <string name="depthX">ആഴം %s</string>
   <string name="usingServerAnalysis">സെർവറിന്റെ സഹായത്താൽ വിശകലനം ചെയ്യുന്നു</string>
   <string name="loadingEngine">എൻജിൻ സജ്ജമാക്കുന്നു ...</string>
@@ -105,8 +105,10 @@
   <string name="xOpeningExplorer">%s ഓപ്പണിങ് എക്സ്പ്ലോറർ</string>
   <string name="winPreventedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം ജയം തടയപ്പെട്ടു</string>
   <string name="lossSavedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം തോൽവി തടയപ്പെട്ടു</string>
+  <string name="winOr50MovesByPriorMistake">വിജയം അല്ലെങ്കിൽ മുൻപറ്റിയ പിഴകൊണ്ടു് 50 നീക്കങ്ങളിൽ സമനില</string>
+  <string name="lossOr50MovesByPriorMistake">തോൽവി അല്ലെങ്കിൽ മുൻപറ്റിയ പിഴകൊണ്ടു് 50 നീക്കങ്ങളിൽ സമനില</string>
   <string name="allSet">എല്ലാം തയ്യാറാണ്!</string>
-  <string name="importPgn">PGN import ചെയ്യുക</string>
+  <string name="importPgn">PGN ഇറക്കുമതി ചെയ്യുക</string>
   <string name="delete">നീക്കം ചെയ്യുക</string>
   <string name="deleteThisImportedGame">Import ചെയ്ത ഗെയിം നീക്കം ചെയ്യണോ?</string>
   <string name="replayMode">പുനരാവിഷ്കരണം</string>
@@ -137,7 +139,7 @@
     <item quantity="other">%s കൃത്യത കുറവുകള്‍</item>
   </plurals>
   <string name="moveTimes">മാറ്റങളുടെ സമയങൾ</string>
-  <string name="flipBoard">ബോര്‍ഡ്‌ തിരിക്കുക</string>
+  <string name="flipBoard">കളം തിരിക്കുക</string>
   <string name="threefoldRepetition">മൂന്നാമതും ആവര്‍ത്തിച്ചിരിക്കുന്നു</string>
   <string name="claimADraw">സമനില ആവശ്യപ്പെടുക</string>
   <string name="offerDraw">സമനിലയ്ക്ക് സമ്മതിക്കുക</string>
@@ -228,6 +230,7 @@
   <string name="checkSpamFolder">താങ്ങളുടെ പാഴ്മെയിൽ അറ (spam folder) കൂടി നോക്കുക, ചില്ലപ്പം ഇമെയിൽ അവിടേവരേ എത്താം.</string>
   <string name="emailForSignupHelp">മറ്റേതൊന്നും നടന്നില്ലെങ്കിൽ, ഞങ്ങളേ ഈ ഇമെയിൽ അയക്കുക:</string>
   <string name="copyTextToEmail">മേൽപറഞ്ഞ രേഖ പകർത്തി %s -ന് അയക്കുക</string>
+  <string name="waitForSignupHelp">താങ്ങളുടെ അക്കൗണ്ടു് തുടർച്ച തീർക്കാൻ ഞങ്ങൾ കുറച്ചു നേരം കഴിഞ്ഞു് തിരിച്ചു വരാം.</string>
   <string name="accountConfirmed">%s എന്ന ഉപയോക്താവ് സ്ഥിരീകരിക്കപെട്ടിരിക്കുന്നു.</string>
   <string name="accountCanLogin">താങ്ങൾക്ക് %s-ആയി പ്രവേശിക്കാം.</string>
   <string name="accountConfirmationEmailNotNeeded">താങ്ങൾക്ക് ഉറപ്പിക്കല്മെയിൽ ആവശ്യമില്ല.</string>
@@ -476,14 +479,14 @@
   <string name="draws">സമനിലകൾ</string>
   <string name="nextXTournament">അടുത്ത %s ടൂർണമെന്റ്:</string>
   <string name="averageOpponent">ശരാശരി എതിരാളി</string>
-  <string name="boardEditor">പലക ചിട്ടപ്പെടുത്തുക</string>
+  <string name="boardEditor">കളിക്കളം ചിട്ടപ്പെടുത്തുക</string>
   <string name="setTheBoard">കളിക്കളം സജ്ജമാക്കുക</string>
   <string name="popularOpenings">പ്രചാരത്തിലുള്ള ഓപ്പണിങ്ങുകൾ</string>
   <string name="endgamePositions">ഏൻഡ് ഗെയിം പൊസിഷനുകൾ</string>
   <string name="chess960StartPosition">ചതുരംഗം960 ആരംഭ സ്ഥാനം: %s</string>
   <string name="startPosition">പ്രാരംഭ സ്ഥാനം</string>
-  <string name="clearBoard">പലക വ്യക്തമാക്കുക</string>
-  <string name="loadPosition">സ്ഥാനത്തു നിന്ന്</string>
+  <string name="clearBoard">കളിക്കളം വ്യക്തമാക്കുക</string>
+  <string name="loadPosition">കരുനില നിന്ന്</string>
   <string name="isPrivate">സ്വകാര്യം</string>
   <string name="reportXToModerators">നിയന്ത്രകരോട് %s നെ സൂചിപ്പിക്കാം</string>
   <string name="profileCompletion">പ്രൊഫൈൽ പൂർത്തിയാക്കൽ: %s</string>
@@ -572,8 +575,8 @@
   <string name="fast">ശീഘ്രം</string>
   <string name="normal">സ്വാഭാവികം</string>
   <string name="slow">മന്ദം</string>
-  <string name="insideTheBoard">പലകയിൽ</string>
-  <string name="outsideTheBoard">പലകക്ക് അപ്പുറം</string>
+  <string name="insideTheBoard">കളിക്കളമിൽ</string>
+  <string name="outsideTheBoard">കളിക്കളം അപ്പുറം</string>
   <string name="allSquaresOfTheBoard">എല്ലാ ചതുരങ്ങളിലും</string>
   <string name="onSlowGames">വേഗം കുറഞ്ഞ കളികളിൽ</string>
   <string name="always">നിരന്തരം</string>
@@ -725,7 +728,7 @@
   <string name="crosstable">ക്രോസ്സ്‌റ്റേബിൾ</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">ചതുരംഗ പലകയിൽ സ്ക്രോൾ ചെയ്തും കളിയുടെ നീക്കം നടത്താവുന്നതാണ്.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">കരടുകാണാൻ ഗണനികവ്യതിയാനങ്ങൾ തോടെ ഗതിമാറ്റുക.</string>
-  <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ റൈറ്റ് ക്ലിക്ക് അമർത്തുക.</string>
+  <string name="analysisShapesHowTo">ചതുരംഗ പലകയിൽ വൃത്തങ്ങളും രേഖകളും വരക്കാൻ ഷിഫ്റ്റ്+ക്ലിക്ക് അല്ലെങ്കിൽ വലത്ത ക്ലിക്ക് അമർത്തുക.</string>
   <string name="letOtherPlayersMessageYou">മറ്റുള്ള കളിക്കാർ നിങ്ങൾക്ക് സന്ദേശമയക്കുന്നതിനുള്ള അനുവാദം</string>
   <string name="receiveForumNotifications">ആരെങ്കിലും ചർച്ചവേദിയിൽ എന്റെ പേരെടുത്താൽ എന്നെ സൂചിപിക്കണം</string>
   <string name="shareYourInsightsData">നിങ്ങളെ കുറിച്ച് കൂടുതൽ വിവരം പങ്കു വെക്കൂ</string>
@@ -772,7 +775,7 @@
   <string name="transparent">സുതാര്യത</string>
   <string name="deviceTheme">ഉപകരണയലങ്കാരം</string>
   <string name="backgroundImageUrl">പശ്ചാത്തല ചിത്രത്തിന്റെ URL:</string>
-  <string name="board">ബോർഡ്</string>
+  <string name="board">കളിക്കളം</string>
   <string name="size">വലിപ്പം</string>
   <string name="opacity">ഇരുൾ</string>
   <string name="brightness">കൂരിരുട്ട്</string>
@@ -790,7 +793,7 @@
   <string name="coaches">പരിശീലകർ</string>
   <string name="invalidPgn">അസാധുവായ PGN</string>
   <string name="invalidFen">അസാധുവായ FEN</string>
-  <string name="custom">ഇച്ഛാനുസൃതം</string>
+  <string name="custom">ഇഷ്ടമ്പോലെ</string>
   <string name="notifications">അറിയിപ്പുകൾ</string>
   <string name="notificationsX">അറിയിക്കൽ: %1$s</string>
   <string name="perfRatingX">നിലവാരം: %s</string>
@@ -868,6 +871,7 @@
   <string name="currentMatchScore">നിലവിലെ മത്സര സ്കോർ</string>
   <string name="agreementAssistance">എന്റെ കളികളിൽ ഞാൻ ഒരിക്കൽ പോലും മറ്റൊരാളുടെ സഹായം ഉപയോഗിക്കില്ലെന്ന് സമ്മതിക്കുന്നു (ഒരു ചെസ്സ് കംപ്യൂട്ടറിന്റെയോ പുസ്തകത്തിന്റെയോ ഡാറ്റാബേസിന്റെയോ മറ്റൊരാളുടെയോ അടുക്കൽ നിന്ന്).</string>
   <string name="agreementNice">ഞാൻ എല്ലായ്പ്പോഴും മറ്റു കളിക്കാരോട് മാന്യമായി പെരുമാറുമെന്ന് സമ്മതിക്കുന്നു.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">പല അക്കൗണ്ടുകൾ ഉണ്ടാക്കത്തില്ലെന്നു് ഞാൻ സമ്മതിക്കുന്നു (%s-ൽ പറഞ്ഞിരിക്കുന്ന കാരണങ്ങൾ ഒഴികേ).</string>
   <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
   <string name="searchOrStartNewDiscussion">കണ്ടുപിടിക്കുക അല്ലെങ്കിൽ പുതിയൊരു സംഭാഷണം ആരംഭിക്കുക</string>
   <string name="edit">മാറ്റുക</string>

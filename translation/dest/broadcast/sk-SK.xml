@@ -59,6 +59,7 @@
   <string name="uploadImage">Nahrať obrázok pre turnaj</string>
   <string name="noBoardsYet">Zatiaľ žiadne šachovnice. Objavia sa po nahratí partií.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Šachovnice možno načítať pomocou zdroja alebo pomocou %s</string>
+  <string name="startsAfter" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;).&#10;&#10;The round name is set by the creator of the broadcast, and may be in a different language.">Začína po %s</string>
   <string name="startVerySoon">Vysielanie sa začne čoskoro.</string>
   <string name="notYetStarted">Vysielanie sa ešte nezačalo.</string>
   <string name="officialWebsite">Oficiálna webstránka</string>
@@ -68,7 +69,7 @@
   <string name="webmastersPage">stránke tvorcu</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Verejný zdroj PGN v reálnom čase pre toto kolo. Ponúkame tiež %s na rýchlejšiu a efektívnejšiu synchronizáciu.</string>
   <string name="embedThisBroadcast">Vložiť toto vysielanie na webovú stránku</string>
-  <string name="embedThisRound">Vložiť %s na webovú stránku</string>
+  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is set by the creator of the broadcast and may be in a different language.">Vložiť %s na webovú stránku</string>
   <string name="ratingDiff">Ratingový rozdiel</string>
   <string name="gamesThisTournament">Partie tohto turnaja</string>
   <string name="score">Skóre</string>

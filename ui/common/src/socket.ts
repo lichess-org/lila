@@ -5,6 +5,14 @@ import { objectStorage, nonEmptyStore, type ObjectStorage } from './objectStorag
 import { pubsub, type PubsubEvent } from './pubsub';
 import { myUserId } from './common';
 
+let siteSocket: WsSocket | undefined;
+
+site.load.then(() => {
+  setTimeout(() => {
+    if (!siteSocket) wsConnect('/socket/v5', false);
+  }, 300);
+});
+
 type Sri = string;
 type Tpe = string;
 type Payload = any;
@@ -43,11 +51,39 @@ interface Settings {
   params?: Partial<Params>;
   options?: Partial<Options>;
 }
-// TODO - find out why are there three different types of settings
+
+export function wsConnect(url: string, version: number | false, settings: Partial<Settings> = {}): WsSocket {
+  return (siteSocket = new WsSocket(url, version, settings));
+}
+
+export function wsDestroy(): void {
+  siteSocket?.destroy();
+  siteSocket = undefined;
+}
+
+export function wsSend(t: string, d?: any, o?: any, noRetry?: boolean): void {
+  siteSocket?.send(t, d, o, noRetry);
+}
+
+export function wsSign(s: string): void {
+  siteSocket?.sign(s);
+}
+
+export function wsVersion(): number | false {
+  return siteSocket?.getVersion() ?? false;
+}
+
+export function wsPingInterval(): number {
+  return siteSocket?.pingInterval() ?? 0;
+}
+
+export function wsAverageLag(): number {
+  return siteSocket?.averageLag ?? 0;
+}
 
 const isOnline = () => !('onLine' in navigator) || navigator.onLine;
 
-export default class StrongSocket implements SocketI {
+class WsSocket {
   averageLag = 0;
 
   private settings: Settings;
@@ -174,12 +210,13 @@ export default class StrongSocket implements SocketI {
       } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
-      if (!stack.includes('round.nvui'))
+      if (!stack.includes('round.nvui')) {
         setTimeout(() => {
           if (once(`socket.rep.${Math.round(Date.now() / 1000 / 3600 / 3)}`))
             this.send('rep', { n: `soc: ${message} ${stack}` });
-          else site.socket.destroy();
+          else wsDestroy();
         }, 10000);
+      }
     }
     this.debug('send ' + message);
     if (!this.ws || this.ws.readyState === WebSocket.CONNECTING) {

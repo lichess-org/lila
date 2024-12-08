@@ -5,6 +5,7 @@ import type RoundController from './ctrl';
 import { defined } from 'common';
 import { domDialog } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
+import { wsSign, wsVersion } from 'common/socket';
 
 export interface RoundSocket {
   send: SocketSend;
@@ -47,7 +48,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 }
 
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
-  site.socket.sign(ctrl.sign);
+  wsSign(ctrl.sign);
 
   const reload = (o?: Incoming, isRetry?: boolean) => {
     // avoid reload if possible!
@@ -56,7 +57,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       handlers[o.t]!(o.d);
     } else
       xhrReload(ctrl).then(data => {
-        const version = site.socket.getVersion();
+        const version = wsVersion();
         if (version !== false && version > data.player.version) {
           // race condition! try to reload again
           if (isRetry) site.reload();
