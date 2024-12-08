@@ -1627,7 +1627,7 @@ object Quote:
       "Mariya Muzychuk"
     ),
     Quote(
-      "It’s not about winning or losing, but of course at the end of the day it's about winning or losing.",
+      "It's not about winning or losing, but of course at the end of the day it's about winning or losing.",
       "Garry Kasparov"
     ),
     Quote(
@@ -1643,17 +1643,13 @@ object Quote:
     Quote("Ask the knight on g1 what he thinks about the move f3.", "Edward Gufeld"),
     Quote("Every chessplayer should have a hobby.", "Savielly Tartakower"),
     Quote(
-      "Tactics is knowing what to do when there is something to do. Strategy is knowing what to do when there is nothing to do.",
-      "Savielly Tartakower"
-    ),
-    Quote(
       "A match demonstrates less than a tournament. But a tournament demonstrates nothing at all.",
       "Savielly Tartakower"
     ),
     Quote("...the threat is stronger than the execution.", "Aron Nimzowitsch"),
     Quote("I can never get mated with a knight on f8.", "Bent Larsen"),
     Quote(
-      "As for knight endings with an extra pawn...they are, as a rule, won.",
+      "As for knight endings with an extra pawn... they are, as a rule, won.",
       "Mark Dvoretsky"
     ),
     // lichess facts
