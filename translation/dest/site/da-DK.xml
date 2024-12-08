@@ -54,7 +54,7 @@
   <string name="blackDidntMove">Sort flyttede ikke</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
-  <string name="computerAnalysisAvailable">Computeranalyse klar</string>
+  <string name="computerAnalysisAvailable">Computeranalyse tilgængelig</string>
   <string name="computerAnalysisDisabled">Computeranalyse deaktiveret</string>
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">I begyndelsen af spillet starter alle deltagere et parti med værten, der får lov at spille med hvide brikker. Simultanspillet er slut, når alle partier er færdige.</string>
   <string name="aboutSimulSettings">Simultanspil er altid \"uformelle\". Revanche, omtræk og \"ekstra tid\" er deaktiverede.</string>
   <string name="create">Opret</string>
-  <string name="whenCreateSimul">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
   <string name="simulVariantsHint">Hvis du vælger flere varianter, kan hver enkelt spiller vælge, hvilken der skal spilles.</string>
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>

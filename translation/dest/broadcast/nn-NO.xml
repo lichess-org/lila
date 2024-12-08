@@ -23,7 +23,7 @@
   <string name="tournamentName">Turneringsnamn</string>
   <string name="tournamentDescription">Kortfatta skildring av turneringa</string>
   <string name="fullDescription">Full omtale av arrangementet</string>
-  <string name="fullDescriptionHelp">Valfri lang omtale av overføringa. %1$s er tilgjengeleg. Omtalen må vera kortare enn %2$s teikn.</string>
+  <string name="fullDescriptionHelp">Valfri lang omtale av turneringa. %1$s er tilgjengeleg. Omtalen må vera kortare enn %2$s teikn.</string>
   <string name="sourceSingleUrl">PGN kjelde-URL</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringar frå. Den må vera offentleg tilgjengeleg på internett.</string>
   <string name="sourceGameIds">Opp til 64 Lichess spel-ID\'ar, skilde med mellomrom.</string>
@@ -57,17 +57,28 @@
   <string name="uploadImage">Last opp turneringsbilete</string>
   <string name="noBoardsYet">Førebels er det ikkje brett å syne. Desse vert først vist når spel er lasta opp.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Brett kan lastas med ei kjelde eller via %s</string>
-  <string name="startsAfter">Startar etter %s</string>
+  <string name="startsAfter" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;).&#10;&#10;The round name is set by the creator of the broadcast, and may be in a different language.">Startar etter %s</string>
   <string name="startVerySoon">Sending vil starte om ikkje lenge.</string>
   <string name="notYetStarted">Sendinga har førebels ikkje starta.</string>
   <string name="officialWebsite">Offisiell nettside</string>
   <string name="standings">Resultat</string>
+  <string name="officialStandings">Offisiell tabell</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Fleire alternativ på %s</string>
   <string name="webmastersPage">administratoren si side</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Ei offentleg PGN-kjelde i sanntid for denne runden. Vi tilbyr og ei %s for raskare og meir effektiv synkronisering.</string>
   <string name="embedThisBroadcast">Bygg inn denne sendinga på nettstaden din</string>
-  <string name="embedThisRound">Bygg inn %s på nettstaden din</string>
+  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is set by the creator of the broadcast and may be in a different language.">Bygg inn %s på nettstaden din</string>
   <string name="ratingDiff">Rangeringsdiff</string>
   <string name="gamesThisTournament">Spel i denne turneringa</string>
   <string name="score">Poengskår</string>
+  <string name="allTeams">Alle lag</string>
+  <string name="tournamentFormat">Turneringsformat</string>
+  <string name="tournamentLocation">Turneringsstad</string>
+  <string name="topPlayers">Toppspelarar</string>
+  <string name="timezone">Tidssone</string>
+  <string name="fideRatingCategory">FIDE-ratingkategori</string>
+  <string name="optionalDetails">Valfrie detaljar</string>
+  <string name="upcomingBroadcasts">Komande overføringar</string>
+  <string name="pastBroadcasts">Tidlegare overføringar</string>
+  <string name="allBroadcastsByMonth">Vis alle overføringar etter månad</string>
 </resources>

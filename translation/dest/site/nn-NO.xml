@@ -258,6 +258,7 @@
     <item quantity="one">%s parti med deg</item>
     <item quantity="other">%s parti med deg</item>
   </plurals>
+  <string name="ok">Ok</string>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Tida er ute for kvit</string>
   <string name="blackTimeOut">Tida er ute for svart</string>
@@ -678,7 +679,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>
   <string name="simulVariantsHint">Om du vel fleire variantar, får kvar spelar velje kva variant dei ønskjer.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>

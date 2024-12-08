@@ -15,6 +15,7 @@
   <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
   <string name="upVote">musi lili pona</string>
   <string name="downVote">musi lili ike</string>
+  <string name="yourPuzzleRatingWillNotChange">nanpa wawa sina li ante ala. o sona e ni: musi lili ni li utala ala. ilo li pana e musi lili pi pona mute tawa sina kepeken nanpa wawa sina.</string>
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
