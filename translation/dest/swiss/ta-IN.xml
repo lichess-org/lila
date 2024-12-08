@@ -1,43 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swissTournaments">சுவிஸ் போட்டிகள்</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">சுவிசு</string>
+  <string name="swissTournaments">சுவிசு பந்தயங்கள்</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">இந்த சுற்றைக் காண்க</item>
-    <item quantity="other">எல்லா சுற்றுகளையும் %s காண்க</item>
+    <item quantity="other">அனைத்து %s சுற்றுகளையும் காண்க</item>
   </plurals>
   <plurals name="nbRounds" comment="%s is currentRound/maxRounds e.g. 5/9&#10;maxRounds is always at least 3">
     <item quantity="one">%s சுற்று</item>
     <item quantity="other">%s சுற்றுகள்</item>
   </plurals>
   <plurals name="xRoundsSwiss" comment="%s rounds of a Swiss game">
-    <item quantity="one">%s சுற்று சுவிஸ்</item>
-    <item quantity="other">%s சுற்றுகள் சுவிஸ்</item>
+    <item quantity="one">%s சுற்று சுவிசு</item>
+    <item quantity="other">%s சுற்றுகள் சுவிசு</item>
   </plurals>
   <plurals name="oneRoundEveryXDays">
     <item quantity="one">ஒரு நாளைக்கு ஒரு சுற்று</item>
     <item quantity="other">ஒவ்வொரு %s நாட்களுக்கும் ஒரு சுற்று</item>
   </plurals>
-  <string name="roundsAreStartedManually">சுற்றுகள் கைமுறையாகத் தொடங்கப்படுகின்றன</string>
+  <string name="roundsAreStartedManually">சுற்றுகள் கைமுறையாகத் துவங்கப்படுகிறது</string>
   <plurals name="xSecondsBetweenRounds">
-    <item quantity="one">சுற்றுகளுக்கு இடையே %s வினாடி</item>
-    <item quantity="other">சுற்றுகளுக்கு இடையே %s வினாடிகள்</item>
+    <item quantity="one">சுற்றுகளுக்கு இடையே %s நொடி</item>
+    <item quantity="other">சுற்றுகளுக்கு இடையே %s நொடிகள்</item>
   </plurals>
   <plurals name="xMinutesBetweenRounds">
-    <item quantity="one">சுற்றுகளுக்கு இடையே %s நிமிடம்</item>
-    <item quantity="other">சுற்றுகளுக்கு இடையே %s நிமிடங்கள்</item>
+    <item quantity="one">சுற்றுகளுக்கு இடையே %s மணித்துளி</item>
+    <item quantity="other">சுற்றுகளுக்கு இடையே %s மணித்துளிகள்</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">இல் தொடங்குகிறது</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">துவங்குவதற்கு இன்னும்</string>
   <string name="nextRound">அடுத்த சுற்று</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="one">நடந்துகொண்டிருக்கும் விளையாட்டு</item>
-    <item quantity="other">நடந்துகொண்டிருக்கும் விளையாட்டுகள்</item>
+    <item quantity="one">தொடரும் ஆட்டம்</item>
+    <item quantity="other">தொடரும் ஆட்டங்கள்</item>
   </plurals>
-  <string name="tournStartDate">போட்டி தொடங்கும் தேதி</string>
-  <string name="numberOfRounds">சுற்றுகளின் எண்ணிக்கை</string>
-  <string name="numberOfRoundsHelp">ஒற்றைப்படை எண்ணிக்கையிலான சுற்றுகள் உகந்த வண்ண சமநிலையை அனுமதிக்கிறது.</string>
+  <string name="tournStartDate">பந்தயம் துவங்கும் தேதி</string>
+  <string name="numberOfRounds">சுற்றுக்களின் எண்ணிக்கை</string>
+  <string name="numberOfRoundsHelp">ஒற்றைப்படை எண்ணிக்கையிலான சுற்றுகள் உகந்த நிற சமநிலையை அனுமதிக்கிறது.</string>
   <string name="roundInterval">சுற்றுகளுக்கு இடையிலான இடைவெளி</string>
-  <string name="forbiddenPairings">தடைசெய்யப்பட்ட இணைத்தல்</string>
+  <string name="forbiddenPairings">தடைசெய்யப்பட்ட இணைத்தல்கள்</string>
   <string name="forbiddenPairingsHelp">ஒன்றாக விளையாடக் கூடாத வீரர்களின் பயனர் பெயர்கள் (உதாரணமாக, உடன்பிறந்தவர்கள்). ஒரு வரிக்கு இரண்டு பயனர் பெயர்கள், இடைவெளியால் பிரிக்கப்பட்டிருக்கும்.</string>
+  <string name="manualPairings">அடுத்த சுற்றில் கைமுறையாக இணைத்தல்</string>
+  <string name="manualPairingsHelp">அடுத்த சுற்றின் அனைத்து இணைத்தல்களையும் கைமுறையாகக் குறிப்பிடவும். ஒரு வரிக்கு ஒரு வீரர் இணை. எடுத்துக்காட்டு:
+வீரர் அ வீரர் ஆ
+வீரர் இ வீரர் ஈ
+ஒரு ஜோடிக்கு பதிலாக ஒரு வீரருக்கு பை (1 புள்ளி) கொடுக்க, இது போன்ற ஒரு வரியைச் சேர்க்கவும்:
+பிளேயர்இ 1
+விடுபட்ட வீரர்கள் இல்லாததாகக் கருதப்பட்டு பூஜ்ஜியப் புள்ளிகளைப் பெறுவார்கள்.
+லிச்சஸ் தானாகவே ஜோடிகளை உருவாக்க இந்த புலத்தை காலியாக விடவும்.</string>
   <string name="newSwiss">புதிய சுவிஸ் போட்டி</string>
   <string name="swissVsArenaQ">களங்களுக்குப் பதிலாகச் சுவிஸ் போட்டிகளை எப்போது பயன்படுத்த வேண்டும்?</string>
   <string name="swissVsArenaA">சுவிஸ் போட்டியில், அனைத்து பங்கேற்பாளர்களும் ஒரே எண்ணிக்கையிலான ஆட்டங்களை விளையாடுகிறார்கள், மேலும் ஒருவருக்கொருவர் ஒருமுறை மட்டுமே விளையாட முடியும்.
