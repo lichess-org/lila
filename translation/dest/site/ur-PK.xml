@@ -570,7 +570,7 @@
   <string name="aboutSimulRules">نمائشی مقابلہ شروع ہونے پر ہر کھلاڑی میزبان سے کھیلے گا۔ تمام مقابلے ختم ہونے پر نمائیش ختم ہو جائے گی۔</string>
   <string name="aboutSimulSettings">نمائشی مقابلے ہمیشہ غیررسمی ہوتے ہیں- آپ چال واپس، مزید وقت اور مقابلے کا اعادہ نہیں کر سکتے۔</string>
   <string name="create">شروع کریں</string>
-  <string name="whenCreateSimul">نمائشی مقابلے میں آپ ایک ساتھ کئی حریفوں سے کھیلیں گے۔</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">نمائشی مقابلے میں آپ ایک ساتھ کئی حریفوں سے کھیلیں گے۔</string>
   <string name="simulVariantsHint">متعدد انواع کی صورت میں ہر کھلاڑی اپنی پسند کی نوع اختیار کر سکے گا۔</string>
   <string name="simulClockHint">فشر کا نظام وقت۔ جتنے زیادہ حریف منتخب کریں گے اتنا زیادہ وقت درکار ہو گا۔</string>
   <string name="simulAddExtraTime">اپنے لیے اضافی وقت منتخب کر سکتے ہیں-</string>

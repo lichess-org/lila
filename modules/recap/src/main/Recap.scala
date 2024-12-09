@@ -8,6 +8,7 @@ import chess.format.pgn.SanStr
 import lila.recap.Recap.Counted
 import scalalib.model.Days
 import lila.core.game.Source
+import play.api.libs.json.JsObject
 
 case class Recap(
     @Key("_id") id: UserId,
@@ -15,17 +16,18 @@ case class Recap(
     games: RecapGames,
     puzzles: RecapPuzzles,
     createdAt: Instant
-)
+):
+  def userIds = games.opponents.map(_.value)
 
 case class RecapGames(
     nb: NbAndStreak,
     moves: Int,
     openings: Recap.Openings,
-    firstMove: Option[Counted[SanStr]],
+    firstMoves: List[Counted[SanStr]],
     results: Results,
     timePlaying: FiniteDuration,
     sources: Map[Source, Int],
-    opponent: Option[Counted[UserId]],
+    opponents: List[Counted[UserId]],
     perfs: List[Recap.Perf]
 ):
   def significantPerfs: List[Recap.Perf] = perfs.filter: p =>
@@ -45,9 +47,8 @@ object Recap:
   type QueueEntry = lila.memo.ParallelQueue.Entry[UserId]
 
   enum Availability:
-    case Available(recap: Recap)
-    case Queued(entry: QueueEntry)
-    case InsufficientGames
+    case Available(data: JsObject)
+    case Queued(data: JsObject)
 
 case class Results(win: Int = 0, draw: Int = 0, loss: Int = 0)
 case class NbAndStreak(nb: Int, streak: Days)

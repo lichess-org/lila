@@ -628,7 +628,7 @@
   <string name="aboutSimulRules">Saat Simultan dimulai, setiap pemain melawan penyedia, yang bermain sebagai buah putih. Simultan berakhir jika seluruh partai telah selesai dimainkan.</string>
   <string name="aboutSimulSettings">Simultan selalu sederhana, tanding ulang, langkah balik dan tambahan waktu tidak diijinkan.</string>
   <string name="create">Buat baru</string>
-  <string name="whenCreateSimul">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
   <string name="simulVariantsHint">Jika anda memilih banyak varian, setiap pemain bisa memilih yang dimainkan.</string>
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
   <string name="simulAddExtraTime">Anda bisa menambah waktu pada jam anda untuk membantu simultan anda</string>

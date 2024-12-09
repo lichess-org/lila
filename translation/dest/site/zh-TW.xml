@@ -640,7 +640,7 @@
   <string name="aboutSimulRules">當車輪賽開始時，每個玩家都會與主持人對奕，主持人持白。當所有對局結束表示車輪賽也一併結束。</string>
   <string name="aboutSimulSettings">車輪賽事較為非正式的賽制。重賽、悔棋、以及加時功能皆會被禁用。</string>
   <string name="create">建立</string>
-  <string name="whenCreateSimul">當您創建車輪戰時，您要同時跟幾個棋手一起下棋。</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">當您創建車輪戰時，您要同時跟幾個棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您選擇多個變體，每個玩家可以選擇自己所好的變體。</string>
   <string name="simulClockHint">費雪棋鐘設定。棋手越多，您所需的時間可能就越多。</string>
   <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>

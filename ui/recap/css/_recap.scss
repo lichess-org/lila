@@ -17,8 +17,8 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 1vw;
+  right: 1vw;
   height: 100%;
 }
 
@@ -40,15 +40,15 @@ body {
   @extend %flex-column;
   justify-content: center;
   align-items: center;
-  font-size: 1.5em;
+  @include fluid-size('font-size', 15px, 25px);
   gap: 3em;
 }
 
 .recap {
-  img,
+  &__logo,
   .lpv {
     width: 384px;
-    max-width: 90vw;
+    max-width: 80vw;
     max-height: 50vh;
   }
   .lpv {
@@ -66,9 +66,13 @@ body {
   }
 }
 
+.recap__slide--await .spinner {
+  margin: 0;
+}
+
 .recap__slide--init {
   h2 {
-    font-size: 5rem;
+    @include fluid-size('font-size', 24px, 38px);
   }
 }
 
@@ -85,7 +89,7 @@ body {
 .recap--massive {
   @extend %flex-column;
   align-items: center;
-  font-size: 3em;
+  @include fluid-size('font-size', 19px, 42px);
   strong {
     font-size: 3em;
   }

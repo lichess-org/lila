@@ -3,25 +3,40 @@ import type { ByColor, Counted, Opening, Recap } from './interfaces';
 import { h, type VNode } from 'snabbdom';
 import { onInsert } from 'common/snabbdom';
 import { loadOpeningLpv } from './ui';
+import { fullName } from 'common/userLink';
+import { spinnerVdom } from 'common/spinner';
 
-export default function view(r: Recap): VNode {
+export function awaiter(user: LightUser): VNode {
+  return h('div#recap-swiper.swiper.swiper-initialized', [
+    h('div.swiper-wrapper', [
+      h(slideTag('await'), [hi(user), h('p', 'What have you been up to this year?'), spinnerVdom()]),
+    ]),
+  ]);
+}
+
+export function view(r: Recap, user: LightUser): VNode {
   return h('div#recap-swiper.swiper', [
     h('div.swiper-wrapper', [
-      init(),
+      init(user),
       nbGames(r),
       timeSpentPlaying(r),
       nbMoves(r),
-      firstMove(r),
+      r.games.firstMoves[0] && firstMoves(r, r.games.firstMoves[0]),
       openingColor(r.games.openings, 'white'),
       openingColor(r.games.openings, 'black'),
+      malware(),
+      bye(),
     ]),
     h('div.swiper-pagination'),
   ]);
 }
 
-const init = (): VNode =>
+const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
+
+const init = (user: LightUser): VNode =>
   h(slideTag('init'), [
-    h('img', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
+    hi(user),
+    h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     h('h2', 'What a chess year you had!'),
   ]);
 
@@ -51,14 +66,14 @@ const nbMoves = (r: Recap): VNode => {
   ]);
 };
 
-const firstMove = (r: Recap): VNode => {
-  const percent = Math.round((r.games.firstMove.count * 100) / r.games.nb.nb);
+const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
+  const percent = Math.round((firstMove.count * 100) / r.games.nb.nb);
   return h(slideTag('first'), [
-    h('div.recap--massive', [h('strong', '1. ' + r.games.firstMove.value)]),
+    h('div.recap--massive', [h('strong', '1. ' + firstMove.value)]),
     h('div', [
       h('p', [
         'is how you started ',
-        h('strong', animateNumber(r.games.firstMove.count)),
+        h('strong', animateNumber(firstMove.count)),
         ' (',
         animateNumber(percent),
         '%) of your games as white',
@@ -94,6 +109,26 @@ const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
     ]),
   ]);
 };
+
+const malware = () =>
+  h(slideTag('malware'), [
+    h('div.recap--massive', [h('strong', '0'), 'ads and trackers loaded']),
+    h('p', "We didn't sell your personal data, and we didn't use your device against you."),
+    h(
+      'p',
+      h('small', [
+        'But other websites do, so ',
+        h('a', { attrs: { href: '/ads', target: '_blank' } }, 'be careful'),
+      ]),
+    ),
+  ]);
+
+const bye = () =>
+  h(slideTag('bye'), [
+    h('div.recap--massive', 'Thank you for playing on Lichess!'),
+    h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
+    h('div', "May your pieces find their way to your opponent's kings."),
+  ]);
 
 const slideTag = (key: string) => `div.swiper-slide.recap__slide--${key}`;
 

@@ -665,7 +665,7 @@
   <string name="aboutSimulRules">Seans boshlanganda har bir o\'yinchi seanschi bilan o\'ynashni boshlaydi, seanschi oqda o\'ynaydi. Seans xamma o\'yinlar tugaganda yakunlanadi.</string>
   <string name="aboutSimulSettings">Seanslar doim norasmiy. Qayta o\'ynashlar, ortga qaytarishlar va \"ko\'pmarta\"liklar barchasi o\'chirilgan.</string>
   <string name="create">Yaratish</string>
-  <string name="whenCreateSimul">Siz Seans yaratganingizda bir vaqtda bir nechta o\'yinchilar bilan o\'ynash imkoniyatingiz bo\'ladi.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Siz Seans yaratganingizda bir vaqtda bir nechta o\'yinchilar bilan o\'ynash imkoniyatingiz bo\'ladi.</string>
   <string name="simulVariantsHint">Agar siz bir nechta variantlarni tanlasangiz, har bir o\'yinchi qaysi variantda o\'ynashni o\'zi tanlaydi.</string>
   <string name="simulClockHint">Fisher soatini sozlash. Qancha ko\'p o\'yinchi olsangiz shunga mos vaqt olishingiz kerak bo\'ladi.</string>
   <string name="simulAddExtraTime">Seansga ulgurishingiz uchun siz soatingizga qo\'shimcha vaqt qo\'shishingiz mumkin.</string>

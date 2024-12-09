@@ -74,6 +74,5 @@
   <string name="timezone">Часовий пояс</string>
   <string name="fideRatingCategory">Категорія рейтингу FIDE</string>
   <string name="optionalDetails">Додаткові деталі</string>
-  <string name="upcomingBroadcasts">Майбутні трансляції</string>
   <string name="pastBroadcasts">Минулі трансляції</string>
 </resources>

@@ -679,7 +679,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="aboutSimulRules">Quando a simultânea começa, cada jogador começa sua partida contra o anfitrião, que joga sempre com as peças brancas. A simultânea termina quando todas as partidas tiverem acabado.</string>
   <string name="aboutSimulSettings">As simultâneas são sempre partidas amigáveis. Desforras, voltar jogadas atrás e dar mais tempo estão desativados.</string>
   <string name="create">Criar</string>
-  <string name="whenCreateSimul">Quando crias uma simultânea, podes jogar com vários adversários ao mesmo tempo.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quando crias uma simultânea, podes jogar com vários adversários ao mesmo tempo.</string>
   <string name="simulVariantsHint">Se selecionares diversas variantes, cada jogador poderá escolher qual delas jogar.</string>
   <string name="simulClockHint">Configuração de incrementos no relógio. Quanto mais jogadores admitires, mais tempo poderás necessitar.</string>
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>

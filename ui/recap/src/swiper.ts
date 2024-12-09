@@ -9,25 +9,22 @@ import { animateNumber } from './ui';
 export const makeSwiper =
   (_recap: Recap) =>
   (element: HTMLElement): void => {
-    console.log(element);
     const options: SwiperOptions = {
       modules: [Pagination],
       initialSlide: 0,
       direction: 'vertical',
       loop: false,
       cssMode: true,
+      keyboard: { enabled: true },
       mousewheel: true,
-      // history: {
-      //   replaceState: true,
-      // },
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
       },
     };
     const swiper = new Swiper(element, options);
+    element.focus();
     swiper.on('slideChange', function () {
-      console.log('change', element);
       setTimeout(
         () =>
           element

@@ -80,7 +80,6 @@
   <string name="timezone">Часовой пояс</string>
   <string name="fideRatingCategory">Категория рейтинга FIDE</string>
   <string name="optionalDetails">Необязательные данные</string>
-  <string name="upcomingBroadcasts">Предстоящие трансляции</string>
   <string name="pastBroadcasts">Завершённые трансляции</string>
   <string name="allBroadcastsByMonth">Просмотр всех трансляций за месяц</string>
 </resources>

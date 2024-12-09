@@ -96,12 +96,12 @@ Nemojte tražiti LM titulu.</string>
   <string name="usernamesNotOffensive">Općenito, korisničko ime ne bi trebala biti: uvredljivo, lažno predstavljanje nekog drugog ili oglašavanje. Više o %1$s korisničkog imena.</string>
   <string name="guidelines">smjernicama</string>
   <string name="canIChangeMyUsername">Mogu li promijeniti svoje korisničko ime?</string>
-  <string name="usernamesCannotBeChanged">Ne, korisnička imena se ne mogu mijenjati iz tehničkih i praktičnih razloga. Korisnička imena materijalizirana su na previše mjesta: u bazama podataka, izvozima, zapisnicima i umovima ljudi. Kapitalizaciju možete prilagoditi jednom.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ne, korisnička imena se ne mogu mijenjati iz tehničkih i praktičnih razloga. Korisnička imena materijalizirana su na previše mjesta: u bazama podataka, izvozima, zapisnicima i umovima ljudi. Kapitalizaciju možete prilagoditi jednom.</string>
   <string name="uniqueTrophies">Jedinstveni trofeji</string>
   <string name="ownerUniqueTrophies">Taj trofej jedinstven je u povijesti Lichess-a. Nitko drugi osim %1$s ga nikad neće imati.</string>
   <string name="wayOfBerserkExplanation">Da bi ga dobio, hiimgosu je izazvao sebe na berserk i pobijedio u 100%% igara %s.</string>
   <string name="aHourlyBulletTournament">satni turnir Bullet</string>
-  <string name="goldenZeeExplanation">ZugAddict je emitirao i posljednjih 2 sata je pokušavao poraziti A.I. razine 8 u igri 1+0, ali bez uspjeha. Thibault mu je rekao da će dobiti jedinstveni trofej ako to uspješno učini u emitiranju. Sat vremena kasnije razbio je Stockfish, a obećanje je bilo ispunjeno.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict je emitirao i posljednjih 2 sata je pokušavao poraziti A.I. razine 8 u igri 1+0, ali bez uspjeha. Thibault mu je rekao da će dobiti jedinstveni trofej ako to uspješno učini u emitiranju. Sat vremena kasnije razbio je Stockfish, a obećanje je bilo ispunjeno.</string>
   <string name="lichessRatings">Lichess rajgovi</string>
   <string name="whichRatingSystemUsedByLichess">Kakav sistem rangiranja koristi Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ocjene se izračunavaju pomoću metode ocjenjivanja Glicko-2, koju je razvio Mark Glickman. Ovo je vrlo popularna metoda ocjenjivanja, a koristi je značajan broj šahovskih organizacija (FIDE je značajan kontra-primjer, jer još uvijek koriste datirani sustav ocjenjivanja Elo).

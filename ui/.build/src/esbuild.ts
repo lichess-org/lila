@@ -11,6 +11,7 @@ let inlineTimer: NodeJS.Timeout;
 
 export async function esbuild(): Promise<void> {
   if (!env.esbuild) return;
+  env.exitCode.delete('esbuild');
 
   const entryPoints = [];
   for (const pkg of env.building) {

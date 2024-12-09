@@ -1,20 +1,18 @@
 package lila.app
 
-import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ ConfigLoader, Configuration, Environment, Mode }
 
 import lila.core.config.*
-import lila.core.i18n.Translator
 
 final class Env(
     val config: Configuration,
     val controllerComponents: ControllerComponents,
     environment: Environment,
-    shutdown: CoordinatedShutdown
-)(using val system: ActorSystem, val executor: Executor)(using
+    shutdown: akka.actor.CoordinatedShutdown
+)(using val system: akka.actor.ActorSystem, val executor: Executor)(using
     StandaloneWSClient,
     akka.stream.Materializer,
     SessionCookieBaker
@@ -23,10 +21,10 @@ final class Env(
 
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
-  given mode: Mode                 = environment.mode
-  given translator: Translator     = lila.i18n.Translator
-  given scheduler: Scheduler       = system.scheduler
-  given lila.core.config.RateLimit = net.rateLimit
+  given mode: Mode                            = environment.mode
+  given translator: lila.core.i18n.Translator = lila.i18n.Translator
+  given scheduler: Scheduler                  = system.scheduler
+  given lila.core.config.RateLimit            = net.rateLimit
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env

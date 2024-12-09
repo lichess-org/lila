@@ -71,11 +71,11 @@ private final class RecapBuilder(
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
       ,
-      firstMove = scan.firstMoves.toList.sortBy(-_._2).headOption.map(Recap.Counted.apply),
+      firstMoves = scan.firstMoves.toList.sortBy(-_._2).take(5).map(Recap.Counted.apply),
       results = scan.results,
       timePlaying = scan.secondsPlaying.seconds,
       sources = scan.sources,
-      opponent = scan.opponents.toList.sortBy(-_._2).headOption.map(Recap.Counted.apply),
+      opponents = scan.opponents.toList.sortBy(-_._2).take(5).map(Recap.Counted.apply),
       perfs = scan.perfs.toList
         .sortBy(-_._2._1)
         .map:

@@ -6,8 +6,17 @@ import chess.ByColor
 import lila.common.SimpleOpening
 import lila.common.LilaOpeningFamily
 import lila.core.game.Source
+import lila.core.user.LightUserApi
 
-object RecapJson:
+private final class RecapJson(lightUserApi: LightUserApi)(using Executor):
+
+  def apply(recap: Recap, user: User) =
+    for _ <- lightUserApi.preloadMany(recap.userIds)
+    yield Json.obj("recap" -> recap, "user" -> user.light)
+
+  def apply(user: User) = Json.obj("user" -> user.light)
+
+  given Writes[UserId] = writeAs(lightUserApi.syncFallback)
 
   given [A: Writes]: Writes[ByColor[A]] = new:
     def writes(o: ByColor[A]): JsObject =

@@ -10,7 +10,7 @@
     "common": "workspace:*",
     "lichess-pgn-viewer": "^2.2.0"
   },
-  "lichess": {
-    "bundles": "src/recap.ts"
+  "build": {
+    "bundle": "src/recap.ts"
   }
 }

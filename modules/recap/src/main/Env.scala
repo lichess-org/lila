@@ -13,19 +13,19 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     puzzleColls: lila.puzzle.PuzzleColls,
     cacheApi: CacheApi,
+    lightUserApi: lila.core.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using
-    Executor,
-    akka.stream.Materializer
-)(using mode: play.api.Mode, scheduler: Scheduler):
+)(using Executor, Scheduler, akka.stream.Materializer):
 
   lazy val parallelismSetting = settingStore[Int](
     "recapParallelism",
-    default = 4,
+    default = 8,
     text = "Number of yearly recaps to build in parallel".some
   ).taggedWith[Parallelism]
 
   private val colls = RecapColls(db(CollName("recap_report")), db(CollName("recap_queue")))
+
+  private val json = wire[RecapJson]
 
   private val repo = wire[RecapRepo]
 
@@ -34,7 +34,7 @@ final class Env(
   private val queue = lila.memo.ParallelMongoQueue[UserId](
     coll = colls.queue,
     parallelism = () => parallelismSetting.get(),
-    computationTimeout = 1.minute,
+    computationTimeout = 2.minutes,
     name = "recap"
   ): uid =>
     builder.compute(uid)
