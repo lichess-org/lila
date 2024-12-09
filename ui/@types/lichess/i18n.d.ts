@@ -2065,6 +2065,8 @@ interface I18n {
   preferences: {
     /** Bell notification sound */
     bellNotificationSound: string;
+    /** Blindfold */
+    blindfold: string;
     /** Board coordinates (A-H, 1-8) */
     boardCoordinates: string;
     /** Board highlights (last move and check) */
