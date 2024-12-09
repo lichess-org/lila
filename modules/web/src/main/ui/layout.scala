@@ -228,9 +228,8 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           url('${assetUrl("font/lichess.woff")}') format('woff');
       }</style>"""
 
-  def bottomHtml(using ctx: Context) = frag(
-    ctx.me
-      .exists(_.enabled.yes)
+  def bottomHtml(showFriendsBox: Boolean)(using ctx: Context) = frag(
+    (showFriendsBox && ctx.me.exists(_.enabled.yes))
       .option(
         div(id := "friend_box")(
           div(cls := "friend_box_title")(

@@ -154,7 +154,7 @@ object page:
               "is3d"              -> pref.is3d
             )
           )(p.transform(p.body)),
-          bottomHtml,
+          bottomHtml(p.showFriendsBox),
           ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),

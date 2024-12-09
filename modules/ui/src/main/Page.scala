@@ -33,6 +33,7 @@ case class Page(
     zenable: Boolean = false,
     csp: Option[Update[ContentSecurityPolicy]] = None,
     fullScreenClass: Boolean = false,
+    showFriendsBox: Boolean = true,
     atomLinkTag: Option[Tag] = None,
     withHrefLangs: Option[LangPath] = None,
     transform: Update[Frag] = identity
@@ -58,9 +59,10 @@ case class Page(
   def hrefLangs(path: Option[LangPath]): Page                      = copy(withHrefLangs = path)
   def hrefLangs(path: LangPath): Page                              = copy(withHrefLangs = path.some)
   def fullScreen: Page                                             = copy(fullScreenClass = true)
+  def hideFriendsBox: Page                                         = copy(showFriendsBox = false)
   def noRobot: Page                                                = robots(false)
-  def zoom                                                         = copy(zoomable = true)
-  def zen                                                          = copy(zenable = true)
+  def zoom: Page                                                   = copy(zoomable = true)
+  def zen: Page                                                    = copy(zenable = true)
 
   // body stuff
   def body(b: Frag): Page              = copy(body = b.some)
