@@ -20,7 +20,7 @@ interface RoundStep {
   uci: Uci;
 }
 
-const nato: { [letter: string]: string } = {
+const nato: { [file in Files]: string } = {
   a: 'alpha',
   b: 'bravo',
   c: 'charlie',
@@ -30,7 +30,7 @@ const nato: { [letter: string]: string } = {
   g: 'golf',
   h: 'hotel',
 };
-const anna: { [letter: string]: string } = {
+const anna: { [file in Files]: string } = {
   a: 'anna',
   b: 'bella',
   c: 'cesar',
@@ -40,7 +40,7 @@ const anna: { [letter: string]: string } = {
   g: 'gustav',
   h: 'hector',
 };
-const skipToFile: { [letter: string]: string } = {
+const skipToFile: { [letter: string]: Files } = {
   '!': 'a',
   '@': 'b',
   '#': 'c',
@@ -188,7 +188,7 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style): string 
         if (c === '=') return 'promotion';
         const code = c.charCodeAt(0);
         if (code > 48 && code < 58) return c; // 1-8
-        if (code > 96 && code < 105) return renderFile(c, style); // a-g
+        if (code > 96 && code < 105) return renderFile(c as Files, style); // a-h
         return charToRole(c) || c;
       })
       .join(' ');
@@ -319,11 +319,13 @@ export function renderBoard(
   return h(boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper', ranks);
 }
 
-export const renderFile = (f: string, style: Style): string =>
+export const renderFile = (f: Files, style: Style): string =>
   style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
 
 export const renderKey = (key: string, style: Style): string =>
-  style === 'nato' || style === 'anna' ? `${renderFile(key[0], style)} ${key[1]}` : `${key[0]}${key[1]}`;
+  style === 'nato' || style === 'anna'
+    ? `${renderFile(key[0] as Files, style)} ${key[1]}`
+    : `${key[0]}${key[1]}`;
 
 export function castlingFlavours(input: string): string {
   switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
@@ -532,8 +534,8 @@ export function possibleMovesHandler(
   turnColor: () => Color,
   startingFen: () => string,
   piecesFunc: () => Pieces,
-  variant: string,
-  moveable: () => Map<string, Array<string>> | undefined,
+  variant: VariantKey,
+  moveable: () => Dests | undefined,
   steps: () => RoundStep[],
 ) {
   return (ev: KeyboardEvent): boolean => {
@@ -555,7 +557,7 @@ export function possibleMovesHandler(
     };
     const rules: Rules = RULES[ruleTranslation[variant]];
 
-    let rawMoves;
+    let rawMoves: Dests | undefined;
 
     // possible inefficient to reparse fen; but seems to work when it is AND when it is not the users' turn. Also note that this FEN is incomplete as it only contains the piece information.
     // if it is your turn
@@ -577,7 +579,7 @@ export function possibleMovesHandler(
     const possibleMoves = rawMoves
       ?.get(pos)
       ?.map(i => {
-        const p = pieces.get(i as Key);
+        const p = pieces.get(i);
         // logic to prevent 'capture rook' on own piece in chess960
         return p && p.color !== yourColor ? `${i} captures ${p.role}` : i;
       })
@@ -616,12 +618,8 @@ export function inputToLegalUci(input: string, fen: string, chessground: CgApi):
   else return;
 }
 
-export function renderMainline(
-  nodes: Tree.Node[],
-  currentPath: Tree.Path,
-  style: Style,
-): Array<string | VNode> {
-  const res: Array<string | VNode> = [];
+export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style): VNodeChildren {
+  const res: VNodeChildren = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {
     if (!node.san || !node.uci) return;
