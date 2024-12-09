@@ -58,6 +58,7 @@
   <string name="officialStandings">Επίσημη Κατάταξη</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Περισσότερες επιλογές στη %s</string>
   <string name="webmastersPage">σελίδα για webmasters</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Μια δημόσια πηγή PGN πολύ λειτουργεί σε πραγματικό χρόνο για αυτόν τον γύρο. Προσφέρουμε επίσης το %s για γρηγορότερο και αποτελεσματικότερο συγχρονισμό.</string>
   <string name="embedThisBroadcast">Ενσωμάτωση αυτήν την αναμετάδοση στην ιστοσελίδα σας</string>
   <string name="embedThisRound">Ενσωματώστε τον %s στην ιστοσελίδα σας</string>
   <string name="ratingDiff">Διαφορά βαθμολογίας</string>
