@@ -586,7 +586,7 @@
   <string name="aboutSimulRules">Gava pêşangeha hevdemî dest pê kir, her lîzer dest bi lîstikekê dike tevî hewangerê. Hewanger bi kabikên spî ye û ew dest pê dike. Wextê ku hemû lîstik temam bûn, pêşangeha hevdemî jî xelas dibe.</string>
   <string name="aboutSimulSettings">Pêşangehên hevdemî hertim bêpoînt in. Cardinlîstin, hemlevegerandin û demên ekstra neçalak e.</string>
   <string name="create">Çêke</string>
-  <string name="whenCreateSimul">Gava pêşangeheke hevdemî ava bikî, tu yê bi çendîn lîzeran re bilîzî, bi carekê.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Gava pêşangeheke hevdemî ava bikî, tu yê bi çendîn lîzeran re bilîzî, bi carekê.</string>
   <string name="simulVariantsHint">Ger tu çendîn varyantan bibijêrî, wê her lîzerek bibijêre ku kîjanî bilîze.</string>
   <string name="simulClockHint">Formata Saeta Fischer. Çiqas lîzeran bigirî wê ew qasî wext lazim be bo te.</string>
   <string name="simulAddExtraTime">Belkî bixwazî zêdetir wext tevlî demjimêra xwe bikî, qene ku karibî pêşangeha hevdemî temam bikî.</string>

@@ -680,7 +680,7 @@
   <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогућено.</string>
   <string name="create">Креирај</string>
-  <string name="whenCreateSimul">Када креираш симултанку, играш против више играча истовремено.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Када креираш симултанку, играш против више играча истовремено.</string>
   <string name="simulVariantsHint">Ако изабереш неколико варијанти, сваки играч је у могућности да изабере коју ће играти.</string>
   <string name="simulClockHint">Фишерово подешавање сата. Што више играча примиш, више времена ће ти бити потребно.</string>
   <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>

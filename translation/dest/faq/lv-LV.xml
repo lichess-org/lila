@@ -96,12 +96,12 @@ Lūdzu, neprasiet LM titulu.</string>
   <string name="usernamesNotOffensive">Lietotājvārdiem nevajadzētu būt aizvainojošiem, un tie nedrīkst uzdoties par kādu citu vai ko reklamēt. Varat lasīt vairāk par %1$s.</string>
   <string name="guidelines">norādījumiem</string>
   <string name="canIChangeMyUsername">Vai varu mainīt lietotājvārdu?</string>
-  <string name="usernamesCannotBeChanged">Nē; lietotājvārdus nevar mainīt tehnisku un praktisku iemeslu dēļ. Lietotājvārdi ir iegulti pārāk daudzās vietās: datubāzēs, eksportos, žurnālos un cilvēku prātos. Vienreiz varat mainīt lielo burtu lietojumu.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nē; lietotājvārdus nevar mainīt tehnisku un praktisku iemeslu dēļ. Lietotājvārdi ir iegulti pārāk daudzās vietās: datubāzēs, eksportos, žurnālos un cilvēku prātos. Vienreiz varat mainīt lielo burtu lietojumu.</string>
   <string name="uniqueTrophies">Unikālas trofejas</string>
   <string name="ownerUniqueTrophies">Tā trofeja ir unikāla Lichess vēsturē; tā nepiederēs nevienam citam kā %1$s.</string>
   <string name="wayOfBerserkExplanation">Lai to dabūtu, hiimgosu izaicināja sevi spēlēt Kurbadu un uzvarēt visas spēlētās spēles %s.</string>
   <string name="aHourlyBulletTournament">ik stundu Bullet turnīrā</string>
-  <string name="goldenZeeExplanation">ZugAddict pēdējās divas stundas straumējot centās pārspēt astotā līmeņa A.I. 1+0 spēlē, bet bez panākumiem. Thibault pavēstīja, ka ja viņš straumējot tomēr pārspēs A.I., tad tiks pie unikālas trofejas. Stundu vēlāk viņš pārspēja Stockfish un solījums tika izpildīts.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict pēdējās divas stundas straumējot centās pārspēt astotā līmeņa A.I. 1+0 spēlē, bet bez panākumiem. Thibault pavēstīja, ka ja viņš straumējot tomēr pārspēs A.I., tad tiks pie unikālas trofejas. Stundu vēlāk viņš pārspēja Stockfish un solījums tika izpildīts.</string>
   <string name="lichessRatings">Lichess reitingi</string>
   <string name="whichRatingSystemUsedByLichess">Kādu reitinga sistēmu izmanto Lichess?</string>
   <string name="ratingSystemUsedByLichess">Reitingus aprēķina ar reitingu sistēmu \"Glicko-2\", ko izveidojis Marks Glikmans. Šī ir ļoti populāra sistēma, ko izmanto nozīmīgs daudzums šaha organizāciju (FIDE ir ievērojams izņēmums, kas vēl joprojām izmanto novecojušo sistēmu \"Elo\").
