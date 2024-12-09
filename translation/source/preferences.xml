@@ -67,7 +67,5 @@
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Device</string>
   <string name="bellNotificationSound">Bell notification sound</string>
-  <string name="blindFold" comment="As in Blindfold chess">Blindfold</string>
-  <string name="voiceInput">Voice input</string>
-  <string name="keyboardInput">Keyboard input</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blindfold</string>
 </resources>

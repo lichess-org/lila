@@ -53,7 +53,7 @@ export class BoardMenu {
 
   voiceInput = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
-      name: i18n.preferences.voiceInput,
+      name: i18n.preferences.inputMovesWithVoice,
       id: 'voice',
       checked: toggle(),
       change: toggle,
@@ -63,7 +63,7 @@ export class BoardMenu {
 
   keyboardInput = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
-      name: i18n.preferences.keyboardInput,
+      name: i18n.preferences.inputMovesWithTheKeyboard,
       id: 'keyboard',
       checked: toggle(),
       change: toggle,
@@ -73,7 +73,7 @@ export class BoardMenu {
 
   blindfold = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
-      name: i18n.preferences.blindFold,
+      name: i18n.preferences.blindfold,
       id: 'blindfold',
       checked: toggle(),
       change: toggle,
