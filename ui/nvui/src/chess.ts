@@ -3,8 +3,8 @@ import { type Pieces, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
 import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
-import { chessgroundDests } from 'chessops/compat';
-import { type SquareName, RULES, type Rules } from 'chessops/types';
+import { chessgroundDests, lichessRules } from 'chessops/compat';
+import { type SquareName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, parseUci, roleToChar } from 'chessops/util';
 import { destsToUcis, plyToTurn, sanToUci, sanWriter } from 'chess';
@@ -538,17 +538,6 @@ export function possibleMovesHandler(
 
     const $btn = $(ev.target as HTMLElement);
     const pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
-    const ruleTranslation: { [vari: string]: number } = {
-      standard: 0,
-      antichess: 1,
-      kingOfTheHill: 2,
-      threeCheck: 3,
-      atomic: 4,
-      horde: 5,
-      racingKings: 6,
-      crazyhouse: 7,
-    };
-    const rules: Rules = RULES[ruleTranslation[variant]];
 
     let rawMoves: Dests | undefined;
 
@@ -557,7 +546,7 @@ export function possibleMovesHandler(
     if (turnColor() === yourColor) {
       rawMoves = moveable();
     } else {
-      const fromSetup = setupPosition(rules, parseFen(startingFen()).unwrap()).unwrap();
+      const fromSetup = setupPosition(lichessRules(variant), parseFen(startingFen()).unwrap()).unwrap();
       steps().forEach(s => {
         if (s.uci) {
           const move = parseUci(s.uci);
