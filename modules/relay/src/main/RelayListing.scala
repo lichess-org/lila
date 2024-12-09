@@ -4,7 +4,6 @@ import reactivemongo.api.bson.*
 import monocle.syntax.all.*
 
 import lila.db.dsl.{ *, given }
-import lila.relay.RelayTour.{ WithLastRound, ActiveWithSomeRounds }
 
 final class RelayListing(
     colls: RelayColls,
@@ -15,13 +14,13 @@ final class RelayListing(
 
   import BSONHandlers.{ *, given }
 
-  def spotlight: List[ActiveWithSomeRounds] = spotlightCache
+  def spotlight: List[RelayCard] = spotlightCache
 
   val defaultRoundToLink = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.defaultRoundToLink"):
     _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
       tourWithUnfinishedRounds(tourId).mapz(RelayListing.defaultRoundToLink)
 
-  def active: Fu[List[ActiveWithSomeRounds]] = activeCache.get({})
+  def active: Fu[List[RelayCard]] = activeCache.get({})
 
   private enum Spot:
     case UngroupedTour(tour: RelayTour.WithRounds)                                    extends Spot
@@ -29,9 +28,9 @@ final class RelayListing(
 
   private case class Selected(t: RelayTour.WithRounds, round: RelayRound, group: Option[RelayGroup.Name])
 
-  private var spotlightCache: List[RelayTour.ActiveWithSomeRounds] = Nil
+  private var spotlightCache: List[RelayCard] = Nil
 
-  private val activeCache = cacheApi.unit[List[RelayTour.ActiveWithSomeRounds]]:
+  private val activeCache = cacheApi.unit[List[RelayCard]]:
     _.expireAfterWrite(5 seconds).buildAsyncFuture: _ =>
       for
         spots <- getSpots
@@ -46,7 +45,7 @@ final class RelayListing(
             // sorted preserves the original ordering while adding its own
             all.sorted(using Ordering.by(s => (tierPriority(s.t.tour), !s.round.hasStarted))).headOption
         withLinkRound = selected.map: s =>
-          ActiveWithSomeRounds(
+          RelayCard(
             s.t.tour,
             s.round,
             link = RelayListing.defaultRoundToLink(s.t) | s.round,
