@@ -66,6 +66,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   const dlg = await domDialog({
     class: 'crop-viewer',
     css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
+    modal: true,
     htmlText: `<h2>Crop image to desired shape</h2>
       <div class="crop-view"></div>
       <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
@@ -81,7 +82,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     },
   });
 
-  dlg.showModal();
+  dlg.show();
 
   async function crop() {
     const view = dlg.view.querySelector('.crop-view') as HTMLElement;

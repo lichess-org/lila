@@ -84,6 +84,7 @@ export function render(ctrl: KeyboardMove): VNode {
           class: 'help.keyboard-move-help',
           htmlUrl: '/help/keyboard-move',
           onClose: () => ctrl.helpModalOpen(false),
+          modal: true,
         })
       : null,
   ]);

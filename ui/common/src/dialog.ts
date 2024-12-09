@@ -13,7 +13,7 @@ export interface Dialog {
   readonly view: HTMLElement; // your content div
   readonly returnValue?: 'ok' | 'cancel' | string; // how did we close?
 
-  show(): Promise<Dialog>; // resolves on close with returnValue (if needed)
+  show(): Promise<Dialog>; // promise resolves on close
   updateActions(actions?: Action | Action[]): void; // set new actions or reattach existing if no args
   close(returnValue?: string): void;
 }
