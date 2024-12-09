@@ -13,13 +13,10 @@ dialog {
   @include if-rtl {
     transform: translate(50%, -50%);
   }
+  z-index: $z-modal-111;
   padding: 0;
   border: none;
   background: $c-bg-high;
-  z-index: $z-modal-111;
-  &:has(.dialog-content.alert) {
-    z-index: $z-modal-alert-200;
-  }
 
   &::backdrop {
     background: $c-page-mask;
@@ -81,12 +78,6 @@ dialog {
       }
     }
   }
-}
-
-// applied to dialog wrapper div so we can fake HTMLDialogElement.showModal() in a snab render loop
-.snab-modal-mask {
-  @extend %fullscreen-mask, %flex-center;
-  justify-content: center;
 }
 
 .dialog-content {
