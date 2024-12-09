@@ -3,7 +3,7 @@ package study
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.id.StudyId
+import lila.core.id.{ StudyId, StudyChapterId }
 import lila.core.userId.UserId
 
 object data:
@@ -37,3 +37,5 @@ case class RemoveStudy(studyId: StudyId)
 
 enum Order:
   case hot, newest, oldest, updated, popular, alphabetical, mine
+
+case class GetRelayCrowd(id: StudyId, promise: Promise[Int])
