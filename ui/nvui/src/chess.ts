@@ -51,15 +51,10 @@ const skipToFile: { [letter: string]: Files } = {
   '*': 'h',
 };
 
-export function symbolToFile(char: string): string {
-  return skipToFile[char] ?? '';
-}
+const symbolToFile = (char: string): string => skipToFile[char] ?? '';
 
-export function supportedVariant(key: string): boolean {
-  return ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(
-    key,
-  );
-}
+export const supportedVariant = (key: string): boolean =>
+  ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(key);
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -254,39 +249,35 @@ export function renderBoard(
   positionStyle: PositionStyle,
   boardStyle: BoardStyle,
 ): VNode {
-  const doRankHeader = (rank: Ranks): VNode => {
-    return h('th', { attrs: { scope: 'row' } }, rank);
-  };
+  const doRankHeader = (rank: Ranks): VNode => h('th', { attrs: { scope: 'row' } }, rank);
+
   const doFileHeaders = (): VNode => {
     const ths = files.map(file => h('th', { attrs: { scope: 'col' } }, file));
-    if (pov === 'black') ths.reverse();
-    return h('tr', [h('td'), ...ths, h('td')]);
+    return h('tr', [h('td'), ...(pov === 'black' ? ths.reverse() : ths), h('td')]);
   };
-  const renderPositionStyle = (rank: Ranks, file: Files, orig: string) => {
-    switch (positionStyle) {
-      case 'before':
-        return file.toUpperCase() + rank + ' ' + orig;
-      case 'after':
-        return orig + ' ' + file.toUpperCase() + rank;
-      case 'none':
-        return orig;
-    }
-  };
+
+  const renderPositionStyle = (rank: Ranks, file: Files, orig: string) =>
+    positionStyle === 'before'
+      ? file.toUpperCase() + rank + ' ' + orig
+      : positionStyle === 'after'
+        ? orig + ' ' + file.toUpperCase() + rank
+        : orig;
+
   const doPieceButton = (
     rank: Ranks,
     file: Files,
     letter: string,
     color: Color | 'none',
     text: string,
-  ): VNode => {
-    return h(
+  ): VNode =>
+    h(
       'button',
       {
         attrs: { rank: rank, file: file, piece: letter.toLowerCase(), color: color, 'trap-bypass': true },
       },
       text,
     );
-  };
+
   const doPiece = (rank: Ranks, file: Files): VNode => {
     const key = (file + rank) as Key;
     const piece = pieces.get(key);
@@ -303,6 +294,7 @@ export function renderBoard(
       return h(pieceWrapper, doPieceButton(rank, file, letter, 'none', text));
     }
   };
+
   const doRank = (pov: Color, rank: Ranks): VNode => {
     const rankElements = [];
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
@@ -311,6 +303,7 @@ export function renderBoard(
     if (pov === 'black') rankElements.reverse();
     return h(boardStyle === 'table' ? 'tr' : 'div', rankElements);
   };
+
   const ranks: VNode[] = [];
   if (boardStyle === 'table') ranks.push(doFileHeaders());
   ranks.push(...invRanks.map(rank => doRank(pov, rank)));
@@ -538,8 +531,8 @@ export function possibleMovesHandler(
   moveable: () => Dests | undefined,
   steps: () => RoundStep[],
 ) {
-  return (ev: KeyboardEvent): boolean => {
-    if (ev.key !== 'm' && ev.key !== 'M') return true;
+  return (ev: KeyboardEvent): void => {
+    if (ev.key.toLowerCase() !== 'm') return;
     const $boardLive = $('.boardstatus');
     const pieces: Pieces = piecesFunc();
 
@@ -592,7 +585,6 @@ export function possibleMovesHandler(
     } else {
       $boardLive.text(possibleMoves.join(', '));
     }
-    return false;
   };
 }
 
@@ -636,16 +628,13 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
   return res;
 }
 
-export function renderComments(node: Tree.Node, style: Style): string {
-  if (!node.comments) return '';
-  return (node.comments || []).map(c => renderComment(c, style)).join('. ');
-}
+export const renderComments = (node: Tree.Node, style: Style): string =>
+  node.comments?.map(c => augmentLichessComment(c, style)).join('. ') ?? '';
 
-function renderComment(comment: Tree.Comment, style: Style): string {
-  return comment.by === 'lichess'
+const augmentLichessComment = (comment: Tree.Comment, style: Style): string =>
+  comment.by === 'lichess'
     ? comment.text.replace(
         /Best move was (.+)\./,
         (_, san) => 'Best move was ' + renderSan(san, undefined, style),
       )
     : comment.text;
-}
