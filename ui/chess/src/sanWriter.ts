@@ -1,7 +1,7 @@
 import { charToRole, type Square } from 'chessops';
 
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
-export type SanToUci = { [key: string]: Uci };
+export type SanToUci = { [key: AlmostSan]: Uci };
 
 function fixCrazySan(san: string) {
   return san[0] === 'P' ? san.slice(1) : san;
@@ -149,6 +149,13 @@ export function sanWriter(fen: string, ucis: string[]): SanToUci {
     if (san.includes('x')) sans[san.replace('x', '')] = uci;
   });
   return sans;
+}
+
+export function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
+  if (san in legalSans) return legalSans[san];
+  const lowered = san.toLowerCase();
+  for (const i in legalSans) if (i.toLowerCase() === lowered) return legalSans[i];
+  return;
 }
 
 export function speakable(san?: San): string {
