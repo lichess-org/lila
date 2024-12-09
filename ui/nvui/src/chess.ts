@@ -7,7 +7,7 @@ import { chessgroundDests } from 'chessops/compat';
 import { type SquareName, RULES, type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, parseUci, roleToChar } from 'chessops/util';
-import { plyToTurn, type SanToUci, sanWriter } from 'chess';
+import { destsToUcis, plyToTurn, type SanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
@@ -596,17 +596,6 @@ export function possibleMovesHandler(
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qrbn]$/;
-
-function destsToUcis(dests: Dests) {
-  const ucis: string[] = [];
-  for (const [orig, d] of dests) {
-    if (d)
-      d.forEach(function (dest) {
-        ucis.push(orig + dest);
-      });
-  }
-  return ucis;
-}
 
 function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   if (san in legalSans) return legalSans[san];
