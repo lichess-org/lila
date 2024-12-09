@@ -12,6 +12,8 @@ const workers: Worker[] = [];
 
 export async function tsc(): Promise<void> {
   if (!env.tsc) return;
+  env.exitCode.delete('tsc');
+
   await Promise.allSettled([
     fs.promises.mkdir(path.join(env.buildTempDir, 'noCheck')),
     fs.promises.mkdir(path.join(env.buildTempDir, 'noEmit')),

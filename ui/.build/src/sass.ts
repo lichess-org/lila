@@ -31,6 +31,8 @@ export function stopSass(): void {
 
 export async function sass(): Promise<void> {
   if (!env.sass) return;
+  env.exitCode.delete('sass');
+
   await fs.promises.mkdir(path.join(env.buildTempDir, 'css')).catch(() => {});
 
   awaitingFullBuild ??= env.watch && env.building.length === env.packages.size;
