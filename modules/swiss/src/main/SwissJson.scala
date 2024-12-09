@@ -5,11 +5,12 @@ import play.api.libs.json.*
 
 import lila.common.Json.given
 import lila.core.LightUser
+import lila.core.socket.SocketVersion
 import lila.db.dsl.{ *, given }
 import lila.gathering.Condition.WithVerdicts
 import lila.gathering.GreatPlayer
+import lila.gathering.GatheringJson.*
 import lila.quote.Quote.given
-import lila.core.socket.SocketVersion
 
 final class SwissJson(
     mongo: SwissMongo,
@@ -23,14 +24,15 @@ final class SwissJson(
 
   import SwissJson.{ *, given }
   import BsonHandlers.given
-  import lila.gathering.ConditionHandlers.JSONHandlers.{ *, given }
+  import lila.gathering.ConditionHandlers.JSONHandlers.*
 
   def api(swiss: Swiss, verdicts: WithVerdicts)(using lang: Lang) = statsApi(swiss).map { stats =>
-    swissJsonBase(swiss) ++ Json.obj(
-      "verdicts" -> verdictsFor(verdicts, swiss.perfType),
-      "stats"    -> stats,
-      "rated"    -> swiss.settings.rated
-    )
+    swissJsonBase(swiss) ++ Json
+      .obj(
+        "verdicts" -> verdictsFor(verdicts, swiss.perfType),
+        "rated"    -> swiss.settings.rated
+      )
+      .add("stats" -> stats)
   }
 
   def apply(
@@ -47,7 +49,7 @@ final class SwissJson(
       page = reqPage.orElse(myInfo.map(_.page)).getOrElse(1)
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
-      boards   <- boardApi(swiss.id)
+      boards   <- boardApi.get(swiss.id)
       stats    <- statsApi(swiss)
     yield swissJsonBase(swiss) ++ Json
       .obj(
@@ -179,6 +181,7 @@ object SwissJson:
       })
       .add("isRecentlyFinished" -> swiss.isRecentlyFinished)
       .add("password" -> swiss.settings.password.isDefined)
+      .add("position" -> swiss.settings.position.map(fullFen => position(fullFen.opening)))
 
   private[swiss] def playerJson(swiss: Swiss, view: SwissPlayer.View): JsObject =
     playerJsonBase(view, performance = false) ++ Json

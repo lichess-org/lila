@@ -30,7 +30,7 @@
   <string name="xPublishedY">%1$s đã xuất bản %2$s</string>
   <string name="thisPostIsPublished">Bài viết này đã được xuất bản</string>
   <string name="thisIsADraft">Nó là một bản nháp</string>
-  <string name="moreBlogPostsBy">Bài blog khác bởi %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Bài blog khác bởi %s</string>
   <string name="noPostsInThisBlogYet">Chưa có bài viết nào trong blog này.</string>
   <string name="noDrafts">Không có bài nháp nào để hiển thị.</string>
   <string name="latestBlogPosts">Các bài blog mới nhất</string>
@@ -41,7 +41,6 @@
   <string name="imageAlt">Văn bản thay thế cho hình ảnh</string>
   <string name="imageCredit">Nguồn ảnh</string>
   <string name="deleteBlog">Xóa dứt khoát bài blog này</string>
-  <string name="deleteImage">Xóa hình ảnh</string>
   <string name="safeToUseImages">Sử dụng các hình ảnh an toàn từ các trang web: </string>
   <string name="selectPostTopics">Chọn các chủ đề mà bài đăng của bạn liên quan</string>
   <string name="useImagesYouMadeYourself">Bạn cũng có thể dùng hình ảnh của riêng bạn, những bức ảnh bạn chụp, ảnh chụp màn hình của Lichess... bất kỳ thứ gì miễn là không vi phạm bản quyền của ai.</string>

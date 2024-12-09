@@ -120,16 +120,15 @@
   <string name="replayMode">Način predvajanja</string>
   <string name="realtimeReplay">Realnočasovno</string>
   <string name="byCPL">Za stotinko kmeta</string>
-  <string name="openStudy">Odpri študij</string>
   <string name="enable">Omogoči</string>
   <string name="bestMoveArrow">Puščica najboljše poteze</string>
+  <string name="showVariationArrows">Prikaži puščice z variacijami</string>
   <string name="evaluationGauge">Kazalnik ocene</string>
   <string name="multipleLines">Več variant</string>
   <string name="cpus">CPU-ji</string>
   <string name="memory">Spomin</string>
   <string name="infiniteAnalysis">Neskončna analiza</string>
   <string name="removesTheDepthLimit">Odstrani omejitev globine in ohrani računalnik topel</string>
-  <string name="engineManager">Vodja motorja</string>
   <string name="blunder">Spodrsljaj</string>
   <string name="mistake">Napaka</string>
   <string name="inaccuracy">Nenatančnost</string>
@@ -197,6 +196,7 @@
   <string name="latestForumPosts">Zadnje objave na forumu</string>
   <string name="players">Igralci</string>
   <string name="friends">Prijatelji</string>
+  <string name="otherPlayers">drugi igralci</string>
   <string name="discussions">Pogovori</string>
   <string name="today">Danes</string>
   <string name="yesterday">Včeraj</string>
@@ -288,6 +288,7 @@
     <item quantity="few">%s partije s teboj</item>
     <item quantity="other">%s partij s teboj</item>
   </plurals>
+  <string name="ok">V redu</string>
   <string name="cancel">Prekliči</string>
   <string name="whiteTimeOut">Belemu se je čas iztekel</string>
   <string name="blackTimeOut">Črnemu se je čas iztekel</string>
@@ -494,7 +495,6 @@
   <string name="block">Blokiraj</string>
   <string name="blocked">Blokiran</string>
   <string name="unblock">Odblokiraj</string>
-  <string name="followsYou">Sledi vam</string>
   <string name="xStartedFollowingY">%1$s je začel slediti %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">Št. sledilcev: %s</item>
@@ -532,9 +532,6 @@
   <string name="safeTournamentName">Izberite zelo varno ime za turnir.</string>
   <string name="inappropriateNameWarning">Že zelo majhna neprimernost lahko povzroči ukinitev vašega računa.</string>
   <string name="emptyTournamentName">Pustite prazno, da bo turnir imenovan po naključnem velemojstru.</string>
-  <string name="recommendNotTouching">Priporočamo, da se tega ne dotikate.</string>
-  <string name="fewerPlayers">Če nastavite pogoje za vstop, bo imel vaš turnir manj igralcev.</string>
-  <string name="showAdvancedSettings">Prikaži napredne nastavitve</string>
   <string name="makePrivateTournament">Naredi turnir zaseben in zaščiti dostop z geslom</string>
   <string name="join">Pridruži se</string>
   <string name="withdraw">Zapusti turnir</string>
@@ -574,8 +571,7 @@
   <string name="ifNoneLeaveEmpty">Če ni, pustite prazno</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Uredi profil</string>
-  <string name="firstName">Ime</string>
-  <string name="lastName">Priimek</string>
+  <string name="realName">Pravo ime</string>
   <string name="setFlair">Določite svoj okus</string>
   <string name="flair">Simbol</string>
   <string name="youCanHideFlair">Obstaja nastavitev za skrivanje vseh uporabniških čustev na celotnem spletnem mestu.</string>
@@ -608,6 +604,8 @@
   <string name="descPrivateHelp">Besedilo, ki ga bodo videli samo člani ekipe. Če je nastavljen, nadomesti javni opis za člane ekipe.</string>
   <string name="no">Ne</string>
   <string name="yes">Da</string>
+  <string name="website">Spletna stran</string>
+  <string name="mobile">Mobilna aplikacija</string>
   <string name="help">Pomoč:</string>
   <string name="createANewTopic">Ustvari novo temo</string>
   <string name="topics">Teme</string>
@@ -624,11 +622,9 @@
   <string name="reason">Razlog</string>
   <string name="whatIsIheMatter">Kaj je narobe?</string>
   <string name="cheat">Goljufija</string>
-  <string name="insult">Žalitev</string>
   <string name="troll">Provokacija</string>
-  <string name="ratingManipulation">Manipulacija z ratingi</string>
   <string name="other">Drugo</string>
-  <string name="reportDescriptionHelp">Prilepite povezave do igre (ali iger) in pojasnite kaj je narobe z obnašanjem uporabnika. Ne napišite samo \"uporabnik goljufa\" temveč pojasnite zakaj mislite tako. Prijava bo obdelana hitreje če bo napisana v angleščini.</string>
+  <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvozil je %s</string>
@@ -753,7 +749,7 @@
   <string name="aboutSimulRules">V simultanki ima igralec-gostitelj zmeraj bele figure. Simultanka se zaključi, ko so vse partije končane.</string>
   <string name="aboutSimulSettings">Simultanke so zmeraj nerangirane. Revanše, popravki potez in dodajanje časa niso možni.</string>
   <string name="create">Ustvari</string>
-  <string name="whenCreateSimul">Ko ustvariš simultanko, boš igral z več nasprotniki hkrati.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ko ustvariš simultanko, boš igral z več nasprotniki hkrati.</string>
   <string name="simulVariantsHint">Če si izbral več variant, vsak igralec izbere katero varianto bo igral.</string>
   <string name="simulClockHint">Fischerjeva nastavitev ure. Več igralcev kot sprejmeš, več časa boš morda potreboval.</string>
   <string name="simulAddExtraTime">Uri lahko dodaš več časa v pomoč pri igranju simultanke.</string>

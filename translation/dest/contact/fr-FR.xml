@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Comment pouvons-nous vous aider ?</string>
   <string name="visitThisPage">Visitez cette page pour résoudre le problème</string>
   <string name="iCantLogIn">Je ne peux pas me connecter</string>
-  <string name="noConfirmationEmail">Je ne reçois pas mon courriel de confirmation</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Je ne reçois pas mon courriel de confirmation</string>
   <string name="forgotPassword">J’ai oublié mon mot de passe</string>
   <string name="forgotUsername">J\'ai oublié mon nom d\'utilisateur</string>
   <string name="youCanLoginWithEmail">Vous pouvez vous connecter avec l\'adresse e-mail avec laquelle vous vous êtes inscrit</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Dans certains cas, si vous jouez contre un bot, une partie classée ne vous donnera pas de points s\'il est déterminé que vous avez abusé du bot pour obtenir des points.</string>
   <string name="errorPage">Page d\'erreur</string>
   <string name="reportErrorPage">Si un message d\'erreur s\'est affiché, vous pouvez le signaler :</string>
-  <string name="wantBroadcastTournament">Je souhaite diffuser un tournoi</string>
   <string name="learnHowToMakeBroadcasts">Apprenez comment réaliser vos propres diffusions sur Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Vous pouvez également contacter l\'équipe de diffusion au sujet des diffusions officielles.</string>
   <string name="banAppeal">Demande d\'appel pour un bannissement ou une restriction IP</string>
   <string name="engineAppeal">Tricherie ou utilisation d\'un programme</string>
   <string name="sendAppealTo">Vous pouvez soumettre une demande d\'appel à %s.</string>

@@ -34,7 +34,7 @@
   <string name="xPublishedY">%1$s a publicat %2$s</string>
   <string name="thisPostIsPublished">Această postare este publicată</string>
   <string name="thisIsADraft">Aceasta este o ciornă</string>
-  <string name="moreBlogPostsBy">Vezi mai multe postări pe blog scrise de %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Vezi mai multe postări pe blog scrise de %s</string>
   <string name="noPostsInThisBlogYet">Nici o postare în acest blog, încă.</string>
   <string name="noDrafts">Nici o ciornă de afișat.</string>
   <string name="latestBlogPosts">Ultimele postări pe blog</string>
@@ -47,7 +47,6 @@
   <string name="imageAlt">Text alternativ imagine</string>
   <string name="imageCredit">Sursa imagine</string>
   <string name="deleteBlog">Șterge definitiv această postare pe blog</string>
-  <string name="deleteImage">Șterge imaginea</string>
   <string name="safeToUseImages">Este sigur să folosiți imagini de pe următoarele site-uri: </string>
   <string name="selectPostTopics">Selectează subiectele de discuție despre care este vorba</string>
   <string name="useImagesYouMadeYourself">Poți folosi, de asemenea, imagini pe care le-ai făcut singur, fotografii pe care le-ai făcut, capturi de ecran din Lichess... orice nu este protejat de drepturi de autor ale altcuiva.</string>

@@ -19,6 +19,10 @@
     }
   }
 
+  &-success {
+    color: $c-over;
+  }
+
   &-warning {
     background: $c-warn;
     color: $c-over;

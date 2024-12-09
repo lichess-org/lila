@@ -54,7 +54,7 @@
   <string name="blackDidntMove">Sort flyttede ikke</string>
   <string name="requestAComputerAnalysis">Anmod om en computeranalyse</string>
   <string name="computerAnalysis">Computeranalyse</string>
-  <string name="computerAnalysisAvailable">Computeranalyse klar</string>
+  <string name="computerAnalysisAvailable">Computeranalyse tilgængelig</string>
   <string name="computerAnalysisDisabled">Computeranalyse deaktiveret</string>
   <string name="analysis">Analysebræt</string>
   <string name="depthX">Dybde %s</string>
@@ -70,8 +70,8 @@
   <string name="promoteVariation">Forfrem variant</string>
   <string name="makeMainLine">Gør til hovedlinjen</string>
   <string name="deleteFromHere">Slet herfra</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Fold variationer sammen</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Udvid variationer</string>
+  <string name="collapseVariations">Fold variationer sammen</string>
+  <string name="expandVariations">Udvid variationer</string>
   <string name="forceVariation">Gennemtving variation</string>
   <string name="copyVariationPgn">Kopiér variant-PGN</string>
   <string name="move">Træk</string>
@@ -116,7 +116,6 @@
   <string name="replayMode">Genafspilning</string>
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CBT</string>
-  <string name="openStudy">Åben studie</string>
   <string name="enable">Aktivér</string>
   <string name="bestMoveArrow">Bedste træk pil</string>
   <string name="showVariationArrows">Vis variantpile</string>
@@ -126,7 +125,6 @@
   <string name="memory">Hukommelse</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdegrænsen, og holder din computer varm</string>
-  <string name="engineManager">Administration af skakprogram</string>
   <string name="blunder">Brøler</string>
   <string name="mistake">Fejl</string>
   <string name="inaccuracy">Unøjagtighed</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Seneste debatindlæg</string>
   <string name="players">Spillere</string>
   <string name="friends">Venner</string>
+  <string name="otherPlayers">andre spillere</string>
   <string name="discussions">Samtaler</string>
   <string name="today">I dag</string>
   <string name="yesterday">I går</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
+  <string name="ok">Ok</string>
   <string name="cancel">Annuller</string>
   <string name="whiteTimeOut">Tid udløbet for hvid</string>
   <string name="blackTimeOut">Tid udløbet for sort</string>
@@ -435,7 +435,6 @@
   <string name="block">Blokér</string>
   <string name="blocked">Blokeret</string>
   <string name="unblock">Stop blokering</string>
-  <string name="followsYou">Følger dig</string>
   <string name="xStartedFollowingY">%1$s følger nu %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s som følger</item>
@@ -467,9 +466,6 @@
   <string name="safeTournamentName">Vælg et meget ufarligt navn til turneringen.</string>
   <string name="inappropriateNameWarning">Selv noget lidt upassende kan resultere i at din konto lukkes.</string>
   <string name="emptyTournamentName">Lad stå tomt for at navngive turneringen efter en tilfældig stormester.</string>
-  <string name="recommendNotTouching">Vi anbefaler at ikke ændre disse.</string>
-  <string name="fewerPlayers">Hvis du stiller betingelser for deltagelse, vil din turnering have færre spillere.</string>
-  <string name="showAdvancedSettings">Vis avancerede Indstillinger</string>
   <string name="makePrivateTournament">Gør turneringen privat og begræns adgang med en adgangskode</string>
   <string name="join">Deltag</string>
   <string name="withdraw">Frameld</string>
@@ -509,8 +505,7 @@
   <string name="ifNoneLeaveEmpty">Hvis ingen, lad den være tom</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Redigér profil</string>
-  <string name="firstName">Fornavn</string>
-  <string name="lastName">Efternavn</string>
+  <string name="realName">Rigtige navn</string>
   <string name="setFlair">Indstil dit ikon</string>
   <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Der er en indstilling til at skjule alle brugerikoner på tværs af hele webstedet.</string>
@@ -541,6 +536,8 @@
   <string name="descPrivateHelp">Tekst som kun holddeltagere vil se. Hvis den er udfyldt, erstatter den for holddeltagere den offentlige beskrivelse.</string>
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
+  <string name="website">Websted</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hjælp:</string>
   <string name="createANewTopic">Opret et nyt emne</string>
   <string name="topics">Emner</string>
@@ -557,11 +554,11 @@
   <string name="reason">Årsag</string>
   <string name="whatIsIheMatter">Hvad drejer henvendelsen sig om?</string>
   <string name="cheat">Snyd</string>
-  <string name="insult">Fornærmelse</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation af rating</string>
   <string name="other">Andet</string>
-  <string name="reportDescriptionHelp">Indsæt et link til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel.</string>
+  <string name="reportCheatBoostHelp">Indsæt linket til partiet (eller partierne) og forklar hvad der er i vejen med brugerens opførsel. Sig ikke blot \"de snyder\", men fortæl os, hvordan du nåede frem til den konklusion.</string>
+  <string name="reportUsernameHelp">Forklar, hvad der er stødende ved dette brugernavn. Sig ikke blot \"det er stødende/upassende\", men fortæl os, hvordan du nåede frem til denne konklusion, især hvis fornærmelsen er sløret, ikke er på engelsk, er slang eller er en historisk/kulturel reference.</string>
+  <string name="reportProcessedFasterInEnglish">Din indberetning vil blive behandlet hurtigere, hvis den er skrevet på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Angiv mindst ét link til et parti med snyd.</string>
   <string name="by">Af %s</string>
   <string name="importedByX">Importeret af %s</string>
@@ -594,6 +591,7 @@
   <string name="slow">Langsom</string>
   <string name="insideTheBoard">På brættet</string>
   <string name="outsideTheBoard">Uden for brættet</string>
+  <string name="allSquaresOfTheBoard">Alle felter på brættet</string>
   <string name="onSlowGames">I langsomme spil</string>
   <string name="always">Altid</string>
   <string name="never">Aldrig</string>
@@ -680,7 +678,7 @@
   <string name="aboutSimulRules">I begyndelsen af spillet starter alle deltagere et parti med værten, der får lov at spille med hvide brikker. Simultanspillet er slut, når alle partier er færdige.</string>
   <string name="aboutSimulSettings">Simultanspil er altid \"uformelle\". Revanche, omtræk og \"ekstra tid\" er deaktiverede.</string>
   <string name="create">Opret</string>
-  <string name="whenCreateSimul">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
   <string name="simulVariantsHint">Hvis du vælger flere varianter, kan hver enkelt spiller vælge, hvilken der skal spilles.</string>
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
@@ -995,4 +993,5 @@ Lad stå tomt for at starte partier fra den normale udgangsstilling.</string>
   <string name="lichessPatronInfo">Lichess er en velgørenhedsorganisation og helt gratis/libre open source-software.
 Alle driftsomkostninger, udvikling og indhold finansieres udelukkende af brugerdonationer.</string>
   <string name="nothingToSeeHere">Intet at se her i øjeblikket.</string>
+  <string name="stats">Statistik</string>
 </resources>

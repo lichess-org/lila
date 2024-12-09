@@ -4,11 +4,10 @@ import reactivemongo.api.bson.*
 
 import lila.common.Bus
 import lila.core.LightUser
-import lila.db.dsl.{ *, given }
-import lila.core.misc.clas.ClasMatesAndTeachers
-
+import lila.core.misc.clas.ClasBus
 import lila.core.user.KidMode
 import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
 
 final class MsgSearch(
     colls: MsgColls,
@@ -35,7 +34,7 @@ final class MsgSearch(
 
   private def forKid(q: String)(using me: Me): Fu[MsgSearch.Result] = for
     threads  <- searchThreads(q)
-    allMates <- Bus.ask[Set[UserId]]("clas") { ClasMatesAndTeachers(me, _) }
+    allMates <- Bus.safeAsk[Set[UserId], ClasBus] { ClasBus.ClasMatesAndTeachers(me, _) }
     lower   = q.toLowerCase
     mateIds = allMates.view.filter(_.value.startsWith(lower)).toList.take(15)
     mates <- lightUserApi.asyncMany(mateIds)

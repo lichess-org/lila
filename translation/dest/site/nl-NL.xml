@@ -70,8 +70,8 @@
   <string name="promoteVariation">Promoveer variant</string>
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Varianten verbergen</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Varianten weergeven</string>
+  <string name="collapseVariations">Varianten verbergen</string>
+  <string name="expandVariations">Varianten weergeven</string>
   <string name="forceVariation">Forceer variatie</string>
   <string name="copyVariationPgn">Kopieer variatie PGN</string>
   <string name="move">Zet</string>
@@ -116,7 +116,6 @@
   <string name="replayMode">Terugspeelmodus</string>
   <string name="realtimeReplay">Realtime</string>
   <string name="byCPL">Door CPL</string>
-  <string name="openStudy">Open Study</string>
   <string name="enable">Aanzetten</string>
   <string name="bestMoveArrow">Beste zet-pijl</string>
   <string name="showVariationArrows">Toon variantpijlen</string>
@@ -126,7 +125,6 @@
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Oneindige analyse</string>
   <string name="removesTheDepthLimit">Verwijdert de dieptelimiet, en houdt je computer warm</string>
-  <string name="engineManager">Engine-beheer</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onnauwkeurigheid</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Recente forumberichten</string>
   <string name="players">Spelers</string>
   <string name="friends">Vrienden</string>
+  <string name="otherPlayers">andere spelers</string>
   <string name="discussions">Discussies</string>
   <string name="today">Vandaag</string>
   <string name="yesterday">Gisteren</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s partij met u</item>
     <item quantity="other">%s partijen met u</item>
   </plurals>
+  <string name="ok">Oké</string>
   <string name="cancel">Annuleren</string>
   <string name="whiteTimeOut">Tijd om voor wit</string>
   <string name="blackTimeOut">Tijd om voor zwart</string>
@@ -278,6 +278,7 @@
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
   <string name="standard">Standaard</string>
+  <string name="customPosition">Aangepaste positie</string>
   <string name="unlimited">Onbeperkt</string>
   <string name="mode">Instelling</string>
   <string name="casual">Vrijblijvend</string>
@@ -434,7 +435,6 @@
   <string name="block">Blokkeren</string>
   <string name="blocked">Geblokkeerd</string>
   <string name="unblock">Deblokkeren</string>
-  <string name="followsYou">Volgt u</string>
   <string name="xStartedFollowingY">%1$s volgt nu %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s volger</item>
@@ -466,9 +466,6 @@
   <string name="safeTournamentName">Kies een zeer veilige naam voor het toernooi.</string>
   <string name="inappropriateNameWarning">Bij zelfs het minste vermoeden van een misplaatst gekozen naam, kan uw account gesloten worden.</string>
   <string name="emptyTournamentName">Laat het veld leeg om het toernooi naar een willekeurige grootmeester te vernoemen.</string>
-  <string name="recommendNotTouching">Wij raden aan om deze niet aan te raken.</string>
-  <string name="fewerPlayers">Als u voorwaarden voor deelname instelt, zullen er minder spelers meedoen.</string>
-  <string name="showAdvancedSettings">Toon uitgebreide instellingen &gt;&gt;</string>
   <string name="makePrivateTournament">Maak het toernooi privé en beperk de toegang met een wachtwoord</string>
   <string name="join">Neem deel</string>
   <string name="withdraw">Trek terug</string>
@@ -508,8 +505,7 @@
   <string name="ifNoneLeaveEmpty">Leeg indien n.v.t.</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Pas profiel aan</string>
-  <string name="firstName">Voornaam</string>
-  <string name="lastName">Achternaam</string>
+  <string name="realName">Echte naam</string>
   <string name="setFlair">Stel je flair in</string>
   <string name="flair">Symbool</string>
   <string name="youCanHideFlair">Er bestaat een instelling om alle gebruikersflairs over de hele site te verbergen.</string>
@@ -540,6 +536,8 @@
   <string name="descPrivateHelp">Tekst die alleen de teamleden zien. Indien ingesteld, vervangt deze de openbare beschrijving voor teamleden.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
+  <string name="website">Website</string>
+  <string name="mobile">Mobiel</string>
   <string name="help">Help:</string>
   <string name="createANewTopic">Maak een nieuw onderwerp</string>
   <string name="topics">Onderwerpen</string>
@@ -556,11 +554,11 @@
   <string name="reason">Reden</string>
   <string name="whatIsIheMatter">Wat is er aan de hand?</string>
   <string name="cheat">Valsspelen</string>
-  <string name="insult">Beledigen</string>
   <string name="troll">Provoceren</string>
-  <string name="ratingManipulation">Rating manipulatie</string>
   <string name="other">Anders</string>
-  <string name="reportDescriptionHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar vertel ons hoe u bent gekomen op deze conclusie. Uw rapportage zal sneller worden verwerkt als het in het Engels is geschreven.</string>
+  <string name="reportCheatBoostHelp">Plak de link naar de partij(en) en leg uit wat er mis is met het gedrag van de gebruiker. Zeg niet alleen \'hij speelt vals\', maar leg ook uit hoe je tot deze conclusie komt.</string>
+  <string name="reportUsernameHelp">Leg uit wat er aan deze gebruikersnaam beledigend is. Zeg niet gewoon \"het is aanstootgevend/ongepast\", maar vertel ons hoe je tot deze conclusie komt, vooral als de belediging verhuld wordt, niet in het Engels is, in dialect is, of een historische of culturele verwijzing is.</string>
+  <string name="reportProcessedFasterInEnglish">Je melding wordt sneller verwerkt als deze in het Engels is geschreven.</string>
   <string name="error.provideOneCheatedGameLink">Geef ten minste één link naar een partij waarin vals gespeeld is.</string>
   <string name="by">door %s</string>
   <string name="importedByX">Geïmporteerd door %s</string>
@@ -593,6 +591,7 @@
   <string name="slow">Traag</string>
   <string name="insideTheBoard">Binnen het bord</string>
   <string name="outsideTheBoard">Buiten het bord</string>
+  <string name="allSquaresOfTheBoard">Alle velden van het bord</string>
   <string name="onSlowGames">Alleen bij langzame partijen</string>
   <string name="always">Altijd</string>
   <string name="never">Nooit</string>
@@ -679,7 +678,7 @@
   <string name="aboutSimulRules">Wanneer de simultaan begint, begint iedere partij met de simultaangever. De simultaangever speelt iedere partij met wit en de simultaan eindigt wanneer alle partijen afgerond zijn.</string>
   <string name="aboutSimulSettings">Simultanen zijn altijd zonder rating. Extra partijen, extra tijd en terugzetten is niet mogelijk.</string>
   <string name="create">Creëer</string>
-  <string name="whenCreateSimul">Wanneer je een simultaan creëert, kun je tegen meerdere spelers tegelijk spelen.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wanneer je een simultaan creëert, kun je tegen meerdere spelers tegelijk spelen.</string>
   <string name="simulVariantsHint">Als je meerdere varianten selecteert, kan iedere speler kiezen welke variant hij wil spelen.</string>
   <string name="simulClockHint">Fischer-speeltempo. Hoe meer tegenstanders er zijn, hoe meer tijd je nodig hebt.</string>
   <string name="simulAddExtraTime">Je mag extra tijd aan je eigen klok toevoegen om beter met de simultaan om te kunnen gaan.</string>
@@ -994,4 +993,5 @@ Laat leeg om partijen te starten vanaf de normale beginstelling.</string>
   <string name="lichessPatronInfo">Lichess is een organisatie zonder winstoogmerk en is volledig open en gratis (libre).
 Alle exploitatiekosten, ontwikkeling en inhoud worden enkel gefinancierd door donaties van gebruikers.</string>
   <string name="nothingToSeeHere">Hier is momenteel niets te zien.</string>
+  <string name="stats">Statistieken</string>
 </resources>

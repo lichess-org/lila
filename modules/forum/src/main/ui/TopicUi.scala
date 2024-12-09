@@ -1,14 +1,15 @@
 package lila.forum
 package ui
 
-import play.api.data.{ Form, Field }
+import play.api.data.{ Field, Form }
 import play.api.libs.json.Json
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
 import lila.core.id.CmsPageKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     renderCaptcha: (Form[?] | Field, Captcha) => Context ?=> Frag,
@@ -18,9 +19,10 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
 
   def form(categ: lila.forum.ForumCateg, form: Form[?], captcha: Captcha)(using Context) =
     Page("New forum topic")
+      .csp(_.withInlineIconFont)
       .css("bits.forum")
-      .js(EsmInit("bits.forum"))
-      .js(captchaEsmInit):
+      .js(Esm("bits.forum"))
+      .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(
             h1(
@@ -95,7 +97,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
     Page(s"${topic.name} • page ${posts.currentPage}/${posts.nbPages} • ${categ.name}")
       .css("bits.forum")
       .csp(_.withInlineIconFont.withTwitter)
-      .js(EsmInit("bits.forum") ++ EsmInit("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsmInit))
+      .js(Esm("bits.forum") ++ Esm("bits.expandText") ++ formWithCaptcha.isDefined.so(captchaEsm))
       .graph(
         OpenGraph(
           title = topic.name,
@@ -167,7 +169,8 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   )
                 )
               ),
-              (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal)
+              (canModCateg || ctx.me.exists(topic.isAuthor)).option(deleteModal),
+              canModCateg.option(relocateModal(categ))
             )
           ),
           formWithCaptcha.map: (form, captcha) =>
@@ -210,9 +213,9 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
   )(using me: Me) =
     Page("Diagnostic report")
       .css("bits.forum")
-      .js(EsmInit("bits.forum"))
-      .js(jsModuleInit("bits.autoform", Json.obj("selector" -> ".post-text-area", "ops" -> "focus begin")))
-      .js(captchaEsmInit):
+      .js(Esm("bits.forum"))
+      .js(esmInitBit("autoForm", "selector" -> ".post-text-area", "ops" -> "focus begin"))
+      .js(captchaEsm):
         main(cls := "forum forum-topic topic-form page-small box box-pad")(
           boxTop(h1(dataIcon := Icon.BubbleConvo, cls := "text")("Diagnostics")),
           st.section(cls := "warning")(
@@ -227,7 +230,7 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
                   text
               )
             ),
-            form3.hidden("name", me.username.value),
+            form3.hidden("name", s"${me.username.value} problem report"),
             renderCaptcha(form("post"), captcha),
             form3.actions(form3.submit("submit"))
           )
@@ -250,6 +253,31 @@ final class TopicUi(helpers: Helpers, bits: ForumBits, postUi: PostUi)(
           form3.submit(
             frag("Delete the post")
           )(value := "default", cls := "button-red")
+        )
+      )
+    )
+
+  private val relocateTo = List(
+    "general-chess-discussion" -> "General Chess Discussion",
+    "lichess-feedback"         -> "Lichess Feedback",
+    "game-analysis"            -> "Game Analysis",
+    "off-topic-discussion"     -> "Off-Topic Discussion"
+  )
+
+  private def relocateModal(from: lila.forum.ForumCateg) =
+    div(cls := "forum-relocate-modal none")(
+      p("Move the entire thread to another forum"),
+      st.form(method := "post", cls := "form3")(
+        st.select(
+          name := "categ",
+          cls  := "form-control"
+        )(
+          relocateTo.collect:
+            case (slug, name) if slug != from.id.value => st.option(value := slug)(name)
+        ),
+        form3.actions(
+          button(cls := "cancel button button-empty", tpe := "button")("Cancel"),
+          form3.submit(frag("Relocate the thread"))(cls := "button-red")
         )
       )
     )

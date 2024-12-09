@@ -1,12 +1,13 @@
 package lila.history
 
 import chess.Speed
+import chess.IntRating
 import reactivemongo.api.bson.*
+import scalalib.model.Days
 
+import lila.core.perf.UserPerfs
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
-import scalalib.model.Days
-import lila.core.perf.UserPerfs
 
 final class HistoryApi(
     withColl: AsyncCollFailingSilently,
@@ -117,8 +118,8 @@ final class HistoryApi(
             _.flatMap:
               _.child(perf.value).map {
                 _.elements.foldLeft(currentRating):
-                  case (max, BSONElement(_, BSONInteger(v))) if max < v => IntRating(v)
-                  case (max, _)                                         => max
+                  case (max, BSONElement(_, BSONInteger(v))) if max < IntRating(v) => IntRating(v)
+                  case (max, _)                                                    => max
               }
           }).dmap(_ | currentRating)
       }

@@ -4,8 +4,8 @@ import akka.actor.*
 import akka.pattern.pipe
 import scalalib.ThreadLocalRandom
 
+import lila.core.pool.{ HookThieve, Joiner, PoolMember }
 import lila.core.socket.Sris
-import lila.core.pool.{ PoolMember, HookThieve, Joiner }
 
 final private class PoolActor(
     config: PoolConfig,

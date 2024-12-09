@@ -1,16 +1,17 @@
-import { h, VNode } from 'snabbdom';
-import { Config as CgConfig } from 'chessground/config';
-import * as cg from 'chessground/types';
+import { h, type VNode } from 'snabbdom';
+import type { Elements } from 'chessground/types';
 import resizeHandle from 'common/resize';
-import CoordinateTrainerCtrl from './ctrl';
+import type CoordinateTrainerCtrl from './ctrl';
+import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from 'common/pubsub';
 
 export default function (ctrl: CoordinateTrainerCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = site.makeChessground(el, makeConfig(ctrl));
-        site.pubsub.on('board.change', (is3d: boolean) => {
+        ctrl.chessground = makeChessground(el, makeConfig(ctrl));
+        pubsub.on('board.change', (is3d: boolean) => {
           ctrl.chessground!.state.addPieceZIndex = is3d;
           ctrl.chessground!.redrawAll();
         });
@@ -33,7 +34,7 @@ function makeConfig(ctrl: CoordinateTrainerCtrl): CgConfig {
     draggable: { enabled: false },
     selectable: { enabled: false },
     events: {
-      insert(elements: cg.Elements) {
+      insert(elements: Elements) {
         resizeHandle(elements, ctrl.config.resizePref, ctrl.playing ? 2 : 0);
       },
       select: ctrl.onChessgroundSelect,

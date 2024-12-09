@@ -1,5 +1,4 @@
-import { Run } from './interfaces';
-import { Config as CgConfig } from 'chessground/config';
+import type { Run } from './interfaces';
 import { opposite, uciToMove } from 'chessground/util';
 import { makeFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
@@ -23,5 +22,7 @@ export const makeCgOpts = (run: Run, canMove: boolean, flipped: boolean): CgConf
   };
 };
 
-export const povMessage = (run: Run) =>
-  `youPlayThe${run.pov == 'white' ? 'White' : 'Black'}PiecesInAllPuzzles`;
+export const povMessage = (run: Run): string =>
+  run.pov === 'white'
+    ? i18n.storm.youPlayTheWhitePiecesInAllPuzzles
+    : i18n.storm.youPlayTheBlackPiecesInAllPuzzles;

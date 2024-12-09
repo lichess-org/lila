@@ -2,12 +2,18 @@ import * as emojis from 'emoji-mart';
 
 type Config = {
   element: HTMLElement;
-  close: () => void;
+  close: (e: PointerEvent) => void;
   onEmojiSelect: (i?: { id: string; src: string }) => void;
 };
 
-export function initModule(cfg: Config) {
+export async function initModule(cfg: Config): Promise<void> {
   if (cfg.element.classList.contains('emoji-done')) return;
+  const theme =
+    document.body.dataset.theme === 'system'
+      ? 'auto'
+      : document.body.dataset.theme === 'light'
+        ? 'light'
+        : 'dark';
   const opts = {
     ...cfg,
     onClickOutside: cfg.close,
@@ -17,10 +23,12 @@ export function initModule(cfg: Config) {
     previewEmoji: 'people.backhand-index-pointing-up',
     noResultsEmoji: 'smileys.crying-face',
     skinTonePosition: 'none',
+    theme,
     exceptEmojis: cfg.element.dataset.exceptEmojis?.split(' '),
   };
   const picker = new emojis.Picker(opts);
-  cfg.element.appendChild(picker as unknown as HTMLElement);
+
+  cfg.element.prepend(picker as unknown as HTMLElement);
   cfg.element.classList.add('emoji-done');
   $(cfg.element).find('em-emoji-picker').attr('trap-bypass', '1'); // disable mousetrap within the shadow DOM
 }

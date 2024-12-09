@@ -1,7 +1,5 @@
 package lila.puzzle
 
-import scala.util.chaining.*
-
 import lila.memo.CacheApi
 
 private case class PuzzleSession(

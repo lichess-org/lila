@@ -99,7 +99,6 @@
   <string name="replayMode">دوبارہ چلائیں</string>
   <string name="realtimeReplay">اصل وقت پرچلائیں</string>
   <string name="byCPL">بذریعہ CPL</string>
-  <string name="openStudy">سٹڈی کو کھولیں</string>
   <string name="enable">آن کریں</string>
   <string name="bestMoveArrow">بہترین چال دکھانے والا تیر</string>
   <string name="evaluationGauge">تشخیص بار</string>
@@ -108,7 +107,6 @@
   <string name="memory">یاداشت</string>
   <string name="infiniteAnalysis">لامحدود تجزیہ</string>
   <string name="removesTheDepthLimit">گہرائی کی حد ختم کریں، یہ آپ کے کمپیوٹر کو گرم رکھے گا</string>
-  <string name="engineManager">انجن منتظم</string>
   <string name="blunder">احمقانہ غلطی</string>
   <string name="mistake">غلطی</string>
   <string name="inaccuracy">کمزور چال</string>
@@ -366,7 +364,6 @@
   <string name="block">منع کریں</string>
   <string name="blocked">ممنوعہ</string>
   <string name="unblock">ممانعت ختم کریں</string>
-  <string name="followsYou">آپ کا پیروکار ہے</string>
   <string name="xStartedFollowingY">%1$s نے %2$s کو فالو کرنا شروع کر دیا ہے</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s پیروکار</item>
@@ -398,9 +395,6 @@
   <string name="safeTournamentName">ٹورنامنٹ کا ایک محتاط نام رکھیں.</string>
   <string name="inappropriateNameWarning">کسی قسم کی نا مناسب حرکت کی وجہ سے آپ کا اکاونٹ بند ہو سکتا ہے۔.</string>
   <string name="emptyTournamentName">خانے کو خالی چھوڑنے سے ٹورنامنٹ کا نام کسی مشہور کھلاڑی پر رکھ دیا جائے گا.</string>
-  <string name="recommendNotTouching">ہمارہ مشورہ ہے کہ اس کے ساتھ چھیڑ چھاڑ نہ کریں.</string>
-  <string name="fewerPlayers">اگر آپ داخلے کی شرائط مقرر کریں گے تو ٹورنامنٹ میں کم کھلاڑی آئیں گے.</string>
-  <string name="showAdvancedSettings">اعلی ترتیبات دکھائیں</string>
   <string name="makePrivateTournament">ٹورنامنٹ کی حیثیت ذاتی کر دیں، اور رسائی صرف پاس ورڈ کے ذریعے ہو سکے گی</string>
   <string name="join">شامل ہوں</string>
   <string name="withdraw">دستبردار ہوں</string>
@@ -437,8 +431,6 @@
   <string name="ifNoneLeaveEmpty">اگر کوئی نہیں تو خالی چھوڑ دیں</string>
   <string name="profile">اکاؤنٹ</string>
   <string name="editProfile">اکاؤنٹ میں ترمیم کریں</string>
-  <string name="firstName">پہلا نام</string>
-  <string name="lastName">آخری نام</string>
   <string name="biography">سوانح حیات</string>
   <string name="thankYou">آپ کا شکریہ!</string>
   <string name="socialMediaLinks">سوشل میڈیا کے لنکس</string>
@@ -476,10 +468,8 @@
   <string name="reason">شکایت کی وجہ</string>
   <string name="whatIsIheMatter">معاملہ؟</string>
   <string name="cheat">بدعنوانی</string>
-  <string name="insult">ہتک آمیز گفتگو</string>
   <string name="troll">سیاپہ فروشی</string>
   <string name="other">دیگر</string>
-  <string name="reportDescriptionHelp">متاثرہ مقابلوں کے رابطے یہاں داخل کریں اور شکایت کی وجوہات بیان کریں</string>
   <string name="error.provideOneCheatedGameLink">کم از کم ایک بازی کا لنک دیں گس میں چیٹنگ کی گئی ہو.</string>
   <string name="by">منجانب: %s</string>
   <string name="thisTopicIsNowClosed">یہ موضوع مزید تبصروں کے لیے بند ہے</string>
@@ -580,7 +570,7 @@
   <string name="aboutSimulRules">نمائشی مقابلہ شروع ہونے پر ہر کھلاڑی میزبان سے کھیلے گا۔ تمام مقابلے ختم ہونے پر نمائیش ختم ہو جائے گی۔</string>
   <string name="aboutSimulSettings">نمائشی مقابلے ہمیشہ غیررسمی ہوتے ہیں- آپ چال واپس، مزید وقت اور مقابلے کا اعادہ نہیں کر سکتے۔</string>
   <string name="create">شروع کریں</string>
-  <string name="whenCreateSimul">نمائشی مقابلے میں آپ ایک ساتھ کئی حریفوں سے کھیلیں گے۔</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">نمائشی مقابلے میں آپ ایک ساتھ کئی حریفوں سے کھیلیں گے۔</string>
   <string name="simulVariantsHint">متعدد انواع کی صورت میں ہر کھلاڑی اپنی پسند کی نوع اختیار کر سکے گا۔</string>
   <string name="simulClockHint">فشر کا نظام وقت۔ جتنے زیادہ حریف منتخب کریں گے اتنا زیادہ وقت درکار ہو گا۔</string>
   <string name="simulAddExtraTime">اپنے لیے اضافی وقت منتخب کر سکتے ہیں-</string>

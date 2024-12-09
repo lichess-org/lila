@@ -2,8 +2,6 @@ package lila.relay
 
 import chess.format.Fen
 
-import lila.study.*
-
 /* Try to detect several ways for the input to be wrong */
 private object RelayInputSanity:
 

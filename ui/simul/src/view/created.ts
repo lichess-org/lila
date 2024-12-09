@@ -1,8 +1,9 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
+import { confirm, domDialog } from 'common/dialog';
 import { bind, looseH as h } from 'common/snabbdom';
-import SimulCtrl from '../ctrl';
-import { Applicant } from '../interfaces';
+import type SimulCtrl from '../ctrl';
+import type { Applicant } from '../interfaces';
 import xhr from '../xhr';
 import * as util from './util';
 
@@ -13,7 +14,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
       isHost = ctrl.createdByMe(),
       canJoin = ctrl.data.canJoin;
     const variantIconFor = (a: Applicant) => {
-      const variant = ctrl.data.variants.find(v => a.variant == v.key);
+      const variant = ctrl.data.variants.find(v => a.variant === v.key);
       return variant && h('td.variant', { attrs: { 'data-icon': variant.icon } });
     };
     return [
@@ -25,36 +26,31 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
             ? isHost
               ? [startOrCancel(ctrl, accepted), randomButton(ctrl)]
               : ctrl.containsMe()
-              ? h(
-                  'a.button',
-                  { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) },
-                  ctrl.trans('withdraw'),
-                )
-              : h(
-                  'a.button.text' + (canJoin ? '' : '.disabled'),
-                  {
-                    attrs: { disabled: !canJoin, 'data-icon': licon.PlayTriangle },
-                    hook: canJoin
-                      ? bind('click', () => {
-                          if (ctrl.data.variants.length === 1)
-                            xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
-                          else
-                            site.dialog
-                              .dom({
+                ? h('a.button', { hook: bind('click', () => xhr.withdraw(ctrl.data.id)) }, i18n.site.withdraw)
+                : h(
+                    'a.button.text' + (canJoin ? '' : '.disabled'),
+                    {
+                      attrs: { disabled: !canJoin, 'data-icon': licon.PlayTriangle },
+                      hook: canJoin
+                        ? bind('click', () => {
+                            if (ctrl.data.variants.length === 1)
+                              xhr.join(ctrl.data.id, ctrl.data.variants[0].key);
+                            else
+                              domDialog({
                                 cash: $('.simul .continue-with'),
-                              })
-                              .then(dlg => {
+                                modal: true,
+                              }).then(dlg => {
                                 $('button.button', dlg.view).on('click', function (this: HTMLButtonElement) {
                                   xhr.join(ctrl.data.id, this.dataset.variant as VariantKey);
                                   dlg.close();
                                 });
-                                dlg.showModal();
+                                dlg.show();
                               });
-                        })
-                      : {},
-                  },
-                  ctrl.trans('join'),
-                )
+                          })
+                        : {},
+                    },
+                    i18n.site.join,
+                  )
             : h(
                 'a.button.text',
                 {
@@ -63,7 +59,7 @@ export default function (showText: (ctrl: SimulCtrl) => VNode | false) {
                     href: '/login?referrer=' + window.location.pathname,
                   },
                 },
-                ctrl.trans('signIn'),
+                i18n.site.signIn,
               ),
         ),
       ]),
@@ -195,9 +191,9 @@ const startOrCancel = (ctrl: SimulCtrl, accepted: Applicant[]) =>
         'a.button.button-red.text',
         {
           attrs: { 'data-icon': licon.X },
-          hook: bind('click', () => {
-            if (confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
+          hook: bind('click', async () => {
+            if (await confirm('Delete this simul?')) xhr.abort(ctrl.data.id);
           }),
         },
-        ctrl.trans('cancel'),
+        i18n.site.cancel,
       );

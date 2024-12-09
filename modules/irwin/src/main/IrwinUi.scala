@@ -1,9 +1,10 @@
 package lila.irwin
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.game.Pov
 import lila.game.GameExt.playerBlurPercent
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class IrwinUi(helpers: Helpers)(menu: String => Context ?=> Frag):
   import helpers.{ *, given }

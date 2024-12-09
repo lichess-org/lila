@@ -26,7 +26,7 @@
     <item quantity="one">Айналым арасында %s минут</item>
     <item quantity="other">Айналым арасында %s минут</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Басталуға қалған уақыт</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Басталуға қалған уақыт</string>
   <string name="nextRound">Келесі айналым</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Болып жатқан ойын</item>
@@ -66,7 +66,7 @@
   <string name="whatIfOneDoesntPlayA">Уақыт бітеді де, ойыншы жеңіледі.
 Кейін жүйе оны жарыстан шығарады, бірақ ойыншы кез-келген уақытта қайта қосылуға қабілетті.</string>
   <string name="protectionAgainstNoShowQ">Қатыспағандарға қандай шара?</string>
-  <string name="protectionAgainstNoShowA">Швейцарлық ойынға кірген, бірақ қатыспағандар қиындық тудыруы мүмкін.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Швейцарлық ойынға кірген, бірақ қатыспағандар қиындық тудыруы мүмкін.
 Мәселені шешу үшін Личес оларға белгіленген бір уақыт аралығында жаңа ойындарға қатысуда тыйым орнатты.
 Дегенмен, Швейцарлық ойын құрастырушысы оларға рұқсат беруге қауһарлы.</string>
   <string name="lateJoinQ">Ойыншылар кешіге қосыла алады ма?</string>

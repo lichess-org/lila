@@ -1,7 +1,7 @@
 package lila.relay
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.ThreadLocalRandom
 
 case class RelayGroup(@Key("_id") id: RelayGroup.Id, name: RelayGroup.Name, tours: List[RelayTourId])
 
@@ -57,6 +57,12 @@ final private class RelayGroupRepo(coll: Coll)(using Executor):
 
   def byTour(tourId: RelayTourId): Fu[Option[RelayGroup]] =
     coll.find($doc("tours" -> tourId)).one[RelayGroup]
+
+  def byTours(tourIds: Seq[RelayTourId]): Fu[List[RelayGroup]] =
+    coll.find($doc("tours".$in(tourIds))).cursor[RelayGroup]().listAll()
+
+  def allTourIdsOfGroup(tourId: RelayTourId): Fu[List[RelayTourId]] =
+    byTour(tourId).map(_.fold(List(tourId))(_.tours))
 
   def update(tourId: RelayTourId, data: RelayGroup.form.Data): Funit =
     for

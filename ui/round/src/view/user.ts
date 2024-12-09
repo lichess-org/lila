@@ -1,14 +1,11 @@
-import { looseH as h } from 'common/snabbdom';
+import { looseH as h, type VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
-import { Player } from 'game';
-import { Position } from '../interfaces';
-import RoundController from '../ctrl';
+import type { Player } from 'game';
+import type { Position } from '../interfaces';
+import type RoundController from '../ctrl';
 import { ratingDiff, userLink } from 'common/userLink';
 
-export const aiName = (ctrl: RoundController, level: number) =>
-  ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
-
-export function userHtml(ctrl: RoundController, player: Player, position: Position) {
+export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {
   const d = ctrl.data,
     user = player.user,
     perf = (user?.perfs || {})[d.game.perf],
@@ -33,8 +30,8 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
             title: connecting
               ? 'Connecting to the game'
               : player.onGame
-              ? 'Joined the game'
-              : 'Left the game',
+                ? 'Joined the game'
+                : 'Left the game',
           },
         }),
         userLink({
@@ -49,7 +46,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
         !!rating && ratingDiff(player),
         player.engine &&
           h('span', {
-            attrs: { 'data-icon': licon.CautionCircle, title: ctrl.noarg('thisAccountViolatedTos') },
+            attrs: { 'data-icon': licon.CautionCircle, title: i18n.site.thisAccountViolatedTos },
           }),
       ],
     );
@@ -64,7 +61,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
         },
       }),
-      h('name', player.name || ctrl.noarg('anonymous')),
+      h('name', player.name || i18n.site.anonymous),
     ],
   );
 }
@@ -75,9 +72,9 @@ const signalBars = (signal: number) => {
   return h('signal.q' + signal, bars);
 };
 
-export const userTxt = (ctrl: RoundController, player: Player) =>
+export const userTxt = (player: Player): string =>
   player.user
     ? (player.user.title ? player.user.title + ' ' : '') + player.user.username
     : player.ai
-    ? aiName(ctrl, player.ai)
-    : ctrl.noarg('anonymous');
+      ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai)
+      : i18n.site.anonymous;

@@ -10,7 +10,7 @@
   <string name="newTeam">チームを作る</string>
   <string name="myTeams">自分の所属チーム</string>
   <string name="noTeamFound">チームが見つかりませんでした</string>
-  <string name="joinTeam">チームに参加</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">チームに参加</string>
   <string name="onlyLeaderLeavesTeam">辞める前に別のチームリーダーを指名するか、チームを閉鎖してください。</string>
   <string name="quitTeam">チームを辞める</string>
   <string name="manuallyReviewAdmissionRequests">入会要請を手動で許可</string>
@@ -53,7 +53,7 @@
   <string name="joinLichessVariantTeam">公式チーム %s にはニュースやイベント情報が</string>
   <string name="teamPage">チームのページ</string>
   <string name="thisTeamBattleIsOver">このトーナメントは終了しており、チームの更新はできません。</string>
-  <string name="listTheTeamsThatWillCompete">このバトルに参加するチームをリストしてください。</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">このバトルに参加するチームをリストしてください。</string>
   <string name="oneTeamPerLine">1 行に 1 チームです。オートコンプリートを使用します。</string>
   <string name="oneTeamPerLineHelp">このリストは別のトーナメントへコピー＆ペーストできます！
 

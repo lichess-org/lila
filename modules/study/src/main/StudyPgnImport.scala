@@ -32,11 +32,10 @@ object StudyPgnImport:
           )
 
           val end = result.map: res =>
-            val outcome = Outcome(res.winner)
             End(
               status = res.status,
-              outcome = outcome,
-              resultText = chess.Outcome.showResult(outcome.some),
+              points = res.points,
+              resultText = chess.Outcome.showPoints(res.points.some),
               statusText = lila.tree.StatusText(res.status, res.winner, game.board.variant)
             )
 
@@ -64,7 +63,7 @@ object StudyPgnImport:
 
   case class End(
       status: Status,
-      outcome: Outcome,
+      points: Outcome.GamePoints,
       resultText: String,
       statusText: String
   )
@@ -113,7 +112,7 @@ object StudyPgnImport:
       annotator: Option[Comment.Author]
   ): Branches =
     val variations =
-      node.take(Node.MAX_PLIES).variations.flatMap(x => makeBranch(context, x.toNode, annotator))
+      node.take(Node.MAX_PLIES).fold(Nil)(_.variations.flatMap(x => makeBranch(context, x.toNode, annotator)))
     removeDuplicatedChildrenFirstNode(
       Branches(makeBranch(context, node, annotator).fold(variations)(_ +: variations))
     )

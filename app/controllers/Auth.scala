@@ -6,20 +6,19 @@ import play.api.mvc.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.security.SecurityForm.{ MagicLink, PasswordReset }
-import lila.security.{ FingerPrint, Signup }
+import lila.core.email.{ UserIdOrEmail, UserStrOrEmail }
 import lila.core.net.IpAddress
-import lila.core.email.{ UserStrOrEmail, UserIdOrEmail }
 import lila.core.security.ClearPassword
 import lila.memo.RateLimit
+import lila.security.SecurityForm.{ MagicLink, PasswordReset }
+import lila.security.{ FingerPrint, Signup }
 
 final class Auth(
     env: Env,
     accountC: => Account
 ) extends LilaController(env):
 
-  private def api   = env.security.api
-  private def forms = env.security.forms
+  import env.security.{ api, forms }
 
   private def mobileUserOk(u: UserModel, sessionId: String)(using Context): Fu[Result] = for
     povs  <- env.round.proxyRepo.urgentGames(u)
@@ -40,23 +39,21 @@ final class Auth(
   ): Fu[Result] =
     api
       .saveAuthentication(u.id, ctx.mobileApiVersion)
-      .flatMap { sessionId =>
+      .flatMap: sessionId =>
         negotiate(
           result.fold(Redirect(getReferrer))(_(getReferrer)),
           mobileUserOk(u, sessionId)
         ).map(authenticateCookie(sessionId, remember))
-      }
       .recoverWith(authRecovery)
 
-  private def authenticateAppealUser(u: UserModel, redirect: String => Result)(using
+  private def authenticateAppealUser(u: UserModel, redirect: String => Result, url: String)(using
       ctx: Context
   ): Fu[Result] =
     api.appeal
       .saveAuthentication(u.id)
-      .flatMap { sessionId =>
+      .flatMap: sessionId =>
         authenticateCookie(sessionId, remember = false):
-          redirect(routes.Appeal.landing.url)
-      }
+          redirect(url)
       .recoverWith(authRecovery)
 
   private def authenticateCookie(sessionId: String, remember: Boolean)(
@@ -94,10 +91,11 @@ final class Auth(
       Firewall:
         def redirectTo(url: String) = if HTTPRequest.isXhr(ctx.req) then Ok(s"ok:$url") else Redirect(url)
         val referrer                = get("referrer").filterNot(env.web.referrerRedirect.sillyLoginReferrers)
+        val isRemember              = api.rememberForm.bindFromRequest().value | true
         bindForm(api.loginForm)(
           err =>
             negotiate(
-              Unauthorized.page(views.auth.login(err, referrer)),
+              Unauthorized.page(views.auth.login(err, referrer, isRemember)),
               Unauthorized(doubleJsonFormErrorBody(err))
             ),
           (login, pass) =>
@@ -116,7 +114,7 @@ final class Auth(
                       negotiate(
                         err.errors match
                           case List(FormError("", Seq(err), _)) if is2fa(err) => Ok(err)
-                          case _ => Unauthorized.page(views.auth.login(err, referrer))
+                          case _ => Unauthorized.page(views.auth.login(err, referrer, isRemember))
                         ,
                         Unauthorized(doubleJsonFormErrorBody(err))
                       )
@@ -126,17 +124,21 @@ final class Auth(
                         case None => InternalServerError("Authentication error")
                         case Some(u) if u.enabled.no =>
                           negotiate(
-                            env.mod.logApi.closedByMod(u).flatMap {
-                              if _ then authenticateAppealUser(u, redirectTo)
-                              else redirectTo(routes.Account.reopen.url)
+                            env.mod.logApi.closedByTeacher(u).flatMap {
+                              if _ then
+                                authenticateAppealUser(u, redirectTo, routes.Appeal.closedByTeacher.url)
+                              else
+                                env.mod.logApi.closedByMod(u).flatMap {
+                                  if _ then authenticateAppealUser(u, redirectTo, routes.Appeal.landing.url)
+                                  else redirectTo(routes.Account.reopen.url)
+                                }
                             },
                             Unauthorized(jsonError("This account is closed."))
                           )
                         case Some(u) =>
                           lila.mon.security.login.attempt(isEmail, stuffing = stuffing, result = true)
-                          env.user.repo.email(u.id).foreach { _.foreach(garbageCollect(u)) }
-                          val remember = api.rememberForm.bindFromRequest().value | true
-                          authenticateUser(u, remember, Some(redirectTo))
+                          env.user.repo.email(u.id).foreach(_.foreach(garbageCollect(u)))
+                          authenticateUser(u, isRemember, Some(redirectTo))
                   )
               }
         )
@@ -192,15 +194,24 @@ final class Auth(
                 welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
           ,
           api = apiVersion =>
-            env.security.signup
-              .mobile(apiVersion)
-              .flatMap:
-                case Signup.Result.RateLimited        => rateLimited
-                case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
-                case Signup.Result.Bad(err)           => doubleJsonFormError(err)
-                case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
-                case Signup.Result.AllSet(user, email) =>
-                  welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user, remember = true)
+            env.security
+              .ip2proxy(ctx.ip)
+              .flatMap: proxy =>
+                if proxy.isSafeish
+                then
+                  env.security.signup
+                    .mobile(apiVersion)
+                    .flatMap:
+                      case Signup.Result.RateLimited        => rateLimited
+                      case Signup.Result.MissingCaptcha     => BadRequest(jsonError("Missing captcha?!"))
+                      case Signup.Result.Bad(err)           => doubleJsonFormError(err)
+                      case Signup.Result.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true))
+                      case Signup.Result.AllSet(user, email) =>
+                        welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(
+                          user,
+                          remember = true
+                        )
+                else Forbidden(jsonError("This network cannot create new accounts."))
         )
 
   private def welcome(user: UserModel, email: EmailAddress, sendWelcomeEmail: Boolean)(using
@@ -433,8 +444,10 @@ final class Auth(
               notFound
             case Some(user) =>
               authLog(user.username, none, "Magic link")
-              authenticateUser(user, remember = true)
-                .andDo(lila.mon.user.auth.magicLinkConfirm("success").increment())
+              for
+                result <- authenticateUser(user, remember = true)
+                _ = lila.mon.user.auth.magicLinkConfirm("success").increment()
+              yield result
           }
 
   def makeLoginToken = AuthOrScoped(_.Web.Login) { ctx ?=> me ?=>

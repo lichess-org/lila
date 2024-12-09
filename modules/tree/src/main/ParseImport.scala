@@ -2,15 +2,13 @@ package lila.tree
 
 import chess.format.Fen
 import chess.format.pgn.{ ParsedPgn, Parser, PgnStr, Reader, Sans }
-import chess.{ Game as ChessGame, * }
 import chess.variant.*
-import scala.util.chaining.*
+import chess.{ Game as ChessGame, * }
 
-import lila.core.userId.UserId
-
-case class TagResult(status: Status, winner: Option[Color]):
+case class TagResult(status: Status, points: Outcome.GamePoints):
   // duplicated from Game.finish
-  def finished = status >= Status.Mate
+  def finished              = status >= Status.Mate
+  def winner: Option[Color] = Outcome.fromPoints(points).flatMap(_.winner)
 
 case class ImportResult(
     game: ChessGame,
@@ -57,20 +55,21 @@ val parseImport: PgnStr => Either[ErrorStr, ImportResult] = pgn =>
             case Some(txt) if txt.contains("won on time") => Status.Outoftime
             case _                                        => Status.UnknownFinish
 
-          val result = parsed.tags.outcome
-            .map:
-              case Outcome(Some(winner))           => TagResult(status, winner.some)
-              case _ if status == Status.Outoftime => TagResult(status, none)
-              case _                               => TagResult(Status.Draw, none)
+          val result = parsed.tags.points
+            .map(points => TagResult(status, points))
             .filter(_.status > Status.Started)
-            .orElse { game.situation.status.map(TagResult(_, game.situation.winner)) }
+            .orElse:
+              game.situation.status.flatMap: status =>
+                Outcome
+                  .guessPointsFromStatusAndPosition(status, game.situation.winner)
+                  .map(TagResult(status, _))
 
           ImportResult(game, result, replay.copy(state = game), initialFen, parsed)
         }
     }
 
 private def isChess960StartPosition(sit: Situation) =
-  import _root_.chess.*
+  import chess.*
   val strict =
     def rankMatches(f: Option[Piece] => Boolean)(rank: Rank) =
       File.all.forall: file =>

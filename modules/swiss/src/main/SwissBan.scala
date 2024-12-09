@@ -24,10 +24,9 @@ final class SwissBanApi(mongo: SwissMongo)(using Executor):
 
   private def onStall(user: UserId): Funit = get(user).flatMap { prev =>
     val hours: Int = prev
-      .fold(24) { ban =>
+      .fold(24): ban =>
         if ban.until.isBefore(nowInstant) then ban.hours * 2 // consecutive
         else (ban.hours * 1.5).toInt                         // simultaneous
-      }
       .atMost(30 * 24)
     mongo.ban.update
       .one(

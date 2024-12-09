@@ -1,9 +1,9 @@
 package lila.web
 
 import lila.core.net.IpAddress
-import lila.memo.RateLimit
 import lila.core.socket.Sri
 import lila.core.userId
+import lila.memo.RateLimit
 
 final class Limiters(using Executor, lila.core.config.RateLimit):
 
@@ -143,5 +143,14 @@ final class Limiters(using Executor, lila.core.config.RateLimit):
 
   val studyPgn = RateLimit[IpAddress](credits = 31, duration = 1.minute, key = "export.study.pgn.ip")
 
+  val relayPgn = RateLimit[IpAddress](credits = 61, duration = 1.minute, key = "export.relay.pgn.ip")
+
   val teamKick =
     RateLimit.composite[IpAddress](key = "team.kick.api.ip")(("fast", 10, 2.minutes), ("slow", 50, 1.day))
+
+  val openingStatsProxy = RateLimit.composite[UserId](
+    key = "opening.stats.proxy.user"
+  )(
+    ("fast", 30, 10.minutes),
+    ("slow", 100, 1.day)
+  )

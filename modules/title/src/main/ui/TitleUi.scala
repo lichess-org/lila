@@ -1,23 +1,16 @@
 package lila.title
 package ui
 
-import play.api.data.Form
-import play.api.libs.json.*
 import chess.PlayerTitle
+import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.id.TitleRequestId
 import lila.core.id.ImageId
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
   import helpers.{ *, given }
-
-  private def layout(title: String = "Title verification")(using Context) =
-    Page(title)
-      .css("bits.titleRequest")
-      .wrap: body =>
-        main(cls := "box box-pad page")(body)
 
   def index(page: Page, intro: Frag)(using Context) =
     page.css("bits.page"):
@@ -43,7 +36,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
 
   def edit(page: Page, form: Form[TitleRequest.FormData], req: TitleRequest)(using Context) =
     page
-      .js(EsmInit("bits.titleRequest")):
+      .js(esmInitBit("titleRequest")):
         frag(
           h1(cls := "box__top")(page.title),
           standardFlash,
@@ -62,14 +55,20 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           req,
           "idDocument",
           name = "Identity document",
-          help = frag("ID card, passport or driver's license.")
+          help = div(
+            p("ID card, passport or driver's license."),
+            p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))
+          )
         ),
         imageByTag(
           req,
           "selfie",
           name = "Your picture",
-          help = frag(
-            """A picture of yourself holding up a piece of paper, with today's date and your Lichess username written on it."""
+          help = div(
+            p("""A picture of yourself holding up a piece of paper, with the required text:"""),
+            pre("""Official Lichess verification
+My Lichess account is [your username]
+Today's date is [current date]""")
           )
         )
       ),
@@ -80,7 +79,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
       postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
         form3.action(
           form3.submit("Cancel request and delete form data", icon = Icon.Trash.some)(
-            cls := "button-red button-empty confirm"
+            cls := "button-red button-empty yes-no-confirm"
           )
         )(cls := "title__cancel")
       )
@@ -108,7 +107,6 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
 
   def statusFlair(req: TitleRequest)(using Context) = iconFlair:
     Flair:
-      import TitleRequest.Status
       req.status.name match
         case "approved" => "activity.sparkles"
         case "rejected" => "symbols.cross-mark"
@@ -154,9 +152,9 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
           if form("public").value.isDefined || form.hasErrors
           then form("public")
           else form("public").copy(value = "true".some),
-          frag("Publish my title"),
+          frag("Public account"),
           help = frag(
-            "Recommended. Your title is visible on your profile page. Your real name is NOT published."
+            "Makes your real name public. Required for coaching, streaming, and prize tournaments."
           ).some,
           half = true
         ),
@@ -187,10 +185,7 @@ final class TitleUi(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
         cls               := List("drop-target" -> true, "user-image" -> image.isDefined),
         attr("draggable") := "true"
       ),
-      div(
-        help,
-        p(trans.streamer.maxSize(s"${lila.memo.PicfitApi.uploadMaxMb}MB."))
-      )
+      help
     )
 
   object thumbnail:

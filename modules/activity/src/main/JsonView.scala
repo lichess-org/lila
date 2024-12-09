@@ -3,15 +3,13 @@ package lila.activity
 import play.api.i18n.Lang
 import play.api.libs.json.*
 
+import lila.activity.activities.*
 import lila.common.Json.{ *, given }
 import lila.core.game.LightPov
-import lila.rating.PerfType
+import lila.core.rating.{ RatingProg, Score }
 import lila.core.simul.Simul
-
-import lila.activity.activities.*
 import lila.core.tournament.leaderboard.Ratio
-import lila.core.rating.RatingProg
-import lila.core.rating.Score
+import lila.rating.PerfType
 
 final class JsonView(
     getTourName: lila.core.tournament.GetTourName,
@@ -116,8 +114,9 @@ final class JsonView(
         )
         .add(
           "correspondenceEnds",
-          a.corresEnds.map: (score, povs) =>
-            Json.obj("score" -> score, "games" -> povs)
+          a.corresEnds.map:
+            _.map: (score, povs) =>
+              Json.obj("score" -> score, "games" -> povs)
         )
         .add("follows" -> a.follows)
         .add("studies" -> a.studies)

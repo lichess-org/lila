@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">스위스</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">스위스</string>
   <string name="swissTournaments">스위스 토너먼트</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">총 %s 라운드 보기</item>
@@ -21,7 +21,7 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">라운드 사이 %s분</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">시작까지</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">시작까지</string>
   <string name="nextRound">다음 라운드</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="other">진행중인 게임</item>
@@ -32,6 +32,16 @@
   <string name="roundInterval">라운드 간격</string>
   <string name="forbiddenPairings">금지된 페어링</string>
   <string name="forbiddenPairingsHelp">함께 플레이해서는 안되는 플레이어(예 : 형제)의 사용자 ID. 한 줄에 두 개의 ID를 공백으로 구분해서 입력합니다.</string>
+  <string name="manualPairings">다음 경기에 수동으로 페어링</string>
+  <string name="manualPairingsHelp">다음 라운드의 모든 페어를 수동으로 지정합니다. 한 줄에 하나의 플레이어 페어가 있습니다. 예:
+플레이어 A 플레이어 B
+플레이어 C 플레이어 D
+페어링 대신 플레이어에게 작별 인사(1점) 를 하려면 다음과 같은 행을 추가합니다:
+플레이어E1
+누락된 선수는 부재로 간주되며 0점을 받습니다.
+Lichess가 자동으로 쌍을 만들 수 있도록 하려면 이 필드를 비워 둡니다.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">그들의 최근 스위스 경기를 플레이했어야 함</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">플레이어가 마지막 스위스 게임을 플레이한 경우에만 참가할 수 있습니다. 만약 그들이 최근 스위스 이벤트에 나타나지 않으면, 그들은 여러분의 이벤트에 참가할 수 없습니다. 이것은 실제로 나타나는 플레이어에게 더 나은 스위스 경험을 가져다 줍니다.</string>
   <string name="newSwiss">새 스위스 토너먼트</string>
   <string name="swissVsArenaQ">언제 아레나 대신 스위스 토너먼트를 사용해야 하나요?</string>
   <string name="swissVsArenaA">스위스 토너먼트에서는 모든 참가자가 같은 수의 게임을 하고 서로 한 번만 플레이 할 수 있습니다.
@@ -62,7 +72,7 @@
 이후 시스템은 그 플레이어를 토너먼트에서 기권처리하므로 더 이상 점수를 잃지 않습니다.
 플레이어는 언제든 토너먼트에 다시 참가할 수 있습니다.</string>
   <string name="protectionAgainstNoShowQ">미참석 시 어떻게 처리되나요?</string>
-  <string name="protectionAgainstNoShowA">스위스 이벤트에 등록했지만 게임을 하지 않는 플레이어는 문제가 될 수 있습니다.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">스위스 이벤트에 등록했지만 게임을 하지 않는 플레이어는 문제가 될 수 있습니다.
 이 문제를 완화하기 위해 Lichess는 게임을 플레이하지 않은 플레이어는 일정 시간 동안 새로운 스위스 이벤트에 참여하지 못하도록 합니다.
 스위스 이벤트의 운영자는 어쨌든 이벤트에 참여하도록 결정할 수 있습니다.</string>
   <string name="lateJoinQ">늦게 참가할 수 있나요?</string>
@@ -75,7 +85,7 @@
 그 이유는 토너먼트에서 중간에 떠나는 플레이어를 처리하는 공정한 방법이 없기 때문입니다. 우리는 온라인 이벤트에서 모든 플레이어가 다른 모든 플레이어들과 게임을 할 것이라고 기대하지 않습니다. 이런일은 일어나지 않을 것이며, 따라서 대부분의 라운드 로빈 토너먼트는 결함이 있고 불공정하며 존재할 이유가 없습니다.
 온라인으로 라운드 로빈에 가장 가깝게 플레이할 수 있는 방법은 스위스 토너먼트를 매우 많은 라운드로 진행하는 것입니다. 토너먼트가 끝나기 전에 모든 가능한 매칭이 이루어질 것입니다.</string>
   <string name="otherSystemsQ">다른 토너먼트 시스템은요?</string>
-  <string name="otherSystemsA">현재로선 리체스에 다른 토너먼트 시스템을 추가할 예정이 없습니다.</string>
+  <string name="otherSystemsA">현재로선 Lichess에 다른 토너먼트 시스템을 추가할 예정이 없습니다.</string>
   <string name="swissDescription">스위스 토너먼트%1$s에서는, 각 경쟁자는 다른 모든 참가자들과 플레이하는 것은 아닙니다. 경쟁자들은 비슷한 승점을 가진 상대와 만나고 이미 만난 상대와는 다시 만나지 않는 규칙을 이용해 일대일로 각 라운드에 매치됩니다. 승자는 모든 라운드에서 가장 높은 승점을 얻은 플레이어입니다. 참가자가 홀수인 경우를 제외하면 모든 참가자는 모든 라운드를 플레이합니다.</string>
   <string name="teamOnly">스위스 토너먼트는 팀 리더만 생성할 수 있고 팀 멤버만 참여할 수 있습니다.           
 스위스 토너먼트를 시작하기 위해서는 %1$s.</string>
@@ -108,5 +118,7 @@
   <string name="predefinedUsers">특정한 사용자만 참가할 수 있도록 허용</string>
   <string name="forbiddedUsers">이 목록이 비어있지 않다면, 이 목록에 없는 사용자는 가입이 금지됩니다. 한 줄에 한 사용자 이름을 적으세요.</string>
   <string name="playYourGames">더 많은 게임을 시작하세요.</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Absences</string>
   <string name="tieBreak">타이 브레이크</string>
 </resources>

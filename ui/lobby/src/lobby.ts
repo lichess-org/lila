@@ -1,6 +1,8 @@
 import * as xhr from 'common/xhr';
 import main from './main';
-import { LobbyOpts } from './interfaces';
+import type { LobbyOpts } from './interfaces';
+import { wsConnect, wsPingInterval } from 'common/socket';
+import { pubsub } from 'common/pubsub';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
@@ -19,27 +21,26 @@ export function initModule(opts: LobbyOpts) {
     { id: '30+0', lim: 30, inc: 0, perf: 'Classical' },
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
-  opts.trans = site.trans(opts.i18n);
 
-  site.socket = new site.StrongSocket('/lobby/socket/v5', false, {
+  opts.socketSend = wsConnect('/lobby/socket/v5', false, {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
-      n(_: string, msg: { d: number; r: number }) {
+      n(_: string, msg: any) {
         lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
         setTimeout(
           () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
-          site.socket.pingInterval() / 2,
+          wsPingInterval() / 2,
         );
       },
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          site.contentLoaded();
+          window.lichess.initializeDom();
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        site.contentLoaded();
+        window.lichess.initializeDom();
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.setRedirecting();
@@ -51,8 +52,8 @@ export function initModule(opts: LobbyOpts) {
         lobbyCtrl.gameActivity(e.id);
       },
     },
-  });
-  site.StrongSocket.firstConnect.then(() => {
+  }).send;
+  pubsub.after('socket.hasConnected').then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
     const { ratingMin, ratingMax } = lobbyCtrl.setupCtrl.makeSetupStore('hook')();
@@ -67,6 +68,5 @@ export function initModule(opts: LobbyOpts) {
     history.replaceState(null, '', '/');
   });
 
-  opts.socketSend = site.socket.send;
   const lobbyCtrl = main(opts);
 }

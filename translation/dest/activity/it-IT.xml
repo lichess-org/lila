@@ -34,6 +34,10 @@
     <item quantity="one">Ha concluso %s partita per corrispondenza</item>
     <item quantity="other">Ha concluso %s partite per corrispondenza</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Partita %1$s %2$s per corrispondenza completata</item>
+    <item quantity="other">Partite %1$s %2$s per corrispondenza completate</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Ha iniziato a seguire %s giocatore</item>
     <item quantity="other">Ha iniziato a seguire %s giocatori</item>
@@ -54,7 +58,7 @@
     <item quantity="one">Ha creato %s nuovo studio</item>
     <item quantity="other">Ha creato %s nuovi studi</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Ha gareggiato in %s torneo</item>
     <item quantity="other">Ha gareggiato in %s tornei</item>
   </plurals>

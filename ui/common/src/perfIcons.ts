@@ -1,6 +1,6 @@
 import * as licon from './licon';
 
-const perfIcons = {
+const perfIcons: Record<Exclude<Perf, 'fromPosition'>, string> = {
   ultraBullet: licon.UltraBullet,
   bullet: licon.Bullet,
   blitz: licon.FlameBlitz,

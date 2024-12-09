@@ -1,14 +1,8 @@
 package lila.web
 package ui
-
-import chess.format.Fen
-import play.api.i18n.Lang
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import scalalib.paginator.Paginator
-import lila.core.i18n.Translate
-import lila.ui.ChessHelper.underscoreFen
 
 object bits:
 
@@ -41,7 +35,8 @@ z-index: 99;
         noFollow
       )("GitHub"),
       a(href := routes.Main.externalLink("discord"), targetBlank, noFollow)("Discord"),
-      a(href := routes.Main.externalLink("twitter"), targetBlank, noFollow)("Twitter"),
+      a(href := routes.Main.externalLink("bluesky"), targetBlank, noFollow)("Bluesky"),
+      a(href := routes.Main.externalLink("twitter"), targetBlank, noFollow)("x"),
       a(
         href := routes.Main.externalLink("youtube"),
         targetBlank,

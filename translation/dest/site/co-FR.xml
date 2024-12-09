@@ -110,7 +110,6 @@
   <string name="replayMode">Modu di rilettura</string>
   <string name="realtimeReplay">Vitezza nurmale</string>
   <string name="byCPL">Par CPP Centi Puntu Persu</string>
-  <string name="openStudy">Studià l\' apertura</string>
   <string name="enable">Attivà</string>
   <string name="bestMoveArrow">Fleccia per u colpu u più forte</string>
   <string name="evaluationGauge">Stazza di valutazione</string>
@@ -388,7 +387,6 @@
   <string name="block">Bluccà</string>
   <string name="blocked">Bluccatu</string>
   <string name="unblock">Sbluccà</string>
-  <string name="followsYou">Vi segue</string>
   <string name="xStartedFollowingY">%1$s hà principiatu à segue%2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sustenidore</item>
@@ -420,9 +418,6 @@
   <string name="safeTournamentName">Scegli un nomu curtesu pè a ghjustra criata.</string>
   <string name="inappropriateNameWarning">S\'è vo date un nomu sgarbatu à u vostru turneu, u vostru contu pò esse chjosu.</string>
   <string name="emptyTournamentName">Lascià viotu darà à a ghjustra u nomu d\' un ghjucadore famosu.</string>
-  <string name="recommendNotTouching">V\' arricumandemu d\' ùn tuccà.</string>
-  <string name="fewerPlayers">S\'è vo create parechji cundizioni d\' intrata, ci seranu menu ghjucadori.</string>
-  <string name="showAdvancedSettings">Mustrà l\' uzzioni avanzati</string>
   <string name="makePrivateTournament">Creà una ghjustra privata è limità ne l\' accessu cù una parolla d\' intesa</string>
   <string name="join">Ghjunghje</string>
   <string name="withdraw">Ritirà si</string>
@@ -461,8 +456,6 @@
   <string name="ifNoneLeaveEmpty">S\'è ùn n\' avete, lasciate viotu</string>
   <string name="profile">Profilu</string>
   <string name="editProfile">Edità u prufilu</string>
-  <string name="firstName">Nome datu</string>
-  <string name="lastName">Cugnome</string>
   <string name="biography">Biugraffia</string>
   <string name="thankYou">À ringrazià vi!</string>
   <string name="socialMediaLinks">Leie di e rete suciale</string>
@@ -504,11 +497,8 @@
   <string name="reason">Mutivu</string>
   <string name="whatIsIheMatter">Chì hè u ?</string>
   <string name="cheat">Ingannu</string>
-  <string name="insult">Parullaccia</string>
   <string name="troll">Trollu</string>
-  <string name="ratingManipulation">Valutazione trafficata</string>
   <string name="other">Altru</string>
-  <string name="reportDescriptionHelp">Incolla a leia di a partita è spiega ciò ch\' ùn si passa bè cù u cumpurtamentu di u ghjucadore. Ùn scrivi micca soltantu \"inganna\" ma dite dinù perchè. A vostra dumanda serà trattata di modu più prontu s\' ellu hè scrittu in inglese.</string>
   <string name="error.provideOneCheatedGameLink">Pè piace date omancu una leia d\' una partita ingannata.</string>
   <string name="by">da %s</string>
   <string name="importedByX">Impurtata da %s</string>
@@ -623,7 +613,7 @@
   <string name="aboutSimulRules">Quandu a simultanea principia, ogni ghjucadore principia a partita cù l\' ostu. A simultanea finisce quandu tutte e partite sò finite.</string>
   <string name="aboutSimulSettings">E simultanee ùn sò mai classificate. Ripiglià un colpu, ricumincià a partita o raghjunghje u tempu ùn sò micca pussibule.</string>
   <string name="create">Creà</string>
-  <string name="whenCreateSimul">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quandu voi create una simultanea, avete da  parechji avversarii à tempu.</string>
   <string name="simulVariantsHint">Sèè vo sceglite parechji modi di ghjocu, ogni ghjucadore hà da sceglia a soia pè a partita.</string>
   <string name="simulClockHint">Sistemu di riloghju Fischer. Più ci seranu ghjucadore, più averete bisognu di tempu.</string>
   <string name="simulAddExtraTime">Pudete aghjnghje stratempu in più pè aiutà vi à finì a partita simultanea.</string>

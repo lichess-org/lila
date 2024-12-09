@@ -3,8 +3,8 @@ package lila.fide
 import chess.FideId
 import reactivemongo.api.bson.*
 
+import lila.core.fide as hub
 import lila.db.dsl.{ *, given }
-import lila.core.{ fide as hub }
 
 final private class FideRepo(
     private[fide] val playerColl: Coll,
@@ -13,10 +13,13 @@ final private class FideRepo(
 
   object player:
     given handler: BSONDocumentHandler[FidePlayer] = Macros.handler
-    val selectActive: Bdoc                         = $doc("deleted".$ne(true), "inactive".$ne(true))
+    val selectActive: Bdoc                         = $doc("inactive".$ne(true))
     def selectFed(fed: hub.Federation.Id): Bdoc    = $doc("fed" -> fed)
     def sortStandard: Bdoc                         = $sort.desc("standard")
     def fetch(id: FideId): Fu[Option[FidePlayer]]  = playerColl.byId[FidePlayer](id)
+    def fetch(ids: Seq[FideId]): Fu[List[FidePlayer]] =
+      playerColl.find($inIds(ids)).cursor[FidePlayer](ReadPref.sec).listAll()
+    def countAll = playerColl.count()
 
   object federation:
     given BSONDocumentHandler[hub.Federation.Stats] = Macros.handler

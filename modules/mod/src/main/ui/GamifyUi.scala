@@ -1,9 +1,10 @@
 package lila.mod
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.mod.Gamify.Period
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class GamifyUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }

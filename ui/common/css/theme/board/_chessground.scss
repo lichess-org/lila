@@ -173,15 +173,12 @@ cg-auto-pieces {
 
 cg-container .cg-shapes {
   opacity: 0.6;
+  overflow: hidden;
   z-index: $z-cg__svg_cg-shapes-2;
 }
 
 cg-container .cg-custom-svgs {
   z-index: $z-cg__svg_cg-custom-svgs-4;
-}
-
-cg-container .cg-shapes {
-  overflow: hidden;
 }
 
 cg-container .cg-custom-svgs svg {
@@ -199,7 +196,8 @@ cg-auto-pieces {
 html:not(.transp) body:not(.simple-board) {
   &.coords-in coord,
   cg-board piece,
-  cg-board square {
+  cg-board square,
+  .cg-custom-svgs {
     filter: brightness(calc(0.3 + 0.0059 * min(120, var(---board-brightness))));
     //hue-rotate(calc(var(---board-hue) * 3.6deg));
   }

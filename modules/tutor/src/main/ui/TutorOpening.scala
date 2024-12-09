@@ -1,11 +1,9 @@
 package lila.tutor
 package ui
-
-import chess.format.pgn.PgnStr
-
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.insight.InsightPosition
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
   import helpers.{ *, given }
@@ -86,9 +84,7 @@ final class TutorOpening(helpers: Helpers, bits: TutorBits, perfUi: PerfUi):
         ),
         div(cls := "tutor__pad")(
           grade.peerGradeWithDetail(concept.performance, report.performance.toOption, InsightPosition.Game),
-          hr,
           grade.peerGradeWithDetail(concept.accuracy, report.accuracy, InsightPosition.Move),
-          hr,
           grade.peerGradeWithDetail(concept.tacticalAwareness, report.awareness, InsightPosition.Move)
         )
       )

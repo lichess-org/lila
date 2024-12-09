@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Trénink souřadnic</string>
   <string name="averageScoreAsWhiteX">Průměrné skóre jako bílý: %s</string>
   <string name="averageScoreAsBlackX">Průměrné skóre jako černý: %s</string>
-  <string name="knowingTheChessBoard">Naučit se správně souřadnice na šachovnici je velmi důležitá šachová dovednost:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Naučit se správně souřadnice na šachovnici je velmi důležitá šachová dovednost:</string>
   <string name="mostChessCourses">Většina šachových kurzů a cvičení velmi často používá algebraickou notaci.</string>
   <string name="talkToYourChessFriends">Snadněji se dorozumíte se svými šachovými přáteli, protože oba budete mluvit \"řečí šachu\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Můžete efektivněji analyzovat partie, pokud nebudete muset neustále hledat jména polí.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Máte 30 vteřin, abyste správně určili co nejvíce polí!</string>
   <string name="goAsLongAsYouWant">Jdi jak dlouho chceš, není zde žádný časový limit!</string>
   <string name="showCoordinates">Zobrazit souřadnice</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Souřadnice na každém poli</string>
   <string name="showPieces">Zobrazit figury</string>
   <string name="startTraining">Začít trénink</string>
   <string name="findSquare">Najděte pole</string>

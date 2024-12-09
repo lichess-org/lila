@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Mit was chömmer hälfe?</string>
   <string name="visitThisPage">Bsuech die Site, um s\'Problem z\'löse</string>
   <string name="iCantLogIn">Ich chann nöd ilogge</string>
-  <string name="noConfirmationEmail">Ich han mis Beschtätigungs Mail nöd übercho</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ich han mis Beschtätigungs Mail nöd übercho</string>
   <string name="forgotPassword">Ich han mis Passwort vergässe</string>
   <string name="forgotUsername">Ich han min Benutzername vergässe</string>
   <string name="youCanLoginWithEmail">Du chasch mit de E-Mail-Adrässe ilogge, wo du für d\'Regischtrierig benutzt häsch</string>
@@ -48,16 +48,14 @@
   <string name="tryCastling">Probier das chline, interaktive Schpiel und lern meh über die \"Rochade\"</string>
   <string name="castlingImported">Wänn du es Schpiel importiert häsch oder us ere beschtimmte Schtellig schtartisch, schtell sicher, dass du d\'Rächt für d\'Rochade richtig igschtellt häsch.</string>
   <string name="insufficientMaterial">Nöd gnueg Material zum Matt setze</string>
-  <string name="fideMate">Nach de FIDE Schachregle §6.9 isch e Partie nöd Remis, wänn es Schachmatt mit irgend einere, legale Zugsfolg möglich isch</string>
+  <string name="fideMate">Gemäss FIDE Schachregle - §6.9 - isch es Schpiel nöd Remis, wänn es Matt mit irgend ere legale Zugfolg möglich isch</string>
   <string name="knightMate">Es isch möglich - nur mit Schpringer oder Läufer - es Schachmatt z\'erreiche, wänn de Gägner meh als nur de König uf em Brätt hät.</string>
   <string name="noRatingPoints">Es sind kei Wertigspünkt vergeh worde</string>
-  <string name="ratedGame">Schpill gwerteti Partie. Ungwerteti Schpiel verändered dini Wertig (Rating) nöd.</string>
+  <string name="ratedGame">Nöd g\'werteti Schpiel ändered dini Wertig (Rating) nöd - schpill G\'werteti!</string>
   <string name="botRatingAbuse">Under beschtimmte Umschtänd - wänn gäge es \"Bot Konto\" gschpillt wird - chas si, dass kei Pünkt vergeh werded, wänn feschtgschtellt wird, dass de \"Bot\" für d\'Wertig missbrucht wird.</string>
   <string name="errorPage">Fählersite</string>
   <string name="reportErrorPage">Wänn du e Fählersite entdeckt häsch, chasch sie mälde:</string>
-  <string name="wantBroadcastTournament">Ich wott es Turnier überträge</string>
   <string name="learnHowToMakeBroadcasts">Lern wie du - uf Lichess - dini eigeni Überträgig machsch</string>
-  <string name="contactAboutOfficialBroadcasts">Du chasch - für offizielli Überträgige - au s\'Broadcast-Team kontaktiere.</string>
   <string name="banAppeal">Ischpruch gäge en Usschluss oder IP-Beschränkig</string>
   <string name="engineAppeal">Markierig vu Computer Underschtützig oder Betrug</string>
   <string name="sendAppealTo">Du chasch en Ischpruch a %s sände.</string>

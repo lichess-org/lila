@@ -3,20 +3,20 @@ package ui
 
 import play.api.i18n.Lang
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.Language
+import lila.core.i18n.{ I18nModule, Language }
 import lila.core.report.ScoreThresholds
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
-    jsQuantity: Lang => String,
     isRTL: Lang => Boolean,
     popularAlternateLanguages: List[Language],
     reportScoreThreshold: () => ScoreThresholds,
     reportScore: () => Int
 ):
   import helpers.{ *, given }
-  import assetHelper.{ defaultCsp, netConfig, cashTag, jsName, siteName }
+  import assetHelper.{ defaultCsp, netConfig, cashTag, siteName }
 
   val doctype                                 = raw("<!DOCTYPE html>")
   def htmlTag(using lang: Lang, ctx: Context) = html(st.lang := lang.code, dir := isRTL(lang).option("rtl"))
@@ -140,23 +140,32 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
       )
     )
 
-  // consolidate script packaging here to dedup chunk dependencies
-  def sitePreload(modules: EsmList, isInquiry: Boolean)(using ctx: Context) =
-    scriptsPreload("site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten)
+  def sitePreload(i18nMods: List[I18nModule.Selector], modules: EsmList, isInquiry: Boolean)(using
+      ctx: Context
+  ) =
+    val i18nModules = i18nMods.map(mod => s"i18n/${mod(I18nModule)}.${ctx.lang.code}")
+    scriptsPreload(
+      i18nModules ::: "site" :: (isInquiry.option("mod.inquiry") :: modules.map(_.map(_.key))).flatten
+    )
 
   def scriptsPreload(keys: List[String]) =
     frag(
-      jsTag("manifest"),
       cashTag,
-      keys.map(jsTag),
-      assetHelper.manifest.deps(keys).map(jsTag)
+      assetHelper.manifest.jsAndDeps("manifest" :: keys).map(jsTag)
     )
 
-  private def jsTag(key: String): Frag =
-    script(tpe := "module", src := staticAssetUrl(s"compiled/${jsName(key)}"))
+  private def jsTag(name: String): Frag =
+    script(tpe := "module", src := staticAssetUrl(s"compiled/$name"))
 
-  def modulesInit(modules: EsmList)(using ctx: PageContext) =
-    modules.flatMap(_.map(_.init(ctx.nonce))) // in body
+  def modulesInit(modules: EsmList, nonce: Optionce) =
+    modules.flatMap(_.map(_.init(nonce))) // in body
+
+  def inlineJs(nonce: Nonce, modules: EsmList = Nil): Frag =
+    val code =
+      (Esm("site").some :: modules)
+        .flatMap(_.flatMap(m => assetHelper.manifest.inlineJs(m.key).map(js => s"(()=>{${js}})()")))
+        .mkString(";")
+    embedJsUnsafe(code)(nonce.some)
 
   private def hrefLang(langStr: String, path: String) =
     s"""<link rel="alternate" hreflang="$langStr" href="$netBaseUrl$path"/>"""
@@ -188,8 +197,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   )
 
   val dataVapid         = attr("data-vapid")
-  val dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
-  val dataSocketAlts    = attr("data-socket-alts")    := netConfig.socketAlts.mkString(",")
+  def dataSocketDomains = attr("data-socket-domains") := netConfig.socketDomains.mkString(",")
   val dataNonce         = attr("data-nonce")
   val dataAnnounce      = attr("data-announce")
   val dataSoundSet      = attr("data-sound-set")
@@ -211,7 +219,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
   private val spaceRegex      = """\s{2,}+""".r
   def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
-  val lichessFontFaceCss = spaceless:
+  def lichessFontFaceCss = spaceless:
     s"""<style>@font-face {
         font-family: 'lichess';
         font-display: block;
@@ -308,7 +316,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               topnav,
               (ctx.kid.no && !ctx.me.exists(_.isPatron) && !zenable).option(
                 a(cls := "site-title-nav__donate")(
-                  href := routes.Plan.index
+                  href := routes.Plan.index()
                 )(trans.patron.donate())
               )
             )
@@ -330,47 +338,3 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
               .getOrElse { (!error).option(anonDasher) }
         )
       )
-
-  object inlineJs:
-    def apply(nonce: Nonce)(using Translate): Frag = embedJsUnsafe(jsCode)(nonce.some)
-
-    private val i18nKeys = List(
-      trans.site.pause,
-      trans.site.resume,
-      trans.site.nbFriendsOnline,
-      trans.site.reconnecting,
-      trans.site.noNetwork,
-      trans.timeago.justNow,
-      trans.timeago.inNbSeconds,
-      trans.timeago.inNbMinutes,
-      trans.timeago.inNbHours,
-      trans.timeago.inNbDays,
-      trans.timeago.inNbWeeks,
-      trans.timeago.inNbMonths,
-      trans.timeago.inNbYears,
-      trans.timeago.rightNow,
-      trans.timeago.nbMinutesAgo,
-      trans.timeago.nbHoursAgo,
-      trans.timeago.nbDaysAgo,
-      trans.timeago.nbWeeksAgo,
-      trans.timeago.nbMonthsAgo,
-      trans.timeago.nbYearsAgo,
-      trans.timeago.nbMinutesRemaining,
-      trans.timeago.nbHoursRemaining,
-      trans.timeago.completed
-    )
-
-    private val cache = new java.util.concurrent.ConcurrentHashMap[Lang, String]
-    lila.common.Bus.subscribeFun("i18n.load"):
-      case lang: Lang => cache.remove(lang)
-
-    private def jsCode(using t: Translate) =
-      cache.computeIfAbsent(
-        t.lang,
-        _ =>
-          "if (!window.site) window.site={};" +
-            """window.site.load=new Promise(r=>document.addEventListener("DOMContentLoaded",r));""" +
-            s"window.site.quantity=${jsQuantity(t.lang)};" +
-            s"window.site.siteI18n=${safeJsonValue(i18nJsObject(i18nKeys))};"
-      )
-  end inlineJs

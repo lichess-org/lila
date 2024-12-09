@@ -8,6 +8,7 @@
   <string name="bodenMate">Bodens mát</string>
   <string name="castling">Hrókering</string>
   <string name="defensiveMove">Varnarleikur</string>
+  <string name="endgame">Endatafl</string>
   <string name="fork">Gaffall</string>
   <string name="mate">Mát</string>
 </resources>

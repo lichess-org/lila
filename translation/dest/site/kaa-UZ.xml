@@ -236,7 +236,6 @@
   <string name="block">Bloklaw</string>
   <string name="blocked">Bloklanǵan</string>
   <string name="unblock">Bloktan shıǵarıw</string>
-  <string name="followsYou">Sizge jazılǵan</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s jazılıwshı</item>
     <item quantity="other">%s jazılıwshı</item>
@@ -259,7 +258,6 @@
   <string name="tournamentCalendar">Turnir kalendarı</string>
   <string name="conditionOfEntry">Qatnasıw shártleri:</string>
   <string name="advancedSettings">Qosımsha sazlawlar</string>
-  <string name="showAdvancedSettings">Qosımsha sazlawlardı kórsetiw</string>
   <string name="join">Qosılıw</string>
   <string name="withdraw">Oyınnan shıǵıw</string>
   <string name="wins">Jeńis</string>

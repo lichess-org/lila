@@ -1,10 +1,6 @@
 package lila.msg
 
-case class Msg(
-    text: String,
-    user: UserId,
-    date: Instant
-):
+case class Msg(text: String, user: UserId, date: Instant):
 
   def asLast =
     Msg.Last(
@@ -25,7 +21,7 @@ object Msg:
     def unreadBy(userId: UserId) = !read && user != userId
 
   def make(text: String, user: UserId, date: Instant): Option[Msg] =
-    val cleanText = lila.common.String.normalize(text.trim.take(8_000))
+    val cleanText = lila.common.String.softCleanUp(text.take(8_000))
     cleanText.nonEmpty.option(
       Msg(
         text = cleanText,

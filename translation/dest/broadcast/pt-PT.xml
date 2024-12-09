@@ -7,6 +7,7 @@
     <item quantity="other">%s transmissões</item>
   </plurals>
   <string name="liveBroadcasts">Transmissões do torneio em direto</string>
+  <string name="broadcastCalendar">Calendário de transmissão</string>
   <string name="newBroadcast">Nova transmissão em direto</string>
   <string name="subscribedBroadcasts">Transmissões subscritas</string>
   <string name="aboutBroadcasts">Sobre Transmissões</string>
@@ -23,14 +24,11 @@
   <string name="tournamentDescription">Breve descrição do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa do evento opcional da transmissão. %1$s está disponível. Tem de ter menos que %2$s carácteres.</string>
-  <string name="sourceUrlOrGameIds">URL de origem ou IDs do jogo</string>
+  <string name="sourceSingleUrl">URL da fonte PGN</string>
   <string name="sourceUrlHelp">Link que o Lichess vai verificar para obter atualizações da PGN. Deve ser acessível ao público a partir da internet.</string>
-  <string name="gameIdsHelp">Como alternativa, você pode inserir até 64 IDs do jogo Lichess, separados por espaços.</string>
-  <string name="startDate">Data de início no teu fuso horário</string>
+  <string name="sourceGameIds">Até 64 IDs de jogo Lichess, separados por espaços.</string>
+  <string name="startDateTimeZone">Data de início no fuso horário local do torneio: %s</string>
   <string name="startDateHelp">Opcional, se souberes quando começa o evento</string>
-  <string name="credits">Credita a fonte</string>
-  <string name="broadcastUrl">Transmitir o link</string>
-  <string name="currentRoundUrl">Link da ronda atual</string>
   <string name="currentGameUrl">Link da partida atual</string>
   <string name="downloadAllRounds">Transferir todas as rondas</string>
   <string name="resetRound">Reiniciar esta ronda</string>
@@ -40,9 +38,46 @@
   <string name="editRoundStudy">Editar estudo da ronda</string>
   <string name="deleteTournament">Eliminar este torneio</string>
   <string name="definitivelyDeleteTournament">Excluir definitivamente todo o torneio, todas as rondas e todos os jogos.</string>
-  <string name="automaticLeaderboard">Tabela de classificação automática</string>
-  <string name="automaticLeaderboardHelp">Calcula e exibe uma tabela de classificação simples baseada nos resultados dos jogos</string>
+  <string name="showScores">Mostra as pontuações dos jogadores com base nos resultados dos jogos</string>
   <string name="replacePlayerTags">Opcional: substituir nomes de jogadores, avaliações e títulos</string>
-  <string name="periodInSeconds">Período em segundos</string>
-  <string name="periodInSecondsHelp">Opcional, quanto tempo de espera entre as requisições. Mínimo 2s, máximo de 60s. O padrão é automático com base no número de espetadores.</string>
+  <string name="fideFederations">Federações FIDE</string>
+  <string name="top10Rating">10 melhores classificações</string>
+  <string name="fidePlayers">Jogadores FIDE</string>
+  <string name="fidePlayerNotFound">Jogador FIDE não encontrado</string>
+  <string name="fideProfile">Perfil FIDE</string>
+  <string name="federation">Federação</string>
+  <string name="ageThisYear">Idade neste ano</string>
+  <string name="unrated">Sem classificação</string>
+  <string name="recentTournaments">Torneio recentes</string>
+  <string name="openLichess">Abrir no Lichess</string>
+  <string name="teams">Equipas</string>
+  <string name="boards">Tabuleiros</string>
+  <string name="overview">Visão geral</string>
+  <string name="subscribeTitle">Subscreva para ser notificado quando cada ronda começar. Podes ativar o sino ou as notificações push para transmissões nas preferências da tua conta.</string>
+  <string name="uploadImage">Carregar imagem do torneio</string>
+  <string name="noBoardsYet">Ainda não há tabuleiros. Estes aparecerão assim que os jogos forem carregados.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Os tabuleiros podem ser carregados com uma fonte ou através do %s</string>
+  <string name="startsAfter">Começa após %s</string>
+  <string name="startVerySoon">A transmissão terá início muito em breve.</string>
+  <string name="notYetStarted">A transmissão ainda não começou.</string>
+  <string name="officialWebsite">Website oficial</string>
+  <string name="standings">Classificações</string>
+  <string name="officialStandings">Classificações oficiais</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Mais opções na %s</string>
+  <string name="webmastersPage">página webmasters</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Uma fonte PGN pública em tempo real para esta ronda. Oferecemos também a %s para uma sincronização mais rápida e eficiente.</string>
+  <string name="embedThisBroadcast">Incorporar esta transmissão no teu website</string>
+  <string name="embedThisRound">Incorporar %s no teu website</string>
+  <string name="ratingDiff">Diferença de Elo</string>
+  <string name="gamesThisTournament">Jogos deste torneio</string>
+  <string name="score">Pontuação</string>
+  <string name="allTeams">Todas as equipas</string>
+  <string name="tournamentFormat">Formato do torneio</string>
+  <string name="tournamentLocation">Localização do Torneio</string>
+  <string name="topPlayers">Melhores jogadores</string>
+  <string name="timezone">Fuso horário</string>
+  <string name="fideRatingCategory">Categoria do Elo FIDE</string>
+  <string name="optionalDetails">Detalhes opcionais</string>
+  <string name="pastBroadcasts">Transmissões anteriores</string>
+  <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
 </resources>

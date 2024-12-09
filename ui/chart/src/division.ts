@@ -1,23 +1,23 @@
 import { chartYMax, chartYMin } from './common';
-import { Division } from './interface';
-import { ChartDataset, Point } from 'chart.js';
+import type { Division } from './interface';
+import type { ChartDataset, Point } from 'chart.js';
 
-export default function (trans: Trans, div?: Division) {
+export default function (div?: Division): ChartDataset<'line'>[] {
   const lines: { div: string; loc: number }[] = [];
   if (div?.middle) {
-    if (div.middle > 1) lines.push({ div: trans('opening'), loc: 1 });
-    lines.push({ div: trans('middlegame'), loc: div.middle });
+    if (div.middle > 1) lines.push({ div: i18n.site.opening, loc: 1 });
+    lines.push({ div: i18n.site.middlegame, loc: div.middle });
   }
   if (div?.end) {
-    if (div.end > 1 && !div?.middle) lines.push({ div: trans('middlegame'), loc: 0 });
-    lines.push({ div: trans('endgame'), loc: div.end });
+    if (div.end > 1 && !div?.middle) lines.push({ div: i18n.site.middlegame, loc: 0 });
+    lines.push({ div: i18n.site.endgame, loc: div.end });
   }
   const annotationColor = '#707070';
 
   /**  Instead of using the annotation plugin, create a dataset to plot as a pseudo-annotation
    *  @returns An array of vertical lines from {div,-1.05} to {div,+1.05}.
    * */
-  const annotations: ChartDataset<'line'>[] = lines.map(line => ({
+  return lines.map(line => ({
     type: 'line',
     xAxisID: 'x',
     yAxisID: 'y',
@@ -38,5 +38,4 @@ export default function (trans: Trans, div?: Division) {
       formatter: (val: Point) => (val.y > 0 ? line.div : ''),
     },
   }));
-  return annotations;
 }

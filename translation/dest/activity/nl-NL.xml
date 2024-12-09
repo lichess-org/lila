@@ -7,8 +7,8 @@
     <item quantity="other">Steunde lichess.org voor %1$s maanden als %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Beoefende %1$s positie van %2$s</item>
-    <item quantity="other">Beoefende %1$s posities van %2$s</item>
+    <item quantity="one">Oefende %1$s positie van %2$s</item>
+    <item quantity="other">Oefende %1$s posities van %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s tactische puzzel opgelost</item>
@@ -34,6 +34,10 @@
     <item quantity="one">Voltooide %s correspondentiepartijen</item>
     <item quantity="other">Voltooide %s correspondentiepartijen</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Voltooide %1$s %2$s correspondentiepartijen</item>
+    <item quantity="other">Voltooide %1$s %2$s correspondentiepartijen</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Begon %s speler te volgen</item>
     <item quantity="other">Begon %s spelers te volgen</item>
@@ -54,7 +58,7 @@
     <item quantity="one">%s nieuwe studie aangemaakt</item>
     <item quantity="other">%s nieuwe studies aangemaakt</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Nam deel in %s toernooi</item>
     <item quantity="other">Nam deel in %s toernooien</item>
   </plurals>

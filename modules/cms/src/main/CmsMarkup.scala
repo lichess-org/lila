@@ -1,15 +1,10 @@
 package lila.cms
 
 import lila.common.{ Markdown, MarkdownRender, MarkdownToastUi }
-import lila.core.config
-import lila.memo.CacheApi
 import lila.core.id.CmsPageId
+import lila.memo.CacheApi
 
-final class CmsMarkup(
-    baseUrl: config.BaseUrl,
-    assetBaseUrl: config.AssetBaseUrl,
-    cacheApi: CacheApi
-)(using Executor, play.api.Mode):
+final class CmsMarkup(cacheApi: CacheApi)(using Executor, play.api.Mode):
 
   private val renderer = MarkdownRender(
     autoLink = true,

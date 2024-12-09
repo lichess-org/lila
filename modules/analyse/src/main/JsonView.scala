@@ -4,9 +4,8 @@ import chess.{ ByColor, Color, Ply }
 import play.api.libs.json.*
 
 import lila.common.Json.given
-import lila.tree.Eval.jsonWrites
-import lila.tree.Analysis
 import lila.core.game.SideAndStart
+import lila.tree.Analysis
 
 object JsonView extends lila.tree.AnalysisJson:
 

@@ -2,6 +2,7 @@ package lila.tutor
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class TutorBits(helpers: Helpers)(
@@ -14,7 +15,7 @@ final class TutorBits(helpers: Helpers)(
   )(using Context) =
     Page(title)
       .css("tutor")
-      .js(EsmInit("tutor"))
+      .js(Esm("tutor"))
       .csp(_.withInlineIconFont)
       .wrap: body =>
         main(cls := List("page-menu tutor" -> true, "page-small" -> pageSmall))(
@@ -22,7 +23,7 @@ final class TutorBits(helpers: Helpers)(
           div(cls := "page-menu__content")(mods, body)
         )
 
-  val mascot =
+  def mascot =
     img(
       cls := "mascot",
       src := assetUrl("images/mascot/octopus-shadow.svg")

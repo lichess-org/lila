@@ -1,4 +1,4 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { puzzleBox, renderDifficultyForm, userBox } from '../view/side';
 import theme from '../view/theme';
 import {
@@ -26,11 +26,11 @@ import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import * as control from '../control';
+import { next as controlNext } from '../control';
 import { bind, onInsert } from 'common/snabbdom';
-import { Api } from 'chessground/api';
-import throttle from 'common/throttle';
-import PuzzleCtrl from '../ctrl';
+import { throttle } from 'common/timing';
+import type PuzzleCtrl from '../ctrl';
+import { Chessground as makeChessground } from 'chessground';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -49,7 +49,7 @@ export function initModule() {
       notify.redraw = ctrl.redraw;
       const ground =
         ctrl.ground() ||
-        site.makeChessground(document.createElement('div'), {
+        makeChessground(document.createElement('div'), {
           ...makeConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },
@@ -245,7 +245,7 @@ function onSubmit(
   notify: (txt: string) => void,
   style: () => Style,
   $input: Cash,
-  ground: Api,
+  ground: CgApi,
 ): () => false {
   return () => {
     let input = castlingFlavours(($input.val() as string).trim());
@@ -257,13 +257,13 @@ function onSubmit(
         ctrl.playUci(uci);
         switch (ctrl.lastFeedback) {
           case 'fail':
-            notify(ctrl.trans.noarg('notTheMove'));
+            notify(i18n.puzzle.notTheMove);
             break;
           case 'good':
-            notify(ctrl.trans.noarg('bestMove'));
+            notify(i18n.puzzle.bestMove);
             break;
           case 'win':
-            notify(ctrl.trans.noarg('puzzleSuccess'));
+            notify(i18n.puzzle.puzzleSuccess);
         }
       } else {
         notify([`Invalid move: ${input}`, ...browseHint(ctrl)].join('. '));
@@ -308,7 +308,7 @@ function viewOrAdvanceSolution(ctrl: PuzzleCtrl, notify: (txt: string) => void):
       next = nextNode(node),
       nextNext = nextNode(next);
     if (isInSolution(next) || (isInSolution(node) && isInSolution(nextNext))) {
-      control.next(ctrl);
+      controlNext(ctrl);
       ctrl.redraw();
     } else if (isInSolution(node)) {
       notify('Puzzle complete!');
@@ -331,7 +331,7 @@ function nextNode(node?: Tree.Node): Tree.Node | undefined {
 
 function renderStreak(ctrl: PuzzleCtrl): VNode[] {
   if (!ctrl.streak) return [];
-  return [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || ctrl.trans.noarg('streakDescription'))];
+  return [h('h2', 'Puzzle streak'), h('p', ctrl.streak.data.index || i18n.puzzle.streakDescription)];
 }
 
 function renderStatus(ctrl: PuzzleCtrl): string {
@@ -345,17 +345,13 @@ function renderReplay(ctrl: PuzzleCtrl): string {
   const replay = ctrl.data.replay;
   if (!replay) return '';
   const i = replay.i + (ctrl.mode === 'play' ? 0 : 1);
-  return `Replaying ${ctrl.trans.noarg(ctrl.data.angle.key)} puzzles: ${i} of ${replay.of}`;
+  const text = i18n.puzzleTheme[ctrl.data.angle.key];
+  return `Replaying ${text} puzzles: ${i} of ${replay.of}`;
 }
 
 function playActions(ctrl: PuzzleCtrl): VNode {
   if (ctrl.streak)
-    return button(
-      ctrl.trans.noarg('skip'),
-      ctrl.skip,
-      ctrl.trans.noarg('streakSkipExplanation'),
-      !ctrl.streak.data.skip,
-    );
+    return button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip);
   else return h('div.actions_play', button('View the solution', ctrl.viewSolution));
 }
 
@@ -364,14 +360,14 @@ function afterActions(ctrl: PuzzleCtrl): VNode {
   return h(
     'div.actions_after',
     ctrl.streak && !win
-      ? anchor(ctrl.trans.noarg('newStreak'), '/streak')
+      ? anchor(i18n.puzzle.newStreak, '/streak')
       : [...renderVote(ctrl), button('Continue training', ctrl.nextPuzzle)],
   );
 }
 
 const renderVoteTutorial = (ctrl: PuzzleCtrl): VNode[] =>
   ctrl.session.isNew() && ctrl.data.user?.provisional
-    ? [h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')), h('p', ctrl.trans.noarg('voteToLoadNextOne'))]
+    ? [h('p', i18n.puzzle.didYouLikeThisPuzzle), h('p', i18n.puzzle.voteToLoadNextOne)]
     : [];
 
 function renderVote(ctrl: PuzzleCtrl): VNode[] {

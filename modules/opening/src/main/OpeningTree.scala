@@ -27,7 +27,7 @@ object OpeningTree:
 
   lazy val compute: OpeningTree =
     OpeningDb.shortestLines.values
-      .map { op =>
+      .map: op =>
         val sections = NameSection.sectionsOf(op.name)
         sections.toList.mapWithIndex: (name, i) =>
           (
@@ -36,7 +36,6 @@ object OpeningTree:
               OpeningKey.fromName(OpeningName(sections.take(i + 1).mkString("_")))
             )
           )
-      }
       .toList
       .foldLeft(emptyNode)(_.update(_))
       .toTree

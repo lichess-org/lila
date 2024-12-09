@@ -21,6 +21,7 @@ except ImportError:
     print("* Arch: pacman -S python-requests")
     print("* Debian: apt install python3-requests")
     print("* Pip: pip install requests")
+    print("* Fedora: dnf install python3-requests")
     print()
     raise
 
@@ -31,6 +32,7 @@ except ImportError:
     print("* Arch: pacman -S python-gitpython")
     print("* Debian: apt install python3-git")
     print("* Pip: pip install GitPython")
+    print("* Fedora: dnf install python3-GitPython")
     print()
     raise
 
@@ -52,7 +54,7 @@ SERVER_FILES = [
     "project",
     "translation",
     "build.sbt",
-    "lila",
+    "lila.sh",
     "conf/application.conf.default",
     ".sbtopts.default",
 ]
@@ -64,14 +66,15 @@ SERVER_BUILD_URL = "https://api.github.com/repos/lichess-org/lila/actions/workfl
 ARTIFACT_DIR = "/home/lichess-artifacts"
 
 
-def curl_cli(command, *, url="https://lichess.org/run/cli"):
-    return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @.lila-cli"
+def curl_cli(command, *, url="https://lichess.org/run/cli", token_file=".lila-cli"):
+    return f"curl --fail -X POST --data {shlex.quote(command)} {shlex.quote(url)} -H @{token_file}"
 
 
 def asset_profile(ssh, *,
                   deploy_dir="/home/lichess-deploy",
                   post=curl_cli("change asset version"),
-                  stage=False):
+                  stage=False,
+                  user="lichess"):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
@@ -81,28 +84,34 @@ def asset_profile(ssh, *,
         "symlinks": [],
         "post": post,
         "stage": stage,
+        "user": user
     }
 
 def server_profile(ssh, *,
                    deploy_dir="/home/lichess-deploy",
                    post="systemctl restart lichess",
-                   stage=False):
+                   stage=False,
+                   user="lichess",
+                   symlinks=["lib", "bin"]):
     return {
         "ssh": ssh,
         "deploy_dir": deploy_dir,
         "files": SERVER_FILES,
         "workflow_url": SERVER_BUILD_URL,
         "artifact_name": "lila-server",
-        "symlinks": ["lib", "bin"],
+        "symlinks": symlinks,
         "post": post,
         "stage": stage,
+        "user": user,
     }
 
 PROFILES = {
-    "khiaw-assets": asset_profile("root@khiaw.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
-    "khiaw-server": server_profile("root@khiaw.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
+    "http3-assets": asset_profile("root@http3.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
+    "http3-server": server_profile("root@http3.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
     "snafu-assets": asset_profile("root@snafu.lichess.ovh", post=curl_cli("change asset version", url="https://lichess.dev/run/cli"), stage=True),
     "snafu-server": server_profile("root@snafu.lichess.ovh", post="systemctl restart lichess-stage", stage=True),
+    "testy-assets": asset_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post=curl_cli("change asset version", url="https://testy.lichess.dev/run/cli", token_file="/home/testy/.testy-cli"), stage=True, user="testy"),
+    "testy-server": server_profile("root@snafu.lichess.ovh", deploy_dir="/home/testy/deploy", post="systemctl restart testy", stage=True, user="testy", symlinks=None),
     "manta-server": server_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
     "manta-assets": asset_profile("root@manta.lichess.ovh", deploy_dir="/home/lichess"),
 }
@@ -256,6 +265,7 @@ def tmux(ssh, script, *, dry_run=False):
 def deploy_script(profile, session, run, url):
     ua_header = f"User-Agent: {session.headers['User-Agent']}"
     deploy_dir = profile["deploy_dir"]
+    user_group = f"{profile['user']}:{profile['user']}"
     artifact_unzipped = f"{ARTIFACT_DIR}/{profile['artifact_name']}-{run['id']:d}"
     artifact_zip = f"{artifact_unzipped}.zip"
     deploy_prompt = f"read -n 1 -p {shlex.quote('PRESS ENTER TO RUN: ' + profile['post'])}"
@@ -272,8 +282,8 @@ def deploy_script(profile, session, run, url):
         f"tar -xf {artifact_unzipped}/*.tar.zst -C {artifact_unzipped}/d",
         f"cat {artifact_unzipped}/d/commit.txt",
         "echo",
-        f"echo \\# chown -R lichess:lichess {artifact_unzipped}",
-        f"chown -R lichess:lichess {artifact_unzipped}",
+        f"echo \\# chown -R {user_group} {artifact_unzipped}",
+        f"chown -R {user_group} {artifact_unzipped}",
         "echo",
     ]
 
@@ -283,12 +293,23 @@ def deploy_script(profile, session, run, url):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d-at-%H-%M-%S")
         commands += [
             "echo \\# Preparing lifat ...",
-            f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R lichess:lichess {lifat_dir}; fi)",
+            f"(cd {artifact_unzipped}/d && if [ -x ./download-lifat ]; then LIFAT_DIR={lifat_dir} ./download-lifat; chown -R {user_group} {lifat_dir}; fi)",
             "echo \\# Copying assets ...",
             f"mkdir -p {assets_dir}/compiled",
             f"if [ -f {assets_dir}/compiled/manifest.prod.json ]; then mv -f {assets_dir}/compiled/manifest.prod.json {assets_dir}/compiled/manifest-{timestamp}.prod.json; fi",
             f"rsync -a {artifact_unzipped}/d/public/ {assets_dir}/",
             f"rm -rf {artifact_unzipped}",
+        ]
+    elif not profile.get("symlinks"):
+        # testy runs in podman and cannot escape a volume mapping via symlink. so we just shuffle things around
+        # rather than copying
+        commands += [
+            f"rm -rf {deploy_dir}/bin~ {deploy_dir}/lib~",
+            f"mv -f {deploy_dir}/bin {deploy_dir}/bin~",
+            f"mv -f {deploy_dir}/lib {deploy_dir}/lib~",
+            f"mv -f {artifact_unzipped}/d/bin {deploy_dir}/bin",
+            f"mv -f {artifact_unzipped}/d/lib {deploy_dir}/lib",
+            f"chmod -f +x {deploy_dir}/bin/lila || true",
         ]
     else:
         commands += [
@@ -297,7 +318,7 @@ def deploy_script(profile, session, run, url):
         ] + [f"chmod -f +x {deploy_dir}/bin/lila || true"]
 
     return commands + [
-        f"chown -R lichess:lichess {deploy_dir}",
+        f"chown -R {user_group} {deploy_dir}",
         f"echo \"SSH: {profile['ssh']}\"",
         f"echo {shlex.quote('Running: ' + profile['post'])}" if profile["stage"] else f"/bin/bash -c {shlex.quote(deploy_prompt)}",
         profile["post"],

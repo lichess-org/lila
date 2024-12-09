@@ -1,7 +1,5 @@
 @import 'default';
 
-// this may not import anything from outside common/css/colors
-
 @function _clear($color, $weight: 17%) {
   @return mix(#000, $color, $weight);
 }
@@ -10,12 +8,12 @@
   @return mix(#fff, $color, $weight);
 }
 
-$c-bg: hsl(0, 0%, 100%); // alias for $c-bg-high
+$c-bg: hsl(0, 0%, 100%); // $c-bg-high
 $c-bg-page: hsl(37, 10%, 92%);
 $c-bg-low: hsl(0, 0%, 89%);
 $c-bg-zebra: hsl(37, 12%, 96.5%);
 $c-bg-zebra2: hsl(37, 12%, 92%);
-$c-bg-popup: hsl(0, 0%, 100%); // alias for $c-bg
+$c-bg-popup: hsl(0, 0%, 100%);
 $c-body-gradient: hsl(37, 12%, 84%);
 $c-font: hsl(0, 0%, 30%);
 $c-primary: hsl(209, 77%, 46%);
@@ -27,6 +25,7 @@ $c-blunder: hsl(0, 68%, 50%);
 $c-good: $c-secondary;
 $c-brilliant: hsl(129, 71%, 30%);
 $c-interesting: hsl(307, 80%, 59%);
+$c-paper: hsl(60, 56%, 86%);
 $c-dimmer: #fff;
 $c-clearer: #000;
 
@@ -35,9 +34,7 @@ html.light {
 
   --c-bg-input: #{change-color($c-bg-page, $lightness: 98%)};
   --c-bg-variation: #{$c-bg-zebra2};
-  --c-bg-popup: #{$c-bg};
   --c-bg-header-dropdown: #{$c-bg};
-  --c-popup: #{$c-font};
   --c-header-dropdown: #{$c-font};
   --c-page-input: #{$c-bg-low};
   --c-metal-top: hsl(0, 0%, 96%);
@@ -61,6 +58,7 @@ html.light {
   --c-border: hsl(0, 0%, 85%);
   --c-border-page: hsl(0, 0%, 80%);
   --c-border-tour: #{mix(hsl(0, 0%, 80%), $c-bg-page, 50)};
+  --c-border-light: hsl(0, 0%, 80%);
 
   @include light-mix;
 }

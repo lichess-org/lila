@@ -116,7 +116,6 @@
   <string name="replayMode">Mode de reproducció</string>
   <string name="realtimeReplay">En temps real</string>
   <string name="byCPL">Per CPL</string>
-  <string name="openStudy">Obrir estudi</string>
   <string name="enable">Habilitar</string>
   <string name="bestMoveArrow">Fletxa de la millor jugada</string>
   <string name="showVariationArrows">Mostrar fletxes de les variants</string>
@@ -126,7 +125,6 @@
   <string name="memory">Memòria</string>
   <string name="infiniteAnalysis">Anàlisi il·limitada</string>
   <string name="removesTheDepthLimit">Treu el límit de profunditat i escalfa el teu ordinador</string>
-  <string name="engineManager">Gestió del mòdul</string>
   <string name="blunder">Errada greu</string>
   <string name="mistake">Errada</string>
   <string name="inaccuracy">Imprecisió</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Últimes publicacions al fòrum</string>
   <string name="players">Jugadors</string>
   <string name="friends">Amics</string>
+  <string name="otherPlayers">altres jugadors</string>
   <string name="discussions">Missatges</string>
   <string name="today">Avui</string>
   <string name="yesterday">Ahir</string>
@@ -435,7 +434,6 @@
   <string name="block">Bloqueja</string>
   <string name="blocked">Bloquejat</string>
   <string name="unblock">Desbloqueja</string>
-  <string name="followsYou">T\'està seguint</string>
   <string name="xStartedFollowingY">%1$s ha començat a seguir %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidors</item>
@@ -467,9 +465,6 @@
   <string name="safeTournamentName">Trieu un nom segur per al torneig.</string>
   <string name="inappropriateNameWarning">Qualsevol comportament mínimament inadequat podria implicar el tancament del teu compte.</string>
   <string name="emptyTournamentName">Deixar en blanc per nombrar el torneig amb un Gran Mestre a l\'atzar.</string>
-  <string name="recommendNotTouching">No recomanem canviar aquestes preferències.</string>
-  <string name="fewerPlayers">Si s\'estableixen les condicions d\'entrada, el torneig tindrà menys jugadors.</string>
-  <string name="showAdvancedSettings">Configuració avançada</string>
   <string name="makePrivateTournament">Fes el torneig privat, i restringeix l\'accés amb clau d\'entrada</string>
   <string name="join">Inscriu-t\'hi</string>
   <string name="withdraw">Abandona</string>
@@ -509,8 +504,7 @@
   <string name="ifNoneLeaveEmpty">Si no en tens, deixa-ho buit</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Edita el perfil</string>
-  <string name="firstName">Nom</string>
-  <string name="lastName">Cognoms</string>
+  <string name="realName">Nom real</string>
   <string name="setFlair">Defineix el teu estil</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Existeix una configuració per amagar els estils dels jugadors a tot el lloc web.</string>
@@ -541,6 +535,8 @@
   <string name="descPrivateHelp">Text que només veuran els membres de l\'equip. Si conté text, substituïrà la descripció pública pels membres de l\'equip.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
+  <string name="website">Lloc web</string>
+  <string name="mobile">Mòbil</string>
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Crea un nou tema</string>
   <string name="topics">Temes</string>
@@ -557,11 +553,11 @@
   <string name="reason">Raó</string>
   <string name="whatIsIheMatter">Quin és el problema?</string>
   <string name="cheat">Trampós</string>
-  <string name="insult">Insult</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulació de la puntuació</string>
   <string name="other">Altres</string>
-  <string name="reportDescriptionHelp">Enganxa l\'enllaç de la partida (o partides) i explica el comportament negatiu d\'aquest usuari. No et limitis a dir que \"fa trampes\", i explica com has arribat a aquesta conclusió. El teu informe serà processat més ràpidament si l\'escrius en anglès.</string>
+  <string name="reportCheatBoostHelp">Enganxa l\'enllaç de la partida (o partides) i explica quin és el problema amb el comportament d\'aquest usuari. No et limitis a dir que \"fa trampes\", explica\'ns com has arribat a aquesta conclusió.</string>
+  <string name="reportUsernameHelp">Explica quin és el comportament ofensiu d\'aquest usuari. No et limitis a dir simplement \"és ofensiu/inapropiat\", explica\'ns com has arribat a aquesta conclusió, especialment si l\'insult està ofuscat, en un idioma diferent de l\'anglès, és un barbarisme o és una referència històrica o cultural.</string>
+  <string name="reportProcessedFasterInEnglish">El teu informe serà tractat més ràpidament si està escrit en anglès.</string>
   <string name="error.provideOneCheatedGameLink">Si us plau, proporcioneu com a mínim un enllaç a un joc on s\'han fet trampes.</string>
   <string name="by">per %s</string>
   <string name="importedByX">Importat per %s</string>
@@ -594,6 +590,7 @@
   <string name="slow">Lent</string>
   <string name="insideTheBoard">Dins del tauler</string>
   <string name="outsideTheBoard">Fora del tauler</string>
+  <string name="allSquaresOfTheBoard">Totes les caselles del tauler</string>
   <string name="onSlowGames">En els jocs lents</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>
@@ -680,7 +677,7 @@
   <string name="aboutSimulRules">Quan comencen les simultànies, cada jugador comença la partida amb l\'amfitrió, que  té les blanques. L\'exibició acaba quan s\'han completat totes les partides.</string>
   <string name="aboutSimulSettings">Les simultànies són sempre amistoses. Les opcions de revenja, desfer la jugada i donar més temps estan desactivades.</string>
   <string name="create">Crea</string>
-  <string name="whenCreateSimul">Quan crees una exhibició de simultànies, has de jugar amb diversos jugadors alhora.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quan crees una exhibició de simultànies, has de jugar amb diversos jugadors alhora.</string>
   <string name="simulVariantsHint">Si selecciones diverses variants, cada jugador podrà escollir quina es jugarà.</string>
   <string name="simulClockHint">Sistema de Rellotge Fischer. Com més oponents tinguis, més temps et pot caldre.</string>
   <string name="simulAddExtraTime">Pots afegir temps extra al rellotge per ajudar-te amb les simultànies.</string>
@@ -995,4 +992,5 @@ Deixa-ho en blanc per començar els jocs de la posició inicial.</string>
   <string name="lichessPatronInfo">Lichess és una entitat sense ànim de lucre i un programari totalment lliure i de codi obert.
 Les despeses de funcionament, desenvolupament i continguts es financen exclusivament amb donacions d\'usuaris.</string>
   <string name="nothingToSeeHere">Res a veure per aquí de moment.</string>
+  <string name="stats">Estadístiques</string>
 </resources>

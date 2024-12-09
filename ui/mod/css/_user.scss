@@ -1,8 +1,10 @@
+.user-show .mod-zone {
+  margin: 0 20px 1em 20px;
+}
 .mod-zone {
   @extend %flex-wrap;
   gap: 0.5em;
 
-  margin: 0 20px 1em 20px;
   > * {
     padding: 20px 0 0 0;
     flex: 1 1 100%;
@@ -39,18 +41,13 @@
     white-space: nowrap;
   }
 
-  form {
-    display: inline;
-  }
-
   .proxy {
     color: $c-brag;
     font-weight: bold;
   }
 
-  strong {
+  .mz-section > strong {
     display: block;
-    margin-top: 0.5em;
     &.inline {
       display: inline;
     }
@@ -91,6 +88,11 @@
     flex: 1 1 auto;
   }
 
+  &--appeal {
+    order: 5;
+    flex: 1 1 auto;
+  }
+
   &--boardTokens {
     order: 6;
     flex: 1 1 auto;
@@ -110,24 +112,28 @@
     order: 9;
   }
 
-  &--assessments {
+  &--timeline {
     order: 10;
   }
 
-  &--mod_log {
+  &--assessments {
     order: 11;
   }
 
-  &--reports {
+  &--mod_log {
     order: 12;
   }
 
-  &--identification {
+  &--reports {
     order: 13;
   }
 
-  &--others {
+  &--identification {
     order: 14;
+  }
+
+  &--others {
+    order: 15;
   }
 
   &--menu {
@@ -342,10 +348,7 @@
       flex: 1 0 50ch;
       max-height: 50vh;
       overflow-y: auto;
-
-      &:first-child {
-        margin-inline-end: 1em;
-      }
+      padding: 0 1em 1em 2em;
 
       .score {
         display: inline-block;
@@ -371,10 +374,6 @@
           background-color: rgba(231, 59, 56, 0.4);
         }
       }
-    }
-
-    form {
-      display: block;
     }
 
     button {

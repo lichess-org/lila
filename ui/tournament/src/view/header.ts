@@ -1,12 +1,13 @@
-import { h, Hooks, VNode } from 'snabbdom';
+import { h, type Hooks, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { dataIcon } from 'common/snabbdom';
-import TournamentController from '../ctrl';
+import type TournamentController from '../ctrl';
 import perfIcons from 'common/perfIcons';
-import { TournamentData } from '../interfaces';
+import type { TournamentData } from '../interfaces';
+import { setClockWidget } from 'common/clock';
 
 const startClock = (time: number): Hooks => ({
-  insert: vnode => site.clockWidget(vnode.elm as HTMLElement, { time }),
+  insert: vnode => setClockWidget(vnode.elm as HTMLElement, { time }),
 });
 
 const oneDayInSeconds = 60 * 60 * 24;
@@ -36,7 +37,7 @@ function clock(ctrl: TournamentController): VNode | undefined {
         }),
       ]);
     return h('div.clock.clock-created', [
-      h('span.shy', ctrl.trans.noarg('startingIn')),
+      h('span.shy', i18n.swiss.startingIn),
       h('span.time.text', { hook: startClock(d.secondsToStart) }),
     ]);
   }

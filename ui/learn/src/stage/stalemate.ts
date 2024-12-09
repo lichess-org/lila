@@ -1,24 +1,25 @@
 import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
 import { scenarioComplete, scenarioFailed } from '../assert';
+import type { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/scales.svg';
 
-const common = () => ({
-  goal: 'stalemateGoal',
+const common = {
+  goal: i18n.learn.stalemateGoal,
   detectCapture: false,
   nbMoves: 1,
   nextButton: true,
   showFailureFollowUp: true,
   success: scenarioComplete,
   failure: scenarioFailed,
-});
+};
 
-export default {
+const stage: StageNoID = {
   key: 'stalemate',
-  title: 'stalemate',
-  subtitle: 'theGameIsADraw',
+  title: i18n.learn.stalemate,
+  subtitle: i18n.learn.theGameIsADraw,
   image: imgUrl,
-  intro: 'stalemateIntro',
+  intro: i18n.learn.stalemateIntro,
   illustration: roundSvg(imgUrl),
   levels: [
     {
@@ -94,6 +95,7 @@ export default {
         },
       ],
     },
-  ].map((l, i) => toLevel({ ...common(), ...l }, i)),
-  complete: 'stalemateComplete',
+  ].map((l, i) => toLevel({ ...common, ...l }, i)),
+  complete: i18n.learn.stalemateComplete,
 };
+export default stage;

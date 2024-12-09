@@ -4,8 +4,8 @@ import com.github.benmanes.caffeine.cache.Cache as CaffeineCache
 import kamon.metric.{ Counter, Timer }
 import kamon.tag.TagSet
 
-import lila.core.net.*
 import lila.core.id.*
+import lila.core.net.*
 
 object mon:
 
@@ -14,32 +14,29 @@ object mon:
   private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
 
   object http:
-    private val reqTime = timer("http.time")
-    private val mobTime = timer("http.mobile")
-    def time(action: String, client: String, method: String, code: Int) =
-      reqTime.withTags:
-        tags(
-          "action" -> action,
-          "client" -> client,
-          "method" -> method,
-          "code"   -> code.toLong
-        )
-    def error(action: String, client: String, method: String, code: Int) =
+    private val reqTime  = timer("http.time")
+    private val reqCount = counter("http.count")
+    private val mobCount = counter("http.mobile.count")
+
+    def time(action: String) = reqTime.withTag("action", action)
+
+    def count(action: String, client: String, method: String, code: Int) =
+      reqCount.withTags:
+        tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
+
+    def errorCount(action: String, client: String, method: String, code: Int) =
       counter("http.error").withTags:
-        tags(
-          "action" -> action,
-          "client" -> client,
-          "method" -> method,
-          "code"   -> code.toLong
-        )
-    def mobile(action: String, version: String, auth: Boolean, os: String) =
-      mobTime.withTags:
+        tags("action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong)
+
+    def mobileCount(action: String, version: String, auth: Boolean, os: String) =
+      mobCount.withTags:
         tags(
           "action"  -> action,
           "version" -> version,
           "auth"    -> (if auth then "auth" else "anon"),
           "os"      -> os
         )
+
     def path(p: String) = counter("http.path.count").withTag("path", p)
     val userGamesCost   = counter("http.userGames.cost").withoutTags()
     def csrfError(tpe: String, action: String, client: String) =
@@ -157,6 +154,9 @@ object mon:
     object correspondenceEmail:
       val emails = histogram("round.correspondenceEmail.emails").withoutTags()
       val time   = future("round.correspondenceEmail.time")
+    object farming:
+      val bot         = counter("round.farming.bot").withoutTags()
+      val provisional = counter("round.farming.provisional").withoutTags()
   object playban:
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
     object ban:
@@ -277,16 +277,19 @@ object mon:
     def zoneSegment(name: String) = future("mod.zone.segment", name)
   object relay:
     private def by(official: Boolean) = if official then "official" else "user"
-    private def relay(official: Boolean, slug: String) =
-      tags("by" -> by(official), "slug" -> slug)
-    def ongoing(official: Boolean)                 = gauge("relay.ongoing").withTag("by", by(official))
-    def games(official: Boolean, slug: String)     = gauge("relay.games").withTags(relay(official, slug))
-    def moves(official: Boolean, slug: String)     = counter("relay.moves").withTags(relay(official, slug))
-    def fetchTime(official: Boolean, slug: String) = timer("relay.fetch.time").withTags(relay(official, slug))
-    def syncTime(official: Boolean, slug: String)  = timer("relay.sync.time").withTags(relay(official, slug))
-    def tourCrowd(tourId: RelayTourId)             = gauge("relay.tour.crowd").withTag("tour", tourId.value)
+    private def relay(official: Boolean, id: RelayTourId, slug: String) =
+      tags("by" -> by(official), "slug" -> s"$slug/$id")
+    def ongoing(official: Boolean) = gauge("relay.ongoing").withTag("by", by(official))
+    val crowdMonitor               = gauge("relay.crowdMonitor").withoutTags()
+    def moves(official: Boolean, id: RelayTourId, slug: String) =
+      counter("relay.moves").withTags(relay(official, id, slug))
+    def fetchTime(official: Boolean, id: RelayTourId, slug: String) =
+      timer("relay.fetch.time").withTags(relay(official, id, slug))
+    def syncTime(official: Boolean, id: RelayTourId, slug: String) =
+      timer("relay.sync.time").withTags(relay(official, id, slug))
     def httpGet(host: String, proxy: Option[String]) =
       future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
+    val dedup = counter("relay.fetch.dedup").withoutTags()
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
@@ -328,6 +331,9 @@ object mon:
     object verifyMailApi:
       def fetch(success: Boolean, ok: Boolean) =
         timer("verifyMail.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
+    object mailcheckApi:
+      def fetch(success: Boolean, ok: Boolean) =
+        timer("mailcheck.fetch").withTags(tags("success" -> successTag(success), "ok" -> ok))
     def usersAlikeTime(field: String)  = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
     object hCaptcha:
@@ -458,33 +464,19 @@ object mon:
       object user:
         def time(theme: String)    = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
         def retries(theme: String) = histogram("puzzle.selector.user.retries").withTag("theme", theme)
-        def vote(theme: String)    = histogram("puzzle.selector.user.vote").withTag("theme", theme)
-        def ratingDiff(theme: String, difficulty: String) =
-          histogram("puzzle.selector.user.ratingDiff").withTags:
-            tags("theme" -> theme, "difficulty" -> difficulty)
-        def ratingDev(theme: String) = histogram("puzzle.selector.user.ratingDev").withTag("theme", theme)
-        def tier(t: String, theme: String, difficulty: String) =
+        val vote                   = histogram("puzzle.selector.user.vote").withoutTags()
+        def tier(t: String, categ: String, difficulty: String) =
           counter("puzzle.selector.user.tier").withTags:
-            tags("tier" -> t, "theme" -> theme, "difficulty" -> difficulty)
+            tags("tier" -> t, "theme" -> categ, "difficulty" -> difficulty)
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       object anon:
-        def time(theme: String) = timer("puzzle.selector.anon.puzzle").withTag("theme", theme)
-        def batch(nb: Int)      = timer("puzzle.selector.anon.batch").withTag("nb", nb)
-        def vote(theme: String) = histogram("puzzle.selector.anon.vote").withTag("theme", theme)
-      def nextPuzzleResult(theme: String, difficulty: String, color: String, result: String) =
-        timer("puzzle.selector.user.puzzleResult").withTags(
-          tags("theme" -> theme, "difficulty" -> difficulty, "color" -> color, "result" -> result)
-        )
+        val time           = timer("puzzle.selector.anon.puzzle").withoutTags()
+        def batch(nb: Int) = timer("puzzle.selector.anon.batch").withTag("nb", nb)
+        val vote           = histogram("puzzle.selector.anon.vote").withoutTags()
+      def nextPuzzleResult(result: String) =
+        timer("puzzle.selector.user.puzzleResult").withTag("result", result)
     object path:
-      def nextFor(theme: String, tier: String, difficulty: String, previousPaths: Int, compromise: Int) =
-        timer("puzzle.path.nextFor").withTags:
-          tags(
-            "theme"         -> theme,
-            "tier"          -> tier,
-            "difficulty"    -> difficulty,
-            "previousPaths" -> previousPaths.toString,
-            "compromise"    -> compromise.toString
-          )
+      def nextFor(categ: String) = timer("puzzle.path.nextFor").withTag("theme", categ)
 
     object batch:
       object selector:
@@ -553,7 +545,8 @@ object mon:
     object pgn:
       def encode(format: String) = timer("game.pgn.encode").withTag("format", format)
       def decode(format: String) = timer("game.pgn.decode").withTag("format", format)
-    val idCollision = counter("game.idCollision").withoutTags()
+    val idCollision                  = counter("game.idCollision").withoutTags()
+    def idGenerator(collisions: Int) = timer("game.idGenerator").withTags(tags("collisions" -> collisions))
   object chat:
     def message(parent: String, troll: Boolean) =
       counter("chat.message").withTags:
@@ -627,6 +620,8 @@ object mon:
         def totalSecond(client: String) = counter("fishnet.analysis.total.second").withTag("client", client)
       def requestCount(tpe: String) = counter("fishnet.analysis.request").withTag("type", tpe)
       val evalCacheHits             = histogram("fishnet.analysis.evalCacheHits").withoutTags()
+      val skipPositionsGame         = future("fishnet.analysis.skipPositions.game")
+      val skipPositionsStudy        = future("fishnet.analysis.skipPositions.study")
     object http:
       def request(hit: Boolean) = counter("fishnet.http.acquire").withTag("hit", hit)
     def move(level: Int) = counter("fishnet.move.time").withTag("level", level)
@@ -666,6 +661,9 @@ object mon:
           "result" -> result
         )
     def timeout(name: String) = counter("workQueue.timeout").withTag("name", name)
+  class parallelQueue(name: String):
+    val parallelism    = gauge("parallelQueue.parallelism").withTag("name", name)
+    val computeTimeout = counter("parallelQueue.buildTimeout").withTag("name", name)
   object markdown:
     val time = timer("markdown.time").withoutTags()
   object ublog:
@@ -677,10 +675,14 @@ object mon:
   object fideSync:
     val time    = future("fide.sync.time")
     val players = gauge("fide.sync.players").withoutTags()
+    val updated = gauge("fide.sync.updated").withoutTags()
     val deleted = gauge("fide.sync.deleted").withoutTags()
   object link:
     def external(tag: String, auth: Boolean) = counter("link.external").withTags:
       tags("tag" -> tag, "auth" -> auth)
+  object recap:
+    val games   = future("recap.build.games.time")
+    val puzzles = future("recap.build.puzzles.time")
 
   object jvm:
     def threads() =
@@ -691,6 +693,9 @@ object mon:
         _ = total.withTags(tags("name" -> group.name)).update(group.total)
         (state, count) <- group.states
       yield perState.withTags(tags("name" -> group.name, "state" -> state.toString)).update(count)
+
+  object prometheus:
+    val lines = gauge("prometheus.lines").withoutTags()
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A]
 
@@ -711,4 +716,4 @@ object mon:
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   import scala.language.implicitConversions
-  given Conversion[Map[String, Any], TagSet] = TagSet.from
+  private given Conversion[Map[String, Any], TagSet] = TagSet.from

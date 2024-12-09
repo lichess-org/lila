@@ -34,6 +34,10 @@
     <item quantity="one">Posta bidezko partida %s jokatu du</item>
     <item quantity="other">Posta bidezko %s partida jokatu ditu</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">%2$s posta bidezko partida %1$s osatuta</item>
+    <item quantity="other">%2$s posta bidezko %1$s partida osatuta</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Jokalari %s jarraitzen hasi da</item>
     <item quantity="other">%s jokalari jarraitzen hasi da</item>
@@ -54,7 +58,7 @@
     <item quantity="one">Azterlan berri %s sortu du</item>
     <item quantity="other">%s azterlan berri sortu ditu</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Txapelketa %sean parte hartu du</item>
     <item quantity="other">%s txapelketetan parte hartu du</item>
   </plurals>

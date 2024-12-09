@@ -2,9 +2,9 @@ package lila.game
 
 import scalalib.paginator.*
 
+import lila.core.game.Game
 import lila.db.dsl.*
 import lila.db.paginator.*
-import lila.core.game.Game
 
 final class PaginatorBuilder(gameRepo: GameRepo)(using Executor):
 

@@ -1,14 +1,13 @@
-import { Outcome } from 'chessops/types';
-import { h, VNode } from 'snabbdom';
-import { bind, MaybeVNodes } from 'common/snabbdom';
-import { PracticeCtrl, Comment } from './practiceCtrl';
-import AnalyseCtrl from '../ctrl';
+import type { Outcome } from 'chessops/types';
+import { h, type VNode } from 'snabbdom';
+import { bind, type MaybeVNodes } from 'common/snabbdom';
+import type { PracticeCtrl, Comment } from './practiceCtrl';
+import type AnalyseCtrl from '../ctrl';
 import { renderNextChapter } from '../study/nextChapter';
 
-function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
+function commentBest(c: Comment, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best
-    ? root.trans.vdom(
-        c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
+    ? i18n.site[c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX'].asArray(
         h(
           'move',
           {
@@ -28,14 +27,12 @@ function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVN
     : [];
 }
 
-function renderOffTrack(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
+function renderOffTrack(ctrl: PracticeCtrl): VNode {
   return h('div.player.off', [
     h('div.icon.off', '!'),
     h('div.instruction', [
-      h('strong', root.trans.noarg('youBrowsedAway')),
-      h('div.choices', [
-        h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, root.trans.noarg('resumePractice')),
-      ]),
+      h('strong', i18n.site.youBrowsedAway),
+      h('div.choices', [h('a', { hook: bind('click', ctrl.resume, ctrl.redraw) }, i18n.site.resumePractice)]),
     ]),
   ]);
 }
@@ -46,12 +43,12 @@ function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
   return h('div.player', [
     color ? h('div.no-square', h('piece.king.' + color)) : h('div.icon.off', '!'),
     h('div.instruction', [
-      h('strong', root.trans.noarg(end.winner ? 'checkmate' : 'draw')),
+      h('strong', end.winner ? i18n.site.checkmate : i18n.site.draw),
       end.winner
-        ? h('em', h('color', root.trans.noarg(end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame')))
+        ? h('em', h('color', i18n.site[end.winner === 'white' ? 'whiteWinsGame' : 'blackWinsGame']))
         : isFiftyMoves
-        ? root.trans.noarg('drawByFiftyMoves')
-        : h('em', root.trans.noarg('theGameIsADraw')),
+          ? i18n.site.drawByFiftyMoves
+          : h('em', i18n.site.theGameIsADraw),
     ]),
   ]);
 }
@@ -78,9 +75,9 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
     h(
       'div.instruction',
       (ctrl.isMyTurn()
-        ? [h('strong', root.trans.noarg('yourTurn'))]
+        ? [h('strong', i18n.site.yourTurn)]
         : [
-            h('strong', root.trans.noarg('computerThinking')),
+            h('strong', i18n.site.computerThinking),
             renderEvalProgress(ctrl.currentNode(), ctrl.playableDepth()),
           ]
       ).concat(
@@ -89,9 +86,11 @@ function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
             ? h(
                 'a',
                 { hook: bind('click', () => root.practice!.hint(), ctrl.redraw) },
-                root.trans.noarg(
-                  hint ? (hint.mode === 'piece' ? 'seeBestMove' : 'hideBestMove') : 'getAHint',
-                ),
+                hint
+                  ? hint.mode === 'piece'
+                    ? i18n.site.seeBestMove
+                    : i18n.site.hideBestMove
+                  : i18n.site.getAHint,
               )
             : '',
         ]),
@@ -108,20 +107,26 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold || isFiftyMoves ? { winner: undefined } : root.outcome();
   return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
-    h('div.title', root.trans.noarg('practiceWithComputer')),
+    h('div.title', i18n.site.practiceWithComputer),
     h(
       'div.feedback',
-      !running ? renderOffTrack(root, ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
+      !running ? renderOffTrack(ctrl) : end ? renderEnd(root, end) : renderRunning(root, ctrl),
     ),
     running
       ? h(
           'div.comment',
           (end && !root.study?.practice ? renderNextChapter(root) : null) ||
             (comment
-              ? ([h('span.verdict', root.trans.noarg(comment.verdict)), ' '] as MaybeVNodes).concat(
-                  commentBest(comment, root, ctrl),
-                )
-              : [ctrl.isMyTurn() || end ? '' : h('span.wait', root.trans.noarg('evaluatingYourMove'))]),
+              ? (
+                  [
+                    h(
+                      'span.verdict',
+                      comment.verdict === 'goodMove' ? i18n.study.goodMove : i18n.site[comment!.verdict],
+                    ),
+                    ' ',
+                  ] as MaybeVNodes
+                ).concat(commentBest(comment, ctrl))
+              : [ctrl.isMyTurn() || end ? '' : h('span.wait', i18n.site.evaluatingYourMove)]),
         )
       : null,
   ]);

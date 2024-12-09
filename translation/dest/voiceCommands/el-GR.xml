@@ -11,6 +11,7 @@
   <string name="moveToE4OrSelectE4Piece">Μετακινήσε στο e4 ή επέλεξε το e4 πιόνι</string>
   <string name="selectOrCaptureABishop">Διαλέξτε ή αιχμαλωτήστε έναν αξιωματικό</string>
   <string name="takeRookWithQueen">Πάρτε τον πύργο με βασίλισσα</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Ροκέ (οποιαδήποτε πλευρά)</string>
   <string name="phoneticAlphabetIsBest">Το φωνητικό αλφάβητο είναι καλύτερο</string>
   <string name="cancelTimerOrDenyARequest">Ακύρωση χρονομέτρου ή άρνηση αιτήματος</string>
   <string name="playPreferredMoveOrConfirmSomething">Παίξτε την προτιμώμενη κίνηση ή επιβεβαιώστε κάτι</string>

@@ -1,10 +1,11 @@
 package lila.opening
 package ui
 
-import play.api.libs.json.*
 import chess.opening.{ Opening, OpeningKey }
+import play.api.libs.json.*
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class OpeningBits(helpers: Helpers):
@@ -27,7 +28,10 @@ final class OpeningBits(helpers: Helpers):
           val canFollow = page.query.uci.isEmpty || page.wiki.exists(_.hasMarkup)
           a(cls := "opening__next", href := queryUrl(next.query), (!canFollow).option(noFollow))(
             span(cls := "opening__next__popularity"):
-              span(style := s"width:${percentNumber(next.percent)}%", title := "Popularity"):
+              span(
+                style := s"width:${percentNumber(Math.max(next.percent, 10))}%",
+                title := "Popularity"
+              ):
                 s"${Math.round(next.percent)}%"
             ,
             span(cls := "opening__next__title")(

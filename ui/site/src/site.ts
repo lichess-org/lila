@@ -1,68 +1,32 @@
-import StrongSocket from './socket';
 import { boot } from './boot';
 import Mousetrap from './mousetrap';
-import { requestIdleCallback, escapeHtml } from './functions';
-import once from './once';
-import { spinnerHtml } from 'common/spinner';
-import sri from './sri';
-import { storage, tempStorage } from './storage';
+import { randomToken } from 'common/algo';
 import powertip from './powertip';
-import clockWidget from './clockWidget';
 import * as assets from './asset';
-import makeLog from './log';
-import idleTimer from './idleTimer';
-import pubsub from './pubsub';
 import { unload, redirect, reload } from './reload';
 import announce from './announce';
-import { trans } from './trans';
+import { displayLocale } from 'common/i18n';
 import sound from './sound';
-import { mic } from './mic';
-import * as miniBoard from 'common/miniBoard';
-import * as miniGame from './miniGame';
-import { format as timeago, formatter as dateFormat } from './timeago';
-import watchers from './watchers';
-import { Chessground } from 'chessground';
-import { domDialog, ready, snabDialog } from './dialog';
+import { api } from './api';
+import { pubsub } from 'common/pubsub';
 
-// window.site.{load, quantity, i18n} are initialized in layout.scala embedded script tags
+const site = window.site;
+// site.load is initialized in site.inline.ts (body script)
+// site.manifest is fetched
+// site.info, site.debug are populated by ui/build
+// site.quietMode, site.analysis are set elsewhere
+site.sri = randomToken();
+site.displayLocale = displayLocale;
+site.blindMode = document.body.classList.contains('blind-mode');
+site.mousetrap = new Mousetrap(document);
+site.powertip = powertip;
+site.asset = assets;
+site.unload = unload;
+site.redirect = redirect;
+site.reload = reload;
+site.announce = announce;
+site.sound = sound;
+site.load.then(boot);
 
-window.$as = <T>(cashOrHtml: Cash | string) =>
-  (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
-const s = window.site;
-s.StrongSocket = StrongSocket;
-s.mousetrap = new Mousetrap(document);
-s.requestIdleCallback = requestIdleCallback;
-s.sri = sri;
-s.storage = storage;
-s.tempStorage = tempStorage;
-s.once = once;
-s.powertip = powertip;
-s.clockWidget = clockWidget;
-s.spinnerHtml = spinnerHtml;
-s.asset = assets;
-s.idleTimer = idleTimer;
-s.pubsub = pubsub;
-s.unload = unload;
-s.redirect = redirect;
-s.reload = reload;
-s.watchers = watchers;
-s.escapeHtml = escapeHtml;
-s.announce = announce;
-s.trans = trans;
-s.sound = sound;
-s.mic = mic;
-s.miniBoard = miniBoard;
-s.miniGame = miniGame;
-s.timeago = timeago;
-s.dateFormat = dateFormat;
-s.contentLoaded = (parent?: HTMLElement) => pubsub.emit('content-loaded', parent);
-s.blindMode = document.body.classList.contains('blind-mode');
-s.makeChat = data => site.asset.loadEsm('chat', { init: { el: document.querySelector('.mchat')!, ...data } });
-s.makeChessground = Chessground;
-s.log = makeLog();
-(s.dialog as any) = { ready };
-ready.then(() => {
-  s.dialog.dom = domDialog;
-  s.dialog.snab = snabDialog;
-});
-s.load.then(boot);
+// public API
+window.lichess = api(pubsub);

@@ -1,10 +1,9 @@
 package lila.video
 
-import scalalib.ThreadLocalRandom
-
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.ThreadLocalRandom
 
 import lila.core.config.*
 

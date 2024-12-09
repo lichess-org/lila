@@ -7,7 +7,7 @@
   <string name="passwordReset_intro">קיבלנו בקשה לאפס את סיסמת חשבונך.</string>
   <string name="passwordReset_clickOrIgnore">אם אכן זאת היא בקשתך, אשר/י ע\"י פתיחת הקישור המצורף. אחרת, אין צורך בפעולה כלשהי.</string>
   <string name="emailChange_subject">אשר/י את כתובתך החדשה, %s</string>
-  <string name="emailChange_intro">יש לשנות את כתובת הדוא״ל שלך.</string>
+  <string name="emailChange_intro">יש לשנות את כתובת המייל שלך.</string>
   <string name="emailChange_click">כדי לאשר את גישתך לכתובת המייל הזו, לחץ/י על הקישור הבא:</string>
   <string name="welcome_subject">%s, ברוך/ה הבא/ה ל־lichess.org</string>
   <string name="welcome_text">יצרת בהצלחה את חשבונך באתר https://lichess.org.
@@ -15,6 +15,6 @@
 אנו מאחלים לכלים שלך תמיד למצוא את דרכם למלך של יריביך!</string>
   <string name="logInToLichess">%s, התחבר/י ל־lichess.org</string>
   <string name="common_orPaste">(אם לחיצה אינה עובדת, נסו הדבקה לתוך הדפדפן!)</string>
-  <string name="common_note">זו הודעת שירות בקשר לשימושך ב-%s.</string>
-  <string name="common_contact">כדי ליצור איתנו קשר, השתמשו ב-%s.</string>
+  <string name="common_note">זו הודעת שירות בקשר לשימושך ב־%s.</string>
+  <string name="common_contact">כדי ליצור איתנו קשר, השתמשו ב־%s.</string>
 </resources>

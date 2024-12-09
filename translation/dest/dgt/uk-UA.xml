@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Вимоги до DGT-дошки</string>
   <string name="dgtBoardLimitations">Обмеження DGT-дошки</string>
   <string name="thisPageAllowsConnectingDgtBoard">Ця сторінка дозволяє приєднати вашу DGT-дошку до Lichess і використовувати її для гри.</string>
-  <string name="toConnectTheDgtBoard">Для підключення до DGT Electronic Board вам необхідно встановити %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Для підключення до DGT Electronic Board вам необхідно встановити %s.</string>
   <string name="downloadHere">Ви можете завантажити програмне забезпечення тут: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Якщо %1$s запущено на цьому комп\'ютері, ви можете перевірити своє підключення до нього, %2$s.</string>
   <string name="openingThisLink">перейшовши за цим посиланням</string>

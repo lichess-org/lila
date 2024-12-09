@@ -2,13 +2,12 @@ package lila.swiss
 
 import alleycats.Zero
 
+import lila.core.LightUser
+import lila.core.i18n.{ I18nKey, Translate }
+import lila.core.user.UserApi
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
-import lila.core.i18n.{ I18nKey, Translate }
-
 import lila.rating.PerfType
-import lila.core.LightUser
-import lila.core.user.UserApi
 
 object SwissCondition:
 
@@ -44,6 +43,8 @@ object SwissCondition:
         .dmap(WithVerdicts.apply)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled
+
+    def isDefault = this == All.empty
 
   object All:
     val empty       = All(none, none, none, none, none, none, PlayYourGames.some)

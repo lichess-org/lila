@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Szwajcarski</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Szwajcarski</string>
   <string name="swissTournaments">System szwajcarski</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Zobacz rundę</item>
@@ -39,7 +39,7 @@
     <item quantity="many">%s minunt między rundami</item>
     <item quantity="other">%s minut między rundami</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Rozpoczęcie za</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Rozpoczęcie za</string>
   <string name="nextRound">Następna runda</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Trwająca partia</item>
@@ -93,7 +93,7 @@ Dodatkowo, wolny los przyznawany jest uczestnikowi, który dołącza do turnieju
 Następnie system wycofa takiego uczestnika z turnieju, więc nie przegra on więcej partii.
 Uczestnik ten może w każdej chwili ponownie dołączyć do turnieju.</string>
   <string name="protectionAgainstNoShowQ">Co się dzieje z graczami, którzy nie przystępują do partii?</string>
-  <string name="protectionAgainstNoShowA">Gracze, którzy zapisali się do turnieju w systemie szwajcarskim, ale nie rozgrywają swoich partii, stanowią problem.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Gracze, którzy zapisali się do turnieju w systemie szwajcarskim, ale nie rozgrywają swoich partii, stanowią problem.
 W celu minimalizacji skali takich sytuacji Lichess uniemożliwia przez pewien czas zapisy na turnieje w systemie szwajcarskim graczom, którzy nie podeszli do partii. 
 Twórca turnieju może jednak zezwolić im na dołączenie.</string>
   <string name="lateJoinQ">Czy można dołączyć do turnieju po jego rozpoczęciu?</string>

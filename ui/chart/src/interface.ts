@@ -1,4 +1,4 @@
-import { Chart } from 'chart.js';
+import type { Chart } from 'chart.js';
 
 export interface PlyChart extends Chart<'line'> {
   selectPly(ply: number, isMainline: boolean): void;
@@ -46,23 +46,12 @@ export interface AnalyseData {
 }
 
 export interface ChartGame {
-  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[], trans: Trans): Promise<AcplChart>;
-  movetime(
-    el: HTMLCanvasElement,
-    data: AnalyseData,
-    trans: Trans,
-    hunter: boolean,
-  ): Promise<PlyChart | undefined>;
+  acpl(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): Promise<AcplChart>;
+  movetime(el: HTMLCanvasElement, data: AnalyseData, hunter: boolean): Promise<PlyChart | undefined>;
 }
 
 export interface DistributionData {
   freq: number[];
-  i18n: {
-    cumulative: string;
-    glicko2Rating: string;
-    players: string;
-    yourRating: string;
-  };
   myRating: number | null;
   otherPlayer: string | null;
   otherRating: number | null;
@@ -71,4 +60,19 @@ export interface DistributionData {
 export interface PerfRatingHistory {
   name: string;
   points: [number, number, number, number][];
+}
+
+interface RelayRound {
+  id: string;
+  name: string;
+  slug: string;
+  finished?: boolean;
+  ongoing?: boolean;
+  createdAt?: number;
+  startsAt?: number;
+}
+
+export interface RoundStats {
+  round: RelayRound;
+  viewers: [number, number][];
 }

@@ -1,27 +1,24 @@
-import { LangsData } from './langs';
-import { BackgroundData } from './background';
-import { BoardData } from './board';
-import { PieceData } from './piece';
-import { DasherCtrl } from './ctrl';
-import { VNode } from 'common/snabbdom';
+import type { LangsData } from './langs';
+import type { BackgroundData } from './background';
+import type { BoardData } from './board';
+import type { PieceData } from './piece';
+import type { DasherCtrl } from './ctrl';
+import type { Redraw, VNode } from 'common/snabbdom';
 
 export { DasherCtrl };
 
 export abstract class PaneCtrl {
   constructor(readonly root: DasherCtrl) {}
-  get trans() {
-    return this.root.trans;
-  }
-  get redraw() {
+  get redraw(): Redraw {
     return this.root.redraw;
   }
-  get close() {
+  get close(): () => void {
     return this.root.close;
   }
-  get dimension() {
+  get dimension(): 'd2' | 'd3' {
     return this.root.data.board.is3d ? 'd3' : 'd2';
   }
-  get is3d() {
+  get is3d(): boolean {
     return this.root.data.board.is3d;
   }
 
@@ -39,7 +36,6 @@ export interface DasherData {
   piece: PieceData;
   coach: boolean;
   streamer: boolean;
-  i18n: I18nDict;
 }
 
 export type Mode = 'links' | 'langs' | 'sound' | 'background' | 'board' | 'piece';

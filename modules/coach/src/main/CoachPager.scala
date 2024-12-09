@@ -2,15 +2,13 @@ package lila.coach
 
 import play.api.i18n.Lang
 import reactivemongo.api.*
+import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.coach.CoachPager.Order.{ Alphabetical, LichessRating, Login }
-import scalalib.paginator.{ AdapterLike, Paginator }
-import lila.db.dsl.{ *, given }
-import lila.core.perm.Permission
-import lila.core.perf.UserPerfs
-import lila.core.user.UserMark
 import lila.core.perf.UserWithPerfs
-import lila.core.user.Flag
+import lila.core.perm.Permission
+import lila.core.user.{ Flag, UserMark }
+import lila.db.dsl.{ *, given }
 
 final class CoachPager(
     userRepo: lila.core.user.UserRepo,

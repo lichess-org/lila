@@ -1,18 +1,20 @@
 import { isPlayerTurn } from 'game/game';
 import { dragNewPiece } from 'chessground/drag';
 import { setDropMode, cancelDropMode } from 'chessground/drop';
-import RoundController from '../ctrl';
-import * as cg from 'chessground/types';
-import { RoundData } from '../interfaces';
+import type RoundController from '../ctrl';
+import type { MouchEvent } from 'chessground/types';
+import type { RoundData } from '../interfaces';
+import { storage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
-export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
+export const pieceRoles: Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
-export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
+export function drag(ctrl: RoundController, e: MouchEvent): void {
   if (e.button !== undefined && e.button !== 0) return; // only touch or left click
   if (ctrl.replaying() || !ctrl.isPlaying()) return;
   const el = e.target as HTMLElement,
-    role = el.getAttribute('data-role') as cg.Role,
-    color = el.getAttribute('data-color') as cg.Color,
+    role = el.getAttribute('data-role') as Role,
+    color = el.getAttribute('data-color') as Color,
     number = el.getAttribute('data-nb');
   if (!role || !color || number === '0') return;
   e.stopPropagation();
@@ -24,7 +26,7 @@ let dropWithKey = false;
 let dropWithDrag = false;
 let mouseIconsLoaded = false;
 
-export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
+export function valid(data: RoundData, role: Role, key: Key): boolean {
   if (crazyKeys.length === 0) dropWithDrag = true;
   else {
     dropWithKey = true;
@@ -44,8 +46,8 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
   return drops?.includes(key) === true;
 }
 
-export function onEnd() {
-  const store = site.storage.make('crazyKeyHist');
+export function onEnd(): void {
+  const store = storage.make('crazyKeyHist');
   if (dropWithKey) store.set(10);
   else if (dropWithDrag) {
     const cur = parseInt(store.get()!);
@@ -56,7 +58,7 @@ export function onEnd() {
 
 export const crazyKeys: Array<number> = [];
 
-export function init(ctrl: RoundController) {
+export function init(ctrl: RoundController): void {
   const k = site.mousetrap;
 
   let activeCursor: string | undefined;
@@ -86,7 +88,7 @@ export function init(ctrl: RoundController) {
   // chessground.setDropMove(state, undefined) is called, which means
   // clicks on the board will not drop a piece.
   // If the piece becomes available, we call into chessground again.
-  site.pubsub.on('ply', () => {
+  pubsub.on('ply', () => {
     if (crazyKeys.length > 0) setDrop();
   });
 
@@ -130,7 +132,7 @@ export function init(ctrl: RoundController) {
     { capture: true },
   );
 
-  if (site.storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
+  if (storage.get('crazyKeyHist') !== '0') preloadMouseIcons(ctrl.data);
 }
 
 // zh keys has unacceptable jank when cursors need to dl,

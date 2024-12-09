@@ -17,14 +17,8 @@
   <string name="tournamentDescription">ಸಣ್ಣ ಪಂದ್ಯಾವಳಿಯ ವಿವರಣೆ</string>
   <string name="fullDescription">ಪಂದ್ಯಾವಳಿಯ ಸಂಪೂರ್ಣ ವಿವರಣೆ</string>
   <string name="fullDescriptionHelp">ಪಂದ್ಯಾವಳಿಯ ಐಚ್ಛಿಕ ದೀರ್ಘ ವಿವರಣೆ. %1$s ಲಭ್ಯವಿದೆ. ಉದ್ದವು %2$s ಅಕ್ಷರಗಳಿಗಿಂತ ಕಡಿಮೆಯಿರಬೇಕು.</string>
-  <string name="sourceUrlOrGameIds">ಮೂಲ URL, ಅಥವಾ ಆಟದ ಐಡಿಗಳು</string>
   <string name="sourceUrlHelp">PGN ನವೀಕರಣಗಳನ್ನು ಪಡೆಯಲು Lichess ಪರಿಶೀಲಿಸುವ URL. ಇದನ್ನು ಇಂಟರ್ನೆಟ್‌ನಿಂದ ಸಾರ್ವಜನಿಕವಾಗಿ ಪ್ರವೇಶಿಸಬೇಕು.</string>
-  <string name="gameIdsHelp">ಪರ್ಯಾಯವಾಗಿ, ನೀವು 64 ಲೈಚೆಸ್ ಗೇಮ್ ID ಗಳನ್ನು ನಮೂದಿಸಬಹುದು, ಇದನ್ನು ಸ್ಪೇಸ್‌ಗಳಿಂದ ಬೇರ್ಪಡಿಸಬಹುದು.</string>
-  <string name="startDate">ನಿಮ್ಮ ಸ್ವಂತ ಸಮಯವಲಯದಲ್ಲಿ ದಿನಾಂಕವನ್ನು ಪ್ರಾರಂಭಿಸಿ</string>
   <string name="startDateHelp">ಐಚ್ಛಿಕ, ಈವೆಂಟ್ ಯಾವಾಗ ಪ್ರಾರಂಭವಾಗುತ್ತದೆ ಎಂದು ನಿಮಗೆ ತಿಳಿದಿದ್ದರೆ</string>
-  <string name="credits">ಮೂಲವನ್ನು ಕ್ರೆಡಿಟ್ ಮಾಡಿ</string>
-  <string name="broadcastUrl">URL ಅನ್ನು ಪ್ರಸಾರ ಮಾಡಿ</string>
-  <string name="currentRoundUrl">ಪ್ರಸ್ತುತ ಸುತ್ತಿನ URL</string>
   <string name="currentGameUrl">ಪ್ರಸ್ತುತ ಆಟದ URL</string>
   <string name="downloadAllRounds">ಎಲ್ಲಾ ಸುತ್ತುಗಳನ್ನು ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ</string>
   <string name="resetRound">ಈ ಸುತ್ತನ್ನು ಮರುಹೊಂದಿಸಿ</string>

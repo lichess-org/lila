@@ -7,8 +7,9 @@
     <item quantity="other">%s پخش همگانی</item>
   </plurals>
   <string name="liveBroadcasts">پخش زنده مسابقات</string>
+  <string name="broadcastCalendar">تقویم پخش</string>
   <string name="newBroadcast">پخش زنده جدید</string>
-  <string name="subscribedBroadcasts">پخش‌های دنبال‌شده</string>
+  <string name="subscribedBroadcasts">پخش‌های دنبالیده</string>
   <string name="aboutBroadcasts">درباره پخش‌های همگانی</string>
   <string name="howToUseLichessBroadcasts">نحوه استفاده از پخش همگانی Lichess.</string>
   <string name="theNewRoundHelp">دور جدید، همان اعضا و مشارکت‌کنندگان دور قبلی را خواهد داشت.</string>
@@ -16,21 +17,18 @@
   <string name="ongoing">ادامه‌دار</string>
   <string name="upcoming">آینده</string>
   <string name="completed">کامل‌شده</string>
-  <string name="completedHelp">Lichess تکمیل دور را بر اساس بازی‌های منبع تشخیص می‌دهد. اگر منبعی وجود ندارد، از این کلید استفاده کنید.</string>
+  <string name="completedHelp">Lichess تکمیل دور را شناسایی می‌کند، اما می‌تواند آن را اشتباه بگیرد. از این کلید برای تنظیم دستی بهرایید.</string>
   <string name="roundName">نام دور</string>
   <string name="roundNumber">شماره دور</string>
   <string name="tournamentName">نام مسابقات</string>
   <string name="tournamentDescription">توضیحات کوتاه مسابقات</string>
   <string name="fullDescription">توضیحات کامل مسابقات</string>
   <string name="fullDescriptionHelp">توضیحات بلند و اختیاری پخش همگانی. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
-  <string name="sourceUrlOrGameIds">نشانی منبع، یا شناسه بازی‌ها</string>
+  <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
-  <string name="gameIdsHelp">همچنین، می‌توانید تا ۶۴ شناسه بازی Lichess را که با *فاصله* از هم جدا شده‌اند، وارد کنید.</string>
-  <string name="startDate">تاریخ شروع، در منطقه زمانی خودتان</string>
+  <string name="sourceGameIds">تا ۶۴ شناسهٔ بازی Lichess، جداشده با فاصله.</string>
+  <string name="startDateTimeZone">تاریخ آغاز در زمان-یانه محلی مسابقات: %s</string>
   <string name="startDateHelp">اختیاری است، اگر می‌دانید چه زمانی رویداد شروع می‌شود</string>
-  <string name="credits">به منبع اعتبار دهید</string>
-  <string name="broadcastUrl">وب‌نشانی پخش همگانی</string>
-  <string name="currentRoundUrl">نشانی دور کنونی</string>
   <string name="currentGameUrl">نشانی بازی کنونی</string>
   <string name="downloadAllRounds">بارگیری همه دورها</string>
   <string name="resetRound">ازنوکردن این دور</string>
@@ -40,9 +38,45 @@
   <string name="editRoundStudy">ویرایش مطالعه دور</string>
   <string name="deleteTournament">حذف این مسابقات</string>
   <string name="definitivelyDeleteTournament">کل مسابقات، شامل همه دورها و بازی‌هایش را به طور کامل حذف کن.</string>
-  <string name="automaticLeaderboard">جدول رده‌بندی خودکار</string>
-  <string name="automaticLeaderboardHelp">یک جدول رده‌بندی ساده را بر اساس نتایج بازی‌ها حساب کن و نمایش بده</string>
+  <string name="showScores">نمایش امتیاز بازیکنان بر پایه نتیجه بازی‌ها</string>
   <string name="replacePlayerTags">اختیاری: عوض کردن نام، درجه‌بندی و عنوان بازیکنان</string>
-  <string name="periodInSeconds">مدت در واحد ثانیه</string>
-  <string name="periodInSecondsHelp">اختیاری است، چه مدت باید بین درخواست‌ها صبر کرد. حداقل 2 ثانیه، حداکثر 60 ثانیه. بر اساس تعداد بینندگان، پیشفرض‌ها، به صورت خودکار مقدار می‌گیرند.</string>
+  <string name="fideFederations">کشورگان‌های فیده</string>
+  <string name="top10Rating">ده درجه‌بندی برتر</string>
+  <string name="fidePlayers">بازیکنان فیده</string>
+  <string name="fidePlayerNotFound">بازیکن فیده پیدا نشد</string>
+  <string name="fideProfile">رُخ‌نمای فیده</string>
+  <string name="federation">کشورگان</string>
+  <string name="ageThisYear">سنِ امسال</string>
+  <string name="unrated">بی‌درجه‌بندی</string>
+  <string name="recentTournaments">مسابقاتِ اخیر</string>
+  <string name="openLichess">آزاد در Lichess</string>
+  <string name="teams">یَران‌ها</string>
+  <string name="boards">میز‌ها</string>
+  <string name="overview">نمای کلی</string>
+  <string name="subscribeTitle">مشترک شوید تا از آغاز هر دور باخبر شوید. می‌توانید اعلان‌های زنگی یا رانشی برای پخش‌های زنده را در تنظیمات حساب‌تان تغییر دهید.</string>
+  <string name="uploadImage">بارگذاری تصویر مسابقات</string>
+  <string name="noBoardsYet">تاکنون هیچی. وقتی بازی‌ها بارگذاری شدند، میزها پدیدار خواهند شد.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">میزها را می‌توان از یک منبع یا از راه %s بارگذاری کرد</string>
+  <string name="startVerySoon">پخش زنده به زودی آغاز خواهد شد.</string>
+  <string name="notYetStarted">پخش زنده هنوز نیاغازیده است.</string>
+  <string name="officialWebsite">وبگاه رسمی</string>
+  <string name="standings">رده‌بندی</string>
+  <string name="officialStandings">رده‌بندی رسمی</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">گزینه‌های بیشتر در %s</string>
+  <string name="webmastersPage">صفحهٔ وبداران</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">یک منبع عمومی و بی‌درنگ PGN برای این دور. ما همچنین %s را برای همگامِش تندتر و کارآمدتر پیشنهاد می‌دهیم.</string>
+  <string name="embedThisBroadcast">جاسازی این پخش زنده در وبگاه‌تان</string>
+  <string name="embedThisRound">جاسازی %s در وبگاه‌تان</string>
+  <string name="ratingDiff">اختلاف درجه‌بندی</string>
+  <string name="gamesThisTournament">بازی‌های این مسابقات</string>
+  <string name="score">امتیاز</string>
+  <string name="allTeams">همهٔ یَران‌ها</string>
+  <string name="tournamentFormat">ساختار مسابقات</string>
+  <string name="tournamentLocation">مکان مسابقات</string>
+  <string name="topPlayers">بازیکنان برتر</string>
+  <string name="timezone">زمان-یانه</string>
+  <string name="fideRatingCategory">رسته‌بندی درجه‌بندی فیده</string>
+  <string name="optionalDetails">جزئیات اختیاری</string>
+  <string name="pastBroadcasts">پخش‌های گذشته</string>
+  <string name="allBroadcastsByMonth">دیدن پخش‌های هر ماه</string>
 </resources>

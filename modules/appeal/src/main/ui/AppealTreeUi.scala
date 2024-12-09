@@ -1,9 +1,10 @@
 package lila.appeal
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.id.CmsPageKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class AppealTreeUi(helpers: Helpers, ui: AppealUi)(
     newAppeal: String => Context ?=> Frag

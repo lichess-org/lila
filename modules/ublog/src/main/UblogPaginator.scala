@@ -2,11 +2,11 @@ package lila.ublog
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.BSONNull
-
 import scalalib.paginator.{ AdapterLike, Paginator }
+
+import lila.core.i18n.Language
 import lila.db.dsl.{ *, given }
 import lila.db.paginator.Adapter
-import lila.core.i18n.Language
 
 final class UblogPaginator(
     colls: UblogColls,
@@ -82,7 +82,7 @@ final class UblogPaginator(
           Sort(Descending(if byDate then "lived.at" else "rank")),
           Limit(500),
           PipelineOperator:
-            $lookup.pipeline(
+            $lookup.pipelineBC(
               from = colls.blog,
               as = "blog",
               local = "blog",
@@ -95,7 +95,7 @@ final class UblogPaginator(
           ,
           UnwindField("blog"),
           PipelineOperator:
-            $lookup.pipeline(
+            $lookup.pipelineBC(
               from = userRepo.coll,
               as = "user",
               local = "created.by",

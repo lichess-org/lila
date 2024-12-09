@@ -113,7 +113,6 @@
   <string name="replayMode">ರಿಪ್ಲೇ ಮೋಡ್</string>
   <string name="realtimeReplay">ನೈಜ ಸಮಯ</string>
   <string name="byCPL">CPL ಇಂದ</string>
-  <string name="openStudy">ಅಧ್ಯಯನ ಭಾಗವನ್ನು ತೆರೆಯಿರಿ</string>
   <string name="enable">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="bestMoveArrow">ಅತ್ಯುತ್ತಮ ನಡೆಯ ಬಾಣ</string>
   <string name="evaluationGauge">ಮೌಲ್ಯಮಾಪನ ಗೇಜ್</string>
@@ -122,7 +121,6 @@
   <string name="memory">ಮೆಮೊರಿ</string>
   <string name="infiniteAnalysis">ಅನಂತ ವಿಶ್ಲೇಷಣೆ</string>
   <string name="removesTheDepthLimit">ಆಳ ನಿರ್ಬಂಧಿನೆ ತೆಗೆಯುತ್ತದೆ, ಕಂಪ್ಯೂಟರ್ ಬಿಸಿಯಾಗಬಹುದು</string>
-  <string name="engineManager">ಎಂಜಿನ್ ಮೇನೇಜರ್</string>
   <string name="blunder">ಪ್ರಮಾದ</string>
   <string name="mistake">ತಪ್ಪು</string>
   <string name="inaccuracy">ಅಸ್ಪಷ್ಟತೆ</string>
@@ -429,7 +427,6 @@
   <string name="block">ನಿಷೇಧಿಸಿ</string>
   <string name="blocked">ನಿಷೇಧಿಸಲಾಗಿದೆ</string>
   <string name="unblock">ನಿಷೇಧವನ್ನು ತೆಗೆ</string>
-  <string name="followsYou">ನಿಮ್ಮನ್ನು ಹಿಂಬಾಲಿಸುತ್ತಿದ್ದಾರೆ</string>
   <string name="xStartedFollowingY">%1$s ಅವರು %2$s ಅವರನ್ನು ಹಿಂಬಾಲಿಸಲು ಆರಂಭಿಸಿದ್ದಾರೆ</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s ಹಿಂಬಾಲಕರು</item>
@@ -461,9 +458,6 @@
   <string name="safeTournamentName">ಪಂದ್ಯಾವಳಿಗೆ ಸುರಕ್ಷಿತ ಹಾಗೂ ಅಪಾಯವಿಲ್ಲದ ಹೆಸರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ.</string>
   <string name="inappropriateNameWarning">ಕೇವಲ ಸಣ್ಣಮಟ್ಟಿನ ಅನುಚಿತ ಅಥವಾ ಅಸಮಂಜಸ ಹೆಸರುಗಳೂ ಕೂಡ ನಿಮ್ಮ ಖಾತೆಯ ನಿಷೇದಕ್ಕೆ ಕಾರಣವಾಗಬಹುದು.</string>
   <string name="emptyTournamentName">ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಯನ್ನು ಯಾವುದೋ ಒಬ್ಬರು ಪ್ರಸಿದ್ಧ ಚೆಸ್ ಆಟಗಾರರ ಹೆಸರಿನಲ್ಲಿ ನಾಮಕರಣಗೊಳಿಸಬೇಕೆಂದಿದ್ದರೆ, ಹೆಸರಿನ ಭಾಗವನ್ನು ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ.</string>
-  <string name="recommendNotTouching">ಇದನ್ನು ಬದಲಾಯಿಸಬೇಡಿ ಎಂದು ಶಿಫಾರಸ್ಸು ಮಾಡುತ್ತೇವೆ.</string>
-  <string name="fewerPlayers">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಪ್ರವೇಶಾರ್ಹತೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಿದರೆ, ನಿಮ್ಮ ಪಂದ್ಯಾವಳಿಗೆ ಲಭ್ಯವಾಗುವ ಆಟಗಾರರ ಸಂಖ್ಯೆ ಕಡಿಮೆಯಾಗುವ ಸಾಧ್ಯತೆಯಿದೆ.</string>
-  <string name="showAdvancedSettings">ಇನ್ನೂ ಹೆಚ್ಚಿನ ಅಳವಡಿಕೆಗಳನ್ನು ತೋರಿಸಿ</string>
   <string name="makePrivateTournament">ಈ ಪಂದ್ಯಾವಳಿಯನ್ನು ಖಾಸಗಿಯಾಗಿಸಿ, ಹಾಗೂ ಕೀಲಿಪದ ಅಂದರೆ ಪಾಸ್ವರ್ಡ್ ಬಳಸಿ ಪ್ರವೇಶವನ್ನು ನಿರ್ಬಂಧಿಸಿ</string>
   <string name="join">ಸೇರಿ</string>
   <string name="withdraw">ಹಿಂಪಡೆಯಿರಿ</string>
@@ -502,8 +496,6 @@
   <string name="ifNoneLeaveEmpty">ಧಾರಣೆ ಇಲ್ಲವಾದರೆ, ಈ ಜಾಗ ಖಾಲಿ ಬಿಟ್ಟು ಬಿಡಿ</string>
   <string name="profile">ಪ್ರೊಫೈಲು</string>
   <string name="editProfile">ಪ್ರೊಫೈಲ್ ಪರಿಷ್ಕರಿಸಿ</string>
-  <string name="firstName">ಹೆಸರು</string>
-  <string name="lastName">ಕುಟುಂಬನಾಮ (surname)</string>
   <string name="biography">ನಿಮ್ಮ ಬಗ್ಗೆ</string>
   <string name="thankYou">ಧನ್ಯವಾದಗಳು!</string>
   <string name="socialMediaLinks">ಸಾಮಾಜಿಕ ಮಾಧ್ಯಮಗಳ ಕೊಂಡಿ</string>
@@ -545,11 +537,8 @@
   <string name="reason">ಕಾರಣ</string>
   <string name="whatIsIheMatter">ವಿಷಯ ಅಥವಾ ಸಮಸ್ಯೆ ಏನು?</string>
   <string name="cheat">ಮೋಸದಾಟ</string>
-  <string name="insult">ಅವಮಾನಿಸಿದ್ದಾರೆ</string>
   <string name="troll">ಉಪದ್ರವಿ</string>
-  <string name="ratingManipulation">ಧಾರಣೆಯಲ್ಲಿ ವಂಚನೆ</string>
   <string name="other">ಇತರೆ</string>
-  <string name="reportDescriptionHelp">ಮೋಸ ನಡೆದಿದೆ ಎಂಬ ಸಂಶಯವಿರುವ ಆಟದ (ಆಟಗಳ) ಕೊಂಡಿ ಅಥವಾ ಲಿಂಕ್ ಅನ್ನು ಇಲ್ಲಿ ಅಂಟಿಸಿ. ಹಾಗೂ, ಈ ವ್ಯಕ್ತಿಯ ಅಥವಾ ಖಾತೆಯ ವರ್ತನೆಯಲ್ಲಿ ಏನು ಸಮಸ್ಯೆ ಇದೆ ಎಂಬುದನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ವಿವರಿಸಿ. ಕೇವಲ \"ಅವರು ಮೋಸ ಮಾಡಿದ್ದಾರೆ\" ಎಂದಷ್ಟೇ ಬರೆದು ಬಿಡಬೇಡಿ. ಬದಲಾಗಿ, ಹೇಗೆ ಈ ನಿರ್ಧಾರಕ್ಕೆ ಬಂದಿರಿ ಎಂಬುದನ್ನು ವಿವರಿಸಿ. ನಿಮ್ಮ ದೂರು ಇಂಗ್ಲಿಷ್ ಭಾಷೆಯಲ್ಲಿದ್ದರೆ ಬೇಗನೆಯೇ ಪರಿಹಾರ ಸಿಗುವ ಸಾಧ್ಯತೆ ಇದೆ.</string>
   <string name="error.provideOneCheatedGameLink">ದಯವಿಟ್ಟು ಮೋಸಕ್ಕೊಳಗಾದ ಒಂದಾದರೂ ಆಟದ ಕೊಂಡಿಯನ್ನು ಇಲ್ಲಿ ಹಂಚಿಕೊಳ್ಳಿ.</string>
   <string name="by">%s ಅವರಿಂದ</string>
   <string name="importedByX">%s import ಮಾಡಿದ್ದಾರೆ</string>
@@ -666,7 +655,7 @@
   <string name="aboutSimulRules">Simul ಪ್ರಾರಂಭವಾಗುವಾಗ, ಪ್ರತಿ ಎದುರಾಳಿ ಆಟಗಾರರೂ ಆತಿಥೇಯ ಆಟಗಾರರೊಂದಿಗೆ ಪಂದ್ಯ ಆರಂಭಿಸುತ್ತಾರೆ. ಎಲ್ಲಾ ಆಟಗಳು ಮುಕ್ತಾಯ ಆದ ಮೇಲೆಯೇ simul ಮುಗಿಯುತ್ತದೆ.</string>
   <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
   <string name="create">ರಚಿಸಿ</string>
-  <string name="whenCreateSimul">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
   <string name="simulVariantsHint">ನೀವು ಹಲವಾರು ಆಟದ ಶೈಲಿಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ್ದರೆ, ಪ್ರತಿ ಎದುರಾಳಿಗೂ ಆ ಆಯ್ಕೆಗಳಿಂದ ಒಂದನ್ನು ಆರಿಸುವ ಅವಕಾಶ ದೊರೆಯುತ್ತದೆ.</string>
   <string name="simulClockHint">ಫಿಷರ್ ಗಡಿಯಾರದ ಸಿದ್ಧತೆ. ಎಷ್ಟು ಹೆಚ್ಚು ಆಟಗಾರರನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತೀರೋ, ಅಷ್ಟೇ ಹೆಚ್ಚಿನ ಸಮಯ ನಿಮಗೆ ಬೇಕಾಗಬಹುದು.</string>
   <string name="simulAddExtraTime">ನಿಮಗೆ ಬೇಕಾದರೆ, simul ನಿಭಾಯಿಸುವ ಸಲುವಾಗಿ, ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಹೆಚ್ಚಿನ ಸಮಯವನ್ನು ಸೇರಿಸಿಕೊಳ್ಳಬಹುದು.</string>
@@ -957,6 +946,7 @@
   <string name="switchSides">ತಂಡ ಬದಲಾಯಿಸಿ</string>
   <string name="closingAccountWithdrawAppeal">ಖಾತೆ ಮುಚ್ಚಿದರೆ ನಿಮ್ಮ ಮನವಿಯನ್ನು ಹಿಂಪಡೆಯಲಾಗುವುದು</string>
   <string name="ourEventTips">ಈವೆಂಟ್‌ಗಳನ್ನು ಆಯೋಜಿಸಲು ನಮ್ಮ ಸಲಹೆಗಳು</string>
+  <string name="instructions">ಸೂಚನೆಗಳು</string>
   <string name="lichessPatronInfo">ಲೀಚೆಸ್ ಒಂದು ದಾನ-ಆಧಾರಿತ ಹಾಗೂ ಸಂಪೂರ್ಣ ಉಚಿತ/ ಸ್ವತಂತ್ರ, ಮುಕ್ತ ಸಾಫ್ಟ್ವೇರ್ ತಂತ್ರಜ್ಞಾನ. 
 ಎಲ್ಲಾ ನಿರ್ವಹಣಾ ವೆಚ್ಚಗಳು, ಸಾಫ್ಟ್ವೇರ್ ಬೆಳವಣಿಗೆ, ಹಾಗೂ ವಸ್ತು/ವಿಷಯಗಳು ಕೇವಲ ದೇಣಿಗೆಯಿಂದ ಮಾತ್ರ ನಡೆಸಲಾಗುತ್ತಿದೆ.</string>
 </resources>

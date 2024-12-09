@@ -1,15 +1,15 @@
 import debounce from 'debounce-promise';
-import * as xhr from 'common/xhr';
+import { json as xhrJson, url as xhrUrl } from 'common/xhr';
 import Tagify from '@yaireo/tagify';
 
 site.load.then(() => {
   const input = document.getElementById('form3-topics') as HTMLInputElement;
   const tagify = new Tagify(input, {
     pattern: /.{2,}/,
-    maxTags: parseInt(input.dataset['max']!) || 64,
+    maxTags: parseInt(input?.dataset['max'] ?? '64'),
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
-    (term: string) => xhr.json(xhr.url('/study/topic/autocomplete', { term })),
+    (term: string) => xhrJson(xhrUrl('/study/topic/autocomplete', { term })),
     300,
   );
   let clickDebounce: Timeout | undefined; // https://yaireo.github.io/tagify/#section-advance-options

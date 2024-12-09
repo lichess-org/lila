@@ -1,5 +1,8 @@
 import * as xhr from 'common/xhr';
-import flairPicker from './load/flairPicker';
+import flairPickerLoader from './flairPicker';
+import { wsConnect } from 'common/socket';
+import { makeChat } from 'chat';
+import { prompt } from 'common/dialog';
 
 interface TeamOpts {
   id: string;
@@ -7,10 +10,10 @@ interface TeamOpts {
   chat?: any;
 }
 
-export function initModule(opts: TeamOpts) {
-  site.socket = new site.StrongSocket('/team/' + opts.id, opts.socketVersion);
+export function initModule(opts: TeamOpts): void {
+  wsConnect('/team/' + opts.id, opts.socketVersion);
 
-  if (opts.chat) site.makeChat(opts.chat);
+  if (opts.chat) makeChat(opts.chat);
 
   $('#team-subscribe').on('change', function (this: HTMLInputElement) {
     $(this)
@@ -21,13 +24,16 @@ export function initModule(opts: TeamOpts) {
   });
 }
 
-$('button.explain').on('click', e => {
-  let why = prompt('Please explain the reason for this action');
-  why = why && why.trim();
-  if (why && why.length > 3) $(e.target).parents('form').find('input[name="explain"]').val(why);
-  else return false;
+$('button.explain').on('click', async e => {
+  if (!e.isTrusted) return;
+  e.preventDefault();
+  const why = (await prompt('Please explain the reason for this action'))?.trim();
+  if (why && why.length > 3) {
+    $(e.target).parents('form').find('input[name="explain"]').val(why);
+    (e.target as HTMLElement).click();
+  }
 });
 
 $('.emoji-details').each(function (this: HTMLElement) {
-  flairPicker(this);
+  flairPickerLoader(this);
 });

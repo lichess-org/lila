@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Op sommige Lichess-pagina\'s kunt u sneltoetsen gebruiken. Druk op de \'?\' toets op een studie-, analyse-, puzzel- of partijpagina om beschikbare sneltoetsen te tonen.</string>
   <string name="fairPlay">Eerlijk spel</string>
   <string name="whenAmIEligibleRatinRefund">Wanneer kom ik in aanmerking voor de automatische ratingcompensatie van valsspelers?</string>
-  <string name="ratingRefundExplanation">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Een minuut nadat een speler gemarkeerd is, worden diens laatste veertig met rating gespeelde en in de laatste drie dagen gewonnen partijen in aanmerking genomen. Als je zijn tegenstander was in een van deze partijen en je rating was niet voorlopig, krijg je een ratingcompensatie. Deze compensatie wordt beperkt op basis van je hoogste rating en je ratingvoortgang na de desbetreffende partij.
   (Als je rating bijvoorbeeld sterk gestegen is na deze partijen, zou je geen compensatie of alleen een gedeeltelijke compensatie kunnen krijgen.) Een compensatie zal nooit meer bedragen dan 150 punten.</string>
   <string name="preventLeavingGameWithoutResigning">Wat gebeurt er met spelers die partijen laten voor wat ze zijn zonder op te geven?</string>
   <string name="leavingGameWithoutResigningExplanation">Als je tegenstander vaak partijen afbreekt of laat voor wat ze zijn, krijgt hij een \"speelverbod\", wat betekent dat hij tijdelijk geen partijen meer mag spelen. Dit wordt niet publiekelijk op hun profiel aangegeven. Als dit gedrag zich voortzet, neemt de duur van het speelverbod toe - en dergelijk langdurig gedrag kan leiden tot sluiting van de account.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Hoe worden bullet, blitz en andere speeltempo\'s bepaald?</string>
   <string name="basedOnGameDuration">Lichess speeltempo\'s zijn gebaseerd op de geschatte partijduur = %1$s.
 Bijvoorbeeld, de geschatte duur van een 5+3 partij is 5 × 60 + 40 × 3 = 420 seconden.</string>
-  <string name="durationFormula">(initiële kloktijd) + 40 × (extra tijd per zet)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(initiële kloktijd) + 40 × (extra tijd per zet)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Welke varianten kan ik spelen op Lichess?</string>
@@ -97,12 +97,12 @@ Vraag niet om de LM-titel.</string>
   <string name="usernamesNotOffensive">In het algemeen geldt voor gebruikersnamen: ze mogen niet aanstootgevend zijn of reclame zijn en bovendien mag je niet doen alsof je iemand anders bent. Je kunt er meer over lezen in de %1$s.</string>
   <string name="guidelines">richtlijnen</string>
   <string name="canIChangeMyUsername">Kan ik mijn gebruikersnaam wijzigen?</string>
-  <string name="usernamesCannotBeChanged">Nee, gebruikersnamen kunnen om technische en praktische redenen niet worden gewijzigd. Gebruikersnamen komen op te veel plaatsen voor: in databases, exporten, logbestanden en in de hoofden van mensen. Hoofdletters kunnen één keer worden aangepast.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nee, gebruikersnamen kunnen om technische en praktische redenen niet worden gewijzigd. Gebruikersnamen komen op te veel plaatsen voor: in databases, exporten, logbestanden en in de hoofden van mensen. Hoofdletters kunnen één keer worden aangepast.</string>
   <string name="uniqueTrophies">Unieke trofeeën</string>
   <string name="ownerUniqueTrophies">Die trofee is uniek in de geschiedenis van Lichess, niemand anders dan %1$s zal die ooit bezitten.</string>
   <string name="wayOfBerserkExplanation">Om de troffee te verkrijgen, had hiimgosu zichzelf uitgedaagd om tijdens een %s alle partijen berserk te gaan en 100%% van de potjes te winnen.</string>
   <string name="aHourlyBulletTournament">een uurlijks bullet-toernooi</string>
-  <string name="goldenZeeExplanation">ZugAddict was aan het streamen en probeerde 2 uur lang A.I. niveau 8 te verslaan in een 1+0 partij, zonder succes. Thibault zei hem dat als hij dit voor elkaar kreeg op stream, hij een unieke trofee zou krijgen. Een uur later maakte hij Stockfish in en werd deze belofte nagekomen.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict was aan het streamen en probeerde 2 uur lang A.I. niveau 8 te verslaan in een 1+0 partij, zonder succes. Thibault zei hem dat als hij dit voor elkaar kreeg op stream, hij een unieke trofee zou krijgen. Een uur later maakte hij Stockfish in en werd deze belofte nagekomen.</string>
   <string name="lichessRatings">Lichess-ratings</string>
   <string name="whichRatingSystemUsedByLichess">Welk ratingsysteem gebruikt Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratings worden berekend met behulp van de Glicko-2-methode, ontwikkeld door Mark Glickman. Dit is een zeer populaire ratingmethode en wordt door een aanzienlijk aantal schaakorganisaties gebruikt (FIDE is een opvallend tegenvoorbeeld, aangezien zij nog steeds het verouderde Elo-ratingsysteem gebruiken).

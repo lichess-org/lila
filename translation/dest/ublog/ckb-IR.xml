@@ -24,7 +24,7 @@
   <string name="xPublishedY">%1$s،%2$sبڵاوکردەوە</string>
   <string name="thisPostIsPublished">ئەم پەیامە بڵاوکرایەوە</string>
   <string name="thisIsADraft">ئەمە ڕەشنووسە</string>
-  <string name="moreBlogPostsBy">پەیامی زیاتر لەلایەن %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">پەیامی زیاتر لەلایەن %s</string>
   <string name="noPostsInThisBlogYet">هیچ پەیامێک نییە لەم پەڕە کەسییەدا، لە ئێستادا.</string>
   <string name="noDrafts">هیچ ڕەشنووسێک نییە بۆ پیشاندان.</string>
   <string name="latestBlogPosts">کۆتا پەیامەکانی پەڕەی کەسی</string>
@@ -36,7 +36,6 @@
   <string name="imageAlt">نوسینی جێگرەوە بۆ وێنە</string>
   <string name="imageCredit">دروستکەری وێنە</string>
   <string name="deleteBlog">سڕینەوەی ئەم پەیامە کەسییە بە دڵنیاییەوە</string>
-  <string name="deleteImage">سڕینەوەی وێنە</string>
   <string name="safeToUseImages">بەکارهێنانی وێنە لەم پەڕەئەلیکترۆنیانە بەتەواوەتی ڕێپێدراوە: </string>
   <string name="selectPostTopics">دیاریکردنی ناونیشانی پەیامەکەت، کە دەربارەی</string>
   <string name="useImagesYouMadeYourself">هەروەها دەتوانی ئەو وینانە بەکاربهێنی کە خۆت بەرهەمت هێناون، ئەو وێنانەی کە گرتووتن یان ئەو وێنە شاشەییانەی لە لیچێسەوە گرتووتن.. هەرشتێک کە خاوەندارێتی کەسیتری بەسەرەوە نەبێت.</string>

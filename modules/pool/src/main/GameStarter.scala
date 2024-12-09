@@ -2,7 +2,7 @@ package lila.pool
 
 import chess.ByColor
 
-import lila.core.game.{ IdGenerator, GameRepo, NewPlayer, Source }
+import lila.core.game.{ GameRepo, IdGenerator, NewPlayer, Source }
 import lila.core.pool.{ Pairing, Pairings }
 
 final private class GameStarter(
@@ -17,7 +17,7 @@ final private class GameStarter(
     maxSize = Max(32),
     timeout = 10 seconds,
     name = "gameStarter",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =

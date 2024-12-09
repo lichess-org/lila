@@ -31,8 +31,8 @@
   <string name="byOpenings">Hasieraka</string>
   <string name="puzzlesByOpenings">Hasierakako ariketak</string>
   <string name="openingsYouPlayedTheMost">Gehien jokatu dituzun hasierak</string>
-  <string name="useFindInPage">Erabili zure nabigatzaileko \"Bilatu orrian\" funtzioa zure hasiera gogokoena bilatzeko!</string>
-  <string name="useCtrlF">Erabili Ctrl+f zure hasiera gogokoena bilatzeko!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Erabili zure nabigatzaileko \"Bilatu orrian\" funtzioa zure hasiera gogokoena bilatzeko!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Erabili Ctrl+f zure hasiera gogokoena bilatzeko!</string>
   <string name="notTheMove">Hori ez zen jokaldia!</string>
   <string name="trySomethingElse">Saiatu beste batekin.</string>
   <string name="ratingX">Sailkapena: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Indarguneak</string>
   <string name="history">Ariketen historikoa</string>
   <string name="solved">ebatzita</string>
-  <string name="failed">huts eginda</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">huts eginda</string>
   <string name="streakDescription">Ebatzi gero eta zailagoak diren ariketak eta garaipen-bolada lortu. Ez dago erlojurik, beraz hartu behar duzun denbora. Jokaldi oker bat eta akabo! Baina aldi bakoitzean behin salto egin dezakezu.</string>
   <string name="yourStreakX">Zure garaipen-bolada: %s</string>
   <string name="streakSkipExplanation">Jokaldi hau saltatu zure bolada mantentzeko! Lasterketa bakoitzean behin bakarrik erabili dezakezu.</string>

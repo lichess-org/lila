@@ -1,9 +1,9 @@
 package views.user
 
 import lila.app.UiEnv.{ *, given }
+import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestAny3Perfs
 import lila.user.LightCount
-import lila.core.perf.UserWithPerfs
 
 object list:
 

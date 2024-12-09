@@ -1,17 +1,17 @@
 package lila.user
 
 import reactivemongo.api.bson.*
-
 import scala.util.Success
+import chess.{ IntRating, ByColor }
+import chess.rating.IntRatingDiff
 
+import lila.core.perf.{ PerfId, UserPerfs, UserWithPerfs }
+import lila.core.user.LightPerf
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.rating.{ Glicko, Perf, UserPerfs }
-import lila.core.user.LightPerf
-import lila.core.perf.{ PerfId, UserPerfs }
-import lila.rating.PerfType
 import lila.rating.GlickoExt.rankable
+import lila.rating.PerfType
 
 final class RankingApi(
     c: AsyncCollFailingSilently,
@@ -23,8 +23,9 @@ final class RankingApi(
   import RankingApi.*
   private given BSONDocumentHandler[Ranking] = Macros.handler[Ranking]
 
-  def save(user: User, perfType: PerfType, perfs: UserPerfs): Funit =
-    save(user, perfType, perfs(perfType))
+  def save(us: ByColor[UserWithPerfs], perfType: PerfType): Funit =
+    us.toList.parallelVoid: u =>
+      save(u.user, perfType, u.perfs(perfType))
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
     (user.rankable && perf.nb >= 2 && lila.rating.PerfType.isLeaderboardable(perfType)).so:

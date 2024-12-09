@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
@@ -11,12 +12,11 @@ final class TwoFactorUi(helpers: Helpers, ui: AccountUi)(
 ):
   import helpers.{ *, given }
   import trans.{ tfa as trt }
-  import ui.AccountPage
 
   def setup(form: Form[?])(using Context)(using me: Me) =
     val secret = form("secret").value.orZero
     ui.AccountPage(s"${me.username} - ${trt.twoFactorAuth.txt()}", "twofactor")
-      .js(EsmInit("bits.qrcode")):
+      .js(Esm("bits.qrcode")):
         div(cls := "twofactor box box-pad")(
           h1(cls := "box__top")(trt.twoFactorAuth()),
           standardFlash,

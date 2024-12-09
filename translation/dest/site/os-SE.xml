@@ -96,7 +96,6 @@
   <string name="replayMode">Фæлхатын кæсын</string>
   <string name="realtimeReplay">Партийы хуызæн</string>
   <string name="byCPL">Рæдыдтытæй</string>
-  <string name="openStudy">Байгом кæнын студийы</string>
   <string name="enable">Ссудзын</string>
   <string name="bestMoveArrow">Æвдисын иуыл хуыздæр цыдтæ фатæгтæй</string>
   <string name="evaluationGauge">Аргъы шкала</string>
@@ -360,7 +359,6 @@
   <string name="block">Блокадæ бакæнын</string>
   <string name="blocked">Блокадæгондтæ</string>
   <string name="unblock">Блокадæ айсын</string>
-  <string name="followsYou">Дæумæ хъус дары</string>
   <string name="xStartedFollowingY">%1$s %2$s-мæ райдыдта хъус дарын</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s хъусдарæг</item>
@@ -392,9 +390,6 @@
   <string name="safeTournamentName">Равзар æдас ном турнирæн.</string>
   <string name="inappropriateNameWarning">Турниры ном куы зæрдæхсайгæ уа, уæд блокадæ дын акæндзысты.</string>
   <string name="emptyTournamentName">Ныууадз афтидæй, цæмæй турнир уыд сæмбæлгæ гроссмейстеры номæн.</string>
-  <string name="recommendNotTouching">Фæлтау сæ ма æвнал.</string>
-  <string name="fewerPlayers">Хайады домæнтæ куы раттдзынæ, уæд дæ ерысы къаддæр адæм хъаздзысты.</string>
-  <string name="showAdvancedSettings">Равдисын баххæстæг настройкæтæ</string>
   <string name="makePrivateTournament">Турнир æхгæдæй скæнын æмæ бацæуæн арæн скæнын паролæй</string>
   <string name="join">Хайад исын</string>
   <string name="withdraw">Ныууадзын</string>
@@ -429,8 +424,6 @@
   <string name="ifNoneLeaveEmpty">Кæд нæй, ныууадз афтидæй</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профиль æндæр кæнын</string>
-  <string name="firstName">Ном</string>
-  <string name="lastName">Мыггаг</string>
   <string name="biography">Махи тыххæй</string>
   <string name="thankYou">Бузныг!</string>
   <string name="socialMediaLinks">Социалон хызтæм дæнцæгтæ</string>
@@ -469,11 +462,8 @@
   <string name="reason">Аххос</string>
   <string name="whatIsIheMatter">Цы хабар у?</string>
   <string name="cheat">Фæлитой митæ</string>
-  <string name="insult">Бафхæрд</string>
   <string name="troll">Троллинг</string>
-  <string name="ratingManipulation">Рейтингимæ махинацитæ</string>
   <string name="other">Æндæр</string>
-  <string name="reportDescriptionHelp">Бавæр дæнцæгтæ ахæм хъæзтытæм, кæм, дæм кæсы, уыдысты уагты халынтæ, æмæ бамбарын кæ, цы хабар у. Комкоммæ зæгъын \"уый сайы\" æнæфаг у, радзур нын, ахæм хатдзæгмæ куыд æрцыдтæ. Мах тагъддæр кусдзыстæм, англисагау кæд фысдзынæ.</string>
   <string name="error.provideOneCheatedGameLink">Табуафси, бафтау æммыст иу дæнцæг ахæм хъазтмæ, кæм, дæм кæсы, уыдысты уагты халынтæ.</string>
   <string name="by">%s</string>
   <string name="thisTopicIsNowClosed">Ацы тæрхон æхгæд у.</string>

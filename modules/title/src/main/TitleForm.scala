@@ -1,11 +1,10 @@
 package lila.title
 
+import chess.FideId
 import play.api.data.*
 import play.api.data.Forms.*
-import chess.FideId
 
-import lila.common.Form.{ cleanNonEmptyText, playerTitle, fideId, into, url, stringIn }
-import lila.core.id.ImageId
+import lila.common.Form.{ cleanNonEmptyText, fideId, playerTitle, stringIn, url }
 
 object TitleForm:
 

@@ -1,6 +1,5 @@
 export interface MsgOpts {
   data: MsgData;
-  i18n: I18nDict;
 }
 export interface MsgData {
   me: Me;
@@ -54,7 +53,7 @@ export interface SearchResult {
 
 export interface Typing {
   user: string;
-  timeout: number;
+  timeout: Timeout;
 }
 
 export type Pane = 'side' | 'convo';

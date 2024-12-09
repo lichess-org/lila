@@ -1,10 +1,9 @@
 package controllers
 
-import scala.util.chaining.*
 import play.api.http.ContentTypes
+import play.api.libs.EventSource
 import play.api.libs.json.*
 import play.api.mvc.Result
-import play.api.libs.EventSource
 
 import lila.app.{ *, given }
 import lila.common.Json.given

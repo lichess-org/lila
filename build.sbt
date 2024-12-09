@@ -51,7 +51,7 @@ ThisBuild / libraryDependencySchemes ++= Seq(
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,
   reactivemongo.driver, /* reactivemongo.kamon, */ maxmind, scalatags,
-  kamon.core, kamon.influxdb, kamon.metrics, kamon.prometheus,
+  kamon.core, kamon.influxdb, kamon.metrics,
   scaffeine, caffeine, lettuce, uaparser, nettyTransport, reactivemongo.shaded
 ) ++ tests.bundle
 
@@ -79,7 +79,7 @@ lazy val modules = Seq(
   notifyModule, clas, perfStat, opening, timeline,
   setup, video, fide, title, push,
   // and then the smaller ones
-  pool, lobby, relation, tv, coordinate, feed, history,
+  pool, lobby, relation, tv, coordinate, feed, history, recap,
   shutup, appeal, irc, explorer, learn, event, coach,
   practice, evalCache, irwin, bot, racer, cms, i18n,
   socket, bookmark, studySearch, gameSearch, forumSearch, teamSearch,
@@ -124,7 +124,7 @@ lazy val i18n = module("i18n",
     I18n.serialize(
       sourceDir = new File("translation/source"),
       destDir = new File("translation/dest"),
-      dbs = "site arena emails learn activity coordinates study class contact appeal patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding".split(' ').toList,
+      dbs = "site arena emails learn activity coordinates study class contact appeal patron coach broadcast streamer tfa settings preferences team perfStat search tourname faq lag swiss puzzle puzzleTheme challenge storm ublog insight keyboardMove timeago oauthScope dgt voiceCommands onboarding features".split(' ').toList,
       outputFile
     )
   }.taskValue
@@ -237,7 +237,7 @@ lazy val user = module("user",
 
 lazy val game = module("game",
   Seq(tree, rating, memo),
-  Seq(compression) ++ tests.bundle
+  Seq(compression) ++ tests.bundle ++ Seq(scalacheck, munitCheck, chess.testKit)
 )
 
 lazy val gameSearch = module("gameSearch",
@@ -259,7 +259,7 @@ lazy val bot = module("bot",
 lazy val analyse = module("analyse",
   Seq(tree, memo, ui),
   tests.bundle
-)
+).dependsOn(coreI18n % "test->test")
 
 lazy val round = module("round",
   Seq(room, game, user, playban, pref, chat),
@@ -309,7 +309,7 @@ lazy val gathering = module("gathering",
 lazy val tournament = module("tournament",
   Seq(gathering, room, memo),
   Seq(lettuce) ++ tests.bundle
-)
+).dependsOn(coreI18n % "test->test")
 
 lazy val swiss = module("swiss",
   Seq(gathering, room, memo),
@@ -393,7 +393,7 @@ lazy val practice = module("practice",
 
 lazy val playban = module("playban",
   Seq(memo),
-  Seq()
+  tests.bundle
 )
 
 lazy val push = module("push",
@@ -481,6 +481,11 @@ lazy val notifyModule = module("notify",
   Seq()
 )
 
+lazy val recap = module("recap",
+  Seq(memo, ui, user, game, puzzle),
+  Seq()
+)
+
 lazy val socket = module("socket",
   Seq(memo),
   Seq(lettuce)
@@ -491,7 +496,6 @@ lazy val tree = module("tree",
   Seq(chess.playJson)
 )
 
-// todo remove common, move common.Icon to ui.Icon
 lazy val ui = module("ui",
   Seq(core, coreI18n),
   Seq()
@@ -505,7 +509,10 @@ lazy val ui = module("ui",
 
 lazy val web = module("web",
   Seq(ui, memo),
-  playWs.bundle ++ tests.bundle ++ Seq(play.logback, play.server, play.netty)
+  playWs.bundle ++ tests.bundle ++ Seq(
+    play.logback, play.server, play.netty,
+    kamon.prometheus,
+  )
 )
 
 lazy val api = module("api",

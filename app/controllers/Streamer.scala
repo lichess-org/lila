@@ -77,11 +77,11 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
         }
   }
 
-  private def modData(streamer: StreamerModel)(using Context) =
-    isGrantedOpt(_.ModLog).soFu:
+  private def modData(streamer: StreamerModel)(using ctx: Context) =
+    (isGrantedOpt(_.ModLog) && ctx.isnt(streamer)).soFu:
       logApi
         .userHistory(streamer.userId)
-        .zip(env.user.noteApi.byUserForMod(streamer.userId))
+        .zip(env.user.noteApi.toUserForMod(streamer.userId))
         .zip(env.streamer.api.sameChannels(streamer))
 
   def edit = Auth { ctx ?=> _ ?=>

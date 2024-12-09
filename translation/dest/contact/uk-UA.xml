@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Чим ми можемо вам допомогти?</string>
   <string name="visitThisPage">Відвідайте цю сторінку, щоб вирішити проблему</string>
   <string name="iCantLogIn">Я не можу увійти</string>
-  <string name="noConfirmationEmail">Я не отримав лист з підтвердженням</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Я не отримав лист з підтвердженням</string>
   <string name="forgotPassword">Я забув пароль</string>
   <string name="forgotUsername">Я забув ім\'я користувача</string>
   <string name="youCanLoginWithEmail">Ви можете увійти за допомогою електронної пошти, за допомогою якої ви зареєструвалися</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">За певних обставин при грі проти облікового запису бота, гра з рейтингом не може обраховувати очки, якщо система визначить, що гравець зловживає ботом для отримання рейтингових очок.</string>
   <string name="errorPage">Сторінка помилки</string>
   <string name="reportErrorPage">Якщо ви зіткнулися з повідомленням про помилку, ви можете повідомити про це:</string>
-  <string name="wantBroadcastTournament">Я хочу транслювати турнір</string>
   <string name="learnHowToMakeBroadcasts">Дізнайтеся, як робити власні трансляції на Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Також ви можете зв\'язатися з командою проведення трансляцій щодо офіційних етерів.</string>
   <string name="banAppeal">Оскарження бану або обмеження за IP-адресою</string>
   <string name="engineAppeal">Відмітка про використання шахового рушія або нечесну гру</string>
   <string name="sendAppealTo">Ви можете надіслати оскарження на %s.</string>

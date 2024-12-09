@@ -1,30 +1,37 @@
 import { isTouchDevice } from 'common/device';
+import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
+import { escapeHtml, myUserId } from 'common';
+import { storage } from 'common/storage';
+import { log } from 'common/permalog';
 
-export async function initModule() {
+export async function initModule(): Promise<void> {
   const ops = processQueryParams();
-  const logs = await site.log.get();
+  const logs = await log.get();
   const text =
     `Browser: ${navigator.userAgent}\n` +
     `Cores: ${navigator.hardwareConcurrency}, ` +
     `Touch: ${isTouchDevice()} ${navigator.maxTouchPoints}, ` +
     `Screen: ${window.screen.width}x${window.screen.height}, ` +
     `Lang: ${navigator.language}, ` +
-    `Engine: ${site.storage.get('ceval.engine')}, ` +
-    `Threads: ${site.storage.get('ceval.threads')}` +
+    `Engine: ${storage.get('ceval.engine')}, ` +
+    `Threads: ${storage.get('ceval.threads')}, ` +
+    `Blindfold: ${storage.boolean('blindfold.' + (myUserId() || 'anon')).get()}, ` +
+    `Pieces: ${document.body.dataset.pieceSet}` +
     (logs ? `\n\n${logs}` : '');
-  const escaped = site.escapeHtml(text);
+  const escaped = escapeHtml(text);
   const flash = ops > 0 ? `<p class="good">Changes applied</p>` : '';
-  const submit = document.body.dataset.user
+  const submit = myUserId()
     ? `<form method="post" action="/diagnostic">
       <input type="hidden" name="text" value="${escaped}"/>
       <button type="submit" class="button">send to lichess</button></form>`
     : '';
   const clear = logs ? `<button class="button button-empty button-red clear">clear logs</button>` : '';
   const copy = `<button class="button copy" data-icon="${licon.Clipboard}"> copy</button>`;
-  const dlg = await site.dialog.dom({
+  const dlg = await domDialog({
     class: 'diagnostic',
-    css: [{ themed: 'bits.diagnosticDialog' }],
+    css: [{ hashed: 'bits.diagnosticDialog' }],
+    modal: true,
     htmlText: `
       <h2>Diagnostics</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>
@@ -38,7 +45,7 @@ export async function initModule() {
       window.getSelection()?.addRange(range);
     }, 0);
   $('.err', dlg.view).on('focus', select);
-  $('.clear', dlg.view).on('click', () => site.log.clear().then(dlg.close));
+  $('.clear', dlg.view).on('click', () => log.clear().then(() => dlg.close()));
   $('.copy', dlg.view).on('click', () =>
     navigator.clipboard.writeText(text).then(() => {
       const copied = $(`<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`);
@@ -46,7 +53,7 @@ export async function initModule() {
       setTimeout(() => copied.remove(), 2000);
     }),
   );
-  dlg.showModal();
+  dlg.show();
 }
 
 const storageProxy: { [key: string]: { storageKey: string; validate: (val?: string) => boolean } } = {
@@ -57,10 +64,6 @@ const storageProxy: { [key: string]: { storageKey: string; validate: (val?: stri
   wsHost: {
     storageKey: 'socket.host',
     validate: (val?: string) => val?.endsWith('.lichess.org') ?? false,
-  },
-  allowLsfw: {
-    storageKey: 'ceval.lsfw.forceEnable',
-    validate: (val?: string) => val === 'true' || val === 'false',
   },
   logWindow: {
     storageKey: 'log.window',
@@ -74,8 +77,8 @@ const ops: { [op: string]: (val?: string) => boolean } = {
       const kv = atob(data).split('=');
       const proxy = storageProxy[kv[0]];
       if (proxy?.validate(kv[1])) {
-        site.log(`storage set ${kv[0]}=${kv[1]}`);
-        site.storage.set(proxy.storageKey, kv[1]);
+        log(`storage set ${kv[0]}=${kv[1]}`);
+        storage.set(proxy.storageKey, kv[1]);
         return true;
       }
     } catch (_) {
@@ -84,10 +87,10 @@ const ops: { [op: string]: (val?: string) => boolean } = {
     return false;
   },
   unset: (val: string) => {
-    site.log(`storage unset ${val ? val : 'all'}`);
+    log(`storage unset ${val ? val : 'all'}`);
 
-    if (!val) for (const key in storageProxy) site.storage.remove(storageProxy[key].storageKey);
-    else if (val in storageProxy) site.storage.remove(storageProxy[val].storageKey);
+    if (!val) for (const key in storageProxy) storage.remove(storageProxy[key].storageKey);
+    else if (val in storageProxy) storage.remove(storageProxy[val].storageKey);
     else return false;
     return true;
   },

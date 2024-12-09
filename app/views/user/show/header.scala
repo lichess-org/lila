@@ -1,12 +1,11 @@
 package views.user
 package show
 
-import lila.app.mashup.UserInfo
 import lila.app.UiEnv.{ *, given }
-
+import lila.app.mashup.UserInfo
 import lila.user.Plan.sinceDate
-import lila.user.Profile.*
 import lila.user.PlayTime.*
+import lila.user.Profile.*
 
 object header:
 
@@ -17,8 +16,8 @@ object header:
     frag(
       div(cls := "box__top user-show__header")(
         if u.isPatron then
-          h1(cls := s"user-link ${if isOnline(u.id) then "online" else "offline"}")(
-            a(href := routes.Plan.index)(patronIcon),
+          h1(cls := s"user-link ${if isOnline.exec(u.id) then "online" else "offline"}")(
+            a(href := routes.Plan.index())(patronIcon),
             ui.userDom(u)
           )
         else h1(ui.userDom(u)),
@@ -32,7 +31,7 @@ object header:
           otherTrophies(info),
           u.plan.active.option(
             a(
-              href := routes.Plan.index,
+              href := routes.Plan.index(),
               cls  := "trophy award patron icon3d",
               ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
             )(patronIconChar)
@@ -148,6 +147,14 @@ object header:
                   href     := s"${routes.Report.form}?username=${u.username}",
                   dataIcon := Icon.CautionTriangle
                 )(trans.site.reportXToModerators.txt(u.username))
+              ),
+              (ctx.is(u) || isGranted(_.CloseAccount)).option(
+                a(href := routes.Relation.following(u.username), dataIcon := Icon.User)(trans.site.friends())
+              ),
+              (ctx.is(u) || isGranted(_.BoostHunter)).option(
+                a(href := s"${routes.User.opponents}?u=${u.username}", dataIcon := Icon.User)(
+                  trans.site.favoriteOpponents()
+                )
               )
             )
           )
@@ -184,7 +191,7 @@ object header:
                     profile.nonEmptyRealName.map: name =>
                       strong(cls := "name")(name),
                     profile.nonEmptyBio.map: bio =>
-                      p(cls := "bio")(richText(shorten(bio, 400), nl2br = false))
+                      p(cls := "bio")(richText(bio, nl2br = true))
                   )
                 ),
                 div(cls := "stats")(
@@ -209,18 +216,6 @@ object header:
                         trans.site.profileCompletion(s"${profile.completionPercent}%")
                       )
                     ),
-                  (ctx.is(u) || isGranted(_.CloseAccount)).option(
-                    frag(
-                      br,
-                      a(href := routes.Relation.following(u.username))(trans.site.friends())
-                    )
-                  ),
-                  (ctx.is(u) || isGranted(_.BoostHunter)).option(
-                    frag(
-                      br,
-                      a(href := s"${routes.User.opponents}?u=${u.username}")(trans.site.favoriteOpponents())
-                    )
-                  ),
                   u.playTime.map: playTime =>
                     frag(
                       p(

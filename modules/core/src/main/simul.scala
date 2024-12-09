@@ -3,8 +3,8 @@ package simul
 
 import _root_.chess.variant.Variant
 
+import lila.core.id.{ GameId, SimulId }
 import lila.core.rating.Score
-import lila.core.id.{ SimulId, GameId }
 import lila.core.userId.UserId
 
 trait Simul:

@@ -13,14 +13,8 @@
   <string name="tournamentDescription">Deskripsi singkat turnamen</string>
   <string name="fullDescription">Keterangan acara secara penuh</string>
   <string name="fullDescriptionHelp">Deskripsi panjang opsional dari siaran. %1$s tersedia. Panjangnya harus kurang dari %2$s karakter.</string>
-  <string name="sourceUrlOrGameIds">Sumber URL, atau IDs game</string>
   <string name="sourceUrlHelp">URL yang akan di-polling oleh Lichess untuk mendapatkan pembaruan PGN. Itu harus dapat diakses publik dari Internet.</string>
-  <string name="gameIdsHelp">Kalau tidak, kamu bisa memasukkan lebih dari 64 Lichess IDs game, dipisahkan oleh spasi.</string>
-  <string name="startDate">Tanggal mulai di zona waktu Anda sendiri</string>
   <string name="startDateHelp">Opsional, jika Anda tahu kapan acara dimulai</string>
-  <string name="credits">Sertakan sumber</string>
-  <string name="broadcastUrl">Tautan siaran</string>
-  <string name="currentRoundUrl">Tautan ronde ini</string>
   <string name="currentGameUrl">Tautan permainan ini</string>
   <string name="downloadAllRounds">Unduh semua ronde</string>
   <string name="resetRound">Atur ulang ronde ini</string>

@@ -1,29 +1,19 @@
-function shuffle<T>(a: T[]) {
-  let j, x, i;
-  for (i = a.length; i; i -= 1) {
-    j = Math.floor(Math.random() * i);
-    x = a[i - 1];
-    a[i - 1] = a[j];
-    a[j] = x;
-  }
-}
+import { shuffle } from 'common/algo';
 
-const list = [
-  'awesome',
-  'excellent',
-  'greatJob',
-  'perfect',
-  'outstanding',
-  'wayToGo',
-  'yesYesYes',
-  'youreGoodAtThis',
-  'nailedIt',
-  'rightOn',
+const list: string[] = [
+  i18n.learn.awesome,
+  i18n.learn.excellent,
+  i18n.learn.greatJob,
+  i18n.learn.perfect,
+  i18n.learn.outstanding,
+  i18n.learn.wayToGo,
+  i18n.learn.yesYesYes,
+  i18n.learn.youreGoodAtThis,
+  i18n.learn.nailedIt,
+  i18n.learn.rightOn,
 ];
 shuffle(list);
 
 let it = 0;
 
-export default function () {
-  return list[it++ % list.length];
-}
+export default () => list[it++ % list.length];

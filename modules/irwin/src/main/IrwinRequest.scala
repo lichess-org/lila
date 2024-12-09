@@ -1,7 +1,6 @@
 package lila.irwin
 
 import lila.analyse.Analysis
-import lila.game.Game
 import lila.report.Suspect
 
 case class IrwinRequest(

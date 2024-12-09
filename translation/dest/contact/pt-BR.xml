@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Como podemos ajudar?</string>
   <string name="visitThisPage">Visite esta página para resolver o problema</string>
   <string name="iCantLogIn">Eu não consigo entrar</string>
-  <string name="noConfirmationEmail">Não recebi meu e-mail de confirmação</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Não recebi meu e-mail de confirmação</string>
   <string name="forgotPassword">Esqueci minha senha</string>
   <string name="forgotUsername">Esqueci meu usuário</string>
   <string name="youCanLoginWithEmail">Você pode fazer login com o e-mail que você se inscreveu</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Em certos casos, ao jogar contra uma conta bot, um jogo ranqueado poderá não valer pontos, se for determinado que o jogador está abusando do bot para conseguir pontos.</string>
   <string name="errorPage">Página de erro</string>
   <string name="reportErrorPage">Se você encontrou uma página de erro, você pode reportá-la:</string>
-  <string name="wantBroadcastTournament">Quero transmitir um torneio</string>
   <string name="learnHowToMakeBroadcasts">Aprenda a fazer suas próprias transmissões no Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Você também pode contatar a equipe de transmissão para saber mais sobre transmissões oficiais.</string>
   <string name="banAppeal">Apelação de banimento ou restrição de IP</string>
   <string name="engineAppeal">Assistência de software de xadrez</string>
   <string name="sendAppealTo">Você pode enviar uma apelação para %s.</string>

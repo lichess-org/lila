@@ -4,13 +4,9 @@ import play.api.libs.json.*
 
 import lila.common.Json.{ writeAs, given }
 import lila.core.LightUser
-import lila.core.perf.{ Perf, UserPerfs }
-
-import lila.core.user.{ Profile, PlayTime, LightPerf }
-import lila.rating.PerfType
-import lila.core.perf.{ KeyedPerf, UserWithPerfs }
+import lila.core.perf.{ KeyedPerf, Perf, PuzPerf, UserPerfs, UserWithPerfs }
+import lila.core.user.{ LightPerf, PlayTime, Profile }
 import lila.rating.UserPerfsExt.perfsList
-import lila.core.perf.PuzPerf
 
 final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user.JsonView:
 
@@ -38,7 +34,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
 
   def roundPlayer(u: User, perf: Option[KeyedPerf]) =
     if u.enabled.no then disabled(u.light)
-    else base(u, perf).add("online" -> isOnline(u.id))
+    else base(u, perf).add("online" -> isOnline.exec(u.id))
 
   private def base(u: User, perfs: Option[UserPerfs | KeyedPerf]) =
     Json
@@ -56,7 +52,7 @@ final class JsonView(isOnline: lila.core.socket.IsOnline) extends lila.core.user
       .add("verified" -> u.isVerified)
 
   def lightPerfIsOnline(lp: LightPerf) =
-    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
+    lightPerfWrites.writes(lp).add("online" -> isOnline.exec(lp.user.id))
 
   given lightPerfIsOnlineWrites: OWrites[LightPerf] = OWrites(lightPerfIsOnline)
 

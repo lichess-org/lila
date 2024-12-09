@@ -2,7 +2,6 @@
 <resources>
   <string name="saveDraft">ရေးလက်စကို သိမ်းပါ</string>
   <string name="deleteBlog">ဤဘလော့ဂ် ပို့စ်ကို လုံးဝ ဖျက်ပစ်ပါ</string>
-  <string name="deleteImage">ပုံကို ဖျက်ပါ</string>
   <string name="safeToUseImages">အောက်ပါ ဝက်ဗ်ဆိုက်တို့မှ ပုံများကို ဘေးကင်းလုံခြုံစွာ အသုံးပြုနိုင်ပါသည် -</string>
   <string name="selectPostTopics">သင့် ပို့စ် အကြောင်းအရာကို ရွေးချယ်ပါ</string>
   <string name="useImagesYouMadeYourself">သင်ကိုယ်တိုင် ပြုလုပ်ထားသော ပုံများ၊ ရိုက်ထားသော ဓာတ်ပုံများ၊ Lichess ဖန်သားပြင် ဖမ်းထားသည့် ပုံများ၊ သူတပါး၏ မူပိုင်ခွင့် မဟုတ်သော မည်သည့် အရာကို မဆို အသုံးပြုနိုင်ပါသည်။</string>

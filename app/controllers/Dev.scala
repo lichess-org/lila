@@ -1,6 +1,7 @@
 package controllers
 
 import lila.app.*
+import play.api.libs.json.*
 
 final class Dev(env: Env) extends LilaController(env):
 
@@ -26,9 +27,11 @@ final class Dev(env: Env) extends LilaController(env):
     env.web.settings.noDelaySecret,
     env.web.settings.prizeTournamentMakers,
     env.web.settings.sitewideCoepCredentiallessHeader,
+    env.web.socketTest.distributionSetting,
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
+    env.recap.parallelismSetting,
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
     env.relay.proxyCredentials
@@ -76,3 +79,15 @@ final class Dev(env: Env) extends LilaController(env):
   private def runCommand(command: String)(using Me): Fu[String] =
     env.mod.logApi.cli(command) >>
       env.api.cli(command.split(" ").toList)
+
+  def socketTestResult = AuthBody(parse.json) { ctx ?=> me ?=>
+    ctx.body.body
+      .validate[JsArray]
+      .fold(
+        err => BadRequest(Json.obj("error" -> err.toString)),
+        results =>
+          env.web.socketTest
+            .put(Json.obj(me.userId.toString -> results))
+            .inject(jsonOkResult)
+      )
+  }

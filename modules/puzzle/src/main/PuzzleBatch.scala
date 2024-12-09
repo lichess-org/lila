@@ -20,11 +20,12 @@ final class PuzzleBatch(colls: PuzzleColls, anonApi: PuzzleAnon, pathApi: Puzzle
     me.foldUse(anonApi.getBatchFor(angle, difficulty, nb)): me ?=>
       val tier =
         if perf.nb > 5000 then PuzzleTier.good
+        else if angle.opening.isDefined then PuzzleTier.good
         else if PuzzleDifficulty.isExtreme(difficulty) then PuzzleTier.good
         else PuzzleTier.top
       pathApi
         .nextFor(angle, tier, difficulty, Set.empty)
-        .orFail(s"No puzzle path for ${me.username} $tier")
+        .orFail(s"No puzzle path for batch ${me.username} $angle $tier")
         .flatMap: pathId =>
           colls.path:
             _.aggregateList(nb): framework =>

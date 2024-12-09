@@ -2,18 +2,18 @@ package lila.setup
 
 import chess.variant.Variant
 import chess.{ Clock, Mode }
+import chess.IntRating
 import scalalib.model.Days
 
-import lila.lobby.{ TriColor, Hook, Seek }
-import lila.rating.{ Perf }
-import lila.rating.RatingRange.withinLimits
-import lila.core.rating.RatingRange
 import lila.core.perf.UserWithPerfs
+import lila.core.rating.RatingRange
+import lila.lobby.{ Hook, Seek, TriColor }
+import lila.rating.RatingRange.withinLimits
 
 case class HookConfig(
     variant: chess.variant.Variant,
     timeMode: TimeMode,
-    time: Double,
+    time: Double, // minutes
     increment: Clock.IncrementSeconds,
     days: Days,
     mode: Mode,
@@ -25,17 +25,16 @@ case class HookConfig(
     if me.isEmpty then this
     else copy(ratingRange = ratingRange.withinLimits(perf.intRating, 500))
 
-  def fixColor = copy(
-    color =
-      if mode == Mode.Rated &&
-        variantsWhereWhiteIsBetter(variant) &&
-        color != TriColor.Random
-      then TriColor.Random
-      else color
-  )
-
-  def >> =
-    (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
+  def >> = (
+    variant.id,
+    timeMode.id,
+    time,
+    increment,
+    days,
+    mode.id.some,
+    ratingRange.toString.some,
+    color.name.some
+  ).some
 
   def withTimeModeString(tc: Option[String]) =
     tc match
@@ -59,7 +58,7 @@ case class HookConfig(
             variant = variant,
             clock = clock,
             mode = if lila.core.game.allowRated(variant, clock.some) then mode else Mode.Casual,
-            color = color.name,
+            color = color,
             user = user,
             blocking = blocking,
             sid = sid,
@@ -72,14 +71,13 @@ case class HookConfig(
               variant = variant,
               daysPerTurn = makeDaysPerTurn,
               mode = mode,
-              color = color.name,
               user = u,
               blocking = blocking,
               ratingRange = ratingRange
             )
 
   def updateFrom(game: Game) =
-    copy(
+    val h1 = copy(
       variant = game.variant,
       timeMode = TimeMode.ofGame(game),
       time = game.clock.map(_.limitInMinutes) | time,
@@ -87,6 +85,8 @@ case class HookConfig(
       days = game.daysPerTurn | days,
       mode = game.mode
     )
+    val h2 = if h1.isRatedUnlimited then h1.copy(mode = Mode.Casual) else h1
+    if !h2.validClock then h2.copy(time = 1) else h2
 
   def withRatingRange(ratingRange: String) =
     copy(ratingRange = RatingRange.orDefault(ratingRange))
@@ -103,7 +103,7 @@ object HookConfig extends BaseHumanConfig:
       d: Days,
       m: Option[Int],
       e: Option[String],
-      c: String
+      c: Option[String]
   ) =
     val realMode = m.fold(Mode.default)(Mode.orDefault)
     new HookConfig(
@@ -113,8 +113,8 @@ object HookConfig extends BaseHumanConfig:
       increment = i,
       days = d,
       mode = realMode,
-      ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault),
-      color = TriColor(c).err(s"Invalid color $c")
+      color = TriColor.orDefault(c),
+      ratingRange = e.fold(RatingRange.default)(RatingRange.orDefault)
     )
 
   def default(auth: Boolean): HookConfig = default.copy(mode = Mode(auth))

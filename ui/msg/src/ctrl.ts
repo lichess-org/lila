@@ -1,4 +1,4 @@
-import {
+import type {
   MsgData,
   Contact,
   Convo,
@@ -10,9 +10,11 @@ import {
   Pane,
   Redraw,
 } from './interfaces';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import * as network from './network';
 import { scroller } from './view/scroller';
+import { storage, type LichessStorage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export default class MsgCtrl {
   data: MsgData;
@@ -29,7 +31,6 @@ export default class MsgCtrl {
 
   constructor(
     data: MsgData,
-    readonly trans: Trans,
     readonly redraw: Redraw,
   ) {
     this.data = data;
@@ -83,7 +84,7 @@ export default class MsgCtrl {
   };
 
   private onLoadConvo = (convo: Convo) => {
-    this.textStore = site.storage.make(`msg:area:${convo.user.id}`);
+    this.textStore = storage.make(`msg:area:${convo.user.id}`);
     this.onLoadMsgs(convo.msgs);
     if (this.typing) {
       clearTimeout(this.typing.timeout);
@@ -127,7 +128,7 @@ export default class MsgCtrl {
     this.addMsg(msg, contact);
     if (contact) {
       let redrawn = false;
-      if (msg.user == this.data.convo?.user.id) {
+      if (msg.user === this.data.convo?.user.id) {
         this.data.convo.msgs.unshift(msg);
         if (document.hasFocus()) redrawn = this.setRead();
         this.receiveTyping(msg.user, true);
@@ -148,7 +149,7 @@ export default class MsgCtrl {
   };
 
   private findContact = (userId: string): Contact | undefined =>
-    this.data.contacts.find(c => c.user.id == userId);
+    this.data.contacts.find(c => c.user.id === userId);
 
   private currentContact = (): Contact | undefined =>
     this.data.convo && this.findContact(this.data.convo.user.id);
@@ -169,7 +170,7 @@ export default class MsgCtrl {
   setRead = () => {
     const msg = this.currentContact()?.lastMsg;
     if (msg && msg.user != this.data.me.id) {
-      site.pubsub.emit('notify-app.set-read', msg.user);
+      pubsub.emit('notify-app.set-read', msg.user);
       if (msg.read) return false;
       msg.read = true;
       network.setRead(msg.user);
@@ -189,20 +190,6 @@ export default class MsgCtrl {
       });
   };
 
-  report = () => {
-    const user = this.data.convo?.user;
-    if (user) {
-      const text = this.reportableMsg()?.text.replace(/\n/g, '\r\n').slice(0, 140);
-      if (text)
-        network
-          .report(user.name, text)
-          .then(_ => alert('Your report has been sent.'))
-          .catch(err => alert('Failed to send report: ' + err));
-    }
-  };
-
-  reportableMsg = (): Msg | undefined => this.data.convo?.msgs.find(m => m.user != this.data.me.id);
-
   block = () => {
     const userId = this.data.convo?.user.id;
     if (userId) network.block(userId).then(() => this.openConvo(userId));
@@ -214,7 +201,7 @@ export default class MsgCtrl {
   };
 
   changeBlockBy = (userId: string) => {
-    if (userId == this.data.convo?.user.id) this.openConvo(userId);
+    if (userId === this.data.convo?.user.id) this.openConvo(userId);
   };
 
   sendTyping = throttle(3000, (user: string) => {
@@ -226,11 +213,11 @@ export default class MsgCtrl {
       clearTimeout(this.typing.timeout);
       this.typing = undefined;
     }
-    if (cancel !== true && this.data.convo?.user.id == userId) {
+    if (cancel !== true && this.data.convo?.user.id === userId) {
       this.typing = {
         user: userId,
         timeout: setTimeout(() => {
-          if (this.data.convo?.user.id == userId) this.typing = undefined;
+          if (this.data.convo?.user.id === userId) this.typing = undefined;
           this.redraw();
         }, 3000),
       };

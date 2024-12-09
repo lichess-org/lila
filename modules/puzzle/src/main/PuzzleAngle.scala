@@ -10,6 +10,10 @@ sealed abstract class PuzzleAngle(val key: String):
   def description: I18nKey
   def asTheme: Option[PuzzleTheme.Key]
   def opening: Option[Opening]
+  def categ = this match
+    case PuzzleAngle.Theme(PuzzleTheme.mix) => "mix"
+    case PuzzleAngle.Theme(_)               => "theme"
+    case PuzzleAngle.Opening(_)             => "opening"
 
 object PuzzleAngle:
   case class Theme(theme: PuzzleTheme.Key) extends PuzzleAngle(theme.value):
@@ -29,6 +33,7 @@ object PuzzleAngle:
         opKey => SimpleOpening(opKey).map(_.ref.key)
       )
       .flatMap(OpeningDb.shortestLines.get)
+    def isAbstract  = opening.isEmpty
     val name        = I18nKey(openingName)
     def description = I18nKey(s"From games with the opening: $openingName")
     def asTheme     = none

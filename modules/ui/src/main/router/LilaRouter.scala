@@ -1,12 +1,11 @@
 package lila.ui
 
+import chess.format.Uci
 import play.api.mvc.{ PathBindable, QueryStringBindable }
 import scalalib.newtypes.SameRuntime
 
 import lila.core.id.*
-import chess.variant.Variant
-import chess.format.Uci
-import lila.core.study.{ Order as StudyOrder }
+import lila.core.study.Order as StudyOrder
 
 object LilaRouter:
 

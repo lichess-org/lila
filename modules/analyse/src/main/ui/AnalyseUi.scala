@@ -1,10 +1,11 @@
 package lila.analyse
 package ui
 
-import play.api.libs.json.*
 import chess.variant.*
+import play.api.libs.json.*
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
@@ -22,6 +23,7 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
       .css(ctx.blind.option("round.nvui"))
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .csp(csp.compose(_.withExternalAnalysisApis))
+      .i18n(_.puzzle, _.study)
       .graph(
         title = "Chess analysis board",
         url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
@@ -47,7 +49,12 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
                   )(v.name)
                 }
               ),
-              pov.game.variant.standard.option(div(cls := "analyse__wiki"))
+              pov.game.variant.standard.option(
+                fieldset(cls := "analyse__wiki empty toggle-box toggle-box--toggle", id := "wikibook-field")(
+                  legend(tabindex := 0)("WikiBook"),
+                  div(cls := "analyse__wiki-text")
+                )
+              )
             )
           ),
           div(cls := "analyse__board main-board")(chessgroundBoard),
@@ -72,9 +79,13 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
 
     def lpvJs(lpvConfig: JsObject)(using Translate): WithNonce[Frag] =
       embedJsUnsafe(s"""document.addEventListener("DOMContentLoaded",function(){LpvEmbed(${safeJsonValue(
-          lpvConfig ++ Json.obj(
-            "i18n" -> i18nJsObject(lpvI18n)
-          )
+          lpvConfig + ("i18n" -> Json.obj(
+            "flipTheBoard"         -> trans.site.flipBoard.txt(),
+            "analysisBoard"        -> trans.site.analysis.txt(),
+            "practiceWithComputer" -> trans.site.practiceWithComputer.txt(),
+            "getPgn"               -> trans.study.copyChapterPgn.txt(),
+            "download"             -> trans.site.download.txt()
+          ))
         )})})""")
 
     def lpvConfig(orientation: Option[Color], getPgn: Boolean) = Json
@@ -84,10 +95,3 @@ final class AnalyseUi(helpers: Helpers)(externalEngineEndpoint: String):
         )
       )
       .add("orientation", orientation.map(_.name))
-
-    private val lpvI18n = List(
-      trans.site.flipBoard,
-      trans.site.analysis,
-      trans.site.practiceWithComputer,
-      trans.site.download
-    )

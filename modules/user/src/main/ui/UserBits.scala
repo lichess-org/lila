@@ -2,10 +2,12 @@ package lila.user
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
+import lila.core.relation.Relation
 
 final class UserBits(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
 
   def communityMenu(active: String)(using Translate) =
     lila.ui.bits.pageMenuSubnav(
@@ -27,10 +29,30 @@ final class UserBits(helpers: Helpers):
       )
     )
 
-  def miniClosed(u: User)(using Translate) = Snippet:
+  def miniClosed(u: User, relation: Option[Relation])(using Translate) = Snippet:
     frag(
       div(cls := "title")(userLink(u, withPowerTip = false)),
-      div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed())
+      div(style := "padding: 20px 8px; text-align: center")(trans.settings.thisAccountIsClosed()),
+      relation
+        .exists(!_.isFollow)
+        .option(
+          a(
+            cls      := "btn-rack__btn relation-button text aclose",
+            title    := trans.site.unblock.txt(),
+            href     := s"${routes.Relation.unblock(u.id)}?mini=1",
+            dataIcon := Icon.NotAllowed
+          )(trans.site.blocked())
+        ),
+      relation
+        .exists(_.isFollow)
+        .option(
+          a(
+            cls      := "btn-rack__btn relation-button text aclose",
+            title    := trans.site.unfollow.txt(),
+            href     := s"${routes.Relation.unfollow(u.id)}?mini=1",
+            dataIcon := Icon.ThumbsUp
+          )(trans.site.following())
+        )
     )
 
   def signalBars(v: Int) = raw:
@@ -53,11 +75,11 @@ final class UserBits(helpers: Helpers):
       .collect:
         case (perf, rank) if rank == 1 =>
           span(cls := "trophy perf top1", title := s"${perf.trans} Champion!")(
-            img(src := assetUrl("images/trophy/Big-Gold-Cup.png"))
+            img(src := assetUrl("images/trophy/gold-cup-2.png"))
           )
         case (perf, rank) if rank <= 10 =>
           span(cls := "trophy perf top10", title := s"${perf.trans} Top 10!")(
-            img(src := assetUrl("images/trophy/Big-Silver-Cup.png"))
+            img(src := assetUrl("images/trophy/silver-cup-2.png"))
           )
         case (perf, rank) if rank <= 50 =>
           span(cls := "trophy perf top50", title := s"${perf.trans} Top 50 player!")(

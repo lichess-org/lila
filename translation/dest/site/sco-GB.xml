@@ -110,7 +110,6 @@
   <string name="deleteThisImportedGame">Delete this inbrocht gemm?</string>
   <string name="realtimeReplay">Suith-time</string>
   <string name="byCPL">Abyes CPL</string>
-  <string name="openStudy">Appen muise</string>
   <string name="enable">On-turn</string>
   <string name="bestMoveArrow">Heid muive arrae</string>
   <string name="evaluationGauge">Vailyie mett</string>
@@ -290,7 +289,6 @@
   <string name="block">Block</string>
   <string name="blocked">Blocked</string>
   <string name="unblock">Unblock</string>
-  <string name="followsYou">Follaes ye</string>
   <string name="xStartedFollowingY">%1$s startit follaein %2$s</string>
   <string name="more">Mair</string>
   <string name="memberSince">Member syne</string>
@@ -310,9 +308,6 @@
   <string name="safeTournamentName">Wale a gey mensefu name for the kemp.</string>
   <string name="inappropriateNameWarning">E\'en o barelins menseless cuild gar yer accoont ill end.</string>
   <string name="emptyTournamentName">Let abe tae caw the kemp efter a faur-kent chess pleyyer.</string>
-  <string name="recommendNotTouching">We rede ye no titch thir.</string>
-  <string name="fewerPlayers">If ye set entry perconnons, yer kemp maun gaither fewer pleyyers.</string>
-  <string name="showAdvancedSettings">Shaw pernicketie sets</string>
   <string name="makePrivateTournament">Mak the kemp preevat, an stent access wae a trystwird</string>
   <string name="join">Jine</string>
   <string name="withdraw">Resile</string>
@@ -340,11 +335,8 @@
   <string name="reason">Raison</string>
   <string name="whatIsIheMatter">Whit\'s wrang?</string>
   <string name="cheat">Cleek</string>
-  <string name="insult">Lichtlie</string>
   <string name="troll">Fash</string>
-  <string name="ratingManipulation">Ratin maneepulatit</string>
   <string name="other">Ither</string>
-  <string name="reportDescriptionHelp">Paste the link tae the gemm(s) an expone whit\'s wrang anent this uiser\'s behaviour. Dinnae juist say \"they cleek\", but tell us whitwey ye\'d cam tae this end. Yer clype will be processit faster gin scrievit wae English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide least ane line tae a cleekit gemm.</string>
   <string name="thisTopicIsNowClosed">This topic is lucken noo.</string>
   <string name="blog">Blog</string>

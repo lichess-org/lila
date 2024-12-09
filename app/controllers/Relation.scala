@@ -3,14 +3,14 @@ package controllers
 import play.api.libs.json.{ Json, Writes }
 import play.api.mvc.Result
 import scalalib.Json.given
+import scalalib.paginator.{ AdapterLike, Paginator }
 
 import lila.app.{ *, given }
-import scalalib.paginator.{ AdapterLike, Paginator }
 import lila.core.LightUser
-import lila.relation.Related
-import lila.relation.RelationStream.*
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestRatedPerf
+import lila.relation.Related
+import lila.relation.RelationStream.*
 
 final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
@@ -21,19 +21,10 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
     relation   <- ctx.userId.so(api.fetchRelation(_, user.id))
     followable <- ctx.isAuth.so(env.pref.api.followable(user.id))
     blocked    <- ctx.userId.so(api.fetchBlocks(user.id, _))
-    res <- negotiate(
-      Ok.snip:
-        if mini
-        then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
-        else views.relation.actions(user, relation, blocked = blocked, followable = followable)
-      ,
-      Ok:
-        Json.obj(
-          "followable" -> followable,
-          "following"  -> relation.contains(true),
-          "blocking"   -> relation.contains(false)
-        )
-    )
+    res <- Ok.snip:
+      if mini
+      then views.relation.mini(user.id, blocked = blocked, followable = followable, relation)
+      else views.relation.actions(user, relation, blocked = blocked, followable = followable)
   yield res
 
   private def RatelimitWith(
@@ -69,24 +60,33 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
 
   def block(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api.block(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+      api.block(me, user.id).recoverDefault >> negotiate(
+        renderActions(user.name, getBool("mini")),
+        jsonOkResult
+      )
   }
 
   def unblock(username: UserStr) = AuthOrScoped(_.Follow.Write, _.Web.Mobile) { ctx ?=> me ?=>
     RatelimitWith(username): user =>
-      api.unblock(me, user.id).recoverDefault >> renderActions(user.name, getBool("mini"))
+      api.unblock(me, user.id).recoverDefault >> negotiate(
+        renderActions(user.name, getBool("mini")),
+        jsonOkResult
+      )
   }
 
   def following(username: UserStr, page: Int) = Open:
     Reasonable(page, Max(20)):
       Found(meOrFetch(username)): user =>
-        RelatedPager(api.followingPaginatorAdapter(user.id), page).flatMap: pag =>
-          negotiate(
+        for
+          _   <- (page == 1).so(api.unfollowInactiveAccounts(user.id))
+          pag <- RelatedPager(api.followingPaginatorAdapter(user.id), page)
+          res <- negotiate(
             if ctx.is(user) || isGrantedOpt(_.CloseAccount)
             then Ok.page(views.relation.friends(user, pag))
             else Found(ctx.me)(me => Redirect(routes.Relation.following(me.username))),
             Ok(jsonRelatedPaginator(pag))
           )
+        yield res
 
   def followers(username: UserStr, page: Int) = Open:
     negotiateJson:
@@ -113,7 +113,7 @@ final class Relation(env: Env, apiC: => Api) extends LilaController(env):
         .obj:
           "perfs" -> r.user.perfs.bestRatedPerf.map:
             lila.user.JsonView.keyedPerfJson
-        .add("online" -> env.socket.isOnline(r.user.id)))
+        .add("online" -> env.socket.isOnline.exec(r.user.id)))
 
   def blocks(page: Int) = Auth { ctx ?=> me ?=>
     Reasonable(page, Max(20)):

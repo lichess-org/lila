@@ -29,6 +29,19 @@
     <item quantity="one">Lauk %s bréfskák</item>
     <item quantity="other">Lauk %s bréfskákum</item>
   </plurals>
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
+    <item quantity="one">Tók þátt í %s Arena móti</item>
+    <item quantity="other">Tók þátt í %s Arena mótum</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">#%1$s sæti (topp %2$s%%) með %3$s skák í %4$s</item>
+    <item quantity="other">#%1$s sæti (topp %2$s%%) með %3$s skákir í %4$s</item>
+  </plurals>
+  <plurals name="competedInNbSwissTournaments">
+    <item quantity="one">Tók þátt í %s Swiss móti</item>
+    <item quantity="other">Tók þátt í %s Swiss mótum</item>
+  </plurals>
+  <string name="rankedInSwissTournament">#%1$s sæti í %2$s</string>
   <string name="signedUp">Nýskráning á lichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Gekk til liðs við %s</item>

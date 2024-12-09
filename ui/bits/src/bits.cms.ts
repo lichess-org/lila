@@ -1,8 +1,9 @@
 import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
-import Editor from '@toast-ui/editor';
+import { throttle } from 'common/timing';
 import { currentTheme } from 'common/theme';
 import tablesort from 'tablesort';
+import { storedJsonProp } from 'common/storage';
+import { Editor, type EditorType } from '@toast-ui/editor';
 
 site.load.then(() => {
   $('.markdown-editor').each(function (this: HTMLTextAreaElement) {
@@ -20,7 +21,7 @@ site.load.then(() => {
       .each(function (this: HTMLTableRowElement) {
         const match =
           $(this).find('.title').text().toLowerCase().includes(query) ||
-          $(this).find('.lang').text().toLowerCase() == query;
+          $(this).find('.lang').text().toLowerCase() === query;
         this.hidden = !!query && !match;
       });
   });
@@ -29,13 +30,14 @@ site.load.then(() => {
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   const postProcess = (markdown: string) => markdown.replace(/<br>/g, '').replace(/\n\s*#\s/g, '\n## ');
 
+  const initialEditType = storedJsonProp<EditorType>('markdown.initial-edit-type', () => 'wysiwyg');
   const editor: Editor = new Editor({
     el,
     usageStatistics: false,
     height: '60vh',
     theme: currentTheme(),
     initialValue: $('#form3-markdown').val() as string,
-    initialEditType: 'wysiwyg',
+    initialEditType: initialEditType(),
     language: $('html').attr('lang') as string,
     toolbarItems: [
       ['heading', 'bold', 'italic', 'strike'],
@@ -47,7 +49,10 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     ],
     autofocus: false,
     events: {
-      change: throttle(500, () => $('#form3-markdown').val(postProcess(editor.getMarkdown()))),
+      change: throttle(500, (mode: EditorType) => {
+        $('#form3-markdown').val(postProcess(editor.getMarkdown()));
+        initialEditType(mode);
+      }),
     },
     hooks: {
       addImageBlobHook: (blob, cb) => {

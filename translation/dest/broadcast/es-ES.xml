@@ -7,6 +7,7 @@
     <item quantity="other">%s retransmisiones</item>
   </plurals>
   <string name="liveBroadcasts">Emisiones de torneos en directo</string>
+  <string name="broadcastCalendar">Calendario de transmisiones</string>
   <string name="newBroadcast">Nueva emisión en directo</string>
   <string name="subscribedBroadcasts">Transmisiones suscritas</string>
   <string name="aboutBroadcasts">Acerca de las transmisiones</string>
@@ -23,14 +24,11 @@
   <string name="tournamentDescription">Breve descripción del torneo</string>
   <string name="fullDescription">Descripción completa del evento</string>
   <string name="fullDescriptionHelp">Descripción larga opcional de la emisión. %1$s está disponible. La longitud debe ser inferior a %2$s caracteres.</string>
-  <string name="sourceUrlOrGameIds">Enlace de origen o identificador de la partida</string>
+  <string name="sourceSingleUrl">URL origen del archivo PGN</string>
   <string name="sourceUrlHelp">URL que Lichess comprobará para obtener actualizaciones PGN. Debe ser públicamente accesible desde Internet.</string>
-  <string name="gameIdsHelp">Alternativamente, puedes introducir hasta 64 identificadores de partida, separados por espacios.</string>
-  <string name="startDate">Fecha de inicio en tu zona horaria</string>
+  <string name="sourceGameIds">Hasta 64 identificadores de partidas de Lichess, separados por espacios.</string>
+  <string name="startDateTimeZone">Fecha de inicio en la zona horaria local del torneo: %s</string>
   <string name="startDateHelp">Opcional, si sabes cuando comienza el evento</string>
-  <string name="credits">Cita la fuente</string>
-  <string name="broadcastUrl">Enlace de la emisión</string>
-  <string name="currentRoundUrl">Enlace de la ronda actual</string>
   <string name="currentGameUrl">Enlace de la partida actual</string>
   <string name="downloadAllRounds">Descargar todas las rondas</string>
   <string name="resetRound">Restablecer esta ronda</string>
@@ -40,9 +38,46 @@
   <string name="editRoundStudy">Editar estudio de ronda</string>
   <string name="deleteTournament">Elimina este torneo</string>
   <string name="definitivelyDeleteTournament">Elimina definitivamente todo el torneo, rondas y partidas incluidas.</string>
-  <string name="automaticLeaderboard">Tabla de clasificación automática</string>
-  <string name="automaticLeaderboardHelp">Calcula y muestra una tabla de clasificación simple según los resultados de la partida</string>
+  <string name="showScores">Mostrar las puntuaciones de los jugadores según los resultados de las partidas</string>
   <string name="replacePlayerTags">Opcional: reemplazar nombres de jugadores, puntuaciones y títulos</string>
-  <string name="periodInSeconds">Período en segundos</string>
-  <string name="periodInSecondsHelp">Opcional, cuánto tiempo esperar entre peticiones. Mín. 2 s., máx. 60 s. Por defecto es automático según el número de espectadores.</string>
+  <string name="fideFederations">Federaciones FIDE</string>
+  <string name="top10Rating">Los 10 mejores</string>
+  <string name="fidePlayers">Jugadores FIDE</string>
+  <string name="fidePlayerNotFound">Jugador FIDE no encontrado</string>
+  <string name="fideProfile">Perfil FIDE</string>
+  <string name="federation">Federación</string>
+  <string name="ageThisYear">Edad actual</string>
+  <string name="unrated">Sin puntuación</string>
+  <string name="recentTournaments">Torneos recientes</string>
+  <string name="openLichess">Abrir en Lichess</string>
+  <string name="teams">Equipos</string>
+  <string name="boards">Tableros</string>
+  <string name="overview">Resumen</string>
+  <string name="subscribeTitle">Suscríbete para ser notificado cuando comience cada ronda. Puedes alternar entre notificaciones de campana o de dispositivo para emisiones en las preferencias de tu cuenta.</string>
+  <string name="uploadImage">Subir imagen del torneo</string>
+  <string name="noBoardsYet">Aún no hay tableros. Estos aparecerán una vez se suban las partidas.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Los tableros pueden cargarse gracias a una fuente o a través de %s</string>
+  <string name="startsAfter">Comienza en %s</string>
+  <string name="startVerySoon">La transmisión comenzará muy pronto.</string>
+  <string name="notYetStarted">La transmisión aún no ha comenzado.</string>
+  <string name="officialWebsite">Sitio oficial</string>
+  <string name="standings">Clasificación</string>
+  <string name="officialStandings">Clasificación oficial</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Más opciones en %s</string>
+  <string name="webmastersPage">la página del webmaster</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Una fuente PGN pública en tiempo real para esta ronda. También ofrecemos %s para una sincronización más rápida y eficiente.</string>
+  <string name="embedThisBroadcast">Inserta esta transmisión en tu sitio web</string>
+  <string name="embedThisRound">Inserta la %s en tu sitio web</string>
+  <string name="ratingDiff">Diferencia de valoración</string>
+  <string name="gamesThisTournament">Partidas en este torneo</string>
+  <string name="score">Resultado</string>
+  <string name="allTeams">Todos los equipos</string>
+  <string name="tournamentFormat">Formato del torneo</string>
+  <string name="tournamentLocation">Ubicación del torneo</string>
+  <string name="topPlayers">Mejores jugadores</string>
+  <string name="timezone">Zona horaria</string>
+  <string name="fideRatingCategory">Categoría de calificación de FIDE</string>
+  <string name="optionalDetails">Detalles opcionales</string>
+  <string name="pastBroadcasts">Transmisiones pasadas</string>
+  <string name="allBroadcastsByMonth">Ver todas las transmisiones por mes</string>
 </resources>

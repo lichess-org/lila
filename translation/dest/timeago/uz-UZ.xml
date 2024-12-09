@@ -54,4 +54,13 @@
     <item quantity="one">%s yil avval</item>
     <item quantity="other">%s yil avval</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s daqiqa qoldi</item>
+    <item quantity="other">%s daqiqa qoldi</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s soat qoldi</item>
+    <item quantity="other">%s soat qoldi</item>
+  </plurals>
+  <string name="completed">tugallangan</string>
 </resources>

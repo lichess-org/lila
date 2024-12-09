@@ -1,12 +1,12 @@
 package lila.swiss
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import chess.Clock.Config as ClockConfig
 import chess.format.Fen
+import reactivemongo.api.bson.Macros.Annotations.Key
 import scalalib.ThreadLocalRandom
 
-import lila.rating.PerfType
 import lila.core.swiss.IdName
+import lila.rating.PerfType
 
 case class Swiss(
     @Key("_id") id: SwissId,

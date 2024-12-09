@@ -167,4 +167,5 @@
   <string name="playAgain">Riluaje</string>
   <string name="whatWouldYouPlay">Ç’lëvizje do të bënit në këtë pozicion?</string>
   <string name="youCompletedThisLesson">Përgëzime! E mbaruat këtë mësim.</string>
+  <string name="perPage">%s për faqe</string>
 </resources>

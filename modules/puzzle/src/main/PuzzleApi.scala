@@ -1,11 +1,11 @@
 package lila.puzzle
 
+import scalalib.actor.AsyncActorSequencers
 import scalalib.paginator.Paginator
-import lila.db.dsl.{ *, given }
-import lila.db.paginator.Adapter
 
 import lila.core.i18n.I18nKey
-import scalalib.actor.AsyncActorSequencers
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.Adapter
 
 final class PuzzleApi(
     colls: PuzzleColls,
@@ -37,6 +37,8 @@ final class PuzzleApi(
     def setIssue(id: PuzzleId, issue: String): Fu[Boolean] =
       colls.puzzle(_.updateField($id(id), Puzzle.BSONFields.issue, issue).map(_.n > 0))
 
+    val reportDedup = scalalib.cache.OnceEvery[PuzzleId](7.days)
+
   private[puzzle] object round:
 
     def find(user: User, puzzleId: PuzzleId): Fu[Option[PuzzleRound]] =
@@ -60,7 +62,7 @@ final class PuzzleApi(
       expiration = 1 minute,
       timeout = 3 seconds,
       name = "puzzle.vote",
-      monitor = lila.log.asyncActorMonitor
+      monitor = lila.log.asyncActorMonitor.highCardinality
     )
 
     def update(id: PuzzleId, user: User, vote: Boolean): Funit =
@@ -100,10 +102,9 @@ final class PuzzleApi(
                   F.voteDown -> down,
                   F.vote     -> ((up - down).toFloat / (up + down))
                 ) ++ {
-                  (newVote <= -100 && doc
-                    .getAsOpt[Instant](F.day)
-                    .exists(_.isAfter(nowInstant.minusDays(1)))).so($unset(F.day))
-                }
+                  newVote <= -100 &&
+                  doc.getAsOpt[Instant](F.day).exists(_.isAfter(nowInstant.minusDays(1)))
+                }.so($unset(F.day))
               )
               .void
 

@@ -1,5 +1,8 @@
 import * as xhr from 'common/xhr';
-import contactEmail from './bits.contactEmail';
+import { spinnerHtml } from 'common/spinner';
+import { contactEmail } from './bits';
+import { alert, prompt } from 'common/dialog';
+import { myUserId } from 'common';
 
 export interface Pricing {
   currency: string;
@@ -10,14 +13,15 @@ export interface Pricing {
 }
 
 const $checkout = $('div.plan_checkout');
-const getFreq = () => $checkout.find('group.freq input:checked').val();
-const getDest = () => $checkout.find('group.dest input:checked').val();
-const showErrorThenReload = (error: string) => {
-  alert(error);
-  location.assign('/patron');
+const getVal = (selector: string): string => {
+  const values = $checkout.find(selector).val();
+  return typeof values === 'string' ? values : values[0];
 };
+const getFreq = (): string => getVal('group.freq input:checked');
+const getDest = (): string => getVal('group.dest input:checked');
+const showErrorThenReload = (error: string) => alert(error).then(() => location.assign('/patron'));
 
-export default (window as any).checkoutStart = function (stripePublicKey: string, pricing: Pricing) {
+export function initModule({ stripePublicKey, pricing }: { stripePublicKey: string; pricing: any }): void {
   contactEmail();
 
   const hasLifetime = $('#freq_lifetime').prop('disabled');
@@ -32,9 +36,9 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
 
   const onFreqChange = function () {
     const freq = getFreq();
-    $checkout.find('.amount_fixed').toggleClass('none', freq != 'lifetime');
-    $checkout.find('.amount_choice').toggleClass('none', freq == 'lifetime');
-    const sub = freq == 'monthly';
+    $checkout.find('.amount_fixed').toggleClass('none', freq !== 'lifetime');
+    $checkout.find('.amount_choice').toggleClass('none', freq === 'lifetime');
+    const sub = freq === 'monthly';
     $checkout.find('.paypal--order').toggle(!sub);
     $checkout.find('.paypal--subscription').toggle(sub);
   };
@@ -43,7 +47,7 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
   $checkout.find('group.freq input').on('change', onFreqChange);
 
   $checkout.find('group.dest input').on('change', () => {
-    const isGift = getDest() == 'gift';
+    const isGift = getDest() === 'gift';
     const $monthly = $('#freq_monthly');
     toggleInput($monthly, !isGift);
     $checkout.find('.gift').toggleClass('none', !isGift).find('input').val('');
@@ -57,12 +61,12 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
     toggleCheckout();
   });
 
-  $checkout.find('group.amount .other label').on('click', function (this: HTMLLabelElement) {
+  $checkout.find('group.amount .other label').on('click', async function (this: HTMLLabelElement) {
     let amount: number;
-    const raw: string = prompt(this.title) || '';
+    const raw: string = (await prompt(this.title)) ?? '';
     try {
       amount = parseFloat(raw.replace(',', '.').replace(/[^0-9\.]/gim, ''));
-    } catch (e) {
+    } catch (_) {
       return false;
     }
     if (!amount) {
@@ -72,19 +76,19 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
     }
     amount = Math.max(pricing.min, Math.min(pricing.max, amount));
     $(this).text(`${pricing.currency} ${amount}`);
-    $(this).siblings('input').data('amount', amount);
+    ($(this).siblings('input').data('amount', amount)[0] as HTMLInputElement).checked = true;
   });
 
   const $userInput = $checkout.find('input.user-autocomplete');
 
   const getGiftDest = () => {
     const raw = ($userInput.val() as string).trim().toLowerCase();
-    return raw != document.body.dataset.user && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
+    return raw !== myUserId() && raw.match(/^[a-z0-9][\w-]{2,29}$/) ? raw : null;
   };
 
   const toggleCheckout = () => {
     const giftDest = getGiftDest();
-    const enabled = getDest() != 'gift' || !!giftDest;
+    const enabled = getDest() !== 'gift' || !!giftDest;
     toggleInput($checkout.find('.service button'), enabled);
     $checkout.find('.service .paypal--disabled').toggleClass('none', enabled);
     $checkout.find('.service .paypal:not(.paypal--disabled)').toggleClass('none', !enabled);
@@ -95,7 +99,7 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
   const getAmountToCharge = () => {
     const freq = getFreq(),
       amount =
-        freq == 'lifetime'
+        freq === 'lifetime'
           ? pricing.lifetime
           : parseFloat($checkout.find('group.amount input:checked').data('amount'));
     if (amount && amount >= pricing.min && amount <= pricing.max) return amount;
@@ -128,7 +132,7 @@ export default (window as any).checkoutStart = function (stripePublicKey: string
   payPalOrderStart($checkout, pricing, getAmountToCharge);
   payPalSubscriptionStart($checkout, pricing, getAmountToCharge);
   stripeStart($checkout, stripePublicKey, pricing, getAmountToCharge);
-};
+}
 
 const xhrFormData = ($checkout: Cash, amount: number) =>
   xhr.form({
@@ -145,6 +149,7 @@ const payPalStyle = {
 };
 
 function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  if (!window.paypalOrder) return;
   (window.paypalOrder as any)
     .Buttons({
       style: payPalStyle,
@@ -173,6 +178,7 @@ function payPalOrderStart($checkout: Cash, pricing: Pricing, getAmount: () => nu
 }
 
 function payPalSubscriptionStart($checkout: Cash, pricing: Pricing, getAmount: () => number | undefined) {
+  if (!window.paypalSubscription) return;
   (window.paypalSubscription as any)
     .Buttons({
       style: payPalStyle,
@@ -210,7 +216,7 @@ function stripeStart(
   $checkout.find('.service .stripe').on('click', function () {
     const amount = getAmount();
     if (!amount) return;
-    $checkout.find('.service').html(site.spinnerHtml);
+    $checkout.find('.service').html(spinnerHtml);
 
     xhr
       .jsonAnyResponse(`/patron/stripe/checkout?currency=${pricing.currency}`, {

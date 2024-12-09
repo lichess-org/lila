@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class AccountSecurity(helpers: Helpers)(
@@ -36,7 +37,7 @@ final class AccountSecurity(helpers: Helpers)(
               div(
                 "You can also ",
                 postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
-                  submitButton(cls := "button button-empty button-red confirm")(
+                  submitButton(cls := "button button-empty button-red yes-no-confirm")(
                     trans.site.revokeAllSessions()
                   )
                 ),

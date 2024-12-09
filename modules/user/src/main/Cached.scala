@@ -2,14 +2,12 @@ package lila.user
 
 import reactivemongo.api.bson.*
 
-import lila.core.LightUser
-import lila.db.dsl.{ *, given }
-import lila.memo.CacheApi.*
-import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.user.LightPerf
-import lila.core.perf.PerfId
 import lila.core.userId.UserSearch
-import lila.core.perf.UserWithPerfs
+import lila.db.dsl.*
+import lila.memo.CacheApi.*
+import lila.rating.{ PerfType, UserPerfs }
 
 final class Cached(
     userRepo: UserRepo,
@@ -66,7 +64,7 @@ final class Cached(
 
   private val top50OnlineCache = cacheApi.unit[List[UserWithPerfs]]:
     _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
-      userApi.byIdsSortRatingNoBot(onlineUserIds(), 50)
+      userApi.byIdsSortRatingNoBot(onlineUserIds.exec(), 50)
 
   def getTop50Online: Fu[List[UserWithPerfs]] = top50OnlineCache.getUnit
 

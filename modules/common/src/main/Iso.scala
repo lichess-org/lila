@@ -1,10 +1,9 @@
 package lila.common
 
-import lila.core.data.Strings
-import lila.core.data.Ints
-import lila.core.net.IpAddress
-
 import scalalib.Iso as LibIso
+
+import lila.core.data.{ Ints, Strings }
+import lila.core.net.IpAddress
 
 object Iso:
 

@@ -1,7 +1,7 @@
 package lila.team
 
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final private class TeamSocket(
     socketKit: SocketKit,
@@ -28,4 +28,4 @@ final private class TeamSocket(
 
   socketKit
     .subscribe("team-in", RP.In.reader)(handler.orElse(socketKit.baseHandler))
-    .andDo(send(P.Out.boot))
+    .andDo(send.exec(P.Out.boot))

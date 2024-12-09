@@ -2,7 +2,7 @@ import view from './view/main';
 
 import { init, classModule, attributesModule } from 'snabbdom';
 
-import { MsgOpts } from './interfaces';
+import type { MsgOpts } from './interfaces';
 import { upgradeData } from './network';
 import MsgCtrl from './ctrl';
 
@@ -12,7 +12,7 @@ export function initModule(opts: MsgOpts) {
     appHeight = () => document.body.style.setProperty('---app-height', `${window.innerHeight}px`);
   window.addEventListener('resize', appHeight);
   appHeight();
-  const ctrl = new MsgCtrl(upgradeData(opts.data), site.trans(opts.i18n), redraw);
+  const ctrl = new MsgCtrl(upgradeData(opts.data), redraw);
 
   const blueprint = view(ctrl);
   element.innerHTML = '';

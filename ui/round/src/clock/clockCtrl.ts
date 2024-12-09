@@ -1,11 +1,8 @@
 import { updateElements } from './clockView';
-import { RoundData } from '../interfaces';
-import * as game from 'game';
-import * as Prefs from 'common/prefs';
-
-export type Seconds = number;
-export type Centis = number;
-export type Millis = number;
+import type { RoundData } from '../interfaces';
+import { playedTurns, playable } from 'game';
+import { ShowClockTenths } from 'common/prefs';
+import { reducedMotion } from 'common/device';
 
 interface ClockOpts {
   onFlag(): void;
@@ -20,7 +17,7 @@ export interface ClockData {
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
-  showTenths: Prefs.ShowClockTenths;
+  showTenths: ShowClockTenths;
   showBar: boolean;
   moretime: number;
 }
@@ -82,13 +79,13 @@ export class ClockController {
   ) {
     const cdata = d.clock!;
 
-    if (cdata.showTenths === Prefs.ShowClockTenths.Never) this.showTenths = () => false;
+    if (cdata.showTenths === ShowClockTenths.Never) this.showTenths = () => false;
     else {
-      const cutoff = cdata.showTenths === Prefs.ShowClockTenths.Below10Secs ? 10000 : 3600000;
+      const cutoff = cdata.showTenths === ShowClockTenths.Below10Secs ? 10000 : 3600000;
       this.showTenths = time => time < cutoff;
     }
 
-    this.showBar = cdata.showBar && !this.opts.nvui;
+    this.showBar = cdata.showBar && !this.opts.nvui && !reducedMotion();
     this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
     this.timeRatioDivisor = 1 / this.barTime;
 
@@ -99,8 +96,8 @@ export class ClockController {
 
   timeRatio = (millis: number): number => Math.min(1, millis * this.timeRatioDivisor);
 
-  setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
-    const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
+  setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0): void => {
+    const isClockRunning = playable(d) && (playedTurns(d) > 1 || d.clock!.running),
       delayMs = delay * 10;
 
     this.times = {
@@ -166,14 +163,14 @@ export class ClockController {
     }
   };
 
-  elapsed = (now = performance.now()) => Math.max(0, now - this.times.lastUpdate);
+  elapsed = (now: number = performance.now()): number => Math.max(0, now - this.times.lastUpdate);
 
   millisOf = (color: Color): Millis =>
     this.times.activeColor === color ? Math.max(0, this.times[color] - this.elapsed()) : this.times[color];
 
-  isRunning = () => this.times.activeColor !== undefined;
+  isRunning = (): boolean => this.times.activeColor !== undefined;
 
-  speak = () => {
+  speak = (): void => {
     const msgs = ['white', 'black'].map(color => {
       const time = this.millisOf(color as Color);
       const date = new Date(time);
@@ -185,10 +182,10 @@ export class ClockController {
         simplePlural(date.getUTCSeconds(), 'second');
       return `${color} ${msg}`;
     });
-    site.sound.say(msgs.join('. '));
+    site.sound.say(msgs.join('. '), false, true);
   };
 }
 
 function simplePlural(nb: number, word: string) {
-  return `${nb} ${word}${nb != 1 ? 's' : ''}`;
+  return `${nb} ${word}${nb !== 1 ? 's' : ''}`;
 }

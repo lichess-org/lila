@@ -16,7 +16,7 @@ type State = {
   event?: string;
 };
 
-export default function () {
+export default function (): void {
   if ('ontouchstart' in window) return;
 
   const interval = 200,
@@ -71,7 +71,7 @@ export default function () {
       const mousemove = (state.event = 'mousemove');
 
       // handle the event, based on its type
-      if (ev.type == 'mouseover') {
+      if (ev.type === 'mouseover') {
         // do nothing if already active or a button is pressed (dragging a piece)
         if (state.isActive || ev.buttons) return;
         // set "previous" X and Y position based on initial entry point

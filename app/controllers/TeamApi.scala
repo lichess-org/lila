@@ -5,23 +5,22 @@ import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
 import lila.team.{ Team as TeamModel, TeamSecurity }
 
 import Api.ApiResult
 
 final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
-  private def api       = env.team.api
-  private def paginator = env.team.paginator
+  import env.team.{ api, paginator }
 
   def all(page: Int) = Anon:
     import env.team.jsonView.given
-    JsonOk:
-      for
-        pager <- paginator.popularTeamsWithPublicLeaders(page)
-        _     <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
-      yield pager
+    Reasonable(page):
+      JsonOk:
+        for
+          pager <- paginator.popularTeamsWithPublicLeaders(page)
+          _     <- env.user.lightUserApi.preloadMany(pager.currentPageResults.flatMap(_.publicLeaders))
+        yield pager
 
   def show(id: TeamId) = OpenOrScoped(): ctx ?=>
     JsonOptionOk:
@@ -50,9 +49,10 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
         else ctx.me.so(api.belongsTo(team.id, _))
       canView.map:
         if _ then
+          val full = getBool("full")
           apiC.jsonDownload(
             env.team
-              .memberStream(team, MaxPerSecond(20))
+              .memberStream(team, full)
               .map: (user, joinedAt) =>
                 env.api.userApi.one(user, joinedAt.some)
           )
@@ -60,25 +60,27 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def search(text: String, page: Int) = Anon:
     import env.team.jsonView.given
-    JsonOk:
-      if text.trim.isEmpty
-      then paginator.popularTeamsWithPublicLeaders(page)
-      else
-        for
-          ids   <- env.teamSearch(text, page)
-          teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
-          leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
-        yield leads
+    Reasonable(page):
+      JsonOk:
+        if text.trim.isEmpty
+        then paginator.popularTeamsWithPublicLeaders(page)
+        else
+          for
+            ids   <- env.teamSearch(text, page)
+            teams <- ids.mapFutureList(env.team.teamRepo.byOrderedIds)
+            leads <- teams.mapFutureList(env.team.memberRepo.addPublicLeaderIds)
+          yield leads
 
   def teamsOf(username: UserStr) = AnonOrScoped(): ctx ?=>
-    import env.team.jsonView.given
-    JsonOk:
-      for
-        ids   <- api.joinedTeamIdsOfUserAsSeenBy(username)
-        teams <- api.teamsByIds(ids)
-        teams <- env.team.memberRepo.addPublicLeaderIds(teams)
-        _     <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
-      yield teams
+    Found(meOrFetch(username)): user =>
+      import env.team.jsonView.given
+      JsonOk:
+        for
+          ids   <- api.joinedTeamIdsOfUserAsSeenBy(user)
+          teams <- api.teamsByIds(ids)
+          teams <- env.team.memberRepo.addPublicLeaderIds(teams)
+          _     <- env.user.lightUserApi.preloadMany(teams.flatMap(_.publicLeaders))
+        yield teams
 
   def requests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Request): team =>

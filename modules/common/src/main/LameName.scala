@@ -25,7 +25,6 @@ object LameName:
     "1488",
     "8814",
     "administrator",
-    "anus",
     "asshole",
     "bastard",
     "biden",

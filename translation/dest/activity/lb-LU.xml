@@ -34,6 +34,10 @@
     <item quantity="one">Huet %s Fernschachpartie gespillt</item>
     <item quantity="other">Huet %s Fernschachpartien gespillt</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Huet %1$s %2$s-Fernschachpartie gespillt</item>
+    <item quantity="other">Huet %1$s %2$s-Fernschachpartië gespillt</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Suivéiert %s Spiller</item>
     <item quantity="other">Suivéiert %s Spiller</item>
@@ -54,7 +58,7 @@
     <item quantity="one">Huet %s Etüd kreéiert</item>
     <item quantity="other">Huet %s Etüde kreéiert</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Huet bei %s Arena Turnéier matgemaach</item>
     <item quantity="other">Huet bei %s Arena Turnéiere matgemaach</item>
   </plurals>

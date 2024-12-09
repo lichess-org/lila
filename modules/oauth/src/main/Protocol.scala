@@ -1,11 +1,11 @@
 package lila.oauth
 
-import java.util.Base64
-import scala.util.Try
-import play.api.libs.json.Json
 import com.roundeights.hasher.Algo
-import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
+import io.mola.galimatias.URL
+import play.api.libs.json.Json
 import scalalib.SecureRandom
+
+import java.util.Base64
 
 import lila.common.String.urlencode
 
@@ -83,12 +83,11 @@ object Protocol:
     def matches(other: UncheckedRedirectUri) = value.toString == other.value
   object RedirectUri:
     def from(redirectUri: String): Either[Error, RedirectUri] =
-      Either
-        .catchNonFatal {
-          URL.parse(URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance), redirectUri)
-        }
+      lila.common.url
+        .parse(redirectUri)
+        .toEither
         .leftMap(_ => Error.RedirectUriInvalid)
-        .ensure(Error.RedirectSchemeNotAllowed)(url =>
+        .ensure(Error.RedirectSchemeNotAllowed): url =>
           List(
             // standard
             "http",
@@ -103,10 +102,7 @@ object Protocol:
             "chesscomopse",
             "tectootb"
           ).has(url.scheme) || url.scheme.contains(".")
-        )
         .map(RedirectUri.apply)
-
-    def unchecked(trusted: String): RedirectUri = RedirectUri(URL.parse(trusted))
 
   case class UncheckedRedirectUri(value: String) extends AnyVal
 
@@ -151,9 +147,9 @@ object Protocol:
     case object AuthorizationCodeInvalid
         extends InvalidGrant("authorization code invalid, expired or consumed")
     case object AuthorizationCodeExpired extends InvalidGrant("authorization code expired")
-    case object MismatchingRedirectUri
-        extends InvalidGrant("authorization code was issued for a different redirect_uri")
-    case object MismatchingClient
-        extends InvalidGrant("authorization code was issued for a different client_Id")
+    case class MismatchingRedirectUri(url: String)
+        extends InvalidGrant(s"authorization code was issued for a different redirect_uri: $url")
+    case class MismatchingClient(id: ClientId)
+        extends InvalidGrant(s"authorization code was issued for a different client_id: $id")
     case object MismatchingCodeVerifier
         extends InvalidGrant("hash of code_verifier does not match code_challenge")

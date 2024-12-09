@@ -2,12 +2,13 @@ package lila.chat
 
 import play.api.libs.json.*
 
-import lila.common.Json.{ *, given }
+import lila.common.Json.given
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class ChatUi(helpers: Helpers):
-  import helpers.{ *, given }
+  import helpers.*
 
   val frag = st.section(cls := "mchat")(
     div(cls := "mchat__tabs")(
@@ -77,7 +78,6 @@ final class ChatUi(helpers: Helpers):
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
           .add("palantir" -> (palantir && ctx.isAuth)),
-        "i18n"      -> chatI18nObject(withNote = withNoteAge.isDefined),
         "writeable" -> writeable,
         "public"    -> public,
         "permissions" -> Json
@@ -95,13 +95,3 @@ final class ChatUi(helpers: Helpers):
         "timeoutReasons" -> (!localMod && (Granter.opt(_.ChatTimeout) || Granter.opt(_.BroadcastTimeout)))
           .option(JsonView.timeoutReasons)
       )
-
-  private def chatI18nObject(withNote: Boolean)(using Context) =
-    i18nOptionJsObject(
-      trans.site.talkInChat.some,
-      trans.site.toggleTheChat.some,
-      trans.site.loginToChat.some,
-      trans.site.youHaveBeenTimedOut.some,
-      Option.when(withNote)(trans.site.notes),
-      Option.when(withNote)(trans.site.typePrivateNotesHere)
-    )

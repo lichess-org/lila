@@ -5,12 +5,11 @@ import play.api.data.Forms.*
 import play.api.data.format.Formats.*
 import play.api.data.format.Formatter
 import play.api.data.validation.{ Constraint, Constraints }
-import play.api.data.{ Field, Form as PlayForm, FormError, Mapping, validation as V }
-
+import play.api.data.{ Form as PlayForm, FormError, Mapping, FieldMapping, validation as V }
 import java.lang
-import java.time.LocalDate
+import java.time.{ LocalDate, LocalDateTime, ZoneId }
 import scala.util.Try
-import play.api.data.FieldMapping
+import play.api.i18n.Lang
 
 object Form:
 
@@ -50,6 +49,9 @@ object Form:
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(mustBeOneOf(choices.map(_._1)), hasKey(choices, _))
 
+  def stringIn[A](choices: Seq[A])(key: A => String): Mapping[A] =
+    stringIn(choices.map(key).toSet).transform[A](str => choices.find(c => str == key(c)).get, key)
+
   def id[Id](size: Int, fixed: Option[Id])(exists: Id => Fu[Boolean])(using
       sr: StringRuntime[Id],
       rs: SameRuntime[String, Id]
@@ -61,6 +63,12 @@ object Form:
       case Some(fixedId) => field.verifying("The ID cannot be changed now", id => id == fixedId)
       case None =>
         field.verifying("This ID is already in use", id => !exists(id).await(1.second, "unique ID"))
+
+  def empty[T]: FieldMapping[Option[T]] =
+    given Formatter[Option[T]] = new:
+      def bind(key: String, data: Map[String, String]) = Right(None)
+      def unbind(key: String, value: Option[T])        = Map.empty
+    FieldMapping()
 
   def trim(m: Mapping[String]) = m.transform[String](_.trim, identity)
 
@@ -78,6 +86,10 @@ object Form:
   val cleanText: Mapping[String]            = of(cleanTextFormatter)
   val cleanTextWithSymbols: Mapping[String] = of(cleanTextFormatterWithSymbols)
 
+  val nonEmptyOrSpace = V.Constraint[String]: t =>
+    if t.linesIterator.exists(_.stripLineEnd.exists(!_.isWhitespace)) then V.Valid
+    else V.Invalid(V.ValidationError("error.required"))
+
   private def addLengthConstraints(m: Mapping[String], minLength: Int, maxLength: Int) =
     (minLength, maxLength) match
       case (min, Int.MaxValue) => m.verifying(Constraints.minLength(min))
@@ -87,18 +99,26 @@ object Form:
   def cleanText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     addLengthConstraints(cleanText, minLength, maxLength)
 
-  val cleanNonEmptyText: Mapping[String] = cleanText.verifying(Constraints.nonEmpty)
+  val cleanNonEmptyText: Mapping[String] = cleanText.verifying(nonEmptyOrSpace)
   def cleanNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    cleanText(minLength, maxLength).verifying(Constraints.nonEmpty)
+    cleanText(minLength, maxLength).verifying(nonEmptyOrSpace)
 
   def cleanTextWithSymbols(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
     addLengthConstraints(cleanTextWithSymbols, minLength, maxLength)
 
-  def cleanNoSymbolsText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    cleanTextWithSymbols(minLength, maxLength).verifying(noSymbolsConstraint)
+  def cleanFewSymbolsText(
+      minLength: Int = 0,
+      maxLength: Int = Int.MaxValue,
+      maxSymbols: Int = 0
+  ): Mapping[String] =
+    cleanTextWithSymbols(minLength, maxLength).verifying(fewSymbolsConstraint(maxSymbols))
 
-  def cleanNoSymbolsAndNonEmptyText(minLength: Int = 0, maxLength: Int = Int.MaxValue): Mapping[String] =
-    cleanNoSymbolsText(minLength, maxLength).verifying(Constraints.nonEmpty)
+  def cleanFewSymbolsAndNonEmptyText(
+      minLength: Int = 0,
+      maxLength: Int = Int.MaxValue,
+      maxSymbols: Int = 0
+  ): Mapping[String] =
+    cleanFewSymbolsText(minLength, maxLength, maxSymbols).verifying(nonEmptyOrSpace)
 
   private val eventNameConstraint = Constraints.pattern(
     regex = """[\p{L}\p{N}-\s:.,;'°ª\+]+""".r,
@@ -107,9 +127,14 @@ object Form:
 
   private val symbolsRegex =
     raw"[\p{So}\p{block=Emoticons}\p{block=Miscellaneous Symbols and Pictographs}\p{block=Supplemental Symbols and Pictographs}]".r
-  val noSymbolsConstraint = V.Constraint[String]: t =>
-    if symbolsRegex.find(t) then V.Invalid(V.ValidationError("Must not contain emojis or other symbols"))
+
+  def fewSymbolsConstraint(maxSymbols: Int): V.Constraint[String] = V.Constraint[String] { t =>
+    if symbolsRegex.findAllMatchIn(t).size > maxSymbols then
+      V.Invalid(
+        V.ValidationError(s"Must not contain more than $maxSymbols emojis or other symbols")
+      )
     else V.Valid
+  }
 
   val slugConstraint: V.Constraint[String] =
     Constraints.pattern(
@@ -183,6 +208,11 @@ object Form:
         def unbind(key: String, value: A) = strBase.unbind(key, to(value))
     def int[A <: Int](to: Int => A): Formatter[A]                   = intBase.transform(to, identity)
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = intBase.transform(to, from)
+    def intOptionFormatter[A](from: A => Int, to: Int => Option[A]): Formatter[A] = new:
+      def bind(key: String, data: Map[String, String]) = strBase.bind(key, data).flatMap { str =>
+        str.toIntOption.flatMap(to).toRight(Seq(FormError(key, s"Invalid value: $str", Nil)))
+      }
+      def unbind(key: String, value: A) = strBase.unbind(key, from(value).toString)
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean]:
       override val format = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =
@@ -211,21 +241,23 @@ object Form:
     val playableStrict = playable(strict = true)
     def truncateMoveNumber(fen: Fen.Full) =
       Fen.readWithMoveNumber(fen).fold(fen) { g =>
-        if g.fullMoveNumber >= 150 then
+        if g.fullMoveNumber >= chess.FullMoveNumber(150) then
           Fen.write(g.copy(fullMoveNumber = g.fullMoveNumber.map(_ % 100))) // keep the start ply low
         else fen
       }
 
   object url:
-    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
-    private val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
-    given Formatter[URL] = formatter.stringTryFormatter(s =>
-      Try(URL.parse(parser, s)).fold(
-        err => Left(s"Invalid URL: ${err.getMessage}"),
-        Right(_)
-      )
+    import io.mola.galimatias.URL
+    given Formatter[URL] = formatter.stringTryFormatter: s =>
+      lila.common.url.parse(s).toEither.fold(err => Left(s"Invalid URL: ${err.getMessage}"), Right(_))
+    val field: Mapping[URL] = of[URL]
+
+  object timeZone:
+    given Formatter[ZoneId] = formatter.stringTryFormatter(
+      from = s => Try(ZoneId.of(s)).fold(err => Left(err.getMessage), Right(_)),
+      to = _.getId
     )
-    val field = of[URL]
+    val field: Mapping[ZoneId] = of[ZoneId]
 
   object username:
     val historicalConstraints = Seq(
@@ -267,8 +299,8 @@ object Form:
     import chess.variant.Variant
     formatter.stringFormatter[Variant](_.key.value, str => Variant.orDefault(Variant.LilaKey(str)))
 
-  given Formatter[PerfKey] = formatter.stringOptionFormatter[PerfKey](_.value, PerfKey(_))
-  val perfKey              = typeIn[PerfKey](PerfKey.all)
+  given Formatter[PerfKey]      = formatter.stringOptionFormatter[PerfKey](_.value, PerfKey(_))
+  val perfKey: Mapping[PerfKey] = typeIn[PerfKey](PerfKey.all)
 
   extension [A](f: Formatter[A])
     def transform[B](to: A => B, from: B => A): Formatter[B] = new:
@@ -288,8 +320,14 @@ object Form:
       formatter
         .stringFormatter[List[String]](_.mkString(sep), _.split(sep).map(_.trim).toList.filter(_.nonEmpty))
 
-  def inTheFuture(m: Mapping[Instant]) =
-    m.verifying("The date must be set in the future", _.isAfterNow)
+  private val dateHumanFormatter =
+    import java.time.format.*
+    DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+
+  def inTheFuture(m: Mapping[Instant], max: Instant = nowInstant.plusYears(11)) =
+    m
+      .verifying("The date must be set in the future", _.isAfterNow)
+      .verifying(s"The date must be set before ${dateHumanFormatter.print(max)}", _.isBefore(max))
 
   object ISODate:
     val pattern                      = "yyyy-MM-dd"
@@ -332,4 +370,15 @@ object Form:
       def bind(key: String, data: Map[String, String]) =
         ISOInstant.format.bind(key, data).orElse(Timestamp.format.bind(key, data))
       def unbind(key: String, value: Instant) = ISOInstant.format.unbind(key, value)
+    val mapping: Mapping[Instant] = of[Instant](format)
+  final class LocalDateTimeOrTimestamp(zone: ZoneId):
+    val localFormatter = java.time.format.DateTimeFormatter.ofPattern(PrettyDateTime.pattern)
+    def localDateTimeParse(data: String) = LocalDateTime.parse(data, localFormatter)
+    val format: Formatter[Instant] = new:
+      def bind(key: String, data: Map[String, String]) =
+        parsing(localDateTimeParse, "error.localDateTime", Nil)(key, data)
+          .map(_.atZone(zone).toInstant)
+          .orElse(Timestamp.format.bind(key, data))
+      def unbind(key: String, value: Instant) =
+        Map(key -> value.atZone(zone).toLocalDateTime.format(localFormatter))
     val mapping: Mapping[Instant] = of[Instant](format)

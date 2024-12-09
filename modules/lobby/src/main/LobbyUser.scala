@@ -1,12 +1,12 @@
 package lila.lobby
 
-import lila.core.pool.Blocking
-import lila.rating.{ Glicko, Perf }
+import chess.IntRating
+import chess.rating.RatingProvisional
 
-import lila.rating.PerfType
-import lila.core.perf.UserWithPerfs
-import lila.core.perf.UserPerfs
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
+import lila.core.pool.Blocking
 import lila.rating.UserPerfsExt.perfsList
+import lila.rating.{ Glicko, PerfType }
 
 private[lobby] case class LobbyUser(
     id: UserId,
@@ -43,9 +43,11 @@ private[lobby] object LobbyUser:
         pk -> LobbyPerf(perf.intRating, perf.provisional)
     }.toMap
 
-// TODO opaque type Int (minus for provisional)
-case class LobbyPerf(rating: IntRating, provisional: RatingProvisional)
-
-object LobbyPerf:
-
-  val default = LobbyPerf(Glicko.default.intRating, provisional = RatingProvisional.Yes)
+private opaque type LobbyPerf = Int
+private object LobbyPerf extends OpaqueInt[LobbyPerf]:
+  def apply(rating: IntRating, provisional: RatingProvisional): LobbyPerf =
+    LobbyPerf(rating.value * (if provisional.yes then -1 else 1))
+  extension (lp: LobbyPerf)
+    def rating: IntRating              = IntRating(math.abs(lp))
+    def provisional: RatingProvisional = RatingProvisional(lp < 0)
+  val default = LobbyPerf(-Glicko.default.intRating.value)

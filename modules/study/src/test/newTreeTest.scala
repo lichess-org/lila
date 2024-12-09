@@ -1,24 +1,12 @@
 package lila.study
+import chess.format.pgn.{ PgnStr, Tags }
 
-import chess.{ Centis, ErrorStr, Node as PgnNode, Situation }
-import chess.format.pgn.{ Glyphs, ParsedPgn, San, Tags, PgnStr, PgnNodeData, Comment as ChessComment }
-import chess.format.{ Fen, Uci, UciCharPair, UciPath }
-import chess.MoveOrDrop.*
-
-import lila.tree.Node.{ Comment, Comments, Shapes }
-
-import cats.syntax.all.*
-import StudyArbitraries.{ *, given }
-import chess.CoreArbitraries.given
-import org.scalacheck.Prop.{ forAll, propBoolean }
 import scala.language.implicitConversions
 
-import lila.tree.{ Branch, Branches, Root, Metas, NewTree, NewBranch, NewRoot, Node }
-import chess.format.pgn.Glyph
+import lila.tree.{ NewRoot, Root }
 
 class NewTreeTest extends munit.FunSuite:
 
-  import lila.tree.NewTree.*
   import Helpers.*
 
   given Conversion[String, PgnStr] = PgnStr(_)

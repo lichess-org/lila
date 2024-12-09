@@ -3,9 +3,6 @@ package paginator
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-
-import scala.util.chaining.*
-
 import scalalib.paginator.AdapterLike
 
 import dsl.*

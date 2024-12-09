@@ -4,11 +4,11 @@ import reactivemongo.api.bson.*
 
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.common.Bus
+import lila.core.report.SuspectId
+import lila.core.userId.ModId
 import lila.db.dsl.{ *, given }
 import lila.game.{ GameRepo, Query }
 import lila.report.{ Mod, Report, Reporter, Suspect }
-import lila.core.report.SuspectId
-import lila.core.userId.ModId
 
 final class IrwinApi(
     reportColl: Coll,
@@ -67,9 +67,8 @@ final class IrwinApi(
     private def markOrReport(report: IrwinReport): Funit =
       userApi.getTitle(report.suspectId.value).flatMap { title =>
         if report.activation >= thresholds.get().mark && title.isEmpty then
-          modApi
-            .autoMark(report.suspectId, report.note)(using UserId.irwin.into(MyId))
-            .andDo(lila.mon.mod.irwin.mark.increment())
+          for _ <- modApi.autoMark(report.suspectId, report.note)(using UserId.irwin.into(MyId))
+          yield lila.mon.mod.irwin.mark.increment()
         else if report.activation >= thresholds.get().report then
           for
             suspect <- getSuspect(report.suspectId.value)

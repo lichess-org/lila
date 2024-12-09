@@ -1,11 +1,11 @@
-import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
-import { RunResponse, StormRecap } from './interfaces';
+import { text as xhrText, json as xhrJson, form as xhrForm } from 'common/xhr';
+import { throttlePromiseDelay } from 'common/timing';
+import type { RunResponse, StormRecap } from './interfaces';
 
 export function record(run: StormRecap): Promise<RunResponse> {
-  return xhr.json('/storm', {
+  return xhrJson('/storm', {
     method: 'POST',
-    body: xhr.form({
+    body: xhrForm({
       ...run,
       time: Math.round(run.time),
       notAnExploit:
@@ -14,11 +14,11 @@ export function record(run: StormRecap): Promise<RunResponse> {
   });
 }
 
-export const setZen = throttlePromiseDelay(
+export const setZen: (zen: any) => Promise<void> = throttlePromiseDelay(
   () => 1000,
   zen =>
-    xhr.text('/pref/zen', {
+    xhrText('/pref/zen', {
       method: 'post',
-      body: xhr.form({ zen: zen ? 1 : 0 }),
+      body: xhrForm({ zen: zen ? 1 : 0 }),
     }),
 );

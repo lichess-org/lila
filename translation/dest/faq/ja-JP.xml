@@ -20,8 +20,7 @@
   <string name="keyboardShortcutsExplanation">Lichess にはショートカットキーが使えるページがあります。研究、解析、問題、対局のページで 「?」キーを押すと、使えるショートカットキーの一覧が表示されます。</string>
   <string name="fairPlay">フェアプレイについて</string>
   <string name="whenAmIEligibleRatinRefund">不正な相手に奪われたレーティングが回復するのはいつですか？</string>
-  <string name="ratingRefundExplanation">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 3 日間の最新のレート戦 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります。
-  （たとえばその人との対局後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります。）また回復は 150 点が上限です。</string>
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">あるプレイヤーに不正行為のマークが付いたら、1 分後に、その人の最近 5 日間の最新のレート戦 40 局について回復が行われます。あなたがこれらの対局の相手で、レーティングが暫定でない場合、数字が回復します。ただしあなたの最高レーティングとその後の変動によって回復の幅には上限があります（たとえばその後にあなたのレーティングが大きく上がっていれば、回復は部分的かゼロになることもあります）。また回復は 150 点が上限です。</string>
   <string name="preventLeavingGameWithoutResigning">投了せずに対局からいなくなる人にはどう対処していますか？</string>
   <string name="leavingGameWithoutResigningExplanation">何度も対局を中止／放置する人は対戦禁止 (play ban) になります。つまり対局が一時的にできなくなります。このことはプロフィールには表示されません。同じ行為がさらに続くと対戦禁止の期間は長くなっていき、最後にはアカウントが停止されることがあります。</string>
   <string name="howCanIBecomeModerator">どうすればモデレーターになれますか？</string>
@@ -34,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">ブレット、ブリッツなど持時間の区分の基準は？</string>
   <string name="basedOnGameDuration">Lichess の持時間は推定所要時間 = %1$s で分類されています。
  たとえば 5+3 （5分＋1手3秒）の対局の推定所要時間は 5 x 60 + 40 x 3 = 420秒です。</string>
-  <string name="durationFormula">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(初期持時間) + 40 x (1 手ごとの追加時間)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess にはどんなバリアント（変則ルール）がありますか？</string>
@@ -85,12 +84,12 @@
   <string name="usernamesNotOffensive">ユーザー名として攻撃的なもの、別人になりすますもの、宣伝的なものは禁止です。詳しくは%1$sをお読みください。</string>
   <string name="guidelines">ガイドライン</string>
   <string name="canIChangeMyUsername">ユーザー名は変えられますか？</string>
-  <string name="usernamesCannotBeChanged">いえ、変えられません。技術上・実務上の理由があります。 ユーザー名はデータベース、エクスポート、ログ、人の頭の中とあまりにも多くの場所にあるからです。大文字小文字の区別は一度だけ変更できます。</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">いえ、変えられません。技術上・実務上の理由があります。 ユーザー名はデータベース、エクスポート、ログ、人の頭の中とあまりにも多くの場所にあるからです。大文字小文字の区別は一度だけ変更できます。</string>
   <string name="uniqueTrophies">独特なトロフィー</string>
   <string name="ownerUniqueTrophies">このトロフィーは Lichess 史上唯一のもので、与えられたのは今後を含めて %1$s だけです。</string>
   <string name="wayOfBerserkExplanation">ユーザー hiimgosu は %s で全局バーサークして100%%の勝率を上げたのです。</string>
   <string name="aHourlyBulletTournament">毎時のブレット・トーナメント</string>
-  <string name="goldenZeeExplanation">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ユーザー ZugAddict はストリーム配信をしながら 1+0 の持時間でレベル 8 の AI に勝とうと 2 時間奮闘しましたがうまくいきませんでした。Thibault は彼に、配信中に勝ったら特製のトロフィーをあげると言いました。1 時間後、彼はみごと Stockfish を破り、約束が守られたというわけです。</string>
   <string name="lichessRatings">Lichess のレーティング</string>
   <string name="whichRatingSystemUsedByLichess">Lichess はどんなレーティング方式を使っていますか？</string>
   <string name="ratingSystemUsedByLichess">レーティングは Mark Glickman が考案した Glicko-2 方式で計算されています。これは非常に普及したレーティング方式で、かなりの数のチェス組織が採用しています（ただ注目すべき例外として、FIDE は今も古い Elo 方式を使っています）。

@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s erabiltzaileak %2$s argitaratu du</string>
   <string name="thisPostIsPublished">Sarrera hau argitaratuta dago</string>
   <string name="thisIsADraft">Hau zirriborro bat da</string>
-  <string name="moreBlogPostsBy">%s erabiltzailearen sarrera gehiago</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s erabiltzailearen sarrera gehiago</string>
   <string name="noPostsInThisBlogYet">Blog honek ez du sarrerarik oraindik.</string>
   <string name="noDrafts">Ez dago zirriborrorik.</string>
   <string name="latestBlogPosts">Blogeko azken sarrerak</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">Irudiaren ordezko testua</string>
   <string name="imageCredit">Irudiaren oina</string>
   <string name="deleteBlog">Sarrera hau betiko ezabatu</string>
-  <string name="deleteImage">Ezabatu irudia</string>
   <string name="safeToUseImages">Webgune hauetako irudiak erabili ditzakezu: </string>
   <string name="selectPostTopics">Aukeratu zure sarreraren gaiak</string>
   <string name="useImagesYouMadeYourself">Zuk egindako irudiak, egindako argazkiak, Lichessen pantaila-irudiak eta beste norbaiten copyrightik ez duen edozer erabili dezakeu.</string>

@@ -16,6 +16,8 @@ final private class PlaybanFeedback(
   def sitting(pov: Pov): Unit =
     tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
 
+  def quickResign(pov: Pov): Unit = tell(pov, s"Warning, {user}. Resigning games too quickly $tempBan")
+
   private def tell(pov: Pov, template: String): Unit =
     pov.player.userId.foreach { userId =>
       lightUser(userId).foreach { light =>
@@ -23,3 +25,12 @@ final private class PlaybanFeedback(
         chatApi.volatile(pov.gameId.into(ChatId), message, _.round)
       }
     }
+
+object PlaybanFeedback:
+
+  val sittingAutoPreset = lila.core.msg.MsgPreset(
+    name = "Warning: leaving games / stalling on time",
+    text =
+      """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+  This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
+  )

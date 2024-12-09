@@ -61,7 +61,7 @@
   <string name="analysis">Дошка для аналіза</string>
   <string name="depthX">Глыбіня %s</string>
   <string name="usingServerAnalysis">Выкарыстоўваецца серверны аналіз</string>
-  <string name="loadingEngine">Загружаем шахматную праграму...</string>
+  <string name="loadingEngine">Загружаем рухавічок...</string>
   <string name="calculatingMoves">Пралічваем хады...</string>
   <string name="engineFailed">Памылка пры загрузцы шахматнай праграмы</string>
   <string name="cloudAnalysis">Воблачны аналіз</string>
@@ -72,6 +72,7 @@
   <string name="promoteVariation">Прасунуць варыянт</string>
   <string name="makeMainLine">Зрабіць асноўным варыянтам</string>
   <string name="deleteFromHere">Выдаліць з гэтага месца</string>
+  <string name="collapseVariations">Ачысціць варыянты</string>
   <string name="forceVariation">Прасунуць варыянт</string>
   <string name="copyVariationPgn">Скап\'яваць варыянт у фармаце PGN</string>
   <string name="move">Ход</string>
@@ -117,7 +118,6 @@
   <string name="replayMode">Рэжым паўтору</string>
   <string name="realtimeReplay">У рэальным часе</string>
   <string name="byCPL">Цікавае</string>
-  <string name="openStudy">Адкрыць навучанне</string>
   <string name="enable">Уключыць</string>
   <string name="bestMoveArrow">Паказваць стрэлкай найлепшы ход</string>
   <string name="evaluationGauge">Шкала ацэнкі</string>
@@ -475,7 +475,6 @@
   <string name="block">Заблакаваць</string>
   <string name="blocked">Заблакаваны</string>
   <string name="unblock">Разблакіраваць</string>
-  <string name="followsYou">Падпісаны на вас</string>
   <string name="xStartedFollowingY">%1$s падпісаўся на %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s падпісчык</item>
@@ -513,9 +512,6 @@
   <string name="safeTournamentName">Абярыце назву для турніру (бяспечную, калі ласка).</string>
   <string name="inappropriateNameWarning">Усё, што нават крыху апынецца недарэчным, можа прывесці да блакіроўкі.</string>
   <string name="emptyTournamentName">Пакіньце пустым, каб назваць турнір у гонар выпадковага гросмайстра.</string>
-  <string name="recommendNotTouching">Лепей тут нічога не чапаць.</string>
-  <string name="fewerPlayers">Калі вы задасце ўмовы ўваходу, то не ўсе гульцы змогуць далучыцца да вашага турніру.</string>
-  <string name="showAdvancedSettings">Паказаць дадатковыя налады</string>
   <string name="makePrivateTournament">Зрабіць турнір прыватным і абмяжаваць доступ паролем</string>
   <string name="join">Далучыцца</string>
   <string name="withdraw">Адмовіцца ад удзелу</string>
@@ -554,8 +550,7 @@
   <string name="ifNoneLeaveEmpty">Калі няма, пакіньце пустым</string>
   <string name="profile">Профіль</string>
   <string name="editProfile">Рэдагаваць профіль</string>
-  <string name="firstName">Імя</string>
-  <string name="lastName">Прозвішча</string>
+  <string name="realName">Сапраўднае імя</string>
   <string name="biography">Біяграфія</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Краіна або рэгіён</string>
   <string name="thankYou">Дзякуй!</string>
@@ -578,12 +573,14 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Аўтаматычна пераходзіць да наступнай гульні пасля ходу</string>
   <string name="autoSwitch">Аўтапераключэнне</string>
   <string name="puzzles">Задачы</string>
+  <string name="onlineBots">Анлайн боты</string>
   <string name="name">Назва</string>
   <string name="description">Апісанне</string>
   <string name="descPrivate">Прыватнае апісанне</string>
   <string name="descPrivateHelp">Дапамагчы зрабіць \"прыватнае апісанне\".</string>
   <string name="no">Не</string>
   <string name="yes">Так</string>
+  <string name="website">Вэб-сайт</string>
   <string name="help">Дапамога:</string>
   <string name="createANewTopic">Стварыць новую тэму</string>
   <string name="topics">Тэмы</string>
@@ -600,11 +597,8 @@
   <string name="reason">Прычына</string>
   <string name="whatIsIheMatter">Што здарылася?</string>
   <string name="cheat">Несумленная гульня</string>
-  <string name="insult">Абраза</string>
   <string name="troll">Троль</string>
-  <string name="ratingManipulation">Махінацыі з рэйтынгам</string>
   <string name="other">Іншае</string>
-  <string name="reportDescriptionHelp">Пакіньце ніжэй спасылку на гульню (ці гульні) і патлумачце, што вас непакоіць у паводзінах гэтага карыстальніка. Не пішыце нешта кшталту «ён чмут!» – патлумачце, як вы прыйшлі да гэтага выніку. Мы хутчэй разбярэмся ў сітуацыі, калі вы напішаце нам па-англійску.</string>
   <string name="error.provideOneCheatedGameLink">Калі ласка, дадайце спасылку хаця б на адну гульню, дзе былі парушаны правілы.</string>
   <string name="by">аўтар: %s</string>
   <string name="importedByX">Імпартваў/-ла %s</string>
@@ -637,6 +631,7 @@
   <string name="slow">Павольная</string>
   <string name="insideTheBoard">Унутры дошкі</string>
   <string name="outsideTheBoard">Па-за дошкай</string>
+  <string name="allSquaresOfTheBoard">Усе клеткі на дошцы</string>
   <string name="onSlowGames">У павольных гульнях</string>
   <string name="always">Заўседы</string>
   <string name="never">Ніколі</string>
@@ -727,7 +722,7 @@
   <string name="aboutSimulRules">Калі пачынаецца сеанс адначасовай гульні, кожны ўдзельнік гуляе асобную партыю з сеансёрам. Сеанс лічыцца скончаным, калі ўсе гульні завершаны.</string>
   <string name="aboutSimulSettings">Сеансы адначасовай гульні заўсёды таварыскія. Нельга перахадзіць ці дадаваць час.</string>
   <string name="create">Стварыць</string>
-  <string name="whenCreateSimul">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Калі вы створыце сеанс адначасовай гульні, вам прыйдзецца гуляць супраць некалькіх супернікаў у адначассе.</string>
   <string name="simulVariantsHint">Вы таксама можаце абраць некалькі варыянтаў для гульні: тады кожны гулец абярэ той з іх, у якім ён хоча гуляць з вамі.</string>
   <string name="simulClockHint">Налады гадзінніку Фішэра. Чым больш у вас супернікаў, тым больш часу вам можа спатрэбіцца.</string>
   <string name="simulAddExtraTime">Вы можаце ўзяць сабе дадатковы час на роздумы.</string>
@@ -830,6 +825,11 @@
   <string name="transparent">Празрысты</string>
   <string name="deviceTheme">Тэма прылады</string>
   <string name="backgroundImageUrl">Спасылка на фон:</string>
+  <string name="board">Дошка</string>
+  <string name="size">Размер</string>
+  <string name="opacity">Празрыстасць</string>
+  <string name="brightness">Яркасць</string>
+  <string name="hue">Адценне</string>
   <string name="pieceSet">Набор фігур</string>
   <string name="embedInYourWebsite">Убудаваць у свой сайт</string>
   <string name="usernameAlreadyUsed">Гэтае імя карыстальніка ўжо занятае. Калі ласка, паспрабуйце іншае.</string>

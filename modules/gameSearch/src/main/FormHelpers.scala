@@ -1,8 +1,8 @@
 package lila.gameSearch
 
 import chess.Status
+
 import lila.core.rating.RatingRange
-import lila.core.i18n.Translate
 
 object FormHelpers:
 

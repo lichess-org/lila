@@ -1,13 +1,17 @@
 package lila.mod
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.user.WithPerfsAndEmails
 import lila.core.perm.Permission
 import lila.core.playban.RageSit
-import lila.core.LightUser
 import lila.evaluation.Display
+import lila.ui.*
+import lila.user.WithPerfsAndEmails
+
+import ScalatagsTemplate.{ *, given }
+import lila.report.Report
+
+def mzSection(key: String) =
+  div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
 final class ModUserUi(helpers: Helpers, modUi: ModUi):
   import helpers.{ *, given }
@@ -24,9 +28,6 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
   val reportban       = iconTag(Icon.CautionTriangle)
   val notesText       = iconTag(Icon.Pencil)
   val rankban         = i("R")
-
-  def mzSection(key: String) =
-    div(cls := s"mz-section mz-section--$key", dataRel := key, id := s"mz_$key")
 
   def menu = mzSection("menu")(
     a(href := "#mz_actions")("Overview"),
@@ -121,14 +122,16 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                     title  := "Delete all PMs and public chat messages",
                     cls    := "xhr"
                   )(
-                    submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
+                    submitButton(cls := "btn-rack__btn yes-no-confirm")("Clear PMs & chats")
                   ),
                   postForm(
                     action := routes.Mod.isolate(u.username, !u.marks.isolate),
                     title  := "Isolate user by preventing all PMs, follows and challenges",
                     cls    := "xhr"
                   )(
-                    submitButton(cls := List("btn-rack__btn confirm" -> true, "active" -> u.marks.isolate))(
+                    submitButton(
+                      cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.marks.isolate)
+                    )(
                       "Isolate"
                     )
                   )
@@ -141,7 +144,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             title  := "Activate kid mode if not already the case",
             cls    := "xhr"
           )(
-            submitButton(cls := "btn-rack__btn confirm", cls := u.kid.option("active"))("Kid")
+            submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.option("active"))("Kid")
           )
         },
         Granter.opt(_.RemoveRanking).option {
@@ -174,7 +177,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
         Granter.opt(_.ReportBan).option {
           postForm(
             action := routes.Mod.reportban(u.username, !u.marks.reportban),
-            title  := "Enable/disable the boost/cheat report feature for this user.",
+            title  := "Enable/disable the report feature for this user.",
             cls    := "xhr"
           )(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.marks.reportban))("Reportban")
@@ -212,7 +215,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             title  := "Disables two-factor authentication for this account.",
             cls    := "xhr"
           )(
-            submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
+            submitButton(cls := "btn-rack__btn yes-no-confirm")("Disable 2FA")
           )
         },
         (Granter.opt(_.Impersonate) || (Granter.opt(_.Admin) && u.id == UserId.lichess)).option {
@@ -267,12 +270,24 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
     postForm(
       action := routes.Mod.gdprErase(u.username),
       cls    := "gdpr-erasure"
-    )(modUi.gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
+    )(modUi.gdprEraseButton(u)(cls := "btn-rack__btn yes-no-confirm"))
 
   private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
     Granter.opt(_.ChangePermission) || (Granter.opt(_.Admin) && user.roles.nonEmpty)
 
   def prefs(u: User, hasKeyboardMove: Boolean, botCompatible: Boolean)(using Context) =
+    val prefList = List(
+      hasKeyboardMove.option(li("keyboard moves")),
+      botCompatible.option:
+        li:
+          strong:
+            a(
+              cls      := "text",
+              dataIcon := Icon.CautionCircle,
+              href := lila.common.String.base64
+                .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+            )("BOT-COMPATIBLE SETTINGS")
+    ).flatten
     frag(
       canViewRolesOf(u).option(
         mzSection("roles")(
@@ -282,24 +297,11 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           )
         )
       ),
-      mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := Icon.Gear)("Notable preferences"),
-        ul(
-          hasKeyboardMove.option(li("keyboard moves")),
-          botCompatible.option(
-            li(
-              strong(
-                a(
-                  cls      := "text",
-                  dataIcon := Icon.CautionCircle,
-                  href := lila.common.String.base64
-                    .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-                )("BOT-COMPATIBLE SETTINGS")
-              )
-            )
-          )
+      prefList.nonEmpty.option:
+        mzSection("preferences")(
+          strong(cls := "text inline", dataIcon := Icon.Gear)("Notable preferences"),
+          ul(prefList)
         )
-      )
     )
 
   def showRageSitAndPlaybans(rageSit: RageSit, playbans: Int): Frag =
@@ -344,48 +346,26 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
       )
     )
 
-  def reportLog(u: User)(reports: lila.report.Report.ByAndAbout)(using Translate): Frag =
+  def reportLog(u: User, reports: List[Report])(using Translate): Frag =
+    val title = strong(cls := "text", dataIcon := Icon.CautionTriangle)(
+      pluralizeLocalize("report", reports.size),
+      " sent by ",
+      u.username
+    )
     mzSection("reports")(
-      div(cls := "mz_reports mz_reports--out")(
-        strong(cls := "text", dataIcon := Icon.CautionTriangle)(
-          s"Reports sent by ${u.username}",
-          reports.by.isEmpty.option(": nothing to show.")
-        ),
-        reports.by.map: r =>
+      form3.fieldset(title, false.some)(cls := "mz_reports mz_reports--out")(
+        reports.map: r =>
           r.atomBy(u.id.into(lila.report.ReporterId))
             .map: atom =>
               postForm(action := routes.Report.inquiry(r.id.value))(
                 reportSubmitButton(r),
                 " ",
-                userIdLink(r.user.some),
+                userIdLink(r.user.some, withOnline = false),
                 " ",
                 momentFromNowServer(atom.at),
                 ": ",
                 shorten(atom.text, 200)
               )
-      ),
-      div(cls := "mz_reports mz_reports--in")(
-        strong(cls := "text", dataIcon := Icon.CautionTriangle)(
-          s"Reports concerning ${u.username}",
-          reports.about.isEmpty.option(": nothing to show.")
-        ),
-        reports.about.map: r =>
-          postForm(action := routes.Report.inquiry(r.id.value))(
-            reportSubmitButton(r),
-            div(cls := "atoms")(
-              r.bestAtoms(3).map { atom =>
-                div(cls := "atom")(
-                  "By ",
-                  userIdLink(atom.by.userId.some),
-                  " ",
-                  momentFromNowServer(atom.at),
-                  ": ",
-                  shorten(atom.text, 200)
-                )
-              },
-              (r.atoms.size > 3).option(s"(and ${r.atoms.size - 3} more)")
-            )
-          )
       )
     )
 
@@ -575,7 +555,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               eraseButton.option(
                 td(
                   postForm(action := routes.Mod.gdprErase(u.username)):
-                    modUi.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
+                    modUi.gdprEraseButton(u)(cls := "button button-red button-empty yes-no-confirm")
                 )
               ),
               if checkboxes then ModUserTableUi.userCheckboxTd(u.marks.alt)
@@ -597,18 +577,17 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
 
   def parts(ps: Option[String]*) = ps.flatten.distinct.mkString(" ")
 
-  private def reportSubmitButton(r: lila.report.Report)(using Translate) =
+  def reportSubmitButton(r: lila.report.Report)(using Translate) =
     submitButton(
       title := {
         if r.open then "open"
         else s"closed: ${r.done.fold("no data")(done => s"by ${done.by} at ${showInstant(done.at)}")}"
       }
-    )(lila.report.ui.ReportUi.reportScore(r.score), " ", strong(r.reason.name))
+    )(lila.report.ui.ReportUi.reportScore(r.score), " ", strong(r.room.name))
 
   def userMarks(o: User, playbans: Option[Int]) =
     div(cls := "user_marks")(
-      playbans.map: nb =>
-        playban(nb),
+      playbans.map(playban(_)),
       o.marks.troll.option(shadowban),
       o.marks.boost.option(boosting),
       o.marks.engine.option(engine),

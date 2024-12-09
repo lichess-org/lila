@@ -1,19 +1,14 @@
 package lila.user
-
-import chess.PlayerTitle
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.data.validation.Constraints
 
 import lila.common.Form.{
+  cleanFewSymbolsAndNonEmptyText,
+  cleanFewSymbolsText,
   cleanNonEmptyText,
-  cleanText,
-  cleanNoSymbolsText,
-  cleanNoSymbolsAndNonEmptyText,
-  playerTitle,
+  cleanTextWithSymbols,
   into,
-  trim,
-  given
+  playerTitle
 }
 import lila.common.LameName
 import lila.core.user.Profile
@@ -40,17 +35,16 @@ final class UserForm:
   val profile: Form[Profile] = Form:
     mapping(
       "flag"       -> optional(text.verifying(Flags.codeSet contains _)),
-      "location"   -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 80)),
-      "bio"        -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 400)),
-      "firstName"  -> nameField,
-      "lastName"   -> nameField,
+      "location"   -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 80)),
+      "bio"        -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 400, maxSymbols = 10)),
+      "realName"   -> optional(cleanFewSymbolsText(minLength = 1, maxLength = 100)),
       "fideRating" -> optional(number(min = 1400, max = 3000)),
       "uscfRating" -> optional(number(min = 100, max = 3000)),
       "ecfRating"  -> optional(number(min = 0, max = 3000)),
       "rcfRating"  -> optional(number(min = 0, max = 3000)),
-      "cfcRating"  -> optional(number(min = 0, max = 3000)),
+      "cfcRating"  -> optional(number(min = 200, max = 3000)),
       "dsbRating"  -> optional(number(min = 0, max = 3000)),
-      "links"      -> optional(cleanNoSymbolsAndNonEmptyText(maxLength = 3000))
+      "links"      -> optional(cleanFewSymbolsAndNonEmptyText(maxLength = 3000))
     )(Profile.apply)(unapply)
 
   def profileOf(user: User) = profile.fill(user.profileOrDefault)
@@ -58,13 +52,11 @@ final class UserForm:
   def flair(using Me) = Form[Option[Flair]]:
     single(FlairApi.formPair())
 
-  private def nameField = optional(cleanNoSymbolsText(minLength = 1, maxLength = 20))
-
 object UserForm:
 
   val note = Form:
     mapping(
-      "text"     -> cleanText(minLength = 3, maxLength = 2000),
+      "text"     -> cleanTextWithSymbols(minLength = 3, maxLength = 2000),
       "noteType" -> text
     )((text, noteType) => NoteData(text, noteType == "mod" || noteType == "dox", noteType == "dox"))(_ =>
       none
@@ -72,7 +64,7 @@ object UserForm:
 
   val apiNote = Form:
     mapping(
-      "text" -> cleanText(minLength = 3, maxLength = 2000),
+      "text" -> cleanTextWithSymbols(minLength = 3, maxLength = 2000),
       "mod"  -> boolean,
       "dox"  -> default(boolean, false)
     )(NoteData.apply)(unapply)

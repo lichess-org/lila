@@ -1,27 +1,33 @@
-import { StudyChapterConfig, ReloadData } from './interfaces';
-import * as xhr from 'common/xhr';
+import type { StudyChapterConfig, ReloadData } from './interfaces';
+import { text as xhrText, json as xhrJson, form as xhrForm } from 'common/xhr';
 
-export const reload = (baseUrl: string, id: string, chapterId?: string): Promise<ReloadData> => {
+export const reload = (
+  baseUrl: string,
+  id: string,
+  chapterId?: string,
+  withChapters: boolean = false,
+): Promise<ReloadData> => {
   let url = `/${baseUrl}/${id}`;
   if (chapterId) url += '/' + chapterId;
-  return xhr.json(url);
+  if (withChapters) url += '?chapters=1';
+  return xhrJson(url);
 };
 
-export const variants = () => xhr.json('/variant', { cache: 'default' });
+export const variants = () => xhrJson('/variant', { cache: 'default' });
 
 export const glyphs = () =>
-  xhr.json(`/study/glyphs/${document.documentElement.lang}.json`, { cache: 'default' });
+  xhrJson(`/study/glyphs/${document.documentElement.lang}.json`, { cache: 'default' });
 
 export const chapterConfig = (studyId: string, chapterId: string): Promise<StudyChapterConfig> =>
-  xhr.json(`/study/${studyId}/${chapterId}/config`);
+  xhrJson(`/study/${studyId}/${chapterId}/config`);
 
 export const practiceComplete = (chapterId: string, nbMoves: number) =>
-  xhr.text(`/practice/complete/${chapterId}/${nbMoves}`, {
+  xhrText(`/practice/complete/${chapterId}/${nbMoves}`, {
     method: 'POST',
   });
 
 export const importPgn = (studyId: string, data: any) =>
-  xhr.text(`/study/${studyId}/import-pgn?sri=${site.sri}`, {
+  xhrText(`/study/${studyId}/import-pgn?sri=${site.sri}`, {
     method: 'POST',
-    body: xhr.form(data),
+    body: xhrForm(data),
   });

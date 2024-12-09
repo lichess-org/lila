@@ -3,8 +3,8 @@ package lila.tournament
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 
-import lila.memo.CacheApi.*
 import lila.core.chess.Rank
+import lila.memo.CacheApi.*
 
 /*
  * Getting a standing page of a tournament can be very expensive

@@ -1,8 +1,8 @@
 package lila.mod
 
 import lila.core.notify.*
-import lila.report.Suspect
 import lila.rating.PerfType
+import lila.report.Suspect
 
 final private class ModNotifier(
     notifyApi: NotifyApi,

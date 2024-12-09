@@ -1,5 +1,5 @@
-import { RoundSocket } from './socket';
-import * as xhr from 'common/xhr';
+import type { RoundSocket } from './socket';
+import { text as xhrText } from 'common/xhr';
 
 /* Tracks moves that were played on the board,
  * sent to the server, possibly acked,
@@ -15,16 +15,16 @@ export default class TransientMove {
 
   current: number | undefined = undefined;
 
-  register = () => {
+  register = (): void => {
     this.current = setTimeout(this.expire, 10000);
   };
 
-  clear = () => {
+  clear = (): void => {
     if (this.current) clearTimeout(this.current);
   };
 
-  expire = () => {
-    xhr.text('/statlog?e=roundTransientExpire', { method: 'post' });
+  expire = (): void => {
+    xhrText('/statlog?e=roundTransientExpire', { method: 'post' });
     this.socket.reload();
   };
 }

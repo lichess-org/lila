@@ -2,29 +2,23 @@ package lila.api
 
 import akka.actor.*
 import com.softwaremill.macwire.*
-import play.api.libs.ws.StandaloneWSClient
-import play.api.{ Configuration, Mode }
+import play.api.Mode
 
 import lila.chat.{ GetLinkCheck, IsChatFresh }
 import lila.common.Bus
-import lila.common.config.*
 import lila.core.misc.lpv.*
-import lila.core.id.CmsPageKey
 
 @Module
 final class Env(
-    appConfig: Configuration,
     net: lila.core.config.NetConfig,
     securityEnv: lila.security.Env,
     mailerEnv: lila.mailer.Env,
-    teamSearchEnv: lila.teamSearch.Env,
-    forumSearchEnv: lila.forumSearch.Env,
     forumEnv: lila.forum.Env,
     teamEnv: lila.team.Env,
     puzzleEnv: lila.puzzle.Env,
     fishnetEnv: lila.fishnet.Env,
     studyEnv: lila.study.Env,
-    studySearchEnv: lila.studySearch.Env,
+    gameSearch: lila.gameSearch.GameSearchApi,
     fideEnv: lila.fide.Env,
     coachEnv: lila.coach.Env,
     evalCacheEnv: lila.evalCache.Env,
@@ -38,6 +32,7 @@ final class Env(
     userEnv: lila.user.Env,
     streamerEnv: lila.streamer.Env,
     relationEnv: lila.relation.Env,
+    relayEnv: lila.relay.Env,
     analyseEnv: lila.analyse.Env,
     lobbyEnv: lila.lobby.Env,
     simulEnv: lila.simul.Env,
@@ -54,14 +49,15 @@ final class Env(
     notifyEnv: lila.notify.Env,
     appealApi: lila.appeal.AppealApi,
     shutupEnv: lila.shutup.Env,
+    titleEnv: lila.title.Env,
     modLogApi: lila.mod.ModlogApi,
     activityWriteApi: lila.activity.ActivityWriteApi,
     ublogApi: lila.ublog.UblogApi,
     picfitUrl: lila.memo.PicfitUrl,
-    cmsApi: lila.cms.CmsApi,
     cacheApi: lila.memo.CacheApi,
     webConfig: lila.web.WebConfig,
     realPlayerApi: lila.web.RealPlayerApi,
+    bookmarkExists: lila.core.bookmark.BookmarkExists,
     manifest: lila.web.AssetManifest
 )(using val mode: Mode, scheduler: Scheduler)(using
     Executor,
@@ -93,6 +89,10 @@ final class Env(
 
   lazy val accountClosure = wire[AccountClosure]
 
+  lazy val anySearch = wire[AnySearch]
+
+  lazy val modTimeline = wire[ModTimelineApi]
+
   lazy val cli = wire[Cli]
 
   private lazy val linkCheck = wire[LinkCheck]
@@ -106,7 +106,7 @@ final class Env(
       promise.completeWith(chatFreshness.of(source))
     },
     "lpv" -> {
-      case AllPgnsFromText(text, p)       => p.completeWith(textLpvExpand.allPgnsFromText(text))
+      case AllPgnsFromText(text, max, p)  => p.completeWith(textLpvExpand.allPgnsFromText(text, max))
       case LpvLinkRenderFromText(text, p) => p.completeWith(textLpvExpand.linkRenderFromText(text))
     }
   )

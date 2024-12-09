@@ -1,6 +1,6 @@
 package lila.ui
 
-import ScalatagsTemplate.{ *, given }
+import ScalatagsTemplate.*
 
 opaque type Nonce = String
 object Nonce extends OpaqueString[Nonce]:

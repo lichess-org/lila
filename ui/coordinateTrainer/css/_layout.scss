@@ -74,7 +74,9 @@
       'side . progress . .'
       'side . co-input . .'
       'side . .        . .';
-    grid-template-columns: $col3-uniboard-side $block-gap var(---col3-uniboard-width) $block-gap $col3-uniboard-table;
+    grid-template-columns:
+      $col3-uniboard-side $block-gap var(---col3-uniboard-width)
+      $block-gap $col3-uniboard-table;
   }
 }
 

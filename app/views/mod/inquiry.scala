@@ -1,38 +1,23 @@
 package views.mod
 
 import lila.app.UiEnv.{ *, given }
-
-import lila.common.String.html.richText
-import lila.report.{ Reason, Report }
-import lila.core.id.{ ForumPostId, RelayRoundId }
+import lila.report.Report
+import lila.shutup.Analyser
 
 object inquiry:
 
   lazy val ui = lila.mod.ui.ModInquiryUi(helpers)
 
-  // simul game study relay tournament
-  private val commFlagRegex = """\[FLAG\] (\w+)/(\w{8})(?:/w)? (.+)""".r
-
-  private def renderAtomText(text: String, highlight: Boolean) =
-    text.split("\n").map { line =>
-      val (link, text) = line match
-        case commFlagRegex(tpe, id, text) =>
-          val path = tpe match
-            case "game"       => routes.Round.watcher(GameId(id), Color.white).url
-            case "relay"      => routes.RelayRound.show("-", "-", RelayRoundId(id)).url
-            case "tournament" => routes.Tournament.show(TourId(id)).url
-            case "swiss"      => routes.Swiss.show(SwissId(id)).url
-            case "forum"      => routes.ForumPost.redirect(ForumPostId(id)).url
-            case _            => s"/$tpe/$id"
-          a(href := path)(path).some -> text
-        case text => None -> text
-      frag(
-        link,
-        " ",
-        if highlight then lila.shutup.Analyser.highlightBad(text) else frag(text),
-        " "
-      )
-    }
+  private def renderAtomText(atom: Report.Atom, highlight: Boolean)(using Translate) =
+    val (link, text) = atom.parseFlag.match
+      case Some(flag) => publicLineSource(flag.source).some -> flag.quotes.mkString("\n")
+      case None       => None                               -> atom.text
+    frag(
+      link,
+      " ",
+      if highlight then Analyser.highlightBad(text) else frag(text),
+      " "
+    )
 
   def apply(in: lila.mod.Inquiry)(using ctx: Context) =
     div(id := "inquiry")(

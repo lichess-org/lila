@@ -1,9 +1,8 @@
 package lila.ui
 
-import play.api.i18n.Lang
-
 import java.text.NumberFormat
 import java.util.concurrent.ConcurrentHashMap
+
 import lila.core.i18n.Translate
 
 object NumberHelper:

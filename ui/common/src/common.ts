@@ -6,16 +6,6 @@ export const isEmpty = <T>(a: T[] | undefined): boolean => !a || a.length === 0;
 
 export const notEmpty = <T>(a: T[] | undefined): boolean => !isEmpty(a);
 
-export const clamp = (value: number, bounds: { min?: number; max?: number }): number =>
-  Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
-
-export function as<T>(v: T, f: () => void): () => T {
-  return () => {
-    f();
-    return v;
-  };
-}
-
 export interface Prop<T> {
   (): T;
   (v: T): T;
@@ -74,61 +64,68 @@ export const memoize = <A>(compute: () => A): (() => A) => {
   };
 };
 
-export const scrollToInnerSelector = (el: HTMLElement, selector: string, horiz: boolean = false) =>
+export const scrollToInnerSelector = (el: HTMLElement, selector: string, horiz: boolean = false): void =>
   scrollTo(el, el.querySelector(selector), horiz);
 
-export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boolean = false) => {
+export const scrollTo = (el: HTMLElement, target: HTMLElement | null, horiz: boolean = false): void => {
   if (target)
     horiz
       ? (el.scrollLeft = target.offsetLeft - el.offsetWidth / 2 + target.offsetWidth / 2)
       : (el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2);
 };
 
-export const onClickAway = (f: () => void) => (el: HTMLElement) => {
-  const listen: () => void = () =>
-    $(document).one('click', e => {
-      if (!document.contains(el)) {
-        return;
-      }
-      if (el.contains(e.target)) {
-        listen();
-      } else {
-        f();
-      }
-    });
-  setTimeout(listen, 300);
+export const onClickAway =
+  (f: () => void) =>
+  (el: HTMLElement): void => {
+    const listen: () => void = () =>
+      $(document).one('click', e => {
+        if (!document.contains(el)) {
+          return;
+        }
+        if (el.contains(e.target)) {
+          listen();
+        } else {
+          f();
+        }
+      });
+    setTimeout(listen, 300);
+  };
+
+export function hyphenToCamel(str: string): string {
+  return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
+}
+
+export const requestIdleCallback = (f: () => void, timeout?: number): void => {
+  if (window.requestIdleCallback) window.requestIdleCallback(f, timeout ? { timeout } : undefined);
+  else requestAnimationFrame(f);
 };
 
-export type SparseSet<T> = Set<T> | T;
-export type SparseMap<V> = Map<string, SparseSet<V>>;
-
-export function spread<T>(v: undefined | SparseSet<T>): T[] {
-  return v === undefined ? [] : v instanceof Set ? [...v] : [v];
+export function escapeHtml(str: string): string {
+  if (typeof str !== 'string') str = JSON.stringify(str); // throws
+  return /[&<>"']/.test(str)
+    ? str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/'/g, '&#39;')
+        .replace(/"/g, '&quot;')
+    : str;
 }
 
-export function spreadMap<T>(m: SparseMap<T>): [string, T[]][] {
-  return [...m].map(([k, v]) => [k, spread(v)]);
+export function frag<T extends Node = Node>(html: string): T {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+
+  const fragment: DocumentFragment = document.createDocumentFragment();
+  while (div.firstChild) fragment.appendChild(div.firstChild);
+
+  return (fragment.childElementCount === 1 ? fragment.firstElementChild : fragment) as unknown as T;
 }
 
-export function getSpread<T>(m: SparseMap<T>, key: string): T[] {
-  return spread(m.get(key));
+export function $as<T>(cashOrHtml: Cash | string): T {
+  return (typeof cashOrHtml === 'string' ? $(cashOrHtml) : cashOrHtml)[0] as T;
 }
 
-export function remove<T>(m: SparseMap<T>, key: string, val: T) {
-  const v = m.get(key);
-  if (v === val) m.delete(key);
-  else if (v instanceof Set) v.delete(val);
-}
-
-export function pushMap<T>(m: SparseMap<T>, key: string, val: T) {
-  const v = m.get(key);
-  if (!v) m.set(key, val);
-  else {
-    if (v instanceof Set) v.add(val);
-    else if (v !== val) m.set(key, new Set([v as T, val]));
-  }
-}
-
-export function hyphenToCamel(str: string) {
-  return str.replace(/-([a-z])/g, g => g[1].toUpperCase());
+export function myUserId(): string | undefined {
+  return document.body.dataset.user;
 }

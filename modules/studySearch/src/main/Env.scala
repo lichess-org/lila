@@ -1,25 +1,18 @@
 package lila.studySearch
 
-import akka.actor.*
 import com.softwaremill.macwire.*
-
-import lila.common.Bus
 import scalalib.paginator.*
-import lila.common.LateMultiThrottler
-import lila.core.study.RemoveStudy
-import lila.study.Study
+
 import lila.search.*
 import lila.search.client.SearchClient
 import lila.search.spec.Query
+import lila.study.Study
 
 final class Env(
     studyRepo: lila.study.StudyRepo,
-    chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
     client: SearchClient
-)(using Executor, ActorSystem, Scheduler, akka.stream.Materializer):
-
-  private val indexThrottler = LateMultiThrottler(executionTimeout = 3.seconds.some, logger = logger)
+)(using Executor):
 
   val api: StudySearchApi = wire[StudySearchApi]
 
@@ -33,12 +26,3 @@ final class Env(
       currentPage = page,
       maxPerPage = pager.maxPerPage
     )
-
-  def cli = new lila.common.Cli:
-    def process =
-      case "study" :: "search" :: "reset" :: Nil          => api.reset("reset").inject("done")
-      case "study" :: "search" :: "index" :: since :: Nil => api.reset(since).inject("done")
-
-  Bus.subscribeFun("study"):
-    case lila.study.actorApi.SaveStudy(study) => api.store(study)
-    case RemoveStudy(id)                      => client.deleteById(index, id.value)

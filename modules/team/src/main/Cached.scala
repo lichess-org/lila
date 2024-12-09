@@ -2,10 +2,9 @@ package lila.team
 
 import reactivemongo.api.bson.BSONNull
 
+import lila.core.team.{ Access, LightTeam }
 import lila.db.dsl.{ *, given }
-import lila.core.team.LightTeam
 import lila.memo.Syncache
-import lila.core.team.Access
 
 final class Cached(
     teamRepo: TeamRepo,
@@ -43,7 +42,7 @@ final class Cached(
           Match($doc("_id".$startsWith(s"$u@"))) -> List(
             Project($doc("_id" -> $doc("$substr" -> $arr("$_id", u.value.size + 1, -1)))),
             PipelineOperator(
-              $lookup.pipeline(
+              $lookup.pipelineBC(
                 from = teamRepo.coll,
                 as = "team",
                 local = "_id",
@@ -79,7 +78,7 @@ final class Cached(
           nbReqs      <- requestRepo.countPendingForTeams(leaderTeams)
         yield nbReqs
 
-  private[team] val forumAccess = cacheApi[TeamId, Access](1_024, "team.forum.access"):
+  private[team] val forumAccess = cacheApi[TeamId, Access](256, "team.forum.access"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture(id => teamRepo.forumAccess(id).dmap(_ | Access.None))
 
   val unsubs = cacheApi[TeamId, Int](512, "team.unsubs"):

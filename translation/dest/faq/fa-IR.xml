@@ -2,25 +2,25 @@
 <resources>
   <string name="faqAbbreviation">پرسش‌های متداول</string>
   <string name="frequentlyAskedQuestions">پرسش‌های متداول</string>
-  <string name="whyIsLichessCalledLichess">وجه تسمیه Lichess چیست؟</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess ترکیبی از واژه‌های live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess به صورت %1$s است.</string>
-  <string name="leechess">lee-chess</string>
+  <string name="whyIsLichessCalledLichess">نامگذاری Lichess بر چه پایه‌ایست؟</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">واژه Lichess آمیخته‌ای از واژگان live (زنده)، light (سَبُک)، libre (آزاد و متن‌باز) و chess (شطرنج) است. تلفظ Lichess %1$s است.</string>
+  <string name="leechess">لی-چِس</string>
   <string name="hearItPronouncedBySpecialist">تلفظ آن را از یک متخصص بشنوید.</string>
   <string name="whyLiveLightLibre">Live (زنده) چون به صورت بی‌درنگ در 24 ساعت روز و 7 روز هفته بازیکنان با یکدیگر بازی می‌کنند و بازی‌ها قابل تماشا است. Libre (آزاد) چون که این سایت منبع باز است بر خلاف سایر وب‌سایت‌ها، هیچ کسی مالک سایت نیست.</string>
   <string name="whyIsLilaCalledLila">به طور مشابه، کد مرجع برای لیچس، %1$s، که مخفف li[chess in sca]la هست، قابل رویت است به صورت فشرده لیچس که نوشته در %2$s، که یک زبان شهودی برنامه نویسی است.</string>
   <string name="howCanIContributeToLichess">چگونه می‌توانم به Lichess کمک کنم؟</string>
   <string name="lichessPoweredByDonationsAndVolunteers">لایچس از طریق کمک های مالی حامیان و تلاش های داوطلبان تامین میشود.</string>
-  <string name="findMoreAndSeeHowHelp">اینجا میتوانید بیشتر راجع‌ به %1$s بدانید (همینطور %2$s). اگر میخواهید به‌صورت داوطلب وقت و مهارت تان را در اختیار لیچس بگذارید، اینجا تعدادی از %3$s وجود دارد.</string>
+  <string name="findMoreAndSeeHowHelp">می‌توانید درباره %1$s (از جمله %2$s) بیشتر بدانید. اگر می‌خواهید با صرف زمان و مهارت‌تان Lichess را یارانید، چندین %3$s وجود دارد.</string>
   <string name="beingAPatron">پشتیبان بودن</string>
   <string name="breakdownOfOurCosts">جزئیات مخارج ما</string>
-  <string name="otherWaysToHelp">راه های دیگر برای حمایت</string>
+  <string name="otherWaysToHelp">راه دیگر برای کمک</string>
   <string name="areThereWebsitesBasedOnLichess">آیا وب‌سایتهایی که بر اساس Lichess ساخته شده باشند، وجود دارد؟</string>
-  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. در واقع سایت های متن باز از %1$s و %2$s و %3$s لیچس استفاده میکنند.</string>
+  <string name="yesLichessInspiredOtherOpenSourceWebsites">بله. Lichess در واقع الهام‌بخش دیگر وبگاه‌های متن‌باز است که از %1$s، %2$s، یا %3$s ما می‌بهرایند.</string>
   <string name="keyboardShortcuts">چه میانبرهای صفحه کلیدی وجود دارند؟</string>
-  <string name="keyboardShortcutsExplanation">برخی از صفحات Lichess دارای کلیدهای میانبر هستند که می‌توانید از آنها استفاده کنید. برای مشاهده کلیدهای میانبر موجود در صفحات مطالعه، تجزیه و تحلیل، معما یا بازی، کلید «؟» را فشار دهید.</string>
+  <string name="keyboardShortcutsExplanation">برخی از صفحه‌های Lichess دارای میانبرهای صفحه‌کلید هستند که می‌توانید از آنها بهرایید. برای دیدن فهرست میانبرهای صفحه‌کلید، درون صفحهٔ مطالعه، تحلیل، معما یا بازی، کلید «؟» را بزنید.</string>
   <string name="fairPlay">بازی منصفانه</string>
   <string name="whenAmIEligibleRatinRefund">چه زمانی برای پس‌گیری خودکار درجه‌بندی‌ام از تقلب‌کارها، واجد شرایط‌ هستم؟</string>
-  <string name="ratingRefundExplanation">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">یک دقیقه پس از تشخیص بازیکن تقلب‌کار، ۴۰ بازی رسمی اخیرش در ۳ روز گذشته انتخاب می‌شود. اگر در یکی از آن بازی‌ها حریفشان بوده‌اید و امتیاز از دست داده‌اید (به دلیل باخت یا تساوی)، و درجه‌بندی‌تان هم موقتی نبوده، مقداری امتیاز به شما پس داده می‌شود. امتیاز پس‌دهی بر اساس بیشینه درجه‌بندی‌تان و پیشرفت درجه‌بندی‌تان پس از بازی، محدود می‌شود. (مثلاً اگر درجه‌بندی‌تان بعد از آن بازی بسیار افزایش یابد، ممکن است هیچ امتیازی دریافت نکنید یا فقط مقداری جزئی دریافت کنید.) مقدار پس‌دهی هرگز بیشتر از ۱۵۰ امتیاز نخواهد شد.</string>
   <string name="preventLeavingGameWithoutResigning">چه اقدامی درباره بازیکنانی که بازی را بدون انصراف ترک میکنند انجام شده است?</string>
   <string name="leavingGameWithoutResigningExplanation">اگر حریف شما به صورت مداوم بازی را ترک کند، از بازی محروم می شود این به این معنی است که به صورت موقت اجازه بازی کردن را نخواهد داشت. این امر در حساب کاربری فرد نمایش داده نمی شود. اگر این رفتار ادامه پیدا کند، مدت زمان محرومیت از بازی افزایش می یابد و انجام این کار در مدت زمان طولانی ممکن است منجر به مسدود شدن حساب کاربر شود.</string>
   <string name="howCanIBecomeModerator">چگونه می‌توانم یک مدیر باشم؟</string>
@@ -28,37 +28,54 @@
   <string name="isCorrespondenceDifferent">شطرنج مکاتبه ای با شطرنج معمولی تفاوت دارد؟</string>
   <string name="pleaseReadFairPlayPage">برای اطلاعات بیشتر، لطفا %s را بخوانید</string>
   <string name="fairPlayPage">صفحه بازی عادلانه</string>
-  <string name="youCanUseOpeningBookNoEngine">در لیچس، تفاوت اصلی در قوانین شطرنج مکاتبه‌ای این است که کتاب‌های شروع بازی مجاز است. استفاده از انجین همچنان ممنوع است و منجر به علامت گذاری برای کمک گرفتن از انجین خواهد شد. اگر چه ICCF اجازه استفاده از انجین را در بازی‌های مکاتبه‌ای می‌دهد، لیچس این کار را نمی‌کند.</string>
+  <string name="youCanUseOpeningBookNoEngine">در Lichess، تفاوت اصلی در قانون‌های شطرنج مکاتبه‌ای آن است که، کتاب گشایش مجاز است. استفاده از موتورها همچنان ممنوع است و منجر به نشانه‌گذاری «کمک از موتور» می‌شود. اگرچه ICCF اجازه استفاده از موتور را در مکاتبه می‌دهد، Lichess اجازه نمی‌دهد.</string>
   <string name="gameplay">روند بازی</string>
   <string name="howBulletBlitzEtcDecided">محاسبات زمانی شطرنج گلوله‌ای، برق‌آسا و سایر موارد، چگونه تصمیم‌گیری می‌شود؟</string>
-  <string name="basedOnGameDuration">کنترل زمانی لیچس بر اساس مدت زمان تخمینی بازی است = %1$s
-برای مثال، مدت زمان تخمینی یک بازی 3+5:
-ثانیه 420 = 40 × 3 + 60 × 5</string>
-  <string name="durationFormula">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
+  <string name="basedOnGameDuration">زمان‌بندی‌های Lichess بر پایهٔ مدت برآوردشدهٔ بازی است = %1$s.
+برای نمونه، مدت برآوردشدهٔ یک بازی ۵+۳ می‌شود ۵ × ۶۰ + ۴۰ × ۳۰ = ۴۲۰ ثانیه.</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(زمان اولیه به ثانیه) + (40 × پاداش زمانی به ازای هر حرکت)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≤ %1$s = %2$s</string>
-  <string name="whatVariantsCanIplay">چه شطرنج‌گونه‌هایی را می‌توانم در Lichess بازی کنم؟</string>
+  <string name="whatVariantsCanIplay">چه وَرتاهایی را می‌توانم در Lichess بازی کنم؟</string>
   <string name="lichessSupportChessAnd">وبگاه Lichess از شطرنج استاندارد و %1$s پشتیبانی می‌کند.</string>
-  <string name="eightVariants">هشت شطرنج‌گونه</string>
+  <string name="eightVariants">۸ وَرتای شطرنج</string>
   <string name="whatIsACPL">میانگین باخت صدم ‌پیاده چیست؟</string>
-  <string name="acplExplanation">صدم پیاده شاخص اندازه گیری برتری است که در شطرنج اندازه گیری می شود. هر صدم پیاده معادل یک صدم ارزش یک پیاده است. بنابراین هر 100 صدم پیاده = یک پیاده. این ارزشها نقش خاصی در بازی ایفا نمی‌کنند اما برای بازیکنان مفید هستند و برای محاسبه پوزیسیون توسط کامپیوتر ضروری. بهترین حرکت کامپیوتری هیچ صدم پیاده ای از دست نمی‌دهد، ولی حرکت های پایینتر موجب افت پوزیسیونی می شوند که توسط صدم‌پیاده اندازه گیری می شود. این مقدار می‌تواند به عنوان ابزار اندازه‌گیری کیفیت بازی استفاده شود. هرچه صدم‌پیاده ای که یک بازیکن با هر حرکت از دست می دهد کمتر باشد، بازی او بهتر است. آنالیز های کامپیوتری لی چس از استاک فیش قدرت گرفته تند.</string>
+  <string name="acplExplanation">صدم‌پیاده واحد اندازه‌گیری‌ایست که در شطرنج برای نمایش برتری به کار می‌رود. یک صدم‌پیاده برابر است با ۱/۱۰۰ پیاده. بنابراین: ۱۰۰ صدم‌پیاده = ۱ پیاده. این ارزش‌ها هیچ نقش رسمی‌ای در بازی ندارند، ولی برای بازیکنان سودمندند و در شطرنج رایانه‌ای برای ارزیابی وضعیت‌ها ضروری‌اند.
+
+حرکت برتر رایانه‌ای، صفر صدم‌پیاده را از دست می‌دهد، اما حرکت‌های ضعیف‌تر، بَرآیه‌شان بدترشدن وضعیت است که با صدم‌پیاده اندازه‌گیری می‌شود.
+
+این ارزش می تواند به عنوان نشانگر کیفیت بازی استفاده شود. هر چه صدم‌پیاده‌ای که کسی در هر حرکت از دست دهد کمتر، بازی قوی‌تر است.
+
+تحلیل رایانه‌ای در Lichess با Stockfish انجام می‌شود.</string>
   <string name="insufficientMaterial">افتادن زمان، مساوی و مهره های ناکافی برای برد</string>
+  <string name="lichessFollowFIDErules">در هنگام تمام شدن زمان یک بازیکن، آن بازیکن معمولا بازی را می‌بازد. با این حال، اگر وضعیت به گونه‌ای باشد که حریف نتواند با هر دنباله حرکت‌های قانونی (%1$s) شاه را مات کند، بازی مساوی می‌شود.
+
+در مورد‌های کمیابی هم، تصمیم‌گیری خودکار دشوار است (شاخه‌های ناگزیر، دژها). پیش‌فرضانه، ما همیشه در کنار بازیکنی هستیم که زمانش تمام نشده است.
+
+توجه کنید که مات با تک اسب یا فیل، به شرطی که حریف مهره‌ای داشته باشد که شاه را سد کند، شدنی است.</string>
   <string name="fideHandbook">دستینه فیده</string>
   <string name="fideHandbookX">بخش %s از دستینه فیده</string>
   <string name="discoveringEnPassant">آیا یک پیاده میتواند یک پیاده دیگر را در حالی که از کنارش رد شده است بگیرد؟ (آن پاسان)</string>
+  <string name="explainingEnPassant">این یک حرکت قانونی است که به عنوان \"آن‌پاسان\" شناخته می‌شود. این مقاله ویکی‌پدیا اطلاعاتی در مورد آن ارائه می‌دهد: %1$s.
+
+این موضوع در بخش‌های 3.7.3.1 و 3.7.3.2 از %2$s توضیح داده شده است:
+\"یک پیاده که در یک خانه در همان عرض و در یک ستون مجاور با پیاده حریف قرار دارد و اخیراً دو خانه به جلو حرکت کرده است، می‌تواند این پیاده حریف را به‌گونه‌ای بگیرد که گویی پیاده حریف فقط یک خانه حرکت کرده است. این گرفتن تنها در حرکت بعد از این پیشرفت قانونی است و به عنوان گرفتن \'آن‌پاسان\' نامیده می‌شود.\"
+
+برای تمرین این حرکت، به %3$s مراجعه کنید.</string>
   <string name="goodIntroduction">معرفی و مقدمه خوب</string>
   <string name="lichessTraining">آموزش Lichess</string>
   <string name="watchIMRosenCheckmate">کیش و مات شدن %s در مقابل استاد بین‌المللی اریک روزن را تماشا کنید.</string>
-  <string name="threefoldRepetition">تکرار سه گانه</string>
-  <string name="threefoldRepetitionExplanation">اگر پوزیشنی سه بار اتفاق افتاد، بازیکنان میتوانن با استفاده از %1$s ادعای مساوی کنند. لیچس قوانین رسمی FIDE را که در مقاله %2$s توضیح داده شده اجرا میکند.</string>
-  <string name="threefoldRepetitionLowerCase">تکرار سه گانه</string>
+  <string name="threefoldRepetition">تکرار سه‌گانه</string>
+  <string name="threefoldRepetitionExplanation">اگر یک وضعیت سه بار رخ دهد، بازیکنان می‌توانند با %1$s، ادعای تساوی کنند. Lichess قانون‌های رسمی فیده را که در ماده 9.2 %2$s آمده، اجرا می‌کند.</string>
+  <string name="threefoldRepetitionLowerCase">تکرار سه‌گانه</string>
   <string name="notRepeatedMoves">ما حرکات را تکرار نکردیم. چرا بازی همچنان با تکرار مساوی می شد؟</string>
-  <string name="repeatedPositionsThatMatters">تکرار سه گانه مربوط به %1$s تکراری است، نه حرکت. لزومی ندارد که تکرار به طور متوالی اتفاق بیفتد.</string>
-  <string name="positions">موقعیت‌ها</string>
-  <string name="weRepeatedthreeTimesPosButNoDraw">ما یک موقعیت را سه بار تکرار کردیم. چرا بازی مساوی نشد؟</string>
+  <string name="repeatedPositionsThatMatters">تکرار سه‌گانه درباره %1$s تکراری است، نه حرکت‌ها. لازم نیست که تکرار، پیاپی باشد.</string>
+  <string name="positions">وضعیت‌های</string>
+  <string name="weRepeatedthreeTimesPosButNoDraw">ما یک وضعیت را سه بار تکرار کردیم. چرا بازی مساوی نشد؟</string>
   <string name="configure">پیکربندی نمایید</string>
   <string name="accounts">حساب‌های کاربری</string>
   <string name="titlesAvailableOnLichess">چه عناوینی در Lichess وجود دارند؟</string>
+  <string name="lichessRecognizeAllOTBtitles">Lichess تمام عناوین فیده را که از بازی‌های OTB (بر روی صفحه) به دست آمده‌اند، به رسمیت می‌شناسد، همچنین %1$s. در اینجا فهرستی از عناوین فیده آورده شده است:</string>
   <string name="asWellAsManyNMtitles">تعداد زیادی عناوین استادی ملی</string>
   <string name="verificationForm">فرم تایید</string>
   <string name="canIbecomeLM">آیا می‌توانم عنوان Lichess Master (LM) را دریافت کنم؟</string>
@@ -67,10 +84,11 @@
   <string name="usernamesNotOffensive">به طور کلی، نام های کاربری نباید: توهین آمیز، جعل هویت شخص دیگری یا تبلیغاتی باشند. می‌توانید درباره %1$s بیشتر بخوانید.</string>
   <string name="guidelines">دستورالعمل‌ها</string>
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
-  <string name="usernamesCannotBeChanged">خیر، نام کاربری به دلایل فنی و عملی قابل تغییر نیست. نام‌های کاربری در جاهای مختلف ثبت شده اند: پایگاه‌های داده، گزارش‌ها و در نظر مردم. می توانید یک بار حروف بزرگ را تنظیم کنید.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
   <string name="wayOfBerserkExplanation">برای به دست آوردنش، hiimgosu خود را به چالش کشید تا تمام بازی های %s با استفاده از جنون برنده شود.</string>
   <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">کاربر ZugAddict جریان‌سازی می‌کرد و در ۲ ساعت آخر کوشید هوش مصنوعی را شکست دهد. سطح ۸ در زمان ۱+۰، کامیاب نشد. بُناگرِ Lichess به او گفت که اگر هنگام پخش، در این کار کامیاب شود، یک جامینهٔ یکتا خواهد گرفت. یک ساعت بعد، او Stockfish را شکست داد و آن قول عملی شد.</string>
   <string name="lichessRatings">درجه‌بندی در Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess از چه شیوه درجه‌بندی‌ای استفاده می‌کند؟</string>
   <string name="ratingSystemUsedByLichess">درجه‌بندی‌ها با استفاده از شیوه درجه‌بندی Glicko-2 که به‌دست مارک گلیکمن ایجاد شده است، محاسبه می‌شوند. این شیوه درجه‌بندی بسیار محبوب است و تعداد قابل توجهی از نهادهای شطرنج از آن استفاده می‌کنند (FIDE یک مثال نقض قابل‌توجه است، زیرا آنها هنوز از شیوه درجه‌بندی ازمُدافتاده Elo استفاده می‌کنند).
@@ -91,7 +109,7 @@
   <string name="ratingLeaderboards">جدول رده‌بندی</string>
   <string name="havePlayedMoreThanThirtyGamesInThatRating">حداقل 30 بازی رسمی کرده باشید،</string>
   <string name="havePlayedARatedGameAtLeastOneWeekAgo">در هفته گذشته، در جدول مربوطه یک بازی رسمی کرده باشید،</string>
-  <string name="ratingDeviationLowerThanXinChessYinVariants">داشتن «انحراف درجه‌بندی» کمتر از %1$s در شطرنج استاندارد، و کمتر از %2$s در شطرنج‌گونه‌ها،</string>
+  <string name="ratingDeviationLowerThanXinChessYinVariants">داشتن «انحراف درجه‌بندی» کمتر از %1$s در شطرنج استاندارد، و کمتر از %2$s در وَرتاها،</string>
   <string name="beInTopTen">جز ۱۰ نفر برتر جدول مربوطه باشید.</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">شرط دوم برای این است که از پر کردن جداول رده‌بندی با بازیکنانی که دیگر بازی نمی‌کنند، جلوگیری کند.</string>
   <string name="whyAreRatingHigher">چرا مقدار درجه‌بندی‌های Lichess در مقایسه با دیگر وبگاه‌ها و نهادها، مانند FIDE, USCF و ICC بالاتر است؟</string>
@@ -101,18 +119,27 @@
   <string name="howToHideRatingWhilePlaying">چگونه هنگام بازی کردن درجه‌بندی‌ها را پنهان کنیم؟</string>
   <string name="enableZenMode">با فعال‌سازی حالت ذِن در %1$s، یا با زدن کلید %2$s حین بازی.</string>
   <string name="displayPreferences">تنظیمات نمایش</string>
-  <string name="connexionLostCanIGetMyRatingBack">من یک بازی را به خاطر قطعی/وقفه اینترنت باختم. آیا می‌توانم امتیاز درجه‌بندی‌ام را پس بگیرم؟</string>
+  <string name="connexionLostCanIGetMyRatingBack">من یک بازی را به خاطر وقفه/قطعی اینترنت باختم. آیا می‌توانم امتیاز درجه‌بندی‌ام را پس بگیرم؟</string>
   <string name="weCannotDoThatEvenIfItIsServerSideButThatsRare">صرف‌نظر از اینکه مشکل از سمت شما بوده یا ما، متاسفانه ما نمی‌توانیم برای بازی‌های باخته به خاطر قطعی/وقفه اینترنت، امتیاز پس دهیم. هر چند حالت دوم بسیار نادر است. همچنین توجه داشته باشید که وقتی Lichess بازراه‌اندازی می‌شود و به همین خاطر، آن لحظه شما می‌بازید، ما بازی را لغو می‌کنیم تا از باخت ناعادلانه جلوگیری کنیم.</string>
   <string name="howToThreeDots">چگونه...</string>
-  <string name="enableDisableNotificationPopUps">فعال یا غیرفعال سازی اعلان‌های بالاپَر؟</string>
+  <string name="enableDisableNotificationPopUps">فعال/نافعال‌سازی اعلان‌های بالاپَر؟</string>
   <string name="viewSiteInformationPopUp">دیدن بالاپَر اطلاعات وبگاه</string>
-  <string name="lichessCanOptionnalySendPopUps">وبگاه Lichess می‌تواند بااختیار اعلان‌های بالاپَر بفرستد، برای مثال زمانی که نوبت‌تان است یا پیام خصوصی دریافت کرده‌اید.
+  <string name="lichessCanOptionnalySendPopUps">وبگاه Lichess می‌تواند بااختیار اعلان‌های بالاپَر بفرستد، برای مثال زمانی که نوبت‌تان است یا پیام خصوصی گرفته‌اید.
 
-روی نقشک پس از قفل، در آغاز نشانی lichess.org در نوار URL مرورگرتان بزنید.
+روی نقشکِ قفل، کنارِ نشانی lichess.org در نوار URL مرورگرتان بزنید.
 
-سپس برگزینید که آیا اعلان‌های Lichess مجاز یا مسدود شوند.</string>
+سپس برگزینید که آیا اعلان‌های Lichess مُجاز/مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
   <string name="desktop">رایانه</string>
+  <string name="enableAutoplayForSoundsSafari">۱. به lichess.org بروید
+۲. در نوار نام‌چین روی Safari بزنید
+۳. در تنظیمات، lichess.org را بزنید ...
+۴. اجازه «پخش خودکار همه» (All Auto-Play) را دهید</string>
+  <string name="enableAutoplayForSoundsMicrosoftEdge">۱. روی سه نقطه در گوشه بالا راست بزنید
+۲. تنظیمات (Settings) را بزنید
+۳. رَدنماها و مجوزهای وبگاه (Cookies and Site Permissions) را بزنید
+۴. به پایین بِنَوَردید و پخش خودکار رسانه (Media autoplay) را بزنید
+۵. وبگاه lichess.org را به اجازه‌داران (Allow) بیفزایید</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">چگونه خودم را از بازی، بازدارم؟</string>
   <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">وضعیت سلامت روانی خوداتکا</string>
   <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">سبک‌های کاربری Lichess</string>

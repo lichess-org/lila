@@ -1,9 +1,9 @@
 package controllers
 
+import monocle.syntax.all.*
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import monocle.syntax.all.*
 import scala.util.{ Failure, Success }
 
 import lila.app.*
@@ -20,9 +20,8 @@ final class Fishnet(env: Env) extends LilaController(env):
     ClientAction[JsonApi.Request.Acquire] { _ => client =>
       api
         .acquire(client, slow)
-        .addEffect { jobOpt =>
+        .addEffect: jobOpt =>
           lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
-        }
         .map(Right.apply)
     }
 

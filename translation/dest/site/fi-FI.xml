@@ -70,8 +70,8 @@
   <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Taita kokoon muunnelmat</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Laajenna muunnelmat</string>
+  <string name="collapseVariations">Taita kokoon muunnelmat</string>
+  <string name="expandVariations">Laajenna muunnelmat</string>
   <string name="forceVariation">Pakota muunnelmaksi</string>
   <string name="copyVariationPgn">Kopioi muunnelman PGN</string>
   <string name="move">Siirto</string>
@@ -116,7 +116,6 @@
   <string name="replayMode">Toistotapa</string>
   <string name="realtimeReplay">Reaaliaik.</string>
   <string name="byCPL">Virheet</string>
-  <string name="openStudy">Avaa tutkielma</string>
   <string name="enable">Käytössä</string>
   <string name="bestMoveArrow">Parhaan siirron nuoli</string>
   <string name="showVariationArrows">Näytä muunnelman nuolet</string>
@@ -126,7 +125,6 @@
   <string name="memory">Muistia</string>
   <string name="infiniteAnalysis">Loputon analyysi</string>
   <string name="removesTheDepthLimit">Poistaa syvyysrajoituksen ja pitää koneesi lämpöisenä</string>
-  <string name="engineManager">Moottorin hallinta</string>
   <string name="blunder">Vakava virhe</string>
   <string name="mistake">Virhe</string>
   <string name="inaccuracy">Epätarkkuus</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Uusimmat foorumiviestit</string>
   <string name="players">Pelaajat</string>
   <string name="friends">Kaverit</string>
+  <string name="otherPlayers">muiden pelaajien</string>
   <string name="discussions">Keskustelut</string>
   <string name="today">Tänään</string>
   <string name="yesterday">Eilen</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s pelejä kanssasi</item>
     <item quantity="other">%s pelejä kanssasi</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Peruuta</string>
   <string name="whiteTimeOut">Valkealta loppui aika</string>
   <string name="blackTimeOut">Mustalta loppui aika</string>
@@ -334,11 +334,11 @@
   <string name="thisAccountViolatedTos">Tämä käyttäjätunnus rikkoi Lichessin käyttöehtoja</string>
   <string name="openingExplorerAndTablebase">Avausselain ja -tietokanta</string>
   <string name="takeback">Peruuta siirto</string>
-  <string name="proposeATakeback">Ehdota siirron peruutusta</string>
-  <string name="takebackPropositionSent">Siirron peruutusta ehdotettu</string>
-  <string name="takebackPropositionDeclined">Siirron peruutuksen ehdotus hylätty</string>
-  <string name="takebackPropositionAccepted">Siirron peruutuksen ehdotus hyväksytty</string>
-  <string name="takebackPropositionCanceled">Siirron peruutuksen ehdotus peruttu</string>
+  <string name="proposeATakeback">Pyydä siirron peruutusta</string>
+  <string name="takebackPropositionSent">Siirron peruutusta pyydetty</string>
+  <string name="takebackPropositionDeclined">Siirron peruutuspyyntö torjuttu</string>
+  <string name="takebackPropositionAccepted">Siirron peruutuspyyntö hyväksytty</string>
+  <string name="takebackPropositionCanceled">Siirron peruutuspyyntö vedetty pois</string>
   <string name="yourOpponentProposesATakeback">Vastustajasi ehdottaa siirron peruutusta</string>
   <string name="bookmarkThisGame">Jätä kirjanmerkki tähän peliin</string>
   <string name="tournament">Turnaus</string>
@@ -435,7 +435,6 @@
   <string name="block">Estä</string>
   <string name="blocked">Estetty</string>
   <string name="unblock">Poista esto</string>
-  <string name="followsYou">Seuraa sinua</string>
   <string name="xStartedFollowingY">%1$s alkoi seurata %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seuraaja</item>
@@ -467,9 +466,6 @@
   <string name="safeTournamentName">Valitse asiallinen nimi turnaukselle.</string>
   <string name="inappropriateNameWarning">Hiemankin epäasiallinen nimi voi johtaa käyttäjätunnuksesi sulkemiseen.</string>
   <string name="emptyTournamentName">Jos jätät tyhjäksi, turnaus nimetään jonkun suurmestarin mukaan.</string>
-  <string name="recommendNotTouching">Emme suosittele näihin koskemista.</string>
-  <string name="fewerPlayers">Jos asetat liittymisehtoja, turnauksessasi tulee olemaan vähemmän pelaajia.</string>
-  <string name="showAdvancedSettings">Näytä lisäasetukset</string>
   <string name="makePrivateTournament">Tee turnauksesta yksityinen ja aseta salasana, jolla siihen pääsee</string>
   <string name="join">Liity</string>
   <string name="withdraw">Peru osallistuminen</string>
@@ -509,8 +505,7 @@
   <string name="ifNoneLeaveEmpty">Jätä tyhjäksi jos ei ole</string>
   <string name="profile">Profiili</string>
   <string name="editProfile">Muokkaa profiilia</string>
-  <string name="firstName">Etunimi</string>
-  <string name="lastName">Sukunimi</string>
+  <string name="realName">Oikea nimi</string>
   <string name="setFlair">Valitse tyylisi</string>
   <string name="flair">Tyyli</string>
   <string name="youCanHideFlair">On olemassa asetus, jolla voit piilottaa kaikkien käyttäjien tyylit koko sivustolla.</string>
@@ -541,6 +536,8 @@
   <string name="descPrivateHelp">Teksti, jonka vain joukkueen jäsenet näkevät. Tähän laadittu kuvaus korvaa joukkueen jäseneiden kohdalla julkisen kuvauksen.</string>
   <string name="no">Ei</string>
   <string name="yes">Kyllä</string>
+  <string name="website">Verkkosivusto</string>
+  <string name="mobile">Mobiili</string>
   <string name="help">Apu:</string>
   <string name="createANewTopic">Luo uusi aihe</string>
   <string name="topics">Aiheet</string>
@@ -557,11 +554,11 @@
   <string name="reason">Syy</string>
   <string name="whatIsIheMatter">Mikä hätänä?</string>
   <string name="cheat">Huijaus</string>
-  <string name="insult">Loukkaus</string>
   <string name="troll">Trolli</string>
-  <string name="ratingManipulation">Vahvuusluvun manipulointi</string>
   <string name="other">Muu</string>
-  <string name="reportDescriptionHelp">Liitä linkki peliin/peleihin ja kerro, mikä on pielessä tämän käyttäjän käytöksessä. Älä vain sano että \"hän huijaa\", vaan kerro meille miksi ajattelet näin. Raporttisi käydään läpi nopeammin, jos se on kirjoitettu englanniksi.</string>
+  <string name="reportCheatBoostHelp">Liitä linkki peliin/peleihin ja kerro, mikä tämän käyttäjän toiminnassa on pielessä. Älä vain sano hänen huijaavan, vaan kerro meille, miksi olet päätellyt niin.</string>
+  <string name="reportUsernameHelp">Selitä, mikä tässä käyttäjätunnuksessa on loukkaavaa. Älä vain sano sen olevan loukkaava tai sopimaton, vaan kerro meille, mihin näkemyksesi perustuu, varsinkin jos loukkaus on epäsuora, muun kuin englanninkielinen, slangia, tai jos siinä viitataan kulttuuriin tai historiaan.</string>
+  <string name="reportProcessedFasterInEnglish">Ilmoituksesi käsitellään nopeammin, jos se on kirjoitettu englanniksi.</string>
   <string name="error.provideOneCheatedGameLink">Anna ainakin yksi linkki peliin, jossa epäilet huijaamista.</string>
   <string name="by">%s</string>
   <string name="importedByX">Käyttäjän %s tuoma</string>
@@ -594,6 +591,7 @@
   <string name="slow">Hidas</string>
   <string name="insideTheBoard">Laudan sisäpuolella</string>
   <string name="outsideTheBoard">Laudan ulkopuolella</string>
+  <string name="allSquaresOfTheBoard">Kaikki laudan ruudut</string>
   <string name="onSlowGames">Hitaissa peleissä</string>
   <string name="always">Aina</string>
   <string name="never">Ei koskaan</string>
@@ -680,7 +678,7 @@
   <string name="aboutSimulRules">Kun simultaani alkaa, jokainen pelaaja aloittaa pelin simultaanin pitäjää vastaan. Simultaanin pitäjä pelaa valkeilla nappuloilla. Simultaani loppuu, kun kaikki pelit ovat loppuneet.</string>
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat pois käytöstä.</string>
   <string name="create">Luo</string>
-  <string name="whenCreateSimul">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
   <string name="simulVariantsHint">Jos valitset useita variantteja, jokainen pelaaja valitsee mihin osallistuu.</string>
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>
@@ -995,4 +993,5 @@ Jätä kenttä tyhjäksi, jos haluat pelien alkavan normaalista alkuasemasta.</s
   <string name="lichessPatronInfo">Lichess on hyväntekeväisyysjärjestö ja täysin ilmainen avoimen lähdekoodin ohjelmisto.
 Kaikki toimintakustannukset, kehitystyö ja sisältö rahoitetaan yksinomaan käyttäjien lahjoituksilla.</string>
   <string name="nothingToSeeHere">Täällä ei ole tällä hetkellä mitään nähtävää.</string>
+  <string name="stats">Tilastot</string>
 </resources>

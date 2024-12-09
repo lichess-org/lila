@@ -4,10 +4,11 @@ package ui
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.tournament.Schedule.Freq
 import lila.rating.PerfType
+import lila.tournament.Schedule.Freq
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TournamentList(helpers: Helpers, ui: TournamentUi)(
     communityMenu: Context ?=> Frag,
@@ -27,7 +28,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
       .js(
         PageModule(
           "tournament.schedule",
-          Json.obj("data" -> json, "i18n" -> ui.scheduleJsI18n)
+          Json.obj("data" -> json)
         )
       )
       .hrefLangs(LangPath(routes.Tournament.home))
@@ -71,7 +72,7 @@ final class TournamentList(helpers: Helpers, ui: TournamentUi)(
                   .map: s =>
                     a(href := routes.Tournament.show(tour.id), dataIcon := ui.tournamentIcon(tour))(
                       strong(tour.name(full = false)),
-                      momentFromNow(s.at.instant)
+                      momentFromNow(s.atInstant)
                     )
             )
           ),

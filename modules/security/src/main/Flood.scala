@@ -1,6 +1,7 @@
 package lila.security
 
 import com.github.blemale.scaffeine.Cache
+
 import lila.core.security.FloodSource as Source
 
 final class Flood(using Executor) extends lila.core.security.FloodApi:

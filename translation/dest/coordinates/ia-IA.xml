@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Trainamento de coordinatas</string>
   <string name="averageScoreAsWhiteX">Punctos medie como blanco: %s</string>
   <string name="averageScoreAsBlackX">Punctos medie como nigro: %s</string>
-  <string name="knowingTheChessBoard">Recognoscer le coordinatas del tabuliero es un habilitate multo importante in le chacos:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Recognoscer le coordinatas del tabuliero es un habilitate multo importante in le chacos:</string>
   <string name="mostChessCourses">Le majoritate del cursos e exercitios de chacos usa le notation algebraic extensivemente.</string>
   <string name="talkToYourChessFriends">Isto facilita conversar con altere jocatores, proque ambes comprende le \"linguage del chacos\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Tu pote analysar un partita plus effectivemente si tu non ha besonio de cercar le nomines del quadratos.</string>

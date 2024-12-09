@@ -1,10 +1,10 @@
 package lila.game
 
-import cats.derived.*
-import chess.{ ByColor, Color, Elo, PlayerName, Ply }
+import chess.{ ByColor, Color, IntRating, PlayerName, Ply }
+import chess.rating.{ RatingProvisional }
 
+import lila.core.game.{ Blurs, LightGame, Player }
 import lila.core.user.WithPerf
-import lila.core.game.{ LightGame, Player, Blurs }
 import lila.game.Blurs.{ nonEmpty, given }
 
 object Player:
@@ -53,14 +53,14 @@ object Player:
   def makeImported(
       color: Color,
       name: Option[PlayerName],
-      rating: Option[Elo]
+      rating: Option[IntRating]
   ): Player =
     new Player(
       id = IdGenerator.player(color),
       color = color,
       aiLevel = none,
       name = name.orElse(PlayerName("?").some),
-      rating = rating.map(_.into(IntRating))
+      rating = rating
     )
 
   case class HoldAlert(ply: Ply, mean: Int, sd: Int):

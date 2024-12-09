@@ -4,9 +4,9 @@ import chess.{ ByColor, Color }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.*
 
+import lila.core.userId
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
-import lila.core.userId
 
 final class PrefApi(
     val coll: Coll,
@@ -23,21 +23,12 @@ final class PrefApi(
 
   export cache.{ get as getPrefById }
 
-  def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) = {
-    if value then
-      coll.update
-        .one(
-          $id(user.id),
-          $set(s"tags.${tag(Pref.Tag)}" -> "1"),
-          upsert = true
-        )
-        .void
-    else
-      coll.update
-        .one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
-        .void
-        .andDo { cache.invalidate(user.id) }
-  }.andDo { cache.invalidate(user.id) }
+  def saveTag(user: User, tag: Pref.Tag.type => String, value: Boolean) =
+    for _ <-
+        if value
+        then coll.update.one($id(user.id), $set(s"tags.${tag(Pref.Tag)}" -> "1"), upsert = true)
+        else coll.update.one($id(user.id), $unset(s"tags.${tag(Pref.Tag)}"))
+    yield cache.invalidate(user.id)
 
   def get(user: User): Fu[Pref] = cache
     .get(user.id)
@@ -111,10 +102,8 @@ final class PrefApi(
   def isolate(user: User) = setPref(user, identity[Pref])
 
   def agree(user: User): Funit =
-    coll.update
-      .one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true)
-      .void
-      .andDo(cache.invalidate(user.id))
+    for _ <- coll.update.one($id(user.id), $set("agreement" -> Pref.Agreement.current), upsert = true)
+    yield cache.invalidate(user.id)
 
   def setBot(user: User): Funit = setPref(
     user,

@@ -10,7 +10,7 @@
   <string name="newTeam">팀 만들기</string>
   <string name="myTeams">소속된 팀</string>
   <string name="noTeamFound">팀을 찾지 못했습니다</string>
-  <string name="joinTeam">팀 가입</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">팀 가입</string>
   <string name="onlyLeaderLeavesTeam">탈퇴하기 전에 새 팀 운영자를 추가하거나, 팀을 폐쇄하세요.</string>
   <string name="quitTeam">팀 탈퇴</string>
   <string name="manuallyReviewAdmissionRequests">수동으로 가입 요청을 검토합니다.</string>
@@ -47,13 +47,22 @@
   <string name="teamAlreadyExists">팀이 이미 존재합니다.</string>
   <string name="upcomingTournaments">다가오는 토너먼트</string>
   <string name="completedTourns">종료된 토너먼트</string>
-  <string name="declinedRequests">거절된 요청</string>
+  <string name="declinedRequests">거절된 요청들</string>
   <string name="joinLichessVariantTeam">%s 공식 팀을 가입하면 관련 소식과 행사에 대해 알 수 있습니다</string>
   <string name="teamPage">팀 페이지</string>
   <string name="thisTeamBattleIsOver">이 토너먼트는 종료되었으며 더 이상 팀을 수정할 수 없습니다.</string>
-  <string name="listTheTeamsThatWillCompete">이 배틀에서 경쟁할 팀을 나열하세요.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">이 배틀에서 경쟁할 팀을 나열하세요.</string>
   <string name="oneTeamPerLine">한 줄에 한 팀이 들어가야 합니다. 자동 완성을 사용하세요.</string>
+  <string name="oneTeamPerLineHelp">이 목록을 토너먼트에서 다른 토너먼트로 복사하여 붙일 수 있습니다!
+
+이미 토너먼트에 참가한 선수는 팀을 제거할 수 없습니다.</string>
+  <string name="numberOfLeadsPerTeam">팀당 리더 수. 그들의 점수의 합은 팀의 점수입니다.</string>
+  <string name="numberOfLeadsPerTeamHelp">경기가 시직되고 나서 이 값을 정말로 안바꾸는 것이 좋을겁니다!</string>
+  <string name="innerTeam">안쪽 팀</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="other">%s팀의 대국</item>
+  </plurals>
   <plurals name="nbLeadersPerTeam">
-    <item quantity="other">팀당 리더 %s명</item>
+    <item quantity="other">팀 당 리더 %s명</item>
   </plurals>
 </resources>

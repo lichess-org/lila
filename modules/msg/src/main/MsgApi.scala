@@ -4,9 +4,9 @@ import akka.stream.scaladsl.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.{ Bus, LilaStream }
-import lila.db.dsl.{ *, given }
+import lila.core.msg.{ PostResult, IdText }
 import lila.core.relation.Relations
-import lila.core.msg.PostResult
+import lila.db.dsl.{ *, given }
 
 final class MsgApi(
     colls: MsgColls,
@@ -159,7 +159,7 @@ final class MsgApi(
               if send == Ok || send == TrollFriend then
                 notifier.onPost(threadId)
                 Bus.publish(SendTo(dest, makeMessage("msgNew", json.renderMsg(msg))), "socketUsers")
-              if send == Ok then shutupApi.privateMessage(orig, dest, text)
+              if send == Ok && !multi then shutupApi.privateMessage(orig, dest, text)
               PostResult.Success
       yield res
     }
@@ -216,7 +216,7 @@ final class MsgApi(
           UnwindField("users"),
           Match($doc("users".$ne(user.id))),
           PipelineOperator:
-            $lookup.pipeline(
+            $lookup.pipelineBC(
               from = colls.msg,
               as = "msgs",
               local = "_id",
@@ -327,6 +327,24 @@ final class MsgApi(
           text <- msg.string("text")
           date <- msg.getAsOpt[Instant]("date")
         yield (text, date)).toList
+
+  def msgsToReport(from: UserId, onlyIds: Option[List[lila.core.msg.ID]] = None)(using
+      me: Me
+  ): Fu[List[IdText]] =
+    colls.msg
+      .find(
+        $doc("tid" -> MsgThread.id(from, me.userId), "user" -> from.id) ++ onlyIds.so($inIds),
+        $doc("text" -> true).some
+      )
+      .sort($sort.desc("date"))
+      .cursor[Bdoc]()
+      .list(200)
+      .map: docs =>
+        for
+          doc  <- docs
+          text <- doc.getAsOpt[String]("text")
+          id   <- doc.getAsOpt[String]("_id")
+        yield IdText(id, text)
 
   private val excludeTeamMessages = $doc:
     "$not" -> $doc:

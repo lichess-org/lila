@@ -1,16 +1,15 @@
 package lila.clas
 
-import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import reactivemongo.api.*
+import scalalib.ThreadLocalRandom
 
-import lila.core.config.BaseUrl
 import lila.common.Markdown
-import lila.db.dsl.{ *, given }
+import lila.core.config.BaseUrl
+import lila.core.id.{ ClasId, ClasInviteId, StudentId }
 import lila.core.msg.MsgApi
-import lila.rating.{ Perf, UserPerfs }
-import lila.rating.PerfType
-import lila.core.id.{ ClasId, StudentId, ClasInviteId }
+import lila.db.dsl.{ *, given }
+import lila.rating.{ Perf, PerfType, UserPerfs }
 
 final class ClasApi(
     colls: ClasColls,
@@ -98,7 +97,7 @@ final class ClasApi(
               Match($doc("userId" -> student)) -> List(
                 Project($doc("clasId" -> true)),
                 PipelineOperator(
-                  $lookup.pipeline(
+                  $lookup.pipelineBC(
                     from = colls.clas,
                     as = "clas",
                     local = "clasId",

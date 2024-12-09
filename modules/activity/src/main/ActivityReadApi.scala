@@ -1,14 +1,14 @@
 package lila.activity
 
 import play.api.i18n.Lang
-
 import scalalib.HeapSort
+
+import lila.core.chess.Rank
+import lila.core.game.LightPov
+import lila.core.swiss.IdName as SwissIdName
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.*
-import lila.core.game.LightPov
-
-import lila.core.swiss.{ IdName as SwissIdName }
-import lila.core.chess.Rank
+import chess.Speed.Correspondence
 
 final class ActivityReadApi(
     coll: AsyncCollFailingSilently,
@@ -88,18 +88,19 @@ final class ActivityReadApi(
           _.map(corres.moves -> _)
       corresEnds <- a.corres.so: corres =>
         getLightPovs(a.id.userId, corres.end).dmap:
-          _.map: povs =>
-            Score.make(povs) -> povs
-      simuls <-
-        a.simuls
-          .soFu: simuls =>
-            simulApi.byIds(simuls.value)
-          .dmap(_.filter(_.nonEmpty))
-      studies <-
-        a.studies
-          .soFu: studies =>
-            studyApi.publicIdNames(studies.value)
-          .dmap(_.filter(_.nonEmpty))
+          _.map:
+            _.groupBy(pov => PerfKey(pov.game.variant, Correspondence)).view
+              .mapValues: groupedPovs =>
+                (Score.make(groupedPovs) -> groupedPovs)
+              .toMap
+      simuls <- a.simuls
+        .soFu: simuls =>
+          simulApi.byIds(simuls.value)
+        .dmap(_.filter(_.nonEmpty))
+      studies <- a.studies
+        .soFu: studies =>
+          studyApi.publicIdNames(studies.value)
+        .dmap(_.filter(_.nonEmpty))
       tours <- a.games
         .exists(_.hasNonCorres)
         .so:

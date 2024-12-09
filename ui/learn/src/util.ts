@@ -1,8 +1,8 @@
-import type { Square as Key } from 'chess.js';
-import { Level, LevelPartial } from './stage/list';
+import type { SquareName } from 'chessops';
+import type { Level, LevelPartial } from './stage/list';
 import { h } from 'snabbdom';
-import * as cg from 'chessground/types';
-import { DrawShape } from 'chessground/draw';
+import type { DrawShape } from 'chessground/draw';
+import type { BrushColor } from 'chessground/types';
 
 export type WithGround = <A>(f: (cg: CgApi) => A) => A | false | undefined;
 
@@ -20,56 +20,31 @@ export function toLevel(l: LevelPartial, it: number): Level {
 
 export const assetUrl = document.body.dataset.assetUrl + '/assets/';
 
-export const roleToSan: {
-  [R in PromotionRole]: PromotionChar;
-} = {
-  knight: 'n',
-  bishop: 'b',
-  rook: 'r',
-  queen: 'q',
-};
 export type PromotionRole = 'knight' | 'bishop' | 'rook' | 'queen';
 export type PromotionChar = 'n' | 'b' | 'r' | 'q';
 
-export function isRole(str: PromotionChar | PromotionRole): str is PromotionRole {
-  return str.length > 1;
-}
+export const isRole = (str: PromotionChar | PromotionRole): str is PromotionRole => str.length > 1;
 
-export function arrow(vector: Uci, brush?: cg.BrushColor): DrawShape {
-  return {
-    brush: brush || 'paleGreen',
-    orig: vector.slice(0, 2) as Key,
-    dest: vector.slice(2, 4) as Key,
-  };
-}
+export const arrow = (vector: Uci, brush?: BrushColor): DrawShape => ({
+  brush: brush || 'paleGreen',
+  orig: vector.slice(0, 2) as SquareName,
+  dest: vector.slice(2, 4) as SquareName,
+});
 
-export function circle(key: Key, brush?: cg.BrushColor): DrawShape {
-  return {
-    brush: brush || 'green',
-    orig: key,
-  };
-}
+export const circle = (key: SquareName, brush?: BrushColor): DrawShape => ({
+  brush: brush || 'green',
+  orig: key,
+});
 
-export function readKeys(keys: string | Key[]) {
-  return typeof keys === 'string' ? (keys.split(' ') as Key[]) : keys;
-}
+export const readKeys = (keys: string | SquareName[]): SquareName[] =>
+  typeof keys === 'string' ? (keys.split(' ') as SquareName[]) : keys;
 
-export function setFenTurn(fen: string, turn: 'b' | 'w') {
-  return fen.replace(/ (w|b) /, ' ' + turn + ' ');
-}
+export const pieceImg = (role: Role) => h('div.no-square', h('piece.white.' + role));
 
-export function pieceImg(role: string) {
-  return h('div.no-square', h('piece.white.' + role));
-}
+export const roundSvg = (url: string) => h('div.round-svg', h('img', { attrs: { src: url } }));
 
-export function roundSvg(url: string) {
-  return h('div.round-svg', h('img', { attrs: { src: url } }));
-}
+export const withLinebreaks = (text: string) =>
+  text.split(/(\n)/g).map(part => (part === '\n' ? h('br') : part));
 
-export function withLinebreaks(text: string) {
-  return text.split(/(\n)/g).map(part => (part === '\n' ? h('br') : part));
-}
-
-export function decomposeUci(uci: string) {
-  return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)] as [Key, Key, PromotionChar | ''];
-}
+export const decomposeUci = (uci: string) =>
+  [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)] as [SquareName, SquareName, PromotionChar | ''];

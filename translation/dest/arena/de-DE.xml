@@ -63,20 +63,19 @@ Spiele schnell und kehre zur Turnierübersicht zurück, um mehr Spiele zu spiele
   <string name="myTournaments">Meine Turniere</string>
   <string name="editTournament">Turnier bearbeiten</string>
   <string name="editTeamBattle">Teamkampf bearbeiten</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Verteidiger</string>
+  <string name="defender">Verteidiger</string>
   <string name="pickYourTeam">Wähle dein Team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Welches Team wirst du in diesem Kampf repräsentieren?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du musst dich einem dieser Teams anschließen, um teilnehmen zu können!</string>
   <string name="created">Erstellt</string>
   <string name="recentlyPlayed">Kürzlich gespielt</string>
   <string name="bestResults">Beste Ergebnisse</string>
-  <string name="stats">Statistiken</string>
   <string name="tournamentStats">Turnierstatistiken</string>
   <string name="rankAvgHelp">Der Platzierungs-Durchschnitt ist ein Prozentwert deiner Platzierungen. Niedriger ist besser.
 
 Ein Beispiel: Wenn man in einem Turnier von 100 Spielern Platz 3 erreicht hat = Top 3%. In einem Turnier mit 1000 Spielern den Rang 10 zu erreichen = Top 1%.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">Medianwerte</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Alle Durchschnittswerte auf dieser Seite sind %s.</string>
+  <string name="medians">Medianwerte</string>
+  <string name="allAveragesAreX">Alle Durchschnittswerte auf dieser Seite sind %s.</string>
   <string name="total">Gesamt</string>
   <string name="pointsAvg">Punkte im Schnitt</string>
   <string name="pointsSum">Punkte insgesamt</string>

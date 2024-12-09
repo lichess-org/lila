@@ -3,14 +3,12 @@ package controllers
 import play.api.data.Form
 import play.api.libs.json.*
 import play.api.mvc.*
-import scalatags.Text.Frag
-import scala.util.chaining.*
+import views.account.pages
 
-import lila.web.AnnounceApi
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.security.SecurityForm.Reopen
-import views.account.pages
+import lila.web.AnnounceApi
 
 final class Account(
     env: Env,
@@ -102,6 +100,7 @@ final class Account(
               me.value,
               withFollows = apiC.userWithFollows,
               withTrophies = false,
+              withCanChallenge = false,
               forWiki = wikiGranted
             )
             .dmap { JsonOk(_) }
@@ -356,9 +355,11 @@ final class Account(
         lila.mon.user.auth.reopenConfirm("token_fail").increment()
         notFound
       case Some(user) =>
-        (env.report.api.reopenReports(lila.report.Suspect(user)) >>
-          auth.authenticateUser(user, remember = true))
-          .andDo(lila.mon.user.auth.reopenConfirm("success").increment())
+        for
+          _      <- env.report.api.reopenReports(lila.report.Suspect(user))
+          result <- auth.authenticateUser(user, remember = true)
+          _ = lila.mon.user.auth.reopenConfirm("success").increment()
+        yield result
     }
 
   def data = Auth { _ ?=> me ?=>

@@ -1,18 +1,19 @@
 package lila.ublog
+
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.core.timeline.{ Propagate, UblogPostLike }
+import chess.IntRating
 import lila.core.i18n.Language
-
 import lila.core.perf.UserWithPerfs
+import lila.core.timeline.{ Propagate, UblogPostLike }
+import lila.db.dsl.{ *, given }
 
 object UblogRank:
 
   opaque type Tier = Int
-  object Tier extends OpaqueInt[Tier]:
+  object Tier extends RelaxedOpaqueInt[Tier]:
     val HIDDEN: Tier  = 0 // not visible
     val VISIBLE: Tier = 1 // not listed in community page
     val LOW: Tier     = 2 // from here, ranking boost
@@ -22,7 +23,7 @@ object UblogRank:
 
     def default(user: UserWithPerfs) =
       if user.marks.troll then Tier.HIDDEN
-      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > 2200)
+      else if user.hasTitle || user.perfs.standard.glicko.establishedIntRating.exists(_ > IntRating(2200))
       then Tier.NORMAL
       else Tier.LOW
     val options = List(
@@ -126,19 +127,19 @@ final class UblogRank(colls: UblogColls)(using Executor, akka.stream.Materialize
               // but values should be approximately correct, match a real like
               // count (though perhaps not the latest one), and any uncontended
               // query will set the precisely correct value.
-              colls.post.update
-                .one(
-                  $id(postId),
-                  $set(
-                    "likes" -> likes,
-                    "rank"  -> UblogRank.computeRank(likes, liveAt, language, tier, hasImage, adjust)
+              for
+                _ <- colls.post.update
+                  .one(
+                    $id(postId),
+                    $set(
+                      "likes" -> likes,
+                      "rank"  -> UblogRank.computeRank(likes, liveAt, language, tier, hasImage, adjust)
+                    )
                   )
-                )
-                .andDo {
+                _ =
                   if res.nModified > 0 && v && tier >= Tier.LOW
                   then lila.common.Bus.pub(Propagate(UblogPostLike(me, id, title)).toFollowersOf(me))
-                }
-                .inject(likes)
+              yield likes
 
   def recomputePostRank(post: UblogPost): Funit =
     recomputeRankOfAllPostsOfBlog(post.blog, post.id.some)

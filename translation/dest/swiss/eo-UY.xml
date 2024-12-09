@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Svisa</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Svisa</string>
   <string name="swissTournaments">Svisaj turniroj</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vidi la raŭndon</item>
@@ -27,7 +27,7 @@
     <item quantity="one">%s minuto inter raŭndoj</item>
     <item quantity="other">%s minutoj inter raŭndoj</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Komenciĝos post</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Komenciĝos post</string>
   <string name="nextRound">Sekva raŭndo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Daŭranta ludo</item>
@@ -70,7 +70,7 @@ Plie, duonpoenton da malplena raŭndo estas ricevita, kiam ludanto malfrue aliĝ
 Tiam la sistemo eltiros la ludanton el la turniro, tiel tiu ne malvenkos pli da ludoj.
 Tiu povas realigi al la turniro iam ajn.</string>
   <string name="protectionAgainstNoShowQ">Kio estas farita pri neaperoj?</string>
-  <string name="protectionAgainstNoShowA">Ludantoj kiuj aliĝas al svisaj eventoj, sed ne ludas ties ludoj povas esti problema.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Ludantoj kiuj aliĝas al svisaj eventoj, sed ne ludas ties ludoj povas esti problema.
 Lichess mildigas tiu per portempe malpermesas aliĝi al svisaj eventoj por tiuj, kiuj aliĝas al tiaj eventoj kaj ne ludas en ili.
 Tamen, la kreanto de svisa evento povas decidi lasi tiuj ludantoj aliĝi al la evento.</string>
   <string name="lateJoinQ">Ĉu ludantoj povas enregistri malfrue?</string>

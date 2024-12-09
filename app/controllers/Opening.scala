@@ -4,10 +4,15 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.opening.OpeningQuery.queryFromUrl
 import lila.core.net.Crawler
+import lila.opening.OpeningQuery.queryFromUrl
+import lila.opening.OpeningAccessControl
 
 final class Opening(env: Env) extends LilaController(env):
+
+  private given (using RequestHeader, Option[Me]): OpeningAccessControl =
+    given lila.core.config.RateLimit = env.net.rateLimit
+    OpeningAccessControl(env.security.ip2proxy, limit.openingStatsProxy)
 
   def index(q: Option[String] = None) = Open:
     val searchQuery = ~q
@@ -22,26 +27,33 @@ final class Opening(env: Env) extends LilaController(env):
           views.opening.ui.index(page, _)
         }
 
+  private val openingRateLimit =
+    env.security.ipTrust.rateLimit(50, 10.minutes, "opening.byKeyAndMoves", _.proxyMultiplier(3))
+
   def byKeyAndMoves(key: String, moves: String) = Open:
-    val crawler = HTTPRequest.isCrawler(ctx.req)
-    if moves.sizeIs > 40 && crawler.yes then Forbidden
-    else
-      env.opening.api.lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler).flatMap {
-        case None => Redirect(routes.Opening.index(key.some))
-        case Some(page) =>
-          val query = page.query.query
-          if query.key.isEmpty then Redirect(routes.Opening.index(key.some))
-          else if query.key != key then Redirect(routes.Opening.byKeyAndMoves(query.key, moves))
-          else if moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r") then
-            Redirect:
-              s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
-          else
-            Ok.async:
-              page.query.exactOpening.so(env.puzzle.opening.getClosestTo).map { puzzle =>
-                val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
-                views.opening.ui.show(page, puzzleKey)
-              }
-      }
+    Firewall:
+      val crawler = HTTPRequest.isCrawler(ctx.req)
+      if moves.sizeIs > 10 && crawler.yes then Forbidden
+      else
+        openingRateLimit(rateLimited):
+          env.opening.api
+            .lookup(queryFromUrl(key, moves.some), isGrantedOpt(_.OpeningWiki), crawler)
+            .flatMap {
+              case None => Redirect(routes.Opening.index(key.some))
+              case Some(page) =>
+                val query = page.query.query
+                if query.key.isEmpty then Redirect(routes.Opening.index(key.some))
+                else if query.key != key then Redirect(routes.Opening.byKeyAndMoves(query.key, moves))
+                else if moves.nonEmpty && page.query.pgnUnderscored != moves && !getBool("r") then
+                  Redirect:
+                    s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
+                else
+                  Ok.async:
+                    page.query.exactOpening.so(env.puzzle.opening.getClosestTo).map { puzzle =>
+                      val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
+                      views.opening.ui.show(page, puzzleKey)
+                    }
+            }
 
   def config(thenTo: String) = OpenBody:
     NoCrawlers:
@@ -64,7 +76,11 @@ final class Opening(env: Env) extends LilaController(env):
         val redirect = Redirect(routes.Opening.byKeyAndMoves(key, moves))
         bindForm(lila.opening.OpeningWiki.form)(
           _ => redirect,
-          text => env.opening.wiki.write(op, text, me.userId).inject(redirect)
+          text =>
+            for _ <- env.opening.wiki.write(op, text, me.userId)
+            yield
+              env.irc.api.openingEdit(me.light, key, moves)
+              redirect
         )
   }
 

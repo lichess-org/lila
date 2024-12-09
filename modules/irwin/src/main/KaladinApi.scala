@@ -4,14 +4,14 @@ import chess.Speed
 import reactivemongo.api.Cursor
 import reactivemongo.api.bson.*
 
+import lila.core.perf.UserWithPerfs
+import lila.core.report.SuspectId
+import lila.core.userId.ModId
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
 import lila.game.{ BinaryFormat, GameRepo }
 import lila.memo.CacheApi
 import lila.report.{ Mod, Report, Reporter, Suspect }
-import lila.core.report.SuspectId
-import lila.core.userId.ModId
-import lila.core.perf.UserWithPerfs
 
 final class KaladinApi(
     coll: AsyncColl,
@@ -33,7 +33,7 @@ final class KaladinApi(
     maxSize = Max(512),
     timeout = 2 minutes,
     name = "kaladinApi",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   private def sequence[A <: Matchable](user: Suspect)(f: Option[KaladinUser] => Fu[A]): Fu[A] =
@@ -57,7 +57,8 @@ final class KaladinApi(
   yield KaladinUser.Dashboard(completed ::: queued)
 
   def modRequest(user: Suspect)(using me: Me) =
-    request(user, KaladinUser.Requester.Mod(me)).andDo(notification.add(user.id))
+    for _ <- request(user, KaladinUser.Requester.Mod(me))
+    yield notification.add(user.id)
 
   private def request(sus: Suspect, requester: KaladinUser.Requester) = sus.user.noBot.so:
     sequence(sus):
@@ -95,10 +96,10 @@ final class KaladinApi(
   private def readResponse(user: KaladinUser): Funit = user.response.so: res =>
     res.pred match
       case Some(pred) =>
-        markOrReport(user, pred).andDo {
+        for _ <- markOrReport(user, pred)
+        yield
           notification(user)
           lila.mon.mod.kaladin.activation.record(pred.percent)
-        }
       case None =>
         fuccess:
           res.err.foreach: err =>
@@ -126,9 +127,8 @@ final class KaladinApi(
       userApi.getTitle(user.id).dmap(_.isDefined).flatMap {
         if _ then sendReport
         else
-          modApi
-            .autoMark(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
-            .andDo(lila.mon.mod.kaladin.mark.increment())
+          for _ <- modApi.autoMark(user.suspectId, pred.note)(using UserId.kaladin.into(MyId))
+          yield lila.mon.mod.kaladin.mark.increment()
       }
     else if pred.percent >= thresholds.get().report then sendReport
     else funit

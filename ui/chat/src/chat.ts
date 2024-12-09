@@ -1,14 +1,14 @@
 import { init, attributesModule, classModule } from 'snabbdom';
 
 import view from './view';
-import { ChatOpts } from './interfaces';
-import { PresetCtrl } from './preset';
+import type { ChatOpts } from './interfaces';
 import ChatCtrl from './ctrl';
 
 export type { ChatPlugin } from './interfaces';
 export { default as ChatCtrl } from './ctrl';
 
-export function initModule(opts: ChatOpts): { preset: PresetCtrl } {
+export function makeChat(data: Partial<ChatOpts>): ChatCtrl {
+  const opts = { el: document.querySelector('.mchat'), ...data } as ChatOpts;
   const patch = init([classModule, attributesModule]);
 
   const ctrl = new ChatCtrl(opts, redraw);

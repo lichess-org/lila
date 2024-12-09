@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.5.0-RC1"
+  val globalScalaVersion = "3.5.2"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
@@ -27,6 +27,7 @@ object BuildSettings {
       alleycats,
       play.api,
       chess.core,
+      chess.rating,
       kittens
     )
 
@@ -47,7 +48,7 @@ object BuildSettings {
     "-Ybackend-parallelism:16", // https://github.com/scala/scala3/pull/15392
     // "-nowarn", // during migration
     // "-rewrite",
-    // "-source:3.4-migration",
+    "-source:3.7",
     "-indent",
     // "-explaintypes",
     // "-explain",

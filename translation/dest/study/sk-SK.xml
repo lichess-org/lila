@@ -175,4 +175,5 @@
   <string name="playAgain">Hrať znova</string>
   <string name="whatWouldYouPlay">Čo by ste hrali v tejto pozícii?</string>
   <string name="youCompletedThisLesson">Gratulujeme! Túto lekciu ste ukončili.</string>
+  <string name="perPage">%s na stránku</string>
 </resources>

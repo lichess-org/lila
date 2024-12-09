@@ -2,14 +2,14 @@ package lila.chat
 
 import lila.common.Bus
 import lila.common.String.{ fullCleanUp, noShouting }
+import lila.core.chat.{ OnReinstate, OnTimeout }
 import lila.core.config.NetDomain
-import lila.db.dsl.{ *, given }
-import lila.core.shutup.PublicSource
-import lila.memo.CacheApi.*
 import lila.core.perm.Granter
-import lila.core.security.{ FloodSource, FloodApi, SpamApi }
-import lila.core.chat.{ OnTimeout, OnReinstate }
+import lila.core.security.{ FloodApi, FloodSource, SpamApi }
+import lila.core.shutup.PublicSource
 import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 
 final class ChatApi(
     coll: Coll,
@@ -78,24 +78,32 @@ final class ChatApi(
           if _ then
             linkCheck(line, publicSource).flatMap:
               if _ then
-                (persist
-                  .so(persistLine(chatId, line)))
-                  .andDo:
-                    if persist then
-                      if publicSource.isDefined then cached.invalidate(chatId)
-                      publicSource.match
-                        case Some(source) => shutupApi.publicText(userId, text, source)
-                        case _            => shutupApi.privateChat(chatId.value, userId, text)
-                      lila.mon.chat
-                        .message(publicSource.fold("player")(_.parentName), line.troll)
-                        .increment()
-                    publishLine(chatId, line, busChan)
+                val actuallyPersist = persist && (publicSource.isEmpty || !isGarbage(text))
+                for _ <- actuallyPersist.so(persistLine(chatId, line))
+                yield
+                  if actuallyPersist then
+                    if publicSource.isDefined then cached.invalidate(chatId)
+                    publicSource.match
+                      case Some(source) => shutupApi.publicText(userId, text, source)
+                      case _            => shutupApi.privateChat(chatId.value, userId, text)
+                    lila.mon.chat
+                      .message(publicSource.fold("player")(_.typeName), line.troll)
+                      .increment()
+                  publishLine(chatId, line, busChan)
               else
                 logger.info(s"Link check rejected $line in $publicSource")
                 funit
           else
             logger.info(s"Can't post $line in $publicSource: chat is closed")
             funit
+
+    private def isGarbage(text: String) = {
+      val x = text.filter(_.isLetter).toLowerCase
+      x == "last" || x == "first" || x == "second" || x == "third"
+    } || {
+      val x = text.filter(_.isLetterOrDigit).toLowerCase
+      x == "1st" || x == "1" || x == "2nd" || x == "2"
+    }
 
     private def linkCheck(line: UserLine, source: Option[PublicSource]) =
       source.fold(fuccess(true)): s =>
@@ -112,7 +120,8 @@ final class ChatApi(
 
     def system(chatId: ChatId, text: String, busChan: BusChan.Select): Funit =
       val line = UserLine(UserName.lichess, None, false, flair = true, text, troll = false, deleted = false)
-      persistLine(chatId, line).andDo:
+      for _ <- persistLine(chatId, line)
+      yield
         cached.invalidate(chatId)
         publishLine(chatId, line, busChan)
 
@@ -187,7 +196,8 @@ final class ChatApi(
           )
           val c2   = c.markDeleted(user)
           val chat = line.fold(c2)(c2.add)
-          coll.update.one($id(chat.id), chat).void.andDo {
+          for _ <- coll.update.one($id(chat.id), chat)
+          yield
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
             line.foreach: l =>
@@ -206,18 +216,16 @@ final class ChatApi(
                 lila.common.Bus
                   .publish(lila.core.security.DeletePublicChats(user.id), "deletePublicChats")
             else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")
-          }
 
     def delete(c: UserChat, user: User, busChan: BusChan.Select): Fu[Boolean] =
       val chat   = c.markDeleted(user)
       val change = chat != c
       change
-        .so {
-          coll.update.one($id(chat.id), chat).void.andDo {
+        .so:
+          for _ <- coll.update.one($id(chat.id), chat)
+          yield
             cached.invalidate(chat.id)
             publish(chat.id, OnTimeout(chat.id, user.id), busChan)
-          }
-        }
         .inject(change)
 
     private def isMod(using Me)      = Granter(_.ChatTimeout)
@@ -287,7 +295,7 @@ final class ChatApi(
 
     def write(chatId: ChatId, color: Color, text: String, busChan: BusChan.Select): Funit =
       makeLine(chatId, color, text).so: line =>
-        persistLine(chatId, line).andDo:
+        for _ <- persistLine(chatId, line) yield
           publishLine(chatId, line, busChan)
           lila.mon.chat.message("anonPlayer", troll = false).increment()
 

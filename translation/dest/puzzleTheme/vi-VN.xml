@@ -3,7 +3,7 @@
   <string name="advancedPawn">Tốt thông xa</string>
   <string name="advancedPawnDescription">Một quân tốt của bạn có thể đe dọa phong cấp đang nằm sâu bên trong thế trận của đối thủ.</string>
   <string name="advantage">Lợi thế</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Tận dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
+  <string name="advantageDescription">Tận dụng cơ hội của bạn để chiếm lấy lợi thế quyết định. (200cp ≤ đánh giá ≤ 600cp)</string>
   <string name="anastasiaMate">Chiếu hết kiểu Anastasia</string>
   <string name="anastasiaMateDescription">Một quân mã phối hợp cùng quân xe hoặc quân hậu để bẫy quân vua đối phương vào thế kẹp giữa cạnh bàn cờ và một quân khác.</string>
   <string name="arabianMate">Chiếu hết kiểu Ả Rập</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Ăn quân phòng thủ</string>
   <string name="capturingDefenderDescription">Loại bỏ một quân cực kỳ quan trọng đối với việc bảo vệ một quân cờ khác, khiến cho quân cờ hiện không được bảo vệ có thể bị ăn vào một nước sau đó.</string>
   <string name="crushing">Áp đảo</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Phát hiện sai lầm nghiêm trọng của đối phương để giành được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
+  <string name="crushingDescription">Phát hiện sai lầm nghiêm trọng của đối phương để giành được lợi thế áp đảo. (đánh giá ≥ 600cp)</string>
   <string name="doubleBishopMate">Chiếu hết bằng cặp Tượng</string>
   <string name="doubleBishopMateDescription">Hai quân Tượng tấn công trên các đường chéo liền kề chiếu hết một quân vua bị cản trở bởi quân cờ.</string>
   <string name="dovetailMate">Chiếu hết kiểu Đuôi én</string>
   <string name="dovetailMateDescription">Một Hậu chiếu hết vua ở ô liền kề, hai ô duy nhất quân vua có thể chạy được lúc này đều bị chặn.</string>
   <string name="equality">Cân bằng</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Lật kèo từ một thế cờ thua và giành được một thế trận hòa hoặc cân bằng. (đánh giá ≤ 200cp)</string>
+  <string name="equalityDescription">Lật kèo từ một thế cờ thua và giành được một thế trận hòa hoặc cân bằng. (đánh giá ≤ 200cp)</string>
   <string name="kingsideAttack">Tấn công cánh vua</string>
   <string name="kingsideAttackDescription">Tấn công vua đối phương sau khi họ nhập thành cánh vua.</string>
   <string name="clearance">Dọn đường</string>
@@ -64,7 +64,7 @@
   <string name="master">Ván đấu cao cấp</string>
   <string name="masterDescription">Câu đố từ các ván đấu của người có danh hiệu.</string>
   <string name="masterVsMaster">Ván đấu giữa 2 kiện tướng</string>
-  <string name="masterVsMasterDescription">Câu đố từ các ván đấu giữa hai người chơi có danh hiệu.</string>
+  <string name="masterVsMasterDescription">Câu đố từ các ván đấu giữa hai kiện tướng.</string>
   <string name="mate">Chiếu hết</string>
   <string name="mateDescription">Chiến thắng ván cờ với phong cách.</string>
   <string name="mateIn1">Chiếu hết trong 1 nước</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Một quân cờ tấn công hoặc phòng thủ một ô sau một quân cờ khác của đối phương.</string>
   <string name="zugzwang">Cưỡng ép</string>
   <string name="zugzwangDescription">Đối phương bị giới hạn các nước mà họ có thể đi và tất cả các nước đi ấy đều hại họ.</string>
-  <string name="healthyMix">Phối hợp nhịp nhàng</string>
-  <string name="healthyMixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Phối hợp nhịp nhàng</string>
+  <string name="mixDescription">Mỗi thứ một chút. Bạn không biết được thứ gì đang chờ mình, vậy nên bạn cần phải sẵn sàng cho mọi thứ! Như một ván cờ thật vậy!</string>
   <string name="playerGames">Các ván đấu của người chơi</string>
   <string name="playerGamesDescription">Những câu đố từ những ván cờ của bạn hoặc từ các ván cờ của những người chơi khác.</string>
   <string name="puzzleDownloadInformation">Những câu đố này thuộc phạm vi công khai và có thể tải về từ %s.</string>

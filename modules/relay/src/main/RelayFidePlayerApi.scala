@@ -1,35 +1,30 @@
 package lila.relay
 
-import chess.ByColor
+import chess.{ ByColor, FideId }
 import chess.format.pgn.{ Tag, Tags }
 
-import lila.db.dsl.*
-import lila.core.fide.{ Player, FideTC }
+import lila.core.fide.{ FideTC, Player }
 
 final private class RelayFidePlayerApi(guessPlayer: lila.core.fide.GuessPlayer)(using Executor):
 
   def enrichGames(tour: RelayTour)(games: RelayGames): Fu[RelayGames] =
-    val tc = guessTimeControl(tour) | FideTC.standard
     games.traverse: game =>
-      enrichTags(game.tags, tc).map: tags =>
+      enrichTags(game.tags, tour.info.fideTcOrGuess).map: tags =>
         game.copy(tags = tags)
+
+  def enrichTags(tour: RelayTour): Tags => Fu[Tags] =
+    tags => enrichTags(tags, tour.info.fideTcOrGuess)
 
   private def enrichTags(tags: Tags, tc: FideTC): Fu[Tags] =
     (tags.fideIds
       .zip(tags.names)
       .zip(tags.titles))
       .traverse:
-        case ((fideId, name), title) => guessPlayer(fideId, name, title)
+        // use FIDE ID = 0 to prevent guessing the player info based on their name
+        case ((Some(fideId), _), _) if fideId == FideId(0) => fuccess(none)
+        case ((fideId, name), title)                       => guessPlayer(fideId, name, title)
       .map:
         update(tags, tc, _)
-
-  private def guessTimeControl(tour: RelayTour): Option[FideTC] =
-    tour.description
-      .split('|')
-      .lift(2)
-      .map(_.trim.toLowerCase.replace("classical", "standard"))
-      .so: tcStr =>
-        FideTC.values.find(tc => tcStr.contains(tc.toString))
 
   private def update(tags: Tags, tc: FideTC, fidePlayers: ByColor[Option[Player]]): Tags =
     Color.all.foldLeft(tags): (tags, color) =>

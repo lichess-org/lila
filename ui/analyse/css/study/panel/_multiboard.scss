@@ -28,6 +28,16 @@
     .page {
       margin: 0 0.4em;
     }
+
+    select {
+      &.study__multiboard__pager__max-per-page {
+        @media (max-width: at-most($small)) {
+          display: none;
+        }
+      }
+      max-width: 25vw;
+      margin-inline-end: 1ch;
+    }
   }
 
   .fbt {
@@ -49,14 +59,14 @@
 
   .now-playing {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(220px, 100%/4)), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%/2, max(210px, 100%/6)), 1fr));
 
     a {
       @extend %box-radius;
       container-type: inline-size;
 
       color: $c-font;
-      padding: 0.5em;
+      padding: 0.4em 0.3em;
       border: 1px solid transparent;
 
       overflow: hidden;
@@ -98,24 +108,32 @@
   }
   &__gauge {
     order: 1;
+    @extend %box-radius-right;
     position: relative;
     flex: 0 0 4%;
+    max-width: 1.5em;
     border: $border;
     border-left: 0;
     margin-top: -1px;
     overflow: hidden;
-    @extend %box-radius-right;
+    opacity: 0.4;
+    background: linear-gradient(to top, $white, $black);
 
     &__black {
       display: none;
       width: 100%;
       height: 50%;
       background: $black;
-      transition: height 1s;
     }
 
-    opacity: 0.4;
-    background: linear-gradient(to top, $white, $black);
+    &--flip {
+      background: linear-gradient(to bottom, $white, $black);
+      .mini-game__gauge__black {
+        position: absolute;
+        bottom: 0;
+      }
+    }
+
     &--set {
       opacity: 1;
       background: $white;

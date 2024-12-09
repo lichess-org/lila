@@ -1,8 +1,8 @@
 import { bindChessgroundResize } from './resize';
-import throttle from './throttle';
+import { throttle } from './timing';
 
 export const runner = (hacks: () => void, throttleMs = 100): void => {
-  let timeout: number | undefined;
+  let timeout: Timeout | undefined;
 
   const runHacks = throttle(throttleMs, () =>
     requestAnimationFrame(() => {

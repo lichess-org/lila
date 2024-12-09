@@ -6,9 +6,9 @@ import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-
 import lila.memo.{ CacheApi, SettingStore }
 
+// #TODO use lila.memo.ParallelMongoQueue instead!
 final private class TutorQueue(
     colls: TutorColls,
     gameRepo: lila.game.GameRepo,
@@ -23,7 +23,7 @@ final private class TutorQueue(
     maxSize = Max(64),
     timeout = 5.seconds,
     "tutorQueue",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   private val durationCache = cacheApi.unit[FiniteDuration]:

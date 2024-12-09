@@ -60,3 +60,15 @@ cd9708a0d772fe445635ae05306f1cb9365902de
 
 # Scala Steward: Reformat with scalafmt 3.8.2
 2b774ffaf8926dc9986954f3c427cbe479e05f6a
+
+# Scala Steward: Reformat with scalafmt 3.8.3
+f058dab0bfdfcf3f40d510526607e3e359354e54
+
+# prettier upgrade from 3.0.x to 3.3.x
+f617815e0a3a2d96de9aca3a04d589c78cbd14e8
+
+# eslint --fix
+35c26fbd9bc0895d0119e4e313003c220417d4bc
+
+# back to prettier
+02354d6ac319462e58f1016499912d342efb97d1

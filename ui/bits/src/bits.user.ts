@@ -1,10 +1,10 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
+import { alert } from 'common/dialog';
 
-export function initModule(opts: { i18n: I18nDict }): void {
-  const trans = site.trans(opts.i18n);
-
-  makeLinkPopups($('.social_links'), trans);
+export function initModule(): void {
+  makeLinkPopups($('.social_links'));
+  makeLinkPopups($('.user-infos .bio'));
 
   const loadNoteZone = () => {
     const $zone = $('.user-show .note-zone');
@@ -47,9 +47,9 @@ export function initModule(opts: { i18n: I18nDict }): void {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          site.contentLoaded($content[0]);
+          window.lichess.initializeDom($content[0]);
           history.replaceState({}, '', path);
-          //window.InfiniteScroll('.infinite-scroll');
+          site.asset.loadEsm('bits.infiniteScroll');
         });
     $angles.on('click', 'a', function (this: HTMLAnchorElement) {
       if ($('#games .to-search').hasClass('active')) return true;

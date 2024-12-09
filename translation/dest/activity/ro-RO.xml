@@ -42,6 +42,11 @@
     <item quantity="few">A completat %s meciuri de corespondență</item>
     <item quantity="other">A completat %s meciuri de corespondență</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Terminat %1$s joc de tip %2$s de corespondență</item>
+    <item quantity="few">Terminat %1$s jocuri de tip %2$s de corespondență</item>
+    <item quantity="other">Terminat %1$s jocuri de tip %2$s de corespondență</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">A început să urmărească %s jucător</item>
     <item quantity="few">A început să urmărească %s jucători</item>
@@ -67,7 +72,7 @@
     <item quantity="few">A creat %s studii noi</item>
     <item quantity="other">A creat %s studii noi</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">A concurat în %s competiție</item>
     <item quantity="few">A concurat în %s competiții</item>
     <item quantity="other">A concurat în %s competiții</item>

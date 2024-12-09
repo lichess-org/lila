@@ -71,6 +71,8 @@
   <string name="promoteVariation">Promovează variația</string>
   <string name="makeMainLine">Fă-o variația principală</string>
   <string name="deleteFromHere">Șterge de aici</string>
+  <string name="collapseVariations">Restrânge variațiile</string>
+  <string name="expandVariations">Extinde variațiile</string>
   <string name="forceVariation">Forțează variația</string>
   <string name="copyVariationPgn">Copiază varianta PGN</string>
   <string name="move">Mutare</string>
@@ -116,7 +118,6 @@
   <string name="replayMode">Modul de reluare</string>
   <string name="realtimeReplay">În timp real</string>
   <string name="byCPL">După CPL</string>
-  <string name="openStudy">Studiu deschis</string>
   <string name="enable">Activează</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
   <string name="showVariationArrows">Afișează săgețile variației</string>
@@ -126,7 +127,6 @@
   <string name="memory">Memorie</string>
   <string name="infiniteAnalysis">Analiză infinită</string>
   <string name="removesTheDepthLimit">Elimină limita de adâncime (și încălzește computerul)</string>
-  <string name="engineManager">Manager de motor</string>
   <string name="blunder">Gafă</string>
   <string name="mistake">Greșeală</string>
   <string name="inaccuracy">Inexactitate</string>
@@ -187,6 +187,7 @@
   <string name="latestForumPosts">Ultimele postări pe forum</string>
   <string name="players">Jucători</string>
   <string name="friends">Prieteni</string>
+  <string name="otherPlayers">alți jucători</string>
   <string name="discussions">Discuții</string>
   <string name="today">Astăzi</string>
   <string name="yesterday">Ieri</string>
@@ -272,6 +273,7 @@
     <item quantity="few">%s partide cu tine</item>
     <item quantity="other">%s partide cu tine</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Anulare</string>
   <string name="whiteTimeOut">Timpul pentru alb a expirat</string>
   <string name="blackTimeOut">Timpul pentru negru a expirat</string>
@@ -463,7 +465,6 @@
   <string name="block">Blocare</string>
   <string name="blocked">Blocat</string>
   <string name="unblock">Deblocare</string>
-  <string name="followsYou">Vă urmărește</string>
   <string name="xStartedFollowingY">%1$s a început să vă urmărească %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s urmăritor</item>
@@ -498,9 +499,6 @@
   <string name="safeTournamentName">Alege un nume foarte sigur pentru turneu.</string>
   <string name="inappropriateNameWarning">Orice nume care este chiar și ușor nepotrivit poate cauza închiderea contului tău.</string>
   <string name="emptyTournamentName">Lăsați necompletat pentru a numi turneul după un jucător bun de șah.</string>
-  <string name="recommendNotTouching">Iți recomandăm să nu modifici aceste setări.</string>
-  <string name="fewerPlayers">Dacă stabilești condiții de intrare, turneul tău va avea mai puțini jucători.</string>
-  <string name="showAdvancedSettings">Afișează setările avansate</string>
   <string name="makePrivateTournament">Faceți competiția privată și restricționați accesul cu o parolă</string>
   <string name="join">Intră</string>
   <string name="withdraw">Retrage-te</string>
@@ -540,9 +538,10 @@
   <string name="ifNoneLeaveEmpty">Dacă nu există, nu completați</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Editează profilul</string>
-  <string name="firstName">Prenume</string>
-  <string name="lastName">Nume</string>
+  <string name="realName">Nume real</string>
+  <string name="setFlair">Arată-ți stilul</string>
   <string name="flair">Pictograma personalizată</string>
+  <string name="youCanHideFlair">Există o setare pentru a ascunde flair-ul utilizatorilor pe întregului site.</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Țara sau regiunea</string>
   <string name="thankYou">Mulţumesc!</string>
@@ -564,12 +563,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Du-te automat la partida următoare după mutare</string>
   <string name="autoSwitch">Schimbă automat</string>
   <string name="puzzles">Probleme de șah</string>
+  <string name="onlineBots">Boți online</string>
   <string name="name">Nume</string>
   <string name="description">Descriere</string>
   <string name="descPrivate">Descriere privată</string>
   <string name="descPrivateHelp">Text pe care îl vor vedea doar membrii echipei. Dacă este setat, înlocuiește descrierea publică pentru membrii echipei.</string>
   <string name="no">Nu</string>
   <string name="yes">Da</string>
+  <string name="website">Pagină web</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Ajutor:</string>
   <string name="createANewTopic">Creează un nou topic</string>
   <string name="topics">Subiecte</string>
@@ -586,11 +588,11 @@
   <string name="reason">Motiv</string>
   <string name="whatIsIheMatter">Care este problema?</string>
   <string name="cheat">Trișează</string>
-  <string name="insult">Insultă</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipularea evaluării</string>
   <string name="other">Altceva</string>
-  <string name="reportDescriptionHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar ”trișează”, ci spune-ne cum ai ajuns la această concluzie. Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
+  <string name="reportCheatBoostHelp">Adaugă link-ul de la joc(uri) și arată ce este greșit cu privire la acest comportament al utilizatorului. Nu preciza doar \"trișează\", ci spune-ne cum ai ajuns la această concluzie.</string>
+  <string name="reportUsernameHelp">Explică de ce acest nume de utilizator este jignitor. Nu spune doar \"e ofensiv/inadecvat\", ci spune-ne cum ai ajuns la această concluzie, mai ales în cazul în care insulta este obscură, nu este în engleză, este jargon sau este o referință istorică/culturală.</string>
+  <string name="reportProcessedFasterInEnglish">Raportul tău va fi procesat mai rapid dacă este scris în engleză.</string>
   <string name="error.provideOneCheatedGameLink">Te rugăm să furnizezi cel puțin un link către un joc în care s-a trișat.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importat de %s</string>
@@ -623,6 +625,7 @@
   <string name="slow">Lentă</string>
   <string name="insideTheBoard">Pe interiorul tablei</string>
   <string name="outsideTheBoard">În afara tablei</string>
+  <string name="allSquaresOfTheBoard">Toate pătratele de pe tablă</string>
   <string name="onSlowGames">În jocurile lente</string>
   <string name="always">Întotdeauna</string>
   <string name="never">Niciodată</string>
@@ -712,7 +715,7 @@
   <string name="aboutSimulRules">Când simultanul începe, fiecare jucător începe jocul cu gazda și va juca cu piesele albe. Simultanul se termină când toate jocurile sunt complete.</string>
   <string name="aboutSimulSettings">Simultanele sunt tot timpul amicale. Revanșele, mutările înapoi și opțiunea \"mai mult timp\" sunt dezactivate.</string>
   <string name="create">Creează</string>
-  <string name="whenCreateSimul">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Când creezi un simultan, vei juca cu mai mulți jucători în același timp.</string>
   <string name="simulVariantsHint">Dacă alegi mai multe variante, fiecare jucător va avea de ales ce variantă va juca.</string>
   <string name="simulClockHint">Configurare de ceas Fischer. Cu cât joci împotriva mai multor jucători, cu atât vei avea nevoie de mai mult timp.</string>
   <string name="simulAddExtraTime">Poți adăuga timp în plus pe ceasul tău pentru a te ajuta să faci față simultanului.</string>
@@ -738,7 +741,9 @@
   <string name="keyPreviousBranch">Ramura precedentă</string>
   <string name="keyNextBranch">Ramura următoare</string>
   <string name="toggleVariationArrows">Comută săgețile de variație</string>
+  <string name="cyclePreviousOrNextVariation">Ciclu de variație precedentă/următoare</string>
   <string name="toggleGlyphAnnotations">Comută adnotările gilfelor</string>
+  <string name="togglePositionAnnotations">Activează/Dezactivează adnotările pozițiilor</string>
   <string name="variationArrowsInfo">Săgețile de variație vă permit să navigați fără a utiliza lista de mutare.</string>
   <string name="playSelectedMove">joacă mutarea selectată</string>
   <string name="newTournament">Turneu nou</string>
@@ -1029,4 +1034,6 @@ Lăsați gol pentru a începe jocurile din poziția inițială normală.</string
   <string name="showMeEverything">Afișează-mi tot</string>
   <string name="lichessPatronInfo">Lichess este o asociație non-profit și un software gratuit și open-source.
 Toate costurile de operare și de dezvoltare sunt finanțate doar din donațiile utilizatorilor.</string>
+  <string name="nothingToSeeHere">Nimic de văzut aici momentan.</string>
+  <string name="stats">Statistici</string>
 </resources>

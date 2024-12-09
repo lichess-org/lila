@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Ako ti môžeme pomôcť?</string>
   <string name="visitThisPage">Pre vyriešenie problému navštív túto stránku</string>
   <string name="iCantLogIn">Nemôžem sa prihlásiť</string>
-  <string name="noConfirmationEmail">Nedostal som potvrdzovací email</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Nedostal som potvrdzovací email</string>
   <string name="forgotPassword">Zabudol som svoje heslo</string>
   <string name="forgotUsername">Zabudol som svoje používateľské meno</string>
   <string name="youCanLoginWithEmail">Môžeš sa prihlásiť s emailovou adresou, ktorú si použil pri registrácii</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Za určitých okolností, keď hráte proti botovému účtu, nemusia byť za hodnotenú partiu udelené body, ak sa zistí, že hráč zneužíva bota na zisk bodov.</string>
   <string name="errorPage">Chybová stránka</string>
   <string name="reportErrorPage">Ak ste narazili na chybovú stránku, môžete ju nahlásiť:</string>
-  <string name="wantBroadcastTournament">Chcem vysielať turnaj</string>
   <string name="learnHowToMakeBroadcasts">Naučte sa vytvárať vlastné vysielanie na stránke Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">V súvislosti s oficiálnymi prenosmi môžete tiež kontaktovať vysielací tím.</string>
   <string name="banAppeal">Požiadať o zabanovanie hráča alebo obmedzenie IP adresy</string>
   <string name="engineAppeal">Značka motora alebo podvádzania</string>
   <string name="sendAppealTo">Môžete poslať odvolanie na %s.</string>

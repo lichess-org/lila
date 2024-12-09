@@ -1,15 +1,19 @@
 package lila.relay
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+import io.mola.galimatias.URL
+import java.time.ZoneId
 
 import lila.core.i18n.Language
-import lila.core.misc.PicfitUrl
 import lila.core.id.ImageId
+import lila.core.misc.PicfitUrl
+import lila.core.fide.FideTC
+import lila.core.study.Visibility
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
     name: RelayTour.Name,
-    description: String,
+    info: RelayTour.Info,
     markup: Option[Markdown] = None,
     ownerId: UserId,
     createdAt: Instant,
@@ -18,13 +22,15 @@ case class RelayTour(
     live: Option[Boolean],        // a round is live, i.e. started and not finished
     syncedAt: Option[Instant],    // last time a round was synced
     spotlight: Option[RelayTour.Spotlight] = None,
-    autoLeaderboard: Boolean = true,
+    showScores: Boolean = true,
+    showRatingDiffs: Boolean = true,
     teamTable: Boolean = false,
     players: Option[RelayPlayersTextarea] = None,
     teams: Option[RelayTeamsTextarea] = None,
     image: Option[ImageId] = None,
-    pinnedStreamer: Option[UserStr] = None,
-    pinnedStreamerImage: Option[ImageId] = None
+    dates: Option[RelayTour.Dates] = None, // denormalized from round dates
+    pinnedStream: Option[RelayPinnedStream] = None,
+    note: Option[String] = None
 ):
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)
@@ -42,37 +48,57 @@ case class RelayTour(
   def tierIs(selector: RelayTour.Tier.Selector) =
     tier.fold(false)(_ == selector(RelayTour.Tier))
 
+  def studyVisibility: Visibility =
+    if tier.contains(RelayTour.Tier.`private`)
+    then Visibility.`private`
+    else Visibility.public
+
 object RelayTour:
 
-  val maxRelays = 64
+  val maxRelays = Max(64)
 
   opaque type Name = String
   object Name extends OpaqueString[Name]
 
-  type Tier = Int
-  object Tier:
-    val PRIVATE = -1
-    val NORMAL  = 3
-    val HIGH    = 4
-    val BEST    = 5
+  enum Tier(val v: Int):
+    case `private` extends Tier(-1)
+    case normal    extends Tier(3)
+    case high      extends Tier(4)
+    case best      extends Tier(5)
+    def key = toString
 
-    val options = List(
-      ""               -> "Non official",
-      NORMAL.toString  -> "Official: normal tier",
-      HIGH.toString    -> "Official: high tier",
-      BEST.toString    -> "Official: best tier",
-      PRIVATE.toString -> "Private"
-    )
-    def name(tier: Tier) = options.collectFirst {
-      case (t, n) if t == tier.toString => n
-    } | "???"
-    val keys: Map[Tier, String] = Map(
-      NORMAL  -> "normal",
-      HIGH    -> "high",
-      BEST    -> "best",
-      PRIVATE -> "private"
-    )
+  object Tier:
     type Selector = RelayTour.Tier.type => RelayTour.Tier
+
+    given cats.Order[Tier] = cats.Order.by(_.v)
+
+    def apply(s: Selector) = s(Tier)
+
+    val byV = values.mapBy(_.v)
+    val options = List(
+      ""                   -> "Non official",
+      normal.v.toString    -> "Official: normal tier",
+      high.v.toString      -> "Official: high tier",
+      best.v.toString      -> "Official: best tier",
+      `private`.v.toString -> "Private"
+    )
+
+  case class Info(
+      format: Option[String],
+      tc: Option[String],
+      fideTc: Option[FideTC],
+      location: Option[String],
+      timeZone: Option[ZoneId],
+      players: Option[String],
+      website: Option[URL],
+      standings: Option[URL]
+  ):
+    def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
+    override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
+    lazy val fideTcOrGuess: FideTC = fideTc | FideTC.standard
+    def timeZoneOrDefault: ZoneId  = timeZone | ZoneId.systemDefault
+
+  case class Dates(start: Instant, end: Option[Instant])
 
   case class Spotlight(enabled: Boolean, language: Language, title: Option[String]):
     def isEmpty                           = !enabled && specialLanguage.isEmpty && title.isEmpty
@@ -80,14 +106,12 @@ object RelayTour:
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
 
-  case class ActiveWithSomeRounds(
-      tour: RelayTour,
-      display: RelayRound, // which round to show on the tour link
-      link: RelayRound,    // which round to actually link to
-      group: Option[RelayGroup.Name]
-  ) extends RelayRound.AndTourAndGroup
-
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
+      extends RelayRound.AndTourAndGroup:
+    def link    = round
+    def display = round
+
+  case class WithFirstRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:
     def link    = round
     def display = round

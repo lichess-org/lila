@@ -4,14 +4,11 @@ import chess.Clock.Config as ClockConfig
 import chess.format.Fen
 import chess.{ Mode, Speed }
 import scalalib.ThreadLocalRandom
-import scala.util.chaining.*
 
-import lila.gathering.GreatPlayer
-import lila.core.i18n.defaultLang
-import lila.rating.PerfType
-import lila.gathering.Thematic
 import lila.core.i18n.Translate
 import lila.core.tournament.Status
+import lila.gathering.{ GreatPlayer, Thematic }
+import lila.rating.PerfType
 
 case class Tournament(
     id: TourId,
@@ -158,7 +155,6 @@ case class Tournament(
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
 
 object Tournament:
-
   val minPlayers = 2
 
   def fromSetup(setup: TournamentSetup)(using me: Me) =
@@ -189,7 +185,7 @@ object Tournament:
       hasChat = setup.hasChat | true
     )
 
-  def scheduleAs(sched: Schedule, minutes: Int)(using Translate) =
+  def scheduleAs(sched: Schedule, startsAt: Instant, minutes: Int)(using Translate) =
     Tournament(
       id = makeId,
       name = sched.name(full = false),
@@ -203,8 +199,8 @@ object Tournament:
       position = sched.position,
       mode = Mode.Rated,
       conditions = sched.conditions,
-      schedule = Some(sched),
-      startsAt = sched.at.instant.plusSeconds(ThreadLocalRandom.nextInt(60))
+      schedule = sched.some,
+      startsAt = startsAt
     )
 
   def tournamentUrl(tourId: TourId): String = s"https://lichess.org/tournament/$tourId"

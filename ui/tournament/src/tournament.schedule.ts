@@ -1,7 +1,9 @@
 import view from './view/scheduleView';
 
-import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { Tournament } from './interfaces';
+import { init, type VNode, classModule, attributesModule } from 'snabbdom';
+import type { Tournament } from './interfaces';
+import { wsConnect } from 'common/socket';
+import { pubsub } from 'common/pubsub';
 
 const patch = init([classModule, attributesModule]);
 
@@ -14,17 +16,15 @@ export interface Data {
 }
 export interface Ctrl {
   data(): Data;
-  trans: Trans;
 }
 
-export function initModule(opts: { data: Data; i18n: I18nDict }) {
-  site.StrongSocket.defaultParams.flag = 'tournament';
+export function initModule(opts: { data: Data }) {
+  wsConnect('/socket/v5', false, { params: { flag: 'tournament' } });
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
 
   const ctrl = {
     data: () => opts.data,
-    trans: site.trans(opts.i18n),
   };
 
   let vnode: VNode;
@@ -36,7 +36,7 @@ export function initModule(opts: { data: Data; i18n: I18nDict }) {
 
   setInterval(redraw, 3700);
 
-  site.pubsub.on('socket.in.reload', d => {
+  pubsub.on('socket.in.reload', d => {
     opts.data = {
       created: update(opts.data.created, d.created),
       started: update(opts.data.started, d.started),

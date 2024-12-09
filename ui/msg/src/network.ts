@@ -1,6 +1,7 @@
-import MsgCtrl from './ctrl';
-import { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
+import type MsgCtrl from './ctrl';
+import type { MsgData, Contact, User, Msg, Convo, SearchResult } from './interfaces';
 import { json, form } from 'common/xhr';
+import { pubsub } from 'common/pubsub';
 
 export function loadConvo(userId: string): Promise<MsgData> {
   return json(`/inbox/${userId}`).then(upgradeData);
@@ -48,35 +49,34 @@ export function report(name: string, text: string): Promise<any> {
 }
 
 export function post(dest: string, text: string) {
-  site.pubsub.emit('socket.send', 'msgSend', { dest, text });
+  pubsub.emit('socket.send', 'msgSend', { dest, text });
 }
 
 export function setRead(dest: string) {
-  site.pubsub.emit('socket.send', 'msgRead', dest);
+  pubsub.emit('socket.send', 'msgRead', dest);
 }
 
 export function typing(dest: string) {
-  site.pubsub.emit('socket.send', 'msgType', dest);
+  pubsub.emit('socket.send', 'msgType', dest);
 }
 
 export function websocketHandler(ctrl: MsgCtrl) {
-  const listen = site.pubsub.on;
-  listen('socket.in.msgNew', msg => {
+  pubsub.on('socket.in.msgNew', msg => {
     ctrl.receive({
       ...upgradeMsg(msg),
       read: false,
     });
   });
-  listen('socket.in.msgType', ctrl.receiveTyping);
-  listen('socket.in.blockedBy', ctrl.changeBlockBy);
-  listen('socket.in.unblockedBy', ctrl.changeBlockBy);
+  pubsub.on('socket.in.msgType', ctrl.receiveTyping);
+  pubsub.on('socket.in.blockedBy', ctrl.changeBlockBy);
+  pubsub.on('socket.in.unblockedBy', ctrl.changeBlockBy);
 
   let connected = true;
-  listen('socket.close', () => {
+  pubsub.on('socket.close', () => {
     connected = false;
     ctrl.redraw();
   });
-  listen('socket.open', () => {
+  pubsub.on('socket.open', () => {
     if (!connected) {
       connected = true;
       ctrl.onReconnect();

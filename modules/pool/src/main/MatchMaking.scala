@@ -1,7 +1,8 @@
 package lila.pool
 
-import scala.math.abs
 import scalalib.WMMatching
+import scala.math.abs
+import chess.IntRating
 
 import lila.core.pool.PoolMember
 
@@ -34,8 +35,8 @@ object MatchMaking:
     // 2500 ~> 166
     // 3000 ~> 200
     private def ratingToMaxScore(rating: IntRating) =
-      if rating < 1000 then 130
-      else if rating < 1500 then 100
+      if rating < IntRating(1000) then 130
+      else if rating < IntRating(1500) then 100
       else rating.value / 15
 
     // quality of a potential pairing. Lower is better.

@@ -3,28 +3,17 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org arena tournament",
-  "keywords": [
-    "chess",
-    "lichess",
-    "arena",
-    "tournament"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "@types/dragscroll": "0.0.0",
+    "@types/dragscroll": "0.0.3",
     "chat": "workspace:*",
     "common": "workspace:*",
-    "date-fns": "2.29.3",
+    "date-fns": "2.30.0",
     "dragscroll": "^0.0.8",
-    "game": "workspace:*",
-    "snabbdom": "3.5.1"
+    "game": "workspace:*"
   },
-  "lichess": {
-    "bundles": [
-      "src/tournament.ts",
-      "src/tournament.calendar.ts",
-      "src/tournament.schedule.ts"
-    ]
+  "build": {
+    "bundle": "src/tournament.*ts"
   }
 }

@@ -3,10 +3,12 @@ package lila.opening
 import chess.format.Uci
 import chess.format.pgn.SanStr
 import chess.opening.Opening
+import chess.IntRating
 import com.softwaremill.tagging.*
 import play.api.libs.json.{ JsObject, JsValue, Json, Reads }
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
+
 import lila.core.net.Crawler
 
 final private class OpeningExplorer(

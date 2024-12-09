@@ -9,12 +9,9 @@ final private class Monitor(
     cacheApi: lila.memo.CacheApi
 )(using ec: Executor, scheduler: Scheduler):
 
-  val statusCache = cacheApi.unit[Monitor.Status] {
-    _.refreshAfterWrite(1 minute)
-      .buildAsyncFuture { _ =>
-        repo.status.compute
-      }
-  }
+  val statusCache = cacheApi.unit[Monitor.Status]:
+    _.refreshAfterWrite(1 minute).buildAsyncFuture: _ =>
+      repo.status.compute
 
   private val monBy = lila.mon.fishnet.analysis.by
 

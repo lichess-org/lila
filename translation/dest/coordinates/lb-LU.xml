@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinatentraining</string>
   <string name="averageScoreAsWhiteX">Duerchschnëttlechen Score mat Wäiss: %s</string>
   <string name="averageScoreAsBlackX">Duerchschnëttlechen Score mat Schwaarz: %s</string>
-  <string name="knowingTheChessBoard">D\'Koordinaten vum Schachbriet ze kennen ass eng wichteg Fähegkeet:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">D\'Koordinaten vum Schachbriet ze kennen ass eng wichteg Fähegkeet:</string>
   <string name="mostChessCourses">Déi meescht Schachbicher an Exercicer benotzen d\'algebraësch Notatioun.</string>
   <string name="talkToYourChessFriends">Et ass méi einfach mat dengen Schachfrënn ze schwätzen wann dir zwee \"d\'Sprooch vum Schach\" verstitt.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Du kanns deng Partien besser analyséieren wann du direkt d\'Koordinaten erkenns.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Du hues 30 Sekonnen fir esou vill Felder wéi méiglech korrekt ze wielen!</string>
   <string name="goAsLongAsYouWant">Spill sou lang wéi du wëlls, et gëtt keng Zäitlimite!</string>
   <string name="showCoordinates">Koordinaten uweisen</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinaten op jiddwer Feld</string>
   <string name="showPieces">Figuren uweisen</string>
   <string name="startTraining">Training ufänken</string>
   <string name="findSquare">Feld fannen</string>

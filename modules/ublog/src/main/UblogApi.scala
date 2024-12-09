@@ -3,9 +3,9 @@ package lila.ublog
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.*
 
+import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.timeline as tl
 import lila.db.dsl.{ *, given }
-import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.{ timeline as tl }
 import lila.memo.PicfitApi
 
 final class UblogApi(
@@ -30,35 +30,35 @@ final class UblogApi(
 
   def getByPrismicId(id: String): Fu[Option[UblogPost]] = colls.post.one[UblogPost]($doc("prismicId" -> id))
 
-  def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] =
-    getUserBlog(me.value, insertMissing = true).flatMap { blog =>
-      val post = data.update(me.value, prev)
-      (colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get)) >> {
-        (post.live && prev.lived.isEmpty).so(onFirstPublish(me.value, blog, post))
-      }).inject(post)
-    }
+  def update(data: UblogForm.UblogPostData, prev: UblogPost)(using me: Me): Fu[UblogPost] = for
+    author <- userApi.byId(prev.created.by).map(_ | me.value)
+    blog   <- getUserBlog(author, insertMissing = true)
+    post = data.update(me.value, prev)
+    _ <- colls.post.update.one($id(prev.id), $set(bsonWriteObjTry[UblogPost](post).get))
+    _ <- (post.live && prev.lived.isEmpty).so(onFirstPublish(author, blog, post))
+  yield post
 
-  private def onFirstPublish(user: User, blog: UblogBlog, post: UblogPost): Funit =
-    rank
-      .computeRank(blog, post)
-      .so: rank =>
-        colls.post.updateField($id(post.id), "rank", rank).void
-      .andDo:
-        lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
-        if blog.visible then
-          lila.common.Bus.pub:
-            tl.Propagate(tl.UblogPost(user.id, post.id, post.slug, post.title)).toFollowersOf(post.created.by)
-          shutupApi.publicText(user.id, post.allText, PublicSource.Ublog(post.id))
-          if blog.modTier.isEmpty then sendPostToZulipMaybe(user, post)
+  private def onFirstPublish(author: User, blog: UblogBlog, post: UblogPost): Funit =
+    for _ <- rank
+        .computeRank(blog, post)
+        .so: rank =>
+          colls.post.updateField($id(post.id), "rank", rank).void
+    yield
+      lila.common.Bus.publish(UblogPost.Create(post), "ublogPost")
+      if blog.visible then
+        lila.common.Bus.pub:
+          tl.Propagate(tl.UblogPost(author.id, post.id, post.slug, post.title))
+            .toFollowersOf(post.created.by)
+        shutupApi.publicText(author.id, post.allText, PublicSource.Ublog(post.id))
+        if blog.modTier.isEmpty then sendPostToZulipMaybe(author, post)
 
   def getUserBlog(user: User, insertMissing: Boolean = false): Fu[UblogBlog] =
-    getBlog(UblogBlog.Id.User(user.id)).getOrElse(
-      userApi
-        .withPerfs(user)
-        .flatMap: user =>
-          val blog = UblogBlog.make(user)
-          (insertMissing.so(colls.blog.insert.one(blog).void)).inject(blog)
-    )
+    getBlog(UblogBlog.Id.User(user.id)).getOrElse:
+      for
+        user <- userApi.withPerfs(user)
+        blog = UblogBlog.make(user)
+        _ <- insertMissing.so(colls.blog.insert.one(blog).void)
+      yield blog
 
   def getBlog(id: UblogBlog.Id): Fu[Option[UblogBlog]] = colls.blog.byId[UblogBlog](id.full)
 
@@ -146,7 +146,7 @@ final class UblogApi(
     def deleteImage(post: UblogPost): Funit = picfitApi.deleteByRel(rel(post))
 
   private def sendPostToZulipMaybe(user: User, post: UblogPost): Funit =
-    (post.markdown.value.sizeIs > 1000).so(
+    (post.markdown.value.sizeIs > 1000).so:
       irc.ublogPost(
         user.light,
         id = post.id,
@@ -154,7 +154,6 @@ final class UblogApi(
         title = post.title,
         intro = post.intro
       )
-    )
 
   def liveLightsByIds(ids: List[UblogPostId]): Fu[List[UblogPost.LightPost]] =
     colls.post
@@ -172,6 +171,11 @@ final class UblogApi(
 
   def setRankAdjust(id: UblogPostId, adjust: Int, pinned: Boolean): Funit =
     colls.post.update.one($id(id), $set("rankAdjustDays" -> adjust, "pinned" -> pinned)).void
+
+  def onAccountClose(user: User) = for
+    blog <- getBlog(UblogBlog.Id.User(user.id))
+    _    <- blog.filter(_.visible).so(b => setTier(b.id, UblogRank.Tier.HIDDEN))
+  yield ()
 
   def postCursor(user: User): AkkaStreamCursor[UblogPost] =
     colls.post.find($doc("blog" -> s"user:${user.id}")).cursor[UblogPost](ReadPref.priTemp)

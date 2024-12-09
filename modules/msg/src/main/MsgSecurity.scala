@@ -1,21 +1,18 @@
 package lila.msg
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.core.misc.clas.{ AreKidsInSameClass, IsTeacherOf }
-import lila.core.team.IsLeaderOf
-import lila.memo.RateLimit
-import lila.core.perm.Granter
-import lila.core.shutup.TextAnalyser
-
+import lila.core.misc.clas.ClasBus
 import lila.core.report.SuspectId
+import lila.core.shutup.TextAnalyser
+import lila.core.team.IsLeaderOf
+import lila.db.dsl.{ *, given }
+import lila.memo.RateLimit
 
 final private class MsgSecurity(
     colls: MsgColls,
     contactApi: ContactApi,
     prefApi: lila.core.pref.PrefApi,
     userApi: lila.core.user.UserApi,
-    userRepo: lila.core.user.UserRepo,
     userCache: lila.core.user.CachedApi,
     relationApi: lila.core.relation.RelationApi,
     reportApi: lila.core.report.ReportApi,
@@ -27,12 +24,11 @@ final private class MsgSecurity(
   import MsgSecurity.*
 
   private object limitCost:
-    val normal   = 25
-    val verified = 5
-    val hog      = 1
+    val normal = 25
     def apply(u: Contact): Int =
-      if u.isApiHog then hog
-      else if u.isVerified then verified
+      if u.isApiHog then 1
+      else if u.isVerified then 5
+      else if u.isBroadcastManager then 5
       else if u.isDaysOld(30) then normal
       else if u.isDaysOld(7) then normal * 2
       else if u.isDaysOld(3) then normal * 3
@@ -78,7 +74,8 @@ final private class MsgSecurity(
                 .getOrElse(fuccess(Ok))
           .flatMap:
             case Troll =>
-              destFollowsOrig(contacts).dmap:
+              (fuccess(contacts.any(_.isGranted(_.PublicMod))) >>|
+                destFollowsOrig(contacts)).dmap:
                 if _ then TrollFriend else Troll
             case mute: Mute =>
               destFollowsOrig(contacts).dmap:
@@ -141,15 +138,17 @@ final private class MsgSecurity(
       contactApi.contacts(orig, dest).flatMapz { post(_, isNew) }
 
     def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
-      fuccess(!contacts.dest.isLichess && !contacts.any(_.marks.exists(_.isolate))) >>& {
-        fuccess(Granter.ofDbKeys(_.PublicMod, ~contacts.orig.roles)) >>| {
+      (
+        !contacts.dest.isLichess &&
+          (!contacts.any(_.marks.exists(_.isolate)) || contacts.any(_.isGranted(_.Shadowban)))
+      ).so:
+        fuccess(contacts.orig.isGranted(_.PublicMod)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&
             (create(contacts) >>| reply(contacts)) >>&
             chatPanicAllowed(contacts.orig.id)(userApi.byId) >>&
             kidCheck(contacts, isNew) >>&
             userCache.getBotIds.map { botIds => !contacts.userIds.exists(botIds.contains) }
         }
-      }
 
     private def create(contacts: Contacts): Fu[Boolean] =
       prefApi.getMessage(contacts.dest.id).flatMap {
@@ -172,7 +171,8 @@ final private class MsgSecurity(
       if !isNew || !hasKid then fuTrue
       else
         (orig.isKid, dest.isKid) match
-          case (true, true)  => Bus.ask[Boolean]("clas") { AreKidsInSameClass(orig.id, dest.id, _) }
+          case (true, true) =>
+            Bus.safeAsk[Boolean, ClasBus] { ClasBus.AreKidsInSameClass(orig.id, dest.id, _) }
           case (false, true) => isTeacherOf(orig.id, dest.id)
           case (true, false) => isTeacherOf(dest.id, orig.id)
           case _             => fuFalse
@@ -181,7 +181,7 @@ final private class MsgSecurity(
     isTeacherOf(contacts.orig.id, contacts.dest.id)
 
   private def isTeacherOf(teacher: UserId, student: UserId): Fu[Boolean] =
-    Bus.ask[Boolean]("clas") { IsTeacherOf(teacher, student, _) }
+    Bus.safeAsk[Boolean, ClasBus] { ClasBus.IsTeacherOf(teacher, student, _) }
 
   private def isLeaderOf(contacts: Contacts) =
     Bus.ask[Boolean]("teamIsLeaderOf") { IsLeaderOf(contacts.orig.id, contacts.dest.id, _) }

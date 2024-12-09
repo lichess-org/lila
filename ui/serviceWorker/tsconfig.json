@@ -1,9 +1,11 @@
 {
-  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "lib": ["ES2017"],
-    "types": ["types-serviceworker"],
-    "noEmit": true
-  },
-  "isolatedModules": true
+    "strict": true,
+    "noEmit": true,
+    "module": "esnext",
+    "target": "es2020",
+    "lib": ["es2020"],
+    "types": ["serviceworker"],
+    "typeRoots": ["node_modules/@types"]
+  }
 }

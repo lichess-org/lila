@@ -2,6 +2,7 @@ package lila.user
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class UserGamesDownload(helpers: Helpers):
@@ -10,7 +11,7 @@ final class UserGamesDownload(helpers: Helpers):
   def apply(user: User)(using ctx: Context) =
     Page(s"${user.username} • ${trans.site.exportGames.txt()}")
       .css("bits.search")
-      .js(EsmInit("bits.userGamesDownload")):
+      .js(Esm("bits.userGamesDownload")):
         main(cls := "box page-small search")(
           boxTop(h1(userLink(user), s" • ${trans.site.exportGames.txt()}")),
           form(
@@ -159,6 +160,10 @@ final class UserGamesDownload(helpers: Helpers):
         div(
           form3.cmnToggle("dl-opening", "opening", false),
           label(`for` := "dl-opening")(trans.site.opening())
+        ),
+        div(
+          form3.cmnToggle("dl-literate", "literate", false),
+          label(`for` := "dl-literate")("Textual annotations")
         )
       )
     )

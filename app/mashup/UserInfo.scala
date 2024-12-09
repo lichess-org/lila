@@ -4,14 +4,13 @@ package mashup
 import play.api.data.Form
 
 import lila.bookmark.BookmarkApi
-import lila.forum.ForumPostApi
-import lila.game.Crosstable
-import lila.relation.RelationApi
-import lila.core.perm.Granter
-import lila.ublog.{ UblogApi, UblogPost }
 import lila.core.data.SafeJsonStr
 import lila.core.perf.UserWithPerfs
 import lila.core.user.User
+import lila.forum.ForumPostApi
+import lila.game.Crosstable
+import lila.relation.RelationApi
+import lila.ublog.{ UblogApi, UblogPost }
 
 case class UserInfo(
     nbs: UserInfo.NbGames,
@@ -55,16 +54,10 @@ object UserInfo:
       given scala.concurrent.ExecutionContext = scala.concurrent.ExecutionContext.parasitic
       (
         ctx.userId.so(relationApi.fetchRelation(_, u.id).mon(_.user.segment("relation"))),
-        ctx.me.soUse(_ ?=> fetchNotes(u).mon(_.user.segment("notes"))),
+        ctx.me.soUse(_ ?=> noteApi.getForMyPermissions(u).mon(_.user.segment("notes"))),
         ctx.isAuth.so(prefApi.followable(u.id).mon(_.user.segment("followable"))),
         ctx.userId.so(myId => relationApi.fetchBlocks(u.id, myId).mon(_.user.segment("blocks")))
       ).mapN(Social.apply)
-
-    def fetchNotes(u: User)(using Me) =
-      noteApi.get(u, Granter(_.ModNote)).dmap {
-        _.filter: n =>
-          (!n.dox || Granter(_.Admin))
-      }
 
   case class NbGames(
       crosstable: Option[Crosstable.WithMatchup],
@@ -93,7 +86,6 @@ object UserInfo:
       ).mapN(NbGames.apply)
 
   final class UserInfoApi(
-      relationApi: RelationApi,
       postApi: ForumPostApi,
       ublogApi: UblogApi,
       perfsRepo: lila.user.UserPerfsRepo,

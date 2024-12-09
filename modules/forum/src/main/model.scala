@@ -31,11 +31,7 @@ case class TopicView(
   def name      = topic.name
   def createdAt = topic.createdAt
 
-case class PostView(
-    post: ForumPost,
-    topic: ForumTopic,
-    categ: ForumCateg
-):
+case class PostView(post: ForumPost, topic: ForumTopic, categ: ForumCateg):
   def show         = post.showUserIdOrAuthor + " @ " + topic.name + " - " + post.text.take(80)
   def logFormatted = "%s / %s#%s / %s".format(categ.name, topic.name, post.number, post.text)
 

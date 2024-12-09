@@ -118,7 +118,6 @@
   <string name="replayMode">ફરીથી રમો</string>
   <string name="realtimeReplay">વાસ્તવિક સમય માં</string>
   <string name="byCPL">CPL નિયમ દ્વારા</string>
-  <string name="openStudy">અભ્યાસ ખોલો</string>
   <string name="enable">સક્ષમ કરો</string>
   <string name="bestMoveArrow">શ્રેષ્ઠ ચાલ નિર્દેશ</string>
   <string name="showVariationArrows">વિવિધતા તીરો બતાવો</string>
@@ -128,7 +127,6 @@
   <string name="memory">મેમરી</string>
   <string name="infiniteAnalysis">અનંત વિશ્લેષણ</string>
   <string name="removesTheDepthLimit">ગહનતાનિ મર્યાદા હટાવે, અને તમારા કમ્પ્યુટરને ગરમ રાખે છે</string>
-  <string name="engineManager">એન્જિન મેનેજર</string>
   <string name="blunder">મોટી ભૂલ</string>
   <string name="mistake">ભૂલ</string>
   <string name="inaccuracy">ચૂક</string>
@@ -409,8 +407,6 @@
   <string name="blackWins">કાળા ની જીત</string>
   <string name="draws">ડ્રો</string>
   <string name="editProfile">પ્રોફાઇલ સંપાદિત કરો</string>
-  <string name="firstName">પ્રથમ નામ</string>
-  <string name="lastName">અટક</string>
   <string name="setFlair">તમારો સ્વભાવ સેટ કરો</string>
   <string name="flair">સ્વભાવ અન્યથા દેખાવ</string>
   <string name="youCanHideFlair">આખી સાઈટ પર તમામ યુઝર ફ્લેર્સને છુપાવવા માટે એક સેટિંગ છે.</string>
@@ -453,11 +449,8 @@
   <string name="reason">કારણ</string>
   <string name="whatIsIheMatter">શું બાબત છે?</string>
   <string name="cheat">છેતરપિંડી</string>
-  <string name="insult">અપમાન</string>
   <string name="troll">મજાક</string>
-  <string name="ratingManipulation">રેટિંગ છેતરવું</string>
   <string name="other">અન્ય</string>
-  <string name="reportDescriptionHelp">રમત(ઓ) ની લિંક પેસ્ટ કરો અને આ વપરાશકર્તાના વર્તન વિશે શું ખોટું છે તે સમજાવો. ફક્ત \"તેઓ છેતરે છે\" એમ ન બોલો, પરંતુ તમે આ નિષ્કર્ષ પર કેવી રીતે આવ્યા તે અમને કહો. જો અંગ્રેજીમાં લખવામાં આવે તો તમારી રિપોર્ટ પર ઝડપથી પ્રક્રિયા કરવામાં આવશે.</string>
   <string name="error.provideOneCheatedGameLink">કૃપા કરીને છેતરાયેલી રમતની ઓછામાં ઓછી એક લિંક પ્રદાન કરો.</string>
   <string name="by">%s દ્વારા</string>
   <string name="importedByX">%s દ્વારા આયાત કરેલ</string>
@@ -516,7 +509,7 @@
   <string name="aboutSimulRules">જ્યારે સિમુલ શરૂ થાય છે, ત્યારે દરેક ખેલાડી યજમાન સાથે રમત શરૂ કરે છે. જ્યારે બધી રમતો પૂર્ણ થાય ત્યારે સિમુલ સમાપ્ત થાય છે.</string>
   <string name="aboutSimulSettings">સિમલ્સ હંમેશા કેઝ્યુઅલ હોય છે. રિમેચ, ટેકબેક્સ અને સમય ઉમેરવાની સુવિધા અક્ષમ છે.</string>
   <string name="create">બનાવો</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">જો તમે ઘણા પ્રકારો પસંદ કરો છો, તો દરેક ખેલાડીને કયું રમવું તે પસંદ કરવાનું રહેશે.</string>
   <string name="simulClockHint">ફિશર ઘડિયાળ સેટઅપ. તમે જેટલા વધુ ખેલાડીઓ લો છો, તેટલો વધુ સમય તમને જરૂર પડી શકે છે.</string>
   <string name="simulAddExtraTime">સિમ્યુલનો સામનો કરવામાં મદદ કરવા માટે તમે તમારી ઘડિયાળમાં વધારાનો પ્રારંભિક સમય ઉમેરી શકો છો.</string>

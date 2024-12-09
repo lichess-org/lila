@@ -31,8 +31,8 @@
   <string name="byOpenings">Per apertura</string>
   <string name="puzzlesByOpenings">Problemi ordinati per apertura</string>
   <string name="openingsYouPlayedTheMost">Aperture che hai giocato di più nelle partite classificate</string>
-  <string name="useFindInPage">Usa \"Trova nella pagina\" nel menu del browser per trovare la tua apertura preferita!</string>
-  <string name="useCtrlF">Usa Ctrl+F per trovare la tua apertura preferita!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Usa \"Trova nella pagina\" nel menu del browser per trovare la tua apertura preferita!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Usa Ctrl+F per trovare la tua apertura preferita!</string>
   <string name="notTheMove">Non è la mossa esatta!</string>
   <string name="trySomethingElse">Prova qualcos\'altro.</string>
   <string name="ratingX">Punteggio: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Punti di forza</string>
   <string name="history">Cronologia dei problemi</string>
   <string name="solved">risolto</string>
-  <string name="failed">sbagliato</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">sbagliato</string>
   <string name="streakDescription">Risolvi problemi progressivamente più difficili e accumula una serie di vittorie. Non c\'è orologio, quindi fa\' con calma. Appena fai una mossa sbagliata è finita! Puoi saltare una mossa per sessione.</string>
   <string name="yourStreakX">Punteggio: %s</string>
   <string name="streakSkipExplanation">Salta questa mossa per mantenere il punteggio! È possibile farlo solo una volta per sessione.</string>

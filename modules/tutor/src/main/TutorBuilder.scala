@@ -1,5 +1,6 @@
 package lila.tutor
 
+import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.db.dsl.{ *, given }
 import lila.insight.{
   Answer as InsightAnswer,
@@ -12,8 +13,6 @@ import lila.insight.{
   Question
 }
 import lila.rating.PerfType
-import lila.core.perf.UserWithPerfs
-import lila.core.perf.PerfKey
 
 final private class TutorBuilder(
     colls: TutorColls,
@@ -24,7 +23,6 @@ final private class TutorBuilder(
 )(using Executor):
 
   import TutorBsonHandlers.given
-  import TutorBuilder.*
   private given InsightApi = insightApi
 
   val maxTime = fishnet.maxTime + 5.minutes

@@ -1,11 +1,13 @@
 package lila.plan
 package ui
 
+import java.util.Currency
 import scalalib.paginator.Paginator
 
+import lila.ui.ScalatagsTemplate.{ *, given }
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import java.util.Currency
+import lila.core.LightUser
+import lila.plan.PlanPricingApi.pricingWrites
 
 final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   import helpers.{ *, given }
@@ -21,36 +23,38 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
       payPalPublicKey: String,
       patron: Option[Patron],
       recentIds: List[UserId],
-      bestIds: List[UserId],
+      bestScores: Paginator[LightUser],
       pricing: PlanPricing
   )(using ctx: Context) =
     val localeParam = lila.plan.PayPalClient.locale(ctx.lang).so { l => s"&locale=$l" }
-    val pricingJson = safeJsonValue(lila.plan.PlanPricingApi.pricingWrites.writes(pricing))
     Page(trans.patron.becomePatron.txt())
       .css("bits.plan")
       .iife:
         ctx.isAuth.option(
           frag(
             stripeScript,
-            frag(
-              // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
-              // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
-              script(
-                src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
-                namespaceAttr := "paypalOrder"
-              ),
-              script(
-                src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
-                namespaceAttr := "paypalSubscription"
+            pricing.payPalSupportsCurrency.option:
+              frag(
+                // gotta load the paypal SDK twice, for onetime and subscription :facepalm:
+                // https://stackoverflow.com/questions/69024268/how-can-i-show-a-paypal-smart-subscription-button-and-a-paypal-smart-capture-but/69024269
+                script(
+                  src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&currency=${pricing.currency}$localeParam",
+                  namespaceAttr := "paypalOrder"
+                ),
+                script(
+                  src := s"https://www.paypal.com/sdk/js?client-id=${payPalPublicKey}&vault=true&intent=subscription&currency=${pricing.currency}$localeParam",
+                  namespaceAttr := "paypalSubscription"
+                )
               )
-            )
           )
         )
-      .js(ctx.isAuth.option(embedJsUnsafeLoadThen(s"""checkoutStart("$stripePublicKey", $pricingJson)""")))
-      .js(EsmInit("bits.checkout"))
+      .js:
+        ctx.isAuth.option:
+          esmInitObj("bits.checkout", "stripePublicKey" -> stripePublicKey, "pricing" -> pricing)
+      .js(infiniteScrollEsmInit)
       .graph(
         title = trans.patron.becomePatron.txt(),
-        url = s"$netBaseUrl${routes.Plan.index.url}",
+        url = s"$netBaseUrl${routes.Plan.index().url}",
         description = trans.patron.freeChess.txt()
       )
       .csp(paymentCsp):
@@ -253,14 +257,18 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
               faq,
               div(cls := "best_patrons")(
                 h2(trp.celebratedPatrons()),
-                div(cls := "list")(
-                  bestIds.map: userId =>
-                    div(userIdLink(userId.some))
-                )
+                topPatrons(bestScores)
               )
             )
           )
         )
+
+  def topPatrons(users: Paginator[LightUser])(using Context) =
+    div(cls := "list infinite-scroll")(
+      users.currentPageResults.map: u =>
+        div(cls := "paginated")(lightUserLink(u)),
+      pagerNext(users, np => s"${routes.Plan.index(np).url}")
+    )
 
   private def showCurrency(cur: Currency)(using ctx: Context) =
     s"${cur.getSymbol(ctx.lang.locale)} ${cur.getDisplayName(ctx.lang.locale)}"
@@ -319,8 +327,7 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(EsmInit("bits.plan"))
-      .js(embedJsUnsafeLoadThen("""plan.payPalStart()""")):
+      .js(esmInit("bits.plan")):
         main(cls := "box box-pad plan")(
           boxTop(
             h1(
@@ -400,9 +407,8 @@ final class PlanUi(helpers: Helpers)(contactEmail: EmailAddress):
   )(using ctx: Context) =
     Page(trans.patron.thankYou.txt())
       .css("bits.plan")
-      .js(EsmInit("bits.plan"))
       .iife(stripeScript)
-      .js(embedJsUnsafeLoadThen(s"""plan.stripeStart("$stripePublicKey")"""))
+      .js(esmInitObj("bits.plan", "stripePublicKey" -> stripePublicKey))
       .csp(paymentCsp):
         main(cls := "box box-pad plan")(
           boxTop(

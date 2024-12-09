@@ -1,19 +1,20 @@
-import { h, VNode } from 'snabbdom';
-import { Contact, LastMsg, User } from '../interfaces';
-import MsgCtrl from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+import type { Contact, LastMsg, User } from '../interfaces';
+import type MsgCtrl from '../ctrl';
 import * as licon from 'common/licon';
 import { hookMobileMousedown } from 'common/device';
 import { fullName, userLine } from 'common/userLink';
+import { timeago } from 'common/i18n';
 
 export default function renderContact(ctrl: MsgCtrl, contact: Contact, active?: string): VNode {
   const user = contact.user,
     msg = contact.lastMsg,
-    isNew = !msg.read && msg.user != ctrl.data.me.id;
+    isNew = !msg.read && msg.user !== ctrl.data.me.id;
   return h(
     'div.msg-app__side__contact',
     {
       key: user.id,
-      class: { active: active == user.id },
+      class: { active: active === user.id },
       hook: hookMobileMousedown(_ => ctrl.openConvo(user.id)),
     },
     [
@@ -43,5 +44,5 @@ const renderDate = (msg: LastMsg): VNode =>
   h(
     'time.timeago',
     { key: msg.date.getTime(), attrs: { title: msg.date.toLocaleString(), datetime: msg.date.getTime() } },
-    site.timeago(msg.date),
+    timeago(msg.date),
   );

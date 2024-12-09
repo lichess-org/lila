@@ -2,15 +2,14 @@ package lila.activity
 package ui
 
 import lila.activity.activities.*
-import lila.core.forum.ForumTopicMini
-import lila.core.forum.ForumPostMini
-import lila.core.rating.Score
-import lila.core.rating.RatingProg
 import lila.core.chess.Rank
-import lila.core.perf.UserWithPerfs
-import lila.rating.UserPerfsExt.dubiousPuzzle
+import lila.core.forum.{ ForumPostMini, ForumTopicMini }
 import lila.core.i18n.Translate
+import lila.core.perf.UserWithPerfs
+import lila.core.rating.{ RatingProg, Score }
+import lila.rating.UserPerfsExt.dubiousPuzzle
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class ActivityUi(helpers: Helpers)(
@@ -35,7 +34,7 @@ final class ActivityUi(helpers: Helpers)(
               a.racer.map(renderRacer),
               a.streak.map(renderStreak),
               a.games.map(renderGames),
-              a.forumPosts.map(renderForumPosts),
+              canSeeForumPosts(u).option(a.forumPosts.map(renderForumPosts)),
               ublogPosts(a),
               a.corresMoves.map(renderCorresMoves),
               a.corresEnds.map(renderCorresEnds),
@@ -52,14 +51,16 @@ final class ActivityUi(helpers: Helpers)(
     )
 
   private def subCount(count: Int) = if count >= maxSubEntries then s"$count+" else s"$count"
+  private def canSeeForumPosts(u: UserWithPerfs)(using ctx: Context) = ctx.is(u) || !u.marks.troll
 
   private def renderPatron(p: Patron)(using Context) =
     div(cls := "entry plan")(
       iconTag(Icon.Wings),
       div(
-        if p.months == 0 then a(href := routes.Plan.index)("Lifetime Patron!")
+        if p.months == 0 then a(href := routes.Plan.index())("Lifetime Patron!")
         else
-          trans.activity.supportedNbMonths.plural(p.months, p.months, a(href := routes.Plan.index)("Patron"))
+          trans.activity.supportedNbMonths
+            .plural(p.months, p.months, a(href := routes.Plan.index())("Patron"))
       )
     )
 
@@ -185,35 +186,49 @@ final class ActivityUi(helpers: Helpers)(
       )
     )
 
-  private def renderCorresEnds(score: Score, povs: List[lila.core.game.LightPov])(using Context) =
-    entryTag(
-      iconTag(Icon.PaperAirplane),
-      div(
-        trans.activity.completedNbGames.plural(score.size, subCount(score.size)),
-        score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
-        scoreFrag(score),
-        subTag(
-          povs.map: pov =>
-            frag(
-              a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))(
-                pov.game.win.map(_ == pov.color) match
-                  case Some(true)  => trans.site.victory()
-                  case Some(false) => trans.site.defeat()
-                  case _           => "Draw"
-              ),
-              " vs ",
-              lightPlayerLink(
-                pov.opponent,
-                withRating = true,
-                withDiff = false,
-                withOnline = true,
-                link = true
-              ),
-              br
-            )
+  private def renderCorresEnds(corresEnds: Map[PerfKey, (Score, List[lila.core.game.LightPov])])(using
+      Context
+  ) =
+    corresEnds.toSeq.map { case (pk, (score, povs)) =>
+      val pt = lila.rating.PerfType(pk)
+      val text =
+        if pk == PerfKey.correspondence then
+          trans.activity.completedNbGames.plural(score.size, subCount(score.size))
+        else
+          trans.activity.completedNbVariantGames.plural(
+            score.size,
+            subCount(score.size),
+            pt.trans
+          )
+      entryTag(
+        iconTag(if pk == PerfKey.correspondence then Icon.PaperAirplane else pt.icon),
+        div(
+          text,
+          score.rp.filterNot(_.isEmpty).map(ratingProgFrag),
+          scoreFrag(score),
+          subTag(
+            povs.map: pov =>
+              frag(
+                a(cls := "glpt", href := routes.Round.watcher(pov.gameId, pov.color))(
+                  pov.game.win.map(_ == pov.color) match
+                    case Some(true)  => trans.site.victory()
+                    case Some(false) => trans.site.defeat()
+                    case _           => "Draw"
+                ),
+                " vs ",
+                lightPlayerLink(
+                  pov.opponent,
+                  withRating = true,
+                  withDiff = false,
+                  withOnline = true,
+                  link = true
+                ),
+                br
+              )
+          )
         )
       )
-    )
+    }
 
   private def renderFollows(all: Follows)(using Context) =
     entryTag(

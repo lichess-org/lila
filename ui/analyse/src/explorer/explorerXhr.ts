@@ -1,8 +1,7 @@
-import { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
+import type { ExplorerDb, OpeningData, TablebaseData } from './interfaces';
 import * as xhr from 'common/xhr';
-import { readNdJson } from 'common/ndjson';
-import { ExplorerConfigData } from './explorerConfig';
-import { FEN } from 'chessground/types';
+import { readNdJson } from 'common/xhr';
+import type { ExplorerConfigData } from './explorerConfig';
 
 interface OpeningXhrOpts {
   endpoint: string;

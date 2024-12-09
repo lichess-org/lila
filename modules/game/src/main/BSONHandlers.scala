@@ -17,24 +17,24 @@ import chess.{
   UnmovedRooks
 }
 import reactivemongo.api.bson.*
+import scalalib.model.Days
 
 import scala.util.{ Success, Try }
 
-import scalalib.model.Days
-import lila.db.BSON
-import lila.db.dsl.{ *, given }
 import lila.core.game.{
+  ClockHistory,
   Game,
-  GameRule,
-  LightGame,
-  Source,
   GameDrawOffers,
   GameMetadata,
-  PgnImport,
+  GameRule,
+  LightGame,
   LightPlayer,
-  ClockHistory,
+  PgnImport,
+  Source,
   emptyDrawOffers
 }
+import lila.db.BSON
+import lila.db.dsl.{ *, given }
 
 object BSONHandlers:
 
@@ -55,6 +55,8 @@ object BSONHandlers:
   )
 
   given BSONHandler[GameRule] = valueMapHandler[String, GameRule](GameRule.byKey)(_.toString)
+
+  given sourceHandler: BSONHandler[Source] = valueMapHandler[Int, Source](Source.byId)(_.id)
 
   private[game] given crazyhouseDataHandler: BSON[Crazyhouse.Data] with
     import Crazyhouse.*
@@ -107,7 +109,6 @@ object BSONHandlers:
       val createdAt    = r.date(F.createdAt)
 
       val playedPlies = ply - startedAtPly
-      val gameVariant = Variant.idOrDefault(r.getO[Variant.Id](F.variant))
 
       val whitePlayer = Player.from(light, Color.white, playerIds, r.getD[Bdoc](F.whitePlayer))
       val blackPlayer = Player.from(light, Color.black, playerIds, r.getD[Bdoc](F.blackPlayer))
@@ -117,16 +118,15 @@ object BSONHandlers:
         case None =>
           val clm  = r.get[CastleLastMove](F.castleLastMove)
           val sans = PgnStorage.OldBin.decode(r.bytesD(F.oldPgn), playedPlies)
-          val halfMoveClock =
-            HalfMoveClock.from(
+          val halfMoveClock = HalfMoveClock
+            .from:
               sans.reverse
                 .indexWhere(san => san.value.contains("x") || san.value.headOption.exists(_.isLower))
                 .some
-                .filter(HalfMoveClock.initial <= _)
-            )
+            .filter(HalfMoveClock.initial <= _)
           PgnStorage.Decoded(
             sans = sans,
-            board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), gameVariant)),
+            board = BBoard.fromMap(BinaryFormat.piece.read(r.bytes(F.binaryPieces), light.variant)),
             positionHashes =
               r.getO[Array[Byte]](F.positionHashes).map(chess.PositionHash.apply) | chess.PositionHash.empty,
             unmovedRooks = r.getO[UnmovedRooks](F.unmovedRooks) | UnmovedRooks.default,
@@ -149,13 +149,13 @@ object BSONHandlers:
               halfMoveClock = decoded.halfMoveClock,
               positionHashes = decoded.positionHashes,
               unmovedRooks = decoded.unmovedRooks,
-              checkCount = if gameVariant.threeCheck then
+              checkCount = if light.variant.threeCheck then
                 val counts = r.intsD(F.checkCount)
                 CheckCount(~counts.headOption, ~counts.lastOption)
               else emptyCheckCount
             ),
-            variant = gameVariant,
-            crazyData = gameVariant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
+            variant = light.variant,
+            crazyData = light.variant.crazyhouse.option(r.get[Crazyhouse.Data](F.crazyData))
           ),
           color = turnColor
         ),
@@ -193,7 +193,7 @@ object BSONHandlers:
         createdAt = createdAt,
         movedAt = r.dateD(F.movedAt, createdAt),
         metadata = GameMetadata(
-          source = r.intO(F.source).flatMap(Source.apply),
+          source = r.getO[Source](F.source),
           pgnImport = r.getO[PgnImport](F.pgnImport),
           tournamentId = r.getO[TourId](F.tournamentId),
           swissId = r.getO[SwissId](F.swissId),
@@ -221,9 +221,9 @@ object BSONHandlers:
         F.status        -> o.status,
         F.turns         -> o.chess.ply,
         F.startedAtTurn -> w.intO(o.chess.startedAtPly.value),
-        F.clock -> (o.chess.clock.flatMap { c =>
+        F.clock -> o.chess.clock.flatMap { c =>
           clockBSONWrite(o.createdAt, c).toOption
-        }),
+        },
         F.daysPerTurn       -> o.daysPerTurn,
         F.moveTimes         -> o.binaryMoveTimes,
         F.whiteClockHistory -> clockHistory(Color.White, o.clockHistory, o.chess.clock, o.flagged),
@@ -233,7 +233,7 @@ object BSONHandlers:
         F.bookmarks         -> w.intO(o.bookmarks),
         F.createdAt         -> w.date(o.createdAt),
         F.movedAt           -> w.date(o.movedAt),
-        F.source            -> o.metadata.source.map(_.id),
+        F.source            -> o.metadata.source,
         F.pgnImport         -> o.metadata.pgnImport,
         F.tournamentId      -> o.metadata.tournamentId,
         F.swissId           -> o.metadata.swissId,
@@ -278,7 +278,8 @@ object BSONHandlers:
         whitePlayer = makePlayer(F.whitePlayer, Color.White, whiteUid),
         blackPlayer = makePlayer(F.blackPlayer, Color.Black, blackUid),
         status = r.get[Status](F.status),
-        win = winC
+        win = winC,
+        variant = Variant.idOrDefault(r.getO[Variant.Id](F.variant))
       )
 
   private def clockHistory(

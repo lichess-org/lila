@@ -2,8 +2,9 @@ package lila.ui
 
 import java.time.LocalDate
 
-import ScalatagsTemplate.{ *, given }
 import lila.core.config.BaseUrl
+
+import ScalatagsTemplate.{ *, given }
 
 final class AtomUi(netBaseUrl: BaseUrl):
 

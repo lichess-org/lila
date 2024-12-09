@@ -1,4 +1,11 @@
-import { h as snabH, VNode, VNodeData, VNodeChildElement, Hooks, Attrs } from 'snabbdom';
+import {
+  type VNode,
+  type VNodeData,
+  type VNodeChildElement,
+  type Hooks,
+  type Attrs,
+  h as snabH,
+} from 'snabbdom';
 
 export type { Attrs, VNode };
 export type Redraw = () => void;
@@ -37,7 +44,7 @@ export const dataIcon = (icon: string): Attrs => ({
   'data-icon': icon,
 });
 
-export const iconTag = (icon: string) => snabH('i', { attrs: dataIcon(icon) });
+export const iconTag = (icon: string): VNode => snabH('i', { attrs: dataIcon(icon) });
 
 export type LooseVNode = VNode | string | undefined | null | boolean;
 export type LooseVNodes = LooseVNode[];

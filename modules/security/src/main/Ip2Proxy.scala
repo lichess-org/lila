@@ -4,7 +4,7 @@ import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.net.IpAddress
-import lila.core.security.{ IsProxy, Ip2ProxyApi }
+import lila.core.security.{ Ip2ProxyApi, IsProxy }
 
 final class Ip2ProxySkip extends Ip2ProxyApi:
   def apply(ip: IpAddress): Fu[IsProxy]                            = fuccess(IsProxy.empty)
@@ -69,7 +69,7 @@ final class Ip2ProxyServer(
                 cached ++ res
         }
 
-  private val cache = cacheApi[String, IsProxy](65_536, "ip2proxy.ip"):
+  private val cache = cacheApi[String, IsProxy](32_768, "ip2proxy.ip"):
     _.expireAfterWrite(1 hour).buildAsyncFuture: ip =>
       ws
         .url(checkUrl)

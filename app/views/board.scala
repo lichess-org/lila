@@ -21,7 +21,6 @@ def userAnalysis(
         Json
           .obj(
             "data" -> data,
-            "i18n" -> views.userAnalysisI18n(withForecast = withForecast),
             "wiki" -> pov.game.variant.standard
           )
           .add("inlinePgn", inlinePgn) ++

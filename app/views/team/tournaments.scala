@@ -1,9 +1,7 @@
 package views.team
 
-import play.api.i18n.Lang
-
-import lila.app.mashup.TeamInfo
 import lila.app.UiEnv.{ *, given }
+import lila.app.mashup.TeamInfo
 
 // both arena and swiss
 object tournaments:

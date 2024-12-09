@@ -16,8 +16,8 @@
   <string name="upVote">Thích câu đố</string>
   <string name="downVote">Không thích câu đố</string>
   <string name="yourPuzzleRatingWillNotChange">Hệ số giải câu đố của bạn sẽ không thay đổi. Lưu ý rằng giải câu đố không phải một cuộc thi. Hệ số của bạn nhằm giúp chọn những câu đố phù hợp nhất với trình độ của bạn.</string>
-  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho Trắng.</string>
-  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho Đen.</string>
+  <string name="findTheBestMoveForWhite">Tìm nước tối ưu cho bên trắng.</string>
+  <string name="findTheBestMoveForBlack">Tìm nước tối ưu cho bên đen.</string>
   <string name="toGetPersonalizedPuzzles">Để có được các thế cờ dành riêng cho bạn:</string>
   <string name="puzzleId">Câu đố %s</string>
   <string name="puzzleOfTheDay">Câu đố của ngày</string>
@@ -31,8 +31,8 @@
   <string name="byOpenings">Theo khai cuộc</string>
   <string name="puzzlesByOpenings">Câu đố theo khai cuộc</string>
   <string name="openingsYouPlayedTheMost">Những khai cuộc bạn thường chơi trong các ván đấu có xếp hạng</string>
-  <string name="useFindInPage">Dùng \"Tìm kiếm trong trang\" trong mục lục trình duyệt để tìm khai cuộc yêu thích của bạn!</string>
-  <string name="useCtrlF">Dùng Ctrl+f để tìm khai cuộc yêu thích của bạn!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Dùng \"Tìm kiếm trong trang\" trong mục lục trình duyệt để tìm khai cuộc yêu thích của bạn!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Dùng Ctrl+f để tìm khai cuộc yêu thích của bạn!</string>
   <string name="notTheMove">Đó chưa phải là nước đi tối ưu!</string>
   <string name="trySomethingElse">Hãy thử nước đi khác.</string>
   <string name="ratingX">Hệ số: %s</string>
@@ -63,7 +63,7 @@
   <string name="strengths">Điểm mạnh</string>
   <string name="history">Lịch sử giải câu đố</string>
   <string name="solved">giải đúng</string>
-  <string name="failed">giải sai</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">giải sai</string>
   <string name="streakDescription">Giải những câu đố có độ khó tăng dần và tích lũy chuỗi thắng. Sẽ không có đồng hồ, nên hãy giải chúng một cách bình tĩnh. Một nước đi sai, và trò chơi sẽ kết thúc! Tuy nhiên, bạn được quyền bỏ qua một nước đi trong mỗi lần chơi.</string>
   <string name="yourStreakX">Chuỗi của bạn: %s</string>
   <string name="streakSkipExplanation">Bỏ qua nước đi này để bảo toàn chuỗi của bạn! Chỉ dùng được một lần cho mỗi lần chơi.</string>

@@ -67,7 +67,7 @@
   <string name="downloadGame">Download game</string>
   <string name="studyUrl">Study URL</string>
   <string name="currentChapterUrl">Current chapter URL</string>
-  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum or a Lichess blog to embed</string>
+  <string name="youCanPasteThisInTheForumToEmbed">You can paste this in the forum or your Lichess blog to embed</string>
   <string name="startAtInitialPosition">Start at initial position</string>
   <string name="startAtX">Start at %s</string>
   <string name="embedInYourWebsite">Embed in your website</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">Start from initial position</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Start from custom position</string>
-  <string name="loadAGameByUrl">Load a game by URL</string>
+  <string name="loadAGameByUrl">Load games by URL</string>
   <string name="loadAPositionFromFen">Load a position from FEN</string>
-  <string name="loadAGameFromPgn">Load a game from PGN</string>
+  <string name="loadAGameFromPgn">Load games from PGN</string>
   <string name="automatic">Automatic</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Paste your PGN text here, up to %s game</item>
@@ -167,4 +167,5 @@
   <string name="playAgain">Play again</string>
   <string name="whatWouldYouPlay">What would you play in this position?</string>
   <string name="youCompletedThisLesson">Congratulations! You completed this lesson.</string>
+  <string name="perPage">%s per page</string>
 </resources>

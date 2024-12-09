@@ -1,4 +1,4 @@
-# Run `./lila playRoutes` after modifying this file
+# Run `./lila.sh playRoutes` after modifying this file
 
 # Lobby
 GET   /                                controllers.Lobby.home
@@ -100,6 +100,7 @@ GET   /@/:username/:filterName         controllers.User.games(username: UserStr,
 GET   /@/:username                     controllers.User.show(username: UserStr)
 GET   /player/myself                   controllers.User.myself
 GET   /player/opponents                controllers.User.opponents
+GET   /player/search/:term             controllers.User.search(term: String)
 GET   /player                          controllers.User.list
 GET   /player/top/:nb/:perfKey         controllers.User.topNb(nb: Int, perfKey: PerfKey)
 GET   /api/player/top/:nb/:perfKey     controllers.User.topNbApi(nb: Int, perfKey: PerfKey)
@@ -158,9 +159,9 @@ GET   /training/export/gif/thumbnail/:id.gif controllers.Export.puzzleThumbnail(
 GET   /training/themes                 controllers.Puzzle.themes
 GET   /training/openings               controllers.Puzzle.openings(order ?= "popular")
 GET   /training/of-player              controllers.Puzzle.ofPlayer(name: Option[UserStr] ?= None, page: Int ?= 1)
-GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Int, path = "home", u: Option[UserStr])
-GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Int, path, u: Option[UserStr])
-GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Int, theme)
+GET   /training/dashboard/$days<\d+>   controllers.Puzzle.dashboard(days: Days, path = "home", u: Option[UserStr])
+GET   /training/dashboard/$days<\d+>/:path  controllers.Puzzle.dashboard(days: Days, path, u: Option[UserStr])
+GET   /training/replay/$days<\d+>/:theme controllers.Puzzle.replay(days: Days, theme)
 GET   /training/history                controllers.Puzzle.history(page: Int ?= 1, u: Option[UserStr])
 GET   /training/batch                  controllers.Puzzle.mobileBcBatchSelect
 POST  /training/batch                  controllers.Puzzle.mobileBcBatchSolve
@@ -172,6 +173,7 @@ GET   /training/:angle/$color<white|black|random> controllers.Puzzle.angleAndCol
 GET   /training/:angle/$id<\w{5}>      controllers.Puzzle.showWithAngle(angle, id: PuzzleId)
 POST  /training/$numericalId<\d{6,}>/round2    controllers.Puzzle.mobileBcRound(numericalId: Long)
 POST  /training/$id<\w{5}>/vote        controllers.Puzzle.vote(id: PuzzleId)
+POST  /training/$id<\w{5}>/report      controllers.Puzzle.report(id: PuzzleId)
 POST  /training/$id<\w{5}>/vote/:theme controllers.Puzzle.voteTheme(id: PuzzleId, theme)
 POST  /training/complete/:theme/$id<\w{5}>  controllers.Puzzle.complete(theme, id: PuzzleId)
 POST  /training/difficulty/:theme      controllers.Puzzle.setDifficulty(theme)
@@ -254,15 +256,17 @@ GET   /broadcast                              controllers.RelayTour.index(page: 
 GET   /broadcast/new                          controllers.RelayTour.form
 POST  /broadcast/new                          controllers.RelayTour.create
 GET   /broadcast/calendar                     controllers.RelayTour.calendar
+GET   /broadcast/calendar/:year/:month        controllers.RelayTour.calendarMonth(year: Int, month: Int)
 GET   /broadcast/help                         controllers.RelayTour.help
+GET   /broadcast/app                          controllers.RelayTour.app
 GET   /broadcast/by/:user                     controllers.RelayTour.by(user: UserStr, page: Int ?= 1)
 GET   /api/broadcast/by/:user                 controllers.RelayTour.apiBy(user: UserStr, page: Int ?= 1)
 GET   /broadcast/subscribed                   controllers.RelayTour.subscribed(page: Int ?= 1)
 GET   /broadcast/all-private                  controllers.RelayTour.allPrivate(page: Int ?= 1)
 GET   /broadcast/:ts/$id<\w{8}>               controllers.RelayTour.show(ts, id: RelayTourId)
+GET   /embed/broadcast/:ts/$id<\w{8}>         controllers.RelayTour.embedShow(ts, id: RelayTourId)
 GET   /api/broadcast/$id<\w{8}>               controllers.RelayTour.apiShow(id: RelayTourId)
 GET   /api/broadcast/$tourId<\w{8}>.pgn       controllers.RelayTour.pgn(tourId: RelayTourId)
-GET   /broadcast/$tourId<\w{8}>/stats         controllers.RelayTour.stats(tourId: RelayTourId)
 GET   /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.edit(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/edit          controllers.RelayTour.update(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/delete        controllers.RelayTour.delete(tourId: RelayTourId)
@@ -271,18 +275,21 @@ POST  /broadcast/$tourId<\w{8}>/clone         controllers.RelayTour.cloneTour(to
 POST  /broadcast/$tourId<\w{8}>/subscribe     controllers.RelayTour.subscribe(tourId: RelayTourId, set: Boolean)
 GET   /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.form(tourId: RelayTourId)
 POST  /broadcast/$tourId<\w{8}>/new           controllers.RelayRound.create(tourId: RelayTourId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId, embed: Option[UserStr] ?= None)
+GET   /broadcast/$tourId<\w{8}>/players       controllers.RelayTour.playersView(tourId: RelayTourId)
+GET   /broadcast/$tourId<\w{8}>/players/:id   controllers.RelayTour.player(tourId: RelayTourId, id:  String)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>      controllers.RelayRound.show(ts, rs, roundId: RelayRoundId)
 GET   /api/broadcast/:ts/:rs/$roundId<\w{8}>  controllers.RelayRound.apiShow(ts, rs, roundId: RelayRoundId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId, embed: Option[UserStr] ?= None)
+GET   /embed/broadcast/:ts/:rs/$roundId<\w{8}> controllers.RelayRound.embedShow(ts, rs, roundId: RelayRoundId)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>/$chapterId<\w{8}> controllers.RelayRound.chapter(ts, rs, roundId: RelayRoundId, chapterId: StudyChapterId)
 GET   /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.edit(roundId: RelayRoundId)
 POST  /broadcast/round/$roundId<\w{8}>/edit   controllers.RelayRound.update(roundId: RelayRoundId)
 POST  /broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: RelayRoundId)
-POST  /broadcast/round/$roundId<\w{8}>/push   controllers.RelayRound.push(roundId: RelayRoundId)
+POST  /api/broadcast/round/$roundId<\w{8}>/reset  controllers.RelayRound.reset(roundId: RelayRoundId)
+GET   /broadcast/round/$roundId<\w{8}>/stats  controllers.RelayRound.stats(roundId: RelayRoundId)
 POST  /api/broadcast/round/$roundId<\w{8}>/push controllers.RelayRound.push(roundId: RelayRoundId)
-GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId: StudyId)
+GET   /broadcast/:ts/:rs/$roundId<\w{8}>.pgn  controllers.RelayRound.pgn(ts, rs, roundId: RelayRoundId)
 GET   /broadcast/$roundId<\w{8}>/teams        controllers.RelayRound.teamsView(roundId: RelayRoundId)
-GET   /broadcast/$tourId<\w{8}>/leaderboard   controllers.RelayTour.leaderboardView(tourId: RelayTourId)
-GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: StudyId)
+GET   /api/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.apiPgn(roundId: RelayRoundId)
 GET   /api/stream/broadcast/round/$roundId<\w{8}>.pgn controllers.RelayRound.stream(roundId: RelayRoundId)
 GET   /api/broadcast                          controllers.RelayTour.apiIndex
 GET   /api/broadcast/top                      controllers.RelayTour.apiTop(page: Int ?= 1)
@@ -296,7 +303,7 @@ POST  /learn/reset                     controllers.Learn.reset
 GET   /$lang<\w\w\w?>/learn            controllers.Learn.indexLang(lang: Language)
 
 # Patron
-GET   /patron                          controllers.Plan.index
+GET   /patron                          controllers.Plan.index(page: Int ?= 1)
 GET   /patron/thanks                   controllers.Plan.thanks
 GET   /patron/list                     controllers.Plan.list
 POST  /patron/switch                   controllers.Plan.switch
@@ -586,6 +593,7 @@ POST  /mod/ip/ban/:v/:ip               controllers.Mod.singleIpBan(v: Boolean, i
 GET   /mod/presets/:group              controllers.Mod.presets(group)
 POST  /mod/presets/:group              controllers.Mod.presetsUpdate(group)
 GET   /api/stream/mod                  controllers.Mod.eventStream
+GET   /api/stream/mod-marked-since     controllers.Mod.markedUsersStream
 
 # Irwin
 GET   /irwin                           controllers.Irwin.dashboard
@@ -598,15 +606,17 @@ GET   /kaladin                         controllers.Irwin.kaladin
 # Forum
 GET   /forum                           controllers.ForumCateg.index
 GET   /forum/search                    controllers.ForumPost.search(text ?= "", page: Int ?= 1)
-GET   /forum/:categId                     controllers.ForumCateg.show(categId: ForumCategId, page: Int ?= 1)
-GET   /forum/:categId/form           controllers.ForumTopic.form(categId: ForumCategId)
-POST  /forum/:categId/new            controllers.ForumTopic.create(categId: ForumCategId)
+GET   /forum/:categId                  controllers.ForumCateg.show(categId: ForumCategId, page: Int ?= 1)
+GET   /forum/:categId/form             controllers.ForumTopic.form(categId: ForumCategId)
+POST  /forum/:categId/new              controllers.ForumTopic.create(categId: ForumCategId)
+GET   /forum/:categId/mod-feed         controllers.ForumCateg.modFeed(categId: ForumCategId, page: Int ?= 1)
 GET   /forum/participants/:topicId     controllers.ForumTopic.participants(topicId: ForumTopicId)
-GET   /forum/:categId/:slug          controllers.ForumTopic.show(categId: ForumCategId, slug, page: Int ?= 1)
-POST  /forum/:categId/:slug/close    controllers.ForumTopic.close(categId: ForumCategId, slug)
-POST  /forum/:categId/:slug/sticky   controllers.ForumTopic.sticky(categId: ForumCategId, slug)
-POST  /forum/:categId/:slug/new      controllers.ForumPost.create(categId: ForumCategId, slug, page: Int ?= 1)
+GET   /forum/:categId/:slug            controllers.ForumTopic.show(categId: ForumCategId, slug, page: Int ?= 1)
+POST  /forum/:categId/:slug/close      controllers.ForumTopic.close(categId: ForumCategId, slug)
+POST  /forum/:categId/:slug/sticky     controllers.ForumTopic.sticky(categId: ForumCategId, slug)
+POST  /forum/:categId/:slug/new        controllers.ForumPost.create(categId: ForumCategId, slug, page: Int ?= 1)
 POST  /forum/delete/:id                controllers.ForumPost.delete(id: ForumPostId)
+POST  /forum/relocate/:id              controllers.ForumPost.relocate(id: ForumPostId)
 POST  /forum/:categId/react/:id/:reaction/:v controllers.ForumPost.react(categId: ForumCategId, id: ForumPostId, reaction, v: Boolean)
 POST  /forum/post/:id                  controllers.ForumPost.edit(id: ForumPostId)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: ForumPostId)
@@ -657,11 +667,13 @@ GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/puzzle/daily                controllers.Puzzle.apiDaily
 GET   /api/puzzle/activity             controllers.Puzzle.activity
-GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Int)
+GET   /api/puzzle/dashboard/$days<\d+> controllers.Puzzle.apiDashboard(days: Days)
 GET   /api/puzzle/$id<\w{5}>           controllers.Puzzle.apiShow(id: PuzzleId)
+GET   /api/puzzle/next                 controllers.Puzzle.apiNext
 GET   /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSelect(angle)
 POST  /api/puzzle/batch/:angle         controllers.Puzzle.apiBatchSolve(angle)
-GET   /api/user/:user/tournament/created controllers.Api.tournamentsByOwner(user: UserStr, status: List[Int])
+GET   /api/user/:user/tournament/created controllers.UserTournament.apiTournamentsByOwner(user: UserStr, status: List[Int])
+GET   /api/user/:user/tournament/played  controllers.UserTournament.apiTournamentsByPlayer(user: UserStr)
 GET   /api/user/:user                  controllers.Api.user(user: UserStr)
 GET   /api/user/:user/activity         controllers.Api.activity(user: UserStr)
 GET   /api/user/:user/note             controllers.User.apiReadNote(user: UserStr)
@@ -722,6 +734,7 @@ GET   /api/bulk-pairing                controllers.BulkPairing.list
 POST  /api/bulk-pairing                controllers.BulkPairing.create
 GET   /api/bulk-pairing/:id            controllers.BulkPairing.show(id)
 DELETE /api/bulk-pairing/:id           controllers.BulkPairing.delete(id)
+GET   /api/bulk-pairing/:id/games      controllers.BulkPairing.games(id)
 POST  /api/bulk-pairing/:id/start-clocks  controllers.BulkPairing.startClocks(id)
 
 GET   /api/games/user/:username        controllers.Game.apiExportByUser(username: UserStr)
@@ -793,6 +806,10 @@ GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(u
 GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserStr, perf: PerfKey)
 GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
 
+# Recap
+GET   /recap                           controllers.Recap.home()
+GET   /recap/:username                 controllers.Recap.user(username: UserStr)
+
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize
 POST   /oauth                          controllers.OAuth.legacyTokenApply
@@ -861,6 +878,9 @@ POST  /dev/cli                         controllers.Dev.cliPost
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 
+GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
+POST  /dev/socket-test                 controllers.Dev.socketTestResult
+
 # Push
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform, deviceId)
 POST  /mobile/unregister               controllers.Push.mobileUnregister
@@ -881,8 +901,8 @@ GET   /variant/:key                    controllers.Cms.variant(key: chess.varian
 
 # Help
 GET   /help/contribute                 controllers.Cms.help
-GET   /help/keyboard-move              controllers.Main.keyboardMoveHelp
-GET   /help/voice/:module              controllers.Main.voiceHelp(module)
+GET   /help/*path                      controllers.Main.helpPath(path)
+
 # DGT
 GET   /dgt                             controllers.DgtCtrl.index
 GET   /dgt/play                        controllers.DgtCtrl.play

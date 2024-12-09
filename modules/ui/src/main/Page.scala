@@ -1,6 +1,7 @@
 package lila.ui
 
-import ScalatagsTemplate.{ *, given }
+import lila.core.i18n.I18nModule
+import ScalatagsTemplate.*
 
 opaque type LangPath = String
 object LangPath extends OpaqueString[LangPath]:
@@ -22,6 +23,7 @@ case class Page(
     fullTitle: Option[String] = None,
     robots: Boolean = true,
     cssKeys: List[String] = Nil,
+    i18nModules: List[I18nModule.Selector] = List(_.site, _.timeago, _.preferences),
     modules: EsmList = Nil,
     jsFrag: Option[WithNonce[Frag]] = None,
     pageModule: Option[PageModule] = None,
@@ -35,15 +37,18 @@ case class Page(
     withHrefLangs: Option[LangPath] = None,
     transform: Update[Frag] = identity
 ):
-  def js(esm: EsmInit): Page               = copy(modules = modules :+ esm.some)
+  def js(esm: Esm): Page                   = copy(modules = modules :+ esm.some)
   def js(esm: EsmList): Page               = copy(modules = modules ::: esm)
   def js(f: WithNonce[Frag]): Page         = copy(jsFrag = jsFrag.foldLeft(f)(_ |+| _).some)
   def js(f: Option[WithNonce[Frag]]): Page = f.foldLeft(this)(_.js(_))
   def js(pm: PageModule): Page             = copy(pageModule = pm.some)
   @scala.annotation.targetName("jsModuleOption")
-  def js(pm: Option[PageModule]): Page                             = copy(pageModule = pm)
-  def iife(iifeFrag: Frag): Page                                   = js(_ => iifeFrag)
-  def iife(iifeFrag: Option[Frag]): Page                           = iifeFrag.foldLeft(this)(_.iife(_))
+  def js(pm: Option[PageModule]): Page       = copy(pageModule = pm)
+  def iife(iifeFrag: Frag): Page             = js(_ => iifeFrag)
+  def iife(iifeFrag: Option[Frag]): Page     = iifeFrag.foldLeft(this)(_.iife(_))
+  def i18n(mods: I18nModule.Selector*): Page = copy(i18nModules = i18nModules ::: mods.toList)
+  def i18nOpt(cond: Boolean, mod: => I18nModule.Selector) =
+    if cond then copy(i18nModules = i18nModules.appended(mod)) else this
   def graph(og: OpenGraph): Page                                   = copy(openGraph = og.some)
   def graph(title: String, description: String, url: String): Page = graph(OpenGraph(title, description, url))
   def robots(b: Boolean): Page                                     = copy(robots = b)

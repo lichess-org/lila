@@ -15,7 +15,7 @@ $col2-panel-height: 240px;
     align-items: flex-start;
 
     > span {
-      @extend %roboto, %box-radius-top, %page-text;
+      @extend %roboto, %box-radius-top, %page-text, %ellipsis;
 
       flex: 1 1 0;
       text-align: center;
@@ -23,6 +23,7 @@ $col2-panel-height: 240px;
       padding: 0.4em 0.1em;
       cursor: pointer;
       position: relative;
+      white-space: nowrap;
 
       &:hover {
         background: $c-body-gradient;

@@ -1,10 +1,11 @@
 import { header } from './util';
 import { hyphenToCamel, toggle } from 'common';
-import debounce from 'common/debounce';
+import { debounce } from 'common/timing';
 import * as licon from 'common/licon';
-import * as xhr from 'common/xhr';
-import { bind, looseH as h, VNode } from 'common/snabbdom';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
+import { bind, looseH as h, type VNode } from 'common/snabbdom';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 type Board = string;
 type Range = { min: number; max: number; step: number };
@@ -17,15 +18,15 @@ export interface BoardData {
 }
 
 export class BoardCtrl extends PaneCtrl {
-  sliderKey = Date.now(); // changing the value attribute doesn't always flush to DOM.
+  sliderKey: number = Date.now(); // changing the value attribute doesn't always flush to DOM.
 
   constructor(root: DasherCtrl) {
     super(root);
   }
 
-  render = () =>
+  render = (): VNode =>
     h(`div.sub.board.${this.dimension}`, [
-      header(this.trans.noarg('board'), this.close),
+      header(i18n.site.board, this.close),
       h('div.selector.large', [
         h(
           'button.text',
@@ -54,7 +55,7 @@ export class BoardCtrl extends PaneCtrl {
             attrs: { 'data-icon': licon.Back, type: 'button' },
             hook: bind('click', this.reset),
           },
-          this.trans.noarg('boardReset'),
+          i18n.site.boardReset,
         ),
       h(
         'div.list',
@@ -87,9 +88,9 @@ export class BoardCtrl extends PaneCtrl {
   private setBoard = (t: Board) => {
     this.apply(t);
     const field = `theme${this.is3d ? '3d' : ''}`;
-    xhr
-      .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
-      .catch(() => site.announce({ msg: 'Failed to save theme preference' }));
+    xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
+      site.announce({ msg: 'Failed to save theme preference' }),
+    );
     this.redraw();
   };
 
@@ -120,15 +121,15 @@ export class BoardCtrl extends PaneCtrl {
     const body = new FormData();
     body.set(hyphenToCamel(prop), this.getVar(prop).toString());
     const path = prop === 'zoom' ? `/pref/zoom?v=${this.getVar(prop)}` : `/pref/${hyphenToCamel(prop)}`;
-    xhr.text(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
+    xhrText(path, { body, method: 'post' }).catch(() => site.announce({ msg: `Failed to save ${prop}` }));
   }, 1000);
 
   private set3d = async (v: boolean) => {
     if (this.is3d === v) return;
     this.data.is3d = v;
-    xhr
-      .text('/pref/is3d', { body: xhr.form({ is3d: v }), method: 'post' })
-      .catch(() => site.announce({ msg: 'Failed to save preference' }));
+    xhrText('/pref/is3d', { body: xhrForm({ is3d: v }), method: 'post' }).catch(() =>
+      site.announce({ msg: 'Failed to save preference' }),
+    );
 
     if (v) await site.asset.loadCssPath('common.board-3d');
     else site.asset.removeCssPath('common.board-3d');
@@ -142,7 +143,7 @@ export class BoardCtrl extends PaneCtrl {
   private apply = (t: Board = this.current) => {
     this.current = t;
     document.body.dataset[this.is3d ? 'board3d' : 'board'] = t;
-    site.pubsub.emit('board.change', this.is3d);
+    pubsub.emit('board.change', this.is3d);
     this.root?.piece.apply();
   };
 
@@ -158,19 +159,15 @@ export class BoardCtrl extends PaneCtrl {
   private propSliders = () => {
     const sliders = [];
     if (!Number.isNaN(this.getVar('zoom')))
-      sliders.push(this.propSlider('zoom', this.trans.noarg('size'), { min: 0, max: 100, step: 1 }));
+      sliders.push(this.propSlider('zoom', i18n.site.size, { min: 0, max: 100, step: 1 }));
     if (document.body.dataset.theme === 'transp')
-      sliders.push(
-        this.propSlider('board-opacity', this.trans.noarg('opacity'), { min: 0, max: 100, step: 1 }),
-      );
+      sliders.push(this.propSlider('board-opacity', i18n.site.opacity, { min: 0, max: 100, step: 1 }));
     else
-      sliders.push(
-        this.propSlider('board-brightness', this.trans.noarg('brightness'), { min: 20, max: 140, step: 1 }),
-      );
+      sliders.push(this.propSlider('board-brightness', i18n.site.brightness, { min: 20, max: 140, step: 1 }));
     sliders.push(
       this.propSlider(
         'board-hue',
-        this.trans.noarg('hue'),
+        i18n.site.hue,
         { min: 0, max: 100, step: 1 },
         v => `+ ${Math.round(v * 3.6)}°`,
       ),

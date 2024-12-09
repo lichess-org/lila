@@ -1,8 +1,7 @@
 package lila.common
 
+import io.mola.galimatias.URL
 import play.api.libs.json.{ Json as PlayJson, * }
-
-import scala.util.NotGiven
 
 object Json:
 
@@ -18,8 +17,9 @@ object Json:
 
   given Writes[PerfKey] = pk => JsString(PerfKey.value(pk))
 
-  given [A](using Show[A]): KeyWrites[A] with
-    def writeKey(key: A) = key.show
+  given Writes[URL] = url => JsString(url.toString)
+
+  given Writes[chess.PlayerTitle] = tile => JsString(tile.value)
 
   given NoJsonHandler[chess.Square] with {}
 

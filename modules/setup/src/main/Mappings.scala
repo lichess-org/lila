@@ -3,14 +3,12 @@ package lila.setup
 import chess.format.Fen
 import chess.{ Clock, Mode, variant as V }
 import play.api.data.Forms.*
-import play.api.data.Mapping
 import play.api.data.format.Formats.doubleFormat
-
 import scalalib.model.Days
+
 import lila.common.Form.{ *, given }
-import lila.core.game.GameRule
-import lila.lobby.TriColor
 import lila.core.rating.RatingRange
+import lila.lobby.TriColor
 
 private object Mappings:
 

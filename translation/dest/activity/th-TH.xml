@@ -26,6 +26,9 @@
   <plurals name="completedNbGames">
     <item quantity="other">ได้เล่นเกมแบบยาวนานสมบูรณ์ %s เกม</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="other">ได้เล่นเกมแบบยาวนานสมบูรณ์ %1$s %2$s เกม</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">ได้เริ่มติดตาม %s ผู้เล่น</item>
   </plurals>
@@ -41,7 +44,7 @@
   <plurals name="createdNbStudies">
     <item quantity="other">ได้สร้าง %s การศึกษาใหม่</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="other">ได้แข่งขันใน %s ทัวร์นาเมนต์</item>
   </plurals>
   <plurals name="rankedInTournament">

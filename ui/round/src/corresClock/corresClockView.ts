@@ -1,7 +1,6 @@
-import { looseH as h } from 'common/snabbdom';
-import { Millis } from '../clock/clockCtrl';
-import { Position } from '../interfaces';
-import { CorresClockController } from './corresClockCtrl';
+import { looseH as h, type VNode } from 'common/snabbdom';
+import type { Position } from '../interfaces';
+import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
 
 const prefixInteger = (num: number, length: number): string =>
@@ -9,7 +8,7 @@ const prefixInteger = (num: number, length: number): string =>
 
 const bold = (x: string) => `<b>${x}</b>`;
 
-function formatClockTime(trans: Trans, time: Millis) {
+function formatClockTime(time: Millis) {
   const date = new Date(time),
     minutes = prefixInteger(date.getUTCMinutes(), 2),
     seconds = prefixInteger(date.getSeconds(), 2);
@@ -19,8 +18,8 @@ function formatClockTime(trans: Trans, time: Millis) {
     // days : hours
     const days = date.getUTCDate() - 1;
     hours = date.getUTCHours();
-    str += (days === 1 ? trans('oneDay') : trans.pluralSame('nbDays', days)) + ' ';
-    if (hours !== 0) str += trans.pluralSame('nbHours', hours);
+    str += (days === 1 ? i18n.site.oneDay : i18n.site.nbDays(days)) + ' ';
+    if (hours !== 0) str += i18n.site.nbHours(hours);
   } else if (time >= 3600 * 1000) {
     // hours : minutes
     hours = date.getUTCHours();
@@ -34,17 +33,16 @@ function formatClockTime(trans: Trans, time: Millis) {
 
 export default function (
   ctrl: CorresClockController,
-  trans: Trans,
   color: Color,
   position: Position,
   runningColor: Color,
-) {
+): VNode {
   const millis = ctrl.millisOf(color),
     update = (el: HTMLElement) => {
-      el.innerHTML = formatClockTime(trans, millis);
+      el.innerHTML = formatClockTime(millis);
     },
     isPlayer = ctrl.root.data.player.color === color,
-    direction = document.dir == 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
+    direction = document.dir === 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
   return h(
     'div.rclock.rclock-correspondence.rclock-' + position,
     { class: { outoftime: millis <= 0, running: runningColor === color } },

@@ -3,8 +3,8 @@ package controllers
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.forum.ForumTopic
 import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.forum.ForumTopic
 
 private[controllers] trait ForumController:
   self: LilaController =>
@@ -51,8 +51,7 @@ private[controllers] trait ForumController:
       if granted | isGranted(_.ModerateForum)
       then a
       else
-        getTopic.flatMap { topic =>
+        getTopic.flatMap: topic =>
           if topic.exists(_.isUblogAuthor(me)) then a
           else Forbidden("You cannot moderate this forum")
-        }
     }

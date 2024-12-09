@@ -4,12 +4,11 @@ import play.api.i18n.Lang
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.LightUser
 import lila.core.config.*
-import lila.rating.UserRankMap
-import lila.core.perm.Granter
-import lila.user.Trophy
-import lila.rating.PerfType
 import lila.core.perf.UserWithPerfs
+import lila.rating.{ PerfType, UserRankMap }
+import lila.user.Trophy
 
 final class UserApi(
     jsonView: lila.user.JsonView,
@@ -27,27 +26,33 @@ final class UserApi(
     trophyApi: lila.user.TrophyApi,
     shieldApi: lila.tournament.TournamentShieldApi,
     revolutionApi: lila.tournament.RevolutionApi,
+    challengeGranter: lila.challenge.ChallengeGranter,
     net: NetConfig
 )(using Executor, lila.core.i18n.Translator):
 
-  def one(u: UserWithPerfs, joinedAt: Option[Instant] = None): JsObject = {
-    addStreaming(jsonView.full(u.user, u.perfs.some, withProfile = true), u.id) ++
-      Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
+  def one(u: UserWithPerfs | LightUser, joinedAt: Option[Instant] = None): JsObject = {
+    val (light, userJson) = u match
+      case u: UserWithPerfs => (u.user.light, jsonView.full(u.user, u.perfs.some, withProfile = false))
+      case u: LightUser     => (u, Json.toJsObject(u))
+    addStreaming(userJson, light.id) ++
+      Json.obj("url" -> makeUrl(s"@/${light.name}")) // for app BC
   }.add("joinedTeamAt", joinedAt)
 
   def extended(
       username: UserStr,
       withFollows: Boolean,
-      withTrophies: Boolean
+      withTrophies: Boolean,
+      withCanChallenge: Boolean
   )(using Option[Me], Lang): Fu[Option[JsObject]] =
     userApi.withPerfs(username).flatMapz {
-      extended(_, withFollows, withTrophies).dmap(some)
+      extended(_, withFollows, withTrophies, withCanChallenge).dmap(some)
     }
 
   def extended(
       u: User | UserWithPerfs,
       withFollows: Boolean,
       withTrophies: Boolean,
+      withCanChallenge: Boolean,
       forWiki: Boolean = false
   )(using as: Option[Me], lang: Lang): Fu[JsObject] =
     u.match
@@ -63,12 +68,12 @@ final class UserApi(
             withFollows.soFu(relationApi.countFollowing(u.id)),
             as.isDefined.so(prefApi.followable(u.id)),
             as.map(_.userId).so(relationApi.fetchRelation(_, u.id)),
-            as.map(_.userId).so(relationApi.fetchFollows(u.id, _)),
             bookmarkApi.countByUser(u.user),
             gameCache.nbPlaying(u.id),
             gameCache.nbImportedBy(u.id),
             (withTrophies && !u.lame).soFu(getTrophiesAndAwards(u.user)),
             streamerApi.listed(u.user),
+            withCanChallenge.so(challengeGranter.mayChallenge(u.user).dmap(some)),
             forWiki.soFu(userRepo.email(u.id))
           ).mapN:
             (
@@ -77,12 +82,12 @@ final class UserApi(
                 following,
                 followable,
                 relation,
-                isFollowed,
                 nbBookmarks,
                 nbPlaying,
                 nbImported,
                 trophiesAndAwards,
                 streamer,
+                canChallenge,
                 email
             ) =>
               jsonView.full(u.user, u.perfs.some, withProfile = true) ++ {
@@ -112,6 +117,7 @@ final class UserApi(
                   .add("nbFollowing", following)
                   .add("nbFollowers", withFollows.option(0))
                   .add("trophies", trophiesAndAwards.map(trophiesJson))
+                  .add("canChallenge", canChallenge)
                   .add(
                     "streamer",
                     streamer.map: s =>
@@ -132,21 +138,14 @@ final class UserApi(
                     Json.obj(
                       "followable" -> followable,
                       "following"  -> relation.exists(_.isFollow),
-                      "blocking"   -> relation.exists(!_.isFollow),
-                      "followsYou" -> isFollowed
+                      "blocking"   -> relation.exists(!_.isFollow)
                     )
               }.noNull
 
   def getTrophiesAndAwards(u: User) =
     (trophyApi.findByUser(u), shieldApi.active(u), revolutionApi.active(u)).mapN:
-      case (trophies, shields, revols) =>
-        val roleTrophies = trophyApi.roleBasedTrophies(
-          u,
-          Granter.ofUser(_.PublicMod)(u),
-          Granter.ofUser(_.Developer)(u),
-          Granter.ofUser(_.Verified)(u),
-          Granter.ofUser(_.ContentTeam)(u)
-        )
+      (trophies, shields, revols) =>
+        val roleTrophies = trophyApi.roleBasedTrophies(u)
         UserApi.TrophiesAndAwards(userCache.rankingsOf(u.id), trophies ::: roleTrophies, shields, revols)
 
   private def trophiesJson(all: UserApi.TrophiesAndAwards)(using Lang): JsArray =
@@ -159,7 +158,7 @@ final class UserApi(
           case (perf, rank) if rank == 1   => perfTopTrophy(perf, 1, "Champion")
           case (perf, rank) if rank <= 10  => perfTopTrophy(perf, 10, "Top 10")
           case (perf, rank) if rank <= 50  => perfTopTrophy(perf, 50, "Top 50")
-          case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 10, "Top 100")
+          case (perf, rank) if rank <= 100 => perfTopTrophy(perf, 100, "Top 100")
         } ::: all.trophies.map { t =>
         Json
           .obj(

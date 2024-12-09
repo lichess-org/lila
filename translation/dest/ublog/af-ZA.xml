@@ -29,7 +29,7 @@
   <string name="xPublishedY">%1$s publiseer %2$s</string>
   <string name="thisPostIsPublished">Hierdie inskrywing is gepubliseerd</string>
   <string name="thisIsADraft">Hierdie is \'n konsep</string>
-  <string name="moreBlogPostsBy">Meer webjoernaal inskrywings van %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Meer webjoernaal inskrywings van %s</string>
   <string name="noPostsInThisBlogYet">Nog geen inskrywings in hierdie webjoernal nie.</string>
   <string name="noDrafts">Geen konsepte om te wys nie.</string>
   <string name="latestBlogPosts">Jongste webjoernaal inskrywings</string>
@@ -41,7 +41,6 @@
   <string name="imageAlt">Beeld se alternatiewe beskrywing</string>
   <string name="imageCredit">Beeld akkreditasie</string>
   <string name="deleteBlog">Vee hierdie plasing volledig uit</string>
-  <string name="deleteImage">Vee die prent uit</string>
   <string name="safeToUseImages">Dit is veilig om prente van die volgende webtuistes te gebruik: </string>
   <string name="selectPostTopics">Kies die onderwerpe van jou plasing</string>
   <string name="useImagesYouMadeYourself">Jy kan ook prente gebruik wat jy self geskep het, foto\'s wat jy geneem het, skermskote van Lichess; enigiets waarop niemand anders kopiereg het nie.</string>

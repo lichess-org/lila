@@ -1,10 +1,10 @@
 package lila.mod
 
 import lila.chat.UserChat
-import lila.report.Suspect
+import lila.core.swiss.IdName as Swiss
 import lila.core.tournament.Tournament
+import lila.report.Suspect
 import lila.user.UserRepo
-import lila.core.swiss.{ IdName as Swiss }
 
 final class PublicChat(
     chatApi: lila.chat.ChatApi,

@@ -1,10 +1,11 @@
 package lila.round
 
 import akka.actor.{ Cancellable, Scheduler }
+
 import scala.util.Success
 
-import lila.game.{ GameRepo, Progress }
 import lila.game.GameExt.*
+import lila.game.{ GameRepo, Progress }
 
 // NOT thread safe
 final private class GameProxy(

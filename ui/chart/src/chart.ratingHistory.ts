@@ -1,4 +1,8 @@
 import {
+  type ChartDataset,
+  type Point,
+  type ChartConfiguration,
+  type PointStyle,
   Chart,
   PointElement,
   LinearScale,
@@ -6,21 +10,18 @@ import {
   LineController,
   Tooltip,
   LineElement,
-  ChartDataset,
-  Point,
-  ChartConfiguration,
-  PointStyle,
 } from 'chart.js';
-import { PerfRatingHistory } from './interface';
+import type { PerfRatingHistory } from './interface';
 import { fontColor, fontFamily, gridColor, hoverBorderColor, tooltipBgColor, resizePolyfill } from './common';
 import 'chartjs-adapter-dayjs-4';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import noUiSlider, { Options, PipsMode } from 'nouislider';
+import noUiSlider, { type Options, PipsMode } from 'nouislider';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import dayOfYear from 'dayjs/plugin/dayOfYear';
 import utc from 'dayjs/plugin/utc';
 import { memoize } from 'common';
+import { pubsub } from 'common/pubsub';
 
 interface Opts {
   data: PerfRatingHistory[];
@@ -71,18 +72,15 @@ const oneDay = 24 * 60 * 60 * 1000;
 
 const dateFormat = memoize(() =>
   window.Intl && Intl.DateTimeFormat
-    ? new Intl.DateTimeFormat(
-        document.documentElement.lang.startsWith('ar-') ? 'ar-ly' : document.documentElement.lang,
-        {
-          month: 'short',
-          day: '2-digit',
-          year: 'numeric',
-        },
-      ).format
+    ? new Intl.DateTimeFormat(site.displayLocale, {
+        month: 'short',
+        day: '2-digit',
+        year: 'numeric',
+      }).format
     : (d: Date) => d.toLocaleDateString(),
 );
 
-export function initModule({ data, singlePerfName }: Opts) {
+export function initModule({ data, singlePerfName }: Opts): void {
   $('.spinner').remove();
 
   const $el = $('canvas.rating-history');
@@ -164,7 +162,7 @@ export function initModule({ data, singlePerfName }: Opts) {
               $el.addClass('panning');
               return true; // why
             },
-            onPan: () => site.pubsub.emit('chart.panning'),
+            onPan: () => pubsub.emit('chart.panning'),
             onPanComplete: ctx => {
               toggleEvents(ctx.chart as Chart<'line'>, false);
               $el.removeClass('panning');
@@ -186,7 +184,7 @@ export function initModule({ data, singlePerfName }: Opts) {
           borderWidth: 1,
           yAlign: 'center',
           caretPadding: 10,
-          rtl: document.dir == 'rtl',
+          rtl: document.dir === 'rtl',
           callbacks: {
             title: items => dateFormat()(dayjs.utc(items[0].parsed.x).valueOf()),
           },
@@ -198,9 +196,9 @@ export function initModule({ data, singlePerfName }: Opts) {
   const handlesSlider = $('#time-range-slider')[0];
   let yearPips = [];
   for (let i = startDate; i.isBefore(endDate); i = i.add(1, 'd')) {
-    if (i.date() == 1 && i.month() == 0) yearPips.push(i);
+    if (i.date() === 1 && i.month() === 0) yearPips.push(i);
   }
-  if (yearPips.length >= 7) yearPips = yearPips.filter((_, i) => i % 2 == 0);
+  if (yearPips.length >= 7) yearPips = yearPips.filter((_, i) => i % 2 === 0);
   const opts: Options = {
     start: [initial.valueOf(), endDate.valueOf()],
     connect: true,
@@ -215,7 +213,7 @@ export function initModule({ data, singlePerfName }: Opts) {
     pips: {
       mode: PipsMode.Values,
       values: yearPips.map(y => y.valueOf()),
-      filter: (val, tpe) => (tpe == 1 ? val : -1),
+      filter: (val, tpe) => (tpe === 1 ? val : -1),
       format: {
         to: val => dayjs.utc(val).format('YYYY'),
       },
@@ -237,14 +235,14 @@ export function initModule({ data, singlePerfName }: Opts) {
         if (newDs !== chart.data.datasets) chart.data.datasets = newDs;
         chart.update('none');
       }
-      if (chart.scales.x.min != min || chart.scales.x.max != max)
+      if (chart.scales.x.min !== min || chart.scales.x.max !== max)
         chart.zoomScale('x', { min: min, max: max });
     };
     slider.on('update', slide);
     // Disable events while dragging for a slight performance boost
     slider.on('start', () => toggleEvents(chart, true));
     slider.on('end', () => toggleEvents(chart, false));
-    site.pubsub.on('chart.panning', () => {
+    pubsub.on('chart.panning', () => {
       slider.set([chart.scales.x.min, chart.scales.x.max], false, true);
     });
     const activeIfDuration = (d: duration.Duration) => (initial.isSame(endDate.subtract(d)) ? 'active' : '');
@@ -261,7 +259,7 @@ export function initModule({ data, singlePerfName }: Opts) {
     ];
     $('.time-selector-buttons').html(
       buttons
-        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t == 'all')
+        .filter(b => startDate.isBefore(endDate.subtract(b.duration)) || b.t === 'all')
         .map(b => timeBtn(b))
         .join(''),
     );
@@ -271,7 +269,7 @@ export function initModule({ data, singlePerfName }: Opts) {
       chart.zoomScale('x', { min: min, max: endDate.valueOf() });
     };
     $('.time-selector-buttons').on('mousedown', 'button', function (this: HTMLButtonElement) {
-      const min = buttons.find(b => b.t == this.textContent);
+      const min = buttons.find(b => b.t === this.textContent);
       if (min) btnClick(Math.max(startDate.valueOf(), endDate.subtract(min.duration).valueOf()));
       this.classList.add('active');
     });
@@ -301,7 +299,7 @@ function makeDatasets(step: number, { data, singlePerfName }: Opts, singlePerfIn
       borderColor: perfStyle.color,
       hoverBorderColor: hoverBorderColor,
       backgroundColor: perfStyle.color,
-      pointRadius: data.length == 1 ? 3 : 0,
+      pointRadius: data.length === 1 ? 3 : 0,
       pointHoverRadius: 6,
       data: data,
       pointStyle: perfStyle.symbol,

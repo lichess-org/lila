@@ -3,12 +3,10 @@ package show
 
 import play.api.data.Form
 
-import lila.app.mashup.UserInfo
 import lila.app.UiEnv.{ *, given }
-
-import lila.game.{ Game, GameFilter }
-
+import lila.app.mashup.UserInfo
 import lila.core.data.SafeJsonStr
+import lila.game.GameFilter
 import lila.rating.UserWithPerfs.titleUsernameWithBestRating
 
 lazy val ui = lila.user.ui.UserShow(helpers, bits)
@@ -34,7 +32,7 @@ object page:
         )
       )
       .js(pageModule(info))
-      .js(esModules(info))
+      .js(esModules())
       .css("bits.user.show")
       .css(isGranted(_.UserModView).option("mod.user"))
       .robots(u.count.game >= 10):
@@ -59,7 +57,7 @@ object page:
     val pageName   = (games.currentPage > 1).so(s" - page ${games.currentPage}")
     Page(s"${u.username} $filterName$pageName")
       .js(pageModule(info))
-      .js(esModules(info, filters.current.name == "search"))
+      .js(esModules(filters.current.name == "search"))
       .css("bits.user.show")
       .css((filters.current.name == "search").option("bits.user.show.search"))
       .css(isGranted(_.UserModView).option("mod.user"))
@@ -74,22 +72,24 @@ object page:
           )
         )
 
-  private def esModules(info: UserInfo, withSearch: Boolean = false)(using Context): EsmList =
-    import play.api.libs.json.Json
+  private def esModules(withSearch: Boolean = false)(using Context): EsmList =
     infiniteScrollEsmInit
-      ++ jsModuleInit("bits.user", Json.obj("i18n" -> i18nJsObject(ui.i18nKeys)))
-      ++ withSearch.so(EsmInit("bits.gameSearch"))
-      ++ isGranted(_.UserModView).so(EsmInit("mod.user"))
+      ++ esmInit("bits.user")
+      ++ withSearch.so(Esm("bits.gameSearch"))
+      ++ isGranted(_.UserModView).so(Esm("mod.user"))
 
   private def pageModule(info: UserInfo)(using Context): Option[PageModule] =
     info.ratingChart.map: rc =>
       PageModule("chart.ratingHistory", SafeJsonStr(s"""{"data":$rc}"""))
 
-  def disabled(u: User)(using Context) =
-    Page(u.username.value).robots(false):
-      main(cls := "box box-pad")(
-        h1(cls := "box__top")(u.username),
-        p(trans.settings.thisAccountIsClosed())
+  def deleted(canCreate: Boolean)(using Context) =
+    Page("No such player"):
+      main(cls := "page-small box box-pad page")(
+        h1(cls := "box__top")("No such player"),
+        div(
+          p("This username doesn't match any Lichess player."),
+          (!canCreate).option(p("It cannot be used to create a new account."))
+        )
       )
 
   def userGameFilterTitle(u: User, nbs: UserInfo.NbGames, filter: GameFilter)(using Translate): Frag =

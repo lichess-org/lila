@@ -1,8 +1,9 @@
 package lila.relay
 
 import scalalib.paginator.Paginator
-import lila.db.dsl.{ *, given }
+
 import lila.core.fide.Player
+import lila.db.dsl.{ *, given }
 import lila.study.ChapterRepo
 
 final class RelayPlayerTour(

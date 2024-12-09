@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Aréna</string>
   <string name="arenaTournaments">Otevřené turnaje</string>
   <string name="isItRated">Započítává se turnaj do ratingu?</string>
   <string name="willBeNotified">Upozorníme Vás, až turnaj začne. Během čekání můžete klidně hrát v jiné záložce prohlížeče.</string>
@@ -62,4 +63,27 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="averagePerformance">Průměrný výkon</string>
   <string name="averageScore">Průměrné skóre</string>
   <string name="myTournaments">Moje turnaje</string>
+  <string name="editTournament">Upravit turnaj</string>
+  <string name="editTeamBattle">Upravit týmové bitvy</string>
+  <string name="defender">Obránce</string>
+  <string name="pickYourTeam">Vyber si tým</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Který tým budeš reprezentovat v této bitvě?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Musíš se připojit k jednomu z těchto týmů!</string>
+  <string name="created">Vytvořeno</string>
+  <string name="recentlyPlayed">Nedávno hrané</string>
+  <string name="bestResults">Nejlepší výsledky</string>
+  <string name="tournamentStats">Turnajové statistiky</string>
+  <string name="rankAvgHelp">Průměrný rank je procento umístění. Nižší je lepší.
+
+Například, umístíte se 3 v turnaji o 100 hráčích tak rank je 3%. Umístíte se 10 v turnaji o 1000 hráčích task rank je 1%.</string>
+  <string name="medians">mediány</string>
+  <string name="allAveragesAreX">Všechny průměry na této stránce jsou %s.</string>
+  <string name="total">Celkem</string>
+  <string name="pointsAvg">Bodový průměr</string>
+  <string name="pointsSum">Bodový součet</string>
+  <string name="rankAvg">Průměrný rank</string>
+  <string name="tournamentWinners">Turnajoví vítězové</string>
+  <string name="tournamentShields">Turnajové štíty</string>
+  <string name="onlyTitled">Pouze hráči s titulem</string>
+  <string name="onlyTitledHelp">Požadovat oficiální titul k připojení se do turnaje</string>
 </resources>

@@ -1,8 +1,8 @@
 package lila.rating
 
 import cats.derived.*
-import chess.variant
-import chess.{ Centis, Speed }
+import chess.{ Centis, Speed, variant }
+
 import lila.core.i18n.{ I18nKey, Translate }
 import lila.core.perf.PerfId
 import lila.ui.Icon

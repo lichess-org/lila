@@ -2,6 +2,7 @@ package lila.socket
 
 import chess.Centis
 import com.github.blemale.scaffeine.Cache
+
 import lila.core.socket.userLag.*
 
 final class UserLagCache(using Executor):

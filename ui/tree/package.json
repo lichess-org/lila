@@ -3,15 +3,20 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org moves tree",
-  "type": "module",
-  "module": "dist/tree.js",
-  "types": "dist/tree.d.ts",
-  "keywords": [
-    "chess",
-    "lichess"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "typings": "tree",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./src/tree.ts",
+    "./*": "./src/*.ts"
+  },
   "dependencies": {
     "common": "workspace:*"
   }

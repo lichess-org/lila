@@ -2,8 +2,6 @@ package lila.pref
 
 import play.api.mvc.Request
 
-import scala.util.chaining.*
-
 // because the form structure has changed
 // and the mobile app keeps sending the old format
 object FormCompatLayer:

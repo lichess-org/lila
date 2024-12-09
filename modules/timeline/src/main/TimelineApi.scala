@@ -1,8 +1,4 @@
 package lila.timeline
-
-import akka.actor.*
-
-import lila.core.timeline.{ Atom, Propagate, Propagation, ReloadTimelines }
 import lila.core.perm.Permission
 import lila.core.team.Access
 import lila.core.timeline.*
@@ -25,7 +21,8 @@ private final class TimelineApi(
           unsubApi.filterUnsub(data.channel, users)
         .foreach: users =>
           if users.nonEmpty then
-            insertEntry(users, data).andDo(lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket"))
+            for _ <- insertEntry(users, data)
+            yield lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
           lila.mon.timeline.notification.increment(users.size)
 
   private def doPropagate(propagations: List[Propagation]): Fu[List[UserId]] =

@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Latihan koordinat</string>
   <string name="averageScoreAsWhiteX">Skor rata-rata putih: %s</string>
   <string name="averageScoreAsBlackX">Skor rata-rata hitam: %s</string>
-  <string name="knowingTheChessBoard">Mengetahui koordinat papan catur adalah kemampuan catur yang sangat penting:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Mengetahui koordinat papan catur adalah kemampuan catur yang sangat penting:</string>
   <string name="mostChessCourses">Kebanyakan program catur dan latihan menggunakan notasi aljabar secara ekstensif.</string>
   <string name="talkToYourChessFriends">Itu membuatnya lebih mudah untuk berbicara dengan teman-teman catur Anda, karena Anda berdua memahami \"bahasa catur\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Anda dapat menganalisis permainan lebih efektif jika Anda tidak perlu untuk mencari nama-nama kotak.</string>

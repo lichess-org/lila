@@ -2,21 +2,26 @@ package lila.msg
 
 import lila.core.LightUser
 import lila.core.config.BaseUrl
-import lila.core.team.LightTeam
 import lila.core.id.ForumCategId
+import lila.core.team.LightTeam
 
 object MsgPreset:
 
   import lila.core.msg.{ MsgPreset as Msg }
 
+  private val baseUrl = "https://lichess.org"
+
   def maxFollow(username: UserName, max: Int) =
     Msg(
       name = "Follow limit reached!",
       text = s"""Sorry, you can't follow more than $max players on Lichess.
-To follow new players, you must first unfollow some on https://lichess.org/@/$username/following.
+To follow new players, you must first unfollow some on $baseUrl/@/$username/following.
 
 Thank you for your understanding."""
     )
+
+  def forumRelocation(title: String, newUrl: String) =
+    s"""A moderator has moved your post "$title" to a different subforum. You can find it here: $baseUrl$newUrl."""
 
   object forumDeletion:
 
@@ -30,12 +35,12 @@ Thank you for your understanding."""
 
     def byModerator = compose("A moderator")
 
-    def byTeamLeader(forumId: ForumCategId) = compose(s"A team leader of https://lichess.org/forum/$forumId")
+    def byTeamLeader(forumId: ForumCategId) = compose(s"A team leader of $baseUrl/forum/$forumId")
 
     def byBlogAuthor(user: UserName) = compose(by = s"The community blog author $user")
 
     private def compose(by: String)(reason: String, forumPost: String) =
-      s"""$by deleted the following of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: https://lichess.org/page/forum-etiquette
+      s"""$by deleted the following of your posts for this reason: $reason. Please read Lichess' Forum-Etiquette: $baseUrl/page/forum-etiquette
 ----
 $forumPost
     """

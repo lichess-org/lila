@@ -1,4 +1,5 @@
-import { Tab, Mode, Sort } from './interfaces';
+import type { Tab, Mode, Sort } from './interfaces';
+import { storage } from 'common/storage';
 
 interface Store<A> {
   set(v: string): A;
@@ -43,11 +44,11 @@ function makeStore<A>(conf: Config<A>, userId?: string): Store<A> {
   return {
     set(v: string): A {
       const t: A = conf.fix(v);
-      site.storage.set(fullKey, '' + t);
+      storage.set(fullKey, '' + t);
       return t;
     },
     get(): A {
-      return conf.fix(site.storage.get(fullKey));
+      return conf.fix(storage.get(fullKey));
     },
   };
 }

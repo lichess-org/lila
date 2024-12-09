@@ -1,10 +1,11 @@
 package lila.user
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.*
+import scalalib.ThreadLocalRandom
 
 import lila.db.dsl.{ *, given }
 import lila.memo.*
+import lila.core.perm.Granter
 
 final class TrophyApi(
     coll: Coll,
@@ -31,50 +32,62 @@ final class TrophyApi(
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
     coll.list[Trophy]($doc("user" -> user.id), max).map(_.filter(_.kind != TrophyKind.Unknown))
 
-  def roleBasedTrophies(
-      user: User,
-      isPublicMod: Boolean,
-      isDev: Boolean,
-      isVerified: Boolean,
-      isContentTeam: Boolean
-  ): List[Trophy] =
+  def roleBasedTrophies(user: User): List[Trophy] =
     List(
-      isPublicMod.option(
-        Trophy(
-          _id = "",
-          user = user.id,
-          kind = kindCache.sync(TrophyKind.moderator),
-          date = nowInstant,
-          url = none
-        )
-      ),
-      isDev.option(
-        Trophy(
-          _id = "",
-          user = user.id,
-          kind = kindCache.sync(TrophyKind.developer),
-          date = nowInstant,
-          url = none
-        )
-      ),
-      isVerified.option(
-        Trophy(
-          _id = "",
-          user = user.id,
-          kind = kindCache.sync(TrophyKind.verified),
-          date = nowInstant,
-          url = none
-        )
-      ),
-      isContentTeam.option(
-        Trophy(
-          _id = "",
-          user = user.id,
-          kind = kindCache.sync(TrophyKind.contentTeam),
-          date = nowInstant,
-          url = none
-        )
-      )
+      Granter
+        .ofUser(_.PublicMod)(user)
+        .option:
+          Trophy(
+            _id = "",
+            user = user.id,
+            kind = kindCache.sync(TrophyKind.moderator),
+            date = nowInstant,
+            url = none
+          )
+      ,
+      Granter
+        .ofUser(_.Developer)(user)
+        .option:
+          Trophy(
+            _id = "",
+            user = user.id,
+            kind = kindCache.sync(TrophyKind.developer),
+            date = nowInstant,
+            url = none
+          )
+      ,
+      Granter
+        .ofUser(_.Verified)(user)
+        .option:
+          Trophy(
+            _id = "",
+            user = user.id,
+            kind = kindCache.sync(TrophyKind.verified),
+            date = nowInstant,
+            url = none
+          )
+      ,
+      Granter
+        .ofUser(_.ContentTeam)(user)
+        .option:
+          Trophy(
+            _id = "",
+            user = user.id,
+            kind = kindCache.sync(TrophyKind.contentTeam),
+            date = nowInstant,
+            url = none
+          )
+      ,
+      Granter
+        .ofUser(_.BroadcastTeam)(user)
+        .option:
+          Trophy(
+            _id = "",
+            user = user.id,
+            kind = kindCache.sync(TrophyKind.broadcastTeam),
+            date = nowInstant,
+            url = none
+          )
     ).flatten
 
   def award(trophyUrl: String, userId: UserId, kindKey: String): Funit =
@@ -87,4 +100,5 @@ final class TrophyApi(
           "url"  -> trophyUrl,
           "date" -> nowInstant
         )
-      ) void
+      )
+      .void

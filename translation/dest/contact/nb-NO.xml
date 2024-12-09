@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Hva kan vi hjelpe deg med?</string>
   <string name="visitThisPage">Gå til denne sida for å løse problemet</string>
   <string name="iCantLogIn">Jeg kan ikke logge inn</string>
-  <string name="noConfirmationEmail">Jeg mottar ikke bekreftelse på epost</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Jeg mottar ikke bekreftelse på epost</string>
   <string name="forgotPassword">Jeg har glemt passordet mitt</string>
   <string name="forgotUsername">Jeg har glemt brukernavnet mitt</string>
   <string name="youCanLoginWithEmail">Du kan logge inn med den e-postadressen du registrerte deg med</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Dersom det blir slått fast at en spiller misbruker en botkonto for å manipulere ratingpoengene, kan det hende det ikke blir gitt poeng for partiet.</string>
   <string name="errorPage">Feilside</string>
   <string name="reportErrorPage">Hvis du støtte på en feilside, kan du rapportere det:</string>
-  <string name="wantBroadcastTournament">Jeg vil overføre en turnering</string>
   <string name="learnHowToMakeBroadcasts">Lær hvordan du lager overføringer hos Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Du kan ellers kontakte overføringsgruppen angående offisielle overføringer.</string>
   <string name="banAppeal">Klage ved utestenging eller IP-restriksjon</string>
   <string name="engineAppeal">Anmerkning om juks eller maskinbruk</string>
   <string name="sendAppealTo">Du kan klage til %s.</string>

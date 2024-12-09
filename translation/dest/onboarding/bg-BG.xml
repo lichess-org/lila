@@ -1,2 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">Добре дошли!</string>
+  <string name="welcomeToLichess">Добре дошли в lichess.org!</string>
+  <string name="thisIsYourProfilePage">Това е страницата на Вашия профил.</string>
+  <string name="whatNowSuggestions">А сега какво? Ето няколко предложения:</string>
+  <string name="learnChessRules">Научете правилата на шахмата</string>
+  <string name="playOpponentsFromAroundTheWorld">Играй срещу протовници от целия свят.</string>
+  <string name="followYourFriendsOnLichess">Следвайте приятелите си в Lichess.</string>
+  <string name="playInTournaments">Участвайте в турнири.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Учете се с помощта на %1$s и %2$s.</string>
+</resources>

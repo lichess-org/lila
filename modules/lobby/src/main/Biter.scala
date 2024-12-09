@@ -3,14 +3,12 @@ package lila.lobby
 import chess.{ ByColor, Game as ChessGame, Situation }
 
 import lila.core.socket.Sri
-import lila.core.user.GameUsers
-import lila.core.user.WithPerf
+import lila.core.user.{ GameUsers, WithPerf }
 
 final private class Biter(
     userApi: lila.core.user.UserApi,
     gameRepo: lila.core.game.GameRepo,
-    newPlayer: lila.core.game.NewPlayer,
-    fixedColor: scalalib.cache.ExpireSetMemo[GameId]
+    newPlayer: lila.core.game.NewPlayer
 )(using Executor)(using idGenerator: lila.core.game.IdGenerator):
 
   def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
@@ -27,7 +25,7 @@ final private class Biter(
     for
       users <- userApi.gamePlayersAny(ByColor(lobbyUserOption.map(_.id), hook.userId), hook.perfType)
       (joiner, owner) = users.toPair
-      ownerColor <- assignCreatorColor(owner, joiner, hook.realColor)
+      ownerColor <- assignCreatorColor(owner, joiner)
       game <- idGenerator.withUniqueId:
         makeGame(
           hook,
@@ -36,7 +34,6 @@ final private class Biter(
       _ <- gameRepo.insertDenormalized(game)
     yield
       lila.mon.lobby.hook.join.increment()
-      rememberIfFixedColor(hook.realColor, game)
       JoinHook(sri, hook, game, ownerColor)
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] =
@@ -45,31 +42,17 @@ final private class Biter(
         .gamePlayersLoggedIn(ByColor(lobbyUser.id, seek.user.id), seek.perfType)
         .orFail(s"No such seek users: $seek")
       (joiner, owner) = users.toPair
-      ownerColor <- assignCreatorColor(owner.some, joiner.some, seek.realColor)
+      ownerColor <- assignCreatorColor(owner.some, joiner.some)
       game <- idGenerator.withUniqueId:
         makeGame(
           seek,
           ownerColor.fold(ByColor(owner, joiner), ByColor(joiner, owner)).map(some)
         )
       _ <- gameRepo.insertDenormalized(game)
-    yield
-      rememberIfFixedColor(seek.realColor, game)
-      JoinSeek(joiner.id, seek, game, ownerColor)
+    yield JoinSeek(joiner.id, seek, game, ownerColor)
 
-  private def rememberIfFixedColor(color: TriColor, game: Game) =
-    if color != TriColor.Random
-    then fixedColor.put(game.id)
-
-  private def assignCreatorColor(
-      creatorUser: Option[WithPerf],
-      joinerUser: Option[WithPerf],
-      color: TriColor
-  ): Fu[Color] =
-    color match
-      case TriColor.Random =>
-        userApi.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { Color.fromWhite(_) }
-      case TriColor.White => fuccess(chess.White)
-      case TriColor.Black => fuccess(chess.Black)
+  private def assignCreatorColor(creatorUser: Option[WithPerf], joinerUser: Option[WithPerf]): Fu[Color] =
+    userApi.firstGetsWhite(creatorUser.map(_.id), joinerUser.map(_.id)).map { Color.fromWhite(_) }
 
   private def makeGame(hook: Hook, users: GameUsers) = lila.core.game
     .newGame(

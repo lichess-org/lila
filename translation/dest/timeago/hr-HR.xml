@@ -55,7 +55,7 @@
   <plurals name="nbWeeksAgo">
     <item quantity="one">prije %s tjedan</item>
     <item quantity="few">prije %s tjedna</item>
-    <item quantity="other">prije %s tjedana</item>
+    <item quantity="other">prije %s tjedna</item>
   </plurals>
   <plurals name="nbMonthsAgo">
     <item quantity="one">prije %s mjesec</item>
@@ -67,4 +67,5 @@
     <item quantity="few">prije %s godine</item>
     <item quantity="other">prije %s godina</item>
   </plurals>
+  <string name="completed">završeno</string>
 </resources>

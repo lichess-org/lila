@@ -2,6 +2,7 @@ package lila.pool
 
 import chess.Clock
 import play.api.libs.json.Json
+
 import lila.core.pool.IsClockCompatible
 
 object PoolList:

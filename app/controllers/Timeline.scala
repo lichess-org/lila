@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-
 import lila.timeline.Entry.given
 
 final class Timeline(env: Env) extends LilaController(env):

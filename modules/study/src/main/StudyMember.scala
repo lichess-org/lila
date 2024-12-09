@@ -29,7 +29,7 @@ case class StudyMembers(members: StudyMember.MemberMap):
     }.toMap
   )
 
-  def contains[U: UserIdOf](u: U): Boolean = members contains u.id
+  def contains[U: UserIdOf](u: U): Boolean = members.contains(u.id)
 
   export members.{ get, keys as ids, keySet as idSet }
 
@@ -40,3 +40,6 @@ case class StudyMembers(members: StudyMember.MemberMap):
 
 object StudyMembers:
   val empty = StudyMembers(Map.empty)
+
+  case class OnChange(study: Study)
+  object OnChange extends lila.core.bus.GivenChannel[OnChange]("study.members")

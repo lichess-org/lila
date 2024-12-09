@@ -116,7 +116,6 @@
   <string name="replayMode">Modus for å spele oppatt</string>
   <string name="realtimeReplay">Sanntid</string>
   <string name="byCPL">CPL</string>
-  <string name="openStudy">Opne studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
@@ -126,7 +125,6 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendeleg analyse</string>
   <string name="removesTheDepthLimit">Tar bort avgrensing i søke-djupna, og varmar opp maskina</string>
-  <string name="engineManager">Innstillingar for sjakkprogram</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Mistak</string>
   <string name="inaccuracy">Småfeil</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Siste innlegg i forumet</string>
   <string name="players">Spelarar</string>
   <string name="friends">Vener</string>
+  <string name="otherPlayers">andre spelarar</string>
   <string name="discussions">Diskusjonar</string>
   <string name="today">I dag</string>
   <string name="yesterday">I går</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s parti med deg</item>
     <item quantity="other">%s parti med deg</item>
   </plurals>
+  <string name="ok">Ok</string>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Tida er ute for kvit</string>
   <string name="blackTimeOut">Tida er ute for svart</string>
@@ -428,22 +428,21 @@ få en computeranalyse, chatte eller dele ein URL.</string>
     <item quantity="other">%s vener er innlogga</item>
   </plurals>
   <string name="favoriteOpponents">Favorittmotstandarar</string>
-  <string name="follow">Fylgj</string>
-  <string name="following">Fylgjer</string>
-  <string name="unfollow">Slutt å fylgja</string>
+  <string name="follow">Følg</string>
+  <string name="following">Følgjer</string>
+  <string name="unfollow">Slutt å følgja</string>
   <string name="followX">Følg %s</string>
   <string name="unfollowX">Slutt å følgja %s</string>
   <string name="block">Blokkér</string>
   <string name="blocked">Blokkert</string>
   <string name="unblock">Fjern blokkering</string>
-  <string name="followsYou">Fylgjer deg</string>
-  <string name="xStartedFollowingY">%1$s byrja å fylgja %2$s</string>
+  <string name="xStartedFollowingY">%1$s byrja å følgja %2$s</string>
   <plurals name="nbFollowers">
-    <item quantity="one">%s fylgjar</item>
-    <item quantity="other">%s fylgjarar</item>
+    <item quantity="one">%s følgjar</item>
+    <item quantity="other">%s følgjarar</item>
   </plurals>
   <plurals name="nbFollowing">
-    <item quantity="one">%s fylgjer</item>
+    <item quantity="one">%s følgjer</item>
     <item quantity="other">%s fylgjer</item>
   </plurals>
   <string name="more">Meir</string>
@@ -468,9 +467,6 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="safeTournamentName">Finn eit svært sikkert namn på turneringa.</string>
   <string name="inappropriateNameWarning">Upassande innhald kan føre til at brukarkontoen din blir stengd.</string>
   <string name="emptyTournamentName">Lat stå tomt for at turneringa skal få namn etter ein tilfeldig stormester.</string>
-  <string name="recommendNotTouching">Vi tilrår å ikkje endre desse.</string>
-  <string name="fewerPlayers">Om du set opp vilkår for deltaking vil turneringa di få færre deltakarar.</string>
-  <string name="showAdvancedSettings">Vis avanserte innstillingar</string>
   <string name="makePrivateTournament">Gjer turneringa privat og avgrens tilgang vha. eit passord</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
@@ -510,8 +506,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="ifNoneLeaveEmpty">Om ingen, lat stå tomt</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profilen</string>
-  <string name="firstName">Førenamn</string>
-  <string name="lastName">Etternamn</string>
+  <string name="realName">Verkelege namn</string>
   <string name="setFlair">Vel eit ikon som best representerer talentet ditt</string>
   <string name="flair">Talent</string>
   <string name="youCanHideFlair">Det finst ei innstilling for å skjule symbolet for spelarane sine talent på heile nettstaden.</string>
@@ -542,6 +537,8 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="descPrivateHelp">Tekst som berre lagmedlemar kan sjå. Dersom utfylt vert den ei erstatning av den offentlege omtalen, til bruk for laget sine medlemar.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
+  <string name="website">Nettside</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hjelp:</string>
   <string name="createANewTopic">Opprett eit nytt emne</string>
   <string name="topics">Emne</string>
@@ -558,11 +555,11 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="reason">Årsak</string>
   <string name="whatIsIheMatter">Kva gjeld saka?</string>
   <string name="cheat">Juks</string>
-  <string name="insult">Ærekrenking</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Ratingmanipulering</string>
   <string name="other">Anna</string>
-  <string name="reportDescriptionHelp">Lim inn link til partiet/partia og forklar kva som er gale med åtferda til denne brukaren.</string>
+  <string name="reportCheatBoostHelp">Legg ved lenke til partiet/partia og forklar kva som er gale med åtferda til denne brukaren. Å berre påstå at brukaren juksar er ikkje nok, men gje ei nærare forklaring på korleis du kom til denne konklusjonen.</string>
+  <string name="reportUsernameHelp">Forklår kva som gjer brukarnamnet er støytande. Det held ikkje med å påstå at \"namnet er støytande/upassande\", men fortell oss korleis du kom til denne konklusjonen, spesielt om tydinga er uklår, ikkje er på engelsk, er eit slanguttrykk, eller har ein historisk/kulturell referanse.</string>
+  <string name="reportProcessedFasterInEnglish">Rapporten din blir raskare behandla om du skriv på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Oppgje minst ei lenke til eit jukseparti.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importert av %s</string>
@@ -585,7 +582,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="clockIncrement">Inkrement</string>
   <string name="privacy">Privatsfære</string>
   <string name="privacyPolicy">Personvernpolitikk</string>
-  <string name="letOtherPlayersFollowYou">Lat andre spelarar fylgja deg</string>
+  <string name="letOtherPlayersFollowYou">Lat andre spelarar følgja deg</string>
   <string name="letOtherPlayersChallengeYou">Lat andre spelarar utfordra deg</string>
   <string name="letOtherPlayersInviteYouToStudy">Lat andre spelarar invitere til studium</string>
   <string name="sound">Lyd</string>
@@ -595,6 +592,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="slow">Sakte</string>
   <string name="insideTheBoard">På brettet</string>
   <string name="outsideTheBoard">Utanfor brettet</string>
+  <string name="allSquaresOfTheBoard">Alle felt på brettet</string>
   <string name="onSlowGames">I parti med lang tid</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
@@ -681,7 +679,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="aboutSimulRules">Når simultanframsyninga byrjar, startar alle deltakarane eit parti mot den som er vert. Verten får spela med dei kvite brikkene. Simultanoppvisinga endar når alle partia er ferdigspelte.</string>
   <string name="aboutSimulSettings">Simultanframsyningar er alltid urangerte. Omstart, attendetrekk og \"meirtid\" er slått av.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du arrangerer ei simultanframsyning spelar du mot fleire motstandarar samstundes.</string>
   <string name="simulVariantsHint">Om du vel fleire variantar, får kvar spelar velje kva variant dei ønskjer.</string>
   <string name="simulClockHint">Fischer klokkesett. Jo fleire spelarar du tar med, jo meir tid kan du trengje.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på di eiga klokka for å makte simultanframsyninga.</string>
@@ -996,4 +994,5 @@ La feltet stå tomt for å starte partia frå den normale utgangsstillinga.</str
   <string name="lichessPatronInfo">Lichess er ein velgjerdsorganisasjon basert på fritt tilgjengeleg open-kjeldekode-programvare.
 Alle kostnader for drift, utvikling og innhald vert finansiert eine og åleine av brukardonasjonar.</string>
   <string name="nothingToSeeHere">Ikkje noko å sjå nett no.</string>
+  <string name="stats">Statistikk</string>
 </resources>

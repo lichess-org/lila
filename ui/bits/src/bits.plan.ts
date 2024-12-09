@@ -1,6 +1,13 @@
 import * as xhr from 'common/xhr';
+import { alert } from 'common/dialog';
+import { log } from 'common/permalog';
 
 const showError = (error: string) => alert(error);
+
+export function initModule(opts?: { stripePublicKey: string }): void {
+  if (opts?.stripePublicKey) stripeStart(opts.stripePublicKey);
+  else payPalStart();
+}
 
 const changeForm = () => {
   const $change = $('.plan table.all .change');
@@ -11,7 +18,7 @@ const changeForm = () => {
   });
 };
 
-export function stripeStart(publicKey: string) {
+export function stripeStart(publicKey: string): void {
   $('.update-payment-method').on('click', () => {
     const stripe = window.Stripe(publicKey);
     xhr.json('/patron/stripe/update-payment', { method: 'post' }).then(data => {
@@ -20,7 +27,11 @@ export function stripeStart(publicKey: string) {
           .redirectToCheckout({
             sessionId: data.session.id,
           })
-          .then((result: any) => showError(result.error.message));
+          .then((result: any) => showError(result.error.message))
+          .catch((e: any) => {
+            log('Stripe.redirectToCheckout', e);
+            showError('message' in e ? e.message : e);
+          });
       } else {
         location.assign('/patron');
       }
@@ -30,8 +41,6 @@ export function stripeStart(publicKey: string) {
   changeForm();
 }
 
-export function payPalStart() {
+export function payPalStart(): void {
   changeForm();
 }
-
-(window as any).plan = { payPalStart, stripeStart };

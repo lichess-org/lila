@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="dgtBoard">Σκακιέρα DGT</string>
+  <string name="lichessAndDgt">Το Lichess &amp; η σκακιέρα DGT</string>
+  <string name="dgtBoardRequirements">Απαιτήσεις Σκακιέρας DGT</string>
+  <string name="dgtBoardLimitations">Περιορισμοί της Σκακιέρας DGT</string>
+  <string name="downloadHere">Μπορείτε να κατεβάσετε το λογισμικό εδώ: %s.</string>
+  <string name="ifLiveChessRunningOnThisComputer">Εάν το %1$s εκτελείται σε αυτόν τον υπολογιστή, μπορείτε να ελέγξετε τη σύνδεσή σας με αυτό το πρόγραμμα %2$s.</string>
+  <string name="openingThisLink">ανοίγοντας αυτόν τον σύνδεσμο</string>
+  <string name="ifLiveChessRunningElsewhere">Εάν το %1$s εκτελείται σε διαφορετικό υπολογιστή ή σε διαφορετική θύρα, θα χρειαστεί να ορίσετε τη διεύθυνση IP και τη θύρα στη %2$s.</string>
+  <string name="configurationSection">Ενότητα Ρυθμίσεων</string>
+  <string name="whenReadySetupBoard">Όταν είσαστε έτοιμοι, ρυθμίστε τη σκακιέρα σας και στη συνέχεια κάντε κλικ στο κουμπί %s.</string>
+  <string name="ifMoveNotDetected">Εάν δεν εντοπιστεί κάποια κίνηση</string>
+  <string name="reloadThisPage">Ανανέωση αυτής της σελίδας</string>
+  <string name="dgtConfigure">Ρυθμίσεις DGT</string>
+  <string name="lichessConnectivity">Σύνδεση με το Lichess</string>
+  <string name="noSuitableOauthToken">Δεν έχει δημιουργηθεί κατάλληλο διακριτικό πρόσβασης OAuth.</string>
+  <string name="dgtBoardConnectivity">Σύνδεση σκακιέρας DGT</string>
+  <string name="clickToGenerateOne">Κάντε κλικ για να δημιουργήσετε ένα</string>
+  <string name="textToSpeech">Κείμενο σε ομιλία</string>
+  <string name="enableSpeechSynthesis">Ενεργοποίηση Σύνθεσης Ομιλίας</string>
+  <string name="speechSynthesisVoice">Επιλογή φωνής για τη σύνθεση ομιλίας</string>
+  <string name="announceAllMoves">Ανακοίνωση Όλων Των Κινήσεων</string>
+  <string name="selectAnnouncePreference">Επιλέξτε ΝΑΙ ώστε να ανακοινώνονται οι κινήσεις και των δύο παικτών. Επιλέξτε ΟΧΙ ώστε να ανακοινώνονται μόνο οι κινήσεις του αντιπάλου σας.</string>
+  <string name="playWithDgtBoard">Παίξτε με τη σκακιέρα DGT</string>
+  <string name="configure">Ρυθμίσεις</string>
 </resources>

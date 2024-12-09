@@ -1,16 +1,15 @@
-import { VNode } from 'snabbdom';
-import { looseH as h } from 'common/snabbdom';
-import RoundController from '../ctrl';
+import { type VNode, looseH as h, onInsert } from 'common/snabbdom';
+import type RoundController from '../ctrl';
 import { renderClock } from '../clock/clockView';
 import { renderTableWatch, renderTablePlay, renderTableEnd } from '../view/table';
 import { makeConfig as makeCgConfig } from '../ground';
 import renderCorresClock from '../corresClock/corresClockView';
 import { renderResult } from '../view/replay';
-import { plyStep } from '../round';
-import { onInsert } from '../util';
-import { Step, Position, NvuiPlugin } from '../interfaces';
-import * as game from 'game';
+import { plyStep } from '../util';
+import type { Step, Position, NvuiPlugin } from '../interfaces';
+import { type Player, playable } from 'game';
 import {
+  type Style,
   renderSan,
   renderPieces,
   renderBoard,
@@ -28,12 +27,13 @@ import {
   pieceJumpingHandler,
   castlingFlavours,
   supportedVariant,
-  Style,
   inputToLegalUci,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
+import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from 'common/pubsub';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -48,10 +48,10 @@ export function initModule(): NvuiPlugin {
     positionStyle = positionSetting(),
     boardStyle = boardSetting();
 
-  site.pubsub.on('socket.in.message', line => {
+  pubsub.on('socket.in.message', line => {
     if (line.u === 'lichess') notify.set(line.t);
   });
-  site.pubsub.on('round.suggestion', notify.set);
+  pubsub.on('round.suggestion', notify.set);
 
   return {
     premoveInput: '',
@@ -72,7 +72,7 @@ export function initModule(): NvuiPlugin {
           'Sorry, the variant ' + d.game.variant.key + ' is not supported in blind mode.';
       if (!ctrl.chessground) {
         ctrl.setChessground(
-          site.makeChessground(document.createElement('div'), {
+          makeChessground(document.createElement('div'), {
             ...makeCgConfig(ctrl),
             animation: { enabled: false },
             drawable: { enabled: false },
@@ -142,9 +142,9 @@ export function initModule(): NvuiPlugin {
         h('h2', 'Actions'),
         ...(ctrl.data.player.spectator
           ? renderTableWatch(ctrl)
-          : game.playable(ctrl.data)
-          ? renderTablePlay(ctrl)
-          : renderTableEnd(ctrl)),
+          : playable(ctrl.data)
+            ? renderTablePlay(ctrl)
+            : renderTableEnd(ctrl)),
         h('h2', 'Board'),
         h(
           'div.board',
@@ -323,13 +323,14 @@ function isShortCommand(input: string): boolean {
 
 function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
   const lowered = c.toLowerCase();
-  if (lowered == 'c' || lowered == 'clock') notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
-  else if (lowered == 'l' || lowered == 'last') notify($('.lastMove').text());
-  else if (lowered == 'abort') $('.nvui button.abort').trigger('click');
-  else if (lowered == 'resign') $('.nvui button.resign').trigger('click');
-  else if (lowered == 'draw') $('.nvui button.draw-yes').trigger('click');
-  else if (lowered == 'takeback') $('.nvui button.takeback-yes').trigger('click');
-  else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
+  if (lowered === 'c' || lowered === 'clock')
+    notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+  else if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());
+  else if (lowered === 'abort') $('.nvui button.abort').trigger('click');
+  else if (lowered === 'resign') $('.nvui button.resign').trigger('click');
+  else if (lowered === 'draw') $('.nvui button.draw-yes').trigger('click');
+  else if (lowered === 'takeback') $('.nvui button.takeback-yes').trigger('click');
+  else if (lowered === 'o' || lowered === 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
     const pieces = ctrl.chessground.state.pieces;
     notify(
@@ -345,8 +346,7 @@ function anyClock(ctrl: RoundController, position: Position) {
     player = ctrl.playerAt(position);
   return (
     (ctrl.clock && renderClock(ctrl, player, position)) ||
-    (d.correspondence &&
-      renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, d.game.player)) ||
+    (d.correspondence && renderCorresClock(ctrl.corresClock!, player.color, position, d.game.player)) ||
     undefined
   );
 }
@@ -363,12 +363,8 @@ function renderMoves(steps: Step[], style: Style) {
   return res;
 }
 
-function renderAi(ctrl: RoundController, level: number): string {
-  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
-}
-
-function playerHtml(ctrl: RoundController, player: game.Player) {
-  if (player.ai) return renderAi(ctrl, player.ai);
+function playerHtml(ctrl: RoundController, player: Player) {
+  if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
@@ -388,8 +384,8 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
     : 'Anonymous';
 }
 
-function playerText(ctrl: RoundController, player: game.Player) {
-  if (player.ai) return renderAi(ctrl, player.ai);
+function playerText(ctrl: RoundController, player: Player) {
+  if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
@@ -401,7 +397,7 @@ function playerText(ctrl: RoundController, player: game.Player) {
 function gameText(ctrl: RoundController) {
   const d = ctrl.data;
   return [
-    d.game.status.name == 'started'
+    d.game.status.name === 'started'
       ? ctrl.isPlaying()
         ? 'You play the ' + ctrl.data.player.color + ' pieces.'
         : 'Spectating.'

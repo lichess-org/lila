@@ -2,17 +2,16 @@ package controllers
 
 import play.api.data.{ Form, FormBinding }
 import play.api.http.*
-import play.api.i18n.Lang
 import play.api.libs.json.Writes
 import play.api.mvc.*
 
 import lila.app.{ *, given }
-import lila.common.{ HTTPRequest, config }
-import lila.i18n.LangPicker
+import lila.common.HTTPRequest
 import lila.core.i18n.Language
-import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
-import lila.core.perm.Permission
 import lila.core.perf.UserWithPerfs
+import lila.core.perm.Permission
+import lila.i18n.LangPicker
+import lila.oauth.{ EndpointScopes, OAuthScope, OAuthScopes, OAuthServer, TokenScopes }
 import lila.ui.{ Page, Snippet }
 
 abstract private[controllers] class LilaController(val env: Env)
@@ -46,7 +45,7 @@ abstract private[controllers] class LilaController(val env: Env)
   inline def ctx(using it: Context)       = it // `ctx` is shorter and nicer than `summon[Context]`
   inline def req(using it: RequestHeader) = it // `req` is shorter and nicer than `summon[RequestHeader]`
 
-  val limit = new lila.web.Limiters(using env.executor, env.net.rateLimit)
+  val limit = lila.web.Limiters(using env.executor, env.net.rateLimit)
 
   /* Anonymous requests */
   def Anon(f: Context ?=> Fu[Result]): EssentialAction =
@@ -341,7 +340,7 @@ abstract private[controllers] class LilaController(val env: Env)
       f(using _)
 
   def meOrFetch[U: UserIdOf](id: U)(using ctx: Context): Fu[Option[lila.user.User]] =
-    if id.isMe then fuccess(ctx.user)
+    if id.is(UserId("me")) then fuccess(ctx.user)
     else ctx.user.filter(_.is(id)).fold(env.user.repo.byId(id))(u => fuccess(u.some))
 
   def meOrFetch[U: UserIdOf](id: Option[U])(using ctx: Context): Fu[Option[lila.user.User]] =

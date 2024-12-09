@@ -1,7 +1,5 @@
 package lila.ui
 
-import lila.core.config.AssetDomain
-
 case class ContentSecurityPolicy(
     defaultSrc: List[String],
     connectSrc: List[String],

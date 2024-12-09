@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Zertan lagun zaitzakegu?</string>
   <string name="visitThisPage">Ikusi orrialde hau zure arazoa konpontzeko</string>
   <string name="iCantLogIn">Ezin naiz sartu</string>
-  <string name="noConfirmationEmail">Ez dut nire baieztapen eposta jaso</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ez dut nire baieztapen eposta jaso</string>
   <string name="forgotPassword">Pasahitza ahaztu dut</string>
   <string name="forgotUsername">Erabiltzaile-izena ahaztu dut</string>
   <string name="youCanLoginWithEmail">Izena eman zenuenean esan zenigun eposta helbidearekin sar zaitezke</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Kasu batzutan robot baten aurka jokatzean, partida batek ez ditu sailkapenerako puntuak ematen jokalaria robotarekin gehiegitan jokatzen ari bada.</string>
   <string name="errorPage">Errore orrialdea</string>
   <string name="reportErrorPage">Errorea orrialdea agertu bazaizu, horren berri eman diezagukezu:</string>
-  <string name="wantBroadcastTournament">Txapelketa baten emanaldia egin nahi dut</string>
   <string name="learnHowToMakeBroadcasts">Ikasi nola egin emanaldiak Lichessen</string>
-  <string name="contactAboutOfficialBroadcasts">Emanaldien taldearekin harremanetan jarri zaitezke emanaldi ofizialei buruz gehiago jakiteko.</string>
   <string name="banAppeal">Debeku edo IP murriztapen baten aurka egitea</string>
   <string name="engineAppeal">Motore-erabilera edo tranpa marka</string>
   <string name="sendAppealTo">Zure kexa honi bidali diezaiokezu: %s.</string>

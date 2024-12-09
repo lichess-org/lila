@@ -31,8 +31,8 @@
   <string name="byOpenings">По дебютам</string>
   <string name="puzzlesByOpenings">Задачи по дебютам</string>
   <string name="openingsYouPlayedTheMost">Дебюты, которые вы играли в большинстве рейтинговых партий</string>
-  <string name="useFindInPage">Используйте «Найти на странице» в меню браузера, чтобы найти ваш любимый дебют!</string>
-  <string name="useCtrlF">Используйте Ctrl+f, чтобы найти ваш любимый дебют!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Используйте «Найти на странице» в меню браузера, чтобы найти ваш любимый дебют!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Используйте Ctrl+f, чтобы найти ваш любимый дебют!</string>
   <string name="notTheMove">Плохой ход!</string>
   <string name="trySomethingElse">Попробуйте иначе.</string>
   <string name="ratingX">Рейтинг: %s</string>
@@ -58,7 +58,7 @@
   <string name="harder">Сложный</string>
   <string name="hardest">Сложнейший</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">Один балл выше вашего рейтинга в пазлах</item>
+    <item quantity="one">Один балл выше вашего рейтинга в задачах</item>
     <item quantity="few">%s баллов выше вашего рейтинга в задачах</item>
     <item quantity="many">%s баллов выше вашего рейтинга в задачах</item>
     <item quantity="other">%s баллов выше вашего рейтинга в задачах</item>
@@ -72,7 +72,7 @@
   <string name="strengths">Сильные стороны</string>
   <string name="history">История задач</string>
   <string name="solved">решённые</string>
-  <string name="failed">неудачные</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">неудачные</string>
   <string name="streakDescription">Решайте постепенно усложняющиеся задачи и создайте победную серию. Здесь нет часов, так что не торопитесь. Один неправильный ход и игра закончена! Но можно пропустить один ход за сеанс.</string>
   <string name="yourStreakX">Ваша серия: %s</string>
   <string name="streakSkipExplanation">Пропустить этот ход, чтобы сохранить серию! Можно использовать только один раз.</string>

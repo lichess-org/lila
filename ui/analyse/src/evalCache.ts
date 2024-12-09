@@ -1,8 +1,8 @@
 import { defined, prop } from 'common';
-import throttle from 'common/throttle';
-import { EvalHit, EvalGetData, EvalPutData } from './interfaces';
-import { AnalyseSocketSend } from './socket';
-import { FEN } from 'chessground/types';
+import { throttle } from 'common/timing';
+import type { EvalHit, EvalGetData, EvalPutData } from './interfaces';
+import type { AnalyseSocketSend } from './socket';
+import { pubsub } from 'common/pubsub';
 
 export interface EvalCacheOpts {
   variant: VariantKey;
@@ -75,7 +75,7 @@ export default class EvalCache {
 
   constructor(readonly opts: EvalCacheOpts) {
     this.upgradable(opts.upgradable);
-    site.pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
+    pubsub.on('socket.in.crowd', d => this.upgradable(d.nb > 2 && d.nb < 99999));
   }
 
   onLocalCeval = throttle(500, () => {

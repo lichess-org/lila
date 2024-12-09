@@ -75,6 +75,7 @@ trait RequestContext(using Executor):
     pageDataBuilder.dmap(PageContext(ctx, _))
 
   def InEmbedContext[A](f: EmbedContext ?=> A)(using ctx: Context): A =
+    if !env.net.isProd then env.web.manifest.update()
     f(using EmbedContext(ctx.req))
 
   private def makeUserContext(req: RequestHeader): Fu[LoginContext] =

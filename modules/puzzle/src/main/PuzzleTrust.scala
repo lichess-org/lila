@@ -1,7 +1,8 @@
 package lila.puzzle
 
-import lila.db.dsl.{ *, given }
 import lila.core.perf.UserWithPerfs
+import lila.db.dsl.{ *, given }
+import lila.core.perm.Granter
 
 final private class PuzzleTrustApi(colls: PuzzleColls, userApi: lila.core.user.UserApi)(using Executor):
 
@@ -66,7 +67,7 @@ final private class PuzzleTrustApi(colls: PuzzleColls, userApi: lila.core.user.U
     (~planMonths * 5).atMost(15)
 
   private def modBonus(user: User) =
-    if user.roles.exists(_.contains("ROLE_PUZZLE_CURATOR")) then 100
+    if Granter.ofUser(_.PuzzleCurator)(user) then 100
     else if user.isAdmin then 50
     else if user.isVerified then 30
     else 0

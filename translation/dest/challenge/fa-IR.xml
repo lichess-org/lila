@@ -5,11 +5,11 @@
   <string name="challengeDeclined">پیشنهاد بازی رد شد.</string>
   <string name="challengeAccepted">پیشنهاد بازی پذیرفته شد!</string>
   <string name="challengeCanceled">پیشنهاد بازی لغو شد.</string>
-  <string name="registerToSendChallenges">برای پیشنهاد بازی دادن به این کاربر، لطفا نام‌نویسی کنید.</string>
+  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">برای پیشنهاد بازی دادن به این کاربر، لطفا نام‌نویسی کنید.</string>
   <string name="youCannotChallengeX">شما نمی‌توانید به %s پیشنهاد بازی دهید.</string>
   <string name="xDoesNotAcceptChallenges">%s پیشنهاد بازی را نپذیرفت.</string>
   <string name="yourXRatingIsTooFarFromY">درجه‌بندی %1$s شما با %2$s اختلاف زیادی دارد.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">به‌خاطر داشتن درجه‌بندی %s موقت، نمی‌توانید پیشنهاد بازی دهید.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">به‌خاطر درجه‌بندی %s موقت، نمی‌توانید پیشنهاد بازی دهید.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s فقط پیشنهاد بازی از دوستانش را می‌پذیرد.</string>
   <string name="declineGeneric">من فعلا پیشنهاد بازی نمی‌پذیرم.</string>
   <string name="declineLater">الان زمان مناسبی برای من نیست، لطفا بعدا دوباره درخواست دهید.</string>
@@ -17,9 +17,9 @@
   <string name="declineTooSlow">این زمان‌بندی برایم خیلی زیاد است، لطفا دوباره با زمان‌بندی کمتر پیشنهاد بازی دهید.</string>
   <string name="declineTimeControl">من با این زمان‌بندی، پیشنهاد بازی را نمی‌پذیرم.</string>
   <string name="declineRated">لطفا به جایش، پیشنهاد بازی رسمی بده.</string>
-  <string name="declineCasual">لطفا به جایش، پیشنهاد بازی غیررسمی بده.</string>
-  <string name="declineStandard">الان پیشنهاد بازی‌های شطرنج‌گونه را نمی‌پذیرم.</string>
-  <string name="declineVariant">الان مایل نیستم این شطرنج‌گونه را بازی کنم.</string>
+  <string name="declineCasual">لطفا به جایش، پیشنهاد بازی نارسمی بده.</string>
+  <string name="declineStandard">اکنون پیشنهاد بازی‌های وَرتا را نمی‌پذیرم.</string>
+  <string name="declineVariant">اکنون مایل نیستم این وَرتا را بازی کنم.</string>
   <string name="declineNoBot">من پیشنهاد بازی از ربات‌ها را نمی‌پذیرم.</string>
   <string name="declineOnlyBot">من فقط پیشنهاد بازی از ربات‌ها را می‌پذیرم.</string>
   <string name="inviteLichessUser">یا یک کاربر Lichess را دعوت کنید:</string>

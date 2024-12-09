@@ -1,15 +1,16 @@
 package lila.coach
 package ui
 
+import play.api.i18n.Lang
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
-import lila.core.data.RichText
 import lila.core.config.NetDomain
-import play.api.i18n.Lang
+import lila.core.data.RichText
 import lila.core.user.{ Flag, Profile }
+import lila.rating.UserPerfsExt.{ best6Perfs, hasEstablishedRating }
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class CoachUi(helpers: Helpers)(
     picfitUrl: lila.core.misc.PicfitUrl,
@@ -215,7 +216,7 @@ final class CoachUi(helpers: Helpers)(
         main(cls := "coach-list coach-full-page")(
           st.aside(cls := "coach-list__side coach-side")(
             p(
-              trc.areYouCoach(a(href := "https://lichess.org/help/master")(trc.nmOrFideTitle())),
+              trc.areYouCoach(trc.nmOrFideTitle()),
               br,
               if !ctx.me.exists(_.hasTitle) then a(href := routes.TitleVerify.index)(trc.confirmTitle())
               else trc.sendApplication(a(href := s"mailto:${contactEmail.value}")(contactEmail.value))

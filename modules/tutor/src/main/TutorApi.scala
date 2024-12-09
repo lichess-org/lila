@@ -1,9 +1,9 @@
 package lila.tutor
 
 import lila.common.{ Chronometer, LilaScheduler, Uptime }
+import lila.core.perf.UserWithPerfs
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.perf.UserWithPerfs
 
 final class TutorApi(
     colls: TutorColls,
@@ -32,7 +32,7 @@ final class TutorApi(
         queue.enqueue(user).dmap(some).map { TutorFullReport.Available(report, _) }
       case availability => fuccess(availability)
 
-  LilaScheduler("TutorApi", _.Every(1 second), _.AtMost(10 seconds), _.Delay(3 seconds))(pollQueue)
+  LilaScheduler("TutorApi", _.Every(1 second), _.AtMost(10 seconds), _.Delay(39 seconds))(pollQueue)
 
   private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)
@@ -41,7 +41,7 @@ final class TutorApi(
         val expired =
           started.isBefore(nowInstant.minusSeconds(builder.maxTime.toSeconds.toInt)) ||
             started.isBefore(Uptime.startedAt)
-        expired.so(queue.remove(next.userId)).andDo(lila.mon.tutor.buildTimeout.increment())
+        for _ <- expired.so(queue.remove(next.userId)) yield lila.mon.tutor.buildTimeout.increment()
       }
 
   // we only wait for queue.start
@@ -49,15 +49,17 @@ final class TutorApi(
   private def buildThenRemoveFromQueue(userId: UserId) =
     val chrono = Chronometer.start
     logger.info(s"Start $userId")
-    queue.start(userId).andDo {
-      builder(userId).foreach: built =>
-        logger.info:
-          s"${if built.isDefined then "Complete" else "Fail"} $userId in ${chrono().seconds} seconds"
+    for _ <- queue.start(userId)
+    yield builder(userId).foreach: built =>
+      logger.info:
+        s"${if built.isDefined then "Complete" else "Fail"} $userId in ${chrono().seconds} seconds"
+      cache.put(
+        userId,
         built match
-          case Some(report) => cache.put(userId, fuccess(report.some))
-          case None         => cache.put(userId, findLatest(userId))
-        queue.remove(userId)
-    }
+          case Some(report) => fuccess(report.some)
+          case None         => findLatest(userId)
+      )
+      queue.remove(userId)
 
   private val cache = cacheApi[UserId, Option[TutorFullReport]](256, "tutor.report"):
     // _.expireAfterAccess(if (mode.isProd) 5 minutes else 1 second)

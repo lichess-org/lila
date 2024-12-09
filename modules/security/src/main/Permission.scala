@@ -1,6 +1,7 @@
 package lila.security
 
 import lila.core.perm.Permission
+import lila.core.user.RoleDbKey
 
 object Permission:
 
@@ -84,7 +85,8 @@ object Permission:
       Developer,
       PublicMod,
       Verified,
-      ContentTeam
+      ContentTeam,
+      BroadcastTeam
     ),
     "Package" -> List(
       LichessTeam,
@@ -107,4 +109,5 @@ object Permission:
   val form =
     import play.api.data.Form
     import play.api.data.Forms.*
-    Form(single("permissions" -> list(text.verifying(allByDbKey.contains))))
+    import lila.common.Form.*
+    Form(single("permissions" -> list[RoleDbKey](text.into[RoleDbKey].verifying(allByDbKey.contains))))

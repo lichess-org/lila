@@ -2,7 +2,7 @@ import { h } from 'snabbdom';
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { bind } from 'common/snabbdom';
-import LobbyController from '../../ctrl';
+import type LobbyController from '../../ctrl';
 
 function initialize(ctrl: LobbyController, el: HTMLElement) {
   const f = ctrl.filter.data?.form,
@@ -64,7 +64,7 @@ export function toggle(ctrl: LobbyController, nbFiltered: number) {
   return h('i.toggle.toggle-filter', {
     class: { gamesFiltered: nbFiltered > 0, active: filter.open },
     hook: bind('mousedown', filter.toggle, ctrl.redraw),
-    attrs: { 'data-icon': filter.open ? licon.X : licon.Gear, title: ctrl.trans.noarg('filterGames') },
+    attrs: { 'data-icon': filter.open ? licon.X : licon.Gear, title: i18n.site.filterGames },
   });
 }
 

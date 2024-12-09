@@ -2,10 +2,10 @@ package lila.security
 
 import com.roundeights.hasher.Implicits.*
 
-import lila.db.dsl.{ *, given }
-import lila.user.{ UserRepo, TotpToken, AuthData, BSONFields as F }
 import lila.core.email.NormalizedEmailAddress
 import lila.core.security.{ ClearPassword, HashedPassword }
+import lila.db.dsl.{ *, given }
+import lila.user.{ AuthData, BSONFields as F, TotpToken, UserRepo }
 
 case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
 type CredentialCheck = ClearPassword => Boolean
@@ -78,7 +78,8 @@ final class Authenticator(
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean =
     val res = compare(auth, p)
     if res && auth.salt.isDefined then
-      setPassword(id = auth._id, p).andDo(lila.mon.user.auth.bcFullMigrate.increment())
+      for _ <- setPassword(id = auth._id, p)
+      yield lila.mon.user.auth.bcFullMigrate.increment()
     res
 
   private def loginCandidate(select: Bdoc): Fu[Option[LoginCandidate]] = {

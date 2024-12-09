@@ -70,6 +70,8 @@
   <string name="promoteVariation">Bu varyanttan devam et</string>
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
+  <string name="collapseVariations">Varyasyonları daralt</string>
+  <string name="expandVariations">Varyasyonları genişlet</string>
   <string name="forceVariation">Varyant olarak göster</string>
   <string name="copyVariationPgn">Varyasyon PGN\'sini kopyala</string>
   <string name="move">Hamle</string>
@@ -114,7 +116,6 @@
   <string name="replayMode">Tekrar modu</string>
   <string name="realtimeReplay">Gerçek Zamanlı</string>
   <string name="byCPL">CPL ile</string>
-  <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamle imleci</string>
   <string name="showVariationArrows">Varyasyon oklarını göster</string>
@@ -124,7 +125,6 @@
   <string name="memory">Hafıza</string>
   <string name="infiniteAnalysis">Sonsuz analiz</string>
   <string name="removesTheDepthLimit">Derinlik sınırını kaldırır ve bilgisayarınızı sıcacık tutar</string>
-  <string name="engineManager">Motor yöneticisi</string>
   <string name="blunder">Vahim hata</string>
   <string name="mistake">Hata</string>
   <string name="inaccuracy">Kusurlu hamle</string>
@@ -178,6 +178,7 @@
   <string name="latestForumPosts">En son forum gönderileri</string>
   <string name="players">Oyuncular</string>
   <string name="friends">Arkadaşlar</string>
+  <string name="otherPlayers">diğer oyuncular</string>
   <string name="discussions">Sohbetler</string>
   <string name="today">Bugün</string>
   <string name="yesterday">Dün</string>
@@ -257,6 +258,7 @@
     <item quantity="one">Sizinle oynadığı oyun sayısı: %s</item>
     <item quantity="other">Sizinle oynadığı oyun sayısı: %s</item>
   </plurals>
+  <string name="ok">Tamam</string>
   <string name="cancel">İptal et</string>
   <string name="whiteTimeOut">Beyazın zamanı tükendi</string>
   <string name="blackTimeOut">Siyahın zamanı tükendi</string>
@@ -433,7 +435,6 @@
   <string name="block">Engelle</string>
   <string name="blocked">Engellendi</string>
   <string name="unblock">Engeli kaldır</string>
-  <string name="followsYou">Sizi takip ediyor</string>
   <string name="xStartedFollowingY">%1$s, %2$s isimli oyuncuyu takip etmeye başladı</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s takipçi</item>
@@ -465,9 +466,6 @@
   <string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
   <string name="inappropriateNameWarning">Herhangi bir uygunsuz isim, hesabınızın yasaklanmasına yol açabilir.</string>
   <string name="emptyTournamentName">Kutuyu boş bırakarak turnuvaya rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
-  <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
-  <string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
-  <string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
   <string name="makePrivateTournament">Turnuvayı özel olarak ayarlayın ve şifre koyarak erişimi kısıtlayın</string>
   <string name="join">Katıl</string>
   <string name="withdraw">Çekil</string>
@@ -507,8 +505,7 @@
   <string name="ifNoneLeaveEmpty">Eğer yoksa, boş bırakın</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili düzenle</string>
-  <string name="firstName">Ad</string>
-  <string name="lastName">Soyad</string>
+  <string name="realName">Gerçek isim</string>
   <string name="setFlair">Rozetinizi seçin</string>
   <string name="flair">Rozet</string>
   <string name="youCanHideFlair">Ayarlardan oyuncu rozetlerini gizleyebilirsiniz.</string>
@@ -539,6 +536,8 @@
   <string name="descPrivateHelp">Sadece takım üyelerinin görebileceği metindir. Kullanılması halinde, takım üyeleri genel açıklama yerine bunu görür.</string>
   <string name="no">Hayır</string>
   <string name="yes">Evet</string>
+  <string name="website">Web sitesi</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Yardım:</string>
   <string name="createANewTopic">Yeni bir bildiri oluştur.</string>
   <string name="topics">Konular</string>
@@ -555,11 +554,11 @@
   <string name="reason">Sebep</string>
   <string name="whatIsIheMatter">Problem nedir?</string>
   <string name="cheat">Hile</string>
-  <string name="insult">Hakaret</string>
   <string name="troll">Trol</string>
-  <string name="ratingManipulation">Puan manipülasyonu</string>
   <string name="other">Diğer</string>
-  <string name="reportDescriptionHelp">Raporlamak istediğiniz oyunun linkini yapıştırın ve sorununuzu açıklayın. Lütfen sadece \"hile yapıyor\" gibisinden açıklama yazmayın, hile olduğunu nasıl anladığınızı açıklayın. Rapor edeceğiniz kişiyi ya da oyunu \"İngilizce\" açıklarsanız, daha hızlı sonuca ulaşırsınız.</string>
+  <string name="reportCheatBoostHelp">Oyunun (oyunların) bağlantısını yapıştırın ve kullanıcının hangi davranışı yanlış açıklayın. Sadece \"bu hile\" demeyin, bize bu sonuca nasıl vardığınızı söyleyin.</string>
+  <string name="reportUsernameHelp">Bu kullanıcı adı hakkında neyin saldırganca olduğunu açıklayın. Sadece \"bu saldırganca/uygunsuz\" demeyin, bu sonuca nasıl vardığınızı söyleyin bize, özellikle de hakaret gizlenmiş, ingilizce olmayan, argo, veya tarihsel/kültürel referansalar varsa.</string>
+  <string name="reportProcessedFasterInEnglish">Eğer İngilizce yazarsanız raporunuz daha hızlı işleme alınır.</string>
   <string name="error.provideOneCheatedGameLink">Lütfen hileli gördüğünüz en az 1 adet oyun linki verin.</string>
   <string name="by">%s oluşturdu</string>
   <string name="importedByX">%s tarafından yüklendi</string>
@@ -592,6 +591,7 @@
   <string name="slow">Yavaş</string>
   <string name="insideTheBoard">Karelerin üzerinde</string>
   <string name="outsideTheBoard">Karelerin dışında</string>
+  <string name="allSquaresOfTheBoard">Tahtadaki tüm karelerde</string>
   <string name="onSlowGames">Yavaş oyunlarda</string>
   <string name="always">Her zaman</string>
   <string name="never">Asla</string>
@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">Eş zamanlı gösteriye katılan her oyuncu, beyaz taşlarla oynayan ev sahibi ilk hamleyi yaptıktan sonra maça başlar. Bütün oyunlar bittiğinde eş zamanlı gösteri sona erer.</string>
   <string name="aboutSimulSettings">Eş zamanlı gösteriler daima puansızdır. Yeniden maç teklifi göndermek, hamleyi geri almak ve ek süre talep etmek devre dışıdır.</string>
   <string name="create">Oluştur</string>
-  <string name="whenCreateSimul">Eş zamanlı gösterilerde, birkaç oyuncuyla aynı anda oynarsınız.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Eş zamanlı gösterilerde, birkaç oyuncuyla aynı anda oynarsınız.</string>
   <string name="simulVariantsHint">Eğer birkaç varyant seçerseniz, her oyuncu istediği varyantı seçip oynar.</string>
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
   <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
@@ -991,4 +991,5 @@ Başlangıç pozisyonundan oynamak için boş bırakınız.</string>
   <string name="showMeEverything">Bana her şeyi göster</string>
   <string name="lichessPatronInfo">Lichess bir yardım kuruluşudur ve tamamen özgür/açık kaynak kodlu bir yazılımdır. Tüm işletme maliyetleri, geliştirmeler ve içerikler yalnızca kullanıcı bağışları ile finanse edilmektedir.</string>
   <string name="nothingToSeeHere">Şu anda görülebilecek bir şey yok.</string>
+  <string name="stats">İstatistikler</string>
 </resources>

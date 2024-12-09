@@ -7,62 +7,70 @@ import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Failure, NotGiven, Success, Try }
 
 import lila.common.Iso.{ *, given }
-import lila.core.email.NormalizedEmailAddress
-import lila.core.net.IpAddress
 import lila.core.data.Percent
+import lila.core.net.IpAddress
+import lila.core.game.Blurs
 
 trait Handlers:
 
   def toBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Option[BSONDocument] = writer.writeOpt(a)
+  def tryBdoc[A](a: A)(using writer: BSONDocumentWriter[A]): Try[BSONDocument]   = writer.writeTry(a)
 
-  // free handlers for all types with TotalWrapper
-  // unless they are given an instance of lila.db.NoDbHandler[T]
-  given opaqueHandler[T, A](using
-      sr: SameRuntime[A, T],
+  def toBson[A](a: A)(using writer: BSONWriter[A]): Option[BSONValue] = writer.writeOpt(a)
+
+  // free writer for all types with TotalWrapper
+  // unless they are given an instance of lila.db.NoBSONWriter[T]
+  given opaqueWriter[T, A](using
       rs: SameRuntime[T, A],
-      handler: BSONHandler[A]
-  )(using NotGiven[NoDbHandler[T]]): BSONHandler[T] =
-    handler.as(sr.apply, rs.apply)
+      writer: BSONWriter[A]
+  )(using NotGiven[NoBSONWriter[T]]): BSONWriter[T] with
+    def writeTry(t: T) = writer.writeTry(rs(t))
 
-  given listHandler[T: BSONHandler]: BSONHandler[List[T]] with
-    val reader                                 = collectionReader[List, T]
-    val writer                                 = BSONWriter.collectionWriter[T, List[T]]
-    def readTry(bson: BSONValue): Try[List[T]] = reader.readTry(bson)
-    def writeTry(t: List[T]): Try[BSONValue]   = writer.writeTry(t)
+  // free reader for all types with TotalWrapper
+  // unless they are given an instance of lila.db.NoBSONReader[T]
+  given opaqueReader[T, A](using
+      sr: SameRuntime[A, T],
+      reader: BSONReader[A]
+  )(using NotGiven[NoBSONReader[T]]): BSONReader[T] with
+    def readTry(bson: BSONValue) = reader.readTry(bson).map(sr.apply)
 
-  given userIdOfWriter[U: UserIdOf, T](using writer: BSONWriter[UserId]): BSONWriter[U] with
-    inline def writeTry(u: U) = writer.writeTry(u.id)
+  given NoDbHandler[Blurs] with {}
+
+  given NoBSONWriter[UserId] with {}
+  given userIdHandler: BSONHandler[UserId] = stringIsoHandler
 
   given dateTimeHandler: BSONHandler[LocalDateTime] = quickHandler[LocalDateTime](
-    { case v: BSONDateTime => millisToDateTime(v.value) },
+    { case BSONDateTime(v) => millisToDateTime(v) },
     v => BSONDateTime(v.toMillis)
   )
   given instantHandler: BSONHandler[Instant] = quickHandler[Instant](
-    { case v: BSONDateTime => millisToInstant(v.value) },
+    { case BSONDateTime(v) => millisToInstant(v) },
     v => BSONDateTime(v.toMillis)
   )
   given BSONHandler[TimeInterval] = summon[BSONHandler[List[Instant]]].as[TimeInterval](
-    list => TimeInterval(list.lift(0).get, list.lift(1).get),
+    list => TimeInterval(list(0), list(1)),
     interval => List(interval.start, interval.end)
   )
 
-  def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] = new:
-    def readTry(x: BSONValue) = handler.readTry(x).map(iso.from)
-    def writeTry(x: A)        = handler.writeTry(iso.to(x))
+  def isoHandler[A, B](using iso: Iso[B, A])(using handler: BSONHandler[B]): BSONHandler[A] =
+    handler.as[A](iso.from, iso.to)
   def isoHandler[A, B](to: A => B, from: B => A)(using handler: BSONHandler[B]): BSONHandler[A] =
-    isoHandler(using Iso(from, to))(using handler)
+    handler.as[A](from, to)
 
   def stringIsoHandler[A](using iso: StringIso[A]): BSONHandler[A] =
     BSONStringHandler.as[A](iso.from, iso.to)
   def stringAnyValHandler[A](to: A => String, from: String => A): BSONHandler[A] =
     BSONStringHandler.as[A](from, to)
 
-  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] = BSONIntegerHandler.as[A](from, to)
+  def intIsoHandler[A](using iso: IntIso[A]): BSONHandler[A] =
+    BSONIntegerHandler.as[A](iso.from, iso.to)
+  def intAnyValHandler[A](to: A => Int, from: Int => A): BSONHandler[A] =
+    BSONIntegerHandler.as[A](from, to)
 
   def booleanIsoHandler[A](using iso: BooleanIso[A]): BSONHandler[A] =
     BSONBooleanHandler.as[A](iso.from, iso.to)
   def booleanAnyValHandler[A](to: A => Boolean, from: Boolean => A): BSONHandler[A] =
-    booleanIsoHandler(using Iso(from, to))
+    BSONBooleanHandler.as[A](from, to)
 
   private def doubleAsIntHandler[A](to: A => Double, from: Double => A, multiplier: Int): BSONHandler[A] =
     intAnyValHandler[A](x => Math.round(to(x) * multiplier).toInt, x => from(x.toDouble / multiplier))
@@ -80,7 +88,7 @@ trait Handlers:
     def readTry(bson: BSONValue) =
       read
         .andThen(Success(_))
-        .applyOrElse(bson, (b: BSONValue) => handlerBadType(b))
+        .applyOrElse(bson, handlerBadType)
     def writeTry(t: T) = Success(write(t))
 
   def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] = new:
@@ -108,18 +116,18 @@ trait Handlers:
       leftHandler.readTry(bson).map(Left.apply).orElse(rightHandler.readTry(bson).map(Right.apply))
     def writeTry(e: Either[L, R]) = e.fold(leftHandler.writeTry, rightHandler.writeTry)
 
-  def stringMapHandler[V](using
-      reader: BSONReader[Map[String, V]],
-      writer: BSONWriter[Map[String, V]]
-  ): BSONHandler[Map[String, V]] = new:
-    def readTry(bson: BSONValue)    = reader.readTry(bson)
-    def writeTry(v: Map[String, V]) = writer.writeTry(v)
+  given mapHandler[V: BSONHandler]: BSONHandler[Map[String, V]] = new:
+    def readTry(bson: BSONValue)    = BSONReader.mapReader.readTry(bson)
+    def writeTry(v: Map[String, V]) = BSONWriter.mapWriter.writeTry(v)
 
-  def typedMapHandler[K, V: BSONHandler](using sr: SameRuntime[K, String], rs: SameRuntime[String, K]) =
-    stringMapHandler[V].as[Map[K, V]](_.mapKeys(rs(_)), _.mapKeys(sr(_)))
+  def typedMapHandler[K, V: BSONHandler](using
+      sr: SameRuntime[K, String],
+      rs: SameRuntime[String, K]
+  ): BSONHandler[Map[K, V]] =
+    mapHandler[V].as[Map[K, V]](_.mapKeys(rs(_)), _.mapKeys(sr(_)))
 
-  def typedMapHandlerIso[K, V: BSONHandler](using keyIso: StringIso[K]) =
-    stringMapHandler[V].as[Map[K, V]](_.mapKeys(keyIso.from), _.mapKeys(keyIso.to))
+  def typedMapHandlerIso[K, V: BSONHandler](using keyIso: StringIso[K]): BSONHandler[Map[K, V]] =
+    mapHandler[V].as[Map[K, V]](_.mapKeys(keyIso.from), _.mapKeys(keyIso.to))
 
   def ifPresentHandler[A](a: A) = quickHandler({ case BSONBoolean(true) => a }, _ => BSONBoolean(true))
 
@@ -134,12 +142,6 @@ trait Handlers:
       },
       nel => listWriter.writeTry(nel.toList).get
     )
-
-  given vectorHandler[T: BSONHandler]: BSONHandler[Vector[T]] with
-    val reader                                   = collectionReader[Vector, T]
-    val writer                                   = BSONWriter.collectionWriter[T, Vector[T]]
-    def readTry(bson: BSONValue): Try[Vector[T]] = reader.readTry(bson)
-    def writeTry(t: Vector[T]): Try[BSONValue]   = writer.writeTry(t)
 
   given BSONWriter[BSONNull.type] with
     def writeTry(n: BSONNull.type) = Success(BSONNull)
@@ -170,14 +172,17 @@ trait Handlers:
   given perfKeyFailingIso: Iso.StringIso[PerfKey] =
     Iso.string[PerfKey](str => PerfKey(str).err(s"Unknown perf $str"), _.value)
 
-  given [T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
+  given pairHandler[T: BSONHandler]: BSONHandler[(T, T)] = tryHandler[(T, T)](
     { case arr: BSONArray => for a <- arr.getAsTry[T](0); b <- arr.getAsTry[T](1) yield (a, b) },
     { case (a, b) => BSONArray(a, b) }
   )
 
+  given [T: BSONHandler]: BSONHandler[chess.ByColor[T]] =
+    pairHandler[T].as[chess.ByColor[T]](c => chess.ByColor.fromPair(c), _.toPair)
+
   given NoDbHandler[chess.Square] with {} // no default opaque handler for chess.Square
 
-  given lila.db.NoDbHandler[lila.core.user.Me] with {}
+  given NoDbHandler[lila.core.user.Me] with {}
 
   def chessPosKeyHandler: BSONHandler[chess.Square] = tryHandler(
     { case BSONString(str) => chess.Square.fromKey(str).toTry(s"No such key $str") },
@@ -223,11 +228,15 @@ trait Handlers:
   )
 
   given BSONHandler[io.mola.galimatias.URL] =
-    import io.mola.galimatias.{ StrictErrorHandler, URL, URLParsingSettings }
-    val parser = URLParsingSettings.create.withErrorHandler(StrictErrorHandler.getInstance)
     tryHandler(
-      { case BSONString(url) => Try(URL.parse(parser, url)) },
+      { case BSONString(url) => lila.common.url.parse(url) },
       t => BSONString(t.toString)
+    )
+
+  given BSONHandler[java.time.ZoneId] =
+    tryHandler(
+      { case BSONString(id) => Try(java.time.ZoneId.of(id)) },
+      t => BSONString(t.getId)
     )
 
   import lila.core.user.UserMark

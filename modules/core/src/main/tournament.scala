@@ -3,8 +3,8 @@ package tournament
 
 import play.api.i18n.Lang
 
-import lila.core.id.{ TourId, TourPlayerId }
 import lila.core.chess.Rank
+import lila.core.id.{ TourId, TourPlayerId }
 import lila.core.userId.UserId
 
 enum Status(val id: Int):

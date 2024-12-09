@@ -2,10 +2,10 @@ package lila.swiss
 
 import reactivemongo.api.bson.*
 
+import lila.core.chess.Rank
+import lila.core.swiss.Ranking
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
-import lila.core.swiss.Ranking
-import lila.core.chess.Rank
 
 final private class SwissRankingApi(
     mongo: SwissMongo,
@@ -27,11 +27,10 @@ final private class SwissRankingApi(
     .expireAfterWrite(60 minutes)
     .build[SwissId, Ranking]()
 
-  private val dbCache = cacheApi[SwissId, Ranking](512, "swiss.ranking") {
+  private val dbCache = cacheApi[SwissId, Ranking](512, "swiss.ranking"):
     _.expireAfterAccess(1 hour)
       .maximumSize(1024)
       .buildAsyncFuture(computeRanking)
-  }
 
   private def computeRanking(id: SwissId): Fu[Ranking] =
     SwissPlayer

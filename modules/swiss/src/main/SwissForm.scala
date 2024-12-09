@@ -95,12 +95,9 @@ final class SwissForm(using mode: play.api.Mode):
       )
     )
 
-  def nextRound =
-    Form(
-      single(
-        "date" -> inTheFuture(ISOInstantOrTimestamp.mapping)
-      )
-    )
+  def nextRound = Form:
+    single:
+      "date" -> inTheFuture(ISOInstantOrTimestamp.mapping)
 
 object SwissForm:
 

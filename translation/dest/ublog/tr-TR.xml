@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s yayımladı: %2$s</string>
   <string name="thisPostIsPublished">Bu gönderi yayımlanmıştır</string>
   <string name="thisIsADraft">Bu bir taslaktır</string>
-  <string name="moreBlogPostsBy">%s adlı kullanıcının diğer blog gönderileri</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s adlı kullanıcının diğer blog gönderileri</string>
   <string name="noPostsInThisBlogYet">Henüz bu blogda bir gönderi yok.</string>
   <string name="noDrafts">Gösterilecek taslak yok.</string>
   <string name="latestBlogPosts">Son blog gönderileri</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">Alternatif resim metni</string>
   <string name="imageCredit">Resim kaynağı</string>
   <string name="deleteBlog">Bu blog gönderisini kalıcı olarak sil</string>
-  <string name="deleteImage">Resmi sil</string>
   <string name="safeToUseImages">Aşağıda verilen sitelerde bulunan resimleri dilediğiniz gibi kullanabilirsiniz: </string>
   <string name="selectPostTopics">Gönderinizin ilgili olduğu konuları seçin</string>
   <string name="useImagesYouMadeYourself">Kendi oluşturduğunuz görseller, çektiğiniz fotoğraflar veya Lichess ekran görüntüleri gibi telif hakkı başkasına ait olmayan herhangi bir resmi de kullanabilirsiniz.</string>
@@ -52,5 +51,5 @@
   <string name="inappropriateContentAccountClosed">Uygunsuz herhangi bir içerik paylaşmak hesabınızın kapatılmasına yol açacaktır.</string>
   <string name="blogTips">Harika blog gönderileri yazmanın püf noktaları</string>
   <string name="discussThisBlogPostInTheForum">Bu blog gönderisini forumda tartış</string>
-  <string name="youBlockedByBlogAuthor" comment="The blog post does not appear when the blog author has blocked the user.&#10;The user sees this message instead of the post.">Blog yazarı tarafından engellendiniz.</string>
+  <string name="youBlockedByBlogAuthor">Blog yazarı tarafından engellendiniz.</string>
 </resources>

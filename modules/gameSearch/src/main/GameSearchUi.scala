@@ -1,13 +1,15 @@
 package lila.gameSearch
 package ui
 
-import java.time.format.DateTimeFormatter
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import java.time.format.DateTimeFormatter
+
 import lila.core.i18n.Translate
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class GameSearchUi(helpers: Helpers)(
     gameWidgets: Seq[Game] => Context ?=> Frag
@@ -20,7 +22,7 @@ final class GameSearchUi(helpers: Helpers)(
   ) =
     val f = SearchForm(helpers)(form)
     Page(trs.searchInXGames.txt(nbGames.localize, nbGames))
-      .js(EsmInit("bits.gameSearch"))
+      .js(Esm("bits.gameSearch"))
       .js(infiniteScrollEsmInit)
       .css("bits.search"):
         main(cls := "box page-small search")(
@@ -147,7 +149,7 @@ final class GameSearchUi(helpers: Helpers)(
     )
 
 final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
-  import helpers.{ *, given }
+  import helpers.*
   import trans.{ search as trs }
 
   private val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -240,8 +242,6 @@ final class SearchForm(helpers: Helpers)(form: Form[?])(using Translate):
       th(label(`for` := form3.id(form("source")))(trans.search.source())),
       td(form3.select(form("source"), FormHelpers.sources, "".some))
     )
-
-  private lazy val perfKeys = PerfKey.all.filter(_ != PerfKey.puzzle)
 
   def perf =
     tr(

@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordinačių treniruotė</string>
   <string name="averageScoreAsWhiteX">Vidutinis rezultatas baltaisiais: %s</string>
   <string name="averageScoreAsBlackX">Vidutinis rezultatas juodaisiais: %s</string>
-  <string name="knowingTheChessBoard">Šachmatų lentos koordinačių žinojimas yra ypač svarbus įgūdis:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Šachmatų lentos koordinačių žinojimas yra ypač svarbus įgūdis:</string>
   <string name="mostChessCourses">Dauguma šachmatų kursų ir pratimų plačiai naudoja algebrinį žymėjimą.</string>
   <string name="talkToYourChessFriends">Tai leidžia paprasčiau kalbėti su jūsų šachmatų draugais, kadangi abu suprantate „šachmatų kalbą“.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Galite efektyviau analizuoti partijas, kadangi nereikia ieškoti langelių pavadinimų.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Turite 30 sekundžių pažymėti kiek galima daugiau langelių!</string>
   <string name="goAsLongAsYouWant">Žymėkite kiek tik norite, laiko limito nėra!</string>
   <string name="showCoordinates">Rodyti koordinates</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Kiekvieno laukelio koordinatės</string>
   <string name="showPieces">Rodyti figūras</string>
   <string name="startTraining">Pradėti treniruotę</string>
   <string name="findSquare">Rasti langelį</string>

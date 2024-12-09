@@ -1,11 +1,14 @@
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
 import { titleNameToId } from '../view/util';
-import { h, VNode } from 'snabbdom';
-import { prop, Prop } from 'common';
-import { StudyMemberMap } from './interfaces';
-import { AnalyseSocketSend } from '../socket';
-import { storedSet, StoredSet } from 'common/storage';
+import { h, type VNode } from 'snabbdom';
+import { prop, type Prop } from 'common';
+import type { StudyMemberMap } from './interfaces';
+import type { AnalyseSocketSend } from '../socket';
+import { storedSet, type StoredSet } from 'common/storage';
+import { snabDialog } from 'common/dialog';
+import { userComplete } from 'common/userComplete';
+import { pubsub } from 'common/pubsub';
 
 export interface StudyInviteFormCtrl {
   open: Prop<boolean>;
@@ -14,7 +17,6 @@ export interface StudyInviteFormCtrl {
   toggle(): void;
   invite(titleName: string): void;
   redraw(): void;
-  trans: Trans;
   previouslyInvited: StoredSet<string>;
 }
 
@@ -23,18 +25,17 @@ export function makeCtrl(
   members: Prop<StudyMemberMap>,
   setTab: () => void,
   redraw: () => void,
-  trans: Trans,
 ): StudyInviteFormCtrl {
   const open = prop(false),
     spectators = prop<string[]>([]);
 
   const toggle = () => {
-    if (!open()) site.pubsub.emit('analyse.close-all');
+    if (!open()) pubsub.emit('analysis.closeAll');
     open(!open());
     redraw();
   };
 
-  site.pubsub.on('analyse.close-all', () => open(false));
+  pubsub.on('analysis.closeAll', () => open(false));
 
   const previouslyInvited = storedSet<string>('study.previouslyInvited', 10);
   return {
@@ -49,7 +50,6 @@ export function makeCtrl(
       setTab();
     },
     redraw,
-    trans,
     previouslyInvited,
   };
 }
@@ -58,36 +58,32 @@ export function view(ctrl: ReturnType<typeof makeCtrl>): VNode {
   const candidates = [...new Set([...ctrl.spectators(), ...ctrl.previouslyInvited()])]
     .filter(s => !ctrl.members()[titleNameToId(s)]) // remove existing members
     .sort();
-  return site.dialog.snab({
+  return snabDialog({
     class: 'study__invite',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },
+    modal: true,
     noScrollable: true,
     vnodes: [
-      h('h2', ctrl.trans.noarg('inviteToTheStudy')),
-      h(
-        'p.info',
-        { attrs: { 'data-icon': licon.InfoCircle } },
-        ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow'),
-      ),
+      h('h2', i18n.study.inviteToTheStudy),
+      h('p.info', { attrs: { 'data-icon': licon.InfoCircle } }, i18n.study.pleaseOnlyInvitePeopleYouKnow),
       h('div.input-wrapper', [
         // because typeahead messes up with snabbdom
         h('input', {
-          attrs: { placeholder: ctrl.trans.noarg('searchByUsername'), spellcheck: 'false' },
+          attrs: { placeholder: i18n.study.searchByUsername, spellcheck: 'false' },
           hook: onInsert<HTMLInputElement>(input =>
-            site.asset
-              .userComplete({
-                input,
-                tag: 'span',
-                onSelect(v) {
-                  input.value = '';
-                  ctrl.invite(v.name);
-                  ctrl.redraw();
-                },
-              })
-              .then(() => input.focus()),
+            userComplete({
+              input,
+              focus: true,
+              tag: 'span',
+              onSelect(v) {
+                input.value = '';
+                ctrl.invite(v.name);
+                ctrl.redraw();
+              },
+            }),
           ),
         }),
       ]),

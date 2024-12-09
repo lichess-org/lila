@@ -7,6 +7,7 @@
     <item quantity="other">%s uitzendingen</item>
   </plurals>
   <string name="liveBroadcasts">Live toernooi uitzendingen</string>
+  <string name="broadcastCalendar">Uitzendkalender</string>
   <string name="newBroadcast">Nieuwe live uitzending</string>
   <string name="aboutBroadcasts">Over uitzending</string>
   <string name="howToUseLichessBroadcasts">Hoe Lichess Uitzendingen te gebruiken.</string>
@@ -22,14 +23,11 @@
   <string name="tournamentDescription">Korte toernooibeschrijving</string>
   <string name="fullDescription">Volledige beschrijving evenement</string>
   <string name="fullDescriptionHelp">Optionele lange beschrijving van de uitzending. %1$s is beschikbaar. Totale lengte moet minder zijn dan %2$s tekens.</string>
-  <string name="sourceUrlOrGameIds">Bron-URL of partij-ID\'s</string>
+  <string name="sourceSingleUrl">URL van PGN-bron</string>
   <string name="sourceUrlHelp">Link die Lichess gebruikt om PGN updates te krijgen. Deze moet openbaar toegankelijk zijn via internet.</string>
-  <string name="gameIdsHelp">U kunt ook maximaal 64 Lichess partij-ID\'s invoeren, gescheiden door spaties.</string>
-  <string name="startDate">Aanvangsdatum in je eigen tijdzone</string>
+  <string name="sourceGameIds">Tot 64 Lichess partij-ID\'\'s, gescheiden door spaties.</string>
+  <string name="startDateTimeZone">Startdatum in de lokale tijdzone van het tornooi: %s</string>
   <string name="startDateHelp">Optioneel, als je weet wanneer het evenement start</string>
-  <string name="credits">Bronvermelding</string>
-  <string name="broadcastUrl">Uitzendingslink</string>
-  <string name="currentRoundUrl">Huidige ronde-link</string>
   <string name="currentGameUrl">Huidige partij-link</string>
   <string name="downloadAllRounds">Alle rondes downloaden</string>
   <string name="resetRound">Deze ronde opnieuw instellen</string>
@@ -39,9 +37,46 @@
   <string name="editRoundStudy">Studieronde bewerken</string>
   <string name="deleteTournament">Verwijder dit toernooi</string>
   <string name="definitivelyDeleteTournament">Verwijder definitief het hele toernooi, inclusief alle rondes en partijen.</string>
-  <string name="automaticLeaderboard">Automatisch scorebord</string>
-  <string name="automaticLeaderboardHelp">Bereken en toon een eenvoudig scorebord gebaseerd op de uitslagen</string>
+  <string name="showScores">Toon scores van spelers op basis van partij-uitslagen</string>
   <string name="replacePlayerTags">Optioneel: vervang spelersnamen, beoordelingen en titels</string>
-  <string name="periodInSeconds">Periode in seconden</string>
-  <string name="periodInSecondsHelp">Optioneel, hoe lang te wachten tussen aanvragen. Minimaal 2 seconden, maximaal 60 seconden. Standaard automatisch gebaseerd op het aantal kijkers.</string>
+  <string name="fideFederations">FIDE-federaties</string>
+  <string name="top10Rating">Top 10-rating</string>
+  <string name="fidePlayers">FIDE-spelers</string>
+  <string name="fidePlayerNotFound">FIDE-speler niet gevonden</string>
+  <string name="fideProfile">FIDE-profiel</string>
+  <string name="federation">Federatie</string>
+  <string name="ageThisYear">Leeftijd dit jaar</string>
+  <string name="unrated">Zonder rating</string>
+  <string name="recentTournaments">Recente toernooien</string>
+  <string name="openLichess">Openen in Lichess</string>
+  <string name="teams">Teams</string>
+  <string name="boards">Borden</string>
+  <string name="overview">Overzicht</string>
+  <string name="subscribeTitle">Krijg een melding wanneer elke ronde start. Je kunt bel- of pushmeldingen voor uitzendingen in je accountvoorkeuren in-/uitschakelen.</string>
+  <string name="uploadImage">Toernooifoto uploaden</string>
+  <string name="noBoardsYet">Nog geen borden. Deze zullen verschijnen van zodra er partijen worden geüpload.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Borden kunnen geladen worden met een bron of via de %s</string>
+  <string name="startsAfter">Start na %s</string>
+  <string name="startVerySoon">De uitzending begint binnenkort.</string>
+  <string name="notYetStarted">De uitzending is nog niet begonnen.</string>
+  <string name="officialWebsite">Officiële website</string>
+  <string name="standings">Klassement</string>
+  <string name="officialStandings">Officiële standen</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Meer opties voor de %s</string>
+  <string name="webmastersPage">pagina van de webmaster</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Een publieke real-time PGN-bron voor deze ronde. We bieden ook een %s aan voor een snellere en efficiëntere synchronisatie.</string>
+  <string name="embedThisBroadcast">Deze uitzending insluiten in je website</string>
+  <string name="embedThisRound">%s insluiten in je website</string>
+  <string name="ratingDiff">Ratingverschil</string>
+  <string name="gamesThisTournament">Partijen in dit toernooi</string>
+  <string name="score">Score</string>
+  <string name="allTeams">Alle teams</string>
+  <string name="tournamentFormat">Toernooivorm</string>
+  <string name="tournamentLocation">Toernooilocatie</string>
+  <string name="topPlayers">Topspelers</string>
+  <string name="timezone">Tijdzone</string>
+  <string name="fideRatingCategory">FIDE-rating categorie</string>
+  <string name="optionalDetails">Optionele info</string>
+  <string name="pastBroadcasts">Afgelopen uitzendingen</string>
+  <string name="allBroadcastsByMonth">Alle uitzendingen per maand weergeven</string>
 </resources>

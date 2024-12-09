@@ -1,15 +1,17 @@
-import { h, VNode } from 'snabbdom';
-import { Config as CgConfig } from 'chessground/config';
-import { MouchEvent } from 'chessground/types';
-import * as util from 'chessground/util';
-import EditorCtrl from './ctrl';
+import { h, type VNode } from 'snabbdom';
+import type { MouchEvent } from 'chessground/types';
+import { eventPosition, opposite } from 'chessground/util';
+import type EditorCtrl from './ctrl';
+import { storage } from 'common/storage';
+import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from 'common/pubsub';
 
 export default function (ctrl: EditorCtrl): VNode {
   return h('div.cg-wrap', {
     hook: {
       insert: vnode => {
         const el = vnode.elm as HTMLElement;
-        ctrl.chessground = site.makeChessground(el, makeConfig(ctrl));
+        ctrl.chessground = makeChessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
       destroy: () => ctrl.chessground!.destroy(),
@@ -22,7 +24,7 @@ function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function (ev) {
     el.addEventListener(ev, handler);
   });
-  site.pubsub.on('board.change', (is3d: boolean) => {
+  pubsub.on('board.change', (is3d: boolean) => {
     ctrl.chessground!.state.addPieceZIndex = is3d;
     ctrl.chessground!.redrawAll();
   });
@@ -61,7 +63,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           ctrl.chessground.state.draggable.current.newPiece)
       )
         return;
-      const pos = util.eventPosition(e);
+      const pos = eventPosition(e);
       if (!pos) return;
       const key = ctrl.chessground!.getKeyAtDomPos(pos);
       if (!key) return;
@@ -74,7 +76,7 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           role: sel[1],
         };
         const samePiece =
-          existingPiece && piece.color == existingPiece.color && piece.role == existingPiece.role;
+          existingPiece && piece.color === existingPiece.color && piece.role === existingPiece.role;
 
         if ((e.type === 'mousedown' || e.type === 'touchstart') && samePiece) {
           deleteOrHidePiece(ctrl, key, e);
@@ -93,9 +95,9 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
         ctrl.chessground!.state.drawable.current = undefined;
         ctrl.chessground!.state.drawable.shapes = [];
 
-        if (e.type === 'contextmenu' && sel != 'trash') {
+        if (e.type === 'contextmenu' && sel !== 'trash') {
           ctrl.chessground!.cancelMove();
-          sel[0] = util.opposite(sel[0]);
+          sel[0] = opposite(sel[0]);
           ctrl.redraw();
         }
       }
@@ -139,7 +141,7 @@ function makeConfig(ctrl: EditorCtrl): CgConfig {
     },
     drawable: {
       enabled: true,
-      defaultSnapToValidMove: site.storage.boolean('arrow.snap').getOrDefault(true),
+      defaultSnapToValidMove: storage.boolean('arrow.snap').getOrDefault(true),
     },
     draggable: {
       showGhost: true,

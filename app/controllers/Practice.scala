@@ -15,11 +15,14 @@ final class Practice(
 
   private val api = env.practice.api
 
-  def index = Open:
-    pageHit
-    Ok.async:
-      api.get(ctx.me).map { views.practice.index(_) }
-    .map(_.noCache)
+  def index = OpenOrScoped(_.Web.Mobile):
+    negotiate(
+      html =
+        pageHit
+        Ok.async(api.get(ctx.me).map(views.practice.index)).map(_.noCache)
+      ,
+      json = api.get(ctx.me).map(lila.practice.JsonView.api).map(JsonOk)
+    )
 
   def show(sectionId: String, studySlug: String, studyId: StudyId) = Open:
     Found(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
@@ -72,7 +75,7 @@ final class Practice(
   private def analysisJson(us: UserStudy)(using Context): Fu[(JsObject, JsObject)] = us match
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
       for
-        studyJson <- env.study.jsonView(study, chapters, chapter, none, withMembers = false)
+        studyJson <- env.study.jsonView.full(study, chapter, chapters.some, none, withMembers = false)
         initialFen = chapter.root.fen.some
         pov        = userAnalysisC.makePov(initialFen, chapter.setup.variant)
         baseData = env.round.jsonView
@@ -92,7 +95,7 @@ final class Practice(
         analysisJson <- env.analyse.externalEngine.withExternalEngines(analysis)
       yield (analysisJson, studyJson)
 
-  def complete(chapterId: StudyChapterId, nbMoves: Int) = Auth { ctx ?=> me ?=>
+  def complete(chapterId: StudyChapterId, nbMoves: Int) = AuthOrScoped(_.Web.Mobile) { ctx ?=> me ?=>
     api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves)).inject(NoContent)
   }
 
@@ -114,7 +117,10 @@ final class Practice(
         renderAsync:
           api.structure.get.map(views.practice.config(_, err))
       } { text =>
-        (~api.config.set(text).toOption >>
-          env.mod.logApi.practiceConfig).andDo(api.structure.clear()).inject(Redirect(routes.Practice.config))
+        for
+          _ <- ~api.config.set(text).toOption
+          _ <- env.mod.logApi.practiceConfig
+          _ = api.structure.clear()
+        yield Redirect(routes.Practice.config)
       }
   }

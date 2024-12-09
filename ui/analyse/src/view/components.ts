@@ -1,16 +1,16 @@
 import { view as cevalView } from 'ceval';
-import { VNode } from 'snabbdom';
 import { parseFen } from 'chessops/fen';
 import { defined } from 'common';
 import * as licon from 'common/licon';
 import {
+  type VNode,
+  type VNodeKids,
+  type MaybeVNode,
   bind,
   bindNonPassive,
   onInsert,
   dataIcon,
-  VNodeKids,
   looseH as h,
-  MaybeVNode,
 } from 'common/snabbdom';
 import { playable } from 'game';
 import { bindMobileMousedown, isMobile } from 'common/device';
@@ -24,22 +24,24 @@ import { view as forkView } from '../fork';
 import renderClocks from './clocks';
 import * as control from '../control';
 import * as chessground from '../ground';
-import AnalyseCtrl from '../ctrl';
-import { ConcealOf } from '../interfaces';
+import type AnalyseCtrl from '../ctrl';
+import type { ConcealOf } from '../interfaces';
 import * as pgnExport from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import * as Prefs from 'common/prefs';
 import statusView from 'game/view/status';
-import { stepwiseScroll } from 'common/scroll';
+import { stepwiseScroll } from 'common/controls';
 import { renderNextChapter } from '../study/nextChapter';
 import { render as renderTreeView } from '../treeView/treeView';
 import * as gridHacks from './gridHacks';
 import { dispatchChessgroundResize } from 'common/resize';
 import serverSideUnderboard from '../serverSideUnderboard';
-import StudyCtrl from '../study/studyCtrl';
-import RelayCtrl from '../study/relay/relayCtrl';
+import type StudyCtrl from '../study/studyCtrl';
+import type RelayCtrl from '../study/relay/relayCtrl';
 import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
+import { storage } from 'common/storage';
+import { makeChat } from 'chat';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -96,10 +98,10 @@ export function renderMain(
         insert: vn => {
           const elm = vn.elm as HTMLElement;
           forceInnerCoords(ctrl, needsInnerCoords);
-          if (!!playerBars != document.body.classList.contains('header-margin')) {
+          if (!!playerBars !== document.body.classList.contains('header-margin')) {
             $('body').toggleClass('header-margin', !!playerBars);
           }
-          !hasRelayTour && makeChat(ctrl, c => elm.appendChild(c));
+          !hasRelayTour && makeChatEl(ctrl, c => elm.appendChild(c));
           gridHacks.start(elm);
         },
         update(_, _2) {
@@ -146,7 +148,7 @@ export function renderBoard({ ctrl, study, playerBars, playerStrips }: ViewConte
     addChapterId(study, 'div.analyse__board.main-board'),
     {
       hook:
-        'ontouchstart' in window || !site.storage.boolean('scrollMoves').getOrDefault(true)
+        'ontouchstart' in window || !storage.boolean('scrollMoves').getOrDefault(true)
           ? undefined
           : bindNonPassive(
               'wheel',
@@ -212,7 +214,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
             if (!defined(ctrl.fenInput)) {
               el.value = ctrl.node.fen;
               el.setCustomValidity('');
-            } else if (el.value != ctrl.fenInput) el.value = ctrl.fenInput;
+            } else if (el.value !== ctrl.fenInput) el.value = ctrl.fenInput;
           },
         },
       }),
@@ -232,7 +234,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
               el.addEventListener('input', () => (ctrl.pgnInput = el.value));
 
               el.addEventListener('keypress', (e: KeyboardEvent) => {
-                if (e.key != 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
+                if (e.key !== 'Enter' || e.shiftKey || e.ctrlKey || e.altKey || e.metaKey || isMobile())
                   return;
                 else if (changePgnIfDifferent()) e.preventDefault();
               });
@@ -255,7 +257,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
                 if (pgn !== pgnExport.renderFullTxt(ctrl)) ctrl.changePgn(pgn, true);
               }),
             },
-            ctrl.trans.noarg('importPgn'),
+            i18n.site.importPgn,
           ),
         h(
           'div.bottom-item.bottom-error',
@@ -270,8 +272,7 @@ export function renderInputs(ctrl: AnalyseCtrl): VNode | undefined {
 export function renderControls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    menuIsOpen = ctrl.actionMenu(),
-    noarg = ctrl.trans.noarg;
+    menuIsOpen = ctrl.actionMenu();
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -295,13 +296,13 @@ export function renderControls(ctrl: AnalyseCtrl) {
         ctrl.studyPractice
           ? [
               h('button.fbt', {
-                attrs: { title: noarg('analysis'), 'data-act': 'analysis', 'data-icon': licon.Microscope },
+                attrs: { title: i18n.site.analysis, 'data-act': 'analysis', 'data-icon': licon.Microscope },
               }),
             ]
           : [
               h('button.fbt', {
                 attrs: {
-                  title: noarg('openingExplorerAndTablebase'),
+                  title: i18n.site.openingExplorerAndTablebase,
                   'data-act': 'explorer',
                   'data-icon': licon.Book,
                 },
@@ -313,9 +314,10 @@ export function renderControls(ctrl: AnalyseCtrl) {
               ctrl.ceval.possible &&
                 ctrl.ceval.allowed() &&
                 !ctrl.isGamebook() &&
+                !ctrl.isEmbed &&
                 h('button.fbt', {
                   attrs: {
-                    title: noarg('practiceWithComputer'),
+                    title: i18n.site.practiceWithComputer,
                     'data-act': 'practice',
                     'data-icon': licon.Bullseye,
                   },
@@ -333,7 +335,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
         ? h('div.noop')
         : h('button.fbt', {
             class: { active: menuIsOpen },
-            attrs: { title: noarg('menu'), 'data-act': 'menu', 'data-icon': licon.Hamburger },
+            attrs: { title: i18n.site.menu, 'data-act': 'menu', 'data-icon': licon.Hamburger },
           }),
     ],
   );
@@ -358,9 +360,9 @@ function renderMoveList(ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: 
     } else if (ctrl.study) {
       const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
       if (!result || result === '*') return [];
-      if (result === '1-0') return render(result, [ctrl.trans.noarg('whiteIsVictorious')]);
-      if (result === '0-1') return render(result, [ctrl.trans.noarg('blackIsVictorious')]);
-      return render('½-½', [ctrl.trans.noarg('draw')]);
+      if (result === '1-0') return render(result, [i18n.site.whiteIsVictorious]);
+      if (result === '0-1') return render(result, [i18n.site.blackIsVictorious]);
+      return render('½-½', [i18n.site.draw]);
     }
     return [];
   }
@@ -383,15 +385,15 @@ export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
 export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
-export function makeChat(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
+export function makeChatEl(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
   if (ctrl.opts.chat) {
     const chatEl = document.createElement('section');
     chatEl.classList.add('mchat');
     insert(chatEl);
     const chatOpts = ctrl.opts.chat;
-    chatOpts.instance?.then(c => c.destroy());
+    chatOpts.instance?.destroy();
     chatOpts.enhance = { plies: true, boards: !!ctrl.study?.relay };
-    chatOpts.instance = site.makeChat(chatOpts);
+    chatOpts.instance = makeChat(chatOpts);
   }
 }
 
@@ -440,7 +442,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
+  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
 

@@ -70,6 +70,8 @@
   <string name="promoteVariation">Promuovi la variante</string>
   <string name="makeMainLine">Rendi questa la variante principale</string>
   <string name="deleteFromHere">Elimina da qui</string>
+  <string name="collapseVariations">Riduci varianti</string>
+  <string name="expandVariations">Espandi varianti</string>
   <string name="forceVariation">Mostra come variante</string>
   <string name="copyVariationPgn">Copia il PGN della variante</string>
   <string name="move">Mossa</string>
@@ -114,7 +116,6 @@
   <string name="replayMode">Modalità replay</string>
   <string name="realtimeReplay">In tempo reale</string>
   <string name="byCPL">Per CPL</string>
-  <string name="openStudy">Apri studio</string>
   <string name="enable">Abilita</string>
   <string name="bestMoveArrow">Freccia per la mossa migliore</string>
   <string name="showVariationArrows">Mostra le frecce delle varianti</string>
@@ -124,7 +125,6 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Analisi infinita</string>
   <string name="removesTheDepthLimit">Rimuove il limite di profondità di analisi, ma può surriscaldare il tuo computer</string>
-  <string name="engineManager">Gestore del motore</string>
   <string name="blunder">Errore grave</string>
   <string name="mistake">Errore</string>
   <string name="inaccuracy">Imprecisione</string>
@@ -178,6 +178,7 @@
   <string name="latestForumPosts">Ultimi interventi nel forum</string>
   <string name="players">Giocatori</string>
   <string name="friends">Amici</string>
+  <string name="otherPlayers">altri giocatori</string>
   <string name="discussions">Conversazioni</string>
   <string name="today">Oggi</string>
   <string name="yesterday">Ieri</string>
@@ -257,6 +258,7 @@
     <item quantity="one">%s giocate con te</item>
     <item quantity="other">%s giocate con te</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Annulla</string>
   <string name="whiteTimeOut">Il bianco ha esaurito il tempo</string>
   <string name="blackTimeOut">Il nero ha esaurito il tempo</string>
@@ -434,7 +436,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="block">Blocca</string>
   <string name="blocked">Bloccato</string>
   <string name="unblock">Sblocca</string>
-  <string name="followsYou">Ti segue</string>
   <string name="xStartedFollowingY">%1$s ha iniziato a seguire %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s lo segue</item>
@@ -466,9 +467,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="safeTournamentName">Scegli un nome appropriato per il torneo.</string>
   <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare l\'eliminazione del tuo account.</string>
   <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo con il nome di un giocatore famoso casuale.</string>
-  <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
-  <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
-  <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
   <string name="makePrivateTournament">Rendi privato il torneo e limita l\'accesso con una password</string>
   <string name="join">Unisciti</string>
   <string name="withdraw">Ritirati</string>
@@ -508,8 +506,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="ifNoneLeaveEmpty">Se nessuno, lasciare vuoto</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Modifica profilo</string>
-  <string name="firstName">Nome</string>
-  <string name="lastName">Cognome</string>
+  <string name="realName">Nome reale</string>
   <string name="setFlair">Imposta la tua icona</string>
   <string name="flair">Icona</string>
   <string name="youCanHideFlair">Esiste un\'impostazione per nascondere le icone di tutti gli utenti, sull\'intero sito.</string>
@@ -540,6 +537,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="descPrivateHelp">Il testo che solo i membri del team vedranno. Se impostato sostituisce la descrizione pubblica per i membri del team.</string>
   <string name="no">No</string>
   <string name="yes">Sì</string>
+  <string name="website">Sito</string>
+  <string name="mobile">Cellulare</string>
   <string name="help">Aiuto:</string>
   <string name="createANewTopic">Crea una nuova discussione</string>
   <string name="topics">Discussioni</string>
@@ -556,11 +555,11 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">Qual è il problema?</string>
   <string name="cheat">Imbrogli</string>
-  <string name="insult">Insulti</string>
   <string name="troll">Provocazioni</string>
-  <string name="ratingManipulation">Manipolazione del rating</string>
   <string name="other">Altro</string>
-  <string name="reportDescriptionHelp">Incolla il link della partita/e e spiega cosa non va con questo giocatore. Non dire soltanto \"ha imbrogliato\", ma specifica come sei arrivato a questa conclusione. Il tuo report verrà processato più velocemente se scritto in lingua inglese.</string>
+  <string name="reportCheatBoostHelp">Incolla il link della partita(o partite) e spiega cosa non va sul comportamento di questo utente. Non dire solamente \"ha barato\", ma invece dici come sei arrivato a questa conclusione.</string>
+  <string name="reportUsernameHelp">Spiegaci cosa vi è di offensivo in questo nome utente. Non dire solamente \"è offensivo/inappopriato\", ma invece dici come sei arrivato a questa conclusione, soprattutto se l\'insulto è offuscato, non in inglese, in linguaggio giovanile, oppure se è un riferimento storico/culturale.</string>
+  <string name="reportProcessedFasterInEnglish">La tua segnalazione sarà processata più velocemente se scritta in Inglese.</string>
   <string name="error.provideOneCheatedGameLink">Si prega di fornire almeno un collegamento link di una partita in cui il giocatore ha imbrogliato.</string>
   <string name="by">di %s</string>
   <string name="importedByX">Importato da %s</string>
@@ -593,6 +592,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="slow">Lenta</string>
   <string name="insideTheBoard">Dentro la scacchiera</string>
   <string name="outsideTheBoard">Fuori la scacchiera</string>
+  <string name="allSquaresOfTheBoard">Su tutte le case della scacchiera</string>
   <string name="onSlowGames">Nelle partite lente</string>
   <string name="always">Sempre</string>
   <string name="never">Mai</string>
@@ -679,7 +679,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="aboutSimulRules">Quando la simultanea comincia, ogni giocatore comincia una partita con il simultaneista, il quale gioca con i pezzi bianchi. La simultanea finisce quando sono finite tutte le partite.</string>
   <string name="aboutSimulSettings">Le simultanee sono sempre amichevoli. Rivincite, ritiri di mossa e aggiunte di tempo sono disabilitate.</string>
   <string name="create">Crea</string>
-  <string name="whenCreateSimul">Quando crei una simultanea, giochi contro diversi avversari contemporaneamente.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quando crei una simultanea, giochi contro diversi avversari contemporaneamente.</string>
   <string name="simulVariantsHint">Se selezioni più varianti, ogni giocatore può scegliere quale giocare.</string>
   <string name="simulClockHint">Modello Fischer Clock. Più giocatori sfidi, più tempo ti potrebbe servire.</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
@@ -994,4 +994,5 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
 Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
+  <string name="stats">Statistiche</string>
 </resources>

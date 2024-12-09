@@ -7,7 +7,7 @@
   <string name="enterPassword">Insere a tua palavra-passe e o código de autenticação gerado pela aplicação para concluir a configuração. Precisarás de um código de autenticação por cada vez que iniciares sessão.</string>
   <string name="ifYouCannotScanEnterX">Se não consegues fazer scan do código, insere o código %s na tua aplicação.</string>
   <string name="authenticationCode">Código de autenticação</string>
-  <string name="ifYouLoseAccessTwoFactor">Nota: Se perderes acesso aos teus códigos de autenticação de dois fatores, podes fazer %s via e-mail.</string>
+  <string name="ifYouLoseAccessTwoFactor" comment="%s is &quot;Password reset&quot;.">Nota: Se perderes acesso aos teus códigos de autenticação de dois fatores, podes fazer %s via e-mail.</string>
   <string name="enableTwoFactor">Ativar a autenticação de dois fatores</string>
   <string name="disableTwoFactor">Desativar a autenticação de dois fatores</string>
   <string name="twoFactorEnabled">Autenticação de dois fatores ativada</string>

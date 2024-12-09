@@ -137,4 +137,7 @@
   <string name="deleteTheStudyChatHistory">Dilemel an istor-flapañ? Hep distro e vo!</string>
   <string name="deleteStudy">Dilemel ar studiadenn</string>
   <string name="whereDoYouWantToStudyThat">Pelec\'h ho peus c\'hoant da studiañ se?</string>
+  <string name="goodMove">Fiñvadenn vat</string>
+  <string name="mistake">Fazi</string>
+  <string name="blunder">Bourd</string>
 </resources>

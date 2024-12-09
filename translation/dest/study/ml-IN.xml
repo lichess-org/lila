@@ -15,6 +15,7 @@
   <string name="dateAddedOldest">ചേർത്ത തീയതി (പഴയത്)</string>
   <string name="recentlyUpdated">സമീപകാലത്തു പുതുക്കിയത്</string>
   <string name="mostPopular">ഏറ്റവും ജനകീയമായത്</string>
+  <string name="alphabetical">അക്ഷരക്രമത്തിലുള്ള</string>
   <string name="addNewChapter">പുതിയ അധ്യായം തുടങ്ങുക</string>
   <plurals name="nbChapters">
     <item quantity="one">%s അധ്യായം</item>
@@ -40,6 +41,7 @@
   <string name="youAreNowASpectator">നിങ്ങള്‍ ഇപ്പോള്‍ ഒരു കാണിയാണ്</string>
   <string name="pgnTags">PGN ടാഗുകൾ</string>
   <string name="like">ലൈക്ക്</string>
+  <string name="unlike">ഇഷ്ടപെട്ടില്ല</string>
   <string name="newTag">പുതിയ ടാഗ്</string>
   <string name="commentThisPosition">ഈ പൊസിഷനു കമന്റ് ചെയ്യുക</string>
   <string name="commentThisMove">ഈ നീക്കം കമന്റ് ചെയ്യുക</string>
@@ -51,6 +53,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">എല്ലാ sync ചെയ്ത അംഗങ്ങളും ഒരേ പൊസിഷനിൽ സ്ഥിതി ചെയ്യുക</string>
   <string name="shareChanges">മാറ്റങ്ങൾ സെർവറിൽ സേവ് ചെയ്ത് അവ കാണികൾക്ക് പങ്കുവെക്കുക</string>
   <string name="playing">കളിക്കുന്നു</string>
+  <string name="showEvalBar">വിലയിരുത്തൽ വരികൾ</string>
   <string name="first">ഒന്നാമത്തെ</string>
   <string name="previous">മുൻപുള്ള</string>
   <string name="next">അടുത്തത്</string>
@@ -60,6 +63,7 @@
   <string name="studyPgn">PGN പഠിക്കുക</string>
   <string name="downloadAllGames">എല്ലാ ഗെയിമും ഡൌണ്‍ലോഡ് ചെയ്യുക</string>
   <string name="chapterPgn">PGN പാഠം</string>
+  <string name="copyChapterPgn">PGN പകർത്തുക</string>
   <string name="downloadGame">ഗെയിം ഡൌണ്‍ലോഡ് ചെയ്യുക</string>
   <string name="studyUrl">URL പഠിക്കുക</string>
   <string name="currentChapterUrl">നിലവിലുള്ള പാഠത്തിന്റെ URL</string>
@@ -70,6 +74,7 @@
   <string name="studyNotFound">പാഠം കണ്ടെത്തിയില്ല</string>
   <string name="editChapter">പാഠം തിരുത്തുക</string>
   <string name="newChapter">പുതിയ അദ്ധ്യായം</string>
+  <string name="importFromChapterX">%s-നിന്ന് ഇറക്കുമതിക്കുക</string>
   <string name="orientation">വിന്യാസം</string>
   <string name="analysisMode">പരിശോധന മോഡ്</string>
   <string name="pinnedChapterComment">അധ്യായത്തിലെ കമന്റ് പിൻ ചെയ്യുക</string>
@@ -120,4 +125,33 @@
   <string name="clearChat">ചാറ്റ് അപ്രത്യക്ഷമാക്കുക</string>
   <string name="deleteTheStudyChatHistory">അധ്യായത്തിന്റെ ചാറ്റ് ഹിസ്റ്ററി നീക്കം ചെയ്യണോ? പിന്നെ തിരിച്ചു പോകാൻ പറ്റില്ല!</string>
   <string name="deleteStudy">പഠനം നീക്കം ചെയ്യുക</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">മൊത്തം പഠനം കളയണോ? ഇതിൽ നിന്ന് തിരിച്ച് പേവ്വാൻ ഒക്കത്തില്ല! ഉറപ്പിക്കാൻ ഈ പഠനത്തിന്റെ പേര് എഴുത്തുക: %s</string>
+  <string name="whereDoYouWantToStudyThat">താങ്ങൾക്കു് ഇതു് എവിടേ പഠിക്കണം?</string>
+  <string name="goodMove">നല്ല നീക്കം</string>
+  <string name="mistake">തെറ്റു്</string>
+  <string name="brilliantMove">വളരെ നല്ല നീക്കം</string>
+  <string name="blunder">അബദ്ധം</string>
+  <string name="interestingMove">താൽപര്യമുണർത്തുന്ന നീക്കം</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">ചഞ്ചലമായ നീക്കം</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">ഒറ്റ നീക്കം</string>
+  <string name="equalPosition">ഒരുപോലെയുള്ള കരുനില</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">അവ്യക്തമായ കരുനില</string>
+  <string name="whiteIsWinning">വെള്ള കളിക്കാരൻ ജയിക്കുന്നു</string>
+  <string name="blackIsWinning">കറുത്ത കളിക്കാരൻ ജയിക്കുന്നു</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">പുതുമ</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">വികസനം</string>
+  <string name="initiative">മുൻകൈയെടുക്കൽ</string>
+  <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">കയ്യേറ്റം</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">പ്രത്യാക്രമണം</string>
+  <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">നഷ്ടപരിഹാരം കൂടേ</string>
+  <string name="nextChapter">അടുത്ത പാഠം</string>
+  <string name="prevChapter">കഴിഞ്ഞ പാഠം</string>
+  <string name="topics">വിശയങ്ങൾ</string>
+  <string name="myTopics">എന്റെ വിശയങ്ങൾ</string>
+  <string name="popularTopics">ജനപ്രീയമായ വിശയങ്ങൾ</string>
+  <string name="manageTopics">വിശയങ്ങൾ നിയന്ത്രക്കുക</string>
+  <string name="back">തിരിച്ച്</string>
+  <string name="playAgain">പിന്നേയും കളിക്കുക</string>
+  <string name="whatWouldYouPlay">താങ്ങൾ ഈ കരുനിലയിൽ എന്ത് ചെയ്യും?</string>
+  <string name="youCompletedThisLesson">അഭിനന്ദനങ്ങൾ! താങ്ങൾ ഈ പാഠം പൂർത്തീകരിച്ചിരിക്കുന്നു.</string>
 </resources>

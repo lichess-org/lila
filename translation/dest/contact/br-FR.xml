@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Penaos e c\'hellomp ho sikour?</string>
   <string name="visitThisPage">Kit war ar pajenn-mañ da zirouestlañ ho kudenn</string>
   <string name="iCantLogIn">Ne c\'hallan ket kevreañ</string>
-  <string name="noConfirmationEmail">N\'em eus ket resevet postel ebet evit kadarnat</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">N\'em eus ket resevet postel ebet evit kadarnat</string>
   <string name="forgotPassword">Disoñjet em eus ma ger-tremen</string>
   <string name="forgotUsername">Disoñjet em eus ma anv-implijer</string>
   <string name="youCanLoginWithEmail">Gallout a rit kevreañ gant ar chomlec\'h postel arveret ganeoc\'h evit lakaat hoc\'h anv</string>
@@ -28,7 +28,6 @@
   <string name="noRatingPoints">Poent renkadur ebet zo bet roet</string>
   <string name="ratedGame">Bezit sur ho peus kemeret perzh en ur c\'hrogad renket rak ar c\'hrogadoù a vignoniezh ne cheñchont ket renkadur ar c\'hoarierien.</string>
   <string name="errorPage">Pajenn fazi</string>
-  <string name="wantBroadcastTournament">Fellout a ra din skignañ un tournamant</string>
   <string name="sendAppealTo">Galv a c\'hallit ober: %s.</string>
   <string name="doNotDeny">Arabat nac\'hañ bezañ truchet. Ma fell deoc\'h bezañ aotreet da grouiñ ur gont nevez eo gwelloc\'h deoc\'h anzav ar pezh az peus graet ha kompren pegen fall e oa.</string>
   <string name="buyingLichess">Prenañ Lichess</string>

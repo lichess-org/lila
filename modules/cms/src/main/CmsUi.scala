@@ -2,13 +2,12 @@ package lila.cms
 package ui
 
 import play.api.data.Form
-import play.api.libs.json.*
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.id.CmsPageId
-import lila.core.id.CmsPageKey
 import lila.cms.CmsForm.CmsPageData
+import lila.core.id.{ CmsPageId, CmsPageKey }
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   import helpers.{ *, given }
@@ -55,7 +54,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
   private def layout(title: String)(mods: AttrPair*)(using Context) =
     Page(title)
       .css("bits.cms")
-      .js(EsmInit("bits.cms"))
+      .js(Esm("bits.cms"))
       .wrap: body =>
         main(cls := "page-menu")(menu, div(cls := "page-menu__content cms box")(mods)(body))
 
@@ -144,7 +143,7 @@ final class CmsUi(helpers: Helpers)(menu: Context ?=> Frag):
           inForm(form, none)
         ,
         postForm(action := routes.Cms.delete(page.id))(cls := "cms__delete"):
-          submitButton(cls := "button button-red button-empty confirm")("Delete")
+          submitButton(cls := "button button-red button-empty yes-no-confirm")("Delete")
       )
 
   private def inForm(form: Form[CmsPageData], key: Option[CmsPageKey])(using Context) =

@@ -70,8 +70,8 @@
   <string name="promoteVariation">Forfrem variant</string>
   <string name="makeMainLine">Gjør til hovedvariant</string>
   <string name="deleteFromHere">Slett herfra</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">Skjul varianter</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">Vis varianter</string>
+  <string name="collapseVariations">Skjul varianter</string>
+  <string name="expandVariations">Vis varianter</string>
   <string name="forceVariation">Vis som variant</string>
   <string name="copyVariationPgn">Kopier variant-PGN</string>
   <string name="move">Trekk</string>
@@ -116,7 +116,6 @@
   <string name="replayMode">Gjennomspilling</string>
   <string name="realtimeReplay">Sanntid</string>
   <string name="byCPL">Etter CBT</string>
-  <string name="openStudy">Åpne studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
@@ -126,7 +125,6 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Uendelig analyse</string>
   <string name="removesTheDepthLimit">Fjerner dybdebegrensning, og holder maskinen din varm</string>
-  <string name="engineManager">Innstillinger for sjakkmotorer</string>
   <string name="blunder">Bukk</string>
   <string name="mistake">Feil</string>
   <string name="inaccuracy">Unøyaktighet</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Nyeste foruminnlegg</string>
   <string name="players">Spillere</string>
   <string name="friends">Venner</string>
+  <string name="otherPlayers">andre spillere</string>
   <string name="discussions">Samtaler</string>
   <string name="today">I dag</string>
   <string name="yesterday">I går</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s partier mot deg</item>
     <item quantity="other">%s partier mot deg</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Tiden er ute for hvit</string>
   <string name="blackTimeOut">Tiden er ute for svart</string>
@@ -435,7 +435,6 @@
   <string name="block">Blokker</string>
   <string name="blocked">Blokkert</string>
   <string name="unblock">Fjern blokkering</string>
-  <string name="followsYou">Følger deg</string>
   <string name="xStartedFollowingY">%1$s begynte å følge %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s følger</item>
@@ -467,9 +466,6 @@
   <string name="safeTournamentName">Velg et veldig trygt navn for turneringen.</string>
   <string name="inappropriateNameWarning">Upassende innhold kan føre til at brukerkontoen din blir stengt.</string>
   <string name="emptyTournamentName">La stå tomt for at turneringa skal få navn etter en tilfeldig stormester.</string>
-  <string name="recommendNotTouching">Vi anbefaler å ikke endre disse.</string>
-  <string name="fewerPlayers">Om du stiller betingelser for å delta vil turneringa få færre deltakere.</string>
-  <string name="showAdvancedSettings">Vis avanserte innstillinger</string>
   <string name="makePrivateTournament">Gjør turneringen privat og begrens tilgang med et passord</string>
   <string name="join">Bli med</string>
   <string name="withdraw">Trekk deg</string>
@@ -509,8 +505,7 @@
   <string name="ifNoneLeaveEmpty">Hvis ingen, la stå tom</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Rediger profil</string>
-  <string name="firstName">Fornavn</string>
-  <string name="lastName">Etternavn</string>
+  <string name="realName">Virkelig navn</string>
   <string name="setFlair">Velg flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finnes en innstilling for å skjule alle brukerflairer på hele nettstedet.</string>
@@ -541,6 +536,8 @@
   <string name="descPrivateHelp">Tekst som lagmedlemmene ser i stedet for den offentlige beskrivelsen.</string>
   <string name="no">Nei</string>
   <string name="yes">Ja</string>
+  <string name="website">Nettsted</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hjelp:</string>
   <string name="createANewTopic">Opprett nytt emne</string>
   <string name="topics">Emner</string>
@@ -557,11 +554,11 @@
   <string name="reason">Årsak</string>
   <string name="whatIsIheMatter">Hva gjelder det?</string>
   <string name="cheat">Juks</string>
-  <string name="insult">Fornærmelse</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Ratingmanipulering</string>
   <string name="other">Annet</string>
-  <string name="reportDescriptionHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel.</string>
+  <string name="reportCheatBoostHelp">Kopier lenken til partiet/partiene og forklar hva som er galt med denne brukerens oppførsel. Skriv en utdypende begrunnelse, ikke bare «vedkommende jukser».</string>
+  <string name="reportUsernameHelp">Forklar hvorfor brukernavnet er støtende. Skriv en utdypende begrunnelse, ikke bare «det er støtende/upassende». Dette gjelder særlig hvis fornærmelsen er tilslørt, ikke er på engelsk, er et slanguttrykk eller er en historisk/kulturell referanse.</string>
+  <string name="reportProcessedFasterInEnglish">Rapporten din blir behandlet raskere hvis den er skrevet på engelsk.</string>
   <string name="error.provideOneCheatedGameLink">Oppgi minst én lenke til et jukseparti.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importert av %s</string>
@@ -594,6 +591,7 @@
   <string name="slow">Sakte</string>
   <string name="insideTheBoard">Innenfor brettet</string>
   <string name="outsideTheBoard">Utenfor brettet</string>
+  <string name="allSquaresOfTheBoard">Alle felt på brettet</string>
   <string name="onSlowGames">På lange partier</string>
   <string name="always">Alltid</string>
   <string name="never">Aldri</string>
@@ -680,7 +678,7 @@
   <string name="aboutSimulRules">Når simultanen begynner, starter hver spiller et parti med verten. Simultanen avsluttes når alle partiene er ferdige.</string>
   <string name="aboutSimulSettings">Simultaner er alltid uformelle. Omkamper, angring og ekstra tid er ikke lov.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
   <string name="simulVariantsHint">Hvis du velger flere varianter får hver spiller anledning til å velge hvilken de vil spille.</string>
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>
@@ -995,4 +993,5 @@ La feltet stå tomt for å begynne partiene fra den normale utgangsstillingen.</
   <string name="lichessPatronInfo">Lichess er en ideell forening, basert på fri programvare med åpen kildekode.
 Alle kostnader for drift, utvikling og innhold finansieres utelukkende av brukerbidrag.</string>
   <string name="nothingToSeeHere">Ingenting her for nå.</string>
+  <string name="stats">Statistikk</string>
 </resources>

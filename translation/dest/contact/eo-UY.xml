@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Kiel ni povas helpi vin?</string>
   <string name="visitThisPage">Vizitu ĉi tiun paĝon por solvi la problemon</string>
   <string name="iCantLogIn">Mi ne povas ensaluti</string>
-  <string name="noConfirmationEmail">Mi ne ricevis mian konfirman retpoŝton</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Mi ne ricevis mian konfirman retpoŝton</string>
   <string name="forgotPassword">Mi forgesis mian pasvorton</string>
   <string name="forgotUsername">Mi forgesis mian uzantnomo</string>
   <string name="youCanLoginWithEmail">Vi povas ensaluti per la retpoŝta adreso, kiun vi uzis</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">En certaj cirkonstancoj kiam ludanta kontraŭ robotkonto, ranga ludo eble ne aljuĝas poentojn se estas determinite ke la ludanto misuzas la roboton por rangaj poentoj.</string>
   <string name="errorPage">Erara paĝo</string>
   <string name="reportErrorPage">Se vi trovas eraran paĝon, vi povas raporti ĝin:</string>
-  <string name="wantBroadcastTournament">Mi volas elsendi turniron</string>
   <string name="learnHowToMakeBroadcasts">Lerni kiel fari viajn proprajn elsendojn ĉe Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Vi ankaŭ povas kontakti la elsendan teamon pri oficialaj elsendoj.</string>
   <string name="banAppeal">Apelacio por malpermeso aŭ IP limigo</string>
   <string name="engineAppeal">Motoro aŭ trompmarko</string>
   <string name="sendAppealTo">Vi povas sendi apelacion al %s.</string>

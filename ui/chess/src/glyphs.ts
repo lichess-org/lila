@@ -1,5 +1,5 @@
 import { parseUci, makeSquare, squareRank } from 'chessops/util';
-import { DrawShape } from 'chessground/draw';
+import type { DrawShape } from 'chessground/draw';
 
 export function annotationShapes(node: Tree.Node): DrawShape[] {
   const { uci, glyphs, san } = node;
@@ -11,8 +11,8 @@ export function annotationShapes(node: Tree.Node): DrawShape[] {
           ? 'c1'
           : 'g1'
         : san.startsWith('O-O-O')
-        ? 'c8'
-        : 'g8'
+          ? 'c8'
+          : 'g8'
       : makeSquare(move.to);
     const symbol = glyphs[0].symbol;
     const prerendered = glyphToSvg[symbol];
@@ -21,17 +21,12 @@ export function annotationShapes(node: Tree.Node): DrawShape[] {
         orig: destSquare,
         brush: prerendered ? '' : undefined,
         customSvg: prerendered ? { html: prerendered } : undefined,
-        label: prerendered ? undefined : { text: symbol, fill: fills[symbol] || 'purple' },
+        label: prerendered ? undefined : { text: symbol, fill: 'purple' },
         // keep some purple just to keep feedback forum on their toes
       },
     ];
   } else return [];
 }
-
-const fills: { [key: string]: string } = {
-  '✓': '#168226',
-  '✗': '#df5353',
-};
 
 // We can render glyphs as text, but people are used to these SVGs as the "Big 5" glyphs
 // and right now they look better
@@ -79,5 +74,17 @@ const glyphToSvg: Dictionary<string> = {
   '!!': prependDropShadow(`
   <circle style="fill:#168226;filter:url(#shadow)" cx="50" cy="50" r="50" />
   <path fill="#fff" d="M71.967 62.349h-9.75l-2.049-39.083h13.847zM60.004 76.032q0-3.77 2.049-5.244 2.048-1.557 4.998-1.557 2.867 0 4.916 1.557 2.048 1.475 2.048 5.244 0 3.605-2.048 5.244-2.049 1.556-4.916 1.556-2.95 0-4.998-1.556-2.049-1.64-2.049-5.244zM37.967 62.349h-9.75l-2.049-39.083h13.847zM26.004 76.032q0-3.77 2.049-5.244 2.048-1.557 4.998-1.557 2.867 0 4.916 1.557 2.048 1.475 2.048 5.244 0 3.605-2.048 5.244-2.049 1.556-4.916 1.556-2.95 0-4.998-1.556-2.049-1.64-2.049-5.244z" vector-effect="non-scaling-stroke"/>
+`),
+
+  // Correct move in a puzzle
+  '✓': prependDropShadow(`
+  <circle style="fill:#22ac38;filter:url(#shadow)" cx="50" cy="50" r="50" />
+  <path fill="#fff" d="M87 32.8q0 2-1.4 3.2L51 70.6 44.6 77q-1.7 1.3-3.4 1.3-1.8 0-3.1-1.3L14.3 53.3Q13 52 13 50q0-2 1.3-3.2l6.4-6.5Q22.4 39 24 39q1.9 0 3.2 1.3l14 14L72.7 23q1.3-1.3 3.2-1.3 1.6 0 3.3 1.3l6.4 6.5q1.3 1.4 1.3 3.4z"/>
+`),
+
+  // Incorrect move in a puzzle
+  '✗': prependDropShadow(`
+  <circle style="fill:#df5353;filter:url(#shadow)" cx="50" cy="50" r="50" />
+  <path fill="#fff" d="M79.4 68q0 1.8-1.4 3.2l-6.7 6.7q-1.4 1.4-3.5 1.4-1.9 0-3.3-1.4L50 63.4 35.5 78q-1.4 1.4-3.3 1.4-2 0-3.5-1.4L22 71.2q-1.4-1.4-1.4-3.3 0-1.7 1.4-3.5L36.5 50 22 35.4Q20.6 34 20.6 32q0-1.7 1.4-3.5l6.7-6.5q1.2-1.4 3.5-1.4 2 0 3.3 1.4L50 36.6 64.5 22q1.2-1.4 3.3-1.4 2.3 0 3.5 1.4l6.7 6.5q1.4 1.8 1.4 3.5 0 2-1.4 3.3L63.5 49.9 78 64.4q1.4 1.8 1.4 3.5z"/>
 `),
 };

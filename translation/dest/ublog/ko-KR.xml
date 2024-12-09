@@ -30,7 +30,7 @@
   <string name="xPublishedY">%1$s님이 %2$s를 게시했습니다.</string>
   <string name="thisPostIsPublished">게시물이 게시되었습니다.</string>
   <string name="thisIsADraft">임시저장입니다</string>
-  <string name="moreBlogPostsBy">더 많은 %s의 글</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">더 많은 %s의 글</string>
   <string name="noPostsInThisBlogYet">이 블로그에는 아직 글이 없습니다.</string>
   <string name="noDrafts">임시저장된 글이 없습니다.</string>
   <string name="latestBlogPosts">최근 블로그 글</string>
@@ -41,7 +41,6 @@
   <string name="imageAlt">이미지 대체 텍스트</string>
   <string name="imageCredit">이미지 저작권</string>
   <string name="deleteBlog">이 블로그 게시물 완전히 삭제하기</string>
-  <string name="deleteImage">이미지를 삭제하기</string>
   <string name="safeToUseImages">다음 웹사이트의 이미지를 사용하는 것이 안전합니다: </string>
   <string name="selectPostTopics">게시물의 주제를 선택하세요</string>
   <string name="useImagesYouMadeYourself">직접 만든 이미지, 직접 찍은 사진, 라이선스 스크린샷 등 다른 사람이 저작권을 가지고 있지 않은 모든 것을 사용할 수도 있습니다.</string>

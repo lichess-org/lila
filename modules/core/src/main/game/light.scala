@@ -1,18 +1,20 @@
 package lila.core
 package game
 
-import _root_.chess.{ Color, Status }
+import _root_.chess.{ Color, Status, IntRating }
+import _root_.chess.variant.Variant
+import _root_.chess.rating.{ IntRatingDiff, RatingProvisional }
 
-import lila.core.id.{ GameId, GameFullId, GamePlayerId }
+import lila.core.id.GameId
 import lila.core.userId.UserId
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 
 case class LightGame(
     id: GameId,
     whitePlayer: LightPlayer,
     blackPlayer: LightPlayer,
     status: Status,
-    win: Option[Color]
+    win: Option[Color],
+    variant: Variant
 ):
   def playable                                            = status < Status.Aborted
   def player(color: Color): LightPlayer                   = color.fold(whitePlayer, blackPlayer)

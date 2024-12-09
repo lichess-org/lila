@@ -54,4 +54,13 @@
     <item quantity="one">fa %s anyo</item>
     <item quantity="other">fa %s anyos</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">Queda %s minutos</item>
+    <item quantity="other">Queda %s minutos</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">Queda %s horas</item>
+    <item quantity="other">Queda %s horas</item>
+  </plurals>
+  <string name="completed">completau</string>
 </resources>

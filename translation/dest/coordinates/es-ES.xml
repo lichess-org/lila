@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Entrenar coordenadas</string>
   <string name="averageScoreAsWhiteX">Puntuación media con blancas: %s</string>
   <string name="averageScoreAsBlackX">Puntuación media con negras: %s</string>
-  <string name="knowingTheChessBoard">Conocer las coordenadas de los escaques es esencial en el ajedrez:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Conocer las coordenadas de los escaques es esencial en el ajedrez:</string>
   <string name="mostChessCourses">La mayoría de los cursos y ejercicios de ajedrez usan la notación algebraica.</string>
   <string name="talkToYourChessFriends">Facilita la comunicación con otros jugadores, que también hablan el \"lenguaje del ajedrez\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Puedes analizar partidas de forma más eficiente si no tienes que andar buscando los nombres de los escaques.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">¡Tienes 30 segundos para marcar correctamente tantas casillas como sea posible!</string>
   <string name="goAsLongAsYouWant">¡Tómate todo el tiempo que quieras, no hay límite de tiempo!</string>
   <string name="showCoordinates">Mostrar coordenadas</string>
-  <string name="showCoordsOnAllSquares">Coordenadas en cada casilla</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordenadas en cada casilla</string>
   <string name="showPieces">Mostrar piezas</string>
   <string name="startTraining">Comenzar entrenamiento</string>
   <string name="findSquare">Encontrar casilla</string>

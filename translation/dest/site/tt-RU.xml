@@ -95,7 +95,6 @@
   <string name="replayMode">Кабат карау</string>
   <string name="realtimeReplay">Чын вакытта</string>
   <string name="byCPL">Хаталар буенча</string>
-  <string name="openStudy">Өйрәнүне ачу</string>
   <string name="enable">Кабызылган</string>
   <string name="bestMoveArrow">Иң яхшы йөрүне күрсәтү</string>
   <string name="evaluationGauge">Бәяләу шкаласы</string>
@@ -339,7 +338,6 @@
   <string name="block">Блоклау</string>
   <string name="blocked">Блокланган</string>
   <string name="unblock">Блоктан чыгару</string>
-  <string name="followsYou">Сезгә язылган</string>
   <string name="xStartedFollowingY">%1$s %2$s исемле уенчыга язылган</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s язылучы</item>
@@ -368,9 +366,6 @@
   <string name="safeTournamentName">Бәйге өчен хуп имин исем куегыз.</string>
   <string name="inappropriateNameWarning">Әз генә дә килешми торган исем аккаунтыгызның ябылуына китерә ала.</string>
   <string name="emptyTournamentName">Бәйгегә берәр атаклы шаһматчының исемен бирү өчен буш калдырыгыз.</string>
-  <string name="recommendNotTouching">Боларны тимәскә кинәш итәбез.</string>
-  <string name="fewerPlayers">Бәйгегә керү тәлапләрен куйсагыз, уенчылар саны әзрәк булыр.</string>
-  <string name="showAdvancedSettings">Кушылма көйләүләрне күрсәтү</string>
   <string name="makePrivateTournament">Бәйгегә серсүз буенча гына керү куя аласыз</string>
   <string name="join">Катнашу</string>
   <string name="withdraw">Уеннан чыгу</string>
@@ -407,8 +402,6 @@
   <string name="ifNoneLeaveEmpty">Булмаса, буш калдырыгыз</string>
   <string name="profile">Профиль</string>
   <string name="editProfile">Профильны үзгәртү</string>
-  <string name="firstName">Исем</string>
-  <string name="lastName">Фамилия</string>
   <string name="biography">Үзең турында</string>
   <string name="thankYou">Рәхмәт!</string>
   <string name="socialMediaLinks">Социаль медиа сылтамалары</string>
@@ -430,6 +423,8 @@
   <string name="descPrivateHelp">Язма төркемле уенчыларга гына күренә ала. Әгәр куйсагыз, алыштырсагыз төркем әгъзалары өчен җәмәгать тасвирламасын.</string>
   <string name="no">Юк</string>
   <string name="yes">Әйе</string>
+  <string name="website">Веб-сайт</string>
+  <string name="mobile">Мобиль</string>
   <string name="help">Булышу:</string>
   <string name="createANewTopic">Яңа сәрхаү ачу</string>
   <string name="topics">Сәрхәү</string>
@@ -446,11 +441,8 @@
   <string name="reason">Сәбаб</string>
   <string name="whatIsIheMatter">Нәрсә булды?</string>
   <string name="cheat">Алдамак</string>
-  <string name="insult">Хурламак</string>
   <string name="troll">Троль</string>
-  <string name="ratingManipulation">Рейтинг белән уйнамак</string>
   <string name="other">Бүтән</string>
-  <string name="reportDescriptionHelp">Уен(нар) сылтамаларын кертегез һәм бу кулланучының тәртибендә дөрес булмаганны аңлатыгыз. \"Алдакчы\" дип кенә әйтмәгез, бу нәтиҗәгә ничек килгәнегезне әйтегез. Сезнең җибәрүегез инглизчә язылган очракта тизрәк эшкәртеләчәк.</string>
   <string name="error.provideOneCheatedGameLink">Зинһар, алданган уенга ким дигәндә бер сылтама бирегез.</string>
   <string name="by">%sдан</string>
   <string name="thisTopicIsNowClosed">Бу сәрхәү хәзер ябык.</string>
@@ -551,7 +543,7 @@
   <string name="aboutSimulRules">Берүк башлаганда һәр бер уенчы алып баручы белән уенны уенны башлады. Берүк барча уеннар тутаганнан соң туктый.</string>
   <string name="aboutSimulSettings">Берүк һаманда рәсми түгел. Кайтаргыч уеннар, кайтарып алулар һәм вакыт өстәү мәгакъ.</string>
   <string name="create">Ячарга</string>
-  <string name="whenCreateSimul">Качанда сез Берүк ачканда, сезгә уйнау өчен берничә уенчы тугры киләдер.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Качанда сез Берүк ачканда, сезгә уйнау өчен берничә уенчы тугры киләдер.</string>
   <string name="simulVariantsHint">Әгәр сез берничә вариантны сайласагыз, һәр уйнаучы сайлый ала берне уйнау өчен.</string>
   <string name="simulClockHint">Фишер Сәгатен үзләштерү. Күбрәк уенчыларны кабул кылсагыз, сезгә кубрәк вакыт кирәк буласы мөмкин.</string>
   <string name="simulAddExtraTime">Берүктә җиңәр өчен сезгә сәгатькә кушымча вакыт кушышсагыз мөмкин.</string>
@@ -639,6 +631,9 @@
   <string name="dark">Караңгы</string>
   <string name="transparent">Үтә күренмәле</string>
   <string name="backgroundImageUrl">Арткы караныш рәсеме URL:</string>
+  <string name="board">Такта</string>
+  <string name="size">Үлчәм</string>
+  <string name="opacity">Тоныклык</string>
   <string name="pieceSet">Эйберлэр</string>
   <string name="embedInYourWebsite">Веб-сайтыгызга җайлаштырылган</string>
   <string name="usernameAlreadyUsed">Ошбу кулланучынәми әлләкайчан ишләтелгән, фадлыйк башкасын сынап карыйк.</string>
@@ -725,6 +720,7 @@
   <string name="agreementPolicy">Мин барлык Lichess сәясәтен үтәрмен дип килешәм.</string>
   <string name="searchOrStartNewDiscussion">Яңа сөйләшүне эзләү яки башлау</string>
   <string name="edit">Үзгәртү</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Блиц</string>
   <string name="rapid">Тиз</string>
   <string name="classical">Классика</string>
@@ -764,4 +760,6 @@
   <string name="download">Йөкләп алу</string>
   <string name="tournDescription">Ярыш тасвирламасы</string>
   <string name="hangOn">Туктагыз!</string>
+  <string name="since">Шуннан соң</string>
+  <string name="until">Кадәр</string>
 </resources>

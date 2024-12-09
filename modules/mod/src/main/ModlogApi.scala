@@ -3,14 +3,13 @@ package lila.mod
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
-import lila.core.irc.IrcApi
-import lila.core.msg.MsgPreset
-import lila.report.{ Mod, Report, Suspect }
-import lila.core.perm.Permission
-import lila.user.UserRepo
 import lila.core.id.ForumCategId
+import lila.core.irc.IrcApi
 import lila.core.perf.UserWithPerfs
+import lila.core.perm.Permission
+import lila.db.dsl.{ *, given }
+import lila.report.{ Mod, Report, Suspect }
+import lila.user.UserRepo
 
 final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, presetsApi: ModPresetsApi)(using
     Executor
@@ -65,6 +64,9 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def isolate(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, if sus.user.marks.isolate then Modlog.isolate else Modlog.unisolate)
 
+  def deleteComms(sus: Suspect)(using MyId) = add:
+    Modlog.make(sus, Modlog.deleteComms)
+
   def fullCommExport(sus: Suspect)(using MyId) = add:
     Modlog.make(sus, Modlog.fullCommsExport)
 
@@ -83,16 +85,22 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def closeAccount(user: UserId)(using me: Me) = add:
     Modlog(me, user.some, Modlog.closeAccount)
 
+  def teacherCloseAccount(user: UserId)(using me: Me) = add:
+    Modlog(me, user.some, Modlog.teacherCloseAccount)
+
   def selfCloseAccount(user: UserId, openReports: List[Report]) = add:
     Modlog(
       UserId.lichess.into(ModId),
       user.some,
       Modlog.selfCloseAccount,
-      details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
+      details = openReports.map(r => s"${r.room.name} report").mkString(", ").some.filter(_.nonEmpty)
     )
 
   def closedByMod(user: User): Fu[Boolean] =
     fuccess(user.marks.alt) >>| coll.exists($doc("user" -> user.id, "action" -> Modlog.closeAccount))
+
+  def closedByTeacher(user: User): Fu[Boolean] =
+    coll.exists($doc("user" -> user.id, "action" -> Modlog.teacherCloseAccount))
 
   def reopenAccount(user: UserId)(using Me) = add:
     Modlog(user.some, Modlog.reopenAccount)
@@ -239,9 +247,6 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
   def teamEdit(teamOwner: UserId, teamName: String)(using MyId) = add:
     Modlog(teamOwner.some, Modlog.teamEdit, details = Some(teamName.take(140)))
 
-  def appealPost(user: UserId)(using me: Me) = add:
-    Modlog(me, user.some, Modlog.appealPost, details = none)
-
   def wasUnengined(sus: Suspect) = coll.exists:
     $doc(
       "user"   -> sus.user.id,
@@ -267,7 +272,7 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       .list(100)
 
   def userHistory(userId: UserId): Fu[List[Modlog]] =
-    coll.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
+    coll.secondaryPreferred.find($doc("user" -> userId)).sort($sort.desc("date")).cursor[Modlog]().list(60)
 
   def countRecentCheatDetected(userId: UserId): Fu[Int] =
     coll.secondaryPreferred.countSel:
@@ -290,11 +295,11 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       )
 
   def recentBy(mod: Mod) =
-    coll.tempPrimary
+    coll.secondaryPreferred
       .find($doc("mod" -> mod.id))
       .sort($sort.desc("date"))
       .cursor[Modlog]()
-      .list(100)
+      .list(200)
 
   def addModlog(users: List[UserWithPerfs]): Fu[List[UserWithModlog]] =
     coll.tempPrimary

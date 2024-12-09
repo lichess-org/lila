@@ -41,7 +41,7 @@ const conf = (title: string, xaxis: Date[]) => ({
   },
 });
 
-export function initModule({ op, data }: { op: 'activity' | 'queues'; data: any }) {
+export function initModule({ op, data }: { op: 'activity' | 'queues'; data: any }): void {
   if (op === 'activity') activity(data);
   else queues(data);
 }

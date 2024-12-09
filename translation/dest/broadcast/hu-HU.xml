@@ -17,14 +17,8 @@
   <string name="tournamentDescription">Verseny rövid leírása</string>
   <string name="fullDescription">Esemény teljes leírása</string>
   <string name="fullDescriptionHelp">Opcionális a közvetítés még bővebb leírása. %1$s használható. A hossz nem lehet több, mint %2$s karakter.</string>
-  <string name="sourceUrlOrGameIds">Forrás URL vagy játszmaazonosítók</string>
   <string name="sourceUrlHelp">URL amit a Lichess időnként PGN frissítésekért ellenőriz. Ennek nyilvános internetcímnek kell lennie.</string>
-  <string name="gameIdsHelp">Illetve megadhatsz legfeljebb 64 Lichess játszmaazonosítót, szóközökkel elválasztva.</string>
-  <string name="startDate">Kezdés időpontja a saját időzónádban</string>
   <string name="startDateHelp">Opcionális, ha tudod mikor kezdődik az esemény</string>
-  <string name="credits">Forrásmegjelölés</string>
-  <string name="broadcastUrl">Közvetítés URL</string>
-  <string name="currentRoundUrl">Jelenlegi forduló URL</string>
   <string name="currentGameUrl">Jelenlegi játszma URL</string>
   <string name="downloadAllRounds">Összes játszma letöltése</string>
   <string name="resetRound">A forduló újrakezdése</string>

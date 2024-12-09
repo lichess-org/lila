@@ -135,6 +135,8 @@ case class Pref(
     else if bg == Pref.Bg.SYSTEM then "system"
     else "dark" // dark && dark board
 
+  def forceDarkBg = copy(bg = Pref.Bg.DARK)
+
 object Pref:
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"
@@ -329,17 +331,20 @@ object Pref:
     val NONE    = 0
     val INSIDE  = 1
     val OUTSIDE = 2
+    val ALL     = 3
 
     val choices = Seq(
       NONE    -> "No",
       INSIDE  -> "Inside the board",
-      OUTSIDE -> "Outside the board"
+      OUTSIDE -> "Outside the board",
+      ALL     -> "Inside all squares of the board"
     )
 
     def classOf(v: Int) =
       v match
         case INSIDE  => "in"
         case OUTSIDE => "out"
+        case ALL     => "all"
         case _       => "no"
 
   object Replay:

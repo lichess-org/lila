@@ -1,6 +1,6 @@
 import { h } from 'snabbdom';
 import { spinnerVdom } from 'common/spinner';
-import LobbyController from '../../../ctrl';
+import type LobbyController from '../../../ctrl';
 import { colors, variantsWhereWhiteIsBetter } from '../../../options';
 import { option } from './option';
 
@@ -8,7 +8,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   ...(ctrl.setupCtrl.gameType === 'hook'
     ? []
     : [
-        h('label', { attrs: { for: 'sf_color' } }, ctrl.trans('side')),
+        h('label', { attrs: { for: 'sf_color' } }, i18n.site.side),
         h(
           'select#sf_color',
           {
@@ -17,7 +17,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
                 ctrl.setupCtrl.blindModeColor((e.target as HTMLSelectElement).value as Color | 'random'),
             },
           },
-          colors(ctrl.trans).map(color => option(color, ctrl.setupCtrl.blindModeColor())),
+          colors.map(color => option(color, ctrl.setupCtrl.blindModeColor())),
         ),
       ]),
   h(
@@ -27,7 +27,7 @@ const renderBlindModeColorPicker = (ctrl: LobbyController) => [
   ),
 ];
 
-export const colorButtons = (ctrl: LobbyController) => {
+export const createButtons = (ctrl: LobbyController) => {
   const { setupCtrl } = ctrl;
 
   const enabledColors: (Color | 'random')[] = [];
@@ -35,9 +35,10 @@ export const colorButtons = (ctrl: LobbyController) => {
     enabledColors.push('random');
 
     const randomColorOnly =
-      setupCtrl.gameType !== 'ai' &&
-      setupCtrl.gameMode() === 'rated' &&
-      variantsWhereWhiteIsBetter.includes(setupCtrl.variant());
+      setupCtrl.gameType === 'hook' ||
+      (setupCtrl.gameType !== 'ai' &&
+        setupCtrl.gameMode() === 'rated' &&
+        variantsWhereWhiteIsBetter.includes(setupCtrl.variant()));
     if (!randomColorOnly) enabledColors.push('white', 'black');
   }
 
@@ -46,16 +47,16 @@ export const colorButtons = (ctrl: LobbyController) => {
     site.blindMode
       ? renderBlindModeColorPicker(ctrl)
       : setupCtrl.loading
-      ? spinnerVdom()
-      : colors(ctrl.trans).map(({ key, name }) =>
-          h(
-            `button.button.button-metal.color-submits__button.${key}`,
-            {
-              attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
-              on: { click: () => ctrl.setupCtrl.submit(key) },
-            },
-            h('i'),
+        ? spinnerVdom()
+        : colors.map(({ key, name }) =>
+            h(
+              `button.button.button-metal.color-submits__button.${key}`,
+              {
+                attrs: { disabled: !enabledColors.includes(key), title: name, value: key },
+                on: { click: () => setupCtrl.submit(key) },
+              },
+              h('i'),
+            ),
           ),
-        ),
   );
 };

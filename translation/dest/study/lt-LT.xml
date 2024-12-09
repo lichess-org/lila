@@ -59,6 +59,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC nariai lieka toje pačioje pozicijoje</string>
   <string name="shareChanges">Dalinkitės pakeitimais su žiūrovais ir saugokite juos serveryje</string>
   <string name="playing">Žaidžiama</string>
+  <string name="showEvalBar">Vertinimo skalė</string>
   <string name="first">Pirmas</string>
   <string name="previous">Ankstesnis</string>
   <string name="next">Kitas</string>
@@ -174,4 +175,5 @@
   <string name="playAgain">Žaisti dar kartą</string>
   <string name="whatWouldYouPlay">Ar norėtumėte žaisti nuo šios pozicijos?</string>
   <string name="youCompletedThisLesson">Sveikiname! Jūs pabaigėte šią pamoką.</string>
+  <string name="perPage">%s puslapyje</string>
 </resources>

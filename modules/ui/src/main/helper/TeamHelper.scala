@@ -1,8 +1,8 @@
 package lila.ui
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.team.LightTeam
 import lila.core.id.ForumCategId
+import lila.core.team.LightTeam
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 trait TeamHelper:
   self: AssetHelper =>

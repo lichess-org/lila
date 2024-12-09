@@ -11,7 +11,8 @@ final class Share(
 
   def grant(insighted: User)(using to: Option[User]): Fu[Boolean] =
     if to.exists(Granter.of(_.SeeInsight)) then fuTrue
-    else
+    else if insighted.enabled.yes
+    then
       getPrefId(insighted).flatMap:
         case _ if to.contains(insighted)           => fuTrue
         case lila.core.pref.InsightShare.EVERYBODY => fuTrue
@@ -19,3 +20,4 @@ final class Share(
           to.so: t =>
             relationApi.fetchAreFriends(insighted.id, t.id)
         case lila.core.pref.InsightShare.NOBODY => fuFalse
+    else fuFalse

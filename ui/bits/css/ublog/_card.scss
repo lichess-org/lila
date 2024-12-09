@@ -1,7 +1,7 @@
 .ublog-post-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(22em, 1fr));
-  grid-gap: 2em;
+  grid-gap: 1em;
 }
 .ublog-post-card {
   @extend %box-neat-force;
@@ -35,14 +35,17 @@
       bottom: 0;
     }
     @include padding-direction(0.2em, 0.5em, 0.3em, 0.5em);
+    --c-ublog-post-card-over-image: #ddd;
+    @include if-light {
+      --c-ublog-post-card-over-image: #333;
+    }
 
     background: rgba(0, 0, 0, 0.65);
-    color: #ddd;
+    color: --c-ublog-post-card-over-image;
     text-shadow: 0 1px 1px black;
 
     @include if-light {
       background: rgba(255, 255, 255, 0.65);
-      color: #333;
       text-shadow: 0 1px 1px white;
     }
     opacity: 1;
@@ -68,22 +71,30 @@
   }
 
   &__content {
-    padding: 3% 3% 4% 6%;
+    padding: 4% 3% 4% 6%;
     display: block;
     max-height: 12em;
   }
 
   &__title {
+    @include line-clamp(2);
     font-size: 1.3em;
     color: $c-font-clear;
-    display: block;
   }
 
   &__intro {
     @extend %roboto, %break-word;
+    @include line-clamp(2);
 
     color: $c-font;
-    margin-top: 1em;
-    display: block;
+    margin-top: 0.5em;
+  }
+
+  &--by-lichess {
+    border: 1px solid $c-brag;
+    .user-link {
+      color: $c-brag;
+      font-weight: bold;
+    }
   }
 }

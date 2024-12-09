@@ -1,7 +1,7 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { header } from './util';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
 
 type Code = string;
 type Name = string;
@@ -21,7 +21,7 @@ export class LangsCtrl extends PaneCtrl {
 
   render = (): VNode =>
     h('div.sub.langs', [
-      header(this.trans.noarg('language'), this.close),
+      header(i18n.site.language, this.close),
       h(
         'form',
         { attrs: { method: 'post', action: '/translation/select' } },

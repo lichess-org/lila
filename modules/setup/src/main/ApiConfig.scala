@@ -1,7 +1,7 @@
 package lila.setup
 
 import chess.format.Fen
-import chess.variant.{ Chess960, FromPosition, Variant }
+import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Speed }
 import scalalib.model.Days
 
@@ -23,6 +23,7 @@ final case class ApiConfig(
 ):
 
   def perfType: PerfType = lila.rating.PerfType(variant, chess.Speed(days.isEmpty.so(clock)))
+  def perfKey            = perfType.key
 
   def validFen = Variant.isValidInitialFen(variant, position)
 

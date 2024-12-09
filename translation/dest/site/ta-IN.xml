@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">விளையாட்டுக்கு  அழைக்க இந்தச்சுட்டியை அனுப்பு</string>
   <string name="gameOver">ஆட்டம் முடிந்தது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
+  <string name="orLetYourOpponentScanQrCode">அல்லது உங்கள் எதிரி இந்த QR குறியீட்டை ஸ்கேன் செய்ய அனுமதிக்கவும்</string>
   <string name="waiting">காத்திருக்கின்றது</string>
   <string name="yourTurn">தங்கள் முறை</string>
   <string name="aiNameLevelAiLevel">%1$s நிலைமட்டம் %2$s</string>
@@ -69,6 +70,8 @@
   <string name="promoteVariation">மாறுபாடு ஊக்குவித்தல்</string>
   <string name="makeMainLine">பிரதான தொடர்ச்சி ஆக்கு</string>
   <string name="deleteFromHere">இங்கிருந்து நீக்கு</string>
+  <string name="collapseVariations">மாறுபாடுகளைச் சுருக்கவும்</string>
+  <string name="expandVariations">மாறுபாடுகளை விரிவாக்குக</string>
   <string name="forceVariation">ஆராய்ச்சியை தனியாக காமி</string>
   <string name="copyVariationPgn">மாறுபாடுகள் கொண்ட PGN ஐ நகலெடு</string>
   <string name="move">நகர்த்து</string>
@@ -113,7 +116,6 @@
   <string name="replayMode">மறுஇயக்கம் செய்யும் முறை</string>
   <string name="realtimeReplay">நேரலை</string>
   <string name="byCPL">சி.பி.எல் முறை</string>
-  <string name="openStudy">வெளிப்படையான ஆய்வு</string>
   <string name="enable">இயக்கு</string>
   <string name="bestMoveArrow">சிறந்த நகர்த்தலுக்கான அம்புக்குறியீடு</string>
   <string name="showVariationArrows">மாறுபாடு அம்புக் குறிகளைக் காட்டு</string>
@@ -123,7 +125,6 @@
   <string name="memory">நினைவகம்</string>
   <string name="infiniteAnalysis">எல்லையற்ற பகுப்பாய்வு</string>
   <string name="removesTheDepthLimit">கணிக்கிடும் ஆழத்தின் மதிப்பை நீக்கிவிடும். உங்கள் கணினியை சூடாக வைக்கும்</string>
-  <string name="engineManager">இயந்திர மேலாளர்</string>
   <string name="blunder">பெரிய தவறு</string>
   <string name="mistake">தவறு</string>
   <string name="inaccuracy">துல்லியமின்மை</string>
@@ -177,6 +178,7 @@
   <string name="latestForumPosts">சமீபத்திய மன்ற பதிவுகள்</string>
   <string name="players">சதுரங்க விளையாடிகள்</string>
   <string name="friends">நண்பர்கள்</string>
+  <string name="otherPlayers">ஏனய வீரர்கள்</string>
   <string name="discussions">உரையாடல்கள்</string>
   <string name="today">இன்று</string>
   <string name="yesterday">நேற்று</string>
@@ -275,6 +277,7 @@
   <string name="abortGame">ஆட்டத்தைக் கலை</string>
   <string name="gameAborted">ஆட்டம் கலைந்தது</string>
   <string name="standard">மரபு</string>
+  <string name="customPosition">விருப்ப நிலை</string>
   <string name="unlimited">வரம்பில்லை</string>
   <string name="mode">மதிப்பீட்டுநிலை</string>
   <string name="casual">மதிப்பீடின்றி</string>
@@ -360,6 +363,10 @@
     <item quantity="one">%s முக்கியமான விளையாட்டு தேவை</item>
     <item quantity="other">%s முக்கியமான விளையாட்டுகள் தேவை</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">நீங்கள் %1$s எண்ணிக்கைக்கும் அதிகமான %2$s ஆட்டங்கள் ஆடியிருக்க வேண்டும்</item>
+    <item quantity="other">நீங்கள் %1$s எண்ணிக்கைக்கும் அதிகமான %2$s ஆட்டங்கள் ஆடியிருக்க வேண்டும்</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டை விளையாட வேண்டும்</item>
     <item quantity="other">நீங்கள் இன்னும் %s மதிப்பிடப்பட்ட விளையாட்டுகளை விளையாட வேண்டும்</item>
@@ -396,6 +403,7 @@
   <string name="importGame">ஆட்டத்தை உள்ளேற்று</string>
   <string name="importGameExplanation">கணினி பகுப்பாய்வு, உலாவக்கூடிய மீளாடல், விளையாட்டு அரட்டை, மற்றும் பகிறக்கூடிய URL பெற விளையாட்டின் PGN ஐ ஒட்டவும்.</string>
   <string name="importGameCaveat">மாறுபடு வரிகள் அழிக்கப்படும். அவற்றை வைத்திருக்க, ஆய்வுமூலம் PGN ஐ இறக்குமதி செய்யவும்.</string>
+  <string name="importGameDataPrivacyWarning">இந்த PGN-ஐ பொதுமக்கள் அணுகலாம். தனிப்பட்ட முறையில் விளையாட்டை இறக்குமதி செய்ய, ஒரு ஆய்வைப் பயன்படுத்தவும்.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s உள்ளேற்றின ஆட்டங்கள்</item>
     <item quantity="other">%s உள்ளேற்றின ஆட்டங்கள்</item>
@@ -408,6 +416,11 @@
   <string name="blackCheckmatesInOneMove">கறுப்பின் அடுத்த நகர்வில் நிகர்தடை</string>
   <string name="retry">மீள்முயற்சி</string>
   <string name="reconnecting">மீண்டும் இணைகிறது</string>
+  <string name="noNetwork">ஆஃப்லைன்</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s நண்பர் இணைப்பிலுள்ளார்</item>
+    <item quantity="other">%s நண்பர்கள் இணைப்பிலுள்ளனர்</item>
+  </plurals>
   <string name="favoriteOpponents">பிடித்தமான எதிராளிகள்</string>
   <string name="follow">பின்தொடர்</string>
   <string name="following">பின்தொடர்கின்றார்</string>
@@ -417,7 +430,6 @@
   <string name="block">தடு</string>
   <string name="blocked">தடுபட்டது</string>
   <string name="unblock">தடைநீக்கு</string>
-  <string name="followsYou">நும்மைப் பின்தொடர்கின்றார்</string>
   <string name="xStartedFollowingY">%1$s என்பவர் %2$s-ஐப் பின்தொடரத் தொடங்கினார்</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s பின்தொடர்நர்கள்</item>
@@ -449,9 +461,6 @@
   <string name="safeTournamentName">போட்டிக்கு மிகவும் பாதுகாப்பான பெயரைத் தேர்ந்தெடுக்கவும்.</string>
   <string name="inappropriateNameWarning">சற்று பொருத்தமற்றது கூட உங்கள் கணக்கை மூடக்கூடும்.</string>
   <string name="emptyTournamentName">ஒரு குறிப்பிடத் தக்க சதுரங்க வீரரின் பெயரைப் போட்டிக்குப் பெயரிட காலியாக விடவும்.</string>
-  <string name="recommendNotTouching">இவற்றில் மாற்றம் செய்யவேண்டாமெனப் பரிந்துரைக்கின்றோம்.</string>
-  <string name="fewerPlayers">நீங்கள் போட்டியாளர்களுக்கான நிபந்தனைகளை உருவாக்கினால், உங்கள் போட்டிகளில் குறைவான வீரர்களே பங்குபற்றுவார்கள்.</string>
-  <string name="showAdvancedSettings">மேம்பட்ட அமைப்புகளைப் பார்க்கவும்</string>
   <string name="makePrivateTournament">போட்டியைத் தனிப்பட்டதாக்க, கடவுச்சொல் கொண்டு அணுக்கத்தைக் கட்டுப்படுத்தவும்</string>
   <string name="join">சேர்</string>
   <string name="withdraw">விலகு</string>
@@ -491,9 +500,9 @@
   <string name="ifNoneLeaveEmpty">இல்லையென்றால் காலியாக விடலாம்</string>
   <string name="profile">குறிப்புகள்</string>
   <string name="editProfile">தகவல்களை  மாற்று</string>
-  <string name="firstName">முதல் பெயர்</string>
-  <string name="lastName">கடைசி பெயர்</string>
+  <string name="realName">உண்மையான பெயர்</string>
   <string name="setFlair">உங்கள் திறமையை அமைக்கவும்</string>
+  <string name="flair">உருவச்சிலை</string>
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">நாடு அல்லது வட்டாரம்</string>
@@ -515,12 +524,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">நகரும் பிறகு தானாகவே அடுத்த விளையாட்டு தொடர</string>
   <string name="autoSwitch">ஆட்டம் மாற</string>
   <string name="puzzles">புதிர்கள்</string>
+  <string name="onlineBots">ஆன்லைன் ரோபோக்கள்</string>
   <string name="name">பெயர்</string>
   <string name="description">விவரணம்</string>
   <string name="descPrivate">தனிப்பட்ட விளக்கம்</string>
   <string name="descPrivateHelp">குழு உறுப்பினர்கள் மட்டுமே பார்க்கும் உரை. அமைக்கப்பட்டால், குழு உறுப்பினர்களுக்கான பொது விளக்கமாக மாற்றப்படலாம்.</string>
   <string name="no">வேண்டா</string>
   <string name="yes">சரி</string>
+  <string name="website">இணையதளம்</string>
+  <string name="mobile">செல்பேசி</string>
   <string name="help">உதவி:</string>
   <string name="createANewTopic">ஒரு புதிய தலைப்பை உருவாக்க</string>
   <string name="topics">தலைப்புகள்</string>
@@ -537,11 +549,11 @@
   <string name="reason">காரணம்</string>
   <string name="whatIsIheMatter">என்ன விஷயம்?</string>
   <string name="cheat">வஞ்சகன்</string>
-  <string name="insult">அவமதிப்பு</string>
   <string name="troll">அக்கிரமி</string>
-  <string name="ratingManipulation">மதிப்பீட்டைச் சூழ்ச்சியுடன் திரித்தல்</string>
   <string name="other">வேறு</string>
-  <string name="reportDescriptionHelp">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்த பயனர் நடத்தை பற்றி தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி எங்களுக்கு சொல்ல. ஆங்கிலத்தில் எழுதப்பட்ட என்றால் உங்கள் அறிக்கை வேகமாக செயல்படுத்தப்படும்.</string>
+  <string name="reportCheatBoostHelp">விளையாட்டு (கள்) இணைப்பை ஒட்டவும் மேலும் இந்தப் பயனர் நடத்தைபற்றித் தவறு என்ன என்பதை விளக்க. வெறும் \"அவர்கள் ஏமாற்றுகின்றனர்\" சொல்ல வேண்டாம், ஆனால் நீங்கள் இந்த முடிவுக்கு வந்தது எப்படி என்பதை எங்களுக்குச் சொல்ல.</string>
+  <string name="reportUsernameHelp">இந்த பயனர் பெயர் புண்படுத்தக்கூடியது என்ன என்பதை விளக்குங்கள். \"இது புண்படுத்தும்/பொருத்தமற்றது\" என்று மட்டும் சொல்லாதீர்கள், ஆனால் நீங்கள் எப்படி இந்த முடிவுக்கு வந்தீர்கள் என்று எங்களிடம் கூறுங்கள், குறிப்பாக ஆங்கிலத்தில் அல்ல, ஸ்லாங்கில் அல்லது ஒரு வரலாற்று/கலாச்சாரக் குறிப்பால் அவமதிப்பு தெளிவற்றதாக இருந்தால்.</string>
+  <string name="reportProcessedFasterInEnglish">உங்கள் அறிக்கை ஆங்கிலத்தில் எழுதப்பட்டால் வேகமாக செயலாக்கப்படும்.</string>
   <string name="error.provideOneCheatedGameLink">ஏமாற்றப்பட்ட விளையாட்டிற்கு குறைந்தபட்சம் ஒரு இணைப்பை வழங்கவும்.</string>
   <string name="by">மூலம் %s</string>
   <string name="importedByX">%s ஆல் இறக்குமதி செய்யப்பட்டது</string>
@@ -574,6 +586,7 @@
   <string name="slow">மெதுவாக</string>
   <string name="insideTheBoard">பலகையின் உள்ளே</string>
   <string name="outsideTheBoard">பலகைக்கு வெளியே</string>
+  <string name="allSquaresOfTheBoard">பலகையின் அனைத்து சதுரங்களும்</string>
   <string name="onSlowGames">மெதுவான விளையாட்டுகளில்</string>
   <string name="always">எப்போதும்</string>
   <string name="never">ஒருபோதும்</string>
@@ -650,6 +663,8 @@
   <string name="yourPendingSimuls">சரியாக அதே நேரத்தில் நடக்கின்ற நிலுவையில் உள்ள உங்கள் விளையாட்டுக்கள்</string>
   <string name="createdSimuls">புதிதாக உருவாக்கப்பட்ட சரியாக அதே நேரத்தில் நடக்கின்ற விளையாட்டுக்கள்</string>
   <string name="hostANewSimul">புதிய, சரியாக அதே நேரத்தில் நடக்கின்ற விளையாட்டுக்கள் நடத்துங்கள்</string>
+  <string name="signUpToHostOrJoinASimul">ஒரு ஹோஸ்டை சேர நீங்கள் உங்களைப் பதிவு செய்யவும் அல்லது சிமுலில் சேரவும்</string>
+  <string name="returnToSimulHomepage">ஒரே முகப்புப்பக்கத்திற்குத் திரும்பு</string>
   <string name="aboutSimulImage">50 போட்டியாளர்களில், பிஷ்ஷர் 47 ஆட்டங்களில் வெற்றி பெற்றார், 2ல் சமநிலை பெற்றார் மற்றும் 1 தோல்வியடைந்தார்.</string>
   <string name="create">உருவாக்கு</string>
   <string name="simulVariantsHint">நீங்கள் பல வகைகளைத் தேர்ந்தெடுத்தால், ஒவ்வொரு வீரரும் எதை விளையாட வேண்டும் என்பதைத் தேர்ந்தெடுக்க வேண்டும்.</string>

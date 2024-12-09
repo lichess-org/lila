@@ -1,13 +1,13 @@
 package lila.web
 package ui
 
+import play.api.data.{ Field, Form }
 import play.api.libs.json.Json
-import play.api.data.{ Form, Field }
-import scala.reflect.Selectable.reflectiveSelectable
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.captcha.Captcha
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class CaptchaUi(helpers: Helpers):
   import helpers.{ *, given }

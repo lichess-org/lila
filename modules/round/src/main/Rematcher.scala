@@ -3,13 +3,13 @@ package lila.round
 import chess.format.Fen
 import chess.variant.*
 import chess.{ ByColor, Clock, Color as ChessColor, Game as ChessGame, Ply, Situation }
+import scalalib.cache.ExpireSetMemo
 
 import lila.common.Bus
-import lila.game.{ AnonCookie, Event, Rematches }
-import lila.core.game.{ IdGenerator, GameRepo }
-import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
-import scalalib.cache.ExpireSetMemo
+import lila.core.game.{ GameRepo, IdGenerator }
+import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.user.{ GameUsers, UserApi }
+import lila.game.{ AnonCookie, Event, Rematches }
 
 import ChessColor.White
 
@@ -90,7 +90,8 @@ final private class Rematcher(
       _ <- gameRepo.insertDenormalized(nextGame)
     yield
       messenger.volatile(pov.game, trans.site.rematchOfferAccepted.txt())
-      onStart(nextGame.id)
+      onStart.exec(nextGame.id)
+      incUserColors(nextGame)
       redirectEvents(nextGame)
 
     rematches.get(pov.gameId) match
@@ -119,6 +120,15 @@ final private class Rematcher(
       game <- withId.fold(idGenerator.withUniqueId(sloppy)): id =>
         fuccess(sloppy.withId(id))
     yield game
+
+  private def incUserColors(game: Game): Unit =
+    if game.lobbyOrPool
+    then
+      game.userIds match
+        case List(u1, u2) =>
+          userApi.incColor(u1, game.whitePlayer.color)
+          userApi.incColor(u2, game.blackPlayer.color)
+        case _ => ()
 
   private def returnPlayer(game: Game, color: ChessColor, users: GameUsers): lila.core.game.Player =
     game.opponent(color).aiLevel match

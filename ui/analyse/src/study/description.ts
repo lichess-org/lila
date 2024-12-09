@@ -1,8 +1,8 @@
-import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, onInsert, looseH as h } from 'common/snabbdom';
+import { type VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
+import { confirm } from 'common/dialog';
 
 export type Save = (t: string) => void;
 
@@ -46,8 +46,8 @@ export function view(study: StudyCtrl, chapter: boolean): VNode | undefined {
           }),
         h('a', {
           attrs: { 'data-icon': licon.Trash, title: 'Delete' },
-          hook: bind('click', () => {
-            if (confirm('Delete permanent description?')) desc.save('');
+          hook: bind('click', async () => {
+            if (await confirm('Delete permanent description?')) desc.save('');
           }),
         }),
       ]),

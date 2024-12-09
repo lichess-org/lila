@@ -4,10 +4,10 @@ import cats.derived.*
 import chess.Clock.{ IncrementSeconds, LimitSeconds }
 import chess.format.Fen
 import chess.variant.Variant
+import chess.IntRating
 
-import lila.gathering.Condition
 import lila.core.i18n.{ I18nKey, Translate }
-import lila.rating.PerfType
+import lila.gathering.Condition
 
 case class Schedule(
     freq: Schedule.Freq,
@@ -99,6 +99,10 @@ case class Schedule(
 
   def day = at.withTimeAtStartOfDay
 
+  /** Absolute start time of the schedule.
+    */
+  def atInstant = at.instant
+
   def sameSpeed(other: Schedule) = speed == other.speed
 
   def similarSpeed(other: Schedule) = Schedule.Speed.similar(speed, other.speed)
@@ -124,10 +128,11 @@ case class Schedule(
 
   def perfKey: PerfKey = PerfKey.byVariant(variant) | Schedule.Speed.toPerfKey(speed)
 
-  def plan                                  = Schedule.Plan(this, None)
-  def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
+  def plan                                  = Schedule.Plan(this, atInstant, None)
+  def plan(build: Tournament => Tournament) = Schedule.Plan(this, atInstant, build.some)
 
-  override def toString = s"$freq ${variant.key} ${speed.key} $conditions ${at.instant}"
+  override def toString =
+    s"${atInstant} $freq ${variant.key} ${speed.key}(${Schedule.clockFor(this)}) $conditions $position"
 
 object Schedule:
 
@@ -140,15 +145,20 @@ object Schedule:
       at = tour.startsAt.dateTime
     )
 
-  case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]):
+  case class Plan(schedule: Schedule, startsAt: Instant, buildFunc: Option[Tournament => Tournament])
+      extends PlanBuilder.ScheduleWithInterval:
 
     def build(using Translate): Tournament =
-      val t = Tournament.scheduleAs(addCondition(schedule), durationFor(schedule))
+      val t = Tournament.scheduleAs(withConditions(schedule), startsAt, minutes)
       buildFunc.fold(t) { _(t) }
 
     def map(f: Tournament => Tournament) = copy(
       buildFunc = buildFunc.fold(f)(f.compose).some
     )
+
+    def minutes = durationFor(schedule)
+
+    override def duration = java.time.Duration.ofMinutes(minutes)
 
   enum Freq(val id: Int, val importance: Int) extends Ordered[Freq] derives Eq:
     case Hourly               extends Freq(10, 10)
@@ -277,9 +287,10 @@ object Schedule:
 
       case (Unique, _, _) => 60 * 6
 
-  private val standardIncHours         = Set(1, 7, 13, 19)
-  private def standardInc(s: Schedule) = standardIncHours(s.at.getHour)
-  private def zhInc(s: Schedule)       = s.at.getHour % 2 == 0
+  private val standardIncHours          = Set(1, 7, 13, 19)
+  private def standardInc(s: Schedule)  = standardIncHours(s.at.getHour)
+  private def zhInc(s: Schedule)        = s.at.getHour % 2 == 0
+  private def bottomOfHour(s: Schedule) = s.at.getMinute > 29
 
   private given Conversion[Int, LimitSeconds]     = LimitSeconds(_)
   private given Conversion[Int, IncrementSeconds] = IncrementSeconds(_)
@@ -301,10 +312,11 @@ object Schedule:
 
     (s.freq, s.variant, s.speed) match
       // Special cases.
-      case (Weekend, Crazyhouse, Blitz)                 => zhEliteTc(s)
-      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
-      case (Hourly, Crazyhouse, Blitz) if zhInc(s)      => TC(4 * 60, 2)
-      case (Hourly, Standard, Blitz) if standardInc(s)  => TC(3 * 60, 2)
+      case (Weekend, Crazyhouse, Blitz)                                    => zhEliteTc(s)
+      case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s)                    => TC(3 * 60, 1)
+      case (Hourly, Crazyhouse, Blitz) if zhInc(s)                         => TC(4 * 60, 2)
+      case (Hourly, Standard, Blitz) if standardInc(s)                     => TC(3 * 60, 2)
+      case (Hourly, Standard, Bullet) if s.hasMaxRating && bottomOfHour(s) => TC(60, 1)
 
       case (Shield, variant, Blitz) if variant.exotic => TC(3 * 60, 2)
 
@@ -316,16 +328,15 @@ object Schedule:
       case (_, _, Blitz)       => TC(5 * 60, 0)
       case (_, _, Rapid)       => TC(10 * 60, 0)
       case (_, _, Classical)   => TC(20 * 60, 10)
-  private[tournament] def addCondition(s: Schedule) =
-    s.copy(conditions = conditionFor(s))
+
+  private[tournament] def withConditions(s: Schedule) = s.copy(conditions = conditionFor(s))
 
   private[tournament] def conditionFor(s: Schedule) =
     if s.conditions.nonEmpty then s.conditions
     else
       import Freq.*, Speed.*
 
-      val nbRatedGame = (s.freq, s.variant, s.speed) match
-
+      val nbRatedGame = ((s.freq, s.variant, s.speed) match
         case (Hourly, variant, _) if variant.exotic => 0
 
         case (Hourly | Daily | Eastern, _, HyperBullet | Bullet)             => 20
@@ -338,19 +349,22 @@ object Schedule:
         case (Weekly | Weekend | Monthly | Shield, _, Classical)                        => 5
 
         case _ => 0
+      ).some.filter(0 <).map(Condition.NbRatedGame.apply)
 
-      val minRating = IntRating:
-        (s.freq, s.variant) match
-          case (Weekend, chess.variant.Crazyhouse) => 2100
-          case (Weekend, _)                        => 2200
-          case _                                   => 0
+      val minRating = ((s.freq, s.variant) match
+        case (Weekend, chess.variant.Crazyhouse) => 2100
+        case (Weekend, _)                        => 2200
+        case _                                   => 0
+      ).some.filter(0 <).map(v => Condition.MinRating(IntRating(v)))
 
-      TournamentCondition.All(
-        nbRatedGame = nbRatedGame.some.filter(0 <).map(Condition.NbRatedGame.apply),
-        minRating = minRating.some.filter(_ > 0).map(Condition.MinRating.apply),
-        maxRating = none,
-        titled = none,
-        teamMember = none,
-        accountAge = none,
-        allowList = none
-      )
+      if nbRatedGame.isEmpty && minRating.isEmpty then TournamentCondition.All.empty
+      else
+        TournamentCondition.All(
+          nbRatedGame = nbRatedGame,
+          minRating = minRating,
+          maxRating = none,
+          titled = none,
+          teamMember = none,
+          accountAge = none,
+          allowList = none
+        )

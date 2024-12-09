@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Suisse</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Suisse</string>
   <string name="swissTournaments">Tournoi au système suisse</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Voir la ronde</item>
@@ -27,7 +27,7 @@
     <item quantity="one">%s minutes entre les rondes</item>
     <item quantity="other">%s minutes entre les rondes</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Commence dans</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Commence dans</string>
   <string name="nextRound">Prochaine ronde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Partie en cours</item>
@@ -78,7 +78,7 @@ De plus, un joueur reçoit un bye de un demi-point lorsqu\'il se joint tardiveme
 Ensuite, il sera retiré du tournoi pour éviter de perdre d\'autres parties par défaut.
 Il pourra se joindre de nouveau au tournoi n\'importe quand par la suite.</string>
   <string name="protectionAgainstNoShowQ">Que fait-on dans le cas d\'un joueur qui ne se présente pas pour une partie ?</string>
-  <string name="protectionAgainstNoShowA">Les joueurs qui s\'inscrivent à un tournoi suisse, mais qui ne jouent pas une ou plusieurs de leurs parties, sont un problème.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Les joueurs qui s\'inscrivent à un tournoi suisse, mais qui ne jouent pas une ou plusieurs de leurs parties, sont un problème.
 Pour réduire ce problème, Lichess empêche ces joueurs de participer à un nouveau tournoi suisse pendant un certain temps.
 Mais l\'organisateur d\'un tournoi suisse peut décider de les laisser participer.</string>
   <string name="lateJoinQ">Un joueur peut-il se joindre tardivement à un tournoi ?</string>
@@ -93,8 +93,8 @@ Ce qui se rapproche le plus d\'un tournoi en rondes complètes, c\'est un tourno
   <string name="otherSystemsQ">Y a-t-il d\'autres types de tournoi ?</string>
   <string name="otherSystemsA">Pour le moment, nous ne prévoyons pas ajouter d\'autres types de tournoi dans Lichess.</string>
   <string name="swissDescription">Dans un tournoi suisse %1$s, un joueur n\'affronte pas tous les autres joueurs. Les adversaires sont appariés à chaque ronde selon des règles qui font que chaque joueur rencontre toujours un adversaire différent, mais dont le pointage est similaire au sien. Le gagnant du tournoi est le joueur qui a accumulé le plus grand nombre de points à la fin du tournoi. Tous les joueurs jouent à chaque ronde, à moins qu\'ils soient en nombre impair.</string>
-  <string name="teamOnly">Seuls des chefs d\'équipe peuvent créer un tournoi suisse, et seules des équipes peuvent y participer.            
-%1$s pour commencer à jouer dans un tournoi suisse.</string>
+  <string name="teamOnly">Les tournois suisses ne peuvent être créés que par des chefs d\'équipe et ne peuvent être joués que par les membres de l\'équipe. 
+%1$s pour commencer à jouer dans des tournois suisses.</string>
   <string name="joinOrCreateTeam">Joindre ou créer une équipe</string>
   <string name="nowPlaying">Tournoi en cours</string>
   <string name="startingSoon">Tournoi sur le point de commencer</string>

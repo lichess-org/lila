@@ -1,13 +1,11 @@
 package lila.streamer
 package ui
-
-import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.perf.UserPerfs
 import lila.core.config.NetDomain
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: NetDomain):
   import helpers.{ *, given }
@@ -74,7 +72,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     Page(title)
       .css("bits.streamer.list")
       .js(infiniteScrollEsmInit)
-      .js(EsmInit("bits.streamer")):
+      .js(esmInitBit("streamer")):
         main(cls := "page-menu")(
           bits.menu(if requests then "requests" else "index", none)(cls := " page-menu__menu"),
           div(cls := "page-menu__content box streamer-list")(
@@ -108,7 +106,7 @@ final class StreamerUi(helpers: Helpers, bits: StreamerBits)(using netDomain: Ne
     Page(s"${s.titleName} streams chess")
       .csp(csp)
       .css("bits.streamer.show")
-      .js(EsmInit("bits.streamer"))
+      .js(esmInitBit("streamer"))
       .graph(
         OpenGraph(
           title = s"${s.titleName} streams chess",

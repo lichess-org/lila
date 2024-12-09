@@ -1,18 +1,15 @@
 package views.puzzle
-
-import scalalib.paginator.Paginator
-
 import lila.app.UiEnv.{ *, given }
-import lila.puzzle.{ Puzzle, PuzzleOpening, DailyPuzzle }
+import lila.puzzle.DailyPuzzle
 
-lazy val bits = lila.puzzle.ui.PuzzleBits(helpers)(views.userAnalysisI18n.cevalTranslations)
+lazy val bits = lila.puzzle.ui.PuzzleBits(helpers)
 lazy val ui   = lila.puzzle.ui.PuzzleUi(helpers, bits)(views.analyse.ui.csp, externalEngineEndpoint)
 
 def embed(daily: DailyPuzzle.WithHtml)(using config: EmbedContext) =
-  views.base.embed(
+  views.base.embed.minimal(
     title = "lichess.org chess puzzle",
-    cssModule = "bits.tv.embed",
-    modules = EsmInit("site.puzzleEmbed")
+    cssKeys = List("bits.tv.embed"),
+    modules = Esm("site.puzzleEmbed")
   )(
     bits.dailyLink(daily)(using config.translate)(
       targetBlank,

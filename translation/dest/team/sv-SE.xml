@@ -11,7 +11,7 @@
   <string name="newTeam">Nytt lag</string>
   <string name="myTeams">Mina lag</string>
   <string name="noTeamFound">Inget lag hittat</string>
-  <string name="joinTeam">Gå med i lag</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Gå med i lag</string>
   <string name="onlyLeaderLeavesTeam">Var god lägg till en ny lagledare innan du lämnar eller stäng laget.</string>
   <string name="quitTeam">Lämna lag</string>
   <string name="manuallyReviewAdmissionRequests">Granska antagningsförfrågningar manuellt</string>

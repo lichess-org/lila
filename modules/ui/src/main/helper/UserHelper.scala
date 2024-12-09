@@ -1,15 +1,12 @@
 package lila.ui
 
-import play.api.i18n.Lang
-import chess.PlayerTitle
+import chess.{ PlayerTitle, IntRating }
+import chess.rating.{ IntRatingDiff, RatingProvisional }
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.i18n.Translate
-import lila.core.perf.UserWithPerfs
-import lila.core.perf.KeyedPerf
-import lila.core.perf.UserPerfs
 import lila.core.LightUser
+import lila.core.perf.{ KeyedPerf, UserPerfs, UserWithPerfs }
 import lila.core.socket.IsOnline
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 trait UserHelper:
   self: I18nHelper & NumberHelper & AssetHelper =>
@@ -198,15 +195,15 @@ trait UserHelper:
   ): List[(String, Boolean)] =
     if userId.isGhost then List("user-link" -> true, ~cssClass -> cssClass.isDefined)
     else
-      (withOnline.so(List((if isOnline(userId) then "online" else "offline") -> true))) ::: List(
+      (withOnline.so(List((if isOnline.exec(userId) then "online" else "offline") -> true))) ::: List(
         "user-link" -> true,
         ~cssClass   -> cssClass.isDefined,
         "ulpt"      -> withPowerTip
       )
 
   def ratingProgress(progress: IntRatingDiff): Option[Frag] =
-    if progress > 0 then goodTag(cls := "rp")(progress).some
-    else if progress < 0 then badTag(cls := "rp")(math.abs(progress.value)).some
+    if progress.positive then goodTag(cls := "rp")(progress).some
+    else if progress.negative then badTag(cls := "rp")(math.abs(progress.value)).some
     else none
 
   def showPerfRating(

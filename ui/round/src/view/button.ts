@@ -1,14 +1,15 @@
-import { VNode, Hooks } from 'snabbdom';
+import type { VNode, Hooks } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import * as util from '../util';
-import * as game from 'game';
-import * as status from 'game/status';
+import { justIcon } from '../util';
+import { replayable, rematchable, moretimeable, type PlayerUser } from 'game';
+import { finished, aborted } from 'game/status';
 import { game as gameRoute } from 'game/router';
-import { RoundData } from '../interfaces';
-import { ClockData } from '../clock/clockCtrl';
-import RoundController from '../ctrl';
-import { LooseVNodes, looseH as h } from 'common/snabbdom';
+import type { RoundData } from '../interfaces';
+import type { ClockData } from '../clock/clockCtrl';
+import type RoundController from '../ctrl';
+import { type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
+import { pubsub } from 'common/pubsub';
 
 export interface ButtonState {
   enabled: boolean;
@@ -19,7 +20,7 @@ function analysisBoardOrientation(data: RoundData) {
   return data.game.variant.key === 'racingKings' ? 'white' : data.player.color;
 }
 
-function poolUrl(clock: ClockData, blocking?: game.PlayerUser) {
+function poolUrl(clock: ClockData, blocking?: PlayerUser) {
   return '/#pool/' + clock.initial / 60 + '+' + clock.increment + (blocking ? '/' + blocking.id : '');
 }
 
@@ -27,17 +28,17 @@ function analysisButton(ctrl: RoundController): VNode | false {
   const d = ctrl.data,
     url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
   return (
-    game.replayable(d) &&
+    replayable(d) &&
     h(
       'a.fbt',
       {
         attrs: { href: url },
-        hook: util.bind('click', _ => {
+        hook: bind('click', _ => {
           // force page load in case the URL is the same
           if (location.pathname === url.split('#')[0]) location.reload();
         }),
       },
-      ctrl.noarg('analysis'),
+      i18n.site.analysis,
     )
   );
 }
@@ -46,27 +47,30 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
   const d = ctrl.data,
     me = !!d.player.offeringRematch,
     disabled = !me && !d.opponent.onGame && (!!d.clock || !d.player.user || !d.opponent.user),
-    them = !!d.opponent.offeringRematch && !disabled,
-    noarg = ctrl.noarg;
-  if (!game.rematchable(d)) return [];
+    them = !!d.opponent.offeringRematch && !disabled;
+  if (!rematchable(d)) return [];
   return [
     them &&
       h(
         'button.rematch-decline',
         {
-          attrs: { 'data-icon': licon.X, title: noarg('decline') },
-          hook: util.bind('click', () => ctrl.socket.send('rematch-no')),
+          attrs: { 'data-icon': licon.X, title: i18n.site.decline },
+          hook: bind('click', () => ctrl.socket.send('rematch-no')),
         },
-        ctrl.nvui ? noarg('decline') : '',
+        ctrl.nvui ? i18n.site.decline : '',
       ),
     h(
       'button.fbt.rematch.white',
       {
         class: { me, glowing: them, disabled },
         attrs: {
-          title: them ? noarg('yourOpponentWantsToPlayANewGameWithYou') : me ? noarg('rematchOfferSent') : '',
+          title: them
+            ? i18n.site.yourOpponentWantsToPlayANewGameWithYou
+            : me
+              ? i18n.site.rematchOfferSent
+              : '',
         },
-        hook: util.bind(
+        hook: bind(
           'click',
           () => {
             const d = ctrl.data;
@@ -83,7 +87,7 @@ function rematchButtons(ctrl: RoundController): LooseVNodes {
           ctrl.redraw,
         ),
       },
-      [me ? spinner() : h('span', noarg('rematch'))],
+      [me ? spinner() : h('span', i18n.site.rematch)],
     ),
   ];
 }
@@ -102,72 +106,69 @@ export function standard(
   return h(
     'button.fbt.' + socketMsg,
     {
-      attrs: { disabled: !enabled(), title: ctrl.noarg(hintFn()) },
-      hook: util.bind('click', () => {
+      attrs: { disabled: !enabled(), title: hintFn() },
+      hook: bind('click', () => {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    [h('span', ctrl.nvui ? [ctrl.noarg(hintFn())] : util.justIcon(icon))],
+    [h('span', ctrl.nvui ? [hintFn()] : justIcon(icon))],
   );
 }
 
-export function opponentGone(ctrl: RoundController) {
+export function opponentGone(ctrl: RoundController): LooseVNode {
   const gone = ctrl.opponentGone();
   if (ctrl.data.game.rules?.includes('noClaimWin')) return null;
   return gone === true
     ? h('div.suggestion', [
-        h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
+        h('p', { hook: onSuggestionHook }, i18n.site.opponentLeftChoices),
         h(
           'button.button',
-          { hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')) },
-          ctrl.noarg('forceResignation'),
+          { hook: bind('click', () => ctrl.socket.sendLoading('resign-force')) },
+          i18n.site.forceResignation,
         ),
         h(
           'button.button',
-          { hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')) },
-          ctrl.noarg('forceDraw'),
+          { hook: bind('click', () => ctrl.socket.sendLoading('draw-force')) },
+          i18n.site.forceDraw,
         ),
       ])
-    : gone &&
-        h(
-          'div.suggestion',
-          h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone))),
-        );
+    : gone !== false &&
+        h('div.suggestion', h('p', i18n.site.opponentLeftCounter.asArray(gone, h('strong', '' + gone))));
 }
 
-const fbtCancel = (ctrl: RoundController, f: (v: boolean) => void) =>
+const fbtCancel = (f: (v: boolean) => void) =>
   h('button.fbt.no', {
-    attrs: { title: ctrl.noarg('cancel'), 'data-icon': licon.X },
-    hook: util.bind('click', () => f(false)),
+    attrs: { title: i18n.site.cancel, 'data-icon': licon.X },
+    hook: bind('click', () => f(false)),
   });
 
 export const resignConfirm = (ctrl: RoundController): VNode =>
   h('div.act-confirm', [
     h('button.fbt.yes', {
-      attrs: { title: ctrl.noarg('resign'), 'data-icon': licon.FlagOutline },
-      hook: util.bind('click', () => ctrl.resign(true)),
+      attrs: { title: i18n.site.resign, 'data-icon': licon.FlagOutline },
+      hook: bind('click', () => ctrl.resign(true)),
     }),
-    fbtCancel(ctrl, ctrl.resign),
+    fbtCancel(ctrl.resign),
   ]);
 
 export const drawConfirm = (ctrl: RoundController): VNode =>
   h('div.act-confirm', [
     h('button.fbt.yes.draw-yes', {
-      attrs: { title: ctrl.noarg('offerDraw'), 'data-icon': licon.OneHalf },
-      hook: util.bind('click', () => ctrl.offerDraw(true)),
+      attrs: { title: i18n.site.offerDraw, 'data-icon': licon.OneHalf },
+      hook: bind('click', () => ctrl.offerDraw(true)),
     }),
-    fbtCancel(ctrl, ctrl.offerDraw),
+    fbtCancel(ctrl.offerDraw),
   ]);
 
 export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) => ButtonState): VNode =>
   h(
     'button.button.draw-yes',
     {
-      hook: util.bind('click', () =>
+      hook: bind('click', () =>
         condition(ctrl.data).enabled ? ctrl.socket.sendLoading('draw-claim') : undefined,
       ),
       attrs: {
-        title: ctrl.noarg(condition(ctrl.data)?.overrideHint || 'claimADraw'),
+        title: condition(ctrl.data)?.overrideHint || i18n.site.claimADraw,
         disabled: !condition(ctrl.data).enabled,
       },
       class: { disabled: !condition(ctrl.data).enabled },
@@ -175,14 +176,14 @@ export const claimThreefold = (ctrl: RoundController, condition: (d: RoundData) 
     h('span', '½'),
   );
 
-export function threefoldSuggestion(ctrl: RoundController) {
+export function threefoldSuggestion(ctrl: RoundController): LooseVNode {
   return (
     ctrl.data.game.threefold &&
-    h('div.suggestion', [h('p', { hook: onSuggestionHook }, ctrl.noarg('threefoldRepetition'))])
+    h('div.suggestion', [h('p', { hook: onSuggestionHook }, i18n.site.threefoldRepetition)])
   );
 }
 
-export function backToTournament(ctrl: RoundController) {
+export function backToTournament(ctrl: RoundController): LooseVNode {
   const d = ctrl.data;
   return (
     d.tournament?.running &&
@@ -191,19 +192,19 @@ export function backToTournament(ctrl: RoundController) {
         'a.text.fbt.strong.glowing',
         {
           attrs: { 'data-icon': licon.PlayTriangle, href: '/tournament/' + d.tournament.id },
-          hook: util.bind('click', ctrl.setRedirecting),
+          hook: bind('click', ctrl.setRedirecting),
         },
-        ctrl.noarg('backToTournament'),
+        i18n.site.backToTournament,
       ),
       h('form', { attrs: { method: 'post', action: '/tournament/' + d.tournament.id + '/withdraw' } }, [
-        h('button.text.fbt.weak', util.justIcon(licon.Pause), ctrl.noarg('pause')),
+        h('button.text.fbt.weak', justIcon(licon.Pause), i18n.site.pause),
       ]),
       analysisButton(ctrl),
     ])
   );
 }
 
-export function backToSwiss(ctrl: RoundController) {
+export function backToSwiss(ctrl: RoundController): LooseVNode {
   const d = ctrl.data;
   return (
     d.swiss?.running &&
@@ -212,26 +213,26 @@ export function backToSwiss(ctrl: RoundController) {
         'a.text.fbt.strong.glowing',
         {
           attrs: { 'data-icon': licon.PlayTriangle, href: '/swiss/' + d.swiss.id },
-          hook: util.bind('click', ctrl.setRedirecting),
+          hook: bind('click', ctrl.setRedirecting),
         },
-        ctrl.noarg('backToTournament'),
+        i18n.site.backToTournament,
       ),
       analysisButton(ctrl),
     ])
   );
 }
 
-export function moretime(ctrl: RoundController) {
+export function moretime(ctrl: RoundController): LooseVNode {
   return (
-    game.moretimeable(ctrl.data) &&
+    moretimeable(ctrl.data) &&
     h('a.moretime', {
       attrs: {
         title: ctrl.data.clock
-          ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime)
-          : ctrl.noarg('giveMoreTime'),
+          ? i18n.site.giveNbSeconds(ctrl.data.clock.moretime)
+          : i18n.preferences.giveMoreTime,
         'data-icon': licon.PlusButton,
       },
-      hook: util.bind('click', ctrl.socket.moreTime),
+      hook: bind('click', ctrl.socket.moreTime),
     })
   );
 }
@@ -240,20 +241,18 @@ export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
       !d.game.rematch &&
-      (status.finished(d) ||
-        (status.aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
+      (finished(d) || (aborted(d) && (!d.game.rated || !['lobby', 'pool'].includes(d.game.source)))) &&
       !d.tournament &&
       !d.simul &&
       !d.swiss &&
       !d.game.boosted,
-    newable =
-      (status.finished(d) || status.aborted(d)) && (d.game.source === 'lobby' || d.game.source === 'pool'),
+    newable = (finished(d) || aborted(d)) && ['lobby', 'pool', 'local'].includes(d.game.source),
     rematchZone = rematchable || d.game.rematch ? rematchButtons(ctrl) : [];
   return h('div.follow-up', [
     ...rematchZone,
     d.tournament &&
-      h('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, ctrl.noarg('viewTournament')),
-    d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, ctrl.noarg('viewTournament')),
+      h('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
+    d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
     newable &&
       h(
         'a.fbt',
@@ -262,28 +261,24 @@ export function followUp(ctrl: RoundController): VNode {
             href: d.game.source === 'pool' ? poolUrl(d.clock!, d.opponent.user) : '/?hook_like=' + d.game.id,
           },
         },
-        ctrl.noarg('newOpponent'),
+        i18n.site.newOpponent,
       ),
     analysisButton(ctrl),
   ]);
 }
 
-export function watcherFollowUp(ctrl: RoundController) {
+export function watcherFollowUp(ctrl: RoundController): LooseVNode {
   const d = ctrl.data,
     content = [
       d.game.rematch &&
-        h(
-          'a.fbt.text',
-          { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } },
-          ctrl.noarg('viewRematch'),
-        ),
+        h('a.fbt.text', { attrs: { href: `/${d.game.rematch}/${d.opponent.color}` } }, i18n.site.viewRematch),
       d.tournament &&
-        h('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, ctrl.noarg('viewTournament')),
+        h('a.fbt', { attrs: { href: '/tournament/' + d.tournament.id } }, i18n.site.viewTournament),
 
-      d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, ctrl.noarg('viewTournament')),
+      d.swiss && h('a.fbt', { attrs: { href: '/swiss/' + d.swiss.id } }, i18n.site.viewTournament),
       analysisButton(ctrl),
     ];
   return content.find(x => !!x) && h('div.follow-up', content);
 }
 
-const onSuggestionHook: Hooks = util.onInsert(el => site.pubsub.emit('round.suggestion', el.textContent));
+const onSuggestionHook: Hooks = onInsert(el => pubsub.emit('round.suggestion', el.textContent));

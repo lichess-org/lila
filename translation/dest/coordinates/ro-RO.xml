@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Antrenament la coordonate</string>
   <string name="averageScoreAsWhiteX">Media scorului cu albele: %s</string>
   <string name="averageScoreAsBlackX">Media scorului cu negrele: %s</string>
-  <string name="knowingTheChessBoard">Să știi coordonatele tablei de șah e o abilitate foarte importantă:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Să știi coordonatele tablei de șah e o abilitate foarte importantă:</string>
   <string name="mostChessCourses">Majoritatea exercițiilor și cursurilor de șah folosesc des notația algebrică.</string>
   <string name="talkToYourChessFriends">Devine mai ușor să discuți cu prietenii tăi șahiști, căci înțelegeți „limba șahului”.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Poți analiza o partidă mai eficient dacă stii să recunoști rapid coordonatele.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Ai 30 de secunde pentru a găsi poziția corectă pentru cât mai multe pătrate!</string>
   <string name="goAsLongAsYouWant">Continuă cât de mult vrei, nu există o limită de timp!</string>
   <string name="showCoordinates">Arată coordonatele</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Coordonate pe fiecare pătrat</string>
   <string name="showPieces">Arată piesele</string>
   <string name="startTraining">Începe antrenamentul</string>
   <string name="findSquare">Găsește pătratul</string>

@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Εξάσκηση στις συντεταγμένες</string>
   <string name="averageScoreAsWhiteX">Μέση βαθμολογία ως λευκά: %s</string>
   <string name="averageScoreAsBlackX">Μέση βαθμολογία ως μαύρα: %s</string>
-  <string name="knowingTheChessBoard">Η γνώση των συντεταγμένων της σκακιέρας είναι μια πολύ σημαντική δεξιότητα:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Η γνώση των συντεταγμένων της σκακιέρας είναι μια πολύ σημαντική δεξιότητα:</string>
   <string name="mostChessCourses">Τα περισσότερα μαθήματα κι οι περισσότερες ασκήσεις στο σκάκι χρησιμοποιούν τον αλγεβρικό τρόπο γραφής.</string>
   <string name="talkToYourChessFriends">Καθίσταται ευκολότερο να επικοινωνήσετε με τους φίλους σας στο σκάκι, δεδομένου ότι και οι δύο καταλαβαίνετε τη γλώσσα του σκακιού.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Μπορείτε να αναλύσετε ένα παιχνίδι αποτελεσματικότερα εάν δεν χρειάζεται να αναζητάτε τα ονόματα των τετραγώνων.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Έχετε 30 δευτερόλεπτα για να διαλέξτε σωστά όσα τετράγωνα γίνεται!</string>
   <string name="goAsLongAsYouWant">Πάρτε όσο χρόνο θέλετε, δεν υπάρχει χρονικό όριο!</string>
   <string name="showCoordinates">Εμφάνιση συντεταγμένων</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Συντεταγμένες σε κάθε τετράγωνο</string>
   <string name="showPieces">Εμφάνιση κομματιών</string>
   <string name="startTraining">Έναρξη εξάσκησης</string>
   <string name="findSquare">Εύρεση τετραγώνου</string>

@@ -4,7 +4,6 @@ import play.api.ConfigLoader
 
 import scala.jdk.CollectionConverters.*
 
-import lila.common.autoconfig.*
 import lila.core.config.*
 
 object config:

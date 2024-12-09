@@ -1,9 +1,10 @@
-import { Prop, propWithEffect } from 'common';
-import debounce from 'common/debounce';
+import { type Prop, propWithEffect } from 'common';
+import { debounce } from 'common/timing';
 import * as xhr from 'common/xhr';
-import { storedJsonProp, StoredJsonProp } from 'common/storage';
-import LobbyController from './ctrl';
-import {
+import { storedJsonProp } from 'common/storage';
+import { clockToSpeed } from 'game';
+import type LobbyController from './ctrl';
+import type {
   ForceSetupOptions,
   GameMode,
   GameType,
@@ -22,27 +23,19 @@ import {
   timeVToTime,
   variants,
 } from './options';
+import { alert } from 'common/dialog';
 
-const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf => {
-  if (!['standard', 'fromPosition'].includes(variant)) return variant as Perf;
-  if (timeMode !== 'realTime') return 'correspondence';
-
-  const totalGameTime = time * 60 + increment * 40;
-  return totalGameTime < 30
-    ? 'ultraBullet'
-    : totalGameTime < 180
-    ? 'bullet'
-    : totalGameTime < 480
-    ? 'blitz'
-    : totalGameTime < 1500
-    ? 'rapid'
-    : 'classical';
-};
+const getPerf = (variant: VariantKey, timeMode: TimeMode, time: RealValue, increment: RealValue): Perf =>
+  variant !== 'standard' && variant !== 'fromPosition'
+    ? variant
+    : timeMode !== 'realTime'
+      ? 'correspondence'
+      : clockToSpeed(time * 60, increment);
 
 export default class SetupController {
   root: LobbyController;
-  store: Record<GameType, StoredJsonProp<SetupStore>>;
-  gameType: GameType | null = null;
+  store: Record<Exclude<GameType, 'local'>, Prop<SetupStore>>;
+  gameType: Exclude<GameType, 'local'> | null = null;
   lastValidFen = '';
   fenError = false;
   friendUser = '';
@@ -103,8 +96,10 @@ export default class SetupController {
     this.variant = propWithEffect(forceOptions?.variant || storeProps.variant, this.onDropdownChange);
     this.fen = this.propWithApply(forceOptions?.fen || storeProps.fen);
     this.timeMode = propWithEffect(forceOptions?.timeMode || storeProps.timeMode, this.onDropdownChange);
-    this.timeV = this.propWithApply(sliderInitVal(storeProps.time, timeVToTime, 100)!);
-    this.incrementV = this.propWithApply(sliderInitVal(storeProps.increment, incrementVToIncrement, 100)!);
+    this.timeV = this.propWithApply(sliderInitVal(forceOptions?.time || storeProps.time, timeVToTime, 100)!);
+    this.incrementV = this.propWithApply(
+      sliderInitVal(forceOptions?.increment || storeProps.increment, incrementVToIncrement, 100)!,
+    );
     this.daysV = this.propWithApply(sliderInitVal(storeProps.days, daysVToDays, 20)!);
     this.gameMode = this.propWithApply(storeProps.gameMode);
     this.ratingMin = this.propWithApply(storeProps.ratingMin);
@@ -188,7 +183,11 @@ export default class SetupController {
 
   private propWithApply = <A>(value: A) => propWithEffect(value, this.onPropChange);
 
-  openModal = (gameType: GameType, forceOptions?: ForceSetupOptions, friendUser?: string) => {
+  openModal = (
+    gameType: Exclude<GameType, 'local'>,
+    forceOptions?: ForceSetupOptions,
+    friendUser?: string,
+  ) => {
     this.root.leavePool();
     this.gameType = gameType;
     this.loading = false;
@@ -234,8 +233,8 @@ export default class SetupController {
     // variants with very low time cannot be rated
     (this.variant() !== 'standard' &&
       (this.timeMode() !== 'realTime' ||
-        (this.time() < 0.5 && this.increment() == 0) ||
-        (this.time() == 0 && this.increment() < 2)));
+        (this.time() < 0.5 && this.increment() === 0) ||
+        (this.time() === 0 && this.increment() < 2)));
 
   selectedPerf = (): Perf => getPerf(this.variant(), this.timeMode(), this.time(), this.increment());
 
@@ -247,11 +246,11 @@ export default class SetupController {
 
   hookToPoolMember = (color: Color | 'random'): PoolMember | null => {
     const valid =
-      color == 'random' &&
+      color === 'random' &&
       this.gameType === 'hook' &&
-      this.variant() == 'standard' &&
-      this.gameMode() == 'rated' &&
-      this.timeMode() == 'realTime';
+      this.variant() === 'standard' &&
+      this.gameMode() === 'rated' &&
+      this.timeMode() === 'realTime';
     const id = `${this.time()}+${this.increment()}`;
     return valid && this.root.pools.find(p => p.id === id)
       ? {
@@ -265,7 +264,7 @@ export default class SetupController {
     xhr.form({
       variant: keyToId(this.variant(), variants).toString(),
       fen: this.fen(),
-      timeMode: keyToId(this.timeMode(), timeModes(this.root.trans)).toString(),
+      timeMode: keyToId(this.timeMode(), timeModes).toString(),
       time: this.time().toString(),
       time_range: this.timeV().toString(),
       increment: this.increment().toString(),
@@ -310,7 +309,7 @@ export default class SetupController {
         method: 'post',
         body: this.propsToFormData(color),
       });
-    } catch (e) {
+    } catch (_) {
       this.loading = false;
       this.root.redraw();
       alert('Sorry, we encountered an error while creating your game. Please try again.');
@@ -321,14 +320,14 @@ export default class SetupController {
 
     if (!ok) {
       const errs: { [key: string]: string } = await response.json();
-      alert(
+      await alert(
         errs
           ? Object.keys(errs)
               .map(k => `${k}: ${errs[k]}`)
               .join('\n')
           : 'Invalid setup',
       );
-      if (response.status == 403) {
+      if (response.status === 403) {
         // 403 FORBIDDEN closes this modal because challenges to the recipient
         // will not be accepted.  see friend() in controllers/Setup.scala
         this.closeModal();

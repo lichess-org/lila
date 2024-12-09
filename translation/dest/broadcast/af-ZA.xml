@@ -14,14 +14,9 @@
   <string name="tournamentDescription">Kort beskrywing van die toernooi</string>
   <string name="fullDescription">Volle geleentheid beskrywing</string>
   <string name="fullDescriptionHelp">Opsionele lang beskrywing van die uitsending. %1$s is beskikbaar. Lengte moet minder as %2$s karakters.</string>
-  <string name="sourceUrlOrGameIds">Bronadress, of spel IDs</string>
+  <string name="sourceSingleUrl">PGN-Bronskakel</string>
   <string name="sourceUrlHelp">URL wat Lichess sal nagaan vir PGN opdaterings. Dit moet openbaar beskikbaar wees vanaf die Internet.</string>
-  <string name="gameIdsHelp">Of anders, kan jy tot en met 64 Lichess spel IDs bevoeg, gespasieer deur spasie.</string>
-  <string name="startDate">Begin datum in jou eie tydsone</string>
   <string name="startDateHelp">Optioneel, indien jy weet wanner die geleentheid begin</string>
-  <string name="credits">Gee krediet aan die bron</string>
-  <string name="broadcastUrl">Uitsaai bronadres</string>
-  <string name="currentRoundUrl">Huidige ronde se bronadres</string>
   <string name="currentGameUrl">Huidige spel se bronadres</string>
   <string name="downloadAllRounds">Laai al die rondes af</string>
   <string name="resetRound">Herstel die ronde</string>
@@ -31,5 +26,13 @@
   <string name="deleteTournament">Vee hierdie toernooi uit</string>
   <string name="definitivelyDeleteTournament">Vee beslis die hele toernooi uit, met al sy rondtes en spelle.</string>
   <string name="replacePlayerTags">Opsioneel: vervang spelername, graderings en titels</string>
-  <string name="periodInSeconds">Periode in sekondes</string>
+  <string name="fideFederations">FIDE-federasies</string>
+  <string name="top10Rating">Top 10 gradering</string>
+  <string name="fidePlayers">FIDE-deelnemers</string>
+  <string name="fidePlayerNotFound">FIDE-deelnemer nie gevind nie</string>
+  <string name="fideProfile">FIDE-profiel</string>
+  <string name="federation">Federasie</string>
+  <string name="ageThisYear">Ouderdom vanjaar</string>
+  <string name="unrated">Ongegradeerd</string>
+  <string name="recentTournaments">Onlangse toernooie</string>
 </resources>

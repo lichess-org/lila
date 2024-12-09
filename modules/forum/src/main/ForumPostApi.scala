@@ -1,12 +1,11 @@
 package lila.forum
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.core.forum.{ BusForum, ForumCateg as _, ForumPost as _, * }
 import lila.core.perm.Granter as MasterGranter
-import lila.core.forum.{ ForumPost as _, ForumCateg as _, * }
-import lila.core.forum.BusForum
+import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.db.dsl.{ *, given }
 
 final class ForumPostApi(
     postRepo: ForumPostRepo,
@@ -118,25 +117,28 @@ final class ForumPostApi(
   )(using me: Me): Fu[Option[ForumPost]] =
     ForumPost.Reaction(reactionStr).so { reaction =>
       if v then lila.mon.forum.reaction(reaction.key).increment()
-      postRepo.coll
-        .findAndUpdateSimplified[ForumPost](
-          selector = $id(postId) ++ $doc("categId" -> categId, "userId".$ne(me.userId)),
-          update =
-            if v then $addToSet(s"reactions.$reaction" -> me.userId)
-            else $pull(s"reactions.$reaction"          -> me.userId),
-          fetchNewObject = true
-        )
-        .andDo:
-          if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v then
+      for
+        post <- postRepo.coll
+          .findAndUpdateSimplified[ForumPost](
+            selector = $id(postId) ++ $doc("categId" -> categId, "userId".$ne(me.userId)),
+            update =
+              if v then $addToSet(s"reactions.$reaction" -> me.userId)
+              else $pull(s"reactions.$reaction"          -> me.userId),
+            fetchNewObject = true
+          )
+        _ =
+          if me.marks.troll && reaction == ForumPost.Reaction.MinusOne && v
+          then
             scheduler.scheduleOnce(5 minutes):
               react(categId, postId, reaction.key, false)
+      yield post
     }
 
-  def views(posts: List[ForumPost]): Fu[List[PostView]] =
+  def views(posts: Seq[ForumPost]): Fu[List[PostView]] =
     for
       topics <- topicRepo.coll.byIds[ForumTopic, ForumTopicId](posts.map(_.topicId).distinct)
       categs <- categRepo.coll.byIds[ForumCateg, ForumCategId](topics.map(_.categId).distinct)
-    yield posts.flatMap: post =>
+    yield posts.toList.flatMap: post =>
       for
         topic <- topics.find(_.id == post.topicId)
         categ <- categs.find(_.id == topic.categId)
@@ -200,7 +202,7 @@ final class ForumPostApi(
   private def diagnosticForUser(user: User): Fu[Option[CategView]] = // CategView with user's topic/post
     for
       categOpt <- categRepo.byId(ForumCateg.diagnosticId)
-      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, user.id.value)
+      topicOpt <- topicRepo.byTree(ForumCateg.diagnosticId, s"${user.id.value}-problem-report")
       postOpt  <- topicOpt.so(t => postRepo.coll.byId[ForumPost](t.lastPostId(user.some)))
     yield for
       post  <- postOpt
@@ -223,11 +225,6 @@ final class ForumPostApi(
     postRepo.coll.update
       .one($id(post.id), post.erase)
       .void
-
-  def eraseFromSearchIndex(user: User): Funit =
-    postRepo.coll
-      .distinctEasy[ForumPostId, List]("_id", $doc("userId" -> user.id), _.sec)
-      .map(ids => Bus.pub(BusForum.ErasePosts(ids)))
 
   def teamIdOfPostId(postId: ForumPostId): Fu[Option[TeamId]] =
     postRepo.coll.byId[ForumPost](postId).flatMapz { post =>

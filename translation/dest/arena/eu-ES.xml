@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena Txapelketak</string>
   <string name="isItRated">Sailkapenerako balio du?</string>
   <string name="willBeNotified">Txapelketa hasten denean jakinarazpen bat bidaliko dizugu, beraz beste fitxa baten beste partida bat jokatu dezakezu txapelketaren zain zauden artean.</string>
@@ -59,4 +60,27 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="averagePerformance">Bataz besteko performancea</string>
   <string name="averageScore">Batez besteko puntuazioa</string>
   <string name="myTournaments">Nire txapelketak</string>
+  <string name="editTournament">Editatu txapelketa</string>
+  <string name="editTeamBattle">Editatu taldekako txapelketa</string>
+  <string name="defender">Aurreko txapelduna</string>
+  <string name="pickYourTeam">Aukeratu zure taldea</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Zein talderen izenean jokatuko duzu?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Parte hartzeko talde hauetako baten kide izan behar zara!</string>
+  <string name="created">Sortuta</string>
+  <string name="recentlyPlayed">Azkenaldian jokatuta</string>
+  <string name="bestResults">Emaitza onenak</string>
+  <string name="tournamentStats">Txapelketaren estatistikak</string>
+  <string name="rankAvgHelp">Sailkapenaren bataz bestekoa zure puntuazioaren ehuneko bat da. Baxuagoa hobe da.
+
+Adibidez, 100 jokalariko txapelketa baten 3. sailkatzea = %3. 1000 jokalariko txapelketa baten 10. sailkatzea = %1.</string>
+  <string name="medians">medianak</string>
+  <string name="allAveragesAreX">Orrialde honetako batazbesteko guztiak %s dira.</string>
+  <string name="total">Guztira</string>
+  <string name="pointsAvg">Bataz besteko puntuak</string>
+  <string name="pointsSum">Puntuen batuketa</string>
+  <string name="rankAvg">Sailkapenaren bataz bestekoa</string>
+  <string name="tournamentWinners">Txapelketaren irabazleak</string>
+  <string name="tournamentShields">Txapelketen garaikurrak</string>
+  <string name="onlyTitled">Tituludun jokalariak bakarrik</string>
+  <string name="onlyTitledHelp">Eskatu titulu ofiziala izatea txapelketan sartzeko</string>
 </resources>

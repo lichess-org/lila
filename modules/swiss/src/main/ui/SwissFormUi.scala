@@ -1,14 +1,15 @@
 package lila.swiss
 package ui
 
+import chess.variant.Variant
 import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.Translate
-import lila.gathering.{ ConditionForm, GatheringClock }
-import chess.variant.Variant
+import lila.gathering.GatheringClock
 import lila.gathering.ui.GatheringFormUi
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class SwissFormUi(helpers: Helpers)(
     translatedVariantChoicesWithVariants: (
@@ -20,7 +21,7 @@ final class SwissFormUi(helpers: Helpers)(
   def create(form: Form[SwissForm.SwissData], teamId: TeamId)(using Context) =
     Page(trans.swiss.newSwiss.txt())
       .css("swiss.form")
-      .js(EsmInit("bits.tourForm")):
+      .js(Esm("bits.tourForm")):
         val fields = new SwissFields(form, none)
         main(cls := "page-small")(
           div(cls := "swiss__form tour__form box box-pad")(
@@ -35,17 +36,11 @@ final class SwissFormUi(helpers: Helpers)(
                   trans.site.ourEventTips()
                 )
               ),
-              form3.split(fields.name, fields.nbRounds),
-              form3.split(fields.description, fields.rated),
-              fields.clock,
-              form3.split(fields.roundInterval, fields.startsAt),
-              advancedSettings(
-                form3.split(fields.variant, fields.position),
-                form3.split(fields.chatFor, fields.entryCode),
-                condition(form),
-                form3.split(fields.playYourGames, fields.allowList),
-                form3.split(fields.forbiddenPairings, fields.manualPairings)
-              ),
+              fields.tournamentFields,
+              fields.gameFields,
+              fields.featuresFields,
+              fields.conditionFields,
+              fields.pairingsFields,
               form3.globalError(form),
               form3.actions(
                 a(href := routes.Team.show(teamId))(trans.site.cancel()),
@@ -55,48 +50,22 @@ final class SwissFormUi(helpers: Helpers)(
           )
         )
 
-  private def advancedSettings(settings: Frag*)(using Context) =
-    details(summary(trans.site.advancedSettings()), settings)
-
   private val gatheringFormUi = GatheringFormUi(helpers)
-
-  private def condition(form: Form[SwissForm.SwissData])(using ctx: Context) =
-    frag(
-      form3.split(
-        gatheringFormUi.nbRatedGame(form("conditions.nbRatedGame.nb")),
-        gatheringFormUi.accountAge(form("conditions.accountAge"))
-      ),
-      (ctx.me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option {
-        form3.split(
-          gatheringFormUi.titled(form("conditions.titled"))
-        )
-      },
-      form3.split(
-        gatheringFormUi.minRating(form("conditions.minRating.rating")),
-        gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
-      )
-    )
 
   def edit(swiss: Swiss, form: Form[SwissForm.SwissData])(using Context) =
     Page(swiss.name)
       .css("swiss.form")
-      .js(EsmInit("bits.tourForm")):
+      .js(Esm("bits.tourForm")):
         val fields = new SwissFields(form, swiss.some)
         main(cls := "page-small")(
           div(cls := "swiss__form box box-pad")(
             h1(cls := "box__top")("Edit ", swiss.name),
             postForm(cls := "form3", action := routes.Swiss.update(swiss.id))(
-              form3.split(fields.name, fields.nbRounds),
-              form3.split(fields.description, fields.rated),
-              fields.clock,
-              form3.split(fields.roundInterval, swiss.isCreated.option(fields.startsAt)),
-              advancedSettings(
-                form3.split(fields.variant, fields.position),
-                form3.split(fields.chatFor, fields.entryCode),
-                condition(form),
-                form3.split(fields.playYourGames, fields.allowList),
-                form3.split(fields.forbiddenPairings, fields.manualPairings)
-              ),
+              fields.tournamentFields,
+              fields.gameFields,
+              fields.featuresFields,
+              fields.conditionFields,
+              fields.pairingsFields,
               form3.globalError(form),
               form3.actions(
                 a(href := routes.Swiss.show(swiss.id))(trans.site.cancel()),
@@ -104,7 +73,7 @@ final class SwissFormUi(helpers: Helpers)(
               )
             ),
             postForm(cls := "terminate", action := routes.Swiss.terminate(swiss.id))(
-              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red confirm")(
+              submitButton(dataIcon := Icon.CautionCircle, cls := "text button button-red yes-no-confirm")(
                 trans.site.cancelTournament()
               )
             )
@@ -114,6 +83,18 @@ final class SwissFormUi(helpers: Helpers)(
   private final class SwissFields(form: Form[SwissForm.SwissData], swiss: Option[Swiss])(using Context):
 
     private def disabledAfterStart = swiss.exists(!_.isCreated)
+
+    def tournamentFields =
+      form3.fieldset("Tournament", toggle = true.some)(
+        form3.split(name, nbRounds),
+        form3.split(startsAt, description)
+      )
+
+    def gameFields =
+      form3.fieldset("Games", toggle = true.some)(
+        clock,
+        form3.split(variant, position)
+      )
 
     def name =
       form3.group(form("name"), trans.site.name()) { f =>
@@ -137,17 +118,6 @@ final class SwissFormUi(helpers: Helpers)(
       )(
         form3.input(_, typ = "number")
       )
-
-    def rated =
-      frag(
-        form3.checkbox(
-          form("rated"),
-          trans.site.rated(),
-          help = trans.site.ratedFormHelp().some,
-          half = true
-        ),
-        form3.hidden(form("rated"), "false".some) // hack allow disabling rated
-      )
     def variant =
       form3.group(form("variant"), trans.site.variant(), half = true)(
         form3.select(
@@ -164,10 +134,6 @@ final class SwissFormUi(helpers: Helpers)(
         form3.group(form("clock.increment"), trans.site.clockIncrement(), half = true)(
           form3.select(_, GatheringClock.incrementChoices, disabled = disabledAfterStart)
         )
-      )
-    def roundInterval =
-      form3.group(form("roundInterval"), trans.swiss.roundInterval(), half = true)(
-        form3.select(_, SwissForm.roundIntervalChoices)
       )
     def description =
       form3.group(
@@ -192,28 +158,67 @@ final class SwissFormUi(helpers: Helpers)(
         trans.swiss.tournStartDate(),
         help = trans.site.inYourLocalTimezone().some,
         half = true
-      )(form3.flatpickr(_))
+      )(form3.flatpickr(_)(swiss.exists(!_.isCreated).option(disabled)))
 
-    def chatFor =
-      form3.group(form("chatFor"), trans.site.tournChat(), half = true) { f =>
-        form3.select(
-          f,
-          Seq(
-            Swiss.ChatFor.NONE    -> trans.site.noChat.txt(),
-            Swiss.ChatFor.LEADERS -> trans.site.onlyTeamLeaders.txt(),
-            Swiss.ChatFor.MEMBERS -> trans.site.onlyTeamMembers.txt(),
-            Swiss.ChatFor.ALL     -> trans.study.everyone.txt()
-          )
+    def conditionFields =
+      form3.fieldset("Entry conditions", toggle = swiss.exists(!_.settings.conditions.isDefault).some)(
+        form3.split(
+          gatheringFormUi.nbRatedGame(form("conditions.nbRatedGame.nb")),
+          gatheringFormUi.accountAge(form("conditions.accountAge"))
+        ),
+        form3.split(
+          gatheringFormUi.minRating(form("conditions.minRating.rating")),
+          gatheringFormUi.maxRating(form("conditions.maxRating.rating"))
+        ),
+        form3.split(
+          playYourGames,
+          (summon[Context].me.exists(_.hasTitle) || Granter.opt(_.ManageTournament)).option:
+            gatheringFormUi.titled(form("conditions.titled"))
+        ),
+        form3.split(
+          form3.group(
+            form("password"),
+            trans.site.tournamentEntryCode(),
+            help = trans.site.makePrivateTournament().some,
+            half = true
+          )(form3.input(_)(autocomplete := "off")),
+          allowList
         )
-      }
+      )
 
-    def entryCode =
-      form3.group(
-        form("password"),
-        trans.site.tournamentEntryCode(),
-        help = trans.site.makePrivateTournament().some,
-        half = true
-      )(form3.input(_)(autocomplete := "off"))
+    def featuresFields =
+      form3.fieldset("Features", toggle = false.some)(
+        form3.split(
+          form3.group(form("chatFor"), trans.site.tournChat(), half = true) { f =>
+            form3.select(
+              f,
+              Seq(
+                Swiss.ChatFor.NONE    -> trans.site.noChat.txt(),
+                Swiss.ChatFor.LEADERS -> trans.site.onlyTeamLeaders.txt(),
+                Swiss.ChatFor.MEMBERS -> trans.site.onlyTeamMembers.txt(),
+                Swiss.ChatFor.ALL     -> trans.study.everyone.txt()
+              )
+            )
+          },
+          form3.group(form("roundInterval"), trans.swiss.roundInterval(), half = true)(
+            form3.select(_, SwissForm.roundIntervalChoices)
+          )
+        ),
+        form3.split(
+          form3.checkbox(
+            form("rated"),
+            trans.site.rated(),
+            help = trans.site.ratedFormHelp().some,
+            half = true
+          ),
+          form3.hidden(form("rated"), "false".some) // hack allow disabling rated
+        )
+      )
+
+    def pairingsFields =
+      form3.fieldset("Custom pairings", toggle = false.some)(
+        form3.split(forbiddenPairings, manualPairings)
+      )
 
     def forbiddenPairings =
       form3.group(

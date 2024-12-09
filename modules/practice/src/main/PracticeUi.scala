@@ -1,16 +1,16 @@
 package lila.practice
 package ui
 
-import play.api.libs.json.*
 import play.api.data.Form
+import play.api.libs.json.*
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.i18n.I18nKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class PracticeUi(helpers: Helpers)(
     csp: Update[ContentSecurityPolicy],
-    translations: Vector[I18nKey],
     explorerAndCevalConfig: Context ?=> JsObject,
     modMenu: Context ?=> Frag
 ):
@@ -19,6 +19,7 @@ final class PracticeUi(helpers: Helpers)(
   def show(us: UserStudy, data: JsonView.JsData)(using Context) =
     Page(us.practiceStudy.name.value)
       .css("analyse.practice")
+      .i18n(_.puzzle, _.study)
       .js(analyseNvuiTag)
       .js(
         PageModule(
@@ -26,8 +27,7 @@ final class PracticeUi(helpers: Helpers)(
           Json.obj(
             "practice" -> data.practice,
             "study"    -> data.study,
-            "data"     -> data.analysis,
-            "i18n"     -> i18nJsObject(translations)
+            "data"     -> data.analysis
           ) ++ explorerAndCevalConfig
         )
       )
@@ -37,9 +37,6 @@ final class PracticeUi(helpers: Helpers)(
   def index(data: lila.practice.UserPractice)(using ctx: Context) =
     Page("Practice chess positions")
       .css("bits.practice.index")
-      .js(embedJsUnsafeLoadThen(s"""$$('.do-reset').on('click', function() {
-if (confirm('You will lose your practice progress!')) this.parentNode.submit();
-});"""))
       .graph(
         title = "Practice your chess",
         description = "Learn how to master the most common chess positions",
@@ -55,7 +52,13 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
               div(cls := "bar", style := s"width: ${data.progressPercent}%")
             ),
             postForm(action := routes.Practice.reset)(
-              if ctx.isAuth then (data.nbDoneChapters > 0).option(a(cls := "do-reset")("Reset my progress"))
+              if ctx.isAuth then
+                (data.nbDoneChapters > 0).option(
+                  submitButton(
+                    cls   := "button ok-cancel-confirm",
+                    title := "You will lose your practice progress!"
+                  )("Reset my progress")
+                )
               else a(href := routes.Auth.signup)("Sign up to save your progress")
             )
           ),
@@ -100,13 +103,13 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
               errMsg(form("text")),
               submitButton(cls := "button button-fat text", dataIcon := Icon.Checkmark)("Save")
             ),
-            div(cls := "preview")(
-              ol(
-                structure.sections.map { section =>
+            div(cls := "preview"):
+              ol:
+                structure.sections.map: section =>
                   li(
                     h2(section.name, "#", section.id, section.hide.so(" [hidden]")),
                     ol(
-                      section.studies.map { stud =>
+                      section.studies.map: stud =>
                         li(
                           i(cls := s"practice icon ${stud.id}")(
                             h3(
@@ -118,19 +121,13 @@ if (confirm('You will lose your practice progress!')) this.parentNode.submit();
                               )
                             ),
                             em(stud.desc),
-                            ol(
-                              stud.chapters.map { cha =>
+                            ol:
+                              stud.chapters.map: cha =>
                                 li(a(href := routes.Study.chapter(stud.id, cha.id))(cha.name))
-                              }
-                            )
                           )
                         )
-                      }
                     )
                   )
-                }
-              )
-            )
           )
         )
       )

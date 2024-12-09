@@ -1,8 +1,6 @@
 package lila.oauth
-
-import cats.derived.*
 import lila.core.i18n.I18nKey
-import lila.core.i18n.I18nKey.{ oauthScope as trans }
+import lila.core.i18n.I18nKey.oauthScope as trans
 
 sealed abstract class OAuthScope(val key: String, val name: I18nKey):
   override def toString = s"Scope($key)"
@@ -156,7 +154,8 @@ object OAuthScope:
 
   def canUseWebMod(using Option[Me]) =
     import lila.core.perm.*
-    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin).exists(Granter.opt)
+    List[Permission.Selector](_.Shusher, _.BoostHunter, _.CheatHunter, _.StudyAdmin, _.ApiChallengeAdmin)
+      .exists(Granter.opt)
 
   import reactivemongo.api.bson.*
   import lila.db.dsl.*

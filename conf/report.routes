@@ -1,5 +1,7 @@
 GET   /report                          controllers.report.Report.form
 POST  /report                          controllers.report.Report.create
+GET   /report/inbox/:username          controllers.report.Report.inboxForm(username: UserStr)
+POST  /report/inbox/:username          controllers.report.Report.inboxCreate(username: UserStr)
 POST  /report/flag                     controllers.report.Report.flag
 GET   /report/thanks                   controllers.report.Report.thanks
 GET   /report/list                     controllers.report.Report.list

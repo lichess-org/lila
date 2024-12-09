@@ -2,11 +2,14 @@ import * as licon from 'common/licon';
 import * as enhance from 'common/richText';
 import { userLink } from 'common/userLink';
 import * as spam from './spam';
-import { Line } from './interfaces';
-import { h, thunk, VNode, VNodeData } from 'snabbdom';
+import type { Line } from './interfaces';
+import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
-import ChatCtrl from './ctrl';
+import type ChatCtrl from './ctrl';
+import { tempStorage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 const whisperRegex = /^\/[wW](?:hisper)?\s/;
 
@@ -31,13 +34,11 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
         hook: {
           insert(vnode) {
             const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
-              site.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
+              pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
             });
             if (hasMod)
-              $el.on(
-                'click',
-                '.mod',
-                (e: Event) => ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
+              $el.on('click', '.mod', (e: Event) =>
+                ctrl.moderation?.open((e.target as HTMLElement).parentNode as HTMLElement),
               );
             else
               $el.on('click', '.flag', (e: Event) =>
@@ -61,12 +62,12 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
     return h('input.mchat__say', {
-      attrs: { placeholder: ctrl.trans('loginToChat'), disabled: true },
+      attrs: { placeholder: i18n.site.loginToChat, disabled: true },
     });
   let placeholder: string;
-  if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
+  if (ctrl.vm.timeout) placeholder = i18n.site.youHaveBeenTimedOut;
   else if (ctrl.opts.blind) placeholder = 'Chat';
-  else placeholder = ctrl.trans.noarg(ctrl.vm.placeholderKey);
+  else placeholder = i18n.site.talkInChat;
   return h('input.mchat__say', {
     attrs: {
       placeholder,
@@ -87,7 +88,7 @@ function renderInput(ctrl: ChatCtrl): VNode | undefined {
 let mouchListener: EventListener;
 
 const setupHooks = (ctrl: ChatCtrl, chatEl: HTMLInputElement) => {
-  const storage = site.tempStorage.make('chat.input');
+  const storage = tempStorage.make('chat.input');
   const previousText = storage.get();
   if (previousText) {
     chatEl.value = previousText;
@@ -161,7 +162,7 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
     if (
       !line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId) &&
+      (!line.r || (line.u || '').toLowerCase() === ctrl.data.userId) &&
       !spam.skip(line.t)
     )
       ls.push(line);
@@ -202,7 +203,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     !!myUserId &&
     !!line.t
       .match(enhance.userPattern)
-      ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
+      ?.find(mention => mention.trim().toLowerCase() === `@${ctrl.data.userId}`);
 
   return h(
     'li',
@@ -216,7 +217,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
+          myUserId && line.u && myUserId !== line.u
             ? h('action.flag', {
                 attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
               })

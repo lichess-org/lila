@@ -15,6 +15,7 @@
   <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
   <string name="upVote">musi lili pona</string>
   <string name="downVote">musi lili ike</string>
+  <string name="yourPuzzleRatingWillNotChange">nanpa wawa sina li ante ala. o sona e ni: musi lili ni li utala ala. ilo li pana e musi lili pi pona mute tawa sina kepeken nanpa wawa sina.</string>
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
@@ -30,8 +31,8 @@
   <string name="byOpenings">wan open</string>
   <string name="puzzlesByOpenings">musi lili pi wan open</string>
   <string name="openingsYouPlayedTheMost">sina pali mute e open ni lon musi utala</string>
-  <string name="useFindInPage">o alasa e open pona kepeken ilo \"Find in page\" lon ilo nanpa!</string>
-  <string name="useCtrlF">o alasa e open pona kepeken ilo Ctrl-f!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">o alasa e open pona kepeken ilo \"Find in page\" lon ilo nanpa!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">o alasa e open pona kepeken ilo Ctrl-f!</string>
   <string name="notTheMove">ni li tawa pona ala!</string>
   <string name="trySomethingElse">o pali e tawa ante.</string>
   <string name="ratingX">nanpa wawa: %s</string>
@@ -65,7 +66,7 @@
   <string name="strengths">wan musi sina pi wawa suli</string>
   <string name="history">musi lili pi tenpo pini</string>
   <string name="solved">pini pona</string>
-  <string name="failed">pini ike</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">pini ike</string>
   <string name="continueTheStreak">o awen e nanpa</string>
   <string name="newStreak">nanpa sin</string>
   <string name="fromMyGames">tawa mi musi</string>

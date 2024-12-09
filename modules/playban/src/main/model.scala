@@ -1,6 +1,7 @@
 package lila.playban
 
 import play.api.libs.json.*
+import scalalib.model.Days
 
 import lila.common.Json.given
 import lila.core.playban.RageSit as RageSitCounter
@@ -19,41 +20,58 @@ case class UserRecord(
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
   def banMinutes  = bans.lastOption.map(_.remainingMinutes)
+  def bansThisWeek =
+    val since = nowInstant.minusDays(7)
+    bans.count(_.date.isAfter(since))
 
   def nbOutcomes = outcomes.size
 
   def badOutcomeScore: Float =
     outcomes.collect {
-      case Outcome.NoPlay | Outcome.Abort => .7f
+      case Outcome.Sandbag                => .7f
+      case Outcome.NoPlay | Outcome.Abort => .8f
       case o if o != Outcome.Good         => 1
     } sum
 
-  def badOutcomeRatio: Float = if bans.sizeIs < 3 then 0.4f else 0.3f
+  def badOutcomeTolerance(age: Days): Float =
+    if age <= 1 then 0.3f
+    else if bans.sizeIs < 3 then 0.4f
+    else 0.3f
 
   def minBadOutcomes: Int =
-    bans.size match
+    bansThisWeek match
       case 0 | 1 => 4
       case 2 | 3 => 3
       case _     => 2
 
-  def badOutcomesStreakSize: Int =
-    bans.size match
-      case 0     => 6
-      case 1 | 2 => 5
-      case _     => 4
+  def badOutcomesStreakSize(age: Days): Int =
+    if age < 1
+    then 3
+    else if bans.size == 0 then 6
+    else if bans.size < 3 then 5
+    else if bans.size < 10 then 4
+    else 3
 
-  def bannable(accountCreationDate: Instant): Option[TempBan] = {
+  def bannable(age: Days): Option[TempBan] = {
     rageSitRecidive || {
       outcomes.lastOption.exists(_ != Outcome.Good) && {
         // too many bad overall
-        badOutcomeScore >= ((badOutcomeRatio * nbOutcomes).atLeast(minBadOutcomes.toFloat)) || {
+        val toleranceRatio = badOutcomeTolerance(age)
+        badOutcomeScore >= ((toleranceRatio * nbOutcomes).atLeast(minBadOutcomes.toFloat)) || {
           // bad result streak
-          outcomes.sizeIs >= badOutcomesStreakSize &&
-          outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
+          val streakSize = badOutcomesStreakSize(age)
+          outcomes.sizeIs >= streakSize &&
+          outcomes.takeRight(streakSize).forall(Outcome.Good !=)
+        } || {
+          // last 2 games
+          age < 1 &&
+          outcomes.sizeIs < 9 &&
+          outcomes.sizeIs > 1 &&
+          outcomes.reverse.take(2).forall(Outcome.Good !=)
         }
       }
     }
-  }.option(TempBan.make(bans, accountCreationDate))
+  }.option(TempBan.make(bans, age))
 
   def rageSitRecidive =
     outcomes.lastOption.exists(Outcome.rageSitLike.contains) && {
@@ -91,15 +109,16 @@ object TempBan:
     *   - 0 - 3 days: linear scale from 3x to 1x
     *   - >3 days quick drop off Account less than 3 days old --> 2x the usual time
     */
-  def make(bans: Vector[TempBan], accountCreationDate: Instant): TempBan =
+  def make(bans: Vector[TempBan], age: Days): TempBan =
     make {
-      (bans.lastOption
-        .so { prev =>
+      val base = bans.lastOption
+        .so: prev =>
           prev.endsAt.toNow.toHours.toSaturatedInt match
             case h if h < 72 => prev.mins * (132 - h) / 60
             case h           => (55.6 * prev.mins / (Math.pow(5.56 * prev.mins - 54.6, h / 720) + 54.6)).toInt
-        }
-        .atLeast(baseMinutes)) * (if accountCreationDate.plusDays(3).isAfterNow then 2 else 1)
+        .atLeast(baseMinutes)
+      val multiplier = if age == Days(0) then 3 else if age <= 3 then 2 else 1
+      base * multiplier
     }
 
 enum Outcome(val id: Int, val name: String):

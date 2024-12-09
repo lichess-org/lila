@@ -3,9 +3,10 @@ package ui
 
 import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.team.LightTeam
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TeamBattleUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -15,7 +16,7 @@ final class TeamBattleUi(helpers: Helpers):
   def edit(tour: Tournament, form: Form[?])(using Context) =
     Page(tour.name())
       .css("tournament.form")
-      .js(EsmInit("bits.teamBattleForm")):
+      .js(Esm("bits.teamBattleForm")):
         main(cls := "page-small")(
           div(cls := "tour__form box box-pad")(
             h1(cls := "box__top")(tour.name()),

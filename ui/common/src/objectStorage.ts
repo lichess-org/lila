@@ -19,6 +19,7 @@ export interface ObjectStorage<V, K extends IDBValidKey = IDBValidKey> {
   count(key?: K | IDBKeyRange): Promise<number>;
   remove(key: K | IDBKeyRange): Promise<void>;
   clear(): Promise<void>; // remove all
+  cursor(range?: IDBKeyRange, dir?: IDBCursorDirection): Promise<IDBCursorWithValue | undefined>;
   txn(mode: IDBTransactionMode): IDBTransaction; // do anything else
 }
 
@@ -47,11 +48,15 @@ export async function objectStorage<V, K extends IDBValidKey = IDBValidKey>(
     count: (key?: K | IDBKeyRange) => actionPromise<number>(() => objectStore('readonly').count(key)),
     remove: (key: K | IDBKeyRange) => actionPromise<void>(() => objectStore('readwrite').delete(key)),
     clear: () => actionPromise<void>(() => objectStore('readwrite').clear()),
+    cursor: (keys?: IDBKeyRange, dir?: IDBCursorDirection) =>
+      actionPromise<IDBCursorWithValue | undefined>(() => objectStore('readonly').openCursor(keys, dir)).then(
+        cursor => cursor ?? undefined,
+      ),
     txn: (mode: IDBTransactionMode) => db.transaction(dbInfo.store, mode),
   };
 }
 
-async function dbConnect(dbInfo: DbInfo) {
+export async function dbConnect(dbInfo: DbInfo): Promise<IDBDatabase> {
   const dbName = dbInfo?.db || `${dbInfo.store}--db`;
 
   return new Promise<IDBDatabase>((resolve, reject) => {
@@ -68,5 +73,37 @@ async function dbConnect(dbInfo: DbInfo) {
 
       dbInfo.upgrade?.(e, store);
     };
+  });
+}
+
+export async function nonEmptyStore(info: DbInfo): Promise<boolean> {
+  const dbName = info?.db || `${info.store}--db`;
+  return new Promise<boolean>(resolve => {
+    const dbs = window.indexedDB.databases?.(); // not all browsers support
+    if (!dbs) storeExists();
+    else
+      dbs.then(dbList => {
+        if (dbList.every(db => db.name !== dbName)) resolve(false);
+        else storeExists();
+      });
+
+    function storeExists() {
+      const request = window.indexedDB.open(dbName);
+
+      request.onerror = () => resolve(false);
+      request.onsuccess = (e: Event) => {
+        const db = (e.target as IDBOpenDBRequest).result;
+        try {
+          const cursor = db.transaction(info.store, 'readonly').objectStore(info.store).openCursor();
+          cursor.onsuccess = () => {
+            db.close();
+            resolve(cursor.result !== null);
+          };
+        } catch {
+          db.close();
+          resolve(false);
+        }
+      };
+    }
   });
 }

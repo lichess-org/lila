@@ -42,7 +42,7 @@
   <string name="castleByMovingTwoSquares">O tiplasañ ar roue deus div garrezenn</string>
   <string name="castleByMovingOntoTheRook">Diblasañ ar roue war an tour evit rokañ</string>
   <string name="inputMovesWithTheKeyboard">Aozañ an touchennaoueg evit c\'hoari gantañ</string>
-  <string name="yourPreferencesHaveBeenSaved">Savetaet eo bet ho tibaboù.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Savetaet eo bet ho tibaboù.</string>
   <string name="notifyTournamentSoon">Un tournamant a vo a-benn nebeut</string>
   <string name="notifyWeb">Merdeer</string>
   <string name="bellNotificationSound">Klevet ar c\'hloc\'h</string>

@@ -1,12 +1,11 @@
 package lila.web
 package ui
 
-import scala.util.chaining.*
-
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey as trans }
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.core.id.ForumCategId
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 object contact:
 
@@ -222,18 +221,6 @@ object contact:
             )
           )
         ),
-        Leaf(
-          "broadcast",
-          wantBroadcastTournament(),
-          frag(
-            p(a(href := routes.RelayTour.help)(learnHowToMakeBroadcasts()), "."),
-            p(
-              contactAboutOfficialBroadcasts(),
-              " ",
-              sendEmailAt(contactEmailLink("broadcast@lichess.org"))
-            )
-          )
-        ),
         frag(
           p(doNotMessageModerators()),
           p(sendAppealTo(a(href := routes.Appeal.home)(routes.Appeal.home.url))),
@@ -272,6 +259,58 @@ object contact:
           collaboration(),
           List(
             Leaf(
+              "gdpr",
+              "GDPR",
+              frag(
+                p("You may request the deletion of your Lichess account."),
+                p(
+                  "First, ",
+                  a(href := routes.Account.close)("close your account"),
+                  "."
+                ),
+                p(
+                  "Then send us an email at ",
+                  contactEmailLink(contactEmail.value),
+                  " to request the definitive erasure of all data linked to the account."
+                )
+              )
+            ),
+            Leaf(
+              "dmca",
+              "DMCA / Intellectual Property Take Down Notice",
+              p(
+                a(href := "/dmca")("Complete this form"),
+                " ",
+                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
+              )
+            ),
+            Leaf(
+              "contact-broadcast",
+              "Broadcast a tournament on Lichess",
+              frag(
+                p(
+                  "If you want to officially broadcast a tournament on Lichess, ",
+                  "or have any questions about our broadcasts:"
+                ),
+                p(
+                  "Please contact our Broadcast Team at ",
+                  contactEmailLink("broadcast@lichess.org"),
+                  " or on ",
+                  a(href := "https://discord.gg/Syx9CbN8Jv")("our discord"),
+                  "."
+                )
+              )
+            ),
+            Leaf(
+              "authorize",
+              authorizationToUse(),
+              frag(
+                p(welcomeToUse()),
+                p(videosAndBooks()),
+                p(creditAppreciated())
+              )
+            ),
+            Leaf(
               "monetize",
               monetizing(),
               frag(
@@ -293,41 +332,6 @@ object contact:
               p("We are not selling, to anyone, for any price. Ever.")
             ),
             Leaf(
-              "authorize",
-              authorizationToUse(),
-              frag(
-                p(welcomeToUse()),
-                p(videosAndBooks()),
-                p(creditAppreciated())
-              )
-            ),
-            Leaf(
-              "gdpr",
-              "GDPR",
-              frag(
-                p("You may request the deletion of your Lichess account."),
-                p(
-                  "First, ",
-                  a(href := routes.Account.close)("close your account"),
-                  "."
-                ),
-                p(
-                  "Then send us an email at ",
-                  contactEmailLink(contactEmail.value),
-                  " to request the definitive erasure of all data linked to the account."
-                )
-              )
-            ),
-            Leaf(
-              "dmca",
-              "DMCA / Intellectual Property Take Down Notice",
-              p(
-                a(href := dmcaUrl)("Complete this form"),
-                " ",
-                "if you are the original copyright holder, or an agent acting on behalf of the copyright holder, and believe Lichess is hosting work(s) you hold the copyright to."
-              )
-            ),
-            Leaf(
               "contact-other",
               noneOfTheAbove(),
               frag(
@@ -339,5 +343,3 @@ object contact:
         )
       )
     )
-
-  val dmcaUrl = "/dmca"

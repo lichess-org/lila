@@ -110,7 +110,6 @@
   <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">प्रत्यक्ष वेळी</string>
   <string name="byCPL">सेंटीपॉन तोट्यानुसार</string>
-  <string name="openStudy">अभ्यास</string>
   <string name="enable">सक्षम करा</string>
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
   <string name="evaluationGauge">मूल्यांकन परिमाण</string>
@@ -396,7 +395,6 @@
   <string name="block">अडवा</string>
   <string name="blocked">अडवलेले</string>
   <string name="unblock">आड दूर करा</string>
-  <string name="followsYou">तुमचा अनुयायी</string>
   <string name="xStartedFollowingY">%1$s %2$sचे अनुयायी बनले</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s अनुयायी</item>
@@ -428,9 +426,6 @@
   <string name="safeTournamentName">क्रीडासत्रासाठी खूप सुरक्षित नाव निवडा.</string>
   <string name="inappropriateNameWarning">थोडे अनुचित काहीही आपले खाते बंद करू शकते.</string>
   <string name="emptyTournamentName">क्रीडासत्राला उल्लेखनीय बुद्धिबळपटूचे नाव देणीसाठी रिकामे सोडा.</string>
-  <string name="recommendNotTouching">आमच्या मते तुम्ही याला बदलू नये.</string>
-  <string name="fewerPlayers">आपण प्रविष्टी आवश्यकता सेट केल्यास, आपल्या क्रीडासत्रात कमी खेळाडू असतील.</string>
-  <string name="showAdvancedSettings">प्रगत सेटिंग्ज दाखवा</string>
   <string name="makePrivateTournament">क्रीडासत्र खाजगी करा, व पासवर्डने प्रवेश मर्यादित करा</string>
   <string name="join">सामील व्हा</string>
   <string name="withdraw">मागे घ्या</string>
@@ -469,8 +464,6 @@
   <string name="ifNoneLeaveEmpty">काहीही नसल्यास रिक्त सोडा</string>
   <string name="profile">प्रोफाइल</string>
   <string name="editProfile">प्रोफाईल संपादित करा</string>
-  <string name="firstName">नाव</string>
-  <string name="lastName">आडनाव</string>
   <string name="biography">चरित्र</string>
   <string name="thankYou">आभारी आहे</string>
   <string name="socialMediaLinks">सोशल मीडिया दुवे</string>
@@ -511,11 +504,8 @@
   <string name="reason">कारण</string>
   <string name="whatIsIheMatter">काय समस्या आहे</string>
   <string name="cheat">फसवणूक</string>
-  <string name="insult">अपमान</string>
   <string name="troll">थट्टा</string>
-  <string name="ratingManipulation">रेटिंग मॅनिपुलेशन</string>
   <string name="other">इतर</string>
-  <string name="reportDescriptionHelp">खेळाचा दुवा पेस्ट करा आणि या वापरकर्त्याच्या वर्तनाबद्दल काय चुकीचे आहे ते सांगा. फक्त \"ते फसवतात\" असे म्हणू नका, परंतु आपण या निष्कर्षावर कसे आलात ते सांगा. इंग्रजीमध्ये लिहिले असल्यास आपल्या अहवालावर वेगवान प्रक्रिया केली जाईल.</string>
   <string name="error.provideOneCheatedGameLink">कृपया फसवणूक झालेल्या खेळासाठी किमान एक दुवा प्रदान करा.</string>
   <string name="by">%s ने</string>
   <string name="importedByX">%s ने आयात केलेले</string>
@@ -630,7 +620,7 @@
   <string name="aboutSimulRules">जेव्हा अनेकांविरुद्ध प्रदर्शन सुरू होते, तेव्हा प्रत्येक खेळाडू यजमानासह खेळ सुरू करतो. जेव्हा सर्व खेळ पूर्ण होतात तेव्हा प्रदर्शन संपते.</string>
   <string name="aboutSimulSettings">अनेकांविरूद्धची प्रदर्शने नेहमीच अनौपचारिक असतात. पुनर्खेळ, चाल परत घेणे आणि वेळ वाढवणे या गोष्टींची परवानगी नसते.</string>
   <string name="create">तयार करा</string>
-  <string name="whenCreateSimul">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">जेव्हा आपण एखादे अनेकांविरुद्ध प्रदर्शन तयार करता तेव्हा आपल्याला एकाच वेळी अनेक खेळाडू खेळायला मिळतात.</string>
   <string name="simulVariantsHint">आपण कित्येक प्रकार निवडल्यास प्रत्येक खेळाडू कोणता प्रकार खेळायचा ते ठरवू शकेल.</string>
   <string name="simulClockHint">फिशर क्लॉक सेटअप. आपण जितके अधिक खेळाडू घेता, तितके आपल्याला अधिक वेळ लागेल.</string>
   <string name="simulAddExtraTime">एकाच वेळी अनेकांचा सामना करण्यास सोपे व्हावे म्हणून आपण आपल्या घड्याळात अतिरिक्त वेळ घालवू शकता.</string>

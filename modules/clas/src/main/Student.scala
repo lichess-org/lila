@@ -2,9 +2,9 @@ package lila.clas
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
+import lila.core.id.{ ClasId, StudentId }
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.security.ClearPassword
-import lila.core.id.{ ClasId, StudentId }
 
 case class Student(
     @Key("_id") id: StudentId, // userId:clasId

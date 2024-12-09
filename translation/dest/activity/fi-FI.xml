@@ -34,6 +34,10 @@
     <item quantity="one">Pelasi %s kirjeshakkipelin</item>
     <item quantity="other">Pelasi %s kirjeshakkipeliä</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Pelasi %1$s %2$s-kirjeshakkipelin</item>
+    <item quantity="other">Pelasi %1$s %2$s-kirjeshakkipeliä</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Alkoi seuraamaan %s pelaajaa</item>
     <item quantity="other">Alkoi seuraamaan %s pelaajaa</item>
@@ -54,7 +58,7 @@
     <item quantity="one">Teki %s uuden tutkielman</item>
     <item quantity="other">Teki %s uutta tutkielmaa</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Kilpaili %s turnauksessa</item>
     <item quantity="other">Kilpaili %s turnauksessa</item>
   </plurals>

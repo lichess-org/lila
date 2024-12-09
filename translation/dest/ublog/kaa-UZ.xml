@@ -24,7 +24,7 @@
   <string name="xPublishedY">%1$s %2$sdı járiyaladı</string>
   <string name="thisPostIsPublished">Bul xabar járiyalandı</string>
   <string name="thisIsADraft">Bul qaralama</string>
-  <string name="moreBlogPostsBy">%s tárepinen kóbirek blog xabarları</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s tárepinen kóbirek blog xabarları</string>
   <string name="noPostsInThisBlogYet">Bul blogta ele xabarlar joq.</string>
   <string name="noDrafts">Kórsetiw ushın qaralama joq.</string>
   <string name="latestBlogPosts">Eń sońǵı post xabarları</string>
@@ -35,7 +35,6 @@
   <string name="uploadAnImageForYourPost">Xabarıńız ushın súwret júkleń</string>
   <string name="imageAlt">Súwrettiń tekstli táriypi</string>
   <string name="deleteBlog">Usı blog xabarın pútkilley óshiriw</string>
-  <string name="deleteImage">Súwretti óshiriw</string>
   <string name="safeToUseImages">Tómendegi vabsaytlardaǵı súwretlerden paydalanıw qáwipsiz: </string>
   <string name="selectPostTopics">Xabarlarıńız ushın temalar tańlań</string>
   <string name="useImagesYouMadeYourself">Sonıń menen birge siz avtorlıq huqıqı menen qorǵalmaǵan qálegen nárseni yaǵnıy ózińiz sızǵan súwretler, túsirgenler fotolar, Lichesstiń skrinshotların... qollanıwıńız múmkin.</string>

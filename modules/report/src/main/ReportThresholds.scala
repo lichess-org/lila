@@ -3,11 +3,11 @@ package lila.report
 import play.api.data.Form
 import play.api.data.Forms.{ single, text }
 import reactivemongo.api.bson.BSONHandler
-
 import scalalib.Iso
-import lila.memo.SettingStore.{ Formable, StringReader }
+
 import lila.core.data.Ints
 import lila.core.report.ScoreThresholds
+import lila.memo.SettingStore.{ Formable, StringReader }
 
 private case class Thresholds(score: () => ScoreThresholds, discord: () => Int)
 

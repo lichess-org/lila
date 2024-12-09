@@ -1,19 +1,17 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "noEmit": true
-  },
+  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
   "references": [
+    { "path": "../bits/tsconfig.json" },
     { "path": "../ceval/tsconfig.json" },
     { "path": "../chart/tsconfig.json" },
     { "path": "../chat/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },
+    { "path": "../editor/tsconfig.json" },
     { "path": "../game/tsconfig.json" },
     { "path": "../keyboardMove/tsconfig.json" },
     { "path": "../nvui/tsconfig.json" },
     { "path": "../tree/tsconfig.json" }
-  ],
-  "isolatedModules": true
+  ]
 }

@@ -60,13 +60,14 @@ object PlanPricingApi:
 
   def nicelyRound(amount: BigDecimal): BigDecimal = {
     val double   = amount.toDouble
-    val scale    = math.floor(math.log10(double));
+    val scale    = math.floor(math.log10(double))
     val fraction = if scale > 1 then 2d else 1d
-    math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
+    val nice     = math.round(double * fraction * math.pow(10, -scale)) / fraction / math.pow(10, -scale)
+    math.round(nice * 10_000) / 10_000
   }.atLeast(1)
 
   import play.api.libs.json.*
-  val pricingWrites = OWrites[PlanPricing] { p =>
+  given pricingWrites: OWrites[PlanPricing] = OWrites: p =>
     Json.obj(
       "currency"    -> p.currencyCode,
       "min"         -> p.min.amount,
@@ -75,4 +76,3 @@ object PlanPricingApi:
       "default"     -> p.default.amount,
       "suggestions" -> p.suggestions.map(_.amount)
     )
-  }

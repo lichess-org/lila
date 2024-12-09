@@ -112,7 +112,6 @@
   <string name="replayMode">გამეორების რეჟიმი</string>
   <string name="realtimeReplay">პირდაპირი</string>
   <string name="byCPL">CPL-ის მიერ</string>
-  <string name="openStudy">გახსენი სწავლება</string>
   <string name="enable">ჩართვა</string>
   <string name="bestMoveArrow">საუკეთესო სვლის ისარი</string>
   <string name="showVariationArrows">აჩვენე ისრიანი ვარიანტები</string>
@@ -122,7 +121,6 @@
   <string name="memory">მეხსიერება</string>
   <string name="infiniteAnalysis">უსასრულო ანალიზი</string>
   <string name="removesTheDepthLimit">აუქმებს სიღრმის ლიმიტს, ახურებს თქვენს კომპიუტერს(ანუ ბევრ რესურს იყენებს)</string>
-  <string name="engineManager">ძრავის მენეჯერი</string>
   <string name="blunder">უხეში შეცდომა</string>
   <string name="mistake">შეცდომა</string>
   <string name="inaccuracy">უზუსტობა</string>
@@ -428,7 +426,6 @@
   <string name="block">დაბლოკვა</string>
   <string name="blocked">დაბლოკილი</string>
   <string name="unblock">ბლოკის მოხსნა</string>
-  <string name="followsYou">მოგყვება</string>
   <string name="xStartedFollowingY">%1$s დაიწყო მოყოლა %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s მომყოლები</item>
@@ -460,9 +457,6 @@
   <string name="safeTournamentName">ტურნირისთვის შეარჩიეთ უსაფრთხო სახელი.</string>
   <string name="inappropriateNameWarning">ნებისმიერი, თუნდაც მცირედი, უტაქტობა გამოიწვევს თქვენი ანგარიშის დახურვას.</string>
   <string name="emptyTournamentName">დატოვეთ ცარიელი, თუ გნებავთ რომ ტურნირს დაერქვას შემთხვევითად შერჩეული ჭადრაკის დიდოსტატის სახელი.</string>
-  <string name="recommendNotTouching">გირჩევთ ამას არ შეეხოთ.</string>
-  <string name="fewerPlayers">თუ თქვენ შესვლის წინაპირობებს დააყენებთ, თქვენს ტურნირს უფრო ცოტა მოთამაშე ეყოლება.</string>
-  <string name="showAdvancedSettings">დამატებითი პარამეტრების ნახვა</string>
   <string name="makePrivateTournament">გახადე ტურნირი დახურული და შეუზღუდე ჭვდომა პაროლით</string>
   <string name="join">შეუერთდით</string>
   <string name="withdraw">გავარდნა</string>
@@ -501,8 +495,7 @@
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="profile">პროფილი</string>
   <string name="editProfile">პროფილის განახლება</string>
-  <string name="firstName">სახელი</string>
-  <string name="lastName">გვარი</string>
+  <string name="flair">ემოჯი</string>
   <string name="biography">ბიოგრაფია</string>
   <string name="thankYou">გმადლობთ შეფასებისთვის!</string>
   <string name="socialMediaLinks">სოციალური მედიის ბმულები</string>
@@ -544,11 +537,8 @@
   <string name="reason">მიზეზი</string>
   <string name="whatIsIheMatter">მიზეზი</string>
   <string name="cheat">ტყული</string>
-  <string name="insult">შეურაცხყოფა</string>
   <string name="troll">პროვოკაცია</string>
-  <string name="ratingManipulation">რეიტინგის მანიპულაცია</string>
   <string name="other">სხვა</string>
-  <string name="reportDescriptionHelp">ჩასვით თამაშ(ებ)ის ბმული და მიუთითეთ თუ რა არის საეჭვო მომხმარებლის ქცევაში.</string>
   <string name="error.provideOneCheatedGameLink">გთხოვთ მიუთითო სულ მცირე ერთი პარტიის ბმული სადაც თვლით რომ მოწინააღმდეგემ წესების დარღვევით ითამაშა.</string>
   <string name="by">%s-ის</string>
   <string name="importedByX">დააიმპორტა %s - მა</string>
@@ -665,7 +655,7 @@
   <string name="aboutSimulRules">\"Simul\" _ის დროს ყველა მოთამაშე თამაშობს \"Simul\" _ის შემქნელთან შავი ფერით. ის მთავრდება მაშინ როცა ყველა თამაში დასულდება</string>
   <string name="aboutSimulSettings">ერთდროული თამაშები არასარეიტინგოა. საპასუხო გამოწვევები, სვლის დაბრუნება და დროის დამატება შესაძლებელი არ არის.</string>
   <string name="create">შექმნა</string>
-  <string name="whenCreateSimul">როდესაც ქმნით ერთდროულ თამაშს, პარალელურ რეჟიმში გიწევთ რამდენიმე მოთამაშესთან დაპირისპირება.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">როდესაც ქმნით ერთდროულ თამაშს, პარალელურ რეჟიმში გიწევთ რამდენიმე მოთამაშესთან დაპირისპირება.</string>
   <string name="simulVariantsHint">თუ აირჩევთ რამდენიმე ვარიანტს, თითოეული მოთამაშეს ეძლევა საშუალება აირჩიოს მათგან ერთ-ერთი.</string>
   <string name="simulClockHint">ფიშერის საათის გამართვა. რაც მეტ მოთამაშეს დაუპირისპირდებით, შესაძლოა მით მეტი დრო დაგჭირდეთ.</string>
   <string name="simulAddExtraTime">თქვენ შეგიძლიათ დროის დამატება ერთდროული თამაშისას.</string>
@@ -768,6 +758,9 @@
   <string name="transparent">გამჭვირვალე</string>
   <string name="deviceTheme">მოწყობილობის თემა</string>
   <string name="backgroundImageUrl">ფონის სურათის მისამართი:</string>
+  <string name="board">დაფა</string>
+  <string name="size">ზომა</string>
+  <string name="hue">ტონ</string>
   <string name="pieceSet">ფიგურების კომპლექტი</string>
   <string name="embedInYourWebsite">ჩააშენეთ თქვენს საიტში</string>
   <string name="usernameAlreadyUsed">ეს მომხმარებლის სახელი უკვე მოხმარებაშია, გთხოვთ სცადეთ სხვა სახელი.</string>

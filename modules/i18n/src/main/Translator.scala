@@ -4,7 +4,7 @@ import play.api.i18n.Lang
 import scalatags.Text.all.*
 
 import lila.common.String.html.escapeHtml
-import lila.core.i18n.{ Translator, TranslatorFrag, TranslatorTxt, I18nKey, Translate }
+import lila.core.i18n.{ I18nKey, Translate, Translator, TranslatorFrag, TranslatorTxt }
 
 object Translator extends Translator:
 

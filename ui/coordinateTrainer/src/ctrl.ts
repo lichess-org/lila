@@ -1,11 +1,11 @@
 import { sparkline } from '@fnando/sparkline';
-import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
-import { withEffect } from 'common';
-import { makeCtrl as makeVoiceCtrl, VoiceCtrl } from 'voice';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
+import { throttlePromiseDelay } from 'common/timing';
+import { myUserId, withEffect } from 'common';
+import { makeVoice, type VoiceCtrl } from 'voice';
 import { storedBooleanProp, storedProp } from 'common/storage';
-import { Api as CgApi } from 'chessground/api';
-import {
+import type { Api as CgApi } from 'chessground/api';
+import type {
   ColorChoice,
   TimeControl,
   CoordinateTrainerConfig,
@@ -14,6 +14,7 @@ import {
   ModeScores,
   Redraw,
 } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 const orientationFromColorChoice = (colorChoice: ColorChoice): Color =>
   (colorChoice === 'random' ? ['white', 'black'][Math.round(Math.random())] : colorChoice) as Color;
@@ -62,7 +63,7 @@ export default class CoordinateTrainerCtrl {
   chessground: CgApi | undefined;
   currentKey: Key | '' = 'a1';
   hasPlayed = false;
-  isAuth = document.body.hasAttribute('data-user');
+  isAuth = !!myUserId();
   keyboardInput: HTMLInputElement;
   voice: VoiceCtrl;
   modeScores: ModeScores = this.config.scores;
@@ -71,7 +72,6 @@ export default class CoordinateTrainerCtrl {
   score = 0;
   timeAtStart: Date;
   timeLeft = DURATION;
-  trans: Trans = site.trans(this.config.i18n);
   wrong: boolean;
   wrongTimeout: number;
   zen: boolean;
@@ -83,27 +83,26 @@ export default class CoordinateTrainerCtrl {
     const setZen = throttlePromiseDelay(
       () => 1000,
       zen =>
-        xhr.text('/pref/zen', {
+        xhrText('/pref/zen', {
           method: 'post',
-          body: xhr.form({ zen: zen ? 1 : 0 }),
+          body: xhrForm({ zen: zen ? 1 : 0 }),
         }),
     );
 
-    site.pubsub.on('zen', () => {
+    pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       setZen(zen);
     });
 
-    $('#zentog').on('click', () => site.pubsub.emit('zen'));
-    site.mousetrap.bind('z', () => site.pubsub.emit('zen'));
+    $('#zentog').on('click', () => pubsub.emit('zen'));
+    site.mousetrap.bind('z', () => pubsub.emit('zen'));
 
     site.mousetrap.bind('enter', () => (this.playing ? null : this.start()));
 
     window.addEventListener('resize', () => requestAnimationFrame(this.updateCharts), true);
-
-    this.voice = makeVoiceCtrl({ redraw: this.redraw, tpe: 'coords' });
-    site.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
+    this.voice = makeVoice({ redraw: this.redraw, tpe: 'coords' });
+    this.voice.mic.initRecognizer([...'abcdefgh', ...Object.keys(rankWords), 'start', 'stop'], {
       partial: true,
       listener: this.onVoice.bind(this),
     });
@@ -282,9 +281,9 @@ export default class CoordinateTrainerCtrl {
     if (this.timeControl() === 'thirtySeconds') {
       this.updateScoreList();
       if (this.isAuth)
-        xhr.text('/training/coordinate/score', {
+        xhrText('/training/coordinate/score', {
           method: 'post',
-          body: xhr.form({ mode: this.mode(), color: this.orientation, score: this.score }),
+          body: xhrForm({ mode: this.mode(), color: this.orientation, score: this.score }),
         });
     }
 

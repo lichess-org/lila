@@ -1,6 +1,3 @@
-import { Prop } from 'common';
-import { StoredProp } from 'common/storage';
-
 export interface Goal {
   result: string;
   moves?: number;
@@ -30,18 +27,4 @@ export interface PracticeStudy {
   id: string;
   slug: string;
   name: string;
-}
-
-export interface StudyPracticeCtrl {
-  onLoad(): void;
-  onJump(): void;
-  onCeval(): void;
-  data: StudyPracticeData;
-  goal: Prop<Goal>;
-  success: Prop<boolean | null>;
-  nbMoves: Prop<number>;
-  reset(): void;
-  isWhite(): boolean;
-  analysisUrl: Prop<string>;
-  autoNext: StoredProp<boolean>;
 }

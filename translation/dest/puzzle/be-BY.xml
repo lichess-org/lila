@@ -27,6 +27,7 @@
   <string name="keepGoing">Працягвайце…</string>
   <string name="puzzleSuccess">Поспех!</string>
   <string name="puzzleComplete">Задача вырашана!</string>
+  <string name="puzzlesByOpenings">Задачы за дэбютамі</string>
   <string name="notTheMove">Гэта не той ход!</string>
   <string name="trySomethingElse">Паспрабуйце нешта іншае.</string>
   <string name="ratingX">Рэйтынг: %s</string>
@@ -66,7 +67,7 @@
   <string name="strengths">Моцныя бакі</string>
   <string name="history">Гісторыя задач</string>
   <string name="solved">вырашана правільна</string>
-  <string name="failed">памылка</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">памылка</string>
   <string name="streakDescription">Вырашайце патупова ўскладняючыеся задачы і стварыце пераможную серыю. Тут няма гадзінніку, таму не спяшайцеся. Адзін няправільны ход і гульня скончана! Але можна прапусціць адзін ход за спробу.</string>
   <string name="yourStreakX">Ваша серыя: %s</string>
   <string name="streakSkipExplanation">Прапусціце гэты ход, каб захаваць серыю! Можна скарыстаць толькі адзін раз.</string>

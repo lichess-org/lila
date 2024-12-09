@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Личестің кейбір парақшаларын пернетіркестер арқылы басқаруға болады. Зертхана, талдау, жұмбақ пен ойын парақшаларында \"?\" бассаңыз, пернетіркестер тізімі шыға келеді.</string>
   <string name="fairPlay">Адал ойын</string>
   <string name="whenAmIEligibleRatinRefund">Қандай жағдайда читер келтірген рейтинг шығынын өтеуге құқығым бар?</string>
-  <string name="ratingRefundExplanation">Ойыншы читер деп белгіленген соң, бір минут ішінде оның кейінгі 3 күнде болған 40 ойны алынады. Егер олардың арасында сізбен ойнаған ойны болса, сіздің рейтингіңіз кемісе (жеңіліс не тепе-теңдік салдарынан), сонымен қатар рейтингіңіз болжамалы емес болса, сіз рейтинг шығынын өтеп аласыз. Өтеудің деңгейі сіздің ең жоғары рейтинг пен ойыннан кейінгі рейтинг өзгерісіне қарай анықталады.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Ойыншы читер деп белгіленген соң, бір минут ішінде оның кейінгі 3 күнде болған 40 ойны алынады. Егер олардың арасында сізбен ойнаған ойны болса, сіздің рейтингіңіз кемісе (жеңіліс не тепе-теңдік салдарынан), сонымен қатар рейтингіңіз болжамалы емес болса, сіз рейтинг шығынын өтеп аласыз. Өтеудің деңгейі сіздің ең жоғары рейтинг пен ойыннан кейінгі рейтинг өзгерісіне қарай анықталады.
 (Мысалы, сіздің рейтингіңіз осы ойындардан кейін күрт артып кетсе, сіз өтеуді толық емес мөлшерде немесе мүлдем алмауыңыз мүмкін.) Өтеудің мөлшері ешқашан 150 ұпайдан аспайды.</string>
   <string name="preventLeavingGameWithoutResigning">Берілмей ойыннан шығып жүретін ойыншыларға қандай шара қолданасыз?</string>
   <string name="leavingGameWithoutResigningExplanation">Егер қарсыласыңыз ойынды үзіп не шығып кетіп жүрсе, ол \"ойны шектелген\" белгісін алады. Белгінің мағынасы – ойынға қатысуына уақытша рұқсаты жоқ. Бұл белгі оның куәлік бетінде көпшіліктен жасырулы. Егер ойыншының осындай қылығы жалғаса берсе, шектеу мерзімі де ұзара береді. Жаман әдетінен ұзақ уақыт бойы айырылмай жүрсе, тіпті тіркелгі жабылуына шалдығады.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Буллит, Блиц пен басқа да уақыт қалыптарының айырмашылығы неде?</string>
   <string name="basedOnGameDuration">Личестегі уақыт қалыптары ойынның болжаулы ұзақтығына негізделген = %1$s.
 Мысалы, 5+3 ойынның болжаулы ұзақтығы 5 × 60 + 40 × 3 = 420 секунд.</string>
-  <string name="durationFormula">(бастапқы уақыт) + 40 × (қосылғыш)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(бастапқы уақыт) + 40 × (қосылғыш)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$sс = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s с = %2$s</string>
   <string name="whatVariantsCanIplay">Личесте шахматтың қай түрлерін ойнасам болады?</string>
@@ -95,12 +95,12 @@
   <string name="usernamesNotOffensive">Жалпы, тіркеулі атта қорлау, басқа біреудің аты, жарнама сияқты нәрселер болмау керек. Бұл туралы %1$s - де көбірек жазылған.</string>
   <string name="guidelines">нұсқаулық</string>
   <string name="canIChangeMyUsername">Мен тіркеулі атымды өзгерте аламын ба?</string>
-  <string name="usernamesCannotBeChanged">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Жоқ, тіркеулі атыңызды өзгерте алмайсыз. Тіркеулі ат алуан-түрлі нәрсеге байланған: дерекқор, экспорт, журнал, сонымен қатар – адамдардың есі. Дегенмен, бір рет қана әріп үлкендігін өзгерту рұқсат.</string>
   <string name="uniqueTrophies">Ерекше олжалар</string>
   <string name="ownerUniqueTrophies">Бұл олжа Личес тарихында ерекше орын алады, %1$s-дан басқа ешкім де оған ие болмады.</string>
   <string name="wayOfBerserkExplanation">Оған жету үшін, hiimgosu өзін берсеркке шақырып, %s-ның 100%% ойындарын жеңді.</string>
   <string name="aHourlyBulletTournament">әрсағаттық Буллит жарысы</string>
-  <string name="goldenZeeExplanation">ZugAddict стрим жүргізе отырып, 2 сағат бойы 1+0 қалыпта 8-нші деңгейдегі Жасанды зият жүйесін жеңе алмай тұрған. Thibault оған стрим кезінде сәтті ойнасаң, ерекше олжа аласың деп уәде берген еді. Бір сағаттан соң, ол Стокфиштің тас талқанын шығарып, уәдеге сай олжасына ие болды.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict стрим жүргізе отырып, 2 сағат бойы 1+0 қалыпта 8-нші деңгейдегі Жасанды зият жүйесін жеңе алмай тұрған. Thibault оған стрим кезінде сәтті ойнасаң, ерекше олжа аласың деп уәде берген еді. Бір сағаттан соң, ол Стокфиштің тас талқанын шығарып, уәдеге сай олжасына ие болды.</string>
   <string name="lichessRatings">Личес рейтингтері</string>
   <string name="whichRatingSystemUsedByLichess">Личес қандай рейтинг жүйесін қолданады?</string>
   <string name="ratingSystemUsedByLichess">Личес рейтингті Mark Glickman жасаған Glicko-2 тәсілімен есептейді. Бұл өте танымал тәсіл, оны көптеген шахмат ұйымдары қолданады (FIDE көз түсер қарсы мысал, ол әлі де Elo рейтинг жүйесін қолданады).

@@ -1,11 +1,12 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
+import { confirm } from 'common/dialog';
 import { Convo } from '../interfaces';
-import MsgCtrl from '../ctrl';
+import type MsgCtrl from '../ctrl';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
-  if (convo.user.id == 'lichess') return [];
+  if (convo.user.id === 'lichess') return [];
   const nodes = [];
   const cls = 'msg-app__convo__action.button.button-empty';
   nodes.push(
@@ -14,7 +15,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       attrs: {
         'data-icon': licon.Swords,
         href: `/?user=${convo.user.name}#friend`,
-        title: ctrl.trans.noarg('challengeToPlay'),
+        title: i18n.challenge.challengeToPlay,
       },
     }),
   );
@@ -25,9 +26,9 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         key: 'unblock',
         attrs: {
           'data-icon': licon.NotAllowed,
-          title: ctrl.trans.noarg('blocked'),
+          title: i18n.site.blocked,
           type: 'button',
-          'data-hover-text': ctrl.trans.noarg('unblock'),
+          'data-hover-text': i18n.site.unblock,
         },
         hook: bind('click', ctrl.unblock),
       }),
@@ -39,7 +40,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         attrs: {
           'data-icon': licon.NotAllowed,
           type: 'button',
-          title: ctrl.trans.noarg('block'),
+          title: i18n.site.block,
         },
         hook: bind('click', withConfirm(ctrl.block)),
       }),
@@ -47,25 +48,23 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   nodes.push(
     h(`button.${cls}.bad`, {
       key: 'delete',
-      attrs: { 'data-icon': licon.Trash, type: 'button', title: ctrl.trans.noarg('delete') },
+      attrs: { 'data-icon': licon.Trash, type: 'button', title: i18n.site.delete },
       hook: bind('click', withConfirm(ctrl.delete)),
     }),
   );
-  if (ctrl.reportableMsg())
-    nodes.push(
-      h(`button.${cls}.bad`, {
-        key: 'report',
-        attrs: {
-          'data-icon': licon.CautionTriangle,
-          type: 'button',
-          title: ctrl.trans('reportXToModerators', convo.user.name),
-        },
-        hook: bind('click', withConfirm(ctrl.report)),
-      }),
-    );
+  nodes.push(
+    h(`a.${cls}.bad`, {
+      key: 'report',
+      attrs: {
+        href: '/report/inbox/' + convo.user.name,
+        'data-icon': licon.CautionTriangle,
+        title: i18n.site.reportXToModerators(convo.user.name),
+      },
+    }),
+  );
   return nodes;
 }
 
 const withConfirm = (f: () => void) => (e: MouseEvent) => {
-  if (confirm(`${(e.target as HTMLElement).getAttribute('title') || 'Confirm'}?`)) f();
+  confirm(`${(e.target as HTMLElement).getAttribute('title') || 'Confirm'}?`).then(yes => yes && f());
 };

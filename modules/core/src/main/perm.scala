@@ -1,7 +1,7 @@
 package lila.core
 package perm
 
-import lila.core.user.{ User, Me }
+import lila.core.user.{ Me, User, RoleDbKey }
 
 object Granter:
 
@@ -22,14 +22,14 @@ object Granter:
 
   def ofUser(f: Permission.Selector)(user: User): Boolean = of(f)(user)
 
-  def ofDbKeys(permission: Permission, dbKeys: Seq[String]): Boolean =
+  def ofDbKeys(permission: Permission, dbKeys: Seq[RoleDbKey]): Boolean =
     Permission.ofDbKeys(dbKeys).exists(_.grants(permission))
-  def ofDbKeys(f: Permission.Selector, dbKeys: Seq[String]): Boolean =
+  def ofDbKeys(f: Permission.Selector, dbKeys: Seq[RoleDbKey]): Boolean =
     ofDbKeys(f(Permission), dbKeys)
 
 enum Permission(val key: String, val alsoGrants: List[Permission], val name: String):
   def this(key: String, name: String) = this(key, Nil, name)
-  def dbKey                                = s"ROLE_$key"
+  def dbKey                                = RoleDbKey(s"ROLE_$key")
   final def grants(p: Permission): Boolean = this == p || alsoGrants.exists(_.grants(p))
 
   case ViewBlurs        extends Permission("VIEW_BLURS", "View blurs")
@@ -76,6 +76,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case PublicMod             extends Permission("PUBLIC_MOD", "Mod badge")
   case Developer             extends Permission("DEVELOPER", "Developer badge")
   case ContentTeam           extends Permission("CONTENT_TEAM", "Content Team badge")
+  case BroadcastTeam         extends Permission("BROADCAST_TEAM", "Broadcast Team badge")
   case Coach                 extends Permission("COACH", "Is a coach")
   case Teacher               extends Permission("TEACHER", "Is a class teacher")
   case ModNote               extends Permission("MOD_NOTE", "Mod notes")
@@ -141,7 +142,6 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
           SeeReport,
           ModLog,
           SeeInsight,
-          UserSearch,
           ModMessage,
           ModNote,
           ViewPrintNoIP,
@@ -188,6 +188,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
         "ADMIN",
         List(
           LichessTeam,
+          UserSearch,
           PrizeBan,
           RemoveRanking,
           BoostHunter,
@@ -241,12 +242,12 @@ object Permission:
   val all: Set[Permission] = values.toSet
 
   val nonModPermissions: Set[Permission] =
-    Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, ApiHog, Relay)
+    Set(Beta, Coach, Teacher, Developer, Verified, ContentTeam, BroadcastTeam, ApiHog)
 
   val modPermissions: Set[Permission] = all.diff(nonModPermissions)
 
-  val allByDbKey: Map[String, Permission] = all.mapBy(_.dbKey)
+  val allByDbKey: Map[RoleDbKey, Permission] = all.mapBy(_.dbKey)
 
-  def apply(u: User): Set[Permission]                = ofDbKeys(u.roles)
-  def ofDbKey(dbKey: String): Option[Permission]     = allByDbKey.get(dbKey)
-  def ofDbKeys(dbKeys: Seq[String]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet
+  def apply(u: User): Set[Permission]                   = ofDbKeys(u.roles)
+  def ofDbKey(dbKey: RoleDbKey): Option[Permission]     = allByDbKey.get(dbKey)
+  def ofDbKeys(dbKeys: Seq[RoleDbKey]): Set[Permission] = dbKeys.flatMap(allByDbKey.get).toSet

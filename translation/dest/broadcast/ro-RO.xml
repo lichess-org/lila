@@ -9,6 +9,7 @@
   </plurals>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
   <string name="newBroadcast">O nouă difuzare în direct</string>
+  <string name="subscribedBroadcasts">Transmisii abonate</string>
   <string name="aboutBroadcasts">Despre emisiuni</string>
   <string name="howToUseLichessBroadcasts">Cum să utilizați emisiunile Lichess.</string>
   <string name="theNewRoundHelp">Runda noua va avea aceiași membri și contribuitori ca cea anterioară.</string>
@@ -23,14 +24,10 @@
   <string name="tournamentDescription">O descriere scurtă a turneului</string>
   <string name="fullDescription">Întreaga descriere a evenimentului</string>
   <string name="fullDescriptionHelp">Descriere lungă, opțională, a difuzării. %1$s este disponibil. Lungimea trebuie să fie mai mică decât %2$s caractere.</string>
-  <string name="sourceUrlOrGameIds">Link-ul sursă, sau ID-ul partidei</string>
+  <string name="sourceSingleUrl">URL sursă PGN</string>
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
-  <string name="gameIdsHelp">Alternativ, poți să adaugi 64 ID-uri de jocuri pe Lichess, separat de spațiu.</string>
-  <string name="startDate">Data de începere conform fusului tău orar</string>
+  <string name="sourceGameIds">Până la 64 de ID-uri de joc Lichess, separate prin spații.</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
-  <string name="credits">Creditează sursa</string>
-  <string name="broadcastUrl">URL pentru difuzare</string>
-  <string name="currentRoundUrl">URL runda curenta</string>
   <string name="currentGameUrl">URL-ul partidei curente</string>
   <string name="downloadAllRounds">Descarcă toate rundele</string>
   <string name="resetRound">Resetează această rundă</string>
@@ -40,8 +37,24 @@
   <string name="editRoundStudy">Editare rundă de studiu</string>
   <string name="deleteTournament">Șterge acest turneu</string>
   <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
-  <string name="automaticLeaderboard">Clasament automat</string>
-  <string name="automaticLeaderboardHelp">Calculează și afișează un clasament simplu bazat pe rezultatele jocului</string>
+  <string name="showScores">Arată scorurile jucătorilor pe baza rezultatelor jocului</string>
   <string name="replacePlayerTags">Opțional: înlocuiește numele jucătorilor, ratingurile și titlurile</string>
-  <string name="periodInSeconds">Perioada în secunde</string>
+  <string name="fideFederations">Federații FIDE</string>
+  <string name="top10Rating">Top 10 evaluări</string>
+  <string name="fidePlayers">Jucători FIDE</string>
+  <string name="fidePlayerNotFound">Jucătorul FIDE nu a fost găsit</string>
+  <string name="fideProfile">Profil FIDE</string>
+  <string name="federation">Federație</string>
+  <string name="ageThisYear">Vârsta în acest an</string>
+  <string name="unrated">Fără rating</string>
+  <string name="recentTournaments">Turnee recente</string>
+  <string name="openLichess">Deschide în Lichess</string>
+  <string name="teams">Echipe</string>
+  <string name="standings">Clasament</string>
+  <string name="officialStandings">Clasament oficial</string>
+  <string name="score">Scor</string>
+  <string name="allTeams">Toate echipele</string>
+  <string name="tournamentFormat">Format turneu</string>
+  <string name="tournamentLocation">Locație turneu</string>
+  <string name="timezone">Fus orar</string>
 </resources>

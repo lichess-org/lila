@@ -1,10 +1,11 @@
-import { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
+import type { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, TimeControl } from './interfaces';
 import { h, VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { userLink } from 'common/userLink';
+import { initMiniBoard } from 'common/miniBoard';
 import { opposite } from 'chessground/util';
-import ChallengeCtrl from './ctrl';
+import type ChallengeCtrl from './ctrl';
 
 export const loaded = (ctrl: ChallengeCtrl): VNode =>
   ctrl.redirecting
@@ -34,9 +35,9 @@ const allChallenges = (ctrl: ChallengeCtrl, d: ChallengeData, nb: number): VNode
 
 function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
-    const fromPosition = c.variant.key == 'fromPosition';
-    const origColor = c.color == 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
-    const myColor = dir == 'out' ? origColor : origColor == 'random' ? 'random' : opposite(origColor);
+    const fromPosition = c.variant.key === 'fromPosition';
+    const origColor = c.color === 'random' ? (fromPosition ? c.finalColor : 'random') : c.finalColor;
+    const myColor = dir === 'out' ? origColor : origColor === 'random' ? 'random' : opposite(origColor);
     const opponent = dir === 'in' ? c.challenger : c.destUser;
     return h(
       `div.challenge.${dir}.c-${c.id}`,
@@ -50,7 +51,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
             h('span.desc', [
               h('span.is.color-icon.' + myColor),
               ' • ',
-              [ctrl.trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl), c.variant.name].join(
+              [i18n.site[c.rated ? 'rated' : 'casual'], timeControl(c.timeControl), c.variant.name].join(
                 ' • ',
               ),
             ]),
@@ -60,11 +61,7 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
         fromPosition
           ? h('div.position.mini-board.cg-wrap.is2d', {
               attrs: { 'data-state': `${c.initialFen},${myColor}` },
-              hook: {
-                insert(vnode) {
-                  site.miniBoard.init(vnode.elm as HTMLElement);
-                },
-              },
+              hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
             })
           : null,
         h('div.buttons', (dir === 'in' ? inButtons : outButtons)(ctrl, c)),
@@ -74,20 +71,28 @@ function challenge(ctrl: ChallengeCtrl, dir: ChallengeDirection) {
 }
 
 function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
-  return [
+  const viewInsteadOfAccept = (c.rules?.length ?? 0) > 0;
+  const acceptElement = () =>
     h('form', { attrs: { method: 'post', action: `/challenge/${c.id}/accept` } }, [
       h('button.button.accept', {
         attrs: {
           type: 'submit',
           'aria-describedby': `challenge-text-${c.id}`,
           'data-icon': licon.Checkmark,
-          title: ctrl.trans('accept'),
+          title: i18n.site.accept,
         },
         hook: onClick(ctrl.onRedirect),
       }),
-    ]),
+    ]);
+  const viewElement = () =>
+    h('a.view', {
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
+    });
+
+  return [
+    viewInsteadOfAccept ? viewElement() : acceptElement(),
     h('button.button.decline', {
-      attrs: { type: 'submit', 'data-icon': licon.X, title: ctrl.trans('decline') },
+      attrs: { type: 'submit', 'data-icon': licon.X, title: i18n.site.decline },
       hook: onClick(() => ctrl.decline(c.id, 'generic')),
     }),
     h(
@@ -101,7 +106,7 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
         },
       },
       Object.entries(ctrl.reasons).map(([key, name]) =>
-        h('option', { attrs: { value: key } }, key == 'generic' ? '' : name),
+        h('option', { attrs: { value: key } }, key === 'generic' ? '' : name),
       ),
     ),
   ];
@@ -109,13 +114,13 @@ function inButtons(ctrl: ChallengeCtrl, c: Challenge): VNode[] {
 
 const outButtons = (ctrl: ChallengeCtrl, c: Challenge) => [
   h('div.owner', [
-    h('span.waiting', ctrl.trans('waiting')),
+    h('span.waiting', i18n.site.waiting),
     h('a.view', {
-      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: ctrl.trans('viewInFullSize') },
+      attrs: { 'data-icon': licon.Eye, href: '/' + c.id, title: i18n.site.viewInFullSize },
     }),
   ]),
   h('button.button.decline', {
-    attrs: { 'data-icon': licon.X, title: ctrl.trans('cancel') },
+    attrs: { 'data-icon': licon.X, title: i18n.site.cancel },
     hook: onClick(() => ctrl.cancel(c.id)),
   }),
 ];

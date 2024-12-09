@@ -21,14 +21,8 @@
   <string name="tournamentDescription">باسی پاڵەوانێتیەکە بکە</string>
   <string name="fullDescription">بە گشتی باسی پالەوانێتیەکە بکە</string>
   <string name="fullDescriptionHelp">وەسفێکی درێژی ھەڵبژاردنی پاڵەوانێتییەکە. %1$s بەردەستە. درێژی دەبێت کەمتر بێت لە کاراکتەرەکانی %2$s.</string>
-  <string name="sourceUrlOrGameIds">URL سەرچاوە، یا ID یارییەکە</string>
   <string name="sourceUrlHelp">URL مافی لی چێسە بۆ بەردەست خستنی تازەکردنەوە PGN پێویستە بۆ ھەموان بەردەست بێت لەسەر ئەنتەرنێت</string>
-  <string name="gameIdsHelp">یان دەتوانیت تا ٦٤ ناسنامەی یاری Lichess دابنێیت، کە بە بۆشایی جیا دەکرێنەوە.</string>
-  <string name="startDate">بەرواری دەستپێکردن لە چوارچێوەی کاتی خۆتدا</string>
   <string name="startDateHelp">بە ھەلبژاردنی خۆتە چ کاتێک دەس پێ بکات</string>
-  <string name="credits">لە سەرچاوەکە دڵنیابە</string>
-  <string name="broadcastUrl">لینکی پالەوانێتیەکە</string>
-  <string name="currentRoundUrl">لینکی خولی یەکەم</string>
   <string name="currentGameUrl">لینکی یاریەکانی ئێستا</string>
   <string name="downloadAllRounds">دابەزاندنی ھەموو خولەکان</string>
   <string name="resetRound">دەسکاری کردنی ئەم خولە</string>
@@ -38,5 +32,15 @@
   <string name="editRoundStudy">دەسکاری کردنی خولی فێربون</string>
   <string name="deleteTournament">ئەم پاڵەوانێتییە بسڕەوە</string>
   <string name="definitivelyDeleteTournament">بە دڵنیاییەوە تەواوی پاڵەوانێتییەکە و هەموو خولەکانی و هەموو یارییەکانی بسڕەوە.</string>
+  <string name="showScores">نمرەکانی یاریزانان پیشان بدە بە پشتبەستن بە ئەنجامی یارییەکان</string>
   <string name="replacePlayerTags">ئارەزوومەندانە: گۆڕینی ناوی یاریزانان، هەڵسەنگاندن و نازناوەکان</string>
+  <string name="fideFederations">فیدراسیۆنی FIDE</string>
+  <string name="top10Rating">ڕیزبەندی ١٠ باشترینەکان</string>
+  <string name="fidePlayers">یاریزانەکانی FIDE</string>
+  <string name="fidePlayerNotFound">یاریزانی FIDE نەدۆزرایەوە</string>
+  <string name="fideProfile">پرۆفایلی FIDE</string>
+  <string name="federation">فیدراسیۆن</string>
+  <string name="ageThisYear">تەمەنی ئەمساڵ</string>
+  <string name="unrated">ڕیزبەندی نەکراوە</string>
+  <string name="recentTournaments">پاڵەوانێتییەکانی ئەم دواییە</string>
 </resources>

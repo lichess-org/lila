@@ -1,44 +1,43 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import TournamentController from '../ctrl';
-import { TournamentData } from '../interfaces';
-import * as pagination from '../pagination';
+import type TournamentController from '../ctrl';
+import type { TournamentData } from '../interfaces';
+import { players } from '../pagination';
 import { controls, standing, podium } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
 import teamInfo from './teamInfo';
 import { numberRow } from './util';
-import { MaybeVNodes } from 'common/snabbdom';
+import { type MaybeVNodes } from 'common/snabbdom';
+import { once } from 'common/storage';
 
 function confetti(data: TournamentData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && site.once('tournament.end.canvas.' + data.id))
+  if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
-      hook: { insert: _ => site.asset.loadIife('javascripts/confetti.js') },
+      hook: { insert: _ => site.asset.loadEsm('bits.confetti') },
     });
   return undefined;
 }
 
 function stats(ctrl: TournamentController): VNode | undefined {
-  const data = ctrl.data,
-    trans = ctrl.trans,
-    noarg = trans.noarg;
+  const data = ctrl.data;
   if (!data.stats) return undefined;
   const tableData = [
-    ctrl.opts.showRatings ? numberRow(noarg('averageElo'), data.stats.averageRating, 'raw') : null,
-    numberRow(noarg('gamesPlayed'), data.stats.games),
-    numberRow(noarg('movesPlayed'), data.stats.moves),
-    numberRow(noarg('whiteWins'), [data.stats.whiteWins, data.stats.games], 'percent'),
-    numberRow(noarg('blackWins'), [data.stats.blackWins, data.stats.games], 'percent'),
-    numberRow(noarg('drawRate'), [data.stats.draws, data.stats.games], 'percent'),
+    ctrl.opts.showRatings ? numberRow(i18n.site.averageElo, data.stats.averageRating, 'raw') : null,
+    numberRow(i18n.site.gamesPlayed, data.stats.games),
+    numberRow(i18n.site.movesPlayed, data.stats.moves),
+    numberRow(i18n.site.whiteWins, [data.stats.whiteWins, data.stats.games], 'percent'),
+    numberRow(i18n.site.blackWins, [data.stats.blackWins, data.stats.games], 'percent'),
+    numberRow(i18n.site.drawRate, [data.stats.draws, data.stats.games], 'percent'),
   ];
 
   if (data.berserkable) {
-    tableData.push(numberRow(noarg('berserkRate'), [data.stats.berserks / 2, data.stats.games], 'percent'));
+    tableData.push(numberRow(i18n.site.berserkRate, [data.stats.berserks / 2, data.stats.games], 'percent'));
   }
 
   return h('div.tour__stats', [
-    h('h2', noarg('tournamentComplete')),
+    h('h2', i18n.site.tournamentComplete),
     h('table', tableData),
     h('div.tour__stats__links.force-ltr', [
       ...(data.teamBattle
@@ -46,7 +45,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
             h(
               'a',
               { attrs: { href: `/tournament/${data.id}/teams` } },
-              trans('viewAllXTeams', Object.keys(data.teamBattle.teams).length),
+              i18n.arena.viewAllXTeams(Object.keys(data.teamBattle.teams).length),
             ),
             h('br'),
           ]
@@ -54,7 +53,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
       h(
         'a.text',
         { attrs: { 'data-icon': licon.Download, href: `/api/tournament/${data.id}/games`, download: true } },
-        noarg('downloadAllGames'),
+        i18n.study.downloadAllGames,
       ),
       data.me &&
         h(
@@ -99,7 +98,7 @@ function stats(ctrl: TournamentController): VNode | undefined {
 export const name = 'finished';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
-  const pag = pagination.players(ctrl);
+  const pag = players(ctrl);
   const teamS = teamStanding(ctrl, 'finished');
   return [
     ...(teamS

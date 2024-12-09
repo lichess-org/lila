@@ -1,8 +1,11 @@
-import * as game from 'game';
-import throttle from 'common/throttle';
-import * as xhr from './xhr';
-import RoundController from './ctrl';
+import { type Simul, setOnGame, isPlayerTurn } from 'game';
+import { throttle } from 'common/timing';
+import { reload as xhrReload } from './xhr';
+import type RoundController from './ctrl';
 import { defined } from 'common';
+import { domDialog } from 'common/dialog';
+import { pubsub } from 'common/pubsub';
+import { wsSign, wsVersion } from 'common/socket';
 
 export interface RoundSocket {
   send: SocketSend;
@@ -45,7 +48,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 }
 
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
-  site.socket.sign(ctrl.sign);
+  wsSign(ctrl.sign);
 
   const reload = (o?: Incoming, isRetry?: boolean) => {
     // avoid reload if possible!
@@ -53,8 +56,9 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.setLoading(false);
       handlers[o.t]!(o.d);
     } else
-      xhr.reload(ctrl).then(data => {
-        if (site.socket.getVersion() > data.player.version) {
+      xhrReload(ctrl).then(data => {
+        const version = wsVersion();
+        if (version !== false && version > data.player.version) {
           // race condition! try to reload again
           if (isRetry) site.reload();
           // give up and reload the page
@@ -67,7 +71,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     takebackOffers(o: { white?: boolean; black?: boolean }) {
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
-      if (fromOp) ctrl.opponentRequest('takeback', 'yourOpponentProposesATakeback');
+      if (fromOp) ctrl.opponentRequest('takeback', i18n.site.yourOpponentProposesATakeback);
       ctrl.redraw();
     },
     move: ctrl.apiMove,
@@ -82,15 +86,15 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o: { white: number; black: number }) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
+        ctrl.data.correspondence!.white = o.white;
+        ctrl.data.correspondence!.black = o.black;
         ctrl.corresClock.update(o.white, o.black);
         ctrl.redraw();
       }
     },
     crowd(o: { white: boolean; black: boolean }) {
       (['white', 'black'] as const).forEach(c => {
-        if (defined(o[c])) game.setOnGame(ctrl.data, c, o[c]);
+        if (defined(o[c])) setOnGame(ctrl.data, c, o[c]);
       });
       ctrl.redraw();
     },
@@ -98,7 +102,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       if ((ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color))
-        ctrl.opponentRequest('rematch', 'yourOpponentWantsToPlayANewGameWithYou');
+        ctrl.opponentRequest('rematch', i18n.site.yourOpponentWantsToPlayANewGameWithYou);
       ctrl.redraw();
     },
     rematchTaken(nextId: string) {
@@ -110,7 +114,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       if (ctrl.isPlaying()) {
         ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
         const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
-        if (fromOp) ctrl.opponentRequest('draw', 'yourOpponentOffersADraw');
+        if (fromOp) ctrl.opponentRequest('draw', i18n.site.yourOpponentOffersADraw);
       }
       if (by) {
         let ply = ctrl.lastPly();
@@ -136,15 +140,15 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         ctrl.opts.userId == ctrl.data.simul.hostId &&
         gameId !== ctrl.data.game.id &&
         ctrl.moveOn.get() &&
-        !game.isPlayerTurn(ctrl.data)
+        !isPlayerTurn(ctrl.data)
       ) {
         ctrl.setRedirecting();
         site.sound.play('move');
         location.href = '/' + gameId;
       }
     },
-    simulEnd(simul: game.Simul) {
-      site.dialog.dom({
+    simulEnd(simul: Simul) {
+      domDialog({
         htmlText:
           '<div><p>Simul complete!</p><br /><br />' +
           `<a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a></div>`,
@@ -152,7 +156,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
   };
 
-  site.pubsub.on('ab.rep', n => send('rep', { n }));
+  pubsub.on('ab.rep', n => send('rep', { n }));
 
   return {
     send,

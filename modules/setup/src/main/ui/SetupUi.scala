@@ -1,13 +1,14 @@
 package lila.setup
 package ui
 
-import play.api.data.{ Form, Field }
-import chess.{ Mode, Speed }
 import chess.variant.Variant
+import chess.{ Mode, Speed }
+import play.api.data.{ Field, Form }
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.rating.RatingRange
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class SetupUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -112,7 +113,7 @@ final class SetupUi(helpers: Helpers):
 
   private type SelectChoice = (String, String, Option[String])
 
-  private val clockTimeChoices: List[SelectChoice] = List(
+  List(
     ("0", "0", none),
     ("0.25", "¼", none),
     ("0.5", "½", none),
@@ -124,30 +125,19 @@ final class SetupUi(helpers: Helpers):
   ).map: v =>
     (v, v, none)
 
-  private val clockIncrementChoices: List[SelectChoice] = {
+  {
     (0 to 20).toList ::: List(25, 30, 35, 40, 45, 60, 90, 120, 150, 180)
   }.map { s =>
     (s.toString, s.toString, none)
   }
 
-  private val corresDaysChoices: List[SelectChoice] =
-    ("1", "One day", none) :: List(2, 3, 5, 7, 10, 14).map { d =>
+  ("1", "One day", none) :: List(2, 3, 5, 7, 10, 14).map { d =>
       (d.toString, s"$d days", none)
     }
 
-  private def translatedTimeModeChoices(using Translate) =
-    List(
-      (TimeMode.RealTime.id.toString, trans.site.realTime.txt(), none),
-      (TimeMode.Correspondence.id.toString, trans.site.correspondence.txt(), none),
-      (TimeMode.Unlimited.id.toString, trans.site.unlimited.txt(), none)
-    )
+  
 
-  private def translatedSideChoices(using Translate) =
-    List(
-      ("black", trans.site.black.txt(), none),
-      ("random", trans.site.randomColor.txt(), none),
-      ("white", trans.site.white.txt(), none)
-    )
+  
 
   private def translatedModeChoices(using Translate) =
     List(
@@ -161,21 +151,16 @@ final class SetupUi(helpers: Helpers):
       (0, trans.site.no.txt(), none)
     )
 
-  private def translatedModeChoicesTournament(using Translate) =
-    List(
-      (Mode.Casual.id.toString, trans.site.casualTournament.txt(), none),
-      (Mode.Rated.id.toString, trans.site.ratedTournament.txt(), none)
-    )
+  
 
   private def encodeId(v: Variant) = v.id.toString
 
-  private def variantTupleId = variantTuple(encodeId)
+  
 
   private def variantTuple(encode: Variant => String)(variant: Variant) =
     (encode(variant), variant.name, variant.title.some)
 
-  private def translatedVariantChoices(using Translate): List[SelectChoice] =
-    translatedVariantChoices(encodeId)
+  
 
   private def translatedVariantChoices(encode: Variant => String)(using Translate): List[SelectChoice] =
     List(
@@ -197,26 +182,11 @@ final class SetupUi(helpers: Helpers):
       chess.variant.RacingKings
     ).map(variantTuple(encode))
 
-  private def translatedVariantChoicesWithFen(using Translate) =
-    translatedVariantChoices :+
-      variantTupleId(chess.variant.Chess960) :+
-      variantTupleId(chess.variant.FromPosition)
+  
 
-  private def translatedAiVariantChoices(using Translate) =
-    translatedVariantChoices :+
-      variantTupleId(chess.variant.Crazyhouse) :+
-      variantTupleId(chess.variant.Chess960) :+
-      variantTupleId(chess.variant.KingOfTheHill) :+
-      variantTupleId(chess.variant.ThreeCheck) :+
-      variantTupleId(chess.variant.Antichess) :+
-      variantTupleId(chess.variant.Atomic) :+
-      variantTupleId(chess.variant.Horde) :+
-      variantTupleId(chess.variant.RacingKings) :+
-      variantTupleId(chess.variant.FromPosition)
+  
 
-  private def translatedVariantChoicesWithVariantsAndFen(using Translate) =
-    translatedVariantChoicesWithVariantsById :+
-      variantTupleId(chess.variant.FromPosition)
+  
 
   private def translatedSpeedChoices(using Translate) =
     Speed.limited.map: s =>

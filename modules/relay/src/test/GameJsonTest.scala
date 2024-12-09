@@ -1,5 +1,7 @@
 package lila.relay
 
+import chess.format.pgn.Tags
+
 class GameJsonTest extends munit.FunSuite:
 
   test("toPgn"):
@@ -124,4 +126,4 @@ class GameJsonTest extends munit.FunSuite:
       """d4 { [%clk 0:30:52] } e6 { [%clk 0:30:18] } Nf3 { [%clk 0:31:02] } Nc6 { [%clk 0:30:21] } e4 { [%clk 0:30:51] } Bb4+ { [%clk 0:29:01] } Nc3 { [%clk 0:31:11] } Bd6 { [%clk 0:28:56] } Bc4 { [%clk 0:30:31] } Nf6 { [%clk 0:29:02] } e5 { [%clk 0:30:00] } Be7 { [%clk 0:27:42] } exf6 { [%clk 0:29:43] } Bxf6 { [%clk 0:27:57] } O-O { [%clk 0:29:23] } O-O { [%clk 0:28:22] } Qd3 { [%clk 0:28:50] } Nb4 { [%clk 0:28:25] } Qd2 { [%clk 0:28:47] } d6 { [%clk 0:28:16] } a3 { [%clk 0:28:58] } Nc6 Ng5 Bxg5 { [%clk 0:26:57] } Qxg5 { [%clk 0:29:06] } Qd7 { [%clk 0:26:54] } Bd3 { [%clk 0:29:05] } f6 { [%clk 0:26:47] } Qh4 { [%clk 0:24:44] } g5 { [%clk 0:25:47] } Qxh7+ { [%clk 0:25:09] } Qxh7 { [%clk 0:24:25] } Bxh7+ { [%clk 0:25:32] } Kxh7 { [%clk 0:23:45] } Nb5 { [%clk 0:25:51] } Rf7 { [%clk 0:23:30] } Rd1 { [%clk 0:25:30] } Rg7 { [%clk 0:23:39] } d5 { [%clk 0:24:41] } Ne5 { [%clk 0:23:46] } Nd4 { [%clk 0:24:29] } Rg6 { [%clk 0:23:50] } Nxe6 { [%clk 0:24:48] } Rh6 f4 { [%clk 0:24:55] } Nf3+ gxf3 { [%clk 0:22:47] } Bxe6 { [%clk 0:21:57] } dxe6 { [%clk 0:23:09] } Re8 { [%clk 0:22:07] } fxg5 { [%clk 0:22:45] } fxg5 { [%clk 0:21:57] } Bxg5 { [%clk 0:23:10] } Rg6 { [%clk 0:22:05] } h4 { [%clk 0:22:43] } Rexe6 { [%clk 0:22:27] } Re1 { [%clk 0:22:30] } Re5 { [%clk 0:20:54] } Rxe5 { [%clk 0:22:31] } dxe5 { [%clk 0:21:06] } Rd1 { [%clk 0:22:49] } Rc6 { [%clk 0:21:02] } c3 { [%clk 0:23:14] } Rb6 { [%clk 0:21:11] } Rd7+ { [%clk 0:23:36] } Kg6 { [%clk 0:21:23] } Bc1 { [%clk 0:23:33] } c5 { [%clk 0:21:29] } Rd5 { [%clk 0:23:58] } Kh5 { [%clk 0:21:27] } Rxe5+ { [%clk 0:24:15] } Kxh4 { [%clk 0:21:40] } Rxc5 { [%clk 0:24:34] } Rg6+ { [%clk 0:22:01] } Kf2 { [%clk 0:24:50] } Rg3 { [%clk 0:22:06] } Rh5+ { [%clk 0:24:52] } Kxh5 { [%clk 0:22:13] } Kxg3 { [%clk 0:25:21] } b5 { [%clk 0:22:28] } Kf4 { [%clk 0:25:49] } a5 { [%clk 0:22:26] } Ke5 { [%clk 0:26:11] } Kh4 { [%clk 0:22:34] } Kd5 { [%clk 0:26:34] } Kg3 { [%clk 0:22:34] } Kc5 { [%clk 0:26:56] } Kxf3 { [%clk 0:22:40] } Kxb5 { [%clk 0:27:18] } Ke2 { [%clk 0:22:54] } c4 { [%clk 0:27:47] } Kd1 a4 Kxc1 { [%clk 0:22:31] } c5 { [%clk 0:28:12] } Kxb2 { [%clk 0:22:29] } c6 Kc3 { [%clk 0:22:28] } c7 { [%clk 0:29:00] } Kd4 { [%clk 0:22:36] } c8=Q Kd5 Qe8 { [%clk 0:28:38] } Kd6 { [%clk 0:22:37] } Qe4 { [%clk 0:28:56] } Kc7 { [%clk 0:22:47] } Qe6 { [%clk 0:29:15] } Kb7 { [%clk 0:22:55] } Qd7+ { [%clk 0:29:29] } Kb8 Kb6 Ka8 { [%clk 0:22:45] } Qc8# { [%clk 0:29:56] }"""
 
     val game = RelayFetch.DgtJson.GameJson(moves, None)
-    assertEquals(game.toPgn().value.trim, expected)
+    assertEquals(game.toPgn(Tags.empty).value.trim, expected)

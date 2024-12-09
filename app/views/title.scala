@@ -1,11 +1,11 @@
 package views.title
 
-import lila.app.UiEnv.{ given, * }
+import lila.app.UiEnv.{ *, given }
 import lila.mod.IpRender.RenderIp
 import lila.title.TitleRequest
 
 lazy val ui    = lila.title.ui.TitleUi(helpers)(picfitUrl)
-lazy val modUi = lila.title.ui.TitleModUi(helpers)(ui, picfitUrl)
+lazy val modUi = lila.title.ui.TitleModUi(helpers)(ui)
 
 object mod:
   def queue(
@@ -34,7 +34,8 @@ object mod:
           " ",
           player.name
         ),
-        p(player.ratingsStr)
+        p(player.ratingsStr),
+        p("Year of birth: ", player.year.fold("unknown")(_.toString))
       )
     modUi.show(req, data.user, fide, similar, modZone)
 

@@ -26,7 +26,7 @@
   <string name="xPublishedY">%1$s publicēja \"%2$s\"</string>
   <string name="thisPostIsPublished">Šis ieraksts ir publicēts</string>
   <string name="thisIsADraft">Šis ir melnraksts</string>
-  <string name="moreBlogPostsBy">Skatīt citus lietotāja %s bloga ierakstus</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Skatīt citus lietotāja %s bloga ierakstus</string>
   <string name="noPostsInThisBlogYet">Šajā blogā vēl nav ierakstu.</string>
   <string name="noDrafts">Nav melnrakstu, ko rādīt.</string>
   <string name="latestBlogPosts">Jaunākie bloga ieraksti</string>
@@ -39,7 +39,6 @@
   <string name="imageAlt">Attēla tekstuāla alternatīva</string>
   <string name="imageCredit">Attēla autors</string>
   <string name="deleteBlog">Neatgriezeniski dzēst bloga ierakstu</string>
-  <string name="deleteImage">Dzēsiet attēlu</string>
   <string name="safeToUseImages">Izmantot attēlus ir droši no šādām mājaslapām: </string>
   <string name="selectPostTopics">Atlasiet tematus, kas saistīti ar jūsu ierakstu</string>
   <string name="useImagesYouMadeYourself">Varat arī izmantot pašveidotus attēlus, fotogrāfijas ko uzņēmāt, Lichess ekrānuzņēmumus... jebko, kā autortiesības nepieder kādam citam.</string>

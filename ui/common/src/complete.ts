@@ -1,6 +1,6 @@
-type Fetch<Result> = (term: string) => Promise<Result[]>;
+export type Fetch<Result> = (term: string) => Promise<Result[]>;
 
-interface Opts<Result> {
+export interface CompleteOpts<Result> {
   input: HTMLInputElement;
   fetch: Fetch<Result>;
   render: (result: Result) => string;
@@ -11,11 +11,11 @@ interface Opts<Result> {
   regex?: RegExp;
 }
 
-export default function <Result>(opts: Opts<Result>) {
+export function complete<Result>(opts: CompleteOpts<Result>): void {
   const minLength = opts.minLength || 3,
     empty = opts.empty || (() => '<div class="complete-list__empty">No results.</div>'),
     cache = new Map<string, Result[]>(),
-    fetchResults: Fetch<Result> = term => {
+    fetchResults: Fetch<Result> = async term => {
       if (cache.has(term)) return new Promise(res => setTimeout(() => res(cache.get(term)!), 50));
       else if (
         term.length > 3 &&
@@ -35,7 +35,7 @@ export default function <Result>(opts: Opts<Result>) {
     },
     moveSelection = (offset: number) => {
       const nb = renderedResults.length;
-      selectedIndex = (selectedIndex === null ? (offset == 1 ? 0 : -1) : selectedIndex + offset) % nb;
+      selectedIndex = (selectedIndex === null ? (offset === 1 ? 0 : -1) : selectedIndex + offset) % nb;
       if (selectedIndex < 0) selectedIndex += nb;
       renderSelection();
       const result = selectedResult();
@@ -70,15 +70,15 @@ export default function <Result>(opts: Opts<Result>) {
     },
     keydown(e: KeyboardEvent) {
       if ($container.hasClass('none')) return;
-      if (e.code == 'ArrowDown') {
+      if (e.code === 'ArrowDown') {
         moveSelection(1);
         return false;
       }
-      if (e.code == 'ArrowUp') {
+      if (e.code === 'ArrowUp') {
         moveSelection(-1);
         return false;
       }
-      if (e.code == 'Enter') {
+      if (e.code === 'Enter') {
         $container.addClass('none');
         const result =
           selectedResult() ||

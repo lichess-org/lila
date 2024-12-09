@@ -16,14 +16,8 @@
   <string name="tournamentDescription">Сціслае апісанне турніру</string>
   <string name="fullDescription">Поўнае апісанне турніру</string>
   <string name="fullDescriptionHelp">Неабавязковая дасканалае апісанне турніру. Даступны %1$s. Даўжыня павінна быць менш за %2$s сімвалаў.</string>
-  <string name="sourceUrlOrGameIds">Зыходная спасылка, або ідэнтыфікатары гульні</string>
   <string name="sourceUrlHelp">Спасылка, з якой Lichess паспрабуе атрымоўваць абнаўленні PGN. Яны павінна быць даступнай для кожнай ва Інтэрнэце.</string>
-  <string name="gameIdsHelp">Інакш, вы можаце праз прабел ўвесці 64 сімвальныя ID гульняў на Lichess.</string>
-  <string name="startDate">Дата пачатаку ў вашым часавым поясе</string>
   <string name="startDateHelp">Па жаданні, калі вы ведаеце пачатак падзеі</string>
-  <string name="credits">Падзякаваць крыніцы</string>
-  <string name="broadcastUrl">Спасылка на трансляцыю</string>
-  <string name="currentRoundUrl">Спасылка на бягучы тур</string>
   <string name="currentGameUrl">Спасылка на бягучую гульню</string>
   <string name="downloadAllRounds">Спампаваць усе туры</string>
   <string name="resetRound">Скасаваць гэты тур</string>
@@ -33,5 +27,7 @@
   <string name="editRoundStudy">Рэдагаваць навучанне туру</string>
   <string name="deleteTournament">Выдаліць гэты турнір</string>
   <string name="definitivelyDeleteTournament">Канчаткова выдаліць увесь турнір, усе яго туры і ўсе гульні.</string>
-  <string name="automaticLeaderboard">Аўтаматычная дошка лідэраў</string>
+  <string name="fidePlayers">Гульцы FIDE</string>
+  <string name="fideProfile">Профіль FIDE</string>
+  <string name="federation">Федэрацыя</string>
 </resources>

@@ -1,7 +1,7 @@
 package lila.practice
 
+import lila.core.study.data.{ StudyChapterName, StudyName }
 import lila.study.Chapter
-import lila.core.study.data.{ StudyName, StudyChapterName }
 
 case class PracticeStructure(sections: List[PracticeSection]):
 
@@ -35,7 +35,6 @@ case class PracticeSection(
     name: String,
     studies: List[PracticeStudy]
 ):
-
   lazy val studiesByIds: Map[StudyId, PracticeStudy] = studies.mapBy(_.id)
 
   def study(id: StudyId): Option[PracticeStudy] = studiesByIds.get(id)

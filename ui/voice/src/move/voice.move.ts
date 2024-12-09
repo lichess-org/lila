@@ -1,41 +1,44 @@
-import * as xhr from 'common/xhr';
-import * as prop from 'common/storage';
+import { jsonSimple } from 'common/xhr';
+import { storedIntProp, storedBooleanPropWithEffect, storedIntPropWithEffect } from 'common/storage';
 import * as licon from 'common/licon';
-import * as cs from 'chess';
-import { from as src, to as dest } from 'chess';
-import { PromotionCtrl, promote } from 'chess/promotion';
-import { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
-import { VoiceMove, VoiceCtrl, Entry, Match, makeCtrl } from '../voice';
+import { readFen, destsToUcis, square, type Board } from 'chess';
+import { charToRole } from 'chessops';
+import { type PromotionCtrl, promote } from 'chess/promotion';
+import type { MoveRootCtrl, MoveUpdate } from 'chess/moveRootCtrl';
+import type { VoiceMove, VoiceCtrl, Entry, Match } from '../voice';
 import { coloredArrows, numberedArrows, brushes } from './arrows';
 import { settingNodes } from './view';
-import { spread, type SparseMap, spreadMap, getSpread, remove, pushMap, as } from 'common';
-import { type Transform, movesTo, findTransforms } from '../util';
+import type { MsgType } from '../interfaces';
+import {
+  type Transform,
+  type SparseMap,
+  spread,
+  spreadMap,
+  getSpread,
+  remove,
+  pushMap,
+  movesTo,
+  findTransforms,
+  as,
+  src,
+  dest,
+  promo,
+} from '../util';
 
-// shimmed to prevent pop-in while not overly complicating root controller's view construction <- wtf?
-export function makeVoiceMove(ctrl: MoveRootCtrl, initial: MoveUpdate): VoiceMove {
-  let move: VoiceMove;
-  const ui = makeCtrl({ redraw: ctrl.redraw, module: () => move, tpe: 'move' });
-  site.asset.loadEsm<VoiceMove>('voice.move', { init: { root: ctrl, ui, initial } }).then(x => (move = x));
-  return {
-    ui,
-    initGrammar: () => move?.initGrammar(),
-    update: (up: MoveUpdate) => move?.update(up),
-    listenForResponse: (key, action) => move?.listenForResponse(key, action),
-    question: () => move?.question(),
-    promotionHook: () => move?.promotionHook(),
-    allPhrases: () => move?.allPhrases(),
-    prefNodes: () => move?.prefNodes(),
-  };
-}
-
-export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: MoveUpdate }): VoiceMove {
-  const root = opts.root;
-  const ui = opts.ui;
+export function initModule({
+  root,
+  voice,
+  initial,
+}: {
+  root: MoveRootCtrl;
+  voice: VoiceCtrl;
+  initial: MoveUpdate;
+}): VoiceMove {
   const DEBUG = { emptyMatches: false, buildMoves: false, buildSquares: false, collapse: true };
   let cg: CgApi;
   let entries: Entry[] = [];
-  let partials = { commands: [], colors: [], numbers: [] };
-  let board: cs.Board;
+  let partials: Record<string, string[]> = { commands: [], colors: [], numbers: [] };
+  let board: Board;
   let ucis: Uci[]; // every legal move in uci
   const byVal: SparseMap<Entry> = new Map(); // map values to lexicon entries
   const byTok: Map<string, Entry> = new Map(); // map token chars to lexicon entries
@@ -49,17 +52,17 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   let command: Confirm | undefined; // confirm player commands (before sending request)
   let choices: Map<string, Uci> | undefined; // map choice arrows (yes, blue, red, 1, 2, etc) to moves
   let choiceTimeout: number | undefined; // timeout for ambiguity choices
-  const clarityPref = prop.storedIntProp('voice.clarity', 0);
-  const colorsPref = prop.storedBooleanPropWithEffect('voice.useColors', true, _ => initTimerRec());
-  const timerPref = prop.storedIntPropWithEffect('voice.timer', 3, _ => initTimerRec());
+  const clarityPref = storedIntProp('voice.clarity', 1);
+  const colorsPref = storedBooleanPropWithEffect('voice.useColors', true, () => initTimerRec());
+  const timerPref = storedIntPropWithEffect('voice.timer', 3, () => initTimerRec());
 
   const listenHandlers = [handleConfirm, handleCommand, handleAmbiguity, handleMove];
 
   const commands: { [_: string]: () => ListenResult[] } = {
-    no: as(['ok', 'clear'], () => (ui.showHelp() ? ui.showHelp(false) : clearMoveProgress())),
-    help: as(['ok'], () => ui.showHelp(true)),
-    vocabulary: as(['ok'], () => ui.showHelp('list')),
-    'mic-off': as(['ok'], () => site.mic.stop()),
+    no: as(['ok', 'clear'], () => (voice.showHelp() ? voice.showHelp(false) : clearMoveProgress())),
+    help: as(['ok'], () => voice.showHelp(true)),
+    vocabulary: as(['ok'], () => voice.showHelp('list')),
+    'mic-off': as(['ok'], () => voice.mic.stop()),
     flip: as(['ok'], () => root.flipNow()),
     draw: as(['ok'], () => setConfirm('draw', v => v && root.offerDraw?.(true, true))),
     resign: as(['ok'], () => setConfirm('resign', v => v && root.resign?.(true, true))),
@@ -70,14 +73,17 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     downvote: as(['ok', 'clear'], () => root.vote?.(false)),
     solve: as(['ok', 'clear'], () => root.solve?.()),
     clock: as(['ok'], () => root.speakClock?.()),
+    pieces: as(['ok'], () => speakBoard?.()),
+    'white-pieces': as(['ok'], () => speakBoard?.('white')),
+    'black-pieces': as(['ok'], () => speakBoard?.('black')),
     blindfold: as(['ok'], () => root.blindfold?.(!root.blindfold())),
   };
 
-  update(opts.initial);
+  update(initial);
   initGrammar();
 
   return {
-    ui,
+    ctrl: voice,
     initGrammar,
     prefNodes,
     allPhrases,
@@ -88,7 +94,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   };
 
   async function initGrammar(): Promise<void> {
-    const g = await xhr.jsonSimple(site.asset.url(`compiled/grammar/move-${ui.lang()}.json`));
+    const g = await jsonSimple(site.asset.url(`compiled/grammar/move-${voice.lang()}.json`));
     byWord.clear();
     byTok.clear();
     byVal.clear();
@@ -107,7 +113,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   function initDefaultRec() {
     const excludeTag = root?.vote ? 'round' : 'puzzle'; // reduce unneeded vocabulary
     const words = tagWords().filter(x => byWord.get(x)?.tags?.includes(excludeTag) !== true);
-    site.mic.initRecognizer(words, { listener: listen });
+    voice.mic.initRecognizer(words, { listener: listen });
   }
 
   function initTimerRec() {
@@ -115,11 +121,11 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     const words = [...partials.commands, ...(colorsPref() ? partials.colors : partials.numbers)].map(w =>
       valWord(w),
     );
-    site.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
+    voice.mic.initRecognizer(words, { recId: 'timer', partial: true, listener: listenTimer });
   }
 
-  function listen(heard: string, msgType: Voice.MsgType) {
-    if (msgType === 'stop' && !ui.pushTalk()) clearMoveProgress();
+  function listen(heard: string, msgType: MsgType) {
+    if (msgType === 'stop' && !voice.pushTalk()) clearMoveProgress();
     else if (msgType !== 'full') return;
     try {
       (DEBUG.collapse ? console.groupCollapsed : console.info)(`listen '${heard}'`);
@@ -130,13 +136,12 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
 
         if (results.includes('ok')) {
           if (results.includes('clear')) clearConfirm();
-          root.redraw();
           return;
         }
       }
       if (heard.length <= 3) return; // just ignore
 
-      ui.flash();
+      voice.flash();
     } finally {
       if (DEBUG.collapse) console.groupEnd();
     }
@@ -149,7 +154,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     if (val !== 'no' && !move) return;
     clearMoveProgress();
     if (move) submit(move);
-    site.mic.setRecognizer('default');
+    voice.mic.setRecognizer('default');
     cg.redrawAll();
   }
 
@@ -292,9 +297,9 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     // trim choices to clarity window
     options = options.filter(([, m]) => m.cost - lowestCost <= clarityThreshold);
 
-    if (!root.blindfold?.() && !timer() && options.length === 1 && options[0][1].cost < 0.3) {
+    if (!timer() && options.length === 1 && (options[0][1].cost < 0.3 || root.confirmMoveToggle?.())) {
       console.info('chooseMoves', `chose '${options[0][0]}' cost=${options[0][1].cost}`);
-      submit(options[0][0]);
+      submit(options[0][0], false);
       return true;
     }
     return ambiguate(options);
@@ -316,27 +321,18 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     if (preferred && timer()) {
       choiceTimeout = setTimeout(
         () => {
-          submit(options[0][0]);
+          submit(options[0][0], false);
           choiceTimeout = undefined;
-          site.mic.setRecognizer('default');
+          voice.mic.setRecognizer('default');
         },
         timer() * 1000 + 100,
       );
-      site.mic.setRecognizer('timer');
+      voice.mic.setRecognizer('timer');
     }
-    let arrows = true;
-    if (root.blindfold?.()) {
-      if (preferred) {
-        site.sound.saySan(cs.sanOf(board, options[0][0]));
-        arrows = !site.sound.say('confirm?');
-      }
-    }
-    if (arrows) {
-      const arrowTime = choiceTimeout ? timer() : undefined;
-      cg.setShapes(
-        colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
-      );
-    }
+    const arrowTime = choiceTimeout ? timer() : undefined;
+    cg.setShapes(
+      colorsPref() ? coloredArrows([...choices], arrowTime) : numberedArrows([...choices], arrowTime),
+    );
     cg.redrawAll();
     return true;
   }
@@ -346,14 +342,14 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
       cg = up.cg;
       for (const [color, brush] of brushes) cg.state.drawable.brushes[`v-${color}`] = brush;
     }
-    board = cs.readFen(up.fen);
+    board = readFen(up.fen);
     cg.setShapes([]);
-    ucis = up.canMove && cg.state.movable.dests ? cs.destsToUcis(cg.state.movable.dests) : [];
+    ucis = up.canMove && cg.state.movable.dests ? destsToUcis(cg.state.movable.dests) : [];
     buildMoves();
     buildSquares();
   }
 
-  function submit(uci: Uci) {
+  function submit(uci: Uci, preConfirmed = true) {
     clearMoveProgress();
     if (uci.length < 3) {
       const dests = [...new Set(ucis.filter(x => x.length === 4 && x.startsWith(uci)))];
@@ -363,26 +359,28 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
       cg.redrawAll();
       return true;
     }
-    const role = cs.promo(uci);
+    const role = promo(uci);
     cg.cancelMove();
     if (role) promote(cg, dest(uci), role);
-    root.pluginMove(src(uci), dest(uci), role);
+    root.pluginMove(src(uci), dest(uci), role, preConfirmed);
     return true;
   }
 
   function promotionHook() {
-    return (ctrl: PromotionCtrl, roles: cs.Role[] | false) =>
+    return (ctrl: PromotionCtrl, roles: Role[] | false) =>
       roles
-        ? site.mic.addListener(
+        ? voice.mic.addListener(
             (text: string) => {
               const val = matchOneTags(text, ['role'], ['no']);
-              site.mic.stopPropagation();
-              if (val && roles.includes(cs.charRole(val))) ctrl.finish(cs.charRole(val));
+              voice.mic.stopPropagation();
+              if (!val) return;
+              const role = charToRole(val);
+              if (role && roles.includes(role)) ctrl.finish(role);
               else if (val === 'no') ctrl.cancel();
             },
             { listenerId: 'promotion' },
           )
-        : site.mic.removeListener('promotion');
+        : voice.mic.removeListener('promotion');
   }
 
   // given each uci, build every possible move phrase for it, and keep clues
@@ -398,12 +396,12 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     for (const uci of ucis) {
       const usrc = src(uci),
         udest = dest(uci),
-        nsrc = cs.square(usrc),
-        ndest = cs.square(udest),
+        nsrc = square(usrc),
+        ndest = square(udest),
         dp = board.pieces[ndest],
         srole = board.pieces[nsrc].toUpperCase();
 
-      if (srole == 'K') {
+      if (srole === 'K') {
         if (isOurs(dp)) {
           pushMap(moves, 'castle', uci);
           moves.set(ndest < nsrc ? 'O-O-O' : 'O-O', new Set([uci]));
@@ -467,16 +465,14 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
       if (sel && !uci.startsWith(sel)) continue;
       const usrc = src(uci),
         udest = dest(uci),
-        nsrc = cs.square(usrc),
-        ndest = cs.square(udest),
+        nsrc = square(usrc),
+        ndest = square(udest),
         dp = board.pieces[ndest],
         srole = board.pieces[nsrc].toUpperCase() as 'P' | 'N' | 'B' | 'R' | 'Q' | 'K';
       pushMap(squares, `${usrc[0]},${usrc[1]}`, usrc);
       pushMap(squares, `${udest[0]},${udest[1]}`, uci);
-      //if (srole !== 'P') {
       pushMap(squares, srole, uci);
       pushMap(squares, srole, usrc);
-      //}
       if (dp && !isOurs(dp)) pushMap(squares, dp.toUpperCase(), uci);
     }
     // deconflict role partials for move & select
@@ -493,8 +489,8 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     return p === '' || p === undefined
       ? undefined
       : cg.state.turnColor === 'white'
-      ? p.toUpperCase() === p
-      : p.toLowerCase() === p;
+        ? p.toUpperCase() === p
+        : p.toLowerCase() === p;
   }
 
   function clearMoveProgress() {
@@ -540,10 +536,21 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     return command?.key === 'resign'
       ? mkOpts('Confirm resignation', licon.FlagOutline)
       : command?.key === 'draw'
-      ? mkOpts('Confirm draw offer', licon.OneHalf)
-      : command?.key === 'takeback'
-      ? mkOpts('Confirm takeback request', licon.Back)
-      : false;
+        ? mkOpts('Confirm draw offer', licon.OneHalf)
+        : command?.key === 'takeback'
+          ? mkOpts('Confirm takeback request', licon.Back)
+          : false;
+  }
+
+  function speakBoard(filter?: Color) {
+    const k = cg.state.orientation === 'white' ? 1 : -1;
+    const fullBoard = [...cg.state.pieces]
+      .filter(([, p]) => p && (!filter || p.color === filter))
+      .map(([sq, p]) => ({ file: sq.charAt(0), rank: sq.charAt(1), p }))
+      .sort((a, b) => k * a.rank.localeCompare(b.rank) || k * a.file.localeCompare(b.file))
+      .map(({ file, rank, p }) => `${p.color} ${p.role} on ${file === 'a' ? '"A"' : file} ${rank}`)
+      .join(', ');
+    site.sound.say(fullBoard, false, true);
   }
 
   function prefNodes() {
@@ -555,7 +562,7 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
   }
 
   function timer(): number {
-    return root.blindfold?.() ? 0 : [0, 1.5, 2, 2.5, 3, 5][timerPref()];
+    return [0, 1.5, 2, 2.5, 3, 5][timerPref()];
   }
 
   function moveInProgress() {
@@ -578,8 +585,8 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
     return tags === undefined
       ? entries
       : intersect
-      ? entries.filter(e => e.tags.every(tag => tags.includes(tag)))
-      : entries.filter(e => e.tags.some(tag => tags.includes(tag)));
+        ? entries.filter(e => e.tags.every(tag => tags.includes(tag)))
+        : entries.filter(e => e.tags.some(tag => tags.includes(tag)));
   }
 
   function wordTok(word: string) {
@@ -619,11 +626,11 @@ export function initModule(opts: { root: MoveRootCtrl; ui: VoiceCtrl; initial: M
 
   function valWord(val: string, tag?: string) {
     // if no tag, returns only the first matching input word for val, there may be others
-    const v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
+    let v = byVal.has(val) ? byVal.get(val) : byTok.get(val);
     if (v instanceof Set) {
-      return tag ? [...v].find(e => e.tags.includes(tag))?.in : v.values().next().value.in;
-    }
-    return v ? v.in : val;
+      if (tag) return [...v].find(e => e.tags.includes(tag))?.in ?? val;
+      else return (v.values().next().value as Entry).in;
+    } else return v ? v.in : val;
   }
 
   function allPhrases() {

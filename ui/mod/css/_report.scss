@@ -99,6 +99,21 @@ $c-report-high-over: white;
     .button-thin {
       font-size: 0.8em;
     }
+
+    .perfs {
+      font-size: 0.9em;
+      white-space: nowrap;
+    }
+
+    .text {
+      max-height: 100px;
+      overflow: hidden;
+      font-size: 0.9em;
+
+      &.large {
+        font-size: 0.8em;
+      }
+    }
   }
 
   .atoms .atom {
@@ -116,23 +131,6 @@ $c-report-high-over: white;
     .score {
       font-size: 0.9em;
       padding: 0.1em 0.4em;
-    }
-  }
-
-  table.see {
-    .perfs {
-      font-size: 0.9em;
-      white-space: nowrap;
-    }
-
-    .text {
-      max-height: 100px;
-      overflow: hidden;
-      font-size: 0.9em;
-    }
-
-    .text.large {
-      font-size: 0.8em;
     }
   }
 

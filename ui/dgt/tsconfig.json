@@ -3,6 +3,5 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "noEmit": true
-  },
-  "isolatedModules": true
+  }
 }

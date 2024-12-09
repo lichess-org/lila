@@ -25,6 +25,7 @@ object UiEnv
   def netConfig           = env.net
   def contactEmailInClear = env.net.email.value
   def picfitUrl           = env.memo.picfitUrl
+  def socketTest          = env.web.socketTest
 
   given lila.core.config.NetDomain                           = env.net.domain
   given (using ctx: PageContext): Option[Nonce]              = ctx.nonce
@@ -44,7 +45,6 @@ object UiEnv
   lazy val isOnline                = env.socket.isOnline
   lazy val lightUserSync           = env.user.lightUserSync
   def manifest                     = env.web.manifest
-  protected val jsDump             = lila.i18n.JsDump
   protected val translator         = lila.i18n.Translator
   val langList                     = lila.i18n.LangList
   protected val namer              = lila.game.Namer

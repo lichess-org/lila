@@ -107,7 +107,7 @@ final class Env(
 
   private lazy val autoPairing = wire[AutoPairing]
 
-  lazy val getTourName = new GetTourName(cached.nameCache)
+  lazy val getTourName = GetTourName(cached.nameCache)
 
   lazy val featuring = wire[TournamentFeaturing]
 
@@ -147,6 +147,4 @@ final class Env(
         case "tournament" :: "recompute" :: id :: Nil =>
           api.recomputeEntireTournament(TourId(id)).inject("Done!")
 
-trait TournamentReloadDelay
 trait TournamentReloadEndpoint
-trait LilaHttpTourId

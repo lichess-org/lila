@@ -1,29 +1,43 @@
 import * as xhr from 'common/xhr';
+import { domDialog } from 'common/dialog';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
+import { tempStorage } from 'common/storage';
 
 site.load.then(() => {
   $('.forum')
     .on('click', 'a.delete', function (this: HTMLAnchorElement) {
       const link = this;
-      site.dialog
-        .dom({
-          cash: $('.forum-delete-modal'),
-          attrs: { view: { action: link.href } },
-        })
-        .then(dlg => {
-          $(dlg.view)
-            .find('form')
-            .attr('action', link.href)
-            .on('submit', function (this: HTMLFormElement, e: Event) {
-              e.preventDefault();
-              xhr.formToXhr(this);
-              $(link).closest('.forum-post').hide();
-              dlg.close();
-            });
-          $(dlg.view).find('form button.cancel').on('click', dlg.close);
-          dlg.showModal();
-        });
+      domDialog({
+        cash: $('.forum-delete-modal'),
+        attrs: { view: { action: link.href } },
+        modal: true,
+      }).then(dlg => {
+        $(dlg.view)
+          .find('form')
+          .attr('action', link.href)
+          .on('submit', function (this: HTMLFormElement, e: Event) {
+            e.preventDefault();
+            xhr.formToXhr(this);
+            $(link).closest('.forum-post').hide();
+            dlg.close();
+          });
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        dlg.show();
+      });
+      return false;
+    })
+    .on('click', 'a.mod-relocate', function (this: HTMLAnchorElement) {
+      const link = this;
+      domDialog({
+        cash: $('.forum-relocate-modal'),
+        attrs: { view: { action: link.href } },
+        modal: true,
+      }).then(dlg => {
+        $(dlg.view).find('form').attr('action', link.href);
+        $(dlg.view).find('form button.cancel').on('click', dlg.close);
+        dlg.show();
+      });
       return false;
     })
     .on('click', 'form.unsub button', function (this: HTMLButtonElement) {
@@ -119,14 +133,14 @@ site.load.then(() => {
     new Textcomplete(new TextareaEditor(textarea), [
       {
         index: 2,
-        match: /(^|\s)@(|[a-zA-Z_-][\w-]{0,19})$/,
+        match: /(^|\s)@([a-zA-Z_-][\w-]{0,19})$/,
         search: function (term: string, callback: (names: string[]) => void) {
           // Initially we only autocomplete by participants in the thread. As the user types more,
           // we can autocomplete against all users on the site.
           threadParticipants.then(function (participants) {
             const forumParticipantCandidates = searchCandidates(term, participants);
 
-            if (forumParticipantCandidates.length != 0) {
+            if (forumParticipantCandidates.length !== 0) {
               // We always prefer a match on the forum thread participants' usernames
               callback(forumParticipantCandidates);
             } else if (term.length >= 3) {
@@ -167,7 +181,7 @@ site.load.then(() => {
     }
   });
 
-  const replyStorage = site.tempStorage.make('forum.reply' + location.pathname);
+  const replyStorage = tempStorage.make('forum.reply' + location.pathname);
   const replyEl = $('.reply .post-text-area')[0] as HTMLTextAreaElement | undefined;
   let submittingReply = false;
 

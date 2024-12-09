@@ -36,7 +36,7 @@
   <string name="xPublishedY">%1$s publikoval %2$s</string>
   <string name="thisPostIsPublished">Tento příspěvek je publikován</string>
   <string name="thisIsADraft">Toto je koncept</string>
-  <string name="moreBlogPostsBy">Více příspěvků blogu od %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Více příspěvků blogu od %s</string>
   <string name="noPostsInThisBlogYet">Zatím v tomto blogu nejsou žádné příspěvky.</string>
   <string name="noDrafts">Žádné koncepty k zobrazení.</string>
   <string name="latestBlogPosts">Poslední příspěvky na blogu</string>
@@ -50,7 +50,6 @@
   <string name="imageAlt">Alternativní text obrázku</string>
   <string name="imageCredit">Zdroj obrázku</string>
   <string name="deleteBlog">Definitivně smazat tento blogový příspěvek</string>
-  <string name="deleteImage">Smazat obrázek</string>
   <string name="safeToUseImages">Je bezpečné používat obrázky z těchto stránek: </string>
   <string name="selectPostTopics">Zvolte témata vašeho příspěvku</string>
   <string name="useImagesYouMadeYourself">Můžete také přidat obrázky, vytvořené vámi, screenshoty... cokoliv na co se nevztahují autorská práva.</string>

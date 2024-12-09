@@ -1,19 +1,21 @@
 package lila.clas
 
+import java.time.Duration
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
-import java.time.Duration
 import scalalib.model.Days
+import chess.IntRating
+import chess.rating.IntRatingDiff
 
+import lila.core.game.GameRepo
+import lila.core.user.WithPerf
 import lila.db.dsl.{ *, given }
-import lila.core.game.{ GameRepo }
 import lila.puzzle.PuzzleRound
 import lila.rating.PerfType
-import lila.core.user.WithPerf
 
 case class ClasProgress(
     perfType: PerfType,
-    days: Int,
+    days: Days,
     students: Map[UserId, StudentProgress]
 ):
   def apply(user: WithPerf) =
@@ -49,7 +51,7 @@ final class ClasProgressApi(
 
   case class PlayStats(nb: Int, wins: Int, millis: Long)
 
-  def apply(perfType: PerfType, days: Int, students: List[Student.WithUser]): Fu[ClasProgress] =
+  def apply(perfType: PerfType, days: Days, students: List[Student.WithUser]): Fu[ClasProgress] =
     val users   = students.map(_.user)
     val userIds = users.map(_.id)
 
@@ -60,7 +62,7 @@ final class ClasProgressApi(
 
     val progressesFu = for
       usersWithPerf <- perfsRepo.withPerf(users, perfType)
-      progresses    <- historyApi.progresses(usersWithPerf, perfType.key, Days(days))
+      progresses    <- historyApi.progresses(usersWithPerf, perfType.key, days)
     yield progresses
 
     playStatsFu.zip(progressesFu).map { (playStats, progresses) =>
@@ -82,14 +84,14 @@ final class ClasProgressApi(
       )
     }
 
-  private def getPuzzleStats(userIds: List[UserId], days: Int): Fu[Map[UserId, PlayStats]] =
+  private def getPuzzleStats(userIds: List[UserId], days: Days): Fu[Map[UserId, PlayStats]] =
     puzzleColls.round:
       _.aggregateList(Int.MaxValue, _.sec): framework =>
         import framework.*
         Match(
           $doc(
             PuzzleRound.BSONFields.user.$in(userIds),
-            PuzzleRound.BSONFields.date.$gt(nowInstant.minusDays(days))
+            PuzzleRound.BSONFields.date.$gt(nowInstant.minusDays(days.value))
           )
         ) -> List:
           GroupField("u")(
@@ -114,7 +116,7 @@ final class ClasProgressApi(
   private def getGameStats(
       perfType: PerfType,
       userIds: List[UserId],
-      days: Int
+      days: Days
   ): Fu[Map[UserId, PlayStats]] =
     import lila.core.game.{ BSONFields as F }
     gameRepo.coll
@@ -123,7 +125,7 @@ final class ClasProgressApi(
         Match(
           $doc(
             F.playerUids.$in(userIds),
-            F.createdAt.$gte(nowInstant.minusDays(days)),
+            F.createdAt.$gte(nowInstant.minusDays(days.value)),
             gamePerfField -> perfType.id
           )
         ) -> List(

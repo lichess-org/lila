@@ -3,7 +3,6 @@ package lila.relation
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
-import lila.relation.RelationRepo.makeId
 
 final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(using
     Executor
@@ -18,7 +17,7 @@ final class SubscriptionRepo(colls: Colls, userRepo: lila.core.user.UserRepo)(us
         import framework.*
         Match($doc("s" -> streamerId)) -> List(
           PipelineOperator(
-            $lookup.pipeline(
+            $lookup.pipelineBC(
               from = userRepo.coll,
               as = "user",
               local = "u",

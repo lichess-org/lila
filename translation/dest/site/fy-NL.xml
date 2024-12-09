@@ -110,7 +110,6 @@
   <string name="replayMode">Oernijspyl wize</string>
   <string name="realtimeReplay">Selde tiid</string>
   <string name="byCPL">Yn \'CPL\'</string>
-  <string name="openStudy">Iepenje stúdzje</string>
   <string name="enable">Ynskeakelje</string>
   <string name="bestMoveArrow">Bêste set-pylk</string>
   <string name="showVariationArrows">Toan fariaasje pylken</string>
@@ -120,7 +119,6 @@
   <string name="memory">Geheugen</string>
   <string name="infiniteAnalysis">Ûneinige analyse</string>
   <string name="removesTheDepthLimit">Ferwideret de djipte limyt en hâldt dyn kompjûter waarm</string>
-  <string name="engineManager">Engine manager</string>
   <string name="blunder">Flater</string>
   <string name="mistake">Flater</string>
   <string name="inaccuracy">Ûnkrektens</string>
@@ -336,7 +334,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="block">Blokkearje</string>
   <string name="blocked">Blokkearre</string>
   <string name="unblock">Deblokkearje</string>
-  <string name="followsYou">Folget dy</string>
   <string name="xStartedFollowingY">%1$s is begûn %2$s te folgjen</string>
   <string name="more">Mear</string>
   <string name="memberSince">Lid sûnt</string>
@@ -356,9 +353,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="safeTournamentName">Kies in feilige, net kontroversjele namme foar it toernoai.</string>
   <string name="inappropriateNameWarning">Sels by it fermoeden fan in mispleatste namme, kin jo account sluten wurde.</string>
   <string name="emptyTournamentName">Lit leech om it toernoai nei in opmerklike skaakspiler te ferneamen.</string>
-  <string name="recommendNotTouching">Wy riede oan dizze ynstellingen sa te litten.</string>
-  <string name="fewerPlayers">As jo tagongseasken ynstelle, sil jo toernoai minder spilers hawwe.</string>
-  <string name="showAdvancedSettings">Toan avansearre ynstellingen</string>
   <string name="makePrivateTournament">Meitsje it toernoai privee, en behein de tagong mei in wachtwurd</string>
   <string name="join">Meidwaan</string>
   <string name="withdraw">Weromlûke</string>
@@ -393,8 +387,6 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="ifNoneLeaveEmpty">As der gjin is, lit dan leech</string>
   <string name="profile">Profyl</string>
   <string name="editProfile">Profyl bewurkje</string>
-  <string name="firstName">Foarnamme</string>
-  <string name="lastName">Efternamme</string>
   <string name="biography">Biografy</string>
   <string name="thankYou">Tankewol!</string>
   <string name="socialMediaLinks">Keppelingen nei sosjale media</string>
@@ -427,10 +419,8 @@ kompjûteranalyze, partijpetear en dielbere URL te krijen.</string>
   <string name="reason">Reden</string>
   <string name="whatIsIheMatter">Wat is der oan de hân?</string>
   <string name="cheat">Falsk spul</string>
-  <string name="insult">Belediging</string>
   <string name="troll">Provokaasje</string>
   <string name="other">Oars</string>
-  <string name="reportDescriptionHelp">Plak de link nei it spul(len) en lis út wat ferkeard is oan it gedrach fan dizze brûker. Sis net \"dit is falsk spul\", mar lis ús út hoe ast ta dizze konklúzje bist kaam. Dyn rapport sil rapper wurde ferwurke as it yn it Ingelsk wurdt skreaun.</string>
   <string name="error.provideOneCheatedGameLink">Jou op syn minst ien link nei in partij wêryn falsk spile waard.</string>
   <string name="by">troch %s</string>
   <string name="thisTopicIsNowClosed">Dit ûnderwerp is no sletten.</string>

@@ -7,10 +7,9 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.*
 import lila.common.{ Form as LilaForm, LameName }
-import lila.user.TotpSecret
-import lila.user.TotpSecret.{ base32, verify }
 import lila.core.security.ClearPassword
-import lila.user.TotpToken
+import lila.user.TotpSecret.{ base32, verify }
+import lila.user.{ TotpSecret, TotpToken }
 
 final class SecurityForm(
     userRepo: lila.user.UserRepo,
@@ -31,6 +30,7 @@ final class SecurityForm(
     LilaForm
       .cleanNonEmptyText(minLength = 6, maxLength = EmailAddress.maxLength)
       .verifying(Constraints.emailAddress)
+      .verifying("error.email", EmailAddress.isValid)
       .into[EmailAddress]
 
   private val sendableEmail = anyEmail.verifying(emailValidator.sendableConstraint)
@@ -50,10 +50,9 @@ final class SecurityForm(
 
     val emailField: Mapping[EmailAddress] = fullyValidEmail(using none)
 
-    val username: Mapping[UserName] = LilaForm.cleanNonEmptyText
+    val username: Mapping[UserName] = LilaForm
+      .cleanNonEmptyText(minLength = 2, maxLength = 20)
       .verifying(
-        Constraints.minLength(2),
-        Constraints.maxLength(20),
         Constraints.pattern(
           regex = lila.user.nameRules.newUsernamePrefix,
           error = "usernamePrefixInvalid"

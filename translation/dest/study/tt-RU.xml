@@ -38,6 +38,7 @@
   <string name="youAreNowASpectator">Сез хәзер тамашачы</string>
   <string name="pgnTags">PGN тамгасы</string>
   <string name="like">Ошый</string>
+  <string name="unlike">Ошамый</string>
   <string name="newTag">Яңа тамга</string>
   <string name="commentThisPosition">Ошбу позицияне шәрхләмәк</string>
   <string name="commentThisMove">Хәрәкәтне шәрхләү</string>
@@ -81,9 +82,15 @@
   <string name="nobody">Лә Әхәд</string>
   <string name="onlyMe">Фәкать мин</string>
   <string name="contributors">Һиссадәрче</string>
+  <string name="members">Катнашучылар</string>
+  <string name="everyone">Һәркем</string>
   <string name="start">Башла</string>
   <string name="save">Сакла</string>
+  <string name="goodMove">Якшы йөрү</string>
   <string name="mistake">Хата</string>
+  <string name="blunder">Зур хата</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Цугцванг</string>
+  <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">Яңалык</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">Һөҗүм</string>
   <string name="topics">Темалар</string>
   <string name="back">Артка</string>

@@ -1,13 +1,10 @@
 package lila.common
 
 import play.api.libs.json.*
+import scalalib.StringUtils.{ escapeHtmlRaw, safeJsonString }
 import scalatags.Text.all.*
 
-import java.text.Normalizer
-
-import lila.common.RawHtml
 import lila.core.config.NetDomain
-import scalalib.StringUtils.{ escapeHtmlRaw, safeJsonString }
 import lila.core.data.SafeJsonStr
 
 object String:
@@ -19,6 +16,10 @@ object String:
 
   def decodeUriPath(input: String): Option[String] =
     try play.utils.UriEncoding.decodePath(input, "UTF-8").some
+    catch case _: play.utils.InvalidUriEncodingException => None
+
+  def decodeUriPathSegment(input: String): Option[String] =
+    try play.utils.UriEncoding.decodePathSegment(input, "UTF-8").some
     catch case _: play.utils.InvalidUriEncodingException => None
 
   def isShouting(text: String) =

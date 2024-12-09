@@ -5,6 +5,7 @@ export const Coords = {
   Hidden: 0,
   Inside: 1,
   Outside: 2,
+  All: 3,
 };
 export type Coords = (typeof Coords)[keyof typeof Coords];
 

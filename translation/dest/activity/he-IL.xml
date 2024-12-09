@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">פעילות</string>
-  <string name="hostedALiveStream">עלה (או עלתה) לשידור חי</string>
+  <string name="hostedALiveStream">על\תה לשידור חי</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">תמכ/ה בליצ\'ס במשך חודש %1$s כ%2$s</item>
+    <item quantity="one">תמכ/ה ב-lichess במשך חודש %1$s כ%2$s</item>
     <item quantity="two">תמכ/ה בליצ\'ס במשך %1$s חודשים כ%2$s</item>
     <item quantity="many">תמכ/ה בליצ\'ס במשך %1$s חודשים כ%2$s</item>
     <item quantity="other">תמכ/ה בליצ\'ס במשך %1$s חודשים כ%2$s</item>
@@ -15,10 +15,10 @@
     <item quantity="other">התאמן/ה על %1$s עמדות ב%2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">פתר/ה פאזל טקטי %s</item>
-    <item quantity="two">פתר/ה %s פאזלים טקטיים</item>
-    <item quantity="many">פתר/ה %s פאזלים טקטיים</item>
-    <item quantity="other">פתר/ה %s פאזלים טקטיים</item>
+    <item quantity="one">פתר/ה חידה טקטית %s</item>
+    <item quantity="two">פתר/ה %s חידות טקטיות</item>
+    <item quantity="many">פתר/ה %s חידות טקטיות</item>
+    <item quantity="other">פתר/ה %s חידות טקטיות</item>
   </plurals>
   <plurals name="playedNbGames">
     <item quantity="one">שיחק/ה משחק %2$s %1$s</item>
@@ -50,6 +50,12 @@
     <item quantity="many">השלים/ה %s משחקי התכתבות</item>
     <item quantity="other">השלים/ה %s משחקי התכתבות</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">השלים/ה משחק התכתבות %1$s מסוג %2$s</item>
+    <item quantity="two">השלים/ה %1$s משחקי התכתבות מסוג %2$s</item>
+    <item quantity="many">השלים/ה %1$s משחקי התכתבות מסוג %2$s</item>
+    <item quantity="other">השלים/ה %1$s משחקי התכתבות מסוג %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">התחיל/ה לעקוב אחר שחקן %s</item>
     <item quantity="two">התחיל/ה לעקוב אחר %s שחקנים</item>
@@ -80,25 +86,25 @@
     <item quantity="many">יצר/ה %s לוחות למידה חדשים</item>
     <item quantity="other">יצר/ה %s לוחות למידה חדשים</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">השתתף/ה בטורניר זירה %s</item>
-    <item quantity="two">השתתף/ה ב-%s טורנירי זירה</item>
-    <item quantity="many">השתתף/ה ב-%s טורנירי זירה</item>
-    <item quantity="other">השתתף/ה ב-%s טורנירי זירה</item>
+    <item quantity="two">השתתף/ה ב־%s טורנירי זירה</item>
+    <item quantity="many">השתתף/ה ב־%s טורנירי זירה</item>
+    <item quantity="other">השתתף/ה ב־%s טורנירי זירה</item>
   </plurals>
   <plurals name="rankedInTournament">
-    <item quantity="one">סיים/ה במקום #%1$s (אחוזון %%%2$s) עם משחק %3$s ב-%4$s</item>
+    <item quantity="one">סיים/ה במקום #%1$s (אחוזון %%%2$s) עם משחק %3$s ב־%4$s</item>
     <item quantity="two">סיים/ה במקום #%1$s (אחוזון %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="many">סיים/ה במקום #%1$s (אחוזון %%%2$s) עם %3$s משחקים ב%4$s</item>
     <item quantity="other">סיים/ה במקום #%1$s (אחוזון %%%2$s) עם %3$s משחקים ב%4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
     <item quantity="one">השתתף/ה בטורניר שוויצרי %s</item>
-    <item quantity="two">השתתף/ה ב-%s טורנירים שוויצריים</item>
-    <item quantity="many">השתתף/ה ב-%s טורנירים שוויצריים</item>
-    <item quantity="other">השתתף/ה ב-%s טורנירים שוויצריים</item>
+    <item quantity="two">השתתף/ה ב־%s טורנירים שוויצריים</item>
+    <item quantity="many">השתתף/ה ב־%s טורנירים שוויצריים</item>
+    <item quantity="other">השתתף/ה ב־%s טורנירים שוויצריים</item>
   </plurals>
-  <string name="rankedInSwissTournament">סיים/ה במקום %1$s ב-%2$s</string>
+  <string name="rankedInSwissTournament">סיים/ה במקום %1$s ב־%2$s</string>
   <string name="signedUp">נרשם/ה לlichess.org</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">הצטרף/ה לקבוצה %s</item>

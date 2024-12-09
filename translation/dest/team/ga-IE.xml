@@ -14,7 +14,7 @@
   <string name="newTeam">Foireann nua</string>
   <string name="myTeams">Mo fhoirne</string>
   <string name="noTeamFound">Níor aimsíodh aon fhoireann</string>
-  <string name="joinTeam">Bí ar foireann</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Bí ar foireann</string>
   <string name="onlyLeaderLeavesTeam">Cuir ceannaire foirne nua leis sula bhfágann tú, nó dún an fhoireann.</string>
   <string name="quitTeam">Fág foireann</string>
   <string name="manuallyReviewAdmissionRequests">Déan athbhreithniú de láimh ar iarratais iontrála</string>

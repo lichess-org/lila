@@ -1,7 +1,5 @@
 @import 'gen/mix';
 
-// this may not import anything from outside common/css/colors
-
 @function _clear($color, $weight: 20%) {
   @return mix(#fff, $color, $weight);
 }
@@ -12,14 +10,13 @@
 
 $site-hue: 37;
 
-/* top level $c-variables must be valid css format (rgba, hsla, hex) and are mixable by ui/build
-*/
+// top level $c-variables must be valid css format (rgba, hsla, hex) and are mixable by ui/build
 
-$c-bg: hsl(37, 7%, 14%); // alias for $c-bg-high
+$c-bg: hsl(37, 7%, 14%); // $c-bg-high
 $c-bg-page: hsl(37, 10%, 8%);
 $c-bg-low: hsl(37, 7%, 22%);
-$c-bg-zebra: hsl(37, 5%, 18%);
-$c-bg-zebra2: hsl(37, 5%, 23%);
+$c-bg-zebra: hsl(37, 5%, 19%);
+$c-bg-zebra2: hsl(37, 5%, 24%);
 $c-bg-popup: hsl(37, 7%, 22%);
 $c-body-gradient: hsl(37, 12%, 16%);
 $c-font: hsl(0, 0%, 73%);
@@ -36,13 +33,15 @@ $c-blunder: hsl(0, 69%, 60%);
 $c-good: $c-secondary;
 $c-brilliant: hsl(129, 71%, 45%);
 $c-interesting: hsl(307, 80%, 70%);
+$c-paper: hsl(60, 56%, 91%);
+$c-white: #fff;
 $c-dark: #333;
 $c-dimmer: #000;
 $c-clearer: #fff;
 
 /* shared-color-defs is the location for theme colors that share the same definition syntax.
-   note that many of the assigned values may depend on variables from the including scope and
-   therefore may differ between themes.
+   important: the assigned values often depend on variables from the including scope and
+   will therefore differ between themes.
 */
 @mixin shared-color-defs {
   --c-bg: #{$c-bg};
@@ -70,7 +69,7 @@ $c-clearer: #fff;
   --c-metal-top-hover: #{hsl($site-hue, 7%, 25%)};
   --c-metal-bottom-hover: #{hsl($site-hue, 5%, 22%)};
 
-  --c-font-dim: #{change-color($c-font, $lightness: 55%)};
+  --c-font-dim: #{change-color($c-font, $lightness: 58%)};
   --c-font-dimmer: #{change-color($c-font, $lightness: 42%)};
   --c-font-clear: #{change-color($c-font, $lightness: 80%)};
   --c-font-clearer: #{change-color($c-font, $lightness: 89%)};
@@ -86,6 +85,7 @@ $c-clearer: #fff;
   --c-border: hsl(0, 0%, 25%);
   --c-border-page: hsl(0, 0%, 22%);
   --c-border-tour: #{mix(hsl(0, 0%, 22%), $c-bg-page, 50)};
+  --c-border-light: hsl(0, 0%, 40%);
   --c-primary: #{$c-primary};
   --c-primary-clear: #{_clear($c-primary)};
   --c-secondary: #{$c-secondary};
@@ -123,4 +123,5 @@ $c-clearer: #fff;
   --c-brilliant: #{$c-brilliant};
   --c-interesting: #{$c-interesting};
   --c-pool-button: #{hsla($site-hue, 7%, 19%, 66%)};
+  --c-paper: #{$c-paper};
 }

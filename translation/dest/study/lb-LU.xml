@@ -83,7 +83,7 @@
   <string name="pinnedChapterComment">Ugepinnten Kapitelkommentar</string>
   <string name="saveChapter">Kapitel späicheren</string>
   <string name="clearAnnotations">Annotatiounen läschen</string>
-  <string name="clearVariations">Variatiounen läschen</string>
+  <string name="clearVariations">Variante läschen</string>
   <string name="deleteChapter">Kapitel läschen</string>
   <string name="deleteThisChapter">Kapitel läschen? Et gëtt keen zeréck!</string>
   <string name="clearAllCommentsInThisChapter">All Kommentarer, Symboler an Zeechnungsformen an dësem Kapitel läschen?</string>
@@ -166,4 +166,5 @@
   <string name="playAgain">Nach eng Kéier spillen</string>
   <string name="whatWouldYouPlay">Wat géifs du an dëser Positioun spillen?</string>
   <string name="youCompletedThisLesson">Gudd gemaach! Du hues dës Übung ofgeschloss.</string>
+  <string name="perPage">%s pro Säit</string>
 </resources>

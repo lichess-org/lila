@@ -15,7 +15,7 @@ final class RelayPgnStream(
 
   def exportFullTourAs(tour: RelayTour, me: Option[User]): Source[PgnStr, ?] = Source.futureSource:
     roundRepo
-      .idsByTourOrdered(tour)
+      .idsByTourOrdered(tour.id)
       .flatMap: ids =>
         studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)).map { studies =>
           val visible = studies.filter(_.canView(me.map(_.id)))
@@ -27,7 +27,8 @@ final class RelayPgnStream(
     variations = false,
     clocks = true,
     source = false,
-    orientation = false
+    orientation = false,
+    site = none
   )
   private val fileR         = """[\s,]""".r
   private val dateFormatter = java.time.format.DateTimeFormatter.ofPattern("yyyy.MM.dd")
@@ -37,7 +38,7 @@ final class RelayPgnStream(
     fileR.replaceAllIn(s"lichess_broadcast_${tour.slug}_${tour.id}_$date", "")
 
   def streamRoundGames(rs: RelayRound.WithStudy): Source[PgnStr, ?] = {
-    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(16, 1 second)
+    if rs.relay.hasStarted then studyPgnDump.chaptersOf(rs.study, flags).throttle(32, 1 second)
     else Source.empty[PgnStr]
   }.concat(
     Source

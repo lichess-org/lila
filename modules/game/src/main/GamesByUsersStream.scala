@@ -5,9 +5,8 @@ import play.api.libs.json.*
 
 import lila.common.Bus
 import lila.common.Json.given
+import lila.core.game.{ FinishGame, Game, StartGame, WithInitialFen }
 import lila.db.dsl.given
-
-import lila.core.game.{ Game, WithInitialFen, FinishGame, StartGame }
 
 final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(using akka.stream.Materializer, Executor):
 

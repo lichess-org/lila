@@ -167,4 +167,5 @@
   <string name="playAgain">Spill igjen</string>
   <string name="whatWouldYouPlay">Hva vil du spille i denne stillingen?</string>
   <string name="youCompletedThisLesson">Gratulerer! Du har fullført denne leksjonen.</string>
+  <string name="perPage">%s per side</string>
 </resources>

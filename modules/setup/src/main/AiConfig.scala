@@ -3,13 +3,11 @@ package lila.setup
 import chess.format.Fen
 import chess.variant.Variant
 import chess.{ ByColor, Clock }
-
 import scalalib.model.Days
-import lila.core.game.{ IdGenerator, Player, NewPlayer }
-import lila.lobby.TriColor
-import lila.rating.PerfType
+
+import lila.core.game.{ IdGenerator, NewPlayer, Player, Source }
 import lila.core.user.GameUser
-import lila.core.game.Source
+import lila.lobby.TriColor
 
 case class AiConfig(
     variant: chess.variant.Variant,
@@ -21,7 +19,8 @@ case class AiConfig(
     color: TriColor,
     fen: Option[Fen.Full] = None
 ) extends Config
-    with Positional:
+    with Positional
+    with WithColor:
 
   val strictFen = true
 

@@ -50,6 +50,12 @@
     <item quantity="many">Зіграно %s заочних ігор</item>
     <item quantity="other">Зіграно %s заочних ігор</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Зіграно %1$s %2$s заочну гру</item>
+    <item quantity="few">Зіграно %1$s %2$s заочні гри</item>
+    <item quantity="many">Зіграно %1$s %2$s заочних ігор</item>
+    <item quantity="other">Зіграно %1$s %2$s заочних ігор</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Підписався на %s гравця</item>
     <item quantity="few">Почав спостерігати за %s гравцями</item>
@@ -80,7 +86,7 @@
     <item quantity="many">Створено %s нових досліджень</item>
     <item quantity="other">Створено %s нових досліджень</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Змагався в %s турнірі</item>
     <item quantity="few">Змагався в %s турнірах</item>
     <item quantity="many">Змагався в %s турнірах</item>

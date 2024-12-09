@@ -1,17 +1,17 @@
-import { StudyCtrl } from '../studyDeps';
-import RelayCtrl from './relayCtrl';
+import type { StudyCtrl } from '../studyDeps';
+import type RelayCtrl from './relayCtrl';
 import { userTitle } from 'common/userLink';
 import { defined, scrollToInnerSelector } from 'common';
 import { renderClock, verticalEvalGauge } from '../multiBoard';
-import { ChapterPreview } from '../interfaces';
+import type { ChapterPreview } from '../interfaces';
 import { gameLinkAttrs } from '../studyChapters';
 import { playerFed } from '../playerBars';
 import { h } from 'snabbdom';
 
 export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
   const chapters = study.chapters.list.all();
-  const cloudEval = study.multiCloudEval.thisIfShowEval();
-  const basePath = relay.roundPath();
+  const cloudEval = study.multiCloudEval?.thisIfShowEval();
+  const roundPath = relay.roundPath();
   return h(
     'div.relay-games',
     {
@@ -25,16 +25,21 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
         },
       },
     },
-    chapters.length == 1 && chapters[0].name == 'Chapter 1'
+    chapters.length === 1 && chapters[0].name === 'Chapter 1'
       ? []
       : chapters.map((c, i) => {
           const status =
-            !c.status || c.status == '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
+            !c.status || c.status === '*' ? renderClocks(c) : [c.status.slice(2, 3), c.status.slice(0, 1)];
+          const players = [c.players?.black, c.players?.white];
+          if (c.orientation === 'black') {
+            players.reverse();
+            status.reverse();
+          }
           return h(
             `a.relay-game.relay-game--${c.id}`,
             {
               attrs: {
-                ...gameLinkAttrs(basePath, c),
+                ...gameLinkAttrs(roundPath, c),
                 'data-n': i + 1,
               },
               class: { 'relay-game--current': c.id === study.data.chapter.id },
@@ -43,7 +48,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
               cloudEval && verticalEvalGauge(c, cloudEval),
               h(
                 'span.relay-game__players',
-                [c.players?.black, c.players?.white].map((p, i) => {
+                players.map((p, i) => {
                   const s = status[i];
                   return h(
                     'span.relay-game__player',
@@ -53,7 +58,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             playerFed(p.fed),
                             h('span.name', [userTitle(p), p.name]),
                           ]),
-                          h(s == '1' ? 'good' : s == '0' ? 'bad' : 'status', [s]),
+                          h(s === '1' ? 'good' : s === '0' ? 'bad' : 'status', [s]),
                         ]
                       : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
                   );

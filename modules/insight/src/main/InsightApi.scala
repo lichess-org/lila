@@ -1,7 +1,8 @@
 package lila.insight
 
 import scalalib.HeapSort.botN
-import lila.game.{ GameRepo }
+
+import lila.game.GameRepo
 
 final class InsightApi(
     storage: InsightStorage,
@@ -61,7 +62,8 @@ final class InsightApi(
     }
 
   def indexAll(user: User) =
-    indexer.all(user).monSuccess(_.insight.index).andDo(userCache.put(user.id, computeUser(user.id)))
+    for _ <- indexer.all(user).monSuccess(_.insight.index)
+    yield userCache.put(user.id, computeUser(user.id))
 
   def updateGame(g: Game) =
     lila.game.Pov.list(g).sequentiallyVoid { pov =>

@@ -4,17 +4,34 @@
   "private": true,
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "type": "commonjs",
+  "type": "module",
+  "optionalDependencies": {
+    "sass-embedded-darwin-arm64": "1.81.0",
+    "sass-embedded-darwin-x64": "1.81.0",
+    "sass-embedded-linux-arm64": "1.81.0",
+    "sass-embedded-linux-x64": "1.81.0",
+    "sass-embedded-win32-arm64": "1.81.0",
+    "sass-embedded-win32-x64": "1.81.0"
+  },
   "dependencies": {
-    "@types/node": "^20.11.30",
-    "@types/tinycolor2": "^1.4.6",
-    "esbuild": "^0.20.2",
-    "fast-glob": "^3.3.2",
-    "json5": "^2.2.3",
-    "tinycolor2": "^1.6.0",
-    "typescript": "^5.4.3"
+    "@types/node": "22.10.1",
+    "@types/tinycolor2": "1.4.6",
+    "esbuild": "0.24.0",
+    "fast-glob": "3.3.2",
+    "fast-xml-parser": "4.5.0",
+    "tinycolor2": "1.6.0",
+    "typescript": "5.7.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "micromatch": "^4.0.8"
+    },
+    "//": [
+      "https://github.com/lichess-org/lila/security/dependabot/41",
+      "micromatch is a dependency of fast-glob. remove this once fast-glob patches past v3.3.2"
+    ]
   },
   "scripts": {
-    "dev": "tsc && node dist/main.js"
+    "dev": "node --experimental-strip-types --no-warnings src/main.ts $@"
   }
 }

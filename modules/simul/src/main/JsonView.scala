@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import lila.common.Json.given
 import lila.core.LightUser
 import lila.gathering.Condition.WithVerdicts
-import lila.rating.PerfType
 
 final class JsonView(
     gameRepo: lila.core.game.GameRepo,
@@ -75,7 +74,7 @@ final class JsonView(
           .obj("rating" -> simul.hostRating)
           .add("provisional" -> simul.hostProvisional)
           .add("gameId" -> simul.hostGameId.ifTrue(simul.isRunning))
-          .add("online" -> isOnline(host.id))
+          .add("online" -> isOnline.exec(host.id))
       },
       "name"       -> simul.name,
       "fullName"   -> simul.fullName,

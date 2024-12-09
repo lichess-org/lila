@@ -10,6 +10,10 @@ case class MsgPreset(name: String, text: String)
 
 case class SystemMsg(userId: UserId, text: String)
 
+type ID = String
+
+case class IdText(id: String, text: String)
+
 trait MsgApi:
   def postPreset(destId: UserId, preset: MsgPreset): Fu[PostResult]
   def post(

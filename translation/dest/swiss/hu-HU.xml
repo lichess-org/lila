@@ -26,7 +26,7 @@
     <item quantity="one">%s perc a fordulók között</item>
     <item quantity="other">%s perc a fordulók között</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Hátralévő idő</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Hátralévő idő</string>
   <string name="nextRound">Következő forduló</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Folyamatban lévő játék</item>
@@ -67,7 +67,7 @@ Továbbá, fél pontot érő egyszeri szabadkört kap minden játékos, aki kés
 A rendszer visszalépteti ezeket a játékosokat a versenytől, hogy ne veszítsenek el több játszmát.
  Bármikor újracsatlakozhatnak a versenyhez.</string>
   <string name="protectionAgainstNoShowQ">Mi lesz ha nem jelenik meg egy játékos?</string>
-  <string name="protectionAgainstNoShowA">Játékosok akik regisztrálnak egy svájci rendszerű versenyre, de nem játszák le játszmáikat, az problémás lehet. Hogy enyhítsen a dolgon, Lichess egy adott időre megakadályozza ezeket a játékosokat hogy új svájci rendszerű versenyre jelentkezzenek. Egy verseny szervezője dönthet úgy, hogy ennek ellenére is játszhassanak.</string>
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Játékosok akik regisztrálnak egy svájci rendszerű versenyre, de nem játszák le játszmáikat, az problémás lehet. Hogy enyhítsen a dolgon, Lichess egy adott időre megakadályozza ezeket a játékosokat hogy új svájci rendszerű versenyre jelentkezzenek. Egy verseny szervezője dönthet úgy, hogy ennek ellenére is játszhassanak.</string>
   <string name="lateJoinQ">Csatlakozhatnak-e a játékosok utólag?</string>
   <string name="lateJoinA">Igen, amíg nem több, mint a fordulók fele elkezdődött; például egy 11 fordulósban játékosok csatlakozhatnak a 6. forduló kezdete előtt illetve egy 12 fordulósban a 7. forduló kezdetéig.
 A későn csatlakozók egy pontot érő szabadkört kapnak akkor is, ha több fordulóból maradtak ki.</string>

@@ -1,6 +1,6 @@
 import * as licon from 'common/licon';
 
-import { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
+import type { GameMode, GameType, InputValue, RealValue, TimeMode, Variant } from './interfaces';
 
 export const variants: Variant[] = [
   { id: 1, icon: licon.Crown, key: 'standard', name: 'Standard' },
@@ -49,10 +49,10 @@ export const speeds: { key: Speed; name: string; icon: string }[] = [
   { icon: licon.PaperAirplane, key: 'correspondence', name: 'Correspondence' },
 ];
 
-export const timeModes = (trans: Trans): { id: number; key: TimeMode; name: string }[] => [
-  { id: 1, key: 'realTime', name: trans('realTime') },
-  { id: 2, key: 'correspondence', name: trans('correspondence') },
-  { id: 0, key: 'unlimited', name: trans('unlimited') },
+export const timeModes: { id: number; key: TimeMode; name: string }[] = [
+  { id: 1, key: 'realTime', name: i18n.site.realTime },
+  { id: 2, key: 'correspondence', name: i18n.site.correspondence },
+  { id: 0, key: 'unlimited', name: i18n.site.unlimited },
 ];
 
 export const keyToId = (key: string, items: { id: number; key: string }[]): number =>
@@ -156,13 +156,13 @@ export const sliderInitVal = (
   return undefined;
 };
 
-export const gameModes = (trans: Trans): { key: GameMode; name: string }[] => [
-  { key: 'casual', name: trans('casual') },
-  { key: 'rated', name: trans('rated') },
+export const gameModes: { key: GameMode; name: string }[] = [
+  { key: 'casual', name: i18n.site.casual },
+  { key: 'rated', name: i18n.site.rated },
 ];
 
-export const colors = (trans: Trans): { key: Color | 'random'; name: string }[] => [
-  { key: 'black', name: trans('black') },
-  { key: 'random', name: trans('randomColor') },
-  { key: 'white', name: trans('white') },
+export const colors: { key: Color | 'random'; name: string }[] = [
+  { key: 'black', name: i18n.site.black },
+  { key: 'random', name: i18n.site.randomColor },
+  { key: 'white', name: i18n.site.white },
 ];

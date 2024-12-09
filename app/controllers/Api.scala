@@ -1,6 +1,5 @@
 package controllers
 
-import scala.util.chaining.*
 import akka.stream.scaladsl.*
 import play.api.libs.json.*
 import play.api.mvc.*
@@ -9,12 +8,11 @@ import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
 import lila.common.Json.given
-import lila.core.LightUser
-import lila.core.net.IpAddress
 import lila.core.chess.MultiPv
+import lila.core.net.IpAddress
+import lila.core.{ LightUser, id }
 import lila.gathering.Condition.GetMyTeamIds
 import lila.security.Mobile
-import lila.core.id
 
 final class Api(
     env: Env,
@@ -42,12 +40,13 @@ final class Api(
     Ok.snip(views.bits.api)
 
   def user(name: UserStr) = OpenOrScoped(): ctx ?=>
-    userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline(name.id) then 1 else 2):
+    userC.userShowRateLimit(rateLimited, cost = if env.socket.isOnline.exec(name.id) then 1 else 2):
       userApi
         .extended(
           name,
           withFollows = userWithFollows,
-          withTrophies = getBool("trophies")
+          withTrophies = getBool("trophies"),
+          withCanChallenge = getBool("challenge")
         )
         .map(toApiResult)
         .map(toHttp)
@@ -77,7 +76,7 @@ final class Api(
         def toJson(u: LightUser) =
           lila.common.Json.lightUser
             .write(u)
-            .add("online", env.socket.isOnline(u.id))
+            .add("online", env.socket.isOnline.exec(u.id))
             .add("playing", env.round.playing(u.id))
             .add("streaming", streamingIds(u.id))
             .add("signal", withSignal.so(env.socket.getLagRating(u.id)))
@@ -161,7 +160,8 @@ final class Api(
             playerInfoExt = none,
             socketVersion = none,
             partial = false,
-            withScores = true
+            withScores = true,
+            withAllowList = true
           )
           .map(some)
       }
@@ -187,7 +187,6 @@ final class Api(
   def tournamentResults(id: TourId) = Anon:
     val csv = HTTPRequest.acceptsCsv(req) || get("as").has("csv")
     env.tournament.tournamentRepo.byId(id).orNotFound { tour =>
-      import lila.tournament.JsonView.playerResultWrites
       val withSheet = getBool("sheet")
       val perSecond = MaxPerSecond:
         if withSheet
@@ -216,14 +215,6 @@ final class Api(
           )
       }
     }
-
-  def tournamentsByOwner(name: UserStr, status: List[Int]) = Anon:
-    Found(meOrFetch(name).map(_.filterNot(_.is(UserId.lichess)))): user =>
-      val nb = getInt("nb") | Int.MaxValue
-      jsonDownload:
-        env.tournament.api
-          .byOwnerStream(user, status.flatMap(lila.core.tournament.Status.byId.get), MaxPerSecond(20), nb)
-          .mapAsync(1)(env.tournament.apiJsonView.fullJson)
 
   def swissGames(id: SwissId) = AnonOrScoped(): ctx ?=>
     Found(env.swiss.cache.swissCache.byId(id)): swiss =>
@@ -301,12 +292,14 @@ final class Api(
       rateLimit(rateLimited):
         get("fen").fold[Fu[Result]](notFoundJson("Missing FEN")): fen =>
           import chess.variant.Variant
-          JsonOptionOk:
-            env.evalCache.api.getEvalJson(
+          env.evalCache.api
+            .getEvalJson(
               Variant.orDefault(getAs[Variant.LilaKey]("variant")),
               chess.format.Fen.Full.clean(fen),
               getIntAs[MultiPv]("multiPv") | MultiPv(1)
             )
+            .map:
+              _.fold[Result](notFoundJson("No cloud evaluation available for that position"))(JsonOk)
 
   val eventStream =
     Scoped(_.Bot.Play, _.Board.Play, _.Challenge.Read) { _ ?=> me ?=>

@@ -1,11 +1,3 @@
 {
-  "extends": "../tsconfig_module.base.json",
-  "include": ["src"],
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "src",
-    "types": ["lichess", "web"],
-    "composite": true,
-    "incremental": true
-  }
+  "extends": "../tsconfig.base.json"
 }

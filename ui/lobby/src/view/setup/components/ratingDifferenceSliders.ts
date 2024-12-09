@@ -1,10 +1,10 @@
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import type LobbyController from '../../../ctrl';
 
 export const ratingDifferenceSliders = (ctrl: LobbyController) => {
   if (!ctrl.me || site.blindMode || !ctrl.data.ratingMap) return null;
 
-  const { trans, setupCtrl } = ctrl;
+  const { setupCtrl } = ctrl;
   const selectedPerf = ctrl.setupCtrl.selectedPerf();
   const isProvisional = !!ctrl.data.ratingMap[selectedPerf].prov;
   const disabled = isProvisional ? '.disabled' : '';
@@ -21,7 +21,7 @@ export const ratingDifferenceSliders = (ctrl: LobbyController) => {
         : undefined,
     },
     [
-      trans('ratingRange'),
+      i18n.site.ratingRange,
       h('div.rating-range', [
         h('input.range.rating-range__min', {
           attrs: {

@@ -1,15 +1,9 @@
 {
   "extends": "../tsconfig.base.json",
-  "include": ["src"],
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "dist",
     "skipLibCheck": true,
-    "noImplicitReturns": false,
-    "declaration": true,
-    "allowJs": true
+    "noImplicitReturns": false
   },
-  "isolatedModules": true,
   "references": [
     { "path": "../chat/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },

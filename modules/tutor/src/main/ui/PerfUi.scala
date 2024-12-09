@@ -1,12 +1,9 @@
 package lila.tutor
 package ui
-
-import chess.format.pgn.PgnStr
-
+import lila.insight.{ InsightPosition, Phase }
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.core.perf.UserWithPerfs
-import lila.insight.{ Phase, InsightPosition }
 
 final class PerfUi(helpers: Helpers, bits: TutorBits):
   import helpers.{ *, given }

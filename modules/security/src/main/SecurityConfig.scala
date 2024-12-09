@@ -53,8 +53,7 @@ private object SecurityConfig:
 
   case class DisposableEmail(
       @ConfigName("enabled") enabled: Boolean,
-      @ConfigName("provider_url") providerUrl: String,
-      @ConfigName("refresh_delay") refreshDelay: FiniteDuration
+      @ConfigName("provider_url") providerUrl: String
   )
   given ConfigLoader[DisposableEmail] = AutoConfig.loader
 

@@ -70,6 +70,8 @@
   <string name="promoteVariation">Προώθηση βαριάντας</string>
   <string name="makeMainLine">Δημιουργία κύριας γραμμής</string>
   <string name="deleteFromHere">Διαγραφή από εδώ</string>
+  <string name="collapseVariations">Σύμπτυξη παραλλαγών</string>
+  <string name="expandVariations">Εμφάνιση βαριάντων</string>
   <string name="forceVariation">Θέσε σε βαριάντα</string>
   <string name="copyVariationPgn">Αντιγραφή PGN αρχείου κινήσεων</string>
   <string name="move">Κίνηση</string>
@@ -88,7 +90,7 @@
   <string name="averageRatingX">Μέση βαθμολογία: %s</string>
   <string name="recentGames">Πρόσφατα παιχνίδια</string>
   <string name="topGames">Κορυφαίες παρτίδες</string>
-  <string name="masterDbExplanation">Δύο εκατομμύρια OTB παρτίδες %1$s + παικτών με αξιολόγηση FIDE από %2$s έως %3$s</string>
+  <string name="masterDbExplanation">Παρτίδες OTB %1$s + παικτών με αξιολόγηση FIDE, από %2$s έως %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Ματ σε %s μισή κίνηση</item>
     <item quantity="other">Ματ σε %s μισές κινήσεις</item>
@@ -114,7 +116,6 @@
   <string name="replayMode">Επανάληψη</string>
   <string name="realtimeReplay">Σε πραγματικό χρόνο</string>
   <string name="byCPL">Με CPL</string>
-  <string name="openStudy">Άνοιγμα μελέτης</string>
   <string name="enable">Ενεργοποίηση</string>
   <string name="bestMoveArrow">Βέλτιστη κίνηση βέλους</string>
   <string name="showVariationArrows">Εμφάνισε βελάκια παραλλαγών</string>
@@ -124,7 +125,6 @@
   <string name="memory">Μνήμη</string>
   <string name="infiniteAnalysis">Άπειρη ανάλυση</string>
   <string name="removesTheDepthLimit">Καταργεί το όριο βάθους και κρατά τον υπολογιστή σας ζεστό</string>
-  <string name="engineManager">Διαχειριστής μηχανής</string>
   <string name="blunder">Σοβαρό σφάλμα</string>
   <string name="mistake">Λάθος</string>
   <string name="inaccuracy">Ανακρίβεια</string>
@@ -178,6 +178,7 @@
   <string name="latestForumPosts">Τελευταίες δημοσιεύσεις στο φόρουμ</string>
   <string name="players">Παίκτες</string>
   <string name="friends">Φίλοι</string>
+  <string name="otherPlayers">άλλους παίκτες</string>
   <string name="discussions">Συζητήσεις</string>
   <string name="today">Σήμερα</string>
   <string name="yesterday">Χθες</string>
@@ -257,6 +258,7 @@
     <item quantity="one">%s παιχνίδι με εσάς</item>
     <item quantity="other">%s παιχνίδια με εσάς</item>
   </plurals>
+  <string name="ok">ΟΚ</string>
   <string name="cancel">Ακύρωση</string>
   <string name="whiteTimeOut">Τέλος χρόνου για τα λευκά</string>
   <string name="blackTimeOut">Τέλος χρόνου για τα μαύρα</string>
@@ -434,7 +436,6 @@
   <string name="block">Αποκλείστε</string>
   <string name="blocked">Αποκλεισμένος</string>
   <string name="unblock">Κατάργηση απόκλεισης</string>
-  <string name="followsYou">Σας ακολουθεί</string>
   <string name="xStartedFollowingY">Ο %1$s άρχισε να ακολουθεί τον %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s ακόλουθος</item>
@@ -466,9 +467,6 @@
   <string name="safeTournamentName">Διαλέξτε ένα πολύ ασφαλές όνομα για το τουρνουά.</string>
   <string name="inappropriateNameWarning">Οτιδήποτε ακόμα και ελάχιστα ακατάλληλο μπορεί να κλείσει τον λογαριασμό σας.</string>
   <string name="emptyTournamentName">Αφήστε το κενό για να πάρει το όνομά του τυχαία από κάποιον γνωστό σκακιστή.</string>
-  <string name="recommendNotTouching">Σας συνιστούμε να μην τα αλλάξετε αυτά.</string>
-  <string name="fewerPlayers">Εάν ορίσετε προϋποθέσεις εισόδου, το τουρνουά σας θα έχει λιγότερους παίκτες.</string>
-  <string name="showAdvancedSettings">Εμφάνιση ρυθμίσεων για προχωρημένους</string>
   <string name="makePrivateTournament">Κάντε το τουρνουά ιδιωτικό, και περιορίστε την πρόσβαση με κωδικό</string>
   <string name="join">Συμμετοχή</string>
   <string name="withdraw">Απόσυρση</string>
@@ -508,8 +506,7 @@
   <string name="ifNoneLeaveEmpty">Αν δεν υπάρχει, αφήστε κενό</string>
   <string name="profile">Προφίλ</string>
   <string name="editProfile">Επεξεργασία προφίλ</string>
-  <string name="firstName">Όνομα</string>
-  <string name="lastName">Επώνυμο</string>
+  <string name="realName">Πραγματικό όνομα</string>
   <string name="setFlair">Ορίστε τη νιφάδα σας</string>
   <string name="flair">Νιφάδα</string>
   <string name="youCanHideFlair">Υπάρχει μια ρύθμιση για να κρύψει όλες τις νιφάδες χρήστη σε ολόκληρη την ιστοσελίδα.</string>
@@ -540,6 +537,8 @@
   <string name="descPrivateHelp">Κείμενο που θα δουν μόνο τα μέλη της ομάδας. Εάν οριστεί, αντικαθιστά τη δημόσια περιγραφή για τα μέλη της ομάδας.</string>
   <string name="no">Όχι</string>
   <string name="yes">Ναι</string>
+  <string name="website">Ιστοσελίδα</string>
+  <string name="mobile">Εφαρμογή Κινητού</string>
   <string name="help">Βοήθεια:</string>
   <string name="createANewTopic">Δημιουργήστε καινούριο θέμα</string>
   <string name="topics">Θέματα</string>
@@ -556,11 +555,11 @@
   <string name="reason">Αιτία</string>
   <string name="whatIsIheMatter">Τι τρέχει;</string>
   <string name="cheat">Απάτη</string>
-  <string name="insult">Προσβολή</string>
   <string name="troll">Εμπαιγμός</string>
-  <string name="ratingManipulation">Παραποίηση βαθμολογίας</string>
   <string name="other">Άλλο</string>
-  <string name="reportDescriptionHelp">Κάντε επικόλληση τον σύνδεσμο για το παιχνίδι(α) και εξηγήστε τι είναι παράξενο στη συμπεριφορά του χρήστη. Μην πείτε απλά «επειδή κλέβει», πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα. Η αναφορά σας θα επεξεργαστεί πιο γρήγορα αν είναι γραμμένη στα αγγλικά.</string>
+  <string name="reportCheatBoostHelp">Επικολλήστε τους συνδέσμους με τα παιχνίδια και εξηγήστε μας γιατί θεωρείτε ότι η συμπεριφορά του χρήστη είναι παράξενη σε αυτά. Μη λέτε απλώς ότι «κλέβει» (\"they cheat\"), αλλά πείτε μας πως καταλήξατε σε αυτό το συμπέρασμα.</string>
+  <string name="reportUsernameHelp">Εξηγήστε μας γιατί είναι προσβλητικό το όνομα αυτού του χρήστη. Μη λέτε απλώς ότι \"είναι προσβλητικό/ακατάλληλο\" (\"it\'s offensive/inappropriate\"), αλλά πείτε μας πώς καταλήξατε σε αυτό το συμπέρασμα, ειδικά αν πρόκειται για προσβολή η οποία δεν είναι ιδιαίτερα εμφανής: για παράδειγμα αν δεν είναι στα αγγλικά, είναι σε κάποια αργκό ή κάνει κάποια προσβλητική ιστορική/πολιτιστική αναφορά.</string>
+  <string name="reportProcessedFasterInEnglish">Η αναφορά σας θα επεξεργαστεί γρηγορότερα αν είναι γραμμένη στα αγγλικά.</string>
   <string name="error.provideOneCheatedGameLink">Καταχωρίστε τουλάχιστον έναν σύνδεσμο σε ένα παιχνίδι εξαπάτησης.</string>
   <string name="by">από τον %s</string>
   <string name="importedByX">Εισήχθη από τον χρήστη %s</string>
@@ -593,6 +592,7 @@
   <string name="slow">Αργή</string>
   <string name="insideTheBoard">Μέσα στη σκακιέρα</string>
   <string name="outsideTheBoard">Εκτός της σκακιέρας</string>
+  <string name="allSquaresOfTheBoard">Σε όλα τα τετράγωνα της σκακιέρας</string>
   <string name="onSlowGames">Σε αργά παιχνίδια</string>
   <string name="always">Πάντα</string>
   <string name="never">Ποτέ</string>
@@ -679,7 +679,7 @@
   <string name="aboutSimulRules">Όταν ξεκινήσει το σιμουλτανέ, κάθε παίκτης ξεκινά το παιχνίδι με τον διοργανωτή, ο οποίος έχει τα λευκά κομμάτια. Η διοργάνωση τελειώνει όταν όλα τα παιχνίδια ολοκληρωθούν.</string>
   <string name="aboutSimulSettings">Τα σιμουλτανέ είναι πάντα φιλικά. Οι επαναλήψεις, ανακλήσεις κινήσεων και προσθήκες επιπλέον χρόνου έχουν απενεργοποιηθεί.</string>
   <string name="create">Δημιουργήστε</string>
-  <string name="whenCreateSimul">Όταν δημιουργείτε ένα σιμουλτανέ, πρέπει να παίξετε με αρκετούς παίκτες ταυτόχρονα.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Όταν δημιουργείτε ένα σιμουλτανέ, πρέπει να παίξετε με αρκετούς παίκτες ταυτόχρονα.</string>
   <string name="simulVariantsHint">Εάν επιλέξετε διάφορες εκδοχές, κάθε παίκτης μπορεί να επιλέξει ποια θα παίξει.</string>
   <string name="simulClockHint">Ρολόι Φίσερ. Όσους περισσότερους παίκτες παίξετε, τόσο περισσότερο χρόνο ίσως χρειαστείτε.</string>
   <string name="simulAddExtraTime">Μπορείτε να προσθέσετε επιπλέον χρόνο στο ρολόι σας για να βοηθηθείτε.</string>
@@ -687,7 +687,7 @@
   <string name="simulAddExtraTimePerPlayer">Προσθήκη χρόνου στο ρολόι κάθε παίκτη που συνδέεται στο σιμουλτανέ.</string>
   <string name="simulHostExtraTimePerPlayer">Προσθήκη επιπλέον χρόνου ανά παίκτη</string>
   <string name="lichessTournaments">Τουρνουά στο Lichess</string>
-  <string name="tournamentFAQ">Τεκμηρίωση τουρνουά τύπου αρένας</string>
+  <string name="tournamentFAQ">Τεκμηρίωση για τουρνουά τύπου αρένας</string>
   <string name="timeBeforeTournamentStarts">Χρόνος προτού ξεκινήσει το τουρνουά</string>
   <string name="averageCentipawnLoss">Μέση απώλεια εκατοστοπιονιού</string>
   <string name="accuracy">Ακρίβεια</string>
@@ -742,7 +742,7 @@
   <string name="downloadRaw">Λήψη ακατέργαστο</string>
   <string name="downloadImported">Λήψη εισαγόμενου</string>
   <string name="crosstable">Αποτελέσματα</string>
-  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινηθείτε πάνω στην σκακιέρα για να πάτε στο παιχνίδι.</string>
+  <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Μπορείτε επίσης να κινήσετε πάνω στην σκακιέρα για να μετακινηθείτε στο παιχνίδι.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">Μετακινήστε το ποντίκι σας πάνω στις βαριάντες του υπολογιστή για την προεπισκόπησή τους.</string>
   <string name="analysisShapesHowTo">Πατήστε Shift + κλικ ή δεξί κλικ για να σχεδιάσετε κύκλους και βέλη στην σκακιέρα.</string>
   <string name="letOtherPlayersMessageYou">Επιτρέψτε άλλους παίκτες να σας στέλνουν μηνύματα</string>
@@ -994,4 +994,5 @@
   <string name="lichessPatronInfo">Το Lichess είναι ένα φιλανθρωπικό και εντελώς ελεύθερο λογισμικό ανοιχτού κώδικα.
 Όλα τα εξοδα λειτουργίας, ανάπτυξης και περιεχομένου καλύπτοναι αποκλειστικά από δωρεές χρηστών.</string>
   <string name="nothingToSeeHere">Τίποτα για να δείτε εδώ αυτή τη στιγμή.</string>
+  <string name="stats">Στατιστικά</string>
 </resources>

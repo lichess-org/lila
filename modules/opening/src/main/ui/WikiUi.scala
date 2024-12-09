@@ -4,6 +4,7 @@ package ui
 import chess.opening.Opening
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class WikiUi(helpers: Helpers, bits: OpeningBits):

@@ -7,6 +7,7 @@
     <item quantity="other">%s lähetystä</item>
   </plurals>
   <string name="liveBroadcasts">Suorat lähetykset turnauksista</string>
+  <string name="broadcastCalendar">Lähetyskalenteri</string>
   <string name="newBroadcast">Uusi livelähetys</string>
   <string name="subscribedBroadcasts">Tilatut lähetykset</string>
   <string name="aboutBroadcasts">Lähetyksistä</string>
@@ -23,14 +24,11 @@
   <string name="tournamentDescription">Turnauksen lyhyt kuvaus</string>
   <string name="fullDescription">Täysimittainen kuvaus tapahtumasta</string>
   <string name="fullDescriptionHelp">Ei-pakollinen pitkä kuvaus lähetyksestä. %1$s-muotoiluja voi käyttää. Pituus voi olla enintään %2$s merkkiä.</string>
-  <string name="sourceUrlOrGameIds">Lähteen URL-osoite tai peli ID:t</string>
+  <string name="sourceSingleUrl">PGN:n lähde-URL</string>
   <string name="sourceUrlHelp">URL, josta Lichess hakee PGN-päivitykset. Sen täytyy olla julkisesti saatavilla internetissä.</string>
-  <string name="gameIdsHelp">Vaihtoehtoisesti, voit syöttää jopa 64 Lichess peli ID:tä, erotettuna välilyönneillä.</string>
-  <string name="startDate">Alkamispäivämäärä omalla aikavyöhykkeelläsi</string>
+  <string name="sourceGameIds">Korkeintaan 64 Lichess-pelin tunnistenumeroa välilyönneillä eroteltuna.</string>
+  <string name="startDateTimeZone">Alkamisajankohta turnauksen paikallisella aikavyöhykkeellä: %s</string>
   <string name="startDateHelp">Ei-pakollinen, laita jos tiedät milloin tapahtuma alkaa</string>
-  <string name="credits">Mainitse lähde</string>
-  <string name="broadcastUrl">Lähetyksen URL</string>
-  <string name="currentRoundUrl">Tämän kierroksen URL</string>
   <string name="currentGameUrl">Tämän pelin URL</string>
   <string name="downloadAllRounds">Lataa kaikki kierrokset</string>
   <string name="resetRound">Nollaa tämä kierros</string>
@@ -40,9 +38,46 @@
   <string name="editRoundStudy">Kierrostutkielman muokkaus</string>
   <string name="deleteTournament">Poista tämä turnaus</string>
   <string name="definitivelyDeleteTournament">Poista lopullisesti koko turnaus, sen kaikki kierrokset ja kaikki pelit.</string>
-  <string name="automaticLeaderboard">Automaattinen tulostaulukko</string>
-  <string name="automaticLeaderboardHelp">Laske ja näytä yksinkertainen tulostaulukko pelien tulosten pohjalta</string>
+  <string name="showScores">Näytä pelaajien pisteet pelien tulosten pohjalta</string>
   <string name="replacePlayerTags">Valinnainen: korvaa pelaajien nimet, vahvuusluvut ja arvonimet</string>
-  <string name="periodInSeconds">Jakso sekunteina</string>
-  <string name="periodInSecondsHelp">Tarvittaessa pyyntöjen välinen odotusaika: vähintään 2 s, enintään 60 s. Oletuksena on katsojien määrään perustuva automaattinen arvo.</string>
+  <string name="fideFederations">FIDEn liitot</string>
+  <string name="top10Rating">Top 10 -vahvuuslukulista</string>
+  <string name="fidePlayers">FIDE-pelaajat</string>
+  <string name="fidePlayerNotFound">FIDE-pelaajaa ei löytynyt</string>
+  <string name="fideProfile">FIDE-profiili</string>
+  <string name="federation">Kansallinen liitto</string>
+  <string name="ageThisYear">Ikä tänä vuonna</string>
+  <string name="unrated">Pisteyttämätön</string>
+  <string name="recentTournaments">Viimeisimmät turnaukset</string>
+  <string name="openLichess">Avaa Lichessissä</string>
+  <string name="teams">Joukkueet</string>
+  <string name="boards">Laudat</string>
+  <string name="overview">Pääsivu</string>
+  <string name="subscribeTitle">Tilaa ilmoitukset kunkin kierroksen alkamisesta. Käyttäjätunnuksesi asetuksista voit kytkeä ääni- ja puskuilmoitukset päälle tai pois.</string>
+  <string name="uploadImage">Lisää turnauksen kuva</string>
+  <string name="noBoardsYet">Pelilautoja ei vielä ole. Ne tulevat näkyviin sitä mukaa, kun pelit ladataan tänne.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Laudat voidaan ladata lähteen kautta tai %s kautta</string>
+  <string name="startsAfter">Alkaa %s:n jälkeen</string>
+  <string name="startVerySoon">Lähetys alkaa aivan pian.</string>
+  <string name="notYetStarted">Lähetys ei ole vielä alkanut.</string>
+  <string name="officialWebsite">Virallinen verkkosivu</string>
+  <string name="standings">Tulostaulu</string>
+  <string name="officialStandings">Virallinen tulostaulu</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Lisäasetuksia löytyy %s</string>
+  <string name="webmastersPage">webmasterin sivulta</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Tämän kierroksen julkinen ja reaaliaikainen PGN-tiedosto. Nopeampaan ja tehokkaampaan synkronisointiin on tarjolla myös %s.</string>
+  <string name="embedThisBroadcast">Upota tämä lähetys sivustoosi</string>
+  <string name="embedThisRound">Upota %s sivustoosi</string>
+  <string name="ratingDiff">Vahvuuslukujen erotus</string>
+  <string name="gamesThisTournament">Pelit tässä turnauksessa</string>
+  <string name="score">Pisteet</string>
+  <string name="allTeams">Kaikki joukkueet</string>
+  <string name="tournamentFormat">Turnauksen laji</string>
+  <string name="tournamentLocation">Turnauksen sijainti</string>
+  <string name="topPlayers">Parhaat pelaajat</string>
+  <string name="timezone">Aikavyöhyke</string>
+  <string name="fideRatingCategory">Kategoria (FIDE-vahvuuslukujen mukaan)</string>
+  <string name="optionalDetails">Mahdolliset lisätiedot</string>
+  <string name="pastBroadcasts">Menneet lähetykset</string>
+  <string name="allBroadcastsByMonth">Näytä kaikki lähetykset kuukausikohtaisesti</string>
 </resources>

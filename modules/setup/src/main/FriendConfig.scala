@@ -17,7 +17,8 @@ case class FriendConfig(
     color: TriColor,
     fen: Option[Fen.Full] = None
 ) extends HumanConfig
-    with Positional:
+    with Positional
+    with WithColor:
 
   val strictFen = false
 

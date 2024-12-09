@@ -1,6 +1,7 @@
 import * as licon from 'common/licon';
-import * as xhr from 'common/xhr';
-import { requestIdleCallback } from './functions';
+import { text as xhrText } from 'common/xhr';
+import { requestIdleCallback, $as } from 'common';
+import { spinnerHtml } from 'common/spinner';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
 
@@ -9,10 +10,10 @@ const inCrosstable = (el: HTMLElement) => document.querySelector('.crosstable')?
 const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el: HTMLAnchorElement) => {
   const url = (el.dataset.href || el.href).replace(/\?.+$/, '');
   if (preload) preload(url);
-  xhr.text(url + '/mini').then(html => {
+  xhrText(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
     el.innerHTML = html;
-    site.contentLoaded(el);
+    window.lichess.initializeDom(el);
   });
 };
 
@@ -43,9 +44,22 @@ const gamePowertip = (el: HTMLElement) =>
   $(el)
     .removeClass('glpt')
     .powerTip({
-      preRender: onPowertipPreRender('miniGame', () => site.spinnerHtml),
+      preRender: onPowertipPreRender('miniGame', () => spinnerHtml),
       placement: inCrosstable(el) ? 'n' : 'w',
       popupId: 'miniGame',
+    });
+
+const imagePowertip = (el: HTMLElement) =>
+  $(el)
+    .removeClass('image-powertip')
+    .powerTip({
+      preRender: (el: HTMLElement) => {
+        const w = el.dataset.width ? ` width="${el.dataset.width}"` : '';
+        const h = el.dataset.height ? ` height="${el.dataset.height}"` : '';
+        document.querySelector('#image-powertip')!.innerHTML = `<img src="${el.dataset.src}"${w}${h}>`;
+      },
+      popupId: 'image-powertip',
+      placement: 's',
     });
 
 function powerTipWith(el: HTMLElement, ev: Event, f: (el: HTMLElement) => void) {
@@ -68,6 +82,7 @@ const powertip: LichessPowertip = {
       const t = e.target as HTMLElement;
       if (t.classList.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (t.classList.contains('glpt')) powerTipWith(t, e, gamePowertip);
+      else if (t.classList.contains('image-powertip')) powerTipWith(t, e, imagePowertip);
     });
   },
   manualGameIn(parent: HTMLElement) {
@@ -138,7 +153,7 @@ $.fn.powerTip = function (opts) {
     // handle repeated powerTip calls on the same element by destroying the
     // original instance hooked to it and replacing it with this call
     if ('displayController' in el) {
-      $.powerTip.destroy($this);
+      $.powerTip.destroy(el);
     }
 
     // create hover controllers for each element
@@ -212,21 +227,10 @@ $.powerTip = {
     return element;
   },
 
-  destroy(element: WithTooltip) {
-    $(element)
-      .off('.powertip')
-      .each(() => {
-        delete this.displayController;
-        delete this.hasActiveHover;
-        delete this.forcedOpen;
-      });
-    return element;
+  destroy(element: Partial<WithTooltip>) {
+    element.displayController?.hide(true);
   },
 };
-
-// API aliasing
-$.powerTip.showTip = $.powerTip.show;
-$.powerTip.closeTip = $.powerTip.hide;
 
 // csscoordinates.js
 
@@ -553,6 +557,7 @@ class TooltipController {
         if (collisions === Collision.none) {
           return false;
         }
+        return true;
       });
     } else {
       // if we're not going to use the smart placement feature then just
@@ -693,9 +698,9 @@ function isMouseOver(element: Cash) {
   const elementPosition = element.offset()!;
   return (
     session.currentX >= elementPosition.left &&
-    session.currentX <= elementPosition.left + element.width() &&
+    session.currentX <= elementPosition.left + element.outerWidth() &&
     session.currentY >= elementPosition.top &&
-    session.currentY <= elementPosition.top + element.height()
+    session.currentY <= elementPosition.top + element.outerHeight()
   );
 }
 

@@ -1,11 +1,17 @@
 import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
-import flairPicker from './load/flairPicker';
+import { storage } from 'common/storage';
+import { addPasswordVisibilityToggleListener } from 'common/password';
+import flairPickerLoader from './flairPicker';
+import { confirm } from 'common/dialog';
+import { $as } from 'common';
 
 site.load.then(() => {
   $('.emoji-details').each(function (this: HTMLElement) {
-    flairPicker(this);
+    flairPickerLoader(this);
   });
+
+  addPasswordVisibilityToggleListener();
 
   const localPrefs: [string, string, string, boolean][] = [
     ['behavior', 'arrowSnap', 'arrow.snap', true],
@@ -28,23 +34,20 @@ site.load.then(() => {
     $form.find('input').on('change', function (this: HTMLInputElement) {
       computeBitChoices($form, 'behavior.submitMove');
       localPrefs.forEach(([categ, name, storeKey]) => {
-        if (this.name == `${categ}.${name}`) {
-          site.storage.boolean(storeKey).set(this.value == '1');
+        if (this.name === `${categ}.${name}`) {
+          storage.boolean(storeKey).set(this.value === '1');
           showSaved();
         }
       });
       xhr.formToXhr(form).then(() => {
         showSaved();
-        site.storage.fire('reload-round-tabs');
+        storage.fire('reload-round-tabs');
       });
     });
   });
 
   localPrefs.forEach(([categ, name, storeKey, def]) =>
-    $(`#ir${categ}_${name}_${site.storage.boolean(storeKey).getOrDefault(def) ? 1 : 0}`).prop(
-      'checked',
-      true,
-    ),
+    $(`#ir${categ}_${name}_${storage.boolean(storeKey).getOrDefault(def) ? 1 : 0}`).prop('checked', true),
   );
 
   $('form[action="/account/oauth/token/create"]').each(function (this: HTMLFormElement) {
@@ -59,8 +62,12 @@ site.load.then(() => {
     };
     checkDanger();
     form.find('input').on('change', checkDanger);
-    submit.on('click', function (this: HTMLElement) {
-      return !isDanger || confirm(this.title);
+    submit.on('click', function (this: HTMLElement, e: Event) {
+      if (!isDanger) return true;
+      e.preventDefault();
+      confirm(this.title, i18n.site.ok, i18n.site.cancel).then(yes => {
+        if (yes) $as<HTMLFormElement>(form).submit();
+      });
     });
   });
 
@@ -77,7 +84,10 @@ site.load.then(() => {
       clean = serialize();
     });
     window.addEventListener('beforeunload', e => {
-      if (clean != serialize() && !confirm('You have unsaved changes. Are you sure you want to leave?'))
+      if (
+        clean !== serialize() &&
+        !window.confirm('You have unsaved changes. Are you sure you want to leave?')
+      )
         e.preventDefault();
     });
   });

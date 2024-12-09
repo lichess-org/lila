@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Šveicariškas</string>
   <string name="swissTournaments">Šveicariškieji turnyrai</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Peržvelgti raundą</item>
@@ -38,7 +39,7 @@
     <item quantity="many">%s minutės tarp raundų</item>
     <item quantity="other">%s minučių tarp raundų</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Prasideda po</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Prasideda po</string>
   <string name="nextRound">Kitas raundas</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Vykstantis žaidimas</item>
@@ -52,6 +53,16 @@
   <string name="roundInterval">Tarpai tarp raundų</string>
   <string name="forbiddenPairings">Neleistinos poros</string>
   <string name="forbiddenPairingsHelp">Vartotojai, kurie negali žaisti akrtu (pvz. broliai, sesės). Du vartotojų vardai per eilutę, atskirti tarpu.</string>
+  <string name="manualPairings">Rankinis suporavimas sekančiame rate</string>
+  <string name="manualPairingsHelp">Rankiniu būdu nurodykite visas kito rato poras. Viena žaidėjų pora vienoje eilutėje. Pavyzdys:
+ŽaidėjasA ŽaidėjasB
+ŽaidėjasC ŽaidėjasD
+Norėdami žaidėjui suteikti \"bye\" (1 tašką), jo neporuojant, pridėkite tokią eilutę:
+ŽaidėjasE 1
+Nesantys žaidėjai bus laikomi nedalyvaujančiais ir gaus nulį taškų.
+Palikite šį lauką tuščią, kad \"Lichess\" galėtų automatiškai sukurti poras.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Turėjo sužaisti paskutinę savo šveicariško turnyro partiją</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Leiskite žaidėjams prisijungti tik tuo atveju, jei jie sužaidė savo partijas paskutiniame šveicariškame turnyre. Jei jiems nepavyko pasirodyti paskutiniame vykusiame šveicariškame turnyre, jie negalės patekti ir į šį jūsų. Tai lemia geresnę šveicariškų turnyrų patirtį žaidėjams, kurie juose dalyvauja, ne vien tik užregistruoja.</string>
   <string name="newSwiss">Naujas Šveicariškas turnyras</string>
   <string name="swissVsArenaQ">Kada vienoje arenos naudoti šveicariškus turnyrus?</string>
   <string name="swissVsArenaA">Šveicariškame turnyre visi dalyviai žaidžia tiek pat žaidimų ir gali žaisti su vienas kitu tik po vieną kartą. Tai geras variantas klubams ir oficialiems turnyrams.</string>
@@ -80,7 +91,7 @@ Taip pat, vienas pusės taško vertės \"bye\" suteikiamas, kai žaidėjas pavė
 Tada sistema pašalins žaidėją iš turnyro tam, kad jie nepralaimėtų daugiau partijų.
 Žaidėjai bet kada gali grįžti į turnyrą.</string>
   <string name="protectionAgainstNoShowQ">Kas daroma žaidėjui nepasirodžius?</string>
-  <string name="protectionAgainstNoShowA">Žaidėjai, kurie užsiregistruoja šveicariškiems turnyrams bet nedalyvauja partijose, gali būti problematiški.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Žaidėjai, kurie užsiregistruoja šveicariškiems turnyrams bet nedalyvauja partijose, gali būti problematiški.
 Norint išspręsti šią problemą žaidėjams, kurie neatvyko į šveicarišką turnyrą, kurį laiką neleidžiama dalyvauti naujuose šveicariškuose turnyruose.
 Turnyro organizatorius pasilieka galimybę vis tiek įleisti dalyvį.</string>
   <string name="lateJoinQ">Ar žaidėjai gali prisijungti pavėlavę?</string>
@@ -126,4 +137,7 @@ Artimiausias Round Robin dalykas tinkle - šveicariškas turnyras su dideliu ska
   <string name="predefinedUsers">Leisti prisijungti tik iš anksto nurodytiems vartotojams</string>
   <string name="forbiddedUsers">Jei šis sąrašas nėra tuščias žaidėjai nesantys jame negalės prisijungti. Kiekvienas vartotojo vardas turi būti atskiroje eilutėje.</string>
   <string name="playYourGames">Žaisti savo partijas</string>
+  <string name="byes">Taškas be žaidimo</string>
+  <string name="absences">Neatvykimai</string>
+  <string name="tieBreak">Pertrauka</string>
 </resources>

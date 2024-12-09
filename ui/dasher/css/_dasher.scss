@@ -172,8 +172,8 @@
       margin: 1rem;
       padding-top: 0;
       padding-bottom: 0;
-      writing-mode: bt-lr;
-      -webkit-appearance: slider-vertical;
+      writing-mode: vertical-lr;
+      direction: rtl;
     }
 
     &.silent input[type='range'] {

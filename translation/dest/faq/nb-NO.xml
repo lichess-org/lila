@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Noen sider hos Lichess har hurtigtaster. Trykk «?» for en oversikt når du er på en side med studier, analyser, sjakknøtter eller partier.</string>
   <string name="fairPlay">Sportslig opptreden</string>
   <string name="whenAmIEligibleRatinRefund">Når er jeg kvalifisert til automatisk ratingrefusjon fra juksemakere?</string>
-  <string name="ratingRefundExplanation">Ett minutt etter at en spiller er markert, blir de 40 siste ratede partiene de siste 3 dagene betraktet. Hvis du var motstander i disse partiene, du mistet rating (på grunn av tap eller remis) og ratingen din ikke var provisorisk, får du refusjon. Refusjonen er begrenset oppad basert på toppratingen din og ratingprogresjonen din etter partiet.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Ett minutt etter at en spiller er markert, blir de 40 siste ratede partiene de siste 3 dagene betraktet. Hvis du var motstander i disse partiene, du mistet rating (på grunn av tap eller remis) og ratingen din ikke var provisorisk, får du refusjon. Refusjonen er begrenset oppad basert på toppratingen din og ratingprogresjonen din etter partiet.
   (Hvis for eksempel ratingen din økte sterkt etter disse partiene, kan det hende du ikke får refusjon eller bare delvis refusjon.) En refusjon vil aldri overstige 150 poeng.</string>
   <string name="preventLeavingGameWithoutResigning">Hva gjør dere med spillere som forlater partiet uten å gi opp?</string>
   <string name="leavingGameWithoutResigningExplanation">Dersom motspilleren din har som vane å avbryte/forlate partiet, får vedkommende \"spillenekt\", noe som innebærer et midlertidig forbud mot å spille. Dette blir ikke kunngjort på spillerprofilen. Dersom oppførselen ikke opphører, blir lengden av spillenekten lengre. En vedvarende oppførsel av dette slaget kan føre til at kontoen blir avsluttet.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Hvor går skillene mellom Bullet, Blitz og andre tidskontroller?</string>
   <string name="basedOnGameDuration">Tidskontrollene hos Lichess er basert på estimert varighet av partiet = %1$s.
 For eksempel er den estimerte varigheten av et 5+3-parti 5 · 60 + 40 · 3 = 420 sekunder.</string>
-  <string name="durationFormula">(starttid på sjakkuret) + 40 · (tilleggstid)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(starttid på sjakkuret) + 40 · (tilleggstid)</string>
   <string name="inferiorThanXsEqualYtimeControl">&lt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Hvilke varianter kan jeg spille hos Lichess?</string>
@@ -97,12 +97,12 @@ Ikke be om LM-tittelen.</string>
   <string name="usernamesNotOffensive">Brukernavnet skal ikke være støtende, det skal ikke gi seg ut for å tilhøre en annen enn deg selv og det skal ikke inneholde reklame. Du kan lese mer om %1$s.</string>
   <string name="guidelines">retningslinjene</string>
   <string name="canIChangeMyUsername">Kan jeg endre brukernavnet mitt?</string>
-  <string name="usernamesCannotBeChanged">Nei, det er tekniske og praktiske årsaker til at brukernavn ikke kan endres. Brukernavn opptrer for mange steder: databaser, eksporter, logger og folks hoder. Du kan endre mellom store og små bokstaver én gang.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nei, det er tekniske og praktiske årsaker til at brukernavn ikke kan endres. Brukernavn opptrer for mange steder: databaser, eksporter, logger og folks hoder. Du kan endre mellom store og små bokstaver én gang.</string>
   <string name="uniqueTrophies">Unike trofeer</string>
   <string name="ownerUniqueTrophies">Det trofeet er unikt i Lichess-historien, ingen andre enn %1$s vil noensinne få det.</string>
   <string name="wayOfBerserkExplanation">For å få det utfordret hiimgosu seg selv til å gå berserk i og vinne alle partiene i %s.</string>
   <string name="aHourlyBulletTournament">timens Bullet-arena</string>
-  <string name="goldenZeeExplanation">ZugAddict drev og strømmet, og i to timer hadde han uten hell forsøkt å slå maskinen på nivå 8 i et 1+0-parti. Thibault sa at om han lyktes mens han strømmet, skulle han få et unikt trofé. En time senere moste han Stockfish, og løftet ble overholdt.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict drev og strømmet, og i to timer hadde han uten hell forsøkt å slå maskinen på nivå 8 i et 1+0-parti. Thibault sa at om han lyktes mens han strømmet, skulle han få et unikt trofé. En time senere moste han Stockfish, og løftet ble overholdt.</string>
   <string name="lichessRatings">Lichess-ratinger</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruker Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratingene beregnes ved Glicko-2-ratingmetoden, som er utviklet av Mark Glickman. Dette er en veldig populær ratingmetode og den brukes av et stort antall sjakkorganisasjoner (FIDE er et prominent moteksempel, siden de fremdeles bruker det utdaterte Elo-ratingsystemet).

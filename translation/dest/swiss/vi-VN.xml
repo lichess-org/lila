@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Hệ Thụy Sĩ</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Hệ Thụy Sĩ</string>
   <string name="swissTournaments">Các giải đấu hệ Thụy Sĩ</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="other">Xem tất cả %s vòng đấu</item>
@@ -21,10 +21,10 @@
   <plurals name="xMinutesBetweenRounds">
     <item quantity="other">%s phút giữa các vòng đấu</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Bắt đầu trong</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Bắt đầu trong</string>
   <string name="nextRound">Vòng đấu tiếp theo</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
-    <item quantity="other">Ván cờ hiện đang chơi</item>
+    <item quantity="other">Ván đấu đang diễn ra</item>
   </plurals>
   <string name="tournStartDate">Thời gian bắt đầu giải đấu</string>
   <string name="numberOfRounds">Số vòng đấu</string>
@@ -72,7 +72,7 @@ Ngoài ra, 0.5 điểm \"miễn\" cộng một lần duy nhất sẽ được c�
 Sau đó, hệ thống sẽ tự động rút họ khỏi giải đấu để tránh thua thêm những ván khác.
  Họ có thể tham gia lại bất cứ lúc nào.</string>
   <string name="protectionAgainstNoShowQ">Những gì được thực hiện liên quan đến vắng mặt?</string>
-  <string name="protectionAgainstNoShowA">Người chơi đăng ký các sự kiện của giải hệ Thụy Sĩ nhưng không chơi ván của họ có thể gặp vấn đề.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Người chơi đăng ký các sự kiện của giải hệ Thụy Sĩ nhưng không chơi ván của họ có thể gặp vấn đề.
 Để giải quyết vấn đề này, Lichess ngăn những người chơi không chơi được ván đấu tham gia một sự kiện hệ Thụy Sĩ mới trong một khoảng thời gian nhất định.
 Người tạo ở sự kiện hệ Thụy Sĩ vẫn có thể quyết định cho phép họ tham gia sự kiện đó.</string>
   <string name="lateJoinQ">Người chơi có thể tham gia muộn không?</string>
@@ -117,7 +117,7 @@ Thứ gần nhất bạn có thể có với một giải đấu vòng tròn là
   <string name="predefinedUsers">Chỉ cho phép những người dùng được chỉ định trước tham gia</string>
   <string name="forbiddedUsers">Ngoại trừ những người trong danh sách này, những người khác đều bị cấm tham gia. Mỗi dòng một tên người dùng.</string>
   <string name="playYourGames">Chơi các ván đấu của bạn</string>
-  <string name="byes">Miễn</string>
+  <string name="byes">Được miễn</string>
   <string name="absences">Vắng mặt</string>
   <string name="tieBreak">Điểm số phụ</string>
 </resources>

@@ -42,7 +42,6 @@ trait dsl:
   type Barr = BSONArray
 
   def bsonWriteObjTry[A](a: A)(using writer: BSONDocumentWriter[A]) = writer.writeTry(a)
-  def bsonWriteTry[A](a: A)(using writer: BSONWriter[A])            = writer.writeTry(a)
   def bsonWriteOpt[A](a: A)(using writer: BSONWriter[A])            = writer.writeOpt(a)
   def bsonWriteDoc[A](a: A)(using writer: BSONDocumentWriter[A])    = writer.writeOpt(a) | $empty
 
@@ -106,6 +105,12 @@ trait dsl:
     "$unset" -> fields.nonEmpty.so($doc(fields.map(k => (k, BSONString("")))))
   def $unset(field: String, fields: String*): Bdoc = $doc:
     "$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString(""))))
+
+  def $unsetCompute[A](prev: A, next: A, fields: (String, A => Option[?])*): Bdoc =
+    $unset:
+      fields.flatMap: (key, accessor) =>
+        (accessor(prev).isDefined && accessor(next).isEmpty).option(key)
+
   def $setBoolOrUnset(field: String, value: Boolean): Bdoc =
     if value then $set(field -> true) else $unset(field)
   def $setsAndUnsets(items: (String, Option[BSONValue])*): Bdoc =
@@ -299,12 +304,30 @@ trait dsl:
           "pipeline" -> pipe
         )
       )
-    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+    // mongodb 4
+    def pipelineBC(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       pipelineFull(
         from,
         as,
         $doc("local" -> s"$$$local"),
         $doc("$match" -> $expr($doc("$eq" -> $arr(s"$$$foreign", "$$local")))) :: pipe
+      )
+    def pipelineBC(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipelineBC(from.name, as, local, foreign, pipe)
+    def pipelineBC(from: AsyncColl, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      pipelineBC(from.name.value, as, local, foreign, pipe)
+
+    // mongodb 5+ Correlated Subqueries Using Concise Syntax
+    // https://www.mongodb.com/docs/manual/reference/operator/aggregation/lookup/#correlated-subqueries-using-concise-syntax
+    def pipeline(from: String, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
+      $doc(
+        "$lookup" -> $doc(
+          "from"         -> from,
+          "as"           -> as,
+          "localField"   -> local,
+          "foreignField" -> foreign,
+          "pipeline"     -> pipe
+        )
       )
     def pipeline(from: Coll, as: String, local: String, foreign: String, pipe: List[Bdoc]): Bdoc =
       pipeline(from.name, as, local, foreign, pipe)

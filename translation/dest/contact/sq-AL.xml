@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Si mund t’ju ndihmojmë?</string>
   <string name="visitThisPage">Vizitoni këtë faqe për të zgjidhur problemin</string>
   <string name="iCantLogIn">S’bëj dot hyrjen</string>
-  <string name="noConfirmationEmail">S’mora email-in tim të ripohimit</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">S’mora email-in tim të ripohimit</string>
   <string name="forgotPassword">Harrova fjalëkalimin</string>
   <string name="forgotUsername">Harrova emrin tim të përdoruesit</string>
   <string name="youCanLoginWithEmail">Mund të bëni hyrjen me adresën email me të cilën u regjistruar</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Në ca rrethana, kur luhet kundër një llogarie robot, një lojë me pikë mund të mos sjellë pikë, nëse përcaktohet se lojtari po abuzon robotin për pikë vlerësimi.</string>
   <string name="errorPage">Faqe gabimi</string>
   <string name="reportErrorPage">Nëse hasët një faqe gabimi, mund ta raportoni:</string>
-  <string name="wantBroadcastTournament">Dua të transmetoj një turne</string>
   <string name="learnHowToMakeBroadcasts">Mësoni se si të krijoni transmetimet tuaja në Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Mundeni edhe të lidheni me ekipin e transmetimeve, rreth transmetimesh zyrtare.</string>
   <string name="banAppeal">Apeloni për dëbim ose kufizim IP-je</string>
   <string name="engineAppeal">Program ose shenje hileje</string>
   <string name="sendAppealTo">Mund të dërgoni një apel tek %s.</string>

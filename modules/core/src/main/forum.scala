@@ -1,20 +1,16 @@
 package lila.core
 package forum
 
+import reactivemongo.api.bson.Macros.Annotations.Key
+
 import lila.core.id.{ ForumCategId, ForumPostId, ForumTopicId, TeamId }
 import lila.core.userId.*
-import lila.core.bus
-
-import reactivemongo.api.bson.Macros.Annotations.Key
 
 enum BusForum:
   case CreatePost(post: ForumPostMini)
   case RemovePost(id: ForumPostId, by: Option[UserId], text: String, asAdmin: Boolean)(using val me: MyId)
-  // erasing = blanking, still in db but with empty text
-  case ErasePosts(ids: List[ForumPostId])
 
-object BusForum:
-  given bus.WithChannel[BusForum] = bus.WithChannel[BusForum]("forumPost")
+object BusForum extends bus.GivenChannel[BusForum]("forumPost")
 
 trait ForumPost:
   val id: ForumPostId

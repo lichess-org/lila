@@ -5,7 +5,7 @@
   <string name="challengeDeclined">도전 거절됨</string>
   <string name="challengeAccepted">도전 수락!</string>
   <string name="challengeCanceled">도전 취소됨.</string>
-  <string name="registerToSendChallenges">도전을 하려면 가입하십시오.</string>
+  <string name="registerToSendChallenges" comment="This used to say &quot;Please register to send challenges.&quot;&#10;We have since added &quot;[...] to this user.&quot; to the end of the string for absolute clarity, given the context this appears in. Please update translations as needed.">도전을 하려면 가입하십시오.</string>
   <string name="youCannotChallengeX">%s에게는 도전할 수 없습니다.</string>
   <string name="xDoesNotAcceptChallenges">%s가 도전을 받아들이지 않았습니다.</string>
   <string name="yourXRatingIsTooFarFromY">당신의 레이팅 등급인 %1$s과 상대의 레이팅 등급인 %2$s과의 격차가 너무 큽니다.</string>
@@ -13,9 +13,9 @@
   <string name="xOnlyAcceptsChallengesFromFriends">%s님은 친구인 상대만 도전을 받아들입니다.</string>
   <string name="declineGeneric">지금 도전을 받지 않습니다.</string>
   <string name="declineLater">시간이 맞지 않습니다. 나중에 다시 요청해주세요.</string>
-  <string name="declineTooFast">시간이 너무 짧습니다. 더 긴 게임으로 신청해주세요.</string>
-  <string name="declineTooSlow">시간이 너무 깁니다. 더 빠른 게임으로 신청해주세요.</string>
-  <string name="declineTimeControl">이 시간으로는 도전을 받지 않습니다.</string>
+  <string name="declineTooFast">시간이 너무 짧습니다. 더 느린 게임으로 신청해주세요.</string>
+  <string name="declineTooSlow">시간이 너무 깁니다. 더 빠른 게임으로 다시 신청해주세요.</string>
+  <string name="declineTimeControl">이 시간 제한으로는 도전을 받지 않겠습니다.</string>
   <string name="declineRated">대신 레이팅 대전을 신청해주세요.</string>
   <string name="declineCasual">대신 캐주얼 대전을 신청해주세요.</string>
   <string name="declineStandard">지금은 변형 체스 도전을 받지 않고 있습니다.</string>

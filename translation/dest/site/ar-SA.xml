@@ -74,6 +74,8 @@
   <string name="promoteVariation">رفع سلسلة الحركات</string>
   <string name="makeMainLine">رفع الى التسلسل الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
+  <string name="collapseVariations">أعلى</string>
+  <string name="expandVariations">وسع التفريع</string>
   <string name="forceVariation">فرض التسلسل</string>
   <string name="copyVariationPgn">انسخ التفريع بصيغة PGN</string>
   <string name="move">التقلة</string>
@@ -122,7 +124,6 @@
   <string name="replayMode">نمط إعادة العرض</string>
   <string name="realtimeReplay">ذات الوقت</string>
   <string name="byCPL">بالاثارة</string>
-  <string name="openStudy">فتح دراسة</string>
   <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="showVariationArrows">أظهر سلسلة النقلات المرشحة</string>
@@ -132,7 +133,6 @@
   <string name="memory">الذاكرة</string>
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
-  <string name="engineManager">مدير المحركات</string>
   <string name="blunder">خطأ فادح</string>
   <string name="mistake">خطأ</string>
   <string name="inaccuracy">غير دقيق</string>
@@ -214,6 +214,7 @@
   <string name="latestForumPosts">آخر منشورات المنتدى</string>
   <string name="players">اللاعبون</string>
   <string name="friends">الأصدقاء</string>
+  <string name="otherPlayers">لاعبون آخرون</string>
   <string name="discussions">المحادثات</string>
   <string name="today">اليوم</string>
   <string name="yesterday">الأمس</string>
@@ -553,7 +554,6 @@
   <string name="block">حظر</string>
   <string name="blocked">محظور</string>
   <string name="unblock">إلغاء الحظر</string>
-  <string name="followsYou">يتابعك</string>
   <string name="xStartedFollowingY">%1$s بدأ متابعة %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="zero">%s متابع</item>
@@ -597,9 +597,6 @@
   <string name="safeTournamentName">اختر اسماً ملائماً لهذه البطولة.</string>
   <string name="inappropriateNameWarning">أي شيء غير مناسب ولو حتى قليلاً يمكن أن يعرّض حسابك للإغلاق.</string>
   <string name="emptyTournamentName">أترك الحقل فارغاً وسيتم تسمية البطولة باسم غراند ماستر عشوائي.</string>
-  <string name="recommendNotTouching">نوصي بعدم تغيير هذه الخيارات.</string>
-  <string name="fewerPlayers">إذا حددت شروطَ دخولٍ للبطولة فقد يكون لديك لاعبون أقل.</string>
-  <string name="showAdvancedSettings">إظهار الإعدادات المتقدمة</string>
   <string name="makePrivateTournament">جعل البطولة خاصة، وتقييد الوصول بكلمة مرور</string>
   <string name="join">إشترك</string>
   <string name="withdraw">انسحاب</string>
@@ -639,8 +636,7 @@
   <string name="ifNoneLeaveEmpty">إذا لم يوجد، أتركه فارغًا</string>
   <string name="profile">الملف الشخصي</string>
   <string name="editProfile">حرر الملف الشخصي</string>
-  <string name="firstName">الاسم الأول</string>
-  <string name="lastName">اسم العائلة</string>
+  <string name="realName">الاسم الحقيقي</string>
   <string name="setFlair">اختيار الشارة</string>
   <string name="flair">الشارة</string>
   <string name="youCanHideFlair">يستخدم هذا الإعداد لإخفاء جميع شارات المستخدمين في الموقع.</string>
@@ -675,6 +671,8 @@
   <string name="descPrivateHelp">هذا النص سيراه فقط أعضاء الفريق. في حالة ضبطه، سيحل محل الوصف العام لأعضاء الفريق.</string>
   <string name="no">لا</string>
   <string name="yes">نعم</string>
+  <string name="website">الموقع</string>
+  <string name="mobile">الهاتف المحمول</string>
   <string name="help">مساعدة:</string>
   <string name="createANewTopic">إنشاء موضوع جديد</string>
   <string name="topics">المواضيع</string>
@@ -691,11 +689,14 @@
   <string name="reason">السبب</string>
   <string name="whatIsIheMatter">ما الأمر؟</string>
   <string name="cheat">غش</string>
-  <string name="insult">إهانة</string>
   <string name="troll">إزعاج</string>
-  <string name="ratingManipulation">تلاعب بالتقييم</string>
   <string name="other">أخرى</string>
-  <string name="reportDescriptionHelp">الصق رابط المباراة (المباريات) واشرح بالتفصيل المشكلة في تصرف هذا المستحدم. لا تقل فقط \"انهم يغشون\"، ولكن اشرح لنا سبب استنتاجك. سيكون الرد أسرع إن كتبت بالإنكليزية.</string>
+  <string name="reportCheatBoostHelp">هذه رسالة عامية وليست مخصصة لبلاغات الغش. وهي تحاول تعليم اللاعب كيفية كتابة بلاغ مفيد لفريق لي-تشيس. و أيضا تطلب إثبات.
+
+تظهر على صفحة \"بلغ مستخدم\"
+https://lichess. org/report.</string>
+  <string name="reportUsernameHelp">اشرح ما المسيء في اسم المستخدم هذا. لا تقل فقط \"إنه مسيء/غير مناسب\"، بل أخبرنا كيف توصلت إلى هذا الاستنتاج، خاصة إذا كانت الإهانة غير واضحة، أو ليست باللغة الإنجليزية، أو كانت باللغة العامية، أو كانت إشارة تاريخية/ثقافية.</string>
+  <string name="reportProcessedFasterInEnglish">سيتم معالجة بلاغك بشكل أسرع إذا تمت كتابته باللغة الإنجليزية.</string>
   <string name="error.provideOneCheatedGameLink">برجاء تقديم رابط واحد علي الأقل لمباراة حدث فيها غش.</string>
   <string name="by">كتبها %s</string>
   <string name="importedByX">استيراد \'%s\'</string>
@@ -728,6 +729,7 @@
   <string name="slow">بطيء</string>
   <string name="insideTheBoard">داخل الرقعة</string>
   <string name="outsideTheBoard">خارج الرقعة</string>
+  <string name="allSquaresOfTheBoard">جميع مربعات اللوح</string>
   <string name="onSlowGames">في المباريات البطيئة</string>
   <string name="always">دائماً</string>
   <string name="never">إطلاقا</string>
@@ -826,7 +828,7 @@
   <string name="aboutSimulRules">عندما تبدأ التزامنية، يبدأ كل لاعب مباراة مع المضيف، حيث يلعب المضيف بالقطع البيضاء. تنتهي التزامنية بإنتهاء جميع المبارايات.</string>
   <string name="aboutSimulSettings">التزامنيات دائما عفوية. لا يمكن استرجاع النقلات، أضافة الوقت، او حتى طلب لعبة أخرى.</string>
   <string name="create">ابدأ</string>
-  <string name="whenCreateSimul">عندما تنشئ تزامنية، يمكنك اللعب مع عدة لاعبين في الوقت ذاته.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">عندما تنشئ تزامنية، يمكنك اللعب مع عدة لاعبين في الوقت ذاته.</string>
   <string name="simulVariantsHint">إذا اخترت عدة أنواع, كل لاعب يمكنه اختيار النوع الذي يريد.</string>
   <string name="simulClockHint">ضبط توقيت بالزيادة . كلما زاد عدد اللاعبين كلما احتجت لوقت أطول.</string>
   <string name="simulAddExtraTime">يمكنك زيادة الوقت لساعتك للمساعدة في التزامنية.</string>
@@ -854,6 +856,7 @@
   <string name="toggleVariationArrows">تبديل أسهم النقلات المرشحة</string>
   <string name="cyclePreviousOrNextVariation">الدورة السابقة/التفريع التالي</string>
   <string name="toggleGlyphAnnotations">تبديل الرموز التوضيحية</string>
+  <string name="togglePositionAnnotations">تبديل تحليل الموقف</string>
   <string name="variationArrowsInfo">أسمهم النقلات تسمح لك بلعبها دون استخدام قائمة النقلات المرشحة.</string>
   <string name="playSelectedMove">لعب النقلة المحددة</string>
   <string name="newTournament">مسابقة جديدة</string>

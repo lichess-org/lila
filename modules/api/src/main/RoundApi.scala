@@ -5,22 +5,20 @@ import play.api.libs.json.*
 
 import lila.analyse.{ Analysis, JsonView as analysisJson }
 import lila.api.Context.given
-import lila.common.Json.given
 import lila.common.HTTPRequest
-
+import lila.common.Json.given
+import lila.core.data.Preload
+import lila.core.i18n.Translate
+import lila.core.perm.Granter
+import lila.core.user.GameUsers
 import lila.pref.Pref
 import lila.puzzle.PuzzleOpening
-import lila.tree.{ ExportOptions, Tree }
+import lila.round.RoundGame.*
 import lila.round.{ Forecast, JsonView }
-import lila.core.perm.Granter
 import lila.simul.Simul
 import lila.swiss.GameView as SwissView
 import lila.tournament.GameView as TourView
-import lila.tree.Node.partitionTreeJsonWriter
-import lila.core.user.GameUsers
-import lila.core.i18n.Translate
-import lila.core.data.Preload
-import lila.round.RoundGame.*
+import lila.tree.{ ExportOptions, Tree }
 
 final private[api] class RoundApi(
     jsonView: JsonView,

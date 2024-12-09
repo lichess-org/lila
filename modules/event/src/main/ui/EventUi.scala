@@ -3,9 +3,10 @@ package ui
 
 import play.api.data.Form
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.MarkdownRender
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor):
   import helpers.{ *, given }
@@ -15,7 +16,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
   private def page(title: String, css: String = "mod.misc")(using Context) =
     Page(title)
       .css(css)
-      .js(EsmInit("bits.flatpickr"))
+      .js(Esm("bits.flatpickr"))
       .wrap: body =>
         main(cls := "page-menu")(modMenu, body)
 
@@ -54,7 +55,7 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
   def show(e: Event)(using Context) =
     Page(e.title)
       .css("bits.event")
-      .js(EsmInit("bits.eventCountdown")):
+      .js(esmInitBit("eventCountdown")):
         main(cls := "page-small event box box-pad")(
           boxTop(
             iconOf(e),
@@ -128,10 +129,10 @@ final class EventUi(helpers: Helpers)(modMenu: Context ?=> Frag)(using Executor)
     frag(
       form3.split(
         form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(
-          form3.flatpickr(_, utc = true)
+          form3.flatpickr(_, local = true)
         ),
         form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(
-          form3.flatpickr(_, utc = true)
+          form3.flatpickr(_, local = true)
         )
       ),
       form3.split(

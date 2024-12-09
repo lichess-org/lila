@@ -31,8 +31,8 @@
   <string name="byOpenings">Per opening</string>
   <string name="puzzlesByOpenings">Puzzels per opening</string>
   <string name="openingsYouPlayedTheMost">Openingen die je het meest hebt gespeeld in partijen met rating</string>
-  <string name="useFindInPage">Gebruik \"In pagina zoeken\" in het browsermenu om je favoriete opening te vinden!</string>
-  <string name="useCtrlF">Gebruik Ctrl+F om je favoriete opening te vinden!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gebruik \"In pagina zoeken\" in het browsermenu om je favoriete opening te vinden!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Gebruik Ctrl+F om je favoriete opening te vinden!</string>
   <string name="notTheMove">Dat is niet de juiste zet!</string>
   <string name="trySomethingElse">Probeer iets anders.</string>
   <string name="ratingX">Rating: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">Sterke punten</string>
   <string name="history">Puzzelscore</string>
   <string name="solved">opgelost</string>
-  <string name="failed">niet opgelost</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">niet opgelost</string>
   <string name="streakDescription">Los steeds moeilijker wordende puzzels op en bouw aan een succesreeks. Er is geen klok, dus neem de tijd. Eén foute zet en het spel is uit! Per sessie kun je één zet overslaan.</string>
   <string name="yourStreakX">Uw reeks: %s</string>
   <string name="streakSkipExplanation">Sla deze zet over om je reeks te behouden! Werkt maar eenmaal per sessie.</string>

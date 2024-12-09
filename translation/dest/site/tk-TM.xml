@@ -95,7 +95,6 @@
   <string name="replayMode">Gaýta-oýnama mody</string>
   <string name="realtimeReplay">Hakyky wagt</string>
   <string name="byCPL">SPÝ bilen</string>
-  <string name="openStudy">Öwrenmäni aç</string>
   <string name="enable">Işlet</string>
   <string name="bestMoveArrow">Iň gowy göçüm peýkamy</string>
   <string name="evaluationGauge">Hasaplama düwmesi</string>
@@ -330,7 +329,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="block">Blokla</string>
   <string name="blocked">Bloklanan</string>
   <string name="unblock">Blokdan aç</string>
-  <string name="followsYou">Sizi yzarlaýar</string>
   <string name="xStartedFollowingY">%1$s %2$s agzany yzarlamaga başlady</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s yzarlaýjy</item>
@@ -362,9 +360,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="safeTournamentName">Bäsleşik üçin diýseň howpsuz at saýlaň.</string>
   <string name="inappropriateNameWarning">Sähelçe bijaý zat hem hasabyňyzyň ýapylmagyna eltip biler.</string>
   <string name="emptyTournamentName">Bäsleşigi çem gelen bir grossmeýster şanyna atlandyrmak üçin bu bölümi boş goýuň.</string>
-  <string name="recommendNotTouching">Muny ellemezligi ündeýäs.</string>
-  <string name="fewerPlayers">Gatnaşma şertleri goýsaňyz bäsleşigiňize az oýunçy gatnaşar.</string>
-  <string name="showAdvancedSettings">Çuňlaşdyrylan sazlamalary görkez</string>
   <string name="join">Gatnaş</string>
   <string name="withdraw">Çekil</string>
   <string name="points">Utuklar</string>
@@ -398,8 +393,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="ifNoneLeaveEmpty">Ýok bolsa boş goýuň</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili özgert</string>
-  <string name="firstName">Ady</string>
-  <string name="lastName">Familýasy</string>
   <string name="biography">Biografiýa</string>
   <string name="thankYou">Minnetdar!</string>
   <string name="inlineNotation">Notasiýa şol bir setirde</string>
@@ -435,10 +428,8 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="reason">Sebäp</string>
   <string name="whatIsIheMatter">Näme bolýär?</string>
   <string name="cheat">Kezzaplyk</string>
-  <string name="insult">Kemsitme</string>
   <string name="troll">Trol</string>
   <string name="other">Başga</string>
-  <string name="reportDescriptionHelp">Oýnyň çelgisini üpjün ediň we bu ulanyjynyň özüni alyp barşynda näme ýerliksizlik bardygyny hem düşündiriň. Diňe bir \"ol kezzaplyk edýär\" diýmek bilen çäklenmäň, nädip beýle netijä gelendigiňizem aýdyň. Iňlis dilinde ýazylan bolsa reportyňyz has çalt ýola goýular.</string>
   <string name="error.provideOneCheatedGameLink">Iň az 1 kezzapçylykly oýna salgy beriň.</string>
   <string name="by">%s tarapyndan</string>
   <string name="thisTopicIsNowClosed">Bu mowzuk häzir ýapyk.</string>
@@ -531,7 +522,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="aboutSimulRules">Birwagtly sergi başlanda her oýunçy aklarda oýnaýan gurnaýja garşy oýna başlaýar. Ähli oýunlar tamamlananda birwagtly sergi tamamlanýar.</string>
   <string name="aboutSimulSettings">Birwagtly küşt hemişe reýtingsizdir. Ýene oýnama, yza-alym we \"goşmaça wagt\" ýaly funksiýalar beklidir.</string>
   <string name="create">Döret</string>
-  <string name="whenCreateSimul">Birwagtly sergi döredeniňizde şol bir wagtyň özünde birnäçe oýunça garşy oýnarsyňyz.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Birwagtly sergi döredeniňizde şol bir wagtyň özünde birnäçe oýunça garşy oýnarsyňyz.</string>
   <string name="simulVariantsHint">Birnäçe wariant saýlasaňyz her oýunçy öz isleýän wariantyny saýlar.</string>
   <string name="simulClockHint">Fischer sagady düzümi. Näçe köp oýunçy kabul etseňiz şonça köp wagt zerur bolup biler.</string>
   <string name="simulAddExtraTime">Birwagtla uýmak üçin sagadyňyza goşmaça wagt goşup bilersiňiz.</string>

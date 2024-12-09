@@ -1,5 +1,7 @@
 import * as control from './control';
-import PuzzleCtrl from './ctrl';
+import type PuzzleCtrl from './ctrl';
+import { snabDialog } from 'common/dialog';
+import { pubsub } from 'common/pubsub';
 
 export default (ctrl: PuzzleCtrl) =>
   site.mousetrap
@@ -27,15 +29,15 @@ export default (ctrl: PuzzleCtrl) =>
         else ctrl.toggleCeval();
       }
     })
-    .bind('z', () => site.pubsub.emit('zen'))
+    .bind('z', () => pubsub.emit('zen'))
     .bind('?', () => ctrl.keyboardHelp(!ctrl.keyboardHelp()))
     .bind('f', ctrl.flip)
-    .bind('n', ctrl.nextPuzzle)
-    .bind('B', () => ctrl.blindfold(!ctrl.blindfold()));
+    .bind('n', ctrl.nextPuzzle);
 
 export const view = (ctrl: PuzzleCtrl) =>
-  site.dialog.snab({
+  snabDialog({
     class: 'help',
     htmlUrl: '/training/help',
     onClose: () => ctrl.keyboardHelp(false),
+    modal: true,
   });

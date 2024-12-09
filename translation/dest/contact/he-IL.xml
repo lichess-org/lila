@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">במה נוכל לעזור?</string>
   <string name="visitThisPage">צפו בעמוד זה כדי לפתור את הבעיה</string>
   <string name="iCantLogIn">אני לא מצליח/ה להתחבר</string>
-  <string name="noConfirmationEmail">לא קיבלתי את אימייל האישור</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">לא קיבלתי את אימייל האישור</string>
   <string name="forgotPassword">שכחתי את הסיסמה</string>
   <string name="forgotUsername">שכחתי את שם המשתמש</string>
   <string name="youCanLoginWithEmail">את/ה יכול/ה להתחבר עם כתובת האימייל שאיתה נרשמת</string>
@@ -35,8 +35,8 @@
   <string name="onlyReports">רק דיווח על שחקנים באמצעות טופס הדיווח יזכה להתייחסות.</string>
   <string name="wantReportBug">אני רוצה לדווח על תקלה</string>
   <string name="reportBugInForum">במדור המשוב על לִיצֶ\'ס בפורום</string>
-  <string name="reportWebsiteIssue">כבעיה (issue) בעמוד של ליצ׳ס באתר GitHub</string>
-  <string name="reportMobileIssue">כבעיה (issue) בעמוד של אפליקציית לִיצֶ\'ס בGitHub</string>
+  <string name="reportWebsiteIssue">כבעיה (issue) בעמוד של Lichess באתר GitHub</string>
+  <string name="reportMobileIssue">כבעיה (issue) בעמוד של אפליקציית Lichess ב-GitHub</string>
   <string name="reportBugInDiscord">בשרת הDiscord של ליצ\'ס</string>
   <string name="howToReportBug">אנא תארו כיצד נראית התקלה, מה ציפיתם שיקרה במקום זאת ואת הצעדים לשחזור התקלה.</string>
   <string name="illegalPawnCapture">הכאת (אכילת) חייל לא חוקית</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">בנסיבות מסויימות כאשר משחק הוא מול בוט, משחק מדורג עשוי לא להעניק נקודות אם ייקבע שהשחקן/ית מנצל/ת את הבוט לצבירת ניקוד.</string>
   <string name="errorPage">שגיאה בדף</string>
   <string name="reportErrorPage">אם התמודדת עם שגיאה בדף, את/ה יכול/ה לדווח על זה:</string>
-  <string name="wantBroadcastTournament">אני רוצה לשדר טורניר</string>
-  <string name="learnHowToMakeBroadcasts">למדו כיצד ליצור הקרנות חיות של טורנירים בליצ׳ס</string>
-  <string name="contactAboutOfficialBroadcasts">ניתן גם לכתוב לצוות השידורים שלנו לגבי שידורים רשמיים.</string>
+  <string name="learnHowToMakeBroadcasts">למדו כיצד ליצור הקרנות חיות של טורנירים ב־Lichess</string>
   <string name="banAppeal">ערעור על איסור או על הגבלה בIP</string>
   <string name="engineAppeal">סימן שימוש במנוע או רמאות</string>
   <string name="sendAppealTo">את/ה יכול/ה לשלוח ערעור ל%s.</string>

@@ -21,7 +21,8 @@ final private class Pause(using Executor):
   private def delayOf(record: Record, tour: Tournament) =
     // 10s for first pause
     // next ones increasing linearly until 120s
-    baseDelayOf(tour).map(_ * (record.pauses - 1).atLeast(10).atMost(120))
+    baseDelayOf(tour).map: delay =>
+      (delay * (record.pauses - 1)).atLeast(10).atMost(120)
 
   def add(userId: UserId): Unit =
     cache.put(

@@ -5,16 +5,16 @@
   <string name="emailConfirm_ignore">Якщо ви не реєструвалися на Lichess, просто проігноруйте це повідомлення.</string>
   <string name="passwordReset_subject">%s, скидання вашого паролю lichess.org</string>
   <string name="passwordReset_intro">Ми отримали запит на скидання пароля для вашого облікового запису.</string>
-  <string name="passwordReset_clickOrIgnore">Якщо запит виконано вами, натисніть на посилання нижче. Якщо ні, проігноруйте цей лист.</string>
+  <string name="passwordReset_clickOrIgnore">Якщо цей запит виконали ви, перейдіть за посиланням нижче. Якщо ні, проігноруйте цей лист.</string>
   <string name="emailChange_subject">Підтвердьте нову поштову адресу, %s</string>
   <string name="emailChange_intro">Ми отримали запит на зміну вашої поштової адреси.</string>
-  <string name="emailChange_click">Для підтвердження наявності вами доступу до цієї пошти, натисніть на посилання нижче:</string>
+  <string name="emailChange_click">Щоб підтвердити ваш доступ до цієї пошти, перейдіть за посиланням нижче:</string>
   <string name="welcome_subject">Ласкаво просимо на lichess.org, %s</string>
-  <string name="welcome_text">Ви успішно зареєстрували свій обліковий запис на сайті https://lichess.org.
+  <string name="welcome_text">Ви успішно зареєструвалися на https://lichess.org.
 
-Ось посилання на Ваш профіль: %1$s. Ви зможете налаштувати його за посиланням: %2$s.
+Ось посилання на ваш профіль: %1$s. Ви зможете налаштувати його за посиланням: %2$s.
 
-Отримуйте задоволення, і хай Ваші фігури завжди знаходять шлях до короля суперника!</string>
+Отримуйте задоволення, і хай ваші фігури завжди знаходять шлях до короля суперника!</string>
   <string name="logInToLichess">Увійдіть до lichess.org, %s</string>
   <string name="common_orPaste">(Клік по посиланню не працює? Спробуйте вставити його в адресний рядок!)</string>
   <string name="common_note">Це службовий лист, пов\'язаний із використанням %s.</string>

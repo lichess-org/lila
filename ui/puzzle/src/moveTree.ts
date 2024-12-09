@@ -3,8 +3,9 @@ import { INITIAL_FEN, makeFen, parseFen } from 'chessops/fen';
 import { makeSan, parseSan } from 'chessops/san';
 import { makeSquare, makeUci, parseUci } from 'chessops/util';
 import { scalachessCharPair } from 'chessops/compat';
-import { TreeWrapper } from 'tree';
-import { Move } from 'chessops/types';
+import { type TreeWrapper, path as pathOps } from 'tree';
+import { isNormal, type Move, type NormalMove } from 'chessops/types';
+import type PuzzleCtrl from './ctrl';
 
 export function pgnToTree(pgn: San[]): Tree.Node {
   const pos = Chess.default();
@@ -34,7 +35,7 @@ export function mergeSolution(root: TreeWrapper, initialPath: Tree.Path, solutio
     const san = makeSan(pos, move);
     pos.play(move);
     const node = makeNode(pos, move, fromPly + i + 1, san);
-    if ((pov == 'white') == (node.ply % 2 == 1)) node.puzzle = 'good';
+    if ((pov === 'white') === (node.ply % 2 === 1)) node.puzzle = 'good';
     return node;
   });
   root.addNodes(nodes, initialPath);
@@ -49,3 +50,17 @@ const makeNode = (pos: Chess, move: Move, ply: number, san: San): Tree.Node => (
   check: pos.isCheck() ? makeSquare(pos.toSetup().board.kingOf(pos.turn)!) : undefined,
   children: [],
 });
+
+export function nextCorrectMove(ctrl: PuzzleCtrl): NormalMove | undefined {
+  if (ctrl.mode === 'view') return;
+  if (!pathOps.contains(ctrl.path, ctrl.initialPath)) return;
+
+  const playedByColor = ctrl.node.ply % 2 === 1 ? 'white' : 'black';
+  if (playedByColor === ctrl.pov) return;
+
+  const nodes = ctrl.nodeList.slice(pathOps.size(ctrl.initialPath) + 1);
+  const nextUci = ctrl.data.puzzle.solution[nodes.length];
+  const move = nextUci && parseUci(nextUci);
+
+  return move && isNormal(move) ? move : undefined;
+}

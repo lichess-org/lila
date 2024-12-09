@@ -1,8 +1,15 @@
-import { h, VNode } from 'snabbdom';
-import { Config, Run } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { Config, Run } from '../interfaces';
 import { getNow } from '../util';
 
-export const playModifiers = (run: Run) => {
+export const playModifiers = (
+  run: Run,
+): {
+  'puz-mod-puzzle': boolean;
+  'puz-mod-move': boolean;
+  'puz-mod-malus-slow': boolean;
+  'puz-mod-bonus-slow': boolean;
+} => {
   const now = getNow();
   const malus = run.modifier.malus;
   const bonus = run.modifier.bonus;

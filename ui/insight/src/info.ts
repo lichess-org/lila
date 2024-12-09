@@ -3,8 +3,9 @@ import { onInsert } from 'common/snabbdom';
 import { numberFormat } from 'common/number';
 import { userLink } from 'common/userLink';
 import { h } from 'snabbdom';
-import Ctrl from './ctrl';
+import type Ctrl from './ctrl';
 import { registerFormHandler } from './insight';
+import { spinnerHtml } from 'common/spinner';
 
 const shareStates = ['nobody', 'friends only', 'everybody'];
 
@@ -50,7 +51,7 @@ export default function (ctrl: Ctrl) {
                 h(
                   'div.crunching.none',
                   {
-                    hook: onInsert(el => el.insertAdjacentHTML('afterbegin', site.spinnerHtml)),
+                    hook: onInsert(el => el.insertAdjacentHTML('afterbegin', spinnerHtml)),
                   },
                   [h('br'), h('p', h('strong', 'Now crunching data just for you!'))],
                 ),

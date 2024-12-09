@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">เราช่วยอะไรคุณได้บ้าง?</string>
   <string name="visitThisPage">แวะไปหน้านี้เพื่อแก้ปัญหา</string>
   <string name="iCantLogIn">ฉันไม่สามารถเข้าสู่ระบบ</string>
-  <string name="noConfirmationEmail">ฉันไม่ได้รับอีเมลยืนยัน</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">ฉันไม่ได้รับอีเมลยืนยัน</string>
   <string name="forgotPassword">ฉันลืมรหัสผ่าน</string>
   <string name="forgotUsername">ฉันลืมชื่อผู้ใช้ของฉัน</string>
   <string name="youCanLoginWithEmail">คุณสามารถเข้าสู่ระบบด้วยอีเมลที่คุณสมัครไว้</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">ในบางสถานการณ์เมื่อเล่นกับบัญชีบอท เกมที่คิดคะแนนอาจไม่ให้คะแนนหากมีการตัดสินว่าผู้เล่นใช้บอทในทางที่ผิดเพื่อให้ได้แต้มคะแนน</string>
   <string name="errorPage">หน้านี้มีข้อผิดพลาด</string>
   <string name="reportErrorPage">ถ้าหน้าที่คุณเปิดมีปัญหา คุณสามารถรายงานได้</string>
-  <string name="wantBroadcastTournament">ฉันต้องการที่จะออกอากาศทัวร์นาเมนต์</string>
   <string name="learnHowToMakeBroadcasts">เรียนรู้การออกอากาศใน Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">คุณก็สามารถติดต่อทีมออกอากาศในเรื่องการออกอากาศแบบเป็นทางการ</string>
   <string name="banAppeal">การยื่นอุทธรณ์สำหรับผู้โดนแบน</string>
   <string name="engineAppeal">ระบุว่าใช้เครื่องจักรหรือโกง</string>
   <string name="sendAppealTo">อนุญาติให้ยื่นอุทธรณ์แก่ %s</string>

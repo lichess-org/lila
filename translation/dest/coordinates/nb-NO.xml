@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Tren koordinater</string>
   <string name="averageScoreAsWhiteX">Gjennomsnittlig poengsum som hvit: %s</string>
   <string name="averageScoreAsBlackX">Gjennomsnittlig poengsum som sort: %s</string>
-  <string name="knowingTheChessBoard">Å kjenne sjakkbrettet er en meget viktig sjakkegenskap:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Å kjenne sjakkbrettet er en meget viktig sjakkegenskap:</string>
   <string name="mostChessCourses">De fleste sjakk-kurs og -øvelser bruker algebraisk notasjon mye.</string>
   <string name="talkToYourChessFriends">Det gjør det lettere å snakke med sjakk-vennene dine, siden dere begge forstår \"sjakkens språk\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Det er lettere å analysere partier dersom du ikke må lete for å finne navn på feltene.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Du har 30 sekunder på deg til å kartlegge så mange felt som mulig!</string>
   <string name="goAsLongAsYouWant">Du kan holde på så lenge du vil, det er ingen tidsfrist!</string>
   <string name="showCoordinates">Vis koordinater</string>
-  <string name="showCoordsOnAllSquares">Koordinater på hvert felt</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinater på hvert felt</string>
   <string name="showPieces">Vis brikker</string>
   <string name="startTraining">Begynn trening</string>
   <string name="findSquare">Finn felt</string>

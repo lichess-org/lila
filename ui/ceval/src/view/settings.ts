@@ -1,12 +1,13 @@
-import { VNode } from 'snabbdom';
-import { ParentCtrl } from '../types';
-import CevalCtrl from '../ctrl';
+import type { ParentCtrl } from '../types';
+import type CevalCtrl from '../ctrl';
 import { fewerCores } from '../util';
 import { rangeConfig } from 'common/controls';
 import { isChrome } from 'common/device';
-import { onInsert, bind, dataIcon, looseH as h } from 'common/snabbdom';
+import { type VNode, onInsert, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import * as Licon from 'common/licon';
-import { onClickAway, clamp } from 'common';
+import { onClickAway } from 'common';
+import { clamp } from 'common/algo';
+import { confirm } from 'common/dialog';
 
 const allSearchTicks: [number, string][] = [
   [4000, '4s'],
@@ -24,7 +25,6 @@ const formatHashSize = (v: number): string => (v < 1000 ? v + 'MB' : Math.round(
 
 export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
   const ceval = ctrl.getCeval(),
-    noarg = ctrl.trans.noarg,
     minThreads = ceval.engines.active?.minThreads ?? 1,
     maxThreads = ceval.maxThreads,
     engCtrl = ctrl.getCeval().engines,
@@ -86,7 +86,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
                   'div.setting',
                   { attrs: { title: 'Set number of evaluation lines and move arrows on the board' } },
                   [
-                    h('label', { attrs: { for: id } }, noarg('multipleLines')),
+                    h('label', { attrs: { for: id } }, i18n.site.multipleLines),
                     h('input#' + id, {
                       attrs: { type: 'range', min: 0, max, step: 1 },
                       hook: rangeConfig(
@@ -151,7 +151,7 @@ export function renderCevalSettings(ctrl: ParentCtrl): VNode | null {
               })('analyse-threads'),
             (id =>
               h('div.setting', { attrs: { title: 'Higher values may improve performance' } }, [
-                h('label', { attrs: { for: id } }, noarg('memory')),
+                h('label', { attrs: { for: id } }, i18n.site.memory),
                 h('input#' + id, {
                   attrs: {
                     type: 'range',
@@ -209,16 +209,16 @@ function engineSelection(ctrl: ParentCtrl) {
         },
         [
           ...engines.map(engine =>
-            h('option', { attrs: { value: engine.id, selected: active?.id == engine.id } }, engine.name),
+            h('option', { attrs: { value: engine.id, selected: active?.id === engine.id } }, engine.name),
           ),
         ],
       ),
       external &&
         h('button.delete', {
           attrs: { ...dataIcon(Licon.X), title: 'Delete external engine' },
-          hook: bind('click', e => {
+          hook: bind('click', async e => {
             (e.currentTarget as HTMLElement).blur();
-            if (confirm('Remove external engine?'))
+            if (await confirm('Remove external engine?'))
               ceval.engines.deleteExternal(external.id).then(ok => ok && ctrl.redraw?.());
           }),
         }),

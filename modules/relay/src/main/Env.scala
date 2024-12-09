@@ -4,15 +4,15 @@ import akka.actor.*
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 import play.api.libs.ws.StandaloneWSClient
+import scalalib.paginator.Paginator
 
 import scala.util.matching.Regex
 
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
-import lila.relay.RelayTour.ActiveWithSomeRounds
-import scalalib.paginator.Paginator
 import lila.relay.RelayTour.WithLastRound
+import lila.core.id.RelayRoundId
 
 @Module
 final class Env(
@@ -28,8 +28,8 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     pgnDump: lila.game.PgnDump,
     gameProxy: lila.core.game.GameProxy,
-    federations: lila.core.fide.Federation.FedsOf,
     guessPlayer: lila.core.fide.GuessPlayer,
+    getPlayer: lila.core.fide.GetPlayer,
     cacheApi: lila.memo.CacheApi,
     settingStore: SettingStore.Builder,
     irc: lila.core.irc.IrcApi,
@@ -37,11 +37,11 @@ final class Env(
     notifyApi: lila.core.notify.NotifyApi,
     picfitApi: lila.memo.PicfitApi,
     picfitUrl: lila.memo.PicfitUrl,
-    langList: lila.core.i18n.LangList
+    langList: lila.core.i18n.LangList,
+    baker: lila.core.security.LilaCookie
 )(using Executor, ActorSystem, akka.stream.Materializer, play.api.Mode, lila.core.i18n.Translator)(using
     scheduler: Scheduler
 ):
-
   lazy val roundForm = wire[RelayRoundForm]
 
   lazy val tourForm = wire[RelayTourForm]
@@ -54,19 +54,25 @@ final class Env(
 
   private lazy val groupRepo = RelayGroupRepo(colls.group)
 
-  lazy val leaderboard = wire[RelayLeaderboardApi]
+  private lazy val playerEnrich = wire[RelayPlayerEnrich]
+
+  private lazy val notifyAdmin = wire[RelayNotifierAdmin]
 
   private lazy val notifier = wire[RelayNotifier]
 
+  private lazy val studyPropagation = wire[RelayStudyPropagation]
+
   lazy val jsonView = wire[JsonView]
 
-  lazy val listing: RelayListing = wire[RelayListing]
+  lazy val listing = wire[RelayListing]
 
   lazy val api: RelayApi = wire[RelayApi]
 
   lazy val tourStream: RelayTourStream = wire[RelayTourStream]
 
   lazy val pager = wire[RelayPager]
+
+  lazy val calendar = wire[RelayCalendar]
 
   lazy val push = wire[RelayPush]
 
@@ -78,11 +84,12 @@ final class Env(
 
   lazy val playerTour = wire[RelayPlayerTour]
 
-  def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
-    active   <- (page == 1).so(listing.active.get({}))
-    upcoming <- (page == 1).so(listing.upcoming.get({}))
-    past     <- pager.inactive(page)
-  yield (active, upcoming, past)
+  lazy val playerApi = wire[RelayPlayerApi]
+
+  lazy val videoEmbed = wire[lila.relay.RelayVideoEmbedStore]
+
+  def top(page: Int): Fu[(List[RelayCard], Paginator[WithLastRound])] =
+    (page == 1).so(listing.active).zip(pager.inactive(page))
 
   private lazy val sync = wire[RelaySync]
 
@@ -90,8 +97,9 @@ final class Env(
 
   private lazy val delay = wire[RelayDelay]
 
-  // must instanciate eagerly to start the scheduler
-  val stats = wire[RelayStatsApi]
+  // eager init to start the scheduler
+  private val stats = wire[RelayStatsApi]
+  export stats.{ getJson as statsJson }
 
   import SettingStore.CredentialsOption.given
   val proxyCredentials = settingStore[Option[Credentials]](
@@ -125,7 +133,7 @@ final class Env(
   wire[RelayFetch]
 
   scheduler.scheduleWithFixedDelay(1 minute, 1 minute): () =>
-    api.autoStart >> api.autoFinishNotSyncing
+    api.autoStart >> api.autoFinishNotSyncing(syncOnlyIds)
 
   lila.common.Bus.subscribeFuns(
     "study" -> { case lila.core.study.RemoveStudy(studyId) =>
@@ -135,7 +143,7 @@ final class Env(
       studyApi
         .isContributor(id, who.u)
         .foreach:
-          _.so(api.requestPlay(id.into(RelayRoundId), v))
+          _.so(api.requestPlay(id.into(RelayRoundId), v, "manual toggle"))
     },
     "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
@@ -147,6 +155,13 @@ final class Env(
       promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))
     }
   )
+
+  lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
+    studyPropagation.onStudyMembersChange(change.study)
+
+  lila.common.Bus.subscribeFun("getRelayCrowd"):
+    case lila.core.study.GetRelayCrowd(studyId, promise) =>
+      roundRepo.currentCrowd(studyId.into(RelayRoundId)).map(_.orZero).foreach(promise.success)
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))

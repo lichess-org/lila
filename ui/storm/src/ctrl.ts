@@ -9,11 +9,12 @@ import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { PromotionCtrl } from 'chess/promotion';
-import { prop } from 'common';
-import { PuzCtrl, Run } from 'puz/interfaces';
+import { prop, type Prop } from 'common';
+import type { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
-import { Role } from 'chessground/types';
-import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import { storage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export default class StormCtrl implements PuzCtrl {
   private data: StormData;
@@ -22,9 +23,8 @@ export default class StormCtrl implements PuzCtrl {
   run: Run;
   vm: StormVm;
   filters: PuzFilters;
-  trans: Trans;
   promotion: PromotionCtrl;
-  ground = prop<CgApi | false>(false);
+  ground: Prop<CgApi | false> = prop<CgApi | false>(false);
   flipped = false;
 
   constructor(opts: StormOpts, redraw: (data: StormData) => void) {
@@ -32,7 +32,6 @@ export default class StormCtrl implements PuzCtrl {
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
     this.filters = new PuzFilters(this.redraw, false);
-    this.trans = site.trans(opts.i18n);
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
       moves: 0,
@@ -63,7 +62,7 @@ export default class StormCtrl implements PuzCtrl {
         this.redraw();
       }
     }, config.timeToStart + 1000);
-    site.pubsub.on('zen', () => {
+    pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
       if (!$('body').hasClass('zen-auto')) {
@@ -106,10 +105,10 @@ export default class StormCtrl implements PuzCtrl {
       this.run.clock.start();
       this.run.moves++;
       this.promotion.cancel();
-      const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
+      const uci = `${orig}${dest}${promotion ? (promotion === 'knight' ? 'n' : promotion[0]) : ''}`;
       const pos = puzzle.position();
       pos.play(parseUci(uci)!);
-      const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
+      const correct = pos.isCheckmate() || uci === puzzle.expectedMove();
       if (correct) {
         puzzle.moveIndex++;
         this.run.combo.inc();
@@ -149,7 +148,7 @@ export default class StormCtrl implements PuzCtrl {
       this.run.current.moveIndex = 0;
       this.setGround();
     }
-    site.pubsub.emit('ply', this.run.moves);
+    pubsub.emit('ply', this.run.moves);
   };
 
   private redrawQuick = () => setTimeout(this.redraw, 100);
@@ -191,24 +190,24 @@ export default class StormCtrl implements PuzCtrl {
     signed: this.vm.signed(),
   });
 
-  flip = () => {
+  flip = (): void => {
     this.flipped = !this.flipped;
     this.withGround(g => g.toggleOrientation());
     this.redraw();
   };
 
   private checkDupTab = () => {
-    const dupTabMsg = site.storage.make('storm.tab');
+    const dupTabMsg = storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
     dupTabMsg.listen(ev => {
-      if (!this.run.clock.startAt && ev.value == this.data.puzzles[0].id) {
+      if (!this.run.clock.startAt && ev.value === this.data.puzzles[0].id) {
         this.vm.dupTab = true;
         this.redraw();
       }
     });
   };
 
-  private toggleZen = () => site.pubsub.emit('zen');
+  private toggleZen = () => pubsub.emit('zen');
 
   private hotkeys = () =>
     site.mousetrap

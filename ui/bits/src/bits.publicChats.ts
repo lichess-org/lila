@@ -1,4 +1,5 @@
 import { text, form } from 'common/xhr';
+import { domDialog } from 'common/dialog';
 
 site.load.then(() => {
   let autoRefreshEnabled = true;
@@ -39,7 +40,7 @@ site.load.then(() => {
 
     $('#communication').on('click', '.line:not(.lichess)', function (this: HTMLDivElement) {
       const $l = $(this);
-      site.dialog.dom({ cash: $('.timeout-modal') }).then(dlg => {
+      domDialog({ cash: $('.timeout-modal'), modal: true }).then(dlg => {
         $('.username', dlg.view).text($l.find('.user-link').text());
         $('.text', dlg.view).text($l.text().split(' ').slice(1).join(' '));
         $('.button', dlg.view).on('click', function (this: HTMLButtonElement) {
@@ -57,7 +58,7 @@ site.load.then(() => {
           }).then(_ => setTimeout(reloadNow, 1000));
           dlg.close();
         });
-        dlg.showModal();
+        dlg.show();
       });
     });
   };

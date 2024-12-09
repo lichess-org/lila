@@ -1,6 +1,7 @@
 package lila.i18n
 
 import play.api.i18n.Lang
+
 import lila.core.i18n.{ Language, fixJavaLanguage }
 
 object LangList extends lila.core.i18n.LangList:

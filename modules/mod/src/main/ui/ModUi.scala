@@ -2,14 +2,14 @@ package lila.mod
 package ui
 
 import play.api.data.Form
+import play.api.libs.json.Json
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.report.{ Report, Reason }
+import lila.core.perf.UserWithPerfs
 import lila.core.perm.Permission
 import lila.mod.ModActivity.{ Period, Who }
-import lila.core.perf.UserWithPerfs
-import play.api.libs.json.Json
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 case class PendingCounts(streamers: Int, appeals: Int, titles: Int)
 
@@ -61,7 +61,7 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
                     userIdLink(u.some, params = "?mod")
                   }),
                   td(log.showAction.capitalize),
-                  td(log.details)
+                  td(shorten(~log.details, 100))
                 )
             )
           )
@@ -188,18 +188,12 @@ final class ModUi(helpers: Helpers)(isChatPanic: () => Boolean):
         )
       )
 
-  val emailConfirmJs = """$('.mod-confirm form input').on('paste', function() {
-setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
-}).each(function() {
-this.setSelectionRange(this.value.length, this.value.length);
-});"""
-
   def emailConfirm(query: String, user: Option[UserWithPerfs], email: Option[EmailAddress])(using
       ctx: Context
   ) =
     Page("Email confirmation")
       .css("mod.misc")
-      .js(embedJsUnsafeLoadThen(emailConfirmJs)):
+      .js(Esm("mod.emailConfirmation")):
         main(cls := "page-menu")(
           menu("email"),
           div(cls := "mod-confirm page-menu__content box box-pad")(

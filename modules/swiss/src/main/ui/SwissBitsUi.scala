@@ -1,9 +1,7 @@
 package lila.swiss
 package ui
-
-import play.api.data.Form
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
@@ -18,7 +16,7 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
       href     := routes.Swiss.show(swissId).url
     )(name)
 
-  def idToName(id: SwissId): String = getName.sync(id).getOrElse("Tournament")
+  def idToName(id: SwissId): String = getName.sync(id).getOrElse(s"Swiss #$id")
 
   def notFound(using Context) =
     Page(trans.site.tournamentNotFound.txt()):
@@ -86,35 +84,3 @@ final class SwissBitsUi(helpers: Helpers, getName: GetSwissName):
         )
       )
     )
-
-  def jsI18n(using Context) = i18nJsObject(i18nKeys)
-
-  private val i18nKeys = List(
-    trans.site.join,
-    trans.site.withdraw,
-    trans.site.youArePlaying,
-    trans.site.joinTheGame,
-    trans.site.signIn,
-    trans.site.averageElo,
-    trans.site.gamesPlayed,
-    trans.site.whiteWins,
-    trans.site.blackWins,
-    trans.site.drawRate,
-    trans.swiss.byes,
-    trans.swiss.absences,
-    trans.study.downloadAllGames,
-    trans.site.winRate,
-    trans.site.points,
-    trans.swiss.tieBreak,
-    trans.site.performance,
-    trans.site.standByX,
-    trans.site.averageOpponent,
-    trans.site.tournamentComplete,
-    trans.site.tournamentEntryCode,
-    trans.swiss.viewAllXRounds,
-    trans.swiss.ongoingGames,
-    trans.swiss.startingIn,
-    trans.swiss.nextRound,
-    trans.swiss.nbRounds,
-    trans.team.joinTeam
-  )

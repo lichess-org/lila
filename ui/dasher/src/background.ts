@@ -1,12 +1,12 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { elementScrollBarWidthSlowGuess, header } from './util';
-import debounce from 'common/debounce';
+import { debounce, throttlePromiseDelay } from 'common/timing';
 import { prefersLight } from 'common/theme';
 import * as licon from 'common/licon';
 import { bind, onInsert } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
-import { throttlePromiseDelay } from 'common/throttle';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { text as xhrText, form as xhrForm, textRaw as xhrTextRaw } from 'common/xhr';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
+import { pubsub } from 'common/pubsub';
 
 export interface BackgroundData {
   current: string;
@@ -29,9 +29,9 @@ export class BackgroundCtrl extends PaneCtrl {
   constructor(root: DasherCtrl) {
     super(root);
     this.list = [
-      { key: 'system', name: this.trans.noarg('deviceTheme') },
-      { key: 'light', name: this.trans.noarg('light') },
-      { key: 'dark', name: this.trans.noarg('dark') },
+      { key: 'system', name: i18n.site.deviceTheme },
+      { key: 'light', name: i18n.site.light },
+      { key: 'dark', name: i18n.site.dark },
       { key: 'transp', name: 'Picture' },
     ];
   }
@@ -40,7 +40,7 @@ export class BackgroundCtrl extends PaneCtrl {
     const cur = this.get();
 
     return h('div.sub.background', [
-      header(this.trans.noarg('background'), this.close),
+      header(i18n.site.background, this.close),
       h(
         'div.selector.large',
         this.list.map(bg => {
@@ -59,15 +59,16 @@ export class BackgroundCtrl extends PaneCtrl {
     ]);
   }
 
-  set = throttlePromiseDelay(
+  set: (c: string) => Promise<void> = throttlePromiseDelay(
     () => 700,
     (c: string) => {
       this.data.current = c;
       this.apply();
       this.redraw();
-      return xhr
-        .text('/pref/bg', { body: xhr.form({ bg: c }), method: 'post' })
-        .then(this.reloadAllTheThings, this.announceFail);
+      return xhrText('/pref/bg', { body: xhrForm({ bg: c }), method: 'post' }).then(
+        this.reloadAllTheThings,
+        this.announceFail,
+      );
     },
   );
 
@@ -86,8 +87,7 @@ export class BackgroundCtrl extends PaneCtrl {
   private getImage = () => this.data.image;
   private setImage = (i: string) => {
     this.data.image = i;
-    xhr
-      .textRaw('/pref/bgImg', { body: xhr.form({ bgImg: i }), method: 'post' })
+    xhrTextRaw('/pref/bgImg', { body: xhrForm({ bgImg: i }), method: 'post' })
       .then(res => (res.ok ? res.text() : Promise.reject(res.text())))
       .then(this.reloadAllTheThings, err => err.then(this.announceFail));
     this.apply();
@@ -107,11 +107,12 @@ export class BackgroundCtrl extends PaneCtrl {
             '<style id="bg-data">html.transp::before{background-image:url(' + this.data.image + ');}</style>',
           );
     }
+    pubsub.emit('theme', key);
   };
 
   private imageInput = () =>
     h('div.image', [
-      h('p', this.trans.noarg('backgroundImageUrl')),
+      h('p', i18n.site.backgroundImageUrl),
       h('input', {
         attrs: { type: 'text', placeholder: 'https://', value: this.getImage() },
         hook: {
@@ -144,7 +145,7 @@ export class BackgroundCtrl extends PaneCtrl {
 
     const gallery = this.data.gallery!;
     const cols = window.matchMedia('(min-width: 650px)').matches ? 4 : 2;
-    const montageUrl = site.asset.url(gallery[`montage${cols}`], { version: false });
+    const montageUrl = site.asset.url(gallery[`montage${cols}`]);
     const width =
       cols * (160 + 2) + (gallery.images.length > cols * 4 ? elementScrollBarWidthSlowGuess() : 0);
 

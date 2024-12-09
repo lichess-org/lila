@@ -2,19 +2,17 @@ package lila.bot
 
 import akka.actor.*
 import akka.stream.scaladsl.*
-import scalalib.ThreadLocalRandom
 import play.api.i18n.Lang
 import play.api.libs.json.*
 import play.api.mvc.RequestHeader
+import scalalib.ThreadLocalRandom
 
 import lila.chat.{ Chat, UserLine }
 import lila.common.{ Bus, HTTPRequest }
-import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
-
+import lila.core.game.{ AbortedBy, FinishGame, WithInitialFen }
 import lila.core.misc.map.Tell
-import lila.core.round.BotConnected
-import lila.core.round.QuietFlag
-import lila.core.game.{ WithInitialFen, FinishGame, AbortedBy }
+import lila.core.round.{ BotConnected, QuietFlag }
+import lila.game.actorApi.{ BoardDrawOffer, BoardGone, BoardTakeback, BoardTakebackOffer, MoveGameEvent }
 
 final class GameStateStream(
     onlineApiUsers: OnlineApiUsers,
@@ -123,10 +121,10 @@ final class GameStateStream(
       claimInSeconds.fold(jsonView.opponentGoneIsBack)(jsonView.opponentGoneClaimIn).some
 
     def onGameOver(g: Option[Game]) =
-      g.so(pushState)
-        .andDo:
-          gameOver = true
-          self ! PoisonPill
+      for _ <- g.so(pushState)
+      yield
+        gameOver = true
+        self ! PoisonPill
 
 private object GameStateStream:
 

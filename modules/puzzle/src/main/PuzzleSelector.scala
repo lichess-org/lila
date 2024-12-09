@@ -38,7 +38,7 @@ final class PuzzleSelector(
         def switchPath(withRetries: Int)(tier: PuzzleTier) =
           pathApi
             .nextFor(angle, tier, session.settings.difficulty, session.previousPaths)
-            .orFail(s"No puzzle path for ${me.username} $angle $tier")
+            .orFail(s"No puzzle path for selection ${me.username} $angle $tier")
             .flatMap { pathId =>
               val newSession = session.switchTo(pathId)
               sessionApi.set(newSession)
@@ -48,12 +48,8 @@ final class PuzzleSelector(
         def serveAndMonitor(puzzle: Puzzle) =
           val mon = lila.mon.puzzle.selector.user
           mon.retries(angle.key).record(retries)
-          mon.vote(angle.key).record(100 + math.round(puzzle.vote * 100))
-          mon
-            .ratingDiff(angle.key, session.settings.difficulty.key)
-            .record(math.abs(puzzle.glicko.intRating.value - perf.intRating.value))
-          mon.ratingDev(angle.key).record(puzzle.glicko.intDeviation)
-          mon.tier(session.path.tier.key, angle.key, session.settings.difficulty.key).increment()
+          mon.vote.record(100 + math.round(puzzle.vote * 100))
+          mon.tier(session.path.tier.key, angle.categ, session.settings.difficulty.key).increment()
           puzzle
 
         nextPuzzleResult(session).flatMap:
@@ -126,9 +122,4 @@ final class PuzzleSelector(
                     PuzzleAlreadyPlayed(puzzle)
                   else PuzzleFound(puzzle)
       .monValue: result =>
-        _.puzzle.selector.nextPuzzleResult(
-          theme = session.path.angle.key,
-          difficulty = session.settings.difficulty.key,
-          color = session.settings.color.fold("random")(_.name),
-          result = result.name
-        )
+        _.puzzle.selector.nextPuzzleResult(result.name)

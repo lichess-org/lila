@@ -1,62 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="learnChess">체스 배우기</string>
-  <string name="byPlaying">체스를 배우세요!</string>
+  <string name="byPlaying">플레이하며 체스를 배우세요!</string>
   <string name="menu">메뉴</string>
   <string name="progressX">진행도: %s</string>
-  <string name="resetMyProgress">초기화</string>
-  <string name="youWillLoseAllYourProgress">수정사항은 저장되지 않습니다. 괜찮으시겠어요?</string>
-  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">시작하기!</string>
+  <string name="resetMyProgress">진행도 초기화</string>
+  <string name="youWillLoseAllYourProgress">모든 진행도가 사라집니다!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">시작!</string>
   <string name="chessPieces">체스 기물</string>
   <string name="theRook">룩</string>
   <string name="itMovesInStraightLines">직선으로 움직입니다</string>
-  <string name="rookIntro">루크는 강한 기물입니다. 사용할 준비되셨나요?</string>
-  <string name="rookGoal">루크를 클릭해서 별로 이동시키세요!</string>
-  <string name="grabAllTheStars">모든 별을 잡아봅시다!</string>
-  <string name="theFewerMoves">덜 움직일수록 점수를 더 많이 받습니다!</string>
-  <string name="useTwoRooks">루크 2개를 써서 더 빨리 끝내봅시다!</string>
-  <string name="rookComplete">축하드립니다! 루크 다루기를 성공적으로 마스터하셨습니다.</string>
+  <string name="rookIntro">룩은 강한 기물입니다. 지휘를 내릴 준비가 되셨나요?</string>
+  <string name="rookGoal">룩을 클릭해서 별로 이동시키세요!</string>
+  <string name="grabAllTheStars">모든 별을 잡아보세요!</string>
+  <string name="theFewerMoves">수를 더 적게 둘수록,
+더 많은 포인트를 얻습니다!</string>
+  <string name="useTwoRooks">룩 두개를 써서
+더 빨리 끝내봅시다!</string>
+  <string name="rookComplete">축하드립니다! 룩 다루기를 성공적으로 마스터하셨습니다.</string>
   <string name="theBishop">비숍</string>
-  <string name="itMovesDiagonally">대각선으로 움직입니다.</string>
-  <string name="bishopIntro">비숍을 어떻게 옮기는지 배워볼까요?</string>
-  <string name="youNeedBothBishops">밝은 칸 비숍 한 개, 어두운 칸 비숍 한 개 모두 필요합니다!</string>
+  <string name="itMovesDiagonally">대각선으로 움직입니다</string>
+  <string name="bishopIntro">비숍을 어떻게 옮기는지 배워봅시다!</string>
+  <string name="youNeedBothBishops">밝은 칸 비숍 한 개, 
+어두운 칸 비숍 한 개. 
+둘 다 필요합니다!</string>
   <string name="bishopComplete">축하드립니다! 당신은 비숍을 조종할 수 있습니다.</string>
   <string name="theQueen">퀸</string>
   <string name="queenCombinesRookAndBishop">퀸 = 룩 + 비숍</string>
   <string name="queenIntro">가장 강력한 체스 기물이 입장하십니다. 퀸 여왕 폐하!</string>
-  <string name="queenComplete">축하드립니다! 이제 당신은 퀸에 대해 모르는 것이 없습니다.</string>
+  <string name="queenComplete">축하드립니다! 이제 퀸은 더 이상 비밀이 없습니다.</string>
   <string name="theKing">킹</string>
-  <string name="theMostImportantPiece">제일 중요한 기물</string>
-  <string name="kingIntro">킹은 왕입니다. 킹이 전투에서 잡히면, 게임은 패배합니다.</string>
+  <string name="theMostImportantPiece">가장 중요한 기물</string>
+  <string name="kingIntro">당신은 킹입니다. 당신이 전사하면, 게임을 패합니다.</string>
   <string name="theKingIsSlow">킹은 느립니다.</string>
-  <string name="lastOne">마지막!</string>
-  <string name="kingComplete">이제 지휘관에게 명령 할 수 있습니다!</string>
+  <string name="lastOne">마지막 하나!</string>
+  <string name="kingComplete">이제 지휘관을 지휘 할 수 있습니다!</string>
   <string name="theKnight">나이트</string>
   <string name="itMovesInAnLShape">L자 모양으로 움직입니다</string>
-  <string name="knightIntro">이번엔 어려울 수도 있어요. 나이트는.. 좀 까다로운 말이거든요.</string>
-  <string name="knightsHaveAFancyWay">나이트는 독특한 행마를 선보입니다!</string>
-  <string name="knightsCanJumpOverObstacles">나이트는 장애물을 뛰어넘을 수 있습니다!
+  <string name="knightIntro">이번엔 어려울 수도 있어요. 나이트는.. 좀 까다로운 기물이거든요.</string>
+  <string name="knightsHaveAFancyWay">나이트는 독특한 
+행마를 선보입니다!</string>
+  <string name="knightsCanJumpOverObstacles">나이트들은 장애물을 뛰어넘을 수 있습니다!
 탈출하고 별들을 획득하세요!</string>
-  <string name="knightComplete">축하합니다! 나이트를 다 익히셨군요!</string>
+  <string name="knightComplete">축하합니다! 당신은 이제 나이트를 다루실 수 있습니다.</string>
   <string name="thePawn">폰</string>
   <string name="itMovesForwardOnly">이 말은 앞쪽으로만 전진할 수 있습니다.</string>
   <string name="pawnIntro">폰은 약하지만, 엄청난 잠재력을 가지고 있습니다.</string>
   <string name="pawnsMoveOneSquareOnly">폰은 한 칸씩만 전진할 수 있습니다.
 하지만 폰이 보드의 반대편에 도달하면, 더 강한 말로 승급합니다!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">보통은 퀸으로 승급하는 것이 가장 좋습니다.
+  <string name="mostOfTheTimePromotingToAQueenIsBest">보통은 퀸으로 승진하는 것이 가장 좋습니다.
 하지만 상황에 따라서는 나이트도 괜찮은 선택이에요!</string>
-  <string name="pawnsMoveForward">폰은 평소엔 앞으로만 전진하지만,
-다른 말을 공격할 땐 대각선으로 공격합니다.</string>
-  <string name="captureThenPromote">다른 말을 잡고, 승급하세요!</string>
+  <string name="pawnsMoveForward">폰은 앞으로만 전진하지만,
+기물을 대각선으로 잡습니다!</string>
+  <string name="captureThenPromote">다른 기물을 잡고, 승진하세요!</string>
   <string name="useAllThePawns">모든 폰을 사용하세요!
 승급시킬 필요는 없습니다.</string>
   <string name="aPawnOnTheSecondRank">아직 사용하지 않은 폰은 한번에 두 칸까지도 전진할 수 있습니다!</string>
   <string name="grabAllTheStarsNoNeedToPromote">모든 별을 잡으세요! 
-승급시킬 필요는 없습니다.</string>
+승진시킬 필요는 없습니다.</string>
   <string name="pawnComplete">축하합니다! 이제 폰에 대한 모든 걸 알게 되셨네요.</string>
-  <string name="pawnPromotion">폰 승급</string>
-  <string name="yourPawnReachedTheEndOfTheBoard">당신의 폰이 보드 끝을 도달하였습니다!</string>
-  <string name="itNowPromotesToAStrongerPiece">이제 더 강한 기물로 승급합니다.</string>
+  <string name="pawnPromotion">폰 승진</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">폰이 체스판 끝에 도달하였습니다!</string>
+  <string name="itNowPromotesToAStrongerPiece">이제 더 강한 기물로 승진합니다.</string>
   <string name="selectThePieceYouWant">원하는 말을 고르세요!</string>
   <string name="fundamentals">기본</string>
   <string name="capture">공격</string>
@@ -68,10 +73,11 @@
   <string name="protection">보호</string>
   <string name="keepYourPiecesSafe">당신의 기물을 보호하세요</string>
   <string name="protectionIntro">공격받고 있는 말을 보호하세요!</string>
-  <string name="protectionComplete">축하합니다! 보호해낸 기물은 승리의 초석이 될 거에요!</string>
+  <string name="protectionComplete">축하합니다! 잃지 않은 기물은 잡은 기물이 됩니다!</string>
   <string name="escape">공격받고 있습니다!
 위협에서 벗어나세요!</string>
-  <string name="noEscape">공격권에서 벗어날순 없더라도 막을 순 있어요!</string>
+  <string name="noEscape">탈출 할 수는 없지만,
+방어 할 수는 있어요!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">모든 말들을 보호하세요!</string>
   <string name="combat">전투</string>
   <string name="captureAndDefendPieces">공격하면서 방어하세요</string>
@@ -138,10 +144,12 @@
   <string name="enPassant">앙파상</string>
   <string name="theSpecialPawnMove">폰의 예외적 이동</string>
   <string name="enPassantIntro">상대 폰이 두 칸씩 움직였다 하더라도 폰이 한 칸만 움직인 상황처럼 잡을 수 있습니다.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">상대가 방금 폰을 두 칸 움직였습니다!
-지나가던 폰을 잡아봅시다.
-앙파상을 시도해보세요!</string>
-  <string name="enPassantOnlyWorksImmediately">앙파상은 방금 움직인 폰에 한해서만 적용됩니다.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">방금 흑이 폰을 두 칸
+움직였습니다!
+앙파상을 시도해보세요.</string>
+  <string name="enPassantOnlyWorksImmediately">앙파상은 폰이
+움직인 바로 후에만
+적용됩니다.</string>
   <string name="enPassantOnlyWorksOnFifthRank">또한 앙파상은 당신의 폰이 잡을 상대의 폰과 같은 가로줄에 있을 때에만 할 수 있습니다.</string>
   <string name="takeAllThePawnsEnPassant">모든 폰들을 앙파상으로 잡으세요!</string>
   <string name="enPassantComplete">축하합니다! 이제 지나가던 폰을 놓치진 않겠네요!</string>
@@ -216,6 +224,6 @@
   <string name="next">다음</string>
   <string name="nextX">다음: %s</string>
   <string name="backToMenu">메뉴로 돌아가기</string>
-  <string name="puzzleFailed">잘못된 수입니다</string>
+  <string name="puzzleFailed">퍼즐 실패</string>
   <string name="retry">다시하기</string>
 </resources>

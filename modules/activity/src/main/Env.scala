@@ -3,10 +3,12 @@ package lila.activity
 import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
-import lila.core.config.*
-import lila.core.round.CorresMoveEvent
 import lila.common.Bus
+import lila.core.config.*
 import lila.core.forum.BusForum
+import lila.core.misc.puzzle.{ RacerRun, StormRun, StreakRun }
+import lila.core.misc.streamer.StreamStart
+import lila.core.round.CorresMoveEvent
 
 @Module
 final class Env(
@@ -40,17 +42,19 @@ final class Env(
     },
     "finishPuzzle" -> { case res: lila.puzzle.Puzzle.UserResult =>
       write.puzzle(res)
-    },
-    "stormRun" -> { case lila.core.misc.puzzle.StormRun(userId, score) =>
-      write.storm(userId, score)
-    },
-    "racerRun" -> { case lila.core.misc.puzzle.RacerRun(userId, score) =>
-      write.racer(userId, score)
-    },
-    "streakRun" -> { case lila.core.misc.puzzle.StreakRun(userId, score) =>
-      write.streak(userId, score)
     }
   )
+  Bus.sub[StreakRun]:
+    case StreakRun(userId, score) =>
+      write.streak(userId, score)
+
+  Bus.sub[StormRun]:
+    case StormRun(userId, score) =>
+      write.storm(userId, score)
+
+  Bus.sub[RacerRun]:
+    case RacerRun(userId, score) =>
+      write.racer(userId, score)
 
   Bus.subscribeFun(
     "ublogPost",
@@ -61,7 +65,6 @@ final class Env(
     "plan",
     "relation",
     "startStudy",
-    "streamStart",
     "swissFinish"
   ):
     case lila.core.ublog.UblogPost.Create(post)       => write.ublogPost(post)
@@ -73,10 +76,12 @@ final class Env(
     case lila.core.study.StartStudy(id)               =>
       // wait some time in case the study turns private
       scheduler.scheduleOnce(5 minutes) { write.study(id) }
-    case lila.core.team.TeamCreate(t)                   => write.team(t.id, t.userId)
-    case lila.core.team.JoinTeam(id, userId)            => write.team(id, userId)
-    case lila.core.misc.streamer.StreamStart(userId, _) => write.streamStart(userId)
-    case lila.core.swiss.SwissFinish(swissId, ranking)  => write.swiss(swissId, ranking)
+    case lila.core.team.TeamCreate(t)                  => write.team(t.id, t.userId)
+    case lila.core.team.JoinTeam(id, userId)           => write.team(id, userId)
+    case lila.core.swiss.SwissFinish(swissId, ranking) => write.swiss(swissId, ranking)
+
+  Bus.sub[StreamStart]:
+    case StreamStart(userId, _) => write.streamStart(userId)
 
   Bus.sub[BusForum]:
     case BusForum.CreatePost(post) => write.forumPost(post)

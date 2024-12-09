@@ -31,8 +31,8 @@
   <string name="byOpenings">לפי פתיחות</string>
   <string name="puzzlesByOpenings">חידות לפי פתיחות</string>
   <string name="openingsYouPlayedTheMost">הפתיחות הנפוצות שלך במשחקים מדורגים</string>
-  <string name="useFindInPage">השתמשו ב״חיפוש בעמוד״ בדפדפן כדי למצוא את הפתיחה המועדפת עליכם!</string>
-  <string name="useCtrlF">השתמשו ב-ctrl+F כדי למצוא את הפתיחה המועדפת עליכם!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">השתמשו ב״חיפוש בעמוד״ בדפדפן כדי למצוא את הפתיחה המועדפת עליכם!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">השתמשו ב־ctrl+F כדי למצוא את הפתיחה המועדפת עליכם!</string>
   <string name="notTheMove">זה לא המהלך!</string>
   <string name="trySomethingElse">נסו משהו אחר.</string>
   <string name="ratingX">דירוג: %s</string>
@@ -72,7 +72,7 @@
   <string name="strengths">חוזקות</string>
   <string name="history">חידות קודמות</string>
   <string name="solved">פתרת</string>
-  <string name="failed">שגית</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">שגית</string>
   <string name="streakDescription">פתרו חידות ברמת קושי עולה וצברו רצף של ניצחונות. אין שעון, אז קחו את הזמן. מהלך שגוי אחד, והמשחק נגמר! אבל את/ה יכול/ה לדלג על מהלך אחד בכל הפעלה.</string>
   <string name="yourStreakX">הרצף שלך: %s</string>
   <string name="streakSkipExplanation">דלג/י על מהלך זה כדי לשמור על הרצף שלך! ניתן לדלג רק פעם אחת בכל הפעלה.</string>

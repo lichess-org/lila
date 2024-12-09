@@ -1,16 +1,16 @@
 package lila.forum
 
+import scalalib.paginator.*
+
 import lila.common.Bus
 import lila.common.String.noShouting
 import lila.core.config.NetDomain
-import scalalib.paginator.*
-import lila.db.dsl.{ *, given }
-import lila.core.shutup.{ ShutupApi, PublicSource }
-import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
 import lila.core.forum.BusForum.CreatePost
-import lila.memo.CacheApi
-import lila.mon.forum.topic
 import lila.core.perm.Granter as MasterGranter
+import lila.core.shutup.{ PublicSource, ShutupApi }
+import lila.core.timeline.{ ForumPost as TimelinePost, Propagate }
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi
 
 final private class ForumTopicApi(
     postRepo: ForumPostRepo,
@@ -39,11 +39,7 @@ final private class ForumTopicApi(
       .flatMapz: topic =>
         show(categId, slug, topic.lastPage(config.postMaxPerPage))
 
-  def show(
-      categId: ForumCategId,
-      slug: String,
-      page: Int
-  )(using
+  def show(categId: ForumCategId, slug: String, page: Int)(using
       NetDomain
   )(using me: Option[Me]): Fu[Option[(ForumCateg, ForumTopic, Paginator[ForumPost.WithFrag])]] =
     for
@@ -107,9 +103,9 @@ final private class ForumTopicApi(
         case Some(dup) => fuccess(dup)
         case None =>
           for
-            _ <- postRepo.coll.insert.one(post)
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- postRepo.coll.insert.one(post)
           yield
             promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
@@ -155,9 +151,9 @@ final private class ForumTopicApi(
     }
 
   private def makeNewTopic(categ: ForumCateg, topic: ForumTopic, post: ForumPost) = for
-    _ <- postRepo.coll.insert.one(post)
     _ <- topicRepo.coll.insert.one(topic.withPost(post))
     _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+    _ <- postRepo.coll.insert.one(post)
   yield Bus.pub(CreatePost(post.mini))
 
   def getSticky(categ: ForumCateg, forUser: Option[User]): Fu[List[TopicView]] =
@@ -219,3 +215,12 @@ final private class ForumTopicApi(
               _ <- categRepo.coll.update
                 .one($id(cat.id), cat.withoutTopic(topic, lastPostId, lastPostIdTroll))
             yield ()
+
+  def relocate(fromTopic: ForumTopic, to: ForumCategId)(using Me): Fu[ForumTopic] =
+    val topic = fromTopic.copy(
+      slug = s"${fromTopic.slug}-${scalalib.ThreadLocalRandom.nextString(4)}"
+    )
+    for
+      _ <- topicRepo.coll.update.one($id(topic.id), $set("categId" -> to, "slug" -> topic.slug))
+      _ <- postRepo.coll.update.one($doc("topicId" -> topic.id), $set("categId" -> to))
+    yield topic

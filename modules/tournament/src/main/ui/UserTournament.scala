@@ -3,10 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
 import lila.core.i18n.Translate
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UserTournament(helpers: Helpers, ui: TournamentUi):
   import helpers.{ *, given }
@@ -185,7 +185,7 @@ final class UserTournament(helpers: Helpers, ui: TournamentUi):
               trans.arena.bestResults()
             ),
             a(cls := path.active("chart"), href := routes.UserTournament.path(u.username, "chart"))(
-              trans.arena.stats()
+              trans.site.stats()
             )
           ),
           div(cls := "page-menu__content box")(body)

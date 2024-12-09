@@ -6,6 +6,7 @@
     <item quantity="other">%s 直播</item>
   </plurals>
   <string name="liveBroadcasts">赛事转播</string>
+  <string name="broadcastCalendar">转播日程表</string>
   <string name="newBroadcast">新建实况转播</string>
   <string name="subscribedBroadcasts">已订阅的转播</string>
   <string name="aboutBroadcasts">关于转播</string>
@@ -22,14 +23,10 @@
   <string name="tournamentDescription">锦标赛简短描述</string>
   <string name="fullDescription">赛事详情</string>
   <string name="fullDescriptionHelp">转播内容的详细描述 (可选）。可以使用 %1$s，字数少于 %2$s 个。</string>
-  <string name="sourceUrlOrGameIds">资源的 URL 链接或对局 ID</string>
+  <string name="sourceSingleUrl">PGN的URL源</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
-  <string name="gameIdsHelp">你也可以输入最长 64 个字符的 Lichess 对局 ID，用空格隔开。</string>
-  <string name="startDate">开始日期，在你的本地时区</string>
+  <string name="sourceGameIds">多达64个 Lichess 棋局Id，用空格隔开。</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
-  <string name="credits">信任来源</string>
-  <string name="broadcastUrl">直播链接</string>
-  <string name="currentRoundUrl">当前一轮链接</string>
   <string name="currentGameUrl">当前棋局链接</string>
   <string name="downloadAllRounds">下载所有棋局</string>
   <string name="resetRound">重置此轮</string>
@@ -39,9 +36,17 @@
   <string name="editRoundStudy">编辑该轮次的棋局研究</string>
   <string name="deleteTournament">删除该锦标赛</string>
   <string name="definitivelyDeleteTournament">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
-  <string name="automaticLeaderboard">自动生成排行榜</string>
-  <string name="automaticLeaderboardHelp">根据对局结果计算并显示一个简单的排行榜</string>
+  <string name="showScores">根据比赛结果显示棋手分数</string>
   <string name="replacePlayerTags">可选项：替换选手的名字、等级分和头衔</string>
-  <string name="periodInSeconds">时长（秒）</string>
-  <string name="periodInSecondsHelp">可选项，请求之间等待多长时间。最小2秒，最大60秒。默认值为基于观众数量的自动值。</string>
+  <string name="fideFederations">FIDE 成员国</string>
+  <string name="top10Rating">前10名等级分</string>
+  <string name="fidePlayers">FIDE 棋手</string>
+  <string name="fidePlayerNotFound">未找到 FIDE 棋手</string>
+  <string name="fideProfile">FIDE个人资料</string>
+  <string name="federation">棋联</string>
+  <string name="ageThisYear">今年的年龄</string>
+  <string name="unrated">未评级</string>
+  <string name="recentTournaments">最近的比赛</string>
+  <string name="pastBroadcasts">结束的转播</string>
+  <string name="allBroadcastsByMonth">按月查看所有转播</string>
 </resources>

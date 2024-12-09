@@ -1,6 +1,8 @@
 import { h } from 'snabbdom';
-import LobbyController from '../ctrl';
-import { NowPlaying } from '../interfaces';
+import type LobbyController from '../ctrl';
+import type { NowPlaying } from '../interfaces';
+import { initMiniBoard } from 'common/miniBoard';
+import { timeago } from 'common/i18n';
 
 function timer(pov: NowPlaying) {
   const date = Date.now() + pov.secondsLeft! * 1000;
@@ -13,7 +15,7 @@ function timer(pov: NowPlaying) {
         },
       },
     },
-    site.timeago(date),
+    timeago(date),
   );
 }
 
@@ -24,22 +26,18 @@ export default function (ctrl: LobbyController) {
       h('a.' + pov.variant.key, { key: `${pov.gameId}${pov.lastMove}`, attrs: { href: '/' + pov.fullId } }, [
         h('span.mini-board.cg-wrap.is2d', {
           attrs: { 'data-state': `${pov.fen},${pov.orientation || pov.color},${pov.lastMove}` },
-          hook: {
-            insert(vnode) {
-              site.miniBoard.init(vnode.elm as HTMLElement);
-            },
-          },
+          hook: { insert: vnode => initMiniBoard(vnode.elm as HTMLElement) },
         }),
         h('span.meta', [
           pov.opponent.ai
-            ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai)
+            ? i18n.site.aiNameLevelAiLevel('Stockfish', pov.opponent.ai)
             : pov.opponent.username,
           h(
             'span.indicator',
             pov.isMyTurn
               ? pov.secondsLeft && pov.hasMoved
                 ? timer(pov)
-                : [ctrl.trans.noarg('yourTurn')]
+                : [i18n.site.yourTurn]
               : h('span', '\xa0'),
           ), // &nbsp;
         ]),

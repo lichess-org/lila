@@ -112,7 +112,6 @@
   <string name="replayMode">Դիտել կրկնապատկերը</string>
   <string name="realtimeReplay">Ինչպես պարտիայում</string>
   <string name="byCPL">Ըստ սխալների</string>
-  <string name="openStudy">Բացել ուսուցումը</string>
   <string name="enable">Միացնել</string>
   <string name="bestMoveArrow">Լավագույն քայլի սլաքը</string>
   <string name="showVariationArrows">Ցուցադրել տարբերակների սլաքները</string>
@@ -122,7 +121,6 @@
   <string name="memory">Հիշողություն</string>
   <string name="infiniteAnalysis">Անվերջ վերլուծություն</string>
   <string name="removesTheDepthLimit">Վերացնում է խորության սահմանափակումը և տաք պահում ձեր համակարգիչը</string>
-  <string name="engineManager">Շարժիչի մենեջեր</string>
   <string name="blunder">Վրիպում</string>
   <string name="mistake">Սխալ</string>
   <string name="inaccuracy">Անճշտություն</string>
@@ -429,7 +427,6 @@
   <string name="block">Արգելափակել</string>
   <string name="blocked">Արգելափակված է</string>
   <string name="unblock">Հանել արգելափակումը</string>
-  <string name="followsYou">Հետևում են ձեզ</string>
   <string name="xStartedFollowingY">%1$s-ը այժմ հետևում է %2$s-ին</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s հետևողներ</item>
@@ -461,9 +458,6 @@
   <string name="safeTournamentName">Ընտրեք շատ ապահով անվանում մրցաշարի համար։</string>
   <string name="inappropriateNameWarning">Եթե անվանումը թվա նույնիսկ փոքր-ինչ անհարիր, Ձեզ կարող են արգելափակել։</string>
   <string name="emptyTournamentName">Թողեք դատարկ` մրցաշարը պատահական գրոսմայստերի պատվին կոչելու համար։</string>
-  <string name="recommendNotTouching">Խորհուրդ չենք տալիս սահմանել այդ պայմանները։</string>
-  <string name="fewerPlayers">Եթե Դուք սահմանեք մասնակցության պայմանները, Ձեր մրցաշարին կարող են մասնակցել ավելի քիչ թվով խաղացողներ։</string>
-  <string name="showAdvancedSettings">Ցույց տալ ընդլայնված կարգավորումները</string>
   <string name="makePrivateTournament">Մրցաշարը դարձնել փակ և մուտքը սահմանափակել գաղտնաբառով</string>
   <string name="join">Միանալ</string>
   <string name="withdraw">Չեղարկել</string>
@@ -502,8 +496,6 @@
   <string name="ifNoneLeaveEmpty">Կամ թողնել դատարկ</string>
   <string name="profile">Պրոֆիլ</string>
   <string name="editProfile">Խմբագրել անձնագիրը</string>
-  <string name="firstName">Անուն</string>
-  <string name="lastName">Ազգանուն</string>
   <string name="biography">Կենսագրություն</string>
   <string name="thankYou">Շնորհակալությո՛ւն։</string>
   <string name="socialMediaLinks">Հղումներ սոցցանցերին</string>
@@ -545,11 +537,8 @@
   <string name="reason">Պատճառ</string>
   <string name="whatIsIheMatter">Ի՞նչ է պատահել</string>
   <string name="cheat">խաբեբա</string>
-  <string name="insult">վիրավորանք</string>
   <string name="troll">Թրոլինգ</string>
-  <string name="ratingManipulation">Կեղծարարություններ վարկանիշի հետ</string>
   <string name="other">այլ</string>
-  <string name="reportDescriptionHelp">Կիսվեք մեզ հետ Այն խաղերի հղումներով, որտեղ կարծում եք, որ կանոնները խախտվել են և նկարագրեք, թե ինչն է սխալ: Բավական չէ պարզապես գրել \"Նա խարդախում է\", խնդրում ենք նկարագրել, թե ինչպես եք եկել այս եզրակացության: Մենք ավելի արագ կաշխատենք, եթե գրեք անգլերեն:</string>
   <string name="error.provideOneCheatedGameLink">Խնդրում ենք ավելացնել առնվազն մեկ խաղի հղում, որտեղ ձեր կարծիքով խախտվել են կանոնները:</string>
   <string name="by">ըստ %s</string>
   <string name="importedByX">Ներմուծվել է %s-ի կողմից</string>
@@ -666,7 +655,7 @@
   <string name="aboutSimulRules">Երբ սկսվում է միաժամանակյա խաղաշարը, յուրաքանչյուր խաղացող սկսում է պարտիան խաղաշարն անցկացնողի հետ, որը խաղում է սպիտակներով։ Խաղաշարն ավարտվում է, երբ խաղացվում են բոլոր պարտիաները։</string>
   <string name="aboutSimulSettings">Միաժամանակյա խաղաշարերը չեն ենթադրում վարկանիշային պարտիաներ։ Վերախաղարկումները, քայլերի չեղարկումները և ժամանակի հավելումները արգելված են։</string>
   <string name="create">Ստեղծել</string>
-  <string name="whenCreateSimul">Եթե ստեղծեք միաժամանակյա խաղաշար, ստիպված կլինեք խաղալու միաժամանակ մի քանի խաղացողի դեմ։</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Եթե ստեղծեք միաժամանակյա խաղաշար, ստիպված կլինեք խաղալու միաժամանակ մի քանի խաղացողի դեմ։</string>
   <string name="simulVariantsHint">Եթե ընտրեք խաղի մի քանի տարբերակ, յուրաքանչյուր խաղացող կընտրի դրանցից այն մեկը, որը կցանկանա խաղալ ձեզ հետ։</string>
   <string name="simulClockHint">Ֆիշերի ժամացույցի կարգավորումներ։ Որքան շատ մրցակից ունենաք, այնքան շատ ժամանակ ձեզ պետք կգա։</string>
   <string name="simulAddExtraTime">Պարտիաներում մտորելու համար դուք կարող եք ստանալ լրացուցիչ ժամանակ։</string>

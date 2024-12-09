@@ -1,8 +1,8 @@
 package lila.tree
 
-import play.api.libs.json.JsObject
-import chess.{ Color, Ply }
 import chess.format.pgn.{ Pgn, PgnStr }
+import chess.{ Color, Ply }
+import play.api.libs.json.JsObject
 
 case class AnalysisProgress(payload: () => JsObject)
 case class StudyAnalysisProgress(analysis: Analysis, complete: Boolean)

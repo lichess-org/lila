@@ -6,7 +6,7 @@
   <string name="newTeam">ନୂଆ ଦଳ</string>
   <string name="myTeams">ମୋର ଦଳଗୁଡିକ</string>
   <string name="noTeamFound">କୋଣସି ଦଳ ମିଳିଲା ନାହିଁ</string>
-  <string name="joinTeam">ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">ଦଳରେ ଯୋଗ ଦିଅନ୍ତୁ</string>
   <string name="onlyLeaderLeavesTeam">ଛାଡ଼ିଯିବା ଆଗରୁ ଦୟାକରି ଦଳରେ ଜଣେ ନୂଆ ନେତା ଯୋଡ଼ନ୍ତୁ, କିମ୍ବା ଦଳକୁ ବନ୍ଦ କରିଦିଅନ୍ତୁ।</string>
   <string name="quitTeam">ଦଳ ଛାଡନ୍ତୁ</string>
   <plurals name="teamLeaders">

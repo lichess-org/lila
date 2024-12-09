@@ -4,7 +4,7 @@
   <string name="dgtBoardRequirements">Domosdoshmëri Fushe DGT</string>
   <string name="dgtBoardLimitations">Kufizime Fushe DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Kjo faqe ju lejon të lidhni fushën tuaj DGT në Lichess dhe ta përdorni për të luajtur lojëra.</string>
-  <string name="toConnectTheDgtBoard">Për të lidhur Fushën Elektronike DGT do t’ju duhet të instaloni %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Për të lidhur Fushën Elektronike DGT do t’ju duhet të instaloni %s.</string>
   <string name="downloadHere">Software-in mund ta shkarkoni prej këtu: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Nëse %1$s po xhiron në këtë kompjuter, lidhjen tuaj me të mund ta kontrolloni duke %2$s.</string>
   <string name="openingThisLink">hapur këtë lidhje</string>

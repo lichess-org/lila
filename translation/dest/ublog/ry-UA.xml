@@ -26,7 +26,7 @@
   <string name="xPublishedY">%1$s уклав %2$s</string>
   <string name="thisPostIsPublished">Публікація укладена</string>
   <string name="thisIsADraft">Се зарис</string>
-  <string name="moreBlogPostsBy">Булше публікацій од %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Булше публікацій од %s</string>
   <string name="noPostsInThisBlogYet">Туй щи нико нич не писав.</string>
   <string name="noDrafts">Не є зарисув які мож побзерати.</string>
   <string name="latestBlogPosts">Послідні публікації</string>
@@ -39,7 +39,6 @@
   <string name="imageAlt">Опис образчика</string>
   <string name="imageCredit">Права на образчик</string>
   <string name="deleteBlog">Докус стерти сю публікацію</string>
-  <string name="deleteImage">Стерти образчик</string>
   <string name="safeToUseImages">Мож безопасно хосновати образчикы 
 из такых сайтув: </string>
   <string name="selectPostTopics">Уберіт тему свої публікації</string>

@@ -25,7 +25,7 @@
   <string name="blackIsVictorious">Ater victor est</string>
   <string name="youPlayTheWhitePieces">ludis cales albas</string>
   <string name="youPlayTheBlackPieces">ludis cales nigras</string>
-  <string name="itsYourTurn">te ordo vocat!</string>
+  <string name="itsYourTurn">Tuum vertere est!</string>
   <string name="cheatDetected">Fallacia inventum est</string>
   <string name="kingInTheCenter">Rex in centro</string>
   <string name="threeChecks">Tres scacci</string>
@@ -103,7 +103,6 @@
   <string name="replayMode">Modus remonstrabilem</string>
   <string name="realtimeReplay">Praesens tempus</string>
   <string name="byCPL">Ab DCP</string>
-  <string name="openStudy">Aperire explorationem</string>
   <string name="enable">Habilitare</string>
   <string name="bestMoveArrow">Optimus adnotamentum actionis</string>
   <string name="evaluationGauge">Metior iudicium</string>
@@ -368,7 +367,6 @@
   <string name="block">Excludere</string>
   <string name="blocked">Clausus est</string>
   <string name="unblock">Admittere</string>
-  <string name="followsYou">Sequens te</string>
   <string name="xStartedFollowingY">%1$s sequitur %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s spectatores</item>
@@ -396,8 +394,6 @@
   <string name="createANewTournament">Facere certamen novum</string>
   <string name="tournamentCalendar">Tabula certaminum</string>
   <string name="advancedSettings">Occasus provectus</string>
-  <string name="recommendNotTouching">Commendamus te non hos mutare.</string>
-  <string name="showAdvancedSettings">Ostende occasus provectus</string>
   <string name="join">Iungere</string>
   <string name="withdraw">Decedere</string>
   <string name="points">Puncta</string>
@@ -425,8 +421,6 @@
   <string name="xRating">Gradus %s</string>
   <string name="profile">Codex</string>
   <string name="editProfile">Mutare codicem</string>
-  <string name="firstName">Praenomen</string>
-  <string name="lastName">Nomen gentilicium</string>
   <string name="biography">Biographia</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="previouslyOnLichessTV">Prius in Lichess TV</string>
@@ -461,10 +455,8 @@
   <string name="reason">Ratio</string>
   <string name="whatIsIheMatter">Quid est?</string>
   <string name="cheat">Fraus</string>
-  <string name="insult">Iniuria</string>
   <string name="troll">Barbarus</string>
   <string name="other">Alia</string>
-  <string name="reportDescriptionHelp">Glutina inscriptionem lud(i/orum) et explica quid de moribus usuarii malum est.</string>
   <string name="by">ab %s</string>
   <string name="importedByX">Impositum ab %s</string>
   <string name="thisTopicIsNowClosed">Haec thema nunc clausa est.</string>
@@ -563,7 +555,7 @@
   <string name="aboutSimulRules">Cum simultanea incepit, omnes lusores ludum cum hospite incipiunt, qui cum calculis albis ludit. Cum omnes ludi finiti sunt, sumultanea completa erit.</string>
   <string name="aboutSimulSettings">Simultaneae semper leviores sunt. Vindictas, receptus, atque \"plus temporis\" tibi non licet.</string>
   <string name="create">Creare</string>
-  <string name="whenCreateSimul">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cum simultaneam exhibitionem creas, plures lusores una ludis.</string>
   <string name="simulVariantsHint">Si variationes plures legis quas ludere quisque lusor eligere potest.</string>
   <string name="simulClockHint">Fischer Horologica fabrica. Tot lusores ludeabis ut plurem tempus requireas.</string>
   <string name="simulAddExtraTime">Plurem tempus in tuo horologio addeas ut exhibitio simultanea molliatur.</string>

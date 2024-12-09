@@ -1,4 +1,7 @@
 import * as xhr from 'common/xhr';
+import { wsConnect, wsSend } from 'common/socket';
+import { userComplete } from 'common/userComplete';
+import { isTouchDevice, isIos } from 'common/device';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -6,25 +9,21 @@ interface ChallengeOpts {
   data: any;
 }
 
-export function initModule(opts: ChallengeOpts) {
+export function initModule(opts: ChallengeOpts): void {
   const selector = '.challenge-page';
   let accepting: boolean;
 
-  site.socket = new site.StrongSocket(
-    `/challenge/${opts.data.challenge.id}/socket/v5`,
-    opts.data.socketVersion,
-    {
-      events: {
-        reload() {
-          xhr.text(opts.xhrUrl).then(html => {
-            $(selector).replaceWith($(html).find(selector));
-            init();
-            site.contentLoaded($(selector)[0]);
-          });
-        },
+  wsConnect(`/challenge/${opts.data.challenge.id}/socket/v5`, opts.data.socketVersion, {
+    events: {
+      reload() {
+        xhr.text(opts.xhrUrl).then(html => {
+          $(selector).replaceWith($(html).find(selector));
+          init();
+          window.lichess.initializeDom($(selector)[0]);
+        });
       },
     },
-  );
+  });
 
   function init() {
     if (!accepting)
@@ -48,7 +47,7 @@ export function initModule(opts: ChallengeOpts) {
       .find('input.friend-autocomplete')
       .each(function (this: HTMLInputElement) {
         const input = this;
-        site.asset.userComplete({
+        userComplete({
           input: input,
           friend: true,
           tag: 'span',
@@ -67,13 +66,31 @@ export function initModule(opts: ChallengeOpts) {
             this.submit();
           });
       });
+    if (isTouchDevice() && typeof navigator.share === 'function') {
+      const inviteUrl = document.querySelector<HTMLElement>('.invite__url');
+      if (!inviteUrl) return;
+      inviteUrl.classList.add('none');
+
+      const instructions = document.querySelector<HTMLElement>(`.mobile-instructions`)!;
+      instructions.classList.remove('none');
+      if (isIos()) instructions.classList.add('is-ios');
+
+      instructions.role = 'button';
+      instructions.onclick = () =>
+        navigator
+          .share({
+            title: `Fancy a game of chess?`,
+            url: inviteUrl.querySelector<HTMLInputElement>('input')?.value,
+          })
+          .catch(() => {});
+    }
   }
 
   init();
 
   function pingNow() {
     if (document.getElementById('ping-challenge')) {
-      site.socket.send('ping');
+      wsSend('ping');
       setTimeout(pingNow, 9000);
     }
   }

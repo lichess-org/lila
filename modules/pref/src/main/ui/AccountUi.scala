@@ -1,9 +1,7 @@
 package lila.pref
 package ui
-
-import play.api.data.Form
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class AccountUi(helpers: Helpers):
@@ -12,7 +10,7 @@ final class AccountUi(helpers: Helpers):
   def AccountPage(title: String, active: String)(using lila.ui.Context) =
     Page(title)
       .css("bits.account")
-      .js(EsmInit("bits.account"))
+      .js(Esm("bits.account"))
       .wrap: body =>
         main(cls := "account page-menu")(
           menu(active),

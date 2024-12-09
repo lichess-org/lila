@@ -3,10 +3,11 @@ package lila.tournament
 import play.api.libs.json.*
 
 import lila.common.Json.given
+import lila.core.i18n.Translate
 import lila.gathering.Condition
 import lila.gathering.ConditionHandlers.JSONHandlers.given
+import lila.gathering.GatheringJson.*
 import lila.rating.PerfType
-import lila.core.i18n.Translate
 
 final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executor):
 
@@ -63,7 +64,7 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       .add("onlyTitled", tour.conditions.titled.isDefined)
       .add("teamMember", tour.conditions.teamMember.map(_.teamId))
       .add("private", tour.isPrivate)
-      .add("position", tour.position.map(positionJson))
+      .add("position", tour.position.map(position))
       .add("schedule", tour.schedule.map(scheduleJson))
       .add(
         "teamBattle",
@@ -76,15 +77,20 @@ final class ApiJsonView(lightUserApi: lila.core.user.LightUserApi)(using Executo
       )
 
   def fullJson(tour: Tournament)(using Translate): Fu[JsObject] =
-    (tour.winnerId.so(lightUserApi.async)).map { winner =>
-      baseJson(tour).add("winner" -> winner.map(userJson))
+    tour.winnerId.so(lightUserApi.async).map { winner =>
+      baseJson(tour).add("winner" -> winner)
     }
 
-  private def userJson(u: lila.core.LightUser) =
+  def byPlayer(e: LeaderboardApi.TourEntry)(using Translate): JsObject =
     Json.obj(
-      "id"    -> u.id,
-      "name"  -> u.name,
-      "title" -> u.title
+      "tournament" -> baseJson(e.tour),
+      "player" -> Json
+        .obj(
+          "games" -> e.entry.nbGames,
+          "score" -> e.entry.score,
+          "rank"  -> e.entry.rank
+        )
+        .add("performance" -> e.performance)
     )
 
   private val perfPositions: Map[PerfKey, Int] = {

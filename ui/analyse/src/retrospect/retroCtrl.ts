@@ -2,15 +2,12 @@ import { opposite } from 'chessground/util';
 import { evalSwings } from '../nodeFinder';
 import { winningChances } from 'ceval';
 import { path as treePath } from 'tree';
-import { isEmpty, Prop, prop } from 'common';
-import { OpeningData } from '../explorer/interfaces';
-import AnalyseCtrl from '../ctrl';
-import { Redraw } from '../interfaces';
+import { isEmpty, type Prop, prop } from 'common';
+import type { OpeningData } from '../explorer/interfaces';
+import type AnalyseCtrl from '../ctrl';
 
 export interface RetroCtrl {
   isSolving(): boolean;
-  trans: Trans;
-  noarg: TransNoArg;
   current: Prop<Retrospection | null>;
   feedback: Prop<Feedback>;
   color: Color;
@@ -61,7 +58,7 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
   }
 
   function findNextNode(): Tree.Node | undefined {
-    const colorModulo = color == 'white' ? 1 : 0;
+    const colorModulo = color === 'white' ? 1 : 0;
     candidateNodes = evalSwings(
       root.mainline,
       n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply),
@@ -134,10 +131,14 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.includes(node.uci!)) onWin(); // found in opening explorer
-      else if (node.san?.endsWith('#')) onWin(); // checkmate ends the game
-      else if (node.comp) onWin(); // the computer solution line
-      else if (node.eval) onFail(); // the move that was played in the game
+      if (cur.openingUcis.includes(node.uci!))
+        onWin(); // found in opening explorer
+      else if (node.san?.endsWith('#'))
+        onWin(); // checkmate ends the game
+      else if (node.comp)
+        onWin(); // the computer solution line
+      else if (node.eval)
+        onFail(); // the move that was played in the game
       else {
         feedback('eval');
         if (!root.ceval.enabled()) root.toggleCeval();
@@ -247,11 +248,9 @@ export function make(root: AnalyseCtrl, color: Color): RetroCtrl {
     },
     preventGoingToNextMove: () => {
       const cur = current();
-      return isSolving() && !!cur && root.path == cur.prev.path;
+      return isSolving() && !!cur && root.path === cur.prev.path;
     },
     close: root.toggleRetro,
-    trans: root.trans,
-    noarg: root.trans.noarg,
     node: () => root.node,
     redraw,
   };

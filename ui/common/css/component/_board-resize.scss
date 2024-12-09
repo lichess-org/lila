@@ -15,7 +15,7 @@ cg-resize {
     width: $resize-width;
     height: $resize-width;
     cursor: nwse-resize;
-    z-index: 10;
+    z-index: $z-cg__board_resize-10;
 
     &::before,
     &::after {

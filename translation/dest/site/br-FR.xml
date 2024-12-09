@@ -112,7 +112,6 @@
   <string name="replayMode">Mod adwelet</string>
   <string name="realtimeReplay">Amzer wirion</string>
   <string name="byCPL">Dre CPL</string>
-  <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
   <string name="bestMoveArrow">Bir ar gwellañ fiñvadenn</string>
   <string name="evaluationGauge">Jaoj priziañ</string>
@@ -120,7 +119,6 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
-  <string name="engineManager">Merañ an urzhiataer</string>
   <string name="blunder">Bourd</string>
   <string name="mistake">Fazi</string>
   <string name="inaccuracy">Diresisted</string>
@@ -498,7 +496,6 @@
   <string name="block">Stankañ</string>
   <string name="blocked">Stanket</string>
   <string name="unblock">Distankañ</string>
-  <string name="followsYou">Ho heuilh</string>
   <string name="xStartedFollowingY">%1$s zo krog da heuliañ %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s den o heuliañ</item>
@@ -539,9 +536,6 @@
   <string name="safeTournamentName">Choazit un anv dereat-tre evit an tournamant.</string>
   <string name="inappropriateNameWarning">Un draig ha ne vefe ket dereat a vefe trawalc\'h evit ma serrfemp ho kont.</string>
   <string name="emptyTournamentName">Laoskit goullo evit envel an tournamant diouzh anv ur c\'hoarier echedoù brudet.</string>
-  <string name="recommendNotTouching">Gwelloc\'h eo deoc\'h chom hep kemm anezhe.</string>
-  <string name="fewerPlayers">Ma c\'houlennit strishadurioù evit mont-tre e vo nebeutoc\'h a c\'hoarierien o kemer perzh en ho tournamant.</string>
-  <string name="showAdvancedSettings">Diskouez an arventennoù kempleshoc\'h</string>
   <string name="makePrivateTournament">Gallout a rit krouiñ un tournamant prevez oc\'h ouzhpennañ ur ger-tremen</string>
   <string name="join">Kemer perzh</string>
   <string name="withdraw">Dilezel</string>
@@ -580,8 +574,6 @@
   <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Aozañ ar profil</string>
-  <string name="firstName">Anv</string>
-  <string name="lastName">Anv familh</string>
   <string name="biography">Diwar ho penn</string>
   <string name="thankYou">Trugarez!</string>
   <string name="socialMediaLinks">Liammoù ar mediaoù sokial</string>
@@ -624,11 +616,8 @@
   <string name="reason">Abeg</string>
   <string name="whatIsIheMatter">Peseurt kudenn zo?</string>
   <string name="cheat">Trucherezh</string>
-  <string name="insult">Kunujenn</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Itrikañ renkadur</string>
   <string name="other">All</string>
-  <string name="reportDescriptionHelp">Pegit liamm ar c\'hrogad(où) ha displegit ar pezh a ya a-dreuz gant emzalc\'h oc\'h enebour. Lâret \"o truchañ emañ\" ne vo ket trawalc\'h, ret eo displegañ mat. Buanoc\'h e pledimp ganti ma skrivit e saozneg.</string>
   <string name="error.provideOneCheatedGameLink">Roit d\'an nebeutañ ul liamm hag a gas d\'ur c\'hrogad trucherezh ennañ.</string>
   <string name="by">gant %s</string>
   <string name="importedByX">Enportzhiet gant %s</string>
@@ -753,7 +742,7 @@
   <string name="aboutSimulRules">Pa grog an abadenn gempred e krog pep krogad gant an ostiz ivez. Gantañ e vez c\'hoariet ar re wenn. Ur wech echu an holl grogadoù e vo fin an abadenn gempred.</string>
   <string name="aboutSimulSettings">Krogadoù a vignoniezh eo an abadennoù kempred bepred. Kinnigoù c\'hoari en-dro, nullañ ar fiñvadenn ziwezhañ pe ouzhpennañ amzer zo diweredekaet.</string>
   <string name="create">Krouiñ</string>
-  <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
   <string name="simulClockHint">Aozet an horolaj e mod Fischer. Seul vuioc\'h a c\'hoarierien seul vuioc\'h a amzer ho po ezhomm da gaout.</string>
   <string name="simulAddExtraTime">Gallout a rit lakaat amzer ouzhpenn d\'ho horolaj, evit ho sikour d\'ober war-dro ar bartienn gempred.</string>

@@ -13,7 +13,7 @@
   <string name="newTeam">Nový tým</string>
   <string name="myTeams">Moje týmy</string>
   <string name="noTeamFound">Nenalezen žádný tým</string>
-  <string name="joinTeam">Připojte se k týmu</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Připojte se k týmu</string>
   <string name="onlyLeaderLeavesTeam">Prosím přidejte jiného vedoucího týmu před opuštěním, nebo tým smažte.</string>
   <string name="quitTeam">Odejít z týmu</string>
   <string name="manuallyReviewAdmissionRequests">Ruční přezkoumání žádostí o přijetí</string>
@@ -62,7 +62,7 @@ Hráči, kteří si nepřejí dostávat vaše zprávy mohou opustit tým.</strin
   <string name="joinLichessVariantTeam">Připojte se k oficiálnímu týmu %s pro novinky a události</string>
   <string name="teamPage">Týmová stránka</string>
   <string name="thisTeamBattleIsOver">Tento turnaj skončil a týmy již nemohou být aktualizovány.</string>
-  <string name="listTheTeamsThatWillCompete">Uveďte týmy, které se zúčastní této bitvy.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Uveďte týmy, které se zúčastní této bitvy.</string>
   <string name="oneTeamPerLine">Jeden tým na řádek. Použijte automatické dokončování.</string>
   <string name="oneTeamPerLineHelp">Tento seznam můžete zkopírovat a vložit z jednoho turnaje do druhého!
 

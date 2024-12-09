@@ -1,10 +1,12 @@
-import { h, VNode } from 'snabbdom';
-import { onInsert, MaybeVNodes } from 'common/snabbdom';
+import { h, type VNode } from 'snabbdom';
+import { onInsert, type MaybeVNodes } from 'common/snabbdom';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';
 import { joinWithTeamSelector } from './battle';
-import TournamentController from '../ctrl';
+import type TournamentController from '../ctrl';
+import { watchers } from 'common/watchers';
+import { makeChat } from 'chat';
 
 export default function (ctrl: TournamentController) {
   let handler: {
@@ -20,7 +22,7 @@ export default function (ctrl: TournamentController) {
     h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
-        ctrl.opts.chat && site.makeChat(ctrl.opts.chat);
+        ctrl.opts.chat && makeChat(ctrl.opts.chat);
       }),
     }),
     h('div.tour__underchat', {
@@ -35,7 +37,7 @@ export default function (ctrl: TournamentController) {
         handler.main(ctrl),
       ),
     ),
-    ctrl.opts.chat ? h('div.chat__members.none', { hook: onInsert(site.watchers) }) : null,
+    ctrl.opts.chat ? h('div.chat__members.none', { hook: onInsert(watchers) }) : null,
     ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null,
   ]);
 }

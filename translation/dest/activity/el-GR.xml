@@ -34,6 +34,10 @@
     <item quantity="one">Ολοκλήρωσε %s παρτίδα αλληλογραφίας</item>
     <item quantity="other">Ολοκλήρωσε %s παρτίδες αλληλογραφίας</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Ολοκλήρωσε %1$s παρτίδα αλληλογραφίας %2$s</item>
+    <item quantity="other">Ολοκλήρωσε %1$s παρτίδες αλληλογραφίας %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Άρχισε να ακολουθεί %s παίκτη</item>
     <item quantity="other">Άρχισε να ακολουθεί %s παίκτες</item>
@@ -54,7 +58,7 @@
     <item quantity="one">Δημιούργησε %s νέα μελέτη</item>
     <item quantity="other">Δημιούργησε %s νέες μελέτες</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Αγωνίστηκε σε %s τουρνουά</item>
     <item quantity="other">Αγωνίστηκε σε %s τουρνουά</item>
   </plurals>

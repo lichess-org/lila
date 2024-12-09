@@ -1,14 +1,13 @@
 package lila.core
 package security
 
+import play.api.data.{ Form, Mapping }
 import play.api.mvc.RequestHeader
 
-import lila.core.user.{ User, UserEnabled }
-import lila.core.net.IpAddress
-import lila.core.userId.UserId
-import play.api.data.{ Form, Mapping }
 import lila.core.email.EmailAddress
-import lila.core.userId.UserName
+import lila.core.net.IpAddress
+import lila.core.user.User
+import lila.core.userId.{ UserId, UserName }
 
 case class GarbageCollect(userId: UserId)
 case class CloseAccount(userId: UserId)
@@ -81,6 +80,7 @@ object IsProxy extends OpaqueString[IsProxy]:
   extension (a: IsProxy)
     def is                                  = a.value.nonEmpty
     def in(any: (IsProxy.type => IsProxy)*) = any.exists(f => f(IsProxy) == a)
+    def isSafeish: Boolean                  = in(_.empty, _.vpn, _.privacy)
     def name                                = a.value.nonEmpty.option(a.value)
   def unapply(a: IsProxy): Option[String] = a.name
   // https://blog.ip2location.com/knowledge-base/what-are-the-proxy-types-supported-in-ip2proxy/

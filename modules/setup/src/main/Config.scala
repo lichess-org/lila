@@ -3,8 +3,8 @@ package lila.setup
 import chess.format.Fen
 import chess.variant.{ FromPosition, Variant }
 import chess.{ Clock, Game as ChessGame, Situation, Speed }
-
 import scalalib.model.Days
+
 import lila.lobby.TriColor
 import lila.rating.PerfType
 
@@ -25,12 +25,7 @@ private[setup] trait Config:
   // Game variant code
   val variant: Variant
 
-  // Creator player color
-  val color: TriColor
-
   def hasClock = timeMode == TimeMode.RealTime
-
-  lazy val creatorColor = color.resolve()
 
   def makeGame(v: Variant): ChessGame =
     ChessGame(situation = Situation(v), clock = makeClock.map(_.toClock))
@@ -58,6 +53,15 @@ private[setup] trait Config:
   def makeSpeed: Speed = chess.Speed(makeClock)
 
   def perfType: PerfType = lila.rating.PerfType(variant, makeSpeed)
+  def perfKey            = perfType.key
+
+trait WithColor:
+  self: Config =>
+
+  // creator player color
+  def color: TriColor
+
+  lazy val creatorColor = color.resolve()
 
 trait Positional:
   self: Config =>

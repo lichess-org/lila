@@ -114,7 +114,6 @@
   <string name="replayMode">Uppspelningsläge</string>
   <string name="realtimeReplay">Realtid</string>
   <string name="byCPL">CPL</string>
-  <string name="openStudy">Öppna studie</string>
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
   <string name="showVariationArrows">Visa variationspilar</string>
@@ -124,7 +123,6 @@
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
   <string name="removesTheDepthLimit">Tar bort sökdjupsbegränsningen och håller datorn varm</string>
-  <string name="engineManager">Hantera analysmotor</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Misstag</string>
   <string name="inaccuracy">Felaktighet</string>
@@ -432,7 +430,6 @@
   <string name="block">Blockera</string>
   <string name="blocked">Blockerad</string>
   <string name="unblock">Avblockera</string>
-  <string name="followsYou">Följer dig</string>
   <string name="xStartedFollowingY">%1$s började följa %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s följare</item>
@@ -464,9 +461,6 @@
   <string name="safeTournamentName">Välj ett mycket säkert namn för turneringen.</string>
   <string name="inappropriateNameWarning">Någonting, om än bara lite, olämpligt skulle kunna få ditt konto att stängas.</string>
   <string name="emptyTournamentName">Lämna tom för att namnge turneringen efter en slumpmässig stormästare.</string>
-  <string name="recommendNotTouching">Vi rekommenderar att inte röra dessa.</string>
-  <string name="fewerPlayers">Om du anger inträdesvillkor kommer din turnering att ha färre spelare.</string>
-  <string name="showAdvancedSettings">Visa avancerade inställningar</string>
   <string name="makePrivateTournament">Gör turneringen privat, och begränsa åtkomst med ett lösenord</string>
   <string name="join">Delta</string>
   <string name="withdraw">Lämna</string>
@@ -506,8 +500,7 @@
   <string name="ifNoneLeaveEmpty">Om ingen, lämna tomt</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ändra profil</string>
-  <string name="firstName">Förnamn</string>
-  <string name="lastName">Efternamn</string>
+  <string name="realName">Verkligt namn</string>
   <string name="setFlair">Ställ in din flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Det finns en inställning för att dölja alla användarflairs över hela webbplatsen.</string>
@@ -554,11 +547,8 @@
   <string name="reason">Anledning</string>
   <string name="whatIsIheMatter">Vad är problemet?</string>
   <string name="cheat">Fusk</string>
-  <string name="insult">Förolämpning</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation av rating</string>
   <string name="other">Annat</string>
-  <string name="reportDescriptionHelp">Klistra in länken till partiet och förklara vad som är fel med den här användarens beteende. Säg inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kommer att behandlas fortare om den är skriven på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importerad av %s</string>
@@ -677,7 +667,7 @@
   <string name="aboutSimulRules">När simultanmatchen börjar startar varje spelare ett parti med värden som spelar vit i alla partier.  Simultanmatchen slutar när alla partier är avklarade.</string>
   <string name="aboutSimulSettings">Simultanpartier är alltid orankade. Returmatch, ångerdrag och \"extratid\" är inaktiverat.</string>
   <string name="create">Skapa</string>
-  <string name="whenCreateSimul">När du skapar en simultan får du spela mot flera spelare samtidigt.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">När du skapar en simultan får du spela mot flera spelare samtidigt.</string>
   <string name="simulVariantsHint">Om du väljer flera varianter får varje spelare välja vilken de vill spela.</string>
   <string name="simulClockHint">Inställningar för fischerklocka. Ju fler spelare du tar dig an, desto mer tid kan du behöva.</string>
   <string name="simulAddExtraTime">Du kan lägga till extra tid till dig för att klara av simultanspelet.</string>

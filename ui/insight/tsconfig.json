@@ -1,11 +1,5 @@
 {
   "extends": "../tsconfig.base.json",
-  "include": ["src"],
-  "compilerOptions": {
-    "types": ["lichess", "web"],
-    "noEmit": true,
-    "composite": true
-  },
-  "isolatedModules": true,
+  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
   "references": [{ "path": "../common/tsconfig.json" }, { "path": "../chart/tsconfig.json" }]
 }

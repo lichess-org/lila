@@ -1,9 +1,9 @@
 package lila.swiss
 
 import lila.common.LateMultiThrottler
+import lila.core.socket.{ protocol as P, * }
 import lila.core.team.IsLeaderWithCommPerm
 import lila.room.RoomSocket.{ Protocol as RP, * }
-import lila.core.socket.{ protocol as P, * }
 
 final private class SwissSocket(
     socketKit: SocketKit,
@@ -17,7 +17,7 @@ final private class SwissSocket(
     reloadThrottler ! LateMultiThrottler.work(
       id = id,
       run = fuccess:
-        send(RP.Out.tellRoom(id.into(RoomId), makeMessage("reload")))
+        send.exec(RP.Out.tellRoom(id.into(RoomId), makeMessage("reload")))
       ,
       delay = 1.seconds.some
     )
@@ -42,4 +42,4 @@ final private class SwissSocket(
 
   socketKit
     .subscribe("swiss-in", RP.In.reader)(handler.orElse(socketKit.baseHandler))
-    .andDo(send(P.Out.boot))
+    .andDo(send.exec(P.Out.boot))

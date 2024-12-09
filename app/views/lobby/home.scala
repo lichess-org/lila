@@ -2,9 +2,8 @@ package views.lobby
 
 import play.api.libs.json.Json
 
-import lila.app.mashup.Preload.Homepage
 import lila.app.UiEnv.{ *, given }
-
+import lila.app.mashup.Preload.Homepage
 import lila.core.perf.UserWithPerfs
 
 object home:
@@ -19,7 +18,6 @@ object home:
           Json
             .obj(
               "data"                    -> data,
-              "i18n"                    -> i18nJsObject(i18nKeys),
               "showRatings"             -> ctx.pref.showRatings,
               "hasUnreadLichessMessage" -> hasUnreadLichessMessage
             )
@@ -77,23 +75,27 @@ object home:
                 )
               )
             ),
-            div(cls := "lobby__spotlights")(
-              events.map(bits.spotlight),
-              views.relay.ui.spotlight(relays),
-              ctx.noBot.option {
-                val nbManual = events.size + relays.size
-                val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
-                val nbForced = nbManual + simulBBB.size.toInt
-                val tourBBBs = if nbForced > 3 then 0 else if nbForced == 3 then 1 else 3 - nbForced
-                frag(
-                  lila.tournament.Spotlight.select(tours, tourBBBs).map {
-                    views.tournament.list.homepageSpotlight(_)
-                  },
-                  swiss.ifTrue(nbForced < 3).map(views.swiss.ui.homepageSpotlight),
-                  simulBBB.map(views.simul.ui.homepageSpotlight)
-                )
-              }
-            ),
+            div(cls := "lobby__spotlights"):
+              val eventTags = events.map(bits.spotlight)
+              val relayTags = views.relay.ui.spotlight(relays)
+              frag(
+                eventTags,
+                relayTags,
+                ctx.noBot.option {
+                  val nbManual = eventTags.size + relayTags.size
+                  val simulBBB = simuls.find(isFeaturable(_) && nbManual < 4)
+                  val nbForced = nbManual + simulBBB.size.toInt
+                  val tourBBBs = if nbForced > 3 then 0 else if nbForced == 3 then 1 else 3 - nbForced
+                  frag(
+                    lila.tournament.Spotlight.select(tours, tourBBBs).map {
+                      views.tournament.list.homepageSpotlight(_)
+                    },
+                    swiss.ifTrue(nbForced < 3).map(views.swiss.ui.homepageSpotlight),
+                    simulBBB.map(views.simul.ui.homepageSpotlight)
+                  )
+                }
+              )
+            ,
             if ctx.isAuth then
               div(cls := "lobby__timeline")(
                 ctx.blind.option(h2("Timeline")),
@@ -125,16 +127,16 @@ object home:
           div(cls := "lobby__blog ublog-post-cards"):
             ublogPosts
               .filter(_.isLichess || ctx.kid.no)
-              .take(3)
+              .take(9)
               .map:
                 views.ublog.ui.card(_, showAuthor = views.ublog.ui.ShowAt.bottom, showIntro = false)
           ,
-          ctx.noBot.option(bits.underboards(tours, simuls, leaderboard, tournamentWinners)),
+          ctx.noBot.option(bits.underboards(tours, simuls)),
           div(cls := "lobby__feed"):
             views.feed.lobbyUpdates(lastUpdates)
           ,
           div(cls := "lobby__support")(
-            a(href := routes.Plan.index)(
+            a(href := routes.Plan.index())(
               iconTag(patronIconChar),
               span(cls := "lobby__support__text")(
                 strong(trans.patron.donate()),
@@ -162,48 +164,3 @@ object home:
             views.bits.connectLinks
           )
         )
-
-  private val i18nKeys = List(
-    trans.site.realTime,
-    trans.site.correspondence,
-    trans.site.unlimited,
-    trans.site.timeControl,
-    trans.site.incrementInSeconds,
-    trans.site.minutesPerSide,
-    trans.site.daysPerTurn,
-    trans.site.ratingRange,
-    trans.site.nbPlayers,
-    trans.site.nbGamesInPlay,
-    trans.site.player,
-    trans.site.time,
-    trans.site.joinTheGame,
-    trans.site.cancel,
-    trans.site.casual,
-    trans.site.rated,
-    trans.site.perfRatingX,
-    trans.site.variant,
-    trans.site.mode,
-    trans.site.list,
-    trans.site.graph,
-    trans.site.filterGames,
-    trans.site.youNeedAnAccountToDoThat,
-    trans.site.oneDay,
-    trans.site.nbDays,
-    trans.site.aiNameLevelAiLevel,
-    trans.site.yourTurn,
-    trans.site.rating,
-    trans.site.createAGame,
-    trans.site.playWithAFriend,
-    trans.site.playWithTheMachine,
-    trans.site.strength,
-    trans.site.pasteTheFenStringHere,
-    trans.site.quickPairing,
-    trans.site.lobby,
-    trans.site.custom,
-    trans.site.anonymous,
-    trans.site.side,
-    trans.site.white,
-    trans.site.randomColor,
-    trans.site.black,
-    trans.site.boardEditor
-  )

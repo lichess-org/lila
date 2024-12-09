@@ -1,4 +1,5 @@
 import * as gridHacks from 'common/gridHacks';
+import { pubsub } from 'common/pubsub';
 
 let booted = false;
 
@@ -10,7 +11,7 @@ export function start(container: HTMLElement) {
   gridHacks.bindChessgroundResizeOnce(runHacks);
 
   if (!booted) {
-    site.pubsub.on('chat.resize', runHacks);
+    pubsub.on('chat.resize', runHacks);
     booted = true;
   }
 }

@@ -1,9 +1,11 @@
 package lila.forum
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class CategUi(helpers: Helpers, bits: ForumBits):
   import helpers.{ *, given }
@@ -39,15 +41,6 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
       canWrite: Boolean,
       stickyPosts: List[TopicView]
   )(using Context) =
-
-    val newTopicButton = canWrite.option(
-      a(
-        href     := routes.ForumTopic.form(categ.id),
-        cls      := "button button-empty button-green text",
-        dataIcon := Icon.Pencil
-      ):
-        trans.site.createANewTopic()
-    )
 
     def showTopic(sticky: Boolean)(topic: TopicView) =
       tr(cls := List("sticky" -> sticky))(
@@ -86,8 +79,23 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
               ),
               categ.team.fold(frag(categ.name))(teamLink(_, true))
             ),
-            div(cls := "box__top__actions"):
-              newTopicButton
+            div(cls := "box__top__actions")(
+              Granter
+                .opt(_.ModerateForum)
+                .option(
+                  a(
+                    href := routes.ForumCateg.modFeed(categ.id),
+                    cls  := "button button-empty text"
+                  )("Mod feed")
+                ),
+              canWrite.option(
+                a(
+                  href     := routes.ForumTopic.form(categ.id),
+                  cls      := "button button-empty button-green text",
+                  dataIcon := Icon.Pencil
+                )(trans.site.createANewTopic())
+              )
+            )
           ),
           table(cls := "topics slist slist-pad")(
             thead(
@@ -131,3 +139,38 @@ final class CategUi(helpers: Helpers, bits: ForumBits):
               td(a(href := postUrl)(momentFromNow(post.createdAt)), br, trans.site.by(bits.authorLink(post)))
             )
     )
+
+  def modFeed(
+      categ: lila.forum.ForumCateg,
+      posts: Paginator[PostView]
+  )(using Context) =
+    paginationByQuery(routes.ForumCateg.modFeed(categ.id, 1), posts, showPost = true)
+    Page(categ.name)
+      .css("bits.forum")
+      .csp(_.withInlineIconFont)
+      .js(infiniteScrollEsmInit):
+        main(cls := "forum forum-mod-feed box")(
+          boxTop(
+            h1(
+              a(
+                href     := routes.ForumCateg.show(categ.id),
+                dataIcon := Icon.LessThan,
+                cls      := "text"
+              )(categ.name),
+              " mod feed"
+            )
+          ),
+          table(cls := "slist slist-pad")(
+            thead(tr(th("User"), th("Topic"), th("Post"), th("Date"))),
+            tbody(cls := "infinite-scroll")(
+              posts.currentPageResults.map: p =>
+                tr(cls := "paginated")(
+                  td(userIdLink(p.post.userId)),
+                  td(a(href := routes.ForumTopic.show(p.categ.id, p.topic.slug))(p.topic.name)),
+                  td(shorten(p.post.text, 400)),
+                  td(a(href := routes.ForumPost.redirect(p.post.id))(momentFromNow(p.post.createdAt)))
+                ),
+              pagerNextTable(posts, np => routes.ForumCateg.modFeed(categ.id, np).url)
+            )
+          )
+        )

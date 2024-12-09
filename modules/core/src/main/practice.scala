@@ -1,7 +1,7 @@
 package lila.core
 package practice
 
-import lila.core.id.{ StudyId, StudyChapterId }
+import lila.core.id.{ StudyChapterId, StudyId }
 import lila.core.study.data.StudyName
 import lila.core.userId.UserId
 

@@ -4,10 +4,11 @@ package ui
 import chess.format.Fen
 import chess.format.pgn.PgnStr
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.game.Game
 import lila.game.GameExt.*
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class GameUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -191,7 +192,7 @@ final class GameUi(helpers: Helpers):
     def apply(form: play.api.data.Form[?])(using ctx: Context) =
       Page(trans.site.importGame.txt())
         .css("bits.importer")
-        .js(EsmInit("bits.importer"))
+        .js(esmInitBit("importer"))
         .graph(
           title = "Paste PGN chess game",
           url = s"$netBaseUrl${routes.Importer.importGame.url}",

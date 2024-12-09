@@ -3,7 +3,7 @@
   <string name="advancedPawn">Altnivela soldato</string>
   <string name="advancedPawnDescription">Unu el viaj soldatoj profundas en la kontraŭa flanko, kaj ĝia ebla rangaltiĝo minacas.</string>
   <string name="advantage">Avantaĝo</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Profitu viajn ŝancojn por havi decida avantaĝo. (200cp ≤ eval ≤ 600cp)</string>
+  <string name="advantageDescription">Profitu viajn ŝancojn por havi decida avantaĝo. (200cp ≤ eval ≤ 600cp)</string>
   <string name="anastasiaMate">Anastasia ŝakmato</string>
   <string name="anastasiaMateDescription">Ĉevalo kaj turo aŭ damo laboras kune por kapti la kontraŭa reĝo inter la flanko de la tabulo kaj amika ŝakpeco.</string>
   <string name="arabianMate">Araba ŝakmato</string>
@@ -23,13 +23,13 @@
   <string name="capturingDefender">Kapti la defendanton</string>
   <string name="capturingDefenderDescription">Forprenu ŝakpecon, kiu estas grava por defendo de alia ŝakpeco, ebligante la kapto de la nun nedefendata ŝakpeco dum sekva movo.</string>
   <string name="crushing">Aplomba</string>
-  <string name="crushingDescription" comment="crushingDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Trovu la kontraŭulan eraregon por akiri disbatantan avantaĝon. (takso ≥ 600cp)</string>
+  <string name="crushingDescription">Trovu la kontraŭulan eraregon por akiri disbatantan avantaĝon. (takso ≥ 600cp)</string>
   <string name="doubleBishopMate">Duokuriera ŝakmato</string>
   <string name="doubleBishopMateDescription">Du kontraŭaj kurieroj sur apudaj diagonaloj liveras maton al reĝo ĉirkaŭbarita per amikaj ŝakpecoj.</string>
   <string name="dovetailMate">Mato de Cozio</string>
   <string name="dovetailMateDescription">Damo liveras maton al apuda reĝo, kies du eskapajn ĉelojn blokas amikaj ŝakpecoj.</string>
   <string name="equality">Egaligi</string>
-  <string name="equalityDescription" comment="equalityDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Reiru el malvenkanta pozicio, kaj sekurigi egalvenkon aŭ egalan pozicion. (takso ≤ 200cp)</string>
+  <string name="equalityDescription">Reiru el malvenkanta pozicio, kaj sekurigi egalvenkon aŭ egalan pozicion. (takso ≤ 200cp)</string>
   <string name="kingsideAttack">Atako al la reĝa flanko</string>
   <string name="kingsideAttackDescription">Atako al la kontraŭula reĝo, post kiam li arokis reĝflanke.</string>
   <string name="clearance">Senigo</string>
@@ -119,8 +119,8 @@
   <string name="xRayAttackDescription">Peco atakas aŭ defendas kvadraton, tra malamika peco.</string>
   <string name="zugzwang">Movdevigo</string>
   <string name="zugzwangDescription">La opcioj de la kontraŭulo por moviĝi estas limigitaj, kaj ĉiuj movoj plimalbonigas rian pozicion.</string>
-  <string name="healthyMix">Sana miksaĵo</string>
-  <string name="healthyMixDescription">Iom de ĉio. Vi ne scias kion atendi, do vi restas preta por io ajn! Same kiel en realaj ludoj.</string>
+  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Sana miksaĵo</string>
+  <string name="mixDescription">Iom de ĉio. Vi ne scias kion atendi, do vi restas preta por io ajn! Same kiel en realaj ludoj.</string>
   <string name="playerGames">Ludantaj ludoj</string>
   <string name="playerGamesDescription">Serĉu enigmojn generitajn de viaj ludoj, aŭ de la ludoj de alia ludanto.</string>
   <string name="puzzleDownloadInformation">Ĉi tiuj enigmoj estas en la publika domeno, kaj povas esti elŝutitaj de %s.</string>

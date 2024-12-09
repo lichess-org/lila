@@ -1,15 +1,16 @@
 import * as xhr from 'common/xhr';
+import { storage } from 'common/storage';
 
-export const skip = (txt: string) => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
+export const skip = (txt: string): boolean => (suspLink(txt) || followMe(txt)) && !isKnownSpammer();
 
-export const selfReport = (txt: string) => {
+export const selfReport = (txt: string): void => {
   if (isKnownSpammer()) return;
   const hasSuspLink = suspLink(txt);
   if (hasSuspLink) xhr.text(`/jslog/${window.location.href.slice(-12)}?n=spam`, { method: 'post' });
-  if (hasSuspLink || followMe(txt)) site.storage.set('chat-spam', '1');
+  if (hasSuspLink || followMe(txt)) storage.set('chat-spam', '1');
 };
 
-const isKnownSpammer = () => site.storage.get('chat-spam') == '1';
+const isKnownSpammer = () => storage.get('chat-spam') === '1';
 
 const spamRegex = new RegExp(
   [
@@ -52,4 +53,4 @@ const followMeRegex = /follow me|join my team/i;
 const followMe = (txt: string) => !!txt.match(followMeRegex);
 
 const teamUrlRegex = /lichess\.org\/team\//i;
-export const hasTeamUrl = (txt: string) => !!txt.match(teamUrlRegex);
+export const hasTeamUrl = (txt: string): boolean => !!txt.match(teamUrlRegex);

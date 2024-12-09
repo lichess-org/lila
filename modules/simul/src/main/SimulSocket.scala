@@ -3,9 +3,8 @@ package lila.simul
 import play.api.libs.json.*
 
 import lila.common.Json.given
-
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final private class SimulSocket(
     repo: SimulRepo,
@@ -42,13 +41,13 @@ final private class SimulSocket(
 
   def filterPresent(simul: Simul, userIds: Set[UserId]): Fu[Seq[UserId]] =
     socketRequest[Seq[UserId]](
-      id => send(SimulSocket.Protocol.Out.filterPresent(id, simul.id, userIds)),
+      id => send.exec(SimulSocket.Protocol.Out.filterPresent(id, simul.id, userIds)),
       userIds => UserId.from(P.In.commas(userIds).toSeq)
     )
 
   private def redirectPlayer(simul: Simul, pov: Pov): Unit =
     pov.player.userId.foreach: userId =>
-      send(RP.Out.tellRoomUser(simul.id.into(RoomId), userId, makeMessage("redirect", pov.fullId)))
+      send.exec(RP.Out.tellRoomUser(simul.id.into(RoomId), userId, makeMessage("redirect", pov.fullId)))
 
   lazy val rooms = makeRoomMap(send)
 
@@ -69,7 +68,7 @@ final private class SimulSocket(
 
   socketKit
     .subscribe("simul-in", RP.In.reader)(handler.orElse(socketKit.baseHandler))
-    .andDo(send(P.Out.boot))
+    .andDo(send.exec(P.Out.boot))
 
 private object SimulSocket:
   object Protocol:

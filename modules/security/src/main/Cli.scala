@@ -2,6 +2,7 @@ package lila.security
 
 import lila.core.net.Domain
 import lila.user.{ User, UserRepo }
+import lila.core.user.RoleDbKey
 
 final private[security] class Cli(
     userRepo: UserRepo,
@@ -19,7 +20,7 @@ final private[security] class Cli(
           _.fold("User %s not found".format(uid))(_.roles.mkString(" "))
 
     case "security" :: "grant" :: uid :: roles =>
-      perform(UserStr(uid), user => userRepo.setRoles(user.id, roles.map(_.toUpperCase)).void)
+      perform(UserStr(uid), user => userRepo.setRoles(user.id, RoleDbKey.from(roles.map(_.toUpperCase))).void)
 
     case "disposable" :: "reload" :: emailOrDomain :: Nil =>
       WithDomain(emailOrDomain): dom =>

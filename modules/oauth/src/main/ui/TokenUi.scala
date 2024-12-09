@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class TokenUi(helpers: Helpers)(
@@ -79,7 +80,7 @@ final class TokenUi(helpers: Helpers)(
               td(cls := "action")(
                 postForm(action := routes.OAuthToken.delete(t.id.value))(
                   submitButton(
-                    cls := "button button-red button-empty confirm"
+                    cls := "button button-red button-empty yes-no-confirm"
                   )(trans.site.delete())
                 )
               )
@@ -123,8 +124,9 @@ final class TokenUi(helpers: Helpers)(
                           id,
                           s"${form("scopes").name}[]",
                           value = scope.key,
-                          checked = form.value.exists(_.scopes.contains(scope.key)),
-                          disabled = disabled
+                          checked = !disabled && form.data.valuesIterator.contains(scope.key),
+                          disabled = disabled,
+                          title = disabled.option(ot.alreadyHavePlayedGames.txt())
                         )
                       ),
                       label(`for` := id, st.title := disabled.option(ot.alreadyHavePlayedGames.txt()))(

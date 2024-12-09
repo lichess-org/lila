@@ -1,17 +1,17 @@
-import { winningChances, CevalCtrl } from 'ceval';
+import { winningChances, type CevalCtrl } from 'ceval';
 import { annotationShapes } from 'chess/glyphs';
-import { DrawModifiers, DrawShape } from 'chessground/draw';
-import { Api as CgApi } from 'chessground/api';
+import type { DrawModifiers, DrawShape } from 'chessground/draw';
 import { opposite, parseUci, makeSquare } from 'chessops/util';
-import { NormalMove } from 'chessops/types';
+import type { NormalMove, Square } from 'chessops/types';
 
 interface Opts {
   node: Tree.Node;
+  nodeList: Tree.Node[];
   showComputer(): boolean;
   ceval: CevalCtrl;
-  ground: CgApi;
   nextNodeBest(): Uci | undefined;
   threatMode(): boolean;
+  hint?: Square;
 }
 
 function makeAutoShapesFromUci(
@@ -71,6 +71,17 @@ export default function (opts: Opts): DrawShape[] {
       });
     } else shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'red'));
   }
+  const feedback = feedbackAnnotation(n);
+  const hint = opts.hint && { orig: makeSquare(opts.hint), brush: 'green' };
+  return [
+    ...shapes,
+    ...annotationShapes(n),
+    ...(feedback ? annotationShapes(feedback) : []),
+    ...(hint ? [hint] : []),
+  ];
+}
+
+function feedbackAnnotation(n: Tree.Node): Tree.Node | undefined {
   let glyph: Tree.Glyph | undefined;
   switch (n.puzzle) {
     case 'good':
@@ -80,6 +91,5 @@ export default function (opts: Opts): DrawShape[] {
     case 'fail':
       glyph = { id: 4, name: 'fail', symbol: '✗' };
   }
-  const withPuzzleGlyphs = glyph ? { ...n, glyphs: [glyph] } : n;
-  return shapes.concat(annotationShapes(withPuzzleGlyphs));
+  return glyph && { ...n, glyphs: [glyph] };
 }

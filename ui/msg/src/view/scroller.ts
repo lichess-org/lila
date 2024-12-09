@@ -1,4 +1,4 @@
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 
 class Scroller {
   enabled = false;

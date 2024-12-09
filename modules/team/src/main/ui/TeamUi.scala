@@ -3,10 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.MarkdownRender
-import lila.core.team.LightTeam
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TeamUi(helpers: Helpers)(using Executor):
   import helpers.{ *, given }
@@ -64,7 +64,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
         p(trt.nbMembers.plural(t.nbMembers, t.nbMembers.localize)),
         isMine.option:
           st.form(action := routes.Team.quit(t.id), method := "post")(
-            submitButton(cls := "button button-empty button-red button-thin confirm team__quit")(
+            submitButton(cls := "button button-empty button-red button-thin yes-no-confirm team__quit")(
               trt.quitTeam.txt()
             )
           )
@@ -121,7 +121,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
           div(cls := "page-menu__content box")(
             h1(cls := "box__top")(trt.myTeams()),
             standardFlash.map(div(cls := "box__pad")(_)),
-            ctx.me.filter(me => teams.size > Team.maxJoin(me)).map { me =>
+            ctx.me.filter(me => Team.maxJoin(me) < teams.size).map { me =>
               flashMessage("failure"):
                 s"You have joined ${teams.size} out of ${Team.maxJoin(me)} teams. Leave some teams before you can join others."
             },
@@ -212,7 +212,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
             frag(
               strong(trt.beingReviewed()),
               postForm(action := routes.Team.quit(team.id)):
-                submitButton(cls := "button button-red button-empty confirm")(trans.site.cancel())
+                submitButton(cls := "button button-red button-empty yes-no-confirm")(trans.site.cancel())
             )
           else (ctx.isAuth && !asMod).option(joinButton(team))
         )
@@ -230,7 +230,7 @@ final class TeamUi(helpers: Helpers)(using Executor):
       ),
       (member.isDefined && !hasPerm(_.Admin)).option(
         postForm(cls := "quit", action := routes.Team.quit(team.id))(
-          submitButton(cls := "button button-empty button-red confirm")(trt.quitTeam.txt())
+          submitButton(cls := "button button-empty button-red yes-no-confirm")(trt.quitTeam.txt())
         )
       ),
       (team.enabled && hasPerm(_.Tour)).option(

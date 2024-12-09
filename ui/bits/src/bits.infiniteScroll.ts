@@ -1,6 +1,7 @@
 import * as xhr from 'common/xhr';
+import { spinnerHtml } from 'common/spinner';
 
-export function initModule(selector: string = '.infinite-scroll') {
+export function initModule(selector: string = '.infinite-scroll'): void {
   $(selector).each(function (this: HTMLElement) {
     register(this, selector);
   });
@@ -27,15 +28,15 @@ function register(el: HTMLElement, selector: string, backoff = 500) {
         );
     })
       .then(() => {
-        nav.innerHTML = site.spinnerHtml;
+        nav.innerHTML = spinnerHtml;
         return xhr.text(nextUrl);
       })
       .then(
         html => {
           nav.remove();
-          $(el).append($(html).find(selector).html());
+          $(el).append(($(html).is(selector) ? $(html) : $(html).find(selector)).html());
           dedupEntries(el);
-          site.contentLoaded(el);
+          window.lichess.initializeDom(el);
           setTimeout(() => register(el, selector, backoff * 1.05), backoff); // recursion with backoff
         },
         e => {

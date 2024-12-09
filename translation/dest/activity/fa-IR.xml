@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="activity">فعالیت</string>
-  <string name="hostedALiveStream">یک پخش زنده میزبانی کرد</string>
+  <string name="hostedALiveStream">میزبان پخش زنده بود</string>
   <plurals name="supportedNbMonths">
     <item quantity="one">به عنوان %2$s برای %1$s ماه از lichess.org حمایت کرد</item>
     <item quantity="other">به عنوان %2$s برای %1$s ماه از lichess.org حمایت کرد</item>
   </plurals>
   <plurals name="practicedNbPositions">
-    <item quantity="one">%1$s وضعیت را در %2$s تمرین کرد</item>
-    <item quantity="other">%1$s پوزیسیون را در %2$s تمرین کرد</item>
+    <item quantity="one">%1$s وضعیت تمرین‌شده در %2$s</item>
+    <item quantity="other">%1$s وضعیت تمرین‌شده در %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">%s معمای آموزشی را حل کرد</item>
     <item quantity="other">%s مساله تاکتیکی را حل کرد</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">%1$s بازی %2$s را انجام داد</item>
-    <item quantity="other">%1$s بازی %2$s را انجام داد</item>
+    <item quantity="one">%1$s بازی %2$s کرد</item>
+    <item quantity="other">%1$s بازی %2$s کرد</item>
   </plurals>
   <plurals name="postedNbMessages">
-    <item quantity="one">%1$s پیام را در %2$s ارسال کرد</item>
-    <item quantity="other">%1$s پیام را در %2$s ارسال کرد</item>
+    <item quantity="one">%1$s پیام در %2$s فرستاد</item>
+    <item quantity="other">%1$s پیام در %2$s فرستاد</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">%1$s حرکت انجام داد</item>
@@ -34,13 +34,17 @@
     <item quantity="one">%s بازی مکاتبه‌ای را به پایان رساند</item>
     <item quantity="other">%s بازی مکاتبه‌ای را به پایان رساند</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">تکمیل %1$s بازی مکاتبه‌ای %2$s</item>
+    <item quantity="other">تکمیل %1$s بازی مکاتبه‌ای %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
-    <item quantity="one">%s بازیکن را دنبال کرد</item>
-    <item quantity="other">%s بازیکن را دنبال کرد</item>
+    <item quantity="one">شروع به دنبالیدن %s بازیکن کرد</item>
+    <item quantity="other">شروع به دنبالیدن %s بازیکن کرد</item>
   </plurals>
   <plurals name="gainedNbFollowers">
-    <item quantity="one">%s دنبال کننده جدید به دست آورد</item>
-    <item quantity="other">%s دنبال کننده جدید به دست آورد</item>
+    <item quantity="one">%s دنبال‌گر جدید به‌دست آورد</item>
+    <item quantity="other">%s دنبال‌گر جدید به‌دست آورد</item>
   </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s مسابقه هم‌زمان برگزار کرد</item>
@@ -54,9 +58,9 @@
     <item quantity="one">%s درس جدید ساخت</item>
     <item quantity="other">%s درس جدید ساخت</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
-    <item quantity="one">در %s مسابقه آرنا رقابت کرد</item>
-    <item quantity="other">در %s مسابقه آرنا رقابت کرد</item>
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
+    <item quantity="one">در %s مسابقهٔ راوان رقابت کرد</item>
+    <item quantity="other">در %s مسابقهٔ راوان رقابت کرد</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">رتبه #%1$s (%2$s%% برتر) با %3$s بازی در %4$s</item>
@@ -67,7 +71,7 @@
     <item quantity="other">در %s مسابقه سوئیسی رقابت کرد</item>
   </plurals>
   <string name="rankedInSwissTournament">رتبه #%1$s را در %2$s به دست آورد</string>
-  <string name="signedUp">در لیچس ثبت نام کرد</string>
+  <string name="signedUp">در lichess.org نام‌نوشت</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">به %s تیم پیوست</item>
     <item quantity="other">به %s تیم پیوست</item>

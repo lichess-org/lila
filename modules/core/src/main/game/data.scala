@@ -1,11 +1,11 @@
 package lila.core
 package game
 
-import _root_.chess.{ Centis, Clock, Color, Ply }
 import _root_.chess.format.pgn.PgnStr
-import lila.core.id.{ TourId, SwissId, SimulId }
+import _root_.chess.{ Centis, Clock, Color, Ply }
+
+import lila.core.id.{ SimulId, SwissId, TourId }
 import lila.core.userId.UserId
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
 
 case class GameMetadata(
     source: Option[Source],

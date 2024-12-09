@@ -1,15 +1,14 @@
-import { GameData, Player } from './interfaces';
-import * as status from './status';
+import type { GameData, Player } from './interfaces';
+import { finished, aborted, ids } from './status';
 
 export * from './interfaces';
 
-export const playable = (data: GameData): boolean =>
-  data.game.status.id < status.ids.aborted && !imported(data);
+export const playable = (data: GameData): boolean => data.game.status.id < ids.aborted && !imported(data);
 
 export const isPlayerPlaying = (data: GameData): boolean => playable(data) && !data.player.spectator;
 
 export const isPlayerTurn = (data: GameData): boolean =>
-  isPlayerPlaying(data) && data.game.player == data.player.color;
+  isPlayerPlaying(data) && data.game.player === data.player.color;
 
 export const mandatory = (data: GameData): boolean => !!data.tournament || !!data.simul || !!data.swiss;
 
@@ -50,7 +49,7 @@ export const moretimeable = (data: GameData): boolean =>
 const imported = (data: GameData): boolean => data.game.source === 'import';
 
 export const replayable = (data: GameData): boolean =>
-  imported(data) || status.finished(data) || (status.aborted(data) && bothPlayersHavePlayed(data));
+  imported(data) || finished(data) || (aborted(data) && bothPlayersHavePlayed(data));
 
 export function getPlayer(data: GameData, color: Color): Player;
 export function getPlayer(data: GameData, color?: Color): Player | null {
@@ -62,7 +61,7 @@ export function getPlayer(data: GameData, color?: Color): Player | null {
 export const hasAi = (data: GameData): boolean => !!(data.player.ai || data.opponent.ai);
 
 export const userAnalysable = (data: GameData): boolean =>
-  status.finished(data) || (playable(data) && (!data.clock || !isPlayerPlaying(data)));
+  finished(data) || (playable(data) && (!data.clock || !isPlayerPlaying(data)));
 
 export const isCorrespondence = (data: GameData): boolean => data.game.speed === 'correspondence';
 
@@ -80,7 +79,20 @@ export const setGone = (data: GameData, color: Color, gone: number | boolean): v
 };
 
 export const nbMoves = (data: GameData, color: Color): number =>
-  Math.floor((playedTurns(data) + (color == 'white' ? 1 : 0)) / 2);
+  Math.floor((playedTurns(data) + (color === 'white' ? 1 : 0)) / 2);
 
 export const isSwitchable = (data: GameData): boolean =>
   !hasAi(data) && (!!data.simul || isCorrespondence(data));
+
+export const clockToSpeed = (initial: Seconds, increment: Seconds): Exclude<Speed, 'correspondence'> => {
+  const total = initial + increment * 40;
+  return total < 30
+    ? 'ultraBullet'
+    : total < 180
+      ? 'bullet'
+      : total < 480
+        ? 'blitz'
+        : total < 1500
+          ? 'rapid'
+          : 'classical';
+};

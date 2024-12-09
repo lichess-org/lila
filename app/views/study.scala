@@ -1,15 +1,15 @@
 package views.study
 
-import play.api.libs.json.Json
 import chess.format.pgn.PgnStr
+import play.api.libs.json.Json
 
 import lila.app.UiEnv.{ *, given }
-import lila.core.study.{ IdName, Order }
-import lila.core.socket.SocketVersion
 import lila.common.Json.given
+import lila.core.socket.SocketVersion
+import lila.core.study.{ IdName, Order }
 
 lazy val bits = lila.study.ui.StudyBits(helpers)
-lazy val ui   = lila.study.ui.StudyUi(helpers, bits)
+lazy val ui   = lila.study.ui.StudyUi(helpers)
 lazy val list = lila.study.ui.ListUi(helpers, bits)
 
 def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
@@ -22,13 +22,6 @@ def staffPicks(p: lila.cms.CmsPage.Render)(using Context) =
 
 def streamers(streamers: List[UserId])(using Translate) =
   views.streamer.bits.contextual(streamers).map(_(cls := "none"))
-
-def jsI18n()(using Translate) =
-  views.userAnalysisI18n(withAdvantageChart = true) ++
-    i18nJsObject(bits.i18nKeys ++ bits.gamebookPlayKeys)
-
-def embedJsI18n(chapter: lila.study.Chapter)(using Translate) =
-  views.userAnalysisI18n() ++ chapter.isGamebook.so(i18nJsObject(bits.gamebookPlayKeys))
 
 def clone(s: lila.study.Study)(using Context) =
   views.site.message(title = s"Clone ${s.name}", icon = Icon.StudyBoard.some)(ui.clone(s))
@@ -57,6 +50,7 @@ def show(
   Page(s.name.value)
     .css("analyse.study")
     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
+    .i18n(_.puzzle, _.study)
     .js(analyseNvuiTag)
     .js(
       PageModule(
@@ -66,7 +60,6 @@ def show(
             .add("admin", isGranted(_.StudyAdmin))
             .add("showRatings", ctx.pref.showRatings),
           "data"     -> data.analysis,
-          "i18n"     -> jsI18n(),
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId"   -> ctx.userId,
           "chat" -> chatOption.map: c =>
@@ -118,12 +111,11 @@ def privateStudy(study: lila.study.Study)(using Context) =
 object embed:
 
   def apply(s: lila.study.Study, chapter: lila.study.Chapter, pgn: PgnStr)(using ctx: EmbedContext) =
-    import views.analyse.embed.*
     val canGetPgn = s.settings.shareable == lila.study.Settings.UserSelection.Everyone
-    views.base.embed(
+    views.base.embed.minimal(
       title = s"${s.name} ${chapter.name}",
-      cssModule = "bits.lpv.embed",
-      modules = EsmInit("site.lpvEmbed")
+      cssKeys = List("bits.lpv.embed"),
+      modules = Esm("site.lpvEmbed")
     )(
       div(cls := "is2d")(div(pgn)),
       views.analyse.ui.embed.lpvJs(
@@ -135,5 +127,6 @@ object embed:
     )
 
   def notFound(using EmbedContext) =
-    views.base.embed(title = s"404 - ${trans.study.studyNotFound.txt()}", cssModule = "bits.lpv.embed"):
-      div(cls := "not-found")(h1(trans.study.studyNotFound()))
+    views.base.embed
+      .minimal(title = s"404 - ${trans.study.studyNotFound.txt()}", cssKeys = List("bits.lpv.embed")):
+        div(cls := "not-found")(h1(trans.study.studyNotFound()))

@@ -2,28 +2,22 @@ package controllers
 
 import chess.format.Fen
 import play.api.libs.json.Json
-import play.api.mvc.{ Request, Result, EssentialAction }
+import play.api.mvc.{ EssentialAction, Result }
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
 import lila.common.HTTPRequest
-import lila.game.{ AnonCookie, Pov }
-import lila.memo.RateLimit
-
+import lila.core.socket.Sri
+import lila.game.AnonCookie
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
-import lila.core.socket.Sri
-import lila.game.GameExt.perfType
 
 final class Setup(
     env: Env,
-    challengeC: => Challenge,
-    apiC: => Api
+    challengeC: => Challenge
 ) extends LilaController(env)
     with lila.web.TheftPrevention:
 
-  private def forms     = env.setup.forms
-  private def processor = env.setup.processor
+  import env.setup.{ forms, processor }
 
   def ai = OpenBody:
     limit.setupBotAi(ctx.userId | UserId(""), rateLimited, cost = ctx.me.exists(_.isBot).so(1)):
@@ -48,7 +42,7 @@ final class Setup(
             for
               origUser <- ctx.user.soFu(env.user.perfsRepo.withPerf(_, config.perfType))
               destUser <- userId.so(env.user.api.enabledWithPerf(_, config.perfType))
-              denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfType))
+              denied   <- destUser.so(u => env.challenge.granter.isDenied(u.user, config.perfKey.some))
               result <- denied match
                 case Some(denied) =>
                   val message = lila.challenge.ChallengeDenied.translated(denied)
@@ -157,7 +151,7 @@ final class Setup(
             me       <- ctx.me.so(env.user.api.withPerfs)
             blocking <- ctx.me.so(env.relation.api.fetchBlocking(_))
             uniqId = author.fold(_.value, u => s"sri:${u.id}")
-            res <- config.fixColor
+            res <- config
               .hook(reqSri | Sri(uniqId), me, sid = uniqId.some, lila.core.pool.Blocking(blocking))
               .match
                 case Left(hook) =>

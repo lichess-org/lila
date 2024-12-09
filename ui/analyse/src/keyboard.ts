@@ -1,7 +1,9 @@
 import * as control from './control';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import * as xhr from 'common/xhr';
-import { VNode } from 'snabbdom';
+import { snabDialog } from 'common/dialog';
+import type { VNode } from 'snabbdom';
+import { pubsub } from 'common/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
   let shiftAlone = 0;
@@ -67,7 +69,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     .bind('f', ctrl.flip)
     .bind('?', () => {
       ctrl.keyboardHelp = !ctrl.keyboardHelp;
-      if (ctrl.keyboardHelp) site.pubsub.emit('analyse.close-all');
+      if (ctrl.keyboardHelp) pubsub.emit('analysis.closeAll');
       ctrl.redraw();
     })
     .bind('l', ctrl.toggleCeval)
@@ -130,14 +132,15 @@ export const bind = (ctrl: AnalyseCtrl) => {
     for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
     // = ∞ ⩲ ⩱ ± ∓ +- -+
     for (let i = 1; i < 9; i++)
-      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i == 1 ? 10 : 11 + i));
+      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
   }
 };
 
 export function view(ctrl: AnalyseCtrl): VNode {
-  return site.dialog.snab({
+  return snabDialog({
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
+    modal: true,
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();

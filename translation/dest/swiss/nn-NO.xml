@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Sveitsisk</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Sveitsisk</string>
   <string name="swissTournaments">Sveitserturneringar</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vis runden</item>
@@ -27,7 +27,7 @@
     <item quantity="one">%s minutt mellom rundar</item>
     <item quantity="other">%s minutt mellom rundar</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Startar om</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Startar om</string>
   <string name="nextRound">Neste runde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Pågåande parti</item>
@@ -63,7 +63,7 @@ Adder poenga til dei motspelarane som spelaren vann over og halvparten av poenga
   <string name="pairingsQ">Korleis vert parsamansetjingane avgjord?</string>
   <string name="dutchSystem">Hollandsk system</string>
   <string name="FIDEHandbook">FIDE handbok</string>
-  <string name="pairingsA">Med %1$s, sett i verk av %2$s, i fylgje %3$s.</string>
+  <string name="pairingsA">Med %1$s, sett i verk av %2$s, i samsvar med %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Kva skjer dersom turneringa har fleire rundar enn spelarar?</string>
   <string name="moreRoundsThanPlayersA">Når alle parsamansetjingar har spela ferdig vil turneringa avsluttast og ein vinnar utropa.</string>
   <string name="restrictedToTeamsQ">Kvifor avgrensinga til lag?</string>
@@ -76,7 +76,7 @@ Desse eigenskapane finn ein truleg heller innan lag enn i opne, globale turnerin
   <string name="whatIfOneDoesntPlayQ">Kva hender om ein spelar ikkje møter opp til eit parti?</string>
   <string name="whatIfOneDoesntPlayA">Klokka deira vil gå og dei vil tape partiet. System vil deretter fjerne spelaren frå turneringa slik at dei ikkje tapar fleire parti. Spelaren kan når som helst koma attende til turneringa.</string>
   <string name="protectionAgainstNoShowQ">Kva hender med spelarar som ikkje stiller opp (\"DNS\")?</string>
-  <string name="protectionAgainstNoShowA">Spelarar som registrerer seg for sveitsarturneringar uten å delta, kan utgjera eit problem.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Spelarar som registrerer seg for sveitsarturneringar uten å delta, kan utgjera eit problem.
 For å forsøke å lindra dette problemet stenger Lichess slike spelarar ute frå sveitsarturneringar for eit visst tidsrom.
 Arrangørar av sveitsarturneringar kan på eiga hand like fullt akseptera dei som deltakarar i turneringa deira.</string>
   <string name="lateJoinQ">Kan spelarar koma til ei turnering etter at den har starta?</string>

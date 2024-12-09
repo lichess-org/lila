@@ -61,24 +61,23 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="myTournaments">Turnuvalarım</string>
   <string name="editTournament">Turnuvayı düzenle</string>
   <string name="editTeamBattle">Takım savaşını düzenle</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Savunucu</string>
+  <string name="defender">Savunucu</string>
   <string name="pickYourTeam">Takımınızı seçin</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Bu mücadelede hangi takımı temsil edeceksiniz?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Katılmak için bu takımlardan birine katılmanız gerekir!</string>
   <string name="created">Oluşturuldu</string>
   <string name="recentlyPlayed">Son oynananlar</string>
   <string name="bestResults">En iyi sonuçlar</string>
-  <string name="stats">İstatistikler</string>
   <string name="tournamentStats">Turnuva istatistikleri</string>
   <string name="rankAvgHelp">Sıralama ortalaması, sıralamanızın yüzdesidir. Daha düşük olması daha iyidir.
 
 Örneğin, 100 oyunculu bir turnuvada 3. sırada olmak = %3. 1000 oyunculu bir turnuvada 10. sırada olmak = %1.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">ortancadır</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Bu sayfadaki tüm değerler %s.</string>
+  <string name="medians">ortancadır</string>
+  <string name="allAveragesAreX">Bu sayfadaki tüm değerler %s.</string>
   <string name="total">Toplam</string>
   <string name="pointsAvg">Puan ortalaması</string>
-  <string name="pointsSum" comment="Refers to a total sum of points earned across multiple tournaments. See https://lichess.org/@/Assios/tournaments/chart for an example.">Puan toplamı</string>
-  <string name="rankAvg" comment="Please see the tournament stats page for an explanation (shown in screenshot). Example here:  https://lichess.org/@/Assios/tournaments/chart">Sıralama ortalaması</string>
+  <string name="pointsSum">Puan toplamı</string>
+  <string name="rankAvg">Sıralama ortalaması</string>
   <string name="tournamentWinners">Turnuva şampiyonları</string>
   <string name="tournamentShields">Turnuva kalkanları</string>
   <string name="onlyTitled">Sadece unvanlı oyuncular</string>

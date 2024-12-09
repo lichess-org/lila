@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="search">검색</string>
+  <string name="search" comment="May appear either as a button or as grey hint text inside a search box, to indicate what it is for. Please see screenshots for an example.">검색</string>
   <string name="advancedSearch">고급 검색</string>
   <plurals name="searchInXGames">
     <item quantity="other">%s 체스 게임에서 검색한 결과</item>
@@ -13,7 +13,7 @@
   <string name="from">From</string>
   <string name="to">To</string>
   <string name="humanOrComputer">플레이어의 상대가 인간인지 컴퓨터인지 여부</string>
-  <string name="aiLevel">인공지능 레벨</string>
+  <string name="aiLevel">A.I. 레벨</string>
   <string name="source">출처</string>
   <string name="nbTurns">턴 수</string>
   <string name="result">결과</string>

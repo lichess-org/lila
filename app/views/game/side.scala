@@ -1,7 +1,6 @@
 package views.game
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.game.GameExt.perfType
 
 object side:
@@ -68,7 +67,7 @@ object side:
                       .is(importedBy)
                       .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                         submitButton(
-                          cls   := "button-link confirm",
+                          cls   := "button-link yes-no-confirm",
                           title := trans.site.deleteThisImportedGame.txt()
                         )(trans.site.delete.txt())
                       )

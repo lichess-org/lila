@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Арена</string>
   <string name="arenaTournaments">Бәйгеләр мәйданы</string>
   <string name="isItRated">Бу рейтинглы?</string>
   <string name="willBeNotified">Бәйге башлангач сезгә хәбәр ителәчәк, шуңа күрә көткәндә бүтән кыстыргычта уйнау куркынычсыз.</string>
@@ -37,4 +38,6 @@
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Карарга барлык %s төркемләрне</item>
   </plurals>
+  <string name="defender">Сакчы</string>
+  <string name="total">Барлыгы</string>
 </resources>

@@ -1,9 +1,5 @@
 package lila.user
 
-import io.mola.galimatias.URL
-
-import scala.util.Try
-
 object Links:
 
   import Link.*
@@ -19,7 +15,7 @@ object Links:
 
   private def toLink(line: String): Option[Link] =
     for
-      url <- Try(URL.parse(line)).toOption
+      url <- lila.common.url.parse(line).toOption
       if url.scheme == "http" || url.scheme == "https"
       host <- Option(url.host).map(_.toHostString)
     yield Site.allKnown.find(_.matches(host)).map(site => Link(site, url.toString)) | Link(
@@ -44,7 +40,8 @@ object Link:
             .split(' ')
             .toList
         )
-    case Twitter               extends Site("Twitter/X", List("twitter.com", "x.com"))
+    case Bluesky               extends Site("Bluesky", List("bsky.app"))
+    case Twitter               extends Site("X", List("twitter.com", "x.com"))
     case Facebook              extends Site("Facebook", List("facebook.com"))
     case Instagram             extends Site("Instagram", List("instagram.com"))
     case YouTube               extends Site("YouTube", List("youtube.com"))
@@ -59,6 +56,7 @@ object Link:
   object Site:
     val allKnown: List[Site] = List(
       Mastodon,
+      Bluesky,
       Twitter,
       Facebook,
       Instagram,

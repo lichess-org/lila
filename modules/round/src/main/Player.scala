@@ -7,10 +7,10 @@ import chess.{ Centis, Clock, ErrorStr, MoveMetrics, MoveOrDrop, Status }
 import java.util.concurrent.TimeUnit
 
 import lila.common.Bus
-import lila.game.actorApi.MoveGameEvent
-import lila.game.{ Progress, UciMemo }
 import lila.core.round.*
 import lila.game.GameExt.applyMove
+import lila.game.actorApi.MoveGameEvent
+import lila.game.{ Progress, UciMemo }
 import lila.round.RoundGame.*
 
 final private class Player(
@@ -86,7 +86,7 @@ final private class Player(
         moveOrDrop.move.foreach { move =>
           round ! ForecastPlay(move)
         }
-      scheduleExpiration(progress.game)
+      scheduleExpiration.exec(progress.game)
       fuccess(progress.events)
 
   private[round] def fishnet(game: Game, sign: String, uci: Uci)(using proxy: GameProxy): Fu[Events] =
@@ -98,16 +98,16 @@ final private class Player(
             .flatMap:
               case Flagged => finisher.outOfTime(game)
               case MoveApplied(progress, moveOrDrop, _) =>
-                proxy
-                  .save(progress)
-                  .andDo:
+                for
+                  _ <- proxy.save(progress)
+                  _ =
                     uciMemo.add(progress.game, moveOrDrop)
                     lila.mon.fishnet.move(~game.aiLevel).increment()
                     notifyMove(moveOrDrop, progress.game)
-                  .>> {
+                  events <-
                     if progress.game.finished then moveFinish(progress.game).dmap { progress.events ::: _ }
                     else fuccess(progress.events)
-                  }
+                yield events
         else
           fufail:
             FishnetError:

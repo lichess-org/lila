@@ -1,15 +1,12 @@
 package lila.team
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.ThreadLocalRandom
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
-import scala.util.chaining.*
 
-import lila.core.team.{ TeamData, LightTeam }
-
-import lila.core.team.Access
+import lila.core.team.{ Access, LightTeam, TeamData }
 
 case class Team(
     @Key("_id") id: TeamId, // also the url slug
@@ -68,15 +65,15 @@ object Team:
       v.key -> LightTeam(nameToId(name), name, none)
   }.toMap
 
-  val maxLeaders     = 10
-  val maxJoinCeiling = 50
+  val maxLeaders      = Max(10)
+  val maxJoin         = Max(50)
+  val verifiedMaxJoin = Max(150)
 
-  def maxJoin(u: User) =
-    if u.isVerified then maxJoinCeiling * 2
+  def maxJoin(u: User): Max =
+    if u.isVerified then verifiedMaxJoin
     else
-      {
-        15 + daysBetween(u.createdAt, nowInstant) / 7
-      }.atMost(maxJoinCeiling)
+      maxJoin.map:
+        _.atMost(15 + daysBetween(u.createdAt, nowInstant) / 7)
 
   case class IdsStr(value: String) extends AnyVal:
 

@@ -1,11 +1,11 @@
 package lila.fishnet
 
 import chess.Ply
-import scalalib.actor.AsyncActorSequencer
+import scalalib.cache.OnceEvery
 
 import lila.analyse.AnalysisRepo
-import lila.fishnet.Work.{ Origin, Sender }
 import lila.core.id
+import lila.fishnet.Work.{ Origin, Sender }
 
 final class Analyser(
     repo: FishnetRepo,
@@ -18,14 +18,9 @@ final class Analyser(
 )(using Executor, Scheduler)
     extends lila.core.fishnet.FishnetRequest:
 
-  val maxPlies = 300
+  private val maxPlies = 300
 
-  private val workQueue = AsyncActorSequencer(
-    maxSize = Max(256),
-    timeout = 5 seconds,
-    "fishnetAnalyser",
-    lila.log.asyncActorMonitor
-  )
+  private val dedup = OnceEvery[String](2 seconds)
 
   private val systemSender = Sender(UserId.lichess, none, mod = false, system = true)
 
@@ -50,28 +45,28 @@ final class Analyser(
           ignoreConcurrentCheck = sender.system || List(Origin.autoTutor, Origin.autoHunter).contains(origin),
           ownGame = game.userIds contains sender.userId
         ).flatMap { result =>
-          result.ok
-            .so {
+          (result.ok && dedup(game.id.value))
+            .so:
               makeWork(game, sender, origin).flatMap { work =>
-                workQueue:
-                  repo.getSimilarAnalysis(work).flatMap {
-                    // already in progress, do nothing
-                    case Some(similar) if similar.isAcquired => funit
-                    // queued by system, reschedule for the human sender
-                    case Some(similar) if similar.sender.system && !sender.system =>
-                      repo.updateAnalysis(similar.copy(sender = sender))
-                    // queued for someone else, do nothing
-                    case Some(_) => funit
-                    // first request, store
-                    case _ =>
-                      lila.mon.fishnet.analysis.requestCount("game").increment()
-                      evalCache.skipPositions(work.game).flatMap { skipPositions =>
+                repo.getSimilarAnalysis(work).flatMap {
+                  // already in progress, do nothing
+                  case Some(similar) if similar.isAcquired => funit
+                  // queued by system, reschedule for the human sender
+                  case Some(similar) if similar.sender.system && !sender.system =>
+                    repo.updateAnalysis(similar.copy(sender = sender))
+                  // queued for someone else, do nothing
+                  case Some(_) => funit
+                  // first request, store
+                  case _ =>
+                    lila.mon.fishnet.analysis.requestCount("game").increment()
+                    evalCache
+                      .skipPositions(work.game)
+                      .monSuccess(_.fishnet.analysis.skipPositionsGame)
+                      .flatMap: skipPositions =>
                         lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
                         repo.addAnalysis(work.copy(skipPositions = skipPositions))
-                      }
-                  }
+                }
               }
-            }
             .inject(result)
         }
     }
@@ -94,8 +89,8 @@ final class Analyser(
         limitFu.flatMap { result =>
           if !result.ok then
             logger.info(s"Study request declined: ${req.studyId}/${req.chapterId} by $sender")
-          result.ok
-            .so {
+          (result.ok && dedup(chapterId.value))
+            .so:
               val work = makeWork(
                 game = Work.Game(
                   id = chapterId.value,
@@ -109,18 +104,18 @@ final class Analyser(
                 sender = sender,
                 origin = if req.official then Origin.officialBroadcast else Origin.manualRequest
               )
-              workQueue {
-                repo.getSimilarAnalysis(work).flatMap {
-                  _.isEmpty.so {
-                    lila.mon.fishnet.analysis.requestCount("study").increment()
-                    evalCache.skipPositions(work.game).flatMap { skipPositions =>
+              repo.getSimilarAnalysis(work).flatMap {
+                _.isEmpty.so:
+                  lila.mon.fishnet.analysis.requestCount("study").increment()
+                  evalCache
+                    .skipPositions(work.game)
+                    .monSuccess(_.fishnet.analysis.skipPositionsStudy)
+                    .withTimeout(2.seconds, s"study analysis skipPositions $work")
+                    .recoverDefault
+                    .flatMap: skipPositions =>
                       lila.mon.fishnet.analysis.evalCacheHits.record(skipPositions.size)
                       repo.addAnalysis(work.copy(skipPositions = skipPositions))
-                    }
-                  }
-                }
               }
-            }
             .inject(result)
         }
     }

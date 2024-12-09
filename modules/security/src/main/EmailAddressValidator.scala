@@ -4,6 +4,7 @@ import play.api.data.validation.*
 
 import lila.core.net.Domain
 import lila.user.{ User, UserRepo }
+import lila.core.email.NormalizedEmailAddress
 
 /** Validate and normalize emails
   */
@@ -70,20 +71,29 @@ final class EmailAddressValidator(
     result.error.fold(Valid)(e => Invalid(ValidationError(e)))
   }
 
-  /** Returns true if an E-mail address is taken by another user.
-    * @param email
-    *   The E-mail address to be checked
-    * @param forUser
-    *   Optionally, the user the E-mail address field is to be assigned to. If they already have it assigned,
-    *   returns false.
-    * @return
-    */
+  /* @param forUser
+   *   Optionally, the user the E-mail address field is to be assigned to. If they already have it assigned,
+   *   returns false.
+   */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
-    userRepo.idByEmail(email.normalize).dmap(_ -> forUser).dmap {
+    val variations = domainAliasVariationsOf(email.normalize)
+    userRepo.idByAnyEmail(variations).dmap(_ -> forUser).dmap {
       case (None, _)                  => false
-      case (Some(userId), Some(user)) => userId != user.id
+      case (Some(userId), Some(user)) => user.isnt(userId)
       case (_, _)                     => true
     }
+
+  private def domainAliasVariationsOf(email: NormalizedEmailAddress): List[NormalizedEmailAddress] =
+    val variations = email
+      .into(EmailAddress)
+      .nameAndDomain
+      .so: (name, domain) =>
+        List(EmailAddress.gmailDomains, EmailAddress.yandexDomains)
+          .foldLeft(List.empty[NormalizedEmailAddress]):
+            case (Nil, aliases) if aliases.contains(domain.lower) =>
+              aliases.toList.map(d => EmailAddress(s"$name@$d").normalize)
+            case (acc, _) => acc
+    if variations.isEmpty then List(email) else variations
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
     userRepo.countRecentByPrevEmail(email.normalize, nowInstant.minusWeeks(1)).dmap(_ >= 2) >>|

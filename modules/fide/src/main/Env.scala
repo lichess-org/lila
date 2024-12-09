@@ -4,8 +4,8 @@ import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 
 import lila.core.config.CollName
+import lila.core.fide as hub
 import lila.memo.CacheApi
-import lila.core.{ fide as hub }
 
 @Module
 final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(using
@@ -26,12 +26,13 @@ final class Env(db: lila.db.Db, cacheApi: CacheApi, ws: StandaloneWSClient)(usin
   def federationNamesOf: hub.Federation.NamesOf = playerApi.federationNamesOf
   def tokenize: hub.Tokenize                    = FidePlayer.tokenize
   def guessPlayer: hub.GuessPlayer              = playerApi.guessPlayer.apply
+  def getPlayer: hub.GetPlayer                  = playerApi.get
 
   private lazy val fideSync = wire[FidePlayerSync]
 
   if mode.isProd then
     scheduler.scheduleWithFixedDelay(1.hour, 1.hour): () =>
-      if nowDateTime.getDayOfWeek == java.time.DayOfWeek.SUNDAY && nowDateTime.getHour == 4
+      if nowDateTime.getHour == 4
       then fideSync()
 
   def cli = new lila.common.Cli:

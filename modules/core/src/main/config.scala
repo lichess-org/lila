@@ -55,8 +55,6 @@ object config:
   final case class ConfigName(name: String) extends scala.annotation.StaticAnnotation:
     assert(name != null && name.nonEmpty)
 
-  case class Wut(domain: CollName)
-
   case class NetConfig(
       domain: NetDomain,
       prodDomain: NetDomain,
@@ -75,4 +73,4 @@ object config:
       email: EmailAddress,
       logRequests: Boolean
   ):
-    inline def isProd = domain == prodDomain
+    def isProd = domain == prodDomain

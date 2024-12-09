@@ -1,21 +1,19 @@
 package lila.core
 
-import reactivemongo.api.bson.Macros.Annotations.Key
-import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
-import reactivemongo.api.bson.collection.BSONCollection
+import _root_.chess.{ Color, ByColor, PlayerTitle, IntRating }
+import _root_.chess.rating.IntRatingDiff
+import _root_.chess.rating.glicko.Glicko
 import play.api.i18n.Lang
 import play.api.libs.json.JsObject
-import _root_.chess.{ ByColor, PlayerTitle }
+import reactivemongo.api.bson.Macros.Annotations.Key
+import reactivemongo.api.bson.collection.BSONCollection
+import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler, BSONDocumentReader }
 import scalalib.model.Days
 
-import lila.core.perf.Perf
-import lila.core.rating.data.{ IntRating, IntRatingDiff }
-import lila.core.perf.{ PerfKey, UserPerfs, UserWithPerfs }
-import lila.core.userId.*
 import lila.core.email.*
 import lila.core.id.Flair
-import lila.core.rating.Glicko
-import lila.core.perf.KeyedPerf
+import lila.core.perf.{ KeyedPerf, Perf, PerfKey, UserPerfs, UserWithPerfs }
+import lila.core.userId.*
 
 object user:
 
@@ -24,7 +22,7 @@ object user:
       username: UserName,
       count: Count,
       enabled: UserEnabled,
-      roles: List[String],
+      roles: List[RoleDbKey],
       profile: Option[Profile] = None,
       toints: Int = 0,
       playTime: Option[PlayTime],
@@ -81,7 +79,7 @@ object user:
 
     def withPerf(perf: Perf): WithPerf = WithPerf(this, perf)
 
-    def addRole(role: String) = copy(roles = role :: roles)
+    def addRole(role: RoleDbKey) = copy(roles = role :: roles)
 
     import lila.core.perm.Granter
     def isSuperAdmin               = Granter.ofUser(_.SuperAdmin)(this)
@@ -91,6 +89,9 @@ object user:
     def isVerifiedOrAdmin          = isVerified || isAdmin
     def isVerifiedOrChallengeAdmin = isVerifiedOrAdmin || Granter.ofUser(_.ApiChallengeAdmin)(this)
   end User
+
+  opaque type RoleDbKey = String
+  object RoleDbKey extends OpaqueString[RoleDbKey]
 
   opaque type KidMode = Boolean
   object KidMode extends YesNo[KidMode]
@@ -111,8 +112,7 @@ object user:
       @Key("country") flag: Option[String] = None,
       location: Option[String] = None,
       bio: Option[String] = None,
-      firstName: Option[String] = None,
-      lastName: Option[String] = None,
+      realName: Option[String] = None,
       fideRating: Option[Int] = None,
       uscfRating: Option[Int] = None,
       ecfRating: Option[Int] = None,
@@ -121,10 +121,7 @@ object user:
       dsbRating: Option[Int] = None,
       links: Option[String] = None
   ):
-    def nonEmptyRealName =
-      List(ne(firstName), ne(lastName)).flatten match
-        case Nil   => none
-        case names => (names.mkString(" ")).some
+    def nonEmptyRealName = ne(realName)
 
     def nonEmptyLocation = ne(location)
 
@@ -133,9 +130,10 @@ object user:
     def isEmpty = completionPercent == 0
 
     def completionPercent: Int =
-      100 * List(flag, bio, firstName, lastName).count(_.isDefined) / 4
+      100 * List(flag, bio, realName).count(_.isDefined) / 3
 
     private def ne(str: Option[String]) = str.filter(_.nonEmpty)
+
   end Profile
 
   object Profile:
@@ -162,7 +160,6 @@ object user:
   case class LightPerf(user: LightUser, perfKey: PerfKey, rating: IntRating, progress: IntRatingDiff)
 
   case class ChangeEmail(id: UserId, email: EmailAddress)
-  case class GDPRErase(user: User)
 
   trait UserApi:
     def byId[U: UserIdOf](u: U): Fu[Option[User]]
@@ -202,8 +199,8 @@ object user:
     def perfsOf[U: UserIdOf](us: PairOf[U], primary: Boolean): Fu[PairOf[UserPerfs]]
     def dubiousPuzzle(id: UserId, puzzle: Perf): Fu[Boolean]
     def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit
-    def userIdsWithRoles(roles: List[String]): Fu[Set[UserId]]
-    def incColor(userId: UserId, value: Int): Unit
+    def userIdsWithRoles(roles: List[RoleDbKey]): Fu[Set[UserId]]
+    def incColor(userId: UserId, color: Color): Unit
     def firstGetsWhite(u1: UserId, u2: UserId): Fu[Boolean]
     def firstGetsWhite(u1O: Option[UserId], u2O: Option[UserId]): Fu[Boolean]
     def gamePlayersAny(userIds: ByColor[Option[UserId]], perf: PerfKey): Fu[GameUsers]
@@ -212,7 +209,7 @@ object user:
         perf: PerfKey,
         useCache: Boolean = true
     ): Fu[Option[ByColor[WithPerf]]]
-    def glicko(userId: UserId, perf: PerfKey): Fu[Glicko]
+    def glicko(userId: UserId, perf: PerfKey): Fu[Option[Glicko]]
     def containsDisabled(userIds: Iterable[UserId]): Fu[Boolean]
     def containsEngine(userIds: List[UserId]): Fu[Boolean]
     def usingPerfOf[A, U: UserIdOf](u: U, perfKey: PerfKey)(f: Perf ?=> Fu[A]): Fu[A]
@@ -295,7 +292,7 @@ object user:
     val text: String
 
   trait NoteApi:
-    def recentByUserForMod(userId: UserId): Fu[Option[Note]]
+    def recentToUserForMod(userId: UserId): Fu[Option[Note]]
     def write(to: UserId, text: String, modOnly: Boolean, dox: Boolean)(using MyId): Funit
     def lichessWrite(to: User, text: String): Funit
 

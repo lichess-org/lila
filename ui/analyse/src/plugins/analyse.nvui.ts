@@ -1,12 +1,13 @@
-import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common';
-import * as xhr from 'common/xhr';
-import AnalyseController from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+import { defined, prop, type Prop } from 'common';
+import { text as xhrText } from 'common/xhr';
+import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import { AnalyseData } from '../interfaces';
-import { Player } from 'game';
+import type { AnalyseData } from '../interfaces';
+import type { Player } from 'game';
 import viewStatus from 'game/view/status';
 import {
+  type Style,
   renderSan,
   renderPieces,
   renderBoard,
@@ -22,28 +23,27 @@ import {
   arrowKeyHandler,
   positionJumpHandler,
   pieceJumpingHandler,
-  Style,
   castlingFlavours,
   inputToLegalUci,
-  namePiece,
   lastCapturedCommandHandler,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { bind, MaybeVNodes } from 'common/snabbdom';
-import throttle from 'common/throttle';
-import { Role } from 'chessground/types';
+import { bind, type MaybeVNodes } from 'common/snabbdom';
+import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
 import { view as cevalView, renderEval } from 'ceval';
-import * as control from '../control';
+import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
-import { opposite, parseUci } from 'chessops/util';
+import { charToRole, opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from '../util';
+import { plyToTurn } from 'chess';
+import { Chessground as makeChessground } from 'chessground';
+import { pubsub } from 'common/pubsub';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -59,7 +59,7 @@ export function initModule(ctrl: AnalyseController) {
     boardStyle = boardSetting(),
     analysisInProgress = prop(false);
 
-  site.pubsub.on('analysis.server.progress', (data: AnalyseData) => {
+  pubsub.on('analysis.server.progress', (data: AnalyseData) => {
     if (data.analysis && !data.analysis.partial) notify.set('Server-side analysis complete');
   });
 
@@ -71,7 +71,7 @@ export function initModule(ctrl: AnalyseController) {
       const d = ctrl.data,
         style = moveStyle.get();
       if (!ctrl.chessground)
-        ctrl.chessground = site.makeChessground(document.createElement('div'), {
+        ctrl.chessground = makeChessground(document.createElement('div'), {
           ...makeCgConfig(ctrl),
           animation: { enabled: false },
           drawable: { enabled: false },
@@ -96,7 +96,7 @@ export function initModule(ctrl: AnalyseController) {
                     attrs: { 'aria-pressed': `${ctrl.explorer.enabled()}` },
                     hook: bind('click', _ => ctrl.explorer.toggle(), ctrl.redraw),
                   },
-                  ctrl.trans.noarg('openingExplorerAndTablebase'),
+                  i18n.site.openingExplorerAndTablebase,
                 ),
                 explorerView(ctrl),
               ]
@@ -271,13 +271,13 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
   let evalStr: string, depthStr: string;
   if (ctrl.threatMode()) {
     evalStr = evalInfo(ctrl.node.threat);
-    depthStr = depthInfo(ctrl, ctrl.node.threat, false);
-    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl, ctrl.node.threat, false)}`;
+    depthStr = depthInfo(ctrl.node.threat, false);
+    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
   } else {
     const evs = ctrl.currentEvals(),
       bestEv = cevalView.getBestEval(evs);
     evalStr = evalInfo(bestEv);
-    depthStr = depthInfo(ctrl, evs.client, !!evs.client?.cloud);
+    depthStr = depthInfo(evs.client, !!evs.client?.cloud);
   }
   if (!evalStr) {
     if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
@@ -297,10 +297,10 @@ function evalInfo(bestEv: EvalScore | undefined): string {
   return '';
 }
 
-function depthInfo(ctrl: AnalyseController, clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
+function depthInfo(clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
   if (!clientEv) return '';
   const depth = clientEv.depth || 0;
-  return ctrl.trans('depthX', depth) + isCloud ? ' Cloud' : '';
+  return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';
 }
 
 function renderBestMove(ctrl: AnalyseController, style: Style): string {
@@ -369,12 +369,7 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
     else {
       const uci = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
       if (uci)
-        ctrl.sendMove(
-          uci.slice(0, 2) as Key,
-          uci.slice(2, 4) as Key,
-          undefined,
-          namePiece[uci.slice(4)] as Role | undefined,
-        );
+        ctrl.sendMove(uci.slice(0, 2) as Key, uci.slice(2, 4) as Key, undefined, charToRole(uci.slice(4)));
       else notify('Invalid command');
     }
     $input.val('');
@@ -391,10 +386,10 @@ function isShortCommand(input: string): boolean {
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
   const lowered = c.toLowerCase();
   if (lowered === 'next') {
-    control.next(ctrl);
+    next(ctrl);
     ctrl.redraw();
   } else if (lowered === 'prev') {
-    control.prev(ctrl);
+    prev(ctrl);
     ctrl.redraw();
   } else if (lowered === 'next line') {
     jumpNextLine(ctrl);
@@ -464,7 +459,7 @@ function requestAnalysisButton(
     'button',
     {
       hook: bind('click', _ =>
-        xhr.text(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
           () => {
             inProgress(true);
             notify('Server-side analysis in progress');
@@ -505,7 +500,7 @@ function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
 }
 
 function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
+  return player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 }
 
 function userHtml(ctrl: AnalyseController, player: Player) {

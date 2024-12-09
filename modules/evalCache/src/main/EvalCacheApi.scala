@@ -4,10 +4,10 @@ import chess.format.Fen
 import chess.variant.Variant
 import play.api.libs.json.JsObject
 
+import lila.core.chess.MultiPv
 import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.tree.CloudEval
-import lila.core.chess.MultiPv
 
 final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.CacheApi)(using Executor):
 
@@ -21,10 +21,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
             _.map { JsonView.writeEval(_, fen) }
           .addEffect(monitorRequest(fen))
 
-  val getSinglePvEval: CloudEval.GetSinglePvEval = (variant, fen) =>
-    Id.from(variant, fen)
-      .so: id =>
-        getEval(id, MultiPv(1))
+  val getSinglePvEval: CloudEval.GetSinglePvEval = sit => getEval(Id(sit), MultiPv(1))
 
   private def monitorRequest(fen: Fen.Full)(res: Option[Any]) =
     Fen
@@ -40,7 +37,7 @@ final class EvalCacheApi(coll: AsyncCollFailingSilently, cacheApi: lila.memo.Cac
   private def getEval(id: Id, multiPv: MultiPv): Fu[Option[CloudEval]] =
     cache.get(id).map(_.flatMap(_.makeBestMultiPvEval(multiPv)))
 
-  private val cache = cacheApi[Id, Option[EvalCacheEntry]](32_768, "evalCache"):
+  private val cache = cacheApi[Id, Option[EvalCacheEntry]](16_384, "evalCache"):
     _.expireAfterWrite(5 minutes).buildAsyncFuture: id =>
       coll: c =>
         c.one[EvalCacheEntry]($id(id))

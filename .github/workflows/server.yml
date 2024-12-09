@@ -10,7 +10,7 @@ on:
       - 'project/**'
       - 'translation/**'
       - 'build.sbt'
-      - 'lila'
+      - 'lila.sh'
       - 'conf/application.conf.default'
       - '.sbtopts.default'
     branches-ignore:
@@ -24,7 +24,7 @@ on:
       - 'project/**'
       - 'translation/source/**'
       - 'build.sbt'
-      - 'lila'
+      - 'lila.sh'
       - 'conf/application.conf.default'
       - '.sbtopts.default'
 env:
@@ -41,7 +41,7 @@ jobs:
           java-version: 21
           cache: sbt
       - run: TZ=UTC git log -1 --date=iso-strict-local --pretty='format:app.version.commit = "%H"%napp.version.date = "%ad"%napp.version.message = """%s"""%n' | tee conf/version.conf
-      - run: ./lila -Depoll=true "test;stage"
+      - run: ./lila.sh -Depoll=true "test;stage"
       - run: cp LICENSE COPYING.md README.md target/universal/stage && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
       - run: cd target/universal/stage && tar --zstd -cvpf ../../../lila-3.0.tar.zst . && cd -
         env:

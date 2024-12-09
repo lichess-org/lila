@@ -3,7 +3,6 @@ package lila.tutor
 import lila.analyse.WinPercent
 import lila.db.dsl.*
 import lila.insight.*
-import lila.insight.BSONHandlers.given
 import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType

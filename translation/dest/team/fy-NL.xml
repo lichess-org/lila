@@ -3,6 +3,6 @@
   <string name="teams">Teams</string>
   <string name="newTeam">Nij team</string>
   <string name="noTeamFound">Gjin team fûn</string>
-  <string name="joinTeam">Mei team meidwaan</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Mei team meidwaan</string>
   <string name="quitTeam">Team ferlitte</string>
 </resources>

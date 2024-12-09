@@ -1,10 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "types": ["lichess", "web"],
-    "noEmit": true
-  },
-  "isolatedModules": true,
+  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
   "references": [
     { "path": "../chess/tsconfig.json" },
     { "path": "../common/tsconfig.json" },

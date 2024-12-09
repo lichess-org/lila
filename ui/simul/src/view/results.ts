@@ -1,26 +1,26 @@
 import { h } from 'snabbdom';
 import * as status from 'game/status';
-import { Pairing } from '../interfaces';
+import type { Pairing } from '../interfaces';
 import { opposite } from 'chessground/util';
-import SimulCtrl from '../ctrl';
+import type SimulCtrl from '../ctrl';
 
 export default function (ctrl: SimulCtrl) {
   return h('div.results', [
     h(
       'div',
-      trans(ctrl, 'nbPlaying', p => p.game.status < status.ids.aborted),
+      trans(ctrl, i18n.site.nbPlaying, p => p.game.status < status.ids.aborted),
     ),
     h(
       'div',
-      trans(ctrl, 'nbWins', p => p.game.winner === p.hostColor),
+      trans(ctrl, i18n.site.nbWins, p => p.game.winner === p.hostColor),
     ),
     h(
       'div',
-      trans(ctrl, 'nbDraws', p => p.game.status >= status.ids.mate && !p.game.winner),
+      trans(ctrl, i18n.site.nbDraws, p => p.game.status >= status.ids.mate && !p.game.winner),
     ),
     h(
       'div',
-      trans(ctrl, 'nbLosses', p => p.game.winner === opposite(p.hostColor)),
+      trans(ctrl, i18n.site.nbLosses, p => p.game.winner === opposite(p.hostColor)),
     ),
   ]);
 }
@@ -35,5 +35,5 @@ const splitNumber = (s: string) => {
   return h('div.text', s);
 };
 
-const trans = (ctrl: SimulCtrl, key: string, cond: (pairing: Pairing) => boolean) =>
-  splitNumber(ctrl.trans.pluralSame(key, ctrl.data.pairings.filter(cond).length));
+const trans = (ctrl: SimulCtrl, plural: I18nPlural, cond: (pairing: Pairing) => boolean) =>
+  splitNumber(plural(ctrl.data.pairings.filter(cond).length));

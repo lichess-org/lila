@@ -1,12 +1,14 @@
 package lila.ui
 
-import cats.Monoid
 import alleycats.Zero
+import cats.Monoid
 import chess.PlayerTitle
+import io.mola.galimatias.URL
 import scalalib.Render
 import scalatags.Text.all.*
 import scalatags.Text.{ Aggregate, Cap, GenericAttr }
 import scalatags.text.Builder
+import lila.core.i18n.{ I18nKey, Translate }
 
 // collection of lila attrs
 trait ScalatagsAttrs:
@@ -108,6 +110,7 @@ trait ScalatagsTemplate
 
   /* Convert play URLs to scalatags attributes with toString */
   given GenericAttr[Call] = GenericAttr[Call]
+  given GenericAttr[URL]  = GenericAttr[URL]
 
 object ScalatagsTemplate extends ScalatagsTemplate
 
@@ -118,6 +121,7 @@ trait ScalatagsExtensions:
   export lila.core.perm.Granter
 
   given Render[Icon] = _.value
+  given Render[URL]  = _.toString
 
   given [A](using Render[A]): Conversion[A, Frag] = a => StringFrag(a.render)
 
@@ -163,5 +167,9 @@ trait ScalatagsExtensions:
     val value = Builder.GenericAttrValueSource(v)
     t.setAttr("title", value)
     t.setAttr("aria-label", value)
+
+  def textAndTitle(i18n: I18nKey)(using Translate): Modifier = (t: Builder) =>
+    t.setAttr("title", Builder.GenericAttrValueSource(i18n.txt()))
+    t.addChild(i18n())
 
 object ScalatagsExtensions extends ScalatagsExtensions

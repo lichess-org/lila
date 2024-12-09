@@ -1,7 +1,6 @@
 package lila.study
 
 import alleycats.Zero
-
 import scalalib.actor.AsyncActorSequencers
 
 final private class StudySequencer(
@@ -14,7 +13,7 @@ final private class StudySequencer(
     expiration = 1 minute,
     timeout = 10 seconds,
     name = "study",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.highCardinality
   )
 
   def sequenceStudy[A <: Matchable: Zero](studyId: StudyId)(f: Study => Fu[A]): Fu[A] =

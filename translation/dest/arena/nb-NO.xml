@@ -56,20 +56,19 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="myTournaments">Mine turneringer</string>
   <string name="editTournament">Rediger turnering</string>
   <string name="editTeamBattle">Rediger lagkamp</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Forsvarer</string>
+  <string name="defender">Forsvarer</string>
   <string name="pickYourTeam">Velg lag</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Hvilket lag vil du spille for i denne kampen?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Du må bli med i et av disse lagene for å kunne delta!</string>
   <string name="created">Opprettet</string>
   <string name="recentlyPlayed">Nylig spilt</string>
   <string name="bestResults">Beste resultater</string>
-  <string name="stats">Statistikk</string>
   <string name="tournamentStats">Turneringsstatistikk</string>
   <string name="rankAvgHelp">Prosentrangering er plasseringen din uttrykt som en prosentverdi. Lavere er bedre.
 
 For eksempel tilsvarer en tredjeplass i en turnering med 100 spillere 3 %. En tiendeplass i en turnering med 1000 spillere tilsvarer 1 %.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medianer</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Alle snittverdiene på denne siden er %s.</string>
+  <string name="medians">medianer</string>
+  <string name="allAveragesAreX">Alle snittverdiene på denne siden er %s.</string>
   <string name="total">Totalt</string>
   <string name="pointsAvg">Poengsnitt</string>
   <string name="pointsSum">Poengsum</string>

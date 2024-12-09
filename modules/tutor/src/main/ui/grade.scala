@@ -1,12 +1,10 @@
 package lila.tutor
 package ui
-
-import play.api.i18n.Lang
 import scalatags.Text
 
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.insight.InsightPosition
 import lila.core.i18n.Translate
+import lila.insight.InsightPosition
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 object grade:
 

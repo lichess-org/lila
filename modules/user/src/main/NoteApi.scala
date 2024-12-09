@@ -4,6 +4,7 @@ import scalalib.ThreadLocalRandom
 import scalalib.paginator.Paginator
 
 import lila.db.dsl.{ *, given }
+import lila.core.perm.Granter
 
 case class Note(
     _id: String,
@@ -19,36 +20,37 @@ case class Note(
   def searchable = mod && from.isnt(UserId.lichess) && from.isnt(UserId.watcherbot) &&
     !text.startsWith("Appeal reply:")
 
-final class NoteApi(userRepo: UserRepo, coll: Coll)(using Executor) extends lila.core.user.NoteApi:
+final class NoteApi(coll: Coll)(using Executor) extends lila.core.user.NoteApi:
 
   import reactivemongo.api.bson.*
   private given bsonHandler: BSONDocumentHandler[Note] = Macros.handler[Note]
 
-  def get(user: User, isMod: Boolean)(using me: MyId): Fu[List[Note]] =
+  def getForMyPermissions(user: User, max: Max = Max(20))(using me: Me): Fu[List[Note]] =
     coll
       .find(
         $doc("to" -> user.id) ++ {
-          if isMod then
+          if Granter(_.ModNote) then
             $or(
-              $doc("from" -> me),
+              $doc("from" -> me.userId),
               $doc("mod"  -> true)
             )
-          else $doc("from" -> me, "mod" -> false)
-        }
+          else $doc("from" -> me.userId, "mod" -> false)
+        } ++
+          (!Granter(_.Admin)).so($doc("dox" -> false))
       )
       .sort($sort.desc("date"))
       .cursor[Note]()
-      .list(20)
+      .list(max.value)
 
-  def byUserForMod(id: UserId, max: Max = Max(50)): Fu[List[Note]] =
+  def toUserForMod(id: UserId, max: Max = Max(50)): Fu[List[Note]] =
     coll
       .find($doc("to" -> id, "mod" -> true))
       .sort($sort.desc("date"))
       .cursor[Note]()
       .list(max.value)
 
-  def recentByUserForMod(id: UserId): Fu[Option[Note]] =
-    byUserForMod(id, Max(1))
+  def recentToUserForMod(id: UserId): Fu[Option[Note]] =
+    toUserForMod(id, Max(1))
       .map(_.headOption.filter(_.date.isAfter(nowInstant.minusMinutes(5))))
 
   def byUsersForMod(ids: List[UserId]): Fu[List[Note]] =
@@ -101,10 +103,7 @@ final class NoteApi(userRepo: UserRepo, coll: Coll)(using Executor) extends lila
           coll
             .aggregateList(length, _.sec): framework =>
               import framework.*
-              Match(selector) -> {
-                List(Sort(Descending("date"))) :::
-                  List(Skip(offset), Limit(length))
-              }
+              Match(selector) -> List(Sort(Descending("date")), Skip(offset), Limit(length))
             .map:
               _.flatMap:
                 _.asOpt[Note]

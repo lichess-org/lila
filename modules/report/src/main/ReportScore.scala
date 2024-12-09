@@ -2,9 +2,8 @@ package lila.report
 
 final private class ReportScore(
     getAccuracy: Report.Candidate => Fu[Option[Accuracy]],
-    gameRepo: lila.core.game.GameRepo,
-    domain: lila.core.config.NetDomain
-)(using Executor):
+    gameRepo: lila.core.game.GameRepo
+)(using domain: lila.core.config.NetDomain)(using Executor):
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
     getAccuracy(candidate)
@@ -34,21 +33,22 @@ final private class ReportScore(
 
     // https://github.com/lichess-org/lila/issues/4587
     def fixedAutoScore(c: Report.Candidate)(score: Double): Double =
+      import Reason.*
       if c.isAutoBoost then baseScore * 1.5
       else if c.isAutoComm then 42d
       else if c.isIrwinCheat then 45d
       else if c.isKaladinCheat then 25d
-      else if c.isPrint || c.isCoachReview || c.is(_.Playbans) then baseScore * 2
-      else if c.is(_.Username) || c.is(_.Sexism) then score + 30
+      else if c.reporter.user.marks.reportban then score // reportbanned can still make comm reports
+      else if c.reason == AltPrint || c.reason == Playbans then baseScore * 2
+      else if Set(Violence, Harass, SelfHarm, Hate).contains(c.reason) then 50d
+      else if c.reason == Username then 50d
       else score
-
-    private val gameRegex = ReportForm.gameLinkRegex(domain)
 
     def dropScoreIfCheatReportHasNoAnalyzedGames(c: Report.Candidate.Scored): Fu[Report.Candidate.Scored] =
       if c.candidate.isCheat & !c.candidate.isIrwinCheat & !c.candidate.isKaladinCheat then
-        val gameIds = gameRegex.findAllMatchIn(c.candidate.text).toList.take(20).map(m => GameId(m.group(1)))
-        def isUsable(gameId: GameId) = gameRepo.analysed(gameId).map { _.exists(_.ply > 30) }
-        gameIds
+        def isUsable(gameId: GameId) = gameRepo.analysed(gameId).map(_.exists(_.ply > 30))
+        ReportForm
+          .gameLinks(c.candidate.text)
           .existsM(isUsable)
           .map:
             if _ then c

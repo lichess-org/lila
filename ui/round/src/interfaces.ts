@@ -1,12 +1,19 @@
-import { VNode } from 'snabbdom';
-import { GameData, Status } from 'game';
-import { ClockData, Seconds, Centis } from './clock/clockCtrl';
-import { CorresClockData } from './corresClock/corresClockCtrl';
-import RoundController from './ctrl';
-import { ChatCtrl, ChatPlugin } from 'chat';
-import * as cg from 'chessground/types';
+import type { VNode } from 'common/snabbdom';
+import type { GameData, Status, Player } from 'game';
+import type { ClockData } from './clock/clockCtrl';
+import type { CorresClockData } from './corresClock/corresClockCtrl';
+import type RoundController from './ctrl';
+import type { ChatCtrl, ChatPlugin } from 'chat';
 import * as Prefs from 'common/prefs';
-import { EnhanceOpts } from 'common/richText';
+import type { EnhanceOpts } from 'common/richText';
+import type { RoundSocket } from './socket';
+import type { MoveMetadata as CgMoveMetadata } from 'chessground/types';
+
+export { type RoundSocket } from './socket';
+export { type CorresClockData } from './corresClock/corresClockCtrl';
+
+export type { default as RoundController } from './ctrl';
+export type { ClockData } from './clock/clockCtrl';
 
 export interface Untyped {
   [key: string]: any;
@@ -31,8 +38,8 @@ export interface SocketMove {
   b?: 1;
 }
 export interface SocketDrop {
-  role: cg.Role;
-  pos: cg.Key;
+  role: Role;
+  pos: Key;
   b?: 1;
 }
 
@@ -41,7 +48,6 @@ export type EncodedDests =
   | {
       [key: string]: string;
     };
-export type Dests = cg.Dests;
 
 export interface RoundData extends GameData {
   clock?: ClockData;
@@ -52,7 +58,7 @@ export interface RoundData extends GameData {
   forecastCount?: number;
   opponentSignal?: number;
   crazyhouse?: CrazyData;
-  correspondence: CorresClockData;
+  correspondence?: CorresClockData;
   tv?: Tv;
   userTv?: {
     id: string;
@@ -75,20 +81,25 @@ interface CrazyData {
   pockets: [CrazyPocket, CrazyPocket];
 }
 
-interface CrazyPocket {
+export interface CrazyPocket {
   [role: string]: number;
+}
+export interface RoundProxy extends RoundSocket {
+  analyse(): void;
+  newOpponent(): void;
+  userVNode(player: Player, postion: Position): VNode | undefined;
 }
 
 export interface RoundOpts {
   data: RoundData;
   userId?: string;
   noab?: boolean;
-  socketSend: SocketSend;
+  socketSend?: SocketSend;
   onChange(d: RoundData): void;
-  element: HTMLElement;
-  crosstableEl: HTMLElement;
-  i18n: I18nDict;
+  element?: HTMLElement;
+  crosstableEl?: HTMLElement;
   chat?: ChatOpts;
+  local?: RoundProxy;
 }
 
 export interface ChatOpts {
@@ -99,45 +110,51 @@ export interface ChatOpts {
   noteId?: string;
   noteAge?: number;
   noteText?: string;
-  instance?: Promise<ChatCtrl>;
+  instance?: ChatCtrl;
 }
 
 export interface Step {
   ply: Ply;
-  fen: cg.FEN;
+  fen: FEN;
   san: San;
   uci: Uci;
   check?: boolean;
   crazy?: StepCrazy;
 }
 
-export interface ApiMove extends Step {
-  dests: EncodedDests;
+export interface ApiMove {
+  dests: string | { [key: string]: string };
+  ply: number;
+  fen: string;
+  san: string;
+  uci: string;
   clock?: {
     white: Seconds;
     black: Seconds;
     lag?: Centis;
   };
-  status: Status;
+  status?: Status;
   winner?: Color;
-  check: boolean;
-  threefold: boolean;
-  wDraw: boolean;
-  bDraw: boolean;
+  check?: boolean;
+  threefold?: boolean;
+  fiftyMoves?: boolean;
+  wDraw?: boolean;
+  bDraw?: boolean;
   crazyhouse?: CrazyData;
-  role?: cg.Role;
+  role?: Role;
   drops?: string;
   promotion?: {
-    key: cg.Key;
-    pieceClass: cg.Role;
+    key: Key;
+    pieceClass: Role;
   };
   castle?: {
-    king: [cg.Key, cg.Key];
-    rook: [cg.Key, cg.Key];
+    king: [Key, Key];
+    rook: [Key, Key];
     color: Color;
   };
   isMove?: true;
   isDrop?: true;
+  volume?: number;
 }
 
 export interface ApiEnd {
@@ -180,10 +197,10 @@ export interface Pref {
   resizeHandle: Prefs.ShowResizeHandle;
 }
 
-export interface MoveMetadata {
-  premove?: boolean;
-  justDropped?: cg.Role;
-  justCaptured?: cg.Piece;
+export interface MoveMetadata extends CgMoveMetadata {
+  preConfirmed?: boolean;
+  justDropped?: Role;
+  justCaptured?: Piece;
 }
 
 export type Position = 'top' | 'bottom';

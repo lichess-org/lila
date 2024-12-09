@@ -1,17 +1,14 @@
-import * as sound from '../sound';
-import * as stages from '../stage/list';
-import { Prop, prop } from 'common';
-import { LearnProgress, LearnOpts } from '../learn';
-import { Stage } from '../stage/list';
-import { LearnCtrl } from '../ctrl';
+import { stageStart, stageEnd } from '../sound';
+import { type Prop, prop } from 'common';
+import type { LearnProgress, LearnOpts } from '../learn';
+import { type Stage, type Level, byId as stageById } from '../stage/list';
 import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
-import { WithGround } from '../util';
+import type { WithGround } from '../util';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
-  trans: Trans;
 
   chessground: CgApi | undefined;
   levelCtrl: LevelCtrl;
@@ -20,17 +17,14 @@ export class RunCtrl {
   stageCompleted: Prop<boolean> = prop(false);
 
   get stage(): Stage {
-    return stages.byId[this.opts.stageId ?? 1]!;
+    return stageById[this.opts.stageId ?? 1]!;
   }
 
   constructor(
-    ctrl: LearnCtrl,
     readonly opts: LearnOpts,
     readonly redraw: () => void,
   ) {
     clearTimeouts();
-
-    this.trans = ctrl.trans;
 
     this.initializeLevel();
 
@@ -52,7 +46,7 @@ export class RunCtrl {
           } else if (this.stageCompleted()) return;
           else {
             this.stageCompleted(true);
-            sound.stageEnd();
+            stageEnd();
           }
           this.redraw();
         },
@@ -64,7 +58,7 @@ export class RunCtrl {
     this.stageCompleted(false);
 
     if (!this.opts.stageId) return;
-    if (this.stageStarting()) sound.stageStart();
+    if (this.stageStarting()) stageStart();
     else this.levelCtrl.start();
   };
 
@@ -73,17 +67,15 @@ export class RunCtrl {
     this.withGround(this.levelCtrl.initializeWithGround);
   };
 
+  pref = this.opts.pref;
+
   withGround: WithGround = f => (this.chessground ? f(this.chessground) : undefined);
 
-  stageScore = () => {
-    const res = this.data.stages[this.stage.key];
-    return res?.scores.reduce((a, b) => a + b) ?? 0;
-  };
+  stageScore = () => this.data.stages[this.stage.key]?.scores.reduce((a, b) => a + b) ?? 0;
 
-  score = (level: stages.Level) =>
-    this.data.stages[this.stage.key] ? this.data.stages[this.stage.key].scores[level.id - 1] : 0;
+  score = (level: Level) => this.data.stages[this.stage.key]?.scores[level.id - 1] ?? 0;
 
-  getNext = () => stages.byId[this.stage.id + 1];
+  getNext = () => stageById[this.stage.id + 1];
 
   hideStartingPane = () => {
     if (!this.stageStarting()) return;

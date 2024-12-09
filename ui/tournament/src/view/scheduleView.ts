@@ -1,8 +1,8 @@
-import { Classes, h, VNode } from 'snabbdom';
+import { type Classes, h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import perfIcons from 'common/perfIcons';
-import { Tournament, Clock } from '../interfaces';
-import { Ctrl, Lane } from '../tournament.schedule';
+import type { Tournament, Clock } from '../interfaces';
+import type { Ctrl, Lane } from '../tournament.schedule';
 import dragscroll from 'dragscroll';
 
 const scale = 8;
@@ -10,7 +10,7 @@ let now: number, startTime: number, stopTime: number;
 
 const i18nNames: Record<string, string> = {};
 
-const startDirection = () => (document.dir == 'rtl' ? 'right' : 'left');
+const startDirection = () => (document.dir === 'rtl' ? 'right' : 'left');
 
 function i18nName(t: Tournament) {
   if (!i18nNames[t.id]) i18nNames[t.id] = t.fullName;
@@ -132,7 +132,7 @@ const iconOf = (tour: Tournament) =>
 
 let mousedownAt: number[] | undefined;
 
-function renderTournament(ctrl: Ctrl, tour: Tournament) {
+function renderTournament(tour: Tournament) {
   let width = tour.minutes * scale;
   const left = leftPos(tour.startsAt);
   // moves content into viewport, for long tourneys and marathons
@@ -178,7 +178,7 @@ function renderTournament(ctrl: Ctrl, tour: Tournament) {
             displayClock(tour.clock) + ' ',
             tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
             tour.position ? 'Thematic ' : null,
-            tour.rated ? ctrl.trans('ratedTournament') : ctrl.trans('casualTournament'),
+            i18n.site[tour.rated ? 'ratedTournament' : 'casualTournament'],
           ]),
           tour.nbPlayers
             ? h('span.nb-players', { attrs: { 'data-icon': licon.User } }, tour.nbPlayers)
@@ -259,7 +259,7 @@ export default function (ctrl: Ctrl) {
             const el = vnode.elm as HTMLElement;
             const bitLater = now + 15 * 60 * 1000;
             const scroll = leftPos(bitLater - (el.clientWidth / 2.5 / scale) * 60 * 1000);
-            el.scrollLeft = document.dir == 'rtl' ? -1 * scroll : scroll;
+            el.scrollLeft = document.dir === 'rtl' ? -1 * scroll : scroll;
 
             dragscroll.reset();
 
@@ -284,7 +284,7 @@ export default function (ctrl: Ctrl) {
         ...tourLanes.map(lane => {
           return h(
             'div.tournamentline',
-            lane.map(tour => renderTournament(ctrl, tour)),
+            lane.map(tour => renderTournament(tour)),
           );
         }),
       ],

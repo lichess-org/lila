@@ -1,10 +1,11 @@
 package lila.swiss
 
 import scalalib.HeapSort
+
+import lila.core.swiss.FeaturedIdNames
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
 import lila.memo.CacheApi.*
-import lila.core.swiss.FeaturedIdNames
 
 final class SwissFeature(
     mongo: SwissMongo,
@@ -83,7 +84,7 @@ final class SwissFeature(
           Sort(Descending("nbPlayers")),
           Limit(nb * 50),
           PipelineOperator(
-            $lookup.pipeline(
+            $lookup.pipelineBC(
               from = "team",
               as = "team",
               local = "teamId",

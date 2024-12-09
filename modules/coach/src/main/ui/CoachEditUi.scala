@@ -1,16 +1,15 @@
 package lila.coach
 package ui
 
-import play.api.libs.json.Json
 import play.api.data.Form
-import scalalib.paginator.Paginator
+import play.api.libs.json.Json
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class CoachEditUi(helpers: Helpers, ui: CoachUi):
   import helpers.{ *, given }
-  import trans.{ coach as trc }
 
   private val dataTab = attr("data-tab")
 
@@ -31,7 +30,7 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
   ) =
     page
       .css("bits.coach.editor", "bits.tagify")
-      .js(EsmInit("bits.coachForm")):
+      .js(Esm("bits.coachForm")):
         div(cls := "coach-edit box")(
           div(cls := "top")(
             span(
@@ -47,9 +46,11 @@ final class CoachEditUi(helpers: Helpers, ui: CoachUi):
                 h3("TODO list before publishing your coach profile"),
                 ul
               ),
-              div(cls := "picture_wrap")(
-                ui.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
-                div(label("Drag file or"), " ", form3.file.selectImage())
+              form3.fieldset("Picture", toggle = true.some)(
+                div(cls := "form-group coach-edit-picture")(
+                  ui.thumbnail(c, 250)(attr("draggable") := "true", cls := "drop-target"),
+                  div(label("Drag file or"), " ", form3.file.selectImage())
+                )
               )
             )
           ),

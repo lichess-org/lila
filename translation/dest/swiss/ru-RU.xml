@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Швейцарский</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Швейцарский</string>
   <string name="swissTournaments">Турниры по Швейцарской системе</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Посмотреть раунд</item>
@@ -39,7 +39,7 @@
     <item quantity="many">%s минут между турами</item>
     <item quantity="other">%s минут между турами</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Начинается через</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Начинается через</string>
   <string name="nextRound">Следующий тур</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Текущая партия</item>
@@ -86,14 +86,14 @@ PlayerE 1
   <string name="numberOfByesQ">Сколько автопобед может получить игрок?</string>
   <string name="numberOfByesA">Игрок получает одно очко автопобеды за несыгранную партию в том случае, когда не удаётся найти для него соперника в этом туре.
 Также пол-очка присуждается за позднее присоединение к турниру.</string>
-  <string name="earlyDrawsQ">Что происходит при ранних ничьих?</string>
-  <string name="earlyDrawsAnswer">В швейцарских играх соперники не могут согласиться на ничью до того, как будет сделано 30 ходов. Хотя эта мера не может предотвратить заранее запланированные ничьи, она, по крайней мере, затрудняет согласие на внезапную ничью.</string>
+  <string name="earlyDrawsQ">Что произойдёт при раннем предложении ничьи?</string>
+  <string name="earlyDrawsAnswer">В партиях по Швейцарской системе соперники не могут согласиться на ничью до того как будет сделано 30 ходов. Хотя эта мера не может предотвратить заранее запланированные ничьи, она, по крайней мере, затрудняет согласие на ничью, возникшее спонтанно.</string>
   <string name="whatIfOneDoesntPlayQ">Что произойдёт, если игрок не играет партию?</string>
   <string name="whatIfOneDoesntPlayA">Его часы будут запущены, в итоге он просрочит время и проиграет партию.
 Затем система снимет игрока с турнира, чтобы избежать для него дальнейших поражений.
  Игрок может вернуться в турнир в любое время.</string>
   <string name="protectionAgainstNoShowQ">Что будет в случае неактивности в турнире?</string>
-  <string name="protectionAgainstNoShowA">Игроки, участвующие в турнирах, но не играющие свои начавшиеся партии, могут стать проблемой. Для её разрешения, если игрок так и не сделал хотя бы ход, Lichess на определённое время запрещает ему участие в новых Швейцарских турнирах.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Игроки, участвующие в турнирах, но не играющие свои начавшиеся партии, могут стать проблемой. Для её разрешения, если игрок так и не сделал хотя бы ход, Lichess на определённое время запрещает ему участие в новых Швейцарских турнирах.
 Создатель турнира, однако, может позволить им участвовать в турнире.</string>
   <string name="lateJoinQ">Могут ли игроки присоединиться к турниру после его начала?</string>
   <string name="lateJoinA">Да, может, пока не сыграны половина раундов. Например, в 11-раундовом Швейцарском турнире игрок может начать играть, если ещё не начался 6-й раунд. В 12-раундовом — если 7-й соответственно. Позднее вступление даёт половину автопобеды только один раз, даже если пропущено несколько раундов.</string>

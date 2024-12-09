@@ -1,7 +1,7 @@
-import * as util from '../util';
-import * as scoring from '../score';
+import { withLinebreaks } from '../util';
+import { getStageRank } from '../score';
 import { numberSpread } from 'common/number';
-import { RunCtrl } from './runCtrl';
+import type { RunCtrl } from './runCtrl';
 import { h } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { hashNavigate } from '../hashRouting';
@@ -26,12 +26,11 @@ export default function (ctrl: RunCtrl) {
       ),
     },
     h('div.learn__screen', [
-      h('div.stars', makeStars(scoring.getStageRank(stage, score))),
-      h('h1', ctrl.trans('stageXComplete', stage.id)),
+      h('div.stars', makeStars(getStageRank(stage, score))),
+      h('h1', i18n.learn.stageXComplete(stage.id)),
       h(
         'span.score',
-        ctrl.trans.vdom(
-          'yourScore',
+        i18n.site.yourScore.asArray(
           h(
             'span',
             {
@@ -46,19 +45,15 @@ export default function (ctrl: RunCtrl) {
           ),
         ),
       ),
-      h('p', util.withLinebreaks(ctrl.trans.noarg(stage.complete))),
+      h('p', withLinebreaks(stage.complete)),
       h('div.buttons', [
         next
           ? h('a.next', { hook: bind('click', () => hashNavigate(next.id)) }, [
-              ctrl.trans('nextX', ctrl.trans.noarg(next.title)) + ' ',
+              i18n.learn.nextX(next.title) + ' ',
               h('i', { attrs: { 'data-icon': '' } }),
             ])
           : null,
-        h(
-          'a.back.text[data-icon=]',
-          { hook: bind('click', () => hashNavigate()) },
-          ctrl.trans.noarg('backToMenu'),
-        ),
+        h('a.back.text[data-icon=]', { hook: bind('click', () => hashNavigate()) }, i18n.learn.backToMenu),
       ]),
     ]),
   );

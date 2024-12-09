@@ -1,5 +1,3 @@
-import * as cg from 'chessground/types';
-
 export interface GameData {
   game: Game;
   player: Player;
@@ -18,7 +16,7 @@ export interface Game {
   status: Status;
   player: Color;
   turns: number;
-  fen: cg.FEN;
+  fen: FEN;
   startedAtTurn?: number;
   source: Source;
   speed: Speed;
@@ -29,6 +27,7 @@ export interface Game {
   initialFen?: string;
   importedBy?: string;
   threefold?: boolean;
+  fiftyMoves?: boolean;
   boosted?: boolean;
   rematch?: string;
   rated?: boolean;
@@ -43,6 +42,7 @@ export interface Status {
 }
 
 export type StatusName =
+  | 'created'
   | 'started'
   | 'aborted'
   | 'mate'
@@ -80,6 +80,7 @@ export interface Player {
   engine?: boolean;
   berserk?: boolean;
   version: number;
+  image?: string;
   blindfold?: boolean;
 }
 
@@ -135,7 +136,7 @@ export interface CorrespondenceClock {
   black: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool' | 'friend';
+export type Source = 'import' | 'lobby' | 'pool' | 'friend' | 'local';
 
 export interface PlayerUser {
   id: string;
@@ -159,18 +160,12 @@ export interface Perf {
 
 export interface Ctrl {
   data: GameData;
-  trans: Trans;
 }
 
 export interface Blurs {
   nb: number;
   percent: number;
   bits?: string;
-}
-
-export interface Trans {
-  (key: string): string;
-  noarg: (key: string) => string;
 }
 
 export interface Hold {
@@ -196,7 +191,7 @@ export interface CheckCount {
 }
 
 export type MaterialDiffSide = {
-  [role in cg.Role]: number;
+  [role in Role]: number;
 };
 
 export interface MaterialDiff {

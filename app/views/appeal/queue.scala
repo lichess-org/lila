@@ -1,11 +1,10 @@
 package views.appeal
 
 import lila.app.UiEnv.{ *, given }
-
 import lila.appeal.Appeal
 import lila.appeal.Appeal.Filter
-import lila.report.Report.Inquiry
 import lila.mod.ui.PendingCounts
+import lila.report.Report.Inquiry
 
 object queue:
 

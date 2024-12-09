@@ -1,17 +1,14 @@
 package controllers
-
-import play.api.libs.json.*
-
 import lila.app.{ *, given }
+import lila.core.id.{ CmsPageKey, TitleRequestId }
 import lila.title.TitleRequest
-import lila.core.id.{ TitleRequestId, CmsPageKey }
-import org.checkerframework.checker.units.qual.s
 
 final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC: => User, modC: => Mod)
     extends LilaController(env):
 
-  private def api = env.title.api
-  private def ui  = views.title.ui
+  import env.title.api
+  import views.title.ui
+
   private def inSiteMenu(title: String = "Your title verification")(using Context) =
     views.site.ui.SitePage(title, "title", "page box box-pad force-ltr").css("bits.titleRequest")
 
@@ -40,7 +37,10 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
   def show(id: TitleRequestId) = Auth { _ ?=> me ?=>
     Found(api.getForMe(id)): req =>
       if req.userId.is(me)
-      then Ok.async(ui.edit(inSiteMenu(), env.title.form.edit(req.data), req))
+      then
+        if req.isRejectedButCanTryAgain
+        then api.tryAgain(req).inject(Redirect(routes.TitleVerify.show(id)))
+        else Ok.async(ui.edit(inSiteMenu(), env.title.form.edit(req.data), req))
       else
         for
           data    <- getModData(req)
@@ -123,10 +123,12 @@ final class TitleVerify(env: Env, cmsC: => Cms, reportC: => report.Report, userC
   private def onApproved(req: TitleRequest)(using Context, Me) =
     for
       user <- env.user.api.byId(req.userId).orFail(s"User ${req.userId} not found")
-      _    <- modC.doSetTitle(user.id, req.data.title.some, req.data.public)
+      _    <- modC.doSetTitle(user.id, req.data.title.some)
       url  = s"${env.net.baseUrl}${routes.TitleVerify.show(req.id)}"
       note = s"Title verified: ${req.data.title}. Public: ${if req.data.public then "Yes" else "No"}. $url"
       _ <- env.user.noteApi.write(user.id, note, modOnly = true, dox = false)
+      _ <- req.data.public.so:
+        env.user.repo.setRealName(user.id, req.data.realName)
       _ <- req.data.coach.so:
         env.user.repo.addPermission(user.id, lila.core.perm.Permission.Coach)
       _ <- req.data.coach.so:

@@ -15,8 +15,8 @@ export const xhrHeader = {
 
 export const ensureOk = (res: Response): Response => {
   if (res.ok) return res;
-  if (res.status == 429) throw new Error('Too many requests');
-  if (res.status == 413) throw new Error('The uploaded file is too large');
+  if (res.status === 429) throw new Error('Too many requests');
+  if (res.status === 413) throw new Error('The uploaded file is too large');
   throw new Error(`Error ${res.status}`);
 };
 
@@ -74,7 +74,7 @@ export const form = (data: any): FormData => {
 };
 
 /* constructs a url with escaped parameters */
-export const url = (path: string, params: { [k: string]: string | number | boolean | undefined }) => {
+export const url = (path: string, params: { [k: string]: string | number | boolean | undefined }): string => {
   const searchParams = new URLSearchParams();
   for (const k of Object.keys(params)) if (defined(params[k])) searchParams.append(k, params[k] as string);
   const query = searchParams.toString();
@@ -94,4 +94,27 @@ export const formToXhr = (el: HTMLFormElement, submitter?: HTMLButtonElement): P
         body,
       })
     : Promise.reject(`Form has no action: ${el}`);
+};
+
+export type ProcessLine<T> = (line: T) => void;
+
+/*
+ * `response` is the result of a `fetch` request.
+ * `processLine` will be called with each element of the stream.
+ * https://gist.github.com/ornicar/a097406810939cf7be1df8ea30e94f3e
+ */
+export const readNdJson = async <T>(response: Response, processLine: ProcessLine<T>): Promise<void> => {
+  if (!response.ok) throw new Error(`Status ${response.status}`);
+  const stream = response.body!.getReader();
+  const matcher = /\r?\n/;
+  const decoder = new TextDecoder();
+  let buf = '';
+  let done, value;
+  do {
+    ({ done, value } = await stream.read());
+    buf += decoder.decode(value || new Uint8Array(), { stream: !done });
+    const parts = buf.split(matcher);
+    if (!done) buf = parts.pop()!;
+    for (const part of parts) if (part) processLine(JSON.parse(part));
+  } while (!done);
 };

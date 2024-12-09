@@ -11,16 +11,16 @@
   <string name="previousHighscoreWasX">Predchádzajúce najvyššie skóre bolo %s</string>
   <string name="playAgain">Hrať znova</string>
   <plurals name="xRuns">
-    <item quantity="one">1 pokus</item>
-    <item quantity="few">%s pokusy</item>
-    <item quantity="many">%s pokusov</item>
-    <item quantity="other">%s pokusov</item>
+    <item quantity="one">1 kolo</item>
+    <item quantity="few">%s kolá</item>
+    <item quantity="many">%s kôl</item>
+    <item quantity="other">%s kôl</item>
   </plurals>
   <plurals name="playedNbRunsOfPuzzleStorm">
-    <item quantity="one">Odohraný jeden pokus %2$s</item>
-    <item quantity="few">Obohrané %1$s pokusy %2$s</item>
-    <item quantity="many">Odohraných %1$s pokusov %2$s</item>
-    <item quantity="other">Odohraných %1$s pokusov %2$s</item>
+    <item quantity="one">Odohrané jedeno kolo %2$s</item>
+    <item quantity="few">Obohrané %1$s kolá %2$s</item>
+    <item quantity="many">Odohraných %1$s kôl %2$s</item>
+    <item quantity="other">Odohraných %1$s kôl %2$s</item>
   </plurals>
   <string name="highscoreX">Najvyššie skóre: %s</string>
   <string name="score">Skóre</string>
@@ -31,12 +31,12 @@
   <string name="timePerMove">Čas na ťah</string>
   <string name="highestSolved">Najťažšia vyriešená úloha</string>
   <string name="puzzlesPlayed">Riešené úlohy</string>
-  <string name="newRun">Nový pokus (kláves. skratka: Medzerník)</string>
-  <string name="endRun">Ukončiť pokus (kláves. skratka: Enter)</string>
+  <string name="newRun">Nové kolo (kláves. skratka: Medzerník)</string>
+  <string name="endRun">Ukončiť kolo (kláves. skratka: Enter)</string>
   <string name="highscores">Najvyššie skóre</string>
-  <string name="viewBestRuns">Prezrieť najlepšie pokusy</string>
-  <string name="bestRunOfDay">Najlepší pokus dňa</string>
-  <string name="runs">Pokusy</string>
+  <string name="viewBestRuns">Prezrieť najlepšie kolá</string>
+  <string name="bestRunOfDay">Najlepšie kolo dňa</string>
+  <string name="runs">Kolá</string>
   <string name="getReady">Pripravte sa!</string>
   <string name="waitingForMorePlayers">Čaká sa kým sa pripojí viac hráčov...</string>
   <string name="raceComplete">Preteky ukončené!</string>
@@ -61,6 +61,6 @@
   <string name="thisMonth">Tento mesiac</string>
   <string name="allTime">Celkovo</string>
   <string name="clickToReload">Kliknite pre opätovné načítanie</string>
-  <string name="thisRunHasExpired">Tento pokus vypršal!</string>
-  <string name="thisRunWasOpenedInAnotherTab">Tento pokus ste otvorili v inej záložke!</string>
+  <string name="thisRunHasExpired">Čas tohto kola vypršal!</string>
+  <string name="thisRunWasOpenedInAnotherTab">Toto kolo ste otvorili v inej záložke!</string>
 </resources>

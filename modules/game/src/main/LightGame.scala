@@ -1,8 +1,9 @@
 package lila.game
 
-import chess.{ Color, Status }
+import chess.{ Color, IntRating }
+import chess.rating.{ IntRatingDiff, RatingProvisional }
 
-import lila.core.game.{ LightGame, LightPlayer }
+import lila.core.game.LightPlayer
 
 object LightGame:
 
@@ -14,7 +15,8 @@ object LightGame:
       F.blackPlayer -> true,
       F.playerUids  -> true,
       F.winnerColor -> true,
-      F.status      -> true
+      F.status      -> true,
+      F.variant     -> true
     )
 
 object LightPlayer:

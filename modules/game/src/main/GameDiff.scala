@@ -5,12 +5,10 @@ import reactivemongo.api.bson.*
 
 import scala.util.Try
 
+import lila.core.game.{ Game, Player }
 import lila.db.ByteArray
 import lila.db.ByteArray.given
 import lila.db.dsl.given
-
-import lila.core.game.{ Game, Player }
-
 import lila.game.Game.BSONFields.*
 
 object GameDiff:

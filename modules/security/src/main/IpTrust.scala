@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest
 import lila.core.net.IpAddress
-import lila.core.security.{ IsProxy, Ip2ProxyApi }
+import lila.core.security.{ Ip2ProxyApi, IsProxy }
 
 final class IpTrust(proxyApi: Ip2ProxyApi, geoApi: GeoIP, firewallApi: Firewall)(using
     Executor,
@@ -83,7 +83,7 @@ object IpTrust:
 
   def proxyMultiplier(times: Float): RateLimitStrategy =
     case IsProxy.empty  => 1
-    case IsProxy.search => 0.5
+    case IsProxy.search => 0.5 // search factor is < 1 so don't multiply it
     case proxy          => defaultRateLimitStrategy(proxy) * times
 
   type ThrottleStrategy = IsProxy => Float

@@ -116,7 +116,6 @@
   <string name="replayMode">Wiedergabemodus</string>
   <string name="realtimeReplay">Echtzeit</string>
   <string name="byCPL">Nach CPL</string>
-  <string name="openStudy">Studie öffnen</string>
   <string name="enable">Einschalten</string>
   <string name="bestMoveArrow">Pfeil für besten Zug</string>
   <string name="showVariationArrows">Varianten-Pfeile anzeigen</string>
@@ -126,7 +125,6 @@
   <string name="memory">Arbeitsspeicher</string>
   <string name="infiniteAnalysis">Endlose Analyse</string>
   <string name="removesTheDepthLimit">Entfernt die Tiefenbegrenzung und hält deinen Computer warm</string>
-  <string name="engineManager">Engineverwaltung</string>
   <string name="blunder">Grober Patzer</string>
   <string name="mistake">Fehler</string>
   <string name="inaccuracy">Ungenauigkeit</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Neueste Forenbeiträge</string>
   <string name="players">Spieler</string>
   <string name="friends">Freunde</string>
+  <string name="otherPlayers">andere Spieler</string>
   <string name="discussions">Konversationen</string>
   <string name="today">Heute</string>
   <string name="yesterday">Gestern</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s Partie mit dir</item>
     <item quantity="other">%s Partien mit dir</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Abbrechen</string>
   <string name="whiteTimeOut">Zeitüberschreitung von Weiß</string>
   <string name="blackTimeOut">Zeitüberschreitung von Schwarz</string>
@@ -435,7 +435,6 @@
   <string name="block">Blockieren</string>
   <string name="blocked">Blockiert</string>
   <string name="unblock">Nicht mehr blockieren</string>
-  <string name="followsYou">Folgt dir</string>
   <string name="xStartedFollowingY">%1$s folgt jetzt %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
@@ -467,9 +466,6 @@
   <string name="safeTournamentName">Wähle einen äußerst sicheren Namen für das Turnier.</string>
   <string name="inappropriateNameWarning">Sämtliche unangemessene Inhalte können zur Schließung deines Benutzerkontos führen.</string>
   <string name="emptyTournamentName">Frei lassen, um das Turnier nach einem zufälligen Großmeister zu benennen.</string>
-  <string name="recommendNotTouching">Wir empfehlen, diese nicht zu ändern.</string>
-  <string name="fewerPlayers">Falls du Teilnahmebedingungen setzt, wird das Turnier weniger Spieler haben.</string>
-  <string name="showAdvancedSettings">Zeige erweiterte Einstellungen</string>
   <string name="makePrivateTournament">Stelle das Turnier auf privat und beschränke den Zugang durch ein Passwort</string>
   <string name="join">Teilnehmen</string>
   <string name="withdraw">Verlassen</string>
@@ -509,8 +505,7 @@
   <string name="ifNoneLeaveEmpty">Nur falls vorhanden</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil bearbeiten</string>
-  <string name="firstName">Vorname</string>
-  <string name="lastName">Nachname</string>
+  <string name="realName">Echter Name</string>
   <string name="setFlair">Setze dein Flair</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Es existiert eine Einstellungsmöglichkeit, um alle Benutzerflairs auf der gesamten Seite zu verbergen.</string>
@@ -541,6 +536,8 @@
   <string name="descPrivateHelp">Text, den nur Teammitglieder lesen können. Wenn ausgefüllt, ersetzt er für Teammitglieder die öffentliche Beschreibung.</string>
   <string name="no">Nein</string>
   <string name="yes">Ja</string>
+  <string name="website">Webseite</string>
+  <string name="mobile">Handy</string>
   <string name="help">Hilfe:</string>
   <string name="createANewTopic">Erstelle ein neues Thema</string>
   <string name="topics">Themen</string>
@@ -557,11 +554,11 @@
   <string name="reason">Grund</string>
   <string name="whatIsIheMatter">Was ist das Problem?</string>
   <string name="cheat">Betrug</string>
-  <string name="insult">Beleidigung</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulation der Wertungszahl</string>
   <string name="other">Sonstiges</string>
-  <string name="reportDescriptionHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Spielerverhaltens. Bitte schreibe nicht einfach nur „dieser Spieler betrügt“, sondern begründe auch, wie Du zu diesem Schluss kommst. Dein Bericht wird schneller bearbeitet, wenn er in englischer Sprache verfasst ist.</string>
+  <string name="reportCheatBoostHelp">Füge den Link zu einer oder mehreren Partien ein und erkläre die Auffälligkeiten bezüglich des Verhaltens des Spielers. Bitte schreibe nicht einfach nur „Die schummeln (bzw. betrügen)“, sondern begründe auch, wie Du zu diesem Schluss kommst.</string>
+  <string name="reportUsernameHelp">Erkläre, was an diesem Benutzernamen beleidigend oder unangemessen ist. Sage nicht einfach \"Der Name ist beleidigend/unangemessen\", sondern erkläre, wie du zu dieser Schlussfolgerung gekommen bist. Insbesondere wenn die Beleidigung verschleiert wird, nicht auf Englisch, ist in Slang, oder ist ein historischer/kultureller Bezugspunkt.</string>
+  <string name="reportProcessedFasterInEnglish">Ihr Bericht wird schneller bearbeitet, wenn er auf Englisch verfasst ist.</string>
   <string name="error.provideOneCheatedGameLink">Bitte gib mindestens einen Link zu einem Spiel an, in dem betrogen wurde.</string>
   <string name="by">von %s</string>
   <string name="importedByX">Importiert von %s</string>
@@ -594,6 +591,7 @@
   <string name="slow">Langsam</string>
   <string name="insideTheBoard">Auf dem Brett</string>
   <string name="outsideTheBoard">Neben dem Brett</string>
+  <string name="allSquaresOfTheBoard">Alle Felder auf dem Brett</string>
   <string name="onSlowGames">Bei langsamen Spielen</string>
   <string name="always">Immer</string>
   <string name="never">Nie</string>
@@ -680,7 +678,7 @@
   <string name="aboutSimulRules">Beim Start des Simultan beginnt der Alleinspieler mit Weiß und spielt so lange mit wechselnden Gegnern, bis alle Partien beendet sind.</string>
   <string name="aboutSimulSettings">Simultane sind immer ungewertet. Revanchen, Zugrücknahme und zusätzliche Zeit sind deaktiviert.</string>
   <string name="create">Erstellen</string>
-  <string name="whenCreateSimul">Wenn du ein Simultan erstellst, spielst du mit mehreren Gegnern gleichzeitig.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wenn du ein Simultan erstellst, spielst du mit mehreren Gegnern gleichzeitig.</string>
   <string name="simulVariantsHint">Wurden mehrere Varianten gewählt, kann jeder Spieler sich eine Variante aussuchen.</string>
   <string name="simulClockHint">Fischer Bedenkzeit. Je mehr Gegner du hast, desto mehr Zeit wirst du benötigen.</string>
   <string name="simulAddExtraTime">Du kannst dir selbst zusätzliche Zeit hinzufügen, um mit dem Simultan zurechtzukommen.</string>
@@ -987,7 +985,7 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="since">Seit</string>
   <string name="until">Bis</string>
   <string name="lichessDbExplanation">Aus gewerteten Partien aller Lichess-Spieler</string>
-  <string name="switchSides">andere Farbe</string>
+  <string name="switchSides">Seitenwechsel</string>
   <string name="closingAccountWithdrawAppeal">Dein Benutzerkonto zu schließen wird auch deinen Einspruch zurückziehen</string>
   <string name="ourEventTips">Unsere Tipps für die Organisation von Veranstaltungen</string>
   <string name="instructions">Anleitung</string>
@@ -995,4 +993,5 @@ Leer lassen, um Partien von der normalen Ausgangsstellung aus zu starten.</strin
   <string name="lichessPatronInfo">Lichess ist eine Wohltätigkeitsorganisation und eine völlig kostenlose/freie Open-Source-Software.
 Alle Betriebskosten, Entwicklung und Inhalte werden ausschließlich durch Benutzerspenden finanziert.</string>
   <string name="nothingToSeeHere">Im Moment gibt es hier nichts zu sehen.</string>
+  <string name="stats">Statistiken</string>
 </resources>

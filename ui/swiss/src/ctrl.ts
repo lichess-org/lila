@@ -1,12 +1,12 @@
-import { makeSocket, SwissSocket } from './socket';
+import { makeSocket, type SwissSocket } from './socket';
 import xhr from './xhr';
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { maxPerPage, myPage, players } from './pagination';
-import { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
+import type { SwissData, SwissOpts, Pages, Standing, Player } from './interfaces';
+import { storage } from 'common/storage';
 
 export default class SwissCtrl {
   data: SwissData;
-  trans: Trans;
   socket: SwissSocket;
   page: number;
   pages: Pages = {};
@@ -17,14 +17,13 @@ export default class SwissCtrl {
   disableClicks = true;
   searching = false;
 
-  private lastStorage = site.storage.make('last-redirect');
+  private lastStorage = storage.make('last-redirect');
 
   constructor(
     readonly opts: SwissOpts,
     readonly redraw: () => void,
   ) {
     this.data = this.readData(opts.data);
-    this.trans = site.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
@@ -45,9 +44,9 @@ export default class SwissCtrl {
     this.redrawNbRounds();
   };
 
-  isCreated = () => this.data.status == 'created';
-  isStarted = () => this.data.status == 'started';
-  isFinished = () => this.data.status == 'finished';
+  isCreated = () => this.data.status === 'created';
+  isStarted = () => this.data.status === 'started';
+  isFinished = () => this.data.status === 'finished';
 
   myGameId = () => this.data.me?.gameId;
 
@@ -101,7 +100,7 @@ export default class SwissCtrl {
       this.page = data.page;
       this.searching = false;
       this.focusOnMe = false;
-      this.pages[this.page].filter(p => p.user.id == userId).forEach(this.showPlayerInfo);
+      this.pages[this.page].filter(p => p.user.id === userId).forEach(this.showPlayerInfo);
       this.redraw();
     });
   };
@@ -157,7 +156,7 @@ export default class SwissCtrl {
 
   private redrawNbRounds = () =>
     $('.swiss__meta__round').text(
-      this.trans.plural('nbRounds', this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`),
+      i18n.swiss.nbRounds.asArray(this.data.nbRounds, `${this.data.round}/${this.data.nbRounds}`).join(''),
     );
 
   private readData = (data: SwissData) => ({

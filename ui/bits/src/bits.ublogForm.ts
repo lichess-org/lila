@@ -1,9 +1,10 @@
-import * as xhr from 'common/xhr';
-import throttle from 'common/throttle';
-import Editor from '@toast-ui/editor';
+import { json as xhrJson } from 'common/xhr';
+import { throttle } from 'common/timing';
+import { Editor, type EditorType } from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
-import { wireCropDialog } from './load/crop';
+import { wireCropDialog } from './crop';
+import { storedJsonProp } from 'common/storage';
 
 site.load.then(() => {
   $('.markdown-editor').each(function (this: HTMLTextAreaElement) {
@@ -35,13 +36,14 @@ const setupTopics = (el: HTMLTextAreaElement) =>
 const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   const postProcess = (markdown: string) => markdown.replace(/<br>/g, '').replace(/\n\s*#\s/g, '\n## ');
 
+  const initialEditType = storedJsonProp<EditorType>('markdown.initial-edit-type', () => 'wysiwyg');
   const editor: Editor = new Editor({
     el,
     usageStatistics: false,
     height: '60vh',
     theme: currentTheme(),
     initialValue: $('#form3-markdown').val() as string,
-    initialEditType: 'wysiwyg',
+    initialEditType: initialEditType(),
     language: $('html').attr('lang') as string,
     toolbarItems: [
       ['heading', 'bold', 'italic', 'strike'],
@@ -53,14 +55,16 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     ],
     autofocus: false,
     events: {
-      change: throttle(500, () => $('#form3-markdown').val(postProcess(editor.getMarkdown()))),
+      change: throttle(500, (mode: EditorType) => {
+        $('#form3-markdown').val(postProcess(editor.getMarkdown()));
+        initialEditType(mode);
+      }),
     },
     hooks: {
       addImageBlobHook: (blob, cb) => {
         const formData = new FormData();
         formData.append('image', blob);
-        xhr
-          .json(el.getAttribute('data-image-upload-url')!, { method: 'POST', body: formData })
+        xhrJson(el.getAttribute('data-image-upload-url')!, { method: 'POST', body: formData })
           .then(data => cb(data.imageUrl, ''))
           .catch(e => {
             cb('');

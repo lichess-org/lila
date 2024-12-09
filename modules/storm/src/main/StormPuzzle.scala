@@ -1,6 +1,8 @@
 package lila.storm
 
 import chess.format.{ Fen, Uci }
+import chess.IntRating
+
 import lila.core.id.PuzzleId
 
 case class StormPuzzle(

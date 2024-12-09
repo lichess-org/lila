@@ -1,9 +1,8 @@
 package lila.bot
 
 import lila.common.Bus
-import lila.core.socket.ApiUserIsOnline
+import lila.core.socket.{ ApiUserIsOnline, IsOnline }
 import lila.memo.ExpireCallbackMemo
-import lila.core.socket.IsOnline
 
 final class OnlineApiUsers(
     isOnline: IsOnline,
@@ -17,7 +16,7 @@ final class OnlineApiUsers(
   )
 
   def setOnline(userId: UserId): Unit =
-    val wasOffline = !isOnline(userId) && !cache.get(userId)
+    val wasOffline = !isOnline.exec(userId) && !cache.get(userId)
     cache.put(userId)
     if wasOffline then publish(userId, isOnline = true)
 

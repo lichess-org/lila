@@ -167,4 +167,5 @@
   <string name="playAgain">Tekrar oyna</string>
   <string name="whatWouldYouPlay">Burada hangi hamleyi yapardınız?</string>
   <string name="youCompletedThisLesson">Tebrikler! Bu dersi tamamlandınız.</string>
+  <string name="perPage">Sayfa başına %s</string>
 </resources>

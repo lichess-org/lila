@@ -1,13 +1,16 @@
 package lila.mod
 
+import chess.IntRating
+import chess.rating.IntRatingDiff
+
+import lila.core.game.GameRepo
+import lila.core.user.WithPerf
 import lila.db.dsl.*
-import lila.core.game.{ GameRepo }
+import lila.game.Query
+import lila.rating.PerfExt.refund
 import lila.rating.PerfType
 import lila.report.Suspect
-import lila.user.{ RankingApi, User, UserApi, UserPerfsRepo }
-import lila.core.user.WithPerf
-import lila.rating.PerfExt.refund
-import lila.game.Query
+import lila.user.{ RankingApi, UserApi, UserPerfsRepo }
 
 final private class RatingRefund(
     gameRepo: GameRepo,
@@ -46,7 +49,7 @@ final private class RatingRefund(
               if op.provisional.no
               victim <- op.userId
               diff   <- op.ratingDiff
-              if diff < 0
+              if diff < IntRatingDiff(0)
               rating <- op.rating
             yield refs.add(victim, g.perfKey, -diff, rating)) | refs
 

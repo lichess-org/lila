@@ -1,10 +1,11 @@
 package lila.user
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.perf.{ UserWithPerfs, KeyedPerf }
+import lila.core.perf.UserWithPerfs
 import lila.core.user.Flag
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UserShow(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }
@@ -138,12 +139,5 @@ final class UserShow(helpers: Helpers, bits: UserBits):
     val currentRating = user.perfs.bestRatedPerf.so: p =>
       s" Current ${p.key.perfTrans} rating: ${p.perf.intRating}."
     s"$name played $nbGames games since $createdAt.$currentRating"
-
-  val i18nKeys = List(
-    trans.site.youAreLeavingLichess,
-    trans.site.neverTypeYourPassword,
-    trans.site.cancel,
-    trans.site.proceedToX
-  )
 
   val dataUsername = attr("data-username")

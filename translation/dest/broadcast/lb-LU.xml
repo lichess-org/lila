@@ -17,14 +17,10 @@
   <string name="tournamentDescription">Kuerz Turnéierbeschreiwung</string>
   <string name="fullDescription">Komplett Turnéierbeschreiwung</string>
   <string name="fullDescriptionHelp">Optional laang Beschreiwung vum Turnéier. %1$s ass disponibel. Längt muss manner wéi %2$s Buschtawen sinn.</string>
-  <string name="sourceUrlOrGameIds">Quellen-URL oder Partien IDs</string>
   <string name="sourceUrlHelp">URL déi Lichess checkt fir PGN à jour ze halen. Muss ëffentlech iwwer Internet zougänglech sinn.</string>
-  <string name="gameIdsHelp">Alternativ kanns du och bis zu 64 Lichess Partien IDs aginn, getrennt duerch Espacen.</string>
-  <string name="startDate">Startdatum an denger eegener Zäitzon</string>
+  <string name="sourceGameIds">Bis zu 64 Lichess-Partie-IDen, duerch Espacë getrennt.</string>
+  <string name="startDateTimeZone">Startdatum vum Turnéier an der lokaler Zäitzon: %s</string>
   <string name="startDateHelp">Optional, wann du wees wéini den Turnéier ufänkt</string>
-  <string name="credits">Quell kreditéieren</string>
-  <string name="broadcastUrl">Iwwerdroungs-URL</string>
-  <string name="currentRoundUrl">URL vun der aktueller Ronn</string>
   <string name="currentGameUrl">URL vun der aktueller Partie</string>
   <string name="downloadAllRounds">All Ronnen eroflueden</string>
   <string name="resetRound">Ronn zerécksetzen</string>
@@ -35,5 +31,28 @@
   <string name="deleteTournament">Dësen Turnéier läschen</string>
   <string name="definitivelyDeleteTournament">De ganzen Turnéier definitiv läschen, all seng Ronnen an all seng Partien.</string>
   <string name="replacePlayerTags">Optional: Spillernimm, Wäertungen an Titelen ersetzen</string>
-  <string name="periodInSeconds">Period a Sekonnen</string>
+  <string name="fideFederations">FIDE-Federatiounen</string>
+  <string name="fidePlayers">FIDE-Spiller</string>
+  <string name="fidePlayerNotFound">FIDE-Spiller net tfonnt</string>
+  <string name="fideProfile">FIDE-Profil</string>
+  <string name="federation">Federatioun</string>
+  <string name="ageThisYear">Alter dëst Joer</string>
+  <string name="unrated">Ongewäert</string>
+  <string name="recentTournaments">Rezent Turnéieren</string>
+  <string name="teams">Ekippen</string>
+  <string name="overview">Iwwersiicht</string>
+  <string name="uploadImage">Turnéierbild eroplueden</string>
+  <string name="startsAfter">Fänkt no %s un</string>
+  <string name="officialWebsite">Offiziell Websäit</string>
+  <string name="officialStandings">Offizielle Stand</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Méi Optiounen op der %s</string>
+  <string name="webmastersPage">Webmaster-Säit</string>
+  <string name="gamesThisTournament">Partien an dësem Turnéier</string>
+  <string name="allTeams">All Ekippen</string>
+  <string name="tournamentFormat">Turnéierformat</string>
+  <string name="tournamentLocation">Turnéierplaz</string>
+  <string name="topPlayers">Topspiller</string>
+  <string name="timezone">Zäitzon</string>
+  <string name="fideRatingCategory">FIDE-Wäertungskategorie</string>
+  <string name="optionalDetails">Fakultativ Detailler</string>
 </resources>

@@ -4,9 +4,8 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.common.config.*
-import lila.db.AsyncColl
 import lila.core.config.*
+import lila.db.AsyncColl
 
 @Module
 private class PuzzleConfig(
@@ -35,7 +34,7 @@ final class Env(
 
   private val db = mongo.asyncDb("puzzle", config.mongoUri)
 
-  val colls = new PuzzleColls(
+  val colls = PuzzleColls(
     puzzle = db(config.puzzleColl),
     round = db(config.roundColl),
     path = db(config.pathColl)
@@ -106,7 +105,7 @@ final class Env(
     tagger.addAllMissing
 
   if mode.isProd then
-    scheduler.scheduleAtFixedRate(1 hour, 1 hour): () =>
+    scheduler.scheduleAtFixedRate(10 minutes, 10 minutes): () =>
       pathApi.isStale.foreach: stale =>
         if stale then logger.error("Puzzle paths appear to be stale! check that the regen cron is up")
 

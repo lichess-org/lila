@@ -53,7 +53,10 @@ final class PracticeApi(
     publishedChapters = chapters.filterNot: c =>
       PracticeStructure.isChapterNameCommented(c.name)
     if publishedChapters.exists(_.id == sc.chapter.id)
-    previews = ChapterPreview.json.write(publishedChapters)(using Map.empty)
+    previews =
+      import ChapterPreview.json.given
+      import play.api.libs.json.Json
+      Json.toJson(publishedChapters)
   yield UserStudy(up, practiceStudy, previews, sc, section)
 
   object config:

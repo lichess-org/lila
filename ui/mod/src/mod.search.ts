@@ -1,14 +1,15 @@
-import * as xhr from 'common/xhr';
+import { text as xhrText } from 'common/xhr';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { checkBoxAll, expandCheckboxZone, selector, shiftClickCheckboxRange } from './checkBoxes';
+import { confirm } from 'common/dialog';
 
 site.load.then(() => {
   $('.slist, slist-pad')
     .find('.mark-alt')
-    .on('click', function (this: HTMLAnchorElement) {
-      if (confirm('Close alt account?')) {
-        xhr.text(this.getAttribute('href')!, { method: 'post' });
+    .on('click', async function (this: HTMLAnchorElement) {
+      if (await confirm('Close alt account?')) {
+        xhrText(this.getAttribute('href')!, { method: 'post' });
         $(this).remove();
       }
     });
@@ -25,15 +26,15 @@ site.load.then(() => {
         table,
         select as HTMLSelectElement,
       )(async action => {
-        if (action == 'alt') {
+        if (action === 'alt') {
           const usernames = Array.from(
             $(table)
               .find('td:last-child input:checked')
               .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort')),
           );
-          if (usernames.length > 0 && confirm(`Close ${usernames.length} alt accounts?`)) {
+          if (usernames.length > 0 && (await confirm(`Close ${usernames.length} alt accounts?`))) {
             console.log(usernames);
-            await xhr.text('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
+            await xhrText('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
             location.reload();
           }
         }

@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s heeft %2$s gepubliceerd</string>
   <string name="thisPostIsPublished">Dit bericht is gepubliceerd</string>
   <string name="thisIsADraft">Dit is een concept</string>
-  <string name="moreBlogPostsBy">Bekijk meer blogberichten van %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Bekijk meer blogberichten van %s</string>
   <string name="noPostsInThisBlogYet">Nog geen berichten in deze blog.</string>
   <string name="noDrafts">Geen concepten om weer te geven.</string>
   <string name="latestBlogPosts">Meest recente blogberichten</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">Alternatieve tekst voor afbeelding</string>
   <string name="imageCredit">Foto</string>
   <string name="deleteBlog">Deze blogpost definitief verwijderen</string>
-  <string name="deleteImage">Afbeelding verwijderen</string>
   <string name="safeToUseImages">Het is veilig om afbeeldingen van de volgende websites te gebruiken: </string>
   <string name="selectPostTopics">Selecteer de onderwerpen waar je bericht over gaat</string>
   <string name="useImagesYouMadeYourself">Je kunt ook afbeeldingen gebruiken die je zelf hebt gemaakt, foto\'s die je hebt gemaakt, screenshots van Lichess... alles waar geen auteursrechten van iemand anders op berusten.</string>

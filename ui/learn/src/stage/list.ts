@@ -16,11 +16,11 @@ import enpassant from './enpassant';
 import stalemate from './stalemate';
 import value from './value';
 import check2 from './check2';
-import { AssertData } from '../levelCtrl';
-import { ScenarioLevel } from '../scenario';
-import type { Square as Key } from 'chess.js';
-import { VNode } from 'snabbdom';
-import { Shape } from '../chessground';
+import type { AssertData } from '../levelCtrl';
+import type { ScenarioLevel } from '../scenario';
+import type { SquareName } from 'chessops';
+import type { VNode } from 'snabbdom';
+import type { Shape } from '../chessground';
 
 export type Level = LevelBase & LevelDefaults;
 export type LevelPartial = LevelBase & Partial<LevelDefaults>;
@@ -49,7 +49,7 @@ export interface LevelBase {
 
 export interface LevelDefaults {
   id: number;
-  apples: string | Key[];
+  apples: string | SquareName[];
   color: Color;
   detectCapture: 'unprotected' | boolean;
 }
@@ -67,6 +67,8 @@ export interface Stage {
   cssClass?: string;
 }
 
+export type StageNoID = Omit<Stage, 'id'>;
+
 interface Categ {
   key: string;
   name: string;
@@ -82,22 +84,22 @@ interface RawCateg {
 const rawCategs: RawCateg[] = [
   {
     key: 'chess-pieces',
-    name: 'chessPieces',
+    name: i18n.learn.chessPieces,
     stages: [rook, bishop, queen, king, knight, pawn],
   },
   {
     key: 'fundamentals',
-    name: 'fundamentals',
+    name: i18n.learn.fundamentals,
     stages: [capture, protection, combat, check1, outOfCheck, checkmate1],
   },
   {
     key: 'intermediate',
-    name: 'intermediate',
+    name: i18n.learn.intermediate,
     stages: [setup, castling, enpassant, stalemate],
   },
   {
     key: 'advanced',
-    name: 'advanced',
+    name: i18n.learn.advanced,
     stages: [
       value,
       // draw,
@@ -108,27 +110,16 @@ const rawCategs: RawCateg[] = [
 ];
 
 let stageId = 1;
-const stages: Stage[] = [];
+export const categs: Categ[] = rawCategs.map(c => ({
+  ...c,
+  stages: c.stages.map(s => ({ ...s, id: stageId++ })),
+}));
 
-export const categs: Categ[] = rawCategs.map(c => {
-  c.stages = c.stages.map(frozenStage => {
-    // Module exports get frozen, so we copy them to be able to mutate them
-    const stage = { ...frozenStage, id: stageId++ };
-    stages.push(stage);
-    return stage;
-  });
-  return c as Categ;
-});
+const stages: Stage[] = categs.reduce<Stage[]>((prev, c) => prev.concat(c.stages), []);
 
-const stagesByKey: { [K in string]: Stage } = {};
-stages.forEach(s => {
-  stagesByKey[s.key] = s;
-});
+const stagesByKey: { [K in string]: Stage } = Object.fromEntries(stages.map(s => [s.key, s]));
 
-const stagesById: { [K in number]: Stage } = {};
-stages.forEach(s => {
-  stagesById[s.id] = s;
-});
+const stagesById: { [K in number]: Stage } = Object.fromEntries(stages.map(s => [s.id, s]));
 
 export const list = stages;
 export const byId = stagesById;
@@ -136,8 +127,6 @@ export const byKey = stagesByKey;
 
 export function stageIdToCategId(stageId: number): number | undefined {
   const stage = stagesById[stageId];
-  for (let id = 0; id < categs.length; id++) {
-    if (categs[id].stages.some(s => s.key === stage.key)) return id;
-  }
-  return;
+  const maybeFound = categs.findIndex(c => c.stages.some(s => s.key === stage.key));
+  return maybeFound >= 0 ? maybeFound : undefined;
 }

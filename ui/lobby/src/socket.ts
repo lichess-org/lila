@@ -1,7 +1,8 @@
 import * as xhr from './xhr';
 import * as hookRepo from './hookRepo';
-import LobbyController from './ctrl';
-import { PoolMember, Hook } from './interfaces';
+import type LobbyController from './ctrl';
+import type { PoolMember, Hook } from './interfaces';
+import { idleTimer } from 'common/timing';
 
 interface Handlers {
   [key: string]: (data: any) => void;
@@ -40,7 +41,7 @@ export default class LobbySocket {
       },
     };
 
-    site.idleTimer(
+    idleTimer(
       3 * 60 * 1000,
       () => send('idle', true),
       () => {

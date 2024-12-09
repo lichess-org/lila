@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">What can we help you with?</string>
   <string name="visitThisPage">Visit this page to solve the issue</string>
   <string name="iCantLogIn">I can\'t log in</string>
-  <string name="noConfirmationEmail">I don\'t receive my confirmation email</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">I didn\'t receive my confirmation email</string>
   <string name="forgotPassword">I forgot my password</string>
   <string name="forgotUsername">I forgot my username</string>
   <string name="youCanLoginWithEmail">You can login with the email address you signed up with</string>
@@ -31,7 +31,7 @@
   <string name="youCanAlsoReachReportPage">You can also reach that page by clicking the %s report button on a profile page.</string>
   <string name="doNotReportInForum">Do not report players in the forum.</string>
   <string name="doNotSendReportEmails">Do not send us report emails.</string>
-  <string name="doNotMessageModerators">Do not send direct messages to moderators.</string>
+  <string name="doNotMessageModerators">Please do not send direct messages to moderators.</string>
   <string name="onlyReports">Only reporting players through the report form is effective.</string>
   <string name="wantReportBug">I want to report a bug</string>
   <string name="reportBugInForum">In the Lichess Feedback section of the forum</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">In certain circumstances when playing against a bot account, a rated game may not award points if it is determined that the player is abusing the bot for rating points.</string>
   <string name="errorPage">Error page</string>
   <string name="reportErrorPage">If you faced an error page, you may report it:</string>
-  <string name="wantBroadcastTournament">I want to broadcast a tournament</string>
   <string name="learnHowToMakeBroadcasts">Learn how to make your own broadcasts on Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">You can also contact the broadcast team about official broadcasts.</string>
   <string name="banAppeal">Appeal for a ban or IP restriction</string>
   <string name="engineAppeal">Engine or cheat mark</string>
   <string name="sendAppealTo">You may send an appeal to %s.</string>

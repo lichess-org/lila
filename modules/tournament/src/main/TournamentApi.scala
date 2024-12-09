@@ -1,22 +1,20 @@
 package lila.tournament
 
+import java.nio.charset.StandardCharsets.UTF_8
+import java.security.MessageDigest
 import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import play.api.libs.json.*
-
-import java.nio.charset.StandardCharsets.UTF_8
-import java.security.MessageDigest
-import scala.util.chaining.*
-
 import scalalib.paginator.Paginator
+import chess.IntRating
+
 import lila.common.{ Bus, Debouncer }
+import lila.core.game.LightPov
+import lila.core.round.{ AbortForce, GoBerserk }
+import lila.core.team.LightTeam
+import lila.core.tournament.Status
 import lila.gathering.Condition
 import lila.gathering.Condition.GetMyTeamIds
-import lila.core.team.LightTeam
-import lila.core.round.{ AbortForce, GoBerserk }
-import lila.tournament.TeamBattle.TeamInfo
-import lila.core.tournament.Status
-import lila.core.game.LightPov
 
 final class TournamentApi(
     cached: TournamentCache,
@@ -30,6 +28,7 @@ final class TournamentApi(
     pairingSystem: arena.PairingSystem,
     callbacks: TournamentApi.Callbacks,
     socket: TournamentSocket,
+    leaderboard: LeaderboardApi,
     roundApi: lila.core.round.RoundApi,
     gameProxy: lila.core.game.GameProxy,
     trophyApi: lila.core.user.TrophyApi,
@@ -178,11 +177,11 @@ final class TournamentApi(
 
   private[tournament] def start(oldTour: Tournament): Funit =
     Parallel(oldTour.id, "start")(cached.tourCache.created): tour =>
-      tournamentRepo.setStatus(tour.id, Status.Started).andDo {
+      for _ <- tournamentRepo.setStatus(tour.id, Status.Started)
+      yield
         cached.tourCache.clear(tour.id)
         socket.reload(tour.id)
         publish()
-      }
 
   private[tournament] def destroy(tour: Tournament): Funit = for
     _ <- tournamentRepo.remove(tour).void
@@ -347,10 +346,12 @@ final class TournamentApi(
   ): Funit =
     Parallel(tourId, "withdraw")(cached.tourCache.enterable):
       case tour if tour.isCreated =>
-        (playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)).andDo {
+        for
+          _ <- playerRepo.remove(tour.id, userId)
+          _ <- updateNbPlayers(tour.id)
+        yield
           socket.reload(tour.id)
           publish()
-        }
       case tour if tour.isStarted =>
         for
           _ <- playerRepo.withdraw(tour.id, userId)
@@ -394,48 +395,45 @@ final class TournamentApi(
         .finishAndGet(game)
         .flatMap: pairingOpt =>
           Parallel(tourId, "finishGame")(cached.tourCache.started): tour =>
-            pairingOpt
-              .so: pairing =>
+            for _ <- pairingOpt.so: pairing =>
                 game.userIds.parallelVoid(updatePlayerAfterGame(tour, game, pairing))
-              .andDo {
-                duelStore.remove(game)
-                socket.reload(tour.id)
-                updateTournamentStanding(tour)
-                withdrawNonMover(game)
-              }
+            yield
+              duelStore.remove(game)
+              socket.reload(tour.id)
+              updateTournamentStanding(tour)
+              withdrawNonMover(game)
 
   private def updatePlayerAfterGame(tour: Tournament, game: Game, pairing: Pairing)(userId: UserId): Funit =
     tour.mode.rated.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>
-      playerRepo.update(tour.id, userId) { player =>
-        cached.sheet
-          .addResult(tour, userId, pairing)
-          .map { sheet =>
-            player.copy(
-              score = sheet.total,
-              fire = tour.streakable && sheet.isOnFire,
-              rating = perf.fold(player.rating)(_.intRating),
-              provisional = perf.fold(player.provisional)(_.provisional),
-              performance = {
-                for
-                  performance <- performanceOf(game, userId).map(_.value.toDouble)
-                  nbGames = sheet.scores.size
-                  if nbGames > 0
-                yield Math.round {
-                  (player.performance * (nbGames - 1) + performance) / nbGames
+      playerRepo.update(tour.id, userId): player =>
+        for
+          sheet <- cached.sheet.addResult(tour, userId, pairing)
+          newPlayer = player.copy(
+            score = sheet.total,
+            fire = tour.streakable && sheet.isOnFire,
+            rating = perf.fold(player.rating)(_.intRating),
+            provisional = perf.fold(player.provisional)(_.provisional),
+            performance = {
+              for
+                performance <- performanceOf(game, userId).map(_.value.toDouble)
+                nbGames = sheet.scores.size
+                if nbGames > 0
+              yield IntRating:
+                Math.round {
+                  (player.performance.so(_.value) * (nbGames - 1) + performance) / nbGames
                 }.toInt
-              } | player.performance
-            )
-          }
-          .andDo(game.whitePlayer.userId.foreach: whiteUserId =>
-            colorHistoryApi.inc(player.id, Color.fromWhite(player.is(whiteUserId))))
-      }
+            }.orElse(player.performance)
+          )
+          _ = game.whitePlayer.userId.foreach: whiteUserId =>
+            colorHistoryApi.inc(player.id, Color.fromWhite(player.is(whiteUserId)))
+        yield newPlayer
     }
 
   private def performanceOf(g: Game, userId: UserId): Option[IntRating] = for
     opponent       <- g.opponentOf(userId)
     opponentRating <- opponent.rating
     multiplier = g.winnerUserId.so(winner => if winner == userId then 1 else -1)
-  yield opponentRating + 500 * multiplier
+  yield opponentRating.map(_ + 500 * multiplier)
 
   private def withdrawNonMover(game: Game): Unit =
     if game.status == chess.Status.NoStart then
@@ -454,29 +452,34 @@ final class TournamentApi(
     tournamentRepo.withdrawableIds(userId, teamId = teamId.some, reason = "kickFromTeam").flatMap {
       _.sequentiallyVoid: tourId =>
         Parallel(tourId, "kickFromTeam")(tournamentRepo.byId): tour =>
-          val fu =
-            if tour.isCreated then playerRepo.remove(tour.id, userId)
-            else playerRepo.withdraw(tour.id, userId)
-          (fu >> updateNbPlayers(tourId)).andDo(socket.reload(tourId))
+          for
+            _ <-
+              if tour.isCreated then playerRepo.remove(tour.id, userId)
+              else playerRepo.withdraw(tour.id, userId)
+            _ <- updateNbPlayers(tourId)
+          yield socket.reload(tourId)
     }
 
   // withdraws the player and forfeits all pairings in ongoing tournaments
   private[tournament] def ejectLameFromEnterable(tourId: TourId, userId: UserId): Funit =
-    Parallel(tourId, "ejectLameFromEnterable")(cached.tourCache.enterable) { tour =>
+    Parallel(tourId, "ejectLameFromEnterable")(cached.tourCache.enterable): tour =>
       if tour.isCreated then playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id)
       else
-        (playerRepo.remove(tourId, userId) >> {
-          tour.isStarted.so:
-            pairingRepo.findPlaying(tour.id, userId).map {
-              _.foreach: currentPairing =>
+        for
+          _ <- playerRepo.remove(tourId, userId)
+          _ <- tour.isStarted.so:
+            for
+              pairing <- pairingRepo.findPlaying(tour.id, userId)
+              _ = pairing.foreach: currentPairing =>
                 roundApi.tell(currentPairing.gameId, AbortForce)
-            } >> pairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
-              pairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
-                uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))
-            }
-        } >>
-          updateNbPlayers(tour.id)).andDo(socket.reload(tour.id)).andDo(publish())
-    }
+              uids <- pairingRepo.opponentsOf(tour.id, userId)
+              _    <- pairingRepo.forfeitByTourAndUserId(tour.id, userId)
+              _    <- uids.toList.sequentiallyVoid(recomputePlayerAndSheet(tour))
+            yield ()
+          _ <- updateNbPlayers(tour.id)
+        yield
+          socket.reload(tour.id)
+          publish()
 
   private def recomputePlayerAndSheet(tour: Tournament)(userId: UserId): Funit =
     tour.mode.rated.so { userApi.perfOptionOf(userId, tour.perfType) }.flatMap { perf =>

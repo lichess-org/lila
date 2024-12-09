@@ -13,7 +13,7 @@
   <string name="newTeam">Создать клуб</string>
   <string name="myTeams">Мои клубы</string>
   <string name="noTeamFound">Нет таких клубов</string>
-  <string name="joinTeam">Вступить в клуб</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Вступить в клуб</string>
   <string name="onlyLeaderLeavesTeam">Пожалуйста, добавьте нового руководителя клуба перед тем, как покинуть или закрыть клуб.</string>
   <string name="quitTeam">Покинуть клуб</string>
   <string name="manuallyReviewAdmissionRequests">Ручная проверка запросов на вступление</string>
@@ -62,7 +62,7 @@
   <string name="joinLichessVariantTeam">Вступайте в официальный клуб %s, чтобы узнавать его новости и события</string>
   <string name="teamPage">Страница клуба</string>
   <string name="thisTeamBattleIsOver">Этот турнир закончился, вы не можете изменять клубы.</string>
-  <string name="listTheTeamsThatWillCompete">Список клубов, которые будут участвовать в этом турнире.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Список клубов, которые будут участвовать в этом турнире.</string>
   <string name="oneTeamPerLine">По одному клубу в каждой строке. Работает автодополнение.</string>
   <string name="oneTeamPerLineHelp">Вы можете скопировать этот список из этого турнира и вставить в другой!
 

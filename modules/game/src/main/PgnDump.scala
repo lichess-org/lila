@@ -3,14 +3,14 @@ package lila.game
 import chess.format.pgn.{ InitialComments, ParsedPgn, Parser, Pgn, PgnTree, SanStr, Tag, TagType, Tags }
 import chess.format.{ Fen, pgn as chessPgn }
 import chess.{ ByColor, Centis, Color, Outcome, Ply, Tree }
+import chess.rating.IntRatingDiff
 
 import lila.core.LightUser
 import lila.core.config.BaseUrl
-import lila.core.i18n.Translate
-import lila.core.game.{ Game, Player }
 import lila.core.game.PgnDump.WithFlags
-import lila.game.Player.nameSplit
+import lila.core.game.{ Game, Player }
 import lila.game.GameExt.perfType
+import lila.game.Player.nameSplit
 
 final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiMinimal)(using Executor)
     extends lila.core.game.PgnDump:
@@ -39,15 +39,14 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
       else fuccess(Tags(Nil))
 
     tagsFuture.map: ts =>
+      val ply = ts.fen.flatMap(Fen.readWithMoveNumber).fold(Ply.initial)(_.ply)
       val tree = flags.moves.so:
-        val fenSituation = ts.fen.flatMap(Fen.readWithMoveNumber)
         makeTree(
           applyDelay(game.sans, flags.keepDelayIf(game.playable)),
-          fenSituation.fold(Ply.initial)(_.ply),
           flags.clocks.so(~game.bothClockStates),
           game.startColor
         )
-      Pgn(ts, InitialComments.empty, tree)
+      Pgn(ts, InitialComments.empty, tree, ply.next)
 
   private def gameUrl(id: GameId) = s"$baseUrl/$id"
 
@@ -72,7 +71,7 @@ final class PgnDump(baseUrl: BaseUrl, lightUserApi: lila.core.user.LightUserApiM
       .getOrElse(s"${game.mode} $perf game")
 
   private def ratingDiffTag(p: Player, tag: Tag.type => TagType) =
-    p.ratingDiff.map(rd => Tag(tag(Tag), s"${if rd >= 0 then "+" else ""}$rd"))
+    p.ratingDiff.map(rd => Tag(tag(Tag), s"${if !rd.negative then "+" else ""}$rd"))
 
   def tags(
       game: Game,
@@ -142,13 +141,11 @@ object PgnDump:
 
   private[game] def makeTree(
       moves: Seq[SanStr],
-      from: Ply,
       clocks: Vector[Centis],
       startColor: Color
   ): Option[PgnTree] =
     val clockOffset = startColor.fold(0, 1)
     def f(san: SanStr, index: Int) = chessPgn.Move(
-      ply = from + index + 1,
       san = san,
       secondsLeft = clocks.lift(index - clockOffset).map(_.roundSeconds)
     )

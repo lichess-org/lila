@@ -2,6 +2,7 @@ package lila.web
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 val fideHandbookUrl = "https://handbook.fide.com/chapter/E012023"
@@ -58,7 +59,7 @@ final class FaqUi(helpers: Helpers, sitePages: SitePages)(
             p(trf.lichessPoweredByDonationsAndVolunteers()),
             p(
               trf.findMoreAndSeeHowHelp(
-                a(href := routes.Plan.index)(trf.beingAPatron()),
+                a(href := routes.Plan.index())(trf.beingAPatron()),
                 a(href := routes.Main.costs)(trf.breakdownOfOurCosts()),
                 a(href := routes.Cms.help)(trf.otherWaysToHelp())
               )

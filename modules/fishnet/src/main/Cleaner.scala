@@ -29,11 +29,11 @@ final private class Cleaner(
         ana.acquiredAt.so(_.isBefore(durationAgo(analysisTimeout(ana.nbMoves))))
       .take(200)
       .mapAsyncUnordered(4): ana =>
-        repo.updateOrGiveUpAnalysis(ana, _.timeout).andDo {
+        for _ <- repo.updateOrGiveUpAnalysis(ana, _.timeout)
+        yield
           logger.info(s"Timeout analysis $ana")
           ana.acquired.foreach: ack =>
             Monitor.timeout(ack.userId)
-        }
       .runWith(Sink.ignore)
       .void
 

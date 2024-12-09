@@ -3,18 +3,15 @@ package lila.challenge
 import akka.stream.scaladsl.*
 import chess.{ ByColor, Clock, Speed }
 import reactivemongo.api.bson.*
-
-import scala.util.chaining.*
-
-import lila.common.{ Bus, LilaStream }
-import lila.db.dsl.{ *, given }
-import lila.core.misc.map.TellMany
-import lila.rating.PerfType
-import lila.core.round.StartClock
-import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
-
-import lila.core.data.Template
 import scalalib.model.Days
+
+import lila.challenge.ChallengeBulkSetup.{ ScheduledBulk, ScheduledGame, maxBulks }
+import lila.common.{ Bus, LilaStream }
+import lila.core.data.Template
+import lila.core.misc.map.TellMany
+import lila.core.round.StartClock
+import lila.db.dsl.{ *, given }
+import lila.rating.PerfType
 
 final class ChallengeBulkApi(
     colls: ChallengeColls,
@@ -39,7 +36,7 @@ final class ChallengeBulkApi(
     expiration = 10 minutes,
     timeout = 10 seconds,
     name = "challenge.bulk",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def scheduledBy(me: User): Fu[List[ScheduledBulk]] =
@@ -115,11 +112,12 @@ final class ChallengeBulkApi(
           .start
         (game, users)
       .mapAsyncUnordered(8): (game, users) =>
-        gameRepo
-          .insertDenormalized(game)
-          .recover(e => logger.error(s"Bulk.insertGame ${game.id} ${e.getMessage}"))
-          .andDo(onStart(game.id))
-          .inject(game -> users)
+        for
+          _ <- gameRepo
+            .insertDenormalized(game)
+            .recover(e => logger.error(s"Bulk.insertGame ${game.id} ${e.getMessage}"))
+          _ = onStart.exec(game.id)
+        yield game -> users
       .mapAsyncUnordered(8): (game, users) =>
         msgApi
           .onApiPair(game.id, users.map(_.light))(bulk.by, bulk.message)

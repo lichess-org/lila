@@ -1,16 +1,14 @@
 package lila.core
 package round
 
+import _root_.chess.format.{ Fen, Uci }
 import _root_.chess.{ Color, Move }
-import _root_.chess.format.{ Uci, Fen }
 import play.api.libs.json.{ JsArray, JsObject }
-import play.api.libs.json.JsObject
 
-import lila.core.net.IpAddress
-import lila.core.id.{ GameId, GamePlayerId, SimulId, TourId }
-import lila.core.userId.UserId
 import lila.core.game.Game
-import lila.core.id.GameAnyId
+import lila.core.id.{ GameAnyId, GameId, GamePlayerId, SimulId, TourId }
+import lila.core.net.IpAddress
+import lila.core.userId.UserId
 
 case class Abort(playerId: GamePlayerId)
 case class Berserk(gameId: GameId, userId: UserId)
@@ -57,7 +55,11 @@ case class DrawClaim(playerId: GamePlayerId)
 case class Blindfold(playerId: GamePlayerId, blindfold: Boolean)
 object Moretime:
   val defaultDuration = 15.seconds
-case class Moretime(playerId: GamePlayerId, seconds: FiniteDuration = Moretime.defaultDuration)
+case class Moretime(
+    playerId: GamePlayerId,
+    seconds: FiniteDuration = Moretime.defaultDuration,
+    force: Boolean = false
+)
 case class ClientFlag(color: Color, fromPlayerId: Option[GamePlayerId])
 case object Abandon
 case class ForecastPlay(lastMove: Move)

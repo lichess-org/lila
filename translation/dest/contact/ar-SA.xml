@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">كيف يمكن أن نساعدك؟</string>
   <string name="visitThisPage">قم بزيارة هذه الصفحة لحل المشكلة</string>
   <string name="iCantLogIn">لا يمكنني تسجيل الدخول</string>
-  <string name="noConfirmationEmail">لم أستلم رسالة تأكيد البريد الإلكتروني</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">لم أستلم رسالة تأكيد البريد الإلكتروني</string>
   <string name="forgotPassword">لقد نسيت كلمة السر الخاصة بي</string>
   <string name="forgotUsername">لقد نسيت اسم المستخدم الخاص بي</string>
   <string name="youCanLoginWithEmail">يمكنك تسجيل الدخول باستخدام عنوان البريد الإلكتروني الذي قمت بالتسجيل به</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">في بعض الظروف عند اللعب ضد حساب بوت لعبة مصنفة قد لا تمنح نقاط إذا تقرر أن اللاعب يسيء استخدام البوت لنقاط التقييم.</string>
   <string name="errorPage">صفحة خطأ</string>
   <string name="reportErrorPage">إذا واجهت صفحة خطأ، فيمكنك الإبلاغ عنها:</string>
-  <string name="wantBroadcastTournament">أريد بث بطولة</string>
   <string name="learnHowToMakeBroadcasts">تعلم كيفية بث بطولة على Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">بإمكانك أيضاً الاتصال بفريق البث الإذاعي عن البثوث الرسمية.</string>
   <string name="banAppeal">طلب لرفع حظر او تقييد على IP</string>
   <string name="engineAppeal">علامة الغش او استخدام محرك</string>
   <string name="sendAppealTo">يمكنك ارسال طلب الى %s.</string>

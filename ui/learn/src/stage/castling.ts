@@ -1,6 +1,6 @@
 import { and, lastMoveSan, not, or, pieceNotOn, mate } from '../assert';
 import { arrow, assetUrl, circle, roundSvg, toLevel } from '../util';
-import { LevelPartial } from './list';
+import type { LevelPartial, StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/castle.svg';
 
@@ -23,16 +23,16 @@ const cantCastleQueenSide9 = and(
   or(pieceNotOn('K', 'e1'), pieceNotOn('R', 'a1'), mate, pieceNotOn('k', 'd8')),
 );
 
-export default {
+const stage: StageNoID = {
   key: 'castling',
-  title: 'castling',
-  subtitle: 'theSpecialKingMove',
+  title: i18n.learn.castling,
+  subtitle: i18n.learn.theSpecialKingMove,
   image: imgUrl,
-  intro: 'castlingIntro',
+  intro: i18n.learn.castlingIntro,
   illustration: roundSvg(imgUrl),
   levels: [
     {
-      goal: 'castleKingSide',
+      goal: i18n.learn.castleKingSide,
       fen: 'rnbqkbnr/pppppppp/8/8/2B5/4PN2/PPPP1PPP/RNBQK2R w KQkq -',
       nbMoves: 1,
       shapes: [arrow('e1g1')],
@@ -40,7 +40,7 @@ export default {
       failure: cantCastleKingSide,
     },
     {
-      goal: 'castleQueenSide',
+      goal: i18n.learn.castleQueenSide,
       fen: 'rnbqkbnr/pppppppp/8/8/4P3/1PN5/PBPPQPPP/R3KBNR w KQkq -',
       nbMoves: 1,
       shapes: [arrow('e1c1')],
@@ -48,7 +48,7 @@ export default {
       failure: cantCastleQueenSide,
     },
     {
-      goal: 'theKnightIsInTheWay',
+      goal: i18n.learn.theKnightIsInTheWay,
       fen: 'rnbqkbnr/pppppppp/8/8/8/4P3/PPPPBPPP/RNBQK1NR w KQkq -',
       nbMoves: 2,
       shapes: [arrow('e1g1'), arrow('g1f3')],
@@ -56,7 +56,7 @@ export default {
       failure: cantCastleKingSide,
     },
     {
-      goal: 'castleKingSideMovePiecesFirst',
+      goal: i18n.learn.castleKingSideMovePiecesFirst,
       fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
       nbMoves: 4,
       shapes: [arrow('e1g1')],
@@ -64,7 +64,7 @@ export default {
       failure: cantCastleKingSide,
     },
     {
-      goal: 'castleQueenSideMovePiecesFirst',
+      goal: i18n.learn.castleQueenSideMovePiecesFirst,
       fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
       nbMoves: 6,
       shapes: [arrow('e1c1')],
@@ -72,7 +72,7 @@ export default {
       failure: cantCastleQueenSide,
     },
     {
-      goal: 'youCannotCastleIfMoved',
+      goal: i18n.learn.youCannotCastleIfMoved,
       fen: 'rnbqkbnr/pppppppp/8/8/3P4/1PN1PN2/PBPQBPPP/R3K1R1 w Qkq -',
       nbMoves: 1,
       shapes: [arrow('e1g1', 'red'), arrow('e1c1')],
@@ -80,7 +80,7 @@ export default {
       failure: cantCastleQueenSide,
     },
     {
-      goal: 'youCannotCastleIfAttacked',
+      goal: i18n.learn.youCannotCastleIfAttacked,
       fen: 'rn1qkbnr/ppp1pppp/3p4/8/2b5/4PN2/PPPP1PPP/RNBQK2R w KQkq -',
       nbMoves: 2,
       shapes: [arrow('c4f1', 'red'), circle('e1'), circle('f1'), circle('g1')],
@@ -89,7 +89,7 @@ export default {
       detectCapture: false,
     },
     {
-      goal: 'findAWayToCastleKingSide',
+      goal: i18n.learn.findAWayToCastleKingSide,
       fen: 'rnb2rk1/pppppppp/8/8/8/4Nb1n/PPPP1P1P/RNB1KB1R w KQkq -',
       nbMoves: 2,
       shapes: [arrow('e1g1')],
@@ -98,7 +98,7 @@ export default {
       detectCapture: false,
     },
     {
-      goal: 'findAWayToCastleQueenSide',
+      goal: i18n.learn.findAWayToCastleQueenSide,
       fen: '1r1k2nr/p2ppppp/7b/7b/4P3/2nP4/P1P2P2/RN2K3 w Q -',
       nbMoves: 4,
       shapes: [arrow('e1c1')],
@@ -106,9 +106,7 @@ export default {
       failure: cantCastleQueenSide9,
       detectCapture: false,
     },
-  ].map((l: LevelPartial, i) => {
-    l.autoCastle = true;
-    return toLevel(l, i);
-  }),
-  complete: 'castlingComplete',
+  ].map((l: LevelPartial, i) => toLevel({ ...l, autoCastle: true }, i)),
+  complete: i18n.learn.castlingComplete,
 };
+export default stage;

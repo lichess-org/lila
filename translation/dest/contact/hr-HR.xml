@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Kako vam možemo pomoći?</string>
   <string name="visitThisPage">Posjetite ovu stranicu da riješite problem</string>
   <string name="iCantLogIn">Ne mogu se prijaviti</string>
-  <string name="noConfirmationEmail">Nisam dobio potvrdni email</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Nisam dobio potvrdni email</string>
   <string name="forgotPassword">Zaboravio/la sam lozinku</string>
   <string name="forgotUsername">Zaboravio/la sam svoje korisničko ime</string>
   <string name="youCanLoginWithEmail">Možete se prijaviti sa e-poštom s kojom ste se prijavili</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">U određenim situacijama kad igrate na bodove protiv bot računa možda nećete dobiti bodove ako se ustanovi da je igrač zloupotrebljavao bota za dobivanja bodova.</string>
   <string name="errorPage">Stranica u slučaju greške</string>
   <string name="reportErrorPage">Ukoliko ste dobili stranicu u slučaju greške, možete je prijaviti:</string>
-  <string name="wantBroadcastTournament">Želim prenositi turnir</string>
   <string name="learnHowToMakeBroadcasts">Naučite kako napraviti vlastita emitiranja na Lichessu</string>
-  <string name="contactAboutOfficialBroadcasts">Također možete kontaktirati tim emitiranja u vezi službenih emitiranja.</string>
   <string name="banAppeal">Žalba na zabranu ili ograničenje IP adrese</string>
   <string name="engineAppeal">Oznaka za varalice ili za one koji koriste računar</string>
   <string name="sendAppealTo">Možete poslati žalbu na %s.</string>

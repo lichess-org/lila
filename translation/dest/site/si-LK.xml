@@ -93,7 +93,6 @@
     <item quantity="one">ඇදීම් %sකින් චෙක්මේට්</item>
     <item quantity="other">ඇදීම් වාර %sකින් චෙක්මේට්</item>
   </plurals>
-  <string name="dtzWithRounding">DTZ50\'\' with rounding, based on number of half-moves until next capture or pawn move</string>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maxDepthReached">උපරිම ගැඹුරට ළඟා විය!
 යතුර: maxDepthReached
@@ -120,7 +119,6 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="replayMode">නැවත කිරීමේ අන්දම</string>
   <string name="realtimeReplay">එසැණින්</string>
   <string name="byCPL">CPL තුල</string>
-  <string name="openStudy">විවෘත අධ්‍යයනය</string>
   <string name="enable">සක්‍රීය කරන්න</string>
   <string name="bestMoveArrow">හොඳම ඇදීම පෙන්නන්න</string>
   <string name="showVariationArrows">වෙනස්කම් ඊතල පෙන්වන්න</string>
@@ -130,7 +128,6 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="memory">මතකය</string>
   <string name="infiniteAnalysis">අනන්තවත් ඇගයීම්</string>
   <string name="removesTheDepthLimit">ගැඹුර සීමාව ඉවත් කර ඔබේ පරිගණකය උණුසුම්ව තබයි</string>
-  <string name="engineManager">එන්ජින් කළමනාකරු</string>
   <string name="blunder">ලොකු වරද</string>
   <string name="mistake">සුළු වරද</string>
   <string name="inaccuracy">නිවැරදිම නෑ</string>
@@ -385,7 +382,6 @@ You are playing chess.</string>
   <string name="block">අවහිර කරන්න</string>
   <string name="blocked">අවහිර කර ඇත</string>
   <string name="unblock">අවහිර නොකරන්න</string>
-  <string name="followsYou">ඔබව අනුගමනය කරයි</string>
   <string name="xStartedFollowingY">%1$s අනුගමනය ආරම්භ කළය​%2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%sඅනුගාමිකයා</item>
@@ -417,9 +413,6 @@ You are playing chess.</string>
   <string name="safeTournamentName">තරඟාවලිය සඳහා ඉතා ආරක්ෂිත නමක් තෝරන්න.</string>
   <string name="inappropriateNameWarning">තරමක් නුසුදුසු ඕනෑම දෙයක් නිසා ඔබගේ ගිණුම වසා දැමිය හැක.</string>
   <string name="emptyTournamentName">කැපී පෙනෙන චෙස් ක්‍රීඩකයෙකුගේ නමින් තරඟාවලිය නම් කිරීමට හිස්ව තබන්න.</string>
-  <string name="recommendNotTouching">මේවා ඇල්ලීම​ නොකරන ලෙස අපි නිර්දේශ කරමු.</string>
-  <string name="fewerPlayers">ඔබ ප්‍රවේශ අවශ්‍යතා සකසන්නේ නම්, ඔබේ තරඟාවලියට ක්‍රීඩකයින් සංඛ්‍යාව අඩු වනු ඇත.</string>
-  <string name="showAdvancedSettings">උසස් සැකසුම් පෙන්වන්න</string>
   <string name="makePrivateTournament">තරඟාවලිය පුද්ගලික කරන්න, මුරපදයකින් ප්‍රවේශය සීමා කරන්න</string>
   <string name="join">එකතු වන්න​</string>
   <string name="withdraw">ඉල්ලා අස් වෙන්න​</string>
@@ -459,8 +452,6 @@ You are playing chess.</string>
   <string name="ifNoneLeaveEmpty">කිසිවක් නොමැති නම්, හිස්ව තබන්න</string>
   <string name="profile">පැතිකඩ</string>
   <string name="editProfile">පැතිකඩ සංස්කරණය කරන්න</string>
-  <string name="firstName">මුල් නම</string>
-  <string name="lastName">වාසගම</string>
   <string name="setFlair">ඔබේ ෆ්ලෙයාර්ය​ සකසන්න</string>
   <string name="flair">ෆ්ලෙයාරය</string>
   <string name="youCanHideFlair">සම්පූර්ණ වෙබ් අඩවිය හරහා සියලුම පරිශීලක ෆ්ලෙයාර සැඟවීමට සැකසීමක් ඇත.</string>
@@ -507,11 +498,8 @@ You are playing chess.</string>
   <string name="reason">හේතුව</string>
   <string name="whatIsIheMatter">කාරණය කුමක් ද?</string>
   <string name="cheat">වංචාකරණ​ය​</string>
-  <string name="insult">අපහාස කිරීම​</string>
   <string name="troll">ට්‍රෝල් කිරීම​</string>
-  <string name="ratingManipulation">ශ්‍රේණිගත කිරීම් වංචාව​</string>
   <string name="other">වෙනත්</string>
-  <string name="reportDescriptionHelp">ක්‍රීඩා(ව​) වෙත සබැඳිය අලවා මෙම පරිශීලකයාගේ හැසිරීමේ ඇති වරද කුමක්දැයි පැහැදිලි කරන්න. \"ඔවුන් වංචා කරනවා\" පමණක් නොකියන්න, නමුත් ඔබ මෙම නිගමනයට පැමිණියේ කෙසේදැයි අපට කියන්න. ඔබේ වාර්තාව ඉංග්‍රීසියෙන් ලියා ඇත්නම් වේගයෙන් සකසනු ලැබේ.</string>
   <string name="error.provideOneCheatedGameLink">වංචා කළ ක්‍රීඩාව සඳහා එක් සබැඳියක්වත් දීමට කාරුණික වන්න​.</string>
   <string name="by">%s විසින්</string>
   <string name="importedByX">%s විසින් ආනයනය කරන ලදී</string>
@@ -626,7 +614,7 @@ You are playing chess.</string>
   <string name="aboutSimulRules">සිමියුලය ආරම්භ වන විට, සෑම ක්‍රීඩකයෙක්ම සත්කාරකයා සමඟ ක්‍රීඩාවක් ආරම්භ කරයි. සියලුම ක්‍රීඩා සම්පූර්ණ වූ විට සිමියුලය අවසන් වේ.</string>
   <string name="aboutSimulSettings">සිමියුල්ස් සෑම විටම අනියම් වේ. නැවත ගැලපීම්, ආපසු ගැනීම් සහ කාලය එකතු කිරීම අබල කර ඇත.</string>
   <string name="create">සාදන්න</string>
-  <string name="whenCreateSimul">ඔබ සිමියුලයක් නිර්මාණය කරන විට, ඔබට එකවර ක්‍රීඩකයන් කිහිප දෙනෙකු ක්‍රීඩා කිරීමට අවස්ථාව ලැබේ.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">ඔබ සිමියුලයක් නිර්මාණය කරන විට, ඔබට එකවර ක්‍රීඩකයන් කිහිප දෙනෙකු ක්‍රීඩා කිරීමට අවස්ථාව ලැබේ.</string>
   <string name="simulVariantsHint">ඔබ ප්‍රභේද කිහිපයක් තෝරා ගන්නේ නම්, එක් එක් ක්‍රීඩකයාට ක්‍රීඩා කළ යුත්තේ කුමන එකක්ද යන්න තෝරා ගත හැකිය.</string>
   <string name="simulClockHint">ෆිෂර් ඔරලෝසු සැකසුම. ඔබ වැඩිපුර ක්‍රීඩකයින් භාර ගන්නා තරමට, ඔබට වැඩි කාලයක් අවශ්‍ය විය හැකිය.</string>
   <string name="simulAddExtraTime">ඔබට සිමියුලය සමඟ සාර්ථකව කටයුතු කිරීමට උපකාර කිරීම සඳහා ඔබේ ඔරලෝසුවට අමතර ආරම්භක වේලාවක් එක් කළ හැක.</string>

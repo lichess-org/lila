@@ -1,16 +1,20 @@
 package lila.relay
 
+import chess.{ Outcome, Color }
+import chess.Outcome.GamePoints
 import chess.format.pgn.{ Tag, TagType, Tags }
 
-import lila.study.{ MultiPgn, StudyPgnImport, PgnDump }
+import lila.study.{ MultiPgn, PgnDump }
 import lila.tree.Root
 
 case class RelayGame(
     tags: Tags,
     variant: chess.variant.Variant,
     root: Root,
-    ending: Option[StudyPgnImport.End]
+    points: Option[Outcome.GamePoints]
 ):
+  override def toString =
+    s"RelayGame ${root.mainlineNodeList.size} ${tags.outcome} ${tags.names} ${tags.fideIds}"
 
   // We don't use tags.boardNumber.
   // Organizers change it at any time while reordering the boards.
@@ -20,7 +24,9 @@ case class RelayGame(
       playerTagsMatch(otherTags)
 
   private def playerTagsMatch(otherTags: Tags): Boolean =
-    if RelayGame.fideIdTags.forall(id => otherTags.exists(id) && tags.exists(id))
+    val bothHaveFideIds = List(otherTags, tags).forall: ts =>
+      RelayGame.fideIdTags.forall(side => ts(side).exists(_ != "0"))
+    if bothHaveFideIds
     then allSame(otherTags, RelayGame.fideIdTags)
     else allSame(otherTags, RelayGame.nameTags)
 
@@ -29,18 +35,25 @@ case class RelayGame(
 
   def isEmpty = tags.value.isEmpty && root.children.nodes.isEmpty
 
-  def resetToSetup = copy(
-    root = root.withoutChildren,
-    ending = None,
-    tags = tags.copy(value = tags.value.filter(_.name != Tag.Result))
+  def hasMoves = root.children.nodes.nonEmpty
+
+  def withoutMoves = copy(root = root.withoutChildren)
+
+  def resetToSetup = withoutMoves.copy(
+    tags = tags.copy(value = tags.value.filter(_.name != Tag.Result)),
+    points = None
   )
 
   def fideIdsPair: Option[PairOf[Option[chess.FideId]]] =
-    tags.fideIds.some.filter(_.forall(_.isDefined)).map(_.toPair)
+    tags.fideIds.some.filter(_.forall(_.exists(_.value > 0))).map(_.toPair)
 
   def hasUnknownPlayer: Boolean =
     List(RelayGame.whiteTags, RelayGame.blackTags).exists:
       _.forall(tag => tags(tag).isEmpty)
+
+  private def outcome = points.flatMap(Outcome.fromPoints)
+
+  def showResult = Outcome.showPoints(points)
 
 private object RelayGame:
 
@@ -53,8 +66,15 @@ private object RelayGame:
   val whiteTags: TagNames  = List(_.White, _.WhiteFideId)
   val blackTags: TagNames  = List(_.Black, _.BlackFideId)
 
+  def fromChapter(c: lila.study.Chapter) = RelayGame(
+    tags = c.tags,
+    variant = c.setup.variant,
+    root = c.root,
+    points = c.tags.points
+  )
+
   import scalalib.Iso
-  import chess.format.pgn.{ InitialComments, Pgn }
+  import chess.format.pgn.InitialComments
   val iso: Iso[RelayGames, MultiPgn] =
     import lila.study.PgnDump.WithFlags
     given WithFlags = WithFlags(
@@ -62,7 +82,8 @@ private object RelayGame:
       variations = false,
       clocks = true,
       source = true,
-      orientation = false
+      orientation = false,
+      site = none
     )
     Iso[RelayGames, MultiPgn](
       gs =>
@@ -86,7 +107,7 @@ private object RelayGame:
       if slices.isEmpty then games
       else
         games.view.zipWithIndex
-          .filter: (g, i) =>
+          .filter: (_, i) =>
             val n = i + 1
             slices.exists: s =>
               n >= s.from && n <= s.to
@@ -108,6 +129,6 @@ private object RelayGame:
       .map:
         case Slice(f, t) if f == t => f.toString
         case Slice(f, t)           => s"$f-$t"
-      .mkString(",")
+      .mkString(", ")
 
     val iso: Iso.StringIso[List[Slice]] = Iso(parse, show)

@@ -116,7 +116,6 @@
   <string name="replayMode">Понављање партије</string>
   <string name="realtimeReplay">Као уживо</string>
   <string name="byCPL">По рачунару</string>
-  <string name="openStudy">Отвори проуку</string>
   <string name="enable">Укључи</string>
   <string name="bestMoveArrow">Стрелица за најбољи потез</string>
   <string name="showVariationArrows">Прикажи стрелице за варијацију</string>
@@ -126,7 +125,6 @@
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконачна анализа</string>
   <string name="removesTheDepthLimit">Уклања ограничење дубине и греје рачунар</string>
-  <string name="engineManager">Менаџер машине</string>
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
@@ -439,7 +437,6 @@
   <string name="block">Блокирај</string>
   <string name="blocked">Блокиран</string>
   <string name="unblock">Одблокирај</string>
-  <string name="followsYou">Прате тебе</string>
   <string name="xStartedFollowingY">%1$s је почео/ла пратити %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s пратиоц</item>
@@ -474,9 +471,6 @@
   <string name="safeTournamentName">Изаберите веома сигурно име за турнир.</string>
   <string name="inappropriateNameWarning">Било које име које је бар мало неприкладно може да вам затвори налог.</string>
   <string name="emptyTournamentName">Оставите празно како би назвали турнир по насумично изабраном Велемајстору.</string>
-  <string name="recommendNotTouching">Препоручујемо да немењате ове.</string>
-  <string name="fewerPlayers">Ако ставите услове за улаз, ваш турнир ће имати мање играча.</string>
-  <string name="showAdvancedSettings">Покажи напредна подешавања</string>
   <string name="makePrivateTournament">Учини турнир приватним и ограничи приступ са шифром</string>
   <string name="join">Придружи се</string>
   <string name="withdraw">Повуци се</string>
@@ -516,8 +510,6 @@
   <string name="ifNoneLeaveEmpty">Ако немате рејтинг, оставите празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Уредите профил</string>
-  <string name="firstName">Име</string>
-  <string name="lastName">Презиме</string>
   <string name="setFlair">Постави своју значку</string>
   <string name="flair">Значка</string>
   <string name="youCanHideFlair">Постоји подешавање којим се сакривају све корисникове значке на читавом сајту.</string>
@@ -565,11 +557,8 @@
   <string name="reason">Разлог</string>
   <string name="whatIsIheMatter">Y чему је проблем?</string>
   <string name="cheat">Варање</string>
-  <string name="insult">Увреда</string>
   <string name="troll">Трол</string>
-  <string name="ratingManipulation">Манипулација рејтингом</string>
   <string name="other">Остало</string>
-  <string name="reportDescriptionHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
   <string name="error.provideOneCheatedGameLink">Наведите барем једну везу игре у којој је играч варао.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Увезао %s</string>
@@ -691,7 +680,7 @@
   <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогућено.</string>
   <string name="create">Креирај</string>
-  <string name="whenCreateSimul">Када креираш симултанку, играш против више играча истовремено.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Када креираш симултанку, играш против више играча истовремено.</string>
   <string name="simulVariantsHint">Ако изабереш неколико варијанти, сваки играч је у могућности да изабере коју ће играти.</string>
   <string name="simulClockHint">Фишерово подешавање сата. Што више играча примиш, више времена ће ти бити потребно.</string>
   <string name="simulAddExtraTime">Можеш додати додатно време на свој сат да ти помогне савладати симултанку.</string>

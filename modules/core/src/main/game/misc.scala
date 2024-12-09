@@ -1,35 +1,20 @@
 package lila.core
 package game
 
+import _root_.chess.format.Fen
+import _root_.chess.format.pgn.{ ParsedPgn, Pgn, SanStr, Tags }
+import _root_.chess.variant.Variant
+import _root_.chess.{ ByColor, Centis, Clock, Color, Division, Ply, Speed, Status }
 import cats.derived.*
 import play.api.libs.json.*
-import reactivemongo.api.bson.{ BSONHandler, BSONDocumentHandler, BSONDocument }
-import reactivemongo.api.bson.collection.BSONCollection
 import reactivemongo.akkastream.AkkaStreamCursor
-import _root_.chess.{
-  Color,
-  Clock,
-  ByColor,
-  Status,
-  Speed,
-  Ply,
-  Centis,
-  Replay,
-  ErrorStr,
-  Division,
-  Game as ChessGame
-}
-import _root_.chess.format.Fen
-import _root_.chess.format.pgn.{ Pgn, PgnStr, SanStr, ParsedPgn, Tags }
+import reactivemongo.api.bson.collection.BSONCollection
+import reactivemongo.api.bson.{ BSONDocumentHandler, BSONHandler }
 
-import lila.core.id.{ GameId, GameFullId, GamePlayerId, TeamId }
-import lila.core.userId.UserId
-import lila.core.rating.data.{ IntRating, IntRatingDiff, RatingProvisional }
-import lila.core.perf.UserWithPerfs
+import lila.core.id.{ GameFullId, GameId, GamePlayerId, TeamId }
+import lila.core.perf.{ PerfKey, UserWithPerfs }
 import lila.core.user.User
-import _root_.chess.variant.Variant
-import lila.core.userId.MyId
-import lila.core.perf.PerfKey
+import lila.core.userId.UserId
 
 val maxPlaying           = Max(200) // including correspondence
 val maxPlayingRealtime   = Max(100)
@@ -57,7 +42,6 @@ case class TvSelect(gameId: GameId, speed: Speed, channel: String, data: JsObjec
 case class ChangeFeatured(mgs: JsObject)
 
 case class StartGame(game: Game)
-case class InsertGame(game: Game)
 case class FinishGame(
     game: Game,
     // users and perfs BEFORE the game result is applied
@@ -82,15 +66,15 @@ enum Source(val id: Int) derives Eq:
   case Arena      extends Source(id = 5)
   case Position   extends Source(id = 6)
   case Import     extends Source(id = 7)
-  case ImportLive extends Source(id = 9)
+  case ImportLive extends Source(id = 9) // wut?
   case Simul      extends Source(id = 10)
-  case Relay      extends Source(id = 11)
   case Pool       extends Source(id = 12)
   case Swiss      extends Source(id = 13)
 
 object Source:
   val byId                           = values.mapBy(_.id)
-  val searchable                     = List(Lobby, Friend, Ai, Position, Import, Arena, Simul, Pool, Swiss)
+  val byName                         = values.mapBy(_.name)
+  val searchable                     = List(Lobby, Friend, Ai, Position, Arena, Simul, Pool, Swiss)
   val expirable                      = Set(Lobby, Arena, Pool, Swiss)
   def apply(id: Int): Option[Source] = byId.get(id)
 
@@ -138,7 +122,7 @@ abstract class GameRepo(val coll: BSONCollection):
   def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game]
 
 trait GameProxy:
-  def updateIfPresent(gameId: GameId)(f: Game => Game): Funit
+  def updateIfPresent(gameId: GameId)(f: Update[Game]): Funit
   def game(gameId: GameId): Fu[Option[Game]]
   def upgradeIfPresent(games: List[Game]): Fu[List[Game]]
   def flushIfPresent(gameId: GameId): Funit
@@ -192,7 +176,8 @@ object PgnDump:
       delayMoves: Boolean = false,
       lastFen: Boolean = false,
       accuracy: Boolean = false,
-      division: Boolean = false
+      division: Boolean = false,
+      bookmark: Boolean = false
   ):
     def requiresAnalysis           = evals || accuracy
     def keepDelayIf(cond: Boolean) = copy(delayMoves = delayMoves && cond)

@@ -15,9 +15,9 @@
   <string name="voteToLoadNextOne">다음 퍼즐을 위해 투표해주세요!</string>
   <string name="upVote">퍼즐 추천</string>
   <string name="downVote">퍼즐 비추천</string>
-  <string name="yourPuzzleRatingWillNotChange">당신의 퍼즐 레이팅은 바뀌지 않을 것입니다. 퍼즐은 경쟁이 아니라는 걸 기억하세요. 레이팅은 당신의 현재 스킬에 맞는 퍼즐을 선택하도록 돕습니다.</string>
-  <string name="findTheBestMoveForWhite">백의 최고의 수를 찾아보세요.</string>
-  <string name="findTheBestMoveForBlack">흑의 최고의 수를 찾아보세요.</string>
+  <string name="yourPuzzleRatingWillNotChange">당신의 퍼즐 레이팅은 바뀌지 않을 것입니다. 퍼즐은 경쟁이 아니라는 걸 기억하세요. 레이팅은 당신의 현재 수준에 맞는 퍼즐을 선택하도록 돕습니다.</string>
+  <string name="findTheBestMoveForWhite">백의 최선 수를 찾아보세요.</string>
+  <string name="findTheBestMoveForBlack">흑의 최선 수를 찾아보세요.</string>
   <string name="toGetPersonalizedPuzzles">개인화된 퍼즐을 위해선:</string>
   <string name="puzzleId">퍼즐 %s</string>
   <string name="puzzleOfTheDay">오늘의 퍼즐</string>
@@ -31,9 +31,9 @@
   <string name="byOpenings">오프닝별</string>
   <string name="puzzlesByOpenings">오프닝별 퍼즐</string>
   <string name="openingsYouPlayedTheMost">레이팅 게임에서 가장 많이 플레이한 오프닝</string>
-  <string name="useFindInPage">브라우저의 \"페이지에서 찾기\" 메뉴를 이용해 가장 좋아하는 오프닝을 찾으세요!</string>
-  <string name="useCtrlF">Ctrl+f를 사용해서 가장 좋아하는 오프닝을 찾으세요!</string>
-  <string name="notTheMove">답이 아닙니다!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">브라우저의 \"페이지에서 찾기\" 메뉴를 이용해 가장 좋아하는 오프닝을 찾으세요!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">Ctrl+f를 사용해서 가장 좋아하는 오프닝을 찾으세요!</string>
+  <string name="notTheMove">그 수가 아닙니다!</string>
   <string name="trySomethingElse">다른 것 시도하기</string>
   <string name="ratingX">레이팅: %s</string>
   <string name="hidden">숨겨짐</string>
@@ -63,7 +63,7 @@
   <string name="strengths">강점</string>
   <string name="history">퍼즐 히스토리</string>
   <string name="solved">해결함</string>
-  <string name="failed">실패함</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">실패함</string>
   <string name="streakDescription">점점 더 어려워지는 퍼즐을 풀고 연승을 쌓으세요. 시간 제한은 없습니다. 한번의 잘못된 수 만으로 게임이 끝납니다! 그러나 세션당 한 수를 건너 뛸 수 있습니다.</string>
   <string name="yourStreakX">연승 기록: %s</string>
   <string name="streakSkipExplanation">이 수를 건너뛰고 연승 기록을 보존하세요! 한 도전에 한 번만 가능합니다.</string>

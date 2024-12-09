@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mode Zen</string>
   <string name="showPlayerRatings">Mostra les puntuacions del jugador</string>
   <string name="showFlairs">Mostra l\'estil dels jugadors</string>
-  <string name="explainShowPlayerRatings">Això permet amagar totes les puntuacions de la pàgina web per a centrar-se en els escacs. Les partides poden ser puntuades, això només canvia el que es veu.</string>
+  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">Això permet amagar totes les puntuacions de la pàgina web per a centrar-se en els escacs. Les partides poden ser puntuades, això només canvia el que es veu.</string>
   <string name="displayBoardResizeHandle">Mostrar icona canvi de mida</string>
   <string name="onlyOnInitialPosition">Només en posició inicial</string>
   <string name="inGameOnly">Només durant la partida</string>
@@ -51,7 +51,7 @@
   <string name="inputMovesWithVoice">Introduïu moviments amb la vostra veu</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Apuntar fletxes a jugades legals</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Dir “Bona partida, ben jugat!” quan perds o fas taules</string>
-  <string name="yourPreferencesHaveBeenSaved">Les teves preferències s\'han desat.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Les teves preferències s\'han desat.</string>
   <string name="scrollOnTheBoardToReplayMoves">Desplaça\'t amb la rodeta pel tauler per reproduir jugades</string>
   <string name="correspondenceEmailNotification">Correu electrònic diari de notificació amb les vostres partides per correspondència</string>
   <string name="notifyStreamStart">Un streamer que seguiu ha començat una transmissió</string>

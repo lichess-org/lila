@@ -8,8 +8,10 @@ import {
 } from 'snabbdom';
 import { LearnCtrl } from './ctrl';
 import { view } from './view';
+import { Coords } from 'common/prefs';
+import { pubsub } from 'common/pubsub';
 
-import storage, { Storage } from './storage';
+import storage, { type Storage } from './storage';
 
 const patch = init([classModule, attributesModule, propsModule, eventListenersModule, styleModule]);
 
@@ -23,25 +25,30 @@ export interface StageProgress {
 }
 
 export interface LearnOpts {
-  i18n: I18nDict;
   storage: Storage;
   stageId: number | null;
   levelId: number | null;
   route?: string;
+  pref: LearnPrefs;
+}
+
+export interface LearnPrefs {
+  coords: Coords;
+  destination: boolean;
 }
 
 interface LearnServerOpts {
   data?: LearnProgress;
-  i18n: I18nDict;
+  pref: LearnPrefs;
 }
 
-export function initModule({ data, i18n }: LearnServerOpts) {
+export function initModule({ data, pref }: LearnServerOpts) {
   const _storage = storage(data);
   const opts: LearnOpts = {
-    i18n,
     storage: _storage,
     stageId: null,
     levelId: null,
+    pref: pref,
   };
   const ctrl = new LearnCtrl(opts, redraw);
 
@@ -58,7 +65,7 @@ export function initModule({ data, i18n }: LearnServerOpts) {
   redraw();
 
   const was3d = document.head.querySelector(`link[data-css-key='common.board-3d']`) !== null;
-  site.pubsub.on('board.change', (is3d: boolean) => {
+  pubsub.on('board.change', (is3d: boolean) => {
     if (is3d !== was3d) setTimeout(site.reload, 200);
   });
   return {};

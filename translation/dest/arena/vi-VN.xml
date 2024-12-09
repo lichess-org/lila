@@ -46,13 +46,13 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <plurals name="viewAllXTeams" comment="viewAllXTeams [one] [other]&#10;&#10;%s is the number of teams that can be viewed">
     <item quantity="other">Xem tất cả %s đội</item>
   </plurals>
-  <string name="newTeamBattle">Giải đấu đa Đội mới</string>
+  <string name="newTeamBattle">Giải Đa Đội Mới</string>
   <string name="customStartDate">Thời gian bắt đầu tùy chỉnh</string>
   <string name="customStartDateHelp">Tại múi giờ ở địa phương bạn. Điều này thay đổi lại cài đặt \"Thời gian trước khi giải đấu bắt đầu\"</string>
   <string name="allowBerserk">Cho phép Berserk</string>
   <string name="allowBerserkHelp">Cho phép các kỳ thủ giảm một nửa thời gian để lấy thêm một điểm</string>
   <string name="allowChatHelp">Cho phép các kỳ thủ trò chuyện trong phòng trò chuyện</string>
-  <string name="arenaStreaks">Đấu trường chuỗi</string>
+  <string name="arenaStreaks">Chuỗi đấu trường</string>
   <string name="arenaStreaksHelp">Sau 2 ván thắng, mỗi ván thắng liên tiếp sẽ được 4 điểm thay vì 2 điểm.</string>
   <string name="noBerserkAllowed">Không cho phép Berserk</string>
   <string name="noArenaStreaks">Không có chuỗi Đấu trường</string>
@@ -61,20 +61,19 @@ Chơi nhanh và trở lại phòng chờ để chơi được nhiều ván và g
   <string name="myTournaments">Giải đấu của tôi</string>
   <string name="editTournament">Chỉnh sửa giải đấu</string>
   <string name="editTeamBattle">Chỉnh sửa trận chiến đội</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Người giữ khiên</string>
+  <string name="defender">Người giữ khiên</string>
   <string name="pickYourTeam">Chọn đội của bạn</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Bạn sẽ đại diện cho đội nào trong trận chiến này?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">Bạn phải tham gia một trong những đội này để tham gia!</string>
   <string name="created">Đã tạo</string>
   <string name="recentlyPlayed">Đã chơi gần đây</string>
   <string name="bestResults">Kết quả tốt nhất</string>
-  <string name="stats">Thống kê</string>
   <string name="tournamentStats">Thống kê giải đấu</string>
   <string name="rankAvgHelp">Thứ hạng trung bình là phần trăm thứ hạng của bạn. Thấp hơn là tốt hơn.
 
 Ví dụ: được hạng 3 trong một giải đấu có 100 kỳ thủ = 3%. Hạng 10 trong giải đấu 1000 kỳ thủ = 1%.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">trung vị</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">Tất cả các giá trị trung bình trên trang này đều là %s.</string>
+  <string name="medians">trung vị</string>
+  <string name="allAveragesAreX">Tất cả các giá trị trung bình trên trang này đều là %s.</string>
   <string name="total">Tổng</string>
   <string name="pointsAvg">Điểm trung bình</string>
   <string name="pointsSum">Tổng điểm</string>

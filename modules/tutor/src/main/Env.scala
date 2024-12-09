@@ -4,8 +4,8 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.core.config
-import lila.db.dsl.Coll
 import lila.core.fishnet.{ AnalysisAwaiter, FishnetRequest }
+import lila.db.dsl.Coll
 import lila.memo.CacheApi
 
 @Module

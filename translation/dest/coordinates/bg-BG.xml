@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Упражнение по координати</string>
   <string name="averageScoreAsWhiteX">Среден резултат с белите: %s</string>
   <string name="averageScoreAsBlackX">Среден резултат с черните: %s</string>
-  <string name="knowingTheChessBoard">Познаването на координатите на шахматната дъска е много важно умение:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Познаването на координатите на шахматната дъска е много важно умение:</string>
   <string name="mostChessCourses">Повечето шахматни уроци и упражнения използват алгебричната нотация.</string>
   <string name="talkToYourChessFriends">Това улеснява шахматния разговор с приятели, тъй като всички разбирате \"езика на шахмата\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Ако разпознавате координатите бързо, ще можете да анализирате игрите по-ефективно.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Имате 30 секунди да намерите колкото се може повече полета!</string>
   <string name="goAsLongAsYouWant">Давайте до колкото си поискате, няма ограничение за време!</string>
   <string name="showCoordinates">Покажи координатите</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Координати на всяко поле</string>
   <string name="showPieces">Покажи фигурите</string>
   <string name="startTraining">Започни упражнението</string>
   <string name="findSquare">Намери полето</string>

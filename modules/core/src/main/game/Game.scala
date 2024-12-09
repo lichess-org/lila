@@ -1,33 +1,31 @@
 package lila.core
 package game
 
-import scalalib.model.Days
 import _root_.chess.Color.{ Black, White }
-import _root_.chess.MoveOrDrop.{ color, fold }
+import _root_.chess.format.Uci
 import _root_.chess.format.pgn.SanStr
-import _root_.chess.format.{ Fen, Uci }
 import _root_.chess.opening.{ Opening, OpeningDb }
 import _root_.chess.variant.{ FromPosition, Standard, Variant }
 import _root_.chess.{
   ByColor,
-  Castles,
   Centis,
-  CheckCount,
   Clock,
-  CorrespondenceClock,
   Color,
+  CorrespondenceClock,
   Game as ChessGame,
   Mode,
-  MoveOrDrop,
-  Outcome,
   Ply,
   Speed,
-  Status
+  Status,
+  Outcome,
+  IntRating
 }
-import lila.core.id.{ GameId, GamePlayerId, GameFullId }
-import lila.core.userId.{ UserId, UserIdOf }
-import lila.core.user.User
+import scalalib.model.Days
+
+import lila.core.id.{ GameFullId, GameId, GamePlayerId }
 import lila.core.perf.PerfKey
+import lila.core.user.User
+import lila.core.userId.{ UserId, UserIdOf }
 
 case class Game(
     id: GameId,
@@ -73,7 +71,7 @@ case class Game(
   def turnOf(c: Color): Boolean  = c == turnColor
   def turnOf(u: User): Boolean   = player(u).exists(turnOf)
 
-  def playedTurns = ply - startedAtPly
+  def playedTurns: Ply = ply - startedAtPly
 
   def flagged = (status == Status.Outoftime).option(turnColor)
 
@@ -167,11 +165,6 @@ case class Game(
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 
-  def moretimeable(color: Color) =
-    playable && canTakebackOrAddTime && !hasRule(_.noGiveTime) && {
-      clock.exists(_.moretimeable(color)) || correspondenceClock.exists(_.moretimeable(color))
-    }
-
   def abortable       = status == Status.Started && playedTurns < 2 && nonMandatory
   def abortableByUser = abortable && !hasRule(_.noAbort)
 
@@ -195,12 +188,14 @@ case class Game(
   def fromPosition = variant.fromPosition || source.has(Source.Position)
 
   def sourceIs(f: Source.type => Source): Boolean = source contains f(Source)
+  def lobbyOrPool                                 = source.exists(s => s == Source.Lobby || s == Source.Pool)
 
   def winner: Option[Player] = players.find(_.isWinner | false)
 
   def loser: Option[Player] = winner.map(opponent)
 
   def winnerColor: Option[Color] = winner.map(_.color)
+  def outcome: Option[Outcome]   = finished.option(Outcome(winnerColor))
 
   def winnerUserId: Option[UserId] = winner.flatMap(_.userId)
 
@@ -262,12 +257,21 @@ case class Game(
     if w != b
   yield w -> b
 
-  def averageUsersRating = players.flatMap(_.rating) match
-    case a :: b :: Nil => Some((a + b).value / 2)
-    case a :: Nil      => Some((a + 1500).value / 2)
+  def averageUsersRating: Option[IntRating] = players.flatMap(_.rating) match
+    // case a :: b :: Nil => Some((a + b).map(_ / 2))
+    case a :: b :: Nil => Some((a + b))
+    case a :: Nil      => Some((a + IntRating(1500)).map(_ / 2))
     case _             => None
 
   def isPgnImport = pgnImport.isDefined
+
+  def hasFewerMovesThanExpected =
+    import _root_.chess.variant.*
+    playedTurns <= variant.match
+      case Standard | Chess960 | Horde            => 20
+      case Antichess | Crazyhouse | KingOfTheHill => 15
+      case ThreeCheck | Atomic | RacingKings      => 10
+      case _                                      => 15 // from position
 
   lazy val opening: Option[Opening.AtPly] =
     if !fromPosition && Variant.list.openingSensibleVariants(variant)

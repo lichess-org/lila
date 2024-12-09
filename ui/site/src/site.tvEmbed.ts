@@ -1,4 +1,4 @@
-import * as miniGame from './miniGame';
+import { initMiniGame, updateMiniGame } from 'common/miniBoard';
 import { embedChessground } from './asset';
 
 function resize() {
@@ -11,7 +11,7 @@ function resize() {
 window.onload = async () => {
   const makeChessground = (await embedChessground()).Chessground;
   const findGame = () => document.getElementsByClassName('mini-game').item(0) as HTMLElement;
-  const setup = () => miniGame.init(findGame(), makeChessground);
+  const setup = () => initMiniGame(findGame(), makeChessground);
   setup();
   if (window.EventSource)
     new EventSource(document.body.getAttribute('data-stream-url')!).addEventListener(
@@ -22,7 +22,7 @@ window.onload = async () => {
           document.getElementById('featured-game')!.innerHTML = msg.d.html;
           setup();
         } else if (msg.t == 'fen') {
-          miniGame.update(findGame(), msg.d);
+          updateMiniGame(findGame(), msg.d);
         }
       },
       false,

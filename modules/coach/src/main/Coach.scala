@@ -1,9 +1,11 @@
 package lila.coach
 
 import reactivemongo.api.bson.Macros.Annotations.Key
+import chess.IntRating
+
+import lila.core.id.ImageId
 import lila.core.perf.UserWithPerfs
 import lila.rating.UserPerfsExt.bestStandardRating
-import lila.core.id.ImageId
 
 case class Coach(
     @Key("_id") id: Coach.Id, // user ID

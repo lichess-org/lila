@@ -1,15 +1,15 @@
 import { h, VNode } from 'snabbdom';
-import { Prop, prop } from 'common';
+import { myUserId, type Prop, prop } from 'common';
 import * as licon from 'common/licon';
+import { snabDialog } from 'common/dialog';
 import { bind, dataIcon, iconTag, onInsert } from 'common/snabbdom';
-import { storedProp, storedJsonProp, StoredJsonProp, StoredProp, storedStringProp } from 'common/storage';
+import { storedProp, storedJsonProp, type StoredProp, storedStringProp } from 'common/storage';
 import { ExplorerDb, ExplorerSpeed, ExplorerMode } from './interfaces';
 import AnalyseCtrl from '../ctrl';
-import { perf } from 'game/perf';
+import perfIcons from 'common/perfIcons';
 import { ucfirst } from './explorerUtil';
-import { Color } from 'chessground/types';
 import { opposite } from 'chessground/util';
-import { Redraw } from '../interfaces';
+import { userComplete } from 'common/userComplete';
 
 const allSpeeds: ExplorerSpeed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
 const allModes: ExplorerMode[] = ['casual', 'rated'];
@@ -28,14 +28,14 @@ type ByDbSettings = {
 export interface ExplorerConfigData {
   open: Prop<boolean>;
   db: StoredProp<ExplorerDb>;
-  rating: StoredJsonProp<number[]>;
-  speed: StoredJsonProp<ExplorerSpeed[]>;
-  mode: StoredJsonProp<ExplorerMode[]>;
+  rating: Prop<number[]>;
+  speed: Prop<ExplorerSpeed[]>;
+  mode: Prop<ExplorerMode[]>;
   byDbData: ByDbSettings;
   playerName: {
     open: Prop<boolean>;
     value: StoredProp<string>;
-    previous: StoredJsonProp<string[]>;
+    previous: Prop<string[]>;
   };
   color: Prop<Color>;
   byDb(): ByDbSetting;
@@ -53,9 +53,9 @@ export class ExplorerConfigCtrl {
     readonly onClose: () => void,
     previous?: ExplorerConfigCtrl,
   ) {
-    this.myName = document.body.dataset['user'];
+    this.myName = myUserId();
     this.participants = [root.data.player.user?.username, root.data.opponent.user?.username].filter(
-      name => name && name != this.myName,
+      name => name && name !== this.myName,
     );
     if (variant === 'standard') this.allDbs.unshift('masters');
     const byDbData = {} as ByDbSettings;
@@ -80,7 +80,7 @@ export class ExplorerConfigCtrl {
       byDbData,
       playerName: {
         open: prevData?.playerName.open || prop(false),
-        value: storedStringProp('analyse.explorer.player.name', document.body.dataset['user'] || ''),
+        value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
       color: prevData?.color || prop('white'),
@@ -91,9 +91,9 @@ export class ExplorerConfigCtrl {
   }
 
   selectPlayer = (name?: string) => {
-    name = name == 'me' ? this.myName : name;
+    name = name === 'me' ? this.myName : name;
     if (!name) return;
-    if (name != this.myName && !this.participants.includes(name)) {
+    if (name !== this.myName && !this.participants.includes(name)) {
       const previous = this.data.playerName.previous().filter(n => n !== name);
       previous.unshift(name);
       this.data.playerName.previous(previous.slice(0, 20));
@@ -114,7 +114,7 @@ export class ExplorerConfigCtrl {
   };
 
   toggleMany =
-    <T>(c: StoredJsonProp<T[]>) =>
+    <T>(c: Prop<T[]>) =>
     (value: T) => {
       if (!c().includes(value)) c(c().concat([value]));
       else if (c().length > 1) c(c().filter(v => v !== value));
@@ -125,7 +125,7 @@ export class ExplorerConfigCtrl {
   toggleOpen = () => {
     this.data.open(!this.data.open());
     if (!this.data.open()) {
-      if (this.data.db() == 'player' && !this.data.playerName.value()) this.data.db('lichess');
+      if (this.data.db() === 'player' && !this.data.playerName.value()) this.data.db('lichess');
       this.onClose();
     }
   };
@@ -133,9 +133,9 @@ export class ExplorerConfigCtrl {
   fullHouse = () =>
     this.data.byDb().since() <= `${minYear}-01` &&
     (!this.data.byDb().until() || new Date().toISOString().slice(0, 7) <= this.data.byDb().until()) &&
-    (this.data.db() === 'masters' || this.data.speed().length == allSpeeds.length) &&
-    (this.data.db() !== 'lichess' || this.data.rating().length == allRatings.length) &&
-    (this.data.db() !== 'player' || this.data.mode().length == allModes.length);
+    (this.data.db() === 'masters' || this.data.speed().length === allSpeeds.length) &&
+    (this.data.db() !== 'lichess' || this.data.rating().length === allRatings.length) &&
+    (this.data.db() !== 'player' || this.data.mode().length === allModes.length);
 }
 
 export function view(ctrl: ExplorerConfigCtrl): VNode[] {
@@ -143,14 +143,14 @@ export function view(ctrl: ExplorerConfigCtrl): VNode[] {
     ctrl.data.db() === 'masters'
       ? masterDb(ctrl)
       : ctrl.data.db() === 'lichess'
-      ? lichessDb(ctrl)
-      : playerDb(ctrl),
+        ? lichessDb(ctrl)
+        : playerDb(ctrl),
     h(
       'section.save',
       h(
         'button.button.button-green.text',
         { attrs: dataIcon(licon.Checkmark), hook: bind('click', ctrl.toggleOpen) },
-        ctrl.root.trans.noarg('allSet'),
+        i18n.site.allSet,
       ),
     ),
   ];
@@ -163,7 +163,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
   return h('div.player-db', [
     ctrl.data.playerName.open() ? playerModal(ctrl) : undefined,
     h('section.name', [
-      h('label', ctrl.root.trans('player')),
+      h('label', i18n.site.player),
       h('div', [
         h(
           'div.choices',
@@ -182,7 +182,7 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
             attrs: dataIcon(licon.ChasingArrows),
             hook: bind('click', ctrl.toggleColor, ctrl.root.redraw),
           },
-          ' ' + ctrl.root.trans(ctrl.data.color() == 'white' ? 'asWhite' : 'asBlack'),
+          ` ${i18n.site[ctrl.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
         ),
       ]),
     ]),
@@ -195,19 +195,16 @@ const playerDb = (ctrl: ExplorerConfigCtrl) => {
 const masterDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     h('section.date', [
+      h('label', [i18n.site.since, yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
       h('label', [
-        ctrl.root.trans.noarg('since'),
-        yearInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw),
-      ]),
-      h('label', [
-        ctrl.root.trans.noarg('until'),
+        i18n.site.until,
         yearInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
       ]),
     ]),
   ]);
 
 const radioButton =
-  <T>(ctrl: ExplorerConfigCtrl, storage: StoredJsonProp<T[]>, render?: (t: T) => VNode) =>
+  <T>(ctrl: ExplorerConfigCtrl, storage: Prop<T[]>, render?: (t: T) => VNode) =>
   (v: T) =>
     h(
       'button',
@@ -215,14 +212,14 @@ const radioButton =
         attrs: { 'aria-pressed': `${storage().includes(v)}`, title: render ? ucfirst('' + v) : '' },
         hook: bind('click', _ => ctrl.toggleMany(storage)(v), ctrl.root.redraw),
       },
-      render ? render(v) : ctrl.root.trans.noarg('' + v),
+      render ? render(v) : i18n(v as string),
     );
 
 const lichessDb = (ctrl: ExplorerConfigCtrl) =>
   h('div', [
     speedSection(ctrl),
     h('section.rating', [
-      h('label', ctrl.root.trans.noarg('averageElo')),
+      h('label', i18n.site.averageElo),
       h('div.choices', allRatings.map(radioButton(ctrl, ctrl.data.rating))),
     ]),
     monthSection(ctrl),
@@ -230,13 +227,13 @@ const lichessDb = (ctrl: ExplorerConfigCtrl) =>
 
 const speedSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.speed', [
-    h('label', ctrl.root.trans.noarg('timeControl')),
-    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perf.icons[s])))),
+    h('label', i18n.site.timeControl),
+    h('div.choices', allSpeeds.map(radioButton(ctrl, ctrl.data.speed, s => iconTag(perfIcons[s])))),
   ]);
 
 const modeSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.mode', [
-    h('label', ctrl.root.trans.noarg('mode')),
+    h('label', i18n.site.mode),
     h('div.choices', allModes.map(radioButton(ctrl, ctrl.data.mode))),
   ]);
 
@@ -308,12 +305,9 @@ const yearInput = (prop: StoredProp<Month>, after: () => Month, redraw: Redraw) 
 
 const monthSection = (ctrl: ExplorerConfigCtrl) =>
   h('section.date', [
+    h('label', [i18n.site.since, monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw)]),
     h('label', [
-      ctrl.root.trans.noarg('since'),
-      monthInput(ctrl.data.byDb().since, () => '', ctrl.root.redraw),
-    ]),
-    h('label', [
-      ctrl.root.trans.noarg('until'),
+      i18n.site.until,
       monthInput(ctrl.data.byDb().until, ctrl.data.byDb().since, ctrl.root.redraw),
     ]),
   ]);
@@ -333,24 +327,23 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
     }
     return '.button-metal';
   };
-  return site.dialog.snab({
+  return snabDialog({
     class: 'explorer__config__player__choice',
     onClose() {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
+    modal: true,
     vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [
         h('input', {
           attrs: {
-            placeholder: ctrl.root.trans.noarg('searchByUsername'),
+            placeholder: i18n.study.searchByUsername,
             spellcheck: 'false',
           },
           hook: onInsert<HTMLInputElement>(input =>
-            site.asset
-              .userComplete({ input, tag: 'span', onSelect: v => onSelect(v.name) })
-              .then(() => input.focus()),
+            userComplete({ input, focus: true, tag: 'span', onSelect: v => onSelect(v.name) }),
           ),
         }),
       ]),

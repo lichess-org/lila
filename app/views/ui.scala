@@ -1,8 +1,6 @@
 package views
 
 import lila.app.UiEnv.{ *, given }
-import lila.cms.CmsPage
-
 export lila.web.ui.bits
 
 val captcha = lila.web.ui.CaptchaUi(helpers)
@@ -10,9 +8,6 @@ val captcha = lila.web.ui.CaptchaUi(helpers)
 val chat = lila.chat.ChatUi(helpers)
 
 val boardEditor = lila.web.ui.BoardEditorUi(helpers)
-
-val userAnalysisI18n = lila.analyse.ui.AnalyseI18n(helpers)
-val analysisI18n     = lila.analyse.ui.GameAnalyseI18n(helpers, userAnalysisI18n)
 
 val setup = lila.setup.ui.SetupUi(helpers)
 
@@ -57,7 +52,6 @@ object account:
 
 val practice = lila.practice.ui.PracticeUi(helpers)(
   csp = analyse.ui.csp,
-  translations = userAnalysisI18n.vector() ++ views.study.bits.gamebookPlayKeys,
   board.explorerAndCevalConfig,
   modMenu = mod.ui.menu("practice")
 )
@@ -95,3 +89,5 @@ val dev = lila.web.ui.DevUi(helpers)(mod.ui.menu)
 
 def mobile(p: lila.cms.CmsPage.Render)(using Context) =
   lila.web.ui.mobile(helpers)(cms.render(p))
+
+val recap = lila.recap.ui.RecapUi(helpers)

@@ -1,10 +1,9 @@
 package lila.ublog
 
 import lila.common.{ Bus, Markdown, MarkdownRender, MarkdownToastUi }
-import lila.core.misc.lpv.AllPgnsFromText
-import lila.memo.CacheApi
 import lila.core.config
-import lila.core.misc.lpv.LpvEmbed
+import lila.core.misc.lpv.{ AllPgnsFromText, LpvEmbed }
+import lila.memo.CacheApi
 
 final class UblogMarkup(
     baseUrl: config.BaseUrl,
@@ -17,8 +16,8 @@ final class UblogMarkup(
   type PgnSourceId = String
 
   private val pgnCache =
-    cacheApi.notLoadingSync[PgnSourceId, LpvEmbed](256, "ublogMarkup.pgn"):
-      _.expireAfterWrite(1 second).build()
+    cacheApi.notLoadingSync[PgnSourceId, LpvEmbed](32, "ublogMarkup.pgn"):
+      _.expireAfterWrite(2 second).build()
 
   private val renderer = MarkdownRender(
     autoLink = true,
@@ -33,16 +32,18 @@ final class UblogMarkup(
   )
 
   def apply(post: UblogPost) = cache
-    .get((post.id, post.markdown))
+    .get((post.id, post.markdown, maxPgn(post)))
     .map: html =>
       scalatags.Text.all.raw(html.value)
 
-  private val cache = cacheApi[(UblogPostId, Markdown), Html](2048, "ublog.markup"):
+  private def maxPgn(post: UblogPost) = Max(if post.isLichess then 25 else 20)
+
+  private val cache = cacheApi[(UblogPostId, Markdown, Max), Html](1024, "ublog.markup"):
     _.maximumSize(2048)
-      .expireAfterWrite(if mode.isProd then 15 minutes else 1 second)
-      .buildAsyncFuture: (id, markdown) =>
+      .expireAfterWrite(if mode.isProd then 20 minutes else 1 second)
+      .buildAsyncFuture: (id, markdown, max) =>
         Bus
-          .ask("lpv")(AllPgnsFromText(markdown.value, _))
+          .ask("lpv")(AllPgnsFromText(markdown.value, max, _))
           .andThen { case scala.util.Success(pgns) =>
             pgnCache.putAll(pgns)
           }
@@ -56,5 +57,5 @@ final class UblogMarkup(
 
   // replace game GIFs URLs with actual game URLs that can be embedded
   private object replaceGameGifs:
-    private val regex = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
-    val apply         = (_: Markdown).map(regex.replaceAllIn(_, baseUrl.value + "/$2$1"))
+    private val regex           = (assetBaseUrl.value + """/game/export/gif(/white|/black|)/(\w{8})\.gif""").r
+    val apply: Update[Markdown] = _.map(regex.replaceAllIn(_, baseUrl.value + "/$2$1"))

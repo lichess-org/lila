@@ -1,5 +1,5 @@
 import { Protocol } from '../protocol';
-import { Work, CevalState, CevalEngine, BrowserEngineInfo } from '../types';
+import { CevalState, type Work, type CevalEngine, type BrowserEngineInfo } from '../types';
 
 export class SimpleEngine implements CevalEngine {
   private failed: Error;
@@ -11,23 +11,23 @@ export class SimpleEngine implements CevalEngine {
     this.url = `${info.assets.root}/${info.assets.js}`;
   }
 
-  getInfo() {
+  getInfo(): BrowserEngineInfo {
     return this.info;
   }
 
-  getState() {
+  getState(): CevalState {
     return !this.worker
       ? CevalState.Initial
       : this.failed
-      ? CevalState.Failed
-      : !this.protocol.engineName
-      ? CevalState.Loading
-      : this.protocol.isComputing()
-      ? CevalState.Computing
-      : CevalState.Idle;
+        ? CevalState.Failed
+        : !this.protocol.engineName
+          ? CevalState.Loading
+          : this.protocol.isComputing()
+            ? CevalState.Computing
+            : CevalState.Idle;
   }
 
-  start(work: Work) {
+  start(work: Work): void {
     this.protocol.compute(work);
 
     if (!this.worker) {
@@ -45,15 +45,15 @@ export class SimpleEngine implements CevalEngine {
     }
   }
 
-  stop() {
+  stop(): void {
     this.protocol.compute(undefined);
   }
 
-  engineName() {
+  engineName(): string | undefined {
     return this.protocol.engineName;
   }
 
-  destroy() {
+  destroy(): void {
     this.worker?.terminate();
     this.worker = undefined;
   }

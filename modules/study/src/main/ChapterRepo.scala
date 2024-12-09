@@ -1,5 +1,6 @@
 package lila.study
 
+import scala.collection.immutable.SeqMap
 import akka.stream.scaladsl.*
 import chess.Centis
 import chess.format.UciPath
@@ -56,6 +57,11 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         _.find($inIds(ids))
           .cursor[Chapter]()
           .documentSource()
+
+  def byStudiesSource(studyIds: Seq[StudyId]): Source[Chapter, ?] =
+    Source.futureSource:
+      coll.map:
+        _.find($doc("studyId".$in(studyIds))).cursor[Chapter]().documentSource()
 
   // loads all study chapters in memory!
   def orderedByStudyLoadingAllInMemory(studyId: StudyId): Fu[List[Chapter]] =
@@ -218,8 +224,34 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
         .cursor[Chapter.IdName]()
         .list(Study.maxChapters.value)
 
-  def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[List[Tags]] =
-    studyIds.nonEmpty.so(coll { _.primitive[Tags]("studyId".$in(studyIds), "tags") })
+  // ordered like studyIds, then tags with the chapter order field
+  def tagsByStudyIds(studyIds: Iterable[StudyId]): Fu[SeqMap[StudyId, SeqMap[StudyChapterId, Tags]]] =
+    studyIds.nonEmpty.so:
+      coll:
+        _.find($doc("studyId".$in(studyIds)), $doc("studyId" -> true, "tags" -> true).some)
+          .sort($sortOrder)
+          .cursor[Bdoc]()
+          .listAll()
+          .map: docs =>
+            for
+              doc       <- docs
+              chapterId <- doc.getAsOpt[StudyChapterId]("_id")
+              studyId   <- doc.getAsOpt[StudyId]("studyId")
+              tags      <- doc.getAsOpt[Tags]("tags")
+            yield (studyId, chapterId, tags)
+          .map:
+            _.groupBy(_._1).view
+              .mapValues:
+                _.view
+                  .map: (_, chapterId, tags) =>
+                    chapterId -> tags
+                  .to(SeqMap)
+              .toMap
+          .map: hash =>
+            studyIds.view
+              .map: id =>
+                id -> ~hash.get(id)
+              .to(SeqMap)
 
   def startServerEval(chapter: Chapter) =
     coll:

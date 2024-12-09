@@ -20,7 +20,7 @@ final private class YouTubeApi(
     net: NetConfig
 )(using Executor, akka.stream.Materializer):
 
-  private var lastResults: List[YouTube.Stream] = List()
+  private var lastResults: List[YouTube.Stream] = Nil
 
   private case class Tuber(streamer: Streamer, youTube: Streamer.YouTube)
 
@@ -162,7 +162,7 @@ final private class YouTubeApi(
               case None    => $unset("youTube.liveVideoId", "youTube.pubsubVideoId")
           )
         )
-      .map(bulk many _)
+      .map(bulk.many(_))
 
   private[streamer] def subscribeAll: Funit = cfg.googleApiKey.value.nonEmpty.so {
     import akka.stream.scaladsl.*

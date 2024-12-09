@@ -114,7 +114,6 @@
   <string name="replayMode">Visszajátszás</string>
   <string name="realtimeReplay">Valós idejű</string>
   <string name="byCPL">CPL</string>
-  <string name="openStudy">Tanulmány megnyitása</string>
   <string name="enable">Engedélyezve</string>
   <string name="bestMoveArrow">Legjobb lépés mutatása</string>
   <string name="showVariationArrows">Változatok nyilainak megjelenítése</string>
@@ -124,7 +123,6 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Végtelen elemzés</string>
   <string name="removesTheDepthLimit">Feloldja a mélységi korlátot, és melegen tartja a számítógéped</string>
-  <string name="engineManager">Motor menedzser</string>
   <string name="blunder">Baklövés</string>
   <string name="mistake">Hiba</string>
   <string name="inaccuracy">Pontatlanság</string>
@@ -433,7 +431,6 @@
   <string name="block">Letiltás</string>
   <string name="blocked">Letiltva</string>
   <string name="unblock">Letiltás feloldása</string>
-  <string name="followsYou">Követ téged</string>
   <string name="xStartedFollowingY">%1$s %2$s követője lett</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s követő</item>
@@ -465,9 +462,6 @@
   <string name="safeTournamentName">Válassz egy nevet a versenyednek.</string>
   <string name="inappropriateNameWarning">Akár a legkisebb pontatlanság is a fiókod zárolását eredményezheti.</string>
   <string name="emptyTournamentName">Hagyd üresen, ha azt szeretnéd, hogy a versenyed egy nagymesterről kapjon nevet.</string>
-  <string name="recommendNotTouching">Azt javasoljuk, hogy ne változtass ezeken.</string>
-  <string name="fewerPlayers">Követelmények beállítása esetén kevesebb játékos lesz a versenyen.</string>
-  <string name="showAdvancedSettings">Haladó beállítások megjelenítése</string>
   <string name="makePrivateTournament">A torna priváttá tétele a fenti jelszóval</string>
   <string name="join">Csatlakozás</string>
   <string name="withdraw">Visszavon</string>
@@ -507,8 +501,6 @@
   <string name="ifNoneLeaveEmpty">Ha nincs, hagyd üresen</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil szerkesztése</string>
-  <string name="firstName">Keresztnév</string>
-  <string name="lastName">Vezetéknév</string>
   <string name="setFlair">Állítsd be az ikonod</string>
   <string name="flair">Ikon</string>
   <string name="youCanHideFlair">Van egy beállítás amivel elrejtheted az összes felhasználói ikont az egész oldalon.</string>
@@ -555,11 +547,8 @@
   <string name="reason">Ok</string>
   <string name="whatIsIheMatter">Probléma meghatározása</string>
   <string name="cheat">Csalás</string>
-  <string name="insult">Sértegetés</string>
   <string name="troll">Trollkodás</string>
-  <string name="ratingManipulation">Pontszám manipuláció</string>
   <string name="other">Egyéb</string>
-  <string name="reportDescriptionHelp">Másold be a játék(ok) linkjét, és mondd el, mi a gond a játékos viselkedésével. Ne csak annyit írj, hogy \"csalt\", hanem próbáld elmondani, miből gondolod ezt. A jelentésedet hamarabb feldolgozzák, ha angolul írod.</string>
   <string name="error.provideOneCheatedGameLink">Kérünk, legalább adj meg linket legalább egy csalt játszmához.</string>
   <string name="by">Létrehozta: %s</string>
   <string name="importedByX">Importálva %s által</string>
@@ -678,7 +667,7 @@
   <string name="aboutSimulRules">Minden játékos a szimultánt adó játékos ellen játszik, aki a világos bábukat vezeti. A szimultán akkor ér véget, amikor az összes játszma befejeződik.</string>
   <string name="aboutSimulSettings">A szimultán játékok mindig fixáltak. Visszavágó, visszalépés és több idő adás funkciók nem elérhetőek.</string>
   <string name="create">Létrehozás</string>
-  <string name="whenCreateSimul">Ha egy szimultánt hozol létre, több játékos ellen fogsz játszani.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ha egy szimultánt hozol létre, több játékos ellen fogsz játszani.</string>
   <string name="simulVariantsHint">Ha több variánst hozol létre, minden játékos eldöntheti mihez csatlakozik.</string>
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>

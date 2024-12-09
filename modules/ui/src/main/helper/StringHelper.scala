@@ -1,10 +1,6 @@
 package lila.ui
 
-import play.api.i18n.Lang
-
 import lila.ui.ScalatagsTemplate.*
-import lila.core.i18n.Translate
-import scalalib.StringOps.slug.{ apply as slugify }
 
 trait StringHelper:
   self: I18nHelper & NumberHelper =>

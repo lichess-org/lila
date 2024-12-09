@@ -32,7 +32,7 @@
   <string name="threeChecks">Tiga kali skak</string>
   <string name="raceFinished">Balapan telah berakhir</string>
   <string name="variantEnding">Akhir sesuai aturan variasi</string>
-  <string name="newOpponent">Penantang baru</string>
+  <string name="newOpponent">Permainan yang baru</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Lawan Anda ingin bermain lagi dengan Anda</string>
   <string name="joinTheGame">Ikuti permainan</string>
   <string name="whitePlays">Putih melangkah</string>
@@ -108,7 +108,6 @@
   <string name="replayMode">Mode Putar Ulang</string>
   <string name="realtimeReplay">Langsung</string>
   <string name="byCPL">Secara CPL</string>
-  <string name="openStudy">Buka studi</string>
   <string name="enable">Aktifkan</string>
   <string name="bestMoveArrow">Panah Langkah terbaik</string>
   <string name="showVariationArrows">Tampilkan variasi panah</string>
@@ -118,7 +117,6 @@
   <string name="memory">Memori</string>
   <string name="infiniteAnalysis">Menganalisa tanpa ada batasan</string>
   <string name="removesTheDepthLimit">Menghapus batas kedalaman, dan membuat komputer Anda hangat</string>
-  <string name="engineManager">Pengaturan komputer</string>
   <string name="blunder">Blunder</string>
   <string name="mistake">Kesalahan</string>
   <string name="inaccuracy">Ketidaktelitian</string>
@@ -165,6 +163,7 @@
   <string name="latestForumPosts">Pesan forum terbaru</string>
   <string name="players">Pemain</string>
   <string name="friends">Teman</string>
+  <string name="otherPlayers">pemain lainnya</string>
   <string name="discussions">Diskusi</string>
   <string name="today">Hari ini</string>
   <string name="yesterday">Kemarin</string>
@@ -399,7 +398,6 @@
   <string name="block">Blokir</string>
   <string name="blocked">Diblokir</string>
   <string name="unblock">Buka blokir</string>
-  <string name="followsYou">Mengikuti anda</string>
   <string name="xStartedFollowingY">%1$s mulai mengikuti %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s pengikut</item>
@@ -428,9 +426,6 @@
   <string name="safeTournamentName">Pilih nama yang paling aman untuk turnamen.</string>
   <string name="inappropriateNameWarning">Nama apapun yang bahkan sedikit tidak pantas akan mengakibatkan akun Anda ditutup.</string>
   <string name="emptyTournamentName">Biarkan kosong untuk nama turnamen setelah pengacakan Grandmaster.</string>
-  <string name="recommendNotTouching">Kita rekomendasikan jangan sentuh ini.</string>
-  <string name="fewerPlayers">Jika Anda atur persyaratan masuk, turnamen yang Anda buat akan memiliki lebih sedikit pemain.</string>
-  <string name="showAdvancedSettings">Tampilkan pengaturan lanjutan</string>
   <string name="makePrivateTournament">Jadikan turnamen pribadi, dan batasi akses dengan kata sandi</string>
   <string name="join">Gabung</string>
   <string name="withdraw">Keluar</string>
@@ -470,8 +465,7 @@
   <string name="ifNoneLeaveEmpty">Jika tidak ada, biarkan kosong</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Ubah profil</string>
-  <string name="firstName">Nama depan</string>
-  <string name="lastName">Nama Belakang</string>
+  <string name="realName">Nama asli</string>
   <string name="setFlair">Sunting flair anda</string>
   <string name="flair">Flair</string>
   <string name="youCanHideFlair">Terdapat setting untuk menyembunyikan semua flair pengguna pada seluruh situs.</string>
@@ -500,6 +494,7 @@
   <string name="descPrivateHelp">Teks yang hanya bisa dilihat oleh anggota tim. Jika ditetapkan, akan menggantikan deskripsi publik untuk anggota tim.</string>
   <string name="no">Tidak</string>
   <string name="yes">Ya</string>
+  <string name="website">Situs Web</string>
   <string name="help">Bantuan:</string>
   <string name="createANewTopic">Buat topik baru</string>
   <string name="topics">Topik</string>
@@ -516,11 +511,8 @@
   <string name="reason">Alasan</string>
   <string name="whatIsIheMatter">Apa masalahnya?</string>
   <string name="cheat">Cheat</string>
-  <string name="insult">Penghinaan</string>
   <string name="troll">Jebakan</string>
-  <string name="ratingManipulation">Manipulasi rating</string>
   <string name="other">Lainnya</string>
-  <string name="reportDescriptionHelp">Paste link berikut ke dalam permainan dan jelaskan apa masalah tentang pengguna ini.</string>
   <string name="error.provideOneCheatedGameLink">Harap berikan setidaknya satu tautan ke permainan yang curang.</string>
   <string name="by">oleh %s</string>
   <string name="importedByX">Diimpor oleh %s</string>
@@ -636,7 +628,7 @@
   <string name="aboutSimulRules">Saat Simultan dimulai, setiap pemain melawan penyedia, yang bermain sebagai buah putih. Simultan berakhir jika seluruh partai telah selesai dimainkan.</string>
   <string name="aboutSimulSettings">Simultan selalu sederhana, tanding ulang, langkah balik dan tambahan waktu tidak diijinkan.</string>
   <string name="create">Buat baru</string>
-  <string name="whenCreateSimul">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ketika anda membuat Simultan, anda akan bertemu banyak lawan dalam satu saat.</string>
   <string name="simulVariantsHint">Jika anda memilih banyak varian, setiap pemain bisa memilih yang dimainkan.</string>
   <string name="simulClockHint">Aturan Jam Fischer: Semakin banyak peserta yang ikut, semakin banyak waktu diperlukan.</string>
   <string name="simulAddExtraTime">Anda bisa menambah waktu pada jam anda untuk membantu simultan anda</string>
@@ -738,6 +730,12 @@
   <string name="transparent">Tembus pandang</string>
   <string name="deviceTheme">Tema perangkat</string>
   <string name="backgroundImageUrl">URL gambar latar belakang:</string>
+  <string name="board">Papan</string>
+  <string name="size">Ukuran</string>
+  <string name="opacity">Transparansi</string>
+  <string name="brightness">Kecerahan</string>
+  <string name="hue">Rona</string>
+  <string name="boardReset">Kembalikan warna ke pengaturan semula</string>
   <string name="pieceSet">Susunan buah catur</string>
   <string name="embedInYourWebsite">Salin dalam website Anda</string>
   <string name="usernameAlreadyUsed">Nama pengguna ini sudah digunakan, coba yang lain.</string>
@@ -806,6 +804,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">dan simpan %s baris pra-langkah</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Anda telah menerima pesan pribadi dari Lichess.</string>
+  <string name="clickHereToReadIt">Klik di sini untuk membaca</string>
   <string name="sorry">Maaf :(</string>
   <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
   <string name="why">Mengapa?</string>
@@ -827,6 +827,8 @@
   <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
   <string name="searchOrStartNewDiscussion">Cari atau mulai diskusi baru</string>
   <string name="edit">Ubah</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Peluru</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Cepat</string>
   <string name="classical">Klasikal</string>
   <string name="ultraBulletDesc">Sangat-sangat cepat: kurang dari 30 detik</string>
@@ -921,6 +923,9 @@ Kosongkan untuk memulai permainan dari posisi awal yang normal.</string>
   <string name="switchSides">Tukar Sisi</string>
   <string name="closingAccountWithdrawAppeal">Menutup akun anda akan menarik permohonan banding</string>
   <string name="ourEventTips">Tips dari kami terkait penyelenggaraan acara</string>
+  <string name="instructions">Instruksi</string>
+  <string name="showMeEverything">Tunjukkan semuanya</string>
   <string name="lichessPatronInfo">Lichess adalah sebuah amal dan semuanya merupakan perangkat lunak sumber terbuka yang gratis/bebas.
 Semua biaya operasi, pengembangan, dan konten didanai sepenuhnya oleh donasi pengguna.</string>
+  <string name="nothingToSeeHere">Tidak ada yang bisa dilihat untuk saat ini.</string>
 </resources>

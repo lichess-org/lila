@@ -2,7 +2,8 @@ package lila.web
 package ui
 
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+
+import ScalatagsTemplate.*
 
 def openGraph(graph: OpenGraph): Frag =
   og.frags(graph) ::: twitter.frags(graph)

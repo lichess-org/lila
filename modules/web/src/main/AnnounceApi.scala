@@ -1,8 +1,8 @@
 package lila.web
 
 import play.api.libs.json.Json
+
 import scala.util.Try
-import play.api.libs.json.JsObject
 
 import lila.common.Bus
 import lila.core.socket.Announce

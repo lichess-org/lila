@@ -31,8 +31,8 @@
   <string name="byOpenings">ओपनिंग द्वारे</string>
   <string name="puzzlesByOpenings">ओपनिंग वर आधारित कोडी</string>
   <string name="openingsYouPlayedTheMost">रेट केलेल्या खेळामध्ये तुम्ही सर्वात जास्त खेळलेल्या ओपनिंग</string>
-  <string name="useFindInPage">तुमची आवडती ओपनिंग शोधण्यासाठी ब्राउझर मेनूमध्ये \"Find in page\" वापरा!</string>
-  <string name="useCtrlF">तुमची आवडती ओपनिंग शोधण्यासाठी Ctrl+f वापरा!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">तुमची आवडती ओपनिंग शोधण्यासाठी ब्राउझर मेनूमध्ये \"Find in page\" वापरा!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">तुमची आवडती ओपनिंग शोधण्यासाठी Ctrl+f वापरा!</string>
   <string name="notTheMove">ही ती चाल नव्हे!</string>
   <string name="trySomethingElse">काही वेगळा प्रयत्न करा.</string>
   <string name="ratingX">मूल्यांकन: %s</string>
@@ -66,7 +66,7 @@
   <string name="strengths">सामर्थ्ये</string>
   <string name="history">कोड्यांचा इतिहास</string>
   <string name="solved">सोडवली</string>
-  <string name="failed">अयशस्वी झालेले</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">अयशस्वी झालेले</string>
   <string name="streakDescription">उत्तरोत्तर अवघड कोडी सोडवत चला आणि जिंकण्याची मालिका तयार करत चला. इथे वेळ मोजला जाणार नाही, त्यामुळे हवा तेवढा वेळ वापरा. एक चुकीची चाल खेळा आणि खेळ संपून जाईल! पण आपण प्रत्येक सत्रामध्ये एक चाल सोडून देऊ शकता.</string>
   <string name="yourStreakX">तुमची मालिका: %s</string>
   <string name="streakSkipExplanation">तुमची मालिका टिकवण्यासाठी ही चाल सोडून द्या! हे फक्त एकदाच काम करू शकेल.</string>

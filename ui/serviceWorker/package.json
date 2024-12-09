@@ -6,9 +6,9 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "types-serviceworker": "^0.0.1"
+    "@types/serviceworker": "^0.0.101"
   },
-  "lichess": {
-    "bundles": "src/serviceWorker.ts"
+  "build": {
+    "bundle": "src/serviceWorker.ts"
   }
 }

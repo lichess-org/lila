@@ -12,7 +12,7 @@ final private class RelaySync(
     preview: ChapterPreviewApi,
     chapterRepo: ChapterRepo,
     tourRepo: RelayTourRepo,
-    leaderboard: RelayLeaderboardApi,
+    players: RelayPlayerApi,
     notifier: RelayNotifier
 )(using Executor):
 
@@ -23,23 +23,24 @@ final private class RelaySync(
     plan  = RelayUpdatePlan(chapters, games)
     _ <- plan.reorder.so(studyApi.sortChapters(study.id, _)(who(study.ownerId)))
     updates <- plan.update.sequentially: (chapter, game) =>
-      updateChapter(rt.tour, study, game, chapter)
+      updateChapter(rt, study, game, chapter)
     appends <- plan.append.toList.sequentially: game =>
       createChapter(rt, study, game)
-    result = SyncResult.Ok(updates ::: appends.flatten, games)
+    result = SyncResult.Ok(updates ::: appends.flatten, plan)
     _      = lila.common.Bus.publish(result, SyncResult.busChannel(rt.round.id))
     _ <- tourRepo.setSyncedNow(rt.tour)
   yield result
 
   private def updateChapter(
-      tour: RelayTour,
+      rt: RelayRound.WithTour,
       study: Study,
       game: RelayGame,
       chapter: Chapter
   ): Fu[SyncResult.ChapterResult] = for
     chapter   <- updateInitialPosition(study.id, chapter, game)
-    tagUpdate <- updateChapterTags(tour, study, chapter, game)
-    nbMoves   <- updateChapterTree(study, chapter, game)(using tour)
+    tagUpdate <- updateChapterTags(rt.tour, study, chapter, game)
+    nbMoves   <- updateChapterTree(study, chapter, game)(using rt.tour)
+    _         <- (nbMoves > 0).so(notifier.roundBegin(rt))
   yield SyncResult.ChapterResult(chapter.id, tagUpdate, nbMoves)
 
   private def createChapter(
@@ -50,11 +51,9 @@ final private class RelaySync(
     chapterRepo
       .countByStudyId(study.id)
       .flatMap: nb =>
-        (RelayFetch.maxChapters > nb).so:
+        (RelayFetch.maxChaptersToShow > nb).so:
           createChapter(study, game)(using rt.tour).map: chapter =>
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
-      .flatMapz: result =>
-        ((result.newMoves > 0).so(notifier.roundBegin(rt))).inject(result.some)
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
     if game.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen
@@ -86,34 +85,50 @@ final private class RelaySync(
             path -> none
       case (found, _) => found
     for
-      _ <- (chapter.root.children.nonEmpty && !path.isMainline(chapter.root)).so {
+      _ <- (chapter.root.children.nonEmpty && !path.isMainline(chapter.root)).so:
         logger.info(s"Change mainline ${showSC(study, chapter)} $path")
         studyApi.promote(
           studyId = study.id,
           position = Position(chapter, path).ref,
           toMainline = true
         )(by) >> chapterRepo.setRelayPath(chapter.id, path)
-      }
-      nbMoves <- newNode.so: node =>
-        node.mainline
-          .foldM(Position(chapter, path).ref): (position, n) =>
-            val relay = Chapter.Relay(
-              path = position.path + n.id,
-              lastMoveAt = nowInstant,
-              fideIds = game.fideIdsPair
-            )
-            studyApi
-              .addNode(
-                studyId = study.id,
-                position = position,
-                node = n,
-                opts = moveOpts,
-                relay = relay.some
-              )(by)
-              .inject(position + n)
-          .inject:
-            node.mainline.size
-    yield nbMoves
+      _ <- newNode match
+        case Some(newNode) =>
+          newNode.mainline
+            .foldM(Position(chapter, path).ref): (position, n) =>
+              studyApi
+                .addNode(
+                  studyId = study.id,
+                  position = position,
+                  node = n,
+                  opts = moveOpts,
+                  relay = makeRelayFor(game, position.path + n.id).some
+                )(by)
+                .inject(position + n)
+        case None =>
+          // the chapter already has all the game moves,
+          // but its relayPath might be out of sync. This can happen if the broadcast
+          // has contributors who use REC to record and share variations while the broadcast is ongoing.
+          // If they record a variation that is then played out by the broadcast players, then there are
+          // no moves to add and send to clients, but the relayPath needs to be updated,
+          // both in the database, and in the clients browsers.
+          // To achieve this without adding a new websocket event type, we send the last game move again,
+          // which contains the relayPath.
+          val gameMainlinePath = game.root.mainlinePath
+          chapter.relay
+            .exists(_.path != gameMainlinePath)
+            .so:
+              game.root.children
+                .nodeAt(gameMainlinePath)
+                .so: lastMainlineNode =>
+                  studyApi.addNode(
+                    studyId = study.id,
+                    position = Position(chapter, gameMainlinePath.parent).ref,
+                    node = lastMainlineNode,
+                    opts = moveOpts,
+                    relay = makeRelayFor(game, gameMainlinePath).some
+                  )(by)
+    yield newNode.so(_.mainline.size)
 
   private def updateChapterTags(
       tour: RelayTour,
@@ -124,17 +139,18 @@ final private class RelaySync(
     val gameTags = game.tags.value.foldLeft(Tags(Nil)): (newTags, tag) =>
       if !chapter.tags.value.has(tag) then newTags + tag
       else newTags
-    val newEndTag = game.ending
-      .ifFalse(gameTags(_.Result).isDefined)
-      .filterNot(end => chapter.tags(_.Result).has(end.resultText))
-      .map(end => Tag(_.Result, end.resultText))
+    val newEndTag = (
+      game.points.isDefined &&
+        gameTags(_.Result).isEmpty &&
+        !chapter.tags(_.Result).has(game.showResult)
+    ).option(Tag(_.Result, game.showResult))
     val tags = newEndTag.fold(gameTags)(gameTags + _)
     val chapterNewTags = tags.value.foldLeft(chapter.tags): (chapterTags, tag) =>
       PgnTags(chapterTags + tag)
     (chapterNewTags != chapter.tags).so {
       if vs(chapterNewTags) != vs(chapter.tags) then
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
-      val newName = chapterName(game)
+      val newName = Chapter.nameFromPlayerTags(game.tags)
       for
         _ <- studyApi.setTagsAndRename(
           studyId = study.id,
@@ -159,7 +175,7 @@ final private class RelaySync(
   yield
     preview.invalidate(study.id)
     studyApi.reloadChapters(study)
-    leaderboard.invalidate(tour.id)
+    players.invalidate(tour.id)
 
   private def makeRelayFor(game: RelayGame, path: UciPath)(using tour: RelayTour) =
     Chapter.Relay(
@@ -168,14 +184,8 @@ final private class RelaySync(
       fideIds = tour.official.so(game.fideIdsPair)
     )
 
-  private def chapterName(game: RelayGame): Option[StudyChapterName] =
-    StudyChapterName.from:
-      game.tags.names
-        .mapN((w, b) => s"$w - $b")
-        .orElse(game.tags.boardNumber.map(b => s"Board $b"))
-
   private def chapterName(game: RelayGame, order: Chapter.Order): StudyChapterName =
-    chapterName(game) | StudyChapterName(s"Board $order")
+    Chapter.nameFromPlayerTags(game.tags) | StudyChapterName(s"Board $order")
 
   private def createChapter(study: Study, game: RelayGame)(using RelayTour): Fu[Chapter] = for
     order <- chapterRepo.nextOrderByStudy(study.id)
@@ -193,9 +203,7 @@ final private class RelaySync(
       relay = makeRelayFor(game, game.root.mainlinePath).some
     )
     _ <- studyApi.doAddChapter(study, chapter, sticky = false, who(study.ownerId))
-  yield
-    preview.invalidate(study.id)
-    chapter
+  yield chapter
 
   private val moveOpts = MoveOpts(
     write = true,
@@ -214,9 +222,10 @@ final private class RelaySync(
 sealed trait SyncResult:
   val reportKey: String
 object SyncResult:
-  case class Ok(chapters: List[ChapterResult], games: RelayGames) extends SyncResult:
-    def nbMoves   = chapters.foldLeft(0)(_ + _.newMoves)
-    val reportKey = "ok"
+  case class Ok(chapters: List[ChapterResult], plan: RelayUpdatePlan.Plan) extends SyncResult:
+    def nbMoves        = chapters.foldLeft(0)(_ + _.newMoves)
+    def hasMovesOrTags = chapters.exists(c => c.newMoves > 0 || c.tagUpdate)
+    val reportKey      = "ok"
   case object Timeout extends Exception with SyncResult with util.control.NoStackTrace:
     val reportKey           = "timeout"
     override def getMessage = "In progress..."

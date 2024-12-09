@@ -1,5 +1,3 @@
-import { siteTrans } from './trans';
-import pubsub from './pubsub';
 import { notNull } from 'common/common';
 import * as licon from 'common/licon';
 
@@ -19,19 +17,21 @@ export default class OnlineFriends {
   users: Map<string, Friend>;
 
   constructor(readonly el: HTMLElement) {
+    const api = window.lichess.onlineFriends;
     this.titleEl = this.el.querySelector('.friend_box_title') as HTMLElement;
     this.titleEl.addEventListener('click', () => {
       this.el.querySelector('.content_wrap')?.classList.toggle('none');
       if (!this.loaded) {
         this.loaded = true;
-        pubsub.emit('socket.send', 'following_onlines');
+        api.request();
       }
     });
     this.users = new Map();
-    pubsub.on('socket.in.following_onlines', this.receive);
-    (['enters', 'leaves', 'playing', 'stopped_playing'] as const).forEach(k =>
-      pubsub.on('socket.in.following_' + k, this[k]),
-    );
+    api.events.on('onlines', this.receive);
+    api.events.on('enters', this.enters);
+    api.events.on('leaves', this.leaves);
+    api.events.on('playing', this.playing);
+    api.events.on('stopped_playing', this.stopped_playing);
   }
   receive = (friends: TitleName[], msg: { playing: string[]; patrons: string[] }) => {
     this.users.clear();
@@ -50,8 +50,7 @@ export default class OnlineFriends {
     if (this.loaded)
       requestAnimationFrame(() => {
         const ids = Array.from(this.users.keys()).sort();
-        this.titleEl.innerHTML = siteTrans.pluralSame(
-          'nbFriendsOnline',
+        this.titleEl.innerHTML = i18n.site.nbFriendsOnline(
           ids.length,
           this.loaded ? `<strong>${ids.length}</strong>` : '-',
         );

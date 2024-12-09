@@ -4,10 +4,11 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class DevUi(helpers: Helpers)(modMenu: String => Context ?=> Frag):
-  import helpers.{ *, given }
+  import helpers.*
 
   def settings(settings: List[lila.memo.SettingStore[?]])(using Context) =
     val title = "Settings"

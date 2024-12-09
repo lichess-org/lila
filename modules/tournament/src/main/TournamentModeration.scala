@@ -3,8 +3,8 @@ package lila.tournament
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.user.UserRepo
+import lila.db.dsl.{ *, given }
 
 final class TournamentModeration(playerRepo: PlayerRepo, userRepo: UserRepo)(using Executor):
   import userRepo.given

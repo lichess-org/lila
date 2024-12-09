@@ -1,6 +1,6 @@
 package lila.round
 
-import lila.game.{ Game, GameRepo }
+import lila.game.GameRepo
 
 final class RecentTvGames(gameRepo: GameRepo)(using Executor):
 

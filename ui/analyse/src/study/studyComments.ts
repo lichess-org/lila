@@ -1,10 +1,11 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import { nodeFullName } from '../view/util';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
+import { confirm } from 'common/dialog';
 
 export type AuthorObj = {
   id: string;
@@ -40,14 +41,12 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
         study.members.canContribute() && study.vm.mode.write
           ? h('a.edit', {
               attrs: { 'data-icon': licon.Trash, title: 'Delete' },
-              hook: bind(
-                'click',
-                () => {
-                  if (confirm('Delete ' + authorText(by) + "'s comment?"))
-                    study.commentForm.delete(chapter.id, ctrl.path, comment.id);
-                },
-                ctrl.redraw,
-              ),
+              hook: bind('click', async () => {
+                if (await confirm('Delete ' + authorText(by) + "'s comment?")) {
+                  study.commentForm.delete(chapter.id, ctrl.path, comment.id);
+                  ctrl.redraw();
+                }
+              }),
             })
           : null,
         authorDom(by),

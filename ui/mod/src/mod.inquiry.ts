@@ -1,12 +1,14 @@
-import * as xhr from 'common/xhr';
+import { formToXhr } from 'common/xhr';
 
 import { expandMentions } from 'common/richText';
+import { storage } from 'common/storage';
+import { alert } from 'common/dialog';
 
 site.load.then(() => {
-  const noteStore = site.storage.make('inquiry-note');
-  const usernameNoteStore = site.storage.make('inquiry-note-user');
+  const noteStore = storage.make('inquiry-note');
+  const usernameNoteStore = storage.make('inquiry-note-user');
   const username = $('#inquiry .meat > .user-link').text().split(' ')[0];
-  if (username != usernameNoteStore.get()) noteStore.remove();
+  if (username !== usernameNoteStore.get()) noteStore.remove();
   usernameNoteStore.set(username);
   const noteTextArea = $('#inquiry .notes').find('textarea')[0] as HTMLTextAreaElement;
   const syncNoteValue = () => (noteTextArea.value = noteStore.get() || '');
@@ -17,15 +19,25 @@ site.load.then(() => {
     noteTextArea.focus();
   });
 
+  function addToNote(str: string) {
+    const storedNote = noteStore.get();
+    noteStore.set((storedNote ? storedNote + '\n' : '') + str);
+    flashNotes();
+  }
+
   const loadNotes = () => {
     const $notes = $('#inquiry .notes');
     $notes.on('input', () => setTimeout(() => noteStore.set(noteTextArea.value), 50));
+    $notes.find('form button[value=copy-url]').on('click', event => {
+      event.preventDefault();
+      addToNote(location.href);
+      syncNoteValue();
+    });
     $notes.find('form button[type=submit]').on('click', function (this: HTMLButtonElement) {
       $(this)
         .parents('form')
         .each((_, form: HTMLFormElement) =>
-          xhr
-            .formToXhr(form, this)
+          formToXhr(form, this)
             .then(html => $notes.replaceWith(html))
             .then(noteStore.remove)
             .then(() => loadNotes())
@@ -46,7 +58,7 @@ site.load.then(() => {
     $('body').toggleClass('no-inquiry');
   });
 
-  const nextStore = site.storage.boolean('inquiry-auto-next');
+  const nextStore = storage.boolean('inquiry-auto-next');
 
   if (!nextStore.get()) {
     $('#inquiry .switcher input').prop('checked', false);
@@ -87,18 +99,15 @@ site.load.then(() => {
     );
   });
 
-  function addToNote(str: string) {
-    const storedNote = noteStore.get();
-    noteStore.set((storedNote ? storedNote + '\n' : '') + str);
-    flashNotes();
-  }
-
   $('#communication').on('click', '.line.author, .post.author', function (this: HTMLElement) {
     // Need to take username from the communication page so that when being in inquiry for user A and checking communication of user B
     // the notes cannot be mistakenly attributed to user A.
     const username = $('#communication').find('.title').text().split(' ')[0];
     const message = $(this).find('.message').text();
     addToNote(`${username}: "${message}"`);
+  });
+  $('#communication').on('click', '.mod-timeline__event .message', function (this: HTMLElement) {
+    addToNote(`${username}: "${$(this).text()}"`);
   });
 
   $('.user-show').on('click', '.mz-section--others .add-to-note', function (this: HTMLElement) {

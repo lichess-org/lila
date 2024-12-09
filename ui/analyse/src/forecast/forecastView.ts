@@ -1,15 +1,15 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { bind, dataIcon } from 'common/snabbdom';
-import { ForecastStep } from './interfaces';
-import AnalyseCtrl from '../ctrl';
+import type { ForecastStep } from './interfaces';
+import type AnalyseCtrl from '../ctrl';
 import { renderNodesHtml } from '../pgnExport';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { fixCrazySan } from 'chess';
 import { findCurrentPath } from '../treeView/common';
-import ForecastCtrl from './forecastCtrl';
+import type ForecastCtrl from './forecastCtrl';
 
-function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
+function onMyTurn(fctrl: ForecastCtrl, cNodes: ForecastStep[]): VNode | undefined {
   const firstNode = cNodes[0];
   if (!firstNode) return;
   const fcs = fctrl.findStartingWithNode(firstNode);
@@ -25,10 +25,10 @@ function onMyTurn(ctrl: AnalyseCtrl, fctrl: ForecastCtrl, cNodes: ForecastStep[]
     },
     [
       h('span', [
-        h('strong', ctrl.trans('playX', fixCrazySan(cNodes[0].san))),
+        h('strong', i18n.site.playX(fixCrazySan(cNodes[0].san))),
         lines.length
-          ? h('span', ctrl.trans.pluralSame('andSaveNbPremoveLines', lines.length))
-          : h('span', ctrl.trans.noarg('noConditionalPremoves')),
+          ? h('span', i18n.site.andSaveNbPremoveLines(lines.length))
+          : h('span', i18n.site.noConditionalPremoves),
       ]),
     ],
   );
@@ -53,7 +53,7 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
   return h('div.forecast', { class: { loading: fctrl.loading() } }, [
     fctrl.loading() ? h('div.overlay', spinner()) : null,
     h('div.box', [
-      h('div.top', ctrl.trans.noarg('conditionalPremoves')),
+      h('div.top', i18n.site.conditionalPremoves),
       h(
         'div.list',
         fctrl.forecasts().map((nodes, i) =>
@@ -89,14 +89,11 @@ export default function (ctrl: AnalyseCtrl, fctrl: ForecastCtrl): VNode {
         },
         [
           isCandidate
-            ? h('span', [
-                h('span', ctrl.trans.noarg('addCurrentVariation')),
-                h('sans', renderNodesHtml(cNodes)),
-              ])
-            : h('span', ctrl.trans.noarg('playVariationToCreateConditionalPremoves')),
+            ? h('span', [h('span', i18n.site.addCurrentVariation), h('sans', renderNodesHtml(cNodes))])
+            : h('span', i18n.site.playVariationToCreateConditionalPremoves),
         ],
       ),
     ]),
-    fctrl.onMyTurn() ? onMyTurn(ctrl, fctrl, cNodes) : null,
+    fctrl.onMyTurn() ? onMyTurn(fctrl, cNodes) : null,
   ]);
 }

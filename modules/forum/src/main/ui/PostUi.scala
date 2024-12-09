@@ -4,6 +4,7 @@ package ui
 import scalalib.paginator.Paginator
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class PostUi(helpers: Helpers, bits: ForumBits):
@@ -48,13 +49,21 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                 then
                   postForm(action := routes.ForumPost.delete(post.id))(
                     submitButton(
-                      cls      := "mod delete button button-empty confirm",
+                      cls      := "mod delete button button-empty yes-no-confirm",
                       dataIcon := Icon.Trash,
                       title    := "Delete"
                     )
                   ).some
                 else
                   frag(
+                    (canModCateg && post.number == 1).option:
+                      a(
+                        cls      := "mod mod-relocate button button-empty",
+                        href     := routes.ForumPost.relocate(post.id),
+                        dataIcon := Icon.Forward,
+                        title    := "Relocate"
+                      )
+                    ,
                     if canModCateg || topic.isUblogAuthor(me) then
                       a(
                         cls      := "mod delete button button-empty",
@@ -72,7 +81,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                             cls := "mod report button button-empty",
                             href := addQueryParams(
                               routes.Report.form.url,
-                              Map("username" -> userId.value, "postUrl" -> postUrl, "reason" -> "comm")
+                              Map("username" -> userId.value, "postUrl" -> postUrl, "from" -> "forum")
                             ),
                             dataIcon := Icon.CautionTriangle
                           )
@@ -180,7 +189,7 @@ final class PostUi(helpers: Helpers, bits: ForumBits):
                       br,
                       bits.authorLink(view.post)
                     )
-                  tr(cls := "paginated")(
+                  tr(cls := "paginated stack-row")(
                     if viewWithRead.canRead then
                       frag(
                         td(

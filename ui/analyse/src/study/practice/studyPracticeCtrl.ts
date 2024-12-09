@@ -1,13 +1,13 @@
-import * as xhr from '../studyXhr';
-import { Prop, prop } from 'common';
+import { practiceComplete } from '../studyXhr';
+import { type Prop, prop } from 'common';
 import { storedBooleanProp } from 'common/storage';
 import makeSuccess from './studyPracticeSuccess';
 import { readOnlyProp } from '../../util';
-import { StudyPracticeData, Goal } from './interfaces';
-import { StudyData } from '../interfaces';
-import AnalyseCtrl from '../../ctrl';
+import type { StudyPracticeData, Goal } from './interfaces';
+import type { StudyData } from '../interfaces';
+import type AnalyseCtrl from '../../ctrl';
 
-export default class StudyPractice {
+export default class StudyPracticeCtrl {
   goal: Prop<Goal>;
   nbMoves = prop(0);
   // null = ongoing, true = win, false = fail
@@ -20,8 +20,8 @@ export default class StudyPractice {
     readonly data: StudyPracticeData,
   ) {
     this.goal = prop<Goal>(root.data.practiceGoal!);
-    site.sound.load('practiceSuccess', `${site.sound.baseUrl}/other/energy3`);
-    site.sound.load('practiceFailure', `${site.sound.baseUrl}/other/failure2`);
+    site.sound.load('practiceSuccess', site.sound.url('other/energy3.mp3'));
+    site.sound.load('practiceFailure', site.sound.url('other/failure2.mp3'));
     this.onLoad();
   }
 
@@ -55,10 +55,14 @@ export default class StudyPractice {
   };
 
   onVictory = (): void => {
-    this.saveNbMoves();
     site.sound.play('practiceSuccess');
+    this.onComplete();
     if (this.studyData.chapter.practice && this.autoNext())
       setTimeout(this.root.study!.goToNextChapter, 1000);
+  };
+
+  onComplete = (): void => {
+    this.saveNbMoves();
   };
 
   saveNbMoves = (): void => {
@@ -66,7 +70,7 @@ export default class StudyPractice {
       former = this.data.completion[chapterId];
     if (typeof former === 'undefined' || this.nbMoves() < former) {
       this.data.completion[chapterId] = this.nbMoves();
-      xhr.practiceComplete(chapterId, this.nbMoves());
+      practiceComplete(chapterId, this.nbMoves());
     }
   };
 

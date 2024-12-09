@@ -59,20 +59,19 @@
   <string name="myTournaments">我的锦标赛</string>
   <string name="editTournament">编辑锦标赛</string>
   <string name="editTeamBattle">编辑团队战斗</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">防守方</string>
+  <string name="defender">防守方</string>
   <string name="pickYourTeam">请选择您的团队</string>
   <string name="whichTeamWillYouRepresentInThisBattle">你将代表哪个团队出战？</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">您必须加入这些团队之一才能参与！</string>
   <string name="created">创建于</string>
   <string name="recentlyPlayed">最近结束</string>
   <string name="bestResults">最佳结果</string>
-  <string name="stats">统计</string>
   <string name="tournamentStats">锦标赛统计</string>
   <string name="rankAvgHelp">等级平均值是您排名的百分比。较低的排名越好。
 
 例如，在100个玩家的锦标赛中排名第三名 = 3%。在1000个玩家的锦标赛中排名第10名 = 1%。</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">中位数</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">此页面上的所有平均值是 %s。</string>
+  <string name="medians">中位数</string>
+  <string name="allAveragesAreX">此页面上的所有平均值是 %s。</string>
   <string name="total">总计</string>
   <string name="pointsAvg">平均分数</string>
   <string name="pointsSum">总分数</string>

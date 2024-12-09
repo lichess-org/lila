@@ -4,9 +4,8 @@ import com.softwaremill.macwire.*
 import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
-import lila.core.game.{ FinishGame, InsertGame }
-import lila.search.*
 import lila.core.config.ConfigName
+import lila.search.*
 import lila.search.client.SearchClient
 import lila.search.spec.Query
 
@@ -22,7 +21,7 @@ final class Env(
     gameRepo: lila.core.game.GameRepo,
     userApi: lila.core.user.UserApi,
     client: SearchClient
-)(using Executor, Scheduler, lila.core.i18n.Translator):
+)(using Executor, lila.core.i18n.Translator):
 
   private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 
@@ -33,7 +32,3 @@ final class Env(
   lazy val forms = wire[GameSearchForm]
 
   lazy val userGameSearch = wire[UserGameSearch]
-
-  lila.common.Bus.subscribeFun("finishGame", "gameSearchInsert"):
-    case FinishGame(game, _) if !game.aborted => api.store(game)
-    case InsertGame(game)                     => api.store(game)

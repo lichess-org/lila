@@ -1,12 +1,12 @@
 package lila.oauth
 
-import reactivemongo.api.bson.*
 import play.api.libs.json.*
+import reactivemongo.api.bson.*
 
+import lila.common.Json.given
+import lila.core.misc.oauth.TokenRevoke
 import lila.core.net.Bearer
 import lila.db.dsl.{ *, given }
-import lila.core.misc.oauth.TokenRevoke
-import lila.common.Json.given
 
 final class AccessTokenApi(
     coll: Coll,
@@ -165,14 +165,8 @@ final class AccessTokenApi(
         yield AccessTokenApi.Client(origin, usedAt, scopes)
 
   def revokeById(id: AccessToken.Id)(using me: MyId): Funit =
-    coll.delete
-      .one:
-        $doc(
-          F.id     -> id,
-          F.userId -> me
-        )
-      .void
-      .andDo(onRevoke(id))
+    for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
+    yield onRevoke(id)
 
   def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
     coll
@@ -197,7 +191,7 @@ final class AccessTokenApi(
 
   def revoke(bearer: Bearer) =
     val id = AccessToken.Id.from(bearer)
-    coll.delete.one($id(id)).andDo(onRevoke(id))
+    for _ <- coll.delete.one($id(id)) yield onRevoke(id)
 
   private[oauth] def get(bearer: Bearer) = accessTokenCache.get(AccessToken.Id.from(bearer))
 

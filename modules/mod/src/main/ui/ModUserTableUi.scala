@@ -2,8 +2,9 @@ package lila.mod
 package ui
 
 import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.user.WithPerfsAndEmails
+
+import ScalatagsTemplate.{ *, given }
 
 object ModUserTableUi:
 
@@ -79,7 +80,7 @@ final class ModUserTableUi(helpers: Helpers, modUi: ModUi):
               eraseButton.option(
                 td(
                   postForm(action := routes.Mod.gdprErase(u.username)):
-                    modUi.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
+                    modUi.gdprEraseButton(u)(cls := "button button-red button-empty yes-no-confirm")
                 )
               ),
               userCheckboxTd(u.marks.alt)

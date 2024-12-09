@@ -116,7 +116,6 @@
   <string name="replayMode">Oorspeel modus</string>
   <string name="realtimeReplay">Ware Tyd</string>
   <string name="byCPL">Met CPL</string>
-  <string name="openStudy">Open studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="showVariationArrows">Wys variasiepyle</string>
@@ -126,7 +125,6 @@
   <string name="memory">Geheue</string>
   <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="removesTheDepthLimit">Verwyder dieptelimiet, en hou jou rekenaar warm</string>
-  <string name="engineManager">Enjinbestuurder</string>
   <string name="blunder">Flater</string>
   <string name="mistake">Fout</string>
   <string name="inaccuracy">Onakkuraatheid</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Jongste forumplasings</string>
   <string name="players">Spelers</string>
   <string name="friends">Vriende</string>
+  <string name="otherPlayers">ander spelers</string>
   <string name="discussions">Gesprekke</string>
   <string name="today">Vandag</string>
   <string name="yesterday">Gister</string>
@@ -278,6 +277,7 @@
   <string name="abortGame">Staak spel</string>
   <string name="gameAborted">Spel gestaak</string>
   <string name="standard">Standaard</string>
+  <string name="customPosition">Gebruiklike Posisie</string>
   <string name="unlimited">Oneindig</string>
   <string name="mode">Modus</string>
   <string name="casual">Vriendskaplik</string>
@@ -351,6 +351,10 @@
     <item quantity="one">%s studie</item>
     <item quantity="other">%s studies</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simulasie</item>
+    <item quantity="other">%s simulasies</item>
+  </plurals>
   <string name="viewTournament">Sien toernooi</string>
   <string name="backToTournament">Terug na toernooi</string>
   <string name="noDrawBeforeSwissLimit">Geen gelykop voor 30 skuiwe tydens \'n Switserse toernooi nie.</string>
@@ -417,6 +421,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="blackCheckmatesInOneMove">Swart om te skaakmat in een skuif</string>
   <string name="retry">Probeer weer</string>
   <string name="reconnecting">Konnekteer weer</string>
+  <string name="noNetwork">Vanlyn af</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s aanlyn vriend</item>
     <item quantity="other">%s aanlyn vriende</item>
@@ -430,7 +435,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="block">Blokeer</string>
   <string name="blocked">Geblok</string>
   <string name="unblock">Ontblok</string>
-  <string name="followsYou">Volg jou</string>
   <string name="xStartedFollowingY">%1$s het begin om %2$s te volg</string>
   <plurals name="nbFollowers">
     <item quantity="one">Gevolg deur %s</item>
@@ -462,9 +466,6 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="safeTournamentName">Kies \'n baie veilige naam vir die toernooi.</string>
   <string name="inappropriateNameWarning">Enige iets ongepaste kan maak dat jou rekening gesluit word.</string>
   <string name="emptyTournamentName">Laat leeg om die toernooi na \'n noemenswaardige speler te vernoem.</string>
-  <string name="recommendNotTouching">Ons stel voor om hierdie uit te los.</string>
-  <string name="fewerPlayers">As jy die aansluitings vereistes verstel, sal jou toernooi minder spelers hê.</string>
-  <string name="showAdvancedSettings">Wys gevorderde instellings</string>
   <string name="makePrivateTournament">Maak die toernooi privaat, en beperk toegang met \'n wagwoord</string>
   <string name="join">Sluit aan</string>
   <string name="withdraw">Ontrek</string>
@@ -504,8 +505,9 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="ifNoneLeaveEmpty">As geen, los oop</string>
   <string name="profile">Profiel</string>
   <string name="editProfile">Verander profiel</string>
-  <string name="firstName">Noem naam</string>
-  <string name="lastName">Van</string>
+  <string name="realName">Regte naam</string>
+  <string name="setFlair">Stel jou Vlam</string>
+  <string name="flair">Vlam</string>
   <string name="biography">Biografie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land of streek</string>
   <string name="thankYou">Dankie!</string>
@@ -532,6 +534,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="descPrivateHelp">Teks wat slegs spanlede sal sien. Indien gestel vervang dit die publieke beskrywing vir spanlede.</string>
   <string name="no">Nee</string>
   <string name="yes">Ja</string>
+  <string name="website">Webtuiste</string>
   <string name="help">Help:</string>
   <string name="createANewTopic">Skep \'n nuwe onderwerp</string>
   <string name="topics">Onderwerpe</string>
@@ -548,11 +551,8 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="reason">Rede</string>
   <string name="whatIsIheMatter">Wat makeer?</string>
   <string name="cheat">Kul</string>
-  <string name="insult">Beledig</string>
   <string name="troll">Boelie</string>
-  <string name="ratingManipulation">Gradering manipulasie</string>
   <string name="other">Ander</string>
-  <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag. Moenie net sê hulle kroek nie, maar verduidelik hoe daardie gevolgtrekking bereik is. Jou verslag sal vinniger geantwoord word as dit in Engels geskryf is.</string>
   <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n spel waar hulle gekroek het.</string>
   <string name="by">deur %s</string>
   <string name="importedByX">Ingevoer deur %s</string>
@@ -585,6 +585,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="slow">Stadig</string>
   <string name="insideTheBoard">In die bord</string>
   <string name="outsideTheBoard">Buite die bord</string>
+  <string name="allSquaresOfTheBoard">Al die blokkies van die bord</string>
   <string name="onSlowGames">Op stadig spelle</string>
   <string name="always">Altyd</string>
   <string name="never">Nooit</string>
@@ -669,7 +670,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="aboutSimulRules">Wanneer die simul begin, begin elke speler \'n spel met die gasheer, die gasheer kry altyd die wit stukke. Die simul eindig wanneer al die spelle is voltooi.</string>
   <string name="aboutSimulSettings">Simuls is altyd vriendskaplik. Heruitdagings, terug-vat en ekstra tyd is afgeskakel.</string>
   <string name="create">Skep</string>
-  <string name="whenCreateSimul">As jy \'n Simul skep, kan jy teen \'n paar spelers gelyktydig speel.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">As jy \'n Simul skep, kan jy teen \'n paar spelers gelyktydig speel.</string>
   <string name="simulVariantsHint">As jy \'n paar variasies kies, kan elke speler kies watter een om te speel.</string>
   <string name="simulClockHint">Fischer Klok stelling. Hoe meer spelers wat jy aanvat, hoe meer tyd kan jy benodig.</string>
   <string name="simulAddExtraTime">Jy kan ekstra tyd by jou klok sit om jou te help om die simul te hanteer.</string>

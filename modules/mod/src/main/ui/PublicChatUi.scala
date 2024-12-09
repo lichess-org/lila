@@ -1,10 +1,10 @@
 package lila.mod
 package ui
 
+import lila.chat.{ ChatTimeout, UserChat }
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.chat.UserChat
-import lila.chat.ChatTimeout
 
 final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String => Frag):
   import helpers.{ *, given }
@@ -15,7 +15,7 @@ final class PublicChatUi(helpers: Helpers, modUi: ModUi)(highlightBad: String =>
   )(using Context) =
     Page("Public Chats")
       .css("mod.publicChats")
-      .js(EsmInit("bits.publicChats")):
+      .js(Esm("bits.publicChats")):
         main(cls := "page-menu")(
           modUi.menu("public-chat"),
           div(id := "comm-wrap")(

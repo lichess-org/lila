@@ -1,12 +1,11 @@
 import { view as cevalView } from 'ceval';
 import * as licon from 'common/licon';
-import { onInsert, looseH as h } from 'common/snabbdom';
+import { type VNode, onInsert, looseH as h } from 'common/snabbdom';
 import { playable } from 'game';
 import * as router from 'game/router';
-import { VNode } from 'snabbdom';
 import { render as trainingView } from './roundTraining';
 import crazyView from '../crazy/crazyView';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import forecastView from '../forecast/forecastView';
 import { view as keyboardView } from '../keyboard';
 import { render as renderKeyboardMove } from 'keyboardMove';
@@ -20,6 +19,8 @@ import {
   renderTools,
   renderUnderboard,
 } from './components';
+import { wikiToggleBox } from '../wiki';
+import { watchers } from 'common/watchers';
 
 export default function (deps?: typeof studyDeps) {
   return function (ctrl: AnalyseCtrl): VNode {
@@ -51,32 +52,35 @@ function analyseView(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode {
           'aside.analyse__side',
           {
             hook: onInsert(elm => {
-              ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+              if (ctrl.opts.$side && ctrl.opts.$side.length) {
+                $(elm).replaceWith(ctrl.opts.$side);
+                wikiToggleBox();
+              }
             }),
           },
           ctrl.studyPractice
             ? [deps?.studyPracticeView.side(study!)]
             : study
-            ? [deps?.studyView.side(study, true)]
-            : [
-                ctrl.forecast && forecastView(ctrl, ctrl.forecast),
-                !ctrl.synthetic &&
-                  playable(ctrl.data) &&
-                  h(
-                    'div.back-to-game',
+              ? [deps?.studyView.side(study, true)]
+              : [
+                  ctrl.forecast && forecastView(ctrl, ctrl.forecast),
+                  !ctrl.synthetic &&
+                    playable(ctrl.data) &&
                     h(
-                      'a.button.button-empty.text',
-                      {
-                        attrs: {
-                          href: router.game(ctrl.data, ctrl.data.player.color),
-                          'data-icon': licon.Back,
+                      'div.back-to-game',
+                      h(
+                        'a.button.button-empty.text',
+                        {
+                          attrs: {
+                            href: router.game(ctrl.data, ctrl.data.player.color),
+                            'data-icon': licon.Back,
+                          },
                         },
-                      },
-                      ctrl.trans.noarg('backToGame'),
+                        i18n.site.backToGame,
+                      ),
                     ),
-                  ),
-              ],
+                ],
         ),
-    h('div.chat__members.none', { hook: onInsert(site.watchers) }),
+    h('div.chat__members.none', { hook: onInsert(watchers) }),
   ]);
 }

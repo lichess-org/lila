@@ -1,4 +1,4 @@
-import { throttlePromiseDelay } from 'common/throttle';
+import { throttlePromiseDelay } from 'common/timing';
 import { json } from 'common/xhr';
 
 // when the simul no longer exists

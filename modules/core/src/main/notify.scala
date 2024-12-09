@@ -3,13 +3,13 @@ package notify
 
 import alleycats.Zero
 
+import lila.core.chess.Win
 import lila.core.id.*
 import lila.core.study.data.StudyName
-import lila.core.chess.Win
 import lila.core.userId.*
 
 opaque type UnreadCount = Int
-object UnreadCount extends OpaqueInt[UnreadCount]:
+object UnreadCount extends RelaxedOpaqueInt[UnreadCount]:
   given Zero[UnreadCount] = Zero(0)
 
 abstract class NotificationContent(val key: String)

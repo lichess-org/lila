@@ -3,9 +3,10 @@ package ui
 
 import play.api.libs.json.*
 
-import lila.ui.{ *, given }
-import ScalatagsTemplate.{ *, given }
 import lila.core.id.CmsPageKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class RacerUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -33,7 +34,8 @@ final class RacerUi(helpers: Helpers):
   def show(data: JsObject)(using Context) =
     Page("Puzzle Racer")
       .css("racer")
-      .js(PageModule("racer", data ++ Json.obj("i18n" -> i18nJsObject(i18nKeys))))
+      .i18n(_.storm)
+      .js(PageModule("racer", data))
       .zoom
       .zen:
         main(
@@ -42,31 +44,3 @@ final class RacerUi(helpers: Helpers):
             div(cls := "racer__side")
           )
         )
-
-  private val i18nKeys: List[lila.core.i18n.I18nKey] = List(
-    s.score,
-    s.combo,
-    s.youPlayTheWhitePiecesInAllPuzzles,
-    s.youPlayTheBlackPiecesInAllPuzzles,
-    s.getReady,
-    s.waitingForMorePlayers,
-    s.raceComplete,
-    s.spectating,
-    s.joinTheRace,
-    s.startTheRace,
-    s.yourRankX,
-    s.waitForRematch,
-    s.nextRace,
-    s.joinRematch,
-    s.waitingToStart,
-    s.createNewGame,
-    trans.site.toInviteSomeoneToPlayGiveThisUrl,
-    s.skip,
-    s.skipHelp,
-    s.skipExplanation,
-    s.puzzlesPlayed,
-    s.failedPuzzles,
-    s.slowPuzzles,
-    s.skippedPuzzle,
-    trans.site.flipBoard
-  )

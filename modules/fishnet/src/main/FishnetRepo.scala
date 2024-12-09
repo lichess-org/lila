@@ -24,14 +24,15 @@ final private class FishnetRepo(
     client
       .updateInstance(instance)
       .fold(fuccess(client)): updated =>
-        clientColl.update
-          .one($id(client.key), $set("instance" -> updated.instance))
-          .andDo(clientCache.invalidate(client.key))
-          .inject(updated)
-  def addClient(client: Client)     = clientColl.insert.one(client)
-  def deleteClient(key: Client.Key) = clientColl.delete.one($id(key)).andDo(clientCache.invalidate(key))
+        for
+          _ <- clientColl.update.one($id(client.key), $set("instance" -> updated.instance))
+          _ = clientCache.invalidate(client.key)
+        yield updated
+  def addClient(client: Client) = clientColl.insert.one(client)
+  def deleteClient(key: Client.Key) = for _ <- clientColl.delete.one($id(key))
+  yield clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update.one($id(key), $set("enabled" -> v)).void.andDo(clientCache.invalidate(key))
+    for _ <- clientColl.update.one($id(key), $set("enabled" -> v)) yield clientCache.invalidate(key)
   def allRecentClients =
     clientColl.list[Client]:
       $doc:

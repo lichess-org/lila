@@ -23,14 +23,8 @@
   <string name="tournamentDescription">Mallonga turnira priskribo</string>
   <string name="fullDescription">Plena eventa priskribo</string>
   <string name="fullDescriptionHelp">Laŭvola longa priskribo de la elsendo. %1$s haveblas. Longeco devas esti malpli ol %2$s literoj.</string>
-  <string name="sourceUrlOrGameIds">Fontaj URL-oj, aŭ ludaj ID-oj</string>
   <string name="sourceUrlHelp">URL kiun Lichess kontrolos por akiri PGN ĝisdatigojn. Ĝi devas esti publike alirebla en interreto.</string>
-  <string name="gameIdsHelp">Alternative, vi povas enmeti ĝis 64 Lichess ludajn ID-ojn, apartigitajn per spacoj.</string>
-  <string name="startDate">Komenca dato en via propra horzono</string>
   <string name="startDateHelp">Laŭvola, se vi scias, kiam komenciĝas la evento</string>
-  <string name="credits">Citu la fonton</string>
-  <string name="broadcastUrl">Elsenda URL</string>
-  <string name="currentRoundUrl">Nuna raŭnda URL</string>
   <string name="currentGameUrl">Nuna luda URL</string>
   <string name="downloadAllRounds">Elŝuti ĉiujn raŭndojn</string>
   <string name="resetRound">Restarigi ĉi tiun raŭndon</string>
@@ -40,8 +34,4 @@
   <string name="editRoundStudy">Redakti raŭndan studon</string>
   <string name="deleteTournament">Forigi ĉi tiun turniron</string>
   <string name="definitivelyDeleteTournament">Sendube forigi la tuta turniro, kaj ĝiajn raŭndojn kaj ĉiujn ĝiajn ludojn.</string>
-  <string name="automaticLeaderboard">Aŭtomata ĉampionejo</string>
-  <string name="automaticLeaderboardHelp">Komputi kaj montri simplan ĉampionejon baze sur la ludrezultoj</string>
-  <string name="periodInSeconds">Periodo kiel sekundoj</string>
-  <string name="periodInSecondsHelp">Laŭvola, kiom tempo por atendi inter aliĝpetoj. Min 2s, Maks 60s. Defaŭlto estas aŭtamata baze sur la nombro de spektantoj.</string>
 </resources>

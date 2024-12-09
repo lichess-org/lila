@@ -3,13 +3,9 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org game",
-  "type": "module",
-  "module": "game.js",
-  "typings": "game.d.ts",
-  "exports": {
-    ".": "./dist/game.js",
-    "./*": "./dist/*.js"
-  },
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "typings": "game",
   "typesVersions": {
     "*": {
       "*": [
@@ -17,16 +13,11 @@
       ]
     }
   },
-  "keywords": [
-    "chess",
-    "lichess",
-    "play",
-    "replay"
-  ],
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
+  "exports": {
+    ".": "./src/game.ts",
+    "./*": "./src/*.ts"
+  },
   "dependencies": {
-    "common": "workspace:*",
-    "snabbdom": "3.5.1"
+    "common": "workspace:*"
   }
 }

@@ -1,8 +1,19 @@
-import { TournamentSocket, makeSocket } from './socket';
+import { type TournamentSocket, makeSocket } from './socket';
 import * as xhr from './xhr';
 import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
+import type {
+  TournamentData,
+  TournamentOpts,
+  Pages,
+  PlayerInfo,
+  TeamInfo,
+  Standing,
+  Player,
+} from './interfaces';
+import { storage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
+import { alerts, prompt } from 'common/dialog';
 
 interface CtrlTeamInfo {
   requested?: string;
@@ -12,7 +23,6 @@ interface CtrlTeamInfo {
 export default class TournamentController {
   opts: TournamentOpts;
   data: TournamentData;
-  trans: Trans;
   socket: TournamentSocket;
   page: number;
   pages: Pages = {};
@@ -27,13 +37,12 @@ export default class TournamentController {
   redraw: () => void;
   nbWatchers = 0;
 
-  private lastStorage = site.storage.make('last-redirect');
+  private lastStorage = storage.make('last-redirect');
 
   constructor(opts: TournamentOpts, redraw: () => void) {
     this.opts = opts;
     this.data = opts.data;
     this.redraw = redraw;
-    this.trans = site.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = this.isIn();
@@ -44,7 +53,7 @@ export default class TournamentController {
     sound.countDown(this.data);
     this.recountTeams();
     this.redirectToMyGame();
-    site.pubsub.on('socket.in.crowd', data => {
+    pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
     });
   }
@@ -108,7 +117,7 @@ export default class TournamentController {
       this.page = data.page;
       this.searching = false;
       this.focusOnMe = false;
-      this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
+      this.pages[this.page].filter(p => p.name.toLowerCase() === userId).forEach(this.showPlayerInfo);
       this.redraw();
     });
   };
@@ -140,18 +149,16 @@ export default class TournamentController {
     this.focusOnMe = false;
   };
 
-  join = (team?: string) => {
+  join = async (team?: string) => {
     this.joinWithTeamSelector = false;
     if (!this.data.verdicts.accepted)
-      return this.data.verdicts.list.forEach(v => {
-        if (v.verdict !== 'ok') alert(v.verdict);
-      });
+      return await alerts(this.data.verdicts.list.map(v => v.verdict).filter(v => v != 'ok'));
     if (this.data.teamBattle && !team && !this.data.me) {
       this.joinWithTeamSelector = true;
     } else {
       let password;
       if (this.data.private && !this.data.me) {
-        password = prompt(this.trans.noarg('tournamentEntryCode'));
+        password = await prompt(i18n.site.tournamentEntryCode);
         if (password === null) {
           return;
         }
@@ -160,6 +167,7 @@ export default class TournamentController {
       this.joinSpinner = true;
       this.focusOnMe = true;
     }
+    return;
   };
 
   scrollToMe = () => this.setPage(myPage(this));

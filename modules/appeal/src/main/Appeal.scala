@@ -2,14 +2,14 @@ package lila.appeal
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.ui.Icon
-import lila.core.user.UserMark
 import lila.core.id.AppealId
+import lila.core.user.UserMark
+import lila.ui.Icon
 
 case class Appeal(
     @Key("_id") id: AppealId,
-    msgs: Vector[AppealMsg],
-    status: Appeal.Status, // from the moderators POV
+    msgs: Vector[AppealMsg], // chronological order, oldest first
+    status: Appeal.Status,   // from the moderators POV
     createdAt: Instant,
     updatedAt: Instant,
     // date of first player message without a mod reply
@@ -49,6 +49,9 @@ case class Appeal(
   def unread     = copy(status = Appeal.Status.Unread)
   def read       = copy(status = Appeal.Status.Read)
   def toggleMute = if isMuted then read else copy(status = Appeal.Status.Muted)
+
+  lazy val mutedSince: Option[Instant] = isMuted.so:
+    msgs.reverse.takeWhile(m => !isByMod(m)).lastOption.map(_.at)
 
   def isByMod(msg: AppealMsg) = msg.by != id
 

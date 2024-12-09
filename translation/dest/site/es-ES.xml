@@ -116,7 +116,6 @@
   <string name="replayMode">Modo de repetición</string>
   <string name="realtimeReplay">Tiempo real</string>
   <string name="byCPL">Por PCP</string>
-  <string name="openStudy">Abrir estudio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la mejor jugada</string>
   <string name="showVariationArrows">Mostrar flechas de variantes</string>
@@ -126,7 +125,6 @@
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análisis infinito</string>
   <string name="removesTheDepthLimit">Elimina el límite de profundidad del análisis y hace trabajar a tu ordenador</string>
-  <string name="engineManager">Gestor de motores</string>
   <string name="blunder">Error grave</string>
   <string name="mistake">Error</string>
   <string name="inaccuracy">Imprecisión</string>
@@ -160,7 +158,7 @@
     <item quantity="other">%s Partidas</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">puntuación %1$s en %2$s partida</item>
+    <item quantity="one">Puntuación %1$s en %2$s partida</item>
     <item quantity="other">Puntuación de %1$s en %2$s partidas</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Últimos mensajes del foro</string>
   <string name="players">Jugadores</string>
   <string name="friends">Amigos</string>
+  <string name="otherPlayers">otros jugadores</string>
   <string name="discussions">Conversaciones</string>
   <string name="today">Hoy</string>
   <string name="yesterday">Ayer</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s partida contigo</item>
     <item quantity="other">%s partidas contigo</item>
   </plurals>
+  <string name="ok">Aceptar</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Las blancas agotaron su tiempo</string>
   <string name="blackTimeOut">Las negras agotaron su tiempo</string>
@@ -435,7 +435,6 @@
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
-  <string name="followsYou">Te sigue</string>
   <string name="xStartedFollowingY">%1$s comenzó a seguir a %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidor</item>
@@ -467,9 +466,6 @@
   <string name="safeTournamentName">Escoge un nombre muy seguro para el torneo.</string>
   <string name="inappropriateNameWarning">Cualquier comportamiento mínimamente inapropiado podría conllevar al cierre de tu cuenta.</string>
   <string name="emptyTournamentName">Déjalo en blanco para poner al torneo el nombre de un Gran Maestro al azar.</string>
-  <string name="recommendNotTouching">Se recomienda dejar como está.</string>
-  <string name="fewerPlayers">Si impones condiciones de entrada, el torneo tendrá menos jugadores.</string>
-  <string name="showAdvancedSettings">Mostrar configuración avanzada</string>
   <string name="makePrivateTournament">Hacer el torneo privado y restringir el acceso con una contraseña</string>
   <string name="join">Unirse</string>
   <string name="withdraw">Abandonar</string>
@@ -509,8 +505,7 @@
   <string name="ifNoneLeaveEmpty">Si no aplica, déjalo en blanco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
-  <string name="firstName">Nombre</string>
-  <string name="lastName">Apellido</string>
+  <string name="realName">Nombre real</string>
   <string name="setFlair">Configura tu entorno</string>
   <string name="flair">Entorno</string>
   <string name="youCanHideFlair">Existe una opción para ocultar la configuración de entorno en todo el sitio.</string>
@@ -541,6 +536,8 @@
   <string name="descPrivateHelp">Este texto sólo pueden verlo los miembros del equipo. El texto que escribas aquí reemplazará tu descripción pública cuando sea vista por los miembros del equipo.</string>
   <string name="no">No</string>
   <string name="yes">Sí</string>
+  <string name="website">Sitio web</string>
+  <string name="mobile">Móvil</string>
   <string name="help">Ayuda:</string>
   <string name="createANewTopic">Crear un tema nuevo</string>
   <string name="topics">Temas</string>
@@ -557,11 +554,11 @@
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">¿Qué ocurre?</string>
   <string name="cheat">Trampa</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Acoso</string>
-  <string name="ratingManipulation">Manipulación de puntuación</string>
   <string name="other">Otro</string>
-  <string name="reportDescriptionHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\"; explícanos cómo has llegado a esta conclusión. Tu informe será procesado más rápido si está escrito en inglés.</string>
+  <string name="reportCheatBoostHelp">Pega el enlace a la(s) partida(s) y explícanos qué hay de malo en el comportamiento de este usuario. No digas simplemente \"hace trampa\", sino cómo has llegado a esta conclusión.</string>
+  <string name="reportUsernameHelp">Explica qué es lo que te resulta ofensivo de este nombre de usuario. No digas solo \"es ofensivo\" o \"inapropiado\", sino cómo llegaste a esta conclusión, sobre todo si el insulto no es tan obvio, no está en inglés, es jerga o una referencia histórica o cultural.</string>
+  <string name="reportProcessedFasterInEnglish">Tu informe será procesado más rápido si está escrito en inglés.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, proporciona al menos un enlace a una partida en la que se hicieron trampas.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -594,6 +591,7 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro del tablero</string>
   <string name="outsideTheBoard">Fuera del tablero</string>
+  <string name="allSquaresOfTheBoard">Todas las casillas del tablero</string>
   <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
@@ -680,7 +678,7 @@
   <string name="aboutSimulRules">Cuando la simultánea empieza, cada jugador comienza una partida con el anfitrión, que juega con blancas. La simultánea termina cuando se acaban todas las partidas.</string>
   <string name="aboutSimulSettings">Las simultáneas son siempre partidas amistosas. Las opciones de petición de revancha, deshacer jugada y agregar tiempo están deshabilitadas.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cuando creas una simultánea, juegas contra varios jugadores a la vez.</string>
   <string name="simulVariantsHint">Si seleccionas diferentes variantes, cada jugador escoge cuál jugar.</string>
   <string name="simulClockHint">Configuración de reloj Fischer. Cuantos más oponentes, más tiempo se necesita.</string>
   <string name="simulAddExtraTime">Puedes añadir tiempo adicional a tu reloj para ayudarte en la simultánea.</string>
@@ -995,4 +993,5 @@ Déjalo vacío para empezar las partidas desde la posición inicial habitual.</s
   <string name="lichessPatronInfo">Lichess es una organización benéfica y un software totalmente libre y de código abierto.
 Todos los gastos de funcionamiento, desarrollo y contenidos se financian exclusivamente mediante las donaciones de sus usuarios.</string>
   <string name="nothingToSeeHere">Nada que ver aquí por ahora.</string>
+  <string name="stats">Estadísticas</string>
 </resources>

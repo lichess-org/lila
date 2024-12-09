@@ -19,10 +19,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          run_install: true
+          run_install: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
       - uses: github/codeql-action/init@v3
         with:
           languages: javascript
       - uses: github/codeql-action/analyze@v3
-      - run: pnpm run lint
+      - run: pnpm install
       - run: pnpm run check-format

@@ -1,10 +1,10 @@
 import { scroller } from './scroller';
 import * as licon from 'common/licon';
 import { linkRegex, linkReplace, newLineRegex, expandMentions } from 'common/richText';
-
+import { escapeHtml } from 'common';
 export { isMoreThanText } from 'common/richText';
 
-const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(\w+)(?:\.jpe?g|\.png|\.gif)?/;
+export const imgurRegex = /https?:\/\/(?:i\.)?imgur\.com\/(?!gallery\b)(\w{7})(?:\.jpe?g|\.png|\.gif)?/;
 const giphyRegex =
   /https:\/\/(?:media\.giphy\.com\/media\/|giphy\.com\/gifs\/(?:\w+-)*)(\w+)(?:\/giphy\.gif)?/;
 const teamMessageRegex =
@@ -37,7 +37,7 @@ const expandUrls = (html: string) =>
 const expandGameIds = (html: string) =>
   html.replace(
     /\s#([\w]{8})($|[^\w-])/g,
-    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id, 'text') + suffix,
+    (_: string, id: string, suffix: string) => ' ' + linkReplace('/' + id, '#' + id) + suffix,
   );
 
 const expandTeamMessage = (html: string) =>
@@ -50,10 +50,7 @@ const expandTeamMessage = (html: string) =>
   );
 
 export const enhance = (str: string) =>
-  expandTeamMessage(expandGameIds(expandMentions(expandUrls(site.escapeHtml(str))))).replace(
-    newLineRegex,
-    '<br>',
-  );
+  expandTeamMessage(expandGameIds(expandMentions(expandUrls(escapeHtml(str))))).replace(newLineRegex, '<br>');
 
 interface Expandable {
   element: HTMLElement;
@@ -93,7 +90,7 @@ export function expandLpvs(el: HTMLElement) {
       });
   });
 
-  expandGames(expandables.filter(e => e.link.type == 'game'));
+  expandGames(expandables);
 }
 
 function expandGames(games: Expandable[]): void {

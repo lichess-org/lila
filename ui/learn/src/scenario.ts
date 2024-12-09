@@ -1,6 +1,5 @@
-import * as cg from 'chessground/types';
 import * as timeouts from './timeouts';
-import { ChessCtrl } from './chess';
+import type { ChessCtrl } from './chess';
 import { decomposeUci } from './util';
 import { Shape } from './chessground';
 
@@ -21,8 +20,8 @@ export type ScenarioLevel = (
 
 interface ScenarioOpts {
   chess: ChessCtrl;
-  makeChessDests(): cg.Dests;
-  setFen(fen: string, color: Color, dests: cg.Dests, lastMove?: [Key, Key, ...unknown[]]): void;
+  makeChessDests(): Dests;
+  setFen(fen: string, color: Color, dests: Dests, lastMove?: [Key, Key]): void;
   setShapes(shapes: Shape[]): void;
 }
 
@@ -44,7 +43,7 @@ export default function (blueprint: ScenarioLevel | undefined, opts: ScenarioOpt
     const res = opts.chess.move(move[0], move[1], move[2]);
     if (!res) return fail();
     it++;
-    opts.setFen(opts.chess.fen(), opts.chess.color(), opts.makeChessDests(), move);
+    opts.setFen(opts.chess.fen(), opts.chess.getColor(), opts.makeChessDests(), [move[0], move[1]]);
     if (step.shapes) timeouts.setTimeout(() => opts.setShapes(step.shapes), 500);
     return;
   };

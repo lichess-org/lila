@@ -4,9 +4,8 @@ import play.api.i18n.Lang
 import play.api.mvc.Result
 
 import lila.app.{ *, given }
-import lila.core.config
 import lila.core.i18n.Language
-import lila.i18n.{ LangPicker, LangList }
+import lila.i18n.{ LangList, LangPicker }
 import lila.report.Suspect
 import lila.ublog.{ UblogBlog, UblogPost, UblogRank }
 

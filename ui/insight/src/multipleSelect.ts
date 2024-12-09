@@ -1,4 +1,5 @@
 import { isTouchDevice } from 'common/device';
+import { escapeHtml } from 'common';
 
 export const registerMultipleSelect = () => {
   $.fn.multipleSelectHover = function (fnOver, fnOut) {
@@ -7,7 +8,7 @@ export const registerMultipleSelect = () => {
 
   function isVisible(this: EleLoose) {
     const display = window.getComputedStyle(this).display;
-    return !!display && display != 'none';
+    return !!display && display !== 'none';
   }
 
   class MultipleSelectState {
@@ -143,7 +144,7 @@ export const registerMultipleSelect = () => {
           [
             `<li class="${multiple} ${classes}" ${style}>`,
             `<label class="${disabled ? 'disabled' : ''}">`,
-            `<input type="${type}" value="${site.escapeHtml(value)}" ${this.selectItemName} ${
+            `<input type="${type}" value="${escapeHtml(value)}" ${this.selectItemName} ${
               selected ? 'checked' : ''
             } ${disabled ? 'disabled' : ''} ${group ? `data-group="${group}"` : ''}>`,
             text,
@@ -521,8 +522,7 @@ export const registerMultipleSelect = () => {
     | 'uncheckAll'
     | 'focus'
     | 'blur'
-    | 'refresh'
-    | 'close';
+    | 'refresh';
   $.fn.multipleSelect = function (this: Cash) {
     const option = arguments[0],
       args = arguments;

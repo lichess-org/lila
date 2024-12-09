@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Kā varam palīdzēt?</string>
   <string name="visitThisPage">Apmeklējiet šo lapu, lai atrisinātu problēmu</string>
   <string name="iCantLogIn">Nevaru ierakstīties</string>
-  <string name="noConfirmationEmail">Neesmu saņēmis apstiprinājuma e-pastu</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Neesmu saņēmis apstiprinājuma e-pastu</string>
   <string name="forgotPassword">Aizmirsu savu paroli</string>
   <string name="forgotUsername">Aizmirsu savu lietotājvārdu</string>
   <string name="youCanLoginWithEmail">Varat ierakstīties ar e-pasta adresi, kuru izmantojāt lai reģistrētos</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Noteiktos gadījumos, spēlējot pret datorprogrammu, par vērtētām spēlēm nepiešķir punktus, ja ir noteikts, ka spēlētājs ļaunprātīgi izmanto programmu, lai paaugstinātu reitingu.</string>
   <string name="errorPage">Kļūdas lapa</string>
   <string name="reportErrorPage">Ja saskārāties ar kļūdas lapu, varat par to ziņot:</string>
-  <string name="wantBroadcastTournament">Vēlos pārraidīt turnīru</string>
   <string name="learnHowToMakeBroadcasts">Uzzini kā veidot savas pārraides Lichess-ā</string>
-  <string name="contactAboutOfficialBroadcasts">Vari arī sazināties ar pārraižu komandu par oficiālajām pārraidēm.</string>
   <string name="banAppeal">Pārsūdzēt liegumu vai IP ierobežojumu</string>
   <string name="engineAppeal">Dzinēja vai šmaukšanās atzīme</string>
   <string name="sendAppealTo">Varat iesniegt lūgumu %s.</string>

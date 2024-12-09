@@ -19,22 +19,22 @@ object Dependencies {
   val compression = "org.lichess"                  %% "compression"                     % "1.10"
   val maxmind     = "com.maxmind.geoip2"            % "geoip2"                          % "4.0.1"
   val caffeine    = "com.github.ben-manes.caffeine" % "caffeine"                        % "3.1.8" % "compile"
-  val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.2.1" % "compile"
-  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.23.0"
+  val scaffeine   = "com.github.blemale"           %% "scaffeine"                       % "5.3.0" % "compile"
+  val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.30.0"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.3.2.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.1.RELEASE"
   val nettyTransport =
-    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.111.Final").classifier(s"$os-$arch")
-  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.0.0-RC10"
-  val munit       = "org.scalameta"              %% "munit"         % "1.0.0" % Test
-  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.17.0"
+    ("io.netty" % s"netty-transport-native-$notifier" % "4.1.115.Final").classifier(s"$os-$arch")
+  val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
+  val munit       = "org.scalameta"              %% "munit"         % "1.0.3" % Test
+  val uaparser    = "org.uaparser"               %% "uap-scala"     % "0.18.0"
   val apacheText  = "org.apache.commons"          % "commons-text"  % "1.12.0"
   val apacheMath  = "org.apache.commons"          % "commons-math3" % "3.6.1"
   val bloomFilter = "com.github.alexandrnikitin" %% "bloom-filter"  % "0.13.1_lila-1"
-  val kittens     = "org.typelevel"              %% "kittens"       % "3.3.0"
+  val kittens     = "org.typelevel"              %% "kittens"       % "3.4.0"
 
-  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.0" % Test
+  val scalacheck = "org.scalacheck" %% "scalacheck"       % "1.18.1" % Test
   val munitCheck = "org.scalameta"  %% "munit-scalacheck" % "1.0.0"  % Test
 
   object tests {
@@ -42,15 +42,16 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.0.8"
+    val version  = "16.5.0"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
-    def bundle   = Seq(core, testKit, playJson)
+    val rating   = "org.lichess" %% "scalachess-rating"    % version
+    def bundle   = Seq(core, testKit, playJson, rating)
   }
 
   object scalalib {
-    val version  = "11.2.2"
+    val version  = "11.3.2"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version
@@ -62,13 +63,14 @@ object Dependencies {
     val version = "0.64.8"
     val bundle =
       ("com.vladsch.flexmark" % "flexmark" % version) ::
-        List("ext-tables", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter").map { ext =>
-          "com.vladsch.flexmark" % s"flexmark-$ext" % version
-        }
+        List("ext-tables", "ext-anchorlink", "ext-autolink", "ext-gfm-strikethrough", "html2md-converter")
+          .map { ext =>
+            "com.vladsch.flexmark" % s"flexmark-$ext" % version
+          }
   }
 
   object macwire {
-    val version = "2.5.9"
+    val version = "2.6.4"
     val macros  = "com.softwaremill.macwire" %% "macros"  % version % "provided"
     val util    = "com.softwaremill.macwire" %% "util"    % version % "provided"
     val tagging = "com.softwaremill.common"  %% "tagging" % "2.3.5"
@@ -76,39 +78,39 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC12"
-    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC12"
-    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC12"
+    val driver = "org.reactivemongo" %% "reactivemongo"                              % "1.1.0-RC13"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream"                   % "1.1.0-RC14"
+    val shaded = "org.reactivemongo"  % s"reactivemongo-shaded-native-$os-$dashArch" % "1.1.0-RC14"
     // val kamon  = "org.reactivemongo" %% "reactivemongo-kamon"         % "1.0.8"
     def bundle = Seq(driver, stream)
   }
 
   object play {
     val playVersion = "2.8.18-lila_3.18"
-    val json        = "org.playframework" %% "play-json"         % "3.0.3"
+    val json        = "org.playframework" %% "play-json"         % "3.0.4"
     val api         = "com.typesafe.play" %% "play"              % playVersion
     val server      = "com.typesafe.play" %% "play-server"       % playVersion
     val netty       = "com.typesafe.play" %% "play-netty-server" % playVersion
     val logback     = "com.typesafe.play" %% "play-logback"      % playVersion
-    val mailer      = "org.playframework" %% "play-mailer"       % "10.0.0"
+    val mailer      = "org.playframework" %% "play-mailer"       % "10.1.0"
   }
 
   object playWs {
-    val version = "2.2.7"
+    val version = "2.2.10"
     val ahc     = "com.typesafe.play" %% "play-ahc-ws-standalone"  % version
     val json    = "com.typesafe.play" %% "play-ws-standalone-json" % version
     val bundle  = Seq(ahc, json)
   }
 
   object kamon {
-    val version    = "2.7.3"
+    val version    = "2.7.5"
     val core       = "io.kamon" %% "kamon-core"           % version
     val influxdb   = "io.kamon" %% "kamon-influxdb"       % version
     val metrics    = "io.kamon" %% "kamon-system-metrics" % version
     val prometheus = "io.kamon" %% "kamon-prometheus"     % version
   }
   object akka {
-    val version    = "2.6.20"
+    val version    = "2.6.21"
     val actor      = "com.typesafe.akka" %% "akka-actor"       % version
     val actorTyped = "com.typesafe.akka" %% "akka-actor-typed" % version
     val akkaStream = "com.typesafe.akka" %% "akka-stream"      % version

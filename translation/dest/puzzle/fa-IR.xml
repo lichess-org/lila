@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="puzzles">معماها</string>
-  <string name="puzzleThemes">معماهای دسته‌بندی شده</string>
+  <string name="puzzleThemes">موضوع معما</string>
   <string name="recommended">توصیه شده</string>
   <string name="phases">مرحله‌ها</string>
   <string name="motifs">موضوعات</string>
@@ -16,8 +16,8 @@
   <string name="upVote">معمای خوبی بود</string>
   <string name="downVote">معمای بدی بود</string>
   <string name="yourPuzzleRatingWillNotChange">درجه‌بندی معمایی شما تغییری نخواهد کرد. توجه داشته باشید که معماها یک رقابت نیستند. درجه‌بندی‌تان به انتخاب بهترین معماها برای سطح مهارت فعلی‌تان کمک می‌کند.</string>
-  <string name="findTheBestMoveForWhite">بهترین حرکت برای سفید را پیدا کنید.</string>
-  <string name="findTheBestMoveForBlack">بهترین حرکت برای سیاه را پیدا کنید.</string>
+  <string name="findTheBestMoveForWhite">بهترین حرکت سفید را بیابید.</string>
+  <string name="findTheBestMoveForBlack">بهترین حرکت سیاه را بیابید.</string>
   <string name="toGetPersonalizedPuzzles">دریافت معماهای شخصی‌سازی‌شده:</string>
   <string name="puzzleId">معمای %s</string>
   <string name="puzzleOfTheDay">معمای روز</string>
@@ -31,66 +31,66 @@
   <string name="byOpenings">بر اساس گشایش‌ها</string>
   <string name="puzzlesByOpenings">معماها بر اساس گشایش‌ها</string>
   <string name="openingsYouPlayedTheMost">گشایش‌هایی که بیش از همه در بازی‌های امتیازی کرده‌اید</string>
-  <string name="useFindInPage">با استفاده از قابلیت \"جستجو در صفحه\" مرورگر خود گشایش محبوب خود را پیدا کنید!</string>
-  <string name="useCtrlF">از Ctrl+f برای پیدا کردن گشایش مورد علاقه خود استفاده کنید!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">از گزینه «جستجو در صفحه» مرورگر استفاده کنید تا گشایش دلخواه‌تان را بیابید!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">از Ctrl+f برای یابیدن گشایش دلخواه‌تان استفاده کنید!</string>
   <string name="notTheMove">این حرکت نیست!</string>
-  <string name="trySomethingElse">چیز دیگری پیدا کنید</string>
+  <string name="trySomethingElse">چیز دیگری بیابید.</string>
   <string name="ratingX">درجه‌بندی: %s</string>
   <string name="hidden">پنهان</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s بار بازی شده است</item>
     <item quantity="other">%s بار بازی شده</item>
   </plurals>
-  <string name="fromGameLink">برگرفته شده از بازی %s</string>
+  <string name="fromGameLink">برگرفته از بازی %s</string>
   <string name="continueTraining">ادامه دادن تمرین</string>
   <string name="difficultyLevel">میزان سختی</string>
   <string name="normal">متوسط</string>
   <string name="easier">آسان‌تر</string>
   <string name="easiest">آسان‌ترین</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">یک امتیاز پایین‌تر از امتیاز شما در معماها</item>
-    <item quantity="other">%s امتیاز پایین‌تر از امتیاز شما در معماها</item>
+    <item quantity="one">یک امتیاز زیر درجه‌بندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز زیر درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="harder">سخت‌تر</string>
   <string name="hardest">سخت‌ترین</string>
   <plurals name="nbPointsAboveYourPuzzleRating">
-    <item quantity="one">یک امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
-    <item quantity="other">%s امتیاز بالاتر از درجه‌بندی معمایی‌تان</item>
+    <item quantity="one">یک امتیاز بالای درجه‌بندی معمایی‌تان</item>
+    <item quantity="other">%s امتیاز بالای درجه‌بندی معمایی‌تان</item>
   </plurals>
   <string name="example">مثال</string>
   <string name="addAnotherTheme">افزودن موضوعی دیگر</string>
   <string name="nextPuzzle">معمای بعدی</string>
   <string name="jumpToNextPuzzleImmediately">فوراً به معمای بعدی بروید</string>
-  <string name="puzzleDashboard">پیشخوان معماها</string>
+  <string name="puzzleDashboard">پیشخوان معما</string>
   <string name="improvementAreas">نقاط ضعف</string>
   <string name="strengths">نقاط قوت</string>
-  <string name="history">پیشینه معماها</string>
+  <string name="history">پیشینهٔ معما</string>
   <string name="solved">حل شده</string>
-  <string name="failed">شکست!</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">شکست!</string>
   <string name="streakDescription">به تدریج معماهای سخت‌تری را حل کنید و یک دنباله بُرد بسازید. محدویت زمانی وجود ندارد، پس عجله نکنید. با یک حرکت اشتباه، بازی تمام می‌شود! در هر دور، می‌توانید یک حرکت را رَد کنید.</string>
   <string name="yourStreakX">رکورد شما: %s</string>
   <string name="streakSkipExplanation">این حرکت را رد کنید تا رکورد خود را حفظ کنید! فقط یک بار در هر دور امکان‌پذیر است.</string>
   <string name="continueTheStreak">توالی را ادامه دهید</string>
   <string name="newStreak">رکورد جدید</string>
   <string name="fromMyGames">از بازی های من</string>
-  <string name="lookupOfPlayer">به دنبال معماهای برگرفته‌شده از بازی‌های یک بازیکن مشخص، بگردید</string>
-  <string name="fromXGames">معماهای برگرفته‌شده از بازی‌های %s</string>
-  <string name="searchPuzzles">جستجوی معماها</string>
-  <string name="fromMyGamesNone">شما هیچ معمایی در پایگاه‌داده ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
+  <string name="lookupOfPlayer">به دنبال معماهای برگرفته از بازی‌های یک بازیکن مشخص، بگردید</string>
+  <string name="fromXGames">معماهای برگرفته از بازی‌های %s</string>
+  <string name="searchPuzzles">جستجوی معما</string>
+  <string name="fromMyGamesNone">شما هیچ معمایی در دادگان ندارید، اما Lichess همچنان شما را بسیار دوست دارد.
 
-بازی‌های سریع و مرسوم را انجام دهید تا بَختِتان را برای اضافه کردن یک معما از خودتان افزایش دهید!</string>
-  <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s پیدا شد</string>
-  <string name="puzzleDashboardDescription">تمرین کن، تحلیل کن، پیشرفت کن</string>
+بازی‌های سریع و فکری را انجام دهید تا بخت‌تان را برای افزودن معمایی از خودتان بیفزایید!</string>
+  <string name="fromXGamesFound">%1$s معما در بازی‌های %2$s یافت شد</string>
+  <string name="puzzleDashboardDescription">آموزش، واکاوی، بهبود</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s بررسی شده</item>
     <item quantity="other">%s نفر بازی کردند</item>
   </plurals>
   <plurals name="nbToReplay">
-    <item quantity="one">%s برای بازبینی</item>
-    <item quantity="other">%s مورد برای بازبینی</item>
+    <item quantity="one">%s بازپخش</item>
+    <item quantity="other">%s بازپخش</item>
   </plurals>
-  <string name="percentSolved">%s حل شده</string>
-  <string name="noPuzzlesToShow">هیچ موردی برای نمایش وجود ندارد، بروید و ابتدا چند معما حل کنید!</string>
-  <string name="improvementAreasDescription">این‌ها را تمرین کنید تا روند پیشرفت خود را بهبود ببخشید!</string>
+  <string name="percentSolved">%s حل‌شده</string>
+  <string name="noPuzzlesToShow">چیزی برای نمایش نیست، نخست بروید و چند معما حل کنید!</string>
+  <string name="improvementAreasDescription">برای بهینیدن پیشرفت‌تان، این‌ها را بیاموزید!</string>
   <string name="strengthDescription">شما در این زمینه‌ها بهترین عملکرد را دارید</string>
 </resources>

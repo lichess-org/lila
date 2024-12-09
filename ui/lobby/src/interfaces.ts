@@ -1,9 +1,7 @@
-import { FEN } from 'chessground/types';
-
 export type Sort = 'rating' | 'time';
 export type Mode = 'list' | 'chart';
 export type Tab = 'pools' | 'real_time' | 'seeks' | 'now_playing';
-export type GameType = 'hook' | 'friend' | 'ai';
+export type GameType = 'hook' | 'friend' | 'ai' | 'local';
 export type TimeMode = 'realTime' | 'correspondence' | 'unlimited';
 export type GameMode = 'casual' | 'rated';
 
@@ -32,7 +30,6 @@ export interface Hook {
   u?: string; // username
   rating?: number;
   ra?: 1; // rated
-  c?: Color;
   action: 'cancel' | 'join';
   disabled?: boolean;
 }
@@ -43,12 +40,11 @@ export interface Seek {
   rating: number;
   mode: number;
   days?: number;
-  color: string;
   perf: {
     key: Exclude<Perf, 'fromPosition'>;
   };
   provisional?: boolean;
-  variant?: string;
+  variant?: { key: VariantKey };
   action: 'joinSeek' | 'cancelSeek';
 }
 
@@ -68,8 +64,6 @@ export interface LobbyOpts {
   playban: boolean;
   showRatings: boolean;
   data: LobbyData;
-  i18n: I18nDict;
-  trans: Trans;
 }
 
 export interface LobbyMe {
@@ -143,4 +137,6 @@ export interface ForceSetupOptions {
   variant?: VariantKey;
   fen?: string;
   timeMode?: TimeMode;
+  time?: number;
+  increment?: number;
 }

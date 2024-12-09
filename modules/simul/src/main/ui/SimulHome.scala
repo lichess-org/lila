@@ -1,9 +1,11 @@
 package lila.simul
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import scalalib.paginator.Paginator
+
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class SimulHome(helpers: Helpers, ui: SimulUi):
   import helpers.{ *, given }
@@ -16,13 +18,7 @@ final class SimulHome(helpers: Helpers, ui: SimulUi):
   )(using ctx: Context) =
     Page(trans.site.simultaneousExhibitions.txt())
       .css("simul.list")
-      .js(embedJsUnsafeLoadThen(s"""
-site.StrongSocket.defaultParams.flag = 'simul';
-site.pubsub.on('socket.in.reload', () =>
-  fetch('${routes.Simul.homeReload}').then(r => r.text()).then(html => {
-  $$('.simul-list__content').html(html);
-  site.contentLoaded();
-}))"""))
+      .js(Esm("simul.home"))
       .graph(
         title = trans.site.simultaneousExhibitions.txt(),
         url = s"$netBaseUrl${routes.Simul.home}",

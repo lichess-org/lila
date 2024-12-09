@@ -167,4 +167,5 @@
   <string name="playAgain">Jugar de nuevo</string>
   <string name="whatWouldYouPlay">¿Qué jugarías en esta posición?</string>
   <string name="youCompletedThisLesson">¡Felicidades! Has completado esta lección.</string>
+  <string name="perPage">%s por página</string>
 </resources>

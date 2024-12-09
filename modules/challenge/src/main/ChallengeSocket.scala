@@ -2,8 +2,8 @@ package lila.challenge
 
 import play.api.libs.json.*
 
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final private class ChallengeSocket(
     api: ChallengeApi,

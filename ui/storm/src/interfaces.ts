@@ -1,11 +1,10 @@
-import { Prop } from 'common';
-import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
+import type { Prop } from 'common';
+import type { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 
 export interface StormOpts {
   puzzles: Puzzle[];
   key?: string;
   pref: StormPrefs;
-  i18n: I18nDict;
 }
 
 export interface StormPrefs extends PuzPrefs {}

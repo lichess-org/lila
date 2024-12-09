@@ -1,6 +1,7 @@
 package lila.core
 
 import scalalib.newtypes.OpaqueString
+
 import scala.concurrent.ExecutionContext
 
 import lila.core.userId.UserId
@@ -56,3 +57,12 @@ object data:
     def sync[A](v: => A): LazyFu[A] = LazyFu(() => Future.successful(v))
 
   case class CircularDep[A](resolve: () => A)
+
+  final class SimpleMemo[A](ttl: Option[FiniteDuration])(compute: () => A):
+    private var value: A                     = compute()
+    private var recomputeAt: Option[Instant] = ttl.map(nowInstant.plus(_))
+    def get(): A =
+      if recomputeAt.exists(_.isBeforeNow) then
+        recomputeAt = ttl.map(nowInstant.plus(_))
+        value = compute()
+      value

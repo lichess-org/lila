@@ -34,6 +34,10 @@
     <item quantity="one">Completed %s correspondence game</item>
     <item quantity="other">Completed %s correspondence games</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Completed %1$s %2$s correspondence game</item>
+    <item quantity="other">Completed %1$s %2$s correspondence games</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Started following %s player</item>
     <item quantity="other">Started following %s players</item>
@@ -54,9 +58,9 @@
     <item quantity="one">Created %s new study</item>
     <item quantity="other">Created %s new studies</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
-    <item quantity="one">Competed in %s tournament</item>
-    <item quantity="other">Competed in %s tournaments</item>
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
+    <item quantity="one">Competed in %s Arena tournament</item>
+    <item quantity="other">Competed in %s Arena tournaments</item>
   </plurals>
   <plurals name="rankedInTournament">
     <item quantity="one">Ranked #%1$s (top %2$s%%) with %3$s game in %4$s</item>

@@ -1,12 +1,11 @@
 package lila.simul
 
+import lila.core.LightUser.Me
+import lila.core.team.LightTeam
+import lila.core.user.UserApi
 import lila.gathering.Condition.*
 import lila.gathering.{ Condition, ConditionList }
-import lila.core.team.LightTeam
-
-import lila.core.LightUser.Me
 import lila.rating.PerfType
-import lila.core.user.UserApi
 
 object SimulCondition:
 

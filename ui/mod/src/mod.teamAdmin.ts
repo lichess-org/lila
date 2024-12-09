@@ -1,6 +1,7 @@
 import Tagify from '@yaireo/tagify';
 import debounce from 'debounce-promise';
-import * as xhr from 'common/xhr';
+import { json as xhrJson, url as xhrUrl } from 'common/xhr';
+import { userComplete } from 'common/userComplete';
 
 site.load.then(() => {
   $('#form3-leaders').each(function (this: HTMLInputElement) {
@@ -10,7 +11,7 @@ site.load.then(() => {
     initTagify(this, 100);
   });
   $('form.team-add-leader input[name="name"]').each(function (this: HTMLInputElement) {
-    site.asset.userComplete({
+    userComplete({
       input: this,
       team: this.dataset.teamId,
       tag: 'span',
@@ -20,7 +21,7 @@ site.load.then(() => {
     permissionsTable(this);
   });
   $('form.team-declined-request input[name="search"]').each(function (this: HTMLInputElement) {
-    site.asset.userComplete({
+    userComplete({
       input: this,
       tag: 'span',
     });
@@ -54,7 +55,7 @@ function initTagify(input: HTMLInputElement, maxTags: number) {
     },
   });
   const doFetch: (term: string) => Promise<string[]> = debounce(
-    (term: string) => xhr.json(xhr.url('/api/player/autocomplete', { term, names: 1, team })),
+    (term: string) => xhrJson(xhrUrl('/api/player/autocomplete', { term, names: 1, team })),
     300,
   );
   tagify.on('input', e => {

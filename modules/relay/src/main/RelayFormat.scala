@@ -4,7 +4,6 @@ import chess.format.pgn.PgnStr
 import com.softwaremill.tagging.*
 import io.mola.galimatias.URL
 import play.api.libs.json.*
-import play.api.libs.ws.DefaultBodyReadables.*
 import play.api.libs.ws.{
   DefaultWSProxyServer,
   StandaloneWSClient,
@@ -14,13 +13,14 @@ import play.api.libs.ws.{
 
 import scala.util.matching.Regex
 
-import lila.core.lilaism.{ LilaInvalid, LilaException }
 import lila.core.config.{ Credentials, HostPort }
+import lila.core.lilaism.{ LilaException, LilaInvalid }
 import lila.memo.CacheApi.*
 import lila.memo.{ CacheApi, SettingStore }
 import lila.study.MultiPgn
 
 final private class RelayFormatApi(
+    roundRepo: RelayRoundRepo,
     ws: StandaloneWSClient,
     cacheApi: CacheApi,
     proxyCredentials: SettingStore[Option[Credentials]] @@ ProxyCredentials,
@@ -29,68 +29,45 @@ final private class RelayFormatApi(
 )(using Executor):
 
   import RelayFormat.*
-  import RelayRound.Sync.{ FetchableUpstream, UpstreamUrl, UpstreamLcc }
 
-  private val cache = cacheApi[(FetchableUpstream, CanProxy), RelayFormat](64, "relay.format"):
+  private val cache = cacheApi[(URL, CanProxy), RelayFormat](64, "relay.format"):
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture: (url, proxy) =>
         guessFormat(url)(using proxy)
 
-  def get(upstream: FetchableUpstream)(using proxy: CanProxy): Fu[RelayFormat] =
-    cache.get(upstream -> proxy)
+  def get(url: URL)(using proxy: CanProxy): Fu[RelayFormat] =
+    cache.get(url -> proxy)
 
-  def refresh(upstream: FetchableUpstream): Unit =
+  def refresh(url: URL): Unit =
     CanProxy
       .from(List(false, true))
       .foreach: proxy =>
-        cache.invalidate(upstream -> proxy)
+        cache.invalidate(url -> proxy)
 
-  private def guessFormat(upstream: FetchableUpstream)(using CanProxy): Fu[RelayFormat] = {
+  private def guessFormat(url: URL)(using CanProxy): Fu[RelayFormat] =
+    import RelayRound.Sync.url.*
+    url.lcc
+      .match
+        case Some(lcc) =>
+          looksLikeJson(lcc.indexUrl).flatMapz:
+            looksLikeJson(lcc.gameUrl(1))
+              .recoverDefault(false)(_ => ())
+              .map:
+                if _ then LccWithGames(lcc).some
+                else LccWithoutGames(lcc).some
+        case None =>
+          guessRelayRound(url).orElse:
+            looksLikePgn(url).mapz(SingleFile(url).some)
+      .orFailWith(LilaInvalid(s"No games found at $url"))
+      .addEffect: format =>
+        logger.info(s"guessed format of $url: $format")
 
-    def parsedUrl = URL.parse(upstream.url)
-
-    def guessLcc: Fu[Option[RelayFormat]] = upstream.isLcc.so(guessManyFiles(parsedUrl))
-
-    def guessSingleFile(url: URL): Fu[Option[RelayFormat]] =
-      List(
-        url.some,
-        (!url.pathSegments.contains(mostCommonSingleFileName)).option(
-          addPart(url, mostCommonSingleFileName)
-        )
-      ).flatten.distinct
-        .findM(looksLikePgn)
-        .dmap2: (u: URL) =>
-          SingleFile(pgnDoc(u))
-
-    def guessManyFiles(url: URL): Fu[Option[RelayFormat]] =
-      (List(url) ::: mostCommonIndexNames
-        .filterNot(url.pathSegments.contains)
-        .map(addPart(url, _)))
-        .findM(looksLikeJson)
-        .flatMapz: index =>
-          val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
-          val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
-          looksLikeJson(jsonUrl(1).url)
-            .recover:
-              case NotFound(_) => false
-            .map(_.option(jsonUrl))
-            .orElse:
-              looksLikePgn(pgnUrl(1).url)
-                .recover:
-                  case NotFound(_) => false
-                .map(_.option(pgnUrl))
-            .dmap2:
-              ManyFiles(index, _)
-            .dmap(_.orElse(ManyFilesLater(index).some))
-
-    guessLcc
-      .orElse(guessSingleFile(parsedUrl))
-      .orElse(guessManyFiles(parsedUrl))
-      .orFailWith(LilaInvalid(s"No games found at $upstream"))
-
-  }.addEffect { format =>
-    logger.info(s"guessed format of $upstream: $format")
-  }
+  private def guessRelayRound(url: URL): Fu[Option[RelayFormat.Round]] =
+    RelayRound.Sync.Upstream
+      .Url(url)
+      .roundId
+      .so: id =>
+        roundRepo.exists(id).map(_.option(RelayFormat.Round(id)))
 
   private[relay] def httpGet(url: URL)(using CanProxy): Fu[String] =
     httpGetResponse(url).map(_.body)
@@ -115,7 +92,7 @@ final private class RelayFormatApi(
       .get()
       .flatMap: res =>
         if res.status == 200 then fuccess(res)
-        else if res.status == 404 then fufail(NotFound(url.toString))
+        else if res.status == 404 then fufail(NotFound(url))
         else fufail(s"[${res.status}] $url")
       .monSuccess(_.relay.httpGet(url.host.toString, proxy))
 
@@ -151,37 +128,18 @@ final private class RelayFormatApi(
     catch case _: Exception => false
   private def looksLikeJson(url: URL)(using CanProxy): Fu[Boolean] = httpGet(url).map(looksLikeJson)
 
-sealed private trait RelayFormat
+private enum RelayFormat:
+  case Round(id: RelayRoundId)
+  case SingleFile(url: URL)
+  case LccWithGames(lcc: RelayRound.Sync.Lcc)
+  // there will be game files with names like "game-1.json" or "game-1.pgn"
+  // but not at the moment. The index is still useful.
+  case LccWithoutGames(lcc: RelayRound.Sync.Lcc)
 
 private object RelayFormat:
 
   opaque type CanProxy = Boolean
   object CanProxy extends YesNo[CanProxy]
 
-  enum DocFormat:
-    case Json, Pgn
-
-  case class RemoteDoc(url: URL, format: DocFormat)
-
-  def jsonDoc(url: URL) = RemoteDoc(url, DocFormat.Json)
-  def pgnDoc(url: URL)  = RemoteDoc(url, DocFormat.Pgn)
-
-  case class SingleFile(doc: RemoteDoc) extends RelayFormat
-
-  type GameNumberToDoc = Int => RemoteDoc
-
-  case class ManyFiles(jsonIndex: URL, game: GameNumberToDoc) extends RelayFormat:
-    override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
-
-  // there will be game files with names like "game-1.json" or "game-1.pgn"
-  // but not at the moment. The index is still useful.
-  case class ManyFilesLater(jsonIndex: URL) extends RelayFormat:
-    override def toString = s"ManyfilesLater($jsonIndex)"
-
-  def addPart(url: URL, part: String)             = url.withPath(s"${url.path}/$part")
-  def replaceLastPart(url: URL, withPart: String) = url.withPath(s"${url.path}/../$withPart")
-
-  val mostCommonSingleFileName = "games.pgn"
-  val mostCommonIndexNames     = List("round.json", "index.json")
-
-  case class NotFound(message: String) extends LilaException
+  case class NotFound(url: URL) extends LilaException:
+    override val message = s"404: $url"

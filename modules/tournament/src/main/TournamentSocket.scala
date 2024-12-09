@@ -4,8 +4,8 @@ import akka.actor.*
 
 import lila.common.Json.given
 import lila.common.LateMultiThrottler
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final private class TournamentSocket(
     repo: TournamentRepo,
@@ -20,7 +20,7 @@ final private class TournamentSocket(
     reloadThrottler ! LateMultiThrottler.work(
       id = tourId,
       run = fuccess:
-        send(RP.Out.tellRoom(tourId.into(RoomId), makeMessage("reload")))
+        send.exec(RP.Out.tellRoom(tourId.into(RoomId), makeMessage("reload")))
       ,
       delay = 1.seconds.some
     )
@@ -28,7 +28,7 @@ final private class TournamentSocket(
   def startGame(tourId: TourId, game: Game): Unit =
     game.players.foreach: player =>
       player.userId.foreach: userId =>
-        send:
+        send.exec:
           RP.Out.tellRoomUser(
             tourId.into(RoomId),
             userId,
@@ -37,7 +37,7 @@ final private class TournamentSocket(
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
     given play.api.i18n.Lang = lila.core.i18n.defaultLang
-    send(Protocol.Out.getWaitingUsers(tour.id.into(RoomId), tour.name()))
+    send.exec(Protocol.Out.getWaitingUsers(tour.id.into(RoomId), tour.name()))
     val promise = Promise[WaitingUsers]()
     waitingUsers.registerNextPromise(tour, promise)
     promise.future.withTimeout(2.seconds, "TournamentSocket.getWaitingUsers")
@@ -73,7 +73,7 @@ final private class TournamentSocket(
     .subscribe("tour-in", Protocol.In.reader.orElse(RP.In.reader))(
       tourHandler.orElse(handler).orElse(socketKit.baseHandler)
     )
-    .andDo(send(P.Out.boot))
+    .andDo(send.exec(P.Out.boot))
 
   object Protocol:
 

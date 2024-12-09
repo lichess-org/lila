@@ -2,6 +2,10 @@
 <resources>
   <string name="settings">Mga setting</string>
   <string name="closeAccount">Isara ang akawnt</string>
+  <string name="managedAccountCannotBeClosed" comment="managedAccountCannotBeClosed&#10;&#10;A managed account is typically one that has been registered by a chess teacher. The teacher retains control over the account, but they can release this control.">Ang iyong akawnt ay pinamamahalaan, at hindi maaaring masarado.</string>
+  <string name="closingIsDefinitive">Ang pasasarado ay tiyak. Wala nang balikan. Sigurado ka ba?</string>
+  <string name="cantOpenSimilarAccount">Hindi ka maaaring gumawa ng bagong akawnt gamit ang parehong pangalan, kahit na iba ang kaso.</string>
   <string name="changedMindDoNotCloseAccount">Nagbago ang akong isip, wag mong isara ang aking akawnt</string>
+  <string name="closeAccountExplanation">Sigurado ka ba na gusto mong isarado ang iyong akawnt? Ang pagsasaro sa iyong akawnt ay isang permanenteng desisyon. HINDI na ikaw makakapag log-in KAHIT KAILAN.</string>
   <string name="thisAccountIsClosed">Ang akawnt na ito ay sarado.</string>
 </resources>

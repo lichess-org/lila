@@ -203,7 +203,6 @@
   <string name="block">Kyef</string>
   <string name="blocked">Ikyaf</string>
   <string name="unblock">Eks asewḥel</string>
-  <string name="followsYou">I Dferek</string>
   <string name="xStartedFollowingY">%1$s i ḍfeṛ %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s iḍefṛen</item>
@@ -244,8 +243,6 @@
   <string name="reportXToModerators">Ɛeyyen %s ɣer anebdal</string>
   <string name="profile">Alegdis</string>
   <string name="editProfile">Zreg alegdis</string>
-  <string name="firstName">Issem</string>
-  <string name="lastName">Isem n twacult</string>
   <string name="biography">Tameddurt</string>
   <string name="thankYou">Tanemmirt!</string>
   <string name="previouslyOnLichessTV">Yakan seg Lichess TV</string>

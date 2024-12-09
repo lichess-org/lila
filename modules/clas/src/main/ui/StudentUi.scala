@@ -1,9 +1,10 @@
 package lila.clas
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import scalalib.model.Days
 import lila.core.config.NetDomain
+import lila.ui.*
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
   import helpers.{ *, given }
@@ -30,11 +31,13 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
               clasUi.showArchived(archived),
               div(cls := "student-show__archived__actions")(
                 postForm(action := routes.Clas.studentArchive(clas.id, s.user.username, v = false)):
-                  form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(cls := "confirm button-empty")
+                  form3.submit(trans.clas.inviteTheStudentBack(), icon = none)(
+                    cls := "yes-no-confirm button-empty"
+                  )
                 ,
                 postForm(action := routes.Clas.studentClosePost(clas.id, s.user.username)):
                   form3.submit(trans.clas.removeStudent(), icon = none)(
-                    cls   := "confirm button-red button-empty",
+                    cls   := "yes-no-confirm button-red button-empty",
                     title := "Fully erase the student from the class archives."
                   )
               )
@@ -50,7 +53,10 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                   postForm(action := routes.Clas.studentResetPassword(clas.id, s.user.username))(
                     form3.submit(trans.clas.resetPassword(), icon = none)(
                       s.student.isArchived.option(disabled),
-                      cls := List("confirm button button-empty" -> true, "disabled" -> s.student.isArchived),
+                      cls := List(
+                        "yes-no-confirm button button-empty" -> true,
+                        "disabled"                           -> s.student.isArchived
+                      ),
                       title := trans.clas.generateANewPassword.txt()
                     )
                   ),
@@ -108,7 +114,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
             cls  := "button button-empty"
           )(trans.site.profile()),
           a(
-            href := routes.Puzzle.dashboard(7, "home", s.user.username.some),
+            href := routes.Puzzle.dashboard(Days(7), "home", s.user.username.some),
             cls  := "button button-empty"
           )(trans.puzzle.puzzleDashboard()),
           Granter

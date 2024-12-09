@@ -69,8 +69,8 @@
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">これ以降を削除</string>
-  <string name="collapseVariations" comment="Context menu button to hide variations">変化手順をかくす</string>
-  <string name="expandVariations" comment="Context menu button to show more/previously hidden variations">変化手順を表示する</string>
+  <string name="collapseVariations">変化手順をかくす</string>
+  <string name="expandVariations">変化手順を表示する</string>
   <string name="forceVariation">変化として表示</string>
   <string name="copyVariationPgn">手順の PGN をコピー</string>
   <string name="move">手</string>
@@ -114,7 +114,6 @@
   <string name="replayMode">再現の方式</string>
   <string name="realtimeReplay">リアルタイム</string>
   <string name="byCPL">評価値で</string>
-  <string name="openStudy">研究を開く</string>
   <string name="enable">解析する</string>
   <string name="bestMoveArrow">最善手を表示</string>
   <string name="showVariationArrows">変化手順の矢印を表示</string>
@@ -124,7 +123,6 @@
   <string name="memory">メモリ</string>
   <string name="infiniteAnalysis">無限解析</string>
   <string name="removesTheDepthLimit">探索手数の制限をなくし最大限の解析を行なう</string>
-  <string name="engineManager">解析エンジンの管理</string>
   <string name="blunder">大悪手</string>
   <string name="mistake">悪手</string>
   <string name="inaccuracy">疑問手</string>
@@ -171,6 +169,7 @@
   <string name="latestForumPosts">最新のフォーラム記事</string>
   <string name="players">プレイヤー</string>
   <string name="friends">友達</string>
+  <string name="otherPlayers">その他のプレイヤー</string>
   <string name="discussions">トピック</string>
   <string name="today">今日</string>
   <string name="yesterday">昨日</string>
@@ -244,6 +243,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">あなたと %s 局対局</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">キャンセル</string>
   <string name="whiteTimeOut">白時間切れ</string>
   <string name="blackTimeOut">黒時間切れ</string>
@@ -406,7 +406,6 @@
   <string name="block">ブロックする</string>
   <string name="blocked">ブロック済</string>
   <string name="unblock">ブロックを外す</string>
-  <string name="followsYou">あなたをフォローしています</string>
   <string name="xStartedFollowingY">%1$s が %2$s のフォローを開始</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s フォロワー</item>
@@ -435,9 +434,6 @@
   <string name="safeTournamentName">トーナメントの名前は無難なものにしてください。</string>
   <string name="inappropriateNameWarning">少しでも不適切な名前の場合、あなたのアカウントを停止することがあります。</string>
   <string name="emptyTournamentName">空白のままにしておくと、自動でランダムな有名選手の名前がつきます。</string>
-  <string name="recommendNotTouching">ここは触らないことを推奨します。</string>
-  <string name="fewerPlayers">参加条件を決めると、当然参加者は少なくなります。</string>
-  <string name="showAdvancedSettings">「高度な設定」を表示</string>
   <string name="makePrivateTournament">トーナメントを「非公開」にすると参加にパスワードが必要になります</string>
   <string name="join">参加する</string>
   <string name="withdraw">参加をやめる</string>
@@ -477,8 +473,7 @@
   <string name="ifNoneLeaveEmpty">ない場合は空白で</string>
   <string name="profile">プロフィール</string>
   <string name="editProfile">プロフィールの編集</string>
-  <string name="firstName">名</string>
-  <string name="lastName">姓</string>
+  <string name="realName">実名</string>
   <string name="setFlair">フレアを設定</string>
   <string name="flair">フレア</string>
   <string name="youCanHideFlair">サイト全体でフレアを非表示にする設定があります。</string>
@@ -508,6 +503,8 @@
   <string name="descPrivateHelp">チームメンバーだけに見える文章です。設定すると、チームメンバーには一般向けの説明文に代えて表示されます。</string>
   <string name="no">いいえ</string>
   <string name="yes">はい</string>
+  <string name="website">ウェブサイト</string>
+  <string name="mobile">モバイル</string>
   <string name="help">ヘルプ：</string>
   <string name="createANewTopic">新しいトピックを作成</string>
   <string name="topics">トピック</string>
@@ -524,11 +521,11 @@
   <string name="reason">理由</string>
   <string name="whatIsIheMatter">どうされましたか？</string>
   <string name="cheat">ソフト使用</string>
-  <string name="insult">侮辱</string>
   <string name="troll">荒らし</string>
-  <string name="ratingManipulation">レーティング不正操作</string>
   <string name="other">その他</string>
-  <string name="reportDescriptionHelp">問題のゲームへのリンクを貼って、相手ユーザーの問題点を説明してください。ただ「イカサマだ」と言うのではなく、なぜそう思うか理由を書いてください。英語で書くと対応が早くできます。</string>
+  <string name="reportCheatBoostHelp">ゲームへのリンクを張って、このユーザーの行動のどこが問題かを説明してください。ただ「チート」と言うのではなく、あなたがなぜそう思ったのか教えてください。</string>
+  <string name="reportUsernameHelp">このユーザー名のどこが攻撃的かを説明してください。ただ「攻撃的」「不適切」と言うのではなく、あなたがなぜそう思ったのか教えてください。中でも綴りの変更、英語以外の言語、俗語、歴史・文化的要因に関係した場合は特に説明が必要です。</string>
+  <string name="reportProcessedFasterInEnglish">英語で書いていただくと通報への対応が早くなります。</string>
   <string name="error.provideOneCheatedGameLink">不正のあった対局 1 局以上へのリンクを添えてください。</string>
   <string name="by">%s によって</string>
   <string name="importedByX">%s がインポート</string>
@@ -561,6 +558,7 @@
   <string name="slow">遅い</string>
   <string name="insideTheBoard">盤の内</string>
   <string name="outsideTheBoard">盤の外</string>
+  <string name="allSquaresOfTheBoard">すべてのマスに</string>
   <string name="onSlowGames">長時間の対局のみ</string>
   <string name="always">常に有効</string>
   <string name="never">無効</string>
@@ -644,7 +642,7 @@
   <string name="aboutSimulRules">同時対局が始まると、全員がホスト（白番）と対戦します。同時対局はすべての対局が終わった時に終了します。</string>
   <string name="aboutSimulSettings">同時対局は非レート戦です。再対局、待った、持時間追加はできません。</string>
   <string name="create">作成する</string>
-  <string name="whenCreateSimul">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">同時対局を作成すると、同時に複数の相手と対戦できます。</string>
   <string name="simulVariantsHint">複数のバリアントを選ぶと、どのバリアントにするか相手が選べます。</string>
   <string name="simulClockHint">フィッシャーモードの設定。相手が多いほど追加時間は長めに。</string>
   <string name="simulAddExtraTime">同時対局の手間を考え、自分に持時間をさらに追加できます。</string>
@@ -953,4 +951,5 @@
   <string name="lichessPatronInfo">Lichess は非営利組織であり、完全に無料/自由なオープンソースソフトウェアです。
 運営費、開発、コンテンツを支えているのはすべてユーザーの寄付です。</string>
   <string name="nothingToSeeHere">今は何もありません。</string>
+  <string name="stats">統計</string>
 </resources>

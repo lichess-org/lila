@@ -1,14 +1,15 @@
 package lila.round
 
-import chess.{ Color, ByColor, DecayingStats, Status }
+import chess.{ ByColor, Color, DecayingStats, Status }
+import chess.rating.IntRatingDiff
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.{ AbortedBy, FinishGame }
-import lila.core.i18n.{ I18nKey as trans, defaultLang, Translator }
-import lila.playban.PlaybanApi
-import lila.user.{ User, UserApi, UserRepo }
+import lila.core.i18n.{ I18nKey as trans, Translator, defaultLang }
 import lila.core.perf.UserWithPerfs
 import lila.game.GameExt.finish
+import lila.playban.PlaybanApi
+import lila.user.{ UserApi, UserRepo }
 
 final private class Finisher(
     gameRepo: lila.game.GameRepo,
@@ -26,18 +27,22 @@ final private class Finisher(
   private given play.api.i18n.Lang = defaultLang
 
   def abort(pov: Pov)(using GameProxy): Fu[Events] =
-    apply(pov.game, _.Aborted, None).andDo:
-      getSocketStatus(pov.game).foreach: ss =>
+    for
+      events <- apply(pov.game, _.Aborted, None)
+      _ = getSocketStatus(pov.game).foreach: ss =>
         playban.abort(pov, ss.colorsOnGame)
-      Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
+      _ = Bus.publish(AbortedBy(pov.copy(game = pov.game.abort)), "abortGame")
+    yield events
 
   def abortForce(game: Game)(using GameProxy): Fu[Events] =
     apply(game, _.Aborted, None)
 
   def rageQuit(game: Game, winner: Option[Color])(using GameProxy): Fu[Events] =
-    apply(game, _.Timeout, winner).andDo:
-      winner.foreach: color =>
+    for
+      events <- apply(game, _.Timeout, winner)
+      _ = winner.foreach: color =>
         playban.rageQuit(game, !color)
+    yield events
 
   def outOfTime(game: Game)(using GameProxy): Fu[Events] =
     if !game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)
@@ -48,9 +53,11 @@ final private class Finisher(
       apply(game, _.Draw, None, Messenger.SystemMessage.Persistent(trans.site.drawOfferAccepted.txt()).some)
     else
       val winner = Some(!game.player.color).ifFalse(game.situation.opponentHasInsufficientMaterial)
-      apply(game, _.Outoftime, winner).andDo:
-        winner.foreach: w =>
+      for
+        events <- apply(game, _.Outoftime, winner)
+        _ = winner.foreach: w =>
           playban.flag(game, !w)
+      yield events
 
   def noStart(game: Game)(using GameProxy): Fu[Events] =
     game.playerWhoDidNotMove.so: culprit =>
@@ -66,7 +73,10 @@ final private class Finisher(
       winner: Option[Color],
       message: Option[Messenger.SystemMessage] = None
   )(using GameProxy): Fu[Events] =
-    apply(game, status, winner, message).andDo(playban.other(game, status, winner))
+    for
+      events <- apply(game, status, winner, message)
+      _ = playban.other(game, status(Status), winner)
+    yield events
 
   private def recordLagStats(game: Game) = for
     clock  <- game.clock
@@ -143,14 +153,15 @@ final private class Finisher(
     val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
     (!isVsSelf && !game.aborted).so:
       users.tupled
-        .so: (white, black) =>
-          crosstableApi.add(game).zip(perfsUpdater.save(game, white, black)).dmap(_._2)
+        .map(ByColor.fromPair)
+        .so: users =>
+          crosstableApi.add(game).zip(perfsUpdater.save(game, users)).dmap(_._2)
         .zip(users.white.so(incNbGames(game)))
         .zip(users.black.so(incNbGames(game)))
         .dmap(_._1._1)
 
   private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
-    game.finished.so { user.noBot || game.nonAi }.so {
+    (game.finished && (user.noBot || game.nonAi)).so:
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))
       val result =
@@ -160,4 +171,3 @@ final private class Finisher(
       userRepo
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
         .void
-    }

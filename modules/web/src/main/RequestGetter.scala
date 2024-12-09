@@ -4,11 +4,8 @@ import play.api.mvc.RequestHeader
 
 import lila.common.Form.trueish
 import lila.common.HTTPRequest
-import lila.ui.Context
 
 trait RequestGetter:
-
-  private given (using ctx: Context): RequestHeader = ctx.req
 
   protected def get(name: String)(using req: RequestHeader): Option[String] =
     HTTPRequest.queryStringGet(req, name)
@@ -38,7 +35,7 @@ trait RequestGetter:
     getLong(name).map(millisToInstant)
 
   protected def getBool(name: String)(using RequestHeader): Boolean =
-    (getInt(name).exists(trueish)) || (get(name).exists(trueish))
+    getInt(name).exists(trueish) || get(name).exists(trueish)
 
   protected def getBoolOpt(name: String)(using RequestHeader): Option[Boolean] =
     getInt(name).map(trueish).orElse(get(name).map(trueish))

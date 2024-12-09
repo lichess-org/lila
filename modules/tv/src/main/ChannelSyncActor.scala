@@ -1,6 +1,7 @@
 package lila.tv
 
-import chess.{ Ply, Color }
+import chess.{ Color, Ply }
+import chess.IntRating
 import monocle.syntax.all.*
 import scalalib.actor.SyncActor
 
@@ -62,7 +63,7 @@ final private[tv] class ChannelSyncActor(
           }
           manyIds = candidates
             .sortBy: g =>
-              -(~g.averageUsersRating)
+              -(g.averageUsersRating.so(_.value))
             .take(50)
             .map(_.id)
         }
@@ -106,7 +107,7 @@ final private[tv] class ChannelSyncActor(
       .player(color)
       .some
       .flatMap { p =>
-        p.stableRating.exists(_ > 2100).so(p.userId)
+        p.stableRating.exists(_ > IntRating(2100)).so(p.userId)
       }
       .flatMap(lightUserSync)
       .flatMap(_.title)

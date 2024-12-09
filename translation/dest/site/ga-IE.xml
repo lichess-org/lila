@@ -117,7 +117,6 @@
   <string name="replayMode">Modh athimeartha</string>
   <string name="realtimeReplay">Fíor-am</string>
   <string name="byCPL">De réir CPL</string>
-  <string name="openStudy">Oscail staidéar</string>
   <string name="enable">Cumasaigh</string>
   <string name="bestMoveArrow">Saighead don bheart is fearr</string>
   <string name="evaluationGauge">Tomhsaire measúnachta</string>
@@ -502,7 +501,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="block">Blocáil</string>
   <string name="blocked">Blocáilte</string>
   <string name="unblock">Bain bac de</string>
-  <string name="followsYou">Do leanúint</string>
   <string name="xStartedFollowingY">Thosaigh %1$s ag leanúint %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">leantóir amháin</item>
@@ -543,9 +541,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="safeTournamentName">Pioc ainm an-sábháilte don chomórtas.</string>
   <string name="inappropriateNameWarning">D\'fhéadfadh do chuntas a dhúnadh má roghnaítear aon rud míchuí.</string>
   <string name="emptyTournamentName">Fág folamh chun an comórtas a ainmniú i ndiaidh imreoir fichille suntasach.</string>
-  <string name="recommendNotTouching">Molaimid iad seo a fhágáil mar atá.</string>
-  <string name="fewerPlayers">Má shocraíonn tú riachtanais iontrála don chomórtas, beidh níos lú imreoirí i do chomórtas.</string>
-  <string name="showAdvancedSettings">Taispeáin ardsocruithe</string>
   <string name="makePrivateTournament">Déan an comórtas príobháideach, agus cuir srian ar rochtain le pasfhocal</string>
   <string name="join">Cláraigh</string>
   <string name="withdraw">Tarraing siar</string>
@@ -584,8 +579,6 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="ifNoneLeaveEmpty">Mura bhfuil, fág folamh</string>
   <string name="profile">Próifíl</string>
   <string name="editProfile">Cuir próifíl in eagar</string>
-  <string name="firstName">Ainm</string>
-  <string name="lastName">Sloinne</string>
   <string name="biography">Beathaisnéis</string>
   <string name="thankYou">Go raibh maith agat!</string>
   <string name="socialMediaLinks">Naisc chuig na meáin shóisialta</string>
@@ -630,11 +623,8 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="reason">Fáth</string>
   <string name="whatIsIheMatter">Cad atá cearr?</string>
   <string name="cheat">Caimiléir</string>
-  <string name="insult">Masla</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Ionramháil rátála</string>
   <string name="other">Eile</string>
-  <string name="reportDescriptionHelp">Greamaigh an nasc chuig an gcluiche/na cluichí agus mínigh cad atá cearr le hiompar an úsáideora. Ná habair go díreach go mbíonn \"caimiléireacht\" ar bun acu, ach inis dúinn faoin dóigh a fuair tú amach faoi. Faraor, déanfar do thuairisc a phróiseáil níos tapúla más i mBéarla atá sé.</string>
   <string name="error.provideOneCheatedGameLink">Cuir nasc ar fáil chuig cluiche amháin ar a laghad ar tharla caimiléireacht ann le do thoil.</string>
   <string name="by">ó%s</string>
   <string name="importedByX">Iompórtáilte ag %s</string>
@@ -760,7 +750,7 @@ anailís ríomhaire, comhrá cluiche agus URL inroinnte.</string>
   <string name="aboutSimulRules">Nuair a thosaíonn an cluiche comhuaineach, tosaíonn gach imreoir cluiche leis an óstach, a imríonn leis na píosaí bána. Críochnaíonn an cluiche comhuaineach nuair a chríochnaíonn gach cluiche.</string>
   <string name="aboutSimulSettings">Bíonn cluichí comhuaineacha neamhfhoirmiúil i gconaí. Tá athimirt, aistarraing agus am breise díchumasaithe.</string>
   <string name="create">Cruthaigh</string>
-  <string name="whenCreateSimul">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Nuair a chruthaíonn tú cluiche comhuaineach, imríonn tú roinnt imreoirí ag an am céanna.</string>
   <string name="simulVariantsHint">Má roghnaíonn tú roinnt leaganacha, faigheann gach imreoir deis cluiche a roghnú.</string>
   <string name="simulClockHint">Suiteáil Clog Fischer. Braitheann an méid ama a theastaíonn uait ar an méid céile comhraic atá agat.</string>
   <string name="simulAddExtraTime">Féadfaidh tú am breise a chur le do chlog chun cabhrú leat déileáil leis an gcluiche comhuaineach.</string>

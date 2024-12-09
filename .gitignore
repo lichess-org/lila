@@ -1,43 +1,36 @@
-.sbtopts
-.jvmopts
-.bsp
-.bloop/
-.metals/
-.pnpm-store/
-project/.bloop/
-conf/application.conf
-conf/version.conf
-conf/manifest.*
-
-logs
-project/metals.sbt
-project/project
-project/target
-public/compiled
-public/npm
-public/lifat
-public/css/
-target
+/.sbtopts
+/.jvmopts
+/.bsp/
+/.bloop/
+/.metals/
+/.pnpm-store/
+/project/.bloop/
+/conf/application.conf
+/conf/version.conf
+/conf/manifest.*
+/translation/js
+logs/
+/project/metals.sbt
+/project/project/
+/project/target/
+/public/compiled/
+/public/hashed/
+/public/npm/
+/public/lifat
+/public/css/
+/public/json/
+target/
 data/
 dist/
 node_modules/
-local/
-gen/
-ui/common/**/*.js
-ui/common/**/*.d.ts
-ui/chess/**/*.js
-ui/chess/**/*.d.ts
-ui/game/**/*.js
-ui/game/**/*.d.ts
-ui/nvui/**/*.js
-ui/nvui/**/*.d.ts
-ui/puz/**/*.js
-ui/puz/**/*.d.ts
-ui/voice/.build/crowdv
+ui/common/css/theme/gen/*.scss
+ui/.build/build
+ui/voice/crowdv
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 dependency-graph.png
+dump.rdb
 
 RUNNING_PID
 .DS_Store
@@ -50,9 +43,15 @@ RUNNING_PID
 # VSCode auto-generated files
 .vscode/
 
+# VSCode workspaces
+*.code-workspace
+
 # IntelliJ auto-generated files
 .idea
 
 # Docker-compose / docker sbt
 /docker-compose.yml
 /?
+
+# eslint cache
+/.eslintcache

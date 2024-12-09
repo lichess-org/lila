@@ -112,7 +112,6 @@
   <string name="replayMode">Такраралъул къагӀида</string>
   <string name="realtimeReplay">БукӀараб куцалъ</string>
   <string name="byCPL">Камияз</string>
-  <string name="openStudy">ЦӀех-рех рагьизе</string>
   <string name="enable">Биччазе</string>
   <string name="bestMoveArrow">Бищун лъикӀаб хъурщиялъул чӀорил сурат</string>
   <string name="evaluationGauge">Къиматалъул роцен</string>
@@ -121,7 +120,6 @@
   <string name="memory">РакӀалдачӀей</string>
   <string name="infiniteAnalysis">ЛъугӀи гьечӀеб анализ</string>
   <string name="removesTheDepthLimit">Гъварилъиялъул гӀорхъи хвезабула, гьединго дур компутер бахьизабула</string>
-  <string name="engineManager">МухӀарик менежер</string>
   <string name="blunder">КӀудияб гъалатӀ</string>
   <string name="mistake">ГъалатӀ</string>
   <string name="inaccuracy">ГьитӀинаб гъалатӀ</string>
@@ -175,6 +173,7 @@
   <string name="latestForumPosts">Ахирисел форумалъул публикацияби</string>
   <string name="players">ХӀалел</string>
   <string name="friends">Гьудулзаби</string>
+  <string name="otherPlayers">цогидал хӀалел</string>
   <string name="discussions">Гара-чӀвариял</string>
   <string name="today">Жакъа</string>
   <string name="yesterday">Сон</string>
@@ -254,6 +253,7 @@
     <item quantity="one">%s мунгун хӀай</item>
     <item quantity="other">%s мунгун хӀай</item>
   </plurals>
+  <string name="ok">ЛъикӀ</string>
   <string name="cancel">ГьабичӀого тезе</string>
   <string name="whiteTimeOut">ХъахӀазул заман тӀагӀана</string>
   <string name="blackTimeOut">ЧӀегӀеразул заман тӀагӀана</string>
@@ -427,7 +427,6 @@
   <string name="block">Гьукъизе</string>
   <string name="blocked">Гьукъана</string>
   <string name="unblock">Гьукъи нахъе босизе</string>
-  <string name="followsYou">Дуда нахъвилълъуна</string>
   <string name="xStartedFollowingY">%1$s %2$s-(и)да нахъвилълъана</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s нахъвилълъунев</item>
@@ -459,9 +458,6 @@
   <string name="safeTournamentName">Бище турниралъе расги хӀинкъи гьечӀеб цӀар.</string>
   <string name="inappropriateNameWarning">Бокьараб, дагьаб рекъечӀеб гӀамалалъцин дур аккаунт къаялде бачине бегьула.</string>
   <string name="emptyTournamentName">РакӀалда гьечӀого цо гроссмейстерасул цӀар турниралда лъезе, чӀобого те.</string>
-  <string name="recommendNotTouching">Нижеца гӀакълу кьола гьел хъвагеян.</string>
-  <string name="fewerPlayers">Дуца турниралде лъугьине шартӀал чӀезаруни, турниралда рукӀаралдаса дагьал чагӀи рукӀине руго.</string>
-  <string name="showAdvancedSettings">ЦеретӀурал рекъезариял рихьизе</string>
   <string name="makePrivateTournament">Турнирги къараб гьабе паролалъ гӀорхъиги чӀвай</string>
   <string name="join">Жувазе</string>
   <string name="withdraw">Нахъе ине</string>
@@ -500,9 +496,9 @@
   <string name="ifNoneLeaveEmpty">ГьечӀеб батани, чӀобого те</string>
   <string name="profile">Дур гьумер</string>
   <string name="editProfile">Дур гьумер хисизе</string>
-  <string name="firstName">ЦӀар</string>
-  <string name="lastName">Хъизамалъул цӀар</string>
+  <string name="realName">Унгояб цӀар</string>
   <string name="biography">ГӀумрухъвай</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Улка яги мухъ</string>
   <string name="thankYou">Баркала!</string>
   <string name="socialMediaLinks">Социалиял медиабазул бухьенал</string>
   <string name="oneUrlPerLine">Мухъда цо бухьен.</string>
@@ -527,6 +523,8 @@
   <string name="descPrivateHelp">ЦохӀо къокъаялда бихьизе бугеб бицин. Гъун батани, халкъияб бицин къокъадул лугбазе хисула.</string>
   <string name="no">Гуро</string>
   <string name="yes">У</string>
+  <string name="website">Сайт</string>
+  <string name="mobile">Мобилияб</string>
   <string name="help">Квербакъи:</string>
   <string name="createANewTopic">ЦӀияб тема гьабизе</string>
   <string name="topics">Темаби</string>
@@ -543,11 +541,8 @@
   <string name="reason">ГӀилла</string>
   <string name="whatIsIheMatter">Щиб ккараб?</string>
   <string name="cheat">ХӀилла</string>
-  <string name="insult">ХӀакъир гьави</string>
   <string name="troll">Иришгъат гьави</string>
-  <string name="ratingManipulation">Рейтингалъулъ рекӀкӀ гьаби</string>
   <string name="other">Цогидаб</string>
-  <string name="reportDescriptionHelp">ХӀаял(з)де бухьен лъе цинги гьев хӀалесул хьвада-чӀвадиялда щиб мекъи бугебали бице. ЦохӀо \"гьес рекӀкӀ гьабунилан\" абуге, дуда кин гьедин ккараб бице. Дур гӀарзаялъухъ жеги хехго балагьила гьеб ингилис мацӀалъ хъван батани.</string>
   <string name="error.provideOneCheatedGameLink">РекӀкӀ гьабураб цо хӀаялдениги бухьен кье.</string>
   <string name="by">%s-(и)ца</string>
   <string name="importedByX">%s-(и)ца жаниб лъуна</string>
@@ -662,7 +657,7 @@
   <string name="aboutSimulImage">50 хӀаялдаса Фишер бергьана 47-ялда, ващад ккан 2-ялда, къуна 1-ялда.</string>
   <string name="aboutSimulRules">Сеанс байбихьараб мехалъ щивав хӀалев чи сеанс гьабуравгун хӀаялде лъугьуна. Сеанс лъугӀула кинабго хӀай лъугӀараб мехалъ.</string>
   <string name="create">Гьабизе</string>
-  <string name="whenCreateSimul">Дуца сеанс гьабуни, мун чангоязда данде цого заманалда хӀазе ккола.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Дуца сеанс гьабуни, мун чангоязда данде цого заманалда хӀазе ккола.</string>
   <string name="simulHostExtraTime">Хосталъул тӀаде жубалеб заман</string>
   <string name="simulHostExtraTimePerPlayer">Щивав хӀалесе хосталъул тӀаде жубалеб заман</string>
   <string name="lichessTournaments">Lichess турнирал</string>
@@ -760,6 +755,11 @@
   <string name="transparent">Гъорлъан канлъи бихьулеб</string>
   <string name="deviceTheme">Девайсалъул куц</string>
   <string name="backgroundImageUrl">НахъабакӀалъул сураталъул URL:</string>
+  <string name="board">Хъарщи</string>
+  <string name="size">КӀодолъи</string>
+  <string name="opacity">Гъорлъан канлъи бихьулареблъи</string>
+  <string name="brightness">Гвангъи</string>
+  <string name="hue">Кьералъул къуват</string>
   <string name="pieceSet">Кескил куц</string>
   <string name="embedInYourWebsite">Дур сайталда лъезе</string>
   <string name="usernameAlreadyUsed">Гьеб хӀалтӀизабулесда цӀар ккун буго, хӀалбихье цогидаб.</string>
@@ -841,7 +841,7 @@
   <string name="wishYouGreatGames">цӀакъал хӀаял кьеги дуе lichess.org-алда.</string>
   <string name="thankYouForReading">ЦӀаларалъухъ баркала!</string>
   <string name="currentMatchScore">Гьанжесеб мачалъул рикӀкӀин</string>
-  <string name="agreementAssistance">Дун рази вуго дица дир хӀаязда квербакъи босичӀого тезе (шахматазул компутералдаса, тӀехьалдаса, яги цогидал чиясдаса).</string>
+  <string name="agreementAssistance">Дун рази вуго дица дир хӀаязда квербакъи босичӀого тезе (шахматазул компутералдаса, тӀехьалдаса, яги цогидав чиясдаса).</string>
   <string name="agreementNice">Дун рузи вуго цогидал хӀалезул хӀурмат гьабулев вукӀине.</string>
   <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Дун рази вуго дица чанги аккаунт гьабичӀого тезе (%s-да рехсарал гӀиллабаз гурони).</string>
   <string name="agreementPolicy">Дун рази вуго Lichess-алъул къагӀидаби цӀунизе.</string>

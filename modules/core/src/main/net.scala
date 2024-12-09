@@ -2,11 +2,13 @@ package lila.core
 
 import io.mola.galimatias.IPv4Address.parseIPv4Address
 import io.mola.galimatias.IPv6Address.parseIPv6Address
+import scalalib.SecureRandom
+
 import java.net.InetAddress
 import scala.util.Try
-import scalalib.SecureRandom
-import lila.core.userId.UserId
+
 import lila.core.socket.Sri
+import lila.core.userId.UserId
 
 object net:
 

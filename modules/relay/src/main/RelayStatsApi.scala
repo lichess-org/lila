@@ -1,49 +1,34 @@
 package lila.relay
 
-import lila.db.dsl.{ *, given }
-import reactivemongo.api.bson.BSONInteger
+import scalalib.cache.ExpireSetMemo
 
-object RelayStats:
+import lila.db.dsl.{ *, given }
+
+private object RelayStats:
   type Minute = Int
   type Crowd  = Int
   type Graph  = List[(Minute, Crowd)]
-  case class RoundStats(round: RelayRound, viewers: Graph)
+  case class RoundStats(viewers: Graph)
 
-final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using scheduler: Scheduler)(using
+private final class RelayStatsApi(colls: RelayColls)(using scheduler: Scheduler)(using
     Executor
 ):
   import RelayStats.*
-  import BSONHandlers.given
 
-  // on measurement by minute at most; the storage depends on it.
-  scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => record())
+  // one measurement by minute at most; the storage depends on it.
+  scheduler.scheduleWithFixedDelay(2 minutes, 2 minutes)(() => record())
 
-  def get(id: RelayTourId): Fu[List[RoundStats]] =
-    colls.round
-      .aggregateList(128): framework =>
-        import framework.*
-        Match($doc("tourId" -> id)) -> List(
-          Sort(Ascending("createdAt")),
-          AddFields($doc("sync.log" -> $arr())),
-          PipelineOperator(
-            $lookup.simple(colls.stats, "stats", "_id", "_id")
-          ),
-          AddFields($doc("stats" -> $doc("$first" -> "$stats")))
-        )
-      .map: docs =>
-        for
-          doc   <- docs
-          round <- doc.asOpt[RelayRound]
-          data = for
-            doc  <- doc.getAsOpt[Bdoc]("stats")
-            data <- doc.getAsOpt[List[Int]]("d")
-          yield data
-          stats = data.so:
-            _.grouped(2)
-              .collect:
-                case List(minute, crowd) => (minute, crowd)
-              .toList
-        yield RoundStats(round, stats)
+  def get(id: RelayRoundId): Fu[RoundStats] =
+    colls.stats
+      .primitiveOne[List[Int]]($id(id), "d")
+      .mapz:
+        _.grouped(2)
+          .collect:
+            case List(minute, crowd) => (minute, crowd)
+          .toList
+      .map(RoundStats.apply)
+
+  def getJson(id: RelayRoundId) = get(id).map(JsonView.statsJson)
 
   private def record(): Funit = for
     crowds <- fetchRoundCrowds
@@ -75,13 +60,16 @@ final class RelayStatsApi(roundRepo: RelayRoundRepo, colls: RelayColls)(using sc
   yield ()
 
   private def fetchRoundCrowds: Fu[List[(RelayRoundId, Crowd)]] =
-    val max = 500
+    val max = 200
     colls.round
       .aggregateList(maxDocs = max, _.sec): framework =>
         import framework.*
-        Match($doc("sync.until" -> $exists(true), "crowd".$gt(0))) ->
+        // lila-ws sets crowdAt along with crowd
+        // so we can use crowdAt to know which rounds are being monitored
+        Match($doc("crowdAt".$gt(nowInstant.minusMinutes(1)))) ->
           List(Project($doc("_id" -> 1, "crowd" -> 1)))
       .map: docs =>
+        lila.mon.relay.crowdMonitor.update(docs.size)
         if docs.size == max
         then logger.warn(s"RelayStats.fetchRoundCrowds: $max docs fetched")
         for

@@ -3,7 +3,7 @@ package controllers
 import play.api.libs.json.*
 import play.api.mvc.*
 
-import lila.app.{ *, given }
+import lila.app.*
 
 final class Github(env: Env) extends LilaController(env):
 

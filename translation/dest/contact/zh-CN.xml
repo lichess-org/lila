@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">你需要什么帮助?</string>
   <string name="visitThisPage">请向往该页面解决问题</string>
   <string name="iCantLogIn">我无法登录</string>
-  <string name="noConfirmationEmail">我没有收到确认邮件</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">我没有收到确认邮件</string>
   <string name="forgotPassword">我忘了我的密码</string>
   <string name="forgotUsername">我忘了我的用户名</string>
   <string name="youCanLoginWithEmail">你可以使用你注册的电子邮箱地址登录</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">在与机器人账号的对局中，若发现玩家滥用其以获取积分，那么这场对局将不会授予积分。</string>
   <string name="errorPage">错误页面</string>
   <string name="reportErrorPage">如果你遇到错误页面，您可以举报：</string>
-  <string name="wantBroadcastTournament">我想直播一个锦标赛</string>
   <string name="learnHowToMakeBroadcasts">学习如何在 Lichess 创建直播</string>
-  <string name="contactAboutOfficialBroadcasts">就官方直播相关事宜，你还可以与直播团队联系。</string>
   <string name="banAppeal">申请禁令或限制IP</string>
   <string name="engineAppeal">引擎或作弊标记</string>
   <string name="sendAppealTo">你可以向 %s 发出申诉。</string>

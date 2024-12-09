@@ -3,19 +3,19 @@ package lila.round
 import chess.format.Fen
 import chess.{ ByColor, Clock, Color, Speed }
 import play.api.libs.json.*
+
 import scala.math
 
 import lila.common.Json.given
-import lila.core.data.Preload
 import lila.core.LightUser
-import lila.game.JsonView.given
-import lila.core.game.{ Player as GamePlayer }
-import lila.pref.Pref
-import lila.core.user.{ GameUser, GameUsers }
-import lila.core.user.WithPerf
+import lila.core.data.Preload
+import lila.core.game.Player as GamePlayer
 import lila.core.net.ApiVersion
 import lila.core.perf.KeyedPerf
+import lila.core.user.{ GameUser, GameUsers, WithPerf }
 import lila.game.GameExt.moveTimes
+import lila.game.JsonView.given
+import lila.pref.Pref
 import lila.round.RoundGame.*
 
 final class JsonView(
@@ -52,7 +52,7 @@ final class JsonView(
       .add("rating" -> p.rating.ifTrue(withFlags.rating))
       .add("ratingDiff" -> p.ratingDiff.ifTrue(withFlags.rating))
       .add("provisional" -> (p.provisional.yes && withFlags.rating))
-      .add("offeringRematch" -> isOfferingRematch(Pov(g, p).ref))
+      .add("offeringRematch" -> isOfferingRematch.exec(Pov(g, p).ref))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
@@ -68,7 +68,7 @@ final class JsonView(
       flags: ExportOptions
   ): Fu[JsObject] = for
     takebackable <- takebacker.isAllowedIn(pov.game, Preload(prefs))
-    moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs))
+    moretimeable <- moretimer.isAllowedIn(pov.game, Preload(prefs), force = false)
     socket       <- getSocketStatus(pov.game)
     pref = prefs(pov.color)
   yield

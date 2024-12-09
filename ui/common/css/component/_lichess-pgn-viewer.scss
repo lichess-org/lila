@@ -10,6 +10,9 @@
   --c-lpv-bg-pane: #{$m-bg-zebra2--fade-1};
   --c-lpv-pgn-text: #{$c-bg-zebra2};
   --c-lpv-font: #{$c-font};
+  // TODO: erase or replace with `--c-lpv-past-moves` when lpv-pgn-viewer > 2.1.0 is out
+  --c-lpv-font-accent: #{$c-font};
+
   --c-lpv-font-shy: #{$c-font-dim};
   --c-lpv-accent-over: #{$c-over};
   --c-lpv-fbt-hover: #{$m-primary_bg--mix-75};
@@ -17,7 +20,7 @@
   --c-lpv-current-move: #{$m-primary_bg--mix-70};
   --c-lpv-move-hover: #{$m-primary_bg--mix-30};
   --c-lpv-border: #{$c-border};
-  --c-lpv-side-border: hsl(37deg, 5%, 13%); //#{$c-border-page};
+  --c-lpv-side-border: #{$c-border-page};
   --c-lpv-inaccuracy: #{$c-inaccuracy};
   --c-lpv-mistake: #{$c-mistake};
   --c-lpv-blunder: #{$c-blunder};

@@ -2,6 +2,7 @@ package controllers
 
 import play.api.libs.json.*
 import play.api.mvc.*
+
 import java.util.Currency
 
 import lila.app.{ *, given }
@@ -18,33 +19,39 @@ import lila.plan.{
   StripeCustomer,
   StripeCustomerId
 }
+import lila.common.HTTPRequest
 
 final class Plan(env: Env) extends LilaController(env):
 
   private val logger = lila.log("plan")
 
-  def index = Open:
+  def index(page: Int = 1) = Open:
     pageHit
-    ctx.me.foldUse(indexAnon): me ?=>
-      import lila.plan.PlanApi.SyncResult.*
-      env.plan.api.sync(me).flatMap {
-        case ReloadUser => Redirect(routes.Plan.index)
-        case Synced(Some(patron), None, None) =>
-          env.user.repo.email(me).flatMap { email =>
-            renderIndex(email, patron.some)
+    Reasonable(page):
+      if HTTPRequest.isXhr(req) then
+        Ok.snipAsync:
+          env.plan.api.paginator(page).map(views.plan.topPatrons)
+      else
+        ctx.me.foldUse(indexAnon): me ?=>
+          import lila.plan.PlanApi.SyncResult.*
+          env.plan.api.sync(me).flatMap {
+            case ReloadUser => Redirect(routes.Plan.index())
+            case Synced(Some(patron), None, None) =>
+              env.user.repo.email(me).flatMap { email =>
+                renderIndex(email, patron.some)
+              }
+            case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(patron, stripeCus)
+            case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(patron, payPalSub)
+            case _                                        => indexFreeUser
           }
-        case Synced(Some(patron), Some(stripeCus), _) => indexStripePatron(patron, stripeCus)
-        case Synced(Some(patron), _, Some(payPalSub)) => indexPayPalPatron(patron, payPalSub)
-        case _                                        => indexFreeUser
-      }
 
   def list = Open:
-    ctx.me.foldUse(Redirect(routes.Plan.index).toFuccess): me ?=>
+    ctx.me.foldUse(Redirect(routes.Plan.index()).toFuccess): me ?=>
       import lila.plan.PlanApi.SyncResult.*
       env.plan.api.sync(me).flatMap {
         case ReloadUser            => Redirect(routes.Plan.list)
         case Synced(Some(_), _, _) => indexFreeUser
-        case _                     => Redirect(routes.Plan.index)
+        case _                     => Redirect(routes.Plan.index())
       }
 
   private def indexAnon(using Context) = renderIndex(email = none, patron = none)
@@ -56,10 +63,10 @@ final class Plan(env: Env) extends LilaController(env):
       Context
   ): Fu[Result] =
     for
-      recentIds <- env.plan.api.recentChargeUserIds
-      bestIds   <- env.plan.api.topPatronUserIds
-      _         <- env.user.lightUserApi.preloadMany(recentIds ::: bestIds)
-      pricing   <- env.plan.priceApi.pricingOrDefault(myCurrency)
+      recentIds  <- env.plan.api.recentChargeUserIds
+      _          <- env.user.lightUserApi.preloadMany(recentIds)
+      bestScores <- env.plan.api.paginator(1)
+      pricing    <- env.plan.priceApi.pricingOrDefault(myCurrency)
       page <- renderPage:
         views.plan.index(
           stripePublicKey = env.plan.stripePublicKey,
@@ -67,7 +74,7 @@ final class Plan(env: Env) extends LilaController(env):
           email = email,
           patron = patron,
           recentIds = recentIds,
-          bestIds = bestIds,
+          bestScores = bestScores,
           pricing = pricing
         )
     yield Ok(page).withHeaders(crossOriginPolicy.unsafe*)
@@ -82,7 +89,7 @@ final class Plan(env: Env) extends LilaController(env):
     res <- info match
       case Some(info: CustomerInfo.Monthly) =>
         Ok.page(views.plan.indexStripe(me, patron, info, env.plan.stripePublicKey, pricing, gifts))
-
+          .map(_.withHeaders(crossOriginPolicy.unsafe*))
       case Some(CustomerInfo.OneTime(cus)) =>
         renderIndex(cus.email.map { EmailAddress(_) }, patron.some)
       case None =>
@@ -120,12 +127,12 @@ final class Plan(env: Env) extends LilaController(env):
         _ => funit,
         data => env.plan.api.switch(me, data.money)
       )
-        .inject(Redirect(routes.Plan.index))
+        .inject(Redirect(routes.Plan.index()))
     }
   }
 
   def cancel = AuthBody { _ ?=> me ?=>
-    env.plan.api.cancel(me).inject(Redirect(routes.Plan.index))
+    env.plan.api.cancel(me).inject(Redirect(routes.Plan.index()))
   }
 
   def thanks = Open:
@@ -230,7 +237,7 @@ final class Plan(env: Env) extends LilaController(env):
     get("session").so { session =>
       env.plan.api.stripe.userCustomer(me).flatMap {
         _.flatMap(_.firstSubscription).so { sub =>
-          env.plan.api.stripe.updatePaymentMethod(sub, session).inject(Redirect(routes.Plan.index))
+          env.plan.api.stripe.updatePaymentMethod(sub, session).inject(Redirect(routes.Plan.index()))
         }
       }
     }

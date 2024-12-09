@@ -1,4 +1,5 @@
 {
+  "//": "This file is generated from sources in ../lexicon. Do not edit.",
   "partials": {
     "commands": ["yes", "no", "stop"],
     "colors": ["green", "blue", "purple", "pink", "yellow", "orange", "white", "brown"],

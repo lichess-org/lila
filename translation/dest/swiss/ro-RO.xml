@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Elvețian</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Elvețian</string>
   <string name="swissTournaments">Turnee Swiss</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Vezi runda</item>
@@ -33,7 +33,7 @@
     <item quantity="few">%s minute între runde</item>
     <item quantity="other">%s de minute între runde</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Începe în</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Începe în</string>
   <string name="nextRound">Runda următoare</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Joc în desfășurare</item>
@@ -46,6 +46,16 @@
   <string name="roundInterval">Interval între runde</string>
   <string name="forbiddenPairings">Asocieri interzise</string>
   <string name="forbiddenPairingsHelp">Numele de utilizator ale jucătorilor care nu trebuie să se joace împreună (frați, de exemplu). Două nume de utilizator pe linie, separate de un spațiu.</string>
+  <string name="manualPairings">Asocieri manuale în runda următoare</string>
+  <string name="manualPairingsHelp">Specificați manual toate perechile următoarei runde. Asocierea unui jucător pe linie. Exemplu:
+PlayerA PlayerB
+PlayerC PlayerD
+Pentru a da o adiere (1 punct) unui jucător în loc de o pereche, adaugă o linie ca aceasta:
+Jucător 1
+Jucătorii lipsă vor fi considerați absenți și vor primi zero puncte.
+Lăsați acest câmp gol pentru a lăsa lichess să creeze perechi automat.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Trebuie să fi jucat ultimul lor joc de elvețian</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Lăsați jucătorii să se alăture dacă au jucat ultimul lor joc de elvețian. Dacă nu au reușit să apară într-un eveniment recent de tip swiss nu vor putea intra pe al tău. Asta are ca rezultat o experiență mai bună pentru jucătorii care apar de fapt.</string>
   <string name="newSwiss">Turneu Elvețian nou</string>
   <string name="swissVsArenaQ">Când folosim turnee elvetiene în loc de arene?</string>
   <string name="swissVsArenaA">Într-un turneu elvetian toţi participanţii joacă acelaşi număr de partide şi doi adversari se intalnesc o singură dată.
@@ -76,7 +86,7 @@ Considerăm că este mai probabil ca aceste condiții să fie îndeplinite în c
 Apoi sistemul va retrage jucătorul din turneu, astfel încât să nu piardă mai multe partide.
  Se pot alătura din nou turneului în orice moment.</string>
   <string name="protectionAgainstNoShowQ">Ce se face cu privire la ne-prezentări?</string>
-  <string name="protectionAgainstNoShowA">Jucătorii care se înscriu pentru evenimente elvețiene dar nu își joacă jocurile pot fi problematici.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Jucătorii care se înscriu pentru evenimente elvețiene dar nu își joacă jocurile pot fi problematici.
 Pentru a atenua această problemă, Lichess îi împiedică pe jucătorii care nu au reușit să joace un joc să se alăture unui nou eveniment elvețian pentru o anumită perioadă de timp.
 Creatorul unui eveniment elvețian poate decide oricum să se alăture evenimentului.</string>
   <string name="lateJoinQ">Pot jucătorii să se alăture cu întârziere?</string>
@@ -122,4 +132,7 @@ Cel mai apropiat mod de a ajunge la Round Robin online este să joci un turneu e
   <string name="predefinedUsers">Permite doar utilizatorilor predefiniți să se alăture</string>
   <string name="forbiddedUsers">Dacă această listă nu este goală, atunci utilizatorii care nu apar în această listă nu vor putea să se alăture. Un nume de utilizator pe linie.</string>
   <string name="playYourGames">Joacă jocurile tale</string>
+  <string name="byes">Byes</string>
+  <string name="absences">Absențe</string>
+  <string name="tieBreak">Tie Break</string>
 </resources>

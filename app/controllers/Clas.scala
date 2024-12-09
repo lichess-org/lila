@@ -2,14 +2,15 @@ package controllers
 package clas
 
 import akka.stream.scaladsl.*
-import play.api.mvc.*
 import play.api.data.Form
+import play.api.mvc.*
+import scalalib.model.Days
 
 import lila.app.{ *, given }
 import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
-import lila.core.security.ClearPassword
 import lila.core.id.{ ClasId, ClasInviteId }
+import lila.core.security.ClearPassword
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -203,7 +204,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def progress(id: ClasId, perfKey: PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
+  def progress(id: ClasId, perfKey: PerfKey, days: Days) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       env.clas.api.student.activeWithUsers(clas).flatMap { students =>
         Reasonable(clas, students, "progress"):

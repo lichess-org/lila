@@ -113,7 +113,6 @@
   <string name="replayMode">Ойнату тәртібі</string>
   <string name="realtimeReplay">Өз қарқыны</string>
   <string name="byCPL">CPL сәйкес</string>
-  <string name="openStudy">Зерттеуді ашу</string>
   <string name="enable">Қосу</string>
   <string name="bestMoveArrow">Үздік жүрісті нұсқағыш</string>
   <string name="showVariationArrows">Тармақта нұсқағышты көрсету</string>
@@ -123,7 +122,6 @@
   <string name="memory">Жад</string>
   <string name="infiniteAnalysis">Шектеусіз талдау</string>
   <string name="removesTheDepthLimit">Тереңдік шектеулерін жояды, әрі компьютеріңізді қыздырады</string>
-  <string name="engineManager">Есептеуіш басқарушысы</string>
   <string name="blunder">Өрескел қателік</string>
   <string name="mistake">Қателік</string>
   <string name="inaccuracy">Жеңіл қате</string>
@@ -430,7 +428,6 @@
   <string name="block">Бұғаттау</string>
   <string name="blocked">Бұғатталған</string>
   <string name="unblock">Бұғаттан шығару</string>
-  <string name="followsYou">Сізге серік</string>
   <string name="xStartedFollowingY">%1$s %2$s серігі болды</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s серігі бар</item>
@@ -462,9 +459,6 @@
   <string name="safeTournamentName">Жарысты түзу, жөнді сөзбен атаңыз.</string>
   <string name="inappropriateNameWarning">Кез-келген, тіпті шамалы орынсыз әрекет себебінен тіркелгіңіз жабылуы мүмкін.</string>
   <string name="emptyTournamentName">Елеулі бір шахматшының атымен атау үшін бос қалдырыңыз.</string>
-  <string name="recommendNotTouching">Бұны тиіспеуге кеңес береміз.</string>
-  <string name="fewerPlayers">Егер кіру талаптарын қойсаңыз, қатысатын ойыншылар саны аз болады.</string>
-  <string name="showAdvancedSettings">Қосымша баптауларды көрсету</string>
   <string name="makePrivateTournament">Кіруді құпиясөзбен шектеп, жарысты оңашалаңыз</string>
   <string name="join">Қосылыңыз</string>
   <string name="withdraw">Жарыстан шығу</string>
@@ -503,8 +497,6 @@
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
   <string name="profile">Куәлік</string>
   <string name="editProfile">Куәлікті өзгерту</string>
-  <string name="firstName">Атыңыз</string>
-  <string name="lastName">Тегіңіз</string>
   <string name="biography">Өмірбаян</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
@@ -546,11 +538,8 @@
   <string name="reason">Түйіні</string>
   <string name="whatIsIheMatter">Не болды?</string>
   <string name="cheat">Чит, алдап ойнау</string>
-  <string name="insult">Қорлау</string>
   <string name="troll">Троль, кемсіту</string>
-  <string name="ratingManipulation">Рейтингпен айла-шарғы</string>
   <string name="other">Басқа</string>
-  <string name="reportDescriptionHelp">Ойынның (-дардың) сілтемесін қойып, осы ойыншының қай әрекеті орынсыз болғанын түсіндіріп беріңіз. Жай ғана \"ол алдап ойнады\" деп жаза салмай, осы ойға қалай келгеніңізді айтып беріңіз. Сіздің шағымыңыз ағылшын тілінде жазылса, тезірек тексеруден өтеді.</string>
   <string name="error.provideOneCheatedGameLink">Кемі бір ойынның сілтемесін беруіңізді сұраймыз.</string>
   <string name="by">жасаған – %s</string>
   <string name="importedByX">Жүктеп салған – %s</string>
@@ -669,7 +658,7 @@
   <string name="aboutSimulRules">Қалың ойын басталысымен әр ойыншы бас ойыншымен бел ұстасады. Барлық ішкі ойындар аяқталғанда, жалпы ойын да аяқталады.</string>
   <string name="aboutSimulSettings">Қалың ойын – әрқашанда жай ойын. Қайта ойнау, жүрісті қайтару, уақыт қосу дегендер болмайды.</string>
   <string name="create">Құру</string>
-  <string name="whenCreateSimul">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Сіз қалың ойын құрғанда, бір мезгілде бірнеше қарсыласпен ойнайсыз.</string>
   <string name="simulVariantsHint">Егер сіз бірнеше шахмат түрін таңдасаңыз, әр ойыншы соның арасынан біреуін таңдайды.</string>
   <string name="simulClockHint">Фишер Сағатын баптау. Қарсыластарыңыз көп болса, уақыт та көп қажет.</string>
   <string name="simulAddExtraTime">Қалың ойынды жеңілдету үшін өзіңізге қосымша уақыт қоса аласыз.</string>
@@ -743,8 +732,8 @@
   <string name="revokeAllSessions">бәрін ажырату</string>
   <string name="playChessEverywhere">Шахматты кез-келген жерде ойнаңыз</string>
   <string name="asFreeAsLichess">Личес-тей тегін</string>
-  <string name="builtForTheLoveOfChessNotMoney">Ақша қуып емес, шахматты қызыққаннан жасап отырмыз</string>
-  <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары бүкіл адам үшін тегін</string>
+  <string name="builtForTheLoveOfChessNotMoney">Ақша қуып емес, шахматты жақсы көргеннен жасап отырмыз</string>
+  <string name="everybodyGetsAllFeaturesForFree">Барлық құралдары барлық адам үшін тегін</string>
   <string name="zeroAdvertisement">Еш жарнамасыз</string>
   <string name="fullFeatured">Толыққанды жабдықталған</string>
   <string name="phoneAndTablet">Телепон мен планшет</string>
@@ -754,7 +743,7 @@
   <string name="viewTheSolution">Жауабты қарау</string>
   <string name="followAndChallengeFriends">Серік болып, достарды ойынға шақыру</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">%s тіліндегі нұсқасы бар!</item>
+    <item quantity="one">%s тілде нұсқасы бар!</item>
     <item quantity="other">%s тіліндегі нұсқасы бар!</item>
   </plurals>
   <string name="gameAnalysis">Ойынды талдау</string>
@@ -856,7 +845,7 @@
   <string name="temporaryInconvenience">Осы уақытша жайсыздық үшін біз өкінішімізді білдіріп,</string>
   <string name="wishYouGreatGames">Личес-та әдемі ойындар болсын деп тілейміз.</string>
   <string name="thankYouForReading">Оқығаныңыз үшін рахмет!</string>
-  <string name="lifetimeScore">Жалпы ұпайлар</string>
+  <string name="lifetimeScore">Жалпы нәтиже</string>
   <string name="currentMatchScore">Осы жарыстағы нәтижеңіз</string>
   <string name="agreementAssistance">Мен ойнап отырғанда, сырттан (басқа адамнан, компьютер, кітап не дерекқорды пайдалана) ешбір көмек алмаймын деп уәде беремін.</string>
   <string name="agreementNice">Мен басқа ойыншыларға құрметпен қараймын деп уәде беремін.</string>

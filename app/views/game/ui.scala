@@ -1,6 +1,6 @@
 package views.game
 
-import lila.app.UiEnv.{ *, given }
+import lila.app.UiEnv.*
 
 val ui = lila.game.ui.GameUi(helpers)
 export ui.mini

@@ -2,9 +2,8 @@ package lila.rating
 
 import reactivemongo.api.bson.BSONHandler
 
-import lila.db.dsl.given
 import lila.core.perf.PerfId
-import lila.rating.PerfType
+import lila.db.dsl.given
 
 object BSONHandlers:
 

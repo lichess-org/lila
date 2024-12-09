@@ -1,10 +1,11 @@
 package lila.rating
 
 import reactivemongo.api.bson.{ BSONDocument, BSONDocumentHandler }
+import chess.IntRating
+import chess.rating.glicko.{ Glicko, GlickoCalculator, RatingPeriodsPerDay }
 
-import lila.db.BSON
-import lila.core.rating.Glicko
 import lila.core.perf.Perf
+import lila.db.BSON
 import lila.rating.PerfExt.*
 
 object GlickoExt:
@@ -36,21 +37,11 @@ object GlickoExt:
         volatility = g.volatility.atMost(Glicko.maxVolatility)
       )
 
-    def average(other: Glicko, weight: Float = 0.5f): Glicko =
-      if weight >= 1 then other
-      else if weight <= 0 then g
-      else
-        new Glicko(
-          rating = g.rating * (1 - weight) + other.rating * weight,
-          deviation = g.deviation * (1 - weight) + other.deviation * weight,
-          volatility = g.volatility * (1 - weight) + other.volatility * weight
-        )
-
 object Glicko:
-  export lila.core.rating.Glicko.*
+  export chess.rating.glicko.Glicko.*
 
-  val minRating = IntRating(400)
-  val maxRating = IntRating(4000)
+  val minRating: IntRating = IntRating(400)
+  val maxRating: IntRating = IntRating(4000)
 
   val minDeviation              = 45
   val variantRankableDeviation  = 65
@@ -61,10 +52,11 @@ object Glicko:
   val maxVolatility     = 0.1d
   val defaultVolatility = 0.09d
 
-  // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val ratingPeriodsPerDay = 0.21436d
-
   val default = new Glicko(1500d, maxDeviation, defaultVolatility)
+
+  // Virtual rating for first pairing to make the expected score 50% without
+  // actually changing the default rating
+  val pairingDefault = new Glicko(1460d, maxDeviation, defaultVolatility)
 
   // managed is for students invited to a class
   val defaultManaged       = new Glicko(800d, 400d, defaultVolatility)
@@ -76,11 +68,13 @@ object Glicko:
   // rating that can be lost or gained with a single game
   val maxRatingDelta = 700
 
-  val tau    = 0.75d
-  val system = glicko2.RatingCalculator(tau, ratingPeriodsPerDay)
+  val calculator = GlickoCalculator(
+    // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
+    ratingPeriodsPerDay = RatingPeriodsPerDay(0.21436d)
+  )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    system.previewDeviation(p.toRating, nowInstant, reverse)
+    calculator.previewDeviation(p.toGlickoPlayer, nowInstant, reverse)
   }.atLeast(minDeviation).atMost(maxDeviation)
 
   given glickoHandler: BSONDocumentHandler[Glicko] = new BSON[Glicko]:

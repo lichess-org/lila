@@ -1,9 +1,9 @@
 package lila.study
 
-import lila.db.dsl.{ *, given }
 import lila.core.notify.{ InvitedToStudy, NotifyApi }
-import lila.core.relation.Relation.{ Block, Follow }
 import lila.core.perm.Granter
+import lila.core.relation.Relation.{ Block, Follow }
+import lila.db.dsl.{ *, given }
 
 final private class StudyInvite(
     studyRepo: StudyRepo,
@@ -35,6 +35,7 @@ final private class StudyInvite(
   ): Fu[User] = for
     _       <- (study.nbMembers >= maxMembers).so(fufail[Unit](s"Max study members reached: $maxMembers"))
     inviter <- userApi.me(byUserId).orFail("No such inviter")
+    _        = if inviter.marks.isolate then fufail("You cannot invite new members to the study")
     given Me = inviter
     _ <- (!study.isOwner(inviter) && !Granter(_.StudyAdmin)).so:
       fufail[Unit]("Only the study owner can invite")

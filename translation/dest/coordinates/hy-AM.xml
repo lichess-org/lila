@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Կոորդինատների մտապահում</string>
   <string name="averageScoreAsWhiteX">Միջին հաշիվը սպիտակներով՝ %s</string>
   <string name="averageScoreAsBlackX">Միջին հաշիվը սևերով՝ %s</string>
-  <string name="knowingTheChessBoard">Շախմատի կոորդինատները իմանալը շատ կարևոր հմտություն է:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Շախմատի կոորդինատները իմանալը շատ կարևոր հմտություն է:</string>
   <string name="mostChessCourses">Շախմատային դասընթացներում և խնդիրներում լայնորեն կիրառվում է նոտագրությունը:</string>
   <string name="talkToYourChessFriends">Հեշտանում է ընկերների հետ խոսելը, երբ երկուսն էլ հասկանում են «շախմատի լեզուն»:</string>
   <string name="youCanAnalyseAGameMoreEffectively">Պարտիաներ վերլուծելն ավելի արդյունավետ է, եթե կոորդինատներով դաշտերը փնտելու վրա ժամանակ չի ծախսվում:</string>

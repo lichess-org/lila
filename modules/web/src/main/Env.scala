@@ -1,13 +1,15 @@
 package lila.web
 
-import play.api.libs.ws.StandaloneWSClient
 import com.softwaremill.macwire.*
+import com.softwaremill.tagging.*
+import play.api.libs.ws.StandaloneWSClient
 
 @Module
 final class Env(
     appConfig: play.api.Configuration,
     environment: play.api.Environment,
     cacheApi: lila.memo.CacheApi,
+    yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb,
     settingStore: lila.memo.SettingStore.Builder,
     ws: StandaloneWSClient,
     net: lila.core.config.NetConfig
@@ -32,6 +34,11 @@ final class Env(
   )
   if mode.isProd then scheduler.scheduleOnce(5 seconds)(influxEvent.start())
   private lazy val pagerDuty = wire[PagerDuty]
+
+  val socketTest = SocketTest(
+    yoloDb(lila.core.config.CollName("socket_test")).failingSilently(),
+    settingStore
+  )
 
   lila.common.Bus.subscribeFun("announce"):
     case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>

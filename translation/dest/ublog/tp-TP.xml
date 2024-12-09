@@ -24,7 +24,7 @@
   <string name="xPublishedY">jan %1$s li pana e lipu %2$s</string>
   <string name="thisPostIsPublished">sina pana e lipu ni</string>
   <string name="thisIsADraft">sina pana ala e lipu ni</string>
-  <string name="moreBlogPostsBy">lipu ante pi jan %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">lipu ante pi jan %s</string>
   <string name="noPostsInThisBlogYet">lipu li lon ala</string>
   <string name="noDrafts">lipu pi pana ala li lon ala</string>
   <string name="latestBlogPosts">lipu sin</string>
@@ -36,7 +36,6 @@
   <string name="imageAlt">ijo pi sitelen ni</string>
   <string name="imageCredit">tan sitelen</string>
   <string name="deleteBlog">o weka e lipu ni lon tenpo ale</string>
-  <string name="deleteImage">o weka e sitelen</string>
   <string name="safeToUseImages">sina ken kepeken sitelen ni: </string>
   <string name="selectPostTopics">lipu sina li toki lon seme? o pana e nimi</string>
   <string name="useImagesYouMadeYourself">sina ken kepeken e sitelen pi pali sina e sitelen pi ilo Lichess. sina ken ala kepeken sitelen pi jo sina ala</string>

@@ -2,6 +2,7 @@ package lila.user
 
 import org.apache.commons.codec.binary.Base32
 import scalalib.SecureRandom
+
 import java.nio.ByteBuffer
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec

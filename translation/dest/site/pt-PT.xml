@@ -116,7 +116,6 @@
   <string name="replayMode">Modo de repetição</string>
   <string name="realtimeReplay">Tempo real</string>
   <string name="byCPL">Por CPL</string>
-  <string name="openStudy">Abrir estudo</string>
   <string name="enable">Ativar</string>
   <string name="bestMoveArrow">Seta de melhor movimento</string>
   <string name="showVariationArrows">Ver setas de variação</string>
@@ -126,7 +125,6 @@
   <string name="memory">Memória</string>
   <string name="infiniteAnalysis">Análise infinita</string>
   <string name="removesTheDepthLimit">Remove o limite de profundidade e mantém o teu computador quente</string>
-  <string name="engineManager">Gestão do motor</string>
   <string name="blunder">Erro grave</string>
   <string name="mistake">Erro</string>
   <string name="inaccuracy">Imprecisão</string>
@@ -180,6 +178,7 @@
   <string name="latestForumPosts">Últimas publicações no fórum</string>
   <string name="players">Jogadores</string>
   <string name="friends">Amigos</string>
+  <string name="otherPlayers">outros jogadores</string>
   <string name="discussions">Conversas</string>
   <string name="today">Hoje</string>
   <string name="yesterday">Ontem</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s jogo contigo</item>
     <item quantity="other">%s jogos contigo</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
   <string name="whiteTimeOut">Acabou o tempo das brancas</string>
   <string name="blackTimeOut">Acabou o tempo das pretas</string>
@@ -421,7 +421,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="whiteCheckmatesInOneMove">As brancas dão mate em um movimento</string>
   <string name="blackCheckmatesInOneMove">As pretas dão mate em um movimento</string>
   <string name="retry">Tentar novamente</string>
-  <string name="reconnecting">Reconectando</string>
+  <string name="reconnecting">A reconectar</string>
   <string name="noNetwork">Desligado</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s amigo online</item>
@@ -436,7 +436,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="block">Bloquear</string>
   <string name="blocked">Bloqueado</string>
   <string name="unblock">Desbloquear</string>
-  <string name="followsYou">Segue-te</string>
   <string name="xStartedFollowingY">%1$s começou a seguir %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s seguidor</item>
@@ -468,9 +467,6 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="safeTournamentName">Escolhe um nome totalmente seguro para o torneio.</string>
   <string name="inappropriateNameWarning">Até uma linguagem ligeiramente inadequada pode levar ao encerramento da tua conta.</string>
   <string name="emptyTournamentName">Deixe em branco e será atribuído um nome aleatório de um jogador notável ao torneio.</string>
-  <string name="recommendNotTouching">Recomendamos que não mechas nestas oções.</string>
-  <string name="fewerPlayers">Se definies condições de participação, o teu torneio terá menos jogadores.</string>
-  <string name="showAdvancedSettings">Mostrar as definições avançadas</string>
   <string name="makePrivateTournament">Torna o torneio privado e restrinje o acesso com uma palavra-passe</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
@@ -510,8 +506,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="ifNoneLeaveEmpty">Se não existir, deixa em branco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar o perfil</string>
-  <string name="firstName">Nome próprio</string>
-  <string name="lastName">Apelido</string>
+  <string name="realName">Nome Real</string>
   <string name="setFlair">Defina o teu estilo</string>
   <string name="flair">Estilo</string>
   <string name="youCanHideFlair">Há uma opção para ocultar todos os estilos dos utilizadores em todo o site.</string>
@@ -542,6 +537,8 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="descPrivateHelp">Texto que apenas está visível para os membros da equipa. Se definido, substitui a descrição pública dos membros da equipa.</string>
   <string name="no">Não</string>
   <string name="yes">Sim</string>
+  <string name="website">Site</string>
+  <string name="mobile">Telemóvel</string>
   <string name="help">Ajuda:</string>
   <string name="createANewTopic">Criar um novo tópico</string>
   <string name="topics">Tópicos</string>
@@ -558,11 +555,11 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">Qual é o motivo?</string>
   <string name="cheat">Batota</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulação do Elo</string>
   <string name="other">Outro</string>
-  <string name="reportDescriptionHelp">Inclui o link do(s) jogo(s) e explica o que há de errado com o comportamento deste utilizador. Não digas apenas \"ele faz batota\"; informa-nos como chegaste a essa conclusão. A tua denúncia será processada mais rapidamente se for escrita em inglês.</string>
+  <string name="reportCheatBoostHelp">Cola o(s) link(s) do(s) jogo(s) e explica o que está errado no comportamento deste utilizador. Não digas apenas “eles fazem batota”, mas diz-nos como chegaste a essa conclusão.</string>
+  <string name="reportUsernameHelp">Explica o que este nome de utilizador tem de ofensivo. Não digas apenas “é ofensivo/inapropriado”, mas diz-nos como chegaste a essa conclusão, especialmente se o insulto for ofuscado, não estiver em inglês, estiver em calão ou for uma referência histórica/cultural.</string>
+  <string name="reportProcessedFasterInEnglish">A tua denúncia será processado mais rapidamente se estiver escrito em inglês.</string>
   <string name="error.provideOneCheatedGameLink">Por favor, fornece-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="importedByX">Importado por %s</string>
@@ -595,6 +592,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro do tabuleiro</string>
   <string name="outsideTheBoard">Fora do tabuleiro</string>
+  <string name="allSquaresOfTheBoard">Todas as casas do tabuleiro</string>
   <string name="onSlowGames">Em jogos lentos</string>
   <string name="always">Sempre</string>
   <string name="never">Nunca</string>
@@ -681,7 +679,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="aboutSimulRules">Quando a simultânea começa, cada jogador começa sua partida contra o anfitrião, que joga sempre com as peças brancas. A simultânea termina quando todas as partidas tiverem acabado.</string>
   <string name="aboutSimulSettings">As simultâneas são sempre partidas amigáveis. Desforras, voltar jogadas atrás e dar mais tempo estão desativados.</string>
   <string name="create">Criar</string>
-  <string name="whenCreateSimul">Quando crias uma simultânea, podes jogar com vários adversários ao mesmo tempo.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quando crias uma simultânea, podes jogar com vários adversários ao mesmo tempo.</string>
   <string name="simulVariantsHint">Se selecionares diversas variantes, cada jogador poderá escolher qual delas jogar.</string>
   <string name="simulClockHint">Configuração de incrementos no relógio. Quanto mais jogadores admitires, mais tempo poderás necessitar.</string>
   <string name="simulAddExtraTime">Podes acrescentar tempo adicional ao teu relógio, para te ajudar a lidar com a simultânea.</string>
@@ -770,7 +768,7 @@ análise de computador, sala de chat do jogo e link de partilha.</string>
   <string name="zeroAdvertisement">Zero anúncios</string>
   <string name="fullFeatured">Cheio de recursos</string>
   <string name="phoneAndTablet">Telemóvel e tablet</string>
-  <string name="bulletBlitzClassical">Bullet, blitz, clássico</string>
+  <string name="bulletBlitzClassical">Bullet, rápida, clássica</string>
   <string name="correspondenceChess">Xadrez por correspondência</string>
   <string name="onlineAndOfflinePlay">Jogar online e offline</string>
   <string name="viewTheSolution">Ver a solução</string>
@@ -996,4 +994,5 @@ Deixe em branco para iniciar jogos da posição inicial normal.</string>
   <string name="lichessPatronInfo">Lichess é uma instituição de caridade e software de código aberto totalmente livre.
 Todos os custos operacionais, de desenvolvimento e conteúdo são financiados exclusivamente por doações de usuários.</string>
   <string name="nothingToSeeHere">Nada para ver aqui no momento.</string>
+  <string name="stats">Estatísticas</string>
 </resources>

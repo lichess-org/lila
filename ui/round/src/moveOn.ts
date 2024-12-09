@@ -1,21 +1,22 @@
-import * as game from 'game';
-import * as xhr from './xhr';
-import RoundController from './ctrl';
+import { isSwitchable, isPlayerTurn } from 'game';
+import { whatsNext } from './xhr';
+import type RoundController from './ctrl';
+import { storage } from 'common/storage';
 
 export default class MoveOn {
-  private storage = site.storage.boolean(this.key);
+  private storage = storage.boolean(this.key);
 
   constructor(
     private ctrl: RoundController,
     private key: string,
   ) {}
 
-  toggle = () => {
+  toggle = (): void => {
     this.storage.toggle();
     this.next(true);
   };
 
-  get = this.storage.get;
+  get: () => boolean = this.storage.get;
 
   private redirect = (href: string) => {
     this.ctrl.setRedirecting();
@@ -24,13 +25,13 @@ export default class MoveOn {
 
   next = (force?: boolean): void => {
     const d = this.ctrl.data;
-    if (d.player.spectator || !game.isSwitchable(d) || game.isPlayerTurn(d) || !this.get()) return;
+    if (d.player.spectator || !isSwitchable(d) || isPlayerTurn(d) || !this.get()) return;
     if (force) this.redirect('/round-next/' + d.game.id);
     else if (d.simul) {
       if (d.simul.hostId === this.ctrl.opts.userId && d.simul.nbPlaying > 1)
         this.redirect('/round-next/' + d.game.id);
     } else
-      xhr.whatsNext(this.ctrl).then(data => {
+      whatsNext(this.ctrl).then(data => {
         if (data.next) this.redirect('/' + data.next);
       });
   };

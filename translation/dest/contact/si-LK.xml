@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">අපට ඔබට උදව් කළ හැක්කේ කුමක් ද?</string>
   <string name="visitThisPage">ගැටලුව විසඳීමට මෙම පිටුවට පිවිසෙන්න</string>
   <string name="iCantLogIn">මට ලොග් වෙන්න බෑ</string>
-  <string name="noConfirmationEmail">මට මගේ තහවුරු කිරීමේ විද්‍යුත් තැපෑල ලැබුණේ නැත</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">මට මගේ තහවුරු කිරීමේ විද්‍යුත් තැපෑල ලැබුණේ නැත</string>
   <string name="forgotPassword">මට මගේ මුරපදය අමතක විය</string>
   <string name="forgotUsername">මට මගේ පරිශීලක නාමය අමතක විය</string>
   <string name="youCanLoginWithEmail">ඔබ ලියාපදිංචි වූ විද්‍යුත් තැපැල් ලිපිනයෙන් ඔබට පුරනය විය හැක</string>
@@ -53,7 +53,6 @@
   <string name="noRatingPoints">Rating ප්‍රදානය කර නැත</string>
   <string name="ratedGame">ඔබ Rated ක්‍රීඩාවක් ක්‍රීඩා කළ බවට වග බලා ගන්න. Casual ක්‍රීඩා ක්‍රීඩකයන්ගේ Rating වලට​ බලපාන්නේ නැත.</string>
   <string name="errorPage">දෝෂ පිටුව</string>
-  <string name="wantBroadcastTournament">මට තරඟාවලියක් විකාශනය කිරීමට අවශ්‍යයි</string>
   <string name="learnHowToMakeBroadcasts">Lichess හි ඔබේම විකාශන කරන්නේ කෙසේදැයි ඉගෙන ගන්න</string>
   <string name="banAppeal">තහනමක් හෝ IP සීමාවක් සඳහා අභියාචනය කරන්න</string>
   <string name="engineAppeal">එන්ජිම හෝ වංචා ලකුණ</string>

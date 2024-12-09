@@ -4,8 +4,8 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.core.config.NetDomain
 
 final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi):
   import helpers.{ *, given }
@@ -207,7 +207,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
                 action := routes.Clas.studentArchive(clas.id, s.user.username, v = true)
               )(
                 form3.submit(trans.clas.removeStudent(), icon = none)(
-                  cls := "confirm button-red button-empty"
+                  cls := "yes-no-confirm button-red button-empty"
                 )
               )
             ),
@@ -266,7 +266,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             form3.actions(
               a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
               form3.submit(trans.clas.closeTheAccount(), icon = Icon.CautionCircle.some)(
-                cls := "button-red confirm"
+                cls := "button-red yes-no-confirm"
               )
             )
           )

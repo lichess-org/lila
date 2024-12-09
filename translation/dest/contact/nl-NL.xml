@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">Waar kunnen we je mee helpen?</string>
   <string name="visitThisPage">Bezoek deze pagina om het probleem op te lossen</string>
   <string name="iCantLogIn">Ik kan niet inloggen</string>
-  <string name="noConfirmationEmail">Ik heb geen bevestigingsmail ontvangen</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Ik heb geen bevestigingsmail ontvangen</string>
   <string name="forgotPassword">Ik ben mijn wachtwoord vergeten</string>
   <string name="forgotUsername">Ik ben mijn gebruikersnaam vergeten</string>
   <string name="youCanLoginWithEmail">Je kunt inloggen met het e-mailadres waarmee je je hebt aangemeld</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">Wanneer een speler tegen een bot-account speelt, worden onder bepaalde omstandigheden geen ratingpunten toegekend wanneer blijkt dat de speler de bot misbruikt om ratingpunten te winnen.</string>
   <string name="errorPage">Foutpagina</string>
   <string name="reportErrorPage">Als u te maken kreeg met een foutpagina, kunt u dat melden:</string>
-  <string name="wantBroadcastTournament">Ik wil een tornooi uitzenden</string>
   <string name="learnHowToMakeBroadcasts">Lees hoe je je eigen uitzendingen op Lichess maakt</string>
-  <string name="contactAboutOfficialBroadcasts">Je kunt ook het uitzendingsteam contacteren over officiële uitzendingen.</string>
   <string name="banAppeal">Vragen om een ban of IP beperking</string>
   <string name="engineAppeal">Schaakcomputer of valsspel markering</string>
   <string name="sendAppealTo">U kunt een verzoek sturen naar %s.</string>

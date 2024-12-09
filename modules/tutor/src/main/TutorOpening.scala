@@ -1,10 +1,10 @@
 package lila.tutor
 
 import chess.{ ByColor, Color }
+import chess.IntRating
 
 import lila.analyse.AccuracyPercent
 import lila.common.LilaOpeningFamily
-
 import lila.insight.{ Filter, InsightApi, InsightDimension, InsightMetric, Phase, Question }
 
 case class TutorColorOpenings(families: List[TutorOpeningFamily]):

@@ -1,21 +1,21 @@
 package lila.web
 package ui
 
-import play.api.data.{ Form, Field }
-import play.api.libs.json.Json
+import play.api.data.{ Field, Form }
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.HTTPRequest
 import lila.core.security.HcaptchaForm
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class AuthUi(helpers: Helpers):
   import helpers.{ *, given }
 
-  def login(form: Form[?], referrer: Option[String])(using Context) =
+  def login(form: Form[?], referrer: Option[String], isRememberMe: Boolean = true)(using Context) =
     def addReferrer(url: String): String = referrer.fold(url)(addQueryParam(url, "referrer", _))
     Page(trans.site.signIn.txt())
-      .js(jsModuleInit("bits.login", "login"))
+      .js(esmInit("bits.login", "login"))
       .css("bits.auth")
       .hrefLangs(lila.ui.LangPath(routes.Auth.login)):
         main(cls := "auth auth-login box box-pad")(
@@ -36,7 +36,12 @@ final class AuthUi(helpers: Helpers):
               formFields(form("username"), form("password"), none, register = false),
               form3.submit(trans.site.signIn(), icon = none),
               label(cls := "login-remember")(
-                input(name := "remember", value := "true", tpe := "checkbox", checked),
+                input(
+                  name  := "remember",
+                  value := "true",
+                  tpe   := "checkbox",
+                  isRememberMe.option(checked)
+                ),
                 trans.site.rememberMe()
               )
             ),
@@ -61,9 +66,9 @@ final class AuthUi(helpers: Helpers):
 
   def signup(form: lila.core.security.HcaptchaForm[?])(using ctx: Context) =
     Page(trans.site.signUp.txt())
-      .js(jsModuleInit("bits.login", "signup"))
+      .js(esmInit("bits.login", "signup"))
       .js(hcaptchaScript(form))
-      .iife(fingerprintTag)
+      .js(fingerprintTag)
       .css("bits.auth")
       .csp(_.withHcaptcha)
       .hrefLangs(lila.ui.LangPath(routes.Auth.signup)):
@@ -110,13 +115,7 @@ final class AuthUi(helpers: Helpers):
   )(using ctx: Context) =
     Page("Check your email")
       .css("bits.email-confirm")
-      .js(embedJsUnsafeLoadThen("""
-var email = document.getElementById("new-email");
-var currentError = "This is already your current email.";
-email.setCustomValidity(currentError);
-email.addEventListener("input", function() {
-email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
-      });""")):
+      .js(esmInitBit("validateEmail")):
         main(
           cls := s"page-small box box-pad email-confirm ${if form.exists(_.hasErrors) then "error" else "anim"}"
         )(
@@ -197,8 +196,8 @@ email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
       Context
   )(using me: Me) =
     Page(s"${me.username} - ${trans.site.changePassword.txt()}")
-      .css("bits.form3")
-      .js(jsModuleInit("bits.passwordComplexity")):
+      .css("bits.auth")
+      .js(esmInit("bits.login", "reset")):
         main(cls := "page-small box box-pad")(
           boxTop(
             (ok match
@@ -317,8 +316,6 @@ body { margin-top: 45px; }
           button(cls := "button button-red", tpe := "submit")(trans.site.logOut.txt())
         )
       )
-
-  val fingerprintTag: Frag = iifeModule("javascripts/fipr.js")
 
   private def agreement(form: play.api.data.Field, error: Boolean)(using Context) =
     div(cls := "agreement")(

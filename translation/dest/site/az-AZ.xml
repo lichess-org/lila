@@ -113,7 +113,6 @@
   <string name="replayMode">Təkrar rejimi</string>
   <string name="realtimeReplay">Gerçək zamanlı</string>
   <string name="byCPL">CPL üzrə</string>
-  <string name="openStudy">Çalışmanı aç</string>
   <string name="enable">Aktiv et</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="showVariationArrows">Variasiya oxlarını göstərin</string>
@@ -123,7 +122,6 @@
   <string name="memory">RAM</string>
   <string name="infiniteAnalysis">Sonsuz təhlil</string>
   <string name="removesTheDepthLimit">Dərinlik limitini ləğv edir və kompüterinizi isti saxlayır</string>
-  <string name="engineManager">Mühərrik meneceri</string>
   <string name="blunder">Kobud Səhv</string>
   <string name="mistake">Səhv</string>
   <string name="inaccuracy">Qeyri-dəqiqlik</string>
@@ -429,7 +427,6 @@
   <string name="block">Blok</string>
   <string name="blocked">Bloklanıb</string>
   <string name="unblock">Blokdan çıxart</string>
-  <string name="followsYou">Səni izləyir</string>
   <string name="xStartedFollowingY">%1$s %2$s adlı oyunçunu izləməyə başladı</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s izləyici</item>
@@ -461,9 +458,6 @@
   <string name="safeTournamentName">Turnir üçün çox etibarlı bir ad seçin.</string>
   <string name="inappropriateNameWarning">Hər hansı uyğunsuz bir ad, hesabınızın bağlanmasına yol aça bilər.</string>
   <string name="emptyTournamentName">Turnirə görkəmli bir şahmatçının adını vermək üçün boş buraxın.</string>
-  <string name="recommendNotTouching">Bunlara toxunmamağınızı məsləhət görürük.</string>
-  <string name="fewerPlayers">Giriş tələbləri qoyulsa, turnirə daha az oyunçu qoşulacaq.</string>
-  <string name="showAdvancedSettings">Ətraflı tənzimləmələr</string>
   <string name="makePrivateTournament">Turniri özəl et və şifrə qoyaraq müraciəti məhdudlaşdır</string>
   <string name="join">Qoşul</string>
   <string name="withdraw">Tərk et</string>
@@ -502,8 +496,6 @@
   <string name="ifNoneLeaveEmpty">Əgər yoxdursa, boş qoyun</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profili redaktə et</string>
-  <string name="firstName">Ad</string>
-  <string name="lastName">Soyad</string>
   <string name="biography">Özü haqqında</string>
   <string name="thankYou">Təşəkkürlər!</string>
   <string name="socialMediaLinks">Sosial media linkləri</string>
@@ -544,11 +536,8 @@
   <string name="reason">Səbəb</string>
   <string name="whatIsIheMatter">Problem nədir?</string>
   <string name="cheat">Hiylə</string>
-  <string name="insult">Təhqir</string>
   <string name="troll">Trol</string>
-  <string name="ratingManipulation">Reytinq manipulyasiyası</string>
   <string name="other">Digər</string>
-  <string name="reportDescriptionHelp">Oyunun və ya oyunların linkini yapışdırın və bu istifadəçinin davranışında nəyin səhv olduğunu izah edin. Yalnız \"hiylə edirlər\" deməyin, necə bu nəticəyə gəldiyinizi bizə deyin. İngilis dilində yazıldığı təqdirdə hesabat daha sürətli işlənəcəkdir.</string>
   <string name="error.provideOneCheatedGameLink">Lütfən ən azı bir hiyləli oyun linki daxil edin.</string>
   <string name="by">%s tərəfindən</string>
   <string name="thisTopicIsNowClosed">Mövzu bağlandı.</string>
@@ -652,7 +641,7 @@
   <string name="aboutSimulRules">Sinxron seansda iştirak edən hər bir oyunçu, ağlarla oynayan ev sahibi ilk gedişi etdikdən sonra oyuna başlayır. Seans bütün oyunlar başa çatdıqda bitir.</string>
   <string name="aboutSimulSettings">Sinxron seanslar adətən reytinqsizdir. Revanşlar, dala qaytarmalar və əlavə vaxt qadağan edilmişdir.</string>
   <string name="create">Yarat</string>
-  <string name="whenCreateSimul">Bir Seans yaratdığınızda eyni anda bir neçə oyunçu ilə oynamağa başlayırsınız.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Bir Seans yaratdığınızda eyni anda bir neçə oyunçu ilə oynamağa başlayırsınız.</string>
   <string name="simulVariantsHint">Əgər bir neçə oyun variantı seçsəniz, hər bir oyunçu oynamaq istədiyi variantı seçə biləcək.</string>
   <string name="simulClockHint">Fişer Saatını quraşdırma. Daha çox oyunçu götürsəniz, daha çox vaxta ehtiyacınız ola bilər.</string>
   <string name="simulAddExtraTime">Sinxron seansla başa çıxmaq üçün öz saatınıza əlavə vaxtlar artıra bilərsiniz.</string>

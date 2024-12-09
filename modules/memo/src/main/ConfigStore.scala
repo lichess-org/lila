@@ -36,12 +36,9 @@ final class ConfigStore[A](coll: Coll, id: String, cacheApi: CacheApi, logger: l
   def rawText: Fu[Option[String]] = coll.primitiveOne[String]($id(id), mongoDocKey)
 
   def set(text: String): Either[List[String], Funit] =
-    parse(text).map { a =>
-      coll.update
-        .one($id(id), $doc(mongoDocKey -> text), upsert = true)
-        .void
-        .andDo(cache.put((), fuccess(a.some)))
-    }
+    parse(text).map: a =>
+      for _ <- coll.update.one($id(id), $doc(mongoDocKey -> text), upsert = true)
+      yield cache.put((), fuccess(a.some))
 
   def makeForm: Fu[Form[String]] =
     import play.api.data.Forms.*

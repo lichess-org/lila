@@ -2,8 +2,9 @@ package lila.core
 package chat
 
 import play.api.libs.json.JsObject
-import lila.core.shutup.PublicSource
+
 import lila.core.id.ChatId
+import lila.core.shutup.PublicSource
 import lila.core.userId.*
 
 case class ChatLine(chatId: ChatId, line: Line, json: JsObject)

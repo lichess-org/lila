@@ -1,8 +1,8 @@
 package lila.core
 package pref
 
-import lila.core.userId.UserId
 import lila.core.user.User
+import lila.core.userId.UserId
 
 trait Pref:
   val id: UserId
@@ -18,6 +18,7 @@ trait Pref:
   val resizeHandle: Int
   val theme: String
   val pieceSet: String
+  val usingAltSocket: Option[Boolean]
 
   def hasKeyboardMove: Boolean
   def hasVoice: Boolean

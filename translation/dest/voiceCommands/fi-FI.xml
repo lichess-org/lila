@@ -12,7 +12,7 @@
   <string name="moveToE4OrSelectE4Piece">Siirrä e4:ään tai valitse e4:ssä oleva nappula</string>
   <string name="selectOrCaptureABishop">Valitse tai lyö lähetti</string>
   <string name="takeRookWithQueen">Lyö torni daamilla</string>
-  <string name="castle">Tee linnoitus (kummalle tahansa puolelle)</string>
+  <string name="castle" comment="Castle is used as a verb here, referring to castling.">Tee linnoitus (kummalle tahansa puolelle)</string>
   <string name="phoneticAlphabetIsBest">Foneettiset aakkoset toimivat parhaiten</string>
   <string name="cancelTimerOrDenyARequest">Peruuta ajastin tai hylkää pyyntö</string>
   <string name="playPreferredMoveOrConfirmSomething">Tee ensisijainen siirto tai vahvista jotain</string>

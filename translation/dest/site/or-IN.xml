@@ -79,7 +79,6 @@
   <string name="delete">ବିଲୋପ କରନ୍ତୁ</string>
   <string name="deleteThisImportedGame">ଏହି ଆମଦାନୀ ହୋଇଥିବା ଖେଳ ବିଲୋପ କରିବେ କି?</string>
   <string name="realtimeReplay">ପ୍ରକୃତ ସମୟ</string>
-  <string name="openStudy">ଖୋଲା ଅଧ୍ୟୟନ</string>
   <string name="enable">ସକ୍ଷମ କରନ୍ତୁ</string>
   <string name="evaluationGauge">ମୂଲ୍ୟାଙ୍କନ ଗେଜ୍</string>
   <string name="multipleLines">ଏକାଧିକ ରେଖା</string>
@@ -194,15 +193,11 @@
   <string name="player">ଖେଳାଳି</string>
   <string name="createANewTournament">ଏକ ନୂଆ ଟୁର୍ନାମେଣ୍ଟ ସୃଷ୍ଟି କରନ୍ତୁ</string>
   <string name="advancedSettings">ଵିକଶିତ ସେଟିଂ</string>
-  <string name="recommendNotTouching">ଏଗୁଡ଼ିକୁ ସ୍ପର୍ଶ ନକରିବାକୁ ଆମେ ସୁପାରିଶ କରୁ।</string>
-  <string name="fewerPlayers">ଯଦି ଆପଣ ପ୍ରବେଶ ଆବଶ୍ୟକତାକୁ ସେଟ୍ କରନ୍ତି, ତେବେ ଆପଣଙ୍କ ଟୁର୍ନାମେଣ୍ଟରେ କମ୍ ଖେଳାଳି ରହିବେ।</string>
-  <string name="showAdvancedSettings">ଵିକଶିତ ସେଟିଂ ଦେଖାଅ</string>
   <string name="boardEditor">ବୋର୍ଡ ସମ୍ପାଦକ</string>
   <string name="isPrivate">ଘରୋଇ</string>
   <string name="profileCompletion">ପ୍ରୋଫାଇଲ୍ ସମାପ୍ତି: %s</string>
   <string name="profile">ପ୍ରୋଫାଇଲ୍</string>
   <string name="editProfile">ପ୍ରୋଫାଇଲ୍ ସମ୍ପାଦନା</string>
-  <string name="firstName">ପ୍ରଦତ୍ତ ନାମ</string>
   <string name="biography">ଜୀବନୀ</string>
   <string name="thankYou">ଧନ୍ୟବାଦ!</string>
   <string name="oneUrlPerLine">ପ୍ରତି ଧାଡ଼ିରେ ଗୋଟିଏ URL।</string>

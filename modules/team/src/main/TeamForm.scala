@@ -13,10 +13,10 @@ import lila.common.Form.{
   numberIn,
   given
 }
-import lila.db.dsl.{ *, given }
-import lila.core.team.Access
 import lila.core.captcha.CaptchaApi
+import lila.core.team.Access
 import lila.core.user.FlairApi
+import lila.db.dsl.{ *, given }
 
 final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flairApi: FlairApi)(using
     Executor
@@ -118,7 +118,7 @@ final private[team] class TeamForm(teamRepo: TeamRepo, captcha: CaptchaApi, flai
   def createWithCaptcha(using Me) = create -> captcha.any
 
   val pmAll = Form:
-    single("message" -> cleanTextWithSymbols.verifying(Constraints.minLength(3), Constraints.maxLength(9000)))
+    single("message" -> cleanTextWithSymbols(minLength = 3, maxLength = 9000))
 
   val explain = Form:
     single("explain" -> cleanText(minLength = 3, maxLength = 9000))

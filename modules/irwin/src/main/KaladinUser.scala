@@ -2,10 +2,10 @@ package lila.irwin
 
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.report.Suspect
 import lila.core.perf.PerfId
-import lila.rating.PerfType
 import lila.core.report.SuspectId
+import lila.rating.PerfType
+import lila.report.Suspect
 
 case class KaladinUser(
     @Key("_id") id: UserId,

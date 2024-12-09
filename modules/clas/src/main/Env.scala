@@ -3,6 +3,7 @@ package lila.clas
 import com.softwaremill.macwire.*
 
 import lila.core.config.*
+import lila.core.misc.clas.ClasBus
 
 @Module
 final class Env(
@@ -40,17 +41,16 @@ final class Env(
   def hasClas(using me: Me) =
     lila.core.perm.Granter(_.Teacher) || studentCache.isStudent(me)
 
-  lila.common.Bus.subscribeFuns(
-    "finishGame" -> { case lila.core.game.FinishGame(game, _) => progressApi.onFinishGame(game) },
-    "clas" -> {
-      case lila.core.misc.clas.IsTeacherOf(teacher, student, promise) =>
-        promise.completeWith(api.clas.isTeacherOf(teacher, student))
-      case lila.core.misc.clas.AreKidsInSameClass(kid1, kid2, promise) =>
-        promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
-      case lila.core.misc.clas.ClasMatesAndTeachers(kid, promise) =>
-        promise.completeWith(matesCache.get(kid.id))
-    }
-  )
+  lila.common.Bus.subscribeFun("finishGame"):
+    case lila.core.game.FinishGame(game, _) => progressApi.onFinishGame(game)
+
+  lila.common.Bus.sub[ClasBus]:
+    case ClasBus.IsTeacherOf(teacher, student, promise) =>
+      promise.completeWith(api.clas.isTeacherOf(teacher, student))
+    case ClasBus.AreKidsInSameClass(kid1, kid2, promise) =>
+      promise.completeWith(api.clas.areKidsInSameClass(kid1, kid2))
+    case ClasBus.ClasMatesAndTeachers(kid, promise) =>
+      promise.completeWith(matesCache.get(kid.id))
 
 private class ClasColls(db: lila.db.Db):
   val clas    = db(CollName("clas_clas"))

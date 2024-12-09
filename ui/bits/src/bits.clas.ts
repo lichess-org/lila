@@ -1,11 +1,10 @@
-/// <reference types="../types/tablesort" />
 import tablesort from 'tablesort';
 import extendTablesortNumber from 'common/tablesortNumber';
 import * as xhr from 'common/xhr';
 import { Textcomplete } from '@textcomplete/core';
 import { TextareaEditor } from '@textcomplete/textarea';
 
-import type { Result as UserCompleteResult } from './bits.userComplete';
+import type { UserCompleteResult } from 'common/userComplete';
 
 site.load.then(() => {
   $('table.sortable').each(function (this: HTMLElement) {

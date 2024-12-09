@@ -3,12 +3,11 @@ package lila.mod
 import chess.PlayerTitle
 
 import lila.common.Bus
-import lila.report.{ Room, Suspect }
-import lila.core.perm.{ Granter, Permission }
-import lila.user.{ LightUserApi, UserRepo }
+import lila.core.perm.Permission
 import lila.core.report.SuspectId
-import lila.core.user.UserMarks
-import lila.core.user.UserMark
+import lila.core.user.{ UserMark, UserMarks }
+import lila.report.{ Room, Suspect }
+import lila.user.{ LightUserApi, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,
@@ -74,17 +73,19 @@ final class ModApi(
         sus
 
   def setTroll(prev: Suspect, value: Boolean)(using me: MyId): Fu[Suspect] =
-    val changed = value != prev.user.marks.troll
-    val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
-    changed
-      .so:
-        userRepo.updateTroll(sus.user).void.andDo {
-          logApi.troll(sus)
-          Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
-        }
-      .andDo:
-        if value then notifier.reporters(me.modId, sus)
-      .inject(sus)
+    if !value && prev.user.marks.isolate
+    then setIsolate(prev, value).flatMap(setTroll(_, value))
+    else
+      val changed = value != prev.user.marks.troll
+      val sus     = prev.set(_.withMarks(_.set(_.troll, value)))
+      for
+        _ <- changed.so:
+          for _ <- userRepo.updateTroll(sus.user)
+          yield
+            logApi.troll(sus)
+            Bus.publish(lila.core.mod.Shadowban(sus.user.id, value), "shadowban")
+        _ = if value then notifier.reporters(me.modId, sus)
+      yield sus
 
   def autoTroll(sus: Suspect, note: String): Funit =
     given MyId = UserId.lichessAsMe
@@ -98,15 +99,14 @@ final class ModApi(
     else
       val changed = value != prev.user.marks.isolate
       val sus     = prev.set(_.withMarks(_.set(_.isolate, value)))
-      changed
-        .so:
+      for
+        _ <- changed.so:
           for
             _ <- userRepo.setIsolate(sus.user.id, value)
             _ <- prefApi.isolate(sus.user)
           yield logApi.isolate(sus)
-        .andDo:
-          if value then notifier.reporters(me.modId, sus)
-        .inject(sus)
+        _ = if value then notifier.reporters(me.modId, sus)
+      yield sus
 
   def garbageCollect(userId: UserId): Funit =
     given MyId = UserId.lichessAsMe

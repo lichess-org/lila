@@ -4,10 +4,11 @@ package ui
 import play.api.data.Form
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.study.Study.WithChaptersAndLiked
 import lila.core.study.Order
+import lila.study.Study.WithChaptersAndLiked
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class ListUi(helpers: Helpers, bits: StudyBits):
   import helpers.{ *, given }
@@ -188,7 +189,7 @@ final class ListUi(helpers: Helpers, bits: StudyBits):
     def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[?]])(using Context) =
       Page(trans.study.topics.txt())
         .css("analyse.study.index", "bits.form3", "bits.tagify")
-        .js(EsmInit("analyse.study.topic.form")):
+        .js(Esm("analyse.study.topic.form")):
           main(cls := "page-menu")(
             menu("topic", Order.mine, mine.so(_.value)),
             main(cls := "page-menu__content study-topics box box-pad")(

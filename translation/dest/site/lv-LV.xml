@@ -114,7 +114,6 @@
   <string name="replayMode">Atkārtojuma režīms</string>
   <string name="realtimeReplay">Reāllaikā</string>
   <string name="byCPL">Pēc CPL</string>
-  <string name="openStudy">Atvērt izpēti</string>
   <string name="enable">Iespējot</string>
   <string name="bestMoveArrow">Labākā gājiena bulta</string>
   <string name="evaluationGauge">Novērtējuma rādītājs</string>
@@ -123,7 +122,6 @@
   <string name="memory">Atmiņa</string>
   <string name="infiniteAnalysis">Bezgalīga analīze</string>
   <string name="removesTheDepthLimit">Noņem dziļuma ierobežojumu un uztur tavu datoru siltu</string>
-  <string name="engineManager">Dzinēja pārvaldnieks</string>
   <string name="blunder">Rupja kļūda</string>
   <string name="mistake">Kļūda</string>
   <string name="inaccuracy">Neprecizitāte</string>
@@ -457,7 +455,6 @@
   <string name="block">Bloķēt</string>
   <string name="blocked">Bloķētie</string>
   <string name="unblock">Atbloķēt</string>
-  <string name="followsYou">Sekotāji</string>
   <string name="xStartedFollowingY">%1$s sāka sekot %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="zero">%s sekotāji</item>
@@ -492,9 +489,6 @@
   <string name="safeTournamentName">Izvēlieties drošu turnīra nosaukumu.</string>
   <string name="inappropriateNameWarning">Jebkas kaut nedaudz nepiedienīgs var novest pie jūsu konta slēgšanas.</string>
   <string name="emptyTournamentName">Atstājiet neaizpildītu, lai nosauktu turnīru kāda ievērojama šahista vārdā.</string>
-  <string name="recommendNotTouching">Iesakām šeit neko nemainīt.</string>
-  <string name="fewerPlayers">Ja uzstādīsiet dalības noteikumus, jūsu turnīrā piedalīsies mazāk spēlētāju.</string>
-  <string name="showAdvancedSettings">Rādīt lietpratēju uzstādījumus</string>
   <string name="makePrivateTournament">Padarīt turnīru privātu, un ierobežot piekļuvi ar paroli</string>
   <string name="join">Pievienoties</string>
   <string name="withdraw">Izstāties</string>
@@ -533,8 +527,6 @@
   <string name="ifNoneLeaveEmpty">Ja nav piešķirts, atstājiet tukšu</string>
   <string name="profile">Profils</string>
   <string name="editProfile">Labot profilu</string>
-  <string name="firstName">Vārds</string>
-  <string name="lastName">Uzvārds</string>
   <string name="biography">Biogrāfija</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
@@ -577,11 +569,8 @@
   <string name="reason">Iemesls</string>
   <string name="whatIsIheMatter">Kas par lietu?</string>
   <string name="cheat">Krāpšanās</string>
-  <string name="insult">Apvainošana</string>
   <string name="troll">Troļļošana</string>
-  <string name="ratingManipulation">Reitinga manipulācija</string>
   <string name="other">Cits</string>
-  <string name="reportDescriptionHelp">Ielīmējiet spēles saiti un paskaidrojiet, kas nav kārtībā ar lietotāja uzvedību. Nepietiks, ja tikai norādīsiet, ka \"lietotājs krāpjas\" — lūdzu, pastāstiet, kā nonācāt pie šī secinājuma. Ja jūsu ziņojums būs rakstīts angliski, par to varēsim parūpēties ātrāk.</string>
   <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
   <string name="by">no %s</string>
   <string name="importedByX">Importēja %s</string>
@@ -701,7 +690,7 @@
   <string name="aboutSimulRules">Simultānseansam sākoties, katrs spēlētājs sāk spēli ar vadītāju, kurš spēlē ar baltajām figūrām. Seanss beidzas, kad visas spēles ir beigušās.</string>
   <string name="aboutSimulSettings">Simultānseansi nekad nav vērtēti. Revanšu, gājienu atsaukšanas un laika pievienošanas iespējas ir atspējotas.</string>
   <string name="create">Izveidot</string>
-  <string name="whenCreateSimul">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
   <string name="simulVariantsHint">Ja atlasīsiet vairākus variantus, katrs spēlētājs varēs izvēlēties kuru spēlēt.</string>
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>

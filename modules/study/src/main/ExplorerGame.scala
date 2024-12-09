@@ -3,8 +3,6 @@ package lila.study
 import chess.format.pgn.Parser
 import chess.format.{ Fen, UciPath }
 
-import scala.util.chaining.*
-
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 

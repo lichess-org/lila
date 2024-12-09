@@ -5,7 +5,6 @@ import play.api.libs.json.*
 import reactivemongo.akkastream.cursorProducer
 
 import lila.common.Json.given
-
 import lila.db.dsl.{ *, given }
 
 final class PuzzleActivity(
@@ -37,10 +36,10 @@ final class PuzzleActivity(
         .map(_.documentSource(config.max.fold(Int.MaxValue)(_.value)))
         .map(_.grouped(perSecond.value))
         .map(_.throttle(1, 1 second))
-        .map(_.mapAsync(1)(enrich(config)))
+        .map(_.mapAsync(1)(enrich))
         .map(_.mapConcat(identity))
 
-  private def enrich(config: Config)(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
+  private def enrich(rounds: Seq[PuzzleRound]): Fu[Seq[JsObject]] =
     colls.puzzle:
       _.optionsByOrderedIds[Puzzle, PuzzleId](
         rounds.map(_.id.puzzleId),

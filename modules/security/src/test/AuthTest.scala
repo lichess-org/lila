@@ -3,10 +3,8 @@ package lila.security
 import java.util.Base64
 
 import lila.core.config.Secret
-
+import lila.core.security.{ ClearPassword as P, HashedPassword }
 import lila.user.AuthData
-import lila.core.security.ClearPassword as P
-import lila.core.security.HashedPassword
 
 class AuthTest extends munit.FunSuite:
 

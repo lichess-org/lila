@@ -1,22 +1,21 @@
-import { Redraw } from 'common/snabbdom';
+import type { Redraw } from 'common/snabbdom';
 import { DasherCtrl } from './ctrl';
-import * as xhr from 'common/xhr';
-import { spinnerVdom } from 'common/spinner';
-import { init as initSnabbdom, VNode, classModule, attributesModule, h } from 'snabbdom';
+import { json as xhrJson } from 'common/xhr';
+import { spinnerVdom, spinnerHtml } from 'common/spinner';
+import { init as initSnabbdom, type VNode, classModule, attributesModule, h } from 'snabbdom';
 
 const patch = initSnabbdom([classModule, attributesModule]);
 
-export function load() {
+export function load(): Promise<DasherCtrl> {
   return site.asset.loadEsm<DasherCtrl>('dasher');
 }
 
-export default async function initModule() {
+export default async function initModule(): Promise<DasherCtrl> {
   let vnode: VNode,
     ctrl: DasherCtrl | undefined = undefined;
 
-  const $el = $('#dasher_app').html(`<div class="initiating">${site.spinnerHtml}</div>`);
+  const $el = $('#dasher_app').html(`<div class="initiating">${spinnerHtml}</div>`);
   const element = $el.empty()[0] as HTMLElement;
-  const toggle = $('#top .dasher')[0] as HTMLElement;
 
   const redraw: Redraw = () => {
     vnode = patch(
@@ -27,16 +26,9 @@ export default async function initModule() {
 
   redraw();
 
-  const data = await xhr.json('/dasher');
+  const data = await xhrJson('/dasher');
   ctrl = new DasherCtrl(data, redraw);
   redraw();
-
-  new MutationObserver(_ => site.pubsub.emit('dasher.toggle', toggle.classList.contains('shown'))).observe(
-    toggle,
-    {
-      attributes: true,
-    },
-  );
 
   return ctrl;
 }

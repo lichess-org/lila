@@ -3,10 +3,9 @@ package controllers
 import play.api.libs.json.*
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
-import lila.forum.ForumCateg.diagnosticId
 import lila.common.Json.given
 import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.forum.ForumCateg.diagnosticId
 
 final class ForumTopic(env: Env) extends LilaController(env) with ForumController:
 
@@ -38,7 +37,9 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def show(categId: ForumCategId, slug: String, page: Int) = Open:
     NotForKids:
       Found(topicApi.show(categId, slug, page)): (categ, topic, posts) =>
-        if categId == diagnosticId && ctx.isnt(UserStr(slug)) && !isGrantedOpt(_.ModerateForum)
+        if categId == diagnosticId && !ctx.me.exists(me => slug.startsWith(me.userId.value)) && !isGrantedOpt(
+            _.ModerateForum
+          )
         then notFound
         else
           for
@@ -88,7 +89,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
 
   def diagnostic = AuthBody { ctx ?=> me ?=>
     NoBot:
-      val slug = me.userId.value
+      val slug = s"${me.userId.value}-problem-report"
       bindForm(env.forum.forms.diagnostic)(
         err => jsonFormError(err),
         text =>

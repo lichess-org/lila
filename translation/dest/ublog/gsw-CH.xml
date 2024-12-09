@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s hät %2$s veröffentlicht</string>
   <string name="thisPostIsPublished">De Bitrag isch veröffentlicht worde</string>
   <string name="thisIsADraft">Das isch en Entwurf</string>
-  <string name="moreBlogPostsBy">Meh Tagebuech-Biträg vu %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Meh Tagebuech-Biträg vu %s</string>
   <string name="noPostsInThisBlogYet">No kei Biträg i dem Tagebuech.</string>
   <string name="noDrafts">Kei Entwürf zum zeige.</string>
   <string name="latestBlogPosts">Neuschti Tagebuech-Biträg</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">Alternative Bildtegscht</string>
   <string name="imageCredit">Bild Herkunft</string>
   <string name="deleteBlog">Lösch de Tagebuech-Post definitiv</string>
-  <string name="deleteImage">Lösch s\'Bild</string>
   <string name="safeToUseImages">Es isch sicher, Bilder vu folgende Website z\'verwände: </string>
   <string name="selectPostTopics">Wähl d\'Theme vu dim Post us</string>
   <string name="useImagesYouMadeYourself">Du chasch auch sälber g\'machti- oder knipsti Bilder verwände oder Screenshots vu Lichess... eifach alles, was nöd vu öpper anderem urheberrächtlich gschützt isch.</string>

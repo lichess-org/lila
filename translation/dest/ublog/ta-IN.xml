@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s வெளியிடப்பட்டது %2$s</string>
   <string name="thisPostIsPublished">இந்த இடுகை வெளியிடப்பட்டது</string>
   <string name="thisIsADraft">இது ஒரு வரைவு</string>
-  <string name="moreBlogPostsBy">மேலும் வலைப்பதிவு இடுகைகள் %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">மேலும் வலைப்பதிவு இடுகைகள் %s</string>
   <string name="noPostsInThisBlogYet">இந்த வலைப்பதிவில் இன்னும் இடுகைகள் இல்லை.</string>
   <string name="noDrafts">காட்ட வரைவுகள் இல்லை.</string>
   <string name="latestBlogPosts">சமீபத்திய வலைப்பதிவு இடுகைகள்</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">பட மாற்று உரை</string>
   <string name="imageCredit">படம் ஒப்புதல்</string>
   <string name="deleteBlog">இந்த வலைப்பதிவு இடுகையை உறுதியாக நீக்கவும்</string>
-  <string name="deleteImage">படத்தை நீக்கு</string>
   <string name="safeToUseImages">பின்வரும் இணையதளங்களில் உள்ள படங்களைப் பயன்படுத்துவது பாதுகாப்பானது: </string>
   <string name="selectPostTopics">உங்கள் இடுகைபற்றிய தலைப்புகளைத் தேர்ந்தெடுக்கவும்</string>
   <string name="useImagesYouMadeYourself">நீங்களே உருவாக்கிய படங்கள், நீங்கள் எடுத்த படங்கள், லிசெஸ்ஸின் திரைப்பிடிப்பு... வேறு யாராலும் பதிப்புரிமை பெறாத எதையும் நீங்கள் பயன்படுத்தலாம்.</string>

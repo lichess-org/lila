@@ -1,6 +1,6 @@
 package lila.event
-import lila.db.dsl.{ *, given }
 import lila.core.i18n.Language
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
 final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventForm)(using Executor):
@@ -40,14 +40,19 @@ final class EventApi(coll: Coll, cacheApi: lila.memo.CacheApi, eventForm: EventF
     eventForm.form.fill:
       EventForm.Data.make(event)
 
-  def update(old: Event, data: EventForm.Data)(using MyId): Fu[Int] =
-    (coll.update.one($id(old.id), data.update(old)).andDo(promotable.invalidateUnit())).dmap(_.n)
+  def update(old: Event, data: EventForm.Data)(using MyId): Fu[Int] = for
+    res <- coll.update.one($id(old.id), data.update(old))
+    _ = promotable.invalidateUnit()
+  yield res.n
 
   def createForm = eventForm.form
 
   def create(data: EventForm.Data)(using MyId): Fu[Event] =
     val event = data.make
-    coll.insert.one(event).andDo(promotable.invalidateUnit()).inject(event)
+    for
+      _ <- coll.insert.one(event)
+      _ = promotable.invalidateUnit()
+    yield event
 
   def clone(old: Event) =
     old.copy(

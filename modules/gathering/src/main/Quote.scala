@@ -12,7 +12,7 @@ object Quote:
 
   def one(seed: String) = all(Random(seed.hashCode).nextInt(all.size))
 
-  // courtesy of http://www.chess.Squareter.com/english/notes_and_facts/chess_quotes.htm
+  // courtesy of http://www.chess-poster.com/english/notes_and_facts/chess_quotes.htm
   // and other various sources
   val all = Vector(
     Quote("When you see a good move, look for a better one.", "Emanuel Lasker"),
@@ -89,7 +89,7 @@ object Quote:
     Quote("Chess is mental torture.", "Garry Kasparov"),
     Quote("Many have become chess masters, no one has become the master of chess.", "Siegbert Tarrasch"),
     Quote(
-      "The most important feature of the chess.Position is the activity of the pieces. This is absolutely fundamental in all phases of the game: Opening, Middlegame and especially Endgame. The primary constraint on a piece's activity is the pawn structure.",
+      "The most important feature of the chess position is the activity of the pieces. This is absolutely fundamental in all phases of the game: Opening, Middlegame and especially Endgame. The primary constraint on a piece's activity is the pawn structure.",
       "Michael Stean"
     ),
     Quote(
@@ -334,7 +334,7 @@ object Quote:
     ),
     Quote("Castle early and often.", "Rob Sillars"),
     Quote(
-      "I believe that chess.Squaresesses a magic that is also a help in advanced age. A rheumatic knee is forgotten during a game of chess and other events can seem quite unimportant in comparison with a catastrophe on the chessboard.",
+      "I believe that chess possesses a magic that is also a help in advanced age. A rheumatic knee is forgotten during a game of chess and other events can seem quite unimportant in comparison with a catastrophe on the chessboard.",
       "Vlastimil Hort"
     ),
     Quote(
@@ -1394,7 +1394,7 @@ object Quote:
       "Mark Taimanov"
     ),
     Quote(
-      "From time to time, like many other players, I glance through my own games of earlier years, and return to positions and variations which have gone out of practice. I attempt to restore them, to find  ideas and plans.",
+      "From time to time, like many other players, I glance through my own games of earlier years, and return to positions and variations which have gone out of practice. I attempt to restore them, to find ideas and plans.",
       "Efim Geller"
     ),
     Quote(
@@ -1625,6 +1625,32 @@ object Quote:
     Quote(
       "The good thing about chess is that everyone can learn how to play at any age.",
       "Mariya Muzychuk"
+    ),
+    Quote(
+      "It's not about winning or losing, but of course at the end of the day it's about winning or losing.",
+      "Garry Kasparov"
+    ),
+    Quote(
+      "Ok we can change you know? It's an equal change, I change one attacking piece for one defending piece but I still have enough pieces to mate him.",
+      "Garry Kasparov"
+    ),
+    Quote("King safety is the number one priority.", "Garry Kasparov"),
+    Quote("Magnus is a lethal combination of Fischer and Karpov...", "Garry Kasparov"),
+    Quote(
+      "Then it was not considered much of a surprise that I could beat 32 computers at the same time. To me, that was the golden age. Machines were weak, and my hair was strong.",
+      "Garry Kasparov"
+    ),
+    Quote("Ask the knight on g1 what he thinks about the move f3.", "Edward Gufeld"),
+    Quote("Every chessplayer should have a hobby.", "Savielly Tartakower"),
+    Quote(
+      "A match demonstrates less than a tournament. But a tournament demonstrates nothing at all.",
+      "Savielly Tartakower"
+    ),
+    Quote("...the threat is stronger than the execution.", "Aron Nimzowitsch"),
+    Quote("I can never get mated with a knight on f8.", "Bent Larsen"),
+    Quote(
+      "As for knight endings with an extra pawn... they are, as a rule, won.",
+      "Mark Dvoretsky"
     ),
     // lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),

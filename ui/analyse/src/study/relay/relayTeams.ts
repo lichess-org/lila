@@ -1,12 +1,13 @@
-import { MaybeVNodes, Redraw, VNode, onInsert, looseH as h } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
-import { RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, ChapterPreviewPlayer, StatusStr } from '../interfaces';
-import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
+import { type MaybeVNodes, type Redraw, type VNode, onInsert, looseH as h } from 'common/snabbdom';
+import { json as xhrJson } from 'common/xhr';
+import type { RoundId } from './interfaces';
+import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
+import { type MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'common/userLink';
+import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {
   name: string;
@@ -30,8 +31,8 @@ export default class RelayTeams {
 
   constructor(
     private readonly roundId: RoundId,
-    readonly multiCloudEval: MultiCloudEval,
-    readonly setChapter: (id: ChapterId | number) => boolean,
+    readonly multiCloudEval: MultiCloudEval | undefined,
+    readonly chapterSelect: ChapterSelect,
     readonly roundPath: () => string,
     private readonly redraw: Redraw,
   ) {}
@@ -41,32 +42,33 @@ export default class RelayTeams {
       this.loading = true;
       this.redraw();
     }
-    this.teams = await xhr.json(`/broadcast/${this.roundId}/teams`);
+    this.teams = await xhrJson(`/broadcast/${this.roundId}/teams`);
     this.redraw();
   };
 }
 
-export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters) =>
+export const teamsView = (ctrl: RelayTeams, chapters: StudyChapters, players: RelayPlayers) =>
   h(
     'div.relay-tour__team-table',
     {
       class: { loading: ctrl.loading, nodata: !ctrl.teams },
       hook: {
         insert: vnode => {
-          gameLinksListener(ctrl.setChapter)(vnode);
+          gameLinksListener(ctrl.chapterSelect)(vnode);
           ctrl.loadFromXhr(true);
         },
       },
     },
     ctrl.teams
-      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), ctrl.multiCloudEval.thisIfShowEval())
+      ? renderTeams(ctrl.teams, chapters, ctrl.roundPath(), players, ctrl.multiCloudEval?.thisIfShowEval())
       : [spinner()],
   );
 
 const renderTeams = (
   teams: TeamTable,
   chapters: StudyChapters,
-  basePath: string,
+  roundPath: string,
+  playersCtrl: RelayPlayers,
   cloudEval?: MultiCloudEval,
 ): MaybeVNodes =>
   teams.table.map(row => {
@@ -88,13 +90,13 @@ const renderTeams = (
           const players = chap?.players;
           if (!players) return;
           const sortedPlayers =
-            game.pov == 'white' ? [players.white, players.black] : [players.black, players.white];
+            game.pov === 'white' ? [players.white, players.black] : [players.black, players.white];
           return (
             chap &&
-            h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(basePath, chap) }, [
-              playerView(sortedPlayers[0]),
+            h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
+              playerView(playersCtrl, sortedPlayers[0]),
               statusView(chap, game.pov, chapters, cloudEval),
-              playerView(sortedPlayers[1]),
+              playerView(playersCtrl, sortedPlayers[1]),
             ])
           );
         }),
@@ -102,17 +104,20 @@ const renderTeams = (
     ]);
   });
 
-const playerView = (p: ChapterPreviewPlayer) =>
+const playerView = (players: RelayPlayers, p: StudyPlayer) =>
   h('span.relay-tour__team-match__game__player', [
-    h('span.mini-game__user', [playerFed(p.fed), h('span.name', [userTitle(p), p.name])]),
+    h('span.mini-game__user', players.playerLinkConfig(p), [
+      playerFed(p.fed),
+      h('span.name', [userTitle(p), p.name]),
+    ]),
     p.rating && h('rating', `${p.rating}`),
   ]);
 
 const statusView = (g: ChapterPreview, pov: Color, chapters: StudyChapters, cloudEval?: MultiCloudEval) => {
-  const status = pov == 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
+  const status = pov === 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
   return h(
     'span.relay-tour__team-match__game__status',
-    status && status != '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
+    status && status !== '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
   );
 };
 

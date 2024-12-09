@@ -2,20 +2,21 @@ package lila.fide
 
 import akka.stream.contrib.ZipInputStreamSource
 import akka.stream.scaladsl.*
-import akka.util.ByteString
 import chess.{ FideId, PlayerName, PlayerTitle }
+import chess.rating.{ Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
-
 import java.util.zip.ZipInputStream
 
+import lila.core.fide.{ Federation, FideTC }
 import lila.db.dsl.{ *, given }
-import lila.core.fide.{ FideTC, Federation }
 
 final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     Executor,
     akka.stream.Materializer
 ):
+
+  private val listUrl = "http://ratings.fide.com/download/players_list.zip"
 
   import FidePlayer.*
 
@@ -98,31 +99,32 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     yield ()
 
   private object playersFromHttpFile:
-    def apply(): Funit =
-      ws.url("http://ratings.fide.com/download/players_list.zip")
-        .stream()
-        .flatMap:
-          case res if res.status == 200 =>
-            val startAt = nowInstant
-            ZipInputStreamSource: () =>
-              ZipInputStream(res.bodyAsSource.runWith(StreamConverters.asInputStream()))
-            .map(_._2)
-              .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
-              .map(_.utf8String)
-              .drop(1) // first line is a header
-              .map(parseLine)
-              .mapConcat(_.toList)
-              .grouped(100)
-              .mapAsync(1)(upsert)
-              .runWith(lila.common.LilaStream.sinkCount)
-              .monSuccess(_.fideSync.time)
-              .flatMap: nb =>
-                lila.mon.fideSync.players.update(nb)
-                setDeletedFlags(startAt).map: deleted =>
-                  lila.mon.fideSync.deleted.update(deleted)
-                  logger.info(s"RelayFidePlayerApi.update upserted: $nb, deleted: $nb")
-
-          case res => fufail(s"RelayFidePlayerApi.pull ${res.status} ${res.statusText}")
+    def apply(): Funit = for
+      httpStream <- ws.url(listUrl).stream()
+      _ <-
+        if httpStream.status != 200 then
+          fufail(s"RelayFidePlayerApi.pull ${httpStream.status} ${httpStream.statusText}")
+        else
+          for
+            nbUpdated <-
+              ZipInputStreamSource: () =>
+                ZipInputStream(httpStream.bodyAsSource.runWith(StreamConverters.asInputStream()))
+              .map(_._2)
+                .via(Framing.delimiter(akka.util.ByteString("\r\n"), maximumFrameLength = 200))
+                .map(_.utf8String)
+                .drop(1) // first line is a header
+                .map(parseLine)
+                .mapConcat(_.toList)
+                .grouped(100) // only read 100 docs from mongodb sec
+                .mapAsync(1)(saveIfChanged)
+                .runWith(lila.common.LilaStream.sinkSum)
+                .monSuccess(_.fideSync.time)
+            nbAll <- repo.player.countAll
+          yield
+            lila.mon.fideSync.updated.update(nbUpdated)
+            lila.mon.fideSync.players.update(nbAll)
+            logger.info(s"RelayFidePlayerApi.update upserted: $nbUpdated, total: $nbAll")
+    yield ()
 
     /*
   6502938        Acevedo Mendez, Lisseth                                      ISL F   WIM  WIM                     1795  0   20 1767  14  20 1740  0   20 1993  w
@@ -131,46 +133,50 @@ final private class FidePlayerSync(repo: FideRepo, ws: StandaloneWSClient)(using
     private def parseLine(line: String): Option[FidePlayer] =
       def string(start: Int, end: Int) = line.substring(start, end).trim.some.filter(_.nonEmpty)
       def number(start: Int, end: Int) = string(start, end).flatMap(_.toIntOption)
-      def rating(start: Int, end: Int) = number(start, end).filter(_ >= 1400)
+      def rating(start: Int)           = Elo.from(number(start, start + 4).filter(_ >= 1400))
+      def kFactor(start: Int)          = KFactor.from(number(start, start + 2).filter(_ > 0))
       for
         id    <- number(0, 15)
         name1 <- string(15, 76)
-        name = name1.filterNot(_.isDigit).trim
+        name = name1.trim
         if name.sizeIs > 2
         title  = string(84, 89).flatMap(PlayerTitle.get)
         wTitle = string(89, 105).flatMap(PlayerTitle.get)
         year   = number(152, 156).filter(_ > 1000)
         flags  = string(158, 160)
+        token  = FidePlayer.tokenize(name)
+        if token.sizeIs > 2
       yield FidePlayer(
         id = FideId(id),
         name = PlayerName(name),
-        token = FidePlayer.tokenize(name),
-        fed = Federation.Id.from(string(76, 79)),
+        token = token,
+        fed = Federation.Id.from(string(76, 79).filter(_ != "NON")),
         title = PlayerTitle.mostValuable(title, wTitle),
-        standard = rating(113, 117),
-        rapid = rating(126, 132),
-        blitz = rating(139, 145),
+        standard = rating(113),
+        standardK = kFactor(123),
+        rapid = rating(126),
+        rapidK = kFactor(136),
+        blitz = rating(139),
+        blitzK = kFactor(149),
         year = year,
-        inactive = flags.isDefined.some,
-        fetchedAt = nowInstant
+        inactive = flags.exists(_.contains("i"))
       )
 
-    private def upsert(ps: Seq[FidePlayer]) =
-      val update = repo.playerColl.update(ordered = false)
-      for
-        elements <- ps.toList.sequentially: p =>
-          update.element(
-            q = $id(p.id),
-            u = repo.player.handler.writeOpt(p).get,
-            upsert = true
-          )
-        _ <- elements.nonEmpty.so(update.many(elements).void)
-      yield ()
-
-    private def setDeletedFlags(date: Instant): Fu[Int] = for
-      nbDeleted <- repo.playerColl.update
-        .one($doc("deleted".$ne(true), "fetchedAt".$lt(date)), $set("deleted" -> true), multi = true)
-        .map(_.n)
-      _ <- repo.playerColl.update
-        .one($doc("deleted" -> true, "fetchedAt".$gte(date)), $unset("deleted"), multi = true)
-    yield nbDeleted
+    private def saveIfChanged(players: Seq[FidePlayer]): Future[Int] =
+      repo.player
+        .fetch(players.map(_.id))
+        .flatMap: inDb =>
+          val inDbMap: Map[FideId, FidePlayer] = inDb.mapBy(_.id)
+          val changed = players.filter: p =>
+            inDbMap.get(p.id).fold(true)(i => !i.isSame(p))
+          changed.nonEmpty.so:
+            val update = repo.playerColl.update(ordered = false)
+            for
+              elements <- changed.toList.sequentially: p =>
+                update.element(
+                  q = $id(p.id),
+                  u = repo.player.handler.writeOpt(p).get,
+                  upsert = true
+                )
+              _ <- elements.nonEmpty.so(update.many(elements).void)
+            yield elements.size

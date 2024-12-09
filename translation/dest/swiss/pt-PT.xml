@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Suíço</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Suíço</string>
   <string name="swissTournaments">Torneios em sistema suíço</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Ver a ronda</item>
@@ -27,7 +27,7 @@
     <item quantity="one">%s minuto entre rondas</item>
     <item quantity="other">%s minutos entre rondas</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Começando em</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Começando em</string>
   <string name="nextRound">Próxima ronda</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Partida em curso</item>
@@ -78,7 +78,7 @@ Além disso, é atribuído um único bye de meio ponto quando um jogador entra a
   <string name="whatIfOneDoesntPlayA">O seu relógio vai contar, serão sinalizados e perderão o jogo.
 Então o sistema irá retirar o jogador do torneio, para não perder mais jogos. Podem entrar novamente no torneio a qualquer momento.</string>
   <string name="protectionAgainstNoShowQ">O que é feito em relação aos que não comparecem?</string>
-  <string name="protectionAgainstNoShowA">Jogadores que se inscreveram para eventos suíços, mas não jogam os seus jogos podem se tornar problemáticos.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Jogadores que se inscreveram para eventos suíços, mas não jogam os seus jogos podem se tornar problemáticos.
 Para amenizar este problema, o Lichess impede os jogadores que não participaram de uma partida de participar de um novo evento suíço por um determinado período.
 O criador de um evento suíço pode permitir que eles participem de qualquer maneira.</string>
   <string name="lateJoinQ">Os jogadores podem juntar-se tardiamente?</string>

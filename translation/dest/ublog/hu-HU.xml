@@ -24,7 +24,7 @@
   <string name="xPublishedY">%1$s közzétette a %2$s nevű bejegyzést</string>
   <string name="thisPostIsPublished">Ez a bejegyzés nyilvános</string>
   <string name="thisIsADraft">Ez egy vázlat</string>
-  <string name="moreBlogPostsBy">Még több bejegyzés tőle: %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Még több bejegyzés tőle: %s</string>
   <string name="noPostsInThisBlogYet">Ebben a blogban még nincsenek bejegyzések.</string>
   <string name="noDrafts">Nincsenek piszkozatok.</string>
   <string name="latestBlogPosts">Legutóbbi blogbejegyzések</string>
@@ -36,7 +36,6 @@
   <string name="imageAlt">Szöveget helyettesítő kép - látássérüléssel élők számára</string>
   <string name="imageCredit">Kép jogtulajdonosa</string>
   <string name="deleteBlog">Bejegyzés végleges törlése</string>
-  <string name="deleteImage">Kép törlése</string>
   <string name="safeToUseImages">Az alábbi oldalakról származó képek használata biztonságos: </string>
   <string name="selectPostTopics">Válaszd ki a bejegyzésedhez illő témaköröket</string>
   <string name="useImagesYouMadeYourself">Saját magad által készített képeidet is használhatod, például Lichess képernyőképek... bármit, ami nem áll szerzői jog alatt.</string>

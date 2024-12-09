@@ -1,6 +1,13 @@
 .study__members {
   @extend %study-list;
 
+  button {
+    @extend %button-none;
+
+    width: 100%;
+    text-align: start;
+  }
+
   .left {
     @extend %flex-center-nowrap;
 

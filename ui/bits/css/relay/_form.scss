@@ -29,18 +29,33 @@
   }
 }
 
-#form3-grouping,
-#form3-players,
-#form3-teams {
-  font-family: monospace;
-}
-
-.flash-box {
+.relay-form__lcc-deprecated {
   border: 5px solid $m-brag_bg--mix-70;
 
   &::before {
     color: $c-brag;
     content: $licon-InfoCircle;
+    font-size: 4em;
+  }
+}
+
+.relay-form__contact-us.flash-box {
+  border: 5px solid $m-secondary_bg--mix-70;
+
+  &::before {
+    color: $c-secondary;
+    content: $licon-UploadCloud;
+    font-size: 4em;
+  }
+}
+
+.flash-round-push {
+  border: 5px solid $c-good;
+  background: $c-bg-box;
+
+  &::before {
+    color: $c-good;
+    content: $licon-Checkmark;
     font-size: 4em;
   }
 }
@@ -51,18 +66,7 @@
 }
 
 .relay-image-edit {
-  @extend %image-preview-and-upload, %box-neat;
-  margin-bottom: 2em;
-}
-
-.relay-pinned-streamer-edit {
-  @extend %image-preview-and-upload, %box-neat;
-  > div {
-    flex-basis: 300px;
-  }
-  span {
-    @extend %flex-between;
-  }
+  @extend %image-preview-and-upload;
 }
 
 @include mq-subnav-side {
@@ -87,6 +91,9 @@
     .subnav__subitem2 {
       margin-left: 2em;
       letter-spacing: 0px;
+    }
+    .button {
+      margin-inline-end: 1em;
     }
   }
 }

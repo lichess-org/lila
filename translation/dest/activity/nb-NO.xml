@@ -34,6 +34,10 @@
     <item quantity="one">Har spilt ferdig %s fjernsjakkparti</item>
     <item quantity="other">Har spilt ferdig %s fjernsjakkpartier</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Har spilt ferdig %1$s fjernsjakkparti i %2$s</item>
+    <item quantity="other">Har spilt ferdig %1$s fjernsjakkpartier i %2$s</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Følger %s spiller</item>
     <item quantity="other">Følger %s spillere</item>
@@ -54,7 +58,7 @@
     <item quantity="one">Har laget %s ny studie</item>
     <item quantity="other">Har laget %s nye studier</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Har deltatt i %s arenaturnering</item>
     <item quantity="other">Har deltatt i %s arenaturneringer</item>
   </plurals>

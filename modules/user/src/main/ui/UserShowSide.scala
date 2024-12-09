@@ -1,10 +1,12 @@
 package lila.user
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.perf.PuzPerf
 import lila.rating.UserWithPerfs.hasVariantRating
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
+import scalalib.model.Days
 
 final class UserShowSide(helpers: Helpers):
   import helpers.{ *, given }
@@ -28,7 +30,7 @@ final class UserShowSide(helpers: Helpers):
           "active" -> active.contains(pk)
         ),
         href := ctx.pref.showRatings.so:
-          if isPuzzle then routes.Puzzle.dashboard(30, "home", u.username.some).url
+          if isPuzzle then routes.Puzzle.dashboard(Days(30), "home", u.username.some).url
           else routes.User.perfStat(u.username, pk).url
         ,
         span(

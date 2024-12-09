@@ -1,11 +1,11 @@
 package lila.evalCache
 
 import chess.format.{ BinaryFen, Fen }
-import chess.{ FullMoveNumber, HalfMoveClock, Situation }
-import chess.variant.{ Chess960, FromPosition, Standard, Variant }
+import chess.Situation
+import chess.variant.Variant
 
-import lila.tree.CloudEval
 import lila.core.chess.MultiPv
+import lila.tree.CloudEval
 
 case class EvalCacheEntry(
     nbMoves: Int, // multipv cannot be greater than number of legal moves
@@ -23,5 +23,7 @@ case class EvalCacheEntry(
 
 opaque type Id = BinaryFen
 object Id extends TotalWrapper[Id, BinaryFen]:
+  def apply(sit: Situation): Id = Id(BinaryFen.writeNormalized(sit))
+
   def from(variant: Variant, fen: Fen.Full): Option[Id] =
-    Fen.read(variant, fen).map(sit => Id(BinaryFen.writeNormalized(sit)))
+    Fen.read(variant, fen).map(Id.apply)

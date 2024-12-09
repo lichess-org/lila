@@ -1,5 +1,5 @@
-import AnalyseCtrl from '../../ctrl';
-import { path as treePath, ops as treeOps } from 'tree';
+import type AnalyseCtrl from '../../ctrl';
+import { path as treePath } from 'tree';
 import { makeShapesFromUci } from '../../autoShape';
 
 export type Feedback = 'play' | 'good' | 'bad' | 'end';
@@ -18,16 +18,8 @@ export default class GamebookPlayCtrl {
   constructor(
     readonly root: AnalyseCtrl,
     readonly chapterId: string,
-    readonly trans: Trans,
     readonly redraw: () => void,
   ) {
-    // ensure all original nodes have a gamebook entry,
-    // so we can differentiate original nodes from user-made ones
-    treeOps.updateAll(root.tree.root, n => {
-      n.gamebook = n.gamebook || {};
-      if (n.shapes) n.gamebook.shapes = n.shapes.slice(0);
-    });
-
     this.makeState();
   }
 
@@ -54,7 +46,7 @@ export default class GamebookPlayCtrl {
     } else {
       state.feedback = 'bad';
       if (!state.comment) {
-        state.comment = parNode.children[0].gamebook!.deviation;
+        state.comment = parNode.children[0].gamebook?.deviation;
       }
     }
     this.state = state as State;

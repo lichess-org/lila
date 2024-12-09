@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessStreamers">שדרני ליצ׳ס</string>
-  <string name="lichessStreamer">שדרן ליצ׳ס</string>
+  <string name="lichessStreamers">שדרני Lichess</string>
+  <string name="lichessStreamer">שדרן Lichess</string>
   <string name="live">בשידור חי!</string>
   <string name="offline">מנותק</string>
   <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">משדרים כרגע: %s</string>
   <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">משדר אחרון %s</string>
-  <string name="becomeStreamer">הפכו לשדרני ליצ׳ס</string>
+  <string name="becomeStreamer">הפכו לשדרני Lichess</string>
   <string name="doYouHaveStream">יש לך ערוץ יוטיוב או טוויץ\'?</string>
   <string name="hereWeGo">יוצאים לדרך!</string>
   <string name="allStreamers">כל השדרנים</string>
@@ -15,26 +15,26 @@
   <string name="downloadKit">הורדת ערכת משדר</string>
   <string name="xIsStreaming">%s משדר/ת</string>
   <string name="rules">חוקי שידור</string>
-  <string name="rule1">יש לכלול את מילת המפתח \"lichess.org\" בכותרת המשדר שלכם ולהשתמש בקטגוריית \"Chess\", כשאתם משדרים בליצ׳ס.</string>
-  <string name="rule2">יש להסיר את מילת המפתח כשאתם משדרים תוכן שאינו קשור לליצ׳ס.</string>
-  <string name="rule3">ליצ׳ס יזהה את המשדר שלכם בצורה אוטומטית ויפעיל את ההטבות הבאות:</string>
+  <string name="rule1">יש לכלול את מילת המפתח \"lichess.org\" בכותרת המשדר שלכם ולהשתמש בקטגוריית \"Chess\", כשאתם משדרים ב־Lichess.</string>
+  <string name="rule2">יש להסיר את מילת המפתח כשאתם משדרים תוכן שאינו קשור ל־Lichess.</string>
+  <string name="rule3">Lichess יזהה את המשדר שלכם בצורה אוטומטית ויפעיל את ההטבות הבאות:</string>
   <string name="rule4" comment="the resulting message is: Read our streaming Fairplay FAQ to ensure a fair play for everyone in your stream">קראו את %s כדי לאפשר משחק הוגן לכולם בזמן המשדר שלכם.</string>
   <string name="streamingFairplayFAQ">המדריך שלנו לשידור הוגן</string>
   <string name="perks">הטבות שידור עם מילת המפתח</string>
-  <string name="perk1">תקבלו אייקון משדר בוער בפרופיל הליצ׳ס שלכם.</string>
+  <string name="perk1">תקבלו אייקון משדר בוער בפרופיל ה־Lichessשלכם.</string>
   <string name="perk2">תועלו למעלה ברשימת המשדרים.</string>
-  <string name="perk3">העוקבים שלכם בליצ׳ס יקבלו הודעה.</string>
+  <string name="perk3">העוקבים שלכם ב־Lichessיקבלו הודעה.</string>
   <string name="perk4">תוכלו להציג את השידור שלכם במשחקים, טורנירים ובלוחות הלמידה שלכם.</string>
   <string name="approved">המשדר שלכם אושר.</string>
   <string name="pendingReview">המשדר שלכם עובר בדיקת מנהלים.</string>
   <string name="pleaseFillIn">אנא מלאו את פרטי המשדר שלכם והעלו תמונה.</string>
-  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להיכנס לרשימת שדרני ליצ׳ס, %s</string>
+  <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להיכנס לרשימת שדרני Lichess, %s</string>
   <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">בקשו בדיקת מנהלים</string>
-  <string name="streamerLanguageSettings">עמוד השדרנים של ליצ׳ס מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
+  <string name="streamerLanguageSettings">עמוד השדרנים של Lichess מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
   <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">שם המשתמש או כתובת הTwitch שלכם</string>
   <string name="optionalOrEmpty">אופציונאלי. אם אין, השאירו את השדה ריק</string>
-  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">המזהה (ID) של ערוץ ה-YouTube שלך</string>
-  <string name="streamerName">השם שלכם כשדרנים בליצ׳ס</string>
+  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">המזהה (ID) של ערוץ ה־YouTube שלך</string>
+  <string name="streamerName">השם שלכם כשדרנים ב־Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">עד תו %s</item>
     <item quantity="two">עד %s תווים</item>

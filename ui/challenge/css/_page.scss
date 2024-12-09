@@ -56,6 +56,7 @@
     .correspondence-waiting {
       font-size: 1.5em;
       margin: 2em auto;
+
       &::before {
         color: $c-good;
       }
@@ -67,8 +68,8 @@
     text-align: center;
   }
 
-  .details {
-    @extend %flex-between, %box-neat;
+  .details-wrapper {
+    @extend %box-neat;
 
     ---font: #{$c-secondary};
     ---bg: #{$m-secondary_bg--mix-10};
@@ -84,35 +85,76 @@
     background: var(---bg);
     border: 1px solid var(---font);
 
-    > div {
-      flex: 0 1 auto;
-      @extend %flex-center, %roboto;
+    .content {
+      @extend %flex-between;
 
-      &::before {
-        color: var(---font);
-        font-size: 6rem;
-        margin-inline-end: 0.2em;
+      > div {
+        flex: 0 1 auto;
+        @extend %flex-center, %roboto;
 
-        @media (max-width: at-most($xx-small)) {
-          display: none;
+        &::before {
+          color: var(---font);
+          font-size: 6rem;
+          margin-inline-end: 0.2em;
+
+          @media (max-width: at-most($xx-small)) {
+            display: none;
+          }
+        }
+
+        div {
+          line-height: 1.4;
+        }
+
+        .clock {
+          font-weight: bold;
         }
       }
 
-      div {
-        line-height: 1.4;
-      }
-
-      .clock {
+      .mode {
+        text-align: end;
         font-weight: bold;
+        font-size: 0.8em;
+        color: var(---font);
       }
     }
 
-    .mode {
-      text-align: end;
-      font-weight: bold;
-      font-size: 0.8em;
-      color: var(---font);
+    .rules {
+      margin-top: 1.5rem;
+      font-size: 1rem;
+
+      > div {
+        @extend %flex-center;
+        gap: 1em;
+        margin-top: 1em;
+
+        .challenge-rule {
+          @extend %flex-center;
+
+          .icon-flair {
+            height: 1.5em;
+            margin: 0.2em 0.8em 0 0;
+          }
+        }
+      }
     }
+  }
+
+  .mobile-instructions {
+    @extend %flex-center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  .mobile-instructions::before {
+    font-family: 'lichess';
+    font-size: 3rem;
+    padding-inline-end: 1rem;
+    content: $licon-ShareAndroid;
+  }
+
+  .mobile-instructions.is-ios::before {
+    content: $licon-ShareIos;
   }
 
   &.challenge--declined .details {

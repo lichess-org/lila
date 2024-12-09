@@ -5,7 +5,9 @@ export interface RelayData {
   group?: RelayGroup;
   isSubscribed?: boolean; // undefined if anon
   videoUrls?: [string, string];
-  pinned?: { userId: string; name: string; image?: string };
+  pinnedStream?: { name: string; youtube?: string; twitch?: string };
+  note?: string;
+  lcc?: boolean;
 }
 
 export interface RelayGroup {
@@ -13,12 +15,13 @@ export interface RelayGroup {
   tours: RelayTourIdName[];
 }
 
+export type TourId = string;
+export type RoundId = string;
+
 export interface RelayTourIdName {
-  id: string;
+  id: TourId;
   name: string;
 }
-
-export type RoundId = string;
 
 export interface RelayRound {
   id: RoundId;
@@ -27,18 +30,32 @@ export interface RelayRound {
   finished?: boolean;
   ongoing?: boolean;
   startsAt?: number;
+  startsAfterPrevious?: boolean;
 }
 
+export interface RelayTourInfo {
+  format?: string;
+  tc?: string;
+  fideTc?: string;
+  location?: string;
+  players?: string;
+  website?: string;
+  standings?: string;
+}
+
+export type RelayTourDates = [number] | [number, number];
+
 export interface RelayTour {
-  id: string;
+  id: TourId;
   name: string;
   slug: string;
-  description: string;
-  official?: boolean;
-  markup?: string;
+  description?: string;
+  info: RelayTourInfo;
   image?: string;
   teamTable?: boolean;
-  leaderboard?: boolean;
+  tier?: number;
+  dates?: RelayTourDates;
+  tc?: 'standard' | 'rapid' | 'blitz';
 }
 
 export interface RelaySync {
@@ -48,6 +65,8 @@ export interface RelaySync {
   ids?: string;
   log: LogEvent[];
   delay?: number;
+  filter?: number;
+  slices?: string;
 }
 
 export interface LogEvent {

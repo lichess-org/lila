@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s hat %2$s veröffentlicht</string>
   <string name="thisPostIsPublished">Dieser Beitrag wurde veröffentlicht</string>
   <string name="thisIsADraft">Dies ist ein Entwurf</string>
-  <string name="moreBlogPostsBy">Weitere Blog-Beiträge von %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Weitere Blog-Beiträge von %s</string>
   <string name="noPostsInThisBlogYet">Noch keine Beiträge in diesem Blog.</string>
   <string name="noDrafts">Keine Entwürfe anzuzeigen.</string>
   <string name="latestBlogPosts">Neueste Blog-Beiträge</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">Alternativer Bildtext</string>
   <string name="imageCredit">Bildherkunft</string>
   <string name="deleteBlog">Lösche diesen Blog-Beitrag unwiderruflich</string>
-  <string name="deleteImage">Lösche dieses Bild</string>
   <string name="safeToUseImages">Es ist sicher Bilder von den folgenden Webseiten zu verwenden: </string>
   <string name="selectPostTopics">Wähle die Themen deines Beitrags aus</string>
   <string name="useImagesYouMadeYourself">Du kannst auch Bilder verwenden, die du selbst erstellt oder geschossen hast, sowie Screenshots von Lichess... Alles, was nicht von jemand anderem urheberrechtlich geschützt ist.</string>

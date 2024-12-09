@@ -1,10 +1,9 @@
 package lila.analyse
 
-import play.api.libs.json.*
 import monocle.syntax.all.*
+import play.api.libs.json.*
 
 import lila.common.Bus
-import lila.core.game.InsertGame
 import lila.core.misc.map.TellIfExists
 import lila.tree.{ Analysis, ExportOptions, Tree }
 
@@ -28,9 +27,7 @@ final class Analyser(
             _ <- gameRepo.setAnalysed(game.id, true)
             _ <- analysisRepo.save(analysis)
             _ <- sendAnalysisProgress(analysis, complete = true)
-          yield
-            Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
-            Bus.publish(InsertGame(game), "gameSearchInsert")
+          yield Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
         }
       case _ =>
         analysisRepo.save(analysis) >>

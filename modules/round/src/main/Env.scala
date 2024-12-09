@@ -8,14 +8,13 @@ import play.api.Configuration
 import scala.util.matching.Regex
 
 import lila.common.autoconfig.{ *, given }
-import lila.core.config.*
 import lila.common.{ Bus, Uptime }
-import lila.game.{ Game, GameRepo, Pov }
+import lila.core.config.*
 import lila.core.round.{ Abort, Resign }
+import lila.core.user.{ FlairGet, FlairGetMap }
+import lila.game.GameRepo
 import lila.memo.SettingStore
 import lila.rating.RatingFactor
-import lila.rating.PerfType
-import lila.core.user.{ FlairGet, FlairGetMap }
 import lila.round.RoundGame.*
 
 @Module
@@ -32,7 +31,6 @@ final class Env(
     gameRepo: GameRepo,
     idGenerator: lila.game.IdGenerator,
     userRepo: lila.user.UserRepo,
-    perfsRepo: lila.user.UserPerfsRepo,
     userApi: lila.user.UserApi,
     chatApi: lila.chat.ChatApi,
     crosstableApi: lila.game.CrosstableApi,
@@ -48,6 +46,7 @@ final class Env(
     socketKit: lila.core.socket.ParallelSocketKit,
     userLagPut: lila.core.socket.userLag.Put,
     lightUserApi: lila.user.LightUserApi,
+    bookmarkExists: lila.core.bookmark.BookmarkExists,
     simulApiCircularDep: => lila.core.simul.SimulApi,
     settingStore: lila.memo.SettingStore.Builder,
     shutdown: akka.actor.CoordinatedShutdown
@@ -60,7 +59,7 @@ final class Env(
     lila.core.config.RateLimit
 ):
 
-  private val (botSync, async, sync) = (lightUserApi.isBotSync, lightUserApi.async, lightUserApi.sync)
+  private val (botSync, async) = (lightUserApi.isBotSync, lightUserApi.async)
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
@@ -98,27 +97,27 @@ final class Env(
       .foreach:
         _.foreach { pov => roundApi.tell(pov.gameId, Resign(pov.playerId)) }
 
-  lazy val ratingFactorsSetting =
+  lazy val ratingFactorsSetting: SettingStore[RatingFactor.ByKey] =
     import play.api.data.Form
     import play.api.data.Forms.{ single, text }
     import lila.memo.SettingStore.{ Formable, StringReader }
-    import lila.rating.{ RatingFactor, RatingFactors }
     import lila.rating.RatingFactor.given
-    given StringReader[RatingFactors] = StringReader.fromIso
-    given Formable[RatingFactors] = Formable(rfs => Form(single("v" -> text)).fill(RatingFactor.write(rfs)))
-    settingStore[lila.rating.RatingFactors](
+    given StringReader[RatingFactor.ByKey] = StringReader.fromIso
+    given Formable[RatingFactor.ByKey] =
+      Formable(rfs => Form(single("v" -> text)).fill(RatingFactor.write(rfs)))
+    settingStore[RatingFactor.ByKey](
       "ratingFactor",
       default = Map.empty,
       text = "Rating gain factor per perf type".some
     )
-  private val getFactors: () => Map[PerfType, RatingFactor] = ratingFactorsSetting.get
+  private val getFactors: () => Map[PerfKey, RatingFactor] = ratingFactorsSetting.get
 
   Bus.subscribeFuns(
     "accountClose" -> { case lila.core.security.CloseAccount(userId) =>
       resignAllGamesOf(userId)
     },
     "gameStartId" -> { case lila.core.game.GameStart(gameId) =>
-      onStart(gameId)
+      onStart.exec(gameId)
     },
     "selfReport" -> { case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
       selfReport(userId, ip, fullId, name)
@@ -133,14 +132,13 @@ final class Env(
       .game(gameId)
       .foreach:
         _.foreach: game =>
-          lightUserApi
-            .preloadMany(game.userIds)
-            .andDo:
-              val sg = lila.core.game.StartGame(game)
-              Bus.publish(sg, "startGame")
-              game.userIds.foreach: userId =>
-                Bus.publish(sg, s"userStartGame:$userId")
-              if game.playableByAi then Bus.publish(game, "fishnetPlay")
+          for _ <- lightUserApi.preloadMany(game.userIds)
+          yield
+            val sg = lila.core.game.StartGame(game)
+            Bus.publish(sg, "startGame")
+            game.userIds.foreach: userId =>
+              Bus.publish(sg, s"userStartGame:$userId")
+            if game.playableByAi then Bus.publish(game, "fishnetPlay")
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
@@ -166,7 +164,7 @@ final class Env(
 
   lazy val recentTvGames = wire[RecentTvGames]
 
-  private lazy val botFarming = wire[BotFarming]
+  private lazy val farmBoostDetection = wire[FarmBoostDetection]
 
   lazy val perfsUpdater: PerfsUpdater = wire[PerfsUpdater]
 

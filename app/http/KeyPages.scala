@@ -1,10 +1,7 @@
 package lila.app
 package http
 
-import play.api.libs.json.Json
 import play.api.mvc.*
-import scalatags.Text.all.Frag
-
 import lila.app.{ *, given }
 import lila.memo.CacheApi.*
 
@@ -12,12 +9,12 @@ final class KeyPages(val env: Env)(using Executor)
     extends lila.web.ResponseWriter
     with RequestContext
     with CtrlPage
+    with lila.web.CtrlErrors
     with ControllerHelpers:
 
   def home(status: Results.Status)(using ctx: Context): Fu[Result] =
-    homeHtml
-      .map: html =>
-        env.security.lilaCookie.ensure(ctx.req)(status(html))
+    homeHtml.map: html =>
+      env.security.lilaCookie.ensure(ctx.req)(status(html))
 
   def homeHtml(using ctx: Context): Fu[lila.ui.RenderedPage] =
     env
@@ -42,9 +39,10 @@ final class KeyPages(val env: Env)(using Executor)
   def notFound(msg: Option[String])(using Context): Fu[Result] =
     NotFound.page(views.base.notFound(msg))
 
+  def notFoundEmbed(msg: Option[String])(using EmbedContext): Result =
+    NotFound.snip(views.base.notFoundEmbed(msg))
+
   def blacklisted(using ctx: Context): Result =
-    if lila.security.Mobile.Api.requested(ctx.req) then
-      Results.Unauthorized:
-        Json.obj:
-          "error" -> views.site.message.blacklistedMessage
+    if lila.security.Mobile.Api.requested(ctx.req)
+    then Unauthorized(jsonError(views.site.message.blacklistedMessage))
     else Unauthorized(views.site.message.blacklistedSnippet)

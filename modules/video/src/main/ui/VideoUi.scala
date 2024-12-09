@@ -3,9 +3,10 @@ package ui
 
 import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.config.NetDomain
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class VideoUi(helpers: Helpers)(using NetDomain):
   import helpers.{ *, given }

@@ -1,8 +1,10 @@
-import { Ctrl, NotifyData, type Notification } from './interfaces';
-import { h, VNode } from 'snabbdom';
+import type { Ctrl, NotifyData, Notification } from './interfaces';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
+
+const renderers = makeRenderers();
 
 export default function view(ctrl: Ctrl): VNode {
   const d = ctrl.data();
@@ -42,13 +44,12 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
 
   if (!('Notification' in window))
     nodes.push(h('div.browser-notification', 'Browser does not support notification popups'));
-  else if (Notification.permission == 'denied') nodes.push(notificationDenied());
+  else if (Notification.permission === 'denied') nodes.push(notificationDenied());
 
   return nodes;
 }
 
-export function asText(n: Notification, trans: Trans): string | undefined {
-  const renderers = makeRenderers(trans);
+export function asText(n: Notification): string | undefined {
   return renderers[n.type] ? renderers[n.type].text(n) : undefined;
 }
 
@@ -60,8 +61,7 @@ function notificationDenied(): VNode {
   );
 }
 
-function asHtml(n: Notification, trans: Trans): VNode | undefined {
-  const renderers = makeRenderers(trans);
+function asHtml(n: Notification): VNode | undefined {
   return renderers[n.type] ? renderers[n.type].html(n) : undefined;
 }
 
@@ -73,17 +73,16 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = (vnode: VNode) => site.contentLoaded(vnode.elm as HTMLElement);
+const contentLoaded = (vnode: VNode) => window.lichess.initializeDom(vnode.elm as HTMLElement);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
-  const trans = site.trans(d.i18n);
   return h(
     'div',
     {
       class: { notifications: true, scrolling },
       hook: { insert: contentLoaded, postpatch: contentLoaded },
     },
-    d.pager.currentPageResults.map(n => asHtml(n, trans)) as VNode[],
+    d.pager.currentPageResults.map(n => asHtml(n)) as VNode[],
   );
 }
 

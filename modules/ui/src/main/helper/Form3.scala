@@ -1,15 +1,13 @@
 package lila.ui
 
 import play.api.data.*
-import scalalib.Render
-
-import lila.ui.ScalatagsTemplate.{ *, given }
-import lila.core.user.FlairApi
-import lila.core.i18n.{ I18nKey as trans, Translate }
 import scalatags.Text.TypedTag
 
-final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
+import lila.core.i18n.{ I18nKey as trans, Translate }
+import lila.core.user.FlairApi
+import lila.ui.ScalatagsTemplate.{ *, given }
 
+final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: FlairApi):
   import formHelper.{ transKey, given }
 
   private val idPrefix = "form3"
@@ -95,7 +93,8 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
       fieldName: String,
       checked: Boolean,
       disabled: Boolean = false,
-      value: Value = "true"
+      value: Value = "true",
+      title: Option[String] = None
   ) =
     frag(
       st.input(
@@ -107,21 +106,41 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
         checked.option(st.checked),
         disabled.option(st.disabled)
       ),
-      label(`for` := fieldId)
+      label(
+        `for` := fieldId,
+        title.map(st.title := _)
+      )
+    )
+
+  def nativeCheckbox[Value: Show](
+      fieldId: String,
+      fieldName: String,
+      checked: Boolean,
+      value: Value = "true"
+  ) =
+    st.input(
+      st.id    := fieldId,
+      name     := fieldName,
+      st.value := value.show,
+      tpe      := "checkbox",
+      checked.option(st.checked)
     )
 
   def select(
       field: Field,
       options: Iterable[(Any, String)],
       default: Option[String] = None,
-      disabled: Boolean = false
+      disabled: Boolean = false,
+      required: Boolean = false
   ): Frag =
     frag(
       st.select(
         st.id := id(field),
         name  := field.name,
-        cls   := "form-control"
-      )(disabled.option(st.disabled := true))(validationModifiers(field))(
+        cls   := "form-control",
+        disabled.option(st.disabled := true),
+        required.option(st.required)
+      )(validationModifiers(field))(
         default.map { option(value := "")(_) },
         options.toSeq.map { (value, name) =>
           option(
@@ -178,8 +197,14 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
   // allows disabling of a field that defaults to true
   def hiddenFalse(field: Field): Tag = hidden(field, "false".some)
 
-  def passwordModified(field: Field, content: Frag)(modifiers: Modifier*)(using Translate): Frag =
-    group(field, content)(input(_, typ = "password")(required)(modifiers))
+  def passwordModified(field: Field, content: Frag, reveal: Boolean = true)(
+      modifiers: Modifier*
+  )(using Translate): Frag =
+    group(field, content): f =>
+      div(cls := "password-wrapper")(
+        input(f, typ = "password")(required)(modifiers),
+        reveal.option(button(cls := "password-reveal", tpe := "button", dataIcon := Icon.Eye))
+      )
 
   def passwordComplexityMeter(labelContent: Frag): Frag =
     div(cls := "password-complexity")(
@@ -192,53 +217,55 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     form.globalError.map: err =>
       div(cls := "form-group is-invalid")(error(err))
 
-  def fieldset(legend: Frag): Tag =
-    st.fieldset(cls := "form-fieldset")(st.legend(legend))
+  def fieldset(legend: Frag, toggle: Option[Boolean] = none): Tag =
+    st.fieldset(
+      cls := List(
+        "toggle-box"             -> true,
+        "toggle-box--toggle"     -> toggle.isDefined,
+        "toggle-box--toggle-off" -> toggle.has(false)
+      )
+    )(st.legend(toggle.map(_ => tabindex := 0))(legend))
 
   private val dataEnableTime = attr("data-enable-time")
-  private val dataTime24h    = attr("data-time_24h")
-  private val dataMinDate    = attr("data-mindate")
+  private val dataMinDate    = attr("data-min-date")
+  private val dataLocal      = attr("data-local")
 
   def flatpickr(
       field: Field,
       withTime: Boolean = true,
-      utc: Boolean = false,
-      minDate: Option[String] = Some("today"),
-      dateFormat: Option[String] = None
+      local: Boolean = false,
+      minDate: Option[String] = Some("today")
   ): Tag =
-    input(field, klass = s"flatpickr${if utc then " flatpickr-utc" else ""}")(
-      dataEnableTime := withTime,
-      dataTime24h    := withTime,
-      dateFormat.map(df => data("date-format") := df),
+    input(field, klass = s"flatpickr")(
+      withTime.option(dataEnableTime := true),
+      local.option(dataLocal         := true),
       dataMinDate := minDate.map:
-        case "today" if utc => "yesterday"
-        case d              => d
+        case "today" if local => "yesterday"
+        case d                => d
     )
 
   private lazy val exceptEmojis = data("except-emojis") := flairApi.adminFlairs.mkString(" ")
-  def flairPickerGroup(field: Field, current: Option[Flair], label: Frag)(view: Frag)(using Context): Tag =
+  def flairPickerGroup(field: Field, current: Option[Flair])(using Context): Tag =
     group(field, trans.site.flair(), half = true): f =>
-      flairPicker(f, current, label)(view)
+      flairPicker(f, current)
 
-  def flairPicker(field: Field, current: Option[Flair], label: Frag, anyFlair: Boolean = false)(view: Frag)(
-      using ctx: Context
+  def flairPicker(field: Field, current: Option[Flair], anyFlair: Boolean = false)(using
+      ctx: Context
   ): Frag =
     frag(
-      details(cls := "form-control emoji-details")(
-        summary(cls := "button button-metal button-no-upper")(
-          label,
-          ":",
-          nbsp,
-          view
+      div(cls := "form-control emoji-details")(
+        div(cls := "emoji-popup-button")(
+          st.select(st.id := id(field), name := field.name, cls := "form-control")(
+            current.map(f => option(value := f, selected := ""))
+          ),
+          img(src := current.fold("")(formHelper.flairSrc(_)))
         ),
-        hidden(field, current.map(_.value)),
         div(
-          cls := "flair-picker",
+          cls := "flair-picker none",
           (!ctx.me.exists(_.isAdmin) && !anyFlair).option(exceptEmojis)
+        )(
+          button(cls := "button button-metal emoji-remove")("clear")
         )
-      ),
-      current.isDefined.option(p:
-        button(cls := "button button-red button-thin button-empty text emoji-remove")(trans.site.delete())
       )
     )
 
@@ -246,4 +273,4 @@ final class Form3(formHelper: FormHelper & I18nHelper, flairApi: FlairApi):
     def image(name: String): Frag =
       st.input(tpe := "file", st.name := name, accept := "image/png, image/jpeg, image/webp")
     def pgn(name: String): Frag = st.input(tpe := "file", st.name := name, accept := ".pgn")
-    def selectImage             = button(cls := "button select-image")("select image")
+    def selectImage             = button(cls := "button select-image", tpe := "button")("Select image")

@@ -70,6 +70,8 @@
   <string name="promoteVariation">Variant opwäerten</string>
   <string name="makeMainLine">Haaptvariant maachen</string>
   <string name="deleteFromHere">Vun hei läschen</string>
+  <string name="collapseVariations">Varianten zesummeklappen</string>
+  <string name="expandVariations">Varianten opklappen</string>
   <string name="forceVariation">Variant forcéieren</string>
   <string name="copyVariationPgn">PGN-Variant kopéieren</string>
   <string name="move">Zuch</string>
@@ -114,7 +116,6 @@
   <string name="replayMode">Replay-Modus</string>
   <string name="realtimeReplay">Echtzäit</string>
   <string name="byCPL">No CPL</string>
-  <string name="openStudy">Studie opmaachen</string>
   <string name="enable">Aktivéieren</string>
   <string name="bestMoveArrow">Beschten Zuch Feil</string>
   <string name="showVariationArrows">Variantefeiler weisen</string>
@@ -124,7 +125,6 @@
   <string name="memory">Aarbechtsspäicher</string>
   <string name="infiniteAnalysis">Endlos Analys</string>
   <string name="removesTheDepthLimit">Entfernt d\'Déifenbegrenzung an hält däin Computer waarm</string>
-  <string name="engineManager">Engineverwaltung</string>
   <string name="blunder">Gaffe</string>
   <string name="mistake">Feeler</string>
   <string name="inaccuracy">Ongenauegkeet</string>
@@ -178,6 +178,7 @@
   <string name="latestForumPosts">Neisten Forumbäiträg</string>
   <string name="players">Spiller</string>
   <string name="friends">Kolleegen</string>
+  <string name="otherPlayers">aner Spiller</string>
   <string name="discussions">Konversatiounen</string>
   <string name="today">Haut</string>
   <string name="yesterday">Gëschter</string>
@@ -432,7 +433,6 @@
   <string name="block">Blockéieren</string>
   <string name="blocked">Geblockt</string>
   <string name="unblock">Spär ophiewen</string>
-  <string name="followsYou">Followt dir</string>
   <string name="xStartedFollowingY">%1$s followt elo %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s Follower</item>
@@ -464,9 +464,6 @@
   <string name="safeTournamentName">Wiehl en ganz sécheren Numm fir däin Turnéier.</string>
   <string name="inappropriateNameWarning">Alles nemmen liicht Onangemessenes kéint zum Zoumaachen vun dengem Konto féieren.</string>
   <string name="emptyTournamentName">Eidel loossen, wann den Turnéier no engem bekannten Schachspiller soll benannt ginn.</string>
-  <string name="recommendNotTouching">Mir recommandéieren déi net unzepaken.</string>
-  <string name="fewerPlayers">Mat Teilnahmebedingungen wäert däin Turnéier maner Spiller hunn.</string>
-  <string name="showAdvancedSettings">Erweidert Optiounen uweisen</string>
   <string name="makePrivateTournament">Turnéier privat maachen an Accès mat Passwuert beschränken</string>
   <string name="join">Bäitrieden</string>
   <string name="withdraw">Zeréckzéihen</string>
@@ -506,8 +503,7 @@
   <string name="ifNoneLeaveEmpty">Eidel loossen, falls keng</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Profil änneren</string>
-  <string name="firstName">Virnumm</string>
-  <string name="lastName">Numm</string>
+  <string name="realName">Richtegen Numm</string>
   <string name="biography">Biographie</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Land oder Regioun</string>
   <string name="thankYou">Merci!</string>
@@ -535,6 +531,7 @@
   <string name="descPrivateHelp">Text deen just Ekippenmemberen wäerten gesinn. Falls agestallt, ersetzt en fir Memberen d\'ëffentlech Beschreiwung.</string>
   <string name="no">Nee</string>
   <string name="yes">Jo</string>
+  <string name="website">Websäit</string>
   <string name="help">Hëllef:</string>
   <string name="createANewTopic">Neien Thema kreéieren</string>
   <string name="topics">Themen</string>
@@ -551,11 +548,8 @@
   <string name="reason">Grond</string>
   <string name="whatIsIheMatter">Wat ass den Problem?</string>
   <string name="cheat">Bedruch</string>
-  <string name="insult">Beleidegung</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Wäertungsmanipulatioun</string>
   <string name="other">Aner</string>
-  <string name="reportDescriptionHelp">Post den Link vun Partie(n) and erklär wat den Problem mat dësem Benotzer sengem Verhalen ass. So net just \"Hien fuddelt\", mee so eis wéi du zu dëser Konklusioun komm bass. Däin Rapport gëtt méi schnell veraarbecht wann en op Englesch ass.</string>
   <string name="error.provideOneCheatedGameLink">Wannechgelift gëff eis op mannst een Link zu enger Partie mat Bedruch.</string>
   <string name="by">vum %s</string>
   <string name="importedByX">Importéiert vun %s</string>
@@ -588,6 +582,7 @@
   <string name="slow">Lues</string>
   <string name="insideTheBoard">Um Briet</string>
   <string name="outsideTheBoard">Außerhalb vum Briet</string>
+  <string name="allSquaresOfTheBoard">All d\'Felder um Briet</string>
   <string name="onSlowGames">An luesen Partien</string>
   <string name="always">Ëmmer</string>
   <string name="never">Ni</string>
@@ -672,7 +667,7 @@
   <string name="aboutSimulRules">Wann d\'Simul ufänkt, start all Spiller eng Partie mam Host. D\'Simul ass fäerdeg wann all Partien fäerdeg sinn.</string>
   <string name="aboutSimulSettings">Simultanpartië sinn ëmmer ongewäert. Revanchen, Zeréckhuelen an Zäit bäigi sinn net méiglech.</string>
   <string name="create">Kreéieren</string>
-  <string name="whenCreateSimul">Wanns du eng Simul kreéiers. kanns du géint puer Spiller gläichzäiteg spillen.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wanns du eng Simul kreéiers. kanns du géint puer Spiller gläichzäiteg spillen.</string>
   <string name="simulVariantsHint">Wanns du puer Varianten auswiehls, kann all Spiller wiehlen, wéieng hien spillt.</string>
   <string name="simulClockHint">Fischer Bedenkzäit. Je méi Géigner du hues, desto méi Zäit wäers du brauchen.</string>
   <string name="simulAddExtraTime">Du kanns dir extra Zäit ginn fir besser mat der Simul zurechtzekommen.</string>
@@ -688,7 +683,7 @@
   <string name="keyMoveBackwardOrForward">zeréck/no fir beweegen</string>
   <string name="keyGoToStartOrEnd">bei Start/Schluss goen</string>
   <string name="keyShowOrHideComments">Kommentarer weisen/verstoppen</string>
-  <string name="keyEnterOrExitVariation">Variant wiehlen/verloossen</string>
+  <string name="keyEnterOrExitVariation">Variant wielen/verloossen</string>
   <string name="keyRequestComputerAnalysis">Computeranalys ufroen, léier aus denge Feeler</string>
   <string name="keyNextLearnFromYourMistakes">Nächst (Aus dengen Feeler léieren)</string>
   <string name="keyNextBlunder">Nächst Gaffe</string>
@@ -845,7 +840,7 @@
   <string name="middlegame">Mëttelspill</string>
   <string name="endgame">Endspill</string>
   <string name="conditionalPremoves">Bedingt Virauszich</string>
-  <string name="addCurrentVariation">Aktuell Variante bäifügen</string>
+  <string name="addCurrentVariation">Aktuell Variant bäifügen</string>
   <string name="playVariationToCreateConditionalPremoves">Variant spillen fir bedingt Virauszich ze kreéieren</string>
   <string name="noConditionalPremoves">Keng bedingt Virauszich</string>
   <string name="playX">Spill %s</string>
@@ -978,4 +973,5 @@ Looss et eidel, fir Partie aus der normaler Ausgangspositioun ze starten.</strin
   <string name="lichessPatronInfo">Lichess ass eng Wohltätegkeetsorganisatioun an eng komplett kostenfrei/open source Software.
 All Betriebskäschten, Entwécklung an Inhalter ginn ausschließlech vun Benotzerspenden finanzéiert.</string>
   <string name="nothingToSeeHere">Fir de Moment gëtt et hei näischt ze gesinn.</string>
+  <string name="stats">Statistiken</string>
 </resources>

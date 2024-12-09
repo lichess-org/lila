@@ -1,21 +1,22 @@
 package lila.security
 
 import com.softwaremill.tagging.*
-import scalalib.SecureRandom
 import play.api.data.*
 import play.api.data.Forms.*
 import play.api.data.validation.{ Constraint, Invalid, Valid as FormValid, ValidationError }
-import play.api.mvc.{ Session, RequestHeader }
+import play.api.mvc.{ RequestHeader, Session }
 import reactivemongo.api.bson.*
+import scalalib.SecureRandom
 
 import lila.common.Form.into
 import lila.common.HTTPRequest
+import lila.core.email.UserStrOrEmail
 import lila.core.net.{ ApiVersion, IpAddress }
+import lila.core.security.{ ClearPassword, FingerHash, Ip2ProxyApi, IsProxy }
 import lila.db.dsl.{ *, given }
 import lila.oauth.{ AccessToken, OAuthScope, OAuthServer }
 import lila.security.LoginCandidate.Result
-import lila.core.email.UserStrOrEmail
-import lila.core.security.{ IsProxy, Ip2ProxyApi, FingerHash, ClearPassword }
+import lila.core.user.RoleDbKey
 
 final class SecurityApi(
     userRepo: lila.user.UserRepo,
@@ -129,17 +130,19 @@ final class SecurityApi(
 
   private type AppealOrUser = Either[AppealUser, FingerPrintedUser]
   def restoreUser(req: RequestHeader): Fu[Option[AppealOrUser]] =
-    firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
-      appeal.authenticate(sessionId) match
-        case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
-        case None =>
-          store.authInfo(sessionId).flatMapz { d =>
-            userRepo.me(d.user).dmap {
-              _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+    if HTTPRequest.isXhrFromEmbed(req) then fuccess(none)
+    else
+      firewall.accepts(req).so(reqSessionId(req)).so { sessionId =>
+        appeal.authenticate(sessionId) match
+          case Some(userId) => userRepo.byId(userId).map2 { u => Left(AppealUser(Me(u))) }
+          case None =>
+            store.authInfo(sessionId).flatMapz { d =>
+              userRepo.me(d.user).dmap {
+                _.map { me => Right(FingerPrintedUser(stripRolesOfCookieUser(me), d.hasFp)) }
+              }
             }
-          }
-      : Fu[Option[AppealOrUser]]
-    }
+        : Fu[Option[AppealOrUser]]
+      }
 
   def oauthScoped(
       req: RequestHeader,
@@ -159,7 +162,7 @@ final class SecurityApi(
         val mobile = Mobile.LichessMobileUa.parse(req)
         store.upsertOAuth(access.me.userId, access.tokenId, mobile, req)
 
-  private lazy val nonModRoles: Set[String] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
+  private lazy val nonModRoles: Set[RoleDbKey] = lila.core.perm.Permission.nonModPermissions.map(_.dbKey)
 
   private def stripRolesOfOAuthUser(scoped: OAuthScope.Scoped) =
     if scoped.scopes.has(_.Web.Mod) then scoped
@@ -193,7 +196,7 @@ final class SecurityApi(
     req.attrs.get[Cell[Session]](RequestAttrKey.Session) match
       case Some(session) => session.value.get(sessionIdKey).orElse(req.headers.get(sessionIdKey))
       case None =>
-        logger.warn(s"No session in request attrs: ${lila.common.HTTPRequest.print(req)}")
+        logger.warn(s"No session in request attrs: ${HTTPRequest.print(req)}")
         none
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)

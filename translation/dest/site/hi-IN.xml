@@ -114,7 +114,6 @@
   <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">रियल टाइम</string>
   <string name="byCPL">CPL द्वारा</string>
-  <string name="openStudy">अध्ययन खोलो</string>
   <string name="enable">सक्षम करें</string>
   <string name="bestMoveArrow">सर्वश्रेष्ठ चाल तीर</string>
   <string name="showVariationArrows">विविधता वाले तीर दिखाएँ</string>
@@ -124,7 +123,6 @@
   <string name="memory">स्मृति (मेमोरी)</string>
   <string name="infiniteAnalysis">अनंत विश्लेषण</string>
   <string name="removesTheDepthLimit">गहराई सीमा को निकालता है, और आपके कंप्यूटर को गर्म रखता है</string>
-  <string name="engineManager">इंजन प्रबंधक</string>
   <string name="blunder">भयंकर गलती</string>
   <string name="mistake">ग़लती</string>
   <string name="inaccuracy">गलती</string>
@@ -431,7 +429,6 @@
   <string name="block">अवस्र्द्ध (ब्लॉक) करें</string>
   <string name="blocked">अवस्र्द्ध (ब्लॉक) कर दिया गया</string>
   <string name="unblock">अवस्र्द्ध (ब्लॉक) न करें</string>
-  <string name="followsYou">आपका अनुसरण कर रहे हैं</string>
   <string name="xStartedFollowingY">%1$s ने  %2$s का अनुसरण करना शुरू किया</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s अनुसरणकर्ता</item>
@@ -463,9 +460,6 @@
   <string name="safeTournamentName">टूर्नामेंट के लिए उचित नाम चुनिए ।</string>
   <string name="inappropriateNameWarning">थोड़ा सा भी अनुचित नाम चुनने से आपका ख़ाता बंद हो सकता है।</string>
   <string name="emptyTournamentName">खाली रखने पर बेतरतीब ढंग से कोई एक सर्वश्रेष्ठ शतरंज के खिलाड़ी के बाद टूर्नामेंट का नाम चुना जाएगा।</string>
-  <string name="recommendNotTouching">हम इन चिज़ों को छूने की सलाह नहीं देते ।</string>
-  <string name="fewerPlayers">यदि अत्यधिक एवं अनुचित शर्ते रखे तो आपके टूर्नामेंट में कम खिलाड़ियों होंगे।</string>
-  <string name="showAdvancedSettings">एडवांस्ड सेटिंग्स दिखाएं</string>
   <string name="makePrivateTournament">प्रतियोगिता को निजी बनाएं, और पासवर्ड के साथ पहुंच को प्रतिबंधित करें</string>
   <string name="join">हिस्सा लें</string>
   <string name="withdraw">छोड़ के जाएं</string>
@@ -504,8 +498,6 @@
   <string name="ifNoneLeaveEmpty">यदि कोई नहीं, खाली छोड़ दो</string>
   <string name="profile">प्रोफ़ाइल</string>
   <string name="editProfile">प्रोफ़ाइल संपादित करें</string>
-  <string name="firstName">प्रथम नाम</string>
-  <string name="lastName">अंतिम नाम</string>
   <string name="youCanHideFlair">संपूर्ण साइट पर सभी उपयोगकर्ता विशेषताओं को छिपाने के लिए एक सेटिंग है</string>
   <string name="biography">जीवनी</string>
   <string name="thankYou">धन्यवाद!</string>
@@ -549,11 +541,8 @@
   <string name="reason">कारण</string>
   <string name="whatIsIheMatter">बात क्या है?</string>
   <string name="cheat">धोखेबाज़ी</string>
-  <string name="insult">अपमान</string>
   <string name="troll">ट्रोल</string>
-  <string name="ratingManipulation">जब एक उपयोगकर्ता (lichess. org/report) की रिपोर्टिंग करते हैं, तो \"कारण\" ड्रॉपडाउन के संभावित चयनों में से एक। यह रिपोर्टिंग खिलाड़ियों के लिए है जो उनकी रेटिंग में हेरफेर करते हैं, या तो इसे बढ़ाते हैं या नकली खातों के साथ कृत्रिम रूप से घटाते हैं</string>
   <string name="other">दूसरा</string>
-  <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
   <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
   <string name="by">%s द्वारा</string>
   <string name="importedByX">%s द्वारा आयातित</string>
@@ -672,7 +661,7 @@
   <string name="aboutSimulRules">जब सिमुल आरम्भ होता है तब हर खिलाडी एक खेल आरम्भ करता है  जिसे सफ़ेद खेलने को दिया जाता है। सिमुल तब समाप्त हो जाता है जब सारे खेलों का अंत हो जाता है।</string>
   <string name="aboutSimulSettings">सिमुल हमेशा आकाशमिक होते हैं। फिर से खेलना, चाल वापस लेना और अधिक समय प्रदान करने के विकलब बंद होते हैं।</string>
   <string name="create">बनाएं</string>
-  <string name="whenCreateSimul">जब आप सिमुल बनाते हैं तो आपको कई खिलाडियों के साथ एक साथ खेलने का मौका मिलता है</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">जब आप सिमुल बनाते हैं तो आपको कई खिलाडियों के साथ एक साथ खेलने का मौका मिलता है</string>
   <string name="simulVariantsHint">अगर आप कई सारे रूपांतर लेते हैं तो हर खिलाडी को यह चुनने का हक़ होती है की वो क्या खेले</string>
   <string name="simulClockHint">फिशर क्लॉक सेटअप। आप जितने ज्यादा खिलाडी लेंगे, उतना आपको अधिक समय की आव्यशकता होगी।</string>
   <string name="simulAddExtraTime">सिमुल का सामना करने के लिए आप अपनी घडी में अतिरिक्त समय जोड़ सकते हैं</string>
@@ -956,4 +945,5 @@
   <string name="ourEventTips">कार्यक्रम आयोजित करने कि सलाह</string>
   <string name="lichessPatronInfo">Lichess एक चैरिटी और पूरी तरह से फ्री/लिबर ओपन सोर्स सॉफ्टवेयर है।
 सभी परिचालन लागत, विकास और सामग्री पूरी तरह से उपयोगकर्ता दान द्वारा वित्त पोषित हैं।</string>
+  <string name="nothingToSeeHere">इस समय यहां देखने को कुछ भी नहीं है।</string>
 </resources>

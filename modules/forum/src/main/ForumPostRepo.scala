@@ -2,11 +2,9 @@ package lila.forum
 
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 
-import lila.db.dsl.{ *, given }
-
-import lila.forum.Filter.*
 import lila.core.forum.ForumPostMini
-import reactivemongo.api.CursorOps
+import lila.db.dsl.{ *, given }
+import lila.forum.Filter.*
 
 final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor):
 
@@ -101,8 +99,6 @@ final class ForumPostRepo(val coll: Coll, filter: Filter = Safe)(using Executor)
         "text"   -> post.text
       )
     )
-
-  def sortQuery = $sort.createdAsc
 
   def idsByTopicId(topicId: ForumTopicId): Fu[List[ForumPostId]] =
     coll.distinctEasy[ForumPostId, List]("_id", $doc("topicId" -> topicId), _.sec)

@@ -1,10 +1,11 @@
-import { h, Hooks, VNode } from 'snabbdom';
+import { h, type Hooks, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { dataIcon } from 'common/snabbdom';
-import SwissCtrl from '../ctrl';
+import type SwissCtrl from '../ctrl';
+import { setClockWidget } from 'common/clock';
 
 const startClock = (time: number): Hooks => ({
-  insert: (vnode: VNode) => site.clockWidget(vnode.elm as HTMLElement, { time }),
+  insert: (vnode: VNode) => setClockWidget(vnode.elm as HTMLElement, { time }),
 });
 
 const oneDayInSeconds = 60 * 60 * 24;
@@ -24,19 +25,14 @@ function clock(ctrl: SwissCtrl): VNode | undefined {
       }),
     ]);
   return h(`div.clock.clock-created.time-cache-${next.at}`, [
-    h(
-      'span.shy',
-      ctrl.data.status == 'created' ? ctrl.trans.noarg('startingIn') : ctrl.trans.noarg('nextRound'),
-    ),
+    h('span.shy', ctrl.data.status === 'created' ? i18n.swiss.startingIn : i18n.swiss.nextRound),
     h('span.time.text', { hook: startClock(next.in + 1) }),
   ]);
 }
 
 function ongoing(ctrl: SwissCtrl): VNode | undefined {
   const nb = ctrl.data.nbOngoing;
-  return nb
-    ? h('div.ongoing', [h('span.nb', [nb]), h('span.shy', ctrl.trans.pluralSame('ongoingGames', nb))])
-    : undefined;
+  return nb ? h('div.ongoing', [h('span.nb', [nb]), h('span.shy', i18n.swiss.ongoingGames(nb))]) : undefined;
 }
 
 export default function (ctrl: SwissCtrl): VNode {
@@ -52,6 +48,6 @@ export default function (ctrl: SwissCtrl): VNode {
           ]
         : [ctrl.data.name],
     ),
-    ctrl.data.status == 'finished' ? undefined : clock(ctrl) || ongoing(ctrl),
+    ctrl.data.status === 'finished' ? undefined : clock(ctrl) || ongoing(ctrl),
   ]);
 }

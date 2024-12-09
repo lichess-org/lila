@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s ha publicat %2$s</string>
   <string name="thisPostIsPublished">Aquesta entrada està publicada</string>
   <string name="thisIsADraft">Això és un esborrany</string>
-  <string name="moreBlogPostsBy">Més publicacions de %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Més publicacions de %s</string>
   <string name="noPostsInThisBlogYet">Encara no hi ha publicacions en aquest blog.</string>
   <string name="noDrafts">Cap esborrany a mostrar.</string>
   <string name="latestBlogPosts">Últimes publicacions al blog</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">Text alternatiu de la imatge</string>
   <string name="imageCredit">Crèdits de la imatge</string>
   <string name="deleteBlog">Elimina aquesta entrada del blog definitivament</string>
-  <string name="deleteImage">Elimina la imatge</string>
   <string name="safeToUseImages">Es segur utilitzar imatges dels següents llocs web: </string>
   <string name="selectPostTopics">Seleccioneu els temes dels quals tracta la vostra entrada</string>
   <string name="useImagesYouMadeYourself">També podeu utilitzar imatges que heu fet vosaltres mateixos, fotos que heu fet, captures del lichess... Qualsevol cosa que no té drets de còpia d\'algú altre.</string>

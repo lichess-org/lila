@@ -1,12 +1,11 @@
 import { defined, prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
-import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { StudySocketSend } from '../socket';
+import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import {
+import type {
   LocalPaths,
   StudyChapter,
   StudyChapterConfig,
@@ -16,14 +15,18 @@ import {
   ChapterPreviewFromServer,
   ChapterId,
   Federations,
-  ChapterPreviewPlayerFromServer,
-  ChapterPreviewPlayer,
+  StudyPlayerFromServer,
+  StudyPlayer,
+  ChapterSelect,
+  StatusStr,
 } from './interfaces';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
-import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
+import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
+import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -38,7 +41,7 @@ export class StudyChapters {
   first = () => this.list()[0];
   looksNew = () => {
     const cs = this.all();
-    return cs.length === 1 && cs[0].name == 'Chapter 1';
+    return cs.length === 1 && cs[0].name === 'Chapter 1';
   };
 }
 
@@ -52,6 +55,7 @@ export default class StudyChaptersCtrl {
   constructor(
     initChapters: ChapterPreviewFromServer[],
     readonly send: StudySocketSend,
+    readonly isBroadcast: boolean,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     private readonly federations: () => Federations | undefined,
@@ -59,8 +63,8 @@ export default class StudyChaptersCtrl {
   ) {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
-    this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
-    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.trans, root.redraw);
+    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, isBroadcast, root.redraw);
   }
 
   sort = (ids: string[]) => this.send('sortChapters', ids);
@@ -72,7 +76,7 @@ export default class StudyChaptersCtrl {
     this.store(
       chapters.map(c => ({
         ...c,
-        fen: c.fen || initialFen,
+        fen: c.fen || INITIAL_FEN,
         players: c.players ? this.convertPlayersFromServer(c.players) : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',
@@ -80,12 +84,9 @@ export default class StudyChaptersCtrl {
         lastMoveAt: defined(c.thinkTime) ? Date.now() - 1000 * c.thinkTime : undefined,
       })),
     );
-  private convertPlayersFromServer = (players: PairOf<ChapterPreviewPlayerFromServer>) => {
+  private convertPlayersFromServer = (players: PairOf<StudyPlayerFromServer>) => {
     const feds = this.federations(),
-      conv: ChapterPreviewPlayer[] = players.map(p => ({
-        ...p,
-        fed: p.fed ? { id: p.fed, name: feds?.[p.fed] || p.fed } : undefined,
-      }));
+      conv: StudyPlayer[] = players.map(p => convertPlayerFromServer(p, feds));
     return { white: conv[0], black: conv[1] };
   };
 
@@ -94,10 +95,11 @@ export default class StudyChaptersCtrl {
       node = d.n;
     const cp = this.list.get(pos.chapterId);
     if (cp) {
-      const onRelayPath = d.relayPath == d.p.path + d.n.id;
+      const onRelayPath = d.relayPath === d.p.path + d.n.id;
       if (onRelayPath || !d.relayPath) {
         cp.fen = node.fen;
         cp.lastMove = node.uci;
+        cp.check = node.san?.includes('#') ? '#' : node.san?.includes('+') ? '+' : undefined;
       }
       if (onRelayPath) {
         cp.lastMoveAt = Date.now();
@@ -106,7 +108,21 @@ export default class StudyChaptersCtrl {
       }
     }
   };
+
+  setTags = (id: ChapterId, tags: TagArray[]) => {
+    const chap = this.list.get(id),
+      result = findTag(tags, 'result');
+    if (chap && result) chap.status = result.replace(/1\/2/g, '½') as StatusStr;
+  };
 }
+
+export const convertPlayerFromServer = <A extends StudyPlayerFromServer>(
+  player: A,
+  federations?: Federations,
+) => ({
+  ...player,
+  fed: player.fed ? { id: player.fed, name: federations?.[player.fed] || player.fed } : undefined,
+});
 
 export function isFinished(c: StudyChapter) {
   const result = findTag(c.tags, 'result');
@@ -122,30 +138,26 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
   !!findTag(tags, 'site')?.match(new RegExp(location.hostname + '/\\w{8}$'));
 
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
-  switch (findTag(tags, 'result')) {
-    case '1-0':
-      return isWhite ? '1' : '0';
-    case '0-1':
-      return isWhite ? '0' : '1';
-    case '1/2-1/2':
-      return '1/2';
-    default:
-      return;
-  }
+  const both = findTag(tags, 'result')?.split('-');
+  const mine = both && both.length === 2 ? both[isWhite ? 0 : 1] : undefined;
+  return mine === '1/2' ? '½' : mine;
 }
 
-export const gameLinkAttrs = (basePath: string, game: { id: ChapterId }) => ({
-  href: `${basePath}/${game.id}`,
+export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({
+  href: `${roundPath}/${game.id}`,
 });
-export const gameLinksListener = (setChapter: (id: ChapterId | number) => boolean) => (vnode: VNode) =>
+export const gameLinksListener = (select: ChapterSelect) => (vnode: VNode) =>
   (vnode.elm as HTMLElement).addEventListener(
     'click',
-    e => {
+    async e => {
       let target = e.target as HTMLLinkElement;
       while (target && target.tagName !== 'A') target = target.parentNode as HTMLLinkElement;
       const href = target?.href;
       const id = target?.dataset['board'] || href?.match(/^[^?#]*/)?.[0].slice(-8);
-      if (id && setChapter(id) && !href?.match(/[?&]embed=/)) e.preventDefault();
+      if (id && select.is(id)) {
+        if (!href?.match(/[?&]embed=/)) e.preventDefault();
+        await select.set(id);
+      }
     },
     { passive: false },
   );
@@ -193,7 +205,7 @@ export function view(ctrl: StudyCtrl): VNode {
           });
           vnode.data!.li = {};
           update(vnode);
-          site.pubsub.emit('chat.resize');
+          pubsub.emit('chat.resize');
         },
         postpatch(old, vnode) {
           vnode.data!.li = old.data!.li;
@@ -211,7 +223,7 @@ export function view(ctrl: StudyCtrl): VNode {
         const editing = ctrl.chapters.editForm.isEditing(chapter.id),
           active = !ctrl.vm.loading && current?.id === chapter.id;
         return h(
-          'div',
+          'button',
           {
             key: chapter.id,
             attrs: { 'data-id': chapter.id },
@@ -228,9 +240,9 @@ export function view(ctrl: StudyCtrl): VNode {
       .concat(
         ctrl.members.canContribute()
           ? [
-              h('div.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
+              h('button.add', { hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw) }, [
                 h('span', iconTag(licon.PlusButton)),
-                h('h3', ctrl.trans.noarg('addNewChapter')),
+                h('h3', i18n.study.addNewChapter),
               ]),
             ]
           : [],

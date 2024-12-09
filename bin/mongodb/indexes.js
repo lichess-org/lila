@@ -202,6 +202,10 @@ db.relay.createIndex({ startsAt: 1 }, { partialFilterExpression: { startsAt: { $
 db.relay.createIndex({ startedAt: 1 }, { partialFilterExpression: { startedAt: { $exists: 1 } } });
 db.relay.createIndex({ 'sync.until': 1 }, { partialFilterExpression: { 'sync.until': { $exists: 1 } } });
 db.relay.createIndex({ tourId: 1 });
+db.relay.createIndex(
+  { 'sync.upstream.roundIds': 1 },
+  { partialFilterExpression: { 'sync.upstream.roundIds': { $exists: 1 } } },
+);
 db.oauth2_access_token.createIndex({ userId: 1 });
 db.oauth2_access_token.createIndex({ expires: 1 }, { expireAfterSeconds: 0 });
 db.cache.createIndex({ e: 1 }, { expireAfterSeconds: 0 });
@@ -309,3 +313,20 @@ db.study_chapter_flat.createIndex(
 );
 db.title_request.createIndex({ userId: 1 });
 db.title_request.createIndex({ 'history.0.status.n': 1, 'history.0.at': 1 });
+
+// you may want to run these on the insight database
+// if it's a different one
+db.insight.createIndex({ mr: 1, p: 1, c: 1 });
+db.insight.createIndex({ mr: 1, a: 1 }, { partialFilterExpression: { mr: { $exists: true } } });
+db.insight.createIndex({ u: 1, d: -1 });
+
+// you may want to run these on the puzzle database
+db.puzzle2_round.createIndex({ p: 1 }, { partialFilterExpression: { t: { $exists: true } } });
+db.puzzle2_round.createIndex({ u: 1, d: -1 }, { partialFilterExpression: { u: { $exists: 1 } } });
+db.puzzle2_puzzle.createIndex({ day: 1 }, { partialFilterExpression: { day: { $exists: true } } });
+db.puzzle2_puzzle.createIndex({ themes: 1, votes: -1 });
+db.puzzle2_puzzle.createIndex({ themes: 1 });
+db.puzzle2_puzzle.createIndex({ users: 1 });
+db.puzzle2_puzzle.createIndex({ opening: 1, votes: -1 }, { partialFilterExpression: { opening: { $exists: 1 } } });
+db.puzzle2_puzzle.createIndex({ tagMe: 1 }, { partialFilterExpression: { tagMe: true } });
+db.puzzle2_path.createIndex({ min: 1, max: -1 });

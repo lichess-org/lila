@@ -36,7 +36,7 @@
   <string name="xPublishedY">%1$s פרסם/ה את הפוסט: \"%2$s\"</string>
   <string name="thisPostIsPublished">הפוסט פורסם</string>
   <string name="thisIsADraft">זוהי טיוטה</string>
-  <string name="moreBlogPostsBy">עוד פוסטים מאת %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">עוד פוסטים מאת %s</string>
   <string name="noPostsInThisBlogYet">אין פוסטים בבלוג זה, לעת עתה...</string>
   <string name="noDrafts">אין טיוטות להצגה.</string>
   <string name="latestBlogPosts">פוסטים אחרונים</string>
@@ -50,13 +50,12 @@
   <string name="imageAlt">תיאור התמונה</string>
   <string name="imageCredit">קרדיטים ליוצרי התמונה</string>
   <string name="deleteBlog">מחק/י את הפוסט הזה לצמיתות</string>
-  <string name="deleteImage">מחיקת התמונה</string>
   <string name="safeToUseImages">מומלץ להשתמש בתמונות מהאתרים הבאים: </string>
   <string name="selectPostTopics">בחר/י את הנושאים שהפוסט שלך עוסק בהם</string>
-  <string name="useImagesYouMadeYourself">תוכל להשתמש בתמונות שצילמת או יצרת, צילומי מסך מתוך ליצ׳ס... כל מה שלא מוגן בזכויות יוצרים ושייך למישהו אחר.</string>
+  <string name="useImagesYouMadeYourself">תוכל להשתמש בתמונות שצילמת או יצרת, צילומי מסך מתוך Lichess... כל מה שלא מוגן בזכויות יוצרים ושייך למישהו אחר.</string>
   <string name="safeAndRespectfulContent">נא לפרסם רק תוכן מכבד ובטוח. אין להעתיק תוכן של מישהו אחר.</string>
   <string name="inappropriateContentAccountClosed">כל דבר לא הולם עלול להוביל לסגירת חשבונך.</string>
   <string name="blogTips">הטיפים שלנו לכתיבת פוסטים מעולים</string>
   <string name="discussThisBlogPostInTheForum">שיחה על הבלוג הזה בפורומים</string>
-  <string name="youBlockedByBlogAuthor">נחסמת על-ידי כותב הבלוג.</string>
+  <string name="youBlockedByBlogAuthor">נחסמת על־ידי כותב הבלוג.</string>
 </resources>

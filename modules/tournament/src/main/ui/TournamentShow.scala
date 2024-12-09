@@ -1,16 +1,15 @@
 package lila.tournament
 package ui
-
-import play.api.data.Form
 import play.api.libs.json.*
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.core.team.LightTeam
-import lila.common.String.html.markdownLinksOrRichText
 import lila.common.Json.given
+import lila.common.String.html.markdownLinksOrRichText
 import lila.core.config.NetDomain
+import lila.core.team.LightTeam
 import lila.gathering.ui.GatheringUi
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: GatheringUi)(
     variantTeamLinks: Map[chess.variant.Variant.LilaKey, (LightTeam, Frag)]
@@ -28,12 +27,14 @@ final class TournamentShow(helpers: Helpers, ui: TournamentUi, gathering: Gather
     val extraCls = tour.schedule.so: sched =>
       s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
     Page(s"${tour.name()} #${tour.id}")
+      .i18n(_.study, _.swiss)
+      .i18nOpt(tour.isTeamBattle, _.team)
+      .i18nOpt(tour.isTeamBattle, _.arena)
       .js(
         PageModule(
           "tournament",
           Json.obj(
             "data"        -> data,
-            "i18n"        -> ui.jsI18n(tour),
             "userId"      -> ctx.userId,
             "chat"        -> chat.map(_._2),
             "showRatings" -> ctx.pref.showRatings

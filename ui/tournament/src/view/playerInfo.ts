@@ -1,13 +1,12 @@
-import { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { bind, dataIcon, looseH as h } from 'common/snabbdom';
+import { type VNode, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { numberRow, player as renderPlayer } from './util';
 import { fullName } from 'common/userLink';
 import { teamName } from './battle';
-import * as status from 'game/status';
-import TournamentController from '../ctrl';
-import { Player } from '../interfaces';
+import { ids } from 'game/status';
+import type TournamentController from '../ctrl';
+import type { Player } from '../interfaces';
 
 function result(win: boolean, stat: number): string {
   switch (win) {
@@ -16,7 +15,7 @@ function result(win: boolean, stat: number): string {
     case false:
       return '0';
     default:
-      return stat >= status.ids.mate ? '½' : '*';
+      return stat >= ids.mate ? '½' : '*';
   }
 }
 
@@ -32,7 +31,6 @@ function setup(vnode: VNode) {
 
 export default function (ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
-  const noarg = ctrl.trans.noarg;
   const tag = 'div.tour__player-info.tour__actor-info';
   if (!data || data.player.id !== ctrl.playerInfo.id)
     return h(tag, [h('div.stats', [playerTitle(ctrl.playerInfo.player!), spinner()])]);
@@ -55,13 +53,13 @@ export default function (ctrl: TournamentController): VNode {
       h('table', [
         ctrl.opts.showRatings &&
           data.player.performance &&
-          numberRow(noarg('performance'), data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
-        numberRow(noarg('gamesPlayed'), nb.game),
+          numberRow(i18n.site.performance, data.player.performance + (nb.game < 3 ? '?' : ''), 'raw'),
+        numberRow(i18n.site.gamesPlayed, nb.game),
         ...(nb.game
           ? [
-              numberRow(noarg('winRate'), [nb.win, nb.game], 'percent'),
-              numberRow(noarg('berserkRate'), [nb.berserk, nb.game], 'percent'),
-              ctrl.opts.showRatings && numberRow(noarg('averageOpponent'), avgOp, 'raw'),
+              numberRow(i18n.site.winRate, [nb.win, nb.game], 'percent'),
+              numberRow(i18n.site.berserkRate, [nb.berserk, nb.game], 'percent'),
+              ctrl.opts.showRatings && numberRow(i18n.site.averageOpponent, avgOp, 'raw'),
             ]
           : []),
       ]),

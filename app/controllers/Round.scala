@@ -5,12 +5,12 @@ import play.api.mvc.*
 
 import lila.app.{ *, given }
 import lila.chat.Chat
-import lila.common.Json.given
 import lila.common.HTTPRequest
-import lila.tournament.Tournament as Tour
+import lila.common.Json.given
 import lila.core.data.Preload
-import lila.core.id.{ GameFullId, GameAnyId }
+import lila.core.id.{ GameAnyId, GameFullId }
 import lila.round.RoundGame.*
+import lila.tournament.Tournament as Tour
 import lila.ui.Snippet
 
 final class Round(
@@ -135,6 +135,9 @@ final class Round(
             .tryRedirect(gameId.into(UserStr))
             .getOrElse(challengeC.showId(gameId.into(lila.challenge.ChallengeId)))
 
+  private def isBlockedByPlayer(game: GameModel)(using Context) =
+    game.isBeingPlayed.so(env.relation.api.isBlockedByAny(game.userIds))
+
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(using
       ctx: Context
   ): Fu[Result] =
@@ -144,53 +147,56 @@ final class Round(
         if userTv.isDefined then watch(!pov, userTv)
         else Redirect(routes.Round.watcher(pov.gameId, Color.white))
       case _ =>
-        negotiateApi(
-          html =
-            if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
-            else if HTTPRequest.isHuman(ctx.req) then
-              for
-                users      <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-                tour       <- env.tournament.api.gameView.watcher(pov.game)
-                simul      <- pov.game.simulId.so(env.simul.repo.find)
-                chat       <- getWatcherChat(pov.game)
-                crosstable <- ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game))
-                bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
-                tv = userTv.map: u =>
-                  lila.round.OnTv.User(u.id)
-                data <- env.api.roundApi.watcher(pov, users, tour, tv)
-                page <- renderPage:
-                  views.round.watcher(
-                    pov,
-                    data,
-                    tour.map(_.tourAndTeamVs),
-                    simul,
-                    crosstable,
-                    userTv = userTv,
-                    chatOption = chat,
-                    bookmarked = bookmarked
-                  )
-              yield Ok(page)
-            else
-              for // web crawlers don't need the full thing
-                initialFen <- env.game.gameRepo.initialFen(pov.gameId)
-                pgn <- env.api
-                  .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
-                page <- renderPage(views.round.crawler(pov, initialFen, pgn))
-              yield Ok(page)
-          ,
-          api = _ =>
-            for
-              users    <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
-              tour     <- env.tournament.api.gameView.watcher(pov.game)
-              data     <- env.api.roundApi.watcher(pov, users, tour, tv = none)
-              analysis <- env.analyse.analyser.get(pov.game)
-              chat     <- getWatcherChat(pov.game)
-              jsChat   <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
-            yield Ok:
-              data
-                .add("chat" -> jsChat)
-                .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
-        ).dmap(_.noCache)
+        isBlockedByPlayer(pov.game).flatMap:
+          if _ then notFound
+          else
+            negotiateApi(
+              html =
+                if pov.game.replayable then analyseC.replay(pov, userTv = userTv)
+                else if HTTPRequest.isHuman(ctx.req) then
+                  for
+                    users      <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                    tour       <- env.tournament.api.gameView.watcher(pov.game)
+                    simul      <- pov.game.simulId.so(env.simul.repo.find)
+                    chat       <- getWatcherChat(pov.game)
+                    crosstable <- ctx.noBlind.so(env.game.crosstableApi.withMatchup(pov.game))
+                    bookmarked <- env.bookmark.api.exists(pov.game, ctx.me)
+                    tv = userTv.map: u =>
+                      lila.round.OnTv.User(u.id)
+                    data <- env.api.roundApi.watcher(pov, users, tour, tv)
+                    page <- renderPage:
+                      views.round.watcher(
+                        pov,
+                        data,
+                        tour.map(_.tourAndTeamVs),
+                        simul,
+                        crosstable,
+                        userTv = userTv,
+                        chatOption = chat,
+                        bookmarked = bookmarked
+                      )
+                  yield Ok(page)
+                else
+                  for // web crawlers don't need the full thing
+                    initialFen <- env.game.gameRepo.initialFen(pov.gameId)
+                    pgn <- env.api
+                      .pgnDump(pov.game, initialFen, none, lila.game.PgnDump.WithFlags(clocks = false))
+                    page <- renderPage(views.round.crawler(pov, initialFen, pgn))
+                  yield Ok(page)
+              ,
+              api = _ =>
+                for
+                  users    <- env.user.api.gamePlayers(pov.game.userIdPair, pov.game.perfKey)
+                  tour     <- env.tournament.api.gameView.watcher(pov.game)
+                  data     <- env.api.roundApi.watcher(pov, users, tour, tv = none)
+                  analysis <- env.analyse.analyser.get(pov.game)
+                  chat     <- getWatcherChat(pov.game)
+                  jsChat   <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
+                yield Ok:
+                  data
+                    .add("chat" -> jsChat)
+                    .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
+            ).dmap(_.noCache)
 
   private[controllers] def getWatcherChat(
       game: GameModel
@@ -297,17 +303,17 @@ final class Round(
   def apiAddTime(anyId: GameAnyId, seconds: Int) = Scoped(_.Challenge.Write) { _ ?=> me ?=>
     import lila.core.round.Moretime
     env.round.proxyRepo
-      .game(anyId.gameId)
+      .pov(anyId.gameId, me)
       .flatMap:
-        _.flatMap { Pov(_, me) }.so: pov =>
+        _.so: pov =>
           env.round.moretimer
-            .isAllowedIn(pov.game, Preload.none)
+            .isAllowedIn(pov.game, Preload.none, force = true)
             .map:
               if _ then
-                env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds))
+                env.round.roundApi.tell(pov.gameId, Moretime(pov.playerId, seconds.seconds, force = true))
                 jsonOkResult
               else BadRequest(jsonError("This game doesn't allow giving time"))
   }
 
   def help = Open:
-    Ok.snip(lila.web.ui.help.round)
+    Ok.snip(lila.web.ui.help.round(ctx.kid.no))

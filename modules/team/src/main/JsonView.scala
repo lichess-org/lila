@@ -17,6 +17,7 @@ final class JsonView(lightUserApi: LightUserApi, userJson: lila.core.user.JsonVi
         "leader"      -> lightUserApi.sync(team.createdBy), // for BC
         "nbMembers"   -> team.nbMembers
       )
+      .add("flair" -> team.flair)
 
   given memberWithPermsWrites: OWrites[TeamMember] = OWrites: m =>
     Json.obj("user" -> lightUserApi.syncFallback(m.user), "perms" -> m.perms.map(_.key))

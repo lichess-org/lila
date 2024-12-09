@@ -1,15 +1,15 @@
 package lila.puzzle
 package ui
 
-import scalalib.paginator.Paginator
 import play.api.libs.json.*
-import chess.format.{ BoardFen, Uci }
+import scalalib.paginator.Paginator
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.common.LilaOpeningFamily
 import lila.common.Json.given
+import lila.common.LilaOpeningFamily
 import lila.core.i18n.I18nKey
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
     analyseCsp: Update[ContentSecurityPolicy],
@@ -30,7 +30,8 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
       .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
       .css(ctx.pref.hasVoice.option("voice"))
       .css(ctx.blind.option("round.nvui"))
-      .js(ctx.blind.option(EsmInit("puzzle.nvui")))
+      .i18n(_.puzzle, _.puzzleTheme, _.storm)
+      .js(ctx.blind.option(Esm("puzzle.nvui")))
       .js(
         PageModule(
           "puzzle",
@@ -38,7 +39,6 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
             .obj(
               "data"        -> data,
               "pref"        -> pref,
-              "i18n"        -> bits.jsI18n(streak = isStreak),
               "showRatings" -> ctx.pref.showRatings,
               "settings" -> Json.obj("difficulty" -> settings.difficulty.key).add("color" -> settings.color),
               "externalEngineEndpoint" -> externalEngineEndpoint
@@ -144,7 +144,7 @@ final class PuzzleUi(helpers: Helpers, val bits: PuzzleBits)(
     ) =
       Page(trans.puzzle.puzzlesByOpenings.txt())
         .css("puzzle.page")
-        .js(EsmInit("puzzle.opening")):
+        .js(Esm("puzzle.opening")):
           main(cls := "page-menu")(
             bits.pageMenu("openings", ctx.me),
             div(cls := "page-menu__content box")(

@@ -2,20 +2,19 @@
 
 set -e
 
+MIN_NODE="v22.6.0"
+
+CUR_NODE=$(node -v 2>/dev/null || echo "v0.0.0")
+LOWEST="$(printf "%s\n%s" "$MIN_NODE" "$CUR_NODE" | sort -V | head -n 1)"
+if [ "$LOWEST" != "$MIN_NODE" ]; then
+  echo "Nodejs $MIN_NODE or later is required."
+  exit 1
+fi
+
 cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
 
-update=$(echo "$*" | grep -q -- '--update' && echo true || echo false)
+corepack enable
 
-#if $update || [ ! -d "node_modules" ]; then
-  if ! command -v pnpm &> /dev/null; then
-    echo "The 'pnpm' tool is required. See https://pnpm.io/installation."
-    exit 1
-  fi
-  pnpm install --silent --ignore-workspace --no-lockfile
-#fi
+pnpm install --silent --ignore-workspace
 
-#if $update || [ ! -d "dist" ]; then
-  ./node_modules/.bin/tsc
-#fi
-
-node --input-type=module dist/main.js "$@"
+node --experimental-strip-types --no-warnings src/main.ts "$@"

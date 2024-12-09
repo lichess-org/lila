@@ -4,10 +4,10 @@ import chess.format.Fen
 import chess.format.pgn.{ PgnStr, Tags }
 import chess.variant.Variant
 
-import lila.tree.{ Branches, Root }
+import lila.core.game.Namer
 import lila.core.i18n.Translator
 import lila.core.id.GameFullId
-import lila.core.game.Namer
+import lila.tree.{ Branches, Root }
 
 final private class ChapterMaker(
     net: lila.core.config.NetConfig,
@@ -82,6 +82,8 @@ final private class ChapterMaker(
       case Orientation.Fixed(color)    => color
       case _ if isMe(tags.names.white) => Color.white
       case _ if isMe(tags.names.black) => Color.black
+      // If it is a concealed chapter (puzzles from a coach/book/course), start from side which moves first
+      case _ if data.isConceal => root.color
       // if an outcome is known, then it's a finished game, which we show from white perspective by convention
       case _ if tags.outcome.isDefined => Color.white
       // in gamebooks (interactive chapter), we guess the orientation based on the last node
@@ -130,7 +132,6 @@ final private class ChapterMaker(
       withRatings: Boolean,
       initialFen: Option[Fen.Full] = None
   ): Fu[Chapter] =
-    given play.api.i18n.Lang = lila.core.i18n.defaultLang
     for
       root <- makeRoot(game, data.pgn, initialFen)
       tags <- pgnDump.tags(game, initialFen, none, withOpening = true, withRatings)
@@ -219,7 +220,7 @@ private[study] object ChapterMaker:
     case Fixed(color: Color) extends Orientation(color.name, color.some)
     case Auto                extends Orientation("automatic", none)
   object Orientation:
-    def apply(str: String) = Color.fromName(str).fold[Orientation](Auto)(Fixed.apply)
+    def apply(str: String) = Color.fromName(str.toLowerCase()).fold[Orientation](Auto)(Fixed.apply)
 
   case class Data(
       name: StudyChapterName,

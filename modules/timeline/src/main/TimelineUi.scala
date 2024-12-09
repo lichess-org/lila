@@ -1,15 +1,15 @@
 package lila.timeline
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.core.timeline.*
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TimelineUi(helpers: Helpers)(
     streamerLink: UserStr => Tag
 ):
   import helpers.{ *, given }
-  import trans.{ team as trt }
 
   def entries(entries: Vector[Entry])(using Context) =
     div(cls := "entries"):

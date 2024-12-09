@@ -1,7 +1,7 @@
 package lila.streamer
 
-import reactivemongo.api.bson.Macros.Annotations.Key
 import cats.derived.*
+import reactivemongo.api.bson.Macros.Annotations.Key
 
 import lila.core.i18n.Language
 import lila.core.id.ImageId

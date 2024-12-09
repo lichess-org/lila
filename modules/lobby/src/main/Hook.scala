@@ -1,14 +1,16 @@
 package lila.lobby
 
 import chess.variant.Variant
+import chess.IntRating
 import chess.{ Clock, Mode, Speed }
-import scalalib.ThreadLocalRandom
 import play.api.libs.json.*
+import scalalib.ThreadLocalRandom
 
-import lila.rating.PerfType
+import lila.core.perf.UserWithPerfs
 import lila.core.rating.RatingRange
 import lila.core.socket.Sri
-import lila.core.perf.UserWithPerfs
+import lila.rating.PerfType
+import lila.core.pool.IsClockCompatible
 
 // realtime chess, volatile
 case class Hook(
@@ -18,14 +20,12 @@ case class Hook(
     variant: Variant.Id,
     clock: Clock.Config,
     mode: Int,
-    color: String,
+    color: TriColor,
     user: Option[LobbyUser],
     ratingRange: String,
     createdAt: Instant,
     boardApi: Boolean
 ):
-
-  val realColor: TriColor = TriColor.orDefault(color)
 
   val realVariant = Variant.orDefault(variant)
 
@@ -38,7 +38,7 @@ case class Hook(
       mode == h.mode &&
       variant == h.variant &&
       clock == h.clock &&
-      (realColor.compatibleWith(h.realColor)) &&
+      color.compatibleWith(h.color) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
 
@@ -50,7 +50,7 @@ case class Hook(
   private def nonWideRatingRange =
     val r = rating | lila.rating.Glicko.default.intRating
     manualRatingRange.filter:
-      _ != RatingRange(r - 500, r + 500)
+      _ != RatingRange(r - IntRating(500), r + IntRating(500))
 
   lazy val ratingRangeOrDefault: RatingRange =
     nonWideRatingRange.orElse(rating.map(lila.rating.RatingRange.defaultFor)).getOrElse(RatingRange.default)
@@ -80,15 +80,11 @@ case class Hook(
     .add("rating" -> rating)
     .add("variant" -> realVariant.exotic.option(realVariant.key))
     .add("ra" -> realMode.rated.option(1))
-    .add("c" -> Color.fromName(color).map(_.name))
 
-  def randomColor = color == "random"
+  def compatibleWithPools(using isClockCompatible: IsClockCompatible) =
+    realMode.rated && realVariant.standard && isClockCompatible.exec(clock) && color == TriColor.Random
 
-  def compatibleWithPools(using isClockCompatible: lila.core.pool.IsClockCompatible) =
-    realMode.rated && realVariant.standard && randomColor &&
-      isClockCompatible(clock)
-
-  def compatibleWithPool(poolClock: chess.Clock.Config)(using lila.core.pool.IsClockCompatible) =
+  def compatibleWithPool(poolClock: chess.Clock.Config)(using IsClockCompatible) =
     compatibleWithPools && clock == poolClock
 
   private lazy val speed = Speed(clock)
@@ -102,7 +98,7 @@ object Hook:
       variant: chess.variant.Variant,
       clock: Clock.Config,
       mode: Mode,
-      color: String,
+      color: TriColor,
       user: Option[UserWithPerfs],
       sid: Option[String],
       ratingRange: RatingRange,

@@ -1,4 +1,5 @@
-import { Attrs, h, VNode } from 'snabbdom';
+import { type Attrs, h, type VNode } from 'snabbdom';
+import { type MaybeVNode } from './snabbdom';
 
 export interface HasRating {
   rating?: number;
@@ -35,7 +36,7 @@ export const userLink = (u: AnyUser): VNode =>
     'a',
     {
       // can't be inlined because of thunks
-      class: { 'user-link': true, ulpt: u.name != 'ghost', online: !!u.online },
+      class: { 'user-link': true, ulpt: u.name !== 'ghost', online: !!u.online },
       attrs: { href: `/@/${u.name}`, ...u.attrs },
     },
     [userLine(u), ...fullName(u), u.rating && ` ${userRating(u)} `],
@@ -54,10 +55,10 @@ export const userLine = (u: HasLine): VNode | undefined =>
 
 export const userTitle = (u: HasTitle): VNode | undefined =>
   u.title
-    ? h('span.utitle', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
+    ? h('span.utitle', u.title === 'BOT' ? { attrs: { 'data-bot': true } } : {}, [u.title, '\xa0'])
     : undefined;
 
-export const fullName = (u: AnyUser) => [userTitle(u), u.name, userFlair(u)];
+export const fullName = (u: AnyUser): MaybeVNode[] => [userTitle(u), u.name, userFlair(u)];
 
 export const userRating = (u: HasRating): string | undefined => {
   if (u.rating) {
@@ -71,7 +72,7 @@ export const ratingDiff = (u: HasRatingDiff): VNode | undefined =>
   u.ratingDiff === 0
     ? h('span', '±0')
     : u.ratingDiff && u.ratingDiff > 0
-    ? h('good', '+' + u.ratingDiff)
-    : u.ratingDiff && u.ratingDiff < 0
-    ? h('bad', '−' + -u.ratingDiff)
-    : undefined;
+      ? h('good', '+' + u.ratingDiff)
+      : u.ratingDiff && u.ratingDiff < 0
+        ? h('bad', '−' + -u.ratingDiff)
+        : undefined;

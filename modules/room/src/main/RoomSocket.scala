@@ -1,17 +1,15 @@
 package lila.room
 
 import play.api.libs.json.*
-import scalalib.actor.SyncActorMap
-import scalalib.actor.SyncActor
+import scalalib.actor.{ SyncActor, SyncActorMap }
 
+import lila.common.Json.given
 import lila.core.chat.{ BusChan, ChatApi, TimeoutScope }
 import lila.core.shutup.PublicSource
-import lila.log.Logger
-import lila.core.socket.{ protocol as P, * }
-import lila.core.socket.{ makeMessage }
-import lila.common.Json.given
-
+import lila.core.socket.*
+import lila.core.socket.protocol as P
 import lila.core.user.FlairGet
+import lila.log.Logger
 
 object RoomSocket:
 
@@ -29,7 +27,7 @@ object RoomSocket:
       case SetVersion(v)       => version = v
       case nv: NotifyVersion[?] =>
         version = version.map(_ + 1)
-        send:
+        send.exec:
           val tell =
             if chatMsgs(nv.tpe) then Protocol.Out.tellRoomChat
             else Protocol.Out.tellRoomVersion
@@ -37,7 +35,7 @@ object RoomSocket:
 
     override def stop() =
       super.stop()
-      send(Protocol.Out.stop(roomId))
+      send.exec(Protocol.Out.stop(roomId))
 
   def makeRoomMap(send: SocketSend)(using Executor) =
     SyncActorMap[RoomId, RoomState](

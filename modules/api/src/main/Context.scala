@@ -4,14 +4,13 @@ import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
 
 import lila.common.HTTPRequest
-import lila.core.i18n.{ Language, Translate, defaultLanguage }
-import lila.oauth.{ OAuthScope, TokenScopes }
-import lila.pref.Pref
-import lila.core.user.KidMode
-import lila.user.UserExt.userLanguage
-import lila.ui.Nonce
+import lila.core.i18n.Translate
 import lila.core.net.IpAddress
 import lila.core.notify.UnreadCount
+import lila.core.user.KidMode
+import lila.oauth.{ OAuthScope, TokenScopes }
+import lila.pref.Pref
+import lila.ui.Nonce
 
 /* Who is logged in, and how */
 final class LoginContext(
@@ -51,8 +50,9 @@ class Context(
   def isMobileApi           = mobileApiVersion.isDefined
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
   def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
-  def canPalantir           = kid.no && me.exists(!_.marks.troll)
-  lazy val translate        = Translate(lila.i18n.Translator, lang)
+  def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
+  def canPalantir                 = kid.no && me.exists(!_.marks.troll)
+  lazy val translate              = Translate(lila.i18n.Translator, lang)
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

@@ -5,7 +5,7 @@
   <string name="dgtBoardRequirements">Requeriments del tauler DGT</string>
   <string name="dgtBoardLimitations">Limitacions del tauler DGT</string>
   <string name="thisPageAllowsConnectingDgtBoard">Aquesta pàgina et permet connectar el teu tauler DGT amb Lichess i utilitzar-lo per jugar partides.</string>
-  <string name="toConnectTheDgtBoard">Per a connectar el tauler electrònic DGT has d\'instal·lar %s.</string>
+  <string name="toConnectTheDgtBoard" comment="%s is a piece of software e.g. &quot;LiveChess 2.25+&quot;">Per a connectar el tauler electrònic DGT has d\'instal·lar %s.</string>
   <string name="downloadHere">Pots descarregar el programari aquí: %s.</string>
   <string name="ifLiveChessRunningOnThisComputer">Si %1$s s\'està executant en aquest ordinador, pots comprovar la teva connexió %2$s.</string>
   <string name="openingThisLink">obrint aquest enllaç</string>

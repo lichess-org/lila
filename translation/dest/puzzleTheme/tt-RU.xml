@@ -3,13 +3,14 @@
   <string name="advancedPawn">Алга киткән җирле</string>
   <string name="advancedPawnDescription">Сезнең җәяүлеләрнең берсе көндәш позициясенә тирән керә, бәлки алга җибәрү белән куркытыр.</string>
   <string name="advantage">Өстенлек</string>
-  <string name="advantageDescription" comment="advantageDescription&#10;&#10;'cp' stands for centipawn (1/100th of a pawn). It is used in computer analysis to assess a position.&#10;'eval' is short for evaluation.">Хәлиткеч өстенлек алу мөмкинлеген кулланыгыз. (200cp ≤ бәяләү ≤ 600cp)</string>
+  <string name="advantageDescription">Хәлиткеч өстенлек алу мөмкинлеген кулланыгыз. (200cp ≤ бәяләү ≤ 600cp)</string>
   <string name="anastasiaMate">Әнәстәсия маты</string>
   <string name="anastasiaMateDescription">Атчы, Тура яки Вәзир командасы каршы шаһны такта ягы белән дуслар арасына тозакка эләктерәләр.</string>
   <string name="arabianMate">Гарәп маты</string>
   <string name="attackingF2F7">f2 яки f7-не һөҗүм итү</string>
   <string name="bodenMate">Боден маты</string>
   <string name="bodenMateDescription">Ике һөҗүм итүче киселешәләр диагональ буенча һәм рәкыйпнең үз дуст сөякләре кома шаулаган шаһына мат куялар.</string>
+  <string name="castling">Рокировка</string>
   <string name="crushing">Изеш</string>
   <string name="doubleBishopMate">Икеләтә филь маты</string>
   <string name="equality">Тигезлек</string>
@@ -24,7 +25,13 @@
   <string name="master">Осталарның уеннары</string>
   <string name="masterVsMaster">Осталар арасындагы уеннар</string>
   <string name="mate">Мат</string>
+  <string name="mateIn1">1 йөрүдә мат</string>
+  <string name="mateIn2">2 йөрүдә мат</string>
+  <string name="mateIn3">3 йөрүдә мат</string>
+  <string name="mateIn4">4 йөрүдә мат</string>
   <string name="middlegame">Уен уртасы</string>
   <string name="opening">Дебют</string>
   <string name="pin">Беркетү</string>
+  <string name="xRayAttack">Рентген</string>
+  <string name="zugzwang">Цугцванг</string>
 </resources>

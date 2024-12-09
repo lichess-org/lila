@@ -1,17 +1,18 @@
 package lila.game
 
 import chess.format.Fen
-import chess.format.pgn.{ PgnStr, SanStr }
-import chess.{ Color, ByColor, Status }
-import scalalib.ThreadLocalRandom
+import chess.format.pgn.SanStr
+import chess.{ ByColor, Color, Status }
+import chess.rating.IntRatingDiff
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.*
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ Cursor, WriteConcern }
+import scalalib.ThreadLocalRandom
 
+import lila.core.game.*
 import lila.db.dsl.{ *, given }
 import lila.db.isDuplicateKey
-import lila.core.game.*
 import lila.game.GameExt.*
 
 final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c):
@@ -151,7 +152,7 @@ final class GameRepo(c: Coll)(using Executor) extends lila.core.game.GameRepo(c)
       hint: Option[Bdoc] = none
   ): AkkaStreamCursor[Game] =
     val query = coll.find(selector).sort(sort).batchSize(batchSize)
-    hint.map(coll.hint).foldLeft(query)(_ hint _).cursor[Game](ReadPref.priTemp)
+    hint.map(coll.hint).foldLeft(query)(_.hint(_)).cursor[Game](ReadPref.priTemp)
 
   def sortedCursor(user: UserId, pk: PerfKey): AkkaStreamCursor[Game] =
     sortedCursor(

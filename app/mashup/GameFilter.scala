@@ -4,12 +4,12 @@ package mashup
 import play.api.data.FormBinding
 import play.api.i18n.Lang
 import play.api.mvc.Request
-
 import scalalib.paginator.Paginator
-import lila.db.dsl.*
-import lila.game.{ Query, GameFilter, GameFilterMenu }
+
 import lila.core.game.Game
 import lila.core.user.User
+import lila.db.dsl.*
+import lila.game.{ GameFilter, GameFilterMenu, Query }
 
 object GameFilterMenu:
 

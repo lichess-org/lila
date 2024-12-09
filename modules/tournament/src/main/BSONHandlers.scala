@@ -3,15 +3,16 @@ package lila.tournament
 import chess.Mode
 import chess.format.Fen
 import chess.variant.Variant
+import chess.IntRating
 import reactivemongo.api.bson.*
 
+import lila.core.id.TourPlayerId
+import lila.core.tournament.Status
+import lila.core.tournament.leaderboard.Ratio
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
-import lila.rating.PerfType
-import lila.core.tournament.leaderboard.Ratio
-import lila.core.tournament.Status
-import lila.core.id.TourPlayerId
 import lila.gathering.Thematic
+import lila.rating.PerfType
 
 object BSONHandlers:
 
@@ -30,7 +31,8 @@ object BSONHandlers:
   given BSONWriter[Schedule] = BSONWriter: s =>
     $doc(
       "freq"  -> s.freq,
-      "speed" -> s.speed
+      "speed" -> s.speed,
+      "at"    -> s.at
     )
 
   private given BSONHandler[chess.Clock.Config] = clockConfigHandler
@@ -75,7 +77,8 @@ object BSONHandlers:
           doc   <- r.getO[Bdoc]("schedule")
           freq  <- doc.getAsOpt[Schedule.Freq]("freq")
           speed <- doc.getAsOpt[Schedule.Speed]("speed")
-        yield Schedule(freq, speed, variant, position, startsAt.dateTime, conditions),
+          at = doc.getAsOpt[LocalDateTime]("at").getOrElse(startsAt.dateTime)
+        yield Schedule(freq, speed, variant, position, at, conditions),
         nbPlayers = r.int("nbPlayers"),
         createdAt = r.date("createdAt"),
         createdBy = r.getO[UserId]("createdBy") | UserId.lichess,
@@ -124,7 +127,7 @@ object BSONHandlers:
         withdraw = r.boolD("w"),
         score = r.intD("s"),
         fire = r.boolD("f"),
-        performance = r.intD("e"),
+        performance = r.getO[IntRating]("e"),
         team = r.getO[TeamId]("t")
       )
     def writes(w: BSON.Writer, o: Player) =

@@ -1,7 +1,7 @@
 package lila.tree
 
-import chess.{ Color, Status }
 import chess.variant.Variant
+import chess.{ Color, Status }
 
 object StatusText:
 

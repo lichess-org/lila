@@ -4,7 +4,7 @@
   <string name="coordinateTraining">좌표 훈련</string>
   <string name="averageScoreAsWhiteX">백색으로 평균 점수: %s</string>
   <string name="averageScoreAsBlackX">흑색으로 평균 점수: %s</string>
-  <string name="knowingTheChessBoard">체스판 좌표를 아는 것은 아주 중요한 체스 기술입니다:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">체스판 좌표를 아는 것은 아주 중요한 체스 기술입니다:</string>
   <string name="mostChessCourses">대부분의 체스 강좌와 훈련은 `대수적 표기법`을 광범위하게 사용합니다.</string>
   <string name="talkToYourChessFriends">기보법을 안다면, 친구와 당신 모두 \'체스의 언어\'를 이해하기 때문에 체스 경기를 이야기하기 쉬워집니다.</string>
   <string name="youCanAnalyseAGameMoreEffectively">당신이 좌표를 빠르게 인식할 수 있다면 더 효과적으로 게임을 분석할 수 있습니다.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">30초 동안 가능한 많은 칸을 매칭하세요!</string>
   <string name="goAsLongAsYouWant">원하는 만큼 오래 하세요, 시간 제한은 없습니다!</string>
   <string name="showCoordinates">좌표 표시</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">모든 칸에 좌표</string>
   <string name="showPieces">기물 표시</string>
   <string name="startTraining">훈련 시작</string>
   <string name="findSquare">칸 찾기</string>

@@ -1,11 +1,9 @@
 package lila.web
 package ui
 
-import scala.util.chaining.*
-
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.common.Json.given
 
 final class DgtUi(helpers: Helpers):
   import helpers.{ *, given }
@@ -206,7 +204,7 @@ final class DgtUi(helpers: Helpers):
   private def layout(path: String, token: Option[String] = None)(using Context) =
     Page(trd.playWithDgtBoard.txt())
       .css("bits.dgt")
-      .js(token.fold(jsModuleInit("dgt"))(jsModuleInit("dgt", _)))
+      .js(token.fold(esmInit("dgt"))(esmInit("dgt", _)))
       .csp(_.withAnyWs)
       .wrap: body =>
         main(cls := "account page-menu dgt")(

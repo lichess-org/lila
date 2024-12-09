@@ -4,14 +4,10 @@ import com.softwaremill.macwire.*
 import com.softwaremill.tagging.*
 
 import lila.core.config.CollName
-import lila.core.user.WithPerf
-
-import scalalib.model.Days
 
 @Module
 final class Env(
     userApi: lila.core.user.UserApi,
-    mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.AsyncDb @@ lila.db.YoloDb
 )(using Executor, Scheduler, lila.core.i18n.Translator):

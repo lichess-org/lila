@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.user.FlagApi):
@@ -61,9 +62,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 ): f =>
                   form3.textarea(f)(rows := 5)
             ),
-            form3.flairPickerGroup(form("flair"), u.flair, label = trans.site.setFlair())(
-              userSpan(u, withPowerTip = false, cssClass = "flair-container".some)
-            ):
+            form3.flairPickerGroup(form("flair"), u.flair):
               p(cls := "form-help"):
                 a(
                   href     := s"${routes.Pref.form("display")}#showFlairs",
@@ -78,8 +77,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
             form3.group(form("location"), trans.site.location(), half = true)(form3.input(_))
           ),
           form3.split(
-            form3.group(form("firstName"), trans.site.firstName(), half = true)(form3.input(_)),
-            form3.group(form("lastName"), trans.site.lastName(), half = true)(form3.input(_))
+            form3.group(form("realName"), trans.site.realName(), half = true)(form3.input(_))
           ),
           form3.split(
             List("fide", "uscf", "ecf", "rcf", "cfc", "dsb").map: rn =>
@@ -162,7 +160,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
       )
 
   def password(form: Form[?])(using Context) =
-    AccountPage(trans.site.changePassword.txt(), "password").js(jsModuleInit("bits.passwordComplexity")):
+    AccountPage(trans.site.changePassword.txt(), "password").js(esmInit("bits.passwordComplexity")):
       div(cls := "box box-pad")(
         h1(cls := "box__top")(trans.site.changePassword()),
         standardFlash | flashMessage("warning")(trans.site.passwordSuggestion()),

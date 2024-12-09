@@ -1,5 +1,5 @@
 import { h } from 'snabbdom';
-import { BasePlayer } from '../interfaces';
+import type { BasePlayer } from '../interfaces';
 import { numberFormat } from 'common/number';
 import { fullName, userRating } from 'common/userLink';
 
@@ -27,10 +27,10 @@ export function numberRow(name: string, value: any, typ?: string) {
       typ === 'raw'
         ? value
         : typ === 'percent'
-        ? value[1] > 0
-          ? ratio2percent(value[0] / value[1])
-          : 0
-        : numberFormat(value),
+          ? value[1] > 0
+            ? ratio2percent(value[0] / value[1])
+            : 0
+          : numberFormat(value),
     ),
   ]);
 }

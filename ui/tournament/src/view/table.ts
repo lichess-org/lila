@@ -1,11 +1,11 @@
-import { VNode } from 'snabbdom';
 import { opposite } from 'chessground/util';
 import * as licon from 'common/licon';
-import { bind, onInsert, looseH as h } from 'common/snabbdom';
+import { type VNode, bind, onInsert, looseH as h } from 'common/snabbdom';
 import { player as renderPlayer } from './util';
-import { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
+import type { Duel, DuelPlayer, FeaturedGame, TournamentOpts } from '../interfaces';
 import { teamName } from './battle';
-import TournamentController from '../ctrl';
+import type TournamentController from '../ctrl';
+import { initMiniGames } from 'common/miniBoard';
 
 function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) {
   const player = game[color];
@@ -19,7 +19,7 @@ function featuredPlayer(game: FeaturedGame, color: Color, opts: TournamentOpts) 
       ? h(`span.mini-game__clock.mini-game__clock--${color}`, {
           attrs: { 'data-time': game.c[color], 'data-managed': 1 },
         })
-      : h('span.mini-game__result', game.winner ? (game.winner == color ? '1' : '0') : '½'),
+      : h('span.mini-game__result', game.winner ? (game.winner === color ? '1' : '0') : '½'),
   ]);
 }
 
@@ -60,7 +60,7 @@ function renderDuel(ctrl: TournamentController) {
     ]);
 }
 
-const initMiniGame = (node: VNode) => site.miniGame.initAll(node.elm as HTMLElement);
+const initMiniGame = (node: VNode) => initMiniGames(node.elm as HTMLElement);
 
 export default function (ctrl: TournamentController): VNode {
   return h('div.tour__table', { hook: { insert: initMiniGame, postpatch: initMiniGame } }, [
@@ -69,7 +69,7 @@ export default function (ctrl: TournamentController): VNode {
       h(
         'section.tour__duels',
         { hook: bind('click', _ => !ctrl.disableClicks) },
-        [h('h2', ctrl.trans.noarg('topGames'))].concat(ctrl.data.duels.map(renderDuel(ctrl))),
+        [h('h2', i18n.site.topGames)].concat(ctrl.data.duels.map(renderDuel(ctrl))),
       ),
   ]);
 }

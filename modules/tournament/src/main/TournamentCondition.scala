@@ -2,14 +2,12 @@ package lila.tournament
 
 import alleycats.Zero
 
-import lila.gathering.Condition.*
-import lila.gathering.{ Condition, ConditionList }
 import lila.core.history.HistoryApi
 import lila.core.team.LightTeam
-
-import lila.rating.PerfType
 import lila.core.user.UserApi
-import scalalib.model.Days
+import lila.gathering.Condition.*
+import lila.gathering.{ Condition, ConditionList }
+import lila.rating.PerfType
 
 object TournamentCondition:
 

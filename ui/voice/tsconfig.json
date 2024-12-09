@@ -1,12 +1,9 @@
 {
-  "extends": "../tsconfig_module.base.json",
-  "include": ["src"],
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "src",
-    "types": ["lichess", "web"],
-    "composite": true
-  },
-  "isolatedModules": true,
-  "references": [{ "path": "../common/tsconfig.json" }, { "path": "../chess/tsconfig.json" }]
+  "extends": "../tsconfig.base.json",
+  "exclude": ["makeGrammar.mts", "dist"],
+  "references": [
+    { "path": "../chess/tsconfig.json" },
+    { "path": "../common/tsconfig.json" },
+    { "path": "../game/tsconfig.json" }
+  ]
 }

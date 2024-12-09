@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Nekatere strani Lichess imajo bližnjice na tipkovnici, ki jih lahko uporabite. Poskusite pritisniti \'?\' tipko na strani študije, analize, uganke ali igre za seznam razpoložljivih bližnjic na tipkovnici.</string>
   <string name="fairPlay">Poštena igra</string>
   <string name="whenAmIEligibleRatinRefund">Kdaj sem upravičen do samodejnega povračila ratinga od goljufov?</string>
-  <string name="ratingRefundExplanation">Minuto po tem, ko je igralec zaznamovan, se začne njegovih 40 zadnjih rangiranih iger v zadnjih 3 dneh. Če ste bili njegov nasprotnik na teh igrah, ste izgubili rejting (zaradi poraza ali remija) in vaš rejting ni bil začasen, prejmete povračilo za rejting. Nadomestilo se omeji na podlagi vašega najvišjega rejtinga in vašega napredka po igri. 
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Minuto po tem, ko je igralec zaznamovan, se začne njegovih 40 zadnjih rangiranih iger v zadnjih 3 dneh. Če ste bili njegov nasprotnik na teh igrah, ste izgubili rejting (zaradi poraza ali remija) in vaš rejting ni bil začasen, prejmete povračilo za rejting. Nadomestilo se omeji na podlagi vašega najvišjega rejtinga in vašega napredka po igri. 
  (Na primer, če se je vaš rejting po teh igrah močno povečal, morda ne boste dobili nobenega povračila ali samo delno povračilo.) Povračilo ne bo nikoli preseglo 150 točk.</string>
   <string name="preventLeavingGameWithoutResigning">Kaj se naredi, ko igralci zapustijo igre, ne da bi predali?</string>
   <string name="leavingGameWithoutResigningExplanation">Če vaš nasprotnik pogosto prekine / zapusti igre, se jim dodeli oznaka \"igranje prepovedano\", kar pomeni, da jim lahko začasno prepovejo igranje iger. To javno ni navedeno na njihovem profilu. Če se to vedenje nadaljuje, se dolžina prepovedi igranja poveča - in takšno dolgotrajno vedenje lahko privede do zaprtja računa.</string>
@@ -34,7 +34,7 @@
   <string name="howBulletBlitzEtcDecided">Kako so izbrane Bullet, Blitz in druge časovne kontrole izbrane?</string>
   <string name="basedOnGameDuration">Nadzor časa na lichessu temelji na ocenjenem trajanju igre = %1$s
 Na primer, predvideno trajanje igre 5 + 3 je 5 × 60 + 40 × 3 = 420 sekund.</string>
-  <string name="durationFormula">(začetni čas ure) + 40 × (prirastek ure)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(začetni čas ure) + 40 × (prirastek ure)</string>
   <string name="inferiorThanXsEqualYtimeControl">&gt; %1$ss = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">&amp;gt %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">Katere različice lahko igram na Lichess?</string>
@@ -95,12 +95,12 @@ Ne zahtevajte naslova LM.</string>
   <string name="usernamesNotOffensive">Na splošno uporabniška imena ne smejo biti žaljiva, lažna predstavitev nekoga drugega ali oglaševanje. Več o %1$s lahko preberete.</string>
   <string name="guidelines">smernice</string>
   <string name="canIChangeMyUsername">Ali lahko spremenim svoje uporabniško ime?</string>
-  <string name="usernamesCannotBeChanged">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ne, uporabniških imen ni mogoče spreminjati iz tehničnih in praktičnih razlogov. Uporabniška imena so materializirana na premnogih mestih: zbirke podatkov, izvozi, dnevniki in mislih ljudi. Velike začetnice lahko prilagodite enkrat.</string>
   <string name="uniqueTrophies">Edinstvene trofeje</string>
   <string name="ownerUniqueTrophies">Ta pokal je edinstven v zgodovini Lichessa, nihče drug kot %1$s ga ne bo imel nikoli.</string>
   <string name="wayOfBerserkExplanation">Da bi ga dobil, se je hiimgosu izzval, da se znori in zmaga v 100%% igrah %s.</string>
   <string name="aHourlyBulletTournament">urni Bullet turnir</string>
-  <string name="goldenZeeExplanation">ZugAddict je pretakal in zadnji dve uri je poskušal premagati A.I. stopnja 8 v igri 1 + 0, brez uspeha. Thibault mu je rekel, da bo, če bo to uspešno opravil v toku, dobil edinstven pokal. Eno uro kasneje je razbil Stockfish in obljuba je bila izpolnjena.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict je pretakal in zadnji dve uri je poskušal premagati A.I. stopnja 8 v igri 1 + 0, brez uspeha. Thibault mu je rekel, da bo, če bo to uspešno opravil v toku, dobil edinstven pokal. Eno uro kasneje je razbil Stockfish in obljuba je bila izpolnjena.</string>
   <string name="lichessRatings">Lichess ratingi</string>
   <string name="whichRatingSystemUsedByLichess">Kakšen rating sistem uporablja Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratingi se izračunajo po metodi rangiranja Glicko-2, ki jo je razvil Mark Glickman. To je zelo priljubljena metoda rangiranja, ki jo uporablja veliko število šahovskih organizacij (FIDE je izjemen primer, saj še vedno uporabljajo datiran sistem rangiranja Elo).

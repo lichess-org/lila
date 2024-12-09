@@ -1,7 +1,7 @@
 package lila.forum
 
-import scalalib.ThreadLocalRandom
 import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.ThreadLocalRandom
 
 case class ForumTopic(
     @Key("_id") id: ForumTopicId,

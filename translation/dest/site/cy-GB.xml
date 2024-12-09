@@ -93,7 +93,6 @@
   <string name="replayMode">Cyflymder ailchwarae</string>
   <string name="realtimeReplay">Amser real</string>
   <string name="byCPL">Mewn CG</string>
-  <string name="openStudy">Agor astudiaeth</string>
   <string name="enable">Galluogi</string>
   <string name="bestMoveArrow">Saeth i ddangos y symudiad gorau</string>
   <string name="evaluationGauge">Mesurydd gwerthusiad</string>
@@ -316,7 +315,6 @@
   <string name="block">Blocio</string>
   <string name="blocked">Blociwyd</string>
   <string name="unblock">Peidio â blocio</string>
-  <string name="followsYou">yn dy ddilyn</string>
   <string name="xStartedFollowingY">%1$s wedi dechrau dilyn %2$s</string>
   <string name="more">Mwy</string>
   <string name="memberSince">Cofrestrodd</string>
@@ -336,9 +334,6 @@
   <string name="safeTournamentName">Dewisia enw saff i\'r talwrn.</string>
   <string name="inappropriateNameWarning">Gall unrhywbeth amhriodol arwain at ddileu dy gyfrif.</string>
   <string name="emptyTournamentName">Gadewch yn wag i enwi\'r talwrn ar ol Uwchfeistr Rhyngwladol wedi ei ddewis ar hap.</string>
-  <string name="recommendNotTouching">Rydym yn awgrymu nad ydych yn cyffwrdd rhain.</string>
-  <string name="fewerPlayers">Bydd gosod telerau ymuno yn debyg o olygu llai o chwaraewyr yn y talwrn.</string>
-  <string name="showAdvancedSettings">Dangos gosodiadau cymleth</string>
   <string name="makePrivateTournament">Gwneud y talwrn yn breifat a cyfyngu mynediad gyda cyfrinair</string>
   <string name="join">Ymuno</string>
   <string name="withdraw">Ymddiswyddo</string>
@@ -375,8 +370,6 @@
   <string name="ifNoneLeaveEmpty">Os heb gradd, gadewch yn wag</string>
   <string name="profile">Proffil</string>
   <string name="editProfile">Golygu proffil</string>
-  <string name="firstName">Enw cyntaf</string>
-  <string name="lastName">Cyfenw</string>
   <string name="biography">Cofiant</string>
   <string name="thankYou">Diolch yn fawr!</string>
   <string name="socialMediaLinks">Dolenni cyfryngau cymdeithasol</string>
@@ -411,11 +404,8 @@
   <string name="reason">Rheswm</string>
   <string name="whatIsIheMatter">Beth sy\'n bod?</string>
   <string name="cheat">Twyll</string>
-  <string name="insult">Sarhad</string>
   <string name="troll">Trôl</string>
-  <string name="ratingManipulation">Twyllo sgôr</string>
   <string name="other">Arall</string>
-  <string name="reportDescriptionHelp">Gluda ddolen i\'r gêm ac esbonio be sydd o\'i le am ymddigiad y defnyddiwr hwn. Paid â dweud jyst ´\"Mae o\'n twyllo\", ond dwed pam wyt ti\'n meddwl hynny. Bydd dy adrodd yn cael ei brosesu yn gyflymach os ysgrifenni yn Saesneg.</string>
   <string name="error.provideOneCheatedGameLink">Rhowch o leiaf un dolen at gem lle bu twyllo.</string>
   <string name="by">gan %s</string>
   <string name="thisTopicIsNowClosed">Mae\'r pwnc ma wedi\'i gau rwan.</string>
@@ -508,7 +498,7 @@
   <string name="aboutSimulRules">Wrth gychwyn, mae pawb chwaraewr yn dechrau chwarae yn erbyn y gweinydd sy\'n chwarae efo\'r darnau gwynion. Mae\'r cystadleuaeth yn dod i\'w ben pan fydd pob gêm wedi\'i chwblhau..</string>
   <string name="aboutSimulSettings">Mae gêmau simul wastad yn gêmau heb raddio. Does dim ail gêm, cymryd yn ôl neu amser ychwanegol.</string>
   <string name="create">Creu</string>
-  <string name="whenCreateSimul">Wrth greu cystadleuaeth cyfochrog, chwaraei yn erbyn rhai chwaraewyr ar y pryd.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Wrth greu cystadleuaeth cyfochrog, chwaraei yn erbyn rhai chwaraewyr ar y pryd.</string>
   <string name="simulVariantsHint">Os dach chi\'n dewis rhai amrywiadau, ceith pawb chwaraewr ddewis pa un i chwarae.</string>
   <string name="simulClockHint">Cloc Fischer. Os dach chi\'n chwarae yn fwy o chwaraewyr, bydd angen mwy o amser gennoch.</string>
   <string name="simulAddExtraTime">Gellwch ychwanegu amser at dy gloc i\'ch helpu ymdopi â\'r cystadleuaeth simul.</string>

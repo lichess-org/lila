@@ -16,10 +16,11 @@ object page:
   def lone(p: CmsPage.Render)(using ctx: Context): Page =
     Page(p.title)
       .css("bits.page")
-      .js(EsmInit("bits.expandText"))
-      .js((p.key == lila.core.id.CmsPageKey("fair-play")).option(embedJsUnsafeLoadThen("""$('.slist td').each(function() {
-if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText == 'NO') this.style.color = 'red';
-})"""))):
+      .js(Esm("bits.expandText"))
+      .js(
+        (p.key == lila.core.id.CmsPageKey("fair-play"))
+          .option(esmInitBit("colorizeYesNoTable"))
+      ):
         main(cls := "page-small box box-pad page force-ltr")(pageContent(p))
 
   def withMenu(active: String, p: CmsPage.Render)(using Context) =
@@ -40,7 +41,7 @@ if (this.innerText == 'YES') this.style.color = 'green'; else if (this.innerText
       active = "contact",
       contentCls = "page box box-pad"
     ).css("bits.contact")
-      .js(EsmInit("bits.contact"))(lila.web.ui.contact(netConfig.email))
+      .js(esmInitBit("contact"))(lila.web.ui.contact(netConfig.email))
 
   def source(p: CmsPage.Render)(using ctx: Context) =
     ui.source(
@@ -101,7 +102,7 @@ object variant:
   private def page(title: String, klass: String, active: Option[PerfKey] = None)(using Context) =
     Page(title)
       .css("bits.variant")
-      .js(EsmInit("bits.expandText"))
+      .js(Esm("bits.expandText"))
       .wrap: body =>
         main(cls := "page-menu")(
           lila.ui.bits.pageMenuSubnav(

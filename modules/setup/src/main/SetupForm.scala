@@ -5,12 +5,11 @@ import chess.format.Fen
 import chess.variant.Variant
 import play.api.data.*
 import play.api.data.Forms.*
-
-import lila.common.Form.{ *, given }
-import lila.common.Form as LilaForm
-import lila.core.rating.RatingRange
-
 import scalalib.model.Days
+
+import lila.common.Form as LilaForm
+import lila.common.Form.{ *, given }
+import lila.core.rating.RatingRange
 
 object SetupForm:
 
@@ -53,7 +52,7 @@ object SetupForm:
     )(FriendConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Invalid speed", _.validSpeed(me.exists(_.isBot)))
-      .verifying("Can't create rated unlimited game", _.noRatedUnlimited)
+      .verifying("Can't create rated unlimited game", !_.isRatedUnlimited)
       .verifying("invalidFen", _.validFen)
 
   def hookFilled(timeModeString: Option[String])(using me: Option[Me]): Form[HookConfig] =
@@ -68,10 +67,10 @@ object SetupForm:
       "days"        -> days,
       "mode"        -> mode(me.isDefined),
       "ratingRange" -> optional(ratingRange),
-      "color"       -> color
+      "color"       -> lila.common.Form.empty
     )(HookConfig.from)(_.>>)
       .verifying("Invalid clock", _.validClock)
-      .verifying("Can't create rated unlimited game", _.noRatedUnlimited)
+      .verifying("Can't create rated unlimited game", !_.isRatedUnlimited)
 
   private lazy val boardApiHookBase: Mapping[HookConfig] =
     mapping(
@@ -80,9 +79,9 @@ object SetupForm:
       "days"        -> optional(days),
       "variant"     -> optional(boardApiVariantKeys),
       "rated"       -> optional(boolean),
-      "color"       -> optional(color),
-      "ratingRange" -> optional(ratingRange)
-    )((t, i, d, v, r, c, g) =>
+      "ratingRange" -> optional(ratingRange),
+      "color"       -> optional(color)
+    )((t, i, d, v, r, g, c) =>
       HookConfig(
         variant = Variant.orDefault(v),
         timeMode = if d.isDefined then TimeMode.Correspondence else TimeMode.RealTime,
@@ -90,21 +89,20 @@ object SetupForm:
         increment = i | Clock.IncrementSeconds(5),
         days = d | Days(7),
         mode = chess.Mode(~r),
-        color = lila.lobby.TriColor.orDefault(c),
-        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault)
+        ratingRange = g.fold(RatingRange.default)(RatingRange.orDefault),
+        color = lila.lobby.TriColor.orDefault(c)
       )
     )(_ => none)
       .verifying("Invalid clock", _.validClock)
 
   def boardApiHook(allowFastGames: Boolean) = Form:
-    boardApiHookBase
-      .verifying(
-        "Invalid time control",
-        hook =>
-          allowFastGames || hook.makeClock.exists(
-            lila.core.game.isBoardCompatible
-          ) || hook.makeDaysPerTurn.isDefined
-      )
+    boardApiHookBase.verifying(
+      "Invalid time control",
+      hook =>
+        allowFastGames || hook.makeClock.exists(
+          lila.core.game.isBoardCompatible
+        ) || hook.makeDaysPerTurn.isDefined
+    )
 
   def toFriend = Form(single("username" -> lila.common.Form.username.historicalField))
 

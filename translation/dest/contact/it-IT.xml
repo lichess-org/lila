@@ -5,7 +5,7 @@
   <string name="whatCanWeHelpYouWith">In cosa possiamo aiutarti?</string>
   <string name="visitThisPage">Visita questa pagina per risolvere il problema</string>
   <string name="iCantLogIn">Non riesco ad accedere</string>
-  <string name="noConfirmationEmail">Non ho ricevuto la mia email di conferma</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">Non ho ricevuto la mia email di conferma</string>
   <string name="forgotPassword">Ho dimenticato la password</string>
   <string name="forgotUsername">Ho dimenticato il mio nome utente</string>
   <string name="youCanLoginWithEmail">Puoi effettuare l\'accesso con l\'indirizzo email con cui ti sei registrato</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">In certe circostanze giocando contro un profilo bot, un gioco valutato potrebbe non ricompensare punti se è determinato che il giocatore stia abusando del bot per i punti di valutazione.</string>
   <string name="errorPage">Pagina di errore</string>
   <string name="reportErrorPage">Se hai riscontrato una pagina di errore, puoi segnalarla:</string>
-  <string name="wantBroadcastTournament">Voglio trasmettere un torneo</string>
   <string name="learnHowToMakeBroadcasts">Impara come fare le tue trasmissioni su Lichess</string>
-  <string name="contactAboutOfficialBroadcasts">Puoi anche contattare il team delle dirette riguardo le dirette ufficiali.</string>
   <string name="banAppeal">Reclamo per un ban o una restrizione IP</string>
   <string name="engineAppeal">Motore o cheat mark</string>
   <string name="sendAppealTo">Puoi inviare una segnalazione a %s.</string>

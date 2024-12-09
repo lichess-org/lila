@@ -28,7 +28,7 @@
   <string name="xPublishedY">%1$s апублікаваў(-ла) %2$s</string>
   <string name="thisPostIsPublished">Допіс апублікаваны</string>
   <string name="thisIsADraft">Гэта чарнавік</string>
-  <string name="moreBlogPostsBy">Больш допісаў %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Больш допісаў %s</string>
   <string name="noPostsInThisBlogYet">Пакуль няма допісаў у гэтым блогу.</string>
   <string name="noDrafts">Няма чарнавых допісаў.</string>
   <string name="latestBlogPosts">Апошнія допісы ў блогу</string>
@@ -42,7 +42,6 @@
   <string name="imageAlt">Тэкставае апісанне выявы</string>
   <string name="imageCredit">Выява належыць</string>
   <string name="deleteBlog">Выдаліць гэты допіс у блогу канчаткова</string>
-  <string name="deleteImage">Выдаліць выяву</string>
   <string name="safeToUseImages">Бяспечна выкарыстоўваць выявы з наступных сайтаў: </string>
   <string name="selectPostTopics">Выберыце тэмы вашага допісу</string>
   <string name="useImagesYouMadeYourself">Вы таксама можаце выкарыстоўваць выявы, зробленыя вамі, зробленыя вамі фатаграфіі, скрыншоты Lichess... усё, што не абаронена чыім-небудзь аўтарскім правам.</string>

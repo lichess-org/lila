@@ -11,7 +11,7 @@
   <string name="newTeam">Νέα ομάδα</string>
   <string name="myTeams">Οι ομάδες μου</string>
   <string name="noTeamFound">Δε βρέθηκε ομάδα</string>
-  <string name="joinTeam">Συμμετοχή στην ομάδα</string>
+  <string name="joinTeam" comment="Appears as a button on team pages, and on pages of tournaments that require you to be a member of that team (e.g. Swiss tournaments).&#10;&#10;Please keep as short as possible.">Συμμετοχή στην ομάδα</string>
   <string name="onlyLeaderLeavesTeam">Προσθέστε έναν νέο αρχηγό ομάδας πριν φύγετε ή κλείστε την ομάδα.</string>
   <string name="quitTeam">Αποχώρηση από την ομάδα</string>
   <string name="manuallyReviewAdmissionRequests">Μη αυτόματη εξέταση αιτήσεων πρόσβασης</string>
@@ -56,4 +56,14 @@
   <string name="joinLichessVariantTeam">Γίνε μέλος της επίσημης ομάδας %s για να ενημερώνεσαι και να συμμετέχεις σε διάφορες εκδηλώσεις</string>
   <string name="teamPage">Σελίδα ομάδας</string>
   <string name="thisTeamBattleIsOver">Αυτό το τουρνουά τελείωσε και οι ομάδες δεν μπορούν πλέον να ενημερώνονται.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Συμπληρώστε με τις ομάδες που θα διαγωνιστούν σε αυτήν τη μάχη.</string>
+  <string name="oneTeamPerLine">Μία ομάδα ανά γραμμή. Χρησιμοποιήστε την αυτόματη συμπλήρωση.</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Μάχη %s ομάδας</item>
+    <item quantity="other">Μάχη %s ομάδων</item>
+  </plurals>
+  <plurals name="nbLeadersPerTeam">
+    <item quantity="one">Ένας αρχηγός ανά ομάδα</item>
+    <item quantity="other">%s αρχηγοί ανά ομάδα</item>
+  </plurals>
 </resources>

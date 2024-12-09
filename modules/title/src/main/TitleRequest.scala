@@ -1,13 +1,12 @@
 package lila.title
 
-import reactivemongo.api.bson.Macros.Annotations.Key
-import chess.{ PlayerTitle, FideId }
-import scalalib.ThreadLocalRandom
-import monocle.syntax.all.*
-
-import lila.core.id.ImageId
+import chess.{ FideId, PlayerTitle }
 import io.mola.galimatias.URL
-import lila.core.id.TitleRequestId
+import monocle.syntax.all.*
+import reactivemongo.api.bson.Macros.Annotations.Key
+import scalalib.ThreadLocalRandom
+
+import lila.core.id.{ ImageId, TitleRequestId }
 
 case class TitleRequest(
     @Key("_id") id: TitleRequestId,
@@ -23,6 +22,13 @@ case class TitleRequest(
   def status = history.head.status
 
   def approved = status == Status.approved
+
+  def isRejectedButCanTryAgain = status.is(_.rejected) &&
+    history.head.at.isBefore(nowInstant.minus(14.days))
+
+  def tryAgain =
+    if isRejectedButCanTryAgain then pushStatus(Status.building)
+    else this
 
   def pushStatus(s: TitleRequest.Status): TitleRequest = copy(
     history =

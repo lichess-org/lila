@@ -70,7 +70,10 @@
   <string name="promoteVariation">Повиши вариацията</string>
   <string name="makeMainLine">Направи основна линия</string>
   <string name="deleteFromHere">Изтриване от тук</string>
+  <string name="collapseVariations">Скрий вариациите</string>
+  <string name="expandVariations">Покажи вариациите</string>
   <string name="forceVariation">Покажи като вариация</string>
+  <string name="copyVariationPgn">Копирай PGN на вариацията</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Вариант на загуба</string>
   <string name="variantWin">Вариант на победа</string>
@@ -113,7 +116,6 @@
   <string name="replayMode">Режим на повторение</string>
   <string name="realtimeReplay">В реално време</string>
   <string name="byCPL">По CPL</string>
-  <string name="openStudy">Проучване</string>
   <string name="enable">Включване</string>
   <string name="bestMoveArrow">Показване на най-добър ход</string>
   <string name="showVariationArrows">Показване на стрелки за вариациите</string>
@@ -123,7 +125,6 @@
   <string name="memory">Памет</string>
   <string name="infiniteAnalysis">Неограничен анализ</string>
   <string name="removesTheDepthLimit">Анализът ще е безкраен, а компютърът ви - топъл</string>
-  <string name="engineManager">Мениджър на двигателя</string>
   <string name="blunder">Груба грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Неточност</string>
@@ -177,6 +178,7 @@
   <string name="latestForumPosts">Последни съобщения във форума</string>
   <string name="players">Играчи</string>
   <string name="friends">Приятели</string>
+  <string name="otherPlayers">други играчи</string>
   <string name="discussions">Разговори</string>
   <string name="today">Днес</string>
   <string name="yesterday">Вчера</string>
@@ -256,6 +258,7 @@
     <item quantity="one">%s игри с вас</item>
     <item quantity="other">%s игри с вас</item>
   </plurals>
+  <string name="ok">ОК</string>
   <string name="cancel">Отказ</string>
   <string name="whiteTimeOut">Времето на белите изтече</string>
   <string name="blackTimeOut">Времето на черните изтече</string>
@@ -431,7 +434,6 @@
   <string name="block">Блокирай</string>
   <string name="blocked">Блокирани</string>
   <string name="unblock">Отблокирай</string>
-  <string name="followsYou">Следва ви</string>
   <string name="xStartedFollowingY">%1$s започна да следва %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s последователи</item>
@@ -463,9 +465,6 @@
   <string name="safeTournamentName">Изберете много безопасно име за турнира.</string>
   <string name="inappropriateNameWarning">Нещо дори и леко неуместно може да доведе до затваряне на вашия акаунт.</string>
   <string name="emptyTournamentName">Ако оставите празно името, тогава турнирът ще бъде кръстен на случайно избран гросмайстор.</string>
-  <string name="recommendNotTouching">Препоръчваме да не пипате тези.</string>
-  <string name="fewerPlayers">Ако сте задали условия за влизане, вашият турнир ще има по-малко играчи.</string>
-  <string name="showAdvancedSettings">Показване на разширените настройки</string>
   <string name="makePrivateTournament">Ограничи достъпа до турнира с парола</string>
   <string name="join">Включи се</string>
   <string name="withdraw">Напусни</string>
@@ -504,8 +503,7 @@
   <string name="ifNoneLeaveEmpty">При липса оставете празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Редактирай профила</string>
-  <string name="firstName">Име</string>
-  <string name="lastName">Презиме</string>
+  <string name="realName">Истинско име</string>
   <string name="setFlair">Изберете вашето емоджи</string>
   <string name="flair">Емоджи</string>
   <string name="biography">Животопис</string>
@@ -534,6 +532,8 @@
   <string name="descPrivateHelp">Описание, което ще бъде видимо само от членовете на отбора. Ако е дадено, то ще замени публичното описание което членовете на отбора виждат.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
+  <string name="website">Уебсайт</string>
+  <string name="mobile">Мобилен</string>
   <string name="help">Помощ:</string>
   <string name="createANewTopic">Създаване на нова тема</string>
   <string name="topics">Теми</string>
@@ -550,11 +550,8 @@
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">Какъв е случаят?</string>
   <string name="cheat">Измама</string>
-  <string name="insult">Обида</string>
   <string name="troll">Вредител</string>
-  <string name="ratingManipulation">Манипулиране на рейтинга</string>
   <string name="other">Друго</string>
-  <string name="reportDescriptionHelp">Поставете линк към играта и обяснете какъв е проблемът с поведението на този потребител. Не казвайте единствено, че мами, но ни кажете как сте стигнали до този извод. Вашият доклад ще бъде обработен по-бързо, ако е написан на английски.</string>
   <string name="error.provideOneCheatedGameLink">Моля дай поне един линк до измамна игра.</string>
   <string name="by">от %s</string>
   <string name="importedByX">Внесени от %s</string>
@@ -587,6 +584,7 @@
   <string name="slow">Бавно</string>
   <string name="insideTheBoard">На дъската</string>
   <string name="outsideTheBoard">Извън дъската</string>
+  <string name="allSquaresOfTheBoard">Всички полета на дъската</string>
   <string name="onSlowGames">При бавни игри</string>
   <string name="always">Винаги</string>
   <string name="never">Никога</string>
@@ -671,7 +669,7 @@
   <string name="aboutSimulRules">Когато едновременното предизвикателство започне, всеки играч започва игра с приемащия, който играе с белите. Предизвикателството свършва когато всички игри са завършели.</string>
   <string name="aboutSimulSettings">Сеансите са винаги без рейтинг. Искане на повторна игра, връщане на ход и добавяне на време са изключени.</string>
   <string name="create">Създай</string>
-  <string name="whenCreateSimul">Когато създадете сеанс, трябва да можете да играете с много играчи наведнъж.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Когато създадете сеанс, трябва да можете да играете с много играчи наведнъж.</string>
   <string name="simulVariantsHint">Ако изберете няколко варианта, всеки играч може да избере кой да играе.</string>
   <string name="simulClockHint">Fischer-засичане на времето. Колкото повече играчи приемеш, толкова повече време ти е нужно.</string>
   <string name="simulAddExtraTime">Можеш да си прибавиш време, за да се справиш с предизвикателството.</string>
@@ -696,6 +694,7 @@
   <string name="keyPreviousBranch">Предходен клон</string>
   <string name="keyNextBranch">Следващ клон</string>
   <string name="cyclePreviousOrNextVariation">Превключи между предходна/следваща вариация</string>
+  <string name="playSelectedMove">изиграй избраният ход</string>
   <string name="newTournament">Нов турнир</string>
   <string name="tournamentHomeTitle">Шахматният турнир включва различни времеви контроли и варианти</string>
   <string name="tournamentHomeDescription">Играй в състезания по бърз шахмат! Участвай в разписаните състезания или създай свое собствено. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck и още възможности предоставящи безкрайна шахматна забава.</string>
@@ -738,6 +737,7 @@
   <string name="withFriends">С приятели</string>
   <string name="withEverybody">С всеки</string>
   <string name="kidMode">Детски режим</string>
+  <string name="kidModeIsEnabled">Детският режим е включен.</string>
   <string name="kidModeExplanation">В името на безопасността. В детския режим цялата комуникация в сайта е изключена. Включете детския режим, за да защитите вашите деца и ученици от другите потребители.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">В детския режим логото на Lichess става %s, за да сте сигурни в безопасността на своите деца.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Вашата сметка се управлява. Попитайте учителя си по шахмат за вдигане на детския режим.</string>
@@ -777,6 +777,12 @@
   <string name="transparent">Прозрачен</string>
   <string name="deviceTheme">Тема на устройството</string>
   <string name="backgroundImageUrl">URL адрес на фоновия образ:</string>
+  <string name="board">Дъска</string>
+  <string name="size">Размер</string>
+  <string name="opacity">Прозрачност</string>
+  <string name="brightness">Яркост</string>
+  <string name="hue">Цветови тон</string>
+  <string name="boardReset">Възстановяване на стандартните цветовете</string>
   <string name="pieceSet">Дизайн на фигури</string>
   <string name="embedInYourWebsite">Вграждане в уебсайта ви</string>
   <string name="usernameAlreadyUsed">Потребителското име е заето. Опитайте с друго име.</string>
@@ -968,4 +974,5 @@
   <string name="instructions">Инструкции</string>
   <string name="showMeEverything">Покажи ми всичко</string>
   <string name="lichessPatronInfo">Lichess е благотворителна организация и работи с напълно безплатен софтуер и отворен код. Всички разходи за опериране, разработка и съдържание са финансирани единствено от дарения от потребителите ни.</string>
+  <string name="stats">Статистика</string>
 </resources>

@@ -1,5 +1,6 @@
 package lila.common
 
+import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
 import scalatags.Text.all.*
 
 import java.lang.Character.isLetterOrDigit
@@ -7,8 +8,7 @@ import java.lang.{ Math, StringBuilder as jStringBuilder }
 import java.util.regex.Matcher
 import scala.annotation.{ switch, tailrec }
 
-import scalalib.StringUtils.{ escapeHtmlRaw, escapeHtmlRawInPlace }
-import lila.common.{ Html, config }
+import lila.common.Html
 import lila.core.config.NetDomain
 import lila.core.misc.lpv.LinkRender
 

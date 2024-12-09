@@ -116,7 +116,6 @@
   <string name="replayMode">Mënyra përsëritje</string>
   <string name="realtimeReplay">Aty për aty</string>
   <string name="byCPL">nga CPL</string>
-  <string name="openStudy">Studim i hapur</string>
   <string name="enable">Aktivizoje</string>
   <string name="bestMoveArrow">Shigjetë e lëvizjes më të mirë</string>
   <string name="showVariationArrows">Shfaq shigjeta variacionesh</string>
@@ -179,6 +178,7 @@
   <string name="latestForumPosts">Postimet më të reja në forum</string>
   <string name="players">Lojtarë</string>
   <string name="friends">Miqtë</string>
+  <string name="otherPlayers">lojtarë të tjerë</string>
   <string name="discussions">Biseda</string>
   <string name="today">Sot</string>
   <string name="yesterday">Dje</string>
@@ -258,6 +258,7 @@
     <item quantity="one">%s lojë me ju</item>
     <item quantity="other">%s lojëra me ju</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Anuloje</string>
   <string name="whiteTimeOut">Të bardhit i mbaroi koha</string>
   <string name="blackTimeOut">Të ziut i mbaroi koha</string>
@@ -436,7 +437,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="block">Bllokoje</string>
   <string name="blocked">I bllokuar</string>
   <string name="unblock">Zhbllokoje</string>
-  <string name="followsYou">Ju ndjek juve</string>
   <string name="xStartedFollowingY">%1$s nisi të ndjekë %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s ndjekës</item>
@@ -468,9 +468,6 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="safeTournamentName">Zgjidhni një emër shumë të sigurt për turneun.</string>
   <string name="inappropriateNameWarning">Çfarëdo gjëje qoftë edhe pakëz e papërshtatshme mund të sjellë mbylljen e llogarisë tuaj.</string>
   <string name="emptyTournamentName">Për ta emërtuar turneun me emrin e një lojtari të njohur shahu, lëreni të zbrazët.</string>
-  <string name="recommendNotTouching">Rekomandojmë të mos i prekni këto.</string>
-  <string name="fewerPlayers">Nëse ujdisni domosdoshmëri pjesëmarrjeje, turneu juaj do të ketë më pak lojtarë.</string>
-  <string name="showAdvancedSettings">Shfaq rregullimet të thelluara</string>
   <string name="makePrivateTournament">Bëjeni turneun privat dhe kufizojeni hyrjen me një fjalëkalim</string>
   <string name="join">Merrni pjesë</string>
   <string name="withdraw">Tërhiquni</string>
@@ -509,8 +506,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="ifNoneLeaveEmpty">Në mos pastë, lëreni të zbrazët</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Përpunoni profilin</string>
-  <string name="firstName">Emër</string>
-  <string name="lastName">Mbiemër</string>
+  <string name="realName">Emër i njëmendtë</string>
   <string name="biography">Jetëshkrim</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Vend ose rajon</string>
   <string name="thankYou">Faleminderit!</string>
@@ -538,6 +534,8 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="descPrivateHelp">Tekst që do ta shohin vetëm anëtarët e ekipit. Në u dhëntë, zëvendëson përshkrimin publik për anëtarët e ekipit.</string>
   <string name="no">Jo</string>
   <string name="yes">Po</string>
+  <string name="website">Sajt</string>
+  <string name="mobile">Celular</string>
   <string name="help">Ndihmë:</string>
   <string name="createANewTopic">Krijoni një temë të re</string>
   <string name="topics">Temat</string>
@@ -554,11 +552,11 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="reason">Arsye</string>
   <string name="whatIsIheMatter">Si është puna?</string>
   <string name="cheat">Hile</string>
-  <string name="insult">Fyerje</string>
   <string name="troll">Troll</string>
-  <string name="ratingManipulation">Manipulim vlerësimi</string>
   <string name="other">Tjetër</string>
-  <string name="reportDescriptionHelp">Ngjitni lidhjen për te loja(ra) dhe shpjegoni çfarë nuk shkon me sjelljen e këtij përdoruesi. Mos shkruani thjesht “mashtrojnë”, por na tregoni si mbërritët në këtë përfundim. Raportimi juaj do të përpunohet më shpejt, nëse shkruhet në anglisht.</string>
+  <string name="reportCheatBoostHelp">Ngjitni lidhjen për te loja(rat) dhe shpjegoni se ç’nuk shkon me sjelljen e këtij përdoruesi. Mos thoni thjesht “bën me hile”, por na tregoni se si arritët në këtë konkluzion.</string>
+  <string name="reportUsernameHelp">Shpjegoni pse ky emër përdoruesi është fyes. Mos thoni thjesht “është fyes/i papërshtatshëm”, por na tregoni se si arritët në këtë konkluzion, veçanërisht nëse fyerja është e hollë, jo në anglisht, është në një slang, ose është një referencë historike/kulturore.</string>
+  <string name="reportProcessedFasterInEnglish">Raportimi juaj do të shqyrtohet më shpejt, nëse është shkruar në anglisht.</string>
   <string name="error.provideOneCheatedGameLink">Ju lutemi, jepni të paktën një lidhje te një lojë me hile.</string>
   <string name="by">nga %s</string>
   <string name="importedByX">Importuar nga %s</string>
@@ -591,6 +589,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="slow">Ngadalë</string>
   <string name="insideTheBoard">Brenda fushës</string>
   <string name="outsideTheBoard">Jashtë fushës</string>
+  <string name="allSquaresOfTheBoard">Në krejt katrorët e fushës</string>
   <string name="onSlowGames">Në lojëra të ngadalta</string>
   <string name="always">Përherë</string>
   <string name="never">Kurrë</string>
@@ -675,7 +674,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="aboutSimulRules">Kur fillon simultaneja, çdo lojtar fillon lojën me pritësin, i cili luan me gurët e bardhë. Simultaneja mbaron kur mbarojnë të gjitha lojërat.</string>
   <string name="aboutSimulSettings">Simultanet janë gjithmonë të pavlerësuara. Revansh, marrje mbrapsht dhe \"më shumë kohë\" janë të çaktivizuara.</string>
   <string name="create">Krijoje</string>
-  <string name="whenCreateSimul">Kur krijon një simultane, luan kundër disa lojtarëve njëkohësisht.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kur krijon një simultane, luan kundër disa lojtarëve njëkohësisht.</string>
   <string name="simulVariantsHint">Nëse përzgjidhni disa variante, çdo lojtar zgjedh vetë cilin variant të luajë.</string>
   <string name="simulClockHint">Ujdisje Fisher për sahatin. Sa më shumë lojtarë pranoni, aq më shumë kohë mund t’ju nevojitet.</string>
   <string name="simulAddExtraTime">Ju mund të shtoni kohë shtesë për t\'i bërë ballë simultanes.</string>
@@ -983,4 +982,5 @@ Që lojërat të fillojnë nga pozicioni fillestar normal, lëreni të zbrazët.
   <string name="lichessPatronInfo">Lichess është një program bamirësie dhe krejtësisht falas/libre, me burim të hapët.
 Krejt kostot operative, zhvillimi dhe lënda financohen vetëm me dhurime nga përdoruesit.</string>
   <string name="nothingToSeeHere">S’ka ç’shihet këtu tani.</string>
+  <string name="stats">Statistika</string>
 </resources>

@@ -1,33 +1,20 @@
-!.build
-/modules
-/app
-/project
-/local
-/pnpm-lock.yaml
-/public/css
-/public/piece-css
-/public/compiled
-/public/glyphs.json
-/public/javascripts/vendor
-/public/vendor
-/public/oops/429.html
+# ignore all top level items by default
+*
 
-/translation/dest
+# format only these files at top level
+!/package.json
+!/crowdin.yml
+!/eslint.config.mjs
+!/pnpm-workspace.yaml
 
-/dist/
-/ui/common/**/*.js
-/ui/common/**/*.d.ts
-/ui/game/**/*.js
-/ui/game/**/*.d.ts
-/ui/voice/@build/crowdv/*.json
-/ui/nvui/**/*.js
-/ui/nvui/**/*.d.ts
-/ui/puz/**/*.js
-/ui/puz/**/*.d.ts
+# format only these top level directories and their contents
+!/.github/
+!/.github/**
+!/ui/
+!/ui/**
 
-*.min.js
-readme
-
-/.bloop/
-/.bsp/
-/.metals/
+# ignore these patterns anywhere
+dist/
+README.md
+pnpm-lock.yaml
+/ui/voice/crowdv/

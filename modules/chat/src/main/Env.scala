@@ -5,8 +5,7 @@ import play.api.Configuration
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.core.user.FlairGet
-import lila.core.user.FlairGetMap
+import lila.core.user.{ FlairGet, FlairGetMap }
 
 private case class ChatConfig(
     @ConfigName("collection.chat") chatColl: CollName,
@@ -21,7 +20,6 @@ final class Env(
     netDomain: NetDomain,
     userApi: lila.core.user.UserApi,
     userRepo: lila.core.user.UserRepo,
-    flairApi: lila.core.user.FlairApi,
     db: lila.db.Db,
     flood: lila.core.security.FloodApi,
     spam: lila.core.security.SpamApi,

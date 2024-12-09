@@ -1,6 +1,6 @@
-import { MaybeVNode } from 'common/snabbdom';
+import type { MaybeVNode } from 'common/snabbdom';
 import { h } from 'snabbdom';
-import LobbyController from '../../../ctrl';
+import type LobbyController from '../../../ctrl';
 import { speeds, variants } from '../../../options';
 
 export const ratingView = (ctrl: LobbyController): MaybeVNode => {
@@ -19,8 +19,7 @@ export const ratingView = (ctrl: LobbyController): MaybeVNode => {
       !opts.showRatings
         ? [h('i', perfIconAttrs), perfOrSpeed.name]
         : [
-            ...ctrl.trans.vdom(
-              'perfRatingX',
+            ...i18n.site.perfRatingX.asArray(
               h(
                 'strong',
                 perfIconAttrs,

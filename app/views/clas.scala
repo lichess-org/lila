@@ -2,7 +2,6 @@ package views.clas
 
 import play.api.data.Form
 
-import lila.ui.ContentSecurityPolicy
 import lila.app.UiEnv.{ *, given }
 import lila.clas.{ Clas, Student }
 

@@ -1,12 +1,12 @@
 package lila.oauth
 
+import play.api.data.Form
+import play.api.data.Forms.{ mapping, optional, single, text }
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
-import play.api.data.Form
-import play.api.data.Forms.{ mapping, optional, text, single }
 
-import lila.common.String.base64
 import lila.common.Form.into
+import lila.common.String.base64
 
 object AccessTokenRequest:
   import Protocol.*

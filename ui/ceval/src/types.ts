@@ -1,7 +1,7 @@
-import { Outcome } from 'chessops/types';
-import { Prop } from 'common';
-import { Feature } from 'common/device';
-import CevalCtrl from './ctrl';
+import type { Outcome } from 'chessops/types';
+import type { Prop } from 'common';
+import type { Feature } from 'common/device';
+import type CevalCtrl from './ctrl';
 
 export type WinningChances = number;
 export type SearchBy = { movetime: number } | { depth: number } | { nodes: number };
@@ -11,6 +11,7 @@ export interface Work {
   variant: VariantKey;
   threads: number;
   hashSize: number | undefined;
+  gameId: string | undefined; // send ucinewgame when changed
   stopRequested: boolean;
 
   path: string;
@@ -24,32 +25,43 @@ export interface Work {
   emit: (ev: Tree.LocalEval) => void;
 }
 
-export interface EngineInfo {
+export interface BaseEngineInfo {
   id: string;
   name: string;
-  tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
   short?: string;
   variants?: VariantKey[];
   minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
-  requires?: Requires[];
+  requires?: Feature[];
 }
 
-export interface ExternalEngineInfo extends EngineInfo {
+export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
+  variants: VariantKey[];
+  maxHash: number;
+  maxThreads: number;
+  providerData?: string;
   clientSecret: string;
   officialStockfish?: boolean;
   endpoint: string;
 }
 
-export interface BrowserEngineInfo extends EngineInfo {
-  minMem?: number;
-  assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
-  requires: Requires[];
-  obsoletedBy?: Feature;
+export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
+  tech: 'EXTERNAL';
+  cloudEval?: false;
 }
 
-export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web
+export interface BrowserEngineInfo extends BaseEngineInfo {
+  tech: 'HCE' | 'NNUE';
+  short: string;
+  minMem?: number;
+  assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
+  requires: Feature[];
+  obsoletedBy?: Feature;
+  cloudEval?: boolean;
+}
+
+export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };
@@ -89,7 +101,7 @@ export interface CevalOpts {
   redraw: Redraw;
   search?: Search;
   onSelectEngine?: () => void;
-  externalEngines?: ExternalEngineInfo[];
+  externalEngines?: ExternalEngineInfoFromServer[];
 }
 
 export interface Hovering {
@@ -105,6 +117,7 @@ export interface PvBoard {
 export interface Started {
   path: string;
   steps: Step[];
+  gameId: string | undefined;
   threatMode: boolean;
 }
 
@@ -130,7 +143,6 @@ export interface ParentCtrl {
   restartCeval: () => void;
   redraw?: () => void;
   externalEngines?: () => ExternalEngineInfo[] | undefined;
-  trans: Trans;
 }
 
 export interface NodeEvals {

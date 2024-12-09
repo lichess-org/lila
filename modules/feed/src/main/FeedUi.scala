@@ -1,10 +1,11 @@
 package lila.feed
 package ui
 
-import scalalib.paginator.Paginator
 import play.api.data.Form
+import scalalib.paginator.Paginator
 
 import lila.ui.{ *, given }
+
 import ScalatagsTemplate.{ *, given }
 
 final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
@@ -14,7 +15,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
 
   private def renderCache[A](ttl: FiniteDuration)(toFrag: A => Frag): A => Frag =
     val cache = lila.memo.CacheApi.scaffeineNoScheduler
-      .expireAfterWrite(1 minute)
+      .expireAfterWrite(ttl)
       .build[A, String]()
     from => raw(cache.get(from, from => toFrag(from).render))
 
@@ -22,8 +23,8 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
     sitePage(title)
       .css("bits.dailyFeed")
       .js(infiniteScrollEsmInit)
-      .js(edit.option(EsmInit("bits.flatpickr")))
-      .js(edit.option(EsmInit("bits.dailyFeed")))
+      .js(edit.option(Esm("bits.flatpickr")))
+      .js(edit.option(esmInitBit("dailyFeed")))
 
   def index(ups: Paginator[Feed.Update])(using Context) =
     page("Updates"):
@@ -97,7 +98,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
             inForm(form)
           ,
           postForm(action := routes.Feed.delete(update.id))(cls := "daily-feed__delete"):
-            submitButton(cls := "button button-red button-empty confirm")("Delete")
+            submitButton(cls := "button button-red button-empty yes-no-confirm")("Delete")
         )
       )
 
@@ -170,10 +171,7 @@ final class FeedUi(helpers: Helpers, atomUi: AtomUi)(
       )(form3.textarea(_)(rows := 10)),
       form3.group(form("flair"), "Icon", half = false): field =>
         form3
-          .flairPicker(field, Flair.from(form("flair").value), label = frag("Update icon"), anyFlair = true):
-            span(cls := "flair-container"):
-              Flair.from(form("flair").value).map(f => marker(f.some, "uflair".some))
-      ,
+          .flairPicker(field, Flair.from(form("flair").value), anyFlair = true),
       form3.action(form3.submit("Save"))
     )
 

@@ -21,6 +21,7 @@ final class AccountClosure(
     modApi: lila.mod.ModApi,
     modLogApi: lila.mod.ModlogApi,
     appealApi: lila.appeal.AppealApi,
+    ublogApi: lila.ublog.UblogApi,
     activityWrite: lila.activity.ActivityWriteApi,
     email: lila.mailer.AutomaticEmail
 )(using Executor):
@@ -34,9 +35,10 @@ final class AccountClosure(
 
   def close(u: User)(using me: Me): Funit = for
     playbanned <- playbanApi.HasCurrentPlayban(u.id)
-    selfClose = me.is(u)
-    modClose  = !selfClose && Granter(_.CloseAccount)
-    badApple  = u.lameOrTroll || u.marks.alt || modClose
+    selfClose    = me.is(u)
+    teacherClose = !selfClose && !Granter(_.CloseAccount) && Granter(_.Teacher)
+    modClose     = !selfClose && Granter(_.CloseAccount)
+    badApple     = u.lameOrTroll || u.marks.alt || modClose
     _       <- userRepo.disable(u, keepEmail = badApple || playbanned)
     _       <- relationApi.unfollowAll(u.id)
     _       <- rankingApi.remove(u.id)
@@ -53,11 +55,12 @@ final class AccountClosure(
     reports <- reportApi.processAndGetBySuspect(lila.report.Suspect(u))
     _ <-
       if selfClose then modLogApi.selfCloseAccount(u.id, reports)
+      else if teacherClose then modLogApi.teacherCloseAccount(u.id)
       else modLogApi.closeAccount(u.id)
     _ <- appealApi.onAccountClose(u)
-    _ <- u.marks.troll.so(relationApi.fetchFollowing(u.id).flatMap {
-      activityWrite.unfollowAll(u, _)
-    })
+    _ <- ublogApi.onAccountClose(u)
+    _ <- u.marks.troll.so:
+      relationApi.fetchFollowing(u.id).flatMap(activityWrite.unfollowAll(u, _))
   yield Bus.publish(lila.core.security.CloseAccount(u.id), "accountClose")
 
   private def lichessClose(userId: UserId) =
@@ -69,7 +72,6 @@ final class AccountClosure(
       case Some(user) =>
         userRepo.setEraseAt(user)
         email.gdprErase(user)
-        lila.common.Bus.publish(lila.core.user.GDPRErase(user), "gdprErase")
         Right(s"Erasing all data about $username in 24h")
     }
 

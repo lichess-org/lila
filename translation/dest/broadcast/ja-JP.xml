@@ -6,6 +6,7 @@
     <item quantity="other">%s ブロードキャスト</item>
   </plurals>
   <string name="liveBroadcasts">実戦トーナメントのライブ中継</string>
+  <string name="broadcastCalendar">中継カレンダー</string>
   <string name="newBroadcast">新しいライブ中継</string>
   <string name="subscribedBroadcasts">登録した配信</string>
   <string name="aboutBroadcasts">中継について</string>
@@ -22,14 +23,10 @@
   <string name="tournamentDescription">大会の短い説明</string>
   <string name="fullDescription">長い説明</string>
   <string name="fullDescriptionHelp">内容の詳しい説明（オプション）。%1$s が利用できます。長さは [欧文換算で] %2$s 字まで。</string>
-  <string name="sourceUrlOrGameIds">ソース URLかゲーム ID</string>
+  <string name="sourceSingleUrl">PGN のソース URL</string>
   <string name="sourceUrlHelp">Lichess が PGN を取得するための URL。インターネット上に公表されているもののみ。</string>
-  <string name="gameIdsHelp">Lichess ゲーム ID は半角スペースで区切れば最大 64 個まで入力できます。</string>
-  <string name="startDate">開始日付（あなたの現地時間）</string>
+  <string name="sourceGameIds">Lichess ゲーム ID、半角スペースで区切って最大 64 個まで。</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
-  <string name="credits">ソースを表示する</string>
-  <string name="broadcastUrl">ブロードキャスト URL</string>
-  <string name="currentRoundUrl">現在のラウンドの URL</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
   <string name="downloadAllRounds">全ラウンドをダウンロード</string>
   <string name="resetRound">このラウンドをリセット</string>
@@ -39,9 +36,46 @@
   <string name="editRoundStudy">ラウンドの研究を編集</string>
   <string name="deleteTournament">このトーナメントを削除</string>
   <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
-  <string name="automaticLeaderboard">自動ランキング</string>
-  <string name="automaticLeaderboardHelp">ゲーム結果から簡単なランキングを計算して表示する</string>
+  <string name="showScores">ゲーム結果に応じてプレイヤーのスコアを表示</string>
   <string name="replacePlayerTags">オプション：プレイヤーの名前、レーティング、タイトルの変更</string>
-  <string name="periodInSeconds">待機時間（秒）</string>
-  <string name="periodInSecondsHelp">オプション、次のリクエストまでの待機時間を指定。最小 2 秒、最大 60 秒。デフォルト値は視聴者数から自動的に決まります。</string>
+  <string name="fideFederations">FIDE 加盟協会</string>
+  <string name="top10Rating">レーティング トップ10</string>
+  <string name="fidePlayers">FIDE 選手</string>
+  <string name="fidePlayerNotFound">FIDE 選手が見つかりません</string>
+  <string name="fideProfile">FIDE プロフィール</string>
+  <string name="federation">所属協会</string>
+  <string name="ageThisYear">今年時点の年齢</string>
+  <string name="unrated">レーティングなし</string>
+  <string name="recentTournaments">最近のトーナメント</string>
+  <string name="openLichess">Lichess で開く</string>
+  <string name="teams">チーム</string>
+  <string name="boards">ボード</string>
+  <string name="overview">概要</string>
+  <string name="subscribeTitle">登録しておくと各ラウンドの開始時に通知が来ます。アカウント設定でベルやプッシュ通知の切り替えができます。</string>
+  <string name="uploadImage">トーナメントの画像をアップロード</string>
+  <string name="noBoardsYet">ボードはまだありません。棋譜がアップロードされると表示されます。</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">ボードはソースまたは %s 経由で読み込めます</string>
+  <string name="startsAfter">%s 後に開始</string>
+  <string name="startVerySoon">中継はまもなく始まります。</string>
+  <string name="notYetStarted">中継はまだ始まっていません。</string>
+  <string name="officialWebsite">公式サイト</string>
+  <string name="standings">順位</string>
+  <string name="officialStandings">公式順位</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
+  <string name="webmastersPage">ウェブ管理者のページ</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
+  <string name="embedThisBroadcast">この中継をウェブサイトに埋め込む</string>
+  <string name="embedThisRound">%s をウェブサイトに埋め込む</string>
+  <string name="ratingDiff">レーティングの差</string>
+  <string name="gamesThisTournament">このトーナメントの対局</string>
+  <string name="score">スコア</string>
+  <string name="allTeams">すべてのチーム</string>
+  <string name="tournamentFormat">トーナメント形式</string>
+  <string name="tournamentLocation">開催地</string>
+  <string name="topPlayers">トッププレイヤー</string>
+  <string name="timezone">タイムゾーン</string>
+  <string name="fideRatingCategory">FIDE レーティング カテゴリー</string>
+  <string name="optionalDetails">その他詳細（オプション）</string>
+  <string name="pastBroadcasts">過去の中継</string>
+  <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
 </resources>

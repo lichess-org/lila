@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Pleustriñ war an daveennoù</string>
   <string name="averageScoreAsWhiteX">Disoc\'h keitat eus tu ar re wenn: %s</string>
   <string name="averageScoreAsBlackX">Disoc\'h keitat eus tu ar re zu: %s</string>
-  <string name="knowingTheChessBoard">Anavezout daveennoù an dachenn emgann zo ur varregezh a-bouez bras:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Anavezout daveennoù an dachenn emgann zo ur varregezh a-bouez bras:</string>
   <string name="mostChessCourses">Darn vrasañ eus ar c\'hentelioù ha poelladennoù a ra gant an notadur aljebrek.</string>
   <string name="talkToYourChessFriends">Aesoc\'h e vo deoc\'h kaozeal gant ho mignoned peogwir e veoc\'h gouest da gomz \"yezh an echedoù\" asambles gante.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Efedusoc\'h eo an dielfennañ pa ouzer diouzhtu pelec\'h emaomp war an dachenn emgann.</string>

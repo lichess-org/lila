@@ -2,13 +2,14 @@ package lila.perfStat
 
 import play.api.libs.json.Json
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
-import lila.core.perm.Granter
-import lila.core.perf.UserWithPerfs
 import lila.common.Json.given
 import lila.core.data.SafeJsonStr
+import lila.core.perf.UserWithPerfs
+import lila.core.perm.Granter
+import lila.rating.PerfType
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
   import helpers.{ *, given }
@@ -21,9 +22,9 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     import stat.perfType
     Page(s"${user.username} - ${trans.perfStat.perfStats.txt(perfType.trans)}")
       .robots(false)
-      .js(EsmInit("bits.user"))
+      .js(Esm("bits.user"))
       .js(ratingChart.map { rc =>
-        jsModuleInit(
+        esmInit(
           "chart.ratingHistory",
           SafeJsonStr(s"{data:$rc,singlePerfName:'${perfType.trans(using transDefault)}'}")
         )
@@ -82,11 +83,11 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
     div(cls := "box__pad perf-stat__content")(
       glicko(user.user, stat.perfType, user.perfs(stat.perfType), percentile),
       counter(stat.count),
-      highlow(stat, percentileLow, percentileHigh),
-      resultStreak(stat.resultStreak),
+      highlow(stat, percentileLow, percentileHigh, user.user),
+      resultStreak(stat.resultStreak, user.user),
       result(stat, user.user),
-      playStreakNb(stat.playStreak),
-      playStreakTime(stat.playStreak)
+      playStreakNb(stat.playStreak, user.user),
+      playStreakTime(stat.playStreak, user.user)
     )
 
   private def decimal(v: Double) = scalalib.Maths.roundDownAt(v, 2)
@@ -120,15 +121,15 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
         tps.progressOverLastXGames(12),
         " ",
         span(cls := "progress")(
-          if perf.progress > 0 then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
-          else if perf.progress < 0 then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
+          if perf.progress.positive then tag("green")(dataIcon := Icon.ArrowUpRight)(perf.progress)
+          else if perf.progress.negative then tag("red")(dataIcon := Icon.ArrowDownRight)(-perf.progress)
           else "-"
         ),
         ". ",
         tps.ratingDeviation(
           strong(
             title := tps.ratingDeviationTooltip.txt(
-              lila.rating.Glicko.provisionalDeviation,
+              chess.rating.glicko.provisionalDeviation,
               lila.rating.Glicko.standardRankableDeviation,
               lila.rating.Glicko.variantRankableDeviation
             )
@@ -213,39 +214,53 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
       title: Frag => Frag,
       opt: Option[lila.perfStat.RatingAt],
       pctStr: Option[String],
-      color: String
+      color: String,
+      u: User
   )(using Translate): Frag = opt match
     case Some(r) =>
       div(
         h2(title(strong(tag(color)(r.int, pctStr.map(st.title := _))))),
-        a(cls := "glpt", href := routes.Round.watcher(r.gameId, Color.white))(absClientInstant(r.at))
+        a(
+          cls  := "glpt",
+          href := s"${routes.Round.watcher(r.gameId, Color.white)}?pov=${u.username}"
+        ):
+          (absClientInstant(r.at))
       )
     case None => div(h2(title(emptyFrag)), " ", span(tps.notEnoughGames()))
 
-  private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double])(using
+  private def highlow(stat: PerfStat, pctLow: Option[Double], pctHigh: Option[Double], u: User)(using
       Translate
   ): Frag =
     import stat.perfType
     def titleOf(v: Double) = trans.site.betterThanPercentPlayers.txt(s"$v%", perfType.trans)
     st.section(cls := "highlow split")(
-      highlowSide(tps.highestRating(_), stat.highest, pctHigh.map(titleOf), "green"),
-      highlowSide(tps.lowestRating(_), stat.lowest, pctLow.map(titleOf), "red")
+      highlowSide(tps.highestRating(_), stat.highest, pctHigh.filter(_ != 0.0).map(titleOf), "green", u),
+      highlowSide(tps.lowestRating(_), stat.lowest, pctLow.filter(_ != 0.0).map(titleOf), "red", u)
     )
 
-  private def fromTo(s: lila.perfStat.Streak)(using Translate): Frag =
+  private def fromTo(s: lila.perfStat.Streak, u: User)(using Translate): Frag =
     s.from match
       case Some(from) =>
         tps.fromXToY(
-          a(cls := "glpt", href := routes.Round.watcher(from.gameId, Color.white))(absClientInstant(from.at)),
+          a(
+            cls  := "glpt",
+            href := s"${routes.Round.watcher(from.gameId, Color.white)}?pov=${u.username}"
+          ):
+            (absClientInstant(from.at))
+          ,
           s.to match
             case Some(to) =>
-              a(cls := "glpt", href := routes.Round.watcher(to.gameId, Color.white))(absClientInstant(to.at))
+              a(
+                cls  := "glpt",
+                href := s"${routes.Round.watcher(to.gameId, Color.white)}?pov=${u.username}"
+              ):
+                (absClientInstant(to.at))
             case None => tps.now()
         )
       case None => nbsp
 
-  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String)(using
-      Translate
+  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: Frag => Frag, color: String, u: User)(
+      using Translate
   ): Frag =
     div(cls := "streak")(
       h3(
@@ -254,22 +269,22 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
           else "-"
         )
       ),
-      fromTo(s)
+      fromTo(s, u)
     )
 
-  private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String)(using
+  private def resultStreakSide(s: lila.perfStat.Streaks, title: Frag, color: String, u: User)(using
       Translate
   ): Frag =
     div(
       h2(title),
-      resultStreakSideStreak(s.max, tps.longestStreak(_), color),
-      resultStreakSideStreak(s.cur, tps.currentStreak(_), color)
+      resultStreakSideStreak(s.max, tps.longestStreak(_), color, u),
+      resultStreakSideStreak(s.cur, tps.currentStreak(_), color, u)
     )
 
-  private def resultStreak(streak: lila.perfStat.ResultStreak)(using Translate): Frag =
+  private def resultStreak(streak: lila.perfStat.ResultStreak, u: User)(using Translate): Frag =
     st.section(cls := "resultStreak split")(
-      resultStreakSide(streak.win, tps.winningStreak(), "green"),
-      resultStreakSide(streak.loss, tps.losingStreak(), "red")
+      resultStreakSide(streak.win, tps.winningStreak(), "green", u),
+      resultStreakSide(streak.loss, tps.losingStreak(), "red", u)
     )
 
   private def resultTable(results: lila.perfStat.Results, title: Frag, user: User)(using Translate) =
@@ -303,7 +318,9 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
       )
     )
 
-  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Translate): Frag =
+  private def playStreakNbStreak(s: lila.perfStat.Streak, title: Frag => Frag, u: User)(using
+      Translate
+  ): Frag =
     div(
       div(cls := "streak")(
         h3(
@@ -312,40 +329,42 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             else "-"
           )
         ),
-        fromTo(s)
+        fromTo(s, u)
       )
     )
 
-  private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(using Translate): Frag =
+  private def playStreakNbStreaks(streaks: lila.perfStat.Streaks, u: User)(using Translate): Frag =
     div(cls := "split")(
-      playStreakNbStreak(streaks.max, tps.longestStreak(_)),
-      playStreakNbStreak(streaks.cur, tps.currentStreak(_))
+      playStreakNbStreak(streaks.max, tps.longestStreak(_), u),
+      playStreakNbStreak(streaks.cur, tps.currentStreak(_), u)
     )
 
-  private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(using Translate): Frag =
+  private def playStreakNb(playStreak: lila.perfStat.PlayStreak, u: User)(using Translate): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := tps.lessThanOneHour.txt())(tps.gamesInARow())),
-      playStreakNbStreaks(playStreak.nb)
+      playStreakNbStreaks(playStreak.nb, u)
     )
 
-  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag)(using Translate): Frag =
+  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: Frag => Frag, u: User)(using
+      Translate
+  ): Frag =
     div(
       div(cls := "streak")(
         h3(title(lila.core.i18n.translateDuration(s.duration))),
-        fromTo(s)
+        fromTo(s, u)
       )
     )
 
-  private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(using Translate): Frag =
+  private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks, u: User)(using Translate): Frag =
     div(cls := "split")(
-      playStreakTimeStreak(streaks.max, tps.longestStreak(_)),
-      playStreakTimeStreak(streaks.cur, tps.currentStreak(_))
+      playStreakTimeStreak(streaks.max, tps.longestStreak(_), u),
+      playStreakTimeStreak(streaks.cur, tps.currentStreak(_), u)
     )
 
-  private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(using Translate): Frag =
+  private def playStreakTime(playStreak: lila.perfStat.PlayStreak, u: User)(using Translate): Frag =
     st.section(cls := "playStreak")(
       h2(span(title := tps.lessThanOneHour.txt())(tps.maxTimePlaying())),
-      playStreakTimeStreaks(playStreak.time)
+      playStreakTimeStreaks(playStreak.time, u)
     )
 
   def ratingDistribution(perfType: PerfType, data: List[Int], otherUser: Option[UserWithPerfs])(using
@@ -363,10 +382,7 @@ final class PerfStatUi(helpers: Helpers)(communityMenu: Context ?=> Frag):
             "freq"        -> data,
             "myRating"    -> myVisiblePerfs.map(_(perfType).intRating),
             "otherRating" -> otherUser.ifTrue(ctx.pref.showRatings).map(_.perfs(perfType).intRating),
-            "otherPlayer" -> otherUser.map(_.username),
-            "i18n" -> i18nJsObject(
-              List(trans.site.players, trans.site.yourRating, trans.site.cumulative, trans.site.glicko2Rating)
-            )
+            "otherPlayer" -> otherUser.map(_.username)
           )
         )
       ):

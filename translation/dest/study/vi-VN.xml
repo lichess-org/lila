@@ -120,7 +120,7 @@
   <string name="enableSync">Kích hoạt tính năng đồng bộ hóa</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Có: giữ tất cả mọi người trên 1 thế cờ</string>
   <string name="noLetPeopleBrowseFreely">Không: để mọi người tự do xem xét</string>
-  <string name="pinnedStudyComment">Đã ghim bình luận nghiên cứu</string>
+  <string name="pinnedStudyComment">Bình luận nghiên cứu được ghim</string>
   <string name="start">Bắt đầu</string>
   <string name="save">Lưu</string>
   <string name="clearChat">Xóa trò chuyện</string>
@@ -133,7 +133,7 @@
   <string name="brilliantMove">Nước đi thiên tài</string>
   <string name="blunder">Sai lầm nghiêm trọng</string>
   <string name="interestingMove">Nước đi hay</string>
-  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Nước cần suy tính thêm</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">Nước đi mơ hồ</string>
   <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">Nước duy nhất</string>
   <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">Zugzwang</string>
   <string name="equalPosition">Thế trận cân bằng</string>
@@ -163,4 +163,5 @@
   <string name="playAgain">Chơi lại</string>
   <string name="whatWouldYouPlay">Bạn sẽ làm gì ở thế cờ này?</string>
   <string name="youCompletedThisLesson">Chúc mừng! Bạn đã hoàn thành bài học này.</string>
+  <string name="perPage">%s mỗi trang</string>
 </resources>

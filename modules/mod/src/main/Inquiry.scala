@@ -1,9 +1,9 @@
 package lila.mod
 
 import lila.core.LightUser
+import lila.core.perf.UserWithPerfs
 import lila.report.{ Report, ReportApi }
 import lila.user.{ Me, Note, NoteApi, UserApi }
-import lila.core.perf.UserWithPerfs
 
 case class Inquiry(
     mod: LightUser,
@@ -15,9 +15,9 @@ case class Inquiry(
 ):
   def allReports = report :: moreReports
   def alreadyMarked =
-    (report.isCheat && user.marks.engine) ||
-      (report.isBoost && user.marks.boost) ||
-      (report.isComm && user.marks.troll)
+    (report.is(_.Cheat) && user.marks.engine) ||
+      (report.is(_.Boost) && user.marks.boost) ||
+      (report.is(_.Comm) && user.marks.troll)
 
 final class InquiryApi(
     userApi: UserApi,
@@ -31,9 +31,9 @@ final class InquiryApi(
         .ofModId(mod)
         .flatMapz: report =>
           (
-            reportApi.moreLike(report, 10),
+            reportApi.moreLike(report, Max(10)),
             userApi.withPerfs(report.user),
-            noteApi.byUserForMod(report.user),
+            noteApi.toUserForMod(report.user),
             logApi.userHistory(report.user)
           ).mapN: (moreReports, userOption, notes, history) =>
             userOption.map: user =>

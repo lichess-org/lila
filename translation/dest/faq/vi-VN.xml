@@ -20,7 +20,7 @@
   <string name="keyboardShortcutsExplanation">Một số trang trên Lichess có phím tắt mà bạn có thể sử dụng. Hãy thử nhấn \'?\' ở trang nghiên cứu, phân tích, câu đố hoặc trang ván đấu để hiển thị các phím tắt khả dụng.</string>
   <string name="fairPlay">Chơi Công Bằng</string>
   <string name="whenAmIEligibleRatinRefund">Khi nào thì tôi đủ điều kiện để được hoàn lại hệ số tự động từ những kẻ gian lận?</string>
-  <string name="ratingRefundExplanation">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu đã xếp hạng mới nhất của họ trong vòng 5 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất hệ số (do thua hoặc hòa) và hệ số của bạn không phải là tạm thời, bạn sẽ được hoàn lại hệ số. Điểm hoàn lại được giới hạn dựa trên hệ số cao nhất của bạn và tiến độ hệ số của bạn sau ván đấu. (Ví dụ: nếu hệ số của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">Một phút sau khi một người chơi bị đánh dấu, 40 ván đấu đã xếp hạng mới nhất của họ trong vòng 5 ngày qua sẽ được thực hiện. Nếu bạn là đối thủ của họ trong các ván đấu đó, bạn bị mất hệ số (do thua hoặc hòa) và hệ số của bạn không phải là tạm thời, bạn sẽ được hoàn lại hệ số. Điểm hoàn lại được giới hạn dựa trên hệ số cao nhất của bạn và tiến độ hệ số của bạn sau ván đấu. (Ví dụ: nếu hệ số của bạn tăng lên đáng kể sau các ván đấu đó, bạn có thể không được hoàn điểm hoặc chỉ được hoàn lại một phần.) Khoản hoàn trả sẽ không bao giờ vượt quá 150 điểm.</string>
   <string name="preventLeavingGameWithoutResigning">Chuyện gì sẽ xảy ra đối với những kỳ thủ rời khỏi ván đấu thay vì chịu thua?</string>
   <string name="leavingGameWithoutResigningExplanation">Nếu đối thủ của bạn thường xuyên hủy/rời khỏi ván cờ, họ sẽ bị \"cấm chơi\", có nghĩa là họ tạm thời bị cấm chơi. Điều này không được công khai trên hồ sơ của họ. Nếu hành vi vẫn tiếp tục, độ dài của thời gian cấm sẽ tăng lên - và hành vi này kéo dài có thể dẫn đến việc đóng tài khoản.</string>
   <string name="howCanIBecomeModerator">Làm sao để tôi có thể trở thành một điều hành viên?</string>
@@ -33,7 +33,7 @@
   <string name="howBulletBlitzEtcDecided">Cờ Siêu Chớp, Cờ Chớp và các định giờ khác được quyết định thế nào?</string>
   <string name="basedOnGameDuration">Việc xác định loại cờ của Lichess dựa trên thời lượng ván đấu ước tính = %1$s
 Ví dụ: thời lượng ước tính của một ván cờ 5+3 là 5 × 60 + 40 × 3 = 420 giây.</string>
-  <string name="durationFormula">(thời gian ban đầu tính bằng giây) + 40 × (thời gian gia tăng)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(thời gian ban đầu tính bằng giây) + 40 × (thời gian gia tăng)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s giây = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s = %2$s</string>
   <string name="whatVariantsCanIplay">Tôi có thể chơi những loại biến thể nào trên Lichess?</string>
@@ -96,12 +96,12 @@ Vui lòng không yêu cầu được nhận danh hiệu LM.</string>
   <string name="usernamesNotOffensive">Nói chung, tên người dùng không được: xúc phạm, mạo danh người khác hoặc quảng cáo. Bạn có thể đọc thêm về %1$s.</string>
   <string name="guidelines">hướng dẫn</string>
   <string name="canIChangeMyUsername">Tôi có thể đổi tên đăng nhập được không?</string>
-  <string name="usernamesCannotBeChanged">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Không, tên đăng nhập không thể thay đổi được vì nhiều lý do kỹ thuật và thực tế. Các tên đăng nhập được đưa vào quá nhiều nơi: cơ sở dữ liệu, biên bản ván cờ và trong trí nhớ của mọi người. Bạn có thể điều chỉnh việc viết hoa hoặc thường một lần.</string>
   <string name="uniqueTrophies">Những chiếc cúp độc nhất</string>
   <string name="ownerUniqueTrophies">Chiếc cúp đó là duy nhất trong lịch sử của Lichess, không ai khác ngoài %1$s sẽ có được nó.</string>
   <string name="wayOfBerserkExplanation">Để có được nó, hiimgosu đã tự thử thách bản thân bằng cách chia đôi thời gian mỗi ván (Berserk) và giành chiến thắng 100%% các ván trong một %s.</string>
   <string name="aHourlyBulletTournament">một giải đấu Cờ Siêu Chớp hàng giờ</string>
-  <string name="goldenZeeExplanation">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại AI cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đánh bại Stockfish, và lời hứa đã được tôn vinh.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict đã phát trực tiếp và trong 2 giờ đó anh ấy đã cố gắng đánh bại AI cấp độ 8 trong thể loại 1+0, nhưng không thành công. Thibault nói với anh ấy rằng nếu anh ấy làm điều đó thành công trên luồng, anh ấy sẽ nhận được một chiếc cúp độc nhất vô nhị. Một giờ sau, anh ta đánh bại Stockfish, và lời hứa đã được tôn vinh.</string>
   <string name="lichessRatings">Hệ số Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Lichess sử dụng hệ thống xếp hạng nào?</string>
   <string name="ratingSystemUsedByLichess">Xếp hạng được tính bằng phương pháp xếp hạng Glicko-2 do Mark Glickman phát triển. Đây là một phương pháp đánh giá rất phổ biến và được sử dụng bởi một số lượng lớn các tổ chức cờ vua (FIDE là một ví dụ ngược lại đáng chú ý, vì họ vẫn sử dụng hệ thống đánh giá Elo lỗi thời).

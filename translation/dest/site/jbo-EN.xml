@@ -95,7 +95,6 @@
   <string name="replayMode">rapli tadji</string>
   <string name="realtimeReplay">pu ca\'o</string>
   <string name="byCPL">la cypycyc.</string>
-  <string name="openStudy">kargau lo seltadni</string>
   <string name="enable">fasnu</string>
   <string name="bestMoveArrow">arco lo kelka\'u poi zanrai</string>
   <string name="evaluationGauge">arco lo se xamgu be lo ci\'erkei zazyfau</string>
@@ -324,7 +323,6 @@
   <string name="block">fanta lo nu jikca</string>
   <string name="blocked">lo nu jikca gau se fanta</string>
   <string name="unblock">co\'u fanta lo nu jikca</string>
-  <string name="followsYou">ti do catlu</string>
   <string name="xStartedFollowingY">la\'oi %1$s la\'oi %2$s co\'a catlu</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s da catlu ti</item>
@@ -353,8 +351,6 @@
   <string name="safeTournamentName">.e\'o ko gasnu lonu na da\'asnu lo cmene be ti poi grinunjvi</string>
   <string name="inappropriateNameWarning">.e\'unai lonu lo do jaspu ku cu\'urga\'o cu cumki lonu ba\'ucu\'i toltce da\'asnu</string>
   <string name="emptyTournamentName">lo cmene pe lo caxmati mispre cu tecycuxskicauzmi</string>
-  <string name="recommendNotTouching">.e\'unai</string>
-  <string name="showAdvancedSettings">arco lo certu gaftercu\'a</string>
   <string name="join">cmibi\'o</string>
   <string name="withdraw">ti\'ekla</string>
   <string name="points">lo kelnemka\'u</string>
@@ -386,8 +382,6 @@
   <string name="ifNoneLeaveEmpty">lonu noda co\'e cu krinu lonu curmi lonu kunti</string>
   <string name="profile">lo predatni</string>
   <string name="editProfile">stika lo predatni be do</string>
-  <string name="firstName">lo du\'acme</string>
-  <string name="lastName">lo lazme\'e</string>
   <string name="biography">velski do fo do</string>
   <string name="thankYou">ki\'e</string>
   <string name="socialMediaLinks">.urli lo kibro jikca predatni pesai do</string>
@@ -422,10 +416,8 @@
   <string name="reason">mukti</string>
   <string name="whatIsIheMatter">ma se mabla</string>
   <string name="cheat">lo ka toltinbe</string>
-  <string name="insult">lo ka malsku</string>
   <string name="troll">lo ka trolo</string>
   <string name="other">lo drata</string>
-  <string name="reportDescriptionHelp">ko jarco lo judri pe lo selkei gi\'e ciksi lo du\'u ma kau se mabla lo seltra .i ko na skuxusra ke po\'o lo du\'u jvatoltinbe kei gi\'e cusku lo nibli be ri be\'o pe do .i lo notci pe do cu jai zmadu se sutra fai lo ka se tcidu kei fau lo nu glibau</string>
   <string name="by">fi\'e la\'oi %s</string>
   <string name="thisTopicIsNowClosed">ti co\'u spuda jai se zifre</string>
   <string name="blog">kibykarni</string>
@@ -515,7 +507,7 @@
   <string name="aboutSimulRules">ca lonu lo cabna cmicfu nunjvi ku cfari keiku co\'a caxmati lo finti loi ci\'erkei .i ca lonu ro loi nunjvi ku mulno keiku lo cabna cmicfu nunjvi cu mulno .i</string>
   <string name="aboutSimulSettings">ro lo cabna cmicfu nunjvi cu na nilcre cnegau .i lonu krefu jvikei .e lonu kelka\'u xruti .e lonu tcegau lo temci cu se tolcru .i</string>
   <string name="create">finti</string>
-  <string name="whenCreateSimul">lonu do finti lo cabna cmicfu nunjvi cu se jalge lonu jivna piso\'o loi ci\'erkei .i</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">lonu do finti lo cabna cmicfu nunjvi cu se jalge lonu jivna piso\'o loi ci\'erkei .i</string>
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="timeBeforeTournamentStarts">temci lo cabna lonu lo grinunjvi ku cfari</string>

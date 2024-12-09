@@ -12,9 +12,9 @@ import play.api.libs.ws.{ StandaloneWSClient, StandaloneWSResponse, WSAuthScheme
 import java.util.Currency
 
 import lila.common.Json.given
-import lila.core.config.*
 import lila.common.autoconfig.*
 import lila.common.config.given
+import lila.core.config.*
 import lila.memo.CacheApi
 
 final private class PayPalClient(
@@ -25,7 +25,6 @@ final private class PayPalClient(
 
   import PayPalClient.*
   import JsonHandlers.payPal.given
-  import WebService.*
 
   given moneyWrites: OWrites[Money] = OWrites[Money] { money =>
     Json.obj(
@@ -232,9 +231,6 @@ final private class PayPalClient(
         .monSuccess(_.plan.paypalCheckout.fetchAccessToken)
     }
   }
-
-  private def debugInput(data: Seq[(String, Matchable)]) =
-    fixInput(data).map { (k, v) => s"$k=$v" }.mkString(" ")
 
 object PayPalClient:
 

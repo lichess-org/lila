@@ -1,14 +1,13 @@
-import { Move } from 'chessops/types';
-import { VNode } from 'snabbdom';
-import * as Prefs from 'common/prefs';
+import type { Move } from 'chessops/types';
+import type { VNode } from 'snabbdom';
+import type { Coords } from 'common/prefs';
 import perfIcons from 'common/perfIcons';
-import PuzzleCtrl from './ctrl';
-import { FEN } from 'chessground/types';
-import { ExternalEngineInfo } from 'ceval';
+import type PuzzleCtrl from './ctrl';
+import type { ExternalEngineInfo } from 'ceval';
 
 export type PuzzleId = string;
+export type ThemeKey = keyof I18n['puzzleTheme'];
 
-export type ThemeKey = string;
 export interface AllThemes {
   dynamic: ThemeKey[];
   static: Set<ThemeKey>;
@@ -30,7 +29,6 @@ export interface PuzzleSettings {
 export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
-  i18n: I18nDict;
   settings: PuzzleSettings;
   themes?: {
     dynamic: string;
@@ -41,7 +39,7 @@ export interface PuzzleOpts {
 }
 
 export interface PuzzlePrefs {
-  coords: Prefs.Coords;
+  coords: Coords;
   is3d: boolean;
   destination: boolean;
   rookCastle: boolean;
@@ -64,6 +62,7 @@ export interface Angle {
     key: string;
     name: string;
   };
+  openingAbstract?: boolean;
 }
 
 export interface PuzzleData {
@@ -123,9 +122,9 @@ export interface PuzzleResult {
   replayComplete?: boolean;
 }
 
-export interface RoundThemes {
-  [key: string]: boolean;
-}
+export type RoundThemes = {
+  [key in ThemeKey]: boolean;
+};
 
 export interface PuzzleRound {
   win: boolean;

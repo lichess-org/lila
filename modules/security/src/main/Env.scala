@@ -6,8 +6,8 @@ import com.softwaremill.tagging.*
 import play.api.Configuration
 import play.api.libs.ws.StandaloneWSClient
 
-import lila.core.data.Strings
 import lila.core.config.*
+import lila.core.data.Strings
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Strings.given
 import lila.oauth.OAuthServer
@@ -40,7 +40,8 @@ final class Env(
 
   lazy val firewall = Firewall(
     coll = db(config.collection.firewall),
-    scheduler = scheduler
+    scheduler = scheduler,
+    ws = ws
   )
 
   lazy val flood = new Flood
@@ -141,11 +142,7 @@ final class Env(
   lazy val promotion = wire[PromotionApi]
 
   if config.disposableEmail.enabled then
-    scheduler.scheduleOnce(33 seconds)(disposableEmailDomain.refresh())
-    scheduler.scheduleWithFixedDelay(
-      config.disposableEmail.refreshDelay,
-      config.disposableEmail.refreshDelay
-    ): () =>
+    scheduler.scheduleWithFixedDelay(42 seconds, 1 hour): () =>
       disposableEmailDomain.refresh()
 
   lazy val ipTrust: IpTrust = wire[IpTrust]

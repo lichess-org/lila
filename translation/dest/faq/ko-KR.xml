@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="faqAbbreviation">자주 묻는 질문</string>
+  <string name="faqAbbreviation">FAQ</string>
   <string name="frequentlyAskedQuestions">자주 묻는 질문들</string>
   <string name="whyIsLichessCalledLichess">Lichess는 무슨 뜻인가요?</string>
-  <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 부릅니다.</string>
+  <string name="lichessCombinationLiveLightLibrePronounced">Lichess는 live/light/libre와 chess의 합성어입니다. %1$s라고 발음합니다.</string>
   <string name="leechess">리체스</string>
-  <string name="hearItPronouncedBySpecialist">여기 전문가의 발음을 들어보세요.</string>
-  <string name="whyLiveLightLibre">라이브 - 게임을 연중무휴 실시간으로 플레이하고 볼 수 있기 때문입니다. 라이트와 리브레는 Lichess가 다른 웹사이트를 오염시키는 독점적인 쓰레기로부터 자유로운 오픈소스라는 사실에 기반합니다.</string>
+  <string name="hearItPronouncedBySpecialist">전문가의 발음을 들어보세요.</string>
+  <string name="whyLiveLightLibre">Live - 게임을 연중무휴 실시간으로 플레이하고 볼 수 있기 때문입니다. Light와 Libre는 Lichess가 다른 웹사이트를 오염시키는 정크로부터 자유로운 오픈소스라는 사실에 기반합니다.</string>
   <string name="whyIsLilaCalledLila">비슷하게, Lichess의 소스코드인 %1$s는 li[chess in sca]la의 약자입니다. Lichess는 대부분 직관적인 프로그래밍 언어인 %2$s로 작성되어 있습니다.</string>
   <string name="howCanIContributeToLichess">Lichess에 어떻게 기여할 수 있나요?</string>
   <string name="lichessPoweredByDonationsAndVolunteers">Lichess는 후원자들의 기부와 자원봉사자들의 노력으로 운영됩니다.</string>
-  <string name="findMoreAndSeeHowHelp">%1$s에 대해 알아보세요. (%2$s 포함) 자신의 시간과 기술을 Lichess를 돕는데 쓰고 싶다면 %3$s이 있습니다.</string>
+  <string name="findMoreAndSeeHowHelp">%1$s에 대해 더 자세히 알아보실 수 있습니다. (%2$s 포함) 자신의 시간과 기술을 Lichess를 돕는데 쓰고 싶다면 %3$s이 있습니다.</string>
   <string name="beingAPatron">후원하는 법</string>
   <string name="breakdownOfOurCosts">지출 내역</string>
   <string name="otherWaysToHelp">다른 방법들</string>
   <string name="areThereWebsitesBasedOnLichess">Lichess를 기반으로 하는 웹사이트가 있나요?</string>
   <string name="yesLichessInspiredOtherOpenSourceWebsites">예, Lichess는 실제로 다른 오픈 소스 웹사이트에 영감을 주었으며 우리 %1$s, %2$s, %3$s를 사용합니다.</string>
   <string name="keyboardShortcuts">키보드 단축키는 어떤 것이 있나요?</string>
-  <string name="keyboardShortcutsExplanation">일부 리체스 페이지에는 사용할 수 있는 키보드 단축키가 있습니다. 학습, 분석, 퍼즐 또는 게임 페이지에서 \'?\' 키를 누르면 사용 가능한 키보드 단축키가 나열됩니다.</string>
+  <string name="keyboardShortcutsExplanation">일부 Lichess 페이지에는 사용할 수 있는 키보드 단축키가 있습니다. 연구, 분석, 퍼즐 또는 게임 페이지에서 \'?\' 키를 누르면 사용 가능한 키보드 단축키가 나열됩니다.</string>
   <string name="fairPlay">페어플레이</string>
   <string name="whenAmIEligibleRatinRefund">부정행위자로 인한 레이팅 자동 환급은 언제 되나요?</string>
-  <string name="ratingRefundExplanation">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
+  <string name="ratingRefundExplanation" comment="In answer to the question 'When am I eligible for the automatic rating refund from cheaters?'">부정행위자가 적발되면 1분 뒤에 지난 3일간의 최근 40 레이팅 경기를 확인합니다. 당신이 그들과 상대했고 (패배 또는 무승부로 인해) 레이팅을 잃었다면, 그리고 당신의 레이팅이 임시 레이팅이 아니라면, 레이팅을 환급받게 됩니다. 환불은 당신의 최고 레이팅과 그 게임 이후의 상승에 따라 제한될 수 있습니다.
   (예를 들어, 이 게임 이후에 레이팅이 크게 올랐다면, 환급을 받지 못하거나 일부만 받습니다.) 환급은 150포인트를 초과하지 않습니다.</string>
   <string name="preventLeavingGameWithoutResigning">플레이어가 기권하지 않고 게임을 나가면 어떻게 되나요?</string>
   <string name="leavingGameWithoutResigningExplanation">상대가 게임을 자주 중단/탈주하면 \"플레이 금지\" 처분을 받습니다. 이는 일시적으로 게임을 할 수 없다는 의미입니다. 이것은 프로필에 공개적으로 표시되지 않습니다. 이러한 행동이 계속된다면 금지 기간은 계속 증가하고 계정 폐쇄로 이어질 수 있습니다.</string>
-  <string name="howCanIBecomeModerator">중재자가 되려면 어떻게 하나요?</string>
-  <string name="youCannotApply">중재자 신청은 받지 않습니다. 저희가 보기에 중재자로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것입니다.</string>
-  <string name="isCorrespondenceDifferent">긴 대국은 일반 체스와 다른점이 있나요?</string>
+  <string name="howCanIBecomeModerator">모더레이터가 되려면 어떻게 하나요?</string>
+  <string name="youCannotApply">모더레이터 신청은 받지 않습니다. 저희가 보기에 모더레이터로 알맞은 사람이라고 생각될 경우 직접 연락을 드릴 것 입니다.</string>
+  <string name="isCorrespondenceDifferent">통신 체스는 일반 체스와 다른점이 있나요?</string>
   <string name="pleaseReadFairPlayPage">더 자세한 정보는 %s를 읽어주세요.</string>
   <string name="fairPlayPage">공정한 경기 페이지</string>
-  <string name="youCanUseOpeningBookNoEngine">Lichess의 경우 긴 대국(Correspondence chess)에서의 가장 큰 차이점은 오프닝 북이 허용된다는 점입니다. 엔진 사용은 여전히 금지되며 사용할 경우 엔진 사용자로 표기될 수 있습니다. ICCF는 긴 대국에서 엔진 사용을 허용하지만 Lichess는 아닙니다.</string>
+  <string name="youCanUseOpeningBookNoEngine">Lichess의 경우 통신 체스(Correspondence chess)에서의 가장 큰 차이점은 오프닝 북이 허용된다는 점입니다. 엔진 사용은 여전히 금지되며 사용할 경우 엔진 사용자로 표기될 수 있습니다. ICCF는 통신 대국에서 엔진 사용을 허용하지만 Lichess는 허락하지 않습니다.</string>
   <string name="gameplay">게임 플레이</string>
   <string name="howBulletBlitzEtcDecided">불렛, 블리츠와 다른 시간 제한은 어떻게 결정되나요?</string>
   <string name="basedOnGameDuration">Lichess의 시간 제한은 예상 게임 시간에 기반합니다 = %1$s
 예를 들어 5+3 게임의 예상 시간은 5 × 60 + 40 × 3 = 420초입니다.</string>
-  <string name="durationFormula">(초기 시간) + 40 × (증분)</string>
+  <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(초기 시간) + 40 × (추가 시간)</string>
   <string name="inferiorThanXsEqualYtimeControl">≤ %1$s초 = %2$s</string>
   <string name="superiorThanXsEqualYtimeControl">≥ %1$s초 = %2$s</string>
   <string name="whatVariantsCanIplay">Lichess에서 플레이할 수 있는 변형 체스에는 무엇이 있나요?</string>
   <string name="lichessSupportChessAnd">Lichess는 일반 체스와 %1$s를 지원합니다.</string>
   <string name="eightVariants">8가지 변형 체스</string>
   <string name="whatIsACPL">평균 CP(centipawn) 손실(ACPL)은 무슨 뜻인가요?</string>
-  <string name="acplExplanation">센티폰은 체스에서 이점을 나타내는 단위입니다. 1센티폰은 폰의 가치의 1/100이며 따라서 100센티폰은 1폰입니다. 이 값은 게임에서 공식적인 역할을 하지는 않지만 플레이어에게 유용하며, 컴퓨터 체스에서 포지션 평가를 하기 위해서 필수적입니다.
+  <string name="acplExplanation">센티폰은 체스에서 우세를 나타내는 단위입니다. 1센티폰은 폰의 가치의 1/100이며 따라서 100센티폰은 1폰입니다. 이 값은 게임에서 공식적인 역할을 하지는 않지만 플레이어에게 유용하며, 컴퓨터 체스에서 포지션 평가를 하기 위해서 필수적입니다.
 
-최고 수준 컴퓨터의 수는 0 센티폰을 잃습니다. 이보다 떨어지는 수들은 포지션 평가만큼의 센티폰 손실이 있게 됩니다.
+최고의 컴퓨터 수는 0 센티폰을 잃습니다. 이보다 떨어지는 수들은 포지션 손실을 센티폰 단위로 잃게 됩니다.
 
 이 값은 플레이 수준의 지표로 사용될 수 있습니다. 매 수마다 잃는 센티폰이 적을 수록 더 강한 플레이입니다.
 
-Lichess의 컴퓨터 분석은 Stockfish를 사용합니다.</string>
+Lichess의 컴퓨터 분석은 스톡피시를 사용합니다.</string>
   <string name="insufficientMaterial">시간패, 불충분한 기물로 인한 무승부</string>
   <string name="lichessFollowFIDErules">한 플레이어가 시간이 부족한 경우 일반적으로 게임에서 패배합니다. 하지만 상대가 플레이어의 킹을 정상적으로 체크메이트 할 수 없는 경우는 무승부로 끝나게 됩니다. (%1$s)
 
@@ -97,12 +97,12 @@ LM 타이틀에 대해 문의하지 마세요.</string>
   <string name="usernamesNotOffensive">일반적으로, 사용자 이름으로 불쾌감을 주거나, 다른 사람을 사칭하거나, 광고를 해서는 안됩니다. 이것에 대해서는 %1$s을 읽어주세요.</string>
   <string name="guidelines">가이드라인</string>
   <string name="canIChangeMyUsername">사용자 이름을 변경할 수 있나요?</string>
-  <string name="usernamesCannotBeChanged">아뇨. 사용자명은 기술적, 실질적인 이유로 변경할 수 없습니다. 사용자 이름은 테이터베이스, 내보내기, 로그, 사람들의 마음 속 등 여러 위치에서 사용됩니다. 대소문자만 한 번 변경할 수 있습니다.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">아뇨. 사용자명은 기술적, 실질적인 이유로 변경할 수 없습니다. 사용자 이름은 테이터베이스, 내보내기, 로그, 사람들의 마음 속 등 여러 위치에서 사용됩니다. 대소문자만 한 번 변경할 수 있습니다.</string>
   <string name="uniqueTrophies">하나뿐인 트로피</string>
   <string name="ownerUniqueTrophies">이 트로피는 Lichess 역사에서 단 하나 뿐입니다. 오직 %1$s만이 가지고 있습니다.</string>
   <string name="wayOfBerserkExplanation">hiimgosu는 %s에 출전해 모든 경기를 버서크 모드로 승리해 이 트로피를 획득했습니다.</string>
   <string name="aHourlyBulletTournament">hourly 불렛 토너먼트</string>
-  <string name="goldenZeeExplanation">ZugAddict는 1+0 게임에서 레벨8 AI을 이기기 위해 2시간 동안 스트리밍 중이었습니다. Thibault는 그에게 스트리밍을 성공하면 트로피를 주겠다고 말했습니다. 1시간 후 그는 Stockfish를 박살내었고, 약속은 지켜졌습니다.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict는 1+0 게임에서 레벨8 AI을 이기기 위해 2시간 동안 스트리밍 중이었습니다. Thibault는 그에게 스트리밍을 성공하면 트로피를 주겠다고 말했습니다. 1시간 후 그는 Stockfish를 박살내었고, 약속은 지켜졌습니다.</string>
   <string name="lichessRatings">Lichess 레이팅</string>
   <string name="whichRatingSystemUsedByLichess">Lichess가 사용하는 레이팅 시스템은 무엇인가요?</string>
   <string name="ratingSystemUsedByLichess">레이팅 점수는 Mark Glickman이 개발한 Glicko-2 레이팅 방식을 사용하여 계산됩니다. 이것은 매우 인기 있는 레이팅 시스템이며 상당수의 체스 조직에서 사용합니다 (FIDE는 ​​여전히 오래된 Elo 레이팅 시스템을 사용하기 때문에 주목할만한 반례입니다).
@@ -148,7 +148,7 @@ LM 타이틀에 대해 문의하지 마세요.</string>
 
 브라우저에서 lichess.org가 소리를 재생하는 것을 방지했을 때 붉은 음소거 아이콘이 나타납니다. 보통 무언가를 클릭하면 이 제한은 없어집니다. 일부 모바일 브라우저에서는, 기물을 드래그하는 것은 클릭으로 간주되지 않습니다. 이 경우 소리 재생을 허용하려면 매 게임이 시작할 때마다 체스판을 탭해야 합니다.
 
-리체스는 이러한 경우가 발생했을 때 알려주기 위하여 붉은색 아이콘을 보여줍니다. 당신은 lichess.org가 소리를 재생하도록 명시적으로 허용할 수 있습니다. 다음은 최근 버전의 몇몇 인기 브라우저에서 소리 재생을 허용하는 방법입니다.</string>
+저희는 이러한 경우가 발생했을 때 알려주기 위하여 붉은색 아이콘을 보여줍니다. 당신은 lichess.org가 소리를 재생하도록 명시적으로 허용할 수 있습니다. 다음은 최근 버전의 몇몇 인기 브라우저에서 소리 재생을 허용하는 방법입니다.</string>
   <string name="desktop">데스크탑</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org 이동
 2. 리눅스/윈도우에서 Ctrl-i, 맥OS에서 cmd-i 입력
@@ -158,10 +158,22 @@ LM 타이틀에 대해 문의하지 마세요.</string>
 2. 주소창에서 잠금 아이콘 클릭
 3. 사이트 설정 클릭
 4. 소리 허용</string>
+  <string name="enableAutoplayForSoundsSafari">1. lichess.org로 이동
+2. 메뉴 바에서 Safari 클릭
+3. lichess.org에 대한 설정 ... 클릭
+4. 모든 자동 재생 허용</string>
   <string name="enableAutoplayForSoundsMicrosoftEdge">1. 오른쪽 상단 모서리에 있는 점 3개를 클릭합니다.
 2. 설정을 클릭합니다.
 3. 쿠키 및 사이트 권한을 클릭합니다.
 4. 아래로 스크롤하여 미디어 자동 실행을 클릭합니다.
 5. 허용에 lichess.org를 추가합니다.</string>
   <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">게임을 중단하고 싶으신가요?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">독립적 정신건강 상태</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess userstyles</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">적은 로비 인원</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">우리는 정기적으로 사용자들로부터 너무 많이 플레이하는 것을 방지해달라고 도움을 요청하는 메시지를 받고 있습니다.
+
+Lichess는 서비스 약관 위반을 제외하고는 플레이어를 금지하거나 차단하지 않기 때문에, 과도한 플레이를 제한하기 위해서는 외부 도구를 사용하는 것이 좋습니다. 웹 사이트 차단기에 대한 일반적인 제안으로는 %1$s, %2$s 및 %3$s이(가) 있습니다. 사이트를 계속 사용하고 싶지만 빠른 시간 제한의 유혹을 받지 않으려면 %4$s도 확인해 보세요. %5$s도 있습니다.
+
+일부 플레이어들은 게임을 하는 행동이 중독으로 변하는 것처럼 느낄 수 있습니다. 사실, 세계보건기구는 게임 장애를 %6$s로 분류하고 있으며, 필수적인 특징은 1) 게임에 대한 통제 장애, 2) 게임에 우선권을 부여하는 것, 3) 부정적인 결과에도 불구하고 게임의 우선 순위를 높이는 것입니다. 만약 여러분의 체스 두는 행동이 이 패턴을 따른다고 생각한다면, 친구나 가족, 또는 전문가와 함께 이에 대해 이야기하는 것을 권장합니다.</string>
 </resources>

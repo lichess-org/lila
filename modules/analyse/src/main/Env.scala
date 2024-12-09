@@ -2,14 +2,12 @@ package lila.analyse
 
 import com.softwaremill.macwire.*
 
-import lila.core.config.NetConfig
-import lila.core.config.CollName
+import lila.core.config.{ CollName, NetConfig }
 
 @Module
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.core.game.GameRepo,
-    gameApi: lila.core.game.GameApi,
     cacheApi: lila.memo.CacheApi,
     net: NetConfig
 )(using Executor):

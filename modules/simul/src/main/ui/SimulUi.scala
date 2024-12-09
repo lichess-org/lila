@@ -2,6 +2,7 @@ package lila.simul
 package ui
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class SimulUi(helpers: Helpers):
@@ -9,8 +10,6 @@ final class SimulUi(helpers: Helpers):
 
   def link(simulId: SimulId): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
-
-  def jsI18n(using Translate) = i18nJsObject(baseTranslations)
 
   def notFound(using Context) =
     Page(trans.site.noSimulFound.txt()):
@@ -24,7 +23,7 @@ final class SimulUi(helpers: Helpers):
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little")(
       img(cls := "img icon", src := assetUrl("images/fire-silhouette.svg")),
       span(cls := "content")(
-        span(cls := "name")(s.name, " simul"),
+        span(cls := "name")(s.name, (!s.name.toLowerCase.endsWith(" simul")).so(" simul")),
         span(cls := "more")(
           trans.site.nbPlayers.plural(s.applicants.size, s.applicants.size.localize),
           " • ",
@@ -66,19 +65,3 @@ final class SimulUi(helpers: Helpers):
       s.ongoing,
       " ongoing"
     )
-
-  import lila.core.i18n.I18nKey
-  private val baseTranslations: Vector[I18nKey] = Vector(
-    trans.site.finished,
-    trans.site.withdraw,
-    trans.site.join,
-    trans.site.cancel,
-    trans.site.joinTheGame,
-    trans.site.nbPlaying,
-    trans.site.nbWins,
-    trans.site.nbDraws,
-    trans.site.nbLosses,
-    trans.site.by,
-    trans.site.signIn,
-    trans.site.mustBeInTeam
-  )

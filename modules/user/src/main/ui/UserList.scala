@@ -1,12 +1,12 @@
 package lila.user
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
+import lila.core.perf.{ UserPerfs, UserWithPerfs }
 import lila.core.user.LightPerf
-import lila.core.perf.UserWithPerfs
-import lila.core.perf.UserPerfs
 import lila.rating.PerfType
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class UserList(helpers: Helpers, bits: UserBits):
   import helpers.{ *, given }

@@ -31,22 +31,21 @@ final class OpeningWikiApi(coll: Coll, explorer: OpeningExplorer, cacheApi: Cach
   yield wiki.copy(revisions = (~revisions).take(25))
 
   def write(op: Opening, text: String, by: UserId): Funit =
-    coll.update
-      .one(
-        $id(op.key),
-        $doc(
-          "$push" -> $doc(
-            "revisions" -> $doc(
-              "$each"     -> List(Revision(Markdown(text), by.id, nowInstant)),
-              "$position" -> 0,
-              "$slice"    -> 30
+    for _ <- coll.update
+        .one(
+          $id(op.key),
+          $doc(
+            "$push" -> $doc(
+              "revisions" -> $doc(
+                "$each"     -> List(Revision(Markdown(text), by.id, nowInstant)),
+                "$position" -> 0,
+                "$slice"    -> 30
+              )
             )
-          )
-        ),
-        upsert = true
-      )
-      .void
-      .andDo(cache.put(op.key, compute(op.key)))
+          ),
+          upsert = true
+        )
+    yield cache.put(op.key, compute(op.key))
 
   def popularOpeningsWithShortWiki: Fu[List[Opening]] =
     coll

@@ -1,16 +1,14 @@
 package lila.mod
 
 import akka.actor.*
-import com.softwaremill.macwire.*
 import chess.ByColor
+import com.softwaremill.macwire.*
 
-import lila.core.config.*
-import lila.core.report.SuspectId
-
-import lila.core.user.WithPerf
 import lila.common.Bus
-import lila.rating.UserWithPerfs.only
+import lila.core.config.*
 import lila.core.forum.BusForum
+import lila.core.report.SuspectId
+import lila.rating.UserWithPerfs.only
 
 @Module
 final class Env(
@@ -36,7 +34,7 @@ final class Env(
     cacheApi: lila.memo.CacheApi,
     ircApi: lila.core.irc.IrcApi,
     msgApi: lila.core.msg.MsgApi
-)(using Executor, Scheduler, lila.core.i18n.Translator):
+)(using Executor, Scheduler, lila.core.i18n.Translator, akka.stream.Materializer):
   private lazy val logRepo        = ModlogRepo(db(CollName("modlog")))
   private lazy val assessmentRepo = AssessmentRepo(db(CollName("player_assessment")))
   private lazy val historyRepo    = HistoryRepo(db(CollName("mod_gaming_history")))

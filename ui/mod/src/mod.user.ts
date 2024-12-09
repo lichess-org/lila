@@ -1,9 +1,11 @@
-import * as xhr from 'common/xhr';
-import debounce from 'common/debounce';
+import { formToXhr, text as xhrText } from 'common/xhr';
+import { debounce } from 'common/timing';
 import * as licon from 'common/licon';
 import extendTablesortNumber from 'common/tablesortNumber';
 import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
+import { spinnerHtml } from 'common/spinner';
+import { confirm } from 'common/dialog';
 
 site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
@@ -27,7 +29,7 @@ site.load.then(() => {
   }
 
   function loadZone() {
-    $zone.html(site.spinnerHtml).removeClass('none');
+    $zone.html(spinnerHtml).removeClass('none');
     $('#main-wrap').addClass('full-screen-force');
     $zone.html('');
     streamLoad();
@@ -61,7 +63,7 @@ site.load.then(() => {
   const getLocationHash = (a: HTMLAnchorElement) => a.href.replace(/.+(#\w+)$/, '$1');
 
   function userMod($inZone: Cash) {
-    site.contentLoaded($inZone[0]);
+    window.lichess.initializeDom($inZone[0]);
 
     const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls = 'ready') => {
       $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
@@ -72,8 +74,9 @@ site.load.then(() => {
     const confirmButton = (el: HTMLElement) =>
       $(el)
         .find('input.confirm, button.confirm')
-        .on('click', function (this: HTMLElement) {
-          return confirm(this.title || 'Confirm this action?');
+        .on('click', async function (this: HTMLElement, e: Event) {
+          e.preventDefault();
+          if (await confirm(this.title || 'Confirm this action?')) this.closest('form')?.submit();
         });
 
     $('.mz-section--menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
@@ -94,7 +97,7 @@ site.load.then(() => {
       confirmButton(el);
       $(el).on('submit', () => {
         $(el).addClass('ready').find('input').prop('disabled', true);
-        xhr.formToXhr(el).then(html => {
+        formToXhr(el).then(html => {
           $zone.find('.mz-section--actions').replaceWith(html);
           userMod($inZone);
         });
@@ -110,7 +113,7 @@ site.load.then(() => {
     makeReady('form.pm-preset select', (el: HTMLSelectElement) =>
       $(el).on('change', () => {
         const form = $(el).parent('form')[0] as HTMLFormElement;
-        xhr.text(form.getAttribute('action') + encodeURIComponent(el.value), { method: 'post' });
+        xhrText(form.getAttribute('action') + encodeURIComponent(el.value), { method: 'post' });
         $(form).html('Sent!');
       }),
     );
@@ -128,14 +131,14 @@ site.load.then(() => {
             table,
             select as HTMLSelectElement,
           )(async action => {
-            if (action == 'alt') {
+            if (action === 'alt') {
               const usernames = Array.from(
                 $(table)
                   .find('td:last-child input:checked')
                   .map((_, input) => $(input).parents('tr').find('td:first-child').data('sort')),
               );
-              if (usernames.length > 0 && confirm(`Close ${usernames.length} alt accounts?`)) {
-                await xhr.text('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
+              if (usernames.length > 0 && (await confirm(`Close ${usernames.length} alt accounts?`))) {
+                await xhrText('/mod/alt-many', { method: 'post', body: usernames.join(' ') });
                 reloadZone();
               }
             }
@@ -153,7 +156,7 @@ site.load.then(() => {
       $(el)
         .find('.button')
         .on('click', function (this: HTMLAnchorElement) {
-          xhr.text($(this).attr('href')!, { method: 'post' });
+          xhrText($(this).attr('href')!, { method: 'post' });
           $(this).parent().parent().toggleClass('blocked');
           return false;
         });
@@ -168,7 +171,7 @@ site.load.then(() => {
         .find('tr')
         .on('click', function (this: HTMLTableRowElement) {
           const v = this.dataset.value;
-          selected = selected == v ? undefined : v;
+          selected = selected === v ? undefined : v;
           applyFilter(selected);
           $('.spy_filter tr.selected').removeClass('selected');
           $(this).toggleClass('selected', !!selected);

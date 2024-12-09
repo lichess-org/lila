@@ -23,7 +23,6 @@ final class Env(
     getLagRating: lila.core.socket.userLag.GetLagRating,
     msgApi: lila.core.msg.MsgApi,
     langPicker: lila.core.i18n.LangPicker,
-    jsDump: lila.core.i18n.JsDump,
     setupForm: lila.core.setup.SetupForm,
     oauthServer: lila.oauth.OAuthServer,
     baseUrl: BaseUrl
@@ -50,7 +49,7 @@ final class Env(
 
   lazy val api = wire[ChallengeApi]
 
-  private lazy val socket = wire[ChallengeSocket]
+  private val socket = wire[ChallengeSocket]
 
   lazy val granter = wire[ChallengeGranter]
 

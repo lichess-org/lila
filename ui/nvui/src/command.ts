@@ -1,11 +1,11 @@
-import { renderPieceKeys, renderPiecesOn, Style } from './chess';
-import { Pieces } from 'chessground/types';
+import { renderPieceKeys, renderPiecesOn, type Style } from './chess';
+import type { Pieces } from 'chessground/types';
 
 export const commands = {
   piece: {
     help: 'p: Read locations of a piece type. Example: p N, p k.',
     apply(c: string, pieces: Pieces, style: Style): string | undefined {
-      return tryC(c, /^p ([p|n|b|r|q|k])$/i, p => renderPieceKeys(pieces, p, style));
+      return tryC(c, /^p ([pnbrqk])$/i, p => renderPieceKeys(pieces, p, style));
     },
   },
   scan: {

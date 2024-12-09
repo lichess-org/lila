@@ -53,7 +53,8 @@ case class Modlog(
     case Modlog.untroll             => "un-shadowban"
     case Modlog.isolate             => "isolate"
     case Modlog.unisolate           => "un-isolate"
-    case Modlog.fullCommsExport     => "exported all comms"
+    case Modlog.deleteComms         => "delete chats and PMs"
+    case Modlog.fullCommsExport     => "export all comms"
     case Modlog.permissions         => "set permissions"
     case Modlog.kickFromRankings    => "kick from rankings"
     case Modlog.reportban           => "reportban"
@@ -79,7 +80,6 @@ case class Modlog(
     case Modlog.blogPostEdit        => "edit blog post"
     case Modlog.teamKick            => "kick from team"
     case Modlog.teamEdit            => "edited team"
-    case Modlog.appealPost          => "posted in appeal"
     case Modlog.setKidMode          => "set kid mode"
     case Modlog.weakPassword        => "log in with weak password"
     case Modlog.blankedPassword     => "log in with blanked password"
@@ -103,6 +103,45 @@ object Modlog:
       details = details
     )
 
+  def isWarning(e: Modlog) = e.action == Modlog.modMessage && e.details.exists(_.startsWith("Warning"))
+
+  val isSentence: Set[String] = Set(
+    "alt",
+    "engine",
+    "booster",
+    "troll",
+    "isolate",
+    "deleteComms",
+    "closeAccount",
+    "deletePost",
+    "closeTopic",
+    "hideTopic",
+    "deleteTeam",
+    "terminateTournament",
+    "chatTimeout",
+    "kickFromRankings",
+    "reportban",
+    "rankban",
+    "arenaBan",
+    "prizeban",
+    "cheatDetected",
+    "garbageCollect",
+    "teamKick"
+  )
+
+  val isUndo: Set[String] =
+    Set(
+      "unalt",
+      "reopen",
+      "unengine",
+      "unbooster",
+      "untroll",
+      "unisolate",
+      "unreportban",
+      "unrankban",
+      "unprizeban"
+    )
+
   case class UserEntry(user: UserId, action: String, date: Instant)
 
   val alt                 = "alt"
@@ -115,11 +154,13 @@ object Modlog:
   val untroll             = "untroll"
   val isolate             = "isolate"
   val unisolate           = "unisolate"
+  val deleteComms         = "deleteComms"
   val fullCommsExport     = "fullCommsExport"
   val permissions         = "permissions"
   val disableTwoFactor    = "disableTwoFactor"
   val closeAccount        = "closeAccount"
   val selfCloseAccount    = "selfCloseAccount"
+  val teacherCloseAccount = "teacherCloseAccount"
   val reopenAccount       = "reopenAccount"
   val deletePost          = "deletePost"
   val openTopic           = "openTopic"
@@ -163,7 +204,6 @@ object Modlog:
   val blogPostEdit        = "blogPostEdit"
   val teamKick            = "teamKick"
   val teamEdit            = "teamEdit"
-  val appealPost          = "appealPost"
   val setKidMode          = "setKidMode"
   val weakPassword        = "weakPassword"
   val blankedPassword     = "blankedPassword"

@@ -4,46 +4,22 @@
   &__main .form-split,
   &__main > .form-group,
   &__main .form-actions,
-  &__delete .form-actions,
-  &__image {
+  &__delete .form-actions {
     padding-left: var(---box-padding);
     padding-right: var(---box-padding);
   }
-  &__image-text {
-    background: $c-bg-zebra;
-    margin-bottom: 5vh;
-    border-bottom: $border;
-    font-size: 0.9em;
-    .form-group {
-      display: none;
-    }
-    &.visible {
-      height: auto;
-      .form-group {
-        display: block;
-      }
-    }
+  .toggle-box {
+    @extend %box-margin-horiz;
   }
   &__delete {
-    padding: 10em 0 5em 0;
-  }
-  &__etiquette {
-    margin-inline-end: 3em;
-  }
-  &__image {
-    .form-group {
-      @extend %flex-column;
-      justify-content: center;
-    }
-    img {
-      @extend %box-neat;
-    }
+    padding-top: 4em;
   }
   &__etiquette {
     @extend %box-neat;
     background: $c-bg-zebra;
     padding: 2em 3em;
     margin: 0 auto 3em auto;
+    margin-inline-end: 3em;
     max-width: 80ch;
   }
   .tagify {

@@ -1,9 +1,9 @@
-import { h, VNode, VNodeChildren } from 'snabbdom';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
 import { dataIcon } from 'common/snabbdom';
 import { fullName, userRating } from 'common/userLink';
-import { SimplePlayer } from '../interfaces';
+import type { SimplePlayer } from '../interfaces';
 
 export const ratio2percent = (r: number) => Math.round(100 * r) + '%';
 
@@ -41,10 +41,10 @@ export function numberRow(name: string, value: any, typ?: string) {
       typ === 'raw'
         ? value
         : typ === 'percent'
-        ? value[1] > 0
-          ? ratio2percent(value[0] / value[1])
-          : 0
-        : numberFormat(value),
+          ? value[1] > 0
+            ? ratio2percent(value[0] / value[1])
+            : 0
+          : numberFormat(value),
     ),
   ]);
 }

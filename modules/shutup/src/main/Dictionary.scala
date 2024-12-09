@@ -68,6 +68,7 @@ go (and )?bomb
 gobshite?
 gook
 gypo
+gypsy
 handjob
 hitler++
 homm?o(sexual|)

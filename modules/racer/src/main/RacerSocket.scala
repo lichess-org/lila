@@ -2,8 +2,8 @@ package lila.racer
 
 import play.api.libs.json.{ JsObject, Json }
 
-import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
+import lila.room.RoomSocket.{ Protocol as RP, * }
 
 final private class RacerSocket(
     api: RacerApi,
@@ -13,7 +13,7 @@ final private class RacerSocket(
 
   import RacerSocket.*
 
-  def publishState(race: RacerRace): Unit = send:
+  def publishState(race: RacerRace): Unit = send.exec:
     Protocol.Out.publishState(race.id, json.state(race))
 
   private lazy val send: SocketSend = socketKit.send("racer-out")

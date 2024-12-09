@@ -1,16 +1,13 @@
 package views.base
-
-import play.api.i18n.Lang
 import scalalib.StringUtils.escapeHtmlRaw
 
-import lila.ui.{ RenderedPage, ContentSecurityPolicy }
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
+import lila.ui.RenderedPage
 
 object page:
 
   val ui = lila.web.ui.layout(helpers, assetHelper)(
-    jsQuantity = lila.i18n.JsQuantity.apply,
     isRTL = lila.i18n.LangList.isRTL,
     popularAlternateLanguages = lila.i18n.LangList.popularAlternateLanguages,
     reportScoreThreshold = env.report.scoreThresholdsSetting.get,
@@ -34,10 +31,6 @@ object page:
     )
   )
 
-  private def current2dTheme(using ctx: Context) =
-    if ctx.pref.is3d && ctx.pref.theme == "horsey" then lila.pref.Theme.default
-    else ctx.pref.currentTheme
-
   def boardStyle(zoomable: Boolean)(using ctx: Context) =
     s"---board-opacity:${ctx.pref.board.opacity};" +
       s"---board-brightness:${ctx.pref.board.brightness};" +
@@ -46,6 +39,9 @@ object page:
 
   def apply(p: Page)(using ctx: PageContext): RenderedPage =
     import ctx.pref
+    val allModules = p.modules ++
+      p.pageModule.so(module => esmPage(module.name)) ++
+      ctx.needsFp.so(fingerprintTag)
     val pageFrag = frag(
       doctype,
       htmlTag(
@@ -90,11 +86,7 @@ object page:
           boardPreload,
           manifests,
           p.withHrefLangs.map(hrefLangs),
-          sitePreload(
-            p.modules ++ p.pageModule.so(module => jsPageModule(module.name)) ++
-              Option.when(!netConfig.isProd)(Option(jsPageModule("site.devMode"))),
-            isInquiry = ctx.data.inquiry.isDefined
-          ),
+          sitePreload(p.i18nModules, allModules, isInquiry = ctx.data.inquiry.isDefined),
           lichessFontFaceCss,
           (ctx.pref.bg === lila.pref.Pref.Bg.SYSTEM).so(systemThemeScript(ctx.nonce))
         ),
@@ -119,10 +111,10 @@ object page:
           dataDev,
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
-          dataUser     := ctx.userId,
-          dataSoundSet := pref.currentSoundSet.toString,
-          dataSocketDomains,
-          pref.isUsingAltSocket.option(dataSocketAlts),
+          dataUser                         := ctx.userId,
+          dataSoundSet                     := pref.currentSoundSet.toString,
+          attr("data-socket-domains")      := socketTest.socketEndpoints(netConfig).mkString(","),
+          attr("data-socket-test-running") := socketTest.isUserInTestBucket(),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
@@ -163,9 +155,8 @@ object page:
             )
           )(p.transform(p.body)),
           bottomHtml,
-          ctx.needsFp.option(views.auth.fingerprintTag),
-          ctx.nonce.map(inlineJs.apply),
-          modulesInit(p.modules ++ p.pageModule.so(module => jsPageModule(module.name))),
+          ctx.nonce.map(inlineJs(_, allModules)),
+          modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
           p.pageModule.map { mod => frag(jsonScript(mod.data)) }
         )

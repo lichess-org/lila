@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Schweizer</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Schweizer</string>
   <string name="swissTournaments">Schweizerturneringer</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Se runden</item>
@@ -27,7 +27,7 @@
     <item quantity="one">%s minut mellem runder</item>
     <item quantity="other">%s minutter mellem runder</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">Starter om</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">Starter om</string>
   <string name="nextRound">Næste runde</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">Igangværende parti</item>
@@ -79,7 +79,7 @@ Derudover tildeles en enkelt bye på et halvt point, når en spiller først sent
 Så vil systemet trække spilleren ud af turneringen, så de ikke taber flere partier.
  De kan til enhver tid vende tilbage til turneringen.</string>
   <string name="protectionAgainstNoShowQ">Hvad gøres der med udeblivelser?</string>
-  <string name="protectionAgainstNoShowA">At spillere tilmelder sig schweizerturneringer, men ikke spiller deres partier kan være problematisk.
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">At spillere tilmelder sig schweizerturneringer, men ikke spiller deres partier kan være problematisk.
 For at afbøde dette problem, forhindrer Lichess spillere, der undlod at spille et parti fra at deltage i en ny schweizerturnering i en given periode.
 Skaberen af en schweizerturnering kan beslutte at lade dem deltage i turneringen alligevel.</string>
   <string name="lateJoinQ">Kan spillere melde sig til sent?</string>

@@ -2,8 +2,8 @@ package lila.common
 
 import akka.actor.Scheduler
 
-import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
+import scala.concurrent.duration.FiniteDuration
 
 object LilaFuture:
 

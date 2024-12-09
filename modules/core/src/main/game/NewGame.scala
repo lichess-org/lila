@@ -1,14 +1,12 @@
 package lila.core
 package game
 
-import scala.concurrent.ExecutionContext
-import scalalib.model.Days
-import scalalib.ThreadLocalRandom
-import _root_.chess.{ Color, Mode, ByColor, Status, Game as ChessGame }
-
-import lila.core.id.{ GameId, GamePlayerId }
-import lila.core.user.WithPerf
 import _root_.chess.format.Fen
+import _root_.chess.{ ByColor, Game as ChessGame, Mode, Status }
+import scalalib.ThreadLocalRandom
+import scalalib.model.Days
+
+import lila.core.id.GameId
 
 case class ImportedGame(sloppy: Game, initialFen: Option[Fen.Full] = None):
 
@@ -63,7 +61,7 @@ private def newSloppy(
 
 trait IdGenerator:
   def game: Fu[GameId]
-  def games(nb: Int): Fu[Set[GameId]]
+  def games(nb: Int): Fu[List[GameId]]
   def withUniqueId(sloppy: NewGame): Fu[Game]
 object IdGenerator:
   def uncheckedGame: GameId = GameId(ThreadLocalRandom.nextString(GameId.size))

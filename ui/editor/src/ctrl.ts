@@ -1,24 +1,26 @@
 import {
-  EditorState,
-  Selected,
-  Redraw,
-  CastlingToggle,
-  CastlingToggles,
+  type EditorState,
+  type Selected,
+  type Redraw,
+  type Options,
+  type Config,
+  type CastlingToggle,
+  type CastlingToggles,
   CASTLING_TOGGLES,
 } from './interfaces';
-import { Api as CgApi } from 'chessground/api';
-import { Rules, Square } from 'chessops/types';
-import { SquareSet } from 'chessops/squareSet';
+import type { Api as CgApi } from 'chessground/api';
+import type { Rules, Square } from 'chessops/types';
+import type { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
-import { Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
+import { type Setup, Material, RemainingChecks, defaultSetup } from 'chessops/setup';
 import { Castles, defaultPosition, setupPosition } from 'chessops/variant';
 import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
 import { lichessVariant, lichessRules } from 'chessops/compat';
-import { defined, prop, Prop } from 'common';
+import { defined, prop, type Prop } from 'common';
+import { prompt } from 'common/dialog';
 
 export default class EditorCtrl {
-  options: Editor.Options;
-  trans: Trans;
+  options: Options;
   chessground: CgApi | undefined;
 
   selected: Prop<Selected>;
@@ -35,12 +37,10 @@ export default class EditorCtrl {
   fullmoves: number;
 
   constructor(
-    readonly cfg: Editor.Config,
+    readonly cfg: Config,
     readonly redraw: Redraw,
   ) {
     this.options = cfg.options || {};
-
-    this.trans = site.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 
@@ -176,7 +176,7 @@ export default class EditorCtrl {
     return {
       fen: this.getFen(),
       legalFen: legalFen,
-      playable: this.rules == 'chess' && this.isPlayable(),
+      playable: this.rules === 'chess' && this.isPlayable(),
       enPassantOptions: legalFen ? this.getEnPassantOptions(legalFen) : [],
     };
   }
@@ -200,7 +200,7 @@ export default class EditorCtrl {
     this.chessground ? this.chessground.state.orientation : this.options.orientation || 'white';
 
   setCastlingToggle(id: CastlingToggle, value: boolean): void {
-    if (this.castlingToggles[id] != value) this.castlingRights = undefined;
+    if (this.castlingToggles[id] !== value) this.castlingRights = undefined;
     this.castlingToggles[id] = value;
     this.onChange();
   }
@@ -216,16 +216,13 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  startPosition = () => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
+  startPosition = (): boolean => this.setFen(makeFen(defaultPosition(this.rules).toSetup()));
 
-  clearBoard = () => this.setFen(EMPTY_FEN);
+  clearBoard = (): boolean => this.setFen(EMPTY_FEN);
 
   loadNewFen(fen: string | 'prompt'): void {
-    if (fen === 'prompt') {
-      fen = (prompt('Paste FEN position') || '').trim();
-      if (!fen) return;
-    }
-    this.setFen(fen);
+    if (fen === 'prompt') prompt('Paste FEN position').then(fen => fen && this.setFen(fen.trim()));
+    else this.setFen(fen);
   }
 
   private setSetup = (setup: Setup): void => {
@@ -238,10 +235,10 @@ export default class EditorCtrl {
     this.fullmoves = setup.fullmoves;
 
     const castles = Castles.fromSetup(setup);
-    this.castlingToggles['K'] = defined(castles.rook.white.h);
-    this.castlingToggles['Q'] = defined(castles.rook.white.a);
-    this.castlingToggles['k'] = defined(castles.rook.black.h);
-    this.castlingToggles['q'] = defined(castles.rook.black.a);
+    this.castlingToggles['Q'] = defined(castles.rook.white.a) || this.castlingRights.has(0);
+    this.castlingToggles['K'] = defined(castles.rook.white.h) || this.castlingRights.has(7);
+    this.castlingToggles['q'] = defined(castles.rook.black.a) || this.castlingRights.has(56);
+    this.castlingToggles['k'] = defined(castles.rook.black.h) || this.castlingRights.has(63);
   };
 
   setFen = (fen: string): boolean =>
@@ -257,9 +254,9 @@ export default class EditorCtrl {
 
   setRules(rules: Rules): void {
     this.rules = rules;
-    if (rules != 'crazyhouse') this.pockets = undefined;
+    if (rules !== 'crazyhouse') this.pockets = undefined;
     else if (!this.pockets) this.pockets = Material.empty();
-    if (rules != '3check') this.remainingChecks = undefined;
+    if (rules !== '3check') this.remainingChecks = undefined;
     else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();
     this.onChange();
   }

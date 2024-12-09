@@ -70,6 +70,7 @@
   <string name="promoteVariation">বিজ্ঞাপন</string>
   <string name="makeMainLine">প্রাধান সীমা করা</string>
   <string name="deleteFromHere">এখান থেকে মুছুন</string>
+  <string name="collapseVariations">ভেরিয়েশন সঙ্কুচিত করুন</string>
   <string name="forceVariation">জোর করে পরিবর্তন</string>
   <string name="move">চাল</string>
   <string name="variantLoss">ভিন্ন ক্ষতি</string>
@@ -111,7 +112,6 @@
   <string name="replayMode">উত্তর ধরন</string>
   <string name="realtimeReplay">সঠিকসময়</string>
   <string name="byCPL">CPL দ্বারা</string>
-  <string name="openStudy">মুক্ত অধ্যয়ন</string>
   <string name="enable">সচল</string>
   <string name="bestMoveArrow">সরানোর উত্তম চিহ্ন</string>
   <string name="showVariationArrows">বৈচিত্র্য তীর দেখান</string>
@@ -121,7 +121,6 @@
   <string name="memory">মেমরি</string>
   <string name="infiniteAnalysis">অনন্ত বিশ্লেষণ</string>
   <string name="removesTheDepthLimit">গভীরতার সীমা অপসারণ করুন এবং আপনার কম্পিউটারকে গরম রাখুন</string>
-  <string name="engineManager">ইঞ্জিন ম্যানেজার</string>
   <string name="blunder">গুরুতর ভুল</string>
   <string name="mistake">ভুল</string>
   <string name="inaccuracy">অশুদ্ধি</string>
@@ -175,6 +174,7 @@
   <string name="latestForumPosts">সর্বশেষ ফোরাম বার্তা</string>
   <string name="players">খেলোয়াড়</string>
   <string name="friends">বন্ধুরা</string>
+  <string name="otherPlayers">অন্যান্য খেলোয়াড়</string>
   <string name="discussions">বার্তাগুলি</string>
   <string name="today">আজ</string>
   <string name="yesterday">গতকাল</string>
@@ -430,7 +430,6 @@
   <string name="block">বাধা দিন</string>
   <string name="blocked">বাধাগ্রস্ত</string>
   <string name="unblock">বাধা উঠিয়ে নিন</string>
-  <string name="followsYou">আপনাকে অনুসরণ করছে</string>
   <string name="xStartedFollowingY">%1$s অনুসরণ করা শুরু করেছেন %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s অনুসরণকারী</item>
@@ -462,9 +461,6 @@
   <string name="safeTournamentName">টুর্নামেন্টের জন্য একটি নিরাপদ নাম পছন্দ করুন।</string>
   <string name="inappropriateNameWarning">এমনকি সামান্য অনুপযুক্ত কিছুও আপনার অ্যাকাউন্ট বন্ধ করতে পারে।</string>
   <string name="emptyTournamentName">কোন গ্র্যান্ডমাস্টারের নামে টুর্নামেন্টের নাম দিতে চাইলে খালি রাখুন।</string>
-  <string name="recommendNotTouching">এটা টাচ না করার জন্য পরামর্শ দেয়া হচ্ছে।</string>
-  <string name="fewerPlayers">যদি আপনি এন্ট্রি করার শর্ত ঠিক করে দেন, তাহলে টুর্নামেন্টে তুলনামূলকভাবে কম খেলোয়ার পাওয়া যাবে।</string>
-  <string name="showAdvancedSettings">এডভান্সড সেটিংসে যান</string>
   <string name="makePrivateTournament">পাসওয়ার্ড দিয়ে টুর্নামেন্টটি গোপনীয় এবং সিমাবদ্ধ করেদিন</string>
   <string name="join">যোগ দিন</string>
   <string name="withdraw">উঠিয়ে নিন</string>
@@ -504,8 +500,6 @@
   <string name="ifNoneLeaveEmpty">যদি কিছুই না হয়, খালি রাখুন</string>
   <string name="profile">পরিচিতি</string>
   <string name="editProfile">পরিচিতি সম্পাদনা</string>
-  <string name="firstName">প্রথম নাম</string>
-  <string name="lastName">শেষ নাম</string>
   <string name="setFlair">আপনার ফ্লেয়ার সেট করুন</string>
   <string name="flair">ফ্লেয়ার</string>
   <string name="youCanHideFlair">পুরো সাইট জুড়ে সমস্ত ব্যবহারকারীর ফ্লেয়ার লুকানোর জন্য একটি সেটিং রয়েছে.</string>
@@ -536,6 +530,7 @@
   <string name="descPrivateHelp">যে লেখা শুধু দলের সদস্য দেখতে পাবে.</string>
   <string name="no">না</string>
   <string name="yes">হ্যা</string>
+  <string name="mobile">মোবাইল</string>
   <string name="help">সাহায্য</string>
   <string name="createANewTopic">নতুন বিষয়  তৈরি করুন</string>
   <string name="topics">বিষয়</string>
@@ -552,11 +547,8 @@
   <string name="reason">কারণ</string>
   <string name="whatIsIheMatter">সম্পূর্ণ ঘটনার বিবরণ দেন</string>
   <string name="cheat">চিটিং করছে</string>
-  <string name="insult">অপমান করেছে</string>
   <string name="troll">ব্যঙ্গ করছে</string>
-  <string name="ratingManipulation">রেটিং ইচ্ছাকৃতভাবে পরিবর্তন</string>
   <string name="other">অন্য কোনো কারণ</string>
-  <string name="reportDescriptionHelp">এখানে সেই খেলাটির link দেন এবং বলুন ওই ব্যক্তি ব্যবহারে কি অসুবিধা ছিল ?</string>
   <string name="error.provideOneCheatedGameLink">অনুগ্রহ করে একটা চিটেড গেমের লিংক দিন।</string>
   <string name="by">%s এর দ্বারা</string>
   <string name="importedByX">খেলাটি এনেছেন %s</string>
@@ -675,7 +667,7 @@
   <string name="aboutSimulRules">যখন সিমুল শুরু হয়, প্রত্যেক খেলোয়াড় শুরু করে স্বাগতিকের সাথে একটি খেলা, যে পায় খেলার জন্য সাদা টুকরোগুলো, যখন সব খেলা সম্পন্ন হয় তখন সিমুল শেষ হয়ে যায়.</string>
   <string name="aboutSimulSettings">সিমুলগুলো হয় সবসময় আকস্মিক. পূনারয়খেলা, পেছনেনেওয়া এবং \"অনেকসময়\" বিকল হয়.</string>
   <string name="create">তৈরি করুন</string>
-  <string name="whenCreateSimul">যখন আপনি একটি সিমুল তৈরি করেন, আপনি খেলার জন্য একাধিক খেলোয়ার পাবেন.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">যখন আপনি একটি সিমুল তৈরি করেন, আপনি খেলার জন্য একাধিক খেলোয়ার পাবেন.</string>
   <string name="simulVariantsHint">যদি আপনি বিভিন্ন অপশন নির্বাচন করেন, প্রতিটি খেলোয়াড়কে বেছে নিতে হবে যেটা সে খেলতে চায়.</string>
   <string name="simulClockHint">ফিশার ঘড়ি বিন্যাস. একবারে অনেক খেলোয়াড় নিলে, হয়তো আপনার অনেক সময় প্রয়োজন হবে.</string>
   <string name="simulAddExtraTime">আপনি হয়তো অতিরিক্ত সময় যোগ করে আপনার ঘড়ি সিমুলের সাথে মোকাবেলা করতে পারবেন.</string>

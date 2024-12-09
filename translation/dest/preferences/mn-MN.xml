@@ -40,7 +40,7 @@
   <string name="castleByMovingTwoSquares">Ноёноо хоёр нүүх</string>
   <string name="castleByMovingOntoTheRook">Ноёноо тэрэгрүүгээ нүүх</string>
   <string name="inputMovesWithTheKeyboard">Гарнаас нүүдэл оруулах</string>
-  <string name="yourPreferencesHaveBeenSaved">Таны шинэчлэгдсэн тохиргоо хадгалагдлаа.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Таны шинэчлэгдсэн тохиргоо хадгалагдлаа.</string>
   <string name="notifyChallenge">Саналууд</string>
   <string name="notifyTournamentSoon">Тэмцээн удахгүй эхэллээ яараарай!!</string>
 </resources>

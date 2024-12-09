@@ -1,11 +1,14 @@
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
 import * as licon from 'common/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
-import { AnalyseData } from './interfaces';
-import { ChartGame, AcplChart } from 'chart';
-import { stockfishName } from 'common/spinner';
-import { FEN } from 'chessground/types';
+import type { AnalyseData } from './interfaces';
+import type { ChartGame, AcplChart } from 'chart';
+import { stockfishName, spinnerHtml } from 'common/spinner';
+import { alert, confirm, domDialog } from 'common/dialog';
+import { escapeHtml } from 'common';
+import { storage } from 'common/storage';
+import { pubsub } from 'common/pubsub';
 
 export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   $(element).replaceWith(ctrl.opts.$underboard);
@@ -37,15 +40,15 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   };
 
   if (!site.blindMode) {
-    site.pubsub.on('board.change', () => updateGifLinks(inputFen.value));
-    site.pubsub.on('analysis.comp.toggle', (v: boolean) => {
+    pubsub.on('board.change', () => updateGifLinks(inputFen.value));
+    pubsub.on('analysis.comp.toggle', (v: boolean) => {
       if (v) {
         setTimeout(() => $menu.find('.computer-analysis').first().trigger('mousedown'), 50);
       } else {
         $menu.find('span:not(.computer-analysis)').first().trigger('mousedown');
       }
     });
-    site.pubsub.on('analysis.change', (fen: FEN, _) => {
+    pubsub.on('analysis.change', (fen: FEN, _) => {
       const nextInputHash = `${fen}${ctrl.bottomColor()}`;
       if (fen && nextInputHash !== lastInputHash) {
         inputFen.value = fen;
@@ -53,7 +56,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
         lastInputHash = nextInputHash;
       }
     });
-    site.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
+    pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!advChart) startAdvantageChart();
       else advChart.updateData(d, ctrl.mainline);
       if (d.analysis && !d.analysis.partial) $('#acpl-chart-container-loader').remove();
@@ -61,7 +64,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   }
 
   const chartLoader = () =>
-    `<div id="acpl-chart-container-loader"><span>${stockfishName}<br>server analysis</span>${site.spinnerHtml}</div>`;
+    `<div id="acpl-chart-container-loader"><span>${stockfishName}<br>server analysis</span>${spinnerHtml}</div>`;
 
   function startAdvantageChart() {
     if (advChart || site.blindMode) return;
@@ -74,15 +77,13 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
     site.asset.loadEsm<ChartGame>('chart.game').then(m => {
-      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline(), ctrl.trans).then(
-        chart => {
-          advChart = chart;
-        },
-      );
+      m.acpl($('#acpl-chart')[0] as HTMLCanvasElement, data, ctrl.serverMainline()).then(chart => {
+        advChart = chart;
+      });
     });
   }
 
-  const storage = site.storage.make('analysis.panel');
+  const store = storage.make('analysis.panel');
   const setPanel = function (panel: string) {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
@@ -90,25 +91,25 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .removeClass('active')
       .filter('.' + panel)
       .addClass('active');
-    if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
+    if ((panel === 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
       site.asset.loadEsm<ChartGame>('chart.game').then(m => {
         timeChartLoaded = true;
-        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.trans, ctrl.opts.hunter);
+        m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.opts.hunter);
       });
-    if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
+    if ((panel === 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function (this: HTMLElement) {
     const panel = this.dataset.panel!;
-    storage.set(panel);
+    store.set(panel);
     setPanel(panel);
   });
-  const stored = storage.get();
+  const stored = store.get();
   const foundStored =
     stored &&
     $menu.children(`[data-panel="${stored}"]`).filter(function (this: HTMLElement) {
       const display = window.getComputedStyle(this).display;
-      return !!display && display != 'none';
+      return !!display && display !== 'none';
     }).length;
   if (foundStored) setPanel(stored);
   else {
@@ -118,15 +119,16 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
   if (!data.analysis) {
     $panels.find('form.future-game-analysis').on('submit', function (this: HTMLFormElement) {
       if ($(this).hasClass('must-login')) {
-        if (confirm(ctrl.trans('youNeedAnAccountToDoThat')))
-          location.href = '/login?referrer=' + window.location.pathname;
+        confirm(i18n.site.youNeedAnAccountToDoThat, i18n.site.signIn, i18n.site.cancel).then(yes => {
+          if (yes) location.href = '/login?referrer=' + window.location.pathname;
+        });
         return false;
       }
       xhrTextRaw(this.action, { method: this.method }).then(res => {
         if (res.ok) startAdvantageChart();
         else
-          res.text().then(t => {
-            if (t && !t.startsWith('<!DOCTYPE html>')) alert(t);
+          res.text().then(async t => {
+            if (t && !t.startsWith('<!DOCTYPE html>')) await alert(t);
             site.reload();
           });
       });
@@ -147,14 +149,15 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     // uglier in the process.
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
-    site.dialog.dom({
-      show: 'modal',
+    domDialog({
+      modal: true,
+      show: true,
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +
         '</strong><br /><br />' +
         '<pre>' +
-        site.escapeHtml(iframe) +
+        escapeHtml(iframe) +
         '</pre><br />' +
         iframe +
         '<br /><br />' +

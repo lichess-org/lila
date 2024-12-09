@@ -34,6 +34,10 @@
     <item quantity="one">Ha jugado %s partida por correspondencia</item>
     <item quantity="other">Ha jugado %s partidas por correspondencia</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Ha completado %1$s %2$s partida por correspondencia</item>
+    <item quantity="other">Ha completado %1$s %2$s partidas por correspondencia</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Sigue a %s jugador</item>
     <item quantity="other">Sigue a %s jugadores</item>
@@ -54,7 +58,7 @@
     <item quantity="one">Ha creado %s estudio</item>
     <item quantity="other">Ha creado %s estudios</item>
   </plurals>
-  <plurals name="competedInNbTournaments">
+  <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="one">Ha competido en %s torneo</item>
     <item quantity="other">Ha competido en %s torneos</item>
   </plurals>
@@ -66,7 +70,7 @@
     <item quantity="one">Ha competido en %s torneo suizo</item>
     <item quantity="other">Ha competido en %s torneos suizos</item>
   </plurals>
-  <string name="rankedInSwissTournament">#%1$s en la clasificación en %2$s</string>
+  <string name="rankedInSwissTournament">#%1$s En la Clasificatoria de %2$s</string>
   <string name="signedUp">Registrado en Lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Miembro de %s equipo</item>

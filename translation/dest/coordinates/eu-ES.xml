@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koordenatuen entrenamendua</string>
   <string name="averageScoreAsWhiteX">Zuri gisa egindako puntuen batazbestekoa: %s</string>
   <string name="averageScoreAsBlackX">Beltz gisa egindako puntuen batazbestekoa: %s</string>
-  <string name="knowingTheChessBoard">Xake-taulako koordenatuak jakitea oso garrantzitsua da jokalarientzat:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Xake-taulako koordenatuak jakitea oso garrantzitsua da jokalarientzat:</string>
   <string name="mostChessCourses">Ikastaro eta ariketa gehienek idazkera algebraikoa erabiltzen dute.</string>
   <string name="talkToYourChessFriends">Horrela errazagoa da zure lagunekin hitz egitea, biok hitz egiten baituzue \"xakearen hizkuntza\".</string>
   <string name="youCanAnalyseAGameMoreEffectively">Partida errazago aztertu dezakezu ez badituzu laukien izenak aurkitu behar.</string>
@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">30 segundo dituzu ahal bezain beste lauki asmatzeko!</string>
   <string name="goAsLongAsYouWant">Nahi duzun arte aritu honetan, ez dago denbora mugarik!</string>
   <string name="showCoordinates">Erakutsi koordenatuak</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordenatuak lauki guztietan</string>
   <string name="showPieces">Erakutsi piezak</string>
   <string name="startTraining">Entrenatzen hasi</string>
   <string name="findSquare">Bilatu laukia</string>

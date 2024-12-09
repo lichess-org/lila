@@ -5,15 +5,14 @@ import play.api.mvc.RequestHeader
 
 import java.time.Period
 import scala.util.Try
-import scala.util.chaining.*
 
 import lila.common.Bus
-import lila.db.dsl.{ *, given }
-import lila.core.{ timeline as tl }
-import lila.memo.CacheApi.*
 import lila.core.perm.Granter
 import lila.core.team.*
+import lila.core.timeline as tl
 import lila.core.userId.UserSearch
+import lila.db.dsl.{ *, given }
+import lila.memo.CacheApi.*
 
 final class TeamApi(
     teamRepo: TeamRepo,
@@ -96,16 +95,16 @@ final class TeamApi(
     cached.teamIds(me).dmap(_.size)
 
   def hasJoinedTooManyTeams(using me: Me) =
-    countTeamsOf(me).dmap(_ > Team.maxJoin(me))
+    countTeamsOf(me).dmap(Team.maxJoin(me) < _)
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
-  def joinedTeamIdsOfUserAsSeenBy[U: UserIdOf](member: U)(using viewer: Option[Me]): Fu[List[TeamId]] =
+  def joinedTeamIdsOfUserAsSeenBy(of: User)(using viewer: Option[Me]): Fu[List[TeamId]] =
     cached
-      .teamIdsList(member.id)
-      .map(_.take(lila.team.Team.maxJoinCeiling))
-      .flatMap { allIds =>
-        if viewer.exists(_.is(member)) || Granter.opt(_.UserModView) then fuccess(allIds)
+      .teamIdsList(of.id)
+      .map(_.take(Team.maxJoin(of).value))
+      .flatMap: allIds =>
+        if viewer.exists(_.is(of)) || Granter.opt(_.UserModView) then fuccess(allIds)
         else
           allIds.nonEmpty.so:
             teamRepo.filterHideMembers(allIds).flatMap { hiddenIds =>
@@ -116,7 +115,6 @@ final class TeamApi(
                     !hiddenIds(id) || viewerTeamIds.contains(id)
                 }
             }
-      }
 
   def countCreatedRecently(me: User): Fu[Int] =
     teamRepo.countCreatedSince(me.id, Period.ofWeeks(1))
@@ -172,7 +170,7 @@ final class TeamApi(
         user = me,
         message = if me.marks.troll then TeamRequest.defaultMessage else msg
       )
-      requestRepo.coll.insert.one(request).void.andDo(cached.nbRequests.invalidate(team.createdBy))
+      for _ <- requestRepo.coll.insert.one(request) yield cached.nbRequests.invalidate(team.createdBy)
     }
 
   def cancelRequestOrQuit(team: Team)(using me: Me): Funit =
@@ -208,12 +206,13 @@ final class TeamApi(
 
   def doJoin(team: Team)(using me: Me): Funit = {
     belongsTo(team.id, me).not.flatMapz {
-      (memberRepo.add(team.id, me) >>
-        teamRepo.incMembers(team.id, +1)).andDo {
+      for
+        _ <- memberRepo.add(team.id, me)
+        _ <- teamRepo.incMembers(team.id, +1)
+      yield
         cached.invalidateTeamIds(me)
         lila.common.Bus.pub(tl.Propagate(tl.TeamJoin(me, team.id)).toFollowersOf(me))
         publish(JoinTeam(id = team.id, userId = me))
-      }
     }
   }.recover(lila.db.ignoreDuplicateKey)
 
@@ -238,15 +237,13 @@ final class TeamApi(
   def teamsByIds(ids: List[TeamId]) =
     teamRepo.coll.byIds[Team, TeamId](ids, _.sec)
 
-  def quit(team: Team, userId: UserId): Funit =
-    memberRepo.remove(team.id, userId).flatMap { res =>
-      (res.n == 1)
-        .so:
-          teamRepo.incMembers(team.id, -1)
-        .andDo:
-          publish(LeaveTeam(teamId = team.id, userId = userId))
-          cached.invalidateTeamIds(userId)
-    }
+  def quit(team: Team, userId: UserId): Funit = for
+    res <- memberRepo.remove(team.id, userId)
+    _ <- (res.n == 1).so:
+      teamRepo.incMembers(team.id, -1)
+  yield
+    publish(LeaveTeam(teamId = team.id, userId = userId))
+    cached.invalidateTeamIds(userId)
 
   def quitAllOnAccountClosure(userId: UserId): Fu[List[TeamId]] = for
     teamIds <- cached.teamIdsList(userId)
@@ -326,12 +323,10 @@ final class TeamApi(
             users <- memberRepo.userIdsByTeam(team.id)
             _ = users.foreach(cached.invalidateTeamIds)
             _ <- requestRepo.removeByTeam(team.id)
-          yield publish(TeamDisable(team.id))
+          yield ()
         else
-          teamRepo
-            .enable(team)
-            .andDo:
-              Bus.publish(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)), "team")
+          for _ <- teamRepo.enable(team)
+          yield Bus.publish(TeamUpdate(team.data, byMod = Granter(_.ManageTeam)), "team")
       else memberRepo.setPerms(team.id, me, Set.empty)
 
   def idAndLeaderIds(teamId: TeamId): Fu[Option[Team.IdAndLeaderIds]] =
@@ -349,12 +344,10 @@ final class TeamApi(
   export memberRepo.{ publicLeaderIds, leaderIds, isSubscribed, subscribe, filterUserIdsInTeam }
 
   // delete for ever, with members but not forums
-  def delete(team: Team, by: User, explain: String): Funit =
-    (teamRepo.coll.delete.one($id(team.id)) >>
-      memberRepo.removeByTeam(team.id)).andDo {
-      logger.info(s"delete team ${team.id} by @${by.id}: $explain")
-      publish(TeamDelete(team.id))
-    }
+  def delete(team: Team, by: User, explain: String): Funit = for
+    _ <- teamRepo.coll.delete.one($id(team.id))
+    _ <- memberRepo.removeByTeam(team.id)
+  yield logger.info(s"delete team ${team.id} by @${by.id}: $explain")
 
   def syncBelongsTo(teamId: TeamId, userId: UserId): Boolean =
     cached.syncTeamIds(userId).contains(teamId)

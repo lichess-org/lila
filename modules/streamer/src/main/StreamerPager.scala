@@ -1,8 +1,8 @@
 package lila.streamer
 
 import reactivemongo.api.*
-
 import scalalib.paginator.{ AdapterLike, Paginator }
+
 import lila.db.dsl.{ *, given }
 
 final class StreamerPager(

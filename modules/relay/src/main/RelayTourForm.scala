@@ -2,28 +2,53 @@ package lila.relay
 
 import play.api.data.*
 import play.api.data.Forms.*
+import play.api.data.format.Formatter
+import io.mola.galimatias.URL
 
-import lila.common.Form.{ cleanText, formatter, into, numberIn }
+import lila.common.Form.{ cleanText, cleanNonEmptyText, formatter, into, numberIn, typeIn, url }
 import lila.core.perm.Granter
-
-import lila.core.i18n.I18nKey.streamer
+import lila.core.fide.FideTC
+import java.time.ZoneId
 
 final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   import RelayTourForm.*
 
-  val spotlightMapping =
+  private val spotlightMapping =
     mapping("enabled" -> boolean, "lang" -> langList.popularLanguagesForm.mapping, "title" -> optional(text))(
       RelayTour.Spotlight.apply
     )(unapply)
 
+  private given Formatter[FideTC]            = formatter.stringFormatter(_.toString, FideTC.valueOf)
+  private val fideTcMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
+
+  private val infoMapping = mapping(
+    "format"    -> optional(cleanText(maxLength = 80)),
+    "tc"        -> optional(cleanText(maxLength = 80)),
+    "fideTc"    -> optional(fideTcMapping),
+    "location"  -> optional(cleanText(maxLength = 80)),
+    "timeZone"  -> optional(lila.common.Form.timeZone.field),
+    "players"   -> optional(cleanText(maxLength = 120)),
+    "website"   -> optional(url.field),
+    "standings" -> optional(url.field)
+  )(RelayTour.Info.apply)(unapply)
+
+  private val pinnedStreamMapping = mapping(
+    "name" -> cleanNonEmptyText(maxLength = 100),
+    "url"  -> url.field.verifying("Invalid stream URL", url => RelayPinnedStream("", url).upstream.isDefined)
+  )(RelayPinnedStream.apply)(unapply)
+
+  private given Formatter[RelayTour.Tier] =
+    formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
+
   val form = Form(
     mapping(
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
-      "description"     -> cleanText(minLength = 3, maxLength = 400),
+      "info"            -> infoMapping,
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "tier"            -> optional(numberIn(RelayTour.Tier.keys.keySet)),
-      "autoLeaderboard" -> boolean,
+      "tier"            -> optional(typeIn(RelayTour.Tier.values.toSet)),
+      "showScores"      -> boolean,
+      "showRatingDiffs" -> boolean,
       "teamTable"       -> boolean,
       "players" -> optional(
         of(formatter.stringFormatter[RelayPlayersTextarea](_.sortedText, RelayPlayersTextarea(_)))
@@ -31,11 +56,12 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
       "teams" -> optional(
         of(formatter.stringFormatter[RelayTeamsTextarea](_.sortedText, RelayTeamsTextarea(_)))
       ),
-      "spotlight"      -> optional(spotlightMapping),
-      "grouping"       -> RelayGroup.form.mapping,
-      "pinnedStreamer" -> optional(lila.common.Form.username.historicalField)
+      "spotlight"    -> optional(spotlightMapping),
+      "grouping"     -> RelayGroup.form.mapping,
+      "pinnedStream" -> optional(pinnedStreamMapping),
+      "note"         -> optional(nonEmptyText(maxLength = 20_000))
     )(Data.apply)(unapply)
-  )
+  ).fill(Data.empty)
 
   def create = form
 
@@ -45,31 +71,35 @@ object RelayTourForm:
 
   case class Data(
       name: RelayTour.Name,
-      description: String,
-      markup: Option[Markdown],
-      tier: Option[RelayTour.Tier],
-      autoLeaderboard: Boolean,
-      teamTable: Boolean,
-      players: Option[RelayPlayersTextarea],
-      teams: Option[RelayTeamsTextarea],
-      spotlight: Option[RelayTour.Spotlight],
-      grouping: Option[RelayGroup.form.Data],
-      pinnedStreamer: Option[UserStr]
+      info: RelayTour.Info,
+      markup: Option[Markdown] = none,
+      tier: Option[RelayTour.Tier] = none,
+      showScores: Boolean = true,
+      showRatingDiffs: Boolean = true,
+      teamTable: Boolean = false,
+      players: Option[RelayPlayersTextarea] = none,
+      teams: Option[RelayTeamsTextarea] = none,
+      spotlight: Option[RelayTour.Spotlight] = none,
+      grouping: Option[RelayGroup.form.Data] = none,
+      pinnedStream: Option[RelayPinnedStream] = none,
+      note: Option[String] = none
   ):
 
     def update(tour: RelayTour)(using me: Me) =
       tour
         .copy(
           name = name,
-          description = description,
+          info = info,
           markup = markup,
-          tier = tier.ifTrue(Granter(_.Relay)),
-          autoLeaderboard = autoLeaderboard,
+          tier = if Granter(_.Relay) then tier else tour.tier,
+          showScores = showScores,
+          showRatingDiffs = showRatingDiffs,
           teamTable = teamTable,
           players = players,
           teams = teams,
           spotlight = spotlight.filterNot(_.isEmpty),
-          pinnedStreamer = pinnedStreamer
+          pinnedStream = pinnedStream,
+          note = note
         )
         .giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
@@ -77,7 +107,7 @@ object RelayTourForm:
       RelayTour(
         id = RelayTour.makeId,
         name = name,
-        description = description,
+        info = info,
         markup = markup,
         ownerId = me,
         tier = tier.ifTrue(Granter(_.Relay)),
@@ -85,28 +115,40 @@ object RelayTourForm:
         live = none,
         createdAt = nowInstant,
         syncedAt = none,
-        autoLeaderboard = autoLeaderboard,
+        showScores = showScores,
+        showRatingDiffs = showRatingDiffs,
         teamTable = teamTable,
         players = players,
         teams = teams,
         spotlight = spotlight.filterNot(_.isEmpty),
-        pinnedStreamer = pinnedStreamer
+        pinnedStream = pinnedStream,
+        note = note
       ).giveOfficialToBroadcasterIf(Granter(_.StudyAdmin))
 
   object Data:
+
+    val empty = Data(
+      RelayTour.Name(""),
+      RelayTour.Info(none, none, none, none, ZoneId.systemDefault.some, none, none, none)
+    )
 
     def make(tg: RelayTour.WithGroupTours) =
       import tg.*
       Data(
         name = tour.name,
-        description = tour.description,
+        info = tour.info.copy(
+          fideTc = tour.info.fideTcOrGuess.some,
+          timeZone = tour.info.timeZoneOrDefault.some
+        ),
         markup = tour.markup,
         tier = tour.tier,
-        autoLeaderboard = tour.autoLeaderboard,
+        showScores = tour.showScores,
+        showRatingDiffs = tour.showRatingDiffs,
         teamTable = tour.teamTable,
         players = tour.players,
         teams = tour.teams,
         spotlight = tour.spotlight,
         grouping = group.map(RelayGroup.form.Data.apply),
-        pinnedStreamer = tour.pinnedStreamer
+        pinnedStream = tour.pinnedStream,
+        note = tour.note
       )

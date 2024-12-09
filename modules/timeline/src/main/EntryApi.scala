@@ -2,8 +2,8 @@ package lila.timeline
 
 import reactivemongo.api.bson.*
 
-import lila.db.dsl.{ *, given }
 import lila.core.timeline.Atom
+import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi.*
 
 final class EntryApi(
@@ -98,4 +98,5 @@ final class EntryApi(
               mostRecentBc +: interleaved.filter(mostRecentBc !=)
             else interleaved
 
-    def insert(atom: Atom): Funit = coll.insert.one(Entry.make(atom)).void.andDo(cache.invalidateUnit())
+    def insert(atom: Atom): Funit =
+      for _ <- coll.insert.one(Entry.make(atom)) yield cache.invalidateUnit()

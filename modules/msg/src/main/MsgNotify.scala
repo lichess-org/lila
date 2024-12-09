@@ -5,8 +5,8 @@ import akka.actor.Cancellable
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.common.String.shorten
-import lila.db.dsl.{ *, given }
 import lila.core.notify.*
+import lila.db.dsl.{ *, given }
 
 final private class MsgNotify(
     colls: MsgColls,

@@ -1,11 +1,11 @@
-import { Point } from 'chart.js/dist/core/core.controller';
+import type { Point } from 'chart.js/dist/core/core.controller';
 import { animation, fontFamily, gridColor, hoverBorderColor, resizePolyfill } from './common';
-import { DistributionData } from './interface';
+import type { DistributionData } from './interface';
 import {
+  type ChartConfiguration,
+  type ChartData,
+  type ChartDataset,
   Chart,
-  ChartConfiguration,
-  ChartData,
-  ChartDataset,
   Filler,
   LineController,
   LineElement,
@@ -18,7 +18,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 resizePolyfill();
 Chart.register(LineController, LinearScale, PointElement, LineElement, Tooltip, Filler, ChartDataLabels);
 
-export async function initModule(data: DistributionData) {
+export async function initModule(data: DistributionData): Promise<void> {
   $('#rating_distribution_chart').each(function (this: HTMLCanvasElement) {
     const ratingAt = (i: number) => 400 + i * 25;
     const arraySum = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
@@ -46,7 +46,7 @@ export async function initModule(data: DistributionData) {
         ...seriesCommonData('#dddf0d'),
         data: cumul,
         yAxisID: 'y2',
-        label: data.i18n.cumulative,
+        label: i18n.site.cumulative,
         pointRadius: 0,
         datalabels: { display: false },
         pointHitRadius: 200,
@@ -57,7 +57,7 @@ export async function initModule(data: DistributionData) {
         backgroundColor: gradient,
         yAxisID: 'y',
         fill: true,
-        label: data.i18n.players,
+        label: i18n.site.players,
         pointRadius: 4,
         datalabels: { display: false },
         pointHitRadius: 200,
@@ -80,13 +80,15 @@ export async function initModule(data: DistributionData) {
           align: 'top',
           offset: 0,
           display: 'auto',
-          formatter: (value: Point) => (value.y == 0 ? '' : label),
+          formatter: (value: Point) => (value.y === 0 ? '' : label),
           color: color,
         },
       });
-    if (data.myRating && data.myRating <= maxRating) pushLine('#55bf3b', data.myRating, data.i18n.yourRating);
-    if (data.otherRating && data.otherPlayer && data.otherRating <= maxRating)
-      pushLine('#eeaaee', data.otherRating, data.otherPlayer);
+    if (data.myRating && data.myRating <= maxRating)
+      pushLine('#55bf3b', data.myRating, `${i18n.site.yourRating} (${data.myRating})`);
+    if (data.otherRating && data.otherPlayer) {
+      pushLine('#eeaaee', Math.min(data.otherRating, maxRating), `${data.otherPlayer} (${data.otherRating})`);
+    }
     const chartData: ChartData<'line'> = {
       labels: ratings,
       datasets: datasets,
@@ -112,7 +114,7 @@ export async function initModule(data: DistributionData) {
             },
             title: {
               display: true,
-              text: data.i18n.glicko2Rating,
+              text: i18n.site.glicko2Rating,
             },
           },
           y: {
@@ -125,7 +127,7 @@ export async function initModule(data: DistributionData) {
             },
             title: {
               display: true,
-              text: data.i18n.players,
+              text: i18n.site.players,
             },
           },
           y2: {
@@ -141,7 +143,7 @@ export async function initModule(data: DistributionData) {
             },
             title: {
               display: true,
-              text: data.i18n.cumulative,
+              text: i18n.site.cumulative,
             },
           },
         },

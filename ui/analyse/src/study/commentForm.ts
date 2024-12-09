@@ -1,9 +1,10 @@
 import { prop } from 'common';
 import { onInsert } from 'common/snabbdom';
-import throttle from 'common/throttle';
-import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
+import { throttle } from 'common/timing';
+import { h, type VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
 import { currentComments, isAuthorObj } from './studyComments';
+import { storage } from 'common/storage';
 
 interface Current {
   chapterId: string;
@@ -80,7 +81,7 @@ export function view(root: AnalyseCtrl): VNode {
               setupTextarea(vnode);
               const el = vnode.elm as HTMLInputElement;
               el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
-              const heightStore = site.storage.make('study.comment.height');
+              const heightStore = storage.make('study.comment.height');
               el.onmouseup = () => heightStore.set('' + el.offsetHeight);
               el.style.height = parseInt(heightStore.get() || '80') + 'px';
 

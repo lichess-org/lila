@@ -1,11 +1,11 @@
 import Lpv from 'lichess-pgn-viewer';
-import { initAll as initMiniBoards } from 'common/miniBoard';
-import { OpeningPage } from './interfaces';
+import { initMiniBoards } from 'common/miniBoard';
+import { requestIdleCallback } from 'common';
+import type { OpeningPage } from './interfaces';
 import { renderHistoryChart } from './chart';
 import { init as searchEngine } from './search';
 import panels from './panels';
 import renderPlaceholderWiki from './wiki';
-import { Config } from 'chessground/config';
 
 export function initModule(data?: OpeningPage): void {
   data ? page(data) : searchEngine();
@@ -31,16 +31,16 @@ function page(data: OpeningPage) {
   initMiniBoards();
   highlightNextPieces();
   panels($('.opening__panels'), id => {
-    if (id == 'opening-panel-games') loadExampleGames();
+    if (id === 'opening-panel-games') loadExampleGames();
   });
   searchEngine();
-  site.requestIdleCallback(() => {
+  requestIdleCallback(() => {
     renderHistoryChart(data);
     renderPlaceholderWiki(data);
   });
 }
 
-const cgConfig: Config = {
+const cgConfig: CgConfig = {
   coordinates: false,
 };
 

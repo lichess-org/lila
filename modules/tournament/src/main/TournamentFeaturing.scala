@@ -5,7 +5,6 @@ import com.github.blemale.scaffeine.AsyncLoadingCache
 
 final class TournamentFeaturing(
     api: TournamentApi,
-    cached: TournamentCache,
     repo: TournamentRepo,
     cacheApi: lila.memo.CacheApi
 )(using Executor):

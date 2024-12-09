@@ -84,4 +84,7 @@ Tačiau Rėmėjai gauna pagyrų teises ir šaunią naują profilio piktogramą.<
   <string name="nowOneMonth">Jūs esate Lichess rėmėjas vienam mėnesiui!</string>
   <string name="downgradeNextMonth">Po mėnesio pinigai nebus nuskaityti dar kartą ir jūsų Lichess paskyra atsistatys į įprastą.</string>
   <string name="changeCurrency">Pakeisti valiutą</string>
+  <string name="paymentDetails">Apmokėjimo duomenys</string>
+  <string name="updatePaymentMethod">Atnaujinti mokėjimo būdą</string>
+  <string name="stripeManageSub">Tvarkykite savo prenumeratą ir atsisiųskite sąskaitas bei kvitus</string>
 </resources>

@@ -2,8 +2,8 @@ package lila.challenge
 
 import chess.ByColor
 
-import lila.core.data.Template
 import lila.core.LightUser
+import lila.core.data.Template
 
 final class ChallengeMsg(msgApi: lila.core.msg.MsgApi)(using Executor):
 

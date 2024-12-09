@@ -1,13 +1,13 @@
 import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import StormCtrl from './ctrl';
-import { StormOpts } from './interfaces';
+import type { StormOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
 import view from './view/main';
 
-export function initModule(opts: StormOpts) {
+export function initModule(opts: StormOpts): void {
   const element = document.querySelector('.storm-app') as HTMLElement;
 
   let vnode: VNode;

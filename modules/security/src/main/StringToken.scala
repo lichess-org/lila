@@ -1,11 +1,11 @@
 package lila.security
 
 import com.roundeights.hasher.Algo
+import scalalib.Iso
 
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 
-import scalalib.Iso
 import lila.common.String.base64
 import lila.core.config.Secret
 

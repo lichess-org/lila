@@ -1,6 +1,5 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": { "noEmit": true },
-  "isolatedModules": true,
+  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
   "references": [{ "path": "../common/tsconfig.json" }]
 }

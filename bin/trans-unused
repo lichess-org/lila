@@ -24,7 +24,6 @@ LILA_DIR = Path(__file__).parent.resolve().parent.absolute()
 APP_DIR = LILA_DIR / "app"
 MODULE_DIR = LILA_DIR / "modules"
 SOURCE_DIR = LILA_DIR / "translation" / "source"
-TRANS_DUMP = LILA_DIR / "bin" / "trans-dump.js"
 
 #############
 # Functions #
@@ -93,7 +92,7 @@ def main() -> None:
             r = subprocess.run(["sed","-i", "", f"/{unused}.*</d", path], capture_output=True)
 
 
-    r = subprocess.run(["node",TRANS_DUMP], capture_output=True)
+    r = subprocess.run(["pnpm", "run", "trans-dump"], cwd=LILA_DIR)
     sys.exit(r.returncode)
 
 

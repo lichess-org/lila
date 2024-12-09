@@ -1,9 +1,8 @@
 package controllers
 
 import lila.app.{ *, given }
-import lila.core.net.IpAddress
 import lila.core.i18n.I18nKey as trans
-import lila.core.id.{ ForumCategId, ForumTopicId }
+import lila.core.id.ForumCategId
 import lila.msg.MsgPreset
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController:
@@ -106,6 +105,21 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
                   else MsgPreset.forumDeletion.byTeamLeader(post.categId)
               do env.msg.api.systemPost(userId, preset(reason, view.logFormatted))
               NoContent
+  }
+
+  def relocate(id: ForumPostId) = SecureBody(_.ModerateForum) { ctx ?=> me ?=>
+    Found(postApi.getPost(id).flatMapz(postApi.viewOf)): post =>
+      forms.relocateTo
+        .bindFromRequest()
+        .value
+        .so: to =>
+          env.forum.topicApi
+            .relocate(post.topic, to)
+            .map: topic =>
+              post.post.userId.foreach: op =>
+                val newUrl = routes.ForumTopic.show(to, topic.slug, 1).url
+                env.msg.api.systemPost(op, MsgPreset.forumRelocation(topic.name, newUrl))
+              Redirect(routes.ForumCateg.show(to)).flashSuccess
   }
 
   def react(categId: ForumCategId, id: ForumPostId, reaction: String, v: Boolean) = Auth { _ ?=> me ?=>

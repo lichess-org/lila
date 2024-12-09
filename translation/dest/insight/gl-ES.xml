@@ -3,7 +3,7 @@
   <string name="xChessInsights">Estatíticas de %s</string>
   <string name="xHasNoChessInsights">%s aínda non ten estatísticas!</string>
   <string name="insightsAreProtected">As estatísticas de %s están protexidas</string>
-  <string name="cantSeeInsights">Síntoo, non podes ver as estatísticas de %s.</string>
+  <string name="cantSeeInsights">Sentímolo, non podes ver as estatísticas de %s.</string>
   <string name="generateInsights">Xerar as estatísticas de %s</string>
   <string name="crunchingData">Procesando datos só para ti!</string>
   <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">Mellor pedirlles que muden os seus %s?</string>

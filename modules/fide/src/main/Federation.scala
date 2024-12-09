@@ -1,11 +1,9 @@
 package lila.fide
-
-import chess.FideId
 import monocle.syntax.all.*
 import reactivemongo.api.bson.Macros.Annotations.Key
 
-import lila.core.fide.FideTC
 import lila.core.fide.Federation.*
+import lila.core.fide.FideTC
 
 case class Federation(
     @Key("_id") id: Id,
@@ -26,8 +24,6 @@ case class Federation(
 // https://ratings.fide.com/top_federations.phtml
 // all=[];$('#federations_table').find('tbody tr').each(function(){all.push([$(this).find('img').attr('src').slice(5,8),$(this).find('a,strong').text().trim()])})
 object Federation:
-
-  val idNone = Id("NON")
 
   def nameToSlug(name: Name) = FidePlayer.slugify(chess.PlayerName(name))
 

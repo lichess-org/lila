@@ -3,16 +3,16 @@ package lila.push
 import akka.actor.*
 import play.api.libs.json.*
 
-import lila.core.challenge.Challenge
-import lila.common.String.shorten
 import lila.common.LilaFuture
+import lila.common.String.shorten
 import lila.core.LightUser
+import lila.core.challenge.Challenge
+import lila.core.data.LazyFu
 import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
-import lila.core.round.{ IsOnGame, MoveEvent }
-import lila.core.data.LazyFu
-import lila.core.study.data.StudyName
 import lila.core.notify.*
+import lila.core.round.{ IsOnGame, MoveEvent }
+import lila.core.study.data.StudyName
 
 final private class PushApi(
     firebasePush: FirebasePush,
@@ -346,16 +346,13 @@ final private class PushApi(
         mobileCompatible = false
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
-    webPush(webRecips, pushData)
-      .addEffects { res =>
+    for _ <- webPush(webRecips, pushData).addEffects: res =>
         lila.mon.push.send.streamStart("web", res.isSuccess, webRecips.size)
-      }
-      .andDo:
-        recips
-          .collect { case u if u.allows.device => u.userId }
-          .foreach:
-            firebasePush(_, pushData).addEffects: res =>
-              lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
+    yield recips
+      .collect { case u if u.allows.device => u.userId }
+      .foreach:
+        firebasePush(_, pushData).addEffects: res =>
+          lila.mon.push.send.streamStart("firebase", res.isSuccess, 1)
 
   private type MonitorType = lila.mon.push.send.type => ((String, Boolean, Int) => Unit)
 
@@ -375,16 +372,13 @@ final private class PushApi(
         mobileCompatible = false
       )
     val webRecips = recips.collect { case u if u.allows.web => u.userId }
-    webPush(webRecips, pushData)
-      .addEffects { res =>
+    for _ <- webPush(webRecips, pushData).addEffects: res =>
         lila.mon.push.send.broadcastRound("web", res.isSuccess, webRecips.size)
-      }
-      .andDo:
-        recips
-          .collect { case u if u.allows.device => u.userId }
-          .foreach:
-            firebasePush(_, pushData).addEffects: res =>
-              lila.mon.push.send.broadcastRound("firebase", res.isSuccess, 1)
+    yield recips
+      .collect { case u if u.allows.device => u.userId }
+      .foreach:
+        firebasePush(_, pushData).addEffects: res =>
+          lila.mon.push.send.broadcastRound("firebase", res.isSuccess, 1)
 
   private def maybePushNotif(
       userId: UserId,

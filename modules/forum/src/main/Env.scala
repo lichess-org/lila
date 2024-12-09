@@ -6,9 +6,8 @@ import play.api.libs.ws.StandaloneWSClient
 
 import lila.common.autoconfig.{ *, given }
 import lila.core.config.*
-import lila.core.relation.RelationApi
-
 import lila.core.forum.ForumPostMiniView
+import lila.core.relation.RelationApi
 
 @Module
 final private class ForumConfig(
@@ -64,8 +63,7 @@ final class Env(
   lazy val forumAccess = wire[ForumAccess]
 
   lila.common.Bus.subscribeFun("team", "gdprErase"):
-    case lila.core.team.TeamCreate(t)   => categApi.makeTeam(t.id, t.name, t.userId)
-    case lila.core.user.GDPRErase(user) => postApi.eraseFromSearchIndex(user)
+    case lila.core.team.TeamCreate(t) => categApi.makeTeam(t.id, t.name, t.userId)
 
 private type RecentTeamPostsType                   = TeamId => Fu[List[ForumPostMiniView]]
 opaque type RecentTeamPosts <: RecentTeamPostsType = RecentTeamPostsType

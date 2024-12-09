@@ -1,8 +1,8 @@
 package lila.memo
 
 import com.github.benmanes.caffeine.cache.*
+
 import java.util.concurrent.TimeUnit
-import scala.util.chaining.*
 import scala.util.Success
 
 import lila.common.Uptime

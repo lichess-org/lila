@@ -8,9 +8,9 @@ import scala.annotation.nowarn
 
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel }
-import lila.relay.ui.FormNavigation
 import lila.core.id.{ RelayRoundId, RelayTourId }
+import lila.relay.ui.FormNavigation
+import lila.relay.{ RelayRound as RoundModel, RelayTour as TourModel, RelayVideoEmbed as VideoEmbed }
 
 final class RelayRound(
     env: Env,
@@ -62,7 +62,7 @@ final class RelayRound(
           env.relay.api
             .formNavigation(rt)
             .flatMap: (round, nav) =>
-              Ok.page(views.relay.form.round.edit(round, env.relay.roundForm.edit(round), nav))
+              Ok.page(views.relay.form.round.edit(round, env.relay.roundForm.edit(nav.tour, round), nav))
   }
 
   def update(id: RelayRoundId) = AuthOrScopedBody(_.Study.Write) { ctx ?=> me ?=>
@@ -70,7 +70,7 @@ final class RelayRound(
     env.relay.api
       .formNavigation(id)
       .flatMapz: (round, nav) =>
-        bindForm(env.relay.roundForm.edit(round))(
+        bindForm(env.relay.roundForm.edit(nav.tour, round))(
           err => fuccess(Left((round, nav) -> err)),
           data =>
             env.relay.api
@@ -94,12 +94,12 @@ final class RelayRound(
         )
   }
 
-  def reset(id: RelayRoundId) = Auth { ctx ?=> me ?=>
+  def reset(id: RelayRoundId) = AuthOrScoped(_.Study.Write) { ctx ?=> me ?=>
     Found(env.relay.api.byIdAndContributor(id)): rt =>
-      env.relay.api.reset(rt.round).inject(Redirect(rt.path))
+      env.relay.api.reset(rt.round) >> negotiate(Redirect(rt.path), jsonOkResult)
   }
 
-  def show(ts: String, rs: String, id: RelayRoundId, embed: Option[UserStr]) =
+  def show(ts: String, rs: String, id: RelayRoundId) =
     OpenOrScoped(_.Study.Read): ctx ?=>
       negotiate(
         html = WithRoundAndTour(ts, rs, id): rt =>
@@ -109,26 +109,79 @@ final class RelayRound(
               // there might be no chapter after a round reset, let a new one be created
               case None              => env.study.api.byIdWithChapter(rt.round.studyId)
               case Some(firstChapId) => env.study.api.byIdWithChapterOrFallback(rt.round.studyId, firstChapId)
-          sc.orNotFound { doShow(rt, _, embed) }
+          sc.orNotFound: study =>
+            env.relay.videoEmbed.withCookie:
+              doShow(rt, study, _)
         ,
         json = doApiShow(id)
       )
 
-  def apiShow(ts: String, rs: String, id: RelayRoundId) = AnonOrScoped(_.Study.Read):
+  def apiShow(ts: String, rs: String, id: RelayRoundId) = AnonOrScoped(_.Study.Read, _.Web.Mobile):
     doApiShow(id)
 
-  private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
-    Found(env.relay.api.byIdWithTour(id)): rt =>
-      Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
-        studyC.CanView(study)(
-          for
-            group    <- env.relay.api.withTours.get(rt.tour.id)
-            previews <- env.study.preview.jsonList(study.id)
-          yield JsonOk(env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group))
-        )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
+  def embedShow(ts: String, rs: String, id: RelayRoundId): EssentialAction =
+    Anon:
+      InEmbedContext:
+        FoundEmbed(env.relay.api.byIdWithTour(id))(embedShow)
 
-  def pgn(ts: String, rs: String, id: StudyId) = studyC.pgn(id)
-  def apiPgn                                   = studyC.apiPgn
+  def embedShow(rt: RoundModel.WithTour)(using EmbedContext): Fu[Result] =
+    env.study.preview
+      .firstId(rt.round.studyId)
+      .flatMapz(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _))
+      .flatMap:
+        _.fold(notFoundEmbed): oldSc =>
+          studyC.CanView(oldSc.study)(
+            for
+              (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
+              rounds          <- env.relay.api.byTourOrdered(rt.tour)
+              group           <- env.relay.api.withTours.get(rt.tour.id)
+              data = env.relay.jsonView.makeData(
+                rt.tour.withRounds(rounds.map(_.round)),
+                rt.round.id,
+                studyData,
+                group,
+                canContribute = false,
+                isSubscribed = none,
+                videoUrls = none,
+                pinned = none
+              )
+              sVersion <- NoCrawlers(env.study.version(sc.study.id))
+              embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+            yield Ok(embed).enforceCrossSiteIsolation
+          )(
+            studyC.privateUnauthorizedFu(oldSc.study),
+            studyC.privateForbiddenFu(oldSc.study)
+          )
+
+  private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
+    Found(env.relay.api.byIdWithTour(id))(doApiShow)
+
+  def doApiShow(rt: RoundModel.WithTour)(using Context): Fu[Result] =
+    Found(env.study.studyRepo.byId(rt.round.studyId)): study =>
+      studyC.CanView(study)(
+        for
+          group       <- env.relay.api.withTours.get(rt.tour.id)
+          previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
+          targetRound <- env.relay.api.officialTarget(rt.round)
+        yield JsonOk:
+          env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound)
+      )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
+
+  def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
+    pgnWithFlags(ts, rs, id)
+
+  def apiPgn(id: RelayRoundId) = AnonOrScoped(_.Study.Read): ctx ?=>
+    pgnWithFlags("-", "-", id)
+
+  private def pgnWithFlags(ts: String, rs: String, id: RelayRoundId)(using Context): Fu[Result] =
+    studyC.pgnWithFlags(
+      id.into(StudyId),
+      _.copy(
+        site = s"${env.net.baseUrl}${routes.RelayRound.show(ts, rs, id)}".some,
+        comments = false,
+        variations = false
+      )
+    )
 
   def apiMyRounds = Scoped(_.Study.Read) { ctx ?=> _ ?=>
     val source = env.relay.api.myRounds(MaxPerSecond(20), getIntAs[Max]("nb")).map(env.relay.jsonView.myRound)
@@ -143,12 +196,12 @@ final class RelayRound(
             noProxyBuffer(Ok.chunked[PgnStr](source.keepAlive(60.seconds, () => PgnStr(" "))))
       }(Unauthorized, Forbidden)
 
-  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId, embed: Option[UserStr]) =
+  def chapter(ts: String, rs: String, id: RelayRoundId, chapterId: StudyChapterId) =
     Open:
-      WithRoundAndTour(ts, rs, id): rt =>
-        env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId).orNotFound {
-          doShow(rt, _, embed)
-        }
+      WithRoundAndTour(ts, rs, id, chapterId.some): rt =>
+        Found(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, chapterId)): study =>
+          env.relay.videoEmbed.withCookie:
+            doShow(rt, study, _)
 
   def push(id: RelayRoundId) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) { ctx ?=> me ?=>
     Found(env.relay.api.byIdWithTourAndStudy(id)): rt =>
@@ -174,12 +227,20 @@ final class RelayRound(
           env.relay.teamTable.tableJson(rt.relay).map(JsonStrOk)
       }(Unauthorized, Forbidden)
 
-  private def WithRoundAndTour(@nowarn ts: String, @nowarn rs: String, id: RelayRoundId)(
+  def stats(id: RelayRoundId) = Open:
+    env.relay.statsJson(id).map(JsonOk)
+
+  private def WithRoundAndTour(
+      @nowarn ts: String,
+      @nowarn rs: String,
+      id: RelayRoundId,
+      chapterId: Option[StudyChapterId] = None
+  )(
       f: RoundModel.WithTour => Fu[Result]
   )(using ctx: Context): Fu[Result] =
     Found(env.relay.api.byIdWithTour(id)): rt =>
       if !ctx.req.path.startsWith(rt.path) && HTTPRequest.isRedirectable(ctx.req)
-      then Redirect(rt.path)
+      then Redirect(chapterId.fold(rt.path)(rt.path))
       else f(rt)
 
   private def WithTour(id: RelayTourId)(
@@ -192,24 +253,34 @@ final class RelayRound(
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me
-        .soUse { env.relay.api.canUpdate(tour) }
+        .soUse(env.relay.api.canUpdate(tour))
         .elseNotFound:
           env.relay.api.formNavigation(tour).flatMap(f)
 
-  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter, embed: Option[UserStr])(
-      using ctx: Context
+  private def doShow(rt: RoundModel.WithTour, oldSc: lila.study.Study.WithChapter, embed: VideoEmbed)(using
+      ctx: Context
   ): Fu[Result] =
     studyC.CanView(oldSc.study)(
       for
-        (sc, studyData) <- studyC.getJsonData(oldSc)
+        (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
         rounds          <- env.relay.api.byTourOrdered(rt.tour)
         group           <- env.relay.api.withTours.get(rt.tour.id)
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
-        pinnedStreamer <- rt.tour.pinnedStreamer.so(env.streamer.api.find)
-        streamer       <- embed.so(env.streamer.api.find)
-        stream         <- streamer.soFu(env.streamer.liveStreamApi.of)
-        videoUrls          = stream.flatMap(_.stream).map(_.urls(netDomain))
+        videoUrls <- embed match
+          case VideoEmbed.Auto =>
+            fuccess:
+              rt.tour.pinnedStream
+                .ifFalse(rt.round.isFinished)
+                .flatMap(_.upstream)
+                .map(_.urls(netDomain).toPair)
+          case VideoEmbed.No => fuccess(none)
+          case VideoEmbed.Stream(userId) =>
+            env.streamer.api
+              .find(userId)
+              .flatMapz(s => env.streamer.liveStreamApi.of(s).dmap(some))
+              .map:
+                _.flatMap(_.stream).map(_.urls(netDomain).toPair)
         crossSiteIsolation = videoUrls.isEmpty
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
@@ -218,14 +289,13 @@ final class RelayRound(
           group,
           ctx.userId.exists(sc.study.canContribute),
           isSubscribed,
-          videoUrls.map(_.toPair),
-          pinnedStreamer.map(s => (s.user.id, s.streamer.name.value, rt.tour.pinnedStreamerImage))
+          videoUrls,
+          rt.tour.pinnedStream
         )
         chat     <- NoCrawlers(studyC.chatOf(sc.study))
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
-        _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
         else Ok(page).withHeaders(crossOriginPolicy.unsafe*)

@@ -1,11 +1,11 @@
-import * as miniBoard from 'common/miniBoard';
-import { PuzCtrl } from '../interfaces';
+import { initMiniBoardWith } from 'common/miniBoard';
+import type { PuzCtrl } from '../interfaces';
 import { Chess } from 'chessops/chess';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { parseFen, makeFen } from 'chessops/fen';
 import { parseUci } from 'chessops/util';
 import { onInsert } from 'common/snabbdom';
-import { Toggle } from 'common';
+import type { Toggle } from 'common';
 
 const slowPuzzleIds = (ctrl: PuzCtrl): Set<string> | undefined => {
   if (!ctrl.filters.slow() || !ctrl.run.history.length) return undefined;
@@ -27,14 +27,13 @@ const toggleButton = (prop: Toggle, title: string): VNode =>
 export default (ctrl: PuzCtrl): VNode => {
   const slowIds = slowPuzzleIds(ctrl),
     filters = ctrl.filters,
-    noarg = ctrl.trans.noarg,
     buttons: VNode[] = [
-      toggleButton(filters.fail, noarg('failedPuzzles')),
-      toggleButton(filters.slow, noarg('slowPuzzles')),
+      toggleButton(filters.fail, i18n.storm.failedPuzzles),
+      toggleButton(filters.slow, i18n.storm.slowPuzzles),
     ];
-  if (filters.skip) buttons.push(toggleButton(filters.skip, noarg('skippedPuzzle')));
+  if (filters.skip) buttons.push(toggleButton(filters.skip, i18n.storm.skippedPuzzle));
   return h('div.puz-history.box.box-pad', [
-    h('div.box__top', [h('h2', ctrl.trans('puzzlesPlayed')), h('div.box__top__actions', buttons)]),
+    h('div.box__top', [h('h2', i18n.storm.puzzlesPlayed), h('div.box__top__actions', buttons)]),
     h(
       'div.puz-history__rounds',
       ctrl.run.history
@@ -56,7 +55,7 @@ export default (ctrl: PuzCtrl): VNode => {
                 const pos = Chess.fromSetup(parseFen(round.puzzle.fen).unwrap()).unwrap();
                 const uci = round.puzzle.line.split(' ')[0];
                 pos.play(parseUci(uci)!);
-                miniBoard.initWith(e, makeFen(pos.toSetup()), pos.turn, uci);
+                initMiniBoardWith(e, makeFen(pos.toSetup()), pos.turn, uci);
               }),
             }),
             h('span.puz-history__round__meta', [

@@ -112,7 +112,6 @@
   <string name="replayMode">Режим на реприза</string>
   <string name="realtimeReplay">Во реално време</string>
   <string name="byCPL">По CPL</string>
-  <string name="openStudy">Отвори студија</string>
   <string name="enable">Овозможи</string>
   <string name="bestMoveArrow">Стрелка за најдобар потег</string>
   <string name="evaluationGauge">Мерач за проценка</string>
@@ -121,7 +120,6 @@
   <string name="memory">Меморија</string>
   <string name="infiniteAnalysis">Бесконечна анализа</string>
   <string name="removesTheDepthLimit">Неограничена длабочина на анализа, го загрева вашиот компјутер</string>
-  <string name="engineManager">Менаџер на компјутерот</string>
   <string name="blunder">Глупа грешка</string>
   <string name="mistake">Грешка</string>
   <string name="inaccuracy">Непрецизност</string>
@@ -424,7 +422,6 @@
   <string name="block">Блокирај</string>
   <string name="blocked">Блокиран</string>
   <string name="unblock">Одблокирај</string>
-  <string name="followsYou">Те следи</string>
   <string name="xStartedFollowingY">%1$s почна да го следи %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s следбеници</item>
@@ -456,9 +453,6 @@
   <string name="safeTournamentName">Одбери многу безбедно име за турнирот.</string>
   <string name="inappropriateNameWarning">И најмалку непристојни работи можат да ви ја затворат сметката.</string>
   <string name="emptyTournamentName">Остави празно за турнирот да биде крстен по шаховски првак.</string>
-  <string name="recommendNotTouching">Препорачуваме да не ги менувате овие поставки.</string>
-  <string name="fewerPlayers">Ако поставите услови за влез, вашиот турнир ќе има помалку играчи.</string>
-  <string name="showAdvancedSettings">Покажи ги напредните поставки</string>
   <string name="makePrivateTournament">Направи го турнирот приватен и ограничи го пристапот со лозинка</string>
   <string name="join">Приклучи се</string>
   <string name="withdraw">Предади</string>
@@ -497,8 +491,6 @@
   <string name="ifNoneLeaveEmpty">Без рејтинг? Остави го полето празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Уреди го профилот</string>
-  <string name="firstName">Име</string>
-  <string name="lastName">Презиме</string>
   <string name="biography">Биографија</string>
   <string name="thankYou">Благодарам!</string>
   <string name="socialMediaLinks">Врски на друштвени мрежи</string>
@@ -540,11 +532,8 @@
   <string name="reason">Причина</string>
   <string name="whatIsIheMatter">Каде е проблемот?</string>
   <string name="cheat">Мамење</string>
-  <string name="insult">Навреда</string>
   <string name="troll">Трол</string>
-  <string name="ratingManipulation">Манипулација на рејтинг</string>
   <string name="other">Друго</string>
-  <string name="reportDescriptionHelp">Внесете линк од играта/игрите и објаснете каде е проблемот во однесувањето на овој корисник. Немојте само да обвините за мамење, туку објаснете како дојдовте до тој заклучок. Вашата пријава ќе биди разгледана побрзо ако е напишана на англиски јазик.</string>
   <string name="error.provideOneCheatedGameLink">Ве молиме доставете барем една врска до партија со мамење.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Внесено од %s</string>
@@ -661,7 +650,7 @@
   <string name="aboutSimulRules">Кога симултаната партија почнува, секој играч почнува игра со домаќинот, кој игра со белите. Симултаната партија завршува кога сите партии се готови.</string>
   <string name="aboutSimulSettings">Симултаните партии се секогаш пријателски. Нема реванши, враќање потези и додавање време.</string>
   <string name="create">Создади</string>
-  <string name="whenCreateSimul">Кога создаваш симултана партија, играш со повеќе противници наеднаш.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Кога создаваш симултана партија, играш со повеќе противници наеднаш.</string>
   <string name="simulVariantsHint">Ако одбереш повеќе видови, секој играч може да одбере како ќе игра.</string>
   <string name="simulClockHint">Поставување на Фишерскиот часовник. Што повеќе противници, толку повеќе време ти треба.</string>
   <string name="simulAddExtraTime">Можеш да додадеш додатно време на часовникот, за да ти помогне со симултаната партија.</string>

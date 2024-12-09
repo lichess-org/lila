@@ -1,6 +1,8 @@
 import type * as snabbdom from 'snabbdom';
 import * as licon from 'common/licon';
 import Peer from 'peerjs';
+import { pubsub } from 'common/pubsub';
+import { alert } from 'common/dialog';
 
 type State =
   | 'off'
@@ -64,7 +66,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
         log('Connected to: ' + c.peer);
       })
       .on('disconnected', () => {
-        if (state == 'stopping') destroyPeer();
+        if (state === 'stopping') destroyPeer();
         else {
           setState('opening', 'reconnect');
           peer.reconnect();
@@ -110,7 +112,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function stop() {
-    if (peer && state != 'off') {
+    if (peer && state !== 'off') {
       setState('stopping');
       peer.disconnect();
     }
@@ -183,12 +185,12 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
   }
 
   function ping() {
-    if (state != 'off') site.pubsub.emit('socket.send', 'palantirPing');
+    if (state !== 'off') pubsub.emit('socket.send', 'palantirPing');
   }
 
-  site.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
-  site.pubsub.on('socket.in.palantirOff', site.reload); // remote disconnection
-  site.pubsub.on('palantir.toggle', v => {
+  pubsub.on('socket.in.palantir', uids => uids.forEach(call));
+  pubsub.on('socket.in.palantirOff', site.reload); // remote disconnection
+  pubsub.on('palantir.toggle', v => {
     if (!v) stop();
   });
 
@@ -213,7 +215,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
               attrs: {
                 'data-icon': licon.Handset,
                 title: `Voice chat: ${state}`,
-                'data-count': state == 'on' ? connections.length + 1 : 0,
+                'data-count': state === 'on' ? connections.length + 1 : 0,
               },
               hook: {
                 insert(vnode) {
@@ -221,7 +223,7 @@ export function initModule(opts: PalantirOpts): Palantir | undefined {
                 },
               },
             },
-            state == 'on'
+            state === 'on'
               ? connections.map(c =>
                   h('audio.palantir__audio.' + c.peer, {
                     attrs: { autoplay: true },

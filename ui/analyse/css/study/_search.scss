@@ -11,8 +11,9 @@
     height: 20em;
     margin-top: 1em;
     text-align: start;
-    div {
-      cursor: pointer;
+    button {
+      @extend %button-none;
+      width: 100%;
       padding: 0.5em 1em;
     }
     h3 {

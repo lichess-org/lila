@@ -1,10 +1,11 @@
 package lila.study
 
 import scalalib.paginator.Paginator
-import lila.db.dsl.{ *, given }
-import lila.db.paginator.{ Adapter, CachedAdapter }
+
 import lila.core.i18n.I18nKey
 import lila.core.study.Order
+import lila.db.dsl.{ *, given }
+import lila.db.paginator.{ Adapter, CachedAdapter }
 
 final class StudyPager(
     studyRepo: StudyRepo,

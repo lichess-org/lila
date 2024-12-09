@@ -30,7 +30,7 @@
   <string name="xPublishedY">%1$s 发布了 %2$s</string>
   <string name="thisPostIsPublished">文章已发布</string>
   <string name="thisIsADraft">这是一个草稿</string>
-  <string name="moreBlogPostsBy">%s 的更多文章</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">%s 的更多文章</string>
   <string name="noPostsInThisBlogYet">此博客中尚无文章</string>
   <string name="noDrafts">没有草稿</string>
   <string name="latestBlogPosts">最新博客文章</string>
@@ -41,7 +41,6 @@
   <string name="imageAlt">图片备选文字</string>
   <string name="imageCredit">图片引自</string>
   <string name="deleteBlog">确定删除该博客</string>
-  <string name="deleteImage">删除图像</string>
   <string name="safeToUseImages">使用来自下列网站的图像是安全的： </string>
   <string name="selectPostTopics">选择帖子的主题</string>
   <string name="useImagesYouMadeYourself">你也可以使用你自己制作的图像，你拍摄的照片，Lichess 的屏幕截图... 任何不是他人版权所有的东西。</string>

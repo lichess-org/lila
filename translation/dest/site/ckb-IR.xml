@@ -116,7 +116,6 @@
   <string name="replayMode">سەیرکردنەوەی یاریەکە</string>
   <string name="realtimeReplay">کاتی ڕاستەقینە</string>
   <string name="byCPL">بەهۆی CPL</string>
-  <string name="openStudy">خوێندنی کراوە</string>
   <string name="enable">چالاککراوە</string>
   <string name="bestMoveArrow">باشترین جووڵە بە شێووی تیر دیاری بکە</string>
   <string name="showVariationArrows">تیرەکانی جۆرەکان پیشان بدە</string>
@@ -126,7 +125,6 @@
   <string name="memory">یادگە</string>
   <string name="infiniteAnalysis">شیکاریکردنی بێ کۆتا</string>
   <string name="removesTheDepthLimit">لابردنی سنووری قوڵیەکەی، بەمەش کۆمپیوتەرەکەت سەلامەتتر دەبێت</string>
-  <string name="engineManager">بەڕێوەبردنی کۆمپیوتەر</string>
   <string name="blunder">هەڵەی دۆڕان</string>
   <string name="mistake">هەڵە</string>
   <string name="inaccuracy">ناتەواو</string>
@@ -433,7 +431,6 @@
   <string name="block">بلۆک</string>
   <string name="blocked">بلۆککراو</string>
   <string name="unblock">لابردنی بلۆک</string>
-  <string name="followsYou">شوێنکەوتووەکانت</string>
   <string name="xStartedFollowingY">%1$s شوێنی تۆ کەوت %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s شوێنکەوتوو</item>
@@ -465,9 +462,6 @@
   <string name="safeTournamentName">ناوێکی گونجاو بۆ پاڵەوانیەتیەکە هەڵبژێرە.</string>
   <string name="inappropriateNameWarning">هەرشتێک ئەگەر کەمێکیش نەگونجاوبێت، دەبێتە هۆی داخستنی هەژمارەکەت.</string>
   <string name="emptyTournamentName">ئەم خانەیە بە بەتاڵی جێبێڵە، بۆئەوەی بە شێوەیەکی هەڕەمەکی بە ناوی یاریزانێکی دیاری شەترەنجەوە بنرێت.</string>
-  <string name="recommendNotTouching">ئێمە پێشنیار دەکەین، گۆڕانکاری لەو بەشە نەکرێت.</string>
-  <string name="fewerPlayers">ئەگەر مەرجی چوونەژوورەوە زیادبکەیت ڕەنگە یاریزانی کەمتر بەشداربن.</string>
-  <string name="showAdvancedSettings">ڕێکخستنی پێشکەوتوو نیشان بدە</string>
   <string name="makePrivateTournament">پاڵەوانێتییەکە بکە بە تایبەت، و بە وشەی نهێنی چوونە ژوورەوە سنووردار بکە</string>
   <string name="join">بەشداریبکە</string>
   <string name="withdraw">کشانەوە</string>
@@ -507,8 +501,6 @@
   <string name="ifNoneLeaveEmpty">ئەگەر نییە، بە بەتاڵی جێیبێڵە</string>
   <string name="profile">پڕۆفایل</string>
   <string name="editProfile">دەستکاریکردنی پڕۆفایل</string>
-  <string name="firstName">ناو</string>
-  <string name="lastName">ناوی باپیرت</string>
   <string name="setFlair">توانای خۆت دابنێ</string>
   <string name="flair">بەهرە</string>
   <string name="youCanHideFlair">ڕێکخستنێک هەیە بۆ شاردنەوەی هەموو تواناکانی بەکارهێنەر لە سەرانسەری ماڵپەڕەکەدا.</string>
@@ -555,11 +547,11 @@
   <string name="reason">هۆکار</string>
   <string name="whatIsIheMatter">کێشەکە چییە?</string>
   <string name="cheat">فێڵکردن</string>
-  <string name="insult">بێڕێزی</string>
   <string name="troll">بێزارکەرەکان</string>
-  <string name="ratingManipulation">دەستکاریکردنی هەڵسەنگاندن</string>
   <string name="other">ئەوانیتر</string>
-  <string name="reportDescriptionHelp">لینکی یاریەکە لێرە دابنێ، پاشان بە وردی لەبارەی هەڵسوکەوتە نەشیاوەکانی ئەو بەکارهێنەرە بنووسە، هیچ سنورێک بۆ فێڵکردن نییە، ئەمە تەنها نمونەیەکە لێرە بەکاری دێنین، لەبەرئەوەی ئەمە زۆرترین داواکاری ریپۆرتە.</string>
+  <string name="reportCheatBoostHelp">لینکی یارییەکە یان یاریەکان پەیست بکە و ڕوونی بکەرەوە کە چی هەڵەیە لە هەڵسوکەوتی ئەم بەکارهێنەرەدا. تەنها مەڵێ \"فێڵ دەکەن\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە.</string>
+  <string name="reportUsernameHelp">ڕوونی بکەرەوە کە چی دەربارەی ئەم ناوی بەکارهێنەرە نەگونجاوە. تەنها مەڵێن \"ئەوە هێرشبەرە/نەگونجاو\"، بەڵکو پێمان بڵێ چۆن گەیشتووی بەم ئەنجامە، بەتایبەتی ئەگەر سووکایەتیەکە تەمومژاوی بێت نەک بە ئینگلیزی، بە زمانی بازاڕی بێت، یان ئاماژەیەکی مێژوویی/ کولتووری بێت.</string>
+  <string name="reportProcessedFasterInEnglish">ڕاپۆرتەکەت خێراتر پێڤاژۆ دەکرێت ئەگەر بە زمانی ئینگلیزی بنووسرێت.</string>
   <string name="error.provideOneCheatedGameLink">تکایە بەلایەنی کەمەوە لینکی یاریەک دابنێ بۆ ئەو یاریانەی فێڵی تێداکراوە.</string>
   <string name="by">لەلایەن %s</string>
   <string name="importedByX">هاوردەکراوە لەلایەن %s</string>
@@ -677,7 +669,7 @@
   <string name="aboutSimulRules">کاتێک سیمول دەست پێدەکات، هەموو یاریزانێک یارییەک لەگەڵ هۆستەکە دەستپێدەکات. سیمولەکە کاتێک کۆتایی دێت کە هەموو یارییەکان تەواو بوون.</string>
   <string name="aboutSimulSettings">سیمولەکان، کات زیادکردن، دووبارە کردنەوە یان وەرگرتنەوەی نییە.</string>
   <string name="create">دروستکردن</string>
-  <string name="whenCreateSimul">کاتێک سیموڵێک دروست دەکەی، ئەوە بەدەستدێنی کە بتوانی لە یەک کاتدا لەگەڵ چەند یاریزانێک یاری بکەیت.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">کاتێک سیموڵێک دروست دەکەی، ئەوە بەدەستدێنی کە بتوانی لە یەک کاتدا لەگەڵ چەند یاریزانێک یاری بکەیت.</string>
   <string name="simulVariantsHint">ئەگەر چەند جۆرێک هەڵبژێریت، هەر یاریزانێک دەتوانێت ئەوە هەڵبژێرێت کە دەیەوێت یاری پێبکات.</string>
   <string name="simulClockHint">ڕێکخستنی کاتژمێری فیشەر. تا یاریزانی زیاتر وەربگریت، ڕەنگە پێویستت بە کاتێکی زیاتر بێت.</string>
   <string name="simulAddExtraTime">لەوانەیە کاتێکی زیاتر بۆ کاتژمێرەکەت زیاد بکەیت بۆ ئەوەی یارمەتیت بدات لەگەڵ سیموڵدا ڕوبەڕو ببیتەوە.</string>

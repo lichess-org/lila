@@ -1,11 +1,10 @@
 package lila.challenge
 
+import lila.core.game.Player
+import lila.core.user.{ GameUser, WithPerf }
 import lila.game.{ GameRepo, Rematches }
 
 import Challenge.TimeControl
-import lila.core.user.WithPerf
-import lila.core.user.GameUser
-import lila.core.game.Player
 
 final class ChallengeMaker(
     userApi: lila.core.user.UserApi,

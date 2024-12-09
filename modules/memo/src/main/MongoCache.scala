@@ -1,10 +1,11 @@
 package lila.memo
 
-import CacheApi.*
 import com.github.blemale.scaffeine.AsyncLoadingCache
 import reactivemongo.api.bson.*
 
 import lila.db.dsl.{ *, given }
+
+import CacheApi.*
 
 /** To avoid recomputing very expensive values after deploy
   */
@@ -45,7 +46,8 @@ final class MongoCache[K, V: BSONHandler] private (
   def get = cache.get
 
   def invalidate(key: K): Funit =
-    coll.delete.one($id(makeDbKey(key))).void.andDo(cache.invalidate(key))
+    for _ <- coll.delete.one($id(makeDbKey(key)))
+    yield cache.invalidate(key)
 
   private def makeDbKey(key: K) = s"$name:${keyToString(key)}"
 

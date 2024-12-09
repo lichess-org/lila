@@ -23,7 +23,7 @@ Berserk is not available for games with zero initial time (0+1, 0+2).
 
 Berserk only grants an extra point if you play at least 7 moves in the game.</string>
   <string name="howIsTheWinnerDecided">How is the winner decided?</string>
-  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points at the conclusion of the tournament\'s set time limit will be announced winner(s).
+  <string name="howIsTheWinnerDecidedAnswer">The player(s) with the most points after the tournament\'s set time limit will be announced the winner(s).
 
 When two or more players have the same number of points, the tournament performance is the tie break.</string>
   <string name="howDoesPairingWork">How does the pairing work?</string>
@@ -64,24 +64,23 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="myTournaments">My tournaments</string>
   <string name="editTournament">Edit tournament</string>
   <string name="editTeamBattle">Edit team battle</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">Defender</string>
+  <string name="defender">Defender</string>
   <string name="pickYourTeam">Pick your team</string>
   <string name="whichTeamWillYouRepresentInThisBattle">Which team will you represent in this battle?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">You must join one of these teams to participate!</string>
   <string name="created">Created</string>
   <string name="recentlyPlayed">Recently played</string>
   <string name="bestResults">Best results</string>
-  <string name="stats">Stats</string>
   <string name="tournamentStats">Tournament stats</string>
   <string name="rankAvgHelp">The rank average is a percentage of your ranking. Lower is better.
 
 For instance, being ranked 3 in a tournament of 100 players = 3%. Being ranked 10 in a tournament of 1000 players = 1%.</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">medians</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">All averages on this page are %s.</string>
+  <string name="medians">medians</string>
+  <string name="allAveragesAreX">All averages on this page are %s.</string>
   <string name="total">Total</string>
-  <string name="pointsAvg">Points avg</string>
+  <string name="pointsAvg">Points average</string>
   <string name="pointsSum">Points sum</string>
-  <string name="rankAvg">Rank avg</string>
+  <string name="rankAvg">Rank average</string>
   <string name="tournamentWinners">Tournament winners</string>
   <string name="tournamentShields">Tournament shields</string>
   <string name="onlyTitled">Only titled players</string>

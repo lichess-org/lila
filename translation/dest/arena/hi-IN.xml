@@ -62,20 +62,19 @@
   <string name="myTournaments">मेरे टूर्नामेंट</string>
   <string name="editTournament">टूर्नामेंट संपादित करें</string>
   <string name="editTeamBattle">टीम लड़ाई संपादित करें</string>
-  <string name="defender" comment="In this context, this is the current holder of a shield trophy, who is defending their trophy in the next shield tournament of that variant. https://lichess.org/tournament/shields">रक्षक</string>
+  <string name="defender">रक्षक</string>
   <string name="pickYourTeam">अपनी टीम चुनें</string>
   <string name="whichTeamWillYouRepresentInThisBattle">इस लड़ाई में आप किस टीम का प्रतिनिधित्व करेंगे?</string>
   <string name="youMustJoinOneOfTheseTeamsToParticipate">भाग लेने के लिए आपको इनमें से किसी एक टीम में शामिल होना होगा!</string>
   <string name="created">बनाया था</string>
   <string name="recentlyPlayed">हाल ही में खेला</string>
   <string name="bestResults">सर्वोत्तम परिणाम</string>
-  <string name="stats">आँकड़े</string>
   <string name="tournamentStats">टूर्नामेंट आँकड़े</string>
   <string name="rankAvgHelp">रैंक औसत आपकी रैंकिंग का एक प्रतिशत है। कम बेहतर है।
 
 उदाहरण के लिए, 100 खिलाड़ियों के टूर्नामेंट में तीसरा स्थान प्राप्त होना = 3%। 1000 खिलाड़ियों के टूर्नामेंट में 10वें स्थान पर होना = 1%।</string>
-  <string name="medians" comment="Part of a longer sentence,  &quot;All averages on this page are %s.&quot; (where %s is this word, medians)">माध्यिकाओं</string>
-  <string name="allAveragesAreX" comment="The full sentence says 'All averages on this page are medians.' (as in median averages)&#10;&#10;%s is the word 'medians', which is available for translation separately.">इस पृष्ठ पर सभी औसत हैं %s</string>
+  <string name="medians">माध्यिकाओं</string>
+  <string name="allAveragesAreX">इस पृष्ठ पर सभी औसत हैं %s</string>
   <string name="total">कुल</string>
   <string name="pointsAvg">अंक औसत</string>
   <string name="pointsSum">अंक योग</string>

@@ -5,8 +5,8 @@ import play.api.Configuration
 
 import lila.common.LilaScheduler
 import lila.core.config.*
-import lila.db.dsl.Coll
 import lila.core.socket.{ GetVersion, SocketVersion }
+import lila.db.dsl.Coll
 
 @Module
 final class Env(
@@ -100,12 +100,12 @@ final class Env(
     case lila.core.mod.MarkBooster(userId)                     => api.kickLame(userId)
 
   LilaScheduler("Swiss.startPendingRounds", _.Every(1 seconds), _.AtMost(20 seconds), _.Delay(20 seconds)):
-    api.startPendingRounds
+    api.startPendingRounds.logFailure(logger)
 
   LilaScheduler("Swiss.checkOngoingGames", _.Every(10 seconds), _.AtMost(15 seconds), _.Delay(20 seconds)):
-    api.checkOngoingGames
+    api.checkOngoingGames.logFailure(logger)
 
   LilaScheduler("Swiss.generate", _.Every(3 hours), _.AtMost(15 seconds), _.Delay(15 minutes)):
-    officialSchedule.generate
+    officialSchedule.generate.logFailure(logger)
 
 final private class SwissMongo(val swiss: Coll, val player: Coll, val pairing: Coll, val ban: Coll)

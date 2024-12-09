@@ -1,10 +1,11 @@
 package lila.study
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
 import lila.common.String.removeMultibyteSymbols
 import lila.core.study.Order
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class StudyBits(helpers: Helpers):
   import helpers.{ *, given }
@@ -51,7 +52,6 @@ final class StudyBits(helpers: Helpers):
         div(cls := "study__icon")(
           s.study.flair
             .map(iconFlair)
-            .orElse(userFlairSync(s.study.ownerId))
             .getOrElse(iconTag(Icon.StudyBoard))
         ),
         div(
@@ -91,135 +91,4 @@ final class StudyBits(helpers: Helpers):
             .toList
         )
       )
-    )
-
-  val i18nKeys =
-    import trans.{ site, study as trs }
-    List(
-      site.name,
-      site.white,
-      site.black,
-      site.variant,
-      site.clearBoard,
-      site.startPosition,
-      site.cancel,
-      site.chat,
-      trs.addNewChapter,
-      trs.importFromChapterX,
-      trs.addMembers,
-      trs.inviteToTheStudy,
-      trs.pleaseOnlyInvitePeopleYouKnow,
-      trs.searchByUsername,
-      trs.spectator,
-      trs.contributor,
-      trs.kick,
-      trs.leaveTheStudy,
-      trs.youAreNowAContributor,
-      trs.youAreNowASpectator,
-      trs.pgnTags,
-      trs.like,
-      trs.unlike,
-      trs.topics,
-      trs.manageTopics,
-      trs.newTag,
-      trs.commentThisPosition,
-      trs.commentThisMove,
-      trs.annotateWithGlyphs,
-      trs.theChapterIsTooShortToBeAnalysed,
-      trs.onlyContributorsCanRequestAnalysis,
-      trs.getAFullComputerAnalysis,
-      trs.makeSureTheChapterIsComplete,
-      trs.allSyncMembersRemainOnTheSamePosition,
-      trs.shareChanges,
-      trs.playing,
-      trs.showEvalBar,
-      trs.first,
-      trs.previous,
-      trs.next,
-      trs.last,
-      trs.nextChapter,
-      trs.shareAndExport,
-      trs.cloneStudy,
-      trs.studyPgn,
-      trs.downloadAllGames,
-      trs.chapterPgn,
-      trs.copyChapterPgn,
-      trs.downloadGame,
-      trs.studyUrl,
-      trs.currentChapterUrl,
-      trs.youCanPasteThisInTheForumToEmbed,
-      trs.startAtInitialPosition,
-      trs.startAtX,
-      trs.embedInYourWebsite,
-      trs.readMoreAboutEmbedding,
-      trs.onlyPublicStudiesCanBeEmbedded,
-      trs.open,
-      trs.xBroughtToYouByY,
-      trs.studyNotFound,
-      trs.editChapter,
-      trs.newChapter,
-      trs.orientation,
-      trs.analysisMode,
-      trs.pinnedChapterComment,
-      trs.saveChapter,
-      trs.clearAnnotations,
-      trs.clearVariations,
-      trs.deleteChapter,
-      trs.deleteThisChapter,
-      trs.clearAllCommentsInThisChapter,
-      trs.rightUnderTheBoard,
-      trs.noPinnedComment,
-      trs.normalAnalysis,
-      trs.hideNextMoves,
-      trs.interactiveLesson,
-      trs.chapterX,
-      trs.empty,
-      trs.startFromInitialPosition,
-      trs.editor,
-      trs.startFromCustomPosition,
-      trs.loadAGameByUrl,
-      trs.loadAPositionFromFen,
-      trs.loadAGameFromPgn,
-      trs.automatic,
-      trs.urlOfTheGame,
-      trs.loadAGameFromXOrY,
-      trs.createChapter,
-      trs.createStudy,
-      trs.editStudy,
-      trs.visibility,
-      trs.public,
-      trs.`private`,
-      trs.unlisted,
-      trs.inviteOnly,
-      trs.allowCloning,
-      trs.nobody,
-      trs.onlyMe,
-      trs.contributors,
-      trs.members,
-      trs.everyone,
-      trs.enableSync,
-      trs.yesKeepEveryoneOnTheSamePosition,
-      trs.noLetPeopleBrowseFreely,
-      trs.pinnedStudyComment,
-      trs.start,
-      trs.save,
-      trs.clearChat,
-      trs.deleteTheStudyChatHistory,
-      trs.deleteStudy,
-      trs.confirmDeleteStudy,
-      trs.whereDoYouWantToStudyThat,
-      trs.nbChapters,
-      trs.nbGames,
-      trs.nbMembers,
-      trs.pasteYourPgnTextHereUpToNbGames
-    )
-
-  val gamebookPlayKeys =
-    List(
-      trans.study.back,
-      trans.study.playAgain,
-      trans.study.nextChapter,
-      trans.site.retry,
-      trans.study.whatWouldYouPlay,
-      trans.study.youCompletedThisLesson
     )

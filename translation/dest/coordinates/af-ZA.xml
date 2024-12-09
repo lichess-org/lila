@@ -4,7 +4,7 @@
   <string name="coordinateTraining">Koördinaat oefening</string>
   <string name="averageScoreAsWhiteX">Gemiddelde telling as wit: %s</string>
   <string name="averageScoreAsBlackX">Gemiddelde telling as swart: %s</string>
-  <string name="knowingTheChessBoard">Om die koördinate op die skaakbord te ken is \'n baie belangrike skaakvaardigheid:</string>
+  <string name="knowingTheChessBoard" comment="knowingTheChessBoard&#10;&#10;Part of the coordinates intro.&#10;&#10;This string did not use to have &quot;for several reasons:&quot; in it, so please add this text if it is missing (also, see in context).">Om die koördinate op die skaakbord te ken is \'n baie belangrike skaakvaardigheid:</string>
   <string name="mostChessCourses">Meeste skaak kursusse en oefeninge gebruik algebraïese notasie.</string>
   <string name="talkToYourChessFriends">Dit maak dit makliker om met jou skaak vriende te praat omdat julle albei die \'taal van skaak\' verstaan.</string>
   <string name="youCanAnalyseAGameMoreEffectively">Jy kan \'n spel meer effektief analiseer as jy vinnig koördinate kan herken.</string>
@@ -13,7 +13,7 @@
   <string name="youHaveThirtySeconds">Jy het 30 sekondes om soveel blokkies moontlik te merk!</string>
   <string name="goAsLongAsYouWant">Neem so lank as wat jy wil, daar is geen tydsbeperking nie!</string>
   <string name="showCoordinates">Vertoon koördinate</string>
-  <string name="showCoordsOnAllSquares">Koördinate op elke blokkie</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koördinate op elke blokkie</string>
   <string name="showPieces">Vertoon stukke</string>
   <string name="startTraining">Begin die oefening</string>
   <string name="findSquare">Vind die blokkie</string>

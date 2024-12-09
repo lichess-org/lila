@@ -1,9 +1,10 @@
 package lila.web
 package ui
 
+import lila.core.i18n.{ I18nKey as trans, Translate }
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
-import lila.core.i18n.{ Translate, I18nKey as trans }
 
 object help:
 
@@ -35,7 +36,7 @@ object help:
     .map: letter =>
       frag(s"${letter.capitalize} = ", phonetic(letter), ". ")
 
-  def round(using Translate) =
+  def round(hasChat: Boolean)(using Translate) =
     frag(
       h2(trans.site.keyboardShortcuts()),
       table(
@@ -44,6 +45,9 @@ object help:
           header(trans.site.other()),
           flip,
           zen,
+          hasChat.option(
+            row(kbd("c"), trans.site.focusChat())
+          ),
           helpDialog
         )
       )
@@ -192,7 +196,17 @@ object help:
                 ),
                 li(instructions2()),
                 li(instructions3(voice("yes"), voice("no"))),
-                li(instructions4(strong("Push to Talk"))),
+                li(
+                  instructions4(strong("Push to Talk")),
+                  strong(" Shift"),
+                  " also cancels any ongoing speech."
+                ),
+                li(
+                  "Enable ",
+                  a(href := "/account/preferences/game-behavior#moveConfirmation")("Move Confirmation"),
+                  " in Settings, set timer off, and set clarity to clear if you are playing blindfolded",
+                  " with speech synthesis. This enables spoken move confirmation."
+                ),
                 li(instructions5(), phonetics),
                 li(
                   instructions6(
@@ -229,6 +243,9 @@ object help:
               row(voice("yes"), playPreferredMoveOrConfirmSomething()),
               row(voice("vocabulary"), "List all available commands"),
               row(voice("blindfold"), "Toggle blindfold mode"),
+              row(voice("clock"), "Read out clocks"),
+              row(voice("pieces"), "Read out pieces"),
+              row(voice("white-pieces"), "Read out white pieces"),
               row(voice("next"), trans.puzzle.nextPuzzle()),
               row(voice("upvote"), trans.puzzle.upVote()),
               row(voice("solve"), showPuzzleSolution()),

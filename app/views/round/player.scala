@@ -2,9 +2,8 @@ package views.round
 
 import play.api.libs.json.Json
 
-import lila.common.Json.given
 import lila.app.UiEnv.{ *, given }
-
+import lila.common.Json.given
 import lila.round.RoundGame.secondsSinceCreation
 
 def player(
@@ -51,7 +50,6 @@ def player(
         Json
           .obj(
             "data"   -> data,
-            "i18n"   -> jsI18n(pov.game),
             "userId" -> ctx.userId,
             "chat"   -> chatJson
           )

@@ -5,13 +5,14 @@
   "description": "lichess.org multipurpose dropdown",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "module": "dist/dasher.js",
   "types": "dist/dasher.d.ts",
-  "dependencies": {
-    "common": "workspace:*",
-    "snabbdom": "3.5.1"
+  "exports": {
+    ".": "./src/dasher.ts"
   },
-  "lichess": {
-    "bundles": "src/dasher.ts"
+  "dependencies": {
+    "common": "workspace:*"
+  },
+  "build": {
+    "bundle": "src/dasher.ts"
   }
 }

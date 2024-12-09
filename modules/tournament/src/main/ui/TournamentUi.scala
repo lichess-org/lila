@@ -1,10 +1,11 @@
 package lila.tournament
 package ui
 
-import lila.ui.*
-import ScalatagsTemplate.{ *, given }
-import lila.rating.PerfType
 import lila.core.i18n.Translate
+import lila.rating.PerfType
+import lila.ui.*
+
+import ScalatagsTemplate.{ *, given }
 
 final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
   import helpers.{ *, given }
@@ -67,7 +68,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
           ),
           td(
             if tour.isStarted then timeRemaining(tour.finishesAt)
-            else momentFromNow(tour.schedule.fold(tour.startsAt)(_.at.instant))
+            else momentFromNow(tour.schedule.fold(tour.startsAt)(_.atInstant))
           ),
           td(tour.durationString),
           tour.conditions.teamMember match
@@ -95,7 +96,7 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
     )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: TourId)(using translate: Translate): String =
-    getTourName.sync(id)(using translate.lang).getOrElse("Tournament")
+    getTourName.sync(id)(using translate.lang).getOrElse(s"Tournament #$id")
 
   object scheduledTournamentNameShortHtml:
     private def icon(c: Icon) = s"""<span data-icon="$c"></span>"""
@@ -119,56 +120,3 @@ final class TournamentUi(helpers: Helpers)(getTourName: GetTourName):
     tour.schedule.map(_.freq) match
       case Some(Schedule.Freq.Marathon | Schedule.Freq.ExperimentalMarathon) => Icon.Globe
       case _ => tour.spotlight.flatMap(_.iconFont) | tour.perfType.icon
-
-  def scheduleJsI18n(using Context) = i18nJsObject(schedulei18nKeys)
-
-  def jsI18n(tour: Tournament)(using Context) = i18nJsObject(
-    i18nKeys ++ (tour.isTeamBattle.so(teamBattleI18nKeys))
-  )
-
-  private val i18nKeys = List(
-    trans.site.standing,
-    trans.site.starting,
-    trans.swiss.startingIn,
-    trans.site.tournamentIsStarting,
-    trans.site.youArePlaying,
-    trans.site.standByX,
-    trans.site.tournamentPairingsAreNowClosed,
-    trans.site.join,
-    trans.site.pause,
-    trans.site.withdraw,
-    trans.site.joinTheGame,
-    trans.site.signIn,
-    trans.site.averageElo,
-    trans.site.gamesPlayed,
-    trans.site.nbPlayers,
-    trans.site.winRate,
-    trans.site.berserkRate,
-    trans.study.downloadAllGames,
-    trans.site.performance,
-    trans.site.tournamentComplete,
-    trans.site.movesPlayed,
-    trans.site.whiteWins,
-    trans.site.blackWins,
-    trans.site.drawRate,
-    trans.site.nextXTournament,
-    trans.site.averageOpponent,
-    trans.site.tournamentEntryCode,
-    trans.site.topGames
-  )
-
-  private val teamBattleI18nKeys = List(
-    trans.arena.viewAllXTeams,
-    trans.site.players,
-    trans.arena.averagePerformance,
-    trans.arena.averageScore,
-    trans.team.teamPage,
-    trans.arena.pickYourTeam,
-    trans.arena.whichTeamWillYouRepresentInThisBattle,
-    trans.arena.youMustJoinOneOfTheseTeamsToParticipate
-  )
-
-  private val schedulei18nKeys = List(
-    trans.site.ratedTournament,
-    trans.site.casualTournament
-  )

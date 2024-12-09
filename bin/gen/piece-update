@@ -17,7 +17,7 @@ else
   commit_msg="Update several piece sets"
 fi
 
-bin/gen/piece-sprite
+pnpm run piece-css
 git add public/piece
 git add public/piece-css
 git commit -m "$commit_msg"

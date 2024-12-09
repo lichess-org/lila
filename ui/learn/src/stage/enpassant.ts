@@ -1,18 +1,19 @@
 import { scenarioComplete, scenarioFailed } from '../assert';
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
+import type { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/spinning-blades.svg';
 
-export default {
+const stage: StageNoID = {
   key: 'enpassant',
-  title: 'enPassant',
-  subtitle: 'theSpecialPawnMove',
+  title: i18n.learn.enPassant,
+  subtitle: i18n.learn.theSpecialPawnMove,
   image: imgUrl,
-  intro: 'enPassantIntro',
+  intro: i18n.learn.enPassantIntro,
   illustration: roundSvg(imgUrl),
   levels: [
     {
-      goal: 'blackJustMovedThePawnByTwoSquares',
+      goal: i18n.learn.blackJustMovedThePawnByTwoSquares,
       fen: 'rnbqkbnr/pppppppp/8/2P5/8/8/PP1PPPPP/RNBQKBNR b KQkq -',
       color: 'white' as const,
       nbMoves: 1,
@@ -29,7 +30,7 @@ export default {
       captures: 1,
     },
     {
-      goal: 'enPassantOnlyWorksImmediately',
+      goal: i18n.learn.enPassantOnlyWorksImmediately,
       fen: 'rnbqkbnr/ppp1pppp/8/2Pp3P/8/8/PP1PPPP1/RNBQKBNR b KQkq -',
       color: 'white' as const,
       nbMoves: 1,
@@ -46,7 +47,7 @@ export default {
       captures: 1,
     },
     {
-      goal: 'enPassantOnlyWorksOnFifthRank',
+      goal: i18n.learn.enPassantOnlyWorksOnFifthRank,
       fen: 'rnbqkbnr/pppppppp/P7/2P5/8/8/PP1PPPP1/RNBQKBNR b KQkq -',
       color: 'white' as const,
       nbMoves: 1,
@@ -64,7 +65,7 @@ export default {
       cssClass: 'highlight-5th-rank',
     },
     {
-      goal: 'takeAllThePawnsEnPassant',
+      goal: i18n.learn.takeAllThePawnsEnPassant,
       fen: 'rnbqkbnr/pppppppp/8/2PPP2P/8/8/PP1P1PP1/RNBQKBNR b KQkq -',
       color: 'white' as const,
       nbMoves: 4,
@@ -75,5 +76,6 @@ export default {
       captures: 4,
     },
   ].map(toLevel),
-  complete: 'enPassantComplete',
+  complete: i18n.learn.enPassantComplete,
 };
+export default stage;

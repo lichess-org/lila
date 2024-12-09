@@ -11,7 +11,7 @@ import lila.room.RoomSocket.{ Protocol as RP, * }
 import lila.core.socket.{ protocol as P, * }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
-import lila.tree.Node.{ defaultNodeJsonWriter, minimalNodeJsonWriter }
+import lila.tree.Node.minimalNodeJsonWriter
 
 import actorApi.Who
 
@@ -31,13 +31,13 @@ final private class StudySocket(
 
   def isPresent(studyId: StudyId, userId: UserId): Fu[Boolean] =
     socketRequest[Boolean](
-      id => send(Protocol.Out.getIsPresent(id, studyId, userId)),
+      id => send.exec(Protocol.Out.getIsPresent(id, studyId, userId)),
       _ == "true"
     )
 
   def onServerEval(studyId: StudyId, eval: ServerEval.Progress): Unit =
     import eval.*
-    send(
+    send.exec(
       RP.Out.tellRoom(
         studyId,
         makeMessage(
@@ -45,7 +45,7 @@ final private class StudySocket(
           Json.obj(
             "analysis" -> analysis,
             "ch"       -> chapterId,
-            "tree"     -> defaultNodeJsonWriter.writes(tree),
+            "tree"     -> lila.tree.Node.defaultNodeJsonWriter.writes(tree),
             "division" -> division
           )
         )
@@ -228,13 +228,10 @@ final private class StudySocket(
           for
             w        <- who
             username <- o.get[UserStr]("d")
-          yield api.invite(
-            w.u,
-            studyId,
-            username,
-            isPresent = userId => isPresent(studyId, userId),
-            onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err)))
-          )
+          yield api
+            .invite(w.u, studyId, username, isPresent(studyId, _))
+            .recover:
+              case err: Exception => send.exec(P.Out.tellSri(w.sri, makeMessage("error", err.getMessage)))
 
         case "relaySync" =>
           applyWho: w =>
@@ -266,7 +263,7 @@ final private class StudySocket(
 
   socketKit
     .subscribe("study-in", RP.In.reader)(studyHandler.orElse(rHandler).orElse(socketKit.baseHandler))
-    .andDo(send(P.Out.boot))
+    .andDo(send.exec(P.Out.boot))
 
   // send API
 
@@ -277,7 +274,7 @@ final private class StudySocket(
   private def version[A: Writes](tpe: String, data: A): SendToStudy =
     studyId => rooms.tell(studyId.into(RoomId), NotifyVersion(tpe, data))
   private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy =
-    _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
+    _ => send.exec(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
   def addNode(
@@ -289,6 +286,11 @@ final private class StudySocket(
       who: Who
   ) =
     val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.some)
+    val relayPathDedup = relay
+      .map(_.path)
+      .map: path =>
+        if path == pos.path.+(node.id) then "!"
+        else path.toString
     version(
       "addNode",
       Json
@@ -299,7 +301,7 @@ final private class StudySocket(
           "s" -> sticky
         )
         .add("w", Option.when(relay.isEmpty)(who))
-        .add("relayPath", relay.map(_.path))
+        .add("relayPath", relayPathDedup)
     )
   def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
   def promote(pos: Position.Ref, toMainline: Boolean, who: Who) =
@@ -323,7 +325,7 @@ final private class StudySocket(
       )
     )
   def reloadMembers(members: StudyMembers, sendTo: Iterable[UserId])(studyId: StudyId) =
-    send(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
+    send.exec(RP.Out.tellRoomUsers(studyId, sendTo, makeMessage("members", members)))
 
   def setComment(pos: Position.Ref, comment: Comment, who: Who) =
     version(

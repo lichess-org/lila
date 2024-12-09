@@ -1,23 +1,18 @@
 package lila.app
 
-import akka.actor.*
 import com.softwaremill.macwire.*
 import play.api.libs.ws.StandaloneWSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
-import play.api.{ Configuration, Environment, Mode, ConfigLoader }
+import play.api.{ ConfigLoader, Configuration, Environment, Mode }
 
 import lila.core.config.*
-import lila.common.config.given
-import lila.common.autoconfig.{ *, given }
-import lila.core.data.{ Strings, UserIds }
-import lila.core.i18n.Translator
 
 final class Env(
     val config: Configuration,
     val controllerComponents: ControllerComponents,
     environment: Environment,
-    shutdown: CoordinatedShutdown
-)(using val system: ActorSystem, val executor: Executor)(using
+    shutdown: akka.actor.CoordinatedShutdown
+)(using val system: akka.actor.ActorSystem, val executor: Executor)(using
     StandaloneWSClient,
     akka.stream.Materializer,
     SessionCookieBaker
@@ -26,10 +21,10 @@ final class Env(
 
   export net.{ domain, baseUrl, assetBaseUrlInternal }
 
-  given mode: Mode                 = environment.mode
-  given translator: Translator     = lila.i18n.Translator
-  given scheduler: Scheduler       = system.scheduler
-  given lila.core.config.RateLimit = net.rateLimit
+  given mode: Mode                            = environment.mode
+  given translator: lila.core.i18n.Translator = lila.i18n.Translator
+  given scheduler: Scheduler                  = system.scheduler
+  given lila.core.config.RateLimit            = net.rateLimit
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env
@@ -54,8 +49,8 @@ final class Env(
   val analyse: lila.analyse.Env         = wire[lila.analyse.Env]
   val fishnet: lila.fishnet.Env         = wire[lila.fishnet.Env]
   val history: lila.history.Env         = wire[lila.history.Env]
-  val round: lila.round.Env             = wire[lila.round.Env]
   val bookmark: lila.bookmark.Env       = wire[lila.bookmark.Env]
+  val round: lila.round.Env             = wire[lila.round.Env]
   val search: lila.search.Env           = wire[lila.search.Env]
   val gameSearch: lila.gameSearch.Env   = wire[lila.gameSearch.Env]
   val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]
@@ -101,6 +96,7 @@ final class Env(
   val racer: lila.racer.Env             = wire[lila.racer.Env]
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
+  val recap: lila.recap.Env             = wire[lila.recap.Env]
   val cms: lila.cms.Env                 = wire[lila.cms.Env]
   val web: lila.web.Env                 = wire[lila.web.Env]
   val api: lila.api.Env                 = wire[lila.api.Env]

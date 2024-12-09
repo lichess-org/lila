@@ -1,16 +1,16 @@
 import { isEmpty } from 'common';
 import * as licon from 'common/licon';
 import { isTouchDevice } from 'common/device';
-import { bind, dataIcon, MaybeVNodes, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import { AutoplayDelay } from '../autoplay';
-import { toggle, ToggleSettings } from 'common/controls';
-import AnalyseCtrl from '../ctrl';
+import { domDialog } from 'common/dialog';
+import { type VNode, bind, dataIcon, type MaybeVNodes, looseH as h } from 'common/snabbdom';
+import type { AutoplayDelay } from '../autoplay';
+import { toggle, type ToggleSettings } from 'common/controls';
+import type AnalyseCtrl from '../ctrl';
 import { cont as contRoute } from 'game/router';
 import * as pgnExport from '../pgnExport';
 
 interface AutoplaySpeed {
-  name: string;
+  name: keyof I18n['site'];
   delay: AutoplayDelay;
 }
 
@@ -29,7 +29,7 @@ const cplSpeed: AutoplaySpeed = {
   delay: 'cpl',
 };
 
-const ctrlToggle = (t: ToggleSettings, ctrl: AnalyseCtrl) => toggle(t, ctrl.trans, ctrl.redraw);
+const ctrlToggle = (t: ToggleSettings, ctrl: AnalyseCtrl) => toggle(t, ctrl.redraw);
 
 function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data;
@@ -41,14 +41,14 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
   return h(
     'div.autoplay',
     speeds.map(speed => {
-      const active = ctrl.autoplay.getDelay() == speed.delay;
+      const active = ctrl.autoplay.getDelay() === speed.delay;
       return h(
         'a.button',
         {
           class: { active, 'button-empty': !active },
           hook: bind('click', () => ctrl.togglePlay(speed.delay), ctrl.redraw),
         },
-        ctrl.trans.noarg(speed.name),
+        String(i18n.site[speed.name]),
       );
     }),
   );
@@ -57,19 +57,6 @@ function autoplayButtons(ctrl: AnalyseCtrl): VNode {
 const hiddenInput = (name: string, value: string) => h('input', { attrs: { type: 'hidden', name, value } });
 
 function studyButton(ctrl: AnalyseCtrl) {
-  if (ctrl.study && !ctrl.ongoing)
-    return h(
-      'a',
-      {
-        attrs: {
-          href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
-          target: '_blank',
-          rel: 'noopener',
-          'data-icon': licon.StudyBoard,
-        },
-      },
-      ctrl.trans.noarg('openStudy'),
-    );
   if (ctrl.study || ctrl.ongoing) return;
   return h(
     'form',
@@ -88,24 +75,24 @@ function studyButton(ctrl: AnalyseCtrl) {
       hiddenInput('orientation', ctrl.bottomColor()),
       hiddenInput('variant', ctrl.data.game.variant.key),
       hiddenInput('fen', ctrl.tree.root.fen),
-      h('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, ctrl.trans.noarg('toStudy')),
+      h('button', { attrs: { type: 'submit', 'data-icon': licon.StudyBoard } }, i18n.site.toStudy),
     ],
   );
 }
 
 export function view(ctrl: AnalyseCtrl): VNode {
   const d = ctrl.data,
-    noarg = ctrl.trans.noarg,
     canContinue = !ctrl.ongoing && d.game.variant.key === 'standard',
     ceval = ctrl.getCeval(),
-    mandatoryCeval = ctrl.mandatoryCeval();
+    mandatoryCeval = ctrl.mandatoryCeval(),
+    linkAttrs = { rel: ctrl.isEmbed ? '' : 'nofollow', target: ctrl.isEmbed ? '_blank' : '' };
 
   const tools: MaybeVNodes = [
     h('div.action-menu__tools', [
       h(
         'a',
         { hook: bind('click', ctrl.flip), attrs: { 'data-icon': licon.ChasingArrows, title: 'Hotkey: f' } },
-        noarg('flipBoard'),
+        i18n.site.flipBoard,
       ),
       !ctrl.ongoing &&
         h(
@@ -121,21 +108,21 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   })
                 : `/${d.game.id}/edit?fen=${ctrl.node.fen}`,
               'data-icon': licon.Pencil,
-              rel: 'nofollow',
+              ...linkAttrs,
             },
           },
-          noarg('boardEditor'),
+          i18n.site.boardEditor,
         ),
       canContinue &&
         h(
           'a',
           {
             hook: bind('click', () =>
-              site.dialog.dom({ cash: $('.continue-with.g_' + d.game.id), show: 'modal' }),
+              domDialog({ cash: $('.continue-with.g_' + d.game.id), modal: true, show: true }),
             ),
             attrs: dataIcon(licon.Swords),
           },
-          noarg('continueFromHere'),
+          i18n.site.continueFromHere,
         ),
       studyButton(ctrl),
       ctrl.persistence?.isDirty &&
@@ -143,12 +130,12 @@ export function view(ctrl: AnalyseCtrl): VNode {
           'a',
           {
             attrs: {
-              title: noarg('clearSavedMoves'),
+              title: i18n.site.clearSavedMoves,
               'data-icon': licon.Trash,
             },
             hook: bind('click', ctrl.persistence.clear),
           },
-          noarg('clearSavedMoves'),
+          i18n.site.clearSavedMoves,
         ),
     ]),
   ];
@@ -156,10 +143,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const cevalConfig: MaybeVNodes =
     ceval?.possible && ceval.allowed()
       ? [
-          h('h2', noarg('computerAnalysis')),
+          h('h2', i18n.site.computerAnalysis),
           ctrlToggle(
             {
-              name: 'enable',
+              name: i18n.site.enable,
               title: (mandatoryCeval ? 'Required by practice mode' : 'Stockfish') + ' (Hotkey: z)',
               id: 'all',
               checked: ctrl.showComputer(),
@@ -172,7 +159,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             ? [
                 ctrlToggle(
                   {
-                    name: 'bestMoveArrow',
+                    name: i18n.site.bestMoveArrow,
                     title: 'Hotkey: a',
                     id: 'shapes',
                     checked: ctrl.showAutoShapes(),
@@ -182,7 +169,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                 ),
                 ctrlToggle(
                   {
-                    name: 'evaluationGauge',
+                    name: i18n.site.evaluationGauge,
                     id: 'gauge',
                     checked: ctrl.showGauge(),
                     change: ctrl.toggleGauge,
@@ -198,7 +185,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     h('h2', 'Display'),
     ctrlToggle(
       {
-        name: noarg('inlineNotation'),
+        name: i18n.site.inlineNotation,
         title: 'Shift+I',
         id: 'inline',
         checked: ctrl.treeView.inline(),
@@ -212,7 +199,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     !isTouchDevice() &&
       ctrlToggle(
         {
-          name: 'showVariationArrows',
+          name: i18n.site.showVariationArrows,
           title: 'Variation navigation arrows',
           id: 'variationArrows',
           checked: ctrl.variationArrowsProp(),
@@ -237,7 +224,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ...tools,
     ...displayConfig,
     ...cevalConfig,
-    ...(ctrl.mainline.length > 4 ? [h('h2', noarg('replayMode')), autoplayButtons(ctrl)] : []),
+    ...(ctrl.mainline.length > 4 ? [h('h2', i18n.site.replayMode), autoplayButtons(ctrl)] : []),
     canContinue &&
       h('div.continue-with.none.g_' + d.game.id, [
         h(
@@ -247,10 +234,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
               href: d.userAnalysis
                 ? '/?fen=' + ctrl.encodeNodeFen() + '#ai'
                 : contRoute(d, 'ai') + '?fen=' + ctrl.node.fen,
-              rel: 'nofollow',
+              ...linkAttrs,
             },
           },
-          noarg('playWithTheMachine'),
+          i18n.site.playWithTheMachine,
         ),
         h(
           'a.button',
@@ -259,10 +246,10 @@ export function view(ctrl: AnalyseCtrl): VNode {
               href: d.userAnalysis
                 ? '/?fen=' + ctrl.encodeNodeFen() + '#friend'
                 : contRoute(d, 'friend') + '?fen=' + ctrl.node.fen,
-              rel: 'nofollow',
+              ...linkAttrs,
             },
           },
-          noarg('playWithAFriend'),
+          i18n.site.playWithAFriend,
         ),
       ]),
   ]);

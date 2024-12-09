@@ -1,10 +1,6 @@
 package controllers
-
-import play.api.data.*
-
 import lila.api.GameApiV2
 import lila.app.{ *, given }
-import lila.core.config
 
 final class GameMod(env: Env)(using akka.stream.Materializer) extends LilaController(env):
 

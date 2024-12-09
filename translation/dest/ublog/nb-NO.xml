@@ -32,7 +32,7 @@
   <string name="xPublishedY">%1$s publiserte %2$s</string>
   <string name="thisPostIsPublished">Dette innlegget er publisert</string>
   <string name="thisIsADraft">Dette er et utkast</string>
-  <string name="moreBlogPostsBy">Flere blogginnlegg av %s</string>
+  <string name="moreBlogPostsBy" comment="A link to more blog posts by the same author.&#10;&#10;%s is the author of the blog post.&#10;&#10;This used to say &quot;View more blog posts by %s&quot;, but as this is a button, it was better to make it shorter in English. It is fine to have a verb, but it will appear better when the text is shorter.">Flere blogginnlegg av %s</string>
   <string name="noPostsInThisBlogYet">Ingen innlegg i denne bloggen så langt.</string>
   <string name="noDrafts">Ingen utkast å vise.</string>
   <string name="latestBlogPosts">Siste blogginnlegg</string>
@@ -44,7 +44,6 @@
   <string name="imageAlt">Alternativ tekst for bildet</string>
   <string name="imageCredit">Bildekreditering</string>
   <string name="deleteBlog">Slett dette blogginnlegget for godt</string>
-  <string name="deleteImage">Slett bildet</string>
   <string name="safeToUseImages">Det er trygt å bruke bilder fra disse nettstedene: </string>
   <string name="selectPostTopics">Velg emnene for innlegget ditt</string>
   <string name="useImagesYouMadeYourself">Du kan også bruke bilder du har laget selv, fotografier du har tatt, skjermbilder fra Lichess... alt som andre ikke har opphavsretten til.</string>

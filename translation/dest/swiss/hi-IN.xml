@@ -18,7 +18,7 @@
     <item quantity="one">राउंड के बीच %s मिनट</item>
     <item quantity="other">राउंड के बीच %s सेकंड</item>
   </plurals>
-  <string name="startingIn" comment="Displayed above a timer">शुरू में</string>
+  <string name="startingIn" comment="Displayed above a timer. Is auto-capitalised.">शुरू में</string>
   <string name="nextRound">अगला दौर</string>
   <plurals name="ongoingGames" comment="Displayed next to the ongoing games count">
     <item quantity="one">चल रहा खेल</item>
@@ -59,7 +59,7 @@
 फिर सिस्टम खिलाड़ी को टूर्नामेंट से हटा देगा, ताकि वे अधिक गेम न हारें।
  वे किसी भी समय टूर्नामेंट में दोबारा शामिल हो सकते हैं।</string>
   <string name="protectionAgainstNoShowQ">नो-शो के संबंध में क्या किया जाता है?</string>
-  <string name="protectionAgainstNoShowA">जो खिलाड़ी स्विस आयोजनों के लिए साइन अप करते हैं लेकिन अपना खेल नहीं खेलते हैं वे समस्याग्रस्त हो सकते हैं।
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">जो खिलाड़ी स्विस आयोजनों के लिए साइन अप करते हैं लेकिन अपना खेल नहीं खेलते हैं वे समस्याग्रस्त हो सकते हैं।
 इस समस्या को कम करने के लिए, लिचेस उन खिलाड़ियों को एक नए स्विस कार्यक्रम में शामिल होने से रोकता है जो गेम खेलने में असफल रहे।</string>
   <string name="lateJoinQ">क्या खिलाड़ी देर से शामिल हो सकते हैं?</string>
   <string name="lateJoinA">हां, जब तक आधे से ज्यादा राउंड शुरू नहीं हो जाते; उदाहरण के लिए 11-राउंड में स्विस खिलाड़ी राउंड 6 शुरू होने से पहले और 12-राउंड में राउंड 7 शुरू होने से पहले शामिल हो सकते हैं।

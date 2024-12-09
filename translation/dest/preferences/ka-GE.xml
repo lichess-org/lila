@@ -33,5 +33,5 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">როქის მეთოდი</string>
   <string name="castleByMovingTwoSquares">მეფის ორი უჯრით გადაადგილება</string>
   <string name="castleByMovingOntoTheRook">მეფის ეტლზე მიტანა</string>
-  <string name="yourPreferencesHaveBeenSaved">თქვენი პარამეტრები დამახსოვრებულია.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">თქვენი პარამეტრები დამახსოვრებულია.</string>
 </resources>

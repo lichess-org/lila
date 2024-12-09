@@ -108,7 +108,6 @@
   <string name="replayMode">Дахин тоглуулах хэлбэр</string>
   <string name="realtimeReplay">Бодит</string>
   <string name="byCPL">Онцгой</string>
-  <string name="openStudy">Хичээл нээх</string>
   <string name="enable">Нээх</string>
   <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
   <string name="showVariationArrows">Хувилбарыг сумаар харуулах</string>
@@ -395,7 +394,6 @@
   <string name="block">Энэ гишүүнд хориг тавих</string>
   <string name="blocked">Энэ гишүүнд хориг тавилаа</string>
   <string name="unblock">Энэ гишүүнд тавьсан хоригийг цуцлах</string>
-  <string name="followsYou">Таныг дагаж байгаа</string>
   <string name="xStartedFollowingY">%1$s дараахь гишүүнийг дагаж эхэллээ: %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s гишүүн дагадаг</item>
@@ -427,9 +425,6 @@
   <string name="safeTournamentName">Тэмцээний хувьд маш аюулгүй нэр сонгоно уу.</string>
   <string name="inappropriateNameWarning">Бүр бага зэрэг зохисгүй зүйл таны данс хаагдах боломжтой болно.</string>
   <string name="emptyTournamentName">Тэмцээний Grandmaster-ийн дараа хоосон орхи.</string>
-  <string name="recommendNotTouching">Бид эдгээрийг хөндөхгүй байхыг зөвлөж байна.</string>
-  <string name="fewerPlayers">Хэрэв та орох нөхцөлийг тохируулсан бол таны тэмцээн цөөхөн тоглогчтой болно.</string>
-  <string name="showAdvancedSettings">Нарийвчилсан тохиргоог харуулах</string>
   <string name="makePrivateTournament">Хувийн тур нууц үгтэйгээр үүсгэх</string>
   <string name="join">Нэгдэх</string>
   <string name="withdraw">Тэмцээнийг орхих</string>
@@ -469,8 +464,6 @@
   <string name="ifNoneLeaveEmpty">Байхгүй бол хоосон орхи</string>
   <string name="profile">Гишүүний хуудас</string>
   <string name="editProfile">Танилцуулга хуудсаа засварлах</string>
-  <string name="firstName">Өөрийн нэр</string>
-  <string name="lastName">Эцгийн нэр</string>
   <string name="setFlair">Нэрнийхээ хажууг чимэглэх</string>
   <string name="flair">Эможи</string>
   <string name="youCanHideFlair">Сайтанд байгаа бүх нэрний хажуу зүйлсийг нуух тохиргоо байдгийг санаарай.</string>
@@ -515,11 +508,8 @@
   <string name="reason">Шалтгаан</string>
   <string name="whatIsIheMatter">Шалтгаан?</string>
   <string name="cheat">Булхайцсан</string>
-  <string name="insult">Доромжилсон</string>
   <string name="troll">Тохуурхсан</string>
-  <string name="ratingManipulation">Үнэлгээгээ гуйвуулах</string>
   <string name="other">Өөр шалтаан</string>
-  <string name="reportDescriptionHelp">Та энэ гишүүнтэй тоглосон өргийнхөө холбоос хаягыг энд хуулж тавиад зүй бус үйлдлийнх нь талаар тайлбар бичнэ үү. Та хэрхэн энэ гишүүнийг булхайцсан үйлдэл хийсэн гэсэн дүгнэлтэд хүрсэн бэ? Хэрэв та гомдлоо англи хэлээр мэдүүлвэл бид илүү түргэн шуурхай арга хэмжээ авах болно.</string>
   <string name="error.provideOneCheatedGameLink">Тоглоомын дор хаяж нэг холбоосыг оруулна уу.</string>
   <string name="by">Бичлэг бичигч: %s</string>
   <string name="thisTopicIsNowClosed">Энэ сэдэв хэлэлцэгдээд дууссан байна.</string>
@@ -628,7 +618,7 @@
   <string name="aboutSimulRules">Үндсэн тоглогч цагаан талаар нүүнэ. Зэрэгцээ  өрөг бүх тоглолтууд дууссанаар өндөрлөнө.</string>
   <string name="aboutSimulSettings">Зэрэгцээ өрөг нь чансаа өөрчлөгддөггүй өрөг бөгөөд дахин тоглох, нүүдэл буцаах, цаг нэмж өгөх боломжгүй онцлогтой.</string>
   <string name="create">Шинэ өрөг үүсгэх</string>
-  <string name="whenCreateSimul">Тэ зэрэгцээ өрөг үүсгэвэл нэг зэрэг олон тоглогчидтой тоглох болно.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Тэ зэрэгцээ өрөг үүсгэвэл нэг зэрэг олон тоглогчидтой тоглох болно.</string>
   <string name="simulVariantsHint">Хэрэв та шатрын хэд хэдэн төрлийг сонговол эсрэг тоглогч аль төрлөөр тоглохыг сонгоно</string>
   <string name="simulClockHint">Фишерийн цагын тохиргоо. Олон тоглогчидтой тоглох тусам таньд илүү их цаг хэрэгтэй болно.</string>
   <string name="simulAddExtraTime">Зэрэгцээ  өрөг тоглож буй үед та өөртөө нэмэлт хугацаа өгч болно.</string>

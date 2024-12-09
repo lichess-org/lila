@@ -1,39 +1,35 @@
-import * as util from '../util';
+import { withLinebreaks } from '../util';
 import chessground from '../chessground';
 import congrats from './congrats';
 import stageStarting from './stageStarting';
 import stageComplete from './stageComplete';
-import { LevelCtrl } from '../levelCtrl';
-import { RunCtrl } from './runCtrl';
+import type { LevelCtrl } from '../levelCtrl';
+import type { RunCtrl } from './runCtrl';
 import { mapSideView } from '../mapSideView';
-import { LearnCtrl } from '../ctrl';
-import { h } from 'snabbdom';
+import type { LearnCtrl } from '../ctrl';
+import { h, VNode } from 'snabbdom';
 import { bind } from 'common/snabbdom';
 import { makeStars, progressView } from '../progressView';
 import { promotionView } from '../promotionView';
 
-function renderFailed(ctrl: RunCtrl) {
-  return h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
-    h('h2', ctrl.trans.noarg('puzzleFailed')),
-    h('button', ctrl.trans.noarg('retry')),
+const renderFailed = (ctrl: RunCtrl): VNode =>
+  h('div.result.failed', { hook: bind('click', ctrl.restart) }, [
+    h('h2', i18n.learn.puzzleFailed),
+    h('button', i18n.learn.retry),
   ]);
-}
 
-function renderCompleted(ctrl: RunCtrl, level: LevelCtrl) {
-  return h(
+const renderCompleted = (level: LevelCtrl): VNode =>
+  h(
     'div.result.completed',
     {
       class: { next: !!level.blueprint.nextButton },
       hook: bind('click', level.onComplete),
     },
     [
-      h('h2', ctrl.trans.noarg(congrats())),
-      level.blueprint.nextButton
-        ? h('button', ctrl.trans.noarg('next'))
-        : makeStars(level.blueprint, level.vm.score),
+      h('h2', congrats()),
+      level.blueprint.nextButton ? h('button', i18n.learn.next) : makeStars(level.blueprint, level.vm.score),
     ],
   );
-}
 
 export const runView = (ctrl: LearnCtrl) => {
   const runCtrl = ctrl.runCtrl;
@@ -60,16 +56,13 @@ export const runView = (ctrl: LearnCtrl) => {
         h('div.wrap', [
           h('div.title', [
             h('img', { attrs: { src: stage.image } }),
-            h('div.text', [
-              h('h2', ctrl.trans.noarg(stage.title)),
-              h('p.subtitle', ctrl.trans.noarg(stage.subtitle)),
-            ]),
+            h('div.text', [h('h2', stage.title), h('p.subtitle', stage.subtitle)]),
           ]),
           levelCtrl.vm.failed
             ? renderFailed(runCtrl)
             : levelCtrl.vm.completed
-            ? renderCompleted(runCtrl, levelCtrl)
-            : h('div.goal', util.withLinebreaks(ctrl.trans.noarg(levelCtrl.blueprint.goal))),
+              ? renderCompleted(levelCtrl)
+              : h('div.goal', withLinebreaks(levelCtrl.blueprint.goal)),
           progressView(runCtrl),
         ]),
       ]),

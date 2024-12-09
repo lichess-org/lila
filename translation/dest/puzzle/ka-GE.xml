@@ -32,8 +32,8 @@
   <string name="byOpenings">დებიუტების მიხედვით</string>
   <string name="puzzlesByOpenings">ამოცანები დებიუტების მიხედვით</string>
   <string name="openingsYouPlayedTheMost">დებიუტები რომლებსაც თქვენ თამაშობთ რეიტინგიან პარტიებში</string>
-  <string name="useFindInPage">გამოიყენეთ \"find in page\" ბროუსერში, რომ იპოვოთ თქვენი საყვარელი დებიუტი!</string>
-  <string name="useCtrlF">გამოიყენეთ Ctrl+f რომ იპოვოთ თქვენი საყვარელი დებიუტი!</string>
+  <string name="useFindInPage" comment="useFindInPage&#10;&#10;Appears on https://lichess.org/training/openings for mobile and tablet users&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">გამოიყენეთ \"find in page\" ბროუსერში, რომ იპოვოთ თქვენი საყვარელი დებიუტი!</string>
+  <string name="useCtrlF" comment="Appears on https://lichess.org/training/openings for desktop and laptop users.&#10;Encourages players to use the built-in browser feature (Ctrl+F on most desktop computers) to find the opening they want to practise.">გამოიყენეთ Ctrl+f რომ იპოვოთ თქვენი საყვარელი დებიუტი!</string>
   <string name="notTheMove">ეს არ არის სვლა!</string>
   <string name="trySomethingElse">სცადე რაიმე სხვა.</string>
   <string name="ratingX">Რეიტინგი: %s</string>
@@ -59,7 +59,7 @@
   <string name="strengths">გაძლიერება</string>
   <string name="history">ამოცანების ისტორია</string>
   <string name="solved">ამოხსნილია</string>
-  <string name="failed">არასწორია</string>
+  <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">არასწორია</string>
   <string name="streakDescription">ამოხსენი თანდათანობით უფრო და უფრო ძნელი ამოცანები და შექმენი შენი მომგებიანი ჯაჭვი. საათი არ გაქვს ჩართული, ასე რომ გამოიყენე შენი დრო. ერთი შეცდომა და პარტიაც დამთავრებულია! მაგრამ შეგიძლია გამოტოვო მხოლოდ ერთი სვლა ერთი ცდის განმავლობაში.</string>
   <string name="yourStreakX">თქვენი ჯაჭვი %s</string>
   <string name="streakSkipExplanation">გამოტოვე ეს სვლა და შეინარჩუნე შენი ჯაჭვი! მუშაობს მხოლოდ ერთხელ მიმდინარე ვარჯიშისას.</string>

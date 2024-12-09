@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
-import RoundController from '../ctrl';
+import type RoundController from '../ctrl';
 import { isPlayerTurn, playable } from 'game';
-import { MaybeVNode } from 'common/snabbdom';
+import type { MaybeVNode } from 'common/snabbdom';
 
 let rang = false;
 
@@ -16,10 +16,10 @@ export default function (ctrl: RoundController): MaybeVNode {
     site.sound.play('lowTime');
     rang = true;
   }
-  const side = myTurn != ctrl.flip ? 'bottom' : 'top';
+  const side = myTurn !== ctrl.flip ? 'bottom' : 'top';
   return h(
     'div.expiration.expiration-' + side,
     { class: { emerg, 'bar-glider': myTurn } },
-    ctrl.trans.vdomPlural('nbSecondsToPlayTheFirstMove', secondsLeft, h('strong', '' + secondsLeft)),
+    i18n.site.nbSecondsToPlayTheFirstMove.asArray(secondsLeft, h('strong', '' + secondsLeft)),
   );
 }

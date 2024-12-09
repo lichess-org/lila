@@ -10,7 +10,7 @@ import lila.db.dsl.*
 
 /* An expensive API detecting disposable email.
  * Only hit after trying everything else (DnsApi)
- * and save the result forever.
+ * and save the result for a long time.
  * https://verifymail.io/api-documentation
  */
 final private class VerifyMail(
@@ -47,12 +47,37 @@ final private class VerifyMail(
 
   private val prefix = "security:check_mail"
 
-  private val cache = mongoCache[Domain.Lower, Boolean](512, prefix, 100 days, _.toString): loader =>
+  private val cache = mongoCache[Domain.Lower, Boolean](512, prefix, 30.days, _.toString): loader =>
     _.maximumSize(512).buildAsyncFuture(loader(fetch))
 
   export cache.invalidate
 
   private def fetch(domain: Domain.Lower): Fu[Boolean] =
+    List(fetchFree(domain), fetchPaid(domain))
+      .map(_.logFailure(logger).recover(_ => true)) // fetch fail = domain ok
+      .parallel
+      .map(_.forall(identity)) // ok if both say the domain is ok
+
+  private def fetchFree(domain: Domain.Lower): Fu[Boolean] =
+    val url = s"https://api.mailcheck.ai/domain/$domain"
+    ws.url(url)
+      .get()
+      .withTimeout(8.seconds, "mailcheck.fetch")
+      .map: res =>
+        (for
+          js <- res.body[JsValue].asOpt[JsObject]
+          if res.status == 200
+          disposable <- js.boolean("disposable")
+        yield
+          val ok = !disposable
+          logger.info:
+            s"Mailcheck $domain = $ok {disposable:$disposable}"
+          ok
+        ).getOrElse:
+          throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
+      .monTry(res => _.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(true)))
+
+  private def fetchPaid(domain: Domain.Lower): Fu[Boolean] =
     val url = s"https://verifymail.io/api/$domain"
     ws.url(url)
       .withQueryStringParameters("key" -> config.key.value)

@@ -4,10 +4,10 @@
   <string name="contactLichess">Lichess에 문의하기</string>
   <string name="whatCanWeHelpYouWith">어떻게 도와드릴까요?</string>
   <string name="visitThisPage">이 페이지를 방문해 문제를 해결하십시오</string>
-  <string name="iCantLogIn">로그인이 되지 않습니다</string>
-  <string name="noConfirmationEmail">확인 이메일을 받지 못했습니다</string>
-  <string name="forgotPassword">비밀번호를 잊어버렸습니다</string>
-  <string name="forgotUsername">사용자 이름을 잊어버렸습니다</string>
+  <string name="iCantLogIn">로그인이 되지 않아요</string>
+  <string name="noConfirmationEmail" comment="This string used to be &quot;I don't&quot; - it should be &quot;I didn't&quot;. Please re-translate as necessary.">확인 이메일을 받지 못했어요</string>
+  <string name="forgotPassword">비밀번호를 잊어버렸어요</string>
+  <string name="forgotUsername">유저네임을 잊어버렸어요</string>
   <string name="youCanLoginWithEmail">당신이 회원가입한 이메일 주소로 로그인할 수 있습니다</string>
   <string name="lost2FA">2단계 인증 코드로 접속할 수 없습니다</string>
   <string name="doPasswordReset">2단계 로그인을 해제하려면 비밀번호 재설정을 하세요</string>
@@ -55,9 +55,7 @@
   <string name="botRatingAbuse">특정 상황에서 봇 계정을 상대로 플레이할 때, 플레이어가 레이팅을 얻기 위해 부정행위를 하는 것으로 판단될 경우 레이팅 포인트가 부여되지 않을 수 있습니다.</string>
   <string name="errorPage">에러 페이지</string>
   <string name="reportErrorPage">에러 페이지가 나온 경우 여기에서 신고해주세요:</string>
-  <string name="wantBroadcastTournament">대회를 방송하고 싶습니다</string>
   <string name="learnHowToMakeBroadcasts">Lichess에서 나만의 방송을 하는 방법을 알아보세요</string>
-  <string name="contactAboutOfficialBroadcasts">또한 공식 방송에 대해 방송 팀에 문의할 수도 있습니다.</string>
   <string name="banAppeal">차단 또는 IP 제한에 대한 이의를 제기하고 싶습니다</string>
   <string name="engineAppeal">엔진 또는 부정행위 표시</string>
   <string name="sendAppealTo">%s에서 이의를 제기할 수 있습니다.</string>

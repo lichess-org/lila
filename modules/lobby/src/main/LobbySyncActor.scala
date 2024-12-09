@@ -2,9 +2,9 @@ package lila.lobby
 
 import scalalib.actor.SyncActor
 
-import lila.common.{ Bus, LilaScheduler }
+import lila.common.Bus
+import lila.core.pool.{ HookThieve, IsClockCompatible }
 import lila.core.socket.{ Sri, Sris }
-import lila.core.pool.{ IsClockCompatible, HookThieve }
 
 final private class LobbySyncActor(
     seekApi: SeekApi,
@@ -78,12 +78,12 @@ final private class LobbySyncActor(
         }
 
     case msg @ JoinHook(_, hook, game, _) =>
-      onStart(game.id)
+      onStart.exec(game.id)
       socket ! msg
       remove(hook)
 
     case msg @ JoinSeek(_, seek, game, _) =>
-      onStart(game.id)
+      onStart.exec(game.id)
       seekApi.archive(seek, game.id)
       socket ! msg
       socket ! RemoveSeek(seek.id)

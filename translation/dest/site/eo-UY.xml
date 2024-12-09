@@ -70,6 +70,8 @@
   <string name="promoteVariation">Plivalorigi variaĵon</string>
   <string name="makeMainLine">Ĉefigi linion</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
+  <string name="collapseVariations">Malatendi variaĵojn</string>
+  <string name="expandVariations">Etendi variaĵojn</string>
   <string name="forceVariation">Devigi variaĵon</string>
   <string name="copyVariationPgn">Kopi varianto PGN</string>
   <string name="move">Movo</string>
@@ -114,7 +116,6 @@
   <string name="replayMode">Reluda reĝimo</string>
   <string name="realtimeReplay">Reala tempo</string>
   <string name="byCPL">Per eraroj</string>
-  <string name="openStudy">Malfermi analizon</string>
   <string name="enable">Ebligi</string>
   <string name="bestMoveArrow">Sago por optimuma movo</string>
   <string name="showVariationArrows">Montri variaĵojn sagojn</string>
@@ -124,7 +125,6 @@
   <string name="memory">Memoro</string>
   <string name="infiniteAnalysis">Senfina analizo</string>
   <string name="removesTheDepthLimit">Forigas la profundlimon, kaj tenas vian komputilon varma</string>
-  <string name="engineManager">Motora administranto</string>
   <string name="blunder">Erarego</string>
   <string name="mistake">Eraro</string>
   <string name="inaccuracy">Erareto</string>
@@ -276,6 +276,7 @@
   <string name="abortGame">Ĉesigi ludon</string>
   <string name="gameAborted">Ludo estis ĉesigita</string>
   <string name="standard">Normale</string>
+  <string name="customPosition">Tajlora pozicio</string>
   <string name="unlimited">Senlime</string>
   <string name="mode">Modo</string>
   <string name="casual">Amike</string>
@@ -432,7 +433,6 @@
   <string name="block">Bloki</string>
   <string name="blocked">Blokita</string>
   <string name="unblock">Malbloki</string>
-  <string name="followsYou">Sekvas vin</string>
   <string name="xStartedFollowingY">%1$s eksekvis %2$s</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s sekvanto</item>
@@ -464,9 +464,6 @@
   <string name="safeTournamentName">Elekti tre sekuran nomon por la turniro.</string>
   <string name="inappropriateNameWarning">Se vi uzas maltaŭgan aŭ maldecan nomon, ni fermos vian konton.</string>
   <string name="emptyTournamentName">Se vi lasas ĝin malplena, ni uzos la nomon de fama ŝakludisto.</string>
-  <string name="recommendNotTouching">Ni rekomendi ke vi ne tuŝas ĉi tiujn.</string>
-  <string name="fewerPlayers">Se vi aldonas aliĝpostulojn, via turniro havos malpli da ludantoj.</string>
-  <string name="showAdvancedSettings">Montri spertulajn agordojn</string>
   <string name="makePrivateTournament">Faru la turniron privata kaj restriktu la aliron per pasvorto</string>
   <string name="join">Aliĝi</string>
   <string name="withdraw">Eliri</string>
@@ -506,8 +503,7 @@
   <string name="ifNoneLeaveEmpty">Se neniu, lasu malplena</string>
   <string name="profile">Profilo</string>
   <string name="editProfile">Redakti profilon</string>
-  <string name="firstName">Persona nomo</string>
-  <string name="lastName">Familia nomo</string>
+  <string name="realName">Fakta nomo</string>
   <string name="setFlair">Agordi viaj emoĝio</string>
   <string name="flair">Emoĝio</string>
   <string name="youCanHideFlair">Estas agordo por kaŝi ĉiujn uzantajn emoĝiojn tra la tuta retejo.</string>
@@ -531,6 +527,7 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Memage iri al sekvanta ludo post via movo</string>
   <string name="autoSwitch">Aŭtomata ludŝanĝado</string>
   <string name="puzzles">Puzloj</string>
+  <string name="onlineBots">Retaj robotoj</string>
   <string name="name">Nomo</string>
   <string name="description">Priskribo</string>
   <string name="descPrivate">Privata priskribo</string>
@@ -553,11 +550,8 @@
   <string name="reason">Kialo</string>
   <string name="whatIsIheMatter">Pri kio temas la raporto?</string>
   <string name="cheat">Trompo</string>
-  <string name="insult">Insulto</string>
   <string name="troll">Trolo</string>
-  <string name="ratingManipulation">Manipulado de rango</string>
   <string name="other">Io alia</string>
-  <string name="reportDescriptionHelp">Inkluzivu la ligilon al la ludo(j) kaj ekspliku tion, kio malbonas pri la konduto de ĉi tiu uzanto.</string>
   <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
   <string name="by">de %s</string>
   <string name="importedByX">Importita de %s</string>
@@ -590,6 +584,7 @@
   <string name="slow">Malrapide</string>
   <string name="insideTheBoard">Ene de la tabulo</string>
   <string name="outsideTheBoard">Ekstere de la tabulo</string>
+  <string name="allSquaresOfTheBoard">Ĉiuj kvadratoj de la ŝaktabulo</string>
   <string name="onSlowGames">Ĉe malrapidaj ludoj</string>
   <string name="always">Ĉiam</string>
   <string name="never">Neniam</string>
@@ -676,7 +671,7 @@
   <string name="aboutSimulRules">Kiam la samtempludo komenciĝas, ĉiu ludanto komencas ludon kontraŭ la gastiganto, kiu ludu per la blankaj ŝakpecoj. La samtempludo finiĝas kiam ĉiuj ludoj estas finitaj.</string>
   <string name="aboutSimulSettings">Samtempludoj ĉiam estas amikaj. Redefioj, reprenoj kaj plia tempo ne eblas.</string>
   <string name="create">Krei</string>
-  <string name="whenCreateSimul">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
   <string name="simulVariantsHint">Se vi elektas multajn variaĵojn, ĉiu ludanto povas laŭvole elekti unu el la variaĵoj.</string>
   <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>
@@ -703,7 +698,8 @@
   <string name="keyNextBranch">Sekva branĉo</string>
   <string name="toggleVariationArrows">Baskuligi variaĵojn sagojn</string>
   <string name="cyclePreviousOrNextVariation">Cickligi antaŭan/sekvan variaĵon</string>
-  <string name="toggleGlyphAnnotations">Baskuligi signobildan prinotadon</string>
+  <string name="toggleGlyphAnnotations">Baskuligi movajn prinotaĵojn</string>
+  <string name="togglePositionAnnotations">Baskuligi poziciajn prinotaĵojn</string>
   <string name="variationArrowsInfo">Variaĵaj sagoj lasi vin navigi neutile la movlisto.</string>
   <string name="playSelectedMove">ludi elektan movon</string>
   <string name="newTournament">Nova konkurso</string>
@@ -788,6 +784,12 @@
   <string name="transparent">Travidebla</string>
   <string name="deviceTheme">Ila etoso</string>
   <string name="backgroundImageUrl">Malantaŭografikaĵo URL:</string>
+  <string name="board">Ŝaktabulo</string>
+  <string name="size">Amplekso</string>
+  <string name="opacity">Opakeco</string>
+  <string name="brightness">Lumeco</string>
+  <string name="hue">Kolortono</string>
+  <string name="boardReset">Restarigi kolorojn al la defaŭlta</string>
   <string name="pieceSet">Ŝakpecaro</string>
   <string name="embedInYourWebsite">Enkorpigi en via retejo</string>
   <string name="usernameAlreadyUsed">Oni jam uzas tiun salutnomon. Bonvolu provi alian.</string>
@@ -983,4 +985,5 @@ Lasi ĝin malplena por komenci ludojn de la norma komenca pozicio.</string>
   <string name="showMeEverything">Ĉion montru al mi</string>
   <string name="lichessPatronInfo">Lichess estas almoza kaj tute libera malfermitkoda programaro.
 Ĉiu funkciada elspezo, ellaborado, kaj enhavo estas financita sole de uzantajn donacojn.</string>
+  <string name="nothingToSeeHere">Nenio videbla ĉi tie nuntempe.</string>
 </resources>

@@ -1,6 +1,7 @@
 package lila.web
 
 import io.mola.galimatias.URL
+
 import scala.util.Try
 
 import lila.core.config.BaseUrl
@@ -20,7 +21,7 @@ final class ReferrerRedirect(baseUrl: BaseUrl):
   def valid(referrer: String): Option[String] =
     (!sillyLoginReferrers(referrer) && validCharsRegex.matches(referrer)).so(
       Try {
-        URL.parse(URL.parse(baseUrl.value), referrer)
+        URL.parse(parsedBaseUrl, referrer)
       }.toOption
         .filter: url =>
           (url.scheme == parsedBaseUrl.scheme) && s".${url.host}".endsWith(s".${parsedBaseUrl.host}")

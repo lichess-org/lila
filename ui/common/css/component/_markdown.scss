@@ -83,6 +83,29 @@
     @include fluid-size('font-size', 17px, 23px);
   }
 
+  h2,
+  h3,
+  h4 {
+    a[id] {
+      opacity: 0;
+
+      &::before {
+        color: $c-font-dimmer;
+        content: $licon-Link;
+        font-family: 'lichess';
+        margin-left: -3rem;
+        width: 3rem;
+        position: absolute;
+      }
+    }
+
+    &:hover {
+      a[id] {
+        opacity: 1;
+      }
+    }
+  }
+
   @if $img {
     img {
       display: block;
@@ -130,7 +153,7 @@
     padding: 1em 1.5em;
     line-height: 1.4em;
     code {
-      background: inherit;
+      background: none;
       padding: 0;
     }
   }
@@ -168,8 +191,10 @@
 @mixin rendered-markdown--embed {
   .embed {
     @extend %video;
-
     margin: $block-gap auto;
+    > iframe {
+      left: 0;
+    }
   }
 
   .twitter-tweet {

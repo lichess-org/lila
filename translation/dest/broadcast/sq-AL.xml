@@ -7,6 +7,7 @@
     <item quantity="other">%s transmetime</item>
   </plurals>
   <string name="liveBroadcasts">Transmetime të drejtpërdrejta turnesh</string>
+  <string name="broadcastCalendar">Kalendar transmetimesh</string>
   <string name="newBroadcast">Transmetim i ri i drejtpërdrejtë</string>
   <string name="subscribedBroadcasts">Transmetime me pajtim</string>
   <string name="aboutBroadcasts">Rreth transmetimeve</string>
@@ -23,14 +24,11 @@
   <string name="tournamentDescription">Përshkrim i shkurtër i turneut</string>
   <string name="fullDescription">Përshkrim i plotë i turneut</string>
   <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
-  <string name="sourceUrlOrGameIds">URL burimi, ose ID-ra loje</string>
+  <string name="sourceSingleUrl">URL Burimi PGN-je</string>
   <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
-  <string name="gameIdsHelp">Ndryshe, mund të jepni deri në 63 ID-ra lojërash Lichess, ndarë me presje.</string>
-  <string name="startDate">Datë fillimi në zonën tuaj kohore</string>
+  <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
+  <string name="startDateTimeZone">Datë fillimi në zonën kohore vendore të turneut: %s</string>
   <string name="startDateHelp">Opsionale, nëse e dini kur fillon veprimtaria</string>
-  <string name="credits">Atriboji merita burimit</string>
-  <string name="broadcastUrl">URL Transmetimi</string>
-  <string name="currentRoundUrl">URL e raundit të tanishëm</string>
   <string name="currentGameUrl">URL e lojës së tanishme</string>
   <string name="downloadAllRounds">Shkarko krejt raundet</string>
   <string name="deleteRound">Fshije këtë raund</string>
@@ -39,9 +37,43 @@
   <string name="editRoundStudy">Përpunoni analizë raundi</string>
   <string name="deleteTournament">Fshije këtë turne</string>
   <string name="definitivelyDeleteTournament">Fshihe përfundimisht krejt turneun, krejt raundet e tij dhe krejt lojërat në të.</string>
-  <string name="automaticLeaderboard">Tabelë automatike</string>
-  <string name="automaticLeaderboardHelp">Harto dhe shfaq një tabelë të thjeshtë bazuar në përfundime lojërash</string>
+  <string name="showScores">Shfaq pikë lojtatësh bazuar në përfundime lojërash</string>
   <string name="replacePlayerTags">Opsionale: zëvendësoni emra lojëtarësh, vlerësime dhe tituj</string>
-  <string name="periodInSeconds">Periudhë, në sekonda</string>
-  <string name="periodInSecondsHelp">Opsionale, sa gjatë të pritet mes kërkesash. Min. 2s, maks. 60s. Si parazgjedhje, përdoret vlera automatike bazuar në numrin e parësve.</string>
+  <string name="fideFederations">Federata FIDE</string>
+  <string name="top10Rating">10 vlerësimet kryesuese</string>
+  <string name="fidePlayers">Lojtarë FIDE</string>
+  <string name="fidePlayerNotFound">S’u gjet lojtar FIDE</string>
+  <string name="fideProfile">Profil FIDE</string>
+  <string name="federation">Federim</string>
+  <string name="ageThisYear">Moshë këtë vit</string>
+  <string name="unrated">Pa pikë</string>
+  <string name="recentTournaments">Turne së fundi</string>
+  <string name="openLichess">Hape në Lichess</string>
+  <string name="teams">Ekipe</string>
+  <string name="boards">Fusha</string>
+  <string name="overview">Përmbledhje</string>
+  <string name="subscribeTitle">Pajtohuni, që të noftoheni se kur fillon çdo raund. Mund të aktivizoni/çaktivizoni zilen, ose njoftimet “push” për transmetime, që nga parapëlqimet për llogarinë tuaj.</string>
+  <string name="uploadImage">Ngarkoni figurë turneu</string>
+  <string name="noBoardsYet">Ende pa fusha. Këto do të shfaqen sapo të ngrkohen lojërat.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Fushat mund të ngarkohen me një burim, ose përmes %s</string>
+  <string name="startsAfter">Fillon pas %s</string>
+  <string name="startVerySoon">Transmetimi do të fillojë shumë shpejt.</string>
+  <string name="notYetStarted">Transmetimi s’ka filluar ende.</string>
+  <string name="officialWebsite">Sajti zyrtar</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Më tepër mundësi te %s</string>
+  <string name="webmastersPage">faqe webmaster-ësh</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Një burim publik,, PGN, i atypëratyshëm për këtë raund. Ofrojmë gjithashtu edhe një %s, për njëkohësim më të shpejtë dhe më efikas.</string>
+  <string name="embedThisBroadcast">Trupëzojeni këtë transmetim në sajtin tuaj</string>
+  <string name="embedThisRound">Trupëzojeni %s në sajtin tuaj</string>
+  <string name="gamesThisTournament">Lojëra në këtë turne</string>
+  <string name="score">Përfundim</string>
+  <string name="allTeams">Krejt ekipet</string>
+  <string name="tournamentFormat">Format turneu</string>
+  <string name="tournamentLocation">Vendndodhje Turney</string>
+  <string name="topPlayers">Lojtarët kryesues</string>
+  <string name="timezone">Zonë kohore</string>
+  <string name="fideRatingCategory">Kategori vlerësimi FIDE</string>
+  <string name="optionalDetails">Hollësi opsionale</string>
+  <string name="pastBroadcasts">Transmetime të kaluara</string>
+  <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
 </resources>

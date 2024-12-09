@@ -1,18 +1,15 @@
-import Ctrl from './ctrl';
+import type Ctrl from './ctrl';
 import { h } from 'snabbdom';
-import { Game } from './interfaces';
+import type { Game } from './interfaces';
+import { initMiniBoard } from 'common/miniBoard';
 
 const miniGame = (game: Game) =>
   h('a', { attrs: { key: game.id, href: `/${game.id}/${game.color}` } }, [
     h('span.mini-board.is2d', {
       attrs: { 'data-state': `${game.fen},${game.color},${game.lastMove}` },
       hook: {
-        insert(vnode) {
-          site.miniBoard.init(vnode.elm as HTMLElement);
-        },
-        update(vnode) {
-          site.miniBoard.init(vnode.elm as HTMLElement);
-        },
+        insert: vnode => initMiniBoard(vnode.elm as HTMLElement),
+        update: vnode => initMiniBoard(vnode.elm as HTMLElement),
       },
     }),
     h('span.vstext', [

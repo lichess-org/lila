@@ -22,14 +22,8 @@
   <string name="tournamentDescription">लघु स्पर्धेचे वर्णन</string>
   <string name="fullDescription">संपूर्ण स्पर्धेचे वर्णन</string>
   <string name="fullDescriptionHelp">स्पर्धेचे पर्यायी संपूर्ण वर्णन. %1$s उपलब्ध आहे. %2$s अक्षरांपेक्षा कमी.</string>
-  <string name="sourceUrlOrGameIds">Source URL, or game IDs</string>
   <string name="sourceUrlHelp">URL जी लाइसेस PGN अद्यतने मिळविण्यासाठी तपासणी करेल. ते इंटरनेट वरून सार्वजनिकरित्या प्रवेश करण्यायोग्य असणे आवश्यक आहे.</string>
-  <string name="gameIdsHelp">वैकल्पिकरित्या, आपण स्पेस देऊन ६४ पर्यंत लीचेस गेम आयडी प्रविष्ट करू शकता.</string>
-  <string name="startDate">आपल्या स्वत: च्या टाइमझोनमधील तारीख</string>
   <string name="startDateHelp">पर्यायी, इव्हेंट कधी सुरू होतो हे आपल्याला माहिती असल्यास</string>
-  <string name="credits">Credit the source</string>
-  <string name="broadcastUrl">URL चे प्रसारण</string>
-  <string name="currentRoundUrl">चालू फेरीचा URL</string>
   <string name="currentGameUrl">चालू खेळाचा URL</string>
   <string name="downloadAllRounds">सर्व फेऱ्या डाउनलोड करा</string>
   <string name="resetRound">ही फेरी रेसेट करा</string>
@@ -39,8 +33,4 @@
   <string name="editRoundStudy">फेरीचा अभ्यास संपादित करा</string>
   <string name="deleteTournament">ही स्पर्धा हटवा</string>
   <string name="definitivelyDeleteTournament">संपूर्ण टूर्नामेंट, त्याच्या सर्व फेऱ्या आणि त्याचे सर्व गेम निश्चितपणे हटवा.</string>
-  <string name="automaticLeaderboard">स्वयंचलित लीडरबोर्ड</string>
-  <string name="automaticLeaderboardHelp">गेम परिणामांवर आधारित एक साधा लीडरबोर्ड कम्प्युट करा आणि प्रदर्शित करा</string>
-  <string name="periodInSeconds">सेकंदात कालावधी</string>
-  <string name="periodInSecondsHelp">पर्यायी, विनंत्यांच्या दरम्यान किती वेळ प्रतीक्षा करावी. किमान 2s, कमाल 60s. डीफॉल्ट दर्शकांच्या संख्येच्या आधारावर स्वयंचलित.</string>
 </resources>

@@ -3,19 +3,18 @@ package controllers
 import play.api.mvc.*
 
 import java.time.format.DateTimeFormatter
-import scala.util.chaining.*
 
 import lila.api.GameApiV2
 import lila.app.{ *, given }
 import lila.common.HTTPRequest
-
-import lila.rating.PerfType
 import lila.core.id.GameAnyId
 
 final class Game(env: Env, apiC: => Api) extends LilaController(env):
 
-  def bookmark(gameId: GameId) = Auth { _ ?=> me ?=>
-    env.bookmark.api.toggle(gameId, me).inject(NoContent)
+  def bookmark(gameId: GameId) = AuthOrScopedBody(_.Web.Mobile) { _ ?=> me ?=>
+    env.bookmark.api
+      .toggle(env.round.gameProxy.updateIfPresent)(gameId, me, getBoolOpt("v"))
+      .inject(NoContent)
   }
 
   def delete(gameId: GameId) = Auth { _ ?=> me ?=>
@@ -34,26 +33,20 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
     exportGame(id.gameId)
 
   private[controllers] def exportGame(gameId: GameId)(using Context): Fu[Result] =
-    env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId)).flatMap {
-      case None => NotFound
-      case Some(game) =>
-        val config = GameApiV2.OneConfig(
-          format = if HTTPRequest.acceptsJson(req) then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
-          imported = getBool("imported"),
-          flags = requestPgnFlags(extended = true),
-          playerFile = get("players")
-        )
-        env.api.gameApiV2
-          .exportOne(game, config)
-          .flatMap: content =>
-            env.api.gameApiV2
-              .filename(game, config.format)
-              .map: filename =>
-                Ok(content)
-                  .pipe(asAttachment(filename))
-                  .withHeaders(headersForApiOrApp*)
-                  .as(gameContentType(config))
-    }
+    Found(env.round.proxyRepo.gameIfPresent(gameId).orElse(env.game.gameRepo.game(gameId))): game =>
+      val config = GameApiV2.OneConfig(
+        format = if HTTPRequest.acceptsJson(req) then GameApiV2.Format.JSON else GameApiV2.Format.PGN,
+        imported = getBool("imported"),
+        flags = requestPgnFlags(extended = true),
+        playerFile = get("players")
+      )
+      for
+        content  <- env.api.gameApiV2.exportOne(game, config)
+        filename <- env.api.gameApiV2.filename(game, config.format)
+      yield Ok(content)
+        .pipe(asAttachment(filename))
+        .withHeaders(headersForApiOrApp*)
+        .as(gameContentType(config))
 
   def exportByUser(username: UserStr)    = OpenOrScoped()(handleExport(username))
   def apiExportByUser(username: UserStr) = AnonOrScoped()(handleExport(username))
@@ -149,7 +142,8 @@ final class Game(env: Env, apiC: => Api) extends LilaController(env):
       delayMoves = delayMovesFromReq,
       lastFen = getBool("lastFen"),
       accuracy = getBool("accuracy"),
-      division = getBoolOpt("division") | extended
+      division = getBoolOpt("division") | extended,
+      bookmark = getBool("withBookmarked")
     )
 
   private[controllers] def delayMovesFromReq(using RequestHeader) =

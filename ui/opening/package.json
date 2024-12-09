@@ -7,14 +7,14 @@
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "@types/debounce-promise": "^3.1.9",
-    "chart.js": "4.4.3",
+    "chart.js": "4.4.6",
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "common": "workspace:*",
-    "dayjs": "^1.11.10",
+    "dayjs": "^1.11.13",
     "debounce-promise": "^3.1.2",
-    "lichess-pgn-viewer": "^2.1.0"
+    "lichess-pgn-viewer": "^2.2.0"
   },
-  "lichess": {
-    "bundles": "src/opening.ts"
+  "build": {
+    "bundle": "src/opening.ts"
   }
 }

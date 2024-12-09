@@ -1,10 +1,9 @@
 package lila.fishnet
 
 import reactivemongo.api.bson.*
+import scalalib.actor.AsyncActorSequencer
 
 import scala.util.{ Failure, Success, Try }
-
-import scalalib.actor.AsyncActorSequencer
 
 import lila.core.lilaism.LilaNoStackTrace
 import lila.core.net.IpAddress
@@ -31,7 +30,7 @@ final class FishnetApi(
     maxSize = Max(256),
     timeout = 5 seconds,
     name = "fishnetApi",
-    lila.log.asyncActorMonitor
+    lila.log.asyncActorMonitor.full
   )
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)

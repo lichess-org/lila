@@ -6,8 +6,8 @@ import play.api.libs.json.*
 import java.util.Currency
 import scala.util.Try
 
-import lila.core.net.IpAddress
 import lila.common.Json.given
+import lila.core.net.IpAddress
 
 private object JsonHandlers:
 

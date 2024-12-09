@@ -1,10 +1,11 @@
-import { Prop, Toggle, propWithEffect, toggle } from 'common';
+import { type Prop, type Toggle, propWithEffect, toggle } from 'common';
 import * as licon from 'common/licon';
 import { bind, dataIcon, onInsert } from 'common/snabbdom';
-import { h, VNode } from 'snabbdom';
-import { Redraw } from '../interfaces';
-import { ChapterPreview } from './interfaces';
-import { StudyChapters } from './studyChapters';
+import { snabDialog } from 'common/dialog';
+import { h, type VNode } from 'snabbdom';
+import type { ChapterPreview } from './interfaces';
+import type { StudyChapters } from './studyChapters';
+import { pubsub } from 'common/pubsub';
 
 export class SearchCtrl {
   open: Toggle;
@@ -17,7 +18,7 @@ export class SearchCtrl {
     readonly redraw: Redraw,
   ) {
     this.open = toggle(false, () => this.query(''));
-    site.pubsub.on('study.search.open', () => this.open(true));
+    pubsub.on('study.search.open', () => this.open(true));
   }
 
   cleanQuery = () => this.query().toLowerCase().trim();
@@ -49,11 +50,12 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); //
 export function view(ctrl: SearchCtrl) {
   const cleanQuery = ctrl.cleanQuery();
   const highlightRegex = cleanQuery && new RegExp(escapeRegExp(cleanQuery), 'gi');
-  return site.dialog.snab({
+  return snabDialog({
     class: 'study-search',
     onClose() {
       ctrl.open(false);
     },
+    modal: true,
     vnodes: [
       h('input', {
         attrs: { autofocus: 1, placeholder: `Search in ${ctrl.studyName}`, value: ctrl.query() },
@@ -61,14 +63,15 @@ export function view(ctrl: SearchCtrl) {
           el.addEventListener('input', (e: KeyboardEvent) =>
             ctrl.query((e.target as HTMLInputElement).value.trim()),
           );
-          el.addEventListener('keydown', (e: KeyboardEvent) => e.key == 'Enter' && ctrl.setFirstChapter());
+          el.addEventListener('keydown', (e: KeyboardEvent) => e.key === 'Enter' && ctrl.setFirstChapter());
         }),
       }),
       h(
         // dynamic extra class necessary to fully redraw the results and produce innerHTML
         `div.study-search__results.search-query-${cleanQuery}`,
+        { attrs: { tabindex: -1 } },
         ctrl.results().map(c =>
-          h('div', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
+          h('button', { hook: bind('click', () => ctrl.setChapter(c.id)) }, [
             h(
               'h3',
               {

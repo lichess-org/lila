@@ -1,48 +1,37 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import Ctrl from './ctrl';
-import { InsightChart, InsightData } from './interfaces';
+import type Ctrl from './ctrl';
+import type { InsightChart, InsightData } from './interfaces';
 import {
   Chart,
-  ChartDataset,
-  ChartConfiguration,
+  type ChartDataset,
+  type ChartConfiguration,
   BarController,
   BarElement,
   CategoryScale,
   Legend,
   LinearScale,
   Tooltip,
-  ChartOptions,
+  type ChartOptions,
 } from 'chart.js';
 import { currentTheme } from 'common/theme';
-import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill } from 'chart';
+import { gridColor, tooltipBgColor, fontFamily, maybeChart, resizePolyfill, colorSeries } from 'chart';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { formatNumber } from './table';
+import { spinnerHtml } from 'common/spinner';
 
 resizePolyfill();
 Chart.register(BarController, CategoryScale, LinearScale, BarElement, Tooltip, Legend, ChartDataLabels);
 Chart.defaults.font = fontFamily();
 
-const light = currentTheme() == 'light';
+const light = currentTheme() === 'light';
 
 const resultColors = {
   Victory: '#759900',
   Draw: '#007599',
   Defeat: '#dc322f',
 };
-const theme = [
-  '#2b908f',
-  '#90ee7e',
-  '#f45b5b',
-  '#7798BF',
-  '#aaeeee',
-  '#ff0066',
-  '#eeaaee',
-  '#55BF3B',
-  '#DF5353',
-  '#7798BF',
-  '#aaeeee',
-];
+
 const sizeColor = 'rgba(120,120,120,0.2)';
 const tooltipFontColor = light ? '#4d4d4d' : '#cccccc';
 
@@ -94,9 +83,9 @@ function insightChart(el: HTMLCanvasElement, data: InsightData) {
 
 function datasetBuilder(d: InsightData) {
   const color = (i: number, name: string, stack: boolean) => {
-    if (d.valueYaxis.name == 'Game result') return resultColors[name as 'Victory' | 'Draw' | 'Defeat'];
+    if (d.valueYaxis.name === 'Game result') return resultColors[name as 'Victory' | 'Draw' | 'Defeat'];
     else if (!stack && light) return '#7cb5ec';
-    return theme[i % theme.length];
+    return colorSeries[i % colorSeries.length];
   };
   return [
     ...d.series.map((serie, i) =>
@@ -112,10 +101,10 @@ function barBuilder(
   color: string,
   opts?: { stack?: string },
 ): ChartDataset<'bar'> {
-  const percent = serie.dataType == 'percent';
+  const percent = serie.dataType === 'percent';
   return {
     label: serie.name,
-    data: serie.data.map(nb => nb / (serie.dataType == 'percent' ? 100 : 1)),
+    data: serie.data.map(nb => nb / (serie.dataType === 'percent' ? 100 : 1)),
     borderWidth: 1.5,
     yAxisID: id,
     backgroundColor: color,
@@ -123,7 +112,7 @@ function barBuilder(
     stack: opts?.stack,
     minBarLength: !percent ? 5 : undefined,
     datalabels:
-      id == 'y2'
+      id === 'y2'
         ? { display: false }
         : {
             color: tooltipFontColor,
@@ -140,13 +129,13 @@ function barBuilder(
 
 function labelBuilder(d: InsightData) {
   return d.xAxis.categories.map(ts =>
-    d.xAxis.dataType == 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
+    d.xAxis.dataType === 'date' ? new Date(ts * 1000).toLocaleDateString() : ts,
   );
 }
 
 function scaleBuilder(d: InsightData): ChartOptions<'bar'>['scales'] {
   const stacked = !!d.series[0].stack;
-  const percent = stacked || d.valueYaxis.dataType == 'percent';
+  const percent = stacked || d.valueYaxis.dataType === 'percent';
   return {
     x: {
       type: 'category',
@@ -200,7 +189,7 @@ let chart: InsightChart;
 function chartHook(vnode: VNode, ctrl: Ctrl) {
   const el = vnode.elm as HTMLCanvasElement;
   if (ctrl.vm.loading || !ctrl.vm.answer) {
-    $(el).html(site.spinnerHtml);
+    $(el).html(spinnerHtml);
   } else {
     if (!maybeChart(el)) chart = insightChart(el, ctrl.vm.answer);
     else if (chart) chart.updateData(ctrl.vm.answer);

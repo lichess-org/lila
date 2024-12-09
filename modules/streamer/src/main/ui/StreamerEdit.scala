@@ -4,6 +4,7 @@ package ui
 import play.api.data.Form
 
 import lila.ui.*
+
 import ScalatagsTemplate.{ *, given }
 
 final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
@@ -15,7 +16,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
   ) =
     Page(s"${s.user.titleUsername} ${trs.lichessStreamer.txt()}")
       .css("bits.streamer.form")
-      .js(EsmInit("bits.streamer")):
+      .js(esmInitBit("streamer")):
         main(cls := "page-menu")(
           bits.menu("edit", s.some),
           div(cls := "page-menu__content box streamer-edit")(

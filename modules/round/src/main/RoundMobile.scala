@@ -1,24 +1,28 @@
 package lila.round
 
-import chess.{ ByColor, Color }
+import chess.Color
 import play.api.libs.json.{ JsArray, JsObject, Json }
 
 import lila.chat.Chat
 import lila.common.Json.given
-import lila.core.data.Preload
 import lila.core.LightUser
-import lila.game.JsonView.given
+import lila.core.data.Preload
 import lila.pref.Pref
 import lila.round.RoundGame.*
 
 object RoundMobile:
 
-  enum UseCase(val socketStatus: Option[SocketStatus], val chat: Boolean, val prefs: Boolean):
+  enum UseCase(
+      val socketStatus: Option[SocketStatus],
+      val chat: Boolean,
+      val prefs: Boolean,
+      val bookmark: Boolean
+  ):
     // full round for every-day use
-    case Online(socket: SocketStatus) extends UseCase(socket.some, chat = true, prefs = true)
+    case Online(socket: SocketStatus) extends UseCase(socket.some, chat = true, prefs = true, bookmark = true)
     // correspondence game sent through firebase data
     // https://github.com/lichess-org/mobile/blob/main/lib/src/model/correspondence/offline_correspondence_game.dart
-    case Offline extends UseCase(none, chat = false, prefs = false)
+    case Offline extends UseCase(none, chat = false, prefs = false, bookmark = false)
 
 final class RoundMobile(
     lightUserGet: LightUser.Getter,
@@ -29,11 +33,11 @@ final class RoundMobile(
     takebacker: Takebacker,
     moretimer: Moretimer,
     isOfferingRematch: lila.core.round.IsOfferingRematch,
-    chatApi: lila.chat.ChatApi
+    chatApi: lila.chat.ChatApi,
+    bookmarkExists: lila.core.bookmark.BookmarkExists
 )(using Executor, lila.core.user.FlairGetMap):
 
   import RoundMobile.*
-  private given play.api.i18n.Lang = lila.core.i18n.defaultLang
 
   def online(gameSockets: List[GameAndSocketStatus])(using me: Me): Fu[JsArray] =
     gameSockets
@@ -56,9 +60,10 @@ final class RoundMobile(
       users        <- game.userIdPair.traverse(_.so(lightUserGet))
       prefs        <- prefApi.byId(game.userIdPair)
       takebackable <- takebacker.isAllowedIn(game, Preload(prefs))
-      moretimeable <- moretimer.isAllowedIn(game, Preload(prefs))
+      moretimeable <- moretimer.isAllowedIn(game, Preload(prefs), force = false)
       chat         <- use.chat.so(getPlayerChat(game, myPlayer.exists(_.hasUser)))
       chatLines    <- chat.map(_.chat).soFu(lila.chat.JsonView.asyncLines)
+      bookmarked   <- use.bookmark.so(bookmarkExists(game, myPlayer.flatMap(_.userId)))
     yield
       def playerJson(color: Color) =
         val pov = Pov(game, color)
@@ -66,7 +71,7 @@ final class RoundMobile(
           .player(pov.player, users(color))
           .add("isGone" -> (game.forceDrawable && use.socketStatus.exists(_.isGone(pov.color))))
           .add("onGame" -> (pov.player.isAi || use.socketStatus.exists(_.onGame(pov.color))))
-          .add("offeringRematch" -> isOfferingRematch(pov.ref))
+          .add("offeringRematch" -> isOfferingRematch.exec(pov.ref))
           .add("offeringDraw" -> pov.player.isOfferingDraw)
           .add("proposingTakeback" -> pov.player.isProposingTakeback)
       Json
@@ -99,6 +104,7 @@ final class RoundMobile(
               .obj("lines" -> chatLines)
               .add("restricted", c.restricted)
         )
+        .add("bookmarked", bookmarked)
 
   private def prefsJson(game: Game, pref: Pref): JsObject = Json
     .obj(
@@ -113,6 +119,7 @@ final class RoundMobile(
   private def getPlayerChat(game: Game, isAuth: Boolean): Fu[Option[Chat.Restricted]] =
     game.hasChat.so:
       for
-        chat  <- chatApi.playerChat.findIf(game.id.into(ChatId), game.secondsSinceCreation > 1)
+        chat <- chatApi.playerChat.findIf(game.id.into(ChatId), game.secondsSinceCreation > 1)
+        filtered = chat.copy(lines = chat.lines.filterNot(l => l.troll || l.deleted))
         lines <- lila.chat.JsonView.asyncLines(chat)
       yield Chat.Restricted(chat, lines, restricted = game.sourceIs(_.Lobby) && !isAuth).some

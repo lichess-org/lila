@@ -1,13 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": {
-    "skipLibCheck": true,
-    "noImplicitReturns": false,
-    "noEmit": true,
-    "composite": true,
-    "allowJs": true
-  },
-  "isolatedModules": true,
+  "compilerOptions": { "noEmit": true, "isolatedDeclarations": false },
   "references": [
     { "path": "../chat/tsconfig.json" },
     { "path": "../chess/tsconfig.json" },

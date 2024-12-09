@@ -1,9 +1,8 @@
-import * as cg from 'chessground/types';
-import { Prop } from 'common';
-import { AnalyseData } from '../interfaces';
-import { GamebookOverride } from './gamebook/interfaces';
-import { Opening } from '../explorer/interfaces';
-import AnalyseCtrl from '../ctrl';
+import type { Prop } from 'common';
+import type { AnalyseData } from '../interfaces';
+import type { GamebookOverride } from './gamebook/interfaces';
+import type { Opening } from '../explorer/interfaces';
+import type AnalyseCtrl from '../ctrl';
 
 export type Tab = 'intro' | 'members' | 'chapters';
 export type ChapterTab = 'init' | 'edit' | 'game' | 'fen' | 'pgn';
@@ -11,10 +10,12 @@ export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 
 export type Visibility = 'public' | 'unlisted' | 'private';
 export type ChapterId = string;
 export type TeamName = string;
-export type OutcomeStr = '1-0' | '0-1' | '½-½';
-export type StatusStr = OutcomeStr | '*';
+export type PointsStr = '1' | '0' | '½';
+export type GamePointsStr = '1-0' | '0-1' | '½-½' | '0-0' | '½-0' | '0-½';
+export type StatusStr = GamePointsStr | '*';
 export type ClockCentis = number;
 export type BothClocks = [ClockCentis?, ClockCentis?];
+export type FideId = number;
 
 export interface StudyTour {
   study(ctrl: AnalyseCtrl): void;
@@ -64,7 +65,7 @@ export interface StudyData {
 }
 
 export interface StudyDataFromServer extends StudyData {
-  chapters: ChapterPreviewFromServer[];
+  chapters?: ChapterPreviewFromServer[];
 }
 
 export type Topic = string;
@@ -97,8 +98,6 @@ export interface StudyFeatures {
   chat: boolean;
   sticky: boolean;
 }
-
-export type RelayPlayer = [string?, string?, number?];
 
 export interface StudyChapterConfig {
   id: string;
@@ -163,6 +162,14 @@ export interface StudyMemberMap {
   [id: string]: StudyMember;
 }
 
+export interface StudyPlayer {
+  name?: string;
+  title?: string;
+  rating?: number;
+  fideId?: FideId;
+  fed?: Federation;
+}
+
 export type TagTypes = string[];
 export type TagArray = [string, string];
 
@@ -175,11 +182,12 @@ export interface ChapterPreviewBase {
   name: string;
   status?: StatusStr;
   lastMove?: string;
+  check?: '+' | '#';
 }
 
 export interface ChapterPreviewFromServer extends ChapterPreviewBase {
   fen?: string; // defaults to initial
-  players?: PairOf<ChapterPreviewPlayerFromServer>;
+  players?: PairOf<StudyPlayerFromServer>;
   thinkTime?: number; // seconds since last move
   orientation?: Color; // defaults to white
   variant?: VariantKey; // defaults to standard
@@ -187,33 +195,35 @@ export interface ChapterPreviewFromServer extends ChapterPreviewBase {
 
 export interface ChapterPreview extends ChapterPreviewBase {
   fen: string;
-  players?: ChapterPreviewPlayers;
+  players?: StudyPlayers;
   lastMoveAt?: number;
   orientation: Color;
   variant: VariantKey;
   playing: boolean;
 }
 
-export interface ChapterPreviewPlayers {
-  white: ChapterPreviewPlayer;
-  black: ChapterPreviewPlayer;
+export interface StudyPlayers {
+  white: StudyPlayer;
+  black: StudyPlayer;
 }
 
+export type FederationId = string;
 export interface Federation {
-  id: string;
+  id: FederationId;
   name: string;
 }
-export interface ChapterPreviewPlayerBase {
+export interface StudyPlayerBase {
   name?: string;
   title?: string;
   rating?: number;
   clock?: ClockCentis;
+  fideId?: FideId;
   team?: string;
 }
-export interface ChapterPreviewPlayerFromServer extends ChapterPreviewPlayerBase {
-  fed?: string;
+export interface StudyPlayerFromServer extends StudyPlayerBase {
+  fed?: FederationId;
 }
-export interface ChapterPreviewPlayer extends ChapterPreviewPlayerBase {
+export interface StudyPlayer extends StudyPlayerBase {
   fed?: Federation;
 }
 
@@ -224,7 +234,7 @@ export interface ChapterData {
   name: string;
   game?: string;
   variant?: VariantKey;
-  fen?: cg.FEN | null;
+  fen?: FEN | null;
   pgn?: string;
   orientation: Orientation;
   mode: ChapterMode;
@@ -250,18 +260,18 @@ export interface AnaDests {
 export interface AnaMove {
   orig: string;
   dest: string;
-  fen: cg.FEN;
+  fen: FEN;
   path: string;
   variant?: VariantKey;
   ch?: string;
-  promotion?: cg.Role;
+  promotion?: Role;
 }
 
 export interface AnaDrop {
-  role: cg.Role;
+  role: Role;
   pos: Key;
   variant?: VariantKey;
-  fen: cg.FEN;
+  fen: FEN;
   path: string;
   ch?: string;
 }
@@ -294,3 +304,8 @@ export interface WithChapterId {
 
 export type WithWhoAndPos = WithWho & WithPosition;
 export type WithWhoAndChap = WithWho & WithChapterId;
+
+export interface ChapterSelect {
+  is: (idOrNumber: ChapterId | number) => boolean;
+  set: (idOrNumber: ChapterId | number, force?: boolean) => Promise<boolean>;
+}

@@ -2,10 +2,10 @@ package lila.analyse
 
 import chess.variant.Variant
 import com.roundeights.hasher.Algo
-import scalalib.{ SecureRandom, ThreadLocalRandom }
 import play.api.data.*
 import play.api.data.Forms.*
-import play.api.libs.json.{ Json, OWrites, JsObject }
+import play.api.libs.json.{ JsObject, Json, OWrites }
+import scalalib.{ SecureRandom, ThreadLocalRandom }
 
 import lila.common.Form.{ *, given }
 import lila.common.Json.given
@@ -97,17 +97,22 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   def create(by: UserId, data: ExternalEngine.FormData, oauthTokenId: String): Fu[ExternalEngine] =
     val engine = data.make(by)
-    val bson = {
-      engineHandler.writeOpt(engine).err("external engine bson")
-    } ++ $doc("oauthToken" -> oauthTokenId)
-    coll.insert.one(bson).andDo(reloadCache(by.id)).inject(engine)
+    val bson =
+      engineHandler.writeOpt(engine).err("external engine bson") ++ $doc("oauthToken" -> oauthTokenId)
+    for
+      _ <- coll.insert.one(bson)
+      _ = reloadCache(by.id)
+    yield engine
 
   def find(by: UserId, id: String): Fu[Option[ExternalEngine]] =
     list(by).map(_.find(_._id == id))
 
   def update(prev: ExternalEngine, data: ExternalEngine.FormData): Fu[ExternalEngine] =
     val engine = data.update(prev)
-    coll.update.one($id(engine._id), engine).andDo(reloadCache(engine.userId)).inject(engine)
+    for
+      _ <- coll.update.one($id(engine._id), engine)
+      _ = reloadCache(engine.userId)
+    yield engine
 
   def delete(by: UserId, id: String): Fu[Boolean] =
     coll.delete.one($doc("userId" -> by) ++ $id(id)).map { result =>
@@ -122,5 +127,5 @@ final class ExternalEngineApi(coll: Coll, cacheApi: CacheApi)(using Executor):
 
   private[analyse] def onTokenRevoke(id: String) =
     coll.primitiveOne[UserId]($doc("oauthToken" -> id), "userId").flatMapz { userId =>
-      coll.delete.one($doc("oauthToken" -> id)).void.andDo(reloadCache(userId))
+      for _ <- coll.delete.one($doc("oauthToken" -> id)) yield reloadCache(userId)
     }

@@ -1,10 +1,10 @@
 import { prop } from 'common';
 import { bind } from 'common/snabbdom';
-import throttle from 'common/throttle';
+import { throttle } from 'common/timing';
 import { spinnerVdom as spinner } from 'common/spinner';
-import { h, VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import * as xhr from './studyXhr';
+import { h, type VNode } from 'snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import { glyphs as xhrGlyphs } from './studyXhr';
 
 interface AllGlyphs {
   move: Tree.Glyph[];
@@ -30,7 +30,7 @@ export class GlyphForm {
 
   loadGlyphs = () => {
     if (!this.all())
-      xhr.glyphs().then(gs => {
+      xhrGlyphs().then(gs => {
         this.all(gs);
         this.root.redraw();
       });

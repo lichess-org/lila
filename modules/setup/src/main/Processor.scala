@@ -1,9 +1,8 @@
 package lila.setup
 
 import lila.common.Bus
-import lila.lobby.Seek
-import lila.lobby.{ AddHook, AddSeek }
 import lila.core.perf.UserWithPerfs
+import lila.lobby.{ AddHook, AddSeek, Seek }
 
 final private[setup] class Processor(
     gameApi: lila.core.game.GameApi,
@@ -16,24 +15,23 @@ final private[setup] class Processor(
     me  <- me.map(_.value).soFu(userApi.withPerf(_, config.perfType))
     pov <- config.pov(me)
     _   <- gameRepo.insertDenormalized(pov.game)
-    _ = onStart(pov.gameId)
+    _ = onStart.exec(pov.gameId)
   yield pov
 
   def apiAi(config: ApiAiConfig)(using me: Me): Fu[Pov] = for
     me  <- userApi.withPerf(me, config.perfType)
     pov <- config.pov(me.some)
     _   <- gameRepo.insertDenormalized(pov.game)
-    _ = onStart(pov.gameId)
+    _ = onStart.exec(pov.gameId)
   yield pov
 
   def hook(
-      configBase: HookConfig,
+      config: HookConfig,
       sri: lila.core.socket.Sri,
       sid: Option[String],
       blocking: lila.core.pool.Blocking
   )(using me: Option[UserWithPerfs]): Fu[Processor.HookResult] =
     import Processor.HookResult.*
-    val config = configBase.fixColor
     config.hook(sri, me, sid, blocking) match
       case Left(hook) =>
         fuccess:

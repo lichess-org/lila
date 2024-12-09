@@ -39,6 +39,6 @@
   <string name="castleByMovingTwoSquares">Symud y Teyrn dau sgwar</string>
   <string name="castleByMovingOntoTheRook">Gollwng y Teyrn ar ben y Castell</string>
   <string name="inputMovesWithTheKeyboard">Mewnbynnu symudiadau efo\'r allweddfwrdd</string>
-  <string name="yourPreferencesHaveBeenSaved">Cadwyd eich dewisiadau.</string>
+  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Cadwyd eich dewisiadau.</string>
   <string name="notifyWeb">Porwr</string>
 </resources>

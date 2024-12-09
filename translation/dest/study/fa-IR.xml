@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="private">خصوصی</string>
-  <string name="myStudies">مطالعات من</string>
-  <string name="studiesIContributeTo">مطالعاتی که من در آن مشارکت میکنم</string>
-  <string name="myPublicStudies">مطالعات عمومی من</string>
-  <string name="myPrivateStudies">مطالعات خصوصی من</string>
-  <string name="myFavoriteStudies">مطالعات مورد علاقه من</string>
+  <string name="myStudies">مطالعه‌های من</string>
+  <string name="studiesIContributeTo">مطالعه‌هایی که در آن شرکت دارم</string>
+  <string name="myPublicStudies">مطالعه‌های همگانی من</string>
+  <string name="myPrivateStudies">مطالعه‌های خصوصی من</string>
+  <string name="myFavoriteStudies">مطالعه‌های دلخواه من</string>
   <string name="whatAreStudies">مطالعه‌ها چه هستند؟</string>
-  <string name="allStudies">همه مطالعات من</string>
-  <string name="studiesCreatedByX">مطالعاتِ ایجاد شده توسط %s</string>
-  <string name="noneYet">هنوز چیزی نیست.</string>
-  <string name="hot">داغ</string>
-  <string name="dateAddedNewest">بروز(جدید ترین)</string>
-  <string name="dateAddedOldest">تاریخی که اضافه شده است (قدیمی‌ترین)</string>
-  <string name="recentlyUpdated">اخیرا به روز شده</string>
+  <string name="allStudies">همه مطالعه‌ها</string>
+  <string name="studiesCreatedByX">مطالعه‌هایی که %s ساخته است</string>
+  <string name="noneYet">هنوز، هیچ.</string>
+  <string name="hot">رواجیده</string>
+  <string name="dateAddedNewest">تاریخ افزوده شدن (نوترین)</string>
+  <string name="dateAddedOldest">تاریخ افزوده شدن (کهنه‌ترین)</string>
+  <string name="recentlyUpdated">تازگی به‌روزشده</string>
   <string name="mostPopular">محبوب‌ترین‌</string>
   <string name="alphabetical">براساس حروف الفبا</string>
-  <string name="addNewChapter">افزودن فصل جدید</string>
+  <string name="addNewChapter">افزودن بخش جدید</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s فصل</item>
-    <item quantity="other">%s فصل ها</item>
+    <item quantity="one">%s بخش</item>
+    <item quantity="other">%s بخش</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s بازی</item>
@@ -30,76 +30,76 @@
     <item quantity="one">%s عضو</item>
     <item quantity="other">%s عضو</item>
   </plurals>
-  <string name="inviteToTheStudy">دعوت به این درس</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها افرادی که میشناسید, و یا کسانی که میخواهند فعالانه به این درس بپیوندند را اضافه کنید.</string>
+  <string name="inviteToTheStudy">دعوت به این مطالعه</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها کسانی را دعوت کنید که شما را می‌شناسند و کنشگرانه می‌خواهند به این مطالعه بپیوندند.</string>
   <string name="searchByUsername">جستجو بر اساس نام کاربری</string>
   <string name="spectator">تماشاگر</string>
   <string name="contributor">مشارکت کننده</string>
   <string name="kick">اخراج</string>
-  <string name="leaveTheStudy">خروج از درس</string>
+  <string name="leaveTheStudy">ترک مطالعه</string>
   <string name="youAreNowAContributor">شما یک مشارکت کننده جدید هستید</string>
-  <string name="youAreNowASpectator">شما حالا یک تماشاگرید</string>
+  <string name="youAreNowASpectator">شما اکنون یک تماشاگرید</string>
   <string name="pgnTags">نشان های PGN</string>
   <string name="like">پسندیدن</string>
-  <string name="unlike">نمی پسندم</string>
+  <string name="unlike">نمی‌پسندم</string>
   <string name="newTag">برچسب جدید</string>
-  <string name="commentThisPosition">نظر دادن به این پوزیسیون</string>
-  <string name="commentThisMove">قرار دادن توضیحات برای این حرکت</string>
-  <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علائم</string>
-  <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
-  <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
-  <string name="getAFullComputerAnalysis">یک تحلیل رایانه‌ای از حرکات اصلی (نه حرکات منشعب و فرعی) با استفاده از منابع سرورها (نه منابع محلی مانند مرورگر، اپلیکیشن و غیره) دریافت نمایید.</string>
-  <string name="makeSureTheChapterIsComplete">مطمئن شوید که فصل کامل است. شما فقط یک بار می‌توانید درخواست تحلیل بدهید.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
-  <string name="shareChanges">تغییرات را با تماشاگران به اشتراک بگذارید و آنها را در سرور ذخیره کنید</string>
+  <string name="commentThisPosition">یادداشت‌نویسی برای این وضعیت</string>
+  <string name="commentThisMove">یادداشت‌نویسی برای این حرکت</string>
+  <string name="annotateWithGlyphs">حرکت‌نویسی به‌همراه علامت‌ها</string>
+  <string name="theChapterIsTooShortToBeAnalysed">این بخش برای تحلیل، بسیار کوتاه است.</string>
+  <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت‌گران این مطالعه، می‌توانند درخواست تحلیل رایانه‌ای دهند.</string>
+  <string name="getAFullComputerAnalysis">یک تحلیل کامل رایانه‌ای کارساز-سو از شاخه اصلی بگیرید.</string>
+  <string name="makeSureTheChapterIsComplete">مطمئن شوید که بخش کامل است. شما فقط یک بار می‌توانید درخواست تحلیل دهید.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">همه‌ی عضوهای همگام در وضعیت یکسانی باقی می‌مانند</string>
+  <string name="shareChanges">تغییرها را در کارساز ذخیره کنید و با تماشاگران به اشتراک گذارید</string>
   <string name="playing">در حال انجام</string>
   <string name="showEvalBar">نوار ارزیابی</string>
   <string name="first">اولین</string>
   <string name="previous">پیشین</string>
   <string name="next">بعدی</string>
   <string name="last">آخرین</string>
-  <string name="shareAndExport">اشتراک &amp; صدور</string>
-  <string name="cloneStudy">نمونه سازی</string>
-  <string name="studyPgn">PGN درس</string>
+  <string name="shareAndExport">همرسانی و برون‏بُرد</string>
+  <string name="cloneStudy">همسانیدن</string>
+  <string name="studyPgn">PGN مطالعه</string>
   <string name="downloadAllGames">بارگیری تمام بازی ها</string>
-  <string name="chapterPgn">PGN فصل</string>
-  <string name="copyChapterPgn">کپی کردن PGN</string>
+  <string name="chapterPgn">PGN ِ بخش</string>
+  <string name="copyChapterPgn">رونوشت‌گیری PGN</string>
   <string name="downloadGame">بارگیری بازی</string>
   <string name="studyUrl">وب‌نشانی مطالعه</string>
-  <string name="currentChapterUrl">وب‌نشانی فصل جاری</string>
-  <string name="youCanPasteThisInTheForumToEmbed">برای جاسازی این نوشته، این کد را در تالار گفت و گو قرار دهید</string>
-  <string name="startAtInitialPosition">در موقعیت آغازین شروع نمایید</string>
-  <string name="startAtX">شروع از %s</string>
-  <string name="embedInYourWebsite">در وبسایت یا وبلاگ خود قرار دهید</string>
+  <string name="currentChapterUrl">وب‌نشانی بخش جاری</string>
+  <string name="youCanPasteThisInTheForumToEmbed">می‌توانید این را در انجمن یا وبنوشت Lichessتان برای جاسازی قرار دهید</string>
+  <string name="startAtInitialPosition">در وضعیت نخستین بیاغازید</string>
+  <string name="startAtX">آغاز از %s</string>
+  <string name="embedInYourWebsite">در وبگاهتان قرار دهید</string>
   <string name="readMoreAboutEmbedding">درباره قرار دادن (در سایت) بیشتر بخوانید</string>
-  <string name="onlyPublicStudiesCanBeEmbedded">فقط مطالعاتِ عمومی می‌توانند جایگذاری شوند!</string>
+  <string name="onlyPublicStudiesCanBeEmbedded">فقط مطالعه‌های همگانی می‌توانند جایگذاری شوند!</string>
   <string name="open">بگشایید</string>
-  <string name="xBroughtToYouByY">مطالعه %1$s، توسط %2$s برای شما آورده شده است</string>
+  <string name="xBroughtToYouByY">%1$s، به دست %2$s برای شما آورده شده است</string>
   <string name="studyNotFound">مطالعه یافت نشد</string>
-  <string name="editChapter">ویرایش فصل</string>
-  <string name="newChapter">وصل جدید</string>
-  <string name="importFromChapterX">وارد کردن از %s</string>
+  <string name="editChapter">ویرایش بخش</string>
+  <string name="newChapter">بخش نو</string>
+  <string name="importFromChapterX">درونبُرد از %s</string>
   <string name="orientation">جهت</string>
   <string name="analysisMode">حالت تجزیه تحلیل</string>
-  <string name="pinnedChapterComment">نظر سنجاق شده درباره فصل</string>
-  <string name="saveChapter">ذخیره فصل</string>
+  <string name="pinnedChapterComment">یادداشت سنجاقیده‌ٔ بخش</string>
+  <string name="saveChapter">ذخیره بخش</string>
   <string name="clearAnnotations">پاک کردن حرکت‌نویسی</string>
-  <string name="clearVariations">پاک کردن تغییرات</string>
-  <string name="deleteChapter">حذف فصل</string>
-  <string name="deleteThisChapter">آیا میخواهید این فصل را پاک کنید؟امکان برگرداندن آن وجود ندارد!</string>
+  <string name="clearVariations">پاکیدن وَرتِش‌ها</string>
+  <string name="deleteChapter">حذف بخش</string>
+  <string name="deleteThisChapter">حذف این بخش. بازگشت وجود ندارد!</string>
   <string name="clearAllCommentsInThisChapter">همه دیدگاه‌ها، نمادها و شکل‌های ترسیم شده در این بخش، پاک شوند</string>
-  <string name="rightUnderTheBoard">درست در زیر تخته بازی</string>
+  <string name="rightUnderTheBoard">درست زیر صفحهٔ بازی</string>
   <string name="noPinnedComment">هیچ</string>
   <string name="normalAnalysis">تحلیل ساده</string>
   <string name="hideNextMoves">پنهان کردن حرکت بعدی</string>
-  <string name="interactiveLesson">درس تعاملی</string>
-  <string name="chapterX">فصل %s</string>
+  <string name="interactiveLesson">درس میان‌کنشی</string>
+  <string name="chapterX">بخش %s</string>
   <string name="empty">خالی</string>
-  <string name="startFromInitialPosition">از موقعیت ابتدایی شروع نمایید</string>
+  <string name="startFromInitialPosition">از وضعیت نخستین بیاغازید</string>
   <string name="editor">ویرایشگر</string>
-  <string name="startFromCustomPosition">از موقعیت دلخواه شروع نمایید</string>
+  <string name="startFromCustomPosition">از وضعیت دلخواه بیاغازید</string>
   <string name="loadAGameByUrl">بارگذاری بازی از وب‌نشانی‌ها</string>
-  <string name="loadAPositionFromFen">از FEN یک موقعیت را بارگیری کنید</string>
+  <string name="loadAPositionFromFen">بار کردن وضعیت از FEN</string>
   <string name="loadAGameFromPgn">باگذاری بازی با استفاده از فایل PGN</string>
   <string name="automatic">خودکار</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
@@ -108,63 +108,64 @@
   </plurals>
   <string name="urlOfTheGame">وب‌نشانی بازی‌ها، یکی در هر خط</string>
   <string name="loadAGameFromXOrY">بازی‌ها را از %1$s یا %2$s بارگذاری نمایید</string>
-  <string name="createChapter">ساخت فصل</string>
-  <string name="createStudy">مطالعه ایجاد کنید</string>
-  <string name="editStudy">مطالعه را ویرایش نمایید</string>
-  <string name="visibility">وضعیت نمایش</string>
-  <string name="public">عمومی</string>
-  <string name="unlisted">فهرست نشده</string>
+  <string name="createChapter">ساخت بخش</string>
+  <string name="createStudy">ساخت مطالعه</string>
+  <string name="editStudy">ویرایش مطالعه</string>
+  <string name="visibility">دیدگی</string>
+  <string name="public">همگانی</string>
+  <string name="unlisted">فهرست‌نشده</string>
   <string name="inviteOnly">فقط توسط دعوتنامه</string>
-  <string name="allowCloning">اجازه دهید تا بازی شما را کلون کنند که به این معنا است که بتوان آن را دقیقاً کپی کرد</string>
+  <string name="allowCloning">اجازه همسانِش</string>
   <string name="nobody">هیچ کس</string>
   <string name="onlyMe">تنها من</string>
   <string name="contributors">مشارکت‌کنندگان</string>
   <string name="members">اعضا</string>
   <string name="everyone">همه</string>
   <string name="enableSync">فعال کردن همگام سازی</string>
-  <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در پوزیسیونی یکسان نگه دار</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در وضعیت یکسانی نگه دار</string>
   <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
-  <string name="pinnedStudyComment">نظر سنجاق شده درباره مطالعه</string>
-  <string name="start">شروع</string>
+  <string name="pinnedStudyComment">یادداشت سنجاقیده به مطالعه</string>
+  <string name="start">آغاز</string>
   <string name="save">ذخیره</string>
   <string name="clearChat">پاک کردن گفتگو</string>
-  <string name="deleteTheStudyChatHistory">آیا سابقه گفتگو پاک شود? امکان بازگشت وجود ندارد!</string>
-  <string name="deleteStudy">پاک کردن درس</string>
-  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">می خواهید کل آموزش را حذف کنید؟ راه برگشتی وجود ندارد! برای ادامه کار نام آموزش را وارد کنید:%s</string>
-  <string name="whereDoYouWantToStudyThat">کجا میخواهید آنرا مطالعه کنید?</string>
-  <string name="goodMove">حرکت خوبی بود</string>
+  <string name="deleteTheStudyChatHistory">پیشینه گپِ مطالعه پاک شود؟ بازگشت وجود ندارد!</string>
+  <string name="deleteStudy">پاکیدن مطالعه</string>
+  <string name="confirmDeleteStudy" comment="%s is replaced with the name of the study">کل مطالعه پاک شود؟ بازگشت وجود ندارد! برای تایید، نام مطالعه را بنویسید: %s</string>
+  <string name="whereDoYouWantToStudyThat">کجا می‌خواهید آنرا مطالعه کنید؟</string>
+  <string name="goodMove">حرکت خوب</string>
   <string name="mistake">اشتباه</string>
   <string name="brilliantMove">حرکت درخشان</string>
   <string name="blunder">اشتباه فاحش</string>
   <string name="interestingMove">حرکت جالب</string>
-  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">حرکت نامفهوم و نامعقول</string>
-  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تنها حرکت مناسب</string>
-  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">کوچ دادن یا حرکت اجباری</string>
-  <string name="equalPosition">موقعیت برابر</string>
-  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">موقعیت نامعلوم</string>
+  <string name="dubiousMove" comment="dubiousMove&#10;A questionable move.">حرکت مشکوک</string>
+  <string name="onlyMove" comment="onlyMove&#10;The only possible move. This is a label that can be placed in a study of a past game. It may not technically be the only move, but the only feasible one.">تک‌حرکت</string>
+  <string name="zugzwang" comment="zugzwang&#10;What zugzwang is: https://lichess.org/practice/intermediate-tactics/zugzwang/9cKgYrHb/ybYJ9gNa&#10;&#10;This specific string is a label that can be applied to a position in a study, to indicate one side is in zugzwang.">اکراهی</string>
+  <string name="equalPosition">وضعیت برابر</string>
+  <string name="unclearPosition" comment="unclearPosition&#10;It is unclear who is winning or losing.">وضعیت ناروشن</string>
   <string name="whiteIsSlightlyBetter">سفید کمی بهتر است</string>
-  <string name="blackIsSlightlyBetter">مشکی کمی بهتر است</string>
+  <string name="blackIsSlightlyBetter">سیاه کمی بهتر است</string>
   <string name="whiteIsBetter">سفید بهتر است</string>
   <string name="blackIsBetter">سیاه بهتر است</string>
-  <string name="whiteIsWinning">سفید در حال پیروزی است</string>
-  <string name="blackIsWinning">سیاه در حال پیروزی است</string>
+  <string name="whiteIsWinning">سفید می‌برد</string>
+  <string name="blackIsWinning">سیاه می‌برد</string>
   <string name="novelty" comment="novelty&#10;&#10;A move in the opening that has not been played before.&#10;https://en.wikipedia.org/wiki/Glossary_of_chess#theoretical_novelty">روش و ایده‌ای نو در شروع بازی</string>
-  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">راهگشایی</string>
-  <string name="initiative">دارای ابتکار عمل</string>
+  <string name="development" comment="development&#10;Used in studies - shows that the player made a developing move (e.g. pushing pawns to open their bishops in the opening).">گسترش</string>
+  <string name="initiative">ابتکار عمل</string>
   <string name="attack" comment="attack&#10;A label that can be applied to a position in a Lichess study. Noun.">حمله</string>
-  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">حریف</string>
-  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">تنگنای زمانی، وقت تنگ است</string>
+  <string name="counterplay" comment="counterplay&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Generally describes a defending player who is under attack, and makes an attacking move elsewhere.">بازی‌متقابل</string>
+  <string name="timeTrouble" comment="timeTrouble&#10;A label that can be applied to a position in a Lichess study. Noun. Indicates that a player had little time to think and make this move (clock was running low).">تنگی زمان</string>
   <string name="withCompensation" comment="withCompensation&#10;&#10;Compensation is the short-term positional advantage a player has in exchange for typically material disadvantage. Short term advantages involve initiative and attack.&#10;https://en.wikipedia.org/wiki/Compensation_(chess)">دارای مزیت و برتری</string>
-  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">با ایده</string>
-  <string name="nextChapter">فصل بعدی</string>
-  <string name="prevChapter">فصل پیشین</string>
+  <string name="withTheIdea" comment="withTheIdea&#10;A label that can be applied to a position in a Lichess study. Noun.&#10;&#10;Shows that the player was following the theory around an opening, even after the initial opening moves.">با طرح</string>
+  <string name="nextChapter">بخش بعدی</string>
+  <string name="prevChapter">بخش پیشین</string>
   <string name="studyActions">عملگرهای مطالعه</string>
-  <string name="topics">مباحث</string>
-  <string name="myTopics">مباحث من</string>
-  <string name="popularTopics">مباحث معروف</string>
-  <string name="manageTopics">مدیریت مباحث</string>
+  <string name="topics">موضوع‌ها</string>
+  <string name="myTopics">موضوع‌های من</string>
+  <string name="popularTopics">موضوع‌های محبوب</string>
+  <string name="manageTopics">مدیریت موضوع‌ها</string>
   <string name="back">بازگشت</string>
   <string name="playAgain">دوباره بازی کنید</string>
-  <string name="whatWouldYouPlay">شما در این موقعیت چه حرکتی می کنید؟</string>
+  <string name="whatWouldYouPlay">در این وضعیت چطور بازی می‌کنید؟</string>
   <string name="youCompletedThisLesson">تبریک! شما این درس را کامل کردید.</string>
+  <string name="perPage">%s میز</string>
 </resources>

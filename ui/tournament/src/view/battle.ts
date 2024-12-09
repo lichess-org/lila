@@ -1,8 +1,9 @@
-import TournamentController from '../ctrl';
-import { bind, MaybeVNode } from 'common/snabbdom';
+import type TournamentController from '../ctrl';
+import { bind, type MaybeVNode } from 'common/snabbdom';
 import { fullName, userFlair } from 'common/userLink';
-import { h, VNode } from 'snabbdom';
-import { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
+import { snabDialog } from 'common/dialog';
+import { h, type VNode } from 'snabbdom';
+import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
@@ -10,23 +11,24 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
   };
-  return site.dialog.snab({
+  return snabDialog({
     class: 'team-battle__choice',
+    modal: true,
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {
         ctrl.join(e.target.dataset['id']);
         dlg.close();
       });
-      dlg.showModal();
+      dlg.show();
     },
     onClose,
     vnodes: [
       h('div.team-picker', [
-        h('h2', ctrl.trans.noarg('pickYourTeam')),
+        h('h2', i18n.arena.pickYourTeam),
         h('br'),
         ...(tb.joinWith.length
           ? [
-              h('p', ctrl.trans.noarg('whichTeamWillYouRepresentInThisBattle')),
+              h('p', i18n.arena.whichTeamWillYouRepresentInThisBattle),
               ...tb.joinWith.map(id =>
                 h(
                   'button.button.team-picker__team',
@@ -36,7 +38,7 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
               ),
             ]
           : [
-              h('p', ctrl.trans.noarg('youMustJoinOneOfTheseTeamsToParticipate')),
+              h('p', i18n.arena.youMustJoinOneOfTheseTeamsToParticipate),
               h(
                 'ul',
                 shuffleArray(Object.keys(tb.teams)).map((id: string) =>
@@ -74,7 +76,7 @@ function extraTeams(ctrl: TournamentController): VNode {
       h(
         'a',
         { attrs: { href: `/tournament/${ctrl.data.id}/teams` } },
-        ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length),
+        i18n.arena.viewAllXTeams(Object.keys(ctrl.data.teamBattle!.teams).length),
       ),
     ),
   );
@@ -113,7 +115,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     'tr',
     {
       key: team.id,
-      class: { active: ctrl.teamInfo.requested == team.id },
+      class: { active: ctrl.teamInfo.requested === team.id },
       hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw),
     },
     [
@@ -126,7 +128,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
             const href = (e.target as HTMLElement).getAttribute('data-href');
             if (href) {
               ctrl.jumpToPageOf(href.slice(3));
-              ctrl.redraw;
+              ctrl.redraw();
             }
           }),
         },
