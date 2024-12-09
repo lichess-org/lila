@@ -44,6 +44,7 @@ private final class RecapBuilder(
         .cursor[PuzzleRound]()
         .documentSource()
         .runFold(PuzzleScan())(_.addRound(_))
+        .monSuccess(_.recap.puzzles)
 
   private case class PuzzleScan(
       nb: Int = 0,
@@ -94,6 +95,7 @@ private final class RecapBuilder(
       .sortedCursor(query, Query.sortChronological)
       .documentSource()
       .runFold(GameScan())(_.addGame(userId)(_))
+      .monSuccess(_.recap.games)
 
   private case class GameScan(
       nb: Int = 0,

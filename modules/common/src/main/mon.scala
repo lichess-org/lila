@@ -680,6 +680,9 @@ object mon:
   object link:
     def external(tag: String, auth: Boolean) = counter("link.external").withTags:
       tags("tag" -> tag, "auth" -> auth)
+  object recap:
+    val games   = future("recap.build.games.time")
+    val puzzles = future("recap.build.puzzles.time")
 
   object jvm:
     def threads() =
