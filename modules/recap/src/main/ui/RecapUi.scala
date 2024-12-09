@@ -23,6 +23,7 @@ final class RecapUi(helpers: Helpers):
     Page(title(user))
       .css("recap")
       .js(esmInit("recap", data))
+      .hideFriendsBox
       .csp(_.withInlineIconFont): // swiper's `data: font`
         main(cls := "recap"):
           div(id := "recap-swiper", cls := "swiper")
