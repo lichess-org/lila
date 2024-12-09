@@ -2,13 +2,18 @@
 
 set -e
 
-cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
+MIN_NODE="v22.6.0"
 
-if ! command -v pnpm &> /dev/null; then
-  echo "The 'pnpm' tool is required. cd to the repo directory and type 'corepack enable'"
-  echo "https://github.com/lichess-org/lila/wiki/Lichess-Development-Onboarding"
+CUR_NODE=$(node -v 2>/dev/null || echo "v0.0.0")
+LOWEST="$(printf "%s\n%s" "$MIN_NODE" "$CUR_NODE" | sort -V | head -n 1)"
+if [ "$LOWEST" != "$MIN_NODE" ]; then
+  echo "Nodejs $MIN_NODE or later is required."
   exit 1
 fi
+
+cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
+
+corepack enable
 
 pnpm install --silent --ignore-workspace
 
