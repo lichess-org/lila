@@ -2,16 +2,61 @@
 <resources>
   <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">வகுப்புகள்</string>
   <string name="teachClassesOfChessStudents">சதுரங்க மாணவர்களுக்கு லீசெஸ் வகுப்பறைக் கருவிகளூடாகக் கற்பியுங்கள்.</string>
-  <string name="features">வசதிகள்</string>
-  <string name="quicklyGenerateSafeUsernames">மாணவர்களுக்கான பயனர் பெயர்களையும் கடவுச்சொற்களையும் விரைவாகவும் பாதுகாப்பாகவும் உருவாக்கு</string>
-  <string name="trackStudentProgress">விளையாட்டிலும் புதிர்களிலும் மாணவர்களின் முன்னேற்றத்தைக் கண்காணிக்கவும்</string>
-  <string name="messageAllStudents">வகுப்பில் புதிதாகச் சேர்க்கப்பட்டதை எல்லா மாணவர்களுக்கும் அறிவிக்கவும்</string>
-  <string name="freeForAllForever">எல்லோரிற்கும் எப்போதும் 100% இலவசமாக, விளம்பரமோ பின்தொடர்பவர்களோ இல்லாமல்</string>
-  <string name="applyToBeLichessTeacher">லீசெஸ் ஆசிரியராக விண்ணப்பியுங்கள்</string>
-  <string name="noClassesYet">இன்னமும் வகுப்புக்கள் இல்லை.</string>
+  <string name="features">தனிச்சிறப்பு</string>
+  <string name="quicklyGenerateSafeUsernames">மாணவர்களுக்கான பாதுகாப்பான பயனர்பெயர்கள் மற்றும் கடவுச்சொற்களை விரைவாக உருவாக்கவும்</string>
+  <string name="trackStudentProgress">விளையாட்டுகள் மற்றும் புதிர்களில் மாணவர் முன்னேற்றத்தைக் கண்காணிக்கவும்</string>
+  <string name="messageAllStudents">வகுப்பில் புதிதாகச் சேர்க்கப்பட்டதை அனைத்து மாணவர்களுக்கும் அறிவிக்கவும்</string>
+  <string name="freeForAllForever">அனைவருக்கும், என்றென்றும் 100% சுதந்திரமாக, விளம்பரமோ பின்தொடர்தல்களோ இல்லாமல்</string>
+  <string name="applyToBeLichessTeacher">லிசெஸ் ஆசிரியராக விண்ணப்பியுங்கள்</string>
+  <string name="noClassesYet">இன்னும் வகுப்புகள் இல்லை.</string>
   <string name="teachersX">ஆசிரியர்: %s</string>
   <string name="newClass">புதிய வகுப்பு</string>
+  <string name="closeClass">வகுப்பை மூடு</string>
+  <string name="removedByX">%s ஆல் அகற்றப்பட்டது</string>
   <string name="reopen">மீண்டும் திற</string>
+  <string name="removeStudent">மாணவரை அகற்று</string>
+  <string name="removedStudents">அகற்றப்பட்டது</string>
+  <string name="inviteTheStudentBack">மாணவரை மீண்டும் அழைக்கவும்</string>
+  <string name="sendAMessage">அனைத்து மாணவர்களுக்கும் ஒரு சேதியை அனுப்பு.</string>
+  <string name="aLinkToTheClassWillBeAdded">சேதியின் முடிவில் வகுப்பிற்கான இணைப்பு தானாகவே சேர்க்கப்படும், எனவே அதை நீங்களே சேர்க்க வேண்டியதில்லை.</string>
+  <string name="className">வகுப்பின் பெயர்</string>
+  <string name="classDescription">வகுப்பு விளக்கம்</string>
+  <string name="visibleByBothStudentsAndTeachers">வகுப்பின் ஆசிரியர்கள் மற்றும் மாணவர்கள் இருவரும் பார்க்க முடியும்</string>
+  <string name="teachersOfTheClass">வகுப்பின் ஆசிரியர்கள்</string>
+  <string name="addLichessUsernames">அவர்களை ஆசிரியர்களாக அழைக்க லிசெஸ் பயனர்பெயர்களைச் சேர்க்கவும். வரிக்கு ஒன்று.</string>
+  <string name="resetPassword">கடவுச்சொல்லை மீட்டமைக்கவும்</string>
+  <string name="makeSureToCopy">இப்போது கடவுச்சொல்லை நகலெடுக்கவும் அல்லது எழுதவும். நீங்கள் அதை மீண்டும் பார்க்க முடியாது!</string>
+  <string name="passwordX">கடவுச்சொல்: %s</string>
+  <string name="generateANewPassword">மாணவருக்கு புதிய கடவுச்சொல்லை உருவாக்கவும்</string>
+  <string name="invitedToXByY">%2$s மூலம் %1$sக்கு அழைக்கப்பட்டார்</string>
+  <string name="realName">உண்மையான பெயர்</string>
+  <string name="privateWillNeverBeShown">தனியார். வகுப்பிற்கு வெளியே காட்டப்படாது. மாணவர் யார் என்பதை நினைவில் கொள்ள உதவுகிறது.</string>
   <string name="addStudent">மாணவரைச் சேர்</string>
-  <string name="lastActiveDate">இணையத்தில் உள்ளார்</string>
+  <string name="lichessProfileXCreatedForY">லிசெஸ் சுயவிவரம் %1$s %2$sக்காக உருவாக்கப்பட்டது.</string>
+  <string name="studentCredentials">மாணவர்: %1$s
+பயனர் பெயர்: %2$s
+கடவுச்சொல்: %3$s</string>
+  <string name="inviteALichessAccount">லிசெஸ் கணக்கை அழைக்கவும்</string>
+  <string name="inviteDesc1">மாணவர் ஏற்கனவே லிசெஸ் கணக்கு வைத்திருந்தால், நீங்கள் அவர்களை வகுப்பிற்கு அழைக்கலாம்.</string>
+  <string name="inviteDesc2">வகுப்பில் சேர்வதற்கான இணைப்புடன் லிசெஸ் இல் ஒரு சேதியைப் பெறுவார்கள்.</string>
+  <string name="inviteDesc3">முக்கியமானது: உங்களுக்குத் தெரிந்த மற்றும் தீவிரமாக வகுப்பில் சேர விரும்பும் மாணவர்களை மட்டும் அழைக்கவும்.</string>
+  <string name="inviteDesc4">தன்னிச்சையான வீரர்களுக்கு ஒருபோதும் கோரப்படாத அழைப்புகளை அனுப்ப வேண்டாம்.</string>
+  <string name="createANewLichessAccount">புதிய லிசெஸ் கணக்கை உருவாக்கவும்</string>
+  <string name="createDesc1">மாணவரிடம் இன்னும் லிசெஸ் கணக்கு இல்லையென்றால், அவர்களுக்காக இங்கே ஒன்றை உருவாக்கலாம்.</string>
+  <string name="createDesc2">மின்னஞ்சல் முகவரி தேவையில்லை. ஒரு கடவுச்சொல் உருவாக்கப்படும், மேலும் நீங்கள் அதை மாணவருக்கு அனுப்ப வேண்டும், இதனால் அவர்கள் உள்நுழைய முடியும்.</string>
+  <string name="createDesc3">முக்கியமானது: ஒரு மாணவருக்கு பல கணக்குகள் இருக்கக்கூடாது.</string>
+  <string name="createDesc4">அவர்களிடம் ஏற்கனவே ஒன்று இருந்தால், அதற்குப் பதிலாக அழைப்புப் படிவத்தைப் பயன்படுத்தவும்.</string>
+  <string name="createStudentWarning">உண்மையான மாணவர்களுக்கு மட்டுமே கணக்குகளை உருவாக்கவும். உங்களுக்காக பல கணக்குகளை உருவாக்க இதைப் பயன்படுத்த வேண்டாம். நீங்கள் தடை செய்யப்படுவீர்கள்.</string>
+  <string name="lichessUsername">லிசெஸ் பயனர்பெயர்</string>
+  <string name="generateANewUsername">புதிய பயனர்பெயரை உருவாக்கவும்</string>
+  <string name="welcomeToClass">உங்கள் வகுப்பிற்கு வரவேற்கிறோம்: %s.
+வகுப்பை அணுகுவதற்கான இணைப்பு இதோ.</string>
+  <string name="invitationToClass">நீங்கள் \"%s\" வகுப்பில் மாணவராக சேர அழைக்கப்பட்டுள்ளீர்கள்.</string>
+  <string name="clickToViewInvitation">அழைப்பிதழைப் பார்க்க இணைப்பைக் சொடுக்க செய்க:</string>
+  <plurals name="nbPendingInvitations">
+    <item quantity="one">ஒரு அழைப்பு நிலுவையில் உள்ளது</item>
+    <item quantity="other">%s அழைப்புகள் நிலுவையில் உள்ளன</item>
+  </plurals>
+  <string name="onlyVisibleToTeachers">வகுப்பு ஆசிரியர்களுக்கு மட்டுமே தெரியும்</string>
+  <string name="lastActiveDate">செயலில்</string>
 </resources>
