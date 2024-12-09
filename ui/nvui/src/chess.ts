@@ -117,37 +117,27 @@ export function positionSetting(): Setting<PositionStyle> {
     storage: storage.make('nvui.positionStyle'),
   });
 }
-const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
-  switch (pieceStyle) {
-    case 'letter':
-      return piece.toLowerCase();
-    case 'white uppercase letter':
-      return piece;
-    case 'name':
-      return charToRole(piece);
-    case 'white uppercase name':
-      return `${piece}${charToRole(piece)?.slice(1)}`;
-  }
-};
-const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
-  switch (prefixStyle) {
-    case 'letter':
-      return color.charAt(0);
-    case 'name':
-      return color + ' ';
-    case 'none':
-      return '';
-  }
-};
+
+const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) =>
+  pieceStyle === 'letter'
+    ? piece.toLowerCase()
+    : pieceStyle === 'white uppercase letter'
+      ? piece
+      : pieceStyle === 'name'
+        ? charToRole(piece)
+        : `${piece}${charToRole(piece)?.slice(1)}`;
+
+const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
+  prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
 
 export function lastCaptured(
-  movesGenerator: () => string[],
+  fensteps: () => string[],
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ): string {
-  const moves = movesGenerator();
-  const oldFen = moves[moves.length - 2];
-  const newFen = moves[moves.length - 1];
+  const fens = fensteps();
+  const oldFen = fens[fens.length - 2];
+  const newFen = fens[fens.length - 1];
   if (!oldFen || !newFen) {
     return 'none';
   }
@@ -279,7 +269,7 @@ export function renderBoard(
     );
 
   const doPiece = (rank: Ranks, file: Files): VNode => {
-    const key = (file + rank) as Key;
+    const key: Key = `${file}${rank}`;
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
@@ -507,7 +497,7 @@ export function boardCommandsHandler() {
   };
 }
 export function lastCapturedCommandHandler(
-  steps: () => string[],
+  fensteps: () => string[],
   pieceStyle: PieceStyle,
   prefixStyle: PrefixStyle,
 ) {
@@ -515,7 +505,7 @@ export function lastCapturedCommandHandler(
     const $boardLive = $('.boardstatus');
     if (ev.key === 'c') {
       $boardLive.text();
-      $boardLive.text(lastCaptured(steps, pieceStyle, prefixStyle));
+      $boardLive.text(lastCaptured(fensteps, pieceStyle, prefixStyle));
       return false;
     }
     return true;
@@ -558,7 +548,7 @@ export function possibleMovesHandler(
       rawMoves = chessgroundDests(fromSetup);
     }
 
-    const possibleMoves = rawMoves
+    const possibleCaptures = rawMoves
       ?.get(pos)
       ?.map(i => {
         const p = pieces.get(i);
@@ -566,14 +556,9 @@ export function possibleMovesHandler(
         return p && p.color !== yourColor ? `${i} captures ${p.role}` : i;
       })
       ?.filter(i => ev.key === 'm' || i.includes('captures'));
-    if (!possibleMoves) {
-      $boardLive.text('None');
-      // if filters out non-capturing moves
-    } else if (possibleMoves.length === 0) {
-      $boardLive.text('No captures');
-    } else {
-      $boardLive.text(possibleMoves.join(', '));
-    }
+    $boardLive.text(
+      !possibleCaptures ? 'None' : !possibleCaptures.length ? 'No captures' : possibleCaptures.join(', '),
+    );
   };
 }
 
