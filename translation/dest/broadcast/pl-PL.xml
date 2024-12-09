@@ -80,7 +80,6 @@
   <string name="timezone">Strefa czasowa</string>
   <string name="fideRatingCategory">Kategoria rankingu FIDE</string>
   <string name="optionalDetails">Opcjonalne szczegóły</string>
-  <string name="upcomingBroadcasts">Nadchodzące transmisje</string>
   <string name="pastBroadcasts">Poprzednie transmisje</string>
   <string name="allBroadcastsByMonth">Zobacz wszystkie transmisje w danym miesiącu</string>
 </resources>

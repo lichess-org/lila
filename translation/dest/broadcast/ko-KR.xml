@@ -77,7 +77,6 @@
   <string name="timezone">시간대</string>
   <string name="fideRatingCategory">FIDE 레이팅 범주</string>
   <string name="optionalDetails">선택적 세부 정보</string>
-  <string name="upcomingBroadcasts">예정된 방송들</string>
   <string name="pastBroadcasts">과거 방송들</string>
   <string name="allBroadcastsByMonth">월별 방송들 모두 보기</string>
 </resources>

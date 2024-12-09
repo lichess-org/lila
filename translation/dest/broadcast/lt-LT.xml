@@ -80,7 +80,6 @@
   <string name="timezone">Laiko juosta</string>
   <string name="fideRatingCategory">FIDE reitingo kategorija</string>
   <string name="optionalDetails">Papildoma informacija</string>
-  <string name="upcomingBroadcasts">Būsimos transliacijos</string>
   <string name="pastBroadcasts">Ankstesnės transliacijos</string>
   <string name="allBroadcastsByMonth">Rodyti visas transliacijas pagal mėnesį</string>
 </resources>

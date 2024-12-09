@@ -655,7 +655,7 @@
   <string name="aboutSimulRules">Երբ սկսվում է միաժամանակյա խաղաշարը, յուրաքանչյուր խաղացող սկսում է պարտիան խաղաշարն անցկացնողի հետ, որը խաղում է սպիտակներով։ Խաղաշարն ավարտվում է, երբ խաղացվում են բոլոր պարտիաները։</string>
   <string name="aboutSimulSettings">Միաժամանակյա խաղաշարերը չեն ենթադրում վարկանիշային պարտիաներ։ Վերախաղարկումները, քայլերի չեղարկումները և ժամանակի հավելումները արգելված են։</string>
   <string name="create">Ստեղծել</string>
-  <string name="whenCreateSimul">Եթե ստեղծեք միաժամանակյա խաղաշար, ստիպված կլինեք խաղալու միաժամանակ մի քանի խաղացողի դեմ։</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Եթե ստեղծեք միաժամանակյա խաղաշար, ստիպված կլինեք խաղալու միաժամանակ մի քանի խաղացողի դեմ։</string>
   <string name="simulVariantsHint">Եթե ընտրեք խաղի մի քանի տարբերակ, յուրաքանչյուր խաղացող կընտրի դրանցից այն մեկը, որը կցանկանա խաղալ ձեզ հետ։</string>
   <string name="simulClockHint">Ֆիշերի ժամացույցի կարգավորումներ։ Որքան շատ մրցակից ունենաք, այնքան շատ ժամանակ ձեզ պետք կգա։</string>
   <string name="simulAddExtraTime">Պարտիաներում մտորելու համար դուք կարող եք ստանալ լրացուցիչ ժամանակ։</string>

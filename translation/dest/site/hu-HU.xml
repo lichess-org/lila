@@ -667,7 +667,7 @@
   <string name="aboutSimulRules">Minden játékos a szimultánt adó játékos ellen játszik, aki a világos bábukat vezeti. A szimultán akkor ér véget, amikor az összes játszma befejeződik.</string>
   <string name="aboutSimulSettings">A szimultán játékok mindig fixáltak. Visszavágó, visszalépés és több idő adás funkciók nem elérhetőek.</string>
   <string name="create">Létrehozás</string>
-  <string name="whenCreateSimul">Ha egy szimultánt hozol létre, több játékos ellen fogsz játszani.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Ha egy szimultánt hozol létre, több játékos ellen fogsz játszani.</string>
   <string name="simulVariantsHint">Ha több variánst hozol létre, minden játékos eldöntheti mihez csatlakozik.</string>
   <string name="simulClockHint">Fisher óra beállítás. Minél több játékossal játszol, annál több időre lesz szükség</string>
   <string name="simulAddExtraTime">Plusz időt adhatsz az órához, hogy a szimultán könnyebb legyen.</string>

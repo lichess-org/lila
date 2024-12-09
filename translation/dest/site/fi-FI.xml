@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">Kun simultaani alkaa, jokainen pelaaja aloittaa pelin simultaanin pitäjää vastaan. Simultaanin pitäjä pelaa valkeilla nappuloilla. Simultaani loppuu, kun kaikki pelit ovat loppuneet.</string>
   <string name="aboutSimulSettings">Simultaanit ovat aina rentoja. Revanssit, siirtojen perumiset ja ajan lisääminen ovat pois käytöstä.</string>
   <string name="create">Luo</string>
-  <string name="whenCreateSimul">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Jos luot simultaanin, sinun täytyy pelata useita pelaajia vastaan kerralla.</string>
   <string name="simulVariantsHint">Jos valitset useita variantteja, jokainen pelaaja valitsee mihin osallistuu.</string>
   <string name="simulClockHint">Fischer-kellon asetukset. Mitä enemmän pelaajia on, sitä enemmän aikaa saatat tarvita.</string>
   <string name="simulAddExtraTime">Voit lisätä aikaa kelloosi selviytyäksesi simultaanista.</string>

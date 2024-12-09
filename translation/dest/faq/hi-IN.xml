@@ -97,12 +97,12 @@
   <string name="usernamesNotOffensive">सामान्य तौर पर, उपयोगकर्ता नाम नहीं होना चाहिए: आक्रामक, किसी और को प्रतिरूपण करना, या विज्ञापन करना। आप%1$s के बारे में अधिक पढ़ सकते हैं।</string>
   <string name="guidelines">दिशा निर्देशों</string>
   <string name="canIChangeMyUsername">क्या मेरे द्वारा मेरा यूजरनेम बदला जा सकता है?</string>
-  <string name="usernamesCannotBeChanged">नहीं, तकनीकी और व्यावहारिक कारणों से उपयोगकर्ता नाम नहीं बदले जा सकते हैं। डेटाबेस, निर्यात, लॉग और लोगों के दिमाग: उपयोगकर्ता नामों को बहुत अधिक स्थानों पर भौतिकीकृत किया गया है। आप एक बार पूंजीकरण को समायोजित कर सकते हैं।</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">नहीं, तकनीकी और व्यावहारिक कारणों से उपयोगकर्ता नाम नहीं बदले जा सकते हैं। डेटाबेस, निर्यात, लॉग और लोगों के दिमाग: उपयोगकर्ता नामों को बहुत अधिक स्थानों पर भौतिकीकृत किया गया है। आप एक बार पूंजीकरण को समायोजित कर सकते हैं।</string>
   <string name="uniqueTrophies">अनोखी ट्राफियां</string>
   <string name="ownerUniqueTrophies">लिचेस के इतिहास में यह ट्रॉफी अद्वितीय है,%1$s के अलावा किसी के पास कभी नहीं होगा।</string>
   <string name="wayOfBerserkExplanation">इसे पाने के लिए, हीमगासु ने खुद को निडर होने के लिए चुनौती दी और 100%% का %sगेम जीत लिया।</string>
   <string name="aHourlyBulletTournament">प्रति घंटा बुलेट टूर्नामेंट</string>
-  <string name="goldenZeeExplanation">ZugAddict स्ट्रीमिंग थी और पिछले 2 घंटों से वह ए.आई. स्तर 1 एक 0 + खेल में, सफलता के बिना। थिबॉल्ट ने उसे बताया कि अगर उसने सफलतापूर्वक इसे स्ट्रीम पर किया, तो उसे एक अनूठी ट्रॉफी मिलेगी। एक घंटे बाद, उन्होंने स्टॉकफिश को धराशायी कर दिया, और वादा सम्मानित किया गया।</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict स्ट्रीमिंग थी और पिछले 2 घंटों से वह ए.आई. स्तर 1 एक 0 + खेल में, सफलता के बिना। थिबॉल्ट ने उसे बताया कि अगर उसने सफलतापूर्वक इसे स्ट्रीम पर किया, तो उसे एक अनूठी ट्रॉफी मिलेगी। एक घंटे बाद, उन्होंने स्टॉकफिश को धराशायी कर दिया, और वादा सम्मानित किया गया।</string>
   <string name="lichessRatings">लिच्छवियों की रेटिंग</string>
   <string name="whichRatingSystemUsedByLichess">Lichess किस रेटिंग प्रणाली का उपयोग करता है?</string>
   <string name="ratingSystemUsedByLichess">मार्क ग्लिकमैन द्वारा विकसित ग्लिको -2 रेटिंग पद्धति का उपयोग करके रेटिंग की गणना की जाती है। यह एक बहुत ही लोकप्रिय रेटिंग पद्धति है, और इसका उपयोग कई महत्वपूर्ण शतरंज संगठनों द्वारा किया जाता है (FIDE एक उल्लेखनीय काउंटर-उदाहरण है, क्योंकि वे अभी भी दिनांकित एलो रेटिंग प्रणाली का उपयोग करते हैं)।

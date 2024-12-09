@@ -76,7 +76,6 @@
   <string name="timezone">時區</string>
   <string name="fideRatingCategory">FIDE 評級類別</string>
   <string name="optionalDetails">其他細節</string>
-  <string name="upcomingBroadcasts">即將上線</string>
   <string name="pastBroadcasts">直播紀錄</string>
   <string name="allBroadcastsByMonth">以月份顯示所有直播</string>
 </resources>

@@ -80,7 +80,6 @@
   <string name="timezone">אזור זמן</string>
   <string name="fideRatingCategory">קטגוריית דירוג FIDE</string>
   <string name="optionalDetails">פרטים אופציונאליים</string>
-  <string name="upcomingBroadcasts">הקרנות קרובות</string>
   <string name="pastBroadcasts">הקרנות עבר</string>
   <string name="allBroadcastsByMonth">צפו בכל ההקרנות לפי חודש</string>
 </resources>
