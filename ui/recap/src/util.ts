@@ -10,7 +10,7 @@ export function showDuration(seconds: number): string {
   if (h > 0) {
     result.push(`${h} hour${h === 1 ? '' : 's'}`);
   }
-  if (m > 0 || (d === 0 && h === 0)) {
+  if (m > 0 || seconds < 60) {
     result.push(`${m} minute${m === 1 ? '' : 's'}`);
   }
 
