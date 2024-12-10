@@ -5,14 +5,18 @@ export function showDuration(seconds: number): string {
 
   let result: string[] = [];
   if (d > 0) {
-    result.push(`${d} day${d === 1 ? '' : 's'}`);
+    result.push(simplePlural(d, 'day'));
   }
   if (h > 0) {
-    result.push(`${h} hour${h === 1 ? '' : 's'}`);
+    result.push(simplePlural(h, 'hour'));
   }
   if (m > 0 || seconds < 60) {
-    result.push(`${m} minute${m === 1 ? '' : 's'}`);
+    result.push(simplePlural(m, 'minute'));
   }
 
   return result.slice(0, 2).join(' and ');
+}
+
+function simplePlural(n: number, unit: string): string {
+  return `${n} ${unit}${n === 1 ? '' : 's'}`;
 }
