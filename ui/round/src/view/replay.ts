@@ -52,7 +52,7 @@ const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Se
     : orEmpty && h(moveTag, '…');
 
 const goToPly = (ctrl: RoundController, ply: number) => {
-  ctrl.userJump(ply);
+  if (!isNaN(ply)) ctrl.userJump(ply);
   ctrl.redraw();
 };
 
@@ -204,6 +204,7 @@ function initMessage(ctrl: RoundController) {
 }
 
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
+  // todo: update the stuff for mobile (in vertical mode) here:
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: bind('mousedown', e => {
