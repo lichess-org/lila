@@ -67,4 +67,5 @@
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Enhed</string>
   <string name="bellNotificationSound">Notifikationslyd</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blindskak</string>
 </resources>
