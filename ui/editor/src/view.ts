@@ -247,7 +247,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 class: { button: true, 'button-empty': true, disabled: !state.playable },
                 on: {
                   click: () => {
-                    if (state.playable) domDialog({ cash: $('.continue-with'), show: 'modal' });
+                    if (state.playable) domDialog({ cash: $('.continue-with'), modal: true, show: true });
                   },
                 },
               },

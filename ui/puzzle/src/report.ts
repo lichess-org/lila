@@ -74,6 +74,7 @@ export default class Report {
 
     domDialog({
       focus: '.apply',
+      modal: true,
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         'Report multiple solutions' +
@@ -101,7 +102,7 @@ export default class Report {
         xhrReport(puzzleId, reason);
         dlg.close();
       });
-      dlg.showModal();
+      dlg.show();
     });
   };
 }

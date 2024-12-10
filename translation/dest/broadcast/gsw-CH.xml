@@ -78,7 +78,6 @@
   <string name="timezone">Zitzone</string>
   <string name="fideRatingCategory">FIDE-Wertigskategorie</string>
   <string name="optionalDetails">Optionali Details</string>
-  <string name="upcomingBroadcasts">Kommendi Überträgige</string>
   <string name="pastBroadcasts">G\'machti Überträgige</string>
   <string name="allBroadcastsByMonth">Zeig alli Überträgige im Monet</string>
 </resources>

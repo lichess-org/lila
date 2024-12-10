@@ -57,7 +57,7 @@
   <string name="uploadImage">Lisää turnauksen kuva</string>
   <string name="noBoardsYet">Pelilautoja ei vielä ole. Ne tulevat näkyviin sitä mukaa, kun pelit ladataan tänne.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Laudat voidaan ladata lähteen kautta tai %s kautta</string>
-  <string name="startsAfter" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;).&#10;&#10;The round name is set by the creator of the broadcast, and may be in a different language.">Alkaa %s:n jälkeen</string>
+  <string name="startsAfter">Alkaa %s:n jälkeen</string>
   <string name="startVerySoon">Lähetys alkaa aivan pian.</string>
   <string name="notYetStarted">Lähetys ei ole vielä alkanut.</string>
   <string name="officialWebsite">Virallinen verkkosivu</string>
@@ -67,7 +67,7 @@
   <string name="webmastersPage">webmasterin sivulta</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">Tämän kierroksen julkinen ja reaaliaikainen PGN-tiedosto. Nopeampaan ja tehokkaampaan synkronisointiin on tarjolla myös %s.</string>
   <string name="embedThisBroadcast">Upota tämä lähetys sivustoosi</string>
-  <string name="embedThisRound" comment="%s is the name of the round in the broadcasted tournament (e.g. &quot;Round 6&quot;). The round name is set by the creator of the broadcast and may be in a different language.">Upota %s sivustoosi</string>
+  <string name="embedThisRound">Upota %s sivustoosi</string>
   <string name="ratingDiff">Vahvuuslukujen erotus</string>
   <string name="gamesThisTournament">Pelit tässä turnauksessa</string>
   <string name="score">Pisteet</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Aikavyöhyke</string>
   <string name="fideRatingCategory">Kategoria (FIDE-vahvuuslukujen mukaan)</string>
   <string name="optionalDetails">Mahdolliset lisätiedot</string>
-  <string name="upcomingBroadcasts">Tulevat lähetykset</string>
   <string name="pastBroadcasts">Menneet lähetykset</string>
   <string name="allBroadcastsByMonth">Näytä kaikki lähetykset kuukausikohtaisesti</string>
 </resources>

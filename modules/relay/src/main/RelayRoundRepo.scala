@@ -69,6 +69,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       )
       .void
 
+  def currentCrowd(id: RelayRoundId): Fu[Option[Int]] =
+    coll.primitiveOne[Int]($id(id), "crowd")
+
   def nextRoundThatStartsAfterThisOneCompletes(round: RelayRound): Fu[Option[RelayRound]] = for
     next <- coll
       .find(

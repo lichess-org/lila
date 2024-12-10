@@ -27,7 +27,13 @@ export function view(r: Recap, user: LightUser): VNode {
       malware(),
       bye(),
     ]),
+    h('div.swiper-button-next'),
+    h('div.swiper-button-prev'),
     h('div.swiper-pagination'),
+    h('div.autoplay-progress', [
+      h('svg', { attrs: { viewBox: '0 0 48 48' } }, [h('circle', { attrs: { cx: 24, cy: 24, r: 20 } })]),
+      h('span'),
+    ]),
   ]);
 }
 
@@ -67,7 +73,7 @@ const nbMoves = (r: Recap): VNode => {
 };
 
 const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
-  const percent = Math.round((firstMove.count * 100) / r.games.nb.nb);
+  const percent = Math.round((firstMove.count * 100) / r.games.nbWhite);
   return h(slideTag('first'), [
     h('div.recap--massive', [h('strong', '1. ' + firstMove.value)]),
     h('div', [

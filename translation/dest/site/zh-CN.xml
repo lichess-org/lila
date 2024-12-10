@@ -640,7 +640,7 @@
   <string name="aboutSimulRules">当车轮战开始时， 每个棋手都与主持开始下棋， 而主持用白方。当所有的对局都结束时，车轮战就结束了。</string>
   <string name="aboutSimulSettings">车轮战都是休闲对局。重赛、悔棋和加时功能被禁用。</string>
   <string name="create">创建</string>
-  <string name="whenCreateSimul">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">当你创建一个车轮战时，你要一次同时跟几个棋手一起下棋。</string>
   <string name="simulVariantsHint">如果你选择几种变体，每个棋手都能选择其中之一。</string>
   <string name="simulClockHint">菲舍尔时钟设置。挑战者越多，你所需时间就可能相应越多。</string>
   <string name="simulAddExtraTime">你可以为自己附加时间应对车轮战。</string>

@@ -28,10 +28,11 @@ export const onClick = (a: HTMLLinkElement): boolean => {
           ${i18n.site.proceedToX(url.host)}
         </a>
       </div>`,
+    modal: true,
   }).then(dlg => {
     $('.cancel', dlg.view).on('click', dlg.close);
     $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
-    dlg.showModal();
+    dlg.show();
   });
   return false;
 };

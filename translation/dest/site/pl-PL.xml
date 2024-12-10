@@ -752,7 +752,7 @@
   <string name="aboutSimulRules">Gdy symultana się rozpocznie, każdy gracz rozgrywa partię przeciwko symultaniście. Symultanista gra zawsze białymi. Symultana kończy się po zakończeniu wszystkich partii.</string>
   <string name="aboutSimulSettings">Symultany są zawsze grami towarzyskimi. Rewanż, cofanie ruchów i dodawanie czasu nie są dostępne.</string>
   <string name="create">Utwórz</string>
-  <string name="whenCreateSimul">W symultanie będziesz grał równocześnie z kilkoma przeciwnikami.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">W symultanie będziesz grał równocześnie z kilkoma przeciwnikami.</string>
   <string name="simulVariantsHint">Gdy zaznaczysz kilka wariantów gry, każdy przeciwnik będzie mógł wybrać, który wariant chce grać.</string>
   <string name="simulClockHint">Ustawienia zegara Fischera. W przypadku większej liczby graczy możesz potrzebować więcej czasu.</string>
   <string name="simulAddExtraTime">Aby ułatwić sobie rozegranie symultany możesz ustawić dodatkowy czas dla siebie.</string>

@@ -42,6 +42,7 @@ export interface Recap {
     moves: number;
     openings: ByColor<Counted<Opening>>;
     nb: NbStreak;
+    nbWhite: number;
     opponents: Counted<LightUser>[];
     timePlaying: number;
     sources: {

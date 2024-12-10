@@ -97,13 +97,13 @@ final class RelayUi(helpers: Helpers)(
     def url(id: ImageId, size: RelayTour.thumbnail.SizeSelector) =
       RelayTour.thumbnail(picfitUrl, id, size)
 
-  def spotlight(trs: List[RelayTour.ActiveWithSomeRounds])(using ctx: Context): List[Tag] =
+  def spotlight(trs: List[RelayCard])(using ctx: Context): List[Tag] =
     trs
       .filter:
         _.tour.spotlight.map(_.language).exists(ctx.acceptLanguages)
       .map(spotlight)
 
-  def spotlight(tr: RelayTour.ActiveWithSomeRounds)(using Translate): Tag =
+  def spotlight(tr: RelayCard)(using Translate): Tag =
     a(
       href := tr.path,
       cls  := s"tour-spotlight event-spotlight relay-spotlight id_${tr.tour.id}"
