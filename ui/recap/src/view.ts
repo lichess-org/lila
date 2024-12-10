@@ -5,6 +5,7 @@ import { onInsert } from 'common/snabbdom';
 import { loadOpeningLpv } from './ui';
 import { fullName } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
+import { showDuration } from './util';
 
 export function awaiter(user: LightUser): VNode {
   return h('div#recap-swiper.swiper.swiper-initialized', [
@@ -142,26 +143,3 @@ const animateNumber = (n: number) => h('span.animated-number', { attrs: { 'data-
 
 const showGrams = (g: number) =>
   g > 20_000 ? h('span', [animateNumber(g / 1000), ' Kilograms']) : h('span', [animateNumber(g), ' grams']);
-
-function showDuration(seconds: number): string {
-  const days = Math.floor(seconds / (24 * 3600));
-  seconds %= 24 * 3600;
-  const hours = Math.floor(seconds / 3600);
-  seconds %= 3600;
-  const minutes = Math.floor(seconds / 60);
-
-  let result = '';
-  if (days > 0) {
-    result += `${days} days`;
-  }
-  if (hours > 0) {
-    if (result) result += ' and ';
-    result += `${hours} hours`;
-  }
-  if (days == 0) {
-    if (result) result += ' and ';
-    result += `and ${minutes} minutes`;
-  }
-
-  return result;
-}
