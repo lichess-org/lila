@@ -9,9 +9,12 @@ import { charToRole, parseUci, roleToChar } from 'chessops/util';
 import { destsToUcis, plyToTurn, sanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
-export type MoveStyle = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
-export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
-export type PrefixStyle = 'letter' | 'name' | 'none';
+const moveStyles = ['uci', 'san', 'literate', 'nato', 'anna'] as const;
+export type MoveStyle = (typeof moveStyles)[number];
+const pieceStyles = ['letter', 'white uppercase letter', 'name', 'white uppercase name'] as const;
+export type PieceStyle = (typeof pieceStyles)[number];
+const prefixStyles = ['letter', 'name', 'none'] as const;
+export type PrefixStyle = (typeof prefixStyles)[number];
 export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
 
@@ -68,13 +71,7 @@ export function boardSetting(): Setting<BoardStyle> {
 
 export function styleSetting(): Setting<MoveStyle> {
   return makeSetting<MoveStyle>({
-    choices: [
-      ['san', 'SAN: Nxf3'],
-      ['uci', 'UCI: g1f3'],
-      ['literate', 'Literate: knight takes f 3'],
-      ['anna', 'Anna: knight takes felix 3'],
-      ['nato', 'Nato: knight takes foxtrot 3'],
-    ],
+    choices: moveStyles.map(s => [s, `${s}: ${renderSan('Nxf3', undefined, s)}`]),
     default: 'anna', // all the rage in OTB blind chess tournaments
     storage: storage.make('nvui.moveNotation'),
   });
@@ -82,12 +79,7 @@ export function styleSetting(): Setting<MoveStyle> {
 
 export function pieceSetting(): Setting<PieceStyle> {
   return makeSetting<PieceStyle>({
-    choices: [
-      ['letter', 'Letter: p, p'],
-      ['white uppercase letter', 'White uppercase letter: P, p'],
-      ['name', 'Name: pawn, pawn'],
-      ['white uppercase name', 'White uppercase name: Pawn, pawn'],
-    ],
+    choices: pieceStyles.map(p => [p, `${p}: ${renderPieceStyle('P', p)}`]),
     default: 'letter',
     storage: storage.make('nvui.pieceStyle'),
   });
@@ -95,11 +87,7 @@ export function pieceSetting(): Setting<PieceStyle> {
 
 export function prefixSetting(): Setting<PrefixStyle> {
   return makeSetting<PrefixStyle>({
-    choices: [
-      ['letter', 'Letter: w/b'],
-      ['name', 'Name: white/black'],
-      ['none', 'None'],
-    ],
+    choices: prefixStyles.map(p => [p, `${p}: ${renderPrefixStyle('white', p)}`]),
     default: 'letter',
     storage: storage.make('nvui.prefixStyle'),
   });
@@ -123,8 +111,8 @@ const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) =>
     : pieceStyle === 'white uppercase letter'
       ? piece
       : pieceStyle === 'name'
-        ? charToRole(piece)
-        : `${piece}${charToRole(piece)?.slice(1)}`;
+        ? charToRole(piece)!
+        : `${piece.replace('N', 'K').replace('n', 'k')}${charToRole(piece)!.slice(1)}`;
 
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle): `${Color} ` | 'w' | 'b' | '' =>
   prefixStyle === 'letter' ? (color[0] as 'w' | 'b') : prefixStyle === 'name' ? `${color} ` : '';
