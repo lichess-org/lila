@@ -62,4 +62,5 @@
   <string name="notifyWeb">Shfletues</string>
   <string name="notifyDevice">Pajisje</string>
   <string name="bellNotificationSound">Tingull zileje njoftimesh</string>
+  <string name="blindfold" comment="As in Blindfold chess">Me sytë lidhur</string>
 </resources>
