@@ -10,7 +10,7 @@ import { charToRole, parseUci, roleToChar } from 'chessops/util';
 import { destsToUcis, plyToTurn, sanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
-export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
+export type MoveStyle = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
 export type PieceStyle = 'letter' | 'white uppercase letter' | 'name' | 'white uppercase name';
 export type PrefixStyle = 'letter' | 'name' | 'none';
 export type PositionStyle = 'before' | 'after' | 'none';
@@ -67,8 +67,9 @@ export function boardSetting(): Setting<BoardStyle> {
   });
 }
 
-export function styleSetting(): Setting<Style> {
-  return makeSetting<Style>({
+
+export function styleSetting(): Setting<MoveStyle> {
+  return makeSetting<MoveStyle>({
     choices: [
       ['san', 'SAN: Nxf3'],
       ['uci', 'UCI: g1f3'],
@@ -155,7 +156,7 @@ export function lastCaptured(
   return 'none';
 }
 
-export function renderSan(san: San, uci: Uci | undefined, style: Style): string {
+export function renderSan(san: San, uci: Uci | undefined, style: MoveStyle): string {
   if (!san) return '';
   let move: string;
   if (san.includes('O-O-O')) move = 'long castling';
@@ -183,7 +184,7 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style): string 
   return move;
 }
 
-export function renderPieces(pieces: Pieces, style: Style): VNode {
+export function renderPieces(pieces: Pieces, style: MoveStyle): VNode {
   return h(
     'div',
     ['white', 'black'].map(color => {
@@ -211,7 +212,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
   );
 }
 
-export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
+export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
   const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${charToRole(p)}`;
   const res: Key[] = [];
   for (const [k, piece] of pieces) {
@@ -220,7 +221,7 @@ export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string
   return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
 }
 
-export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: Style): string {
+export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
   const res: string[] = [];
   for (const k of allKeys) {
     if (k.includes(rankOrFile)) {
@@ -302,10 +303,10 @@ export function renderBoard(
   return h(boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper', ranks);
 }
 
-export const renderFile = (f: Files, style: Style): string =>
+export const renderFile = (f: Files, style: MoveStyle): string =>
   style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
 
-export const renderKey = (key: string, style: Style): string =>
+export const renderKey = (key: string, style: MoveStyle): string =>
   style === 'nato' || style === 'anna'
     ? `${renderFile(key[0] as Files, style)} ${key[1]}`
     : `${key[0]}${key[1]}`;
@@ -584,7 +585,7 @@ export function inputToLegalUci(input: string, fen: string, chessground: CgApi):
   else return;
 }
 
-export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: Style): VNodeChildren {
+export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style: MoveStyle): VNodeChildren {
   const res: VNodeChildren = [];
   let path: Tree.Path = '';
   nodes.forEach(node => {
@@ -602,10 +603,10 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
   return res;
 }
 
-export const renderComments = (node: Tree.Node, style: Style): string =>
+export const renderComments = (node: Tree.Node, style: MoveStyle): string =>
   node.comments?.map(c => augmentLichessComment(c, style)).join('. ') ?? '';
 
-const augmentLichessComment = (comment: Tree.Comment, style: Style): string =>
+const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string =>
   comment.by === 'lichess'
     ? comment.text.replace(
         /Best move was (.+)\./,

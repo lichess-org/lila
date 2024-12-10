@@ -19,8 +19,8 @@ import {
   renderPieces,
   renderSan,
   selectionHandler,
-  Style,
   styleSetting,
+  type MoveStyle,
 } from 'nvui/chess';
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
@@ -233,7 +233,7 @@ function hasUci(step: Tree.Node): step is StepWithUci {
   return step.uci !== undefined;
 }
 
-function lastMove(ctrl: PuzzleCtrl, style: Style): string {
+function lastMove(ctrl: PuzzleCtrl, style: MoveStyle): string {
   const node = ctrl.node;
   if (node.ply === 0) return 'Initial position';
   // make sure consecutive moves are different so that they get re-read
@@ -243,7 +243,7 @@ function lastMove(ctrl: PuzzleCtrl, style: Style): string {
 function onSubmit(
   ctrl: PuzzleCtrl,
   notify: (txt: string) => void,
-  style: () => Style,
+  style: () => MoveStyle,
   $input: Cash,
   ground: CgApi,
 ): () => false {
@@ -289,7 +289,7 @@ function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
-function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: Style): void {
+function onCommand(ctrl: PuzzleCtrl, notify: (txt: string) => void, c: string, style: MoveStyle): void {
   const lowered = c.toLowerCase();
   const pieces = ctrl.ground().state.pieces;
   if (lowered === 'l' || lowered === 'last') notify($('.lastMove').text());

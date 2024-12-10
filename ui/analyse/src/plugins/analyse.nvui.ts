@@ -7,7 +7,7 @@ import type { AnalyseData } from '../interfaces';
 import type { Player } from 'game';
 import viewStatus from 'game/view/status';
 import {
-  type Style,
+  type MoveStyle,
   renderSan,
   renderPieces,
   renderBoard,
@@ -303,7 +303,7 @@ function depthInfo(clientEv: Tree.ClientEval | undefined, isCloud: boolean): str
   return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';
 }
 
-function renderBestMove(ctrl: AnalyseController, style: Style): string {
+function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
   const instance = ctrl.getCeval();
   if (!instance.allowed()) return NOT_ALLOWED;
   if (!instance.possible) return NOT_POSSIBLE;
@@ -352,7 +352,7 @@ function renderResult(ctrl: AnalyseController): VNode[] {
   return [];
 }
 
-function renderCurrentLine(ctrl: AnalyseController, style: Style): VNodeChildren {
+function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChildren {
   if (ctrl.path.length === 0) {
     return renderMainline(ctrl.mainline, ctrl.path, style);
   } else {
@@ -361,7 +361,7 @@ function renderCurrentLine(ctrl: AnalyseController, style: Style): VNodeChildren
   }
 }
 
-function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
+function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => MoveStyle, $input: Cash) {
   return function () {
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
@@ -383,7 +383,7 @@ function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
-function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
+function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
   if (lowered === 'next') {
     next(ctrl);
@@ -411,7 +411,7 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
 
 const analysisGlyphs = ['?!', '?', '??'];
 
-function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
+function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
   const anal = ctrl.data.analysis;
   if (!anal) return undefined;
   const analysisNodes = ctrl.mainline.filter(n =>
@@ -486,7 +486,7 @@ function renderLineIndex(ctrl: AnalyseController): string {
   return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
 }
 
-function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
+function renderCurrentNode(ctrl: AnalyseController, style: MoveStyle): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
   return [

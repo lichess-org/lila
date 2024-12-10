@@ -9,7 +9,7 @@ import { plyStep } from '../util';
 import type { Step, Position, NvuiPlugin } from '../interfaces';
 import { type Player, playable } from 'game';
 import {
-  type Style,
+  type MoveStyle,
   renderSan,
   renderPieces,
   renderBoard,
@@ -264,7 +264,7 @@ export function initModule(): NvuiPlugin {
 function createSubmitHandler(
   ctrl: RoundController,
   notify: (txt: string) => void,
-  style: () => Style,
+  style: () => MoveStyle,
   $input: Cash,
 ) {
   return (submitStoredPremove = false) => {
@@ -321,7 +321,7 @@ function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0].toLowerCase());
 }
 
-function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
+function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
   if (lowered === 'c' || lowered === 'clock')
     notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
@@ -351,7 +351,7 @@ function anyClock(ctrl: RoundController, position: Position) {
   );
 }
 
-function renderMoves(steps: Step[], style: Style) {
+function renderMoves(steps: Step[], style: MoveStyle) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
     let str = '';
