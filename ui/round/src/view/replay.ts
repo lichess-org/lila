@@ -11,6 +11,7 @@ import type { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
+import { showMovesDecreasingDelay } from 'common';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -148,13 +149,7 @@ function renderButtons(ctrl: RoundController) {
   };
 
   const handleMouseDown = (e: MouseEvent) => {
-    function* delayGen() {
-      yield 500;
-      let d = 350;
-      while (true) yield Math.max(100, (d *= 14 / 15));
-    } // todo - put this generator in a common file that this code here and
-    // components.ts can use?
-    const delay = delayGen();
+    const delay = showMovesDecreasingDelay();
     const repeat = () => {
       goToPly(ctrl, targetPly(e));
       timeoutId = setTimeout(repeat, delay.next().value!);

@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
-import { defined } from 'common';
+import { defined, showMovesDecreasingDelay } from 'common';
 import * as licon from 'common/licon';
 import {
   type VNode,
@@ -433,14 +433,13 @@ const dataAct = (e: Event): string | null => {
 };
 
 function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
+  const delay = showMovesDecreasingDelay();
   const repeat = () => {
     control[action](ctrl);
     ctrl.redraw();
-    delay = Math.max(100, delay - delay / 15);
-    timeout = setTimeout(repeat, delay);
+    timeout = setTimeout(repeat, delay.next().value!);
   };
-  let delay = 350;
-  let timeout = setTimeout(repeat, 500);
+  let timeout = setTimeout(repeat, delay.next().value!);
   control[action](ctrl);
   const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });

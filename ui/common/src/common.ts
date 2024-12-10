@@ -129,3 +129,8 @@ export function $as<T>(cashOrHtml: Cash | string): T {
 export function myUserId(): string | undefined {
   return document.body.dataset.user;
 }
+
+export function* showMovesDecreasingDelay(): Generator<number, void, void> {
+  yield 500;
+  for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
+}
