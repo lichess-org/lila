@@ -12,10 +12,14 @@ body {
       color: #fff;
     }
   }
-  #topnav,
   #clinput,
   #friend_box {
     display: none;
+  }
+  @media (min-width: at-least($medium)) {
+    #topnav {
+      display: none;
+    }
   }
 }
 .recap {
