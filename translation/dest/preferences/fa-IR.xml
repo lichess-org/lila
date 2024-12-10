@@ -67,4 +67,5 @@
   <string name="notifyWeb">مرورگر</string>
   <string name="notifyDevice">اَفزاره</string>
   <string name="bellNotificationSound">صدای اعلان زنگی</string>
+  <string name="blindfold" comment="As in Blindfold chess">چشم‌بسته</string>
 </resources>
