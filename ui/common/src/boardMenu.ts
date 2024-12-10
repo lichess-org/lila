@@ -44,7 +44,7 @@ export class BoardMenu {
 
   zenMode = (enabled = true): VNode =>
     this.cmnToggle({
-      name: 'Zen mode',
+      name: i18n.preferences.zenMode,
       id: 'zen',
       checked: $('body').hasClass('zen'),
       change: () => pubsub.emit('zen'),
@@ -53,7 +53,7 @@ export class BoardMenu {
 
   voiceInput = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
-      name: 'Voice input',
+      name: i18n.preferences.inputMovesWithVoice,
       id: 'voice',
       checked: toggle(),
       change: toggle,
@@ -63,7 +63,7 @@ export class BoardMenu {
 
   keyboardInput = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
-      name: 'Keyboard input',
+      name: i18n.preferences.inputMovesWithTheKeyboard,
       id: 'keyboard',
       checked: toggle(),
       change: toggle,
@@ -73,7 +73,7 @@ export class BoardMenu {
 
   blindfold = (toggle: Toggle, enabled = true): VNode =>
     this.cmnToggle({
-      name: 'Blindfold',
+      name: i18n.preferences.blindfold,
       id: 'blindfold',
       checked: toggle(),
       change: toggle,
