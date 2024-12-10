@@ -67,4 +67,5 @@
   <string name="notifyWeb">Przeglądarka</string>
   <string name="notifyDevice">Urządzenie</string>
   <string name="bellNotificationSound">Dźwięk powiadomień</string>
+  <string name="blindfold" comment="As in Blindfold chess">Gra na ślepo</string>
 </resources>
