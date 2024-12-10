@@ -1,4 +1,4 @@
-import { h, type VNode } from 'snabbdom';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { defined, prop, type Prop } from 'common';
 import { text as xhrText } from 'common/xhr';
 import type AnalyseController from '../ctrl';
@@ -352,7 +352,7 @@ function renderResult(ctrl: AnalyseController): VNode[] {
   return [];
 }
 
-function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNode)[] {
+function renderCurrentLine(ctrl: AnalyseController, style: Style): VNodeChildren {
   if (ctrl.path.length === 0) {
     return renderMainline(ctrl.mainline, ctrl.path, style);
   } else {
