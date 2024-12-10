@@ -53,8 +53,8 @@ const skipToFile: { [letter: string]: Files } = {
 
 const symbolToFile = (char: string): string => skipToFile[char] ?? '';
 
-export const supportedVariant = (key: string): boolean =>
-  ['standard', 'chess960', 'kingOfTheHill', 'threeCheck', 'fromPosition', 'atomic', 'horde'].includes(key);
+export const supportedVariant = (key: VariantKey): boolean =>
+  !['antichess', 'racingKings', 'crazyhouse'].includes(key);
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
