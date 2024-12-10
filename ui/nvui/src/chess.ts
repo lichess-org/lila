@@ -1,10 +1,9 @@
 import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { type Pieces, files } from 'chessground/types';
-import { invRanks, allKeys } from 'chessground/util';
 import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests, lichessRules } from 'chessops/compat';
-import { ROLES, type SquareName } from 'chessops/types';
+import { COLORS, RANK_NAMES, ROLES, type SquareName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, parseUci, roleToChar } from 'chessops/util';
 import { destsToUcis, plyToTurn, sanToUci, sanWriter } from 'chess';
@@ -66,7 +65,6 @@ export function boardSetting(): Setting<BoardStyle> {
     storage: storage.make('nvui.boardLayout'),
   });
 }
-
 
 export function styleSetting(): Setting<MoveStyle> {
   return makeSetting<MoveStyle>({
@@ -139,9 +137,7 @@ export function lastCaptured(
   const fens = fensteps();
   const oldFen = fens[fens.length - 2];
   const newFen = fens[fens.length - 1];
-  if (!oldFen || !newFen) {
-    return 'none';
-  }
+  if (!oldFen || !newFen) return 'none';
   const oldSplitFen = oldFen.split(' ')[0];
   const newSplitFen = newFen.split(' ')[0];
   for (const p of 'kKqQrRbBnNpP') {
@@ -184,52 +180,50 @@ export function renderSan(san: San, uci: Uci | undefined, style: MoveStyle): str
   return move;
 }
 
-export function renderPieces(pieces: Pieces, style: MoveStyle): VNode {
-  return h(
+export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
+  h(
     'div',
-    ['white', 'black'].map(color => {
-      const lists: string[][] = [];
-      ROLES.forEach(role => {
-        const keys = [];
-        for (const [key, piece] of pieces) {
-          if (piece.color === color && piece.role === role) keys.push(key);
-        }
-        if (keys.length) lists.push([`${role}${keys.length > 1 ? 's' : ''}`, ...keys]);
-      });
-      return h('div', [
+    COLORS.map(color =>
+      h('div', [
         h('h3', `${color} pieces`),
-        lists
+        ROLES.reduce<{ role: Role; keys: Key[] }[]>(
+          (lists, role) =>
+            lists.concat({
+              role,
+              keys: keysWithPiece(pieces, role, color),
+            }),
+          [],
+        )
+          .filter(l => l.keys.length)
           .map(
             l =>
-              `${l[0]}: ${l
-                .slice(1)
-                .map((k: string) => renderKey(k, style))
-                .join(', ')}`,
+              `${l.role}${l.keys.length > 1 ? 's' : ''}: ${l.keys.map(k => renderKey(k, style)).join(', ')}`,
           )
           .join(', '),
-      ]);
-    }),
+      ]),
+    ),
   );
-}
+
+const keysWithPiece = (pieces: Pieces, role?: Role, color?: Color): Key[] =>
+  Array.from(pieces).reduce<Key[]>(
+    (keys, [key, p]) => (p.color === color && p.role === role ? keys.concat(key) : keys),
+    [],
+  );
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: MoveStyle): string {
-  const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${charToRole(p)}`;
-  const res: Key[] = [];
-  for (const [k, piece] of pieces) {
-    if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
-  }
-  return `${name}: ${res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'}`;
+  const color: Color = p === p.toUpperCase() ? 'white' : 'black';
+  const role = charToRole(p)!;
+  const keys = keysWithPiece(pieces, role, color);
+  return `${color} ${role}: ${keys.length ? keys.map(k => renderKey(k, style)).join(', ') : 'none'}`;
 }
 
 export function renderPiecesOn(pieces: Pieces, rankOrFile: string, style: MoveStyle): string {
-  const res: string[] = [];
-  for (const k of allKeys) {
-    if (k.includes(rankOrFile)) {
-      const piece = pieces.get(k);
-      if (piece) res.push(`${renderKey(k, style)} ${piece.color} ${piece.role}`);
-    }
-  }
-  return res.length ? res.join(', ') : 'blank';
+  const renderedKeysWithPiece = Array.from(pieces).reduce<string[]>(
+    (acc, [key, p]) =>
+      key.includes(rankOrFile) ? acc.concat(`${renderKey(key, style)} ${p.color} ${p.role}`) : acc,
+    [],
+  );
+  return renderedKeysWithPiece.length ? renderedKeysWithPiece.join(', ') : 'blank';
 }
 
 export function renderBoard(
@@ -297,7 +291,7 @@ export function renderBoard(
 
   const ranks: VNode[] = [];
   if (boardStyle === 'table') ranks.push(doFileHeaders());
-  ranks.push(...invRanks.map(rank => doRank(pov, rank)));
+  ranks.push(...RANK_NAMES.map(rank => doRank(pov, rank)));
   if (boardStyle === 'table') ranks.push(doFileHeaders());
   if (pov === 'black') ranks.reverse();
   return h(boardStyle === 'table' ? 'table.board-wrapper' : 'div.board-wrapper', ranks);
@@ -306,10 +300,8 @@ export function renderBoard(
 export const renderFile = (f: Files, style: MoveStyle): string =>
   style === 'nato' ? nato[f] : style === 'anna' ? anna[f] : f;
 
-export const renderKey = (key: string, style: MoveStyle): string =>
-  style === 'nato' || style === 'anna'
-    ? `${renderFile(key[0] as Files, style)} ${key[1]}`
-    : `${key[0]}${key[1]}`;
+export const renderKey = (key: Key, style: MoveStyle): string =>
+  style === 'nato' || style === 'anna' ? `${renderFile(key[0] as Files, style)} ${key[1]}` : key;
 
 export function castlingFlavours(input: string): string {
   switch (input.toLowerCase().replace(/[-\s]+/g, '')) {
