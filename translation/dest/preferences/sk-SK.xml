@@ -67,4 +67,5 @@
   <string name="notifyWeb">Prehliadač</string>
   <string name="notifyDevice">Zariadenie</string>
   <string name="bellNotificationSound">Zvuk upozornenia</string>
+  <string name="blindfold" comment="As in Blindfold chess">Naslepo</string>
 </resources>
