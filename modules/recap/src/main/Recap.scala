@@ -21,6 +21,7 @@ case class Recap(
 
 case class RecapGames(
     nb: NbAndStreak,
+    nbWhite: Int,
     moves: Int,
     openings: Recap.Openings,
     firstMoves: List[Counted[SanStr]],

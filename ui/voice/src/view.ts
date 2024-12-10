@@ -150,7 +150,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     }
     html += '</tbody></table>';
     dlg.view.innerHTML = html;
-    if (!dlg.open) dlg.showModal();
+    if (!dlg.open) dlg.show();
   };
 
   return snabDialog({
@@ -158,6 +158,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
     htmlUrl: `/help/voice/${ctrl.moduleId}`,
     css: [{ hashed: 'voice.move.help' }],
     onClose: () => ctrl.showHelp(false),
+    modal: true,
     onInsert: async dlg => {
       if (ctrl.showHelp() === 'list') {
         showMoveList(dlg);
@@ -181,7 +182,7 @@ function renderHelpModal(ctrl: VoiceCtrl) {
           .join(' ');
       });
       $('.all-phrases-button', dlg.view).on('click', () => showMoveList(dlg));
-      dlg.showModal();
+      dlg.show();
     },
   });
 }

@@ -7,7 +7,7 @@ import scalalib.paginator.Paginator
 import lila.common.Json.{ *, given }
 import lila.core.config.BaseUrl
 import lila.memo.PicfitUrl
-import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound, WithRounds }
+import lila.relay.RelayTour.{ WithLastRound, WithRounds }
 import lila.study.ChapterPreview
 import lila.core.fide.FideTC
 
@@ -65,7 +65,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
       .add("group" -> group)
       .add("defaultRoundId" -> RelayListing.defaultRoundToLink(trs).map(_.id))
 
-  def tourWithAnyRound(t: RelayTour | WithLastRound | ActiveWithSomeRounds)(using Config): JsObject = t match
+  def tourWithAnyRound(t: RelayTour | WithLastRound | RelayCard)(using Config): JsObject = t match
     case tour: RelayTour => Json.obj("tour" -> fullTour(tour))
     case tr: WithLastRound =>
       Json
@@ -74,7 +74,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
           "round" -> withUrl(tr.round.withTour(tr.tour), withTour = false)
         )
         .add("group" -> tr.group)
-    case tr: ActiveWithSomeRounds =>
+    case tr: RelayCard =>
       Json
         .obj(
           "tour"  -> fullTour(tr.tour),
@@ -136,7 +136,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
     )
 
   def top(
-      active: List[ActiveWithSomeRounds],
+      active: List[RelayCard],
       past: Paginator[WithLastRound]
   )(using Config) =
     Json.obj(

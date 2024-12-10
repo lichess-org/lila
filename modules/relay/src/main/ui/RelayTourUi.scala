@@ -16,7 +16,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def asRelayPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound] = p.mapResults(identity)
 
   def index(
-      active: List[RelayTour.ActiveWithSomeRounds],
+      active: List[RelayCard],
       past: Seq[WithLastRound]
   )(using Context) =
     def nonEmptyTier(selector: RelayTour.Tier.Selector) =
@@ -50,7 +50,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           )
         )
 
-  private def adminIndex(active: List[RelayTour.ActiveWithSomeRounds])(using Context) =
+  private def adminIndex(active: List[RelayCard])(using Context) =
     val errored = active.flatMap(a => a.errors.some.filter(_.nonEmpty).map(a -> _))
     errored.nonEmpty.option:
       div(cls := "relay-index__admin")(

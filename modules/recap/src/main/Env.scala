@@ -15,7 +15,7 @@ final class Env(
     cacheApi: CacheApi,
     lightUserApi: lila.core.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder
-)(using Executor, Scheduler, akka.stream.Materializer):
+)(using Executor, Scheduler, akka.stream.Materializer, play.api.Mode):
 
   lazy val parallelismSetting = settingStore[Int](
     "recapParallelism",

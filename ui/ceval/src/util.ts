@@ -39,6 +39,7 @@ export const sharedWasmMemory = (lo: number, hi = 32767): WebAssembly.Memory => 
 export function showEngineError(engine: string, error: string): void {
   domDialog({
     class: 'engine-error',
+    modal: true,
     htmlText:
       `<h2>${escapeHtml(engine)} <bad>error</bad></h2>` +
       (error.includes('Status 503')
@@ -57,6 +58,6 @@ export function showEngineError(engine: string, error: string): void {
         window.getSelection()?.addRange(range);
       }, 0);
     dlg.view.querySelector('.err')?.addEventListener('focus', select);
-    dlg.showModal();
+    dlg.show();
   });
 }

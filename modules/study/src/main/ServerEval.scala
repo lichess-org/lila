@@ -5,6 +5,7 @@ import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import play.api.libs.json.*
 
 import lila.core.perm.Granter
+import lila.core.study.GetRelayCrowd
 import lila.db.dsl.bsonWriteOpt
 import lila.tree.Node.Comment
 import lila.tree.{ Advice, Analysis, Branch, Info, Node, Root }
@@ -54,7 +55,7 @@ object ServerEval:
       chapterRepo: ChapterRepo,
       divider: lila.core.game.Divider,
       analysisJson: lila.tree.AnalysisJson
-  )(using Executor):
+  )(using Executor, Scheduler):
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.id match
       case Analysis.Id.Study(studyId, chapterId) =>
@@ -67,7 +68,7 @@ object ServerEval:
                 .foldM(UciPath.root):
                   case (path, (node, (info, advOpt))) =>
                     saveAnalysis(chapter, node, path, info, advOpt)
-                .andDo(sendProgress(studyId, chapterId, analysis))
+                .andDo(sendProgress(studyId, chapterId, analysis, complete))
                 .logFailure(logger)
             yield ()
       case _ => funit
@@ -155,12 +156,13 @@ object ServerEval:
     private def sendProgress(
         studyId: StudyId,
         chapterId: StudyChapterId,
-        analysis: Analysis
-    ) =
+        analysis: Analysis,
+        complete: Boolean
+    ): Funit =
       chapterRepo
         .byId(chapterId)
-        .foreach:
-          _.so: chapter =>
+        .flatMapz: chapter =>
+          reallySendToChapter(studyId, chapter, complete).mapz:
             socket.onServerEval(
               studyId,
               ServerEval.Progress(
@@ -170,6 +172,14 @@ object ServerEval:
                 division = divisionOf(chapter)
               )
             )
+
+    private def reallySendToChapter(studyId: StudyId, chapter: Chapter, complete: Boolean): Fu[Boolean] =
+      if complete || chapter.relay.isEmpty
+      then fuTrue
+      else
+        lila.common.Bus
+          .ask[Int]("getRelayCrowd") { GetRelayCrowd(studyId, _) }
+          .map(_ < 5000)
 
     def divisionOf(chapter: Chapter) =
       divider(

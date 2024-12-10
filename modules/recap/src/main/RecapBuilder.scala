@@ -44,6 +44,7 @@ private final class RecapBuilder(
         .cursor[PuzzleRound]()
         .documentSource()
         .runFold(PuzzleScan())(_.addRound(_))
+        .monSuccess(_.recap.puzzles)
 
   private case class PuzzleScan(
       nb: Int = 0,
@@ -67,6 +68,7 @@ private final class RecapBuilder(
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
       nb = NbAndStreak(scan.nb, Days(scan.streak.max)),
+      nbWhite = scan.nbWhite,
       moves = scan.nbMoves,
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
@@ -93,9 +95,11 @@ private final class RecapBuilder(
       .sortedCursor(query, Query.sortChronological)
       .documentSource()
       .runFold(GameScan())(_.addGame(userId)(_))
+      .monSuccess(_.recap.games)
 
   private case class GameScan(
       nb: Int = 0,
+      nbWhite: Int = 0,
       nbMoves: Int = 0,
       secondsPlaying: Int = 0,
       results: Results = Results(),
@@ -116,6 +120,7 @@ private final class RecapBuilder(
           val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
           copy(
             nb = nb + 1,
+            nbWhite = nbWhite + player.color.fold(1, 0),
             nbMoves = nbMoves + g.playerMoves(player.color),
             secondsPlaying = secondsPlaying + durationSeconds,
             results = results.copy(
