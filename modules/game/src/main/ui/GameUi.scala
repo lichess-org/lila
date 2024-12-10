@@ -20,13 +20,19 @@ final class GameUi(helpers: Helpers):
     private val dataTimeControl = attr("data-tc")
     val cgWrap                  = span(cls := "cg-wrap")(cgWrapContent)
 
-    def apply(pov: Pov, ownerLink: Boolean = false, tv: Boolean = false, withLink: Boolean = true)(using
+    def apply(
+        pov: Pov,
+        ownerLink: Boolean = false,
+        tv: Boolean = false,
+        withLink: Boolean = true,
+        showRating: Boolean = true
+    )(using
         ctx: Context
     ): Tag =
       renderMini(
         pov,
         withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
-        showRatings = ctx.pref.showRatings
+        showRatings = showRating
       )
 
     def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
