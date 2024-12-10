@@ -67,4 +67,5 @@
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositiu</string>
   <string name="bellNotificationSound">So de notificació</string>
+  <string name="blindfold" comment="As in Blindfold chess">A la cega</string>
 </resources>
