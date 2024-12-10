@@ -174,14 +174,16 @@ export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
     COLORS.map(color =>
       h('div', [
         h('h3', `${color} pieces`),
-        ROLES.reduce<{ role: Role; keys: Key[] }[]>(
-          (lists, role) =>
-            lists.concat({
-              role,
-              keys: keysWithPiece(pieces, role, color),
-            }),
-          [],
-        )
+        ROLES.slice()
+          .reverse()
+          .reduce<{ role: Role; keys: Key[] }[]>(
+            (lists, role) =>
+              lists.concat({
+                role,
+                keys: keysWithPiece(pieces, role, color),
+              }),
+            [],
+          )
           .filter(l => l.keys.length)
           .map(
             l =>
