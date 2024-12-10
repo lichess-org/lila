@@ -50,6 +50,11 @@ const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Se
       ])
     : orEmpty && h(moveTag, '…');
 
+const goToPly = (ctrl: RoundController, ply: number) => {
+  ctrl.userJump(ply);
+  ctrl.redraw();
+};
+
 export function renderResult(ctrl: RoundController): VNode | undefined {
   let result: string | undefined;
   if (finished(ctrl.data))
@@ -134,18 +139,37 @@ function renderButtons(ctrl: RoundController) {
     firstPly = util.firstPly(d),
     lastPly = util.lastPly(d);
 
+  const targetPly = (e: MouseEvent) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+
+  let timeoutId: number | undefined = undefined;
+
+  const clearMovesTimeout = () => {
+    clearTimeout(timeoutId);
+  };
+
+  const handleMouseDown = (e: MouseEvent) => {
+    function* delayGen() {
+      yield 500;
+      let d = 350;
+      while (true) yield Math.max(100, (d *= 14 / 15));
+    } // todo - put this generator in a common file that this code here and
+    // components.ts can use?
+    const delay = delayGen();
+    const repeat = () => {
+      goToPly(ctrl, targetPly(e));
+      timeoutId = setTimeout(repeat, delay.next().value!);
+      if (isNaN(targetPly(e))) clearMovesTimeout();
+    };
+    repeat();
+  };
+
   return h(
     'div.buttons',
     {
-      hook: bind(
-        'mousedown',
-        e => {
-          const target = e.target as HTMLElement;
-          const ply = parseInt(target.getAttribute('data-ply') || '');
-          if (!isNaN(ply)) ctrl.userJump(ply);
-        },
-        ctrl.redraw,
-      ),
+      hook: onInsert(el => {
+        el.addEventListener('mousedown', handleMouseDown);
+        el.addEventListener('mouseup', clearMovesTimeout);
+      }),
     },
     [
       analysisButton(ctrl) || h('div.noop'),
@@ -187,8 +211,7 @@ const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: 
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: bind('mousedown', e => {
       e.preventDefault();
-      ctrl.userJump(ctrl.ply + dir);
-      ctrl.redraw();
+      goToPly(ctrl, ctrl.ply + dir);
     }),
   });
 
@@ -207,8 +230,7 @@ export function render(ctrl: RoundController): LooseVNode {
               while ((node = node.previousSibling as HTMLElement)) {
                 offset++;
                 if (node.tagName === indexTagUC) {
-                  ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
-                  ctrl.redraw();
+                  goToPly(ctrl, 2 * parseInt(node.textContent || '') + offset);
                   break;
                 }
               }
