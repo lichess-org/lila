@@ -326,22 +326,22 @@ export function castlingFlavours(input: string): string {
 export function positionJumpHandler() {
   return (ev: KeyboardEvent): boolean => {
     const $btn = $(ev.target as HTMLElement);
-    const $file = $btn.attr('file') ?? '';
-    const $rank = $btn.attr('rank') ?? '';
-    let $newRank = '';
-    let $newFile = '';
+    const file = $btn.attr('file') ?? '';
+    const rank = $btn.attr('rank') ?? '';
+    let newRank = '';
+    let newFile = '';
     if (ev.key.match(/^[1-8]$/)) {
-      $newRank = ev.key;
-      $newFile = $file;
+      newRank = ev.key;
+      newFile = file;
     } else if (ev.key.match(/^[!@#$%^&*]$/)) {
-      $newRank = $rank;
-      $newFile = symbolToFile(ev.key);
+      newRank = rank;
+      newFile = symbolToFile(ev.key);
       // if not a valid key for jumping
     } else {
       return true;
     }
     const newBtn = document.querySelector(
-      '.board-wrapper button[rank="' + $newRank + '"][file="' + $newFile + '"]',
+      '.board-wrapper button[rank="' + newRank + '"][file="' + newFile + '"]',
     ) as HTMLElement;
     if (newBtn) {
       newBtn.focus();
@@ -351,74 +351,74 @@ export function positionJumpHandler() {
   };
 }
 
-export function pieceJumpingHandler(wrapSound: () => void, errorSound: () => void) {
-  return (ev: KeyboardEvent): boolean => {
-    if (!ev.key.match(/^[kqrbnp]$/i)) return true;
+export function pieceJumpingHandler(selectSound: () => void, errorSound: () => void) {
+  return (ev: KeyboardEvent): void => {
+    if (!ev.key.match(/^[kqrbnp]$/i)) return;
     const $currBtn = $(ev.target as HTMLElement);
 
     // TODO: decouple from promotion attribute setting in selectionHandler
     if ($currBtn.attr('promotion') === 'true') {
       const $moveBox = $('input.move');
       const $boardLive = $('.boardstatus');
-      const $promotionPiece = ev.key.toLowerCase();
+      const promotionPiece = ev.key.toLowerCase();
       const $form = $moveBox.parent().parent();
-      if (!$promotionPiece.match(/^[qnrb]$/)) {
+      if (!promotionPiece.match(/^[qnrb]$/)) {
         $boardLive.text('Invalid promotion piece. q for queen, n for knight, r for rook, b for bishop');
-        return false;
+        return;
       }
-      $moveBox.val($moveBox.val() + $promotionPiece);
+      $moveBox.val($moveBox.val() + promotionPiece);
       $currBtn.removeAttr('promotion');
-      const $sendForm = new Event('submit', {
+      const sendForm = new Event('submit', {
         cancelable: true,
         bubbles: true,
       });
-      $form.trigger($sendForm);
-      return false;
+      $form.trigger(sendForm);
+      return;
     }
 
-    const $myBtnAttrs =
+    const myBtnAttrs =
       '.board-wrapper [rank="' + $currBtn.attr('rank') + '"][file="' + $currBtn.attr('file') + '"]';
-    const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + $myBtnAttrs);
-    const $myPieceIndex = $allPieces.index($myBtnAttrs);
-    const $next = ev.key.toLowerCase() === ev.key;
-    const $prevNextPieces = $next ? $allPieces.slice($myPieceIndex + 1) : $allPieces.slice(0, $myPieceIndex);
-    const $piece = $next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length - 1);
-    if ($piece) {
-      $piece.focus();
+    const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + myBtnAttrs);
+    const myPieceIndex = $allPieces.index(myBtnAttrs);
+    const next = ev.key.toLowerCase() === ev.key;
+    const $prevNextPieces = next ? $allPieces.slice(myPieceIndex + 1) : $allPieces.slice(0, myPieceIndex);
+    const pieceEl = next ? $prevNextPieces.get(0) : $prevNextPieces.get($prevNextPieces.length - 1);
+    if (pieceEl) {
+      pieceEl.focus();
       // if detected any matching piece; one is the piece being clicked on,
     } else if ($allPieces.length >= 2) {
-      const $wrapPiece = $next ? $allPieces.get(0) : $allPieces.get($allPieces.length - 1);
-      $wrapPiece?.focus();
-      wrapSound();
+      const wrapPieceEl = next ? $allPieces.get(0) : $allPieces.get($allPieces.length - 1);
+      wrapPieceEl?.focus();
+      selectSound();
     } else {
       errorSound();
     }
-    return false;
+    return;
   };
 }
 
 export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   return (ev: KeyboardEvent): boolean => {
     const $currBtn = $(ev.target as HTMLElement);
-    const $isWhite = pov === 'white';
-    let $file = $currBtn.attr('file') ?? ' ';
-    let $rank = Number($currBtn.attr('rank'));
+    const isWhite = pov === 'white';
+    let file = $currBtn.attr('file') ?? ' ';
+    let rank = Number($currBtn.attr('rank'));
     if (ev.key === 'ArrowUp') {
-      $rank = $isWhite ? ($rank += 1) : ($rank -= 1);
+      rank = isWhite ? (rank += 1) : (rank -= 1);
     } else if (ev.key === 'ArrowDown') {
-      $rank = $isWhite ? ($rank -= 1) : ($rank += 1);
+      rank = isWhite ? (rank -= 1) : (rank += 1);
     } else if (ev.key === 'ArrowLeft') {
-      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) - 1 : $file.charCodeAt(0) + 1);
+      file = String.fromCharCode(isWhite ? file.charCodeAt(0) - 1 : file.charCodeAt(0) + 1);
     } else if (ev.key === 'ArrowRight') {
-      $file = String.fromCharCode($isWhite ? $file.charCodeAt(0) + 1 : $file.charCodeAt(0) - 1);
+      file = String.fromCharCode(isWhite ? file.charCodeAt(0) + 1 : file.charCodeAt(0) - 1);
     } else {
       return true;
     }
-    const $newSq = document.querySelector(
-      '.board-wrapper [file="' + $file + '"][rank="' + $rank + '"]',
+    const newSqEl = document.querySelector(
+      '.board-wrapper [file="' + file + '"][rank="' + rank + '"]',
     ) as HTMLElement;
-    if ($newSq) {
-      $newSq.focus();
+    if (newSqEl) {
+      newSqEl.focus();
     } else {
       borderSound();
     }
@@ -432,10 +432,10 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
     const opponentColor = getOpponentColor();
     // this depends on the current document structure. This may not be advisable in case the structure wil change.
     const $evBtn = $(ev.target as HTMLElement);
-    const $rank = $evBtn.attr('rank');
-    const $pos = ($evBtn.attr('file') ?? '') + $rank;
+    const rank = $evBtn.attr('rank');
+    const pos = ($evBtn.attr('file') ?? '') + rank;
     const $boardLive = $('.boardstatus');
-    const $promotionRank = opponentColor === 'black' ? '8' : '1';
+    const promotionRank = opponentColor === 'black' ? '8' : '1';
     const $moveBox = $(document.querySelector('input.move') as HTMLInputElement);
     if (!$moveBox) return false;
 
@@ -445,30 +445,30 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
       if ($evBtn.attr('color') === opponentColor) return false;
       // as long as the user is selecting a piece and not a blank tile
       if ($evBtn.text().match(/^[^\-+]+/g)) {
-        $moveBox.val($pos);
+        $moveBox.val(pos);
         selectSound();
       }
     } else {
       // if user selects their own piece second
       if ($evBtn.attr('color') === (opponentColor === 'black' ? 'white' : 'black')) return false;
 
-      const $first = $moveBox.val();
-      const $firstPiece = $('.board-wrapper [file="' + $first[0] + '"][rank="' + $first[1] + '"]');
-      $moveBox.val($moveBox.val() + $pos);
+      const first = $moveBox.val();
+      const $firstPiece = $('.board-wrapper [file="' + first[0] + '"][rank="' + first[1] + '"]');
+      $moveBox.val($moveBox.val() + pos);
       // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently. TODO: make cleaner
       // if pawn promotion
-      if ($rank === $promotionRank && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
+      if (rank === promotionRank && $firstPiece.attr('piece')?.toLowerCase() === 'p') {
         $evBtn.attr('promotion', 'true');
         $boardLive.text('Promote to? q for queen, n for knight, r for rook, b for bishop');
         return false;
       }
       // this section depends on the form being the grandparent of the input.move box.
       const $form = $moveBox.parent().parent();
-      const $event = new Event('submit', {
+      const event = new Event('submit', {
         cancelable: true,
         bubbles: true,
       });
-      $form.trigger($event);
+      $form.trigger(event);
     }
     return false;
   };
@@ -478,15 +478,15 @@ export function boardCommandsHandler() {
   return (ev: KeyboardEvent): boolean => {
     const $currBtn = $(ev.target as HTMLElement);
     const $boardLive = $('.boardstatus');
-    const $position = ($currBtn.attr('file') ?? '') + ($currBtn.attr('rank') ?? '');
+    const position = ($currBtn.attr('file') ?? '') + ($currBtn.attr('rank') ?? '');
     if (ev.key === 'o') {
       $boardLive.text();
-      $boardLive.text($position);
+      $boardLive.text(position);
       return false;
     } else if (ev.key === 'l') {
-      const $lastMove = $('p.lastMove').text();
+      const lastMove = $('p.lastMove').text();
       $boardLive.text();
-      $boardLive.text($lastMove);
+      $boardLive.text(lastMove);
       return false;
     } else if (ev.key === 't') {
       $boardLive.text();
