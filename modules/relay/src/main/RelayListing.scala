@@ -128,10 +128,7 @@ final class RelayListing(
       as = "rounds",
       local = "_id",
       foreign = "tourId",
-      pipe = List(
-        $doc("$match" -> $doc("finishedAt".$exists(false))),
-        $doc("$sort"  -> RelayRoundRepo.sort.asc)
-      )
+      pipe = List($doc("$sort" -> RelayRoundRepo.sort.asc))
     )
 
   private def readTourRound(doc: Bdoc): Option[RelayTour.WithRounds] = for
