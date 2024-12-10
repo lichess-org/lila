@@ -2,6 +2,10 @@ package lila.common
 
 import java.util.concurrent.ConcurrentHashMap
 
+/* Runs f(id)` immediately the first time `push(id)` is called for a given id.
+ * Then if further calls to `push(id)` are made, they're discarded
+ * and `f(id)` is called at most once every `duration`.
+ * It is guaranteed that `f(id)` will run after the last `push(id)`. */
 final class Debouncer[Id](duration: FiniteDuration, initialCapacity: Int = 64)(
     f: Id => Unit
 )(using Executor)(using scheduler: Scheduler):
