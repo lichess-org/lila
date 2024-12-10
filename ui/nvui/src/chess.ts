@@ -4,7 +4,7 @@ import { invRanks, allKeys } from 'chessground/util';
 import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests, lichessRules } from 'chessops/compat';
-import { type SquareName } from 'chessops/types';
+import { ROLES, type SquareName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, parseUci, roleToChar } from 'chessops/util';
 import { destsToUcis, plyToTurn, sanToUci, sanWriter } from 'chess';
@@ -189,7 +189,7 @@ export function renderPieces(pieces: Pieces, style: MoveStyle): VNode {
     'div',
     ['white', 'black'].map(color => {
       const lists: string[][] = [];
-      ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].forEach(role => {
+      ROLES.forEach(role => {
         const keys = [];
         for (const [key, piece] of pieces) {
           if (piece.color === color && piece.role === role) keys.push(key);
