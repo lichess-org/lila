@@ -148,7 +148,7 @@ function renderButtons(ctrl: RoundController) {
     clearTimeout(timeoutId);
   };
 
-  const handleMouseDown = (e: MouseEvent) => {
+  const goThroughMoves = (e: MouseEvent) => {
     const delay = showMovesDecreasingDelay();
     const repeat = () => {
       goToPly(ctrl, targetPly(e));
@@ -162,8 +162,10 @@ function renderButtons(ctrl: RoundController) {
     'div.buttons',
     {
       hook: onInsert(el => {
-        el.addEventListener('mousedown', handleMouseDown);
+        el.addEventListener('mousedown', goThroughMoves);
+        el.addEventListener('touchstart', goThroughMoves);
         el.addEventListener('mouseup', clearMovesTimeout);
+        el.addEventListener('touchend', clearMovesTimeout);
       }),
     },
     [
