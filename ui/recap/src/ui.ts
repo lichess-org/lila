@@ -1,5 +1,5 @@
 import Lpv from 'lichess-pgn-viewer';
-import PgnViewer from 'lichess-pgn-viewer/pgnViewer';
+import type PgnViewer from 'lichess-pgn-viewer/pgnViewer';
 import { Opening } from './interfaces';
 
 const numberFormat = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
