@@ -14,7 +14,7 @@ function layout() {
   cols = newCols;
   document
     .querySelector<HTMLElement>(cols > 2 ? '.lobby__side' : '.lobby')
-    ?.append(document.querySelector('.lobby__timeline')!);
+    ?.append(document.querySelector('.lobby__timeline') ?? '');
 }
 
 layout();
