@@ -45,11 +45,10 @@ case class RelayTour(
 
   def path: String = s"/broadcast/$slug/$id"
 
-  def tierIs(selector: RelayTour.Tier.Selector) =
-    tier.fold(false)(_ == selector(RelayTour.Tier))
+  def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 
   def studyVisibility: Visibility =
-    if tier.contains(RelayTour.Tier.`private`)
+    if tier.has(RelayTour.Tier.`private`)
     then Visibility.`private`
     else Visibility.public
 
