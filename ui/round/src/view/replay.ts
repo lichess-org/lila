@@ -153,16 +153,21 @@ const goThroughMoves = (ctrl: RoundController) => {
   }
 }
 
+const withPreventDefault = (handler: EventListener) => (e: MouseEvent) => {
+  e.preventDefault();
+  handler(e);
+};
+
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data), lastPly = util.lastPly(ctrl.data);
   return h(
     'div.buttons',
     {
       hook: onInsert(el => {
-        el.addEventListener('mousedown', goThroughMoves(ctrl));
-        el.addEventListener('touchstart', goThroughMoves(ctrl));
-        el.addEventListener('mouseup', clearMovesTimeout);
-        el.addEventListener('touchend', clearMovesTimeout);
+        el.addEventListener('mousedown', withPreventDefault(goThroughMoves(ctrl)));
+        el.addEventListener('touchstart', withPreventDefault(goThroughMoves(ctrl)));
+        el.addEventListener('mouseup', withPreventDefault(clearMovesTimeout));
+        el.addEventListener('touchend', withPreventDefault(clearMovesTimeout));
       }),
     },
     [
@@ -204,10 +209,6 @@ const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: 
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: onInsert(el => {
-      const withPreventDefault = (handler: EventListener) => (e: MouseEvent) => {
-        e.preventDefault();
-        handler(e);
-      };
       el.addEventListener('mousedown', withPreventDefault(goThroughMoves(ctrl)));
       el.addEventListener('touchstart', withPreventDefault(goThroughMoves(ctrl)));
       el.addEventListener('mouseup', withPreventDefault(clearMovesTimeout));
