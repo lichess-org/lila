@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="mate">അടിയറവു്</string>
+  <string name="mateIn1Description">ഒരു നീക്കത്തിൽ അടിയറവു് വരുത്തുക.</string>
+  <string name="mateIn2Description">രണ്ടു് നീക്കത്തിൽ അടിയറവു് വരുത്തുക.</string>
+  <string name="mateIn3Description">മൂന്നു് നീക്കത്തിൽ അടിയറവു് വരുത്തുക.</string>
+  <string name="mateIn4Description">നാലു് നീക്കത്തിൽ അടിയറവു് വരുത്തുക.</string>
+</resources>
