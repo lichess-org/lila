@@ -13,6 +13,7 @@ export const makeSwiper =
   (element: HTMLElement): void => {
     const progressCircle = element.querySelector('.autoplay-progress svg') as SVGElement;
     const progressContent = element.querySelector('.autoplay-progress span') as HTMLSpanElement;
+    let lpvTimer: number | undefined;
     const options: SwiperOptions = {
       modules: [mod.Pagination, mod.Navigation, mod.Keyboard, mod.Mousewheel, mod.Autoplay],
       initialSlide: window.location.hash ? parseInt(window.location.hash.slice(1)) : 0,
@@ -62,9 +63,10 @@ export const makeSwiper =
             element.querySelectorAll('.swiper-slide-active .lpv').forEach((el: HTMLElement) => {
               const lpv = get(el, 'lpv')!;
               lpv.goTo('first');
+              clearTimeout(lpvTimer);
               const next = () => {
                 if (!lpv.canGoTo('next')) return;
-                setTimeout(() => {
+                lpvTimer = setTimeout(() => {
                   lpv.goTo('next');
                   next();
                 }, 500);
