@@ -1,11 +1,6 @@
-interface NbStreak {
-  nb: number;
-  streak: number;
-}
-export interface Results {
+interface NbWin {
+  total: number;
   win: number;
-  draw: number;
-  loss: number;
 }
 export interface Opening {
   key: string;
@@ -25,8 +20,7 @@ export interface Recap {
   year: number;
   createdAt: number;
   puzzles: {
-    nb: NbStreak;
-    results: Results;
+    nbs: NbWin;
     votes: {
       up: number;
       down: number;
@@ -41,7 +35,7 @@ export interface Recap {
     }[];
     moves: number;
     openings: ByColor<Counted<Opening>>;
-    nb: NbStreak;
+    nbs: NbWin;
     nbWhite: number;
     opponents: Counted<LightUser>[];
     timePlaying: number;
@@ -53,6 +47,5 @@ export interface Recap {
       arena: number;
     };
     firstMoves: Counted<string>[];
-    results: Results;
   };
 }

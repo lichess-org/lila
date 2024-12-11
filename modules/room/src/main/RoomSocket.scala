@@ -93,7 +93,7 @@ object RoomSocket:
   def subscribeChat(rooms: RoomsMap, busChan: BusChan.Select)(using FlairGet, Executor) =
     lila.common.Bus.subscribeFun(busChan(BusChan).chan, BusChan.global.chan):
       case lila.core.chat.ChatLine(id, line, json) if line.userIdMaybe.isDefined =>
-        rooms.tellIfPresent(id.into(RoomId), (NotifyVersion)("message", json, line.troll))
+        rooms.tellIfPresent(id.into(RoomId), NotifyVersion("message", json, line.troll))
       case lila.core.chat.OnTimeout(id, userId) =>
         rooms.tellIfPresent(id.into(RoomId), NotifyVersion("chat_timeout", userId, troll = false))
       case lila.core.chat.OnReinstate(id, userId) =>
