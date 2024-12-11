@@ -4,7 +4,8 @@ import * as mod from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import { Recap } from './interfaces';
-import { animateNumber } from './ui';
+import { animateNumber, formatDuration } from './ui';
+import { get } from 'common/data';
 
 export const makeSwiper =
   (_recap: Recap) =>
@@ -30,7 +31,7 @@ export const makeSwiper =
       },
       autoplay: {
         delay: 5000,
-        disableOnInteraction: true,
+        disableOnInteraction: false,
       },
       on: {
         autoplayTimeLeft(_s, time, progress) {
@@ -38,15 +39,30 @@ export const makeSwiper =
           progressContent.textContent = `${Math.ceil(time / 1000)}s`;
         },
         slideChange() {
-          setTimeout(
-            () =>
-              element
-                .querySelectorAll('.swiper-slide-active .animated-number')
-                .forEach((counter: HTMLElement) => {
-                  animateNumber(counter);
-                }),
-            200,
-          );
+          setTimeout(() => {
+            element
+              .querySelectorAll('.swiper-slide-active .animated-number')
+              .forEach((counter: HTMLElement) => {
+                animateNumber(counter, {});
+              });
+            element
+              .querySelectorAll('.swiper-slide-active .animated-time')
+              .forEach((counter: HTMLElement) => {
+                animateNumber(counter, { duration: 1000, render: formatDuration });
+              });
+            element.querySelectorAll('.swiper-slide-active .lpv').forEach((el: HTMLElement) => {
+              const lpv = get(el, 'lpv')!;
+              lpv.goTo('first');
+              const next = () => {
+                if (!lpv.canGoTo('next')) return;
+                setTimeout(() => {
+                  lpv.goTo('next');
+                  next();
+                }, 500);
+              };
+              next();
+            });
+          }, 200);
         },
       },
     };
