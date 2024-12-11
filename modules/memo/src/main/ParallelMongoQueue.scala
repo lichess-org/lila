@@ -36,8 +36,6 @@ final class ParallelMongoQueue[A: BSONHandler](
   import ParallelQueue.*
   private given BSONDocumentHandler[Entry[A]] = Macros.handler[Entry[A]]
 
-  println(s"$name ${coll.name}")
-
   def enqueue(a: A): Fu[Entry[A]] = workQueue:
     status(a).flatMap:
       case Some(entry) => fuccess(entry)
