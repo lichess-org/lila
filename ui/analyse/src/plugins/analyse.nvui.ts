@@ -361,8 +361,13 @@ function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChil
   }
 }
 
-function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => MoveStyle, $input: Cash) {
-  return function () {
+function onSubmit(
+  ctrl: AnalyseController,
+  notify: (txt: string) => void,
+  style: () => MoveStyle,
+  $input: Cash,
+) {
+  return () => {
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -373,7 +378,6 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
       else notify('Invalid command');
     }
     $input.val('');
-    return false;
   };
 }
 

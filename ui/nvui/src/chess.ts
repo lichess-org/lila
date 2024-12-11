@@ -3,10 +3,10 @@ import { type Pieces, files } from 'chessground/types';
 import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests, lichessRules } from 'chessops/compat';
-import { COLORS, RANK_NAMES, ROLES, type SquareName } from 'chessops/types';
+import { COLORS, RANK_NAMES, ROLES, type FileName, type SquareName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, opposite, parseUci, roleToChar } from 'chessops/util';
-import { destsToUcis, plyToTurn, sanToUci, sanWriter } from 'chess';
+import { destsToUcis, plyToTurn, sanToUci, sanToWords, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
 const moveStyles = ['uci', 'san', 'literate', 'nato', 'anna'] as const;
@@ -71,7 +71,7 @@ export function boardSetting(): Setting<BoardStyle> {
 
 export function styleSetting(): Setting<MoveStyle> {
   return makeSetting<MoveStyle>({
-    choices: moveStyles.map(s => [s, `${s}: ${renderSan('Nxf3', undefined, s)}`]),
+    choices: moveStyles.map(s => [s, `${s}: ${renderSan('Nxf3', 'g1f3', s)}`]),
     default: 'anna', // all the rage in OTB blind chess tournaments
     storage: storage.make('nvui.moveNotation'),
   });
@@ -140,33 +140,17 @@ export function lastCaptured(
   return 'none';
 }
 
-export function renderSan(san: San, uci: Uci | undefined, style: MoveStyle): string {
-  if (!san) return '';
-  let move: string;
-  if (san.includes('O-O-O')) move = 'long castling';
-  else if (san.includes('O-O')) move = 'short castling';
-  else if (style === 'san') move = san.replace(/[\+#]/, '');
-  else if (style === 'uci') move = uci || san;
-  else {
-    move = san
-      .replace(/[\+#]/, '')
-      .split('')
-      .map(c => {
-        if (c === 'x') return 'takes';
-        if (c === '+') return 'check';
-        if (c === '#') return 'checkmate';
-        if (c === '=') return 'promotion';
-        const code = c.charCodeAt(0);
-        if (code > 48 && code < 58) return c; // 1-8
-        if (code > 96 && code < 105) return renderFile(c as Files, style); // a-h
-        return charToRole(c) || c;
-      })
-      .join(' ');
-  }
-  if (san.includes('+')) move += ' check';
-  if (san.includes('#')) move += ' checkmate';
-  return move;
-}
+export const renderSan = (san: San, uci: Uci | undefined, style: MoveStyle): string =>
+  style === 'uci'
+    ? (uci ?? '')
+    : style === 'san'
+      ? san
+      : sanToWords(san)
+          .split(' ')
+          .map(f =>
+            files.includes(f.toLowerCase() as FileName) ? renderFile(f.toLowerCase() as FileName, style) : f,
+          )
+          .join(' ');
 
 export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
@@ -358,7 +342,7 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
     }
 
     const myBtnAttrs = `.board-wrapper [rank="${$currBtn.attr('rank')}"][file="${$currBtn.attr('file')}"]`;
-    const $allPieces = $('.board-wrapper [piece="' + ev.key.toLowerCase() + '"], ' + myBtnAttrs);
+    const $allPieces = $(`.board-wrapper [piece="${ev.key.toLowerCase()}"], ${myBtnAttrs}`);
     const myPieceIndex = $allPieces.index(myBtnAttrs);
     const next = ev.key.toLowerCase() === ev.key;
     const $prevNextPieces = next ? $allPieces.slice(myPieceIndex + 1) : $allPieces.slice(0, myPieceIndex);
@@ -550,7 +534,7 @@ export function renderMainline(nodes: Tree.Node[], currentPath: Tree.Path, style
 }
 
 export const renderComments = (node: Tree.Node, style: MoveStyle): string =>
-  node.comments?.map(c => augmentLichessComment(c, style)).join('. ') ?? '';
+  node.comments?.map(c => ` ${augmentLichessComment(c, style)}`).join('.') ?? '';
 
 const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string =>
   comment.by === 'lichess'
