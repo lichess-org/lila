@@ -32,6 +32,7 @@ export const loadOpeningLpv = (el: HTMLElement, color: Color, opening: Opening):
   const lpv = Lpv(el, {
     pgn: opening.pgn,
     initialPly: 0,
+    keyboardToMove: false,
     showMoves: 'bottom',
     showClocks: false,
     showPlayers: false,
