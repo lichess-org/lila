@@ -942,13 +942,13 @@ export default class AnalyseCtrl {
     this.evalCache = new EvalCache({
       variant: this.data.game.variant.key,
       canGet: this.canEvalGet,
-      canPut: () =>
-        !!(
-          this.ceval?.isCacheable &&
-          this.canEvalGet() &&
-          // if not in study, only put decent opening moves
-          (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
-        ),
+      canPut: () => true,
+      // !!(
+      //   this.ceval?.isCacheable &&
+      //   this.canEvalGet() &&
+      //   // if not in study, only put decent opening moves
+      //   (this.opts.study || (!this.node.ceval!.mate && Math.abs(this.node.ceval!.cp!) < 99))
+      // ),
       getNode: () => this.node,
       send: this.opts.socketSend,
       receive: this.onNewCeval,

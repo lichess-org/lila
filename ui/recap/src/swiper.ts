@@ -14,7 +14,7 @@ export const makeSwiper =
     const progressContent = element.querySelector('.autoplay-progress span') as HTMLSpanElement;
     const options: SwiperOptions = {
       modules: [mod.Pagination, mod.Navigation, mod.Keyboard, mod.Mousewheel, mod.Autoplay],
-      initialSlide: 0,
+      initialSlide: 3,
       direction: 'horizontal',
       loop: false,
       cssMode: false,

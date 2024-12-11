@@ -66,6 +66,7 @@ private final class RecapBuilder(
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
       nbs = scan.nbs,
+      nbWhite = scan.nbWhite,
       moves = scan.nbMoves,
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)

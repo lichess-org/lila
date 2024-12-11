@@ -25,6 +25,7 @@ export function view(r: Recap, user: LightUser): VNode {
       openingColor(r.games.openings, 'white'),
       openingColor(r.games.openings, 'black'),
       malware(),
+      lichessGames(r),
       bye(),
     ]),
     h('div.swiper-button-next'),
@@ -50,11 +51,9 @@ const init = (user: LightUser): VNode =>
   ]);
 
 const nbGames = (r: Recap): VNode => {
-  const gamesPercentOfTotal = (r.games.nbs.total * 100) / totalGames;
-  const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
   return slideTag('games')([
     h('div.recap--massive', [h('strong', animateNumber(r.games.nbs.total)), 'games played']),
-    h('div', [h('p', [h('strong', showGamesPercentOfTotal), ' of all games played this year!'])]),
+    h('div', [h('p', ['And you won ', h('strong', animateNumber(r.games.nbs.win)), '!'])]),
   ]);
 };
 
@@ -131,6 +130,19 @@ const malware = () =>
       ]),
     ),
   ]);
+
+const lichessGames = (r: Recap): VNode => {
+  const gamesPercentOfTotal = (r.games.nbs.total * 100) / totalGames;
+  const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
+  return slideTag('lichess-games')([
+    h('div.recap--massive', [
+      h('strong', animateNumber(totalGames)),
+      'games were played on Lichess in ',
+      r.year,
+    ]),
+    h('div', [h('p', [h('strong', showGamesPercentOfTotal), ' of them are yours.'])]),
+  ]);
+};
 
 const bye = () =>
   slideTag('bye')([
