@@ -67,5 +67,5 @@
   <string name="notifyWeb">Nabigatzailea</string>
   <string name="notifyDevice">Gailua</string>
   <string name="bellNotificationSound">Kanpaiaren jakinarazpen soinua</string>
-  <string name="blindfold" comment="As in Blindfold chess">Itsuka</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Itsuka</string>
 </resources>
