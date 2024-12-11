@@ -18,7 +18,7 @@ final class RelayListing(
 
   val defaultRoundToLink = cacheApi[RelayTourId, Option[RelayRound]](32, "relay.defaultRoundToLink"):
     _.expireAfterWrite(5 seconds).buildAsyncFuture: tourId =>
-      tourWithUnfinishedRounds(tourId).mapz(RelayListing.defaultRoundToLink)
+      tourWithRounds(tourId).mapz(RelayListing.defaultRoundToLink)
 
   def active: Fu[List[RelayCard]] = activeCache.get({})
 
@@ -91,7 +91,7 @@ final class RelayListing(
   yield t.focus(_.tour.tier).replace(visualTier.some)
 
   private def getSpots: Fu[List[Spot]] = for
-    rawTours <- toursWithUnfinishedRounds
+    rawTours <- toursWithRounds
     tours = rawTours.flatMap(decreaseTierIfDistantNextRound)
     groups <- groupRepo.byTours(tours.map(_.tour.id))
   yield
@@ -102,7 +102,7 @@ final class RelayListing(
       tours.filter(t => group.tours.contains(t.tour.id)).toNel.map(Spot.GroupWithTours(group, _))
     ungroupedTours ::: groupedTours
 
-  private def toursWithUnfinishedRounds: Fu[List[RelayTour.WithRounds]] =
+  private def toursWithRounds: Fu[List[RelayTour.WithRounds]] =
     val max = 200
     colls.tour
       .aggregateList(max): framework =>
@@ -115,7 +115,7 @@ final class RelayListing(
         )
       .map(_.flatMap(readTourRound))
 
-  private def tourWithUnfinishedRounds(id: RelayTourId): Fu[Option[RelayTour.WithRounds]] =
+  private def tourWithRounds(id: RelayTourId): Fu[Option[RelayTour.WithRounds]] =
     colls.tour
       .aggregateOne(): framework =>
         import framework.*
