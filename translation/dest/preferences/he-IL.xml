@@ -67,5 +67,5 @@
   <string name="notifyWeb">דפדפן</string>
   <string name="notifyDevice">מכשיר</string>
   <string name="bellNotificationSound">השמע צליל עבור התראות פעמון</string>
-  <string name="blindfold" comment="As in Blindfold chess">משחק עיוור</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">משחק עיוור</string>
 </resources>
