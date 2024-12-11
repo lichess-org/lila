@@ -4,8 +4,9 @@ import * as mod from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import { Recap } from './interfaces';
-import { animateNumber, formatDuration } from './ui';
+import { animateNumber } from './ui';
 import { get } from 'common/data';
+import { formatDuration } from './util';
 
 export const makeSwiper =
   (_recap: Recap) =>
@@ -14,7 +15,7 @@ export const makeSwiper =
     const progressContent = element.querySelector('.autoplay-progress span') as HTMLSpanElement;
     const options: SwiperOptions = {
       modules: [mod.Pagination, mod.Navigation, mod.Keyboard, mod.Mousewheel, mod.Autoplay],
-      initialSlide: 3,
+      initialSlide: window.location.hash ? parseInt(window.location.hash.slice(1)) : 0,
       direction: 'horizontal',
       loop: false,
       cssMode: false,
@@ -49,6 +50,14 @@ export const makeSwiper =
               .querySelectorAll('.swiper-slide-active .animated-time')
               .forEach((counter: HTMLElement) => {
                 animateNumber(counter, { duration: 1000, render: formatDuration });
+              });
+            element
+              .querySelectorAll('.swiper-slide-active .animated-pulse')
+              .forEach((counter: HTMLElement) => {
+                counter.classList.remove('animated-pulse');
+                setTimeout(() => {
+                  counter.classList.add('animated-pulse');
+                }, 100);
               });
             element.querySelectorAll('.swiper-slide-active .lpv').forEach((el: HTMLElement) => {
               const lpv = get(el, 'lpv')!;

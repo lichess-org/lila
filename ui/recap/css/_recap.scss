@@ -189,3 +189,21 @@ body {
     transform: rotate(-90deg);
   }
 }
+
+.animated-pulse {
+  animation: pulse 1s 1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

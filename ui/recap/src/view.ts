@@ -77,7 +77,7 @@ const nbMoves = (r: Recap): VNode => {
 const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
   const percent = Math.round((firstMove.count * 100) / r.games.nbWhite);
   return slideTag('first')([
-    h('div.recap--massive', [h('strong', '1. ' + firstMove.value)]),
+    h('div.recap--massive', [h('strong.animated-pulse', '1. ' + firstMove.value)]),
     h('div', [
       h('p', [
         'is how you started ',
@@ -120,7 +120,7 @@ const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
 
 const malware = () =>
   slideTag('malware')([
-    h('div.recap--massive', [h('strong', '0'), 'ads and trackers loaded']),
+    h('div.recap--massive', [h('strong.animated-pulse', '0'), 'ads and trackers loaded']),
     h('p', "We didn't sell your personal data, and we didn't use your device against you."),
     h(
       'p',
