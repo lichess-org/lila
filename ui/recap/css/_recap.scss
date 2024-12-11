@@ -12,6 +12,15 @@ body {
       color: #fff;
     }
   }
+  #clinput,
+  #friend_box {
+    display: none;
+  }
+  @media (min-width: at-least($medium)) {
+    #topnav {
+      display: none;
+    }
+  }
 }
 .recap {
   position: absolute;
