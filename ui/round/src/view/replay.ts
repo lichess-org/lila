@@ -9,7 +9,7 @@ import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
-import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
+import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
 import { showMovesDecreasingDelay } from 'common';
 
@@ -135,20 +135,14 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-function renderButtons(ctrl: RoundController) {
-  const d = ctrl.data,
-    firstPly = util.firstPly(d),
-    lastPly = util.lastPly(d);
+let timeoutId: number | undefined = undefined;
+const clearMovesTimeout = () => {
+  clearTimeout(timeoutId);
+};
 
-  const targetPly = (e: MouseEvent) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
-
-  let timeoutId: number | undefined = undefined;
-
-  const clearMovesTimeout = () => {
-    clearTimeout(timeoutId);
-  };
-
-  const goThroughMoves = (e: MouseEvent) => {
+const goThroughMoves = (ctrl: RoundController) => {
+  return function(e: MouseEvent) {
+    const targetPly = (e: MouseEvent) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
     const delay = showMovesDecreasingDelay();
     const repeat = () => {
       goToPly(ctrl, targetPly(e));
@@ -156,14 +150,17 @@ function renderButtons(ctrl: RoundController) {
       if (isNaN(targetPly(e))) clearMovesTimeout();
     };
     repeat();
-  };
+  }
+}
 
+function renderButtons(ctrl: RoundController) {
+  const firstPly = util.firstPly(ctrl.data), lastPly = util.lastPly(ctrl.data);
   return h(
     'div.buttons',
     {
       hook: onInsert(el => {
-        el.addEventListener('mousedown', goThroughMoves);
-        el.addEventListener('touchstart', goThroughMoves);
+        el.addEventListener('mousedown', goThroughMoves(ctrl));
+        el.addEventListener('touchstart', goThroughMoves(ctrl));
         el.addEventListener('mouseup', clearMovesTimeout);
         el.addEventListener('touchend', clearMovesTimeout);
       }),
@@ -204,12 +201,17 @@ function initMessage(ctrl: RoundController) {
 }
 
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
-  // todo: update the stuff for mobile (in vertical mode) here:
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: bind('mousedown', e => {
-      e.preventDefault();
-      goToPly(ctrl, ctrl.ply + dir);
+    hook: onInsert(el => {
+      const withPreventDefault = (handler: EventListener) => (e: MouseEvent) => {
+        e.preventDefault();
+        handler(e);
+      };
+      el.addEventListener('mousedown', withPreventDefault(goThroughMoves(ctrl)));
+      el.addEventListener('touchstart', withPreventDefault(goThroughMoves(ctrl)));
+      el.addEventListener('mouseup', withPreventDefault(clearMovesTimeout));
+      el.addEventListener('touchend', withPreventDefault(clearMovesTimeout));
     }),
   });
 
