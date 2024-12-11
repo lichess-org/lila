@@ -136,7 +136,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
 }
 
 const goThroughMoves = (ctrl: RoundController) => {
-  return function(e: MouseEvent) {
+  return function (e: MouseEvent) {
     e.preventDefault();
     let timeoutId: number | undefined = undefined;
     const clearMovesTimeout = () => {
@@ -144,18 +144,21 @@ const goThroughMoves = (ctrl: RoundController) => {
     };
     const targetPly = (e: MouseEvent) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
     const delay = showMovesDecreasingDelay();
-    document.addEventListener(e.type === 'touchstart' ? 'touchend' : 'mouseup', () => clearMovesTimeout(), { once: true });
+    document.addEventListener(e.type === 'touchstart' ? 'touchend' : 'mouseup', () => clearMovesTimeout(), {
+      once: true,
+    });
     const repeat = () => {
       goToPly(ctrl, targetPly(e));
       timeoutId = setTimeout(repeat, delay.next().value!);
       if (isNaN(targetPly(e))) clearMovesTimeout();
     };
     repeat();
-  }
-}
+  };
+};
 
 function renderButtons(ctrl: RoundController) {
-  const firstPly = util.firstPly(ctrl.data), lastPly = util.lastPly(ctrl.data);
+  const firstPly = util.firstPly(ctrl.data),
+    lastPly = util.lastPly(ctrl.data);
   return h(
     'div.buttons',
     {
