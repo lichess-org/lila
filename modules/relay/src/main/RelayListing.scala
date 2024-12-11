@@ -36,22 +36,16 @@ final class RelayListing(
         spots <- getSpots
         selected = spots.flatMap:
           case Spot.UngroupedTour(t) =>
-            t.rounds.find(!_.isFinished).map(Selected(t, _, none))
+            t.rounds.find(!_.isFinished).map(Selected(t, _, none)).map(NonEmptyList.one)
           case Spot.GroupWithTours(group, tours) =>
             val all = for
               tour  <- tours.toList
-              round <- tour.rounds
+              round <- tour.rounds.find(!_.isFinished)
             yield Selected(tour, round, group.name.some)
             // sorted preserves the original ordering while adding its own
-            all.sorted(using Ordering.by(s => (tierPriority(s.t.tour), !s.round.hasStarted))).headOption
-        withLinkRound = selected.map: s =>
-          RelayCard(
-            s.t.tour,
-            s.round,
-            link = RelayListing.defaultRoundToLink(s.t) | s.round,
-            s.group
-          )
-        sorted = withLinkRound.sortBy: t =>
+            all.sorted(using Ordering.by(s => (tierPriority(s.t.tour), !s.round.hasStarted))).take(3).toNel
+        cards = selected.map(toRelayCard)
+        sorted = cards.sortBy: t =>
           val startAt       = t.display.startedAt.orElse(t.display.startsAtTime)
           val crowdRelevant = startAt.exists(_.isBefore(nowInstant.plusHours(1)))
           (
@@ -62,10 +56,23 @@ final class RelayListing(
       yield
         spotlightCache = sorted
           .filter(_.tour.spotlight.exists(_.enabled))
-          .filterNot(_.display.isFinished)
           .filter: tr =>
             tr.display.hasStarted || tr.display.startsAtTime.exists(_.isBefore(nowInstant.plusMinutes(30)))
         sorted
+
+  private def toRelayCard(s: NonEmptyList[Selected]): RelayCard =
+    val main = s.head
+    RelayCard(
+      tour = main.t.tour,
+      display = main.round,
+      link = RelayListing.defaultRoundToLink(main.t) | main.round,
+      group = main.group,
+      alts = s.tail
+        .filter(_.round.hasStarted)
+        .take(2)
+        .map: s =>
+          s.round.withTour(s.t.tour)
+    )
 
   private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
 

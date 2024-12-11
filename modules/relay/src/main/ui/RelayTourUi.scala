@@ -23,8 +23,8 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       val tier     = RelayTour.Tier(selector)
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
-        selected.map:
-          card.render(_, live = _.display.hasStarted)
+        selected.map: sel =>
+          card.render(sel, live = _.display.hasStarted, alts = sel.alts)
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -240,6 +240,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     def render[A <: RelayRound.AndTourAndGroup](
         tr: A,
         live: A => Boolean,
+        alts: List[RelayRound.WithTour] = Nil,
         errors: List[String] = Nil
     )(using Context) =
       link(tr.tour, tr.path, live(tr))(
@@ -259,6 +260,13 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow)
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
+          tr.group
+            .ifTrue(alts.nonEmpty)
+            .map: group =>
+              ul(cls := "relay-card__alts"):
+                alts.map: alt =>
+                  li(group.shortTourName(alt.tour.name))
+          ,
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
           else truncatedPlayers(tr.tour)
