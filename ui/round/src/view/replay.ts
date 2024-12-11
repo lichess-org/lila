@@ -135,15 +135,16 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-let timeoutId: number | undefined = undefined;
-const clearMovesTimeout = () => {
-  clearTimeout(timeoutId);
-};
-
 const goThroughMoves = (ctrl: RoundController) => {
   return function(e: MouseEvent) {
+    e.preventDefault();
+    let timeoutId: number | undefined = undefined;
+    const clearMovesTimeout = () => {
+      clearTimeout(timeoutId);
+    };
     const targetPly = (e: MouseEvent) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
     const delay = showMovesDecreasingDelay();
+    document.addEventListener(e.type === 'touchstart' ? 'touchend' : 'mouseup', () => clearMovesTimeout(), { once: true });
     const repeat = () => {
       goToPly(ctrl, targetPly(e));
       timeoutId = setTimeout(repeat, delay.next().value!);
@@ -153,21 +154,14 @@ const goThroughMoves = (ctrl: RoundController) => {
   }
 }
 
-const withPreventDefault = (handler: EventListener) => (e: MouseEvent) => {
-  e.preventDefault();
-  handler(e);
-};
-
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data), lastPly = util.lastPly(ctrl.data);
   return h(
     'div.buttons',
     {
       hook: onInsert(el => {
-        el.addEventListener('mousedown', withPreventDefault(goThroughMoves(ctrl)));
-        el.addEventListener('touchstart', withPreventDefault(goThroughMoves(ctrl)));
-        el.addEventListener('mouseup', withPreventDefault(clearMovesTimeout));
-        el.addEventListener('touchend', withPreventDefault(clearMovesTimeout));
+        el.addEventListener('mousedown', goThroughMoves(ctrl));
+        el.addEventListener('touchstart', goThroughMoves(ctrl));
       }),
     },
     [
@@ -209,10 +203,8 @@ const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: 
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
     hook: onInsert(el => {
-      el.addEventListener('mousedown', withPreventDefault(goThroughMoves(ctrl)));
-      el.addEventListener('touchstart', withPreventDefault(goThroughMoves(ctrl)));
-      el.addEventListener('mouseup', withPreventDefault(clearMovesTimeout));
-      el.addEventListener('touchend', withPreventDefault(clearMovesTimeout));
+      el.addEventListener('mousedown', goThroughMoves(ctrl));
+      el.addEventListener('touchstart', goThroughMoves(ctrl));
     }),
   });
 
