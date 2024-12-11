@@ -20,21 +20,20 @@ case class Recap(
   def userIds = games.opponents.map(_.value)
 
 case class RecapGames(
-    nb: NbAndStreak,
+    nbs: NbWin,
     nbWhite: Int,
     moves: Int,
     openings: Recap.Openings,
     firstMoves: List[Counted[SanStr]],
-    results: Results,
     timePlaying: FiniteDuration,
     sources: Map[Source, Int],
     opponents: List[Counted[UserId]],
     perfs: List[Recap.Perf]
 ):
   def significantPerfs: List[Recap.Perf] = perfs.filter: p =>
-    (p.games > (nb.nb / 20)) || (p.seconds > (timePlaying.toSeconds / 20))
+    (p.games > (nbs.total / 20)) || (p.seconds > (timePlaying.toSeconds / 20))
 
-case class RecapPuzzles(nb: NbAndStreak, results: Results, votes: PuzzleVotes)
+case class RecapPuzzles(nbs: NbWin, votes: PuzzleVotes)
 
 object Recap:
 
@@ -51,6 +50,5 @@ object Recap:
     case Available(data: JsObject)
     case Queued(data: JsObject)
 
-case class Results(win: Int = 0, draw: Int = 0, loss: Int = 0)
-case class NbAndStreak(nb: Int, streak: Days)
+case class NbWin(total: Int = 0, win: Int = 0)
 case class PuzzleVotes(up: Int = 0, down: Int = 0, themes: Int = 0)

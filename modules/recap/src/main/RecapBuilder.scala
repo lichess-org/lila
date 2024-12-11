@@ -31,8 +31,7 @@ private final class RecapBuilder(
 
   private def makePuzzleRecap(scan: PuzzleScan): RecapPuzzles =
     RecapPuzzles(
-      nb = NbAndStreak(scan.nb, Days(scan.streak.max)),
-      results = scan.results,
+      nbs = scan.nbs,
       votes = scan.votes
     )
 
@@ -47,17 +46,16 @@ private final class RecapBuilder(
         .monSuccess(_.recap.puzzles)
 
   private case class PuzzleScan(
-      nb: Int = 0,
-      results: Results = Results(),
-      streak: Streak = Streak(),
+      nbs: NbWin = NbWin(),
       votes: PuzzleVotes = PuzzleVotes()
   ):
     def addRound(r: PuzzleRound): PuzzleScan =
       val win = r.firstWin
       copy(
-        nb = nb + 1,
-        results = results.copy(win = results.win + win.so(1), loss = results.loss + (!win).so(1)),
-        streak = streak.add(r.date),
+        nbs = NbWin(
+          total = nbs.total + 1,
+          win = nbs.win + win.so(1)
+        ),
         votes = votes.copy(
           up = votes.up + r.vote.exists(_ > 0).so(1),
           down = votes.down + r.vote.exists(_ < 0).so(1),
@@ -67,14 +65,13 @@ private final class RecapBuilder(
 
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
-      nb = NbAndStreak(scan.nb, Days(scan.streak.max)),
+      nbs = scan.nbs,
       nbWhite = scan.nbWhite,
       moves = scan.nbMoves,
       openings = scan.openings.map:
         _.toList.sortBy(-_._2).headOption.fold(Recap.nopening)(Recap.Counted.apply)
       ,
       firstMoves = scan.firstMoves.toList.sortBy(-_._2).take(5).map(Recap.Counted.apply),
-      results = scan.results,
       timePlaying = scan.secondsPlaying.seconds,
       sources = scan.sources,
       opponents = scan.opponents.toList.sortBy(-_._2).take(5).map(Recap.Counted.apply),
@@ -98,11 +95,10 @@ private final class RecapBuilder(
       .monSuccess(_.recap.games)
 
   private case class GameScan(
-      nb: Int = 0,
+      nbs: NbWin = NbWin(),
       nbWhite: Int = 0,
       nbMoves: Int = 0,
       secondsPlaying: Int = 0,
-      results: Results = Results(),
       streak: Streak = Streak(),
       openings: ByColor[Map[SimpleOpening, Int]] = ByColor.fill(Map.empty),
       firstMoves: Map[SanStr, Int] = Map.empty,
@@ -119,15 +115,13 @@ private final class RecapBuilder(
             OpeningDb.search(g.sans).map(_.opening).flatMap(SimpleOpening.apply)
           val durationSeconds = g.hasClock.so(g.durationSeconds) | 30 // ?? :shrug:
           copy(
-            nb = nb + 1,
+            nbs = NbWin(
+              total = nbs.total + 1,
+              win = nbs.win + winner.exists(_.is(userId)).so(1)
+            ),
             nbWhite = nbWhite + player.color.fold(1, 0),
             nbMoves = nbMoves + g.playerMoves(player.color),
             secondsPlaying = secondsPlaying + durationSeconds,
-            results = results.copy(
-              win = results.win + winner.exists(_.is(userId)).so(1),
-              draw = results.draw + winner.isEmpty.so(1),
-              loss = results.loss + winner.exists(_.isnt(userId)).so(1)
-            ),
             streak = streak.add(g.createdAt),
             openings = opening.fold(openings): op =>
               openings.update(player.color, _.updatedWith(op)(_.fold(1)(_ + 1).some)),

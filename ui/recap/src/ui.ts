@@ -1,32 +1,37 @@
 import Lpv from 'lichess-pgn-viewer';
-import type PgnViewer from 'lichess-pgn-viewer/pgnViewer';
 import { Opening } from './interfaces';
+import { set } from 'common/data';
 
 const numberFormat = window.Intl && Intl.NumberFormat ? new Intl.NumberFormat() : null;
-const formatNumber = (n: number) => (numberFormat ? numberFormat.format(n) : '' + n);
+export const formatNumber = (n: number): string => (numberFormat ? numberFormat.format(n) : '' + n);
 
-export const animateNumber = (counter: HTMLElement, duration: number = 1500): void => {
+interface AnimateNumber {
+  duration: number;
+  render: (n: number) => string;
+}
+export const animateNumber = (counter: HTMLElement, opts: Partial<AnimateNumber>): void => {
+  const o: AnimateNumber = { ...{ duration: 1500, render: formatNumber }, ...opts };
   const value = parseInt(counter.dataset['value'] || '0');
   const startAt = performance.now();
-  const stopAt = startAt + duration;
+  const stopAt = startAt + o.duration;
   const animate = () => {
     const now = performance.now();
-    if (now >= stopAt) counter.innerText = formatNumber(value);
+    if (now >= stopAt) counter.innerHTML = o.render(value);
     else {
       const elapsed = now - startAt;
-      const ratio = elapsed / duration;
+      const ratio = elapsed / o.duration;
       const current = Math.ceil(value * ratio);
-      counter.innerText = formatNumber(Math.ceil(current));
+      counter.innerHTML = o.render(Math.ceil(current));
       requestAnimationFrame(animate);
     }
   };
   animate();
 };
 
-export const loadOpeningLpv = (el: HTMLElement, color: Color, opening: Opening): PgnViewer =>
-  Lpv(el, {
+export const loadOpeningLpv = (el: HTMLElement, color: Color, opening: Opening): void => {
+  const lpv = Lpv(el, {
     pgn: opening.pgn,
-    initialPly: 99,
+    initialPly: 0,
     showMoves: 'bottom',
     showClocks: false,
     showPlayers: false,
@@ -41,3 +46,5 @@ export const loadOpeningLpv = (el: HTMLElement, color: Color, opening: Opening):
       },
     },
   });
+  set(lpv.div!, 'lpv', lpv);
+};

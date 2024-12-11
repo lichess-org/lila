@@ -1,16 +1,15 @@
 import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap } from './interfaces';
-import { h, type VNode } from 'snabbdom';
-import { onInsert } from 'common/snabbdom';
+import { type VNode } from 'snabbdom';
+import { onInsert, looseH as h, VNodeKids } from 'common/snabbdom';
 import { loadOpeningLpv } from './ui';
 import { fullName } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
-import { showDuration } from './util';
 
 export function awaiter(user: LightUser): VNode {
   return h('div#recap-swiper.swiper.swiper-initialized', [
     h('div.swiper-wrapper', [
-      h(slideTag('await'), [hi(user), h('p', 'What have you been up to this year?'), spinnerVdom()]),
+      slideTag('await')([hi(user), h('p', 'What have you been up to this year?'), spinnerVdom()]),
     ]),
   ]);
 }
@@ -26,6 +25,7 @@ export function view(r: Recap, user: LightUser): VNode {
       openingColor(r.games.openings, 'white'),
       openingColor(r.games.openings, 'black'),
       malware(),
+      lichessGames(r),
       bye(),
     ]),
     h('div.swiper-button-next'),
@@ -41,30 +41,31 @@ export function view(r: Recap, user: LightUser): VNode {
 const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
 
 const init = (user: LightUser): VNode =>
-  h(slideTag('init'), [
+  slideTag(
+    'init',
+    3000,
+  )([
     hi(user),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     h('h2', 'What a chess year you had!'),
   ]);
 
 const nbGames = (r: Recap): VNode => {
-  const gamesPercentOfTotal = (r.games.nb.nb * 100) / totalGames;
-  const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
-  return h(slideTag('games'), [
-    h('div.recap--massive', [h('strong', animateNumber(r.games.nb.nb)), 'games played']),
-    h('div', [h('p', [h('strong', showGamesPercentOfTotal), ' of all games played this year!'])]),
+  return slideTag('games')([
+    h('div.recap--massive', [h('strong', animateNumber(r.games.nbs.total)), 'games played']),
+    h('div', [h('p', ['And you won ', h('strong', animateNumber(r.games.nbs.win)), '!'])]),
   ]);
 };
 
 const timeSpentPlaying = (r: Recap): VNode => {
-  return h(slideTag('time'), [
-    h('div.recap--massive', [h('strong', showDuration(r.games.timePlaying)), 'spent playing!']),
+  return slideTag('time')([
+    h('div.recap--massive', [h('strong', animateTime(r.games.timePlaying)), 'spent playing!']),
     h('div', [h('p', 'Time well wasted, really.')]),
   ]);
 };
 
 const nbMoves = (r: Recap): VNode => {
-  return h(slideTag('moves'), [
+  return slideTag('moves')([
     h('div.recap--massive', [h('strong', animateNumber(r.games.moves)), 'moves played']),
     h('div', [
       h('p', ["That's ", h('strong', showGrams(r.games.moves * pieceGrams)), ' of wood pushed!']),
@@ -75,8 +76,8 @@ const nbMoves = (r: Recap): VNode => {
 
 const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
   const percent = Math.round((firstMove.count * 100) / r.games.nbWhite);
-  return h(slideTag('first'), [
-    h('div.recap--massive', [h('strong', '1. ' + firstMove.value)]),
+  return slideTag('first')([
+    h('div.recap--massive', [h('strong.animated-pulse', '1. ' + firstMove.value)]),
     h('div', [
       h('p', [
         'is how you started ',
@@ -91,7 +92,7 @@ const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
 
 const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
   const o = os[color];
-  return h(slideTag('openings'), [
+  return slideTag('openings')([
     h('div.lpv.lpv--todo.lpv--moves-bottom.is2d', {
       hook: onInsert(el => loadOpeningLpv(el, color, o.value)),
     }),
@@ -118,8 +119,8 @@ const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
 };
 
 const malware = () =>
-  h(slideTag('malware'), [
-    h('div.recap--massive', [h('strong', '0'), 'ads and trackers loaded']),
+  slideTag('malware')([
+    h('div.recap--massive', [h('strong.animated-pulse', '0'), 'ads and trackers loaded']),
     h('p', "We didn't sell your personal data, and we didn't use your device against you."),
     h(
       'p',
@@ -130,16 +131,41 @@ const malware = () =>
     ),
   ]);
 
+const lichessGames = (r: Recap): VNode => {
+  const gamesPercentOfTotal = (r.games.nbs.total * 100) / totalGames;
+  const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
+  return slideTag('lichess-games')([
+    h('div.recap--massive', [
+      h('strong', animateNumber(totalGames)),
+      'games were played on Lichess in ',
+      r.year,
+    ]),
+    h('div', [h('p', [h('strong', showGamesPercentOfTotal), ' of them are yours.'])]),
+  ]);
+};
+
 const bye = () =>
-  h(slideTag('bye'), [
+  slideTag('bye')([
     h('div.recap--massive', 'Thank you for playing on Lichess!'),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     h('div', "May your pieces find their way to your opponent's kings."),
   ]);
 
-const slideTag = (key: string) => `div.swiper-slide.recap__slide--${key}`;
+const slideTag =
+  (key: string, millis: number = 5000) =>
+  (content: VNodeKids) =>
+    h(
+      `div.swiper-slide.recap__slide--${key}`,
+      {
+        attrs: {
+          'data-swiper-autoplay': millis,
+        },
+      },
+      content,
+    );
 
 const animateNumber = (n: number) => h('span.animated-number', { attrs: { 'data-value': n } }, '0');
+const animateTime = (n: number) => h('span.animated-time', { attrs: { 'data-value': n } }, '');
 
 const showGrams = (g: number) =>
   g > 20_000 ? h('span', [animateNumber(g / 1000), ' Kilograms']) : h('span', [animateNumber(g), ' grams']);

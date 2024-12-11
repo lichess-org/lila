@@ -14,17 +14,17 @@ export interface EvalCacheOpts {
   upgradable: boolean;
 }
 
-const evalPutMinDepth = 20;
-const evalPutMinNodes = 3e6;
+// const evalPutMinDepth = 20;
+// const evalPutMinNodes = 3e6;
 const evalPutMaxMoves = 10;
 
-function qualityCheck(ev: Tree.ClientEval): boolean {
-  // quick mates may never reach the minimum nodes or depth
-  if (Math.abs(ev.mate ?? 99) < 15) return true;
-  // below 500k nodes, the eval might come from an imminent threefold repetition
-  // and should therefore be ignored
-  return ev.nodes > 500000 && (ev.depth >= evalPutMinDepth || ev.nodes > evalPutMinNodes);
-}
+// function qualityCheck(ev: Tree.ClientEval): boolean {
+//   // quick mates may never reach the minimum nodes or depth
+//   if (Math.abs(ev.mate ?? 99) < 15) return true;
+//   // below 500k nodes, the eval might come from an imminent threefold repetition
+//   // and should therefore be ignored
+//   return ev.nodes > 500000 && (ev.depth >= evalPutMinDepth || ev.nodes > evalPutMinNodes);
+// }
 
 // from client eval to server eval
 function toPutData(variant: VariantKey, ev: Tree.ClientEval): EvalPutData {
@@ -81,13 +81,13 @@ export default class EvalCache {
   onLocalCeval = throttle(500, () => {
     const node = this.opts.getNode(),
       ev = node.ceval;
-    const fetched = this.fetchedByFen.get(node.fen);
+    // const fetched = this.fetchedByFen.get(node.fen);
     if (
       ev &&
-      !ev.cloud &&
-      this.fetchedByFen.has(node.fen) &&
-      (!fetched || fetched.depth < ev.depth) &&
-      qualityCheck(ev) &&
+      // !ev.cloud &&
+      // this.fetchedByFen.has(node.fen) &&
+      // (!fetched || fetched.depth < ev.depth) &&
+      // qualityCheck(ev) &&
       this.opts.canPut()
     ) {
       this.opts.send('evalPut', toPutData(this.opts.variant, ev));
@@ -109,7 +109,7 @@ export default class EvalCache {
     };
     if (this.opts.variant !== 'standard') obj.variant = this.opts.variant;
     if (multiPv > 1) obj.mpv = multiPv;
-    if (this.upgradable()) obj.up = true;
+    if (true || this.upgradable()) obj.up = true;
     this.opts.send('evalGet', obj);
   };
 

@@ -29,6 +29,7 @@ body {
   left: 1vw;
   right: 1vw;
   height: 100%;
+  text-align: center;
 }
 
 .recap a {
@@ -186,5 +187,23 @@ body {
     stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
     stroke-dasharray: 125.6;
     transform: rotate(-90deg);
+  }
+}
+
+.animated-pulse {
+  animation: pulse 1s 1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
