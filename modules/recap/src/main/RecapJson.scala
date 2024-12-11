@@ -40,8 +40,7 @@ private final class RecapJson(lightUserApi: LightUserApi)(using Executor):
         "pgn"  -> o.ref.pgn
       )
 
-  given Writes[NbAndStreak]  = Json.writes
-  given Writes[Results]      = Json.writes
+  given Writes[NbWin]        = Json.writes
   given Writes[PuzzleVotes]  = Json.writes
   given Writes[RecapPuzzles] = Json.writes
   given Writes[Recap.Perf]   = Json.writes

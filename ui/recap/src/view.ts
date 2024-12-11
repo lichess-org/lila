@@ -50,10 +50,10 @@ const init = (user: LightUser): VNode =>
   ]);
 
 const nbGames = (r: Recap): VNode => {
-  const gamesPercentOfTotal = (r.games.nb.nb * 100) / totalGames;
+  const gamesPercentOfTotal = (r.games.nbs.total * 100) / totalGames;
   const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
   return slideTag('games')([
-    h('div.recap--massive', [h('strong', animateNumber(r.games.nb.nb)), 'games played']),
+    h('div.recap--massive', [h('strong', animateNumber(r.games.nbs.total)), 'games played']),
     h('div', [h('p', [h('strong', showGamesPercentOfTotal), ' of all games played this year!'])]),
   ]);
 };
