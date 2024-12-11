@@ -39,5 +39,5 @@
   <string name="castleByMovingTwoSquares">দুই বর্গে রাজা সরান</string>
   <string name="castleByMovingOntoTheRook">দাবার নৌকার উপর দিয়ে রাজাকে সরান</string>
   <string name="inputMovesWithTheKeyboard">কী-বোর্ডের সাথে নিবেশ সরান</string>
-  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">আপনার পচ্ছন্দগুলি সংরক্ষিত করা হয়েছে.</string>
+  <string name="yourPreferencesHaveBeenSaved">আপনার পচ্ছন্দগুলি সংরক্ষিত করা হয়েছে.</string>
 </resources>

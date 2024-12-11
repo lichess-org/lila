@@ -4,8 +4,10 @@ case class RelayCard(
     tour: RelayTour,
     display: RelayRound, // which round to show on the tour link
     link: RelayRound,    // which round to actually link to
-    group: Option[RelayGroup.Name]
+    group: Option[RelayGroup.Name],
+    alts: List[RelayRound.WithTour] // other notable tours of the group
 ) extends RelayRound.AndTourAndGroup:
+
   def errors: List[String] =
     val round = display
     ~round.sync.log.lastErrors.some
