@@ -3,6 +3,7 @@ package lila.relay
 import scala.collection.immutable.SeqMap
 import play.api.libs.json.*
 import scalalib.Json.writeAs
+import scalalib.Debouncer
 import chess.{ ByColor, Color, FideId, Outcome, PlayerName, IntRating }
 import chess.rating.{ Elo, IntRatingDiff }
 
@@ -12,7 +13,6 @@ import lila.study.StudyPlayer.json.given
 import lila.memo.CacheApi
 import lila.core.fide.{ Player as FidePlayer }
 import lila.common.Json.given
-import lila.common.Debouncer
 import lila.core.fide.FideTC
 
 // Player in a tournament with current performance rating and list of games
@@ -86,7 +86,7 @@ private final class RelayPlayerApi(
     chapterPreviewApi: ChapterPreviewApi,
     cacheApi: CacheApi,
     fidePlayerGet: lila.core.fide.GetPlayer
-)(using Executor, Scheduler):
+)(using Executor)(using scheduler: Scheduler):
   import RelayPlayer.*
 
   type RelayPlayers = SeqMap[StudyPlayer.Id, RelayPlayer]
@@ -115,7 +115,7 @@ private final class RelayPlayerApi(
 
   def invalidate(id: RelayTourId) = invalidateDebouncer.push(id)
 
-  private val invalidateDebouncer = Debouncer[RelayTourId](3 seconds, 32): id =>
+  private val invalidateDebouncer = Debouncer[RelayTourId](scheduler.scheduleOnce(3.seconds, _), 32): id =>
     import lila.memo.CacheApi.invalidate
     cache.invalidate(id)
     jsonCache.invalidate(id)

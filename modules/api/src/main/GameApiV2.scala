@@ -41,8 +41,6 @@ final class GameApiV2(
 
   import GameApiV2.*
 
-  private val keepAliveInterval = 70.seconds // play's idleTimeout = 75s
-
   def exportOne(game: Game, config: OneConfig)(using Translate): Fu[String] =
     game.pgnImport.ifTrue(config.imported) match
       case Some(imported) => fuccess(imported.pgn.value)
@@ -149,7 +147,6 @@ final class GameApiV2(
             .throttle(config.perSecond.value, 1 second)
             .via(upgradeOngoingGame)
             .via(preparationFlow(config, realPlayers))
-            .keepAlive(keepAliveInterval, () => emptyMsgFor(config))
 
   def exportByIds(config: ByIdsConfig)(using Translate): Source[String, ?] =
     Source.futureSource:
@@ -263,11 +260,6 @@ final class GameApiV2(
     config.format match
       case Format.PGN  => pgnDump.formatter(config.flags)
       case Format.JSON => jsonFormatter(config)
-
-  private def emptyMsgFor(config: Config) =
-    config.format match
-      case Format.PGN  => "\n"
-      case Format.JSON => "{}\n"
 
   private def jsonFormatter(config: Config)(using Translate) =
     (

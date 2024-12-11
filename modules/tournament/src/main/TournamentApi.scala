@@ -6,9 +6,10 @@ import akka.stream.scaladsl.*
 import com.roundeights.hasher.Algo
 import play.api.libs.json.*
 import scalalib.paginator.Paginator
+import scalalib.Debouncer
 import chess.IntRating
 
-import lila.common.{ Bus, Debouncer }
+import lila.common.Bus
 import lila.core.game.LightPov
 import lila.core.round.{ AbortForce, GoBerserk }
 import lila.core.team.LightTeam
@@ -39,8 +40,12 @@ final class TournamentApi(
     waitingUsers: WaitingUsersApi,
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.core.user.LightUserApi
-)(using Executor, akka.actor.ActorSystem, Scheduler, akka.stream.Materializer, lila.core.i18n.Translator)
-    extends lila.core.tournament.TournamentApi:
+)(using scheduler: Scheduler)(using
+    Executor,
+    akka.actor.ActorSystem,
+    akka.stream.Materializer,
+    lila.core.i18n.Translator
+) extends lila.core.tournament.TournamentApi:
 
   export tournamentRepo.{ byId as get }
 
@@ -710,7 +715,7 @@ final class TournamentApi(
     }
 
   private object publish:
-    private val debouncer = Debouncer[Unit](15 seconds, 1): _ =>
+    private val debouncer = Debouncer[Unit](scheduler.scheduleOnce(15.seconds, _), 1): _ =>
       given play.api.i18n.Lang = lila.core.i18n.defaultLang
       fetchUpdateTournaments.flatMap(apiJsonView.apply).foreach { json =>
         Bus.publish(
