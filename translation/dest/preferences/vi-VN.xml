@@ -67,4 +67,5 @@
   <string name="notifyWeb">Trình duyệt</string>
   <string name="notifyDevice">Thiết bị</string>
   <string name="bellNotificationSound">Âm thanh chuông báo</string>
+  <string name="blindfold" comment="As in Blindfold chess">Bịt mắt</string>
 </resources>
