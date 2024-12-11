@@ -66,4 +66,5 @@
   <string name="notifyWeb">Böngésző</string>
   <string name="notifyDevice">Eszköz</string>
   <string name="bellNotificationSound">Hangjelzés</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Vakjátszma mód</string>
 </resources>
