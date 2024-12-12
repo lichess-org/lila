@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import { userAnalysable, playable } from 'game';
 import { finished, aborted } from 'game/status';
 import * as util from '../util';
-import { isCol1 } from 'common/device';
+import { bindMobileMousedown, isCol1 } from 'common/device';
 import type RoundController from '../ctrl';
 import { throttle } from 'common/timing';
 import viewStatus from 'game/view/status';
@@ -135,25 +135,22 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-const goThroughMoves = (ctrl: RoundController) => {
-  return function (e: MouseEvent) {
-    e.preventDefault();
-    let timeoutId: number | undefined = undefined;
-    const clearMovesTimeout = () => {
-      clearTimeout(timeoutId);
-    };
-    const targetPly = (e: MouseEvent) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
-    const delay = showMovesDecreasingDelay();
-    document.addEventListener(e.type === 'touchstart' ? 'touchend' : 'mouseup', () => clearMovesTimeout(), {
-      once: true,
-    });
-    const repeat = () => {
-      goToPly(ctrl, targetPly(e));
-      timeoutId = setTimeout(repeat, delay.next().value!);
-      if (isNaN(targetPly(e))) clearMovesTimeout();
-    };
-    repeat();
+const goThroughMoves = (ctrl: RoundController, e: Event) => {
+  let timeoutId: number | undefined = undefined;
+  const clearMovesTimeout = () => {
+    clearTimeout(timeoutId);
   };
+  const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+  const delay = showMovesDecreasingDelay();
+  document.addEventListener(e.type === 'touchstart' ? 'touchend' : 'mouseup', () => clearMovesTimeout(), {
+    once: true,
+  });
+  const repeat = () => {
+    goToPly(ctrl, targetPly(e));
+    timeoutId = setTimeout(repeat, delay.next().value!);
+    if (isNaN(targetPly(e))) clearMovesTimeout();
+  };
+  repeat();
 };
 
 function renderButtons(ctrl: RoundController) {
@@ -162,10 +159,7 @@ function renderButtons(ctrl: RoundController) {
   return h(
     'div.buttons',
     {
-      hook: onInsert(el => {
-        el.addEventListener('mousedown', goThroughMoves(ctrl));
-        el.addEventListener('touchstart', goThroughMoves(ctrl));
-      }),
+      hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e)))
     },
     [
       analysisButton(ctrl) || h('div.noop'),
@@ -205,10 +199,11 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: onInsert(el => {
+    // todo - update here to also use MobileMouseDown - seems to be working in renderButtons
+    /*hook: onInsert(el => {
       el.addEventListener('mousedown', goThroughMoves(ctrl));
       el.addEventListener('touchstart', goThroughMoves(ctrl));
-    }),
+    }),*/
   });
 
 export function render(ctrl: RoundController): LooseVNode {
