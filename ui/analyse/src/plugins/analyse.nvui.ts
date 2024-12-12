@@ -134,8 +134,6 @@ export function initModule(ctrl: AnalyseController) {
             ],
           ),
           notify.render(),
-          // h('h2', 'Actions'),
-          // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
@@ -279,29 +277,20 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
     evalStr = evalInfo(bestEv);
     depthStr = depthInfo(evs.client, !!evs.client?.cloud);
   }
-  if (!evalStr) {
-    if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
-    else if (!ctrl.ceval.possible) return NOT_POSSIBLE;
-    else return NOT_ENABLED;
-  } else {
-    return evalStr + ' ' + depthStr;
-  }
+  if (!evalStr)
+    return !ctrl.ceval.allowed() ? NOT_ALLOWED : !ctrl.ceval.possible ? NOT_POSSIBLE : NOT_ENABLED;
+  else return evalStr + ' ' + depthStr;
 }
 
-function evalInfo(bestEv: EvalScore | undefined): string {
-  if (bestEv) {
-    if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
-    else if (defined(bestEv.mate))
-      return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
-  }
-  return '';
-}
+const evalInfo = (bestEv: EvalScore | undefined): string =>
+  defined(bestEv?.cp)
+    ? renderEval(bestEv.cp).replace('-', '−')
+    : defined(bestEv?.mate)
+      ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
+      : '';
 
-function depthInfo(clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
-  if (!clientEv) return '';
-  const depth = clientEv.depth || 0;
-  return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';
-}
+const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
+  clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
 function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
   const instance = ctrl.getCeval();
@@ -367,7 +356,8 @@ function onSubmit(
   style: () => MoveStyle,
   $input: Cash,
 ) {
-  return () => {
+  return (e: SubmitEvent) => {
+    e.preventDefault();
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -381,27 +371,20 @@ function onSubmit(
   };
 }
 
-const shortCommands = ['p', 's', 'next', 'prev', 'eval', 'best'];
-
-function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0].toLowerCase());
-}
+const isShortCommand = (input: string) =>
+  ['p', 's', 'next', 'prev', 'eval', 'best'].includes(input.split(' ')[0].toLowerCase());
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
-  if (lowered === 'next') {
-    next(ctrl);
+  const doAndRedraw = (fn: (ctrl: AnalyseController) => void): void => {
+    fn(ctrl);
     ctrl.redraw();
-  } else if (lowered === 'prev') {
-    prev(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'next line') {
-    jumpNextLine(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'prev line') {
-    jumpPrevLine(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
+  };
+  if (lowered === 'next') doAndRedraw(next);
+  else if (lowered === 'prev') doAndRedraw(prev);
+  else if (lowered === 'next line') doAndRedraw(jumpNextLine);
+  else if (lowered === 'prev line') doAndRedraw(jumpPrevLine);
+  else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
   else if (lowered === 'best') notify(renderBestMove(ctrl, style));
   else {
     const pieces = ctrl.chessground.state.pieces;
@@ -423,8 +406,7 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
   );
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
-    const acpl = anal[color].acpl;
-    res.push(h('h3', `${color} player: ${acpl} ACPL`));
+    res.push(h('h3', `${color} player: ${anal[color].acpl} ACPL`));
     res.push(
       h(
         'select',
@@ -503,9 +485,8 @@ function renderCurrentNode(ctrl: AnalyseController, style: MoveStyle): string {
     .trim();
 }
 
-function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
-}
+const renderPlayer = (ctrl: AnalyseController, player: Player): VNodeChildren =>
+  player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 
 function userHtml(ctrl: AnalyseController, player: Player) {
   const d = ctrl.data,
@@ -527,9 +508,8 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     : 'Anonymous';
 }
 
-function playerByColor(d: AnalyseData, color: Color) {
-  return color === d.player.color ? d.player : d.opponent;
-}
+const playerByColor = (d: AnalyseData, color: Color): Player =>
+  color === d.player.color ? d.player : d.opponent;
 
 const jumpNextLine = (ctrl: AnalyseController) => jumpLine(ctrl, 1);
 const jumpPrevLine = (ctrl: AnalyseController) => jumpLine(ctrl, -1);
