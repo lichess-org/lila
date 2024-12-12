@@ -130,15 +130,14 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
-
-const goToPly = (e: Event, ctrl: RoundController) => () => {
-  const ply = targetPly(e);
-  if (!isNaN(ply)) ctrl.userJump(ply);
-  ctrl.redraw();
-};
-
-const goThroughMoves = (ctrl: RoundController, e: Event) => replayMovesRepeater(goToPly(e, ctrl), e);
+const goThroughMoves = (ctrl: RoundController, e: Event) => replayMovesRepeater(
+  () => {
+    const ply = parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+    if (!isNaN(ply)) ctrl.userJump(ply);
+    ctrl.redraw();
+  },
+  e
+);
 
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data),
