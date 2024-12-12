@@ -216,7 +216,7 @@ export const bye = (): VNode =>
   slideTag('bye')([
     h('div.recap--massive', 'Thank you for playing on Lichess!'),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    h('div', "May your pieces find their way to your opponent's kings."),
+    h('div', "May your pieces find their way to your opponents' kings."),
   ]);
 
 const slideTag =
