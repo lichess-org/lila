@@ -1,3 +1,9 @@
+export interface Opts {
+  recap?: Recap;
+  user: LightUser;
+  navigation: boolean;
+}
+
 interface NbWin {
   total: number;
   win: number;

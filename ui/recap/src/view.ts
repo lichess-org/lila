@@ -1,4 +1,4 @@
-import type { Recap } from './interfaces';
+import type { Opts, Recap } from './interfaces';
 import { type VNode } from 'snabbdom';
 import { looseH as h } from 'common/snabbdom';
 import * as slides from './slides';
@@ -7,10 +7,10 @@ export function awaiter(user: LightUser): VNode {
   return h('div#recap-swiper.swiper.swiper-initialized', [h('div.swiper-wrapper', [slides.loading(user)])]);
 }
 
-export function view(r: Recap, user: LightUser): VNode {
+export function view(r: Recap, opts: Opts): VNode {
   return h('div#recap-swiper.swiper', [
     h('div.swiper-wrapper', [
-      slides.init(user),
+      slides.init(opts.user),
       ...(r.games.nbs.total
         ? [
             slides.nbGames(r),
@@ -29,8 +29,7 @@ export function view(r: Recap, user: LightUser): VNode {
       slides.lichessGames(r),
       slides.bye(),
     ]),
-    h('div.swiper-button-next'),
-    h('div.swiper-button-prev'),
+    ...(opts.navigation ? [h('div.swiper-button-next'), h('div.swiper-button-prev')] : []),
     h('div.swiper-pagination'),
     h('div.autoplay-progress', [
       h('svg', { attrs: { viewBox: '0 0 48 48' } }, [h('circle', { attrs: { cx: 24, cy: 24, r: 20 } })]),
