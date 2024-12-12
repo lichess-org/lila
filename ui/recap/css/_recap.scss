@@ -13,7 +13,8 @@ body {
     }
   }
   #clinput,
-  #friend_box {
+  #friend_box,
+  .site-title-nav__donate {
     display: none;
   }
   @media (min-width: at-least($medium)) {
