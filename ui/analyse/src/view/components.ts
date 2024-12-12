@@ -432,6 +432,7 @@ const dataAct = (e: Event): string | null => {
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 };
 
+// todo - update this code to use the repeater func in common.ts. And maybe inline this repeater here.
 function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   const delay = showMovesDecreasingDelay();
   const repeat = () => {
