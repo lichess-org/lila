@@ -136,17 +136,17 @@ const goToPly = (ctrl: RoundController, ply: number) => {
 };
 
 const goThroughMoves = (ctrl: RoundController, e: Event) => {
+  const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
   const delay = showMovesDecreasingDelay();
   const repeat = () => {
     goToPly(ctrl, targetPly(e));
-    timeoutId = setTimeout(repeat, delay.next().value!);
-    if (isNaN(targetPly(e))) clearTimeout(timeoutId);
+    timeout = setTimeout(repeat, delay.next().value!);
+    if (isNaN(targetPly(e))) clearTimeout(timeout);
   };
-  let timeoutId: number | undefined = undefined;
-  repeat();
-  const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+  let timeout = setTimeout(repeat, delay.next().value!);
+  goToPly(ctrl, targetPly(e));
   const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeoutId), { once: true });
+  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 };
 
 function renderButtons(ctrl: RoundController) {
