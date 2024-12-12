@@ -11,13 +11,19 @@ export function view(r: Recap, user: LightUser): VNode {
   return h('div#recap-swiper.swiper', [
     h('div.swiper-wrapper', [
       slides.init(user),
-      slides.nbGames(r),
-      slides.timeSpentPlaying(r),
-      slides.nbMoves(r),
-      slides.opponents(r),
-      r.games.firstMoves[0] && slides.firstMoves(r, r.games.firstMoves[0]),
-      slides.openingColor(r.games.openings, 'white'),
-      slides.openingColor(r.games.openings, 'black'),
+      ...(r.games.nbs.total
+        ? [
+            slides.nbGames(r),
+            slides.timeSpentPlaying(r),
+            slides.nbMoves(r),
+            slides.sources(r),
+            slides.opponents(r),
+            r.games.firstMoves[0] && slides.firstMoves(r, r.games.firstMoves[0]),
+            slides.openingColor(r.games.openings, 'white'),
+            slides.openingColor(r.games.openings, 'black'),
+          ]
+        : [slides.noGames()]),
+      slides.puzzles(r),
       slides.malware(),
       slides.lichessGames(r),
       slides.bye(),

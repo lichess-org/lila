@@ -190,7 +190,7 @@ body {
   }
 }
 
-.recap__slide--opponents {
+.recap__data {
   td {
     padding: 0.5em 0;
   }
@@ -203,6 +203,8 @@ body {
     opacity: 0.8;
     min-width: 12ch;
   }
+}
+.recap__slide--opponents {
   a {
     border: none;
   }

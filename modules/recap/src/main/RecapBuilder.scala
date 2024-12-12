@@ -57,8 +57,7 @@ private final class RecapBuilder(
           win = nbs.win + win.so(1)
         ),
         votes = votes.copy(
-          up = votes.up + r.vote.exists(_ > 0).so(1),
-          down = votes.down + r.vote.exists(_ < 0).so(1),
+          nb = votes.nb + r.vote.isDefined.so(1),
           themes = votes.themes + r.themes.size
         )
       )

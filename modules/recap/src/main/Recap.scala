@@ -51,4 +51,4 @@ object Recap:
     case Queued(data: JsObject)
 
 case class NbWin(total: Int = 0, win: Int = 0)
-case class PuzzleVotes(up: Int = 0, down: Int = 0, themes: Int = 0)
+case class PuzzleVotes(nb: Int = 0, themes: Int = 0)

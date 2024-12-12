@@ -1,5 +1,5 @@
 import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap } from './interfaces';
+import type { ByColor, Counted, Opening, Recap, Sources } from './interfaces';
 import { onInsert, looseH as h, VNodeKids, VNode } from 'common/snabbdom';
 import { loadOpeningLpv } from './ui';
 import { fullName, userFlair, userTitle } from 'common/userLink';
@@ -20,17 +20,38 @@ export const init = (user: LightUser): VNode =>
     h('h2', 'What a chess year you had!'),
   ]);
 
+export const noGames = (): VNode =>
+  slideTag('no-games')([
+    h('div.recap--massive', 'You did not play any games this year.'),
+    h('div', h('p', h('a', { attrs: { href: '/', target: '_blank' } }, 'Wanna play now?'))),
+  ]);
+
 export const nbGames = (r: Recap): VNode => {
   return slideTag('games')([
     h('div.recap--massive', [h('strong', animateNumber(r.games.nbs.total)), 'games played']),
-    h('div', [h('p', ['And you won ', h('strong', animateNumber(r.games.nbs.win)), '!'])]),
+    h('div', [
+      h('p', ['And you won ', h('strong', animateNumber(r.games.nbs.win)), '!']),
+      h('p', 'What did it take to get there?'),
+    ]),
   ]);
 };
 
 export const timeSpentPlaying = (r: Recap): VNode => {
+  const s = r.games.timePlaying;
+  const days = s / 60 / 60 / 24;
   return slideTag('time')([
-    h('div.recap--massive', [h('strong', animateTime(r.games.timePlaying)), 'spent playing!']),
-    h('div', [h('p', 'Time well wasted, really.')]),
+    h('div.recap--massive', [h('strong', animateTime(s)), 'spent playing!']),
+    h('div', [
+      h(
+        'p',
+        days > 10
+          ? 'That is way too much chess.'
+          : days > 5
+            ? 'That is a lot of chess.'
+            : 'That seems like a reasonable amount of chess.',
+      ),
+      h('p', 'How many moves did you play in all that time?'),
+    ]),
   ]);
 };
 
@@ -48,7 +69,7 @@ export const opponents = (r: Recap): VNode => {
   return slideTag('opponents')([
     h('div.recap--massive', 'Your best chess foes'),
     h(
-      'table',
+      'table.recap__data',
       h(
         'tbody',
         r.games.opponents.map(o =>
@@ -107,6 +128,62 @@ export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode
       ]),
     ]),
   ]);
+};
+
+export const puzzles = (r: Recap): VNode => {
+  return slideTag('puzzles')(
+    r.puzzles.nbs.total
+      ? [
+          h('div.recap--massive', [h('strong', animateNumber(r.puzzles.nbs.total)), 'puzzles solved']),
+          h('div', [
+            h('p', ['You won ', h('strong', animateNumber(r.puzzles.nbs.win)), ' of them on the first try!']),
+            r.puzzles.votes.nb
+              ? h('p', [
+                  'Thank you for voting on ',
+                  h('strong', animateNumber(r.puzzles.votes.nb)),
+                  ' puzzles.',
+                ])
+              : null,
+            r.puzzles.votes.themes
+              ? h('p', [
+                  'You also helped tagging ',
+                  h('strong', animateNumber(r.puzzles.votes.themes)),
+                  ' of them.',
+                ])
+              : null,
+          ]),
+        ]
+      : [
+          h('div.recap--massive', 'You did not solve any puzzles this year.'),
+          h('div', h('p', h('a', { attrs: { href: '/training', target: '_blank' } }, 'Wanna try some now?'))),
+        ],
+  );
+};
+
+export const sources = (r: Recap): VNode => {
+  const all: [keyof Sources, string][] = [
+    ['friend', 'Challenges'],
+    ['ai', 'Computer'],
+    ['arena', 'Arena tournaments'],
+    ['swiss', 'Swiss tournaments'],
+    ['simul', 'Simuls'],
+    ['pool', 'Lobby pairing'],
+  ];
+  const best: [string, number][] = all.map(([k, n]) => [n, r.games.sources[k] || 0]);
+  best.sort((a, b) => b[1] - a[1]);
+  return (
+    best[0] &&
+    slideTag('sources')([
+      h('div.recap--massive', 'Where did you play?'),
+      h(
+        'table.recap__data',
+        h(
+          'tbody',
+          best.map(([n, c]) => c > 0 && h('tr', [h('td', n), h('td', [animateNumber(c), ' games'])])),
+        ),
+      ),
+    ])
+  );
 };
 
 export const malware = (): VNode =>
