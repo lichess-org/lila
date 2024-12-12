@@ -137,7 +137,7 @@ const goToPly = (e: Event, ctrl: RoundController) => () => {
   if (!isNaN(ply)) ctrl.userJump(ply);
   ctrl.redraw();
 };
-
+// todo - get rid of stopCondition thing if not needed?
 const goThroughMoves = (ctrl: RoundController, e: Event) => replayMovesRepeater(goToPly(e, ctrl), e, () => isNaN(targetPly(e)));
 
 function renderButtons(ctrl: RoundController) {
