@@ -13,10 +13,13 @@ export const makeSwiper =
   (element: HTMLElement): void => {
     const progressCircle = element.querySelector('.autoplay-progress svg') as SVGElement;
     const progressContent = element.querySelector('.autoplay-progress span') as HTMLSpanElement;
+    const urlSlide: number | undefined = window.location.hash
+      ? parseInt(window.location.hash.slice(1))
+      : undefined;
     let lpvTimer: number | undefined;
     const options: SwiperOptions = {
       modules: [mod.Pagination, mod.Navigation, mod.Keyboard, mod.Mousewheel, mod.Autoplay],
-      initialSlide: window.location.hash ? parseInt(window.location.hash.slice(1)) : 0,
+      initialSlide: urlSlide || 0,
       direction: 'horizontal',
       loop: false,
       cssMode: false,
@@ -31,10 +34,12 @@ export const makeSwiper =
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
+      autoplay: urlSlide
+        ? undefined
+        : {
+            delay: 5000,
+            disableOnInteraction: false,
+          },
       on: {
         autoplayTimeLeft(_s, time, progress) {
           progressCircle.style.setProperty('--progress', (1 - progress).toString());
