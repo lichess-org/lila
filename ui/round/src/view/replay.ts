@@ -199,11 +199,7 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    // todo - update here to also use MobileMouseDown - seems to be working in renderButtons
-    /*hook: onInsert(el => {
-      el.addEventListener('mousedown', goThroughMoves(ctrl));
-      el.addEventListener('touchstart', goThroughMoves(ctrl));
-    }),*/
+    hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e)))
   });
 
 export function render(ctrl: RoundController): LooseVNode {
