@@ -10,7 +10,7 @@ export class Notify {
   notification: Notification | undefined;
   redraw?: () => void;
 
-  constructor(readonly timeout: number = 3000) {}
+  constructor() {}
 
   set = (msg: string): void => {
     // make sure it's different from previous, so it gets read again
@@ -20,9 +20,7 @@ export class Notify {
   };
 
   currentText = (): string =>
-    this.notification && this.notification.date.getTime() > Date.now() - this.timeout
-      ? this.notification.text
-      : '';
+    this.notification && this.notification.date.getTime() > Date.now() - 3000 ? this.notification.text : '';
 
   render = (): VNode =>
     h('div.notify', { attrs: { 'aria-live': 'assertive', 'aria-atomic': 'true' } }, this.currentText());
