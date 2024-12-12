@@ -64,5 +64,5 @@
   <string name="notifyWeb">Blaaier</string>
   <string name="notifyDevice">Toestel</string>
   <string name="bellNotificationSound">Klokkie kennisgewing klank</string>
-  <string name="blindfold" comment="As in Blindfold chess">Blinddoek</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Blinddoek</string>
 </resources>

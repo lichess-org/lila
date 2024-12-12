@@ -67,4 +67,5 @@
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Apparaat</string>
   <string name="bellNotificationSound">Meldingsgeluid</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Geblinddoekt</string>
 </resources>

@@ -24,7 +24,7 @@
   <string name="tournamentDescription">توضیحات کوتاه مسابقات</string>
   <string name="fullDescription">توضیحات کامل مسابقات</string>
   <string name="fullDescriptionHelp">توضیحات بلند و اختیاری پخش همگانی. %1$s قابل‌استفاده است. طول متن باید کمتر از %2$s نویسه باشد.</string>
-  <string name="sourceSingleUrl">وب‌نشانیِ PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">وب‌نشانیِ PGN</string>
   <string name="sourceUrlHelp">وب‌نشانی‌ای که Lichess برای دریافت به‌روزرسانی‌های PGN می‌بررسد. آن باید از راه اینترنت در دسترس همگان باشد.</string>
   <string name="sourceGameIds">تا ۶۴ شناسهٔ بازی Lichess، جداشده با فاصله.</string>
   <string name="startDateTimeZone">تاریخ آغاز در زمان-یانه محلی مسابقات: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">رُخ‌نمای فیده</string>
   <string name="federation">کشورگان</string>
   <string name="ageThisYear">سنِ امسال</string>
-  <string name="unrated">بی‌درجه‌بندی</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
   <string name="openLichess">آزاد در Lichess</string>
   <string name="teams">یَران‌ها</string>
