@@ -51,11 +51,6 @@ const renderMove = (step: Step, curPly: number, orEmpty: boolean, drawOffers: Se
       ])
     : orEmpty && h(moveTag, '…');
 
-const goToPly = (ctrl: RoundController, ply: number) => {
-  if (!isNaN(ply)) ctrl.userJump(ply);
-  ctrl.redraw();
-};
-
 export function renderResult(ctrl: RoundController): VNode | undefined {
   let result: string | undefined;
   if (finished(ctrl.data))
@@ -134,6 +129,11 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
     )
   );
 }
+
+const goToPly = (ctrl: RoundController, ply: number) => {
+  if (!isNaN(ply)) ctrl.userJump(ply);
+  ctrl.redraw();
+};
 
 const goThroughMoves = (ctrl: RoundController, e: Event) => {
   let timeoutId: number | undefined = undefined;
