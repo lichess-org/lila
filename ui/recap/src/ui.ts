@@ -36,16 +36,11 @@ export const loadOpeningLpv = (el: HTMLElement, color: Color, opening: Opening):
     showMoves: 'bottom',
     showClocks: false,
     showPlayers: false,
+    showControls: false,
     chessground: {
       coordinates: false,
     },
     orientation: color,
-    menu: {
-      getPgn: {
-        enabled: true,
-        fileName: opening.name + '.pgn',
-      },
-    },
   });
   set(lpv.div!, 'lpv', lpv);
 };

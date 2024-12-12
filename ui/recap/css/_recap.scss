@@ -71,14 +71,6 @@ body {
     --c-lpv-bg: transparent;
     outline: none;
     box-shadow: none;
-    &,
-    .lpv__controls,
-    .lpv__fbt {
-      border: none;
-    }
-    .lpv__fbt {
-      padding: 0.1em 1em;
-    }
   }
 }
 
@@ -111,7 +103,7 @@ body {
   }
 }
 .recap--big {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .recap__slide--time .recap--massive strong {
@@ -218,6 +210,28 @@ body {
   }
   .trophy {
     height: 1em;
+  }
+}
+
+@media (max-width: at-most($xx-small)) {
+  .recap__slide--lichess-games {
+    .recap--massive {
+      strong {
+        font-size: 2em;
+      }
+    }
+  }
+}
+
+.recap ul {
+  text-align: left;
+  li {
+    @extend %flex-center;
+    &:before {
+      content: '✓';
+      font-size: 1.5em;
+      margin-right: 0.3em;
+    }
   }
 }
 

@@ -110,7 +110,7 @@ export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode
       hook: onInsert(el => loadOpeningLpv(el, color, o.value)),
     }),
     h(
-      'div.recap--big',
+      'div',
       h(
         'a',
         {
@@ -123,7 +123,8 @@ export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode
       h('p', [
         'Your most played opening as ',
         color,
-        ', with ',
+        h('br'),
+        'with ',
         h('strong', animateNumber(o.count)),
         ' games.',
       ]),
@@ -210,12 +211,12 @@ export const perfs = (r: Recap): VNode => {
 export const malware = (): VNode =>
   slideTag('malware')([
     h('div.recap--massive', [h('strong.animated-pulse', '0'), 'ads and trackers loaded']),
-    h('p', "We didn't sell your personal data, and we didn't use your device against you."),
+    h('ul', [h('li', "We didn't sell your personal data"), h('li', "We didn't use your device against you")]),
     h(
       'p',
       h('small', [
-        'But other websites do, so ',
-        h('a', { attrs: { href: '/ads', target: '_blank' } }, 'be careful'),
+        'But other websites do, so please ',
+        h('a', { attrs: { href: '/ads', target: '_blank' } }, 'be careful.'),
       ]),
     ),
   ]);
@@ -224,11 +225,7 @@ export const lichessGames = (r: Recap): VNode => {
   const gamesPercentOfTotal = (r.games.nbs.total * 100) / totalGames;
   const showGamesPercentOfTotal = gamesPercentOfTotal.toFixed(6) + '%';
   return slideTag('lichess-games')([
-    h('div.recap--massive', [
-      h('strong', animateNumber(totalGames)),
-      'games were played on Lichess in ',
-      r.year,
-    ]),
+    h('div.recap--massive', [h('strong', animateNumber(totalGames)), 'games played on Lichess in ', r.year]),
     h('div', [h('p', [h('strong', showGamesPercentOfTotal), ' of them are yours.'])]),
   ]);
 };
