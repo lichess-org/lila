@@ -190,6 +190,35 @@ body {
   }
 }
 
+.recap__slide--opponents {
+  td {
+    padding: 0.5em 0;
+  }
+  td:first-child {
+    text-align: left;
+  }
+  td:last-child {
+    text-align: right;
+    font-size: 0.8em;
+    opacity: 0.8;
+    min-width: 12ch;
+  }
+  a {
+    border: none;
+  }
+  .uflair,
+  .noflair {
+    font-size: 1.5em;
+    margin-right: 0.5em;
+  }
+  .noflair {
+    opacity: 0.8;
+  }
+  .trophy {
+    height: 1em;
+  }
+}
+
 .animated-pulse {
   animation: pulse 1s 1;
 }

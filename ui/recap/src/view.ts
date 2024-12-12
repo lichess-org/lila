@@ -3,7 +3,7 @@ import type { ByColor, Counted, Opening, Recap } from './interfaces';
 import { type VNode } from 'snabbdom';
 import { onInsert, looseH as h, VNodeKids } from 'common/snabbdom';
 import { loadOpeningLpv } from './ui';
-import { fullName } from 'common/userLink';
+import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
 
 export function awaiter(user: LightUser): VNode {
@@ -15,12 +15,14 @@ export function awaiter(user: LightUser): VNode {
 }
 
 export function view(r: Recap, user: LightUser): VNode {
+  console.log(r);
   return h('div#recap-swiper.swiper', [
     h('div.swiper-wrapper', [
       init(user),
       nbGames(r),
       timeSpentPlaying(r),
       nbMoves(r),
+      opponents(r),
       r.games.firstMoves[0] && firstMoves(r, r.games.firstMoves[0]),
       openingColor(r.games.openings, 'white'),
       openingColor(r.games.openings, 'black'),
@@ -73,6 +75,27 @@ const nbMoves = (r: Recap): VNode => {
     ]),
   ]);
 };
+
+const opponents = (r: Recap): VNode => {
+  return slideTag('opponents')([
+    h('div.recap--massive', 'Your best chess foes'),
+    h(
+      'table',
+      h(
+        'tbody',
+        r.games.opponents.map(o =>
+          h('tr', [h('td', opponentLink(o.value)), h('td', [animateNumber(o.count), ' games'])]),
+        ),
+      ),
+    ),
+  ]);
+};
+
+const opponentLink = (o: LightUser): VNode =>
+  h('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(), userTitle(o), o.name]);
+
+const noFlair = (): VNode =>
+  h('img.uflair.noflair', { attrs: { src: site.asset.flairSrc('nature.cat-face') } });
 
 const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
   const percent = Math.round((firstMove.count * 100) / r.games.nbWhite);
