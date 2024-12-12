@@ -539,7 +539,7 @@ export const renderComments = (node: Tree.Node, style: MoveStyle): string =>
 const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string =>
   comment.by === 'lichess'
     ? comment.text.replace(
-        /Best move was (.+)\./,
-        (_, san) => 'Best move was ' + renderSan(san, undefined, style),
+        /([^\s]+) was best\./,
+        (_, san) => `Best move was ${renderSan(san, undefined, style)}`,
       )
     : comment.text;
