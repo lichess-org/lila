@@ -4,6 +4,7 @@ import { onInsert, looseH as h, VNodeKids, VNode } from 'common/snabbdom';
 import { loadOpeningLpv } from './ui';
 import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
+import { perfNames } from './util';
 
 const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
 
@@ -179,11 +180,31 @@ export const sources = (r: Recap): VNode => {
         'table.recap__data',
         h(
           'tbody',
-          best.map(([n, c]) => c > 0 && h('tr', [h('td', n), h('td', [animateNumber(c), ' games'])])),
+          best.map(
+            ([n, c]) => c > 0 && h('tr', [h('td', n), h('td', [h('strong', animateNumber(c)), ' games'])]),
+          ),
         ),
       ),
     ])
   );
+};
+
+export const perfs = (r: Recap): VNode => {
+  return slideTag('perfs')([
+    h('div.recap--massive', 'What did you play?'),
+    h(
+      'table.recap__data',
+      h(
+        'tbody',
+        r.games.perfs.map(p =>
+          h('tr', [
+            h('td', (perfNames as any)[p.key] || p.key),
+            h('td', [h('strong', animateNumber(p.games)), ' games']),
+          ]),
+        ),
+      ),
+    ),
+  ]);
 };
 
 export const malware = (): VNode =>

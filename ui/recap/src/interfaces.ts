@@ -24,6 +24,12 @@ export interface Sources {
   arena: number;
 }
 
+export interface Perf {
+  key: string;
+  seconds: number;
+  games: number;
+}
+
 export interface Recap {
   year: number;
   createdAt: number;
@@ -35,11 +41,7 @@ export interface Recap {
     };
   };
   games: {
-    perfs: {
-      key: string;
-      seconds: number;
-      games: number;
-    }[];
+    perfs: Perf[];
     moves: number;
     openings: ByColor<Counted<Opening>>;
     nbs: NbWin;

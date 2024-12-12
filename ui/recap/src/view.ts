@@ -16,6 +16,7 @@ export function view(r: Recap, user: LightUser): VNode {
             slides.nbGames(r),
             slides.timeSpentPlaying(r),
             slides.nbMoves(r),
+            slides.perfs(r),
             slides.sources(r),
             slides.opponents(r),
             r.games.firstMoves[0] && slides.firstMoves(r, r.games.firstMoves[0]),
