@@ -33,7 +33,7 @@ case class RecapGames(
   def significantPerfs: List[Recap.Perf] = perfs.filter: p =>
     (p.games > (nbs.total / 20)) || (p.seconds > (timePlaying.toSeconds / 20))
 
-case class RecapPuzzles(nbs: NbWin, votes: PuzzleVotes)
+case class RecapPuzzles(nbs: NbWin = NbWin(), votes: PuzzleVotes = PuzzleVotes())
 
 object Recap:
 

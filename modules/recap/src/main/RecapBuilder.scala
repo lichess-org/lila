@@ -13,6 +13,7 @@ import lila.puzzle.PuzzleRound
 import lila.common.LichessDay
 import lila.core.game.Source
 import java.time.LocalDate
+import reactivemongo.api.bson.BSONNull
 
 private final class RecapBuilder(
     repo: RecapRepo,
@@ -23,44 +24,37 @@ private final class RecapBuilder(
   def compute(userId: UserId): Funit = for
     recap <- (
       runGameScan(userId).map(makeGameRecap),
-      runPuzzleScan(userId).map(makePuzzleRecap)
+      runPuzzleScan(userId).map(_ | RecapPuzzles())
     ).mapN: (game, puzzle) =>
       Recap(userId, yearToRecap, game, puzzle, nowInstant)
     _ <- repo.insert(recap)
   yield ()
 
-  private def makePuzzleRecap(scan: PuzzleScan): RecapPuzzles =
-    RecapPuzzles(
-      nbs = scan.nbs,
-      votes = scan.votes
-    )
-
-  private def runPuzzleScan(userId: UserId): Fu[PuzzleScan] =
-    import lila.puzzle.BsonHandlers.roundHandler
+  private def runPuzzleScan(userId: UserId): Fu[Option[RecapPuzzles]] =
     puzzleColls.round:
-      _.find($doc("u" -> userId, "d" -> $doc("$gt" -> dateStart, "$lt" -> dateEnd)))
-        .sort($sort.asc("d"))
-        .cursor[PuzzleRound]()
-        .documentSource()
-        .runFold(PuzzleScan())(_.addRound(_))
-        .monSuccess(_.recap.puzzles)
-
-  private case class PuzzleScan(
-      nbs: NbWin = NbWin(),
-      votes: PuzzleVotes = PuzzleVotes()
-  ):
-    def addRound(r: PuzzleRound): PuzzleScan =
-      val win = r.firstWin
-      copy(
-        nbs = NbWin(
-          total = nbs.total + 1,
-          win = nbs.win + win.so(1)
-        ),
-        votes = votes.copy(
-          nb = votes.nb + r.vote.isDefined.so(1),
-          themes = votes.themes + r.themes.size
+      _.aggregateOne() { framework =>
+        import framework.*
+        Match($doc("u" -> userId, "d" -> $doc("$gt" -> dateStart, "$lt" -> dateEnd))) -> List(
+          Group(BSONNull)(
+            "nb"     -> SumAll,
+            "wins"   -> Sum($doc("$cond" -> $arr("$w", 1, 0))),
+            "fixes"  -> Sum($doc("$cond" -> $arr($doc("$and" -> $arr("$w", "$f")), 1, 0))),
+            "votes"  -> Sum($doc("$cond" -> $arr("$v", 1, 0))),
+            "themes" -> Sum($doc("$cond" -> $arr("$t", 1, 0)))
+          )
         )
-      )
+      }.map: r =>
+        for
+          doc    <- r
+          nb     <- doc.int("nb")
+          wins   <- doc.int("wins")
+          fixes  <- doc.int("fixes")
+          votes  <- doc.int("votes")
+          themes <- doc.int("themes")
+        yield RecapPuzzles(
+          nbs = NbWin(total = nb, win = wins - fixes),
+          votes = PuzzleVotes(nb = votes, themes = themes)
+        )
 
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
