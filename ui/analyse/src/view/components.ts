@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
-import { defined, showMovesDecreasingDelay } from 'common';
+import { defined, replayMovesRepeater } from 'common';
 import * as licon from 'common/licon';
 import {
   type VNode,
@@ -279,7 +279,13 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hook: onInsert(
         bindMobileMousedown(e => {
           const action = dataAct(e);
-          if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
+          if (action === 'prev' || action === 'next') replayMovesRepeater(
+            () => {
+              control[action](ctrl);
+              ctrl.redraw();
+            },
+            e
+          );
           else if (action === 'first') control.first(ctrl);
           else if (action === 'last') control.last(ctrl);
           else if (action === 'explorer') ctrl.toggleExplorer();
@@ -431,21 +437,6 @@ const dataAct = (e: Event): string | null => {
   const target = e.target as HTMLElement;
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 };
-
-// todo - update this code to use the repeater func in common.ts. And maybe inline this repeater here.
-function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
-  const delay = showMovesDecreasingDelay();
-  const repeat = () => {
-    control[action](ctrl);
-    ctrl.redraw();
-    timeout = setTimeout(repeat, delay.next().value!);
-  };
-  let timeout = setTimeout(repeat, delay.next().value!);
-  control[action](ctrl);
-  ctrl.redraw();
-  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
-}
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
