@@ -58,8 +58,8 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
   ]);
 
 function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
-  const gameName = `${game.clock} • ${game.perf.name}`;
-  return h('div.infos', { attrs: dataIcon(perfIcons[game.perf.key]) }, [
+  const gameName = game.clock && game.perf ? `${game.clock} • ${game.perf.name}` : '';
+  return h('div.infos', { attrs: game.perf && dataIcon(perfIcons[game.perf.key]) }, [
     h('div', [
       h(
         'p',
@@ -72,8 +72,11 @@ function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
       h(
         'div.players',
         game.players.map(p => {
-          const user = { ...p, rating: ctrl.opts.showRatings ? p.rating : undefined, line: false };
-          return h('div.player.color-icon.is.text.' + p.color, userLink(user));
+          const user =
+            p.name == 'ghost'
+              ? p.rating?.toString() || ''
+              : userLink({ ...p, rating: ctrl.opts.showRatings ? p.rating : undefined, line: false });
+          return h('div.player.color-icon.is.text.' + p.color, user);
         }),
       ),
     ]),
