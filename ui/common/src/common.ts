@@ -130,13 +130,11 @@ export function myUserId(): string | undefined {
   return document.body.dataset.user;
 }
 
-export function* showMovesDecreasingDelay(): Generator<number, void, void> {
-  yield 500;
-  for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
-} // todo - make this inline in func below?
-
 export function replayMovesRepeater(f: () => void, e: Event): void {
-  const delay = showMovesDecreasingDelay();
+  const delay = (function* () {
+    yield 500;
+    for (let d = 350; ; ) yield Math.max(100, d *= 14/15);
+  })();
   const repeat = () => {
     f();
     timeout = setTimeout(repeat, delay.next().value!);
