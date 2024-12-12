@@ -250,12 +250,11 @@ export const shareable = (r: Recap): VNode =>
       stat(formatNumber(r.games.nbs.total), 'games played'),
       stat(formatNumber(r.games.moves), 'moves played'),
       stat(formatDuration(r.games.timePlaying, ' and '), 'spent playing'),
-      stat((perfNames as any)[r.games.perfs[0].key], 'favorite time control'),
-      stat(opponentLink(r.games.opponents[0].value), 'most played opponent'),
+      r.games.perfs[0]?.games && stat((perfNames as any)[r.games.perfs[0].key], 'favorite time control'),
+      r.games.opponents.length && stat(opponentLink(r.games.opponents[0].value), 'most played opponent'),
       stat(formatNumber(r.puzzles.nbs.total), 'puzzles solved'),
-      // stat('1. ' + r.games.firstMoves[0].value, 'most played first move'),
-      stat(r.games.openings.white.value.name, 'as white'),
-      stat(r.games.openings.black.value.name, 'as black'),
+      r.games.openings.white.count && stat(r.games.openings.white.value.name, 'as white'),
+      r.games.openings.black.count && stat(r.games.openings.black.value.name, 'as black'),
     ]),
   ]);
 
