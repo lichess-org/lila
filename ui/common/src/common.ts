@@ -133,7 +133,7 @@ export function myUserId(): string | undefined {
 export function replayMovesRepeater(f: () => void, e: Event): void {
   const delay = (function* () {
     yield 500;
-    for (let d = 350; ; ) yield Math.max(100, d *= 14/15);
+    for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
   })();
   const repeat = () => {
     f();

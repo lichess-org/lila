@@ -130,14 +130,12 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-const goThroughMoves = (ctrl: RoundController, e: Event) => replayMovesRepeater(
-  () => {
+const goThroughMoves = (ctrl: RoundController, e: Event) =>
+  replayMovesRepeater(() => {
     const ply = parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
     if (!isNaN(ply)) ctrl.userJump(ply);
     ctrl.redraw();
-  },
-  e
-);
+  }, e);
 
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data),
@@ -145,7 +143,7 @@ function renderButtons(ctrl: RoundController) {
   return h(
     'div.buttons',
     {
-      hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e)))
+      hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
     },
     [
       analysisButton(ctrl) || h('div.noop'),
@@ -185,7 +183,7 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e)))
+    hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
   });
 
 export function render(ctrl: RoundController): LooseVNode {

@@ -279,13 +279,11 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hook: onInsert(
         bindMobileMousedown(e => {
           const action = dataAct(e);
-          if (action === 'prev' || action === 'next') replayMovesRepeater(
-            () => {
+          if (action === 'prev' || action === 'next')
+            replayMovesRepeater(() => {
               control[action](ctrl);
               ctrl.redraw();
-            },
-            e
-          );
+            }, e);
           else if (action === 'first') control.first(ctrl);
           else if (action === 'last') control.last(ctrl);
           else if (action === 'explorer') ctrl.toggleExplorer();
