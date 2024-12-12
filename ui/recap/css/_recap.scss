@@ -148,6 +148,27 @@ body {
   font-weight: 2em;
 }
 
+.recap__shareable-title {
+  font-size: 1.5em;
+  margin-top: 0.4em;
+}
+
+.recap__shareable {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1.5em;
+  padding: 0.5em;
+
+  .recap__stat {
+    font-size: 1.5em;
+    flex: 50%;
+
+    a {
+      border: none;
+    }
+  }
+}
+
 .recap small {
   font-size: 0.8em;
   opacity: 0.6;
@@ -246,7 +267,7 @@ body {
   }
 
   50% {
-    transform: scale(1.2);
+    transform: scale(1.3);
   }
 
   100% {

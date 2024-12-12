@@ -1,10 +1,10 @@
 import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap, Sources } from './interfaces';
 import { onInsert, looseH as h, VNodeKids, VNode } from 'common/snabbdom';
-import { loadOpeningLpv } from './ui';
+import { formatNumber, loadOpeningLpv } from './ui';
 import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
-import { perfNames } from './util';
+import { formatDuration, perfNames } from './util';
 
 const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
 
@@ -230,11 +230,33 @@ export const lichessGames = (r: Recap): VNode => {
   ]);
 };
 
-export const bye = (): VNode =>
-  slideTag('bye')([
+export const thanks = (): VNode =>
+  slideTag('thanks')([
     h('div.recap--massive', 'Thank you for playing on Lichess!'),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     h('div', "May your pieces find their way to your opponents' kings."),
+  ]);
+
+const stat = (value: string | VNode, label: string): VNode =>
+  h('div.recap__stat', [h('div', h('strong', value)), h('div', h('small', label))]);
+
+export const shareable = (r: Recap): VNode =>
+  slideTag('shareable')([
+    h('div', [
+      h('img.recap__logo', { attrs: { src: site.asset.url('logo/logo-with-name-dark.png') } }),
+      h('h2.recap__shareable-title', 'My 2024 Recap'),
+    ]),
+    h('div.recap__shareable', [
+      stat(formatNumber(r.games.nbs.total), 'games played'),
+      stat(formatNumber(r.games.moves), 'moves played'),
+      stat(formatDuration(r.games.timePlaying, ' and '), 'spent playing'),
+      stat((perfNames as any)[r.games.perfs[0].key], 'favorite time control'),
+      stat(opponentLink(r.games.opponents[0].value), 'most played opponent'),
+      stat(formatNumber(r.puzzles.nbs.total), 'puzzles solved'),
+      // stat('1. ' + r.games.firstMoves[0].value, 'most played first move'),
+      stat(r.games.openings.white.value.name, 'as white'),
+      stat(r.games.openings.black.value.name, 'as black'),
+    ]),
   ]);
 
 const slideTag =

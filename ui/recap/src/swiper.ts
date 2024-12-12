@@ -12,6 +12,7 @@ import { Opts } from './interfaces';
 export const makeSwiper =
   (opts: Opts) =>
   (element: HTMLElement): void => {
+    const progressDiv = element.querySelector('.autoplay-progress') as HTMLDivElement;
     const progressCircle = element.querySelector('.autoplay-progress svg') as SVGElement;
     const progressContent = element.querySelector('.autoplay-progress span') as HTMLSpanElement;
     const urlSlide: number | undefined = window.location.hash
@@ -48,10 +49,12 @@ export const makeSwiper =
         ? {
             delay: 5000,
             disableOnInteraction: false,
+            stopOnLastSlide: true,
           }
         : undefined,
       on: {
-        autoplayTimeLeft(_s, time, progress) {
+        autoplayTimeLeft(swiper, time, progress) {
+          if (swiper.isEnd) progressDiv.remove();
           progressCircle.style.setProperty('--progress', (1 - progress).toString());
           progressContent.textContent = `${Math.ceil(time / 1000)}s`;
         },
