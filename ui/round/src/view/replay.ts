@@ -132,12 +132,16 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
 
 const goThroughMoves = (ctrl: RoundController, e: Event) => {
   const targetPly = () => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
-  replayMovesRepeater(() => {
-    const ply = targetPly();
-    if (!isNaN(ply)) ctrl.userJump(ply);
-    ctrl.redraw();
-  }, e, () => isNaN(targetPly()));
-}
+  replayMovesRepeater(
+    () => {
+      const ply = targetPly();
+      if (!isNaN(ply)) ctrl.userJump(ply);
+      ctrl.redraw();
+    },
+    e,
+    () => isNaN(targetPly()),
+  );
+};
 
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data),
