@@ -92,7 +92,6 @@ private final class RecapBuilder(
       nbWhite: Int = 0,
       nbMoves: Int = 0,
       secondsPlaying: Int = 0,
-      streak: Streak = Streak(),
       openings: ByColor[Map[SimpleOpening, Int]] = ByColor.fill(Map.empty),
       firstMoves: Map[SanStr, Int] = Map.empty,
       sources: Map[Source, Int] = Map.empty,
@@ -115,7 +114,6 @@ private final class RecapBuilder(
             nbWhite = nbWhite + player.color.fold(1, 0),
             nbMoves = nbMoves + g.playerMoves(player.color),
             secondsPlaying = secondsPlaying + durationSeconds,
-            streak = streak.add(g.createdAt),
             openings = opening.fold(openings): op =>
               openings.update(player.color, _.updatedWith(op)(_.fold(1)(_ + 1).some)),
             firstMoves = player.color.white
@@ -130,21 +128,3 @@ private final class RecapBuilder(
               pk.fold((durationSeconds, 1).some): (seconds, games) =>
                 (seconds + durationSeconds, games + 1).some
           )
-
-  private case class Streak(
-      current: Int = 0,
-      max: Int = 0,
-      lastPlayed: LichessDay = LichessDay(0)
-  ):
-
-    def add(playedAt: Instant): Streak =
-      val day = LichessDay.dayOf(playedAt)
-      val newStreak =
-        if day == lastPlayed then current
-        else if day == lastPlayed.map(_ + 1) then current + 1
-        else 1
-      Streak(
-        current = newStreak,
-        max = newStreak.atLeast(max),
-        lastPlayed = day
-      )
