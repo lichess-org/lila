@@ -67,4 +67,5 @@
   <string name="notifyWeb">브라우저</string>
   <string name="notifyDevice">기기 정보</string>
   <string name="bellNotificationSound">벨 알림 음</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">기물 가리기</string>
 </resources>

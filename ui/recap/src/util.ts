@@ -16,3 +16,20 @@ export function formatDuration(seconds: number): string {
 function simplePlural(n: number, unit: string): string {
   return `${n} ${unit}${n === 1 ? '' : 's'}`;
 }
+
+export const perfNames = {
+  ultraBullet: 'UltraBullet',
+  bullet: 'Bullet',
+  blitz: 'Blitz',
+  rapid: 'Rapid',
+  classical: 'Classical',
+  correspondence: 'Correspondence',
+  racingKings: 'Racing Kings',
+  threeCheck: 'Three-check',
+  antichess: 'Antichess',
+  horde: 'Horde',
+  atomic: 'Atomic',
+  crazyhouse: 'Crazyhouse',
+  chess960: 'Chess960',
+  kingOfTheHill: 'King of the Hill',
+};

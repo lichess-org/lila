@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Kort beskrivelse av turneringen</string>
   <string name="fullDescription">Full beskrivelse av turneringen</string>
   <string name="fullDescriptionHelp">Valgfri lang beskrivelse av turneringen. %1$s er tilgjengelig. Beskrivelsen må være kortere enn %2$s tegn.</string>
-  <string name="sourceSingleUrl">URL til PGN-kilden</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL til PGN-kilden</string>
   <string name="sourceUrlHelp">Lenke som Lichess vil hente PGN-oppdateringer fra. Den må være offentlig tilgjengelig på internett.</string>
   <string name="sourceGameIds">Opptil 64 ID-er for partier hos Lichess. De må være adskilt med mellomrom.</string>
   <string name="startDateTimeZone">Startdato i turneringens lokale tidssone: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">FIDE-profil</string>
   <string name="federation">Forbund</string>
   <string name="ageThisYear">Alder i år</string>
-  <string name="unrated">Uratet</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Uratet</string>
   <string name="recentTournaments">Nylige turneringer</string>
   <string name="openLichess">Åpne i Lichess</string>
   <string name="teams">Lag</string>

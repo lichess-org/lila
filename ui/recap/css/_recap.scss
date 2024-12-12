@@ -13,7 +13,8 @@ body {
     }
   }
   #clinput,
-  #friend_box {
+  #friend_box,
+  .site-title-nav__donate {
     display: none;
   }
   @media (min-width: at-least($medium)) {
@@ -64,21 +65,13 @@ body {
   &__logo,
   .lpv {
     width: 384px;
-    max-width: 80vw;
+    max-width: 61vw;
     max-height: 50vh;
   }
   .lpv {
     --c-lpv-bg: transparent;
     outline: none;
     box-shadow: none;
-    &,
-    .lpv__controls,
-    .lpv__fbt {
-      border: none;
-    }
-    .lpv__fbt {
-      padding: 0.1em 1em;
-    }
   }
 }
 
@@ -111,7 +104,7 @@ body {
   }
 }
 .recap--big {
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
 .recap__slide--time .recap--massive strong {
@@ -187,6 +180,59 @@ body {
     stroke-dashoffset: calc(125.6px * (1 - var(--progress)));
     stroke-dasharray: 125.6;
     transform: rotate(-90deg);
+  }
+}
+
+.recap__data {
+  td {
+    padding: 0.5em 0;
+  }
+  td:first-child {
+    text-align: left;
+  }
+  td:last-child {
+    text-align: right;
+    font-size: 0.8em;
+    opacity: 0.8;
+    min-width: 12ch;
+  }
+}
+.recap__slide--opponents {
+  a {
+    border: none;
+  }
+  .uflair,
+  .noflair {
+    font-size: 1.5em;
+    margin-right: 0.5em;
+  }
+  .noflair {
+    opacity: 0.8;
+  }
+  .trophy {
+    height: 1em;
+  }
+}
+
+@media (max-width: at-most($xx-small)) {
+  .recap__slide--lichess-games {
+    .recap--massive {
+      strong {
+        font-size: 2em;
+      }
+    }
+  }
+}
+
+.recap ul {
+  text-align: left;
+  li {
+    @extend %flex-center;
+    &:before {
+      content: '✓';
+      font-size: 1.5em;
+      margin-right: 0.3em;
+    }
   }
 }
 

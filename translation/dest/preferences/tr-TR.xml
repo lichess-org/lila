@@ -67,4 +67,5 @@
   <string name="notifyWeb">Tarayıcı</string>
   <string name="notifyDevice">Cihaz</string>
   <string name="bellNotificationSound">Çan bildirimi sesi</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Körleme modu</string>
 </resources>

@@ -67,4 +67,5 @@
   <string name="notifyWeb">ブラウザ</string>
   <string name="notifyDevice">デバイス</string>
   <string name="bellNotificationSound">ベル通知の音</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">めかくしモード</string>
 </resources>

@@ -23,7 +23,7 @@
   <string name="tournamentDescription">Mô tả ngắn giải đấu</string>
   <string name="fullDescription">Mô tả đầy đủ giải đấu</string>
   <string name="fullDescriptionHelp">Tùy chọn mô tả dài về giải đấu. Có thể sử dụng %1$s. Độ dài phải nhỏ hơn %2$s ký tự.</string>
-  <string name="sourceSingleUrl">URL Nguồn PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL Nguồn PGN</string>
   <string name="sourceUrlHelp">URL mà Lichess sẽ khảo sát để nhận cập nhật PGN. Nó phải được truy cập công khai từ Internet.</string>
   <string name="sourceGameIds">Tối đa 64 ID ván cờ trên Lichess, phân tách bằng dấu cách.</string>
   <string name="startDateTimeZone">Thời gian bắt đầu của giải theo múi giờ địa phương: %s</string>
@@ -46,7 +46,7 @@
   <string name="fideProfile">Hồ sơ FIDE</string>
   <string name="federation">Liên đoàn</string>
   <string name="ageThisYear">Tuổi năm nay</string>
-  <string name="unrated">Chưa xếp hạng</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Chưa xếp hạng</string>
   <string name="recentTournaments">Các giải đấu tham gia gần đây</string>
   <string name="openLichess">Mở trên Lichess</string>
   <string name="teams">Các đội</string>

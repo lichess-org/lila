@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Brève description du tournoi</string>
   <string name="fullDescription">Description complète de l\'événement</string>
   <string name="fullDescriptionHelp">Description détaillée et optionnelle de la diffusion. %1$s est disponible. La longueur doit être inférieure à %2$s caractères.</string>
-  <string name="sourceSingleUrl">URL source de la partie en PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL source de la partie en PGN</string>
   <string name="sourceUrlHelp">URL que Lichess interrogera pour obtenir les mises à jour du PGN. Elle doit être accessible publiquement depuis Internet.</string>
   <string name="sourceGameIds">Jusqu\'à 64 ID de partie Lichess séparés par des espaces.</string>
   <string name="startDateTimeZone">Date de début du tournoi (fuseau horaire local) : %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Fédération</string>
   <string name="ageThisYear">Âge cette année</string>
-  <string name="unrated">Non classé</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Non classé</string>
   <string name="recentTournaments">Tournois récents</string>
   <string name="openLichess">Ouvrir dans Lichess</string>
   <string name="teams">Équipes</string>

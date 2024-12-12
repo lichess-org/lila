@@ -75,7 +75,7 @@ export class MultiCloudEval {
     }
   };
 
-  private requestNewEvals = debounce(this.sendRequestNow, 1000);
+  private requestNewEvals = debounce(this.sendRequestNow, 2000);
 
   onCloudEval = (d: EvalHitMulti) => {
     this.cloudEvals.set(d.fen, { ...d, chances: povChances('white', d) });

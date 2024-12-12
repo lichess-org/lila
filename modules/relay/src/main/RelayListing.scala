@@ -95,11 +95,12 @@ final class RelayListing(
     tours = rawTours.flatMap(decreaseTierIfDistantNextRound)
     groups <- groupRepo.byTours(tours.map(_.tour.id))
   yield
-    val ungroupedTours = tours
+    val toursById = tours.mapBy(_.tour.id)
+    val ungroupedTours: List[Spot] = tours
       .filter(t => !groups.exists(_.tours.contains(t.tour.id)))
       .map(Spot.UngroupedTour.apply)
-    val groupedTours = groups.flatMap: group =>
-      tours.filter(t => group.tours.contains(t.tour.id)).toNel.map(Spot.GroupWithTours(group, _))
+    val groupedTours: List[Spot] = groups.flatMap: group =>
+      group.tours.flatMap(toursById.get).toNel.map(Spot.GroupWithTours(group, _))
     ungroupedTours ::: groupedTours
 
   private def toursWithRounds: Fu[List[RelayTour.WithRounds]] =

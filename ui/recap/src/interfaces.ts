@@ -1,3 +1,9 @@
+export interface Opts {
+  recap?: Recap;
+  user: LightUser;
+  navigation: boolean;
+}
+
 interface NbWin {
   total: number;
   win: number;
@@ -15,6 +21,20 @@ export interface ByColor<A> {
   white: A;
   black: A;
 }
+export interface Sources {
+  friend: number;
+  simul: number;
+  swiss: number;
+  pool: number;
+  ai: number;
+  arena: number;
+}
+
+export interface Perf {
+  key: string;
+  seconds: number;
+  games: number;
+}
 
 export interface Recap {
   year: number;
@@ -22,30 +42,19 @@ export interface Recap {
   puzzles: {
     nbs: NbWin;
     votes: {
-      up: number;
-      down: number;
+      nb: number;
       themes: number;
     };
   };
   games: {
-    perfs: {
-      key: string;
-      seconds: number;
-      games: number;
-    }[];
+    perfs: Perf[];
     moves: number;
     openings: ByColor<Counted<Opening>>;
     nbs: NbWin;
     nbWhite: number;
     opponents: Counted<LightUser>[];
     timePlaying: number;
-    sources: {
-      friend: number;
-      simul: number;
-      pool: number;
-      ai: number;
-      arena: number;
-    };
+    sources: Sources;
     firstMoves: Counted<string>[];
   };
 }

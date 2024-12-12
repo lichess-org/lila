@@ -67,4 +67,5 @@
   <string name="notifyWeb">Nettleser</string>
   <string name="notifyDevice">Enhet</string>
   <string name="bellNotificationSound">Bjellevarsel med lyd</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Blindsjakk</string>
 </resources>

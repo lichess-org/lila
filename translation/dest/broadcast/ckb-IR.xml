@@ -41,6 +41,6 @@
   <string name="fideProfile">پرۆفایلی FIDE</string>
   <string name="federation">فیدراسیۆن</string>
   <string name="ageThisYear">تەمەنی ئەمساڵ</string>
-  <string name="unrated">ڕیزبەندی نەکراوە</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">ڕیزبەندی نەکراوە</string>
   <string name="recentTournaments">پاڵەوانێتییەکانی ئەم دواییە</string>
 </resources>

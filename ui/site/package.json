@@ -10,7 +10,7 @@
     "chess": "workspace:*",
     "common": "workspace:*",
     "dialog-polyfill": "0.5.6",
-    "lichess-pgn-viewer": "^2.2.0",
+    "lichess-pgn-viewer": "^2.3.0",
     "tablesort": "^5.3.0"
   },
   "build": {

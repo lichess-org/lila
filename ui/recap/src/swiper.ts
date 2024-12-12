@@ -3,19 +3,31 @@ import { SwiperOptions } from 'swiper/types';
 import * as mod from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/bundle';
-import { Recap } from './interfaces';
 import { animateNumber } from './ui';
 import { get } from 'common/data';
 import { formatDuration } from './util';
+import { defined } from 'common';
+import { Opts } from './interfaces';
 
 export const makeSwiper =
-  (_recap: Recap) =>
+  (opts: Opts) =>
   (element: HTMLElement): void => {
     const progressCircle = element.querySelector('.autoplay-progress svg') as SVGElement;
     const progressContent = element.querySelector('.autoplay-progress span') as HTMLSpanElement;
+    const urlSlide: number | undefined = window.location.hash
+      ? parseInt(window.location.hash.slice(1))
+      : undefined;
+    const autoplay = !defined(urlSlide);
+    let lpvTimer: number | undefined;
     const options: SwiperOptions = {
-      modules: [mod.Pagination, mod.Navigation, mod.Keyboard, mod.Mousewheel, mod.Autoplay],
-      initialSlide: window.location.hash ? parseInt(window.location.hash.slice(1)) : 0,
+      modules: [
+        mod.Pagination,
+        ...(opts.navigation ? [mod.Navigation] : []),
+        mod.Keyboard,
+        mod.Mousewheel,
+        mod.Autoplay,
+      ],
+      initialSlide: urlSlide || 0,
       direction: 'horizontal',
       loop: false,
       cssMode: false,
@@ -26,14 +38,18 @@ export const makeSwiper =
         el: '.swiper-pagination',
         clickable: true,
       },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-      },
+      navigation: opts.navigation
+        ? {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }
+        : undefined,
+      autoplay: autoplay
+        ? {
+            delay: 5000,
+            disableOnInteraction: false,
+          }
+        : undefined,
       on: {
         autoplayTimeLeft(_s, time, progress) {
           progressCircle.style.setProperty('--progress', (1 - progress).toString());
@@ -62,9 +78,10 @@ export const makeSwiper =
             element.querySelectorAll('.swiper-slide-active .lpv').forEach((el: HTMLElement) => {
               const lpv = get(el, 'lpv')!;
               lpv.goTo('first');
+              clearTimeout(lpvTimer);
               const next = () => {
                 if (!lpv.canGoTo('next')) return;
-                setTimeout(() => {
+                lpvTimer = setTimeout(() => {
                   lpv.goTo('next');
                   next();
                 }, 500);

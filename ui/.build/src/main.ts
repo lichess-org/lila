@@ -17,6 +17,7 @@ const args: Record<string, string> = {
   '--no-color': '',
   '--no-time': '',
   '--no-context': '',
+  '--no-corepack': '',
   '--help': 'h',
   '--watch': 'w',
   '--prod': 'p',
@@ -46,6 +47,7 @@ Options:
   --no-color          don't use color in logs
   --no-time           don't log the time
   --no-context        don't log the context
+  --no-corepack       don't use corepack to install pnpm (protect or restricted system node installs)
 
 Exclusive Options:    (any of these will disable other functions)
   --clean-exit        clean all build artifacts and exit

@@ -23,7 +23,7 @@
   <string name="tournamentDescription">짧은 토너먼트 설명</string>
   <string name="fullDescription">전체 이벤트 설명</string>
   <string name="fullDescriptionHelp">(선택) 방송에 대한 긴 설명입니다. %1$s 사용이 가능합니다. 길이는 %2$s 글자보다 짧아야 합니다.</string>
-  <string name="sourceSingleUrl">PGN Source URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Source URL</string>
   <string name="sourceUrlHelp">Lichess가 PGN 업데이트를 받기 위해 확인할 URL입니다. 인터넷에서 공개적으로 액세스 할 수 있어야 합니다.</string>
   <string name="sourceGameIds">공간으로 나눠진 64개까지의 Lichess 경기 ID.</string>
   <string name="startDateTimeZone">내 시간대의 토너먼트 시작 날짜: %s</string>
@@ -46,7 +46,7 @@
   <string name="fideProfile">FIDE 프로필</string>
   <string name="federation">연맹</string>
   <string name="ageThisYear">올해 나이</string>
-  <string name="unrated">비레이팅</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">비레이팅</string>
   <string name="recentTournaments">최근 토너먼트</string>
   <string name="openLichess">Lichess에서 열기</string>
   <string name="teams">팀</string>

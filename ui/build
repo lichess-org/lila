@@ -13,7 +13,11 @@ fi
 
 cd "$(dirname "${BASH_SOURCE:-$0}")/.build"
 
-corepack enable
+if [[ " $* " != *" --no-corepack "* ]]; then
+  if ! corepack enable >/dev/null 2>&1; then
+    echo "Corepack not available. Try a userland node such as nvm."
+  fi
+fi
 
 pnpm install --silent --ignore-workspace
 

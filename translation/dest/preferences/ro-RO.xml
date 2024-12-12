@@ -67,4 +67,5 @@
   <string name="notifyWeb">Navigator</string>
   <string name="notifyDevice">Dispozitiv</string>
   <string name="bellNotificationSound">Sunet de notificare</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Legat la ochi</string>
 </resources>
