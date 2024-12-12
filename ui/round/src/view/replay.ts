@@ -135,8 +135,9 @@ const goToPly = (ctrl: RoundController, ply: number) => {
   ctrl.redraw();
 };
 
+const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+
 const goThroughMoves = (ctrl: RoundController, e: Event) => {
-  const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
   const delay = showMovesDecreasingDelay();
   const repeat = () => {
     goToPly(ctrl, targetPly(e));
@@ -145,6 +146,7 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
   };
   let timeout = setTimeout(repeat, delay.next().value!);
   goToPly(ctrl, targetPly(e));
+  if (isNaN(targetPly(e))) clearTimeout(timeout);
   const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 };
