@@ -11,7 +11,7 @@ import type { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
-import { showMovesDecreasingDelay } from 'common';
+import { replayMovesRepeater } from 'common';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -130,26 +130,15 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-const goToPly = (ctrl: RoundController, ply: number) => {
+const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+
+const goToPly = (e: Event, ctrl: RoundController) => () => {
+  const ply = targetPly(e);
   if (!isNaN(ply)) ctrl.userJump(ply);
   ctrl.redraw();
 };
 
-const targetPly = (e: Event) => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
-
-const goThroughMoves = (ctrl: RoundController, e: Event) => {
-  const delay = showMovesDecreasingDelay();
-  const repeat = () => {
-    goToPly(ctrl, targetPly(e));
-    timeout = setTimeout(repeat, delay.next().value!);
-    if (isNaN(targetPly(e))) clearTimeout(timeout);
-  };
-  let timeout = setTimeout(repeat, delay.next().value!);
-  goToPly(ctrl, targetPly(e));
-  if (isNaN(targetPly(e))) clearTimeout(timeout);
-  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
-};
+const goThroughMoves = (ctrl: RoundController, e: Event) => replayMovesRepeater(goToPly(e, ctrl), e, () => isNaN(targetPly(e)));
 
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data),
@@ -215,7 +204,8 @@ export function render(ctrl: RoundController): LooseVNode {
               while ((node = node.previousSibling as HTMLElement)) {
                 offset++;
                 if (node.tagName === indexTagUC) {
-                  goToPly(ctrl, 2 * parseInt(node.textContent || '') + offset);
+                  ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
+                  ctrl.redraw();
                   break;
                 }
               }

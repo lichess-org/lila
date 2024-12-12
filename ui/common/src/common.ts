@@ -133,4 +133,18 @@ export function myUserId(): string | undefined {
 export function* showMovesDecreasingDelay(): Generator<number, void, void> {
   yield 500;
   for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
+} // todo - make this inline in func below?
+
+export function replayMovesRepeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {
+  const delay = showMovesDecreasingDelay();
+  const repeat = () => {
+    f();
+    timeout = setTimeout(repeat, delay.next().value!);
+    if (additionalStopCond?.()) clearTimeout(timeout);
+  };
+  let timeout = setTimeout(repeat, delay.next().value!);
+  f();
+  if (additionalStopCond?.()) clearTimeout(timeout);
+  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
+  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
