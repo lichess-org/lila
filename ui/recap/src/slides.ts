@@ -1,10 +1,11 @@
 import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources, Perf as RecapPerf } from './interfaces';
+import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
 import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'common/snabbdom';
 import { formatNumber, loadOpeningLpv } from './ui';
 import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
-import { formatDuration, perfNames } from './util';
+import { formatDuration, perfLabel, perfNames } from './util';
+import perfIcons from 'common/perfIcons';
 
 const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
 
@@ -235,10 +236,7 @@ export const thanks = (): VNode =>
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
-  return h('span', [
-    h('i.text', { attrs: dataIcon(perfNames[perf.key].icon) }),
-    perfNames[perf.key].name || perf.key,
-  ]);
+  return h('span', [h('i.text', { attrs: dataIcon(perfIcons[perf.key]) }), perfNames[perf.key] || perf.key]);
 };
 
 const stat = (value: string | VNode, label: string): VNode =>
@@ -253,7 +251,7 @@ export const shareable = (r: Recap): VNode =>
         stat(formatNumber(r.games.nbs.total), 'games played'),
         stat(formatNumber(r.games.moves), 'moves played'),
         stat(formatDuration(r.games.timePlaying, ' and '), 'spent playing'),
-        r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), 'favorite time control'),
+        r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), perfLabel(r.games.perfs[0])),
         r.games.opponents.length && stat(opponentLink(r.games.opponents[0].value), 'most played opponent'),
         stat(formatNumber(r.puzzles.nbs.total), 'puzzles solved'),
       ]),
