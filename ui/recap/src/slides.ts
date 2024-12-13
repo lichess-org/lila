@@ -1,6 +1,6 @@
 import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap, Sources, Perf as RecapPerf } from './interfaces';
-import { onInsert, looseH as h, VNodeKids, VNode, iconTag } from 'common/snabbdom';
+import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'common/snabbdom';
 import { formatNumber, loadOpeningLpv } from './ui';
 import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
@@ -235,7 +235,10 @@ export const thanks = (): VNode =>
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
-  return h('span', [iconTag(perfNames[perf.key].icon), perfNames[perf.key].name || perf.key]);
+  return h('span', [
+    h('i.text', { attrs: dataIcon(perfNames[perf.key].icon) }),
+    perfNames[perf.key].name || perf.key,
+  ]);
 };
 
 const stat = (value: string | VNode, label: string): VNode =>
