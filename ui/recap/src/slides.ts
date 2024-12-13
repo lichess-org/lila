@@ -1,6 +1,6 @@
 import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources } from './interfaces';
-import { onInsert, looseH as h, VNodeKids, VNode } from 'common/snabbdom';
+import type { ByColor, Counted, Opening, Recap, Sources, Perf as RecapPerf } from './interfaces';
+import { onInsert, looseH as h, VNodeKids, VNode, iconTag } from 'common/snabbdom';
 import { formatNumber, loadOpeningLpv } from './ui';
 import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
@@ -198,10 +198,7 @@ export const perfs = (r: Recap): VNode => {
       h(
         'tbody',
         r.games.perfs.map(p =>
-          h('tr', [
-            h('td', (perfNames as any)[p.key] || p.key),
-            h('td', [h('strong', animateNumber(p.games)), ' games']),
-          ]),
+          h('tr', [h('td', renderPerf(p)), h('td', [h('strong', animateNumber(p.games)), ' games'])]),
         ),
       ),
     ),
@@ -237,24 +234,30 @@ export const thanks = (): VNode =>
     h('div', "May your pieces find their way to your opponents' kings."),
   ]);
 
+const renderPerf = (perf: RecapPerf): VNode => {
+  return h('span', [iconTag(perfNames[perf.key].icon), perfNames[perf.key].name || perf.key]);
+};
+
 const stat = (value: string | VNode, label: string): VNode =>
-  h('div.recap__stat', [h('div', h('strong', value)), h('div', h('small', label))]);
+  h('div.stat', [h('div', h('strong', value)), h('div', h('small', label))]);
 
 export const shareable = (r: Recap): VNode =>
   slideTag('shareable')([
-    h('div', [
-      h('img.recap__logo', { attrs: { src: site.asset.url('logo/logo-with-name-dark.png') } }),
-      h('h2.recap__shareable-title', 'My 2024 Recap'),
-    ]),
     h('div.recap__shareable', [
-      stat(formatNumber(r.games.nbs.total), 'games played'),
-      stat(formatNumber(r.games.moves), 'moves played'),
-      stat(formatDuration(r.games.timePlaying, ' and '), 'spent playing'),
-      r.games.perfs[0]?.games && stat((perfNames as any)[r.games.perfs[0].key], 'favorite time control'),
-      r.games.opponents.length && stat(opponentLink(r.games.opponents[0].value), 'most played opponent'),
-      stat(formatNumber(r.puzzles.nbs.total), 'puzzles solved'),
-      r.games.openings.white.count && stat(r.games.openings.white.value.name, 'as white'),
-      r.games.openings.black.count && stat(r.games.openings.black.value.name, 'as black'),
+      h('img.logo', { attrs: { src: site.asset.url('logo/logo-with-name-dark.png') } }),
+      h('h2', 'My 2024 Recap'),
+      h('div.grid', [
+        stat(formatNumber(r.games.nbs.total), 'games played'),
+        stat(formatNumber(r.games.moves), 'moves played'),
+        stat(formatDuration(r.games.timePlaying, ' and '), 'spent playing'),
+        r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), 'favorite time control'),
+        r.games.opponents.length && stat(opponentLink(r.games.opponents[0].value), 'most played opponent'),
+        stat(formatNumber(r.puzzles.nbs.total), 'puzzles solved'),
+      ]),
+      h('div.openings', [
+        r.games.openings.white.count && stat(r.games.openings.white.value.name, 'as white'),
+        r.games.openings.black.count && stat(r.games.openings.black.value.name, 'as black'),
+      ]),
     ]),
   ]);
 

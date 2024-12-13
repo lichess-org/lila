@@ -1,3 +1,5 @@
+import * as licon from 'common/licon';
+
 export function formatDuration(seconds: number, glue = '<br>'): string {
   const d = Math.floor(seconds / (24 * 3600));
   const h = Math.floor((seconds % (24 * 3600)) / 3600);
@@ -17,19 +19,66 @@ function simplePlural(n: number, unit: string): string {
   return `${n} ${unit}${n === 1 ? '' : 's'}`;
 }
 
-export const perfNames = {
-  ultraBullet: 'UltraBullet',
-  bullet: 'Bullet',
-  blitz: 'Blitz',
-  rapid: 'Rapid',
-  classical: 'Classical',
-  correspondence: 'Correspondence',
-  racingKings: 'Racing Kings',
-  threeCheck: 'Three-check',
-  antichess: 'Antichess',
-  horde: 'Horde',
-  atomic: 'Atomic',
-  crazyhouse: 'Crazyhouse',
-  chess960: 'Chess960',
-  kingOfTheHill: 'King of the Hill',
+export const perfNames: {
+  [key: string]: {
+    name: string;
+    icon: string;
+  };
+} = {
+  ultraBullet: {
+    name: 'UltraBullet',
+    icon: licon.UltraBullet,
+  },
+  bullet: {
+    name: 'Bullet',
+    icon: licon.Bullet,
+  },
+  blitz: {
+    name: 'Blitz',
+    icon: licon.FlameBlitz,
+  },
+  rapid: {
+    name: 'Rapid',
+    icon: licon.Rabbit,
+  },
+  classical: {
+    name: 'Classical',
+    icon: licon.Turtle,
+  },
+  correspondence: {
+    name: 'Correspondence',
+    icon: licon.Feather,
+  },
+  racingKings: {
+    name: 'Racing Kings',
+    icon: licon.FlagRacingKings,
+  },
+  threeCheck: {
+    name: 'Three-check',
+    icon: licon.ThreeCheckStack,
+  },
+  antichess: {
+    name: 'Antichess',
+    icon: licon.Antichess,
+  },
+  horde: {
+    name: 'Horde',
+    icon: licon.Keypad,
+  },
+  atomic: {
+    name: 'Atomic',
+    icon: licon.Atom,
+  },
+  crazyhouse: {
+    name: 'Crazyhouse',
+    icon: licon.Crazyhouse,
+  },
+  chess960: {
+    name: 'Chess960',
+    icon: licon.DieSix,
+  },
+  kingOfTheHill: {
+    name: 'King of the Hill',
+    icon: licon.FlagKingHill,
+  },
 };

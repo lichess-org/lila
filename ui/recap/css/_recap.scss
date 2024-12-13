@@ -148,33 +148,46 @@ body {
   font-weight: 2em;
 }
 
-.recap__shareable-title {
-  font-size: 1.5em;
-  margin-top: 0.4em;
-}
-
 .recap__shareable {
-  display: flex;
-  flex-wrap: wrap;
-  row-gap: 1.5em;
-  padding: 0.5em;
-
-  .recap__stat {
+  .logo {
+    width: 80%;
+    max-width: 400px;
+  }
+  h2 {
     font-size: 1.5em;
-    flex: 50%;
-    @media (max-width: at-most($x-small)) {
-      font-size: 1.3em;
-    }
-    @media (max-width: at-most($xx-small)) {
-      font-size: 1.2em;
-    }
+    margin: 0.4em 0 1em;
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1.5em;
+    padding: 0.5em;
 
-    a {
-      border: none;
-
-      .uflair {
-        margin-right: 0.2em;
+    .stat {
+      font-size: 1.5em;
+      flex: 50%;
+      @media (max-width: at-most($x-small)) {
+        font-size: 1.3em;
       }
+      @media (max-width: at-most($xx-small)) {
+        font-size: 1.2em;
+      }
+
+      a {
+        border: none;
+
+        .uflair {
+          margin-right: 0.2em;
+        }
+      }
+    }
+  }
+
+  .openings {
+    margin-top: 2em;
+
+    .stat {
+      margin-top: 1em;
     }
   }
 }
