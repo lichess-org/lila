@@ -196,21 +196,6 @@ body {
     opacity: 0.8;
     min-width: 12ch;
   }
-
-  @media (min-width: at-least($medium)) {
-    @for $i from 1 through 6 {
-      tr:nth-child(#{$i}) {
-        font-size: (6-$i) * 0.3em + 0.7em;
-
-        td:first-child {
-          padding-left: $i * 30px;
-        }
-        td:last-child {
-          padding-right: $i * 30px;
-        }
-      }
-    }
-  }
 }
 .recap__slide--opponents {
   a {
