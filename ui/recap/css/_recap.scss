@@ -162,6 +162,12 @@ body {
   .recap__stat {
     font-size: 1.5em;
     flex: 50%;
+    @media (max-width: at-most($x-small)) {
+      font-size: 1.3em;
+    }
+    @media (max-width: at-most($xx-small)) {
+      font-size: 1.2em;
+    }
 
     a {
       border: none;
