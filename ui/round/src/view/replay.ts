@@ -11,7 +11,7 @@ import type { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
-import { replayMovesRepeater } from 'common';
+import { repeater } from 'common';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -132,7 +132,7 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
 
 const goThroughMoves = (ctrl: RoundController, e: Event) => {
   const targetPly = () => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
-  replayMovesRepeater(
+  repeater(
     () => {
       const ply = targetPly();
       if (!isNaN(ply)) ctrl.userJump(ply);

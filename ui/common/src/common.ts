@@ -130,7 +130,7 @@ export function myUserId(): string | undefined {
   return document.body.dataset.user;
 }
 
-export function replayMovesRepeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {
+export function repeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {
   const delay = (function* () {
     yield 500;
     for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));

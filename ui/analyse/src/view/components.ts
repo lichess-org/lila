@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
-import { defined, replayMovesRepeater } from 'common';
+import { defined, repeater } from 'common';
 import * as licon from 'common/licon';
 import {
   type VNode,
@@ -280,7 +280,7 @@ export function renderControls(ctrl: AnalyseCtrl) {
         bindMobileMousedown(e => {
           const action = dataAct(e);
           if (action === 'prev' || action === 'next')
-            replayMovesRepeater(() => {
+            repeater(() => {
               control[action](ctrl);
               ctrl.redraw();
             }, e);
