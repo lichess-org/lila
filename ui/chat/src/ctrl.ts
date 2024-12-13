@@ -15,7 +15,7 @@ import { type PresetCtrl, presetCtrl } from './preset';
 import { noteCtrl } from './note';
 import { moderationCtrl } from './moderation';
 import { prop } from 'common';
-import { storage, type LichessStorage } from 'common/storage';
+import { storage, tempStorage, type LichessStorage } from 'common/storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
 import { alert } from 'common/dialog';
 
@@ -38,6 +38,7 @@ export default class ChatCtrl {
     readonly opts: ChatOpts,
     readonly redraw: Redraw,
   ) {
+    tempStorage.make('chat.input').remove();
     this.data = opts.data;
     if (opts.noteId) this.allTabs.push('note');
     if (opts.plugin) this.allTabs.push(opts.plugin.tab.key);
