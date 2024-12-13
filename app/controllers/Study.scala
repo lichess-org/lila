@@ -209,7 +209,8 @@ final class Study(
               oldSc,
               withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
             )
-            chatOpt <- chatOf(sc.study)
+            loadChat = !HTTPRequest.isXhr(ctx.req)
+            chatOpt <- loadChat.so(chatOf(sc.study))
             jsChat <- chatOpt.soFu: c =>
               lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
           yield Ok:
