@@ -1,4 +1,4 @@
-import { RecapPerf } from "./interfaces";
+import { RecapPerf } from './interfaces';
 
 export function formatDuration(seconds: number, glue = '<br>'): string {
   const d = Math.floor(seconds / (24 * 3600));
