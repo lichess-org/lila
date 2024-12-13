@@ -58,7 +58,7 @@ const puzzleInfos = (ctrl: PuzzleCtrl, puzzle: Puzzle): VNode =>
   ]);
 
 function gameInfos(ctrl: PuzzleCtrl, game: PuzzleGame, puzzle: Puzzle): VNode {
-  const gameName = game.clock && game.perf ? `${game.clock} • ${game.perf.name}` : '';
+  const gameName = game.clock && game.perf ? `${game.clock} • ${game.perf.name}` : 'import';
   return h('div.infos', { attrs: game.perf && dataIcon(perfIcons[game.perf.key]) }, [
     h('div', [
       h(
