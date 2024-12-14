@@ -11,6 +11,7 @@ import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
 import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.security.ClearPassword
+import lila.clas.ClasForm.CreateStudent
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
@@ -476,15 +477,17 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAndStudents(id): (clas, students) =>
       WithStudent(clas, username): s =>
         WithMyOtherClasses(clas): classes =>
-          if s.student.managed
-          then Ok.page(views.clas.student.move(clas, students, s, classes))
-          else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+          Ok.page(views.clas.student.move(clas, students, s, classes))
   }
 
   def studentMovePost(id: ClasId, username: UserStr, to: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
       WithStudent(clas, username): s =>
-        Redirect(routes.Clas.show(clas.id))
+        WithClass(to): toClas =>
+          (env.clas.api.student
+            .createCopy(toClas, s, me) >>
+            env.clas.api.student.closeAccount(s))
+            .inject(Redirect(routes.Clas.show(clas.id)))
   }
 
   def becomeTeacher = AuthBody { ctx ?=> me ?=>

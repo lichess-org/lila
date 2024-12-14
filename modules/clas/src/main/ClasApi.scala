@@ -10,6 +10,8 @@ import lila.core.id.{ ClasId, ClasInviteId, StudentId }
 import lila.core.msg.MsgApi
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
+import lila.core.user.Me.userId
+import lila.clas.Student.WithUser
 
 final class ClasApi(
     colls: ClasColls,
@@ -257,6 +259,19 @@ final class ClasApi(
             coll.insert.one(student) >>
             sendWelcomeMessage(teacher.id, user, clas)).inject(Student.WithPassword(student, password))
         }
+
+    def createCopy(
+        clas: Clas,
+        s: WithUser,
+        teacher: Me
+    ): Fu[Option[Student]] =
+      val stu = Student.make(s.user, clas, teacher.userId, s.student.realName, s.student.managed)
+      colls.student.insert
+        .one(stu)
+        .inject(stu.some)
+        .recoverWith(lila.db.recoverDuplicateKey { _ =>
+          student.get(clas, s.user.id)
+        })
 
     def manyCreate(
         clas: Clas,
