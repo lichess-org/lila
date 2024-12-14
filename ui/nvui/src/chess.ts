@@ -55,8 +55,7 @@ const skipToFile: { [letter: string]: Files } = {
 
 const symbolToFile = (char: string): Files => skipToFile[char] ?? '';
 
-export const supportedVariant = (key: VariantKey): boolean =>
-  !['antichess', 'racingKings', 'crazyhouse'].includes(key);
+export const supportedVariant = (key: VariantKey): boolean => key !== 'crazyhouse';
 
 export function boardSetting(): Setting<BoardStyle> {
   return makeSetting<BoardStyle>({
@@ -483,7 +482,7 @@ export function possibleMovesHandler(
       rawMoves = chessgroundDests(fromSetup);
     }
 
-    const possibleCaptures = rawMoves
+    const possibleMoves = rawMoves
       ?.get(pos)
       ?.map(i => {
         const p = pieces.get(i);
@@ -492,13 +491,13 @@ export function possibleMovesHandler(
       })
       ?.filter(i => ev.key === 'm' || i.includes('captures'));
     $boardLive.text(
-      !possibleCaptures ? 'None' : !possibleCaptures.length ? 'No captures' : possibleCaptures.join(', '),
+      !possibleMoves ? 'None' : !possibleMoves.length ? 'No captures' : possibleMoves.join(', '),
     );
   };
 }
 
 const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
-const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[qrbn]$/;
+const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))\w$/;
 
 export function inputToLegalUci(input: string, fen: string, chessground: CgApi): string | undefined {
   const legalUcis = destsToUcis(chessground.state.movable.dests!),

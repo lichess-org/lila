@@ -186,7 +186,7 @@ export function initModule(): NvuiPlugin {
           },
           renderBoard(
             ctrl.chessground.state.pieces,
-            ctrl.data.player.color,
+            ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
             pieceStyle.get(),
             prefixStyle.get(),
             positionStyle.get(),
