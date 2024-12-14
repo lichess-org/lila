@@ -140,17 +140,21 @@ export function lastCaptured(
   return 'none';
 }
 
-export const renderSan = (san: San, uci: Uci | undefined, style: MoveStyle): string =>
-  style === 'uci'
-    ? (uci ?? '')
-    : style === 'san'
-      ? san
-      : sanToWords(san)
-          .split(' ')
-          .map(f =>
-            files.includes(f.toLowerCase() as FileName) ? renderFile(f.toLowerCase() as FileName, style) : f,
-          )
-          .join(' ');
+export const renderSan = (san: San | undefined, uci: Uci | undefined, style: MoveStyle): string =>
+  !san
+    ? 'Game start'
+    : style === 'uci'
+      ? (uci ?? '')
+      : style === 'san'
+        ? san
+        : sanToWords(san)
+            .split(' ')
+            .map(f =>
+              files.includes(f.toLowerCase() as FileName)
+                ? renderFile(f.toLowerCase() as FileName, style)
+                : f,
+            )
+            .join(' ');
 
 export const renderPieces = (pieces: Pieces, style: MoveStyle): VNode =>
   h(
