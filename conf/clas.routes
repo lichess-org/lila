@@ -32,3 +32,5 @@ POST  /class/$id<\w{8}>/student/:username/release controllers.clas.Clas.studentR
 GET   /class/$id<\w{8}>/student/:username/close controllers.clas.Clas.studentClose(id: ClasId, username: UserStr)
 POST  /class/$id<\w{8}>/student/:username/close controllers.clas.Clas.studentClosePost(id: ClasId, username: UserStr)
 POST  /class/$id<\w{8}>/invitation/revoke controllers.clas.Clas.invitationRevoke(id: ClasInviteId)
+GET   /class/$id<\w{8}>/student/:username/move controllers.clas.Clas.studentMove(id: ClasId, username: UserStr)
+POST  /class/$id<\w{8}>/student/:username/move controllers.clas.Clas.studentMovePost(id: ClasId, username: UserStr)

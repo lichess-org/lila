@@ -472,6 +472,20 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         else redirectTo(clas)
   }
 
+  def studentMove(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      WithStudent(clas, username): s =>
+        if s.student.managed
+        then Ok.page(views.clas.student.move(clas, students, s))
+        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+  }
+
+  def studentMovePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      WithStudent(clas, username): s =>
+        Redirect(routes.Clas.show(clas.id))
+  }
+
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
     couldBeTeacher.elseNotFound:
       val perm = lila.core.perm.Permission.Teacher.dbKey
