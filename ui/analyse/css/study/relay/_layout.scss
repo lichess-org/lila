@@ -22,7 +22,6 @@ main.is-relay {
   }
 
   @include mq-at-least-col3 {
-    #video-player-placeholder,
     button.streamer-show {
       display: block;
     }

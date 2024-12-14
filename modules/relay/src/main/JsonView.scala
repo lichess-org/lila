@@ -128,8 +128,12 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
         .add("lcc", trs.rounds.find(_.id == currentRoundId).map(_.sync.upstream.exists(_.hasLcc)))
         .add("isSubscribed" -> isSubscribed)
         .add("videoUrls" -> videoUrls)
-        .add("pinnedStream" -> pinned)
-        .add("note" -> trs.tour.note.ifTrue(canContribute)),
+        .add("note" -> trs.tour.note.ifTrue(canContribute))
+        .add("pinned" -> pinned.map: p =>
+          Json
+            .obj("name" -> p.name)
+            .add("redirect" -> p.upstream.map(_.urls(lila.core.config.NetDomain("")).redirect))
+            .add("text" -> p.text)),
       study = studyData.study,
       analysis = studyData.analysis,
       group = group.map(_.group.name)

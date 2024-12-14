@@ -631,6 +631,17 @@ Team Dogs ; Scooby Doo"""),
                     "Stream name",
                     half = true
                   )(form3.input(_))
+                ),
+                form3.split(
+                  form3.group(
+                    form("pinnedStream.text"),
+                    "Stream link label",
+                    help = frag(
+                      "Optional. Show a label on the image link to your live stream.",
+                      br,
+                      "Example: 'Watch us live on YouTube!'"
+                    ).some
+                  )(form3.input(_))
                 )
               )
           )
