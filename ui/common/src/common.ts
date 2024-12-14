@@ -131,6 +131,7 @@ export function myUserId(): string | undefined {
 }
 
 export function repeater(f: () => void, e: Event, additionalStopCond?: () => boolean): void {
+  let timeout: number | undefined = undefined;
   const delay = (function* () {
     yield 500;
     for (let d = 350; ; ) yield Math.max(100, (d *= 14 / 15));
@@ -140,9 +141,7 @@ export function repeater(f: () => void, e: Event, additionalStopCond?: () => boo
     timeout = setTimeout(repeat, delay.next().value!);
     if (additionalStopCond?.()) clearTimeout(timeout);
   };
-  let timeout = setTimeout(repeat, delay.next().value!);
-  f();
-  if (additionalStopCond?.()) clearTimeout(timeout);
+  repeat();
   const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
 }
