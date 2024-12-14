@@ -12,9 +12,9 @@ opaque type UnreadCount = Int
 object UnreadCount extends RelaxedOpaqueInt[UnreadCount]:
   given Zero[UnreadCount] = Zero(0)
 
-abstract class NotificationContent(val key: String)
-
 case class NotifiedBatch(userIds: Iterable[UserId])
+
+sealed abstract class NotificationContent(val key: String)
 
 case class IrwinDone(userId: UserId)   extends NotificationContent("irwinDone")
 case class KaladinDone(userId: UserId) extends NotificationContent("kaladinDone")
@@ -42,6 +42,17 @@ case class GameEnd(gameId: GameFullId, opponentId: Option[UserId], win: Option[W
 case class StreamStart(streamerId: UserId, streamerName: String) extends NotificationContent("streamStart")
 case class BroadcastRound(url: String, title: String, text: String)
     extends NotificationContent("broadcastRound")
+case class TitledTournamentInvitation(
+    id: TourId,
+    text: String
+) extends NotificationContent("titledTourney")
+case object CoachReview               extends NotificationContent("coachReview")
+case class PlanStart(userId: UserId)  extends NotificationContent("planStart")  // BC
+case class PlanExpire(userId: UserId) extends NotificationContent("planExpire") // BC
+case class CorresAlarm(
+    gameId: GameId,
+    opponent: String
+) extends NotificationContent("corresAlarm")
 
 case class NotifyAllows(userId: UserId, allows: Allows)
 case class PushNotification(
