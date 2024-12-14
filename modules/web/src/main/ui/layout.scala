@@ -268,17 +268,22 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
           dataCount := maxScore,
           dataIcon  := Icon.Agent
         ).some
+      else if Granter.opt(_.PublicChatView) then
+        a(
+          cls      := "link",
+          title    := "Moderation",
+          href     := routes.Mod.publicChat,
+          dataIcon := Icon.Agent
+        ).some
       else
-        Granter
-          .opt(_.PublicChatView)
-          .option(
-            a(
-              cls      := "link",
-              title    := "Moderation",
-              href     := routes.Mod.publicChat,
-              dataIcon := Icon.Agent
-            )
+        (Granter.opt(_.Pages) || Granter.opt(_.ManageEvent)).option(
+          a(
+            cls      := "link",
+            title    := "Management",
+            href     := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
+            dataIcon := Icon.InkQuill
           )
+        )
 
     private def teamRequests(nb: Int)(using Translate) =
       Option.when(nb > 0):
