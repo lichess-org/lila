@@ -1,10 +1,12 @@
 import { pieceGrams, totalGames } from './constants';
-import type { ByColor, Counted, Opening, Recap, Sources } from './interfaces';
-import { onInsert, looseH as h, VNodeKids, VNode } from 'common/snabbdom';
-import { loadOpeningLpv } from './ui';
+import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
+import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'common/snabbdom';
+import { formatNumber, loadOpeningLpv } from './ui';
+import { shuffle } from 'common/algo';
 import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
-import { perfNames } from './util';
+import { formatDuration, perfLabel, perfNames } from './util';
+import perfIcons from 'common/perfIcons';
 
 const hi = (user: LightUser): VNode => h('h2', ['Hi, ', h('span.recap__user', [...fullName(user)])]);
 
@@ -82,11 +84,23 @@ export const opponents = (r: Recap): VNode => {
 };
 
 const opponentLink = (o: LightUser): VNode =>
-  h('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(), userTitle(o), o.name]);
+  h('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(o), userTitle(o), o.name]);
 
-const noFlair = (): VNode => {
-  let flairs = ['activity.lichess-horsey', 'activity.lichess-hogger', 'activity.lichess-horsey-yin-yang'];
-  let randomFlair = flairs[Math.floor(Math.random() * flairs.length)];
+const userFallbackFlair = new Map<string, string>();
+const noFlair = (o: LightUser): VNode => {
+  let randomFlair =
+    userFallbackFlair.get(o.id) ||
+    userFallbackFlair
+      .set(
+        o.id,
+        (() =>
+          shuffle([
+            'activity.lichess-horsey',
+            'activity.lichess-hogger',
+            'activity.lichess-horsey-yin-yang',
+          ])[0])(),
+      )
+      .get(o.id)!;
   return h('img.uflair.noflair', { attrs: { src: site.asset.flairSrc(randomFlair) } });
 };
 
@@ -201,10 +215,7 @@ export const perfs = (r: Recap): VNode => {
       h(
         'tbody',
         r.games.perfs.map(p =>
-          h('tr', [
-            h('td', (perfNames as any)[p.key] || p.key),
-            h('td', [h('strong', animateNumber(p.games)), ' games']),
-          ]),
+          h('tr', [h('td', renderPerf(p)), h('td', [h('strong', animateNumber(p.games)), ' games'])]),
         ),
       ),
     ),
@@ -233,11 +244,38 @@ export const lichessGames = (r: Recap): VNode => {
   ]);
 };
 
-export const bye = (): VNode =>
-  slideTag('bye')([
+export const thanks = (): VNode =>
+  slideTag('thanks')([
     h('div.recap--massive', 'Thank you for playing on Lichess!'),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
     h('div', "May your pieces find their way to your opponents' kings."),
+  ]);
+
+const renderPerf = (perf: RecapPerf): VNode => {
+  return h('span', [h('i.text', { attrs: dataIcon(perfIcons[perf.key]) }), perfNames[perf.key] || perf.key]);
+};
+
+const stat = (value: string | VNode, label: string): VNode =>
+  h('div.stat', [h('div', h('strong', value)), h('div', h('small', label))]);
+
+export const shareable = (r: Recap): VNode =>
+  slideTag('shareable')([
+    h('div.recap__shareable', [
+      h('img.logo', { attrs: { src: site.asset.url('logo/logo-with-name-dark.png') } }),
+      h('h2', 'My 2024 Recap'),
+      h('div.grid', [
+        stat(formatNumber(r.games.nbs.total), 'games played'),
+        stat(formatNumber(r.games.moves), 'moves played'),
+        stat(formatDuration(r.games.timePlaying, ' and '), 'spent playing'),
+        r.games.perfs[0]?.games && stat(renderPerf(r.games.perfs[0]), perfLabel(r.games.perfs[0])),
+        r.games.opponents.length && stat(opponentLink(r.games.opponents[0].value), 'most played opponent'),
+        stat(formatNumber(r.puzzles.nbs.total), 'puzzles solved'),
+      ]),
+      h('div.openings', [
+        r.games.openings.white.count && stat(r.games.openings.white.value.name, 'as white'),
+        r.games.openings.black.count && stat(r.games.openings.black.value.name, 'as black'),
+      ]),
+    ]),
   ]);
 
 const slideTag =

@@ -30,8 +30,8 @@ export interface Sources {
   arena: number;
 }
 
-export interface Perf {
-  key: string;
+export interface RecapPerf {
+  key: Exclude<Perf, 'fromPosition'>;
   seconds: number;
   games: number;
 }
@@ -47,7 +47,7 @@ export interface Recap {
     };
   };
   games: {
-    perfs: Perf[];
+    perfs: RecapPerf[];
     moves: number;
     openings: ByColor<Counted<Opening>>;
     nbs: NbWin;
