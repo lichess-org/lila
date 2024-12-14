@@ -18,7 +18,10 @@ final class Tv(
   import ChannelSyncActor.*
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
-    actor.ask[Option[GameId]](TvSyncActor.GetGameId(channel, _)).flatMapz(gameProxy.game)
+    actor
+      .ask[Option[GameId]](TvSyncActor.GetGameId(channel, _))
+      .flatMapz(gameProxy.game)
+      .orElse(gameRepo.random)
 
   def getReplacementGame(channel: Tv.Channel, oldId: GameId, exclude: List[GameId]): Fu[Option[Game]] =
     actor
