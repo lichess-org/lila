@@ -84,8 +84,11 @@ export const opponents = (r: Recap): VNode => {
 const opponentLink = (o: LightUser): VNode =>
   h('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(), userTitle(o), o.name]);
 
-const noFlair = (): VNode =>
-  h('img.uflair.noflair', { attrs: { src: site.asset.flairSrc('nature.cat-face') } });
+const noFlair = (): VNode => {
+  let flairs = ['activity.lichess-horsey', 'activity.lichess-hogger', 'activity.lichess-horsey-yin-yang'];
+  let randomFlair = flairs[Math.floor(Math.random() * flairs.length)];
+  return h('img.uflair.noflair', { attrs: { src: site.asset.flairSrc(randomFlair) } });
+};
 
 export const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
   const percent = Math.round((firstMove.count * 100) / r.games.nbWhite);
