@@ -56,7 +56,7 @@ final private class RelaySync(
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
-    if game.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen
+    if chapter.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen
     then fuccess(chapter)
     else
       studyApi
