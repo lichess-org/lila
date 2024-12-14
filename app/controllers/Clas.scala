@@ -475,12 +475,13 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   def studentMove(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
       WithStudent(clas, username): s =>
-        if s.student.managed
-        then Ok.page(views.clas.student.move(clas, students, s))
-        else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
+        WithMyOtherClasses(clas): classes =>
+          if s.student.managed
+          then Ok.page(views.clas.student.move(clas, students, s, classes))
+          else Redirect(routes.Clas.studentShow(clas.id, s.user.username))
   }
 
-  def studentMovePost(id: ClasId, username: UserStr) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+  def studentMovePost(id: ClasId, username: UserStr, to: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
     WithClassAndStudents(id): (clas, students) =>
       WithStudent(clas, username): s =>
         Redirect(routes.Clas.show(clas.id))
@@ -536,6 +537,14 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
   )(using Context, Me): Fu[Result] =
     WithClass(clasId): c =>
       env.clas.api.student.activeOf(c).flatMap { f(c, _) }
+
+  private def WithMyOtherClasses(clas: lila.clas.Clas)(
+      f: (List[lila.clas.Clas]) => Fu[Result]
+  )(using teacher: Me): Fu[Result] =
+    val res =
+      for classes <- env.clas.api.clas.of(teacher)
+      yield classes.filter(_.id != clas.id)
+    res.flatMap(f)
 
   private def WithStudent(clas: lila.clas.Clas, username: UserStr)(
       f: lila.clas.Student.WithUser => Fu[Result]

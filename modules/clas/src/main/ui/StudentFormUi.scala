@@ -250,22 +250,33 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
         )
       )
 
-  def move(clas: Clas, students: List[Student], s: Student.WithUser)(using Context) =
+  def move(clas: Clas, students: List[Student], s: Student.WithUser, otherClasses: List[Clas])(using
+      Context
+  ) =
     ClasPage(s.user.username.value, Left(clas.withStudents(students)), s.student.some)(
       cls := "student-show student-edit"
     ):
+
+      val classForms: Frag =
+        for (aClass <- otherClasses)
+          yield (
+            postForm(
+              action := routes.Clas.studentMovePost(clas.id, s.student.userId, aClass.id)
+            )(
+              form3.submit(aClass.name, icon = Icon.Target.some)(
+                cls   := "yes-no-confirm button-blue button-empty",
+                title := "Move to " + aClass.name
+              )
+            )
+          )
+
       frag(
         studentUi.top(clas, s),
         div(cls := "box__pad")(
           h2("Move to another class"),
-          p(
-            "Select a class"
-          ),
-          postForm(cls := "form3", action := routes.Clas.studentMovePost(clas.id, s.user.username))(
-            form3.actions(
-              a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel()),
-              form3.submit(trans.site.apply())
-            )
+          classForms,
+          form3.actions(
+            a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel())
           )
         )
       )
