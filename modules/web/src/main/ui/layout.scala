@@ -281,7 +281,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
             cls      := "link",
             title    := "Management",
             href     := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
-            dataIcon := Icon.Cogs
+            dataIcon := Icon.InkQuill
           )
         )
 
