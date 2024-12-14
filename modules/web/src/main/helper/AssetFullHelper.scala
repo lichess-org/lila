@@ -55,10 +55,13 @@ trait AssetFullHelper:
     val localDev =
       (!netConfig.minifiedAssets).so("http://localhost:8666")
         :: (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
-    lila.web.ContentSecurityPolicy.basic(
+    lila.web.ContentSecurityPolicy.page(
       netConfig.assetDomain,
       netConfig.assetDomain.value :: sockets ::: explorerEndpoint :: tablebaseEndpoint :: localDev
     )
+
+  def embedCsp(using ctx: Context): ContentSecurityPolicy =
+    lila.web.ContentSecurityPolicy.embed(netConfig.assetDomain)
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))
