@@ -2,6 +2,7 @@ import { pieceGrams, totalGames } from './constants';
 import type { ByColor, Counted, Opening, Recap, Sources, RecapPerf } from './interfaces';
 import { onInsert, looseH as h, VNodeKids, VNode, dataIcon } from 'common/snabbdom';
 import { formatNumber, loadOpeningLpv } from './ui';
+import { shuffle } from 'common/algo';
 import { fullName, userFlair, userTitle } from 'common/userLink';
 import { spinnerVdom } from 'common/spinner';
 import { formatDuration, perfLabel, perfNames } from './util';
@@ -83,11 +84,23 @@ export const opponents = (r: Recap): VNode => {
 };
 
 const opponentLink = (o: LightUser): VNode =>
-  h('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(), userTitle(o), o.name]);
+  h('a', { attrs: { href: `/@/${o.name}` } }, [userFlair(o) || noFlair(o), userTitle(o), o.name]);
 
-const noFlair = (): VNode => {
-  let flairs = ['activity.lichess-horsey', 'activity.lichess-hogger', 'activity.lichess-horsey-yin-yang'];
-  let randomFlair = flairs[Math.floor(Math.random() * flairs.length)];
+const userFallbackFlair = new Map<string, string>();
+const noFlair = (o: LightUser): VNode => {
+  let randomFlair =
+    userFallbackFlair.get(o.id) ||
+    userFallbackFlair
+      .set(
+        o.id,
+        (() =>
+          shuffle([
+            'activity.lichess-horsey',
+            'activity.lichess-hogger',
+            'activity.lichess-horsey-yin-yang',
+          ])[0])(),
+      )
+      .get(o.id)!;
   return h('img.uflair.noflair', { attrs: { src: site.asset.flairSrc(randomFlair) } });
 };
 
