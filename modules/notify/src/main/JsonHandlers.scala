@@ -89,6 +89,8 @@ final class JSONHandlers(getLightUser: LightUser.GetterSync):
             "title" -> title,
             "text"  -> text
           )
+        case Recap(year) => Json.obj("year" -> year)
+
     def writes(notification: Notification) =
       Json.obj(
         "content" -> writeBody(notification.content),
