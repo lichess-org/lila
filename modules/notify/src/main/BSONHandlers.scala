@@ -7,6 +7,8 @@ import lila.db.dsl.{ *, given }
 import lila.core.notify.*
 
 private object BSONHandlers:
+
+  import NotificationContent.*
   private given BSONDocumentHandler[StreamStart]                       = Macros.handler
   private given BSONDocumentHandler[PrivateMessage]                    = Macros.handler
   private given BSONDocumentHandler[TeamJoined]                        = Macros.handler

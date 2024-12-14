@@ -17,7 +17,7 @@ final class MentionNotifier(
           .sequentiallyVoid { user =>
             notifyApi.notifyOne(
               user,
-              MentionedInThread(
+              NotificationContent.MentionedInThread(
                 mentionedBy = author,
                 topicName = topic.name,
                 topidId = topic.id,
