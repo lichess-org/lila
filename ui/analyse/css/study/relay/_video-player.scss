@@ -7,16 +7,62 @@
 
 #video-player-placeholder {
   aspect-ratio: 16/9;
+  position: relative;
   width: 100%;
 }
 
-img.video-player-close {
+.video-player-close {
   z-index: $z-video-player-controls-101;
   position: absolute;
+  top: 0;
+  right: 0;
   height: 20px;
   width: 20px;
   cursor: pointer;
   &:hover {
     filter: brightness(10);
+  }
+}
+
+#video-player-placeholder.link {
+  cursor: pointer;
+
+  .image {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+  }
+  .play-button {
+    position: absolute;
+    pointer-events: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+  }
+  .text {
+    @extend %flex-column;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    bottom: 5%;
+    left: 10%;
+    right: 10%;
+    pointer-events: none;
+  }
+  .text div {
+    margin: auto;
+    pointer-events: none;
+    border-radius: 5px;
+    padding: 5px;
+    text-align: center;
+    line-height: normal;
+    opacity: 0;
+    color: #222e;
+    background-color: #dddd;
+  }
+  &:hover .play-button,
+  &:hover .text div {
+    opacity: 1;
   }
 }

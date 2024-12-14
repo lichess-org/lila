@@ -6,7 +6,6 @@ import type AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../studyDeps';
 import { tourSide, renderRelayTour } from './relayTourView';
-import { renderVideoPlayer } from './videoPlayer';
 import {
   type RelayViewContext,
   viewContext,
@@ -69,7 +68,7 @@ function renderBoardView(ctx: RelayViewContext) {
   return [
     renderBoard(ctx),
     gaugeOn && cevalView.renderGauge(ctrl),
-    renderTools(ctx, renderVideoPlayer(ctx.relay)),
+    renderTools(ctx, relay.noEmbed() ? undefined : relay.videoPlayer?.render()),
     renderControls(ctrl),
     !ctrl.isEmbed && renderUnderboard(ctx),
     tourSide(ctx),
