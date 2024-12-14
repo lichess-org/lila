@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { parseFen } from 'chessops/fen';
-import { defined } from 'common';
+import { defined, repeater } from 'common';
 import * as licon from 'common/licon';
 import {
   type VNode,
@@ -279,7 +279,11 @@ export function renderControls(ctrl: AnalyseCtrl) {
       hook: onInsert(
         bindMobileMousedown(e => {
           const action = dataAct(e);
-          if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
+          if (action === 'prev' || action === 'next')
+            repeater(() => {
+              control[action](ctrl);
+              ctrl.redraw();
+            }, e);
           else if (action === 'first') control.first(ctrl);
           else if (action === 'last') control.last(ctrl);
           else if (action === 'explorer') ctrl.toggleExplorer();
@@ -431,20 +435,6 @@ const dataAct = (e: Event): string | null => {
   const target = e.target as HTMLElement;
   return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
 };
-
-function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
-  const repeat = () => {
-    control[action](ctrl);
-    ctrl.redraw();
-    delay = Math.max(100, delay - delay / 15);
-    timeout = setTimeout(repeat, delay);
-  };
-  let delay = 350;
-  let timeout = setTimeout(repeat, 500);
-  control[action](ctrl);
-  const eventName = e.type === 'touchstart' ? 'touchend' : 'mouseup';
-  document.addEventListener(eventName, () => clearTimeout(timeout), { once: true });
-}
 
 function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
