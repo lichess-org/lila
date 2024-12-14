@@ -14,13 +14,17 @@
 .video-player-close {
   z-index: $z-video-player-controls-101;
   position: absolute;
-  top: 0;
-  right: 0;
-  height: 20px;
-  width: 20px;
+  pointer-events: auto;
+  top: 6px;
+  right: 6px;
+  height: 24px;
+  width: 24px;
+  padding: 2px;
+  border-radius: 50%;
+  background-color: black;
   cursor: pointer;
   &:hover {
-    filter: brightness(10);
+    filter: brightness(3);
   }
 }
 
@@ -61,8 +65,10 @@
     color: #222e;
     background-color: #dddd;
   }
-  &:hover .play-button,
-  &:hover .text div {
-    opacity: 1;
+  &:hover:not(:has(.video-player-close:hover)) {
+    .play-button,
+    .text div {
+      opacity: 1;
+    }
   }
 }
