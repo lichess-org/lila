@@ -107,6 +107,7 @@ body {
 .recap--massive {
   @extend %flex-column;
   align-items: center;
+  max-width: 80%;
   @include fluid-size('font-size', 19px, 42px);
   strong {
     font-size: 3em;
