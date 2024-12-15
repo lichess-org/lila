@@ -8,7 +8,7 @@ import lila.recap.Recap.Availability
 
 final class Recap(env: Env) extends LilaController(env):
 
-  def home = Secure(_.Beta) { _ ?=> me ?=>
+  def home = Auth { _ ?=> me ?=>
     Redirect(routes.Recap.user(me.username))
   }
 
