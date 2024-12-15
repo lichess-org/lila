@@ -2898,6 +2898,7 @@ smileys.angry-face-with-horns
 smileys.angry-face
 smileys.anguished-face
 smileys.anxious-face-with-sweat
+smileys.astonished-face-blob
 smileys.astonished-face
 smileys.beaming-face-with-smiling-eyes
 smileys.cat-with-tears-of-joy
@@ -2924,13 +2925,16 @@ smileys.face-holding-back-tears
 smileys.face-in-clouds
 smileys.face-savoring-food-blob
 smileys.face-savoring-food
+smileys.face-screaming-in-fear-blob
 smileys.face-screaming-in-fear
+smileys.face-with-crossed-out-eyes-blob
 smileys.face-with-diagonal-mouth
 smileys.face-with-hand-over-mouth
 smileys.face-with-head-bandage
 smileys.face-with-medical-mask
 smileys.face-with-monocle
 smileys.face-with-open-eyes-and-hand-over-mouth
+smileys.face-with-open-mouth-blob
 smileys.face-with-open-mouth
 smileys.face-with-peeking-eye
 smileys.face-with-raised-eyebrow
@@ -2994,6 +2998,7 @@ smileys.shaking-face
 smileys.shushing-face
 smileys.skull-and-crossbones
 smileys.skull
+smileys.sleeping-face-blob
 smileys.sleeping-face
 smileys.sleepy-face
 smileys.slightly-frowning-face
