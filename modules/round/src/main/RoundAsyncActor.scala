@@ -452,9 +452,6 @@ final private class RoundAsyncActor(
       then this ! Threefold
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] =
-    case e: FishnetError =>
-      logger.info(s"Round fishnet error $name: ${e.getMessage}")
-      lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
       logger.debug(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client.increment()
