@@ -24,7 +24,7 @@ final class GameUi(helpers: Helpers):
         pov: Pov,
         ownerLink: Boolean = false,
         tv: Boolean = false,
-        withLink: Boolean = true,
+        withLink: Boolean = true
     )(using
         ctx: Context
     ): Tag =
