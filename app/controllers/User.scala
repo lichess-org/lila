@@ -179,10 +179,8 @@ final class User(
               negotiate(
                 html = ctx.isnt(user).so(currentlyPlaying(user.user)).flatMap { pov =>
                   val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
-                  val showRating =
-                    ctx.pref.showRatingsIn(pov.map(_.game), ctx.userId.so(env.round.playing(_)))
                   Ok.snip(
-                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable, showRating)
+                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable)
                   ).map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
                 json =

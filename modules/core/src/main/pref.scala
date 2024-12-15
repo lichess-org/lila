@@ -25,7 +25,6 @@ trait Pref:
   def hasVoice: Boolean
   def hideRatingsInGame: Boolean
   def showRatings: Boolean
-  def showRatingsIn(game: Option[Game], amPlaying: Boolean)(using Option[MyId]): Boolean
   def animationMillis: Int
   def animationMillisForSpeedPuzzles: Int
   def pieceNotationIsLetter: Boolean
