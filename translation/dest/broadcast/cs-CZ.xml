@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Přenosy</string>
+  <string name="broadcasts">Vysílání</string>
   <string name="myBroadcasts">Moje vysílání</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s vysílání</item>
