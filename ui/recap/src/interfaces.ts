@@ -32,7 +32,6 @@ export interface Sources {
 
 export interface RecapPerf {
   key: Exclude<Perf, 'fromPosition'>;
-  seconds: number;
   games: number;
 }
 

@@ -29,17 +29,14 @@ case class RecapGames(
     sources: Map[Source, Int],
     opponents: List[Counted[UserId]],
     perfs: List[Recap.Perf]
-):
-  def significantPerfs: List[Recap.Perf] = perfs.filter: p =>
-    (p.games > (nbs.total / 20)) || (p.seconds > (timePlaying.toSeconds / 20))
+)
 
 case class RecapPuzzles(nbs: NbWin = NbWin(), votes: PuzzleVotes = PuzzleVotes())
 
 object Recap:
 
   case class Counted[A](value: A, count: Int)
-  case class Perf(key: PerfKey, seconds: Int, games: Int):
-    def duration = seconds.seconds
+  case class Perf(key: PerfKey, games: Int)
 
   type Openings = ByColor[Counted[SimpleOpening]]
   lazy val nopening = Counted(SimpleOpening.openingList.head, 0)

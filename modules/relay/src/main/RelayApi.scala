@@ -19,7 +19,8 @@ import lila.study.{
   StudyMember,
   StudyMembers,
   StudyRepo,
-  StudyTopic
+  StudyTopic,
+  ChapterPreviewApi
 }
 
 final class RelayApi(
@@ -34,6 +35,7 @@ final class RelayApi(
     cacheApi: CacheApi,
     players: RelayPlayerApi,
     studyPropagation: RelayStudyPropagation,
+    preview: ChapterPreviewApi,
     picfitApi: PicfitApi
 )(using Executor, akka.stream.Materializer, play.api.Mode):
 
@@ -95,12 +97,11 @@ final class RelayApi(
   def byTourOrdered(tour: RelayTour): Fu[List[WithTour]] =
     roundRepo.byTourOrdered(tour.id).dmap(_.map(_.withTour(tour)))
 
-  def roundIdsById(tourId: RelayTourId): Fu[List[StudyId]] =
-    roundRepo.idsByTourId(tourId)
-
   def kickBroadcast(userId: UserId, tourId: RelayTourId, who: MyId): Funit =
-    roundIdsById(tourId).flatMap:
-      _.sequentiallyVoid(studyApi.kick(_, userId, who))
+    roundRepo
+      .studyIdsOf(tourId)
+      .flatMap:
+        _.sequentiallyVoid(studyApi.kick(_, userId, who))
 
   def withRounds(tour: RelayTour) = roundRepo.byTourOrdered(tour.id).dmap(tour.withRounds)
 
@@ -230,11 +231,13 @@ final class RelayApi(
           "note"            -> tour.note
         )
       )
-      _ <- data.grouping.so(updateGrouping(tour, _))
-      _ <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
-      _ <- (tour.tier != prev.tier).so(studyPropagation.onTierChange(tour))
+      _        <- data.grouping.so(updateGrouping(tour, _))
+      _        <- playerEnrich.onPlayerTextareaUpdate(tour, prev)
+      _        <- (tour.tier != prev.tier).so(studyPropagation.onTierChange(tour))
+      studyIds <- roundRepo.studyIdsOf(tour.id)
     yield
       players.invalidate(tour.id)
+      studyIds.foreach(preview.invalidate)
       (tour.id :: data.grouping.so(_.tourIds)).foreach(withTours.invalidate)
 
   private def updateGrouping(tour: RelayTour, data: RelayGroup.form.Data)(using me: Me): Funit =
@@ -513,8 +516,10 @@ final class RelayApi(
     roundRepo
       .tourIdByStudyId(studyId)
       .flatMapz: tourId =>
-        roundIdsById(tourId).flatMap:
-          _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
+        roundRepo
+          .studyIdsOf(tourId)
+          .flatMap:
+            _.sequentiallyVoid(studyApi.becomeAdmin(_, me))
 
   private def sendToContributors(id: RelayRoundId, t: String, msg: JsObject): Funit =
     studyApi.members(id.into(StudyId)).map {

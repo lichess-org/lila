@@ -69,9 +69,9 @@ private final class RecapBuilder(
       sources = scan.sources,
       opponents = scan.opponents.toList.sortBy(-_._2).take(5).map(Recap.Counted.apply),
       perfs = scan.perfs.toList
-        .sortBy(-_._2._1)
+        .sortBy(-_._2)
         .map:
-          case (key, (seconds, games)) => Recap.Perf(key, seconds, games)
+          case (key, games) => Recap.Perf(key, games)
     )
 
   private def runGameScan(userId: UserId): Fu[GameScan] =
@@ -96,7 +96,7 @@ private final class RecapBuilder(
       firstMoves: Map[SanStr, Int] = Map.empty,
       sources: Map[Source, Int] = Map.empty,
       opponents: Map[UserId, Int] = Map.empty,
-      perfs: Map[PerfKey, (Int, Int)] = Map.empty
+      perfs: Map[PerfKey, Int] = Map.empty
   ):
     def addGame(userId: UserId)(g: Game): GameScan =
       g.player(userId)
@@ -125,6 +125,5 @@ private final class RecapBuilder(
             opponents = opponent.fold(opponents): op =>
               opponents.updatedWith(op)(_.fold(1)(_ + 1).some),
             perfs = perfs.updatedWith(g.perfKey): pk =>
-              pk.fold((durationSeconds, 1).some): (seconds, games) =>
-                (seconds + durationSeconds, games + 1).some
+              some(pk.orZero + 1)
           )
