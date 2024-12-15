@@ -67,7 +67,7 @@ final class RelayTeamTable(
 
   def tableJson(relay: RelayRound): Fu[JsonStr] = cache.get(relay.studyId)
 
-  private val cache = cacheApi[StudyId, JsonStr](256, "relay.teamTable"):
+  private val cache = cacheApi[StudyId, JsonStr](16, "relay.teamTable"):
     _.expireAfterWrite(3 seconds).buildAsyncFuture(impl.makeJson)
 
   private object impl:
