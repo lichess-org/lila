@@ -25,14 +25,13 @@ final class GameUi(helpers: Helpers):
         ownerLink: Boolean = false,
         tv: Boolean = false,
         withLink: Boolean = true,
-        showRating: Boolean = true
     )(using
         ctx: Context
     ): Tag =
       renderMini(
         pov,
         withLink.option(gameLink(pov.game, pov.color, ownerLink, tv)),
-        showRatings = showRating
+        showRatings = ctx.pref.showRatings
       )
 
     def noCtx(pov: Pov, tv: Boolean = false, channelKey: Option[String] = None): Tag =
