@@ -466,8 +466,8 @@
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
   <string name="emptyTournamentName">برای نامیدن مسابقات به نام یک شطرنج‌باز برجسته، خالی بگذارید.</string>
-  <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
-  <string name="join">ملحق شدن</string>
+  <string name="makePrivateTournament">خصوصی کردن مسابقات و دسترسی تنها با گذرواژه</string>
+  <string name="join">پیوستن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
   <string name="wins">بردها</string>
