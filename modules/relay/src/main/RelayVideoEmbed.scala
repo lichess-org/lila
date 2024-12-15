@@ -21,6 +21,7 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
   def read(using req: RequestHeader): RelayVideoEmbed =
     def fromCookie = req.cookies.get(cookieName).map(_.value).filter(_.nonEmpty) match
       case Some("no") => No
+      case Some("ps") => PinnedStream
       case _          => Auto
     req.queryString.get("embed") match
       case Some(Seq("no")) => No
