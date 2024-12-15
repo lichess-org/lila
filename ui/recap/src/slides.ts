@@ -198,7 +198,7 @@ export const sources = (r: Recap): VNode => {
   return (
     best[0] &&
     slideTag('sources')([
-      h('div.recap--massive', 'Where did you play?'),
+      h('div.recap--massive', 'Where did you find games?'),
       h(
         'table.recap__data',
         h(
@@ -214,7 +214,7 @@ export const sources = (r: Recap): VNode => {
 
 export const perfs = (r: Recap): VNode => {
   return slideTag('perfs')([
-    h('div.recap--massive', 'What did you play?'),
+    h('div.recap--massive', 'What time controls and variants did you play?'),
     h(
       'table.recap__data',
       h(
