@@ -30,7 +30,7 @@
   <string name="cheatDetected">மோசடி கண்டுபிடிக்கப்பட்டது</string>
   <string name="kingInTheCenter">மையத்தில் அரசன்</string>
   <string name="threeChecks">மூன்று இடையூறுகள்</string>
-  <string name="raceFinished">ரேஸ் முடிந்ததும்</string>
+  <string name="raceFinished">ஓட்டம் முடிந்ததும்</string>
   <string name="variantEnding">மாற்று முடிவுக்கு</string>
   <string name="newOpponent">புது எதிராளி</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">நும் எதிராளி நும்மோடு புது ஆட்டமாட விரும்புகிறார்</string>
@@ -38,14 +38,14 @@
   <string name="whitePlays">வெள்ளை விளையாடுகின்றது</string>
   <string name="blackPlays">கருப்பு விளையாடுகின்றது</string>
   <plurals name="opponentLeftCounter">
-    <item quantity="one">உங்கள் எதிரி ஆட்டத்தை விட்டு தொலைந்தனர். இன்னும் %s வினாடியில் நீங்கள் வெற்றிக் கொள்ளலாம்.</item>
-    <item quantity="other">உங்கள் எதிரி ஆட்டத்தை விட்டு தொலைந்தனர். இன்னும் %s வினாடிகளில் நீங்கள் வெற்றிக் கொள்ளலாம்.</item>
+    <item quantity="one">உங்கள் எதிரி ஆட்டத்தை விட்டு அகன்றுள்ளார். இன்னும் %s வினாடியில் நீங்கள் வெற்றியை கோரலாம்.</item>
+    <item quantity="other">உங்கள் எதிரி ஆட்டத்தை விட்டு அகன்றுள்ளார். இன்னும் %s வினாடிகளில் நீங்கள் வெற்றியை கோரலாம்.</item>
   </plurals>
-  <string name="opponentLeftChoices">எதிராளி ஆட்டத்தை விட்டுவிட்டார். அவரை விலக வற்புறுத்தலாம் அல்லது காத்திருக்கலாம்</string>
+  <string name="opponentLeftChoices">எதிராளி ஆட்டத்திலிருந்து அகன்றுள்ளார். நீங்கள் வெற்றியை கோரலாம் அல்லது இழுபறிக்கலாம் அல்லது காத்திருக்கலாம் .</string>
   <string name="forceResignation">வெற்றியைப் பெற்றுக்கொள்</string>
   <string name="forceDraw">சமன் செய்ய கோரு</string>
   <string name="talkInChat">உரையாடலில் மென்மையாக உரையாடு!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">இந்த்ச் சுட்டியில் வந்தடையும் முதலாள் நும்மோடு விளையாடுவார்</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">இந்த் URL இல் வந்தடையும் முதலாள் உங்களோடு விளையாடுவார்</string>
   <string name="whiteResigned">வெள்ளை விலகிற்று</string>
   <string name="blackResigned">கருப்பு விலகிற்று</string>
   <string name="whiteLeftTheGame">வெள்ளை ஆட்டத்தை விட்டது</string>
@@ -292,7 +292,7 @@
   <string name="rematchOfferDeclined">மறுவாட்ட அளிப்பு மறுப்பு</string>
   <string name="cancelRematchOffer">மறுவாட்ட அளிப்பைக் கழி</string>
   <string name="viewRematch">மறுவாட்டங்களைக் காண்</string>
-  <string name="confirmMove">சரியான ஆட்டமா?</string>
+  <string name="confirmMove">நகர்த்தலை உறுதிசெய்</string>
   <string name="play">விளையாடு</string>
   <string name="inbox">உள்வரத்து</string>
   <string name="chatRoom">உரையாடலறை</string>
@@ -409,7 +409,7 @@
     <item quantity="other">%s உள்ளேற்றின ஆட்டங்கள்</item>
   </plurals>
   <string name="thisIsAChessCaptcha">இது ஒரு சதுரங்கமுறை மாந்தத்தேர்வு (CAPTCHA)</string>
-  <string name="clickOnTheBoardToMakeYourMove">பலகையிலே சொடுக்கி நகர்த்துங்கள், நீங்கள் மாந்தரென்று நிறுவுங்கள்</string>
+  <string name="clickOnTheBoardToMakeYourMove">உங்களுக்கான நகர்த்தலுக்கு பலகையிலே சொடுக்கவும், தாங்கள் ஒரு மாந்தரென்று நிறுவுங்கள்</string>
   <string name="captcha.fail">சதுரங்க புதிரை தீர்க்கவும்.</string>
   <string name="notACheckmate">நிகர்தடையன்று</string>
   <string name="whiteCheckmatesInOneMove">வெள்ளையின் அடுத்த நகர்வில் நிகர்தடை</string>
@@ -449,7 +449,7 @@
     <item quantity="one">%s விடக் குறைந்த நிமிடங்கள்</item>
     <item quantity="other">%s விடக் குறைந்த நிமிடங்கள்</item>
   </plurals>
-  <string name="required">கட்டாயம்</string>
+  <string name="required">தேவை</string>
   <string name="openTournaments">நுழைவேற்கும் போட்டிகள்</string>
   <string name="duration">நேரம்</string>
   <string name="winner">வெல்லி</string>
@@ -506,7 +506,7 @@
   <string name="youCanHideFlair">தளம் முழுவதும் அனைத்து பயனர் திறமைகளையும் மறைக்க ஒரு அமைப்பு உள்ளது.</string>
   <string name="biography">வாழ்க்கை சரித்திரம்</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">நாடு அல்லது வட்டாரம்</string>
-  <string name="thankYou">நன்றி</string>
+  <string name="thankYou">நன்றி!</string>
   <string name="socialMediaLinks">சமூக ஊடக இணைப்புகள்</string>
   <string name="oneUrlPerLine">ஒரு வரிக்கு ஒரு URL.</string>
   <string name="inlineNotation">உள்ளமை எண்ணிடல்</string>
@@ -515,7 +515,7 @@
   <string name="previouslyOnLichessTV">முன்பு லிசெஸ் தொலைகாட்சியில்</string>
   <string name="onlinePlayers">இணைய விளையாட்டாளர்கள்</string>
   <string name="activePlayers">பங்குபெற்ற விளையாட்டாளர்கள்</string>
-  <string name="bewareTheGameIsRatedButHasNoClock">எச்சரிக்கை, மதிப்போடான இவ்விளையாட்டில் கடிகாரம் இல்லை</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">எச்சரிக்கை, மதிப்பீட்டுடனான இவ்வாட்டத்தில் கடிகாரம் இல்லை!</string>
   <string name="success">வெற்றி</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s விளையாட்டுக்கள்</item>
@@ -591,7 +591,7 @@
   <string name="always">எப்போதும்</string>
   <string name="never">ஒருபோதும்</string>
   <string name="xCompetesInY">%2$s இல் %1$s போட்டியிடுகிறார்</string>
-  <string name="victory">வெற்றி!</string>
+  <string name="victory">வெற்றி</string>
   <string name="defeat">தோல்வி</string>
   <string name="victoryVsYInZ">%2$s எதிராக %3$s இல் %1$s</string>
   <string name="defeatVsYInZ">%2$s எதிராக %3$s இல் %1$s</string>
@@ -635,7 +635,7 @@
   <string name="onlyExistingConversations">ஏற்கனவே உள்ள உரையாடல்கள் மட்டுமே</string>
   <string name="onlyFriends">நண்பர்கள் மட்டுமே</string>
   <string name="menu">பட்டியல்</string>
-  <string name="castling">கோட்டை கட்டுதல் </string>
+  <string name="castling">கோட்டை கட்டுதல்</string>
   <string name="whiteCastlingKingside">வெள்ளை O-O</string>
   <string name="blackCastlingKingside">கருப்பு O-O</string>
   <plurals name="nbForumPosts">
