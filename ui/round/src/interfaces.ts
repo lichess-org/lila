@@ -187,7 +187,6 @@ export interface Pref {
   highlight: boolean;
   is3d: boolean;
   keyboardMove: boolean;
-  hideRatingsInGame: boolean;
   voiceMove: boolean;
   moveEvent: Prefs.MoveEvent;
   ratings: boolean;
