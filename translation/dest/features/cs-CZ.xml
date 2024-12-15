@@ -15,9 +15,12 @@
   <string name="allChessBasicsLessons">Všechny základní šachové lekce</string>
   <string name="tacticalPuzzlesFromUserGames">Taktické úlohy z uživatelských her</string>
   <string name="personalOpeningExplorer">Osobní průzkumník zahájení</string>
+  <string name="globalOpeningExplorerInNbGames">Globální průzkumník zahájení</string>
   <string name="downloadOrUploadAnyGameAsPgn">Stáhnout/nahrát jakoukoli hru jako PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, fórum, týmy, TV, zprávy, přátelé, výzvy</string>
+  <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Světlé/tmavé téma, vlastní šachovnice, figurky a pozadí</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Bleskové, Rapid, Klasické, Korespondenční šachy</string>
+  <string name="landscapeSupportOnApp">iPhone &amp; Android telefony a tablety, podpora orientace na šířku</string>
   <string name="supportLichess">Podpořit Lichess</string>
   <string name="contributeToLichessAndGetIcon">Podpořte Lichess a získejte skvěle vypadající Patronovou ikonu</string>
   <string name="everybodyGetsAllFeaturesForFree">Ano, oba účty mají stejné funkce!</string>
