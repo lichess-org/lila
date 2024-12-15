@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="zeroAdsAndNoTracking">Nula reklam, nulové sledování</string>
+  <string name="correspondenceWithConditionalPremoves">Korespondenční šachy s podmíněnými tahy</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Standardní šachy a %s</string>
+  <string name="deepXServerAnalysis" comment="%s is the engine name">Hluboká %s serverová analýza</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s hra za den</item>
+    <item quantity="few">%s her za den</item>
+    <item quantity="many">%s her za den</item>
+    <item quantity="other">%s her za den</item>
+  </plurals>
+  <string name="cloudEngineAnalysis">Cloudová engine analýza</string>
+  <string name="chessInsights">Šachové postřehy (detailní analýza vašich her)</string>
+  <string name="allChessBasicsLessons">Všechny základní šachové lekce</string>
+  <string name="tacticalPuzzlesFromUserGames">Taktické úlohy z uživatelských her</string>
   <string name="personalOpeningExplorer">Osobní průzkumník zahájení</string>
   <string name="downloadOrUploadAnyGameAsPgn">Stáhnout/nahrát jakoukoli hru jako PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, fórum, týmy, TV, zprávy, přátelé, výzvy</string>
+  <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Bleskové, Rapid, Klasické, Korespondenční šachy</string>
+  <string name="supportLichess">Podpořit Lichess</string>
+  <string name="contributeToLichessAndGetIcon">Podpořte Lichess a získejte skvěle vypadající Patronovou ikonu</string>
+  <string name="everybodyGetsAllFeaturesForFree">Ano, oba účty mají stejné funkce!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Věříme, že si každý šachista zaslouží to nejlepší, a proto:</string>
+  <string name="allFeaturesAreFreeForEverybody">Všechny funkce jsou zdarma pro všechny, navždy!</string>
+  <string name="ifYouLoveLichess">Pokud milujete Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Podpořte nás Patronovým účtem!</string>
 </resources>
