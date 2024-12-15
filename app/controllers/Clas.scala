@@ -11,7 +11,6 @@ import lila.clas.ClasForm.ClasData
 import lila.clas.ClasInvite
 import lila.core.id.{ ClasId, ClasInviteId }
 import lila.core.security.ClearPassword
-import lila.clas.ClasForm.CreateStudent
 
 final class Clas(env: Env, authC: Auth) extends LilaController(env):
 
