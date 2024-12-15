@@ -11,7 +11,8 @@ object RatingProg:
       case _                      => rp2O.orElse(rp1O)
   def make(player: lila.core.game.LightPlayer) =
     player.rating.map: rating =>
-      lila.core.rating.RatingProg(rating, rating.applyDiff(~player.ratingDiff))
+      val newRating = player.ratingDiff.fold(rating)(diff => rating.map(_ + diff.value))
+      lila.core.rating.RatingProg(rating, newRating)
 
 object Score:
   extension (s: Score)

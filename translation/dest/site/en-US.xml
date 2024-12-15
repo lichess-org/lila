@@ -116,7 +116,6 @@
   <string name="replayMode">Replay mode</string>
   <string name="realtimeReplay">Realtime</string>
   <string name="byCPL">By CPL</string>
-  <string name="openStudy">Open study</string>
   <string name="enable">Enable</string>
   <string name="bestMoveArrow">Best move arrow</string>
   <string name="showVariationArrows">Show variation arrows</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s game with you</item>
     <item quantity="other">%s games with you</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
   <string name="whiteTimeOut">White time out</string>
   <string name="blackTimeOut">Black time out</string>
@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host. The simul ends when all games are complete.</string>
   <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
   <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
   <string name="simulAddExtraTime">You may add extra initial time to your clock to help you cope with the simul.</string>

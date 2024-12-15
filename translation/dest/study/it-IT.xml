@@ -15,7 +15,7 @@
   <string name="dateAddedOldest">Data di pubblicazione (dalla meno recente)</string>
   <string name="recentlyUpdated">Data di aggiornamento (dalla più recente)</string>
   <string name="mostPopular">Più popolari</string>
-  <string name="alphabetical" comment="Used in various lists for sorting to let users sort.&#10;For example, in the 'Puzzles by opening' screen: https://lichess.org/training/openings">Alfabetico</string>
+  <string name="alphabetical">Alfabetico</string>
   <string name="addNewChapter">Aggiungi un nuovo capitolo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s capitolo</item>
@@ -67,7 +67,7 @@
   <string name="downloadGame">Scarica partita</string>
   <string name="studyUrl">URL dello studio</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
-  <string name="youCanPasteThisInTheForumToEmbed" comment="youCanPasteThisInTheForumToEmbed&#10;&#10;The thing you are pasting is a link to a study. This will make it appear in the correct section as well.&#10;&#10;Please note this used to say &quot;in the forum to embed&quot;. It was then changed to include &quot;or a Lichess Blog&quot;. A further update was made to say &quot;or your Lichess blog&quot;, since you can only create blog posts as an individual. ">Puoi incollare questo URL nel forum per creare un rimando</string>
+  <string name="youCanPasteThisInTheForumToEmbed">Puoi incollare questo URL nel forum per creare un rimando</string>
   <string name="startAtInitialPosition">Inizia dalla prima mossa</string>
   <string name="startAtX">Inizia a: %s</string>
   <string name="embedInYourWebsite">Incorpora nel tuo sito Web o Blog</string>
@@ -98,9 +98,9 @@
   <string name="startFromInitialPosition">Parti dalla posizione iniziale</string>
   <string name="editor">Editor</string>
   <string name="startFromCustomPosition">Inizia da una posizione personalizzata</string>
-  <string name="loadAGameByUrl" comment="Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Carica una partita da URL</string>
+  <string name="loadAGameByUrl">Carica una partita da URL</string>
   <string name="loadAPositionFromFen">Carica una posizione da FEN</string>
-  <string name="loadAGameFromPgn" comment="Do not translate &quot;PGN&quot;, keep it as it is.&#10;&#10;This isn't file upload, the player can just paste PGN text in if they want. So just &quot;load&quot; is the best way to say it in English. As always, use what's best in your language but please bear in mind that this isn't a file upload tool.&#10;&#10;Please note - this used to be singular but is now plural due to new functionality. Please update translations as needed.">Carica una partita da PGN</string>
+  <string name="loadAGameFromPgn">Carica una partita da PGN</string>
   <string name="automatic">Automatica</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Incolla qui il testo PGN, massimo %s partita</item>
@@ -164,7 +164,8 @@
   <string name="popularTopics">Argomenti popolari</string>
   <string name="manageTopics">Gestisci discussioni</string>
   <string name="back">Indietro</string>
-  <string name="playAgain" comment="Appears as a button at the end of a tutorial chapter in a Lichess Study. This button lets you re-play the whole chapter.">Gioca di nuovo</string>
-  <string name="whatWouldYouPlay" comment="Appear during tutorial chapters of a Lichess study. The user is asked to play a move and resolve the puzzle.">Cosa giocheresti in questa posizione?</string>
-  <string name="youCompletedThisLesson" comment="Appears at the end of a tutorial chapter in a study.">Congratulazioni! Hai completato questa lezione.</string>
+  <string name="playAgain">Gioca di nuovo</string>
+  <string name="whatWouldYouPlay">Cosa giocheresti in questa posizione?</string>
+  <string name="youCompletedThisLesson">Congratulazioni! Hai completato questa lezione.</string>
+  <string name="perPage">%s per pagina</string>
 </resources>

@@ -1,6 +1,6 @@
-import { makeSocket, SimulSocket } from './socket';
+import { makeSocket, type SimulSocket } from './socket';
 import xhr from './xhr';
-import { SimulData, SimulOpts } from './interfaces';
+import type { SimulData, SimulOpts } from './interfaces';
 import { storage } from 'common/storage';
 import { idleTimer } from 'common/timing';
 

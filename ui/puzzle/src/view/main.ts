@@ -1,22 +1,22 @@
 import * as control from '../control';
-import * as keyboard from '../keyboard';
-import * as side from './side';
+import { view as keyboardView } from '../keyboard';
+import { replay, puzzleBox, userBox, streakBox, config } from './side';
 import theme from './theme';
 import chessground from './chessground';
 import feedbackView from './feedback';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/controls';
-import { VNode, h } from 'snabbdom';
+import { type VNode, h } from 'snabbdom';
 import { onInsert, bindNonPassive, looseH as lh } from 'common/snabbdom';
 import { bindMobileMousedown } from 'common/device';
 import { render as treeView } from './tree';
 import { view as cevalView } from 'ceval';
 import { renderVoiceBar } from 'voice';
 import { render as renderKeyboardMove } from 'keyboardMove';
-import { toggleButton as boardMenuToggleButton } from 'board/menu';
+import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
 import boardMenu from './boardMenu';
-import * as Prefs from 'common/prefs';
-import PuzzleCtrl from '../ctrl';
+import { Coords } from 'common/prefs';
+import type PuzzleCtrl from '../ctrl';
 import { dispatchChessgroundResize } from 'common/resize';
 import { storage } from 'common/storage';
 
@@ -34,7 +34,7 @@ function jumpButton(icon: string, effect: string, disabled: boolean, glowing = f
 function controls(ctrl: PuzzleCtrl): VNode {
   const node = ctrl.node;
   const nextNode = node.children[0];
-  const notOnLastMove = ctrl.mode == 'play' && nextNode && nextNode.puzzle != 'fail';
+  const notOnLastMove = ctrl.mode === 'play' && nextNode && nextNode.puzzle !== 'fail';
   return lh('div.puzzle__controls.analyse-controls', [
     lh(
       'div.jumps',
@@ -78,7 +78,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
       hook: {
         postpatch(old, vnode) {
           if (old.data!.gaugeOn !== gaugeOn) {
-            if (ctrl.pref.coords === Prefs.Coords.Outside) {
+            if (ctrl.pref.coords === Coords.Outside) {
               $('body').toggleClass('coords-in', gaugeOn).toggleClass('coords-out', !gaugeOn);
             }
             dispatchChessgroundResize();
@@ -89,10 +89,10 @@ export default function (ctrl: PuzzleCtrl): VNode {
     },
     [
       lh('aside.puzzle__side', [
-        side.replay(ctrl),
-        side.puzzleBox(ctrl),
-        ctrl.streak ? side.streakBox(ctrl) : side.userBox(ctrl),
-        side.config(ctrl),
+        replay(ctrl),
+        puzzleBox(ctrl),
+        ctrl.streak ? streakBox(ctrl) : userBox(ctrl),
+        config(ctrl),
         theme(ctrl),
       ]),
       lh(
@@ -136,7 +136,7 @@ export default function (ctrl: PuzzleCtrl): VNode {
       controls(ctrl),
       ctrl.keyboardMove && renderKeyboardMove(ctrl.keyboardMove),
       session(ctrl),
-      ctrl.keyboardHelp() && keyboard.view(ctrl),
+      ctrl.keyboardHelp() && keyboardView(ctrl),
     ],
   );
 }
@@ -157,7 +157,7 @@ function session(ctrl: PuzzleCtrl) {
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
           key: round.id,
-          class: { current: current == round.id },
+          class: { current: current === round.id },
           attrs: {
             href: `/training/${ctrl.session.theme}/${round.id}`,
             ...(ctrl.streak ? { target: '_blank', rel: 'noopener' } : {}),
@@ -166,7 +166,7 @@ function session(ctrl: PuzzleCtrl) {
         rd,
       );
     }),
-    rounds.find(r => r.id == current)
+    rounds.find(r => r.id === current)
       ? !ctrl.streak &&
         lh('a.session-new', { key: 'new', attrs: { href: `/training/${ctrl.session.theme}` } })
       : lh(

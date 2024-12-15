@@ -2,7 +2,7 @@ import * as licon from 'common/licon';
 import * as xhr from 'common/xhr';
 import { storage } from 'common/storage';
 import { addPasswordVisibilityToggleListener } from 'common/password';
-import flairPickerLoader from './exports/flairPicker';
+import flairPickerLoader from './flairPicker';
 import { confirm } from 'common/dialog';
 import { $as } from 'common';
 
@@ -34,8 +34,8 @@ site.load.then(() => {
     $form.find('input').on('change', function (this: HTMLInputElement) {
       computeBitChoices($form, 'behavior.submitMove');
       localPrefs.forEach(([categ, name, storeKey]) => {
-        if (this.name == `${categ}.${name}`) {
-          storage.boolean(storeKey).set(this.value == '1');
+        if (this.name === `${categ}.${name}`) {
+          storage.boolean(storeKey).set(this.value === '1');
           showSaved();
         }
       });
@@ -65,7 +65,7 @@ site.load.then(() => {
     submit.on('click', function (this: HTMLElement, e: Event) {
       if (!isDanger) return true;
       e.preventDefault();
-      confirm(this.title).then(yes => {
+      confirm(this.title, i18n.site.ok, i18n.site.cancel).then(yes => {
         if (yes) $as<HTMLFormElement>(form).submit();
       });
     });
@@ -85,7 +85,7 @@ site.load.then(() => {
     });
     window.addEventListener('beforeunload', e => {
       if (
-        clean != serialize() &&
+        clean !== serialize() &&
         !window.confirm('You have unsaved changes. Are you sure you want to leave?')
       )
         e.preventDefault();

@@ -24,7 +24,7 @@ site.load.then(() => {
       dataKey: string,
     ): boolean => {
       const player: string = $form.data(dataKey);
-      return row.classList.contains(rowClassName) && !!player.length && user == player;
+      return row.classList.contains(rowClassName) && !!player.length && user === player;
     };
     const usernames = getUsernames();
     const $select = $(row).find('select').html('<option value=""></option>');
@@ -56,8 +56,8 @@ site.load.then(() => {
 
   const toggleAiLevel = function () {
     $form.find('.opponent select').each(function (this: HTMLSelectElement) {
-      $form.find('.aiLevel').toggleClass('none', this.value != '1');
-      $form.find('.opponentName').toggleClass('none', this.value == '1');
+      $form.find('.aiLevel').toggleClass('none', this.value !== '1');
+      $form.find('.opponentName').toggleClass('none', this.value === '1');
     });
   };
   toggleAiLevel();

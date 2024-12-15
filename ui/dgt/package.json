@@ -5,10 +5,7 @@
   "description": "lichess.org dgt",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "dependencies": {
-    "chessops": "^0.14.1"
-  },
-  "lichess": {
-    "bundles": "src/dgt.ts"
+  "build": {
+    "bundle": "src/dgt.ts"
   }
 }

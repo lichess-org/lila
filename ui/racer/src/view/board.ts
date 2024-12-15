@@ -1,7 +1,7 @@
-import RacerCtrl from '../ctrl';
+import type RacerCtrl from '../ctrl';
 import { makeCgOpts } from 'puz/run';
 import { makeConfig as makeCgConfig } from 'puz/view/chessground';
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { INITIAL_BOARD_FEN } from 'chessops/fen';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
@@ -45,7 +45,7 @@ const renderCountdown = (seconds: number) =>
   h('div.racer__countdown', [
     h('div.racer__countdown__lights', [
       h('light.red', { class: { active: seconds > 4 } }),
-      h('light.orange', { class: { active: seconds == 3 || seconds == 4 } }),
+      h('light.orange', { class: { active: seconds === 3 || seconds === 4 } }),
       h('light.green', { class: { active: seconds <= 2 } }),
     ]),
     h('div.racer__countdown__seconds', seconds),

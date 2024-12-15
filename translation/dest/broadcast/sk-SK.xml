@@ -26,7 +26,7 @@
   <string name="tournamentDescription">Krátky popis turnaja</string>
   <string name="fullDescription">Úplný popis turnaja</string>
   <string name="fullDescriptionHelp">Voliteľný dlhý popis vysielania. %1$s je dostupný. Dĺžka musí byť menej ako %2$s znakov.</string>
-  <string name="sourceSingleUrl">Zdrojová URL pre PGN súbor</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Zdrojová URL pre PGN súbor</string>
   <string name="sourceUrlHelp">URL, ktorú bude Lichess kontrolovať, aby získal aktualizácie PGN. Musí byť verejne prístupná z internetu.</string>
   <string name="sourceGameIds">Až do 64 identifikátorov Lichess partií oddelených medzerami.</string>
   <string name="startDateTimeZone">Dátum začiatku v miestnej časovej zóne turnaja: %s</string>
@@ -49,7 +49,7 @@
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federácia</string>
   <string name="ageThisYear">Vek tento rok</string>
-  <string name="unrated">Bez hodnotenia</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Bez hodnotenia</string>
   <string name="recentTournaments">Posledné turnaje</string>
   <string name="openLichess">Otvoriť na Lichess</string>
   <string name="teams">Tímy</string>
@@ -59,6 +59,7 @@
   <string name="uploadImage">Nahrať obrázok pre turnaj</string>
   <string name="noBoardsYet">Zatiaľ žiadne šachovnice. Objavia sa po nahratí partií.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Šachovnice možno načítať pomocou zdroja alebo pomocou %s</string>
+  <string name="startsAfter">Začína po %s</string>
   <string name="startVerySoon">Vysielanie sa začne čoskoro.</string>
   <string name="notYetStarted">Vysielanie sa ešte nezačalo.</string>
   <string name="officialWebsite">Oficiálna webstránka</string>
@@ -72,7 +73,6 @@
   <string name="ratingDiff">Ratingový rozdiel</string>
   <string name="gamesThisTournament">Partie tohto turnaja</string>
   <string name="score">Skóre</string>
-  <string name="perPage">%s na stránku</string>
   <string name="allTeams">Všetky tímy</string>
   <string name="tournamentFormat">Formát turnaja</string>
   <string name="tournamentLocation">Miesto konania turnaja</string>
@@ -80,7 +80,6 @@
   <string name="timezone">Časové pásmo</string>
   <string name="fideRatingCategory">Kategória FIDE ratingu</string>
   <string name="optionalDetails">Nepovinné údaje</string>
-  <string name="upcomingBroadcasts">Najbližšie vysielanie</string>
   <string name="pastBroadcasts">Predchádzajúce vysielania</string>
   <string name="allBroadcastsByMonth">Zobraziť všetky vysielania podľa mesiacov</string>
 </resources>

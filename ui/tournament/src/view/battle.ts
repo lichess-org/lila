@@ -1,9 +1,9 @@
-import TournamentController from '../ctrl';
-import { bind, MaybeVNode } from 'common/snabbdom';
+import type TournamentController from '../ctrl';
+import { bind, type MaybeVNode } from 'common/snabbdom';
 import { fullName, userFlair } from 'common/userLink';
 import { snabDialog } from 'common/dialog';
-import { h, VNode } from 'snabbdom';
-import { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { TeamBattle, RankedTeam, LightTeam } from '../interfaces';
 
 export function joinWithTeamSelector(ctrl: TournamentController) {
   const tb = ctrl.data.teamBattle!;
@@ -13,12 +13,13 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
   };
   return snabDialog({
     class: 'team-battle__choice',
+    modal: true,
     onInsert(dlg) {
       $('.team-picker__team', dlg.view).on('click', e => {
         ctrl.join(e.target.dataset['id']);
         dlg.close();
       });
-      dlg.showModal();
+      dlg.show();
     },
     onClose,
     vnodes: [
@@ -114,7 +115,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     'tr',
     {
       key: team.id,
-      class: { active: ctrl.teamInfo.requested == team.id },
+      class: { active: ctrl.teamInfo.requested === team.id },
       hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw),
     },
     [

@@ -1,17 +1,16 @@
 package lila.practice
 
+import reactivemongo.api.bson.Macros.Annotations.Key
 import lila.study.ChapterPreview
 
 case class PracticeProgress(
-    _id: UserId,
+    @Key("_id") id: UserId,
     chapters: PracticeProgress.ChapterNbMoves,
     createdAt: Instant,
     updatedAt: Instant
 ):
 
   import PracticeProgress.NbMoves
-
-  inline def id = _id
 
   def apply(chapterId: StudyChapterId): Option[NbMoves] =
     chapters.get(chapterId)
@@ -42,12 +41,11 @@ object PracticeProgress:
 
   type ChapterNbMoves = Map[StudyChapterId, NbMoves]
 
-  def empty(id: UserId) =
-    PracticeProgress(
-      _id = id,
-      chapters = Map.empty,
-      createdAt = nowInstant,
-      updatedAt = nowInstant
-    )
+  def empty(id: UserId) = PracticeProgress(
+    id = id,
+    chapters = Map.empty,
+    createdAt = nowInstant,
+    updatedAt = nowInstant
+  )
 
   def anon = empty(UserId("anon"))

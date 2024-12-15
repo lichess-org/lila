@@ -3,6 +3,7 @@ import { memoize } from 'common';
 import { spinnerHtml } from 'common/spinner';
 import { clamp } from 'common/algo';
 import { pubsub } from 'common/pubsub';
+import { wsSend } from 'common/socket';
 
 export default function () {
   const top = document.getElementById('top')!;
@@ -11,7 +12,7 @@ export default function () {
     isVisible = (selector: string) => {
       const el = document.querySelector(selector),
         display = el && window.getComputedStyle(el).display;
-      return display && display != 'none';
+      return display && display !== 'none';
     };
 
   // On touchscreens, clicking the top menu element expands it. There's no top link.
@@ -104,17 +105,17 @@ export default function () {
           isVisible: () => isVisible(selector),
           updateUnread(nb: number | 'increment') {
             const existing = ($countSpan.data('count') as number) || 0;
-            if (nb == 'increment') nb = existing + 1;
+            if (nb === 'increment') nb = existing + 1;
             if (this.isVisible()) nb = 0;
             const newTitle = $countSpan.attr('title')!.replace(/\d+/, nb.toString());
             $countSpan.data('count', nb).attr('title', newTitle).attr('aria-label', newTitle);
-            return nb && nb != existing;
+            return nb && nb !== existing;
           },
           show() {
             if (!isVisible(selector)) $toggle.trigger('click');
           },
           setNotified() {
-            site.socket.send('notified');
+            wsSend('notified');
           },
           pulse() {
             $toggle.addClass('pulse');

@@ -1,6 +1,6 @@
-import { Outcome } from 'chessops/types';
-import { Prop } from 'common';
-import { Feature } from 'common/device';
+import type { Outcome } from 'chessops/types';
+import type { Prop } from 'common';
+import type { Feature } from 'common/device';
 import type CevalCtrl from './ctrl';
 
 export type WinningChances = number;
@@ -28,31 +28,40 @@ export interface Work {
 export interface BaseEngineInfo {
   id: string;
   name: string;
-  tech?: 'HCE' | 'NNUE' | 'EXTERNAL';
   short?: string;
   variants?: VariantKey[];
   minThreads?: number;
   maxThreads?: number;
   maxHash?: number;
-  requires?: Requires[];
+  requires?: Feature[];
 }
 
-export interface ExternalEngineInfo extends BaseEngineInfo {
+export interface ExternalEngineInfoFromServer extends BaseEngineInfo {
+  variants: VariantKey[];
+  maxHash: number;
+  maxThreads: number;
+  providerData?: string;
   clientSecret: string;
   officialStockfish?: boolean;
   endpoint: string;
 }
 
+export interface ExternalEngineInfo extends ExternalEngineInfoFromServer {
+  tech: 'EXTERNAL';
+  cloudEval?: false;
+}
+
 export interface BrowserEngineInfo extends BaseEngineInfo {
+  tech: 'HCE' | 'NNUE';
+  short: string;
   minMem?: number;
   assets: { root?: string; js?: string; wasm?: string; version?: string; nnue?: string[] };
-  requires: Requires[];
+  requires: Feature[];
   obsoletedBy?: Feature;
+  cloudEval?: boolean;
 }
 
 export type EngineInfo = BrowserEngineInfo | ExternalEngineInfo;
-
-export type Requires = Feature | 'allowLsfw'; // lsfw = lila-stockfish-web
 
 export type EngineNotifier = (status?: {
   download?: { bytes: number; total: number };
@@ -92,7 +101,7 @@ export interface CevalOpts {
   redraw: Redraw;
   search?: Search;
   onSelectEngine?: () => void;
-  externalEngines?: ExternalEngineInfo[];
+  externalEngines?: ExternalEngineInfoFromServer[];
 }
 
 export interface Hovering {

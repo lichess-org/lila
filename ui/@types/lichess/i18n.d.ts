@@ -313,8 +313,6 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
-    /** %s per page */
-    perPage: I18nFormat;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
     pgnSourceHelp: I18nFormat;
     /** Rating diff */
@@ -375,8 +373,6 @@ interface I18n {
     unrated: string;
     /** Upcoming */
     upcoming: string;
-    /** Upcoming broadcasts */
-    upcomingBroadcasts: string;
     /** Upload tournament image */
     uploadImage: string;
     /** webmasters page */
@@ -2069,6 +2065,8 @@ interface I18n {
   preferences: {
     /** Bell notification sound */
     bellNotificationSound: string;
+    /** Blindfold */
+    blindfold: string;
     /** Board coordinates (A-H, 1-8) */
     boardCoordinates: string;
     /** Board highlights (last move and check) */
@@ -3663,8 +3661,6 @@ interface I18n {
     openingExplorerAndTablebase: string;
     /** Openings */
     openings: string;
-    /** Open study */
-    openStudy: string;
     /** Open tournaments */
     openTournaments: string;
     /** Opponent */
@@ -4813,6 +4809,8 @@ interface I18n {
     orientation: string;
     /** Paste your PGN text here, up to %s games */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
+    /** %s per page */
+    perPage: I18nFormat;
     /** PGN tags */
     pgnTags: string;
     /** Pinned chapter comment */

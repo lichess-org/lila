@@ -113,7 +113,6 @@
   <string name="replayMode">ರಿಪ್ಲೇ ಮೋಡ್</string>
   <string name="realtimeReplay">ನೈಜ ಸಮಯ</string>
   <string name="byCPL">CPL ಇಂದ</string>
-  <string name="openStudy">ಅಧ್ಯಯನ ಭಾಗವನ್ನು ತೆರೆಯಿರಿ</string>
   <string name="enable">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
   <string name="bestMoveArrow">ಅತ್ಯುತ್ತಮ ನಡೆಯ ಬಾಣ</string>
   <string name="evaluationGauge">ಮೌಲ್ಯಮಾಪನ ಗೇಜ್</string>
@@ -656,7 +655,7 @@
   <string name="aboutSimulRules">Simul ಪ್ರಾರಂಭವಾಗುವಾಗ, ಪ್ರತಿ ಎದುರಾಳಿ ಆಟಗಾರರೂ ಆತಿಥೇಯ ಆಟಗಾರರೊಂದಿಗೆ ಪಂದ್ಯ ಆರಂಭಿಸುತ್ತಾರೆ. ಎಲ್ಲಾ ಆಟಗಳು ಮುಕ್ತಾಯ ಆದ ಮೇಲೆಯೇ simul ಮುಗಿಯುತ್ತದೆ.</string>
   <string name="aboutSimulSettings">ಏಕಕಾಲಿಕ ಆಟಗಳು, ಅಂದರೆ Simul ಗಳು, ಯಾವತ್ತೂ ಧಾರಣೆ-ರಹಿತವಾಗಿರುತ್ತವೆ. ಮರುಪಂದ್ಯಗಳು, ನಡೆ-ಹಿಂಪಡೆಯುವಿಕೆಗಳು, ಹಾಗೂ ಸಮಯ ಸೇರಿಸುವಂತಹ ಅವಕಾಶಗಳು ಇರುವುದಿಲ್ಲ.</string>
   <string name="create">ರಚಿಸಿ</string>
-  <string name="whenCreateSimul">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">ನೀವು simul ಒಂದನ್ನು ರಚಿಸಿದಾಗ, ನಿಮಗೆ ಹಲವಾರು ಆಟಗಾರರ ವಿರುದ್ಧ ಏಕಕಾಲಕ್ಕೆ ಆಡುವ ಅವಕಾಶ ಸಿಗುತ್ತದೆ.</string>
   <string name="simulVariantsHint">ನೀವು ಹಲವಾರು ಆಟದ ಶೈಲಿಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಿದ್ದರೆ, ಪ್ರತಿ ಎದುರಾಳಿಗೂ ಆ ಆಯ್ಕೆಗಳಿಂದ ಒಂದನ್ನು ಆರಿಸುವ ಅವಕಾಶ ದೊರೆಯುತ್ತದೆ.</string>
   <string name="simulClockHint">ಫಿಷರ್ ಗಡಿಯಾರದ ಸಿದ್ಧತೆ. ಎಷ್ಟು ಹೆಚ್ಚು ಆಟಗಾರರನ್ನು ಆಯ್ಕೆ ಮಾಡುತ್ತೀರೋ, ಅಷ್ಟೇ ಹೆಚ್ಚಿನ ಸಮಯ ನಿಮಗೆ ಬೇಕಾಗಬಹುದು.</string>
   <string name="simulAddExtraTime">ನಿಮಗೆ ಬೇಕಾದರೆ, simul ನಿಭಾಯಿಸುವ ಸಲುವಾಗಿ, ನಿಮ್ಮ ಗಡಿಯಾರಕ್ಕೆ ಹೆಚ್ಚಿನ ಸಮಯವನ್ನು ಸೇರಿಸಿಕೊಳ್ಳಬಹುದು.</string>

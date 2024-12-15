@@ -49,8 +49,9 @@ class Context(
   def isMobileApi           = mobileApiVersion.isDefined
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
   def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
-  def canPalantir           = kid.no && me.exists(!_.marks.troll)
-  lazy val translate        = Translate(lila.i18n.Translator, lang)
+  def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
+  def canPalantir                 = kid.no && me.exists(!_.marks.troll)
+  lazy val translate              = Translate(lila.i18n.Translator, lang)
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

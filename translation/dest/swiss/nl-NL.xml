@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="swiss">Zwitsers</string>
+  <string name="swiss" comment="Used as an adjective.&#10;&#10;Appears on tournament pages information boxes, to explain that the tournament is Swiss format.">Zwitsers</string>
   <string name="swissTournaments">Zwitserse toernooien</string>
   <plurals name="viewAllXRounds" comment="viewAllXRounds [one] [other]&#10;&#10;%s is the number of rounds in the Swiss tournament.">
     <item quantity="one">Bekijk de ronde</item>
@@ -39,6 +39,16 @@
   <string name="roundInterval">Interval tussen rondes</string>
   <string name="forbiddenPairings">Verboden paringen</string>
   <string name="forbiddenPairingsHelp">Gebruikersnamen van spelers waarvan je niet wilt dat ze tegen elkaar moeten spelen (bijvoorbeeld broers en zussen). Vul twee gebruikersnamen per regel in, gescheiden door een spatie.</string>
+  <string name="manualPairings">Handmatige paringen in de volgende ronde</string>
+  <string name="manualPairingsHelp">Specificeer alle paringen van de volgende ronde handmatig. Eén spelerpaar per regel. Bijvoorbeeld:
+SpelerA SpelerB
+SpelerC SpelerD
+Om een speler een bye (1 punt) te geven in plaats van een paring, voeg een regel als deze toe:
+Speler 1
+Ontbrekende spelers zullen worden beschouwd als afwezig en krijgen nul punten.
+Laat dit veld leeg om lichess automatisch paringen te laten maken.</string>
+  <string name="mustHavePlayedTheirLastSwissGame">Moet hun laatste spel in een zwitsers toernooi hebben gespeeld</string>
+  <string name="mustHavePlayedTheirLastSwissGameHelp">Laat spelers alleen meedoen als ze hun laatste spel in een zwitsers toernooi hebben gespeeld. Als ze toen niet zijn komen opdagen, zullen ze niet kunnen toetreden in jouw toernooi. Dit leidt tot een betere ervaring voor de spelers die wel komen opdagen.</string>
   <string name="newSwiss">Nieuw Zwitsers toernooi</string>
   <string name="swissVsArenaQ">Wanneer gebruik je een Zwitsers toernooi in plaats van een arena-toernooi?</string>
   <string name="swissVsArenaA">In een Zwitsers toernooi spelen alle deelnemers hetzelfde aantal partijen en kunnen ze elkaar maar één keer treffen. Dit kan een goede optie zijn voor clubs en officiële toernooien.</string>
@@ -50,13 +60,13 @@ Als een speler niet kan worden gepaard tijdens een ronde, krijgt deze een bye me
   <string name="tiebreaksCalculationA">Met de %s.
 Voeg de punten toe van elke tegenstander van wie de speler heeft gewonnen plus de helft van de punten van elke tegenstander met wie de speler remise speelde.</string>
   <string name="pairingsQ">Hoe komen paringen tot stand?</string>
-  <string name="dutchSystem">Systeem Keizer</string>
+  <string name="dutchSystem">Keizersysteem</string>
   <string name="FIDEHandbook">FIDE-handboek</string>
   <string name="pairingsA">Met het %1$s, geïmplementeerd door %2$s, in overeenstemming met het %3$s.</string>
   <string name="moreRoundsThanPlayersQ">Wat gebeurt er als het toernooi meer rondes heeft dan spelers?</string>
   <string name="moreRoundsThanPlayersA">Als alle mogelijke paringen zijn afgewerkt, wordt het toernooi beëindigd en een winnaar uitgeroepen.</string>
   <string name="restrictedToTeamsQ">Waarom is het beperkt tot teams?</string>
-  <string name="restrictedToTeamsA">Zwitserse toernooien zijn niet ontworpen voor online schaken. Ze vereisen punctualiteit, toewijding en geduld van spelers.
+  <string name="restrictedToTeamsA">Zwitserse toernooien zijn niet ontworpen voor online schaken. Ze vereisen punctualiteit, toewijding en geduld van de spelers.
 Wij denken dat deze voorwaarden binnen een team waarschijnlijk eerder zullen worden vervuld dan in wereldwijde toernooien.</string>
   <string name="numberOfByesQ">Hoeveel byes kan een speler krijgen?</string>
   <string name="numberOfByesA">Een speler krijgt één punt voor elke keer dat er geen paring tot stand kan komen.
@@ -113,4 +123,6 @@ Wat het meest in de buurt komt van een online round-robin is een Zwitsers toerno
   <string name="predefinedUsers">Sta enkel vooraf gedefinieerde gebruikers toe om mee te doen</string>
   <string name="forbiddedUsers">Als deze lijst niet leeg is, worden gebruikers die niet op deze lijst staan niet toegelaten. Eén gebruikersnaam per regel.</string>
   <string name="playYourGames">Speel jouw partijen</string>
+  <string name="absences">Afwezigheden</string>
+  <string name="tieBreak">Tiebreak</string>
 </resources>

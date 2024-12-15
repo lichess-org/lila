@@ -109,7 +109,6 @@
   <string name="replayMode">Endursýning</string>
   <string name="realtimeReplay">Rauntími</string>
   <string name="byCPL">Skv. stigum</string>
-  <string name="openStudy">Opna rannsókn</string>
   <string name="enable">Á</string>
   <string name="bestMoveArrow">Ör sem sýnir besta leik</string>
   <string name="evaluationGauge">Stöðumat</string>
@@ -620,7 +619,7 @@
   <string name="aboutSimulRules">Þegar hópskák hefst byrjar hver leikmaður leik við gestgjafann, sem fær að leika hvítt. Hópskákinni lýkur þegar allir leikir hafa klárast.</string>
   <string name="aboutSimulSettings">Fjöltefli eru alltaf stigalaus. Endurleikir, afturkallanir og aukatími eru óvirk.</string>
   <string name="create">Búa til</string>
-  <string name="whenCreateSimul">Þegar þú stofnar til hópskákar spilarðu við marga leikmeinn í einu.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Þegar þú stofnar til hópskákar spilarðu við marga leikmeinn í einu.</string>
   <string name="simulVariantsHint">Ef þú velur nokkur afbrigði fær hver andstæðingur að ákveða hvert þeirra hann vill leika.</string>
   <string name="simulClockHint">Uppsetning á Fischer-klukku. Því fleiri andstæðinga sem þú teflir við, því meiri tíma gætirðu þurft.</string>
   <string name="simulAddExtraTime">Þú getur bætt við tíma til að hjálpa þér að ráða við hópskákina.</string>

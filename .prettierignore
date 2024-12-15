@@ -1,13 +1,20 @@
+# ignore all top level items by default
 *
+
+# format only these files at top level
 !/package.json
 !/crowdin.yml
 !/eslint.config.mjs
-!/package.json
 !/pnpm-workspace.yaml
+
+# format only these top level directories and their contents
 !/.github/
 !/.github/**
 !/ui/
 !/ui/**
+
+# ignore these patterns anywhere
 dist/
-readme
-/ui/voice/@build/crowdv/*.json
+README.md
+pnpm-lock.yaml
+/ui/voice/crowdv/

@@ -116,7 +116,6 @@
   <string name="replayMode">Qaabka ku soo celinta</string>
   <string name="realtimeReplay">Waqtiga dhabta ah</string>
   <string name="byCPL">Inta muhiinka ah</string>
-  <string name="openStudy">Fur casharka</string>
   <string name="enable">Fur</string>
   <string name="bestMoveArrow">Falaadha tallaabada ugu fiican</string>
   <string name="showVariationArrows">Tus falaadhaha faracyada</string>
@@ -306,6 +305,10 @@
   <string name="send">Dir</string>
   <string name="incrementInSeconds">Taran ah sikino</string>
   <string name="freeOnlineChess">Shataranjiga Onlineka ah ee bilaashka ah</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s qiimaysan</item>
+    <item quantity="other">%s qiimaysan</item>
+  </plurals>
   <plurals name="nbWins">
     <item quantity="one">%s guulood</item>
     <item quantity="other">%s guulood</item>

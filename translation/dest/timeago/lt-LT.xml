@@ -92,4 +92,5 @@
     <item quantity="many">Liko %s valandų</item>
     <item quantity="other">Liko %s valandų</item>
   </plurals>
+  <string name="completed">užbaigta</string>
 </resources>

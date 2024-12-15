@@ -114,7 +114,6 @@
   <string name="replayMode">दोहोर्याउने गति</string>
   <string name="realtimeReplay">वास्तविक</string>
   <string name="byCPL">CPL अनुसार</string>
-  <string name="openStudy">पाठ खोलौ</string>
   <string name="enable">सक्षम पार्नुहोस्</string>
   <string name="bestMoveArrow">उत्कृष्ट चालको तीर</string>
   <string name="showVariationArrows">भिन्नताहरूको सुचक तिर देखाउनु</string>
@@ -608,7 +607,7 @@
   <string name="aboutSimulRules">जब समकालिक प्रदर्शन शुरु हुन्छ, सबै खेलाडीले आयोजक सँग खेल शुरु गर्छ, र आयोजक ले सेतो लिएर खेल्छ। जब सबै खेल खत्तम हुन्छन्, तब प्रदर्शन पनि समाप्त हुन्छ।</string>
   <string name="aboutSimulSettings">समकालिक प्रदर्शन सधै अनौपचारिक हुन्छ, फेरी खेल्न, चाल फिर्ता गर्न, र थप समय दिन निषेध गरिएको छ।</string>
   <string name="create">रचना गरौ</string>
-  <string name="whenCreateSimul">समाकालिक प्रदर्शन शुरु गर्दा तपाइले धेरै खेलाडीसंग एकैपटक खेल्न पाउनु हुन्छ।</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">समाकालिक प्रदर्शन शुरु गर्दा तपाइले धेरै खेलाडीसंग एकैपटक खेल्न पाउनु हुन्छ।</string>
   <string name="simulVariantsHint">यदि परिमार्जन हरु छानेको खण्डमा, सबै खेलाडीले आफ्नो इच्छाको परिमार्जन छान्न पाउछन्।</string>
   <string name="simulClockHint">फिशर घडीको सेट अप। जति धेरै खेलाडी हुन्छन्, त्यति नै धेरै समय आवश्यक पर्न सक्दछ।</string>
   <string name="simulAddExtraTime">आयोजकको आफ्नो घडीमा थप समय राख्न सकिन्छ</string>

@@ -6,7 +6,7 @@ object BuildSettings {
   import Dependencies._
 
   val lilaVersion        = "4.0"
-  val globalScalaVersion = "3.5.2"
+  val globalScalaVersion = "3.6.2"
 
   def buildSettings =
     Defaults.coreDefaultSettings ++ Seq(
@@ -27,6 +27,7 @@ object BuildSettings {
       alleycats,
       play.api,
       chess.core,
+      chess.rating,
       kittens
     )
 

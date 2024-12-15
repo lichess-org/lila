@@ -3,6 +3,7 @@ package lila.gathering
 import play.api.data.Forms.*
 import play.api.data.Mapping
 import scalalib.model.Days
+import chess.IntRating
 
 import lila.common.Form.{ *, given }
 import lila.core.team.LightTeam

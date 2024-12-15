@@ -10,10 +10,9 @@ import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
 import { PromotionCtrl } from 'chess/promotion';
 import { prop, type Prop } from 'common';
-import { PuzCtrl, Run } from 'puz/interfaces';
+import type { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
-import { Role } from 'chessground/types';
-import { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
+import type { StormOpts, StormVm, StormRecap, StormPrefs, StormData } from './interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 
@@ -106,10 +105,10 @@ export default class StormCtrl implements PuzCtrl {
       this.run.clock.start();
       this.run.moves++;
       this.promotion.cancel();
-      const uci = `${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`;
+      const uci = `${orig}${dest}${promotion ? (promotion === 'knight' ? 'n' : promotion[0]) : ''}`;
       const pos = puzzle.position();
       pos.play(parseUci(uci)!);
-      const correct = pos.isCheckmate() || uci == puzzle.expectedMove();
+      const correct = pos.isCheckmate() || uci === puzzle.expectedMove();
       if (correct) {
         puzzle.moveIndex++;
         this.run.combo.inc();
@@ -201,7 +200,7 @@ export default class StormCtrl implements PuzCtrl {
     const dupTabMsg = storage.make('storm.tab');
     dupTabMsg.fire(this.data.puzzles[0].id);
     dupTabMsg.listen(ev => {
-      if (!this.run.clock.startAt && ev.value == this.data.puzzles[0].id) {
+      if (!this.run.clock.startAt && ev.value === this.data.puzzles[0].id) {
         this.vm.dupTab = true;
         this.redraw();
       }

@@ -1,6 +1,7 @@
 package lila.user
 
 import chess.{ ByColor, PlayerTitle }
+import chess.IntRating
 import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.bson.*
 
@@ -226,7 +227,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
     userRepo.coll
       .aggregateList(max, _.priTemp): framework =>
         import framework.*
-        Match($inIds(ids) ++ userRepo.botWithBioSelect) -> List(
+        Match($inIds(ids) ++ userRepo.botWithBioSelect ++ userRepo.enabledSelect ++ userRepo.notLame) -> List(
           Sort(Descending(BSONFields.roles), Descending(BSONFields.playTimeTotal)),
           Limit(max),
           PipelineOperator(perfsRepo.aggregate.lookup)
@@ -245,7 +246,7 @@ final class UserApi(userRepo: UserRepo, perfsRepo: UserPerfsRepo, cacheApi: Cach
         import framework.*
         import lila.user.{ BSONFields as F }
         Match(
-          $inIds(ids) ++ $doc("standard.gl.d".$lt(lila.rating.Glicko.provisionalDeviation))
+          $inIds(ids) ++ $doc("standard.gl.d".$lt(chess.rating.glicko.provisionalDeviation))
         ) -> List(
           Sort(Descending("standard.gl.r")),
           Limit(nb * 5),

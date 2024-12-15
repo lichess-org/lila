@@ -3,22 +3,14 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org puzzle racer",
-  "keywords": [
-    "chess",
-    "lichess",
-    "puzzle",
-    "racer"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
     "chess": "workspace:*",
-    "chessops": "^0.14.1",
     "common": "workspace:*",
-    "puz": "workspace:*",
-    "snabbdom": "3.5.1"
+    "puz": "workspace:*"
   },
-  "lichess": {
-    "bundles": "src/racer.ts"
+  "build": {
+    "bundle": "src/racer.ts"
   }
 }

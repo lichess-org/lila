@@ -79,7 +79,7 @@ Today's date is [current date]""")
       postForm(cls := "form3", action := routes.TitleVerify.cancel(req.id))(
         form3.action(
           form3.submit("Cancel request and delete form data", icon = Icon.Trash.some)(
-            cls := "button-red button-empty confirm"
+            cls := "button-red button-empty yes-no-confirm"
           )
         )(cls := "title__cancel")
       )

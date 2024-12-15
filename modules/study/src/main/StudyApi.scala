@@ -269,7 +269,8 @@ final class StudyApi(
                 _ <- updateConceal(study, chapter, newPosition)
                 _ = sendTo(study.id):
                   _.addNode(position.ref, node, chapter.setup.variant, sticky = opts.sticky, relay, who)
-                promoteToMainline = opts.promoteToMainline && !newPosition.path.isMainline(chapter.root)
+                isMainline        = newPosition.path.isMainline(chapter.root)
+                promoteToMainline = opts.promoteToMainline && !isMainline
               yield promoteToMainline.option: () =>
                 promote(study.id, position.ref + node, toMainline = true)(who)
             }
@@ -314,9 +315,7 @@ final class StudyApi(
     sequenceStudyWithChapter(studyId, chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          val newChapter = chapter.updateRoot { root =>
-            root.withChildren(_.updateAllWith(_.clearAnnotations).some)
-          } | chapter
+          val newChapter = chapter.updateRoot(_.clearAnnotationsRecursively.some) | chapter
           for _ <- chapterRepo.update(newChapter) yield onChapterChange(study.id, chapter.id, who)
 
   def clearVariations(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
@@ -614,6 +613,7 @@ final class StudyApi(
     _ <- chapterRepo.insert(chapter)
     newStudy = study.withChapter(chapter)
     _ <- if sticky then studyRepo.updateSomeFields(newStudy) else studyRepo.updateNow(study)
+    _ = preview.invalidate(study.id)
   yield sendTo(study.id)(_.addChapter(newStudy.position, sticky, who))
 
   def setChapter(studyId: StudyId, chapterId: StudyChapterId)(who: Who) =
@@ -740,6 +740,12 @@ final class StudyApi(
           yield
             sendTo(study.id)(_.setTopics(topics, who))
             topicApi.recompute()
+
+  def setVisibility(studyId: StudyId, visibility: hub.Visibility): Funit =
+    sequenceStudy(studyId): study =>
+      (study.visibility != visibility).so:
+        for _ <- studyRepo.updateSomeFields(study.copy(visibility = visibility))
+        yield sendTo(study.id)(_.reloadAll)
 
   def addTopics(studyId: StudyId, topics: List[String]) =
     sequenceStudy(studyId): study =>

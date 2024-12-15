@@ -1,12 +1,13 @@
-import { h, VNode } from 'snabbdom';
-import { defined, prop, Prop } from 'common';
-import * as xhr from 'common/xhr';
-import AnalyseController from '../ctrl';
+import { h, type VNode } from 'snabbdom';
+import { defined, prop, type Prop } from 'common';
+import { text as xhrText } from 'common/xhr';
+import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
-import { AnalyseData } from '../interfaces';
-import { Player } from 'game';
+import type { AnalyseData } from '../interfaces';
+import type { Player } from 'game';
 import viewStatus from 'game/view/status';
 import {
+  type Style,
   renderSan,
   renderPieces,
   renderBoard,
@@ -22,28 +23,25 @@ import {
   arrowKeyHandler,
   positionJumpHandler,
   pieceJumpingHandler,
-  Style,
   castlingFlavours,
   inputToLegalUci,
-  namePiece,
   lastCapturedCommandHandler,
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { bind, MaybeVNodes } from 'common/snabbdom';
+import { bind, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
-import { Role } from 'chessground/types';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
 import { view as cevalView, renderEval } from 'ceval';
-import * as control from '../control';
+import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
-import { opposite, parseUci } from 'chessops/util';
+import { charToRole, opposite, parseUci } from 'chessops/util';
 import { parseFen } from 'chessops/fen';
 import { setupPosition } from 'chessops/variant';
-import { plyToTurn } from '../util';
+import { plyToTurn } from 'chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 
@@ -371,12 +369,7 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
     else {
       const uci = inputToLegalUci(input, ctrl.node.fen, ctrl.chessground);
       if (uci)
-        ctrl.sendMove(
-          uci.slice(0, 2) as Key,
-          uci.slice(2, 4) as Key,
-          undefined,
-          namePiece[uci.slice(4)] as Role | undefined,
-        );
+        ctrl.sendMove(uci.slice(0, 2) as Key, uci.slice(2, 4) as Key, undefined, charToRole(uci.slice(4)));
       else notify('Invalid command');
     }
     $input.val('');
@@ -393,10 +386,10 @@ function isShortCommand(input: string): boolean {
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
   const lowered = c.toLowerCase();
   if (lowered === 'next') {
-    control.next(ctrl);
+    next(ctrl);
     ctrl.redraw();
   } else if (lowered === 'prev') {
-    control.prev(ctrl);
+    prev(ctrl);
     ctrl.redraw();
   } else if (lowered === 'next line') {
     jumpNextLine(ctrl);
@@ -466,7 +459,7 @@ function requestAnalysisButton(
     'button',
     {
       hook: bind('click', _ =>
-        xhr.text(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
           () => {
             inProgress(true);
             notify('Server-side analysis in progress');

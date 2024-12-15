@@ -116,7 +116,6 @@
   <string name="replayMode">Modalità replay</string>
   <string name="realtimeReplay">In tempo reale</string>
   <string name="byCPL">Per CPL</string>
-  <string name="openStudy">Apri studio</string>
   <string name="enable">Abilita</string>
   <string name="bestMoveArrow">Freccia per la mossa migliore</string>
   <string name="showVariationArrows">Mostra le frecce delle varianti</string>
@@ -259,6 +258,7 @@
     <item quantity="one">%s giocate con te</item>
     <item quantity="other">%s giocate con te</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Annulla</string>
   <string name="whiteTimeOut">Il bianco ha esaurito il tempo</string>
   <string name="blackTimeOut">Il nero ha esaurito il tempo</string>
@@ -679,7 +679,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramite un indi
   <string name="aboutSimulRules">Quando la simultanea comincia, ogni giocatore comincia una partita con il simultaneista, il quale gioca con i pezzi bianchi. La simultanea finisce quando sono finite tutte le partite.</string>
   <string name="aboutSimulSettings">Le simultanee sono sempre amichevoli. Rivincite, ritiri di mossa e aggiunte di tempo sono disabilitate.</string>
   <string name="create">Crea</string>
-  <string name="whenCreateSimul">Quando crei una simultanea, giochi contro diversi avversari contemporaneamente.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quando crei una simultanea, giochi contro diversi avversari contemporaneamente.</string>
   <string name="simulVariantsHint">Se selezioni più varianti, ogni giocatore può scegliere quale giocare.</string>
   <string name="simulClockHint">Modello Fischer Clock. Più giocatori sfidi, più tempo ti potrebbe servire.</string>
   <string name="simulAddExtraTime">Puoi aggiungere più tempo al tuo orologio per far fronte alla simultanea.</string>
@@ -994,4 +994,5 @@ Lascia vuoto per avviare le partite dalla posizione iniziale normale.</string>
   <string name="lichessPatronInfo">Lichess è un software open source completamente gratuito e libero
 Tutti i costi operativi, lo sviluppo e i contenuti sono finanziati esclusivamente dalle donazioni degli utenti.</string>
   <string name="nothingToSeeHere">Niente da vedere qui al momento.</string>
+  <string name="stats">Statistiche</string>
 </resources>

@@ -24,7 +24,7 @@
   <string name="tournamentDescription">O descriere scurtă a turneului</string>
   <string name="fullDescription">Întreaga descriere a evenimentului</string>
   <string name="fullDescriptionHelp">Descriere lungă, opțională, a difuzării. %1$s este disponibil. Lungimea trebuie să fie mai mică decât %2$s caractere.</string>
-  <string name="sourceSingleUrl">URL sursă PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL sursă PGN</string>
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
   <string name="sourceGameIds">Până la 64 de ID-uri de joc Lichess, separate prin spații.</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
@@ -46,10 +46,15 @@
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Federație</string>
   <string name="ageThisYear">Vârsta în acest an</string>
-  <string name="unrated">Fără rating</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Fără rating</string>
   <string name="recentTournaments">Turnee recente</string>
   <string name="openLichess">Deschide în Lichess</string>
   <string name="teams">Echipe</string>
   <string name="standings">Clasament</string>
+  <string name="officialStandings">Clasament oficial</string>
   <string name="score">Scor</string>
+  <string name="allTeams">Toate echipele</string>
+  <string name="tournamentFormat">Format turneu</string>
+  <string name="tournamentLocation">Locație turneu</string>
+  <string name="timezone">Fus orar</string>
 </resources>

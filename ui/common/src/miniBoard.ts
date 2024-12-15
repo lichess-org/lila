@@ -1,9 +1,10 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as domData from './data';
 import { lichessClockIsRunning, setClockWidget } from './clock';
 import { uciToMove } from 'chessground/util';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from './pubsub';
+import { wsSend } from './socket';
 
 export const initMiniBoard = (node: HTMLElement): void => {
   const [fen, orientation, lm] = node.getAttribute('data-state')!.split(',');
@@ -64,7 +65,7 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
     $el.find('.mini-game__clock--' + color).each(function (this: HTMLElement) {
       setClockWidget(this, {
         time: parseInt(this.getAttribute('data-time')!),
-        pause: color != turnColor || !lichessClockIsRunning(fen, color),
+        pause: color !== turnColor || !lichessClockIsRunning(fen, color),
       });
     }),
   );
@@ -74,8 +75,7 @@ export const initMiniGame = (node: Element, withCg?: typeof makeChessground): st
 export const initMiniGames = (parent?: HTMLElement): void => {
   const nodes = Array.from((parent || document).getElementsByClassName('mini-game--init')),
     ids = nodes.map(x => initMiniGame(x)).filter(id => id);
-  if (ids.length)
-    pubsub.after('socket.hasConnected').then(() => site.socket.send('startWatching', ids.join(' ')));
+  if (ids.length) pubsub.after('socket.hasConnected').then(() => wsSend('startWatching', ids.join(' ')));
 };
 
 export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): void => {
@@ -92,7 +92,7 @@ export const updateMiniGame = (node: HTMLElement, data: MiniGameUpdateData): voi
     if (clockEl && !isNaN(time!))
       setClockWidget(clockEl, {
         time: time!,
-        pause: color != turnColor || !lichessClockIsRunning(data.fen, color),
+        pause: color !== turnColor || !lichessClockIsRunning(data.fen, color),
       });
   };
   updateClock(data.wc, 'white');
@@ -110,7 +110,7 @@ export const finishMiniGame = (node: HTMLElement, win?: 'black' | 'white'): void
   });
 
 interface MiniGameUpdateData {
-  fen: Cg.FEN;
+  fen: FEN;
   lm: Uci;
   wc?: number;
   bc?: number;

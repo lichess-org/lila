@@ -43,6 +43,7 @@
   <string name="clearAnnotations">Tanggalin ang mga anotasyon</string>
   <string name="deleteChapter">I-delete ang kabanata</string>
   <string name="deleteThisChapter">I-delete ang kabanata? Hindi na ito mababawi muli!</string>
+  <string name="save">I-save</string>
   <string name="goodMove">Magandang galaw</string>
   <string name="mistake">Pagkakamali</string>
   <string name="brilliantMove">Magandang galaw</string>

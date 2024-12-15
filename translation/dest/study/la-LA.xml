@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="next">Posterus</string>
+  <string name="embedInYourWebsite">Ostende in locum</string>
+  <string name="save">Serva</string>
+  <string name="goodMove">Bonum spatium</string>
+  <string name="mistake">Erratum</string>
+  <string name="blunder">Peccatus</string>
+</resources>

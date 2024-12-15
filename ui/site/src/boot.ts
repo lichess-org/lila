@@ -1,23 +1,21 @@
 import * as licon from 'common/licon';
 import { initMiniBoards, initMiniGames, updateMiniGame, finishMiniGame } from 'common/miniBoard';
 import { prefersLight } from 'common/theme';
-import * as xhr from 'common/xhr';
+import { text as xhrText } from 'common/xhr';
 import announce from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
-import StrongSocket from 'common/socket';
-import topBar from './topBar';
 import { watchers } from 'common/watchers';
-import { isIOS } from 'common/device';
+import { isIos } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
 import { dispatchChessgroundResize } from 'common/resize';
-import { userComplete } from 'common/userComplete';
+import { attachDomHandlers } from './domHandlers';
 import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
 import { toggleBoxInit } from 'common/controls';
-import { confirm } from 'common/dialog';
 import { addExceptionListeners } from './unhandledError';
+import { eventuallySetupDefaultConnection } from 'common/socket';
 
 export function boot() {
   addExceptionListeners();
@@ -44,84 +42,20 @@ export function boot() {
     $('.subnav__inner').each(function (this: HTMLElement) {
       scrollToInnerSelector(this, '.active', true);
     });
-    $('#main-wrap').on('click', '.copy-me__button', function (this: HTMLElement) {
-      const showCheckmark = () => {
-        $(this).attr('data-icon', licon.Checkmark).removeClass('button-metal');
-        setTimeout(() => $(this).attr('data-icon', licon.Clipboard).addClass('button-metal'), 1000);
-      };
-      $(this.parentElement!.firstElementChild!).each(function (this: any) {
-        try {
-          navigator.clipboard.writeText(this.value || this.href).then(showCheckmark);
-        } catch (e) {
-          console.error(e);
-        }
-      });
-      return false;
-    });
-
-    $('body').on('click', '.relation-button', function (this: HTMLAnchorElement) {
-      const $a = $(this).addClass('processing').css('opacity', 0.3);
-      xhr.text(this.href, { method: 'post' }).then(html => {
-        if ($a.hasClass('aclose')) $a.hide();
-        else if (html.includes('relation-actions')) $a.parent().replaceWith(html);
-        else $a.replaceWith(html);
-      });
-      return false;
-    });
 
     powertip.watchMouse();
 
-    setTimeout(() => {
-      if (!site.socket) site.socket = new StrongSocket('/socket/v5', false);
-    }, 300);
-
-    topBar();
-
-    window.addEventListener('resize', dispatchChessgroundResize);
-
-    $('.user-autocomplete').each(function (this: HTMLInputElement) {
-      const focus = !!this.autofocus;
-      const start = () =>
-        userComplete({
-          input: this,
-          friend: !!this.dataset.friend,
-          tag: this.dataset.tag as any,
-          focus,
-        });
-
-      if (focus) start();
-      else $(this).one('focus', start);
-    });
-
-    $('input.confirm, button.confirm').on('click', async function (this: HTMLElement, e: Event) {
-      if (!e.isTrusted) return;
-      e.preventDefault();
-      if (await confirm(this.title || 'Confirm this action?')) (e.target as HTMLElement)?.click();
-    });
-
-    $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
-      const t = $(this).toggleClass('bookmarked');
-      xhr.text(this.href, { method: 'post' });
-      const count = (parseInt(t.text(), 10) || 0) + (t.hasClass('bookmarked') ? 1 : -1);
-      t.find('span').html('' + (count > 0 ? count : ''));
-      return false;
-    });
-
-    /* Edge randomly fails to rasterize SVG on page load
-     * A different SVG must be loaded so a new image can be rasterized */
-    if (navigator.userAgent.includes('Edge/'))
-      setTimeout(() => {
-        const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-        sprite.href = sprite.href.replace('.css', '.external.css');
-      }, 1000);
+    attachDomHandlers();
 
     // prevent zoom when keyboard shows on iOS
-    if (isIOS() && !('MSStream' in window)) {
+    if (isIos() && !('MSStream' in window)) {
       const el = document.querySelector('meta[name=viewport]') as HTMLElement;
       el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
     }
 
     toggleBoxInit();
+
+    window.addEventListener('resize', dispatchChessgroundResize);
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
 
@@ -134,6 +68,9 @@ export function boot() {
     serviceWorker();
 
     console.info('Lichess is open source! See https://lichess.org/source');
+
+    // if not already connected by a ui module, setup default connection
+    eventuallySetupDefaultConnection();
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {
@@ -148,7 +85,7 @@ export function boot() {
     );
     pubsub.on('socket.in.announce', announce);
     pubsub.on('socket.in.tournamentReminder', (data: { id: string; name: string }) => {
-      if ($('#announce').length || document.body.dataset.tournamentId == data.id) return;
+      if ($('#announce').length || document.body.dataset.tournamentId === data.id) return;
       const url = '/tournament/' + data.id;
       $('body').append(
         $('<div id="announce">')
@@ -160,7 +97,7 @@ export function boot() {
                   .attr('href', url + '/withdraw')
                   .text(i18n.site.pause)
                   .on('click', function (this: HTMLAnchorElement) {
-                    xhr.text(this.href, { method: 'post' });
+                    xhrText(this.href, { method: 'post' });
                     $('#announce').remove();
                     return false;
                   }),

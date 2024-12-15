@@ -1,8 +1,7 @@
 import config from './config';
 import CurrentPuzzle from 'puz/current';
 import { throttle, throttlePromiseDelay } from 'common/timing';
-import * as xhr from 'common/xhr';
-import { Api as CgApi } from 'chessground/api';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { Boost } from './boost';
 import { Clock } from 'puz/clock';
 import { Combo } from 'puz/combo';
@@ -10,10 +9,10 @@ import { Countdown } from './countdown';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { makeCgOpts } from 'puz/run';
 import { parseUci } from 'chessops/util';
-import { PuzCtrl, Run } from 'puz/interfaces';
+import type { PuzCtrl, Run } from 'puz/interfaces';
 import { PuzFilters } from 'puz/filters';
 import { defined, prop } from 'common';
-import {
+import type {
   RacerOpts,
   RacerData,
   RacerVm,
@@ -23,10 +22,9 @@ import {
   RaceStatus,
   WithGround,
 } from './interfaces';
-import { Role } from 'chessground/types';
 import { storedBooleanProp } from 'common/storage';
 import { PromotionCtrl } from 'chess/promotion';
-import StrongSocket from 'common/socket';
+import { wsConnect, wsSend } from 'common/socket';
 import { pubsub } from 'common/pubsub';
 
 export default class RacerCtrl implements PuzCtrl {
@@ -81,7 +79,7 @@ export default class RacerCtrl implements PuzCtrl {
     );
     this.promotion = new PromotionCtrl(this.withGround, this.setGround, this.redraw);
     this.serverUpdate(opts.data);
-    site.socket = new StrongSocket(`/racer/${this.race.id}`, false, {
+    wsConnect(`/racer/${this.race.id}`, false, {
       events: {
         racerState: (data: UpdatableData) => {
           this.serverUpdate(data);
@@ -89,8 +87,7 @@ export default class RacerCtrl implements PuzCtrl {
           this.redrawSlow();
         },
       },
-    });
-    site.socket.sign(this.sign);
+    }).sign(this.sign);
     pubsub.on('zen', () => {
       const zen = $('body').toggleClass('zen').hasClass('zen');
       window.dispatchEvent(new Event('resize'));
@@ -104,7 +101,7 @@ export default class RacerCtrl implements PuzCtrl {
   serverUpdate = (data: UpdatableData) => {
     this.data.players = data.players;
     this.boost.setPlayers(data.players);
-    if (data.startsIn && this.status() == 'pre') {
+    if (data.startsIn && this.status() === 'pre') {
       this.vm.startsAt = new Date(Date.now() + data.startsIn);
       this.run.current.startAt = getNow() + data.startsIn;
       if (data.startsIn > 0) this.countdown.start(this.vm.startsAt, this.isPlayer());
@@ -116,18 +113,18 @@ export default class RacerCtrl implements PuzCtrl {
 
   players = () => this.data.players;
 
-  isPlayer = () => !this.vm.alreadyStarted && this.data.players.some(p => p.name == this.data.player.name);
+  isPlayer = () => !this.vm.alreadyStarted && this.data.players.some(p => p.name === this.data.player.name);
 
   raceFull = () => this.data.players.length >= 10;
 
   status = (): RaceStatus => (this.run.clock.started() ? (this.run.clock.flag() ? 'post' : 'racing') : 'pre');
 
-  isRacing = () => this.status() == 'racing';
+  isRacing = () => this.status() === 'racing';
 
   isOwner = () => this.data.owner;
 
   myScore = (): number | undefined => {
-    const p = this.data.players.find(p => p.name == this.data.player.name);
+    const p = this.data.players.find(p => p.name === this.data.player.name);
     return p?.score;
   };
 
@@ -140,7 +137,7 @@ export default class RacerCtrl implements PuzCtrl {
   });
 
   countdownSeconds = (): number | undefined =>
-    this.status() == 'pre' && this.vm.startsAt && this.vm.startsAt > new Date()
+    this.status() === 'pre' && this.vm.startsAt && this.vm.startsAt > new Date()
       ? Math.min(10, Math.ceil((this.vm.startsAt.getTime() - Date.now()) / 1000))
       : undefined;
 
@@ -172,7 +169,7 @@ export default class RacerCtrl implements PuzCtrl {
   };
 
   playUserMove = (orig: Key, dest: Key, promotion?: Role): void =>
-    this.playUci(`${orig}${dest}${promotion ? (promotion == 'knight' ? 'n' : promotion[0]) : ''}`);
+    this.playUci(`${orig}${dest}${promotion ? (promotion === 'knight' ? 'n' : promotion[0]) : ''}`);
 
   playUci = (uci: Uci): void => {
     const now = getNow();
@@ -183,7 +180,7 @@ export default class RacerCtrl implements PuzCtrl {
       this.promotion.cancel();
       const pos = puzzle.position();
       pos.play(parseUci(uci)!);
-      if (pos.isCheckmate() || uci == puzzle.expectedMove()) {
+      if (pos.isCheckmate() || uci === puzzle.expectedMove()) {
         puzzle.moveIndex++;
         this.localScore++;
         this.run.combo.inc();
@@ -259,14 +256,14 @@ export default class RacerCtrl implements PuzCtrl {
     this.redraw();
   };
 
-  private socketSend = (tpe: string, data?: any) => site.socket.send(tpe, data, { sign: this.sign });
+  private socketSend = (tpe: string, data?: any) => wsSend(tpe, data, { sign: this.sign });
 
   private setZen = throttlePromiseDelay(
     () => 1000,
     zen =>
-      xhr.text('/pref/zen', {
+      xhrText('/pref/zen', {
         method: 'post',
-        body: xhr.form({ zen: zen ? 1 : 0 }),
+        body: xhrForm({ zen: zen ? 1 : 0 }),
       }),
   );
 

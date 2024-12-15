@@ -218,10 +218,10 @@ final class RoundSocket(
     case lila.core.chat.ChatLine(id, l, json) =>
       val line = lila.chat.RoundLine(l, json, id.value.endsWith("/w"))
       rounds.tellIfPresent(GameId.take(id.value), line)
-    case lila.core.chat.OnTimeout(id, userId) =>
+    case lila.core.chat.OnTimeout(id, userId) if id.value.endsWith("/w") =>
       send:
         RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_timeout", userId))
-    case lila.core.chat.OnReinstate(id, userId) =>
+    case lila.core.chat.OnReinstate(id, userId) if id.value.endsWith("/w") =>
       send:
         RP.Out.tellRoom(GameId.take(id.value).into(RoomId), makeMessage("chat_reinstate", userId))
 

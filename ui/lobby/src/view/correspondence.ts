@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
-import { bind, MaybeVNodes } from 'common/snabbdom';
+import { h, type VNode } from 'snabbdom';
+import { bind, type MaybeVNodes } from 'common/snabbdom';
 import { tds, perfNames } from './util';
-import LobbyController from '../ctrl';
-import { Seek } from '../interfaces';
+import type LobbyController from '../ctrl';
+import type { Seek } from '../interfaces';
 import perfIcons from 'common/perfIcons';
 import { confirm } from 'common/dialog';
 

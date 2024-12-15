@@ -44,8 +44,6 @@ trait ResponseBuilder(using Executor)
   extension [A](fua: Fu[Option[A]])
     def orNotFound(f: A => Fu[Result])(using Context): Fu[Result] =
       fua.flatMap { _.fold(notFound)(f) }
-    def orNotFoundEmbed(f: A => Fu[Result])(using EmbedContext): Fu[Result] =
-      fua.flatMap { _.fold(notFoundEmbed)(f) }
   extension [A](fua: Fu[Boolean])
     def elseNotFound(f: => Fu[Result])(using Context): Fu[Result] =
       fua.flatMap { if _ then f else notFound }
@@ -71,7 +69,7 @@ trait ResponseBuilder(using Executor)
     then json.dmap(_.withHeaders(VARY -> "Accept").as(JSON))
     else html.dmap(_.withHeaders(VARY -> "Accept"))
 
-  def negotiateJson(result: => Fu[Result])(using Context) =
+  def negotiateJson(result: => Fu[Result])(using Context): Fu[Result] =
     negotiate(
       notFound("This endpoint only returns JSON, add the header `Accept: application/json`".some),
       result
@@ -87,9 +85,8 @@ trait ResponseBuilder(using Executor)
       json = msg.fold(notFoundJson())(notFoundJson)
     )
 
-  def notFoundEmbed(using ctx: EmbedContext): Fu[Result] = notFoundEmbed(none)
-  def notFoundEmbed(msg: Option[String])(using ctx: EmbedContext): Fu[Result] =
-    keyPages.notFoundEmbed(msg)
+  def notFoundEmbed(using EmbedContext): Fu[Result]                      = notFoundEmbed(none)
+  def notFoundEmbed(msg: Option[String])(using EmbedContext): Fu[Result] = keyPages.notFoundEmbed(msg)
 
   def authenticationFailed(using ctx: Context): Fu[Result] =
     negotiate(
@@ -120,17 +117,17 @@ trait ResponseBuilder(using Executor)
       InternalServerError(jsonError(msg))
     )
 
-  def notForBotAccounts(using Context) = negotiate(
+  def notForBotAccounts(using Context): Fu[Result] = negotiate(
     Forbidden.page(views.site.message.noBot),
     forbiddenJson("This API endpoint is not for Bot accounts.")
   )
 
-  def notForLameAccounts(using Context, Me) = negotiate(
+  def notForLameAccounts(using Context, Me): Fu[Result] = negotiate(
     Forbidden.page(views.site.message.noLame),
     forbiddenJson("The access to this resource is restricted.")
   )
 
-  def playbanJsonError(ban: lila.playban.TempBan) =
+  def playbanJsonError(ban: lila.playban.TempBan): Result =
     Forbidden(
       jsonError(
         s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."

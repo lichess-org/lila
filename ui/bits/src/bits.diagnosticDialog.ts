@@ -1,7 +1,7 @@
 import { isTouchDevice } from 'common/device';
 import { domDialog } from 'common/dialog';
 import * as licon from 'common/licon';
-import { escapeHtml } from 'common';
+import { escapeHtml, myUserId } from 'common';
 import { storage } from 'common/storage';
 import { log } from 'common/permalog';
 
@@ -16,12 +16,12 @@ export async function initModule(): Promise<void> {
     `Lang: ${navigator.language}, ` +
     `Engine: ${storage.get('ceval.engine')}, ` +
     `Threads: ${storage.get('ceval.threads')}, ` +
-    `Blindfold: ${storage.boolean('blindfold.' + (document.body.dataset.user || 'anon')).get()}, ` +
+    `Blindfold: ${storage.boolean('blindfold.' + (myUserId() || 'anon')).get()}, ` +
     `Pieces: ${document.body.dataset.pieceSet}` +
     (logs ? `\n\n${logs}` : '');
   const escaped = escapeHtml(text);
   const flash = ops > 0 ? `<p class="good">Changes applied</p>` : '';
-  const submit = document.body.dataset.user
+  const submit = myUserId()
     ? `<form method="post" action="/diagnostic">
       <input type="hidden" name="text" value="${escaped}"/>
       <button type="submit" class="button">send to lichess</button></form>`
@@ -31,6 +31,7 @@ export async function initModule(): Promise<void> {
   const dlg = await domDialog({
     class: 'diagnostic',
     css: [{ hashed: 'bits.diagnosticDialog' }],
+    modal: true,
     htmlText: `
       <h2>Diagnostics</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>
@@ -52,7 +53,7 @@ export async function initModule(): Promise<void> {
       setTimeout(() => copied.remove(), 2000);
     }),
   );
-  dlg.showModal();
+  dlg.show();
 }
 
 const storageProxy: { [key: string]: { storageKey: string; validate: (val?: string) => boolean } } = {
@@ -63,10 +64,6 @@ const storageProxy: { [key: string]: { storageKey: string; validate: (val?: stri
   wsHost: {
     storageKey: 'socket.host',
     validate: (val?: string) => val?.endsWith('.lichess.org') ?? false,
-  },
-  allowLsfw: {
-    storageKey: 'ceval.lsfw.forceEnable',
-    validate: (val?: string) => val === 'true' || val === 'false',
   },
   logWindow: {
     storageKey: 'log.window',

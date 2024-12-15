@@ -1,6 +1,6 @@
-import { looseH as h, VNode } from 'common/snabbdom';
-import { Position } from '../interfaces';
-import { CorresClockController } from './corresClockCtrl';
+import { looseH as h, type VNode } from 'common/snabbdom';
+import type { Position } from '../interfaces';
+import type { CorresClockController } from './corresClockCtrl';
 import { moretime } from '../view/button';
 
 const prefixInteger = (num: number, length: number): string =>
@@ -42,7 +42,7 @@ export default function (
       el.innerHTML = formatClockTime(millis);
     },
     isPlayer = ctrl.root.data.player.color === color,
-    direction = document.dir == 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
+    direction = document.dir === 'rtl' && millis < 86400 * 1000 ? 'ltr' : undefined;
   return h(
     'div.rclock.rclock-correspondence.rclock-' + position,
     { class: { outoftime: millis <= 0, running: runningColor === color } },

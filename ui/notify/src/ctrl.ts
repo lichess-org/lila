@@ -1,6 +1,6 @@
-import { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
+import type { Ctrl, NotifyOpts, NotifyData, Redraw } from './interfaces';
 
-import * as xhr from 'common/xhr';
+import { json as xhrJson, url as xhrUrl, text as xhrText } from 'common/xhr';
 import { storage } from 'common/storage';
 
 export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
@@ -31,12 +31,12 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   function attention() {
     const id = data?.pager.currentPageResults.find(n => !n.read)?.content.user?.id;
     const playBell = storage.boolean('playBellSound').getOrDefault(true);
-    if ((!site.quietMode || id == 'lichess') && playBell) site.sound.playOnce('newPM');
+    if ((!site.quietMode || id === 'lichess') && playBell) site.sound.playOnce('newPM');
     opts.pulse();
   }
 
   const loadPage = (page: number) =>
-    xhr.json(xhr.url('/notify', { page: page || 1 })).then(
+    xhrJson(xhrUrl('/notify', { page: page || 1 })).then(
       d => update(d),
       _ => site.announce({ msg: 'Failed to load notifications' }),
     );
@@ -71,7 +71,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   function setMsgRead(user: string) {
     data?.pager.currentPageResults.forEach(n => {
-      if (n.type == 'privateMessage' && n.content.user?.id == user && !n.read) {
+      if (n.type === 'privateMessage' && n.content.user?.id === user && !n.read) {
         n.read = true;
         data!.unread = Math.max(0, data!.unread - 1);
         opts.updateUnread(data!.unread);
@@ -92,7 +92,7 @@ export default function makeCtrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   };
 
   function clear() {
-    xhr.text('/notify/clear', { method: 'post' }).then(
+    xhrText('/notify/clear', { method: 'post' }).then(
       _ => update(emptyNotifyData),
       _ => site.announce({ msg: 'Failed to clear notifications' }),
     );

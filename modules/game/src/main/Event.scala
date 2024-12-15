@@ -4,6 +4,7 @@ import chess.bitboard.Bitboard
 import chess.format.pgn.SanStr
 import chess.format.{ BoardFen, Fen }
 import chess.variant.Crazyhouse
+import chess.rating.IntRatingDiff
 import chess.{
   Centis,
   Check,
@@ -38,6 +39,7 @@ object Event:
         fen: BoardFen,
         check: Check,
         threefold: Boolean,
+        fiftyMoves: Boolean,
         state: State,
         clock: Option[ClockEvent],
         possibleMoves: Map[Square, Bitboard],
@@ -55,6 +57,7 @@ object Event:
         .add("winner" -> state.winner)
         .add("check" -> check)
         .add("threefold" -> threefold)
+        .add("fiftyMoves" -> fiftyMoves)
         .add("wDraw" -> state.whiteOffersDraw)
         .add("bDraw" -> state.blackOffersDraw)
         .add("crazyhouse" -> crazyData)
@@ -68,6 +71,7 @@ object Event:
       fen: BoardFen,
       check: Check,
       threefold: Boolean,
+      fiftyMoves: Boolean,
       promotion: Option[Promotion],
       enpassant: Option[Enpassant],
       castle: Option[Castling],
@@ -78,7 +82,17 @@ object Event:
       crazyData: Option[Crazyhouse.Data]
   ) extends Event:
     def typ = "move"
-    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData):
+    def data = MoveOrDrop.data(
+      fen,
+      check,
+      threefold,
+      fiftyMoves,
+      state,
+      clock,
+      possibleMoves,
+      possibleDrops,
+      crazyData
+    ):
       Json
         .obj(
           "uci" -> s"${orig.key}${dest.key}",
@@ -103,6 +117,7 @@ object Event:
       fen = Fen.writeBoard(situation.board),
       check = situation.check,
       threefold = situation.threefoldRepetition,
+      fiftyMoves = situation.variant.fiftyMoves(situation.history),
       promotion = move.promotion.map { Promotion(_, move.dest) },
       enpassant = move.capture.ifTrue(move.enpassant).map(Event.Enpassant(_, !move.color)),
       castle = move.castle.map(Castling(_, move.color)),
@@ -127,12 +142,13 @@ object Event:
       possibleDrops: Option[List[Square]]
   ) extends Event:
     def typ = "drop"
-    def data = MoveOrDrop.data(fen, check, threefold, state, clock, possibleMoves, possibleDrops, crazyData):
-      Json.obj(
-        "role" -> role.name,
-        "uci"  -> s"${role.pgn}@${pos.key}",
-        "san"  -> san
-      )
+    def data =
+      MoveOrDrop.data(fen, check, threefold, false, state, clock, possibleMoves, possibleDrops, crazyData):
+        Json.obj(
+          "role" -> role.name,
+          "uci"  -> s"${role.pgn}@${pos.key}",
+          "san"  -> san
+        )
     override def moveBy = Some(!state.turns.turn)
   object Drop:
     def apply(

@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="next">Indiki</string>
+  <string name="goodMove">Gowy göçüm</string>
+  <string name="mistake">Ýalňyşlyk</string>
+  <string name="blunder">Säwlik</string>
+</resources>

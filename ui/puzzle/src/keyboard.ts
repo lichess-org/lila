@@ -1,5 +1,5 @@
 import * as control from './control';
-import PuzzleCtrl from './ctrl';
+import type PuzzleCtrl from './ctrl';
 import { snabDialog } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
 
@@ -39,4 +39,5 @@ export const view = (ctrl: PuzzleCtrl) =>
     class: 'help',
     htmlUrl: '/training/help',
     onClose: () => ctrl.keyboardHelp(false),
+    modal: true,
   });

@@ -9,6 +9,7 @@ import lila.core.game.Source
 import lila.core.msg.MsgApi
 import lila.core.playban.RageSit as RageSitCounter
 import lila.db.dsl.{ *, given }
+import scalalib.cache.OnceEvery
 
 final class PlaybanApi(
     coll: Coll,
@@ -114,14 +115,9 @@ final class PlaybanApi(
 
   def other(game: Game, status: Status, winner: Option[Color]): Funit =
     if game.casual && blameableSource(game) && isQuickResign(game, status)
-    then
-      winner
-        .map(game.opponent)
-        .flatMap(_.userId)
-        .so: loserId =>
-          save(Outcome.Sandbag, loserId, RageSit.Update.Noop, game.source)
+    then winner.map(game.opponent).flatMap(_.userId).so(handleQuickResign(game, _))
     else
-      IfBlameable(game) {
+      IfBlameable(game):
         ~(for
           w <- winner
           loser = game.opponent(w)
@@ -147,13 +143,20 @@ final class PlaybanApi(
               .getOrElse:
                 good(game, status, !w)
         )
-      }
+
+  private val quickResignCasualOnce = OnceEvery[UserId](1.day)
 
   private def isQuickResign(game: Game, status: Status) =
     status.is(_.Resign) && game.hasFewerMovesThanExpected && {
       val veryQuick = (game.clock.fold(600)(_.estimateTotalSeconds / 3)).atMost(60)
       game.durationSeconds.exists(_ < veryQuick)
+    } && {
+      game.loserUserId.exists(loser => !quickResignCasualOnce(loser))
     }
+
+  private def handleQuickResign(game: Game, userId: UserId): Funit =
+    Pov(game, userId).foreach(feedback.quickResign)
+    save(Outcome.Sandbag, userId, RageSit.Update.Noop, game.source)
 
   private def good(game: Game, status: Status, loserColor: Color): Funit =
     if isQuickResign(game, status) then
@@ -161,8 +164,7 @@ final class PlaybanApi(
         if game.sourceIs(_.Friend)
         then game.userIds
         else game.player(loserColor).userId.toList
-      blameUsers.parallelVoid: userId =>
-        save(Outcome.Sandbag, userId, RageSit.Update.Noop, game.source)
+      blameUsers.parallelVoid(handleQuickResign(game, _))
     else
       game
         .player(loserColor)

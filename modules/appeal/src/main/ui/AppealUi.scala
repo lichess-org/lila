@@ -33,3 +33,9 @@ final class AppealUi(helpers: Helpers):
         userIdLink(UserId.lichess.some),
         Granter.opt(_.Appeals).option(frag(" (", userIdLink(userId.some), ")"))
       )
+
+  def modSection(section: Tag)(ap: Appeal): Frag =
+    section(
+      strong(cls := "text inline")("Appeal status"),
+      strong(cls := "fat")(a(href := routes.Appeal.show(ap.userId))(ap.status.toString))
+    )

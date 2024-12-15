@@ -23,7 +23,7 @@
   <string name="tournamentDescription">大会の短い説明</string>
   <string name="fullDescription">長い説明</string>
   <string name="fullDescriptionHelp">内容の詳しい説明（オプション）。%1$s が利用できます。長さは [欧文換算で] %2$s 字まで。</string>
-  <string name="sourceSingleUrl">PGN のソース URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN のソース URL</string>
   <string name="sourceUrlHelp">Lichess が PGN を取得するための URL。インターネット上に公表されているもののみ。</string>
   <string name="sourceGameIds">Lichess ゲーム ID、半角スペースで区切って最大 64 個まで。</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
@@ -45,7 +45,7 @@
   <string name="fideProfile">FIDE プロフィール</string>
   <string name="federation">所属協会</string>
   <string name="ageThisYear">今年時点の年齢</string>
-  <string name="unrated">レーティングなし</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">レーティングなし</string>
   <string name="recentTournaments">最近のトーナメント</string>
   <string name="openLichess">Lichess で開く</string>
   <string name="teams">チーム</string>
@@ -60,6 +60,7 @@
   <string name="notYetStarted">中継はまだ始まっていません。</string>
   <string name="officialWebsite">公式サイト</string>
   <string name="standings">順位</string>
+  <string name="officialStandings">公式順位</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">他のオプションは %s にあります</string>
   <string name="webmastersPage">ウェブ管理者のページ</string>
   <string name="pgnSourceHelp" comment="%s is 'streaming API'">このラウンドについて公表されたリアルタイムの PGN です。%s も利用でき、高速かつ高効率の同期が行なえます。</string>
@@ -68,4 +69,13 @@
   <string name="ratingDiff">レーティングの差</string>
   <string name="gamesThisTournament">このトーナメントの対局</string>
   <string name="score">スコア</string>
+  <string name="allTeams">すべてのチーム</string>
+  <string name="tournamentFormat">トーナメント形式</string>
+  <string name="tournamentLocation">開催地</string>
+  <string name="topPlayers">トッププレイヤー</string>
+  <string name="timezone">タイムゾーン</string>
+  <string name="fideRatingCategory">FIDE レーティング カテゴリー</string>
+  <string name="optionalDetails">その他詳細（オプション）</string>
+  <string name="pastBroadcasts">過去の中継</string>
+  <string name="allBroadcastsByMonth">すべての中継を月別に表示</string>
 </resources>

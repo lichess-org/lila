@@ -1,17 +1,19 @@
-import { RoundData, RoundOpts, NvuiPlugin } from './interfaces';
+import type { RoundData, RoundOpts, NvuiPlugin } from './interfaces';
 import { attributesModule, classModule, init } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import RoundController from './ctrl';
 import { main as view } from './view/main';
-import * as xhr from 'common/xhr';
-import MoveOn from './moveOn';
-import { TourPlayer } from 'game';
-import { tourStandingCtrl, TourStandingCtrl } from './tourStanding';
-import StrongSocket from 'common/socket';
+import { text as xhrText } from 'common/xhr';
+import type MoveOn from './moveOn';
+import type { TourPlayer } from 'game';
+import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
+import { wsConnect, wsDestroy } from 'common/socket';
 import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
 import { pubsub } from 'common/pubsub';
+import { myUserId } from 'common';
+import { alert } from 'common/dialog';
 
 const patch = init([classModule, attributesModule]);
 
@@ -50,7 +52,7 @@ async function boot(
   const socketUrl = opts.data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
-  site.socket = new StrongSocket(socketUrl, data.player.version, {
+  opts.socketSend = wsConnect(socketUrl, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);
@@ -68,7 +70,7 @@ async function boot(
           );
       },
       endData() {
-        xhr.text(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
+        xhrText(`${data.tv ? '/tv' : ''}/${data.game.id}/${data.player.color}/sides`).then(html => {
           const $html = $(html),
             $meta = $html.find('.game__meta');
           $meta.length && $('.game__meta').replaceWith($meta);
@@ -85,8 +87,7 @@ async function boot(
         }
       },
     },
-  });
-  opts.socketSend = site.socket.send;
+  }).send;
 
   const startTournamentClock = () => {
     if (data.tournament)
@@ -115,8 +116,14 @@ async function boot(
     }
     if (chatOpts.noteId && (chatOpts.noteAge || 0) < 10) chatOpts.noteText = '';
     chatOpts.instance = makeChat(chatOpts);
-    if (!data.tournament && !data.simul && !data.swiss)
+    if (!data.tournament && !data.simul && !data.swiss) {
       opts.onChange = (d: RoundData) => chatOpts.instance!.preset.setGroup(getPresetGroup(d));
+      if (myUserId())
+        chatOpts.instance.listenToIncoming(line => {
+          if (line.u === 'lichess' && line.t.toLowerCase().startsWith(`warning, ${myUserId()}`))
+            alert(line.t);
+        });
+    }
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')
@@ -133,7 +140,7 @@ async function boot(
 
   if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
     alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
-    site.socket.destroy();
+    wsDestroy();
   }
   return ctrl;
 }

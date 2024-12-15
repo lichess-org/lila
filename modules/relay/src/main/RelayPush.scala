@@ -13,7 +13,6 @@ import lila.study.{ ChapterPreviewApi, MultiPgn, StudyPgnImport }
 final class RelayPush(
     sync: RelaySync,
     api: RelayApi,
-    stats: RelayStatsApi,
     chapterPreview: ChapterPreviewApi,
     fidePlayers: RelayFidePlayerApi,
     playerEnrich: RelayPlayerEnrich,
@@ -41,11 +40,13 @@ final class RelayPush(
         parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
       val andSyncTargets = response.exists(_.isRight)
 
-      rt.round.sync.nonEmptyDelay match
-        case None => push(rt, games, andSyncTargets).inject(response)
-        case Some(delay) =>
-          after(delay.value.seconds)(push(rt, games, andSyncTargets))
-          fuccess(response)
+      rt.round.sync.nonEmptyDelay
+        .ifTrue(games.exists(_.root.children.nonEmpty))
+        .match
+          case None => push(rt, games, andSyncTargets).inject(response)
+          case Some(delay) =>
+            after(delay.value.seconds)(push(rt, games, andSyncTargets))
+            fuccess(response)
 
   private def push(rt: RelayRound.WithTour, rawGames: Vector[RelayGame], andSyncTargets: Boolean) =
     workQueue(rt.round.id):
@@ -61,13 +62,13 @@ final class RelayPush(
             case e: Exception => SyncLog.event(0, e.some)
         _ = if !rt.round.hasStarted && !rt.tour.official && event.hasMoves then
           irc.broadcastStart(rt.round.id, rt.fullName)
-        _ = stats.setActive(rt.round.id)
         allGamesFinished <- (games.nonEmpty && games.forall(_.points.isDefined)).so:
           chapterPreview.dataList(rt.round.studyId).map(_.forall(_.finished))
         round <- api.update(rt.round): r1 =>
-          val r2 = r1.withSync(_.addLog(event))
-          val r3 = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
-          r3.copy(finished = allGamesFinished)
+          val r2         = r1.withSync(_.addLog(event))
+          val r3         = if event.hasMoves then r2.ensureStarted.resume(rt.tour.official) else r2
+          val finishedAt = allGamesFinished.option(r3.finishedAt.|(nowInstant))
+          r3.copy(finishedAt = finishedAt)
         _ <- andSyncTargets.so(api.syncTargetsOfSource(round))
       yield ()
 
@@ -77,9 +78,9 @@ final class RelayPush(
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>
-          StudyPgnImport(pgn, Nil) match
-            case Left(errStr) => Left(Failure(tags, oneline(errStr)))
-            case Right(game) =>
+          StudyPgnImport(pgn, Nil).fold(
+            errStr => Left(Failure(tags, oneline(errStr))),
+            game =>
               Right(
                 RelayGame(
                   tags = game.tags,
@@ -92,6 +93,7 @@ final class RelayPush(
                   points = game.end.map(_.points)
                 )
               )
+          )
 
   // silently consume DGT board king-check move to center at game end
   private def validate(pgnBody: PgnStr): Either[Failure, Tags] =

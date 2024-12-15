@@ -14,7 +14,7 @@ private class RelayTeamsTextarea(val text: String):
   def sortedText = text.linesIterator.toList.sorted.mkString("\n")
 
   /* We need this because `PlayerName | FideId` doesn't work
-   * the compilear can't differentiate between the two types
+   * the compiler can't differentiate between the two types
    * at runtime using pattern matching. */
   private type PlayerNameStr = String
 
@@ -67,7 +67,7 @@ final class RelayTeamTable(
 
   def tableJson(relay: RelayRound): Fu[JsonStr] = cache.get(relay.studyId)
 
-  private val cache = cacheApi[StudyId, JsonStr](256, "relay.teamTable"):
+  private val cache = cacheApi[StudyId, JsonStr](16, "relay.teamTable"):
     _.expireAfterWrite(3 seconds).buildAsyncFuture(impl.makeJson)
 
   private object impl:

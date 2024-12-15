@@ -1,6 +1,7 @@
 import * as co from 'chessops';
 import { deepFreeze } from 'common/algo';
-import { normalMove } from 'chess';
+import { type NormalMove, type Chess, parseUci, makeUci } from 'chessops';
+import { normalizeMove } from 'chessops/chess';
 
 export type OpeningMove = { uci: string; weight: number };
 
@@ -266,6 +267,12 @@ function uciToShort(uci: Uci): number {
   const to = (charDiff(uci[3], '1') << 3) | charDiff(uci[2], 'a');
   const promotion = uci.length === 5 ? promotes.indexOf(uci[4]) : 0;
   return (promotion << 12) | (from << 6) | to;
+}
+
+function normalMove(chess: Chess, unsafeUci: Uci): { uci: Uci; move: NormalMove } | undefined {
+  const unsafe = parseUci(unsafeUci);
+  const move = unsafe && 'from' in unsafe ? { ...unsafe, ...normalizeMove(chess, unsafe) } : undefined;
+  return move && chess.isLegal(move) ? { uci: makeUci(move), move } : undefined;
 }
 
 const promotes = ['', 'n', 'b', 'r', 'q', '?', '?', '?'];

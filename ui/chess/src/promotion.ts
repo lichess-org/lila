@@ -1,14 +1,13 @@
 import { h } from 'snabbdom';
-import * as Prefs from 'common/prefs';
-import { MaybeVNode, bind, onInsert } from 'common/snabbdom';
-import { Api as CgApi } from 'chessground/api';
-import { DrawShape } from 'chessground/draw';
-import * as cgUtil from 'chessground/util';
-import * as cg from 'chessground/types';
+import { AutoQueen } from 'common/prefs';
+import { type MaybeVNode, bind, onInsert } from 'common/snabbdom';
+import type { DrawShape } from 'chessground/draw';
+import { opposite, key2pos } from 'chessground/util';
+import type { MoveMetadata } from 'chessground/types';
 
 export type Hooks = {
-  submit: (orig: Key, dest: Key, role: cg.Role) => void;
-  show?: (ctrl: PromotionCtrl, roles: cg.Role[] | false) => void;
+  submit: (orig: Key, dest: Key, role: Role) => void;
+  show?: (ctrl: PromotionCtrl, roles: Role[] | false) => void;
 };
 
 interface Promoting {
@@ -18,33 +17,34 @@ interface Promoting {
   hooks: Hooks;
 }
 
-const PROMOTABLE_ROLES: cg.Role[] = ['queen', 'knight', 'rook', 'bishop'];
+const PROMOTABLE_ROLES: Role[] = ['queen', 'knight', 'rook', 'bishop'];
 
-export function promote(g: CgApi, key: Key, role: cg.Role): void {
+export function promote(g: CgApi, key: Key, role: Role): void {
   const piece = g.state.pieces.get(key);
-  if (piece && piece.role == 'pawn') {
+  if (piece && piece.role === 'pawn') {
     g.setPieces(new Map([[key, { color: piece.color, role, promoted: true }]]));
   }
 }
 
 export class PromotionCtrl {
   private promoting?: Promoting;
-  private prePromotionRole?: cg.Role;
+  private prePromotionRole?: Role;
 
   constructor(
     private withGround: <A>(f: (cg: CgApi) => A) => A | false | undefined,
     private onCancel: () => void,
     private redraw: () => void,
-    private autoQueenPref: Prefs.AutoQueen = Prefs.AutoQueen.Never,
+    private autoQueenPref: AutoQueen = AutoQueen.Never,
   ) {}
 
-  start = (orig: Key, dest: Key, hooks: Hooks, meta?: cg.MoveMetadata, forceAutoQueen = false): boolean =>
+  start = (orig: Key, dest: Key, hooks: Hooks, meta?: MoveMetadata, forceAutoQueen = false): boolean =>
     this.withGround(g => {
       const premovePiece = g.state.pieces.get(orig);
       const piece = premovePiece || g.state.pieces.get(dest);
       if (
-        piece?.role == 'pawn' &&
-        ((dest[1] == '8' && g.state.turnColor == 'black') || (dest[1] == '1' && g.state.turnColor == 'white'))
+        piece?.role === 'pawn' &&
+        ((dest[1] === '8' && g.state.turnColor === 'black') ||
+          (dest[1] === '1' && g.state.turnColor === 'white'))
       ) {
         if (this.prePromotionRole && meta?.premove) {
           this.doPromote({ orig, dest, hooks }, this.prePromotionRole);
@@ -53,8 +53,8 @@ export class PromotionCtrl {
         if (
           !meta?.ctrlKey &&
           !this.promoting &&
-          (this.autoQueenPref === Prefs.AutoQueen.Always ||
-            (this.autoQueenPref === Prefs.AutoQueen.OnPremove && premovePiece) ||
+          (this.autoQueenPref === AutoQueen.Always ||
+            (this.autoQueenPref === AutoQueen.OnPremove && premovePiece) ||
             forceAutoQueen)
         ) {
           if (premovePiece) this.setPrePromotion(dest, 'queen');
@@ -96,14 +96,14 @@ export class PromotionCtrl {
         this.renderPromotion(
           promoting.dest,
           antichess ? PROMOTABLE_ROLES.concat('king') : PROMOTABLE_ROLES,
-          cgUtil.opposite(g.state.turnColor),
+          opposite(g.state.turnColor),
           g.state.orientation,
         ),
       ) || null
     );
   };
 
-  finish(role: cg.Role): void {
+  finish(role: Role): void {
     const promoting = this.promoting;
     if (promoting) {
       this.promoting = undefined;
@@ -114,26 +114,26 @@ export class PromotionCtrl {
     }
   }
 
-  private doPromote(promoting: Omit<Promoting, 'pre'>, role: cg.Role): void {
+  private doPromote(promoting: Omit<Promoting, 'pre'>, role: Role): void {
     this.withGround(g => promote(g, promoting.dest, role));
     promoting.hooks.submit(promoting.orig, promoting.dest, role);
   }
 
-  private setPrePromotion(dest: cg.Key, role: cg.Role): void {
+  private setPrePromotion(dest: Key, role: Role): void {
     this.prePromotionRole = role;
     this.withGround(g =>
       g.setAutoShapes([
         {
           orig: dest,
-          piece: { color: cgUtil.opposite(g.state.turnColor), role, opacity: 0.8 },
+          piece: { color: opposite(g.state.turnColor), role, opacity: 0.8 },
           brush: '',
         } as DrawShape,
       ]),
     );
   }
 
-  private renderPromotion(dest: Key, pieces: cg.Role[], color: Color, orientation: Color): MaybeVNode {
-    let left = (7 - cgUtil.key2pos(dest)[0]) * 12.5;
+  private renderPromotion(dest: Key, pieces: Role[], color: Color, orientation: Color): MaybeVNode {
+    let left = (7 - key2pos(dest)[0]) * 12.5;
     if (orientation === 'white') left = 87.5 - left;
 
     const vertical = color === orientation ? 'top' : 'bottom';

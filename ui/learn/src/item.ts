@@ -1,20 +1,20 @@
-import type { SquareName as Key } from 'chessops';
-import * as util from './util';
+import type { SquareName } from 'chessops';
+import { readKeys } from './util';
 
 export interface Items {
-  doIfKeyExists<U>(key: Key, f: () => U): U | undefined;
-  remove(key: Key): void;
+  doIfKeyExists<U>(key: SquareName, f: () => U): U | undefined;
+  remove(key: SquareName): void;
   isEmpty(): boolean;
-  appleKeys(): Key[];
+  appleKeys(): SquareName[];
 }
 
-export function ctrl(blueprint: { apples: string | Key[] }): Items {
-  const items: Set<Key> = new Set(util.readKeys(blueprint.apples));
+export function ctrl(blueprint: { apples: string | SquareName[] }): Items {
+  const items: Set<SquareName> = new Set(readKeys(blueprint.apples));
 
   return {
-    doIfKeyExists: <U>(key: Key, f: () => U) => (items.has(key) ? f() : undefined),
-    remove: (key: Key) => items.delete(key),
-    isEmpty: () => items.size == 0,
+    doIfKeyExists: <U>(key: SquareName, f: () => U) => (items.has(key) ? f() : undefined),
+    remove: (key: SquareName) => items.delete(key),
+    isEmpty: () => items.size === 0,
     appleKeys: () => Array.from(items),
   };
 }

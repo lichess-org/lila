@@ -1,7 +1,7 @@
 import { text, formToXhr } from 'common/xhr';
-import flairPickerLoader from './exports/flairPicker';
+import flairPickerLoader from './flairPicker';
 import { spinnerHtml } from 'common/spinner';
-import { wireCropDialog } from './exports/crop';
+import { wireCropDialog } from './crop';
 
 // avoid node_modules and pay attention to imports here. we don't want to force people
 // to download the entire toastui editor library just to do some light form processing.
@@ -42,6 +42,8 @@ export function initModule(args: { fn: string } & any): void {
       return titleRequest();
     case 'validEmail':
       return validateEmail();
+    default:
+      console.error('Unknown bits function', args.fn);
   }
 }
 
@@ -194,7 +196,7 @@ function oauth({ danger }: { danger: boolean }) {
       const el = document.getElementById('oauth-authorize')!;
       el.removeAttribute('disabled');
       el.className = 'button';
-      if (danger) el.classList.add('button-red', 'confirm', 'text');
+      if (danger) el.classList.add('button-red', 'ok-cancel-confirm', 'text');
     },
     danger ? 5000 : 2000,
   );

@@ -1,7 +1,5 @@
-import * as cg from 'chessground/types';
-
 export interface MoveRootCtrl {
-  pluginMove: (orig: cg.Key, dest: cg.Key, prom: cg.Role | undefined) => void;
+  pluginMove: (orig: Key, dest: Key, prom: Role | undefined, preConfirmed?: boolean /* = false */) => void;
   redraw: () => void;
   flipNow: () => void;
   offerDraw?: (v: boolean, immediately?: boolean) => void;
@@ -14,6 +12,7 @@ export interface MoveRootCtrl {
   blindfold?: (v?: boolean) => boolean;
   speakClock?: () => void;
   goBerserk?: () => void;
+  confirmMoveToggle?: () => boolean;
 }
 
 export interface MoveUpdate {

@@ -1,11 +1,11 @@
-import { h, VNode } from 'snabbdom';
-import * as xhr from 'common/xhr';
+import { h, type VNode } from 'snabbdom';
+import { json as xhrJson, form as xhrForm } from 'common/xhr';
 import { bind } from 'common/snabbdom';
-import { Convo, Msg, Daily } from '../interfaces';
-import * as enhance from './enhance';
+import type { Convo, Msg, Daily } from '../interfaces';
+import { enhance, isMoreThanText, expandLpvs } from './enhance';
 import { makeLinkPopups } from 'common/linkPopup';
 import { scroller } from './scroller';
-import MsgCtrl from '../ctrl';
+import type MsgCtrl from '../ctrl';
 import { alert, confirm } from 'common/dialog';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
@@ -52,7 +52,7 @@ function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
 }
 
 function renderMsg(ctrl: MsgCtrl, msg: Msg) {
-  const tag = msg.user == ctrl.data.me.id ? 'mine' : 'their';
+  const tag = msg.user === ctrl.data.me.id ? 'mine' : 'their';
   return h(tag, [renderText(msg), h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`)]);
 }
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
@@ -63,7 +63,7 @@ function groupMsgs(msgs: Msg[]): Daily[] {
   const dailies: Daily[] = [{ date: prev.date, msgs: [[prev]] }];
   msgs.slice(1).forEach(msg => {
     if (sameDay(msg.date, prev.date)) {
-      if (msg.user == prev.user) dailies[0].msgs[0].unshift(msg);
+      if (msg.user === prev.user) dailies[0].msgs[0].unshift(msg);
       else dailies[0].msgs.unshift([msg]);
     } else dailies.unshift({ date: msg.date, msgs: [[msg]] });
     prev = msg;
@@ -92,15 +92,15 @@ const renderFullDate = (date: Date) => {
 };
 
 const sameDay = (d: Date, e: Date) =>
-  d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
+  d.getDate() === e.getDate() && d.getMonth() === e.getMonth() && d.getFullYear() === e.getFullYear();
 
 const renderText = (msg: Msg) =>
-  enhance.isMoreThanText(msg.text)
+  isMoreThanText(msg.text)
     ? h('t', {
         hook: {
           create(_, vnode: VNode) {
             const el = vnode.elm as HTMLElement;
-            el.innerHTML = enhance.enhance(msg.text);
+            el.innerHTML = enhance(msg.text);
             el.querySelectorAll('img').forEach(c =>
               c.addEventListener('load', scroller.auto, { once: true }),
             );
@@ -116,17 +116,15 @@ const renderText = (msg: Msg) =>
 const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   const el = vnode.elm as HTMLElement;
   if (insert) scroller.init(el);
-  enhance.expandLpvs(el);
+  expandLpvs(el);
   makeLinkPopups(el, 'their a[href^="http"]');
   scroller.toMarker() || scroller.auto();
 };
 
 const teamUnsub = async (form: HTMLFormElement) => {
   if (await confirm('Unsubscribe?'))
-    xhr
-      .json(form.action, {
-        method: 'post',
-        body: xhr.form({ subscribe: false }),
-      })
-      .then(() => alert('Done!'));
+    xhrJson(form.action, {
+      method: 'post',
+      body: xhrForm({ subscribe: false }),
+    }).then(() => alert('Done!'));
 };

@@ -1,6 +1,16 @@
 import { throttle } from 'common/timing';
 import { Engines } from './engines/engines';
-import { CevalOpts, CevalState, CevalEngine, Work, Step, Hovering, PvBoard, Started, Search } from './types';
+import {
+  type CevalOpts,
+  type CevalEngine,
+  type Work,
+  type Step,
+  type Hovering,
+  type PvBoard,
+  type Started,
+  type Search,
+  CevalState,
+} from './types';
 import { sanIrreversible, showEngineError, fewerCores } from './util';
 import { defaultPosition, setupPosition } from 'chessops/variant';
 import { parseFen } from 'chessops/fen';
@@ -10,8 +20,7 @@ import { prop, Prop, Toggle, toggle } from 'common';
 import { clamp } from 'common/algo';
 import { Result } from '@badrap/result';
 import { storedIntProp, storage, tempStorage } from 'common/storage';
-import { Rules } from 'chessops';
-import { FEN } from 'chessground/types';
+import type { Rules } from 'chessops';
 
 const cevalDisabledSentinel = '1';
 
@@ -200,7 +209,7 @@ export default class CevalCtrl {
   }
 
   get isCacheable(): boolean {
-    return this.engines.active?.tech === 'NNUE';
+    return !!this.engines.active?.cloudEval;
   }
 
   get showingCloud(): boolean {

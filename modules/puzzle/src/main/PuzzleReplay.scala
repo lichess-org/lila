@@ -4,9 +4,10 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import scalalib.model.Days
 
 case class PuzzleReplay(
-    days: PuzzleDashboard.Days,
+    days: Days,
     theme: PuzzleTheme.Key,
     nb: Int,
     remaining: Vector[PuzzleId]
@@ -31,7 +32,7 @@ final class PuzzleReplayApi(
 
   def apply(
       user: User,
-      maybeDays: Option[PuzzleDashboard.Days],
+      maybeDays: Option[Days],
       theme: PuzzleTheme.Key
   ): Fu[Option[(Puzzle, PuzzleReplay)]] =
     maybeDays
@@ -51,7 +52,7 @@ final class PuzzleReplayApi(
       }
       .getOrElse(fuccess(None))
 
-  def onComplete(round: PuzzleRound, days: PuzzleDashboard.Days, angle: PuzzleAngle): Funit =
+  def onComplete(round: PuzzleRound, days: Days, angle: PuzzleAngle): Funit =
     angle.asTheme.so { theme =>
       replays.getIfPresent(round.userId).so {
         _.map { replay =>
@@ -60,19 +61,15 @@ final class PuzzleReplayApi(
       }
     }
 
-  private def createReplayFor(
-      user: User,
-      days: PuzzleDashboard.Days,
-      theme: PuzzleTheme.Key
-  ): Fu[PuzzleReplay] =
+  private def createReplayFor(user: User, days: Days, theme: PuzzleTheme.Key): Fu[PuzzleReplay] =
     colls
-      .round {
-        _.aggregateOne() { framework =>
+      .round:
+        _.aggregateOne(): framework =>
           import framework.*
           Match(
             $doc(
               "u" -> user.id,
-              "d".$gt(nowInstant.minusDays(days)),
+              "d".$gt(nowInstant.minusDays(days.value)),
               "w".$ne(true)
             )
           ) -> List(
@@ -85,16 +82,14 @@ final class PuzzleReplayApi(
                 pipe = List(
                   $doc(
                     "$match" -> $doc(
-                      $expr {
+                      $expr:
                         if theme == PuzzleTheme.mix.key then $doc("$eq" -> $arr("$_id", "$$pid"))
                         else
-                          $doc(
+                          $doc:
                             $and(
                               $doc("$eq" -> $arr("$_id", "$$pid")),
                               $doc("$in" -> $arr(theme, "$themes"))
                             )
-                          )
-                      }
                     )
                   ),
                   $doc("$limit"   -> maxPuzzles),
@@ -105,11 +100,7 @@ final class PuzzleReplayApi(
             Unwind("puzzle"),
             Group(BSONNull)("ids" -> PushField("puzzle._id"))
           )
-        }
-      }
-      .map {
+      .map:
         ~_.flatMap(_.getAsOpt[Vector[PuzzleId]]("ids"))
-      }
-      .map { ids =>
+      .map: ids =>
         PuzzleReplay(days, theme, ids.size, ids)
-      }

@@ -65,7 +65,7 @@ final class ChapterPreviewApi(
 
   object dataList:
     private[ChapterPreviewApi] val cache =
-      cacheApi[StudyId, List[ChapterPreview]](512, "study.chapterPreview.data"):
+      cacheApi[StudyId, List[ChapterPreview]](1024, "study.chapterPreview.data"):
         _.expireAfterWrite(1 minute).buildAsyncFuture(listAll)
 
     def apply(studyId: StudyId): Fu[List[ChapterPreview]] = cache.get(studyId)
@@ -82,14 +82,12 @@ final class ChapterPreviewApi(
     jsonList(studyId).map(ChapterPreview.json.readFirstId)
 
   private def listAll(studyId: StudyId): Fu[List[ChapterPreview]] =
-    def listWithoutFeds =
-      chapterRepo.coll:
+    for
+      withoutFeds <- chapterRepo.coll:
         _.find(chapterRepo.$studyId(studyId), projection.some)
           .sort(chapterRepo.$sortOrder)
           .cursor[ChapterPreview]()
           .listAll()
-    for
-      withoutFeds <- listWithoutFeds
       federations <- federationsOf(withoutFeds.flatMap(_.fideIds))
     yield withoutFeds.map: chap =>
       chap.copy(

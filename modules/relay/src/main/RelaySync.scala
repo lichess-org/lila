@@ -56,7 +56,7 @@ final private class RelaySync(
             SyncResult.ChapterResult(chapter.id, true, chapter.root.mainline.size).some
 
   private def updateInitialPosition(studyId: StudyId, chapter: Chapter, game: RelayGame): Fu[Chapter] =
-    if game.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen
+    if chapter.root.mainline.sizeIs > 1 || game.root.fen == chapter.root.fen
     then fuccess(chapter)
     else
       studyApi
@@ -85,34 +85,50 @@ final private class RelaySync(
             path -> none
       case (found, _) => found
     for
-      _ <- (chapter.root.children.nonEmpty && !path.isMainline(chapter.root)).so {
+      _ <- (chapter.root.children.nonEmpty && !path.isMainline(chapter.root)).so:
         logger.info(s"Change mainline ${showSC(study, chapter)} $path")
         studyApi.promote(
           studyId = study.id,
           position = Position(chapter, path).ref,
           toMainline = true
         )(by) >> chapterRepo.setRelayPath(chapter.id, path)
-      }
-      nbMoves <- newNode.so: node =>
-        node.mainline
-          .foldM(Position(chapter, path).ref): (position, n) =>
-            val relay = Chapter.Relay(
-              path = position.path + n.id,
-              lastMoveAt = nowInstant,
-              fideIds = game.fideIdsPair
-            )
-            studyApi
-              .addNode(
-                studyId = study.id,
-                position = position,
-                node = n,
-                opts = moveOpts,
-                relay = relay.some
-              )(by)
-              .inject(position + n)
-          .inject:
-            node.mainline.size
-    yield nbMoves
+      _ <- newNode match
+        case Some(newNode) =>
+          newNode.mainline
+            .foldM(Position(chapter, path).ref): (position, n) =>
+              studyApi
+                .addNode(
+                  studyId = study.id,
+                  position = position,
+                  node = n,
+                  opts = moveOpts,
+                  relay = makeRelayFor(game, position.path + n.id).some
+                )(by)
+                .inject(position + n)
+        case None =>
+          // the chapter already has all the game moves,
+          // but its relayPath might be out of sync. This can happen if the broadcast
+          // has contributors who use REC to record and share variations while the broadcast is ongoing.
+          // If they record a variation that is then played out by the broadcast players, then there are
+          // no moves to add and send to clients, but the relayPath needs to be updated,
+          // both in the database, and in the clients browsers.
+          // To achieve this without adding a new websocket event type, we send the last game move again,
+          // which contains the relayPath.
+          val gameMainlinePath = game.root.mainlinePath
+          chapter.relay
+            .exists(_.path != gameMainlinePath)
+            .so:
+              game.root.children
+                .nodeAt(gameMainlinePath)
+                .so: lastMainlineNode =>
+                  studyApi.addNode(
+                    studyId = study.id,
+                    position = Position(chapter, gameMainlinePath.parent).ref,
+                    node = lastMainlineNode,
+                    opts = moveOpts,
+                    relay = makeRelayFor(game, gameMainlinePath).some
+                  )(by)
+    yield newNode.so(_.mainline.size)
 
   private def updateChapterTags(
       tour: RelayTour,
@@ -187,9 +203,7 @@ final private class RelaySync(
       relay = makeRelayFor(game, game.root.mainlinePath).some
     )
     _ <- studyApi.doAddChapter(study, chapter, sticky = false, who(study.ownerId))
-  yield
-    preview.invalidate(study.id)
-    chapter
+  yield chapter
 
   private val moveOpts = MoveOpts(
     write = true,

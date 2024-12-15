@@ -1,7 +1,7 @@
 import { updateElements } from './clockView';
-import { RoundData } from '../interfaces';
+import type { RoundData } from '../interfaces';
 import { playedTurns, playable } from 'game';
-import * as Prefs from 'common/prefs';
+import { ShowClockTenths } from 'common/prefs';
 import { reducedMotion } from 'common/device';
 
 interface ClockOpts {
@@ -17,7 +17,7 @@ export interface ClockData {
   white: Seconds;
   black: Seconds;
   emerg: Seconds;
-  showTenths: Prefs.ShowClockTenths;
+  showTenths: ShowClockTenths;
   showBar: boolean;
   moretime: number;
 }
@@ -79,9 +79,9 @@ export class ClockController {
   ) {
     const cdata = d.clock!;
 
-    if (cdata.showTenths === Prefs.ShowClockTenths.Never) this.showTenths = () => false;
+    if (cdata.showTenths === ShowClockTenths.Never) this.showTenths = () => false;
     else {
-      const cutoff = cdata.showTenths === Prefs.ShowClockTenths.Below10Secs ? 10000 : 3600000;
+      const cutoff = cdata.showTenths === ShowClockTenths.Below10Secs ? 10000 : 3600000;
       this.showTenths = time => time < cutoff;
     }
 
@@ -182,10 +182,10 @@ export class ClockController {
         simplePlural(date.getUTCSeconds(), 'second');
       return `${color} ${msg}`;
     });
-    site.sound.say(msgs.join('. '));
+    site.sound.say(msgs.join('. '), false, true);
   };
 }
 
 function simplePlural(nb: number, word: string) {
-  return `${nb} ${word}${nb != 1 ? 's' : ''}`;
+  return `${nb} ${word}${nb !== 1 ? 's' : ''}`;
 }

@@ -1,12 +1,11 @@
 import { defined, prop, Prop, scrollToInnerSelector } from 'common';
 import * as licon from 'common/licon';
-import { bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
-import AnalyseCtrl from '../ctrl';
-import { StudySocketSend } from '../socket';
+import { type VNode, bind, dataIcon, iconTag, looseH as h } from 'common/snabbdom';
+import type AnalyseCtrl from '../ctrl';
+import type { StudySocketSend } from '../socket';
 import { StudyChapterEditForm } from './chapterEditForm';
 import { StudyChapterNewForm } from './chapterNewForm';
-import {
+import type {
   LocalPaths,
   StudyChapter,
   StudyChapterConfig,
@@ -21,13 +20,13 @@ import {
   ChapterSelect,
   StatusStr,
 } from './interfaces';
-import StudyCtrl from './studyCtrl';
+import type StudyCtrl from './studyCtrl';
 import { opposite } from 'chessops/util';
 import { fenColor } from 'common/miniBoard';
-import { initialFen } from 'chess';
 import type Sortable from 'sortablejs';
 import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialog';
+import { INITIAL_FEN } from 'chessops/fen';
 
 /* read-only interface for external use */
 export class StudyChapters {
@@ -42,7 +41,7 @@ export class StudyChapters {
   first = () => this.list()[0];
   looksNew = () => {
     const cs = this.all();
-    return cs.length === 1 && cs[0].name == 'Chapter 1';
+    return cs.length === 1 && cs[0].name === 'Chapter 1';
   };
 }
 
@@ -56,6 +55,7 @@ export default class StudyChaptersCtrl {
   constructor(
     initChapters: ChapterPreviewFromServer[],
     readonly send: StudySocketSend,
+    readonly isBroadcast: boolean,
     setTab: () => void,
     chapterConfig: (id: string) => Promise<StudyChapterConfig>,
     private readonly federations: () => Federations | undefined,
@@ -63,8 +63,8 @@ export default class StudyChaptersCtrl {
   ) {
     this.list = new StudyChapters(this.store);
     this.loadFromServer(initChapters);
-    this.newForm = new StudyChapterNewForm(send, this.list, setTab, root);
-    this.editForm = new StudyChapterEditForm(send, chapterConfig, root.redraw);
+    this.newForm = new StudyChapterNewForm(send, this.list, isBroadcast, setTab, root);
+    this.editForm = new StudyChapterEditForm(send, chapterConfig, isBroadcast, root.redraw);
   }
 
   sort = (ids: string[]) => this.send('sortChapters', ids);
@@ -76,7 +76,7 @@ export default class StudyChaptersCtrl {
     this.store(
       chapters.map(c => ({
         ...c,
-        fen: c.fen || initialFen,
+        fen: c.fen || INITIAL_FEN,
         players: c.players ? this.convertPlayersFromServer(c.players) : undefined,
         orientation: c.orientation || 'white',
         variant: c.variant || 'standard',
@@ -95,7 +95,7 @@ export default class StudyChaptersCtrl {
       node = d.n;
     const cp = this.list.get(pos.chapterId);
     if (cp) {
-      const onRelayPath = d.relayPath == d.p.path + d.n.id;
+      const onRelayPath = d.relayPath === d.p.path + d.n.id;
       if (onRelayPath || !d.relayPath) {
         cp.fen = node.fen;
         cp.lastMove = node.uci;
@@ -139,8 +139,8 @@ export const looksLikeLichessGame = (tags: TagArray[]) =>
 
 export function resultOf(tags: TagArray[], isWhite: boolean): string | undefined {
   const both = findTag(tags, 'result')?.split('-');
-  const mine = both && both.length == 2 ? both[isWhite ? 0 : 1] : undefined;
-  return mine == '1/2' ? '½' : mine;
+  const mine = both && both.length === 2 ? both[isWhite ? 0 : 1] : undefined;
+  return mine === '1/2' ? '½' : mine;
 }
 
 export const gameLinkAttrs = (roundPath: string, game: { id: ChapterId }) => ({

@@ -118,11 +118,9 @@ private object OpeningSearch:
   def apply(str: String, max: Int): List[Opening] = Chronometer.syncMon(_.opening.searchTime) {
     val query = makeQuery(str)
     index
-      .flatMap { entry =>
-        scoreOf(query, entry).map {
+      .flatMap: entry =>
+        scoreOf(query, entry).map:
           Match(entry.opening, _)
-        }
-      }
       .topN(max)
       .map(_.opening)
   }

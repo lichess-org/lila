@@ -1,10 +1,11 @@
-import { VNode, Classes } from 'snabbdom';
+import type { VNode, Classes } from 'snabbdom';
 import { defined } from 'common';
 import { throttle } from 'common/timing';
 import { renderEval as normalizeEval } from 'ceval';
 import { path as treePath } from 'tree';
-import { MaybeVNode, LooseVNodes, looseH as h } from 'common/snabbdom';
-import PuzzleCtrl from '../ctrl';
+import { type MaybeVNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
+import type PuzzleCtrl from '../ctrl';
+import { plyToTurn } from 'chess';
 
 interface Ctx {
   ctrl: PuzzleCtrl;
@@ -34,10 +35,6 @@ const autoScroll = throttle(150, (ctrl: PuzzleCtrl, el: HTMLElement) => {
 
 function pathContains(ctx: Ctx, path: Tree.Path): boolean {
   return treePath.contains(ctx.ctrl.path, path);
-}
-
-function plyToTurn(ply: number): number {
-  return Math.floor((ply - 1) / 2) + 1;
 }
 
 export function renderIndex(ply: number, withDots: boolean): VNode {

@@ -144,7 +144,8 @@ final class KaladinApi(
       subs.get(user.suspectId).so { modIds =>
         subs = subs - user.suspectId
         modIds.toList.sequentiallyVoid: modId =>
-          notifyApi.notifyOne(modId, lila.core.notify.KaladinDone(user.suspectId.value))
+          val notif = lila.core.notify.NotificationContent.KaladinDone(user.suspectId.value)
+          notifyApi.notifyOne(modId, notif)
       }
 
   private[irwin] def monitorQueued: Funit =

@@ -7,3 +7,7 @@ class RelayPlayerTest extends munit.FunSuite:
     assertEquals(RelayPlayerLine.tokenize("Dr. Pieper Thomas"), "pieper thomas")
     assertEquals(RelayPlayerLine.tokenize("Prof. Pieper Thomas"), "pieper thomas")
     assertEquals(RelayPlayerLine.tokenize("Prof. Pieper Thomas Dr."), "pieper thomas")
+
+  test("comma"):
+    assertEquals(RelayPlayerLine.tokenize("Zimmer, Gerald"), "gerald zimmer")
+    assertEquals(RelayPlayerLine.tokenize("Zimmer,Gerald"), "gerald zimmer")

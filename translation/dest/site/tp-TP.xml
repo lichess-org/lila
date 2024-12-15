@@ -116,7 +116,6 @@
   <string name="replayMode">nasin pi lukin sin</string>
   <string name="realtimeReplay">tenpo lon</string>
   <string name="byCPL">tan nanpa CPL</string>
-  <string name="openStudy">o open e lipu sona</string>
   <string name="enable">o open</string>
   <string name="bestMoveArrow">palisa alasa pi tawa pona</string>
   <string name="evaluationGauge">palisa wawa</string>
@@ -168,6 +167,7 @@
   <string name="viewInFullSize">o suli</string>
   <string name="logOut">o weka tan linluwi</string>
   <string name="signIn">o kepeken nimi sina</string>
+  <string name="rememberMe">o awen sona e mi lon tenpo kama</string>
   <string name="youNeedAnAccountToDoThat">sina wile pali e ni la sina wile jo e lipu jan</string>
   <string name="signUp">o pali e lipu sina</string>
   <string name="computersAreNotAllowedToPlay">sina wile musi la, o kepeken ala e ilo sona e lipu sona e jan sona. kin la, sina pali e nimi mute lon lipu ni la, ni li ken ike.</string>
@@ -546,6 +546,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="reportProcessedFasterInEnglish">toki Inli la, toki li pali pi tenpo lili</string>
   <string name="error.provideOneCheatedGameLink">o pana e nimi nasin tawa musi pi pali ike.</string>
   <string name="by">pi %s</string>
+  <string name="importedByX">%s li kama e ni</string>
   <string name="thisTopicIsNowClosed">lipu toki ni li pini</string>
   <string name="blog">lipu toki pi jan ni: li jo e lipu ni</string>
   <string name="notes">toki pi jan ante ala</string>
@@ -662,7 +663,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="aboutSimulRules">musi pi tenpo sama li open la, jan musi wan li jan musi lawa, li kama jan musi walo lon musi ale. jan musi ante li kama jan musi pimeja lon musi wan. musi ale li pini la, musi pi tenpo sama li pini.</string>
   <string name="aboutSimulSettings">musi pi tenpo sama li ante ala e nanpa wawa jan. sina ken ala pali e musi sin pi jan sama. sina ken ala pali monsi e tawa. sina ken ala sin e tenpo.</string>
   <string name="create">open</string>
-  <string name="whenCreateSimul">sina open e musi pi tenpo sama la, sina mute e musi mute lon poka jan ante.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">sina open e musi pi tenpo sama la, sina mute e musi mute lon poka jan ante.</string>
   <string name="simulVariantsHint">sina wile musi kepeken nasin mute ante la, jan ante li toki e ni: musi ona li kepeken e nasin seme?</string>
   <string name="simulClockHint">nasin tenpo pi jan Bobby Fischer. mute pi jan musi ante li suli, tenpo pi tawa sina li suli.</string>
   <string name="simulAddExtraTime">musi mute pi tenpo sama li pali kiwen tawa sina la, sina ken suli e tenpo tawa.</string>
@@ -964,4 +965,5 @@ sina wile kepeken e nasin ijo pi ante ala, o sitelen ala.</string>
   <string name="showMeEverything">lukin e ala</string>
   <string name="lichessPatronInfo">ilo Lichess li mani ala li pona. ale li ken lukin e lipu ilo pi ilo Lichess li ken ante e ilo Lichess.
 ona li wile e mani la jan li wile pana e mani tawa ona.</string>
+  <string name="nothingToSeeHere">tenpo ni la ijo ala li lon.</string>
 </resources>

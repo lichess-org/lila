@@ -1,9 +1,9 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { bind, MaybeVNodes, onInsert } from 'common/snabbdom';
-import SwissCtrl from '../ctrl';
+import { bind, type MaybeVNodes, onInsert } from 'common/snabbdom';
+import type SwissCtrl from '../ctrl';
 import { player as renderPlayer } from './util';
-import { Player, Pager } from '../interfaces';
+import type { Player, Pager } from '../interfaces';
 
 function playerTr(ctrl: SwissCtrl, player: Player) {
   const userId = player.user.id;
@@ -11,13 +11,13 @@ function playerTr(ctrl: SwissCtrl, player: Player) {
     'tr',
     {
       key: userId,
-      class: { me: ctrl.data.me?.id == userId, active: ctrl.playerInfoId === userId },
+      class: { me: ctrl.data.me?.id === userId, active: ctrl.playerInfoId === userId },
       hook: bind('click', _ => ctrl.showPlayerInfo(player), ctrl.redraw),
     },
     [
       h(
         'td.rank',
-        player.absent && ctrl.data.status != 'finished'
+        player.absent && ctrl.data.status !== 'finished'
           ? h('i', { attrs: { 'data-icon': licon.Pause, title: 'Absent' } })
           : [player.rank],
       ),

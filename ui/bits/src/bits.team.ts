@@ -1,6 +1,6 @@
 import * as xhr from 'common/xhr';
-import flairPickerLoader from './exports/flairPicker';
-import StrongSocket from 'common/socket';
+import flairPickerLoader from './flairPicker';
+import { wsConnect } from 'common/socket';
 import { makeChat } from 'chat';
 import { prompt } from 'common/dialog';
 
@@ -11,7 +11,7 @@ interface TeamOpts {
 }
 
 export function initModule(opts: TeamOpts): void {
-  site.socket = new StrongSocket('/team/' + opts.id, opts.socketVersion);
+  wsConnect('/team/' + opts.id, opts.socketVersion);
 
   if (opts.chat) makeChat(opts.chat);
 

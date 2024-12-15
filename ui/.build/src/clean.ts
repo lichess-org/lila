@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs';
 import fg from 'fast-glob';
-import { env, colors as c } from './main.ts';
+import { env, colors as c } from './env.ts';
 
 const globOpts: fg.Options = {
   absolute: true,
@@ -14,6 +14,7 @@ const allGlobs = [
   '**/css/**/gen',
   'ui/.build/build',
   'ui/*/dist',
+  'ui/*/tsconfig.tsbuildinfo',
   'public/compiled',
   'public/npm',
   'public/css',

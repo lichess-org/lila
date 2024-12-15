@@ -114,7 +114,6 @@
   <string name="replayMode">Repriza partije</string>
   <string name="realtimeReplay">U stvarnom vremenu</string>
   <string name="byCPL">Po SDP</string>
-  <string name="openStudy">Otvori studiju</string>
   <string name="enable">Omogući</string>
   <string name="bestMoveArrow">Strelica za najbolji potez</string>
   <string name="showVariationArrows">Prikaži strelice za varijante</string>
@@ -693,7 +692,7 @@ računarsku analizu, mogućnost dopisivanja i link za slanje drugima.</string>
   <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka se završava tek kada se završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Opcije za revanš, vraćanje poteza i dodavanje vremena su isključene.</string>
   <string name="create">Kreiraj</string>
-  <string name="whenCreateSimul">Kada kreirate simultanku, igrate protiv više igrača istovremeno.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kada kreirate simultanku, igrate protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izaberete nekoliko varijanti, svaki igrač može da odabere koju varijantu želi da igra.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primite, više će Vam vremena trebati.</string>
   <string name="simulAddExtraTime">Možete dodati više vremena na svoj sat kako bi Vam to pomoglo tokom igranja simultanke.</string>

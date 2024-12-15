@@ -11,7 +11,7 @@ extension (e: UciPath)
     e.split match
       case None => true
       case Some((id, rest)) =>
-        node.children.first match
+        node.children.mainlineFirst match
           case None        => false
           case Some(child) => child.id == id && rest.isMainline(child)
 

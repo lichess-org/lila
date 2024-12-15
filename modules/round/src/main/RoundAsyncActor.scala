@@ -85,8 +85,8 @@ final private class RoundAsyncActor(
       botConnections = Math.max(0, botConnections + (if v then 1 else -1))
   end Player
 
-  private val whitePlayer = Player(White)
-  private val blackPlayer = Player(Black)
+  private val whitePlayer = new Player(White)
+  private val blackPlayer = new Player(Black)
 
   export proxy.{ game as getGame, update as updateGame, flushProgress as flushGame }
 
@@ -452,9 +452,6 @@ final private class RoundAsyncActor(
       then this ! Threefold
 
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] =
-    case e: FishnetError =>
-      logger.info(s"Round fishnet error $name: ${e.getMessage}")
-      lila.mon.round.error.fishnet.increment()
     case e: BenignError =>
       logger.debug(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client.increment()

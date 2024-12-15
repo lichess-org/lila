@@ -3,19 +3,12 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org chess performance statistics",
-  "keywords": [
-    "chess",
-    "lichess",
-    "learn"
-  ],
   "author": "ornicar",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
-    "common": "workspace:*",
-    "snabbdom": "3.5.1",
-    "chessops": "^0.14.1"
+    "common": "workspace:*"
   },
-  "lichess": {
-    "bundles": "src/learn.ts"
+  "build": {
+    "bundle": "src/learn.ts"
   }
 }

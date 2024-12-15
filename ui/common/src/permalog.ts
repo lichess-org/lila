@@ -1,4 +1,4 @@
-import { objectStorage, ObjectStorage, DbInfo } from './objectStorage';
+import { objectStorage, type ObjectStorage, type DbInfo } from './objectStorage';
 
 export const log: LichessLog = makeLog();
 

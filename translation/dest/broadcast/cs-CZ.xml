@@ -26,7 +26,7 @@
   <string name="tournamentDescription">Stručný popis turnaje</string>
   <string name="fullDescription">Úplný popis události</string>
   <string name="fullDescriptionHelp">Volitelný dlouhý popis přenosu. %1$s je k dispozici. Délka musí být menší než %2$s znaků.</string>
-  <string name="sourceSingleUrl">PGN Zdrojová URL adresa</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Zdrojová URL adresa</string>
   <string name="sourceUrlHelp">URL adresa, kterou bude Lichess kontrolovat pro získání PGN aktualizací. Musí být veřejně přístupná z internetu.</string>
   <string name="sourceGameIds">Až 64 ID Lichess her, oddělených mezerama.</string>
   <string name="startDateTimeZone">Datum zahájení v lokálním čase turnaje: %s</string>
@@ -49,6 +49,20 @@
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federace</string>
   <string name="ageThisYear">Věk tento rok</string>
-  <string name="unrated">Nehodnocen</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Nehodnocen</string>
   <string name="recentTournaments">Nedávné tournamenty</string>
+  <string name="openLichess">Otevřít v Lichess</string>
+  <string name="teams">Týmy</string>
+  <string name="boards">Šachovnice</string>
+  <string name="overview">Přehled</string>
+  <string name="uploadImage">Nahrát obrázek turnaje</string>
+  <string name="noBoardsYet">Zatím žádné šachovnice. Ty se zobrazí se po nahrání partií.</string>
+  <string name="startsAfter">Začíná po %s</string>
+  <string name="startVerySoon">Vysílání začne velmi brzy.</string>
+  <string name="notYetStarted">Vysílání ještě nezačalo.</string>
+  <string name="officialWebsite">Oficiální stránka</string>
+  <string name="standings">Pořadí</string>
+  <string name="officialStandings">Oficiální pořadí</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Více možností na %s</string>
+  <string name="score">Skóre</string>
 </resources>

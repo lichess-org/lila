@@ -30,7 +30,7 @@ final class Study(
 
   import env.user.flairApi.given
 
-  def search(text: String, page: Int) = OpenBody:
+  def search(text: String, page: Int) = OpenOrScopedBody(parse.anyContent)(_.Study.Read, _.Web.Mobile):
     Reasonable(page):
       if text.trim.isEmpty then
         for
@@ -54,7 +54,7 @@ final class Study(
 
   def allDefault(page: Int) = all(Order.hot, page)
 
-  def all(order: Order, page: Int) = Open:
+  def all(order: Order, page: Int) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     allResults(order, page)
 
   private def allResults(order: Order, page: Int)(using ctx: Context) =
@@ -182,7 +182,7 @@ final class Study(
     if HTTPRequest.isRedirectable(ctx.req)
     then
       env.relay.api
-        .getOngoing(id.into(RelayRoundId))
+        .byIdWithTour(id.into(RelayRoundId))
         .flatMap:
           _.fold(f): rt =>
             Redirect(chapterId.fold(rt.path)(rt.path))
@@ -209,7 +209,8 @@ final class Study(
               oldSc,
               withChapters = getBool("chapters") || HTTPRequest.isLichobile(ctx.req)
             )
-            chatOpt <- chatOf(sc.study)
+            loadChat = !HTTPRequest.isXhr(ctx.req)
+            chatOpt <- loadChat.so(chatOf(sc.study))
             jsChat <- chatOpt.soFu: c =>
               lila.chat.JsonView.mobile(c.chat, writeable = ctx.userId.so(sc.study.canChat))
           yield Ok:
@@ -257,23 +258,22 @@ final class Study(
         .add("analysis" -> analysis.map { env.analyse.jsonView.bothPlayers(chapter.root.ply, _) })
     )
 
-  def show(id: StudyId) = Open:
+  def show(id: StudyId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
     orRelayRedirect(id):
       showQuery(env.study.api.byIdWithChapter(id))
 
-  def chapter(id: StudyId, chapterId: StudyChapterId) =
-    Open:
-      orRelayRedirect(id, chapterId.some):
-        env.study.api
-          .byIdWithChapter(id, chapterId)
-          .flatMap:
-            case None =>
-              env.study.studyRepo
-                .exists(id)
-                .flatMap:
-                  if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
-                  else showQuery(fuccess(none))
-            case sc => showQuery(fuccess(sc))
+  def chapter(id: StudyId, chapterId: StudyChapterId) = OpenOrScoped(_.Study.Read, _.Web.Mobile):
+    orRelayRedirect(id, chapterId.some):
+      env.study.api
+        .byIdWithChapter(id, chapterId)
+        .flatMap:
+          case None =>
+            env.study.studyRepo
+              .exists(id)
+              .flatMap:
+                if _ then negotiate(Redirect(routes.Study.show(id)), notFoundJson())
+                else showQuery(fuccess(none))
+          case sc => showQuery(fuccess(sc))
 
   def chapterConfig(id: StudyId, chapterId: StudyChapterId) = Open:
     Found(env.study.chapterRepo.byIdAndStudy(chapterId, id)): chapter =>
@@ -577,7 +577,7 @@ final class Study(
       case _                                            => forbidden
 
   private val streamerCache =
-    env.memo.cacheApi[StudyId, List[UserId]](1024, "study.streamers"):
+    env.memo.cacheApi[StudyId, List[UserId]](64, "study.streamers"):
       _.expireAfterWrite(10.seconds).buildAsyncFuture: studyId =>
         env.study.findConnectedUsersIn(studyId)(env.streamer.liveStreamApi.streamerUserIds)
 

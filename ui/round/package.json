@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org round",
-  "keywords": [
-    "chess",
-    "lichess",
-    "play",
-    "replay"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "types": "dist/interfaces.d.ts",
@@ -20,15 +14,9 @@
     "keyboardMove": "workspace:*",
     "voice": "workspace:*",
     "nvui": "workspace:*",
-    "board": "workspace:*",
-    "shepherd.js": "^11.2.0",
-    "snabbdom": "3.5.1"
+    "shepherd.js": "^11.2.0"
   },
-  "lichess": {
-    "bundles": [
-      "src/round.ts",
-      "src/plugins/round.nvui.ts",
-      "src/plugins/round.tour.ts"
-    ]
+  "build": {
+    "bundle": "src/**/round.*ts"
   }
 }

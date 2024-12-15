@@ -20,7 +20,7 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
     )(unapply)
 
   private given Formatter[FideTC]            = formatter.stringFormatter(_.toString, FideTC.valueOf)
-  private val fideTcMapping: Mapping[FideTC] = typeIn[FideTC](FideTC.values.toSet)
+  private val fideTcMapping: Mapping[FideTC] = typeIn(FideTC.values.toSet)
 
   private val infoMapping = mapping(
     "format"    -> optional(cleanText(maxLength = 80)),
@@ -38,12 +38,15 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
     "url"  -> url.field.verifying("Invalid stream URL", url => RelayPinnedStream("", url).upstream.isDefined)
   )(RelayPinnedStream.apply)(unapply)
 
+  private given Formatter[RelayTour.Tier] =
+    formatter.intOptionFormatter[RelayTour.Tier](_.v, RelayTour.Tier.byV.get)
+
   val form = Form(
     mapping(
       "name"            -> cleanText(minLength = 3, maxLength = 80).into[RelayTour.Name],
       "info"            -> infoMapping,
       "markdown"        -> optional(cleanText(maxLength = 20_000).into[Markdown]),
-      "tier"            -> optional(numberIn(RelayTour.Tier.keys.keySet)),
+      "tier"            -> optional(typeIn(RelayTour.Tier.values.toSet)),
       "showScores"      -> boolean,
       "showRatingDiffs" -> boolean,
       "teamTable"       -> boolean,

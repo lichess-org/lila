@@ -1,8 +1,8 @@
 import { throttlePromiseDelay } from 'common/timing';
 import { json, form } from 'common/xhr';
-import SwissCtrl from './ctrl';
+import type SwissCtrl from './ctrl';
 import { isOutcome } from './util';
-import { Sheet } from './interfaces';
+import type { Sheet } from './interfaces';
 
 // when the tournament no longer exists
 const onFail = () => site.reload();
@@ -49,8 +49,8 @@ const readSheetMin = (str: string): Sheet =>
           ? s
           : {
               g: s.slice(0, 8),
-              o: s[8] == 'o',
-              w: s[8] == 'w' ? true : s[8] == 'l' ? false : undefined,
+              o: s[8] === 'o',
+              w: s[8] === 'w' ? true : s[8] === 'l' ? false : undefined,
             },
       )
     : [];

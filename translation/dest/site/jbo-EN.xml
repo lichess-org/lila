@@ -95,7 +95,6 @@
   <string name="replayMode">rapli tadji</string>
   <string name="realtimeReplay">pu ca\'o</string>
   <string name="byCPL">la cypycyc.</string>
-  <string name="openStudy">kargau lo seltadni</string>
   <string name="enable">fasnu</string>
   <string name="bestMoveArrow">arco lo kelka\'u poi zanrai</string>
   <string name="evaluationGauge">arco lo se xamgu be lo ci\'erkei zazyfau</string>
@@ -508,7 +507,7 @@
   <string name="aboutSimulRules">ca lonu lo cabna cmicfu nunjvi ku cfari keiku co\'a caxmati lo finti loi ci\'erkei .i ca lonu ro loi nunjvi ku mulno keiku lo cabna cmicfu nunjvi cu mulno .i</string>
   <string name="aboutSimulSettings">ro lo cabna cmicfu nunjvi cu na nilcre cnegau .i lonu krefu jvikei .e lonu kelka\'u xruti .e lonu tcegau lo temci cu se tolcru .i</string>
   <string name="create">finti</string>
-  <string name="whenCreateSimul">lonu do finti lo cabna cmicfu nunjvi cu se jalge lonu jivna piso\'o loi ci\'erkei .i</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">lonu do finti lo cabna cmicfu nunjvi cu se jalge lonu jivna piso\'o loi ci\'erkei .i</string>
   <string name="lichessTournaments">lo grinunjvi be bu\'u la .litces.</string>
   <string name="tournamentFAQ">lo cafne se reisku preti be lo kelcrxarena zei grinunjvi</string>
   <string name="timeBeforeTournamentStarts">temci lo cabna lonu lo grinunjvi ku cfari</string>

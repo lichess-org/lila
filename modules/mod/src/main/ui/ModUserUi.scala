@@ -122,14 +122,16 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
                     title  := "Delete all PMs and public chat messages",
                     cls    := "xhr"
                   )(
-                    submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
+                    submitButton(cls := "btn-rack__btn yes-no-confirm")("Clear PMs & chats")
                   ),
                   postForm(
                     action := routes.Mod.isolate(u.username, !u.marks.isolate),
                     title  := "Isolate user by preventing all PMs, follows and challenges",
                     cls    := "xhr"
                   )(
-                    submitButton(cls := List("btn-rack__btn confirm" -> true, "active" -> u.marks.isolate))(
+                    submitButton(
+                      cls := List("btn-rack__btn yes-no-confirm" -> true, "active" -> u.marks.isolate)
+                    )(
                       "Isolate"
                     )
                   )
@@ -142,7 +144,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             title  := "Activate kid mode if not already the case",
             cls    := "xhr"
           )(
-            submitButton(cls := "btn-rack__btn confirm", cls := u.kid.option("active"))("Kid")
+            submitButton(cls := "btn-rack__btn yes-no-confirm", cls := u.kid.option("active"))("Kid")
           )
         },
         Granter.opt(_.RemoveRanking).option {
@@ -213,7 +215,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
             title  := "Disables two-factor authentication for this account.",
             cls    := "xhr"
           )(
-            submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
+            submitButton(cls := "btn-rack__btn yes-no-confirm")("Disable 2FA")
           )
         },
         (Granter.opt(_.Impersonate) || (Granter.opt(_.Admin) && u.id == UserId.lichess)).option {
@@ -268,12 +270,24 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
     postForm(
       action := routes.Mod.gdprErase(u.username),
       cls    := "gdpr-erasure"
-    )(modUi.gdprEraseButton(u)(cls := "btn-rack__btn confirm"))
+    )(modUi.gdprEraseButton(u)(cls := "btn-rack__btn yes-no-confirm"))
 
   private def canViewRolesOf(user: User)(using Option[Me]): Boolean =
     Granter.opt(_.ChangePermission) || (Granter.opt(_.Admin) && user.roles.nonEmpty)
 
   def prefs(u: User, hasKeyboardMove: Boolean, botCompatible: Boolean)(using Context) =
+    val prefList = List(
+      hasKeyboardMove.option(li("keyboard moves")),
+      botCompatible.option:
+        li:
+          strong:
+            a(
+              cls      := "text",
+              dataIcon := Icon.CautionCircle,
+              href := lila.common.String.base64
+                .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+            )("BOT-COMPATIBLE SETTINGS")
+    ).flatten
     frag(
       canViewRolesOf(u).option(
         mzSection("roles")(
@@ -283,24 +297,11 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
           )
         )
       ),
-      mzSection("preferences")(
-        strong(cls := "text inline", dataIcon := Icon.Gear)("Notable preferences"),
-        ul(
-          hasKeyboardMove.option(li("keyboard moves")),
-          botCompatible.option(
-            li(
-              strong(
-                a(
-                  cls      := "text",
-                  dataIcon := Icon.CautionCircle,
-                  href := lila.common.String.base64
-                    .decode("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
-                )("BOT-COMPATIBLE SETTINGS")
-              )
-            )
-          )
+      prefList.nonEmpty.option:
+        mzSection("preferences")(
+          strong(cls := "text inline", dataIcon := Icon.Gear)("Notable preferences"),
+          ul(prefList)
         )
-      )
     )
 
   def showRageSitAndPlaybans(rageSit: RageSit, playbans: Int): Frag =
@@ -554,7 +555,7 @@ final class ModUserUi(helpers: Helpers, modUi: ModUi):
               eraseButton.option(
                 td(
                   postForm(action := routes.Mod.gdprErase(u.username)):
-                    modUi.gdprEraseButton(u)(cls := "button button-red button-empty confirm")
+                    modUi.gdprEraseButton(u)(cls := "button button-red button-empty yes-no-confirm")
                 )
               ),
               if checkboxes then ModUserTableUi.userCheckboxTd(u.marks.alt)

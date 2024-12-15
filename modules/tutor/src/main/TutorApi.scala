@@ -32,7 +32,7 @@ final class TutorApi(
         queue.enqueue(user).dmap(some).map { TutorFullReport.Available(report, _) }
       case availability => fuccess(availability)
 
-  LilaScheduler("TutorApi", _.Every(1 second), _.AtMost(10 seconds), _.Delay(3 seconds))(pollQueue)
+  LilaScheduler("TutorApi", _.Every(1 second), _.AtMost(10 seconds), _.Delay(39 seconds))(pollQueue)
 
   private def pollQueue = queue.next.flatMap: items =>
     lila.mon.tutor.parallelism.update(items.size)

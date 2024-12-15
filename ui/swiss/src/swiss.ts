@@ -1,7 +1,7 @@
 import { init, VNode, classModule, attributesModule } from 'snabbdom';
-import { SwissOpts } from './interfaces';
+import type { SwissOpts } from './interfaces';
 import SwissCtrl from './ctrl';
-import StrongSocket from 'common/socket';
+import { wsConnect } from 'common/socket';
 
 const patch = init([classModule, attributesModule]);
 
@@ -10,11 +10,10 @@ import view from './view/main';
 export function initModule(opts: SwissOpts) {
   const element = document.querySelector('main.swiss') as HTMLElement;
 
-  site.socket = new StrongSocket('/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
-    receive: (t: string, d: any) => ctrl.socket.receive(t, d),
-  });
   opts.classes = element.getAttribute('class');
-  opts.socketSend = site.socket.send;
+  opts.socketSend = wsConnect('/swiss/' + opts.data.id, opts.data.socketVersion || 0, {
+    receive: (t: string, d: any) => ctrl.socket.receive(t, d),
+  }).send;
   opts.element = element;
   opts.$side = $('.swiss__side').clone();
 

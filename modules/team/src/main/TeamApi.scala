@@ -95,16 +95,16 @@ final class TeamApi(
     cached.teamIds(me).dmap(_.size)
 
   def hasJoinedTooManyTeams(using me: Me) =
-    countTeamsOf(me).dmap(_ > Team.maxJoin(me))
+    countTeamsOf(me).dmap(Team.maxJoin(me) < _)
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
-  def joinedTeamIdsOfUserAsSeenBy[U: UserIdOf](member: U)(using viewer: Option[Me]): Fu[List[TeamId]] =
+  def joinedTeamIdsOfUserAsSeenBy(of: User)(using viewer: Option[Me]): Fu[List[TeamId]] =
     cached
-      .teamIdsList(member.id)
-      .map(_.take(lila.team.Team.maxJoinCeiling))
-      .flatMap { allIds =>
-        if viewer.exists(_.is(member)) || Granter.opt(_.UserModView) then fuccess(allIds)
+      .teamIdsList(of.id)
+      .map(_.take(Team.maxJoin(of).value))
+      .flatMap: allIds =>
+        if viewer.exists(_.is(of)) || Granter.opt(_.UserModView) then fuccess(allIds)
         else
           allIds.nonEmpty.so:
             teamRepo.filterHideMembers(allIds).flatMap { hiddenIds =>
@@ -115,7 +115,6 @@ final class TeamApi(
                     !hiddenIds(id) || viewerTeamIds.contains(id)
                 }
             }
-      }
 
   def countCreatedRecently(me: User): Fu[Int] =
     teamRepo.countCreatedSince(me.id, Period.ofWeeks(1))

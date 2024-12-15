@@ -116,7 +116,6 @@
   <string name="replayMode">Modo de repetición</string>
   <string name="realtimeReplay">Tiempo real</string>
   <string name="byCPL">Per PCP</string>
-  <string name="openStudy">Ubrir estudio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Indicar la millor chugada</string>
   <string name="showVariationArrows">Amostrar las flechas d\'as variants</string>
@@ -679,7 +678,7 @@
   <string name="aboutSimulRules">Cuan la simultania encomienza, cada chugador prencipia una partida con l\'anfitrión, que chuga con blancas. La simultania remata cuan s\'acaban totas las partidas.</string>
   <string name="aboutSimulSettings">Las simultanias son siempre partidas amistosas. Las opcions de petición de reminche, desfer chugada y anyadir tiempo son desactivadas.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Cuan creigas una simultania, chugas contra cuantos chugadors de vez.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cuan creigas una simultania, chugas contra cuantos chugadors de vez.</string>
   <string name="simulVariantsHint">Si trías diferents variants, cada chugador tría quál chugar.</string>
   <string name="simulClockHint">Configuración de reloch Fischer. Contra mas oponents, mas tiempo se precisa.</string>
   <string name="simulAddExtraTime">Puez anyadir tiempo adicional a lo tuyo reloch pa aduyar-te en a simultania.</string>

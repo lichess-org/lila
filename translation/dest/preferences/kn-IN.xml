@@ -15,7 +15,7 @@
   <string name="pgnLetter">ಪತ್ರ (ಕೆ, ಕ್ಯೂ, ಆರ್, ಬಿ, ಎನ್)</string>
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">ಝೆನ್ ಮೋಡ್</string>
   <string name="showPlayerRatings">ಆಟಗಾರರ ರೇಟಿಂಗ್‌ಗಳನ್ನು ತೋರಿಸಿ</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">ಇದು ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಎಲ್ಲಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಮರೆಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ಚದುರಂಗದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಆಟಗಳನ್ನು ಇನ್ನೂ ರೇಟ್ ಮಾಡಬಹುದು, ಇದು ನೀವು ನೋಡುವುದನ್ನು ಮಾತ್ರ.</string>
+  <string name="explainShowPlayerRatings">ಇದು ವೆಬ್‌ಸೈಟ್‌ನಿಂದ ಎಲ್ಲಾ ರೇಟಿಂಗ್‌ಗಳನ್ನು ಮರೆಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ, ಚದುರಂಗದ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಆಟಗಳನ್ನು ಇನ್ನೂ ರೇಟ್ ಮಾಡಬಹುದು, ಇದು ನೀವು ನೋಡುವುದನ್ನು ಮಾತ್ರ.</string>
   <string name="displayBoardResizeHandle">ಬೋರ್ಡ್ ಮರುಗಾತ್ರದ ಹ್ಯಾಂಡಲ್ ಅನ್ನು ತೋರಿಸಿ</string>
   <string name="onlyOnInitialPosition">ಆರಂಭಿಕ ಸ್ಥಾನದಲ್ಲಿ ಮಾತ್ರ</string>
   <string name="inGameOnly">ಆಟದಲ್ಲಿ ಮಾತ್ರ</string>
@@ -50,7 +50,7 @@
   <string name="inputMovesWithVoice">ನಿಮ್ಮ ಧ್ವನಿಯೊಂದಿಗೆ ಇನ್‌ಪುಟ್ ಚಲಿಸುತ್ತದೆ</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">ಮಾನ್ಯ ಚಲನೆಗಳಿಗೆ ಬಾಣಗಳನ್ನು ಸ್ನ್ಯಾಪ್ ಮಾಡಿ</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">ಸೋಲು ಅಥವಾ ಡ್ರಾ ಆದ ಮೇಲೆ \"ಒಳ್ಳೆಯ ಆಟ, ಚೆನ್ನಾಗಿ ಆಡಿದೆ\" ಎಂದು ಹೇಳಿ</string>
-  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">ನಿಮ್ಮ ಪ್ರಾಶಸ್ತ್ಯಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ.</string>
+  <string name="yourPreferencesHaveBeenSaved">ನಿಮ್ಮ ಪ್ರಾಶಸ್ತ್ಯಗಳನ್ನು ಉಳಿಸಲಾಗಿದೆ.</string>
   <string name="scrollOnTheBoardToReplayMoves">ಚಲನೆಗಳನ್ನು ಮರುಪಂದ್ಯ ಮಾಡಲು ಬೋರ್ಡ್ ಮೇಲೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ</string>
   <string name="correspondenceEmailNotification">ನಿಮ್ಮ ಪತ್ರವ್ಯವಹಾರದ ಆಟಗಳನ್ನು ಪಟ್ಟಿ ಮಾಡುವ ದೈನಂದಿನ ಇಮೇಲ್</string>
   <string name="notifyStreamStart">ಸ್ಟ್ರೀಮರ್ ಲೈವ್ ಆಗುತ್ತದೆ</string>

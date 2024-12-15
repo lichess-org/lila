@@ -6,9 +6,21 @@
     <item quantity="one">Sinusuportahan ang lichess.org para sa %1$s buwan bilang isang %2$s</item>
     <item quantity="other">Sinusuportahan ang lichess.org para sa %1$s buwan bilang isang %2$s</item>
   </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Nagsanay ng %1$s posisyon sa %2$s</item>
+    <item quantity="other">Nagsanay ng %1$s posisyon sa %2$s</item>
+  </plurals>
   <plurals name="solvedNbPuzzles">
     <item quantity="one">Nalutas %s taktikal na palaisipan</item>
     <item quantity="other">Nalutas %s taktikal na mga palaisipan</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Naglaro ng %1$s larong %2$s</item>
+    <item quantity="other">Naglaro ng %1$s larong %2$s</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Nag-post ng %1$s mensahe sa %2$s</item>
+    <item quantity="other">Nag-post ng %1$s mensahe sa %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
     <item quantity="one">Pinatugtog ang paglipat ng %1$s</item>
@@ -33,5 +45,10 @@
   <plurals name="joinedNbSimuls">
     <item quantity="one">Sumali sa %s sabay-sabay na eksibisyon</item>
     <item quantity="other">Sumali sa %s sabay-sabay na eksibisyon</item>
+  </plurals>
+  <string name="signedUp">Sumali sa lichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Sumali ng %s grupo</item>
+    <item quantity="other">Sumali ng %s mga grupo</item>
   </plurals>
 </resources>

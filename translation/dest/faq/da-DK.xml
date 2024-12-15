@@ -97,12 +97,12 @@ Tjek %3$s for dette træk og for at øve det.</string>
   <string name="usernamesNotOffensive">Generelt bør brugernavne ikke: støde, udgive sig for en anden eller reklamere. Du kan læse mere om %1$s.</string>
   <string name="guidelines">retningslinjer</string>
   <string name="canIChangeMyUsername">Kan jeg ændre mit brugernavn?</string>
-  <string name="usernamesCannotBeChanged">Nej, brugernavne kan ikke ændres af tekniske og praktiske årsager. Brugernavne optræder for mange steder: i databaser, udtræk, logger og folks bevidsthed. Du kan kun ændre bogstavstørrelsen én gang.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Nej, brugernavne kan ikke ændres af tekniske og praktiske årsager. Brugernavne optræder for mange steder: i databaser, udtræk, logger og folks bevidsthed. Du kan kun ændre bogstavstørrelsen én gang.</string>
   <string name="uniqueTrophies">Unikke trofæer</string>
   <string name="ownerUniqueTrophies">Det trofæ er unikt i Lichess\' historie. Ingen andre end %1$s vil nogensinde få det.</string>
   <string name="wayOfBerserkExplanation">For at få det, udfordrede hiimgosu sig selv til at bersærke og vinde alle partier af %s.</string>
   <string name="aHourlyBulletTournament">en time-Bullet turnering</string>
-  <string name="goldenZeeExplanation">ZugAddict streamede og havde de sidste to timer forgæves forsøgt at slå A.I. niveau 8 i et 1+0 spil. Thibault fortalte ham, at hvis det lykkedes ham at gøre det på stream, ville han få et unikt trofæ. En time senere knuste han Stockfish og løftet blev indfriet.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict streamede og havde de sidste to timer forgæves forsøgt at slå A.I. niveau 8 i et 1+0 spil. Thibault fortalte ham, at hvis det lykkedes ham at gøre det på stream, ville han få et unikt trofæ. En time senere knuste han Stockfish og løftet blev indfriet.</string>
   <string name="lichessRatings">Lichess-ratings</string>
   <string name="whichRatingSystemUsedByLichess">Hvilket ratingsystem bruger Lichess?</string>
   <string name="ratingSystemUsedByLichess">Ratings udregnes efter Glicko-2 metoden udviklet af Mark Glickman. Dette er en meget populær ratingmetode og bruges af et betydeligt antal skakorganisationer (FIDE er en bemærkelsesværdig undtagelse, eftersom de stadig bruger det forældede Elo ratingsystem).

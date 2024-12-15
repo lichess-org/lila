@@ -1,14 +1,13 @@
-import { h, VNode, VNodeChildren } from 'snabbdom';
-import { Dests, Pieces, Rank, File, files } from 'chessground/types';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
+import { type Pieces, files } from 'chessground/types';
 import { invRanks, allKeys } from 'chessground/util';
-import { Api } from 'chessground/api';
-import { Setting, makeSetting } from './setting';
+import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests } from 'chessops/compat';
-import { SquareName, RULES, Rules } from 'chessops/types';
+import { type SquareName, RULES, type Rules } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
-import { parseUci } from 'chessops/util';
-import { SanToUci, sanWriter } from 'chess';
+import { charToRole, parseUci, roleToChar } from 'chessops/util';
+import { plyToTurn, type SanToUci, sanWriter } from 'chess';
 import { storage } from 'common/storage';
 
 export type Style = 'uci' | 'san' | 'literate' | 'nato' | 'anna';
@@ -40,72 +39,6 @@ const anna: { [letter: string]: string } = {
   f: 'felix',
   g: 'gustav',
   h: 'hector',
-};
-const roles: { [letter: string]: string } = {
-  P: 'pawn',
-  R: 'rook',
-  N: 'knight',
-  B: 'bishop',
-  Q: 'queen',
-  K: 'king',
-};
-const letters = { pawn: 'p', rook: 'r', knight: 'n', bishop: 'b', queen: 'q', king: 'k' };
-
-const letterPiece: { [letter: string]: string } = {
-  p: 'p',
-  r: 'r',
-  n: 'n',
-  b: 'b',
-  q: 'q',
-  k: 'k',
-  P: 'p',
-  R: 'r',
-  N: 'n',
-  B: 'b',
-  Q: 'q',
-  K: 'k',
-};
-const whiteUpperLetterPiece: { [letter: string]: string } = {
-  p: 'p',
-  r: 'r',
-  n: 'n',
-  b: 'b',
-  q: 'q',
-  k: 'k',
-  P: 'P',
-  R: 'R',
-  N: 'N',
-  B: 'B',
-  Q: 'Q',
-  K: 'K',
-};
-export const namePiece: { [letter: string]: string } = {
-  p: 'pawn',
-  r: 'rook',
-  n: 'knight',
-  b: 'bishop',
-  q: 'queen',
-  k: 'king',
-  P: 'pawn',
-  R: 'rook',
-  N: 'knight',
-  B: 'bishop',
-  Q: 'queen',
-  K: 'king',
-};
-const whiteUpperNamePiece: { [letter: string]: string } = {
-  p: 'pawn',
-  r: 'rook',
-  n: 'knight',
-  b: 'bishop',
-  q: 'queen',
-  k: 'king',
-  P: 'Pawn',
-  R: 'Rook',
-  N: 'Knight',
-  B: 'Bishop',
-  Q: 'Queen',
-  K: 'King',
 };
 const skipToFile: { [letter: string]: string } = {
   '!': 'a',
@@ -192,13 +125,13 @@ export function positionSetting(): Setting<PositionStyle> {
 const renderPieceStyle = (piece: string, pieceStyle: PieceStyle) => {
   switch (pieceStyle) {
     case 'letter':
-      return letterPiece[piece];
+      return piece.toLowerCase();
     case 'white uppercase letter':
-      return whiteUpperLetterPiece[piece];
+      return piece;
     case 'name':
-      return namePiece[piece];
+      return charToRole(piece);
     case 'white uppercase name':
-      return whiteUpperNamePiece[piece];
+      return `${piece}${charToRole(piece)?.slice(1)}`;
   }
 };
 const renderPrefixStyle = (color: Color, prefixStyle: PrefixStyle) => {
@@ -249,14 +182,14 @@ export function renderSan(san: San, uci: Uci | undefined, style: Style): string 
       .replace(/[\+#]/, '')
       .split('')
       .map(c => {
-        if (c == 'x') return 'takes';
-        if (c == '+') return 'check';
-        if (c == '#') return 'checkmate';
-        if (c == '=') return 'promotion';
+        if (c === 'x') return 'takes';
+        if (c === '+') return 'check';
+        if (c === '#') return 'checkmate';
+        if (c === '=') return 'promotion';
         const code = c.charCodeAt(0);
         if (code > 48 && code < 58) return c; // 1-8
         if (code > 96 && code < 105) return renderFile(c, style); // a-g
-        return roles[c] || c;
+        return charToRole(c) || c;
       })
       .join(' ');
   }
@@ -294,7 +227,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
 }
 
 export function renderPieceKeys(pieces: Pieces, p: string, style: Style): string {
-  const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${roles[p.toUpperCase()]}`;
+  const name = `${p === p.toUpperCase() ? 'white' : 'black'} ${charToRole(p)}`;
   const res: Key[] = [];
   for (const [k, piece] of pieces) {
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k as Key);
@@ -321,7 +254,7 @@ export function renderBoard(
   positionStyle: PositionStyle,
   boardStyle: BoardStyle,
 ): VNode {
-  const doRankHeader = (rank: Rank): VNode => {
+  const doRankHeader = (rank: Ranks): VNode => {
     return h('th', { attrs: { scope: 'row' } }, rank);
   };
   const doFileHeaders = (): VNode => {
@@ -329,7 +262,7 @@ export function renderBoard(
     if (pov === 'black') ths.reverse();
     return h('tr', [h('td'), ...ths, h('td')]);
   };
-  const renderPositionStyle = (rank: Rank, file: File, orig: string) => {
+  const renderPositionStyle = (rank: Ranks, file: Files, orig: string) => {
     switch (positionStyle) {
       case 'before':
         return file.toUpperCase() + rank + ' ' + orig;
@@ -340,8 +273,8 @@ export function renderBoard(
     }
   };
   const doPieceButton = (
-    rank: Rank,
-    file: File,
+    rank: Ranks,
+    file: Files,
     letter: string,
     color: Color | 'none',
     text: string,
@@ -354,12 +287,12 @@ export function renderBoard(
       text,
     );
   };
-  const doPiece = (rank: Rank, file: File): VNode => {
+  const doPiece = (rank: Ranks, file: Files): VNode => {
     const key = (file + rank) as Key;
     const piece = pieces.get(key);
     const pieceWrapper = boardStyle === 'table' ? 'td' : 'span';
     if (piece) {
-      const role = letters[piece.role];
+      const role = roleToChar(piece.role);
       const pieceText = renderPieceStyle(piece.color === 'white' ? role.toUpperCase() : role, pieceStyle);
       const prefix = renderPrefixStyle(piece.color, prefixStyle);
       const text = renderPositionStyle(rank, file, prefix + pieceText);
@@ -370,7 +303,7 @@ export function renderBoard(
       return h(pieceWrapper, doPieceButton(rank, file, letter, 'none', text));
     }
   };
-  const doRank = (pov: Color, rank: Rank): VNode => {
+  const doRank = (pov: Color, rank: Ranks): VNode => {
     const rankElements = [];
     if (boardStyle === 'table') rankElements.push(doRankHeader(rank));
     rankElements.push(...files.map(file => doPiece(rank, file)));
@@ -682,7 +615,7 @@ function sanToUci(san: string, legalSans: SanToUci): Uci | undefined {
   return;
 }
 
-export function inputToLegalUci(input: string, fen: string, chessground: Api): string | undefined {
+export function inputToLegalUci(input: string, fen: string, chessground: CgApi): string | undefined {
   const legalUcis = destsToUcis(chessground.state.movable.dests!),
     legalSans = sanWriter(fen, legalUcis);
   let uci = sanToUci(input, legalSans) || input,
@@ -694,7 +627,7 @@ export function inputToLegalUci(input: string, fen: string, chessground: Api): s
   } else if (input.match(uciPromotionRegex)) {
     uci = input.slice(0, -1);
     promotion = input.slice(-1).toLowerCase();
-  } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role == 'pawn')
+  } else if ('18'.includes(uci[3]) && chessground.state.pieces.get(uci.slice(0, 2) as Key)?.role === 'pawn')
     promotion = 'q';
 
   if (legalUcis.includes(uci.toLowerCase())) return uci + promotion;
@@ -722,8 +655,6 @@ export function renderMainline(
   });
   return res;
 }
-
-const plyToTurn = (ply: Ply): number => Math.floor((ply - 1) / 2) + 1;
 
 export function renderComments(node: Tree.Node, style: Style): string {
   if (!node.comments) return '';

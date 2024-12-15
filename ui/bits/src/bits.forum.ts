@@ -11,6 +11,7 @@ site.load.then(() => {
       domDialog({
         cash: $('.forum-delete-modal'),
         attrs: { view: { action: link.href } },
+        modal: true,
       }).then(dlg => {
         $(dlg.view)
           .find('form')
@@ -22,7 +23,7 @@ site.load.then(() => {
             dlg.close();
           });
         $(dlg.view).find('form button.cancel').on('click', dlg.close);
-        dlg.showModal();
+        dlg.show();
       });
       return false;
     })
@@ -31,10 +32,11 @@ site.load.then(() => {
       domDialog({
         cash: $('.forum-relocate-modal'),
         attrs: { view: { action: link.href } },
+        modal: true,
       }).then(dlg => {
         $(dlg.view).find('form').attr('action', link.href);
         $(dlg.view).find('form button.cancel').on('click', dlg.close);
-        dlg.showModal();
+        dlg.show();
       });
       return false;
     })
@@ -138,7 +140,7 @@ site.load.then(() => {
           threadParticipants.then(function (participants) {
             const forumParticipantCandidates = searchCandidates(term, participants);
 
-            if (forumParticipantCandidates.length != 0) {
+            if (forumParticipantCandidates.length !== 0) {
               // We always prefer a match on the forum thread participants' usernames
               callback(forumParticipantCandidates);
             } else if (term.length >= 3) {

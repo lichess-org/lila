@@ -116,7 +116,6 @@
   <string name="replayMode">Modo de repetición</string>
   <string name="realtimeReplay">Tempo real</string>
   <string name="byCPL">Por PCP</string>
-  <string name="openStudy">Abrir estudo</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Frecha coa mellor xogada</string>
   <string name="showVariationArrows">Amosar as frechas das variantes</string>
@@ -679,7 +678,7 @@
   <string name="aboutSimulRules">Cando comezan as simultáneas, cada xogador inicia unha partida co anfitrión. As simultáneas finalizan cando se completan todas as partidas.</string>
   <string name="aboutSimulSettings">As simultáneas son sempre amigables. As opcións de desquite, de desfacer a xogada e de engadir tempo non están activadas.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Cando creas unha exhibición de simultáneas, tes que enfrontarte a varios xogadores ó mesmo tempo.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cando creas unha exhibición de simultáneas, tes que enfrontarte a varios xogadores ó mesmo tempo.</string>
   <string name="simulVariantsHint">Se seleccionas distintas variantes, cada xogador pode escoller cal xogar.</string>
   <string name="simulClockHint">Modo Fischer de reloxo. Cantos máis xogadores, máis tempo necesitas.</string>
   <string name="simulAddExtraTime">Podes engadir tempo extra ó teu reloxo para axudarte coas simultáneas.</string>

@@ -1,4 +1,4 @@
-import { Config, TimeMod } from './interfaces';
+import type { Config, TimeMod } from './interfaces';
 import { getNow } from './util';
 
 export class Combo {
@@ -35,7 +35,7 @@ export class Combo {
   };
 
   bonus = (): TimeMod | undefined => {
-    if (this.percent() == 0) {
+    if (this.percent() === 0) {
       const level = this.level();
       if (level > 0)
         return {

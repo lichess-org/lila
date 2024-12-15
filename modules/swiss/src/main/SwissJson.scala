@@ -49,7 +49,7 @@ final class SwissJson(
       page = reqPage.orElse(myInfo.map(_.page)).getOrElse(1)
       standing <- standingApi(swiss, page)
       podium   <- podiumJson(swiss)
-      boards   <- boardApi(swiss.id)
+      boards   <- boardApi.get(swiss.id)
       stats    <- statsApi(swiss)
     yield swissJsonBase(swiss) ++ Json
       .obj(

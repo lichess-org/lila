@@ -26,7 +26,7 @@
   <string name="tournamentDescription">Kratek opis turnirja</string>
   <string name="fullDescription">Polni opis dogodka</string>
   <string name="fullDescriptionHelp">Neobvezen dolg opis prenosa. %1$s je na voljo. Dolžina mora biti manjša od %2$s znakov.</string>
-  <string name="sourceSingleUrl">Vir partije v PGN formatu</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Vir partije v PGN formatu</string>
   <string name="sourceUrlHelp">URL, ki ga bo Lichess preveril, da bo prejel PGN posodobitve. Javno mora biti dostopen preko interneta.</string>
   <string name="startDateTimeZone">Začetni datum v lokalnem časovnem pasu turnirja: %s</string>
   <string name="startDateHelp">Izbirno, če veste, kdaj se dogodek začne</string>
@@ -42,7 +42,6 @@
   <string name="showScores">Prikaži rezultate igralcev na podlagi rezultatov igre</string>
   <string name="replacePlayerTags">Izbirno: zamenjajte imena igralcev, ratinge in nazive</string>
   <string name="officialStandings">Uradna lestvica</string>
-  <string name="perPage">%s na stran</string>
   <string name="allTeams">Vse ekipe</string>
   <string name="tournamentFormat">Oblika turnirja</string>
   <string name="tournamentLocation">Lokacija turnirja</string>
@@ -50,7 +49,6 @@
   <string name="timezone">Časovni pas</string>
   <string name="fideRatingCategory">FIDE rating kategorija</string>
   <string name="optionalDetails">Neobvezne podrobnosti</string>
-  <string name="upcomingBroadcasts">Prihajajoče oddaje</string>
   <string name="pastBroadcasts">Pretekle oddaje</string>
   <string name="allBroadcastsByMonth">Oglejte si vse oddaje po mesecih</string>
 </resources>

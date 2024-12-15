@@ -1,6 +1,8 @@
 package lila.insight
 
 import chess.{ Color, Role }
+import chess.IntRating
+import chess.rating.IntRatingDiff
 import reactivemongo.api.bson.*
 
 import lila.analyse.{ AccuracyPercent, WinPercent }
@@ -9,6 +11,8 @@ import lila.db.BSON
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
+import lila.core.game.Source
+import lila.game.BSONHandlers.sourceHandler
 
 object BSONHandlers:
 
@@ -102,6 +106,7 @@ object BSONHandlers:
         ratingDiff = r.get[IntRatingDiff](ratingDiff),
         analysed = r.boolD(analysed),
         provisional = r.boolD(provisional),
+        source = r.getO[Source](source),
         date = r.date(date)
       )
     def writes(w: BSON.Writer, e: InsightEntry) =
@@ -124,5 +129,6 @@ object BSONHandlers:
         ratingDiff       -> e.ratingDiff,
         analysed         -> w.boolO(e.analysed),
         provisional      -> w.boolO(e.provisional),
+        source           -> e.source,
         date             -> e.date
       )

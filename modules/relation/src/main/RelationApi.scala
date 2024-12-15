@@ -78,6 +78,18 @@ final class RelationApi(
 
   def countFollowing(userId: UserId) = countFollowingCache.get(userId)
 
+  private val unfollowInactiveAccountsOnceEvery = scalalib.cache.OnceEvery[UserId](1.hour)
+
+  def unfollowInactiveAccounts(userId: UserId, since: Instant = nowInstant.minusYears(2)): Fu[List[UserId]] =
+    unfollowInactiveAccountsOnceEvery(userId).so:
+      for
+        following <- fetchFollowing(userId)
+        inactive  <- userApi.filterClosedOrInactiveIds(since)(following)
+        _ <- inactive.nonEmpty.so:
+          countFollowingCache.update(userId, _ - inactive.size)
+          repo.unfollowMany(userId, inactive)
+      yield inactive
+
   def reachedMaxFollowing(userId: UserId): Fu[Boolean] =
     countFollowingCache.get(userId).map(config.maxFollow <= _)
 
@@ -128,23 +140,12 @@ final class RelationApi(
       }
     })
 
-  private val limitFollowRateLimiter = lila.memo.RateLimit[UserId](
-    credits = 1,
-    duration = 1 hour,
-    key = "follow.limit.cleanup"
-  )
-
   private def limitFollow(u: UserId) =
     countFollowing(u).flatMap: nb =>
-      (config.maxFollow < nb).so {
-        limitFollowRateLimiter(u, fuccess(Nil)):
-          fetchFollowing(u).flatMap(userApi.filterClosedOrInactiveIds(nowInstant.minusDays(90)))
-        .flatMap:
-          case Nil => repo.drop(u, Follow, nb - config.maxFollow.value)
-          case inactiveIds =>
-            for _ <- repo.unfollowMany(u, inactiveIds)
-            yield countFollowingCache.update(u, _ - inactiveIds.size)
-      }
+      (config.maxFollow < nb).so:
+        unfollowInactiveAccounts(u, nowInstant.minusDays(90)).flatMap:
+          _.isEmpty.so:
+            repo.drop(u, Follow, nb - config.maxFollow.value)
 
   private def limitBlock(u: UserId) =
     countBlocking(u).flatMap: nb =>

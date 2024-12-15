@@ -1,8 +1,16 @@
-import { TournamentSocket, makeSocket } from './socket';
+import { type TournamentSocket, makeSocket } from './socket';
 import * as xhr from './xhr';
 import { maxPerPage, myPage, players } from './pagination';
 import * as sound from './sound';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing, Player } from './interfaces';
+import type {
+  TournamentData,
+  TournamentOpts,
+  Pages,
+  PlayerInfo,
+  TeamInfo,
+  Standing,
+  Player,
+} from './interfaces';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { alerts, prompt } from 'common/dialog';
@@ -109,7 +117,7 @@ export default class TournamentController {
       this.page = data.page;
       this.searching = false;
       this.focusOnMe = false;
-      this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
+      this.pages[this.page].filter(p => p.name.toLowerCase() === userId).forEach(this.showPlayerInfo);
       this.redraw();
     });
   };

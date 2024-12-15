@@ -18,7 +18,7 @@
 त्यति धेरै अंक प्राप्त गर्नुहुनेछ ।</string>
   <string name="useTwoRooks">दुइवटा हात्ती प्रयोग गरेर
 खेलको गति बनाउनुहोस् ।</string>
-  <string name="rookComplete">बधाई छ! तपाइले हाती चाल्न सिक्नु भयो । </string>
+  <string name="rookComplete">बधाई छ! तपाइले हाती चाल्न सिक्नु भयो ।</string>
   <string name="theBishop">उँट (कर्नेल)</string>
   <string name="itMovesDiagonally">उँट छड्के चल्छ</string>
   <string name="bishopIntro">अब हामि उँट चलाउन सिक्ने छौ!</string>
@@ -27,15 +27,15 @@
 तपाइलाई दुवै चाहिन्छ!</string>
   <string name="bishopComplete">बधाई छ! तपाइले उठ चलाउन सिक्नु भयो।</string>
   <string name="theQueen">मन्त्री</string>
-  <string name="queenCombinesRookAndBishop">मन्त्री (रानी)= हात्ती + उँट </string>
+  <string name="queenCombinesRookAndBishop">मन्त्री (रानी)= हात्ती + उँट</string>
   <string name="queenIntro">सबैभन्दा शक्तिशाली चेस गोटी, मन्त्री!</string>
   <string name="queenComplete">बधाई छ ! महारानी ले तपाईँ सङ्ग सबै  कुरा भनिसकिन्, अब कुनै गोपनियता बाँकी छैन ।</string>
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">यता गणतन्त्र आको छैन, राजा सबै भन्दा शक्तिमान्  छ ।</string>
-  <string name="kingIntro">युद्धमा राजा लडे भने खेल खत्तम, हारिन्छ । </string>
-  <string name="theKingIsSlow">राजा अल्छी छन्, खासै हिड्दैन। </string>
+  <string name="kingIntro">युद्धमा राजा लडे भने खेल खत्तम, हारिन्छ ।</string>
+  <string name="theKingIsSlow">राजा अल्छी छन्, खासै हिड्दैन।</string>
   <string name="lastOne">अन्तिममा एउटा!</string>
-  <string name="kingComplete">कमाण्डर साप , अब तपाईँ कमाण्ड गर्नु सक्नुहुन्छ । </string>
+  <string name="kingComplete">कमाण्डर साप , अब तपाईँ कमाण्ड गर्नु सक्नुहुन्छ ।</string>
   <string name="theKnight">घोडा</string>
   <string name="itMovesInAnLShape">घोडा L आकार मा चल्छ</string>
   <string name="knightIntro">तपाईँलाई एउटा चुनौती है त । घोडा नि, लास्टै पेचिलो गट्टी हो ।</string>
@@ -46,20 +46,20 @@
   <string name="knightComplete">ल बधाई छ !! तपाइले घोडा चढ्न सिक्नु भयो ।</string>
   <string name="thePawn">पिउसो</string>
   <string name="itMovesForwardOnly">यो सधैँ अगाडी बढ्छ ।</string>
-  <string name="pawnIntro">पिउसोहरू कमजोर हुन्छन् तर क्षमताले भरपुर हुन्छन् । </string>
+  <string name="pawnIntro">पिउसोहरू कमजोर हुन्छन् तर क्षमताले भरपुर हुन्छन् ।</string>
   <string name="pawnsMoveOneSquareOnly">पिउसो एक पटकमा एक पाईला अघी सर्छ । 
 तर बोर्डको पल्लो छेउमा पुगे पछी, बलियो भएर फर्कीन्छ !</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">पिउसोलाई बढुवा गर्दा जे बनाउन नि मिल्छ । 
 प्राय मन्त्री बनाउन नै ठिक हुन्छ तर बेला बेला 
 घोडा बनाउँदा काम लाग्छ।</string>
   <string name="pawnsMoveForward">पिउसो सिधा अघाडी हीँड्छ तर 
-गट्टी खाने बेलामा छड्के खान्छ । </string>
+गट्टी खाने बेलामा छड्के खान्छ ।</string>
   <string name="captureThenPromote">खानुस्, र अर्को गोटीमा परिवर्तन हुनुस्</string>
   <string name="useAllThePawns">सबै पिउसा प्रयोग गर्नुहोस् ।
 बढुवा गरिरहनु पर्दैन ।</string>
   <string name="aPawnOnTheSecondRank">सुरूमा हिडंदा (दोस्रो स्थानका) पिउसा एकै पटक दुई पाईला सर्न सक्छन।</string>
   <string name="grabAllTheStarsNoNeedToPromote">सबै तारा कब्जा गर्नु होस् ! अन्तिम रयांक मा पुग्न जरुरि छैन|</string>
-  <string name="pawnComplete">बधाई छ, पिउसाहरूले तपाई संग केही लुकाएका छैनन् । </string>
+  <string name="pawnComplete">बधाई छ, पिउसाहरूले तपाई संग केही लुकाएका छैनन् ।</string>
   <string name="pawnPromotion">पिउसो बढुवा</string>
   <string name="yourPawnReachedTheEndOfTheBoard">तपाइको पिउसो बोर्डको अन्तिममा पुगेको छ!</string>
   <string name="itNowPromotesToAStrongerPiece">यो अब बलियो गोटीमा बढुवा हुन्छ|</string>
@@ -81,7 +81,7 @@
   <string name="noEscape">भागेर जाने ठाँउ छैन,
 तर तपाईँ जोगिन सक्नुहुन्छ ।</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">आफ्नो कुनै असुरक्षित गट्टी
-उनिहरूलाई खान नदिनुहोस् । </string>
+उनिहरूलाई खान नदिनुहोस् ।</string>
   <string name="combat">लडाईँ</string>
   <string name="captureAndDefendPieces">गट्टी खानुहोस् र जोगाउनु होस् पनि</string>
   <string name="combatIntro">एउटा असल योद्धालाई आक्रमण गर्न पनि आउँछ र जोगिन पनि!</string>

@@ -2,13 +2,13 @@ package lila.clas
 package ui
 
 import play.api.data.Form
+import scalalib.model.Days
 
 import lila.core.config.NetDomain
 import lila.core.perf.UserPerfs
 import lila.rating.UserPerfsExt.{ bestAny3Perfs, bestRating }
 import lila.ui.*
-
-import ScalatagsTemplate.{ *, given }
+import lila.ui.ScalatagsTemplate.{ *, given }
 
 final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
   import helpers.{ *, given }
@@ -36,7 +36,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             a(cls := active.active("wall"), href := routes.Clas.wall(c.id))(trans.clas.news()),
             a(
               cls  := active.active("progress"),
-              href := routes.Clas.progress(c.id, PerfKey.blitz, 7)
+              href := routes.Clas.progress(c.id, PerfKey.blitz, Days(7))
             )(trans.clas.progress()),
             a(cls := active.active("edit"), href := routes.Clas.edit(c.id))(trans.site.edit()),
             a(cls := active.active("students"), href := routes.Clas.students(c.id))(
@@ -49,7 +49,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           div(cls := "clas-show__archived archived")(
             ui.showArchived(archived),
             postForm(action := routes.Clas.archive(c.id, v = false)):
-              form3.submit(trans.clas.reopen(), icon = none)(cls := "confirm button-empty")
+              form3.submit(trans.clas.reopen(), icon = none)(cls := "yes-no-confirm button-empty")
           )
       )
 
@@ -181,7 +181,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                     tr(
                       studentTd(c, s),
                       td(dataSort := perf.intRating, cls := "rating")(perf.glicko.display),
-                      td(dataSort := prog.ratingProgress)(
+                      td(dataSort := prog.ratingProgress.value)(
                         ratingProgress(prog.ratingProgress) | trans.clas.na.txt()
                       ),
                       td(prog.nb),
@@ -251,6 +251,8 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           )
         )
 
+    private val daysList = Days.from(List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90))
+
     private def progressHeader(c: Clas, progress: Option[ClasProgress])(using Context) =
       div(cls := "progress")(
         div(cls := "progress-perf")(
@@ -266,7 +268,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             ).map { pk =>
               a(
                 cls  := progress.map(_.perfType.key.value.active(pk.value)),
-                href := routes.Clas.progress(c.id, pk, progress.fold(7)(_.days))
+                href := routes.Clas.progress(c.id, pk, progress.fold(Days(7))(_.days))
               )(pk.perfTrans)
             },
             a(cls := progress.isEmpty.option("active"), href := routes.Clas.learn(c.id))(
@@ -278,12 +280,11 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           div(cls := "progress-days")(
             label(trans.clas.overDays()),
             div(cls := "progress-choices")(
-              List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90).map { days =>
+              daysList.map: days =>
                 a(
                   cls  := p.days.toString.active(days.toString),
                   href := routes.Clas.progress(c.id, p.perfType.key, days)
                 )(days)
-              }
             )
           )
       )

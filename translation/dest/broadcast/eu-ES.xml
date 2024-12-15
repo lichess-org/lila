@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Txapelketaren deskribapen laburra</string>
   <string name="fullDescription">Ekitaldiaren deskribapen osoa</string>
   <string name="fullDescriptionHelp">Emanaldiaren azalpen luzea, hautazkoa da. %1$s badago. Luzera %2$s karaktere edo laburragoa izan behar da.</string>
-  <string name="sourceSingleUrl">PGNaren jatorrizko URLa</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGNaren jatorrizko URLa</string>
   <string name="sourceUrlHelp">Lichessek PGNaren eguneraketak jasoko dituen URLa. Interneteko helbide bat izan behar da.</string>
   <string name="sourceGameIds">Gehienez ere Lichesseko 64 partidren idak, espazioekin banatuta.</string>
   <string name="startDateTimeZone">Txapelketaren hasiera ordua ordu-zona lokalean: %s</string>
@@ -47,6 +47,37 @@
   <string name="fideProfile">FIDE profila</string>
   <string name="federation">Federazioa</string>
   <string name="ageThisYear">Adina</string>
-  <string name="unrated">Ez du sailkapenik</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Ez du sailkapenik</string>
   <string name="recentTournaments">Azken txapelketak</string>
+  <string name="openLichess">Ireki Lichessen</string>
+  <string name="teams">Taldeak</string>
+  <string name="boards">Taulak</string>
+  <string name="overview">Laburpena</string>
+  <string name="subscribeTitle">Harpidetu txanda bakoitza hastean jakinarazpena jasotzeko. Kanpaia edo push erako notifikazioak zure kontuaren hobespenetan aktibatu ditzakezu.</string>
+  <string name="uploadImage">Kargatu txapelketaren irudia</string>
+  <string name="noBoardsYet">Taularik ez oraindik. Partidak igotzean agertuko dira.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Taulak iturburu batekin edo %sren bidez kargatu daitezke</string>
+  <string name="startsAfter">%sren ondoren hasiko da</string>
+  <string name="startVerySoon">Zuzenekoa berehala hasiko da.</string>
+  <string name="notYetStarted">Zuzenekoa ez da oraindik hasi.</string>
+  <string name="officialWebsite">Webgune ofiziala</string>
+  <string name="standings">Sailkapena</string>
+  <string name="officialStandings">Sailkapen ofiziala</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Aukera gehiago %sean</string>
+  <string name="webmastersPage">webmasterraren webgune</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Txanda honen zuzeneko PGN iturburua. %s ere eskaintzen dugu sinkronizazio zehatzagoa nahi baduzu.</string>
+  <string name="embedThisBroadcast">Txertatu zuzeneko hau zure webgunean</string>
+  <string name="embedThisRound">Txertatu %s zure webgunean</string>
+  <string name="ratingDiff">Elo diferentzia</string>
+  <string name="gamesThisTournament">Txapelketa honetako partidak</string>
+  <string name="score">Emaitza</string>
+  <string name="allTeams">Talde guztiak</string>
+  <string name="tournamentFormat">Txapelketaren formatua</string>
+  <string name="tournamentLocation">Txapelketaren kokalekua</string>
+  <string name="topPlayers">Jokalari onenak</string>
+  <string name="timezone">Ordu-zona</string>
+  <string name="fideRatingCategory">FIDE rating kategoria</string>
+  <string name="optionalDetails">Hautazko xehetasunak</string>
+  <string name="pastBroadcasts">Pasatutako zuzenekoak</string>
+  <string name="allBroadcastsByMonth">Ikusi zuzeneko guztiak hilabeteka</string>
 </resources>

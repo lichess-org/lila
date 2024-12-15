@@ -1,5 +1,5 @@
-import { h, VNode } from 'snabbdom';
-import { NoteCtrl, NoteOpts } from './interfaces';
+import { h, type VNode } from 'snabbdom';
+import type { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
 import { debounce } from 'common/timing';
 
@@ -26,7 +26,7 @@ export function noteCtrl(opts: NoteOpts): NoteCtrl {
 
 export function noteView(ctrl: NoteCtrl, autofocus: boolean): VNode {
   const text = ctrl.text();
-  if (text == undefined) return h('div.loading', { hook: { insert: ctrl.fetch } });
+  if (text === undefined) return h('div.loading', { hook: { insert: ctrl.fetch } });
   return h('textarea.mchat__note', {
     attrs: { placeholder: i18n.site.typePrivateNotesHere },
     hook: {

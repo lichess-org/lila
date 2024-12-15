@@ -388,6 +388,9 @@ final class User(
             .map: prefs =>
               ui.prefs(user, prefs.hasKeyboardMove, prefs.botCompatible)
 
+        val appeal = isGranted(_.Appeals).so:
+          env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
+
         val rageSit = isGranted(_.CheatHunter).so(
           env.playban.api
             .rageSitOf(user.id)
@@ -440,6 +443,7 @@ final class User(
             .merge(modZoneSegment(student, "student", user))
             .merge(modZoneSegment(teacher, "teacher", user))
             .merge(modZoneSegment(prefs, "prefs", user))
+            .merge(modZoneSegment(appeal, "appeal", user))
             .merge(modZoneSegment(rageSit, "rageSit", user))
             .merge(modZoneSegment(othersAndLogins.map(_._1), "others", user))
             .merge(modZoneSegment(identification, "identification", user))

@@ -1,13 +1,13 @@
-import { MaybeVNodes, Redraw, VNode, onInsert, looseH as h } from 'common/snabbdom';
-import * as xhr from 'common/xhr';
-import { RoundId } from './interfaces';
-import { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
-import { MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
+import { type MaybeVNodes, type Redraw, type VNode, onInsert, looseH as h } from 'common/snabbdom';
+import { json as xhrJson } from 'common/xhr';
+import type { RoundId } from './interfaces';
+import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
+import { type MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
 import { userTitle } from 'common/userLink';
-import RelayPlayers from './relayPlayers';
+import type RelayPlayers from './relayPlayers';
 
 interface TeamWithPoints {
   name: string;
@@ -42,7 +42,7 @@ export default class RelayTeams {
       this.loading = true;
       this.redraw();
     }
-    this.teams = await xhr.json(`/broadcast/${this.roundId}/teams`);
+    this.teams = await xhrJson(`/broadcast/${this.roundId}/teams`);
     this.redraw();
   };
 }
@@ -90,7 +90,7 @@ const renderTeams = (
           const players = chap?.players;
           if (!players) return;
           const sortedPlayers =
-            game.pov == 'white' ? [players.white, players.black] : [players.black, players.white];
+            game.pov === 'white' ? [players.white, players.black] : [players.black, players.white];
           return (
             chap &&
             h('a.relay-tour__team-match__game', { attrs: gameLinkAttrs(roundPath, chap) }, [
@@ -114,10 +114,10 @@ const playerView = (players: RelayPlayers, p: StudyPlayer) =>
   ]);
 
 const statusView = (g: ChapterPreview, pov: Color, chapters: StudyChapters, cloudEval?: MultiCloudEval) => {
-  const status = pov == 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
+  const status = pov === 'white' ? g.status : (g.status?.split('').reverse().join('') as StatusStr);
   return h(
     'span.relay-tour__team-match__game__status',
-    status && status != '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
+    status && status !== '*' ? status : cloudEval ? evalGauge(g, pov, chapters, cloudEval) : '*',
   );
 };
 

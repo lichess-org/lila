@@ -1,4 +1,4 @@
-import {
+import type {
   MsgData,
   Contact,
   Convo,
@@ -128,7 +128,7 @@ export default class MsgCtrl {
     this.addMsg(msg, contact);
     if (contact) {
       let redrawn = false;
-      if (msg.user == this.data.convo?.user.id) {
+      if (msg.user === this.data.convo?.user.id) {
         this.data.convo.msgs.unshift(msg);
         if (document.hasFocus()) redrawn = this.setRead();
         this.receiveTyping(msg.user, true);
@@ -149,7 +149,7 @@ export default class MsgCtrl {
   };
 
   private findContact = (userId: string): Contact | undefined =>
-    this.data.contacts.find(c => c.user.id == userId);
+    this.data.contacts.find(c => c.user.id === userId);
 
   private currentContact = (): Contact | undefined =>
     this.data.convo && this.findContact(this.data.convo.user.id);
@@ -201,7 +201,7 @@ export default class MsgCtrl {
   };
 
   changeBlockBy = (userId: string) => {
-    if (userId == this.data.convo?.user.id) this.openConvo(userId);
+    if (userId === this.data.convo?.user.id) this.openConvo(userId);
   };
 
   sendTyping = throttle(3000, (user: string) => {
@@ -213,11 +213,11 @@ export default class MsgCtrl {
       clearTimeout(this.typing.timeout);
       this.typing = undefined;
     }
-    if (cancel !== true && this.data.convo?.user.id == userId) {
+    if (cancel !== true && this.data.convo?.user.id === userId) {
       this.typing = {
         user: userId,
         timeout: setTimeout(() => {
-          if (this.data.convo?.user.id == userId) this.typing = undefined;
+          if (this.data.convo?.user.id === userId) this.typing = undefined;
           this.redraw();
         }, 3000),
       };

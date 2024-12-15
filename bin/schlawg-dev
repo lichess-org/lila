@@ -1,8 +1,15 @@
 #!/bin/bash
-cd "$(dirname "${BASH_SOURCE:-$0}")/.."
 
-trap 'tmux kill-session -t muxlog1234 2>/dev/null' EXIT
+journalctl --user -fu lila -o cat | grep -E -v fishnet &
+JOURNALCTL_PID=$!
+
 # l=/ui-build
-tmux new-session -d -s muxlog1234 \
-  'journalctl --user -fu lila -o cat | grep -E -v fishnet & ui/build -cdw & wait; exec bash' \; \
-  attach-session -d -t muxlog1234 \;
+"$(dirname "${BASH_SOURCE[0]:-$0}")/../ui/build" -${1:-'wd'} &
+UI_BUILD_PID=$!
+
+cleanup() {
+  kill $JOURNALCTL_PID $UI_BUILD_PID 2>/dev/null || true
+}
+trap cleanup EXIT SIGINT SIGTERM
+
+wait $JOURNALCTL_PID $UI_BUILD_PID

@@ -114,7 +114,6 @@
   <string name="replayMode">Atkārtojuma režīms</string>
   <string name="realtimeReplay">Reāllaikā</string>
   <string name="byCPL">Pēc CPL</string>
-  <string name="openStudy">Atvērt izpēti</string>
   <string name="enable">Iespējot</string>
   <string name="bestMoveArrow">Labākā gājiena bulta</string>
   <string name="evaluationGauge">Novērtējuma rādītājs</string>
@@ -691,7 +690,7 @@
   <string name="aboutSimulRules">Simultānseansam sākoties, katrs spēlētājs sāk spēli ar vadītāju, kurš spēlē ar baltajām figūrām. Seanss beidzas, kad visas spēles ir beigušās.</string>
   <string name="aboutSimulSettings">Simultānseansi nekad nav vērtēti. Revanšu, gājienu atsaukšanas un laika pievienošanas iespējas ir atspējotas.</string>
   <string name="create">Izveidot</string>
-  <string name="whenCreateSimul">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
   <string name="simulVariantsHint">Ja atlasīsiet vairākus variantus, katrs spēlētājs varēs izvēlēties kuru spēlēt.</string>
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>

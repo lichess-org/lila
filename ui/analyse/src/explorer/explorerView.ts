@@ -1,23 +1,22 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { numberFormat } from 'common/number';
 import perfIcons from 'common/perfIcons';
-import { bind, dataIcon, MaybeVNode, LooseVNodes, looseH as h } from 'common/snabbdom';
+import { bind, dataIcon, type MaybeVNode, type LooseVNodes, looseH as h } from 'common/snabbdom';
 import { view as renderConfig } from './explorerConfig';
 import { moveArrowAttributes, ucfirst } from './explorerUtil';
-import AnalyseCtrl from '../ctrl';
+import type AnalyseCtrl from '../ctrl';
 import {
   isOpening,
   isTablebase,
-  TablebaseCategory,
-  OpeningData,
-  OpeningMoveStats,
-  OpeningGame,
-  ExplorerDb,
+  type TablebaseCategory,
+  type OpeningData,
+  type OpeningMoveStats,
+  type OpeningGame,
+  type ExplorerDb,
 } from './interfaces';
 import ExplorerCtrl, { MAX_DEPTH } from './explorerCtrl';
 import { showTablebase } from './tablebaseView';
-import { FEN } from 'chessground/types';
 
 function resultBar(move: OpeningMoveStats): VNode {
   const sum = move.white + move.draws + move.black;
@@ -63,17 +62,21 @@ function showMoveTable(ctrl: AnalyseCtrl, data: OpeningData): VNode | null {
       movesWithCurrent.map(move => {
         const total = move.white + move.draws + move.black;
         return h(`tr${move.uci ? '' : '.sum'}`, { key: move.uci, attrs: { 'data-uci': move.uci } }, [
-          h('td', move.san[0] === 'P' ? move.san.slice(1) : move.san),
+          h(
+            'td',
+            { attrs: { title: move.opening ? `${move.opening.eco}: ${move.opening.name}` : '' } },
+            move.san,
+          ),
           h('td', ((total / sumTotal) * 100).toFixed(0) + '%'),
           h('td', numberFormat(total)),
-          h('td', { attrs: { title: moveTooltip(ctrl, move) } }, resultBar(move)),
+          h('td', { attrs: { title: moveStatsTooltip(ctrl, move) } }, resultBar(move)),
         ]);
       }),
     ),
   ]);
 }
 
-function moveTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
+function moveStatsTooltip(ctrl: AnalyseCtrl, move: OpeningMoveStats): string {
   if (!move.uci) return 'Total';
   if (move.game) {
     const g = move.game;
@@ -100,7 +103,7 @@ const showResult = (winner?: Color): VNode =>
 function showGameTable(ctrl: AnalyseCtrl, fen: FEN, title: string, games: OpeningGame[]): VNode | null {
   if (!ctrl.explorer.withGames || !games.length) return null;
   const openedId = ctrl.explorer.gameMenu(),
-    isMasters = ctrl.explorer.db() == 'masters';
+    isMasters = ctrl.explorer.db() === 'masters';
   return h('table.games', [
     h('thead', [h('tr', [h('th.title', { attrs: { colspan: isMasters ? 4 : 5 } }, title)])]),
     h(
@@ -159,7 +162,7 @@ function gameActions(ctrl: AnalyseCtrl, game: OpeningGame): VNode {
     ctrl.redraw();
   };
   return h('tr', { key: game.id + '-m' }, [
-    h('td.game_menu', { attrs: { colspan: ctrl.explorer.db() == 'masters' ? 4 : 5 } }, [
+    h('td.game_menu', { attrs: { colspan: ctrl.explorer.db() === 'masters' ? 4 : 5 } }, [
       h(
         'div.game_title',
         `${game.white.name} - ${game.black.name}, ${showResult(game.winner).text}, ${game.year}`,
@@ -260,7 +263,7 @@ function show(ctrl: AnalyseCtrl): MaybeVNode {
         data.fen,
         title,
         tooltip,
-        data.moves.filter(m => m.category == category),
+        data.moves.filter(m => m.category === category),
       );
     if (data.moves.length)
       lastShow = h('div.data', [
@@ -302,7 +305,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
           'click',
           () => {
             explorer.config.selectPlayer(playerName || 'me');
-            if (explorer.db() != 'player') {
+            if (explorer.db() !== 'player') {
               explorer.config.data.db('player');
               explorer.config.data.open(true);
             }
@@ -317,7 +320,7 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
       'span.active.text.' + db,
       {
         attrs: { title, ...dataIcon(licon.Book) },
-        hook: db == 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
+        hook: db === 'player' ? bind('click', explorer.config.toggleColor, explorer.reload) : undefined,
       },
       nodes,
     );
@@ -327,18 +330,18 @@ const explorerTitle = (explorer: ExplorerCtrl) => {
   const data = explorer.current();
   const queuePosition = data && isOpening(data) && data.queuePosition;
   return h('div.explorer-title', [
-    db == 'masters'
+    db === 'masters'
       ? active([h('strong', 'Masters'), ' database'], masterDbExplanation)
       : explorer.config.allDbs.includes('masters') && otherLink('Masters', masterDbExplanation),
-    db == 'lichess'
+    db === 'lichess'
       ? active([h('strong', 'Lichess'), ' database'], lichessDbExplanation)
       : otherLink('Lichess', lichessDbExplanation),
-    db == 'player'
+    db === 'player'
       ? playerName
         ? active(
             [
               h(`strong${playerName.length > 14 ? '.long' : ''}`, playerName),
-              ` ${i18n.site[explorer.config.data.color() == 'white' ? 'asWhite' : 'asBlack']}`,
+              ` ${i18n.site[explorer.config.data.color() === 'white' ? 'asWhite' : 'asBlack']}`,
               explorer.isIndexing() &&
                 !explorer.config.data.open() &&
                 h('i.ddloader', {

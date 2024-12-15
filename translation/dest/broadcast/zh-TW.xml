@@ -23,7 +23,7 @@
   <string name="tournamentDescription">簡短比賽說明</string>
   <string name="fullDescription">完整比賽說明</string>
   <string name="fullDescriptionHelp">直播內容的詳細描述 。可以利用 %1$s。字數限於%2$s個字。</string>
-  <string name="sourceSingleUrl">PGN 來源網址</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN 來源網址</string>
   <string name="sourceUrlHelp">Lichess 將以該網址更新PGN數據，網址必須公開</string>
   <string name="sourceGameIds">最多 64 個以空格分開的 Lichess 棋局序號。</string>
   <string name="startDateTimeZone">當地時區的錦標賽起始日期：%s</string>
@@ -46,7 +46,7 @@
   <string name="fideProfile">FIDE 序號</string>
   <string name="federation">國籍</string>
   <string name="ageThisYear">年齡</string>
-  <string name="unrated">未評級</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">未評級</string>
   <string name="recentTournaments">最近錦標賽</string>
   <string name="openLichess">在 lichess 中開啟</string>
   <string name="teams">團隊</string>
@@ -55,6 +55,8 @@
   <string name="subscribeTitle">訂閱以在每輪開始時獲得通知。您可以在帳戶設定中切換直播的鈴聲或推播通知。</string>
   <string name="uploadImage">上傳錦標賽圖片</string>
   <string name="noBoardsYet">尚無棋局。這些棋局將在對局上傳後顯示。</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">棋盤能夠以輸入源投放或是利用%s</string>
+  <string name="startsAfter">於%s開始</string>
   <string name="startVerySoon">直播即將開始。</string>
   <string name="notYetStarted">直播尚未開始。</string>
   <string name="officialWebsite">官網</string>
@@ -67,4 +69,13 @@
   <string name="ratingDiff">評級差異</string>
   <string name="gamesThisTournament">此比賽的對局</string>
   <string name="score">分數</string>
+  <string name="allTeams">所有團隊</string>
+  <string name="tournamentFormat">錦標賽格式</string>
+  <string name="tournamentLocation">錦標賽地點</string>
+  <string name="topPlayers">排行榜</string>
+  <string name="timezone">時區</string>
+  <string name="fideRatingCategory">FIDE 評級類別</string>
+  <string name="optionalDetails">其他細節</string>
+  <string name="pastBroadcasts">直播紀錄</string>
+  <string name="allBroadcastsByMonth">以月份顯示所有直播</string>
 </resources>

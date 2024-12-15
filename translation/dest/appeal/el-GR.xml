@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Διαβάστε τις %s. Μπορεί να σιγαστεί ο λογαριασμός σας αν δεν τηρήτε τις κατευθυντήριες γραμμές.</string>
-  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">κατευθυντήριες γραμμές επικοινωνίας</string>
+  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Διαβάστε τις %s. Μπορεί να σιγαστεί ο λογαριασμός σας αν δεν τηρήτε τις οδηγίες μας.</string>
+  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">οδηγίες επικοινωνίας</string>
 </resources>

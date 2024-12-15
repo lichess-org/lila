@@ -12,7 +12,9 @@ import lila.db.dsl.{ *, given }
 import lila.insight.BSONHandlers.given
 import lila.insight.InsightEntry.BSONFields as F
 import lila.rating.BSONHandlers.perfTypeIdHandler
+import lila.game.BSONHandlers.sourceHandler
 import lila.rating.PerfType
+import lila.core.game.Source
 
 enum InsightDimension[A](
     val key: String,
@@ -231,6 +233,15 @@ enum InsightDimension[A](
         "Time left on the player clock, accounting for increment. 100% = full clock, 0% = flagging."
       )
 
+  case GameSource
+      extends InsightDimension[Source](
+        "source",
+        "Game source",
+        F.source,
+        InsightPosition.Game,
+        "How the game was created."
+      )
+
 object InsightDimension:
 
   def requiresStableRating(d: InsightDimension[?]) = d match
@@ -260,6 +271,10 @@ object InsightDimension:
     case ClockPercentRange       => lila.insight.ClockPercentRange.all.toList
     case Blur                    => lila.insight.Blur.values.toIndexedSeq
     case TimeVariance            => lila.insight.TimeVariance.values.toIndexedSeq
+    case GameSource =>
+      Source.values.toIndexedSeq.filter:
+        case Source.Ai | Source.Import | Source.ImportLive => false
+        case _                                             => true
 
   def valueByKey[X](d: InsightDimension[X], key: String): Option[X] = d match
     case Period                  => key.toIntOption.map(lila.insight.Period.apply)
@@ -284,6 +299,7 @@ object InsightDimension:
     case ClockPercentRange       => key.toIntOption.flatMap(lila.insight.ClockPercentRange.byPercent.get)
     case Blur                    => lila.insight.Blur(key == "true").some
     case TimeVariance            => key.toFloatOption.map(lila.insight.TimeVariance.byId)
+    case GameSource              => Source.byName.get(key)
 
   def valueToJson[X](d: InsightDimension[X])(v: X)(using Translate): JsObject =
     Json.obj(
@@ -292,7 +308,7 @@ object InsightDimension:
     )
 
   def valueKey[X](d: InsightDimension[X])(v: X): String =
-    (d match
+    d.match
       case Date                    => v.toString
       case Period                  => v.days.toString
       case Perf                    => v.key
@@ -315,7 +331,8 @@ object InsightDimension:
       case ClockPercentRange       => v.bottom.toInt
       case Blur                    => v.id
       case TimeVariance            => v.id
-    ).toString
+      case GameSource              => v.name
+    .toString
 
   def valueJson[X](d: InsightDimension[X])(v: X)(using Translate): JsValue =
     d match
@@ -341,6 +358,7 @@ object InsightDimension:
       case ClockPercentRange       => JsString(v.name)
       case Blur                    => JsString(v.name)
       case TimeVariance            => JsString(v.name)
+      case GameSource              => JsString(v.toString)
 
   def filtersOf[X](d: InsightDimension[X], selected: List[X]): Bdoc =
 

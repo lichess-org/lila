@@ -1,9 +1,9 @@
-import MsgCtrl from '../ctrl';
+import type MsgCtrl from '../ctrl';
 import renderActions from './actions';
 import renderInteract from './interact';
 import renderMsgs from './msgs';
-import { Convo } from '../interfaces';
-import { h, VNode } from 'snabbdom';
+import type { Convo } from '../interfaces';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { hookMobileMousedown } from 'common/device';
 import { userLink } from 'common/userLink';
@@ -17,7 +17,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
           attrs: { 'data-icon': licon.LessThan },
           hook: hookMobileMousedown(ctrl.showSide),
         }),
-        userLink({ ...user, moderator: user.id == 'lichess' }),
+        userLink({ ...user, moderator: user.id === 'lichess' }),
       ]),
       h('div.msg-app__convo__head__actions', renderActions(ctrl, convo)),
     ]),

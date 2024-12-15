@@ -2,7 +2,8 @@ package lila.fide
 
 import akka.stream.contrib.ZipInputStreamSource
 import akka.stream.scaladsl.*
-import chess.{ FideId, PlayerName, PlayerTitle, Elo, KFactor }
+import chess.{ FideId, PlayerName, PlayerTitle }
+import chess.rating.{ Elo, KFactor }
 import play.api.libs.ws.StandaloneWSClient
 import reactivemongo.api.bson.*
 import java.util.zip.ZipInputStream

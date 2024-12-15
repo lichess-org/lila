@@ -145,6 +145,8 @@ case class Pref(
     else if bg == Pref.Bg.SYSTEM then "system"
     else "dark" // dark && dark board
 
+  def forceDarkBg = copy(bg = Pref.Bg.DARK)
+
 object Pref:
 
   val defaultBgImg = "//lichess1.org/assets/images/background/landscape.jpg"

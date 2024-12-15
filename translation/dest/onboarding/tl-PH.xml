@@ -5,6 +5,8 @@
   <string name="thisIsYourProfilePage">Ito ang iyong profile page.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Isang bata ba ang gagamit ng account na ito? Baka gusto mong paganahin ang%s.</string>
   <string name="whatNowSuggestions">Ano na ang gagawin? Ito ay mga ilang minumungkahi:</string>
+  <string name="learnChessRules">Mag-aral ng mga patakaran sa chess</string>
+  <string name="improveWithChessTacticsPuzzles">Gumaling gamit ang mga taktika sa chess at mga palaisipan.</string>
   <string name="playTheArtificialIntelligence">Laruin ang Artificial Intelligence.</string>
   <string name="playOpponentsFromAroundTheWorld">Kalaruin ang mga sa iba\'t ibang parte ng mundo.</string>
   <string name="followYourFriendsOnLichess">Sundan ang iyong mga kaibigan sa Lichess.</string>

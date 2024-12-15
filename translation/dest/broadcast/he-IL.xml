@@ -26,7 +26,7 @@
   <string name="tournamentDescription">תיאור הטורניר בקצרה</string>
   <string name="fullDescription">תיאור מלא של הטורניר</string>
   <string name="fullDescriptionHelp">תיאור מפורט של הטורניר (אופציונאלי). %1$s זמין. אורך התיאור לא יעלה על %2$s תווים.</string>
-  <string name="sourceSingleUrl">קישור המקור של ה־PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">קישור המקור של ה־PGN</string>
   <string name="sourceUrlHelp">הקישור ש־Lichess יבדוק כדי לקלוט עדכונים ב־PGN. הוא חייב להיות פומבי ונגיש דרך האינטרנט.</string>
   <string name="sourceGameIds">עד 64 מזהי משחק של Lichess, מופרדים ברווחים.</string>
   <string name="startDateTimeZone">שעת ההתחלה באזור הזמן המקומי של הטורניר: %s</string>
@@ -49,7 +49,7 @@
   <string name="fideProfile">פרופיל FIDE</string>
   <string name="federation">איגוד</string>
   <string name="ageThisYear">גיל השנה</string>
-  <string name="unrated">לא מדורג</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">לא מדורג</string>
   <string name="recentTournaments">טורנירים אחרונים</string>
   <string name="openLichess">פתיחה ב־Lichess</string>
   <string name="teams">קבוצות</string>
@@ -73,7 +73,6 @@
   <string name="ratingDiff">הפרש הדירוג</string>
   <string name="gamesThisTournament">משחקים בטורניר זה</string>
   <string name="score">ניקוד</string>
-  <string name="perPage">%s לכל עמוד</string>
   <string name="allTeams">כל הקבוצות</string>
   <string name="tournamentFormat">שיטת הטורניר</string>
   <string name="tournamentLocation">מיקום הטורניר</string>
@@ -81,7 +80,6 @@
   <string name="timezone">אזור זמן</string>
   <string name="fideRatingCategory">קטגוריית דירוג FIDE</string>
   <string name="optionalDetails">פרטים אופציונאליים</string>
-  <string name="upcomingBroadcasts">הקרנות קרובות</string>
   <string name="pastBroadcasts">הקרנות עבר</string>
   <string name="allBroadcastsByMonth">צפו בכל ההקרנות לפי חודש</string>
 </resources>

@@ -1,8 +1,8 @@
-import { h, VNode } from 'snabbdom';
-import * as xhr from 'common/xhr';
+import { h, type VNode } from 'snabbdom';
+import { text as xhrText, form as xhrForm } from 'common/xhr';
 import { header, elementScrollBarWidthSlowGuess } from './util';
 import { bind } from 'common/snabbdom';
-import { DasherCtrl, PaneCtrl } from './interfaces';
+import { type DasherCtrl, PaneCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
 
 type Piece = string;
@@ -23,7 +23,7 @@ export class PieceCtrl extends PaneCtrl {
     const pieceSize = (222 - elementScrollBarWidthSlowGuess()) / 4;
     const pieceImage = (t: Piece) =>
       this.is3d
-        ? `images/staunton/piece/${t}/White-Knight${t == 'Staunton' ? '-Preview' : ''}.png`
+        ? `images/staunton/piece/${t}/White-Knight${t === 'Staunton' ? '-Preview' : ''}.png`
         : `piece/${t}/wN.svg`;
 
     return h('div.sub.piece.' + this.dimension, [
@@ -51,7 +51,7 @@ export class PieceCtrl extends PaneCtrl {
     document.body.dataset[this.is3d ? 'pieceSet3d' : 'pieceSet'] = t;
     if (!this.is3d) {
       const sprite = document.getElementById('piece-sprite') as HTMLLinkElement;
-      sprite.href = sprite.href.replace(/[\w-]+(\.external|)\.css/, t + '$1.css');
+      sprite.href = site.asset.url(`piece-css/${t}.css`);
     }
     pubsub.emit('board.change', this.is3d);
   };
@@ -63,9 +63,9 @@ export class PieceCtrl extends PaneCtrl {
   private set = (t: Piece) => {
     this.apply(t);
     const field = `pieceSet${this.is3d ? '3d' : ''}`;
-    xhr
-      .text(`/pref/${field}`, { body: xhr.form({ [field]: t }), method: 'post' })
-      .catch(() => site.announce({ msg: 'Failed to save piece set  preference' }));
+    xhrText(`/pref/${field}`, { body: xhrForm({ [field]: t }), method: 'post' }).catch(() =>
+      site.announce({ msg: 'Failed to save piece set  preference' }),
+    );
     this.redraw();
   };
 }

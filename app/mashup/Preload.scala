@@ -12,7 +12,7 @@ import lila.simul.{ Simul, SimulIsFeaturable }
 import lila.streamer.LiveStreams
 import lila.swiss.Swiss
 import lila.timeline.Entry
-import lila.tournament.{ Tournament, Winner }
+import lila.tournament.Tournament
 import lila.ublog.UblogPost
 import lila.user.{ LightUserApi, Me, User }
 
@@ -143,7 +143,7 @@ object Preload:
       tours: List[Tournament],
       swiss: Option[Swiss],
       events: List[Event],
-      relays: List[lila.relay.RelayTour.ActiveWithSomeRounds],
+      relays: List[lila.relay.RelayCard],
       simuls: List[Simul],
       featured: Option[Game],
       puzzle: Option[lila.puzzle.DailyPuzzle.WithHtml],

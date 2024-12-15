@@ -114,7 +114,6 @@
   <string name="replayMode">रीप्ले मोड</string>
   <string name="realtimeReplay">रियल टाइम</string>
   <string name="byCPL">CPL द्वारा</string>
-  <string name="openStudy">अध्ययन खोलो</string>
   <string name="enable">सक्षम करें</string>
   <string name="bestMoveArrow">सर्वश्रेष्ठ चाल तीर</string>
   <string name="showVariationArrows">विविधता वाले तीर दिखाएँ</string>
@@ -662,7 +661,7 @@
   <string name="aboutSimulRules">जब सिमुल आरम्भ होता है तब हर खिलाडी एक खेल आरम्भ करता है  जिसे सफ़ेद खेलने को दिया जाता है। सिमुल तब समाप्त हो जाता है जब सारे खेलों का अंत हो जाता है।</string>
   <string name="aboutSimulSettings">सिमुल हमेशा आकाशमिक होते हैं। फिर से खेलना, चाल वापस लेना और अधिक समय प्रदान करने के विकलब बंद होते हैं।</string>
   <string name="create">बनाएं</string>
-  <string name="whenCreateSimul">जब आप सिमुल बनाते हैं तो आपको कई खिलाडियों के साथ एक साथ खेलने का मौका मिलता है</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">जब आप सिमुल बनाते हैं तो आपको कई खिलाडियों के साथ एक साथ खेलने का मौका मिलता है</string>
   <string name="simulVariantsHint">अगर आप कई सारे रूपांतर लेते हैं तो हर खिलाडी को यह चुनने का हक़ होती है की वो क्या खेले</string>
   <string name="simulClockHint">फिशर क्लॉक सेटअप। आप जितने ज्यादा खिलाडी लेंगे, उतना आपको अधिक समय की आव्यशकता होगी।</string>
   <string name="simulAddExtraTime">सिमुल का सामना करने के लिए आप अपनी घडी में अतिरिक्त समय जोड़ सकते हैं</string>

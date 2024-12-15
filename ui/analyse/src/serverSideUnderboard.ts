@@ -1,12 +1,11 @@
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import { baseUrl } from './view/util';
 import * as licon from 'common/licon';
 import { url as xhrUrl, textRaw as xhrTextRaw } from 'common/xhr';
-import { AnalyseData } from './interfaces';
-import { ChartGame, AcplChart } from 'chart';
+import type { AnalyseData } from './interfaces';
+import type { ChartGame, AcplChart } from 'chart';
 import { stockfishName, spinnerHtml } from 'common/spinner';
 import { alert, confirm, domDialog } from 'common/dialog';
-import { FEN } from 'chessground/types';
 import { escapeHtml } from 'common';
 import { storage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
@@ -92,12 +91,12 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
       .removeClass('active')
       .filter('.' + panel)
       .addClass('active');
-    if ((panel == 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
+    if ((panel === 'move-times' || ctrl.opts.hunter) && !timeChartLoaded)
       site.asset.loadEsm<ChartGame>('chart.game').then(m => {
         timeChartLoaded = true;
         m.movetime($('#movetimes-chart')[0] as HTMLCanvasElement, data, ctrl.opts.hunter);
       });
-    if ((panel == 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
+    if ((panel === 'computer-analysis' || ctrl.opts.hunter) && $('#acpl-chart-container').length)
       setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function (this: HTMLElement) {
@@ -110,7 +109,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     stored &&
     $menu.children(`[data-panel="${stored}"]`).filter(function (this: HTMLElement) {
       const display = window.getComputedStyle(this).display;
-      return !!display && display != 'none';
+      return !!display && display !== 'none';
     }).length;
   if (foundStored) setPanel(stored);
   else {
@@ -151,7 +150,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
     domDialog({
-      show: 'modal',
+      modal: true,
+      show: true,
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +

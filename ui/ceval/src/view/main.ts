@@ -1,11 +1,10 @@
-import * as winningChances from '../winningChances';
+import { povChances } from '../winningChances';
 import * as licon from 'common/licon';
 import { stepwiseScroll } from 'common/controls';
-import { onInsert, bind, LooseVNodes, looseH as h } from 'common/snabbdom';
+import { type VNode, type LooseVNodes, onInsert, bind, looseH as h } from 'common/snabbdom';
 import { defined, notNull, requestIdleCallback } from 'common';
-import { ParentCtrl, NodeEvals, CevalState } from '../types';
-import { VNode } from 'snabbdom';
-import { Position } from 'chessops/chess';
+import { type ParentCtrl, type NodeEvals, CevalState } from '../types';
+import type { Position } from 'chessops/chess';
 import { lichessRules } from 'chessops/compat';
 import { makeSanAndPlay } from 'chessops/san';
 import { opposite, parseUci } from 'chessops/util';
@@ -14,7 +13,7 @@ import { renderEval } from '../util';
 import { setupPosition } from 'chessops/variant';
 import { uciToMove } from 'chessground/util';
 import { renderCevalSettings } from './settings';
-import CevalCtrl from '../ctrl';
+import type CevalCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
 
 type EvalInfo = { knps: number; npsText: string; depthText: string };
@@ -29,8 +28,8 @@ function localEvalNodes(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string>
     state = ceval.state;
   if (!evs.client) {
     if (!ceval.analysable) return ['Engine cannot analyze this position'];
-    if (state == CevalState.Failed) return [i18n.site.engineFailed];
-    const localEvalText = state == CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
+    if (state === CevalState.Failed) return [i18n.site.engineFailed];
+    const localEvalText = state === CevalState.Loading ? loadingText(ctrl) : i18n.site.calculatingMoves;
     return [evs.server && ctrl.nextNodeBest() ? i18n.site.usingServerAnalysis : localEvalText];
   }
 
@@ -92,28 +91,27 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 }
 
 function engineName(ctrl: CevalCtrl): VNode[] {
-  const engine = ctrl.engines.active,
-    engineTech = engine?.tech ?? 'EXTERNAL';
+  const engine = ctrl.engines.active;
   return engine
     ? [
-        h('span', { attrs: { title: engine?.name || '' } }, engine.short ?? engine.name),
-        engineTech === 'EXTERNAL'
+        h('span', { attrs: { title: engine.name } }, engine.short ?? engine.name),
+        ctrl.engines.isExternalEngineInfo(engine)
           ? h(
               'span.technology.good',
               { attrs: { title: 'Engine running outside of the browser' } },
-              engineTech,
+              engine.tech,
             )
-          : engine.requires?.includes('simd')
+          : engine.requires.includes('simd')
             ? h(
                 'span.technology.good',
                 { attrs: { title: 'Multi-threaded WebAssembly with SIMD' } },
-                engineTech,
+                engine.tech,
               )
-            : engine.requires?.includes('sharedMem')
-              ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engineTech)
-              : engine.requires?.includes('wasm')
-                ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engineTech)
-                : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engineTech),
+            : engine.requires.includes('sharedMem')
+              ? h('span.technology.good', { attrs: { title: 'Multi-threaded WebAssembly' } }, engine.tech)
+              : engine.requires.includes('wasm')
+                ? h('span.technology', { attrs: { title: 'Single-threaded WebAssembly' } }, engine.tech)
+                : h('span.technology', { attrs: { title: 'Single-threaded JavaScript' } }, engine.tech),
       ]
     : [];
 }
@@ -143,7 +141,7 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
   const bestEv = getBestEval(ctrl.currentEvals());
   let ev;
   if (bestEv) {
-    ev = winningChances.povChances('white', bestEv);
+    ev = povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
   return h(
@@ -331,7 +329,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
   else pvs = [];
   if (threat) {
     setup.turn = opposite(setup.turn);
-    if (setup.turn == 'white') setup.fullmoves += 1;
+    if (setup.turn === 'white') setup.fullmoves += 1;
   }
   const pos = setupPosition(lichessRules(ceval.opts.variant.key), setup);
 
@@ -357,7 +355,7 @@ export function renderPvs(ctrl: ParentCtrl): VNode | undefined {
             'wheel',
             stepwiseScroll((e: WheelEvent, scroll: boolean) => {
               e.preventDefault();
-              if (pvIndex != null && pvMoves != null) {
+              if (pvIndex !== null) {
                 if (e.deltaY < 0 && pvIndex > 0 && scroll) pvIndex -= 1;
                 else if (e.deltaY > 0 && pvIndex < pvMoves.length - 1 && scroll) pvIndex += 1;
                 const pvBoard = pvMoves[pvIndex];

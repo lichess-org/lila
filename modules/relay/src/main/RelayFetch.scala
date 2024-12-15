@@ -86,9 +86,6 @@ final private class RelayFetch(
       val syncFu = for
         allGamesInSourceNoLimit <- fetchGames(rt).mon:
           _.relay.fetchTime(rt.tour.official, rt.tour.id, rt.tour.slug)
-        _ = lila.mon.relay
-          .games(rt.tour.official, rt.tour.id, rt.round.slug)
-          .update(allGamesInSourceNoLimit.size)
         allGamesInSource = allGamesInSourceNoLimit.take(maxGamesToRead(rt.tour.official).value)
         filtered         = RelayGame.filter(rt.round.sync.onlyRound)(allGamesInSource)
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
@@ -109,9 +106,10 @@ final private class RelayFetch(
           nbGamesFinished > nbGamesUnstarted
         noMoreGamesSelected = games.isEmpty && allGamesInSource.nonEmpty
         autoFinishNow       = rt.round.hasStarted && (allGamesFinishedOrUnstarted || noMoreGamesSelected)
-      yield res -> updating:
-        _.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
-          .copy(finished = autoFinishNow)
+        roundUpdate = updating: r =>
+          r.withSync(_.addLog(SyncLog.event(res.nbMoves, none)))
+            .copy(finishedAt = r.finishedAt.orElse(autoFinishNow.option(nowInstant)))
+      yield res -> roundUpdate
       syncFu
         .recover:
           case e: Exception =>
@@ -162,8 +160,8 @@ final private class RelayFetch(
             .filterNot(_.contains("Found an empty PGN"))
             .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(tour.tier.fold(60):
-            case RelayTour.Tier.BEST => 10
-            case RelayTour.Tier.HIGH => 20
+            case RelayTour.Tier.best => 10
+            case RelayTour.Tier.high => 20
             case _                   => 40
           )
         else round.sync.period | dynamicPeriod(tour, round, upstream)
@@ -183,7 +181,7 @@ final private class RelayFetch(
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
-      if tour.tier.exists(_ > RelayTour.Tier.NORMAL) then 1
+      if tour.tier.exists(_ > RelayTour.Tier.normal) then 1
       else if tour.official then 2
       else 3
     } * {
