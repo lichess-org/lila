@@ -62,8 +62,9 @@ export const makeSwiper =
           setTimeout(() => {
             const slide = element.querySelector('.swiper-slide-active');
             if (slide) {
+              if (swiper.isEnd) swiper.autoplay?.stop();
               onSlideChange(slide as HTMLElement);
-              if (!swiper.isEnd && swiper.autoplay?.paused) swiper.autoplay?.resume();
+              if (swiper.autoplay?.paused) swiper.autoplay?.resume();
             }
           }, 200);
         },
