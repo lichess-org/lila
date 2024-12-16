@@ -45,7 +45,7 @@
   <string name="forceResignation">வெற்றியைப் பெற்றுக்கொள்</string>
   <string name="forceDraw">சமன் செய்ய கோரு</string>
   <string name="talkInChat">உரையாடலில் மென்மையாக உரையாடு!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">இந்த் URL இல் வந்தடையும் முதலாள் உங்களோடு விளையாடுவார்</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">இந்த் URL இல் வந்தடையும் முதலாள் உங்களோடு விளையாடுவார்.</string>
   <string name="whiteResigned">வெள்ளை விலகிற்று</string>
   <string name="blackResigned">கருப்பு விலகிற்று</string>
   <string name="whiteLeftTheGame">வெள்ளை ஆட்டத்தை விட்டது</string>
@@ -409,7 +409,7 @@
     <item quantity="other">%s உள்ளேற்றின ஆட்டங்கள்</item>
   </plurals>
   <string name="thisIsAChessCaptcha">இது ஒரு சதுரங்கமுறை மாந்தத்தேர்வு (CAPTCHA)</string>
-  <string name="clickOnTheBoardToMakeYourMove">உங்களுக்கான நகர்த்தலுக்கு பலகையிலே சொடுக்கவும், தாங்கள் ஒரு மாந்தரென்று நிறுவுங்கள்</string>
+  <string name="clickOnTheBoardToMakeYourMove">உங்களுக்கான நகர்த்தலுக்கு பலகையிலே சொடுக்கவும், தாங்கள் ஒரு மாந்தரென்று நிறுவுங்கள்.</string>
   <string name="captcha.fail">சதுரங்க புதிரை தீர்க்கவும்.</string>
   <string name="notACheckmate">நிகர்தடையன்று</string>
   <string name="whiteCheckmatesInOneMove">வெள்ளையின் அடுத்த நகர்வில் நிகர்தடை</string>
@@ -449,7 +449,7 @@
     <item quantity="one">%s விடக் குறைந்த நிமிடங்கள்</item>
     <item quantity="other">%s விடக் குறைந்த நிமிடங்கள்</item>
   </plurals>
-  <string name="required">தேவை</string>
+  <string name="required">தேவை.</string>
   <string name="openTournaments">நுழைவேற்கும் போட்டிகள்</string>
   <string name="duration">நேரம்</string>
   <string name="winner">வெல்லி</string>
@@ -788,14 +788,14 @@
   <string name="doItAgain">மீண்டும் செய்யவும்</string>
   <string name="reviewWhiteMistakes">வெள்ளை தவறுகளை மதிப்பாய்வு செய்யவும்</string>
   <string name="reviewBlackMistakes">கருப்பு தவறுகளை மதிப்பாய்வு செய்யவும்</string>
-  <string name="advantage">நன்மை</string>
+  <string name="advantage">அனுகூலம்</string>
   <plurals name="nbSeconds">
-    <item quantity="one">%s வினாடி</item>
-    <item quantity="other">%s வினாடிகள்</item>
+    <item quantity="one">%s நொடி</item>
+    <item quantity="other">%s நொடிகள்</item>
   </plurals>
   <string name="opening">திறப்பு</string>
-  <string name="middlegame">நடு ஆட்டம்</string>
-  <string name="endgame">இறுதி ஆட்டம்</string>
+  <string name="middlegame">இடைப்பட்ட ஆட்டம்</string>
+  <string name="endgame">இறுதிகட்ட ஆட்டம்</string>
   <string name="conditionalPremoves">நிபந்தனை முன்னோட்டங்கள்</string>
   <string name="addCurrentVariation">தற்போதைய மாறுபட்டவரியைச் சேர்க்கவும்</string>
   <string name="playVariationToCreateConditionalPremoves">நிபந்தனை முன்னோட்டங்களை உருவாக்க மாறுபட்டவரியை இயக்கவும்</string>
@@ -826,9 +826,10 @@
   <string name="agreementPolicy">நான் அனைத்து லிசெஸ் கொள்கைகளையும் பின்பற்றுவேன் என்பதை ஒப்புக்கொள்கிறேன்.</string>
   <string name="searchOrStartNewDiscussion">தேடவும் அல்லது புதிய உரையாடலைத் தொடங்கவும்</string>
   <string name="edit">திருத்துதல்</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">தோட்டா</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">அதிரடி</string>
   <string name="rapid">துரிதம்</string>
-  <string name="classical">மரபு</string>
+  <string name="classical">செவ்வியல்</string>
   <string name="ultraBulletDesc">அதிவேகமான ஆட்டங்கள்: 30 வினாடிகளுக்கும் குறைவானது</string>
   <string name="bulletDesc">வேகமான ஆட்டங்கள்: 3 நிமிடங்களுக்கும் குறைவானது</string>
   <string name="blitzDesc">வேகமான விளையாட்டுகள்: 3 முதல் 8 நிமிடங்கள்</string>
@@ -841,4 +842,22 @@
   <string name="inTheFAQ">அடிக்கடி கேட்கப்படும் கேள்விகளில்</string>
   <string name="toReportSomeoneForCheatingOrBadBehavior">ஏமாற்றுதல் அல்லது மோசமான நடத்தைக்காக ஒரு பயனரைப் புகாரளிக்க, %1$s</string>
   <string name="useTheReportForm">அறிக்கை படிவத்தைப் பயன்படுத்தவும்</string>
+  <string name="toRequestSupport">ஆதரவு கோர, %1$s</string>
+  <string name="tryTheContactPage">தொடர்பு பக்கத்தை முயற்சிக்கவும்</string>
+  <string name="makeSureToRead">%1$s படிக்க உறுதி செய்யவும்</string>
+  <string name="theForumEtiquette">மன்ற ஆசாரம்</string>
+  <string name="thisTopicIsArchived">இந்தத் தலைப்பு காப்பகப்படுத்தப்பட்டுள்ளது, இனிமேல் பதிலளிக்க முடியாது.</string>
+  <string name="joinTheTeamXToPost">இந்த மன்றத்தில் இடுகையிட, %1$s இல் சேரவும்</string>
+  <string name="teamNamedX">%1$s குழு</string>
+  <string name="youCannotPostYetPlaySomeGames">நீங்கள் இன்னும் மன்றங்களில் இடுகையிட முடியாது. சில விளையாட்டுகளை விளையாடு!</string>
+  <string name="subscribe">சந்தா செலுத்து</string>
+  <string name="unsubscribe">குழுவிலகவும்</string>
+  <string name="mentionedYouInX">உங்களை \"%1$s\" இல் குறிப்பிட்டுள்ளார்.</string>
+  <string name="switchSides">பக்கங்களை மாற்றவும்</string>
+  <string name="closingAccountWithdrawAppeal">உங்கள் கணக்கை மூடுவது உங்கள் முறையீட்டைத் திரும்பப் பெறும்</string>
+  <string name="ourEventTips">நிகழ்வுகளை ஒழுங்கமைப்பதற்கான எங்கள் உதவிக்குறிப்புகள்</string>
+  <string name="instructions">வழிமுறைகள்</string>
+  <string name="showMeEverything">எல்லாவற்றையும் எனக்குக் காட்டு</string>
+  <string name="nothingToSeeHere">இப்போதைக்கு இங்கே பார்ப்பதற்கு ஒன்றுமில்லை.</string>
+  <string name="stats">புள்ளிவிவரங்கள்</string>
 </resources>
