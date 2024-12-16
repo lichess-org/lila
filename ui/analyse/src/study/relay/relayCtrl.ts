@@ -141,7 +141,8 @@ export default class RelayCtrl {
 
   isPinnedStreamOngoing = () => {
     if (!this.data.pinned) return false;
-    if (this.currentRound().finished) return false;
+    // the below line commented out for testy purposes
+    //if (this.currentRound().finished) return false;
     if (Date.now() < this.currentRound().startsAt! - 1000 * 3600) return false;
     return true;
   };

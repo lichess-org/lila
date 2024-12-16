@@ -58,16 +58,15 @@
     margin: auto;
     pointer-events: none;
     border-radius: 5px;
+    border: 1px solid #888;
     padding: 5px;
     text-align: center;
     line-height: normal;
-    opacity: 0;
     color: #222e;
     background-color: #dddd;
   }
   &:hover:not(:has(.video-player-close:hover)) {
-    .play-button,
-    .text div {
+    .play-button {
       opacity: 1;
     }
   }

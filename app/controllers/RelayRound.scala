@@ -277,7 +277,8 @@ final class RelayRound(
           case VideoEmbed.PinnedStream =>
             fuccess:
               rt.tour.pinnedStream
-                .ifFalse(rt.round.isFinished)
+                // the below line commented out for testy purposes
+                // .ifFalse(rt.round.isFinished)
                 .flatMap(_.upstream)
                 .map(_.urls(netDomain).toPair)
           case _ => fuccess(none)
