@@ -245,6 +245,7 @@ uebok
 """)
 
   def es = dict("""
+bolud[oa]
 cabr[oó]na?
 cag[oó]n
 ching(ue|a)

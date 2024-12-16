@@ -65,9 +65,7 @@
     color: #222e;
     background-color: #dddd;
   }
-  &:hover:not(:has(.video-player-close:hover)) {
-    .play-button {
-      opacity: 1;
-    }
+  &:hover:not(:has(.video-player-close:hover)) .play-button {
+    opacity: 1;
   }
 }

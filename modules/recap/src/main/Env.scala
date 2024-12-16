@@ -1,7 +1,6 @@
 package lila.recap
 
 import com.softwaremill.macwire.*
-import com.softwaremill.tagging.*
 
 import lila.core.config.CollName
 import lila.db.dsl.{ *, given }
@@ -21,7 +20,7 @@ final class Env(
     "recapParallelism",
     default = 8,
     text = "Number of yearly recaps to build in parallel".some
-  ).taggedWith[Parallelism]
+  )
 
   private val colls = RecapColls(db(CollName("recap_report")), db(CollName("recap_queue")))
 
@@ -41,5 +40,4 @@ final class Env(
 
   lazy val api = wire[RecapApi]
 
-trait Parallelism
 final private class RecapColls(val recap: Coll, val queue: Coll)
