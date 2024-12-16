@@ -54,7 +54,8 @@ export const makeSwiper =
         : undefined,
       on: {
         autoplayTimeLeft(swiper, time, progress) {
-          if (swiper.isEnd) progressDiv.remove();
+          if (swiper.isEnd) progressDiv.style.display = 'none';
+          else progressDiv.style.display = 'flex';
           progressCircle.style.setProperty('--progress', (1 - progress).toString());
           progressContent.textContent = `${Math.ceil(time / 1000)}s`;
         },
