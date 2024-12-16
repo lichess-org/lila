@@ -58,15 +58,24 @@ export const makeSwiper =
           progressCircle.style.setProperty('--progress', (1 - progress).toString());
           progressContent.textContent = `${Math.ceil(time / 1000)}s`;
         },
-        slideChange() {
+        slideChange(swiper) {
           setTimeout(() => {
             const slide = element.querySelector('.swiper-slide-active');
-            if (slide) onSlideChange(slide as HTMLElement);
+            if (slide) {
+              onSlideChange(slide as HTMLElement);
+              if (!swiper.isEnd && swiper.autoplay?.paused) swiper.autoplay?.resume();
+            }
           }, 200);
         },
       },
     };
-    new Swiper(element, options);
+    const swiper = ((window as any).s = new Swiper(element, options));
+    $(element).on('click', () => {
+      if (swiper.autoplay && !swiper.isEnd) {
+        if (swiper.autoplay.paused) swiper.autoplay.resume();
+        else swiper.autoplay.pause();
+      }
+    });
   };
 
 let lpvTimer: number | undefined;
