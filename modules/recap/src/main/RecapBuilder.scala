@@ -55,6 +55,7 @@ private final class RecapBuilder(
           nbs = NbWin(total = nb, win = wins - fixes),
           votes = PuzzleVotes(nb = votes, themes = themes)
         )
+      .monSuccess(_.recap.puzzles)
 
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
