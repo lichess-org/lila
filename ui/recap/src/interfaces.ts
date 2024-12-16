@@ -26,13 +26,13 @@ export interface Sources {
   simul: number;
   swiss: number;
   pool: number;
+  lobby: number;
   ai: number;
   arena: number;
 }
 
-export interface Perf {
-  key: string;
-  seconds: number;
+export interface RecapPerf {
+  key: Exclude<Perf, 'fromPosition'>;
   games: number;
 }
 
@@ -47,7 +47,7 @@ export interface Recap {
     };
   };
   games: {
-    perfs: Perf[];
+    perfs: RecapPerf[];
     moves: number;
     openings: ByColor<Counted<Opening>>;
     nbs: NbWin;

@@ -2,6 +2,7 @@ package lila.relay
 
 import reactivemongo.api.bson.*
 import monocle.syntax.all.*
+import java.time.temporal.ChronoUnit
 
 import lila.db.dsl.{ *, given }
 
@@ -76,23 +77,51 @@ final class RelayListing(
 
   private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
 
-  private def decreaseTierIfDistantNextRound(t: RelayTour.WithRounds): Option[RelayTour.WithRounds] = for
-    round   <- t.rounds.find(!_.isFinished)
-    tier    <- t.tour.tier
-    startAt <- round.startedAt.orElse(round.startsAtTime)
-    days = scalalib.time.daysBetween(nowInstant.withTimeAtStartOfDay, startAt)
-    visualTier <-
-      import RelayTour.Tier.*
-      if days > 30 then none
-      else if tier == best && days > 10 then normal.some
-      else if tier == best && days > 5 then high.some
-      else if tier == high && days > 5 then normal.some
-      else tier.some
-  yield t.focus(_.tour.tier).replace(visualTier.some)
+  private object dynamicTier:
+
+    def apply(t: RelayTour.WithRounds): Option[RelayTour.WithRounds] =
+      nextRoundTier(t)
+        .orElse(lastRoundTier(t))
+        .map: tier =>
+          t.focus(_.tour.tier).replace(tier.some)
+
+    private def nextRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
+      round   <- t.rounds.find(!_.isFinished)
+      tier    <- t.tour.tier
+      startAt <- round.startedAt.orElse(round.startsAtTime)
+      days = scalalib.time.daysBetween(nowInstant.withTimeAtStartOfDay, startAt)
+      newTier <-
+        import RelayTour.Tier.*
+        if days > 30 then none
+        else if tier == best && days > 10 then normal.some
+        else if tier == best && days > 5 then high.some
+        else if tier == high && days > 5 then normal.some
+        else tier.some
+    yield newTier
+
+    private def lastRoundTier(t: RelayTour.WithRounds): Option[RelayTour.Tier] = for
+      round    <- t.rounds.findLast(_.isFinished)
+      tier     <- t.tour.tier
+      finishAt <- round.finishedAt
+      hours = ChronoUnit.HOURS.between(finishAt, nowInstant).toInt
+      newTier <-
+        import RelayTour.Tier.*
+        if hours > 48 then none
+        else if tier == best then
+          if hours < 6 then best.some
+          else if hours < 24 then high.some
+          else normal.some
+        else if tier == high then
+          if hours < 3 then high.some
+          else if hours < 24 then normal.some
+          else none
+        else if hours < 3 then normal.some
+        else none
+    yield newTier
 
   private def getSpots: Fu[List[Spot]] = for
     rawTours <- toursWithRounds
-    tours = rawTours.flatMap(decreaseTierIfDistantNextRound)
+    tours = rawTours.flatMap(dynamicTier.apply)
     groups <- groupRepo.byTours(tours.map(_.tour.id))
   yield
     val toursById = tours.mapBy(_.tour.id)

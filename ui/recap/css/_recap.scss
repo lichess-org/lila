@@ -6,10 +6,19 @@ body {
   --c-font-shadow: hsla(0, 0, 0%, 0);
   &,
   .site-title,
+  .site-title span,
   .site-buttons .link {
+    #user_tag::after,
     &,
     &:hover {
       color: #fff;
+    }
+  }
+  .hbg__in {
+    &,
+    &::before,
+    &::after {
+      background-color: #fff;
     }
   }
   #clinput,
@@ -64,7 +73,7 @@ body {
 .recap {
   &__logo,
   .lpv {
-    width: 384px;
+    width: 45vh;
     max-width: 61vw;
     max-height: 50vh;
   }
@@ -98,6 +107,7 @@ body {
 .recap--massive {
   @extend %flex-column;
   align-items: center;
+  max-width: 80%;
   @include fluid-size('font-size', 19px, 42px);
   strong {
     font-size: 3em;
@@ -148,6 +158,73 @@ body {
   font-weight: 2em;
 }
 
+.recap__shareable {
+  .logo {
+    width: 60%;
+    max-width: 400px;
+  }
+  h2 {
+    font-size: 1.5em;
+    margin: 0.4em 0 1.5em;
+  }
+  .stat {
+    font-size: 1.5em;
+    @media (max-width: at-most($x-small)) {
+      font-size: 1.3em;
+    }
+    @media (max-width: at-most($xx-small)) {
+      font-size: 1.2em;
+    }
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1.5em;
+    padding: 0.5em;
+
+    .stat {
+      flex: 50%;
+      a {
+        border: none;
+
+        .uflair {
+          margin-right: 0.2em;
+        }
+      }
+    }
+  }
+
+  .openings {
+    margin-top: 2em;
+
+    .stat {
+      margin-top: 1em;
+    }
+  }
+  @media (max-height: 650px) {
+    .logo {
+      height: 20px;
+      width: auto;
+    }
+    h2 {
+      font-size: 1.2em;
+      margin: 0.4em 0;
+    }
+    .openings {
+      margin-top: 1em;
+      .stat {
+        font-size: 1em;
+        margin-top: 0.5em;
+      }
+    }
+  }
+  @media (min-width: at-least($xx-small)) {
+    .logo {
+      display: none;
+    }
+  }
+}
+
 .recap small {
   font-size: 0.8em;
   opacity: 0.6;
@@ -195,6 +272,7 @@ body {
     font-size: 0.8em;
     opacity: 0.8;
     min-width: 12ch;
+    padding-left: 1em;
   }
 }
 .recap__slide--opponents {
@@ -246,7 +324,7 @@ body {
   }
 
   50% {
-    transform: scale(1.2);
+    transform: scale(1.3);
   }
 
   100% {

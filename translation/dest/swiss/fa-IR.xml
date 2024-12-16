@@ -69,7 +69,8 @@
   <string name="restrictedToTeamsA">مسابقات به شیوه سوئیسی برای شطرنج آنلاین طراحی نشده اند. آن ها نیازمند وقت شناسی، فداکاری و صبر از جانب بازیکنان هستند.
 ما فکر می کنیم که این شرایط در تیم بیشتر از مسابقات جهانی بر آورده می شود.</string>
   <string name="numberOfByesQ">یک بازیکن چند بدرود می‌تواند دریافت کند؟</string>
-  <string name="numberOfByesA">یک بازیکن هر بار که سیستم جفت سازی نتواند جفتی برای او پیدا کند یک امتیاز دریافت می کند. علاوه بر این، زمانی که بازیکنی دیر به یک تورنمنت ملحق می شود، یک نیم امتیازی میگیرد.</string>
+  <string name="numberOfByesA">یک بازیکن هر بار که سامانهٔ رویارویی نتواند حریفی برای او بیابد، یک امتیازِ استراحت می‌گیرد.
+بعلاوه، وقتی بازیکنی دیر به مسابقات می‌پیوندد، تک‌استراحتِ نیم‌امتیازی به آن مربوط می‌شود.</string>
   <string name="earlyDrawsQ">در مورد تساوی‌های سریع چه اتفاقی می‌افتد؟</string>
   <string name="earlyDrawsAnswer">در بازی های سوییسی بازیکنان نمیتوانند قبل از حرکت 30 ام بازی را مساوی کنند. با اینکه این اقدام نمیتواند جلوی مساوی های از پیش تعیین شده را بگیرد اما توافق بر مساوی حین عمل را سختتر میکند.</string>
   <string name="whatIfOneDoesntPlayQ">اگر یک بازیکن بازی نکند چه اتفاقی میافتد؟</string>
@@ -115,7 +116,7 @@
   <string name="lateJoinUntil">بله تا زمانی که بیش از نیمی از دور شروع نشده باشد</string>
   <string name="pause">درنگ</string>
   <string name="pauseSwiss">بله، اما ممکن است تعداد دورها را کاهش دهد</string>
-  <string name="streaksAndBerserk">توالی و جنون</string>
+  <string name="streaksAndBerserk">ریسه و دیوانگی</string>
   <string name="similarToOTB">مشابه مسابقات بر روی تخته</string>
   <string name="unlimitedAndFree">بدون محدودیت و رایگان</string>
   <string name="predefinedUsers">تنها کاربران از پیش تعریف شده اجازه ورود دارند</string>

@@ -2,15 +2,16 @@ import * as licon from 'common/licon';
 import { userAnalysable, playable } from 'game';
 import { finished, aborted } from 'game/status';
 import * as util from '../util';
-import { isCol1 } from 'common/device';
+import { bindMobileMousedown, isCol1 } from 'common/device';
 import type RoundController from '../ctrl';
 import { throttle } from 'common/timing';
 import viewStatus from 'game/view/status';
 import { game as gameRoute } from 'game/router';
 import type { Step } from '../interfaces';
 import { toggleButton as boardMenuToggleButton } from 'common/boardMenu';
-import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, bind, onInsert } from 'common/snabbdom';
+import { type VNode, type LooseVNodes, type LooseVNode, looseH as h, onInsert } from 'common/snabbdom';
 import boardMenu from './boardMenu';
+import { repeater } from 'common';
 
 const scrollMax = 99999,
   moveTag = 'kwdb',
@@ -129,23 +130,26 @@ export function analysisButton(ctrl: RoundController): LooseVNode {
   );
 }
 
-function renderButtons(ctrl: RoundController) {
-  const d = ctrl.data,
-    firstPly = util.firstPly(d),
-    lastPly = util.lastPly(d);
+const goThroughMoves = (ctrl: RoundController, e: Event) => {
+  const targetPly = () => parseInt((e.target as HTMLElement).getAttribute('data-ply') || '');
+  repeater(
+    () => {
+      const ply = targetPly();
+      if (!isNaN(ply)) ctrl.userJump(ply);
+      ctrl.redraw();
+    },
+    e,
+    () => isNaN(targetPly()),
+  );
+};
 
+function renderButtons(ctrl: RoundController) {
+  const firstPly = util.firstPly(ctrl.data),
+    lastPly = util.lastPly(ctrl.data);
   return h(
     'div.buttons',
     {
-      hook: bind(
-        'mousedown',
-        e => {
-          const target = e.target as HTMLElement;
-          const ply = parseInt(target.getAttribute('data-ply') || '');
-          if (!isNaN(ply)) ctrl.userJump(ply);
-        },
-        ctrl.redraw,
-      ),
+      hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
     },
     [
       analysisButton(ctrl) || h('div.noop'),
@@ -185,11 +189,7 @@ function initMessage(ctrl: RoundController) {
 const col1Button = (ctrl: RoundController, dir: number, icon: string, disabled: boolean) =>
   h('button.fbt', {
     attrs: { disabled: disabled, 'data-icon': icon, 'data-ply': ctrl.ply + dir },
-    hook: bind('mousedown', e => {
-      e.preventDefault();
-      ctrl.userJump(ctrl.ply + dir);
-      ctrl.redraw();
-    }),
+    hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
   });
 
 export function render(ctrl: RoundController): LooseVNode {
