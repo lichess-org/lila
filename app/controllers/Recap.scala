@@ -8,7 +8,7 @@ import lila.recap.Recap.Availability
 
 final class Recap(env: Env) extends LilaController(env):
 
-  def home = Secure(_.Beta) { _ ?=> me ?=>
+  def home = Auth { _ ?=> me ?=>
     Redirect(routes.Recap.user(me.username))
   }
 
@@ -24,7 +24,7 @@ final class Recap(env: Env) extends LilaController(env):
   private def RecapPage(
       username: UserStr
   )(f: Context ?=> UserModel => Availability => Fu[Result]): EssentialAction =
-    Secure(_.Beta) { ctx ?=> me ?=>
+    Auth { ctx ?=> me ?=>
       def proceed(user: lila.core.user.User) = for
         av  <- env.recap.api.availability(user)
         res <- f(using ctx.updatePref(_.forceDarkBg))(user)(av)

@@ -6,10 +6,19 @@ body {
   --c-font-shadow: hsla(0, 0, 0%, 0);
   &,
   .site-title,
+  .site-title span,
   .site-buttons .link {
+    #user_tag::after,
     &,
     &:hover {
       color: #fff;
+    }
+  }
+  .hbg__in {
+    &,
+    &::before,
+    &::after {
+      background-color: #fff;
     }
   }
   #clinput,
@@ -98,6 +107,7 @@ body {
 .recap--massive {
   @extend %flex-column;
   align-items: center;
+  max-width: 80%;
   @include fluid-size('font-size', 19px, 42px);
   strong {
     font-size: 3em;
@@ -150,7 +160,7 @@ body {
 
 .recap__shareable {
   .logo {
-    width: 80%;
+    width: 60%;
     max-width: 400px;
   }
   h2 {
@@ -189,6 +199,28 @@ body {
 
     .stat {
       margin-top: 1em;
+    }
+  }
+  @media (max-height: 650px) {
+    .logo {
+      height: 20px;
+      width: auto;
+    }
+    h2 {
+      font-size: 1.2em;
+      margin: 0.4em 0;
+    }
+    .openings {
+      margin-top: 1em;
+      .stat {
+        font-size: 1em;
+        margin-top: 0.5em;
+      }
+    }
+  }
+  @media (min-width: at-least($xx-small)) {
+    .logo {
+      display: none;
     }
   }
 }

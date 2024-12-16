@@ -253,7 +253,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
 <label for="tn-tg" class="fullscreen-mask"></label>
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>"""
 
-    private def reports(using Context) =
+    private def privileges(using Context) =
       if Granter.opt(_.SeeReport) then
         val threshold = reportScoreThreshold()
         val maxScore  = reportScore()
@@ -279,7 +279,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         (Granter.opt(_.Pages) || Granter.opt(_.ManageEvent)).option(
           a(
             cls      := "link",
-            title    := "Management",
+            title    := "Content",
             href     := Granter.opt(_.Pages).option(routes.Cms.index).orElse(routes.Event.manager.some),
             dataIcon := Icon.InkQuill
           )
@@ -331,7 +331,7 @@ final class layout(helpers: Helpers, assetHelper: lila.web.ui.AssetFullHelper)(
         div(cls := "site-buttons")(
           warnNoAutoplay,
           (!isAppealUser).option(clinput),
-          reports,
+          privileges,
           teamRequests(ctx.teamNbRequests),
           if isAppealUser then
             postForm(action := routes.Auth.logout):

@@ -7,11 +7,11 @@ import { myUserId } from './common';
 
 let siteSocket: WsSocket | undefined;
 
-site.load.then(() => {
+export function eventuallySetupDefaultConnection(): void {
   setTimeout(() => {
     if (!siteSocket) wsConnect('/socket/v5', false);
   }, 300);
-});
+}
 
 type Sri = string;
 type Tpe = string;

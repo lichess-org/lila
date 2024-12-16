@@ -33,7 +33,7 @@ export const nbGames = (r: Recap): VNode => {
   return slideTag('games')([
     h('div.recap--massive', [h('strong', animateNumber(r.games.nbs.total)), 'games played']),
     h('div', [
-      h('p', ['And you won ', h('strong', animateNumber(r.games.nbs.win)), '!']),
+      r.games.nbs.win && h('p', ['And you won ', h('strong', animateNumber(r.games.nbs.win)), '!']),
       h('p', 'What did it take to get there?'),
     ]),
   ]);
@@ -155,7 +155,12 @@ export const puzzles = (r: Recap): VNode => {
       ? [
           h('div.recap--massive', [h('strong', animateNumber(r.puzzles.nbs.total)), 'puzzles solved']),
           h('div', [
-            h('p', ['You won ', h('strong', animateNumber(r.puzzles.nbs.win)), ' of them on the first try!']),
+            r.puzzles.nbs.win &&
+              h('p', [
+                'You won ',
+                h('strong', animateNumber(r.puzzles.nbs.win)),
+                ' of them on the first try!',
+              ]),
             r.puzzles.votes.nb
               ? h('p', [
                   'Thank you for voting on ',
@@ -193,7 +198,7 @@ export const sources = (r: Recap): VNode => {
   return (
     best[0] &&
     slideTag('sources')([
-      h('div.recap--massive', 'Where did you play?'),
+      h('div.recap--massive', 'Where did you find games?'),
       h(
         'table.recap__data',
         h(
@@ -209,7 +214,7 @@ export const sources = (r: Recap): VNode => {
 
 export const perfs = (r: Recap): VNode => {
   return slideTag('perfs')([
-    h('div.recap--massive', 'What did you play?'),
+    h('div.recap--massive', 'What time controls and variants did you play?'),
     h(
       'table.recap__data',
       h(
@@ -248,7 +253,7 @@ export const thanks = (): VNode =>
   slideTag('thanks')([
     h('div.recap--massive', 'Thank you for playing on Lichess!'),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    h('div', "May your pieces find their way to your opponents' kings."),
+    h('div', "We're glad you're here. Have a great 2025!"),
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
