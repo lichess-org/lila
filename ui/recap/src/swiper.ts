@@ -19,7 +19,6 @@ export const makeSwiper =
       ? parseInt(window.location.hash.slice(1))
       : undefined;
     const autoplay = !defined(urlSlide);
-    let lpvTimer: number | undefined;
     const options: SwiperOptions = {
       modules: [
         mod.Pagination,
@@ -61,40 +60,41 @@ export const makeSwiper =
         },
         slideChange() {
           setTimeout(() => {
-            element
-              .querySelectorAll('.swiper-slide-active .animated-number')
-              .forEach((counter: HTMLElement) => {
-                animateNumber(counter, {});
-              });
-            element
-              .querySelectorAll('.swiper-slide-active .animated-time')
-              .forEach((counter: HTMLElement) => {
-                animateNumber(counter, { duration: 1000, render: formatDuration });
-              });
-            element
-              .querySelectorAll('.swiper-slide-active .animated-pulse')
-              .forEach((counter: HTMLElement) => {
-                counter.classList.remove('animated-pulse');
-                setTimeout(() => {
-                  counter.classList.add('animated-pulse');
-                }, 100);
-              });
-            element.querySelectorAll('.swiper-slide-active .lpv').forEach((el: HTMLElement) => {
-              const lpv = get(el, 'lpv')!;
-              lpv.goTo('first');
-              clearTimeout(lpvTimer);
-              const next = () => {
-                if (!lpv.canGoTo('next')) return;
-                lpvTimer = setTimeout(() => {
-                  lpv.goTo('next');
-                  next();
-                }, 500);
-              };
-              next();
-            });
+            const slide = element.querySelector('.swiper-slide-active');
+            if (slide) onSlideChange(slide as HTMLElement);
           }, 200);
         },
       },
     };
     new Swiper(element, options);
   };
+
+let lpvTimer: number | undefined;
+
+function onSlideChange(slide: HTMLElement) {
+  slide.querySelectorAll('.animated-number').forEach((counter: HTMLElement) => {
+    animateNumber(counter, {});
+  });
+  slide.querySelectorAll('.animated-time').forEach((counter: HTMLElement) => {
+    animateNumber(counter, { duration: 1000, render: formatDuration });
+  });
+  slide.querySelectorAll('.animated-pulse').forEach((counter: HTMLElement) => {
+    counter.classList.remove('animated-pulse');
+    setTimeout(() => {
+      counter.classList.add('animated-pulse');
+    }, 100);
+  });
+  slide.querySelectorAll('.lpv').forEach((el: HTMLElement) => {
+    const lpv = get(el, 'lpv')!;
+    lpv.goTo('first');
+    clearTimeout(lpvTimer);
+    const next = () => {
+      if (!lpv.canGoTo('next')) return;
+      lpvTimer = setTimeout(() => {
+        lpv.goTo('next');
+        next();
+      }, 500);
+    };
+    next();
+  });
+}
