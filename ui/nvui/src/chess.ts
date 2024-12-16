@@ -312,10 +312,7 @@ export function positionJumpHandler() {
       newFile = symbolToFile(ev.key);
       // if not a valid key for jumping
     } else return;
-    const newBtn = document.querySelector<HTMLElement>(
-      '.board-wrapper button[rank="' + newRank + '"][file="' + newFile + '"]',
-    );
-    if (newBtn) newBtn.focus();
+    document.querySelector<HTMLElement>(squareSelector(newRank, newFile))?.focus();
   };
 }
 
@@ -344,7 +341,7 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
       return;
     }
 
-    const myBtnAttrs = `.board-wrapper [rank="${$currBtn.attr('rank')}"][file="${$currBtn.attr('file')}"]`;
+    const myBtnAttrs = squareSelector($currBtn.attr('rank') ?? '', $currBtn.attr('file') ?? '');
     const $allPieces = $(`.board-wrapper [piece="${ev.key.toLowerCase()}"], ${myBtnAttrs}`);
     const myPieceIndex = $allPieces.index(myBtnAttrs);
     const next = ev.key.toLowerCase() === ev.key;
@@ -373,7 +370,7 @@ export function arrowKeyHandler(pov: Color, borderSound: () => void) {
     else if (ev.key === 'ArrowRight')
       file = String.fromCharCode(isWhite ? file.charCodeAt(0) + 1 : file.charCodeAt(0) - 1);
     else return;
-    const newSqEl = document.querySelector<HTMLElement>(`.board-wrapper [file="${file}"][rank="${rank}"]`);
+    const newSqEl = document.querySelector<HTMLElement>(squareSelector(`${rank}`, file));
     newSqEl ? newSqEl.focus() : borderSound();
     ev.preventDefault();
   };
@@ -405,7 +402,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
       if ($evBtn.attr('color') === opposite(opponentColor)) return;
 
       const first = $moveBox.val();
-      const $firstPiece = $(`.board-wrapper [file="${first[0]}"][rank="${first[1]}"]`);
+      const $firstPiece = $(squareSelector(first[1], first[0]));
       $moveBox.val($moveBox.val() + pos);
       // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently. TODO: make cleaner
       // if pawn promotion
@@ -546,3 +543,6 @@ const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string 
         (_, san) => `Best move was ${renderSan(san, undefined, style)}`,
       )
     : comment.text;
+
+const squareSelector = (rank: string, file: string) =>
+  `.board-wrapper button[rank="${rank}"][file="${file}"]`;
