@@ -879,7 +879,6 @@ GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 
 GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
-POST  /dev/socket-test                 controllers.Dev.socketTestResult
 
 # Push
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform, deviceId)
