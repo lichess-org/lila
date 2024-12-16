@@ -373,8 +373,6 @@ interface I18n {
     unrated: string;
     /** Upcoming */
     upcoming: string;
-    /** Upcoming broadcasts */
-    upcomingBroadcasts: string;
     /** Upload tournament image */
     uploadImage: string;
     /** webmasters page */
@@ -2067,6 +2065,8 @@ interface I18n {
   preferences: {
     /** Bell notification sound */
     bellNotificationSound: string;
+    /** Blindfold */
+    blindfold: string;
     /** Board coordinates (A-H, 1-8) */
     boardCoordinates: string;
     /** Board highlights (last move and check) */

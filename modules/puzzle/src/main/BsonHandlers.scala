@@ -55,7 +55,7 @@ object BsonHandlers:
     rt => BSONString(s"${if rt.vote then "+" else "-"}${rt.theme}")
   )
 
-  private[puzzle] given roundHandler: BSON[PuzzleRound] with
+  given roundHandler: BSON[PuzzleRound] with
     import PuzzleRound.BSONFields.*
     def reads(r: BSON.Reader) = PuzzleRound(
       id = r.get[PuzzleRound.Id](id),

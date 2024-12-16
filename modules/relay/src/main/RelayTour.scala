@@ -45,45 +45,42 @@ case class RelayTour(
 
   def path: String = s"/broadcast/$slug/$id"
 
-  def tierIs(selector: RelayTour.Tier.Selector) =
-    tier.fold(false)(_ == selector(RelayTour.Tier))
+  def tierIs(selector: RelayTour.Tier.Selector) = tier.has(selector(RelayTour.Tier))
 
   def studyVisibility: Visibility =
-    if tier.has(RelayTour.Tier.PRIVATE)
+    if tier.has(RelayTour.Tier.`private`)
     then Visibility.`private`
     else Visibility.public
 
 object RelayTour:
 
-  val maxRelays = 64
+  val maxRelays = Max(64)
 
   opaque type Name = String
   object Name extends OpaqueString[Name]
 
-  type Tier = Int
-  object Tier:
-    val PRIVATE = -1
-    val NORMAL  = 3
-    val HIGH    = 4
-    val BEST    = 5
+  enum Tier(val v: Int):
+    case `private` extends Tier(-1)
+    case normal    extends Tier(3)
+    case high      extends Tier(4)
+    case best      extends Tier(5)
+    def key = toString
 
-    val options = List(
-      ""               -> "Non official",
-      NORMAL.toString  -> "Official: normal tier",
-      HIGH.toString    -> "Official: high tier",
-      BEST.toString    -> "Official: best tier",
-      PRIVATE.toString -> "Private"
-    )
-    def name(tier: Tier) = options.collectFirst {
-      case (t, n) if t == tier.toString => n
-    } | "???"
-    val keys: Map[Tier, String] = Map(
-      NORMAL  -> "normal",
-      HIGH    -> "high",
-      BEST    -> "best",
-      PRIVATE -> "private"
-    )
+  object Tier:
     type Selector = RelayTour.Tier.type => RelayTour.Tier
+
+    given cats.Order[Tier] = cats.Order.by(_.v)
+
+    def apply(s: Selector) = s(Tier)
+
+    val byV = values.mapBy(_.v)
+    val options = List(
+      ""                   -> "Non official",
+      normal.v.toString    -> "Official: normal tier",
+      high.v.toString      -> "Official: high tier",
+      best.v.toString      -> "Official: best tier",
+      `private`.v.toString -> "Private"
+    )
 
   case class Info(
       format: Option[String],
@@ -107,23 +104,6 @@ object RelayTour:
     def specialLanguage: Option[Language] = (language != lila.core.i18n.defaultLanguage).option(language)
 
   case class WithRounds(tour: RelayTour, rounds: List[RelayRound])
-
-  case class ActiveWithSomeRounds(
-      tour: RelayTour,
-      display: RelayRound, // which round to show on the tour link
-      link: RelayRound,    // which round to actually link to
-      group: Option[RelayGroup.Name]
-  ) extends RelayRound.AndTourAndGroup:
-    def errors: List[String] =
-      val round = display
-      ~round.sync.log.lastErrors.some
-        .filter(_.nonEmpty)
-        .orElse:
-          (round.hasStarted && round.sync.hasUpstream && !round.sync.ongoing)
-            .option(List("Not syncing!"))
-        .orElse:
-          round.shouldHaveStarted1Hour.option:
-            List(if round.sync.hasUpstream then "Upstream has not started" else "Nothing pushed yet")
 
   case class WithLastRound(tour: RelayTour, round: RelayRound, group: Option[RelayGroup.Name])
       extends RelayRound.AndTourAndGroup:

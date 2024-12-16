@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Përshkrim i shkurtër i turneut</string>
   <string name="fullDescription">Përshkrim i plotë i turneut</string>
   <string name="fullDescriptionHelp">Përshkrim i gjatë opsional i turneut. %1$s është e disponueshme. Gjatësia duhet të jetë më pak se %2$s shenja.</string>
-  <string name="sourceSingleUrl">URL Burimi PGN-je</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL Burimi PGN-je</string>
   <string name="sourceUrlHelp">URL-ja që do të kontrollojë Lichess-i për të marrë përditësime PGN-sh. Duhet të jetë e përdorshme publikisht që nga Interneti.</string>
   <string name="sourceGameIds">Deri në 64 ID lojërash Lichess, ndarë me hapësira.</string>
   <string name="startDateTimeZone">Datë fillimi në zonën kohore vendore të turneut: %s</string>
@@ -46,7 +46,7 @@
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Federim</string>
   <string name="ageThisYear">Moshë këtë vit</string>
-  <string name="unrated">Pa pikë</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Pa pikë</string>
   <string name="recentTournaments">Turne së fundi</string>
   <string name="openLichess">Hape në Lichess</string>
   <string name="teams">Ekipe</string>
@@ -74,7 +74,6 @@
   <string name="timezone">Zonë kohore</string>
   <string name="fideRatingCategory">Kategori vlerësimi FIDE</string>
   <string name="optionalDetails">Hollësi opsionale</string>
-  <string name="upcomingBroadcasts">Transmetime së afërmi</string>
   <string name="pastBroadcasts">Transmetime të kaluara</string>
   <string name="allBroadcastsByMonth">Shihni krejt transmetimet sipas muajsh</string>
 </resources>

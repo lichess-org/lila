@@ -5,7 +5,7 @@ import akka.actor.Cancellable
 import java.util.concurrent.ConcurrentHashMap
 
 import lila.common.String.shorten
-import lila.core.notify.*
+import lila.core.notify.{ NotifyApi, NotificationContent }
 import lila.db.dsl.{ *, given }
 
 final private class MsgNotify(
@@ -55,6 +55,9 @@ final private class MsgNotify(
     colls.thread.byId[MsgThread](threadId.value).flatMapz { thread =>
       val msg = thread.lastMsg
       (!thread.delBy(thread.other(msg.user))).so(
-        notifyApi.notifyOne(thread.other(msg.user), PrivateMessage(msg.user, text = shorten(msg.text, 40)))
+        notifyApi.notifyOne(
+          thread.other(msg.user),
+          NotificationContent.PrivateMessage(msg.user, text = shorten(msg.text, 40))
+        )
       )
     }

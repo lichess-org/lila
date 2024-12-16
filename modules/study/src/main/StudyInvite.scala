@@ -1,6 +1,6 @@
 package lila.study
 
-import lila.core.notify.{ InvitedToStudy, NotifyApi }
+import lila.core.notify.{ NotificationContent, NotifyApi }
 import lila.core.perm.Granter
 import lila.core.relation.Relation.{ Block, Follow }
 import lila.db.dsl.{ *, given }
@@ -72,7 +72,7 @@ final private class StudyInvite(
     _ <- shouldNotify.so(notifyRateLimit.zero(inviter.userId, rateLimitCost):
       notifyApi.notifyOne(
         invited,
-        InvitedToStudy(
+        NotificationContent.InvitedToStudy(
           invitedBy = inviter.userId,
           studyName = study.name,
           studyId = study.id

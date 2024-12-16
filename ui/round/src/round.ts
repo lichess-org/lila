@@ -7,7 +7,7 @@ import { text as xhrText } from 'common/xhr';
 import type MoveOn from './moveOn';
 import type { TourPlayer } from 'game';
 import { tourStandingCtrl, type TourStandingCtrl } from './tourStanding';
-import StrongSocket from 'common/socket';
+import { wsConnect, wsDestroy } from 'common/socket';
 import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
@@ -52,7 +52,7 @@ async function boot(
   const socketUrl = opts.data.player.spectator
     ? `/watch/${data.game.id}/${data.player.color}/v6`
     : `/play/${data.game.id}${data.player.id}/v6`;
-  site.socket = new StrongSocket(socketUrl, data.player.version, {
+  opts.socketSend = wsConnect(socketUrl, data.player.version, {
     params: { userTv: data.userTv && data.userTv.id },
     receive(t: string, d: any) {
       round.socketReceive(t, d);
@@ -87,8 +87,7 @@ async function boot(
         }
       },
     },
-  });
-  opts.socketSend = site.socket.send;
+  }).send;
 
   const startTournamentClock = () => {
     if (data.tournament)
@@ -141,7 +140,7 @@ async function boot(
 
   if (!data.player.spectator && location.hostname != (document as any)['Location'.toLowerCase()].hostname) {
     alert(`Games cannot be played through a web proxy. Please use ${location.hostname} instead.`);
-    site.socket.destroy();
+    wsDestroy();
   }
   return ctrl;
 }

@@ -295,7 +295,8 @@ ${this.isChooser || !env.canPost ? ' disabled' : ''} spellcheck="false"></input>
                 <div class="text"></div>
                 <button class="button button-empty button-red" data-action="cancel">cancel</button>
               </div>`,
-            show: 'modal',
+            show: true,
+            modal: true,
             focus: '.name',
             noClickAway: true,
             actions: [

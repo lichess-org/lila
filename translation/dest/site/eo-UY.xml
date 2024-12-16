@@ -671,7 +671,7 @@
   <string name="aboutSimulRules">Kiam la samtempludo komenciĝas, ĉiu ludanto komencas ludon kontraŭ la gastiganto, kiu ludu per la blankaj ŝakpecoj. La samtempludo finiĝas kiam ĉiuj ludoj estas finitaj.</string>
   <string name="aboutSimulSettings">Samtempludoj ĉiam estas amikaj. Redefioj, reprenoj kaj plia tempo ne eblas.</string>
   <string name="create">Krei</string>
-  <string name="whenCreateSimul">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kiam vi kreas samtempludon, vi povas ludi kontraŭ multaj ludantoj samtempe.</string>
   <string name="simulVariantsHint">Se vi elektas multajn variaĵojn, ĉiu ludanto povas laŭvole elekti unu el la variaĵoj.</string>
   <string name="simulClockHint">Ŝakhorloĝo. Ju pli da ludantoj kiujn vi defios, des pli da tempo kiun vi eble bezonos.</string>
   <string name="simulAddExtraTime">Vi povas aldoni plian tempon al via ŝakhorloĝo por helpi vian ludadon.</string>

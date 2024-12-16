@@ -66,7 +66,7 @@ final class RelayRoundForm(using mode: Mode):
     roundMapping(trs.tour)
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
-        _ => trs.rounds.sizeIs < RelayTour.maxRelays
+        _ => trs.rounds.sizeIs < RelayTour.maxRelays.value
       )
   ).fill(fillFromPrevRounds(trs.rounds))
 

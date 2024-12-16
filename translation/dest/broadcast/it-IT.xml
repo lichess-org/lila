@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Breve descrizione dell\'evento</string>
   <string name="fullDescription">Descrizione completa dell\'evento</string>
   <string name="fullDescriptionHelp">(Facoltativo) Descrizione completa dell\'evento. %1$s è disponibile. La lunghezza deve essere inferiore a %2$s caratteri.</string>
-  <string name="sourceSingleUrl">Sorgente URL PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Sorgente URL PGN</string>
   <string name="sourceUrlHelp">L\'URL che Lichess utilizzerà per ottenere gli aggiornamenti dei PGN. Deve essere accessibile pubblicamente su Internet.</string>
   <string name="sourceGameIds">Fino a 64 ID di partite Lichess, separati da spazi.</string>
   <string name="startDateTimeZone">Data d\'inizio nel fuso orario locale del torneo: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">Profilo FIDE</string>
   <string name="federation">Federazione</string>
   <string name="ageThisYear">Età quest\'anno</string>
-  <string name="unrated">Non classificato</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Non classificato</string>
   <string name="recentTournaments">Tornei recenti</string>
   <string name="openLichess">Apri con Lichess</string>
   <string name="teams">Squadre</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Fuso orario</string>
   <string name="fideRatingCategory">Categoria di punteggio FIDE</string>
   <string name="optionalDetails">Dettagli facoltativi</string>
-  <string name="upcomingBroadcasts">Prossime trasmissioni</string>
   <string name="pastBroadcasts">Trasmissioni precedenti</string>
   <string name="allBroadcastsByMonth">Visualizza tutte le trasmissioni per mese</string>
 </resources>

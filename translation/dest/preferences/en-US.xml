@@ -16,6 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Zen mode</string>
   <string name="showPlayerRatings">Show player ratings</string>
   <string name="showFlairs">Show player flairs</string>
+  <string name="explainShowPlayerRatings">This hides all ratings from Lichess, to help focus on the chess. Rated games still impact your rating, this is only about what you get to see.</string>
   <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="inGameOnly">In-game only</string>
@@ -50,7 +51,7 @@
   <string name="inputMovesWithVoice">Input moves with your voice</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Snap arrows to valid moves</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Say \"Good game, well played\" upon defeat or draw</string>
-  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Your preferences have been saved.</string>
+  <string name="yourPreferencesHaveBeenSaved">Your preferences have been saved.</string>
   <string name="scrollOnTheBoardToReplayMoves">Scroll on the board to replay moves</string>
   <string name="correspondenceEmailNotification">Daily mail notification listing your correspondence games</string>
   <string name="notifyStreamStart">Streamer goes live</string>
@@ -66,4 +67,5 @@
   <string name="notifyWeb">Browser</string>
   <string name="notifyDevice">Device</string>
   <string name="bellNotificationSound">Bell notification sound</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Blindfold</string>
 </resources>

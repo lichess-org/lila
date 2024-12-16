@@ -50,6 +50,7 @@ import { storage, once, type LichessBooleanStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { readFen, almostSanOf, speakable } from 'chess/sanWriter';
 import { plyToTurn } from 'chess';
+import { wsDestroy } from 'common/socket';
 
 interface GoneBerserk {
   white?: boolean;
@@ -893,7 +894,7 @@ export default class RoundController implements MoveRootCtrl {
       setTimeout(() => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {
           alert('Play enhancement extensions are no longer allowed!');
-          site.socket.destroy();
+          wsDestroy();
           this.setRedirecting();
           location.href = '/page/play-extensions';
         }

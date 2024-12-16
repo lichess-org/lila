@@ -56,6 +56,7 @@ class SetupDialog {
           <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
         </div>
       </div>`,
+      modal: true,
       actions: [
         { selector: '.fight', listener: this.fight },
         { selector: '.switch', listener: this.switch },
@@ -84,7 +85,7 @@ class SetupDialog {
         orientation: 'bottom',
       });
       window.addEventListener('resize', this.hand.resize);
-      dlg.showModal();
+      dlg.show();
       this.select(this.setup[this.botColor]);
       this.hand.resize();
     });

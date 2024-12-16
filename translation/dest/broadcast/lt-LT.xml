@@ -26,7 +26,7 @@
   <string name="tournamentDescription">Trumpas turnyro aprašymas</string>
   <string name="fullDescription">Pilnas renginio aprašymas</string>
   <string name="fullDescriptionHelp">Neprivalomas pilnas transliacijos aprašymas. Galima naudoti %1$s. Ilgis negali viršyti %2$s simbolių.</string>
-  <string name="sourceSingleUrl">PGN šaltinio URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN šaltinio URL</string>
   <string name="sourceUrlHelp">URL, į kurį „Lichess“ kreipsis gauti PGN atnaujinimus. Privalo būti viešai pasiekiamas internete.</string>
   <string name="sourceGameIds">Iki 64 Lichess žaidimo ID, atskirtų tarpais.</string>
   <string name="startDateTimeZone">Turnyro pradžia vietos laiku: %s</string>
@@ -49,7 +49,7 @@
   <string name="fideProfile">FIDE profilis</string>
   <string name="federation">Federacija</string>
   <string name="ageThisYear">Amžius šiemet</string>
-  <string name="unrated">Nereitinguota(s)</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Nereitinguota(s)</string>
   <string name="recentTournaments">Neseniai sukurti turnyrai</string>
   <string name="openLichess">Atverti Lichess-e</string>
   <string name="teams">Komandos</string>
@@ -80,7 +80,6 @@
   <string name="timezone">Laiko juosta</string>
   <string name="fideRatingCategory">FIDE reitingo kategorija</string>
   <string name="optionalDetails">Papildoma informacija</string>
-  <string name="upcomingBroadcasts">Būsimos transliacijos</string>
   <string name="pastBroadcasts">Ankstesnės transliacijos</string>
   <string name="allBroadcastsByMonth">Rodyti visas transliacijas pagal mėnesį</string>
 </resources>

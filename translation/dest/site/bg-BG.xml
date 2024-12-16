@@ -669,7 +669,7 @@
   <string name="aboutSimulRules">Когато едновременното предизвикателство започне, всеки играч започва игра с приемащия, който играе с белите. Предизвикателството свършва когато всички игри са завършели.</string>
   <string name="aboutSimulSettings">Сеансите са винаги без рейтинг. Искане на повторна игра, връщане на ход и добавяне на време са изключени.</string>
   <string name="create">Създай</string>
-  <string name="whenCreateSimul">Когато създадете сеанс, трябва да можете да играете с много играчи наведнъж.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Когато създадете сеанс, трябва да можете да играете с много играчи наведнъж.</string>
   <string name="simulVariantsHint">Ако изберете няколко варианта, всеки играч може да избере кой да играе.</string>
   <string name="simulClockHint">Fischer-засичане на времето. Колкото повече играчи приемеш, толкова повече време ти е нужно.</string>
   <string name="simulAddExtraTime">Можеш да си прибавиш време, за да се справиш с предизвикателството.</string>

@@ -10,7 +10,7 @@ import lila.core.challenge.Challenge
 import lila.core.data.LazyFu
 import lila.core.misc.map.Tell
 import lila.core.misc.push.TourSoon
-import lila.core.notify.*
+import lila.core.notify.{ NotificationContent, PrefEvent, NotifyAllows }
 import lila.core.round.{ IsOnGame, MoveEvent }
 import lila.core.study.data.StudyName
 
@@ -29,6 +29,7 @@ final private class PushApi(
   import PushApi.Data.payload
 
   private[push] def notifyPush(to: Iterable[NotifyAllows], content: NotificationContent): Funit =
+    import NotificationContent.*
     content match
       case PrivateMessage(sender, text) =>
         lightUser(sender).flatMap(luser => privateMessage(to.head, sender, luser.titleName, text))

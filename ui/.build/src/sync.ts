@@ -21,9 +21,9 @@ export async function sync(): Promise<void> {
   const updated = new Set<string>();
 
   for (const pkg of env.building) {
-    for (const cp of pkg.sync) {
-      for (const src of await globSync(cp)) {
-        if (env.watch) watched.set(src, [...(watched.get(src) ?? []), cp]);
+    for (const sync of pkg.sync) {
+      for (const src of await globSync(sync)) {
+        if (env.watch) watched.set(src, [...(watched.get(src) ?? []), sync]);
       }
     }
     if (!env.watch) continue;

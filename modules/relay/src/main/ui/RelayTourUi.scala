@@ -16,15 +16,15 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def asRelayPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound] = p.mapResults(identity)
 
   def index(
-      active: List[RelayTour.ActiveWithSomeRounds],
-      upcoming: List[WithLastRound],
+      active: List[RelayCard],
       past: Seq[WithLastRound]
   )(using Context) =
-    def nonEmptyTier(selector: RelayTour.Tier.Selector, tier: String) =
+    def nonEmptyTier(selector: RelayTour.Tier.Selector) =
+      val tier     = RelayTour.Tier(selector)
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
-        selected.map:
-          card.render(_, live = _.display.hasStarted)
+        selected.map: sel =>
+          card.render(sel, live = _.display.hasStarted, alts = sel.alts)
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -34,17 +34,9 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
             Granter.opt(_.StudyAdmin).option(adminIndex(active)),
-            nonEmptyTier(_.BEST, "best"),
-            nonEmptyTier(_.HIGH, "high"),
-            nonEmptyTier(_.NORMAL, "normal"),
-            upcoming.nonEmpty.option(
-              frag(
-                h2(cls := "relay-index__section")(trc.upcomingBroadcasts()),
-                st.section(cls := "relay-cards relay-cards--upcoming"):
-                  upcoming.map:
-                    card.render(_, live = _ => false)
-              )
-            ),
+            nonEmptyTier(_.best),
+            nonEmptyTier(_.high),
+            nonEmptyTier(_.normal),
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards relay-cards--past"):
               past.map: t =>
@@ -58,7 +50,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           )
         )
 
-  private def adminIndex(active: List[RelayTour.ActiveWithSomeRounds])(using Context) =
+  private def adminIndex(active: List[RelayCard])(using Context) =
     val errored = active.flatMap(a => a.errors.some.filter(_.nonEmpty).map(a -> _))
     errored.nonEmpty.option:
       div(cls := "relay-index__admin")(
@@ -248,6 +240,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     def render[A <: RelayRound.AndTourAndGroup](
         tr: A,
         live: A => Boolean,
+        alts: List[RelayRound.WithTour] = Nil,
         errors: List[String] = Nil
     )(using Context) =
       link(tr.tour, tr.path, live(tr))(
@@ -267,6 +260,13 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow)
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
+          tr.group
+            .ifTrue(alts.nonEmpty)
+            .map: group =>
+              ul(cls := "relay-card__alts"):
+                alts.map: alt =>
+                  li(group.shortTourName(alt.tour.name))
+          ,
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
           else truncatedPlayers(tr.tour)
@@ -274,8 +274,8 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       )
 
     def renderCalendar(tr: RelayTour.WithFirstRound)(using Context) =
-      val highTier = tr.tour.tier.exists(_ >= RelayTour.Tier.HIGH)
-      link(tr.tour, tr.path, false)(cls := s"relay-card--tier-${~tr.tour.tier}")(
+      val highTier = tr.tour.tier.exists(_ >= RelayTour.Tier.high)
+      link(tr.tour, tr.path, false)(cls := s"relay-card--tier-${tr.tour.tier.so(_.v)}")(
         highTier.option(image(tr.tour)),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(

@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">بازی با دوستان</string>
   <string name="playWithTheMachine">بازی با رایانه</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کسی به بازی، این وب‌نشانی را دهید</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">برای دعوت کردن حریف این لینک را برای او بفرستید</string>
   <string name="gameOver">پایان بازی</string>
   <string name="waitingForOpponent">انتطار برای حریف</string>
   <string name="orLetYourOpponentScanQrCode">یا اجازه دهید حریف‌تان این کد QR را بِروبینَد</string>
@@ -117,7 +117,7 @@
   <string name="realtimeReplay">مشابه بازی</string>
   <string name="byCPL">درنگ هنگام اشتباه</string>
   <string name="enable">فعال سازی</string>
-  <string name="bestMoveArrow">فلش نشان دهنده بهترین حرکت</string>
+  <string name="bestMoveArrow">پیکانِ بهترین حرکت</string>
   <string name="showVariationArrows">نمایش پیکان‌های وَرتِش</string>
   <string name="evaluationGauge">میله ارزیابی</string>
   <string name="multipleLines">شاخه های متعدد</string>
@@ -466,8 +466,8 @@
   <string name="safeTournamentName">یک نام بسیار امن برای مسابقات انتخاب کنید.</string>
   <string name="inappropriateNameWarning">هرچیز حتی کمی نامناسب ممکن است باعث بسته شدن حساب کاربری شما بشود.</string>
   <string name="emptyTournamentName">برای نامیدن مسابقات به نام یک شطرنج‌باز برجسته، خالی بگذارید.</string>
-  <string name="makePrivateTournament">تورنومنت را به حالت خصوصی در بیاورید و دسترسی را محدود به داشتن پسورد کنید</string>
-  <string name="join">ملحق شدن</string>
+  <string name="makePrivateTournament">خصوصی کردن مسابقات و دسترسی تنها با گذرواژه</string>
+  <string name="join">پیوستن</string>
   <string name="withdraw">منصرف شدن</string>
   <string name="points">امتیازها</string>
   <string name="wins">بردها</string>
@@ -743,7 +743,7 @@
   <string name="crosstable">رودررو</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">برای حرکت، روی صفحه بازی بِنَوَردید.</string>
   <string name="scrollOverComputerVariationsToPreviewThem">برای پیش‌نمایش آن‌ها، روی وَرتِش‌های رایانه‌ای بِغَرالید.</string>
-  <string name="analysisShapesHowTo">و کلیک کنید یا راست کلیک کنید تا دایره یا فلش در صفحه بکشید shift</string>
+  <string name="analysisShapesHowTo">برای رسم دایره و پیکان روی تخته، shift+click یا راست-تِلیک را بفشارید.</string>
   <string name="letOtherPlayersMessageYou">ارسال پیام توسط بقیه به شما</string>
   <string name="receiveForumNotifications">دریافت اعلان هنگام نام‌بَری در انجمن</string>
   <string name="shareYourInsightsData">اشتراک گذاشتن داده های شما</string>

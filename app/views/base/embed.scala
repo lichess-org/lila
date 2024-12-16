@@ -16,7 +16,7 @@ object embed:
         head(
           page.ui.charset,
           page.ui.viewport,
-          page.ui.metaCsp(basicCsp.withNonce(ctx.nonce).withInlineIconFont),
+          page.ui.metaCsp(embedCsp.withNonce(ctx.nonce).withInlineIconFont),
           st.headTitle(title),
           (ctx.bg == "system").option(page.ui.systemThemeScript(ctx.nonce.some)),
           page.ui.pieceSprite(ctx.pieceSet.name),

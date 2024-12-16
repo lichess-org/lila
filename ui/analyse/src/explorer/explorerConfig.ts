@@ -333,6 +333,7 @@ const playerModal = (ctrl: ExplorerConfigCtrl) => {
       ctrl.data.playerName.open(false);
       ctrl.root.redraw();
     },
+    modal: true,
     vnodes: [
       h('h2', 'Personal opening explorer'),
       h('div.input-wrapper', [

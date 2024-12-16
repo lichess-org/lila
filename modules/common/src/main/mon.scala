@@ -661,6 +661,9 @@ object mon:
           "result" -> result
         )
     def timeout(name: String) = counter("workQueue.timeout").withTag("name", name)
+  class parallelQueue(name: String):
+    val parallelism    = gauge("parallelQueue.parallelism").withTag("name", name)
+    val computeTimeout = counter("parallelQueue.buildTimeout").withTag("name", name)
   object markdown:
     val time = timer("markdown.time").withoutTags()
   object ublog:
@@ -677,6 +680,9 @@ object mon:
   object link:
     def external(tag: String, auth: Boolean) = counter("link.external").withTags:
       tags("tag" -> tag, "auth" -> auth)
+  object recap:
+    val games   = future("recap.build.games.time")
+    val puzzles = future("recap.build.puzzles.time")
 
   object jvm:
     def threads() =

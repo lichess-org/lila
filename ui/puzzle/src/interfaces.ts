@@ -83,14 +83,14 @@ export interface PuzzleReplay {
 
 export interface PuzzleGame {
   id: string;
-  perf: {
+  perf?: {
     key: keyof typeof perfIcons;
     name: string;
   };
   rated: boolean;
   players: [PuzzlePlayer, PuzzlePlayer];
   pgn: string;
-  clock: string;
+  clock?: string;
 }
 
 export interface PuzzlePlayer {

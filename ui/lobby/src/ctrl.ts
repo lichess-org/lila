@@ -24,6 +24,7 @@ import Filter from './filter';
 import SetupController from './setupCtrl';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
+import { wsPingInterval } from 'common/socket';
 
 export default class LobbyController {
   data: LobbyData;
@@ -153,7 +154,7 @@ export default class LobbyController {
       if (!nb && nb !== 0) return;
       timeouts.forEach(clearTimeout);
       timeouts = [];
-      const interv = Math.abs(site.socket.pingInterval() / nbSteps);
+      const interv = Math.abs(wsPingInterval() / nbSteps);
       const prev = previous || nb;
       previous = nb;
       for (let i = 0; i < nbSteps; i++)

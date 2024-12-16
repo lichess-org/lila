@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import main from './main';
 import type { LobbyOpts } from './interfaces';
-import StrongSocket from 'common/socket';
+import { wsConnect, wsPingInterval } from 'common/socket';
 import { pubsub } from 'common/pubsub';
 
 export function initModule(opts: LobbyOpts) {
@@ -22,14 +22,14 @@ export function initModule(opts: LobbyOpts) {
     { id: '30+20', lim: 30, inc: 20, perf: 'Classical' },
   ];
 
-  site.socket = new StrongSocket('/lobby/socket/v5', false, {
+  opts.socketSend = wsConnect('/lobby/socket/v5', false, {
     receive: (t: string, d: any) => lobbyCtrl.socket.receive(t, d),
     events: {
       n(_: string, msg: any) {
         lobbyCtrl.spreadPlayersNumber && lobbyCtrl.spreadPlayersNumber(msg.d);
         setTimeout(
           () => lobbyCtrl.spreadGamesNumber && lobbyCtrl.spreadGamesNumber(msg.r),
-          site.socket.pingInterval() / 2,
+          wsPingInterval() / 2,
         );
       },
       reload_timeline() {
@@ -52,7 +52,7 @@ export function initModule(opts: LobbyOpts) {
         lobbyCtrl.gameActivity(e.id);
       },
     },
-  });
+  }).send;
   pubsub.after('socket.hasConnected').then(() => {
     const gameId = new URLSearchParams(location.search).get('hook_like');
     if (!gameId) return;
@@ -68,6 +68,5 @@ export function initModule(opts: LobbyOpts) {
     history.replaceState(null, '', '/');
   });
 
-  opts.socketSend = site.socket.send;
   const lobbyCtrl = main(opts);
 }

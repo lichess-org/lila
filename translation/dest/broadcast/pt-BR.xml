@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Descrição curta do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa e opcional da transmissão. %1$s está disponível. O tamanho deve ser menor que %2$s caracteres.</string>
-  <string name="sourceSingleUrl">URL de origem de PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL de origem de PGN</string>
   <string name="sourceUrlHelp">URL que Lichess irá verificar para obter atualizações PGN. Deve ser acessível ao público a partir da Internet.</string>
   <string name="sourceGameIds">Até 64 IDs de partidas do Lichess, separados por espaços.</string>
   <string name="startDateTimeZone">Data de início no horário local do torneio: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federação</string>
   <string name="ageThisYear">Idade atual</string>
-  <string name="unrated">Sem rating</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Sem rating</string>
   <string name="recentTournaments">Torneios recentes</string>
   <string name="openLichess">Abrir no Lichess</string>
   <string name="teams">Equipes</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Fuso horário</string>
   <string name="fideRatingCategory">Categoria de rating FIDE</string>
   <string name="optionalDetails">Detalhes opcionais</string>
-  <string name="upcomingBroadcasts">Próximas transmissões</string>
   <string name="pastBroadcasts">Transmissões passadas</string>
   <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
 </resources>

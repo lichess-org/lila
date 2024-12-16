@@ -19,6 +19,7 @@ export default function setupModal(ctrl: LobbyController): MaybeVNode {
     class: 'game-setup',
     css: [{ hashed: 'lobby.setup' }],
     onClose: setupCtrl.closeModal,
+    modal: true,
     vnodes: [...views[setupCtrl.gameType](ctrl), ratingView(ctrl)],
   });
 }

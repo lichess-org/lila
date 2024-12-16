@@ -19,25 +19,20 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
       .cursor[RelayRound]()
 
   def byTourOrdered(tourId: RelayTourId): Fu[List[RelayRound]] =
-    byTourOrderedCursor(tourId).list(RelayTour.maxRelays)
+    byTourOrderedCursor(tourId).list(RelayTour.maxRelays.value)
 
   def idsByTourOrdered(tour: RelayTourId): Fu[List[RelayRoundId]] =
     coll.primitive[RelayRoundId](
       selector = selectors.tour(tour),
       sort = sort.asc,
-      nb = RelayTour.maxRelays,
       field = "_id"
     )
 
+  def studyIdsOf(tourId: RelayTourId): Fu[List[StudyId]] =
+    idsByTourOrdered(tourId).map(StudyId.from)
+
   def tourIdByStudyId(studyId: StudyId): Fu[Option[RelayTourId]] =
     coll.primitiveOne[RelayTourId]($id(studyId), "tourId")
-
-  def idsByTourId(tourId: RelayTourId): Fu[List[StudyId]] =
-    coll
-      .find(selectors.tour(tourId))
-      .cursor[Bdoc]()
-      .list(RelayTour.maxRelays)
-      .map(_.flatMap(_.getAsOpt[StudyId]("_id")))
 
   def lastByTour(tour: RelayTour): Fu[Option[RelayRound]] =
     coll
@@ -58,9 +53,6 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
   def deleteByTour(tour: RelayTour): Funit =
     coll.delete.one(selectors.tour(tour.id)).void
 
-  def studyIdsOf(tourId: RelayTourId): Fu[List[StudyId]] =
-    coll.distinctEasy[StudyId, List]("_id", selectors.tour(tourId))
-
   def syncTargetsOfSource(source: RelayRoundId): Funit =
     coll.update
       .one(
@@ -68,6 +60,9 @@ final private class RelayRoundRepo(val coll: Coll)(using Executor):
         $set("sync.nextAt"                                        -> nowInstant)
       )
       .void
+
+  def currentCrowd(id: RelayRoundId): Fu[Option[Int]] =
+    coll.primitiveOne[Int]($id(id), "crowd")
 
   def nextRoundThatStartsAfterThisOneCompletes(round: RelayRound): Fu[Option[RelayRound]] = for
     next <- coll

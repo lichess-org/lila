@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Turnuvanın kısa tanımı</string>
   <string name="fullDescription">Etkinliğin detaylıca açıklaması</string>
   <string name="fullDescriptionHelp">Etkinliğin isteğe bağlı detaylı açıklaması. %1$s seçeneği mevcuttur. Metnin uzunluğu azami %2$s karakter olmalıdır.</string>
-  <string name="sourceSingleUrl">PGN Kaynak URL\'si</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Kaynak URL\'si</string>
   <string name="sourceUrlHelp">Lichess, sağladığınız URL yardımıyla PGN\'yi güncelleyecektir. İnternet üzerinden herkese açık bir URL yazmalısınız.</string>
   <string name="sourceGameIds">Boşluklarla ayrılmış 64 adede kadar Lichess oyun ID\'si.</string>
   <string name="startDateTimeZone">Turnuva yerel saati ile başlama zamanı: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">FIDE profili</string>
   <string name="federation">Federasyon</string>
   <string name="ageThisYear">Bu yılki yaşı</string>
-  <string name="unrated">Derecelendirilmemiş</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Derecelendirilmemiş</string>
   <string name="recentTournaments">Son Turnuvalar</string>
   <string name="openLichess">Lichess\'te aç</string>
   <string name="teams">Takımlar</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Zaman dilimi</string>
   <string name="fideRatingCategory">FIDE derecelendirme kategorisi</string>
   <string name="optionalDetails">İsteğe bağlı ayrıntılar</string>
-  <string name="upcomingBroadcasts">Yaklaşan yayınlar</string>
   <string name="pastBroadcasts">Geçmiş yayınlar</string>
   <string name="allBroadcastsByMonth">Tüm yayınları aylara göre görüntüleyin</string>
 </resources>

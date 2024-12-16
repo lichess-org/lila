@@ -16,7 +16,7 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">禅意模式</string>
   <string name="showPlayerRatings">显示等级分</string>
   <string name="showFlairs">显示玩家图标</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">该选项可在网站内隐藏等级分，使你可以专注于下棋本身。对局依旧会影响等级分，但不会向你显示。</string>
+  <string name="explainShowPlayerRatings">该选项可在网站内隐藏等级分，使你可以专注于下棋本身。对局依旧会影响等级分，但不会向你显示。</string>
   <string name="displayBoardResizeHandle">调整棋盘大小</string>
   <string name="onlyOnInitialPosition">仅初始局面</string>
   <string name="inGameOnly">仅在对局中</string>
@@ -51,7 +51,7 @@
   <string name="inputMovesWithVoice">用语音输入着法</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">将箭头吸附到有效着法上</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">输棋、和棋后自动发送：“厉害，玩得不错！”</string>
-  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">你的设置已保存。</string>
+  <string name="yourPreferencesHaveBeenSaved">你的设置已保存。</string>
   <string name="scrollOnTheBoardToReplayMoves">在棋盘上滚动鼠标滚轮以回退</string>
   <string name="correspondenceEmailNotification">每日发送邮件通知你正在进行的通讯棋局</string>
   <string name="notifyStreamStart">主播开始直播</string>
@@ -67,4 +67,5 @@
   <string name="notifyWeb">浏览器通知</string>
   <string name="notifyDevice">设备通知</string>
   <string name="bellNotificationSound">通知铃声</string>
+  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">盲棋</string>
 </resources>

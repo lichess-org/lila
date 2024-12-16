@@ -1,19 +1,18 @@
 import { patch } from '../view/util';
-import makeBoot from '../boot';
 import makeStart from '../start';
+import type { AnalyseOpts } from '../interfaces';
+import type { AnalyseSocketSend } from '../socket';
 import * as studyDeps from '../study/studyDeps';
-import StrongSocket from 'common/socket';
+import { wsConnect } from 'common/socket';
 
 export { patch };
 
-export const start = makeStart(patch, studyDeps);
-export const boot = makeBoot(start);
+const start = makeStart(patch, studyDeps);
 
-export function initModule(cfg: any) {
-  site.socket = new StrongSocket(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion, {
+export function initModule(cfg: AnalyseOpts) {
+  cfg.socketSend = wsConnect(cfg.socketUrl || '/analysis/socket/v5', cfg.socketVersion ?? false, {
     receive: (t: string, d: any) => analyse.socketReceive(t, d),
     ...(cfg.embed ? { params: { flag: 'embed' } } : {}),
-  });
-  cfg.socketSend = site.socket.send;
+  }).send as AnalyseSocketSend;
   const analyse = start(cfg);
 }

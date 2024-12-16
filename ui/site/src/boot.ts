@@ -6,7 +6,6 @@ import announce from './announce';
 import OnlineFriends from './friends';
 import powertip from './powertip';
 import serviceWorker from './serviceWorker';
-import StrongSocket from 'common/socket';
 import { watchers } from 'common/watchers';
 import { isIos } from 'common/device';
 import { scrollToInnerSelector, requestIdleCallback } from 'common';
@@ -16,6 +15,7 @@ import { updateTimeAgo, renderTimeAgo } from './renderTimeAgo';
 import { pubsub } from 'common/pubsub';
 import { toggleBoxInit } from 'common/controls';
 import { addExceptionListeners } from './unhandledError';
+import { eventuallySetupDefaultConnection } from 'common/socket';
 
 export function boot() {
   addExceptionListeners();
@@ -55,9 +55,6 @@ export function boot() {
 
     toggleBoxInit();
 
-    setTimeout(() => {
-      if (!site.socket) site.socket = new StrongSocket('/socket/v5', false);
-    }, 300); // TODO fix this
     window.addEventListener('resize', dispatchChessgroundResize);
 
     if (setBlind && !site.blindMode) setTimeout(() => $('#blind-mode button').trigger('click'), 1500);
@@ -71,6 +68,9 @@ export function boot() {
     serviceWorker();
 
     console.info('Lichess is open source! See https://lichess.org/source');
+
+    // if not already connected by a ui module, setup default connection
+    eventuallySetupDefaultConnection();
 
     // socket default receive handlers
     pubsub.on('socket.in.redirect', (d: RedirectTo) => {

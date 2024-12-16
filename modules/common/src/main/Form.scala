@@ -208,6 +208,11 @@ object Form:
         def unbind(key: String, value: A) = strBase.unbind(key, to(value))
     def int[A <: Int](to: Int => A): Formatter[A]                   = intBase.transform(to, identity)
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = intBase.transform(to, from)
+    def intOptionFormatter[A](from: A => Int, to: Int => Option[A]): Formatter[A] = new:
+      def bind(key: String, data: Map[String, String]) = strBase.bind(key, data).flatMap { str =>
+        str.toIntOption.flatMap(to).toRight(Seq(FormError(key, s"Invalid value: $str", Nil)))
+      }
+      def unbind(key: String, value: A) = strBase.unbind(key, from(value).toString)
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean]:
       override val format = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =

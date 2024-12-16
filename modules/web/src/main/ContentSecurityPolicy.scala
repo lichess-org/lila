@@ -1,10 +1,11 @@
 package lila.web
 
 import lila.core.config.AssetDomain
+import org.checkerframework.checker.units.qual.m
 
 object ContentSecurityPolicy:
 
-  def basic(assetDomain: AssetDomain, connectSrcs: List[String]) =
+  def page(assetDomain: AssetDomain, connectSrcs: List[String]) =
     lila.ui.ContentSecurityPolicy(
       defaultSrc = List("'self'", assetDomain.value),
       connectSrc = "'self'" :: "blob:" :: "data:" :: connectSrcs,
@@ -13,6 +14,20 @@ object ContentSecurityPolicy:
       workerSrc = List("'self'", assetDomain.value, "blob:"),
       imgSrc = List("'self'", "blob:", "data:", "*"),
       mediaSrc = List("'self'", "blob:", assetDomain.value),
+      scriptSrc = List("'self'", assetDomain.value),
+      fontSrc = List("'self'", assetDomain.value),
+      baseUri = List("'none'")
+    )
+
+  def embed(assetDomain: AssetDomain) =
+    lila.ui.ContentSecurityPolicy(
+      defaultSrc = List("'self'", assetDomain.value),
+      connectSrc = List("'self'", "blob:", "data:", assetDomain.value),
+      styleSrc = List("'self'", "'unsafe-inline'", assetDomain.value),
+      frameSrc = Nil,
+      workerSrc = Nil,
+      imgSrc = List("'self'", "blob:", "data:", "*"),
+      mediaSrc = Nil,
       scriptSrc = List("'self'", assetDomain.value),
       fontSrc = List("'self'", assetDomain.value),
       baseUri = List("'none'")

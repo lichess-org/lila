@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Short tournament description</string>
   <string name="fullDescription">Full tournament description</string>
   <string name="fullDescriptionHelp">Optional long description of the tournament. %1$s is available. Length must be less than %2$s characters.</string>
-  <string name="sourceSingleUrl">PGN Source URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Source URL</string>
   <string name="sourceUrlHelp">URL that Lichess will check to get PGN updates. It must be publicly accessible from the Internet.</string>
   <string name="sourceGameIds">Up to 64 Lichess game IDs, separated by spaces.</string>
   <string name="startDateTimeZone">Start date in the tournament local timezone: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">FIDE profile</string>
   <string name="federation">Federation</string>
   <string name="ageThisYear">Age this year</string>
-  <string name="unrated">Unrated</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Unrated</string>
   <string name="recentTournaments">Recent tournaments</string>
   <string name="openLichess">Open in Lichess</string>
   <string name="teams">Teams</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Time zone</string>
   <string name="fideRatingCategory">FIDE rating category</string>
   <string name="optionalDetails">Optional details</string>
-  <string name="upcomingBroadcasts">Upcoming broadcasts</string>
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
 </resources>

@@ -191,8 +191,8 @@ importers:
         specifier: ^4.6.13
         version: 4.6.13
       lichess-pgn-viewer:
-        specifier: ^2.2.0
-        version: 2.2.0
+        specifier: ^2.3.0
+        version: 2.3.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -308,8 +308,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^2.2.0
-        version: 2.2.0
+        specifier: ^2.3.0
+        version: 2.3.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -511,8 +511,8 @@ importers:
         specifier: ^3.1.2
         version: 3.1.2
       lichess-pgn-viewer:
-        specifier: ^2.2.0
-        version: 2.2.0
+        specifier: ^2.3.0
+        version: 2.3.0
 
   ui/palantir:
     dependencies:
@@ -570,6 +570,18 @@ importers:
       puz:
         specifier: workspace:*
         version: link:../puz
+
+  ui/recap:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+      lichess-pgn-viewer:
+        specifier: ^2.3.0
+        version: 2.3.0
+      swiper:
+        specifier: ^11.1.5
+        version: 11.1.15
 
   ui/round:
     dependencies:
@@ -631,8 +643,8 @@ importers:
         specifier: 0.5.6
         version: 0.5.6
       lichess-pgn-viewer:
-        specifier: ^2.2.0
-        version: 2.2.0
+        specifier: ^2.3.0
+        version: 2.3.0
       tablesort:
         specifier: ^5.3.0
         version: 5.3.0
@@ -697,8 +709,8 @@ importers:
         specifier: workspace:*
         version: link:../common
       lichess-pgn-viewer:
-        specifier: ^2.2.0
-        version: 2.2.0
+        specifier: ^2.3.0
+        version: 2.3.0
 
   ui/voice:
     dependencies:
@@ -1762,8 +1774,8 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
-  lichess-pgn-viewer@2.2.0:
-    resolution: {integrity: sha512-qpgNWVvPBKwyQBrkwzsAK/+NzU+NqseNfflIhqXTVAHrZQ357Rx8ENuGc4ZTgTxYXsw5Gvxkn42POhWp0vk/HQ==}
+  lichess-pgn-viewer@2.3.0:
+    resolution: {integrity: sha512-pNcDWG/NOBCtHE58k3734acAapKqEY2XTiTP4xVRCuChbS0EzgRksznu0jGLyCrG7LdT3yzn1abaYwi83mPcYg==}
 
   lila-stockfish-web@0.0.7:
     resolution: {integrity: sha512-W+NBi/y19zubvnAlxdSC3oh9QrM9dLA46pw/tT/0NvBKrR/ZLDgYgm1jiBizQPAjq7gp4Kl7jp6yidO1JoJgJw==}
@@ -2200,6 +2212,10 @@ packages:
   svg.select.js@3.0.1:
     resolution: {integrity: sha512-h5IS/hKkuVCbKSieR9uQCj9w+zLHoPh+ce19bBYyqF53g6mnPB8sAtIbe1s9dh2S2fCmYX2xel1Ln3PJBbK4kw==}
     engines: {node: '>= 0.8.0'}
+
+  swiper@11.1.15:
+    resolution: {integrity: sha512-IzWeU34WwC7gbhjKsjkImTuCRf+lRbO6cnxMGs88iVNKDwV+xQpBCJxZ4bNH6gSrIbbyVJ1kuGzo3JTtz//CBw==}
+    engines: {node: '>= 4.7.0'}
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
@@ -3421,7 +3437,7 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  lichess-pgn-viewer@2.2.0:
+  lichess-pgn-viewer@2.3.0:
     dependencies:
       '@types/node': 22.10.1
       chessground: 9.1.1
@@ -3854,6 +3870,8 @@ snapshots:
   svg.select.js@3.0.1:
     dependencies:
       svg.js: 2.7.1
+
+  swiper@11.1.15: {}
 
   symbol-tree@3.2.4: {}
 

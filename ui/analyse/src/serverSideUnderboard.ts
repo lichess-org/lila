@@ -150,7 +150,8 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl) {
     const url = `${baseUrl()}/embed/game/${data.game.id}?theme=auto&bg=auto${location.hash}`;
     const iframe = `<iframe src="${url}"\nwidth=600 height=397 frameborder=0></iframe>`;
     domDialog({
-      show: 'modal',
+      modal: true,
+      show: true,
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         $(this).html() +

@@ -1,0 +1,16 @@
+{
+  "name": "recap",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org recap",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "dependencies": {
+    "swiper": "^11.1.5",
+    "common": "workspace:*",
+    "lichess-pgn-viewer": "^2.3.0"
+  },
+  "build": {
+    "bundle": "src/recap.ts"
+  }
+}

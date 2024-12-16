@@ -78,9 +78,9 @@ final class RelayPush(
       .value
       .map: pgn =>
         validate(pgn).flatMap: tags =>
-          StudyPgnImport(pgn, Nil) match
-            case Left(errStr) => Left(Failure(tags, oneline(errStr)))
-            case Right(game) =>
+          StudyPgnImport(pgn, Nil).fold(
+            errStr => Left(Failure(tags, oneline(errStr))),
+            game =>
               Right(
                 RelayGame(
                   tags = game.tags,
@@ -93,6 +93,7 @@ final class RelayPush(
                   points = game.end.map(_.points)
                 )
               )
+          )
 
   // silently consume DGT board king-check move to center at game end
   private def validate(pgnBody: PgnStr): Either[Failure, Tags] =

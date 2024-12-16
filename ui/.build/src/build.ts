@@ -87,11 +87,23 @@ async function monitor(pkgs: string[]): Promise<void> {
     ps.exit(0);
   };
 
-  watchers.push(fs.watch(path.join(env.rootDir, 'package.json'), packageChange));
-  for (const p of typePkgs) watchers.push(fs.watch(p, packageChange));
-  for (const t of typings) watchers.push(fs.watch(t, tscChange));
+  watchers.push(await watchModified(path.join(env.rootDir, 'package.json'), packageChange));
+  for (const p of typePkgs) watchers.push(await watchModified(p, packageChange));
+  for (const t of typings) watchers.push(await watchModified(t, tscChange));
   for (const pkg of env.building) {
-    watchers.push(fs.watch(path.join(pkg.root, 'package.json'), packageChange));
-    watchers.push(fs.watch(path.join(pkg.root, 'tsconfig.json'), tscChange));
+    watchers.push(await watchModified(path.join(pkg.root, 'package.json'), packageChange));
+    watchers.push(await watchModified(path.join(pkg.root, 'tsconfig.json'), tscChange));
   }
+}
+
+async function watchModified(pathname: string, onChange: () => void): Promise<fs.FSWatcher> {
+  let stat = await fs.promises.stat(pathname);
+
+  return fs.watch(pathname, async () => {
+    const newStat = await fs.promises.stat(pathname);
+    if (stat.mtimeMs === newStat.mtimeMs) return;
+
+    stat = newStat;
+    onChange();
+  });
 }

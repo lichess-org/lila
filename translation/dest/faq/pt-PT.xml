@@ -99,12 +99,12 @@ Não peças pelo título LM.</string>
 Podes ler mais sobre as %1$s.</string>
   <string name="guidelines">orientações</string>
   <string name="canIChangeMyUsername">Posso mudar o meu nome de utilizador?</string>
-  <string name="usernamesCannotBeChanged">Não, os nomes de utilizador não podem ser alterador por razões técnicas e práticas. Os nomes de utilizador são materializados em demasiados lugares: bases de dados, exportações, registos e nas mentes das pessoas. Só podes ajustar as minúsculas e maiúsculas uma vez.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Não, os nomes de utilizador não podem ser alterador por razões técnicas e práticas. Os nomes de utilizador são materializados em demasiados lugares: bases de dados, exportações, registos e nas mentes das pessoas. Só podes ajustar as minúsculas e maiúsculas uma vez.</string>
   <string name="uniqueTrophies">Troféus únicos</string>
   <string name="ownerUniqueTrophies">Este troféu é único na história do Lichess, ninguém para além de %1$s o terá.</string>
   <string name="wayOfBerserkExplanation">Para obtê-lo, hiimgosu desafiou-se a ganhar 100%% dos jogos de %s no modo frenético.</string>
   <string name="aHourlyBulletTournament">um torneio horário de Bullet</string>
-  <string name="goldenZeeExplanation">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict estava fazer uma stream e nas últimas 2 horas tinha estado a tentar derrotar a I.A. nível 8 numa partida de 1+0, sem sucesso. Thibault disse-lhe que se ele o fizesse na stream, ele teria um troféu único. Uma hora depois, ele esmagou o Stockfish e a promessa foi honrada.</string>
   <string name="lichessRatings">Pontuações no Lichess</string>
   <string name="whichRatingSystemUsedByLichess">Qual é o sistema de pontuação que o Lichess utiliza?</string>
   <string name="ratingSystemUsedByLichess">As avaliações são calculadas utilizando o sistema de pontuação Glicko-2 desenvolvido por Mark Glickman. Este é um sistema muito popular e é utilizado por um número considerável de organizações de xadrez (a FIDE é um contra exemplo notável: já que eles ainda usam o sistema de pontuação Elo).

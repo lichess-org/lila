@@ -26,7 +26,7 @@
   <string name="tournamentDescription">Krótki opis turnieju</string>
   <string name="fullDescription">Pełny opis wydarzenia</string>
   <string name="fullDescriptionHelp">Opcjonalny długi opis transmisji. %1$s jest dostępny. Długość musi być mniejsza niż %2$s znaków.</string>
-  <string name="sourceSingleUrl">Adres URL zapisu PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Adres URL zapisu PGN</string>
   <string name="sourceUrlHelp">Adres URL, który Lichess będzie udostępniał, aby można było uzyskać aktualizacje PGN. Musi być publicznie dostępny z internetu.</string>
   <string name="sourceGameIds">Do 64 identyfikatorów partii, oddzielonych spacjami.</string>
   <string name="startDateTimeZone">Data rozpoczęcia w lokalnej strefie czasowej turnieju: %s</string>
@@ -49,7 +49,7 @@
   <string name="fideProfile">Profil FIDE</string>
   <string name="federation">Federacja</string>
   <string name="ageThisYear">Wiek w tym roku</string>
-  <string name="unrated">Bez rankingu</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Bez rankingu</string>
   <string name="recentTournaments">Najnowsze turnieje</string>
   <string name="openLichess">Otwórz w Lichess</string>
   <string name="teams">Drużyny</string>
@@ -80,7 +80,6 @@
   <string name="timezone">Strefa czasowa</string>
   <string name="fideRatingCategory">Kategoria rankingu FIDE</string>
   <string name="optionalDetails">Opcjonalne szczegóły</string>
-  <string name="upcomingBroadcasts">Nadchodzące transmisje</string>
   <string name="pastBroadcasts">Poprzednie transmisje</string>
   <string name="allBroadcastsByMonth">Zobacz wszystkie transmisje w danym miesiącu</string>
 </resources>

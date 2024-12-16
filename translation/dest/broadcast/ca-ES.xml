@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Breu descripció del torneig</string>
   <string name="fullDescription">Descripció total de l\'esdeveniment</string>
   <string name="fullDescriptionHelp">Opció de llarga descripció de l\'esdeveniment. %1$s és disponible. Ha de tenir menys de %2$s lletres.</string>
-  <string name="sourceSingleUrl">URL origen del PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL origen del PGN</string>
   <string name="sourceUrlHelp">URL que Lichess comprovarà per a obtenir actualitzacions PGN. Ha de ser públicament accessible des d\'Internet.</string>
   <string name="sourceGameIds">Fins a 64 identificadors de partides de Lichess, separades per espais.</string>
   <string name="startDateTimeZone">Dia d\'inici a la zona horari del torneig: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federació</string>
   <string name="ageThisYear">Edat aquest any</string>
-  <string name="unrated">Sense avaluació</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Sense avaluació</string>
   <string name="recentTournaments">Tornejos recents</string>
   <string name="openLichess">Obre a Lichess</string>
   <string name="teams">Equips</string>
@@ -78,7 +78,6 @@
   <string name="timezone">Zona horària</string>
   <string name="fideRatingCategory">Categoria puntuació FIDE</string>
   <string name="optionalDetails">Detalls opcionals</string>
-  <string name="upcomingBroadcasts">Pròximes retransmissions</string>
   <string name="pastBroadcasts">Retransmissions finalitzades</string>
   <string name="allBroadcastsByMonth">Veure totes les retransmissions per més</string>
 </resources>

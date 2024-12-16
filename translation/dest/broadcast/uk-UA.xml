@@ -26,7 +26,7 @@
   <string name="tournamentDescription">Короткий опис турніру</string>
   <string name="fullDescription">Повний опис події</string>
   <string name="fullDescriptionHelp">Необов\'язковий довгий опис трансляції. Наявна розмітка %1$s. Довжина має бути менша ніж %2$s символів.</string>
-  <string name="sourceSingleUrl">Адреса джерела PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Адреса джерела PGN</string>
   <string name="sourceUrlHelp">Посилання, яке Lichess перевірятиме, щоб отримати оновлення PGN. Воно має бути загальнодоступним в Інтернеті.</string>
   <string name="sourceGameIds">До 64 ігрових ID Lichess, відокремлені пробілами.</string>
   <string name="startDateHelp">За бажанням, якщо ви знаєте, коли починається подія</string>
@@ -48,7 +48,7 @@
   <string name="fideProfile">Профіль FIDE</string>
   <string name="federation">Федерація</string>
   <string name="ageThisYear">Вік цього року</string>
-  <string name="unrated">Без рейтингу</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Без рейтингу</string>
   <string name="recentTournaments">Нещодавні турніри</string>
   <string name="openLichess">Відкрити в Lichess</string>
   <string name="teams">Команди</string>
@@ -74,6 +74,5 @@
   <string name="timezone">Часовий пояс</string>
   <string name="fideRatingCategory">Категорія рейтингу FIDE</string>
   <string name="optionalDetails">Додаткові деталі</string>
-  <string name="upcomingBroadcasts">Майбутні трансляції</string>
   <string name="pastBroadcasts">Минулі трансляції</string>
 </resources>

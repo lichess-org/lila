@@ -11,7 +11,8 @@ import scala.util.matching.Regex
 import lila.core.config.*
 import lila.memo.SettingStore
 import lila.memo.SettingStore.Formable.given
-import lila.relay.RelayTour.{ ActiveWithSomeRounds, WithLastRound }
+import lila.relay.RelayTour.WithLastRound
+import lila.core.id.RelayRoundId
 
 @Module
 final class Env(
@@ -63,7 +64,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  lazy val listing: RelayListing = wire[RelayListing]
+  lazy val listing = wire[RelayListing]
 
   lazy val api: RelayApi = wire[RelayApi]
 
@@ -87,11 +88,8 @@ final class Env(
 
   lazy val videoEmbed = wire[lila.relay.RelayVideoEmbedStore]
 
-  def top(page: Int): Fu[(List[ActiveWithSomeRounds], List[WithLastRound], Paginator[WithLastRound])] = for
-    active   <- (page == 1).so(listing.active.get({}))
-    upcoming <- (page == 1).so(listing.upcomingCache.get({}))
-    past     <- pager.inactive(page)
-  yield (active, upcoming, past)
+  def top(page: Int): Fu[(List[RelayCard], Paginator[WithLastRound])] =
+    (page == 1).so(listing.active).zip(pager.inactive(page))
 
   private lazy val sync = wire[RelaySync]
 
@@ -160,6 +158,10 @@ final class Env(
 
   lila.common.Bus.sub[lila.study.StudyMembers.OnChange]: change =>
     studyPropagation.onStudyMembersChange(change.study)
+
+  lila.common.Bus.subscribeFun("getRelayCrowd"):
+    case lila.core.study.GetRelayCrowd(studyId, promise) =>
+      roundRepo.currentCrowd(studyId.into(RelayRoundId)).map(_.orZero).foreach(promise.success)
 
 private class RelayColls(mainDb: lila.db.Db, yoloDb: lila.db.AsyncDb @@ lila.db.YoloDb):
   val round = mainDb(CollName("relay"))

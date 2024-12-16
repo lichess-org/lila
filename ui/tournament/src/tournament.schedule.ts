@@ -2,7 +2,7 @@ import view from './view/scheduleView';
 
 import { init, type VNode, classModule, attributesModule } from 'snabbdom';
 import type { Tournament } from './interfaces';
-import StrongSocket from 'common/socket';
+import { wsConnect } from 'common/socket';
 import { pubsub } from 'common/pubsub';
 
 const patch = init([classModule, attributesModule]);
@@ -19,7 +19,7 @@ export interface Ctrl {
 }
 
 export function initModule(opts: { data: Data }) {
-  site.socket = new StrongSocket('/socket/v5', false, { params: { flag: 'tournament' } });
+  wsConnect('/socket/v5', false, { params: { flag: 'tournament' } });
 
   const element = document.querySelector('.tour-chart') as HTMLElement;
 

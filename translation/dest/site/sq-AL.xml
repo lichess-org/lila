@@ -674,7 +674,7 @@ loje dhe URL për ta ndarë me të tjerë.</string>
   <string name="aboutSimulRules">Kur fillon simultaneja, çdo lojtar fillon lojën me pritësin, i cili luan me gurët e bardhë. Simultaneja mbaron kur mbarojnë të gjitha lojërat.</string>
   <string name="aboutSimulSettings">Simultanet janë gjithmonë të pavlerësuara. Revansh, marrje mbrapsht dhe \"më shumë kohë\" janë të çaktivizuara.</string>
   <string name="create">Krijoje</string>
-  <string name="whenCreateSimul">Kur krijon një simultane, luan kundër disa lojtarëve njëkohësisht.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kur krijon një simultane, luan kundër disa lojtarëve njëkohësisht.</string>
   <string name="simulVariantsHint">Nëse përzgjidhni disa variante, çdo lojtar zgjedh vetë cilin variant të luajë.</string>
   <string name="simulClockHint">Ujdisje Fisher për sahatin. Sa më shumë lojtarë pranoni, aq më shumë kohë mund t’ju nevojitet.</string>
   <string name="simulAddExtraTime">Ju mund të shtoni kohë shtesë për t\'i bërë ballë simultanes.</string>

@@ -830,6 +830,10 @@ GET   /tutor/:username/:perf/opening/:color/:opening controllers.Tutor.opening(u
 GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserStr, perf: PerfKey)
 GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
 
+# Recap
+GET   /recap                           controllers.Recap.home()
+GET   /recap/:username                 controllers.Recap.user(username: UserStr)
+
 # OAuth
 GET    /oauth                          controllers.OAuth.authorize
 POST   /oauth                          controllers.OAuth.legacyTokenApply

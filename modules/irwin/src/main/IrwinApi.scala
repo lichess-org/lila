@@ -152,8 +152,7 @@ final class IrwinApi(
     private[IrwinApi] def apply(report: IrwinReport): Funit =
       subs.get(report.suspectId).so { modIds =>
         subs = subs - report.suspectId
-        modIds.toList
-          .sequentiallyVoid { modId =>
-            notifyApi.notifyOne(modId, lila.core.notify.IrwinDone(report.suspectId.value))
-          }
+        modIds.toList.sequentiallyVoid: modId =>
+          val notif = lila.core.notify.NotificationContent.IrwinDone(report.suspectId.value)
+          notifyApi.notifyOne(modId, notif)
       }

@@ -54,4 +54,13 @@
     <item quantity="one">%s vuosi sitten</item>
     <item quantity="other">%s vuotta sitten</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minuutti jäljellä</item>
+    <item quantity="other">%s minuuttia jäljellä</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s tunti jäljellä</item>
+    <item quantity="other">%s tuntia jäljellä</item>
+  </plurals>
+  <string name="completed">suoritettu</string>
 </resources>

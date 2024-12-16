@@ -36,7 +36,6 @@ interface Site {
   blindMode: boolean;
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
-  socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
   // file://./../../.build/src/manifest.ts
@@ -115,15 +114,6 @@ interface SoundI {
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
   url(name: string): string;
-}
-
-interface SocketI {
-  averageLag: number;
-  pingInterval(): number;
-  getVersion(): number | false;
-  send: SocketSend;
-  sign(s: string): void;
-  destroy(): void;
 }
 
 interface LichessSpeech {

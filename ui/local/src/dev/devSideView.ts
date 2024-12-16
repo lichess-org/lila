@@ -327,7 +327,8 @@ function roundRobin() {
         },
       },
     ],
-    show: 'modal',
+    show: true,
+    modal: true,
   });
 }
 
