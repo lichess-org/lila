@@ -120,8 +120,9 @@ export const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
   ]);
 };
 
-export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
+export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode | undefined => {
   const o = os[color];
+  if (!o.count) return;
   return slideTag('openings')([
     h('div.lpv.lpv--todo.lpv--moves-bottom.is2d', {
       hook: onInsert(el => loadOpeningLpv(el, color, o.value)),
