@@ -61,4 +61,17 @@ function sendToTeamMembers(teamId) {
   });
 }
 
-sendToTeamMembers('lichess-beta-testers');
+function sendToRandomOnlinePlayers() {
+  db.user4.find({ enabled: true, 'count.game': { $gt: 10 }, seenAt: { $gt: new Date(Date.now() - 1000 * 60 * 2) } }).sort({ seenAt: -1 }).limit(5_000).forEach(sendToUser);
+}
+
+function sendToRandomOfflinePlayers() {
+  db.user4.find({
+    enabled: true, 'count.game': { $gt: 10 }, seenAt: {
+      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24),
+      $lt: new Date(Date.now() - 1000 * 60 * 60)
+    }
+  }).limit(25_000).forEach(sendToUser);
+}
+
+sendToRandomOfflinePlayers();
