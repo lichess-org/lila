@@ -192,7 +192,8 @@ export const sources = (r: Recap): VNode => {
     ['arena', 'Arena tournaments'],
     ['swiss', 'Swiss tournaments'],
     ['simul', 'Simuls'],
-    ['pool', 'Lobby pairing'],
+    ['pool', 'Pool pairing'],
+    ['lobby', 'Lobby custom games'],
   ];
   const best: [string, number][] = all.map(([k, n]) => [n, r.games.sources[k] || 0]);
   best.sort((a, b) => b[1] - a[1]);
