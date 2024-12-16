@@ -73,7 +73,7 @@ body {
 .recap {
   &__logo,
   .lpv {
-    width: 384px;
+    width: 45vh;
     max-width: 61vw;
     max-height: 50vh;
   }
@@ -218,6 +218,11 @@ body {
       }
     }
   }
+  @media (min-width: at-least($xx-small)) {
+    .logo {
+      display: none;
+    }
+  }
 }
 
 .recap small {
@@ -267,6 +272,7 @@ body {
     font-size: 0.8em;
     opacity: 0.8;
     min-width: 12ch;
+    padding-left: 1em;
   }
 }
 .recap__slide--opponents {

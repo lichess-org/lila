@@ -3058,7 +3058,6 @@ symbols.blue-heart
 symbols.bright-button
 symbols.broken-heart
 symbols.brown-heart
-symbols.cancel
 symbols.cancer
 symbols.capricorn
 symbols.chequered-flag

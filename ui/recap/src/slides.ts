@@ -59,7 +59,10 @@ export const timeSpentPlaying = (r: Recap): VNode => {
 };
 
 export const nbMoves = (r: Recap): VNode => {
-  return slideTag('moves')([
+  return slideTag(
+    'moves',
+    6000,
+  )([
     h('div.recap--massive', [h('strong', animateNumber(r.games.moves)), 'moves played']),
     h('div', [
       h('p', ["That's ", h('strong', showGrams(r.games.moves * pieceGrams)), ' of wood pushed!']),
@@ -120,8 +123,9 @@ export const firstMoves = (r: Recap, firstMove: Counted<string>): VNode => {
   ]);
 };
 
-export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode => {
+export const openingColor = (os: ByColor<Counted<Opening>>, color: Color): VNode | undefined => {
   const o = os[color];
+  if (!o.count) return;
   return slideTag('openings')([
     h('div.lpv.lpv--todo.lpv--moves-bottom.is2d', {
       hook: onInsert(el => loadOpeningLpv(el, color, o.value)),
@@ -191,7 +195,8 @@ export const sources = (r: Recap): VNode => {
     ['arena', 'Arena tournaments'],
     ['swiss', 'Swiss tournaments'],
     ['simul', 'Simuls'],
-    ['pool', 'Lobby pairing'],
+    ['pool', 'Pool pairing'],
+    ['lobby', 'Lobby custom games'],
   ];
   const best: [string, number][] = all.map(([k, n]) => [n, r.games.sources[k] || 0]);
   best.sort((a, b) => b[1] - a[1]);
@@ -253,7 +258,7 @@ export const thanks = (): VNode =>
   slideTag('thanks')([
     h('div.recap--massive', 'Thank you for playing on Lichess!'),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    h('div', "May your pieces find their way to your opponents' kings."),
+    h('div', "We're glad you're here. Have a great 2025!"),
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {

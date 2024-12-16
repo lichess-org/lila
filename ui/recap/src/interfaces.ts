@@ -26,6 +26,7 @@ export interface Sources {
   simul: number;
   swiss: number;
   pool: number;
+  lobby: number;
   ai: number;
   arena: number;
 }
