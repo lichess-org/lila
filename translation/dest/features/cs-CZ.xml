@@ -10,16 +10,21 @@
     <item quantity="many">%s her za den</item>
     <item quantity="other">%s her za den</item>
   </plurals>
+  <string name="boardEditorAndAnalysisBoardWithEngine" comment="%s is the engine name (Stockfish, Fairy-Stockfish)">Editor šachovnice a analýa šachovnice se %s </string>
   <string name="cloudEngineAnalysis">Cloudová engine analýza</string>
+  <string name="studies">Studie (sdílitelná a trvalá analýza)</string>
   <string name="chessInsights">Šachové postřehy (detailní analýza vašich her)</string>
   <string name="allChessBasicsLessons">Všechny základní šachové lekce</string>
   <string name="tacticalPuzzlesFromUserGames">Taktické úlohy z uživatelských her</string>
+  <string name="personalOpeningExplorerX">%1$s (také funguje na %2$s)</string>
   <string name="personalOpeningExplorer">Osobní průzkumník zahájení</string>
   <string name="globalOpeningExplorerInNbGames">Globální průzkumník zahájení</string>
+  <string name="endgameTablebase">7figurová koncovková tablebase</string>
   <string name="downloadOrUploadAnyGameAsPgn">Stáhnout/nahrát jakoukoli hru jako PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, fórum, týmy, TV, zprávy, přátelé, výzvy</string>
   <string name="lightOrDarkThemeCustomBoardsPiecesAndBackground">Světlé/tmavé téma, vlastní šachovnice, figurky a pozadí</string>
   <string name="ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess">UltraBullet, Bullet, Bleskové, Rapid, Klasické, Korespondenční šachy</string>
+  <string name="allFeaturesToCome">Všechny funkce, které přijdou – navždy vaše!</string>
   <string name="landscapeSupportOnApp">iPhone &amp; Android telefony a tablety, podpora orientace na šířku</string>
   <string name="supportLichess">Podpořit Lichess</string>
   <string name="contributeToLichessAndGetIcon">Podpořte Lichess a získejte skvěle vypadající Patronovou ikonu</string>
