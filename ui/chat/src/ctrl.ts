@@ -38,7 +38,15 @@ export default class ChatCtrl {
     readonly opts: ChatOpts,
     readonly redraw: Redraw,
   ) {
-    tempStorage.make('chat.input').remove();
+    const competitionRegex = new RegExp(
+      `^https:\\/\\/lichess\\.org\\/((tournament)|(swiss)|(simul))\\/${tempStorage.get('competition.id')}\\/?$`,
+    );
+    const newGameRegex = new RegExp(`^https:\\/\\/lichess\\.org\\/(${tempStorage.get('newGame.id')})\\/?$`);
+
+    if (!competitionRegex.test(location.href) && !newGameRegex.test(location.href)) {
+      tempStorage.make('chat.input').remove();
+    }
+
     this.data = opts.data;
     if (opts.noteId) this.allTabs.push('note');
     if (opts.plugin) this.allTabs.push(opts.plugin.tab.key);
