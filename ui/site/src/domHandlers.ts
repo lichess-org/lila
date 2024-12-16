@@ -46,15 +46,19 @@ export function attachDomHandlers() {
     else $(this).one('focus', start);
   });
 
-  $('.yes-no-confirm, .ok-cancel-confirm').on('click', async function (this: HTMLElement, e: Event) {
-    if (!e.isTrusted) return;
-    e.preventDefault();
-    const [confirmText, cancelText] = this.classList.contains('yes-no-confirm')
-      ? [i18n.site.yes, i18n.site.no]
-      : [i18n.site.ok, i18n.site.cancel];
-    if (await confirm(this.title || 'Confirm this action?', confirmText, cancelText))
-      (e.target as HTMLElement)?.click();
-  });
+  $('#main-wrap').on(
+    'click',
+    '.yes-no-confirm, .ok-cancel-confirm',
+    async function (this: HTMLElement, e: Event) {
+      if (!e.isTrusted) return;
+      e.preventDefault();
+      const [confirmText, cancelText] = this.classList.contains('yes-no-confirm')
+        ? [i18n.site.yes, i18n.site.no]
+        : [i18n.site.ok, i18n.site.cancel];
+      if (await confirm(this.title || 'Confirm this action?', confirmText, cancelText))
+        (e.target as HTMLElement)?.click();
+    },
+  );
 
   $('#main-wrap').on('click', 'a.bookmark', function (this: HTMLAnchorElement) {
     const t = $(this).toggleClass('bookmarked');
