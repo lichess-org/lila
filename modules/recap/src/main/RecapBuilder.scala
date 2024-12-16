@@ -69,10 +69,7 @@ private final class RecapBuilder(
       timePlaying = scan.secondsPlaying.seconds,
       sources = scan.sources,
       opponents = scan.opponents.toList.sortBy(-_._2).take(5).map(Recap.Counted.apply),
-      perfs = scan.perfs.toList
-        .sortBy(-_._2)
-        .map:
-          case (key, games) => Recap.Perf(key, games)
+      perfs = scan.perfs.toList.sortBy(-_._2).map(Recap.Perf.apply)
     )
 
   private def runGameScan(userId: UserId): Fu[GameScan] =
