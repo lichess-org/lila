@@ -253,7 +253,7 @@ export const thanks = (): VNode =>
   slideTag('thanks')([
     h('div.recap--massive', 'Thank you for playing on Lichess!'),
     h('img.recap__logo', { attrs: { src: site.asset.url('logo/lichess-white.svg') } }),
-    h('div', "May your pieces find their way to your opponents' kings."),
+    h('div', "We're glad you're here. Have a great 2025!"),
   ]);
 
 const renderPerf = (perf: RecapPerf): VNode => {
