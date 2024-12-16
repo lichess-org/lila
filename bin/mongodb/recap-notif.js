@@ -5,14 +5,22 @@ let count = 0;
 
 const hasPuzzles = userId => db.user_perf.count({ _id: userId, 'puzzle.nb': { $gt: 0 } });
 
-function sendTo(user) {
+function sendToUser(user) {
+  if (!user.enabled) {
+    print('------------- ' + user._id + ' is closed');
+    return;
+  }
   const exists = db.notify.countDocuments({ notifies: user._id, 'content.type': 'recap', }, { limit: 1 });
   if (exists) {
-    print('Already sent to ' + user._id);
+    print('------------- ' + user._id + ' already sent');
+    return;
+  }
+  if (user.seenAt < new Date('2024-01-01')) {
+    print('------------- ' + user._id + ' not seen in 2024');
     return;
   }
   if (!user.count?.game && !hasPuzzles(user._id)) {
-    print('No games or puzzles for ' + user._id);
+    print('------------- ' + user._id + ' no games or puzzles');
     return;
   }
   if (!dry) db.notify.insertOne({
@@ -29,11 +37,28 @@ function sendTo(user) {
   print(count + ' ' + user._id);
 }
 
+function sendToUserId(userId) {
+  const user = db.user4.findOne({ _id: userId });
+  if (!user) {
+    print('------------- ' + userId + ' not found');
+    return;
+  }
+  sendToUser(user);
+}
+
 function sendToRoleOwners() {
-  db.user4.find({ enabled: true, roles: { $exists: 1, $ne: [] } }, { count: 1, roles: 1 }).forEach(user => {
+  db.user4.find({ enabled: true, roles: { $exists: 1, $ne: [] } }).forEach(user => {
     roles = user.roles.filter(r => r != 'ROLE_COACH' && r != 'ROLE_TEACHER' && r != 'ROLE_VERIFIED' && r != 'ROLE_BETA');
     if (roles.length) {
       sendTo(user);
     }
   });
 }
+
+function sendToTeamMembers(teamId) {
+  db.team_member.find({ team: teamId }, { user: 1, _id: 0 }).forEach(member => {
+    sendToUserId(member.user);
+  });
+}
+
+sendToTeamMembers('lichess-beta-testers');
