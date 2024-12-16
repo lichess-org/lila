@@ -59,7 +59,10 @@ export const timeSpentPlaying = (r: Recap): VNode => {
 };
 
 export const nbMoves = (r: Recap): VNode => {
-  return slideTag('moves')([
+  return slideTag(
+    'moves',
+    6000,
+  )([
     h('div.recap--massive', [h('strong', animateNumber(r.games.moves)), 'moves played']),
     h('div', [
       h('p', ["That's ", h('strong', showGrams(r.games.moves * pieceGrams)), ' of wood pushed!']),
