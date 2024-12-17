@@ -7,9 +7,6 @@ import lila.core.i18n.{ I18nKey, Translate }
 import lila.core.perf.PerfId
 import lila.ui.Icon
 
-trait RealGamePerf:
-  self: PerfType =>
-
 enum PerfType(
     val id: PerfId,
     val key: PerfKey,
@@ -29,7 +26,6 @@ enum PerfType(
         nameKey = I18nKey(Speed.UltraBullet.name),
         descKey = I18nKey.site.ultraBulletDesc
       )
-      with RealGamePerf
 
   case Bullet
       extends PerfType(
@@ -39,7 +35,6 @@ enum PerfType(
         nameKey = I18nKey.site.bullet,
         descKey = I18nKey.site.bulletDesc
       )
-      with RealGamePerf
 
   case Blitz
       extends PerfType(
@@ -49,7 +44,6 @@ enum PerfType(
         nameKey = I18nKey.site.blitz,
         descKey = I18nKey.site.blitzDesc
       )
-      with RealGamePerf
 
   case Rapid
       extends PerfType(
@@ -59,7 +53,6 @@ enum PerfType(
         nameKey = I18nKey.site.rapid,
         descKey = I18nKey.site.rapidDesc
       )
-      with RealGamePerf
 
   case Classical
       extends PerfType(
@@ -69,7 +62,6 @@ enum PerfType(
         nameKey = I18nKey.site.classical,
         descKey = I18nKey.site.classicalDesc
       )
-      with RealGamePerf
 
   case Correspondence
       extends PerfType(
@@ -79,7 +71,6 @@ enum PerfType(
         nameKey = I18nKey.site.correspondence,
         descKey = I18nKey.site.correspondenceDesc
       )
-      with RealGamePerf
 
   case Standard
       extends PerfType(
@@ -98,7 +89,6 @@ enum PerfType(
         nameKey = I18nKey(variant.Chess960.name),
         descKey = I18nKey("Chess960 variant")
       )
-      with RealGamePerf
 
   case KingOfTheHill
       extends PerfType(
@@ -108,7 +98,6 @@ enum PerfType(
         nameKey = I18nKey(variant.KingOfTheHill.name),
         descKey = I18nKey("King of the Hill variant")
       )
-      with RealGamePerf
 
   case Antichess
       extends PerfType(
@@ -118,7 +107,6 @@ enum PerfType(
         nameKey = I18nKey(variant.Antichess.name),
         descKey = I18nKey("Antichess variant")
       )
-      with RealGamePerf
 
   case Atomic
       extends PerfType(
@@ -128,7 +116,6 @@ enum PerfType(
         nameKey = I18nKey(variant.Atomic.name),
         descKey = I18nKey("Atomic variant")
       )
-      with RealGamePerf
 
   case ThreeCheck
       extends PerfType(
@@ -138,7 +125,6 @@ enum PerfType(
         nameKey = I18nKey(variant.ThreeCheck.name),
         descKey = I18nKey("Three-check variant")
       )
-      with RealGamePerf
 
   case Horde
       extends PerfType(
@@ -148,7 +134,6 @@ enum PerfType(
         nameKey = I18nKey(variant.Horde.name),
         descKey = I18nKey("Horde variant")
       )
-      with RealGamePerf
 
   case RacingKings
       extends PerfType(
@@ -158,7 +143,6 @@ enum PerfType(
         nameKey = I18nKey(variant.RacingKings.name),
         descKey = I18nKey("Racing kings variant")
       )
-      with RealGamePerf
 
   case Crazyhouse
       extends PerfType(
@@ -168,7 +152,6 @@ enum PerfType(
         nameKey = I18nKey(variant.Crazyhouse.name),
         descKey = I18nKey("Crazyhouse variant")
       )
-      with RealGamePerf
 
   case Puzzle
       extends PerfType(
@@ -180,12 +163,23 @@ enum PerfType(
       )
 
 object PerfType:
+
+  // all but standard and puzzle
+  type GamePerf = Bullet.type | Blitz.type | Rapid.type | Classical.type | UltraBullet.type |
+    Correspondence.type | Crazyhouse.type | Chess960.type | KingOfTheHill.type | ThreeCheck.type |
+    Antichess.type | Atomic.type | Horde.type | RacingKings.type
+
+  def gamePerf(pt: PerfType): Option[GamePerf] = pt match
+    case gp: GamePerf => Some(gp)
+    case _            => None
+
   given Conversion[PerfType, PerfKey] = _.key
   given Conversion[PerfType, PerfId]  = _.id
   given Conversion[PerfKey, PerfType] = apply(_)
-  val all: List[PerfType]             = values.toList
-  val byKey                           = all.mapBy(_.key)
-  val byId                            = all.mapBy(_.id)
+
+  val all: List[PerfType] = values.toList
+  val byKey               = all.mapBy(_.key)
+  val byId                = all.mapBy(_.id)
 
   def apply(key: PerfKey): PerfType =
     byKey.getOrElse(key, sys.error(s"Impossible: $key couldn't have been instantiated"))
@@ -214,8 +208,6 @@ object PerfType:
     PerfKey.racingKings
   )
   val isLeaderboardable: Set[PerfKey] = leaderboardable.toSet
-
-  val realGamePerfs: List[RealGamePerf] = all.collect { case r: RealGamePerf => r }
 
   val variants: List[PerfKey] =
     List(

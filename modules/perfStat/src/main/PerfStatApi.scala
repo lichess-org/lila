@@ -6,7 +6,7 @@ import lila.core.perm.Granter
 import lila.rating.Glicko.minRating
 import lila.rating.PerfExt.established
 import lila.rating.{ PerfType, UserRankMap }
-import lila.rating.PerfType.RealGamePerf
+import lila.rating.PerfType.GamePerf
 
 case class PerfStatData(
     user: UserWithPerfs,
@@ -31,9 +31,8 @@ final class PerfStatApi(
     extends lila.core.perf.PerfStatApi:
 
   def data(name: UserStr, perfKey: PerfKey)(using me: Option[Me]): Fu[Option[PerfStatData]] =
-    RealGamePerf
-      .get(perfKey)
-      .so: gp =>
+    PerfType(perfKey) match
+      case pk: GamePerf =>
         userApi.withPerfs(name.id).flatMap {
           _.filter: u =>
             (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
@@ -41,7 +40,7 @@ final class PerfStatApi(
             !u.isBot || (perfKey != PerfKey.ultraBullet)
           .soFu: u =>
             for
-              oldPerfStat <- get(u.user.id, gp)
+              oldPerfStat <- get(u.user.id, pk)
               perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
               distribution <- u
                 .perfs(perfKey)
@@ -54,17 +53,21 @@ final class PerfStatApi(
               _ <- lightUserApi.preloadMany(perfStat.userIds)
             yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
         }
+      case pk => fuccess(none)
 
   private def calcPercentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] =
     wrd.map: distrib =>
       val (under, sum) = percentileOf(distrib, intRating)
       Math.round(under * 1000.0 / sum) / 10.0
 
-  def get(user: UserId, perf: RealGamePerf): Fu[Option[PerfStat]] =
+  def get(user: UserId, perf: GamePerf): Fu[PerfStat] =
     storage.find(user, perf).getOrElse(indexer.userPerf(user, perf))
 
   def highestRating(user: UserId, perfKey: PerfKey): Fu[Option[IntRating]] =
-    get(user, perfKey).map(_.highest.map(_.int))
+    PerfType
+      .gamePerf(perfKey)
+      .so: (gp: GamePerf) =>
+        get(user, gp).map(_.highest.map(_.int))
 
   object weeklyRatingDistribution:
 

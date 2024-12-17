@@ -1,6 +1,7 @@
 package lila.perfStat
 
 import lila.rating.PerfType
+import lila.rating.PerfType.GamePerf
 
 final class PerfStatIndexer(
     gameRepo: lila.core.game.GameRepo,
@@ -16,22 +17,21 @@ final class PerfStatIndexer(
     lila.log.asyncActorMonitor.full
   )
 
-  private[perfStat] def userPerf(user: UserId, perfKey: PerfKey): Fu[Option[PerfStat]] =
-    isRelevant(perfKey).soFu:
-      workQueue:
-        storage
-          .find(user, perfKey)
-          .getOrElse(
-            gameRepo
-              .sortedCursor(user.id, perfKey)
-              .fold(PerfStat.init(user.id, perfKey)):
-                case (perfStat, game) if game.perfKey == perfKey =>
-                  Pov(game, user.id).fold(perfStat)(perfStat.agg)
-                case (perfStat, _) => perfStat
-              .flatMap: ps =>
-                storage.insert(ps).recover(lila.db.ignoreDuplicateKey).inject(ps)
-              .mon(_.perfStat.indexTime)
-          )
+  private[perfStat] def userPerf(user: UserId, perfKey: GamePerf): Fu[PerfStat] =
+    workQueue:
+      storage
+        .find(user, perfKey)
+        .getOrElse(
+          gameRepo
+            .sortedCursor(user.id, perfKey)
+            .fold(PerfStat.init(user.id, perfKey)):
+              case (perfStat, game) if game.perfKey == perfKey =>
+                Pov(game, user.id).fold(perfStat)(perfStat.agg)
+              case (perfStat, _) => perfStat
+            .flatMap: ps =>
+              storage.insert(ps).recover(lila.db.ignoreDuplicateKey).inject(ps)
+            .mon(_.perfStat.indexTime)
+        )
 
   def addGame(game: Game): Funit =
     game.players.toList.sequentiallyVoid: player =>
@@ -39,7 +39,10 @@ final class PerfStatIndexer(
         addPov(Pov(game, player), userId)
 
   private def addPov(pov: Pov, userId: UserId): Funit =
-    storage
-      .find(userId, pov.game.perfKey)
-      .flatMapz: perfStat =>
-        storage.update(perfStat, perfStat.agg(pov))
+    PerfType
+      .gamePerf(pov.game.perfKey)
+      .so: (pk: GamePerf) =>
+        storage
+          .find(userId, pk)
+          .flatMapz: perfStat =>
+            storage.update(perfStat, perfStat.agg(pov))

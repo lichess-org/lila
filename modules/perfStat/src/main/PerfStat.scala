@@ -6,7 +6,7 @@ import java.time.Duration
 import scalalib.HeapSort
 
 import lila.rating.PerfType
-import lila.rating.PerfType.RealGamePerf
+import lila.rating.PerfType.GamePerf
 
 extension (p: Pov) def loss = p.game.winner.map(_.color != p.color)
 
@@ -42,13 +42,13 @@ object PerfStat:
 
   type Getter = (User, PerfType) => Fu[PerfStat]
 
-  def makeId(userId: UserId, perf: RealGamePerf) = s"$userId/${perf.id}"
+  def makeId(userId: UserId, perf: GamePerf) = s"$userId/${perf.id}"
 
-  def init(userId: UserId, perf: RealGamePerf) =
+  def init(userId: UserId, perf: GamePerf) =
     PerfStat(
       id = makeId(userId, perf),
       userId = userId,
-      perfType = perfType,
+      perfType = perf,
       highest = none,
       lowest = none,
       bestWins = Results(Nil),
