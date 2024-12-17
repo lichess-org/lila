@@ -72,6 +72,12 @@ private final class RecapBuilder(
       perfs = scan.perfs.toList.sortBy(-_._2).map(Recap.Perf.apply)
     )
 
+  /* This might be made faster by:
+   * - fetching Bdoc instead of Game with a projection
+   * - uncompressing only the moves needed to compute the opening
+   * - using mutable state instead of runFold
+   *   as the many little immutable objects hit the GC hard
+   */
   private def runGameScan(userId: UserId): Fu[GameScan] =
     val query =
       Query.createdBetween(dateStart.some, dateEnd.some) ++
