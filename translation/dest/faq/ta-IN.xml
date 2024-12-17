@@ -34,6 +34,8 @@
   <string name="basedOnGameDuration">லைச்சஸ் நேரக் கட்டுப்பாடுகள் மதிப்பிடப்பட்ட விளையாட்டு கால அளவு = %1$s ஐ அடிப்படையாகக் கொண்டவை.
 உதாரணமாக, 5+3 விளையாட்டின் மதிப்பிடப்பட்ட கால அளவு 5 × 60 + 40 × 3 = 420 வினாடிகள் ஆகும்.</string>
   <string name="durationFormula" comment="durationFormula&#10;&#10;Part of the larger string 'basedOnGameDuration'&#10;&#10;Note: this string did not use to say 'in seconds'. Please update if necessary.">(கடிகார ஆரம்ப நேரம் வினாடிகளில்) + 40 × (கடிகார அதிகரிப்பு)</string>
+  <string name="inferiorThanXsEqualYtimeControl">≤ %1$ss = %2$s</string>
+  <string name="superiorThanXsEqualYtimeControl">≥ %1$ss = %2$s</string>
   <string name="whatVariantsCanIplay">லைச்சஸில் என்னென்ன வகைகளை நான் விளையாட முடியும்?</string>
   <string name="lichessSupportChessAnd">லைச்சஸ் நிலையான சதுரங்கம் மற்றும் %1$s ஐ ஆதரிக்கிறது.</string>
   <string name="eightVariants">எட்டு சதுரங்க மாறுபாடுகள்</string>
@@ -151,6 +153,10 @@ LM பட்டத்தைக் கேட்க வேண்டாம்.</str
 2. Linux/Windows இல் Ctrl-i ஐ அழுத்தவும் அல்லது MacOS இல் cmd-i ஐ அழுத்தவும்
 3. அனுமதிகள் தாவலைக் கிளிக் செய்யவும்
 4. lichess.org இல் ஆடியோ மற்றும் வீடியோவை அனுமதிக்கவும்</string>
+  <string name="enableAutoplayForSoundsChrome">1. lichess.org க்குச் செல்லவும்
+2. முகவரிப் பட்டியில் உள்ள பூட்டு ஐகானைக் கிளிக் செய்யவும்
+3. தள அமைப்புகள் என்பதைக் கிளிக் செய்யவும்
+4. ஒலியை அனுமதி</string>
   <string name="enableAutoplayForSoundsSafari">1. lichess.org க்குச் செல்லவும்
 2. மெனு பட்டியில் Safari என்பதைக் கிளிக் செய்யவும்
 3. lichess.org க்கான அமைப்புகளைக் கிளிக் செய்யவும்...
