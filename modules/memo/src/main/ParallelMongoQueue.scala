@@ -50,7 +50,7 @@ final class ParallelMongoQueue[A: BSONHandler](
 
   // just to prevent race conditions when enqueuing stuff
   private val workQueue = scalalib.actor.AsyncActorSequencer(
-    maxSize = Max(64),
+    maxSize = Max(256),
     timeout = 5.seconds,
     s"$name.workQueue",
     lila.log.asyncActorMonitor.full
