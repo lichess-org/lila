@@ -1,7 +1,6 @@
 import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
-import { objectStorage, nonEmptyStore, type ObjectStorage } from './objectStorage';
 import { pubsub, type PubsubEvent } from './pubsub';
 import { myUserId } from './common';
 
@@ -103,12 +102,6 @@ class WsSocket {
 
   private lastUrl?: string;
   private heartbeat = browserTaskQueueMonitor(1000);
-  private isTestRunning = document.body.dataset.socketTestRunning === 'true';
-  private stats: { store?: ObjectStorage<any>; m2: number; n: number; mean: number } = {
-    m2: 0,
-    n: 0,
-    mean: 0,
-  };
 
   constructor(
     readonly url: string,
@@ -136,8 +129,6 @@ class WsSocket {
     this.version = version;
     pubsub.on('socket.send', this.send);
     this.connect();
-    this.flushStats();
-    window.addEventListener('pagehide', () => this.storeStats({ event: 'pagehide' }));
   }
 
   sign = (s: string): void => {
@@ -226,7 +217,6 @@ class WsSocket {
 
   private scheduleConnect = (delay: number = this.options.pongTimeout): void => {
     if (this.options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
-    // debug('schedule connect ' + delay);
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.connectSchedule = setTimeout(() => {
@@ -275,7 +265,6 @@ class WsSocket {
     this.averageLag += mix * (currentLag - this.averageLag);
 
     pubsub.emit('socket.lag', this.averageLag);
-    this.updateStats(currentLag);
   };
 
   private handle = (m: MsgIn): void => {
@@ -313,7 +302,6 @@ class WsSocket {
   };
 
   destroy = (): void => {
-    this.storeStats();
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.disconnect();
@@ -339,7 +327,6 @@ class WsSocket {
     pubsub.emit('socket.close');
 
     if (this.heartbeat.wasSuspended) return this.onSuspended();
-    this.storeStats({ event: 'close', code: e.code });
 
     if (this.ws) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
@@ -374,7 +361,7 @@ class WsSocket {
     this.heartbeat.reset(); // not a networking error, just get our connection back
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
-    this.storeStats({ event: 'suspend' }).then(this.connect);
+    this.connect();
   }
 
   private nextBaseUrl = (): string => {
@@ -382,7 +369,7 @@ class WsSocket {
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
       this.storage.set(url);
-    } else if (this.isTestRunning || this.tryOtherUrl) {
+    } else if (this.tryOtherUrl) {
       const i = this.baseUrls.findIndex(u => u === url);
       url = this.baseUrls[(i + 1) % this.baseUrls.length];
       this.storage.set(url);
@@ -393,56 +380,6 @@ class WsSocket {
 
   pingInterval = (): number => this.computePingDelay() + this.averageLag;
   getVersion = (): number | false => this.version;
-
-  private async storeStats(event?: any) {
-    if (!this.lastUrl || !this.isTestRunning) return;
-    if (!event && this.stats.n < 2) return;
-
-    const data = {
-      dns: this.lastUrl.includes(`//${this.baseUrls[0]}`) ? 'ovh' : 'cf',
-      n: this.stats.n,
-      ...event,
-    };
-    if (this.stats.n > 0) data.mean = this.stats.mean;
-    if (this.stats.n > 1) data.stdev = Math.sqrt(this.stats.m2 / (this.stats.n - 1));
-    this.stats.m2 = this.stats.n = this.stats.mean = 0;
-
-    localStorage.setItem(`socket.test.${myUserId()}`, JSON.stringify(data));
-    return this.flushStats();
-  }
-
-  private async flushStats() {
-    const dbInfo = { db: `socket.test.${myUserId()}--db`, store: `socket.test.${myUserId()}` };
-    const last = localStorage.getItem(dbInfo.store);
-
-    if (this.isTestRunning || last || (await nonEmptyStore(dbInfo))) {
-      try {
-        this.stats.store ??= await objectStorage<any, number>(dbInfo);
-        if (last) await this.stats.store.put(await this.stats.store.count(), JSON.parse(last));
-
-        if (this.isTestRunning) return;
-
-        const data = await this.stats.store.getMany();
-        const rsp = await fetch('/dev/socket-test', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: { 'Content-Type': 'application/json' },
-        });
-        if (rsp.ok) window.indexedDB.deleteDatabase(dbInfo.db);
-      } finally {
-        localStorage.removeItem(dbInfo.store);
-      }
-    }
-  }
-
-  private updateStats(lag: number) {
-    if (!this.isTestRunning) return;
-
-    this.stats.n++;
-    const delta = lag - this.stats.mean;
-    this.stats.mean += delta / this.stats.n;
-    this.stats.m2 += delta * (lag - this.stats.mean);
-  }
 }
 
 class Ackable {
