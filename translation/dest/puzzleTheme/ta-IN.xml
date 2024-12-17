@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="advancedPawn">மேம்பட்ட சிப்பாய்</string>
+  <string name="advancedPawnDescription">உங்கள் சிப்பாய்களில் ஒன்று எதிராளியின் நிலையில் ஆழமாக உள்ளது, ஒருவேளை பதவி உயர்வுக்கு அச்சுறுத்தலாக இருக்கலாம்.</string>
+  <string name="advantage">நன்மை</string>
+  <string name="advantageDescription">ஒரு தீர்க்கமான நன்மையைப் பெறுவதற்கான உங்கள் வாய்ப்பைப் பயன்படுத்திக் கொள்ளுங்கள். (200cp ≤ eval ≤ 600cp)</string>
+  <string name="anastasiaMate">அனஸ்தேசியாவின் துணைவி</string>
+  <string name="anastasiaMateDescription">ஒரு குதிரை வீரரும் யானை அல்லது ராணியும் இணைந்து எதிரணி ராஜாவை பலகையின் பக்கத்திற்கும் ஒரு நட்பு காயினுக்கும் இடையில் சிக்க வைக்கிறார்கள்.</string>
+  <string name="arabianMate">அரேபிய துணை</string>
+  <string name="arabianMateDescription">ஒரு குதிரை வீரனும் ஒரு யானையும் இணைந்து எதிரணி ராஜாவை பலகையின் ஒரு மூலையில் சிக்க வைக்கின்றனர்.</string>
+  <string name="attackingF2F7">f2 அல்லது f7 ஐத் தாக்குதல்</string>
+  <string name="attackingF2F7Description">வறுத்த கல்லீரல் திறப்பு போன்ற f2 அல்லது f7 சிப்பாயை மையமாகக் கொண்ட தாக்குதல்.</string>
+  <string name="attraction">ஈர்ப்பு</string>
+  <string name="attractionDescription">எதிராளியின் காயை ஒரு சதுரத்திற்கு ஊக்குவித்தல் அல்லது கட்டாயப்படுத்துதல் போன்ற ஒரு பரிமாற்றம் அல்லது தியாகம், இது பின்தொடர்தல் தந்திரோபாயத்தை அனுமதிக்கிறது.</string>
+  <string name="backRankMate">பின் தரவரிசை தோழர்</string>
+  <string name="backRankMateDescription">ராஜா அதன் சொந்த துண்டுகளால் சிக்கிக் கொள்ளும்போது, ​​வீட்டுத் தரவரிசையில் அதை செக்மேட் செய்யுங்கள்.</string>
+  <string name="bishopEndgame">பிஷப் எண்ட்கேம்</string>
+  <string name="bishopEndgameDescription">பிஷப்புகளும் சிப்பாய்களும் மட்டுமே கொண்ட ஒரு இறுதி ஆட்டம்.</string>
+  <string name="bodenMate">போடனின் துணை</string>
+  <string name="bodenMateDescription">குறுக்காகக் கடக்கும் மூலைவிட்டங்களில் இரண்டு தாக்குதல் நடத்தும் ஆயர்கள், நட்புத் துண்டுகளால் தடுக்கப்பட்ட ஒரு ராஜாவுக்கு துணையை வழங்குகிறார்கள்.</string>
+  <string name="castling">நடிப்பு</string>
+  <string name="castlingDescription">ராஜாவைப் பாதுகாப்பாகக் கொண்டு வாருங்கள், தாக்குதலுக்கு யானையைப் பயன்படுத்துங்கள்.</string>
+  <string name="capturingDefender">பாதுகாவலரைப் பிடிக்கவும்</string>
+  <string name="capturingDefenderDescription">மற்றொரு காயின் பாதுகாப்பிற்கு முக்கியமான ஒரு காயை அகற்றுதல், தற்போது பாதுகாக்கப்படாத காயை அடுத்த நகர்வில் கைப்பற்ற அனுமதிக்கிறது.</string>
+  <string name="crushing">நசுக்குதல்</string>
+  <string name="crushingDescription">எதிராளியின் தவறைக் கண்டுபிடித்து, ஒரு நசுக்கும் நன்மையைப் பெறுங்கள். (சமநிலை ≥ 600cp)</string>
+  <string name="doubleBishopMate">இரட்டை பிஷப் துணை</string>
+  <string name="doubleBishopMateDescription">அடுத்தடுத்த மூலைவிட்டங்களில் இரண்டு தாக்குதல் ஆயர்கள், நட்பு துண்டுகளால் தடுக்கப்பட்ட ஒரு ராஜாவுக்கு துணையை வழங்குகிறார்கள்.</string>
+</resources>
