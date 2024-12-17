@@ -217,6 +217,13 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
                 cls   := "button button-empty button-red",
                 title := trans.clas.closeDesc1.txt()
               )(trans.clas.closeStudent())
+            ),
+            (!s.student.managed).option(
+              a(
+                href  := routes.Clas.studentMove(clas.id, s.user.username),
+                cls   := "button button-empty",
+                title := "Move"
+              )("Move")
             )
           )
         )
