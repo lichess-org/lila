@@ -146,28 +146,23 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data),
     lastPly = util.lastPly(ctrl.data);
-  return h(
-    'div.buttons',
-    {
-      hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
-    },
-    [
-      analysisButton(ctrl) || h('div.noop'),
-      ...[
-        [licon.JumpFirst, firstPly],
-        [licon.JumpPrev, ctrl.ply - 1],
-        [licon.JumpNext, ctrl.ply + 1],
-        [licon.JumpLast, lastPly],
-      ].map((b: [string, number], i) => {
-        const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
-        return h('button.fbt', {
-          class: { glowing: i === 3 && ctrl.isLate() },
-          attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
-        });
-      }),
-      boardMenuToggleButton(ctrl.menu, i18n.site.menu),
-    ],
-  );
+  return h('div.buttons', [
+    analysisButton(ctrl) || h('div.noop'),
+    ...[
+      [licon.JumpFirst, firstPly],
+      [licon.JumpPrev, ctrl.ply - 1],
+      [licon.JumpNext, ctrl.ply + 1],
+      [licon.JumpLast, lastPly],
+    ].map((b: [string, number], i) => {
+      const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
+      return h('button.fbt.repeatable', {
+        class: { glowing: i === 3 && ctrl.isLate() },
+        attrs: { disabled: !enabled, 'data-icon': b[0], 'data-ply': enabled ? b[1] : '-' },
+        hook: onInsert(bindMobileMousedown(e => goThroughMoves(ctrl, e))),
+      });
+    }),
+    boardMenuToggleButton(ctrl.menu, i18n.site.menu),
+  ]);
 }
 
 function initMessage(ctrl: RoundController) {
