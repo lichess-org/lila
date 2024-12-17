@@ -27,6 +27,7 @@
   <string name="noSuitableOauthToken">பொருத்தமான OAuth டோக்கன் எதுவும் உருவாக்கப்படவில்லை.</string>
   <string name="dgtBoardConnectivity">DGT போர்டு இணைப்பு</string>
   <string name="clickToGenerateOne">ஒன்றை உருவாக்க கிளிக் செய்யவும்</string>
+  <string name="webSocketUrl">%s WebSocket URL</string>
   <string name="useWebSocketUrl">%2$s வேறொரு இயந்திரம் அல்லது வேறு போர்ட்டில் இயங்கும் வரை \"%1$s\" ஐப் பயன்படுத்தவும்.</string>
   <string name="textToSpeech">உரைக்கு உரை</string>
   <string name="configureVoiceNarration">விளையாடிய நகர்வுகளின் குரல் விளக்கத்தை உள்ளமைக்கவும், இதன் மூலம் உங்கள் கண்களை பலகையில் வைத்திருக்க முடியும்.</string>
