@@ -67,6 +67,7 @@
   <string name="history">musi lili pi tenpo pini</string>
   <string name="solved">pini pona</string>
   <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">pini ike</string>
+  <string name="streakDescription">sina pini pona e musi lili la, ilo Lichess li pana e wan tawa nanpa sina pi pini pona. sina pini ike e musi lili la, nanpa li kama ala. ilo tenpo li lon ala. sina ken kepeken tenpo ale pi wile sina. sina tawa ike la, musi li pini! taso, sina ken toki e ni tawa ilo Lichess lon tenpo wan pi tenpo musi: \"mi sona ala e tawa pona. o toki e ona tawa mi\".</string>
   <string name="continueTheStreak">o awen e nanpa</string>
   <string name="newStreak">nanpa sin</string>
   <string name="fromMyGames">tawa mi musi</string>
