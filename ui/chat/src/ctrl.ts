@@ -39,7 +39,7 @@ export default class ChatCtrl {
     readonly redraw: Redraw,
   ) {
     const competitionRegex = new RegExp(
-      `^https:\\/\\/lichess\\.org\\/((tournament)|(swiss)|(simul))\\/${tempStorage.get('competition.id')}\\/?$`,
+      `^https:\\/\\/lichess\\.org\\/((tournament)|(swiss))\\/${tempStorage.get('competition.id')}\\/?$`,
     );
     const newGameRegex = new RegExp(`^https:\\/\\/lichess\\.org\\/(${tempStorage.get('newGame.id')})\\/?$`);
 
