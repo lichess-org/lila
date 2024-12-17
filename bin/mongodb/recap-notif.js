@@ -3,11 +3,16 @@ const dry = false;
 
 let countAll = 0;
 let countSent = 0;
+let lastPrinted = 0;
 
-print('Loading existing recaps...');
-const hasRecap = new Set();
-db.recap_report.find({}, { _id: 1 }).forEach(r => hasRecap.add(r._id));
-print('Loaded ' + hasRecap.size + ' recaps');
+let hasRecap = new Set();
+function reloadHasRecap() {
+  print('Loading existing recaps...');
+  hasRecap = new Set(db.recap_report.distinct('_id'));
+  print('Loaded ' + hasRecap.size + ' recaps');
+}
+reloadHasRecap();
+setInterval(reloadHasRecap, 1000 * 60 * 10);
 
 const hasPuzzles = userId => db.user_perf.countDocuments({ _id: userId, 'puzzle.nb': { $gt: 0 } }, { limit: 1 });
 
@@ -61,15 +66,18 @@ function sendToRandomOfflinePlayers() {
     if (batch) {
       const newUsers = filterNewUsers(batch);
       newUsers.forEach(sendToUser);
-      print('+ ' + newUsers.length + ' = ' + countSent + ' / ' + countAll);
-      sleep(20 * newUsers.length);
+      if (countAll % 1000 == 0) {
+        print(`+ ${countSent - lastPrinted} = ${countSent} / ${countAll} | ${user.createdAt.toLocaleDateString('fr')}`);
+        lastPrinted = countSent;
+      }
+      sleep(15 * newUsers.length);
     }
   }
   db.user4.find({
     enabled: true,
+    createdAt: { $lt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7) },
     seenAt: {
-      // $gt: new Date('2024-01-01'),
-      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
+      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14),
       $lt: new Date(Date.now() - 1000 * 60 * 20) // avoid the lila notif cache!
     }
   }).forEach(process);
