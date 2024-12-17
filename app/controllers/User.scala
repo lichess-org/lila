@@ -553,21 +553,24 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey)): data =>
-      negotiate(
-        Ok.async:
-          env.history
-            .ratingChartApi(data.user.user)
-            .map:
-              views.user.perfStatPage(data, _)
-        ,
-        JsonOk:
-          getBool("graph")
-            .soFu:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
-            .map: graph =>
-              env.perfStat.jsonView(data).add("graph", graph)
-      )
+    PerfType
+      .isLeaderboardable(perfKey)
+      .so:
+        Found(env.perfStat.api.data(username, perfKey)): data =>
+          negotiate(
+            Ok.async:
+              env.history
+                .ratingChartApi(data.user.user)
+                .map:
+                  views.user.perfStatPage(data, _)
+            ,
+            JsonOk:
+              getBool("graph")
+                .soFu:
+                  env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
+                .map: graph =>
+                  env.perfStat.jsonView(data).add("graph", graph)
+          )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:

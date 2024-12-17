@@ -7,6 +7,8 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(using Executor, Scheduler):
 
+  import PerfType.{ isLeaderboardable as isRelevant }
+
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
     timeout = 10 seconds,
@@ -14,21 +16,22 @@ final class PerfStatIndexer(
     lila.log.asyncActorMonitor.full
   )
 
-  private[perfStat] def userPerf(user: UserId, perfKey: PerfKey): Fu[PerfStat] =
-    workQueue:
-      storage
-        .find(user, perfKey)
-        .getOrElse(
-          gameRepo
-            .sortedCursor(user.id, perfKey)
-            .fold(PerfStat.init(user.id, perfKey)):
-              case (perfStat, game) if game.perfKey == perfKey =>
-                Pov(game, user.id).fold(perfStat)(perfStat.agg)
-              case (perfStat, _) => perfStat
-            .flatMap: ps =>
-              storage.insert(ps).recover(lila.db.ignoreDuplicateKey).inject(ps)
-            .mon(_.perfStat.indexTime)
-        )
+  private[perfStat] def userPerf(user: UserId, perfKey: PerfKey): Fu[Option[PerfStat]] =
+    isRelevant(perfKey).soFu:
+      workQueue:
+        storage
+          .find(user, perfKey)
+          .getOrElse(
+            gameRepo
+              .sortedCursor(user.id, perfKey)
+              .fold(PerfStat.init(user.id, perfKey)):
+                case (perfStat, game) if game.perfKey == perfKey =>
+                  Pov(game, user.id).fold(perfStat)(perfStat.agg)
+                case (perfStat, _) => perfStat
+              .flatMap: ps =>
+                storage.insert(ps).recover(lila.db.ignoreDuplicateKey).inject(ps)
+              .mon(_.perfStat.indexTime)
+          )
 
   def addGame(game: Game): Funit =
     game.players.toList.sequentiallyVoid: player =>
