@@ -33,12 +33,6 @@
   overflow: hidden;
   outline-offset: -3px;
   outline: 3px solid $m-bad--alpha-50;
-  --c-stream-link-hover: #{$c-bad};
-
-  &.twitch {
-    outline-color: $m-clas--alpha-70;
-    --c-stream-link-hover: #{$c-clas};
-  }
 
   .image {
     position: absolute;
@@ -54,7 +48,7 @@
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    width: 112px;
+    width: 18%;
   }
 
   &:has(.text-box) .play-button {
@@ -88,8 +82,8 @@
 
   &:hover:not(:has(.video-player-close:hover)) {
     box-shadow:
-      0 0 5px var(--c-stream-link-hover),
-      0 0 20px var(--c-stream-link-hover);
+      0 0 5px $c-bad,
+      0 0 20px $c-bad;
     .play-button {
       filter: brightness(1.2);
     }

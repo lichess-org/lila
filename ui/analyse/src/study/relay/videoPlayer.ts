@@ -67,7 +67,6 @@ export class VideoPlayer {
   };
 
   render = () => {
-    const platform = !this.o.redirect?.includes('twitch.tv') ? 'youtube' : 'twitch';
     return this.o.embed
       ? h('div#video-player-placeholder', {
           hook: {
@@ -75,7 +74,7 @@ export class VideoPlayer {
             update: (_, vnode: VNode) => this.cover(vnode.elm as HTMLElement),
           },
         })
-      : h(`div#video-player-placeholder.link.${platform}`, {}, [
+      : h('div#video-player-placeholder.link', [
           h('div.image', {
             attrs: { style: `background-image: url(${this.o.image})` },
             hook: onInsert((el: HTMLElement) => {
@@ -91,9 +90,7 @@ export class VideoPlayer {
             hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
           this.o.text && h('div.text-box', h('div', this.o.text)),
-          h('img.play-button', {
-            attrs: { src: site.asset.url(`images/icons/play-btn-${platform}.svg`) },
-          }),
+          h('img.play-button', { attrs: { src: site.asset.url(`images/icons/play-btn-youtube.svg`) } }),
         ]);
   };
 
