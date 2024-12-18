@@ -42,15 +42,6 @@
     font-size: 1.4em;
   }
 
-  .price {
-    font-size: 1.4em;
-  }
-
-  .price > * {
-    border: none;
-    padding-top: 30px;
-  }
-
   .explanation {
     @extend %box-neat;
 
@@ -99,10 +90,6 @@
 
     thead th {
       font-weight: normal;
-    }
-
-    .price {
-      display: none;
     }
 
     .explanation {
