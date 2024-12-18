@@ -30,7 +30,7 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { bind, type MaybeVNodes } from 'common/snabbdom';
+import { bind, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
@@ -304,32 +304,20 @@ function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;
-  } else if (node.ceval) {
-    pvs = node.ceval.pvs;
-  }
+  } else if (node.ceval) pvs = node.ceval.pvs;
   const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);
     return renderSan(san, uci, style);
-  } else {
-    return '';
   }
+  return '';
 }
 
 function renderResult(ctrl: AnalyseController): VNode[] {
   if (ctrl.data.game.status.id >= 30) {
-    let result;
-    switch (ctrl.data.game.winner) {
-      case 'white':
-        result = '1-0';
-        break;
-      case 'black':
-        result = '0-1';
-        break;
-      default:
-        result = '½-½';
-    }
+    const winner = ctrl.data.game.winner;
+    const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
     return [
       h('h2', 'Game status'),
       h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
@@ -396,14 +384,11 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
   }
 }
 
-const analysisGlyphs = ['?!', '?', '??'];
-
 function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
-  const anal = ctrl.data.analysis;
+  const anal = ctrl.data.analysis; // heh
   if (!anal) return undefined;
-  const analysisNodes = ctrl.mainline.filter(n =>
-    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)),
-  );
+  const analysisGlyphs = ['?!', '?', '??'];
+  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
     res.push(h('h3', `${color} player: ${anal[color].acpl} ACPL`));
@@ -434,29 +419,30 @@ function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | un
   return res;
 }
 
-function requestAnalysisButton(
+const requestAnalysisButton = (
   ctrl: AnalyseController,
   inProgress: Prop<boolean>,
   notify: (msg: string) => void,
-) {
-  if (inProgress()) return h('p', 'Server-side analysis in progress');
-  if (ctrl.ongoing || ctrl.synthetic) return undefined;
-  return h(
-    'button',
-    {
-      hook: bind('click', _ =>
-        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-          () => {
-            inProgress(true);
-            notify('Server-side analysis in progress');
+): MaybeVNode =>
+  ctrl.ongoing || ctrl.synthetic
+    ? undefined
+    : inProgress()
+      ? h('p', 'Server-side analysis in progress')
+      : h(
+          'button',
+          {
+            hook: bind('click', _ =>
+              xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+                () => {
+                  inProgress(true);
+                  notify('Server-side analysis in progress');
+                },
+                () => notify('Cannot run server-side analysis'),
+              ),
+            ),
           },
-          () => notify('Cannot run server-side analysis'),
-        ),
-      ),
-    },
-    'Request a computer analysis',
-  );
-}
+          i18n.site.requestAComputerAnalysis,
+        );
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
   if (ctrl.path === treePath.root) return { i: 1, of: 1 };
