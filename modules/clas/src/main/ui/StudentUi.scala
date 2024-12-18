@@ -64,11 +64,7 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                     href  := routes.Clas.studentRelease(clas.id, s.user.username),
                     cls   := "button button-empty",
                     title := trans.clas.upgradeFromManaged.txt()
-                  )(trans.clas.release()),
-                  a(
-                    href  := routes.Clas.studentMove(clas.id, s.user.username),
-                    cls   := "button button-empty"
-                  )(trans.clas.moveToAnotherClass())
+                  )(trans.clas.release())
                 )
               )
             )
