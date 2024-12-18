@@ -58,7 +58,7 @@ Aqui está o link para acessar a turma.</string>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
   <string name="pending">Pendente</string>
-  <string name="declined">Rejeitado</string>
+  <string name="declined">Recusado</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>
@@ -116,4 +116,5 @@ Aqui está o link para acessar a turma.</string>
   <string name="xAlreadyHasAPendingInvitation">%s já tem um convite pendente</string>
   <string name="xIsAKidAccountWarning">%1$s é uma conta de criança e não pode receber sua mensagem. Mande o URL de convite manualmente: %2$s</string>
   <string name="moveToClass">Mover para %s</string>
+  <string name="moveToAnotherClass">Mover para outra turma</string>
 </resources>
