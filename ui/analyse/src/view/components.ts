@@ -341,36 +341,27 @@ export function renderControls(ctrl: AnalyseCtrl) {
   );
 }
 
-function renderMoveList(ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf) {
-  function renderResult(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode[] {
-    const render = (result: string, status: VNodeKids) => [h('div.result', result), h('div.status', status)];
-    if (ctrl.data.game.status.id >= 30) {
-      let result;
-      switch (ctrl.data.game.winner) {
-        case 'white':
-          result = '1-0';
-          break;
-        case 'black':
-          result = '0-1';
-          break;
-        default:
-          result = '½-½';
-      }
-      return render(result, statusView(ctrl));
-    } else if (ctrl.study) {
-      const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
-      if (!result || result === '*') return [];
-      if (result === '1-0') return render(result, [i18n.site.whiteIsVictorious]);
-      if (result === '0-1') return render(result, [i18n.site.blackIsVictorious]);
-      return render('½-½', [i18n.site.draw]);
-    }
-    return [];
+export function renderResult(ctrl: AnalyseCtrl, deps?: typeof studyDeps): VNode[] {
+  const render = (result: string, status: VNodeKids) => [h('div.result', result), h('div.status', status)];
+  if (ctrl.data.game.status.id >= 30) {
+    const winner = ctrl.data.game.winner;
+    const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
+    return render(result, statusView(ctrl));
+  } else if (ctrl.study) {
+    const result = deps?.findTag(ctrl.study.data.chapter.tags, 'result');
+    if (!result || result === '*') return [];
+    if (result === '1-0') return render(result, [i18n.site.whiteIsVictorious]);
+    if (result === '0-1') return render(result, [i18n.site.blackIsVictorious]);
+    return render('½-½', [i18n.site.draw]);
   }
-  return h('div.analyse__moves.areplay', [
+  return [];
+}
+
+const renderMoveList = (ctrl: AnalyseCtrl, deps?: typeof studyDeps, concealOf?: ConcealOf): VNode =>
+  h('div.analyse__moves.areplay', [
     h(`div.areplay__v${ctrl.treeVersion}`, [renderTreeView(ctrl, concealOf), ...renderResult(ctrl)]),
     !ctrl.practice && !deps?.gbEdit.running(ctrl) && renderNextChapter(ctrl),
   ]);
-}
 
 export const renderMaterialDiffs = (ctrl: AnalyseCtrl): [VNode, VNode] =>
   materialView.renderMaterialDiffs(

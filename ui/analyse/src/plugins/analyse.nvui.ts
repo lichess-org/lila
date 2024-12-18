@@ -5,7 +5,6 @@ import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import type { AnalyseData } from '../interfaces';
 import type { Player } from 'game';
-import viewStatus from 'game/view/status';
 import {
   type MoveStyle,
   renderSan,
@@ -44,6 +43,7 @@ import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from 'chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
+import { renderResult } from '../view/components';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -103,7 +103,7 @@ export function initModule(ctrl: AnalyseController) {
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-          ...renderResult(ctrl),
+          ...renderAriaResult(ctrl),
           h('h2', 'Current position'),
           h(
             'p.position.lastMove',
@@ -314,19 +314,18 @@ function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
   return '';
 }
 
-function renderResult(ctrl: AnalyseController): VNode[] {
-  if (ctrl.data.game.status.id >= 30) {
-    const winner = ctrl.data.game.winner;
-    const result = winner === 'white' ? '1-0' : winner === 'black' ? '0-1' : '½-½';
-    return [
-      h('h2', 'Game status'),
-      h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
-        h('div.result', result),
-        h('div.status', viewStatus(ctrl)),
-      ]),
-    ];
-  }
-  return [];
+function renderAriaResult(ctrl: AnalyseController): VNode[] {
+  const result = renderResult(ctrl);
+  return result.length
+    ? [
+        h('h2', 'Game status'),
+        h(
+          'div.status',
+          { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+          result,
+        ),
+      ]
+    : result;
 }
 
 function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChildren {
