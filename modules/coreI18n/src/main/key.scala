@@ -284,7 +284,6 @@ object I18nKey:
     val `clickToViewInvitation`: I18nKey = "class:clickToViewInvitation"
     val `pending`: I18nKey = "class:pending"
     val `declined`: I18nKey = "class:declined"
-    val `revoke`: I18nKey = "class:revoke"
     val `onlyVisibleToTeachers`: I18nKey = "class:onlyVisibleToTeachers"
     val `lastActiveDate`: I18nKey = "class:lastActiveDate"
     val `managed`: I18nKey = "class:managed"

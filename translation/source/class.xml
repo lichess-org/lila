@@ -59,7 +59,6 @@ Here is the link to access the class.</string>
   </plurals>
   <string name="pending">Pending</string>
   <string name="declined">Declined</string>
-  <string name="revoke">Revoke</string>
   <string name="onlyVisibleToTeachers">Only visible to the class teachers</string>
   <string name="lastActiveDate">Active</string>
   <string name="managed">Managed</string>

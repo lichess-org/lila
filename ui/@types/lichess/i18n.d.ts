@@ -593,8 +593,6 @@ interface I18n {
     reopen: string;
     /** Reset password */
     resetPassword: string;
-    /** Revoke */
-    revoke: string;
     /** Send a message to all students. */
     sendAMessage: string;
     /** Student:  %1$s */

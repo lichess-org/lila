@@ -145,7 +145,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                       td(momentFromNow(i.created.at)),
                       td:
                         postForm(action := routes.Clas.invitationRevoke(i.id)):
-                          submitButton(cls := "button button-red button-empty")(trans.clas.revoke())
+                          submitButton(cls := "button button-red button-empty")(trans.site.delete())
                     )
             )
         val archivedBox =
