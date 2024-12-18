@@ -57,6 +57,8 @@ Hier is de link om toegang te krijgen tot de groep.</string>
     <item quantity="one">Eén openstaande uitnodiging</item>
     <item quantity="other">%s openstaande uitnodigingen</item>
   </plurals>
+  <string name="pending">In behandeling</string>
+  <string name="declined">Afgewezen</string>
   <string name="onlyVisibleToTeachers">Alleen zichtbaar voor leraren in de groep</string>
   <string name="lastActiveDate">Actief</string>
   <string name="managed">Beheerd</string>
@@ -113,4 +115,6 @@ Hier is de link om toegang te krijgen tot de groep.</string>
   <string name="anInvitationHasBeenSentToX">Een uitnodiging is verstuurd naar %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s heeft al een uitnodiging in behandeling</string>
   <string name="xIsAKidAccountWarning">%1$s is een kinderaccount en kan je bericht niet ontvangen. Je moet het kind de uitnodigingslink handmatig geven: %2$s</string>
+  <string name="moveToClass">Verplaats naar %s</string>
+  <string name="moveToAnotherClass">Verplaats naar een andere klas</string>
 </resources>
