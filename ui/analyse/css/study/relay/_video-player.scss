@@ -81,12 +81,12 @@
   }
 
   &:hover:not(:has(.video-player-close:hover)) {
-    box-shadow:
-      0 0 5px $c-bad,
-      0 0 20px $c-bad;
+    box-shadow: 0 0 12px $c-bad;
+
     .play-button {
       filter: brightness(1.2);
     }
+
     .image {
       filter: blur(4px) brightness(0.7);
     }
