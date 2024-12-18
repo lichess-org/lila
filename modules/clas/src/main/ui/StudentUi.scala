@@ -68,8 +68,8 @@ final class StudentUi(helpers: Helpers, clasUi: ClasUi)(using NetDomain):
                   a(
                     href  := routes.Clas.studentMove(clas.id, s.user.username),
                     cls   := "button button-empty",
-                    title := "Move"
-                  )("Move")
+                    title := trans.clas.move.txt()
+                  )(trans.clas.move())
                 )
               )
             )

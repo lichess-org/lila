@@ -515,6 +515,12 @@ interface I18n {
     maxStudentsNote: I18nFormat;
     /** Message all students about new class material */
     messageAllStudents: string;
+    /** Move */
+    move: string;
+    /** Move to another class */
+    moveToAnotherClass: string;
+    /** Move to %s */
+    moveToClass: I18nFormat;
     /** You can also %s to create multiple Lichess accounts from a list of student names. */
     multipleAccsFormDescription: I18nFormat;
     /** N/A */

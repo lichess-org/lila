@@ -222,8 +222,8 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
               a(
                 href  := routes.Clas.studentMove(clas.id, s.user.username),
                 cls   := "button button-empty",
-                title := "Move"
-              )("Move")
+                title := trans.clas.move.txt()
+              )(trans.clas.move())
             )
           )
         )
@@ -272,7 +272,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             )(
               form3.submit(aClass.name, icon = Icon.Target.some)(
                 cls   := "yes-no-confirm button-blue button-empty",
-                title := "Move to " + aClass.name
+                title := trans.clas.moveToClass.txt(aClass.name)
               )
             )
           )
@@ -280,7 +280,7 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       frag(
         studentUi.top(clas, s),
         div(cls := "box__pad")(
-          h2("Move to another class"),
+          h2(trans.clas.moveToAnotherClass()),
           classForms,
           form3.actions(
             a(href := routes.Clas.studentShow(clas.id, s.user.username))(trans.site.cancel())
