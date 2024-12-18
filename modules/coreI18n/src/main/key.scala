@@ -1088,6 +1088,7 @@ object I18nKey:
     val `displayBoardResizeHandle`: I18nKey = "preferences:displayBoardResizeHandle"
     val `onlyOnInitialPosition`: I18nKey = "preferences:onlyOnInitialPosition"
     val `inGameOnly`: I18nKey = "preferences:inGameOnly"
+    val `exceptInGame`: I18nKey = "preferences:exceptInGame"
     val `chessClock`: I18nKey = "preferences:chessClock"
     val `tenthsOfSeconds`: I18nKey = "preferences:tenthsOfSeconds"
     val `whenTimeRemainingLessThanTenSeconds`: I18nKey = "preferences:whenTimeRemainingLessThanTenSeconds"

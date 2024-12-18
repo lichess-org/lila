@@ -2103,6 +2103,8 @@ interface I18n {
     displayBoardResizeHandle: string;
     /** Drag a piece */
     dragPiece: string;
+    /** Except in-game */
+    exceptInGame: string;
     /** Can be disabled during a game with the board menu */
     explainCanThenBeTemporarilyDisabled: string;
     /** Hold the <ctrl> key while promoting to temporarily disable auto-promotion */
