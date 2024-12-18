@@ -10,8 +10,6 @@ import lila.core.id.{ ClasId, ClasInviteId, StudentId }
 import lila.core.msg.MsgApi
 import lila.db.dsl.{ *, given }
 import lila.rating.{ Perf, PerfType, UserPerfs }
-import lila.core.user.Me.userId
-import lila.clas.Student.WithUser
 
 final class ClasApi(
     colls: ClasColls,
@@ -260,9 +258,9 @@ final class ClasApi(
             sendWelcomeMessage(teacher.id, user, clas)).inject(Student.WithPassword(student, password))
         }
 
-    def move(s: WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
+    def move(s: Student.WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
       _ <- closeAccount(s)
-      stu = Student.make(s.user, toClas, teacher.userId, s.student.realName, s.student.managed)
+      stu = s.student.copy(id = Student.makeId(s.user.id, toClas.id), clasId = toClas.id)
       moved <- colls.student.insert
         .one(stu)
         .inject(stu.some)
