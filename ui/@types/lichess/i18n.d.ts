@@ -1239,8 +1239,6 @@ interface I18n {
     chessInsights: string;
     /** Cloud engine analysis */
     cloudEngineAnalysis: string;
-    /** Contribute to Lichess and get a cool looking Patron icon */
-    contributeToLichessAndGetIcon: string;
     /** Correspondence chess with conditional premoves */
     correspondenceWithConditionalPremoves: string;
     /** Deep %s server analysis */
@@ -1269,8 +1267,6 @@ interface I18n {
     standardChessAndX: I18nFormat;
     /** Studies (shareable and persistent analysis) */
     studies: string;
-    /** Support Lichess */
-    supportLichess: string;
     /** Support us with a Patron account! */
     supportUsWithAPatronAccount: string;
     /** Tactical puzzles from user games */

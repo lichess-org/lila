@@ -659,8 +659,6 @@ object I18nKey:
     val `ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess`: I18nKey = "features:ultraBulletBulletBlitzRapidClassicalAndCorrespondenceChess"
     val `allFeaturesToCome`: I18nKey = "features:allFeaturesToCome"
     val `landscapeSupportOnApp`: I18nKey = "features:landscapeSupportOnApp"
-    val `supportLichess`: I18nKey = "features:supportLichess"
-    val `contributeToLichessAndGetIcon`: I18nKey = "features:contributeToLichessAndGetIcon"
     val `everybodyGetsAllFeaturesForFree`: I18nKey = "features:everybodyGetsAllFeaturesForFree"
     val `weBelieveEveryChessPlayerDeservesTheBest`: I18nKey = "features:weBelieveEveryChessPlayerDeservesTheBest"
     val `allFeaturesAreFreeForEverybody`: I18nKey = "features:allFeaturesAreFreeForEverybody"
