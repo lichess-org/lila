@@ -67,5 +67,5 @@
   <string name="notifyWeb">உலாவி</string>
   <string name="notifyDevice">சாதனம்</string>
   <string name="bellNotificationSound">பெல் அறிவிப்பு ஒலி</string>
-  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">கண்மூடி</string>
+  <string name="blindfold" comment="As in Blindfold chess">கண்மூடி</string>
 </resources>
