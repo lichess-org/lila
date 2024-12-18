@@ -221,9 +221,8 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
             (!s.student.managed).option(
               a(
                 href  := routes.Clas.studentMove(clas.id, s.user.username),
-                cls   := "button button-empty",
-                title := trans.clas.move.txt()
-              )(trans.clas.move())
+                cls   := "button button-empty"
+              )(trans.clas.moveToAnotherClass())
             )
           )
         )

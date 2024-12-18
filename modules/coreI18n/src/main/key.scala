@@ -332,7 +332,6 @@ object I18nKey:
     val `anInvitationHasBeenSentToX`: I18nKey = "class:anInvitationHasBeenSentToX"
     val `xAlreadyHasAPendingInvitation`: I18nKey = "class:xAlreadyHasAPendingInvitation"
     val `xIsAKidAccountWarning`: I18nKey = "class:xIsAKidAccountWarning"
-    val `move`: I18nKey = "class:move"
     val `moveToClass`: I18nKey = "class:moveToClass"
     val `moveToAnotherClass`: I18nKey = "class:moveToAnotherClass"
     val `nbPendingInvitations`: I18nKey = "class:nbPendingInvitations"

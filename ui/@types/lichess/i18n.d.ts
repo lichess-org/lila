@@ -517,8 +517,6 @@ interface I18n {
     maxStudentsNote: I18nFormat;
     /** Message all students about new class material */
     messageAllStudents: string;
-    /** Move */
-    move: string;
     /** Move to another class */
     moveToAnotherClass: string;
     /** Move to %s */
