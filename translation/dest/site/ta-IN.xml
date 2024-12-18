@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="playWithAFriend">ஒரு கேளிருடன் விளையாடு</string>
-  <string name="playWithTheMachine">கணினியோடு விளையாடு</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">விளையாட்டுக்கு  அழைக்க இந்தச்சுட்டியை அனுப்பு</string>
+  <string name="playWithTheMachine">கணிப்பொறியோடு விளையாடு</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">விளையாட்டுக்கு அழைக்க இந்த URL ளை அனுப்பு</string>
   <string name="gameOver">ஆட்டம் முடிந்தது</string>
   <string name="waitingForOpponent">எதிராளிக்காகக் காத்திருக்கின்றது</string>
   <string name="orLetYourOpponentScanQrCode">அல்லது உங்கள் எதிரி இந்த QR குறியீட்டை ஸ்கேன் செய்ய அனுமதிக்கவும்</string>
