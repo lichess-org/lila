@@ -67,5 +67,5 @@
   <string name="notifyWeb">Navigateur</string>
   <string name="notifyDevice">Appareil</string>
   <string name="bellNotificationSound">Son de notification</string>
-  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Partie à l\'aveugle</string>
+  <string name="blindfold" comment="As in Blindfold chess">Partie à l\'aveugle</string>
 </resources>
