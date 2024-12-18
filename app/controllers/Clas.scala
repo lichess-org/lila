@@ -487,7 +487,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       WithStudent(clas, username): s =>
         WithClass(to): toClas =>
           for _ <- env.clas.api.student.move(s, toClas)
-          yield Redirect(routes.Clas.show(clas.id))
+          yield Redirect(routes.Clas.show(clas.id)).flashSuccess
   }
 
   def becomeTeacher = AuthBody { ctx ?=> me ?=>
