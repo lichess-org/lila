@@ -139,7 +139,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
                     tr(
                       td(userIdLink(i.userId.some)),
                       td(i.realName),
-                      td(if i.accepted.has(false) then trans.clas.declined.txt() else trans.clas.pending.txt()),
+                      td(
+                        if i.accepted.has(false) then trans.clas.declined.txt() else trans.clas.pending.txt()
+                      ),
                       td(momentFromNow(i.created.at)),
                       td:
                         postForm(action := routes.Clas.invitationRevoke(i.id)):
