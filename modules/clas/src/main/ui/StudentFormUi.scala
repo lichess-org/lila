@@ -264,18 +264,13 @@ final class StudentFormUi(helpers: Helpers, clasUi: ClasUi, studentUi: StudentUi
       cls := "student-show student-edit"
     ):
 
-      val classForms: Frag =
-        for (aClass <- otherClasses)
-          yield (
-            postForm(
-              action := routes.Clas.studentMovePost(clas.id, s.student.userId, aClass.id)
-            )(
-              form3.submit(aClass.name, icon = Icon.Target.some)(
-                cls   := "yes-no-confirm button-blue button-empty",
-                title := trans.clas.moveToClass.txt(aClass.name)
-              )
-            )
+      val classForms: Frag = otherClasses.map: toClass =>
+        postForm(action := routes.Clas.studentMovePost(clas.id, s.student.userId, toClass.id))(
+          form3.submit(toClass.name, icon = Icon.InternalArrow.some)(
+            cls   := "yes-no-confirm button-blue button-empty",
+            title := trans.clas.moveToClass.txt(toClass.name)
           )
+        )
 
       frag(
         studentUi.top(clas, s),
