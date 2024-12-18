@@ -57,6 +57,8 @@ Aquí està l\'enllaç per a accedir a la classe.</string>
     <item quantity="one">%s invitació pendent</item>
     <item quantity="other">%s invitacions pendents</item>
   </plurals>
+  <string name="pending">Pendent</string>
+  <string name="declined">Rebutjada</string>
   <string name="onlyVisibleToTeachers">Només visible pels mestres de la classe</string>
   <string name="lastActiveDate">Actiu</string>
   <string name="managed">Gestionada</string>
@@ -114,4 +116,6 @@ Mostrarà una línia separadora horitzontal.</string>
   <string name="anInvitationHasBeenSentToX">S\'ha enviat una invitació a %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s ja té una invitació pendent</string>
   <string name="xIsAKidAccountWarning">%1$s és un compte de menors i no pot rebre el teu missatge. Li heu de fer arribar l\'URL manualment: %2$s</string>
+  <string name="moveToClass">Moure a %s</string>
+  <string name="moveToAnotherClass">Moure a una altra classe</string>
 </resources>
