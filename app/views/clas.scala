@@ -18,7 +18,7 @@ object student:
   lazy val formUi = lila.clas.ui.StudentFormUi(helpers, views.clas.ui, ui)
 
   export ui.{ invite }
-  export formUi.{ newStudent as form, many as manyForm, edit, release, close }
+  export formUi.{ newStudent as form, many as manyForm, edit, release, close, move }
 
   def show(
       clas: Clas,
