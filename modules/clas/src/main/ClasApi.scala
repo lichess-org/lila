@@ -260,18 +260,16 @@ final class ClasApi(
             sendWelcomeMessage(teacher.id, user, clas)).inject(Student.WithPassword(student, password))
         }
 
-    def createCopy(
-        clas: Clas,
-        s: WithUser,
-        teacher: Me
-    ): Fu[Option[Student]] =
-      val stu = Student.make(s.user, clas, teacher.userId, s.student.realName, s.student.managed)
-      colls.student.insert
+    def move(s: WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
+      _ <- closeAccount(s)
+      stu = Student.make(s.user, toClas, teacher.userId, s.student.realName, s.student.managed)
+      moved <- colls.student.insert
         .one(stu)
         .inject(stu.some)
         .recoverWith(lila.db.recoverDuplicateKey { _ =>
-          student.get(clas, s.user.id)
+          student.get(toClas, s.user.id)
         })
+    yield moved
 
     def manyCreate(
         clas: Clas,

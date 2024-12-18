@@ -486,9 +486,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
     WithClassAndStudents(id): (clas, students) =>
       WithStudent(clas, username): s =>
         WithClass(to): toClas =>
-          for
-            _ <- env.clas.api.student.createCopy(toClas, s, me)
-            _ <- env.clas.api.student.closeAccount(s)
+          for _ <- env.clas.api.student.move(s, toClas)
           yield Redirect(routes.Clas.show(clas.id))
   }
 
