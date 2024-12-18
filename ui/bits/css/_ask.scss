@@ -1,0 +1,412 @@
+$gap: 6px;
+:root {
+  --c-contrast-font: #ddd;
+  --c-neutral: #777;
+  --c-box-border: #484848;
+  --c-unset1: #f66;
+  --c-unset2: #c33;
+  --c-enabled-gradient-top: hsl(0, 0%, 27%);
+  --c-enabled-gradient-bottom: hsl(0, 0%, 19%);
+  --c-badge-background: #666;
+  --c-badge-border: #666;
+  --c-badge: #000;
+  --c-ibeam: var(--c-font);
+  ---hover-opacity: 0.1;
+
+  @include if-light {
+    --c-contrast-font: #444;
+    --c-neutral: #ccc;
+    --c-box-border: #ddd;
+    --c-unset1: #c33;
+    --c-unset2: #f66;
+    --c-enabled-gradient-top: hsl(0, 0%, 92%);
+    --c-enabled-gradient-bottom: hsl(0, 0%, 86%);
+    --c-badge-background: #bbb;
+    --c-badge-border: #aaa;
+    --c-badge: #ddd;
+    --c-ibeam: #bbb;
+    ---hover-opacity: 0.3;
+  }
+  @include if-transp {
+    --c-enabled-gradient-top: hsla(0, 0%, 50%, 0.3);
+    --c-enabled-gradient-bottom: hsla(0, 0%, 50%, 0.3);
+  }
+}
+
+$c-contrast-font: var(--c-contrast-font);
+$c-neutral: var(--c-neutral);
+$c-box-border: var(--c-box-border);
+//$bg-hover: var(---box-border);
+$hover-opacity: var(---hover-opacity);
+$c-unset1: var(--c-unset1);
+$c-unset2: var(--c-unset2);
+
+%lighten-hover {
+  color: $c-contrast-font;
+  &:hover {
+    box-shadow: inset 0 0 1px 100px hsla(0, 0%, 100%, var(---hover-opacity));
+  }
+}
+
+div.ask-container {
+  display: flex;
+  font-size: 1rem;
+
+  &.stretch {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+fieldset.ask {
+  margin-bottom: 2 * $gap;
+  padding: 0 (3 * $gap) $gap (2 * $gap);
+  width: 100%;
+  line-height: normal;
+  border: solid 1px var(--c-box-border);
+
+  > label {
+    margin: $gap;
+    flex-basis: 100%;
+    font-weight: bold;
+  }
+
+  & > * {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+span.ask__header {
+  display: flex;
+  flex: 1 0 100%;
+  column-gap: $gap;
+  justify-content: space-between;
+
+  label {
+    flex: auto;
+    margin-inline-start: $gap;
+    padding-bottom: $gap;
+    font-size: 1.3em;
+  }
+
+  label span {
+    white-space: nowrap;
+    margin-inline-start: $gap;
+    font-size: 0.6em;
+  }
+
+  div {
+    display: flex;
+    align-content: center;
+    border: 1px solid var(--c-box-border);
+    border-radius: 4px;
+    align-self: center;
+  }
+
+  div button {
+    @extend %button-none;
+    padding: 0 0.25em;
+    font-size: 1.2em;
+    font-family: lichess;
+  }
+
+  div.url-actions {
+    border-color: $m-primary_dimmer--mix-40;
+    font-size: 1em;
+    padding: 0.3em;
+  }
+
+  div.url-actions button {
+    padding: 0 $gap / 4;
+    color: $c-link;
+    cursor: pointer;
+
+    &:hover {
+      color: $c-link-hover;
+    }
+
+    &.admin::before {
+      content: $licon-Gear;
+    }
+
+    &.view::before {
+      content: $licon-Pencil;
+    }
+
+    &.tally::before {
+      content: $licon-BarChart;
+    }
+
+    &.unset {
+      color: var(--c-unset1);
+
+      &::before {
+        content: $licon-X;
+      }
+
+      &:hover {
+        color: var(--c-unset2);
+      }
+    }
+  }
+
+  div.properties {
+    font-size: 0.8em;
+    padding: 0.2em;
+  }
+
+  div.properties button {
+    padding: 0 $gap / 2;
+    color: $c-font-dim;
+    cursor: default;
+
+    &.open::before {
+      content: $licon-Group;
+    }
+
+    &.anon::before {
+      content: $licon-Mask;
+    }
+
+    &.trace::before {
+      content: $licon-Search;
+    }
+  }
+}
+
+div.ask__footer {
+  margin: $gap 0;
+  display: grid;
+  grid-template-columns: auto min-content;
+
+  // form prompt
+  label {
+    margin: 0 0 $gap $gap;
+    grid-column: 1/3;
+  }
+
+  .form-text {
+    margin: 0 0 $gap $gap;
+    padding: 0.4em;
+  }
+
+  .form-submit {
+    @extend %data-icon, %flex-around;
+    visibility: hidden;
+
+    input {
+      margin: 0 0 $gap (2 * $gap);
+      padding: $gap 1.2em;
+    }
+
+    &.success {
+      visibility: visible;
+      color: $c-secondary;
+
+      & > input {
+        visibility: hidden;
+      }
+
+      &::after {
+        position: absolute;
+        content: $licon-Checkmark;
+      }
+    }
+
+    &.dirty {
+      visibility: visible;
+    }
+  }
+
+  .form-results {
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: max-content auto;
+    padding: 0 (2 * $gap) $gap $gap;
+    label {
+      grid-column: 1/3;
+      font-size: 1.3em;
+      margin: 0 0 $gap 0;
+    }
+    div {
+      margin: 0 $gap;
+    }
+  }
+}
+
+div.ask__choices {
+  margin: $gap 0 $gap 0;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: flex-start;
+
+  .choice {
+    display: inline-block;
+    user-select: none;
+    flex: initial;
+    &:focus-within {
+      outline: 1px solid $c-primary;
+    }
+  }
+
+  .choice.cbx {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin: 1.5 * $gap $gap 0;
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &.selected,
+    &.enabled {
+      cursor: pointer;
+      > input {
+        cursor: pointer;
+      }
+    }
+    > input {
+      pointer-events: none;
+      min-width: 24px;
+      min-height: 24px;
+      cursor: pointer;
+      margin-inline-end: $gap;
+    }
+  }
+
+  .choice.btn {
+    @extend %metal, %box-radius;
+    margin: 0 0 $gap $gap;
+    padding: $gap (2 * $gap);
+    text-align: center;
+    border: 1px;
+    border-color: var(--c-neutral);
+
+    &.enabled {
+      @extend %lighten-hover;
+      cursor: pointer;
+      background: linear-gradient(var(--c-enabled-gradient-top), var(--c-enabled-gradient-bottom));
+    }
+
+    &.selected {
+      @extend %lighten-hover;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(hsl(209, 79%, 58%) 0%, hsl(209, 79%, 52%) 100%);
+    }
+
+    &.stretch {
+      flex: auto;
+    }
+  }
+
+  .choice.btn.rank {
+    @extend %lighten-hover;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: move;
+    touch-action: none;
+
+    &.dragging {
+      opacity: 0.3;
+    }
+    ::after {
+      content: '';
+    }
+
+    // rank badge
+    > div {
+      margin-inline-start: -$gap;
+      margin-inline-end: $gap;
+      width: 1.7em;
+      height: 1.7em;
+      border-radius: 100%;
+      background: var(--c-badge-background);
+      border: 1px solid var(--c-badge-border);
+      color: var(--c-badge);
+      text-align: center;
+      font-size: 0.7em;
+      font-weight: bold;
+    }
+
+    > label {
+      cursor: move;
+    }
+
+    // green rank badge (submitted)
+    &.submitted > div {
+      background: $c-secondary;
+    }
+
+    @include if-transp {
+      background: hsla(0deg, 0%, 50%, 0.3);
+    }
+  }
+
+  // vertical ask drag cursor
+  hr {
+    margin: 0 0 $gap ($gap / 2);
+    width: 100%;
+    height: 2px;
+    display: block;
+    border-top: 1px solid var(--c-neutral);
+    border-bottom: 1px solid var(--c-box-border);
+  }
+
+  // horizontal ask drag cursor (I-beam)
+  .cursor {
+    margin: 0 0 0 $gap;
+    padding: 0;
+    width: 2 * $gap;
+    text-align: center;
+
+    // I-beam icon
+    &::after {
+      @extend %data-icon;
+      margin-inline-start: -$gap;
+      font-size: 2.1em;
+      color: var(--c-ibeam);
+      text-align: center;
+      content: $licon-Ibeam;
+    }
+  }
+
+  &.vertical {
+    flex-flow: column;
+  }
+
+  &.center {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+div.ask__graph,
+div.ask__rank-graph {
+  margin: 0 $gap (2 * $gap) $gap;
+  display: grid;
+  grid-template-columns: fit-content(40%) max-content auto;
+  grid-auto-rows: 1fr;
+  align-items: center;
+
+  div {
+    margin: $gap $gap 0 $gap;
+    user-select: none;
+  }
+  .votes-text {
+    margin-right: 0;
+    text-align: end;
+  }
+  .set-width {
+    height: 75%;
+    min-width: 0.2em;
+    background: $c-primary;
+  }
+}
+
+div.ask__rank-graph {
+  grid-template-columns: fit-content(40%) auto;
+}
