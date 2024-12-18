@@ -50,7 +50,7 @@ final class ParallelMongoQueue[A: BSONHandler](
 
   // just to prevent race conditions when enqueuing stuff
   private val workQueue = scalalib.actor.AsyncActorSequencer(
-    maxSize = Max(64),
+    maxSize = Max(256),
     timeout = 5.seconds,
     s"$name.workQueue",
     lila.log.asyncActorMonitor.full
@@ -59,7 +59,6 @@ final class ParallelMongoQueue[A: BSONHandler](
   /* Read the oldest <parallelism()> entries from the queue
    * start new ones, expire old ones
    */
-  // LilaScheduler(s"ParallelQueue($name).poll", _.Every(1 second), _.AtMost(5 seconds), _.Delay(33 seconds)):
   private val startAfter = if mode.isProd then 33.seconds else 3.seconds
   LilaScheduler(s"ParallelQueue($name).poll", _.Every(1 second), _.AtMost(5 seconds), _.Delay(startAfter)):
 

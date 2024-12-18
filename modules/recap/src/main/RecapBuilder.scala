@@ -55,6 +55,7 @@ private final class RecapBuilder(
           nbs = NbWin(total = nb, win = wins - fixes),
           votes = PuzzleVotes(nb = votes, themes = themes)
         )
+      .monSuccess(_.recap.puzzles)
 
   private def makeGameRecap(scan: GameScan): RecapGames =
     RecapGames(
@@ -68,12 +69,15 @@ private final class RecapBuilder(
       timePlaying = scan.secondsPlaying.seconds,
       sources = scan.sources,
       opponents = scan.opponents.toList.sortBy(-_._2).take(5).map(Recap.Counted.apply),
-      perfs = scan.perfs.toList
-        .sortBy(-_._2)
-        .map:
-          case (key, games) => Recap.Perf(key, games)
+      perfs = scan.perfs.toList.sortBy(-_._2).map(Recap.Perf.apply)
     )
 
+  /* This might be made faster by:
+   * - fetching Bdoc instead of Game with a projection
+   * - uncompressing only the moves needed to compute the opening
+   * - using mutable state instead of runFold
+   *   as the many little immutable objects hit the GC hard
+   */
   private def runGameScan(userId: UserId): Fu[GameScan] =
     val query =
       Query.createdBetween(dateStart.some, dateEnd.some) ++

@@ -7,6 +7,7 @@ body {
   &,
   .site-title,
   .site-title span,
+  .site-title:hover span,
   .site-buttons .link {
     #user_tag::after,
     &,
@@ -73,7 +74,7 @@ body {
 .recap {
   &__logo,
   .lpv {
-    width: 384px;
+    width: 45vh;
     max-width: 61vw;
     max-height: 50vh;
   }
@@ -159,31 +160,16 @@ body {
 }
 
 .recap__shareable {
-  .logo {
-    width: 60%;
-    max-width: 400px;
-  }
+  .logo,
   h2 {
-    font-size: 1.5em;
-    margin: 0.4em 0 1.5em;
-  }
-  .stat {
-    font-size: 1.5em;
-    @media (max-width: at-most($x-small)) {
-      font-size: 1.3em;
-    }
-    @media (max-width: at-most($xx-small)) {
-      font-size: 1.2em;
-    }
+    display: none;
   }
   .grid {
     display: flex;
     flex-wrap: wrap;
-    row-gap: 1.5em;
-    padding: 0.5em;
+    row-gap: 0.5em;
 
     .stat {
-      flex: 50%;
       a {
         border: none;
 
@@ -195,32 +181,71 @@ body {
   }
 
   .openings {
-    margin-top: 2em;
+    margin-top: 1em;
+    display: flex;
 
     .stat {
+      flex: 50%;
+      font-size: 0.8em;
       margin-top: 1em;
     }
   }
-  @media (max-height: 650px) {
+}
+
+@media screen and (orientation: portrait) {
+  .recap__shareable .grid .stat {
+    flex: 50%;
+  }
+}
+@media screen and (orientation: landscape) {
+  .recap__shareable .grid .stat {
+    flex: 33%;
+  }
+}
+
+@media (min-height: at-least($short)) {
+  .recap__shareable {
     .logo {
-      height: 20px;
-      width: auto;
+      display: inline;
+      height: 30px;
     }
     h2 {
-      font-size: 1.2em;
-      margin: 0.4em 0;
+      display: block;
+      margin: 0.5em 0;
+    }
+    .grid {
+      row-gap: 1em;
+      padding: 0.5em;
+    }
+  }
+}
+
+@media (min-width: at-least($x-small)) and (max-width: at-most($small)) and (min-height: at-least($tall)) and (max-width: at-most($x-tall)) {
+  .recap__shareable {
+    .logo {
+      height: 40px;
+    }
+  }
+}
+
+@media (min-width: at-least($small)) and (max-width: at-most($large)), (min-height: at-least($x-tall)) {
+  .recap__shareable {
+    .logo {
+      height: 40px;
     }
     .openings {
-      margin-top: 1em;
+      margin-top: 2em;
       .stat {
         font-size: 1em;
-        margin-top: 0.5em;
       }
     }
   }
-  @media (min-width: at-least($xx-small)) {
+}
+
+@media (min-width: at-least($large)) and (min-height: at-least($x-tall)) {
+  .recap__shareable {
     .logo {
-      display: none;
+      height: 80px;
     }
   }
 }
@@ -272,6 +297,7 @@ body {
     font-size: 0.8em;
     opacity: 0.8;
     min-width: 12ch;
+    padding-left: 1em;
   }
 }
 .recap__slide--opponents {

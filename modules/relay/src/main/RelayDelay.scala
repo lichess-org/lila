@@ -41,7 +41,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
             Option(v) match
               case Some(GamesSeenBy(games, seenBy)) if !seenBy(round.id) =>
                 lila.mon.relay.dedup.increment()
-                logger.info(s"Relay dedup cache hit ${round.id} ${round.name} ${url.toString}")
+                logger.debug(s"Relay dedup cache hit ${round.id} ${round.name} ${url.toString}")
                 GamesSeenBy(games, seenBy + round.id)
               case _ =>
                 GamesSeenBy(doFetch(), Set(round.id))

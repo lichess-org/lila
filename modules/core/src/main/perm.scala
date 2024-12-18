@@ -102,7 +102,7 @@ enum Permission(val key: String, val alsoGrants: List[Permission], val name: Str
   case StudyAdmin        extends Permission("STUDY_ADMIN", List(Relay), "Study/Broadcast admin")
   case ApiHog            extends Permission("API_HOG", "API hog")
   case ApiChallengeAdmin extends Permission("API_CHALLENGE_ADMIN", "API Challenge admin")
-  case LichessTeam       extends Permission("LICHESS_TEAM", Nil, "Lichess team")
+  case LichessTeam       extends Permission("LICHESS_TEAM", List(Beta), "Lichess team")
   case TimeoutMod
       extends Permission(
         "TIMEOUT_MOD",
