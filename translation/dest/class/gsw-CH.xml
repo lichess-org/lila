@@ -57,6 +57,8 @@ Da isch de Link für de Zuegriff uf die Klass.</string>
     <item quantity="one">1 usstehendi Iladig</item>
     <item quantity="other">%s usstehendi Iladige</item>
   </plurals>
+  <string name="pending">Hängig</string>
+  <string name="declined">Abglehnt</string>
   <string name="onlyVisibleToTeachers">Nur für de Klasselehrer sichtbar</string>
   <string name="lastActiveDate">Aktiv</string>
   <string name="managed">Verwaltet</string>
@@ -114,4 +116,6 @@ Es wird als horizontali Linie azeigt.</string>
   <string name="anInvitationHasBeenSentToX">An %s isch e Iladig gsändet worde</string>
   <string name="xAlreadyHasAPendingInvitation">%s hät bereits e usstehendi Iladig</string>
   <string name="xIsAKidAccountWarning">%1$s isch es Chinder Konto, es chann dini Nachricht nöd empfange. Du muesch e Iladigs-URL manuell übermittle: %2$s</string>
+  <string name="moveToClass">Gang zu %s</string>
+  <string name="moveToAnotherClass">Gang ine anderi Klass</string>
 </resources>
