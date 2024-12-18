@@ -471,6 +471,8 @@ interface I18n {
     createMultipleAccounts: string;
     /** Only create accounts for real students. Do not use this to make multiple accounts for yourself. You would get banned. */
     createStudentWarning: string;
+    /** Declined */
+    declined: string;
     /** Edit news */
     editNews: string;
     /** Features */
@@ -561,6 +563,8 @@ interface I18n {
     overview: string;
     /** Password: %s */
     passwordX: I18nFormat;
+    /** Pending */
+    pending: string;
     /** Private. Will never be shown outside the class. Helps you remember who the student is. */
     privateWillNeverBeShown: string;
     /** Progress */
@@ -589,6 +593,8 @@ interface I18n {
     reopen: string;
     /** Reset password */
     resetPassword: string;
+    /** Revoke */
+    revoke: string;
     /** Send a message to all students. */
     sendAMessage: string;
     /** Student:  %1$s */
