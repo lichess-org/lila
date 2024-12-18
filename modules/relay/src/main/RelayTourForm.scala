@@ -35,7 +35,9 @@ final class RelayTourForm(langList: lila.core.i18n.LangList):
 
   private val pinnedStreamMapping = mapping(
     "name" -> cleanNonEmptyText(maxLength = 100),
-    "url"  -> url.field.verifying("Invalid stream URL", url => RelayPinnedStream("", url).upstream.isDefined)
+    "url" -> url.field
+      .verifying("Invalid stream URL", url => RelayPinnedStream("", url, None).upstream.isDefined),
+    "text" -> optional(cleanText(maxLength = 100))
   )(RelayPinnedStream.apply)(unapply)
 
   private given Formatter[RelayTour.Tier] =
