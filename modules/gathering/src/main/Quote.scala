@@ -1652,6 +1652,11 @@ object Quote:
       "As for knight endings with an extra pawn... they are, as a rule, won.",
       "Mark Dvoretsky"
     ),
+    Quote(
+      "Unfortunately, whatever god Wesley believes in did not help him in that second game. It helped me instead.",
+      "Magnus Carlsen"
+    ),
+
     // lichess facts
     Quote("All features for free; for everyone; forever.", "lichess.org"),
     Quote("We will never display ads.", "lichess.org"),
