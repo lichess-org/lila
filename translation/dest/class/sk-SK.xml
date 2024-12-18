@@ -120,4 +120,6 @@ To zobrazí horizontálnu čiaru.</string>
   <string name="anInvitationHasBeenSentToX">Užívateľovi %s bola odoslaná pozvánka</string>
   <string name="xAlreadyHasAPendingInvitation">%s už má pozvánku čakajúcu na potvrdenie</string>
   <string name="xIsAKidAccountWarning">%1$s je detský účet a nemôže prijať Vašu správu. Pre doručenie pozvánky musíte URL %2$s poskytnúť prostredníctvom iného kanála</string>
+  <string name="moveToClass">Presunúť do %s</string>
+  <string name="moveToAnotherClass">Presunúť do inej triedy</string>
 </resources>
