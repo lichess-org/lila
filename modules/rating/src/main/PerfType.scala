@@ -163,12 +163,23 @@ enum PerfType(
       )
 
 object PerfType:
+
+  // all but standard and puzzle
+  type GamePerf = Bullet.type | Blitz.type | Rapid.type | Classical.type | UltraBullet.type |
+    Correspondence.type | Crazyhouse.type | Chess960.type | KingOfTheHill.type | ThreeCheck.type |
+    Antichess.type | Atomic.type | Horde.type | RacingKings.type
+
+  def gamePerf(pt: PerfType): Option[GamePerf] = pt match
+    case gp: GamePerf => Some(gp)
+    case _            => None
+
   given Conversion[PerfType, PerfKey] = _.key
   given Conversion[PerfType, PerfId]  = _.id
   given Conversion[PerfKey, PerfType] = apply(_)
-  val all: List[PerfType]             = values.toList
-  val byKey                           = all.mapBy(_.key)
-  val byId                            = all.mapBy(_.id)
+
+  val all: List[PerfType] = values.toList
+  val byKey               = all.mapBy(_.key)
+  val byId                = all.mapBy(_.id)
 
   def apply(key: PerfKey): PerfType =
     byKey.getOrElse(key, sys.error(s"Impossible: $key couldn't have been instantiated"))
@@ -197,6 +208,7 @@ object PerfType:
     PerfKey.racingKings
   )
   val isLeaderboardable: Set[PerfKey] = leaderboardable.toSet
+
   val variants: List[PerfKey] =
     List(
       PerfKey.crazyhouse,

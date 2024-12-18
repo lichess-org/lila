@@ -1,11 +1,14 @@
 package lila.perfStat
 
 import lila.rating.PerfType
+import lila.rating.PerfType.GamePerf
 
 final class PerfStatIndexer(
     gameRepo: lila.core.game.GameRepo,
     storage: PerfStatStorage
 )(using Executor, Scheduler):
+
+  import PerfType.{ isLeaderboardable as isRelevant }
 
   private val workQueue = scalalib.actor.AsyncActorSequencer(
     maxSize = Max(64),
@@ -14,7 +17,7 @@ final class PerfStatIndexer(
     lila.log.asyncActorMonitor.full
   )
 
-  private[perfStat] def userPerf(user: UserId, perfKey: PerfKey): Fu[PerfStat] =
+  private[perfStat] def userPerf(user: UserId, perfKey: GamePerf): Fu[PerfStat] =
     workQueue:
       storage
         .find(user, perfKey)
@@ -36,7 +39,10 @@ final class PerfStatIndexer(
         addPov(Pov(game, player), userId)
 
   private def addPov(pov: Pov, userId: UserId): Funit =
-    storage
-      .find(userId, pov.game.perfKey)
-      .flatMapz: perfStat =>
-        storage.update(perfStat, perfStat.agg(pov))
+    PerfType
+      .gamePerf(pov.game.perfKey)
+      .so: (pk: GamePerf) =>
+        storage
+          .find(userId, pk)
+          .flatMapz: perfStat =>
+            storage.update(perfStat, perfStat.agg(pov))

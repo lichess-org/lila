@@ -70,16 +70,17 @@ function sendToRandomOfflinePlayers() {
         print(`+ ${countSent - lastPrinted} = ${countSent} / ${countAll} | ${user.createdAt.toLocaleDateString('fr')}`);
         lastPrinted = countSent;
       }
-      sleep(15 * newUsers.length);
+      sleep(10 * newUsers.length);
     }
   }
   db.user4.find({
     enabled: true,
-    createdAt: { $lt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7) },
+    createdAt: { $lt: new Date(year, 9, 1) },
     seenAt: {
-      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14),
-      $lt: new Date(Date.now() - 1000 * 60 * 20) // avoid the lila notif cache!
-    }
+      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30 * 3),
+      // $lt: new Date(Date.now() - 1000 * 60 * 20) // avoid the lila notif cache!
+    },
+    marks: { $nin: ['boost', 'engine', 'troll'] }
   }).forEach(process);
   process(); // flush the generator
 }

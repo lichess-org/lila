@@ -6,6 +6,7 @@ import lila.db.AsyncCollFailingSilently
 import lila.db.dsl.{ *, given }
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
+import lila.rating.PerfType.GamePerf
 
 final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
 
@@ -21,8 +22,8 @@ final class PerfStatStorage(coll: AsyncCollFailingSilently)(using Executor):
   private given BSONDocumentHandler[Count]                     = Macros.handler
   private given BSONDocumentHandler[PerfStat]                  = Macros.handler
 
-  def find(userId: UserId, perfType: PerfType): Fu[Option[PerfStat]] =
-    coll(_.byId[PerfStat](PerfStat.makeId(userId, perfType)))
+  def find(userId: UserId, perf: GamePerf): Fu[Option[PerfStat]] =
+    coll(_.byId[PerfStat](PerfStat.makeId(userId, perf)))
 
   def insert(perfStat: PerfStat): Funit =
     coll(_.insert.one(perfStat).void)
