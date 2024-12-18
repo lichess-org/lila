@@ -12,6 +12,7 @@ body {
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
+    overflow: visible;
     &__side {
       grid-area: side;
     }

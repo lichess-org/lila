@@ -67,6 +67,7 @@ export class VideoPlayer {
   };
 
   render = () => {
+    const platform = !this.o.redirect?.includes('twitch.tv') ? 'youtube' : 'twitch';
     return this.o.embed
       ? h('div#video-player-placeholder', {
           hook: {
@@ -74,51 +75,25 @@ export class VideoPlayer {
             update: (_, vnode: VNode) => this.cover(vnode.elm as HTMLElement),
           },
         })
-      : h('div#video-player-placeholder.link', {}, [
-          h('img.image', {
-            attrs: { src: this.o.image! },
+      : h(`div#video-player-placeholder.link.${platform}`, {}, [
+          h('div.image', {
+            attrs: { style: `background-image: url(${this.o.image})` },
             hook: onInsert((el: HTMLElement) => {
               el.addEventListener('click', e => {
                 if (e.ctrlKey || e.shiftKey) window.open(this.o.redirect, '_blank');
                 else this.onEmbed('ps');
               });
-              el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
+              //el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
             }),
           }),
           h('img.video-player-close', {
             attrs: { src: site.asset.flairSrc('symbols.cancel') },
             hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
-          this.o.text && h('div.text', h('div', this.o.text)),
-          h(
-            'svg.play-button',
-            {
-              attrs: {
-                xmlns: 'http://www.w3.org/2000/svg',
-                viewBox: '0 0 100 100',
-                width: '100',
-                height: '100',
-              },
-            },
-            [
-              h('circle', {
-                attrs: {
-                  cx: '50',
-                  cy: '50',
-                  r: '40',
-                  stroke: '#666',
-                  'stroke-width': '10',
-                  fill: '#dddd',
-                },
-              }),
-              h('path', {
-                attrs: {
-                  d: 'M 32 28 A 5 5 0 0 1 37 23 L 75 45 A 6 6 0 0 1 75 55 L 37 77 A 5 5 0 0 1 32 72 Z',
-                  fill: '#666',
-                },
-              }),
-            ],
-          ),
+          this.o.text && h('div.text-box', h('div', this.o.text)),
+          h('img.play-button', {
+            attrs: { src: site.asset.url(`images/icons/play-btn-${platform}.svg`) },
+          }),
         ]);
   };
 

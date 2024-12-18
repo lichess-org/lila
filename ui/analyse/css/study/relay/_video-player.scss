@@ -30,42 +30,71 @@
 
 #video-player-placeholder.link {
   cursor: pointer;
+  overflow: hidden;
+  outline-offset: -3px;
+  outline: 3px solid $m-bad--alpha-50;
+  --c-stream-link-hover: #{$c-bad};
+
+  &.twitch {
+    outline-color: $m-clas--alpha-70;
+    --c-stream-link-hover: #{$c-clas};
+  }
 
   .image {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    background: center / cover;
+    overflow: hidden;
+    inset: 0;
+    filter: blur(4px) brightness(0.8);
   }
+
   .play-button {
     position: absolute;
     pointer-events: none;
+    transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0.6;
+    width: 112px;
   }
-  .text {
+
+  &:has(.text-box) .play-button {
+    top: 56%;
+  }
+
+  .text-box {
     @extend %flex-column;
     position: absolute;
+    pointer-events: none;
     justify-content: center;
     align-items: center;
-    bottom: 5%;
+    top: 10%;
     left: 10%;
     right: 10%;
-    pointer-events: none;
   }
-  .text div {
+
+  .text-box div {
     margin: auto;
     pointer-events: none;
     border-radius: 5px;
     border: 1px solid #888;
-    padding: 5px;
+    padding: 5px 8px;
     text-align: center;
     line-height: normal;
-    color: #222e;
-    background-color: #dddd;
+    color: #ddde;
+    background-color: #333d;
+    font-family: 'Noto Sans';
+    font-size: 1.2em;
   }
-  &:hover:not(:has(.video-player-close:hover)) .play-button {
-    opacity: 1;
+
+  &:hover:not(:has(.video-player-close:hover)) {
+    box-shadow:
+      0 0 5px var(--c-stream-link-hover),
+      0 0 20px var(--c-stream-link-hover);
+    .play-button {
+      filter: brightness(1.2);
+    }
+    .image {
+      filter: blur(4px) brightness(0.7);
+    }
   }
 }
