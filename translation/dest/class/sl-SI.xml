@@ -59,6 +59,8 @@ Tukaj je povezava za dostop do razreda.</string>
     <item quantity="few">%s povabila na čakanju</item>
     <item quantity="other">%s povabil na čakanju</item>
   </plurals>
+  <string name="pending">V čakanju</string>
+  <string name="declined">Zavrnjeno</string>
   <string name="onlyVisibleToTeachers">Vidno samo učiteljem razreda</string>
   <string name="lastActiveDate">Zadnja prijava</string>
   <string name="managed">Upravljan</string>
@@ -120,4 +122,6 @@ Prikazal bo horizontalno črto.</string>
   <string name="anInvitationHasBeenSentToX">Povabilo je bilo poslano na %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s že ima čakajoče povabilo</string>
   <string name="xIsAKidAccountWarning">%1$s je otroški račun in ne more prejeti vašega sporočila. Ročno jim morate dati URL povabila: %2$s</string>
+  <string name="moveToClass">Premakni v %s</string>
+  <string name="moveToAnotherClass">Premakni se v drug razred</string>
 </resources>
