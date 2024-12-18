@@ -57,6 +57,7 @@ Voici le lien pour accéder à la classe.</string>
     <item quantity="one">Une invitation en attente</item>
     <item quantity="other">%s invitations en attente</item>
   </plurals>
+  <string name="pending">En suspens</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
   <string name="managed">Géré</string>
@@ -113,4 +114,6 @@ Voici le lien pour accéder à la classe.</string>
   <string name="anInvitationHasBeenSentToX">Une invitation a été envoyée à %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s a déjà une invitation en attente</string>
   <string name="xIsAKidAccountWarning">%1$s est le compte d\'un enfant. Ce dernier ne peut pas recevoir votre message. Vous devez lui donner l\'URL d\'invitation manuellement : %2$s</string>
+  <string name="moveToClass">Déplacé vers %s</string>
+  <string name="moveToAnotherClass">Déplacer vers une autre classe</string>
 </resources>
