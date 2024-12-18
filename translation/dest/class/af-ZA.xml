@@ -57,6 +57,8 @@ Hier is die skakel om die klas te betree.</string>
     <item quantity="one">Een hangende uitnodiging</item>
     <item quantity="other">%s hangende uitnodigings</item>
   </plurals>
+  <string name="pending">Hangende</string>
+  <string name="declined">Afgekeur</string>
   <string name="onlyVisibleToTeachers">Slegs sigbaar vir die klas onderwysers</string>
   <string name="lastActiveDate">Aktief</string>
   <string name="managed">Onder Administrasie</string>
@@ -114,4 +116,6 @@ Dit sal \'n horisontale lyn vertoon.</string>
   <string name="anInvitationHasBeenSentToX">\'n Uitnodiging is gestuur na %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s is reeds genooi</string>
   <string name="xIsAKidAccountWarning">%1$s is \'n kind en kan nie jou boodskap ontvang nie. Gee die uitnodiging met die hand: %2$s</string>
+  <string name="moveToClass">Skuif na %s</string>
+  <string name="moveToAnotherClass">Skuif na \'n ander klas</string>
 </resources>
