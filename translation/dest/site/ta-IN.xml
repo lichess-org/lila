@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">ஒரு தோழரோடு விளையாடு</string>
+  <string name="playWithAFriend">ஒரு கேளிருடன் விளையாடு</string>
   <string name="playWithTheMachine">கணினியோடு விளையாடு</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">விளையாட்டுக்கு  அழைக்க இந்தச்சுட்டியை அனுப்பு</string>
   <string name="gameOver">ஆட்டம் முடிந்தது</string>
