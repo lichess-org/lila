@@ -69,7 +69,7 @@
   }
 
   .buttons {
-    display: none;
+    justify-content: space-around;
   }
 
   .result {
@@ -103,6 +103,26 @@
   }
 
   .status {
+    display: none;
+  }
+
+  .col1-moves .fbt {
+    display: none;
+  }
+
+  .fbt {
+    line-height: 2.3rem;
+  }
+
+  .fbt.analysis {
+    display: none;
+  }
+
+  .noop {
+    display: none;
+  }
+
+  .board-menu-toggle {
     display: none;
   }
 }
