@@ -351,4 +351,4 @@ abstract private[controllers] class LilaController(val env: Env)
   def anyCaptcha = env.game.captcha.any
 
   def bindForm[T, R](form: Form[T])(error: Form[T] => R, success: T => R)(using Request[?], FormBinding): R =
-    form.bindFromRequest().fold(error, success)
+    form.bindFromRequest().pp.fold(error, success)

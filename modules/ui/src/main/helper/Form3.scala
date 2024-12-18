@@ -17,8 +17,8 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
   private def groupLabel(field: Field) = label(cls := "form-label", `for` := id(field))
   private val helper                   = small(cls := "form-help")
 
+  def errors(field: Field)(using Translate): Frag                 = errors(field.errors)
   private def errors(errs: Seq[FormError])(using Translate): Frag = errs.distinct.map(error)
-  private def errors(field: Field)(using Translate): Frag         = errors(field.errors)
   private def error(err: FormError)(using Translate): Frag =
     p(cls := "error")(transKey(trans(err.message), err.args))
 

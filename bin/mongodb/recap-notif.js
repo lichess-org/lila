@@ -75,9 +75,9 @@ function sendToRandomOfflinePlayers() {
   }
   db.user4.find({
     enabled: true,
-    createdAt: { $lt: new Date(year, 9, 1) },
+    createdAt: { $lt: new Date(year, 10, 1) },
     seenAt: {
-      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30 * 3),
+      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30 * 4),
       // $lt: new Date(Date.now() - 1000 * 60 * 20) // avoid the lila notif cache!
     },
     marks: { $nin: ['boost', 'engine', 'troll'] }

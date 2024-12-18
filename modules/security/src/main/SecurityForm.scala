@@ -211,6 +211,14 @@ final class SecurityForm(
       )(Reopen.apply)(_ => None)
   )
 
+  def deleteAccount(using Me) =
+    authenticator.loginCandidate.map: candidate =>
+      Form:
+        mapping(
+          "passwd"     -> passwordMapping(candidate),
+          "understand" -> boolean.verifying("It's an important point.", identity[Boolean])
+        )((pass, _) => pass)(_ => None)
+
   private def passwordMapping(candidate: LoginCandidate) =
     text.verifying("incorrectPassword", p => candidate.check(ClearPassword(p)))
 

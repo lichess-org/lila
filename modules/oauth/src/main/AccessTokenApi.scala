@@ -168,6 +168,10 @@ final class AccessTokenApi(
     for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
     yield onRevoke(id)
 
+  def revokeAllByUser(using me: MyId): Funit =
+    for _ <- coll.delete.one($doc(F.id -> id, F.userId -> me))
+    yield onRevoke(id)
+
   def revokeByClientOrigin(clientOrigin: String)(using me: MyId): Funit =
     coll
       .find(

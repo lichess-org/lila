@@ -3,6 +3,15 @@ package lila.api
 import lila.common.Bus
 import lila.core.perm.Granter
 
+/* There are 3 stages to account eradication.
+ * - close:
+ *   - disable the account; the user can reopen it later on
+ *   - close all open sessions
+ *   - cancel patron sub
+ *   - leave teams and tournaments
+ *   - unfollow everyone
+ *   -
+ */
 final class AccountClosure(
     userRepo: lila.user.UserRepo,
     playbanApi: lila.playban.PlaybanApi,
@@ -78,5 +87,5 @@ final class AccountClosure(
   def closeThenErase(username: UserStr)(using Me): Fu[Either[String, String]] =
     userRepo.byId(username).flatMap {
       case None    => fuccess(Left("No such user."))
-      case Some(u) => (u.enabled.yes.so(close(u))) >> eraseClosed(u.id)
+      case Some(u) => u.enabled.yes.so(close(u)) >> eraseClosed(u.id)
     }

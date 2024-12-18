@@ -240,10 +240,11 @@ final class Account(
   }
 
   def close = Auth { _ ?=> me ?=>
-    env.clas.api.student.isManaged(me).flatMap { managed =>
-      env.security.forms.closeAccount.flatMap: form =>
-        Ok.page(pages.close(form, managed))
-    }
+    for
+      managed <- env.clas.api.student.isManaged(me)
+      form    <- env.security.forms.closeAccount
+      res     <- Ok.page(pages.close(form, managed))
+    yield res
   }
 
   def closeConfirm = AuthBody { ctx ?=> me ?=>
@@ -251,6 +252,25 @@ final class Account(
       auth.HasherRateLimit:
         env.security.forms.closeAccount.flatMap: form =>
           FormFuResult(form)(err => renderPage(pages.close(err, managed = false))): _ =>
+            env.api.accountClosure
+              .close(me.value)
+              .inject:
+                Redirect(routes.User.show(me.username)).withCookies(env.security.lilaCookie.newSession)
+  }
+
+  def delete = Auth { _ ?=> me ?=>
+    for
+      managed <- env.clas.api.student.isManaged(me)
+      form    <- env.security.forms.deleteAccount
+      res     <- Ok.page(pages.delete(form, managed))
+    yield res
+  }
+
+  def deleteConfirm = AuthBody { ctx ?=> me ?=>
+    NotManaged:
+      auth.HasherRateLimit:
+        env.security.forms.deleteAccount.flatMap: form =>
+          FormFuResult(form)(err => renderPage(pages.delete(err, managed = false))): _ =>
             env.api.accountClosure
               .close(me.value)
               .inject:

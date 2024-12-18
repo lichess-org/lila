@@ -19,6 +19,7 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
         if managed then p(trs.managedAccountCannotBeClosed())
         else
           postForm(cls := "form3", action := routes.Account.closeConfirm)(
+            div(cls := "form-group")(h2("We're sorry to see you go.")),
             div(cls := "form-group")(trs.closeAccountExplanation()),
             div(cls := "form-group")(trs.cantOpenSimilarAccount()),
             form3.passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
@@ -27,6 +28,33 @@ final class AccountPages(helpers: Helpers, ui: AccountUi, flagApi: lila.core.use
                 a(href := routes.User.show(me.username))(trs.changedMindDoNotCloseAccount()),
                 form3.submit(
                   trs.closeAccount(),
+                  icon = Icon.CautionCircle.some,
+                  confirm = trs.closingIsDefinitive.txt().some
+                )(cls := "button-red")
+              )
+            )
+          )
+      )
+
+  def delete(form: Form[?], managed: Boolean)(using Context)(using me: Me) =
+    AccountPage(s"${me.username} - Delete your account", "delete"):
+      div(cls := "box box-pad")(
+        boxTop(h1(cls := "text", dataIcon := Icon.CautionCircle)("Delete your account")),
+        if managed then p(trs.managedAccountCannotBeClosed())
+        else
+          postForm(cls := "form3", action := routes.Account.deleteConfirm)(
+            div(cls := "form-group")(h2("We're sorry to see you go.")),
+            div(cls := "form-group")(
+              "Once you delete your account, your profile and username are permanently removed from Lichess and your posts, comments, and game are disassociated (not deleted) from your account."
+            ),
+            form3.passwordModified(form("passwd"), trans.site.password())(autofocus, autocomplete := "off"),
+            form3.checkbox(form("understand"), "I understand that deleted accounts aren't recoverable"),
+            form3.errors(form("understand")),
+            form3.actions(
+              frag(
+                a(href := routes.User.show(me.username))(trans.site.cancel()),
+                form3.submit(
+                  "Delete my account",
                   icon = Icon.CautionCircle.some,
                   confirm = trs.closingIsDefinitive.txt().some
                 )(cls := "button-red")
