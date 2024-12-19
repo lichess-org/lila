@@ -2,6 +2,7 @@ package lila.push
 
 import play.api.ConfigLoader
 import play.api.libs.json.*
+import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.JsonBodyWritables.*
 import play.api.libs.ws.StandaloneWSClient
 
@@ -56,8 +57,17 @@ final private class WebPush(
         )
       )
       .flatMap {
-        case res if res.status == 200 => funit
-        case res                      => fufail(s"[push] web: ${res.status} ${res.body}")
+        case res if res.status == 200 =>
+          res
+            .body[JsValue]
+            .asOpt[JsObject]
+            .map { obj =>
+              obj.fields.collect { case (endpoint, JsString("endpoint_not_valid" | "endpoint_not_found")) =>
+                endpoint
+              }
+            }
+            .so(webSubscriptionApi.unsubscribeByEndpoints)
+        case res => fufail(s"[push] web: ${res.status} ${res.body}")
       }
 
 private object WebPush:
