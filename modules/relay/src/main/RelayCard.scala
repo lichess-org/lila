@@ -5,7 +5,7 @@ case class RelayCard(
     display: RelayRound, // which round to show on the tour link
     link: RelayRound,    // which round to actually link to
     group: Option[RelayGroup.Name],
-    alts: List[RelayRound.WithTour] // other notable tours of the group
+    alt: Option[RelayRound.WithTour] // other notable tours of the group
 ) extends RelayRound.AndTourAndGroup:
 
   def errors: List[String] =

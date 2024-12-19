@@ -68,11 +68,7 @@ final class RelayListing(
       display = main.round,
       link = RelayListing.defaultRoundToLink(main.t) | main.round,
       group = main.group,
-      alts = s.tail
-        .filter(_.round.hasStarted)
-        .take(2)
-        .map: s =>
-          s.round.withTour(s.t.tour)
+      alt = s.tail.find(_.round.hasStarted).map(s => s.round.withTour(s.t.tour))
     )
 
   private def tierPriority(t: RelayTour) = -t.tier.so(_.v)
