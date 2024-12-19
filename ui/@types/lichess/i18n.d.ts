@@ -471,6 +471,8 @@ interface I18n {
     createMultipleAccounts: string;
     /** Only create accounts for real students. Do not use this to make multiple accounts for yourself. You would get banned. */
     createStudentWarning: string;
+    /** Declined */
+    declined: string;
     /** Edit news */
     editNews: string;
     /** Features */
@@ -515,6 +517,10 @@ interface I18n {
     maxStudentsNote: I18nFormat;
     /** Message all students about new class material */
     messageAllStudents: string;
+    /** Move to another class */
+    moveToAnotherClass: string;
+    /** Move to %s */
+    moveToClass: I18nFormat;
     /** You can also %s to create multiple Lichess accounts from a list of student names. */
     multipleAccsFormDescription: I18nFormat;
     /** N/A */
@@ -555,6 +561,8 @@ interface I18n {
     overview: string;
     /** Password: %s */
     passwordX: I18nFormat;
+    /** Pending */
+    pending: string;
     /** Private. Will never be shown outside the class. Helps you remember who the student is. */
     privateWillNeverBeShown: string;
     /** Progress */
@@ -2095,6 +2103,8 @@ interface I18n {
     displayBoardResizeHandle: string;
     /** Drag a piece */
     dragPiece: string;
+    /** Except in-game */
+    exceptInGame: string;
     /** Can be disabled during a game with the board menu */
     explainCanThenBeTemporarilyDisabled: string;
     /** Hold the <ctrl> key while promoting to temporarily disable auto-promotion */
