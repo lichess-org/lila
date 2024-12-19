@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Turmas do Lichess</string>
+  <string name="lichessClasses">Turmas do Lichess</string>
   <string name="teachClassesOfChessStudents">Ensine turmas de estudantes de xadrez com o pacote Turmas do Lichess.</string>
   <string name="features">Recursos</string>
   <string name="quicklyGenerateSafeUsernames">Gere rapidamente nomes de usuário e senhas seguras para estudantes</string>
@@ -57,6 +57,8 @@ Aqui está o link para acessar a turma.</string>
     <item quantity="one">Um convite pendente</item>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
+  <string name="pending">Pendente</string>
+  <string name="declined">Recusado</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>
@@ -113,4 +115,6 @@ Aqui está o link para acessar a turma.</string>
   <string name="anInvitationHasBeenSentToX">Um convite foi enviado para %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s já tem um convite pendente</string>
   <string name="xIsAKidAccountWarning">%1$s é uma conta de criança e não pode receber sua mensagem. Mande o URL de convite manualmente: %2$s</string>
+  <string name="moveToClass">Mover para %s</string>
+  <string name="moveToAnotherClass">Mover para outra turma</string>
 </resources>

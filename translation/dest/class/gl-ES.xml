@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Clases</string>
+  <string name="lichessClasses">Clases</string>
   <string name="teachClassesOfChessStudents">Imparte clases de xadrez coa ferramenta Clases de Lichess.</string>
   <string name="features">Características</string>
   <string name="quicklyGenerateSafeUsernames">Xera rapidamente nomes de usuario e contrasinais seguros para os estudantes</string>
@@ -57,6 +57,8 @@ Aquí está a ligazón para acceder.</string>
     <item quantity="one">Unha invitación pendente</item>
     <item quantity="other">%s invitacións pendentes</item>
   </plurals>
+  <string name="pending">Pendente</string>
+  <string name="declined">Rexeitada</string>
   <string name="onlyVisibleToTeachers">Só visíbel para os profesores da clase</string>
   <string name="lastActiveDate">Última visita</string>
   <string name="managed">Supervisada</string>
@@ -114,4 +116,6 @@ Amosará unha liña separadora horizontal.</string>
   <string name="anInvitationHasBeenSentToX">Enviouse invitación a %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s xa ten unha invitación pendente</string>
   <string name="xIsAKidAccountWarning">%1$s é unha conta infantil e non pode recibir a túa mensaxe. Debes enviarlle a URL de invitación de xeito manual: %2$s</string>
+  <string name="moveToClass">Move a %s</string>
+  <string name="moveToAnotherClass">Move a outra clase</string>
 </resources>

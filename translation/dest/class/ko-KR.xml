@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">클래스</string>
+  <string name="lichessClasses">클래스</string>
   <string name="teachClassesOfChessStudents">Lichess 클래스 툴 모음을 사용해서 학생들을 가르치세요.</string>
   <string name="features">기능</string>
   <string name="quicklyGenerateSafeUsernames">학생을 위한 안전한 사용자 이름과 비밀번호를 빠르게 생성합니다</string>

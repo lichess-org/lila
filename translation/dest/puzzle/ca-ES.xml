@@ -48,7 +48,7 @@
   <string name="easier">Més fàcil</string>
   <string name="easiest">El més fàcil</string>
   <plurals name="nbPointsBelowYourPuzzleRating">
-    <item quantity="one">%s punts per sota del teu nivell de problemes</item>
+    <item quantity="one">%s punts per sota del teu nivell de problemescata</item>
     <item quantity="other">%s punts per sota del teu nivell de problemes</item>
   </plurals>
   <string name="harder">Més difícil</string>

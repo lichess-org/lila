@@ -49,7 +49,7 @@
   <string name="castlingImported">Pokud jste importovali hru, nebo jste ji začali z pozice, ujistěte se, že jste správně nastavili práva pro rošádu.</string>
   <string name="insufficientMaterial">Nedostatečný materiál pro matování</string>
   <string name="fideMate">Podle Šachových pravidel FIDE §6.9, pokud je šach-mat možný jakoukoli posloupností tahů dle pravidel, pak hra není remízou</string>
-  <string name="knightMate">Je možné dát šach-mat jen s koněm nebo střelcem, pokud má soupeř na šachovnici více figur než jen krále.</string>
+  <string name="knightMate">Je možné dát šach mat jen s koněm nebo střelcem, pokud má soupeř na šachovnici více figur než jen krále.</string>
   <string name="noRatingPoints">Nebyly přiděleny žádné ratingové body</string>
   <string name="ratedGame">Ujistěte se, že jste hráli hodnocenou hru. Neformální hry neovlivňují hodnocení hráčů.</string>
   <string name="botRatingAbuse">Za určitých okolností při hraní proti účtu bota hodnocená hra neudělí žádné body, pokud je zjištěno, že hráč zneužívá bota jen pro změnu hodnocení.</string>

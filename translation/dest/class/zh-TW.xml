@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">課程</string>
+  <string name="lichessClasses">課程</string>
   <string name="teachClassesOfChessStudents">使用 Lichess 班級管理工具包將西洋棋的技術交給學生。</string>
   <string name="features">功能</string>
   <string name="quicklyGenerateSafeUsernames">快速為學生建立安全的使用者名稱及密碼</string>
