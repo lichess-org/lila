@@ -87,7 +87,7 @@ export class StudyChapterNewForm {
     if (!dd.pgn) this.send('addChapter', dd);
     else
       importPgn(study.data.id, dd).catch(e => {
-        if (e.message == 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
+        if (e.message === 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
         throw e;
       });
     this.isOpen(false);
