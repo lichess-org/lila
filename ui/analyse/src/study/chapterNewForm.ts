@@ -85,7 +85,11 @@ export class StudyChapterNewForm {
     const study = this.root.study!;
     const dd = { ...d, sticky: study.vm.mode.sticky, initial: this.initial() };
     if (!dd.pgn) this.send('addChapter', dd);
-    else importPgn(study.data.id, dd);
+    else
+      importPgn(study.data.id, dd).catch(e => {
+        if (e.message == 'Too many requests') alert('Limit of 1000 pgn imports every 24 hours');
+        throw e;
+      });
     this.isOpen(false);
     this.setChaptersTab();
   };
