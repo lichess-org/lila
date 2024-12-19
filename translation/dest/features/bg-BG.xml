@@ -4,6 +4,5 @@
     <item quantity="one">%s игра на ден</item>
     <item quantity="other">%s игри на ден</item>
   </plurals>
-  <string name="supportLichess">Подкрепете Lichess</string>
   <string name="supportUsWithAPatronAccount">Подкрепете ни като Patron!</string>
 </resources>

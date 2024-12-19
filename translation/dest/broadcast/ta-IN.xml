@@ -45,6 +45,7 @@
   <string name="fidePlayers">FIDE வீரர்கள்</string>
   <string name="fidePlayerNotFound">FIDE வீரர்கள் கிடைக்கவில்லை</string>
   <string name="fideProfile">FIDE சுயவிவரம்</string>
+  <string name="federation">கூட்டமைப்பு</string>
   <string name="ageThisYear">இந்த ஆண்டு அகவை</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">மதிப்பிடப்படாதது</string>
   <string name="recentTournaments">சமீபத்திய பந்தயங்கள்</string>

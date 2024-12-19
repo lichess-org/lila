@@ -20,6 +20,7 @@
   <string name="displayBoardResizeHandle">Mostrar el control de tamaño del tablero</string>
   <string name="onlyOnInitialPosition">Sólo en posición inicial</string>
   <string name="inGameOnly">Solo durante la partida</string>
+  <string name="exceptInGame">Excepto en el juego</string>
   <string name="chessClock">Reloj de ajedrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
@@ -67,5 +68,5 @@
   <string name="notifyWeb">Navegador</string>
   <string name="notifyDevice">Dispositivo</string>
   <string name="bellNotificationSound">Campana de notificación</string>
-  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">A ciegas</string>
+  <string name="blindfold" comment="As in Blindfold chess">A ciegas</string>
 </resources>

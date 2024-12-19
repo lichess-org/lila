@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Classes</string>
+  <string name="lichessClasses">Classes</string>
   <string name="teachClassesOfChessStudents">Enseignez un cours d\'échecs avec Lichess.</string>
   <string name="features">Fonctionnalités</string>
   <string name="quicklyGenerateSafeUsernames">Générer rapidement des noms d\'utilisateur et des mots de passe sûrs pour les élèves</string>
@@ -57,6 +57,7 @@ Voici le lien pour accéder à la classe.</string>
     <item quantity="one">Une invitation en attente</item>
     <item quantity="other">%s invitations en attente</item>
   </plurals>
+  <string name="pending">En suspens</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
   <string name="managed">Géré</string>
@@ -113,4 +114,6 @@ Voici le lien pour accéder à la classe.</string>
   <string name="anInvitationHasBeenSentToX">Une invitation a été envoyée à %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s a déjà une invitation en attente</string>
   <string name="xIsAKidAccountWarning">%1$s est le compte d\'un enfant. Ce dernier ne peut pas recevoir votre message. Vous devez lui donner l\'URL d\'invitation manuellement : %2$s</string>
+  <string name="moveToClass">Déplacé vers %s</string>
+  <string name="moveToAnotherClass">Déplacer vers une autre classe</string>
 </resources>

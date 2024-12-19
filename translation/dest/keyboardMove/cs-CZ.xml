@@ -14,7 +14,7 @@
   <string name="otherCommands">Další příkazy</string>
   <string name="tips">Tipy</string>
   <string name="ifTheAboveMoveNotationIsUnfamiliar">Pokud ještě nejste seznámeni s notací pohybů výše, můžete si přečíst více zde:</string>
-  <string name="includingAXToIndicateACapture">Zadání \"x\" pro označení braní je nepovinné</string>
+  <string name="includingAXToIndicateACapture">Zadání „x“ pro označení braní je nepovinné</string>
   <string name="bothTheLetterOAndTheDigitZero">Písmeno „o“ i číslice nula „0“ mohou být použity pro rošádu</string>
   <string name="ifItIsLegalToCastleBothWays">Pokud jsou možné obě rošády, použijte klávesu Enter pro malou rošádu</string>
   <string name="capitalizationOnlyMattersInAmbiguousSituations">Na psaní velkých a malých písmen záleží jen ve specifických situacích se střelcem a pěšákem na sloupci b</string>

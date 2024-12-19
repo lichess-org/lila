@@ -79,7 +79,7 @@ A més, s\'atribueix un únic descans de mig punt quan un jugador s\'uneix tard 
 Aleshores, el sistema retirarà el jugador del torneig perquè no perdi més jocs.
 Podrà tornar a unir-se al torneig en qualsevol moment.</string>
   <string name="protectionAgainstNoShowQ">Què passa amb les incompareixences?</string>
-  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Els jugadores que s\'inscriuen a tornejos suïssos però no els juguen poden causar problemes. 
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Els jugadores que s\'inscriuen a torneigs suïssos però no els juguen poden causar problemes. 
 Per solucionar aquests problemes, Lichess prohibeix, durant un període de temps, l\'entrada a nous tornejos Suïssos a aquells jugadors que no han jugat les seves partides. 
 De totes formes, el creador del torneig Suïs pot donar-los accés al torneig.</string>
   <string name="lateJoinQ">Pot un jugador unir-se a un torneig que ja ha començat?</string>

@@ -15,7 +15,7 @@
     <item quantity="other">Ha resolt %s exercicis de tàctica</item>
   </plurals>
   <plurals name="playedNbGames">
-    <item quantity="one">Has jugat %1$s partida %2$s</item>
+    <item quantity="one">Ha jugat %1$s partida %2$s</item>
     <item quantity="other">Ha jugat %1$s partides %2$s</item>
   </plurals>
   <plurals name="postedNbMessages">
@@ -63,7 +63,7 @@
     <item quantity="other">%1$sº en la classificació (dins dels %2$s%% millors) amb %3$s partides en %4$s</item>
   </plurals>
   <plurals name="competedInNbSwissTournaments">
-    <item quantity="one">Ha jugat en %s tornejos suïssos</item>
+    <item quantity="one">Ha jugat en %s torneig suís</item>
     <item quantity="other">Ha jugat en %s tornejos suïssos</item>
   </plurals>
   <string name="rankedInSwissTournament">Classificat #%1$s en %2$s</string>
