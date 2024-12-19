@@ -642,7 +642,6 @@ objects.plunger
 objects.postal-horn
 objects.postbox
 objects.pound-banknote
-objects.prayer-beads
 objects.printer
 objects.purse
 objects.pushpin
