@@ -116,6 +116,6 @@ Mostrará una línea separadora horizontal.</string>
   <string name="anInvitationHasBeenSentToX">Se ha enviado una invitación a %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s ya tiene una invitación pendiente</string>
   <string name="xIsAKidAccountWarning">%1$s es una cuenta infantil y no puede recibir tu mensaje. Debes proporcionarles el enlace de invitación manualmente: %2$s</string>
-  <string name="moveToClass">Ir a %s</string>
-  <string name="moveToAnotherClass">Ir a otra clase</string>
+  <string name="moveToClass">Mover a %s</string>
+  <string name="moveToAnotherClass">Mover a otra clase</string>
 </resources>
