@@ -56,6 +56,8 @@ Mật khẩu: %3$s</string>
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s lời mời đang chờ</item>
   </plurals>
+  <string name="pending">Đang chờ duyệt</string>
+  <string name="declined">Bị từ chối</string>
   <string name="onlyVisibleToTeachers">Chỉ hiển thị cho các giáo viên</string>
   <string name="lastActiveDate">Hoạt động</string>
   <string name="managed">Được quản lý</string>
@@ -110,4 +112,6 @@ Mật khẩu: %3$s</string>
   <string name="anInvitationHasBeenSentToX">Một lời mời đã được gửi tới %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s đang có một lời mời chưa trả lời</string>
   <string name="xIsAKidAccountWarning">%1$s là một tài khoản trẻ em và không thể nhận tin nhắn từ bạn. Bạn phải gửi lời mời thông qua URL: %2$s</string>
+  <string name="moveToClass">Chuyển sang %s</string>
+  <string name="moveToAnotherClass">Chuyển sang một lớp học khác</string>
 </resources>
