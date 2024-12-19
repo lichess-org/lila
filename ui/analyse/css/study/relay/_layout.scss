@@ -12,6 +12,7 @@ body {
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
+    overflow: visible;
     &__side {
       grid-area: side;
     }
@@ -22,7 +23,6 @@ main.is-relay {
   }
 
   @include mq-at-least-col3 {
-    #video-player-placeholder,
     button.streamer-show {
       display: block;
     }

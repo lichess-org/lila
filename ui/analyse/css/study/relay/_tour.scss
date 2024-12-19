@@ -117,9 +117,12 @@ $hover-bg: $m-primary_bg--mix-30;
         flex: 0 0 50%;
       }
       line-height: 0;
-      img {
+      > img {
         width: 100%;
         @include broken-img(2 / 1);
+      }
+      .video-player-close {
+        display: none;
       }
       text-align: center;
     }

@@ -268,20 +268,21 @@ final class RelayRound(
         isSubscribed <- ctx.me.soFu: me =>
           env.relay.api.isSubscribed(rt.tour.id, me.userId)
         videoUrls <- embed match
-          case VideoEmbed.Auto =>
-            fuccess:
-              rt.tour.pinnedStream
-                .ifFalse(rt.round.isFinished)
-                .flatMap(_.upstream)
-                .map(_.urls(netDomain).toPair)
-          case VideoEmbed.No => fuccess(none)
           case VideoEmbed.Stream(userId) =>
             env.streamer.api
               .find(userId)
               .flatMapz(s => env.streamer.liveStreamApi.of(s).dmap(some))
               .map:
                 _.flatMap(_.stream).map(_.urls(netDomain).toPair)
-        crossSiteIsolation = videoUrls.isEmpty
+          case VideoEmbed.PinnedStream =>
+            fuccess:
+              rt.tour.pinnedStream
+                .ifFalse(rt.round.isFinished)
+                .flatMap(_.upstream)
+                .map(_.urls(netDomain).toPair)
+          case _ => fuccess(none)
+        crossSiteIsolation = videoUrls.isEmpty || (rt.tour.pinnedStream.isDefined && crossOriginPolicy
+          .supportsCredentiallessIFrames(ctx.req))
         data = env.relay.jsonView.makeData(
           rt.tour.withRounds(rounds.map(_.round)),
           rt.round.id,
