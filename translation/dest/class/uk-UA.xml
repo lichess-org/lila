@@ -59,6 +59,8 @@
     <item quantity="many">%s запрошень в очікуванні</item>
     <item quantity="other">%s запрошень в очікуванні</item>
   </plurals>
+  <string name="pending">В очікуванні</string>
+  <string name="declined">Відхилено</string>
   <string name="onlyVisibleToTeachers">Видимий лише для вчителів класу</string>
   <string name="lastActiveDate">Активний</string>
   <string name="managed">Керований</string>
