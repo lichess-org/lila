@@ -177,9 +177,9 @@ final class Form3(formHelper: FormHelper & I18nHelper & AssetHelper, flairApi: F
       name     := nameValue.map(_._1),
       value    := nameValue.map(_._2),
       cls := List(
-        "submit button" -> true,
-        "text"          -> icon.isDefined,
-        "confirm"       -> confirm.nonEmpty
+        "submit button"  -> true,
+        "text"           -> icon.isDefined,
+        "yes-no-confirm" -> confirm.nonEmpty
       ),
       title := confirm
     )(content)

@@ -153,19 +153,6 @@ final class PlanPages(helpers: Helpers)(fishnetPerDay: Int):
               tr(check)(
                 strong(trans.features.allFeaturesToCome())
               )
-            ),
-            header(h1(trans.features.supportLichess())),
-            tbody(cls := "support")(
-              st.tr(
-                th(trans.features.contributeToLichessAndGetIcon()),
-                td("-"),
-                td(span(dataIcon := patronIconChar, cls := "is is-green text check")(trans.site.yes()))
-              ),
-              st.tr(cls := "price")(
-                th,
-                td(cls := "green")("$0"),
-                td(a(href := routes.Plan.index(), cls := "green button")("$5/month"))
-              )
             )
           ),
           p(cls := "explanation")(

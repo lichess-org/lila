@@ -47,6 +47,11 @@
       content: $licon-Agent;
     }
   }
+  .rating {
+    body.no-rating & {
+      display: none;
+    }
+  }
 }
 
 a.user-link:hover {

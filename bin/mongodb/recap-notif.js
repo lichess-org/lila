@@ -1,28 +1,49 @@
 const year = 2024;
 const dry = false;
 
-let count = 0;
+let countAll = 0;
+let countSent = 0;
+let lastPrinted = 0;
 
-const hasPuzzles = userId => db.user_perf.count({ _id: userId, 'puzzle.nb': { $gt: 0 } });
+let hasRecap = new Set();
+function reloadHasRecap() {
+  print('Loading existing recaps...');
+  hasRecap = new Set(db.recap_report.distinct('_id'));
+  print('Loaded ' + hasRecap.size + ' recaps');
+}
+reloadHasRecap();
+setInterval(reloadHasRecap, 1000 * 60 * 10);
+
+const hasPuzzles = userId => db.user_perf.countDocuments({ _id: userId, 'puzzle.nb': { $gt: 0 } }, { limit: 1 });
+
+// only keeps users that don't yet have a recap notification for the year
+// and don't have yet loaded their recap from another link
+const filterNewUsers = users => {
+  const noRecap = users.filter(u => !hasRecap.has(u._id));
+  const hasNotif = new Set(db.notify.distinct('notifies', {
+    notifies: { $in: noRecap.map(u => u._id) }, 'content.type': 'recap', 'content.year': year
+  }));
+  return noRecap.filter(u => !hasNotif.has(u._id));
+}
+
+function* group(size) {
+  let batch = [];
+  while (true) {
+    const element = yield;
+    if (!element) {
+      yield batch;
+      return;
+    }
+    batch.push(element);
+    if (batch.length >= size) {
+      let element = yield batch;
+      batch = [element];
+    }
+  }
+};
 
 function sendToUser(user) {
-  if (!user.enabled) {
-    print('------------- ' + user._id + ' is closed');
-    return;
-  }
-  const exists = db.notify.countDocuments({ notifies: user._id, 'content.type': 'recap', }, { limit: 1 });
-  if (exists) {
-    print('------------- ' + user._id + ' already sent');
-    return;
-  }
-  if (user.seenAt < new Date('2024-01-01')) {
-    print('------------- ' + user._id + ' not seen in 2024');
-    return;
-  }
-  if (!user.count?.game && !hasPuzzles(user._id)) {
-    print('------------- ' + user._id + ' no games or puzzles');
-    return;
-  }
+  if (!user.count?.game && !hasPuzzles(user._id)) return;
   if (!dry) db.notify.insertOne({
     _id: Math.random().toString(36).substring(2, 10),
     notifies: user._id,
@@ -33,45 +54,38 @@ function sendToUser(user) {
     read: false,
     createdAt: new Date(),
   });
-  count++;
-  print(count + ' ' + user._id);
-}
-
-function sendToUserId(userId) {
-  const user = db.user4.findOne({ _id: userId });
-  if (!user) {
-    print('------------- ' + userId + ' not found');
-    return;
-  }
-  sendToUser(user);
-}
-
-function sendToRoleOwners() {
-  db.user4.find({ enabled: true, roles: { $exists: 1, $ne: [] } }).forEach(user => {
-    roles = user.roles.filter(r => r != 'ROLE_COACH' && r != 'ROLE_TEACHER' && r != 'ROLE_VERIFIED' && r != 'ROLE_BETA');
-    if (roles.length) {
-      sendTo(user);
-    }
-  });
-}
-
-function sendToTeamMembers(teamId) {
-  db.team_member.find({ team: teamId }, { user: 1, _id: 0 }).forEach(member => {
-    sendToUserId(member.user);
-  });
-}
-
-function sendToRandomOnlinePlayers() {
-  db.user4.find({ enabled: true, 'count.game': { $gt: 10 }, seenAt: { $gt: new Date(Date.now() - 1000 * 60 * 2) } }).sort({ seenAt: -1 }).limit(5_000).forEach(sendToUser);
+  countSent++;
 }
 
 function sendToRandomOfflinePlayers() {
-  db.user4.find({
-    enabled: true, 'count.game': { $gt: 10 }, seenAt: {
-      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24),
-      $lt: new Date(Date.now() - 1000 * 60 * 60)
+  const grouper = group(100);
+  grouper.next();
+  const process = user => {
+    countAll++;
+    const batch = grouper.next(user).value;
+    if (batch) {
+      const newUsers = filterNewUsers(batch);
+      newUsers.forEach(sendToUser);
+      if (countAll % 1000 == 0) {
+        print(`+ ${countSent - lastPrinted} = ${countSent} / ${countAll} | ${user.createdAt.toLocaleDateString('fr')}`);
+        lastPrinted = countSent;
+      }
+      sleep(10 * newUsers.length);
     }
-  }).limit(25_000).forEach(sendToUser);
+  }
+  db.user4.find({
+    enabled: true,
+    createdAt: { $lt: new Date(year, 9, 1) },
+    seenAt: {
+      $gt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 30 * 3),
+      // $lt: new Date(Date.now() - 1000 * 60 * 20) // avoid the lila notif cache!
+    },
+    marks: { $nin: ['boost', 'engine', 'troll'] }
+  }).forEach(process);
+  process(); // flush the generator
 }
 
 sendToRandomOfflinePlayers();
+
+print('Scan: ' + countAll);
+print('Sent: ' + countSent);
