@@ -247,7 +247,10 @@ class DialogWrapper implements Dialog {
     const cancelOnInterval = (e: PointerEvent) => {
       if (Date.now() - justThen < 200) return;
       const r = dialog.getBoundingClientRect();
-      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
+      if (
+        dialog.isConnected &&
+        (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom)
+      )
         this.close('cancel');
     };
     this.observer.observe(document.body, { childList: true, subtree: true });
