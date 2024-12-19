@@ -263,7 +263,7 @@ final class ClasApi(
       stu = s.student.copy(
         id = Student.makeId(s.user.id, toClas.id),
         clasId = toClas.id,
-        created = lila.clas.Clas.Recorded(by = teacher.userId, at = nowInstant)
+        created = Clas.Recorded(by = teacher.userId, at = nowInstant)
       )
       moved <- colls.student.insert
         .one(stu)
