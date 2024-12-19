@@ -20,6 +20,13 @@ trait PrefHelper:
       (Pref.Zen.GAME_AUTO, trans.preferences.inGameOnly.txt())
     )
 
+  def translatedRatingsChoices(using Translate) =
+    List(
+      (Pref.Ratings.NO, trans.site.no.txt()),
+      (Pref.Ratings.YES, trans.site.yes.txt()),
+      (Pref.Ratings.EXCEPT_GAME, trans.preferences.exceptInGame.txt())
+    )
+
   def translatedBoardCoordinateChoices(using Translate) =
     List(
       (Pref.Coords.NONE, trans.site.no.txt()),
