@@ -90,7 +90,31 @@ export class VideoPlayer {
             hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
           }),
           this.o.text && h('div.text-box', h('div', this.o.text)),
-          h('img.play-button', { attrs: { src: site.asset.url(`images/icons/play-btn-youtube.svg`) } }),
+          h(
+            'svg.play-button',
+            {
+              attrs: {
+                xmlns: 'http://www.w3.org/2000/svg',
+                viewBox: '0 0 100 100',
+              },
+            },
+            [
+              h('circle', {
+                attrs: {
+                  cx: '50',
+                  cy: '50',
+                  r: '45',
+                  'stroke-width': '10',
+                  fill: 'transparent',
+                },
+              }),
+              h('path', {
+                attrs: {
+                  d: 'M 32 28 A 5 5 0 0 1 37 23 L 75 45 A 6 6 0 0 1 75 55 L 37 77 A 5 5 0 0 1 32 72 Z',
+                },
+              }),
+            ],
+          ),
         ]);
   };
 

@@ -49,6 +49,9 @@
     top: 50%;
     left: 50%;
     width: 18%;
+    opacity: 0.4;
+    stroke: white;
+    fill: white;
   }
 
   &:has(.text-box) .play-button {
@@ -70,7 +73,7 @@
     margin: auto;
     pointer-events: none;
     border-radius: 5px;
-    border: 1px solid #888;
+    border: 1px solid #8888;
     padding: 5px 8px;
     text-align: center;
     line-height: normal;
@@ -84,7 +87,13 @@
     box-shadow: 0 0 12px $c-bad;
 
     .play-button {
-      filter: brightness(1.2);
+      stroke: $c-bad;
+      fill: $c-bad;
+      opacity: 1;
+    }
+
+    .text-box div {
+      border-color: $m-bad--alpha-50;
     }
 
     .image {
