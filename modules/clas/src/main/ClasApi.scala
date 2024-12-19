@@ -260,7 +260,7 @@ final class ClasApi(
 
     def move(s: Student.WithUser, toClas: Clas)(using teacher: Me): Fu[Option[Student]] = for
       _ <- closeAccount(s)
-      stu = s.student.copy(id = Student.makeId(s.user.id, toClas.id), clasId = toClas.id)
+      stu = s.student.copy(id = Student.makeId(s.user.id, toClas.id), clasId = toClas.id, created = lila.clas.Clas.Recorded(by = teacher.userId, at = nowInstant))
       moved <- colls.student.insert
         .one(stu)
         .inject(stu.some)
