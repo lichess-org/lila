@@ -1,13 +1,12 @@
-import { h, type VNode } from 'snabbdom';
+import { h, type VNode, type VNodeChildren } from 'snabbdom';
 import { defined, prop, type Prop } from 'common';
 import { text as xhrText } from 'common/xhr';
 import type AnalyseController from '../ctrl';
 import { makeConfig as makeCgConfig } from '../ground';
 import type { AnalyseData } from '../interfaces';
 import type { Player } from 'game';
-import viewStatus from 'game/view/status';
 import {
-  type Style,
+  type MoveStyle,
   renderSan,
   renderPieces,
   renderBoard,
@@ -30,7 +29,7 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { bind, type MaybeVNodes } from 'common/snabbdom';
+import { bind, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
@@ -44,6 +43,7 @@ import { setupPosition } from 'chessops/variant';
 import { plyToTurn } from 'chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
+import { renderResult } from '../view/components';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -103,7 +103,7 @@ export function initModule(ctrl: AnalyseController) {
             : []),
           h('h2', 'Pieces'),
           h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
-          ...renderResult(ctrl),
+          ...renderAriaResult(ctrl),
           h('h2', 'Current position'),
           h(
             'p.position.lastMove',
@@ -119,7 +119,7 @@ export function initModule(ctrl: AnalyseController) {
                 insert(vnode) {
                   const $form = $(vnode.elm as HTMLFormElement),
                     $input = $form.find('.move').val('');
-                  $input[0]!.focus();
+                  $input[0]?.focus();
                   $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
                 },
               },
@@ -134,8 +134,6 @@ export function initModule(ctrl: AnalyseController) {
             ],
           ),
           notify.render(),
-          // h('h2', 'Actions'),
-          // h('div.actions', tableInner(ctrl)),
           h('h2', 'Computer analysis'),
           ...cevalView.renderCeval(ctrl),
           cevalView.renderPvs(ctrl),
@@ -165,7 +163,7 @@ export function initModule(ctrl: AnalyseController) {
             },
             renderBoard(
               ctrl.chessground.state.pieces,
-              ctrl.data.player.color,
+              ctrl.data.game.variant.key === 'racingKings' ? 'white' : ctrl.data.player.color,
               pieceStyle.get(),
               prefixStyle.get(),
               positionStyle.get(),
@@ -279,31 +277,22 @@ function renderEvalAndDepth(ctrl: AnalyseController): string {
     evalStr = evalInfo(bestEv);
     depthStr = depthInfo(evs.client, !!evs.client?.cloud);
   }
-  if (!evalStr) {
-    if (!ctrl.ceval.allowed()) return NOT_ALLOWED;
-    else if (!ctrl.ceval.possible) return NOT_POSSIBLE;
-    else return NOT_ENABLED;
-  } else {
-    return evalStr + ' ' + depthStr;
-  }
+  if (!evalStr)
+    return !ctrl.ceval.allowed() ? NOT_ALLOWED : !ctrl.ceval.possible ? NOT_POSSIBLE : NOT_ENABLED;
+  else return evalStr + ' ' + depthStr;
 }
 
-function evalInfo(bestEv: EvalScore | undefined): string {
-  if (bestEv) {
-    if (defined(bestEv.cp)) return renderEval(bestEv.cp).replace('-', '−');
-    else if (defined(bestEv.mate))
-      return `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`;
-  }
-  return '';
-}
+const evalInfo = (bestEv: EvalScore | undefined): string =>
+  defined(bestEv?.cp)
+    ? renderEval(bestEv.cp).replace('-', '−')
+    : defined(bestEv?.mate)
+      ? `mate in ${Math.abs(bestEv.mate)} for ${bestEv.mate > 0 ? 'white' : 'black'}`
+      : '';
 
-function depthInfo(clientEv: Tree.ClientEval | undefined, isCloud: boolean): string {
-  if (!clientEv) return '';
-  const depth = clientEv.depth || 0;
-  return i18n.site.depthX(depth) + isCloud ? ' Cloud' : '';
-}
+const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
+  clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
-function renderBestMove(ctrl: AnalyseController, style: Style): string {
+function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
   const instance = ctrl.getCeval();
   if (!instance.allowed()) return NOT_ALLOWED;
   if (!instance.possible) return NOT_POSSIBLE;
@@ -315,44 +304,31 @@ function renderBestMove(ctrl: AnalyseController, style: Style): string {
     pvs = node.threat.pvs;
     setup.turn = opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;
-  } else if (node.ceval) {
-    pvs = node.ceval.pvs;
-  }
+  } else if (node.ceval) pvs = node.ceval.pvs;
   const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);
     return renderSan(san, uci, style);
-  } else {
-    return '';
   }
+  return '';
 }
 
-function renderResult(ctrl: AnalyseController): VNode[] {
-  if (ctrl.data.game.status.id >= 30) {
-    let result;
-    switch (ctrl.data.game.winner) {
-      case 'white':
-        result = '1-0';
-        break;
-      case 'black':
-        result = '0-1';
-        break;
-      default:
-        result = '½-½';
-    }
-    return [
-      h('h2', 'Game status'),
-      h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
-        h('div.result', result),
-        h('div.status', viewStatus(ctrl)),
-      ]),
-    ];
-  }
-  return [];
+function renderAriaResult(ctrl: AnalyseController): VNode[] {
+  const result = renderResult(ctrl);
+  return result.length
+    ? [
+        h('h2', 'Game status'),
+        h(
+          'div.status',
+          { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } },
+          result,
+        ),
+      ]
+    : result;
 }
 
-function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNode)[] {
+function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChildren {
   if (ctrl.path.length === 0) {
     return renderMainline(ctrl.mainline, ctrl.path, style);
   } else {
@@ -361,8 +337,14 @@ function renderCurrentLine(ctrl: AnalyseController, style: Style): (string | VNo
   }
 }
 
-function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: Cash) {
-  return function () {
+function onSubmit(
+  ctrl: AnalyseController,
+  notify: (txt: string) => void,
+  style: () => MoveStyle,
+  $input: Cash,
+) {
+  return (e: SubmitEvent) => {
+    e.preventDefault();
     let input = castlingFlavours(($input.val() as string).trim());
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
@@ -373,31 +355,23 @@ function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style:
       else notify('Invalid command');
     }
     $input.val('');
-    return false;
   };
 }
 
-const shortCommands = ['p', 's', 'next', 'prev', 'eval', 'best'];
+const isShortCommand = (input: string) =>
+  ['p', 's', 'next', 'prev', 'eval', 'best'].includes(input.split(' ')[0].toLowerCase());
 
-function isShortCommand(input: string): boolean {
-  return shortCommands.includes(input.split(' ')[0].toLowerCase());
-}
-
-function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {
+function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: MoveStyle) {
   const lowered = c.toLowerCase();
-  if (lowered === 'next') {
-    next(ctrl);
+  const doAndRedraw = (fn: (ctrl: AnalyseController) => void): void => {
+    fn(ctrl);
     ctrl.redraw();
-  } else if (lowered === 'prev') {
-    prev(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'next line') {
-    jumpNextLine(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'prev line') {
-    jumpPrevLine(ctrl);
-    ctrl.redraw();
-  } else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
+  };
+  if (lowered === 'next') doAndRedraw(next);
+  else if (lowered === 'prev') doAndRedraw(prev);
+  else if (lowered === 'next line') doAndRedraw(jumpNextLine);
+  else if (lowered === 'prev line') doAndRedraw(jumpPrevLine);
+  else if (lowered === 'eval') notify(renderEvalAndDepth(ctrl));
   else if (lowered === 'best') notify(renderBestMove(ctrl, style));
   else {
     const pieces = ctrl.chessground.state.pieces;
@@ -409,18 +383,14 @@ function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: st
   }
 }
 
-const analysisGlyphs = ['?!', '?', '??'];
-
-function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefined {
-  const anal = ctrl.data.analysis;
+function renderAcpl(ctrl: AnalyseController, style: MoveStyle): MaybeVNodes | undefined {
+  const anal = ctrl.data.analysis; // heh
   if (!anal) return undefined;
-  const analysisNodes = ctrl.mainline.filter(n =>
-    (n.glyphs || []).find(g => analysisGlyphs.includes(g.symbol)),
-  );
+  const analysisGlyphs = ['?!', '?', '??'];
+  const analysisNodes = ctrl.mainline.filter(n => n.glyphs?.find(g => analysisGlyphs.includes(g.symbol)));
   const res: Array<VNode> = [];
   ['white', 'black'].forEach((color: Color) => {
-    const acpl = anal[color].acpl;
-    res.push(h('h3', `${color} player: ${acpl} ACPL`));
+    res.push(h('h3', `${color} player: ${anal[color].acpl} ACPL`));
     res.push(
       h(
         'select',
@@ -448,29 +418,30 @@ function renderAcpl(ctrl: AnalyseController, style: Style): MaybeVNodes | undefi
   return res;
 }
 
-function requestAnalysisButton(
+const requestAnalysisButton = (
   ctrl: AnalyseController,
   inProgress: Prop<boolean>,
   notify: (msg: string) => void,
-) {
-  if (inProgress()) return h('p', 'Server-side analysis in progress');
-  if (ctrl.ongoing || ctrl.synthetic) return undefined;
-  return h(
-    'button',
-    {
-      hook: bind('click', _ =>
-        xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
-          () => {
-            inProgress(true);
-            notify('Server-side analysis in progress');
+): MaybeVNode =>
+  ctrl.ongoing || ctrl.synthetic
+    ? undefined
+    : inProgress()
+      ? h('p', 'Server-side analysis in progress')
+      : h(
+          'button',
+          {
+            hook: bind('click', _ =>
+              xhrText(`/${ctrl.data.game.id}/request-analysis`, { method: 'post' }).then(
+                () => {
+                  inProgress(true);
+                  notify('Server-side analysis in progress');
+                },
+                () => notify('Cannot run server-side analysis'),
+              ),
+            ),
           },
-          () => notify('Cannot run server-side analysis'),
-        ),
-      ),
-    },
-    'Request a computer analysis',
-  );
-}
+          i18n.site.requestAComputerAnalysis,
+        );
 
 function currentLineIndex(ctrl: AnalyseController): { i: number; of: number } {
   if (ctrl.path === treePath.root) return { i: 1, of: 1 };
@@ -486,7 +457,7 @@ function renderLineIndex(ctrl: AnalyseController): string {
   return of > 1 ? `, line ${i + 1} of ${of} ,` : '';
 }
 
-function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
+function renderCurrentNode(ctrl: AnalyseController, style: MoveStyle): string {
   const node = ctrl.node;
   if (!node.san || !node.uci) return 'Initial position';
   return [
@@ -499,9 +470,8 @@ function renderCurrentNode(ctrl: AnalyseController, style: Style): string {
     .trim();
 }
 
-function renderPlayer(ctrl: AnalyseController, player: Player) {
-  return player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
-}
+const renderPlayer = (ctrl: AnalyseController, player: Player): VNodeChildren =>
+  player.ai ? i18n.site.aiNameLevelAiLevel('Stockfish', player.ai) : userHtml(ctrl, player);
 
 function userHtml(ctrl: AnalyseController, player: Player) {
   const d = ctrl.data,
@@ -523,9 +493,8 @@ function userHtml(ctrl: AnalyseController, player: Player) {
     : 'Anonymous';
 }
 
-function playerByColor(d: AnalyseData, color: Color) {
-  return color === d.player.color ? d.player : d.opponent;
-}
+const playerByColor = (d: AnalyseData, color: Color): Player =>
+  color === d.player.color ? d.player : d.opponent;
 
 const jumpNextLine = (ctrl: AnalyseController) => jumpLine(ctrl, 1);
 const jumpPrevLine = (ctrl: AnalyseController) => jumpLine(ctrl, -1);
