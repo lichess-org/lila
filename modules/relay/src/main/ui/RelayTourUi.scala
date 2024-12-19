@@ -24,7 +24,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map: sel =>
-          card.render(sel, live = _.display.hasStarted, alt = sel.alt)
+          card.render(sel, live = _.display.hasStarted, alt = sel.alts.headOption)
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -51,7 +51,12 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
 
   private def adminIndex(active: List[RelayCard])(using Context) =
-    val errored = active.flatMap(a => a.errors.some.filter(_.nonEmpty).map(a -> _))
+    val errored = for
+      main <- active
+      card <- main :: main.alts.map: alt =>
+        RelayCard(tour = alt.tour, display = alt.round, link = alt.round, group = main.group, alts = Nil)
+      errors <- card.errors.some.filter(_.nonEmpty)
+    yield (card, errors)
     errored.nonEmpty.option:
       div(cls := "relay-index__admin")(
         h2("Ongoing broadcasts with errors"),
