@@ -95,22 +95,20 @@ export class VideoPlayer {
             {
               attrs: {
                 xmlns: 'http://www.w3.org/2000/svg',
-                viewBox: '0 0 100 100',
+                viewBox: '0 0 200 200',
               },
             },
             [
               h('circle', {
                 attrs: {
-                  cx: '50',
-                  cy: '50',
-                  r: '45',
-                  'stroke-width': '10',
-                  fill: 'transparent',
+                  cx: '100',
+                  cy: '100',
+                  r: '90',
                 },
               }),
               h('path', {
                 attrs: {
-                  d: 'M 32 28 A 5 5 0 0 1 37 23 L 75 45 A 6 6 0 0 1 75 55 L 37 77 A 5 5 0 0 1 32 72 Z',
+                  d: 'M 68 52 A 5 5 0 0 1 74 46 L 154 96 A 5 5 0 0 1 154 104 L 74 154 A 5 5 0 0 1 68 148 Z',
                 },
               }),
             ],
