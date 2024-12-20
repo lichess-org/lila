@@ -7,6 +7,7 @@ import { unload, redirect, reload } from './reload';
 import announce from './announce';
 import { displayLocale } from 'common/i18n';
 import sound from './sound';
+import { api } from 'api';
 
 const site = window.site;
 // site.load is initialized in site.inline.ts (body script)
@@ -26,3 +27,4 @@ site.reload = reload;
 site.announce = announce;
 site.sound = sound;
 site.load.then(boot);
+(window as any).lichess = api;

@@ -1,7 +1,7 @@
 import * as xhr from 'common/xhr';
 import { makeLinkPopups } from 'common/linkPopup';
 import { alert } from 'common/dialog';
-import { initializeDom } from 'common/pubsub';
+import { pubsub } from 'common/pubsub';
 
 export function initModule(): void {
   makeLinkPopups($('.social_links'));
@@ -48,7 +48,7 @@ export function initModule(): void {
       browseTo = (path: string) =>
         xhr.text(path).then(html => {
           $content.html(html);
-          initializeDom($content[0]);
+          pubsub.emit('content-loaded', $content[0]);
           history.replaceState({}, '', path);
           site.asset.loadEsm('bits.infiniteScroll');
         });

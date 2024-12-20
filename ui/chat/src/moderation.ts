@@ -6,7 +6,7 @@ import type { ModerationCtrl, ModerationOpts, ModerationData, ModerationReason }
 import { numberFormat } from 'common/number';
 import { userModInfo, flag, timeout } from './xhr';
 import type ChatCtrl from './ctrl';
-import { pubsub, initializeDom } from 'common/pubsub';
+import { pubsub } from 'common/pubsub';
 import { confirm } from 'common/dialog';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
@@ -158,7 +158,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
             {
               hook: {
                 insert() {
-                  initializeDom();
+                  pubsub.emit('content-loaded');
                 },
               },
             },
