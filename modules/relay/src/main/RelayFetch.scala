@@ -1,6 +1,5 @@
 package lila.relay
 
-import akka.actor.*
 import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
 import chess.{ Outcome, Ply }
 import com.github.blemale.scaffeine.LoadingCache
@@ -15,7 +14,6 @@ import lila.memo.CacheApi
 import lila.relay.RelayFormat.CanProxy
 import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
-import lila.tree.Node.Comments
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -347,69 +345,6 @@ private object RelayFetch:
   private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 2)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
-  private[relay] object DgtJson:
-    case class PairingPlayer(
-        fname: Option[String],
-        mname: Option[String],
-        lname: Option[String],
-        title: Option[String],
-        fideid: Option[Int]
-    ):
-      def fullName = some {
-        List(fname, mname, lname).flatten.mkString(" ")
-      }.filter(_.nonEmpty)
-    case class RoundJsonPairing(
-        white: Option[PairingPlayer],
-        black: Option[PairingPlayer],
-        result: Option[String]
-    ):
-      import chess.format.pgn.*
-      def tags(round: Int, game: Int, date: Option[String]) = Tags:
-        List(
-          white.flatMap(_.fullName).map { Tag(_.White, _) },
-          white.flatMap(_.title).map { Tag(_.WhiteTitle, _) },
-          white.flatMap(_.fideid).map { Tag(_.WhiteFideId, _) },
-          black.flatMap(_.fullName).map { Tag(_.Black, _) },
-          black.flatMap(_.title).map { Tag(_.BlackTitle, _) },
-          black.flatMap(_.fideid).map { Tag(_.BlackFideId, _) },
-          result.map(Tag(_.Result, _)),
-          Tag(_.Round, s"$round.$game").some,
-          date.map(Tag(_.Date, _))
-        ).flatten
-    case class RoundJson(
-        date: Option[String],
-        pairings: List[RoundJsonPairing]
-    ):
-      def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
-        case (pairing, i) if pairing.result.forall(_ != "*") => i
-    given Reads[PairingPlayer]    = Json.reads
-    given Reads[RoundJsonPairing] = Json.reads
-    given Reads[RoundJson]        = Json.reads
-
-    case class GameJson(moves: List[String], result: Option[String], chess960: Option[Int] = none):
-      def outcome = result.flatMap(Outcome.fromResult)
-      def mergeRoundTags(roundTags: Tags): Tags =
-        val fenTag = chess960
-          .filter(_ != 518) // LCC sends 518 for standard chess
-          .flatMap(chess.variant.Chess960.positionToFen)
-          .map(pos => Tag(_.FEN, pos.value))
-        val outcomeTag = outcome.map(o => Tag(_.Result, Outcome.showResult(o.some)))
-        roundTags ++ Tags(List(fenTag, outcomeTag).flatten)
-      def toPgn(roundTags: Tags): PgnStr =
-        val mergedTags = mergeRoundTags(roundTags)
-        val strMoves = moves
-          .map(_.split(' '))
-          .map: move =>
-            chess.format.pgn
-              .Move(
-                san = SanStr(~move.headOption),
-                secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)).flatMap(_.toIntOption)
-              )
-              .render
-          .mkString(" ")
-        PgnStr(s"$mergedTags\n\n$strMoves")
-    given Reads[GameJson] = Json.reads
-
   object multiPgnToGames:
 
     def apply(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
@@ -436,24 +371,4 @@ private object RelayFetch:
     private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
       StudyPgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
-        .map: res =>
-          val fixedTags = Tags:
-            // remove wrong ongoing result tag if the board has a mate on it
-            if res.end.isDefined && res.tags(_.Result).has("*") then
-              res.tags.value.filter(_ != Tag(_.Result, "*"))
-            // normalize result tag (e.g. 0.5-0 ->  1/2-0)
-            else
-              res.tags.value.map: tag =>
-                if tag.name == Tag.Result
-                then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
-                else tag
-
-          RelayGame(
-            tags = fixedTags,
-            variant = res.variant,
-            root = res.root.copy(
-              comments = Comments.empty,
-              children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
-            ),
-            points = res.end.map(_.points)
-          )
+        .map(RelayGame.fromStudyImport)

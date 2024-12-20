@@ -18,7 +18,8 @@ const scrollMax = 99999,
   indexTag = 'i5z',
   indexTagUC = indexTag.toUpperCase(),
   movesTag = 'l4x',
-  rmovesTag = 'rm6';
+  rmovesTag = 'rm6',
+  rbuttonsTag = 'rb1';
 
 const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
   window.requestAnimationFrame(() => {
@@ -146,7 +147,7 @@ const goThroughMoves = (ctrl: RoundController, e: Event) => {
 function renderButtons(ctrl: RoundController) {
   const firstPly = util.firstPly(ctrl.data),
     lastPly = util.lastPly(ctrl.data);
-  return h('div.buttons', [
+  return h(rbuttonsTag, [
     analysisButton(ctrl) || h('div.noop'),
     ...[
       [licon.JumpFirst, firstPly],

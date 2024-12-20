@@ -155,7 +155,10 @@ object RelayRound:
         case Url(url)   => url.looksLikeLcc
         case Urls(urls) => urls.exists(_.looksLikeLcc)
         case _          => false
-
+      def hasUnsafeHttp: Option[URL] = this match
+        case Url(url)   => Option.when(url.scheme == "http")(url)
+        case Urls(urls) => urls.find(_.scheme == "http")
+        case _          => none
       def roundId: Option[RelayRoundId] = this match
         case Url(url) =>
           url.path.split("/") match

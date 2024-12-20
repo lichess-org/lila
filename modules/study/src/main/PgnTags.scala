@@ -6,7 +6,10 @@ import chess.format.pgn.{ Tag, TagType, Tags }
 object PgnTags:
 
   def apply(tags: Tags): Tags =
-    tags.pipe(filterRelevant).pipe(removeContradictingTermination).pipe(sort)
+    tags.pipe(filterRelevant(Set.empty)).pipe(removeContradictingTermination).pipe(sort)
+
+  def withRelevantTags(tags: Tags, types: Set[TagType]): Tags =
+    tags.pipe(filterRelevant(types)).pipe(removeContradictingTermination).pipe(sort)
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
     c.updateRoot { _.setClockAt(c.tags.clockConfig.map(_.limit), UciPath.root) }.filter(c !=)
@@ -21,9 +24,9 @@ object PgnTags:
       case _                                           => true
   )
 
-  private def filterRelevant(tags: Tags) =
+  private def filterRelevant(extraTypes: Set[TagType])(tags: Tags) =
     Tags(tags.value.filter { t =>
-      relevantTypeSet(t.name) && !unknownValues(t.value)
+      (relevantTypeSet(t.name) || extraTypes(t.name)) && !unknownValues(t.value)
     })
 
   private def removeContradictingTermination(tags: Tags) =
