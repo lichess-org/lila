@@ -44,7 +44,8 @@ private object DgtJson:
     def finishedGameIndexes: List[Int] = pairings.zipWithIndex.collect:
       case (pairing, i) if pairing.result.forall(_ != "*") => i
 
-  case class ClockJson(white: Seconds, black: Seconds, time: Seconds)
+  case class ClockJson(white: Option[Seconds], black: Option[Seconds], time: Long):
+    def referenceTime: Instant = millisToInstant(time)
 
   case class GameJson(
       moves: List[String],
@@ -60,8 +61,17 @@ private object DgtJson:
         .map(pos => Tag(_.FEN, pos.value))
       val outcomeTag = outcome.map(o => Tag(_.Result, Outcome.showResult(o.some)))
       roundTags ++ Tags(List(fenTag, outcomeTag).flatten)
+    def clockTags: Tags =
+      clock.fold(Tags.empty): c =>
+        Tags(
+          List(
+            c.white.map(v => Tag(_.WhiteClock, v.toString)),
+            c.black.map(v => Tag(_.BlackClock, v.toString)),
+            Tag(_.ReferenceTime, c.time.toString).some
+          ).flatten
+        )
     def toPgn(roundTags: Tags): PgnStr =
-      val mergedTags = mergeRoundTags(roundTags)
+      val mergedTags = clockTags ++ mergeRoundTags(roundTags)
       val strMoves = moves
         .map(_.split(' '))
         .map: move =>
