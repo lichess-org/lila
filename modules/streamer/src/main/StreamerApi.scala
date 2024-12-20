@@ -94,7 +94,7 @@ final class StreamerApi(
       notifyApi.notifyOne(
         current,
         lila.core.notify.NotificationContent.GenericLink(
-          url = "/page/streamer-page-activation",
+          url = streamerPageActivationRoute.url,
           title = "Streamer application denied".some,
           text =
             "Your streamer application was denied. Click here to read instructions before resubmitting.".some,
@@ -105,7 +105,7 @@ final class StreamerApi(
       notifyApi.notifyOne(
         current,
         lila.core.notify.NotificationContent.GenericLink(
-          url = "/streamer/edit",
+          url = routes.Streamer.edit.url,
           title = "Listed on /streamer".some,
           text = "Your streamer page is public".some,
           icon = lila.ui.Icon.Mic.value

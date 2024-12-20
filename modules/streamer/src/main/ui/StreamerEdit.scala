@@ -73,7 +73,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                       else if wasListed then
                         frag(
                           "Your previous application was declined. ",
-                          a(href := "/page/streamer-page-activation")(
+                          a(href := streamerPageActivationRoute)(
                             "See instructions before submitting again"
                           )
                         )
