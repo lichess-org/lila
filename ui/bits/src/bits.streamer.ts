@@ -1,7 +1,7 @@
 import { wireCropDialog } from './crop';
 import { confirm } from 'common/dialog';
 
-export function initModule(old: { youtube: string; twitch: string }): any {
+export function initModule(old: { youtube?: string; twitch?: string }): any {
   const submit = document.querySelector<HTMLButtonElement>('.approval-request-submit')!;
   const streamerEdit = document.querySelector<HTMLElement>('.streamer-edit')!;
   const youTube = streamerEdit.querySelector<HTMLInputElement>('#form3-youTube')!;

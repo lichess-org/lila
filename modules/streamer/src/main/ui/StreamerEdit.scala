@@ -21,8 +21,8 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
       .js(
         esmInitObj(
           "bits.streamer",
-          "youtube" -> (if wasListed then s.streamer.youTube.map(_.channelId) else ""),
-          "twitch"  -> (if wasListed then s.streamer.twitch.map(_.userId) else "")
+          "youtube" -> wasListed.so(s.streamer.youTube).so[String](_.channelId),
+          "twitch"  -> wasListed.so(s.streamer.twitch).so[String](_.userId)
         )
       ):
         main(cls := "page-menu")(
