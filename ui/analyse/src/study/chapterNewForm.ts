@@ -1,6 +1,6 @@
 import { parseFen } from 'chessops/fen';
 import { defined, prop, type Prop, toggle } from 'common';
-import { snabDialog } from 'common/dialog';
+import { snabDialog, alert } from 'common/dialog';
 import * as licon from 'common/licon';
 import { bind, bindSubmit, onInsert, looseH as h, dataIcon, type VNode } from 'common/snabbdom';
 import { storedProp } from 'common/storage';
