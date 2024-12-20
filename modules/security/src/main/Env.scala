@@ -147,7 +147,7 @@ final class Env(
 
   lazy val ipTrust: IpTrust = wire[IpTrust]
 
-  lazy val pwned: Pwned = Pwned(ws, config.pwnedUrl)
+  lazy val pwned: Pwned = Pwned(ws, config.pwnedRangeUrl)
 
   lazy val proxy2faSetting: SettingStore[Strings] @@ Proxy2faSetting = settingStore[Strings](
     "proxy2fa",
