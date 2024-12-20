@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Indho-qarsi</string>
+  <string name="blindfold" comment="As in Blindfold chess">Indho-qarsi</string>
 </resources>

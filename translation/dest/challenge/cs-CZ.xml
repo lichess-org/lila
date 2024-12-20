@@ -12,10 +12,10 @@
   <string name="cannotChallengeDueToProvisionalXRating">Nelze vyzvat kvůli prozatimnímu %s elu.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s přijímá výzvy pouze od přátel.</string>
   <string name="declineGeneric">V tuto chvíli nepřijímám výzvy.</string>
-  <string name="declineLater">Teď nemohu, požádejte prosím později.</string>
-  <string name="declineTooFast">Tato časová kontrola je na mně příliš rychlá, vyzvi mně prosím s pomalejší.</string>
-  <string name="declineTooSlow">Vyzvi mne prosím k delší partii, tato časová kontrola je na mne moc rychlá.</string>
-  <string name="declineTimeControl">V tuto chvíli nepřijímám výzvy s touto časovou kontrolou.</string>
+  <string name="declineLater">Teď nemohu, požádejte mne prosím později.</string>
+  <string name="declineTooFast">Toto časové tempo je na mne příliš rychlé, vyzvi mně prosím na pomalejší.</string>
+  <string name="declineTooSlow">Vyzvi mne prosím k delší partii, toto časové tempo je na mne moc rychlé.</string>
+  <string name="declineTimeControl">V tuto chvíli nepřijímám výzvy s tímto časovým tempem.</string>
   <string name="declineRated">Vyzvěte mě raději k hodnocené partii.</string>
   <string name="declineCasual">Vyzvěte mě raději k nehodnocené partii.</string>
   <string name="declineStandard">Nyní nepřijímám výzvy variant.</string>

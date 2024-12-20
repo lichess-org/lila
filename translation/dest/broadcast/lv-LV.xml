@@ -21,4 +21,12 @@
   <string name="deleteRound">Dzēst šo raundu</string>
   <string name="definitivelyDeleteRound">Neatgriezeniski dzēst raundu un tā spēles.</string>
   <string name="deleteAllGamesOfThisRound">Izdzēst visas šī raunda spēles. To atjaunošanai būs nepieciešams aktīvs avots.</string>
+  <string name="fideFederations">FIDE federācijas</string>
+  <string name="top10Rating">10 labāko spēlētāju reitings</string>
+  <string name="fidePlayers">FIDE spēlētāji</string>
+  <string name="fidePlayerNotFound">FIDE spēlētājs nav atrasts</string>
+  <string name="fideProfile">FIDE profils</string>
+  <string name="federation">Federācija</string>
+  <string name="ageThisYear">Vecums šogad</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Nevērtēta</string>
 </resources>
