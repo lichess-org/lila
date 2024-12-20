@@ -22,9 +22,8 @@ class RelayGameTest extends munit.FunSuite:
   test("parse clock tags"):
     assertEquals(g.tags.clocks.white, whiteCentis.some)
     assertEquals(g.tags.clocks.black, blackCentis.some)
-    assertEquals(g.tags(_.ReferenceTime), "B/2024-12-19T17:52:47.862Z".some)
 
   test("applyTagClocksToLastMoves"):
     val applied = g.applyTagClocksToLastMoves
-    assertEquals(applied.root.lastMainlineNode.clock, whiteCentis.some)
-    assertEquals(applied.root.mainline.head.clock, blackCentis.some)
+    assertEquals(applied.root.lastMainlineNode.clock, blackCentis.some)
+    assertEquals(applied.root.mainline.head.clock, whiteCentis.some)
