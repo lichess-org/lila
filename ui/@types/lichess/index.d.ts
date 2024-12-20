@@ -34,13 +34,11 @@ interface Site {
   sound: SoundI; // file://./../../site/src/sound.ts
   displayLocale: string; // file://./../../common/src/i18n.ts
   blindMode: boolean;
-
-  // the following are not set in site.ts
   load: Promise<void>; // DOMContentLoaded promise
   quantity(n: number): 'zero' | 'one' | 'two' | 'few' | 'many' | 'other';
-  socket: SocketI;
   quietMode?: boolean;
   analysis?: any; // expose the analysis ctrl
+  // file://./../../.build/src/manifest.ts
   manifest: { css: Record<string, string>; js: Record<string, string>; hashed: Record<string, string> };
 }
 
@@ -52,7 +50,7 @@ interface EsmModuleOpts extends AssetUrlOpts {
 type PairOf<T> = [T, T];
 
 type Flair = string;
-
+type Redraw = () => void;
 type RedirectTo = string | { url: string; cookie: Cookie };
 
 interface LichessMousetrap {
@@ -95,7 +93,6 @@ type SoundMoveOpts = {
 };
 
 type SoundMove = (opts?: SoundMoveOpts) => void;
-
 type SoundListener = (event: 'start' | 'stop', text?: string) => void;
 
 interface SoundI {
@@ -105,6 +102,7 @@ interface SoundI {
   move: SoundMove;
   load(name: string, path?: string): Promise<any>;
   play(name: string, volume?: number): Promise<void>;
+  playAndDelayMateResultIfNecessary(name: string, volume?: number): Promise<void>;
   playOnce(name: string): void;
   countdown(count: number, intervalMs?: number): Promise<void>;
   getVolume(): number;
@@ -112,19 +110,10 @@ interface SoundI {
   speech(v?: boolean): boolean;
   changeSet(s: string): void;
   say(text: string, cut?: boolean, force?: boolean, translated?: boolean): boolean;
-  saySan(san?: San, cut?: boolean): void;
+  saySan(san?: San, cut?: boolean, force?: boolean): void;
   sayOrPlay(name: string, text: string): void;
   preloadBoardSounds(): void;
   url(name: string): string;
-}
-
-interface SocketI {
-  averageLag: number;
-  pingInterval(): number;
-  getVersion(): number | false;
-  send: SocketSend;
-  sign(s: string): void;
-  destroy(): void;
 }
 
 interface LichessSpeech {
@@ -189,6 +178,7 @@ interface Api {
   overrides: {
     [key: string]: (...args: any[]) => unknown;
   };
+  analysis?: any;
 }
 
 interface Window {
@@ -249,13 +239,12 @@ type VariantKey =
   | 'crazyhouse';
 
 type Speed = 'ultraBullet' | 'bullet' | 'blitz' | 'rapid' | 'classical' | 'correspondence';
+
 type Perf = Exclude<VariantKey, 'standard'> | Speed;
-type Color = 'white' | 'black';
-type Files = 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g' | 'h';
-type Ranks = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
-type Key = 'a0' | `${Files}${Ranks}`;
+
 type Uci = string;
 type San = string;
+type AlmostSan = string;
 type Ply = number;
 type Seconds = number;
 type Centis = number;

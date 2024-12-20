@@ -15,6 +15,7 @@
   <string name="voteToLoadNextOne">sina wile e musi lili sin la, o pilin e nena pi pilin sina!</string>
   <string name="upVote">musi lili pona</string>
   <string name="downVote">musi lili ike</string>
+  <string name="yourPuzzleRatingWillNotChange">nanpa wawa sina li ante ala. o sona e ni: musi lili ni li utala ala. ilo li pana e musi lili pi pona mute tawa sina kepeken nanpa wawa sina.</string>
   <string name="findTheBestMoveForWhite">o pali e tawa pona #1 pi jan musi walo.</string>
   <string name="findTheBestMoveForBlack">o pali e tawa pona #1 pi jan musi pimeja.</string>
   <string name="toGetPersonalizedPuzzles">sina wile e ni: ilo Lichess li lukin e musi lili tawa sina la:</string>
@@ -66,6 +67,7 @@
   <string name="history">musi lili pi tenpo pini</string>
   <string name="solved">pini pona</string>
   <string name="failed" comment="In the list of previously attempted puzzles, a tag indicating that the puzzle has been failed.&#10;&#10;The text will be automatically capitalised. If you have different ways to translate it, we suggest keeping it short.&#10;&#10;NOTE: This string previously said 'failed', but was changed to 'incorrect' to be more encouraging (https://github.com/lichess-org/lila/issues/11068)">pini ike</string>
+  <string name="streakDescription">sina pini pona e musi lili la, ilo Lichess li pana e wan tawa nanpa sina pi pini pona. sina pini ike e musi lili la, nanpa li kama ala. ilo tenpo li lon ala. sina ken kepeken tenpo ale pi wile sina. sina tawa ike la, musi li pini! taso, sina ken toki e ni tawa ilo Lichess lon tenpo wan pi tenpo musi: \"mi sona ala e tawa pona. o toki e ona tawa mi\".</string>
   <string name="continueTheStreak">o awen e nanpa</string>
   <string name="newStreak">nanpa sin</string>
   <string name="fromMyGames">tawa mi musi</string>

@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">முடிந்தவரை பல சதுரங்களை சரியாக வரைபடமாக்க உங்களுக்கு 30 வினாடிகள் உள்ளன!</string>
   <string name="goAsLongAsYouWant">நீங்கள் விரும்பும் வரை செல்லுங்கள், நேர வரம்பு இல்லை!</string>
   <string name="showCoordinates">ஒருங்கிணைப்புகளைக் காட்டு</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">ஒவ்வொரு சதுரத்திலும் ஒருங்கிணைக்கிறது</string>
   <string name="showPieces">காய்களைக் காட்டு</string>
   <string name="startTraining">பயிற்சியை துவங்கு</string>
   <string name="findSquare">சதுரத்தைக் கண்டுபிடி</string>

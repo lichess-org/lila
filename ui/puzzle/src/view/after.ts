@@ -1,8 +1,7 @@
 import * as licon from 'common/licon';
-import { MaybeVNodes, bind, dataIcon, looseH as h } from 'common/snabbdom';
-import { VNode } from 'snabbdom';
+import { type VNode, type MaybeVNodes, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import * as router from 'common/router';
-import PuzzleCtrl from '../ctrl';
+import type PuzzleCtrl from '../ctrl';
 
 const renderVote = (ctrl: PuzzleCtrl): VNode =>
   h(
@@ -41,7 +40,7 @@ const renderStreak = (ctrl: PuzzleCtrl): MaybeVNodes => [
 
 export default function (ctrl: PuzzleCtrl): VNode {
   const data = ctrl.data;
-  const win = ctrl.lastFeedback == 'win';
+  const win = ctrl.lastFeedback === 'win';
   return h(
     'div.puzzle__feedback.after',
     ctrl.streak && !win

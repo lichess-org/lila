@@ -3,12 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org lobby",
-  "keywords": [
-    "chess",
-    "lichess",
-    "lobby",
-    "seek"
-  ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
   "dependencies": {
@@ -16,10 +10,12 @@
     "common": "workspace:*",
     "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
-    "game": "workspace:*",
-    "snabbdom": "3.5.1"
+    "game": "workspace:*"
   },
-  "lichess": {
-    "bundles": "src/lobby.ts"
+  "build": {
+    "bundle": {
+      "module": "src/lobby.ts",
+      "inline": "src/lobby.inline.ts"
+    }
   }
 }

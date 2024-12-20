@@ -1,5 +1,5 @@
-import { Ctrl, NotifyData, type Notification } from './interfaces';
-import { h, VNode } from 'snabbdom';
+import type { Ctrl, NotifyData, Notification } from './interfaces';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
@@ -44,7 +44,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
 
   if (!('Notification' in window))
     nodes.push(h('div.browser-notification', 'Browser does not support notification popups'));
-  else if (Notification.permission == 'denied') nodes.push(notificationDenied());
+  else if (Notification.permission === 'denied') nodes.push(notificationDenied());
 
   return nodes;
 }

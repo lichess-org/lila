@@ -113,7 +113,6 @@
   <string name="replayMode">Təkrar rejimi</string>
   <string name="realtimeReplay">Gerçək zamanlı</string>
   <string name="byCPL">CPL üzrə</string>
-  <string name="openStudy">Çalışmanı aç</string>
   <string name="enable">Aktiv et</string>
   <string name="bestMoveArrow">Ən yaxşı gedişi göstər</string>
   <string name="showVariationArrows">Variasiya oxlarını göstərin</string>
@@ -642,7 +641,7 @@
   <string name="aboutSimulRules">Sinxron seansda iştirak edən hər bir oyunçu, ağlarla oynayan ev sahibi ilk gedişi etdikdən sonra oyuna başlayır. Seans bütün oyunlar başa çatdıqda bitir.</string>
   <string name="aboutSimulSettings">Sinxron seanslar adətən reytinqsizdir. Revanşlar, dala qaytarmalar və əlavə vaxt qadağan edilmişdir.</string>
   <string name="create">Yarat</string>
-  <string name="whenCreateSimul">Bir Seans yaratdığınızda eyni anda bir neçə oyunçu ilə oynamağa başlayırsınız.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Bir Seans yaratdığınızda eyni anda bir neçə oyunçu ilə oynamağa başlayırsınız.</string>
   <string name="simulVariantsHint">Əgər bir neçə oyun variantı seçsəniz, hər bir oyunçu oynamaq istədiyi variantı seçə biləcək.</string>
   <string name="simulClockHint">Fişer Saatını quraşdırma. Daha çox oyunçu götürsəniz, daha çox vaxta ehtiyacınız ola bilər.</string>
   <string name="simulAddExtraTime">Sinxron seansla başa çıxmaq üçün öz saatınıza əlavə vaxtlar artıra bilərsiniz.</string>

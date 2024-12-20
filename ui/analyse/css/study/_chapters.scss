@@ -22,7 +22,8 @@ $span-width: 1.7em;
 
     &.active,
     &:active {
-      color: $c-font-clear;
+      opacity: 1;
+      color: $c-primary;
     }
 
     > span {

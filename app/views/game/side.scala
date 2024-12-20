@@ -67,7 +67,7 @@ object side:
                       .is(importedBy)
                       .option(form(cls := "delete", method := "post", action := routes.Game.delete(game.id)):
                         submitButton(
-                          cls   := "button-link confirm",
+                          cls   := "button-link yes-no-confirm",
                           title := trans.site.deleteThisImportedGame.txt()
                         )(trans.site.delete.txt())
                       )
@@ -78,7 +78,12 @@ object side:
             game.players.mapList: p =>
               frag(
                 div(cls := s"player color-icon is ${p.color.name} text")(
-                  playerLink(p, withOnline = false, withDiff = true, withBerserk = true)
+                  playerLink(
+                    p,
+                    withOnline = false,
+                    withDiff = true,
+                    withBerserk = true
+                  )
                 ),
                 tour.flatMap(_.teamVs).map(_.teams(p.color)).map {
                   teamLink(_, withIcon = false)(cls := "team")

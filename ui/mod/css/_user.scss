@@ -88,6 +88,11 @@
     flex: 1 1 auto;
   }
 
+  &--appeal {
+    order: 5;
+    flex: 1 1 auto;
+  }
+
   &--boardTokens {
     order: 6;
     flex: 1 1 auto;
@@ -100,15 +105,15 @@
   }
 
   &--kaladin {
-    order: 8;
-  }
-
-  &--irwin {
     order: 9;
   }
 
-  &--timeline {
+  &--irwin {
     order: 10;
+  }
+
+  &--timeline {
+    order: 8;
   }
 
   &--assessments {

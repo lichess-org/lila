@@ -110,7 +110,6 @@
   <string name="replayMode">Kordusrežiim</string>
   <string name="realtimeReplay">Reaalajas</string>
   <string name="byCPL">CPL järgi</string>
-  <string name="openStudy">Ava uuring</string>
   <string name="enable">Luba</string>
   <string name="bestMoveArrow">Parima käigu nool</string>
   <string name="evaluationGauge">Hinnangunäidik</string>
@@ -642,7 +641,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="aboutSimulRules">Simultaani algades, iga mängija alustab mängu korraldajaga, kes mängib valgete nuppudega. Simultaan lõpeb kui kõik mängud on mängitud.</string>
   <string name="aboutSimulSettings">Simultaanid on alati ilma reitinguta. Kordusmäng, käikude tagasivõtmised ning aja lisamine on keelatud.</string>
   <string name="create">Loo</string>
-  <string name="whenCreateSimul">Kui lood simultaani, saad mängida samaaegselt mitme vastasega.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kui lood simultaani, saad mängida samaaegselt mitme vastasega.</string>
   <string name="simulVariantsHint">Kui valid mitu varianti, saab iga mängija valida ise millist mängida.</string>
   <string name="simulClockHint">Fischeri ajakontroll. Mida rohkemate mängijate vastu mängida, seda enam aega võib vaja minna.</string>
   <string name="simulAddExtraTime">Võid lisada kellale lisaaega, et simultaaniga paremini hakkama saada.</string>

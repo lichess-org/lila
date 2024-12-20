@@ -1,7 +1,8 @@
 import { storage } from 'common/storage';
-import { isIOS } from 'common/device';
+import { isIos } from 'common/device';
 import { throttle } from 'common/timing';
-import { charRole } from 'chess';
+import { defined } from 'common';
+import { speakable } from 'chess/sanWriter';
 
 type Name = string;
 type Path = string;
@@ -88,6 +89,11 @@ export default new (class implements SoundI {
     this.music(o);
   }
 
+  async playAndDelayMateResultIfNecessary(name: Name): Promise<void> {
+    if (this.theme === 'standard') this.play(name);
+    else setTimeout(() => this.play(name), 600);
+  }
+
   async countdown(count: number, interval = 500): Promise<void> {
     if (!this.enabled()) return;
     try {
@@ -126,23 +132,24 @@ export default new (class implements SoundI {
   enabled = () => this.theme !== 'silent';
 
   speech = (v?: boolean): boolean => {
-    if (v !== undefined) this.speechStorage.set(v);
+    if (defined(v)) this.speechStorage.set(v);
     return this.speechStorage.get();
   };
 
   say = (text: string, cut = false, force = false, translated = false) => {
+    if (typeof window.speechSynthesis === 'undefined') return false;
     try {
       if (cut) speechSynthesis.cancel();
       if (!this.speech() && !force) return false;
       const msg = new SpeechSynthesisUtterance(text);
       msg.volume = this.getVolume();
       msg.lang = translated ? document.documentElement.lang : 'en-US';
-      if (!isIOS()) {
+      if (!isIos()) {
         // speech events are unreliable on iOS, but iphones do their own cancellation
         msg.onstart = () => this.listeners.forEach(l => l('start', text));
-        msg.onend = () => this.listeners.forEach(l => l('stop'));
+        msg.onend = msg.onerror = () => this.listeners.forEach(l => l('stop'));
       }
-      speechSynthesis.speak(msg);
+      window.speechSynthesis.speak(msg);
       return true;
     } catch (err) {
       console.error(err);
@@ -150,51 +157,14 @@ export default new (class implements SoundI {
     }
   };
 
+  saySan = (san?: San, cut?: boolean, force?: boolean) => this.say(speakable(san), cut, force);
+
   sayOrPlay = (name: string, text: string) => this.say(text) || this.play(name);
 
   changeSet = (s: string) => {
-    if (isIOS()) this.ctx?.resume();
+    if (isIos()) this.ctx?.resume();
     this.theme = s;
   };
-
-  set = () => this.theme;
-
-  saySan(san?: San, cut?: boolean) {
-    const text = !san
-      ? 'Game start'
-      : san.includes('O-O-O#')
-        ? 'long castle checkmate'
-        : san.includes('O-O-O+')
-          ? 'long castle check'
-          : san.includes('O-O-O')
-            ? 'long castle'
-            : san.includes('O-O#')
-              ? 'short castle checkmate'
-              : san.includes('O-O+')
-                ? 'short castle check'
-                : san.includes('O-O')
-                  ? 'short castle'
-                  : san
-                      .split('')
-                      .map(c => {
-                        if (c == 'x') return 'takes';
-                        if (c == '+') return 'check';
-                        if (c == '#') return 'checkmate';
-                        if (c == '=') return 'promotes to';
-                        if (c == '@') return 'at';
-                        const code = c.charCodeAt(0);
-                        if (code > 48 && code < 58) return c; // 1-8
-                        if (code > 96 && code < 105) return c.toUpperCase();
-                        return charRole(c) || c;
-                      })
-                      .join(' ')
-                      .replace(/^A /, 'A, ') // "A takes" & "A 3" are mispronounced
-                      .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
-                      .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
-                      .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
-                      .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
-    this.say(text, cut);
-  }
 
   preloadBoardSounds() {
     for (const name of ['move', 'capture', 'check', 'checkmate', 'genericNotify']) this.load(name);
@@ -217,13 +187,10 @@ export default new (class implements SoundI {
           $('#warn-no-autoplay').addClass('shown');
           resolve();
         }, 400);
-        this.ctx
-          ?.resume()
-          .then(() => {
-            clearTimeout(resumeTimer);
-            resolve();
-          })
-          .catch(resolve);
+        this.ctx?.resume().then(() => {
+          clearTimeout(resumeTimer);
+          resolve();
+        });
       });
     if (this.ctx?.state !== 'running') return false;
     $('#warn-no-autoplay').removeClass('shown');
@@ -265,8 +232,8 @@ class Sound {
 
 function makeAudioContext(): AudioContext | undefined {
   return window.webkitAudioContext
-    ? new window.webkitAudioContext()
+    ? new window.webkitAudioContext({ latencyHint: 'interactive' })
     : typeof AudioContext !== 'undefined'
-      ? new AudioContext()
+      ? new AudioContext({ latencyHint: 'interactive' })
       : undefined;
 }

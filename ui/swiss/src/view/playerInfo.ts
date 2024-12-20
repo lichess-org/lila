@@ -1,11 +1,11 @@
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { player as renderPlayer, numberRow } from './util';
-import { Pairing } from '../interfaces';
+import type { Pairing } from '../interfaces';
 import { isOutcome } from '../util';
-import SwissCtrl from '../ctrl';
+import type SwissCtrl from '../ctrl';
 import { fullName } from 'common/userLink';
 
 export default function (ctrl: SwissCtrl): VNode | undefined {
@@ -55,7 +55,7 @@ export default function (ctrl: SwissCtrl): VNode | undefined {
             return h('tr.' + p, { key: round }, [
               h('th', '' + round),
               h('td.outcome', { attrs: { colspan: 3 } }, p),
-              h('td', p == 'absent' ? '-' : p == 'bye' ? '1' : '½'),
+              h('td', p === 'absent' ? '-' : p === 'bye' ? '1' : '½'),
             ]);
           const res = result(p);
           return h(

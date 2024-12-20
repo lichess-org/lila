@@ -66,13 +66,14 @@ enum Source(val id: Int) derives Eq:
   case Arena      extends Source(id = 5)
   case Position   extends Source(id = 6)
   case Import     extends Source(id = 7)
-  case ImportLive extends Source(id = 9)
+  case ImportLive extends Source(id = 9) // wut?
   case Simul      extends Source(id = 10)
   case Pool       extends Source(id = 12)
   case Swiss      extends Source(id = 13)
 
 object Source:
   val byId                           = values.mapBy(_.id)
+  val byName                         = values.mapBy(_.name)
   val searchable                     = List(Lobby, Friend, Ai, Position, Arena, Simul, Pool, Swiss)
   val expirable                      = Set(Lobby, Arena, Pool, Swiss)
   def apply(id: Int): Option[Source] = byId.get(id)

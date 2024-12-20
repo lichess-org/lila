@@ -14,13 +14,11 @@ final class RelayPgnStream(
 )(using Executor):
 
   def exportFullTourAs(tour: RelayTour, me: Option[User]): Source[PgnStr, ?] = Source.futureSource:
-    roundRepo
-      .idsByTourOrdered(tour.id)
-      .flatMap: ids =>
-        studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids)).map { studies =>
-          val visible = studies.filter(_.canView(me.map(_.id)))
-          Source(visible).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
-        }
+    for
+      ids     <- roundRepo.idsByTourOrdered(tour.id)
+      studies <- studyRepo.byOrderedIds(StudyId.from[List, RelayRoundId](ids))
+      visible = studies.filter(_.canView(me.map(_.id)))
+    yield Source(visible).flatMapConcat { studyPgnDump.chaptersOf(_, flags) }.throttle(16, 1.second)
 
   private val flags = PgnDump.WithFlags(
     comments = false,

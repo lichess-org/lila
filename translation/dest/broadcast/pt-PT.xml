@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Breve descrição do torneio</string>
   <string name="fullDescription">Descrição completa do evento</string>
   <string name="fullDescriptionHelp">Descrição longa do evento opcional da transmissão. %1$s está disponível. Tem de ter menos que %2$s carácteres.</string>
-  <string name="sourceSingleUrl">URL da fonte PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL da fonte PGN</string>
   <string name="sourceUrlHelp">Link que o Lichess vai verificar para obter atualizações da PGN. Deve ser acessível ao público a partir da internet.</string>
   <string name="sourceGameIds">Até 64 IDs de jogo Lichess, separados por espaços.</string>
   <string name="startDateTimeZone">Data de início no fuso horário local do torneio: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federação</string>
   <string name="ageThisYear">Idade neste ano</string>
-  <string name="unrated">Sem classificação</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Sem classificação</string>
   <string name="recentTournaments">Torneio recentes</string>
   <string name="openLichess">Abrir no Lichess</string>
   <string name="teams">Equipas</string>
@@ -71,7 +71,6 @@
   <string name="ratingDiff">Diferença de Elo</string>
   <string name="gamesThisTournament">Jogos deste torneio</string>
   <string name="score">Pontuação</string>
-  <string name="perPage">%s por página</string>
   <string name="allTeams">Todas as equipas</string>
   <string name="tournamentFormat">Formato do torneio</string>
   <string name="tournamentLocation">Localização do Torneio</string>
@@ -79,7 +78,6 @@
   <string name="timezone">Fuso horário</string>
   <string name="fideRatingCategory">Categoria do Elo FIDE</string>
   <string name="optionalDetails">Detalhes opcionais</string>
-  <string name="upcomingBroadcasts">Próximas transmissões</string>
   <string name="pastBroadcasts">Transmissões anteriores</string>
   <string name="allBroadcastsByMonth">Ver todas as transmissões por mês</string>
 </resources>

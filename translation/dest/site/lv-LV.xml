@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Lai uzaicinātu kādu spēlēt, iedod šo saiti</string>
   <string name="gameOver">Spēle galā</string>
   <string name="waitingForOpponent">Gaidām pretinieku</string>
+  <string name="orLetYourOpponentScanQrCode">Vai arī piedāvā pretiniekam skenēt šo QR kodu</string>
   <string name="waiting">Gaida</string>
   <string name="yourTurn">Jūsu gājiens</string>
   <string name="aiNameLevelAiLevel">%1$s %2$s. līmenis</string>
@@ -70,7 +71,10 @@
   <string name="promoteVariation">Izvēlēties variantu</string>
   <string name="makeMainLine">Pārvērst par pamatvariantu</string>
   <string name="deleteFromHere">Dzēst šo un turpmākos gājienus</string>
+  <string name="collapseVariations">Aizvērt variantus</string>
+  <string name="expandVariations">Atvērt variantus</string>
   <string name="forceVariation">Rādīt kā variantu</string>
+  <string name="copyVariationPgn">Kopēt varianta PGN</string>
   <string name="move">Gājiens</string>
   <string name="variantLoss">Variācijas zaudējums</string>
   <string name="variantWin">Variācijas uzvara</string>
@@ -114,9 +118,9 @@
   <string name="replayMode">Atkārtojuma režīms</string>
   <string name="realtimeReplay">Reāllaikā</string>
   <string name="byCPL">Pēc CPL</string>
-  <string name="openStudy">Atvērt izpēti</string>
   <string name="enable">Iespējot</string>
   <string name="bestMoveArrow">Labākā gājiena bulta</string>
+  <string name="showVariationArrows">Rādīt varianta bultiņas</string>
   <string name="evaluationGauge">Novērtējuma rādītājs</string>
   <string name="multipleLines">Vairāki varianti</string>
   <string name="cpus">Procesori</string>
@@ -183,6 +187,7 @@
   <string name="latestForumPosts">Jaunākie foruma paziņojumi</string>
   <string name="players">Spēlētāji</string>
   <string name="friends">Draugi</string>
+  <string name="otherPlayers">citiem spēlētājiem</string>
   <string name="discussions">Sarunas</string>
   <string name="today">Šodien</string>
   <string name="yesterday">Vakar</string>
@@ -268,6 +273,7 @@
     <item quantity="one">%s savstarpēja spēle</item>
     <item quantity="other">%s savstarpējas spēles</item>
   </plurals>
+  <string name="ok">Labi</string>
   <string name="cancel">Atcelt</string>
   <string name="whiteTimeOut">Baltajiem beidzās laiks</string>
   <string name="blackTimeOut">Melnajiem beidzās laiks</string>
@@ -429,6 +435,7 @@
   <string name="importGame">Importēt spēli</string>
   <string name="importGameExplanation">Ielīmējiet spēles PGN, lai iegūtu pārskatāmu atkārtojumu, datoranalīzi, spēles sarunu un URL ar ko dalīties.</string>
   <string name="importGameCaveat">Variācijas tiks izdzēstas. Lai tās paturētu, importē PGN izmantot izpētes rīku.</string>
+  <string name="importGameDataPrivacyWarning">Jebkurš var piekļūt šim PGN. Lai importētu spēli privāti, izveido izpēti.</string>
   <plurals name="nbImportedGames">
     <item quantity="zero">%s importētas spēles</item>
     <item quantity="one">%s importēta spēles</item>
@@ -442,6 +449,7 @@
   <string name="blackCheckmatesInOneMove">Melnie pieteiks matu vienā gājienā</string>
   <string name="retry">Mēģināt vēlreiz</string>
   <string name="reconnecting">Atjauno savienojumu</string>
+  <string name="noNetwork">Bezsaistē</string>
   <plurals name="nbFriendsOnline">
     <item quantity="zero">%s draugu tiešsaistē</item>
     <item quantity="one">%s draugs tiešsaistē</item>
@@ -510,6 +518,7 @@
   <string name="movesPlayed">Izspēlēti gājieni</string>
   <string name="whiteWins">Balto uzvaras</string>
   <string name="blackWins">Melno uzvaras</string>
+  <string name="drawRate">Neizšķirtu biežums</string>
   <string name="draws">Neizšķirti</string>
   <string name="nextXTournament">Nākamais %s turnīrs:</string>
   <string name="averageOpponent">Vidējais pretinieks</string>
@@ -528,7 +537,12 @@
   <string name="ifNoneLeaveEmpty">Ja nav piešķirts, atstājiet tukšu</string>
   <string name="profile">Profils</string>
   <string name="editProfile">Labot profilu</string>
+  <string name="realName">Īstais vārds</string>
+  <string name="setFlair">Izvēlieties nozīmīti</string>
+  <string name="flair">Nozīmīte</string>
+  <string name="youCanHideFlair">Iestatījumos ir iespēja slēpt lietotāju nozīmītes visā platformā.</string>
   <string name="biography">Biogrāfija</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Valsts vai apgabals</string>
   <string name="thankYou">Paldies!</string>
   <string name="socialMediaLinks">Sociālo mediju saites</string>
   <string name="oneUrlPerLine">Katrā rindā vienu URL.</string>
@@ -548,12 +562,15 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Pēc gājiena automātiski pāriet uz nākamo spēli</string>
   <string name="autoSwitch">Pašpārslēgšanās</string>
   <string name="puzzles">Uzdevumi</string>
+  <string name="onlineBots">Boti tiešsaistē</string>
   <string name="name">Nosaukums</string>
   <string name="description">Apraksts</string>
   <string name="descPrivate">Privātais apraksts</string>
   <string name="descPrivateHelp">Teksts, ko, ja norādīsiet, komandas dalībnieki redzēs publiskā apraksta vietā.</string>
   <string name="no">Nē</string>
   <string name="yes">Jā</string>
+  <string name="website">Mājaslapa</string>
+  <string name="mobile">Mobilā lietotne</string>
   <string name="help">Palīdzība:</string>
   <string name="createANewTopic">Izveidot jaunu tematu</string>
   <string name="topics">Temati</string>
@@ -572,6 +589,9 @@
   <string name="cheat">Krāpšanās</string>
   <string name="troll">Troļļošana</string>
   <string name="other">Cits</string>
+  <string name="reportCheatBoostHelp">Ielīmē spēles saiti un paskaidro, kas nav kārtībā ar lietotāja uzvedību. Nepietiks, ja tikai norādīsi, ka \"lietotājs krāpjas\" — lūdzu, pastāsti, kā nonāci pie šī secinājuma.</string>
+  <string name="reportUsernameHelp">Paskaidro, kāpēc lietotājvārds ir aizskarošs. Nepietiks, ja teiksi \"tas ir rupjš/nepieklājīgs\"; lūdzu pastāsti, kā nonāci pie šī secinājuma – it īpaši, ja aizvainojums ir slēpts, nav angļu valodā, izmanto žargonu vai atsauci uz vēsturisku notikumu vai kultūru.</string>
+  <string name="reportProcessedFasterInEnglish">Ja ziņojums būs rakstīts angliski, par to varēsim parūpēties ātrāk.</string>
   <string name="error.provideOneCheatedGameLink">Lūdzu, norādiet vismaz vienu saiti uz spēli, kurā pretinieks ir krāpies.</string>
   <string name="by">no %s</string>
   <string name="importedByX">Importēja %s</string>
@@ -604,6 +624,7 @@
   <string name="slow">Lēna</string>
   <string name="insideTheBoard">Galdiņa iekšpusē</string>
   <string name="outsideTheBoard">Galdiņa ārpusē</string>
+  <string name="allSquaresOfTheBoard">Katrā lauciņā</string>
   <string name="onSlowGames">Lēnajās spēlēs</string>
   <string name="always">Vienmēr</string>
   <string name="never">Nekad</string>
@@ -691,7 +712,7 @@
   <string name="aboutSimulRules">Simultānseansam sākoties, katrs spēlētājs sāk spēli ar vadītāju, kurš spēlē ar baltajām figūrām. Seanss beidzas, kad visas spēles ir beigušās.</string>
   <string name="aboutSimulSettings">Simultānseansi nekad nav vērtēti. Revanšu, gājienu atsaukšanas un laika pievienošanas iespējas ir atspējotas.</string>
   <string name="create">Izveidot</string>
-  <string name="whenCreateSimul">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Izveidojot simultānseansu, spēlēsiet ar vairākiem pretiniekiem vienlaicīgi.</string>
   <string name="simulVariantsHint">Ja atlasīsiet vairākus variantus, katrs spēlētājs varēs izvēlēties kuru spēlēt.</string>
   <string name="simulClockHint">Fišera pulksteņa uzstādīšana. Jo vairāk pretinieku, jo vairāk laika jums varētu vajadzēt.</string>
   <string name="simulAddExtraTime">Varat pievienot papildus laiku savam pulkstenim, lai vieglāk tiktu galā ar simultānseansu.</string>
@@ -713,6 +734,13 @@
   <string name="keyNextBlunder">Nākamā rupjā kļūda</string>
   <string name="keyNextMistake">Nākamā kļūda</string>
   <string name="keyNextInaccuracy">Nākamā neprecizitāte</string>
+  <string name="keyPreviousBranch">Iepriekšējais zars</string>
+  <string name="keyNextBranch">Nākamais zars</string>
+  <string name="toggleVariationArrows">Rādīt/slēpt varianta bultiņas</string>
+  <string name="toggleGlyphAnnotations">Rādīt/slēpt gājienu piezīmes</string>
+  <string name="togglePositionAnnotations">Rādīt/slēpt pozīciju piezīmes</string>
+  <string name="variationArrowsInfo">Ar variantu bultiņām vari izskatīt variantus neizmantojot gājienu sarakstu.</string>
+  <string name="playSelectedMove">spēlēt atlasīto gājienu</string>
   <string name="newTournament">Jauns turnīrs</string>
   <string name="tournamentHomeTitle">Šaha turnīri ar dažādām laika kontrolēm un variantiem</string>
   <string name="tournamentHomeDescription">Piedalieties ātra tempa šaha turnīros! Pievienojieties oficiāli organizētā turnīrā, vai izveidojiet savu turnīru. Pieejamas Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck un citas iespējas nebeidzamiem šaha priekiem.</string>
@@ -729,6 +757,7 @@
   <string name="yourPerfTypeRatingIsRating">Jūsu %1$s reitings ir %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Esat labāks par %1$s no %2$s spēlētājiem.</string>
   <string name="userIsBetterThanPercentOfPerfTypePlayers">%1$s ir labāks par %2$s %3$s spēlētāju.</string>
+  <string name="betterThanPercentPlayers">Labāk par %1$s starp %2$s spēlētājiem</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jums vēl nav stabila %s reitinga.</string>
   <string name="yourRating">Jūsu reitings</string>
   <string name="cumulative">Kumulatīvais</string>
@@ -755,6 +784,7 @@
   <string name="withFriends">Ar draugiem</string>
   <string name="withEverybody">Ar visiem</string>
   <string name="kidMode">Bērnu režīms</string>
+  <string name="kidModeIsEnabled">Bērnu režīms ir ieslēgts.</string>
   <string name="kidModeExplanation">Runa ir par drošību. Bērnu režīmā jebkāda saziņa ir atspējota. Ieslēdziet šo režīmu, lai pasargātu savus bērnus un skolēnus no citiem interneta lietotājiem.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Bērnu režīmā Lichess logo tiek pievienota %s ikona, lai jūs zinātu, ka jūsu bērni ir drošībā.</string>
   <string name="askYourChessTeacherAboutLiftingKidMode">Jūsu konts tiek pārvaldīts. Prasiet savam šaha skolotājam, ja vēlaties noņemt bērnu režīmu.</string>
@@ -795,6 +825,12 @@
   <string name="transparent">Caurspīdīgs</string>
   <string name="deviceTheme">Saskaņot ar sistēmu</string>
   <string name="backgroundImageUrl">Fona attēla URL:</string>
+  <string name="board">Galdiņš</string>
+  <string name="size">Izmērs</string>
+  <string name="opacity">Necaurspīdīgums</string>
+  <string name="brightness">Spilgtums</string>
+  <string name="hue">Tonis</string>
+  <string name="boardReset">Atiestatīt krāsas</string>
   <string name="pieceSet">Figūru komplekts</string>
   <string name="embedInYourWebsite">Iegult savā mājaslapā</string>
   <string name="usernameAlreadyUsed">Lietotājvārds ir aizņemts, lūdzu mēģiniet citu.</string>
@@ -869,6 +905,8 @@
     <item quantity="one">un saglabāt %s priekšgājienu variantu</item>
     <item quantity="other">un saglabāt %s priekšgājienu variantus</item>
   </plurals>
+  <string name="showUnreadLichessMessage">Saņemta privāta ziņa no Lichess.</string>
+  <string name="clickHereToReadIt">Klikšķini te, lai to lasītu</string>
   <string name="sorry">Lūdzu piedodiet :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mums nācās jūs apturēt uz laiku.</string>
   <string name="why">Kāpēc?</string>
@@ -890,6 +928,7 @@
   <string name="agreementPolicy">Piekrītu ievērot visus Lichess noteikumus.</string>
   <string name="searchOrStartNewDiscussion">Meklēt vai uzsākt sarunu</string>
   <string name="edit">Rediģēt</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bullet</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
   <string name="rapid">Ātrais</string>
   <string name="classical">Klasiskais</string>
@@ -985,6 +1024,10 @@ Atstājiet tukšu, lai spēles sāktos no parastās pozīcijas.</string>
   <string name="switchSides">Mainīties ar pusēm</string>
   <string name="closingAccountWithdrawAppeal">Konta slēgšana atsauks jūsu iesniegumu</string>
   <string name="ourEventTips">Pasākumu organizēšanas ieteikumi</string>
+  <string name="instructions">Instrukcijas</string>
+  <string name="showMeEverything">Rādīt visu</string>
   <string name="lichessPatronInfo">Lichess ir labdarības organizācija un pilnībā bezmaksas/brīva atvērtā koda programmatūra.
 Visas izmaksas, izstrādāšanu un saturu finansē vienīgi lietotāju ziedojumi.</string>
+  <string name="nothingToSeeHere">Šobrīd te nav, ko parādīt.</string>
+  <string name="stats">Statistika</string>
 </resources>

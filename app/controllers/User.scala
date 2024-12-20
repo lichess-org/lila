@@ -44,10 +44,9 @@ final class User(
     env.game.cached
       .lastPlayedPlayingId(username.id)
       .orElse(env.game.gameRepo.quickLastPlayedId(username.id))
-      .flatMap {
+      .flatMap:
         case None         => NotFound("No ongoing game")
         case Some(gameId) => gameC.exportGame(gameId)
-      }
 
   private def apiGames(u: UserModel, filter: String, page: Int)(using BodyContext[?]) =
     userGames(u, filter, page).flatMap(env.game.userGameApi.jsPaginator).map { res =>
@@ -177,11 +176,12 @@ final class User(
               ctx.userId.soFu(env.game.crosstableApi(user.id, _)),
               ctx.isAuth.so(env.pref.api.followable(user.id))
             ).flatMapN: (blocked, crosstable, followable) =>
-              val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
               negotiate(
-                html = (ctx.isnt(user)).so(currentlyPlaying(user.user)).flatMap { pov =>
-                  Ok.snip(views.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-                    .map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
+                html = ctx.isnt(user).so(currentlyPlaying(user.user)).flatMap { pov =>
+                  val ping = env.socket.isOnline.exec(user.id).so(env.socket.getLagRating(user.id))
+                  Ok.snip(
+                    views.user.mini(user, pov, blocked, followable, relation, ping, crosstable)
+                  ).map(_.withHeaders(CACHE_CONTROL -> "max-age=5"))
                 },
                 json =
                   import lila.game.JsonView.given
@@ -386,6 +386,9 @@ final class User(
             .map: prefs =>
               ui.prefs(user, prefs.hasKeyboardMove, prefs.botCompatible)
 
+        val appeal = isGranted(_.Appeals).so:
+          env.appeal.api.byId(user).mapz(views.appeal.ui.modSection(lila.mod.ui.mzSection("appeal")))
+
         val rageSit = isGranted(_.CheatHunter).so(
           env.playban.api
             .rageSitOf(user.id)
@@ -438,6 +441,7 @@ final class User(
             .merge(modZoneSegment(student, "student", user))
             .merge(modZoneSegment(teacher, "teacher", user))
             .merge(modZoneSegment(prefs, "prefs", user))
+            .merge(modZoneSegment(appeal, "appeal", user))
             .merge(modZoneSegment(rageSit, "rageSit", user))
             .merge(modZoneSegment(othersAndLogins.map(_._1), "others", user))
             .merge(modZoneSegment(identification, "identification", user))
@@ -549,21 +553,24 @@ final class User(
   }
 
   def perfStat(username: UserStr, perfKey: PerfKey) = Open:
-    Found(env.perfStat.api.data(username, perfKey)): data =>
-      negotiate(
-        Ok.async:
-          env.history
-            .ratingChartApi(data.user.user)
-            .map:
-              views.user.perfStatPage(data, _)
-        ,
-        JsonOk:
-          getBool("graph")
-            .soFu:
-              env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
-            .map: graph =>
-              env.perfStat.jsonView(data).add("graph", graph)
-      )
+    PerfType
+      .isLeaderboardable(perfKey)
+      .so:
+        Found(env.perfStat.api.data(username, perfKey)): data =>
+          negotiate(
+            Ok.async:
+              env.history
+                .ratingChartApi(data.user.user)
+                .map:
+                  views.user.perfStatPage(data, _)
+            ,
+            JsonOk:
+              getBool("graph")
+                .soFu:
+                  env.history.ratingChartApi.singlePerf(data.user.user, data.stat.perfType.key)
+                .map: graph =>
+                  env.perfStat.jsonView(data).add("graph", graph)
+          )
 
   def autocomplete = OpenOrScoped(): ctx ?=>
     NoTor:

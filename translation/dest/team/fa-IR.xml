@@ -34,7 +34,7 @@
   <string name="teamBattle">مبارزه تیمی</string>
   <string name="teamBattleOverview">مبارزه ی چندین تیم، امتیاز هر بازیکن برای تیم اش حساب می شود</string>
   <string name="teamTournament">مسابقه تیمی</string>
-  <string name="teamTournamentOverview">یک میدان مسابقه که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
+  <string name="teamTournamentOverview">مسابقهٔ راوانی که فقط عضوهای تیم‌تان می‌توانند به آن بپیوندند</string>
   <string name="swissTournamentOverview">یک میدان مسابقه سوئیسی که فقط اعضای تیم شما می‌توانند به آن بپیوندند</string>
   <string name="messageAllMembers">پیام به همه ی اعضا</string>
   <string name="messageAllMembersOverview">یک پیام خصوصی به هر یک از اعضای تیم ارسال نمایید</string>
@@ -53,14 +53,14 @@
   <string name="upcomingTournaments">مسابقات پیش رو</string>
   <string name="completedTourns">مسابقاتِ کامل شده</string>
   <string name="declinedRequests">درخواست‌های رد شده</string>
-  <string name="joinLichessVariantTeam">برای خبرها و رویدادها به تیم رسمی %s بپیوندید</string>
+  <string name="joinLichessVariantTeam">برای خبرها و رویدادها به یَران رسمی %s بپیوندید</string>
   <string name="teamPage">صفحه تیم ها</string>
   <string name="thisTeamBattleIsOver">این مسابقات به پایان رسیده‌است و تیم‌ها دیگر نمی‌توانند به‌روز شوند.</string>
   <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">تیم‌هایی که در این نبرد با یکدیگر رقابت خواهند کرد را لیست کنید.</string>
   <string name="oneTeamPerLine">هر تیم در یک خط. از تکمیل خودکار استفاده کنید.</string>
-  <string name="oneTeamPerLineHelp">می‌توانید این لیست را از یک مسابقه به مسابقات دیگر کپی کنید!
+  <string name="oneTeamPerLineHelp">می توانید این فهرست یک مسابقات را جای دیگری جای‌گذارید!
 
-اگر در حال حاضر یک بازیکن از یک تیم، به مسابقه ملحق شده است، نمی‌توانید آن تیم را حذف کنید.</string>
+اگر بازیکنی از قبل با یک یَران به مسابقات پیوسته باشد، نمی‌توانید آن یَران را حذف کنید.</string>
   <string name="numberOfLeadsPerTeam">تعداد رهبران در هر تیم. مجموع امتیاز آنها امتیاز تیم است.</string>
   <string name="numberOfLeadsPerTeamHelp">واقعا نباید این مقدار را پس از شروع مسابقه تغییر دهید!</string>
   <string name="innerTeam">تیم داخلی</string>

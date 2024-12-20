@@ -1,8 +1,8 @@
 import * as control from './control';
-import AnalyseCtrl from './ctrl';
+import type AnalyseCtrl from './ctrl';
 import * as xhr from 'common/xhr';
 import { snabDialog } from 'common/dialog';
-import { VNode } from 'snabbdom';
+import type { VNode } from 'snabbdom';
 import { pubsub } from 'common/pubsub';
 
 export const bind = (ctrl: AnalyseCtrl) => {
@@ -132,7 +132,7 @@ export const bind = (ctrl: AnalyseCtrl) => {
     for (let i = 1; i < 7; i++) kbd.bind(i.toString(), () => ctrl.study?.glyphForm.toggleGlyph(i));
     // = ∞ ⩲ ⩱ ± ∓ +- -+
     for (let i = 1; i < 9; i++)
-      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i == 1 ? 10 : 11 + i));
+      kbd.bind(`shift+${i}`, () => ctrl.study?.glyphForm.toggleGlyph(i === 1 ? 10 : 11 + i));
   }
 };
 
@@ -140,6 +140,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return snabDialog({
     class: 'help.keyboard-help',
     htmlUrl: xhr.url('/analysis/help', { study: !!ctrl.study }),
+    modal: true,
     onClose() {
       ctrl.keyboardHelp = false;
       ctrl.redraw();

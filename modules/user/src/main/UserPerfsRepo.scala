@@ -2,12 +2,13 @@ package lila.user
 
 import reactivemongo.api.*
 import reactivemongo.api.bson.*
+import chess.IntRating
+import chess.rating.glicko.Glicko
 
 import lila.core.perf.{ UserPerfs, UserWithPerfs }
-import lila.core.rating.Glicko
 import lila.core.user.WithPerf
 import lila.db.dsl.{ *, given }
-import lila.rating.{ Glicko, Perf, PerfType, UserPerfs }
+import lila.rating.{ Perf, PerfType, UserPerfs }
 
 final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsRepo(c):
 
@@ -72,13 +73,13 @@ final class UserPerfsRepo(c: Coll)(using Executor) extends lila.core.user.PerfsR
   def setPerf(userId: UserId, pk: PerfKey, perf: Perf): Funit =
     coll.update.one($id(userId), $set(pk.value -> perf), upsert = true).void
 
-  def glicko(userId: UserId, perf: PerfKey): Fu[Glicko] =
+  def glicko(userId: UserId, perf: PerfKey): Fu[Option[Glicko]] =
     coll
       .find($id(userId), $doc(s"$perf.gl" -> true).some)
       .one[Bdoc]
       .dmap:
         _.flatMap(_.child(perf.value))
-          .flatMap(_.getAsOpt[Glicko]("gl")) | lila.rating.Glicko.default
+          .flatMap(_.getAsOpt[Glicko]("gl"))
 
   def addPuzRun(field: String, userId: UserId, score: Int): Funit =
     coll.update

@@ -14,11 +14,11 @@ function generateSearchParams(): string {
     const minTimestamp = 1356998400070; // 01/01/2013, 01:00:00
     const date = ($(`#dl-date-${name}`).val() as string).replace(/-/g, '/'); // for Safari https://stackoverflow.com/a/4310986/11955835
     const time = $(`#dl-time-${name}`).val() as string;
-    if (date.length == 10) {
+    if (date.length === 10) {
       // the 00:00:00 is necessary for the time to be interpreted in the local timezone
-      const datetime = new Date(`${date} ${time.length == 8 ? time : '00:00:00'}`);
+      const datetime = new Date(`${date} ${time.length === 8 ? time : '00:00:00'}`);
       // Include all games played on date-until if no time is specified
-      if (time.length != 8 && name === 'until') datetime.setDate(datetime.getDate() + 1);
+      if (time.length !== 8 && name === 'until') datetime.setDate(datetime.getDate() + 1);
       searchParams.append(name, Math.max(datetime.getTime(), minTimestamp).toString());
     }
   });

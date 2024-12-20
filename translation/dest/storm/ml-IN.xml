@@ -46,4 +46,7 @@
   <string name="skip">ഒഴിവാക്കുക</string>
   <string name="skipHelp">നിങ്ങള്‍ക്ക്‌ ഒരു മത്സരത്തില്‍ ഒരു നീക്കം ഒഴിവാക്കാം:</string>
   <string name="skipExplanation">ഈ നീക്കം ഒഴിവാക്കി തുടര്‍ച്ച നിലനിര്‍ത്തുക! ഒരു മത്സരത്തില്‍ ഒരു തവണ മാത്രം.</string>
+  <string name="thisWeek">ഈ ആഴ്ച</string>
+  <string name="thisMonth">ഈ മാസം</string>
+  <string name="allTime">ഇന്നുവരെയുള്ള</string>
 </resources>

@@ -62,7 +62,7 @@
   <string name="pawnComplete">تبریک! هیچ رازی از پیاده ها بر شما پنهان نیست.</string>
   <string name="pawnPromotion">ارتقا پیاده</string>
   <string name="yourPawnReachedTheEndOfTheBoard">پیاده‌تان به عرض آخر رسید!</string>
-  <string name="itNowPromotesToAStrongerPiece">اکنون به مهره نیرومندتری ارتقا می‌یابد.</string>
+  <string name="itNowPromotesToAStrongerPiece">اکنون به مهرهٔ نیرومندتری ارتقا می‌یابد.</string>
   <string name="selectThePieceYouWant">مهره‌ای که می‌خواهید را برگزینید!</string>
   <string name="fundamentals">اصول</string>
   <string name="capture">زدن</string>
@@ -209,7 +209,7 @@
   <string name="whatNext">گام بعدی چیست؟</string>
   <string name="youKnowHowToPlayChess">اکنون شما می دانید چطور شطرنج بازی کنید, تبریک می گوییم! ایا می خواهید تبدیل به یک بازیکن قوی شوید؟</string>
   <string name="register">نام نویسی</string>
-  <string name="getAFreeLichessAccount">یک حساب کاربری رایگان در لیچس دریافت کنید</string>
+  <string name="getAFreeLichessAccount">گرفتن یک حساب Lichess رایگان</string>
   <string name="practice">تمرین</string>
   <string name="learnCommonChessPositions">یادگیریِ وضعیت‌های رایج شطرنج</string>
   <string name="puzzles">معماها</string>

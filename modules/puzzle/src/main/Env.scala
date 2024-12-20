@@ -34,7 +34,7 @@ final class Env(
 
   private val db = mongo.asyncDb("puzzle", config.mongoUri)
 
-  val colls = new PuzzleColls(
+  val colls = PuzzleColls(
     puzzle = db(config.puzzleColl),
     round = db(config.roundColl),
     path = db(config.pathColl)

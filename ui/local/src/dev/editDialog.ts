@@ -247,6 +247,7 @@ export class EditDialog {
         { node: ok, where: 'span' },
       ],
       focus: 'input',
+      modal: true,
       actions: [
         {
           selector: 'input',
@@ -287,7 +288,7 @@ export class EditDialog {
       ],
     }).then(dlg => {
       input.setSelectionRange(1, 1);
-      dlg.showModal();
+      dlg.show();
     });
   }
 

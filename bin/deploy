@@ -21,6 +21,7 @@ except ImportError:
     print("* Arch: pacman -S python-requests")
     print("* Debian: apt install python3-requests")
     print("* Pip: pip install requests")
+    print("* Fedora: dnf install python3-requests")
     print()
     raise
 
@@ -31,6 +32,7 @@ except ImportError:
     print("* Arch: pacman -S python-gitpython")
     print("* Debian: apt install python3-git")
     print("* Pip: pip install GitPython")
+    print("* Fedora: dnf install python3-GitPython")
     print()
     raise
 

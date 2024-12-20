@@ -12,7 +12,7 @@ final class ClasMatesCache(colls: ClasColls, cacheApi: CacheApi, studentCache: C
   def get(studentId: UserId): Fu[Set[UserId]] =
     studentCache.isStudent(studentId).so(cache.get(studentId))
 
-  private val cache = cacheApi[UserId, Set[UserId]](256, "clas.mates"):
+  private val cache = cacheApi[UserId, Set[UserId]](64, "clas.mates"):
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(fetchMatesAndTeachers)
 

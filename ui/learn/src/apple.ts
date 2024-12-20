@@ -1,4 +1,4 @@
-import { DrawShape } from 'chessground/draw';
+import type { DrawShape } from 'chessground/draw';
 
 // Safari specifically requires globally unique IDs for SVG elements, even between different SVGs,
 // so we concatenate a unique key to every ID for each SVG.

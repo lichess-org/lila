@@ -11,6 +11,7 @@ import lila.core.socket.SendTos
 import lila.memo.CacheApi.*
 import lila.core.i18n.{ Translator, LangPicker }
 import lila.core.notify.{ NotificationPref as _, * }
+import lila.core.notify.NotificationContent.*
 import lila.core.socket.SendToOnlineUser
 import lila.core.data.LazyFu
 

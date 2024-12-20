@@ -112,7 +112,6 @@
   <string name="replayMode">Mod adwelet</string>
   <string name="realtimeReplay">Amzer wirion</string>
   <string name="byCPL">Dre CPL</string>
-  <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
   <string name="bestMoveArrow">Bir ar gwellañ fiñvadenn</string>
   <string name="evaluationGauge">Jaoj priziañ</string>
@@ -743,7 +742,7 @@
   <string name="aboutSimulRules">Pa grog an abadenn gempred e krog pep krogad gant an ostiz ivez. Gantañ e vez c\'hoariet ar re wenn. Ur wech echu an holl grogadoù e vo fin an abadenn gempred.</string>
   <string name="aboutSimulSettings">Krogadoù a vignoniezh eo an abadennoù kempred bepred. Kinnigoù c\'hoari en-dro, nullañ ar fiñvadenn ziwezhañ pe ouzhpennañ amzer zo diweredekaet.</string>
   <string name="create">Krouiñ</string>
-  <string name="whenCreateSimul">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Pa grouit un abadenn gempred ho pez meur a c\'hoarier da enebiñ oute.</string>
   <string name="simulVariantsHint">Ma choazit meur a eilstumm en do pep c\'hoarier da zibab pehini c\'hoari.</string>
   <string name="simulClockHint">Aozet an horolaj e mod Fischer. Seul vuioc\'h a c\'hoarierien seul vuioc\'h a amzer ho po ezhomm da gaout.</string>
   <string name="simulAddExtraTime">Gallout a rit lakaat amzer ouzhpenn d\'ho horolaj, evit ho sikour d\'ober war-dro ar bartienn gempred.</string>

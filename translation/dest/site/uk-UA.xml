@@ -120,7 +120,6 @@
   <string name="replayMode">Режим повтору</string>
   <string name="realtimeReplay">У реальному часі</string>
   <string name="byCPL">Цікаве</string>
-  <string name="openStudy">Почати дослідження</string>
   <string name="enable">Увімкнути</string>
   <string name="bestMoveArrow">Стрілка «Найкращий хід»</string>
   <string name="showVariationArrows">Показати стрілки для варіантів</string>
@@ -753,7 +752,7 @@
   <string name="aboutSimulRules">Коли сеанс розпочато, кожен гравець починає гру з організатором, який грає білими фігурами. Сеанс добігає кінця, коли завершуються всі партії.</string>
   <string name="aboutSimulSettings">Сеанси завжди нерейтингові. Опції реваншу, повернення ходу і додавання часу вимкнені.</string>
   <string name="create">Створити</string>
-  <string name="whenCreateSimul">Коли Ви створите сеанс, Вам треба буде грати проти кількох суперників одночасно.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Коли Ви створите сеанс, Вам треба буде грати проти кількох суперників одночасно.</string>
   <string name="simulVariantsHint">Якщо Ви обираєте кілька шахових варіантів, кожен гравець буде визначатися, який із них обрати.</string>
   <string name="simulClockHint">Налаштування годинника Фішера. Чим більше учасників, тим більше часу Вам знадобиться.</string>
   <string name="simulAddExtraTime">Ви можете додати собі час, щоб упоратися з сеансом.</string>

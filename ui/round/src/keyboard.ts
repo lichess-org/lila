@@ -1,5 +1,5 @@
-import RoundController from './ctrl';
-import { VNode } from 'snabbdom';
+import type RoundController from './ctrl';
+import type { VNode } from 'snabbdom';
 import { snabDialog } from 'common/dialog';
 import { pubsub } from 'common/pubsub';
 
@@ -40,4 +40,5 @@ export const view = (ctrl: RoundController): VNode =>
       ctrl.keyboardHelp = false;
       ctrl.redraw();
     },
+    modal: true,
   });

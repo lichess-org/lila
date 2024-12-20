@@ -111,7 +111,7 @@
   <string name="superGMDescription">معماهای برگرفته از بازی‌های بهترین بازیکنان جهان.</string>
   <string name="trappedPiece">مهره به‌دام‌افتاده</string>
   <string name="trappedPieceDescription">یک مهره قادر به فرار کردن از زده شدن نیست چون حرکات محدودی دارد.</string>
-  <string name="underPromotion">فرو-ارتقا</string>
+  <string name="underPromotion">کم‌ارتقا</string>
   <string name="underPromotionDescription">ارتقا به اسب، فیل یا رخ.</string>
   <string name="veryLong">معمای خیلی طولانی</string>
   <string name="veryLongDescription">بُردن با چهار حرکت یا بیشتر.</string>
@@ -120,7 +120,7 @@
   <string name="zugzwang">زوگزوانگ</string>
   <string name="zugzwangDescription">حریف در حرکت‌هایش محدود است و همه‌شان وضعیتش را بدتر می‌کند.</string>
   <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">آمیزهٔ همگن</string>
-  <string name="mixDescription">ذره‌ای از هر چیزی. شما نمی‌دانید چه چیزی پیش روی شماست، بنابراین برای هر چیزی آماده می‌مانید! درست مانند بازی‌های واقعی.</string>
+  <string name="mixDescription">کمی از هر چیزی. شما نمی‌دانید چه چیزی پیش روی شماست، بنابراین برای هر چیزی آماده می‌مانید! درست مانند بازی‌های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
   <string name="playerGamesDescription">دنبال معماهای ایجادشده از بازی‌های خودتان یا بازی‌های سایر بازیکنان، بگردید.</string>
   <string name="puzzleDownloadInformation">این معماها به صورت همگانی هستند و می‌توانید از %s بارگیریدشان.</string>

@@ -96,7 +96,6 @@
   <string name="replayMode">Revider le partita</string>
   <string name="realtimeReplay">Tempore real</string>
   <string name="byCPL">Per errores</string>
-  <string name="openStudy">Aperir studio</string>
   <string name="enable">Activar</string>
   <string name="bestMoveArrow">Flecha de melior movimento</string>
   <string name="evaluationGauge">Indicator de evalutation</string>
@@ -556,7 +555,7 @@
   <string name="aboutSimulRules">Quando le exhibition simultanee initia, cata jocator initia un partita con le hospite, qui joca per le pecias blanc. Le exhibition simultanee fini quando tote le partitas es concludite.</string>
   <string name="aboutSimulSettings">Exhibitiones simultanee es sempre amical. Vindicantias, retornos del ultime movimento e \"plus tempore\" es disactivate.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul">Quando tu crea un exhibition simultanee, tu joca con diverse jocatores simul.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Quando tu crea un exhibition simultanee, tu joca con diverse jocatores simul.</string>
   <string name="simulVariantsHint">Si tu selige plure variantes, cata jocator pote eliger qual jocar.</string>
   <string name="simulClockHint">Configuration de Horologio Fischer. Quanto plus jocatores tu accepta, tanto plus tempore tu pote requirer.</string>
   <string name="simulAddExtraTime">Tu pote adder tempore additional a tu horologio pro adjutar a arrangiar te con le exhibition simultanee.</string>

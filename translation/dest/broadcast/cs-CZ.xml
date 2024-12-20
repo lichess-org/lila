@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="broadcasts">Přenosy</string>
+  <string name="broadcasts">Vysílání</string>
   <string name="myBroadcasts">Moje vysílání</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s vysílání</item>
@@ -26,7 +26,7 @@
   <string name="tournamentDescription">Stručný popis turnaje</string>
   <string name="fullDescription">Úplný popis události</string>
   <string name="fullDescriptionHelp">Volitelný dlouhý popis přenosu. %1$s je k dispozici. Délka musí být menší než %2$s znaků.</string>
-  <string name="sourceSingleUrl">PGN Zdrojová URL adresa</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Zdrojová URL adresa</string>
   <string name="sourceUrlHelp">URL adresa, kterou bude Lichess kontrolovat pro získání PGN aktualizací. Musí být veřejně přístupná z internetu.</string>
   <string name="sourceGameIds">Až 64 ID Lichess her, oddělených mezerama.</string>
   <string name="startDateTimeZone">Datum zahájení v lokálním čase turnaje: %s</string>
@@ -49,6 +49,37 @@
   <string name="fideProfile">FIDE profil</string>
   <string name="federation">Federace</string>
   <string name="ageThisYear">Věk tento rok</string>
-  <string name="unrated">Nehodnocen</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Nehodnocen</string>
   <string name="recentTournaments">Nedávné tournamenty</string>
+  <string name="openLichess">Otevřít v Lichess</string>
+  <string name="teams">Týmy</string>
+  <string name="boards">Šachovnice</string>
+  <string name="overview">Přehled</string>
+  <string name="subscribeTitle">Přihlaste se k odběru, abyste byli informováni o začátku každého kola. V předvolbách účtu můžete přepnout mezi zvukovými nebo push oznámeními pro vysílání.</string>
+  <string name="uploadImage">Nahrát obrázek turnaje</string>
+  <string name="noBoardsYet">Zatím žádné šachovnice. Ty se zobrazí se po nahrání partií.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Hry můžou být načteny pomocí zdroje či %s</string>
+  <string name="startsAfter">Začíná po %s</string>
+  <string name="startVerySoon">Vysílání začne velmi brzy.</string>
+  <string name="notYetStarted">Vysílání ještě nezačalo.</string>
+  <string name="officialWebsite">Oficiální stránka</string>
+  <string name="standings">Pořadí</string>
+  <string name="officialStandings">Oficiální pořadí</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Více možností na %s</string>
+  <string name="webmastersPage">Stránka webmasterů</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Veřejný zdroj PGN v reálném čase pro toto kolo. Nabízíme také %s pro rychlejší a efektivnější synchronizaci.</string>
+  <string name="embedThisBroadcast">Vložte toto vysílání na váš web</string>
+  <string name="embedThisRound">Vložte %s na váš web</string>
+  <string name="ratingDiff">Ratingový rozdíl</string>
+  <string name="gamesThisTournament">Hry v tomto turnaji</string>
+  <string name="score">Skóre</string>
+  <string name="allTeams">Všechny týmy</string>
+  <string name="tournamentFormat">Formát turnaje</string>
+  <string name="tournamentLocation">Místo konání turnaje</string>
+  <string name="topPlayers">Nejlepší hráči</string>
+  <string name="timezone">Časové pásmo</string>
+  <string name="fideRatingCategory">Kategorie ratingu FIDE</string>
+  <string name="optionalDetails">Volitelné detaily</string>
+  <string name="pastBroadcasts">Dřívější vysílání</string>
+  <string name="allBroadcastsByMonth">Zobrazit všechny vysílání podle měsíce</string>
 </resources>

@@ -114,6 +114,8 @@ final private class Player(
               s"Invalid game hash: $sign id: ${game.id} playable: ${game.playable} player: ${game.player}"
       }
     else
+      // probably the player took a move back,
+      // and the when the AI move arrives it's no longer its turn
       fufail:
         FishnetError:
           s"Not AI turn move: $uci id: ${game.id} playable: ${game.playable} player: ${game.player}"

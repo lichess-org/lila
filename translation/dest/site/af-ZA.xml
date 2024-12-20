@@ -116,7 +116,6 @@
   <string name="replayMode">Oorspeel modus</string>
   <string name="realtimeReplay">Ware Tyd</string>
   <string name="byCPL">Met CPL</string>
-  <string name="openStudy">Open studie</string>
   <string name="enable">Aktief</string>
   <string name="bestMoveArrow">Beste skuif pyl</string>
   <string name="showVariationArrows">Wys variasiepyle</string>
@@ -671,7 +670,7 @@ rekenaar analise, kletskamer en deelbare URL te kry.</string>
   <string name="aboutSimulRules">Wanneer die simul begin, begin elke speler \'n spel met die gasheer, die gasheer kry altyd die wit stukke. Die simul eindig wanneer al die spelle is voltooi.</string>
   <string name="aboutSimulSettings">Simuls is altyd vriendskaplik. Heruitdagings, terug-vat en ekstra tyd is afgeskakel.</string>
   <string name="create">Skep</string>
-  <string name="whenCreateSimul">As jy \'n Simul skep, kan jy teen \'n paar spelers gelyktydig speel.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">As jy \'n Simul skep, kan jy teen \'n paar spelers gelyktydig speel.</string>
   <string name="simulVariantsHint">As jy \'n paar variasies kies, kan elke speler kies watter een om te speel.</string>
   <string name="simulClockHint">Fischer Klok stelling. Hoe meer spelers wat jy aanvat, hoe meer tyd kan jy benodig.</string>
   <string name="simulAddExtraTime">Jy kan ekstra tyd by jou klok sit om jou te help om die simul te hanteer.</string>

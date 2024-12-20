@@ -20,15 +20,18 @@ case class RelayRound(
     startedAt: Option[Instant],
     /* at least it *looks* finished... but maybe it's not
      * sync.nextAt is used for actually synchronising */
-    finished: Boolean,
+    finishedAt: Option[Instant],
     createdAt: Instant,
     crowd: Option[Int]
+    // crowdAt: Option[Instant], // in DB but not used by RelayRound
 ):
   inline def studyId = id.into(StudyId)
 
   lazy val slug =
     val s = scalalib.StringOps.slug(name.value)
     if s.isEmpty then "-" else s
+
+  def isFinished = finishedAt.isDefined
 
   def startsAtTime = startsAt.flatMap:
     case RelayRound.Starts.At(at) => at.some
@@ -37,13 +40,13 @@ case class RelayRound(
 
   def finish =
     copy(
-      finished = true,
+      finishedAt = finishedAt.orElse(nowInstant.some),
       sync = sync.pause
     )
 
   def resume(official: Boolean) =
     copy(
-      finished = false,
+      finishedAt = none,
       sync = sync.play(official)
     )
 
@@ -95,14 +98,15 @@ object RelayRound:
     def hasUpstream = upstream.isDefined
     def isPush      = upstream.isEmpty
 
-    def renew(official: Boolean) =
-      if hasUpstream then copy(until = nowInstant.plusHours(if official then 3 else 1).some)
-      else pause
-
     def ongoing = until.so(_.isAfterNow)
 
     def play(official: Boolean) =
-      if hasUpstream then renew(official).copy(nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some))
+      if hasUpstream
+      then
+        copy(
+          until = nowInstant.plusHours(if official then 3 else 1).some,
+          nextAt = nextAt.orElse(nowInstant.plusSeconds(3).some)
+        )
       else pause
 
     def pause =
@@ -151,7 +155,10 @@ object RelayRound:
         case Url(url)   => url.looksLikeLcc
         case Urls(urls) => urls.exists(_.looksLikeLcc)
         case _          => false
-
+      def hasUnsafeHttp: Option[URL] = this match
+        case Url(url)   => Option.when(url.scheme == "http")(url)
+        case Urls(urls) => urls.find(_.scheme == "http")
+        case _          => none
       def roundId: Option[RelayRoundId] = this match
         case Url(url) =>
           url.path.split("/") match

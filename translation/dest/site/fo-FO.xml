@@ -104,7 +104,6 @@
   <string name="replayMode">Endurspælsháttur</string>
   <string name="realtimeReplay">Verulig tíð</string>
   <string name="byCPL">Við CPL</string>
-  <string name="openStudy">Lat rannsókn upp</string>
   <string name="enable">Loyv</string>
   <string name="bestMoveArrow">Pílur fyri besta leik</string>
   <string name="evaluationGauge">Eftirmetingarmát</string>
@@ -595,7 +594,7 @@
   <string name="aboutSimulRules">Tá ið fjøltalvið byrjar, fer hvør leikari undir eitt talv móti vertinum, ið sleppur at telva við hvíta fólkinum. Fjøltalvið endar, tá ið øll talv eru liðug.</string>
   <string name="aboutSimulSettings">Fjøltalv eru altíð uttan styrkismetingar. Til ber ikki at leggja tíð aftrat, telva nýggj talv ella telva við afturtøkum.</string>
   <string name="create">Stovna</string>
-  <string name="whenCreateSimul">Tá ið tú stovnar eitt fjøltalv, sleppur tú at telva móti fleiri telvarum í senn.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Tá ið tú stovnar eitt fjøltalv, sleppur tú at telva móti fleiri telvarum í senn.</string>
   <string name="simulVariantsHint">Velur tú fleiri avbrigdi, sleppur hvør telvari at gera av, hvat avbrigdi telvað verður.</string>
   <string name="simulClockHint">Fischerklokku-uppseting. Fleiri telvarum, tú telvar móti, meiri tíð tørvar tær.</string>
   <string name="simulAddExtraTime">Tú hevur loyvi at leggja tíð aftrat tínari klokku til tess at hjálpa tær at megna at telva fjøltalvið.</string>

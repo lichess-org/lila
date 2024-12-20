@@ -28,7 +28,7 @@
   <string name="tournamentDescription">وصف موجز للبطولة</string>
   <string name="fullDescription">الوصف الكامل</string>
   <string name="fullDescriptionHelp">الوصف الاختياري الطويل للبث. %1$s متوفر. يجب أن لا يتجاوز طول النص %2$s حرفاً.</string>
-  <string name="sourceSingleUrl">رابط مصدر PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">رابط مصدر PGN</string>
   <string name="sourceUrlHelp">URL الذي سيتحقق منه Lichess للحصول على تحديثات PGN. يجب أن يكون متاحًا للجميع على الإنترنت.</string>
   <string name="sourceGameIds">حتى 64 معرف لُعْبَة ليتشيس، مفصولة بمسافات.</string>
   <string name="startDateTimeZone">موعد البداية بتوقيت البطولة المحلي: %s</string>
@@ -51,6 +51,6 @@
   <string name="fideProfile">مِلَفّ FIDE</string>
   <string name="federation">إتحاد</string>
   <string name="ageThisYear">العمر هذا العام</string>
-  <string name="unrated">غير مقيم</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">غير مقيم</string>
   <string name="recentTournaments">البطولات الأخيرة</string>
 </resources>

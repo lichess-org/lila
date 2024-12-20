@@ -96,12 +96,12 @@ Ne petu por la LM titolo.</string>
   <string name="usernamesNotOffensive">Ĝenerale, uzantnomoj ne povus esti: ofenda, imitanta de aliulo, aŭ varbanta. Vi povas legi plu pri la %1$s.</string>
   <string name="guidelines">gvidlinioj</string>
   <string name="canIChangeMyUsername">Ĉu mi povas ŝanĝi mian uzantnomon?</string>
-  <string name="usernamesCannotBeChanged">Ne uzantnomoj ne povas esti ŝanĝita por teknikaj kaj praktikaj kialoj. Uzantnomoj estas materialaj en tro da lokoj: datumbazoj, eksportoj, protokoloj, kaj mensoj de homoj. Vi povas unue ĝustigi la majuskligo.</string>
+  <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">Ne uzantnomoj ne povas esti ŝanĝita por teknikaj kaj praktikaj kialoj. Uzantnomoj estas materialaj en tro da lokoj: datumbazoj, eksportoj, protokoloj, kaj mensoj de homoj. Vi povas unue ĝustigi la majuskligo.</string>
   <string name="uniqueTrophies">Unikaj trofeoj</string>
   <string name="ownerUniqueTrophies">Tiu trofeo estas unika en la historio de Lichess, neniu krom %1$s iam havos ĝin.</string>
   <string name="wayOfBerserkExplanation">Por akiri ĝin, hiimgosu defiis sin berserki kaj venki ciujn ludojn de %s.</string>
   <string name="aHourlyBulletTournament">hore kugla turniro</string>
-  <string name="goldenZeeExplanation">ZugAddict elsendis kaj por la antaŭa du horojn li provis venki kontraŭ la A.I. nivelo 8 en 1+0 ludo, sensukcese. Thibault al li diras, ke se li sukcese faras ĝin sur la elsendo, tiam li ricevos unikan trofeon. Unu horon post, li disbatis Stockfish, kaj la promeso estis honorita.</string>
+  <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict elsendis kaj por la antaŭa du horojn li provis venki kontraŭ la A.I. nivelo 8 en 1+0 ludo, sensukcese. Thibault al li diras, ke se li sukcese faras ĝin sur la elsendo, tiam li ricevos unikan trofeon. Unu horon post, li disbatis Stockfish, kaj la promeso estis honorita.</string>
   <string name="lichessRatings">Lichess rangoj</string>
   <string name="whichRatingSystemUsedByLichess">Kiun rangan sistemon Lichess uzas?</string>
   <string name="ratingSystemUsedByLichess">Atingoj estas kalkulita per la Glicko-2 atinga metodo ellaborita de Mark Glickman. Tiu estas tre populara atinga metodo, kaj estas uzata de signifa nombro de ŝakorganazaĵoj. (FIDE estas notinda kontraŭekzamplo, ĉar ili uzas la neĝisdatan Elo atingan sistemon).

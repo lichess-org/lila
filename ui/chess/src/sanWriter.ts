@@ -1,4 +1,4 @@
-import { Square } from 'chessops';
+import { charToRole, type Square } from 'chessops';
 
 export type Board = { pieces: { [key: number]: string }; turn: boolean };
 export type SanToUci = { [key: string]: Uci };
@@ -40,7 +40,7 @@ export function readFen(fen: string): Board {
     .forEach((row, y) => {
       let x = 0;
       row.split('').forEach(v => {
-        if (v == '~') return;
+        if (v === '~') return;
         const nb = parseInt(v, 10);
         if (nb) x += nb;
         else {
@@ -84,7 +84,11 @@ function slidingMovesTo(s: number, deltas: number[], board: Board): number[] {
   return result;
 }
 
-export function sanOf(board: Board, uci: string): San {
+/* Produces a string that resembles a SAN,
+ * but lacks the check/checkmate flag,
+ * and probably has incomplete disambiguation.
+ * But it's quick. */
+export function almostSanOf(board: Board, uci: string): AlmostSan {
   if (uci.includes('@')) return fixCrazySan(uci);
 
   const move = decomposeUci(uci);
@@ -96,7 +100,7 @@ export function sanOf(board: Board, uci: string): San {
 
   // pawn moves
   if (pt === 'p') {
-    let san: string;
+    let san: AlmostSan;
     if (uci[0] === uci[2]) san = move[1];
     else san = uci[0] + 'x' + move[1];
     if (move[2]) san += '=' + move[2].toUpperCase();
@@ -104,7 +108,7 @@ export function sanOf(board: Board, uci: string): San {
   }
 
   // castling
-  if (pt == 'k' && ((d && isBlack(p) === isBlack(d)) || squareDist(from, to) > 1)) {
+  if (pt === 'k' && ((d && isBlack(p) === isBlack(d)) || squareDist(from, to) > 1)) {
     if (to < from) return 'O-O-O';
     else return 'O-O';
   }
@@ -113,11 +117,11 @@ export function sanOf(board: Board, uci: string): San {
 
   // disambiguate normal moves
   let candidates: number[] = [];
-  if (pt == 'k') candidates = kingMovesTo(to);
-  else if (pt == 'n') candidates = knightMovesTo(to);
-  else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
-  else if (pt == 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
-  else if (pt == 'q') candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
+  if (pt === 'k') candidates = kingMovesTo(to);
+  else if (pt === 'n') candidates = knightMovesTo(to);
+  else if (pt === 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
+  else if (pt === 'b') candidates = slidingMovesTo(to, BISHOP_DELTAS, board);
+  else if (pt === 'q') candidates = slidingMovesTo(to, QUEEN_DELTAS, board);
 
   let rank = false,
     file = false;
@@ -140,9 +144,46 @@ export function sanWriter(fen: string, ucis: string[]): SanToUci {
   const board = readFen(fen);
   const sans: SanToUci = {};
   ucis.forEach(function (uci) {
-    const san = sanOf(board, uci);
+    const san = almostSanOf(board, uci);
     sans[san] = uci;
     if (san.includes('x')) sans[san.replace('x', '')] = uci;
   });
   return sans;
+}
+
+export function speakable(san?: San): string {
+  const text = !san
+    ? 'Game start'
+    : san.includes('O-O-O#')
+      ? 'long castle checkmate'
+      : san.includes('O-O-O+')
+        ? 'long castle check'
+        : san.includes('O-O-O')
+          ? 'long castle'
+          : san.includes('O-O#')
+            ? 'short castle checkmate'
+            : san.includes('O-O+')
+              ? 'short castle check'
+              : san.includes('O-O')
+                ? 'short castle'
+                : san
+                    .split('')
+                    .map(c => {
+                      if (c === 'x') return 'takes';
+                      if (c === '+') return 'check';
+                      if (c === '#') return 'checkmate';
+                      if (c === '=') return 'promotes to';
+                      if (c === '@') return 'at';
+                      const code = c.charCodeAt(0);
+                      if (code > 48 && code < 58) return c; // 1-8
+                      if (code > 96 && code < 105) return c.toUpperCase();
+                      return charToRole(c) ?? c;
+                    })
+                    .join(' ')
+                    .replace(/^A /, '"A"') // "A takes" & "A 3" are mispronounced
+                    .replace(/(\d) E (\d)/, '$1,E $2') // Strings such as 1E5 are treated as scientific notation
+                    .replace(/C /, 'c ') // Capital C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
+                    .replace(/F /, 'f ') // Capital F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
+                    .replace(/(\d) H (\d)/, '$1H$2'); // "H" is pronounced as "hour" when it comes after a number with a space (e.g. Rook 5 H 3)
+  return text;
 }

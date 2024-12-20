@@ -1,4 +1,4 @@
-import { defined, notNull, Prop, Toggle, withEffect } from './common';
+import { defined, notNull, type Prop, type Toggle, withEffect } from './common';
 
 export const storage: LichessStorageHelper = builder(window.localStorage);
 export const tempStorage: LichessStorageHelper = builder(window.sessionStorage);
@@ -74,10 +74,8 @@ export const storedIntPropWithEffect = (
   effect: (v: number) => void,
 ): Prop<number> => withEffect(storedIntProp(k, defaultValue), effect);
 
-export type StoredJsonProp<V> = Prop<V>;
-
 export const storedJsonProp =
-  <V>(key: string, defaultValue: () => V): StoredJsonProp<V> =>
+  <V>(key: string, defaultValue: () => V): Prop<V> =>
   (v?: V) => {
     if (defined(v)) {
       storage.set(key, JSON.stringify(v));
@@ -236,13 +234,13 @@ function builder(storage: Storage): LichessStorageHelper {
       };
     },
     boolean: (k: string) => ({
-      get: () => api.get(k) == '1',
+      get: () => api.get(k) === '1',
       getOrDefault: (defaultValue: boolean) => {
         const stored = api.get(k);
-        return stored === null ? defaultValue : stored == '1';
+        return stored === null ? defaultValue : stored === '1';
       },
       set: (v: boolean): void => api.set(k, v ? '1' : '0'),
-      toggle: () => api.set(k, api.get(k) == '1' ? '0' : '1'),
+      toggle: () => api.set(k, api.get(k) === '1' ? '0' : '1'),
     }),
   };
   return api;

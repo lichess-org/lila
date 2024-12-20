@@ -1,21 +1,20 @@
-import { VNode } from 'snabbdom';
-import GamebookPlayCtrl, { State } from './gamebookPlayCtrl';
+import GamebookPlayCtrl, { type State } from './gamebookPlayCtrl';
 import * as licon from 'common/licon';
-import { iconTag, bind, dataIcon, looseH as h } from 'common/snabbdom';
+import { type VNode, iconTag, bind, dataIcon, looseH as h } from 'common/snabbdom';
 import { richHTML } from 'common/richText';
 
 export function render(ctrl: GamebookPlayCtrl): VNode {
   const state = ctrl.state;
   return h('div.gamebook', { hook: { insert: _ => site.asset.loadCssPath('analyse.gamebook.play') } }, [
-    (state.comment || state.feedback == 'play' || state.feedback == 'end') &&
+    (state.comment || state.feedback === 'play' || state.feedback === 'end') &&
       h('div.comment', { class: { hinted: state.showHint } }, [
         state.comment
           ? h('div.content', { hook: richHTML(state.comment) })
           : h(
               'div.content',
-              state.feedback == 'play'
+              state.feedback === 'play'
                 ? i18n.study.whatWouldYouPlay
-                : state.feedback == 'end' && i18n.study.youCompletedThisLesson,
+                : state.feedback === 'end' && i18n.study.youCompletedThisLesson,
             ),
         hintZone(ctrl),
       ]),

@@ -35,4 +35,6 @@
   <string name="start">Cychwyn</string>
   <string name="save">Cadw</string>
   <string name="clearChat">Clirio\'r sgwrs</string>
+  <string name="mistake">Camgymeriad</string>
+  <string name="blunder">Camgymeriad difrifol</string>
 </resources>

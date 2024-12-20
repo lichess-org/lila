@@ -1,7 +1,7 @@
-import { h, VNode, VNodes } from 'snabbdom';
+import { h, type VNode, type VNodes } from 'snabbdom';
 import { bind } from 'common/snabbdom';
-import CoordinateTrainerCtrl from './ctrl';
-import { ColorChoice, TimeControl, Mode } from './interfaces';
+import type CoordinateTrainerCtrl from './ctrl';
+import type { ColorChoice, TimeControl, Mode } from './interfaces';
 import { toggle } from 'common/controls';
 
 const colors: [ColorChoice, string][] = [
@@ -238,12 +238,17 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
       : null,
     ...filesAndRanksSelection(ctrl),
     toggle(
-      { name: 'showCoordinates', id: 'showCoordinates', checked: showCoordinates(), change: showCoordinates },
+      {
+        name: i18n.coordinates.showCoordinates,
+        id: 'showCoordinates',
+        checked: showCoordinates(),
+        change: showCoordinates,
+      },
       redraw,
     ),
     toggle(
       {
-        name: 'showCoordsOnAllSquares',
+        name: i18n.coordinates.showCoordsOnAllSquares,
         id: 'showCoordsOnAllSquares',
         checked: showCoordsOnAllSquares(),
         change: showCoordsOnAllSquares,
@@ -251,7 +256,10 @@ const settings = (ctrl: CoordinateTrainerCtrl): VNode => {
       },
       redraw,
     ),
-    toggle({ name: 'showPieces', id: 'showPieces', checked: showPieces(), change: showPieces }, redraw),
+    toggle(
+      { name: i18n.coordinates.showPieces, id: 'showPieces', checked: showPieces(), change: showPieces },
+      redraw,
+    ),
   ]);
 };
 

@@ -108,7 +108,6 @@
   <string name="replayMode">Дахин тоглуулах хэлбэр</string>
   <string name="realtimeReplay">Бодит</string>
   <string name="byCPL">Онцгой</string>
-  <string name="openStudy">Хичээл нээх</string>
   <string name="enable">Нээх</string>
   <string name="bestMoveArrow">Хамгийн сайн нүүдэл харуулах сум</string>
   <string name="showVariationArrows">Хувилбарыг сумаар харуулах</string>
@@ -619,7 +618,7 @@
   <string name="aboutSimulRules">Үндсэн тоглогч цагаан талаар нүүнэ. Зэрэгцээ  өрөг бүх тоглолтууд дууссанаар өндөрлөнө.</string>
   <string name="aboutSimulSettings">Зэрэгцээ өрөг нь чансаа өөрчлөгддөггүй өрөг бөгөөд дахин тоглох, нүүдэл буцаах, цаг нэмж өгөх боломжгүй онцлогтой.</string>
   <string name="create">Шинэ өрөг үүсгэх</string>
-  <string name="whenCreateSimul">Тэ зэрэгцээ өрөг үүсгэвэл нэг зэрэг олон тоглогчидтой тоглох болно.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Тэ зэрэгцээ өрөг үүсгэвэл нэг зэрэг олон тоглогчидтой тоглох болно.</string>
   <string name="simulVariantsHint">Хэрэв та шатрын хэд хэдэн төрлийг сонговол эсрэг тоглогч аль төрлөөр тоглохыг сонгоно</string>
   <string name="simulClockHint">Фишерийн цагын тохиргоо. Олон тоглогчидтой тоглох тусам таньд илүү их цаг хэрэгтэй болно.</string>
   <string name="simulAddExtraTime">Зэрэгцээ  өрөг тоглож буй үед та өөртөө нэмэлт хугацаа өгч болно.</string>

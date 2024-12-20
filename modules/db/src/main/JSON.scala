@@ -6,7 +6,7 @@ import reactivemongo.api.bson.*
 object JSON:
 
   def bdoc(json: JsObject): BSONDocument =
-    BSONDocument(json.fields.map { case (k, v) => k -> bval(v) })
+    BSONDocument(json.fields.map { (k, v) => k -> bval(v) })
 
   def bval(json: JsValue): BSONValue = json match
     case JsString(value)  => BSONString(value)

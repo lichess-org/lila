@@ -1,6 +1,6 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
-import { Notification, Renderer, Renderers } from './interfaces';
+import type { Notification, Renderer, Renderers } from './interfaces';
 import { timeago } from 'common/i18n';
 
 export default function makeRenderers(): Renderers {
@@ -141,6 +141,14 @@ export default function makeRenderers(): Renderers {
     },
     irwinDone: jobDone('Irwin'),
     kaladinDone: jobDone('Kaladin'),
+    recap: {
+      html: n =>
+        generic(n, '/recap', licon.Logo, [
+          h('span', h('strong', `Your ${n.content.year} recap is ready!`)),
+          h('span', 'What have you been up to this year?'),
+        ]),
+      text: n => `Your ${n.content.year} recap is ready!`,
+    },
   };
 }
 

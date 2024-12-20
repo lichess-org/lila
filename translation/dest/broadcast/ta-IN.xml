@@ -1,2 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="broadcasts">ஒளிபரப்புகள்</string>
+  <string name="myBroadcasts">எனது ஒளிபரப்புகள்</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">%s ஒளிபரப்பு</item>
+    <item quantity="other">%s ஒளிபரப்புகள்</item>
+  </plurals>
+  <string name="liveBroadcasts">நேரலை பந்தய ஒளிபரப்புகள்</string>
+  <string name="broadcastCalendar">ஒளிபரப்பு நாட்காட்டி</string>
+  <string name="newBroadcast">புதிய நேரலை ஒளிபரப்பு</string>
+  <string name="subscribedBroadcasts">சந்தாதார ஒளிபரப்புகள்</string>
+  <string name="aboutBroadcasts">ஒளிபரப்புகள் பற்றி</string>
+  <string name="howToUseLichessBroadcasts">லிசெஸ் ஒளிபரப்புகளை எவ்வாறு பயன்படுத்துவது.</string>
+  <string name="theNewRoundHelp">புதிய சுற்றிலும் முந்தையதைப் போலவே அதே உறுப்பினர்களும் பங்களிப்பாளர்களும் இருப்பார்கள்.</string>
+  <string name="addRound">ஒரு சுற்று சேர்க்கவும்</string>
+  <string name="ongoing">தொடரும்</string>
+  <string name="upcoming">எதிர்வரும்</string>
+  <string name="completed">முற்றிற்று</string>
+  <string name="completedHelp">லிசெஸ் சுற்று நிறைவைக் கண்டறிகிறது, ஆனால் அதை தவறாகப் புரிந்து கொள்ளலாம். கைமுறையாக அமைக்க இதைப் பயன்படுத்தவும்.</string>
+  <string name="roundName">சுற்றுப் பெயர்</string>
+  <string name="roundNumber">சுற்று எண்</string>
+  <string name="tournamentName">பந்தயப் பெயர்</string>
+  <string name="tournamentDescription">பந்தயத்தின் குறுகிய விளக்கம்</string>
+  <string name="fullDescription">பந்தயத்தின் முழு விளக்கம்</string>
+  <string name="fullDescriptionHelp">பந்தயத்தின் நீண்ட விளக்கம் கட்டாயமற்றது. %1$s கிடைக்கிறது. நீளம் %2$s எழுத்துகளுக்குக் குறைவாக இருக்க வேண்டும்.</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN ஆதார URL</string>
+  <string name="sourceUrlHelp">PGN புதுப்பிப்புகளைப் பெற லிசெஸ் சரிபார்க்கும் URL. இது இணையத்திலிருந்து பொதுவில் அணுகக்கூடியதாக இருக்க வேண்டும்.</string>
+  <string name="sourceGameIds">64 லிசெஸ் ஆட்ட அடையாளங்கள் வரை, இடைவெளிகளால் பிரிக்கப்பட்டது.</string>
+  <string name="startDateTimeZone">பந்தயம் உள்ளூர் நேர மண்டலத்தில் துவங்கும் தேதி: %s</string>
+  <string name="startDateHelp">நிகழ்வு எப்போது துவங்கும் என்பது உங்களுக்குத் தெரிந்தால், கட்டாயமற்றது</string>
+  <string name="currentGameUrl">தற்போதைய ஆட்ட URL</string>
+  <string name="downloadAllRounds">அனைத்து சுற்றுகளையும் பதிவிறக்கவும்</string>
+  <string name="resetRound">இந்த சுற்றை மீட்டமைக்கவும்</string>
+  <string name="deleteRound">இந்த சுற்றை நீக்கு</string>
+  <string name="definitivelyDeleteRound">சுற்று மற்றும் அதன் அனைத்து ஆட்டங்களையும் கண்டிப்பாக நீக்கவும்.</string>
+  <string name="deleteAllGamesOfThisRound">இந்த சுற்றின் அனைத்து ஆட்டங்களையும் நீக்கு. அவற்றை மீண்டும் உருவாக்க, ஆதாரமானது செயற்பாட்டில் இருக்க வேண்டும்.</string>
+  <string name="editRoundStudy">சுற்று ஆய்வைத் திருத்து</string>
+  <string name="deleteTournament">இப்பந்தயத்தை நீக்கு</string>
+  <string name="definitivelyDeleteTournament">முழு பந்தயத்தையும், அதன் அனைத்து சுற்றுகளையும் அதன் அனைத்து ஆட்டங்களையும் கண்டிப்பாக நீக்கவும்.</string>
+  <string name="showScores">விளையாட்டு முடிவுகளின் அடிப்படையில் வீரர்களின் மதிப்பெண்களைக் காட்டு</string>
+  <string name="replacePlayerTags">கட்டாயமற்றது: வீரர்களின் பெயர்கள், மதிப்பீடுகள் மற்றும் தலைப்புகளை மாற்றவும்</string>
+  <string name="fideFederations">FIDE பேரவை</string>
+  <string name="top10Rating">சிறந்த 10 மதிப்பீடு</string>
+  <string name="fidePlayers">FIDE வீரர்கள்</string>
+  <string name="fidePlayerNotFound">FIDE வீரர்கள் கிடைக்கவில்லை</string>
+  <string name="fideProfile">FIDE சுயவிவரம்</string>
+  <string name="federation">கூட்டமைப்பு</string>
+  <string name="ageThisYear">இந்த ஆண்டு அகவை</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">மதிப்பிடப்படாதது</string>
+  <string name="recentTournaments">சமீபத்திய பந்தயங்கள்</string>
+  <string name="openLichess">லிசெஸ் இல் திறக்கவும்</string>
+  <string name="teams">கூட்டணி</string>
+  <string name="boards">பலகைகள்</string>
+  <string name="overview">மேலோட்டம்</string>
+  <string name="subscribeTitle">ஒவ்வொரு சுற்று தொடங்கும் போதும் அறிவிப்பு பெற சந்தா பதியவும். உங்கள் கணக்கு விருப்பத்தேர்வுகளில் ஒளிபரப்புகளுக்கான மணி அல்லது தூண்டு அறிவிப்புகளை இயக்கலாம்.</string>
+  <string name="uploadImage">பந்தயத்தின் படத்தை பதிவேற்றவும்</string>
+  <string name="noBoardsYet">இன்னும் பலகைகள் இல்லை. ஆட்டங்கள் பதிவேற்றப்பட்டதும் இவை தோன்றும்.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">பலகைகளை ஆதாரத்துடன் அல்லது %s வழியாக ஏற்றலாம்</string>
+  <string name="startsAfter">%sக்குப் பிறகு துவங்குகிறது</string>
+  <string name="startVerySoon">மிக விரைவில் ஒளிபரப்பு துவங்கும்.</string>
+  <string name="notYetStarted">ஒளிபரப்பு இன்னும் துவங்கவில்லை.</string>
+  <string name="officialWebsite">அதிகாரப்பூர்வ இணையதளம்</string>
+  <string name="standings">நிலைகள்</string>
+  <string name="officialStandings">அதிகாரப்பூர்வ நிலைகள்</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">%s இல் கூடுதல் தேர்வுரிமை</string>
+  <string name="webmastersPage">இணையவல்லுநர் பக்கம்</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">இந்தச் சுற்றுக்கான பொது, நிகழ்நேர PGN ஆதாரம். வேகமான மற்றும் திறமையான ஒத்திசைவுக்கு நாங்கள் %s ஐ வழங்குகிறோம்.</string>
+  <string name="embedThisBroadcast">இந்த ஒளிபரப்பை உங்கள் இணையதளத்தில் உட்பொதிக்கவும்</string>
+  <string name="embedThisRound">உங்கள் இணையதளத்தில் %s ஐ உட்பொதிக்கவும்</string>
+  <string name="ratingDiff">மதிப்பீடு வேறுபாடு</string>
+  <string name="gamesThisTournament">இப்பந்தயத்தில்லுள்ள  ஆட்டங்கள்</string>
+  <string name="score">மதிப்பெண்</string>
+  <string name="allTeams">அனைத்து கூட்டணிகள்</string>
+  <string name="tournamentFormat">பந்தய வடிவம்</string>
+  <string name="tournamentLocation">பந்தய இடம்</string>
+  <string name="topPlayers">சிறந்த வீரர்கள்</string>
+  <string name="timezone">நேர மண்டலம்</string>
+  <string name="fideRatingCategory">FIDE மதிப்பீடு வகை</string>
+  <string name="optionalDetails">விருப்ப விவரங்கள்</string>
+  <string name="pastBroadcasts">கடந்த ஒளிபரப்புகள்</string>
+  <string name="allBroadcastsByMonth">மாதம்தோறும் அனைத்து ஒளிபரப்புகளையும் பார்க்க</string>
+</resources>

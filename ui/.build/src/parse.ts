@@ -1,25 +1,38 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import fg from 'fast-glob';
-import { type Package, env } from './main.ts';
+import { env } from './env.ts';
 
-export async function parsePackages(): Promise<[Map<string, Package>, Map<string, string[]>]> {
-  const packages = new Map<string, Package>();
-  const packageDeps = new Map<string, string[]>();
+export type Bundle = { module?: string; inline?: string };
 
+export interface Package {
+  root: string; // absolute path to package.json parentdir (package root)
+  name: string; // dirname of package root
+  pkg: any; // the entire package.json object
+  bundle: { module?: string; inline?: string }[]; // TODO doc
+  hashGlobs: string[]; // TODO doc
+  sync: Sync[]; // pre-bundle filesystem copies from package json
+}
+
+export interface Sync {
+  src: string; // src must be a file or a glob expression, use <dir>/** to sync entire directories
+  dest: string; // TODO doc
+  pkg: Package;
+}
+
+export async function parsePackages(): Promise<void> {
   for (const dir of (await globArray('[^@.]*/package.json')).map(pkg => path.dirname(pkg))) {
     const pkgInfo = await parsePackage(dir);
-    packages.set(pkgInfo.name, pkgInfo);
+    env.packages.set(pkgInfo.name, pkgInfo);
   }
 
-  for (const pkgInfo of packages.values()) {
+  for (const pkgInfo of env.packages.values()) {
     const deplist: string[] = [];
     for (const dep in pkgInfo.pkg.dependencies) {
-      if (packages.has(dep)) deplist.push(dep);
+      if (env.packages.has(dep)) deplist.push(dep);
     }
-    packageDeps.set(pkgInfo.name, deplist);
+    env.workspaceDeps.set(pkgInfo.name, deplist);
   }
-  return [packages, packageDeps];
 }
 
 export async function globArray(glob: string, opts: fg.Options = {}): Promise<string[]> {
@@ -45,32 +58,49 @@ export async function folderSize(folder: string): Promise<number> {
       else if (file.isFile()) totalSize += (await fs.promises.stat(path.join(dir, file.name))).size;
     }
   }
-
   await getSize(folder);
-
   return totalSize;
 }
 
+export async function readable(file: string): Promise<boolean> {
+  return fs.promises
+    .access(file, fs.constants.R_OK)
+    .then(() => true)
+    .catch(() => false);
+}
+
 async function parsePackage(packageDir: string): Promise<Package> {
-  const pkg = JSON.parse(await fs.promises.readFile(path.join(packageDir, 'package.json'), 'utf8'));
   const pkgInfo: Package = {
-    pkg,
+    pkg: JSON.parse(await fs.promises.readFile(path.join(packageDir, 'package.json'), 'utf8')),
     name: path.basename(packageDir),
     root: packageDir,
-    pre: [],
-    post: [],
+    bundle: [],
+    sync: [],
+    hashGlobs: [],
   };
+  if (!('build' in pkgInfo.pkg)) return pkgInfo;
+  const build = pkgInfo.pkg.build;
 
-  if ('lichess' in pkg && 'hashed' in pkg.lichess) pkgInfo.hashGlobs = pkg.lichess.hashed as string[];
+  if ('hash' in build) pkgInfo.hashGlobs = [].concat(build.hash);
 
-  if ('lichess' in pkg && 'bundles' in pkg.lichess) {
-    if (typeof pkg.lichess.bundles === 'string') pkgInfo.bundles = [pkg.lichess.bundles];
-    else pkgInfo.bundles = pkg.lichess.bundles as string[];
+  if ('bundle' in build) {
+    for (const one of [].concat(build.bundle).map<Bundle>(b => (typeof b === 'string' ? { module: b } : b))) {
+      if (!one.module) continue;
+
+      if (await readable(path.join(pkgInfo.root, one.module))) pkgInfo.bundle.push(one);
+      else
+        pkgInfo.bundle.push(
+          ...(await globArray(one.module, { cwd: pkgInfo.root, absolute: false })).map(module => ({
+            ...one,
+            module,
+          })),
+        );
+    }
   }
-  if ('lichess' in pkg && 'sync' in pkg.lichess) {
-    pkgInfo.sync = Object.entries(pkg.lichess.sync).map(x => ({
+  if ('sync' in build) {
+    pkgInfo.sync = Object.entries<string>(build.sync).map(x => ({
       src: x[0],
-      dest: x[1] as string,
+      dest: x[1],
       pkg: pkgInfo,
     }));
   }

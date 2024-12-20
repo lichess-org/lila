@@ -35,10 +35,11 @@ final class HttpFilter(
     val statusCode = result.header.status
     val mobile     = parseMobileUa(req)
     val client     = if mobile.isDefined then "mobile" else HTTPRequest.clientName(req)
-    lila.mon.http.time(actionName, client, req.method, statusCode).record(reqTime)
+    lila.mon.http.count(actionName, client, req.method, statusCode).increment()
+    lila.mon.http.time(actionName).record(reqTime)
     if net.logRequests then logger.info(s"$statusCode $client $req $actionName ${reqTime}ms")
     mobile.foreach: m =>
-      lila.mon.http.mobile(actionName, m.version, m.userId.isDefined, m.osName).record(reqTime)
+      lila.mon.http.mobileCount(actionName, m.version, m.userId.isDefined, m.osName).increment()
     result
 
   private def serveAssets(res: Fu[Result]) =

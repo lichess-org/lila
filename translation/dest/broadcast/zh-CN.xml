@@ -23,7 +23,7 @@
   <string name="tournamentDescription">锦标赛简短描述</string>
   <string name="fullDescription">赛事详情</string>
   <string name="fullDescriptionHelp">转播内容的详细描述 (可选）。可以使用 %1$s，字数少于 %2$s 个。</string>
-  <string name="sourceSingleUrl">PGN的URL源</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN的URL源</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
   <string name="sourceGameIds">多达64个 Lichess 棋局Id，用空格隔开。</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
@@ -45,6 +45,8 @@
   <string name="fideProfile">FIDE个人资料</string>
   <string name="federation">棋联</string>
   <string name="ageThisYear">今年的年龄</string>
-  <string name="unrated">未评级</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">未评级</string>
   <string name="recentTournaments">最近的比赛</string>
+  <string name="pastBroadcasts">结束的转播</string>
+  <string name="allBroadcastsByMonth">按月查看所有转播</string>
 </resources>

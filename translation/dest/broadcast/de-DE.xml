@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Kurze Turnierbeschreibung</string>
   <string name="fullDescription">Vollständige Ereignisbeschreibung</string>
   <string name="fullDescriptionHelp">Optionale, ausführliche Beschreibung der Übertragung. %1$s ist verfügbar. Die Beschreibung muss kürzer als %2$s Zeichen sein.</string>
-  <string name="sourceSingleUrl">PGN Quell-URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Quell-URL</string>
   <string name="sourceUrlHelp">URL die Lichess abfragt um PGN Aktualisierungen zu erhalten. Sie muss öffentlich aus dem Internet zugänglich sein.</string>
   <string name="sourceGameIds">Bis zu 64 Lichess Partie-IDs, getrennt durch Leerzeichen.</string>
   <string name="startDateTimeZone">Startdatum in der Zeitzone des Tunierstandortes: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">FIDE-Profil</string>
   <string name="federation">Verband</string>
   <string name="ageThisYear">Alter in diesem Jahr</string>
-  <string name="unrated">Ungewertet</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Ungewertet</string>
   <string name="recentTournaments">Letzte Turniere</string>
   <string name="openLichess">In Lichess öffnen</string>
   <string name="teams">Teams</string>
@@ -71,15 +71,13 @@
   <string name="ratingDiff">Wertungsdifferenz</string>
   <string name="gamesThisTournament">Partien in diesem Turnier</string>
   <string name="score">Punktestand</string>
-  <string name="perPage">%s pro Seite</string>
   <string name="allTeams">Alle Teams</string>
   <string name="tournamentFormat">Turnierformat</string>
   <string name="tournamentLocation">Turnierort</string>
-  <string name="topPlayers">Topspieler</string>
+  <string name="topPlayers">Spitzenspieler</string>
   <string name="timezone">Zeitzone</string>
   <string name="fideRatingCategory">FIDE-Wertungskategorie</string>
   <string name="optionalDetails">Optionale Details</string>
-  <string name="upcomingBroadcasts">Anstehende Übertragungen</string>
   <string name="pastBroadcasts">Vergangene Übertragungen</string>
   <string name="allBroadcastsByMonth">Alle Übertragungen nach Monat anzeigen</string>
 </resources>

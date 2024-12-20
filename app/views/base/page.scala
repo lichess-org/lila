@@ -4,7 +4,6 @@ import scalalib.StringUtils.escapeHtmlRaw
 import lila.app.UiEnv.{ *, given }
 import lila.common.String.html.safeJsonValue
 import lila.ui.RenderedPage
-import lila.api.SocketTest
 
 object page:
 
@@ -102,7 +101,7 @@ object page:
               "kid"                  -> ctx.kid.yes,
               "mobile"               -> lila.common.HTTPRequest.isMobileBrowser(ctx.req),
               "playing fixed-scroll" -> p.playing,
-              "no-rating"            -> !pref.showRatings,
+              "no-rating"            -> (!pref.showRatings || (p.playing && pref.hideRatingsInGame)),
               "no-flair"             -> !pref.flairs,
               "zen"                  -> (pref.isZen || (p.playing && pref.isZenAuto)),
               "zenable"              -> p.zenable,
@@ -112,11 +111,10 @@ object page:
           dataDev,
           dataVapid := (ctx.isAuth && env.security.lilaCookie.isRememberMe(ctx.req))
             .option(env.push.vapidPublicKey),
-          dataUser                         := ctx.userId,
-          dataSoundSet                     := pref.currentSoundSet.toString,
-          attr("data-socket-domains")      := SocketTest.socketEndpoints(netConfig).mkString(","),
-          attr("data-socket-test-user")    := SocketTest.isUserInTestBucket(netConfig),
-          attr("data-socket-test-running") := netConfig.socketTest,
+          dataUser     := ctx.userId,
+          dataSoundSet := pref.currentSoundSet.toString,
+          attr("data-socket-domains") := (if ~pref.usingAltSocket then netConfig.socketAlts
+                                          else netConfig.socketDomains).mkString(","),
           dataAssetUrl,
           dataAssetVersion := assetVersion,
           dataNonce        := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
@@ -157,7 +155,7 @@ object page:
             )
           )(p.transform(p.body)),
           bottomHtml,
-          ctx.nonce.map(inlineJs.apply),
+          ctx.nonce.map(inlineJs(_, allModules)),
           modulesInit(allModules, ctx.nonce),
           p.jsFrag.fold(emptyFrag)(_(ctx.nonce)),
           p.pageModule.map { mod => frag(jsonScript(mod.data)) }

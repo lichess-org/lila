@@ -2,16 +2,16 @@
   "name": "bits",
   "version": "2.0.0",
   "private": true,
-  "description": "assorted modules",
+  "description": "assorted dynamic modules",
   "author": "T-Bone Duplexus",
   "license": "AGPL-3.0-or-later",
   "exports": {
-    "./*": "./dist/exports/*.js"
+    "./*": "./src/*.ts"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "dist/exports/*"
+        "dist/*"
       ]
     }
   },
@@ -30,57 +30,20 @@
     "canvas-confetti": "^1.9.3",
     "chat": "workspace:*",
     "chess": "workspace:*",
-    "chessops": "^0.14.1",
     "common": "workspace:*",
     "cropperjs": "^1.6.2",
     "debounce-promise": "^3.1.2",
     "emoji-mart": "^5.6.0",
     "flatpickr": "^4.6.13",
-    "lichess-pgn-viewer": "^2.1.3",
+    "lichess-pgn-viewer": "^2.3.0",
     "prop-types": "^15.8.1",
     "qrcode": "^1.5.4",
     "shepherd.js": "^11.2.0",
     "tablesort": "^5.3.0",
     "zxcvbn": "^4.4.2"
   },
-  "lichess": {
-    "bundles": [
-      "src/bits.account.ts",
-      "src/bits.captcha.ts",
-      "src/bits.challengePage.ts",
-      "src/bits.checkout.ts",
-      "src/bits.clas.ts",
-      "src/bits.cms.ts",
-      "src/bits.coachForm.ts",
-      "src/bits.confetti.ts",
-      "src/bits.cropDialog.ts",
-      "src/bits.devMode.ts",
-      "src/bits.diagnosticDialog.ts",
-      "src/bits.expandText.ts",
-      "src/bits.fipr.ts",
-      "src/bits.flairPicker.ts",
-      "src/bits.flatpickr.ts",
-      "src/bits.forum.ts",
-      "src/bits.gameSearch.ts",
-      "src/bits.infiniteScroll.ts",
-      "src/bits.login.ts",
-      "src/bits.lpv.ts",
-      "src/bits.passwordComplexity.ts",
-      "src/bits.plan.ts",
-      "src/bits.polyglot.ts",
-      "src/bits.publicChats.ts",
-      "src/bits.qrcode.ts",
-      "src/bits.soundMove.ts",
-      "src/bits.team.ts",
-      "src/bits.teamBattleForm.ts",
-      "src/bits.tourForm.ts",
-      "src/bits.ts",
-      "src/bits.tvGames.ts",
-      "src/bits.ublog.ts",
-      "src/bits.ublogForm.ts",
-      "src/bits.user.ts",
-      "src/bits.userGamesDownload.ts"
-    ],
+  "build": {
+    "bundle": "src/bits.*ts",
     "sync": {
       "node_modules/cropperjs/dist/cropper.min.css": "public/npm",
       "../../node_modules/chessground/dist/chessground.min.js": "public/npm"

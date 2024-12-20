@@ -1,4 +1,4 @@
-import { Chart, ChartDataset, ChartOptions } from 'chart.js';
+import { Chart, type ChartDataset, type ChartOptions } from 'chart.js';
 import { currentTheme } from 'common/theme';
 
 export interface MovePoint {
@@ -10,7 +10,7 @@ export interface MovePoint {
 export const chartYMax = 1.05;
 export const chartYMin: number = -chartYMax;
 
-const lightTheme = currentTheme() == 'light';
+const lightTheme = currentTheme() === 'light';
 export const orangeAccent = '#d85000';
 export const whiteFill: string = lightTheme ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.3)';
 export const blackFill: string = lightTheme ? 'rgba(0,0,0,0.2)' : 'rgba(0,0,0,1)';
@@ -35,7 +35,7 @@ export const axisOpts = (xmin: number, xmax: number): ChartOptions<'line'>['scal
     border: { display: false },
     ticks: { display: false },
     grid: {
-      color: ctx => (ctx.tick.value == 0 ? zeroLineColor : undefined),
+      color: ctx => (ctx.tick.value === 0 ? zeroLineColor : undefined),
     },
   },
 });
@@ -85,7 +85,7 @@ export function plyLine(ply: number, mainline = true): ChartDataset<'line'> {
 }
 
 export function selectPly(this: Chart, ply: number, onMainline: boolean): void {
-  const index = this.data.datasets.findIndex(dataset => dataset.label == 'ply');
+  const index = this.data.datasets.findIndex(dataset => dataset.label === 'ply');
   const line = plyLine(ply, onMainline);
   this.data.datasets[index] = line;
   this.update('none');
@@ -99,7 +99,7 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
       easing: 'easeOutQuad',
       duration: duration,
       from: NaN, // the point is initially skipped
-      delay: ctx => (ctx.mode == 'resize' ? 0 : ctx.dataIndex * duration),
+      delay: ctx => (ctx.mode === 'resize' ? 0 : ctx.dataIndex * duration),
     },
     y: {
       type: 'number',
@@ -109,7 +109,7 @@ export function animation(duration: number): ChartOptions<'line'>['animations'] 
         !ctx.dataIndex
           ? ctx.chart.scales.y.getPixelForValue(100)
           : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.dataIndex - 1].getProps(['y'], true).y,
-      delay: ctx => (ctx.mode == 'resize' ? 0 : ctx.dataIndex * duration),
+      delay: ctx => (ctx.mode === 'resize' ? 0 : ctx.dataIndex * duration),
     },
   };
 }

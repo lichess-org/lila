@@ -66,7 +66,7 @@ final class RelayRoundForm(using mode: Mode):
     roundMapping(trs.tour)
       .verifying(
         s"Maximum rounds per tournament: ${RelayTour.maxRelays}",
-        _ => trs.rounds.sizeIs < RelayTour.maxRelays
+        _ => trs.rounds.sizeIs < RelayTour.maxRelays.value
       )
   ).fill(fillFromPrevRounds(trs.rounds))
 
@@ -217,7 +217,7 @@ object RelayRoundForm:
         caption = if Granter(_.StudyAdmin) then caption else relay.caption,
         sync = if relay.sync.playing then sync.play(official) else sync,
         startsAt = relayStartsAt,
-        finished = ~finished
+        finishedAt = finished.orZero.option(relay.finishedAt.|(nowInstant))
       )
 
     private def makeSync(prev: Option[RelayRound.Sync])(using Me): Sync =
@@ -241,7 +241,7 @@ object RelayRoundForm:
         sync = makeSync(none),
         createdAt = nowInstant,
         crowd = none,
-        finished = ~finished,
+        finishedAt = (~finished).option(nowInstant),
         startsAt = relayStartsAt,
         startedAt = none
       )
@@ -267,7 +267,7 @@ object RelayRoundForm:
           case ids: Upstream.Ids => ids,
         startsAt = relay.startsAtTime,
         startsAfterPrevious = relay.startsAfterPrevious.option(true),
-        finished = relay.finished.option(true),
+        finished = relay.isFinished.option(true),
         period = relay.sync.period,
         onlyRound = relay.sync.onlyRound,
         slices = relay.sync.slices,

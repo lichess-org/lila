@@ -63,3 +63,13 @@ export function findMapped<T, U>(arr: T[], callback: (el: T) => U | undefined): 
   }
   return undefined;
 }
+
+export function unique<T>(items: (T | undefined)[]): T[] {
+  return [...new Set(items.filter((item): item is T => item !== undefined))];
+}
+
+export function shallowSort(obj: { [key: string]: any }): { [key: string]: any } {
+  const sorted: { [key: string]: any } = {};
+  for (const key of Object.keys(obj).sort()) sorted[key] = obj[key];
+  return sorted;
+}

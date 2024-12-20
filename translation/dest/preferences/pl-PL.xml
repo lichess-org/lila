@@ -16,10 +16,11 @@
   <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Tryb Zen</string>
   <string name="showPlayerRatings">Pokaż rankingi gracza</string>
   <string name="showFlairs">Pokaż emblematy graczy</string>
-  <string name="explainShowPlayerRatings" comment="A site-wide setting: https://lichess.org/account/preferences/display&#10;&#10;This string used to say &quot;[...] hides all ratings from the website&quot;, but because people can access Lichess in other ways, it has been updated to say &quot;hide all ratings from Lichess&quot;. Please update translations as needed.">Ukrywa wszystkie rankingi na stronie internetowej, aby pomóc skupić się na grze. Partie nadal mogą być oceniane, opcja ukrywa tylko widok rankingu.</string>
+  <string name="explainShowPlayerRatings">Ukrywa wszystkie rankingi na stronie internetowej, aby pomóc skupić się na grze. Partie nadal mogą być oceniane, opcja ukrywa tylko widok rankingu.</string>
   <string name="displayBoardResizeHandle">Pokaż uchwyt od zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="inGameOnly">Tylko w partii</string>
+  <string name="exceptInGame">Z wyjątkiem trwania partii</string>
   <string name="chessClock">Zegar szachowy</string>
   <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kiedy na zegarze jest mniej niż 10 sekund</string>
@@ -51,7 +52,7 @@
   <string name="inputMovesWithVoice">Wykonywanie posunięć za pomocą głosu</string>
   <string name="snapArrowsToValidMoves" comment="snapArrowsToValidMoves&#10;&#10;The 'arrows' are for quick annotations you can do on the board, by holding right mouse button. With this setting enabled, it means the arrows will align themselves to places were pieces can move.">Wyrównuj strzałki do legalnych ruchów</string>
   <string name="sayGgWpAfterLosingOrDrawing" comment="sayGgWpAfterLosingOrDrawing&#10;&#10;When enabled, this setting will automatically send 'Good game, well played' to your opponent if you are lose or draw the game. It's meant as a courtesy message.&#10;&#10;The message will be sent in ENGLISH.&#10;&#10;It is up to you how to deal with this. For example, you may want to put '(message will be sent in English)' in your translated text as one example. Or you can leave the actual English text and put a brief translation in your own language.">Napisz \"Good game, well played\" po przegranej lub remisie</string>
-  <string name="yourPreferencesHaveBeenSaved" comment="Appears after changing any preference on in the Preferences section (as preferences are auto-saved).">Twoje ustawienia zostały zapisane.</string>
+  <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="scrollOnTheBoardToReplayMoves">Przewiń myszką, aby powtórzyć ruchy</string>
   <string name="correspondenceEmailNotification">Codzienne powiadomienia mailowe z listą Twoich partii korespondencyjnych</string>
   <string name="notifyStreamStart">Streamer jest na żywo</string>
@@ -67,4 +68,5 @@
   <string name="notifyWeb">Przeglądarka</string>
   <string name="notifyDevice">Urządzenie</string>
   <string name="bellNotificationSound">Dźwięk powiadomień</string>
+  <string name="blindfold" comment="As in Blindfold chess">Gra na ślepo</string>
 </resources>

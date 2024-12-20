@@ -131,7 +131,7 @@ final class IrcApi(
     zulip(_.broadcast, "lila ambiguous player replacements"):
       s"${players.size} players have ambiguous name replacements in ${markdown.broadcastLink(id, name)}\n" + players
         .map: (from, tos) =>
-          s"- $from -> ${tos.mkString(", ")}"
+          s"- $from -> ${tos.mkString(" | ")}"
         .mkString("\n")
 
   def broadcastOrphanBoard(

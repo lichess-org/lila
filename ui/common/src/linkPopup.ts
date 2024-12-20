@@ -28,15 +28,16 @@ export const onClick = (a: HTMLLinkElement): boolean => {
           ${i18n.site.proceedToX(url.host)}
         </a>
       </div>`,
+    modal: true,
   }).then(dlg => {
     $('.cancel', dlg.view).on('click', dlg.close);
     $('a', dlg.view).on('click', () => setTimeout(dlg.close, 1000));
-    dlg.showModal();
+    dlg.show();
   });
   return false;
 };
 
-const isPassList = (url: URL) => passList().find(h => h == url.host || url.host.endsWith('.' + h));
+const isPassList = (url: URL) => passList().find(h => h === url.host || url.host.endsWith('.' + h));
 
 const passList = () =>
   `lichess.org lichess4545.com ligacatur.com
@@ -44,4 +45,5 @@ github.com discord.com discord.gg mastodon.online
 twitter.com facebook.com twitch.tv
 wikipedia.org wikimedia.org
 chess24.com chess.com chessable.com
+lc0.org lczero.org stockfishchess.org
 `.split(/[ \n]/);

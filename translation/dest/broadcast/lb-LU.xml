@@ -37,14 +37,22 @@
   <string name="fideProfile">FIDE-Profil</string>
   <string name="federation">Federatioun</string>
   <string name="ageThisYear">Alter dëst Joer</string>
-  <string name="unrated">Ongewäert</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Ongewäert</string>
   <string name="recentTournaments">Rezent Turnéieren</string>
   <string name="teams">Ekippen</string>
   <string name="overview">Iwwersiicht</string>
   <string name="uploadImage">Turnéierbild eroplueden</string>
   <string name="startsAfter">Fänkt no %s un</string>
   <string name="officialWebsite">Offiziell Websäit</string>
+  <string name="officialStandings">Offizielle Stand</string>
   <string name="iframeHelp" comment="%s is 'webmasters page'">Méi Optiounen op der %s</string>
   <string name="webmastersPage">Webmaster-Säit</string>
   <string name="gamesThisTournament">Partien an dësem Turnéier</string>
+  <string name="allTeams">All Ekippen</string>
+  <string name="tournamentFormat">Turnéierformat</string>
+  <string name="tournamentLocation">Turnéierplaz</string>
+  <string name="topPlayers">Topspiller</string>
+  <string name="timezone">Zäitzon</string>
+  <string name="fideRatingCategory">FIDE-Wäertungskategorie</string>
+  <string name="optionalDetails">Fakultativ Detailler</string>
 </resources>

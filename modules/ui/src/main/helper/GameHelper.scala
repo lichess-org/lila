@@ -48,7 +48,7 @@ trait GameHelper:
             user.name,
             user.flair.map(userFlair),
             withRating.option(
-              frag(
+              span(cls := "rating")(
                 " (",
                 player.rating.fold(frag("?")): rating =>
                   if player.provisional.yes then

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Vyzvi kamaráda</string>
+  <string name="playWithAFriend">Hrát proti kamarádovi</string>
   <string name="playWithTheMachine">Hrát proti počítači</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pro pozvání někoho ke hře využijte tento odkaz</string>
   <string name="gameOver">Konec hry</string>
@@ -120,7 +120,6 @@
   <string name="replayMode">Mód přehrávání</string>
   <string name="realtimeReplay">Jako při hře</string>
   <string name="byCPL">Dle CPL</string>
-  <string name="openStudy">Otevřít studii</string>
   <string name="enable">Povolit analýzu</string>
   <string name="bestMoveArrow">Šipka pro nejlepší tah</string>
   <string name="showVariationArrows">Zobrazit šipky variant</string>
@@ -289,6 +288,7 @@
     <item quantity="many">%s partií s Vámi</item>
     <item quantity="other">%s partií s Vámi</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Zrušit</string>
   <string name="whiteTimeOut">Bílému došel čas</string>
   <string name="blackTimeOut">Černému došel čas</string>
@@ -752,7 +752,7 @@
   <string name="aboutSimulRules">Když simultánka začne, každý hráč začne hrát s hostem, který dostane bílé figurky. Simultánka končí, když jsou všechny hry ukončeny.</string>
   <string name="aboutSimulSettings">Simultánka je vždy neformální. Je nemožné nabízet odvety, vracení tahu a přidávat čas.</string>
   <string name="create">Vytvořte</string>
-  <string name="whenCreateSimul">Když vytvoříte simultánku, budete hrát proti více hráčům najednou.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Když vytvoříte simultánku, budete hrát proti více hráčům najednou.</string>
   <string name="simulVariantsHint">Pokud vyberete více variant, každý ze soupeřů si může vybrat.</string>
   <string name="simulClockHint">Nastavení Fisherových hodin. Čím víc hráčů přijmete, tím víc času budete potřebovat.</string>
   <string name="simulAddExtraTime">Můžete si přidat více času, abyste  tu simultánku lépe zvládli.</string>
@@ -1076,4 +1076,5 @@ Nechte toto pole prázdné, pokud chcete začínat z běžného základního pos
   <string name="lichessPatronInfo">Lichess je bezplatný a zcela svobodný/nezávislý softvér s otevřeným zdrojovým kódem.
 Veškeré provozní náklady, vývoj a obsah jsou financovány výhradně z příspěvků uživatelů.</string>
   <string name="nothingToSeeHere">Momentálně zde není nic k vidění.</string>
+  <string name="stats">Statistiky</string>
 </resources>

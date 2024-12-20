@@ -75,31 +75,12 @@ function generateBase64Css() {
   });
 }
 
-function generateExternalCss() {
-  themes.forEach(name => {
-    const classes =
-      colors
-        .map(color =>
-          roles
-            .map(
-              role =>
-                `.is2d .${role}.${color} {background-image:url('/assets/piece/${name}/${svgFilename(color, role)}')}`,
-            )
-            .join('\n'),
-        )
-        .join('\n') + '\n';
-
-    const outputFile = path.join(destDir, `${name}.external.css`);
-    writeFileSync(outputFile, classes, 'utf-8');
-  });
-}
-
 if (!existsSync(destDir)) {
   mkdirSync(destDir, { recursive: true });
 }
 
 generateBase64Css();
-generateExternalCss();
+
 console.log(`✅ Generated piece CSS files in ${destDir}`);
 
 function validateThemeDirectories() {
@@ -119,7 +100,7 @@ function validateThemeDirectories() {
           process.exit(1);
         }
       });
-    })
+    });
 }
 
 validateThemeDirectories();

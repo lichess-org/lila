@@ -51,7 +51,7 @@ final class UblogFormUi(helpers: Helpers, ui: UblogUi)(
           ):
             form3.action:
               submitButton(
-                cls   := "button button-red button-empty confirm",
+                cls   := "button button-red button-empty yes-no-confirm",
                 title := trans.ublog.deleteBlog.txt()
               )(trans.site.delete())
         )

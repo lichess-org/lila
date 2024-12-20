@@ -1,5 +1,5 @@
 import { parseUci, makeSquare, squareRank } from 'chessops/util';
-import { DrawShape } from 'chessground/draw';
+import type { DrawShape } from 'chessground/draw';
 
 export function annotationShapes(node: Tree.Node): DrawShape[] {
   const { uci, glyphs, san } = node;

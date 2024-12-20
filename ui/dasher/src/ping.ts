@@ -1,6 +1,6 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import { defined } from 'common';
-import { DasherCtrl } from './interfaces';
+import type { DasherCtrl } from './interfaces';
 import { pubsub } from 'common/pubsub';
 
 export class PingCtrl {

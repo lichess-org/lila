@@ -1,10 +1,12 @@
 package lila.perfStat
 
+import chess.IntRating
 import lila.core.perf.{ PerfId, UserWithPerfs }
 import lila.core.perm.Granter
 import lila.rating.Glicko.minRating
 import lila.rating.PerfExt.established
 import lila.rating.{ PerfType, UserRankMap }
+import lila.rating.PerfType.GamePerf
 
 case class PerfStatData(
     user: UserWithPerfs,
@@ -29,37 +31,43 @@ final class PerfStatApi(
     extends lila.core.perf.PerfStatApi:
 
   def data(name: UserStr, perfKey: PerfKey)(using me: Option[Me]): Fu[Option[PerfStatData]] =
-    userApi.withPerfs(name.id).flatMap {
-      _.filter: u =>
-        (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
-      .filter: u =>
-        !u.isBot || (perfKey != PerfKey.ultraBullet)
-      .soFu: u =>
-        for
-          oldPerfStat <- get(u.user.id, perfKey)
-          perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-          distribution <- u
-            .perfs(perfKey)
-            .established
-            .soFu(weeklyRatingDistribution(perfKey))
-          percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
-          percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
-          percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
-          _              = lightUserApi.preloadUser(u.user)
-          _ <- lightUserApi.preloadMany(perfStat.userIds)
-        yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
-    }
+    PerfType(perfKey) match
+      case pk: GamePerf =>
+        userApi.withPerfs(name.id).flatMap {
+          _.filter: u =>
+            (u.enabled.yes && (!u.lame || me.exists(_.is(u.user)))) || me.soUse(Granter(_.UserModView))
+          .filter: u =>
+            !u.isBot || (perfKey != PerfKey.ultraBullet)
+          .soFu: u =>
+            for
+              oldPerfStat <- get(u.user.id, pk)
+              perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
+              distribution <- u
+                .perfs(perfKey)
+                .established
+                .soFu(weeklyRatingDistribution(perfKey))
+              percentile     = calcPercentile(distribution, u.perfs(perfKey).intRating)
+              percentileLow  = perfStat.lowest.flatMap { r => calcPercentile(distribution, r.int) }
+              percentileHigh = perfStat.highest.flatMap { r => calcPercentile(distribution, r.int) }
+              _              = lightUserApi.preloadUser(u.user)
+              _ <- lightUserApi.preloadMany(perfStat.userIds)
+            yield PerfStatData(u, perfStat, rankingsOf(u.id), percentile, percentileLow, percentileHigh)
+        }
+      case pk => fuccess(none)
 
   private def calcPercentile(wrd: Option[List[Int]], intRating: IntRating): Option[Double] =
     wrd.map: distrib =>
       val (under, sum) = percentileOf(distrib, intRating)
       Math.round(under * 1000.0 / sum) / 10.0
 
-  def get(user: UserId, perfType: PerfType): Fu[PerfStat] =
-    storage.find(user, perfType).getOrElse(indexer.userPerf(user, perfType))
+  def get(user: UserId, perf: GamePerf): Fu[PerfStat] =
+    storage.find(user, perf).getOrElse(indexer.userPerf(user, perf))
 
   def highestRating(user: UserId, perfKey: PerfKey): Fu[Option[IntRating]] =
-    get(user, perfKey).map(_.highest.map(_.int))
+    PerfType
+      .gamePerf(perfKey)
+      .so: (gp: GamePerf) =>
+        get(user, gp).map(_.highest.map(_.int))
 
   object weeklyRatingDistribution:
 

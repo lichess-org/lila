@@ -1,11 +1,10 @@
 package lila.puzzle
 
 import chess.format.{ Fen, Uci }
+import chess.rating.glicko.Glicko
 import reactivemongo.api.bson.*
-
 import scala.util.{ Success, Try }
 
-import lila.core.rating.Glicko
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
 
@@ -56,7 +55,7 @@ object BsonHandlers:
     rt => BSONString(s"${if rt.vote then "+" else "-"}${rt.theme}")
   )
 
-  private[puzzle] given roundHandler: BSON[PuzzleRound] with
+  given roundHandler: BSON[PuzzleRound] with
     import PuzzleRound.BSONFields.*
     def reads(r: BSON.Reader) = PuzzleRound(
       id = r.get[PuzzleRound.Id](id),

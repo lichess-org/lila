@@ -18,7 +18,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   const url =
     opts.source instanceof Blob
       ? URL.createObjectURL(opts.source)
-      : typeof opts.source == 'string'
+      : typeof opts.source === 'string'
         ? URL.createObjectURL((opts.source = await (await fetch(opts.source)).blob()))
         : URL.createObjectURL((opts.source = await chooseImage()));
   if (!url) {
@@ -66,6 +66,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
   const dlg = await domDialog({
     class: 'crop-viewer',
     css: [{ hashed: 'bits.cropDialog' }, { url: 'npm/cropper.min.css' }],
+    modal: true,
     htmlText: `<h2>Crop image to desired shape</h2>
       <div class="crop-view"></div>
       <span class="dialog-actions"><button class="button button-empty cancel">cancel</button>
@@ -81,7 +82,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
     },
   });
 
-  dlg.showModal();
+  dlg.show();
 
   async function crop() {
     const view = dlg.view.querySelector('.crop-view') as HTMLElement;
@@ -114,7 +115,7 @@ export async function initModule(o?: CropOpts): Promise<void> {
       const formData = new FormData();
       formData.append(opts.post.field ?? 'picture', cropped);
       const rsp = await fetch(opts.post.url, { method: 'POST', body: formData });
-      if (rsp.status / 100 == 3) redirect = rsp.headers.get('Location')!;
+      if (rsp.status / 100 === 3) redirect = rsp.headers.get('Location')!;
       else if (!rsp.ok) {
         cropped = false;
         const body = await rsp.text();

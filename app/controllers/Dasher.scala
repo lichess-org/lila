@@ -3,9 +3,7 @@ package controllers
 import play.api.libs.json.*
 import play.api.libs.ws.JsonBodyReadables.*
 import play.api.libs.ws.StandaloneWSClient
-
 import lila.app.{ *, given }
-import lila.core.i18n.{ I18nKey as trans, defaultLang }
 import lila.i18n.{ LangList, LangPicker }
 import lila.pref.ui.DasherJson
 

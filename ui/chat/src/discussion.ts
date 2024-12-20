@@ -2,11 +2,11 @@ import * as licon from 'common/licon';
 import * as enhance from 'common/richText';
 import { userLink } from 'common/userLink';
 import * as spam from './spam';
-import { Line } from './interfaces';
-import { h, thunk, VNode, VNodeData } from 'snabbdom';
+import type { Line } from './interfaces';
+import { h, thunk, type VNode, type VNodeData } from 'snabbdom';
 import { lineAction as modLineAction, report } from './moderation';
 import { presetView } from './preset';
-import ChatCtrl from './ctrl';
+import type ChatCtrl from './ctrl';
 import { tempStorage } from 'common/storage';
 import { pubsub } from 'common/pubsub';
 import { alert } from 'common/dialog';
@@ -162,7 +162,7 @@ function selectLines(ctrl: ChatCtrl): Array<Line> {
     if (
       !line.d &&
       (!prev || !sameLines(prev, line)) &&
-      (!line.r || (line.u || '').toLowerCase() == ctrl.data.userId) &&
+      (!line.r || (line.u || '').toLowerCase() === ctrl.data.userId) &&
       !spam.skip(line.t)
     )
       ls.push(line);
@@ -203,7 +203,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     !!myUserId &&
     !!line.t
       .match(enhance.userPattern)
-      ?.find(mention => mention.trim().toLowerCase() == `@${ctrl.data.userId}`);
+      ?.find(mention => mention.trim().toLowerCase() === `@${ctrl.data.userId}`);
 
   return h(
     'li',
@@ -217,7 +217,7 @@ function renderLine(ctrl: ChatCtrl, line: Line): VNode {
     ctrl.moderation
       ? [line.u ? modLineAction() : null, userNode, ' ', textNode]
       : [
-          myUserId && line.u && myUserId != line.u
+          myUserId && line.u && myUserId !== line.u
             ? h('action.flag', {
                 attrs: { 'data-icon': licon.CautionTriangle, title: 'Report' },
               })

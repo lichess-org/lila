@@ -112,7 +112,6 @@
   <string name="replayMode">উত্তর ধরন</string>
   <string name="realtimeReplay">সঠিকসময়</string>
   <string name="byCPL">CPL দ্বারা</string>
-  <string name="openStudy">মুক্ত অধ্যয়ন</string>
   <string name="enable">সচল</string>
   <string name="bestMoveArrow">সরানোর উত্তম চিহ্ন</string>
   <string name="showVariationArrows">বৈচিত্র্য তীর দেখান</string>
@@ -668,7 +667,7 @@
   <string name="aboutSimulRules">যখন সিমুল শুরু হয়, প্রত্যেক খেলোয়াড় শুরু করে স্বাগতিকের সাথে একটি খেলা, যে পায় খেলার জন্য সাদা টুকরোগুলো, যখন সব খেলা সম্পন্ন হয় তখন সিমুল শেষ হয়ে যায়.</string>
   <string name="aboutSimulSettings">সিমুলগুলো হয় সবসময় আকস্মিক. পূনারয়খেলা, পেছনেনেওয়া এবং \"অনেকসময়\" বিকল হয়.</string>
   <string name="create">তৈরি করুন</string>
-  <string name="whenCreateSimul">যখন আপনি একটি সিমুল তৈরি করেন, আপনি খেলার জন্য একাধিক খেলোয়ার পাবেন.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">যখন আপনি একটি সিমুল তৈরি করেন, আপনি খেলার জন্য একাধিক খেলোয়ার পাবেন.</string>
   <string name="simulVariantsHint">যদি আপনি বিভিন্ন অপশন নির্বাচন করেন, প্রতিটি খেলোয়াড়কে বেছে নিতে হবে যেটা সে খেলতে চায়.</string>
   <string name="simulClockHint">ফিশার ঘড়ি বিন্যাস. একবারে অনেক খেলোয়াড় নিলে, হয়তো আপনার অনেক সময় প্রয়োজন হবে.</string>
   <string name="simulAddExtraTime">আপনি হয়তো অতিরিক্ত সময় যোগ করে আপনার ঘড়ি সিমুলের সাথে মোকাবেলা করতে পারবেন.</string>

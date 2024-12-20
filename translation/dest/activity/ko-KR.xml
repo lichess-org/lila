@@ -21,13 +21,13 @@
     <item quantity="other">수 %1$s개를 둠</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
-    <item quantity="other">%1$s개의 통신전에서</item>
+    <item quantity="other">%1$s개의 통신 대국에서</item>
   </plurals>
   <plurals name="completedNbGames">
-    <item quantity="other">%s 번의 통신전을 완료하셨습니다.</item>
+    <item quantity="other">%s번의 통신 대국을 완료함</item>
   </plurals>
   <plurals name="completedNbVariantGames">
-    <item quantity="other">%1$s %2$s 긴 대국전을 완료함</item>
+    <item quantity="other">%1$s번의 %2$s 통신 대국을 완료함</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="other">%s 명을 팔로우 개시</item>
@@ -42,7 +42,7 @@
     <item quantity="other">%s 번의 동시대국에 참가함</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="other">공부 %s개 작성함</item>
+    <item quantity="other">새 연구 %s개 작성함</item>
   </plurals>
   <plurals name="competedInNbTournaments" comment="Indicates that the user has competed in %s number of tournaments.&#10;&#10;Please note this string used to say &quot;tournaments&quot; without qualifying them as &quot;Arena tournaments&quot;, which used to be the only format available on Lichess. Please update as required.">
     <item quantity="other">%s 번 토너먼트에 참가함</item>

@@ -71,7 +71,6 @@
   <string name="ratingDiff">Rating diff</string>
   <string name="gamesThisTournament">Games in this tournament</string>
   <string name="score">Score</string>
-  <string name="perPage">%s per page</string>
   <string name="allTeams">All teams</string>
   <string name="tournamentFormat">Tournament format</string>
   <string name="tournamentLocation">Tournament Location</string>
@@ -79,7 +78,6 @@
   <string name="timezone">Time zone</string>
   <string name="fideRatingCategory">FIDE rating category</string>
   <string name="optionalDetails">Optional details</string>
-  <string name="upcomingBroadcasts">Upcoming broadcasts</string>
   <string name="pastBroadcasts">Past broadcasts</string>
   <string name="allBroadcastsByMonth">View all broadcasts by month</string>
 </resources>

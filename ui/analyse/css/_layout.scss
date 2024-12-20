@@ -127,7 +127,9 @@ body {
   }
 
   @include mq-at-least-col3 {
-    grid-template-columns: $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width) $analyse-block-gap $col3-uniboard-table;
+    grid-template-columns:
+      $col3-uniboard-side $analyse-block-gap var(---col3-uniboard-width)
+      $analyse-block-gap $col3-uniboard-table;
     grid-template-rows: auto $chat-height auto 2.5em 1fr;
     grid-template-areas:
       'side    . board   gauge tools'

@@ -16,7 +16,7 @@ logs/
 /public/compiled/
 /public/hashed/
 /public/npm/
-/public/lifat/
+/public/lifat
 /public/css/
 /public/json/
 target/
@@ -25,11 +25,12 @@ dist/
 node_modules/
 ui/common/css/theme/gen/*.scss
 ui/.build/build
-ui/voice/.build/crowdv
+ui/voice/crowdv
 ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 dependency-graph.png
+dump.rdb
 
 RUNNING_PID
 .DS_Store

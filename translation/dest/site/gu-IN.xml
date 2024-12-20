@@ -118,7 +118,6 @@
   <string name="replayMode">ફરીથી રમો</string>
   <string name="realtimeReplay">વાસ્તવિક સમય માં</string>
   <string name="byCPL">CPL નિયમ દ્વારા</string>
-  <string name="openStudy">અભ્યાસ ખોલો</string>
   <string name="enable">સક્ષમ કરો</string>
   <string name="bestMoveArrow">શ્રેષ્ઠ ચાલ નિર્દેશ</string>
   <string name="showVariationArrows">વિવિધતા તીરો બતાવો</string>
@@ -510,7 +509,7 @@
   <string name="aboutSimulRules">જ્યારે સિમુલ શરૂ થાય છે, ત્યારે દરેક ખેલાડી યજમાન સાથે રમત શરૂ કરે છે. જ્યારે બધી રમતો પૂર્ણ થાય ત્યારે સિમુલ સમાપ્ત થાય છે.</string>
   <string name="aboutSimulSettings">સિમલ્સ હંમેશા કેઝ્યુઅલ હોય છે. રિમેચ, ટેકબેક્સ અને સમય ઉમેરવાની સુવિધા અક્ષમ છે.</string>
   <string name="create">બનાવો</string>
-  <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">જો તમે ઘણા પ્રકારો પસંદ કરો છો, તો દરેક ખેલાડીને કયું રમવું તે પસંદ કરવાનું રહેશે.</string>
   <string name="simulClockHint">ફિશર ઘડિયાળ સેટઅપ. તમે જેટલા વધુ ખેલાડીઓ લો છો, તેટલો વધુ સમય તમને જરૂર પડી શકે છે.</string>
   <string name="simulAddExtraTime">સિમ્યુલનો સામનો કરવામાં મદદ કરવા માટે તમે તમારી ઘડિયાળમાં વધારાનો પ્રારંભિક સમય ઉમેરી શકો છો.</string>

@@ -1,13 +1,18 @@
-import * as chapterForm from './chapterNewForm';
+import { fieldValue, modeChoices } from './chapterNewForm';
 import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { option, emptyRedButton } from '../view/util';
-import { ChapterMode, EditChapterData, Orientation, StudyChapterConfig, ChapterPreview } from './interfaces';
+import type {
+  ChapterMode,
+  EditChapterData,
+  Orientation,
+  StudyChapterConfig,
+  ChapterPreview,
+} from './interfaces';
 import { defined, prop } from 'common';
 import { confirm, snabDialog } from 'common/dialog';
 import { h, VNode } from 'snabbdom';
-import { Redraw } from '../interfaces';
-import { StudySocketSend } from '../socket';
+import type { StudySocketSend } from '../socket';
 
 export class StudyChapterEditForm {
   current = prop<ChapterPreview | StudyChapterConfig | null>(null);
@@ -63,6 +68,8 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
           ctrl.current(null);
           ctrl.redraw();
         },
+        modal: true,
+        noClickAway: true,
         vnodes: [
           h('h2', i18n.study.editChapter),
           h(
@@ -70,10 +77,10 @@ export function view(ctrl: StudyChapterEditForm): VNode | undefined {
             {
               hook: bindSubmit(e => {
                 ctrl.submit({
-                  name: chapterForm.fieldValue(e, 'name'),
-                  mode: chapterForm.fieldValue(e, 'mode') as ChapterMode,
-                  orientation: chapterForm.fieldValue(e, 'orientation') as Orientation,
-                  description: chapterForm.fieldValue(e, 'description'),
+                  name: fieldValue(e, 'name'),
+                  mode: fieldValue(e, 'mode') as ChapterMode,
+                  orientation: fieldValue(e, 'orientation') as Orientation,
+                  description: fieldValue(e, 'description'),
                 });
               }, ctrl.redraw),
             },
@@ -123,7 +130,7 @@ function viewLoaded(ctrl: StudyChapterEditForm, data: StudyChapterConfig): VNode
         h('label.form-label', { attrs: { for: 'chapter-mode' } }, i18n.study.analysisMode),
         h(
           'select#chapter-mode.form-control',
-          chapterForm.modeChoices.map(c => option(c[0], mode, c[1])),
+          modeChoices.map(c => option(c[0], mode, c[1])),
         ),
       ]),
     ]),

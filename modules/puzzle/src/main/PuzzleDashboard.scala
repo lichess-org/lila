@@ -4,6 +4,7 @@ import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl.{ *, given }
 import lila.memo.CacheApi
+import scalalib.model.Days
 
 case class PuzzleDashboard(
     global: PuzzleDashboard.Results,
@@ -33,11 +34,9 @@ case class PuzzleDashboard(
 
 object PuzzleDashboard:
 
-  type Days = Int
+  val dayChoices = Days.from(List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90))
 
-  val dayChoices = List(1, 2, 3, 7, 10, 14, 21, 30, 60, 90)
-
-  def getClosestDay(n: Int): Option[Days] = dayChoices.minByOption(day => math.abs(day - n))
+  def getClosestDay(n: Days): Option[Days] = dayChoices.minByOption(day => math.abs((day - n).value))
 
   val topThemesNb = 8
 
@@ -105,7 +104,7 @@ final class PuzzleDashboardApi(
           "fixes"  -> Sum(countField("f")),
           "rating" -> AvgField("puzzle.rating")
         )
-        Match($doc("u" -> userId, "d".$gt(nowInstant.minusDays(days)))) -> List(
+        Match($doc("u" -> userId, "d".$gt(nowInstant.minusDays(days.value)))) -> List(
           Sort(Descending("d")),
           Limit(10_000),
           PipelineOperator(
@@ -126,26 +125,24 @@ final class PuzzleDashboardApi(
             )
           )
         )
-      }
-        .map { r =>
-          for
-            result     <- r
-            globalDocs <- result.getAsOpt[List[Bdoc]]("global")
-            globalDoc  <- globalDocs.headOption
-            global     <- readResults(globalDoc)
-            themeDocs  <- result.getAsOpt[List[Bdoc]]("byTheme")
-            byTheme = for
-              doc      <- themeDocs
-              themeStr <- doc.string("_id")
-              theme    <- PuzzleTheme.find(themeStr)
-              results  <- readResults(doc)
-            yield theme.key -> results
-          yield PuzzleDashboard(
-            global = global,
-            byTheme = byTheme.toMap
-          )
-        }
-        .dmap(_.filter(_.global.nb > 0))
+      }.map: r =>
+        for
+          result     <- r
+          globalDocs <- result.getAsOpt[List[Bdoc]]("global")
+          globalDoc  <- globalDocs.headOption
+          global     <- readResults(globalDoc)
+          themeDocs  <- result.getAsOpt[List[Bdoc]]("byTheme")
+          byTheme = for
+            doc      <- themeDocs
+            themeStr <- doc.string("_id")
+            theme    <- PuzzleTheme.find(themeStr)
+            results  <- readResults(doc)
+          yield theme.key -> results
+        yield PuzzleDashboard(
+          global = global,
+          byTheme = byTheme.toMap
+        )
+      .dmap(_.filter(_.global.nb > 0))
     }
 
   private def countField(field: String) = $doc("$cond" -> $arr("$" + field, 1, 0))

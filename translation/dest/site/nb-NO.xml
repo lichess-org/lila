@@ -116,7 +116,6 @@
   <string name="replayMode">Gjennomspilling</string>
   <string name="realtimeReplay">Sanntid</string>
   <string name="byCPL">Etter CBT</string>
-  <string name="openStudy">Åpne studie</string>
   <string name="enable">Aktiver</string>
   <string name="bestMoveArrow">Pil for beste trekk</string>
   <string name="showVariationArrows">Vis variantpiler</string>
@@ -679,7 +678,7 @@
   <string name="aboutSimulRules">Når simultanen begynner, starter hver spiller et parti med verten. Simultanen avsluttes når alle partiene er ferdige.</string>
   <string name="aboutSimulSettings">Simultaner er alltid uformelle. Omkamper, angring og ekstra tid er ikke lov.</string>
   <string name="create">Opprett</string>
-  <string name="whenCreateSimul">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du oppretter en simultan, får du spille mot flere spillere samtidig.</string>
   <string name="simulVariantsHint">Hvis du velger flere varianter får hver spiller anledning til å velge hvilken de vil spille.</string>
   <string name="simulClockHint">Fischeroppsett. Desto flere spillere som spiller mot deg, jo mer tid vil du antageligvis trenge.</string>
   <string name="simulAddExtraTime">Du kan legge til ekstra tid på klokken din for å makte simultanen.</string>

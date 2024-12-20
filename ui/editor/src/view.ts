@@ -1,17 +1,18 @@
-import { h, VNode } from 'snabbdom';
+import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { copyMeInput } from 'common/copyMe';
-import { MouchEvent, NumberPair } from 'chessground/types';
+import type { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
-import { Rules } from 'chessops/types';
+import type { Rules } from 'chessops/types';
 import { parseFen } from 'chessops/fen';
 import { parseSquare, makeSquare } from 'chessops/util';
-import EditorCtrl from './ctrl';
+import type EditorCtrl from './ctrl';
 import chessground from './chessground';
-import { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
+import type { Selected, CastlingToggle, EditorState, EndgamePosition, OpeningPosition } from './interfaces';
 import { dataIcon } from 'common/snabbdom';
 import { domDialog } from 'common/dialog';
+import { fenToEpd } from 'chess';
 
 function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -49,7 +50,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
 function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   return h(
     'option',
-    { attrs: { value: key, selected: key == ctrl.rules } },
+    { attrs: { value: key, selected: key === ctrl.rules } },
     `${i18n.site.variant} | ${name}`,
   );
 }
@@ -159,11 +160,11 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 { attrs: { value: pos.epd || pos.fen, 'data-fen': pos.fen } },
                 pos.eco ? `${pos.eco} ${pos.name}` : pos.name,
               );
-            const epd = state.fen.split(' ').slice(0, 4).join(' ');
+            const epd = fenToEpd(state.fen);
             const value =
               (
                 ctrl.cfg.positions.find(p => p.fen.startsWith(epd)) ||
-                ctrl.cfg.endgamePositions.find(p => p.epd == epd)
+                ctrl.cfg.endgamePositions.find(p => p.epd === epd)
               )?.epd || '';
             return h(
               'select.positions',
@@ -171,7 +172,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 props: { value },
                 on: {
                   insert(vnode) {
-                    (vnode.elm as HTMLSelectElement).value = state.fen.split(' ').slice(0, 4).join(' ');
+                    (vnode.elm as HTMLSelectElement).value = fenToEpd(state.fen);
                   },
                   change(e) {
                     const el = e.target as HTMLSelectElement;
@@ -246,7 +247,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
                 class: { button: true, 'button-empty': true, disabled: !state.playable },
                 on: {
                   click: () => {
-                    if (state.playable) domDialog({ cash: $('.continue-with'), show: 'modal' });
+                    if (state.playable) domDialog({ cash: $('.continue-with'), modal: true, show: true });
                   },
                 },
               },

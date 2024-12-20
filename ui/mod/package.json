@@ -15,15 +15,7 @@
     "prop-types": "^15.8.1",
     "tablesort": "^5.3.0"
   },
-  "lichess": {
-    "bundles": [
-      "src/mod.activity.ts",
-      "src/mod.emailConfirmation.ts",
-      "src/mod.user.ts",
-      "src/mod.inquiry.ts",
-      "src/mod.games.ts",
-      "src/mod.search.ts",
-      "src/mod.teamAdmin.ts"
-    ]
+  "build": {
+    "bundle": "src/mod.*ts"
   }
 }

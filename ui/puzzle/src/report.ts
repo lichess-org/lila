@@ -1,10 +1,11 @@
-import * as xhr from './xhr';
-import PuzzleCtrl from './ctrl';
-import { PuzzleId, ThemeKey } from './interfaces';
+import { report as xhrReport } from './xhr';
+import type PuzzleCtrl from './ctrl';
+import type { PuzzleId, ThemeKey } from './interfaces';
 import { winningChances } from 'ceval';
 import * as licon from 'common/licon';
-import { StoredProp, storedIntProp } from 'common/storage';
+import { type StoredProp, storedIntProp } from 'common/storage';
 import { domDialog } from 'common/dialog';
+import { plyToTurn } from 'chess';
 
 export default class Report {
   // if local eval suspect multiple solutions, report the puzzle, once at most
@@ -12,7 +13,10 @@ export default class Report {
   // timestamp (ms) of the last time the user clicked on the hide report dialog toggle
   tsHideReportDialog: StoredProp<number>;
 
-  constructor(readonly id: PuzzleId) {
+  // bump when logic is changed, to distinguish cached clients from new ones
+  private version = 6;
+
+  constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
   }
 
@@ -24,39 +28,43 @@ export default class Report {
     if (
       !ctrl.session.userId ||
       this.reported ||
-      ctrl.mode != 'view' ||
+      ctrl.mode !== 'view' ||
       ctrl.threatMode() ||
       // the `mate` key theme is not sent, as it is considered redubant with `mateInX`
       ctrl.data.puzzle.themes.some((t: ThemeKey) => t.toLowerCase().includes('mate')) ||
       // if the user has chosen to hide the dialog less than a week ago
-      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7
+      this.tsHideReportDialog() > Date.now() - 1000 * 3600 * 24 * 7 ||
+      // dynamic import from web worker feature is shared by all stockfish 16+ WASMs
+      !ctrl.ceval.engines.active?.requires?.includes('dynamicImportFromWorker')
     )
       return;
     const node = ctrl.node;
     // more resilient than checking the turn directly, if eventually puzzles get generated from 'from position' games
     const nodeTurn = node.fen.includes(' w ') ? 'white' : 'black';
     if (
-      node.ply >= ctrl.initialNode.ply &&
-      nodeTurn == ctrl.pov &&
-      ctrl.mainline.some((n: Tree.Node) => n.id == node.id)
+      nextMoveInSolution(node) &&
+      nodeTurn === ctrl.pov &&
+      ctrl.mainline.some((n: Tree.Node) => n.id === node.id)
     ) {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
-      // stricly identical to lichess-puzzler v49 check
+      // stricter than lichess-puzzler v49 check in how it defines similar moves
       if (
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
         secondBestEval &&
-        winningChances.povDiff(ctrl.pov, bestEval, secondBestEval) < 0.35
+        winningChances.areSimilarEvals(ctrl.pov, bestEval, secondBestEval)
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const reason = `after move ${node.ply}${node.san}, at depth ${ev.depth}, they're multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${pv.cp}`).join(', ')}`;
-        this.reportDialog(reason);
+        const engine = ctrl.ceval.engines.active;
+        const engineName = engine?.short || engine.name;
+        const reason = `(v${this.version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${showPv(pv)}`).join(', ')}`;
+        this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }
   }
 
-  private reportDialog = (reason: string) => {
+  private reportDialog = (puzzleId: PuzzleId, reason: string) => {
     const switchButton =
       `<div class="switch switch-report-puzzle" title="temporarily disable reporting puzzles">` +
       `<input id="puzzle-toggle-report" class="cmn-toggle cmn-toggle--subtle" type="checkbox">` +
@@ -68,6 +76,7 @@ export default class Report {
 
     domDialog({
       focus: '.apply',
+      modal: true,
       htmlText:
         '<div><strong style="font-size:1.5em">' +
         'Report multiple solutions' +
@@ -92,10 +101,21 @@ export default class Report {
         dlg.close();
       });
       $('.apply', dlg.view).on('click', () => {
-        xhr.report(this.id, reason);
+        xhrReport(puzzleId, reason);
         dlg.close();
       });
-      dlg.showModal();
+      dlg.show();
     });
   };
 }
+
+// since we check the nodes of the opposite side, to know if we're
+// in the solution we need to check the following move
+const nextMoveInSolution = (before: Tree.Node) => {
+  const node = before.children[0];
+  return node && (node.puzzle === 'good' || node.puzzle === 'win');
+};
+
+const showPv = (pv: Tree.PvData): string => {
+  return pv.mate ? `#${pv.mate}` : `${pv.cp}`;
+};

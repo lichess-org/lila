@@ -120,7 +120,6 @@
   <string name="replayMode">Peržiūros režimas</string>
   <string name="realtimeReplay">Realiu laiku</string>
   <string name="byCPL">Pagal įvertį</string>
-  <string name="openStudy">Atverti studiją</string>
   <string name="enable">Įjungti</string>
   <string name="bestMoveArrow">Geriausio ėjimo rodyklė</string>
   <string name="showVariationArrows">Rodyti variacijų rodykles</string>
@@ -289,6 +288,7 @@
     <item quantity="many">%s partijų su jumis</item>
     <item quantity="other">%s partijų su jumis</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Atšaukti</string>
   <string name="whiteTimeOut">Baigėsi laikas baltiesiems</string>
   <string name="blackTimeOut">Baigėsi laikas juodiesiems</string>
@@ -753,7 +753,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="aboutSimulRules">Prasidėjus simultanui, kiekvienas žaidėjas pradeda partiją su šeimininku, kuris gauna baltuosius. Simultanas baigiasi kai užbaigiamos visos partijos.</string>
   <string name="aboutSimulSettings">Simulai visada yra nevertinami. Revanšai, ėjimų atšaukimai ir „daugiau laiko“ yra negalimi.</string>
   <string name="create">Sukurti</string>
-  <string name="whenCreateSimul">Sukūrę simultaną, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Sukūrę simultaną, turite galimybę žaisti su keletu žaidėjų vienu metu.</string>
   <string name="simulVariantsHint">Jei pasirinksite keletą variantų, kiekvienas žaidėjas galės nuspręsti kurį norės žaisti.</string>
   <string name="simulClockHint">Fišerio laikrodžio nustatymas. Prieš kuo daugiau žaidėjų rungsitės, tuo daugiau laiko jums gali prireikti.</string>
   <string name="simulAddExtraTime">Galite pridėti papildomo laiko savo laikrodžiui, kad būtų lengviau žaisti simultane.</string>
@@ -1078,4 +1078,5 @@ Palikite tuščią norėdami pradėti žaidimą nuo įprastos pradinės pozicijo
   <string name="lichessPatronInfo">Lichess yra labdara ir pilnai atviro kodo/libre projektas.
 Visos veikimo išlaidos, programavimas ir turinys yra padengti išskirtinai tik vartotojų parama.</string>
   <string name="nothingToSeeHere">Nieko naujo.</string>
+  <string name="stats">Statistika</string>
 </resources>

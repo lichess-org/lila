@@ -9,14 +9,14 @@ import ScalatagsTemplate.{ *, given }
 final class AuthorizeUi(helpers: Helpers)(lightUserFallback: UserId => LightUser):
   import helpers.{ *, given }
 
-  private val ringsImage = img(
+  private def ringsImage = img(
     cls := "oauth__logo",
     alt := "linked rings icon",
     src := assetUrl("images/icons/linked-rings.png")
   )
 
   private def buttonClass(prompt: AuthorizationRequest.Prompt) =
-    s"button${prompt.isDanger.so(" button-red confirm text")}"
+    s"button${prompt.isDanger.so(" button-red ok-cancel-confirm text")}"
 
   def apply(prompt: AuthorizationRequest.Prompt, me: User, authorizeUrl: String)(using
       Context

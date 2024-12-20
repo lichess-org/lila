@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Churzi Turnier Beschribig</string>
   <string name="fullDescription">Vollschtändigi Ereignisbeschribig</string>
   <string name="fullDescriptionHelp">Optionali, usfüehrlichi Beschribig vu de Überträgig. %1$s isch verfügbar. Die Beschribig muess chürzer als %2$s Zeiche si.</string>
-  <string name="sourceSingleUrl">PGN Quälle URL</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Quälle URL</string>
   <string name="sourceUrlHelp">URL wo Lichess abfrögt, für PGN Aktualisierige z\'erhalte. Sie muess öffentlich im Internet zuegänglich si.</string>
   <string name="sourceGameIds">Bis zu 64 Lichess Schpiel-IDs, trännt dur en Leerschlag.</string>
   <string name="startDateTimeZone">Startdatum i de lokale Zitzone vum Turnier: %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">FIDE Profil</string>
   <string name="federation">Verband</string>
   <string name="ageThisYear">Alter i dem Jahr</string>
-  <string name="unrated">Ungwertet</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Ungwertet</string>
   <string name="recentTournaments">Aktuellschti Turnier</string>
   <string name="openLichess">In Lichess öffne</string>
   <string name="teams">Teams</string>
@@ -71,7 +71,6 @@
   <string name="ratingDiff">Wertigs Differänz</string>
   <string name="gamesThisTournament">Schpiel i dem Turnier</string>
   <string name="score">Resultat</string>
-  <string name="perPage">%s pro Site</string>
   <string name="allTeams">Alli Teams</string>
   <string name="tournamentFormat">Turnier-Format</string>
   <string name="tournamentLocation">Turnier-Lokal</string>
@@ -79,7 +78,6 @@
   <string name="timezone">Zitzone</string>
   <string name="fideRatingCategory">FIDE-Wertigskategorie</string>
   <string name="optionalDetails">Optionali Details</string>
-  <string name="upcomingBroadcasts">Kommendi Überträgige</string>
   <string name="pastBroadcasts">G\'machti Überträgige</string>
   <string name="allBroadcastsByMonth">Zeig alli Überträgige im Monet</string>
 </resources>

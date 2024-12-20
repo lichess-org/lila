@@ -1,10 +1,9 @@
 import { initial as initialBoardFEN } from 'chessground/fen';
 import { ops as treeOps } from 'tree';
-import AnalyseCtrl from './ctrl';
-import { EvalGetData, EvalPutData, ServerEvalData } from './interfaces';
-import { AnaDests, AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
-import { FormData as StudyFormData } from './study/studyForm';
-import { FEN } from 'chessground/types';
+import type AnalyseCtrl from './ctrl';
+import type { EvalGetData, EvalPutData, ServerEvalData } from './interfaces';
+import type { AnaDests, AnaDrop, AnaMove, ChapterData, EditChapterData } from './study/interfaces';
+import type { FormData as StudyFormData } from './study/studyForm';
 
 interface DestsCache {
   [fen: string]: AnaDests;
@@ -133,8 +132,7 @@ export function make(send: AnalyseSocketSend, ctrl: AnalyseCtrl): Socket {
   const handlers = {
     node(data: { ch?: string; node: Tree.Node; path: string }) {
       clearTimeout(anaMoveTimeout);
-      // no strict equality here!
-      if (data.ch == currentChapterId()) ctrl.addNode(data.node, data.path);
+      if (data.ch === currentChapterId()) ctrl.addNode(data.node, data.path);
       else console.log('socket handler node got wrong chapter id', data);
     },
     stepFailure() {

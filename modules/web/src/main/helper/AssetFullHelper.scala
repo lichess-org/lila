@@ -17,10 +17,7 @@ trait AssetFullHelper:
 
   export lila.common.String.html.safeJsonValue
 
-  def jsName(key: String): String = manifest.js(key).fold(key)(_.name)
-
   private lazy val socketDomains = netConfig.socketDomains ::: netConfig.socketAlts
-  // lazy val vapidPublicKey         = env.push.vapidPublicKey
 
   lazy val sameAssetDomain = netConfig.domain == netConfig.assetDomain
 
@@ -37,7 +34,7 @@ trait AssetFullHelper:
   def cssTag(key: String): Frag =
     link(
       dataCssKey := key,
-      href       := staticAssetUrl(s"css/${manifest.css(key).getOrElse(key)}"),
+      href       := staticAssetUrl(s"css/${manifest.css(key)}"),
       rel        := "stylesheet"
     )
 
@@ -48,13 +45,9 @@ trait AssetFullHelper:
           case json: JsValue => safeJsonValue(json).value
           case json          => json.toString
 
-  def jsDeps(keys: List[String]): Frag = frag:
-    manifest.deps(keys).map { dep =>
-      script(tpe := "module", src := staticAssetUrl(s"compiled/$dep"))
-    }
   def roundNvuiTag(using ctx: Context) = ctx.blind.option(Esm("round.nvui"))
-  lazy val cashTag: Frag               = iifeModule("javascripts/vendor/cash.min.js")
-  lazy val chessgroundTag: Frag        = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
+  def cashTag: Frag                    = iifeModule("javascripts/vendor/cash.min.js")
+  def chessgroundTag: Frag             = script(tpe := "module", src := assetUrl("npm/chessground.min.js"))
 
   def basicCsp(using ctx: Context): ContentSecurityPolicy =
     val sockets = socketDomains.map { x => s"wss://$x${(!ctx.req.secure).so(s" ws://$x")}" }
@@ -62,10 +55,13 @@ trait AssetFullHelper:
     val localDev =
       (!netConfig.minifiedAssets).so("http://localhost:8666")
         :: (!ctx.req.secure).so(List("http://127.0.0.1:3000"))
-    lila.web.ContentSecurityPolicy.basic(
+    lila.web.ContentSecurityPolicy.page(
       netConfig.assetDomain,
       netConfig.assetDomain.value :: sockets ::: explorerEndpoint :: tablebaseEndpoint :: localDev
     )
+
+  def embedCsp(using ctx: Context): ContentSecurityPolicy =
+    lila.web.ContentSecurityPolicy.embed(netConfig.assetDomain)
 
   def defaultCsp(using nonce: Optionce)(using Context): ContentSecurityPolicy =
     nonce.foldLeft(basicCsp)(_.withNonce(_))

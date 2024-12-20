@@ -31,6 +31,7 @@ export async function initModule(): Promise<void> {
   const dlg = await domDialog({
     class: 'diagnostic',
     css: [{ hashed: 'bits.diagnosticDialog' }],
+    modal: true,
     htmlText: `
       <h2>Diagnostics</h2>${flash}
       <pre tabindex="0" class="err">${escaped}</pre>
@@ -52,7 +53,7 @@ export async function initModule(): Promise<void> {
       setTimeout(() => copied.remove(), 2000);
     }),
   );
-  dlg.showModal();
+  dlg.show();
 }
 
 const storageProxy: { [key: string]: { storageKey: string; validate: (val?: string) => boolean } } = {
@@ -63,10 +64,6 @@ const storageProxy: { [key: string]: { storageKey: string; validate: (val?: stri
   wsHost: {
     storageKey: 'socket.host',
     validate: (val?: string) => val?.endsWith('.lichess.org') ?? false,
-  },
-  allowLsfw: {
-    storageKey: 'ceval.lsfw.forceEnable',
-    validate: (val?: string) => val === 'true' || val === 'false',
   },
   logWindow: {
     storageKey: 'log.window',

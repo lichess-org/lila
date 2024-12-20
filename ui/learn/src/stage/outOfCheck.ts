@@ -1,5 +1,5 @@
 import { arrow, assetUrl, roundSvg, toLevel } from '../util';
-import { StageNoID } from './list';
+import type { StageNoID } from './list';
 
 const imgUrl = assetUrl + 'images/learn/guards.svg';
 

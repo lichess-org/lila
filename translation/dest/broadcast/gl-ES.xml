@@ -24,7 +24,7 @@
   <string name="tournamentDescription">Breve descrición do torneo</string>
   <string name="fullDescription">Descrición completa do torneo</string>
   <string name="fullDescriptionHelp">Descrición longa opcional do torneo. %1$s está dispoñíbel. A lonxitude debe ser menor de %2$s caracteres.</string>
-  <string name="sourceSingleUrl">URL de orixe do arquivo PGN</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL de orixe do arquivo PGN</string>
   <string name="sourceUrlHelp">Ligazón que Lichess comprobará para obter actualizacións dos PGN. Debe ser publicamente accesíbel desde a Internet.</string>
   <string name="sourceGameIds">Até 64 identificadores de partidas de Lichess, separados por espazos.</string>
   <string name="startDateTimeZone">Data de inicio do torneo (na zona horaria local): %s</string>
@@ -47,7 +47,7 @@
   <string name="fideProfile">Perfil FIDE</string>
   <string name="federation">Federación</string>
   <string name="ageThisYear">Idade actual</string>
-  <string name="unrated">Sen puntuar</string>
+  <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Sen puntuar</string>
   <string name="recentTournaments">Torneos recentes</string>
   <string name="openLichess">Abrir en Lichess</string>
   <string name="teams">Equipos</string>
@@ -57,7 +57,7 @@
   <string name="uploadImage">Subir a imaxe do torneo</string>
   <string name="noBoardsYet">Aínda non hai taboleiros. Aparecerán cando se suban as partidas.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Os taboleiros pódense cargar dende a fonte ou a través da %s</string>
-  <string name="startsAfter">Comeza en %s</string>
+  <string name="startsAfter">Comeza tras a %s</string>
   <string name="startVerySoon">A emisión comeza decontado.</string>
   <string name="notYetStarted">A emisión aínda non comezou.</string>
   <string name="officialWebsite">Páxina web oficial</string>
@@ -71,7 +71,6 @@
   <string name="ratingDiff">Diferenza de puntuación</string>
   <string name="gamesThisTournament">Partidas neste torneo</string>
   <string name="score">Resultado</string>
-  <string name="perPage">%s por páxina</string>
   <string name="allTeams">Todos os equipos</string>
   <string name="tournamentFormat">Formato do torneo</string>
   <string name="tournamentLocation">Lugar do torneo</string>
@@ -79,7 +78,6 @@
   <string name="timezone">Zona horaria</string>
   <string name="fideRatingCategory">Categoría de puntuación FIDE</string>
   <string name="optionalDetails">Detalles opcionais</string>
-  <string name="upcomingBroadcasts">Vindeiras emisións</string>
   <string name="pastBroadcasts">Emisións finalizadas</string>
   <string name="allBroadcastsByMonth">Ver todas as emisións por mes</string>
 </resources>

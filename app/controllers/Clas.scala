@@ -4,6 +4,7 @@ package clas
 import akka.stream.scaladsl.*
 import play.api.data.Form
 import play.api.mvc.*
+import scalalib.model.Days
 
 import lila.app.{ *, given }
 import lila.clas.ClasForm.ClasData
@@ -203,7 +204,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def progress(id: ClasId, perfKey: PerfKey, days: Int) = Secure(_.Teacher) { ctx ?=> me ?=>
+  def progress(id: ClasId, perfKey: PerfKey, days: Days) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       env.clas.api.student.activeWithUsers(clas).flatMap { students =>
         Reasonable(clas, students, "progress"):
@@ -469,6 +470,24 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
           env.clas.api.student.closeAccount(s) >>
             redirectTo(clas).flashSuccess
         else redirectTo(clas)
+  }
+
+  def studentMove(id: ClasId, username: UserStr) = Secure(_.Teacher) { ctx ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      WithStudent(clas, username): s =>
+        for
+          classes <- env.clas.api.clas.of(me)
+          others = classes.filter(_.id != clas.id)
+          res <- Ok.page(views.clas.student.move(clas, students, s, others))
+        yield res
+  }
+
+  def studentMovePost(id: ClasId, username: UserStr, to: ClasId) = SecureBody(_.Teacher) { ctx ?=> me ?=>
+    WithClassAndStudents(id): (clas, students) =>
+      WithStudent(clas, username): s =>
+        WithClass(to): toClas =>
+          for _ <- env.clas.api.student.move(s, toClas)
+          yield Redirect(routes.Clas.show(clas.id)).flashSuccess
   }
 
   def becomeTeacher = AuthBody { ctx ?=> me ?=>

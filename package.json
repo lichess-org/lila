@@ -17,25 +17,33 @@
     "url": "https://github.com/lichess-org/lila/issues"
   },
   "homepage": "https://lichess.org",
-  "packageManager": "pnpm@9.12.3+sha512.cce0f9de9c5a7c95bef944169cc5dfe8741abfb145078c0d508b868056848a87c81e626246cb60967cbd7fd29a6c062ef73ff840d96b3c86c40ac92cf4a813ee",
+  "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab",
   "engines": {
-    "node": "^22.6",
+    "node": ">=22.6",
     "pnpm": "^9"
   },
   "dependencies": {
     "@types/lichess": "workspace:*",
-    "@types/node": "^22.8.7",
-    "@types/web": "^0.0.166",
-    "@typescript-eslint/eslint-plugin": "^8.12.2",
-    "@typescript-eslint/parser": "^8.12.2",
+    "@types/node": "^22.10.1",
+    "@types/web": "^0.0.180",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
     "ab": "github:lichess-org/ab-stub",
     "chessground": "^9.1.1",
-    "eslint": "^9.14.0",
+    "chessops": "^0.14.2",
+    "eslint": "^9.15.0",
+    "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
     "onchange": "^7.1.0",
-    "prettier": "^3.3.3",
-    "typescript": "^5.6.3"
+    "prettier": "^3.4.1",
+    "snabbdom": "3.5.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.6"
   },
+  "//": [
+    "snabbdom pinned to 3.5.1 until https://github.com/snabbdom/snabbdom/issues/1114 is resolved",
+    "typescript above just to allow manual tsc. ui/.build/package.json's typesript version is the truth"
+  ],
   "scripts": {
     "format": "prettier --cache --write --log-level warn .",
     "check-format": "prettier --cache --check --log-level warn .",
@@ -49,6 +57,8 @@
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "trans-dump": "pnpx tsx bin/trans-dump.ts",
+    "test": "vitest run -c ui/vitest.config.mts",
+    "test:watch": "vitest -c ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
   }
 }

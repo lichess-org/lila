@@ -30,6 +30,7 @@ final class Dev(env: Env) extends LilaController(env):
     env.tournament.reloadEndpointSetting,
     env.tutor.nbAnalysisSetting,
     env.tutor.parallelismSetting,
+    env.recap.parallelismSetting,
     env.relay.proxyDomainRegex,
     env.relay.proxyHostPort,
     env.relay.proxyCredentials
@@ -78,14 +79,4 @@ final class Dev(env: Env) extends LilaController(env):
     env.mod.logApi.cli(command) >>
       env.api.cli(command.split(" ").toList)
 
-  def socketTestResult = AuthBody(parse.json) { ctx ?=> me ?=>
-    ctx.body.body
-      .validate[JsArray]
-      .fold(
-        err => BadRequest(Json.obj("error" -> err.toString)),
-        results =>
-          env.api.socketTestResult
-            .put(Json.obj(me.userId.toString -> results))
-            .inject(jsonOkResult)
-      )
-  }
+end Dev

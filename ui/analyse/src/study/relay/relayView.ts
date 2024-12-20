@@ -1,8 +1,8 @@
 import { view as cevalView } from 'ceval';
 import { onClickAway } from 'common';
-import { looseH as h, onInsert, VNode } from 'common/snabbdom';
+import { looseH as h, onInsert, type VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
-import AnalyseCtrl from '../../ctrl';
+import type AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
 import type * as studyDeps from '../studyDeps';
 import { tourSide, renderRelayTour } from './relayTourView';
@@ -16,7 +16,7 @@ import {
   renderTools,
   renderUnderboard,
 } from '../../view/components';
-import RelayCtrl from './relayCtrl';
+import type RelayCtrl from './relayCtrl';
 
 export function relayView(
   ctrl: AnalyseCtrl,

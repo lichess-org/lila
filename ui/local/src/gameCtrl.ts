@@ -1,5 +1,4 @@
 import * as co from 'chessops';
-import { trans } from 'common/i18n';
 import { RoundProxy } from './roundProxy';
 import { type MoveContext, type GameStatus, LocalGame } from './localGame';
 import { clockToSpeed } from 'game';
@@ -120,7 +119,7 @@ export class GameCtrl implements LocalSetup {
 
     if (move?.promotion)
       env.round.chessground?.setPieces(
-        new Map([[uci.slice(2, 4) as Cg.Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
+        new Map([[uci.slice(2, 4) as Key, { color: justPlayed, role: move.promotion, promoted: true }]]),
       );
 
     if (end) this.gameOver(moveCtx);

@@ -1,9 +1,9 @@
-import * as xhr from 'common/xhr';
+import { json as xhrJson } from 'common/xhr';
 import { throttle } from 'common/timing';
-import { Editor, EditorType } from '@toast-ui/editor';
+import { Editor, type EditorType } from '@toast-ui/editor';
 import Tagify from '@yaireo/tagify';
 import { currentTheme } from 'common/theme';
-import { wireCropDialog } from './exports/crop';
+import { wireCropDialog } from './crop';
 import { storedJsonProp } from 'common/storage';
 
 site.load.then(() => {
@@ -64,8 +64,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
       addImageBlobHook: (blob, cb) => {
         const formData = new FormData();
         formData.append('image', blob);
-        xhr
-          .json(el.getAttribute('data-image-upload-url')!, { method: 'POST', body: formData })
+        xhrJson(el.getAttribute('data-image-upload-url')!, { method: 'POST', body: formData })
           .then(data => cb(data.imageUrl, ''))
           .catch(e => {
             cb('');

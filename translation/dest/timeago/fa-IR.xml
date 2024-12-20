@@ -2,8 +2,8 @@
 <resources>
   <string name="justNow">چند لحظه پیش</string>
   <plurals name="inNbSeconds">
-    <item quantity="one">تا %s ثانیه دیگر</item>
-    <item quantity="other">تا %s ثانیه دیگر</item>
+    <item quantity="one">تا %s ثانیهٔ دیگر</item>
+    <item quantity="other">تا %s ثانیهٔ دیگر</item>
   </plurals>
   <plurals name="inNbMinutes">
     <item quantity="one">تا %s دقیقه دیگر</item>

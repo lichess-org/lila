@@ -1,11 +1,11 @@
-import { Point } from 'chart.js/dist/core/core.controller';
+import type { Point } from 'chart.js/dist/core/core.controller';
 import { animation, fontFamily, gridColor, hoverBorderColor, resizePolyfill } from './common';
-import { DistributionData } from './interface';
+import type { DistributionData } from './interface';
 import {
+  type ChartConfiguration,
+  type ChartData,
+  type ChartDataset,
   Chart,
-  ChartConfiguration,
-  ChartData,
-  ChartDataset,
   Filler,
   LineController,
   LineElement,
@@ -80,7 +80,7 @@ export async function initModule(data: DistributionData): Promise<void> {
           align: 'top',
           offset: 0,
           display: 'auto',
-          formatter: (value: Point) => (value.y == 0 ? '' : label),
+          formatter: (value: Point) => (value.y === 0 ? '' : label),
           color: color,
         },
       });

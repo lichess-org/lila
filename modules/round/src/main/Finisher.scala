@@ -1,6 +1,7 @@
 package lila.round
 
 import chess.{ ByColor, Color, DecayingStats, Status }
+import chess.rating.IntRatingDiff
 
 import lila.common.{ Bus, Uptime }
 import lila.core.game.{ AbortedBy, FinishGame }
@@ -152,14 +153,15 @@ final private class Finisher(
     val isVsSelf = users.tupled.so((w, b) => w._1.is(b._1))
     (!isVsSelf && !game.aborted).so:
       users.tupled
-        .so: (white, black) =>
-          crosstableApi.add(game).zip(perfsUpdater.save(game, white, black)).dmap(_._2)
+        .map(ByColor.fromPair)
+        .so: users =>
+          crosstableApi.add(game).zip(perfsUpdater.save(game, users)).dmap(_._2)
         .zip(users.white.so(incNbGames(game)))
         .zip(users.black.so(incNbGames(game)))
         .dmap(_._1._1)
 
   private def incNbGames(game: Game)(user: UserWithPerfs): Funit =
-    game.finished.so { user.noBot || game.nonAi }.so {
+    (game.finished && (user.noBot || game.nonAi)).so:
       val totalTime = (game.hasClock && user.playTime.isDefined).so(game.durationSeconds)
       val tvTime    = totalTime.ifTrue(recentTvGames.get(game.id))
       val result =
@@ -169,4 +171,3 @@ final private class Finisher(
       userRepo
         .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
         .void
-    }

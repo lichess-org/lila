@@ -20,7 +20,6 @@ final class LoginContext(
     val oauth: Option[TokenScopes]
 ):
   export me.{ isDefined as isAuth, isEmpty as isAnon }
-  def myId: Option[MyId]         = me.map(_.myId)
   def user: Option[User]         = Me.raw(me)
   def userId: Option[UserId]     = user.map(_.id)
   def username: Option[UserName] = user.map(_.username)
@@ -50,8 +49,9 @@ class Context(
   def isMobileApi           = mobileApiVersion.isDefined
   def kid                   = KidMode(HTTPRequest.isKid(req) || loginContext.isKidUser)
   def withLang(l: Lang)     = new Context(req, l, loginContext, pref)
-  def canPalantir           = kid.no && me.exists(!_.marks.troll)
-  lazy val translate        = Translate(lila.i18n.Translator, lang)
+  def updatePref(f: Update[Pref]) = new Context(req, lang, loginContext, f(pref))
+  def canPalantir                 = kid.no && me.exists(!_.marks.troll)
+  lazy val translate              = Translate(lila.i18n.Translator, lang)
 
 object Context:
   export lila.api.{ Context, BodyContext, LoginContext, PageContext, EmbedContext }

@@ -1,9 +1,16 @@
 import * as xhr from './xhr';
 import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
-import { objectStorage, dbExists, type ObjectStorage } from './objectStorage';
 import { pubsub, type PubsubEvent } from './pubsub';
 import { myUserId } from './common';
+
+let siteSocket: WsSocket | undefined;
+
+export function eventuallySetupDefaultConnection(): void {
+  setTimeout(() => {
+    if (!siteSocket) wsConnect('/socket/v5', false);
+  }, 300);
+}
 
 type Sri = string;
 type Tpe = string;
@@ -43,11 +50,39 @@ interface Settings {
   params?: Partial<Params>;
   options?: Partial<Options>;
 }
-// TODO - find out why are there three different types of settings
+
+export function wsConnect(url: string, version: number | false, settings: Partial<Settings> = {}): WsSocket {
+  return (siteSocket = new WsSocket(url, version, settings));
+}
+
+export function wsDestroy(): void {
+  siteSocket?.destroy();
+  siteSocket = undefined;
+}
+
+export function wsSend(t: string, d?: any, o?: any, noRetry?: boolean): void {
+  siteSocket?.send(t, d, o, noRetry);
+}
+
+export function wsSign(s: string): void {
+  siteSocket?.sign(s);
+}
+
+export function wsVersion(): number | false {
+  return siteSocket?.getVersion() ?? false;
+}
+
+export function wsPingInterval(): number {
+  return siteSocket?.pingInterval() ?? 0;
+}
+
+export function wsAverageLag(): number {
+  return siteSocket?.averageLag ?? 0;
+}
 
 const isOnline = () => !('onLine' in navigator) || navigator.onLine;
 
-export default class StrongSocket implements SocketI {
+class WsSocket {
   averageLag = 0;
 
   private settings: Settings;
@@ -67,13 +102,6 @@ export default class StrongSocket implements SocketI {
 
   private lastUrl?: string;
   private heartbeat = browserTaskQueueMonitor(1000);
-  private isTestUser = document.body.dataset.socketTestUser === 'true';
-  private isTestRunning = document.body.dataset.socketTestRunning === 'true';
-  private stats: { store?: ObjectStorage<any>; m2: number; n: number; mean: number } = {
-    m2: 0,
-    n: 0,
-    mean: 0,
-  };
 
   constructor(
     readonly url: string,
@@ -101,8 +129,6 @@ export default class StrongSocket implements SocketI {
     this.version = version;
     pubsub.on('socket.send', this.send);
     this.connect();
-    this.flushStats();
-    window.addEventListener('pagehide', () => this.storeStats({ event: 'pagehide' }));
   }
 
   sign = (s: string): void => {
@@ -167,20 +193,21 @@ export default class StrongSocket implements SocketI {
     }
 
     const message = JSON.stringify(msg);
-    if (t == 'racerScore' && o.sign != this._sign) return;
-    if (t == 'move' && o.sign != this._sign) {
+    if (t === 'racerScore' && o.sign != this._sign) return;
+    if (t === 'move' && o.sign != this._sign) {
       let stack: string;
       try {
         stack = new Error().stack!.split('\n').join(' / ').replace(/\s+/g, ' ');
       } catch (e: any) {
         stack = `${e.message} ${navigator.userAgent}`;
       }
-      if (!stack.includes('round.nvui'))
+      if (!stack.includes('round.nvui')) {
         setTimeout(() => {
           if (once(`socket.rep.${Math.round(Date.now() / 1000 / 3600 / 3)}`))
             this.send('rep', { n: `soc: ${message} ${stack}` });
-          else site.socket.destroy();
+          else wsDestroy();
         }, 10000);
+      }
     }
     this.debug('send ' + message);
     if (!this.ws || this.ws.readyState === WebSocket.CONNECTING) {
@@ -190,7 +217,6 @@ export default class StrongSocket implements SocketI {
 
   private scheduleConnect = (delay: number = this.options.pongTimeout): void => {
     if (this.options.idle) delay = 10 * 1000 + Math.random() * 10 * 1000;
-    // debug('schedule connect ' + delay);
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.connectSchedule = setTimeout(() => {
@@ -211,7 +237,7 @@ export default class StrongSocket implements SocketI {
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     const pingData =
-      this.options.isAuth && this.pongCount % 10 == 2
+      this.options.isAuth && this.pongCount % 10 === 2
         ? JSON.stringify({
             t: 'p',
             l: Math.round(0.1 * this.averageLag),
@@ -239,7 +265,6 @@ export default class StrongSocket implements SocketI {
     this.averageLag += mix * (currentLag - this.averageLag);
 
     pubsub.emit('socket.lag', this.averageLag);
-    this.updateStats(currentLag);
   };
 
   private handle = (m: MsgIn): void => {
@@ -277,7 +302,6 @@ export default class StrongSocket implements SocketI {
   };
 
   destroy = (): void => {
-    this.storeStats();
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
     this.disconnect();
@@ -303,7 +327,6 @@ export default class StrongSocket implements SocketI {
     pubsub.emit('socket.close');
 
     if (this.heartbeat.wasSuspended) return this.onSuspended();
-    this.storeStats({ event: 'close', code: e.code });
 
     if (this.ws) {
       this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
@@ -338,7 +361,7 @@ export default class StrongSocket implements SocketI {
     this.heartbeat.reset(); // not a networking error, just get our connection back
     clearTimeout(this.pingSchedule);
     clearTimeout(this.connectSchedule);
-    this.storeStats({ event: 'suspend' }).then(this.connect);
+    this.connect();
   }
 
   private nextBaseUrl = (): string => {
@@ -346,7 +369,7 @@ export default class StrongSocket implements SocketI {
     if (!url || !this.baseUrls.includes(url)) {
       url = this.baseUrls[Math.floor(Math.random() * this.baseUrls.length)];
       this.storage.set(url);
-    } else if ((this.isTestUser && this.isTestRunning) || this.tryOtherUrl) {
+    } else if (this.tryOtherUrl) {
       const i = this.baseUrls.findIndex(u => u === url);
       url = this.baseUrls[(i + 1) % this.baseUrls.length];
       this.storage.set(url);
@@ -357,58 +380,6 @@ export default class StrongSocket implements SocketI {
 
   pingInterval = (): number => this.computePingDelay() + this.averageLag;
   getVersion = (): number | false => this.version;
-
-  private async storeStats(event?: any) {
-    if (!this.lastUrl || !this.isTestUser || !this.isTestRunning) return;
-    if (!event && this.stats.n < 2) return;
-
-    const data = {
-      dns: this.lastUrl.includes(`//${this.baseUrls[0]}`) ? 'ovh' : 'cf',
-      n: this.stats.n,
-      ...event,
-    };
-    if (this.stats.n > 0) data.mean = this.stats.mean;
-    if (this.stats.n > 1) data.stdev = Math.sqrt(this.stats.m2 / (this.stats.n - 1));
-    this.stats.m2 = this.stats.n = this.stats.mean = 0;
-
-    localStorage.setItem(`socket.test.${myUserId()}`, JSON.stringify(data));
-    return this.flushStats();
-  }
-
-  private async flushStats() {
-    if (!this.isTestUser) return;
-
-    const storeKey = `socket.test.${myUserId()}`;
-    const last = localStorage.getItem(storeKey);
-
-    if (!last && !this.isTestRunning && !(await dbExists({ store: storeKey }))) return;
-
-    this.stats.store ??= await objectStorage<any, number>({ store: storeKey });
-    if (last) await this.stats.store.put(await this.stats.store.count(), JSON.parse(last));
-
-    localStorage.removeItem(storeKey);
-
-    if (this.isTestRunning) return;
-
-    const data = await this.stats.store.getMany();
-    const rsp = await fetch('/dev/socket-test', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'application/json' },
-    });
-    if (!rsp.ok) return;
-
-    window.indexedDB.deleteDatabase(`${storeKey}--db`);
-  }
-
-  private updateStats(lag: number) {
-    if (!this.isTestUser || !this.isTestRunning) return;
-
-    this.stats.n++;
-    const delta = lag - this.stats.mean;
-    this.stats.mean += delta / this.stats.n;
-    this.stats.m2 += delta * (lag - this.stats.mean);
-  }
 }
 
 class Ackable {

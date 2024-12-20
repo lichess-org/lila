@@ -313,8 +313,6 @@ interface I18n {
     overview: string;
     /** Past broadcasts */
     pastBroadcasts: string;
-    /** %s per page */
-    perPage: I18nFormat;
     /** A public, real-time PGN source for this round. We also offer a %s for faster and more efficient synchronisation. */
     pgnSourceHelp: I18nFormat;
     /** Rating diff */
@@ -375,8 +373,6 @@ interface I18n {
     unrated: string;
     /** Upcoming */
     upcoming: string;
-    /** Upcoming broadcasts */
-    upcomingBroadcasts: string;
     /** Upload tournament image */
     uploadImage: string;
     /** webmasters page */
@@ -475,6 +471,8 @@ interface I18n {
     createMultipleAccounts: string;
     /** Only create accounts for real students. Do not use this to make multiple accounts for yourself. You would get banned. */
     createStudentWarning: string;
+    /** Declined */
+    declined: string;
     /** Edit news */
     editNews: string;
     /** Features */
@@ -519,6 +517,10 @@ interface I18n {
     maxStudentsNote: I18nFormat;
     /** Message all students about new class material */
     messageAllStudents: string;
+    /** Move to another class */
+    moveToAnotherClass: string;
+    /** Move to %s */
+    moveToClass: I18nFormat;
     /** You can also %s to create multiple Lichess accounts from a list of student names. */
     multipleAccsFormDescription: I18nFormat;
     /** N/A */
@@ -559,6 +561,8 @@ interface I18n {
     overview: string;
     /** Password: %s */
     passwordX: I18nFormat;
+    /** Pending */
+    pending: string;
     /** Private. Will never be shown outside the class. Helps you remember who the student is. */
     privateWillNeverBeShown: string;
     /** Progress */
@@ -1243,8 +1247,6 @@ interface I18n {
     chessInsights: string;
     /** Cloud engine analysis */
     cloudEngineAnalysis: string;
-    /** Contribute to Lichess and get a cool looking Patron icon */
-    contributeToLichessAndGetIcon: string;
     /** Correspondence chess with conditional premoves */
     correspondenceWithConditionalPremoves: string;
     /** Deep %s server analysis */
@@ -1273,8 +1275,6 @@ interface I18n {
     standardChessAndX: I18nFormat;
     /** Studies (shareable and persistent analysis) */
     studies: string;
-    /** Support Lichess */
-    supportLichess: string;
     /** Support us with a Patron account! */
     supportUsWithAPatronAccount: string;
     /** Tactical puzzles from user games */
@@ -2069,6 +2069,8 @@ interface I18n {
   preferences: {
     /** Bell notification sound */
     bellNotificationSound: string;
+    /** Blindfold */
+    blindfold: string;
     /** Board coordinates (A-H, 1-8) */
     boardCoordinates: string;
     /** Board highlights (last move and check) */
@@ -2101,6 +2103,8 @@ interface I18n {
     displayBoardResizeHandle: string;
     /** Drag a piece */
     dragPiece: string;
+    /** Except in-game */
+    exceptInGame: string;
     /** Can be disabled during a game with the board menu */
     explainCanThenBeTemporarilyDisabled: string;
     /** Hold the <ctrl> key while promoting to temporarily disable auto-promotion */
@@ -3661,8 +3665,6 @@ interface I18n {
     openingExplorerAndTablebase: string;
     /** Openings */
     openings: string;
-    /** Open study */
-    openStudy: string;
     /** Open tournaments */
     openTournaments: string;
     /** Opponent */
@@ -4811,6 +4813,8 @@ interface I18n {
     orientation: string;
     /** Paste your PGN text here, up to %s games */
     pasteYourPgnTextHereUpToNbGames: I18nPlural;
+    /** %s per page */
+    perPage: I18nFormat;
     /** PGN tags */
     pgnTags: string;
     /** Pinned chapter comment */

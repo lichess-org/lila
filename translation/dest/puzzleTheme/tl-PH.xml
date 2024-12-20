@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="advancedPawn">Sumulong na pawn</string>
+  <string name="advancedPawnDescription">Isa sa iyong pawn ay malalim na sa posisyon ng kalaban, maaaring magbanta ng promosyon.</string>
+  <string name="advantage">Lamang</string>
+  <string name="anastasiaMate">Mate ni Anastasia</string>
+  <string name="castling">Castling</string>
+  <string name="equality">Pantay</string>
   <string name="endgameDescription">Isang taktika sa huling yugto ng laro.</string>
   <string name="enPassantDescription">Isang taktika na kinasasangkutan ng en passant na panuntunan, kung saan ang isang pawn ay maaaring makuha ang isang pawn ng kalaban na na-bypass ito gamit ang paunang dalawang-parisukat na paglipat.</string>
   <string name="exposedKing">Nakalantad na hari</string>

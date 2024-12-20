@@ -1,10 +1,9 @@
 package lila.relay
 package ui
+
 import play.api.data.Form
-
 import lila.ui.*
-
-import ScalatagsTemplate.{ given, * }
+import lila.ui.ScalatagsTemplate.{ given, * }
 
 case class FormNavigation(
     group: Option[RelayGroup.WithTours],
@@ -46,7 +45,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             href := routes.RelayRound.edit(r.id),
             cls  := List("subnav__subitem text" -> true, "active" -> nav.roundId.has(r.id)),
             dataIcon := (
-              if r.finished then Icon.Checkmark
+              if r.isFinished then Icon.Checkmark
               else if r.hasStarted then Icon.DiscBig
               else Icon.DiscOutline
             )
@@ -134,7 +133,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayRound.reset(r.id))(
               submitButton(
-                cls := "button button-red button-empty confirm"
+                cls := "button button-red button-empty yes-no-confirm"
               )(
                 strong(trb.resetRound()),
                 em(trb.deleteAllGamesOfThisRound())
@@ -142,7 +141,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             ),
             postForm(action := routes.Study.delete(r.studyId))(
               submitButton(
-                cls := "button button-red button-empty confirm"
+                cls := "button button-red button-empty yes-no-confirm"
               )(strong(trb.deleteRound()), em(trb.definitivelyDeleteRound()))
             )
           )
@@ -154,30 +153,42 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         nav: FormNavigation
     )(using ctx: Context) =
       val broadcastEmailContact = a(href := "mailto:broadcast@lichess.org")("broadcast@lichess.org")
-      val lccWarning = nav.round
-        .flatMap(_.sync.upstream)
-        .exists(_.hasLcc)
-        .option:
-          flashMessage("box relay-form__lcc-deprecated")(
-            p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
-            p(
-              "LiveChessCloud support is deprecated and will be removed soon.",
-              br,
-              s"If you need help, please contact us at ",
-              broadcastEmailContact,
-              "."
-            )
-          )
-      val contactUsForOfficial = nav.featurableRound.isDefined
-        .option:
-          flashMessage("box relay-form__contact-us")(
-            p(
-              "Is this a tournament you organize? Do you want Lichess to feature it on the ",
-              a(href := routes.RelayTour.index(1))("broadcast page"),
-              "?"
-            ),
-            p(trans.contact.sendEmailAt(broadcastEmailContact))
-          )
+      val lccWarning = for
+        round    <- nav.round
+        upstream <- round.sync.upstream
+        if upstream.hasLcc
+      yield flashMessage("box relay-form__warning")(
+        p(strong("Please use the ", a(href := broadcasterUrl)("Lichess Broadcaster App"))),
+        p(
+          "LiveChessCloud support is deprecated and will be removed soon.",
+          br,
+          s"If you need help, please contact us at ",
+          broadcastEmailContact,
+          "."
+        )
+      )
+      val contactUsForOfficial = nav.featurableRound.isDefined.option:
+        flashMessage("box relay-form__contact-us")(
+          p(
+            "Is this a tournament you organize? Do you want Lichess to feature it on the ",
+            a(href := routes.RelayTour.index(1))("broadcast page"),
+            "?"
+          ),
+          p(trans.contact.sendEmailAt(broadcastEmailContact))
+        )
+      val httpWarning = for
+        round    <- nav.round
+        upstream <- round.sync.upstream
+        http     <- upstream.hasUnsafeHttp
+        https = http.withScheme("https").withPort(-1) // else it adds :80 for some reason
+      yield flashMessage("box relay-form__warning")(
+        p(
+          strong("Warning: a source uses an insecure http:// protocol:"),
+          br,
+          a(href := http.toString)(http.toString)
+        ),
+        p("Did you mean ", a(href := https.toString)(https.toString), "?")
+      )
       postForm(cls := "form3", action := url)(
         (!Granter.opt(_.StudyAdmin)).option:
           div(cls := "form-group")(
@@ -195,7 +206,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             "Where do the games come from?"
           )(form3.select(_, RelayRoundForm.sourceTypes)),
           div(cls := "relay-form__sync relay-form__sync-url")(
-            lccWarning.orElse(contactUsForOfficial),
+            httpWarning.orElse(lccWarning).orElse(contactUsForOfficial),
             form3.group(
               form("syncUrl"),
               trb.sourceSingleUrl(),
@@ -235,7 +246,10 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             help = frag("The games will be combined in the order of the URLs.").some,
             half = false
           )(field =>
-            frag(lccWarning, form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace"))
+            frag(
+              httpWarning.orElse(lccWarning),
+              form3.textarea(field)(rows := 5, spellcheck := "false", cls := "monospace")
+            )
           )(cls := "relay-form__sync relay-form__sync-urls none"),
           form3.group(
             form("syncIds"),
@@ -398,7 +412,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
           div(cls := "relay-form__actions")(
             postForm(action := routes.RelayTour.delete(nav.tour.id))(
               submitButton(
-                cls := "button button-red button-empty confirm"
+                cls := "button button-red button-empty yes-no-confirm"
               )(strong(trb.deleteTournament()), em(trb.definitivelyDeleteTournament()))
             ),
             Granter
@@ -406,7 +420,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               .option(
                 postForm(action := routes.RelayTour.cloneTour(nav.tour.id))(
                   submitButton(
-                    cls := "button button-green button-empty confirm"
+                    cls := "button button-green button-empty yes-no-confirm"
                   )(
                     strong("Clone as broadcast admin"),
                     em("Clone this broadcast, its rounds, and their studies")

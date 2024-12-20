@@ -14,9 +14,8 @@ body {
   @media (min-width: at-least($small)) {
     ---main-margin: 1vw;
     ---block-gap: 15px;
+    overflow-y: hidden;
   }
-
-  overflow-y: hidden;
 }
 
 /* game view */
@@ -29,14 +28,19 @@ main.analyse.is-relay:not(.has-relay-tour) {
       'board gauge side'
       'board gauge tools'
       'board . controls';
-  }
-
-  .main-board {
-    /* space for the top player bar */
-    margin-top: calc((100vh - var(---col2-uniboard-width)) / 2);
-    cg-resize {
-      display: none;
+    .main-board {
+      /* space for the top player bar */
+      margin-top: calc((100vh - var(---col2-uniboard-width)) / 2);
     }
+  }
+  @include mq-is-col1 {
+    .main-board {
+      /* space for the top player bar */
+      margin-top: $player-height;
+    }
+  }
+  cg-resize {
+    display: none;
   }
   .analyse__controls .features {
     flex: 0 0 2.5rem;

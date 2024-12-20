@@ -119,7 +119,6 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="replayMode">නැවත කිරීමේ අන්දම</string>
   <string name="realtimeReplay">එසැණින්</string>
   <string name="byCPL">CPL තුල</string>
-  <string name="openStudy">විවෘත අධ්‍යයනය</string>
   <string name="enable">සක්‍රීය කරන්න</string>
   <string name="bestMoveArrow">හොඳම ඇදීම පෙන්නන්න</string>
   <string name="showVariationArrows">වෙනස්කම් ඊතල පෙන්වන්න</string>
@@ -615,7 +614,7 @@ You are playing chess.</string>
   <string name="aboutSimulRules">සිමියුලය ආරම්භ වන විට, සෑම ක්‍රීඩකයෙක්ම සත්කාරකයා සමඟ ක්‍රීඩාවක් ආරම්භ කරයි. සියලුම ක්‍රීඩා සම්පූර්ණ වූ විට සිමියුලය අවසන් වේ.</string>
   <string name="aboutSimulSettings">සිමියුල්ස් සෑම විටම අනියම් වේ. නැවත ගැලපීම්, ආපසු ගැනීම් සහ කාලය එකතු කිරීම අබල කර ඇත.</string>
   <string name="create">සාදන්න</string>
-  <string name="whenCreateSimul">ඔබ සිමියුලයක් නිර්මාණය කරන විට, ඔබට එකවර ක්‍රීඩකයන් කිහිප දෙනෙකු ක්‍රීඩා කිරීමට අවස්ථාව ලැබේ.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">ඔබ සිමියුලයක් නිර්මාණය කරන විට, ඔබට එකවර ක්‍රීඩකයන් කිහිප දෙනෙකු ක්‍රීඩා කිරීමට අවස්ථාව ලැබේ.</string>
   <string name="simulVariantsHint">ඔබ ප්‍රභේද කිහිපයක් තෝරා ගන්නේ නම්, එක් එක් ක්‍රීඩකයාට ක්‍රීඩා කළ යුත්තේ කුමන එකක්ද යන්න තෝරා ගත හැකිය.</string>
   <string name="simulClockHint">ෆිෂර් ඔරලෝසු සැකසුම. ඔබ වැඩිපුර ක්‍රීඩකයින් භාර ගන්නා තරමට, ඔබට වැඩි කාලයක් අවශ්‍ය විය හැකිය.</string>
   <string name="simulAddExtraTime">ඔබට සිමියුලය සමඟ සාර්ථකව කටයුතු කිරීමට උපකාර කිරීම සඳහා ඔබේ ඔරලෝසුවට අමතර ආරම්භක වේලාවක් එක් කළ හැක.</string>

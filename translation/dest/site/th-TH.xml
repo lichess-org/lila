@@ -114,7 +114,6 @@
   <string name="replayMode">เล่นซ้ำ</string>
   <string name="realtimeReplay">ตามที่เล่นจริง</string>
   <string name="byCPL">ตามแต้มเสีย</string>
-  <string name="openStudy">เปิดห้องเรียน</string>
   <string name="enable">เปิดใช้งาน</string>
   <string name="bestMoveArrow">ศรตาเดินที่ดีที่สุด</string>
   <string name="showVariationArrows">แสดงศรการเดินอื่นๆ</string>
@@ -641,7 +640,7 @@
   <string name="aboutSimulRules">เมื่อไซมัลเริ่มต้น ผู้เล่นทุกคนจะเล่นเกมกับโฮสต์ผู้ซึ่งจะเล่นเป็นฝ่ายสีขาว ไซมัลจะจบเมื่อทุกเกมจบอย่างสมบูรณ์</string>
   <string name="aboutSimulSettings">ไซมัลจะใช้การเล่นแบบธรรมดา  การขอเล่นอีกครั้ง, การเดินใหม่, หรือ \"เพิ่มเวลา\" จะไม่อนุญาตให้ใช้</string>
   <string name="create">สร้าง</string>
-  <string name="whenCreateSimul">เมื่อคุณสร้างไซมัล คุณจะได้เล่นกับหลายผู้เล่นในครั้งเดียว</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">เมื่อคุณสร้างไซมัล คุณจะได้เล่นกับหลายผู้เล่นในครั้งเดียว</string>
   <string name="simulVariantsHint">ถ้าคุณเลือกหลายตัวแปรกติกา ผู้เล่นแต่ละคนจะเลือกได้ว่าจะเล่นอันไหน</string>
   <string name="simulClockHint">การตั้งนาฬิกาฟิสเชอร์ ยิ่งคุณเล่นกับผู้เล่นหลายคน คุณยิ่งต้องการเวลามากขึ้น</string>
   <string name="simulAddExtraTime">คุณอาจบวกเวลาพิเศษให้นาฬิกาของคุณ เพื่อช่วยคุณรับมือกับไซมัล</string>

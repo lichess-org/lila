@@ -1,13 +1,12 @@
-import { looseH as h, Redraw, VNode } from 'common/snabbdom';
-import RelayCtrl from './relayCtrl';
+import { looseH as h, type Redraw, type VNode } from 'common/snabbdom';
+import type RelayCtrl from './relayCtrl';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {
   private iframe: HTMLIFrameElement;
   private close: HTMLImageElement;
   private autoplay: boolean;
-
-  animationFrameId: number;
+  private animationFrameId?: number;
 
   constructor(
     private url: string,
@@ -45,20 +44,22 @@ export class VideoPlayer {
   };
 
   cover = (el?: HTMLElement) => {
-    cancelAnimationFrame(this.animationFrameId);
-    if (!el) {
-      if (!document.body.contains(this.iframe)) return;
-      document.body.removeChild(this.iframe);
-      document.body.removeChild(this.close);
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
     }
     this.animationFrameId = requestAnimationFrame(() => {
+      if (!el) {
+        this.iframe.remove();
+        this.close.remove();
+        return;
+      }
       this.iframe.style.display = 'block';
-      this.iframe.style.left = `${el!.offsetLeft}px`;
-      this.iframe.style.top = `${el!.offsetTop}px`;
-      this.iframe.style.width = `${el!.offsetWidth}px`;
-      this.iframe.style.height = `${el!.offsetHeight}px`;
-      this.close.style.left = `${el!.offsetLeft + el!.offsetWidth - 16}px`;
-      this.close.style.top = `${el!.offsetTop - 4}px`;
+      this.iframe.style.left = `${el.offsetLeft}px`;
+      this.iframe.style.top = `${el.offsetTop}px`;
+      this.iframe.style.width = `${el.offsetWidth}px`;
+      this.iframe.style.height = `${el.offsetHeight}px`;
+      this.close.style.left = `${el.offsetLeft + el!.offsetWidth - 16}px`;
+      this.close.style.top = `${el.offsetTop - 4}px`;
       if (document.body.contains(this.iframe)) return;
       document.body.appendChild(this.iframe);
       document.body.appendChild(this.close);

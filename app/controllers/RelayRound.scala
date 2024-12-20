@@ -128,29 +128,30 @@ final class RelayRound(
     env.study.preview
       .firstId(rt.round.studyId)
       .flatMapz(env.study.api.byIdWithChapterOrFallback(rt.round.studyId, _))
-      .orNotFoundEmbed: oldSc =>
-        studyC.CanView(oldSc.study)(
-          for
-            (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
-            rounds          <- env.relay.api.byTourOrdered(rt.tour)
-            group           <- env.relay.api.withTours.get(rt.tour.id)
-            data = env.relay.jsonView.makeData(
-              rt.tour.withRounds(rounds.map(_.round)),
-              rt.round.id,
-              studyData,
-              group,
-              canContribute = false,
-              isSubscribed = none,
-              videoUrls = none,
-              pinned = none
-            )
-            sVersion <- NoCrawlers(env.study.version(sc.study.id))
-            embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
-          yield Ok(embed).enforceCrossSiteIsolation
-        )(
-          studyC.privateUnauthorizedFu(oldSc.study),
-          studyC.privateForbiddenFu(oldSc.study)
-        )
+      .flatMap:
+        _.fold(notFoundEmbed): oldSc =>
+          studyC.CanView(oldSc.study)(
+            for
+              (sc, studyData) <- studyC.getJsonData(oldSc, withChapters = true)
+              rounds          <- env.relay.api.byTourOrdered(rt.tour)
+              group           <- env.relay.api.withTours.get(rt.tour.id)
+              data = env.relay.jsonView.makeData(
+                rt.tour.withRounds(rounds.map(_.round)),
+                rt.round.id,
+                studyData,
+                group,
+                canContribute = false,
+                isSubscribed = none,
+                videoUrls = none,
+                pinned = none
+              )
+              sVersion <- NoCrawlers(env.study.version(sc.study.id))
+              embed    <- views.relay.embed(rt.withStudy(sc.study), data, sVersion)
+            yield Ok(embed).enforceCrossSiteIsolation
+          )(
+            studyC.privateUnauthorizedFu(oldSc.study),
+            studyC.privateForbiddenFu(oldSc.study)
+          )
 
   private def doApiShow(id: RelayRoundId)(using Context): Fu[Result] =
     Found(env.relay.api.byIdWithTour(id))(doApiShow)
@@ -162,9 +163,8 @@ final class RelayRound(
           group       <- env.relay.api.withTours.get(rt.tour.id)
           previews    <- env.study.preview.jsonList.withoutInitialEmpty(study.id)
           targetRound <- env.relay.api.officialTarget(rt.round)
-        yield JsonOk(
+        yield JsonOk:
           env.relay.jsonView.withUrlAndPreviews(rt.withStudy(study), previews, group, targetRound)
-        )
       )(studyC.privateUnauthorizedJson, studyC.privateForbiddenJson)
 
   def pgn(ts: String, rs: String, id: RelayRoundId) = Open:
@@ -228,11 +228,7 @@ final class RelayRound(
       }(Unauthorized, Forbidden)
 
   def stats(id: RelayRoundId) = Open:
-    env.relay.stats
-      .get(id)
-      .map: stats =>
-        import lila.relay.JsonView.given
-        JsonOk(stats)
+    env.relay.statsJson(id).map(JsonOk)
 
   private def WithRoundAndTour(
       @nowarn ts: String,
@@ -257,7 +253,7 @@ final class RelayRound(
   )(using ctx: Context): Fu[Result] =
     WithTour(id): tour =>
       ctx.me
-        .soUse { env.relay.api.canUpdate(tour) }
+        .soUse(env.relay.api.canUpdate(tour))
         .elseNotFound:
           env.relay.api.formNavigation(tour).flatMap(f)
 
@@ -275,7 +271,7 @@ final class RelayRound(
           case VideoEmbed.Auto =>
             fuccess:
               rt.tour.pinnedStream
-                .ifFalse(rt.round.finished)
+                .ifFalse(rt.round.isFinished)
                 .flatMap(_.upstream)
                 .map(_.urls(netDomain).toPair)
           case VideoEmbed.No => fuccess(none)
@@ -300,7 +296,6 @@ final class RelayRound(
         sVersion <- NoCrawlers(env.study.version(sc.study.id))
         page <- renderPage:
           views.relay.show(rt.withStudy(sc.study), data, chat, sVersion, crossSiteIsolation)
-        _ = if HTTPRequest.isHuman(req) then lila.mon.http.path(rt.tour.path).increment()
       yield
         if crossSiteIsolation then Ok(page).enforceCrossSiteIsolation
         else Ok(page).withHeaders(crossOriginPolicy.unsafe*)

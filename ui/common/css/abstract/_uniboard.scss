@@ -10,10 +10,8 @@ $col3-uniboard-controls: 3rem;
 $col3-min-bottom-margin: 1rem;
 
 $col3-uniboard-max-width: calc(
-  100vw - #{$col3-uniboard-side-min} - #{$block-gap} - #{$col3-uniboard-table-min} - 2 * var(
-      ---main-margin,
-      0px
-    ) - #{$scrollbar-width}
+  100vw - #{$col3-uniboard-side-min} - #{$block-gap} - #{$col3-uniboard-table-min} - 2 *
+    var(---main-margin, 0px) - #{$scrollbar-width}
 );
 $col3-uniboard-max-height: calc(100vh - #{$site-header-outer-height} - #{$col3-min-bottom-margin});
 $col3-uniboard-max-size: min(#{$col3-uniboard-max-width}, #{$col3-uniboard-max-height});

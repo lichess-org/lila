@@ -91,7 +91,7 @@ final class StreamerApi(
     (~list).so(
       notifyApi.notifyOne(
         current,
-        lila.core.notify.GenericLink(
+        lila.core.notify.NotificationContent.GenericLink(
           url = "/streamer/edit",
           title = "Listed on /streamer".some,
           text = "Your streamer page is public".some,

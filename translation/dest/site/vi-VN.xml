@@ -114,7 +114,6 @@
   <string name="replayMode">Chế độ xem lại</string>
   <string name="realtimeReplay">Thời gian thực</string>
   <string name="byCPL">Theo phần trăm mất tốt (CPL)</string>
-  <string name="openStudy">Mở nghiên cứu</string>
   <string name="enable">Bật</string>
   <string name="bestMoveArrow">Mũi tên chỉ nước đi tốt nhất</string>
   <string name="showVariationArrows">Hiển thị mũi tên biến</string>
@@ -643,7 +642,7 @@ trò chuyện trong ván đấu và có một URL có thể chia sẻ công khai
   <string name="aboutSimulRules">Khi cờ đồng loạt bắt đầu, mỗi người chơi sẽ bắt đầu ván cờ với người chủ trì. Cờ đồng loạt kết thúc khi tất cả các ván cờ hoàn tất.</string>
   <string name="aboutSimulSettings">Cờ đồng loạt luôn không tính xếp hạng. Việc tái đấu, đi lại hay cho thêm thời gian đều bị vô hiệu.</string>
   <string name="create">Tạo</string>
-  <string name="whenCreateSimul">Khi bạn tạo một sự kiện cờ đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
+  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Khi bạn tạo một sự kiện cờ đồng loạt, bạn sẽ chơi với nhiều người cùng một lúc.</string>
   <string name="simulVariantsHint">Nếu bạn chọn nhiều biến thể, mỗi người chơi sẽ được lựa chọn chơi biến thể nào.</string>
   <string name="simulClockHint">Thiết lập Đồng hồ Fischer. Bạn càng chơi với nhiều người thì càng có thể cần nhiều thời gian.</string>
   <string name="simulAddExtraTime">Bạn có thể thêm thời gian ban đầu cho đồng hồ của mình để đấu cờ đồng loạt dễ hơn.</string>

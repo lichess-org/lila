@@ -21,6 +21,8 @@
   </plurals>
   <string name="students">ശിഷ്യകർ</string>
   <string name="progress">മുന്നേറ്റം</string>
+  <string name="overDays">ദിവസങ്ങൾ തോറും</string>
+  <string name="variantXOverLastY">%1$s %2$s വഴിനീളെ</string>
   <string name="news">വാർത്ത</string>
   <string name="invite">ക്ഷണിക്കുക</string>
 </resources>

@@ -1,7 +1,7 @@
 import { attributesModule, classModule, init, VNode } from 'snabbdom';
 import menuHover from 'common/menuHover';
 import StormCtrl from './ctrl';
-import { StormOpts } from './interfaces';
+import type { StormOpts } from './interfaces';
 
 const patch = init([classModule, attributesModule]);
 
