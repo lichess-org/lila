@@ -4,8 +4,8 @@
   <string name="lichessStreamer">بَرخَط-محتواساز Lichess</string>
   <string name="live">زنده!</string>
   <string name="offline">بُرون‌خط</string>
-  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">در حال پخش جریانی: %s</string>
-  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">آخرین پخش جریانی %s</string>
+  <string name="currentlyStreaming">در حال پخش جریانی: %s</string>
+  <string name="lastStream">آخرین پخش جریانی %s</string>
   <string name="becomeStreamer">بَرخَط-محتواساز شوید</string>
   <string name="doYouHaveStream">صفحه Twitch یا YouTube دارید؟</string>
   <string name="hereWeGo">شروع کنیم!</string>
@@ -29,11 +29,9 @@
   <string name="pendingReview">ناظران جریان‌تان را بررسی می‌کنند.</string>
   <string name="pleaseFillIn">لطفا اطلاعات بَرخَط-محتواسازتان را پر کنید و تصویری بارگذارید.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">هنگامی که برای فهرست شدن به عنوان بَرخَط-محتواساز Lichess آماده‌اید، %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used as part of the longer sentence: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">درخواست بررسی ناظر دهید.</string>
   <string name="streamerLanguageSettings">صفحهٔ بَرخَط-محتواساز Lichess، مخاطبان شما را با زبان ارائه‌شده بر پایهٔ پَتادیس جریان‌سازی‌تان هدف قرار می‌دهد. زبان پیش‌فرض صحیح را برای جریان‌های شطرنج‌تان در کارآیه یا زواره‌ای که برای پخش می‌بهرایید، تنظیم کنید.</string>
-  <string name="twitchUsername" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;Twitch is a proper noun and refers to the streaming service https://twitch.tv/. Please do not translate the word 'Twitch'.">نام کاربری یا وب‌نشانی‌تان در Twitch</string>
-  <string name="optionalOrEmpty">اختیاری. اگر هیچ کدام خالی نیست</string>
-  <string name="youTubeChannelId" comment="Appears on the form for setting up your Streamer page: https://lichess.org/streamer/edit&#10;&#10;The Channel ID is a special alphanumeric string. See Google's guide here for how to retrieve it: https://support.google.com/youtube/answer/3250431&#10;&#10;We encourage translators to match what the Channel ID is called in your language's version of YouTube: https://www.youtube.com/account_advanced">شناسهٔ کانال یوتیوب‌تان</string>
+  <string name="twitchUsername">نام کاربری یا وب‌نشانی‌تان در Twitch</string>
+  <string name="youTubeChannelId">شناسهٔ کانال یوتیوب‌تان</string>
   <string name="streamerName">نام بَرخَط-محتواسازتان در Lichess</string>
   <plurals name="keepItShort">
     <item quantity="one">کوتاه بنویسید: کمتر از %s حرف</item>
