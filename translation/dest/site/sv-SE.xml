@@ -70,6 +70,8 @@
   <string name="promoteVariation">Höj upp variant</string>
   <string name="makeMainLine">Gör till huvudvariant</string>
   <string name="deleteFromHere">Radera härifrån</string>
+  <string name="collapseVariations">Dölj varianter</string>
+  <string name="expandVariations">Dölj varianter</string>
   <string name="forceVariation">Visa som variant</string>
   <string name="copyVariationPgn">Kopiera variations-PGN</string>
   <string name="move">Drag</string>
