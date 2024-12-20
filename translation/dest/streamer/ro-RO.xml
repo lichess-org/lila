@@ -29,8 +29,13 @@
   <string name="pendingReview">Streamul tău este revizuit de moderatori.</string>
   <string name="pleaseFillIn">Vă rugăm să introduceți informațiile de streamer și să încărcați o imagine.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Când ești gata să fii listat ca și Lichess streamer, %s</string>
+  <string name="submitForReview">Trimite spre verificare</string>
   <string name="streamerLanguageSettings">Pagina de streamer Lichess țintește publicul tău cu limba furnizată de platforma ta de streaming. Setați limba implicită corectă pentru fluxurile de șah din aplicația sau serviciul pe care îl utilizați pentru difuzare.</string>
   <string name="twitchUsername">Numele tău de utilizator Twitch sau URL-ul</string>
+  <string name="twitchOrYouTubeRequired">Fie Twitch, fie YouTube este necesar</string>
+  <string name="twitchOrYouTubeMustBeVerified">Modificările Twitch și YouTube trebuie verificate.
+  
+  Insigna de streamer și listarea vor fi suspendate în timp ce verificarea este în desfășurare. Acest lucru poate dura până la 72 de ore.</string>
   <string name="youTubeChannelId">ID-ul canalului dvs YouTube</string>
   <string name="streamerName">Numele tău de streamer pe Lichess</string>
   <plurals name="keepItShort">
