@@ -29,9 +29,10 @@ final class WebSubscriptionApi(coll: Coll)(using Executor):
   def unsubscribeByUser(user: User): Funit =
     coll.delete.one($doc("userId" -> user.id)).void
 
-  def unsubscribeByEndpoints(endpoints: Iterable[String]): Funit =
+  // userIds is necessary to match the mongodb index
+  def unsubscribeByEndpoints(userIds: Iterable[UserId])(endpoints: Iterable[String]): Funit =
     endpoints.nonEmpty.so:
-      coll.delete.one($doc("endpoint".$in(endpoints))).void
+      coll.delete.one($doc("userId".$in(userIds), "endpoint".$in(endpoints))).void
 
   private[push] def getSubscriptions(max: Int)(userId: UserId): Fu[List[WebSubscription]] =
     coll
