@@ -4557,8 +4557,6 @@ interface I18n {
     maxSize: I18nFormat;
     /** OFFLINE */
     offline: string;
-    /** Optional. Leave empty if none */
-    optionalOrEmpty: string;
     /** Your stream is being reviewed by moderators. */
     pendingReview: string;
     /** Get a flaming streamer icon on your Lichess profile. */
@@ -4573,8 +4571,6 @@ interface I18n {
     perks: string;
     /** Please fill in your streamer information, and upload a picture. */
     pleaseFillIn: string;
-    /** request a moderator review */
-    requestReview: string;
     /** Include the keyword "lichess.org" in your stream title and use the category "Chess" when you stream on Lichess. */
     rule1: string;
     /** Remove the keyword when you stream non-Lichess stuff. */
@@ -4591,8 +4587,14 @@ interface I18n {
     streamerName: string;
     /** streaming Fairplay FAQ */
     streamingFairplayFAQ: string;
+    /** Submit for review */
+    submitForReview: string;
     /** Tell us about your stream in one sentence */
     tellUsAboutTheStream: string;
+    /** Twitch and YouTube changes must be verified. */
+    twitchOrYouTubeMustBeVerified: string;
+    /** Either Twitch or YouTube is required */
+    twitchOrYouTubeRequired: string;
     /** Your Twitch username or URL */
     twitchUsername: string;
     /** Upload a picture */

@@ -29,10 +29,13 @@
   <string name="pendingReview">Your stream is being reviewed by moderators.</string>
   <string name="pleaseFillIn">Please fill in your streamer information, and upload a picture.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">When you are ready to be listed as a Lichess streamer, %s</string>
-  <string name="requestReview" comment="requestReview&#10;&#10;Used in the sense of: &quot;When you are ready to be listed as a Lichess streamer, request a moderator review&quot;">request a moderator review</string>
+  <string name="submitForReview">Submit for review</string>
   <string name="streamerLanguageSettings">The Lichess streamer page targets your audience with the language provided by your streaming platform. Set the correct default language for your chess streams in the app or service you use to broadcast.</string>
   <string name="twitchUsername">Your Twitch username or URL</string>
-  <string name="optionalOrEmpty">Optional. Leave empty if none</string>
+  <string name="twitchOrYouTubeRequired">Either Twitch or YouTube is required</string>
+  <string name="twitchOrYouTubeMustBeVerified">Twitch and YouTube changes must be verified.
+  
+  Your streamer badge and listing will be suspended while the review is in process. This can take up to 72 hours.</string>
   <string name="youTubeChannelId">Your YouTube channel ID</string>
   <string name="streamerName">Your streamer name on Lichess</string>
   <plurals name="keepItShort">
