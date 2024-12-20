@@ -29,8 +29,13 @@
   <string name="pendingReview">המשדר שלכם עובר בדיקת מנהלים.</string>
   <string name="pleaseFillIn">אנא מלאו את פרטי המשדר שלכם והעלו תמונה.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">כאשר אתם מוכנים להיכנס לרשימת שדרני Lichess, %s</string>
+  <string name="submitForReview">שלח לבדיקה</string>
   <string name="streamerLanguageSettings">עמוד השדרנים של Lichess מכוון את הקהל שלך לפי השפה שבימת השידור שלך סיפקה לנו. הגדירו את השפה הנכונה באפליקציה או בשירות המשמשים אתכם לשידור.</string>
   <string name="twitchUsername">שם המשתמש או כתובת הTwitch שלכם</string>
+  <string name="twitchOrYouTubeRequired">נדרש ערוץ ב-Twitch או ב-YouTube</string>
+  <string name="twitchOrYouTubeMustBeVerified">שינויים ב-Twitch או ב-YouTube צריכים לעבור עימות.
+
+הרישום שלך כמשדר והתו יושעו במהלך הבדיקה, שיכולה להימשך עד 72 שעות.</string>
   <string name="youTubeChannelId">המזהה (ID) של ערוץ ה־YouTube שלך</string>
   <string name="streamerName">השם שלכם כשדרנים ב־Lichess</string>
   <plurals name="keepItShort">
