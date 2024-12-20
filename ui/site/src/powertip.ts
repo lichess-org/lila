@@ -2,6 +2,7 @@ import * as licon from 'common/licon';
 import { text as xhrText } from 'common/xhr';
 import { requestIdleCallback, $as } from 'common';
 import { spinnerHtml } from 'common/spinner';
+import { initializeDom } from 'common/pubsub';
 
 // Thanks Steven Benner! - adapted from https://github.com/stevenbenner/jquery-powertip
 
@@ -13,7 +14,7 @@ const onPowertipPreRender = (id: string, preload?: (url: string) => void) => (el
   xhrText(url + '/mini').then(html => {
     const el = document.getElementById(id) as HTMLElement;
     el.innerHTML = html;
-    window.lichess.initializeDom(el);
+    initializeDom(el);
   });
 };
 

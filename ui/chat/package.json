@@ -10,6 +10,7 @@
     ".": "./src/chat.ts"
   },
   "dependencies": {
+    "api": "workspace:*",
     "common": "workspace:*",
     "palantir": "workspace:*"
   }

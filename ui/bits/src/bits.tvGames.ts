@@ -1,5 +1,6 @@
 import * as xhr from 'common/xhr';
-import { pubsub } from 'common/pubsub';
+import { pubsub, initializeDom } from 'common/pubsub';
+import { api } from 'api';
 
 interface ReplacementResponse {
   id: string;
@@ -28,8 +29,8 @@ const requestReplacementGame = () => {
       .json(url.toString())
       .then((data: ReplacementResponse) => {
         main.find(`.mini-game[href^="/${oldId}"]`).replaceWith(data.html);
-        if (data.html.includes('mini-game__result')) window.lichess.overrides.tvGamesOnFinish(data.id);
-        window.lichess.initializeDom();
+        if (data.html.includes('mini-game__result')) api.overrides.tvGamesOnFinish(data.id);
+        initializeDom();
       })
       .then(done, done);
   });
@@ -40,17 +41,17 @@ const done = () => {
   requestReplacementGame();
 };
 
-window.lichess.overrides.tvGamesOnFinish = (id: string) =>
+api.overrides.tvGamesOnFinish = (id: string) =>
   setTimeout(() => {
     finishedIdQueue.push(id);
     requestReplacementGame();
   }, 7000); // 7000 matches the rematch wait duration in /modules/tv/main/Tv.scala
 
 site.load.then(() => {
-  pubsub.on('socket.in.finish', ({ id }) => window.lichess.overrides.tvGamesOnFinish(id));
+  pubsub.on('socket.in.finish', ({ id }) => api.overrides.tvGamesOnFinish(id));
   $('main.tv-games')
     .find('.mini-game')
     .each((_i, el) => {
-      if ($(el).find('.mini-game__result').length > 0) window.lichess.overrides.tvGamesOnFinish(getId(el)!);
+      if ($(el).find('.mini-game__result').length > 0) api.overrides.tvGamesOnFinish(getId(el)!);
     });
 });
