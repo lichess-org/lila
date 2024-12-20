@@ -66,8 +66,8 @@ private object DgtJson:
         Tags(
           List(
             c.white.map(v => Tag(_.WhiteClock, v.toString)),
-            c.black.map(v => Tag(_.BlackClock, v.toString)),
-            Tag(_.ReferenceTime, c.time.toString).some
+            c.black.map(v => Tag(_.BlackClock, v.toString))
+            // Tag(_.ReferenceTime, c.referenceTime.toString).some // unused
           ).flatten
         )
     def toPgn(roundTags: Tags): PgnStr =

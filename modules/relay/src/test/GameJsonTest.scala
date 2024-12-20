@@ -11,7 +11,13 @@ class GameJsonTest extends munit.FunSuite:
 
     assertEquals(
       DgtJson.GameJson(Nil, None, Some(clock)).clockTags,
-      Tags(List(Tag(_.WhiteClock, "4468"), Tag(_.BlackClock, "30"), Tag(_.ReferenceTime, "1734688185870")))
+      Tags(
+        List(
+          Tag(_.WhiteClock, "4468"),
+          Tag(_.BlackClock, "30")
+          // Tag(_.ReferenceTime, "2024-12-20T09:49:45.870Z")
+        )
+      )
     )
 
   test("toPgn"):

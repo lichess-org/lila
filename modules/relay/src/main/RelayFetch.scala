@@ -14,7 +14,6 @@ import lila.memo.CacheApi
 import lila.relay.RelayFormat.CanProxy
 import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
-import lila.tree.Node.Comments
 
 final private class RelayFetch(
     sync: RelaySync,
@@ -372,24 +371,4 @@ private object RelayFetch:
     private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
       StudyPgnImport(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
-        .map: res =>
-          val fixedTags = Tags:
-            // remove wrong ongoing result tag if the board has a mate on it
-            if res.end.isDefined && res.tags(_.Result).has("*") then
-              res.tags.value.filter(_ != Tag(_.Result, "*"))
-            // normalize result tag (e.g. 0.5-0 ->  1/2-0)
-            else
-              res.tags.value.map: tag =>
-                if tag.name == Tag.Result
-                then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
-                else tag
-
-          RelayGame(
-            tags = fixedTags,
-            variant = res.variant,
-            root = res.root.copy(
-              comments = Comments.empty,
-              children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
-            ),
-            points = res.end.map(_.points)
-          )
+        .map(RelayGame.fromStudyImport)
