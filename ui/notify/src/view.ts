@@ -3,7 +3,7 @@ import { h, type VNode } from 'snabbdom';
 import * as licon from 'common/licon';
 import { spinnerVdom as spinner } from 'common/spinner';
 import makeRenderers from './renderers';
-import { initializeDom } from 'common/pubsub';
+import { pubsub } from 'common/pubsub';
 
 const renderers = makeRenderers();
 
@@ -74,7 +74,7 @@ function clickHook(f: () => void) {
   };
 }
 
-const contentLoaded = (vnode: VNode) => initializeDom(vnode.elm as HTMLElement);
+const contentLoaded = (vnode: VNode) => pubsub.emit('content-loaded', vnode.elm);
 
 function recentNotifications(d: NotifyData, scrolling: boolean): VNode {
   return h(

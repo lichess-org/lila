@@ -18,7 +18,6 @@ import { prop } from 'common';
 import { storage, type LichessStorage } from 'common/storage';
 import { pubsub, type PubsubEvent, type PubsubCallback } from 'common/pubsub';
 import { alert } from 'common/dialog';
-import { api } from 'api';
 
 export default class ChatCtrl {
   data: ChatData;
@@ -103,7 +102,7 @@ export default class ChatCtrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return false;
     }
-    api.chat.post(text);
+    pubsub.emit('socket.send', 'talk', text);
     return true;
   };
 

@@ -1,4 +1,4 @@
-import { type PubsubCallback, type PubsubEvent, pubsub, initializeDom } from 'common/pubsub';
+import { type PubsubCallback, type PubsubEvent, pubsub } from 'common/pubsub';
 
 // #TODO document these somewhere
 const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'];
@@ -27,8 +27,10 @@ export interface Api {
 }
 
 // this object is available to extensions as window.lichess
-export const api: Api = ((window as any).lichess = {
-  initializeDom,
+export const api: Api = {
+  initializeDom: (root?: HTMLElement) => {
+    pubsub.emit('content-loaded', root);
+  },
   events: {
     on(name: PubsubEvent, cb: PubsubCallback): void {
       if (!publicEvents.includes(name)) throw 'This event is not part of the public API';
@@ -72,4 +74,4 @@ export const api: Api = ((window as any).lichess = {
   // some functions will be exposed here
   // to be overriden by browser extensions
   overrides: {},
-});
+};

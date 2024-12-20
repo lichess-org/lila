@@ -1,5 +1,5 @@
 import * as xhr from 'common/xhr';
-import { pubsub, initializeDom } from 'common/pubsub';
+import { pubsub } from 'common/pubsub';
 import { api } from 'api';
 
 interface ReplacementResponse {
@@ -30,7 +30,7 @@ const requestReplacementGame = () => {
       .then((data: ReplacementResponse) => {
         main.find(`.mini-game[href^="/${oldId}"]`).replaceWith(data.html);
         if (data.html.includes('mini-game__result')) api.overrides.tvGamesOnFinish(data.id);
-        initializeDom();
+        pubsub.emit('content-loaded');
       })
       .then(done, done);
   });
