@@ -110,4 +110,6 @@
   <string name="anInvitationHasBeenSentToX">%s に招待が送信されました</string>
   <string name="xAlreadyHasAPendingInvitation">%s はすでに招待ずみです</string>
   <string name="xIsAKidAccountWarning">%1$s は子供のアカウントで、あなたのメッセージを受信できません。招待 URL を手動で伝えてください： %2$s</string>
+  <string name="moveToClass">%s へ移動</string>
+  <string name="moveToAnotherClass">別のクラスに移動</string>
 </resources>
