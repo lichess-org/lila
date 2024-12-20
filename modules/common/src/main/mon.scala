@@ -368,9 +368,6 @@ object mon:
     val unfollow  = c.withTag("type", "unfollow")
     val block     = c.withTag("type", "block")
     val unblock   = c.withTag("type", "unblock")
-  object coach:
-    object pageView:
-      def profile(coachId: String) = counter("coach.pageView").withTag("name", coachId)
   object clas:
     object student:
       def create(teacher: String) = counter("clas.student.create").withTag("teacher", teacher)
