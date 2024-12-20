@@ -2,7 +2,7 @@ import * as xhr from 'common/xhr';
 import main from './main';
 import type { LobbyOpts } from './interfaces';
 import { wsConnect, wsPingInterval } from 'common/socket';
-import { pubsub, initializeDom } from 'common/pubsub';
+import { pubsub } from 'common/pubsub';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
@@ -35,12 +35,12 @@ export function initModule(opts: LobbyOpts) {
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          initializeDom();
+          pubsub.emit('content-loaded');
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        initializeDom();
+        pubsub.emit('content-loaded');
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.setRedirecting();

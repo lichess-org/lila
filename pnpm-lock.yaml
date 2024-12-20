@@ -286,9 +286,6 @@ importers:
 
   ui/chat:
     dependencies:
-      api:
-        specifier: workspace:*
-        version: link:../api
       common:
         specifier: workspace:*
         version: link:../common

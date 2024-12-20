@@ -6,7 +6,7 @@ import tablesort from 'tablesort';
 import { expandCheckboxZone, shiftClickCheckboxRange, selector } from './checkBoxes';
 import { spinnerHtml } from 'common/spinner';
 import { confirm } from 'common/dialog';
-import { initializeDom } from 'common/pubsub';
+import { pubsub } from 'common/pubsub';
 
 site.load.then(() => {
   const $toggle = $('.mod-zone-toggle'),
@@ -64,7 +64,7 @@ site.load.then(() => {
   const getLocationHash = (a: HTMLAnchorElement) => a.href.replace(/.+(#\w+)$/, '$1');
 
   function userMod($inZone: Cash) {
-    initializeDom($inZone[0]);
+    pubsub.emit('content-loaded', $inZone[0]);
 
     const makeReady = (selector: string, f: (el: HTMLElement, i: number) => void, cls = 'ready') => {
       $inZone.find(selector + `:not(.${cls})`).each(function (this: HTMLElement, i: number) {
