@@ -29,8 +29,13 @@
   <string name="pendingReview">Transmetimi juaj po shqyrtohet nga moderatorët.</string>
   <string name="pleaseFillIn">Ju lutemi, plotësoni hollësitë tuaja si transmetuesit dhe ngarkoni një fotografi.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Kur të jeni gati të renditeni si një transmetues Lichess, %s</string>
+  <string name="submitForReview">Parashtrojeni për shqyrtim</string>
   <string name="streamerLanguageSettings">Faqja e transmetuesit Lichess aplikon për publikun tuaj gjuhën e dhënë nga platforma juaj e transmetimit. Caktoni gjuhën e saktë parazgjedhje për transmetime shahu nga ju, te aplikacioni apo shërbimi që përdorni për të transmetuar.</string>
   <string name="twitchUsername">Emër përdoruesi ose URL-ja juaj Twitch</string>
+  <string name="twitchOrYouTubeRequired">Duhet doemos Twitch, ose YouTube</string>
+  <string name="twitchOrYouTubeMustBeVerified">Ndryshimet Twitch dhe YouTube duhen verifikuar.
+  
+  Stema juaj si transmetues dhe ç’transmetoni do të pezullohen teksa është duke u bërë shqyrtimi. Kjo mund të dojë deri në 72 orë.</string>
   <string name="youTubeChannelId">ID-ja e kanalit tuaj YouTube</string>
   <string name="streamerName">Emri i transmetuesit tuaj në Lichess</string>
   <plurals name="keepItShort">
