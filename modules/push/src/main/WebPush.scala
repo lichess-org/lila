@@ -66,7 +66,12 @@ final private class WebPush(
             .map:
               _.fields.collect:
                 case (endpoint, JsString("endpoint_not_valid" | "endpoint_not_found")) => endpoint
-            .so(webSubscriptionApi.unsubscribeByEndpoints(to))
+            .filter(_.nonEmpty)
+            .so: staleEndpoints =>
+              webSubscriptionApi
+                .unsubscribeByEndpoints(staleEndpoints, to)
+                .map: n =>
+                  logger.info(s"[push] web: $n/${staleEndpoints.size} stale endpoints unsubscribed")
         case res => fufail(s"[push] web: ${res.status} ${res.body}")
       }
 
