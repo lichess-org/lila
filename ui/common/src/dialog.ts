@@ -89,7 +89,7 @@ export async function confirm(
     (
       await domDialog({
         htmlText:
-          `<div>${escapeHtml(msg)}</div>` +
+          `<div>${escapeHtmlAddBreaks(msg)}</div>` +
           `<span><button class="button button-empty no">${no}</button>` +
           `<button class="button yes">${yes}</button></span>`,
         class: 'alert',
@@ -111,7 +111,7 @@ export async function confirm(
 export async function prompt(msg: string, def: string = ''): Promise<string | null> {
   const res = await domDialog({
     htmlText:
-      `<div>${escapeHtml(msg)}</div>` +
+      `<div>${escapeHtmlAddBreaks(msg)}</div>` +
       `<input type="text" value="${escapeHtml(def)}" />` +
       `<span><button class="button button-empty cancel">${i18n.site.cancel}</button>` +
       `<button class="button ok">${i18n.site.ok}</button></span>`,
@@ -359,6 +359,10 @@ function loadAssets(o: DialogOpts) {
       'hashed' in css ? site.asset.loadCssPath(css.hashed) : site.asset.loadCss(css.url),
     ),
   ]);
+}
+
+function escapeHtmlAddBreaks(s: string) {
+  return escapeHtml(s).replace(/\n/g, '<br>');
 }
 
 function onKeydown(e: KeyboardEvent) {

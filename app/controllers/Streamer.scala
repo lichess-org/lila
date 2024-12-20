@@ -102,27 +102,26 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
             modData(s.streamer).flatMap: forMod =>
               BadRequest.page(views.streamer.edit(sws, error, forMod)),
           data =>
-            api.update(sws.streamer, data, isGranted(_.Streamers)).flatMap { change =>
-              if change.decline then logApi.streamerDecline(s.user.id)
-              change.list.foreach { logApi.streamerList(s.user.id, _) }
-              change.tier.foreach { logApi.streamerTier(s.user.id, _) }
-              if data.approval.flatMap(_.quick).isDefined
-              then
-                env.streamer.pager.nextRequestId.map: nextId =>
-                  Redirect:
-                    nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
-                      s"${routes.Streamer.edit.url}?u=$id"
-              else
-                val next = if sws.streamer.is(me) then "" else s"?u=${sws.user.id}"
-                Redirect(s"${routes.Streamer.edit.url}$next")
-            }
+            api
+              .update(sws.streamer, data, isGranted(_.Streamers))
+              .flatMap:
+                case Some(change) =>
+                  if change.decline then logApi.streamerDecline(s.user.id)
+                  change.list.foreach { logApi.streamerList(s.user.id, _) }
+                  change.tier.foreach { logApi.streamerTier(s.user.id, _) }
+                  if data.approval.flatMap(_.quick).isDefined
+                  then
+                    env.streamer.pager.nextRequestId.map: nextId =>
+                      Redirect:
+                        nextId.fold(s"${routes.Streamer.index()}?requests=1"): id =>
+                          s"${routes.Streamer.edit.url}?u=$id"
+                  else
+                    val next = if sws.streamer.is(me) then "" else s"?u=${sws.user.id}"
+                    Redirect(s"${routes.Streamer.edit.url}$next")
+                case _ =>
+                  Redirect(routes.Streamer.edit)
         )
       }
-  }
-
-  def approvalRequest = AuthBody { _ ?=> me ?=>
-    NoBot:
-      api.approval.request(me).inject(Redirect(routes.Streamer.edit))
   }
 
   def pictureApply = AuthBody(parse.multipartFormData) { ctx ?=> me ?=>
@@ -135,7 +134,7 @@ final class Streamer(env: Env, apiC: => Api) extends LilaController(env):
               .recoverWith { case e: Exception =>
                 Redirect(routes.Streamer.edit).flashFailure
               }
-              .inject(Redirect(routes.Streamer.edit))
+              .inject(Ok)
         case None => Redirect(routes.Streamer.edit).flashFailure
   }
 

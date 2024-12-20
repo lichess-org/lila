@@ -8,7 +8,7 @@ export interface CropOpts {
   source?: Blob | string; // image or url
   max?: { megabytes?: number; pixels?: number }; // constrain size
   post?: { url: string; field?: string }; // multipart post form url and field name
-  onCropped?: (result: Blob | boolean, error?: string) => void; // result callback
+  onCropped?: (result: Blob | false, error?: string) => void; // result callback
 }
 
 export async function initModule(o?: CropOpts): Promise<void> {
