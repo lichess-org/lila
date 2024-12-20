@@ -131,6 +131,12 @@ importers:
         specifier: workspace:*
         version: link:../tree
 
+  ui/api:
+    dependencies:
+      common:
+        specifier: workspace:*
+        version: link:../common
+
   ui/bits:
     dependencies:
       '@fnando/sparkline':
@@ -166,6 +172,9 @@ importers:
       '@yaireo/tagify':
         specifier: 4.17.9
         version: 4.17.9(prop-types@15.8.1)
+      api:
+        specifier: workspace:*
+        version: link:../api
       canvas-confetti:
         specifier: ^1.9.3
         version: 1.9.3
@@ -277,6 +286,9 @@ importers:
 
   ui/chat:
     dependencies:
+      api:
+        specifier: workspace:*
+        version: link:../api
       common:
         specifier: workspace:*
         version: link:../common
@@ -591,6 +603,9 @@ importers:
 
   ui/site:
     dependencies:
+      api:
+        specifier: workspace:*
+        version: link:../api
       chat:
         specifier: workspace:*
         version: link:../chat

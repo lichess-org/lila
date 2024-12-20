@@ -11,7 +11,7 @@ import { wsConnect, wsDestroy } from 'common/socket';
 import { storage } from 'common/storage';
 import { setClockWidget } from 'common/clock';
 import { makeChat } from 'chat';
-import { pubsub } from 'common/pubsub';
+import { pubsub, initializeDom } from 'common/pubsub';
 import { myUserId } from 'common';
 import { alert } from 'common/dialog';
 
@@ -76,7 +76,7 @@ async function boot(
           $meta.length && $('.game__meta').replaceWith($meta);
           $('.crosstable').replaceWith($html.find('.crosstable'));
           startTournamentClock();
-          window.lichess.initializeDom();
+          initializeDom();
         });
       },
       tourStanding(s: TourPlayer[]) {

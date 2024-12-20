@@ -1,4 +1,4 @@
-import type { Pubsub, PubsubCallback, PubsubEvent } from 'common/pubsub';
+import { type PubsubCallback, type PubsubEvent, pubsub, initializeDom } from 'common/pubsub';
 
 // #TODO document these somewhere
 const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'];
@@ -6,8 +6,29 @@ const socketEvents = ['lag', 'close'];
 const socketInEvents = ['mlat', 'fen', 'notifications', 'endData'];
 const friendsEvents = ['playing', 'stopped_playing', 'onlines', 'enters', 'leaves'];
 
-export const api = (pubsub: Pubsub): Api => ({
-  initializeDom: (root?: HTMLElement) => pubsub.emit('content-loaded', root),
+export interface Api {
+  initializeDom: (root?: HTMLElement) => void;
+  events: Events;
+  socket: {
+    subscribeToMoveLatency: () => void;
+    events: Events;
+  };
+  onlineFriends: {
+    request: () => void;
+    events: Events;
+  };
+  chat: {
+    post: (text: string) => void;
+  };
+  overrides: {
+    [key: string]: (...args: any[]) => unknown;
+  };
+  analysis?: any;
+}
+
+// this object is available to extensions as window.lichess
+export const api: Api = ((window as any).lichess = {
+  initializeDom,
   events: {
     on(name: PubsubEvent, cb: PubsubCallback): void {
       if (!publicEvents.includes(name)) throw 'This event is not part of the public API';
