@@ -462,12 +462,12 @@ object mon:
   object puzzle:
     object selector:
       object user:
-        def time(theme: String)    = timer("puzzle.selector.user.puzzle").withTag("theme", theme)
-        def retries(theme: String) = histogram("puzzle.selector.user.retries").withTag("theme", theme)
+        def time(categ: String)    = timer("puzzle.selector.user.puzzle").withTag("categ", categ)
+        def retries(categ: String) = histogram("puzzle.selector.user.retries").withTag("categ", categ)
         val vote                   = histogram("puzzle.selector.user.vote").withoutTags()
         def tier(t: String, categ: String, difficulty: String) =
           counter("puzzle.selector.user.tier").withTags:
-            tags("tier" -> t, "theme" -> categ, "difficulty" -> difficulty)
+            tags("tier" -> t, "categ" -> categ, "difficulty" -> difficulty)
         def batch(nb: Int) = timer("puzzle.selector.user.batch").withTag("nb", nb)
       object anon:
         val time           = timer("puzzle.selector.anon.puzzle").withoutTags()
@@ -476,7 +476,7 @@ object mon:
       def nextPuzzleResult(result: String) =
         timer("puzzle.selector.user.puzzleResult").withTag("result", result)
     object path:
-      def nextFor(categ: String) = timer("puzzle.path.nextFor").withTag("theme", categ)
+      def nextFor(categ: String) = timer("puzzle.path.nextFor").withTag("categ", categ)
 
     object batch:
       object selector:
