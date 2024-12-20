@@ -71,6 +71,8 @@
   <string name="promoteVariation">Промовишите варијацију</string>
   <string name="makeMainLine">Направи као главну линију</string>
   <string name="deleteFromHere">Избриши одавде</string>
+  <string name="collapseVariations">Скупи варијације</string>
+  <string name="expandVariations">Рашири варијације</string>
   <string name="forceVariation">Промакни варијацију</string>
   <string name="copyVariationPgn">Ископирај ПГН варијације</string>
   <string name="move">Потез</string>
@@ -165,6 +167,7 @@
   <string name="latestForumPosts">Последње објаве на форуму</string>
   <string name="players">Шахисти</string>
   <string name="friends">Пријатељи</string>
+  <string name="otherPlayers">остали играчи</string>
   <string name="discussions">Разговори</string>
   <string name="today">Данас</string>
   <string name="yesterday">Јуче</string>
@@ -250,6 +253,7 @@
     <item quantity="few">%s игара са вама</item>
     <item quantity="other">%s игара са вама</item>
   </plurals>
+  <string name="ok">У реду</string>
   <string name="cancel">Откажи</string>
   <string name="whiteTimeOut">Време истекло белом</string>
   <string name="blackTimeOut">Време истекло црном</string>
@@ -510,6 +514,7 @@
   <string name="ifNoneLeaveEmpty">Ако немате рејтинг, оставите празно</string>
   <string name="profile">Профил</string>
   <string name="editProfile">Уредите профил</string>
+  <string name="realName">Право име</string>
   <string name="setFlair">Постави своју значку</string>
   <string name="flair">Значка</string>
   <string name="youCanHideFlair">Постоји подешавање којим се сакривају све корисникове значке на читавом сајту.</string>
@@ -541,6 +546,8 @@
   <string name="descPrivateHelp">Текст који ће само чланови тима видети. Ако је подешено, мења јавни опис за чланове тима.</string>
   <string name="no">Не</string>
   <string name="yes">Да</string>
+  <string name="website">Интернет страница</string>
+  <string name="mobile">Мобилни</string>
   <string name="help">Помоћ</string>
   <string name="createANewTopic">Направиte нову тему</string>
   <string name="topics">Теме</string>
@@ -559,6 +566,8 @@
   <string name="cheat">Варање</string>
   <string name="troll">Трол</string>
   <string name="other">Остало</string>
+  <string name="reportCheatBoostHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
+  <string name="reportUsernameHelp">Објасните шта је неприкладно у имену корисника. Немојте само да кажете да је неприкладно, реците нам како сте то закључили, поготово ако је увреда збуњујућа, није у енглеском, у сленгу, или де односи на културу/историју.</string>
   <string name="error.provideOneCheatedGameLink">Наведите барем једну везу игре у којој је играч варао.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Увезао %s</string>
