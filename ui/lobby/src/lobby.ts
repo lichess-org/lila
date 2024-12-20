@@ -2,7 +2,7 @@ import * as xhr from 'common/xhr';
 import main from './main';
 import type { LobbyOpts } from './interfaces';
 import { wsConnect, wsPingInterval } from 'common/socket';
-import { pubsub } from 'common/pubsub';
+import { pubsub, initializeDom } from 'common/pubsub';
 
 export function initModule(opts: LobbyOpts) {
   opts.appElement = document.querySelector('.lobby__app') as HTMLElement;
@@ -35,12 +35,12 @@ export function initModule(opts: LobbyOpts) {
       reload_timeline() {
         xhr.text('/timeline').then(html => {
           $('.timeline').html(html);
-          window.lichess.initializeDom();
+          initializeDom();
         });
       },
       featured(o: { html: string }) {
         $('.lobby__tv').html(o.html);
-        window.lichess.initializeDom();
+        initializeDom();
       },
       redirect(e: RedirectTo) {
         lobbyCtrl.setRedirecting();

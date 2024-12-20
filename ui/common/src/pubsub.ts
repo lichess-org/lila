@@ -99,6 +99,10 @@ export class Pubsub {
 
 export const pubsub: Pubsub = new Pubsub();
 
+export function initializeDom(root?: HTMLElement): void {
+  pubsub.emit('content-loaded', root);
+}
+
 interface OneTimeHandler {
   promise: Promise<void>;
   resolve?: () => void;
