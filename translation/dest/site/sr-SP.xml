@@ -568,6 +568,7 @@
   <string name="other">Остало</string>
   <string name="reportCheatBoostHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
   <string name="reportUsernameHelp">Објасните шта је неприкладно у имену корисника. Немојте само да кажете да је неприкладно, реците нам како сте то закључили, поготово ако је увреда збуњујућа, није у енглеском, у сленгу, или де односи на културу/историју.</string>
+  <string name="reportProcessedFasterInEnglish">Ваша пријава ће бити обрађена брже ако је написана на енглеском језику.</string>
   <string name="error.provideOneCheatedGameLink">Наведите барем једну везу игре у којој је играч варао.</string>
   <string name="by">од %s</string>
   <string name="importedByX">Увезао %s</string>
@@ -600,6 +601,7 @@
   <string name="slow">Споро</string>
   <string name="insideTheBoard">Унутар табле</string>
   <string name="outsideTheBoard">Ван табле</string>
+  <string name="allSquaresOfTheBoard">Сва поља табле</string>
   <string name="onSlowGames">У споријим партијама</string>
   <string name="always">Увек</string>
   <string name="never">Никада</string>
@@ -754,8 +756,10 @@
   <string name="downloadImported">Увезено преузимање</string>
   <string name="crosstable">Упоредни преглед</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Можете скроловати преко табле ради повлачења потеза у партији.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Листајте до компјутерских варијација да бисте их прегледали.</string>
   <string name="analysisShapesHowTo">Pитисните shif-click или десни клик за цртање кругова и стрелица на плочи.</string>
   <string name="letOtherPlayersMessageYou">Дозволите другим играчима да вам пошаљу поруку</string>
+  <string name="receiveForumNotifications">Примајте обавештења када сте поменути на форуму</string>
   <string name="shareYourInsightsData">Поделите своје личне податке</string>
   <string name="withNobody">Нисаким</string>
   <string name="withFriends">Са пријатељима</string>
