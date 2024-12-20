@@ -11,7 +11,7 @@
   <string name="aiNameLevelAiLevel">%1$s nivå %2$s</string>
   <string name="level">Nivå</string>
   <string name="strength">Styrka</string>
-  <string name="toggleTheChat">Dölj/visa chattrutan</string>
+  <string name="toggleTheChat">Dölj/visa chatten</string>
   <string name="chat">Chatta</string>
   <string name="resign">Ge upp</string>
   <string name="checkmate">Schackmatt</string>
@@ -71,7 +71,7 @@
   <string name="makeMainLine">Gör till huvudvariant</string>
   <string name="deleteFromHere">Radera härifrån</string>
   <string name="collapseVariations">Dölj varianter</string>
-  <string name="expandVariations">Dölj varianter</string>
+  <string name="expandVariations">Visa varianter</string>
   <string name="forceVariation">Visa som variant</string>
   <string name="copyVariationPgn">Kopiera variations-PGN</string>
   <string name="move">Drag</string>
@@ -178,6 +178,7 @@
   <string name="latestForumPosts">Senaste foruminläggen</string>
   <string name="players">Spelare</string>
   <string name="friends">Vänner</string>
+  <string name="otherPlayers">andra spelare</string>
   <string name="discussions">Konversationer</string>
   <string name="today">Idag</string>
   <string name="yesterday">Igår</string>
@@ -231,7 +232,7 @@
   <string name="usernameNotFound">Vi kunde inte hitta någon användare med namnet: %s.</string>
   <string name="usernameCanBeUsedForNewAccount">Du kan använda detta användarnamn för att skapa ett nytt konto</string>
   <string name="emailSent">Vi har skickat ett mejl till %s.</string>
-  <string name="emailCanTakeSomeTime">Det kan ta en stund för det att komma.</string>
+  <string name="emailCanTakeSomeTime">Det kan ta en stund för det att komma fram.</string>
   <string name="refreshInboxAfterFiveMinutes">Vänta 5 minuter och uppdatera din inkorg.</string>
   <string name="checkSpamFolder">Kontrollera även din skräppost, det kan hamna där. I så fall, markera det som ej skräppost.</string>
   <string name="emailForSignupHelp">Om allt annat misslyckas, skicka oss denna mejl:</string>
@@ -257,6 +258,7 @@
     <item quantity="one">%s parti med dig</item>
     <item quantity="other">%s partier med dig</item>
   </plurals>
+  <string name="ok">Ok</string>
   <string name="cancel">Avbryt</string>
   <string name="whiteTimeOut">Vits tid är slut</string>
   <string name="blackTimeOut">Svarts tid är slut</string>
@@ -276,6 +278,7 @@
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet avbröts</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Från position</string>
   <string name="unlimited">Obegränsad</string>
   <string name="mode">Läge</string>
   <string name="casual">Ej rankat</string>
@@ -533,6 +536,8 @@
   <string name="descPrivateHelp">Text som endast lagmedlemmarna kommer att se. Om angivet, ersätter den offentliga beskrivningen för lagmedlemmar.</string>
   <string name="no">Nej</string>
   <string name="yes">Ja</string>
+  <string name="website">Webbplats</string>
+  <string name="mobile">Mobil</string>
   <string name="help">Hjälp:</string>
   <string name="createANewTopic">Skapa ett nytt ämne</string>
   <string name="topics">Ämnen</string>
@@ -551,6 +556,9 @@
   <string name="cheat">Fusk</string>
   <string name="troll">Troll</string>
   <string name="other">Annat</string>
+  <string name="reportCheatBoostHelp">Klistra in länken till partiet/partierna och förklara vad som är fel med den här användarens beteende. Skriv inte bara \"de fuskar\", utan förklara hur du dragit denna slutsats. Din rapport kan komma att behandlas fortare om den är skriven på engelska.</string>
+  <string name="reportUsernameHelp">Förklara hur det här användarnamnet är kränkande. Skriv inte bara \"det är stötande/olämpligt\", utan förklara hur du kom fram till denna slutsats. Detta är extra viktigt om förolämpningen är fördunklad, inte på engelska, är i slang, eller är en historisk/kulturell referens.</string>
+  <string name="reportProcessedFasterInEnglish">Din rapport kommer att behandlas snabbare om den skrivs på engelska.</string>
   <string name="error.provideOneCheatedGameLink">Ange minst en länk till ett spel där användaren fuskade.</string>
   <string name="by">av %s</string>
   <string name="importedByX">Importerad av %s</string>
@@ -583,6 +591,7 @@
   <string name="slow">Långsam</string>
   <string name="insideTheBoard">På brädet</string>
   <string name="outsideTheBoard">Utanför brädet</string>
+  <string name="allSquaresOfTheBoard">Alla rutor på brädet</string>
   <string name="onSlowGames">I långsamma partier</string>
   <string name="always">Alltid</string>
   <string name="never">Aldrig</string>
@@ -697,6 +706,7 @@
   <string name="toggleVariationArrows">Växla variationspilar</string>
   <string name="cyclePreviousOrNextVariation">Cykla föregående/nästa variant</string>
   <string name="toggleGlyphAnnotations">Växla glyph-anteckningar</string>
+  <string name="togglePositionAnnotations">Växla positionsanteckningar</string>
   <string name="variationArrowsInfo">Variationspilar låter dig navigera utan att använda draglistan.</string>
   <string name="playSelectedMove">spela markerat drag</string>
   <string name="newTournament">Ny turnering</string>
@@ -786,6 +796,7 @@
   <string name="opacity">Genomskinlighet</string>
   <string name="brightness">Ljusstyrka</string>
   <string name="hue">Nyans</string>
+  <string name="boardReset">Återställ färger till standard</string>
   <string name="pieceSet">Pjäsuppsättning</string>
   <string name="embedInYourWebsite">Integrera i din webbplats</string>
   <string name="usernameAlreadyUsed">Användarnamnet är upptaget, vänligen försök med ett annat.</string>
@@ -981,4 +992,6 @@ Lämna tomt för att starta spel från den normala startpositionen.</string>
   <string name="showMeEverything">Visa mig allt</string>
   <string name="lichessPatronInfo">Lichess är en välgörenhet och helt gratis/fri programvara med öppen källkod.
 Alla driftskostnader, utveckling och innehåll finansieras enbart av användardonationer.</string>
+  <string name="nothingToSeeHere">Här finns ingenting att se för tillfället.</string>
+  <string name="stats">Statistik</string>
 </resources>
