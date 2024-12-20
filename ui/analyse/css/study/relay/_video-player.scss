@@ -50,8 +50,12 @@
     left: 50%;
     width: 18%;
     opacity: 0.4;
-    stroke: white;
+    //stroke: $c-bad;
     fill: white;
+    circle {
+      fill: $c-bad;
+      stroke-width: 10;
+    }
   }
 
   &:has(.text-box) .play-button {
@@ -87,8 +91,8 @@
     box-shadow: 0 0 12px $c-bad;
 
     .play-button {
-      stroke: $c-bad;
-      fill: $c-bad;
+      // stroke: $c-bad;
+      // fill: $c-bad;
       opacity: 1;
     }
 
