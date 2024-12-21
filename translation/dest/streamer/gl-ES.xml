@@ -29,8 +29,10 @@
   <string name="pendingReview">A túa transmisión está sendo revisada polos moderadores.</string>
   <string name="pleaseFillIn">Por favor, cubre a túa información de presentador e sube unha foto.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Cando esteas preparado para seres un presentador de Lichess, %s</string>
+  <string name="submitForReview">Enviar para ser revisado</string>
   <string name="streamerLanguageSettings">A páxina de presentador de Lichess diríxese á túa audiencia co idioma proporcionado pola túa plataforma de transmisións. Establece o idioma predeterminado axeitado para as túas transmisións de xadrez na aplicación ou no servizo que uses para retransmitir.</string>
   <string name="twitchUsername">O teu usuario de Twitch ou URL</string>
+  <string name="twitchOrYouTubeRequired">Requírese Twitch ou YouTube</string>
   <string name="youTubeChannelId">O ID da túa canle de YouTube ou URL</string>
   <string name="streamerName">O teu nome de presentador en Lichess</string>
   <plurals name="keepItShort">
