@@ -243,6 +243,7 @@
   <plurals name="nbGamesWithYou">
     <item quantity="other">與您下過%s盤棋</item>
   </plurals>
+  <string name="ok">確認</string>
   <string name="cancel">取消</string>
   <string name="whiteTimeOut">白方時間到</string>
   <string name="blackTimeOut">黑方時間到</string>
@@ -893,7 +894,7 @@
   <string name="streamerManager">直播管理</string>
   <string name="cancelTournament">取消錦標賽</string>
   <string name="tournDescription">錦標賽敘述</string>
-  <string name="tournDescriptionHelp">有甚麼特別要告訴參賽者的嗎？盡量不要太長。可以使用 Markdown 網址 [name](https://url)。</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">有甚麼特別要告訴參賽者的嗎？盡量不要太長。可以使用 Markdown 網址 [name](https://url)。</string>
   <string name="ratedFormHelp">比賽為積分賽
 會影響到棋手的積分</string>
   <string name="onlyMembersOfTeam">只限隊員</string>
