@@ -29,8 +29,13 @@
   <string name="pendingReview">Votre stream est en cours de révision par les modérateurs.</string>
   <string name="pleaseFillIn">Veuillez remplir vos informations de streamer et envoyer une photo.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Lorsque vous êtes prêt à être listé en tant que streamer Lichess, %s</string>
+  <string name="submitForReview">Soumettre pour examen</string>
   <string name="streamerLanguageSettings">La page de diffusion en continu de Lichess cible votre public avec la langue fournie par votre plateforme de diffusion. Définissez la langue par défaut pour vos diffusions dans l\'application ou le service que vous utilisez.</string>
   <string name="twitchUsername">Votre nom d\'utilisateur Twitch ou votre URL</string>
+  <string name="twitchOrYouTubeRequired">Twitch ou YouTube requis</string>
+  <string name="twitchOrYouTubeMustBeVerified">Les changements sur Twitch et YouTube doivent être vérifiés.
+  
+Votre badge et votre classement de diffuseur seront suspendus pendant la révision. Ce processus peut prendre jusqu\'à 72 heures.</string>
   <string name="youTubeChannelId">ID de votre chaîne YouTube</string>
   <string name="streamerName">Votre nom de streamer sur Lichess</string>
   <plurals name="keepItShort">
