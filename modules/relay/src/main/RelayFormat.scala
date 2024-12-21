@@ -86,8 +86,8 @@ final private class RelayFormatApi(
       .fold(req)(etag => req.addHttpHeaders("If-None-Match" -> etag))
       .get()
       .flatMap: res =>
-        val newEtag = res.header("Etag").orElse(etag)
-        if res.status == 304 then fuccess(none -> newEtag)
+        val newEtag = res.header("Etag")
+        if res.status == 304 then fuccess(none -> newEtag.orElse(etag))
         else if res.status == 200 then fuccess((res.body: String).some -> newEtag)
         else if res.status == 404 then fufail(NotFound(url))
         else fufail(s"[${res.status}] $url")

@@ -239,7 +239,7 @@ final private class RelayFetch(
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
-          create = (key, _) => (if key.startsWith("started ") then 1 minute else 5 minutes),
+          create = (key, _) => (if key.startsWith("started ") then 40.seconds else 3.minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
@@ -301,30 +301,33 @@ final private class RelayFetch(
             .map { MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)) }
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
-          httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
-            val lookForStart: Boolean =
-              rt.round.startsAtTime
-                .map(_.minusSeconds(rt.round.sync.delay.so(_.value) + 5 * 60))
-                .forall(_.isBeforeNow)
-            round.pairings
-              .mapWithIndex: (pairing, i) =>
-                val game = i + 1
-                val tags = pairing.tags(lcc.round, game, round.date)
-                lccCache(lcc, game, tags, lookForStart): () =>
-                  lccGameJsonWithEtag
-                    .fetch(lcc.gameUrl(game))
-                    .recover:
-                      case _: Exception => GameJson(moves = Nil, result = none)
-                .map { _.toPgn(tags) }
-                  .recover: _ =>
-                    PgnStr(s"${tags}\n\n${pairing.result}")
-                  .map(game -> _)
-              .parallel
-              .map: pgns =>
-                MultiPgn(pgns.sortBy(_._1).map(_._2))
-              .flatMap(multiPgnToGames.future)
+          lccRoundJsonWithEtag
+            .fetch(lcc.indexUrl)
+            .flatMap: round =>
+              val lookForStart: Boolean =
+                rt.round.startsAtTime
+                  .map(_.minusSeconds(rt.round.sync.delay.so(_.value) + 5 * 60))
+                  .forall(_.isBeforeNow)
+              round.pairings
+                .mapWithIndex: (pairing, i) =>
+                  val game = i + 1
+                  val tags = pairing.tags(lcc.round, game, round.date)
+                  lccCache(lcc, game, tags, lookForStart): () =>
+                    lccGameJsonWithEtag
+                      .fetch(lcc.gameUrl(game))
+                      .recover:
+                        case _: Exception => GameJson(moves = Nil, result = none)
+                  .map { _.toPgn(tags) }
+                    .recover: _ =>
+                      PgnStr(s"${tags}\n\n${pairing.result}")
+                    .map(game -> _)
+                .parallel
+                .map: pgns =>
+                  MultiPgn(pgns.sortBy(_._1).map(_._2))
+                .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithoutGames(lcc) =>
-          httpGetJson[RoundJson](lcc.indexUrl)
+          lccRoundJsonWithEtag
+            .fetch(lcc.indexUrl)
             .map: round =>
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
@@ -335,40 +338,39 @@ final private class RelayFetch(
   private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] =
     PgnStr.from(formatApi.httpGetAndGuessCharset(url))
 
-  private def httpGetJson[A: Reads](url: URL)(using CanProxy): Fu[A] =
-    formatApi.httpGet(url).flatMap(readAsJson(url))
-
   private def readAsJson[A: Reads](url: URL)(body: String): Fu[A] = for
     json <- Future(Json.parse(body)) // Json.parse throws exceptions (!)
     data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
   yield data
 
-  private object lccGameJsonWithEtag:
+  private final class JsonWithEtag[A: Reads]:
     import RelayFormat.Etag
-    import DgtJson.GameJson
     // lcc uses https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match
-    private val cache =
-      cacheApi.notLoadingSync[URL, (Etag, GameJson)](512, "relay.fetch.lccGameJsonWithEtag"):
-        _.expireAfterWrite(5 minutes).build()
-    def fetch(url: URL)(using CanProxy): Fu[GameJson] =
+    private val cache = cacheApi.notLoadingSync[URL, (Etag, A)](512, "relay.fetch.jsonWithEtag"):
+      _.expireAfterWrite(5 minutes).build()
+
+    def fetch(url: URL)(using CanProxy): Fu[A] =
       cache
         .getIfPresent(url)
         .match
           case None =>
             for
               (body, newEtag) <- formatApi.httpGetWithEtag(url, none)
-              data            <- readAsJson[GameJson](url)(~body)
+              data            <- readAsJson[A](url)(~body)
             yield (data, newEtag)
           case Some((etag, prev)) =>
             for
               (body, newEtag) <- formatApi.httpGetWithEtag(url, etag.some)
               isHit = body.isEmpty && newEtag.contains(etag)
               _     = lila.mon.relay.etag(isHit).increment()
-              data <- if isHit then fuccess(prev) else readAsJson[GameJson](url)(~body)
+              data <- if isHit then fuccess(prev) else readAsJson[A](url)(~body)
             yield (data, newEtag)
         .map: (data, newEtag) =>
           newEtag.foreach(e => cache.put(url, e -> data))
           data
+
+  private val lccGameJsonWithEtag  = new JsonWithEtag[DgtJson.GameJson]
+  private val lccRoundJsonWithEtag = new JsonWithEtag[DgtJson.RoundJson]
 
 private object RelayFetch:
 
