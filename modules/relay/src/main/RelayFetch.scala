@@ -343,10 +343,10 @@ final private class RelayFetch(
     data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
   yield data
 
-  private final class JsonWithEtag[A: Reads]:
+  private final class JsonWithEtag[A: Reads](initialCapacity: Int):
     import RelayFormat.Etag
     // lcc uses https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match
-    private val cache = cacheApi.notLoadingSync[URL, (Etag, A)](512, "relay.fetch.jsonWithEtag"):
+    private val cache = cacheApi.notLoadingSync[URL, (Etag, A)](initialCapacity, "relay.fetch.jsonWithEtag"):
       _.expireAfterWrite(5 minutes).build()
 
     def fetch(url: URL)(using CanProxy): Fu[A] =
@@ -369,8 +369,8 @@ final private class RelayFetch(
           newEtag.foreach(e => cache.put(url, e -> data))
           data
 
-  private val lccGameJsonWithEtag  = new JsonWithEtag[DgtJson.GameJson]
-  private val lccRoundJsonWithEtag = new JsonWithEtag[DgtJson.RoundJson]
+  private val lccGameJsonWithEtag  = new JsonWithEtag[DgtJson.GameJson](512)
+  private val lccRoundJsonWithEtag = new JsonWithEtag[DgtJson.RoundJson](32)
 
 private object RelayFetch:
 
