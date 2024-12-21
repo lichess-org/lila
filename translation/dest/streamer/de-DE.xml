@@ -35,7 +35,7 @@
   <string name="twitchOrYouTubeRequired">Entweder Twitch oder YouTube wird benötigt</string>
   <string name="twitchOrYouTubeMustBeVerified">Änderungen am Twitch- oder YouTube-Konto müssen verifiziert werden.
 
-Dein Streamer-Abzeichen und die Aufzählung in der Liste der Streamer werden während der Überprüfung ausgesetzt. Die Überprüfung kann bis zu 72 Stunden dauern.</string>
+Dein Streamer-Abzeichen und deine Auflistung werden während der Überprüfung ausgesetzt. Das kann bis zu 72 Stunden dauern.</string>
   <string name="youTubeChannelId">Deine YouTube-Kanal-ID</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
   <plurals name="keepItShort">
