@@ -6,6 +6,8 @@ import com.softwaremill.tagging.*
 import com.typesafe.config.Config
 import play.api.Configuration
 import reactivemongo.api.*
+import lila.core.LightUser.GetterSync
+import lila.core.user.UserApi
 
 import lila.common.Lilakka
 
@@ -15,7 +17,9 @@ trait YoloDb
 @Module
 final class Env(
     appConfig: Configuration,
-    shutdown: CoordinatedShutdown
+    shutdown: CoordinatedShutdown,
+    lightUserSync: GetterSync,
+    userApi: UserApi
 )(using Executor):
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
