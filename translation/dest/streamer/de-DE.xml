@@ -29,8 +29,13 @@
   <string name="pendingReview">Dein Stream wird von Moderatoren überprüft.</string>
   <string name="pleaseFillIn">Bitte fülle deine Streamer-Informationen aus und lade ein Bild hoch.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">Wenn du bereit bist als Streamer angezeigt zu werden, %s</string>
+  <string name="submitForReview">Zur Überprüfung einreichen</string>
   <string name="streamerLanguageSettings">Die Lichess-Streamer-Seite richtet sich an dein Publikum mit der Sprache deiner Streaming-Plattform. Lege die richtige Standardsprache für deine Schach-Streams in der App oder dem Dienst, welchen du für die Übertragung verwenden, fest.</string>
   <string name="twitchUsername">Dein Twitch-Benutzername oder die URL</string>
+  <string name="twitchOrYouTubeRequired">Entweder Twitch oder YouTube wird benötigt</string>
+  <string name="twitchOrYouTubeMustBeVerified">Änderungen am Twitch- oder YouTube-Konto müssen verifiziert werden.
+
+Dein Streamer-Abzeichen und die Aufzählung in der Liste der Streamer werden während der Überprüfung ausgesetzt. Die Überprüfung kann bis zu 72 Stunden dauern.</string>
   <string name="youTubeChannelId">Deine YouTube-Kanal-ID</string>
   <string name="streamerName">Dein Streamername auf Lichess</string>
   <plurals name="keepItShort">
