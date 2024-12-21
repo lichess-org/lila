@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">Contul tău nu este marcat sau restricționat. Totul e în regulă!</string>
-  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">Contul tău este marcat pentru asistență externă în jocuri.</string>
+  <string name="engineMarked">Contul tău este marcat pentru asistență externă în jocuri.</string>
   <string name="engineMarkedInfo">Definim acest lucru prin folosirea oricărui ajutor extern pentru a-ți consolida cunoștințele și/sau abilitățile de calcul pentru a câștiga un avantaj incorect față de oponentul tău. Vezi pagina %s pentru mai multe detalii.</string>
   <string name="arenaBanned">Contul tău este restricționat din a se alătura arenei.</string>
   <string name="prizeBanned">Contului tău îi este restricționat accesul la turnee cu premii reale.</string>
   <string name="boosterMarked">Contul dvs. este marcat pentru manipularea rating-ului.</string>
   <string name="boosterMarkedInfo">Noi definim acest lucru prin manipularea deliberată a rating-ului prin pierdere multiplă sau jucând împotriva altui cont care pierde în mod deliberat jocuri.</string>
-  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">Contul tău este restricționat din a vorbi pe chat.</string>
-  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Citiți %s. Eșuarea urmăririi ghidurilor de comunicare poate duce la blocarea conturilor.</string>
+  <string name="accountMuted">Contul tău este restricționat din a vorbi pe chat.</string>
+  <string name="accountMutedInfo">Citiți %s. Eșuarea urmăririi ghidurilor de comunicare poate duce la blocarea conturilor.</string>
   <string name="excludedFromLeaderboards">Contul tău a fost exclus din clasament.</string>
-  <string name="excludedFromLeaderboardsInfo" comment="Follows the string excludedFromLeaderboards: &quot;Your account has been excluded from leaderboards.&quot;">Noi definim acest lucru ca folosindu-ne de orice cale nedreaptă pentru a ajunge în clasament.</string>
+  <string name="excludedFromLeaderboardsInfo">Noi definim acest lucru ca folosindu-ne de orice cale nedreaptă pentru a ajunge în clasament.</string>
   <string name="closedByModerators">Contul tău a fost închis de moderatori.</string>
   <string name="hiddenBlog">Blogurile tale au fost ascunse de moderatori.</string>
   <string name="hiddenBlogInfo">Asigurați-vă că citiți din nou %s.</string>
-  <string name="playTimeout" comment="play timeout = Lichess prevents you temporarily from playing any games">Ai o pauză de joc.</string>
-  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">ghid de comunicare</string>
+  <string name="playTimeout">Ai o pauză de joc.</string>
+  <string name="communicationGuidelines">ghid de comunicare</string>
   <string name="blogRules">reguli blog</string>
   <string name="fairPlay">Fair Play</string>
 </resources>
