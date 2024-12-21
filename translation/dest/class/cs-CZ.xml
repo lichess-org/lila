@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Rychle generovat bezpečná uživatelská jména a hesla pro studenty</string>
   <string name="trackStudentProgress">Sledovat pokrok studentů ve hrách a hlavolamech</string>
   <string name="messageAllStudents">Napsat všem studentům o novém materiálu třídy</string>
-  <string name="freeForAllForever">100% zdarma pro všechny, navždy, bez reklam nebo sledování</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% zdarma pro všechny, navždy, bez reklam nebo sledování</string>
   <string name="applyToBeLichessTeacher">Ucházet se o místo Lichess učitele</string>
   <string name="noClassesYet">Zatím žádné třídy.</string>
   <string name="teachersX">Učitelé: %s</string>
@@ -120,4 +120,6 @@ Zobrazí se vodorovná čára.</string>
   <string name="anInvitationHasBeenSentToX">Pozvánka byla odeslána uživateli %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s již má pozvánku</string>
   <string name="xIsAKidAccountWarning">%1$s je dětský účet a nemůže přijmout tvojí zprávu. Musíš mu dát URL adresu pozvánky sám:%2$s</string>
+  <string name="moveToClass">Přesunout do %s</string>
+  <string name="moveToAnotherClass">Přesunout do jiné třídy</string>
 </resources>
