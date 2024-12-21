@@ -121,6 +121,9 @@ $hover-bg: $m-primary_bg--mix-30;
         width: 100%;
         @include broken-img(2 / 1);
       }
+      .video-player-close {
+        display: none;
+      }
       text-align: center;
     }
     &__image-upload {
