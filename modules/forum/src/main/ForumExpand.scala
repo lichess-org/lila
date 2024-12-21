@@ -5,22 +5,19 @@ import scalatags.Text.all.{ Frag, raw }
 import lila.common.RawHtml
 import lila.core.config.NetDomain
 
-final class ForumTextExpand(using Executor, Scheduler):
+final class ForumTextExpand(askApi: lila.core.ask.AskApi)(using Executor, Scheduler):
 
-  private def one(text: String)(using NetDomain): Fu[Frag] =
+  private def one(post: ForumPost)(using NetDomain): Fu[ForumPost.WithFrag] =
     lila.common.Bus
-      .ask("lpv")(lila.core.misc.lpv.LpvLinkRenderFromText(text, _))
+      .ask("lpv")(lila.core.misc.lpv.LpvLinkRenderFromText(post.text, _))
       .map: linkRender =>
         raw:
           RawHtml.nl2br {
-            RawHtml.addLinks(text, expandImg = true, linkRender = linkRender.some).value
+            RawHtml.addLinks(post.text, expandImg = true, linkRender = linkRender.some).value
           }.value
+      .zip(askApi.repo.preload(post.text))
+      .map: (body, _) =>
+        ForumPost.WithFrag(post, body)
 
   def manyPosts(posts: Seq[ForumPost])(using NetDomain): Fu[Seq[ForumPost.WithFrag]] =
-    posts.view
-      .map(_.text)
-      .toList
-      .sequentially(one)
-      .map:
-        _.zip(posts).map: (body, post) =>
-          ForumPost.WithFrag(post, body)
+    posts.traverse(one)

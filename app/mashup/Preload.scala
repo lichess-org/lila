@@ -30,6 +30,7 @@ final class Preload(
     simulIsFeaturable: SimulIsFeaturable,
     getLastUpdates: lila.feed.Feed.GetLastUpdates,
     lastPostsCache: AsyncLoadingCache[Unit, List[UblogPost.PreviewPost]],
+    askRepo: lila.ask.AskRepo,
     msgApi: lila.msg.MsgApi,
     relayListing: lila.relay.RelayListing,
     notifyApi: lila.notify.NotifyApi
@@ -52,16 +53,19 @@ final class Preload(
         (
           (
             (
-              (((((((data, povs), tours), events), simuls), feat), entries), puzzle),
-              streams
+              (
+                (((((((data, povs), tours), events), simuls), feat), entries), puzzle),
+                streams
+              ),
+              playban
             ),
-            playban
+            blindGames
           ),
-          blindGames
+          ublogPosts
         ),
-        ublogPosts
+        lichessMsg
       ),
-      lichessMsg
+      hasAsks
     ) <- lobbyApi.apply
       .mon(_.lobby.segment("lobbyApi"))
       .zip(tours.mon(_.lobby.segment("tours")))
@@ -86,6 +90,7 @@ final class Preload(
           .filterNot(liveStreamApi.isStreaming)
           .so(msgApi.hasUnreadLichessMessage)
       )
+      .zip(askRepo.preload(getLastUpdates().map(_.content.value)*))
     (currentGame, _) <- (ctx.me
       .soUse(currentGameMyTurn(povs, lightUserApi.sync)))
       .mon(_.lobby.segment("currentGame"))
@@ -111,7 +116,8 @@ final class Preload(
     getLastUpdates(),
     ublogPosts,
     withPerfs,
-    hasUnreadLichessMessage = lichessMsg
+    hasUnreadLichessMessage = lichessMsg,
+    hasAsks
   )
 
   def currentGameMyTurn(using me: Me): Fu[Option[CurrentGame]] =
@@ -155,7 +161,8 @@ object Preload:
       lastUpdates: List[lila.feed.Feed.Update],
       ublogPosts: List[UblogPost.PreviewPost],
       me: Option[UserWithPerfs],
-      hasUnreadLichessMessage: Boolean
+      hasUnreadLichessMessage: Boolean,
+      hasAsks: Boolean
   )
 
   case class CurrentGame(pov: Pov, opponent: String)
