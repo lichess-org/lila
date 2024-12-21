@@ -10,7 +10,6 @@ import play.api.libs.ws.{
   StandaloneWSRequest,
   StandaloneWSResponse
 }
-
 import scala.util.matching.Regex
 
 import lila.core.config.{ Credentials, HostPort }
@@ -70,54 +69,50 @@ final private class RelayFormatApi(
         roundRepo.exists(id).map(_.option(RelayFormat.Round(id)))
 
   def httpGet(url: URL)(using CanProxy): Fu[String] =
-    httpGetResponse(url).map(_.body)
+    httpGetResponse(toRequest(url)).map(_.body)
 
   def httpGetAndGuessCharset(url: URL)(using CanProxy): Fu[String] =
-    httpGetResponse(url).map: res =>
+    httpGetResponse(toRequest(url)).map: res =>
       responseHeaderCharset(res) match
         case None        => lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
         case Some(known) => res.bodyAsBytes.decodeString(known)
 
-  def httpGetWithEtag(url: URL, etag: Option[Etag])(using
-      CanProxy
-  ): Fu[(Option[String], Option[Etag])] =
-    val (req, proxy) = configure(url)
-    etag
-      .fold(req)(etag => req.addHttpHeaders("If-None-Match" -> etag))
-      .get()
+  def httpGetWithEtag(url: URL, etag: Option[Etag])(using CanProxy): Fu[(Option[String], Option[Etag])] =
+    val req = etag
+      .foldLeft(toRequest(url))((req, etag) => req.addHttpHeaders("If-None-Match" -> etag))
+    httpGetResponse(req)
       .flatMap: res =>
         val newEtag = res.header("Etag")
         if res.status == 304 then fuccess(none -> newEtag.orElse(etag))
-        else if res.status == 200 then fuccess((res.body: String).some -> newEtag)
-        else if res.status == 404 then fufail(NotFound(url))
-        else fufail(s"[${res.status}] $url")
-      .monSuccess(_.relay.httpGet(url.host.toString, proxy))
+        else fuccess((res.body: String).some   -> newEtag)
+      .monSuccess(_.relay.httpGet(url.host.toString, req.proxyServer.map(_.host)))
 
-  private def httpGetResponse(url: URL)(using CanProxy): Future[StandaloneWSResponse] =
-    val (req, proxy) = configure(url)
-    req
-      .get()
-      .flatMap: res =>
-        if res.status == 200 then fuccess(res)
-        else if res.status == 404 then fufail(NotFound(url))
-        else fufail(s"[${res.status}] $url")
-      .monSuccess(_.relay.httpGet(url.host.toString, proxy))
+  private def httpGetResponse(req: StandaloneWSRequest)(using CanProxy): Future[StandaloneWSResponse] =
+    Future
+      .fromTry(lila.common.url.parse(req.url))
+      .flatMap: url =>
+        req
+          .get()
+          .flatMap: res =>
+            if res.status == 200 || res.status == 304 then fuccess(res)
+            else if res.status == 404 then fufail(NotFound(url))
+            else fufail(s"[${res.status}] ${req.url}")
+          .monSuccess(_.relay.httpGet(url.host.toString, req.proxyServer.map(_.host)))
 
   private def responseHeaderCharset(res: StandaloneWSResponse): Option[java.nio.charset.Charset] =
     import play.shaded.ahc.org.asynchttpclient.util.HttpUtils
     Option(HttpUtils.extractContentTypeCharsetAttribute(res.contentType)).orElse:
       res.contentType.startsWith("text/").option(java.nio.charset.StandardCharsets.ISO_8859_1)
 
-  private def configure(url: URL)(using CanProxy): (StandaloneWSRequest, Option[String]) =
-    addProxy(url):
-      ws.url(url.toString)
-        .withRequestTimeout(5.seconds)
-        .withFollowRedirects(false)
+  private def toRequest(url: URL)(using CanProxy): StandaloneWSRequest =
+    val req = ws
+      .url(url.toString)
+      .withRequestTimeout(5.seconds)
+      .withFollowRedirects(false)
+    proxyServerFor(url).foldLeft(req)(_ withProxyServer _)
 
-  private def addProxy(url: URL)(ws: StandaloneWSRequest)(using
-      allowed: CanProxy
-  ): (StandaloneWSRequest, Option[String]) =
-    def server = for
+  private def proxyServerFor(url: URL)(using allowed: CanProxy): Option[DefaultWSProxyServer] =
+    for
       hostPort <- proxyHostPort.get()
       if allowed.yes
       proxyRegex = proxyDomainRegex.get()
@@ -130,7 +125,6 @@ final private class RelayFormatApi(
       principal = creds.map(_.user),
       password = creds.map(_.password.value)
     )
-    server.foldLeft(ws)(_ withProxyServer _) -> server.map(_.host)
 
   private def looksLikePgn(body: String)(using CanProxy): Boolean =
     MultiPgn
