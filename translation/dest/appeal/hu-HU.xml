@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">A fiókod nincs megjelölve vagy korlátozva. Minden rendben!</string>
-  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">A fiókodat megjelöltük játszmák közbeni külső segítség használata miatt.</string>
+  <string name="engineMarked">A fiókodat megjelöltük játszmák közbeni külső segítség használata miatt.</string>
 </resources>
