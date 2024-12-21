@@ -175,6 +175,7 @@
   <string name="games">Games</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s posted in topic %2$s</string>
+  <string name="askConcluded">%1$s posted results for %2$s</string>
   <string name="latestForumPosts">Latest forum posts</string>
   <string name="players">Players</string>
   <string name="friends">Friends</string>

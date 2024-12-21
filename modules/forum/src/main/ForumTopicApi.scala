@@ -25,7 +25,8 @@ final private class ForumTopicApi(
     shutupApi: lila.core.shutup.ShutupApi,
     detectLanguage: DetectLanguage,
     cacheApi: CacheApi,
-    relationApi: lila.core.relation.RelationApi
+    relationApi: lila.core.relation.RelationApi,
+    askApi: lila.core.ask.AskApi
 )(using Executor):
 
   import BSONHandlers.given
@@ -82,6 +83,7 @@ final private class ForumTopicApi(
       data: ForumForm.TopicData
   )(using me: Me): Fu[ForumTopic] =
     topicRepo.nextSlug(categ, data.name).zip(detectLanguage(data.post.text)).flatMap { (slug, lang) =>
+      val frozen = askApi.freeze(spam.replace(data.post.text), me)
       val topic = ForumTopic.make(
         categId = categ.id,
         slug = slug,
@@ -93,7 +95,7 @@ final private class ForumTopicApi(
         topicId = topic.id,
         userId = me.some,
         troll = me.marks.troll,
-        text = spam.replace(data.post.text),
+        text = frozen.text,
         lang = lang.map(_.language),
         number = 1,
         categId = categ.id,
@@ -105,7 +107,7 @@ final private class ForumTopicApi(
           for
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
-            _ <- postRepo.coll.insert.one(post)
+            _ <- askApi.commit(frozen, s"/forum/redirect/post/${post.id}".some)
           yield
             promotion.save(me, post.text)
             val text = s"${topic.name} ${post.text}"
