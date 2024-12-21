@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Быстро создавайте безопасные имена и пароли для учеников</string>
   <string name="trackStudentProgress">Отслеживайте прогресс учеников в партиях и задачах</string>
   <string name="messageAllStudents">Сообщайте всем ученикам о новых материалах класса</string>
-  <string name="freeForAllForever">Бесплатно для всех, навсегда, без рекламы и отслеживания на 100 %</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Бесплатно для всех, навсегда, без рекламы и отслеживания на 100 %</string>
   <string name="applyToBeLichessTeacher">Подайте заявку, чтобы стать Преподавателем Lichess</string>
   <string name="noClassesYet">Ещё нет классов.</string>
   <string name="teachersX">Преподаватели: %s</string>
@@ -59,6 +59,8 @@
     <item quantity="many">%s приглашений, ожидающих рассмотрения</item>
     <item quantity="other">%s приглашений, ожидающих рассмотрения</item>
   </plurals>
+  <string name="pending">В ожидании</string>
+  <string name="declined">Отклонено</string>
   <string name="onlyVisibleToTeachers">Доступны для просмотра только преподавателю</string>
   <string name="lastActiveDate">Активный</string>
   <string name="managed">Управляемый</string>
@@ -119,4 +121,6 @@
   <string name="anInvitationHasBeenSentToX">Приглашение пользователю %s было отправлено</string>
   <string name="xAlreadyHasAPendingInvitation">Вы уже отправили приглашение %s</string>
   <string name="xIsAKidAccountWarning">%1$s детский аккаунт и не может получить ваше сообщение. Вам нужно передать им ссылку на приглашение вручную: %2$s</string>
+  <string name="moveToClass">Перейти к %s</string>
+  <string name="moveToAnotherClass">Переместить в другой класс</string>
 </resources>
