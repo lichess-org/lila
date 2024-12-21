@@ -7,6 +7,6 @@ site.load.then(() => {
     const rsp = await fetch('/simul/reload');
     const html = await rsp.text();
     $('.simul-list__content').html(html);
-    window.lichess.initializeDom();
+    pubsub.emit('content-loaded');
   });
 });

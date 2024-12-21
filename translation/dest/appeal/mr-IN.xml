@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="cleanAllGood">तुमचे खाते चिन्हांकित किंवा प्रतिबंधित नाही. सर्व व्यवस्थित झाले आहे!</string>
-  <string name="engineMarked" comment="This denotes that the player's account is marked for cheating, specifically for using external assistance.&#10;&#10;Please note that while the key is 'engineMarked', Lichess has a wider definition of what constitutes 'external assistance'. External assistance is usually relying on a chess engine, but it can also mean looking through opening lines, taking advice from a strong player, and more.">खेळताना बाहेरून मदत घेतल्यामूळे तुमचे खाते चिन्हांकित केले आहे.</string>
-  <string name="accountMuted" comment="muted in the sense of: You cannot chat with your opponent anymore or post messages.">तुमचे खाते ईतरांशी संपर्क साधण्यास प्रतिबंधित आहे.</string>
+  <string name="engineMarked">खेळताना बाहेरून मदत घेतल्यामूळे तुमचे खाते चिन्हांकित केले आहे.</string>
+  <string name="accountMuted">तुमचे खाते ईतरांशी संपर्क साधण्यास प्रतिबंधित आहे.</string>
 </resources>

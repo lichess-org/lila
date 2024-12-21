@@ -78,7 +78,7 @@
   <string name="searchPuzzles">Busca crebacabezas</string>
   <string name="fromMyGamesNone">Non tes crebacabezas na base de datos e aínda así Lichess quérete moito.
 Xoga partidas rápidas e clásicas para ter máis opcións de que se engadan os teus crebacabezas!</string>
-  <string name="fromXGamesFound">%1$s crebacabezas atopados en %2$s partidas</string>
+  <string name="fromXGamesFound">%1$s crebacabezas atopados nas partidas de %2$s</string>
   <string name="puzzleDashboardDescription">Adestra, analiza, mellora</string>
   <plurals name="nbPlayed">
     <item quantity="one">%s xogado</item>

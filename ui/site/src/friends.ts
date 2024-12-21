@@ -1,5 +1,6 @@
 import { notNull } from 'common/common';
 import * as licon from 'common/licon';
+import { api as lichess } from 'api';
 
 type TitleName = string;
 
@@ -17,7 +18,7 @@ export default class OnlineFriends {
   users: Map<string, Friend>;
 
   constructor(readonly el: HTMLElement) {
-    const api = window.lichess.onlineFriends;
+    const api = lichess.onlineFriends;
     this.titleEl = this.el.querySelector('.friend_box_title') as HTMLElement;
     this.titleEl.addEventListener('click', () => {
       this.el.querySelector('.content_wrap')?.classList.toggle('none');

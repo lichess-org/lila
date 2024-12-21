@@ -69,4 +69,39 @@
   &__blog .lobby__box__top {
     border-bottom: $border;
   }
+
+  .progress-td {
+    padding: 0.3em 0.4em;
+  }
+  .progress {
+    border-radius: 2em;
+    display: block;
+    position: relative;
+    width: 30ch;
+    height: 1.25em;
+
+    background: $m-bg-page--fade-40;
+    @include if-light {
+      background: $m-shade--fade-40;
+    }
+    @include if-transp {
+      background: $m-bg--fade-40;
+    }
+    overflow: hidden;
+  }
+  .progress__bar {
+    border-radius: 2em;
+    display: block;
+    height: 100%;
+    background: $m-primary_bg-page__mix-20--fade-70;
+  }
+  .progress__text {
+    position: absolute;
+    color: $c-font;
+    font-size: 0.9em;
+    top: 0;
+    width: 100%;
+    @include inline-start(1.5ch);
+    z-index: 3;
+  }
 }

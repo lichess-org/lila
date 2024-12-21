@@ -16,7 +16,7 @@ $buttons-height: 2.5rem;
   @extend %flex-column, %double-tap;
   position: relative;
 
-  .buttons {
+  #{$rbuttons-tag} {
     @extend %box-shadow;
 
     flex: 0 0 $buttons-height;

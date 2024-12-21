@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="supportLichess">Υποστηρίξτε το Lichess</string>
+  <string name="zeroAdsAndNoTracking">Χωρίς διαφημίσεις, χωρίς παρακολούθηση</string>
+  <string name="correspondenceWithConditionalPremoves">Σκάκι δι\' αλληλογραφίας με υπό όρους προκινήσεις</string>
+  <string name="standardChessAndX" comment="%s is 8 variants">Σκάκι και %s</string>
+  <plurals name="gamesPerDay">
+    <item quantity="one">%s παρτίδες ανά ημέρα</item>
+    <item quantity="other">%s παρτίδες ανά ημέρα</item>
+  </plurals>
+  <string name="allChessBasicsLessons">Όλα τα βασικά μαθήματα σκακιού</string>
+  <string name="tacticalPuzzlesFromUserGames">Τακτικά παζλ από τις παρτίδες των χρηστών</string>
+  <string name="personalOpeningExplorerX">%1$s (επίσης λειτουργεί σε %2$s)</string>
+  <string name="allFeaturesToCome">Όλες οι λειτουργίες που θα έρθουν, για πάντα!</string>
+  <string name="everybodyGetsAllFeaturesForFree">Ναι, και οι δύο λογαριασμοί έχουν τα ίδια χαρακτηριστικά!</string>
+  <string name="weBelieveEveryChessPlayerDeservesTheBest">Πιστεύουμε ότι κάθε σκακιστής αξίζει το καλύτερο, και έτσι:</string>
+  <string name="allFeaturesAreFreeForEverybody">Όλες οι λειτουργίες είναι δωρεάν για όλους, για πάντα!</string>
+  <string name="ifYouLoveLichess">Αν αγαπάτε το Lichess,</string>
+  <string name="supportUsWithAPatronAccount">Υποστηρίξτε μας μέσω λογαριασμού Patron!</string>
 </resources>

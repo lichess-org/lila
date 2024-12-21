@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Klasy Lichess</string>
+  <string name="lichessClasses">Klasy Lichess</string>
   <string name="teachClassesOfChessStudents">Nauczaj swoją klasę korzystając z zestawu narzędzi dostępnych na Lichess.</string>
   <string name="features">Funkcje</string>
   <string name="quicklyGenerateSafeUsernames">Szybkie generowanie bezpiecznych nazw użytkowników i haseł dla uczniów</string>
@@ -59,6 +59,8 @@ Oto link do klasy.</string>
     <item quantity="many">%s oczekujących zaproszeń</item>
     <item quantity="other">%s oczekujących zaproszeń</item>
   </plurals>
+  <string name="pending">Oczekuje</string>
+  <string name="declined">Odrzucono</string>
   <string name="onlyVisibleToTeachers">Widoczne tylko dla nauczycieli klasy</string>
   <string name="lastActiveDate">Ostatnio aktywny</string>
   <string name="managed">Zarządzane</string>
@@ -119,4 +121,6 @@ Oto link do klasy.</string>
   <string name="anInvitationHasBeenSentToX">Wysłano zaproszenie do %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s ma już oczekujące zaproszenie</string>
   <string name="xIsAKidAccountWarning">%1$s jest kontem dziecka i dlatego nie może otrzymać Twojej wiadomości. Musisz podać mu adres URL zaproszenia w inny sposób: %2$s</string>
+  <string name="moveToClass">Przenieś do %s</string>
+  <string name="moveToAnotherClass">Przenieś do innej klasy</string>
 </resources>

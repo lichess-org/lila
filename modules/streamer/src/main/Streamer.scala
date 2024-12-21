@@ -30,7 +30,7 @@ case class Streamer(
 
   def completeEnough = {
     twitch.isDefined || youTube.isDefined
-  } && headline.isDefined && hasPicture
+  } && name.value.length > 2 && hasPicture
 
 object Streamer:
 

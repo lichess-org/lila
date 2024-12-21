@@ -235,6 +235,7 @@ async function parseScss(src: string) {
 async function parseThemeColorDefs() {
   const themeFiles = await globArray('./common/css/theme/_*.scss', { absolute: false });
   const themes: string[] = ['dark'];
+  const capturedColors = new Map<string, string>();
   for (const themeFile of themeFiles ?? []) {
     const theme = /_([^/]+)\.scss/.exec(themeFile)?.[1];
     if (!theme) {
@@ -242,9 +243,22 @@ async function parseThemeColorDefs() {
       continue;
     }
     const text = fs.readFileSync(themeFile, 'utf8');
-    const colorMap = new Map<string, clr.Instance>();
     for (const match of text.matchAll(/\s\$c-([-a-z0-9]+):\s*([^;]+);/g)) {
-      colorMap.set(match[1], clr(match[2]));
+      capturedColors.set(match[1], match[2]);
+    }
+    const colorMap = new Map<string, clr.Instance>();
+    for (const [color, colorVal] of capturedColors) {
+      let val = colorVal;
+      const visitedVariables = new Set();
+      while (val.startsWith('$')) {
+        const inferredValue = capturedColors.get(val.substring(3)) ?? '#000';
+        if (visitedVariables.has(inferredValue)) {
+          break;
+        }
+        visitedVariables.add(inferredValue);
+        val = inferredValue;
+      }
+      colorMap.set(color, clr(val));
     }
     if (theme !== 'default') themes.push(theme);
     themeColorMap.set(theme, colorMap);

@@ -73,13 +73,16 @@ final class StreamerApi(
       candidateIds <- cache.candidateIds.getUnit
     yield if streams.map(_.streamer.id).exists(candidateIds.contains) then cache.candidateIds.invalidateUnit()
 
-  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] =
+  def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Option[Streamer.ModChange]] =
     val streamer = data(prev, asMod)
-    for
-      _ <- coll.update.one($id(streamer.id), streamer)
-      _ = cache.listedIds.invalidateUnit()
-      _ = streamer.youTube.foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
-    yield modChange(prev, streamer)
+    coll.update
+      .one($id(streamer.id), streamer)
+      .map: _ =>
+        asMod.option:
+          cache.listedIds.invalidateUnit()
+          streamer.youTube
+            .foreach(tuber => ytApi.channelSubscribe(tuber.channelId, true))
+          modChange(prev, streamer)
 
   def forceCheck(uid: UserId): Funit =
     byId(uid.into(Streamer.Id)).map:
@@ -87,20 +90,29 @@ final class StreamerApi(
         s.youTube.foreach(ytApi.forceCheckWithHtmlScraping)
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
-    val list = (prev.approval.granted != current.approval.granted).option(current.approval.granted)
-    (~list).so(
+    if !current.approval.granted then
       notifyApi.notifyOne(
         current,
         lila.core.notify.NotificationContent.GenericLink(
-          url = "/streamer/edit",
+          url = streamerPageActivationRoute.url,
+          title = "Streamer application denied".some,
+          text =
+            "Your streamer application was denied. Click here to read instructions before resubmitting.".some,
+          icon = lila.ui.Icon.Mic.value
+        )
+      )
+    else if !prev.approval.granted && current.approval.granted then
+      notifyApi.notifyOne(
+        current,
+        lila.core.notify.NotificationContent.GenericLink(
+          url = routes.Streamer.edit.url,
           title = "Listed on /streamer".some,
           text = "Your streamer page is public".some,
           icon = lila.ui.Icon.Mic.value
         )
       )
-    )
     Streamer.ModChange(
-      list = list,
+      list = (prev.approval.granted != current.approval.granted).option(current.approval.granted),
       tier = (prev.approval.tier != current.approval.tier).option(current.approval.tier),
       decline = !current.approval.granted && !current.approval.requested && prev.approval.requested
     )
@@ -146,7 +158,7 @@ final class StreamerApi(
     picfitApi
       .uploadFile(s"streamer:${s.id}", picture, userId = by.id)
       .flatMap { pic =>
-        coll.update.one($id(s.id), $set("picture" -> pic.id)).void
+        coll.update.one($id(s.id), $set("picture" -> pic.id, "approval.requested" -> true)).void
       }
 
   // unapprove after 6 weeks if you never streamed (was originally 1 week)

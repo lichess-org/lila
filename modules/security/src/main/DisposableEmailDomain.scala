@@ -37,8 +37,6 @@ final class DisposableEmailDomain(
   def apply(domain: Domain): Boolean =
     !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.lower.value)
 
-  def isOk(domain: Domain) = !apply(domain) && !mxRecordPasslist(domain)
-
   def asMxRecord(domain: Domain): Boolean =
     apply(domain) && !mxRecordPasslist(domain.withoutSubdomain | domain)
 

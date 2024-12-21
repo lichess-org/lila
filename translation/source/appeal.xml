@@ -8,7 +8,7 @@
   <string name="boosterMarked">Your account is marked for rating manipulation.</string>
   <string name="boosterMarkedInfo">We define this as deliberately manipulating rating by losing games on purpose or by playing against another account that is deliberately losing games.</string>
   <string name="accountMuted">Your account is muted.</string>
-  <string name="accountMutedInfo">Read our %s. Failure to follow the communication guidelines can result in accounts being muted.</string>
+  <string name="accountMutedInfo">Read our %s. Failure to comply with the communication guidelines may result in accounts being muted.</string>
   <string name="excludedFromLeaderboards">Your account has been excluded from leaderboards.</string>
   <string name="excludedFromLeaderboardsInfo">We define this as using any unfair way to get on the leaderboard.</string>
   <string name="closedByModerators">Your account was closed by moderators.</string>
