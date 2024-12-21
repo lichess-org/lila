@@ -11,7 +11,7 @@ body > header {
   z-index: $z-site-header-106;
   max-width: 1800px;
   margin: 0 auto;
-  user-select: none;
+  @include prevent-select;
 
   @include mq-sticky-header {
     max-width: unset;
