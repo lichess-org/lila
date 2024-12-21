@@ -1,0 +1,23 @@
+{
+  "name": "api",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org browser extension API",
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0-or-later",
+  "typings": "api",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./src/api.ts",
+    "./*": "./src/*.ts"
+  },
+  "dependencies": {
+    "common": "workspace:*"
+  }
+}

@@ -169,7 +169,7 @@ final class StreamerBits(helpers: Helpers)(picfitUrl: lila.core.misc.PicfitUrl):
             a(href := routes.Cms.lonePage(CmsPageKey("streaming-fairplay-faq")))(trs.streamingFairplayFAQ())
           )
         ),
-        li(a(href := routes.Cms.lonePage(CmsPageKey("streamer-page-activation")))(trs.rule3()))
+        li(a(href := streamerPageActivationRoute.url)(trs.rule3()))
       ),
       h2(trs.perks()),
       ul(

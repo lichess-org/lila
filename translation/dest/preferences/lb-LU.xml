@@ -66,5 +66,5 @@
   <string name="notifyWeb">Web-Browser</string>
   <string name="notifyDevice">Gerät</string>
   <string name="bellNotificationSound">Glacken-Notifikatiounstoun</string>
-  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Blann</string>
+  <string name="blindfold" comment="As in Blindfold chess">Blann</string>
 </resources>

@@ -42,11 +42,6 @@ Compile / sourceDirectory                  := baseDirectory.value / "app"
 Compile / scalaSource                      := baseDirectory.value / "app"
 Universal / sourceDirectory                := baseDirectory.value / "dist"
 
-// cats-parse v1.0.0 is the same as v0.3.1, so this is safe
-ThisBuild / libraryDependencySchemes ++= Seq(
-  "org.typelevel" %% "cats-parse" % VersionScheme.Always
-)
-
 // format: off
 libraryDependencies ++= akka.bundle ++ playWs.bundle ++ macwire.bundle ++ scalalib.bundle ++ chess.bundle ++ Seq(
   play.json, play.logback, compression, hasher,
@@ -482,7 +477,7 @@ lazy val notifyModule = module("notify",
 )
 
 lazy val recap = module("recap",
-  Seq(memo, ui, user, game, puzzle),
+  Seq(user, game, puzzle),
   Seq()
 )
 

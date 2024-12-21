@@ -80,19 +80,7 @@ final class RelayPush(
         validate(pgn).flatMap: tags =>
           StudyPgnImport(pgn, Nil).fold(
             errStr => Left(Failure(tags, oneline(errStr))),
-            game =>
-              Right(
-                RelayGame(
-                  tags = game.tags,
-                  variant = game.variant,
-                  root = game.root.copy(
-                    comments = lila.tree.Node.Comments.empty,
-                    children = game.root.children
-                      .updateMainline(_.copy(comments = lila.tree.Node.Comments.empty))
-                  ),
-                  points = game.end.map(_.points)
-                )
-              )
+            game => Right(RelayGame.fromStudyImport(game))
           )
 
   // silently consume DGT board king-check move to center at game end

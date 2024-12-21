@@ -180,7 +180,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
         round    <- nav.round
         upstream <- round.sync.upstream
         http     <- upstream.hasUnsafeHttp
-        https = http.withScheme("https")
+        https = http.withScheme("https").withPort(-1) // else it adds :80 for some reason
       yield flashMessage("box relay-form__warning")(
         p(
           strong("Warning: a source uses an insecure http:// protocol:"),

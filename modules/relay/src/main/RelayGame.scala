@@ -1,11 +1,13 @@
 package lila.relay
 
-import chess.{ Outcome, Color }
+import chess.{ Outcome, Color, Centis }
 import chess.Outcome.GamePoints
 import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, PgnDump }
 import lila.tree.Root
+import lila.tree.Node.Comments
+import chess.format.UciPath
 
 case class RelayGame(
     tags: Tags,
@@ -51,6 +53,24 @@ case class RelayGame(
     List(RelayGame.whiteTags, RelayGame.blackTags).exists:
       _.forall(tag => tags(tag).isEmpty)
 
+  def applyTagClocksToLastMoves: RelayGame =
+    val clocks = tags.clocks
+    if clocks.forall(_.isEmpty) then this
+    else
+      val mainlinePath = root.mainlinePath
+      val turn         = root.lastMainlineNode.ply.turn
+      val newRoot = List(
+        mainlinePath.nonEmpty.option(mainlinePath.parent) -> turn,
+        mainlinePath.some                                 -> !turn
+      ).flatMap:
+        case (Some(path), color) => clocks(color).map(path -> _)
+        case _                   => none
+      .foldLeft(root):
+          case (root, (path, centis)) =>
+            if root.nodeAt(path).exists(_.clock.isDefined) then root
+            else root.setClockAt(centis.some, path) | root
+      copy(root = newRoot)
+
   private def outcome = points.flatMap(Outcome.fromPoints)
 
   def showResult = Outcome.showPoints(points)
@@ -72,6 +92,26 @@ private object RelayGame:
     root = c.root,
     points = c.tags.points
   )
+
+  def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
+    val fixedTags = Tags:
+      // remove wrong ongoing result tag if the board has a mate on it
+      if res.end.isDefined && res.tags(_.Result).has("*") then res.tags.value.filter(_ != Tag(_.Result, "*"))
+      // normalize result tag (e.g. 0.5-0 ->  1/2-0)
+      else
+        res.tags.value.map: tag =>
+          if tag.name == Tag.Result
+          then tag.copy(value = Outcome.showPoints(Outcome.pointsFromResult(tag.value)))
+          else tag
+    RelayGame(
+      tags = fixedTags,
+      variant = res.variant,
+      root = res.root.copy(
+        comments = Comments.empty,
+        children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
+      ),
+      points = res.end.map(_.points)
+    ).applyTagClocksToLastMoves
 
   import scalalib.Iso
   import chess.format.pgn.InitialComments

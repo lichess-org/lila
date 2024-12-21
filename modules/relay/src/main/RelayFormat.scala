@@ -69,25 +69,32 @@ final private class RelayFormatApi(
       .so: id =>
         roundRepo.exists(id).map(_.option(RelayFormat.Round(id)))
 
-  private[relay] def httpGet(url: URL)(using CanProxy): Fu[String] =
+  def httpGet(url: URL)(using CanProxy): Fu[String] =
     httpGetResponse(url).map(_.body)
 
-  private[relay] def httpGetAndGuessCharset(url: URL)(using CanProxy): Fu[String] =
+  def httpGetAndGuessCharset(url: URL)(using CanProxy): Fu[String] =
     httpGetResponse(url).map: res =>
       responseHeaderCharset(res) match
         case None        => lila.common.String.charset.guessAndDecode(res.bodyAsBytes)
         case Some(known) => res.bodyAsBytes.decodeString(known)
 
-  private def responseHeaderCharset(res: StandaloneWSResponse): Option[java.nio.charset.Charset] =
-    import play.shaded.ahc.org.asynchttpclient.util.HttpUtils
-    Option(HttpUtils.extractContentTypeCharsetAttribute(res.contentType)).orElse:
-      res.contentType.startsWith("text/").option(java.nio.charset.StandardCharsets.ISO_8859_1)
+  def httpGetWithEtag(url: URL, etag: Option[Etag])(using
+      CanProxy
+  ): Fu[(Option[String], Option[Etag])] =
+    val (req, proxy) = configure(url)
+    etag
+      .fold(req)(etag => req.addHttpHeaders("If-None-Match" -> etag))
+      .get()
+      .flatMap: res =>
+        val newEtag = res.header("Etag")
+        if res.status == 304 then fuccess(none -> newEtag.orElse(etag))
+        else if res.status == 200 then fuccess((res.body: String).some -> newEtag)
+        else if res.status == 404 then fufail(NotFound(url))
+        else fufail(s"[${res.status}] $url")
+      .monSuccess(_.relay.httpGet(url.host.toString, proxy))
 
   private def httpGetResponse(url: URL)(using CanProxy): Future[StandaloneWSResponse] =
-    val (req, proxy) = addProxy(url):
-      ws.url(url.toString)
-        .withRequestTimeout(5.seconds)
-        .withFollowRedirects(false)
+    val (req, proxy) = configure(url)
     req
       .get()
       .flatMap: res =>
@@ -95,6 +102,17 @@ final private class RelayFormatApi(
         else if res.status == 404 then fufail(NotFound(url))
         else fufail(s"[${res.status}] $url")
       .monSuccess(_.relay.httpGet(url.host.toString, proxy))
+
+  private def responseHeaderCharset(res: StandaloneWSResponse): Option[java.nio.charset.Charset] =
+    import play.shaded.ahc.org.asynchttpclient.util.HttpUtils
+    Option(HttpUtils.extractContentTypeCharsetAttribute(res.contentType)).orElse:
+      res.contentType.startsWith("text/").option(java.nio.charset.StandardCharsets.ISO_8859_1)
+
+  private def configure(url: URL)(using CanProxy): (StandaloneWSRequest, Option[String]) =
+    addProxy(url):
+      ws.url(url.toString)
+        .withRequestTimeout(5.seconds)
+        .withFollowRedirects(false)
 
   private def addProxy(url: URL)(ws: StandaloneWSRequest)(using
       allowed: CanProxy
@@ -137,6 +155,8 @@ private enum RelayFormat:
   case LccWithoutGames(lcc: RelayRound.Sync.Lcc)
 
 private object RelayFormat:
+
+  type Etag = String
 
   opaque type CanProxy = Boolean
   object CanProxy extends YesNo[CanProxy]

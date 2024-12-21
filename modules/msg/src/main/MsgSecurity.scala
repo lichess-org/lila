@@ -140,7 +140,8 @@ final private class MsgSecurity(
     def post(contacts: Contacts, isNew: Boolean): Fu[Boolean] =
       (
         !contacts.dest.isLichess &&
-          (!contacts.any(_.marks.exists(_.isolate)) || contacts.any(_.isGranted(_.Shadowban)))
+          (!contacts.any(_.marks.exists(_.isolate)) ||
+            contacts.any(c => c.isGranted(_.Shadowban) && c.isGranted(_.PublicMod)))
       ).so:
         fuccess(contacts.orig.isGranted(_.PublicMod)) >>| {
           relationApi.fetchBlocks(contacts.dest.id, contacts.orig.id).not >>&

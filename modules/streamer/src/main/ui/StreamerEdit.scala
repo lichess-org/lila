@@ -14,9 +14,17 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
   def apply(s: Streamer.WithUserAndStream, form: Form[?], modZone: Option[(Frag, List[Streamer])])(using
       ctx: Context
   ) =
+    val wasListed = s.streamer.approval.lastGrantedAt.isDefined
     Page(s"${s.user.titleUsername} ${trs.lichessStreamer.txt()}")
       .css("bits.streamer.form")
-      .js(esmInitBit("streamer")):
+      .i18n(_.streamer)
+      .js(
+        esmInitObj(
+          "bits.streamer",
+          "youtube" -> wasListed.so(s.streamer.youTube).so[String](_.channelId),
+          "twitch"  -> wasListed.so(s.streamer.twitch).so[String](_.userId)
+        )
+      ):
         main(cls := "page-menu")(
           bits.menu("edit", s.some),
           div(cls := "page-menu__content box streamer-edit")(
@@ -36,44 +44,42 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
               )
             else bits.header(s, modZone.isDefined),
             div(cls := "box-pad") {
-              val granted = s.streamer.approval.granted
+              val granted   = s.streamer.approval.granted
+              val requested = s.streamer.approval.requested
+              val (clas, icon) = (granted, requested, wasListed) match
+                case (true, true, _)       => ("status is-green", Icon.Search)
+                case (true, false, _)      => ("status is-green", Icon.Checkmark)
+                case (false, true, _)      => ("status is-gold", Icon.CautionTriangle)
+                case (false, false, true)  => ("status is-red", Icon.X)
+                case (false, false, false) => ("status is", Icon.InfoCircle)
               frag(
-                (ctx.is(s.user) && s.streamer.listed.value).option(
-                  div(
-                    cls      := s"status is${granted.so("-green")}",
-                    dataIcon := (if granted then Icon.Checkmark else Icon.InfoCircle)
-                  )(
-                    if granted then
-                      frag(
-                        trs.approved(),
-                        (s.streamer.approval.tier > 0).option:
-                          frag(
-                            br,
-                            strong("You have been selected for frontpage featuring!"),
-                            p(
-                              "Note that we can only show a limited number of streams on the homepage, ",
-                              "so yours may not always appear."
-                            )
-                          )
-                      )
-                    else
-                      frag(
-                        if s.streamer.approval.requested then trs.pendingReview()
-                        else
-                          frag(
-                            if s.streamer.completeEnough then
-                              trs.whenReady(
-                                postForm(action := routes.Streamer.approvalRequest)(
-                                  button(tpe := "submit", cls := "button", ctx.isnt(s.user).option(disabled))(
-                                    trs.requestReview()
-                                  )
-                                )
+                (ctx.is(s.user) && s.streamer.listed.value)
+                  .option(
+                    div(cls := clas, dataIcon := icon)(
+                      if granted then
+                        frag(
+                          if requested then "Changes are under review." else trs.approved(),
+                          (s.streamer.approval.tier > 0).option:
+                            frag(
+                              br,
+                              strong("You have been selected for frontpage featuring!"),
+                              p(
+                                "Note that we can only show a limited number of streams on the homepage, ",
+                                "so yours may not always appear."
                               )
-                            else trs.pleaseFillIn()
+                            )
+                        )
+                      else if requested then trs.pendingReview()
+                      else if wasListed then
+                        frag(
+                          "Your previous application was declined. ",
+                          a(href := streamerPageActivationRoute)(
+                            "See instructions before submitting again"
                           )
-                      )
-                  )
-                ),
+                        )
+                      else trs.pleaseFillIn()
+                    )
+                  ),
                 ctx.is(s.user).option(div(cls := "status")(trs.streamerLanguageSettings())),
                 modZone.map: (modFrag, same) =>
                   frag(
@@ -163,13 +169,13 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                     form3.group(
                       form("twitch"),
                       trs.twitchUsername(),
-                      help = trs.optionalOrEmpty().some,
+                      help = trs.twitchOrYouTubeRequired().some,
                       half = true
                     )(form3.input(_)),
                     form3.group(
                       form("youTube"),
                       trs.youTubeChannelId(),
-                      help = trs.optionalOrEmpty().some,
+                      help = trs.twitchOrYouTubeRequired().some,
                       half = true
                     )(form3.input(_))
                   ),
@@ -195,7 +201,11 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                   form3.group(form("description"), trs.longDescription())(form3.textarea(_)(rows := 10)),
                   form3.actions(
                     a(href := routes.Streamer.show(s.user.username))(trans.site.cancel()),
-                    form3.submit(trans.site.apply())
+                    button(
+                      tpe   := "submit",
+                      cls   := "submit button text approval-request-submit",
+                      title := "You must provide an image, a streamer name, and a Twitch or YouTube channel."
+                    )(trs.submitForReview())
                   )
                 )
               )

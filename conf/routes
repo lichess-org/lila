@@ -340,7 +340,6 @@ GET   /streamer/live                   controllers.Main.movedPermanently(to = "/
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
-POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer: UserStr, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username: UserStr)

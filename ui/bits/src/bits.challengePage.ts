@@ -2,6 +2,7 @@ import * as xhr from 'common/xhr';
 import { wsConnect, wsSend } from 'common/socket';
 import { userComplete } from 'common/userComplete';
 import { isTouchDevice, isIos } from 'common/device';
+import { pubsub } from 'common/pubsub';
 
 interface ChallengeOpts {
   xhrUrl: string;
@@ -19,7 +20,7 @@ export function initModule(opts: ChallengeOpts): void {
         xhr.text(opts.xhrUrl).then(html => {
           $(selector).replaceWith($(html).find(selector));
           init();
-          window.lichess.initializeDom($(selector)[0]);
+          pubsub.emit('content-loaded', $(selector)[0]);
         });
       },
     },

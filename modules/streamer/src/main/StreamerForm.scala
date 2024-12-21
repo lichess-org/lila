@@ -76,34 +76,33 @@ object StreamerForm:
     def apply(streamer: Streamer, asMod: Boolean) =
       val liveVideoId   = streamer.youTube.flatMap(_.liveVideoId)
       val pubsubVideoId = streamer.youTube.flatMap(_.pubsubVideoId)
-      val newStreamer = streamer.copy(
+      val newTwitch     = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply)
+      val newYouTube =
+        youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId))
+      val urlChanges = newTwitch != streamer.twitch || newYouTube != streamer.youTube
+      streamer.copy(
         name = name,
         headline = headline,
         description = description,
-        twitch = twitch.flatMap(Twitch.parseUserId).map(Twitch.apply),
-        youTube = youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId)),
+        twitch = newTwitch,
+        youTube = newYouTube,
         listed = listed,
-        updatedAt = nowInstant
-      )
-      newStreamer.copy(
+        updatedAt = nowInstant,
         approval = approval.map(_.resolve) match
           case Some(m) if asMod =>
             streamer.approval.copy(
               granted = m.granted,
               tier = m.tier | streamer.approval.tier,
-              requested = !m.granted && {
-                if streamer.approval.requested != m.requested then m.requested
-                else streamer.approval.requested || m.requested
-              },
+              requested = !m.granted && m.requested,
               ignored = m.ignored && !m.granted,
               chatEnabled = m.chat,
               lastGrantedAt = m.granted.option(nowInstant).orElse(streamer.approval.lastGrantedAt)
             )
           case _ =>
             streamer.approval.copy(
-              granted = streamer.approval.granted &&
-                newStreamer.twitch.forall(streamer.twitch.has) &&
-                newStreamer.youTube.forall(streamer.youTube.has)
+              requested = streamer.approval.requested || urlChanges || name != streamer.name
+                || headline != streamer.headline || description != streamer.description,
+              granted = streamer.approval.granted && !urlChanges
             )
       )
 
