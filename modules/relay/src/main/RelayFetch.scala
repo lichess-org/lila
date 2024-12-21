@@ -5,6 +5,7 @@ import chess.{ Outcome, Ply }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
+import play.api.libs.ws.{ StandaloneWSRequest, StandaloneWSResponse }
 import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
@@ -310,8 +311,10 @@ final private class RelayFetch(
                 val game = i + 1
                 val tags = pairing.tags(lcc.round, game, round.date)
                 lccCache(lcc, game, tags, lookForStart): () =>
-                  httpGetJson[GameJson](lcc.gameUrl(game)).recover:
-                    case _: Exception => GameJson(moves = Nil, result = none)
+                  lccGameJsonWithEtag
+                    .fetch(lcc.gameUrl(game))
+                    .recover:
+                      case _: Exception => GameJson(moves = Nil, result = none)
                 .map { _.toPgn(tags) }
                   .recover: _ =>
                     PgnStr(s"${tags}\n\n${pairing.result}")
@@ -332,11 +335,40 @@ final private class RelayFetch(
   private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] =
     PgnStr.from(formatApi.httpGetAndGuessCharset(url))
 
-  private def httpGetJson[A: Reads](url: URL)(using CanProxy): Fu[A] = for
-    str  <- formatApi.httpGet(url)
-    json <- Future(Json.parse(str)) // Json.parse throws exceptions (!)
+  private def httpGetJson[A: Reads](url: URL)(using CanProxy): Fu[A] =
+    formatApi.httpGet(url).flatMap(readAsJson(url))
+
+  private def readAsJson[A: Reads](url: URL)(body: String): Fu[A] = for
+    json <- Future(Json.parse(body)) // Json.parse throws exceptions (!)
     data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
   yield data
+
+  private object lccGameJsonWithEtag:
+    import RelayFormat.Etag
+    import DgtJson.GameJson
+    // lcc uses https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match
+    private val cache =
+      cacheApi.notLoadingSync[URL, (Etag, GameJson)](512, "relay.fetch.lccGameJsonWithEtag"):
+        _.expireAfterWrite(5 minutes).build()
+    def fetch(url: URL)(using CanProxy): Fu[GameJson] =
+      cache
+        .getIfPresent(url)
+        .match
+          case None =>
+            for
+              (body, newEtag) <- formatApi.httpGetWithEtag(url, none)
+              data            <- readAsJson[GameJson](url)(~body)
+            yield (data, newEtag)
+          case Some((etag, prev)) =>
+            for
+              (body, newEtag) <- formatApi.httpGetWithEtag(url, etag.some)
+              isHit = body.isEmpty && newEtag.contains(etag)
+              _     = lila.mon.relay.etag(isHit).increment()
+              data <- if isHit then fuccess(prev) else readAsJson[GameJson](url)(~body)
+            yield (data, newEtag)
+        .map: (data, newEtag) =>
+          newEtag.foreach(e => cache.put(url, e -> data))
+          data
 
 private object RelayFetch:
 
