@@ -44,6 +44,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
     theme: currentTheme(),
     initialValue: $('#form3-markdown').val() as string,
     initialEditType: initialEditType(),
+    previewStyle: 'tab',
     language: $('html').attr('lang') as string,
     toolbarItems: [
       ['heading', 'bold', 'italic', 'strike'],
@@ -85,4 +86,7 @@ const setupMarkdownEditor = (el: HTMLTextAreaElement) => {
   $(el)
     .find('button.link')
     .on('click', () => $('#toastuiLinkUrlInput')[0]?.focus());
+  $('.toastui-editor-tabs > .tab-item').on('click', () => {
+    editor.setMarkdown(editor.getMarkdown().replace(/(?<!\\)</g, '\\<'), false);
+  });
 };
