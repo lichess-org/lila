@@ -64,23 +64,47 @@
   <string name="earlyDrawsQ">若提早和局會發生什麼事？</string>
   <string name="earlyDrawsAnswer">在積分循環制內，玩家無法在三十步內和局。雖然在此機制下無法防止已規劃的和局，其機制至少能防止過早的和局。</string>
   <string name="whatIfOneDoesntPlayQ">如果有玩家缺該怎麼處理？</string>
+  <string name="whatIfOneDoesntPlayA">他們的棋鐘將開始倒數，時間耗盡後他們會超時並輸掉這局棋。
+隨後，系統將把該玩家從比賽中移除，以避免他們輸掉更多的棋局。
+他們可以隨時重新加入比賽。</string>
+  <string name="protectionAgainstNoShowQ">對於未出席者會採取什麼措施?</string>
+  <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">報名參加瑞士制比賽但未參與對局的玩家可能會造成問題。
+為了緩解此問題，Lichess 會限制未參與對局的玩家在一定時間內無法加入新的瑞士制比賽。
+不過，瑞士制比賽的創建者可以選擇允許他們加入比賽。</string>
   <string name="lateJoinQ">玩家可以稍後加入嗎？</string>
+  <string name="lateJoinA">是的，只要超過一半的輪次尚未開始即可；例如，在一場 11 輪的瑞士制比賽中，玩家可以在第 6 輪開始前加入，而在 12 輪的比賽中則可以在第 7 輪開始前加入。
+遲加入的玩家將獲得一次輪空，即使他們已經錯過了幾輪。</string>
   <string name="willSwissReplaceArenasQ">積分循環制會取代競技場錦標賽嗎？</string>
   <string name="willSwissReplaceArenasA">不會。他們是額外的功能。</string>
   <string name="roundRobinQ">那循環賽（Round Robin）呢？</string>
+  <string name="roundRobinA">我們希望能加入此功能，但很遺憾，循環賽制無法在線上實現。
+原因在於，無法公平地處理中途退出比賽的玩家。我們無法期待所有玩家在線上比賽中完成所有對局。這是不可能的，因此大多數循環賽制將會變得不公平且有缺陷，失去了其存在的意義。在線上最接近循環賽制的方式是進行多輪次的瑞士制比賽，這樣可以在比賽結束前完成所有可能的配對。</string>
+  <string name="otherSystemsQ">那其他比賽系統呢？</string>
+  <string name="otherSystemsA">目前我們沒有計劃在 Lichess 中加入更多比賽系統。</string>
+  <string name="swissDescription">在一場瑞士制比賽 %1$s 中，每位參賽者未必會與所有其他參賽者對局。每輪比賽中，參賽者將一對一進行對局，並根據一套規則進行配對，以確保每位參賽者與分數相近的對手對局，但不會與同一位對手交手超過一次。勝者為在所有輪次中累計得分最高的參賽者。所有參賽者每輪都會參賽，除非參賽人數為奇數。</string>
+  <string name="teamOnly">瑞士制比賽只能由隊長創建，且只能由隊員參加。
+%1$s 開始參加瑞士制比賽。</string>
   <string name="joinOrCreateTeam">加入或創建團隊</string>
   <string name="nowPlaying">正在對局</string>
   <string name="startingSoon">即將開始</string>
   <string name="comparison">對比</string>
   <string name="tournDuration">比賽時長</string>
+  <string name="predefinedDuration">預定的比賽時長（以分鐘計）</string>
+  <string name="durationUnknown">預定的最大輪次，但時長未知</string>
   <string name="numberOfGames">回合數</string>
+  <string name="numberOfGamesAsManyAsPossible">在分配的時間內能進行的最大輪次</string>
+  <string name="numberOfGamesPreDefined">事先決定，適用於所有玩家</string>
   <string name="pairingSystem">配對系統</string>
+  <string name="pairingSystemArena">任何排名相近的可用對手</string>
+  <string name="pairingSystemSwiss">根據得分和加賽決定的最佳配對</string>
+  <string name="pairingWaitTime">配對等待時間</string>
   <string name="pairingWaitTimeArena">快：不等待所有玩家</string>
   <string name="pairingWaitTimeSwiss">慢：等待所有玩家</string>
   <string name="identicalPairing">相同配對</string>
   <string name="possibleButNotConsecutive">可行，但非連續性</string>
   <string name="identicalForbidden">無法</string>
   <string name="lateJoin">遲到加入</string>
+  <string name="lateJoinUntil">是的，直到超過一半的輪次開始為止</string>
   <string name="pause">暫停</string>
   <string name="playYourGames">完成棋局</string>
   <string name="byes">輪空</string>
