@@ -1,4 +1,5 @@
 import { type PubsubCallback, type PubsubEvent, pubsub } from 'common/pubsub';
+import { alert, confirm, prompt, domDialog } from 'common/dialog';
 
 // #TODO document these somewhere
 const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'];
@@ -19,6 +20,12 @@ export interface Api {
   };
   chat: {
     post: (text: string) => void;
+  };
+  dialog: {
+    alert: typeof alert;
+    confirm: typeof confirm;
+    prompt: typeof prompt;
+    domDialog: typeof domDialog;
   };
   overrides: {
     [key: string]: (...args: any[]) => unknown;
@@ -70,6 +77,12 @@ export const api: Api = {
   },
   chat: {
     post: (text: string) => pubsub.emit('socket.send', 'talk', text),
+  },
+  dialog: {
+    alert,
+    confirm,
+    prompt,
+    domDialog,
   },
   // some functions will be exposed here
   // to be overriden by browser extensions
