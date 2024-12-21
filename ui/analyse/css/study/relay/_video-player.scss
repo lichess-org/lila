@@ -39,7 +39,7 @@
     background: center / cover;
     overflow: hidden;
     inset: 0;
-    filter: blur(4px) brightness(0.8);
+    filter: blur(4px) brightness(0.7);
   }
 
   .play-button {
@@ -49,10 +49,15 @@
     top: 50%;
     left: 50%;
     width: 18%;
-    opacity: 0.4;
+    opacity: 0.6;
     fill: white;
+    filter: drop-shadow(0 0 12px #0000004f);
 
     circle {
+      filter: drop-shadow(0 0 8px #840000);
+      paint-order: stroke fill;
+      stroke: #fff9;
+      stroke-width: 3px;
       fill: $c-bad;
     }
   }
@@ -93,12 +98,8 @@
       opacity: 1;
     }
 
-    .text-box div {
-      border-color: $m-bad--alpha-50;
-    }
-
     .image {
-      filter: blur(4px) brightness(0.7);
+      filter: blur(4px) brightness(0.6);
     }
   }
 }
