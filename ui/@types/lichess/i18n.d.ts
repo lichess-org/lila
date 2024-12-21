@@ -61,7 +61,7 @@ interface I18n {
   appeal: {
     /** Your account is muted. */
     accountMuted: string;
-    /** Read our %s. Failure to follow the communication guidelines can result in accounts being muted. */
+    /** Read our %s. Failure to comply with the communication guidelines may result in accounts being muted. */
     accountMutedInfo: I18nFormat;
     /** Your account is banned from joining arenas. */
     arenaBanned: string;
