@@ -22,6 +22,6 @@
   <string name="speechSynthesisVoice">Επιλογή φωνής για τη σύνθεση ομιλίας</string>
   <string name="announceAllMoves">Ανακοίνωση Όλων Των Κινήσεων</string>
   <string name="selectAnnouncePreference">Επιλέξτε ΝΑΙ ώστε να ανακοινώνονται οι κινήσεις και των δύο παικτών. Επιλέξτε ΟΧΙ ώστε να ανακοινώνονται μόνο οι κινήσεις του αντιπάλου σας.</string>
-  <string name="playWithDgtBoard">Παίξτε με τη σκακιέρα DGT</string>
+  <string name="playWithDgtBoard">Παίξτε με σκακιέρα DGT</string>
   <string name="configure">Ρυθμίσεις</string>
 </resources>
