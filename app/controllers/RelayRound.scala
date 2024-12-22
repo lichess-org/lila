@@ -273,13 +273,13 @@ final class RelayRound(
               .find(userId)
               .flatMapz(s => env.streamer.liveStreamApi.of(s).dmap(some))
               .map:
-                _.flatMap(_.stream).map(_.urls(netDomain).toPair)
+                _.flatMap(_.stream).map(_.urls.toPair(netDomain))
           case VideoEmbed.PinnedStream =>
             fuccess:
               rt.tour.pinnedStream
                 .ifFalse(rt.round.isFinished)
                 .flatMap(_.upstream)
-                .map(_.urls(netDomain).toPair)
+                .map(_.urls.toPair(netDomain))
           case _ => fuccess(none)
         crossSiteIsolation = videoUrls.isEmpty || (rt.tour.pinnedStream.isDefined && crossOriginPolicy
           .supportsCredentiallessIFrames(ctx.req))

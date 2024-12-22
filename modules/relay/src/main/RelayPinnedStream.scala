@@ -28,17 +28,17 @@ case class RelayPinnedStream(name: String, url: URL, text: Option[String]):
           case _        => none
 
 object RelayPinnedStream:
-  case class Urls(embed: String, redirect: String):
-    def toPair = (embed, redirect)
+  case class Urls(embed: NetDomain => String, redirect: String):
+    def toPair(domain: NetDomain) = (embed(domain), redirect)
   sealed trait Upstream:
-    def urls(parent: NetDomain): Urls
+    def urls: Urls
   case class YouTube(id: String) extends Upstream:
-    def urls(parent: NetDomain) = Urls(
-      s"https://www.youtube.com/embed/${id}?disablekb=1&modestbranding=1&autoplay=1",
+    def urls = Urls(
+      _ => s"https://www.youtube.com/embed/${id}?disablekb=1&modestbranding=1&autoplay=1",
       s"https://www.youtube.com/watch?v=${id}"
     )
   case class Twitch(id: String) extends Upstream:
-    def urls(parent: NetDomain) = Urls(
-      s"https://player.twitch.tv/?channel=${id}&parent=${parent}&autoplay=true",
+    def urls = Urls(
+      parent => s"https://player.twitch.tv/?channel=${id}&parent=${parent}&autoplay=true",
       s"https://www.twitch.tv/${id}"
     )
