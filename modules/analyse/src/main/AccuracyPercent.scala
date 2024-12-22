@@ -1,11 +1,13 @@
 package lila.analyse
 
 import chess.{ ByColor, Color }
+import chess.eval.WinPercent
+import chess.eval.Eval.{ Cp, Mate }
 import scalalib.Maths
+import scalalib.model.Percent
 
-import lila.core.data.Percent
 import lila.core.game.SideAndStart
-import lila.tree.{ Analysis, Eval, WinPercent }
+import lila.tree.{ Analysis, Eval }
 
 // Quality of a move, based on previous and next WinPercent
 opaque type AccuracyPercent = Double
@@ -55,15 +57,17 @@ for x in xs:
   def fromEvalsAndPov(pov: SideAndStart, evals: List[Eval]): List[AccuracyPercent] =
     val subjectiveEvals = pov.color.fold(evals, evals.map(_.invert))
     val alignedEvals =
-      if pov.color == pov.startColor then Eval.initial :: subjectiveEvals else subjectiveEvals
+      if pov.color == pov.startColor
+      then lila.tree.evals.initial :: subjectiveEvals
+      else subjectiveEvals
     alignedEvals
       .grouped(2)
-      .collect { case List(e1, e2) =>
-        for
-          before <- WinPercent.fromEval(e1)
-          after  <- WinPercent.fromEval(e2)
-        yield AccuracyPercent.fromWinPercents(before, after)
-      }
+      .collect:
+        case List(e1, e2) =>
+          for
+            before <- e1.score.map(WinPercent.fromScore)
+            after  <- e2.score.map(WinPercent.fromScore)
+          yield AccuracyPercent.fromWinPercents(before, after)
       .flatten
       .toList
 
@@ -74,8 +78,8 @@ for x in xs:
     gameAccuracy(startColor, analysis.infos.map(_.eval).flatMap(_.forceAsCp))
 
   // a mean of volatility-weighted mean and harmonic mean
-  def gameAccuracy(startColor: Color, cps: List[Eval.Cp]): Option[ByColor[AccuracyPercent]] =
-    val allWinPercents      = (Eval.Cp.initial :: cps).map(WinPercent.fromCentiPawns)
+  def gameAccuracy(startColor: Color, cps: List[Cp]): Option[ByColor[AccuracyPercent]] =
+    val allWinPercents      = (Cp.initial :: cps).map(WinPercent.fromCentiPawns)
     val windowSize          = (cps.size / 10).atLeast(2).atMost(8)
     val allWinPercentValues = WinPercent.raw(allWinPercents)
     val windows =

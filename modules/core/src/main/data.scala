@@ -18,15 +18,6 @@ object data:
 
   trait OpaqueInstant[A](using A =:= Instant) extends TotalWrapper[A, Instant]
 
-  trait Percent[A]:
-    def value(a: A): Double
-    def apply(a: Double): A
-  object Percent:
-    def of[A](w: TotalWrapper[A, Double]): Percent[A] = new:
-      def apply(a: Double): A = w(a)
-      def value(a: A): Double = w.value(a)
-    def toInt[A](a: A)(using p: Percent[A]): Int = Math.round(p.value(a)).toInt // round to closest
-
   opaque type RichText = String
   object RichText extends OpaqueString[RichText]
 

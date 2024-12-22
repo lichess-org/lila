@@ -4,6 +4,7 @@ import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ ByColor, Centis, Check, FideId, Ply, PromotableRole, Role, Square }
+import chess.eval.*
 import reactivemongo.api.bson.*
 
 import scala.util.Success
@@ -12,7 +13,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Score }
+import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root }
 
 object BSONHandlers:
 
@@ -135,7 +136,7 @@ object BSONHandlers:
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
+      eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
       clock          = doc.getAsOpt[Centis](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
@@ -170,7 +171,7 @@ object BSONHandlers:
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
+      eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
       clock          = doc.getAsOpt[Centis](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
@@ -244,7 +245,7 @@ object BSONHandlers:
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
         glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-        eval = r.getO[Score](F.score).map(_.eval),
+        eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
         clock = r.getO[Centis](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
@@ -280,7 +281,7 @@ object BSONHandlers:
           comments = r.getO[Comments](F.comments) | Comments.empty,
           gamebook = r.getO[Gamebook](F.gamebook),
           glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-          eval = r.getO[Score](F.score).map(_.eval),
+          eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
           clock = r.getO[Centis](F.clock),
           crazyData = r.getO[Crazyhouse.Data](F.crazy)
         ),

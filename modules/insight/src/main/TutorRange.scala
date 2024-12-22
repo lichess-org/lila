@@ -2,8 +2,9 @@ package lila.insight
 
 import chess.IntRating
 import chess.rating.IntRatingDiff
+import chess.eval.WinPercent
 
-import lila.analyse.{ AccuracyPercent, WinPercent }
+import lila.analyse.AccuracyPercent
 
 enum RelativeStrength(val id: Int, val name: String):
   case MuchWeaker   extends RelativeStrength(10, "Much weaker")
