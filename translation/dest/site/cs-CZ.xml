@@ -39,7 +39,7 @@
   <string name="blackPlays">Černý na tahu</string>
   <plurals name="opponentLeftCounter">
     <item quantity="one">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekundu.</item>
-    <item quantity="few">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekundy.</item>
+    <item quantity="few">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekund.</item>
     <item quantity="many">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekund.</item>
     <item quantity="other">Tvůj soupeř opustil hru. Můžeš si vyžádat vítězství za %s sekund.</item>
   </plurals>
@@ -1020,7 +1020,7 @@
   <string name="streamerManager">Nastavení streamera</string>
   <string name="cancelTournament">Zrušit turnaj</string>
   <string name="tournDescription">Popis turnaje</string>
-  <string name="tournDescriptionHelp">Je tu něco co by ste chtěli sdělit účastníkům? Skuste to ve skratce. Markdown odkazy jsou k dispozici: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Je tu něco co by ste chtěli sdělit účastníkům? Skuste to ve skratce. Markdown odkazy jsou k dispozici: [name](https://url)</string>
   <string name="ratedFormHelp">Hry jsou hodnoceny a mají dopad na hodnocení hráče</string>
   <string name="onlyMembersOfTeam">Pouze členové týmu</string>
   <string name="noRestriction">Bez omezení</string>
