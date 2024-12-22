@@ -1,47 +1,31 @@
-import { looseH as h, type Redraw, type VNode } from 'common/snabbdom';
-import type RelayCtrl from './relayCtrl';
+import { looseH as h, type Redraw, type VNode, onInsert } from 'common/snabbdom';
 import { allowVideo } from './relayView';
 
 export class VideoPlayer {
   private iframe: HTMLIFrameElement;
   private close: HTMLImageElement;
-  private autoplay: boolean;
   private animationFrameId?: number;
 
   constructor(
-    private url: string,
+    private o: { embed: string | false; redirect?: string; image?: string; text?: string },
     private redraw: Redraw,
   ) {
-    this.autoplay = location.search.includes('embed=');
+    if (!o.embed) return;
 
     this.iframe = document.createElement('iframe');
+    this.iframe.setAttribute('credentialless', '');
+    this.iframe.style.display = 'none';
     this.iframe.id = 'video-player';
-    this.iframe.setAttribute('credentialless', ''); // a feeble mewling ignored by all
-    if (this.autoplay) {
-      this.url += '&autoplay=1';
-      this.iframe.allow = 'autoplay';
-    } else {
-      this.url += '&autoplay=false'; // needs to be "false" for twitch
-    }
-    this.iframe.src = this.url;
-    this.iframe.setAttribute('credentialless', 'credentialless');
+    this.iframe.src = o.embed;
+    this.iframe.allow = 'autoplay';
+
     this.close = document.createElement('img');
     this.close.src = site.asset.flairSrc('symbols.cancel');
     this.close.className = 'video-player-close';
+    this.close.addEventListener('click', () => this.onEmbed('no'), true);
 
-    this.close.addEventListener('click', this.onClose, true);
-
-    this.onWindowResize();
+    this.addWindowResizer();
   }
-
-  private onClose = () => {
-    // we need to reload the page unfortunately,
-    // so that a better local engine can be loaded
-    // once the iframe and its CSP are gone
-    const url = new URL(location.href);
-    url.searchParams.set('embed', 'no');
-    window.location.replace(url);
-  };
 
   cover = (el?: HTMLElement) => {
     if (this.animationFrameId) {
@@ -66,7 +50,7 @@ export class VideoPlayer {
     });
   };
 
-  onWindowResize = () => {
+  addWindowResizer = () => {
     let showingVideo = false;
     window.addEventListener(
       'resize',
@@ -81,16 +65,60 @@ export class VideoPlayer {
       { passive: true },
     );
   };
-}
 
-export function renderVideoPlayer(relay: RelayCtrl): VNode | undefined {
-  const player = relay.videoPlayer;
-  return player
-    ? h('div#video-player-placeholder', {
-        hook: {
-          insert: (vnode: VNode) => player.cover(vnode.elm as HTMLElement),
-          update: (_, vnode: VNode) => player.cover(vnode.elm as HTMLElement),
-        },
-      })
-    : undefined;
+  render = () => {
+    return this.o.embed
+      ? h('div#video-player-placeholder', {
+          hook: {
+            insert: (vnode: VNode) => this.cover(vnode.elm as HTMLElement),
+            update: (_, vnode: VNode) => this.cover(vnode.elm as HTMLElement),
+          },
+        })
+      : h('div#video-player-placeholder.link', [
+          h('div.image', {
+            attrs: { style: `background-image: url(${this.o.image})` },
+            hook: onInsert((el: HTMLElement) => {
+              el.addEventListener('click', e => {
+                if (e.ctrlKey || e.shiftKey) window.open(this.o.redirect, '_blank');
+                else this.onEmbed('ps');
+              });
+              el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
+            }),
+          }),
+          h('img.video-player-close', {
+            attrs: { src: site.asset.flairSrc('symbols.cancel') },
+            hook: onInsert((el: HTMLElement) => el.addEventListener('click', () => this.onEmbed('no'))),
+          }),
+          this.o.text && h('div.text-box', h('div', this.o.text)),
+          h(
+            'svg.play-button',
+            {
+              attrs: {
+                xmlns: 'http://www.w3.org/2000/svg',
+                viewBox: '0 0 200 200',
+              },
+            },
+            [
+              h('circle', {
+                attrs: {
+                  cx: '100',
+                  cy: '100',
+                  r: '90',
+                },
+              }),
+              h('path', {
+                attrs: {
+                  d: 'M 68 52 A 5 5 0 0 1 74 46 L 154 96 A 5 5 0 0 1 154 104 L 74 154 A 5 5 0 0 1 68 148 Z',
+                },
+              }),
+            ],
+          ),
+        ]);
+  };
+
+  onEmbed = (stream: 'ps' | 'no') => {
+    const urlWithEmbed = new URL(location.href);
+    urlWithEmbed.searchParams.set('embed', stream);
+    window.location.href = urlWithEmbed.toString();
+  };
 }

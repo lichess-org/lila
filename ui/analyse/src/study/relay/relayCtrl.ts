@@ -2,7 +2,7 @@ import type { RelayData, LogEvent, RelaySync, RelayRound, RoundId } from './inte
 import type { BothClocks, ChapterId, ChapterSelect, Federations, ServerClockMsg } from '../interfaces';
 import type { StudyMemberCtrl } from '../studyMembers';
 import type { AnalyseSocketSend } from '../../socket';
-import { type Prop, type Toggle, defined, myUserId, notNull, prop, toggle } from 'common';
+import { type Prop, type Toggle, myUserId, notNull, prop, toggle } from 'common';
 import RelayTeams from './relayTeams';
 import RelayPlayers from './relayPlayers';
 import type { StudyChapters } from '../studyChapters';
@@ -59,19 +59,27 @@ export default class RelayCtrl {
       redraw,
     );
     this.stats = new RelayStats(this.currentRound(), redraw);
-    this.videoPlayer = this.data.videoUrls?.[0] ? new VideoPlayer(this.data.videoUrls[0], redraw) : undefined;
-    setInterval(() => this.redraw(true), 1000);
-
-    const pinned = data.pinnedStream;
-    if (pinned && this.pinStreamer()) this.streams.push(['', pinned.name]);
+    if (data.videoUrls?.[0] || this.isPinnedStreamOngoing())
+      this.videoPlayer = new VideoPlayer(
+        {
+          embed: this.data.videoUrls?.[0] || false,
+          redirect: this.data.videoUrls?.[1] || this.data.pinned?.redirect,
+          image: this.data.tour.image,
+          text: this.data.pinned?.text,
+        },
+        redraw,
+      );
+    const pinnedName = this.isPinnedStreamOngoing() && data.pinned?.name;
+    if (pinnedName) this.streams.push(['ps', pinnedName]);
 
     pubsub.on('socket.in.crowd', d => {
       const s = (d.streams as [string, string][]) ?? [];
-      if (pinned && this.pinStreamer()) s.unshift(['', pinned.name]);
+      if (pinnedName) s.unshift(['ps', pinnedName]);
       if (this.streams.length === s.length && this.streams.every(([id], i) => id === s[i][0])) return;
       this.streams = s;
       this.redraw();
     });
+    setInterval(() => this.redraw(true), 1000);
   }
 
   openTab = (t: RelayTab) => {
@@ -131,10 +139,16 @@ export default class RelayCtrl {
 
   isStreamer = () => this.streams.some(([id]) => id === myUserId());
 
-  pinStreamer = () =>
-    defined(this.data.pinnedStream) &&
-    !this.currentRound().finished &&
-    Date.now() > this.currentRound().startsAt! - 1000 * 3600;
+  isPinnedStreamOngoing = () => {
+    if (!this.data.pinned) return false;
+    if (this.currentRound().finished) return false;
+    if (Date.now() < this.currentRound().startsAt! - 1000 * 3600) return false;
+    return true;
+  };
+
+  noEmbed() {
+    return document.cookie.includes('relayVideo=no');
+  }
 
   private socketHandlers = {
     relayData: (d: RelayData) => {

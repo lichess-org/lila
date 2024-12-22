@@ -106,6 +106,12 @@
   <string name="lateJoin">遲到加入</string>
   <string name="lateJoinUntil">是的，直到超過一半的輪次開始為止</string>
   <string name="pause">暫停</string>
+  <string name="pauseSwiss">可以，但可能會減少輪次數量</string>
+  <string name="streaksAndBerserk">連勝與狂戰士模式</string>
+  <string name="similarToOTB">類似於線下比賽</string>
+  <string name="unlimitedAndFree">無限制且免費</string>
+  <string name="predefinedUsers">僅限白名單內的玩家加入</string>
+  <string name="forbiddedUsers">如果此列表不為空，則未在此列表中的用戶將被禁止加入。每行填寫一個用戶名稱。</string>
   <string name="playYourGames">完成棋局</string>
   <string name="byes">輪空</string>
   <string name="absences">缺席</string>

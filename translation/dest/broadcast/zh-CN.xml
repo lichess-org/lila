@@ -47,6 +47,9 @@
   <string name="ageThisYear">今年的年龄</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">未评级</string>
   <string name="recentTournaments">最近的比赛</string>
+  <string name="teams">团队</string>
+  <string name="officialWebsite">官网</string>
+  <string name="officialStandings">官方排名</string>
   <string name="pastBroadcasts">结束的转播</string>
   <string name="allBroadcastsByMonth">按月查看所有转播</string>
 </resources>

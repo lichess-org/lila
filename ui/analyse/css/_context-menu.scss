@@ -1,13 +1,12 @@
 #analyse-cm {
   @extend %box-radius, %popup-shadow;
+  @include prevent-select;
 
   background: $c-bg-box;
   position: absolute;
   display: none;
   z-index: $z-context-menu-108;
   cursor: default;
-  user-select: none;
-  -webkit-user-select: none;
 
   &.visible {
     display: block;

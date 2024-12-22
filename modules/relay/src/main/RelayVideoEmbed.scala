@@ -7,11 +7,11 @@ import play.api.mvc.Result
 enum RelayVideoEmbed:
   case No
   case Auto
+  case PinnedStream
   case Stream(userId: UserId)
   override def toString = this match
-    case No        => "no"
-    case Auto      => ""
-    case Stream(u) => u.toString
+    case No => "no"
+    case _  => ""
 
 final class RelayVideoEmbedStore(baker: LilaCookie):
 
@@ -21,11 +21,11 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
   def read(using req: RequestHeader): RelayVideoEmbed =
     def fromCookie = req.cookies.get(cookieName).map(_.value).filter(_.nonEmpty) match
       case Some("no") => No
+      case Some("ps") => PinnedStream
       case _          => Auto
     req.queryString.get("embed") match
-      case Some(Nil)       => fromCookie
-      case Some(Seq(""))   => Auto
       case Some(Seq("no")) => No
+      case Some(Seq("ps")) => PinnedStream
       case Some(Seq(name)) => UserStr.read(name).fold(Auto)(u => Stream(u.id))
       case _               => fromCookie
 
