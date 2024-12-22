@@ -85,7 +85,6 @@ final private class RelayFormatApi(
         val newEtag = res.header("Etag")
         if res.status == 304 then fuccess(none -> newEtag.orElse(etag))
         else fuccess((res.body: String).some   -> newEtag)
-      .monSuccess(_.relay.httpGet(url.host.toString, req.proxyServer.map(_.host)))
 
   private def httpGetResponse(req: StandaloneWSRequest)(using CanProxy): Future[StandaloneWSResponse] =
     Future
