@@ -73,9 +73,9 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                       else if wasListed then
                         frag(
                           "Your previous application was declined. ",
-                          s.streamer.approval.reason.match
-                            case Some(r) if r.strip().length > 0 => frag(strong("Reason: "), r, br)
-                            case _                               => emptyFrag,
+                          s.streamer.approval.reason
+                            .filter(_.trim.nonEmpty)
+                            .so(r => frag(strong("Reason: "), r, br)),
                           a(href := streamerPageActivationRoute)(
                             "See instructions before submitting again"
                           )
