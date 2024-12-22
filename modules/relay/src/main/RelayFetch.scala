@@ -352,13 +352,14 @@ final private class RelayFetch(
               for
                 (body, newEtag) <- formatApi.httpGetWithEtag(url, none)
                 data            <- readAsJson[A](url)(~body)
+                _ = lila.mon.relay.etag("first").increment()
               yield (data, newEtag)
             case Some((etag, prev)) =>
               for
                 (body, newEtag) <- formatApi.httpGetWithEtag(url, etag.some)
                 isHit = body.isEmpty && newEtag.forall(_ == etag) // on 304 response, Etag might be empty
-                _     = lila.mon.relay.etag(isHit).increment()
                 data <- if isHit then fuccess(prev) else readAsJson[A](url)(~body)
+                _ = lila.mon.relay.etag(if isHit then "hit" else "miss").increment()
               yield (data, newEtag.orElse(etag.some))
           .map: (data, newEtag) =>
             newEtag.foreach(e => cache.put(url, e -> data))

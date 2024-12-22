@@ -289,8 +289,8 @@ object mon:
       timer("relay.sync.time").withTags(relay(official, id, slug))
     def httpGet(host: String, proxy: Option[String]) =
       future("relay.http.get", tags("host" -> host, "proxy" -> proxy.getOrElse("none")))
-    val dedup              = counter("relay.fetch.dedup").withoutTags()
-    def etag(hit: Boolean) = counter("relay.fetch.etag").withTag("hit", hit)
+    val dedup                               = counter("relay.fetch.dedup").withoutTags()
+    def etag(hit: "hit" | "miss" | "first") = counter("relay.fetch.etag").withTag("hit", hit)
 
   object bot:
     def moves(username: String)   = counter("bot.moves").withTag("name", username)
