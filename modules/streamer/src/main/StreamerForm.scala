@@ -80,6 +80,24 @@ object StreamerForm:
       val newYouTube =
         youTube.flatMap(YouTube.parseChannelId).map(YouTube.apply(_, liveVideoId, pubsubVideoId))
       val urlChanges = newTwitch != streamer.twitch || newYouTube != streamer.youTube
+      val newApproval: Streamer.Approval =
+        if asMod then
+          val m = approval.resolve
+          streamer.approval.copy(
+            granted = m.granted,
+            tier = m.tier | streamer.approval.tier,
+            requested = m.requested,
+            ignored = m.ignored,
+            chatEnabled = m.chat,
+            reason = m.reason,
+            lastGrantedAt = m.granted.option(nowInstant).orElse(streamer.approval.lastGrantedAt)
+          )
+        else // data in UserData.approval must be ignored here
+          streamer.approval.copy(
+            requested = streamer.approval.requested || urlChanges || name != streamer.name
+              || headline != streamer.headline || description != streamer.description,
+            granted = streamer.approval.granted && !urlChanges
+          )
       streamer.copy(
         name = name,
         headline = headline,
@@ -88,23 +106,7 @@ object StreamerForm:
         youTube = newYouTube,
         listed = listed,
         updatedAt = nowInstant,
-        approval = approval.resolve match
-          case m if asMod =>
-            streamer.approval.copy(
-              granted = m.granted,
-              tier = m.tier | streamer.approval.tier,
-              requested = m.requested,
-              ignored = m.ignored,
-              chatEnabled = m.chat,
-              reason = m.reason,
-              lastGrantedAt = m.granted.option(nowInstant).orElse(streamer.approval.lastGrantedAt)
-            )
-          case _ =>
-            streamer.approval.copy(
-              requested = streamer.approval.requested || urlChanges || name != streamer.name
-                || headline != streamer.headline || description != streamer.description,
-              granted = streamer.approval.granted && !urlChanges
-            )
+        approval = newApproval
       )
 
   case class ApprovalData(
