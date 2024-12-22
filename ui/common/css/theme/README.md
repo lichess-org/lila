@@ -1,5 +1,3 @@
-### notes on color themes
-
 ## css variables vs scss variables
 
 - scss variables start with $ (dollar sign) and are compile-time macros. when the css is
