@@ -78,13 +78,11 @@ final private class RelayFormatApi(
         case Some(known) => res.bodyAsBytes.decodeString(known)
 
   def httpGetWithEtag(url: URL, etag: Option[Etag])(using CanProxy): Fu[(Option[String], Option[Etag])] =
-    val req = etag
-      .foldLeft(toRequest(url))((req, etag) => req.addHttpHeaders("If-None-Match" -> etag))
-    httpGetResponse(req)
-      .flatMap: res =>
-        val newEtag = res.header("Etag")
-        if res.status == 304 then fuccess(none -> newEtag.orElse(etag))
-        else fuccess((res.body: String).some   -> newEtag)
+    val req = etag.foldLeft(toRequest(url))((req, etag) => req.addHttpHeaders("If-None-Match" -> etag))
+    httpGetResponse(req).map: res =>
+      val newEtag = res.header("Etag")
+      if res.status == 304 then none -> newEtag.orElse(etag)
+      else (res.body: String).some   -> newEtag
 
   private def httpGetResponse(req: StandaloneWSRequest)(using CanProxy): Future[StandaloneWSResponse] =
     Future
