@@ -441,7 +441,7 @@
     <item quantity="other">%s अनुसरण करतात</item>
   </plurals>
   <string name="more">आणखी</string>
-  <string name="memberSince">या काळा पासून सदस्य आहेत</string>
+  <string name="memberSince">या दिवसापासून सदस्य आहे</string>
   <string name="lastSeenActive">%s सक्रिय</string>
   <string name="player">खेळाडू</string>
   <string name="list">यादी</string>
