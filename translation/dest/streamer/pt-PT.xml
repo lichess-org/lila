@@ -32,7 +32,7 @@
   <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">Submeter para revisão</string>
   <string name="streamerLanguageSettings">A página do streamer Lichess visa o seu público com o idioma fornecido pela sua plataforma de streaming. Defina o idioma padrão correto para os seus streams de xadrez no aplicativo ou serviço usado para transmitir.</string>
   <string name="twitchUsername">O teu nome de utilizador ou link na Twitch</string>
-  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">É requerido Twitch ou YouTube</string>
+  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">É necessário Twitch ou YouTube</string>
   <string name="twitchOrYouTubeMustBeVerified">As alterações na Twitch e no YouTube devem ser verificadas.
   
   O teu ícone de streamer e a tua listagem serão suspensos enquanto a análise estiver em curso. Isto pode demorar até 72 horas.</string>
