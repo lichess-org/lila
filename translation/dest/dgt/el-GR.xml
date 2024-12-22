@@ -22,6 +22,9 @@
   <string name="speechSynthesisVoice">Επιλογή φωνής για τη σύνθεση ομιλίας</string>
   <string name="announceAllMoves">Ανακοίνωση Όλων Των Κινήσεων</string>
   <string name="selectAnnouncePreference">Επιλέξτε ΝΑΙ ώστε να ανακοινώνονται οι κινήσεις και των δύο παικτών. Επιλέξτε ΟΧΙ ώστε να ανακοινώνονται μόνο οι κινήσεις του αντιπάλου σας.</string>
+  <string name="debug">Αποσφαλμάτωση</string>
+  <string name="verboseLogging">Λεπτομερής καταγραφή</string>
+  <string name="toSeeConsoleMessage">Για να δείτε το μήνυμα κονσόλας, πατήστε Ctrl + Shift + C (Windows, Linux, Chrome OS) ή ⌘ + ⌥ + C (Mac).</string>
   <string name="playWithDgtBoard">Παίξτε με σκακιέρα DGT</string>
   <string name="configure">Ρυθμίσεις</string>
 </resources>
