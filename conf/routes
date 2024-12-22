@@ -806,7 +806,7 @@ GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserSt
 GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
 
 # Recap
-GET   /recap                           controllers.Recap.home()
+GET   /recap                           controllers.Recap.home
 GET   /recap/:username                 controllers.Recap.user(username: UserStr)
 
 # OAuth
