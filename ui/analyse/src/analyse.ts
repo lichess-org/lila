@@ -5,9 +5,8 @@ import { wsConnect } from 'common/socket';
 
 export { patch };
 
-export const start = makeStart(patch);
-
-export const boot = makeBoot(start);
+const start = makeStart(patch);
+const boot = makeBoot(start);
 
 export function initModule({ mode, cfg }: { mode: 'userAnalysis' | 'replay'; cfg: any }) {
   if (mode === 'replay') boot(cfg);
