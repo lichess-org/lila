@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Nov osebni žeton za dostop do API-ja</string>
+  <string name="newAccessToken">Nov osebni žeton za dostop do API</string>
   <string name="tokenGrantsPermission">Žeton daje drugim osebam dovoljenje za uporabo vašega računa.</string>
   <string name="carefullySelect">Previdno izberite, kaj sme storiti v vašem imenu.</string>
   <string name="tokenDescription">Opis žetona</string>
@@ -47,4 +47,8 @@
   <string name="alreadyHavePlayedGames">Ste že igrali igre!</string>
   <string name="attentionOfDevelopers">Opomba Samo za pozornost razvijalcev:</string>
   <string name="possibleToPrefill">Ta obrazec je mogoče predhodno izpolniti tako, da prilagodite parametre poizvedbe URL-ja.</string>
+  <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Na primer: %s</string>
+  <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">odkljuka obseg %1$s in %2$s ter nastavi opis žetona.</string>
+  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">Kode obsega najdete v HTML kodi obrazca.</string>
+  <string name="givingPrefilledUrls">Dajanje teh vnaprej napolnjenih URLs vašim uporabnikom jim bo pomagalo dobiti prave obsege žetonov.</string>
 </resources>
