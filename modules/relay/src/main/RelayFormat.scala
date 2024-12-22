@@ -84,17 +84,17 @@ final private class RelayFormatApi(
       if res.status == 304 then none -> newEtag.orElse(etag)
       else (res.body: String).some   -> newEtag
 
-  private def httpGetResponse(req: StandaloneWSRequest)(using CanProxy): Future[StandaloneWSResponse] =
+  private def httpGetResponse(req: StandaloneWSRequest)(using CanProxy): Fu[StandaloneWSResponse] =
     Future
       .fromTry(lila.common.url.parse(req.url))
       .flatMap: url =>
         req
           .get()
+          .monValue: res =>
+            _.relay.httpGet(res.status, url.host.toString, req.proxyServer.map(_.host))
           .flatMap: res =>
             if res.status == 200 || res.status == 304 then fuccess(res)
-            else if res.status == 404 then fufail(NotFound(url))
-            else fufail(s"[${res.status}] ${req.url}")
-          .monSuccess(_.relay.httpGet(url.host.toString, req.proxyServer.map(_.host)))
+            else fufail(Status(res.status, url))
 
   private def responseHeaderCharset(res: StandaloneWSResponse): Option[java.nio.charset.Charset] =
     import play.shaded.ahc.org.asynchttpclient.util.HttpUtils
@@ -152,5 +152,5 @@ private object RelayFormat:
   opaque type CanProxy = Boolean
   object CanProxy extends YesNo[CanProxy]
 
-  case class NotFound(url: URL) extends LilaException:
-    override val message = s"404: $url"
+  case class Status(code: Int, url: URL) extends LilaException:
+    override val message = s"$code: $url"
