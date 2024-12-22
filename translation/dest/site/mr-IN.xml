@@ -5,6 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">कुणाला आपल्या बरोबर खेळण्याचे निमंत्रण देण्यासाठी हा URL द्या</string>
   <string name="gameOver">डाव समाप्त</string>
   <string name="waitingForOpponent">प्रतिस्पर्ध्याची प्रतीक्षा आहे</string>
+  <string name="orLetYourOpponentScanQrCode">तुमच्या विरोधकाला हा QR Code स्कॅन करायला सांगा</string>
   <string name="waiting">प्रतीक्षेत आहे</string>
   <string name="yourTurn">तुमची चाल</string>
   <string name="aiNameLevelAiLevel">%1$s, पातळी %2$s</string>
@@ -69,7 +70,10 @@
   <string name="promoteVariation">भिन्नता प्रोत्साहित करा</string>
   <string name="makeMainLine">मुख्य लाइन बनवा</string>
   <string name="deleteFromHere">येथून हटवा</string>
+  <string name="collapseVariations">भिन्नता लपवा</string>
+  <string name="expandVariations">भिन्नता दाखवा</string>
   <string name="forceVariation">भिन्नता सक्तीची करा</string>
+  <string name="copyVariationPgn">ओळ कॉपी करा</string>
   <string name="move">चाल</string>
   <string name="variantLoss">प्रकार हरला</string>
   <string name="variantWin">या प्रकारातील विजय</string>
@@ -93,11 +97,13 @@
   </plurals>
   <string name="dtzWithRounding">DTZ50\" गुणसंख्या, पुढील सोंगटी मारणाऱ्या चालीपर्यंतच्या किंवा प्याद्याच्या चालीपर्यंतच्या अर्धचालींच्या संख्येवर आधारित</string>
   <string name="noGameFound">कोणताही खेळ सापडला नाही</string>
+  <string name="maxDepthReached">कमाल खोली पोहचली!</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">प्राधान्य मेनूमधून अधिक खेळ समाविष्ट कराल?</string>
   <string name="openings">ओपनिंग</string>
   <string name="openingExplorer">ओपनिंग अन्वेषक</string>
   <string name="openingEndgameExplorer">ओपनिंग/अंत्यखेळ अन्वेषक</string>
   <string name="xOpeningExplorer">%s ओपनिंग अन्वेषक</string>
+  <string name="playFirstOpeningEndgameExplorerMove">ओपेनिंग किंवा एंडगेम एक्सप्लोररची पहिली निवड खेळा</string>
   <string name="winPreventedBy50MoveRule">५० चाली नियमाने विजय रोखला</string>
   <string name="lossSavedBy50MoveRule">५० चाली नियमाने हार चुकली</string>
   <string name="winOr50MovesByPriorMistake">आधीच्या चुकीने विजय किंवा 50 चाली</string>
@@ -112,6 +118,7 @@
   <string name="byCPL">सेंटीपॉन तोट्यानुसार</string>
   <string name="enable">सक्षम करा</string>
   <string name="bestMoveArrow">उत्तम चाल बाण</string>
+  <string name="showVariationArrows">भिन्नतेचे बाण दाखवा</string>
   <string name="evaluationGauge">मूल्यांकन परिमाण</string>
   <string name="multipleLines">अनेक लाइन</string>
   <string name="cpus">गणक</string>
@@ -171,6 +178,7 @@
   <string name="latestForumPosts">ताज्या  प्रतिक्रिया</string>
   <string name="players">बुद्धिबळ खेळाडू</string>
   <string name="friends">मित्र</string>
+  <string name="otherPlayers">बाकि खेळाडू</string>
   <string name="discussions">सांभाषणे</string>
   <string name="today">आज</string>
   <string name="yesterday">काल</string>
@@ -202,14 +210,23 @@
   <string name="changeUsername">नाव बदला</string>
   <string name="changeUsernameNotSame">केवळ अक्षरे छोटी मोठी करता येतील. उदाहरणार्थ \"johndoe\" ते \"JohnDoe\".</string>
   <string name="changeUsernameDescription">नाव बदला. केवळ अक्षरे छोटी मोठी करता येतील.</string>
+  <string name="signupUsernameHint">तुमचं वापरकर्तानाव छोट्या मुलांसाठी अनुकूल असलेलं पाहिजे. तुम्ही ते नंतर बदलू शकत नाही, आणि अयोग्य वापरकर्तानाव बंद होतील!</string>
+  <string name="signupEmailHint">आम्ही फक्त पासवर्ड रेसेट साठि वापरू.</string>
   <string name="password">परवलीचा शब्द</string>
   <string name="changePassword">परवलीचा शब्द बदला</string>
   <string name="changeEmail">ई-मेल बदला</string>
   <string name="email">ई-मेल</string>
   <string name="passwordReset">पासवर्ड रिसेट</string>
   <string name="forgotPassword">परवलीचा शब्द विसरलात?</string>
+  <string name="error.weakPassword">हा पासवर्ड खूप सामान्य आहे, ह्याचा अंदाज लावणे सोपे आहे.</string>
+  <string name="error.namePassword">तुमचं वापरकर्तानाव हेच तुमचे पासवर्ड ठेऊ नका.</string>
+  <string name="blankedPassword">तुम्ही हा पासवर्ड दुसऱ्या वेबसाइट वर वापरला आहे, आणि ती वेबसाइट तडजोड झाली आहे. जर तुम्हाला तुमचं खातं सुरक्षित ठेवायचं असेल, तर तुमचा पासवर्ड बदला.</string>
   <string name="youAreLeavingLichess">तुमही लिचेस सोडून जात आहात</string>
+  <string name="neverTypeYourPassword">तुमचा लिचेस पासवर्ड अजून कुठेच वापरू नका!</string>
   <string name="proceedToX">%s कडे जा</string>
+  <string name="passwordSuggestion">अजून कोणीतरी सुचवलेले पासवर्ड ठेऊ नका. ते तुमचे खाते चोरी करायला वापरू शकतात.</string>
+  <string name="emailSuggestion">अजून कोणीतरी सुचवलेले ईमेल अॅड्रेस ठेऊ नका. ते तुमचे खाते चोरी करायला वापरू शकतात.</string>
+  <string name="emailConfirmHelp">ईमेल पुष्टीकरण करण्या साठी मदत</string>
   <string name="whatSignupUsername">तू कुठला उसरनेम वापरला साईन अप करायला?</string>
   <string name="accountClosed">खाते %s बंद झाले आहे.</string>
   <string name="rank">मानांकन</string>
@@ -857,7 +874,7 @@
   <string name="streamerManager">स्ट्रीमर व्यवस्थापक</string>
   <string name="cancelTournament">स्पर्धा रद्द करा</string>
   <string name="tournDescription">संपूर्ण स्पर्धेचे वर्णन</string>
-  <string name="tournDescriptionHelp">तुम्हाला सहभागींना काही विशेष सांगायचे आहे का? ते लहान ठेवण्याचा प्रयत्न करा. मार्कडाउन लिंक उपलब्ध आहेत: [नाव] (https: // url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">तुम्हाला सहभागींना काही विशेष सांगायचे आहे का? ते लहान ठेवण्याचा प्रयत्न करा. मार्कडाउन लिंक उपलब्ध आहेत: [नाव] (https: // url)</string>
   <string name="ratedFormHelp">खेळ रेट केले आहेत
 आणि खेळाडूंच्या रेटिंगवर परिणाम होतो</string>
   <string name="onlyMembersOfTeam">फक्त टीमचे सदस्य</string>
