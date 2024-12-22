@@ -1,13 +1,4 @@
-# IMPORTANT
-
-### If you're just seeing this for the first time, you probably want to run:
-
-```
-ui/build --update --clean
-```
-
-`--update` tells ui/build, which has recently acquired new capabilities, to update itself.
-`--clean` tells it to clean up the mess it made last time.
+### notes on color themes
 
 ## css variables vs scss variables
 
