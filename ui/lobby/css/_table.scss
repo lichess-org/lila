@@ -1,6 +1,7 @@
 .lobby {
   &__table {
     @extend %flex-column;
+    @include prevent-select;
 
     position: relative;
   }
