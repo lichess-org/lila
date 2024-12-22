@@ -4,8 +4,8 @@
   <string name="lichessStreamer">Lichess streamer</string>
   <string name="live">KASALUKUYANG NANGYAYARI!</string>
   <string name="offline">OFFLINE</string>
-  <string name="currentlyStreaming" comment="%s is the title of the stream, chosen by the streamer.">Kasalukuyang nag-iistream: %s</string>
-  <string name="lastStream" comment="%s is how long ago the stream was in relative time (e.g. 50 minutes ago). It is displayed in smaller type than the rest of the string.">Huling stream %s</string>
+  <string name="currentlyStreaming">Kasalukuyang nag-iistream: %s</string>
+  <string name="lastStream">Huling stream %s</string>
   <string name="becomeStreamer">Maging isang Liches streamer</string>
   <string name="doYouHaveStream">Mayroon kabang isang channel sa Twitch o Youtube?</string>
   <string name="hereWeGo">Heto na!</string>

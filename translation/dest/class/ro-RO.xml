@@ -58,6 +58,8 @@ Aici este link-ul pentru a accesa clasa.</string>
     <item quantity="few">%s invitații în așteptare</item>
     <item quantity="other">%s invitații în așteptare</item>
   </plurals>
+  <string name="pending">În desfășurare</string>
+  <string name="declined">Respins</string>
   <string name="onlyVisibleToTeachers">Vizibil doar profesorilor de clasă</string>
   <string name="lastActiveDate">Acrtiv</string>
   <string name="managed">Manageriat</string>

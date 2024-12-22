@@ -18,6 +18,7 @@
   <string name="tacticalPuzzlesFromUserGames">Taktické úlohy z uživatelských her</string>
   <string name="personalOpeningExplorerX">%1$s (také funguje na %2$s)</string>
   <string name="personalOpeningExplorer">Osobní průzkumník zahájení</string>
+  <string name="globalOpeningExplorerInNbGames">Globální průzkumníkz zahájení (%s her!)</string>
   <string name="endgameTablebase">7figurová koncovková tablebase</string>
   <string name="downloadOrUploadAnyGameAsPgn">Stáhnout/nahrát jakoukoli hru jako PGN</string>
   <string name="tvForumBlogTeamsMessagingFriendsChallenges">Blog, fórum, týmy, TV, zprávy, přátelé, výzvy</string>
