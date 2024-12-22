@@ -42,6 +42,10 @@
     <item quantity="one">%s பிளேயரைப் பின்தொடரத் தொடங்கியது</item>
     <item quantity="other">%s வீரர்களைப் பின்தொடரத் தொடங்கியது</item>
   </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%ஒரு புதிய பின்தொடர்பவர் கிடைத்தது</item>
+    <item quantity="other">%s புதிய பின்தொடர்பவர்களைப் பெற்றார்</item>
+  </plurals>
   <plurals name="hostedNbSimuls">
     <item quantity="one">%s ஒரே நேரத்தில் கண்காட்சி நடத்தப்பட்டது</item>
     <item quantity="other">%s ஒரே நேரத்தில் கண்காட்சிகள் நடத்தப்பட்டன</item>
