@@ -117,7 +117,7 @@ from the $c-font and $c-bg colors you defined in the theme file.
 same as before
 
 ```
-ui/build -r
+ui/build -w
 ```
 
 watch mode should keep everything in sync for you, but you might need to restart if
