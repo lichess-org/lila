@@ -12,13 +12,17 @@
   }
 }
 
+cg-board {
+  @extend %box-radius;
+}
+.mini-board cg-board,
+.mini-game cg-board {
+  border-radius: 4px;
+}
+
 .mini-board,
 .mini-game .cg-wrap {
   @extend %square;
-}
-
-cg-board {
-  @extend %box-radius;
 }
 .gauge-on .main-board cg-board {
   @extend %box-radius-left;
