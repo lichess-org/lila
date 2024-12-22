@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">학생을 위한 안전한 사용자 이름과 비밀번호를 빠르게 생성합니다</string>
   <string name="trackStudentProgress">게임과 퍼즐에서 학생의 진도를 추적합니다</string>
   <string name="messageAllStudents">새로운 수업 자료에 대해 모든 학생들에게 메시지를 보냅니다</string>
-  <string name="freeForAllForever">광고나 추적기 없이 모두에게, 영원히, 100% 무료</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">광고나 추적기 없이 모두에게, 영원히, 100% 무료</string>
   <string name="applyToBeLichessTeacher">Lichess 교사 지원하기</string>
   <string name="noClassesYet">수업이 없습니다.</string>
   <string name="teachersX">교사: %s</string>
@@ -56,6 +56,8 @@
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s개의 대기중인 초대</item>
   </plurals>
+  <string name="pending">보류 중</string>
+  <string name="declined">거절한다</string>
   <string name="onlyVisibleToTeachers">클래스 선생님에게만 보입니다</string>
   <string name="lastActiveDate">활성화</string>
   <string name="managed">관리</string>
@@ -111,4 +113,6 @@
   <string name="anInvitationHasBeenSentToX">%s에게 초대장을 전송하였습니다</string>
   <string name="xAlreadyHasAPendingInvitation">%s은(는) 이미 초대되었습니다</string>
   <string name="xIsAKidAccountWarning">%1$s는 어린이 계정이므로 메시지를 받을 수 없습니다. 초대 링크를 수동으로 보내야 합니다: %2$s.</string>
+  <string name="moveToClass">%s로 움직여</string>
+  <string name="moveToAnotherClass">다른 수업으로 움직여</string>
 </resources>
