@@ -20,7 +20,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
       .i18n(_.streamer)
       .js(
         esmInitObj(
-          "bits.streamer",
+          "bits.streamerEdit",
           "youtube" -> wasListed.so(s.streamer.youTube).so[String](_.channelId),
           "twitch"  -> wasListed.so(s.streamer.twitch).so[String](_.userId)
         )
@@ -73,6 +73,9 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                       else if wasListed then
                         frag(
                           "Your previous application was declined. ",
+                          s.streamer.approval.reason.match
+                            case Some(r) if r.strip().length > 0 => frag(strong("Reason: "), r, br)
+                            case _                               => emptyFrag,
                           a(href := streamerPageActivationRoute)(
                             "See instructions before submitting again"
                           )
@@ -126,6 +129,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                             half = true
                           )
                         ),
+                        form3.hidden("approval.reason", ""),
                         form3.split(
                           form3.checkbox(
                             form("approval.chat"),
