@@ -59,7 +59,8 @@ object Streamer:
         ignored = user.marks.troll,
         tier = 0,
         chatEnabled = true,
-        lastGrantedAt = none
+        lastGrantedAt = none,
+        reason = none
       ),
       picture = none,
       name = Name(user.realNameOrUsername),
@@ -80,7 +81,8 @@ object Streamer:
       ignored: Boolean,     // further requests are ignored
       tier: Int,            // homepage featuring tier
       chatEnabled: Boolean, // embed chat inside lichess
-      lastGrantedAt: Option[Instant]
+      lastGrantedAt: Option[Instant],
+      reason: Option[String]
   )
 
   case class Twitch(userId: String) derives Eq:
@@ -127,7 +129,7 @@ object Streamer:
           .map(_.fullUrl)
           .orElse(streamer.youTube.ifTrue(s.youTube).map(_.fullUrl))
 
-  case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean)
+  case class ModChange(list: Option[Boolean], tier: Option[Int], decline: Boolean, reason: Option[String])
 
   val maxTier = 10
 
