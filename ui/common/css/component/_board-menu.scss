@@ -2,7 +2,7 @@
   @extend %flex-column, %dropdown-shadow;
   background: $c-bg-popup;
   padding: 0.5em 1.5em;
-  user-select: none;
+  @include prevent-select;
 
   @media (min-width: at-least($small)) {
     position: absolute;
