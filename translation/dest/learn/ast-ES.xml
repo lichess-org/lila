@@ -61,6 +61,12 @@
   <string name="captureComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
   <string name="protection">Proteición</string>
   <string name="keepYourPiecesSafe">Mantén les pieces segures</string>
+  <string name="protectionIntro">¡Identifica les pieces contraries qu\'ataquen, y defiéndeles!</string>
+  <string name="protectionComplete">¡Felicidaes! ¡Una pieza que nun perdes ye una pieza que ganes!</string>
+  <string name="escape">¡Tas amenazáu!
+¡Escapa de l\'amenaza!</string>
+  <string name="noEscape">Nun hai escapatoria,
+pero ¡pues defendete!</string>
   <string name="boardSetupComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">El movimientu especial del rei</string>
