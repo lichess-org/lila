@@ -185,7 +185,7 @@ const renderShowResultsToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
       attrs: { type: 'checkbox', checked: ctrl.showResults() },
       hook: bind('change', e => ctrl.showResults((e.target as HTMLInputElement).checked)),
     }),
-    i18n.study.playing, // CHANGE TO A NEW I18N 
+    i18n.study.showResults,
   ]);
 
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
