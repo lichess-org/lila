@@ -196,7 +196,8 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
 });
 
 const makePreview =
-  (roundPath: string, current: ChapterId, cloudEval?: MultiCloudEval, showResults?: boolean) => (preview: ChapterPreview) => {
+  (roundPath: string, current: ChapterId, cloudEval?: MultiCloudEval, showResults?: boolean) =>
+  (preview: ChapterPreview) => {
     const orientation = preview.orientation || 'white';
     const baseConfig = {
       coordinates: false,
@@ -206,7 +207,7 @@ const makePreview =
         enabled: false,
         visible: false,
       },
-    }
+    };
     return h(
       `a.mini-game.is2d.chap-${preview.id}`,
       {
@@ -223,10 +224,12 @@ const makePreview =
               hook: {
                 insert(vnode) {
                   const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = showResults ? makeChessground(el, {
-                    ...previewToCgConfig(preview),
-                    ...baseConfig,
-                  }) : makeChessground(el, baseConfig);
+                  vnode.data!.cg = showResults
+                    ? makeChessground(el, {
+                        ...previewToCgConfig(preview),
+                        ...baseConfig,
+                      })
+                    : makeChessground(el, baseConfig);
                   vnode.data!.fen = preview.fen;
                 },
                 postpatch(old, vnode) {
@@ -235,7 +238,7 @@ const makePreview =
                   }
                   // In this case, showResults was set to true but the cg fen is still on the initial pos
                   if (showResults && old.data!.cg.fen != old.data!.cg.getFen()) {
-                    old.data!.cg.set(previewToCgConfig(preview))
+                    old.data!.cg.set(previewToCgConfig(preview));
                   }
                   vnode.data!.fen = preview.fen;
                   const el = vnode.elm as HTMLElement;
