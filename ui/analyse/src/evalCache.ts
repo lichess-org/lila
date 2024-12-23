@@ -109,7 +109,7 @@ export default class EvalCache {
     };
     if (this.opts.variant !== 'standard') obj.variant = this.opts.variant;
     if (multiPv > 1) obj.mpv = multiPv;
-    if (true || this.upgradable()) obj.up = true;
+    if (this.upgradable()) obj.up = true;
     this.opts.send('evalGet', obj);
   };
 
