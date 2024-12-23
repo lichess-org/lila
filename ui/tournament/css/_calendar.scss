@@ -1,5 +1,5 @@
 #tournament-calendar {
-  user-select: none;
+  @include prevent-select;
 
   group {
     @extend %flex-column;

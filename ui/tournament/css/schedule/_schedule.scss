@@ -13,7 +13,7 @@ $c-tour-max-rating: #8572ff;
 .tour-chart {
   min-height: 400px;
   position: relative;
-  user-select: none;
+  @include prevent-select;
 
   .spinner {
     width: 120px;
