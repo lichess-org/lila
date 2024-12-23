@@ -287,8 +287,8 @@ object mon:
       timer("relay.fetch.time").withTags(relay(official, id, slug))
     def syncTime(official: Boolean, id: RelayTourId, slug: String) =
       timer("relay.sync.time").withTags(relay(official, id, slug))
-    def httpGet(status: Int, host: String, proxy: Option[String]) = timer("relay.http.get").withTags:
-      tags("status" -> status, "host" -> host, "proxy" -> proxy.getOrElse("none"))
+    def httpGet(code: Int, host: String, proxy: Option[String]) = timer("relay.http.get").withTags:
+      tags("code" -> code, "host" -> host, "proxy" -> proxy.getOrElse("none"))
     val dedup                               = counter("relay.fetch.dedup").withoutTags()
     def etag(hit: "hit" | "miss" | "first") = counter("relay.fetch.etag").withTag("hit", hit)
 

@@ -47,6 +47,15 @@
     <item quantity="other">Ogled vseh %s objav</item>
   </plurals>
   <string name="uploadAnImageForYourPost">Naložite sliko za svojo objavo</string>
+  <string name="imageAlt">Nadomestno besedilo slike</string>
+  <string name="imageCredit">Kredit za sliko</string>
+  <string name="deleteBlog">Izbriši ta blog post dokončno</string>
+  <string name="safeToUseImages">Varno je uporabljati slike z naslednjih spletnih mest:</string>
+  <string name="selectPostTopics">Izberite teme, o katerih govori vaša objava</string>
+  <string name="useImagesYouMadeYourself">Uporabite lahko tudi slike, ki ste jih naredili sami, slike, ki ste jih posneli, posnetke zaslona Lichess... vse, kar ni avtorsko zaščiteno s strani nekoga drugega.</string>
+  <string name="safeAndRespectfulContent">Prosimo, objavite samo varno in spoštljivo vsebino. Ne kopirajte vsebine nekoga drugega.</string>
+  <string name="inappropriateContentAccountClosed">Vse, kar je neprimerno, lahko zapre vaš račun.</string>
+  <string name="blogTips">Naši preprosti nasveti za pisanje odličnih objav v blogu</string>
   <string name="discussThisBlogPostInTheForum">Razpravljajte o tej objavi v spletnem dnevniku na forumu</string>
   <string name="youBlockedByBlogAuthor">Avtor bloga vas je blokiral.</string>
 </resources>
