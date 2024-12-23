@@ -2,6 +2,10 @@
 <resources>
   <string name="broadcasts">Uitsendings</string>
   <string name="myBroadcasts">My uitsendings</string>
+  <plurals name="nbBroadcasts">
+    <item quantity="one">Uitsending</item>
+    <item quantity="other">uitsendings</item>
+  </plurals>
   <string name="liveBroadcasts">Regstreekse toernooi uitsendings</string>
   <string name="newBroadcast">Nuwe regstreekse uitsendings</string>
   <string name="addRound">Voeg \'n ronde by</string>
@@ -35,4 +39,5 @@
   <string name="ageThisYear">Ouderdom vanjaar</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Ongegradeerd</string>
   <string name="recentTournaments">Onlangse toernooie</string>
+  <string name="officialWebsite">Amptelike webtuiste</string>
 </resources>
