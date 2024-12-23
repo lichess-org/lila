@@ -82,4 +82,40 @@
   <string name="advanced">Avanzáu</string>
   <string name="pieceValue">Valor de les pieces</string>
   <string name="evaluatePieceStrength">Sopesa la fuerza de les tos pieces</string>
+  <string name="pieceValueIntro">¡Les pieces con más movilidá valen más!
+Dama = 9
+Torre = 5
+Alfil = 3
+Caballu = 3
+Peón = 1
+¡El rei ye preciosu! Perdelo significa perder la partida.</string>
+  <string name="queenOverBishop">¡Prinda la pieza más pervalible!
+Dama &gt; Alfil</string>
+  <string name="pieceValueExchange">¡Prinda la pieza más pervalible!
+Nun camudes 
+una pieza por otra que valga menos.</string>
+  <string name="pieceValueLegal">¡Prinda la pieza más
+pervalible!
+¡Con un movimientu llegal!</string>
+  <string name="takeThePieceWithTheHighestValue">¡Prinda la pieza más pervalible!</string>
+  <string name="pieceValueComplete">¡Felicidaes! ¡Conoces el valor de les pieces!
+Dama = 9
+Torre = 5
+Alfil = 3
+Caballu = 3
+Peón = 1</string>
+  <string name="checkInTwo">Xaque en dos</string>
+  <string name="twoMovesToGiveCheck">Dar xaque en dos xugaes</string>
+  <string name="checkInTwoIntro">¡Atopa la combinación de dos movimientos que da xaque al rei enemigu!</string>
+  <string name="checkInTwoGoal">¡Amenaza al rei enemigu en dos movimientos!</string>
+  <string name="checkInTwoComplete">¡Felicidaes! ¡Disti xaque al to oponente, obligándo-y a defender el so rei!</string>
+  <string name="whatNext">Y agora ¿qué?</string>
+  <string name="youKnowHowToPlayChess">Sabes xugar al axedrez ¡norabona! ¿Quies aprender a xugar meyor?</string>
+  <string name="register">Rexistrase</string>
+  <string name="getAFreeLichessAccount">Crea una cuenta gratuita en Lichess</string>
+  <string name="practice">Practicar</string>
+  <string name="learnCommonChessPositions">Apriende les posiciones más comunes</string>
+  <string name="puzzles">Exercicios de táctica</string>
+  <string name="exerciseYourTacticalSkills">Practica les tos habilidaes táctiques</string>
+  <string name="videos">Vídeos</string>
 </resources>
