@@ -229,6 +229,10 @@ PlayFirstOpeningEndgameExplorerMove
     <item quantity="other">සෑම මිනිත්තු %s ශ්‍රේණිය යාවත්කාලීන වේ</item>
   </plurals>
   <string name="gamesPlayed">ක්‍රීඩා කල ක්‍රීඩා ගණන</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s ඔබ සමග තරඟය</item>
+    <item quantity="other">%s ඔබ සමග තරඟ</item>
+  </plurals>
   <string name="cancel">අවලංගු කරන්න</string>
   <string name="whiteTimeOut">සුදුගේ වේලාව ඉවතට</string>
   <string name="blackTimeOut">කලුගේ වේලාව ඉවතට</string>
