@@ -281,6 +281,76 @@
   <string name="casual">Amistosa</string>
   <string name="rated">Por puntos</string>
   <string name="casualTournament">Amistoso</string>
+  <string name="ratedTournament">Por puntos</string>
+  <string name="thisGameIsRated">Esta partida ye por puntos</string>
+  <string name="rematch">Revancha</string>
+  <string name="rematchOfferSent">Ufierta de revancha unviada</string>
+  <string name="rematchOfferAccepted">Ufierta de revancha aceptada</string>
+  <string name="rematchOfferCanceled">Ufierta de revancha cancelada</string>
+  <string name="rematchOfferDeclined">Ufierta de revancha refugada</string>
+  <string name="viewRematch">Ver revancha</string>
+  <string name="confirmMove">Confirmar movimientu</string>
+  <string name="play">Xugar</string>
+  <string name="inbox">Mensaxes</string>
+  <string name="chatRoom">Sala de chat</string>
+  <string name="loginToChat">Inicia sesión pa chatear</string>
+  <string name="spectatorRoom">Chat d\'espectador</string>
+  <string name="composeMessage">Escribir mensaxe</string>
+  <string name="subject">Asuntu</string>
+  <string name="send">Unviar</string>
+  <string name="incrementInSeconds">Segundos de incrementu</string>
+  <string name="freeOnlineChess">Axedrez en llínea gratis</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s por puntos</item>
+    <item quantity="other">%s por puntos</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s victoria</item>
+    <item quantity="other">%s victories</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s derrota</item>
+    <item quantity="other">%s derrotes</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s tables</item>
+    <item quantity="other">%s tables</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s en xuego</item>
+    <item quantity="other">%s en xuego</item>
+  </plurals>
+  <string name="exportGames">Esportar partíes</string>
+  <string name="ratingRange">Rangu de puntuación</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Dar %s segundu</item>
+    <item quantity="other">Dar %s segundos</item>
+  </plurals>
+  <string name="thisAccountViolatedTos">Esti usuariu nun cumple los Términos de Serviciu de Lichess</string>
+  <string name="openingExplorerAndTablebase">Esplorador d\'apertures y base de datos de finales</string>
+  <string name="takeback">Desfaer xugada</string>
+  <string name="proposeATakeback">Proponer desfaer xugada</string>
+  <string name="takebackPropositionSent">Propuesta de desfaer xugada unviada</string>
+  <string name="takebackPropositionDeclined">Propuesta de desfaer xugada refugada</string>
+  <string name="takebackPropositionAccepted">Propuesta de desfaer xugada aceptada</string>
+  <string name="yourOpponentProposesATakeback">El to oponente propón desfacer la xugada</string>
+  <string name="bookmarkThisGame">Marcar esti xuegu como favoritu</string>
+  <string name="tournament">Tornéu</string>
+  <string name="tournaments">Torneos</string>
+  <string name="tournamentPoints">Puntos de tornéu</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s punto de tornéu</item>
+    <item quantity="other">%s puntos de tornéu</item>
+  </plurals>
+  <plurals name="nbStudies">
+    <item quantity="one">%s estudiu</item>
+    <item quantity="other">%s estudios</item>
+  </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s simultánea</item>
+    <item quantity="other">%s simultáneas</item>
+  </plurals>
+  <string name="viewTournament">Ver tornéu</string>
   <string name="backToTournament">Volver al tornéu</string>
   <string name="noDrawBeforeSwissLimit">Nun pues facer tables primero que se xueguen 30 movimientos nun tornéu suizu.</string>
   <string name="thematic">Temática</string>
@@ -316,4 +386,57 @@
   <string name="xStartedStreaming">%s empezó a emitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Llugar</string>
+  <string name="reset">Reiniciar</string>
+  <string name="save">Guardar</string>
+  <string name="leaderboard">Clasificación</string>
+  <string name="screenshotCurrentPosition">Facer captura de pantalla de la posición actual</string>
+  <string name="gameAsGIF">Guardar partida en formatu GIF</string>
+  <string name="pasteTheFenStringHere">Pega\'l testu FEN equí</string>
+  <string name="pasteThePgnStringHere">Pega\'l testu PGN equí</string>
+  <string name="orUploadPgnFile">O xube un archivu PGN</string>
+  <string name="fromPosition">Dende posición</string>
+  <string name="continueFromHere">Siguir dende equí</string>
+  <string name="toStudy">Estudiar</string>
+  <string name="importGame">Importar partida</string>
+  <string name="importGameExplanation">Al pegar el PGN d\'una partida, llógrase una repetición navegable, un análisis por ordenador, un chat de xuegu y un enllaz para compartir.</string>
+  <string name="importGameCaveat">Les variaciones van ser borraes. Para calteneles, importa\'l PGN al traviés d\'un estudiu.</string>
+  <string name="importGameDataPrivacyWarning">Esti PGN ye d\'accesu públicu. Para importar una partida de forma privada, utiliza un estudiu.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s partida importada</item>
+    <item quantity="other">%s partíes importaes</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Esto ye un CAPTCHA d\'axedrez.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Fai clic nel tableru para facer la to xugada y demostrar que yes humanu.</string>
+  <string name="captcha.fail">Por favor, resuelva\'l captcha d\'axedrez.</string>
+  <string name="notACheckmate">Nun ye xaque mate</string>
+  <string name="whiteCheckmatesInOneMove">Xueguen blanques y dan mate n\'una</string>
+  <string name="blackCheckmatesInOneMove">Xueguen les pieces prietas y dan mate n\'una</string>
+  <string name="reconnecting">Reconectando</string>
+  <string name="noNetwork">Ensin conexón</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s collaciu conectáu</item>
+    <item quantity="other">%s collacios conectaos</item>
+  </plurals>
+  <string name="favoriteOpponents">Oponentes favoritos</string>
+  <string name="follow">Siguir</string>
+  <string name="following">Siguiendo</string>
+  <string name="unfollow">Dexar de siguir</string>
+  <string name="followX">Siguir a %s</string>
+  <string name="unfollowX">Dexar de siguir a %s</string>
+  <string name="block">Bloquiar</string>
+  <string name="blocked">Bloquiáu</string>
+  <string name="unblock">Desbloquiar</string>
+  <string name="xStartedFollowingY">%1$s empezó a siguir a %2$s</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s siguidor</item>
+    <item quantity="other">%s siguidores</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s siguiendo</item>
+    <item quantity="other">%s siguiendo</item>
+  </plurals>
+  <string name="more">Más</string>
+  <string name="memberSince">Miembru dende</string>
+  <string name="lastSeenActive">Última visita %s</string>
+  <string name="player">Xugador</string>
 </resources>
