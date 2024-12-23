@@ -101,11 +101,41 @@ Ustvarjalec švicarskega dogodka se lahko vseeno odloči, da mu dovoli, da se do
 Pozni mizarji dobijo en sam adijo, tudi če so zamudili več krogov.</string>
   <string name="willSwissReplaceArenasQ">Bodo Švicarji zamenjali arenske turnirje?</string>
   <string name="willSwissReplaceArenasA">Ne. So komplementarne lastnosti.</string>
+  <string name="roundRobinQ">Kaj pa Round Robin?</string>
+  <string name="roundRobinA">Radi bi ga dodali, vendar Round Robin na spletu žal ne deluje.
+Razlog je v tem, da nima poštenega načina ravnanja z ljudmi, ki predčasno zapustijo turnir. Ne moremo pričakovati, da bodo vsi igralci igrali vse svoje igre na spletnem dogodku. To se preprosto ne bo zgodilo in posledično bi bila večina turnirjev v krogu napačna in nepoštena, kar premaga njihov razlog za obstoj.
+Najbližje, kar lahko pridete do Round Robina na spletu, je igranje švicarskega turnirja z zelo velikim številom krogov. Nato se bodo pred koncem turnirja odigrali vsi možni pari.</string>
+  <string name="otherSystemsQ">Kaj pa drugi turnirski sistemi?</string>
+  <string name="otherSystemsA">Trenutno Lichess ne nameravamo dodati več turnirskih sistemov.</string>
+  <string name="swissDescription">Na švicarskem turnirju %1$s Vsak tekmovalec ne igra nujno z vsemi drugimi udeleženci. Tekmovalci se v vsakem krogu srečajo en proti enemu in se parijo z uporabo pravil, ki zagotavljajo, da vsak tekmovalec igra z nasprotniki z podobnim rezultatom tekmovanja, vendar ne z istim nasprotnikom več kot enkrat. Zmagovalec je tekmovalec z najvišjimi skupnimi točkami v vseh krogih. Vsi tekmovalci igrajo v vsakem krogu, razen če je neparavno število igralcev.</string>
+  <string name="teamOnly">Švicarske turnirje lahko ustvarijo samo voditelji ekip in jih lahko igrajo samo člani ekipe.
+%1$s za začetek igranja na Švicarskih turnirjih.</string>
+  <string name="joinOrCreateTeam">Pridružite se ali ustvarite ekipo</string>
+  <string name="nowPlaying">Zdaj igranje</string>
+  <string name="startingSoon">Začetek kmalu</string>
+  <string name="comparison">Primerjava</string>
+  <string name="tournDuration">Trajanje turnirja</string>
+  <string name="predefinedDuration">Vnaprej določeno trajanje v minutah</string>
+  <string name="durationUnknown">Vnaprej določeno največje število krogov, vendar trajanje neznano</string>
+  <string name="numberOfGames">Število iger</string>
+  <string name="numberOfGamesAsManyAsPossible">Kolikor jih je mogoče igrati v dodeljenem trajanju</string>
+  <string name="numberOfGamesPreDefined">Odločeno vnaprej, enako za vse igralce</string>
+  <string name="pairingSystem">Sistem seznanjanja</string>
+  <string name="pairingSystemArena">Vsak razpoložljiv nasprotnik s podobno uvrstitvijo</string>
+  <string name="pairingSystemSwiss">Najboljše Parjenje na podlagi točk in neodločenih izidov</string>
+  <string name="pairingWaitTime">Čas čakanja na seznanjanje</string>
   <string name="pairingWaitTimeArena">Hitro: ne čakaj na vse igralce</string>
   <string name="pairingWaitTimeSwiss">Počasi: čakaj na vse igralce</string>
+  <string name="identicalPairing">Identično seznanjanje</string>
+  <string name="possibleButNotConsecutive">Možno, vendar ne zaporedno</string>
+  <string name="identicalForbidden">Prepovedano</string>
+  <string name="lateJoin">Pozno pridružite</string>
   <string name="lateJoinUntil">Da, dokler se ne začne več kot polovica krogov</string>
   <string name="pause">Premor</string>
   <string name="pauseSwiss">Da, vendar se lahko zmanjša število krogov</string>
+  <string name="streaksAndBerserk">Proge in Berserk</string>
+  <string name="similarToOTB">Podobno kot OTB turnirji</string>
+  <string name="unlimitedAndFree">Neomejeno in brezplačno</string>
   <string name="predefinedUsers">Dovoli pridružitev samo vnaprej določenim uporabnikom</string>
   <string name="forbiddedUsers">Če ta seznam ni prazen, se bo uporabniškim imenom, ki niso na tem seznamu, prepovedano pridružiti. Eno uporabniško ime na vrstico.</string>
   <string name="playYourGames">Igraj svoje igre</string>
