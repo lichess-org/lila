@@ -58,7 +58,7 @@ export const gamesList = (study: StudyCtrl, relay: RelayCtrl) => {
                             playerFed(p.fed),
                             h('span.name', [userTitle(p), p.name]),
                           ]),
-                          h(s === '1' ? 'good' : s === '0' ? 'bad' : 'status', [s]),
+                          study.multiBoard.showResults() ? h(s === '1' ? 'good' : s === '0' ? 'bad' : 'status', [s]) : null,
                         ]
                       : [h('span.mini-game__user', h('span.name', 'Unknown player'))],
                   );
