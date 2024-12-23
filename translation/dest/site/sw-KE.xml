@@ -106,6 +106,16 @@
   <string name="evaluationGauge">Kipimo cha utathmini</string>
   <string name="multipleLines">Mistari kadhaa</string>
   <string name="cpus">CPUs</string>
+  <string name="blunder">Kosa kubwa</string>
+  <string name="mistake">Kosa</string>
+  <string name="inaccuracy">Isiyo sahihi</string>
+  <string name="flipBoard">Geuza ubao</string>
+  <string name="threefoldRepetition">Kurejea mara tatu</string>
+  <string name="claimADraw">Dai mkwamo</string>
+  <string name="offerDraw">Kutoa mkwamo</string>
+  <string name="draw">Mkwamo</string>
+  <string name="currentGames">Gemu za sasahivi</string>
+  <string name="youNeedAnAccountToDoThat">Unahitaji akaunti kufanya hivyo</string>
   <string name="changePassword">Badilisha nenosiri</string>
   <string name="changeEmail">Badilisha nenosiri</string>
   <string name="forgotPassword">Umesahau nenosiri?</string>

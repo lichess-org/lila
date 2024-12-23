@@ -71,6 +71,7 @@
   <string name="promoteVariation">પ્રોમોટ વેરીએશન</string>
   <string name="makeMainLine">મેઈન લાઈન બનાવો</string>
   <string name="deleteFromHere">અહીંથી ડિલીટ કરો</string>
+  <string name="collapseVariations">વિભ્કતો બંધ</string>
   <string name="forceVariation">ફોર્સ વેરિએશન</string>
   <string name="copyVariationPgn">PGN ની વિવિધતા ની નકલ કરો</string>
   <string name="move">ચાલ</string>
