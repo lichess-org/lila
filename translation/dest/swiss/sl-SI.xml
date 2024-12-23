@@ -74,12 +74,33 @@ Kadar igralca v krogu ni mogoče seznaniti, prejme eno točko.</string>
   <string name="sonnebornBergerScore">Ocena Sonneborn – Berger</string>
   <string name="tiebreaksCalculationA">Z %s.
 Dodajte rezultate vsakega nasprotnika, ki ga igralec premaga, in polovico rezultata vsakega nasprotnika, s katerim igralec remizira.</string>
+  <string name="pairingsQ">Kako se odločajo pari?</string>
+  <string name="dutchSystem">Nizozemski sistem</string>
+  <string name="FIDEHandbook">Priročnik FIDE</string>
+  <string name="pairingsA">Z %1$s, ki ga izvaja %2$s, v skladu z %3$s.</string>
+  <string name="moreRoundsThanPlayersQ">Kaj se zgodi, če ima turnir več krogov kot igralcev?</string>
+  <string name="moreRoundsThanPlayersA">Ko bodo odigrani vsi možni pari, bo turnir končan in razglašen zmagovalec.</string>
+  <string name="restrictedToTeamsQ">Zakaj je omejena na ekipe?</string>
+  <string name="restrictedToTeamsA">Švicarski turnirji niso bili zasnovani za spletni šah. Od igralcev zahtevajo točnost, predanost in potrpljenje.
+Menimo, da so ti pogoji bolj verjetno izpolnjeni znotraj ekipe kot na svetovnih turnirjih.</string>
+  <string name="numberOfByesQ">Koliko poslov lahko dobi igralec?</string>
+  <string name="numberOfByesA">Igralec dobi slovo od ene točke vsakič, ko sistem parjenja ne najde parjenja za njih.
+Poleg tega se en sam kupec pol točke pripiše, ko se igralec pozno pridruži turnirju.</string>
   <string name="earlyDrawsQ">Kaj se zgodi pri zgodnjih remijih?</string>
   <string name="earlyDrawsAnswer">V švicarskih igrah igralci ne morejo remizirati, preden je odigranih trideset potez. Čeprav ta ukrep ne more preprečiti vnaprej dogovorjenih remijev, pa vsaj otežuje sprotni dogovor o remiju.</string>
+  <string name="whatIfOneDoesntPlayQ">Kaj se zgodi, če igralec ne igra igre?</string>
+  <string name="whatIfOneDoesntPlayA">Njihova ura bo odkljukala, zastavili bodo in izgubili igro.
+Nato bo sistem igralca umaknil s turnirja, da ne bo izgubil več iger.
+ Lahko se ponovno pridružijo turnirju kadarkoli.</string>
   <string name="protectionAgainstNoShowQ">Kaj se naredi v zvezi z neprihodom?</string>
   <string name="protectionAgainstNoShowA" comment="By &quot;a game&quot; - we mean just one game. Missing even one game will prevent that player from joining a new Swiss event for a certain amount of time.">Igralci, ki se prijavijo na švicarske dogodke, vendar ne igrajo njihovih iger, so lahko problematični.
 Da bi ublažil to težavo, Lichess igralcem, ki niso igrali igre, prepreči, da bi se za določen čas pridružili novemu švicarskemu dogodku.
 Ustvarjalec švicarskega dogodka se lahko vseeno odloči, da mu dovoli, da se dogodku pridruži.</string>
+  <string name="lateJoinQ">Ali se lahko igralci pozno pridružijo?</string>
+  <string name="lateJoinA">Da, dokler se ne začne več kot polovica krogov; na primer v Švicarjih z 11 krogi se lahko igralci pridružijo pred začetkom 6.kroga in v 12 krogih pred začetkom 7. kroga.
+Pozni mizarji dobijo en sam adijo, tudi če so zamudili več krogov.</string>
+  <string name="willSwissReplaceArenasQ">Bodo Švicarji zamenjali arenske turnirje?</string>
+  <string name="willSwissReplaceArenasA">Ne. So komplementarne lastnosti.</string>
   <string name="pairingWaitTimeArena">Hitro: ne čakaj na vse igralce</string>
   <string name="pairingWaitTimeSwiss">Počasi: čakaj na vse igralce</string>
   <string name="lateJoinUntil">Da, dokler se ne začne več kot polovica krogov</string>
