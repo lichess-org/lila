@@ -161,7 +161,7 @@ final class StreamerApi(
     picfitApi
       .uploadFile(s"streamer:${s.id}", picture, userId = by.id)
       .flatMap { pic =>
-        coll.update.one($id(s.id), $set("picture" -> pic.id, "approval.requested" -> true)).void
+        coll.update.one($id(s.id), $set("picture" -> pic.id)).void
       }
 
   // unapprove after 6 weeks if you never streamed (was originally 1 week)
