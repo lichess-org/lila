@@ -202,4 +202,7 @@
     <item quantity="one">%s minutu</item>
     <item quantity="other">%s minutos</item>
   </plurals>
+  <string name="time">Tiempu</string>
+  <string name="rating">Rating</string>
+  <string name="username">Nome d\'usuariu</string>
 </resources>
