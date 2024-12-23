@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="learnChess">Apriende axedrez</string>
+  <string name="learnChess">Deprende axedrez</string>
   <string name="byPlaying">¡xugando!</string>
   <string name="menu">Menú</string>
   <string name="progressX">Progresu: %s</string>
@@ -9,25 +9,25 @@
   <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">¡xugar!</string>
   <string name="chessPieces">Les pieces d\'axedrez</string>
   <string name="theRook">La Torre</string>
-  <string name="itMovesInStraightLines">Muevese en llínea recta</string>
-  <string name="rookIntro">La Torre ye una pieza poderosa. ¿Tas llistu para dirixila?</string>
-  <string name="rookGoal">¡Fai click na torre para llevala hasta la estrella!</string>
-  <string name="grabAllTheStars">¡Prinda toles estrelles!</string>
+  <string name="itMovesInStraightLines">Muévese en llínea recta</string>
+  <string name="rookIntro">La Torre ye una pieza poderosa. ¿Tas llistu pa dirixila?</string>
+  <string name="rookGoal">¡Fai click na torre pa llevala hasta la estrella!</string>
+  <string name="grabAllTheStars">¡Garra toles estrelles!</string>
   <string name="theFewerMoves">¡Cuantos menos movimientos faigas, más puntos ganes!</string>
   <string name="useTwoRooks">¡Usa les dos torres para terminar antes!</string>
-  <string name="rookComplete">¡Felicidaes! Consiguisti apoderar la Torre.</string>
+  <string name="rookComplete">¡Felicidaes! Consiguisti garrar la Torre.</string>
   <string name="theBishop">L\'Alfil</string>
-  <string name="itMovesDiagonally">Muevese en diagonal</string>
-  <string name="bishopIntro">¡De siguío, vamos aprender como se mueve un alfil!</string>
-  <string name="youNeedBothBishops">Un alfil de casíella blanca y otru de casíella prieta ¡dambos son necesarios!</string>
+  <string name="itMovesDiagonally">Muévese en diagonal</string>
+  <string name="bishopIntro">¡Darréu, vamos deprender como muévese un alfil!</string>
+  <string name="youNeedBothBishops">Un alfil de casiella blanca y otru de casíella prieta ¡dambos son necesarios!</string>
   <string name="bishopComplete">¡Felicidaes! Sabes mover l\'Alfil.</string>
   <string name="theQueen">La Dama</string>
   <string name="queenCombinesRookAndBishop">Dama = Torre + Alfil</string>
   <string name="queenIntro">Y agora, la pieza más poderosa del axedrez; ¡la so maxestá la Dama!</string>
-  <string name="queenComplete">¡Felicidaes! La Dama nun tien secretos para ti.</string>
+  <string name="queenComplete">¡Felicidaes! La Dama nun tien secretos pa ti.</string>
   <string name="theKing">El Rei</string>
-  <string name="theMostImportantPiece">La pieza más importante</string>
-  <string name="kingIntro">Yes el Rei. Si caes na batalla, piérdese la partida.</string>
+  <string name="theMostImportantPiece">La pieza con más valir</string>
+  <string name="kingIntro">Yes el Rei. Si caes na griesca, piérdese la partida.</string>
   <string name="theKingIsSlow">El Rei ye lentu.</string>
   <string name="lastOne">¡El postreru!</string>
   <string name="kingComplete">¡Yá puedes comandar al comandante!</string>
@@ -42,19 +42,30 @@
   <string name="pawnIntro">Los peones son débiles, pero zarren enforma potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Los peones namá pueden mover unu casiella, pero cuando algamen l\'otru estremu del tableru ¡promocionen a una pieza más fuerte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La mayoría de les vegaes, lo meyor ye promocionar a dama pero ¡hai ocasiones en qu\'un caballu puede ser útil!</string>
-  <string name="pawnsMoveForward">Los peones avancen en llínea recta, ¡pero prinden en diagonal!</string>
-  <string name="captureThenPromote">¡Captura y, depués, promociona!</string>
-  <string name="useAllThePawns">¡Usa toos los peones! Nun fai falta promocionar.</string>
-  <string name="aPawnOnTheSecondRank">¡Un peón na segunda fila puede avanzar 2 casiellas en solo un movimientu!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">¡Prinda toles estrelles! Nun fai falta promocionar.</string>
+  <string name="pawnsMoveForward">Los peones avancen en llínea recta, ¡pero garren en diagonal!</string>
+  <string name="captureThenPromote">¡Garrar y, depués, promociona!</string>
+  <string name="useAllThePawns">¡Usa tolos peones! Nun fai falta desendolcar.</string>
+  <string name="aPawnOnTheSecondRank">¡Un peón na segunda fila pue avanzar 2 casielles nun solu movimientu!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">¡Garrar toles estrelles! Nun fai falta desendolcar.</string>
   <string name="pawnComplete">¡Felicidaes! Los peones nun tienen secretos para ti.</string>
-  <string name="pawnPromotion">Promoción del Peón</string>
+  <string name="pawnPromotion">Desendolcar el Peón</string>
   <string name="yourPawnReachedTheEndOfTheBoard">¡El to peón llegó a la fin del tableru!</string>
+  <string name="itNowPromotesToAStrongerPiece">Desendolca a pieces más fuertes.</string>
+  <string name="selectThePieceYouWant">¡Escueye la pieza que quies!</string>
+  <string name="fundamentals">Fundamentos</string>
+  <string name="capture">Garra</string>
+  <string name="takeTheEnemyPieces">Garra les pieces enemigues</string>
+  <string name="captureIntro">Identifica les pieces nun defendíes del contrariu, y ¡gárrales!</string>
+  <string name="takeTheBlackPieces">¡Garra les pieces prietes!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">¡Garra les pieces prietes! y nun pierdas les tuyes.</string>
+  <string name="captureComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
+  <string name="protection">Proteición</string>
+  <string name="keepYourPiecesSafe">Mantén les pieces segures</string>
   <string name="boardSetupComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
   <string name="castling">Enroque</string>
   <string name="theSpecialKingMove">El movimientu especial del rei</string>
   <string name="castlingIntro">¡Pon al to rei a salvo y esplega la to torre para atacar!</string>
-  <string name="castleKingSide">Mueve\'l to rei dos casiellas para faer un enroque curtiu!</string>
+  <string name="castleKingSide">Mueve\'l to rei dos casielles para faer un enroque curtiu!</string>
   <string name="castleQueenSide">Mueve\'l to rei dos casiellas para faer un enroque llargu!</string>
   <string name="theKnightIsInTheWay">¡El caballu interponse! Muévilo, y depués fexe un enroque curtiu.</string>
   <string name="castleKingSideMovePiecesFirst">Fai un enroque curtiu. Precises estenar el camín primeru.</string>
@@ -62,25 +73,25 @@
   <string name="youCannotCastleIfMoved">Nun puedes enrocar si\'l rei o la torre moviéronse enantes.</string>
   <string name="youCannotCastleIfAttacked">Nun puedes enrocar si\'l rei ye atacáu nel so camín. ¡Bloquia l\'atacante y depués enroca!</string>
   <string name="findAWayToCastleKingSide">¡Atopa la forma de enrocar en curtiu!</string>
-  <string name="findAWayToCastleQueenSide">¡Atopa la forma de enrocar en llargu!</string>
+  <string name="findAWayToCastleQueenSide">¡Atopa la forma d\'enrocar en llargu!</string>
   <string name="castlingComplete">¡Norabona! Convien enrocar en casi toles partíes.</string>
-  <string name="enPassant">Prindar al pasu</string>
+  <string name="enPassant">Garrar al pasu</string>
   <string name="theSpecialPawnMove">El movimientu especial del peón</string>
-  <string name="enPassantIntro">Cuándo\'l peón oponente mueve dos casiellas, puedes prindalo como si moviera namá una.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">¡El negru movió\'l so peón dos casiellas! Príndalo al pasu.</string>
-  <string name="enPassantOnlyWorksImmediately">Prindar al pasu namá se dexa darréu dempués de qu\'el to oponente mueva\'l peón.</string>
-  <string name="enPassantOnlyWorksOnFifthRank">Prindar al pasu namá se dexa si\'l to peón ta na quinta fila.</string>
-  <string name="takeAllThePawnsEnPassant">¡Prinda toos los peones al pasu!</string>
-  <string name="enPassantComplete">¡Norabona! Agora sabes prindar al pasu.</string>
+  <string name="enPassantIntro">Cuándo\'l peón contrariu mueve dos casielles, pues garralo como si moviera namás una.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">¡El prietu movió\'l so peón dos casielles! Gárralu al pasu.</string>
+  <string name="enPassantOnlyWorksImmediately">Garrar al pasu namás pue facese dempués de que\'l contrariu mueva\'l peón.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Garrar al pasu namás déxase si\'l to peón ta na quinta fila.</string>
+  <string name="takeAllThePawnsEnPassant">¡Garra tolos peones al pasu!</string>
+  <string name="enPassantComplete">¡Norabona! Agora sabes garrar al pasu.</string>
   <string name="stalemate">Afogáu</string>
   <string name="theGameIsADraw">La partida ye tables</string>
   <string name="stalemateIntro">Cuando un xugador nun ta en xaque y nun tien nengún movimientu llegal, ta afogáu. La partida ye tables. Naide gana nin pierde.</string>
-  <string name="stalemateGoal">Les negres tán afogaes sí:
-- Nun pueden faer nengún movimientu llegal
- -Nun tán en xaque.</string>
+  <string name="stalemateGoal">Les prietes tan afogaes sí:
+- Nun puen facer nengún movimientu llegal
+ -Nun tan en xaque.</string>
   <string name="stalemateComplete">¡Felicidaes! ¡Meyor afogáu que recibir un xaque mate!</string>
   <string name="advanced">Avanzáu</string>
-  <string name="pieceValue">Valor de les pieces</string>
+  <string name="pieceValue">Valir de les pieces</string>
   <string name="evaluatePieceStrength">Sopesa la fuerza de les tos pieces</string>
   <string name="pieceValueIntro">¡Les pieces con más movilidá valen más!
 Dama = 9
@@ -89,16 +100,15 @@ Alfil = 3
 Caballu = 3
 Peón = 1
 ¡El rei ye preciosu! Perdelo significa perder la partida.</string>
-  <string name="queenOverBishop">¡Prinda la pieza más pervalible!
+  <string name="queenOverBishop">¡Garra la pieza la de más valir!
 Dama &gt; Alfil</string>
-  <string name="pieceValueExchange">¡Prinda la pieza más pervalible!
+  <string name="pieceValueExchange">¡Garra la pieza la de más valir!
 Nun camudes 
 una pieza por otra que valga menos.</string>
-  <string name="pieceValueLegal">¡Prinda la pieza más
-pervalible!
+  <string name="pieceValueLegal">¡Garra la pieza la de más valir!
 ¡Con un movimientu llegal!</string>
-  <string name="takeThePieceWithTheHighestValue">¡Prinda la pieza más pervalible!</string>
-  <string name="pieceValueComplete">¡Felicidaes! ¡Conoces el valor de les pieces!
+  <string name="takeThePieceWithTheHighestValue">¡Garra la pieza la de más valir!</string>
+  <string name="pieceValueComplete">¡Felicidaes! ¡Conoces el valir de les pieces!
 Dama = 9
 Torre = 5
 Alfil = 3
@@ -107,15 +117,16 @@ Peón = 1</string>
   <string name="checkInTwo">Xaque en dos</string>
   <string name="twoMovesToGiveCheck">Dar xaque en dos xugaes</string>
   <string name="checkInTwoIntro">¡Atopa la combinación de dos movimientos que da xaque al rei enemigu!</string>
-  <string name="checkInTwoGoal">¡Amenaza al rei enemigu en dos movimientos!</string>
+  <string name="checkInTwoGoal">¡Garra´l rei enemigu en dos movimientos!</string>
   <string name="checkInTwoComplete">¡Felicidaes! ¡Disti xaque al to oponente, obligándo-y a defender el so rei!</string>
   <string name="whatNext">Y agora ¿qué?</string>
   <string name="youKnowHowToPlayChess">Sabes xugar al axedrez ¡norabona! ¿Quies aprender a xugar meyor?</string>
   <string name="register">Rexistrase</string>
   <string name="getAFreeLichessAccount">Crea una cuenta gratuita en Lichess</string>
-  <string name="practice">Practicar</string>
-  <string name="learnCommonChessPositions">Apriende les posiciones más comunes</string>
-  <string name="puzzles">Exercicios de táctica</string>
+  <string name="practice">Prauticar</string>
+  <string name="learnCommonChessPositions">Deprende les posiciones más comunes</string>
+  <string name="puzzles">Exercicios de táutica</string>
   <string name="exerciseYourTacticalSkills">Practica les tos habilidaes táctiques</string>
   <string name="videos">Vídeos</string>
+  <string name="retry">Reintentar</string>
 </resources>
