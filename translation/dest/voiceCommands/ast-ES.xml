@@ -16,4 +16,7 @@
   <string name="phoneticAlphabetIsBest">L\'alfabetu fonéticu ye meyor</string>
   <string name="cancelTimerOrDenyARequest">Atayar temporizador o refugar una solicitú</string>
   <string name="playPreferredMoveOrConfirmSomething">Faer el movimientu preferíu o confirmar daqué</string>
+  <string name="sleep">Suspender (si habilitóse una palabra d\'activación)</string>
+  <string name="turnOffVoiceRecognition">Desactivar reconocencia de voz</string>
+  <string name="showPuzzleSolution">Amosar solución del problema</string>
 </resources>
