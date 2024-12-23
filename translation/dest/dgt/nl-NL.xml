@@ -13,15 +13,18 @@
   <string name="configurationSection">Configuratiesectie</string>
   <string name="boardWillAutoConnect">Het bord verbindt automatisch met elk spel dat al gestart is, of elk nieuw spel dat begint. Het wordt snel mogelijk om te kiezen welk spel je wilt spelen.
 The board will auto connect to any game that is already on course or any new game that starts. Ability to choose which game to play is coming soon.</string>
+  <string name="whenReadySetupBoard">Zet uw bord op en klik %s wanneer u klaar bent.</string>
   <string name="ifMoveNotDetected">Als een zet niet gedetecteerd is</string>
   <string name="asALastResort" comment="%s is 'Reload this page', a separate translatable string.&#10;&#10;Appears on DGT board pages. A DGT board is a digitally connected real life board which requires the player to set up the real life board to match what it is on the screen. Hence needing it to be set up identically to what is visible on Lichess.">Als laatste redmiddel, stel het bord identiek in zoals op Lichess, en %s</string>
   <string name="reloadThisPage">Herlaad deze pagina</string>
   <string name="dgtConfigure">DGT - Instellen</string>
+  <string name="lichessConnectivity">Lichess verbinding</string>
   <string name="clickToGenerateOne">Klik om er een te genereren</string>
   <string name="textToSpeech">Tekst naar spraak</string>
   <string name="enableSpeechSynthesis">Spraaksynthese inschakelen</string>
   <string name="speechSynthesisVoice">Spraaksynthese stem</string>
   <string name="announceAllMoves">Kondig alle zetten aan</string>
+  <string name="selectAnnouncePreference">Selecteer JA om uw en uw tegenstanders zetten aan te kondigen. Selecteer NEE om alleen uw tegenstanders zetten aan te kondigen.</string>
   <string name="moveFormatDescription">SAN is standaard op Lichess, zoals \"Pf6\". UCI is gebruikelijk bij schaakcomputers, zoals \"g8f6\".</string>
   <string name="keywords">Trefwoorden</string>
   <string name="debug">Debuggen</string>
