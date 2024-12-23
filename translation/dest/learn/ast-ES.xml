@@ -1,2 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="learnChess">Apriende axedrez</string>
+  <string name="byPlaying">¡xugando!</string>
+  <string name="menu">Menú</string>
+  <string name="progressX">Progresu: %s</string>
+  <string name="resetMyProgress">Reiniciar el mio progresu</string>
+  <string name="youWillLoseAllYourProgress">¡Vas Perder tolos tos progresos!</string>
+  <string name="play" comment="play&#10;&#10;A small ribbon that appears on your current chapter in the Chess Basics course. Please keep this string short.">¡xugar!</string>
+  <string name="chessPieces">Les pieces d\'axedrez</string>
+  <string name="theRook">La Torre</string>
+  <string name="itMovesInStraightLines">Muevese en llínea recta</string>
+  <string name="rookIntro">La Torre ye una pieza poderosa. ¿Tas llistu para dirixila?</string>
+  <string name="rookGoal">¡Fai click na torre para llevala hasta la estrella!</string>
+  <string name="grabAllTheStars">¡Prinda toles estrelles!</string>
+  <string name="theFewerMoves">¡Cuantos menos movimientos faigas, más puntos ganes!</string>
+  <string name="useTwoRooks">¡Usa les dos torres para terminar antes!</string>
+  <string name="rookComplete">¡Felicidaes! Consiguisti apoderar la Torre.</string>
+  <string name="theBishop">L\'Alfil</string>
+  <string name="itMovesDiagonally">Muevese en diagonal</string>
+  <string name="bishopIntro">¡De siguío, vamos aprender como se mueve un alfil!</string>
+  <string name="youNeedBothBishops">Un alfil de casíella blanca y otru de casíella prieta ¡dambos son necesarios!</string>
+  <string name="bishopComplete">¡Felicidaes! Sabes mover l\'Alfil.</string>
+  <string name="theQueen">La Dama</string>
+  <string name="queenCombinesRookAndBishop">Dama = Torre + Alfil</string>
+  <string name="queenIntro">Y agora, la pieza más poderosa del axedrez; ¡la so maxestá la Dama!</string>
+  <string name="queenComplete">¡Felicidaes! La Dama nun tien secretos para ti.</string>
+  <string name="theKing">El Rei</string>
+  <string name="theMostImportantPiece">La pieza más importante</string>
+  <string name="kingIntro">Yes el Rei. Si caes na batalla, piérdese la partida.</string>
+  <string name="theKingIsSlow">El Rei ye lentu.</string>
+  <string name="lastOne">¡El postreru!</string>
+  <string name="kingComplete">¡Yá puedes comandar al comandante!</string>
+  <string name="theKnight">El Caballu</string>
+  <string name="itMovesInAnLShape">Muevese en forma de L</string>
+  <string name="knightIntro">A ver cómo se te da ésti. El Caballu ye... una pieza complicada.</string>
+  <string name="knightsHaveAFancyWay">¡Los caballos tienen una forma interesada de saltar!</string>
+  <string name="knightsCanJumpOverObstacles">¡Los caballos pueden saltar torgues! ¡Escapa y prinda les estrelles!</string>
+  <string name="knightComplete">¡Felicidaes! Apoderes el movimientu del Caballu.</string>
+  <string name="thePawn">El Peón</string>
+  <string name="itMovesForwardOnly">Namá mueve escontra alantre</string>
+  <string name="pawnIntro">Los peones son débiles, pero zarren enforma potencial.</string>
+  <string name="pawnsMoveOneSquareOnly">Los peones namá pueden mover unu casiella, pero cuando algamen l\'otru estremu del tableru ¡promocionen a una pieza más fuerte!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">La mayoría de les vegaes, lo meyor ye promocionar a dama pero ¡hai ocasiones en qu\'un caballu puede ser útil!</string>
+  <string name="pawnsMoveForward">Los peones avancen en llínea recta, ¡pero prinden en diagonal!</string>
+  <string name="captureThenPromote">¡Captura y, depués, promociona!</string>
+  <string name="useAllThePawns">¡Usa toos los peones! Nun fai falta promocionar.</string>
+  <string name="aPawnOnTheSecondRank">¡Un peón na segunda fila puede avanzar 2 casiellas en solo un movimientu!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">¡Prinda toles estrelles! Nun fai falta promocionar.</string>
+  <string name="pawnComplete">¡Felicidaes! Los peones nun tienen secretos para ti.</string>
+  <string name="pawnPromotion">Promoción del Peón</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">¡El to peón llegó a la fin del tableru!</string>
+  <string name="boardSetupComplete">¡Felicidaes! Yá sabes cómo asitiar les pieces nel tableru.</string>
+  <string name="castling">Enroque</string>
+  <string name="theSpecialKingMove">El movimientu especial del rei</string>
+  <string name="castlingIntro">¡Pon al to rei a salvo y esplega la to torre para atacar!</string>
+  <string name="castleKingSide">Mueve\'l to rei dos casiellas para faer un enroque curtiu!</string>
+  <string name="castleQueenSide">Mueve\'l to rei dos casiellas para faer un enroque llargu!</string>
+  <string name="theKnightIsInTheWay">¡El caballu interponse! Muévilo, y depués fexe un enroque curtiu.</string>
+  <string name="castleKingSideMovePiecesFirst">Fai un enroque curtiu. Precises estenar el camín primeru.</string>
+  <string name="castleQueenSideMovePiecesFirst">Fai un enroque llargu. Precises estenar el camín primeru.</string>
+  <string name="youCannotCastleIfMoved">Nun puedes enrocar si\'l rei o la torre moviéronse enantes.</string>
+  <string name="youCannotCastleIfAttacked">Nun puedes enrocar si\'l rei ye atacáu nel so camín. ¡Bloquia l\'atacante y depués enroca!</string>
+  <string name="findAWayToCastleKingSide">¡Atopa la forma de enrocar en curtiu!</string>
+  <string name="findAWayToCastleQueenSide">¡Atopa la forma de enrocar en llargu!</string>
+  <string name="castlingComplete">¡Norabona! Convien enrocar en casi toles partíes.</string>
+  <string name="enPassant">Prindar al pasu</string>
+  <string name="theSpecialPawnMove">El movimientu especial del peón</string>
+  <string name="enPassantIntro">Cuándo\'l peón oponente mueve dos casiellas, puedes prindalo como si moviera namá una.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">¡El negru movió\'l so peón dos casiellas! Príndalo al pasu.</string>
+  <string name="enPassantOnlyWorksImmediately">Prindar al pasu namá se dexa darréu dempués de qu\'el to oponente mueva\'l peón.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Prindar al pasu namá se dexa si\'l to peón ta na quinta fila.</string>
+  <string name="takeAllThePawnsEnPassant">¡Prinda toos los peones al pasu!</string>
+  <string name="enPassantComplete">¡Norabona! Agora sabes prindar al pasu.</string>
+  <string name="stalemate">Afogáu</string>
+  <string name="theGameIsADraw">La partida ye tables</string>
+  <string name="stalemateIntro">Cuando un xugador nun ta en xaque y nun tien nengún movimientu llegal, ta afogáu. La partida ye tables. Naide gana nin pierde.</string>
+  <string name="stalemateGoal">Les negres tán afogaes sí:
+- Nun pueden faer nengún movimientu llegal
+ -Nun tán en xaque.</string>
+  <string name="stalemateComplete">¡Felicidaes! ¡Meyor afogáu que recibir un xaque mate!</string>
+  <string name="advanced">Avanzáu</string>
+  <string name="pieceValue">Valor de les pieces</string>
+  <string name="evaluatePieceStrength">Sopesa la fuerza de les tos pieces</string>
+</resources>
