@@ -239,7 +239,7 @@ final private class RelayFetch(
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
-          create = (key, _) => (if key.startsWith("started ") then 40.seconds else 3.minutes),
+          create = (key, _) => (if key.startsWith("started ") then 30.seconds else 3.minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
@@ -343,7 +343,7 @@ final private class RelayFetch(
   private def fetchJsonWithEtag[A: Reads](initialCapacity: Int): URL => CanProxy ?=> Fu[A] =
     import RelayFormat.Etag
     val cache = cacheApi.notLoadingSync[URL, (Etag, A)](initialCapacity, "relay.fetch.jsonWithEtag"):
-      _.expireAfterWrite(5 minutes).build()
+      _.expireAfterWrite(10 minutes).build()
     url =>
       CanProxy ?=>
         cache

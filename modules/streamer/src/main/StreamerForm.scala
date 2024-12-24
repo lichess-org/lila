@@ -89,7 +89,7 @@ object StreamerForm:
             requested = m.requested,
             ignored = m.ignored,
             chatEnabled = m.chat,
-            reason = m.reason,
+            reason = if m.granted then none else (~m.reason).some,
             lastGrantedAt = m.granted.option(nowInstant).orElse(streamer.approval.lastGrantedAt)
           )
         else // data in UserData.approval must be ignored here
