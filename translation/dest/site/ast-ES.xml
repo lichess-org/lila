@@ -225,6 +225,7 @@
   <string name="neverTypeYourPassword">¡Nunca emplegues la mesma contraseña n\'otru llugar!</string>
   <string name="proceedToX">Dir a %s</string>
   <string name="passwordSuggestion">Nun emplegues una contraseña afitada por dalguien. Podríen intentar robate la cuenta.</string>
+  <string name="emailSuggestion">Nun emplegues l\'email qu\'otru te diga. Puen robate la to cuenta.</string>
   <string name="emailConfirmHelp">Ayuda cola confirmación del email</string>
   <string name="emailConfirmNotReceived">¿Nun recibisti un corréu de confirmación dempués de rexistrate?</string>
   <string name="whatSignupUsername">¿Qué nome d\'usuariu utilizasti para rexistrate?</string>
