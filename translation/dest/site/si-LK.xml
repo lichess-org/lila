@@ -264,6 +264,7 @@ PlayFirstOpeningEndgameExplorerMove
     <item quantity="one">%s ඔබ සමග තරඟය</item>
     <item quantity="other">%s ඔබ සමග තරඟ</item>
   </plurals>
+  <string name="ok">හරි</string>
   <string name="cancel">අවලංගු කරන්න</string>
   <string name="whiteTimeOut">සුදුගේ වේලාව ඉවතට</string>
   <string name="blackTimeOut">කලුගේ වේලාව ඉවතට</string>
@@ -314,6 +315,10 @@ You are playing chess.</string>
   <plurals name="nbRated">
     <item quantity="one">%s ශ්‍රේණිගත කර ඇත</item>
     <item quantity="other">%s ශ්‍රේණිගත කර ඇත</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">දිනුම %s</item>
+    <item quantity="other">දිනුම් %s</item>
   </plurals>
   <plurals name="nbLosses">
     <item quantity="one">%s loss</item>
