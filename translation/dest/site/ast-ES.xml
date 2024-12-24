@@ -298,6 +298,7 @@
   <string name="inbox">Mensaxes</string>
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Inicia sesión pa chatear</string>
+  <string name="youHaveBeenTimedOut">Pasástete del tiempu.</string>
   <string name="spectatorRoom">Chat d\'espectador</string>
   <string name="composeMessage">Escribir mensaxe</string>
   <string name="subject">Asuntu</string>
@@ -337,6 +338,7 @@
   <string name="takebackPropositionSent">Propuesta de desfaer xugada unviada</string>
   <string name="takebackPropositionDeclined">Propuesta de desfaer xugada refugada</string>
   <string name="takebackPropositionAccepted">Propuesta de desfaer xugada aceptada</string>
+  <string name="takebackPropositionCanceled">Propuesta de desfacer xugada encaboxada</string>
   <string name="yourOpponentProposesATakeback">El to oponente propón desfacer la xugada</string>
   <string name="bookmarkThisGame">Marcar esti xuegu como favoritu</string>
   <string name="tournament">Tornéu</string>
@@ -417,6 +419,7 @@
   <string name="notACheckmate">Nun ye xaque mate</string>
   <string name="whiteCheckmatesInOneMove">Xueguen blanques y dan mate n\'una</string>
   <string name="blackCheckmatesInOneMove">Xueguen les pieces prietas y dan mate n\'una</string>
+  <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
   <string name="noNetwork">Ensin conexón</string>
   <plurals name="nbFriendsOnline">
@@ -447,9 +450,20 @@
   <string name="player">Xugador</string>
   <string name="list">Llista</string>
   <string name="graph">Gráficu</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">Menos de %s minutu</item>
+    <item quantity="other">Menos de %s minutos</item>
+  </plurals>
+  <string name="required">Requeríu.</string>
+  <string name="openTournaments">Torneos abiertos</string>
   <string name="duration">Duración</string>
   <string name="winner">Ganador</string>
+  <string name="standing">Posición</string>
+  <string name="createANewTournament">Crear un nueu tornéu</string>
+  <string name="tournamentCalendar">Calendariu de tornéu</string>
+  <string name="conditionOfEntry">Requisitos d\'entrada:</string>
   <string name="advancedSettings">Axustes avanzaos</string>
+  <string name="safeTournamentName">Escueye un nome perseguru pal tornéu.</string>
   <string name="withdraw">Retirase</string>
   <string name="points">Puntos</string>
   <string name="wins">Victories</string>
