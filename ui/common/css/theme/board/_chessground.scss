@@ -5,7 +5,7 @@ cg-board {
 
   top: 0;
   left: 0;
-  user-select: none;
+  @include prevent-select;
   line-height: 0;
 
   .manipulable & {

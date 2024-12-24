@@ -7,7 +7,7 @@
   border: none;
   cursor: pointer;
   text-align: center;
-  user-select: none;
+  @include prevent-select;
   white-space: nowrap;
   display: inline-block;
 
