@@ -318,6 +318,7 @@
     <item quantity="many">%s مباراة معك</item>
     <item quantity="other">%s مباراة معك</item>
   </plurals>
+  <string name="ok">حسناً</string>
   <string name="cancel">إلغاء</string>
   <string name="whiteTimeOut">انتهى وقت الأبيض</string>
   <string name="blackTimeOut">انتهى وقت الأسود</string>
@@ -1106,7 +1107,7 @@ https://lichess. org/report.</string>
   <string name="streamerManager">مدير البث</string>
   <string name="cancelTournament">الغاء البطولة</string>
   <string name="tournDescription">وصف البطولة</string>
-  <string name="tournDescriptionHelp">هل تريد إخبار أي شيء مميز للمشاركين؟ حاول أن تبقيه قصيرة. روابط Markdown متوفرة: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">هل تريد إخبار أي شيء مميز للمشاركين؟ حاول أن تبقيه قصيرة. روابط Markdown متوفرة: [name](https://url)</string>
   <string name="ratedFormHelp">المباريات مصنفة
 وتأثر على تقييم اللاعبين</string>
   <string name="onlyMembersOfTeam">اعضاء الفريق فقط</string>
@@ -1163,4 +1164,5 @@ https://lichess. org/report.</string>
   <string name="lichessPatronInfo">Lichess هو موقع خيري و مجاني بشكل كامل ومفتوح المصدر.
 كافة التكاليف التشغيلية و التطويرية و المحتوى يتم الحصول عليه من قبل تبرعات المستخدمين.</string>
   <string name="nothingToSeeHere">لا يوجد شيء يمكن رؤيته هنا في الوقت الحالي.</string>
+  <string name="stats">الإحصائيات</string>
 </resources>

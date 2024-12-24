@@ -258,6 +258,7 @@
     <item quantity="one">%s partida amb tu</item>
     <item quantity="other">%s partides amb tu</item>
   </plurals>
+  <string name="ok">D\'acord</string>
   <string name="cancel">Cancel·lar</string>
   <string name="whiteTimeOut">Les blanques han exhaurit el seu temps</string>
   <string name="blackTimeOut">Les negres perden per temps</string>
@@ -891,7 +892,7 @@
   <string name="searchOrStartNewDiscussion">Cerca o inicia una nova discusió</string>
   <string name="edit">Edita</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
-  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Blitz</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Llampec</string>
   <string name="rapid">Ràpides</string>
   <string name="classical">Clàssic</string>
   <string name="ultraBulletDesc">Partides extramadament ràpides: menys de 30 segons</string>
@@ -935,7 +936,7 @@
   <string name="streamerManager">Gestionament de retransmissor</string>
   <string name="cancelTournament">Cancel-lar el torneig</string>
   <string name="tournDescription">Descripció del torneig</string>
-  <string name="tournDescriptionHelp">Cap cosa per mencionar als participants? Intenta mantenir-ho curt. Enllaços utilitzant Markdown estan disponibles: [nom](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Cap cosa per mencionar als participants? Intenta mantenir-ho curt. Enllaços utilitzant Markdown estan disponibles: [nom](https://url)</string>
   <string name="ratedFormHelp">Els jocs són puntuats
 i impacten les puntuacions dels jugadors</string>
   <string name="onlyMembersOfTeam">Només membres de l\'equip</string>

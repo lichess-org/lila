@@ -5,7 +5,7 @@
   <string name="willBeNotified">Jy sal in kennis gestel word wanneer die toernooi begin, so dit is veilig om op \'n ander blad te speel terwyl jy wag.</string>
   <string name="isRated">Hierdie toernooi is gegradeer en sal jou gradering beïnvloed.</string>
   <string name="isNotRated">Hierdie toernooi is *nie* gegradeer *nie* en sal *nie* jou gradering beïnvloed *nie*.</string>
-  <string name="someRated">Sekere toernooie is gegradeer n sal jou gradeing beïnvloed.</string>
+  <string name="someRated">Sekere toernooie is gegradeer en sal jou gradering beïnvloed.</string>
   <string name="howAreScoresCalculated">Hoe word die puntetelling uitgewerk?</string>
   <string name="howAreScoresCalculatedAnswer">\'n Wen het \'n basis puntetelling van 2 punte, gelykop is 1 punt, en \'n verloor beteken niks nie.
 As jy twee wedstryde in \'n ry wen, begin jy \'n dubbelpunt reeks, verteenwoordig deur \'n vlam ikoon.
@@ -61,5 +61,6 @@ Speel vinnig en keer terug na die ontvangs om meer te speel en meer punte te kry
   <string name="averagePerformance">Gemiddelde prestasie</string>
   <string name="averageScore">Gemiddelde telling</string>
   <string name="pickYourTeam">Kies jou span</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Jy moet by een van hierdie spanne aansluit om deel te neem!</string>
   <string name="total">Totaal</string>
 </resources>

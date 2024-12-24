@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="xChessInsights">Valoraciones de %s</string>
+  <string name="xHasNoChessInsights">¡%s entá nun tien valoraciones!</string>
+  <string name="insightsAreProtected">Les valoraciones de %s tán protexíes</string>
+  <string name="cantSeeInsights">Sentímoslo, nun pues ver les valoraciones de %s.</string>
+  <string name="generateInsights">Xenerar valoraciones para %s.</string>
+  <string name="crunchingData">¡Procesando datos namás para ti!</string>
+  <string name="maybeAskThemToChangeTheir" comment="The parameter is the translation for 'insights settings'">¿Seique solicitar que camuden el so %s?</string>
+  <string name="insightsSettings" comment="In the context of 'maybe ask them to change their insight settings'">axustes de valoraciones</string>
+</resources>

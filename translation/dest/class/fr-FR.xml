@@ -57,7 +57,7 @@ Voici le lien pour accéder à la classe.</string>
     <item quantity="one">Une invitation en attente</item>
     <item quantity="other">%s invitations en attente</item>
   </plurals>
-  <string name="pending">En attente</string>
+  <string name="pending">En suspens</string>
   <string name="declined">Refusée</string>
   <string name="onlyVisibleToTeachers">Visible uniquement par les enseignants de la classe</string>
   <string name="lastActiveDate">Actif</string>
