@@ -21,9 +21,7 @@ export default async function () {
     if (!vapid || Notification.permission !== 'granted') return store.remove();
     else if (sub && !resub) return;
 
-    const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
-
-    newSub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey });
+    newSub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: vapid });
 
     if (!newSub) throw new Error(JSON.stringify(await reg.pushManager.permissionState()));
 
