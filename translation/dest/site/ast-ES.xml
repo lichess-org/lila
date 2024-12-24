@@ -595,12 +595,25 @@
   <string name="onSlowGames">En xuegos llentos</string>
   <string name="always">Siempre</string>
   <string name="never">Nunca</string>
+  <string name="xCompetesInY">%1$s compite en %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Derrota</string>
   <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Cronoloxía</string>
+  <string name="starting">Empiezu:</string>
+  <string name="allInformationIsPublicAndOptional">Tola información ye pública y opcional.</string>
+  <string name="biographyDescription">Cúntanos de ti, qué te gusta del axedrez, les tos apertures favorites, partíes, xugadores...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Máximu: %s caráuter.</item>
+    <item quantity="other">Máximu: %s caráuteres.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s bloquiáu</item>
+    <item quantity="other">%s bloquiaos</item>
+  </plurals>
+  <string name="listBlockedPlayers">Llista de xugadores que bloquiasti</string>
   <string name="human">Humanu</string>
   <string name="computer">Ordenador</string>
   <string name="side">Color</string>
@@ -616,4 +629,9 @@
   <string name="error.required">Esti campu ye obligatoriu</string>
   <string name="error.email">Esta dirección de corréu ye inválida</string>
   <string name="error.email_acceptable">Esta direición de corréu llectrónicu nun ye válida. Por favor, compruébala y torna facelo de nuevu.</string>
+  <string name="error.email_unique">Dirección de corréu non válida o n\'usu</string>
+  <string name="error.email_different">Esta yá ye la to dirección de corréu electrónicu</string>
+  <string name="error.minLength">Tien que tener %s caráuteres a lo menos</string>
+  <string name="error.maxLength">Tien que tener %s caráuteres a lo máximu</string>
+  <string name="error.min">Tien que ser mayor o igual a %s</string>
 </resources>
