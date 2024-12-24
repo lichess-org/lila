@@ -258,6 +258,7 @@
     <item quantity="other">%s partíes contigo</item>
   </plurals>
   <string name="ok">OK</string>
+  <string name="cancel">Encaboxar</string>
   <string name="whiteTimeOut">Les blanques escosaron el so tiempu</string>
   <string name="blackTimeOut">Les prietes escosaron el so tiempu</string>
   <string name="drawOfferSent">Ufierta de tables unviada</string>
@@ -278,6 +279,7 @@
   <string name="standard">Estándar</string>
   <string name="customPosition">Posición personalizada</string>
   <string name="unlimited">Ilimitáu</string>
+  <string name="mode">Mou</string>
   <string name="casual">Amistosa</string>
   <string name="rated">Por puntos</string>
   <string name="casualTournament">Amistoso</string>
@@ -288,6 +290,7 @@
   <string name="rematchOfferAccepted">Ufierta de revancha aceptada</string>
   <string name="rematchOfferCanceled">Ufierta de revancha cancelada</string>
   <string name="rematchOfferDeclined">Ufierta de revancha refugada</string>
+  <string name="cancelRematchOffer">Encaboxar ufierta de revancha</string>
   <string name="viewRematch">Ver revancha</string>
   <string name="confirmMove">Confirmar movimientu</string>
   <string name="play">Xugar</string>
@@ -386,7 +389,9 @@
   <string name="xStartedStreaming">%s empezó a emitir</string>
   <string name="averageElo">Puntuación promedio</string>
   <string name="location">Llugar</string>
+  <string name="filterGames">Filtrar partíes</string>
   <string name="reset">Reiniciar</string>
+  <string name="apply">Unviar</string>
   <string name="save">Guardar</string>
   <string name="leaderboard">Clasificación</string>
   <string name="screenshotCurrentPosition">Facer captura de pantalla de la posición actual</string>
@@ -439,6 +444,17 @@
   <string name="memberSince">Miembru dende</string>
   <string name="lastSeenActive">Última visita %s</string>
   <string name="player">Xugador</string>
+  <string name="list">Llista</string>
+  <string name="graph">Gráficu</string>
+  <string name="duration">Duración</string>
+  <string name="winner">Ganador</string>
+  <string name="advancedSettings">Axustes avanzaos</string>
+  <string name="withdraw">Retirase</string>
+  <string name="points">Puntos</string>
+  <string name="wins">Victories</string>
+  <string name="losses">Perdíes</string>
+  <string name="createdBy">Fechu por</string>
+  <string name="pause">Pausa</string>
   <string name="winRate">Tasa de victories</string>
   <string name="berserkRate">Tasa de bersek</string>
   <string name="performance">Rindimientu</string>
@@ -452,6 +468,10 @@
   <string name="averageOpponent">Oponente promediu</string>
   <string name="boardEditor">Editor de tableru</string>
   <string name="setTheBoard">Configurar tableru</string>
+  <string name="isPrivate">Privau</string>
+  <string name="xRating">%s rating</string>
+  <string name="profile">Perfil</string>
+  <string name="editProfile">Editar perfil</string>
   <string name="realName">Nome real</string>
   <string name="setFlair">Pon la to bandera</string>
   <string name="flair">Bandera</string>
