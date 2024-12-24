@@ -47,12 +47,14 @@
   }
 
   .playing,
-  .eval {
+  .eval,
+  .results {
     cursor: pointer;
   }
 
   .playing input,
-  .eval input {
+  .eval input,
+  .results input {
     vertical-align: middle;
     margin-inline-end: 3px;
   }
