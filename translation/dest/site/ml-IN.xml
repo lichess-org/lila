@@ -24,11 +24,11 @@
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>
   <string name="blackIsVictorious">കറുപ്പ് വിജയിച്ചു</string>
-  <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുകൾ വെച്ച് കളിക്കുന്നു</string>
-  <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
-  <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
+  <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുക്കൾ വെച്ച് കളിക്കുന്നു</string>
+  <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുക്കൾ വെച്ച് കളിക്കുന്നു</string>
+  <string name="itsYourTurn">നിങ്ങളുടെ നീക്കം!</string>
   <string name="cheatDetected">കള്ളത്തരം കണ്ടെത്തി</string>
-  <string name="kingInTheCenter">രാജാവു്  കേന്ദത്തിലുള്ള കളി</string>
+  <string name="kingInTheCenter">രാജാവ് മധ്യത്തിൽ</string>
   <string name="threeChecks">മൂനു ചെക്ക് കളി</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="variantEnding">വ്യത്യാസപ്പെട്ട അവസാനം</string>
