@@ -1,17 +1,17 @@
 .button {
   @extend %roboto-fat, %button-shadow, %box-radius;
 
+  @include prevent-select;
+  @include transition;
+
   background: $c-primary;
   text-transform: uppercase;
   padding: 0.8em 1em;
   border: none;
   cursor: pointer;
   text-align: center;
-  user-select: none;
   white-space: nowrap;
   display: inline-block;
-
-  @include transition;
 
   &,
   &:visited,
