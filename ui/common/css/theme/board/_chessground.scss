@@ -2,10 +2,10 @@
 
 cg-board {
   @extend %box-shadow, %abs-100;
+  @include prevent-select;
 
   top: 0;
   left: 0;
-  @include prevent-select;
   line-height: 0;
 
   .manipulable & {

@@ -11,9 +11,9 @@ $c-tour-unique: $c-brag;
 $c-tour-max-rating: #8572ff;
 
 .tour-chart {
+  @include prevent-select;
   min-height: 400px;
   position: relative;
-  @include prevent-select;
 
   .spinner {
     width: 120px;

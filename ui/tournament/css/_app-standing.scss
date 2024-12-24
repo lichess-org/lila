@@ -38,7 +38,6 @@
 
   tr {
     @include transition;
-
     @include prevent-select;
   }
 

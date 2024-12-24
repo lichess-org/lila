@@ -71,7 +71,6 @@
 
   .pager {
     @extend %flex-center;
-
     @include prevent-select;
 
     .page {
