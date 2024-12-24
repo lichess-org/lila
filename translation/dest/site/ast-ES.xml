@@ -464,12 +464,21 @@
   <string name="conditionOfEntry">Requisitos d\'entrada:</string>
   <string name="advancedSettings">Axustes avanzaos</string>
   <string name="safeTournamentName">Escueye un nome perseguru pal tornéu.</string>
+  <string name="inappropriateNameWarning">Cualisquier comportamientu desaveniente podría traer al zarru de la to cuenta.</string>
+  <string name="emptyTournamentName">Déxalu en blanco pa poner al tornéu\'l nome d\'un Gran Maestru al azar.</string>
+  <string name="makePrivateTournament">Facer el tornéu priváu y acutar l\'accesu con una contraseña</string>
+  <string name="join">Xunise</string>
   <string name="withdraw">Retirase</string>
   <string name="points">Puntos</string>
   <string name="wins">Victories</string>
   <string name="losses">Perdíes</string>
   <string name="createdBy">Fechu por</string>
+  <string name="tournamentIsStarting">El tornéu ta entamando</string>
+  <string name="tournamentPairingsAreNowClosed">Los emparexamientos del tornéu tan zarraos.</string>
+  <string name="standByX">Espera %s, empareyando xugadores, ¡prepárate!</string>
   <string name="pause">Pausa</string>
+  <string name="resume">Siguir</string>
+  <string name="youArePlaying">¡Tas xugando!</string>
   <string name="winRate">Tasa de victories</string>
   <string name="berserkRate">Tasa de bersek</string>
   <string name="performance">Rindimientu</string>
@@ -483,13 +492,23 @@
   <string name="averageOpponent">Oponente promediu</string>
   <string name="boardEditor">Editor de tableru</string>
   <string name="setTheBoard">Configurar tableru</string>
+  <string name="popularOpenings">Apertures populares</string>
+  <string name="endgamePositions">Posiciones de finales</string>
+  <string name="chess960StartPosition">Posición d\'entamu d\'Axedrez960: %s</string>
+  <string name="startPosition">Posición d\'entamu</string>
+  <string name="clearBoard">Llimpiar tableru</string>
+  <string name="loadPosition">Cargar posición</string>
   <string name="isPrivate">Privau</string>
+  <string name="reportXToModerators">Reportar %s a los moderadores</string>
+  <string name="profileCompletion">Perfil completáu al %s</string>
   <string name="xRating">%s rating</string>
+  <string name="ifNoneLeaveEmpty">Si nun aplica, déxalo en blanco</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
   <string name="realName">Nome real</string>
   <string name="setFlair">Pon la to bandera</string>
   <string name="flair">Bandera</string>
+  <string name="youCanHideFlair">Hai una opción pa ocultar la configuración d\'entornu en tou\'l sitiu.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o rexón</string>
   <string name="thankYou">¡Gracies!</string>
@@ -538,4 +557,6 @@
   <string name="other">Otru</string>
   <string name="reportCheatBoostHelp">Pega l\'enllaz a la(s) partida(s) y esplícanos qué hai de malu nel comportamientu d\'esti usuariu. Nun digas a cencielles \"fai trampa\", sinón cómo llegasti a esta conclusión.</string>
   <string name="reportUsernameHelp">Esplica qué ye lo que te resulta ofensivu d\'esti nome d\'usuariu. Nun digas solo \"ye ofensivu\" o \"desaveniente\", sinón cómo llegasti a esta conclusión, más entá si l\'insultu nun ye tan obviu, nun ta n\'inglés o una referencia histórica o cultural.</string>
+  <string name="reportProcessedFasterInEnglish">Los tos comentarios serán atendíos más rápido si los faes n\'inglés.</string>
+  <string name="thisTopicIsNowClosed">Esti tema ta pesllao.</string>
 </resources>
