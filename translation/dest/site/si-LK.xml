@@ -61,7 +61,7 @@
   <string name="usingServerAnalysis">සර්වර් විශ්ලේෂණය භාවිතා කිරීම</string>
   <string name="loadingEngine">එන්ජිම පූරණය වේ ...</string>
   <string name="calculatingMoves">ගණනය වෙමින්...</string>
-  <string name="engineFailed">එන්ජිම ලෝඩ් කිරීමේ දෝෂයකි</string>
+  <string name="engineFailed">එන්ජිම නොකරයි</string>
   <string name="cloudAnalysis">වලාකුළු විශ්ලේෂණය</string>
   <string name="goDeeper">ගැඹුරට යන්න</string>
   <string name="showThreat">තර්ජනය පෙන්වන්න</string>
@@ -163,6 +163,10 @@ PlayFirstOpeningEndgameExplorerMove
     <item quantity="one">%sතරගය</item>
     <item quantity="other">%sතරඟ</item>
   </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%2$s තරගයට වඩා %1$s ශෙනිය ඉහළයි</item>
+    <item quantity="other">%2$s තරග වලට වඩා %1$s ශෙනිය ඉහළයි</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%sබුක්මාකය</item>
     <item quantity="other">%sබුක්මාක්ස්</item>
@@ -180,6 +184,7 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="latestForumPosts">නවතම පෝරම සටහන්</string>
   <string name="players">ක්‍රීඩකයන්</string>
   <string name="friends">යහළුවන්</string>
+  <string name="otherPlayers">වෙනත් තරගකරුවන්</string>
   <string name="discussions">සංවාද</string>
   <string name="today">අද</string>
   <string name="yesterday">ඊයේ</string>
@@ -199,6 +204,10 @@ PlayFirstOpeningEndgameExplorerMove
     <item quantity="one">%s පැයක්</item>
     <item quantity="other">%s පැය</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">විනාඩි, ය %s</item>
+    <item quantity="other">විනාඩි %s</item>
+  </plurals>
   <string name="time">වෙලාව</string>
   <string name="rating">තක්සේරු</string>
   <string name="ratingStats">තක්සේරු තත්වය</string>
@@ -207,12 +216,18 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="changeUsername">පරිශීලක නාමය වෙනස් කරන්න</string>
   <string name="changeUsernameNotSame">වෙනස් විය හැක්කේ අක්ෂරවල සිද්ධිය පමණි. උදාහරණයක් ලෙස \"ජොන්ඩෝ\" සිට \"ජෝන්ඩෝ\".</string>
   <string name="changeUsernameDescription">ඔබගේ පරිශීලක නාමය වෙනස් කරන්න. මෙය කළ හැක්කේ එක් වරක් පමණක් වන අතර ඔබේ පරිශීලක නාමයේ ඇති අකුරු වෙනස් කිරීමට ඔබට අවසර ඇත.</string>
+  <string name="signupUsernameHint">සංවර නමක් යොදන්න. පසුව ඔබට නම මාරු කර නොහැක. අසංවර නම් සහිත ගිණුම් වසා දමනු ලැබේ!</string>
+  <string name="signupEmailHint">අපි එය බාවිතා කරන්නේ මුරපදය අලුත් කරන්න පමණී.</string>
   <string name="password">මුරපදය</string>
   <string name="changePassword">මුරපදය වෙනස් කරන්න</string>
   <string name="changeEmail">විද්‍යුත් තැපෑල වෙනස් කරන්න</string>
   <string name="email">ඊතැපෑල</string>
   <string name="passwordReset">මුරපදය වෙනස් කරන්න</string>
   <string name="forgotPassword">මුරපදය මතක නැහැ?</string>
+  <string name="error.weakPassword">මේ මුරපදය බෙහෙවින් දැක ගත හැකි අතර, උපකල්පනය කරන්න හරිම පහසුයි.</string>
+  <string name="error.namePassword">ඔබේ නම මුරපදය නොවිය යුතුයි.</string>
+  <string name="blankedPassword">ඔබ එකම මුරපදය වෙනත් අඩවියක යොදාගෙන ඇති අතර, එම අඩවිය තර්ජනයට ලක්ව ඇත. ඔබේ ගිණුමේ ආරක්ෂාව සහතික කිරීම සඳහා, අපට ඔබ නව මුරපදය සාදන්න අවශ්‍ය වේ.</string>
+  <string name="youAreLeavingLichess">ඔබ පිට වීමටයි යන්නේ</string>
   <string name="neverTypeYourPassword">ඔබේ Lichess මුරපදය වෙනත් වෙබ් අඩවියක ටයිප් නොකරන්න!</string>
   <string name="proceedToX">%s වෙත යන්න</string>
   <string name="passwordSuggestion">වෙනත් කෙනෙකු විසින් යෝජනා කරන ලද මුරපදයක් නොසකසන්න. ඔවුන් ඔබේ ගිණුම සොරකම් කිරීමට එය භාවිතා කරනු ඇත.</string>
@@ -239,6 +254,10 @@ PlayFirstOpeningEndgameExplorerMove
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">ශ්‍රේණිය සෑම මිනිත්තුවකම යාවත්කාලීන වේ</item>
     <item quantity="other">සෑම මිනිත්තු %s ශ්‍රේණිය යාවත්කාලීන වේ</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s චෙස් ප්‍රහේලිකාව</item>
+    <item quantity="other">%s ප්‍රෙහෙලිකා</item>
   </plurals>
   <string name="gamesPlayed">ක්‍රීඩා කල ක්‍රීඩා ගණන</string>
   <plurals name="nbGamesWithYou">
