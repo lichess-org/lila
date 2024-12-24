@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">快速为学生生成安全的用户名和密码</string>
   <string name="trackStudentProgress">跟踪学生在棋局和棋题中的进度</string>
   <string name="messageAllStudents">向所有学生发送关于新班级材料的消息</string>
-  <string name="freeForAllForever">对所有人100%免费，永远没有广告或跟踪者</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">对所有人100%免费，永远没有广告或跟踪者</string>
   <string name="applyToBeLichessTeacher">申请成为 Lichess 教师</string>
   <string name="noClassesYet">尚无班级。</string>
   <string name="teachersX">教师： %s</string>
@@ -56,6 +56,8 @@
   <plurals name="nbPendingInvitations">
     <item quantity="other">%s 个待处理的邀请</item>
   </plurals>
+  <string name="pending">等待处理</string>
+  <string name="declined">已拒绝</string>
   <string name="onlyVisibleToTeachers">仅对班级老师可见</string>
   <string name="lastActiveDate">最近登录</string>
   <string name="managed">被管理</string>
@@ -111,4 +113,6 @@
   <string name="anInvitationHasBeenSentToX">邀请已发送到 %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s 已经有待处理的邀请</string>
   <string name="xIsAKidAccountWarning">%1$s 是儿童账户，无法接收你的消息。你必须手动给他发送邀请链接： %2$s</string>
+  <string name="moveToClass">移动至 %s</string>
+  <string name="moveToAnotherClass">移到另一个班级</string>
 </resources>

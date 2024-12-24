@@ -13,6 +13,7 @@
   <string name="youHaveThirtySeconds">Imate 30 sekund, da pravilno preslikate čim več polj!</string>
   <string name="goAsLongAsYouWant">Pojdite, kolikor dolgo želite, ni časovne omejitve!</string>
   <string name="showCoordinates">Prikaži koordinate</string>
+  <string name="showCoordsOnAllSquares" comment="Part of an option in coordinates training to display coordinates inside the chessboard. This sub-option will display the coordinates of each square, within each individual square (so A1, B1, C1...).">Koordinate na vsakem kvadratu</string>
   <string name="showPieces">Pokaži figure</string>
   <string name="startTraining">Začnite trening</string>
   <string name="findSquare">Najdi polje</string>

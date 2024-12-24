@@ -26,7 +26,7 @@
   <string name="blackIsVictorious">কালো বিজয়ী</string>
   <string name="youPlayTheWhitePieces">আপনি সাদা গুটি নিয়ে খেলছেন</string>
   <string name="youPlayTheBlackPieces">আপনি কালো গুটি নিয়ে খেলছেন</string>
-  <string name="itsYourTurn">এবার আপনার পালা!</string>
+  <string name="itsYourTurn">এবার আপনার চাল!</string>
   <string name="cheatDetected">প্রতারণা শনাক্ত করা হয়েছে</string>
   <string name="kingInTheCenter">রাজাকে কেন্দ্রে আনুন</string>
   <string name="threeChecks">তিনটি কিস্তি</string>
@@ -254,6 +254,7 @@
     <item quantity="one">%s টি খেলা আপনার সঙ্গে</item>
     <item quantity="other">%s টি খেলা আপনার সঙ্গে</item>
   </plurals>
+  <string name="ok">কোনো সমস্যা নেই</string>
   <string name="cancel">বাতিল করুন</string>
   <string name="whiteTimeOut">সাদার সময় শেষ</string>
   <string name="blackTimeOut">কালোর সময় আপ</string>
@@ -921,7 +922,7 @@
   <string name="streamerManager">সম্প্রচার নিয়ন্ত্রণ</string>
   <string name="cancelTournament">টুর্নামেন্ট বাতিল করুন</string>
   <string name="tournDescription">টুর্নামেন্টের বর্ণনা</string>
-  <string name="tournDescriptionHelp">অংশগ্রহণকারীদের কিছু বলতে চান? সংক্ষেপে লেখার চেষ্টা করুন।
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">অংশগ্রহণকারীদের কিছু বলতে চান? সংক্ষেপে লেখার চেষ্টা করুন।
 Markdown links ব্যবহারযোগ্য: [name](https://url)</string>
   <string name="ratedFormHelp">খেলাগুলো রেটেড/পয়েন্ট ভিত্তিক এবং খেলোয়াড়দের রেটিং এ প্রভাব ফেলবে</string>
   <string name="onlyMembersOfTeam">শুধুমাত্র দলের সদস্যরা</string>
