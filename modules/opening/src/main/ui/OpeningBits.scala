@@ -11,8 +11,6 @@ import ScalatagsTemplate.{ *, given }
 final class OpeningBits(helpers: Helpers):
   import helpers.{ *, given }
 
-  def beta = span(cls := "opening__beta")("BETA")
-
   def pageModule(page: Option[OpeningPage])(using Context) =
     PageModule(
       "opening",
