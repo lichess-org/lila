@@ -61,6 +61,7 @@
   <string name="usingServerAnalysis">සර්වර් විශ්ලේෂණය භාවිතා කිරීම</string>
   <string name="loadingEngine">එන්ජිම පූරණය වේ ...</string>
   <string name="calculatingMoves">ගණනය වෙමින්...</string>
+  <string name="engineFailed">එන්ජිම ලෝඩ් කිරීමේ දෝෂයකි</string>
   <string name="cloudAnalysis">වලාකුළු විශ්ලේෂණය</string>
   <string name="goDeeper">ගැඹුරට යන්න</string>
   <string name="showThreat">තර්ජනය පෙන්වන්න</string>
@@ -69,6 +70,8 @@
   <string name="promoteVariation">විචලනය ප්‍රමුඛ කරන්න</string>
   <string name="makeMainLine">ප්‍රමුඛ රේඛාව කරන්න</string>
   <string name="deleteFromHere">මෙතැන සිට මකන්න</string>
+  <string name="collapseVariations">කඩා වැටෙ</string>
+  <string name="expandVariations">විචලනය පුළුල් කරන්න</string>
   <string name="forceVariation">බලෙන්ම ලබාගත් විචලනය</string>
   <string name="copyVariationPgn">The variaty</string>
   <string name="move">ඇදීම</string>
@@ -92,6 +95,7 @@
     <item quantity="one">ඇදීම් %sකින් චෙක්මේට්</item>
     <item quantity="other">ඇදීම් වාර %sකින් චෙක්මේට්</item>
   </plurals>
+  <string name="dtzWithRounding">DTZ50\'\' වටකුරු සහිත, ඊළඟ අල්ලන්න හෝ උකස් චලනය වන තෙක් අර්ධ චලනයන් ගණන මත පදනම්ව</string>
   <string name="noGameFound">සෙල්ලමක් හමුවුන්නෑ</string>
   <string name="maxDepthReached">උපරිම ගැඹුරට ළඟා විය!
 යතුර: maxDepthReached
@@ -134,6 +138,10 @@ PlayFirstOpeningEndgameExplorerMove
     <item quantity="one">%sලොකු වරද</item>
     <item quantity="other">%sලොකු වරදවල්</item>
   </plurals>
+  <plurals name="nbMistakes">
+    <item quantity="one">%s දෝෂය ඇත</item>
+    <item quantity="other">%sදෝෂ ඇත</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%sනිවැරදිම නෑ</item>
     <item quantity="other">%sනිවැරදිම නෑ</item>
@@ -151,6 +159,10 @@ PlayFirstOpeningEndgameExplorerMove
   <string name="drawByMutualAgreement">අන්යොන්ය එකඟතාවයෙන් ඇඳීම</string>
   <string name="fiftyMovesWithoutProgress">ප්‍රගතියක් නොමැතිව චලනයන් පනහක්</string>
   <string name="currentGames">වර්තමාන තරඟ</string>
+  <plurals name="nbGames">
+    <item quantity="one">%sතරගය</item>
+    <item quantity="other">%sතරඟ</item>
+  </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%sබුක්මාකය</item>
     <item quantity="other">%sබුක්මාක්ස්</item>
