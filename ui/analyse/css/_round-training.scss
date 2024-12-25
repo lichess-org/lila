@@ -18,6 +18,22 @@
   line-height: 1.15em;
   margin-top: 1em;
 
+  @include mq-at-least-col2 {
+    &__side + &__side {
+      border-top: $border;
+      padding-top: 0.5em;
+      margin-top: 0.5em;
+    }
+  }
+
+  &__player {
+    font-weight: bold;
+  }
+
+  &__error {
+    text-transform: capitalize;
+  }
+
   &__side > div {
     display: flex;
     i,
@@ -61,7 +77,6 @@
     justify-content: center;
     padding-bottom: $analyse-block-gap;
     border-bottom: $border;
-    margin: 0;
 
     &__side {
       flex: 0 0 calc(50% - #{$analyse-block-gap});
