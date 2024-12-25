@@ -361,9 +361,11 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         },
         tag("content")(tpe := "html")(
-          thumbnail(post, _.Size.Large),
-          "<br>", // yes, scalatags encodes it.
-          post.intro
+          frag(
+            thumbnail(post, _.Size.Large),
+            br,
+            post.intro
+          ).render // html as escaped string in xml
         ),
         tag("tag")("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
         tag("author")(tag("name")(authorName))
