@@ -345,8 +345,9 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
     private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
       frag(
-        tag("id")(post.id),
+        tag("id")(s"$netBaseUrl${urlOfPost(post)}"),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
+        tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
           rel  := "alternate",
           tpe  := "text/html",
@@ -361,11 +362,13 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
           )
         },
         tag("content")(tpe := "html")(
-          thumbnail(post, _.Size.Large),
-          "<br>", // yes, scalatags encodes it.
-          post.intro
+          frag(
+            thumbnail(post, _.Size.Large),
+            br,
+            post.intro
+          ).render // html as escaped string in xml
         ),
-        tag("tag")("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
+        tag("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
         tag("author")(tag("name")(authorName))
       )
 
