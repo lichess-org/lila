@@ -26,4 +26,19 @@
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barres de progresu horizontales verdes</string>
   <string name="soundWhenTimeGetsCritical">Alerta cuando quede pocu tiempu</string>
+  <string name="giveMoreTime">Dar más tiempu</string>
+  <string name="gameBehavior" comment="gameBehavior&#10;&#10;In the user settings page, &quot;Game behavior&quot; is the title of the tab for configuring how the player can interact with the game.">Comportamientu del xuegu</string>
+  <string name="howDoYouMovePieces">¿Cómo quies mover les pieces?</string>
+  <string name="clickTwoSquares">Faciendo clic na pieza y depués na casiella de destín</string>
+  <string name="dragPiece">Arrastrando la pieza hasta\'l casiella de destín</string>
+  <string name="bothClicksAndDrag">O cualquiera</string>
+  <string name="premovesPlayingDuringOpponentTurn">Movimientos antemanaos (programar xugaes mientres xuega l\'oponente)</string>
+  <string name="takebacksWithOpponentApproval">Desfacer xugada (con consentimientu del oponente)</string>
+  <string name="inCasualGamesOnly">Namás en partíes amistoses</string>
+  <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>
+  <string name="explainPromoteToQueenAutomatically">Mantén pulsiada la tecla &lt;ctrl&gt; al promocionar pa desactivar temporalmente la promoción automática</string>
+  <string name="whenPremoving">Con antemanaes</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tables por triple repetición</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando\'l tiempu restante sía de &lt; 30 segundos</string>
+  <string name="moveConfirmation">Confirmación de movimientu</string>
 </resources>
