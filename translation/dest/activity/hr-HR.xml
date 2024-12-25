@@ -42,6 +42,11 @@
     <item quantity="few">Završio/la %s partije dopisnog šaha</item>
     <item quantity="other">Završio/la %s partija dopisnog šaha</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Završena %1$s partija %2$s dopisnog šaha</item>
+    <item quantity="few">Završene %1$s partije %2$s dopisnog šaha</item>
+    <item quantity="other">Završeno %1$s partija %2$s dopisnog šaha</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Počeo/la pratiti %s igrača</item>
     <item quantity="few">Počeo/la pratiti %s igrača</item>
