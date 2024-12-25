@@ -347,6 +347,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       frag(
         tag("id")(post.id),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
+        tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
           rel  := "alternate",
           tpe  := "text/html",
