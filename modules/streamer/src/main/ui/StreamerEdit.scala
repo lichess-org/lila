@@ -20,7 +20,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
       .i18n(_.streamer)
       .js(
         esmInitObj(
-          "bits.streamer",
+          "bits.streamerEdit",
           "youtube" -> wasListed.so(s.streamer.youTube).so[String](_.channelId),
           "twitch"  -> wasListed.so(s.streamer.twitch).so[String](_.userId)
         )
@@ -46,7 +46,8 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
             div(cls := "box-pad") {
               val granted   = s.streamer.approval.granted
               val requested = s.streamer.approval.requested
-              val (clas, icon) = (granted, requested, wasListed) match
+              val declined  = s.streamer.approval.reason.nonEmpty
+              val (clas, icon) = (granted, requested, declined) match
                 case (true, true, _)       => ("status is-green", Icon.Search)
                 case (true, false, _)      => ("status is-green", Icon.Checkmark)
                 case (false, true, _)      => ("status is-gold", Icon.CautionTriangle)
@@ -70,9 +71,12 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                             )
                         )
                       else if requested then trs.pendingReview()
-                      else if wasListed then
+                      else if declined then
                         frag(
                           "Your previous application was declined. ",
+                          s.streamer.approval.reason
+                            .filter(_.trim.nonEmpty)
+                            .so(r => frag(strong("Reason: "), r, br)),
                           a(href := streamerPageActivationRoute)(
                             "See instructions before submitting again"
                           )
@@ -126,6 +130,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                             half = true
                           )
                         ),
+                        form3.hidden("approval.reason", ""),
                         form3.split(
                           form3.checkbox(
                             form("approval.chat"),

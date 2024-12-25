@@ -2,7 +2,7 @@ import { type MaybeVNodes, type Redraw, type VNode, onInsert, looseH as h } from
 import { json as xhrJson } from 'common/xhr';
 import type { RoundId } from './interfaces';
 import type { ChapterId, ChapterPreview, StudyPlayer, ChapterSelect, StatusStr } from '../interfaces';
-import { type MultiCloudEval, renderScoreAtDepth } from '../multiCloudEval';
+import { type MultiCloudEval, renderScore } from '../multiCloudEval';
 import { spinnerVdom as spinner } from 'common/spinner';
 import { playerFed } from '../playerBars';
 import { gameLinkAttrs, gameLinksListener, StudyChapters } from '../studyChapters';
@@ -145,7 +145,7 @@ const evalGauge = (
               const gauge = elm.parentNode as HTMLElement;
               elm.style.width = `${((1 - (cev?.chances || 0)) / 2) * 100}%`;
               if (cev) {
-                gauge.title = renderScoreAtDepth(cev);
+                gauge.title = renderScore(cev);
                 gauge.classList.add('eval-gauge-horiz--set');
               }
             }

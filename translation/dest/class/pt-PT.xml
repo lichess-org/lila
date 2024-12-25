@@ -115,6 +115,6 @@ Aqui está o link para acederes à aula.</string>
   <string name="anInvitationHasBeenSentToX">Foi enviado um convite para %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s já tem um convite pendente</string>
   <string name="xIsAKidAccountWarning">%1$s é uma conta de criança e não pode receber a sua mensagem. Deve dar-lhe o URL de convite manualmente: %2$s</string>
-  <string name="moveToClass">Mover para%s</string>
+  <string name="moveToClass">Mover para %s</string>
   <string name="moveToAnotherClass">Mover para outra aula</string>
 </resources>

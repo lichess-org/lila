@@ -54,4 +54,13 @@
     <item quantity="one">fai %s añu</item>
     <item quantity="other">fai %s años</item>
   </plurals>
+  <plurals name="nbMinutesRemaining">
+    <item quantity="one">%s minutu restante</item>
+    <item quantity="other">%s minutos restantes</item>
+  </plurals>
+  <plurals name="nbHoursRemaining">
+    <item quantity="one">%s hora restante</item>
+    <item quantity="other">%s hores restantes</item>
+  </plurals>
+  <string name="completed">completáu</string>
 </resources>

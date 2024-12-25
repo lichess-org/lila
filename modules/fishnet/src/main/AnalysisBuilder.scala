@@ -84,5 +84,5 @@ final private class AnalysisBuilder(evalCache: IFishnetEvalCache)(using Executor
           variation = variation.map(uci => SanStr(uci.uci)) // temporary, for UciToSan
         )
         if info.ply.isOdd then info.invert else info
-      case ((_, _), index) => Info(startedAtPly + index + 1, Eval.empty, Nil)
+      case ((_, _), index) => Info(startedAtPly + index + 1, lila.tree.evals.empty, Nil)
     }

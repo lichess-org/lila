@@ -6,6 +6,7 @@
   <string name="passwordReset_subject">Resablez la to contraseña de lichess.org, %s</string>
   <string name="passwordReset_intro">Recibimos una solicitú pa restablecer la to contraseña.</string>
   <string name="passwordReset_clickOrIgnore">Si fixisti esta solicitú, fai click nel enllaz. Si non, ignora\'l mensaxe.</string>
+  <string name="emailChange_subject">Confirmar nueva dirección de corréu electrónicu, %s</string>
   <string name="emailChange_intro">Solicitasti camudar la to dirección de corréu electrónicu.</string>
   <string name="emailChange_click">Para confirmar que tienes accesu a esti corréu electrónicu, fai clic nel siguiente enllaz:</string>
   <string name="welcome_subject">Bienveníu a lichess.org, %s</string>

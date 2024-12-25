@@ -293,7 +293,7 @@ object NewRoot:
   def apply(root: Root): NewRoot                       = NewRoot(NewTree.fromNode(root), NewTree(root))
 
   import NewTree.*
-  import Eval.jsonWrites
+  import lila.tree.evals.jsonWrites
   import Node.given
 
   given metasWriter: OWrites[Metas] = OWrites: metas =>

@@ -20,9 +20,10 @@
   <string name="displayBoardResizeHandle">Toon de knop om het bordformaat te wijzigen</string>
   <string name="onlyOnInitialPosition">Enkel tijdens de beginstelling</string>
   <string name="inGameOnly">Alleen tijdens partij</string>
+  <string name="exceptInGame">Uitgezonderd tijdens partijen</string>
   <string name="chessClock">Schaakklok</string>
   <string name="tenthsOfSeconds">Tienden van seconden</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wanneer resterende tijd &lt; 10 seconden</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wanneer resterende tijd &lt; 10 seconden</string>
   <string name="horizontalGreenProgressBars">Horizontale groene voortgangsbalk</string>
   <string name="soundWhenTimeGetsCritical">Geluidssignaal als tijd opraakt</string>
   <string name="giveMoreTime">Meer tijd geven</string>
@@ -38,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">Houd de &lt;Ctrl&gt; toets ingedrukt om auto-promotie tijdelijk uit te zetten</string>
   <string name="whenPremoving">Bij vooraf-zetten</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Eis automatisch remise op bij driemaal dezelfde stelling</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Wanneer resterende tijd &lt; 30 seconden</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Wanneer resterende tijd &lt; 30 seconden</string>
   <string name="moveConfirmation">Zetbevestiging</string>
   <string name="explainCanThenBeTemporarilyDisabled">Kan tijdens een partij uitgeschakeld worden met het bordmenu</string>
   <string name="inCorrespondenceGames">Bij correspondentiepartijen</string>

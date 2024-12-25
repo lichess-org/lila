@@ -54,6 +54,7 @@ Računalniško analizo lichess poganja Stockfish.</string>
 V redkih primerih je težko samodejno odločiti (prisilne črte, trdnjave). Privzeto smo vedno na strani igralca, ki mu ni zmanjkalo časa.
 
 Upoštevajte, da se lahko pari z enim skakačem ali lovcem, če ima nasprotnik figuro, ki bi lahko blokirala kralja.</string>
+  <string name="fideHandbook">Priročnik FIDE</string>
   <string name="fideHandbookX">Priročnik FIDE %s</string>
   <string name="discoveringEnPassant">Zakaj lahko kmet vzame drugega kmeta, ko je že ob njem? (en passant)</string>
   <string name="explainingEnPassant">To je pravilna poteza, znana kot \"en passant\". Članek v Wikipediji vsebuje %1$s.
@@ -65,6 +66,7 @@ Opisano je v oddelku 3.7 (d) %2$s:
 Glejte %3$s na tej potezi za nekaj vaj z njo.</string>
   <string name="goodIntroduction">dober uvod</string>
   <string name="lichessTraining">Lichess usposabljanje</string>
+  <string name="watchIMRosenCheckmate">Oglejte si mednarodni mojster Eric Rosen checkmate %s.</string>
   <string name="threefoldRepetition">Trikratna ponovitev</string>
   <string name="threefoldRepetitionExplanation">Če se pozicija pojavi trikrat, lahko igralci zahtevajo remi za %1$s. Lichess izvaja uradna pravila FIDE, kot je opisano v členu 9.2 %2$s.</string>
   <string name="threefoldRepetitionLowerCase">trikratna ponovitev</string>
@@ -165,4 +167,13 @@ Prikažemo rdečo ikono, da vas opozorimo, ko se to zgodi. Pogosto lahko lichess
 3. Kliknite Piškotki in dovoljenja za spletno mesto
 4. Pomaknite se navzdol in kliknite Samodejno predvajanje medijev
 5. Dodajte lichess.org v Dovoli</string>
+  <string name="stopMyselfFromPlaying" comment="As in &quot;How to stop myself from playing?&quot;.&#10;&#10;It is an FAQ which addresses chess/gaming addiction.">Naj se ustavim pri igranju?</string>
+  <string name="mentalHealthCondition" comment="Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">samostojno stanje duševnega zdravja</string>
+  <string name="lichessUserstyles" comment="User styles are ways to customise the appearance of Lichess using third-party tools.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">Lichess uporabniški slogi</string>
+  <string name="fewerLobbyPools" comment="Lobby pools are options to quick pair for games on the home page (e.g. 1+0, 3+0).&#10;In this context, this is mentioned for people who want to limit bullet and blitz.&#10;&#10;Part of a longer FAQ answer on chess/gaming addiction. See the full text on adviceOnMitigatingAddiction.">manj bazenov v preddverju</string>
+  <string name="adviceOnMitigatingAddiction" comment="Part of the FAQ answer &quot;How to [...] Stop myself from playing?&quot;&#10;&#10;%1$s, %2$s, and %3$s is software which may change.&#10;&#10;%4$s is &quot;Lichess userstyles&quot; (as in CSS styles)&#10;%5$s is &quot;fewer lobby pools&quot;.&#10;&#10;%6$s is &quot;stand-alone mental health condition&quot;.">Redno prejemamo sporočila uporabnikov, ki nas prosijo za pomoč, da jim preprečimo preveč igranja.
+
+Čeprav Lichess ne prepoveduje ali blokira igralcev, razen kršitev pogojev storitve, priporočamo uporabo zunanjih orodij za omejitev pretiranega igralnega vedenja. Nekateri pogosti predlogi za blokatorje spletnih mest vključujejo %1$s, %2$s in %3$s. če želite še naprej uporabljati spletno mesto, vendar vas hitri časovni nadzor ne mika, vas bo morda zanimalo tudi %4$s, tukaj je ena z %5$s.
+
+Nekateri igralci se lahko počutijo, kot da se njihovo igralsko vedenje spreminja v odvisnost. Svetovna zdravstvena organizacija Razvrsti motnjo igranja kot %6$s, pri čemer so bistvene značilnosti 1) oslabljen nadzor nad igranjem iger, 2) povečanje prednosti, ki se daje igranju iger, in 3) eskalacija iger kljub negativnim posledicam. Če menite, da vaše vedenje pri igranju šaha sledi temu vzorcu, vas spodbujamo, da se o tem pogovorite s prijateljem ali družinskim članom in/ali s strokovnjakom.</string>
 </resources>

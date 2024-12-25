@@ -486,7 +486,7 @@ object Node:
   given Writes[Node.Comment]  = Json.writes[Node.Comment]
   given Writes[Node.Gamebook] = Json.writes[Node.Gamebook]
 
-  import Eval.jsonWrites
+  import lila.tree.evals.jsonWrites
 
   given defaultNodeJsonWriter: Writes[Node] = makeNodeJsonWriter(alwaysChildren = true)
 

@@ -5,7 +5,7 @@ import { type MaybeVNode, type VNode, bind, onInsert } from 'common/snabbdom';
 import { opposite as CgOpposite, uciToMove } from 'chessground/util';
 import type { ChapterId, ChapterPreview, StudyPlayer } from './interfaces';
 import type StudyCtrl from './studyCtrl';
-import { type CloudEval, type MultiCloudEval, renderEvalToggle, renderScoreAtDepth } from './multiCloudEval';
+import { type CloudEval, type MultiCloudEval, renderEvalToggle, renderScore } from './multiCloudEval';
 import { type Prop, type Toggle, defined, notNull, prop, toggle } from 'common';
 import type { Color } from 'chessops';
 import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyChapters';
@@ -256,7 +256,7 @@ export const verticalEvalGauge = (chap: ChapterPreview, cloudEval: MultiCloudEva
                   ((1 - (cev?.chances || 0)) / 2) * 100,
                 )}%`;
                 if (cev) {
-                  elm.title = renderScoreAtDepth(cev);
+                  elm.title = renderScore(cev);
                   elm.classList.add('mini-game__gauge--set');
                 }
               }

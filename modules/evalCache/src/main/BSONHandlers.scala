@@ -1,12 +1,13 @@
 package lila.evalCache
 
 import chess.format.{ BinaryFen, Uci }
+import chess.eval.*
 import reactivemongo.api.bson.*
 
 import scala.util.{ Success, Try }
 
 import lila.db.dsl.{ *, given }
-import lila.tree.{ CloudEval, Moves, Pv, Score }
+import lila.tree.{ CloudEval, Moves, Pv }
 
 private object BSONHandlers:
 

@@ -239,7 +239,7 @@ final private class RelayFetch(
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
-          create = (key, _) => (if key.startsWith("started ") then 40.seconds else 3.minutes),
+          create = (key, _) => (if key.startsWith("started ") then 30.seconds else 3.minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
@@ -249,6 +249,7 @@ final private class RelayFetch(
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1 minutes).build()
 
+    // index starts at 1
     def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, started: Boolean)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
@@ -256,14 +257,14 @@ final private class RelayFetch(
       finishedGames
         .getIfPresent(key)
         .orElse(createdGames.getIfPresent(key))
-        .orElse((index >= lccCache.tailAt).so(tailGames.getIfPresent(key)))
+        .orElse((index > lccCache.tailAt).so(tailGames.getIfPresent(key)))
         .match
           case Some(game) => fuccess(game)
           case None =>
             fetch().addEffect: game =>
               if game.moves.isEmpty then createdGames.put(key, game)
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
-              else if index >= lccCache.tailAt then tailGames.put(key, game)
+              else if index > lccCache.tailAt then tailGames.put(key, game)
 
   // used to return the last successful result when a source fails
   // games are stripped of their moves, only tags are kept.
@@ -342,7 +343,7 @@ final private class RelayFetch(
   private def fetchJsonWithEtag[A: Reads](initialCapacity: Int): URL => CanProxy ?=> Fu[A] =
     import RelayFormat.Etag
     val cache = cacheApi.notLoadingSync[URL, (Etag, A)](initialCapacity, "relay.fetch.jsonWithEtag"):
-      _.expireAfterWrite(5 minutes).build()
+      _.expireAfterWrite(10 minutes).build()
     url =>
       CanProxy ?=>
         cache

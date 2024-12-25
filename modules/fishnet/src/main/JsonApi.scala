@@ -2,13 +2,13 @@ package lila.fishnet
 
 import chess.format.{ Fen, Uci }
 import chess.variant.Variant
+import chess.eval.Eval.{ Cp, Mate }
 import play.api.libs.json.*
 
 import lila.common.Json.{ *, given }
 import lila.core.chess.Depth
 import lila.core.net.IpAddress
 import lila.fishnet.Work as W
-import lila.tree.Eval.{ Cp, Mate }
 
 object JsonApi:
 

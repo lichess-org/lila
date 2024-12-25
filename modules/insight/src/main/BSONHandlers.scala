@@ -2,10 +2,11 @@ package lila.insight
 
 import chess.{ Color, Role }
 import chess.IntRating
+import chess.eval.WinPercent
 import chess.rating.IntRatingDiff
 import reactivemongo.api.bson.*
 
-import lila.analyse.{ AccuracyPercent, WinPercent }
+import lila.analyse.AccuracyPercent
 import lila.common.SimpleOpening
 import lila.db.BSON
 import lila.db.dsl.{ *, given }
