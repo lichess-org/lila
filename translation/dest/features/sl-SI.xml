@@ -16,7 +16,7 @@
   <string name="chessInsights">Šahovski vpogledi (podrobna analiza vaše igre)</string>
   <string name="allChessBasicsLessons">Vse lekcije osnov šaha</string>
   <string name="tacticalPuzzlesFromUserGames">Taktične uganke iz uporabniških iger</string>
-  <string name="personalOpeningExplorerX">%1$S (deluje tudi na %2$s)</string>
+  <string name="personalOpeningExplorerX">%1$s (deluje tudi na %2$s)</string>
   <string name="personalOpeningExplorer">Osebni raziskovalec odpiranja</string>
   <string name="globalOpeningExplorerInNbGames">Globalni raziskovalec odprtja (%s games!)</string>
   <string name="endgameTablebase">7-delna tabela končne igre</string>
