@@ -345,7 +345,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
 
     private def renderPost(post: UblogPost.PreviewPost, authorName: String) =
       frag(
-        tag("id")(post.id),
+        tag("id")(s"$netBaseUrl${urlOfPost(post)}"),
         tag("published")(post.lived.map(_.at).map(atomUi.atomDate)),
         tag("updated")(post.updated.orElse(post.lived).map(_.at).map(atomUi.atomDate)),
         link(
