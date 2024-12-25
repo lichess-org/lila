@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="broadcasts">Prijenosi</string>
+  <string name="myBroadcasts">Moji prijenosi</string>
   <plurals name="nbBroadcasts">
     <item quantity="one">%s prijenos</item>
     <item quantity="few">%s prijenosa</item>
     <item quantity="other">%s prijenosa</item>
   </plurals>
   <string name="liveBroadcasts">Prijenosi turnira uživo</string>
+  <string name="broadcastCalendar">Kalendar prijenosa</string>
   <string name="newBroadcast">Novi prijenos uživo</string>
+  <string name="subscribedBroadcasts">Pretplaćeni prijenosi</string>
+  <string name="aboutBroadcasts">O prijenosima</string>
+  <string name="howToUseLichessBroadcasts">Kako koristiti Lichess Prijenose</string>
+  <string name="theNewRoundHelp">Nova runda će imati iste članove i suradnike kao i prošla.</string>
   <string name="addRound">Dodajte rundu</string>
   <string name="ongoing">U tijeku</string>
   <string name="upcoming">Nadolazi</string>
   <string name="completed">Završeno</string>
+  <string name="completedHelp">Lichess otkriva kraj runde, ali može pogriješiti. Koristite ovo kako bi postavili ručno.</string>
   <string name="roundName">Ime runde</string>
   <string name="roundNumber">Broj runde</string>
   <string name="tournamentName">Ime turnira</string>
   <string name="tournamentDescription">Kratak opis turnira</string>
   <string name="fullDescription">Potpuni opis događaja</string>
   <string name="fullDescriptionHelp">Neobavezni dugi opis prijenosa. %1$s je dostupno. Duljina mora biti manja od %2$s znakova.</string>
+  <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN Izvor URL</string>
   <string name="sourceUrlHelp">Link koji će Lichess ispitavati kako bi dobio PGN ažuriranja. Mora biti javno dostupan s interneta.</string>
+  <string name="sourceGameIds">Do 64 identifikacijskih oznaka Lichess partija, odvojeni razmakom.</string>
+  <string name="startDateTimeZone">Datum početka turnira u lokalnoj vremenskoj zoni: %s</string>
   <string name="startDateHelp">Neobavezno, ako znaš kada događaj počinje</string>
   <string name="currentGameUrl">URL trenutne igre</string>
   <string name="downloadAllRounds">Preuzmite sve igre</string>
@@ -26,6 +36,17 @@
   <string name="deleteRound">Izbriši ovu rundu</string>
   <string name="definitivelyDeleteRound">Definitivno izbrišite rundu i njezine igre.</string>
   <string name="deleteAllGamesOfThisRound">Izbriši sve igre ovog kola. Izvor mora biti aktivan kako bi ih se ponovno stvorilo.</string>
+  <string name="editRoundStudy">Prilagodi rundu studije</string>
   <string name="deleteTournament">Izbriši ovaj turnir</string>
+  <string name="definitivelyDeleteTournament">Definitvno izbirši cijeli turnir, sve runde i sve partije unutar turnira.</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Prikaži igračeve bodove na temelju odigranih partija</string>
+  <string name="replacePlayerTags">Neobavezno: zamijeni ime, rejting i titulu igrača</string>
+  <string name="fideFederations">FIDE federacije</string>
+  <string name="top10Rating">Top 10 rejting</string>
+  <string name="fidePlayers">FIDE igrači</string>
+  <string name="fidePlayerNotFound">FIDE igrač nije pronađen</string>
+  <string name="fideProfile">FIDE profil</string>
+  <string name="federation">Federacija</string>
+  <string name="ageThisYear">Starost ove godine</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Nerangiran</string>
 </resources>
