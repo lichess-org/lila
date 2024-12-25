@@ -3,8 +3,8 @@
   <string name="broadcasts">Uitsendings</string>
   <string name="myBroadcasts">My uitsendings</string>
   <plurals name="nbBroadcasts">
-    <item quantity="one">Uitsending</item>
-    <item quantity="other">uitsendings</item>
+    <item quantity="one">%s uitsending</item>
+    <item quantity="other">%s uitsendings</item>
   </plurals>
   <string name="liveBroadcasts">Regstreekse toernooi uitsendings</string>
   <string name="newBroadcast">Nuwe regstreekse uitsendings</string>
