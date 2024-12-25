@@ -34,6 +34,10 @@
     <item quantity="one">Ha jugat %s partida per correspondència</item>
     <item quantity="other">Ha jugat %s partides per correspondència</item>
   </plurals>
+  <plurals name="completedNbVariantGames">
+    <item quantity="one">Has jugat %1$s %2$s partida per correspondència</item>
+    <item quantity="other">Has jugat %1$s %2$s partides per correspondència</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Segueixes a %s jugador</item>
     <item quantity="other">Segueixes a %s jugadors</item>

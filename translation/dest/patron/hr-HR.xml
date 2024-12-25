@@ -82,4 +82,7 @@ Međutim, pokrovitelji imaju pravo da se hvale sa novom super ikonom na svom pro
   <string name="nowOneMonth">Upravo ste postali Lichess Pokrovitelj na period od mjesec dana!</string>
   <string name="downgradeNextMonth">Nakon isticanja perioda od mjesec dana, naplata se NEĆE ponovo procesirati, a status pokrovitelja će Vam se besplatno ukinuti.</string>
   <string name="changeCurrency">Promijeni valutu</string>
+  <string name="paymentDetails">Detalji za plaćanje</string>
+  <string name="updatePaymentMethod">Ažuriraj metodu plaćanja</string>
+  <string name="stripeManageSub">Upravljaj svojim pretplatama i preuzmite svoje račune</string>
 </resources>

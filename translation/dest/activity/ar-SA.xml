@@ -21,7 +21,7 @@
   <plurals name="solvedNbPuzzles">
     <item quantity="zero">تم حل %s لغز تكتيكي</item>
     <item quantity="one">تم حل %s لغز تكتيكي</item>
-    <item quantity="two">تم حل %s من الالغاز التكتيكية</item>
+    <item quantity="two">تم حل %s من الألغاز التكتيكية</item>
     <item quantity="few">تم حل %s ألغاز تكتيكية</item>
     <item quantity="many">تم حل %s لغز تكتيكي</item>
     <item quantity="other">تم حل %s لغز تكتيكي</item>

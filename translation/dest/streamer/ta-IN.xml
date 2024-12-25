@@ -34,8 +34,8 @@
   <string name="youTubeChannelId">உங்கள் யூடியூப் அலைவரிசை அடையாளம்</string>
   <string name="streamerName">லிசெஸ் இல் உங்கள் தொடரோடி பெயர்</string>
   <plurals name="keepItShort">
-    <item quantity="one">சுருக்கமாக வைக்கவும்: %s எழுத்து அதிகபட்சம்</item>
-    <item quantity="other">சுருக்கமாக வைத்திருங்கள்: %s எழுத்துகள் அதிகபட்சம்</item>
+    <item quantity="one">சுருக்கமாக வைக்கவும்: அதிகபட்சம் %s எழுத்து</item>
+    <item quantity="other">சுருக்கமாக வைத்திருங்கள்: அதிகபட்சம் %s எழுத்துக்கள்</item>
   </plurals>
   <string name="visibility">தொடரோடிகள் பக்கத்தில் புலப்படும்</string>
   <string name="whenApproved">மட்டுநிறுத்துனர்களால் அங்கீகரிக்கப்படும்போது</string>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="arena">Arena</string>
   <string name="arenaTournaments">Arena turniri</string>
   <string name="isItRated">Igra li se za bodove?</string>
   <string name="willBeNotified">Bit ćeš obaviješten/a kada turnir počne, stoga slobodno možeš igrati u drugom prozoru dok čekaš.</string>
@@ -62,4 +63,27 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="averagePerformance">Osrednji performans</string>
   <string name="averageScore">Prosječni rezultat</string>
   <string name="myTournaments">Moji turniri</string>
+  <string name="editTournament">Prilagodi turnir</string>
+  <string name="editTeamBattle">Prilagodi timsku borbu</string>
+  <string name="defender">Branitelj</string>
+  <string name="pickYourTeam">Izaberite Vašu ekipu</string>
+  <string name="whichTeamWillYouRepresentInThisBattle">Koju ekipu će te predstavljati u ovoj borbi?</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">Morate se pridružiti jednom od ovih ekipa kako bi sudjelovali!</string>
+  <string name="created">Organizirano</string>
+  <string name="recentlyPlayed">Prethodno odigrano</string>
+  <string name="bestResults">Najbolji rezultati</string>
+  <string name="tournamentStats">Statistika turnira</string>
+  <string name="rankAvgHelp">Prosječna pozicija je postotak tvoje pozicije. Niže je bolje.
+
+Na primjer, 3. pozicija u turniru sa 100 igrača = 3%. 10. pozicija u turiniru s 1000 igrača = 1%.</string>
+  <string name="medians">medijani</string>
+  <string name="allAveragesAreX">Svi prosjeci na ovoj stranici su %s.</string>
+  <string name="total">Ukupno</string>
+  <string name="pointsAvg">Prosjek bodova</string>
+  <string name="pointsSum">Suma bodova</string>
+  <string name="rankAvg">Prosječna pozicija</string>
+  <string name="tournamentWinners">Pobjednici turnira</string>
+  <string name="tournamentShields">Turnirski štitovi</string>
+  <string name="onlyTitled">Samo igrači s titulom</string>
+  <string name="onlyTitledHelp">Zahtjevaj službenu titulu za pridruženje turniru</string>
 </resources>

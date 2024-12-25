@@ -56,6 +56,7 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Svi sinkronizirani članovi ostaju na istoj poziciji</string>
   <string name="shareChanges">Podijeli promjene sa gledateljima i pohrani ih na server</string>
   <string name="playing">U tijeku</string>
+  <string name="showEvalBar">Evaluacijska mjerila</string>
   <string name="first">Prvi</string>
   <string name="previous">Prethodno</string>
   <string name="next">Sljedeće</string>
@@ -170,4 +171,5 @@
   <string name="playAgain">Igraj ponovno</string>
   <string name="whatWouldYouPlay">Što bi igrali u ovoj poziciji?</string>
   <string name="youCompletedThisLesson">Čestitamo! Završili ste lekciju.</string>
+  <string name="perPage">%s po stranici</string>
 </resources>
