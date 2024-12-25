@@ -1,2 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="preferences">Preferencies</string>
+  <string name="display">Amosar</string>
+  <string name="privacy">Privacidá</string>
+  <string name="notifications">Notificaciones</string>
+  <string name="pieceAnimation">Animación de les pieces</string>
+  <string name="materialDifference">Diferencia material</string>
+  <string name="boardHighlights">Destacar casielles del tableru (últimu movimientu y xaque)</string>
+  <string name="pieceDestinations">Destín de les pieces (movimientos válidos y antemanaos)</string>
+  <string name="boardCoordinates">Coordenaes del tableru (A-H, 1-8)</string>
+  <string name="moveListWhilePlaying">Llista de movimientos mientres la partida</string>
+  <string name="pgnPieceNotation">Notación de los movimientos</string>
+  <string name="chessPieceSymbol">Símbolu de la pieza</string>
+  <string name="pgnLetter">Inicial (n\'inglés) de la pieza (K, Q, R, B, N)</string>
+  <string name="zenMode" comment="zenMode&#10;&#10;This is not the religious meaning. Turning this option on takes away make elements of the user interface.&#10;&#10;Can also translate as 'Focus mode' as one example.">Mou Zen</string>
+  <string name="showPlayerRatings">Amosar les puntuaciones de los xugadores</string>
+  <string name="showFlairs">Amosar el to figurín</string>
+  <string name="explainShowPlayerRatings">Esto despinta\'l ELO en Lichess, pa ayudar a concentrate solo nel xuegu. Los xuegos por puntos van siguir afectando los tos ELO, esta opción ye solo pa lo que tu ves na plataforma.</string>
+  <string name="displayBoardResizeHandle">Amosar el control de tamañu del tableru</string>
+  <string name="onlyOnInitialPosition">Namás en posición inicial</string>
+  <string name="inGameOnly">Solu mientres la partida</string>
+  <string name="exceptInGame">Escepto nel xuegu</string>
+  <string name="chessClock">Reló d\'axedez</string>
+  <string name="tenthsOfSeconds">Décimes de segundu</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Cuando queden menos de 10 segundos</string>
+  <string name="horizontalGreenProgressBars">Barres de progresu horizontales verdes</string>
+  <string name="soundWhenTimeGetsCritical">Alerta cuando quede pocu tiempu</string>
+</resources>
