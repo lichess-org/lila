@@ -724,6 +724,7 @@
   <string name="withNobody">Con naide</string>
   <string name="withFriends">Con collacios</string>
   <string name="withEverybody">Con tol mundu</string>
+  <string name="kidModeExplanation">Trata de la seguridá. Na manera infantil, toles comunicaciones del sitiu tán desactivaes. Habilítelo pa los sos fíos y escolinos, pa protexelos d\'otros usuarios d\'Internet.</string>
   <string name="security">Seguridá</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anónimu</string>
@@ -748,11 +749,18 @@
   <string name="blackWinsGame">Ganen les prietes</string>
   <string name="next">Siguiente</string>
   <string name="solution">Solución</string>
+  <string name="agreementAssistance">Acepto qu\'en nengún momentu voi recibir ayuda mientres les mios partíes (d\'un ordenador d\'axedrez, un llibru, una base de datos o otra persona).</string>
   <string name="edit">Editar</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rellámpagu</string>
   <string name="rapid">Rápido</string>
   <string name="classical">Clásica</string>
+  <string name="positionInputHelp">Pega un FEN válidu para empecipiar cada partida dende una posición determinada.
+Namás funciona para partíes estándar, non con variantes.
+Pues usar el %s para xenerar una posición FEN, y depués pegala equí.
+Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="instructions">Instrucciones</string>
+  <string name="lichessPatronInfo">Lichess ye una organización benéfica y un software de códigu abiertu totalmente llibre.
+Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puramente con donaciones de los usuarios.</string>
   <string name="stats">Estadístiques</string>
 </resources>
