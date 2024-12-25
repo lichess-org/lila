@@ -5,7 +5,6 @@ import chess.{ Outcome, Ply }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
-import play.api.libs.ws.{ StandaloneWSRequest, StandaloneWSResponse }
 import scalalib.model.Seconds
 
 import lila.common.LilaScheduler
