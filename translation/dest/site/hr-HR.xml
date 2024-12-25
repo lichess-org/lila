@@ -375,11 +375,6 @@
     <item quantity="few">%s studije</item>
     <item quantity="other">%s studija</item>
   </plurals>
-  <plurals name="nbSimuls">
-    <item quantity="one">Simultanka</item>
-    <item quantity="few">Simultanke</item>
-    <item quantity="other">Simultanki</item>
-  </plurals>
   <string name="viewTournament">Pogledaj turnir</string>
   <string name="backToTournament">Povratak na turnir</string>
   <string name="noDrawBeforeSwissLimit">U švicarskom turniru neriješen rezultat nije moguć prije 30. poteza.</string>
