@@ -584,6 +584,13 @@ export default class RoundController implements MoveRootCtrl {
     wakeLock.release();
     if (this.data.game.status.name === 'started') site.sound.saySan(this.stepAt(this.ply).san, false);
     else site.sound.say(viewStatus(this), false, false, true);
+    if (
+      !d.player.spectator &&
+      o.status.name === 'outoftime' &&
+      this.chessground.state.turnColor === d.opponent.color
+    ) {
+      notify(viewStatus(this));
+    }
   };
 
   challengeRematch = async (): Promise<void> => {
