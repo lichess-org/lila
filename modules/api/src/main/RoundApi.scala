@@ -127,13 +127,9 @@ final private[api] class RoundApi(
       tourApi.gameView.analysis(pov.game),
       pov.game.simulId.so(simulApi.find),
       swissApi.gameView(pov),
-      ctx.me
-        .ifTrue(ctx.isMobileApi)
-        .so:
-          noteApi.get(pov.gameId, _)
-      ,
+      ctx.me.ifTrue(ctx.isMobileApi).so(noteApi.get(pov.gameId, _)),
       owner.so(forecastApi.loadForDisplay(pov)),
-      withFlags.puzzles.so(pov.game.opening.map(_.opening)).so(puzzleOpeningApi.getClosestTo),
+      withFlags.puzzles.so(pov.game.opening.map(_.opening)).so(puzzleOpeningApi.getClosestTo(_, true)),
       bookmarkApi.exists(pov.game, ctx.me)
     ).mapN: (json, tour, simul, swiss, note, fco, puzzleOpening, bookmarked) =>
       (
@@ -160,8 +156,8 @@ final private[api] class RoundApi(
     owner
       .so(forecastApi.loadForDisplay(pov))
       .map: fco =>
-        withForecast(pov, owner, fco) {
-          withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)) {
+        withForecast(pov, owner, fco):
+          withTree(pov, analysis = none, initialFen, ExportOptions(opening = true)):
             jsonView.userAnalysisJson(
               pov,
               pref,
@@ -169,8 +165,6 @@ final private[api] class RoundApi(
               orientation,
               owner = owner
             )
-          }
-        }
       .flatMap(externalEngineApi.withExternalEngines)
 
   private def withTree(

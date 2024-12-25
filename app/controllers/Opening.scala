@@ -49,7 +49,7 @@ final class Opening(env: Env) extends LilaController(env):
                     s"${routes.Opening.byKeyAndMoves(query.key, page.query.pgnUnderscored)}?r=1"
                 else
                   Ok.async:
-                    page.query.exactOpening.so(env.puzzle.opening.getClosestTo).map { puzzle =>
+                    page.query.exactOpening.so(env.puzzle.opening.getClosestTo(_)).map { puzzle =>
                       val puzzleKey = puzzle.map(_.fold(_.family.key.value, _.opening.key.value))
                       views.opening.ui.show(page, puzzleKey)
                     }

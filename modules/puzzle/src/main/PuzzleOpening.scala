@@ -54,7 +54,7 @@ final class PuzzleOpeningApi(
     gameRepo: lila.core.game.GameRepo,
     cacheApi: CacheApi,
     mongoCache: MongoCache.Api
-)(using Executor, akka.stream.Materializer):
+)(using Executor, akka.stream.Materializer, Scheduler):
   import BsonHandlers.given
   import SimpleOpening.*
   import PuzzleOpening.*
@@ -94,10 +94,11 @@ final class PuzzleOpeningApi(
           }
 
   def getClosestTo(
-      opening: Opening
+      opening: Opening,
+      quickOrNone: Boolean = false
   ): Fu[Option[Either[PuzzleOpening.FamilyWithCount, PuzzleOpening.WithCount]]] =
     SimpleOpening(opening).so: lilaOp =>
-      collection.map: coll =>
+      (if quickOrNone then collectionQuickly else collection.map(some)).mapz: coll =>
         coll.openingMap
           .get(lilaOp.key)
           .map(Right.apply)
@@ -111,6 +112,9 @@ final class PuzzleOpeningApi(
 
   def collection: Fu[PuzzleOpeningCollection] =
     collectionCache.get {}
+
+  def collectionQuickly: Fu[Option[PuzzleOpeningCollection]] =
+    collection.map(some).withTimeoutDefault(20.millis, none)
 
   def count(key: Either[LilaOpeningFamily.Key, SimpleOpening.Key]): Fu[Int] =
     collection.dmap: coll =>
