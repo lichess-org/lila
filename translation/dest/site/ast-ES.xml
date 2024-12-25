@@ -508,7 +508,7 @@
   <string name="realName">Nome real</string>
   <string name="setFlair">Pon la to bandera</string>
   <string name="flair">Bandera</string>
-  <string name="youCanHideFlair">Hai una opción pa ocultar la configuración d\'entornu en tou\'l sitiu.</string>
+  <string name="youCanHideFlair">Hai una opción pa amatagar la configuración d\'entornu en tou\'l sitiu.</string>
   <string name="biography">Biografía</string>
   <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">País o rexón</string>
   <string name="thankYou">¡Gracies!</string>
@@ -694,7 +694,7 @@
   <string name="keyMoveBackwardOrForward">movimientu escontra tras y escontra alante</string>
   <string name="keyGoToStartOrEnd">dir al entamu/fin</string>
   <string name="keyCycleSelectedVariation">Alterna la variante escoyida</string>
-  <string name="keyShowOrHideComments">amosar/ocultar comentarios</string>
+  <string name="keyShowOrHideComments">amosar/amatagar comentarios</string>
   <string name="keyEnterOrExitVariation">entrar/salir de la variante</string>
   <string name="keyRequestComputerAnalysis">Solicitar análisis del ordenador, apriende de los tos fallos</string>
   <string name="keyNextLearnFromYourMistakes">Siguiente (Apriende de los tos fallos)</string>
@@ -744,7 +744,7 @@
   <string name="boardReset">Restablecer colores predeterminaos</string>
   <string name="perfRatingX">Rating: %s</string>
   <string name="theGameIsADraw">La partida ye tables.</string>
-  <string name="hideBestMove">Ocultar meyor movimientu</string>
+  <string name="hideBestMove">Amatagar meyor movimientu</string>
   <string name="whiteWinsGame">Ganen les blanques</string>
   <string name="blackWinsGame">Ganen les prietes</string>
   <string name="next">Siguiente</string>
