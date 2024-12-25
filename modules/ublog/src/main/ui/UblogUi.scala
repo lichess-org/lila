@@ -367,7 +367,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
             post.intro
           ).render // html as escaped string in xml
         ),
-        tag("tag")("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
+        tag("media:thumbnail")(attr("url") := thumbnailUrl(post, _.Size.Large)),
         tag("author")(tag("name")(authorName))
       )
 
