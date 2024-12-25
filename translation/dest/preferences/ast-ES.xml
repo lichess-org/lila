@@ -68,4 +68,5 @@
   <string name="notifyWeb">Restolador web</string>
   <string name="notifyDevice">Dispositivu</string>
   <string name="bellNotificationSound">Campana de notificación</string>
+  <string name="blindfold" comment="As in Blindfold chess">A ciegas</string>
 </resources>
