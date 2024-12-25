@@ -2,6 +2,10 @@ import { url as assetUrl, jsModule } from './asset';
 import { log } from 'common/permalog';
 import { storage } from 'common/storage';
 
+function makeUrlSafe(base64: string): string {
+  return base64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
 export default async function () {
   if (!('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window)) return;
   const workerUrl = new URL(
@@ -21,9 +25,10 @@ export default async function () {
     if (!vapid || Notification.permission !== 'granted') return store.remove();
     else if (sub && !resub) return;
 
-    const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
-
-    newSub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey });
+    newSub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: makeUrlSafe(vapid),
+    });
 
     if (!newSub) throw new Error(JSON.stringify(await reg.pushManager.permissionState()));
 
