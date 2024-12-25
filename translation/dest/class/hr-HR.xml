@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Brzo stvori sigurno korisničko ime i lozinku za studente</string>
   <string name="trackStudentProgress">Prati napredak studenata u njihovim partijama i šahovskim problematikama</string>
   <string name="messageAllStudents">Obavijesti sve studente o novim nastavnim materijalima</string>
-  <string name="freeForAllForever">Potpuno besplatno za sve, zauvijek, i to bez oglasa ili tragača</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Potpuno besplatno za sve, zauvijek, i to bez oglasa ili tragača</string>
   <string name="applyToBeLichessTeacher">Prijavi se da postaneš Lichess Nastavnik</string>
   <string name="noClassesYet">Još nema predavanja.</string>
   <string name="teachersX">Nastavnici: %s</string>
@@ -57,6 +57,8 @@ Lozinka: %3$s</string>
     <item quantity="few">%s pozivnice na čekanju</item>
     <item quantity="other">%s pozivnica na čekanju</item>
   </plurals>
+  <string name="pending">U tijeku</string>
+  <string name="declined">Odbijeno</string>
   <string name="onlyVisibleToTeachers">Vidljivo samo nastavnicima</string>
   <string name="lastActiveDate">Zadnja aktivnost</string>
   <string name="managed">Vođen</string>
