@@ -204,14 +204,21 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
-  def studies(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
+  def studies(id: ClasId, topicStr: String) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       import lila.core.study.Order
+      import lila.study.StudyTopic
       for
         students                <- env.clas.api.student.allWithUsers(clas)
-        teacherStudiesPaginator <- env.study.pager.mine(Order.updated, 1)
+        teacherStudiesPaginator <- {
+          if (topicStr == "") 
+            env.study.pager.mine(Order.updated, 1)
+          else
+            env.study.pager.byTopic(StudyTopic(topicStr), Order.mine, 1 )
+        }
         studies = teacherStudiesPaginator.currentPageResults.map(s => (s.study.id, s.study.name))
-        page <- renderPage(views.clas.teacherDashboard.studies(clas, students, studies))
+        topics <- env.study.topicApi.userTopics(me.userId)
+        page <- renderPage(views.clas.teacherDashboard.studies(clas, students, studies, topics.value.map(_.toString())))
       yield Ok(page)
   }
 
@@ -223,7 +230,7 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
         members <- env.study.api.members(studyId)
         memberIds = members.get.ids.toList
         _ <- env.study.api.kickAndInviteMany(studyId, kick = memberIds, invite = studentIds, me.myId)
-      yield Redirect(routes.Clas.studies(clasId)).flashing(
+      yield Redirect(routes.Clas.studies(clasId, "")).flashing(
         "success" -> s"You can share this link ${routes.Study.show(studyId).absoluteURL()} with the class"
       )
   }

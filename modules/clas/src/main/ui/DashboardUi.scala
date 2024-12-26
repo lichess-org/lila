@@ -42,7 +42,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             a(cls := active.active("students"), href := routes.Clas.students(c.id))(
               trans.clas.students()
             ),
-            a(cls := active.active("studies"), href := routes.Clas.studies(c.id))(
+            a(cls := active.active("studies"), href := routes.Clas.studies(c.id, ""))(
               "Studies"
             )
           )
@@ -164,9 +164,14 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
     def studies(
         clas: Clas,
         students: List[Student.WithUser],
-        studies: Seq[(StudyId, lila.core.study.data.StudyName)]
+        studies: Seq[(StudyId, lila.core.study.data.StudyName)],
+        topics: List[String]
     )(using Context) =
       TeacherPage(clas, students, "studies")():
+        val topicLinks: Frag = div(cls := "topic-list")(
+        topics.map: topic =>
+          a(href := routes.Clas.studies(clas.id, topic))(topic)
+      )
         val studyForms: Frag = studies.map { case (studyId, studyName) =>
           postForm(action := routes.Clas.inviteToStudy(clas.id, studyId))(
             form3.submit(studyName, icon = Icon.InternalArrow.some)(
@@ -177,6 +182,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         }
         frag(
           h2("Invite this class to one of your studies"),
+          topicLinks,
           studyForms
         )
 
