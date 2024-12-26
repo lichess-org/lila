@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="waiting">This is a TEST of Crowdin\'s language mapping (language field - should come through as nso instead of ns) and the string will be removed within a few days.</string>
+</resources>
