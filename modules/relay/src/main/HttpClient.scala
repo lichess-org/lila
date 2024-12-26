@@ -55,13 +55,12 @@ private final class HttpClient(
         req
           .get()
           .monValue: res =>
-            val etagHit = (req.header("If-None-Match"), res.header("Etag")) match
-              case (None, None)                      => "none"  // endpoint doesn't support Etag
-              case (None, Some(_))                   => "first" // local cache is cold
-              case (Some(_), _) if res.status == 304 => "hit"   // cache hit
-              case (Some(_), Some(_))                => "miss"  // new data from the endpoint
-              case (Some(_), None) => "fail" // we sent an etag but the endpoint doesn't support it?
-            _.relay.httpGet(res.status, url.host.toString, etag = etagHit, req.proxyServer.map(_.host))
+            _.relay.httpGet(
+              res.status,
+              url.host.toString,
+              etag = monitorEtagHit(req, res),
+              req.proxyServer.map(_.host)
+            )
           .flatMap: res =>
             if res.status == 200 || res.status == 304 then fuccess(res)
             else fufail(Status(res.status, url))
@@ -79,6 +78,14 @@ private final class HttpClient(
       .withRequestTimeout(5.seconds)
       .withFollowRedirects(false)
     proxySelector(url).foldLeft(req)(_ withProxyServer _)
+
+  private def monitorEtagHit(req: StandaloneWSRequest, res: StandaloneWSResponse): String =
+    (req.header("If-None-Match"), res.header("Etag")) match
+      case (None, None)                      => "none"  // endpoint doesn't support Etag
+      case (None, Some(_))                   => "first" // local cache is cold
+      case (Some(_), _) if res.status == 304 => "hit"   // cache hit
+      case (Some(_), Some(_))                => "miss"  // new data from the endpoint
+      case (Some(_), None) => "fail" // we sent an etag but the endpoint doesn't support it?
 
 private object HttpClient:
   type Etag = String
