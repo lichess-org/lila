@@ -41,6 +41,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
             a(cls := active.active("edit"), href := routes.Clas.edit(c.id))(trans.site.edit()),
             a(cls := active.active("students"), href := routes.Clas.students(c.id))(
               trans.clas.students()
+            ),
+            a(cls := active.active("studies"), href := routes.Clas.studies(c.id))(
+              "Studies"
             )
           )
         ),
@@ -157,6 +160,25 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
               studentList(c, archived)
             )
         frag(inviteBox, archivedBox)
+
+    def studies(
+        clas: Clas,
+        students: List[Student.WithUser],
+        studies: Seq[(StudyId, lila.core.study.data.StudyName)]
+    )(using Context) =
+      TeacherPage(clas, students, "studies")():
+        val studyForms: Frag = studies.map { case (studyId, studyName) =>
+          postForm(action := routes.Clas.inviteToStudy(clas.id, studyId))(
+            form3.submit(studyName, icon = Icon.InternalArrow.some)(
+              cls   := "yes-no-confirm button-blue button-empty",
+              title := "Invite class to study"
+            )
+          )
+        }
+        frag(
+          h2("Invite this class to one of your studies"),
+          studyForms
+        )
 
     def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
       TeacherPage(c, students, "progress")():

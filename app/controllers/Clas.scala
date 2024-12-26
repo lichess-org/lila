@@ -204,6 +204,30 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
+  def studies(id: ClasId) = Secure(_.Teacher) { ctx ?=> me ?=>
+    WithClass(id): clas =>
+      import lila.core.study.Order
+      for
+        students                <- env.clas.api.student.allWithUsers(clas)
+        teacherStudiesPaginator <- env.study.pager.mine(Order.updated, 1)
+        studies = teacherStudiesPaginator.currentPageResults.map(s => (s.study.id, s.study.name))
+        page <- renderPage(views.clas.teacherDashboard.studies(clas, students, studies))
+      yield Ok(page)
+  }
+
+  def inviteToStudy(clasId: ClasId, studyId: lila.core.id.StudyId) = Secure(_.Teacher) { ctx ?=> me ?=>
+    WithClass(clasId): clas =>
+      for
+        students <- env.clas.api.student.activeWithUsers(clas)
+        studentIds = students.map(_.user.id)
+        members <- env.study.api.members(studyId)
+        memberIds = members.get.ids.toList
+        _ <- env.study.api.kickAndInviteMany(studyId, kick = memberIds, invite = studentIds, me.myId)
+      yield Redirect(routes.Clas.studies(clasId)).flashing(
+        "success" -> s"You can share this link ${routes.Study.show(studyId).absoluteURL()} with the class"
+      )
+  }
+
   def progress(id: ClasId, perfKey: PerfKey, days: Days) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       env.clas.api.student.activeWithUsers(clas).flatMap { students =>

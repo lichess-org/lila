@@ -364,6 +364,18 @@ final class StudyApi(
         val members = study.members.update(userId, _.copy(role = role))
         for _ <- studyRepo.setRole(study, userId, role) yield onMembersChange(study, members, members.ids)
 
+  def kickAndInviteMany(studyId: StudyId, kick: List[UserId], invite: List[UserId], who: MyId) =
+    sequenceStudy(studyId): study =>
+      var doNotKick = kick.intersect(invite) :+ who.userId
+      val doKick    = kick.diff(doNotKick)
+      Future.sequence(doKick.map(studyRepo.removeMember(study, _)))
+      Future.sequence(
+        invite.map(userId =>
+          studyRepo.addMember(study, StudyMember(userId, lila.study.StudyMember.Role.Read))
+        )
+      )
+      funit
+
   def invite(
       byUserId: UserId,
       studyId: StudyId,
