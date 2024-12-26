@@ -108,6 +108,7 @@
   <string name="lossSavedBy50MoveRule">Rê li ber mexlubiyetê hate girtin ji ber qaîdeya 50 hemleyê</string>
   <string name="winOr50MovesByPriorMistake">Qezenckirin an 50 hemleyên ji ber xetayên berê</string>
   <string name="lossOr50MovesByPriorMistake">Qeybkirin an 50 hemleyên ji ber xetayên berê</string>
+  <string name="unknownDueToRounding">Qezenckirin/qeybkirin tenê gava ku xetên di binkeya tabloyê de pêşnîyarkirî piştî zeftkirin an hemleya pîyonê yê dawî û pê ve were şopandin tê garantîkirin, ji ber giloverkirina nirxên DTZyê yên di binkeyên tabloyê ya Syzygy de ya muhtemel.</string>
   <string name="allSet">Temam e!</string>
   <string name="importPgn">PGNyê bîne navê</string>
   <string name="delete">Jê bibe</string>
@@ -117,6 +118,7 @@
   <string name="byCPL">Bi CPL</string>
   <string name="enable">Biçalakîne</string>
   <string name="bestMoveArrow">Nîşandana hemleya çêtirîn</string>
+  <string name="showVariationArrows">Tîrikên varyasyonê nîşan bide</string>
   <string name="evaluationGauge">Nîşandera nirxandinê</string>
   <string name="multipleLines">Varyantên pirhejmar</string>
   <string name="cpus">CPU</string>
