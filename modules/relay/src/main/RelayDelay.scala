@@ -19,7 +19,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
   ): Fu[RelayGames] =
     dedupCache(url, round, () => doFetchUrl(url))
       .flatMap: latest =>
-        round.sync.delay match
+        round.sync.delayMinusLag match
           case Some(delay) if delay > 0 => store.get(url, delay).map(_ | latest.map(_.resetToSetup))
           case _                        => fuccess(latest)
 
