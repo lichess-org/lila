@@ -93,6 +93,11 @@ final class Env(
 
   private lazy val sync = wire[RelaySync]
 
+  private lazy val proxy                 = wire[RelayProxy]
+  private def selectProxy: ProxySelector = proxy.select
+
+  private lazy val httpClient = wire[HttpClient]
+
   private lazy val formatApi = wire[RelayFormatApi]
 
   private lazy val delay = wire[RelayDelay]

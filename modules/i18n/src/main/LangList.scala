@@ -12,6 +12,7 @@ object LangList extends lila.core.i18n.LangList:
     Lang("an", "ES")  -> "Aragonés",
     Lang("ar", "SA")  -> "العربية",
     Lang("as", "IN")  -> "অসমীয়া",
+    Lang("ast", "ES") -> "Asturianu",
     Lang("av", "DA")  -> "авар мацӀ",
     Lang("az", "AZ")  -> "Azərbaycanca",
     Lang("be", "BY")  -> "Беларуская",
