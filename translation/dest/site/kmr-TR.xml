@@ -70,6 +70,8 @@
   <string name="promoteVariation">Varyasyonê bipêşîne</string>
   <string name="makeMainLine">Bike rêza esasî</string>
   <string name="deleteFromHere">Ji vir pê de jê bibe</string>
+  <string name="collapseVariations">Varyasyonan teng bike</string>
+  <string name="expandVariations">Varyasyonan fireh bike</string>
   <string name="forceVariation">Zorê bide bo vê varyasyonê</string>
   <string name="copyVariationPgn">PGNa varyasyonê kopî bike</string>
   <string name="move">Hemle</string>
@@ -101,8 +103,11 @@
   <string name="openingExplorer">Kaşifê destpêkê</string>
   <string name="openingEndgameExplorer">Geroka despêk/dawîyê</string>
   <string name="xOpeningExplorer">%s kaşifê destpêkê</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Hemleya pêşî ya kaşîfê vekirin/dawîya lîstikê bilîze</string>
   <string name="winPreventedBy50MoveRule">Ji ber qaîdeya 50 hemleyê rê li ber serkeftinê hate girtin</string>
   <string name="lossSavedBy50MoveRule">Rê li ber mexlubiyetê hate girtin ji ber qaîdeya 50 hemleyê</string>
+  <string name="winOr50MovesByPriorMistake">Qezenckirin an 50 hemleyên ji ber xetayên berê</string>
+  <string name="lossOr50MovesByPriorMistake">Qeybkirin an 50 hemleyên ji ber xetayên berê</string>
   <string name="allSet">Temam e!</string>
   <string name="importPgn">PGNyê bîne navê</string>
   <string name="delete">Jê bibe</string>
