@@ -71,8 +71,7 @@
 
   .pager {
     @extend %flex-center;
-
-    user-select: none;
+    @include prevent-select;
 
     .page {
       margin: 0 3px;

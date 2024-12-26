@@ -14,7 +14,7 @@ export default class Report {
   tsHideReportDialog: StoredProp<number>;
 
   // bump when logic is changed, to distinguish cached clients from new ones
-  private version = 5;
+  private version = 6;
 
   constructor() {
     this.tsHideReportDialog = storedIntProp('puzzle.report.hide.ts', 0);
@@ -47,7 +47,7 @@ export default class Report {
       ctrl.mainline.some((n: Tree.Node) => n.id === node.id)
     ) {
       const [bestEval, secondBestEval] = [ev.pvs[0], ev.pvs[1]];
-      // stricly identical to lichess-puzzler v49 check
+      // stricter than lichess-puzzler v49 check in how it defines similar moves
       if (
         (ev.depth > 50 || ev.nodes > 25_000_000) &&
         bestEval &&
@@ -56,7 +56,9 @@ export default class Report {
       ) {
         // in all case, we do not want to show the dialog more than once
         this.reported = true;
-        const reason = `(v${this.version}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${showPv(pv)}`).join(', ')}`;
+        const engine = ctrl.ceval.engines.active;
+        const engineName = engine?.short || engine.name;
+        const reason = `(v${this.version}, ${engineName}) after move ${plyToTurn(node.ply)}. ${node.san}, at depth ${ev.depth}, multiple solutions, pvs ${ev.pvs.map(pv => `${pv.moves[0]}: ${showPv(pv)}`).join(', ')}`;
         this.reportDialog(ctrl.data.puzzle.id, reason);
       }
     }

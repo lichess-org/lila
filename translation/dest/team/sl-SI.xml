@@ -57,6 +57,7 @@
   <string name="upcomingTournaments">Prihajajoči turnirji</string>
   <string name="completedTourns">Končani turnirji</string>
   <string name="declinedRequests">Zavrnjene zahteve</string>
+  <string name="joinLichessVariantTeam">Pridružite se uradnim %s ali novicam in dogodkom</string>
   <string name="teamPage">Ekipna stran</string>
   <string name="thisTeamBattleIsOver">Ta turnir je končan in ekip ni več mogoče posodobiti.</string>
   <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Naštej ekipe, ki bodo tekmovale v tej bitki.</string>

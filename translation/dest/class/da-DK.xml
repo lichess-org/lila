@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Lichess-klasser</string>
+  <string name="lichessClasses">Lichess-klasser</string>
   <string name="teachClassesOfChessStudents">Undervis klasser af skakelever med Lichess-klasser værktøjspakken.</string>
   <string name="features">Features</string>
   <string name="quicklyGenerateSafeUsernames">Generer hurtigt sikre brugernavne og adgangskoder til elever</string>
@@ -57,6 +57,8 @@ Her er linket, der giver adgang til klassen.</string>
     <item quantity="one">En afventende invitation</item>
     <item quantity="other">%s afventende invitationer</item>
   </plurals>
+  <string name="pending">Afventer</string>
+  <string name="declined">Afvist</string>
   <string name="onlyVisibleToTeachers">Kun synligt for klassens lærere</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">Under administration</string>
@@ -113,4 +115,6 @@ Her er linket, der giver adgang til klassen.</string>
   <string name="anInvitationHasBeenSentToX">En invitation er blevet sendt til %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s har allerede en afventende invitation</string>
   <string name="xIsAKidAccountWarning">%1$s er en børnekonto og kan ikke modtage din besked. Du er nødt til at give dem invitations-URL\'en manuelt: %2$s</string>
+  <string name="moveToClass">Flyt til %s</string>
+  <string name="moveToAnotherClass">Flyt til en anden klasse</string>
 </resources>

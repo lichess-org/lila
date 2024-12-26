@@ -39,13 +39,13 @@
   <string name="lichessSupportChessAnd">Lichess 支持标准国际象棋和 %1$s。</string>
   <string name="eightVariants">8 种国际象棋变体</string>
   <string name="whatIsACPL">平均厘兵损失 (ACPL) 是什么？</string>
-  <string name="acplExplanation">厘兵是国际象棋计算优势所用的计量单位。1厘兵等于兵价值的百分之一，也就是100厘兵=1兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑评估局面也很重要。
+  <string name="acplExplanation">兵厘是国际象棋计算优势所用的计量单位。一兵厘等于兵价值的1/100。也就是说，一百个厘兵=1个兵。这些价值在游戏中不起正式作用，但对玩家有用，对电脑来评估局面也很重要。
 
-最佳的电脑着法将会损失0厘兵，但较差的着法将导致厘兵计量下局面的恶化。
+最佳的电脑着法将会损失零兵厘，但较少的着法将导致兵厘计量下局面的恶化。
 
-该值可以用作着法质量的一个指标。每次失去的厘兵越少，着法就越强。
+该值可以用作着法质量的一个指标。每次失去的兵厘越少，着法就越强。
 
-Lichess 上的电脑分析是基于 Stockfish 的。</string>
+Lichess上的电脑分析是基于Stockfish的。</string>
   <string name="insufficientMaterial">超时判负、和棋以及子力不足</string>
   <string name="lichessFollowFIDErules">如果玩家耗尽了时间，该玩家通常会被判负。另外，如果对手无法在允许的最大限着 (%1$s回合) 内将杀玩家的王，对局就是和棋。
 
@@ -72,7 +72,7 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="repeatedPositionsThatMatters">三次重复局面是关于局面的%1$s重复，而不是着法。重复局面不一定会连续发生。</string>
   <string name="positions">位置</string>
   <string name="weRepeatedthreeTimesPosButNoDraw">我们重复了三次的局面。为什么对局没有判和？</string>
-  <string name="threeFoldHasToBeClaimed">三次重复局面和棋需要由其中一个选手提出。你可以通过按下已显示的按钮，或者在最后一次重复移动之前提出和棋。无论对方接不接受，根据三次重复规则，游戏会以和棋结束。你也可以%1$s Lichess 为您自动提和重复局面。此外，五次重复局面总是立即结束游戏。</string>
+  <string name="threeFoldHasToBeClaimed">重复局面和棋需要由其中一个选手提出。您可以通过按下已显示的按钮，或者在您最后一次重复移动之前提出和棋，因为无论对方接不接受，根据三次重复规范，游戏会以和棋结束。您也可以 %1$s 让Lichess在局面重复时给您自动提和。此外，五次重复局面永远会立即结束游戏。</string>
   <string name="configure">配置</string>
   <string name="accounts">账户</string>
   <string name="titlesAvailableOnLichess">Lichess 上有什么头衔？</string>
@@ -103,11 +103,11 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">ZugAddict当时在直播，他两个小时里一直试图在1+0的棋局中打败第八级的A.I.，但没有成功。Thibault告诉他，如果他直播时成功地做到这个，他就会得到一个独一无二的奖杯。一个小时后，他打败了鳕鱼，承诺得到兑现。</string>
   <string name="lichessRatings">Lichess 排名</string>
   <string name="whichRatingSystemUsedByLichess">Lichess 使用什么等级分系统？</string>
-  <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织（FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统）所采用。
+  <string name="ratingSystemUsedByLichess">等级分使用 Mark Glickman 发明的 Glicko-2 算法计算得出。这是一个非常流行的等级分计算方法，被大量国际象棋组织所采用 (FIDE 是一个特别的反面案例，其依旧沿用已过时的 Elo 等级分系统)。
 
-总的来说，Glicko 算法使用”置信区间“来计算和表示你的等级分。当首次来到本站时，你的初始等级分为 1500 ± 700。其中 1500 表示你的等级分，700 表示置信区间。
+总的来说，Glicko 算法使用”置信区间“来计算和表示你的等级分。当首次来到本站时，你的初始等级分为一千五百 ± 一千。其中一千五百表示你的等级分，一千表示置信区间。
 
-大体上，系统拥有 90% 的确信度认定你的等级分在 800-2200 之间的某个值，这是相当模糊的。因为这个原因，玩家的等级分会在起始的几局比赛中快速变化，一局可能变化好几百分。但是在和一些等级分稳定的玩家对弈之后，置信区间会缩小，并且在之后比赛中获得/损失的分值也会变小。
+大体上，系统拥有 95% 的确信度认定你的等级分在 500 到两千五百之间的某个值，这是相当模糊的。因为这个原因，玩家的等级分会在起始的几局比赛中快速变化，一局可能变化好几百分。但是在和一些等级分稳定的玩家对弈之后，置信区间会缩小，并且在之后比赛中获得/损失的分值也会变小。
 
 此外，随着时间的推移，置信区间将会逐步增大。这使你获得/损失的分值能够更快速地匹配你在此段时间内棋力的变化。</string>
   <string name="whatIsProvisionalRating">为什么在等级分旁边有一个问号 (?) ？</string>
@@ -125,9 +125,9 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
   <string name="beInTopTen">在此变体中获得前十</string>
   <string name="secondRequirementToStopOldPlayersTrustingLeaderboards">第二项要求是为了防止不再使用的账户占用排行榜。</string>
   <string name="whyAreRatingHigher">为什么等级分相比其他网站和组织要更高，比如国际棋联、美国棋联和国际象棋俱乐部？</string>
-  <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和评分系统（Elo、Clicko、Clicko-2, 或其中一个的变种）。这些因素都会极大地影响等级分的绝对数值。
+  <string name="whyAreRatingHigherExplanation">你不应将等级分视为一个绝对数值，也不应将其与其它组织的等级分进行比较。不同的组织拥有不同级别的玩家和评分系统 (Elo、Clicko、Clicko-2, 或其中一个的变种)。这些因素都会极大地影响绝对数值 (等级分)。
 
-相反地，你应该将等级分视为一个“相对”数值（与”绝对“相反）：在一群玩家中，他们各自不同的等级分可以帮助你预测出谁将会胜/和/负，以及发生该结果的概率。一个玩家的等级分只有在和其它玩家相比较时才有意义。</string>
+相反地，你应该将等级分视为一个“相对”数值 (与”绝对“相反)：在一群玩家中，他们各自不同的等级分可以帮助你预测出谁将会胜/和/负，以及发生该结果的概率。一个玩家的等级分只有在和其它玩家相比较时才有意义。</string>
   <string name="howToHideRatingWhilePlaying">如何在对局时隐藏分数？</string>
   <string name="enableZenMode">在 %1$s 中开启禅意模式或在游戏中按 %2$s。</string>
   <string name="displayPreferences">显示偏好</string>
@@ -173,5 +173,5 @@ Lichess 上的电脑分析是基于 Stockfish 的。</string>
 
 除了违反服务条款的情况外，Lichess不会封禁或屏蔽玩家，但我们建议使用外部工具来限制过度游戏行为。一些常见的网站屏蔽工具包括 %1$s、%2$s 和 %3$s。如果您想继续使用网站，但又不想受到快速时间控制的诱惑，您可能会对 %4$s 感兴趣，这里有一种 %5$s 的用户风格。
 
-有些玩家可能会觉得自己的游戏行为已经成瘾。事实上，世界卫生组织将游戏障碍归类为一种 %6$s，其基本特征是：1) 对游戏的控制能力受损；2）对游戏的重视程度不断提高；3）即便知道这种行为会导致负面后果，仍然持续或增加游戏行为。如果您认为自己的下棋行为符合这种模式，我们鼓励您与朋友或家人以及专业人士讨论一下。</string>
+有些玩家可能会觉得自己的游戏行为已经成瘾。事实上，世界卫生组织将游戏障碍归类为一种 %6$s，其基本特征是：1)对游戏的控制能力受损；2)对游戏的重视程度不断提高；3)即便知道这种行为会导致负面后果，仍然持续或增加游戏行为。如果您认为自己的下棋行为符合这种模式，我们鼓励您与朋友或家人以及专业人士讨论一下。</string>
 </resources>

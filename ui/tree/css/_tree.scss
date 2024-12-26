@@ -11,6 +11,15 @@
     @include padding-direction(7px, 3px, 7px, 7px);
   }
 
+  move:not(.empty):hover {
+    &,
+    index,
+    eval {
+      background: $c-primary;
+      color: $c-over;
+    }
+  }
+
   move {
     @extend %move;
 
@@ -20,41 +29,80 @@
 
     &.inaccuracy {
       color: $c-inaccuracy;
+      &.active {
+        background: $m-inaccuracy_bg--mix-25;
+      }
       &:hover {
-        background: $m-inaccuracy_bg--mix-30;
+        &,
+        index,
+        eval {
+          background: $c-inaccuracy;
+        }
       }
     }
     &.mistake {
       color: $c-mistake;
+      &.active {
+        background: $m-mistake_bg--mix-25;
+      }
       &:hover {
-        background: $m-mistake_bg--mix-30;
+        &,
+        index,
+        eval {
+          background: $c-mistake;
+        }
       }
     }
     &.blunder {
       color: $c-blunder;
+      &.active {
+        background: $m-blunder_bg--mix-25;
+      }
       &:hover {
-        background: $m-blunder_bg--mix-30;
+        &,
+        index,
+        eval {
+          background: $c-blunder;
+        }
       }
     }
     &.good {
       color: $c-good;
-      font-weight: bold;
+      &.active {
+        background: $m-good_bg--mix-25;
+      }
       &:hover {
-        background: $m-good_bg--mix-30;
+        &,
+        index,
+        eval {
+          background: $c-good;
+        }
       }
     }
     &.brilliant {
       color: $c-brilliant;
-      font-weight: bold;
+      &.active {
+        background: $m-brilliant_bg--mix-25;
+      }
       &:hover {
-        background: $m-brilliant_bg--mix-30;
+        &,
+        index,
+        eval {
+          background: $c-brilliant;
+        }
       }
     }
     &.interesting {
       color: $c-interesting;
-      font-weight: bold;
+      &.active {
+        background: $m-interesting_bg--mix-25;
+      }
       &:hover {
-        background: $m-interesting_bg--mix-30;
+        &,
+        index,
+        eval {
+          background: $c-interesting;
+        }
       }
     }
   }
@@ -94,21 +142,28 @@
     background: $m-primary_bg--mix-40;
     color: $c-font-clearer;
     outline: 1px solid $m-primary_bg--mix-60;
+    &.inaccuracy {
+      outline: 1px solid $m-inaccuracy_bg--mix-60;
+    }
+    &.mistake {
+      outline: 1px solid $m-mistake_bg--mix-60;
+    }
+    &.blunder {
+      outline: 1px solid $m-blunder_bg--mix-60;
+    }
+    &.good {
+      outline: 1px solid $m-good_bg--mix-60;
+    }
+    &.brilliant {
+      outline: 1px solid $m-brilliant_bg--mix-60;
+    }
+    &.interesting {
+      outline: 1px solid $m-interesting_bg--mix-60;
+    }
   }
 
   move.nongame {
     font-style: italic;
-  }
-
-  move:not(.empty):not(.blunder):not(.mistake):not(.inaccuracy):not(.good):not(.brilliant):not(
-      .interesting
-    ):hover {
-    &,
-    index,
-    eval {
-      background: $c-primary;
-      color: $c-over;
-    }
   }
 
   &-inline move:hover {

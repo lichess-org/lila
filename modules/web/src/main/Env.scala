@@ -35,11 +35,6 @@ final class Env(
   if mode.isProd then scheduler.scheduleOnce(5 seconds)(influxEvent.start())
   private lazy val pagerDuty = wire[PagerDuty]
 
-  val socketTest = SocketTest(
-    yoloDb(lila.core.config.CollName("socket_test")).failingSilently(),
-    settingStore
-  )
-
   lila.common.Bus.subscribeFun("announce"):
     case lila.core.socket.Announce(msg, date, _) if msg.contains("will restart") =>
       pagerDuty.lilaRestart(date)

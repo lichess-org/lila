@@ -68,7 +68,7 @@
   <string name="studyUrl">URL do estudo</string>
   <string name="currentChapterUrl">Ligazón do capítulo actual</string>
   <string name="youCanPasteThisInTheForumToEmbed">Podes pegar esta URL no foro ou no teu blog de Lichess para incrustala</string>
-  <string name="startAtInitialPosition">Comezar desde a posición inicial do estudo</string>
+  <string name="startAtInitialPosition">Comezar desde a posición inicial</string>
   <string name="startAtX">Comezar en %s</string>
   <string name="embedInYourWebsite">Incrustar na túa páxina web ou blog</string>
   <string name="readMoreAboutEmbedding">Ler máis sobre como inserir contido</string>

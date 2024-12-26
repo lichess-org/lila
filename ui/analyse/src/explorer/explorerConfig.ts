@@ -83,7 +83,7 @@ export class ExplorerConfigCtrl {
         value: storedStringProp('analyse.explorer.player.name', this.myName || ''),
         previous: storedJsonProp<string[]>('explorer.player.name.previous', () => []),
       },
-      color: prevData?.color || prop('white'),
+      color: prevData?.color || prop(root.bottomColor()),
       byDb() {
         return this.byDbData[this.db()] || this.byDbData.lichess;
       },

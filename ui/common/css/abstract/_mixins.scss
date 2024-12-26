@@ -156,3 +156,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin prevent-select {
+  user-select: none;
+  -webkit-user-select: none;
+}

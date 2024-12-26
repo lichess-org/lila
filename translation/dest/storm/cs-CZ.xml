@@ -56,7 +56,7 @@
   <string name="skipExplanation">Přeskočte tento tah pro zachování své série! Funguje pouze jednou za závod.</string>
   <string name="failedPuzzles">Neúspěšné úlohy</string>
   <string name="slowPuzzles">Pomalé úlohy</string>
-  <string name="skippedPuzzle">Přeskočené puzzle</string>
+  <string name="skippedPuzzle">Přeskočené úlohy</string>
   <string name="thisWeek">Tento týden</string>
   <string name="thisMonth">Tento měsíc</string>
   <string name="allTime">Za celou dobu</string>

@@ -195,7 +195,7 @@ export default class AnalyseCtrl {
     });
     pubsub.on('board.change', redraw);
     this.persistence?.merge();
-    window.lichess.analysis = api(this);
+    (window as any).lichess.analysis = api(this);
   }
 
   initialize(data: AnalyseData, merge: boolean): void {

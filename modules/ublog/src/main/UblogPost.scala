@@ -59,6 +59,7 @@ object UblogPost:
     val intro: String
     val image: Option[UblogImage]
     val created: Recorded
+    val updated: Option[Recorded]
     val lived: Option[Recorded]
     def slug      = UblogPost.slug(title)
     def isLichess = created.by.is(UserId.lichess)
@@ -70,6 +71,7 @@ object UblogPost:
       intro: String,
       image: Option[UblogImage],
       created: Recorded,
+      updated: Option[Recorded],
       lived: Option[Recorded],
       topics: List[UblogTopic]
   ) extends BasePost

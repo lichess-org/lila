@@ -57,6 +57,8 @@ Here is the link to access the class.</string>
     <item quantity="one">One pending invitation</item>
     <item quantity="other">%s pending invitations</item>
   </plurals>
+  <string name="pending">Pending</string>
+  <string name="declined">Declined</string>
   <string name="onlyVisibleToTeachers">Only visible to the class teachers</string>
   <string name="lastActiveDate">Active</string>
   <string name="managed">Managed</string>
@@ -114,4 +116,6 @@ It will display a horizontal line.</string>
   <string name="anInvitationHasBeenSentToX">An invitation has been sent to %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s already has a pending invitation</string>
   <string name="xIsAKidAccountWarning">%1$s is a kid account and can't receive your message. You must give them the invitation URL manually: %2$s</string>
+  <string name="moveToClass">Move to %s</string>
+  <string name="moveToAnotherClass">Move to another class</string>
 </resources>

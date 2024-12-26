@@ -20,6 +20,7 @@
   <string name="displayBoardResizeHandle">Pokaż uchwyt od zmiany rozmiaru szachownicy</string>
   <string name="onlyOnInitialPosition">Tylko w pozycji początkowej</string>
   <string name="inGameOnly">Tylko w partii</string>
+  <string name="exceptInGame">Z wyjątkiem trwania partii</string>
   <string name="chessClock">Zegar szachowy</string>
   <string name="tenthsOfSeconds">Dziesiąte części sekundy</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Kiedy na zegarze jest mniej niż 10 sekund</string>
@@ -67,5 +68,5 @@
   <string name="notifyWeb">Przeglądarka</string>
   <string name="notifyDevice">Urządzenie</string>
   <string name="bellNotificationSound">Dźwięk powiadomień</string>
-  <string name="blindfold" comment="As in blindfold chess. This mean the user can see the board, but cannot see where the pieces are.">Gra na ślepo</string>
+  <string name="blindfold" comment="As in Blindfold chess">Gra na ślepo</string>
 </resources>

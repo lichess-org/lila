@@ -58,24 +58,34 @@ final private class VerifyMail(
       .parallel
       .map(_.forall(identity)) // ok if both say the domain is ok
 
-  private def fetchFree(domain: Domain.Lower): Fu[Boolean] =
-    val url = s"https://api.mailcheck.ai/domain/$domain"
-    ws.url(url)
-      .get()
-      .withTimeout(8.seconds, "mailcheck.fetch")
-      .map: res =>
-        (for
-          js <- res.body[JsValue].asOpt[JsObject]
-          if res.status == 200
-          disposable <- js.boolean("disposable")
-        yield
-          val ok = !disposable
-          logger.info:
-            s"Mailcheck $domain = $ok {disposable:$disposable}"
-          ok
-        ).getOrElse:
-          throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
-      .monTry(res => _.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(true)))
+  object fetchFree:
+    private var rateLimitedUntil = java.time.Instant.EPOCH
+    def apply(domain: Domain.Lower): Fu[Boolean] =
+      if rateLimitedUntil.isAfterNow then fuccess(true)
+      else
+        val url = s"https://api.mailcheck.ai/domain/$domain"
+        ws.url(url)
+          .get()
+          .withTimeout(8.seconds, "mailcheck.fetch")
+          .map: res =>
+            if res.status == 429
+            then
+              logger.info(s"Mailcheck rate limited $url")
+              rateLimitedUntil = nowInstant.plusMinutes(2)
+              true
+            else
+              (for
+                js <- res.body[JsValue].asOpt[JsObject]
+                if res.status == 200
+                disposable <- js.boolean("disposable")
+              yield
+                val ok = !disposable
+                logger.info:
+                  s"Mailcheck $domain = $ok {disposable:$disposable}"
+                ok
+              ).getOrElse:
+                throw lila.core.lilaism.LilaException(s"$url ${res.status} ${res.body[String].take(200)}")
+          .monTry(res => _.security.mailcheckApi.fetch(res.isSuccess, res.getOrElse(true)))
 
   private def fetchPaid(domain: Domain.Lower): Fu[Boolean] =
     val url = s"https://verifymail.io/api/$domain"

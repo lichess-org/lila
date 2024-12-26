@@ -83,9 +83,7 @@ export class MultiCloudEval {
   };
 
   onLocalCeval = (node: Tree.Node, ev: Tree.ClientEval) => {
-    const cur = this.cloudEvals.get(node.fen);
-    if (!cur || cur.depth < ev.depth)
-      this.cloudEvals.set(node.fen, { ...ev, chances: povChances('white', ev) });
+    this.cloudEvals.set(node.fen, { ...ev, chances: povChances('white', ev) });
   };
 
   getCloudEval: GetCloudEval = (fen: FEN): CloudEval | undefined => this.cloudEvals.get(fen);
@@ -103,5 +101,3 @@ export const renderEvalToggle = (ctrl: MultiCloudEval): VNode =>
 
 export const renderScore = (s: EvalScore) =>
   s.mate ? '#' + s.mate : defined(s.cp) ? `${s.cp >= 0 ? '+' : ''}${s.cp / 100}` : '?';
-
-export const renderScoreAtDepth = (cev: CloudEval) => `${renderScore(cev)} at depth ${cev.depth}`;

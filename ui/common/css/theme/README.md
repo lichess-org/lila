@@ -1,14 +1,3 @@
-# IMPORTANT
-
-### If you're just seeing this for the first time, you probably want to run:
-
-```
-ui/build --update --clean
-```
-
-`--update` tells ui/build, which has recently acquired new capabilities, to update itself.
-`--clean` tells it to clean up the mess it made last time.
-
 ## css variables vs scss variables
 
 - scss variables start with $ (dollar sign) and are compile-time macros. when the css is
@@ -117,7 +106,7 @@ from the $c-font and $c-bg colors you defined in the theme file.
 same as before
 
 ```
-ui/build -r
+ui/build -w
 ```
 
 watch mode should keep everything in sync for you, but you might need to restart if

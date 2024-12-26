@@ -76,6 +76,14 @@ case class Tournament(
 
   def secondsToFinish = (finishesAt.toSeconds - nowSeconds).toInt.atLeast(0)
 
+  def progressPercent: Int =
+    if isCreated then 0
+    else if isFinished then 100
+    else
+      val total     = minutes * 60
+      val remaining = secondsToFinish
+      100 - (remaining * 100 / total)
+
   def pairingsClosed = secondsToFinish < math.max(30, math.min(clock.limitSeconds.value / 2, 120))
 
   def isStillWorthEntering =

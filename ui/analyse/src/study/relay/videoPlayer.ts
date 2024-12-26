@@ -82,7 +82,7 @@ export class VideoPlayer {
                 if (e.ctrlKey || e.shiftKey) window.open(this.o.redirect, '_blank');
                 else this.onEmbed('ps');
               });
-              //el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
+              el.addEventListener('contextmenu', () => window.open(this.o.redirect, '_blank'));
             }),
           }),
           h('img.video-player-close', {

@@ -1,4 +1,5 @@
-import type { Pubsub, PubsubCallback, PubsubEvent } from 'common/pubsub';
+import { type PubsubCallback, type PubsubEvent, pubsub } from 'common/pubsub';
+import { alert, confirm, prompt, domDialog } from 'common/dialog';
 
 // #TODO document these somewhere
 const publicEvents = ['ply', 'analysis.change', 'chat.resize', 'analysis.closeAll'];
@@ -6,8 +7,37 @@ const socketEvents = ['lag', 'close'];
 const socketInEvents = ['mlat', 'fen', 'notifications', 'endData'];
 const friendsEvents = ['playing', 'stopped_playing', 'onlines', 'enters', 'leaves'];
 
-export const api = (pubsub: Pubsub): Api => ({
-  initializeDom: (root?: HTMLElement) => pubsub.emit('content-loaded', root),
+export interface Api {
+  initializeDom: (root?: HTMLElement) => void;
+  events: Events;
+  socket: {
+    subscribeToMoveLatency: () => void;
+    events: Events;
+  };
+  onlineFriends: {
+    request: () => void;
+    events: Events;
+  };
+  chat: {
+    post: (text: string) => void;
+  };
+  dialog: {
+    alert: typeof alert;
+    confirm: typeof confirm;
+    prompt: typeof prompt;
+    domDialog: typeof domDialog;
+  };
+  overrides: {
+    [key: string]: (...args: any[]) => unknown;
+  };
+  analysis?: any;
+}
+
+// this object is available to extensions as window.lichess
+export const api: Api = {
+  initializeDom: (root?: HTMLElement) => {
+    pubsub.emit('content-loaded', root);
+  },
   events: {
     on(name: PubsubEvent, cb: PubsubCallback): void {
       if (!publicEvents.includes(name)) throw 'This event is not part of the public API';
@@ -48,7 +78,13 @@ export const api = (pubsub: Pubsub): Api => ({
   chat: {
     post: (text: string) => pubsub.emit('socket.send', 'talk', text),
   },
+  dialog: {
+    alert,
+    confirm,
+    prompt,
+    domDialog,
+  },
   // some functions will be exposed here
   // to be overriden by browser extensions
   overrides: {},
-});
+};

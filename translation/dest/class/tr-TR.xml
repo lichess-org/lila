@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Lichess Sınıfları</string>
+  <string name="lichessClasses">Lichess Sınıfları</string>
   <string name="teachClassesOfChessStudents">Satranç öğrencilerine Lichess Sınıflar araç setiyle ders verin.</string>
   <string name="features">Özellikler</string>
   <string name="quicklyGenerateSafeUsernames">Öğrenciler için hızlıca güvenli kullanıcı adları ve şifreleri oluşturun</string>
   <string name="trackStudentProgress">Oyunlar ve bulmacalardaki öğrenci ilerlemesini takip edin</string>
   <string name="messageAllStudents">Yeni ders materyali hakkında tüm öğrencilere mesaj atın</string>
-  <string name="freeForAllForever">Herkes için, her zaman, reklamsız ve takipçisiz, %100 ücretsiz</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">Herkes için, her zaman, reklamsız ve takipçisiz, %100 ücretsiz</string>
   <string name="applyToBeLichessTeacher">Lichess Eğitmeni olmak için başvurun</string>
   <string name="noClassesYet">Henüz bir sınıf yok.</string>
   <string name="teachersX">Eğitmenler: %s</string>
@@ -57,6 +57,8 @@ Sınıfa erişim linki burada.</string>
     <item quantity="one">%s tane bekleyen davetiye</item>
     <item quantity="other">%s tane bekleyen davet</item>
   </plurals>
+  <string name="pending">Beklemede</string>
+  <string name="declined">Reddedildi</string>
   <string name="onlyVisibleToTeachers">Sadece sınıf antrenörleri tarafından görülebilir</string>
   <string name="lastActiveDate">Aktif</string>
   <string name="managed">Yönetilen</string>
@@ -114,4 +116,5 @@ Bu yatay bir çizgi oluşturacaktır.</string>
   <string name="anInvitationHasBeenSentToX">%s adlı oyuncuya davet gönderildi</string>
   <string name="xAlreadyHasAPendingInvitation">%s adlı oyuncuya zaten bir davet gönderdiniz</string>
   <string name="xIsAKidAccountWarning">%1$s adlı oyuncu çocuk hesabı kullandığı için mesajlarınızı alamaz. Oyuncuya bağlantıyı kendiniz göndermelisiniz: %2$s</string>
+  <string name="moveToClass">%s\'e oyna</string>
 </resources>

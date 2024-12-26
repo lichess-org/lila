@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Triedy</string>
+  <string name="lichessClasses">Triedy</string>
   <string name="teachClassesOfChessStudents">Učte triedy šachových študentov so súpravou nástrojov na Lichess výučbu.</string>
   <string name="features">Funkcie</string>
   <string name="quicklyGenerateSafeUsernames">Rýchlo vygenerovať bezpečné prihlasovacie mená a heslá pre študentov</string>
@@ -120,4 +120,6 @@ To zobrazí horizontálnu čiaru.</string>
   <string name="anInvitationHasBeenSentToX">Užívateľovi %s bola odoslaná pozvánka</string>
   <string name="xAlreadyHasAPendingInvitation">%s už má pozvánku čakajúcu na potvrdenie</string>
   <string name="xIsAKidAccountWarning">%1$s je detský účet a nemôže prijať Vašu správu. Pre doručenie pozvánky musíte URL %2$s poskytnúť prostredníctvom iného kanála</string>
+  <string name="moveToClass">Presunúť do %s</string>
+  <string name="moveToAnotherClass">Presunúť do inej triedy</string>
 </resources>

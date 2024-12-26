@@ -49,7 +49,7 @@ object PrefForm:
     val moretime      = "moretime"      -> checkedNumber(Pref.Moretime.choices)
     val clockSound    = "clockSound"    -> booleanNumber
     val pieceNotation = "pieceNotation" -> booleanNumber
-    val ratings       = "ratings"       -> booleanNumber
+    val ratings       = "ratings"       -> checkedNumber(Pref.Ratings.choices)
     val flairs        = "flairs"        -> boolean
     val follow        = "follow"        -> booleanNumber
     val challenge     = "challenge"     -> checkedNumber(Pref.Challenge.choices)

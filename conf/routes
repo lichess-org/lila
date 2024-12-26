@@ -340,7 +340,6 @@ GET   /streamer/live                   controllers.Main.movedPermanently(to = "/
 GET   /streamer/edit                   controllers.Streamer.edit
 POST  /streamer/new                    controllers.Streamer.create
 POST  /streamer/edit                   controllers.Streamer.editApply
-POST  /streamer/approval/request       controllers.Streamer.approvalRequest
 POST  /streamer/subscribe/:streamer    controllers.Streamer.subscribe(streamer: UserStr, set: Boolean ?= true)
 POST  /upload/image/streamer           controllers.Streamer.pictureApply
 GET   /streamer/:username              controllers.Streamer.show(username: UserStr)
@@ -831,7 +830,7 @@ GET   /tutor/:username/:perf/phase     controllers.Tutor.phases(username: UserSt
 GET   /tutor/:username/:perf/time      controllers.Tutor.time(username: UserStr, perf: PerfKey)
 
 # Recap
-GET   /recap                           controllers.Recap.home()
+GET   /recap                           controllers.Recap.home
 GET   /recap/:username                 controllers.Recap.user(username: UserStr)
 
 # OAuth
@@ -903,7 +902,6 @@ GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id)
 
 GET   /prometheus-metrics/:key         controllers.Main.prometheusMetrics(key: String)
-POST  /dev/socket-test                 controllers.Dev.socketTestResult
 
 # Push
 POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform, deviceId)

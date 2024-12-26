@@ -132,7 +132,7 @@ final class JsonView(baseUrl: BaseUrl, markup: RelayMarkup, picfitUrl: PicfitUrl
         .add("pinned" -> pinned.map: p =>
           Json
             .obj("name" -> p.name)
-            .add("redirect" -> p.upstream.map(_.urls(lila.core.config.NetDomain("")).redirect))
+            .add("redirect" -> p.upstream.map(_.urls.redirect))
             .add("text" -> p.text)),
       study = studyData.study,
       analysis = studyData.analysis,

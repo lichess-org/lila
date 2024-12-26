@@ -81,7 +81,6 @@ export interface EvalHit {
 
 export interface EvalHitMulti extends EvalScore {
   fen: FEN;
-  depth: number;
 }
 
 export interface EvalHitMultiArray {

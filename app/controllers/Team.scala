@@ -439,9 +439,7 @@ final class Team(env: Env) extends LilaController(env):
                     env.team.memberStream.subscribedIds(team, MaxPerSecond(50)),
                     full
                   )
-                  .addEffect: nb =>
-                    if nb > 100
-                    then lila.mon.msg.teamBulk(team.id).record(nb)
+                  .addEffect(lila.mon.msg.teamBulk.record(_))
                 // we don't wait for the stream to complete, it would make lichess time out
                 fuccess(Result.Through)
               }(Result.Limited)

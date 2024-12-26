@@ -6,12 +6,12 @@
     <item quantity="one">%s αναμετάδοση</item>
     <item quantity="other">%s αναμεταδόσεις</item>
   </plurals>
-  <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνούα</string>
+  <string name="liveBroadcasts">Αναμεταδόσεις ζωντανών τουρνουά</string>
   <string name="broadcastCalendar">Ημερολόγιο αναμεταδόσεων</string>
   <string name="newBroadcast">Νέα ζωντανή αναμετάδοση</string>
-  <string name="subscribedBroadcasts">Εγγεγραμμένες μεταδώσεις</string>
-  <string name="aboutBroadcasts">Σχετικά με εκπομπές</string>
-  <string name="howToUseLichessBroadcasts">Πώς να χρησιμοποιήσετε τις εκπομπές Lichess.</string>
+  <string name="subscribedBroadcasts">Εγγεγραμμένες αναμεταδόσεις</string>
+  <string name="aboutBroadcasts">Σχετικά με τις αναμεταδόσεις</string>
+  <string name="howToUseLichessBroadcasts">Πώς να χρησιμοποιήσετε τις αναμεταδόσεις Lichess.</string>
   <string name="theNewRoundHelp">Ο νέος γύρος θα έχει τα ίδια μέλη και τους ίδιους συνεισφέροντες όπως ο προηγούμενος.</string>
   <string name="addRound">Προσθήκη γύρου</string>
   <string name="ongoing">Σε εξέλιξη</string>
@@ -26,17 +26,22 @@
   <string name="fullDescriptionHelp">Προαιρετική αναλυτική περιγραφή της αναμετάδοσης. Η μορφή %1$s είναι διαθέσιμη. Το μήκος πρέπει μικρότερο από %2$s χαρακτήρες.</string>
   <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">Πηγαίο URL για PGN</string>
   <string name="sourceUrlHelp">URL για λήψη PGN ενημερώσεων. Πρέπει να είναι δημόσια προσβάσιμο μέσω διαδικτύου.</string>
+  <string name="sourceGameIds">Έως και 64 ταυτότητες παιχνιδιών Lichess, διαχωριζόμενες από κενά.</string>
+  <string name="startDateTimeZone">Ημερομηνία έναρξης του τουρνουά στην τοπική ζώνη ώρας: %s</string>
   <string name="startDateHelp">Προαιρετικό, εάν γνωρίζετε πότε αρχίζει η εκδήλωση</string>
-  <string name="currentGameUrl">Διεύθυνση URL αυτού του παιχνιδιού</string>
+  <string name="currentGameUrl">Διεύθυνση URL αυτής της παρτίδας</string>
   <string name="downloadAllRounds">Λήψη όλων των γύρων</string>
   <string name="resetRound">Επαναφορά αυτού του γύρου</string>
   <string name="deleteRound">Διαγραφή αυτού του γύρου</string>
-  <string name="definitivelyDeleteRound">Σίγουρα διαγράψτε τον γύρο και όλα τα παιχνίδια του.</string>
-  <string name="deleteAllGamesOfThisRound">Διαγράψτε όλα τα παιχνίδια αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τα ξαναδημιουργήσετε.</string>
+  <string name="definitivelyDeleteRound">Διαγράψτε οριστικά τον γύρο και όλες τις παρτίδες του.</string>
+  <string name="deleteAllGamesOfThisRound">Διαγράψτε όλες τις παρτίδες αυτού του γύρου. Η πηγή μετάδοσης θα πρέπει να είναι ενεργή για να τα ξαναδημιουργήσετε.</string>
   <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή αυτού του τουρνουά</string>
-  <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλα τα παιχνίδια του.</string>
+  <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλες τις παρτίδες του.</string>
+  <string name="showScores">Εμφάνιση βαθμολογιών παικτών βάσει των αποτελεσμάτων των παρτίδων.</string>
+  <string name="replacePlayerTags">Προαιρετικό: αντικατάσταση ονομάτων, βαθμολογιών και τίτλων παικτών</string>
   <string name="fideFederations">Ομοσπονδίες FIDE</string>
+  <string name="top10Rating">Κορυφαίες 10 βαθμολογίες</string>
   <string name="fidePlayers">Παίκτες FIDE</string>
   <string name="fidePlayerNotFound">Δε βρέθηκε παίκτης FIDE</string>
   <string name="fideProfile">Προφίλ FIDE</string>
@@ -48,8 +53,10 @@
   <string name="teams">Ομάδες</string>
   <string name="boards">Σκακιέρες</string>
   <string name="overview">Επισκόπηση</string>
+  <string name="subscribeTitle">Εγγραφείτε για να ειδοποιείστε όταν ξεκινάει ο κάθε γύρος. Μπορείτε να εναλλάξετε μεταξύ του κουδουνιού ή των push ειδοποιήσεων για αναμεταδόσεις, στις προτιμήσεις του λογαριασμού σας.</string>
   <string name="uploadImage">Ανεβάστε εικόνα τουρνουά</string>
-  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Οι σκακιέρες μπορούν να φορτωθούν απο μια πηγή ή μέσω του %s</string>
+  <string name="noBoardsYet">Δεν υπάρχουν διαθέσιμες σκακιέρες ακόμα. Θα εμφανιστούν μόλις φορτωθούν οι παρτίδες.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Οι σκακιέρες μπορούν να φορτωθούν από μια πηγή ή μέσω του %s</string>
   <string name="startsAfter">Ξεκινάει μετά από %s</string>
   <string name="startVerySoon">Η αναμετάδοση θα ξεκινήσει πολύ σύντομα.</string>
   <string name="notYetStarted">Η αναμετάδοση δεν έχει ξεκινήσει ακόμα.</string>
@@ -65,9 +72,12 @@
   <string name="gamesThisTournament">Παρτίδες σε αυτό το τουρνουά</string>
   <string name="score">Βαθμολογία</string>
   <string name="allTeams">Όλες οι ομάδες</string>
+  <string name="tournamentFormat">Μορφή τουρνουά</string>
   <string name="tournamentLocation">Τοποθεσία Τουρνουά</string>
+  <string name="topPlayers">Κορυφαίοι παίκτες</string>
   <string name="timezone">Ζώνη ώρας</string>
+  <string name="fideRatingCategory">Κατηγορία αξιολόγησης FIDE</string>
   <string name="optionalDetails">Προαιρετικές λεπτομέρειες</string>
-  <string name="pastBroadcasts">Προηγούμενες αναμετάδοσεις</string>
+  <string name="pastBroadcasts">Προηγούμενες αναμεταδόσεις</string>
   <string name="allBroadcastsByMonth">Προβολή όλων των αναμεταδόσεων ανά μήνα</string>
 </resources>

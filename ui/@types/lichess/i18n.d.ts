@@ -61,7 +61,7 @@ interface I18n {
   appeal: {
     /** Your account is muted. */
     accountMuted: string;
-    /** Read our %s. Failure to follow the communication guidelines can result in accounts being muted. */
+    /** Read our %s. Failure to comply with the communication guidelines may result in accounts being muted. */
     accountMutedInfo: I18nFormat;
     /** Your account is banned from joining arenas. */
     arenaBanned: string;
@@ -471,6 +471,8 @@ interface I18n {
     createMultipleAccounts: string;
     /** Only create accounts for real students. Do not use this to make multiple accounts for yourself. You would get banned. */
     createStudentWarning: string;
+    /** Declined */
+    declined: string;
     /** Edit news */
     editNews: string;
     /** Features */
@@ -515,6 +517,10 @@ interface I18n {
     maxStudentsNote: I18nFormat;
     /** Message all students about new class material */
     messageAllStudents: string;
+    /** Move to another class */
+    moveToAnotherClass: string;
+    /** Move to %s */
+    moveToClass: I18nFormat;
     /** You can also %s to create multiple Lichess accounts from a list of student names. */
     multipleAccsFormDescription: I18nFormat;
     /** N/A */
@@ -555,6 +561,8 @@ interface I18n {
     overview: string;
     /** Password: %s */
     passwordX: I18nFormat;
+    /** Pending */
+    pending: string;
     /** Private. Will never be shown outside the class. Helps you remember who the student is. */
     privateWillNeverBeShown: string;
     /** Progress */
@@ -1239,8 +1247,6 @@ interface I18n {
     chessInsights: string;
     /** Cloud engine analysis */
     cloudEngineAnalysis: string;
-    /** Contribute to Lichess and get a cool looking Patron icon */
-    contributeToLichessAndGetIcon: string;
     /** Correspondence chess with conditional premoves */
     correspondenceWithConditionalPremoves: string;
     /** Deep %s server analysis */
@@ -1269,8 +1275,6 @@ interface I18n {
     standardChessAndX: I18nFormat;
     /** Studies (shareable and persistent analysis) */
     studies: string;
-    /** Support Lichess */
-    supportLichess: string;
     /** Support us with a Patron account! */
     supportUsWithAPatronAccount: string;
     /** Tactical puzzles from user games */
@@ -2099,6 +2103,8 @@ interface I18n {
     displayBoardResizeHandle: string;
     /** Drag a piece */
     dragPiece: string;
+    /** Except in-game */
+    exceptInGame: string;
     /** Can be disabled during a game with the board menu */
     explainCanThenBeTemporarilyDisabled: string;
     /** Hold the <ctrl> key while promoting to temporarily disable auto-promotion */
@@ -4553,8 +4559,6 @@ interface I18n {
     maxSize: I18nFormat;
     /** OFFLINE */
     offline: string;
-    /** Optional. Leave empty if none */
-    optionalOrEmpty: string;
     /** Your stream is being reviewed by moderators. */
     pendingReview: string;
     /** Get a flaming streamer icon on your Lichess profile. */
@@ -4569,8 +4573,6 @@ interface I18n {
     perks: string;
     /** Please fill in your streamer information, and upload a picture. */
     pleaseFillIn: string;
-    /** request a moderator review */
-    requestReview: string;
     /** Include the keyword "lichess.org" in your stream title and use the category "Chess" when you stream on Lichess. */
     rule1: string;
     /** Remove the keyword when you stream non-Lichess stuff. */
@@ -4587,8 +4589,14 @@ interface I18n {
     streamerName: string;
     /** streaming Fairplay FAQ */
     streamingFairplayFAQ: string;
+    /** Submit for review */
+    submitForReview: string;
     /** Tell us about your stream in one sentence */
     tellUsAboutTheStream: string;
+    /** Twitch and YouTube changes must be verified. */
+    twitchOrYouTubeMustBeVerified: string;
+    /** Either Twitch or YouTube is required */
+    twitchOrYouTubeRequired: string;
     /** Your Twitch username or URL */
     twitchUsername: string;
     /** Upload a picture */

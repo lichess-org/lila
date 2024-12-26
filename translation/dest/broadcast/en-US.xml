@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Edit round study</string>
   <string name="deleteTournament">Delete this tournament</string>
   <string name="definitivelyDeleteTournament">Definitively delete the entire tournament, all its rounds and all its games.</string>
-  <string name="showScores">Show players\' scores based on game results</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Show players\' scores based on game results</string>
   <string name="replacePlayerTags">Optional: replace player names, ratings and titles</string>
   <string name="fideFederations">FIDE federations</string>
   <string name="top10Rating">Top 10 rating</string>

@@ -625,6 +625,8 @@
   <string name="troll">Provokacija</string>
   <string name="other">Drugo</string>
   <string name="reportCheatBoostHelp">Prilepite povezavo do igre (ali iger) in pojasnite, kaj je narobe z nasprotnikovim načinom igranja. Ne napišite le, da \"nasprotnik goljufa\", ampak pojasnite, kako ste prišli do te ugotovitve.</string>
+  <string name="reportUsernameHelp">Razložite, zakaj je to uporabniško ime žaljivo. Ne recite zgolj \"je žaljivo/neprimerno\", povejte nam, kako ste prišli do tega zaključka. Še posebej, le je žalitev prikrita, ni v angleščini, je v slengu ali ima zgodovinsko/kulturno referenco. </string>
+  <string name="reportProcessedFasterInEnglish">Vaša prijava bo obravnavana hitreje, če jo napišete v angleščini.</string>
   <string name="error.provideOneCheatedGameLink">Navedite vsaj eno povezavo do igre s primerom goljufanja.</string>
   <string name="by">od %s</string>
   <string name="importedByX">Uvozil je %s</string>
@@ -657,6 +659,7 @@
   <string name="slow">Počasno</string>
   <string name="insideTheBoard">Znotraj šahovnice</string>
   <string name="outsideTheBoard">Zunaj šahovnice</string>
+  <string name="allSquaresOfTheBoard">Vsa polja šahovnice</string>
   <string name="onSlowGames">Pri počasnih igrah</string>
   <string name="always">Vedno</string>
   <string name="never">Nikoli</string>
@@ -764,6 +767,7 @@
   <string name="keyboardShortcuts">Bližnjice na tipkovnici</string>
   <string name="keyMoveBackwardOrForward">pomik naprej/nazaj</string>
   <string name="keyGoToStartOrEnd">pojdi na začetek/konec</string>
+  <string name="keyCycleSelectedVariation">Preglej izbrano varianto</string>
   <string name="keyShowOrHideComments">pokaži/skrij komentarje</string>
   <string name="keyEnterOrExitVariation">vstopi/izstopi v varianto</string>
   <string name="keyRequestComputerAnalysis">Zahtevajte računalniško analizo, učite se iz svojih napak</string>
@@ -771,7 +775,14 @@
   <string name="keyNextBlunder">Naslednji spodrsljaj</string>
   <string name="keyNextMistake">Naslednja napaka</string>
   <string name="keyNextInaccuracy">Naslednja nepravilnost</string>
+  <string name="keyPreviousBranch">Prejšnja veja</string>
+  <string name="keyNextBranch">Naslednja veja</string>
+  <string name="toggleVariationArrows">Preklopi prikaz variant s puščicami</string>
+  <string name="cyclePreviousOrNextVariation">Preglej zadnjo/naslednjo varianto</string>
+  <string name="toggleGlyphAnnotations">Preklopi opombe potez</string>
   <string name="togglePositionAnnotations">Preklop opomb o položaju</string>
+  <string name="variationArrowsInfo">Puščice variant vam omogočajo, da krmarite brez uporabe seznama potez</string>
+  <string name="playSelectedMove">igraj izbrano potezo</string>
   <string name="newTournament">Nov turnir</string>
   <string name="tournamentHomeTitle">Turnir z možnostjo različnih variant in različnih igralnih časov</string>
   <string name="tournamentHomeDescription">Igraj turnirje z hitrim tempom! Pridruži se uradnemu turnirju ali ustvari svoj turnir. Hitropotezno, Pospešeno, Klasično, Šah960, Trojni šah in ostale možnosti so na voljo za neskončno šahovsko zabavo.</string>
@@ -1009,7 +1020,7 @@
   <string name="streamerManager">Nastavitve upravitelja pretočnega predvajanja</string>
   <string name="cancelTournament">Prekini turnir</string>
   <string name="tournDescription">Opis turnirja</string>
-  <string name="tournDescriptionHelp">Kaj posebnega želite povedati udeležencem? Poskusite, da bo kratek. Na voljo so povezave do oznak: [name] (https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Kaj posebnega želite povedati udeležencem? Poskusite, da bo kratek. Na voljo so povezave do oznak: [name] (https://url)</string>
   <string name="ratedFormHelp">Igre so rangirane
 in vplivajo na rejtinge igralcev</string>
   <string name="onlyMembersOfTeam">Samo člani ekipe</string>
@@ -1061,7 +1072,10 @@ Pustite prazno, da začnete igre iz običajnega začetnega položaja.</string>
   <string name="switchSides">Zamenjaj strani</string>
   <string name="closingAccountWithdrawAppeal">Z zaprtjem računa bo vaša pritožba umaknjena</string>
   <string name="ourEventTips">Naši nasveti za organizacijo dogodkov</string>
+  <string name="instructions">Navodila</string>
+  <string name="showMeEverything">Prikaži vse</string>
   <string name="lichessPatronInfo">Lichess je dobrodelna in popolnoma brezplačna odprtokodna programska oprema.
 Vsi operativni stroški, razvoj in vsebina se financirajo izključno iz donacij uporabnikov.</string>
   <string name="nothingToSeeHere">Tukaj trenutno ni ničesar za videti.</string>
+  <string name="stats">Statistika</string>
 </resources>

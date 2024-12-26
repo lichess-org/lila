@@ -28,6 +28,7 @@ trait Context:
 
   def is[U: UserIdOf](u: U): Boolean      = me.exists(_.is(u))
   def isnt[U: UserIdOf](u: U): Boolean    = !is(u)
+  def myId: Option[MyId]                  = me.map(_.myId)
   def noBlind                             = !blind
   def flash(name: String): Option[String] = req.flash.get(name)
   inline def noBot                        = !isBot

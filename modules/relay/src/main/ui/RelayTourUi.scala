@@ -24,7 +24,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
       val selected = active.filter(_.tour.tierIs(selector))
       selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
         selected.map: sel =>
-          card.render(sel, live = _.display.hasStarted, alts = sel.alts)
+          card.render(sel, live = _.display.hasStarted, alt = sel.alts.headOption)
       )
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
@@ -51,7 +51,12 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         )
 
   private def adminIndex(active: List[RelayCard])(using Context) =
-    val errored = active.flatMap(a => a.errors.some.filter(_.nonEmpty).map(a -> _))
+    val errored = for
+      main <- active
+      card <- main :: main.alts.map: alt =>
+        RelayCard(tour = alt.tour, display = alt.round, link = alt.round, group = main.group, alts = Nil)
+      errors <- card.errors.some.filter(_.nonEmpty)
+    yield (card, errors)
     errored.nonEmpty.option:
       div(cls := "relay-index__admin")(
         h2("Ongoing broadcasts with errors"),
@@ -240,14 +245,20 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
     def render[A <: RelayRound.AndTourAndGroup](
         tr: A,
         live: A => Boolean,
-        alts: List[RelayRound.WithTour] = Nil,
+        alt: Option[RelayRound.WithTour] = None,
         errors: List[String] = Nil
     )(using Context) =
       link(tr.tour, tr.path, live(tr))(
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
-            tr.tour.active.option(span(cls := "relay-card__round")(tr.display.name)),
+            tr.tour.active.option:
+              span(cls := "relay-card__round")(
+                tr.display.name,
+                (tr.group, alt).mapN: (group, alt) =>
+                  frag(" & ", group.shortTourName(alt.tour.name))
+              )
+            ,
             if live(tr)
             then
               span(cls := "relay-card__live")(
@@ -260,13 +271,6 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             else tr.display.startedAt.orElse(tr.display.startsAtTime).map(momentFromNow)
           ),
           h3(cls := "relay-card__title")(tr.group.fold(tr.tour.name.value)(_.value)),
-          tr.group
-            .ifTrue(alts.nonEmpty)
-            .map: group =>
-              ul(cls := "relay-card__alts"):
-                alts.map: alt =>
-                  li(group.shortTourName(alt.tour.name))
-          ,
           if errors.nonEmpty
           then ul(cls := "relay-card__errors")(errors.map(li(_)))
           else truncatedPlayers(tr.tour)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="newAccessToken">Nieuwe persoonlijk API toegangs-token</string>
+  <string name="newAccessToken">Nieuwe persoonlijke API toegangs-token</string>
   <string name="tokenGrantsPermission">Een token geeft andere mensen toestemming om je account te gebruiken.</string>
   <string name="carefullySelect">Bepaal zorgvuldig wat het in uw naam mag doen.</string>
   <string name="tokenDescription">Tokenbeschrijving</string>
@@ -49,5 +49,6 @@
   <string name="possibleToPrefill">Het is mogelijk om dit formulier vooraf in te vullen door de queryparameters van de URL aan te passen.</string>
   <string name="forExample" comment="%s is an example URL.&#10;&#10;Please note the sentence continues on the next line. The complete sentence is:&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'">Bijvoorbeeld: %s</string>
   <string name="ticksTheScopes" comment="Part of a longer sentence, this is the second line:&#10;&#10;'For example: https://lichess.org/account/oauth/token/create?scopes[]=challenge:write&amp;scopes[]=puzzle:read&amp;description=Prefilled+token+example&#10;ticks the challenge:create and puzzle:read scopes, and sets the token description.'&#10;&#10;%1$s is 'challenge:create', %2$s is 'puzzle:read' which are both used as technical examples. These should not be translated which is why they are included as substituted strings.">vinkt de %1$s en %2$s scopes aan, en stelt de token scope beschrijving in.</string>
+  <string name="scopesCanBeFound" comment="scopesCanBeFound&#10;&#10;For this page in particular, developers can link to it so that some options are pre-ticked when a user follows the URL.&#10;&#10;To pre-tick those options, developers need the scope codes, which they can find by inspecting the source code of the page itself.">De scope-codes kunnen worden gevonden in de HTML-code van het formulier.</string>
   <string name="givingPrefilledUrls">Door deze pre-filled URLs aan je gebruikers te geven, help je hen de juiste token scope te krijgen.</string>
 </resources>

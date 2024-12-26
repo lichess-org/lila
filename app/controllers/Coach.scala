@@ -37,7 +37,6 @@ final class Coach(env: Env) extends LilaController(env):
           studies <- env.study.pager.withChaptersAndLiking(ctx.me, 4)(stu)
           posts   <- env.ublog.api.latestPosts(lila.ublog.UblogBlog.Id.User(c.user.id), 4)
           page    <- renderPage(views.coach.show(c, studies, posts))
-          _ = lila.mon.coach.pageView.profile(c.coach.id.value).increment()
         yield Ok(page)
 
   private def WithVisibleCoach(c: CoachModel.WithUser)(f: Fu[Result])(using ctx: Context) =

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="lichessClasses" comment="Lichess Classes are a feature that lets a teacher create virtual classes and check out students' progress.&#10;&#10;This text used to be &quot;Lichess Classes&quot;, which has since been shortened to classes.">Mësimet</string>
+  <string name="lichessClasses">Mësimet</string>
   <string name="teachClassesOfChessStudents">Jepni mësim për kurse nxënësish të shahut, me suitën e mjeteve Lichess Classes.</string>
   <string name="features">Veçori</string>
   <string name="quicklyGenerateSafeUsernames">Prodhoni shpejt e shpejt për nxënësit emra përdoruesish dhe fjalëkalime të parrezik</string>
@@ -57,6 +57,8 @@ Ja një lidhje për t’u futur te kursi.</string>
     <item quantity="one">Një ftesë pezull</item>
     <item quantity="other">%s ftesa pezull</item>
   </plurals>
+  <string name="pending">Në pritje të shqyrtimi</string>
+  <string name="declined">Hedhur poshtë</string>
   <string name="onlyVisibleToTeachers">E dukshme vetëm për mësuesit e kursit</string>
   <string name="lastActiveDate">Aktive</string>
   <string name="managed">E administruar</string>
@@ -114,4 +116,6 @@ Do të shfaqë një vijë horizontale.</string>
   <string name="anInvitationHasBeenSentToX">Për %s u dërgua një ftesë</string>
   <string name="xAlreadyHasAPendingInvitation">%s ka tashmë një ftesë pezull</string>
   <string name="xIsAKidAccountWarning">%1$s është llogari fëmijësh dhe s’mund të marrë mesazhin tuaj. Duhet t’u jepni dorazin URL-në e ftesës: %2$s</string>
+  <string name="moveToClass">Kalo te %s</string>
+  <string name="moveToAnotherClass">Kalo te një klasë tjetër</string>
 </resources>

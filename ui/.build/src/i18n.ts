@@ -89,7 +89,7 @@ async function compileTypings(): Promise<void> {
         '}\n',
     );
     const mstat = catStats.reduce(
-      (a, b) => (a && b && quantize(a.mtimeMs) > quantize(b.mtimeMs) ? a : b),
+      (a, b) => (a && b && quantize(a.mtimeMs, 2000) > quantize(b.mtimeMs, 2000) ? a : b),
       tstat || false,
     );
     if (mstat) await fs.promises.utimes(typingsPathname, mstat.mtime, mstat.mtime);
@@ -175,7 +175,7 @@ async function updated(cat: string, locale?: string): Promise<fs.Stats | false> 
   const jsPath = path.join(env.i18nJsDir, `${cat}.${locale ?? 'en-GB'}.js`);
   const [xml, js] = await Promise.allSettled([fs.promises.stat(xmlPath), fs.promises.stat(jsPath)]);
   return xml.status === 'rejected' ||
-    (js.status !== 'rejected' && quantize(xml.value.mtimeMs) <= quantize(js.value.mtimeMs))
+    (js.status !== 'rejected' && quantize(xml.value.mtimeMs, 2000) <= quantize(js.value.mtimeMs, 2000))
     ? false
     : xml.value;
 }

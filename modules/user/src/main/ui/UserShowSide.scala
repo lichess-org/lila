@@ -30,7 +30,10 @@ final class UserShowSide(helpers: Helpers):
           "active" -> active.contains(pk)
         ),
         href := ctx.pref.showRatings.so:
-          if isPuzzle then routes.Puzzle.dashboard(Days(30), "home", u.username.some).url
+          if isPuzzle
+          then
+            val other = ctx.isnt(u).option(u.username)
+            routes.Puzzle.dashboard(Days(30), "home", other).url
           else routes.User.perfStat(u.username, pk).url
         ,
         span(

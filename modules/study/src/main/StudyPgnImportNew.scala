@@ -1,7 +1,7 @@
 package lila.study
 
 import chess.MoveOrDrop.*
-import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags }
+import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
 import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
 import monocle.syntax.all.*
@@ -71,7 +71,8 @@ object StudyPgnImportNew:
           Result(
             root = commented,
             variant = game.board.variant,
-            tags = PgnTags(parsedPgn.tags),
+            tags = PgnTags
+              .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
             end = end
           )
     }

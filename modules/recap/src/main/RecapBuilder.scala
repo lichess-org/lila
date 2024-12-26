@@ -1,6 +1,7 @@
 package lila.recap
 
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.api.bson.BSONNull
 import chess.ByColor
 import chess.opening.OpeningDb
 import chess.format.pgn.SanStr
@@ -9,11 +10,8 @@ import scalalib.model.Days
 import lila.common.SimpleOpening
 import lila.db.dsl.{ *, given }
 import lila.game.Query
-import lila.puzzle.PuzzleRound
 import lila.common.LichessDay
 import lila.core.game.Source
-import java.time.LocalDate
-import reactivemongo.api.bson.BSONNull
 
 private final class RecapBuilder(
     repo: RecapRepo,
@@ -72,6 +70,12 @@ private final class RecapBuilder(
       perfs = scan.perfs.toList.sortBy(-_._2).map(Recap.Perf.apply)
     )
 
+  /* This might be made faster by:
+   * - fetching Bdoc instead of Game with a projection
+   * - uncompressing only the moves needed to compute the opening
+   * - using mutable state instead of runFold
+   *   as the many little immutable objects hit the GC hard
+   */
   private def runGameScan(userId: UserId): Fu[GameScan] =
     val query =
       Query.createdBetween(dateStart.some, dateEnd.some) ++
