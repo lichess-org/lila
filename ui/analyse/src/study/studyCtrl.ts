@@ -535,6 +535,9 @@ export default class StudyCtrl {
     defined(this.data.chapter.relayPath) &&
     this.ctrl.path !== this.data.chapter.relayPath;
 
+  isRelayAndInVariation = (): boolean =>
+    this.isRelayAwayFromLive() && !treePath.contains(this.data.chapter.relayPath!, this.ctrl.path);
+
   setPath = (path: Tree.Path, node: Tree.Node) => {
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);

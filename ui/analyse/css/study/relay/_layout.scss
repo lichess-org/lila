@@ -129,7 +129,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
       flex: 1 0 200px;
     }
   }
-  &.relay-live-away {
+  &.relay-in-variation {
     .main-board {
       filter: saturate(0.65) brightness(0.9);
     }
