@@ -34,6 +34,13 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   );
 }
 
+// The tree node whose clocks are displayed.
+// Ongoing game: the last mainline node, no matter what
+// Finished game: last mainline node of the current variation.
+function selectClockNode(ctrl: AnalyseCtrl): Tree.Node {
+  return isFinished(ctrl.study.data.chapter) ? ctrl.tree.lastMainlineNode(ctrl.path) : ctrl.tree.root;
+}
+
 function renderPlayer(
   ctrl: AnalyseCtrl,
   tags: TagArray[],

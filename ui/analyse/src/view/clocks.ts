@@ -3,14 +3,11 @@ import type AnalyseCtrl from '../ctrl';
 import { isFinished } from '../study/studyChapters';
 import { notNull } from 'common';
 
-export default function renderClocks(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
-  const node = ctrl.node,
-    clock = node.clock;
-
+export default function renderClocks(ctrl: AnalyseCtrl, node: Tree.Node): [VNode, VNode] | undefined {
   const whitePov = ctrl.bottomIsWhite(),
     parentClock = ctrl.tree.getParentClock(node, ctrl.path),
     isWhiteTurn = node.ply % 2 === 0,
-    centis: Array<number | undefined> = isWhiteTurn ? [parentClock, clock] : [clock, parentClock];
+    centis: Array<number | undefined> = isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock];
 
   if (!centis.some(notNull)) return;
 
