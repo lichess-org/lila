@@ -128,10 +128,7 @@ object RelayRound:
 
     // subtract estimated source polling lag from transmission delay
     private def pollingLag = Seconds(if isPush then 1 else 6)
-    def delayMinusLag      = delay.map(_ - pollingLag)
-
-    def nonEmptyDelay = delayMinusLag.filter(_.value > 0)
-    def hasDelay      = nonEmptyDelay.isDefined
+    def delayMinusLag      = delay.map(_ - pollingLag).filter(_.value > 0)
 
     override def toString = upstream.toString
 

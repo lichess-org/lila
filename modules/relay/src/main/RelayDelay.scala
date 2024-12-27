@@ -48,7 +48,7 @@ final private class RelayDelay(colls: RelayColls)(using Executor):
         )
         .games
         .addEffect: games =>
-          if round.sync.hasDelay then store.putIfNew(url, games)
+          if round.sync.delayMinusLag.isDefined then store.putIfNew(url, games)
 
   private object store:
 
