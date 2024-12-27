@@ -38,4 +38,10 @@
   <string name="rapidShield">Escudu rápidu</string>
   <string name="classicalShieldArena">Tornéu d\'escudu clásicu</string>
   <string name="classicalShield">Escudu clásicu</string>
+  <string name="xShieldArena">Tornéu d\'escudu %s</string>
+  <string name="xShield">Escudu %s</string>
+  <string name="xTeamBattle">Batalla por equipos %s</string>
+  <string name="eliteXArena">Tornéu %s d\'élite</string>
+  <string name="eliteX">%s d\'élite</string>
+  <string name="xArena">Tornéu %s</string>
 </resources>
