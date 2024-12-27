@@ -754,7 +754,11 @@
   <string name="disableKidMode">Desactivar el mou infantil</string>
   <string name="security">Seguridá</string>
   <string name="sessions">Sesiones</string>
+  <string name="phoneAndTablet">Teléfonu y tablet</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, classical</string>
+  <string name="viewTheSolution">Ver la solución</string>
   <string name="gameAnalysis">Análisis de partida</string>
+  <string name="xJoinsY">%1$s uniose a %2$s</string>
   <string name="quickPairing">Empareyamientu rápidu</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anónimu</string>
@@ -773,6 +777,7 @@
   <string name="hue">Tonu</string>
   <string name="boardReset">Restablecer colores predeterminaos</string>
   <string name="pieceSet">Estilu de pieces</string>
+  <string name="usernameAlreadyUsed">Esti nome d\'usuariu ta n\'usu, por favor pruebe con otru.</string>
   <string name="chessBasics">Fundamentos del axedrez</string>
   <string name="coaches">Entrenadores</string>
   <string name="custom">Personalizáu</string>
@@ -784,11 +789,22 @@
   <string name="bestWasX">Meyor yera %s</string>
   <string name="youBrowsedAway">Salisti de la revisión</string>
   <string name="resumePractice">Volver a la revisión d\'erros</string>
+  <string name="drawByFiftyMoves">La partida acabó en tables pola riegla de los cincuenta movimientos.</string>
   <string name="theGameIsADraw">La partida ye tables.</string>
+  <string name="computerThinking">L\'ordenador ta calculando...</string>
+  <string name="seeBestMove">Ver meyor movimientu</string>
   <string name="hideBestMove">Amatagar meyor movimientu</string>
+  <string name="getAHint">Pidir una pista</string>
+  <string name="evaluatingYourMove">Evaluando\'l to movimientu...</string>
   <string name="whiteWinsGame">Ganen les blanques</string>
   <string name="blackWinsGame">Ganen les prietes</string>
+  <string name="learnFromYourMistakes">Deprender de los tos erros</string>
+  <string name="learnFromThisMistake">Deprender d\'esti error</string>
+  <string name="skipThisMove">Omitir esti movimientu</string>
   <string name="next">Siguiente</string>
+  <string name="xWasPlayed">xugóse %s</string>
+  <string name="findBetterMoveForWhite">Atopa un movimientu meyor para les blanques</string>
+  <string name="findBetterMoveForBlack">Atopa un movimientu meyor para les prietes</string>
   <string name="solution">Solución</string>
   <string name="advantage">Ventaya</string>
   <string name="opening">Apertura</string>
@@ -797,16 +813,41 @@
   <string name="conditionalPremoves">Movimientos condicionales</string>
   <string name="addCurrentVariation">Añedir la variante actual</string>
   <string name="playX">Xugar %s</string>
+  <string name="showUnreadLichessMessage">Recibisti un mensaxe priváu de Lichess.</string>
+  <string name="sorry">Sentimoslo :(</string>
+  <string name="playEveryGame">Xuega toles partíes qu\'empieces.</string>
+  <string name="tryToWin">Intenta ganar (o, siquier, empatar) cada partida que xuegues.</string>
+  <string name="resignLostGames">Abandona en posiciones perdíes (non dexes que\'l tiempu acabe ensin más).</string>
+  <string name="temporaryInconvenience">Te pidimos disculpes poles molesties</string>
+  <string name="wishYouGreatGames">y esperamos que disfrutes de lichess.org.</string>
+  <string name="thankYouForReading">¡Gracies por lleerlo!</string>
+  <string name="lifetimeScore">Puntuación histórica</string>
   <string name="agreementAssistance">Acepto qu\'en nengún momentu voi recibir ayuda mientres les mios partíes (d\'un ordenador d\'axedrez, un llibru, una base de datos o otra persona).</string>
   <string name="edit">Editar</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rellámpagu</string>
   <string name="rapid">Rápido</string>
   <string name="classical">Clásica</string>
+  <string name="important">Importante</string>
+  <string name="mentionedYouInX">mentaronte en \"%1$s\".</string>
+  <string name="xMentionedYouInY">%1$s te mentaron en \"%2$s\".</string>
+  <string name="youHaveJoinedTeamX">Te xunisti a \"%1$s\".</string>
+  <string name="congratsYouWon">¡Felicidaes, ganasti!</string>
+  <string name="gameVsX">Partida vs %1$s</string>
+  <string name="resVsX">%1$s vs %2$s</string>
+  <string name="download">Decargar</string>
   <string name="positionInputHelp">Pega un FEN válidu para empecipiar cada partida dende una posición determinada.
 Namás funciona para partíes estándar, non con variantes.
 Pues usar el %s para xenerar una posición FEN, y depués pegala equí.
 Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
+  <string name="tournChat">Chat d\'tornéu</string>
+  <string name="noChat">Ensin chat</string>
+  <string name="onlyTeamLeaders">Solo líderes d\'equipu</string>
+  <string name="abortTheGame">Albortar partida</string>
+  <string name="resignTheGame">Abandonar partida</string>
+  <string name="youCantStartNewGame">Nun pues empezar una partida teniendo otra en xuegu.</string>
+  <string name="since">Dende</string>
+  <string name="until">Hasta</string>
   <string name="instructions">Instrucciones</string>
   <string name="lichessPatronInfo">Lichess ye una organización benéfica y un software de códigu abiertu totalmente llibre.
 Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puramente con donaciones de los usuarios.</string>
