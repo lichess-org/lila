@@ -42,7 +42,7 @@ import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
 import { storage } from 'common/storage';
 import { makeChat } from 'chat';
-import { isFinished } from '../study/studyChapters';
+import { backToLiveView } from '../study/relay/relayView';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -93,8 +93,6 @@ export function renderMain(
   kids: VNodeKids,
 ): VNode {
   const isRelay = defined(ctrl.study?.relay);
-  const relayPath =
-    isRelay && ctrl.study && !isFinished(ctrl.study.data.chapter) && ctrl.study?.data.chapter.relayPath;
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -125,7 +123,7 @@ export function renderMain(
         'is-relay': isRelay,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
-        'relay-live-away': !!relayPath && relayPath !== ctrl.path,
+        'relay-live-away': !!ctrl.study?.isRelayAwayFromLive(),
       },
     },
     kids,
@@ -142,6 +140,7 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
           !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
           renderMoveList(ctrl, deps, concealOf),
           deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
+          backToLiveView(ctrl),
           forkView(ctrl, concealOf),
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
         ]),

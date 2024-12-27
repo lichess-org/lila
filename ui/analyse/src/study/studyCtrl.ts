@@ -529,6 +529,12 @@ export default class StudyCtrl {
   isClockTicking = (path: Tree.Path) =>
     path !== '' && this.data.chapter.relayPath === path && !isFinished(this.data.chapter);
 
+  isRelayAwayFromLive = (): boolean =>
+    !!this.relay &&
+    !isFinished(this.data.chapter) &&
+    defined(this.data.chapter.relayPath) &&
+    this.ctrl.path !== this.data.chapter.relayPath;
+
   setPath = (path: Tree.Path, node: Tree.Node) => {
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
