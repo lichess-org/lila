@@ -42,6 +42,7 @@ import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
 import { storage } from 'common/storage';
 import { makeChat } from 'chat';
+import { isFinished } from '../study/studyChapters';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -91,6 +92,9 @@ export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
   kids: VNodeKids,
 ): VNode {
+  const isRelay = defined(ctrl.study?.relay);
+  const relayPath =
+    isRelay && ctrl.study && !isFinished(ctrl.study.data.chapter) && ctrl.study?.data.chapter.relayPath;
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -118,9 +122,10 @@ export function renderMain(
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': hasRelayTour,
-        'is-relay': ctrl.study?.relay !== undefined,
+        'is-relay': isRelay,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
+        'relay-live-away': !!relayPath && relayPath !== ctrl.path,
       },
     },
     kids,
