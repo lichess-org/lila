@@ -1,6 +1,6 @@
 import { view as cevalView } from 'ceval';
 import { onClickAway } from 'common';
-import { looseH as h, onInsert, type VNode } from 'common/snabbdom';
+import { bind, dataIcon, looseH as h, onInsert, type VNode } from 'common/snabbdom';
 import * as licon from 'common/licon';
 import type AnalyseCtrl from '../../ctrl';
 import { view as keyboardView } from '../../keyboard';
@@ -33,6 +33,25 @@ export function relayView(
     ...(ctx.hasRelayTour ? renderTourView() : renderBoardView(ctx)),
   ]);
 }
+
+export const backToLiveView = (ctrl: AnalyseCtrl) =>
+  ctrl.study?.isRelayAwayFromLive()
+    ? h(
+        'button.fbt.relay-back-to-live.text',
+        {
+          attrs: dataIcon(licon.RadioTower),
+          hook: bind(
+            'click',
+            () => {
+              const p = ctrl.study?.data.chapter.relayPath;
+              if (p) ctrl.userJump(p);
+            },
+            ctrl.redraw,
+          ),
+        },
+        'Back to live move',
+      )
+    : undefined;
 
 export function renderStreamerMenu(relay: RelayCtrl): VNode {
   const makeUrl = (id: string) => {

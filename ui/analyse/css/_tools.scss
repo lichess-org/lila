@@ -50,6 +50,8 @@
     flex-direction: column;
     justify-content: space-between;
 
+    @include prevent-select;
+
     // 0 size forces vertical scrollbar
     overflow-y: auto;
     overflow-x: hidden;

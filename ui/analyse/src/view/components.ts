@@ -42,6 +42,7 @@ import type * as studyDeps from '../study/studyDeps';
 import { renderPgnError } from '../pgnImport';
 import { storage } from 'common/storage';
 import { makeChat } from 'chat';
+import { backToLiveView } from '../study/relay/relayView';
 
 export interface ViewContext {
   ctrl: AnalyseCtrl;
@@ -91,6 +92,7 @@ export function renderMain(
   { ctrl, playerBars, gaugeOn, gamebookPlayView, needsInnerCoords, hasRelayTour }: ViewContext,
   kids: VNodeKids,
 ): VNode {
+  const isRelay = defined(ctrl.study?.relay);
   return h(
     'main.analyse.variant-' + ctrl.data.game.variant.key,
     {
@@ -118,9 +120,10 @@ export function renderMain(
         'has-players': !!playerBars,
         'gamebook-play': !!gamebookPlayView,
         'has-relay-tour': hasRelayTour,
-        'is-relay': ctrl.study?.relay !== undefined,
+        'is-relay': isRelay,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
+        'relay-live-away': !!ctrl.study?.isRelayAwayFromLive(),
       },
     },
     kids,
@@ -137,6 +140,7 @@ export function renderTools({ ctrl, deps, concealOf, allowVideo }: ViewContext, 
           !ctrl.retro?.isSolving() && !ctrl.practice && cevalView.renderPvs(ctrl),
           renderMoveList(ctrl, deps, concealOf),
           deps?.gbEdit.running(ctrl) ? deps?.gbEdit.render(ctrl) : undefined,
+          backToLiveView(ctrl),
           forkView(ctrl, concealOf),
           retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl),
         ]),
@@ -440,7 +444,7 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
     h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
-  const clocks = renderClocks(ctrl),
+  const clocks = renderClocks(ctrl, ctrl.path),
     whitePov = ctrl.bottomIsWhite(),
     materialDiffs = renderMaterialDiffs(ctrl);
 

@@ -93,6 +93,11 @@ final class Env(
 
   private lazy val sync = wire[RelaySync]
 
+  private lazy val proxy                 = wire[RelayProxy]
+  private def selectProxy: ProxySelector = proxy.select
+
+  private lazy val httpClient = wire[HttpClient]
+
   private lazy val formatApi = wire[RelayFormatApi]
 
   private lazy val delay = wire[RelayDelay]
@@ -139,19 +144,19 @@ final class Env(
     "study" -> { case lila.core.study.RemoveStudy(studyId) =>
       api.onStudyRemove(studyId)
     },
-    "relayToggle" -> { case lila.study.actorApi.RelayToggle(id, v, who) =>
+    "relayToggle" -> { case lila.study.RelayToggle(id, v, who) =>
       studyApi
         .isContributor(id, who.u)
         .foreach:
           _.so(api.requestPlay(id.into(RelayRoundId), v, "manual toggle"))
     },
-    "kickStudy" -> { case lila.study.actorApi.Kick(studyId, userId, who) =>
+    "kickStudy" -> { case lila.study.Kick(studyId, userId, who) =>
       roundRepo.tourIdByStudyId(studyId).flatMapz(api.kickBroadcast(userId, _, who))
     },
-    "adminStudy" -> { case lila.study.actorApi.BecomeStudyAdmin(studyId, me) =>
+    "adminStudy" -> { case lila.study.BecomeStudyAdmin(studyId, me) =>
       api.becomeStudyAdmin(studyId, me)
     },
-    "isOfficialRelay" -> { case lila.study.actorApi.IsOfficialRelay(studyId, promise) =>
+    "isOfficialRelay" -> { case lila.study.IsOfficialRelay(studyId, promise) =>
       promise.completeWith(api.isOfficial(studyId.into(RelayRoundId)))
     }
   )

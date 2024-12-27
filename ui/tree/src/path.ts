@@ -20,3 +20,9 @@ export function fromNodeList(nodes: Tree.Node[]): Tree.Path {
 
 export const isChildOf = (child: Tree.Path, parent: Tree.Path): boolean =>
   !!child && child.slice(0, -2) === parent;
+
+export const intersection = (p1: Tree.Path, p2: Tree.Path): Tree.Path => {
+  const head1 = head(p1),
+    head2 = head(p2);
+  return head1 !== '' && head1 === head2 ? head1 + intersection(tail(p1), tail(p2)) : '';
+};
