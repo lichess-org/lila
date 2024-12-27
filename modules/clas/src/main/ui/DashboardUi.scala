@@ -181,10 +181,11 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           )
         }
         frag(
+          div(cls := "box__pad")(
           h2("Invite this class to one of your studies"),
           topicLinks,
           studyForms
-        )
+        ))
 
     def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
       TeacherPage(c, students, "progress")():
