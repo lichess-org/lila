@@ -147,16 +147,9 @@ final private class RelayFetch(
   private def continueRelay(tour: RelayTour, updating: Updating[RelayRound]): Updating[RelayRound] =
     val round = updating.current
     round.sync.upstream.fold(updating): upstream =>
+      reportBroadcastFailure(round.withTour(tour))
       val seconds: Seconds =
         if round.sync.log.alwaysFails then
-          round.sync.log.events.lastOption
-            .filterNot(_.isTimeout)
-            .flatMap(_.error)
-            .ifTrue(tour.official && round.shouldHaveStarted)
-            .filterNot(_.contains("Cannot parse move"))
-            .filterNot(_.contains("Cannot parse pgn"))
-            .filterNot(_.contains("Found an empty PGN"))
-            .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(tour.tier.fold(60):
             case RelayTour.Tier.best => 10
             case RelayTour.Tier.high => 20
@@ -172,6 +165,17 @@ final private class RelayFetch(
               }.value
             }.some
           )
+
+  private def reportBroadcastFailure(r: RelayRound.WithTour): Unit =
+    if r.round.sync.log.alwaysFails then
+      r.round.sync.log.events.lastOption
+        .filterNot(_.isTimeout)
+        .flatMap(_.error)
+        .ifTrue(r.tour.official && r.round.shouldHaveStarted)
+        .filterNot(_.contains("Cannot parse move"))
+        .filterNot(_.contains("Cannot parse pgn"))
+        .filterNot(_.contains("Found an empty PGN"))
+        .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
     val base =
