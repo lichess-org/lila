@@ -440,7 +440,7 @@ function renderPlayerStrips(ctrl: AnalyseCtrl): [VNode, VNode] | undefined {
   const renderPlayerStrip = (cls: string, materialDiff: VNode, clock?: VNode): VNode =>
     h('div.analyse__player_strip.' + cls, [materialDiff, clock]);
 
-  const clocks = renderClocks(ctrl, ctrl.node),
+  const clocks = renderClocks(ctrl, ctrl.path),
     whitePov = ctrl.bottomIsWhite(),
     materialDiffs = renderMaterialDiffs(ctrl);
 

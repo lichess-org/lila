@@ -44,7 +44,7 @@ import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
 import { storedMap } from 'common/storage';
 import { opposite } from 'chessops/util';
-import StudyChaptersCtrl from './studyChapters';
+import StudyChaptersCtrl, { isFinished } from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
@@ -525,6 +525,9 @@ export default class StudyCtrl {
     this.practice?.onJump();
   };
   onFlip = () => this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
+
+  isClockTicking = (path: Tree.Path) =>
+    path !== '' && this.data.chapter.relayPath === path && !isFinished(this.data.chapter);
 
   setPath = (path: Tree.Path, node: Tree.Node) => {
     this.onSetPath(path);

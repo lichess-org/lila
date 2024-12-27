@@ -7,6 +7,8 @@ import type { StudyPlayers, Federation, TagArray } from './interfaces';
 import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'common/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
+import { StudyCtrl } from './studyDeps';
+import { intersection } from 'tree/path';
 
 export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
   const study = ctrl.study;
@@ -15,8 +17,8 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 
   const players = study.currentChapter().players,
     tags = study.data.chapter.tags,
-    clocks = renderClocks(ctrl),
-    ticking = !isFinished(study.data.chapter) && ctrl.turnColor(),
+    clocks = renderClocks(ctrl, selectClockPath(ctrl, study)),
+    tickingColor = study.isClockTicking(ctrl.path) && ctrl.turnColor(),
     materialDiffs = renderMaterialDiffs(ctrl);
 
   return (['white', 'black'] as Color[]).map(color =>
@@ -27,7 +29,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
       materialDiffs,
       players,
       color,
-      ticking === color,
+      tickingColor === color,
       study.data.showRatings || !looksLikeLichessGame(tags),
       relayPlayers,
     ),
@@ -35,10 +37,17 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 }
 
 // The tree node whose clocks are displayed.
-// Ongoing game: the last mainline node, no matter what
 // Finished game: last mainline node of the current variation.
-function selectClockNode(ctrl: AnalyseCtrl): Tree.Node {
-  return isFinished(ctrl.study.data.chapter) ? ctrl.tree.lastMainlineNode(ctrl.path) : ctrl.tree.root;
+// Ongoing game: the last mainline node, no matter what
+function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): Tree.Path {
+  const gamePath = ctrl.gamePath || study.data.chapter.relayPath;
+  return isFinished(study.data.chapter)
+    ? ctrl.node.clock
+      ? ctrl.path
+      : gamePath
+        ? intersection(ctrl.path, gamePath)
+        : ctrl.path
+    : gamePath || ctrl.path;
 }
 
 function renderPlayer(

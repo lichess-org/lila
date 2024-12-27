@@ -1,11 +1,11 @@
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
-import { isFinished } from '../study/studyChapters';
 import { notNull } from 'common';
 
-export default function renderClocks(ctrl: AnalyseCtrl, node: Tree.Node): [VNode, VNode] | undefined {
-  const whitePov = ctrl.bottomIsWhite(),
-    parentClock = ctrl.tree.getParentClock(node, ctrl.path),
+export default function renderClocks(ctrl: AnalyseCtrl, path: Tree.Path): [VNode, VNode] | undefined {
+  const node = ctrl.tree.nodeAtPath(path),
+    whitePov = ctrl.bottomIsWhite(),
+    parentClock = ctrl.tree.getParentClock(node, path),
     isWhiteTurn = node.ply % 2 === 0,
     centis: Array<number | undefined> = isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock];
 
@@ -14,9 +14,9 @@ export default function renderClocks(ctrl: AnalyseCtrl, node: Tree.Node): [VNode
   const study = ctrl.study;
 
   const lastMoveAt = study
-    ? study.data.chapter.relayPath !== ctrl.path || ctrl.path === '' || isFinished(study.data.chapter)
-      ? undefined
-      : study.relay?.lastMoveAt(study.vm.chapterId)
+    ? study.isClockTicking(path)
+      ? study.relay?.lastMoveAt(study.vm.chapterId)
+      : undefined
     : ctrl.autoplay.lastMoveAt;
 
   if (lastMoveAt) {
