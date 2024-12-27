@@ -260,11 +260,11 @@
   </plurals>
   <string name="ok">OK</string>
   <string name="cancel">Encaboxar</string>
-  <string name="whiteTimeOut">Les blanques escosaron el so tiempu</string>
-  <string name="blackTimeOut">Les prietes escosaron el so tiempu</string>
+  <string name="whiteTimeOut">Les blanques agotaron el so tiempu</string>
+  <string name="blackTimeOut">Les prietes agotaron el so tiempu</string>
   <string name="drawOfferSent">Ufierta de tables unviada</string>
   <string name="drawOfferAccepted">Ufierta de tables aceptada</string>
-  <string name="drawOfferCanceled">Ufierta de tables cancelada</string>
+  <string name="drawOfferCanceled">Ufierta de tables encaboxada</string>
   <string name="whiteOffersDraw">Les blanques ufierten tables</string>
   <string name="blackOffersDraw">Les prietes ufierten tables</string>
   <string name="whiteDeclinesDraw">Les blanques refuguen tables</string>
@@ -289,7 +289,7 @@
   <string name="rematch">Revancha</string>
   <string name="rematchOfferSent">Ufierta de revancha unviada</string>
   <string name="rematchOfferAccepted">Ufierta de revancha aceptada</string>
-  <string name="rematchOfferCanceled">Ufierta de revancha cancelada</string>
+  <string name="rematchOfferCanceled">Ufierta de revancha encaboxada</string>
   <string name="rematchOfferDeclined">Ufierta de revancha refugada</string>
   <string name="cancelRematchOffer">Encaboxar ufierta de revancha</string>
   <string name="viewRematch">Ver revancha</string>
@@ -893,11 +893,13 @@
   <string name="gameVsX">Partida vs %1$s</string>
   <string name="resVsX">%1$s vs %2$s</string>
   <string name="download">Decargar</string>
+  <string name="cancelTournament">Encaboxar tornéu</string>
   <string name="minimumRating">Rating mínimu</string>
   <string name="positionInputHelp">Pega un FEN válidu para empecipiar cada partida dende una posición determinada.
 Namás funciona para partíes estándar, non con variantes.
 Pues usar el %s para xenerar una posición FEN, y depués pegala equí.
 Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
+  <string name="cancelSimul">Encaboxar simultánea</string>
   <string name="tournChat">Chat d\'tornéu</string>
   <string name="noChat">Ensin chat</string>
   <string name="onlyTeamLeaders">Solo líderes d\'equipu</string>
