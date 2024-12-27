@@ -197,10 +197,7 @@ export default class SetupController {
     this.loadPropsFromStore(forceOptions);
   };
 
-  closeModal = () => {
-    this.gameType = null;
-    this.root.redraw();
-  };
+  closeModal?: () => void; // managed by view/setup/modal.ts
 
   validateFen = debounce(() => {
     const fen = this.fen();
@@ -292,7 +289,7 @@ export default class SetupController {
     const poolMember = this.hookToPoolMember(color);
     if (poolMember) {
       this.root.enterPool(poolMember);
-      this.closeModal();
+      this.closeModal?.();
       return;
     }
 
@@ -330,13 +327,13 @@ export default class SetupController {
       if (response.status === 403) {
         // 403 FORBIDDEN closes this modal because challenges to the recipient
         // will not be accepted.  see friend() in controllers/Setup.scala
-        this.closeModal();
+        this.closeModal?.();
       }
     } else if (redirected) {
       location.href = url;
     } else {
       this.loading = false;
-      this.closeModal();
+      this.closeModal?.();
     }
   };
 }
