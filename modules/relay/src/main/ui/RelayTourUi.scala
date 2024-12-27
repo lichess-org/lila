@@ -15,17 +15,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
 
   def asRelayPager(p: Paginator[WithLastRound]): Paginator[RelayTour | WithLastRound] = p.mapResults(identity)
 
-  def index(
-      active: List[RelayCard],
-      past: Seq[WithLastRound]
-  )(using Context) =
-    def nonEmptyTier(selector: RelayTour.Tier.Selector) =
-      val tier     = RelayTour.Tier(selector)
-      val selected = active.filter(_.tour.tierIs(selector))
-      selected.nonEmpty.option(st.section(cls := s"relay-cards relay-cards--tier-$tier"):
-        selected.map: sel =>
-          card.render(sel, live = _.display.hasStarted, alt = sel.alts.headOption)
-      )
+  def index(active: List[RelayCard], past: Seq[WithLastRound])(using Context) =
     Page(trc.liveBroadcasts.txt())
       .css("bits.relay.index")
       .hrefLangs(lila.ui.LangPath(routes.RelayTour.index())):
@@ -34,13 +24,14 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(trc.liveBroadcasts()), searchForm("")),
             Granter.opt(_.StudyAdmin).option(adminIndex(active)),
-            nonEmptyTier(_.best),
-            nonEmptyTier(_.high),
-            nonEmptyTier(_.normal),
+            div(cls := "relay-cards"):
+              active.map: c =>
+                card.render(withTier = true)(c, live = _.display.hasStarted, alt = c.alts.headOption)
+            ,
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
             div(cls := "relay-cards"):
-              past.map: t =>
-                card.render(t, live = _ => false)
+              past.map: c =>
+                card.render(withTier = false)(c, live = _ => false)
             ,
             h2(cls := "relay-index__section relay-index__calendar"):
               a(cls := "button button-fat button-no-upper", href := routes.RelayTour.calendar)(
@@ -62,7 +53,11 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         h2("Ongoing broadcasts with errors"),
         st.section(cls := "relay-cards"):
           errored.map: (tr, errors) =>
-            card.render(tr.copy(link = tr.display), live = _.display.hasStarted, errors = errors.take(5))
+            card.render(withTier = false)(
+              tr.copy(link = tr.display),
+              live = _.display.hasStarted,
+              errors = errors.take(5)
+            )
       )
 
   private def listLayout(title: String, menu: Tag)(body: Modifier*)(using Context) =
@@ -242,13 +237,14 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
         span(cls := "relay-card__players"):
           players.split(',').map(name => span(name.trim))
 
-    def render[A <: RelayRound.AndTourAndGroup](
+    def render[A <: RelayRound.AndTourAndGroup](withTier: Boolean)(
         tr: A,
         live: A => Boolean,
         alt: Option[RelayRound.WithTour] = None,
         errors: List[String] = Nil
     )(using Context) =
-      link(tr.tour, tr.path, live(tr))(
+      val tierClass = withTier.option(s"relay-card--tier-${tr.tour.tier.so(_.v)}")
+      link(tr.tour, tr.path, live(tr))(cls := tierClass)(
         image(tr.tour),
         span(cls := "relay-card__body")(
           span(cls := "relay-card__info")(
@@ -318,7 +314,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
   def renderPager(pager: Paginator[RelayTour | WithLastRound])(next: Int => Call)(using Context): Tag =
     st.section(cls := "infinite-scroll relay-cards")(
       pager.currentPageResults.map:
-        case w: WithLastRound => card.render(w, live = _ => false)(cls := "paginated")
+        case w: WithLastRound => card.render(withTier = false)(w, live = _ => false)(cls := "paginated")
         case t: RelayTour     => card.empty(t)(cls := "paginated")
       ,
       pagerNext(pager, next(_).url)
