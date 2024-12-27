@@ -44,4 +44,5 @@ Lichess-ലെ കമ്പ്യൂട്ടർ വിശകലനം Stockfish
   <string name="insufficientMaterial">സമയം ഇല്ലായ്മകൊണ്ടുള്ള തോല്‍വി, സമനില, അപര്യാപ്തമായ മെറ്റീരിയൽ</string>
   <string name="accounts">അക്കൗണ്ടുകള്‍</string>
   <string name="noUpperCaseDot">ഇല്ല.</string>
+  <string name="whatIsProvisionalRating">എന്റെ രേറ്റിങ്ങിന്റെ തോട്ടുമുമ്പു് ഒരു കാകുയടയാളം (?) എന്തിന ഇരിക്കുന്നതു്?</string>
 </resources>
