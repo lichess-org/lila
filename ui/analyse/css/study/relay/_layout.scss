@@ -130,7 +130,7 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
   }
   &.relay-in-variation {
-    .main-board {
+    .main-board cg-board {
       filter: saturate(0.65) brightness(0.9);
     }
   }
