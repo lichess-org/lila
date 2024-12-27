@@ -42,4 +42,6 @@
 കളിയുടെ ഗുണനിലവാരത്തിന്‍റെ സൂചകമായി ഈ മൂല്യം ഉപയോഗിക്കാം. ഓരോ നീക്കത്തിലും ഒരാൾക്ക് എത്ര കുറഞ്ഞ centipawn -കൾ നഷ്ടപ്പെടുന്നുവോ, അത്ര കളി ശക്തമായിരിക്കും.
 Lichess-ലെ കമ്പ്യൂട്ടർ വിശകലനം Stockfish ആണ് നൽകുന്നത്.</string>
   <string name="insufficientMaterial">സമയം ഇല്ലായ്മകൊണ്ടുള്ള തോല്‍വി, സമനില, അപര്യാപ്തമായ മെറ്റീരിയൽ</string>
+  <string name="accounts">അക്കൗണ്ടുകള്‍</string>
+  <string name="noUpperCaseDot">ഇല്ല.</string>
 </resources>
