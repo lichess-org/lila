@@ -209,16 +209,15 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       import lila.core.study.Order
       import lila.study.StudyTopic
       for
-        students                <- env.clas.api.student.allWithUsers(clas)
-        teacherStudiesPaginator <- {
-          if (topicStr == "") 
-            env.study.pager.mine(Order.updated, 1)
-          else
-            env.study.pager.byTopic(StudyTopic(topicStr), Order.mine, 1 )
-        }
+        students <- env.clas.api.student.allWithUsers(clas)
+        teacherStudiesPaginator <-
+          if topicStr == "" then env.study.pager.mine(Order.updated, 1)
+          else env.study.pager.byTopic(StudyTopic(topicStr), Order.mine, 1)
         studies = teacherStudiesPaginator.currentPageResults.map(s => (s.study.id, s.study.name))
         topics <- env.study.topicApi.userTopics(me.userId)
-        page <- renderPage(views.clas.teacherDashboard.studies(clas, students, studies, topics.value.map(_.toString())))
+        page <- renderPage(
+          views.clas.teacherDashboard.studies(clas, students, studies, topics.value.map(_.toString()))
+        )
       yield Ok(page)
   }
 

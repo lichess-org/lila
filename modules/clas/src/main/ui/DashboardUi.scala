@@ -169,9 +169,9 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
     )(using Context) =
       TeacherPage(clas, students, "studies")():
         val topicLinks: Frag = div(cls := "topic-list")(
-        topics.map: topic =>
-          a(href := routes.Clas.studies(clas.id, topic))(topic)
-      )
+          topics.map: topic =>
+            a(href := routes.Clas.studies(clas.id, topic))(topic)
+        )
         val studyForms: Frag = studies.map { case (studyId, studyName) =>
           postForm(action := routes.Clas.inviteToStudy(clas.id, studyId))(
             form3.submit(studyName, icon = Icon.InternalArrow.some)(
@@ -182,10 +182,11 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         }
         frag(
           div(cls := "box__pad")(
-          h2("Invite this class to one of your studies"),
-          topicLinks,
-          studyForms
-        ))
+            h2("Invite this class to one of your studies"),
+            topicLinks,
+            studyForms
+          )
+        )
 
     def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
       TeacherPage(c, students, "progress")():
