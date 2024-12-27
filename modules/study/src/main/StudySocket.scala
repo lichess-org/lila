@@ -13,8 +13,6 @@ import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shape, Shapes }
 import lila.tree.Node.minimalNodeJsonWriter
 
-import actorApi.Who
-
 final private class StudySocket(
     api: StudyApi,
     jsonView: JsonView,
@@ -75,13 +73,13 @@ final private class StudySocket(
           AnaMove
             .parse(o)
             .foreach: move =>
-              applyWho(moveOrDrop(studyId, move, MoveOpts.parse(o)))
+              applyWho(moveOrDrop(studyId, move, MoveOpts.parse(o))(using _))
 
         case "anaDrop" =>
           AnaDrop
             .parse(o)
             .foreach: drop =>
-              applyWho(moveOrDrop(studyId, drop, MoveOpts.parse(o)))
+              applyWho(moveOrDrop(studyId, drop, MoveOpts.parse(o))(using _))
 
         case "deleteNode" =>
           reading[AtPosition](o): position =>
@@ -96,7 +94,7 @@ final private class StudySocket(
             (o \ "d" \ "toMainline")
               .asOpt[Boolean]
               .foreach: toMainline =>
-                applyWho(api.promote(studyId, position.ref, toMainline))
+                applyWho(api.promote(studyId, position.ref, toMainline)(using _))
 
         case "forceVariation" =>
           reading[AtPosition](o): position =>
@@ -114,7 +112,7 @@ final private class StudySocket(
             .foreach: username =>
               applyWho: w =>
                 api.kick(studyId, username.id, w.myId)
-                Bus.publish(actorApi.Kick(studyId, username.id, w.myId), "kickStudy")
+                Bus.publish(Kick(studyId, username.id, w.myId), "kickStudy")
 
         case "leave" =>
           who.foreach: w =>
@@ -177,7 +175,7 @@ final private class StudySocket(
               applyWho(api.editStudy(studyId, data))
 
         case "setTag" =>
-          reading[actorApi.SetTag](o): setTag =>
+          reading[SetTag](o): setTag =>
             applyWho(api.setTag(studyId, setTag))
 
         case "setComment" =>
@@ -216,7 +214,7 @@ final private class StudySocket(
               applyWho(api.setTopics(studyId, topics))
 
         case "explorerGame" =>
-          reading[actorApi.ExplorerGame](o): data =>
+          reading[ExplorerGame](o): data =>
             applyWho(api.explorerGame(studyId, data))
 
         case "requestAnalysis" =>
@@ -235,7 +233,7 @@ final private class StudySocket(
 
         case "relaySync" =>
           applyWho: w =>
-            Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
+            Bus.publish(RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
 
         case t => logger.warn(s"Unhandled study socket message: $t")
 
@@ -246,18 +244,18 @@ final private class StudySocket(
     _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& api.isMember(roomId, suspectId).not >>&
-        Bus.ask("isOfficialRelay") { actorApi.IsOfficialRelay(roomId, _) }.not
+        Bus.ask("isOfficialRelay") { IsOfficialRelay(roomId, _) }.not
     },
     chatBusChan = _.study
   )
 
-  private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(who: Who) =
+  private def moveOrDrop(studyId: StudyId, m: AnaAny, opts: MoveOpts)(using Who) =
     m.branch.foreach: branch =>
       if branch.ply < Node.MAX_PLIES then
         m.chapterId
           .ifTrue(opts.write)
           .foreach: chapterId =>
-            api.addNode(studyId, Position.Ref(chapterId, m.path), branch, opts)(who)
+            api.addNode(AddNode(studyId, Position.Ref(chapterId, m.path), branch, opts))
 
   private lazy val send = socketKit.send("study-out")
 
@@ -458,9 +456,9 @@ object StudySocket:
       given Reads[ChapterMaker.EditData]      = Json.reads
       given Reads[ChapterMaker.DescData]      = Json.reads
       given studyDataReads: Reads[Study.Data] = Json.reads
-      given Reads[actorApi.SetTag]            = Json.reads
+      given Reads[SetTag]            = Json.reads
       given Reads[Gamebook]                   = Json.reads
-      given Reads[actorApi.ExplorerGame]      = Json.reads
+      given Reads[ExplorerGame]      = Json.reads
 
     object Out:
       def getIsPresent(reqId: Int, studyId: StudyId, userId: UserId) =
