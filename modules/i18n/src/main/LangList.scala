@@ -99,7 +99,7 @@ object LangList extends lila.core.i18n.LangList:
     Lang("th", "TH")  -> "ไทย",
     Lang("tk", "TM")  -> "Türkmençe",
     Lang("tl", "PH")  -> "Tagalog",
-    Lang("tp", "TP")  -> "Toki pona",
+    Lang("tok", "AA")  -> "Toki pona",
     Lang("tr", "TR")  -> "Türkçe",
     Lang("uk", "UA")  -> "українська",
     Lang("ur", "PK")  -> "اُردُو",
