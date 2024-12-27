@@ -582,7 +582,11 @@ export default class StudyCtrl {
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
-  onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
+  onPremoveSet = () => {
+    if (this.currentNode().dests === '')
+      alert("No more moves allowed - either the game is over, or you've reached the chapter move limit.");
+    else this.gamebookPlay?.onPremoveSet();
+  };
   baseUrl = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);
