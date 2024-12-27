@@ -150,10 +150,16 @@
     <item quantity="one">%s lîzer</item>
     <item quantity="other">%s lîzer</item>
   </plurals>
+  <string name="drawByMutualAgreement">Beranberîya bi qebûla herdu alîyan</string>
+  <string name="fiftyMovesWithoutProgress">Pêncî hemleyên bêyî pêşketinek</string>
   <string name="currentGames">Lîstikên vê gavê</string>
   <plurals name="nbGames">
     <item quantity="one">%s lîstik</item>
     <item quantity="other">%s lîstik</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s puanên ji ser %2$s lîstikan</item>
+    <item quantity="other">%1$s puanên ji ser %2$s lîstikan</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s cihnîşan</item>
@@ -172,6 +178,7 @@
   <string name="latestForumPosts">Şandiyên forumê yên dawîn</string>
   <string name="players">Lîzer</string>
   <string name="friends">Hevalan</string>
+  <string name="otherPlayers">lîstikvanên din</string>
   <string name="discussions">Nîqaşan</string>
   <string name="today">Îro</string>
   <string name="yesterday">Doh</string>
@@ -190,6 +197,10 @@
   <plurals name="nbHours">
     <item quantity="one">%s demjimêr</item>
     <item quantity="other">%s demjimêr</item>
+  </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s deqe</item>
+    <item quantity="other">%s deqe</item>
   </plurals>
   <string name="time">Dem</string>
   <string name="rating">Pile</string>
@@ -371,6 +382,7 @@
   <string name="blackCheckmatesInOneMove">Ya reş bi hemleyekê şahmat dike</string>
   <string name="retry">Cardin biceribîne</string>
   <string name="reconnecting">Cardin tê girêdan</string>
+  <string name="noNetwork">Offlayn</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s heval serhêl e</item>
     <item quantity="other">%s heval serhêl in</item>
@@ -435,6 +447,7 @@
   <string name="movesPlayed">Hemleyên lîstî</string>
   <string name="whiteWins">Serkeftinên spî</string>
   <string name="blackWins">Serkeftinên reş</string>
+  <string name="drawRate">Rêjeya wekhevmayînê</string>
   <string name="draws">Wekhevî</string>
   <string name="nextXTournament">Pêşbirka li dû %s:</string>
   <string name="averageOpponent">Dijbera averaj</string>
