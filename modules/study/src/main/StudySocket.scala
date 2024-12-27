@@ -295,7 +295,6 @@ final private class StudySocket(
         .obj(
           "n" -> minimalNodeJsonWriter.writes(node),
           "p" -> pos,
-          "d" -> dests.dests,
           "s" -> sticky
         )
         .add("w", Option.when(relay.isEmpty)(who))
@@ -456,9 +455,9 @@ object StudySocket:
       given Reads[ChapterMaker.EditData]      = Json.reads
       given Reads[ChapterMaker.DescData]      = Json.reads
       given studyDataReads: Reads[Study.Data] = Json.reads
-      given Reads[SetTag]            = Json.reads
+      given Reads[SetTag]                     = Json.reads
       given Reads[Gamebook]                   = Json.reads
-      given Reads[ExplorerGame]      = Json.reads
+      given Reads[ExplorerGame]               = Json.reads
 
     object Out:
       def getIsPresent(reqId: Int, studyId: StudyId, userId: UserId) =
