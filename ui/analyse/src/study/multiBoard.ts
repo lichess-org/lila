@@ -217,7 +217,7 @@ const makePreview =
       [
         boardPlayer(preview, CgOpposite(orientation), showResults),
         h('span.cg-gauge', [
-          cloudEval && verticalEvalGauge(preview, cloudEval),
+          showResults ? cloudEval && verticalEvalGauge(preview, cloudEval) : undefined,
           h(
             'span.mini-game__board',
             h('span.cg-wrap', {
