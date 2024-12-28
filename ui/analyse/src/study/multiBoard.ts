@@ -29,7 +29,7 @@ export class MultiBoardCtrl {
     readonly redraw: () => void,
   ) {
     this.playing = toggle(false, this.redraw);
-    this.showResults = storedBooleanProp("study.showResults", true);
+    this.showResults = storedBooleanProp('study.showResults', true);
     if (this.initialTeamSelect) this.onChapterChange(this.initialTeamSelect);
   }
 
@@ -329,6 +329,6 @@ const boardPlayer = (preview: ChapterPreview, color: Color, showResults?: boolea
     score = outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
     player && renderUser(player),
-    showResults ? score ? h('span.mini-game__result', score) : renderClock(preview, color) : undefined,
+    showResults ? (score ? h('span.mini-game__result', score) : renderClock(preview, color)) : undefined,
   ]);
 };
