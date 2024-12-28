@@ -12,12 +12,12 @@ import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyCha
 import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
 import { h } from 'snabbdom';
-import { storage } from 'common/storage';
+import { storage, storedBooleanProp, StoredProp } from 'common/storage';
 import { Chessground as makeChessground } from 'chessground';
 
 export class MultiBoardCtrl {
   playing: Toggle;
-  showResults: Toggle;
+  showResults: StoredProp<boolean>;
   teamSelect: Prop<string> = prop('');
   page: number = 1;
   maxPerPageStorage = storage.make('study.multiBoard.maxPerPage');
@@ -29,7 +29,7 @@ export class MultiBoardCtrl {
     readonly redraw: () => void,
   ) {
     this.playing = toggle(false, this.redraw);
-    this.showResults = toggle(true, this.redraw);
+    this.showResults = storedBooleanProp("study.showResults", true);
     if (this.initialTeamSelect) this.onChapterChange(this.initialTeamSelect);
   }
 
