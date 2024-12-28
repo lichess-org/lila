@@ -1,6 +1,16 @@
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
 import { notNull } from 'common';
+import * as licon from 'common/licon';
+import { iconTag } from 'common/snabbdom';
+
+interface ClockOpts {
+  centis: number | undefined;
+  active: boolean;
+  cls: string;
+  showTenths: boolean;
+  pause: boolean;
+}
 
 export default function renderClocks(ctrl: AnalyseCtrl, path: Tree.Path): [VNode, VNode] | undefined {
   const node = ctrl.tree.nodeAtPath(path),
@@ -26,24 +36,43 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: Tree.Path): [VNode
   }
 
   const showTenths = !study?.relay;
+  const pause = !!ctrl.study?.isRelayAwayFromLive();
 
   return [
-    renderClock(centis[0], isWhiteTurn, whitePov ? 'bottom' : 'top', showTenths),
-    renderClock(centis[1], !isWhiteTurn, whitePov ? 'top' : 'bottom', showTenths),
+    renderClock({
+      centis: centis[0],
+      active: isWhiteTurn,
+      cls: whitePov ? 'bottom' : 'top',
+      showTenths,
+      pause,
+    }),
+    renderClock({
+      centis: centis[1],
+      active: !isWhiteTurn,
+      cls: whitePov ? 'top' : 'bottom',
+      showTenths,
+      pause,
+    }),
   ];
 }
 
-const renderClock = (centis: number | undefined, active: boolean, cls: string, showTenths: boolean): VNode =>
-  h('div.analyse__clock.' + cls, { class: { active } }, clockContent(centis, showTenths));
+const renderClock = (opts: ClockOpts): VNode =>
+  h('div.analyse__clock.' + opts.cls, { class: { active: opts.active } }, clockContent(opts));
 
-function clockContent(centis: number | undefined, showTenths: boolean): Array<string | VNode> {
-  if (!centis && centis !== 0) return ['-'];
-  const date = new Date(centis * 10),
+function clockContent(opts: ClockOpts): Array<string | VNode> {
+  if (!opts.centis && opts.centis !== 0) return ['-'];
+  const date = new Date(opts.centis * 10),
     millis = date.getUTCMilliseconds(),
     sep = ':',
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
-  if (!showTenths || centis >= 360000) return [Math.floor(centis / 360000) + sep + baseStr];
-  return centis >= 6000 ? [baseStr] : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
+  const timeNodes =
+    !opts.showTenths || opts.centis >= 360000
+      ? [Math.floor(opts.centis / 360000) + sep + baseStr]
+      : opts.centis >= 6000
+        ? [baseStr]
+        : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
+  const pauseNodes = opts.pause ? [iconTag(licon.Pause)] : [];
+  return [...pauseNodes, ...timeNodes];
 }
 
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;

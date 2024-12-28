@@ -4,7 +4,7 @@ import renderClocks from '../view/clocks';
 import type AnalyseCtrl from '../ctrl';
 import { renderMaterialDiffs } from '../view/components';
 import type { StudyPlayers, Federation, TagArray } from './interfaces';
-import { findTag, isFinished, looksLikeLichessGame, resultOf } from './studyChapters';
+import { findTag, looksLikeLichessGame, resultOf } from './studyChapters';
 import { userTitle } from 'common/userLink';
 import RelayPlayers, { fidePageLinkAttrs } from './relay/relayPlayers';
 import { StudyCtrl } from './studyDeps';
@@ -41,13 +41,7 @@ export default function (ctrl: AnalyseCtrl): VNode[] | undefined {
 // Ongoing game: the last mainline node, no matter what
 function selectClockPath(ctrl: AnalyseCtrl, study: StudyCtrl): Tree.Path {
   const gamePath = ctrl.gamePath || study.data.chapter.relayPath;
-  return isFinished(study.data.chapter)
-    ? ctrl.node.clock
-      ? ctrl.path
-      : gamePath
-        ? intersection(ctrl.path, gamePath)
-        : ctrl.path
-    : gamePath || ctrl.path;
+  return ctrl.node.clock ? ctrl.path : gamePath ? intersection(ctrl.path, gamePath) : ctrl.path;
 }
 
 function renderPlayer(
