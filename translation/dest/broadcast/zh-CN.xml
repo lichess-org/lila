@@ -26,6 +26,7 @@
   <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN的URL源</string>
   <string name="sourceUrlHelp">Lichess 将从该网址搜查 PGN 的更新。它必须是公开的。</string>
   <string name="sourceGameIds">多达64个 Lichess 棋局Id，用空格隔开。</string>
+  <string name="startDateTimeZone">锦标赛本地时区的开始时间：%s</string>
   <string name="startDateHelp">如果你知道比赛开始时间 (可选)</string>
   <string name="currentGameUrl">当前棋局链接</string>
   <string name="downloadAllRounds">下载所有棋局</string>
@@ -36,7 +37,7 @@
   <string name="editRoundStudy">编辑该轮次的棋局研究</string>
   <string name="deleteTournament">删除该锦标赛</string>
   <string name="definitivelyDeleteTournament">确定删除整个锦标赛、所有轮次和其中所有比赛。</string>
-  <string name="showScores">根据比赛结果显示棋手分数</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">根据比赛结果显示棋手分数</string>
   <string name="replacePlayerTags">可选项：替换选手的名字、等级分和头衔</string>
   <string name="fideFederations">FIDE 成员国</string>
   <string name="top10Rating">前10名等级分</string>
@@ -47,9 +48,35 @@
   <string name="ageThisYear">今年的年龄</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">未评级</string>
   <string name="recentTournaments">最近的比赛</string>
+  <string name="openLichess">在 Lichess中打开</string>
   <string name="teams">团队</string>
+  <string name="boards">棋板</string>
+  <string name="overview">概览</string>
+  <string name="subscribeTitle">订阅后会在每轮开始时通知。您可以在帐户首选项中切换铃声或推送广播通知。</string>
+  <string name="uploadImage">上传锦标赛图像</string>
+  <string name="noBoardsYet">尚无看板。这些游戏一旦上传就会出现。</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可以通过 %s加载看板</string>
+  <string name="startsAfter">从 %s 开始</string>
+  <string name="startVerySoon">广播将很快开始。</string>
+  <string name="notYetStarted">广播尚未开始。</string>
   <string name="officialWebsite">官网</string>
+  <string name="standings">积分榜</string>
   <string name="officialStandings">官方排名</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">%s 上的更多选项</string>
+  <string name="webmastersPage">网页管理员页面</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">此回合有公开实时的PGN源。我们还提供一个 %s ，用于更快并更有效的同步刷新。</string>
+  <string name="embedThisBroadcast">将此广播嵌入您的网站</string>
+  <string name="embedThisRound">将 %s 嵌入到您的网站</string>
+  <string name="ratingDiff">积分差别</string>
+  <string name="gamesThisTournament">这个锦标赛中的游戏</string>
+  <string name="score">得分</string>
+  <string name="allTeams">所有团队</string>
+  <string name="tournamentFormat">锦标赛格式</string>
+  <string name="tournamentLocation">锦标赛地点</string>
+  <string name="topPlayers">最强棋手</string>
+  <string name="timezone">时区</string>
+  <string name="fideRatingCategory">FIDE 评分类别</string>
+  <string name="optionalDetails">可填的信息</string>
   <string name="pastBroadcasts">结束的转播</string>
   <string name="allBroadcastsByMonth">按月查看所有转播</string>
 </resources>

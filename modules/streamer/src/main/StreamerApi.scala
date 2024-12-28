@@ -90,31 +90,34 @@ final class StreamerApi(
         s.youTube.foreach(ytApi.forceCheckWithHtmlScraping)
 
   private def modChange(prev: Streamer, current: Streamer): Streamer.ModChange =
-    if !current.approval.granted then
+    val (prevRequested, prevGranted, currRequested, currGranted) =
+      (prev.approval.requested, prev.approval.granted, current.approval.requested, current.approval.granted)
+
+    if (prevRequested || prevGranted) && !(currRequested || currGranted) then
       notifyApi.notifyOne(
         current,
         lila.core.notify.NotificationContent.GenericLink(
           url = streamerPageActivationRoute.url,
-          title = "Streamer application denied".some,
-          text =
-            "Your streamer application was denied. Click here to read instructions before resubmitting.".some,
+          title = "Streamer application declined".some,
+          text = current.approval.reason,
           icon = lila.ui.Icon.Mic.value
         )
       )
-    else if !prev.approval.granted && current.approval.granted then
+    else if !prevGranted && currGranted then
       notifyApi.notifyOne(
         current,
         lila.core.notify.NotificationContent.GenericLink(
           url = routes.Streamer.edit.url,
-          title = "Listed on /streamer".some,
-          text = "Your streamer page is public".some,
+          title = "Streamer application approved".some,
+          text = "Your streamer page is now visible to others".some,
           icon = lila.ui.Icon.Mic.value
         )
       )
     Streamer.ModChange(
-      list = (prev.approval.granted != current.approval.granted).option(current.approval.granted),
+      list = (prevGranted != currGranted).option(currGranted),
       tier = (prev.approval.tier != current.approval.tier).option(current.approval.tier),
-      decline = !current.approval.granted && !current.approval.requested && prev.approval.requested
+      decline = !currGranted && !currRequested && prevRequested,
+      reason = current.approval.reason
     )
 
   def demote(userId: UserId): Funit =

@@ -31,8 +31,8 @@ final class ModlogApi(repo: ModlogRepo, userRepo: UserRepo, ircApi: IrcApi, pres
       Modlog.isolate
     )
 
-  def streamerDecline(streamerId: UserId)(using MyId) = add:
-    Modlog(streamerId.some, Modlog.streamerDecline)
+  def streamerDecline(streamerId: UserId, reason: Option[String])(using MyId) = add:
+    Modlog(streamerId.some, Modlog.streamerDecline, reason)
 
   def streamerList(streamerId: UserId, v: Boolean)(using MyId) = add:
     Modlog(streamerId.some, if v then Modlog.streamerList else Modlog.streamerUnlist)

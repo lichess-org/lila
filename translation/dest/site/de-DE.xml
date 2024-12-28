@@ -936,7 +936,7 @@
   <string name="streamerManager">Streamerverwaltung</string>
   <string name="cancelTournament">Turnier abbrechen</string>
   <string name="tournDescription">Turnierbeschreibung</string>
-  <string name="tournDescriptionHelp">Etwas Besonderes, was du den Teilnehmern mitteilen möchtest? Versuche es kurz zu halten. Markdown-Links sind verfügbar: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Etwas Besonderes, was du den Teilnehmern mitteilen möchtest? Versuche es kurz zu halten. Markdown-Links sind verfügbar: [name](https://url)</string>
   <string name="ratedFormHelp">Partien sind gewertet
 und beeinflussen die Wertungszahl der Spieler</string>
   <string name="onlyMembersOfTeam">Nur Teammitglieder</string>

@@ -20,7 +20,7 @@
   <string name="displayBoardResizeHandle">Mostrar o cursor de redimensionamento do tabuleiro</string>
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="inGameOnly">Apenas em Jogo</string>
-  <string name="exceptInGame">Exceto no jogo</string>
+  <string name="exceptInGame">Exceto em jogo</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">Quando o tempo restante for &lt; 10 segundos</string>
