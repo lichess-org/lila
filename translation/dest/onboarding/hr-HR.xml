@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="welcome">Dobrodošli!</string>
-  <string name="welcomeToLichess">Dobrodošli na Lichess.org!</string>
+  <string name="welcome">Dobro došli!</string>
+  <string name="welcomeToLichess">Dobro došli na Lichess.org!</string>
   <string name="thisIsYourProfilePage">Ovo je Vaša profilna stranica.</string>
   <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Hoće li dijete koristiti ovaj korisnički račun? Možda bi htjeli uključiti %s.</string>
   <string name="whatNowSuggestions">Što sad? Evo par prijedloga:</string>
