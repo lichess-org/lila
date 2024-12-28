@@ -523,8 +523,8 @@
   <string name="bewareTheGameIsRatedButHasNoClock">مراقب باشید،این بازی رتبه بندی میشود اما بدون ساعت!</string>
   <string name="success">موفق شدید</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">%s بازی در حال انجام است</item>
-    <item quantity="other">%s بازی در حال انجام است</item>
+    <item quantity="one">%s بازی جاریست</item>
+    <item quantity="other">%s بازی جاریست</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">پس از حرکت، خودکار به بازی بعدی روید</string>
   <string name="autoSwitch">تعویض خودکار</string>
@@ -979,7 +979,7 @@
   <string name="sentEmailWithLink">ما رایانامه‌ای شامل یک پیوند را به شما فرستاده‌ایم.</string>
   <string name="tournamentEntryCode">کد ورودی مسابقه</string>
   <string name="hangOn">صبر کن!</string>
-  <string name="gameInProgress">شما یک بازی در حال انجام با %s دارید.</string>
+  <string name="gameInProgress">شما یک بازی جاری با %s دارید.</string>
   <string name="abortTheGame">انصراف از بازی</string>
   <string name="resignTheGame">تسلیم</string>
   <string name="youCantStartNewGame">تا وقتی که این بازی تمام نشده، نمی‌توانید بازی جدیدی را بیاغازید.</string>
