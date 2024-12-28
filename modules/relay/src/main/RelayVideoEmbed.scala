@@ -23,11 +23,11 @@ final class RelayVideoEmbedStore(baker: LilaCookie):
       case Some("no") => No
       case Some("ps") => PinnedStream
       case _          => Auto
-    req.queryString.get("embed") match
-      case Some(Seq("no")) => No
-      case Some(Seq("ps")) => PinnedStream
-      case Some(Seq(name)) => UserStr.read(name).fold(Auto)(u => Stream(u.id))
-      case _               => fromCookie
+    req.queryString.get("embed").flatMap(_.headOption) match
+      case Some("no") => No
+      case Some("ps") => PinnedStream
+      case Some(name) => UserStr.read(name).fold(Auto)(u => Stream(u.id))
+      case _          => fromCookie
 
   def write(embed: RelayVideoEmbed)(using RequestHeader) = baker.cookie(
     name = cookieName,
