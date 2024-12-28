@@ -291,7 +291,7 @@ export const renderClock = (chapter: ChapterPreview, color: Color) => {
 const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefined => {
   const clock = preview.players?.[color]?.clock;
   if (notNull(clock)) {
-    if (defined(preview.lastMoveAt) && fenColor(preview.fen) === color) {
+    if (defined(preview.lastMoveAt) && defined(preview.lastMove) && fenColor(preview.fen) === color) {
       const spent = (Date.now() - preview.lastMoveAt) / 1000;
       return Math.max(0, clock / 100 - spent);
     } else {

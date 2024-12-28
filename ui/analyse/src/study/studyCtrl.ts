@@ -44,7 +44,7 @@ import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
 import { storedMap } from 'common/storage';
 import { opposite } from 'chessops/util';
-import StudyChaptersCtrl from './studyChapters';
+import StudyChaptersCtrl, { isFinished } from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
@@ -526,6 +526,18 @@ export default class StudyCtrl {
   };
   onFlip = () => this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
 
+  isClockTicking = (path: Tree.Path) =>
+    path !== '' && this.data.chapter.relayPath === path && !isFinished(this.data.chapter);
+
+  isRelayAwayFromLive = (): boolean =>
+    !!this.relay &&
+    !isFinished(this.data.chapter) &&
+    defined(this.data.chapter.relayPath) &&
+    this.ctrl.path !== this.data.chapter.relayPath;
+
+  isRelayAndInVariation = (): boolean =>
+    this.isRelayAwayFromLive() && !treePath.contains(this.data.chapter.relayPath!, this.ctrl.path);
+
   setPath = (path: Tree.Path, node: Tree.Node) => {
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
@@ -656,7 +668,7 @@ export default class StudyCtrl {
       this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
-      this.ctrl.tree.addDests(d.d, newPath);
+      if (d.n.dests) this.ctrl.tree.addDests(d.n.dests, newPath);
       if (d.relayPath && !this.ctrl.tree.pathIsMainline(d.relayPath))
         this.ctrl.tree.promoteAt(d.relayPath, true);
       if (sticky) this.data.position.path = newPath;

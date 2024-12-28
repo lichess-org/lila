@@ -54,6 +54,8 @@
   <string name="arenaStreaks">এরিনায় ধারাবাহিক জয়</string>
   <string name="arenaStreaksHelp">২টি জয়ের পর প্রতি ধারাবাহিক জয়ের জন্য ২ পয়েন্টের বদলে ৪ পয়েন্ট দেয়া হবে।</string>
   <string name="pickYourTeam">আপনার দল বাছাই করুন</string>
+  <string name="youMustJoinOneOfTheseTeamsToParticipate">আপনাকে একটি দলে যোগ দিতে হবে!</string>
+  <string name="created">তৈরী হয়েছে</string>
   <string name="total">মোট</string>
   <string name="onlyTitled">শুধুমাত্র খেতাবধারী দাবাড়ুগণ</string>
 </resources>

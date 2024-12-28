@@ -289,7 +289,7 @@ object mon:
       timer("relay.sync.time").withTags(relay(official, id, slug))
     def httpGet(code: Int, host: String, etag: String, proxy: Option[String]) =
       timer("relay.http.get").withTags:
-        tags("code" -> code, "host" -> host, "etag" -> etag, "proxy" -> proxy.getOrElse("none"))
+        tags("code" -> code.toLong, "host" -> host, "etag" -> etag, "proxy" -> proxy.getOrElse("none"))
     val dedup = counter("relay.fetch.dedup").withoutTags()
 
   object bot:
