@@ -25,7 +25,7 @@ La manera berserk namá apurre un puntu adicional per cada victoria si xuegues s
   <string name="howIsTheWinnerDecidedAnswer">El xugador o xugador(es) con más puntos tres la llende de tiempu establecíu nel tornéu van ser anunciaos como ganador(es).
 
 Cuando dos o más xugadores tengan el mesmu númberu de puntos, el rendimientu del tornéu va ser el criteriu de desempate.</string>
-  <string name="howDoesPairingWork">¿Cómo se realicen los axugamientos?</string>
+  <string name="howDoesPairingWork">¿Cómo se realicen los empareyamientos?</string>
   <string name="howDoesPairingWorkAnswer">De primeres del tornéu, los xugadores se empareyar en función de la so clasificación.
 En cuanto termine una partida, vuelva al antepar del tornéu: entós va empareyáse-y con un xugador cercanu a la so clasificación. Esto garantiza un tiempu d\'espera mínimu; sicasí, ye posible que nun s\'enfrente a tolos demás xugadores del tornéu.
 Xuega rápidu y vuelve al antepar para xugar más partíes y ganar más puntos.</string>

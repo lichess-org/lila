@@ -70,6 +70,7 @@
   <string name="promoteVariation">विविधता को बढ़ावा दें</string>
   <string name="makeMainLine">मुख्य लाइन बनाएं</string>
   <string name="deleteFromHere">यहां से हटाओ</string>
+  <string name="collapseVariations">विविधताओं को मिटाये</string>
   <string name="forceVariation">बल भिन्नता</string>
   <string name="copyVariationPgn">प्रतिलिपि भिन्नता पीजीएन</string>
   <string name="move">चाल</string>
@@ -892,7 +893,7 @@
   <string name="streamerManager">स्ट्रीमर मैनेजर</string>
   <string name="cancelTournament">टूर्नामेंट रद्द करें</string>
   <string name="tournDescription">टूर्नामेंट विवरण</string>
-  <string name="tournDescriptionHelp">क्या आप प्रतिभागियों को कोई विशेष बात बताना चाहते हैं? संक्षिप्त में कहें।मार्क्डाउन लिंक्स उपलब्ध हैं: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">क्या आप प्रतिभागियों को कोई विशेष बात बताना चाहते हैं? संक्षिप्त में कहें।मार्क्डाउन लिंक्स उपलब्ध हैं: [name](https://url)</string>
   <string name="ratedFormHelp">खेल मूल्यांकित हैं तथा खिलाड़ी के मूल्यांकन को प्रभावित करते हैं</string>
   <string name="onlyMembersOfTeam">केवल टीम के सदस्य</string>
   <string name="noRestriction">अप्रतिबंधित</string>
