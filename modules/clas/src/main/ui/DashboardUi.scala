@@ -9,6 +9,7 @@ import lila.core.perf.UserPerfs
 import lila.rating.UserPerfsExt.{ bestAny3Perfs, bestRating }
 import lila.ui.*
 import lila.ui.ScalatagsTemplate.{ *, given }
+import scalatags.Text.TypedTag
 
 final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
   import helpers.{ *, given }
@@ -165,6 +166,7 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
         clas: Clas,
         students: List[Student.WithUser],
         studies: Seq[(StudyId, lila.core.study.data.StudyName)],
+        maxMembersInStudy: Int,
         topics: List[String]
     )(using Context) =
       TeacherPage(clas, students, "studies")():
@@ -176,17 +178,36 @@ final class DashboardUi(helpers: Helpers, ui: ClasUi)(using NetDomain):
           postForm(action := routes.Clas.inviteToStudy(clas.id, studyId))(
             form3.submit(studyName, icon = Icon.InternalArrow.some)(
               cls   := "yes-no-confirm button-blue button-empty",
-              title := "Invite class to study"
+              title := "Replace the members of this study with the students from this class"
             )
           )
         }
-        frag(
-          div(cls := "box__pad")(
-            h2("Invite this class to one of your studies"),
-            topicLinks,
-            studyForms
+        val inviteText: TypedTag[String] = h2("Invite this class to one of your studies")
+
+        if students.size >= maxMembersInStudy then
+          frag(
+            div(cls := "box__pad")(
+              inviteText,
+              p(s"You cannot invite this class."),
+              p(s"There are ${students.size} students in this class."),
+              p(s"Maximum number of members in a study is ${maxMembersInStudy} including the teacher.")
+            )
           )
-        )
+        else if studies.size == 0 then
+          frag(
+            div(cls := "box__pad")(
+              inviteText,
+              p("Create a study first")
+            )
+          )
+        else
+          frag(
+            div(cls := "box__pad")(
+              inviteText,
+              topicLinks,
+              studyForms
+            )
+          )
 
     def progress(c: Clas, students: List[Student.WithUserPerf], progress: ClasProgress)(using Context) =
       TeacherPage(c, students, "progress")():

@@ -204,34 +204,45 @@ final class Clas(env: Env, authC: Auth) extends LilaController(env):
       yield Ok(page)
   }
 
+  private val maxMembersInStudy = 30 // including teacher
+
+  private def ReasonableForStudy(clasId: ClasId, students: List[lila.clas.Student.WithUser])(
+      f: => Fu[Result]
+  )(using Context): Fu[Result] =
+    if students.sizeIs < maxMembersInStudy then f
+    else Redirect(routes.Clas.studies(clasId, ""))
+
   def studies(id: ClasId, topicStr: String) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(id): clas =>
       import lila.core.study.Order
       import lila.study.StudyTopic
       for
-        students <- env.clas.api.student.allWithUsers(clas)
+        students <- env.clas.api.student.activeWithUsers(clas)
         teacherStudiesPaginator <-
           if topicStr == "" then env.study.pager.mine(Order.updated, 1)
           else env.study.pager.byTopic(StudyTopic(topicStr), Order.mine, 1)
         studies = teacherStudiesPaginator.currentPageResults.map(s => (s.study.id, s.study.name))
         topics <- env.study.topicApi.userTopics(me.userId)
         page <- renderPage(
-          views.clas.teacherDashboard.studies(clas, students, studies, topics.value.map(_.toString()))
+          views.clas.teacherDashboard
+            .studies(clas, students, studies, maxMembersInStudy, topics.value.map(_.toString()))
         )
       yield Ok(page)
   }
 
   def inviteToStudy(clasId: ClasId, studyId: lila.core.id.StudyId) = Secure(_.Teacher) { ctx ?=> me ?=>
     WithClass(clasId): clas =>
-      for
-        students <- env.clas.api.student.activeWithUsers(clas)
-        studentIds = students.map(_.user.id)
-        members <- env.study.api.members(studyId)
-        memberIds = members.get.ids.toList
-        _ <- env.study.api.kickAndInviteMany(studyId, kick = memberIds, invite = studentIds, me.myId)
-      yield Redirect(routes.Clas.studies(clasId, "")).flashing(
-        "success" -> s"You can share this link ${routes.Study.show(studyId).absoluteURL()} with the class"
-      )
+      env.clas.api.student.activeWithUsers(clas).flatMap { students =>
+        ReasonableForStudy(clasId, students):
+          for
+            members <- env.study.api.members(studyId)
+            memberIds  = members.get.ids.toList
+            studentIds = students.map(_.user.id)
+            _ <- env.study.api.kickAndInviteMany(studyId, kick = memberIds, invite = studentIds, me.myId)
+          yield Redirect(routes.Clas.studies(clasId, "")).flashing(
+            "success" -> s"You can share this link ${routes.Study.show(studyId).absoluteURL()} with the class"
+          )
+      }
   }
 
   def progress(id: ClasId, perfKey: PerfKey, days: Days) = Secure(_.Teacher) { ctx ?=> me ?=>
