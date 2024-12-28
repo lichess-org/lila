@@ -148,7 +148,7 @@ Despois selecciona se permitir ou bloquear as notificacións de Lichess.</string
 A icona vermella de silencio aparece cando o teu navegador impide a lichess.org reproducir o son. En xeral, esta restrición desaparece no momento de facer clic en algo. Nalgúns navegadores móbiles arrastrar unha peza non conta coma un clic. Nese caso, debes premer no taboleiro ó comezo de cada partida para permitir o son.
 
 Amosamos a icona vermella para avisarte cando isto ocorre. A miúdo podes permitir de xeito explícito a lichess.org a reprodución do son. Velaquí unhas instrucións para facelo nas versións recentes dos navegadores máis populares.</string>
-  <string name="desktop">escritorio</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">PC de escritorio</string>
   <string name="enableAutoplayForSoundsFirefox">1. Vai a lichess.org
 2. Pulsa Ctrl+i en Linux/Windows ou cmd+i en MacOS
 3. Preme na lapela dos Permisos
