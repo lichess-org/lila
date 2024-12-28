@@ -324,11 +324,11 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
 };
 
 const boardPlayer = (preview: ChapterPreview, color: Color, showResults?: boolean) => {
-  const outcome = showResults && preview.status && preview.status !== '*' ? preview.status : undefined;
+  const outcome = preview.status && preview.status !== '*' ? preview.status : undefined;
   const player = preview.players?.[color],
     score = outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
     player && renderUser(player),
-    score ? h('span.mini-game__result', score) : renderClock(preview, color),
+    showResults ? score ? h('span.mini-game__result', score) : renderClock(preview, color) : undefined,
   ]);
 };
