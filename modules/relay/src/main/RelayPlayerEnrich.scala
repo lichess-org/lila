@@ -204,6 +204,6 @@ private final class RelayPlayerEnrich(
                         chapterId = chapter.id,
                         tags = enriched,
                         newName = newName.filter(_ != chapter.name)
-                      )(lila.study.actorApi.Who(chapter.ownerId, Sri("")))
+                      )(lila.study.Who(chapter.ownerId, Sri("")))
               .runWith(Sink.ignore)
           yield ()

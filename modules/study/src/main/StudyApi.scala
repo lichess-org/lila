@@ -13,8 +13,6 @@ import lila.core.timeline.{ Propagate, StudyLike }
 import lila.tree.Branch
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 
-import actorApi.Who
-
 final class StudyApi(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
@@ -22,7 +20,7 @@ final class StudyApi(
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
-    explorerGameHandler: ExplorerGame,
+    explorerGameHandler: ExplorerGameApi,
     topicApi: StudyTopicApi,
     lightUserApi: lila.core.user.LightUserApi,
     chatApi: lila.core.chat.ChatApi,
@@ -225,27 +223,21 @@ final class StudyApi(
               yield sendTo(study.id)(_.setPath(position, who))
             case _ => funit
 
-  def addNode(
-      studyId: StudyId,
-      position: Position.Ref,
-      node: Branch,
-      opts: MoveOpts,
-      relay: Option[Chapter.Relay] = None
-  )(who: Who): Funit =
-    sequenceStudyWithChapter(studyId, position.chapterId):
+  def addNode(args: AddNode): Funit =
+    import args.{ *, given }
+    sequenceStudyWithChapter(studyId, positionRef.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
-          doAddNode(study, Position(chapter, position.path), node, opts, relay)(who)
+          doAddNode(args, study, Position(chapter, positionRef.path))
     .flatMapz { _() }
 
   private def doAddNode(
+      args: AddNode,
       study: Study,
-      position: Position,
-      rawNode: Branch,
-      opts: MoveOpts,
-      relay: Option[Chapter.Relay]
-  )(who: Who): Fu[Option[() => Funit]] =
-    val singleNode   = rawNode.withoutChildren
+      position: Position
+  ): Fu[Option[() => Funit]] =
+    import args.{ *, given }
+    val singleNode   = args.node.withoutChildren
     def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if position.chapter.isOverweight then
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
@@ -272,7 +264,7 @@ final class StudyApi(
                 isMainline        = newPosition.path.isMainline(chapter.root)
                 promoteToMainline = opts.promoteToMainline && !isMainline
               yield promoteToMainline.option: () =>
-                promote(study.id, position.ref + node, toMainline = true)(who)
+                promote(study.id, position.ref + node, toMainline = true)
             }
           }
 
@@ -326,7 +318,7 @@ final class StudyApi(
           yield onChapterChange(study.id, chapter.id, who)
 
   // rewrites the whole chapter because of `forceVariation`. Very inefficient.
-  def promote(studyId: StudyId, position: Position.Ref, toMainline: Boolean)(who: Who): Funit =
+  def promote(studyId: StudyId, position: Position.Ref, toMainline: Boolean)(using who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -441,7 +433,7 @@ final class StudyApi(
         reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
         fufail(s"Invalid setClock $position $clock")
 
-  def setTag(studyId: StudyId, setTag: actorApi.SetTag)(who: Who) =
+  def setTag(studyId: StudyId, setTag: SetTag)(who: Who) =
     sequenceStudyWithChapter(studyId, setTag.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):
@@ -545,7 +537,7 @@ final class StudyApi(
               reloadSriBecauseOf(study, who.sri, chapter.id)
               fufail(s"Invalid setGamebook $studyId $position")
 
-  def explorerGame(studyId: StudyId, data: actorApi.ExplorerGame)(who: Who) =
+  def explorerGame(studyId: StudyId, data: ExplorerGame)(who: Who) =
     sequenceStudyWithChapter(studyId, data.position.chapterId):
       case Study.WithChapter(study, chapter) =>
         Contribute(who.u, study):

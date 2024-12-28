@@ -66,10 +66,10 @@ interface RelayRound {
   id: string;
   name: string;
   slug: string;
-  finished?: boolean;
   ongoing?: boolean;
   createdAt?: number;
   startsAt?: number;
+  finishedAt?: number;
 }
 
 export interface RoundStats {

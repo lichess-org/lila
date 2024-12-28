@@ -40,7 +40,7 @@ final class RelayPush(
         parsed.map(_.map(g => Success(g.tags, g.root.mainline.size)))
       val andSyncTargets = response.exists(_.isRight)
 
-      rt.round.sync.nonEmptyDelay
+      rt.round.sync.delayMinusLag
         .ifTrue(games.exists(_.root.children.nonEmpty))
         .match
           case None => push(rt, games, andSyncTargets).inject(response)

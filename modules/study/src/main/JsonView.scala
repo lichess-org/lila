@@ -218,5 +218,5 @@ object JsonView:
 
   private[study] given Writes[Chapter.ServerEval] = Json.writes
 
-  private[study] given OWrites[actorApi.Who] = OWrites: w =>
+  private[study] given OWrites[Who] = OWrites: w =>
     Json.obj("u" -> w.u, "s" -> w.sri)
