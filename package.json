@@ -45,20 +45,20 @@
     "typescript above just to allow manual tsc. ui/.build/package.json's typesript version is the truth"
   ],
   "scripts": {
-    "format": "prettier --cache --write --log-level warn .",
-    "check-format": "prettier --cache --check --log-level warn .",
-    "watch-format": "onchange \"**/*\" -- prettier --cache --write --log-level warn {{changed}}",
-    "add-hooks": "git config --add core.hooksPath bin/git-hooks",
-    "remove-hooks": "git config --unset core.hooksPath bin/git-hooks",
-    "lint": "eslint --cache",
-    "lint-staged": "lint-staged --config bin/lint-staged.config.mjs",
+    "format": "prettier --config=ui/.prettierrc.json --cache --write --log-level=warn .",
+    "check-format": "prettier --config=ui/.prettierrc.json --cache --check --log-level=warn .",
+    "watch-format": "onchange \"**/*\" -- prettier --config=ui/.prettierrc.json --cache --write --log-level=warn {{changed}}",
+    "add-hooks": "git config --get-all core.hooksPath | grep -Fxq bin/git-hooks || git config --add core.hooksPath bin/git-hooks",
+    "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
+    "lint": "eslint --config=ui/eslint.config.mjs --cache --cache-location=ui/.eslintcache",
+    "lint-staged": "lint-staged --config=ui/lint-staged.config.mjs",
     "journal": "journalctl --user -fu lila -o cat",
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
     "trans-dump": "pnpx tsx bin/trans-dump.ts",
-    "test": "vitest run -c ui/vitest.config.mts",
-    "test:watch": "vitest -c ui/vitest.config.mts",
+    "test": "vitest run --config=ui/vitest.config.mts",
+    "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"
   }
 }

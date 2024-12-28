@@ -4,7 +4,7 @@ import tsParser from '@typescript-eslint/parser';
 export default [
   { ignores: ['*', '!ui/', '!bin/', '**/dist/'] },
   {
-    files: ['**/*.ts'],
+    files: ['**/*.{ts,mts}'],
     plugins: { '@typescript-eslint': typescriptEslint },
     languageOptions: { parser: tsParser, ecmaVersion: 5, sourceType: 'module' },
     rules: {
