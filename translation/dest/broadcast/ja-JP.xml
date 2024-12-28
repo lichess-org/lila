@@ -26,6 +26,7 @@
   <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">PGN のソース URL</string>
   <string name="sourceUrlHelp">Lichess が PGN を取得するための URL。インターネット上に公表されているもののみ。</string>
   <string name="sourceGameIds">Lichess ゲーム ID、半角スペースで区切って最大 64 個まで。</string>
+  <string name="startDateTimeZone">スタートデート%s</string>
   <string name="startDateHelp">イベント開始時刻（オプション）</string>
   <string name="currentGameUrl">現在のゲームの URL</string>
   <string name="downloadAllRounds">全ラウンドをダウンロード</string>
@@ -36,7 +37,7 @@
   <string name="editRoundStudy">ラウンドの研究を編集</string>
   <string name="deleteTournament">このトーナメントを削除</string>
   <string name="definitivelyDeleteTournament">トーナメント全体（全ラウンド、全ゲーム）を削除する。</string>
-  <string name="showScores">ゲーム結果に応じてプレイヤーのスコアを表示</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">ゲーム結果に応じてプレイヤーのスコアを表示</string>
   <string name="replacePlayerTags">オプション：プレイヤーの名前、レーティング、タイトルの変更</string>
   <string name="fideFederations">FIDE 加盟協会</string>
   <string name="top10Rating">レーティング トップ10</string>
@@ -47,7 +48,7 @@
   <string name="ageThisYear">今年時点の年齢</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">レーティングなし</string>
   <string name="recentTournaments">最近のトーナメント</string>
-  <string name="openLichess">Lichess で開く</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Lichess で開く</string>
   <string name="teams">チーム</string>
   <string name="boards">ボード</string>
   <string name="overview">概要</string>
