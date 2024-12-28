@@ -12,7 +12,6 @@ body {
 main.is-relay {
   .relay-tour {
     grid-area: relay-tour;
-    overflow: visible;
     &__side {
       grid-area: side;
     }
@@ -128,6 +127,11 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .analyse__round-training {
       flex: 1 0 200px;
+    }
+  }
+  &.relay-in-variation {
+    .main-board cg-board {
+      filter: saturate(0.7) brightness(0.9);
     }
   }
 }

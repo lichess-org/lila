@@ -1,0 +1,14 @@
+.relay-back-to-live {
+  @extend %flex-center;
+  justify-content: center;
+  padding: 0.5em 0;
+  background: $c-accent;
+  color: $c-over;
+  cursor: pointer;
+
+  flex: 0 0 auto;
+
+  @include mq-is-col1 {
+    display: none;
+  }
+}

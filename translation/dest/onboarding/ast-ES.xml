@@ -1,2 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="welcome">¡Bienveníu!</string>
+  <string name="welcomeToLichess">¡Bienveníu a lichess.org!</string>
+  <string name="thisIsYourProfilePage">Esta ye la to páxina de perfil.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">¿Va utilizar un neñu esta cuenta? Ye posible que deseye habilitar %s.</string>
+  <string name="whatNowSuggestions">¿Y agora qué? He equí delles suxerencies:</string>
+  <string name="learnChessRules">Apriende les riegles del axedrez</string>
+  <string name="improveWithChessTacticsPuzzles">Meyora colos puzzles de táctiques d\'axedrez.</string>
+  <string name="playTheArtificialIntelligence">Xuega contra la intelixencia artificial.</string>
+  <string name="playOpponentsFromAroundTheWorld">Enfréntate a rivales de too el mundu.</string>
+  <string name="followYourFriendsOnLichess">Sigue a los tos amigos en Lichess.</string>
+  <string name="playInTournaments">Xuega en torneos.</string>
+  <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">Apriende de %1$s y %2$s.</string>
+  <string name="configureLichess">Configura Lichess al to gustu.</string>
+  <string name="exploreTheSiteAndHaveFun">Esplora\'l sitiu y préstate :)</string>
+</resources>

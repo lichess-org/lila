@@ -46,7 +46,8 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
             div(cls := "box-pad") {
               val granted   = s.streamer.approval.granted
               val requested = s.streamer.approval.requested
-              val (clas, icon) = (granted, requested, wasListed) match
+              val declined  = s.streamer.approval.reason.nonEmpty
+              val (clas, icon) = (granted, requested, declined) match
                 case (true, true, _)       => ("status is-green", Icon.Search)
                 case (true, false, _)      => ("status is-green", Icon.Checkmark)
                 case (false, true, _)      => ("status is-gold", Icon.CautionTriangle)
@@ -70,7 +71,7 @@ final class StreamerEdit(helpers: Helpers, bits: StreamerBits):
                             )
                         )
                       else if requested then trs.pendingReview()
-                      else if wasListed then
+                      else if declined then
                         frag(
                           "Your previous application was declined. ",
                           s.streamer.approval.reason

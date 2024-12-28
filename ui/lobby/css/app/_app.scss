@@ -9,8 +9,6 @@
   @include lobby-app-size;
   @include prevent-select;
 
-  user-select: none;
-
   .lobby-nope & {
     display: none;
   }

@@ -286,6 +286,8 @@ class WsSocket {
       case 'ack':
         this.ackable.onServerAck(m.d);
         break;
+      case 'batch':
+        m.d.forEach(this.handle);
       default:
         // return true in a receive handler to prevent pubsub and events
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {

@@ -38,7 +38,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
             nonEmptyTier(_.high),
             nonEmptyTier(_.normal),
             h2(cls := "relay-index__section")(trc.pastBroadcasts()),
-            div(cls := "relay-cards relay-cards--past"):
+            div(cls := "relay-cards"):
               past.map: t =>
                 card.render(t, live = _ => false)
             ,
@@ -150,7 +150,7 @@ final class RelayTourUi(helpers: Helpers, ui: RelayUi):
           div(cls := "page-menu__content box box-pad")(
             boxTop(h1(dataIcon := Icon.RadioTower, cls := "text")(trc.broadcastCalendar())),
             dateForm("top"),
-            div(cls := "relay-cards relay-cards--past"):
+            div(cls := "relay-cards"):
               tours.map(card.renderCalendar)
             ,
             (tours.sizeIs > 8).option(dateForm("bottom"))
