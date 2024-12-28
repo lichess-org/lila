@@ -99,11 +99,10 @@ object StudyPgnImport:
               (shapes ++ s),
               c.orElse(clock),
               e.orElse(emt),
-              (str.trim match
+              str.trim match
                 case "" => comments
                 case com =>
                   comments + Comment(Comment.Id.make, Comment.Text(com), annotator | Comment.Author.Lichess)
-              )
             )
     }
 
@@ -129,27 +128,27 @@ object StudyPgnImport:
         .fold(
           _ => none, // illegal move; stop here.
           moveOrDrop =>
-            val game   = moveOrDrop.applyGame(context.currentGame)
-            val uci    = moveOrDrop.toUci
-            val sanStr = moveOrDrop.toSanStr
-            parseComments(node.value.metas.comments, annotator) match
-              case (shapes, clock, emt, comments) =>
-                val computedClock = clock.orElse((context.previousClock, emt).mapN(_ - _))
-                Branch(
-                  id = UciCharPair(uci),
-                  ply = game.ply,
-                  move = Uci.WithSan(uci, sanStr),
-                  fen = Fen.write(game),
-                  check = game.situation.check,
-                  shapes = shapes,
-                  comments = comments,
-                  glyphs = node.value.metas.glyphs,
-                  clock = computedClock,
-                  crazyData = game.situation.board.crazyData,
-                  children = node.child.fold(Branches.empty)(
-                    makeBranches(Context(game, computedClock, context.currentClock), _, annotator)
-                  )
-                ).some
+            val game                           = moveOrDrop.applyGame(context.currentGame)
+            val uci                            = moveOrDrop.toUci
+            val sanStr                         = moveOrDrop.toSanStr
+            val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
+            val computedClock = clock
+              .orElse((context.previousClock, emt).mapN(_ - _))
+              .filter(_ > Centis(0))
+            Branch(
+              id = UciCharPair(uci),
+              ply = game.ply,
+              move = Uci.WithSan(uci, sanStr),
+              fen = Fen.write(game),
+              check = game.situation.check,
+              shapes = shapes,
+              comments = comments,
+              glyphs = node.value.metas.glyphs,
+              clock = computedClock,
+              crazyData = game.situation.board.crazyData,
+              children = node.child.fold(Branches.empty):
+                makeBranches(Context(game, computedClock, context.currentClock), _, annotator)
+            ).some
         )
     catch
       case _: StackOverflowError =>
