@@ -72,34 +72,28 @@ def main():
         licon.py uses public/font/lichess.sfd and fontforge to build fonts and update lila code. Use --check or --replace
         to check for or fix any embedded licon literals in your sources""")
     parser.add_argument('--check', action='store_true', help='report any embedded licon literals in your sources')
-    parser.add_argument('--replace', action='store_true', help='replace embedded licon literals with `licon.<glyph-name>`')
 
     args = parser.parse_args()
     if '--help' in sys.argv or '-h' in sys.argv:
         parser.print_help()
         return
-    
+
     lila_chdir('public/font')
-
-    gen_fonts()
-
-    codes = read_write_codes()
-
-    gen_sources(codes)
-
-    print('Generated:\n  public/font/lichess.woff\n  public/font/lichess.woff2\n  public/font/lichess.ttf')
-    print('  modules/ui/src/main/Icon.scala\n  ui/common/src/licon.ts')
-    print('  ui/common/css/abstract/_licon.scss\n')
-
-    if args.check or args.replace:
+    codes = update_codes(not args.check)
+    
+    if args.check:
         lila_chdir()
-        find_replace_chars({chr(v): k for k, v in codes.items()}, args.replace)
+        sys.exit(check_sources({chr(v): k for k, v in codes.items()}))
     else:
-        print('Note:')
-        print('  bin/gen/licon.py --check    # report any embedded licon literals in your sources')
-        print('  bin/gen/licon.py --replace  # replace embedded licon literals with `<prefix>.<glyph-name>`')
 
-    print("\nDon't forget to install lichess.ttf in your system & editor!\n")
+        gen_fonts()
+
+        gen_sources(codes)
+
+        print('Generated:\n  public/font/lichess.woff\n  public/font/lichess.woff2\n  public/font/lichess.ttf')
+        print('  modules/ui/src/main/Icon.scala\n  ui/common/src/licon.ts')
+        print('  ui/common/css/abstract/_licon.scss\n')
+        print("Don't forget to install lichess.ttf in your code editor\n")
 
 
 def lila_chdir(s = '', lila_root = abspath(join(dirname(__file__), '../../'))):
@@ -110,7 +104,7 @@ def dash_camel(s):
     return ''.join([w.title() for w in s.split('-')])
 
 
-def read_write_codes():
+def update_codes(write = False):
     unnamed_re = re.compile(r'$|uni[a-f0-9]{4}', re.IGNORECASE)
     codes = {}
     warnings = []
@@ -134,7 +128,7 @@ def read_write_codes():
                     else:
                         codes[name] = code_point
             corrected.append(line)
-    if corrected != lines:
+    if write and corrected != lines:
         with open('lichess.sfd', 'w') as f:
             f.write(''.join(corrected))
     print('' if not warnings else f'\nWarnings:\n{"".join(warnings)}')
@@ -178,52 +172,48 @@ def gen_fonts():
     os.remove(name)
 
 
-def find_replace_chars(names, replace):
-    search_re = re.compile(u'([\'"]([\ue000-\uefff])[\'"])')
-    search_cp_re = re.compile(r'([\'"]\\u(e[0-9a-f]{3})[\'"])', re.IGNORECASE)
-
-    print('Replacing...' if replace else 'Checking...')
-
+def check_sources(names):
+    search_re = re.compile(u'[\ue000-\uefff]')
+    search_cp_re = re.compile(r'\\u(e[0-9a-f]{3})', re.IGNORECASE)
     sources = []
 
     for dir, _, files in os.walk('.'):
-        if '/node_modules' in dir or '/dist' in dir or '.metals' in dir:
+        if any(skip in dir for skip in ('/node_modules', '/dist', '.metals', '/compiled')):
             continue
         sources.extend([join(dir, f) for f in filter(
             lambda f: \
-                any(map(lambda e: f.endswith(e), ['.ts', '.scala', '.scss'])) \
+                any(map(lambda e: f.endswith(e), ['.ts', '.js', '.mts', '.mjs', '.scala', '.scss'])) \
                 and not f in ['Icon.scala', 'licon.ts', '_licon.scss'],
             files
         )])
 
+    bad = 0
     for source in sources:
-        text = ''
         with open(source, 'r') as f:
             text = f.read()
             for regex in [search_re, search_cp_re]:
                 m = regex.search(text)
                 while m is not None:
+                    bad += 1
                     line = text[:m.start()].count('\n') + 1
-                    report = f'  {source}:{line} '
-                    ch = m.group(2) if m.group(2)[:1].lower() != 'e' else chr(int(m.group(2),16))
-                    if replace and ch in names:
+                    ch = m.group(0) if regex == search_re else chr(int(m.group(1),16))
+                    sub = "(unknown)"
+                    if ch in names:
                         if source.endswith('.scss'):
-                            sub = f'$licon-{names[ch]}'
-                            if text[m.end():m.end()+1] == ']':
-                                sub = f"'#{{{sub}}}'"
-                        elif source.endsWith('.scala'):
-                            sub = f'Icon.{names[ch]}'
+                            sub = f'($licon-{names[ch]})'
+                        elif source.endswith('.scala'):
+                            sub = f'(Icon.{names[ch]})'
                         elif source.endswith('.ts'):
-                            sub = f'licon.{names[ch]}'
-                        text = text[:m.start()] + sub + text[m.end():]
-                        report += f'{m.group(1)} -> {sub}'
-                    else:
-                        report += (f'found {m.group(2)}')
-                    print(report)
+                            sub = f'(licon.{names[ch]})'
+                        else:
+                            sub = f'({names[ch]})'
+                    print(f"  {source}:{line} found '{m.group(0)}' {sub}")
                     m = regex.search(text, m.end())
-        if replace:
-            with open(source, 'w') as f:
-                f.write(text)
+    if bad == 0:
+        print('None found')
+    else:
+        print(f'{bad} found')
+    return bad
 
 if __name__ == "__main__":
     main()

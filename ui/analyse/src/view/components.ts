@@ -123,7 +123,7 @@ export function renderMain(
         'is-relay': isRelay,
         'analyse-hunter': ctrl.opts.hunter,
         'analyse--wiki': !!ctrl.wiki && !ctrl.study,
-        'relay-live-away': !!ctrl.study?.isRelayAwayFromLive(),
+        'relay-in-variation': !!ctrl.study?.isRelayAndInVariation(),
       },
     },
     kids,

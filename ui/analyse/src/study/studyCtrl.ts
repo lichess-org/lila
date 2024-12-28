@@ -535,6 +535,9 @@ export default class StudyCtrl {
     defined(this.data.chapter.relayPath) &&
     this.ctrl.path !== this.data.chapter.relayPath;
 
+  isRelayAndInVariation = (): boolean =>
+    this.isRelayAwayFromLive() && !treePath.contains(this.data.chapter.relayPath!, this.ctrl.path);
+
   setPath = (path: Tree.Path, node: Tree.Node) => {
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
@@ -674,7 +677,7 @@ export default class StudyCtrl {
       this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
-      this.ctrl.tree.addDests(d.d, newPath);
+      if (d.n.dests) this.ctrl.tree.addDests(d.n.dests, newPath);
       if (d.relayPath && !this.ctrl.tree.pathIsMainline(d.relayPath))
         this.ctrl.tree.promoteAt(d.relayPath, true);
       if (sticky) this.data.position.path = newPath;
