@@ -1,6 +1,6 @@
 import { h, type VNode } from 'snabbdom';
 import type AnalyseCtrl from '../ctrl';
-import { notNull } from 'common';
+import { defined, notNull } from 'common';
 import * as licon from 'common/licon';
 import { iconTag } from 'common/snabbdom';
 
@@ -17,7 +17,9 @@ export default function renderClocks(ctrl: AnalyseCtrl, path: Tree.Path): [VNode
     whitePov = ctrl.bottomIsWhite(),
     parentClock = ctrl.tree.getParentClock(node, path),
     isWhiteTurn = node.ply % 2 === 0,
-    centis: Array<number | undefined> = isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock];
+    centis: Array<number | undefined> = (
+      isWhiteTurn ? [parentClock, node.clock] : [node.clock, parentClock]
+    ).map(c => (defined(c) && c < 0 ? undefined : c));
 
   if (!centis.some(notNull)) return;
 
