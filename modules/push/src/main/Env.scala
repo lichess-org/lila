@@ -32,7 +32,7 @@ final class Env(
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 
-  def vapidPublicKey = config.web.vapidPublicKey
+  lazy val vapidPublicKey = config.web.vapidPublicKey.replace("/", "_").replace("+", "-").replace("=", "")
 
   private val deviceApi  = DeviceApi(db(config.deviceColl))
   val webSubscriptionApi = WebSubscriptionApi(db(config.subscriptionColl))
