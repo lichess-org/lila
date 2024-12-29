@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">برای دانش آموزان خود سریعا نام کاربری و رمز عبور امن بسازید</string>
   <string name="trackStudentProgress">روند پیشرفت شطرنج‌آموزان را در بازی‌ها و معماها دنبال کنید</string>
   <string name="messageAllStudents">به تمام دانش آموزان درباره شرایط جدید کلاس پیام دهید</string>
-  <string name="freeForAllForever">صد درصد رایگان برای همه و بدون تبلیغات</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">صد درصد رایگان برای همه و بدون تبلیغات</string>
   <string name="applyToBeLichessTeacher">برای آنکه معلمِ Lichess باشید درخواست بدهید</string>
   <string name="noClassesYet">هنوز کلاسی موجود نیست.</string>
   <string name="teachersX">معلم‌ها: %s</string>
@@ -57,6 +57,8 @@
     <item quantity="one">یک دعوت‌نامه منتظر پاسخ</item>
     <item quantity="other">%s دعوت‌نامه منتظر پاسخ</item>
   </plurals>
+  <string name="pending">در انتظار</string>
+  <string name="declined">رد کرد</string>
   <string name="onlyVisibleToTeachers">دسترس‌پذیر فقط برای آموزگاران کلاس</string>
   <string name="lastActiveDate">فعال</string>
   <string name="managed">مدیریت‌شده</string>
@@ -114,4 +116,6 @@
   <string name="anInvitationHasBeenSentToX">یک دعوتنامه به %s فرستاده شد</string>
   <string name="xAlreadyHasAPendingInvitation">%s از قبل یک دعوتنامه در حال انتظار دارد</string>
   <string name="xIsAKidAccountWarning">%1$s حساب کودک است و نمی‌تواند پیام‌تان را دریافت کند. شما باید وب‌نشانی دعوت را، دستی به آن‌ها دهید: %2$s</string>
+  <string name="moveToClass">حرکت به %s</string>
+  <string name="moveToAnotherClass">حرکت به کلاس دیگر</string>
 </resources>
