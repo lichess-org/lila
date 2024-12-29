@@ -595,14 +595,8 @@ export default class StudyCtrl {
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
   onPremoveSet = () => {
-    if (this.currentNode().dests !== '') {
-      this.gamebookPlay?.onPremoveSet();
-      return;
-    }
-    const pos = this.ctrl.position(this.currentNode()).unwrap();
-    if (pos.isStalemate()) alert('Stalemate - no more moves allowed.');
-    else if (pos.isInsufficientMaterial()) alert('Insufficient mating material - no more moves allowed.');
-    else alert("You've reached the ply limit for this chapter.");
+    if (this.currentNode().dests === '') alert('Too many moves for a lichess board.');
+    else this.gamebookPlay?.onPremoveSet();
   };
   baseUrl = () => {
     const current = location.href;
