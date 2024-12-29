@@ -24,36 +24,44 @@ class PgnImportTest extends lila.common.LilaTest:
   val user = LightUser(UserId("lichess"), UserName("Annotator"), None, None, false)
 
   test("import pgn"):
-    StudyPgnImport(pgn, List(user)).assertRight: parsed =>
-      assertEquals(parsed.tags, Tags.empty)
-      assertEquals(parsed.root.children.nodes.size, 3)
-      assertEquals(parsed.root.ply, Ply.initial)
+    StudyPgnImport
+      .result(pgn, List(user))
+      .assertRight: parsed =>
+        assertEquals(parsed.tags, Tags.empty)
+        assertEquals(parsed.root.children.nodes.size, 3)
+        assertEquals(parsed.root.ply, Ply.initial)
 
   test("import a simple pgn"):
-    StudyPgnImport("1.d4 d5 2.e4 e5", List(user)).assertRight: parsed =>
-      assertEquals(parsed.tags, Tags.empty)
-      assertEquals(parsed.root.children.nodes.size, 1)
-      assertEquals(parsed.root.ply, Ply.initial)
+    StudyPgnImport
+      .result("1.d4 d5 2.e4 e5", List(user))
+      .assertRight: parsed =>
+        assertEquals(parsed.tags, Tags.empty)
+        assertEquals(parsed.root.children.nodes.size, 1)
+        assertEquals(parsed.root.ply, Ply.initial)
 
   test("import a simple pgn with a clock comment"):
-    val x = StudyPgnImport("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
+    val x = StudyPgnImport.result("1.d4 {[%clk 1:59:59]}", Nil).toOption.get
     assert(x.root.mainlineNodeList(1).clock.isDefined)
 
   test("import a simple pgn with a clock and emt"):
-    val x = StudyPgnImport("1.d4 {[%clk 1:59:59]} d5 {[%emt 00:00:12]}", Nil).toOption.get
+    val x = StudyPgnImport.result("1.d4 {[%clk 1:59:59]} d5 {[%emt 00:00:12]}", Nil).toOption.get
     assert(x.root.mainlineNodeList(2).clock.isEmpty)
 
   test("import pgn with a clock and emt"):
-    val x = StudyPgnImport(
-      "1.d4 {[%clk 1:59:59]} d5 {[%clk 1:59:50]} 2.c4 {[%emt 00:00:12]} Nf6 {[%emt 00:00:13]}",
-      Nil
-    ).toOption.get
+    val x = StudyPgnImport
+      .result(
+        "1.d4 {[%clk 1:59:59]} d5 {[%clk 1:59:50]} 2.c4 {[%emt 00:00:12]} Nf6 {[%emt 00:00:13]}",
+        Nil
+      )
+      .toOption
+      .get
     assertEquals(x.root.mainlineNodeList(3).clock.get, chess.Centis(718700))
     assertEquals(x.root.mainlineNodeList(4).clock.get, chess.Centis(717700))
 
   test("import a broadcast pgn"):
-    val x = StudyPgnImport(
-      """[Event "Norway Chess"]
+    val x = StudyPgnImport
+      .result(
+        """[Event "Norway Chess"]
 [Site "-"]
 [Date "2023.05.31"]
 [Round "3"]
@@ -82,14 +90,17 @@ class PgnImportTest extends lila.common.LilaTest:
 Ng6 {[%clk 1:17:22]} 14. Qf2 {[%clk 1:32:39]} Be6 {[%clk 1:16:24]} 15. Ne2 {[%clk
 1:31:54]} Qd7 {[%clk 1:16:14]} 16. b3 {[%clk 1:27:21]} Bb4 {[%clk 1:13:57]} 17.
 Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
-      Nil
-    ).toOption.get
+        Nil
+      )
+      .toOption
+      .get
     assert(x.root.mainlineNodeList(1).clock.contains(chess.Centis(719900)))
     assert(x.root.mainlineNodeList(2).clock.contains(chess.Centis(718000)))
 
   test("import a broadcast pgn with missing clock)"):
-    val x = StudyPgnImport(
-      """
+    val x = StudyPgnImport
+      .result(
+        """
         1. d4 {[%clk 01:59:00]} {[%emt 00:00:58]} d5 {[%clk 01:59:50]} {[%emt
         00:00:11]} 2. c4 {[%clk 01:58:54]} {[%emt 00:00:06]} e6 {[%clk 01:59:21]}
         {[%emt 00:00:30]} 3. Nf3 {[%clk 01:58:28]} {[%emt 00:00:26]} Nf6 {[%clk
@@ -107,8 +118,10 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
         {[%emt 00:05:03]} 18. Qxf5 {[%clk 00:54:54]} {[%emt 00:05:49]} Qe8 {[%emt 00:05:02]}
         19. Nf7 {[%emt 00:14:50]} *
       """,
-      Nil
-    ).toOption.get
+        Nil
+      )
+      .toOption
+      .get
     assertEquals(x.root.mainlineNodeList.size, 38)
     x.root.mainlineNodeList
       .drop(1) // skip the root

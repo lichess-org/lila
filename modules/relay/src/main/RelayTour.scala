@@ -54,12 +54,6 @@ case class RelayTour(
     then Visibility.`private`
     else Visibility.public
 
-  def enrichGames(games: RelayGames): RelayGames =
-    val withTeams = teams.fold(games)(_.update(games))
-    info.clock.fold(withTeams): clock =>
-      val tag = Tag.timeControl(clock)
-      withTeams.map(g => g.copy(tags = g.tags + tag))
-
 object RelayTour:
 
   val maxRelays = Max(64)

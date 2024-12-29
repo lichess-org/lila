@@ -22,7 +22,7 @@ class PgnRoundTripTest extends munit.FunSuite:
   test("roundtrip"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
-        val imported = StudyPgnImport(pgn, List(user)).toOption.get
+        val imported = StudyPgnImport.result(pgn, List(user)).toOption.get
         val dumped   = rootToPgn(imported.root)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)
 
@@ -41,7 +41,7 @@ class PgnRoundTripTest extends munit.FunSuite:
   test("roundtrip with BSONHandlers"):
     PgnFixtures.roundTrip
       .foreach: pgn =>
-        val imported  = StudyPgnImport(pgn, List(user)).toOption.get
+        val imported  = StudyPgnImport.result(pgn, List(user)).toOption.get
         val afterBson = treeBson.reads(treeBson.writes(w, imported.root))
         val dumped    = rootToPgn(afterBson)
         assertEquals(dumped.value.cleanTags, pgn.cleanTags)

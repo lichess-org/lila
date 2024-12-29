@@ -1,7 +1,7 @@
 package lila.relay
 
 import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
-import chess.{ Outcome, Ply }
+import chess.{ Outcome, Ply, TournamentClock }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
@@ -90,9 +90,9 @@ final private class RelayFetch(
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
         withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        enriched = rt.tour.enrichGames(withFide)
+        withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
         res <- sync
-          .updateStudyChapters(rt, enriched)
+          .updateStudyChapters(rt, withTeams)
           .withTimeoutError(7 seconds, SyncResult.Timeout)
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
@@ -303,6 +303,7 @@ final private class RelayFetch(
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
             .map { MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)) }
+            .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
           httpGetRoundJson(lcc.indexUrl)
@@ -325,6 +326,7 @@ final private class RelayFetch(
                 .parallel
                 .map: pgns =>
                   MultiPgn(pgns.sortBy(_._1).map(_._2))
+                .map(injectTimeControl.in(rt.tour.info.clock))
                 .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithoutGames(lcc) =>
           httpGetRoundJson(lcc.indexUrl)
@@ -332,6 +334,7 @@ final private class RelayFetch(
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
                   PgnStr(s"${pairing.tags(lcc.round, i + 1, round.date)}\n\n${pairing.result}")
+            .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
 
   private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr.from(http.get(url))
@@ -351,9 +354,24 @@ private object RelayFetch:
   private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 2)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
+  object injectTimeControl:
+
+    private val lookup                               = """[TimeControl """"
+    private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
+
+    def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:
+      multiPgn.value.map(in(_, tco))
+
+    def in(pgn: PgnStr, tco: Option[TournamentClock]): PgnStr =
+      tco.fold(pgn): tc =>
+        pgn.map: txt =>
+          if txt.contains("""[TimeControl """")
+          then txt
+          else s"""${replace(tc)}$txt"""
+
   object multiPgnToGames:
 
-    def apply(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
+    def either(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
       multiPgn.value
         .foldLeftM(Vector.empty[RelayGame] -> 0):
           case ((acc, index), pgn) =>
@@ -364,7 +382,7 @@ private object RelayFetch:
                 else (acc :+ game, index + 1).asRight[LilaInvalid]
         .map(_._1)
 
-    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = apply(multiPgn).toFuture
+    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture
 
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, RelayGame]] =
       CacheApi
@@ -375,6 +393,7 @@ private object RelayFetch:
         .build(compute)
 
     private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
-      StudyPgnImport(pgn, Nil)
+      StudyPgnImport
+        .result(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map(RelayGame.fromStudyImport)

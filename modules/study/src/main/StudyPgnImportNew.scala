@@ -3,7 +3,7 @@ package lila.study
 import chess.MoveOrDrop.*
 import chess.format.pgn.{ Glyphs, ParsedPgn, ParsedPgnTree, PgnNodeData, PgnStr, Tags, Tag }
 import chess.format.{ Fen, Uci, UciCharPair }
-import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome }
+import chess.{ Centis, ErrorStr, Node as PgnNode, Outcome, ByColor }
 import monocle.syntax.all.*
 
 import lila.core.LightUser
@@ -21,7 +21,7 @@ object StudyPgnImportNew:
       root: NewRoot,
       variant: chess.variant.Variant,
       tags: Tags,
-      end: Option[StudyPgnImport.End]
+      end: Option[StudyPgnImport.Ending]
   )
 
   def apply(pgn: PgnStr, contributors: List[LightUser]): Either[ErrorStr, Result] =
@@ -31,7 +31,7 @@ object StudyPgnImportNew:
         case (shapes, _, _, comments) =>
           val tc    = parsedPgn.tags.timeControl
           val clock = tc.map(_.limit)
-          val setup = Context(replay.setup, tc, clock, clock)
+          val setup = Context(replay.setup, ByColor.fill(clock), tc)
           val root: NewRoot =
             NewRoot(
               Metas(
@@ -52,8 +52,8 @@ object StudyPgnImportNew:
               parsedPgn.tree.flatMap(makeTree(setup, _, annotator))
             )
 
-          val end = result.map: res =>
-            StudyPgnImport.End(
+          val gameEnd = result.map: res =>
+            StudyPgnImport.Ending(
               status = res.status,
               points = res.points,
               resultText = chess.Outcome.showPoints(res.points.some),
@@ -63,7 +63,7 @@ object StudyPgnImportNew:
           val commented =
             if root.tree.map(_.lastMainlineNode).exists(_.value.metas.comments.value.nonEmpty) then root
             else
-              end.map(StudyPgnImport.endComment).fold(root) { comment =>
+              gameEnd.map(StudyPgnImport.endComment).fold(root) { comment =>
                 root
                   .focus(_.tree.some)
                   .modify(_.modifyLastMainlineNode(_.focus(_.value.metas.comments).modify(_ + comment)))
@@ -73,7 +73,7 @@ object StudyPgnImportNew:
             variant = game.board.variant,
             tags = PgnTags
               .withRelevantTags(parsedPgn.tags, Set(Tag.WhiteClock, Tag.BlackClock)),
-            end = end
+            end = gameEnd
           )
     }
 
@@ -116,12 +116,12 @@ object StudyPgnImportNew:
                 gamebook = None,
                 glyphs = data.metas.glyphs,
                 opening = None,
-                clock = clock.orElse((context.previousClock, emt).mapN(_ - _)),
+                clock = ???, // TODO it's in StudyPgnImport, but not here
                 crazyData = game.situation.board.crazyData
               )
             )
 
-        (Context(game, context.timeControl, newBranch.metas.clock, context.currentClock), newBranch.some)
+        (Context(game, context.clocks, context.timeControl), newBranch.some)
       )
       .toOption
       .match

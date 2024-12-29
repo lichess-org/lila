@@ -96,7 +96,8 @@ private object RelayGame:
   def fromStudyImport(res: lila.study.StudyPgnImport.Result): RelayGame =
     val fixedTags = Tags:
       // remove wrong ongoing result tag if the board has a mate on it
-      if res.end.isDefined && res.tags(_.Result).has("*") then res.tags.value.filter(_ != Tag(_.Result, "*"))
+      if res.ending.isDefined && res.tags(_.Result).has("*") then
+        res.tags.value.filter(_ != Tag(_.Result, "*"))
       // normalize result tag (e.g. 0.5-0 ->  1/2-0)
       else
         res.tags.value.map: tag =>
@@ -110,7 +111,7 @@ private object RelayGame:
         comments = Comments.empty,
         children = res.root.children.updateMainline(_.copy(comments = Comments.empty))
       ),
-      points = res.end.map(_.points)
+      points = res.ending.map(_.points)
     ).applyTagClocksToLastMoves
 
   import scalalib.Iso
@@ -132,7 +133,7 @@ private object RelayGame:
             .map(g => PgnDump.rootToPgn(g.root, g.tags, InitialComments.empty).render)
             .toList
       ,
-      mul => RelayFetch.multiPgnToGames(mul).fold(e => throw e, identity)
+      mul => RelayFetch.multiPgnToGames.either(mul).fold(e => throw e, identity)
     )
 
   def filter(onlyRound: Option[Int])(games: RelayGames): RelayGames =

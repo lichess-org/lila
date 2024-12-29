@@ -7,7 +7,7 @@ import lila.study.MultiPgn
 class RelayGameTest extends munit.FunSuite:
 
   def makeGame(pgn: String) =
-    RelayFetch.multiPgnToGames(MultiPgn(List(PgnStr(pgn)))).getOrElse(???).head
+    RelayFetch.multiPgnToGames.either(MultiPgn(List(PgnStr(pgn)))).getOrElse(???).head
 
   val g1 = makeGame:
     """
