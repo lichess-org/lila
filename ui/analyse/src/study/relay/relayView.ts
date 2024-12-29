@@ -39,7 +39,7 @@ export const backToLiveView = (ctrl: AnalyseCtrl) =>
     ? h(
         'button.fbt.relay-back-to-live.text',
         {
-          attrs: dataIcon(licon.RadioTower),
+          attrs: dataIcon(licon.PlayTriangle),
           hook: bind(
             'click',
             () => {

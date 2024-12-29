@@ -6,7 +6,12 @@ import lila.study.MultiPgn
 
 class RelayGameTest extends munit.FunSuite:
 
-  val pgn = """[White "Khusenkhojaev, Mustafokhuja"]
+  def makeGame(pgn: String) =
+    RelayFetch.multiPgnToGames(MultiPgn(List(PgnStr(pgn)))).getOrElse(???).head
+
+  val g1 = makeGame:
+    """
+[White "Khusenkhojaev, Mustafokhuja"]
 [Black "Lam, Chun Yung Samuel"]
 [WhiteClock "00:33:51"]
 [BlackClock "01:23:54"]
@@ -15,15 +20,24 @@ class RelayGameTest extends munit.FunSuite:
 1. d4 Nf6
 """
 
-  val g           = RelayFetch.multiPgnToGames(MultiPgn(List(PgnStr(pgn)))).getOrElse(???).head
   val whiteCentis = Centis.ofSeconds(33 * 60 + 51)
   val blackCentis = Centis.ofSeconds(1 * 3600 + 23 * 60 + 54)
 
   test("parse clock tags"):
-    assertEquals(g.tags.clocks.white, whiteCentis.some)
-    assertEquals(g.tags.clocks.black, blackCentis.some)
+    assertEquals(g1.tags.clocks.white, whiteCentis.some)
+    assertEquals(g1.tags.clocks.black, blackCentis.some)
 
   test("applyTagClocksToLastMoves"):
-    val applied = g.applyTagClocksToLastMoves
+    val applied = g1.applyTagClocksToLastMoves
     assertEquals(applied.root.lastMainlineNode.clock, blackCentis.some)
     assertEquals(applied.root.mainline.head.clock, whiteCentis.some)
+
+  val g2 = makeGame:
+    """
+[WhiteClock "00:00:23"]
+[BlackClock "00:00:41"]
+"""
+
+  test("parse clock tags"):
+    assertEquals(g2.tags.clocks.white, Centis.ofSeconds(23).some)
+    assertEquals(g2.tags.clocks.black, Centis.ofSeconds(41).some)
