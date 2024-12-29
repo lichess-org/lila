@@ -53,7 +53,7 @@ final class RelayPush(
       for
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(rawGames)
         enriched    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        games = rt.tour.teams.fold(enriched)(_.update(enriched))
+        games = rt.tour.enrichGames(enriched)
         event <- sync
           .updateStudyChapters(rt, games)
           .map: res =>

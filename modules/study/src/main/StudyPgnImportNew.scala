@@ -10,16 +10,12 @@ import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments }
 import lila.tree.{ ImportResult, Metas, NewBranch, NewRoot, NewTree }
 
-case class Context(
-    currentGame: chess.Game,
-    currentClock: Option[Centis],
-    previousClock: Option[Centis]
-)
-
 /** This code is still unused, and is now out of sync with the StudyPgnImport it's supposed to replace. Some
   * features are missing that are present in StudyPgnImport, such as the ability to replay clock states.
   */
 object StudyPgnImportNew:
+
+  import StudyPgnImport.Context
 
   case class Result(
       root: NewRoot,
@@ -33,8 +29,9 @@ object StudyPgnImportNew:
       val annotator = StudyPgnImport.findAnnotator(parsedPgn, contributors)
       StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
-          val clock = parsedPgn.tags.clockConfig.map(_.limit)
-          val setup = Context(replay.setup, clock, clock)
+          val tc    = parsedPgn.tags.timeControl
+          val clock = tc.map(_.limit)
+          val setup = Context(replay.setup, tc, clock, clock)
           val root: NewRoot =
             NewRoot(
               Metas(
@@ -124,7 +121,7 @@ object StudyPgnImportNew:
               )
             )
 
-        (Context(game, newBranch.metas.clock, context.currentClock), newBranch.some)
+        (Context(game, context.timeControl, newBranch.metas.clock, context.currentClock), newBranch.some)
       )
       .toOption
       .match

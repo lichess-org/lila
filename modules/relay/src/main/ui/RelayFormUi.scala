@@ -468,7 +468,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form3.group(
               form("info.tc"),
               trs.timeControl(),
-              help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
+              help = frag("""e.g. "15 min + 10 sec" or "15+10"""").some,
               half = true
             )(form3.input(_)),
             form3.group(

@@ -89,10 +89,10 @@ final private class RelayFetch(
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
-        enriched    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        withTeams = rt.tour.teams.fold(enriched)(_.update(enriched))
+        withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        enriched = rt.tour.enrichGames(withFide)
         res <- sync
-          .updateStudyChapters(rt, withTeams)
+          .updateStudyChapters(rt, enriched)
           .withTimeoutError(7 seconds, SyncResult.Timeout)
           .mon(_.relay.syncTime(rt.tour.official, rt.tour.id, rt.tour.slug))
         games = res.plan.input.games
