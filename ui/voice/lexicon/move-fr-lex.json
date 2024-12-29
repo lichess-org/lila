@@ -70,7 +70,7 @@
     { "in": "charlie", "val": "c", "tags": ["file", "move", "phonetic"] },
     { "in": "delta", "val": "d", "tags": ["file", "move", "phonetic"] },
     { "in": "echo", "val": "e", "tags": ["file", "move", "phonetic"] },
-    { "in": "faux extrovert", "val": "f", "tags": ["file", "move", "phonetic"] },
+    { "in": "faux trot", "val": "f", "tags": ["file", "move", "phonetic"] },
     { "in": "golf", "val": "g", "tags": ["file", "move", "phonetic"] },
     { "in": "hotel", "val": "h", "tags": ["file", "move", "phonetic"] },
 

@@ -669,7 +669,7 @@
       ]
     },
     {
-      "in": "faux extrovert",
+      "in": "faux trot",
       "val": "f",
       "tags": ["file", "move", "phonetic"],
       "tok": "`i"
@@ -834,7 +834,7 @@
       ]
     },
     {
-      "in": "extrovert",
+      "in": "trot",
       "tok": "i",
       "tags": ["part"],
       "subs": [
