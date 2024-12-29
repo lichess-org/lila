@@ -16,6 +16,9 @@ case class Context(
     previousClock: Option[Centis]
 )
 
+/** This code is still unused, and is now out of sync with the StudyPgnImport it's supposed to replace. Some
+  * features are missing that are present in StudyPgnImport, such as the ability to replay clock states.
+  */
 object StudyPgnImportNew:
 
   case class Result(
