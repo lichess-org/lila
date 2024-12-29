@@ -7,10 +7,9 @@ import scalalib.SecureRandom
 import lila.core.config.{ NetDomain, NetConfig }
 import lila.core.security.LilaCookie
 
-final class LilaCookie(domain: NetDomain, baker: SessionCookieBaker, config: NetConfig)
-    extends lila.core.security.LilaCookie:
+final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lila.core.security.LilaCookie:
 
-  private val cookieDomain = domain.value.split(":").head
+  private val cookieDomain = config.domain.value.split(":").head
 
   def makeSessionId(using RequestHeader): Cookie = session(LilaCookie.sessionId, generateSessionId())
 
