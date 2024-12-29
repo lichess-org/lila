@@ -53,8 +53,20 @@ Igrači koji ne vole primiti vaše poruke bi mogli napustiti tim.</string>
   <string name="entryCodeDescriptionForLeader">(Izborno) Ulazni kod koji novi članovi moraju znati da bi se pridružili ovom timu.</string>
   <string name="incorrectEntryCode">Netočan ulazni kod.</string>
   <string name="teamAlreadyExists">Ovaj tim već postoji.</string>
+  <string name="upcomingTournaments">Nadolazeći turniri</string>
   <string name="completedTourns">Završeni turniri</string>
   <string name="declinedRequests">Odbijeni zahtjevi</string>
   <string name="joinLichessVariantTeam">Pridružite se službenom %s timu za novosti i događaje</string>
   <string name="teamPage">Stranica tima</string>
+  <string name="thisTeamBattleIsOver">Ovaj turnir je završen te ekipe više ne mogu biti ažurirane.</string>
+  <string name="listTheTeamsThatWillCompete" comment="&quot;List&quot; is used as a verb in this sentence. You can alternatively translate as &quot;Fill out&quot;, as this is presented in the context of a form.">Unesi ekipe koje će se natjecati u ovoj bitki.</string>
+  <string name="oneTeamPerLine">Jedna ekipa po liniji. Koristite automatsko popunjenje.</string>
+  <string name="oneTeamPerLineHelp">Možete kopirati-zalijepiti ovaj popis u drugi turnir!
+
+Ne možete ukloniti ekipu ako se igrač već pridružio turniru s tom ekipom.</string>
+  <plurals name="battleOfNbTeams">
+    <item quantity="one">Bitka %s ekipe</item>
+    <item quantity="few">BItka %s ekipe</item>
+    <item quantity="other">Bitka %s ekipa</item>
+  </plurals>
 </resources>
