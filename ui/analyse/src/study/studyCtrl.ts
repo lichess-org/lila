@@ -594,10 +594,7 @@ export default class StudyCtrl {
   };
   explorerGame = (gameId: string, insert: boolean) =>
     this.makeChange('explorerGame', this.withPosition({ gameId, insert }));
-  onPremoveSet = () => {
-    if (this.currentNode().dests === '') alert('Too many moves for a lichess board.');
-    else this.gamebookPlay?.onPremoveSet();
-  };
+  onPremoveSet = () => this.gamebookPlay?.onPremoveSet();
   baseUrl = () => {
     const current = location.href;
     const studyIdOffset = current.indexOf(`/${this.data.id}`);

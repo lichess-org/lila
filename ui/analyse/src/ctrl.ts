@@ -575,7 +575,8 @@ export default class AnalyseCtrl {
   }
 
   onPremoveSet = () => {
-    if (this.study) this.study.onPremoveSet();
+    if (this.node.dests === '') alert('Too many moves for a lichess board.');
+    else if (this.study) this.study.onPremoveSet();
   };
 
   addNode(node: Tree.Node, path: Tree.Path) {
