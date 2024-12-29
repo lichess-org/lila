@@ -48,7 +48,7 @@
     "format": "prettier --config=ui/.prettierrc.json --cache --write --log-level=warn .",
     "check-format": "prettier --config=ui/.prettierrc.json --cache --check --log-level=warn .",
     "watch-format": "onchange \"**/*\" -- prettier --config=ui/.prettierrc.json --cache --write --log-level=warn {{changed}}",
-    "add-hooks": "git config --get-all core.hooksPath | grep -Fxq bin/git-hooks || git config --add core.hooksPath bin/git-hooks",
+    "add-hooks": "git config get --all core.hooksPath | grep -Fxq bin/git-hooks || git config set --append core.hooksPath bin/git-hooks",
     "remove-hooks": "git config unset --value=bin/git-hooks core.hooksPath || true",
     "lint": "eslint --config=ui/eslint.config.mjs --cache --cache-location=ui/.eslintcache",
     "lint-staged": "lint-staged --config=ui/lint-staged.config.mjs",
