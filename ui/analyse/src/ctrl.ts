@@ -353,7 +353,8 @@ export default class AnalyseCtrl {
       config.movable!.color = color;
     }
     config.premovable = {
-      enabled: config.movable!.color && config.turnColor !== config.movable!.color,
+      enabled:
+        config.movable!.color && config.turnColor !== config.movable!.color && !this.currPosition().isEnd(),
     };
     this.cgConfig = config;
     return config;
@@ -739,6 +740,8 @@ export default class AnalyseCtrl {
     const setup = parseFen(node.fen).unwrap();
     return setupPosition(lichessRules(this.data.game.variant.key), setup);
   }
+
+  currPosition = () => this.position(this.node).unwrap();
 
   canUseCeval(): boolean {
     return !this.node.threefold && !this.outcome();
