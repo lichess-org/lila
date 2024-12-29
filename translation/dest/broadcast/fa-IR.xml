@@ -49,7 +49,7 @@
   <string name="ageThisYear">سنِ امسال</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">بی‌درجه‌بندی</string>
   <string name="recentTournaments">مسابقاتِ اخیر</string>
-  <string name="openLichess">آزاد در Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">آزاد در Lichess</string>
   <string name="teams">یَران‌ها</string>
   <string name="boards">میز‌ها</string>
   <string name="overview">نمای کلی</string>
@@ -57,6 +57,7 @@
   <string name="uploadImage">بارگذاری تصویر مسابقات</string>
   <string name="noBoardsYet">تاکنون هیچی. وقتی بازی‌ها بارگذاری شدند، میزها پدیدار خواهند شد.</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">میزها را می‌توان از یک منبع یا از راه %s بارگذاری کرد</string>
+  <string name="startsAfter">شروع کنید بعد %s</string>
   <string name="startVerySoon">پخش زنده به زودی خواهد آغازید.</string>
   <string name="notYetStarted">پخش زنده هنوز نیاغازیده است.</string>
   <string name="officialWebsite">وبگاه رسمی</string>
