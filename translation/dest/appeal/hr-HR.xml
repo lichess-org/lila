@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="cleanAllGood">Vaš korisnički račun nije označen niti ograničen. Sve je u redu!</string>
   <string name="engineMarked">Vaš korisnički račun je označen zbog vanjske pomoći u partijama.</string>
   <string name="engineMarkedInfo">Definiramo ovo kao korištenje bilo koje vanjske pomoći u znanju i/ili računanju u svrhu postignuća nepoštene prednosti nad Vašim protivnikom. Pogledajte %s stranicu za više detalja.</string>
   <string name="arenaBanned">Vašem korisničkom računu je zabranjen pristup arenama.</string>

@@ -29,8 +29,11 @@
   <string name="pendingReview">ناظران جریان‌تان را بررسی می‌کنند.</string>
   <string name="pleaseFillIn">لطفا اطلاعات بَرخَط-محتواسازتان را پر کنید و تصویری بارگذارید.</string>
   <string name="whenReady" comment="whenReady&#10;&#10;%s is &quot;request a moderator review&quot;">هنگامی که برای فهرست شدن به عنوان بَرخَط-محتواساز Lichess آماده‌اید، %s</string>
+  <string name="submitForReview" comment="Appears on a button when editing the page which lets you be listed as a streamer: https://lichess.org/streamer/edit&#10;&#10;As this is public, any changes to a streamer page are first sent to the Lichess team for review.">برای بررسی ثبت کنید</string>
   <string name="streamerLanguageSettings">صفحهٔ بَرخَط-محتواساز Lichess، مخاطبان شما را با زبان ارائه‌شده بر پایهٔ پَتادیس جریان‌سازی‌تان هدف قرار می‌دهد. زبان پیش‌فرض صحیح را برای جریان‌های شطرنج‌تان در کارآیه یا زواره‌ای که برای پخش می‌بهرایید، تنظیم کنید.</string>
   <string name="twitchUsername">نام کاربری یا وب‌نشانی‌تان در Twitch</string>
+  <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">یوتیوب یا توییچ لازم است</string>
+  <string name="twitchOrYouTubeMustBeVerified">یوتیوب یا توییچ لازم است</string>
   <string name="youTubeChannelId">شناسهٔ کانال یوتیوب‌تان</string>
   <string name="streamerName">نام بَرخَط-محتواسازتان در Lichess</string>
   <plurals name="keepItShort">
