@@ -45,7 +45,7 @@ import ForecastCtrl from './forecast/forecastCtrl';
 import { type ArrowKey, type KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
 import * as control from './control';
 import type { PgnError } from 'chessops/pgn';
-import { confirm } from 'common/dialog';
+import { confirm, alert } from 'common/dialog';
 import api from './api';
 
 export default class AnalyseCtrl {
