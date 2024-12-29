@@ -86,6 +86,7 @@
   <string name="canIChangeMyUsername">آیا می‌توانم نام کاربری خود را تغییر دهم؟</string>
   <string name="usernamesCannotBeChanged" comment="&quot;Materialised&quot; is a technical term: https://en.wikipedia.org/wiki/Materialized_view&#10;In this context, it means that it is used in many places and too significant to change, on a technical level. It also comments on the social perspective (&quot;people's minds&quot;).">خیر، نام‌های کاربری به دلیل‌های فنی و عملی تغییرپذیر نیستند. نام‌های کاربری در جاهای زیادی ثبت شده‌اند: دادگان‌ها، برونبُردها، گزارش‌ها و در حافظه مردم. می‌توانید یک بار کوچکی-بزرگی حرف‌ها را تنظیم کنید.</string>
   <string name="uniqueTrophies">غنائم منحصر به فرد</string>
+  <string name="ownerUniqueTrophies">آن جایزه در تاریخ لیچس خاص هست و هیچکس به غیر از %1$s نمی‌توانند داشته باشند.</string>
   <string name="wayOfBerserkExplanation">برای به دست آوردنش، hiimgosu خود را به چالش کشید تا تمام بازی های %s با استفاده از جنون برنده شود.</string>
   <string name="aHourlyBulletTournament">یک مسابقه گلوله‌ای ساعتی</string>
   <string name="goldenZeeExplanation" comment="goldenZeeExplanation&#10;&#10;ZugAddict is a legendary player and streamer, do not translate his name.&#10;https://lichess.org/@/ZugAddict&#10;&#10;Thibault is the name of the founder of Lichess: https://lichess.org/@/thibault">کاربر ZugAddict جریان‌سازی می‌کرد و در ۲ ساعت آخر کوشید هوش مصنوعی را شکست دهد. سطح ۸ در زمان ۱+۰، کامیاب نشد. بُناگرِ Lichess به او گفت که اگر هنگام پخش، در این کار کامیاب شود، یک جامینهٔ یکتا خواهد گرفت. یک ساعت بعد، او Stockfish را شکست داد و آن قول عملی شد.</string>
@@ -130,7 +131,15 @@
 
 سپس برگزینید که آیا اعلان‌های Lichess مُجاز/مسدود شوند.</string>
   <string name="enableAutoplayForSoundsQ">پخش خودکار صدا را فعال می‌کنید؟</string>
-  <string name="desktop">رایانه</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">رایانه</string>
+  <string name="enableAutoplayForSoundsFirefox">1.به lichess.org بروید
+2.بر روی ویندوز و یا لینوکس خود دکمه Ctrl-i بزنید و یا بر روی مک دکمه cmd-i را بزنید
+3.بر روی تب مجوز ها بزنید
+4.صدا و ویدیو رو بر روی lichess.org مجاز کنید</string>
+  <string name="enableAutoplayForSoundsChrome">1.به lichess.org بروید
+2.بر روی آیکون قفل در تب سرچ بزنید
+3.بر روی تنظیمات سایت بزنید
+4.صدا را مجاز کنید</string>
   <string name="enableAutoplayForSoundsSafari">۱. به lichess.org بروید
 ۲. در نوار نام‌چین روی Safari بزنید
 ۳. در تنظیمات، lichess.org را بزنید ...
