@@ -620,10 +620,10 @@ export default class AnalyseCtrl {
     )
       return;
     this.tree.deleteNodeAt(path);
-    this.redraw();
     if (treePath.contains(this.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.path);
     if (this.study) this.study.deleteNode(path);
+    this.redraw();
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {
