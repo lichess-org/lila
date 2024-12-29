@@ -224,7 +224,16 @@
   <string name="youAreLeavingLichess">Tu ji Lichessê derdikevî</string>
   <string name="neverTypeYourPassword">Qetîyyen şîfreya xwe ya Lichessê li ser sîteyeke din nenivîse!</string>
   <string name="proceedToX">Dewam bike %s</string>
+  <string name="passwordSuggestion">Şîfreyeke ji alîyê yekî din ve teklîfkirî daneyîne. Ew ê ji bo dizîna hesabê te wê biemilînin.</string>
+  <string name="emailSuggestion">Emaîleke ku ji alîyê yekî din ve hatîye teklîfkirin neemilîne. Ew ê ji bo dizîna hesabê te wê biemilînin.</string>
+  <string name="emailConfirmHelp">Alîkarîya ji bo tesdîqkirina emaîlê</string>
+  <string name="emailConfirmNotReceived">Te piştê qeydbûnê emaîla tesdîqkirinê wernegirti?</string>
+  <string name="whatSignupUsername">Te ji bo qeydbûnê kîjan navê bikarhênerîyê emiland?</string>
+  <string name="usernameNotFound">Me ti bikarhênerekî bi vê navê peyda nekir: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Vê navê bikarhênerîyê ji bo çêkirina hesabekî nû karî biemilînî</string>
   <string name="emailSent">Me ji %s re email şand.</string>
+  <string name="emailCanTakeSomeTime">Gihîna wê kare hinek wext bigire.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 deqe bisekine û înboksa emaîla xwe nû bike.</string>
   <string name="accountCanLogin">Tu niha dikarî wek %s têkevî.</string>
   <string name="rank">Pile</string>
   <string name="rankX">Pile: %s</string>
