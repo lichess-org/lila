@@ -48,7 +48,7 @@ final class LilaCookie(baker: SessionCookieBaker, config: NetConfig) extends lil
       path = "/",
       domain = cookieDomain.some,
       httpOnly = httpOnly | baker.httpOnly,
-      sameSite = (if config.minifiedAssets then Cookie.SameSite.None else Cookie.SameSite.Lax).some
+      sameSite = Cookie.SameSite.Lax.some
     )
 
   def isRememberMe(req: RequestHeader) = !req.session.get(LilaCookie.noRemember).has("1")
