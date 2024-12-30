@@ -25,7 +25,7 @@ case class Metas(
     gamebook: Option[Node.Gamebook] = None,
     glyphs: Glyphs = Glyphs.empty,
     opening: Option[Opening] = None,
-    clock: Option[Centis] = None,
+    clock: Option[Clock] = None,
     crazyData: Option[Crazyhouse.Data] = None
     // TODO, add support for variationComments
 ):
@@ -79,7 +79,7 @@ case class NewBranch(
     crazyData
   }
   override def toString                    = s"$ply, $id, ${move.uci}"
-  def withClock(centis: Option[Centis])    = this.focus(_.metas.clock).replace(centis)
+  def withClock(clock: Option[Clock])      = this.focus(_.metas.clock).replace(clock)
   def withForceVariation(force: Boolean)   = copy(forceVariation = force)
   def isCommented                          = metas.comments.value.nonEmpty
   def setComment(comment: Comment)         = this.focus(_.metas).modify(_.setComment(comment))
@@ -313,7 +313,7 @@ object NewRoot:
       .add("opening", opening)
       .add("dests", dests)
       .add("drops", drops.map(drops => JsString(drops.map(_.key).mkString)))
-      .add("clock", clock)
+      .add("clock", clock.map(_.centis))
       .add("crazy", crazyData)
 
   given OWrites[NewBranch] = OWrites: branch =>

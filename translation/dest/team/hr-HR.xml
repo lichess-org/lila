@@ -64,6 +64,7 @@ Igrači koji ne vole primiti vaše poruke bi mogli napustiti tim.</string>
   <string name="oneTeamPerLineHelp">Možete kopirati-zalijepiti ovaj popis u drugi turnir!
 
 Ne možete ukloniti ekipu ako se igrač već pridružio turniru s tom ekipom.</string>
+  <string name="numberOfLeadsPerTeam">Broj administratora po ekipi. Zbroj njihovih bodova je ukupni broj bodova ekipe.</string>
   <plurals name="battleOfNbTeams">
     <item quantity="one">Bitka %s ekipe</item>
     <item quantity="few">BItka %s ekipe</item>

@@ -10,7 +10,7 @@ import lila.core.perm.Granter
 import lila.core.socket.Sri
 import lila.core.study as hub
 import lila.core.timeline.{ Propagate, StudyLike }
-import lila.tree.Branch
+import lila.tree.{ Branch, Clock }
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
 
 final class StudyApi(
@@ -417,18 +417,18 @@ final class StudyApi(
                 reloadSriBecauseOf(study, who.sri, chapter.id)
                 fufail(s"Invalid setShapes $position $shapes")
 
-  def setClock(studyId: StudyId, position: Position.Ref, clock: Centis)(who: Who): Funit =
+  def setClock(studyId: StudyId, position: Position.Ref, clock: Clock)(who: Who): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId):
       doSetClock(_, position, clock)(who)
 
-  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Centis)(
+  private def doSetClock(sc: Study.WithChapter, position: Position.Ref, clock: Clock)(
       who: Who
   ): Funit =
     sc.chapter.setClock(clock.some, position.path) match
       case Some(chapter, newCurrentClocks) =>
         studyRepo.updateNow(sc.study)
         for _ <- chapterRepo.setClockAndDenorm(chapter, position.path, clock, newCurrentClocks)
-        yield sendTo(sc.study.id)(_.setClock(position, clock.some, newCurrentClocks))
+        yield sendTo(sc.study.id)(_.setClock(position, clock.centis.some, newCurrentClocks))
       case None =>
         reloadSriBecauseOf(sc.study, who.sri, position.chapterId)
         fufail(s"Invalid setClock $position $clock")

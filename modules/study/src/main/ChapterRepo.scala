@@ -2,7 +2,6 @@ package lila.study
 
 import scala.collection.immutable.SeqMap
 import akka.stream.scaladsl.*
-import chess.Centis
 import chess.format.UciPath
 import chess.format.pgn.Tags
 import reactivemongo.akkastream.cursorProducer
@@ -10,7 +9,7 @@ import reactivemongo.api.bson.*
 
 import lila.db.AsyncColl
 import lila.db.dsl.{ *, given }
-import lila.tree.{ Branch, Branches }
+import lila.tree.{ Branch, Branches, Clock }
 
 import Node.BsonFields as F
 
@@ -110,7 +109,7 @@ final class ChapterRepo(val coll: AsyncColl)(using Executor, akka.stream.Materia
   def setClockAndDenorm(
       chapter: Chapter,
       path: UciPath,
-      clock: chess.Centis,
+      clock: Clock,
       denorm: Option[Chapter.BothClocks]
   ) =
     val updateNode   = $doc(pathToField(path, F.clock) -> clock)

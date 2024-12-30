@@ -6,6 +6,7 @@ import chess.format.pgn.{ PgnStr, Tags }
 import scala.language.implicitConversions
 
 import lila.core.LightUser
+import lila.tree.Clock
 
 class PgnImportTest extends lila.common.LilaTest:
 
@@ -55,8 +56,8 @@ class PgnImportTest extends lila.common.LilaTest:
       )
       .toOption
       .get
-    assertEquals(x.root.mainlineNodeList(3).clock.get, chess.Centis(718700))
-    assertEquals(x.root.mainlineNodeList(4).clock.get, chess.Centis(717700))
+    assertEquals(x.root.mainlineNodeList(3).clock.get, Clock(chess.Centis(718700), false.some))
+    assertEquals(x.root.mainlineNodeList(4).clock.get, Clock(chess.Centis(717700), false.some))
 
   test("import a broadcast pgn"):
     val x = StudyPgnImport
@@ -94,8 +95,8 @@ Rad1 {[%clk 1:24:50]} b6 {[%clk 1:09:49]} 18. g4 {[%clk 1:03:52]} *""",
       )
       .toOption
       .get
-    assert(x.root.mainlineNodeList(1).clock.contains(chess.Centis(719900)))
-    assert(x.root.mainlineNodeList(2).clock.contains(chess.Centis(718000)))
+    assert(x.root.mainlineNodeList(1).clock.contains(Clock(chess.Centis(719900), true.some)))
+    assert(x.root.mainlineNodeList(2).clock.contains(Clock(chess.Centis(718000), true.some)))
 
   test("import a broadcast pgn with missing clock)"):
     val x = StudyPgnImport

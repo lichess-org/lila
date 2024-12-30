@@ -9,7 +9,7 @@ let siteSocket: WsSocket | undefined;
 export function eventuallySetupDefaultConnection(): void {
   setTimeout(() => {
     if (!siteSocket) wsConnect('/socket/v5', false);
-  }, 300);
+  }, 500);
 }
 
 type Sri = string;

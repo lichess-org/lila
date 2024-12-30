@@ -5,7 +5,7 @@ import chess.Outcome.GamePoints
 import chess.format.pgn.{ Tag, TagType, Tags }
 
 import lila.study.{ MultiPgn, PgnDump }
-import lila.tree.Root
+import lila.tree.{ Root, Clock }
 import lila.tree.Node.Comments
 import chess.format.UciPath
 
@@ -68,7 +68,7 @@ case class RelayGame(
       .foldLeft(root):
           case (root, (path, centis)) =>
             if root.nodeAt(path).exists(_.clock.isDefined) then root
-            else root.setClockAt(centis.some, path) | root
+            else root.setClockAt(Clock(centis, true.some).some, path) | root
       copy(root = newRoot)
 
   private def outcome = points.flatMap(Outcome.fromPoints)

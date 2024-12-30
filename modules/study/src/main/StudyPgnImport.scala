@@ -7,13 +7,13 @@ import chess.{ ByColor, Centis, ErrorStr, Node as PgnNode, Outcome, Status, Tour
 
 import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments, Shapes }
-import lila.tree.{ Branch, Branches, ImportResult, Root }
+import lila.tree.{ Branch, Branches, ImportResult, Root, Clock }
 
 object StudyPgnImport:
 
   case class Context(
       currentGame: chess.Game,
-      clocks: ByColor[Option[Centis]],
+      clocks: ByColor[Option[Clock]],
       timeControl: Option[TournamentClock]
   )
 
@@ -22,7 +22,7 @@ object StudyPgnImport:
       val annotator = findAnnotator(parsedPgn, contributors)
 
       val timeControl = parsedPgn.tags.timeControl
-      val clock       = timeControl.map(_.limit)
+      val clock       = timeControl.map(_.limit).map(Clock(_, trust = true.some))
       parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
           val root = Root(
@@ -138,10 +138,11 @@ object StudyPgnImport:
             val sanStr                         = moveOrDrop.toSanStr
             val (shapes, clock, emt, comments) = parseComments(node.value.metas.comments, annotator)
             val mover                          = !game.ply.turn
-            val computedClock = clock
+            val computedClock: Option[Clock] = clock
+              .map(Clock(_, trust = true.some))
               .orElse:
-                context.clocks(mover).map(guessNewClockState(_, game.ply, context.timeControl, emt))
-              .filter(_ > Centis(0))
+                (context.clocks(mover), emt).mapN(guessNewClockState(_, game.ply, context.timeControl, _))
+              .filter(_.positive)
             Branch(
               id = UciCharPair(uci),
               ply = game.ply,
@@ -170,13 +171,8 @@ object StudyPgnImport:
         logger.warn(s"study PgnImport.makeNode StackOverflowError")
         None
 
-  private def guessNewClockState(
-      prev: Centis,
-      ply: Ply,
-      tc: Option[TournamentClock],
-      emt: Option[Centis]
-  ): Centis =
-    prev - ~emt + ~tc.map(_.incrementAtPly(ply))
+  private def guessNewClockState(prev: Clock, ply: Ply, tc: Option[TournamentClock], emt: Centis): Clock =
+    Clock(prev.centis - emt + ~tc.map(_.incrementAtPly(ply)), trust = false.some)
 
   /*
    * Fix bad PGN like this one found on reddit:
