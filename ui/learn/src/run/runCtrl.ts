@@ -6,6 +6,7 @@ import { clearTimeouts } from '../timeouts';
 import { LevelCtrl } from '../levelCtrl';
 import { hashNavigate } from '../hashRouting';
 import type { WithGround } from '../util';
+import { pubsub } from 'common/pubsub';
 
 export class RunCtrl {
   data: LearnProgress = this.opts.storage.data;
@@ -30,6 +31,10 @@ export class RunCtrl {
 
     // Helpful for debugging:
     // site.mousetrap.bind(['shift+enter'], this.levelCtrl.complete);
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground!.state.addPieceZIndex = is3d;
+      this.chessground!.redrawAll();
+    });
   }
 
   initializeLevel = (restarting = false) => {
