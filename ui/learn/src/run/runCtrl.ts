@@ -69,8 +69,6 @@ export class RunCtrl {
 
   setChessground = (chessground: CgApi) => {
     this.chessground = chessground;
-    this.chessground.state.addPieceZIndex =
-      document.querySelector('#main-wrap')?.classList.contains('is3d') ?? false;
     this.withGround(this.levelCtrl.initializeWithGround);
   };
 
