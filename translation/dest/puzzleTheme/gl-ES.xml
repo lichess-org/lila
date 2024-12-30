@@ -57,7 +57,8 @@
   <string name="interferenceDescription">Colocar unha peza entre dúas do opoñente de modo que unha delas ou ambas as dúas fican indefensas, como pode ser un cabalo nunha casa protexida entre dúas torres.</string>
   <string name="intermezzo">Xogada intermedia</string>
   <string name="intermezzoDescription">En troques de facer a xogada agardada, interpoñer un movemento que xera unha ameaza inmediata que forza unha resposta do opoñente. Tamén se di \"Zwischenzug\" ou \"Intermezzo\".</string>
-  <string name="killBoxMate">Mate do foxo</string>
+  <string name="killBoxMate">Mate da caixa</string>
+  <string name="killBoxMateDescription">Unha torre canda o rei do adversario, defendida por unha dama que tamén bloquea as casas de escape do rei. A torre e a dama apreixan ao rei nun curruncho de 3 por 3.</string>
   <string name="knightEndgame">Final de cabalos</string>
   <string name="knightEndgameDescription">Un final no que só hai cabalos e peóns.</string>
   <string name="long">Exercicio longo</string>
