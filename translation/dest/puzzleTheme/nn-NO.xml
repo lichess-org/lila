@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Flytte ei brikke mellom to motstandarbrikker for å oppnå at ei eller begge vert udekka. Til dømes ein springar til eit dekka felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
   <string name="intermezzoDescription">Eit trekk som kjem før det venta trekket og som utgjer eit trugsmål motspelaren straks må svare på.</string>
+  <string name="killBoxMate">Kassematt</string>
+  <string name="killBoxMateDescription">Eit tårn står ved sida av motspelarens konge og er støtta av ei dronning som i tillegg stengjer fluktfelta til kongen. Tårnet og dronninga fangar motspelarkongen i ei 3x3 «kasse».</string>
   <string name="knightEndgame">Springarsluttspel</string>
   <string name="knightEndgameDescription">Sluttspel med berre springarar og bønder.</string>
   <string name="long">Lang taktikkoppgåve</string>
