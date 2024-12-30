@@ -46,14 +46,11 @@
       &__flag {
         @extend %flex-center;
         margin-inline-start: 0.5ch;
+        gap: 0.5ch;
         flex: 1 1 auto;
         overflow: hidden;
         font-size: 0.9em;
         color: $c-font-dim;
-
-        .flag {
-          margin-inline-end: 0.4em;
-        }
       }
       signal {
         flex: 0 0 auto;
