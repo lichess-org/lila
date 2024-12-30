@@ -3,6 +3,7 @@ package lila.relay
 import chess.format.pgn.PgnStr
 import chess.Centis
 import lila.study.MultiPgn
+import lila.tree.Clock
 
 class RelayGameTest extends munit.FunSuite:
 
@@ -29,8 +30,8 @@ class RelayGameTest extends munit.FunSuite:
 
   test("applyTagClocksToLastMoves"):
     val applied = g1.applyTagClocksToLastMoves
-    assertEquals(applied.root.lastMainlineNode.clock, blackCentis.some)
-    assertEquals(applied.root.mainline.head.clock, whiteCentis.some)
+    assertEquals(applied.root.lastMainlineNode.clock, Clock(blackCentis, true.some).some)
+    assertEquals(applied.root.mainline.head.clock, Clock(whiteCentis, true.some).some)
 
   val g2 = makeGame:
     """
