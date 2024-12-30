@@ -45,6 +45,7 @@
       }
       &__flag {
         @extend %flex-center;
+        margin-inline-start: 0.5ch;
         gap: 0.5ch;
         flex: 1 1 auto;
         overflow: hidden;
