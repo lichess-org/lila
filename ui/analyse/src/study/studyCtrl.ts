@@ -251,7 +251,7 @@ export default class StudyCtrl {
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
     if (this.members.canContribute()) this.form.openIfNew();
 
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
 
     window.addEventListener('popstate', () => window.location.reload());
   }
@@ -349,7 +349,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.vm.loading = false;
 
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
 
     let nextPath: Tree.Path;
 
@@ -402,7 +402,7 @@ export default class StudyCtrl {
   bottomColor = () =>
     this.ctrl.flipped ? opposite(this.data.chapter.setup.orientation) : this.data.chapter.setup.orientation;
 
-  instanciateGamebookPlay = () => {
+  instantiateGamebookPlay = () => {
     if (!this.isGamebookPlay()) return (this.gamebookPlay = undefined);
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
@@ -590,7 +590,7 @@ export default class StudyCtrl {
   };
   setGamebookOverride = (o: GamebookOverride) => {
     this.vm.gamebookOverride = o;
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
