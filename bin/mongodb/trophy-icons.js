@@ -1,19 +1,18 @@
-const replacements =
-  [
-    ['wayOfBerserk', ''],
-    ['marathonWinner', ''],
-    ['marathonTopTen', ''],
-    ['marathonTopFifty', ''],
-    ['marathonTopHundred', ''],
-    ['marathonSurvivor', ','],
-    ['developer', ''],
-    ['moderator', ''],
-    ['verified', ''],
-    ['marathonTopFivehundred', ''],
-    ['contentTeam', ''],
-    ['secAdvisor', ''],
-    ['broadcastTeam', '']
-  ];
+const replacements = [
+  ['wayOfBerserk', ''],
+  ['marathonWinner', ''],
+  ['marathonTopTen', ''],
+  ['marathonTopFifty', ''],
+  ['marathonTopHundred', ''],
+  ['marathonSurvivor', ','],
+  ['developer', ''],
+  ['moderator', ''],
+  ['verified', ''],
+  ['marathonTopFivehundred', ''],
+  ['contentTeam', ''],
+  ['secAdvisor', ''],
+  ['broadcastTeam', ''],
+];
 
 replacements.forEach(([kind, icon]) => {
   print(kind, icon);

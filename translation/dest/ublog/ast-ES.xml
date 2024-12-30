@@ -2,7 +2,7 @@
 <resources>
   <string name="communityBlogs">Blogs de la comunidá</string>
   <string name="friendBlogs">Blogs de collacios</string>
-  <string name="likedBlogs">Entraes de blog preferíes</string>
+  <string name="likedBlogs">Entraes de blog preferíos</string>
   <string name="blogTopics">Temes del blog</string>
   <string name="lichessOfficialBlog">Blog oficial de Lichess</string>
   <string name="continueReadingPost">Siguir la llectura d\'esta entrada</string>

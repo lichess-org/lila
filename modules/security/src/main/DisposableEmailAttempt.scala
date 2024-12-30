@@ -39,7 +39,7 @@ final class DisposableEmailAttempt(
       val dispEmails = attempts.map(_.email)
       logger
         .branch("disposableEmailAttempt")
-        .info(s"User ${user.id} signed up with $email after trying ${dispEmails.mkString(", ")}")
+        .info(s"User ${user.username} signed up with $email after trying ${dispEmails.mkString(", ")}")
 
   def count(id: UserId): Int = byId.getIfPresent(id).so(_.size)
 

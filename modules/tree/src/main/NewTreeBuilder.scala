@@ -39,7 +39,9 @@ object NewTreeBuilder:
           fen = fen,
           check = init.situation.check,
           opening = openingOf(fen),
-          clock = withFlags.clocks.so(game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value))),
+          clock = withFlags.clocks.so(
+            game.clock.map(c => Centis.ofSeconds(c.limitSeconds.value)).map(Clock(_))
+          ),
           crazyData = init.situation.board.crazyData,
           eval = infos.lift(0).map(TreeBuilder.makeEval)
         )
@@ -58,7 +60,7 @@ object NewTreeBuilder:
               fen = fen,
               check = g.situation.check,
               opening = openingOf(fen),
-              clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)),
+              clock = withClocks.flatMap(_.lift((g.ply - init.ply - 1).value)).map(Clock(_)),
               crazyData = g.situation.board.crazyData,
               eval = info.map(TreeBuilder.makeEval),
               glyphs = Glyphs.fromList(advice.map(_.judgment.glyph).toList),

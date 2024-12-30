@@ -2471,6 +2471,10 @@ interface I18n {
     intermezzo: string;
     /** Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between". */
     intermezzoDescription: string;
+    /** Kill box mate */
+    killBoxMate: string;
+    /** A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box". */
+    killBoxMateDescription: string;
     /** Kingside attack */
     kingsideAttack: string;
     /** An attack of the opponent's king, after they castled on the king side. */

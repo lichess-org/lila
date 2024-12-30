@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Moving a piece between two opponent pieces to leave one or both opponent pieces undefended, such as a knight on a defended square between two rooks.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">Instead of playing the expected move, first interpose another move posing an immediate threat that the opponent must answer. Also known as "Zwischenzug" or "In between".</string>
+  <string name="killBoxMate">Kill box mate</string>
+  <string name="killBoxMateDescription">A rook is next to the enemy king and supported by a queen that also blocks the king's escape squares. The rook and the queen catch the enemy king in a 3 by 3 "kill box".</string>
   <string name="knightEndgame">Knight endgame</string>
   <string name="knightEndgameDescription">An endgame with only knights and pawns.</string>
   <string name="long">Long puzzle</string>

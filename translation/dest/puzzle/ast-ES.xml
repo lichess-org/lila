@@ -13,4 +13,7 @@
   <string name="specialMoves">Movimientos especiales</string>
   <string name="didYouLikeThisPuzzle">¿Te gustó esti exerciciu?</string>
   <string name="voteToLoadNextOne">¡Vota pa pasar al siguiente!</string>
+  <string name="puzzleId">Exerciciu %s</string>
+  <string name="puzzleOfTheDay">Exerciciu del día</string>
+  <string name="dailyPuzzle">Exerciciu diariu</string>
 </resources>

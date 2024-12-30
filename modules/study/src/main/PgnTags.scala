@@ -2,6 +2,7 @@ package lila.study
 
 import chess.format.UciPath
 import chess.format.pgn.{ Tag, TagType, Tags }
+import lila.tree.Clock
 
 object PgnTags:
 
@@ -12,7 +13,9 @@ object PgnTags:
     tags.pipe(filterRelevant(types)).pipe(removeContradictingTermination).pipe(sort)
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
-    c.updateRoot { _.setClockAt(c.tags.clockConfig.map(_.limit), UciPath.root) }.filter(c !=)
+    c.updateRoot:
+      _.setClockAt(c.tags.timeControl.map(_.limit).map(Clock(_, true.some)), UciPath.root)
+    .filter(c !=)
 
   // clean up tags before exposing them
   def cleanUpForPublication(tags: Tags) = tags.copy(

@@ -91,7 +91,7 @@ const glyphToSvg: Dictionary<string> = {
 
   // Equal position
   '=': composeGlyph(
-    '#f5918f',
+    '#82c2ef',
     '<path stroke="#fff" stroke-width="7" fill="none" d="M 27,40 h 46 M 27,60 h 46"/>',
   ),
 

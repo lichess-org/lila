@@ -49,4 +49,36 @@
   <string name="federation">Federacija</string>
   <string name="ageThisYear">Starost ove godine</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Nerangiran</string>
+  <string name="recentTournaments">Nedavni turniri</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Otvori u Lichessu</string>
+  <string name="teams">Ekipe</string>
+  <string name="boards">Ploče</string>
+  <string name="overview">Pregled</string>
+  <string name="subscribeTitle">Pretplatite se kako bi bili obaviješteni o početku runde. Možete uključiti obavijesti za prijenose u postavkama korisničkog računa.</string>
+  <string name="uploadImage">Učitajte sliku turnira</string>
+  <string name="noBoardsYet">Još nema ploča. Pojavit će se kad se partije učitaju.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Ploče mogu biti učitane iz izvora ili preko %s</string>
+  <string name="startsAfter">Počinje nakon %s</string>
+  <string name="startVerySoon">Prijenos počinje uskoro.</string>
+  <string name="notYetStarted">Prijenos još nije počeo.</string>
+  <string name="officialWebsite">Službena stranica</string>
+  <string name="standings">Tablica</string>
+  <string name="officialStandings">Službena tablica</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Više mogučnosti na %s</string>
+  <string name="webmastersPage">portal za vlasnike web stranica</string>
+  <string name="pgnSourceHelp" comment="%s is 'streaming API'">Javan izvorni PGN za ovu rundu u stvarnom vremenu. Također nudimo %s za bržu i efikasniju sinkronizaciju.</string>
+  <string name="embedThisBroadcast">Ugradite ovaj prijenos na svoju web stranicu</string>
+  <string name="embedThisRound">Ugradi %s u svoju web stranicu</string>
+  <string name="ratingDiff">Razlika rejtinga</string>
+  <string name="gamesThisTournament">Partije u ovom turniru</string>
+  <string name="score">Rezultat</string>
+  <string name="allTeams">Sve ekipe</string>
+  <string name="tournamentFormat">Format turnira</string>
+  <string name="tournamentLocation">Mjesto turnira</string>
+  <string name="topPlayers">Najbolji igrači</string>
+  <string name="timezone">Vremenska zona</string>
+  <string name="fideRatingCategory">FIDE rejting kategorija</string>
+  <string name="optionalDetails">Neobavezni detalji</string>
+  <string name="pastBroadcasts">Prijašnji prijenosi</string>
+  <string name="allBroadcastsByMonth">Pogledaj sve prijenose prema mjesecu</string>
 </resources>

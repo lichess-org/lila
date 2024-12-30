@@ -88,6 +88,29 @@ const makeDataset = (data: RoundStats, el: HTMLCanvasElement): chart.ChartDatase
       pointHoverRadius: 0,
     });
   }
+  if (data.round.finishedAt && data.viewers.length) {
+    const pink = 'hsl(317, 74%, 73%)';
+    plot.push({
+      indexAxis: 'x',
+      yAxisID: 'y2',
+      type: 'line',
+      data: [
+        { x: data.round.finishedAt, y: 0 },
+        { x: data.round.finishedAt, y: 100 },
+      ],
+      borderColor: pink,
+      borderDash: [5, 5],
+      datalabels: {
+        align: 'top',
+        offset: -5,
+        display: 'auto',
+        formatter: (value: chart.Point) => (value.y === 0 ? '' : 'Round Finish'),
+        color: pink,
+      },
+      pointRadius: 0,
+      pointHoverRadius: 0,
+    });
+  }
   return plot;
 };
 

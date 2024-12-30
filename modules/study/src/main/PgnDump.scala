@@ -140,7 +140,7 @@ object PgnDump:
       comments = flags.comments.so(node.metas.commentWithShapes),
       opening = none,
       result = none,
-      secondsLeft = flags.clocks.so(node.clock.map(_.roundSeconds))
+      secondsLeft = flags.clocks.so(node.clock.map(_.centis.roundSeconds))
     )
 
   extension (metas: Metas)

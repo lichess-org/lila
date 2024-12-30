@@ -324,7 +324,7 @@
       "in": "partie null",
       "val": "draw",
       "tags": ["command", "round"],
-      "tok": "WX"
+      "tok": "XY"
     },
     {
       "in": "abandonner",
@@ -402,13 +402,13 @@
       "in": "pouces vers le haut",
       "val": "upvote",
       "tags": ["command", "puzzle"],
-      "tok": "YZU["
+      "tok": "Z[V\\"
     },
     {
       "in": "pouces vers le bas",
       "val": "downvote",
       "tags": ["command", "puzzle"],
-      "tok": "YZU\\"
+      "tok": "Z[V]"
     },
     {
       "in": "solution",
@@ -450,7 +450,7 @@
       "in": "arrête d'écouter",
       "val": "mic-off",
       "tags": ["command"],
-      "tok": "]^"
+      "tok": "^_"
     },
     {
       "in": "oui",
@@ -489,10 +489,34 @@
       ]
     },
     {
+      "in": "bleue",
+      "val": "blue",
+      "tags": ["color", "choice"],
+      "tok": ">",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "vert",
+      "val": "green",
+      "tags": ["color", "choice"],
+      "tok": "?",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
       "in": "verte",
       "val": "green",
       "tags": ["color", "choice"],
-      "tok": ">",
+      "tok": "@",
       "subs": [
         {
           "to": "",
@@ -504,7 +528,7 @@
       "in": "jaune",
       "val": "yellow",
       "tags": ["color", "choice"],
-      "tok": "?",
+      "tok": "A",
       "subs": [
         {
           "to": "",
@@ -516,7 +540,7 @@
       "in": "rouge",
       "val": "red",
       "tags": ["color", "choice"],
-      "tok": "@",
+      "tok": "C",
       "subs": [
         {
           "to": "",
@@ -528,7 +552,19 @@
       "in": "rose",
       "val": "pink",
       "tags": ["color", "choice"],
-      "tok": "A",
+      "tok": "D",
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "violet",
+      "val": "purple",
+      "tags": ["color", "choice"],
+      "tok": "E",
       "subs": [
         {
           "to": "",
@@ -540,7 +576,7 @@
       "in": "violette",
       "val": "purple",
       "tags": ["color", "choice"],
-      "tok": "C",
+      "tok": "F",
       "subs": [
         {
           "to": "",
@@ -552,7 +588,7 @@
       "in": "orange",
       "val": "orange",
       "tags": ["color", "choice"],
-      "tok": "D",
+      "tok": "G",
       "subs": [
         {
           "to": "",
@@ -561,22 +597,10 @@
       ]
     },
     {
-      "in": "brun",
+      "in": "marron",
       "val": "brown",
       "tags": ["color", "choice"],
-      "tok": "E",
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "blanc",
-      "val": "white",
-      "tags": ["color", "choice"],
-      "tok": "F",
+      "tok": "H",
       "subs": [
         {
           "to": "",
@@ -588,7 +612,7 @@
       "in": "alfa",
       "val": "a",
       "tags": ["file", "move", "phonetic"],
-      "tok": "G",
+      "tok": "I",
       "subs": [
         {
           "to": "",
@@ -600,7 +624,7 @@
       "in": "bravo",
       "val": "b",
       "tags": ["file", "move", "phonetic"],
-      "tok": "H",
+      "tok": "J",
       "subs": [
         {
           "to": "",
@@ -612,7 +636,7 @@
       "in": "charlie",
       "val": "c",
       "tags": ["file", "move", "phonetic"],
-      "tok": "I",
+      "tok": "L",
       "subs": [
         {
           "to": "",
@@ -624,7 +648,7 @@
       "in": "delta",
       "val": "d",
       "tags": ["file", "move", "phonetic"],
-      "tok": "J",
+      "tok": "M",
       "subs": [
         {
           "to": "",
@@ -636,7 +660,7 @@
       "in": "echo",
       "val": "e",
       "tags": ["file", "move", "phonetic"],
-      "tok": "L",
+      "tok": "O",
       "subs": [
         {
           "to": "",
@@ -645,22 +669,16 @@
       ]
     },
     {
-      "in": "fox-trot",
+      "in": "faux trot",
       "val": "f",
       "tags": ["file", "move", "phonetic"],
-      "tok": "M",
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
+      "tok": "`i"
     },
     {
       "in": "golf",
       "val": "g",
       "tags": ["file", "move", "phonetic"],
-      "tok": "O",
+      "tok": "S",
       "subs": [
         {
           "to": "",
@@ -672,7 +690,7 @@
       "in": "hotel",
       "val": "h",
       "tags": ["file", "move", "phonetic"],
-      "tok": "S",
+      "tok": "T",
       "subs": [
         {
           "to": "",
@@ -684,7 +702,7 @@
       "in": "uh",
       "val": "",
       "tags": ["ignore"],
-      "tok": "T",
+      "tok": "U",
       "subs": [
         {
           "to": "",
@@ -696,7 +714,7 @@
       "in": "le",
       "val": "",
       "tags": ["ignore"],
-      "tok": "U",
+      "tok": "V",
       "subs": [
         {
           "to": "",
@@ -708,7 +726,7 @@
       "in": "la",
       "val": "",
       "tags": ["ignore"],
-      "tok": "V",
+      "tok": "W",
       "subs": [
         {
           "to": "",
@@ -718,17 +736,6 @@
     },
     {
       "in": "partie",
-      "tok": "W",
-      "tags": ["part"],
-      "subs": [
-        {
-          "to": "",
-          "cost": 0.5
-        }
-      ]
-    },
-    {
-      "in": "null",
       "tok": "X",
       "tags": ["part"],
       "subs": [
@@ -739,7 +746,7 @@
       ]
     },
     {
-      "in": "pouces",
+      "in": "null",
       "tok": "Y",
       "tags": ["part"],
       "subs": [
@@ -750,7 +757,7 @@
       ]
     },
     {
-      "in": "vers",
+      "in": "pouces",
       "tok": "Z",
       "tags": ["part"],
       "subs": [
@@ -761,7 +768,7 @@
       ]
     },
     {
-      "in": "haut",
+      "in": "vers",
       "tok": "[",
       "tags": ["part"],
       "subs": [
@@ -772,7 +779,7 @@
       ]
     },
     {
-      "in": "bas",
+      "in": "haut",
       "tok": "\\",
       "tags": ["part"],
       "subs": [
@@ -783,7 +790,7 @@
       ]
     },
     {
-      "in": "arrête",
+      "in": "bas",
       "tok": "]",
       "tags": ["part"],
       "subs": [
@@ -794,8 +801,41 @@
       ]
     },
     {
-      "in": "d'écouter",
+      "in": "arrête",
       "tok": "^",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "d'écouter",
+      "tok": "_",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "faux",
+      "tok": "`",
+      "tags": ["part"],
+      "subs": [
+        {
+          "to": "",
+          "cost": 0.5
+        }
+      ]
+    },
+    {
+      "in": "trot",
+      "tok": "i",
       "tags": ["part"],
       "subs": [
         {
