@@ -267,7 +267,7 @@ class WsSocket {
     pubsub.emit('socket.lag', this.averageLag);
   };
 
-  private handle = (m: MsgIn, retries: number = 5): void => {
+  private handle = (m: MsgIn, retries: number = 10): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);
@@ -277,7 +277,7 @@ class WsSocket {
       if (m.v > this.version + 1) {
         if (retries > 0) {
           console.debug('version gap, retrying', m.v, this.version, retries);
-          setTimeout(() => this.handle(m, retries - 1), 500);
+          setTimeout(() => this.handle(m, retries - 1), 200);
         } else {
           console.log('version gap, reloading');
           site.reload();
