@@ -13,8 +13,11 @@ object PgnTags:
     tags.pipe(filterRelevant(types)).pipe(removeContradictingTermination).pipe(sort)
 
   def setRootClockFromTags(c: Chapter): Option[Chapter] =
+    val centis = c.tags.timeControl.map: c =>
+      c.limit + c.increment
+    val clock = centis.map(Clock(_, true.some))
     c.updateRoot:
-      _.setClockAt(c.tags.timeControl.map(_.limit).map(Clock(_, true.some)), UciPath.root)
+      _.setClockAt(clock, UciPath.root)
     .filter(c !=)
 
   // clean up tags before exposing them
