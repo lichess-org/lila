@@ -742,6 +742,8 @@
   <string name="downloadImported">Descargar la partida importada</string>
   <string name="crosstable">Tabla cruciada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién pues usar la rueda del ratón pa movete pola partida.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsiáu sobro les variantes del análisis pa previsualizarlas.</string>
+  <string name="analysisShapesHowTo">Fai clic col botón derechu o Máyus+clic para dibuxar círculos y fleches nel tableru.</string>
   <string name="letOtherPlayersMessageYou">Dexar qu\'otres persones te unvien mensaxes</string>
   <string name="receiveForumNotifications">Recibir notificaciones cuando daquién te mente nel foru</string>
   <string name="shareYourInsightsData">Comparte los tos datos estadísticos</string>
