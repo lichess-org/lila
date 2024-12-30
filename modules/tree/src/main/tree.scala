@@ -301,7 +301,8 @@ object Root:
       crazyData = variant.crazyhouse.option(Crazyhouse.Data.init)
     )
 
-case class Clock(centis: Centis, trust: Option[Boolean] = none)
+case class Clock(centis: Centis, trust: Option[Boolean] = none):
+  def positive = centis >= Centis(0)
 
 case class Branch(
     id: UciCharPair,

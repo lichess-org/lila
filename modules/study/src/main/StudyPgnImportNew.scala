@@ -8,7 +8,7 @@ import monocle.syntax.all.*
 
 import lila.core.LightUser
 import lila.tree.Node.{ Comment, Comments }
-import lila.tree.{ ImportResult, Metas, NewBranch, NewRoot, NewTree }
+import lila.tree.{ ImportResult, Metas, NewBranch, NewRoot, NewTree, Clock }
 
 /** This code is still unused, and is now out of sync with the StudyPgnImport it's supposed to replace. Some
   * features are missing that are present in StudyPgnImport, such as the ability to replay clock states.
@@ -30,7 +30,7 @@ object StudyPgnImportNew:
       StudyPgnImport.parseComments(parsedPgn.initialPosition.comments, annotator) match
         case (shapes, _, _, comments) =>
           val tc    = parsedPgn.tags.timeControl
-          val clock = tc.map(_.limit)
+          val clock = tc.map(_.limit).map(Clock(_, true.some))
           val setup = Context(replay.setup, ByColor.fill(clock), tc)
           val root: NewRoot =
             NewRoot(

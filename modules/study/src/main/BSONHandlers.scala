@@ -284,7 +284,7 @@ object BSONHandlers:
           gamebook = r.getO[Gamebook](F.gamebook),
           glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
           eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
-          clock = r.getO[Centis](F.clock),
+          clock = r.getO[Clock](F.clock),
           crazyData = r.getO[Crazyhouse.Data](F.crazy)
         ),
         tree = StudyFlatTree.reader.newRoot(fullReader.doc)
