@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Mover uma peça entre duas peças do oponente para deixar uma ou duas peças do oponente indefesas, como um cavalo em uma casa defendida por duas torres.</string>
   <string name="intermezzo">Lance intermediário</string>
   <string name="intermezzoDescription">Em vez de jogar o movimento esperado, primeiro realiza outro movimento criando uma ameaça imediata a que o oponente deve responder. Também conhecido como \"Zwischenzug\" ou \"In between\".</string>
+  <string name="killBoxMate">Mate de torre e dama</string>
+  <string name="killBoxMateDescription">Uma torre fica perto do rei inimigo e é defendida por uma dama que também bloqueia as casas de fuga. A torre e a dama capturam o rei inimigo em uma \"caixa mortal\" de 3 por 3.</string>
   <string name="knightEndgame">Finais de Cavalo</string>
   <string name="knightEndgameDescription">Um final jogado apenas com cavalos e peões.</string>
   <string name="long">Quebra-cabeças longo</string>
