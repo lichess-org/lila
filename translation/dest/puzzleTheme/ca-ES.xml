@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Moure una peça entre dues peces de l\'oponent que deixa una o dues peces enemigues indefenses, com un cavall en una casella defensada entre dues torres.</string>
   <string name="intermezzo">Intermèdia</string>
   <string name="intermezzoDescription">En lloc de jugar la jugada esperada, interposar un moviment previ que genera un perill imminent al que l\'oponent ha de respondre. També és conegut com \"Zwischenzug\" o \"Jugada intermèdia\".</string>
+  <string name="killBoxMate">Mat de la caixa de matar</string>
+  <string name="killBoxMateDescription">Una torre està al costat del rei enemic sostinguda per una dama que també bloqueja les caselles d\'escapament. La torre i la dama cacen el rei enemic amb una \"caixa de matar\" de 3 per 3.</string>
   <string name="knightEndgame">Final de cavalls</string>
   <string name="knightEndgameDescription">Un final amb només cavalls i peons.</string>
   <string name="long">Problema llarg</string>
