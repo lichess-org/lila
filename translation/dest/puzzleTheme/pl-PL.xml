@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Ruch figurą pomiędzy dwie figury przeciwnika, tak, że jedna lub obydwie są niebronione. Na przykład ruch skoczkiem na bronione pole pomiędzy dwie wieże.</string>
   <string name="intermezzo">Wtrącony ruch</string>
   <string name="intermezzoDescription">Zamiast zagrania spodziewanego posunięcia, wykonanie takiego, które stanowi bezpośrednią groźbę, na którą przeciwnik zmuszony jest odpowiedzieć. Znane również jako „zwischenzug”.</string>
+  <string name="killBoxMate">Mat w klatce (Kill box mate)</string>
+  <string name="killBoxMateDescription">Wieża stoi obok wrogiego króla i broniona jest przez hetmana, który równocześnie blokuje wszystkie pola ucieczki tego króla. Wieża i hetman łapią króla przeciwnika w klatce 3 na 3 (tzw. \"kill box\").</string>
   <string name="knightEndgame">Końcówka skoczkowa</string>
   <string name="knightEndgameDescription">Gra końcowa wyłącznie ze skoczkami i pionami.</string>
   <string name="long">Długie zadanie</string>
