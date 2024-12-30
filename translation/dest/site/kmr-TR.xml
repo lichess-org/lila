@@ -234,7 +234,15 @@
   <string name="emailSent">Me ji %s re email şand.</string>
   <string name="emailCanTakeSomeTime">Gihîna wê kare hinek wext bigire.</string>
   <string name="refreshInboxAfterFiveMinutes">5 deqe bisekine û înboksa emaîla xwe nû bike.</string>
+  <string name="checkSpamFolder">Herwiha qismê spamê kontrol bike, dibe ku çûbe wê derê. Eger li wir be, wek \"spam nîne\" îşaret bike.</string>
+  <string name="emailForSignupHelp">Eger temamê van nebe, wê gavê vê emaîlê bişîne me:</string>
+  <string name="copyTextToEmail">Vê metna li jorê kopî peyst bike û bişîne %s</string>
+  <string name="waitForSignupHelp">Di wexteke kurt de em ê vegerin te ji bo alîkirina temamkirina qeydbûna te.</string>
+  <string name="accountConfirmed">Bikarhêner %s bi serkeftinî hate tesdîqkirin.</string>
   <string name="accountCanLogin">Tu niha dikarî wek %s têkevî.</string>
+  <string name="accountConfirmationEmailNotNeeded">Îhtîyacî bi emaîla tesdîqkirinê nîne.</string>
+  <string name="accountClosed">Hesabê %s hatîye girtin.</string>
+  <string name="accountRegisteredWithoutEmail">Hesabê %s bêyî emaîlekê qeyd bûye.</string>
   <string name="rank">Pile</string>
   <string name="rankX">Pile: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -250,6 +258,7 @@
     <item quantity="one">%s lîsteka bi te re</item>
     <item quantity="other">%s lîstikên bi te re</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Betal bike</string>
   <string name="whiteTimeOut">Dema Spî qedîya</string>
   <string name="blackTimeOut">Dema Reş qedîya</string>
@@ -269,6 +278,7 @@
   <string name="abortGame">Lîstikê betal bike</string>
   <string name="gameAborted">Lîstik hate betalkirin</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Pozîsyoneke xisûsî</string>
   <string name="unlimited">Bêsînor</string>
   <string name="mode">Mod</string>
   <string name="casual">Bêpuan</string>
@@ -321,6 +331,7 @@
     <item quantity="one">%s çirke bide</item>
     <item quantity="other">%s çirke bide</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ev hesab Mercên Xizmetê ya Lichessê îxlal kir</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
   <string name="takeback">Vegerîne</string>
   <string name="proposeATakeback">Vegerandinê teklîf bike</string>
