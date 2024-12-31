@@ -96,7 +96,7 @@ final class PlaybanApi(
             movetimes    <- gameApi.computeMoveTimes(game, flaggerColor)
             lastMovetime <- movetimes.lastOption
             limit        <- unreasonableTime
-          yield lastMovetime.toSeconds >= limit)
+          yield lastMovetime.roundSeconds >= limit)
         .map: userId =>
           for
             _ <- save(Outcome.SitMoving, userId, RageSit.imbalanceInc(game, flaggerColor), game.source)

@@ -3,12 +3,12 @@ package lila.core.lilaism
 import alleycats.Zero
 import com.typesafe.config.Config
 import scalalib.future.FutureAfter
-
 import java.util.Base64
 import java.util.concurrent.TimeUnit
 import scala.collection.BuildFrom
 import scala.concurrent.{ ExecutionContext as EC, Future }
 import scala.util.Try
+import scalalib.model.Seconds
 
 trait LilaLibraryExtensions extends CoreExports:
 
@@ -17,6 +17,9 @@ trait LilaLibraryExtensions extends CoreExports:
 
   given [A]: Zero[Update[A]] with
     def zero = identity[A]
+  //
+  // given Zero[Seconds] with
+  //   def zero = Seconds(0)
 
   def fuccess[A](a: A): Fu[A]        = Future.successful(a)
   def fufail[X](t: Throwable): Fu[X] = Future.failed(t)
