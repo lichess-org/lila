@@ -221,8 +221,8 @@
     <item quantity="other">%s часов</item>
   </plurals>
   <plurals name="nbMinutes">
-    <item quantity="one">%s Одна минута</item>
-    <item quantity="few">%s Минуты</item>
+    <item quantity="one">%s минута</item>
+    <item quantity="few">%s минуты</item>
     <item quantity="many">%s минут</item>
     <item quantity="other">%s минут</item>
   </plurals>
