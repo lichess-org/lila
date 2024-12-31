@@ -5,13 +5,13 @@
 @import 'history';
 
 #main-wrap {
+  @include prevent-select;
+
   ---main-max-width: calc(100vh - #{$site-header-outer-height} - 9rem);
 
   @include mq-at-least-col2 {
     ---main-max-width: auto;
   }
-
-  user-select: none;
 }
 
 .puz {

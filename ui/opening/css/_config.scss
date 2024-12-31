@@ -24,9 +24,9 @@ $c-opcfg: $c-accent;
     background: $m-accent_bg-zebra--mix-10;
   }
   &__summary {
+    @include prevent-select;
     padding: 1em 2em;
     cursor: pointer;
-    user-select: none;
     &__speed,
     &__rating {
       color: $c-accent;

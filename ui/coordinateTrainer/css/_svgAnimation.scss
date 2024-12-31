@@ -9,11 +9,11 @@ $next-y: 64px;
 $timing: 150ms;
 
 svg.coords-svg {
+  @include prevent-select;
   z-index: 3;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  user-select: none;
 
   text {
     font-weight: bold;

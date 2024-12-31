@@ -178,16 +178,20 @@ final private class RelayFetch(
         .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
 
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
+    val highPriorityTier = tour.tier.exists:
+      case RelayTour.Tier.best | RelayTour.Tier.`private` => true
+      case _                                              => false
     val base =
-      if upstream.hasLcc then 5
+      if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
-      if tour.tier.exists(_ > RelayTour.Tier.normal) then 1
+      if highPriorityTier then 1
+      else if tour.tier.has(RelayTour.Tier.`private`) then 1
       else if tour.official then 2
       else 3
     } * {
-      if upstream.hasLcc && round.crowd.exists(_ < 10) then 2 else 1
+      if upstream.hasLcc && !highPriorityTier && round.crowd.exists(_ < 10) then 2 else 1
     } * {
       if round.hasStarted then 1 else 2
     }
@@ -242,12 +246,12 @@ final private class RelayFetch(
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
-          create = (key, _) => (if key.startsWith("started ") then 30.seconds else 3.minutes),
+          create = (key, _) => (if key.startsWith("started ") then 20.seconds else 3.minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
     // cache games with number > 12 to reduce load on big tournaments
-    val tailAt = 12
+    val tailAt = 30
     private val tailGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1 minutes).build()

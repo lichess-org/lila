@@ -394,7 +394,7 @@ export const addChapterId = (study: StudyCtrl | undefined, cssClass: string) =>
   cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
 
 export function makeChatEl(ctrl: AnalyseCtrl, insert: (chat: HTMLElement) => void) {
-  if (ctrl.opts.chat && !ctrl.study?.relay) {
+  if (ctrl.opts.chat) {
     const chatEl = document.createElement('section');
     chatEl.classList.add('mchat');
     insert(chatEl);
