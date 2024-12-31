@@ -31,8 +31,8 @@ for (const line of boardCss.split('\n')) {
 function pollTemplate(item: string, type: string) {
   return `/poll ${item} ${type}
 /anonymous open stretch
-kill
-keep
+Kill
+Marry
 `;
 }
 
