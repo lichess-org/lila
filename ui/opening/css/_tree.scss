@@ -1,6 +1,6 @@
 .opening {
   &__tree {
-    user-select: none;
+    @include prevent-select;
     details[open] {
       border-color: $c-primary;
     }

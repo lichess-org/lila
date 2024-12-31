@@ -200,10 +200,10 @@
 
   .setting {
     @extend %flex-center;
+    @include prevent-select;
     flex: 0 0 auto;
     gap: 1em;
     margin-top: $block-gap;
-    user-select: none;
 
     label {
       flex: 4 1 auto;

@@ -1,21 +1,20 @@
 coords {
-  /* handle hidden coords */
-  .coords-no & {
-    display: none;
-  }
+  @include fluid-size('font-size', 8px, 12px);
+  @include prevent-select;
 
   /* handle inner coords */
   position: absolute;
   display: flex;
   pointer-events: none;
 
-  @include fluid-size('font-size', 8px, 12px);
-
-  user-select: none;
   color: #fff;
   text-shadow: 0 1px 2px #000;
   font-weight: bold;
 
+  /* handle hidden coords */
+  .coords-no & {
+    display: none;
+  }
   &.ranks {
     flex-flow: column-reverse;
     top: 1px;
