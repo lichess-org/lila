@@ -280,7 +280,7 @@ class WsSocket {
           console.debug('version gap, retrying', m.v, this.version, retries);
           setTimeout(() => this.handle(m, retries - 1), 200);
         } else {
-          log(`${this.lastUrl}: version mismatch incoming ${m.v} vs current ${this.version}`);
+          log(`${window.location.pathname}: version incoming ${m.v} vs current ${this.version}`);
           site.reload();
         }
         return;
