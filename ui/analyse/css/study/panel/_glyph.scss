@@ -1,9 +1,9 @@
 .study__glyphs {
   @extend %box-neat, %flex-center;
+  @include prevent-select;
 
   background: $c-bg-box;
   white-space: nowrap;
-  user-select: none;
 
   > div {
     flex: 1 0 30%;

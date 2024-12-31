@@ -1,5 +1,5 @@
 body.resizing {
-  user-select: none;
+  @include prevent-select;
 }
 
 cg-resize {

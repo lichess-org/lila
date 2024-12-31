@@ -2,10 +2,10 @@ $c-tabs-active: $c-accent !default;
 
 .tabs-horiz {
   @extend %flex-center-nowrap, %page-text;
+  @include prevent-select;
 
   justify-content: center;
   align-items: flex-end;
-  user-select: none;
 
   @media (max-width: at-most($xx-small)) {
     font-size: 0.9em;

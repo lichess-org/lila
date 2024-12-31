@@ -3,6 +3,7 @@ import { idleTimer, browserTaskQueueMonitor } from './timing';
 import { storage, once, type LichessStorage } from './storage';
 import { pubsub, type PubsubEvent } from './pubsub';
 import { myUserId } from './common';
+import { log } from './permalog';
 
 let siteSocket: WsSocket | undefined;
 
@@ -279,7 +280,7 @@ class WsSocket {
           console.debug('version gap, retrying', m.v, this.version, retries);
           setTimeout(() => this.handle(m, retries - 1), 200);
         } else {
-          console.log('version gap, reloading');
+          log(`${window.location.pathname}: version incoming ${m.v} vs current ${this.version}`);
           site.reload();
         }
         return;

@@ -1,6 +1,5 @@
 .forecast {
-  user-select: none;
-
+  @include prevent-select;
   @include transition;
 
   position: relative;

@@ -9,6 +9,7 @@
   }
 
   #{$moves-tag} {
+    @include prevent-select;
     display: flex;
     flex-flow: row wrap;
     align-items: center;
@@ -18,7 +19,6 @@
     overflow-y: auto;
     align-content: flex-start;
     will-change: scroll-position;
-    user-select: none;
     line-height: 1.7;
     font-size: 1.1em;
 
