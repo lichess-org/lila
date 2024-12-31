@@ -1274,6 +1274,8 @@ object I18nKey:
     val `interferenceDescription`: I18nKey = "puzzleTheme:interferenceDescription"
     val `intermezzo`: I18nKey = "puzzleTheme:intermezzo"
     val `intermezzoDescription`: I18nKey = "puzzleTheme:intermezzoDescription"
+    val `killBoxMate`: I18nKey = "puzzleTheme:killBoxMate"
+    val `killBoxMateDescription`: I18nKey = "puzzleTheme:killBoxMateDescription"
     val `knightEndgame`: I18nKey = "puzzleTheme:knightEndgame"
     val `knightEndgameDescription`: I18nKey = "puzzleTheme:knightEndgameDescription"
     val `long`: I18nKey = "puzzleTheme:long"

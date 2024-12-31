@@ -62,7 +62,7 @@
   <string name="depthX">Глубина %s</string>
   <string name="usingServerAnalysis">Используется серверный анализ</string>
   <string name="loadingEngine">Загрузка движка...</string>
-  <string name="calculatingMoves">Идёт расчёт ходов...</string>
+  <string name="calculatingMoves">Вычисление...</string>
   <string name="engineFailed">Ошибка загрузки движка</string>
   <string name="cloudAnalysis">Облачный анализ</string>
   <string name="goDeeper">Анализировать глубже</string>
@@ -1020,7 +1020,7 @@
   <string name="streamerManager">Управление стримом</string>
   <string name="cancelTournament">Отменить турнир</string>
   <string name="tournDescription">Описание турнира</string>
-  <string name="tournDescriptionHelp">Хотите рассказать что-то пользователям? Постарайтесь быть лаконичны. Доступны ссылки в формате Markdown: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Хотите рассказать что-то пользователям? Постарайтесь быть лаконичны. Доступны ссылки в формате Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Игры идут с обсчётом рейтинга
 и влияют на рейтинг игроков</string>
   <string name="onlyMembersOfTeam">Только для членов клуба</string>

@@ -76,7 +76,9 @@ final private class RelaySync(
           case None => parentPath -> gameNode.some
           case Some(existing) =>
             gameNode.clock
-              .filter(c => !existing.clock.has(c))
+              .filter: c =>
+                existing.clock.forall: prev =>
+                  ~c.trust && c.centis != prev.centis
               .so: c =>
                 studyApi.setClock(
                   studyId = study.id,

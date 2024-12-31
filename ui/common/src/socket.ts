@@ -9,7 +9,7 @@ let siteSocket: WsSocket | undefined;
 export function eventuallySetupDefaultConnection(): void {
   setTimeout(() => {
     if (!siteSocket) wsConnect('/socket/v5', false);
-  }, 300);
+  }, 500);
 }
 
 type Sri = string;
@@ -267,14 +267,23 @@ class WsSocket {
     pubsub.emit('socket.lag', this.averageLag);
   };
 
-  private handle = (m: MsgIn): void => {
+  private handle = (m: MsgIn, retries: number = 10): void => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
         this.debug('already has event ' + m.v);
         return;
       }
       // it's impossible but according to previous logging, it happens nonetheless
-      if (m.v > this.version + 1) return site.reload();
+      if (m.v > this.version + 1) {
+        if (retries > 0) {
+          console.debug('version gap, retrying', m.v, this.version, retries);
+          setTimeout(() => this.handle(m, retries - 1), 200);
+        } else {
+          console.log('version gap, reloading');
+          site.reload();
+        }
+        return;
+      }
       this.version = m.v;
     }
     switch (m.t || false) {
@@ -288,6 +297,7 @@ class WsSocket {
         break;
       case 'batch':
         m.d.forEach(this.handle);
+        break;
       default:
         // return true in a receive handler to prevent pubsub and events
         if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {

@@ -7,7 +7,6 @@
 /project/.bloop/
 /conf/application.conf
 /conf/version.conf
-/conf/manifest.*
 /translation/js
 logs/
 /project/metals.sbt
@@ -26,7 +25,6 @@ node_modules/
 ui/common/css/theme/gen/*.scss
 ui/.build/build
 ui/voice/crowdv
-ui/*/npm-debug.log
 ui/*/tsconfig.tsbuildinfo
 hs_*.log
 dependency-graph.png
@@ -54,4 +52,4 @@ RUNNING_PID
 /?
 
 # eslint cache
-/.eslintcache
+/ui/.eslintcache

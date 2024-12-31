@@ -9,6 +9,8 @@ import lila.core.id.ImageId
 import lila.core.misc.PicfitUrl
 import lila.core.fide.FideTC
 import lila.core.study.Visibility
+import chess.TournamentClock
+import chess.format.pgn.Tag
 
 case class RelayTour(
     @Key("_id") id: RelayTourId,
@@ -94,8 +96,9 @@ object RelayTour:
   ):
     def nonEmpty          = List(format, tc, fideTc, location, players, website, standings).flatten.nonEmpty
     override def toString = List(format, tc, fideTc, location, players).flatten.mkString(" | ")
-    lazy val fideTcOrGuess: FideTC = fideTc | FideTC.standard
-    def timeZoneOrDefault: ZoneId  = timeZone | ZoneId.systemDefault
+    lazy val fideTcOrGuess: FideTC     = fideTc | FideTC.standard
+    def timeZoneOrDefault: ZoneId      = timeZone | ZoneId.systemDefault
+    def clock: Option[TournamentClock] = tc.flatMap(TournamentClock.parse.apply)
 
   case class Dates(start: Instant, end: Option[Instant])
 

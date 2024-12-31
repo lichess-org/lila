@@ -49,6 +49,7 @@ object PuzzleTheme:
   val interference   = PuzzleTheme(i.interference, i.interferenceDescription)
   val intermezzo     = PuzzleTheme(i.intermezzo, i.intermezzoDescription)
   val kingsideAttack = PuzzleTheme(i.kingsideAttack, i.kingsideAttackDescription)
+  val killBoxMate    = PuzzleTheme(i.killBoxMate, i.killBoxMateDescription)
   val knightEndgame  = PuzzleTheme(i.knightEndgame, i.knightEndgameDescription)
   val long           = PuzzleTheme(i.long, i.longDescription)
   val master         = PuzzleTheme(i.master, i.masterDescription)
@@ -139,6 +140,7 @@ object PuzzleTheme:
       doubleBishopMate,
       dovetailMate,
       hookMate,
+      killBoxMate,
       smotheredMate
     ),
     I18nKey.puzzle.specialMoves -> List(

@@ -2,8 +2,8 @@ package lila.relay
 
 import play.api.libs.json.*
 import scalalib.model.Seconds
-import chess.Outcome
-import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
+import chess.{ Centis, Outcome }
+import chess.format.pgn.{ PgnStr, SanStr, Move, Tag, Tags }
 
 private object DgtJson:
 
@@ -72,17 +72,24 @@ private object DgtJson:
         )
     def toPgn(roundTags: Tags): PgnStr =
       val mergedTags = clockTags ++ mergeRoundTags(roundTags)
-      val strMoves = moves
-        .map(_.split(' '))
-        .map: move =>
-          chess.format.pgn
-            .Move(
-              san = SanStr(~move.headOption),
-              secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)).flatMap(_.toIntOption)
-            )
-            .render
-        .mkString(" ")
+      val strMoves   = moves.map(parseMove).map(_.render).mkString(" ")
       PgnStr(s"$mergedTags\n\n$strMoves")
+
+  /* - dxe4 63
+   * - fxe4 +31
+   * - Nc2 34+2
+   */
+  private def parseMove(str: String): Move =
+    val parts = str.split(' ')
+    val (clk: Option[Int], emt: Option[Int]) = parts
+      .lift(1)
+      .fold((none, none)):
+        _.split('+') match
+          case Array(clk)      => (clk.toIntOption, none)
+          case Array("", emt)  => (none, emt.toIntOption)
+          case Array(clk, emt) => (clk.toIntOption, emt.toIntOption)
+          case _               => (none, none)
+    Move(san = SanStr(~parts.headOption), secondsLeft = clk, moveTime = emt)
 
   given Reads[PairingPlayer]    = Json.reads
   given Reads[RoundJsonPairing] = Json.reads

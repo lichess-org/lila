@@ -1,6 +1,6 @@
 import type { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
-import { debounce, throttle, throttlePromise } from 'common/timing';
+import { debounce, throttle, throttlePromiseDelay } from 'common/timing';
 import type AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';
@@ -251,7 +251,7 @@ export default class StudyCtrl {
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
     if (this.members.canContribute()) this.form.openIfNew();
 
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
 
     window.addEventListener('popstate', () => window.location.reload());
   }
@@ -349,7 +349,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.vm.loading = false;
 
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
 
     let nextPath: Tree.Path;
 
@@ -377,17 +377,20 @@ export default class StudyCtrl {
     this.updateAddressBar();
   };
 
-  xhrReload = throttlePromise((withChapters: boolean = false) => {
-    this.vm.loading = true;
-    return xhr
-      .reload(
-        this.practice ? 'practice/load' : 'study',
-        this.data.id,
-        this.vm.mode.sticky ? undefined : this.vm.chapterId,
-        (withChapters = withChapters),
-      )
-      .then(this.onReload, site.reload);
-  });
+  xhrReload = throttlePromiseDelay(
+    () => 500,
+    (withChapters: boolean = false) => {
+      this.vm.loading = true;
+      return xhr
+        .reload(
+          this.practice ? 'practice/load' : 'study',
+          this.data.id,
+          this.vm.mode.sticky ? undefined : this.vm.chapterId,
+          (withChapters = withChapters),
+        )
+        .then(this.onReload, site.reload);
+    },
+  );
 
   onSetPath = throttle(300, (path: Tree.Path) => {
     if (this.vm.mode.sticky && path !== this.data.position.path)
@@ -399,7 +402,7 @@ export default class StudyCtrl {
   bottomColor = () =>
     this.ctrl.flipped ? opposite(this.data.chapter.setup.orientation) : this.data.chapter.setup.orientation;
 
-  instanciateGamebookPlay = () => {
+  instantiateGamebookPlay = () => {
     if (!this.isGamebookPlay()) return (this.gamebookPlay = undefined);
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
@@ -587,7 +590,7 @@ export default class StudyCtrl {
   };
   setGamebookOverride = (o: GamebookOverride) => {
     this.vm.gamebookOverride = o;
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();

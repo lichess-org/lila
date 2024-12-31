@@ -13,7 +13,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root }
+import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Clock }
 
 object BSONHandlers:
 
@@ -83,6 +83,8 @@ object BSONHandlers:
 
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
+  given BSONHandler[Clock] = isoHandler(_.centis, Clock(_))
+
   private given BSON[Crazyhouse.Data] with
     private def writePocket(p: Crazyhouse.Pocket) =
       p.flatMap((role, nb) => List.fill(nb)(role.forsyth)).mkString
@@ -137,7 +139,7 @@ object BSONHandlers:
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
-      clock          = doc.getAsOpt[Centis](F.clock)
+      clock          = doc.getAsOpt[Clock](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield Branch(
@@ -172,7 +174,7 @@ object BSONHandlers:
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
       eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
-      clock          = doc.getAsOpt[Centis](F.clock)
+      clock          = doc.getAsOpt[Clock](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(
@@ -246,7 +248,7 @@ object BSONHandlers:
         gamebook = r.getO[Gamebook](F.gamebook),
         glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
         eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
-        clock = r.getO[Centis](F.clock),
+        clock = r.getO[Clock](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
@@ -282,7 +284,7 @@ object BSONHandlers:
           gamebook = r.getO[Gamebook](F.gamebook),
           glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
           eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
-          clock = r.getO[Centis](F.clock),
+          clock = r.getO[Clock](F.clock),
           crazyData = r.getO[Crazyhouse.Data](F.crazy)
         ),
         tree = StudyFlatTree.reader.newRoot(fullReader.doc)

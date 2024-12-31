@@ -193,7 +193,11 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw();
     });
-    pubsub.on('board.change', redraw);
+    pubsub.on('board.change', (is3d: boolean) => {
+      this.chessground.state.addPieceZIndex = is3d;
+      this.chessground.redrawAll();
+      redraw();
+    });
     this.persistence?.merge();
     (window as any).lichess.analysis = api(this);
   }
@@ -375,10 +379,6 @@ export default class AnalyseCtrl {
     this.setAutoShapes();
     if (this.node.shapes) this.chessground.setShapes(this.node.shapes as DrawShape[]);
     this.cgVersion.dom = this.cgVersion.js;
-    pubsub.on('board.change', (is3d: boolean) => {
-      this.chessground.state.addPieceZIndex = is3d;
-      this.chessground.redrawAll();
-    });
   };
 
   private onChange: () => void = throttle(300, () => {
@@ -623,6 +623,7 @@ export default class AnalyseCtrl {
     if (treePath.contains(this.path, path)) this.userJump(treePath.init(path));
     else this.jump(this.path);
     if (this.study) this.study.deleteNode(path);
+    this.redraw();
   }
 
   promote(path: Tree.Path, toMainline: boolean): void {
