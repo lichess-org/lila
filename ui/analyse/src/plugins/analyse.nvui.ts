@@ -29,7 +29,7 @@ import {
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
-import { bind, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
+import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
@@ -44,6 +44,8 @@ import { plyToTurn } from 'chess';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
 import { renderResult } from '../view/components';
+import { view as chapterNewFormView } from '../study/chapterNewForm';
+import { view as chapterEditFormView } from '../study/chapterEditForm';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
 const selectSound = throttled('select');
@@ -512,6 +514,11 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
 
 function studyDetails(ctrl: AnalyseController): MaybeVNode {
   const study = ctrl.study;
+  const onInsertHandler = (callback: () => void, el: HTMLElement) => {
+    el.addEventListener('click', callback);
+    el.addEventListener('keydown', ev => ev.key === 'Enter' && callback());
+  };
+
   return (
     study &&
     h('div.study-details', [
@@ -535,6 +542,42 @@ function studyDetails(ctrl: AnalyseController): MaybeVNode {
             ),
           ),
         ),
+        study.members.canContribute()
+          ? h('div.buttons', [
+              h(
+                'button',
+                {
+                  hook: onInsert((el: HTMLButtonElement) => {
+                    const toggle = () => {
+                      study.chapters.editForm.toggle(study.currentChapter());
+                      ctrl.redraw();
+                    };
+                    onInsertHandler(toggle, el);
+                  }),
+                },
+                [
+                  'Edit current chapter',
+                  study.chapters.editForm.current() && chapterEditFormView(study.chapters.editForm),
+                ],
+              ),
+              h(
+                'button',
+                {
+                  hook: onInsert((el: HTMLButtonElement) => {
+                    const toggle = () => {
+                      study.chapters.newForm.toggle();
+                      ctrl.redraw();
+                    };
+                    onInsertHandler(toggle, el);
+                  }),
+                },
+                [
+                  'Add new chapter',
+                  study.chapters.newForm.isOpen() ? chapterNewFormView(study.chapters.newForm) : undefined,
+                ],
+              ),
+            ])
+          : undefined,
       ]),
     ])
   );
