@@ -57,6 +57,8 @@
   <string name="interferenceDescription">相手の 2 つの駒の間に駒を入れて浮き駒を作る問題。相手の 2 個のルークの間に守られたナイトを入れる、など。</string>
   <string name="intermezzo">ツヴィッシェンツーク（利かし）</string>
   <string name="intermezzoDescription">当然に見える手を指す代わりに、いったん相手が受けざるを得ない別の手をはさむ問題。</string>
+  <string name="killBoxMate">キルボックスのメイト</string>
+  <string name="killBoxMateDescription">ルークが敵キングの隣にあり、クイーンがルークを守ると同時にキングの逃げ道をふさいでいる。ルークとクイーンが 3 × 3 の「キルボックス」に敵キングを捕えた形。</string>
   <string name="knightEndgame">ナイト・エンドゲーム</string>
   <string name="knightEndgameDescription">ナイトとポーンだけの終盤。</string>
   <string name="long">長手数問題</string>
