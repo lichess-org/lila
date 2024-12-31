@@ -61,7 +61,7 @@ object HTTPRequest:
   def ipAddress(req: RequestHeader) =
     IpAddress.unchecked:
       // chain of trusted proxies, strip scope id
-      req.remoteAddress.pp("forwarded").split(", ").last.split("%").head
+      req.remoteAddress.split(", ").last.split("%").head
 
   def isCrawler(req: RequestHeader) = Crawler(crawlerMatcher(req))
 

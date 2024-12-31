@@ -81,7 +81,7 @@ final class AskRepo(
       .find($doc("creator" -> uid))
       .sort($sort.desc("createdAt"))
       .cursor[Ask]()
-      .list(50)
+      .list(Int.MaxValue)
       .map: asks =>
         asks.map(a => cache.set(a._id, a.some))
         asks
