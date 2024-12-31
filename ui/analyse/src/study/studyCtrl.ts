@@ -463,9 +463,8 @@ export default class StudyCtrl {
       return false;
     }
     const componentCallbacks = () => {
-      if (!this.multiBoard.showResults())
-      {
-        this.ctrl.userJump(this.ctrl.initialPath)
+      if (!this.multiBoard.showResults()) {
+        this.ctrl.userJump(this.ctrl.initialPath);
       }
       this.relay?.onChapterChange();
       this.multiBoard.onChapterChange(this.data.chapter.id);
