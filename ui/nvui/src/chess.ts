@@ -497,7 +497,9 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=[kqnbr]$/;
 const uciPromotionRegex = /^([a-h][1-8])([a-h](1|8))[kqnbr]$/;
 
 export function inputToLegalUci(input: string, fen: string, chessground: CgApi): string | undefined {
-  const legalUcis = destsToUcis(chessground.state.movable.dests!),
+  const dests = chessground.state.movable.dests;
+  if (!dests) return;
+  const legalUcis = destsToUcis(dests),
     legalSans = sanWriter(fen, legalUcis);
   let uci = sanToUci(input, legalSans) || input,
     promotion = '';
