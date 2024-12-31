@@ -403,6 +403,7 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
       if ($evBtn.attr('color') === opposite(opponentColor)) return;
 
       const first = $moveBox.val();
+      if (typeof first !== 'string' || !isKey(first)) return;
       const $firstPiece = $(squareSelector(first[1], first[0]));
       $moveBox.val($moveBox.val() + pos);
       // this is coupled to pieceJumpingHandler() noticing that the attribute is set and acting differently. TODO: make cleaner
