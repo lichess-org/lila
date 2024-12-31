@@ -581,7 +581,7 @@
   <string name="socialMediaLinks">Ссылки на соцсети</string>
   <string name="oneUrlPerLine">Один URL на строку.</string>
   <string name="inlineNotation">Строчная нотация</string>
-  <string name="makeAStudy">Чтобы сохранить и поделиться, рассмотрите возможность создания Студии.</string>
+  <string name="makeAStudy">Чтобы сохранить и поделиться, рассмотрите возможность создания студии.</string>
   <string name="clearSavedMoves">Очистить ходы</string>
   <string name="previouslyOnLichessTV">Ранее на Lichess TV</string>
   <string name="onlinePlayers">Игроки в сети</string>
@@ -770,7 +770,7 @@
   <string name="keyCycleSelectedVariation">Прокручивать выбранный вариант</string>
   <string name="keyShowOrHideComments">показать/скрыть комментарии</string>
   <string name="keyEnterOrExitVariation">ввести/закрыть вариант</string>
-  <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь на своих ошибках</string>
+  <string name="keyRequestComputerAnalysis">Запросите компьютерный анализ, Учитесь над своими ошибками</string>
   <string name="keyNextLearnFromYourMistakes">Далее (Разобрать свои ошибки)</string>
   <string name="keyNextBlunder">Следующий зевок</string>
   <string name="keyNextMistake">Следующая ошибка</string>
