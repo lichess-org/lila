@@ -100,6 +100,9 @@ importers:
       common:
         specifier: workspace:*
         version: link:../common
+      dasher:
+        specifier: workspace:*
+        version: link:../dasher
       debounce-promise:
         specifier: ^3.1.2
         version: 3.1.2

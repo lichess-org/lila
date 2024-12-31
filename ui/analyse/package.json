@@ -17,6 +17,7 @@
     "chat": "workspace:*",
     "chess": "workspace:*",
     "common": "workspace:*",
+    "dasher": "workspace:*",
     "debounce-promise": "^3.1.2",
     "editor": "workspace:*",
     "game": "workspace:*",

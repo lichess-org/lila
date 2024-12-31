@@ -1,8 +1,9 @@
 import type { Redraw } from 'common/snabbdom';
 import { DasherCtrl } from './ctrl';
-import { json as xhrJson } from 'common/xhr';
+import { json as xhrJson, text as xhrText } from 'common/xhr';
 import { spinnerVdom, spinnerHtml } from 'common/spinner';
 import { init as initSnabbdom, type VNode, classModule, attributesModule, h } from 'snabbdom';
+import { frag } from 'common';
 
 const patch = initSnabbdom([classModule, attributesModule]);
 
@@ -31,4 +32,56 @@ export default async function initModule(): Promise<DasherCtrl> {
   redraw();
 
   return ctrl;
+}
+
+function board(): string {
+  return document.querySelector('#main-wrap')?.classList.contains('is3d')
+    ? document.body.dataset.board3d!
+    : document.body.dataset.board!;
+}
+
+function pieceSet(): string {
+  return document.querySelector('#main-wrap')?.classList.contains('is3d')
+    ? document.body.dataset.pieceSet3d!
+    : document.body.dataset.pieceSet!;
+}
+
+let lastBoard: string;
+let lastPieces: string;
+
+export async function loadAsk(boards: any, pieceSets: any): Promise<any> {
+  lastBoard = board();
+  lastPieces = pieceSet();
+  const bid = boards.find((b: any) => b._id === lastBoard).id;
+  const pid = pieceSets.find((p: any) => p._id === lastPieces).id;
+  if (!bid || !pid) return frag<HTMLDivElement>('<div></div>');
+  const [bask, pask] = await Promise.all([bid, pid].map(id => xhrText('/ask/' + id)));
+
+  return frag<HTMLDivElement>(`<div>
+    <div class="ask-container">${bask}</div>
+    <div class="ask-container">${pask}</div>
+    </div>`);
+}
+
+let pollsElPromise: Promise<HTMLElement>;
+
+export function dasherPolls(boards: any, pieces: any /*, redraw: () => void*/): VNode {
+  const newBoard = board();
+  const newPieces = pieceSet();
+  if (lastBoard !== newBoard || lastPieces !== newPieces) {
+    pollsElPromise = loadAsk(boards, pieces);
+  }
+  console.log('heyo!');
+  return h('div#dasher-polls', {
+    key: `${newBoard}-${newPieces}`,
+    hook: {
+      insert: async v => {
+        if (!(v.elm instanceof HTMLElement)) return;
+        v.elm.append(await pollsElPromise);
+        await Promise.all([site.asset.loadEsm('bits.ask', { init: {} }), site.asset.loadCssPath('bits.ask')]);
+        v;
+        console.log('inserted');
+      },
+    },
+  });
 }
