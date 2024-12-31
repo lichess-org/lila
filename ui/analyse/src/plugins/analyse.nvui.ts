@@ -79,12 +79,13 @@ export function initModule(ctrl: AnalyseController) {
         });
       return h('main.analyse', [
         h('div.nvui', [
+          studyDetails(ctrl),
           h('h1', 'Textual representation'),
           h('h2', 'Game info'),
           ...['white', 'black'].map((color: Color) =>
             h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
           ),
-          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
+          h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf || d.game.variant.name}`),
           d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
           h('h2', 'Moves'),
           h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderCurrentLine(ctrl, style)),
@@ -507,4 +508,34 @@ function jumpLine(ctrl: AnalyseController, delta: number) {
   const prevNode = ctrl.tree.nodeAtPath(prevPath);
   const newPath = prevPath + prevNode.children[newI].id;
   ctrl.userJumpIfCan(newPath);
+}
+
+function studyDetails(ctrl: AnalyseController): MaybeVNode {
+  const study = ctrl.study;
+  return (
+    study &&
+    h('div.study-details', [
+      h('h2', 'Study details'),
+      h('span', `Title: ${study.data.name}. By: ${study.data.ownerId}`),
+      h('br'),
+      h('label.chapters', [
+        h('h2', 'Current chapter:'),
+        h(
+          'select',
+          study.chapters.list.all().map((ch, i) =>
+            h(
+              'option',
+              {
+                hook: bind('mousedown', () => study.setChapter(ch.id), ctrl.redraw),
+                attrs: {
+                  selected: ch.id === study.currentChapter().id,
+                },
+              },
+              `${i + 1}. ${ch.name}`,
+            ),
+          ),
+        ),
+      ]),
+    ])
+  );
 }
