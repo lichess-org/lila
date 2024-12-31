@@ -3,7 +3,7 @@ import { type Pieces, files } from 'chessground/types';
 import { type Setting, makeSetting } from './setting';
 import { parseFen } from 'chessops/fen';
 import { chessgroundDests, lichessRules } from 'chessops/compat';
-import { COLORS, RANK_NAMES, ROLES, type FileName, type SquareName } from 'chessops/types';
+import { COLORS, RANK_NAMES, ROLES, type FileName } from 'chessops/types';
 import { setupPosition } from 'chessops/variant';
 import { charToRole, opposite, parseUci, roleToChar } from 'chessops/util';
 import { destsToUcis, plyToTurn, sanToUci, sanToWords, sanWriter } from 'chess';
@@ -300,15 +300,15 @@ export function castlingFlavours(input: string): string {
 export function positionJumpHandler() {
   return (ev: KeyboardEvent): void => {
     const $btn = $(ev.target as HTMLElement);
-    const file = $btn.attr('file') ?? '';
-    const rank = $btn.attr('rank') ?? '';
+    const key = keyFromAttrs($btn);
+    if (!key) return;
     let newRank: string;
     let newFile: string;
     if (ev.key.match(/^[1-8]$/)) {
       newRank = ev.key;
-      newFile = file;
+      newFile = key[0];
     } else if (ev.key.match(/^[!@#$%^&*]$/)) {
-      newRank = rank;
+      newRank = key[1];
       newFile = symbolToFile(ev.key);
       // if not a valid key for jumping
     } else return;
@@ -359,10 +359,11 @@ export function pieceJumpingHandler(selectSound: () => void, errorSound: () => v
 
 export function arrowKeyHandler(pov: Color, borderSound: () => void) {
   return (ev: KeyboardEvent): void => {
-    const $currBtn = $(ev.target as HTMLElement);
     const isWhite = pov === 'white';
-    let file = $currBtn.attr('file') ?? ' ';
-    let rank = Number($currBtn.attr('rank'));
+    const key = keyFromAttrs($(ev.target as HTMLElement));
+    if (!key) return;
+    let file = key[0];
+    let rank = Number(key[1]);
     if (ev.key === 'ArrowUp') rank = isWhite ? (rank += 1) : (rank -= 1);
     else if (ev.key === 'ArrowDown') rank = isWhite ? (rank -= 1) : (rank += 1);
     else if (ev.key === 'ArrowLeft')
@@ -424,10 +425,9 @@ export function selectionHandler(getOpponentColor: () => Color, selectSound: () 
 
 export function boardCommandsHandler() {
   return (ev: KeyboardEvent): void => {
-    const $currBtn = $(ev.target as HTMLElement);
+    const key = keyFromAttrs($(ev.target as HTMLElement));
     const $boardLive = $('.boardstatus');
-    const position = ($currBtn.attr('file') ?? '') + ($currBtn.attr('rank') ?? '');
-    if (ev.key === 'o') $boardLive.text(position);
+    if (ev.key === 'o' && key) $boardLive.text(key);
     else if (ev.key === 'l') $boardLive.text($('p.lastMove').text());
     else if (ev.key === 't') $boardLive.text(`${$('.nvui .botc').text()}, ${$('.nvui .topc').text()}`);
   };
@@ -457,8 +457,8 @@ export function possibleMovesHandler(
     const $boardLive = $('.boardstatus');
     const pieces: Pieces = piecesFunc();
 
-    const $btn = $(ev.target as HTMLElement);
-    const pos = (($btn.attr('file') ?? '') + $btn.attr('rank')) as SquareName;
+    const pos = keyFromAttrs($(ev.target as HTMLElement));
+    if (!pos) return;
 
     let rawMoves: Dests | undefined;
 
@@ -546,3 +546,10 @@ const augmentLichessComment = (comment: Tree.Comment, style: MoveStyle): string 
 
 const squareSelector = (rank: string, file: string) =>
   `.board-wrapper button[rank="${rank}"][file="${file}"]`;
+
+const isKey = (maybeKey: string): maybeKey is Key => !!maybeKey.match(/^[a-h][1-8]$/);
+
+const keyFromAttrs = (cash: Cash): Key | undefined => {
+  const maybeKey = `${cash.attr('file') ?? ''}${cash.attr('rank') ?? ''}`;
+  return isKey(maybeKey) ? maybeKey : undefined;
+};
