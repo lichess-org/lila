@@ -57,6 +57,8 @@
   <string name="interferenceDescription">حرکت یک مهره به میان دو مهره حریف برای بی‌دفاع کردن یک یا هر دو مهره حریف، برای نمونه گذاشتن اسبی در خانه دفاع‌شده میان دو رخ.</string>
   <string name="intermezzo">میان‌آیند</string>
   <string name="intermezzoDescription">به جای انجام حرکت موردانتظار، نخست حرکت دیگری را روید که تهدیدی فوری‌ست و حریف باید به آن پاسخ دهد. همچنین به آن «قطار میانی - Zwischenzug» یا «در میانه» می‌گویند.</string>
+  <string name="killBoxMate">مات جعبه مرگ</string>
+  <string name="killBoxMateDescription">رُخ در کنار شاه دشمن قرار دارد و توسط یک وزیر حمایت می‌شود که همچنین مسیرهای فرار شاه را مسدود کرده است. رُخ و وزیر شاه دشمن را در یک \"جعبه مرگ\" ۳ در ۳ گیر انداخته‌اند.</string>
   <string name="knightEndgame">آخربازی اسب</string>
   <string name="knightEndgameDescription">آخربازی، تنها با اسب‌ها و پیاده‌ها.</string>
   <string name="long">معمای طولانی</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">یک مهره از طریق مهره حریف به یک خانه حمله میکند یا از آن دفاع می کند.</string>
   <string name="zugzwang">زوگزوانگ</string>
   <string name="zugzwangDescription">حریف در حرکت‌هایش محدود است و همه‌شان وضعیتش را بدتر می‌کند.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">آمیزهٔ همگن</string>
+  <string name="mix">آمیزهٔ همگن</string>
   <string name="mixDescription">کمی از هر چیزی. شما نمی‌دانید چه چیزی پیش روی شماست، بنابراین برای هر چیزی آماده می‌مانید! درست مانند بازی‌های واقعی.</string>
   <string name="playerGames">بازی‌های بازیکن</string>
   <string name="playerGamesDescription">دنبال معماهای ایجادشده از بازی‌های خودتان یا بازی‌های سایر بازیکنان، بگردید.</string>

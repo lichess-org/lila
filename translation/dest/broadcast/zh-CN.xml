@@ -48,17 +48,17 @@
   <string name="ageThisYear">今年的年龄</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">未评级</string>
   <string name="recentTournaments">最近的比赛</string>
-  <string name="openLichess">在 Lichess中打开</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">在 Lichess中打开</string>
   <string name="teams">团队</string>
-  <string name="boards">棋板</string>
+  <string name="boards">棋盘</string>
   <string name="overview">概览</string>
   <string name="subscribeTitle">订阅后会在每轮开始时通知。您可以在帐户首选项中切换铃声或推送广播通知。</string>
   <string name="uploadImage">上传锦标赛图像</string>
   <string name="noBoardsYet">尚无看板。这些游戏一旦上传就会出现。</string>
   <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">可以通过 %s加载看板</string>
   <string name="startsAfter">从 %s 开始</string>
-  <string name="startVerySoon">广播将很快开始。</string>
-  <string name="notYetStarted">广播尚未开始。</string>
+  <string name="startVerySoon">转播将很快开始。</string>
+  <string name="notYetStarted">转播尚未开始。</string>
   <string name="officialWebsite">官网</string>
   <string name="standings">积分榜</string>
   <string name="officialStandings">官方排名</string>

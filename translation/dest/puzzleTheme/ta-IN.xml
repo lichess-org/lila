@@ -119,7 +119,7 @@
   <string name="xRayAttackDescription">ஒரு துண்டு எதிரியின் ஒரு துண்டு வழியாக ஒரு சதுரத்தைத் தாக்குகிறது அல்லது பாதுகாக்கிறது.</string>
   <string name="zugzwang">நிர்பந்தங்கள்</string>
   <string name="zugzwangDescription">எதிராளியால் செய்யக்கூடிய நகர்வுகள் குறைவாகவே இருக்கும், மேலும் அனைத்து நகர்வுகளும் அவர்களின் நிலையை மோசமாக்கும்.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">ஆரோக்கியமான கலவை</string>
+  <string name="mix">ஆரோக்கியமான கலவை</string>
   <string name="mixDescription">எல்லாவற்றிலும் கொஞ்சம். என்ன எதிர்பார்க்க வேண்டும் என்று உங்களுக்குத் தெரியாது, எனவே நீங்கள் எதற்கும் தயாராக இருக்கிறீர்கள்! உண்மையான விளையாட்டுகளைப் போலவே.</string>
   <string name="playerGames">வீரர் விளையாட்டுகள்</string>
   <string name="playerGamesDescription">உங்கள் விளையாட்டுகளிலிருந்து அல்லது வேறொரு வீரரின் விளையாட்டுகளிலிருந்து உருவாக்கப்பட்ட புதிர்களைத் தேடுங்கள்.</string>
