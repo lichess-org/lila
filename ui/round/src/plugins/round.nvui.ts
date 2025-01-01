@@ -34,6 +34,7 @@ import { Notify } from 'nvui/notify';
 import { commands } from 'nvui/command';
 import { Chessground as makeChessground } from 'chessground';
 import { pubsub } from 'common/pubsub';
+import { plyToTurn } from 'chess';
 
 const selectSound = () => site.sound.play('select');
 const borderSound = () => site.sound.play('outOfBound');
@@ -114,7 +115,10 @@ export function initModule(): NvuiPlugin {
                   $input = $form.find('.move').val('');
                 $input[0]!.focus();
                 nvui.submitMove = createSubmitHandler(ctrl, notify.set, moveStyle.get, $input);
-                $form.on('submit', () => nvui.submitMove?.());
+                $form.on('submit', (ev: SubmitEvent) => {
+                  ev.preventDefault();
+                  nvui.submitMove?.();
+                });
               }),
             },
             [
@@ -194,7 +198,6 @@ export function initModule(): NvuiPlugin {
           ),
         ),
         h('div.boardstatus', { attrs: { 'aria-live': 'polite', 'aria-atomic': 'true' } }, ''),
-        // h('p', takes(ctrl.data.steps.map(data => data.fen))),
         h('h2', 'Settings'),
         h('label', ['Move notation', renderSetting(moveStyle, ctrl.redraw)]),
         h('h3', 'Board settings'),
@@ -270,35 +273,33 @@ function createSubmitHandler(
   return (submitStoredPremove = false) => {
     const nvui = ctrl.nvui!;
 
-    if (submitStoredPremove && nvui.premoveInput === '') return false;
+    if (submitStoredPremove && nvui.premoveInput === '') return;
     if (!submitStoredPremove && $input.val() === '') {
       if (nvui.premoveInput !== '') {
         // if this is not a premove submission, the input is empty, and we have a stored premove, clear it
         nvui.premoveInput = '';
         notify('Cleared premove');
       } else notify('Invalid move');
-      return false;
     }
 
     let input = submitStoredPremove ? nvui.premoveInput : castlingFlavours(($input.val() as string).trim());
+    if (!input) return;
 
     // commands may be submitted with or without a leading /
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') {
       onCommand(ctrl, notify, input.slice(1), style());
       $input.val('');
-      return false;
+    } else {
+      const uci = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
+      if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
+      else if (ctrl.data.player.color !== ctrl.data.game.player) {
+        // if it is not the user's turn, store this input as a premove
+        nvui.premoveInput = input;
+        notify(`Will attempt to premove: ${input}. Enter to cancel`);
+      } else notify(`Invalid move: ${input}`);
+      $input.val('');
     }
-
-    const uci = inputToLegalUci(input, plyStep(ctrl.data, ctrl.ply).fen, ctrl.chessground);
-    if (uci) ctrl.socket.send('move', { u: uci }, { ackable: true });
-    else if (ctrl.data.player.color !== ctrl.data.game.player) {
-      // if it is not the user's turn, store this input as a premove
-      nvui.premoveInput = input;
-      notify(`Will attempt to premove: ${input}. Enter to cancel`);
-    } else notify(`Invalid move: ${input}`);
-    $input.val('');
-    return false;
   };
 }
 
@@ -346,29 +347,22 @@ function anyClock(ctrl: RoundController, position: Position) {
     player = ctrl.playerAt(position);
   return (
     (ctrl.clock && renderClock(ctrl, player, position)) ||
-    (d.correspondence && renderCorresClock(ctrl.corresClock!, player.color, position, d.game.player)) ||
-    undefined
+    (d.correspondence && renderCorresClock(ctrl.corresClock!, player.color, position, d.game.player))
   );
 }
 
-function renderMoves(steps: Step[], style: MoveStyle) {
-  const res: Array<string | VNode> = [];
-  steps.forEach(s => {
-    let str = '';
-    if (s.ply & 1) str += Math.ceil(s.ply / 2) + ' ';
-    str += renderSan(s.san, s.uci, style) + ', ';
-    res.push(str);
-    if (s.ply % 2 === 0) res.push(h('br'));
-  });
-  return res;
-}
+const renderMoves = (steps: Step[], style: MoveStyle) =>
+  steps.reduce<(string | VNode)[]>((res, s) => {
+    const turn = s.ply & 1 ? `${plyToTurn(s.ply)}` : '';
+    const san = `${renderSan(s.san, s.uci, style)}, `;
+    return res.concat(`${turn} ${san}`).concat(s.ply % 2 === 0 ? h('br') : []);
+  }, []);
 
 function playerHtml(ctrl: RoundController, player: Player) {
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
-  const d = ctrl.data,
+  const perf = ctrl.data.game.perf,
     user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating,
+    rating = user?.perfs[perf]?.rating,
     rd = player.ratingDiff,
     ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
   return user
@@ -386,12 +380,9 @@ function playerHtml(ctrl: RoundController, player: Player) {
 
 function playerText(ctrl: RoundController, player: Player) {
   if (player.ai) return i18n.site.aiNameLevelAiLevel('Stockfish', player.ai);
-  const d = ctrl.data,
-    user = player.user,
-    perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating;
-  if (!user) return 'Anonymous';
-  return `${user.title || ''} ${user.username} rated ${rating || 'unknown'}`;
+  const user = player.user,
+    rating = player?.rating ?? user?.perfs[ctrl.data.game.perf]?.rating ?? 'unknown';
+  return !user ? 'Anonymous' : `${user.title || ''} ${user.username} rated ${rating}`;
 }
 
 function gameText(ctrl: RoundController) {
