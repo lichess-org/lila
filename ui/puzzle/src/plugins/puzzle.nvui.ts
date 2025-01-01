@@ -173,15 +173,15 @@ export function initModule() {
             : []),
           h('h2', 'Keyboard shortcuts'),
           h('p', [
-            'Left and right arrow keys or k and j: Navigate to the previous or next move.',
+            `Left and right arrow keys: ${i18n.site.keyMoveBackwardOrForward}`,
             h('br'),
-            'Up and down arrow keys, or 0 and $, or home and end: Jump to the first or last move.',
+            `Up and down arrow keys, or 0 and $, or home and end: ${i18n.site.keyGoToStartOrEnd}`,
           ]),
           h('h2', 'Commands'),
           h('p', [
             'Type these commands in the move input.',
             h('br'),
-            'v: View the solution.',
+            `v: ${i18n.site.viewTheSolution}`,
             h('br'),
             'l: Read last move.',
             h('br'),

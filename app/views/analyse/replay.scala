@@ -79,6 +79,7 @@ def replay(
     .css(ctx.blind.option("round.nvui"))
     .css(ctx.pref.hasKeyboardMove.option("keyboardMove"))
     .i18n(_.puzzle, _.study)
+    .i18nOpt(ctx.blind, _.keyboardMove)
     .js(analyseNvuiTag)
     .js(
       bits.analyseModule(
