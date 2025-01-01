@@ -158,7 +158,7 @@
     <item quantity="other">%s lîstik</item>
   </plurals>
   <plurals name="ratingXOverYGames">
-    <item quantity="one">%1$s puanên ji ser %2$s lîstikan</item>
+    <item quantity="one">%1$s puana ji ser %2$s lîstikê</item>
     <item quantity="other">%1$s puanên ji ser %2$s lîstikan</item>
   </plurals>
   <plurals name="nbBookmarks">
@@ -352,6 +352,10 @@
     <item quantity="one">%s Xebat</item>
     <item quantity="other">Xebatên %s</item>
   </plurals>
+  <plurals name="nbSimuls">
+    <item quantity="one">%s lîstikên hevdem</item>
+    <item quantity="other">%s lîstikên hevdem</item>
+  </plurals>
   <string name="viewTournament">Pêşbirkê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
   <string name="noDrawBeforeSwissLimit">Di turnuvaya Swîsreyê de berî 30 hemleyan tu nikarî beranberîyê teklîf bikî.</string>
@@ -403,6 +407,8 @@
   <string name="toStudy">Bi Xebit</string>
   <string name="importGame">Lîstikê têxe</string>
   <string name="importGameExplanation">PGNeke lîstikê pê ve bizeliqîne da ku tekrareke gerbar, analîza kombersê, gotûbêja lîstikê û URLyeke parvekirinbar werbigirî.</string>
+  <string name="importGameCaveat">Varyasyon wê bên jêbirin. Ji bo hiştina wan, bi rêya xebateke PGNyê împort bike.</string>
+  <string name="importGameDataPrivacyWarning">Ev PGN ji alîyê her kesî ve kare were gihîn. Ji bo lîstikekê bi awayekî veşartî împort bikî, xebatekê biemilîne.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s lîstika têxistî</item>
     <item quantity="other">%s lîstikên têxistî</item>
@@ -488,6 +494,7 @@
   <string name="setTheBoard">Texteyê bisazîne</string>
   <string name="popularOpenings">Destpêkên binavûdeng</string>
   <string name="endgamePositions">Pozisyonên Dawîyê</string>
+  <string name="chess960StartPosition">Pozîsyona destpêkê ya Chess960ê: %s</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="clearBoard">Texteyê paqij bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
@@ -498,10 +505,17 @@
   <string name="ifNoneLeaveEmpty">Ger nîn be, vala bihêle</string>
   <string name="profile">Profîl</string>
   <string name="editProfile">Profîlê sererast bike</string>
+  <string name="realName">Navê heqîqî</string>
+  <string name="setFlair">Îkona xwe saz bike</string>
+  <string name="flair">Îkon</string>
+  <string name="youCanHideFlair">Mîhengekê heye ji bo veşartina hemû îkonên bikarhêneran li seransera malperê.</string>
   <string name="biography">Biyografî</string>
+  <string name="countryRegion" comment="flag&#10;Appears when you edit your profile. Lets a player add a country/flag (not all flags are for countries) to their profile">Welat an herêm</string>
   <string name="thankYou">Spas!</string>
   <string name="socialMediaLinks">Têkîliyên Medyaya Civakî</string>
+  <string name="oneUrlPerLine">Serê rêzikê yek URL.</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
+  <string name="makeAStudy">Ji bo parastin û parvekirinê, çêkirina xebatekê li be çav bigire.</string>
   <string name="clearSavedMoves">Hemleyan jê bibe</string>
   <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
   <string name="onlinePlayers">Lîzerên serhêl</string>
@@ -515,8 +529,10 @@
   <string name="automaticallyProceedToNextGameAfterMoving">Piştî hemleyê jixweber derbasî lîstika din bibe</string>
   <string name="autoSwitch">Otomatîk biguherîne</string>
   <string name="puzzles">Pazil</string>
+  <string name="onlineBots">Botên onlayn</string>
   <string name="name">Nav</string>
   <string name="description">Danasîn</string>
+  <string name="descPrivate">Danasîna xisûsî</string>
   <string name="no">Na</string>
   <string name="yes">Erê</string>
   <string name="help">Alîkarî:</string>
