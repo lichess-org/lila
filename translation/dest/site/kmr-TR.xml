@@ -533,8 +533,11 @@
   <string name="name">Nav</string>
   <string name="description">Danasîn</string>
   <string name="descPrivate">Danasîna xisûsî</string>
+  <string name="descPrivateHelp">Tenê endamên tîmê wê metnê bibînin. Eger were danîn, ji bo endamên tîmê li şûna danasîna giştî bicih dike.</string>
   <string name="no">Na</string>
   <string name="yes">Erê</string>
+  <string name="website">Malper</string>
+  <string name="mobile">Mobîl</string>
   <string name="help">Alîkarî:</string>
   <string name="createANewTopic">Mijareke nû çêke</string>
   <string name="topics">Mijar</string>
