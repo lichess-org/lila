@@ -27,7 +27,7 @@
   <string name="bestMove">Bedste træk!</string>
   <string name="keepGoing">Bliv ved…</string>
   <string name="puzzleSuccess">Korrekt!</string>
-  <string name="puzzleComplete">Taktikpgave løst!</string>
+  <string name="puzzleComplete">Taktikopgave løst!</string>
   <string name="byOpenings">Efter åbninger</string>
   <string name="puzzlesByOpenings">Taktikopgaver efter åbninger</string>
   <string name="openingsYouPlayedTheMost">Åbninger du har spillet mest i ratede partier</string>
