@@ -28,7 +28,7 @@ import {
 } from 'nvui/chess';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands } from 'nvui/command';
+import { commands, boardCommands } from 'nvui/command';
 import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
@@ -215,29 +215,7 @@ export function initModule(ctrl: AnalyseController) {
             `x: ${i18n.site.showThreat}`,
             h('br'),
           ]),
-          h('h2', 'Board mode commands'),
-          h('p', [
-            'Use these commands when focused on the board itself.',
-            h('br'),
-            'o: announce current position.',
-            h('br'),
-            "c: announce last move's captured piece.",
-            h('br'),
-            'l: display last move.',
-            h('br'),
-            't: display clocks.',
-            h('br'),
-            'arrow keys: move left, right, up or down.',
-            h('br'),
-            'kqrbnp/KQRBNP: move forward/backward to a piece.',
-            h('br'),
-            '1-8: move to rank 1-8.',
-            h('br'),
-            'Shift+1-8: move to file a-h.',
-            h('br'),
-            '',
-            h('br'),
-          ]),
+          ...boardCommands(),
           h('h2', 'Commands'),
           h('p', [
             'Type these commands in the command input.',

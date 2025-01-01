@@ -25,7 +25,7 @@ import {
 import { makeConfig } from '../view/chessground';
 import { renderSetting } from 'nvui/setting';
 import { Notify } from 'nvui/notify';
-import { commands } from 'nvui/command';
+import { commands, boardCommands } from 'nvui/command';
 import { next as controlNext } from '../control';
 import { bind, onInsert } from 'common/snabbdom';
 import { throttle } from 'common/timing';
@@ -190,31 +190,7 @@ export function initModule() {
             commands.scan.help,
             h('br'),
           ]),
-          h('h2', 'Board mode commands'),
-          h('p', [
-            'Use these commands when focused on the board itself.',
-            h('br'),
-            'o: announce current position.',
-            h('br'),
-            "c: announce last move's captured piece.",
-            h('br'),
-            'l: announce last move.',
-            h('br'),
-            't: announce clocks.',
-            h('br'),
-            'm: announce possible moves for the selected piece.',
-            h('br'),
-            'shift+m: announce possible moves for the selected pieces which capture..',
-            h('br'),
-            'arrow keys: move left, right, up or down.',
-            h('br'),
-            'kqrbnp/KQRBNP: move forward/backward to a piece.',
-            h('br'),
-            '1-8: move to rank 1-8.',
-            h('br'),
-            'Shift+1-8: move to file a-h.',
-            h('br'),
-          ]),
+          ...boardCommands(),
           h('h2', 'Promotion'),
           h('p', [
             'Standard PGN notation selects the piece to promote to. Example: a8=n promotes to a knight.',
