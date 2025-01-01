@@ -1,4 +1,4 @@
-import type { Redraw } from 'common/snabbdom';
+import type { Redraw, MaybeVNode } from 'common/snabbdom';
 import { DasherCtrl } from './ctrl';
 import { json as xhrJson, text as xhrText } from 'common/xhr';
 import { spinnerVdom, spinnerHtml } from 'common/spinner';
@@ -6,6 +6,10 @@ import { init as initSnabbdom, type VNode, classModule, attributesModule, h } fr
 import { frag } from 'common';
 
 const patch = initSnabbdom([classModule, attributesModule]);
+
+let pollsElPromise: Promise<HTMLElement>;
+let lastBoard: string;
+let lastPieces: string;
 
 export function load(): Promise<DasherCtrl> {
   return site.asset.loadEsm<DasherCtrl>('dasher');
@@ -46,10 +50,7 @@ function pieceSet(): string {
     : document.body.dataset.pieceSet!;
 }
 
-let lastBoard: string;
-let lastPieces: string;
-
-export async function loadAsk(boards: any, pieceSets: any): Promise<any> {
+async function loadAsk(boards: any, pieceSets: any): Promise<any> {
   lastBoard = board();
   lastPieces = pieceSet();
   const bid = boards.find((b: any) => b._id === lastBoard).id;
@@ -63,9 +64,8 @@ export async function loadAsk(boards: any, pieceSets: any): Promise<any> {
     </div>`);
 }
 
-let pollsElPromise: Promise<HTMLElement>;
-
-export function dasherPolls(boards: any, pieces: any /*, redraw: () => void*/): VNode {
+export function dasherPolls(boards: any, pieces: any /*, redraw: () => void*/): MaybeVNode {
+  if (!boards || !pieces) return undefined;
   const newBoard = board();
   const newPieces = pieceSet();
   if (lastBoard !== newBoard || lastPieces !== newPieces) {
