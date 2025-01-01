@@ -107,6 +107,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
         renderShowResultsToggle(ctrl),
       ]),
     ]),
+    !ctrl.showResults() ? h('div.empty-boards-note',  { attrs: { 'data-icon': licon.InfoCircle } } , ' Since you chose to hide the results, all the preview boards are empty to avoid spoilers.') : undefined,
     h(
       'div.now-playing',
       {
@@ -229,7 +230,9 @@ const makePreview =
                         ...previewToCgConfig(preview),
                         ...baseConfig,
                       })
-                    : makeChessground(el, baseConfig);
+                    : makeChessground(el, {
+                      fen: "8/8/8/8/8/8/8/8",
+                      ...baseConfig,});
                   vnode.data!.fen = preview.fen;
                 },
                 postpatch(old, vnode) {
@@ -242,7 +245,7 @@ const makePreview =
                   }
                   vnode.data!.fen = preview.fen;
                   const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = showResults ? old.data!.cg : makeChessground(el, baseConfig);
+                  vnode.data!.cg = showResults ? old.data!.cg : makeChessground(el, {fen: "8/8/8/8/8/8/8/8", ...baseConfig,});
                 },
               },
             }),
