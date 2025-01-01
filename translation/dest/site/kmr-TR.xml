@@ -354,6 +354,7 @@
   </plurals>
   <string name="viewTournament">Pêşbirkê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
+  <string name="noDrawBeforeSwissLimit">Di turnuvaya Swîsreyê de berî 30 hemleyan tu nikarî beranberîyê teklîf bikî.</string>
   <string name="thematic">Pêngavên destpêkê ên cuda</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s lîstika bipuan</item>
@@ -383,6 +384,7 @@
   <string name="siteDescription">Malpera kişikê yê serhêl û belaş. Kişikê li ser navrûyeke zelal bilîze. Qeydbûn ne hewce ye, reklam tine, pêvekek lazim tine. Kişikê bi kombersê, bi hevaleke xwe re an bi dijbereke ketober bilîze.</string>
   <string name="xJoinedTeamY">%1$s tevlî koma %2$s bû</string>
   <string name="xCreatedTeamY">%1$s koma %2$s çêkir</string>
+  <string name="startedStreaming">dest bi weşana zindî kir</string>
   <string name="xStartedStreaming">%s di weşana zindî de yi</string>
   <string name="averageElo">Reytînga averaj</string>
   <string name="location">Cih</string>
@@ -391,8 +393,11 @@
   <string name="apply">Bisepîne</string>
   <string name="save">Tomar bik</string>
   <string name="leaderboard">Texteya skoran</string>
+  <string name="screenshotCurrentPosition">Wêneyê ekranê bigire ji bo pozîsyona mewcûd</string>
+  <string name="gameAsGIF">Lîstik wek GIF</string>
   <string name="pasteTheFenStringHere">Nivîsa FENê bi vir de bizeliqîne</string>
   <string name="pasteThePgnStringHere">Nivîsa PGNê bi vir ve bizeliqîne</string>
+  <string name="orUploadPgnFile">An jî dosyeyeke PGNê bar bike</string>
   <string name="fromPosition">Ji pozisyonekê</string>
   <string name="continueFromHere">Ji vir bidomîne</string>
   <string name="toStudy">Bi Xebit</string>
