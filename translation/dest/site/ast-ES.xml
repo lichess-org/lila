@@ -742,6 +742,8 @@
   <string name="downloadImported">Descargar la partida importada</string>
   <string name="crosstable">Tabla cruciada</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Tamién pues usar la rueda del ratón pa movete pola partida.</string>
+  <string name="scrollOverComputerVariationsToPreviewThem">Mantén pulsiáu sobro les variantes del análisis pa previsualizarlas.</string>
+  <string name="analysisShapesHowTo">Fai clic col botón derechu o Máyus+clic para dibuxar círculos y fleches nel tableru.</string>
   <string name="letOtherPlayersMessageYou">Dexar qu\'otres persones te unvien mensaxes</string>
   <string name="receiveForumNotifications">Recibir notificaciones cuando daquién te mente nel foru</string>
   <string name="shareYourInsightsData">Comparte los tos datos estadísticos</string>
@@ -777,6 +779,7 @@
   <string name="gameAnalysis">Análisis de partida</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s uniose a %2$s</string>
+  <string name="xLikesY">a %1$s gustale %2$s</string>
   <string name="quickPairing">Empareyamientu rápidu</string>
   <string name="lobby">Sala d\'espera</string>
   <string name="anonymous">Anónimu</string>
@@ -861,6 +864,10 @@
   <string name="playVariationToCreateConditionalPremoves">Xuega una variante pa crear movimientos condicionales</string>
   <string name="noConditionalPremoves">Ensin movimientos condicionales</string>
   <string name="playX">Xugar %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">y aforra %s llínea de premovimiento</item>
+    <item quantity="other">y aforra %s llíneas de premovimientos</item>
+  </plurals>
   <string name="showUnreadLichessMessage">Recibisti un mensaxe priváu de Lichess.</string>
   <string name="clickHereToReadIt">Fai clic equí pa lleerlo</string>
   <string name="sorry">Sentimoslo :(</string>
@@ -877,13 +884,29 @@
   <string name="wishYouGreatGames">y esperamos que disfrutes de lichess.org.</string>
   <string name="thankYouForReading">¡Gracies por lleerlo!</string>
   <string name="lifetimeScore">Puntuación histórica</string>
+  <string name="currentMatchScore">Resultaú d\'esti enfrentamientu</string>
   <string name="agreementAssistance">Acepto qu\'en nengún momentu voi recibir ayuda mientres les mios partíes (d\'un ordenador d\'axedrez, un llibru, una base de datos o otra persona).</string>
+  <string name="agreementNice">Me comprometo a respetar siempre a otros xugadores.</string>
+  <string name="agreementMultipleAccounts" comment="%s will be replaced with the translation of 'termsOfService'">Toi d\'alcuerdu en nun crear delles cuentes (sacante poles razones indicaes nes %s).</string>
+  <string name="agreementPolicy">Me comprometo a siguir les normes de Lichess.</string>
+  <string name="searchOrStartNewDiscussion">Buscar o empezar una nueva conversación</string>
   <string name="edit">Editar</string>
   <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">Bala</string>
   <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">Rellámpagu</string>
   <string name="rapid">Rápido</string>
   <string name="classical">Clásica</string>
+  <string name="ultraBulletDesc">Partíes increíblemente rápides: menos de 30 segundos</string>
+  <string name="bulletDesc">Partíes bien rápides: menos de 3 minutos</string>
+  <string name="blitzDesc">Partíes rápides: de 3 a 8 minutos</string>
+  <string name="rapidDesc">Partíes rápides: 8 a 25 minutos</string>
+  <string name="classicalDesc">Partíes clásiques: 25 minutos o más</string>
+  <string name="correspondenceDesc">Partíes por correspondencia: unu o dellos díes por xugada</string>
+  <string name="puzzleDesc">Entrenador de táctica d\'axedrez</string>
   <string name="important">Importante</string>
+  <string name="yourQuestionMayHaveBeenAnswered">Pue que la to gueta ya tenga respuesta %1$s</string>
+  <string name="inTheFAQ">nes guetes frecuentes.</string>
+  <string name="toReportSomeoneForCheatingOrBadBehavior">Pa denunciar a un usuariu por tramposu o por mal comportamientu, 
+%1$s</string>
   <string name="subscribe">Suscribirse</string>
   <string name="unsubscribe">Encaboxar la suscripción</string>
   <string name="mentionedYouInX">mentaronte en \"%1$s\".</string>
@@ -908,6 +931,7 @@ Dexar vacíu de mano les partíes dende la posición inicial normal.</string>
   <string name="youCantStartNewGame">Nun pues empezar una partida teniendo otra en xuegu.</string>
   <string name="since">Dende</string>
   <string name="until">Hasta</string>
+  <string name="switchSides">Camudar color</string>
   <string name="instructions">Instrucciones</string>
   <string name="lichessPatronInfo">Lichess ye una organización benéfica y un software de códigu abiertu totalmente llibre.
 Tolos gastos de funcionamientu, desenvolvimientu y conteníos finánciense puramente con donaciones de los usuarios.</string>

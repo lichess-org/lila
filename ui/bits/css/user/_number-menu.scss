@@ -1,6 +1,6 @@
 .number-menu {
+  @include prevent-select;
   display: flex;
-  user-select: none;
 
   .nm-item {
     @extend %roboto;

@@ -57,6 +57,7 @@
     <item quantity="other">まだ返事のない招待 %s 件</item>
   </plurals>
   <string name="pending">ペンディング</string>
+  <string name="declined">だめ</string>
   <string name="onlyVisibleToTeachers">講師だけに見えます</string>
   <string name="lastActiveDate">最後のログイン</string>
   <string name="managed">管理下</string>

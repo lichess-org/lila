@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Eine Figur zwischen zwei gegnerischen Figuren ziehen, um eine oder beide gegnerische Figuren ungedeckt zu lassen, wie etwa einen Springer auf einem gedeckten Feld zwischen zwei Türmen.</string>
   <string name="intermezzo">Zwischenzug</string>
   <string name="intermezzoDescription">Anstatt den erwarteten Zug zu spielen, schiebe einen anderen Zug dazwischen, der eine sofortige Drohung aufstellt, welche der Gegner beantworten muss.</string>
+  <string name="killBoxMate">Killbox Matt</string>
+  <string name="killBoxMateDescription">Ein Turm befindet sich neben dem gegnerischen König und wird durch die Dame unterstützt, welche ebenfalls die Fluchtfelder des Königs blockiert. Der Turm und die Dame halten den gegnerischen König in einer 3x3 \"Killbox\".</string>
   <string name="knightEndgame">Springerendspiel</string>
   <string name="knightEndgameDescription">Ein Endspiel nur mit Springern und Bauern.</string>
   <string name="long">Mehrzügige Aufgabe</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">Eine Figur attackiert oder verteidigt ein Feld durch eine gegnerische Figur hindurch.</string>
   <string name="zugzwang">Zugzwang</string>
   <string name="zugzwangDescription">Der Gegner ist in der Anzahl seiner Züge limitiert und jeder seiner Züge verschlechtert seine Stellung.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Gesunder Mix</string>
+  <string name="mix">Gesunder Mix</string>
   <string name="mixDescription">Ein bisschen von allem. Du weißt nicht, was dich erwartet, deshalb bleibst du bereit für alles! Genau wie in echten Partien.</string>
   <string name="playerGames">Partien von Spielern</string>
   <string name="playerGamesDescription">Suche Aufgaben, die aus deinen Partien, oder den Partien eines anderen Spielers generiert wurden.</string>

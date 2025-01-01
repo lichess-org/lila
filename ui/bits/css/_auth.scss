@@ -30,10 +30,10 @@
 
     .login-remember {
       @extend %flex-center-nowrap;
+      @include prevent-select;
       margin-top: 1em;
       gap: 1ch;
       cursor: pointer;
-      user-select: none;
     }
 
     &__blanked {

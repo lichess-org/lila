@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Flytte ei brikke mellom to motstandarbrikker for å oppnå at ei eller begge vert udekka. Til dømes ein springar til eit dekka felt mellom to tårn.</string>
   <string name="intermezzo">Mellomtrekk</string>
   <string name="intermezzoDescription">Eit trekk som kjem før det venta trekket og som utgjer eit trugsmål motspelaren straks må svare på.</string>
+  <string name="killBoxMate">Kassematt</string>
+  <string name="killBoxMateDescription">Eit tårn står ved sida av motspelarens konge og er støtta av ei dronning som i tillegg stengjer fluktfelta til kongen. Tårnet og dronninga fangar motspelarkongen i ei 3x3 «kasse».</string>
   <string name="knightEndgame">Springarsluttspel</string>
   <string name="knightEndgameDescription">Sluttspel med berre springarar og bønder.</string>
   <string name="long">Lang taktikkoppgåve</string>
@@ -119,7 +121,7 @@
   <string name="xRayAttackDescription">Ein situasjon der ei brikke går til åtak gjennom ei eller fleire andre brikker, gjerne brikker som høyrer til motspelaren.</string>
   <string name="zugzwang">Trekktvang</string>
   <string name="zugzwangDescription">Ei stilling der alle moglege trekk skadar stillinga.</string>
-  <string name="mix" comment="Please translate freely. You don't need to say 'healthy' for example.&#10;&#10;This is identical to the old string with key 'healthyMix', which has been recreated for technical reasons. Existing translations have been automatically copied.">Blanda drops</string>
+  <string name="mix">Blanda drops</string>
   <string name="mixDescription">Litt av alt. Du veit ikkje kva du blir møtt med, så du må vera førebudd på det meste. Nett som i verkelege parti.</string>
   <string name="playerGames">Spelar parti</string>
   <string name="playerGamesDescription">Finn oppgåver generert frå dine eller andre sine parti.</string>

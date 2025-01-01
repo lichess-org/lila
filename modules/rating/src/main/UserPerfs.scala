@@ -37,7 +37,7 @@ object UserPerfsExt:
     def bestPerf: Option[PerfKey]    = bestOf(UserPerfs.firstRow ::: UserPerfs.secondRow, 1).headOption
     private def bestOf(keys: List[PerfKey], nb: Int) = keys
       .sortBy: pk =>
-        -(p(pk).nb * lila.rating.PerfType.totalTimeRoughEstimation.get(PerfType(pk)).so(_.roundSeconds))
+        -(p(pk).nb * lila.rating.PerfType.totalTimeRoughEstimation.get(PerfType(pk)).so(_.roundSeconds.value))
       .take(nb)
     def hasEstablishedRating(pk: PerfKey) = p(pk).established
 
