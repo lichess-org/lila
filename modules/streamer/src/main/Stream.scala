@@ -14,7 +14,7 @@ trait Stream:
   val status: Html
   val streamer: Streamer
   val lang: Lang
-  def urls(parent: NetDomain): Stream.Urls
+  def urls: Stream.Urls
 
   def is[U: UserIdOf](u: U): Boolean = streamer.is(u)
   def twitch                         = serviceName == "twitch"
@@ -28,8 +28,8 @@ object Stream:
   case class Keyword(value: String) extends AnyRef with StringValue:
     def toLowerCase = value.toLowerCase
 
-  case class Urls(embed: String, redirect: String):
-    def toPair = (embed, redirect)
+  case class Urls(embed: NetDomain => String, redirect: String):
+    def toPair(domain: NetDomain) = (embed(domain), redirect)
 
   object Twitch:
     case class TwitchStream(user_name: String, title: Html, `type`: String, language: String):
@@ -41,8 +41,8 @@ object Stream:
     case class Stream(userId: String, status: Html, streamer: Streamer, lang: Lang)
         extends lila.streamer.Stream:
       def serviceName = "twitch"
-      def urls(parent: NetDomain) = Urls(
-        embed = s"https://player.twitch.tv/?channel=${userId}&parent=${parent}",
+      def urls = Urls(
+        embed = parent => s"https://player.twitch.tv/?channel=${userId}&parent=${parent}",
         redirect = s"https://www.twitch.tv/${userId}"
       )
     private given Reads[TwitchStream] = Json.reads
@@ -83,8 +83,8 @@ object Stream:
         lang: Lang
     ) extends lila.streamer.Stream:
       def serviceName = "youTube"
-      def urls(parent: NetDomain) = Urls(
-        embed = s"https://www.youtube.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
+      def urls = Urls(
+        embed = _ => s"https://www.youtube.com/embed/${videoId}?autoplay=1&disablekb=1&color=white",
         redirect = s"https://www.youtube.com/watch?v=${videoId}"
       )
 

@@ -6,6 +6,7 @@ import chess.format.pgn.{ Tag, Tags }
 import lila.core.socket.Sri
 import lila.study.*
 import lila.tree.Branch
+import lila.study.AddNode
 
 final private class RelaySync(
     studyApi: StudyApi,
@@ -75,7 +76,9 @@ final private class RelaySync(
           case None => parentPath -> gameNode.some
           case Some(existing) =>
             gameNode.clock
-              .filter(c => !existing.clock.has(c))
+              .filter: c =>
+                existing.clock.forall: prev =>
+                  ~c.trust && c.centis != prev.centis
               .so: c =>
                 studyApi.setClock(
                   studyId = study.id,
@@ -91,20 +94,19 @@ final private class RelaySync(
           studyId = study.id,
           position = Position(chapter, path).ref,
           toMainline = true
-        )(by) >> chapterRepo.setRelayPath(chapter.id, path)
+        )(using by) >> chapterRepo.setRelayPath(chapter.id, path)
       _ <- newNode match
         case Some(newNode) =>
           newNode.mainline
             .foldM(Position(chapter, path).ref): (position, n) =>
-              studyApi
-                .addNode(
-                  studyId = study.id,
-                  position = position,
-                  node = n,
-                  opts = moveOpts,
-                  relay = makeRelayFor(game, position.path + n.id).some
-                )(by)
-                .inject(position + n)
+              val node = AddNode(
+                studyId = study.id,
+                positionRef = position,
+                node = n,
+                opts = moveOpts,
+                relay = makeRelayFor(game, position.path + n.id).some
+              )(using by)
+              studyApi.addNode(node).inject(position + n)
         case None =>
           // the chapter already has all the game moves,
           // but its relayPath might be out of sync. This can happen if the broadcast
@@ -121,13 +123,14 @@ final private class RelaySync(
               game.root.children
                 .nodeAt(gameMainlinePath)
                 .so: lastMainlineNode =>
-                  studyApi.addNode(
-                    studyId = study.id,
-                    position = Position(chapter, gameMainlinePath.parent).ref,
-                    node = lastMainlineNode,
-                    opts = moveOpts,
-                    relay = makeRelayFor(game, gameMainlinePath).some
-                  )(by)
+                  studyApi.addNode:
+                    AddNode(
+                      studyId = study.id,
+                      positionRef = Position(chapter, gameMainlinePath.parent).ref,
+                      node = lastMainlineNode,
+                      opts = moveOpts,
+                      relay = makeRelayFor(game, gameMainlinePath).some
+                    )(using by)
     yield newNode.so(_.mainline.size)
 
   private def updateChapterTags(
@@ -212,7 +215,7 @@ final private class RelaySync(
   )
 
   private val sri                 = Sri("")
-  private def who(userId: UserId) = actorApi.Who(userId, sri)
+  private def who(userId: UserId) = Who(userId, sri)
 
   private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
 

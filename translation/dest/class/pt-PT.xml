@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Gera rapidamente nomes de utilizadores e palavras-passe seguros para os alunos</string>
   <string name="trackStudentProgress">Acompanha o progresso do aluno em jogos e em problemas</string>
   <string name="messageAllStudents">Envia uma mensagem a todos os alunos sobre o novo material didático</string>
-  <string name="freeForAllForever">100% gratuito para todos, para sempre, sem anúncios ou rastreadores</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratuito para todos, para sempre, sem anúncios ou rastreadores</string>
   <string name="applyToBeLichessTeacher">Candidata-te para seres um professor Lichess</string>
   <string name="noClassesYet">Não há aulas ainda.</string>
   <string name="teachersX">Professores: %s</string>
@@ -57,6 +57,8 @@ Aqui está o link para acederes à aula.</string>
     <item quantity="one">Um convite pendente</item>
     <item quantity="other">%s convites pendentes</item>
   </plurals>
+  <string name="pending">Pendente</string>
+  <string name="declined">Recusado</string>
   <string name="onlyVisibleToTeachers">Visível apenas aos professores da turma</string>
   <string name="lastActiveDate">Ativo</string>
   <string name="managed">Gerido</string>
@@ -113,4 +115,6 @@ Aqui está o link para acederes à aula.</string>
   <string name="anInvitationHasBeenSentToX">Foi enviado um convite para %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s já tem um convite pendente</string>
   <string name="xIsAKidAccountWarning">%1$s é uma conta de criança e não pode receber a sua mensagem. Deve dar-lhe o URL de convite manualmente: %2$s</string>
+  <string name="moveToClass">Mover para %s</string>
+  <string name="moveToAnotherClass">Mover para outra aula</string>
 </resources>

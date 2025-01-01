@@ -1,6 +1,6 @@
 import type { DrawShape } from 'chessground/draw';
 import { prop, defined } from 'common';
-import { debounce, throttle, throttlePromise } from 'common/timing';
+import { debounce, throttle, throttlePromiseDelay } from 'common/timing';
 import type AnalyseCtrl from '../ctrl';
 import { StudyMemberCtrl } from './studyMembers';
 import StudyPracticeCtrl from './practice/studyPracticeCtrl';
@@ -44,7 +44,7 @@ import { MultiBoardCtrl } from './multiBoard';
 import type { StudySocketSendParams } from '../socket';
 import { storedMap } from 'common/storage';
 import { opposite } from 'chessops/util';
-import StudyChaptersCtrl from './studyChapters';
+import StudyChaptersCtrl, { isFinished } from './studyChapters';
 import { SearchCtrl } from './studySearch';
 import type { GamebookOverride } from './gamebook/interfaces';
 import type { EvalHitMulti, EvalHitMultiArray } from '../interfaces';
@@ -251,7 +251,7 @@ export default class StudyCtrl {
     this.ctrl.flipped = this.chapterFlipMapProp(this.data.chapter.id);
     if (this.members.canContribute()) this.form.openIfNew();
 
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
 
     window.addEventListener('popstate', () => window.location.reload());
   }
@@ -349,7 +349,7 @@ export default class StudyCtrl {
     this.configureAnalysis();
     this.vm.loading = false;
 
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
 
     let nextPath: Tree.Path;
 
@@ -377,17 +377,20 @@ export default class StudyCtrl {
     this.updateAddressBar();
   };
 
-  xhrReload = throttlePromise((withChapters: boolean = false) => {
-    this.vm.loading = true;
-    return xhr
-      .reload(
-        this.practice ? 'practice/load' : 'study',
-        this.data.id,
-        this.vm.mode.sticky ? undefined : this.vm.chapterId,
-        (withChapters = withChapters),
-      )
-      .then(this.onReload, site.reload);
-  });
+  xhrReload = throttlePromiseDelay(
+    () => 500,
+    (withChapters: boolean = false) => {
+      this.vm.loading = true;
+      return xhr
+        .reload(
+          this.practice ? 'practice/load' : 'study',
+          this.data.id,
+          this.vm.mode.sticky ? undefined : this.vm.chapterId,
+          (withChapters = withChapters),
+        )
+        .then(this.onReload, site.reload);
+    },
+  );
 
   onSetPath = throttle(300, (path: Tree.Path) => {
     if (this.vm.mode.sticky && path !== this.data.position.path)
@@ -399,7 +402,7 @@ export default class StudyCtrl {
   bottomColor = () =>
     this.ctrl.flipped ? opposite(this.data.chapter.setup.orientation) : this.data.chapter.setup.orientation;
 
-  instanciateGamebookPlay = () => {
+  instantiateGamebookPlay = () => {
     if (!this.isGamebookPlay()) return (this.gamebookPlay = undefined);
     // ensure all original nodes have a gamebook entry,
     // so we can differentiate original nodes from user-made ones
@@ -526,6 +529,18 @@ export default class StudyCtrl {
   };
   onFlip = () => this.chapterFlipMapProp(this.data.chapter.id, this.ctrl.flipped);
 
+  isClockTicking = (path: Tree.Path) =>
+    path !== '' && this.data.chapter.relayPath === path && !isFinished(this.data.chapter);
+
+  isRelayAwayFromLive = (): boolean =>
+    !!this.relay &&
+    !isFinished(this.data.chapter) &&
+    defined(this.data.chapter.relayPath) &&
+    this.ctrl.path !== this.data.chapter.relayPath;
+
+  isRelayAndInVariation = (): boolean =>
+    this.isRelayAwayFromLive() && !treePath.contains(this.data.chapter.relayPath!, this.ctrl.path);
+
   setPath = (path: Tree.Path, node: Tree.Node) => {
     this.onSetPath(path);
     this.commentForm.onSetPath(this.vm.chapterId, path, node);
@@ -575,7 +590,7 @@ export default class StudyCtrl {
   };
   setGamebookOverride = (o: GamebookOverride) => {
     this.vm.gamebookOverride = o;
-    this.instanciateGamebookPlay();
+    this.instantiateGamebookPlay();
     this.configureAnalysis();
     this.ctrl.userJump(this.ctrl.path);
     if (!o) this.xhrReload();
@@ -656,7 +671,7 @@ export default class StudyCtrl {
       this.data.chapter.relayPath = d.relayPath;
       const newPath = this.ctrl.tree.addNode(node, position.path);
       if (!newPath) return this.xhrReload();
-      this.ctrl.tree.addDests(d.d, newPath);
+      if (d.n.dests) this.ctrl.tree.addDests(d.n.dests, newPath);
       if (d.relayPath && !this.ctrl.tree.pathIsMainline(d.relayPath))
         this.ctrl.tree.promoteAt(d.relayPath, true);
       if (sticky) this.data.position.path = newPath;

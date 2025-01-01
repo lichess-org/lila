@@ -1,6 +1,7 @@
 package lila.recap
 
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.api.bson.BSONNull
 import chess.ByColor
 import chess.opening.OpeningDb
 import chess.format.pgn.SanStr
@@ -9,11 +10,8 @@ import scalalib.model.Days
 import lila.common.SimpleOpening
 import lila.db.dsl.{ *, given }
 import lila.game.Query
-import lila.puzzle.PuzzleRound
 import lila.common.LichessDay
 import lila.core.game.Source
-import java.time.LocalDate
-import reactivemongo.api.bson.BSONNull
 
 private final class RecapBuilder(
     repo: RecapRepo,

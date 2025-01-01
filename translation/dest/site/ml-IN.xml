@@ -24,11 +24,11 @@
   <string name="createAGame">പുതിയ കളി തുടങ്ങുക</string>
   <string name="whiteIsVictorious">വെള്ള വിജയിച്ചു</string>
   <string name="blackIsVictorious">കറുപ്പ് വിജയിച്ചു</string>
-  <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുകൾ വെച്ച് കളിക്കുന്നു</string>
-  <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുകൾ വെച്ച് കളിക്കുന്നു</string>
-  <string name="itsYourTurn">നിങ്ങളുടെ കളി!</string>
+  <string name="youPlayTheWhitePieces">നിങ്ങൾ വെള്ള കരുക്കൾ വെച്ച് കളിക്കുന്നു</string>
+  <string name="youPlayTheBlackPieces">നിങ്ങൾ കറുപ്പ് കരുക്കൾ വെച്ച് കളിക്കുന്നു</string>
+  <string name="itsYourTurn">നിങ്ങളുടെ നീക്കം!</string>
   <string name="cheatDetected">കള്ളത്തരം കണ്ടെത്തി</string>
-  <string name="kingInTheCenter">രാജാവു്  കേന്ദത്തിലുള്ള കളി</string>
+  <string name="kingInTheCenter">രാജാവ് മധ്യത്തിൽ</string>
   <string name="threeChecks">മൂനു ചെക്ക് കളി</string>
   <string name="raceFinished">ഓട്ടം അവസാനിച്ചിരിക്കുന്നു</string>
   <string name="variantEnding">വ്യത്യാസപ്പെട്ട അവസാനം</string>
@@ -103,6 +103,7 @@
   <string name="openingExplorer">എക്സ്പ്ലോററും ടേബിൾ ബേസും തുറക്കാം</string>
   <string name="openingEndgameExplorer">ഓപ്പണിങ്ങ്/എൻഡ്ഗെയിം എക്‌സ്‌പ്ലോറർ</string>
   <string name="xOpeningExplorer">%s ഓപ്പണിങ് എക്സ്പ്ലോറർ</string>
+  <string name="playFirstOpeningEndgameExplorerMove">ആദ്യഘട്ടം/അവസാനഘട്ടം-ആരായകൻ നീക്കം കളിക്കുക</string>
   <string name="winPreventedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം ജയം തടയപ്പെട്ടു</string>
   <string name="lossSavedBy50MoveRule">50 നീക്കങ്ങളുടെ നിയമം പ്രകാരം തോൽവി തടയപ്പെട്ടു</string>
   <string name="winOr50MovesByPriorMistake">വിജയം അല്ലെങ്കിൽ മുൻപറ്റിയ പിഴകൊണ്ടു് 50 നീക്കങ്ങളിൽ സമനില</string>
@@ -167,9 +168,9 @@
   <string name="signUp">രജിസ്റ്റര്‍</string>
   <string name="computersAreNotAllowedToPlay">കമ്പ്യൂട്ടറുകള്‍ക്കും കമ്പ്യൂട്ടര്‍ സഹായമുള്ള കളിക്കാര്‍ക്കും കളിക്കാന്‍ അനുവാദമില്ല. ദയവായി കളിക്കിടെ ചെസ്സ്‌ എഞ്ചിനുകളുടെയോ ഡാറ്റാബേസുകളുടെയോ മറ്റു കളിക്കാരുടെയോ സഹായം തേടരുത്. നിരവധി അക്കൗണ്ടുകളുണ്ടാക്കുന്നത് ശക്തമായി നിരുത്സാഹപ്പെടുത്തുകയും അങ്ങനെ ചെയ്താല്‍ വിലക്കേര്‍പ്പെടുത്തും എന്നും പ്രത്യേകം ശ്രദ്ധിക്കുക.</string>
   <string name="games">കളികള്‍</string>
-  <string name="forum">ഫോറം</string>
+  <string name="forum">ചർച്ചാവേദി</string>
   <string name="xPostedInForumY">%1$s കുറിച്ചു %2$s എന്ന വിഷയത്തെ പറ്റി</string>
-  <string name="latestForumPosts">ഏറ്റവും പുതിയ ഫോറം പോസ്റ്റുകള്‍</string>
+  <string name="latestForumPosts">ഏറ്റവും പുതിയ കൂട്ടായ്മ പോസ്റ്റുകള്‍</string>
   <string name="players">കളിക്കാര്</string>
   <string name="friends">കൂട്ടുകാർ</string>
   <string name="otherPlayers">മറ്റേ കളിക്കാർ</string>
@@ -214,6 +215,7 @@
   <string name="forgotPassword">പാസ്‌വേഡ് മറന്നുപോയോ?</string>
   <string name="error.weakPassword">ഈ രഹസ്യവാക്ക് ഊഹിക്കുകാൻ വളരെ എളുപ്പമാണ്.</string>
   <string name="error.namePassword">ദയവായി താങ്ങളുടെ ഉപയോക്തൃനാമം രഹസ്യവാക്കയായി ഉപയോഗിക്കരുത്.</string>
+  <string name="blankedPassword">താങ്ങൾ ഇതേ രഹസ്യവാക്കു് മറ്റൊരു വെബ്സ്ഥാനത്തിൽ ഉപയോഗിച്ചിട്ടുണ്ടു് പക്ഷേ ആ വെബ്സ്ഥാനത്തിന്റെ ഒത്തുതീർപ്പു് നടന്നിരിക്കുന്നു. താങ്ങളുടെ Lichess അക്കൗണ്ടിന്റെ സുരക്ഷക്കു വേണ്ടി താങ്ങൾക്കു് ഒരു പുതിയ രഹസ്യവാക്കു് ഇടണ്ടി വരും. സഹകരിക്കുന്നതിനു് നന്ദി.</string>
   <string name="youAreLeavingLichess">താങ്ങൾ Lichess വിടുകയാണ്</string>
   <string name="neverTypeYourPassword">ഒരിക്കലും താങ്ങളുടെ Lichess രഹസ്യവാക്കു് മറ്റെ വെബ്സ്ഥാനത്തിൽ എഴുതരുതു്!</string>
   <string name="proceedToX">%s വരെ ചെല്ലുക</string>
@@ -380,6 +382,7 @@
   <string name="siteDescription">സൗജന്യ തൽസമയം ചെസ്സ്‌ സെര്‍വര്‍. ഇപ്പോള്‍ മികച്ച രീതിയില്‍ ചെസ്സ്‌ കളിക്കാം. രജിസ്റ്റര്‍ ചെയ്യണ്ട, പരസ്യങ്ങള്‍ ഇല്ല, പ്ലഗിനുകള്‍ വേണ്ട. കമ്പ്യൂട്ടറുമായോ സുഹൃത്തുക്കളുമായോ പുതിയ എതിരാളികളുമായോ ചെസ്സ്‌ കളിക്കാം.</string>
   <string name="xJoinedTeamY">%1$s സംഘത്തിൽ %2$s അംഗമായി</string>
   <string name="xCreatedTeamY">%1$s നിർമിച്ച %2$s സംഘം</string>
+  <string name="startedStreaming">സംപ്രേക്ഷണം ആരംഭിച്ചിരിക്കുന്നു</string>
   <string name="xStartedStreaming">%s സംപ്രേക്ഷണം ആരംഭിച്ചിരിക്കുന്നു</string>
   <string name="averageElo">ശരാശരി നിലവാരം</string>
   <string name="location">സ്ഥലം</string>
@@ -398,6 +401,8 @@
   <string name="toStudy">പഠനം</string>
   <string name="importGame">മത്സരം അപ്പ്‌ലോഡ് ചെയ്യുക</string>
   <string name="importGameExplanation">ഒരു ഗെയിം PGN പേസ്റ്റ് ചെയ്യുമ്പോൾ ബ്രൗസ്‌ ചെയ്യാൻ പറ്റുന്ന റീപ്ലേ, കമ്പ്യൂട്ടർ വിശകലനം, ഗെയിം ചാറ്റ്, ഷെയർ ചെയ്യാൻ പറ്റുന്ന ഒരു URL എന്നിവ ലഭിക്കുന്നു.</string>
+  <string name="importGameCaveat">വ്യതിയാനങ്ങൾ മായ്ക്കപ്പെടും. അവയെ വയ്ക്കാനായി PGN ഒരു പഠനം വഴി ഇറക്കുമതിക്കുക.</string>
+  <string name="importGameDataPrivacyWarning">ഈ PGN എല്ലാവൎക്കും കാണാം. ഈ കളി സ്വകാര്യമായി ഇറക്കുമതിക്കാൻ ഒരു പഠനം ഉപയോഗിക്കുക.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">ഇറക്കിയ കളികൾ %s</item>
     <item quantity="other">ഇറക്കിയ കളികൾ %s</item>
@@ -504,6 +509,7 @@
   <string name="socialMediaLinks">സമൂഹമാധ്യമ ലിങ്കുകൾ</string>
   <string name="oneUrlPerLine">ഒരു വരിയിൽ ഒരു വിലാസം.</string>
   <string name="inlineNotation">ഇൻഫയൽ നോട്ടെഷൻ</string>
+  <string name="makeAStudy">കരുതിവയ്ക്കാനും പങ്കിടാനും ഒരു പഠനം ഉണ്ടാക്കാൻ പരിഗണയിൽ എടുക്കുക.</string>
   <string name="clearSavedMoves">നീക്കങ്ങൾ കളയുക</string>
   <string name="previouslyOnLichessTV">Lichess TV യിൽ നേരെത്തെയുള്ളത്</string>
   <string name="onlinePlayers">തൽസമയ കളിക്കാർ</string>
@@ -875,6 +881,8 @@
   <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
   <string name="searchOrStartNewDiscussion">കണ്ടുപിടിക്കുക അല്ലെങ്കിൽ പുതിയൊരു സംഭാഷണം ആരംഭിക്കുക</string>
   <string name="edit">മാറ്റുക</string>
+  <string name="bullet" comment="Probably best left untranslated. Leave it as 'Bullet' unless your language has a better word for it.">വെടിയുണ്ടകളി</string>
+  <string name="blitz" comment="Probably best left untranslated. Leave it as 'Blitz' unless your language has a better word for it.">മിന്നൽകളി</string>
   <string name="rapid">റാപിഡ്</string>
   <string name="classical">ക്ലാസിക്കല്‍</string>
   <string name="ultraBulletDesc">തീവ്രവേഗത്തിലുള്ള കളികള്‍: 30 സെക്കന്‍റില്‍ താഴെ</string>
@@ -897,8 +905,8 @@
   <string name="joinTheTeamXToPost">%1$s ഇൽ ചേരുക, ഫോറത്തിൽ പോസ്റ്റ്‌ ചെയുന്നതിനു</string>
   <string name="teamNamedX">%1$s ടീം</string>
   <string name="youCannotPostYetPlaySomeGames">ഇപ്പോൾ ഈ ഫോറത്തിൽ നിങ്ങൾക്കു പോസ്റ്റ്‌ ചെയ്യാൻ കഴിയുകയില്ല കുറച്ചു ഗ്യാമുകൾക്കു ശേഷം ശ്രമിക്കുക!</string>
-  <string name="subscribe">സബ്സ്ക്രൈബ്</string>
-  <string name="unsubscribe">അൺസബ്സ്ക്രൈബ്</string>
+  <string name="subscribe">പേരെഴുതുക</string>
+  <string name="unsubscribe">പേർമാറ്റുക</string>
   <string name="mentionedYouInX">%1$s ഇൽ നിങ്ങളെ പരാമർശിച്ചു.</string>
   <string name="xMentionedYouInY">%2$s നിങ്ങളെ %1$s പരാമർശിച്ചു.</string>
   <string name="invitedYouToX">%1$s ഇലേക്കു നിങ്ങളെ ക്ഷണിക്കുന്നു.</string>

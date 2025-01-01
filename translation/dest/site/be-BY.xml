@@ -400,7 +400,7 @@
     <item quantity="one">≥ %1$s рэйтынгавая гульня ў рэжыме «%2$s»</item>
     <item quantity="few">≥ %1$s рэйтынгавыя гульні ў рэжыме «%2$s»</item>
     <item quantity="many">≥ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
-    <item quantity="other">≥ %1$s рэйтынгавых гульняў ў рэжыме «%2$s»</item>
+    <item quantity="other">≥ %1$s рэйтынгавых гульняў у рэжыме «%2$s»</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Вы павінны згуляць яшчэ %1$s рэйтынгавую гульню ў рэжыме «%2$s»</item>
@@ -972,7 +972,7 @@
   <string name="streamerManager">Стрымерская старонка</string>
   <string name="cancelTournament">Скасаваць турнір</string>
   <string name="tournDescription">Апісанне турніру</string>
-  <string name="tournDescriptionHelp">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Хочаце сказаць удзельнікам што-небудзь асаблівае? Паспрабуйце зрабіць гэта сцісла. Markdown спасылкі даступныя: [name](https://url)</string>
   <string name="ratedFormHelp">Гульні - рэйтынгавыя
 і ўплываюць на рэйтынг гульцоў</string>
   <string name="onlyMembersOfTeam">Толькі чальцы каманды</string>

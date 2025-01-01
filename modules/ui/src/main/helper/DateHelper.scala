@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 import lila.core.i18n.Translate
 import lila.ui.ScalatagsTemplate.*
+import scalalib.model.Seconds
 
 trait DateHelper:
   self: StringHelper =>
@@ -101,8 +102,8 @@ trait DateHelper:
 
   def momentFromNowOnce(instant: Instant): Tag = momentFromNow(instant, once = true)
 
-  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false): Tag =
-    momentFromNow(nowInstant.plusSeconds(seconds), alwaysRelative)
+  def secondsFromNow(seconds: Seconds, alwaysRelative: Boolean = false): Tag =
+    momentFromNow(nowInstant.plusSeconds(seconds.value), alwaysRelative)
 
   def momentFromNowServer(instant: Instant)(using Translate): Frag =
     timeTag(title := s"${showInstant(instant)} UTC")(momentFromNowServerText(instant))

@@ -1,10 +1,11 @@
 package lila.insight
 
 import chess.Role
+import chess.eval.WinPercent
 import play.api.libs.json.*
 import reactivemongo.api.bson.*
 
-import lila.analyse.{ AccuracyPercent, WinPercent }
+import lila.analyse.AccuracyPercent
 import lila.common.Json.given
 import lila.common.{ LilaOpeningFamily, SimpleOpening }
 import lila.core.i18n.Translate

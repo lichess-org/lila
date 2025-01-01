@@ -71,7 +71,7 @@ final private class VerifyMail(
             if res.status == 429
             then
               logger.info(s"Mailcheck rate limited $url")
-              rateLimitedUntil = nowInstant.plusMinutes(2)
+              rateLimitedUntil = nowInstant.plusMinutes(5)
               true
             else
               (for

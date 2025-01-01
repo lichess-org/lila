@@ -1,6 +1,7 @@
 .msg-app {
   &__side {
     @extend %flex-column;
+    @include prevent-select;
 
     flex: 0 0 50ch;
 
@@ -19,7 +20,6 @@
 
     background: $c-bg-zebra;
     overflow: hidden;
-    user-select: none;
     border-inline-end: $border;
 
     ::-webkit-scrollbar,

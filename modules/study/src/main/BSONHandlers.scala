@@ -4,6 +4,7 @@ import chess.format.pgn.{ Glyph, Glyphs, SanStr, Tag, Tags }
 import chess.format.{ Fen, Uci, UciCharPair, UciPath }
 import chess.variant.{ Crazyhouse, Variant }
 import chess.{ ByColor, Centis, Check, FideId, Ply, PromotableRole, Role, Square }
+import chess.eval.*
 import reactivemongo.api.bson.*
 
 import scala.util.Success
@@ -12,7 +13,7 @@ import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl.{ *, given }
 import lila.tree.Node.{ Comment, Comments, Gamebook, Shape, Shapes }
-import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Score }
+import lila.tree.{ Branch, Branches, Metas, NewBranch, NewRoot, Root, Clock }
 
 object BSONHandlers:
 
@@ -82,6 +83,8 @@ object BSONHandlers:
 
   given BSONDocumentHandler[Gamebook] = Macros.handler
 
+  given BSONHandler[Clock] = isoHandler(_.centis, Clock(_))
+
   private given BSON[Crazyhouse.Data] with
     private def writePocket(p: Crazyhouse.Pocket) =
       p.flatMap((role, nb) => List.fill(nb)(role.forsyth)).mkString
@@ -135,8 +138,8 @@ object BSONHandlers:
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
-      clock          = doc.getAsOpt[Centis](F.clock)
+      eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
+      clock          = doc.getAsOpt[Clock](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield Branch(
@@ -170,8 +173,8 @@ object BSONHandlers:
       comments       = doc.getAsOpt[Comments](F.comments).getOrElse(Comments.empty)
       gamebook       = doc.getAsOpt[Gamebook](F.gamebook)
       glyphs         = doc.getAsOpt[Glyphs](F.glyphs).getOrElse(Glyphs.empty)
-      eval           = doc.getAsOpt[Score](F.score).map(_.eval)
-      clock          = doc.getAsOpt[Centis](F.clock)
+      eval           = doc.getAsOpt[Score](F.score).map(lila.tree.evals.fromScore)
+      clock          = doc.getAsOpt[Clock](F.clock)
       crazyData      = doc.getAsOpt[Crazyhouse.Data](F.crazy)
       forceVariation = ~doc.getAsOpt[Boolean](F.forceVariation)
     yield NewBranch(
@@ -244,8 +247,8 @@ object BSONHandlers:
         comments = r.getO[Comments](F.comments) | Comments.empty,
         gamebook = r.getO[Gamebook](F.gamebook),
         glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-        eval = r.getO[Score](F.score).map(_.eval),
-        clock = r.getO[Centis](F.clock),
+        eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
+        clock = r.getO[Clock](F.clock),
         crazyData = r.getO[Crazyhouse.Data](F.crazy),
         children = StudyFlatTree.reader.rootChildren(fullReader.doc)
       )
@@ -280,8 +283,8 @@ object BSONHandlers:
           comments = r.getO[Comments](F.comments) | Comments.empty,
           gamebook = r.getO[Gamebook](F.gamebook),
           glyphs = r.getO[Glyphs](F.glyphs) | Glyphs.empty,
-          eval = r.getO[Score](F.score).map(_.eval),
-          clock = r.getO[Centis](F.clock),
+          eval = r.getO[Score](F.score).map(lila.tree.evals.fromScore),
+          clock = r.getO[Clock](F.clock),
           crazyData = r.getO[Crazyhouse.Data](F.crazy)
         ),
         tree = StudyFlatTree.reader.newRoot(fullReader.doc)

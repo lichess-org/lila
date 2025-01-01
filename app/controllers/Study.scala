@@ -16,7 +16,7 @@ import lila.core.study.Order
 import lila.study.JsonView.JsData
 import lila.study.PgnDump.WithFlags
 import lila.study.Study.WithChapter
-import lila.study.actorApi.{ BecomeStudyAdmin, Who }
+import lila.study.{ BecomeStudyAdmin, Who }
 import lila.study.{ Chapter, Orders, Settings, Study as StudyModel, StudyForm }
 import lila.tree.Node.partitionTreeJsonWriter
 import com.fasterxml.jackson.core.JsonParseException

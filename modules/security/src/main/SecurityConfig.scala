@@ -24,7 +24,7 @@ final private class SecurityConfig(
     val hcaptcha: Hcaptcha.Config,
     @ConfigName("ip2proxy") val ip2Proxy: Ip2Proxy,
     @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck,
-    @ConfigName("pwned.url") val pwnedUrl: String,
+    @ConfigName("pwned.range_url") val pwnedRangeUrl: String,
     @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
 )
 

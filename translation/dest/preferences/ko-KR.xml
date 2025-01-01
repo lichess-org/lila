@@ -20,9 +20,10 @@
   <string name="displayBoardResizeHandle">보드 크기 재조정 핸들 보이기</string>
   <string name="onlyOnInitialPosition">초기 상태에서만</string>
   <string name="inGameOnly">게임 도중에만 적용</string>
+  <string name="exceptInGame">게임 내 제외</string>
   <string name="chessClock">체스 시계</string>
   <string name="tenthsOfSeconds">1/10초 단위</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 10초 미만일 때</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 10초 미만일 때</string>
   <string name="horizontalGreenProgressBars">녹색 수평 진행 바</string>
   <string name="soundWhenTimeGetsCritical">시간이 얼마 안 남았을 때 소리 재생</string>
   <string name="giveMoreTime">시간 더 주기</string>
@@ -38,7 +39,7 @@
   <string name="explainPromoteToQueenAutomatically">일시적으로 자동 승진을 끄기 위해 승진하는 동안 &lt;ctrl&gt;를 누르세요</string>
   <string name="whenPremoving">미리두기 때만</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">3회 동형반복시 자동으로 무승부 요청</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">남은 시간이 30초 미만일 때만</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">남은 시간이 30초 미만일 때만</string>
   <string name="moveConfirmation">수 확인</string>
   <string name="explainCanThenBeTemporarilyDisabled">경기 도중 보드 메뉴에서 비활성화될 수 있습니다.</string>
   <string name="inCorrespondenceGames">통신 대국</string>

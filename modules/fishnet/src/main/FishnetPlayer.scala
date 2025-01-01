@@ -65,7 +65,7 @@ final class FishnetPlayer(
               moves = moves.mkString(" ")
             ),
             level =
-              if level < 3 && game.clock.exists(_.config.limit.toSeconds < 60) then 3
+              if level < 3 && game.clock.exists(_.config.limitSeconds < 60) then 3
               else level,
             clock = game.clock.map { clk =>
               Work.Clock(

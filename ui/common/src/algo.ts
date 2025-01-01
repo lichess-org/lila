@@ -11,8 +11,8 @@ export function clamp(value: number, bounds: { min?: number; max?: number }): nu
   return Math.max(bounds.min ?? -Infinity, Math.min(value, bounds.max ?? Infinity));
 }
 
-export function quantize(n?: number, factor = 2000): number {
-  return Math.floor((n ?? 0) / factor) * factor;
+export function quantize(n: number | undefined, factor: number): number {
+  return Math.round((n ?? 0) / factor) * factor;
 }
 
 export function shuffle<T>(array: T[]): T[] {

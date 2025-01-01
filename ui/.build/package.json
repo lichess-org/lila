@@ -14,11 +14,11 @@
     "sass-embedded-win32-x64": "1.81.0"
   },
   "dependencies": {
-    "@types/node": "22.10.1",
+    "@types/node": "22.10.2",
     "@types/tinycolor2": "1.4.6",
-    "esbuild": "0.24.0",
+    "esbuild": "0.24.2",
     "fast-glob": "3.3.2",
-    "fast-xml-parser": "4.5.0",
+    "fast-xml-parser": "4.5.1",
     "tinycolor2": "1.6.0",
     "typescript": "5.7.2"
   },

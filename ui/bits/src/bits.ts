@@ -34,8 +34,8 @@ export function initModule(args: { fn: string } & any): void {
       return relayForm();
     case 'setAssetInfo':
       return setAssetInfo();
-    case 'streamer':
-      return streamer();
+    case 'streamerSubscribe':
+      return streamerSubscribe();
     case 'thanksReport':
       return thanksReport();
     case 'titleRequest':
@@ -233,7 +233,7 @@ function setAssetInfo() {
   $('#asset-version-message').text(site.info.message);
 }
 
-function streamer() {
+function streamerSubscribe() {
   $('.streamer-show, .streamer-list').on('change', '.streamer-subscribe input', (e: Event) => {
     const target = e.target as HTMLInputElement;
     $(target)
@@ -246,13 +246,6 @@ function streamer() {
           { method: 'post' },
         );
       });
-  });
-  wireCropDialog({
-    aspectRatio: 1,
-    post: { url: '/upload/image/streamer', field: 'picture' },
-    max: { pixels: 1000 },
-    selectClicks: $('.select-image, .drop-target'),
-    selectDrags: $('.drop-target'),
   });
 }
 

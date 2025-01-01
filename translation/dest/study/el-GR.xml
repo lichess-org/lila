@@ -35,7 +35,7 @@
   <string name="searchByUsername">Αναζήτηση με όνομα χρήστη</string>
   <string name="spectator">Θεατής</string>
   <string name="contributor">Συνεισφέρων</string>
-  <string name="kick">Διώξε</string>
+  <string name="kick">Αποβολή</string>
   <string name="leaveTheStudy">Αποχώρησε από αυτήν την μελέτη</string>
   <string name="youAreNowAContributor">Μπορείτε τώρα να συνεισφέρετε στην μελέτη</string>
   <string name="youAreNowASpectator">Είστε πλέον θεατής</string>
@@ -167,4 +167,5 @@
   <string name="playAgain">Παίξτε ξανά</string>
   <string name="whatWouldYouPlay">Τι θα παίζατε σε αυτή τη θέση;</string>
   <string name="youCompletedThisLesson">Συγχαρητήρια! Ολοκληρώσατε αυτό το μάθημα.</string>
+  <string name="perPage">%s ανά σελίδα</string>
 </resources>

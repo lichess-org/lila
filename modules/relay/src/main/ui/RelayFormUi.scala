@@ -468,7 +468,7 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
             form3.group(
               form("info.tc"),
               trs.timeControl(),
-              help = frag(""""Classical" or "Rapid" or "Rapid & Blitz"""").some,
+              help = frag("""e.g. "15 min + 10 sec" or "15+10"""").some,
               half = true
             )(form3.input(_)),
             form3.group(
@@ -644,6 +644,17 @@ Team Dogs ; Scooby Doo"""),
                     form("pinnedStream.name"),
                     "Stream name",
                     half = true
+                  )(form3.input(_))
+                ),
+                form3.split(
+                  form3.group(
+                    form("pinnedStream.text"),
+                    "Stream link label",
+                    help = frag(
+                      "Optional. Show a label on the image link to your live stream.",
+                      br,
+                      "Example: 'Watch us live on YouTube!'"
+                    ).some
                   )(form3.input(_))
                 )
               )

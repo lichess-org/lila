@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Quickly generate safe usernames and passwords for students</string>
   <string name="trackStudentProgress">Track student progress in games and puzzles</string>
   <string name="messageAllStudents">Message all students about new class material</string>
-  <string name="freeForAllForever">100% free for all, forever, with no ads or trackers</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% free for all, forever, with no ads or trackers</string>
   <string name="applyToBeLichessTeacher">Apply to be a Lichess Teacher</string>
   <string name="noClassesYet">No classes yet.</string>
   <string name="teachersX">Teachers: %s</string>
@@ -57,6 +57,8 @@ Here is the link to access the class.</string>
     <item quantity="one">One pending invitation</item>
     <item quantity="other">%s pending invitations</item>
   </plurals>
+  <string name="pending">Pending</string>
+  <string name="declined">Declined</string>
   <string name="onlyVisibleToTeachers">Only visible to the class teachers</string>
   <string name="lastActiveDate">Active</string>
   <string name="managed">Managed</string>
@@ -114,4 +116,6 @@ It will display a horizontal line.</string>
   <string name="anInvitationHasBeenSentToX">An invitation has been sent to %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s already has a pending invitation</string>
   <string name="xIsAKidAccountWarning">%1$s is a kid account and can\'t receive your message. You must give them the invitation URL manually: %2$s</string>
+  <string name="moveToClass">Move to %s</string>
+  <string name="moveToAnotherClass">Move to another class</string>
 </resources>

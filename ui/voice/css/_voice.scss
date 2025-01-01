@@ -1,6 +1,6 @@
 #voice-bar {
+  @include prevent-select;
   position: relative;
-  user-select: none;
   flex: 1 1 auto;
   grid-area: voice;
 }

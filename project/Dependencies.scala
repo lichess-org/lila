@@ -23,7 +23,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth"               % "google-auth-library-oauth2-http" % "1.30.1"
   val galimatias  = "io.mola.galimatias"            % "galimatias"                      % "0.2.2-NF"
   val scalatags   = "com.lihaoyi"                  %% "scalatags"                       % "0.13.1"
-  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.1.RELEASE"
+  val lettuce     = "io.lettuce"                    % "lettuce-core"                    % "6.5.2.RELEASE"
   val nettyTransport =
     ("io.netty" % s"netty-transport-native-$notifier" % "4.1.116.Final").classifier(s"$os-$arch")
   val lilaSearch  = "org.lichess.search"         %% "client"        % "3.1.0"
@@ -42,7 +42,7 @@ object Dependencies {
   }
 
   object chess {
-    val version  = "16.5.3"
+    val version  = "17.1.1"
     val core     = "org.lichess" %% "scalachess"           % version
     val testKit  = "org.lichess" %% "scalachess-test-kit"  % version % Test
     val playJson = "org.lichess" %% "scalachess-play-json" % version
@@ -51,7 +51,7 @@ object Dependencies {
   }
 
   object scalalib {
-    val version  = "11.5.3"
+    val version  = "11.5.4"
     val core     = "org.lichess" %% "scalalib-core"      % version
     val model    = "org.lichess" %% "scalalib-model"     % version
     val playJson = "org.lichess" %% "scalalib-play-json" % version

@@ -70,6 +70,8 @@
   <string name="promoteVariation">Varyasyonê bipêşîne</string>
   <string name="makeMainLine">Bike rêza esasî</string>
   <string name="deleteFromHere">Ji vir pê de jê bibe</string>
+  <string name="collapseVariations">Varyasyonan teng bike</string>
+  <string name="expandVariations">Varyasyonan fireh bike</string>
   <string name="forceVariation">Zorê bide bo vê varyasyonê</string>
   <string name="copyVariationPgn">PGNa varyasyonê kopî bike</string>
   <string name="move">Hemle</string>
@@ -101,8 +103,12 @@
   <string name="openingExplorer">Kaşifê destpêkê</string>
   <string name="openingEndgameExplorer">Geroka despêk/dawîyê</string>
   <string name="xOpeningExplorer">%s kaşifê destpêkê</string>
+  <string name="playFirstOpeningEndgameExplorerMove">Hemleya pêşî ya kaşîfê vekirin/dawîya lîstikê bilîze</string>
   <string name="winPreventedBy50MoveRule">Ji ber qaîdeya 50 hemleyê rê li ber serkeftinê hate girtin</string>
   <string name="lossSavedBy50MoveRule">Rê li ber mexlubiyetê hate girtin ji ber qaîdeya 50 hemleyê</string>
+  <string name="winOr50MovesByPriorMistake">Qezenckirin an 50 hemleyên ji ber xetayên berê</string>
+  <string name="lossOr50MovesByPriorMistake">Qeybkirin an 50 hemleyên ji ber xetayên berê</string>
+  <string name="unknownDueToRounding">Qezenckirin/qeybkirin tenê gava ku xetên di binkeya tabloyê de pêşnîyarkirî piştî zeftkirin an hemleya pîyonê yê dawî û pê ve were şopandin tê garantîkirin, ji ber giloverkirina nirxên DTZyê yên di binkeyên tabloyê ya Syzygy de ya muhtemel.</string>
   <string name="allSet">Temam e!</string>
   <string name="importPgn">PGNyê bîne navê</string>
   <string name="delete">Jê bibe</string>
@@ -112,6 +118,7 @@
   <string name="byCPL">Bi CPL</string>
   <string name="enable">Biçalakîne</string>
   <string name="bestMoveArrow">Nîşandana hemleya çêtirîn</string>
+  <string name="showVariationArrows">Tîrikên varyasyonê nîşan bide</string>
   <string name="evaluationGauge">Nîşandera nirxandinê</string>
   <string name="multipleLines">Varyantên pirhejmar</string>
   <string name="cpus">CPU</string>
@@ -143,10 +150,16 @@
     <item quantity="one">%s lîzer</item>
     <item quantity="other">%s lîzer</item>
   </plurals>
+  <string name="drawByMutualAgreement">Beranberîya bi qebûla herdu alîyan</string>
+  <string name="fiftyMovesWithoutProgress">Pêncî hemleyên bêyî pêşketinek</string>
   <string name="currentGames">Lîstikên vê gavê</string>
   <plurals name="nbGames">
     <item quantity="one">%s lîstik</item>
     <item quantity="other">%s lîstik</item>
+  </plurals>
+  <plurals name="ratingXOverYGames">
+    <item quantity="one">%1$s puanên ji ser %2$s lîstikan</item>
+    <item quantity="other">%1$s puanên ji ser %2$s lîstikan</item>
   </plurals>
   <plurals name="nbBookmarks">
     <item quantity="one">%s cihnîşan</item>
@@ -165,6 +178,7 @@
   <string name="latestForumPosts">Şandiyên forumê yên dawîn</string>
   <string name="players">Lîzer</string>
   <string name="friends">Hevalan</string>
+  <string name="otherPlayers">lîstikvanên din</string>
   <string name="discussions">Nîqaşan</string>
   <string name="today">Îro</string>
   <string name="yesterday">Doh</string>
@@ -184,6 +198,10 @@
     <item quantity="one">%s demjimêr</item>
     <item quantity="other">%s demjimêr</item>
   </plurals>
+  <plurals name="nbMinutes">
+    <item quantity="one">%s deqe</item>
+    <item quantity="other">%s deqe</item>
+  </plurals>
   <string name="time">Dem</string>
   <string name="rating">Pile</string>
   <string name="ratingStats">Statîstîkên pileyan</string>
@@ -192,14 +210,39 @@
   <string name="changeUsername">Navê bikarhêneriyê biguherîne</string>
   <string name="changeUsernameNotSame">Tenê halê hûrdekî - girdekiya tîpan dikare were guherandin. Mîsalen \"mihemedronî\" li \"MihemedRonî\".</string>
   <string name="changeUsernameDescription">Navê xwe yê bikarhêneriyê biguherîne. Ev tenê carekê dikare were kirin û tu tenê ji bo guherandina girdekî - hûrdekiya tîpên di navê te yê bikarhêneriyê de destûrdayî yî.</string>
+  <string name="signupUsernameHint">Jê emîn be ku te navekî bikarhênerîyê ya malbat-dost bijartîye. Tu nikarî paşê wê biguherînî û her hesabê bi navekî bikarhênerîyê ya neminasîb wê werin girtin!</string>
+  <string name="signupEmailHint">Em ê wî tenê ji bo resetkirina şîfreyê biemilînin.</string>
   <string name="password">Pêborîn</string>
   <string name="changePassword">Pêborînê biguherîne</string>
   <string name="changeEmail">Epeyamê biguherîne</string>
   <string name="email">Epeyam</string>
   <string name="passwordReset">Epeyamê nû bike</string>
   <string name="forgotPassword">Te pêborînê ji bîr kir?</string>
+  <string name="error.weakPassword">Ev şîfre pir berbelav e û texmînkirina wê rehet e.</string>
+  <string name="error.namePassword">Ji kerema xwe navê xwe yê bikarhênerîyê wek şîfre neemilîne.</string>
+  <string name="blankedPassword">Te eynî şîfreyê li sîteyeke din emilandîye, û ew sîte hatîye hekkirin. Ji bo ewlehîya hesabê xwe yê Lichessê, divê tu şîfreyeke din saz bikî. Malî ava ji bo fehma te.</string>
+  <string name="youAreLeavingLichess">Tu ji Lichessê derdikevî</string>
+  <string name="neverTypeYourPassword">Qetîyyen şîfreya xwe ya Lichessê li ser sîteyeke din nenivîse!</string>
+  <string name="proceedToX">Dewam bike %s</string>
+  <string name="passwordSuggestion">Şîfreyeke ji alîyê yekî din ve teklîfkirî daneyîne. Ew ê ji bo dizîna hesabê te wê biemilînin.</string>
+  <string name="emailSuggestion">Emaîleke ku ji alîyê yekî din ve hatîye teklîfkirin neemilîne. Ew ê ji bo dizîna hesabê te wê biemilînin.</string>
+  <string name="emailConfirmHelp">Alîkarîya ji bo tesdîqkirina emaîlê</string>
+  <string name="emailConfirmNotReceived">Te piştê qeydbûnê emaîla tesdîqkirinê wernegirti?</string>
+  <string name="whatSignupUsername">Te ji bo qeydbûnê kîjan navê bikarhênerîyê emiland?</string>
+  <string name="usernameNotFound">Me ti bikarhênerekî bi vê navê peyda nekir: %s.</string>
+  <string name="usernameCanBeUsedForNewAccount">Vê navê bikarhênerîyê ji bo çêkirina hesabekî nû karî biemilînî</string>
   <string name="emailSent">Me ji %s re email şand.</string>
+  <string name="emailCanTakeSomeTime">Gihîna wê kare hinek wext bigire.</string>
+  <string name="refreshInboxAfterFiveMinutes">5 deqe bisekine û înboksa emaîla xwe nû bike.</string>
+  <string name="checkSpamFolder">Herwiha qismê spamê kontrol bike, dibe ku çûbe wê derê. Eger li wir be, wek \"spam nîne\" îşaret bike.</string>
+  <string name="emailForSignupHelp">Eger temamê van nebe, wê gavê vê emaîlê bişîne me:</string>
+  <string name="copyTextToEmail">Vê metna li jorê kopî peyst bike û bişîne %s</string>
+  <string name="waitForSignupHelp">Di wexteke kurt de em ê vegerin te ji bo alîkirina temamkirina qeydbûna te.</string>
+  <string name="accountConfirmed">Bikarhêner %s bi serkeftinî hate tesdîqkirin.</string>
   <string name="accountCanLogin">Tu niha dikarî wek %s têkevî.</string>
+  <string name="accountConfirmationEmailNotNeeded">Îhtîyacî bi emaîla tesdîqkirinê nîne.</string>
+  <string name="accountClosed">Hesabê %s hatîye girtin.</string>
+  <string name="accountRegisteredWithoutEmail">Hesabê %s bêyî emaîlekê qeyd bûye.</string>
   <string name="rank">Pile</string>
   <string name="rankX">Pile: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -215,6 +258,7 @@
     <item quantity="one">%s lîsteka bi te re</item>
     <item quantity="other">%s lîstikên bi te re</item>
   </plurals>
+  <string name="ok">OK</string>
   <string name="cancel">Betal bike</string>
   <string name="whiteTimeOut">Dema Spî qedîya</string>
   <string name="blackTimeOut">Dema Reş qedîya</string>
@@ -234,6 +278,7 @@
   <string name="abortGame">Lîstikê betal bike</string>
   <string name="gameAborted">Lîstik hate betalkirin</string>
   <string name="standard">Standard</string>
+  <string name="customPosition">Pozîsyoneke xisûsî</string>
   <string name="unlimited">Bêsînor</string>
   <string name="mode">Mod</string>
   <string name="casual">Bêpuan</string>
@@ -286,6 +331,7 @@
     <item quantity="one">%s çirke bide</item>
     <item quantity="other">%s çirke bide</item>
   </plurals>
+  <string name="thisAccountViolatedTos">Ev hesab Mercên Xizmetê ya Lichessê îxlal kir</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
   <string name="takeback">Vegerîne</string>
   <string name="proposeATakeback">Vegerandinê teklîf bike</string>
@@ -364,6 +410,7 @@
   <string name="blackCheckmatesInOneMove">Ya reş bi hemleyekê şahmat dike</string>
   <string name="retry">Cardin biceribîne</string>
   <string name="reconnecting">Cardin tê girêdan</string>
+  <string name="noNetwork">Offlayn</string>
   <plurals name="nbFriendsOnline">
     <item quantity="one">%s heval serhêl e</item>
     <item quantity="other">%s heval serhêl in</item>
@@ -428,6 +475,7 @@
   <string name="movesPlayed">Hemleyên lîstî</string>
   <string name="whiteWins">Serkeftinên spî</string>
   <string name="blackWins">Serkeftinên reş</string>
+  <string name="drawRate">Rêjeya wekhevmayînê</string>
   <string name="draws">Wekhevî</string>
   <string name="nextXTournament">Pêşbirka li dû %s:</string>
   <string name="averageOpponent">Dijbera averaj</string>

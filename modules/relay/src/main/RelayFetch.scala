@@ -1,7 +1,7 @@
 package lila.relay
 
 import chess.format.pgn.{ PgnStr, SanStr, Tag, Tags }
-import chess.{ Outcome, Ply }
+import chess.{ Outcome, Ply, TournamentClock }
 import com.github.blemale.scaffeine.LoadingCache
 import io.mola.galimatias.URL
 import play.api.libs.json.*
@@ -11,7 +11,6 @@ import lila.common.LilaScheduler
 import lila.core.lilaism.LilaInvalid
 import lila.game.{ GameRepo, PgnDump }
 import lila.memo.CacheApi
-import lila.relay.RelayFormat.CanProxy
 import lila.relay.RelayRound.Sync
 import lila.study.{ MultiPgn, StudyPgnImport }
 
@@ -19,6 +18,7 @@ final private class RelayFetch(
     sync: RelaySync,
     api: RelayApi,
     irc: lila.core.irc.IrcApi,
+    http: HttpClient,
     formatApi: RelayFormatApi,
     delayer: RelayDelay,
     fidePlayers: RelayFidePlayerApi,
@@ -89,8 +89,8 @@ final private class RelayFetch(
         sliced           = RelayGame.Slices.filter(~rt.round.sync.slices)(filtered)
         limited          = sliced.take(RelayFetch.maxChaptersToShow.value)
         withPlayers <- playerEnrich.enrichAndReportAmbiguous(rt)(limited)
-        enriched    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
-        withTeams = rt.tour.teams.fold(enriched)(_.update(enriched))
+        withFide    <- fidePlayers.enrichGames(rt.tour)(withPlayers)
+        withTeams = rt.tour.teams.fold(withFide)(_.update(withFide))
         res <- sync
           .updateStudyChapters(rt, withTeams)
           .withTimeoutError(7 seconds, SyncResult.Timeout)
@@ -147,16 +147,9 @@ final private class RelayFetch(
   private def continueRelay(tour: RelayTour, updating: Updating[RelayRound]): Updating[RelayRound] =
     val round = updating.current
     round.sync.upstream.fold(updating): upstream =>
+      reportBroadcastFailure(round.withTour(tour))
       val seconds: Seconds =
         if round.sync.log.alwaysFails then
-          round.sync.log.events.lastOption
-            .filterNot(_.isTimeout)
-            .flatMap(_.error)
-            .ifTrue(tour.official && round.shouldHaveStarted)
-            .filterNot(_.contains("Cannot parse move"))
-            .filterNot(_.contains("Cannot parse pgn"))
-            .filterNot(_.contains("Found an empty PGN"))
-            .foreach { irc.broadcastError(round.id, round.withTour(tour).fullName, _) }
           Seconds(tour.tier.fold(60):
             case RelayTour.Tier.best => 10
             case RelayTour.Tier.high => 20
@@ -173,17 +166,32 @@ final private class RelayFetch(
             }.some
           )
 
+  private def reportBroadcastFailure(r: RelayRound.WithTour): Unit =
+    if r.round.sync.log.alwaysFails then
+      r.round.sync.log.events.lastOption
+        .filterNot(_.isTimeout)
+        .flatMap(_.error)
+        .ifTrue(r.tour.official && r.round.shouldHaveStarted)
+        .filterNot(_.contains("Cannot parse move"))
+        .filterNot(_.contains("Cannot parse pgn"))
+        .filterNot(_.contains("Found an empty PGN"))
+        .foreach { irc.broadcastError(r.round.id, r.fullName, _) }
+
   private def dynamicPeriod(tour: RelayTour, round: RelayRound, upstream: Sync.Upstream) = Seconds:
+    val highPriorityTier = tour.tier.exists:
+      case RelayTour.Tier.best | RelayTour.Tier.`private` => true
+      case _                                              => false
     val base =
-      if upstream.hasLcc then 6
+      if upstream.hasLcc then 4
       else if upstream.isRound then 10 // uses push so no need to pull often
       else 2
     base * {
-      if tour.tier.exists(_ > RelayTour.Tier.normal) then 1
+      if highPriorityTier then 1
+      else if tour.tier.has(RelayTour.Tier.`private`) then 1
       else if tour.official then 2
       else 3
     } * {
-      if upstream.hasLcc && round.crowd.exists(_ < 10) then 2 else 1
+      if upstream.hasLcc && !highPriorityTier && round.crowd.exists(_ < 10) then 2 else 1
     } * {
       if round.hasStarted then 1 else 2
     }
@@ -238,16 +246,17 @@ final private class RelayFetch(
     private val createdGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.createdLccGames"):
         _.expireAfter[LccGameKey, GameJson](
-          create = (key, _) => (if key.startsWith("started ") then 1 minute else 5 minutes),
+          create = (key, _) => (if key.startsWith("started ") then 20.seconds else 3.minutes),
           update = (_, _, current) => current,
           read = (_, _, current) => current
         ).build()
     // cache games with number > 12 to reduce load on big tournaments
-    val tailAt = 12
+    val tailAt = 30
     private val tailGames =
       cacheApi.notLoadingSync[LccGameKey, GameJson](256, "relay.fetch.tailLccGames"):
         _.expireAfterWrite(1 minutes).build()
 
+    // index starts at 1
     def apply(lcc: RelayRound.Sync.Lcc, index: Int, roundTags: Tags, started: Boolean)(
         fetch: () => Fu[GameJson]
     ): Fu[GameJson] =
@@ -255,21 +264,21 @@ final private class RelayFetch(
       finishedGames
         .getIfPresent(key)
         .orElse(createdGames.getIfPresent(key))
-        .orElse((index >= lccCache.tailAt).so(tailGames.getIfPresent(key)))
+        .orElse((index > lccCache.tailAt).so(tailGames.getIfPresent(key)))
         .match
           case Some(game) => fuccess(game)
           case None =>
             fetch().addEffect: game =>
               if game.moves.isEmpty then createdGames.put(key, game)
               else if game.mergeRoundTags(roundTags).outcome.isDefined then finishedGames.put(key, game)
-              else if index >= lccCache.tailAt then tailGames.put(key, game)
+              else if index > lccCache.tailAt then tailGames.put(key, game)
 
   // used to return the last successful result when a source fails
   // games are stripped of their moves, only tags are kept.
   // the point is to avoid messing up slices in multi-URL setups.
   // if a single URL fails, it should not moves the games of the following URLs.
   private val multiUrlFetchRecoverCache =
-    cacheApi.notLoadingSync[URL, RelayGames](256, "relay.fetch.recoverCache"):
+    cacheApi.notLoadingSync[URL, RelayGames](16, "relay.fetch.recoverCache"):
       _.expireAfterWrite(1 hour).build()
 
   private def fetchFromUpstreamWithRecovery(rt: RelayRound.WithTour)(url: URL)(using
@@ -290,7 +299,7 @@ final private class RelayFetch(
     import DgtJson.*
     formatApi
       .get(url)
-      .flatMap {
+      .flatMap:
         case RelayFormat.Round(id) =>
           studyChapterRepo
             .orderedByStudyLoadingAllInMemory(id.into(StudyId))
@@ -298,43 +307,47 @@ final private class RelayFetch(
         case RelayFormat.SingleFile(url) =>
           httpGetPgn(url)
             .map { MultiPgn.split(_, RelayFetch.maxGamesToRead(rt.tour.official)) }
+            .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithGames(lcc) =>
-          httpGetJson[RoundJson](lcc.indexUrl).flatMap: round =>
-            val lookForStart: Boolean =
-              rt.round.startsAtTime
-                .map(_.minusSeconds(rt.round.sync.delay.so(_.value) + 5 * 60))
-                .forall(_.isBeforeNow)
-            round.pairings
-              .mapWithIndex: (pairing, i) =>
-                val game = i + 1
-                val tags = pairing.tags(lcc.round, game, round.date)
-                lccCache(lcc, game, tags, lookForStart): () =>
-                  httpGetJson[GameJson](lcc.gameUrl(game)).recover:
-                    case _: Exception => GameJson(moves = Nil, result = none)
-                .map { _.toPgn(tags) }
-                  .recover: _ =>
-                    PgnStr(s"${tags}\n\n${pairing.result}")
-                  .map(game -> _)
-              .parallel
-              .map: pgns =>
-                MultiPgn(pgns.sortBy(_._1).map(_._2))
-              .flatMap(multiPgnToGames.future)
+          httpGetRoundJson(lcc.indexUrl)
+            .flatMap: round =>
+              val lookForStart: Boolean =
+                rt.round.startsAtTime
+                  .map(_.minusSeconds(rt.round.sync.delay.so(_.value) + 5 * 60))
+                  .forall(_.isBeforeNow)
+              round.pairings
+                .mapWithIndex: (pairing, i) =>
+                  val game = i + 1
+                  val tags = pairing.tags(lcc.round, game, round.date)
+                  lccCache(lcc, game, tags, lookForStart): () =>
+                    httpGetGameJson(lcc.gameUrl(game)).recover:
+                      case _: Exception => GameJson(moves = Nil, result = none)
+                  .map { _.toPgn(tags) }
+                    .recover: _ =>
+                      PgnStr(s"${tags}\n\n${pairing.result}")
+                    .map(game -> _)
+                .parallel
+                .map: pgns =>
+                  MultiPgn(pgns.sortBy(_._1).map(_._2))
+                .map(injectTimeControl.in(rt.tour.info.clock))
+                .flatMap(multiPgnToGames.future)
         case RelayFormat.LccWithoutGames(lcc) =>
-          httpGetJson[RoundJson](lcc.indexUrl)
+          httpGetRoundJson(lcc.indexUrl)
             .map: round =>
               MultiPgn:
                 round.pairings.mapWithIndex: (pairing, i) =>
                   PgnStr(s"${pairing.tags(lcc.round, i + 1, round.date)}\n\n${pairing.result}")
+            .map(injectTimeControl.in(rt.tour.info.clock))
             .flatMap(multiPgnToGames.future)
-      }
 
-  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] =
-    PgnStr.from(formatApi.httpGetAndGuessCharset(url))
-
-  private def httpGetJson[A: Reads](url: URL)(using CanProxy): Fu[A] = for
-    str  <- formatApi.httpGet(url)
-    json <- Future(Json.parse(str)) // Json.parse throws exceptions (!)
+  private def httpGetPgn(url: URL)(using CanProxy): Fu[PgnStr] = PgnStr.from(http.get(url))
+  private def httpGetRoundJson(url: URL)(using CanProxy): Fu[DgtJson.RoundJson] =
+    http.get(url).flatMap(readAsJson[DgtJson.RoundJson](url))
+  private def httpGetGameJson(url: URL)(using CanProxy): Fu[DgtJson.GameJson] =
+    http.get(url).flatMap(readAsJson[DgtJson.GameJson](url))
+  private def readAsJson[A: Reads](url: URL)(body: HttpClient.Body): Fu[A] = for
+    json <- Future(Json.parse(body)) // Json.parse throws exceptions (!)
     data <- summon[Reads[A]].reads(json).fold(err => fufail(s"Invalid JSON from $url: $err"), fuccess)
   yield data
 
@@ -345,9 +358,24 @@ private object RelayFetch:
   private val maxGamesToReadOfficial: Max    = maxGamesToRead.map(_ * 2)
   def maxGamesToRead(official: Boolean): Max = if official then maxGamesToReadOfficial else maxGamesToRead
 
+  object injectTimeControl:
+
+    private val lookup                               = """[TimeControl """"
+    private def replace(tc: TournamentClock): String = s"${Tag.timeControl(tc)}\n"
+
+    def in(tco: Option[TournamentClock])(multiPgn: MultiPgn): MultiPgn = MultiPgn:
+      multiPgn.value.map(in(_, tco))
+
+    def in(pgn: PgnStr, tco: Option[TournamentClock]): PgnStr =
+      tco.fold(pgn): tc =>
+        pgn.map: txt =>
+          if txt.contains("""[TimeControl """")
+          then txt
+          else s"""${replace(tc)}$txt"""
+
   object multiPgnToGames:
 
-    def apply(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
+    def either(multiPgn: MultiPgn): Either[LilaInvalid, Vector[RelayGame]] =
       multiPgn.value
         .foldLeftM(Vector.empty[RelayGame] -> 0):
           case ((acc, index), pgn) =>
@@ -358,7 +386,7 @@ private object RelayFetch:
                 else (acc :+ game, index + 1).asRight[LilaInvalid]
         .map(_._1)
 
-    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = apply(multiPgn).toFuture
+    def future(multiPgn: MultiPgn): Fu[Vector[RelayGame]] = either(multiPgn).toFuture
 
     private val pgnCache: LoadingCache[PgnStr, Either[LilaInvalid, RelayGame]] =
       CacheApi
@@ -369,6 +397,7 @@ private object RelayFetch:
         .build(compute)
 
     private def compute(pgn: PgnStr): Either[LilaInvalid, RelayGame] =
-      StudyPgnImport(pgn, Nil)
+      StudyPgnImport
+        .result(pgn, Nil)
         .leftMap(err => LilaInvalid(err.value))
         .map(RelayGame.fromStudyImport)

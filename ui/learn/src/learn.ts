@@ -35,6 +35,7 @@ export interface LearnOpts {
 export interface LearnPrefs {
   coords: Coords;
   destination: boolean;
+  is3d: boolean;
 }
 
 interface LearnServerOpts {

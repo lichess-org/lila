@@ -14,13 +14,7 @@ object PuzzleHistory:
   case class PuzzleSession(
       theme: PuzzleTheme.Key,
       puzzles: NonEmptyList[SessionRound] // chronological order, oldest first
-  ) {
-    // val nb              = puzzles.size
-    // val firstWins       = puzzles.toList.count(_.round.firstWin)
-    // val fails           = nb - firstWins
-    // def puzzleRatingAvg = puzzles.toList.foldLeft(0)(_ + _.puzzle.glicko.intRating)
-    // def performance     = puzzleRatingAvg - 500 + math.round(1000 * (firstWins.toFloat / nb))
-  }
+  )
 
   final class HistoryAdapter(user: WithPerf, colls: PuzzleColls)(using Executor)
       extends AdapterLike[PuzzleSession]:

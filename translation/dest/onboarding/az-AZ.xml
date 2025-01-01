@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="welcome">Xoş Gəldiniz!</string>
+  <string name="welcomeToLichess">Lichess.org\'a xoş gəldiniz!</string>
+  <string name="thisIsYourProfilePage">Bu sizin profil səhifənizdir.</string>
+  <string name="enabledKidModeSuggestion" comment="%s is 'Kid mode'.">Bir uşaq bu hesabdan istifadə edəcək? əgər elə isə %s\'u aktivləşdirə bilərsiniz.</string>
   <string name="learnChessRules">Şahmat qaydalarını öyrən</string>
   <string name="improveWithChessTacticsPuzzles">Taktiki şahmat tapmacalar ilə təkmilləş.</string>
   <string name="playTheArtificialIntelligence">Süni İntellektlə oyna.</string>

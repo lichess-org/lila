@@ -1,2 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+  <string name="puzzles">Exercicios</string>
+  <string name="puzzleThemes">Temes d\'exercicios</string>
+  <string name="recommended">Aconséyase</string>
+  <string name="phases">Fases</string>
+  <string name="motifs">Temes</string>
+  <string name="advanced">Avanzáu</string>
+  <string name="lengths">Duración</string>
+  <string name="mates">Mates</string>
+  <string name="goals">Oxetivos</string>
+  <string name="origin">Orixe</string>
+  <string name="specialMoves">Movimientos especiales</string>
+  <string name="didYouLikeThisPuzzle">¿Te gustó esti exerciciu?</string>
+  <string name="voteToLoadNextOne">¡Vota pa pasar al siguiente!</string>
+  <string name="puzzleId">Exerciciu %s</string>
+  <string name="puzzleOfTheDay">Exerciciu del día</string>
+  <string name="dailyPuzzle">Exerciciu diariu</string>
+</resources>

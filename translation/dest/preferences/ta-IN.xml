@@ -22,7 +22,7 @@
   <string name="inGameOnly">விளையாட்டில் மட்டும்</string>
   <string name="chessClock">செஸ் கடிகாரம்</string>
   <string name="tenthsOfSeconds">பத்தில் ஒரு பங்கு வினாடிகள்</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">மீதமுள்ள நேரம் &lt; 10 வினாடிகள்</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">மீதமுள்ள நேரம் &lt; 10 வினாடிகள்</string>
   <string name="horizontalGreenProgressBars">கிடைமட்ட பச்சை முன்னேற்றப் பட்டைகள்</string>
   <string name="soundWhenTimeGetsCritical">நேரம் முக்கியமானதாக இருக்கும்போது ஒலி</string>
   <string name="giveMoreTime">கூடுதல் நேரம் வழங்கு</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">&lt;ctrl&gt; தானியங்கு விளம்பரத்தை தற்காலிகமாக முடக்குவதற்கு விளம்பரப்படுத்தும் போது முக்கியமானது</string>
   <string name="whenPremoving">முன்செல்லும் போது</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">தானாக மூன்று மடங்கு திரும்ப திரும்ப உரிமை கோரவும்</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">மீதமுள்ள நேரம் &lt; 30 வினாடிகள்</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">மீதமுள்ள நேரம் &lt; 30 வினாடிகள்</string>
   <string name="moveConfirmation">நகர்த்த உறுதிப்படுத்தல்</string>
   <string name="explainCanThenBeTemporarilyDisabled">போர்டு மெனுவுடன் விளையாட்டின் போது முடக்கப்படலாம்</string>
   <string name="inCorrespondenceGames">கடித விளையாட்டுகள்</string>

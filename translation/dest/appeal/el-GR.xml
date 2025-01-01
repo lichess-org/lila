@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="accountMutedInfo" comment="%s is &quot;communication guidelines&quot;, which is a string separately available for translation.">Διαβάστε τις %s. Μπορεί να σιγαστεί ο λογαριασμός σας αν δεν τηρήτε τις οδηγίες μας.</string>
-  <string name="communicationGuidelines" comment="Part of a longer sentence:&#10;&#10;Read our communication guidelines. Failure to follow the communication guidelines can result in accounts being muted.">οδηγίες επικοινωνίας</string>
+  <string name="cleanAllGood">Ο λογαριασμός σας δεν έχει επισημανθεί ή περιοριστεί. Όλα καλά!</string>
+  <string name="engineMarked">Ο λογαριασμός σας έχει επισημανθεί λόγω εξωτερικής βοήθειας σε παιχνίδια.</string>
+  <string name="engineMarkedInfo">Αυτό ορίζεται ως χρήση οποιασδήποτε εξωτερικής βοήθειας για την ενίσχυση των γνώσεων ή / και των δεξιοτήτων υπολογισμού, προκειμένου να αποκτήσετε αθέμιτο πλεονέκτημα έναντι του αντιπάλου σας. Δείτε τη σελίδα %s για περισσότερες λεπτομέρειες.</string>
+  <string name="arenaBanned">Ο λογαριασμός σας έχει αποκλειστεί από την ένταξη σε αρένες.</string>
+  <string name="prizeBanned">Ο λογαριασμός σας έχει αποκλειστεί από τουρνουά με πραγματικά βραβεία.</string>
+  <string name="boosterMarked">Ο λογαριασμός σας έχει επισημανθεί λόγω χειραγώγησης βαθμολογίας.</string>
+  <string name="boosterMarkedInfo">Αυτό ορίζεται ως σκόπιμη χειραγώγηση της βαθμολογίας χάνοντας παιχνίδια επίτηδες ή παίζοντας εναντίον ενός άλλου λογαριασμού που σκοπίμως χάνει παιχνίδια.</string>
+  <string name="accountMuted">Ο λογαριασμός σας είναι σε σίγαση.</string>
+  <string name="accountMutedInfo">Διαβάστε τις %s. Αδυναμία τήρησης των οδηγιών επικοινωνίας μπορεί να θέσει τον λογαριασμό σας σε σίγαση.</string>
+  <string name="excludedFromLeaderboards">Ο λογαριασμός σας έχει αποκλειστεί από τους πίνακες κατάταξης.</string>
+  <string name="excludedFromLeaderboardsInfo">Αυτό ορίζεται ως χρήση οποιουδήποτε άδικου τρόπου ένταξης στους πίνακες κατάταξης.</string>
+  <string name="closedByModerators">Ο λογαριασμός σας έκλεισε από τους συντονιστές.</string>
+  <string name="hiddenBlog">Τα blogs σας έχουν κρυφτεί από τους συντονιστές.</string>
+  <string name="hiddenBlogInfo">Φροντίστε να διαβάσετε ξανά το %s.</string>
+  <string name="playTimeout">Δεν μπορείτε να παίξετε αυτή τη στιγμή λόγω timeout.</string>
+  <string name="communicationGuidelines">οδηγίες επικοινωνίας</string>
+  <string name="blogRules">ευγενής άμιλλα</string>
+  <string name="fairPlay">ευγενής άμιλλα</string>
 </resources>

@@ -6,7 +6,7 @@ import chess.format.{ Fen, UciPath }
 import lila.tree.Node.Comment
 import lila.tree.{ Branch, Node, Root }
 
-final private class ExplorerGame(
+final private class ExplorerGameApi(
     explorer: lila.core.game.Explorer,
     namer: lila.core.game.Namer,
     lightUserApi: lila.core.user.LightUserApi,

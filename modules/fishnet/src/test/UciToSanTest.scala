@@ -2,12 +2,13 @@ package lila.fishnet
 
 import chess.format.pgn.{ Reader, SanStr }
 import chess.{ Ply, Replay }
+import chess.eval.*
+import chess.eval.Eval.*
 
 import scala.language.implicitConversions
 
 import lila.analyse.{ Analysis, Info }
 import lila.tree.Eval
-import lila.tree.Eval.*
 
 final class UciToSanTest extends munit.FunSuite:
 

@@ -22,7 +22,7 @@
   <string name="inGameOnly">仅在对局中</string>
   <string name="chessClock">棋钟</string>
   <string name="tenthsOfSeconds">显示十分之一秒</string>
-  <string name="whenTimeRemainingLessThanTenSeconds" comment="whenTimeRemainingLessThanTenSeconds&#10;&#10;The &amp;lt; symbol is not required (you can write it as a word), just do NOT use &lt; in its place.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">当剩余时间小于10秒</string>
+  <string name="whenTimeRemainingLessThanTenSeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">当剩余时间小于10秒</string>
   <string name="horizontalGreenProgressBars">显示绿色横进度条</string>
   <string name="soundWhenTimeGetsCritical">时间不足时声音提醒</string>
   <string name="giveMoreTime">给对方更多时间</string>
@@ -38,7 +38,7 @@
   <string name="explainPromoteToQueenAutomatically">按住 &lt;ctrl&gt; 键以临时禁用自动升变</string>
   <string name="whenPremoving">预先走棋時</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">在三次重复局面时自动要求和局</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">当剩余时间小于30秒</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds" comment="The &amp;lt; symbol becomes &quot;&lt;&quot; (less than symbol).&#10;It is not required in your translation; you can write it as a word for example. Just do NOT use &lt; in its place, or your translation will have to be removed.&#10;&#10;Technical information: &lt; is a reserved character in HTML, which is why it cannot be used.">时间剩余 &lt; 30秒时</string>
   <string name="moveConfirmation">确认走棋</string>
   <string name="explainCanThenBeTemporarilyDisabled">可以在游戏中使用棋盘菜单禁用此功能</string>
   <string name="inCorrespondenceGames">通信棋局</string>

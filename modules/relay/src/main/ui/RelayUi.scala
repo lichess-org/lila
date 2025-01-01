@@ -78,7 +78,7 @@ final class RelayUi(helpers: Helpers)(
           ),
           div(cls := "relay-tour__header__image"):
             rt.tour.image.map: imgId =>
-              img(src := thumbnail.url(imgId, _.Size.Large), alt := "loading...")
+              img(src := thumbnail.url(imgId, _.Size.Large))
         )
       ),
       st.aside(cls := "relay-tour__side")(div(cls := "relay-tour__side__preload"))

@@ -22,7 +22,6 @@ main.is-relay {
   }
 
   @include mq-at-least-col3 {
-    #video-player-placeholder,
     button.streamer-show {
       display: block;
     }
@@ -128,6 +127,11 @@ main.analyse.is-relay:not(.has-relay-tour) {
     }
     .analyse__round-training {
       flex: 1 0 200px;
+    }
+  }
+  &.relay-in-variation {
+    .main-board cg-board {
+      filter: saturate(0.7) brightness(0.9);
     }
   }
 }
