@@ -84,10 +84,11 @@ interface CrazyData {
 export interface CrazyPocket {
   [role: string]: number;
 }
+
 export interface RoundProxy extends RoundSocket {
   analyse(): void;
   newOpponent(): void;
-  userVNode(player: Player, postion: Position): VNode | undefined;
+  userVNode(player: Player, postion: Position): VNode | undefined; // TODO fix
 }
 
 export interface RoundOpts {

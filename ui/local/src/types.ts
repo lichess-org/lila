@@ -74,7 +74,6 @@ export interface LocalSetup {
 
 export interface LocalPlayOpts {
   pref: any;
-  i18n: any;
   userId: string;
   username: string;
   setup?: LocalSetup;

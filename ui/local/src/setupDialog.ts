@@ -67,6 +67,7 @@ class SetupDialog {
       onClose: () => localStorage.setItem('local.setup', JSON.stringify(this.setup)),
       noCloseButton: env.game !== undefined,
       noClickAway: env.game !== undefined,
+      modal: true,
     }).then(dlg => {
       this.dialog = dlg;
       this.view = dlg.view.querySelector('.with-cards')!;
