@@ -62,7 +62,6 @@ export async function loadEsm<T>(name: string, opts: EsmModuleOpts = {}): Promis
 
   const module = await import(url(opts.npm ? jsModule(name, 'npm/') : jsModule(name), opts));
   const initializer = module.initModule ?? module.default;
-  console.log(name, module.initModule);
   return opts.npm && !opts.init ? initializer : initializer(opts.init);
 }
 
