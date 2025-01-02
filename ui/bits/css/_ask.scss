@@ -64,6 +64,7 @@ fieldset.ask {
   width: 100%;
   line-height: normal;
   border: solid 1px var(--c-box-border);
+  container-type: inline-size;
 
   > label {
     margin: $gap;
@@ -95,6 +96,10 @@ span.ask__header {
     white-space: nowrap;
     margin-inline-start: $gap;
     font-size: 0.6em;
+
+    @container (max-width: #{$x-small}) {
+      display: none;
+    }
   }
 
   div {

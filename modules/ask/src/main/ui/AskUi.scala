@@ -86,7 +86,7 @@ private case class RenderAsk(
             if ask.isConcluded then span("(Results)")
             else if ask.isRanked then span("(Drag to sort)")
             else if ask.isMulti then span("(Choose all that apply)")
-            else emptyFrag // span("(Choose one)")
+            else span("(Choose one)")
           )
         ),
         maybeDiv(
