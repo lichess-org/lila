@@ -191,14 +191,6 @@ object TeamSingleChange:
   ): Change[A] =
     Change(field(TeamForm.Fields)._1, field(TeamForm.Fields)._2, f)
 
-  // Fields.password,
-  // Fields.intro,
-  // Fields.description,
-  // Fields.descPrivate,
-  // Fields.request,
-  // Fields.chat,
-  // Fields.forum,
-  // Fields.hideMembers,
   val changes: Map[String, Change[?]] = List[Change[?]](
     changing(_.password): v =>
       _.copy(password = v),
