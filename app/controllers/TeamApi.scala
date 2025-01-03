@@ -91,15 +91,6 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       reqs.map(Json.toJson).map(ApiResult.Data.apply)
   }
 
-  // def requests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
-  //   WithOwnedTeamEnabled(teamId, _.Request): team =>
-  //     import env.team.jsonView.requestWithUserWrites
-  //     val reqs =
-  //       if getBool("declined") then api.declinedRequestsWithUsers(team)
-  //       else api.requestsWithUsers(team)
-  //     reqs.map(Json.toJson).map(ApiResult.Data.apply)
-  // }
-
   def update(id: TeamId, name: String) = ScopedBody(_.Team.Lead) { _ ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Settings): team =>
       TeamSingleChange.changes.get(name).fold(fuccess(ApiResult.ClientError("incorrect setting key"))): change =>
@@ -108,18 +99,6 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
             v => api.insertUpdate(change.update(v)(team)).inject(ApiResult.Done)
           )
   }
-
-  // lila.pref.PrefSingleChange.changes
-  // .get(name)
-  // .so: change =>
-  //   bindForm(change.form)(
-  //     form => fuccess(BadRequest(form.errors.flatMap(_.messages).mkString("\n"))),
-  //     v =>
-  //       ctx.me
-  //         .so(api.setPref(_, change.update(v)))
-  //         .inject(env.security.lilaCookie.session(name, v.toString))
-  //         .map: cookie =>
-  //           Ok(()).withCookies(cookie)
 
   def requestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Request): team =>
