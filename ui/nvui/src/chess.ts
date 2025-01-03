@@ -19,7 +19,7 @@ export type PositionStyle = 'before' | 'after' | 'none';
 export type BoardStyle = 'plain' | 'table';
 
 interface RoundStep {
-  uci: Uci;
+  uci?: Uci;
 }
 
 const nato: { [file in Files]: string } = {

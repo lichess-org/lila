@@ -31,7 +31,6 @@ import { bind, onInsert } from 'common/snabbdom';
 import { throttle } from 'common/timing';
 import type PuzzleCtrl from '../ctrl';
 import { Chessground as makeChessground } from 'chessground';
-import { defined } from 'common';
 import { opposite } from 'chessops';
 
 const throttled = (sound: string) => throttle(100, () => site.sound.play(sound));
@@ -122,7 +121,6 @@ export function initModule() {
                 const $board = $(el);
                 const $buttons = $board.find('button');
                 const steps = ctrl.tree.getNodeList(ctrl.path);
-                const uciSteps = () => steps.filter((s): s is StepWithUci => defined(s.uci));
                 const fenSteps = () => steps.map(step => step.fen);
                 const opponentColor = opposite(ctrl.pov);
                 $board.on(
@@ -144,7 +142,7 @@ export function initModule() {
                     () => ground.state.pieces,
                     'standard',
                     () => ground.state.movable.dests,
-                    uciSteps,
+                    () => steps,
                   ),
                 );
                 $buttons.on('keypress', positionJumpHandler());
@@ -201,10 +199,6 @@ export function initModule() {
       );
     },
   };
-}
-
-interface StepWithUci extends Tree.Node {
-  uci: Uci;
 }
 
 function lastMove(ctrl: PuzzleCtrl, style: MoveStyle): string {
