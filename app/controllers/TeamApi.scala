@@ -91,6 +91,23 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
       reqs.map(Json.toJson).map(ApiResult.Data.apply)
   }
 
+  // def requests(teamId: TeamId) = Scoped(_.Team.Read) { ctx ?=> me ?=>
+  //   WithOwnedTeamEnabled(teamId, _.Request): team =>
+  //     import env.team.jsonView.requestWithUserWrites
+  //     val reqs =
+  //       if getBool("declined") then api.declinedRequestsWithUsers(team)
+  //       else api.requestsWithUsers(team)
+  //     reqs.map(Json.toJson).map(ApiResult.Data.apply)
+  // }
+
+  // def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
+  //   WithOwnedTeamEnabled(id, _.Settings): team =>
+  //     bindForm(forms.edit(team))(
+  //       err => BadRequest.async(renderEdit(team, err)),
+  //       data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
+  //     )
+  // }
+
   def requestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Request): team =>
       api.request(lila.team.TeamRequest.makeId(team.id, userId.id)).flatMap {
