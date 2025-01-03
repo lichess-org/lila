@@ -291,8 +291,8 @@ const renderStreak = (ctrl: PuzzleCtrl): VNode[] =>
 function renderStatus(ctrl: PuzzleCtrl): string {
   if (ctrl.mode !== 'view') return 'Solving';
   else if (ctrl.streak) return `GAME OVER. Your streak: ${ctrl.streak.data.index}`;
-  else if (ctrl.lastFeedback === 'win') return 'Puzzle solved!';
-  else return 'Puzzle complete.';
+  else if (ctrl.lastFeedback === 'win') return i18n.puzzle.puzzleSuccess;
+  else return i18n.puzzle.puzzleComplete;
 }
 
 function renderReplay(ctrl: PuzzleCtrl): string {
