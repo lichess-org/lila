@@ -5,7 +5,7 @@ import play.api.mvc.*
 import scalalib.Json.given
 
 import lila.app.{ *, given }
-import lila.team.{ Team as TeamModel, TeamSecurity }
+import lila.team.{ Team as TeamModel, TeamSecurity, TeamSingleChange }
 
 import Api.ApiResult
 
@@ -100,13 +100,26 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
   //     reqs.map(Json.toJson).map(ApiResult.Data.apply)
   // }
 
-  // def update(id: TeamId) = AuthBody { ctx ?=> me ?=>
-  //   WithOwnedTeamEnabled(id, _.Settings): team =>
-  //     bindForm(forms.edit(team))(
-  //       err => BadRequest.async(renderEdit(team, err)),
-  //       data => api.update(team, data).inject(Redirect(routes.Team.show(team.id)).flashSuccess)
-  //     )
-  // }
+  def update(id: TeamId, name: String) = ScopedBody(_.Team.Lead) { _ ?=> me ?=>
+    WithOwnedTeamEnabled(id, _.Settings): team =>
+      TeamSingleChange.changes.get(name).fold(fuccess(ApiResult.ClientError("incorrect setting key"))): change =>
+          bindForm(change.form)(
+            form => fuccess(ApiResult.ClientError(form.errors.flatMap(_.messages).mkString("\n"))),
+            v => api.insertUpdate(change.update(v)(team)).inject(ApiResult.Done)
+          )
+  }
+
+  // lila.pref.PrefSingleChange.changes
+  // .get(name)
+  // .so: change =>
+  //   bindForm(change.form)(
+  //     form => fuccess(BadRequest(form.errors.flatMap(_.messages).mkString("\n"))),
+  //     v =>
+  //       ctx.me
+  //         .so(api.setPref(_, change.update(v)))
+  //         .inject(env.security.lilaCookie.session(name, v.toString))
+  //         .map: cookie =>
+  //           Ok(()).withCookies(cookie)
 
   def requestProcess(teamId: TeamId, userId: UserStr, decision: String) = Scoped(_.Team.Lead) { _ ?=> me ?=>
     WithOwnedTeamEnabled(teamId, _.Request): team =>
