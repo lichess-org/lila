@@ -5,7 +5,7 @@
   <string name="toInviteSomeoneToPlayGiveThisUrl">Küldd el ezt a linket annak, akivel játszani szeretnél</string>
   <string name="gameOver">Játszma vége</string>
   <string name="waitingForOpponent">Várakozás az ellenfélre</string>
-  <string name="orLetYourOpponentScanQrCode">Ellenfeled az itt látható QR-kód beolvasásával is csatlakozhat.</string>
+  <string name="orLetYourOpponentScanQrCode">Ellenfeled az itt látható QR-kód beolvasásával is csatlakozhat</string>
   <string name="waiting">Várakozás</string>
   <string name="yourTurn">Te következel</string>
   <string name="aiNameLevelAiLevel">%1$s szint: %2$s</string>
@@ -916,7 +916,7 @@ Jelszavad megváltoztatásához kattints az üzenetben lévő linkre.</string>
   <string name="streamerManager">Közvetítői vezérlőpult</string>
   <string name="cancelTournament">Versenykiírás törlése</string>
   <string name="tournDescription">Verseny leírása</string>
-  <string name="tournDescriptionHelp">Bármi különleges amit a résztvevőkkel közölnél? Próbáld rövidre fogni. Markdown linkek elérhetőek: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Bármi különleges amit a résztvevőkkel közölnél? Próbáld rövidre fogni. Markdown linkek elérhetőek: [name](https://url)</string>
   <string name="ratedFormHelp">Rangsorolt játszmák amik
 befolyásolják a játékosok értékszámát</string>
   <string name="onlyMembersOfTeam">Kizárólag csapattagoknak</string>
