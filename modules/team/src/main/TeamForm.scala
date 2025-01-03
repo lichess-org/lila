@@ -183,13 +183,9 @@ object TeamForm:
 
 object TeamSingleChange:
 
-  case class Change[A](field: String, mapping: Mapping[A], update: A => Team => Team):
-    def form: Form[A] = Form(single(field -> mapping))
-
-  private def changing[A](field: TeamForm.Fields.type => (String, Mapping[A]))(
-      f: A => Team => Team
-  ): Change[A] =
-    Change(field(TeamForm.Fields)._1, field(TeamForm.Fields)._2, f)
+  type Change[A] = lila.common.Form.SingleChange.Change[Team, A]
+  given fieldsInstance: TeamForm.Fields.type = TeamForm.Fields
+  private def changing[A] = lila.common.Form.SingleChange.changing[Team, TeamForm.Fields.type, A]
 
   val changes: Map[String, Change[?]] = List[Change[?]](
     changing(_.password): v =>

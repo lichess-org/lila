@@ -93,7 +93,9 @@ final class TeamApi(env: Env, apiC: => Api) extends LilaController(env):
 
   def update(id: TeamId, name: String) = ScopedBody(_.Team.Lead) { _ ?=> me ?=>
     WithOwnedTeamEnabled(id, _.Settings): team =>
-      TeamSingleChange.changes.get(name).fold(fuccess(ApiResult.ClientError("incorrect setting key"))): change =>
+      TeamSingleChange.changes
+        .get(name)
+        .fold(fuccess(ApiResult.ClientError("incorrect setting key"))): change =>
           bindForm(change.form)(
             form => fuccess(ApiResult.ClientError(form.errors.flatMap(_.messages).mkString("\n"))),
             v => api.insertUpdate(change.update(v)(team)).inject(ApiResult.Done)
