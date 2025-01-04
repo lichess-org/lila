@@ -96,7 +96,7 @@ export function initModule(): NvuiPlugin {
         h('div.pieces', renderPieces(ctrl.chessground.state.pieces, style)),
         h('h2', 'Game status'),
         h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, [
-          ctrl.data.game.status.name === 'started' ? 'Playing' : renderResult(ctrl),
+          ctrl.data.game.status.name === 'started' ? i18n.site.playingRightNow : renderResult(ctrl),
         ]),
         h('h2', 'Last move'),
         h(
@@ -123,7 +123,7 @@ export function initModule(): NvuiPlugin {
             },
             [
               h('label', [
-                d.player.color === d.game.player ? 'Your move' : 'Waiting',
+                d.player.color === d.game.player ? i18n.site.yourTurn : i18n.site.waiting,
                 h('input.move.mousetrap', {
                   attrs: {
                     name: 'move',
@@ -149,7 +149,7 @@ export function initModule(): NvuiPlugin {
           : playable(ctrl.data)
             ? renderTablePlay(ctrl)
             : renderTableEnd(ctrl)),
-        h('h2', 'Board'),
+        h('h2', i18n.site.board),
         h(
           'div.board',
           {
