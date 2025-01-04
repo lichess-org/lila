@@ -50,27 +50,18 @@ private case class RelayPlayersTextarea(text: String):
     lines.nonEmpty.so:
       text.linesIterator.take(1000).toList.flatMap(parse).toMap
 
-  // Original name / Optional rating / Optional title / Optional replacement name
+  // Original name / Optional FideID / Optional title / Optional rating / Optional replacement name
   private def parse(line: String): Option[(PlayerName, RelayPlayerLine)] =
-    line.split('=').map(_.trim) match
-      case Array(nameStr, fideId) =>
-        val name  = PlayerName(nameStr)
-        val parts = fideId.split('/').map(_.trim)
-        parts
-          .lift(0)
-          .flatMap(_.toIntOption)
-          .map: id =>
-            name -> RelayPlayerLine(name.some, none, parts.lift(1).flatMap(PlayerTitle.get), FideId(id).some)
-      case _ =>
-        val arr = line.split('/').map(_.trim)
-        arr
-          .lift(0)
-          .map: fromName =>
-            PlayerName(fromName) -> RelayPlayerLine(
-              name = PlayerName.from(arr.lift(3).filter(_.nonEmpty)),
-              rating = IntRating.from(arr.lift(1).flatMap(_.toIntOption)),
-              title = arr.lift(2).flatMap(PlayerTitle.get)
-            )
+    val arr = line.split('/').map(_.trim)
+    arr
+      .lift(0)
+      .map: fromName =>
+        PlayerName(fromName) -> RelayPlayerLine(
+          name = PlayerName.from(arr.lift(4).filter(_.nonEmpty)),
+          rating = IntRating.from(arr.lift(3).flatMap(_.toIntOption)),
+          title = arr.lift(2).flatMap(PlayerTitle.get),
+          fideId = arr.lift(1).flatMap(_.toIntOption).map(FideId(_))
+        )
 
 private case class RelayPlayerLines(players: Map[PlayerName, RelayPlayerLine]):
 
