@@ -12,11 +12,12 @@ import { type StudyChapters, gameLinkAttrs, gameLinksListener } from './studyCha
 import { playerFed } from './playerBars';
 import { userTitle } from 'common/userLink';
 import { h } from 'snabbdom';
-import { storage } from 'common/storage';
+import { storage, storedBooleanProp, StoredProp } from 'common/storage';
 import { Chessground as makeChessground } from 'chessground';
 
 export class MultiBoardCtrl {
   playing: Toggle;
+  showResults: StoredProp<boolean>;
   teamSelect: Prop<string> = prop('');
   page: number = 1;
   maxPerPageStorage = storage.make('study.multiBoard.maxPerPage');
@@ -28,6 +29,7 @@ export class MultiBoardCtrl {
     readonly redraw: () => void,
   ) {
     this.playing = toggle(false, this.redraw);
+    this.showResults = storedBooleanProp('study.showResults', true);
     if (this.initialTeamSelect) this.onChapterChange(this.initialTeamSelect);
   }
 
@@ -102,8 +104,16 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
         ctrl.multiCloudEval &&
           h('label.eval', [renderEvalToggle(ctrl.multiCloudEval), i18n.study.showEvalBar]),
         renderPlayingToggle(ctrl),
+        renderShowResultsToggle(ctrl),
       ]),
     ]),
+    !ctrl.showResults()
+      ? h(
+          'div.empty-boards-note',
+          { attrs: { 'data-icon': licon.InfoCircle } },
+          ' Since you chose to hide the results, all the preview boards are empty to avoid spoilers.',
+        )
+      : undefined,
     h(
       'div.now-playing',
       {
@@ -111,7 +121,7 @@ export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): MaybeVNode {
           insert: gameLinksListener(study.chapterSelect),
         },
       },
-      pager.currentPageResults.map(makePreview(baseUrl, study.vm.chapterId, cloudEval)),
+      pager.currentPageResults.map(makePreview(baseUrl, study.vm.chapterId, cloudEval, ctrl.showResults())),
     ),
   ]);
 }
@@ -176,6 +186,15 @@ const renderPlayingToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
     i18n.study.playing,
   ]);
 
+const renderShowResultsToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
+  h('label.results', [
+    h('input', {
+      attrs: { type: 'checkbox', checked: ctrl.showResults() },
+      hook: bind('change', e => ctrl.showResults((e.target as HTMLInputElement).checked)),
+    }),
+    i18n.study.showResults,
+  ]);
+
 const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
   fen: cp.fen,
   lastMove: uciToMove(cp.lastMove),
@@ -184,8 +203,18 @@ const previewToCgConfig = (cp: ChapterPreview): CgConfig => ({
 });
 
 const makePreview =
-  (roundPath: string, current: ChapterId, cloudEval?: MultiCloudEval) => (preview: ChapterPreview) => {
+  (roundPath: string, current: ChapterId, cloudEval?: MultiCloudEval, showResults?: boolean) =>
+  (preview: ChapterPreview) => {
     const orientation = preview.orientation || 'white';
+    const baseConfig = {
+      coordinates: false,
+      viewOnly: true,
+      orientation,
+      drawable: {
+        enabled: false,
+        visible: false,
+      },
+    };
     return h(
       `a.mini-game.is2d.chap-${preview.id}`,
       {
@@ -193,39 +222,45 @@ const makePreview =
         attrs: gameLinkAttrs(roundPath, preview),
       },
       [
-        boardPlayer(preview, CgOpposite(orientation)),
+        boardPlayer(preview, CgOpposite(orientation), showResults),
         h('span.cg-gauge', [
-          cloudEval && verticalEvalGauge(preview, cloudEval),
+          showResults ? cloudEval && verticalEvalGauge(preview, cloudEval) : undefined,
           h(
             'span.mini-game__board',
             h('span.cg-wrap', {
               hook: {
                 insert(vnode) {
                   const el = vnode.elm as HTMLElement;
-                  vnode.data!.cg = makeChessground(el, {
-                    ...previewToCgConfig(preview),
-                    coordinates: false,
-                    viewOnly: true,
-                    orientation,
-                    drawable: {
-                      enabled: false,
-                      visible: false,
-                    },
-                  });
+                  vnode.data!.cg = showResults
+                    ? makeChessground(el, {
+                        ...previewToCgConfig(preview),
+                        ...baseConfig,
+                      })
+                    : makeChessground(el, {
+                        fen: '8/8/8/8/8/8/8/8',
+                        ...baseConfig,
+                      });
                   vnode.data!.fen = preview.fen;
                 },
                 postpatch(old, vnode) {
                   if (old.data!.fen !== preview.fen) {
                     old.data!.cg?.set(previewToCgConfig(preview));
                   }
+                  // In this case, showResults was set to true but the cg fen is still on the initial pos
+                  if (showResults && old.data!.cg.fen != old.data!.cg.getFen()) {
+                    old.data!.cg.set(previewToCgConfig(preview));
+                  }
                   vnode.data!.fen = preview.fen;
-                  vnode.data!.cg = old.data!.cg;
+                  const el = vnode.elm as HTMLElement;
+                  vnode.data!.cg = showResults
+                    ? old.data!.cg
+                    : makeChessground(el, { fen: '8/8/8/8/8/8/8/8', ...baseConfig });
                 },
               },
             }),
           ),
         ]),
-        boardPlayer(preview, orientation),
+        boardPlayer(preview, orientation, showResults),
       ],
     );
   };
@@ -300,12 +335,12 @@ const computeTimeLeft = (preview: ChapterPreview, color: Color): number | undefi
   } else return;
 };
 
-const boardPlayer = (preview: ChapterPreview, color: Color) => {
+const boardPlayer = (preview: ChapterPreview, color: Color, showResults?: boolean) => {
   const outcome = preview.status && preview.status !== '*' ? preview.status : undefined;
   const player = preview.players?.[color],
     score = outcome?.split('-')[color === 'white' ? 0 : 1];
   return h('span.mini-game__player', [
     player && renderUser(player),
-    score ? h('span.mini-game__result', score) : renderClock(preview, color),
+    showResults ? (score ? h('span.mini-game__result', score) : renderClock(preview, color)) : undefined,
   ]);
 };
