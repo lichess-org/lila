@@ -33,7 +33,7 @@ import { bind, onInsert, type MaybeVNode, type MaybeVNodes } from 'common/snabbd
 import { throttle } from 'common/timing';
 import explorerView from '../explorer/explorerView';
 import { ops, path as treePath } from 'tree';
-import { view as cevalView, renderEval } from 'ceval';
+import { view as cevalView, renderEval, type CevalCtrl } from 'ceval';
 import { next, prev } from '../control';
 import { lichessRules } from 'chessops/compat';
 import { makeSan } from 'chessops/san';
@@ -242,25 +242,12 @@ export function initModule(ctrl: AnalyseController) {
   };
 }
 
-const NOT_ALLOWED = 'local evaluation not allowed';
-const NOT_POSSIBLE = 'local evaluation not possible';
-const NOT_ENABLED = 'local evaluation not enabled';
-
 function renderEvalAndDepth(ctrl: AnalyseController): string {
-  let evalStr: string, depthStr: string;
-  if (ctrl.threatMode()) {
-    evalStr = evalInfo(ctrl.node.threat);
-    depthStr = depthInfo(ctrl.node.threat, false);
-    return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
-  } else {
-    const evs = ctrl.currentEvals(),
-      bestEv = cevalView.getBestEval(evs);
-    evalStr = evalInfo(bestEv);
-    depthStr = depthInfo(evs.client, !!evs.client?.cloud);
-  }
-  if (!evalStr)
-    return !ctrl.ceval.allowed() ? NOT_ALLOWED : !ctrl.ceval.possible ? NOT_POSSIBLE : NOT_ENABLED;
-  else return evalStr + ' ' + depthStr;
+  if (ctrl.threatMode()) return `${evalInfo(ctrl.node.threat)} ${depthInfo(ctrl.node.threat, false)}`;
+  const evs = ctrl.currentEvals(),
+    bestEv = cevalView.getBestEval(evs);
+  const evalStr = evalInfo(bestEv);
+  return !evalStr ? noEvalStr(ctrl.ceval) : `${evalStr} ${depthInfo(evs.client, !!evs.client?.cloud)}`;
 }
 
 const evalInfo = (bestEv: EvalScore | undefined): string =>
@@ -273,11 +260,18 @@ const evalInfo = (bestEv: EvalScore | undefined): string =>
 const depthInfo = (clientEv: Tree.ClientEval | undefined, isCloud: boolean): string =>
   clientEv ? `${i18n.site.depthX(clientEv.depth || 0)} ${isCloud ? 'Cloud' : ''}` : '';
 
+const noEvalStr = (ctrl: CevalCtrl) =>
+  !ctrl.allowed()
+    ? 'local evaluation not allowed'
+    : !ctrl.possible
+      ? 'local evaluation not possible'
+      : !ctrl.enabled()
+        ? 'local evaluation not enabled'
+        : '';
+
 function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
-  const instance = ctrl.getCeval();
-  if (!instance.allowed()) return NOT_ALLOWED;
-  if (!instance.possible) return NOT_POSSIBLE;
-  if (!instance.enabled()) return NOT_ENABLED;
+  const noEvalMsg = noEvalStr(ctrl.ceval);
+  if (noEvalMsg) return noEvalMsg;
   const node = ctrl.node,
     setup = parseFen(node.fen).unwrap();
   let pvs: Tree.PvData[] = [];
@@ -286,7 +280,7 @@ function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
     setup.turn = opposite(setup.turn);
     if (setup.turn === 'white') setup.fullmoves += 1;
   } else if (node.ceval) pvs = node.ceval.pvs;
-  const pos = setupPosition(lichessRules(instance.opts.variant.key), setup);
+  const pos = setupPosition(lichessRules(ctrl.ceval.opts.variant.key), setup);
   if (pos.isOk && pvs.length > 0 && pvs[0].moves.length > 0) {
     const uci = pvs[0].moves[0];
     const san = makeSan(pos.unwrap(), parseUci(uci)!);
@@ -297,16 +291,11 @@ function renderBestMove(ctrl: AnalyseController, style: MoveStyle): string {
 
 function renderAriaResult(ctrl: AnalyseController): VNode[] {
   const result = renderResult(ctrl);
-  return result.length
-    ? [
-        h('h2', 'Game status'),
-        h(
-          'div.status',
-          { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } },
-          result,
-        ),
-      ]
-    : result;
+  const res = result.length ? result : 'No result';
+  return [
+    h('h2', 'Game status'),
+    h('div.status', { attrs: { role: 'status', 'aria-live': 'assertive', 'aria-atomic': 'true' } }, res),
+  ];
 }
 
 function renderCurrentLine(ctrl: AnalyseController, style: MoveStyle): VNodeChildren {
