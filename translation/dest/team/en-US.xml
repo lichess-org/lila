@@ -15,7 +15,7 @@
   <string name="onlyLeaderLeavesTeam">Please add a new team leader before leaving, or close the team.</string>
   <string name="quitTeam">Leave team</string>
   <string name="manuallyReviewAdmissionRequests">Manually review admission requests</string>
-  <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to write a request to join the team, which you can decline or accept.</string>
+  <string name="manuallyReviewAdmissionRequestsHelp">If checked, players will need to request to join the team, which you can decline or accept.</string>
   <plurals name="teamLeaders">
     <item quantity="one">Team leader</item>
     <item quantity="other">Team leaders</item>

@@ -57,6 +57,8 @@
   <string name="interferenceDescription">Een stuk plaatsen tussen twee vijandelijke stukken om één of beide stukken onverdedigd te laten, zoals een paard op een verdedigd veld tussen twee torens.</string>
   <string name="intermezzo">Tussenzet</string>
   <string name="intermezzoDescription">In plaats van de verwachte zet, eerst een andere zet doen met een directe dreiging die de tegenstander eerst moet beantwoorden. Ook wel bekend als \"Zwischenzug\" of \"In between\".</string>
+  <string name="killBoxMate">Mat in dodelijk vierkant</string>
+  <string name="killBoxMateDescription">Een toren staat naast de vijandelijke koning en wordt gedekt door een dame die ook de ontsnappingsvelden van de koning blokkeert. De toren en de dame vangen de vijandelijke koning in een dodelijk 3x3-vierkant.</string>
   <string name="knightEndgame">Paardeneindspel</string>
   <string name="knightEndgameDescription">Een eindspel met alleen paarden en pionnen.</string>
   <string name="long">Lange puzzel</string>

@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Generează rapid nume de utilizator și parole sigure pentru studenți</string>
   <string name="trackStudentProgress">Urmărește progresul elevilor în jocuri și puzzle-uri</string>
   <string name="messageAllStudents">Trimite un mesaj tuturor elevilor despre materiale noi pentru clasă</string>
-  <string name="freeForAllForever">100% gratuit pentru toți, pentru totdeauna, fără reclame sau trackere</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% gratuit pentru toți, pentru totdeauna, fără reclame sau trackere</string>
   <string name="applyToBeLichessTeacher">Înscrie-te pentru a fi profesor de șah Lichess</string>
   <string name="noClassesYet">Nu există încă nicio clasă.</string>
   <string name="teachersX">Profesori: %s</string>
@@ -119,4 +119,6 @@ Va aparea o linie orizontală.</string>
   <string name="anInvitationHasBeenSentToX">A fost trimisă o invitație către %s</string>
   <string name="xAlreadyHasAPendingInvitation">%s are deja o invitație în așteptare</string>
   <string name="xIsAKidAccountWarning">%1$s are un cont de copil si nu poate primi mesajul. Trebuie sa ii dai manual URL-ul invitatiei: %2$s</string>
+  <string name="moveToClass">Mutați la %s</string>
+  <string name="moveToAnotherClass">Mutați la altă clasă</string>
 </resources>

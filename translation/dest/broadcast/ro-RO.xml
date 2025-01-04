@@ -8,6 +8,7 @@
     <item quantity="other">%s de transmisiuni</item>
   </plurals>
   <string name="liveBroadcasts">Difuzări de turnee în direct</string>
+  <string name="broadcastCalendar">Calendar de transmisiuni</string>
   <string name="newBroadcast">O nouă difuzare în direct</string>
   <string name="subscribedBroadcasts">Transmisii abonate</string>
   <string name="aboutBroadcasts">Despre emisiuni</string>
@@ -27,6 +28,7 @@
   <string name="sourceSingleUrl" comment="An input box. The user can add the external URL the PGN playback of the game is coming from, to set up their event broadcast.&#10;&#10;Could be alternatively stated as &quot;Source URL for the PGN&quot;.">URL sursă PGN</string>
   <string name="sourceUrlHelp">URL-ul pe care Lichess îl va verifica pentru a obține actualizări al PGN-ului. Trebuie să fie public accesibil pe Internet.</string>
   <string name="sourceGameIds">Până la 64 de ID-uri de joc Lichess, separate prin spații.</string>
+  <string name="startDateTimeZone">Data de start în fusul orar local al turneului: %s</string>
   <string name="startDateHelp">Opțional, dacă știi când va începe evenimentul</string>
   <string name="currentGameUrl">URL-ul partidei curente</string>
   <string name="downloadAllRounds">Descarcă toate rundele</string>
@@ -37,7 +39,7 @@
   <string name="editRoundStudy">Editare rundă de studiu</string>
   <string name="deleteTournament">Șterge acest turneu</string>
   <string name="definitivelyDeleteTournament">Sigur doresc să ștergeți întregul turneu, toate rundele și toate jocurile sale.</string>
-  <string name="showScores">Arată scorurile jucătorilor pe baza rezultatelor jocului</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Arată scorurile jucătorilor pe baza rezultatelor jocului</string>
   <string name="replacePlayerTags">Opțional: înlocuiește numele jucătorilor, ratingurile și titlurile</string>
   <string name="fideFederations">Federații FIDE</string>
   <string name="top10Rating">Top 10 evaluări</string>
@@ -48,10 +50,20 @@
   <string name="ageThisYear">Vârsta în acest an</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Fără rating</string>
   <string name="recentTournaments">Turnee recente</string>
-  <string name="openLichess">Deschide în Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Deschide în Lichess</string>
   <string name="teams">Echipe</string>
+  <string name="boards">Table</string>
+  <string name="overview">Prezentare generală</string>
+  <string name="subscribeTitle">Abonează-te pentru a fi notificat când începe fiecare rundă. Poți gestiona notificările sonore sau push pentru transmisiuni din setările contului tău.</string>
+  <string name="uploadImage">Încărcați imaginea turneului</string>
+  <string name="noBoardsYet">Încă nu sunt table. Acestea vor apărea după ce partidele vor fi încărcate.</string>
+  <string name="boardsCanBeLoaded" comment="%s is 'Broadcaster App'">Tablele pot fi încărcate dintr-o sursă sau prin intermediul %s</string>
+  <string name="startVerySoon">Transmisiunea va începe foarte curând.</string>
+  <string name="notYetStarted">Transmisiunea nu a început încă.</string>
+  <string name="officialWebsite">Website-ul oficial</string>
   <string name="standings">Clasament</string>
   <string name="officialStandings">Clasament oficial</string>
+  <string name="iframeHelp" comment="%s is 'webmasters page'">Mai multe opțiuni pe %s</string>
   <string name="score">Scor</string>
   <string name="allTeams">Toate echipele</string>
   <string name="tournamentFormat">Format turneu</string>

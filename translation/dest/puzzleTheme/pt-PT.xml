@@ -57,6 +57,7 @@
   <string name="interferenceDescription">Jogar uma peça para uma casa entre duas peças do adversário deixando pelo menos uma delas desprotegia, como por exemplo um cavalo numa casa defendida entre duas torres.</string>
   <string name="intermezzo">Intermezzo</string>
   <string name="intermezzoDescription">Em vez de jogares o movimento esperado, primeiro interpõe outro movimento colocando uma ameaça imediata à qual o oponente deve responder. Também conhecido como \"Zwischenzug\" ou jogada intermédia.</string>
+  <string name="killBoxMateDescription">Uma torre está ao lado do rei inimigo apoiada por uma dama que também bloqueia as casas de fuga do rei. A torre e a dama apanham o rei inimigo numa “caixa de morte” de 3 por 3.</string>
   <string name="knightEndgame">Final de cavalo</string>
   <string name="knightEndgameDescription">Um final de jogo com apenas cavalos e peões.</string>
   <string name="long">Problema longo</string>

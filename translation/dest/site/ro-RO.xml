@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="playWithAFriend">Jucaţi cu un prieten</string>
+  <string name="playWithAFriend">Jucați cu un prieten</string>
   <string name="playWithTheMachine">Jucați cu calculatorul</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">Pentru a invita pe cineva să joace, folosiți acest URL</string>
   <string name="gameOver">Partidă încheiată</string>
@@ -11,15 +11,15 @@
   <string name="aiNameLevelAiLevel">%1$s nivel %2$s</string>
   <string name="level">Nivel</string>
   <string name="strength">Putere</string>
-  <string name="toggleTheChat">Arată/ascunde discuția</string>
+  <string name="toggleTheChat">Arată/Ascunde discuţia</string>
   <string name="chat">Discuţie</string>
-  <string name="resign">Abandonează</string>
+  <string name="resign">Renunță</string>
   <string name="checkmate">Şah mat</string>
   <string name="stalemate">Pat</string>
   <string name="white">Alb</string>
   <string name="black">Negru</string>
   <string name="asWhite">cu albele</string>
-  <string name="asBlack">cu negrele</string>
+  <string name="asBlack">ca negrul</string>
   <string name="randomColor">Culoare aleatorie</string>
   <string name="createAGame">Creează un joc</string>
   <string name="whiteIsVictorious">Albul a câștigat</string>
@@ -978,7 +978,7 @@
   <string name="streamerManager">Setări pentru streamer</string>
   <string name="cancelTournament">Anulează turneul</string>
   <string name="tournDescription">Descrierea turneului</string>
-  <string name="tournDescriptionHelp">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Vrei să spui participanților ceva special? Încearcă să fii succint. Poți folosi legături Markdown: [name](https://url)</string>
   <string name="ratedFormHelp">Partidele sunt evaluate
 și vor avea ca rezultat modificarea ratingului</string>
   <string name="onlyMembersOfTeam">Numai membrii echipei</string>
