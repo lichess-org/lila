@@ -25,6 +25,7 @@ final class Env(
   given translator: lila.core.i18n.Translator = lila.i18n.Translator
   given scheduler: Scheduler                  = system.scheduler
   given lila.core.config.RateLimit            = net.rateLimit
+  given getFile: (String => java.io.File)     = environment.getFile
 
   // wire all the lila modules in the right order
   val i18n: lila.i18n.Env.type          = lila.i18n.Env
@@ -94,6 +95,7 @@ final class Env(
   val bot: lila.bot.Env                 = wire[lila.bot.Env]
   val storm: lila.storm.Env             = wire[lila.storm.Env]
   val racer: lila.racer.Env             = wire[lila.racer.Env]
+  val local: lila.local.Env             = wire[lila.local.Env]
   val opening: lila.opening.Env         = wire[lila.opening.Env]
   val tutor: lila.tutor.Env             = wire[lila.tutor.Env]
   val recap: lila.recap.Env             = wire[lila.recap.Env]
