@@ -410,6 +410,30 @@ $c-bg-clas-over-dim: $m-clas_white--mix-20;
   }
 }
 
+.topic-list {
+  @extend %flex-wrap;
+
+  line-height: 2em;
+
+  a {
+    @extend %box-radius;
+
+    background: $m-primary_bg--mix-12;
+    padding: 0.2em 0.6em;
+    margin: 0.2em;
+
+    &:hover {
+      background: $m-primary_bg--mix-15;
+    }
+
+    white-space: nowrap;
+  }
+
+  .box__pad & {
+    margin-bottom: 2em;
+  }
+}
+
 .student-show {
   padding-bottom: 3em;
 
