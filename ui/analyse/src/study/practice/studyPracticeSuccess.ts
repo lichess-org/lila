@@ -62,6 +62,7 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
     case 'mate':
       if (node.threefold) return false;
       if (isDrawish(node)) return false;
+      if (root.position(node).unwrap().isStalemate()) return false;
   }
   return null;
 }
