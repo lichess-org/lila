@@ -63,7 +63,6 @@ export function initModule() {
           ctrl.streak ? '.puzzle--streak' : ''
         }`,
         h('div.nvui', [
-          h('h1', `Puzzle: ${ctrl.pov} to play.`),
           h('h2', 'Puzzle info'),
           puzzleBox(ctrl),
           theme(ctrl),
@@ -82,8 +81,8 @@ export function initModule() {
             { attrs: { role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' } },
             renderStatus(ctrl),
           ),
-          h('div.replay', renderReplay(ctrl)),
-          ...(ctrl.streak ? renderStreak(ctrl) : []),
+          ctrl.data.replay && h('div.replay', renderReplay(ctrl)),
+          ctrl.streak && renderStreak(ctrl),
           h('h2', 'Last move'),
           h(
             'p.lastMove',
@@ -103,7 +102,9 @@ export function initModule() {
             },
             [
               h('label', [
-                ctrl.mode === 'view' ? 'Command input' : `Find the best move for ${ctrl.pov}.`,
+                ctrl.mode === 'view'
+                  ? 'Command input'
+                  : `${i18n.puzzle[ctrl.pov === 'white' ? 'findTheBestMoveForWhite' : 'findTheBestMoveForBlack']}`,
                 h('input.move.mousetrap', {
                   attrs: { name: 'move', type: 'text', autocomplete: 'off', autofocus: true },
                 }),
@@ -169,7 +170,7 @@ export function initModule() {
           ...(!ctrl.data.replay && !ctrl.streak
             ? [h('h3', 'Puzzle Settings'), renderDifficultyForm(ctrl)]
             : []),
-          h('h2', 'Keyboard shortcuts'),
+          h('h2', i18n.site.keyboardShortcuts),
           h('p', [
             `Left and right arrow keys: ${i18n.site.keyMoveBackwardOrForward}`,
             h('br'),
@@ -239,7 +240,7 @@ const isYourMove = (ctrl: PuzzleCtrl): boolean =>
   ctrl.node.children.length === 0 || ctrl.node.children[0].puzzle === 'fail';
 
 const browseHint = (ctrl: PuzzleCtrl): string[] =>
-  ctrl.mode !== 'view' && !isYourMove(ctrl) ? ['You browsed away from the latest position.'] : [];
+  ctrl.mode !== 'view' && !isYourMove(ctrl) ? [i18n.site.youBrowsedAway] : [];
 
 const shortCommands = ['l', 'last', 'p', 's', 'v'];
 
@@ -266,7 +267,7 @@ function viewOrAdvanceSolution(ctrl: PuzzleCtrl, notify: (txt: string) => void):
     if (isInSolution(next) || (isInSolution(node) && isInSolution(nextNext))) {
       controlNext(ctrl);
       ctrl.redraw();
-    } else if (isInSolution(node)) notify('Puzzle complete!');
+    } else if (isInSolution(node)) notify(i18n.puzzle.puzzleComplete);
     else ctrl.viewSolution();
   } else ctrl.viewSolution();
 }
@@ -284,7 +285,7 @@ const renderStreak = (ctrl: PuzzleCtrl): VNode[] =>
 
 function renderStatus(ctrl: PuzzleCtrl): string {
   if (ctrl.mode !== 'view') return 'Solving';
-  else if (ctrl.streak) return `GAME OVER. Your streak: ${ctrl.streak.data.index}`;
+  else if (ctrl.streak) return `GAME OVER. ${i18n.puzzle.yourStreakX(ctrl.streak.data.index)}`;
   else if (ctrl.lastFeedback === 'win') return i18n.puzzle.puzzleSuccess;
   else return i18n.puzzle.puzzleComplete;
 }
@@ -300,14 +301,14 @@ function renderReplay(ctrl: PuzzleCtrl): string {
 const playActions = (ctrl: PuzzleCtrl): VNode =>
   ctrl.streak
     ? button(i18n.storm.skip, ctrl.skip, i18n.puzzle.streakSkipExplanation, !ctrl.streak.data.skip)
-    : h('div.actions_play', button('View the solution', ctrl.viewSolution));
+    : h('div.actions_play', button(i18n.site.viewTheSolution, ctrl.viewSolution));
 
 const afterActions = (ctrl: PuzzleCtrl): VNode =>
   h(
     'div.actions_after',
     ctrl.streak && ctrl.lastFeedback === 'win'
-      ? anchor(i18n.puzzle.newStreak, '/streak')
-      : [...renderVote(ctrl), button('Continue training', ctrl.nextPuzzle)],
+      ? h('a', { attrs: { href: '/streak' } }, i18n.puzzle.newStreak)
+      : [...renderVote(ctrl), button(i18n.puzzle.continueTraining, ctrl.nextPuzzle)],
   );
 
 const renderVoteTutorial = (ctrl: PuzzleCtrl): VNode[] =>
@@ -320,11 +321,9 @@ const renderVote = (ctrl: PuzzleCtrl): VNode[] =>
     ? []
     : [
         ...renderVoteTutorial(ctrl),
-        button('Thumbs up', () => ctrl.vote(true), undefined, ctrl.voteDisabled),
-        button('Thumbs down', () => ctrl.vote(false), undefined, ctrl.voteDisabled),
+        button(i18n.puzzle.upVote, () => ctrl.vote(true), undefined, ctrl.voteDisabled),
+        button(i18n.puzzle.downVote, () => ctrl.vote(false), undefined, ctrl.voteDisabled),
       ];
-
-const anchor = (text: string, href: string): VNode => h('a', { attrs: { href } }, text);
 
 const button = (text: string, action: (e: Event) => void, title?: string, disabled?: boolean): VNode =>
   h(

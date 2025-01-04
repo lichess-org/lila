@@ -88,7 +88,7 @@ export function initModule(): NvuiPlugin {
         ...['white', 'black'].map((color: Color) =>
           h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))]),
         ),
-        h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
+        h('p', `${d.game.rated ? i18n.site.rated : i18n.site.casual} ${d.game.perf}`),
         d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
         h('h2', 'Moves'),
         h('p.moves', { attrs: { role: 'log', 'aria-live': 'off' } }, renderMoves(d.steps.slice(1), style)),
@@ -365,13 +365,14 @@ function gameText(ctrl: RoundController) {
   return [
     d.game.status.name === 'started'
       ? ctrl.isPlaying()
-        ? 'You play the ' + ctrl.data.player.color + ' pieces.'
+        ? ctrl.data.player.color === 'white'
+          ? i18n.site.youPlayTheWhitePieces
+          : i18n.site.youPlayTheBlackPieces
         : 'Spectating.'
-      : 'Game over.',
-    d.game.rated ? 'Rated' : 'Casual',
+      : i18n.site.gameOver,
+    d.game.rated ? i18n.site.rated : i18n.site.casual,
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
     d.game.perf,
-    'game versus',
-    playerText(ctrl, ctrl.data.opponent),
+    i18n.site.gameVsX(playerText(ctrl, ctrl.data.opponent)),
   ].join(' ');
 }
