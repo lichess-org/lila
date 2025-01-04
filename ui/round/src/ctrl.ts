@@ -35,8 +35,6 @@ import type {
   CrazyPocket,
   RoundOpts,
   RoundData,
-  ApiMove,
-  ApiEnd,
   SocketMove,
   SocketDrop,
   SocketOpts,
@@ -44,6 +42,8 @@ import type {
   Position,
   NvuiPlugin,
   RoundTour,
+  ApiMove,
+  ApiEnd,
 } from './interfaces';
 import { defined, type Toggle, toggle, requestIdleCallback } from 'common';
 import { storage, once, type LichessBooleanStorage } from 'common/storage';
@@ -245,7 +245,7 @@ export default class RoundController implements MoveRootCtrl {
     this.ply = ply;
     this.justDropped = undefined;
     this.preDrop = undefined;
-    const s = this.stepAt(ply),
+    const s = this.stepAt(this.ply),
       config: CgConfig = {
         fen: s.fen,
         lastMove: uciToMove(s.uci),
@@ -906,7 +906,6 @@ export default class RoundController implements MoveRootCtrl {
           location.href = '/page/play-extensions';
         }
       }, 1000);
-
       this.onChange();
     }, 800);
   };

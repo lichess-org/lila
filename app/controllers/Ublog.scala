@@ -52,10 +52,20 @@ final class Ublog(env: Env) extends LilaController(env):
             prefFollowable <- ctx.isAuth.so(env.pref.api.followable(user.id))
             blocked        <- ctx.userId.so(env.relation.api.fetchBlocks(user.id, _))
             followable = prefFollowable && !blocked
-            markup <- env.ublog.markup(post)
+            (markup, hasAsks) <- env.ublog.markup(post).zip(env.ask.repo.preload(post.markdown.value))
             viewedPost = env.ublog.viewCounter(post, ctx.ip)
             page <- renderPage:
-              views.ublog.post.page(user, blog, viewedPost, markup, others, liked, followable, followed)
+              views.ublog.post.page(
+                user,
+                blog,
+                viewedPost,
+                markup,
+                others,
+                liked,
+                followable,
+                followed,
+                hasAsks
+              )
           yield Ok(page)
 
   def discuss(id: UblogPostId) = Open:
@@ -125,7 +135,11 @@ final class Ublog(env: Env) extends LilaController(env):
   def edit(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
     NotForKids:
       FoundPage(env.ublog.api.findEditableByMe(id)): post =>
-        views.ublog.form.edit(post, env.ublog.form.edit(post))
+        env.ask.api
+          .unfreezeAndLoad(post.markdown.value)
+          .flatMap: frozen =>
+            views.ublog.form.edit(post, env.ublog.form.edit(post.copy(markdown = Markdown(frozen))))
+  // views.ublog.form.edit(post, env.ublog.form.edit(post))
   }
 
   def update(id: UblogPostId) = AuthBody { ctx ?=> me ?=>
