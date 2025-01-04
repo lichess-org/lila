@@ -547,20 +547,20 @@ final class RelayFormUi(helpers: Helpers, ui: RelayUi, tourUi: RelayTourUi):
               trb.replacePlayerTags(),
               help = frag( // do not translate
                 "One line per player, formatted as such:",
-                pre("player name = FIDE ID"),
+                pre("player name / FIDE ID"),
                 "Example:",
-                pre("""Magnus Carlsen = 1503014"""),
+                pre("""Magnus Carlsen / 1503014"""),
                 "Player names ignore case and punctuation, and match all possible combinations of 2 words:",
                 br,
                 """"Jorge Rick Vito" will match "Jorge Rick", "jorge vito", "Rick, Vito", etc.""",
                 br,
                 "If the player is NM or WNM, you can:",
-                pre("""Player Name = FIDE ID / Title"""),
+                pre("""Player Name / FIDE ID / title"""),
                 "Alternatively, you may set tags manually, like so:",
-                pre("player name / rating / title / new name"),
+                pre("player name / FIDE ID / title / rating / new name"),
                 "All values are optional. Example:",
-                pre("""Magnus Carlsen / 2863 / GM
-YouGotLittUp / 1890 / / Louis Litt""")
+                pre("""Magnus Carlsen / / GM / 2863
+YouGotLittUp / / / 1890 / Louis Litt""")
               ).some,
               half = true
             )(form3.textarea(_)(rows := 3, spellcheck := "false", cls := "monospace")),
