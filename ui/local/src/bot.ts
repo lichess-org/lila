@@ -1,6 +1,13 @@
 import * as co from 'chessops';
 import { zip, clamp } from 'common/algo';
-import { normalize, interpolate, domain } from './filter';
+import {
+  quantizeFilter,
+  filterParameter,
+  filterData,
+  filterFacets,
+  combine,
+  type FilterValue,
+} from './filter';
 import type { FishSearch, SearchResult, Line } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
@@ -8,6 +15,7 @@ import type {
   BotInfo,
   ZeroSearch,
   Filters,
+  FilterType,
   Book,
   MoveSource,
   MoveArgs,
@@ -24,7 +32,7 @@ export function score(pv: Line, depth: number = pv.scores.length - 1): number {
 export class Bot implements BotInfo, MoveSource {
   private openings: Promise<OpeningBook[]>;
   private stats: { cplMoves: number; cpl: number };
-  private traces: string[] = [];
+  private traces: string[];
   readonly uid: string;
   readonly version: number = 0;
   name: string;
@@ -39,11 +47,12 @@ export class Bot implements BotInfo, MoveSource {
 
   constructor(info: BotInfo) {
     Object.assign(this, structuredClone(info));
-    if (this.filters) Object.values(this.filters).forEach(normalize);
+    if (this.filters) Object.values(this.filters).forEach(quantizeFilter);
 
     // keep these from being stored or cloned with the bot
     Object.defineProperties(this, {
       stats: { value: { cplMoves: 0, cpl: 0 } },
+      traces: { value: [] },
       openings: {
         get: () => Promise.all(this.books?.flatMap(b => env.assets.getBook(b.key)) ?? []),
       },
@@ -63,7 +72,7 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   get needsScore(): boolean {
-    return Object.values(this.filters ?? {}).some(o => o.by === 'score');
+    return Object.values(this.filters ?? {}).some(o => o.score?.length);
   }
 
   async move(args: MoveArgs): Promise<MoveResult> {
@@ -101,21 +110,29 @@ export class Bot implements BotInfo, MoveSource {
     return { uci, thinkTime: thinkTime };
   }
 
-  private filter(op: string, { chess, cp, thinkTime }: MoveArgs): undefined | number {
+  private hasFilter(op: FilterType): boolean {
     const f = this.filters?.[op];
-    if (!f) return undefined;
-    const val = interpolate(
-      f,
-      f.by === 'move'
-        ? chess.fullmoves
-        : f.by === 'score'
-          ? outcomeExpectancy(chess.turn, cp ?? 0)
-          : thinkTime
-            ? Math.log2(thinkTime)
-            : domain(f).max,
+    return Boolean(f && (f.move?.length || f.score?.length || f.time?.length));
+  }
+
+  private filter(op: FilterType, { chess, cp, thinkTime }: MoveArgs): number | undefined {
+    if (!this.hasFilter(op)) return undefined;
+    const f = this.filters![op];
+    const x: FilterValue = Object.fromEntries(
+      filterFacets
+        .filter(k => f[k])
+        .map(k => {
+          if (k === 'move') return [k, chess.fullmoves];
+          else if (k === 'score') return [k, outcomeExpectancy(chess.turn, cp ?? 0)];
+          else if (k === 'time') return [k, Math.log2(thinkTime ?? 64)];
+          else return [k, undefined];
+        }),
     );
-    this.trace(`[filter] - ${op} by ${f.by} = ${val.toFixed(2)}`);
-    return val;
+
+    const vals = filterParameter(f, x);
+    const y = combine(vals, f.by);
+    this.trace(`[filter] - ${op} ${stringify(x)} -> ${stringify(vals)} by ${f.by} yields ${y.toFixed(2)}`);
+    return y;
   }
 
   private thinkTime({ initial, remaining, increment }: MoveArgs): number {
@@ -133,8 +150,7 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   private async bookMove(chess: co.Chess) {
-    // first use book relative weights to choose from the subset of books with moves for
-    // the current position.
+    // first use book relative weights to choose from the subset of books with moves for  the current position
     if (!this.books?.length) return undefined;
     const moveList: { moves: { uci: Uci; weight: number }[]; book: Book }[] = [];
     let bookChance = 0;
@@ -169,7 +185,7 @@ export class Bot implements BotInfo, MoveSource {
     const moves = this.parseMoves(results, args);
     this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
     let thinkTime = args.thinkTime ?? 0;
-    if (this.filters?.cplTarget) {
+    if (this.hasFilter('cplTarget')) {
       this.scoreByCpl(moves, args);
       this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);
     }
@@ -201,7 +217,7 @@ export class Bot implements BotInfo, MoveSource {
     const parsed: SearchMove[] = [];
     const cp = fish?.lines[0] ? score(fish.lines[0]) : (args.cp ?? 0);
     const lc0bias = this.filter('lc0bias', args) ?? 0;
-    const stockfishVariate = lc0bias ? (this.filters?.cplTarget ? 0 : Math.random()) : 0;
+    const stockfishVariate = lc0bias ? (this.hasFilter('cplTarget') ? 0 : Math.random()) : 0;
     this.trace(
       `[parseMoves] - cp = ${cp.toFixed(2)}, lc0bias = ${lc0bias.toFixed(2)}, stockfishVariate = ${stockfishVariate.toFixed(2)}`,
     );
@@ -276,7 +292,7 @@ function outcomeExpectancy(turn: Color, cp: number): number {
   return 1 / (1 + 10 ** ((turn === 'black' ? cp : -cp) / 400));
 }
 
-let nextNormal: number | undefined;
+let nextNormal: number | undefined = undefined;
 
 function getNormal(): number {
   if (nextNormal !== undefined) {

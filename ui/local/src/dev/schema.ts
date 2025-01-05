@@ -186,7 +186,7 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'lc0 bias',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 1 }, by: 'move', data: [] },
+      value: { range: { min: 0, max: 1 }, by: 'max' },
       requires: { every: ['sources_zero', 'sources_fish'] },
       title: condense(
         `lc0 bias controls the likelihood of choosing an lc0 move over stockfish.
@@ -197,7 +197,7 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'cpl target',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 150 }, by: 'move', data: [] },
+      value: { range: { min: 0, max: 150 }, by: 'max' },
       toggle: true,
       requires: { every: ['sources_fish', 'sources_fish_multipv > 1'] },
       title: condense(
@@ -218,7 +218,7 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'cpl stdev',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 100 }, by: 'move', data: [] },
+      value: { range: { min: 0, max: 100 }, by: 'max' },
       requires: 'bot_filters_cplTarget',
       title: `cpl stdev describes the standard deviation of the normal distribution
         from which noisy cpl targets are chosen.`,
@@ -227,7 +227,7 @@ export const schema: Schema = deepFreeze<Schema>({
       label: 'move quality decay',
       type: 'filter',
       class: ['filter'],
-      value: { range: { min: 0, max: 1 }, by: 'time', data: [] },
+      value: { range: { min: 0, max: 1 }, by: 'max' },
       toggle: true,
       requires: {
         // moveDecay needs more than 1 line, whatever the source
