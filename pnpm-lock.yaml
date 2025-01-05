@@ -27,8 +27,8 @@ importers:
         specifier: github:lichess-org/ab-stub
         version: https://codeload.github.com/lichess-org/ab-stub/tar.gz/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chessground:
-        specifier: link:../chessground
-        version: link:../chessground
+        specifier: ^9.1.1
+        version: 9.1.1
       chessops:
         specifier: ^0.14.2
         version: 0.14.2
