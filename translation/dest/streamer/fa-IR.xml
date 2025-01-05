@@ -33,7 +33,8 @@
   <string name="streamerLanguageSettings">صفحهٔ بَرخَط-محتواساز Lichess، مخاطبان شما را با زبان ارائه‌شده بر پایهٔ پَتادیس جریان‌سازی‌تان هدف قرار می‌دهد. زبان پیش‌فرض صحیح را برای جریان‌های شطرنج‌تان در کارآیه یا زواره‌ای که برای پخش می‌بهرایید، تنظیم کنید.</string>
   <string name="twitchUsername">نام کاربری یا وب‌نشانی‌تان در Twitch</string>
   <string name="twitchOrYouTubeRequired" comment="A notice when creating/editing your streamer page (https://lichess.org/streamer/edit), denoting that you can only be listed if you stream from a Twitch or YouTube channel.">یوتیوب یا توییچ لازم است</string>
-  <string name="twitchOrYouTubeMustBeVerified">یوتیوب یا توییچ لازم است</string>
+  <string name="twitchOrYouTubeMustBeVerified">تغییرات یوتیوب یا توییچ باید تایید شوند.
+نشان استریمر و اسم شما در فهرست در حین فرآیند بررسی معلق خواهد شد. این ممکن است تا 72 ساعت به طول بینجامد.</string>
   <string name="youTubeChannelId">شناسهٔ کانال یوتیوب‌تان</string>
   <string name="streamerName">نام بَرخَط-محتواسازتان در Lichess</string>
   <plurals name="keepItShort">
