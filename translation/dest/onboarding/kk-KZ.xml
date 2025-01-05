@@ -12,4 +12,6 @@
   <string name="followYourFriendsOnLichess">Достарыңызға Личес-те серік болу.</string>
   <string name="playInTournaments">Жарыстарға қатысу.</string>
   <string name="learnFromXAndY" comment="%1$s is Study&#10;%2$s is Videos&#10;&#10;They are both links to pages titled that way, and the title is used verbatim.">%1$s мен %2$s қарап үйрену.</string>
+  <string name="configureLichess">Личес-ті өз ыңғайыңызға пішімдеу.</string>
+  <string name="exploreTheSiteAndHaveFun">Сайттың әр түкпірін ашып, уақытыңыз қызық өтсін :)</string>
 </resources>
