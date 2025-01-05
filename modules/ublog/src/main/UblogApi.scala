@@ -78,6 +78,40 @@ final class UblogApi(
 
   def latestPosts(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post
+      .aggregateList(maxDocs = nb, _.sec): framework =>
+        import framework.*
+        Match($doc("blog" -> blogId, "live" -> true)) -> List(
+          AddFields(
+            $doc(
+              "sortRank" -> $doc("$type" -> "$sticky"), // "date" or "missing"
+              "stickyFlag" -> $doc(
+                "$cond" -> $doc(
+                  "if"   -> $doc("$ne" -> $arr($doc("$type" -> "$sticky"), "missing")),
+                  "then" -> " *",
+                  "else" -> ""
+                )
+              ),
+              "sortDate" -> $doc(
+                "$cond" -> $doc(
+                  "if"   -> $doc("$ne" -> $arr($doc("$type" -> "$sticky"), "missing")),
+                  "then" -> "$sticky",
+                  "else" -> "$lived.at"
+                )
+              )
+            )
+          ),
+          Sort(Ascending("sortRank"), Descending("sortDate")),
+          Project($doc(previewPostProjection)),
+          Limit(nb)
+        )
+      .map: docs =>
+        for
+          doc  <- docs
+          post <- doc.asOpt[UblogPost.PreviewPost]
+        yield post.copy(title = post.title + post.stickyFlag)
+
+  def latestPostsBak(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
+    colls.post
       .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
       .sort($doc("lived.at" -> -1))
       .cursor[UblogPost.PreviewPost](ReadPref.sec)
