@@ -84,13 +84,6 @@ final class UblogApi(
           AddFields(
             $doc(
               "sortRank" -> $doc("$type" -> "$sticky"), // "date" or "missing"
-              "stickyFlag" -> $doc(
-                "$cond" -> $doc(
-                  "if"   -> $doc("$ne" -> $arr($doc("$type" -> "$sticky"), "missing")),
-                  "then" -> " *",
-                  "else" -> ""
-                )
-              ),
               "sortDate" -> $doc(
                 "$cond" -> $doc(
                   "if"   -> $doc("$ne" -> $arr($doc("$type" -> "$sticky"), "missing")),
@@ -108,7 +101,7 @@ final class UblogApi(
         for
           doc  <- docs
           post <- doc.asOpt[UblogPost.PreviewPost]
-        yield post.copy(title = post.title + post.stickyFlag)
+        yield post
 
   def latestPostsBak(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
     colls.post

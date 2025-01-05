@@ -73,7 +73,6 @@ object UblogPost:
       created: Recorded,
       updated: Option[Recorded],
       lived: Option[Recorded],
-      stickyFlag: String,
       topics: List[UblogTopic]
   ) extends BasePost
 
