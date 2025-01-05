@@ -3510,7 +3510,7 @@ interface I18n {
     /** Navigate the move tree */
     navigateMoveTree: string;
     /** %s blunders */
-    nbBlunders: I18nPlural;
+    numberBlunders: I18nPlural;
     /** %s bookmarks */
     nbBookmarks: I18nPlural;
     /** %s days */
@@ -3536,13 +3536,13 @@ interface I18n {
     /** %s imported games */
     nbImportedGames: I18nPlural;
     /** %s inaccuracies */
-    nbInaccuracies: I18nPlural;
+    numberInaccuracies: I18nPlural;
     /** %s losses */
     nbLosses: I18nPlural;
     /** %s minutes */
     nbMinutes: I18nPlural;
     /** %s mistakes */
-    nbMistakes: I18nPlural;
+    numberMistakes: I18nPlural;
     /** %1$s %2$s players this week. */
     nbPerfTypePlayersThisWeek: I18nPlural;
     /** %s players */
