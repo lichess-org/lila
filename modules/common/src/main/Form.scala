@@ -389,5 +389,5 @@ object Form:
 
     def changing[Model, FieldsType, A](field: FieldsType => (String, Mapping[A]))(
         f: A => Model => Model
-    )(using fieldsType: FieldsType): Change[Model, A] =
-      Change(field(fieldsType)._1, field(fieldsType)._2, f)
+    )(using fieldsType: ValueOf[FieldsType]): Change[Model, A] =
+      Change(field(fieldsType.value)._1, field(fieldsType.value)._2, f)

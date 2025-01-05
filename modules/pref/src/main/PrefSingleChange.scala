@@ -7,7 +7,6 @@ import play.api.data.Forms.*
 object PrefSingleChange:
 
   type Change[A] = lila.common.Form.SingleChange.Change[Pref, A]
-  given fieldsInstance: PrefForm.fields.type = PrefForm.fields
   private def changing[A] = lila.common.Form.SingleChange.changing[Pref, PrefForm.fields.type, A]
 
   val changes: Map[String, Change[?]] = List[Change[?]](

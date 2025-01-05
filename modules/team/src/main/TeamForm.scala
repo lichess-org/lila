@@ -184,7 +184,6 @@ object TeamForm:
 object TeamSingleChange:
 
   type Change[A] = lila.common.Form.SingleChange.Change[Team, A]
-  given fieldsInstance: TeamForm.Fields.type = TeamForm.Fields
   private def changing[A] = lila.common.Form.SingleChange.changing[Team, TeamForm.Fields.type, A]
 
   val changes: Map[String, Change[?]] = List[Change[?]](
