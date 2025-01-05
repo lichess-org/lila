@@ -72,7 +72,7 @@ export default function (opts: Opts): DrawShape[] {
     } else shapes = shapes.concat(makeAutoShapesFromUci(opposite(color), n.threat.pvs[0].moves[0], 'red'));
   }
   const feedback = feedbackAnnotation(n);
-  const hint = opts.hint && { orig: makeSquare(opts.hint), brush: 'green' };
+  const hint = opts.hint !== undefined ? { orig: makeSquare(opts.hint), brush: 'green' } : undefined;
   return [
     ...shapes,
     ...annotationShapes(n),
