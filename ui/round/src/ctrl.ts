@@ -896,7 +896,7 @@ export default class RoundController implements MoveRootCtrl {
       if (this.isPlaying() && d.steps.length === 1) {
         this.blindfold(this.blindfoldStorage.get());
       }
-      wakeLock.request();
+      if (!this.opts.local) wakeLock.request();
 
       setTimeout(() => {
         if ($('#KeyboardO,#show_btn,#shadowHostId').length) {

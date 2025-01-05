@@ -35,6 +35,7 @@ type LocalMove = { uci: Uci; clock?: { white: number; black: number } };
 export class LocalGame {
   moves: LocalMove[];
   chess: co.Chess;
+  initialPly: number = 0;
   threefoldFens: Map<string, number> = new Map();
   fiftyHalfMove: number = 0;
   finished?: GameStatus;
@@ -47,6 +48,7 @@ export class LocalGame {
     this.threefoldFens = new Map();
     this.moves = [];
     for (const move of moves ?? []) this.move(move);
+    this.initialPly = 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
   }
 
   move(move: LocalMove): MoveContext {
@@ -143,7 +145,7 @@ export class LocalGame {
   }
 
   get ply(): number {
-    return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0);
+    return 2 * (this.chess.fullmoves - 1) + (this.chess.turn === 'black' ? 1 : 0) - this.initialPly;
   }
 
   get turn(): Color {
@@ -159,20 +161,26 @@ export class LocalGame {
   }
 
   get dests(): { [from: string]: string } {
-    const dests: { [from: string]: string } = {};
-    [...this.chess.allDests()]
-      .filter(([, to]) => !to.isEmpty())
-      .forEach(([s, ds]) => (dests[co.makeSquare(s)] = [...ds].map(co.makeSquare).join('')));
-    return dests;
+    return Object.fromEntries([...this.cgDests].map(([src, dests]) => [src, dests.join('')]));
   }
 
   get cgDests(): Map<Key, Key[]> {
-    // TODO: use chessops
-    const dec = new Map();
-    const dests = this.dests;
-    if (!dests) return dec;
-    for (const k in dests) dec.set(k, dests[k].match(/.{2}/g) as Key[]);
-    return dec;
+    return co.compat.chessgroundDests(this.chess);
+  }
+
+  get threefoldDraws(): Uci[] {
+    const draws: Uci[] = [];
+    const boardFen = this.fen.split('-')[0];
+    for (const [from, dests] of this.chess.allDests()) {
+      for (const to of dests) {
+        const chess = this.chess.clone();
+        chess.play({ from, to });
+        const moveFen = makeFen(chess.toSetup()).split('-')[0];
+        if (moveFen !== boardFen && (this.threefoldFens.get(moveFen) ?? 0 >= 2))
+          draws.push(co.makeUci({ from, to }));
+      }
+    }
+    return draws;
   }
 }
 

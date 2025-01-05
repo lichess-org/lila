@@ -7,8 +7,8 @@ import { type ObjectStorage, objectStorage } from 'common/objectStorage';
 import { storedBooleanProp } from 'common/storage';
 import type { GameStatus, MoveContext } from '../localGame';
 import { env } from '../localEnv';
-import stringify from 'json-stringify-pretty-compact';
 import { pubsub } from 'common/pubsub';
+import { type PermaLog, makeLog } from 'common/permalog';
 
 export interface Result {
   winner: Color | undefined;
@@ -40,6 +40,8 @@ export class DevCtrl {
   // skip animations, sounds, and artificial think times (clock still adjusted)
   script: Script;
   log: Result[];
+  private traceDb: PermaLog;
+  private trace: string[] = [];
   ratings: { [uid: string]: DevRatings } = {};
   private localRatings: ObjectStorage<DevRatings>;
 
@@ -47,7 +49,7 @@ export class DevCtrl {
 
   async init(): Promise<void> {
     this.resetScript();
-    await this.getStoredRatings();
+    [this.traceDb] = await Promise.all([makeLog({ store: 'botmove' }, 1), this.getStoredRatings()]);
     pubsub.on('theme', env.redraw);
   }
 
@@ -70,6 +72,7 @@ export class DevCtrl {
 
   resetScript(test?: Test): void {
     this.log ??= [];
+    this.trace = [];
     const players = [env.game.white, env.game.black].filter(x => defined(x)) as string[];
     this.script = {
       type: 'matchup',
@@ -81,30 +84,46 @@ export class DevCtrl {
 
   onReset(): void {}
 
-  preMove(moveResult: MoveContext): void {
+  beforeMove(uci: string): void {
+    const ply = env.game.live.ply;
+    const fen = env.game.live.fen;
+    const turn = env.game.turn;
+    if (ply === 0) {
+      const stringify = (obj: any) =>
+        JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
+      this.trace.push(`\nWhite: '${env.game.nameOf('white')}' ${stringify(env.bot.white)}`);
+      this.trace.push(`Black: '${env.game.nameOf('black')}' ${stringify(env.bot.black)}\n`);
+    }
+    if (ply % 2 === 0) this.trace.push(`\n ${'-'.repeat(64)} Move ${ply / 2 + 1} ${'-'.repeat(64)}`);
+    if (!env.bot[turn]) this.trace.push(`  ${ply}. '${env.game.nameOf(turn)}' at '${fen}': '${uci}'`);
+  }
+
+  afterMove(moveResult: MoveContext): void {
+    const ply = env.game.live.ply - 1;
+    const lastColor = env.game.awaitingTurn;
     env.round.chessground?.set({ animation: { enabled: !this.hurry } });
     if (this.hurry) moveResult.silent = true;
+    const trace = env.bot[lastColor]?.traceMove;
+    if (trace) this.trace.push(trace);
   }
 
   onGameOver({ winner, turn, reason, status }: GameStatus): boolean {
     const last = { winner, white: this.white?.uid, black: this.black?.uid };
     this.log.push(last);
-    if (status === statusOf('cheat')) {
-      console.error(
-        `${env.game.nameOf('white')} vs ${env.game.nameOf('black')} - ${turn} ${reason} - ${
-          env.game.live.fen
-        } ${env.game.live.moves.join(' ')}`,
-        stringify(env.game.live.chess),
-      );
-      return false;
-    } else
-      console.info(
-        `game ${this.log.length} ${env.game.nameOf('white')} vs ${env.game.nameOf('black')}:`,
-        winner ? `${env.game.nameOf(winner)} wins by` : 'draw',
-        status.name,
-        reason ?? '',
-      );
-    if (!this.white?.uid || !this.black?.uid) return false;
+    const matchup = `'${env.game.nameOf('white')}' vs '${env.game.nameOf('black')}'`;
+    const error =
+      status === statusOf('cheat') &&
+      `${matchup} - ${turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`;
+    const result =
+      `${matchup}: ` + `${winner ? `${env.game.nameOf(winner)} wins by` : ''} ${status.name} ${reason ?? ''}`;
+    this.trace.push(` ${error || result}`);
+    this.trace.push('='.repeat(144));
+    this.traceDb(this.trace.join('\n'));
+    this.trace = [];
+
+    console.log(`game ${this.log.length} - ` + (error || result));
+
+    if (error || !this.white?.uid || !this.black?.uid) return false;
     this.updateRatings(this.white.uid, this.black.uid, winner);
 
     if (this.script.type === 'rate') {
@@ -130,6 +149,10 @@ export class DevCtrl {
     this.ratings[uid] ??= {};
     this.ratings[uid][speed] = rating;
     return this.localRatings.put(uid, this.ratings[uid]);
+  }
+
+  async getTrace(): Promise<string> {
+    return (await this.traceDb.get()) + '\n' + this.trace.join('\n');
   }
 
   get hasUser(): boolean {

@@ -64,7 +64,7 @@ export class RoundProxy implements IRoundProxy {
     return true;
   };
 
-  updateCg(game: LocalGame | undefined, cgOpts?: CgConfig): void {
+  cg(game: LocalGame | undefined, cgOpts?: CgConfig): void {
     const gameUpdates: CgConfig = {};
     if (game) {
       gameUpdates.fen = game.fen;
@@ -92,7 +92,8 @@ export class RoundProxy implements IRoundProxy {
     this.data.game.speed = this.data.game.perf = clockToSpeed(env.game.initial, env.game.increment);
     this.data.clock = env.game.clock;
     if (!env.round) return;
-    env.round.ply = 0;
+    env.round.chessground?.set({ movable: { dests: env.game.live.cgDests } });
+    env.round.ply = env.game.live.ply;
     env.round.reload(this.data);
   }
 
@@ -104,7 +105,7 @@ export class RoundProxy implements IRoundProxy {
       noab: false,
       onChange: () => {
         if (env.round.ply === 0)
-          this.updateCg(undefined, { lastMove: undefined, orientation: env.game.orientation });
+          this.cg(undefined, { lastMove: undefined, orientation: env.game.orientation });
       },
     };
   }

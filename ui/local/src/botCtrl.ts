@@ -86,7 +86,7 @@ export class BotCtrl {
   async move(args: MoveArgs): Promise<MoveResult | undefined> {
     const bot = this[args.chess.turn] as BotInfo & MoveSource;
     if (!bot) return undefined;
-    if (this.busy) return undefined; // just ignore requests from different call stacks
+    if (this.busy) return undefined; // ignore different call stacks
     this.busy = true;
     const cp = bot instanceof Bot && bot.needsScore ? (await this.fetchBestMove(args.pos)).cp : undefined;
     const move = await bot?.move({ ...args, cp });

@@ -50,7 +50,9 @@ export class Pane<Info extends PaneInfo = PaneInfo> {
   }
 
   setEnabled(enabled: boolean = this.canEnable): boolean {
-    this.el.classList.toggle('none', !this.requirementsAllow);
+    const allowed = this.requirementsAllow;
+    if (!allowed) enabled = false;
+    this.el.classList.toggle('none', !allowed);
 
     if (this.input || this.enabledToggle) {
       const { panes: editor, view } = this.host;

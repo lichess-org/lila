@@ -27,8 +27,8 @@ importers:
         specifier: github:lichess-org/ab-stub
         version: https://codeload.github.com/lichess-org/ab-stub/tar.gz/94236bf34dbc9c05daf50f4c9842d859b9142be0
       chessground:
-        specifier: ^9.1.1
-        version: 9.1.1
+        specifier: link:../chessground
+        version: link:../chessground
       chessops:
         specifier: ^0.14.2
         version: 0.14.2
@@ -451,8 +451,8 @@ importers:
         specifier: 3.5.1
         version: 3.5.1
       zerofish:
-        specifier: 0.0.29
-        version: 0.0.29
+        specifier: 0.0.30
+        version: 0.0.30
 
   ui/mod:
     dependencies:
@@ -1119,9 +1119,6 @@ packages:
 
   '@types/node@22.10.2':
     resolution: {integrity: sha512-Xxr6BBRCAOQixvonOye19wnzyDiUtTeqldOOmj3CkeblonbccA12PFwlufvRdrpjXxqnmUaeiU5EOA+7s5diUQ==}
-
-  '@types/node@22.9.0':
-    resolution: {integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==}
 
   '@types/node@22.9.1':
     resolution: {integrity: sha512-p8Yy/8sw1caA8CdRIQBG5tiLHmxtQKObCijiAa9Ez+d4+PRffM4054xbju0msf+cvhJpnFEeNjxmVT/0ipktrg==}
@@ -2465,8 +2462,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zerofish@0.0.29:
-    resolution: {integrity: sha512-fgVr6NoIymCmJx6l0gdPVsYu7heDMFd3l+IgxQZ7ngCZTmOC9hqXSlbuAURI/uBEJ5j1E9lyaDAxs41wR4WSEA==}
+  zerofish@0.0.30:
+    resolution: {integrity: sha512-vSY8v+qYAKJQx5w3PabDQeedEUASVzl8O9p5l/576qxDh213knSaIiHlVfg27xowJbFRIN4Q6Im9u+OwklgFJA==}
 
   zxcvbn@4.4.2:
     resolution: {integrity: sha512-Bq0B+ixT/DMyG8kgX2xWcI5jUvCwqrMxSFam7m0lAf78nf04hv6lNCsyLYdyYTrCVMqNDY/206K7eExYCeSyUQ==}
@@ -2738,10 +2735,6 @@ snapshots:
   '@types/node@22.10.2':
     dependencies:
       undici-types: 6.20.0
-
-  '@types/node@22.9.0':
-    dependencies:
-      undici-types: 6.19.8
 
   '@types/node@22.9.1':
     dependencies:
@@ -4086,10 +4079,10 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zerofish@0.0.29:
+  zerofish@0.0.30:
     dependencies:
       '@types/emscripten': 1.39.13
-      '@types/node': 22.9.0
+      '@types/node': 22.10.2
       '@types/web': 0.0.154
       prettier: 3.0.2
       typescript: 5.7.2

@@ -187,6 +187,10 @@ function dashboard() {
     h('span', [
       h('button.button.button-metal', { hook: bind('click', () => roundRobin()) }, 'round robin'),
       h('div.spacer'),
+      h('button.button.button-metal', {
+        attrs: { 'data-icon': licon.ShareIos },
+        hook: bind('click', () => report()),
+      }),
       h(`button.board-action.button.button-metal`, {
         attrs: { 'data-icon': licon.Switch },
         hook: bind('click', () => {
@@ -330,6 +334,15 @@ function roundRobin() {
     show: true,
     modal: true,
   });
+}
+
+async function report() {
+  const text = await env.dev.getTrace();
+  if (text.length) {
+    site.asset.loadEsm('bits.diagnosticDialog', {
+      init: { text, header: 'Game Info', submit: 'send to lichess' },
+    });
+  }
 }
 
 let botSelector: HandOfCards | undefined;

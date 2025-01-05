@@ -78,27 +78,29 @@ export class GameCtrl implements LocalSetup {
     this.resolveThink?.();
   }
 
-  async botMove(): Promise<void> {
+  async maybeBotMove(): Promise<void> {
     const [bot, game] = [env.bot[this.turn], this.live];
     if (!bot || game.end || this.isStopped || this.resolveThink) return;
     const move = await env.bot.move({
       pos: { fen: game.initialFen, moves: game.moves.map(x => x.uci) },
       chess: this.live.chess,
+      avoid: this.live.threefoldDraws,
       remaining: this.clock?.[this.turn],
       initial: this.clock?.initial,
       increment: this.clock?.increment,
     });
     if (!move) return;
     await new Promise<void>(resolve => {
-      if (this.clock && move.thinktime) this.clock[this.turn] -= move.thinktime;
-      if (this.clock) this.clock.since = undefined;
+      if (this.clock) {
+        this.clock[this.turn] -= move.thinkTime;
+        this.clock.since = undefined;
+      }
       if (env.dev?.hurry) return resolve();
       this.resolveThink = resolve;
-      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? (move.thinktime ?? 3) : 0);
+      const realWait = Math.min(1 + 2 * Math.random(), this.live.ply > 0 ? move.thinkTime : 0);
       setTimeout(resolve, realWait * 1000);
     });
     this.resolveThink = undefined;
-
     if (!this.isStopped && game === this.live && env.round.ply === game.ply) this.move(move.uci);
     else setTimeout(() => this.updateTurn(), 200);
   }
@@ -107,13 +109,16 @@ export class GameCtrl implements LocalSetup {
     if (this.history) this.live = this.history;
     this.history = undefined;
     this.stopped = false;
+    env.dev?.beforeMove(uci);
 
     if (this.clock?.since) this.clock[this.turn] -= (performance.now() - this.clock.since) / 1000;
     const moveCtx = this.live.move({ uci, clock: this.clock });
     const { end, move, justPlayed } = moveCtx;
 
     this.proxy.data.steps.splice(this.live.ply);
-    env.dev?.preMove?.(moveCtx);
+
+    env.dev?.afterMove?.(moveCtx);
+
     this.playSounds(moveCtx);
     env.round.apiMove(moveCtx);
 
@@ -203,9 +208,9 @@ export class GameCtrl implements LocalSetup {
 
   private updateTurn(game: LocalGame = this.history ?? this.live): void {
     if (this.clock && game !== this.live) this.clock = { ...this.clock, ...game.clock };
-    this.proxy.updateCg(game, this.live.ply === 0 ? { lastMove: undefined } : {});
+    this.proxy.cg(game, this.live.ply === 0 ? { lastMove: undefined } : {});
     this.updateClockUi();
-    if (this.isLive) this.botMove();
+    if (this.isLive) this.maybeBotMove();
   }
 
   private updateClockUi(): void {

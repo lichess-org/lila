@@ -93,6 +93,10 @@
   }
 }
 
+main.round {
+  ---col3-uniboard-side-min: 300px;
+}
+
 .dev-side {
   display: grid;
   grid-template-columns: 1fr;

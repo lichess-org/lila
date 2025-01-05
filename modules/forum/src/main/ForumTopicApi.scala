@@ -107,6 +107,7 @@ final private class ForumTopicApi(
           for
             _ <- topicRepo.coll.insert.one(topic.withPost(post))
             _ <- categRepo.coll.update.one($id(categ.id), categ.withPost(topic, post))
+            _ <- postRepo.coll.insert.one(post)
             _ <- askApi.commit(frozen, s"/forum/redirect/post/${post.id}".some)
           yield
             promotion.save(me, post.text)
