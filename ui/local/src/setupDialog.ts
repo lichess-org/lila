@@ -29,6 +29,8 @@ class SetupDialog {
   }
 
   show() {
+    if (window.screen.width < 1260) return;
+
     domDialog({
       class: 'game-setup base-view setup-view',
       css: [{ hashed: 'local.setup' }],
@@ -54,6 +56,7 @@ class SetupDialog {
           <button class="button button-empty fight" data-icon="${licon.Swords}"></button>
         </div>
       </div>`,
+      modal: true,
       actions: [
         { selector: '.fight', listener: this.fight },
         { selector: '.switch', listener: this.switch },
@@ -64,7 +67,6 @@ class SetupDialog {
       onClose: () => localStorage.setItem('local.setup', JSON.stringify(this.setup)),
       noCloseButton: env.game !== undefined,
       noClickAway: env.game !== undefined,
-      modal: true,
     }).then(dlg => {
       this.dialog = dlg;
       this.view = dlg.view.querySelector('.with-cards')!;

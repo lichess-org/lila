@@ -39,6 +39,7 @@ export interface BotInfo {
   readonly version: number;
   readonly ratings: Ratings;
   readonly image: string;
+  readonly traceMove?: string;
   readonly books?: Book[];
   readonly sounds?: SoundEvents;
   readonly filters?: Filters;
@@ -54,14 +55,15 @@ export interface MoveSource {
 export interface MoveArgs {
   pos: Position;
   chess: Chess;
+  avoid: Uci[];
   initial: Seconds | undefined;
   increment: Seconds | undefined;
   remaining: Seconds | undefined;
-  thinktime?: Seconds;
+  thinkTime?: Seconds;
   cp?: number;
 }
 
-export type MoveResult = { uci: string; thinktime?: Seconds };
+export type MoveResult = { uci: string; thinkTime: Seconds };
 
 export interface LocalSetup {
   white?: string;

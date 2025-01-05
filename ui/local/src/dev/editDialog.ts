@@ -12,6 +12,8 @@ import { historyDialog } from './historyDialog';
 import { env } from '../localEnv';
 import { pubsub } from 'common/pubsub';
 import { Janitor } from 'common/event';
+import stringify from 'json-stringify-pretty-compact';
+import * as licon from 'common/licon';
 
 export class EditDialog {
   static default: BotInfo = deepFreeze<BotInfo>({
@@ -118,7 +120,7 @@ export class EditDialog {
       { selector: '[data-bot-action="new"]', listener: () => this.newBot() },
       { selector: '[data-bot-action="delete"]', listener: () => this.deleteBot() },
       { selector: '[data-bot-action="history-one"]', listener: () => historyDialog(this, this.uid) },
-      //{ selector: '[data-bot-action="history-all"]', listener: () => historyDialog(this) },
+      { selector: '[data-bot-action="json"]', listener: () => this.json() },
       { selector: '[data-bot-action="unrate-all"]', listener: () => this.clearRatings() },
       { selector: '[data-bot-action="assets"]', listener: () => this.assetDialog() },
       { selector: '[data-bot-action="push-one"]', listener: () => this.push() },
@@ -292,6 +294,49 @@ export class EditDialog {
     });
   }
 
+  private async json(): Promise<void> {
+    const version = this.bot.version;
+    const view = frag<HTMLElement>(`<div class="dev-view json-dialog">
+        <textarea class="json" autocomplete="false" spellcheck="false">${stringify(this.bot, { indent: 2, maxLength: 80 })}</textarea>
+        <div class="actions">
+          <button class="button button-empty button-dim" data-icon="${licon.Clipboard}" data-action="copy"></button>
+          <button class="button button-empty button-red" data-action="cancel">cancel</button>
+          <button class="button button-empty" data-action="save">save</button>
+          </div>
+      </div>`);
+    const dlg = await domDialog({
+      append: [{ node: view }],
+      onClose: () => {},
+      show: true,
+      actions: [
+        { selector: '[data-action="cancel"]', result: 'cancel' },
+        { selector: '[data-action="save"]', result: 'save' },
+        {
+          selector: '[data-action="copy"]',
+          listener: async () => {
+            await navigator.clipboard.writeText(view.querySelector<HTMLTextAreaElement>('.json')!.value);
+            const copied = frag<HTMLElement>(
+              `<div data-icon="${licon.Checkmark}" class="good"> COPIED</div>`,
+            );
+            view.querySelector('[data-action="copy"]')?.before(copied);
+            setTimeout(() => copied.remove(), 2000);
+          },
+        },
+      ],
+    });
+    if (dlg.returnValue !== 'save') return;
+
+    const newBot = {
+      ...(JSON.parse(view.querySelector<HTMLTextAreaElement>('.json')!.value) as BotInfo),
+      version,
+    };
+    this.scratch[this.uid] = Object.defineProperty(new Bot(newBot), 'disabled', {
+      value: new Set<string>(),
+    }) as WritableBot;
+    this.makeEditView();
+    this.update();
+  }
+
   private deckEl = frag<HTMLElement>(`<div class="deck">
       <div class="placeholder"></div>
       <fieldset class="deck-legend">
@@ -307,11 +352,12 @@ export class EditDialog {
       <button class="button button-empty button-green" data-bot-action="new">new bot</button>
       <button class="button button-empty button-brag" data-bot-action="assets">assets</button>
       <button class="button button-empty" data-bot-action="pull-all">pull all</button>
-      <button class="button button-empty button-dim" data-bot-action="unrate-all">clear all ratings</button>
+      <button class="button button-empty button-red" data-bot-action="unrate-all">clear all ratings</button>
     </div>`);
 
   private botActionsEl = frag<HTMLElement>(`<div class="bot-actions">
       <button class="button button-empty button-red none" data-bot-action="delete">delete</button>
+      <button class="button button-empty button-dim" data-bot-action="json">json</button>
       <button class="button button-empty button-brag" data-bot-action="history-one">history</button>
       <button class="button button-empty none" data-bot-action="pull-one">pull</button>
       <button class="button button-empty button-clas none" data-bot-action="push-one">push</button>

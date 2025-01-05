@@ -88,3 +88,31 @@ body:has(.base-view.setup-view) {
     }
   }
 }
+
+@media (max-width: at-most($x-large)) {
+  div#main-wrap {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 100vw;
+    > * {
+      display: none;
+    }
+    &::before {
+      content: '';
+      display: block;
+      background-image: url('/assets/lifat/bots/image/not-worthy.webp');
+      background-size: contain;
+      background-repeat: no-repeat;
+      min-width: 320px;
+      min-height: 320px;
+    }
+    &::after {
+      content: '\A Your device is not worthy.';
+      font-size: 32px;
+      text-align: center;
+    }
+  }
+}

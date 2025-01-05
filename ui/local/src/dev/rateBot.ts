@@ -21,6 +21,7 @@ export class RateBot implements BotInfo, MoveSource {
   books: Book[] = [];
   sounds = {};
   filters = {};
+  traceMove = '';
 
   constructor(readonly level: number) {
     const rating = (this.level + 8) * 75;
@@ -48,15 +49,13 @@ export class RateBot implements BotInfo, MoveSource {
   }
 
   async move({ pos }: MoveArgs): Promise<MoveResult> {
-    return {
-      uci: (await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } }))
-        .bestmove,
-      thinktime: 0,
-    };
-  }
-
-  thinking(): number {
-    return 1;
+    const ply = env.game.live.ply;
+    const turn = env.game.live.turn;
+    const uci = (
+      await env.bot.zerofish.goFish(pos, { multipv: 1, level: this.level, by: { depth: this.depth } })
+    ).bestmove;
+    this.traceMove = `  ${ply}. '${this.name} ${this.ratings.classical}' at '${pos.fen}': '${uci}'`;
+    return { uci, thinkTime: 0.2 };
   }
 }
 

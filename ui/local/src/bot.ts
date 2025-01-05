@@ -1,6 +1,6 @@
 import * as co from 'chessops';
 import { zip, clamp } from 'common/algo';
-import { normalize, interpolate } from './filter';
+import { normalize, interpolate, domain } from './filter';
 import type { FishSearch, SearchResult, Line } from 'zerofish';
 import type { OpeningBook } from 'bits/polyglot';
 import { env } from './localEnv';
@@ -24,6 +24,7 @@ export function score(pv: Line, depth: number = pv.scores.length - 1): number {
 export class Bot implements BotInfo, MoveSource {
   private openings: Promise<OpeningBook[]>;
   private stats: { cplMoves: number; cpl: number };
+  private traces: string[] = [];
   readonly uid: string;
   readonly version: number = 0;
   name: string;
@@ -53,6 +54,10 @@ export class Bot implements BotInfo, MoveSource {
     return Boolean(info.uid && info.name && (info.zero || info.fish));
   }
 
+  get traceMove(): string {
+    return this.traces.join('\n');
+  }
+
   get statsText(): string {
     return this.stats.cplMoves ? `acpl ${Math.round(this.stats.cpl / this.stats.cplMoves)}` : '';
   }
@@ -62,110 +67,144 @@ export class Bot implements BotInfo, MoveSource {
   }
 
   async move(args: MoveArgs): Promise<MoveResult> {
-    const moveArgs = { ...args, thinktime: this.thinktime(args) };
-    const { pos, chess } = moveArgs;
+    const { pos, chess } = args;
     const { fish, zero } = this;
+
+    this.trace([`  ${env.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
+
     const opening = await this.bookMove(chess);
-    if (opening) return { uci: opening, thinktime: moveArgs.thinktime };
-    const { uci, cpl } = this.chooseMove(
+    args.thinkTime = this.thinkTime(args);
+
+    // i need a better way to handle thinkTime, we probably need to adjust it in chooseMove
+    if (opening) return { uci: opening, thinkTime: args.thinkTime };
+
+    const { uci, cpl, thinkTime } = this.chooseMove(
       await Promise.all([
         fish && env.bot.zerofish.goFish(pos, fish),
         zero &&
           env.bot.zerofish.goZero(pos, {
-            ...zero,
+            nodes: zero.nodes,
+            multipv: Math.max(zero.multipv, args.avoid.length + 1),
             net: {
               key: this.name + '-' + zero.net,
               fetch: () => env.assets.getNet(zero.net),
             },
           }),
       ]),
-      moveArgs,
+      args,
     );
     if (cpl !== undefined && cpl < 1000) {
       this.stats.cplMoves++; // debug stats
       this.stats.cpl += cpl;
     }
-    return { uci, thinktime: moveArgs.thinktime };
+    this.trace(`[move] - chose ${uci} in ${thinkTime.toFixed(1)}s`);
+    return { uci, thinkTime: thinkTime };
   }
 
-  private filter(op: string, { chess, cp, thinktime }: MoveArgs): undefined | number {
-    const o = this.filters?.[op];
-    if (!o) return undefined;
+  private filter(op: string, { chess, cp, thinkTime }: MoveArgs): undefined | number {
+    const f = this.filters?.[op];
+    if (!f) return undefined;
     const val = interpolate(
-      o,
-      o.by === 'move'
+      f,
+      f.by === 'move'
         ? chess.fullmoves
-        : o.by === 'score'
+        : f.by === 'score'
           ? outcomeExpectancy(chess.turn, cp ?? 0)
-          : thinktime
-            ? Math.log2(thinktime)
-            : 240,
+          : thinkTime
+            ? Math.log2(thinkTime)
+            : domain(f).max,
     );
+    this.trace(`[filter] - ${op} by ${f.by} = ${val.toFixed(2)}`);
     return val;
   }
 
-  private thinktime({ initial, remaining, increment }: MoveArgs): number | undefined {
+  private thinkTime({ initial, remaining, increment }: MoveArgs): number {
     initial ??= Infinity;
     increment ??= 0;
-    if (!remaining || !Number.isFinite(initial)) return undefined;
+    if (!remaining || !Number.isFinite(initial)) return 60;
     const pace = 45 * (remaining < initial / Math.log2(initial) && !increment ? 2 : 1);
     const quickest = Math.min(initial / 150, 1);
     const variateMax = Math.min(remaining, increment + initial / pace);
-    return quickest + Math.random() * variateMax;
+    const thinkTime = quickest + Math.random() * variateMax;
+    this.trace(
+      `[thinkTime] - thinktime = ${thinkTime.toFixed(1)}, pace = ${pace.toFixed(1)}, quickest = ${quickest.toFixed(1)}, variateMax = ${variateMax.toFixed(1)}`,
+    );
+    return thinkTime;
   }
 
   private async bookMove(chess: co.Chess) {
-    // first decide on a book from those with a move for the current position using book
-    // relative weights. then choose a move within that book using the move weights
+    // first use book relative weights to choose from the subset of books with moves for
+    // the current position.
     if (!this.books?.length) return undefined;
-    const moveList: { moves: { uci: Uci; weight: number }[]; bookWeight: number }[] = [];
+    const moveList: { moves: { uci: Uci; weight: number }[]; book: Book }[] = [];
     let bookChance = 0;
     for (const [book, opening] of zip(this.books, await this.openings)) {
       const moves = opening(chess);
       if (moves.length === 0) continue;
-      moveList.push({ moves, bookWeight: book.weight });
+      moveList.push({ moves, book });
       bookChance += book.weight;
     }
     bookChance = Math.random() * bookChance;
-    for (const { moves, bookWeight } of moveList) {
-      bookChance -= bookWeight;
+    for (const { moves, book } of moveList) {
+      bookChance -= book.weight;
+      const key = book.key;
       if (bookChance <= 0) {
+        // then choose the move from that book
         let chance = Math.random();
         for (const { uci, weight } of moves) {
           chance -= weight;
-          if (chance <= 0) return uci;
+          if (chance > 0) continue;
+          this.trace(`[bookMove] - chose ${uci} from book '${key}'`);
+          return uci;
         }
       }
     }
     return undefined;
   }
 
-  private chooseMove(results: (SearchResult | undefined)[], args: MoveArgs): { uci: Uci; cpl?: number } {
+  private chooseMove(
+    results: (SearchResult | undefined)[],
+    args: MoveArgs,
+  ): { uci: Uci; cpl?: number; thinkTime: number } {
     const moves = this.parseMoves(results, args);
-
-    if (this.filters?.cplTarget) this.scoreByCpl(moves, args);
+    this.trace(`[chooseMove] - parsed = ${stringify(moves)}`);
+    let thinkTime = args.thinkTime ?? 0;
+    if (this.filters?.cplTarget) {
+      this.scoreByCpl(moves, args);
+      this.trace(`[chooseMove] - cpl scored = ${stringify(moves)}`);
+    }
 
     moves.sort(weightSort);
-
     if (args.pos.moves?.length) {
       const last = args.pos.moves[args.pos.moves.length - 1].slice(2, 4);
-
-      // our one global rule - if the current favorite is a capture of the opponent's last moved piece,
+      // if the current favorite is a capture of the opponent's last moved piece,
       // always take it, regardless of move quality decay
-      if (moves[0].uci.slice(2, 4) === last) return moves[0];
+      if (moves[0].uci.slice(2, 4) === last) {
+        this.trace(`[chooseMove] - short-circuit = ${stringify(moves[0])}`);
+        return { ...moves[0], thinkTime: thinkTime / 4 };
+      }
     }
-    return moveQualityDecay(moves, this.filter('moveDecay', args) ?? 0) ?? moves[0];
+    const filtered = moves.filter(mv => !args.avoid.includes(mv.uci));
+    this.trace(`[chooseMove] - sorted & filtered = ${stringify(filtered)}`);
+    const decayed =
+      moveQualityDecay(filtered, this.filter('moveDecay', args) ?? 0) ?? filtered[0] ?? moves[0];
+    return { ...decayed, thinkTime };
   }
 
   private parseMoves([fish, zero]: (SearchResult | undefined)[], args: MoveArgs): SearchMove[] {
-    if ((!fish || fish.bestmove === '0000') && (!zero || zero.bestmove === '0000'))
+    if (fish) this.trace(`[parseMoves] - ${stringify(fish)}`);
+    if (zero) this.trace(`[parseMoves] - ${stringify(zero)}`);
+    if ((!fish || fish.bestmove === '0000') && (!zero || zero.bestmove === '0000')) {
+      this.trace('    parseMoves: no moves found!');
       return [{ uci: '0000', weights: {} }];
-
+    }
     const parsed: SearchMove[] = [];
     const cp = fish?.lines[0] ? score(fish.lines[0]) : (args.cp ?? 0);
     const lc0bias = this.filter('lc0bias', args) ?? 0;
     const stockfishVariate = lc0bias ? (this.filters?.cplTarget ? 0 : Math.random()) : 0;
-
+    this.trace(
+      `[parseMoves] - cp = ${cp.toFixed(2)}, lc0bias = ${lc0bias.toFixed(2)}, stockfishVariate = ${stockfishVariate.toFixed(2)}`,
+    );
     fish?.lines
       .filter(line => line.moves[0])
       .forEach(line =>
@@ -201,6 +240,11 @@ export class Bot implements BotInfo, MoveSource {
       // cram cpl into [0, 1] with sigmoid
       mv.weights.acpl = distance === 0 ? 1 : 1 / (1 + Math.E ** (gain * (distance - threshold)));
     }
+  }
+
+  private trace(msg: string | string[]) {
+    if (Array.isArray(msg)) this.traces = msg;
+    else this.traces.push('      ' + msg);
   }
 }
 
@@ -244,4 +288,9 @@ function getNormal(): number {
   const theta = 2.0 * Math.PI * Math.random();
   nextNormal = r * Math.sin(theta);
   return r * Math.cos(theta);
+}
+
+function stringify(obj: any) {
+  if (!obj) return '';
+  return JSON.stringify(obj, (k, v) => (typeof v === 'number' ? v.toFixed(2) : v));
 }
