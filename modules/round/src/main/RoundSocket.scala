@@ -453,19 +453,17 @@ object RoundSocket:
       duration: FiniteDuration,
       terminate: GameId => Unit
   )(using Executor):
-    import java.util.concurrent.ConcurrentHashMap
 
-    private val terminations = ConcurrentHashMap[GameId, Cancellable](65536)
+    private val terminations = scalalib.ConcurrentMap[GameId, Cancellable](65536)
 
     def schedule(gameId: GameId): Unit =
-      terminations.compute(
-        gameId,
-        (id, canc) =>
-          Option(canc).foreach(_.cancel())
-          scheduler.scheduleOnce(duration):
-            terminations.remove(id)
-            terminate(id)
-      )
+      terminations.compute(gameId): canc =>
+        canc.foreach(_.cancel())
+        scheduler
+          .scheduleOnce(duration):
+            terminations.remove(gameId)
+            terminate(gameId)
+          .some
 
     def cancel(gameId: GameId): Unit =
-      Option(terminations.remove(gameId)).foreach(_.cancel())
+      terminations.remove(gameId).foreach(_.cancel())
