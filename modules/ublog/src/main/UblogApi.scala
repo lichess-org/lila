@@ -83,17 +83,16 @@ final class UblogApi(
         Match($doc("blog" -> blogId, "live" -> true)) -> List(
           AddFields(
             $doc(
-              "sortRank" -> $doc("$type" -> "$sticky"), // "date" or "missing"
-              "sortDate" -> $doc(
+              "sortRank" -> $doc(
                 "$cond" -> $doc(
                   "if"   -> $doc("$ne" -> $arr($doc("$type" -> "$sticky"), "missing")),
                   "then" -> "$sticky",
-                  "else" -> "$lived.at"
+                  "else" -> false
                 )
               )
             )
           ),
-          Sort(Ascending("sortRank"), Descending("sortDate")),
+          Sort(Descending("sortRank"), Descending("lived.at")),
           Project($doc(previewPostProjection)),
           Limit(nb)
         )
@@ -102,13 +101,6 @@ final class UblogApi(
           doc  <- docs
           post <- doc.asOpt[UblogPost.PreviewPost]
         yield post
-
-  def latestPostsBak(blogId: UblogBlog.Id, nb: Int): Fu[List[UblogPost.PreviewPost]] =
-    colls.post
-      .find($doc("blog" -> blogId, "live" -> true), previewPostProjection.some)
-      .sort($doc("lived.at" -> -1))
-      .cursor[UblogPost.PreviewPost](ReadPref.sec)
-      .list(nb)
 
   def userBlogPreviewFor(user: User, nb: Int)(using me: Option[Me]): Fu[Option[UblogPost.BlogPreview]] =
     val blogId = UblogBlog.Id.User(user.id)

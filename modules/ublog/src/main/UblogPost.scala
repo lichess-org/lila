@@ -17,6 +17,7 @@ case class UblogPost(
     topics: List[UblogTopic],
     live: Boolean,
     discuss: Option[Boolean],
+    sticky: Option[Boolean],
     created: UblogPost.Recorded,
     updated: Option[UblogPost.Recorded],
     lived: Option[UblogPost.Recorded],
