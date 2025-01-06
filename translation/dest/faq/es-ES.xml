@@ -149,7 +149,7 @@ Luego selecciona si permitir o bloquear notificaciones de Lichess.</string>
 El icono rojo de silencio aparece cuando tu navegador impide que lichess.org reproduzca un sonido. Por lo general, esta restricción se elimina una vez que haces clic en algo. En algunos navegadores móviles, tocar y arrastrar una pieza no cuenta como un clic. En ese caso debes tocar el tablero para permitir el sonido al inicio de cada juego.
 
 Mostramos el icono rojo para avisarte cuando esto suceda. A menudo, puedes permitir explícitamente que lichess.org reproduzca sonidos. Aquí encontrarás instrucciones para hacerlo en versiones recientes de algunos navegadores populares.</string>
-  <string name="desktop">escritorio</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">escritorio</string>
   <string name="enableAutoplayForSoundsFirefox">1. Ve a lichess.org
 2. Pulsa Ctrl-i en Linux/Windows o cmd-i en MacOS
 3. Haz clic en la pestaña Permisos
