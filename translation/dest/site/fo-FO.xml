@@ -119,13 +119,25 @@
     <item quantity="one">%s bukkur</item>
     <item quantity="other">%s bukkar</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Bukkur</item>
+    <item quantity="other">%s Bukkar</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s mistak</item>
     <item quantity="other">%s mistøk</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Mistak</item>
+    <item quantity="other">%s Mistøk</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s óneyvleiki</item>
     <item quantity="other">%s óneyvleikar</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Óneyvleiki</item>
+    <item quantity="other">%s Óneyvleikar</item>
   </plurals>
   <string name="moveTimes">Leiktíðir</string>
   <string name="flipBoard">Vend borði við</string>
