@@ -40,7 +40,7 @@ Ezen kívül fizetünk egy főállású fejlesztőt: %s, a Lichess alapítóját
   <string name="actOfCreation">Igen, itt találod az alapító okiratot (franciául)</string>
   <string name="changeMonthlySupport">Módosíthatom/törölhetem a havi finanszírozásomat?</string>
   <string name="changeOrContact">Igen, bármikor, ezen az oldalon.
-Vagy ezügyben %s.</string>
+Vagy ez ügyben %s.</string>
   <string name="contactSupport">keress fel minket</string>
   <string name="otherMethods">Más adakozási lehetőségek?</string>
   <string name="lichessIsRegisteredWith">A Lichess a %s által van bejegyezve.</string>
@@ -64,7 +64,7 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="giftPatronWings">Ajándékozz Patron szárnyakat</string>
   <string name="update">Frissítés</string>
   <string name="changeMonthlyAmount">Havi összeg módosítása (%s)</string>
-  <string name="cancelSupport">támogatás visszavonása</string>
+  <string name="cancelSupport">Támogatás visszavonása</string>
   <string name="xOrY">%1$s vagy %2$s</string>
   <string name="decideHowMuch">Mennyit ér meg neked a Lichess:</string>
   <string name="stopPayments">Bankkártya törlése és fizetések leállítása:</string>
@@ -73,11 +73,13 @@ Illetve a Patronok kapnak menő profil ikont amivel lehet villogni.</string>
   <string name="viewOthers">A többi Patron böngészése</string>
   <string name="date">Dátum</string>
   <string name="amount">Összeg</string>
-  <string name="transactionCompleted">A tranzakció sikeresen teljesült, az adományról szóló bizonylatot emailben küldjük számodra.</string>
-  <string name="permanentPatron">Neked mostmár állandó Patron fiókod van.</string>
+  <string name="transactionCompleted">A tranzakció sikeresen teljesült, az adományról szóló bizonylatot e-mailben küldjük számodra.</string>
+  <string name="permanentPatron">Neked most már állandó Patron fiókod van.</string>
   <string name="checkOutProfile">Nézd meg el a profil oldaladat!</string>
-  <string name="nowLifetime">Te mostmár örökös Lichess Patron vagy!</string>
-  <string name="nowOneMonth">Te mostmár Lichess Patron vagy egy hónapig!</string>
+  <string name="nowLifetime">Te most már örökös Lichess Patron vagy!</string>
+  <string name="nowOneMonth">Te most már Lichess Patron vagy egy hónapig!</string>
   <string name="downgradeNextMonth">Egy hónap múlva NEM terheljük újra a számládat, hanem a fiókod visszaalakul hagyományos fiókká.</string>
   <string name="changeCurrency">Pénznem módosítása</string>
+  <string name="paymentDetails">Fizetés részletei</string>
+  <string name="updatePaymentMethod">Fizetési mód frissítése</string>
 </resources>

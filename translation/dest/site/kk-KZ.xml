@@ -492,11 +492,11 @@
   <string name="loadPosition">Күйді жүктеп салу</string>
   <string name="isPrivate">Құпиялы</string>
   <string name="reportXToModerators">%s туралы модераторға шағымдану</string>
-  <string name="profileCompletion">Куәліктің толуы: %s</string>
+  <string name="profileCompletion">Төлқұжат толуы: %s</string>
   <string name="xRating">%s рейтингі</string>
   <string name="ifNoneLeaveEmpty">Жоқ болса, бос қалдырыңыз</string>
-  <string name="profile">Куәлік</string>
-  <string name="editProfile">Куәлікті өзгерту</string>
+  <string name="profile">Төлқұжат</string>
+  <string name="editProfile">Төлқұжатты өзгерту</string>
   <string name="biography">Өмірбаян</string>
   <string name="thankYou">Рахмет!</string>
   <string name="socialMediaLinks">Әлеуметтік медиа</string>
@@ -897,7 +897,7 @@
   <string name="streamerManager">Стример басқармасы</string>
   <string name="cancelTournament">Жарысты болдырмау</string>
   <string name="tournDescription">Жарыс сипаттамасы</string>
-  <string name="tournDescriptionHelp">Қатысушыларға арнайы сөзіңіз болса, жазыңыз. Қысқа болған жақсы. Сілтемелерді markdown күйінде қосуыңызға болады: [name](https://url)</string>
+  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Қатысушыларға арнайы сөзіңіз болса, жазыңыз. Қысқа болған жақсы. Сілтемелерді markdown күйінде қосуыңызға болады: [name](https://url)</string>
   <string name="ratedFormHelp">Ойындар бағалы
 яғни ойыншылардың рейтингіне әсер етеді</string>
   <string name="onlyMembersOfTeam">Тек топ мүшелері</string>
