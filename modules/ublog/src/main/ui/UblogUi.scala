@@ -34,7 +34,7 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       showIntro: Boolean = true,
       showSticky: Boolean = false
   )(using Context) =
-    val clsSticky = if(showSticky) "ublog-post-card--sticky" else ""
+    val clsSticky = if showSticky then "ublog-post-card--sticky" else ""
     a(
       cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by} $clsSticky",
       href := makeUrl(post)
