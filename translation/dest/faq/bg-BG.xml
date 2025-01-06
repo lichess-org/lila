@@ -101,5 +101,5 @@
 Кликнете върху иконата за заключване до адреса lichess. org в лентата с URL адреси на браузъра си.
 
 След това изберете дали да разрешите или да блокирате известията от Lichess.</string>
-  <string name="desktop">работен плот</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">работен плот</string>
 </resources>
