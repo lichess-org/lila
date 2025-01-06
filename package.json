@@ -56,7 +56,7 @@
     "metals": "tail -F .metals/metals.log | stdbuf -oL cut -c 21- | rg -v '(notification for request|handleCancellation)'",
     "serverlog": "pnpm journal & pnpm metals",
     "piece-css": "pnpx tsx bin/gen/piece-css.ts",
-    "trans-dump": "pnpx tsx bin/trans-dump.ts",
+    "i18n-file-gen": "pnpx tsx bin/i18n-file-gen.ts",
     "test": "vitest run --config=ui/vitest.config.mts",
     "test:watch": "vitest --config=ui/vitest.config.mts",
     "multilog": "pnpm serverlog & ui/build -w"

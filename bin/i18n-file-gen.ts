@@ -71,7 +71,7 @@ function keyListFrom(name: string): KeyList {
 const dbCode = (obj: KeyList) => `  object ${convertObjectName(obj.name)}:\n${obj.code}`;
 
 Promise.all(xmls.map(keyListFrom)).then(objs => {
-  const code = `// Generated with bin/trans-dump.ts
+  const code = `// Generated with bin/i18n-file-gen.ts
 package lila.core.i18n
 
 opaque type I18nKey = String
