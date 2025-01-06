@@ -51,5 +51,5 @@
   <string name="howToThreeDots">কিভাবে...</string>
   <string name="enableDisableNotificationPopUps">নোটিফিকেশনের পপআপ চালু অথবা বন্ধ?</string>
   <string name="viewSiteInformationPopUp">ওয়েবসাইটের পপআপ তথ্য দেখুন</string>
-  <string name="desktop">ডেস্কটপ</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">ডেস্কটপ</string>
 </resources>
