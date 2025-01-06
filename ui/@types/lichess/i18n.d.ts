@@ -3510,7 +3510,7 @@ interface I18n {
     /** Navigate the move tree */
     navigateMoveTree: string;
     /** %s blunders */
-    numberBlunders: I18nPlural;
+    nbBlunders: I18nPlural;
     /** %s bookmarks */
     nbBookmarks: I18nPlural;
     /** %s days */
@@ -3536,13 +3536,13 @@ interface I18n {
     /** %s imported games */
     nbImportedGames: I18nPlural;
     /** %s inaccuracies */
-    numberInaccuracies: I18nPlural;
+    nbInaccuracies: I18nPlural;
     /** %s losses */
     nbLosses: I18nPlural;
     /** %s minutes */
     nbMinutes: I18nPlural;
     /** %s mistakes */
-    numberMistakes: I18nPlural;
+    nbMistakes: I18nPlural;
     /** %1$s %2$s players this week. */
     nbPerfTypePlayersThisWeek: I18nPlural;
     /** %s players */
@@ -3629,6 +3629,12 @@ interface I18n {
     notifications: string;
     /** Notifications: %1$s */
     notificationsX: I18nFormat;
+    /** %s Blunders */
+    numberBlunders: I18nPlural;
+    /** %s Inaccuracies */
+    numberInaccuracies: I18nPlural;
+    /** %s Mistakes */
+    numberMistakes: I18nPlural;
     /** Offer draw */
     offerDraw: string;
     /** OK */
