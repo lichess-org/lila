@@ -132,13 +132,25 @@
     <item quantity="one">%s груба грешка</item>
     <item quantity="other">%s груби грешки</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Груба грешка</item>
+    <item quantity="other">%s Груби грешки</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s грешка</item>
     <item quantity="other">%s грешки</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Грешка</item>
+    <item quantity="other">%s Грешки</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s неточност</item>
     <item quantity="other">%s неточности</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Неточност</item>
+    <item quantity="other">%s Неточности</item>
   </plurals>
   <string name="moveTimes">Време за ход</string>
   <string name="flipBoard">Завърти дъската</string>
