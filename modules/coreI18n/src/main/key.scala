@@ -2761,6 +2761,8 @@ object I18nKey:
     val `createBlogDiscussionHelp`: I18nKey = "ublog:createBlogDiscussionHelp"
     val `publishOnYourBlog`: I18nKey = "ublog:publishOnYourBlog"
     val `publishHelp`: I18nKey = "ublog:publishHelp"
+    val `stickyPost`: I18nKey = "ublog:stickyPost"
+    val `stickyPostHelp`: I18nKey = "ublog:stickyPostHelp"
     val `xPublishedY`: I18nKey = "ublog:xPublishedY"
     val `thisPostIsPublished`: I18nKey = "ublog:thisPostIsPublished"
     val `thisIsADraft`: I18nKey = "ublog:thisIsADraft"
