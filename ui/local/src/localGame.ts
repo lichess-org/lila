@@ -1,7 +1,7 @@
 import * as co from 'chessops';
-import { makeFen } from 'chessops/fen';
+//import { makeFen } from 'chessops/fen';
 import { normalizeMove } from 'chessops/chess';
-import { makeSanAndPlay } from 'chessops/san';
+//import { makeSanAndPlay } from 'chessops/san';
 import { statusOf } from 'game/status';
 import { Status } from 'game';
 import { deepFreeze } from 'common/algo';
@@ -58,11 +58,11 @@ export class LocalGame {
       return this.moveResultWith({
         end: true,
         uci: move.uci,
-        reason: `${this.turn} made illegal move ${move.uci} at ${makeFen(this.chess.toSetup())}`,
+        reason: `${this.turn} made illegal move ${move.uci} at ${co.fen.makeFen(this.chess.toSetup())}`,
         status: statusOf('cheat'), // bots are sneaky
       });
     }
-    const san = makeSanAndPlay(this.chess, coMove);
+    const san = co.san.makeSanAndPlay(this.chess, coMove);
     const clock = move.clock ? { white: move.clock.white, black: move.clock.black } : undefined;
     this.moves.push({ uci, clock });
     this.fifty(coMove);
@@ -85,8 +85,8 @@ export class LocalGame {
   updateThreefold(): boolean {
     const boardFen = this.fen.split('-')[0];
     let fenCount = this.threefoldFens.get(boardFen) ?? 0;
-    this.threefoldFens.set(boardFen, ++fenCount);
-    return fenCount >= 3;
+    this.threefoldFens.set(boardFen, fenCount + 1);
+    return fenCount > 1;
   }
 
   finish(finishStatus: Omit<GameStatus, 'end' | 'turn'>): void {
@@ -153,11 +153,11 @@ export class LocalGame {
   }
 
   get isThreefold(): boolean {
-    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) >= 3;
+    return (this.threefoldFens.get(this.fen.split('-')[0]) ?? 0) > 2;
   }
 
   get fen(): string {
-    return makeFen(this.chess.toSetup());
+    return co.fen.makeFen(this.chess.toSetup());
   }
 
   get dests(): { [from: string]: string } {
@@ -175,8 +175,8 @@ export class LocalGame {
       for (const to of dests) {
         const chess = this.chess.clone();
         chess.play({ from, to });
-        const moveFen = makeFen(chess.toSetup()).split('-')[0];
-        if (moveFen !== boardFen && (this.threefoldFens.get(moveFen) ?? 0 >= 2))
+        const moveFen = co.fen.makeFen(chess.toSetup()).split('-')[0];
+        if (moveFen !== boardFen && (this.threefoldFens.get(moveFen) ?? 0) > 1)
           draws.push(co.makeUci({ from, to }));
       }
     }

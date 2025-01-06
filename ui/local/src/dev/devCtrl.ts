@@ -89,10 +89,16 @@ export class DevCtrl {
     const fen = env.game.live.fen;
     const turn = env.game.turn;
     if (ply === 0) {
+      const white = env.game.nameOf('white');
+      const black = env.game.nameOf('black');
       const stringify = (obj: any) =>
         JSON.stringify(obj, (_, v) => (!obj ? '' : typeof v === 'number' ? v.toFixed(2) : v));
+      this.trace.push(
+        `\n${white} vs ${black} ${env.game.speed} ${env.game.initial ?? ''}` +
+          `${env.game.increment ? `-${env.game.increment}` : ''} ${env.game.initialFen}`,
+      );
       this.trace.push(`\nWhite: '${env.game.nameOf('white')}' ${stringify(env.bot.white)}`);
-      this.trace.push(`Black: '${env.game.nameOf('black')}' ${stringify(env.bot.black)}\n`);
+      this.trace.push(`Black: '${env.game.nameOf('black')}' ${stringify(env.bot.black)}`);
     }
     if (ply % 2 === 0) this.trace.push(`\n ${'-'.repeat(64)} Move ${ply / 2 + 1} ${'-'.repeat(64)}`);
     if (!env.bot[turn]) this.trace.push(`  ${ply}. '${env.game.nameOf(turn)}' at '${fen}': '${uci}'`);
@@ -116,7 +122,7 @@ export class DevCtrl {
       `${matchup} - ${turn} ${reason} - ${env.game.live.fen} ${env.game.live.moves.join(' ')}`;
     const result =
       `${matchup}: ` + `${winner ? `${env.game.nameOf(winner)} wins by` : ''} ${status.name} ${reason ?? ''}`;
-    this.trace.push(` ${error || result}`);
+    this.trace.push(`\n ${error || result}\n`);
     this.trace.push('='.repeat(144));
     this.traceDb(this.trace.join('\n'));
     this.trace = [];
