@@ -6,7 +6,7 @@
   <string name="quicklyGenerateSafeUsernames">Rýchlo vygenerovať bezpečné prihlasovacie mená a heslá pre študentov</string>
   <string name="trackStudentProgress">Sledovať napredovanie študenta v partiách a šachových úlohách</string>
   <string name="messageAllStudents">Poslať všetkým študentom správu o novom výučbovom materiáli</string>
-  <string name="freeForAllForever">100% zadarmo pre všetkých, navždy, bez akýchkoľvek reklám alebo sledovaní aktivity</string>
+  <string name="freeForAllForever" comment="The automated QA checker treats &quot;100%&quot; as if it is a variable, and will give a warning if you change it.&#10;It is not a variable.&#10;&#10;You can still save your translation writing it as &quot;%100&quot; for example, in case this is more valid in your language.">100% zadarmo pre všetkých, navždy, bez akýchkoľvek reklám alebo sledovaní aktivity</string>
   <string name="applyToBeLichessTeacher">Uchádzať sa o post Lichess učiteľa</string>
   <string name="noClassesYet">Žiadne dostupné triedy.</string>
   <string name="teachersX">Učitelia: %s</string>
