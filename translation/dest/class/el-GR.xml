@@ -48,7 +48,7 @@
   <string name="createDesc4">Εάν έχουν ήδη έναν, χρησιμοποιήστε την φόρμα πρόσκλησης.</string>
   <string name="createStudentWarning">Δημιουργήστε λογαριασμούς μόνο για πραγματικούς μαθητές. Εάν δημιουργήσετε πολλούς λογαριασμούς για σας, ενδέχεται να κλείσει ο λογαριασμός σας.</string>
   <string name="lichessUsername">Όνομα χρήστη Lichess</string>
-  <string name="generateANewUsername">Δημιουργία νέου ονόματος χρήστη</string>
+  <string name="generateANewUsername" comment="A button which lets teachers create a random username for students they are registering.">Παραγωγή νέου ονόματος χρήστη</string>
   <string name="welcomeToClass">Καλώς ήρθατε στην τάξη σας: %s.
 Πατήστε στον σύνδεσμο για να αποκτήσετε πρόσβαση.</string>
   <string name="invitationToClass">Προσκληθήκατε να συμμετάσχετε στην τάξη \"%s\" ως μαθητής.</string>
@@ -62,7 +62,7 @@
   <string name="managed">Διαχειριζόμενος</string>
   <string name="thisStudentAccountIsManaged">Ο λογαριασμός του μαθητή είναι διαχειριζόμενος</string>
   <string name="upgradeFromManaged">Αναβάθμιση από διαχειριζόμενο σε αυτόνομο</string>
-  <string name="release">Απελευθέρωση</string>
+  <string name="release" comment="This used to be 'release'. It is now called 'graduate', and the term is used here as a verb.&#10;&#10;'Releasing' an account means making it a full Lichess account. It will no longer be tied to the teacher that created it.">Απελευθέρωση</string>
   <string name="releaseTheAccount">Απελευθερώστε τον λογαριασμό για να μπορεί ο μαθητής να τον διαχειριστεί ο ίδιος.</string>
   <string name="releaseDesc1">Ένας αυτόνομος λογαριασμός δεν μπορεί να ξαναγίνει διαχειριζόμενος. Ο μαθητής θα μπορεί να ενεργοποιήσει ή να απενεργοποιήσει την παιδική λειτουργία και να επαναφέρει το κωδικό πρόσβασης.</string>
   <string name="releaseDesc2">Ο μαθητής θα παραμείνει στην τάξη μετά την απελευθέρωση του λογαριασμού του.</string>
