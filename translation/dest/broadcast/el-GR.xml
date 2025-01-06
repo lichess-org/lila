@@ -38,7 +38,7 @@
   <string name="editRoundStudy">Επεξεργασία μελέτης γύρου</string>
   <string name="deleteTournament">Διαγραφή αυτού του τουρνουά</string>
   <string name="definitivelyDeleteTournament">Σίγουρα διαγράψτε ολόκληρο τον διαγωνισμό, όλους τους γύρους του και όλες τις παρτίδες του.</string>
-  <string name="showScores">Εμφάνιση βαθμολογιών παικτών βάσει των αποτελεσμάτων των παρτίδων.</string>
+  <string name="showScores" comment="An option for creating a broadcast (https://lichess.org/broadcast). This is optional, as scoring will be calculated automatically by Lichess, and some organisations prefer to do this manually or not show scores until the end - depending on how the tournament works.">Εμφάνιση βαθμολογιών παικτών βάσει των αποτελεσμάτων των παρτίδων.</string>
   <string name="replacePlayerTags">Προαιρετικό: αντικατάσταση ονομάτων, βαθμολογιών και τίτλων παικτών</string>
   <string name="fideFederations">Ομοσπονδίες FIDE</string>
   <string name="top10Rating">Κορυφαίες 10 βαθμολογίες</string>
@@ -49,7 +49,7 @@
   <string name="ageThisYear">Φετινή ηλικία</string>
   <string name="unrated" comment="Please do not translate simply as &quot;casual&quot;. &quot;Unrated&quot; here refers to tournaments that are organised outside of Lichess. The rating in question will usually align to a FIDE federation.">Μη βαθμολογημένο</string>
   <string name="recentTournaments">Πρόσφατα τουρνουά</string>
-  <string name="openLichess">Άνοιγμα στο Lichess</string>
+  <string name="openLichess" comment="Appears as a link when a Lichess broadcast is embedded in an external website. Clicking it will take the user to the Lichess website, to view it in full.&#10;&#10;For an example of what an embedded broadcast looks like, see https://lichess.org/developers under the section 'Embed a broadcast in your site'.">Άνοιγμα στο Lichess</string>
   <string name="teams">Ομάδες</string>
   <string name="boards">Σκακιέρες</string>
   <string name="overview">Επισκόπηση</string>
