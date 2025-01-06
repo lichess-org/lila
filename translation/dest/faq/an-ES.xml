@@ -149,7 +149,7 @@ Dimpués podrás triar si permitir u blocar notificacions de Lichess.</string>
 L\'icono royo de silencio amaneix cuan lo tuyo navegador priva que lichess.org reproduzca un soniu. Per un regular, esta restricción se devanta cuan fas clic en bella cosa. En bels navegadors móbils, mover una pieza arrocegando-la no conta como un clic. En ixe caso, has de tocar lo taulero pa permitir lo soniu a l\'inicio de cada partida.
 
 Amostramos l\'icono royo pa avisar-te cuan ixo pasa. A sobén puez permitir que lichess.org reproduzca sonius explicitament. Aquí tiens las instruccions pa fer-lo en versions recients de bels navegadors populars.</string>
-  <string name="desktop">escritorio</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">escritorio</string>
   <string name="enableAutoplayForSoundsFirefox">1. Dentra en lichess.org
 2. Preta Ctrl-i en Linux/Windows u cmd-i en MacOS
 3. Fe clic en a pestanya de permisos
