@@ -714,7 +714,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="aboutSimulRules">Kada simultanka započne, svaki igrač započinje partiju protiv domaćina, koji dobiva bijele figure. Simultanka završava kada završe sve partije.</string>
   <string name="aboutSimulSettings">Simultanke su uvijek prijateljske. Revanši, vraćanje poteza te dodavanje vremena su isključeni.</string>
   <string name="create">Kreiraj</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
+  <string name="whenCreateSimul">Kada kreiraš simultanku, igraš protiv više igrača istovremeno.</string>
   <string name="simulVariantsHint">Ako izabereš nekoliko varijanti, svaki igrač je u mogućnosti da izabere koju će igrati.</string>
   <string name="simulClockHint">Fischer podešavanje sata. Što više igrača primiš, više vremena bit će ti potrebno.</string>
   <string name="simulAddExtraTime">Možeš dodati dodatno vrijeme na svoj sat da ti pomogne savladati simultanku.</string>
@@ -975,7 +975,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="streamerManager">Postavke za strimera</string>
   <string name="cancelTournament">Otkaži turnir</string>
   <string name="tournDescription">Opis turnira</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Želite li nešto posebno poručiti sudionicima? Pokušajte biti kratki. Markdown veze su dostupne: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Želite li nešto posebno poručiti sudionicima? Pokušajte biti kratki. Markdown veze su dostupne: [name](https://url)</string>
   <string name="ratedFormHelp">Igre se ocjenjuju
 i utječu na ocjene igrača</string>
   <string name="onlyMembersOfTeam">Samo za članove tima</string>
