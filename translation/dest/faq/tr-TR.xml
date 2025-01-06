@@ -152,7 +152,7 @@ Ardından Lichess bildirimlerini açabilir veya kapatabilirsiniz.</string>
 Kırmızı sustur simgesi, tarayıcınız lichess.org\'un ses oynatmasını engelleyince çıkar. Genellikle bu kısıtlama birşeye tıkladığınızda kalkar. Bazı mobil tarayıcılarda, bir satranç taşını sürüklemek tıklamak olarak algılanmayabilir. O durumda her bir oyunun başlangıcında ses için tahtaya dokunmanız gerekir.
 
 Bu yaşandığında sizi uyarmak için kırmızı simgeyi gösteririz. Çoğunlukla lichess.org\'un ses oynatmasına tarayıcınızın ayarlarında izin verebilirsiniz. Bazı popüler tarayıcıların son sürümleri için talimatlar burada.</string>
-  <string name="desktop">masaüstü</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">masaüstü</string>
   <string name="enableAutoplayForSoundsFirefox">1. lichess.org\'a git
 2. Linux/Windows\'da Ctrl-i ya da MacOS\'de cmd-i bas
 3. İzinler sekmesine tıkla
