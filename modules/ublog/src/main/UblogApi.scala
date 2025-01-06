@@ -83,7 +83,7 @@ final class UblogApi(
         Match($doc("blog" -> blogId, "live" -> true)) -> List(
           AddFields(
             $doc(
-              "sortRank" -> $doc(
+              "isSticky" -> $doc(
                 "$cond" -> $doc(
                   "if"   -> $doc("$ne" -> $arr($doc("$type" -> "$sticky"), "missing")),
                   "then" -> "$sticky",
@@ -92,7 +92,7 @@ final class UblogApi(
               )
             )
           ),
-          Sort(Descending("sortRank"), Descending("lived.at")),
+          Sort(Descending("isSticky"), Descending("lived.at")),
           Project($doc(previewPostProjection)),
           Limit(nb)
         )

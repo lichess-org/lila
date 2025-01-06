@@ -31,5 +31,6 @@ private object UblogBsonHandlers:
       "image"   -> true,
       "created" -> true,
       "lived"   -> true,
-      "topics"  -> true
+      "topics"  -> true,
+      "isSticky" -> true
     )

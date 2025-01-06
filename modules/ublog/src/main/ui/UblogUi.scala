@@ -31,15 +31,17 @@ final class UblogUi(helpers: Helpers, atomUi: AtomUi)(picfitUrl: lila.core.misc.
       post: UblogPost.BasePost,
       makeUrl: UblogPost.BasePost => Call = urlOfPost,
       showAuthor: ShowAt = ShowAt.none,
-      showIntro: Boolean = true
+      showIntro: Boolean = true,
+      showSticky: Boolean = false
   )(using Context) =
+    val clsSticky = if(showSticky) "ublog-post-card--sticky" else ""
     a(
-      cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by}",
+      cls  := s"ublog-post-card ublog-post-card--link ublog-post-card--by-${post.created.by} $clsSticky",
       href := makeUrl(post)
     )(
       span(cls := "ublog-post-card__top")(
         thumbnail(post, _.Size.Small)(cls := "ublog-post-card__image"),
-        post.lived.map { live => semanticDate(live.at)(cls := "ublog-post-card__over-image") },
+        post.lived.map { live => semanticDate(live.at)(cls := s"ublog-post-card__over-image")() },
         showAuthor match
           case ShowAt.none => emptyFrag
           case showAt =>
