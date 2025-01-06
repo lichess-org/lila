@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">I begyndelsen af spillet starter alle deltagere et parti med værten, der får lov at spille med hvide brikker. Simultanspillet er slut, når alle partier er færdige.</string>
   <string name="aboutSimulSettings">Simultanspil er altid \"uformelle\". Revanche, omtræk og \"ekstra tid\" er deaktiverede.</string>
   <string name="create">Opret</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
+  <string name="whenCreateSimul">Når du opretter et simultanspil, spiller du mod adskillige modstandere på én gang.</string>
   <string name="simulVariantsHint">Hvis du vælger flere varianter, kan hver enkelt spiller vælge, hvilken der skal spilles.</string>
   <string name="simulClockHint">Fischer Clock opsætning. Jo flere spillere du udfordrer, jo mere tid kan være nødvendig.</string>
   <string name="simulAddExtraTime">Du kan tilføje ekstra tid til dit ur for at hjælpe med at klare simultanspillet.</string>
@@ -936,7 +936,7 @@
   <string name="streamerManager">Streamer-administration</string>
   <string name="cancelTournament">Aflys turneringen</string>
   <string name="tournDescription">Turneringsbeskrivelse</string>
-  <string name="tournDescriptionHelp" comment="tournDescriptionHelp&#10;&#10;Allows a tournament host to add a description.&#10;&#10;'Markdown' is a proper noun and should NOT be translated. It is a markup language (a type of code to add bold text, italics, etc).&#10;&#10;&quot;[name]&quot; is just a placeholder and you can translate it to your own language e.g. &quot;[nom]&quot; in French.">Noget særligt du ønsker at fortælle deltagerne? Prøv at holde det kort. Markdown-links er tilgængelige: [name](https://url)</string>
+  <string name="tournDescriptionHelp">Noget særligt du ønsker at fortælle deltagerne? Prøv at holde det kort. Markdown-links er tilgængelige: [name](https://url)</string>
   <string name="ratedFormHelp">Partier er ratede
 og påvirker spilleres ratings</string>
   <string name="onlyMembersOfTeam">Kun medlemmer af hold</string>
