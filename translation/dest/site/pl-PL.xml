@@ -138,17 +138,35 @@
     <item quantity="many">%s błędów</item>
     <item quantity="other">%s błędów</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Błąd</item>
+    <item quantity="few">%s Błędy</item>
+    <item quantity="many">%s Błędów</item>
+    <item quantity="other">%s Błędów</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s pomyłka</item>
     <item quantity="few">%s pomyłki</item>
     <item quantity="many">%s pomyłek</item>
     <item quantity="other">%s pomyłek</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Pomyłka</item>
+    <item quantity="few">%s Pomyłki</item>
+    <item quantity="many">%s Pomyłek</item>
+    <item quantity="other">%s Pomyłek</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s niedokładność</item>
     <item quantity="few">%s niedokładności</item>
     <item quantity="many">%s niedokładności</item>
     <item quantity="other">%s niedokładności</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Niedokładność</item>
+    <item quantity="few">%s Niedokładności</item>
+    <item quantity="many">%s Niedokładności</item>
+    <item quantity="other">%s Niedokładności</item>
   </plurals>
   <string name="moveTimes">Tempo gry</string>
   <string name="flipBoard">Obróć szachownicę</string>
