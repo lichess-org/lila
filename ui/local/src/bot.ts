@@ -74,7 +74,7 @@ export class Bot implements BotInfo, MoveSource {
     this.trace([`  ${env.game.live.ply}. '${this.name}' at '${co.fen.makeFen(chess.toSetup())}'`]);
     this.trace(
       `[move] - ${args.avoid?.length ? 'avoid = [' + args.avoid.join(', ') + '], ' : ''}` +
-        `${args.cp ? `cp = ${args.cp?.toFixed(2)}, ` : ''}remaining = ${args.remaining}`,
+        (args.cp ? `cp = ${args.cp?.toFixed(2)}, ` : ''),
     );
     const opening = await this.bookMove(chess);
     args.thinkTime = this.thinkTime(args);
@@ -85,13 +85,15 @@ export class Bot implements BotInfo, MoveSource {
     const zeroSearch = zero
       ? {
           nodes: zero.nodes,
-          multipv: Math.max(zero.multipv, args.avoid.length + 1),
+          multipv: Math.max(zero.multipv, args.avoid.length + 1), // avoid threefold
           net: {
             key: this.name + '-' + zero.net,
             fetch: () => env.assets.getNet(zero.net),
           },
         }
       : undefined;
+    if (fish) this.trace(`[move] - fish: ${stringify(fish)}`);
+    if (zeroSearch) this.trace(`[move] - zero: ${stringify(zeroSearch)}`);
     const { uci, cpl, thinkTime } = this.chooseMove(
       await Promise.all([
         fish && env.bot.zerofish.goFish(pos, fish),
@@ -99,7 +101,6 @@ export class Bot implements BotInfo, MoveSource {
       ]),
       args,
     );
-    if (zeroSearch) this.trace(`[move] - ${stringify(zeroSearch)}`);
     if (cpl !== undefined && cpl < 1000) {
       this.stats.cplMoves++; // debug stats
       this.stats.cpl += cpl;
