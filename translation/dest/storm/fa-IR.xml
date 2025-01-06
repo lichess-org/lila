@@ -40,7 +40,7 @@
   <string name="joinTheRace">به تاخت بپیوندید!</string>
   <string name="startTheRace">آغازِ تاخت</string>
   <string name="yourRankX">رتبه شما: %s</string>
-  <string name="waitForRematch">در انتظار نوبازی</string>
+  <string name="waitForRematch">در انتظار بازرویارویی</string>
   <string name="nextRace">تاختِ بعدی</string>
   <string name="joinRematch">پیوستن به بازی مجدد</string>
   <string name="waitingToStart">در انتظار آغاز</string>
