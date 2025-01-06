@@ -149,8 +149,8 @@
     <item quantity="other">%s imperfecties</item>
   </plurals>
   <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
-    <item quantity="one">%s onnauwkeurigheid</item>
-    <item quantity="other">%s onnauwkeurigheden</item>
+    <item quantity="one">%s Onnauwkeurigheid</item>
+    <item quantity="other">%s Onnauwkeurigheden</item>
   </plurals>
   <string name="moveTimes">Tijdsgebruik van zetten</string>
   <string name="flipBoard">Bord draaien</string>
