@@ -151,7 +151,7 @@ Potom vyberte, či chcete povoliť alebo blokovať upozornenia od Lichess.</stri
 Červená ikona stlmenia zvuku sa zobrazí, keď prehliadač zabráni prehrávaniu zvuku na stránke lichess.org. Zvyčajne sa toto obmedzenie zruší, keď na niečo kliknete. V niektorých mobilných prehliadačoch sa dotykové ťahanie figúrky nepovažuje za kliknutie. V takom prípade musíte na začiatku každej partie ťuknúť na šachovnicu, aby sa povolil zvuk.
 
 Zobrazíme červenú ikonu, aby sme vás upozornili, keď sa tak stane. Často môžete výslovne povoliť lichess.org prehrávanie zvukov. Tu nájdete návod, ako to urobiť v najnovších verziách niektorých populárnych prehliadačov.</string>
-  <string name="desktop">počítač</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">počítač</string>
   <string name="enableAutoplayForSoundsFirefox">1. Prejdite na stránku lichess.org
 2. Stlačte Ctrl-i v systéme Linux/Windows alebo cmd-i v systéme MacOS
 3. Kliknite na kartu Oprávnenia
