@@ -132,13 +132,25 @@
     <item quantity="one">%s vahim hata</item>
     <item quantity="other">%s vahim hata</item>
   </plurals>
+  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
+    <item quantity="one">%s Vahim hata</item>
+    <item quantity="other">%s Vahim hata</item>
+  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s hata</item>
     <item quantity="other">%s hata</item>
   </plurals>
+  <plurals name="numberMistakes" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
+    <item quantity="one">%s Hata</item>
+    <item quantity="other">%s Hata</item>
+  </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="one">%s kusurlu hamle</item>
     <item quantity="other">%s kusurlu hamle</item>
+  </plurals>
+  <plurals name="numberInaccuracies" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
+    <item quantity="one">%s Kusurlu hamle</item>
+    <item quantity="other">%s Kusurlu hamle</item>
   </plurals>
   <string name="moveTimes">Hamle zamanları</string>
   <string name="flipBoard">Tahtayı döndür</string>
