@@ -678,7 +678,7 @@
   <string name="aboutSimulRules">Cuando la simultánea empieza, cada xugador empieza una partida col agospiu, que xuega con blanques. La simultánea termina cuando s\'acaben toles partíes.</string>
   <string name="aboutSimulSettings">Les simultánees son partíes amistoses. Les opciones de pidimientu de revancha, desfacer xugada y añedir tiempu tán evacuaes.</string>
   <string name="create">Crear</string>
-  <string name="whenCreateSimul" comment="A basic description of what a simul is like, on the form that lets you create a new simul https://lichess.org/simul/new">Cuando creas una simultánea, xuegues contra dellos xugadores al empar.</string>
+  <string name="whenCreateSimul">Cuando creas una simultánea, xuegues contra dellos xugadores al empar.</string>
   <string name="simulVariantsHint">Si escueyes distintes variantes, cada xugador escueye cuál xugar.</string>
   <string name="simulClockHint">Configuración de reló Fischer. Cuantos más oponentes, más tiempu precísase.</string>
   <string name="simulAddExtraTime">Pues añedir tiempu adicional al to reló para ayudar na simultánea.</string>
