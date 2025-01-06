@@ -149,7 +149,7 @@ Utána válaszd ki, hogy engedélyezed vagy tiltod az Lichess értesítéseit.</
 A piros némító ikon akkor jelenik meg, ha a böngésző megakadályozta a lichess.org hangjainak lejátszását. Általában ez a korlátozás feloldódik, amint rákattintasz valamire. Egyes mobilböngészőkben egy bábu érintéssel történő húzása nem számít kattintásnak. Ebben az esetben minden játék kezdetén meg kell érintened a táblát, hogy engedélyezd a hangok lejátszását. 
 
 A piros ikont azért mutatjuk, hogy figyelmeztessünk, amikor ez történik. Sok esetben lehetséges külön engedélyezni a lichess.org számára a hangok lejátszását. Itt találod az erre vonatkozó utasításokat néhány népszerű böngésző legújabb verziójához.</string>
-  <string name="desktop">asztali</string>
+  <string name="desktop" comment="Appears on the FAQ for &quot;Enable autoplay for sounds&quot; https://lichess.org/faq#autoplay&#10;&#10;Indicates that the instructions are for a desktop computer browser - not a mobile browser.">asztali</string>
   <string name="enableAutoplayForSoundsFirefox">1. Nyisd meg a lichess.org weboldalt
 2. Használd a Ctrl-i billentyűkombinációt Linuxon és Windowson vagy a cmd-i billentyűkombinációt MacOS-en
 3. Nyisd meg az Engedélyek oldalt
