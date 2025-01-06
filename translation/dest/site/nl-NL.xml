@@ -197,7 +197,7 @@
   <string name="minutesPerSide">Minuten per speler</string>
   <string name="variant">Variant</string>
   <string name="variants">Varianten</string>
-  <string name="timeControl">Speelduur</string>
+  <string name="timeControl">Speeltempo</string>
   <string name="realTime">Live</string>
   <string name="correspondence">Correspondentie</string>
   <string name="daysPerTurn">Dagen per zet</string>
