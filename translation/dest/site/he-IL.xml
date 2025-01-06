@@ -138,12 +138,6 @@
     <item quantity="many">%s טעויות גסות</item>
     <item quantity="other">%s טעויות גסות</item>
   </plurals>
-  <plurals name="numberBlunders" comment="Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
-    <item quantity="one">%s טעות גסה</item>
-    <item quantity="two">שתי טעויות גסות</item>
-    <item quantity="many">%s טעויות גסות</item>
-    <item quantity="other">שתי טעויות גסות</item>
-  </plurals>
   <plurals name="nbMistakes">
     <item quantity="one">%s שגיאה</item>
     <item quantity="two">%s שגיאות</item>
