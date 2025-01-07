@@ -3,6 +3,7 @@ import { h } from 'snabbdom';
 import { fixCrazySan, plyToTurn } from 'chess';
 import { type MaybeVNodes } from 'common/snabbdom';
 import { INITIAL_FEN } from 'chessops/fen';
+import { Game } from './interfaces';
 
 interface PgnNode {
   ply: Ply;
@@ -34,14 +35,18 @@ function renderNodesTxt(node: Tree.Node, forcePly: boolean): string {
   return s;
 }
 
+function renderPgnTags(game: Game): string {
+  let txt = ""
+  const tags: Array<[string, string]> = [];
+  if (game.variant.key !== 'standard') tags.push(['Variant', game.variant.name]);
+  if (game.initialFen && game.initialFen !== INITIAL_FEN) tags.push(['FEN', game.initialFen]);
+  if (tags.length) txt = tags.map(t => '[' + t[0] + ' "' + t[1] + '"]').join('\n') + '\n\n';
+  return txt;
+}
+
 export function renderFullTxt(ctrl: AnalyseCtrl): string {
   const g = ctrl.data.game;
-  let txt = renderNodesTxt(ctrl.tree.root, true);
-  const tags: Array<[string, string]> = [];
-  if (g.variant.key !== 'standard') tags.push(['Variant', g.variant.name]);
-  if (g.initialFen && g.initialFen !== INITIAL_FEN) tags.push(['FEN', g.initialFen]);
-  if (tags.length) txt = tags.map(t => '[' + t[0] + ' "' + t[1] + '"]').join('\n') + '\n\n' + txt;
-  return txt;
+  return renderPgnTags(g) + renderNodesTxt(ctrl.tree.root, true);
 }
 
 export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
@@ -58,7 +63,7 @@ export function renderNodesHtml(nodes: PgnNode[]): MaybeVNodes {
   return tags;
 }
 
-export function renderVariationPgn(nodeList: Tree.Node[]): string {
+export function renderVariationPgn(game: Game, nodeList: Tree.Node[]): string {
   const filteredNodeList = nodeList.filter(node => node.san);
   if (filteredNodeList.length === 0) {
     return '';
@@ -78,5 +83,5 @@ export function renderVariationPgn(nodeList: Tree.Node[]): string {
     variationPgn += fixCrazySan(node.san!) + ' ';
   }
 
-  return variationPgn;
+  return renderPgnTags(game) + variationPgn;
 }
