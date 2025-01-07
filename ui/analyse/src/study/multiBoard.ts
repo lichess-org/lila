@@ -190,7 +190,7 @@ const renderShowResultsToggle = (ctrl: MultiBoardCtrl): MaybeVNode =>
   h('label.results', [
     h('input', {
       attrs: { type: 'checkbox', checked: ctrl.showResults() },
-      hook: bind('change', e => ctrl.showResults((e.target as HTMLInputElement).checked)),
+      hook: bind('change', e => ctrl.showResults((e.target as HTMLInputElement).checked), ctrl.redraw),
     }),
     i18n.study.showResults,
   ]);
