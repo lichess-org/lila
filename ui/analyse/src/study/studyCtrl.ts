@@ -361,7 +361,9 @@ export default class StudyCtrl {
     } else {
       nextPath = sameChapter
         ? prevPath
-        : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
+        : this.relay && !this.multiBoard.showResults()
+          ? treePath.root
+          : this.data.chapter.relayPath || this.chapters.localPaths[this.vm.chapterId] || treePath.root;
     }
 
     // path could be gone (because of subtree deletion), go as far as possible
@@ -463,9 +465,6 @@ export default class StudyCtrl {
       return false;
     }
     const componentCallbacks = () => {
-      if (!this.multiBoard.showResults()) {
-        this.ctrl.userJump(this.ctrl.initialPath);
-      }
       this.relay?.onChapterChange();
       this.multiBoard.onChapterChange(this.data.chapter.id);
     };
