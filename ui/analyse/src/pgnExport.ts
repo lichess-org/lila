@@ -36,7 +36,7 @@ function renderNodesTxt(node: Tree.Node, forcePly: boolean): string {
 }
 
 function renderPgnTags(game: Game): string {
-  let txt = ""
+  let txt = '';
   const tags: Array<[string, string]> = [];
   if (game.variant.key !== 'standard') tags.push(['Variant', game.variant.name]);
   if (game.initialFen && game.initialFen !== INITIAL_FEN) tags.push(['FEN', game.initialFen]);
