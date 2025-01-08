@@ -2,7 +2,7 @@
 <resources>
   <string name="playWithAFriend">Spil mod en ven</string>
   <string name="playWithTheMachine">Spil mod computeren</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér en til at spille ved at oplyse denne URL</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Invitér nogen til at spille ved at give dem denne URL</string>
   <string name="gameOver">Spillet er slut</string>
   <string name="waitingForOpponent">Venter på modstander</string>
   <string name="orLetYourOpponentScanQrCode">Eller lad din modstander scanne denne QR-kode</string>
