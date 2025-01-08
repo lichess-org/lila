@@ -80,7 +80,8 @@ final class StudyPager(
     paginator(
       selectTopic(topic) ++ onlyMine.fold(accessSelect)(selectMemberId(_)),
       order,
-      page
+      page,
+      hint = onlyMine.isDefined.option($doc("uids" -> 1, "rank" -> -1))
     )
 
   private def accessSelect(using me: Option[Me]) =
