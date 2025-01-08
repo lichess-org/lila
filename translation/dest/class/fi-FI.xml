@@ -57,6 +57,8 @@ Tässä on linkki, josta pääset luokkaan.</string>
     <item quantity="one">Yksi odottava kutsu</item>
     <item quantity="other">%s odottavaa kutsua</item>
   </plurals>
+  <string name="pending" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student has not yet responded to.">Odottaa</string>
+  <string name="declined" comment="Appears in a table of students. Refers to invitation by a teacher to join a class, which the student declined.">Kieltäytyi</string>
   <string name="onlyVisibleToTeachers">Näkyy vain luokan opettajille</string>
   <string name="lastActiveDate">Aktiivinen</string>
   <string name="managed">Hallinnoitu</string>
@@ -114,4 +116,6 @@ Se luo vaakasuoran erotinviivan.</string>
   <string name="anInvitationHasBeenSentToX" comment="%s is the username of a player already registered on Lichess.">Käyttäjälle %s lähetettiin kutsu</string>
   <string name="xAlreadyHasAPendingInvitation" comment="An error message. %s is the username of a player already registered on Lichess.">%s on jo saanut kutsun, joka odottaa vastausta</string>
   <string name="xIsAKidAccountWarning" comment="%1$s is the username&#10;%2$s is a link.">%1$s on lapsitunnus eikä voi vastaanottaa viestiäsi. Sinun on annettava kutsun URL-osoite oppilaalle käsin: %2$s</string>
+  <string name="moveToClass" comment="%s is the name of the class. The name of the class is set by the teacher.&#10;&#10;Appears on a confirmation prompt when a teacher looks to move a student to one of the other classes they run.">Siirrä luokalle %s</string>
+  <string name="moveToAnotherClass" comment="Appears as a heading on a page which lets a teacher move one of their students to one of the other classes they run.">Siirrä toiselle luokalle</string>
 </resources>
