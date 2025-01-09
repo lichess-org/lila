@@ -130,19 +130,19 @@
     <item quantity="other">%s 블런더</item>
   </plurals>
   <plurals name="numberBlunders" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;blunder&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Blunder&quot; from another string, so please update as required.">
-    <item quantity="other">블런더 %s개</item>
+    <item quantity="other">%s 블런더</item>
   </plurals>
   <plurals name="nbMistakes">
     <item quantity="other">%s 실수</item>
   </plurals>
   <plurals name="numberMistakes" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;mistake&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;mistake&quot; from another string, so please update as required.">
-    <item quantity="other">실수 %s개</item>
+    <item quantity="other">%s 실수</item>
   </plurals>
   <plurals name="nbInaccuracies">
     <item quantity="other">%s 부정확한 수</item>
   </plurals>
   <plurals name="numberInaccuracies" comment="%s is a number, but not used within the string. We represent these as a table and we just need %s in the string to determine what text to use, depending on the amount.&#10;&#10;Appears on computer analysis results.&#10;&#10;Please note this string was updated to start with a capital letter. It previously had &quot;inaccuracy&quot; in lowercase. It was pre-translated, but the translation memory may have chosen &quot;Inaccuracy&quot; from another string, so please update as required.">
-    <item quantity="other">부정확한 수 %s개</item>
+    <item quantity="other">%s 부정확한 수</item>
   </plurals>
   <string name="moveTimes">이동 시간</string>
   <string name="flipBoard">보드 돌리기</string>
@@ -835,7 +835,7 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
-  <string name="showUnreadLichessMessage">Lichess로부터 비공개 메시지를 받았습니다.</string>
+  <string name="showUnreadLichessMessage" comment="Appears prominently on the home page when a player receives a message from the Lichess account: https://lichess.org/@/Lichess">Lichess로부터 비공개 메시지를 받았습니다.</string>
   <string name="clickHereToReadIt">클릭하여 읽기</string>
   <string name="sorry">죄송합니다 :(</string>
   <string name="weHadToTimeYouOutForAWhile">짧은 시간동안 정지를 받으셨습니다.</string>
