@@ -207,7 +207,7 @@ object Tournament {
       noBerserk = !berserkable,
       noStreak = !streakable,
       schedule = None,
-      startsAt = startDate plusSeconds ThreadLocalRandom.nextInt(60),
+      startsAt = startDate,
       description = description,
       hasChat = hasChat
     )
@@ -228,7 +228,7 @@ object Tournament {
       mode = Mode.Rated,
       conditions = sched.conditions,
       schedule = Some(sched),
-      startsAt = sched.at plusSeconds ThreadLocalRandom.nextInt(60)
+      startsAt = sched.at
     )
 
   def tournamentUrl(tourId: String): String = s"https://lishogi.org/tournament/$tourId"

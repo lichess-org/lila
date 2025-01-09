@@ -125,12 +125,22 @@ final private class TournamentSocket(
             userId <- userIdOpt
             d      <- o obj "d"
             lookup <- Protocol.In.readArrangementLookup(tourId.value, d)
-            name        = d str "name"
-            color       = d.boolean("color").map(shogi.Color.fromSente)
-            points      = d str "points" flatMap Arrangement.Points.apply
-            scheduledAt = d.long("scheduled") map { new DateTime(_) }
-            settings    = Arrangement.Settings(name, color, points, scheduledAt)
+            name  = d.str("name").map(_.take(32)).filter(_.nonEmpty)
+            color = d.boolean("color").map(shogi.Color.fromSente)
+            points = d
+              .str("points")
+              .flatMap(Arrangement.Points.apply)
+              .filterNot(_ == Arrangement.Points.default)
+            scheduledAt     = d.long("scheduled") map { new DateTime(_) }
+            allowGameBefore = d.int("allowGameBefore")
+            settings        = Arrangement.Settings(name, color, points, scheduledAt, allowGameBefore)
           } api.arrangementOrganizerSet(lookup, userId, settings)
+        case "arrangement-delete" =>
+          for {
+            userId <- userIdOpt
+            d      <- o obj "d"
+            lookup <- Protocol.In.readArrangementLookup(tourId.value, d)
+          } api.arrangementDelete(lookup, userId)
         case "process-candidate" =>
           for {
             by     <- userIdOpt
@@ -175,8 +185,8 @@ final private class TournamentSocket(
               case _                   => none
             }
           }
-          order = d int "order"
-        } yield Arrangement.Lookup(tourId, users, order)
+          id = d str "id"
+        } yield Arrangement.Lookup(id, tourId, users)
 
       val reader: P.In.Reader = raw => tourReader(raw) orElse RP.In.reader(raw)
 

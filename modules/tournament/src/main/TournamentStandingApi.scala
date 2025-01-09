@@ -83,7 +83,7 @@ final class TournamentStandingApi(
           }
           .sequenceFu
           .dmap(_.toMap)
-      players <- rankedPlayers.map(JsonView.playerJson(lightUserApi, sheets, tour.streakable)).sequenceFu
+      players <- rankedPlayers.map(JsonView.arenaPlayerJson(lightUserApi, sheets, tour.streakable)).sequenceFu
     } yield Json.obj(
       "page"    -> page,
       "players" -> players

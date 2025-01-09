@@ -38,7 +38,7 @@ object CrudForm {
     name = "",
     homepageHours = 0,
     timeControlSetup = TimeControl.DataForm.Setup.default,
-    minutes = DataForm.minuteDefault,
+    minutes = DataForm.minutesDefault,
     variant = shogi.variant.Standard.id,
     position = none,
     date = DateTime.now plusDays 7,

@@ -13,6 +13,7 @@ private[tournament] case class Player(
     rating: Int,
     provisional: Boolean,
     withdraw: Boolean = false,
+    kicked: Boolean = false,
     score: Int = 0,
     fire: Boolean = false,
     performance: Int = 0,
@@ -27,10 +28,7 @@ private[tournament] case class Player(
   def is(user: User): Boolean    = is(user.id)
   def is(other: Player): Boolean = is(other.userId)
 
-  def doWithdraw = copy(withdraw = true)
-  def unWithdraw = copy(withdraw = false)
-
-  def magicScore = score * 10000 + (order | (performanceOption | rating))
+  def magicScore = (score * 10000 + (order | (performanceOption | rating))) * (if (kicked) 0 else 1)
 
   def performanceOption = performance > 0 option performance
 }

@@ -33,6 +33,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
     roundSocket: lila.round.RoundSocket,
+    // notifyApi: lila.notify.NotifyApi,
     lightUserApi: lila.user.LightUserApi,
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,

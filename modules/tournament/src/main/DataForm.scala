@@ -23,7 +23,7 @@ final class DataForm {
       name = teamBattleId.isEmpty option user.titleUsername,
       format = (if (teamBattleId.isDefined) Format.Arena.key else Format.Robin.key).some,
       timeControlSetup = TimeControl.DataForm.Setup.default,
-      minutes = minuteDefault,
+      minutes = minutesDefault.some,
       startDate = none,
       finishDate = none,
       variant = shogi.variant.Standard.id.toString.some,
@@ -45,7 +45,7 @@ final class DataForm {
       name = tour.name.some,
       format = tour.format.key.some,
       timeControlSetup = TimeControl.DataForm.Setup(tour.timeControl),
-      minutes = tour.minutes,
+      minutes = tour.minutes.some,
       startDate = tour.startsAt.some,
       finishDate = tour.finishesAt.some,
       variant = tour.variant.id.toString.some,
@@ -104,9 +104,9 @@ final class DataForm {
   private def makeMapping(user: User) =
     mapping(
       "name"             -> optional(nameType),
-      "format"           -> optional(stringIn(DataForm.formats.toSet)),
+      "format"           -> optional(stringIn(Format.all.map(_.key).toSet)),
       "timeControlSetup" -> TimeControl.DataForm.setup,
-      "minutes" -> {
+      "minutes" -> optional {
         if (lila.security.Granter(_.ManageTournament)(user)) number
         else numberIn(minutes)
       },
@@ -126,6 +126,7 @@ final class DataForm {
       "hasChat"          -> optional(boolean)
     )(TournamentSetup.apply)(TournamentSetup.unapply)
       .verifying("Invalid starting position", _.validPosition)
+      .verifying("Provide valid duration", _.validMinutes)
       .verifying("End date needs to come at least 20 minutes after start date", _.validFinishDate)
       .verifying("Games with this time control cannot be rated", _.validRatedVariant)
       .verifying("Cannot have correspondence in arena format", _.validTimeControl)
@@ -139,10 +140,8 @@ object DataForm {
 
   import shogi.variant._
 
-  val formats = Format.all.map(_.key)
-
-  val minutes       = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
-  val minuteDefault = 45
+  val minutes        = (20 to 60 by 5) ++ (70 to 120 by 10) ++ (150 to 360 by 30) ++ (420 to 600 by 60) :+ 720
+  val minutesDefault = 60
 
   val validVariants =
     List(Standard, Minishogi, Chushogi, Annanshogi, Kyotoshogi, Checkshogi)
@@ -157,7 +156,7 @@ private[tournament] case class TournamentSetup(
     name: Option[String],
     format: Option[String],
     timeControlSetup: TimeControl.DataForm.Setup,
-    minutes: Int,
+    minutes: Option[Int],
     startDate: Option[DateTime],
     finishDate: Option[DateTime],
     variant: Option[String],
@@ -174,16 +173,6 @@ private[tournament] case class TournamentSetup(
     hasChat: Option[Boolean]
 ) {
 
-  def validPosition = position.fold(true) { sfen =>
-    sfen.toSituation(realVariant).exists(_.playable(strict = true, withImpasse = true))
-  }
-
-  def validFinishDate = finishDate.fold(true) { d =>
-    d.minusMinutes(20) isAfter (realStartDate)
-  }
-
-  def validTimeControl = timeControlSetup.isRealTime || format != Format.Arena
-
   def realMode =
     if (position.filterNot(_.initialOf(realVariant)).isDefined) Mode.Casual
     else Mode(rated.orElse(mode.map(Mode.Rated.id ===)) | true)
@@ -194,11 +183,25 @@ private[tournament] case class TournamentSetup(
 
   def realStartDate = startDate.filter(_ isAfter DateTime.now).getOrElse(DateTime.now)
 
-  def realMinutes = finishDate.ifTrue(format != Format.Arena).map { fd =>
-    ((fd.getMillis - realStartDate.getMillis) / 60000).toInt
-  } getOrElse minutes
+  def realMinutes = finishDate
+    .ifTrue(format != Format.Arena)
+    .map { fd =>
+      ((fd.getMillis - realStartDate.getMillis) / 60000).toInt
+    }
+    .orElse(minutes)
+    .getOrElse(DataForm.minutesDefault)
 
   def speed = timeControlSetup.clock.fold[shogi.Speed](shogi.Speed.Correspondence)(shogi.Speed.apply)
+
+  def validPosition = position.fold(true) { sfen =>
+    sfen.toSituation(realVariant).exists(_.playable(strict = true, withImpasse = true))
+  }
+
+  def validMinutes = minutes.isDefined || realFormat != Format.Arena
+
+  def validFinishDate = finishDate.fold(realFormat == Format.Arena)(_.minusMinutes(20) isAfter realStartDate)
+
+  def validTimeControl = timeControlSetup.isRealTime || format != Format.Arena
 
   def validRatedVariant =
     realMode == Mode.Casual ||

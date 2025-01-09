@@ -204,6 +204,17 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
   def find(tourId: Tournament.ID, userId: User.ID): Fu[Option[Player]] =
     coll.ext.find(selectTourUser(tourId, userId)).one[Player]
 
+  def findActiveTuple2(tourId: Tournament.ID, userIds: (User.ID, User.ID)): Fu[Option[(Player, Player)]] =
+    coll.list[Player](
+      selectTour(tourId) ++ $doc("uid" $in List(userIds._1, userIds._2)) ++ selectActive,
+      2
+    ) map { players =>
+      players match {
+        case List(p1, p2) => (p1, p2).some
+        case _            => none
+      }
+    }
+
   def update(tourId: Tournament.ID, userId: User.ID)(f: Player => Fu[Player]) =
     find(tourId, userId) orFail s"No such player: $tourId/$userId" flatMap f flatMap { player =>
       coll.update.one($id(player._id), player).void
@@ -220,17 +231,22 @@ final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
       useOrder: Boolean
   ) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w"))
+      case Some(p) if p.withdraw => coll.update.one($id(p._id), $unset("w", "k"))
       case Some(_)               => funit
       case None if useOrder =>
         findLastJoinedOrder(tourId) flatMap { orderOpt =>
-          coll.insert.one(Player.make(tourId, user, perfType, team, orderOpt.map(_ + 1).orElse(0.some)))
+          coll.insert.one(
+            Player.make(tourId, user, perfType, team, orderOpt.map(_ + 1).orElse(0.some).pp("join - last"))
+          )
         }
       case None => coll.insert.one(Player.make(tourId, user, perfType, team, none))
     } void
 
   def withdraw(tourId: Tournament.ID, userId: User.ID) =
     coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
+
+  def kick(tourId: Tournament.ID, userId: User.ID) =
+    coll.update.one(selectTourUser(tourId, userId), $set("k" -> true, "w" -> true)).void
 
   private[tournament] def withPoints(tourId: Tournament.ID): Fu[List[Player]] =
     coll.list[Player](

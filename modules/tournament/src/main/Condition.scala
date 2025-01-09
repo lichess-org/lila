@@ -244,11 +244,14 @@ object Condition {
       def apply(x: TeamMember): TeamMemberSetup = TeamMemberSetup(x.teamId.some)
     }
     val all = mapping(
-      "nbRatedGame" -> optional(nbRatedGame),
-      "maxRating"   -> optional(maxRating),
-      "minRating"   -> optional(minRating),
-      "titled"      -> optional(boolean),
-      "teamMember"  -> optional(teamMember)
+      "nbRatedGame" -> optional(nbRatedGame).transform[Option[lila.tournament.Condition.NbRatedGame]](
+        _.filter(_.nb > 0),
+        identity
+      ),
+      "maxRating"  -> optional(maxRating),
+      "minRating"  -> optional(minRating),
+      "titled"     -> optional(boolean),
+      "teamMember" -> optional(teamMember)
     )(AllSetup.apply)(AllSetup.unapply)
       .verifying("Invalid ratings", _.validRatings)
 

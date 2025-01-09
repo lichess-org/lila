@@ -64,7 +64,7 @@ final class TournamentApi(
       me: User,
       myTeams: List[LightTeam],
       getUserTeamIds: User.ID => Fu[List[TeamID]],
-      andJoin: Boolean = true // ?
+      andJoin: Boolean = true
   ): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
@@ -154,7 +154,7 @@ final class TournamentApi(
       users: WaitingUsers,
       smallTourNbActivePlayers: Option[Int]
   ): Funit =
-    (users.size > 1 && (
+    (users.size > 1 && forTour.isArena && (
       !hadPairings.get(forTour.id) ||
         users.haveWaitedEnough ||
         smallTourNbActivePlayers.exists(_ <= users.size * 1.5)
@@ -228,6 +228,7 @@ final class TournamentApi(
         case _ =>
           for {
             _ <- tournamentRepo.setStatus(tour.id, Status.Finished)
+            _ <- tour.candidates.nonEmpty ?? tournamentRepo.clearCandidates(tour.id)
             _ <- playerRepo unWithdraw tour.id
             _ <-
               if (tour.isArena) pairingRepo.removePlaying(tour.id) else arrangementRepo.removePlaying(tour.id)
@@ -251,8 +252,10 @@ final class TournamentApi(
       }
     }
 
+  private[tournament] val killSchedule = scala.collection.mutable.Set.empty[Tournament.ID]
+
   def kill(tour: Tournament): Funit = {
-    if (tour.isStarted) finish(tour)
+    if (tour.isStarted) fuccess(killSchedule add tour.id).void
     else if (tour.isCreated) destroy(tour)
     else funit
   }
@@ -325,7 +328,7 @@ final class TournamentApi(
                 denied = tour.denied.filterNot(_ == user.id),
                 tour.nbPlayers + 1
               ) >>- {
-                if (tour.hasArrangements) cached.robin.invalidatePlayers(tour.id)
+                if (tour.hasArrangements) cached.arrangement.invalidatePlayers(tour.id)
                 socket.foreach(_.reload(tour.id))
               }
             else
@@ -353,8 +356,8 @@ final class TournamentApi(
       playerRepo.exists(tour.id, me.id) flatMap { playerExists =>
         val fuJoined =
           if (
-            (tour.password == password && !tour.closed && tour.notFull && !tour.denied.contains(me.id)) ||
-            playerExists
+            ((tour.password == password && !tour.closed && tour.notFull) || playerExists) &&
+            !tour.denied.contains(me.id)
           ) {
             verdicts(tour, me.some, getUserTeamIds) flatMap {
               _.accepted ?? {
@@ -376,11 +379,11 @@ final class TournamentApi(
                       useOrder = tour.isRobin
                     ) >>
                       updateNbPlayers(tour.id) >>- {
-                        if (tour.hasArrangements) cached.robin.invalidatePlayers(tour.id)
+                        if (tour.hasArrangements) cached.arrangement.invalidatePlayers(tour.id)
                         socket.foreach(_.reload(tour.id))
                         publish()
                       } inject true
-                  if (tour.candidatesOnly && !playerExists) proceedAsCandidate
+                  if (tour.candidatesOnly && !playerExists && me.id != tour.createdBy) proceedAsCandidate
                   else
                     withTeamId match {
                       case None if tour.isTeamBattle => playerExists ?? proceedWithTeam(none)
@@ -429,15 +432,24 @@ final class TournamentApi(
       userId: User.ID,
       join: Boolean
   ): Funit =
-    ArrangementUpdate(lookup, userId, (_, arr) => (!arr.hasGame && arr.hasUser(userId))) {
-      (tour, arrangement) =>
-        if (join && arrangement.opponentIsReady(userId, maxSeconds = 20)) {
-          makeManualPairings(tour, arrangement)
-        } else {
-          val updated = arrangement.setReadyAt(userId, join ?? DateTime.now.some)
-          arrangementRepo.update(updated) >>- cached.robin.invalidateArrangaments(arrangement.tourId) >>-
-            socket.foreach(_.arrangementChange(updated))
-        }
+    ArrangementUpdate(
+      lookup,
+      userId,
+      (tour, arr) =>
+        (
+          tour.isStarted &&
+            !arr.hasGame &&
+            arr.hasUser(userId)
+            && arr.canGameStart
+        )
+    ) { (tour, arrangement) =>
+      if (join && arrangement.opponentIsReady(userId, maxSeconds = 20)) {
+        makeManualPairings(tour, arrangement)
+      } else {
+        val updated = arrangement.setReadyAt(userId, join ?? DateTime.now.some)
+        arrangementRepo.update(updated) >>- cached.arrangement.invalidateArrangaments(arrangement.tourId) >>-
+          socket.foreach(_.arrangementChange(updated))
+      }
     }
 
   private def makePlayerMap(tourId: Tournament.ID, users: List[User.ID]): Fu[Map[User.ID, Player]] =
@@ -456,16 +468,23 @@ final class TournamentApi(
       arrangement: Arrangement
   ): Funit =
     makePlayerMap(tour.id, arrangement.userIds)
-      .mon(_.tournament.robin.createPlayerMap)
+      .mon(_.tournament.arrangement.createPlayerMap)
       .flatMap { playersMap =>
         autoPairing(tour, arrangement, playersMap) flatMap { game =>
-          (arrangementRepo.withGame(arrangement.id, game.id) >>-
-            socket.foreach(_.startGame(tour.id, game))) >>
+          arrangementRepo.update(
+            arrangement.startGame(
+              game.id,
+              if (game.sentePlayer.userId.exists(_ == arrangement.user1.id)) shogi.Color.Sente
+              else shogi.Color.Gote
+            )
+          ) >>-
+            socket.foreach(_.startGame(tour.id, game)) >>-
             featureOneOf(tour, game.id, playersMap.values)
-              .mon(_.tournament.robin.createFeature)
+              .mon(_.tournament.arrangement.createFeature)
+              .unit
         }
       }
-      .monSuccess(_.tournament.robin.create)
+      .monSuccess(_.tournament.arrangement.create)
       .chronometer
       .logIfSlow(75, logger)(_ => s"Robin pairing for https://lishogi.org/tournament/${tour.id}")
       .result
@@ -493,9 +512,15 @@ final class TournamentApi(
       userId: User.ID,
       dateTime: Option[DateTime]
   ): Funit =
-    ArrangementUpdate(lookup, userId, (_, arr) => (!arr.hasGame && arr.hasUser(userId))) { (_, arrangement) =>
+    ArrangementUpdate(
+      lookup,
+      userId,
+      (_, arr) => (!arr.hasGame && arr.hasUser(userId) && !arr.lockedScheduledAt)
+    ) { (_, arrangement) =>
       val updated = arrangement.setScheduledAt(userId, dateTime)
-      arrangementRepo.update(updated) >>- cached.robin.invalidateArrangaments(arrangement.tourId) >>- socket
+      arrangementRepo.update(updated) >>- cached.arrangement.invalidateArrangaments(
+        arrangement.tourId
+      ) >>- socket
         .foreach(_.arrangementChange(updated))
     }
 
@@ -507,8 +532,21 @@ final class TournamentApi(
     ArrangementUpdate(lookup, userId, (tour, _) => (tour.createdBy == userId && tour.isOrganized)) {
       (_, arrangement) =>
         val updated = arrangement.setSettings(settings)
-        arrangementRepo.update(updated) >>- cached.robin.invalidateArrangaments(arrangement.tourId) >>- socket
+        arrangementRepo.update(updated) >>- cached.arrangement.invalidateArrangaments(
+          arrangement.tourId
+        ) >>- socket
           .foreach(_.arrangementChange(updated))
+    }
+
+  def arrangementDelete(
+      lookup: Arrangement.Lookup,
+      userId: User.ID
+  ): Funit =
+    ArrangementUpdate(lookup, userId, (tour, _) => (tour.createdBy == userId && tour.isOrganized)) {
+      (_, arrangement) =>
+        arrangementRepo.delete(arrangement.id) >>-
+          cached.arrangement.invalidateArrangaments(arrangement.tourId) >>-
+          socket.foreach(_.reload(arrangement.tourId))
     }
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
@@ -522,12 +560,18 @@ final class TournamentApi(
     playerRepo count tourId flatMap { tournamentRepo.setNbPlayers(tourId, _) }
 
   def selfPause(tourId: Tournament.ID, userId: User.ID): Funit =
-    withdraw(tourId, userId, isPause = true, isStalling = false)
+    withdraw(tourId, userId, isPause = true, isStalling = false, isForced = false)
 
   private def stallPause(tourId: Tournament.ID, userId: User.ID): Funit =
-    withdraw(tourId, userId, isPause = false, isStalling = true)
+    withdraw(tourId, userId, isPause = false, isStalling = true, isForced = false)
 
-  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean, isStalling: Boolean): Funit =
+  private def withdraw(
+      tourId: Tournament.ID,
+      userId: User.ID,
+      isPause: Boolean,
+      isStalling: Boolean,
+      isForced: Boolean
+  ): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) {
       case tour if tour.candidates.contains(userId) =>
         tournamentRepo.setCandidates(tour.id, tour.candidates.filterNot(_ == userId)) >>- socket.foreach(
@@ -537,7 +581,7 @@ final class TournamentApi(
         playerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socket.foreach(
           _.reload(tour.id)
         ) >>- publish()
-      case tour if tour.isStarted =>
+      case tour if (tour.isStarted && (tour.isArena || isForced)) =>
         for {
           _ <- playerRepo.withdraw(tour.id, userId)
           pausable <-
@@ -555,7 +599,7 @@ final class TournamentApi(
   def withdrawAll(user: User): Funit =
     tournamentRepo.withdrawableIds(user.id) flatMap {
       _.map {
-        withdraw(_, user.id, isPause = false, isStalling = false)
+        withdraw(_, user.id, isPause = false, isStalling = false, isForced = true)
       }.sequenceFu.void
     }
 
@@ -586,10 +630,10 @@ final class TournamentApi(
             _ ?? { arr =>
               arrangementRepo.finish(game, arr) >>
                 game.userIds.map(updateArrangementPlayer(tour, game.some, arr)).sequenceFu.void >>- {
-                  cached.robin.invalidateArrangaments(tourId)
+                  cached.arrangement.invalidateArrangaments(tourId)
+                  cached.arrangement.invalidatePlayers(tourId)
                   socket.foreach(_.reload(tour.id))
                   updateTournamentStanding(tour)
-                  withdrawNonMover(game)
                 }
             }
           }
@@ -606,7 +650,7 @@ final class TournamentApi(
     }
 
   private[tournament] def sittingDetected(game: Game, player: User.ID): Funit =
-    game.tournamentId ?? { stallPause(_, player) }
+    game.tournamentId.ifTrue(game.arrangementId.isEmpty) ?? { stallPause(_, player) }
 
   private def updateArrangementPlayer(
       tour: Tournament,
@@ -619,7 +663,7 @@ final class TournamentApi(
           val points = arr.points | Arrangement.Points.default
           if (g.winnerUserId.exists(_ == player.userId)) points.win
           else if (g.winner.isEmpty) points.draw
-          else points.lose
+          else points.loss
         }
         fuccess(
           player.copy(
@@ -666,14 +710,14 @@ final class TournamentApi(
     } yield opponentRating + 500 * multiplier
 
   private def withdrawNonMover(game: Game): Unit =
-    if (game.status == shogi.Status.NoStart) for {
+    if (game.status == shogi.Status.NoStart && game.arrangementId.isEmpty) for {
       tourId <- game.tournamentId
       player <- game.playerWhoDidNotMove
       userId <- player.userId
-    } withdraw(tourId, userId, isPause = false, isStalling = false)
+    } withdraw(tourId, userId, isPause = false, isStalling = false, isForced = false)
 
   def pausePlaybanned(userId: User.ID) =
-    tournamentRepo.withdrawableIds(userId) flatMap {
+    tournamentRepo.withdrawableIds(userId, onlyArena = true) flatMap {
       _.map {
         playerRepo.withdraw(_, userId)
       }.sequenceFu.void
@@ -697,9 +741,9 @@ final class TournamentApi(
       by: User.ID
   ): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
-      (tour.createdBy == by) ?? {
-        playerRepo.remove(tour.id, userId) >> {
-          tour.isStarted ?? {
+      (tour.createdBy == by && by != userId) ?? {
+        kickOrRemove(tour, userId) >> {
+          if (tour.isStarted) {
             if (tour.isArena)
               pairingRepo.findPlaying(tour.id, userId).map {
                 _ foreach { currentPairing =>
@@ -709,21 +753,23 @@ final class TournamentApi(
             else
               arrangementRepo.findPlaying(tour.id, userId) map { curArrangements =>
                 curArrangements foreach { curArrangement =>
-                  curArrangement.gameId.pp foreach { tellRound(_, AbortForce) }
+                  curArrangement.gameId foreach { tellRound(_, AbortForce) }
                 }
               }
-          }
+          } else updateNbPlayers(tour.id)
         } >>
-          tournamentRepo.setDenied(tour.id, userId :: tour.denied) >>
-          updateNbPlayers(tour.id) >>-
-          socket.foreach(_.reload(tour.id)) >>- publish()
+          tournamentRepo.setDenied(tour.id, userId :: tour.denied) >>- {
+            if (tour.hasArrangements) cached.arrangement.invalidatePlayers(tour.id)
+            socket.foreach(_.reload(tour.id))
+            publish()
+          }
       }
     }
 
   def ejectLameFromEnterable(tourId: Tournament.ID, userId: User.ID): Funit =
     Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
-      playerRepo.remove(tour.id, userId) >> {
-        tour.isStarted ?? {
+      kickOrRemove(tour, userId) >> {
+        if (tour.isStarted) {
           if (tour.isArena)
             pairingRepo.findPlaying(tour.id, userId).map {
               _ foreach { currentPairing =>
@@ -739,14 +785,13 @@ final class TournamentApi(
                 curArrangement.gameId foreach { tellRound(_, AbortForce) }
               }
             }
-        }
-      } >> updateNbPlayers(tour.id) >>-
-        socket.foreach(_.reload(tour.id)) >>- publish()
+        } else updateNbPlayers(tour.id)
+      } >>- socket.foreach(_.reload(tour.id)) >>- publish()
     }
 
   def ejectLameFromHistory(tourId: Tournament.ID, userId: User.ID): Funit =
     Sequencing(tourId)(tournamentRepo.finishedById) { tour =>
-      playerRepo.remove(tourId, userId) >> {
+      kickOrRemove(tour, userId) >> {
         tour.winnerId.contains(userId) ?? {
           playerRepo winner tour.id flatMap {
             _ ?? { p =>
@@ -756,6 +801,10 @@ final class TournamentApi(
         }
       }
     }
+
+  private def kickOrRemove(tour: Tournament, userId: User.ID) =
+    if (tour.isCreated) playerRepo.remove(tour.id, userId)
+    else playerRepo.kick(tour.id, userId)
 
   private val tournamentTopNb = 20
   private val tournamentTopCache = cacheApi[Tournament.ID, TournamentTop](16, "tournament.top") {
@@ -921,13 +970,29 @@ final class TournamentApi(
       userId: User.ID,
       filter: (Tournament, Arrangement) => Boolean
   )(run: (Tournament, Arrangement) => Funit): Funit =
-    Sequencing(lookup.tourId)(tournamentRepo.startedById) { tour =>
+    Sequencing(lookup.tourId)(tournamentRepo.enterableById) { tour =>
       arrangementRepo.byLookup(lookup) flatMap { arrangementOpt =>
         arrangementOpt
-          .orElse(Arrangement.make(lookup).some.ifTrue(tour.isRobin || tour.createdBy == userId))
-          .filter(a => filter(tour, a)) ?? { a =>
-          run(tour, a)
-        }
+          .fold(
+            if (tour.isOrganized && tour.createdBy == userId)
+              arrangementRepo.countByTour(tour.id) map { count =>
+                (count < 500) ?? {
+                  Arrangement.make(tour.id, lookup.users).some
+                }
+              }
+            else if (tour.isRobin)
+              playerRepo.findActiveTuple2(lookup.tourId, lookup.users) map { players =>
+                players ?? { ps =>
+                  val orderedUsers =
+                    if (ps._1.order.zip(ps._2.order).exists { case (o1, o2) => o1 > o2 })
+                      (ps._2.userId, ps._1.userId)
+                    else (ps._1.userId, ps._2.userId)
+                  Arrangement.make(tour.id, orderedUsers).some
+                }
+              }
+            else fuccess(none)
+          )(a => fuccess(a.some))
+          .flatMap(aOpt => aOpt.filter(a => filter(tour, a)) ?? { a => run(tour, a) })
       }
     }
 

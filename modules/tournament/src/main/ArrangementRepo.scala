@@ -45,9 +45,9 @@ final class ArrangementRepo(coll: Coll)(implicit
   def byId(id: Arrangement.ID): Fu[Option[Arrangement]] = coll.byId[Arrangement](id)
 
   def byLookup(lookup: Arrangement.Lookup): Fu[Option[Arrangement]] =
-    coll.one[Arrangement](selectTourUsers(lookup.tourId, lookup.users._1, lookup.users._2) ++ {
-      lookup.order.filter(_ > 0) ?? { case o => $doc("o" -> o) }
-    })
+    coll.one[Arrangement]((lookup.id ?? { id =>
+      $id(id)
+    }) ++ selectTourUsers(lookup.tourId, lookup.users._1, lookup.users._2))
 
   def byGame(tourId: Tournament.ID, gameId: Game.ID): Fu[Option[Arrangement]] =
     coll.one[Arrangement](selectTourGame(tourId, gameId))
@@ -60,11 +60,17 @@ final class ArrangementRepo(coll: Coll)(implicit
 
   def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
+  def find(tourId: Tournament.ID, userId: User.ID): Fu[List[Arrangement]] =
+    coll.list[Arrangement](selectTourUser(tourId, userId))
+
   def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[List[Arrangement]] =
     coll.list[Arrangement](selectTourUser(tourId, userId) ++ selectPlaying)
 
   def isPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)
+
+  def countByTour(tourId: Tournament.ID): Fu[Int] =
+    coll.countSel(selectTour(tourId))
 
   def countWithGame(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectWithGame)
@@ -72,22 +78,12 @@ final class ArrangementRepo(coll: Coll)(implicit
   def update(arrangement: Arrangement): Funit =
     coll.update.one($id(arrangement.id), arrangement, upsert = true).void
 
-  def withGame(id: Arrangement.ID, gid: lila.game.Game.ID) =
-    coll.update
-      .one(
-        $id(id),
-        $set(
-          "g" -> gid
-        ) ++ $unset("r1", "r2", "d1", "d2", "ua")
-      )
-      .void
-
   def finish(g: lila.game.Game, arr: Arrangement) =
     if (g.aborted)
       coll.update
         .one(
           $id(arr.id),
-          $unset("g")
+          $unset("g", "st")
         )
         .void
     else
@@ -98,9 +94,11 @@ final class ArrangementRepo(coll: Coll)(implicit
             "s" -> g.status.id,
             "w" -> g.winnerUserId.map(_ == arr.user1.id),
             "p" -> g.plies
-          )
+          ) ++ $unset("l")
         )
         .void
+
+  def delete(id: Arrangement.ID) = coll.delete.one($id(id)).void
 
   def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 

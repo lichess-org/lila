@@ -43,6 +43,9 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
       _.id
     )
 
+  def arenaById(id: Tournament.ID): Fu[Option[Tournament]] =
+    coll.one[Tournament]($id(id) ++ arena)
+
   def uniqueById(id: Tournament.ID): Fu[Option[Tournament]] =
     coll.one[Tournament]($id(id) ++ selectUnique)
 
@@ -123,12 +126,13 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   private[tournament] def withdrawableIds(
       userId: User.ID,
-      teamId: Option[TeamID] = None
+      teamId: Option[TeamID] = None,
+      onlyArena: Boolean = false
   ): Fu[List[Tournament.ID]] =
     coll
       .aggregateList(Int.MaxValue, readPreference = ReadPreference.secondaryPreferred) { implicit framework =>
         import framework._
-        Match(enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect)) -> List(
+        Match(enterableSelect ++ nonEmptySelect ++ teamId.??(forTeamSelect) ++ onlyArena.??(arena)) -> List(
           PipelineOperator(
             $doc(
               "$lookup" -> $doc(
@@ -167,6 +171,16 @@ final class TournamentRepo(val coll: Coll, playerCollName: CollName)(implicit
 
   def setCandidates(tourId: Tournament.ID, candidates: List[User.ID]) =
     coll.updateField($id(tourId), "candidates", candidates).void
+
+  def clearCandidates(tourId: Tournament.ID) =
+    coll.update
+      .one(
+        $id(tourId),
+        $unset(
+          "candidates"
+        )
+      )
+      .void
 
   def setDenied(tourId: Tournament.ID, denied: List[User.ID]) =
     coll.updateField($id(tourId), "denied", denied).void

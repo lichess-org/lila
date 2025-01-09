@@ -32,7 +32,7 @@ object BSONHandlers {
           Arrangement.Points(p(0), p(1), p(2))
         }
       },
-      points => BSONArray(points.lose, points.draw, points.win)
+      points => BSONArray(points.loss, points.draw, points.win)
     )
   }
 
@@ -176,6 +176,7 @@ object BSONHandlers {
         rating = r int "r",
         provisional = r boolD "pr",
         withdraw = r boolD "w",
+        kicked = r boolD "k",
         score = r intD "s",
         fire = r boolD "f",
         performance = r intD "e",
@@ -190,6 +191,7 @@ object BSONHandlers {
         "r"   -> o.rating,
         "pr"  -> w.boolO(o.provisional),
         "w"   -> w.boolO(o.withdraw),
+        "k"   -> w.boolO(o.kicked),
         "s"   -> w.intO(o.score),
         "m"   -> o.magicScore,
         "f"   -> w.boolO(o.fire),
@@ -238,7 +240,6 @@ object BSONHandlers {
       val user2Id = users lift 1 err "tournament arrangement second user"
       Arrangement(
         id = r str "_id",
-        order = r intD "o",
         tourId = r str "t",
         user1 = Arrangement.User(
           id = user1Id,
@@ -254,6 +255,7 @@ object BSONHandlers {
         color = r.getO[shogi.Color]("c"),
         points = r.getO[Arrangement.Points]("pt"),
         gameId = r strO "g",
+        startedAt = r dateO "st",
         status = r.intO("s") flatMap shogi.Status.apply,
         winner = r boolO "w" map {
           case true => user1Id
@@ -261,13 +263,13 @@ object BSONHandlers {
         },
         plies = r intO "p",
         scheduledAt = r dateO "d",
+        lockedScheduledAt = r boolD "l",
         history = Arrangement.History(r strsD "h")
       )
     }
     def writes(w: BSON.Writer, o: Arrangement) =
       $doc(
         "_id" -> o.id,
-        "o"   -> o.order.some.filter(_ > 0),
         "t"   -> o.tourId,
         "u"   -> BSONArray(o.user1.id, o.user2.id),
         "r1"  -> o.user1.readyAt,
@@ -278,11 +280,13 @@ object BSONHandlers {
         "c"   -> o.color,
         "pt"  -> o.points.filterNot(_ == Arrangement.Points.default),
         "g"   -> o.gameId,
+        "st"  -> o.startedAt,
         "s"   -> o.status.map(_.id),
         "w"   -> o.winner.map(o.user1 ==),
         "p"   -> o.plies,
         "d"   -> o.scheduledAt,
         "h"   -> o.history.list,
+        "l"   -> w.boolO(o.lockedScheduledAt),
         "ua"  -> o.gameId.isEmpty ?? DateTime.now.some // updated at
       )
   }

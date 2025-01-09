@@ -115,16 +115,18 @@ final private[tournament] class Cached(
     }
   }
 
-  private[tournament] object robin {
+  private[tournament] object arrangement {
 
-    private val playersCache = cacheApi[Tournament.ID, List[JsObject]](32, "tournament.robin.players") {
-      _.expireAfterWrite(5 minutes)
-        .buildAsyncFuture(computePlayers)
-    }
-    private val arrangementsCache = cacheApi[Tournament.ID, List[JsObject]](32, "tournament.robin.players") {
-      _.expireAfterWrite(3 minutes)
-        .buildAsyncFuture(computeArrangements)
-    }
+    private val playersCache =
+      cacheApi[Tournament.ID, List[JsObject]](32, "tournament.robin.players") {
+        _.expireAfterWrite(5 minutes)
+          .buildAsyncFuture(computePlayers)
+      }
+    private val arrangementsCache =
+      cacheApi[Tournament.ID, List[JsObject]](32, "tournament.arrangement.players") {
+        _.expireAfterWrite(3 minutes)
+          .buildAsyncFuture(computeArrangements)
+      }
 
     def apply(tourId: Tournament.ID) =
       for {
@@ -145,7 +147,9 @@ final private[tournament] class Cached(
       playerRepo
         .allByTour(tourId)
         .flatMap(
-          _.sortBy(_.order.getOrElse(Int.MaxValue)).map(JsonView.tablePlayerJson(lightUserApi, _)).sequenceFu
+          _.sortBy(p => p.order.getOrElse(p.magicScore))
+            .map(JsonView.arrangementPlayerJson(lightUserApi, _))
+            .sequenceFu
         )
 
     def computeArrangements(tourId: Tournament.ID): Fu[List[JsObject]] =

@@ -3,7 +3,6 @@ package lila.tournament
 import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
-import lila.common.ThreadLocalRandom
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -56,8 +55,11 @@ final private class StartedOrganizer(
 
   private def processTour(tour: Tournament): Fu[Int] =
     if (tour.secondsToFinish <= 0) api finish tour inject 0
-    else if (tour.nbPlayers < 2) fuccess(0)
-    else if (tour.nbPlayers < 30 && ThreadLocalRandom.nextInt(10) == 0) {
+    else if (api.killSchedule contains tour.id) {
+      api.killSchedule remove tour.id
+      api finish tour inject 0
+    } else if (tour.nbPlayers < 2) fuccess(0)
+    else if (tour.nbPlayers < 30) {
       playerRepo nbActivePlayers tour.id flatMap { nb =>
         (nb >= 2) ?? startPairing(tour, nb.some)
       }
