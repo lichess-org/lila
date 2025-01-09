@@ -6,7 +6,7 @@ labels: bug
 assignees: ''
 ---
 
-<!-- Thank you for reporting an issue. First, please search for duplicate existing issues. -->
+<!-- Thank you for reporting an issue. Please respond to the following questions if relevant; feel free to skip those that are not. -->
 
 **Exact URL where the bug happened**
 
@@ -18,4 +18,4 @@ assignees: ''
 
 **Operating system and browser version**
 
-<!-- Add one or more screenshots if possible -->
+<!-- Add one or more screenshots if applicable -->

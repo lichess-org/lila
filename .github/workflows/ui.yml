@@ -1,0 +1,38 @@
+name: Build ui
+
+on:
+  push:
+    paths:
+      - '.github/workflows/ui.yml'
+      - 'public/**'
+      - 'ui/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+  pull_request:
+    paths:
+      - '.github/workflows/ui.yml'
+      - 'public/**'
+      - 'ui/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+      - name: "Install pnpm dependencies"
+        run: pnpm install
+      - name: "Build"
+        run: pnpm run build:ui
+      - name: "Lint"
+        run: pnpm run lint
+      - name: "Format"
+        run: pnpm run check-format

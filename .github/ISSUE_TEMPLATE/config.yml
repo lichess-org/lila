@@ -2,4 +2,4 @@ blank_issues_enabled: false
 contact_links:
   - name: Support
     url: https://discord.gg/YFtpMGg3rR
-    about: GitHub issues are meant for tracking enhancements and bugs, not general support. Instead, search the Wiki, Lishogi Forum, StackOverflow, or join our Discord.
+    about: If you found a bug or want to request a new feature, don't hesitate to open a new issues. You might also take a look around Lishogi Forum or join our Discord, if you need support.
