@@ -116,8 +116,8 @@ function main(redraw: Redraw) {
                   {
                     hook: onInsert(el => {
                       const $form = $(el as HTMLFormElement),
-                        $input = $form.find('.move').val('').focus();
-                      $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
+                        $input = $form.find<HTMLInputElement>('.move').val('').trigger('focus');
+                      $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
                     }),
                   },
                   [
@@ -212,10 +212,10 @@ function onSubmit(
   ctrl: RoundController,
   notify: (txt: string) => void,
   style: () => Style,
-  $input: JQuery
+  $input: JQuery<HTMLInputElement>
 ) {
   return function () {
-    let input = $input.val().trim();
+    let input = $input.val()?.trim()!;
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
@@ -258,10 +258,10 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   if (lowered == 'c' || lowered == 'clock')
     notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
   else if (lowered == 'l' || lowered == 'last') notify($('.lastMove').text());
-  else if (lowered == 'abort') $('.nvui button.abort').click();
-  else if (lowered == 'resign') $('.nvui button.resign-confirm').click();
-  else if (lowered == 'draw') $('.nvui button.draw-yes').click();
-  else if (lowered == 'takeback') $('.nvui button.takeback-yes').click();
+  else if (lowered == 'abort') $('.nvui button.abort').trigger('click');
+  else if (lowered == 'resign') $('.nvui button.resign-confirm').trigger('click');
+  else if (lowered == 'draw') $('.nvui button.draw-yes').trigger('click');
+  else if (lowered == 'takeback') $('.nvui button.takeback-yes').trigger('click');
   else if (lowered == 'o' || lowered == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
     const pieces = ctrl.shogiground.state.pieces,

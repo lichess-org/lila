@@ -81,7 +81,6 @@ export interface Vm {
 export interface LearnOpts {
   data?: LearnProgress;
   pref: any;
-  i18n: any;
 }
 
 export interface LearnProgress {

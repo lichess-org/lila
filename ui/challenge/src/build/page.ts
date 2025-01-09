@@ -18,14 +18,14 @@ function main(opts: any): void {
 
   function init() {
     if (!accepting)
-      $('#challenge-redirect').each(function () {
-        location.href = $(this).attr('href');
+      $('#challenge-redirect').each(function (this: HTMLAnchorElement) {
+        location.href = this.href;
       });
-    $el.find('form.accept').submit(function () {
+    $el.find('form.accept').on('submit', function () {
       accepting = true;
       $(this).html('<span class="ddloader"></span>');
     });
-    $el.find('form.xhr').submit(function (this: HTMLFormElement, e) {
+    $el.find('form.xhr').on('submit',function (this: HTMLFormElement, e) {
       e.preventDefault();
       window.lishogi.xhr.formToXhr(this);
       $(this).html('<span class="ddloader"></span>');
@@ -37,7 +37,7 @@ function main(opts: any): void {
         friend: 1,
         tag: 'span',
         onSelect: function () {
-          $input.parents('form').submit();
+          $input.parents('form').trigger('submit');
         },
       });
     });

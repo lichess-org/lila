@@ -9,8 +9,8 @@ window.lishogi.ready.then(() => {
   const min = 100,
     max = 100 * 100000;
 
-  if (location.hash === '#onetime') $('#freq_onetime').click();
-  if (location.hash === '#lifetime') $('#freq_lifetime').click();
+  if (location.hash === '#onetime') $('#freq_onetime').trigger('click');
+  if (location.hash === '#lifetime') $('#freq_lifetime').trigger('click');
 
   const getFreq = () => {
     return $checkout.find('group.freq input:checked').val();
@@ -19,7 +19,7 @@ window.lishogi.ready.then(() => {
   // Other is selected but no amount specified
   // happens with backward button
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
-    $checkout.find('#plan_monthly_1000').click();
+    $checkout.find('#plan_monthly_1000').trigger('click');
 
   const selectAmountGroup = () => {
     const freq = getFreq();
@@ -41,7 +41,7 @@ window.lishogi.ready.then(() => {
     let cents = Math.round(amount * 100);
     if (!cents) {
       $(this).text($(this).data('trans-other'));
-      $checkout.find('#plan_monthly_1000').click();
+      $checkout.find('#plan_monthly_1000').trigger('click');
       return false;
     }
     if (cents < min) cents = min;
@@ -65,11 +65,11 @@ window.lishogi.ready.then(() => {
     const amount = cents / 100,
       $form = $checkout.find('form.paypal_checkout.' + getFreq());
     $form.find('input.amount').val(amount);
-    $form.submit();
+    $form.trigger('submit');
     $checkout.find('.service').html(spinnerHtml);
   });
 
-  $('.confirm-policy input').change(function () {
+  $('.confirm-policy input').on('change', function () {
     $('.service button').toggleClass('disabled');
   });
 });

@@ -54,7 +54,7 @@ window.lishogi.ready.then(() => {
     };
   })();
 
-  $editor.find('.tabs > div').click(function () {
+  $editor.find('.tabs > div').on('click', function () {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
@@ -74,9 +74,9 @@ window.lishogi.ready.then(() => {
     submit();
   });
 
-  $('.coach_picture form.upload input[type=file]').change(function () {
+  $('.coach_picture form.upload input[type=file]').on('change', function () {
     $('.picture_wrap').html(spinnerHtml);
-    $(this).parents('form').submit();
+    $(this).parents('form').trigger('submit');
   });
 
   const langInput = document.getElementById('form3-languages') as HTMLInputElement;

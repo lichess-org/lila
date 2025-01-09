@@ -4,7 +4,6 @@ import { TourPlayer } from 'game';
 import { RoundData, RoundOpts } from './interfaces';
 import { TourStandingCtrl, tourStandingCtrl } from './tour-standing';
 import RoundController from './ctrl';
-import { i18n } from 'i18n';
 
 export function boot(
   opts: RoundOpts,
@@ -93,7 +92,7 @@ export function boot(
   }
   startTournamentClock();
   $('.round__now-playing .move-on input')
-    .change(ctrl.moveOn.toggle)
+    .on('change', ctrl.moveOn.toggle)
     .prop('checked', ctrl.moveOn.get())
     .on('click', 'a', function () {
       window.lishogi.properReload = true;
@@ -103,7 +102,7 @@ export function boot(
     history.replaceState(null, '', '/' + data.game.id);
   if (location.pathname.length === 9 && data.player.id)
     history.replaceState(null, '', '/' + data.game.id + data.player.id);
-  $('#zentog').click(() => li.pubsub.emit('zen'));
+  $('#zentog').on('click', () => li.pubsub.emit('zen'));
   li.storage.make('reload-round-tabs').listen(li.reload);
 
   return ctrl;

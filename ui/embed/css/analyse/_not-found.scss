@@ -7,7 +7,7 @@
   bottom: 0;
   justify-content: center;
   height: 100%;
-  background: radial-gradient(circle, #484848, #2f3031);
+  background: radial-gradient(circle, $c-shade, $c-bg-high);
   h1 {
     @extend %roboto;
     font-size: 7vw;

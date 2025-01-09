@@ -96,8 +96,8 @@ function main(redraw: Redraw) {
               hook: {
                 insert(vnode) {
                   const $form = $(vnode.elm as HTMLFormElement),
-                    $input = $form.find('.move').val('').focus();
-                  $form.submit(onSubmit(ctrl, notify.set, moveStyle.get, $input));
+                    $input = $form.find<HTMLInputElement>('.move').val('').trigger('focus');
+                  $form.on('submit', onSubmit(ctrl, notify.set, moveStyle.get, $input));
                 },
               },
             },
@@ -182,10 +182,10 @@ function onSubmit(
   ctrl: AnalyseController,
   notify: (txt: string) => void,
   style: () => Style,
-  $input: JQuery
+  $input: JQuery<HTMLInputElement>
 ) {
   return function () {
-    let input = $input.val().trim();
+    let input = $input.val()?.trim()!;
     if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {

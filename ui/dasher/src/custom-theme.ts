@@ -83,7 +83,7 @@ export function view(ctrl: CustomThemeCtrl): VNode {
           makeColorInput(ctrl, i18n('backgroundColor'), 'handsColor'),
           makeTextInput(ctrl, i18n('backgroundImageUrl'), 'handsImg'),
         ]),
-      ]
+      ],
     );
   } else {
     if (!ctrl.loading) {
@@ -118,8 +118,8 @@ function makeTextInput(ctrl: CustomThemeCtrl, title: string, key: Key): VNode {
       },
       hook: {
         insert: vm =>
-          $(vm.elm as HTMLElement).on('change keyup paste', function (this: HTMLElement) {
-            const url = ($(this).val() as string).trim();
+          $(vm.elm as HTMLInputElement).on('change keyup paste', function (this: HTMLInputElement) {
+            const url = $(this).val()?.trim()!;
             if (validateUrl(url)) ctrl.set(key, url);
           }),
       },
@@ -149,9 +149,9 @@ function makeSelection(ctrl: CustomThemeCtrl, name: string, options: string[]): 
               selected: ctrl.data['gridWidth'] == i,
             },
           },
-          o
-        )
-      )
+          o,
+        ),
+      ),
     ),
   ]);
 }

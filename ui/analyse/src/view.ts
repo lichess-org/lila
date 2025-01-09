@@ -154,7 +154,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             hook: bind(
               'click',
               _ => {
-                const kif = $('.copyables .kif textarea').val();
+                const kif = $('.copyables .kif textarea').val() as string;
                 if (kif !== notationExport.renderFullKif(ctrl)) ctrl.changeNotation(kif);
               },
               ctrl.redraw,
@@ -194,7 +194,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
                 hook: bind(
                   'click',
                   _ => {
-                    const csa = $('.copyables .csa textarea').val();
+                    const csa = $('.copyables .csa textarea').val() as string;
                     if (csa !== notationExport.renderFullCsa(ctrl)) ctrl.changeNotation(csa);
                   },
                   ctrl.redraw,

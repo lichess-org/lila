@@ -56,7 +56,7 @@ function renderTags(chapter: StudyChapter, submit, types: string[]): VNode {
               selectedType = el.value;
               el.addEventListener('change', _ => {
                 selectedType = el.value;
-                $(el).parents('tr').find('input').focus();
+                $(el).parents('tr').find('input').trigger('focus');
               });
             },
             postpatch: (_, vnode) => {

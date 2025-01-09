@@ -10,7 +10,7 @@ window.lishogi.ready.then(() => {
 
   const onPageReload = function () {
     $('#communication').append(
-      $('<a id="auto_refresh" class="button">Auto refresh</a>').click(function () {
+      $('<a id="auto_refresh" class="button">Auto refresh</a>').on('click', function () {
         autoRefreshEnabled = !autoRefreshEnabled;
         renderButton();
       }),

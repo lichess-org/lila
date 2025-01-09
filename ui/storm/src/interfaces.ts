@@ -4,7 +4,6 @@ import { Config, PuzPrefs, Puzzle } from 'puz/interfaces';
 export interface StormOpts {
   data: StormData;
   pref: StormPrefs;
-  i18n: any;
 }
 
 export interface StormPrefs extends PuzPrefs {}

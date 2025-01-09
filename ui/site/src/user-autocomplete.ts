@@ -79,7 +79,7 @@ export function userAutocomplete($input: JQuery, opts: UserCompleteOpts): Promis
         },
       )
       .on('typeahead:render', () => pubsub.emit('content_loaded'));
-    if (opts.focus) $input.focus();
+    if (opts.focus) $input.trigger('focus');
     if (opts.onSelect)
       $input
         .on('typeahead:select', (_, sel) => opts.onSelect && opts.onSelect(sel))

@@ -21,13 +21,13 @@ function initialize(ctrl: LobbyController, el: HTMLElement) {
 
   const save = () => ctrl.filter.save($div.find('form')[0] as HTMLFormElement);
 
-  $div.find('input').change(save);
-  $div.find('button.reset').click(function () {
+  $div.find('input').on('change', save);
+  $div.find('button.reset').on('click', () => {
     ctrl.filter.save(null);
     ctrl.filter.open = false;
     ctrl.redraw();
   });
-  $div.find('button.apply').click(function () {
+  $div.find('button.apply').on('click', () => {
     ctrl.filter.open = false;
     ctrl.redraw();
   });

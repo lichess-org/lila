@@ -1,6 +1,5 @@
 export interface MsgOpts {
   data: MsgData;
-  i18n: any;
 }
 export interface MsgData {
   me: Me;

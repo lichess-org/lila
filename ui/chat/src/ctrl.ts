@@ -140,7 +140,7 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') requestIdleCallbackWithFallback(() => $('.mchat__say').focus());
+      if (t === 'discussion') requestIdleCallbackWithFallback(() => $('.mchat__say').trigger('focus'));
       redraw();
     },
     moderation: () => moderation,

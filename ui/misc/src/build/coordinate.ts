@@ -64,7 +64,7 @@ function main(opts: CoordinatesOpts): void {
     const form = this,
       $form = $(this);
     $form.find('input').on('change', function () {
-      const selected: string = $form.find('input:checked').val(),
+      const selected: string = $form.find<HTMLInputElement>('input:checked').val()!,
         c = {
           1: 'sente',
           2: 'random',
@@ -87,7 +87,7 @@ function main(opts: CoordinatesOpts): void {
   showCharts();
 
   const centerRight = function () {
-    $right.css('top', 256 - $right.height() / 2 + 'px');
+    $right.css('top', 256 - $right.height()! / 2 + 'px');
   };
   centerRight();
 
@@ -196,7 +196,7 @@ function main(opts: CoordinatesOpts): void {
     }
   }
 
-  $start.click(function () {
+  $start.on('click', function () {
     $explanation.remove();
     $trainer.addClass('play').removeClass('init');
     $timer.removeClass('hurry');

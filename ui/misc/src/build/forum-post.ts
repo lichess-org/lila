@@ -20,7 +20,7 @@ window.lishogi.ready.then(() => {
 
   $('.edit.button')
     .add('.edit-post-cancel')
-    .click(function (e) {
+    .on('click', function (e) {
       e.preventDefault();
 
       const post = $(this).closest('.forum-post');
@@ -28,7 +28,7 @@ window.lishogi.ready.then(() => {
       const form = post.find('form.edit-post-form').toggle();
 
       (form[0] as HTMLFormElement).reset();
-      form.find('textarea').height(message.height());
+      form.find('textarea').height(message.height()!);
     });
 
   $('.post-text-area').one('focus', function (this: HTMLTextAreaElement) {
@@ -89,7 +89,7 @@ window.lishogi.ready.then(() => {
     ]);
   });
 
-  $('.forum').click('.reactions-auth button', e => {
+  $('.forum').on('click', '.reactions-auth button', e => {
     const href = e.target.getAttribute('data-href');
     if (href) {
       const $rels = $(e.target).parent();

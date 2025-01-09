@@ -6,7 +6,7 @@ window.lishogi.ready.then(() => {
   function getUsernames() {
     const us: string[] = [];
     $usernames.each(function () {
-      const u = $(this).val().trim();
+      const u = ($(this).val() as string).trim();
       if (u) us.push(u);
     });
     return us;
@@ -49,7 +49,7 @@ window.lishogi.ready.then(() => {
     });
   };
   toggleAiLevel();
-  $form.find('.opponent select').change(toggleAiLevel);
+  $form.find('.opponent select').on('change', toggleAiLevel);
 
   const serialize = function (all = false) {
     const sel = $form.find('input,select');
@@ -89,7 +89,7 @@ window.lishogi.ready.then(() => {
     });
   });
 
-  $form.submit(function () {
+  $form.on('submit', function () {
     $form
       .find('input,select')
       .filter(function () {

@@ -34,7 +34,7 @@ function renderPlot(ctrl: LobbyController, hs: Hook | Seek): VNode {
           .data('powertipjq', $(renderPowertip(hs)))
           .on({
             powerTipRender() {
-              $('#hook .inner-clickable').click(() => {
+              $('#hook .inner-clickable').on('click', () => {
                 ctrl.clickHook(hs.id);
               });
             },

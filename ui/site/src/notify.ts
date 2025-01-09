@@ -38,7 +38,7 @@ export function notifyApp(): typeof window.lishogi.notifyApp {
           $toggle.find('span').attr('data-count', nb);
         },
         show() {
-          if (!isVisible()) $toggle.click();
+          if (!isVisible()) $toggle.trigger('click');
         },
         setNotified() {
           window.lishogi.socket.send('notified');
@@ -52,7 +52,7 @@ export function notifyApp(): typeof window.lishogi.notifyApp {
 
   $toggle
     .one('mouseover click', () => load())
-    .click(() => {
+    .on('click', () => {
       if ('Notification' in window) Notification.requestPermission(() => permissionChanged());
       setTimeout(() => {
         if (instance && isVisible()) instance.setVisible();

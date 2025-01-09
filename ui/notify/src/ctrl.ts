@@ -91,13 +91,12 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
       nbPages: 1,
     },
     unread: 0,
-    i18n: {},
   };
 
   function clear() {
     window.lishogi.xhr.text('POST', '/notify/clear').then(
       _ => update(emptyNotifyData, false),
-      _ => window.lishogi.announce({ msg: 'Failed to clear notifications' })
+      _ => window.lishogi.announce({ msg: 'Failed to clear notifications' }),
     );
   }
 

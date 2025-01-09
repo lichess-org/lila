@@ -110,7 +110,7 @@ export function initWidgets(): void {
           const self = this,
             el = self.element;
 
-          self.$friendBoxTitle = el.find('.friend_box_title').click(function () {
+          self.$friendBoxTitle = el.find('.friend_box_title').on('click', function () {
             el.find('.content_wrap').toggleNone();
             if (!self.loaded) {
               self.loaded = true;

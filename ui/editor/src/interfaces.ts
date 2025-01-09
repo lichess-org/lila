@@ -1,4 +1,4 @@
-import { Role, Rules } from 'shogiops/types';
+import type { Role, Rules } from 'shogiops/types';
 
 export interface EditorData {
   element: HTMLElement | undefined;
@@ -8,7 +8,6 @@ export interface EditorData {
   options: EditorOptions;
   pref: any;
   embed: boolean;
-  i18n: any;
 }
 
 export interface EditorOptions {

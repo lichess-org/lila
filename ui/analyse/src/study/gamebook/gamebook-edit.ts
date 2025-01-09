@@ -30,7 +30,7 @@ export function render(ctrl: AnalyseCtrl): VNode {
     () => {
       study.commentForm.start(study.vm.chapterId, ctrl.path, ctrl.node);
       study.vm.toolTab('comments');
-      requestIdleCallbackWithFallback(() => $('#comment-text').focus());
+      requestIdleCallbackWithFallback(() => $('#comment-text').trigger('focus'));
     },
     ctrl.redraw
   );

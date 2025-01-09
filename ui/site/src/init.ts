@@ -67,9 +67,9 @@ export function init(): void {
         $(this).select();
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
-        $('#' + $(this).data('rel')).select();
+        $('#' + $(this).data('rel')).trigger('select');
         const targetId = $(this).data('rel'),
-          textToCopy = $('#' + targetId).val();
+          textToCopy = $('#' + targetId).val() as string;
         navigator.clipboard
           .writeText(textToCopy)
           .then(() => {
@@ -151,7 +151,7 @@ export function init(): void {
       const toggle = () => {
         boot();
         $('body').toggleClass('clinput');
-        if ($('body').hasClass('clinput')) $input.focus();
+        if ($('body').hasClass('clinput')) $input.trigger('focus');
       };
       $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
       mousetrap.bind('/', () => {
@@ -189,7 +189,7 @@ export function init(): void {
       $p.siblings('.shown').removeClass('shown');
       window.lishogi.pubsub.emit('top.toggle.' + $(this).attr('id'));
       setTimeout(function () {
-        const handler = function (e: Event) {
+        const handler: (e: JQuery.ClickEvent) => void = function (e: JQuery.ClickEvent) {
           if (
             $.contains($p[0], e.target as HTMLElement) ||
             !!$('.sp-container:not(.sp-hidden)').length
@@ -202,9 +202,8 @@ export function init(): void {
       }, 10);
       return false;
     });
-
-    $('a.delete, input.delete').click(() => confirm('Delete?'));
-    $('input.confirm, button.confirm').click(function (this: HTMLElement) {
+    $('a.delete, input.delete').on('click', () => confirm('Delete?'));
+    $('input.confirm, button.confirm').on('click', function (this: HTMLElement) {
       return confirm($(this).attr('title') || 'Confirm this action?');
     });
 
@@ -291,7 +290,7 @@ export function init(): void {
           '</div></div>',
       )
       .find('#announce .withdraw')
-      .click(function (this: HTMLAnchorElement) {
+      .on('click', function (this: HTMLAnchorElement) {
         window.lishogi.xhr.text('POST', this.href);
         $('#announce').remove();
         return false;

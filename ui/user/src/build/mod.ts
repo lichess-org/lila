@@ -45,7 +45,7 @@ function scrollTo(el) {
   window.scrollTo(0, document.querySelector(el).offsetTop + offset);
 }
 
-$toggle.click(function () {
+$toggle.on('click', function () {
   if ($zone.hasClass('none')) loadZone();
   else unloadZone();
   return false;
@@ -54,8 +54,8 @@ $toggle.click(function () {
 function userMod($zone: any): void {
   window.lishogi.pubsub.emit('content_loaded');
 
-  $('#mz_menu > a:not(.available)').each(function () {
-    $(this).toggleClass('available', !!$($(this).attr('href')).length);
+  $('#mz_menu > a:not(.available)').each(function (this: HTMLAnchorElement) {
+    $(this).toggleClass('available', !!$(this.href).length);
   });
   makeReady('#mz_menu', el => {
     $(el)
@@ -69,7 +69,7 @@ function userMod($zone: any): void {
   });
 
   makeReady('form.xhr', (el: HTMLFormElement) => {
-    $(el).submit(() => {
+    $(el).on('submit', () => {
       $(el).addClass('ready').find('input').prop('disabled', true);
       window.lishogi.xhr.formToXhr(el).then(html => {
         $zone.find('.mz-section--actions').replaceWith(html);
@@ -81,12 +81,12 @@ function userMod($zone: any): void {
 
   makeReady('form.fide_title select', el => {
     $(el).on('change', function () {
-      $(el).parent('form').submit();
+      $(el).parent('form').trigger('submit');
     });
   });
 
   makeReady('#mz_others', el => {
-    $(el).height($(el).height());
+    $(el).height($(el).height()!);
     $(el)
       .find('.mark-alt')
       .on('click', function (this: HTMLAnchorElement) {
@@ -102,7 +102,7 @@ function userMod($zone: any): void {
   makeReady('#mz_identification .spy_filter', el => {
     $(el)
       .find('.button')
-      .click(function (this: HTMLAnchorElement) {
+      .on('click', function (this: HTMLAnchorElement) {
         window.lishogi.xhr.text('POST', this.href);
         $(this).parent().parent().toggleClass('blocked');
         return false;
@@ -129,7 +129,7 @@ function userMod($zone: any): void {
   makeReady('#mz_others .more-others', el => {
     $(el)
       .addClass('.ready')
-      .click(() => {
+      .on('click', () => {
         nbOthers = 1000;
         reloadZone();
       });
@@ -174,5 +174,5 @@ const onScroll = () =>
   );
 })();
 
-if (location.search.startsWith('?mod')) $toggle.click();
-window.lishogi.mousetrap.bind('m', () => $toggle.click());
+if (location.search.startsWith('?mod')) $toggle.trigger('click');
+window.lishogi.mousetrap.bind('m', () => $toggle.trigger('click'));

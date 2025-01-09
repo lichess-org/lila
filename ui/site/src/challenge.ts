@@ -16,7 +16,7 @@ export function challengeApp(): typeof window.lishogi.challengeApp {
       instance = window.lishogi.modules.challenge!({
         data: data,
         show: function () {
-          if (!$('#challenge-app').is(':visible')) $toggle.click();
+          if (!$('#challenge-app').is(':visible')) $toggle.trigger('click');
         },
         setCount: function (nb) {
           $toggle.find('span').attr('data-count', nb);
@@ -33,7 +33,7 @@ export function challengeApp(): typeof window.lishogi.challengeApp {
       else instance.update(data);
     },
     open: function () {
-      $toggle.click();
+      $toggle.trigger('click');
     },
   };
 }

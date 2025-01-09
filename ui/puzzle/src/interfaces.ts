@@ -119,7 +119,6 @@ export interface Vm {
 export interface PuzzleOpts {
   pref: PuzzlePrefs;
   data: PuzzleData;
-  i18n: { [key: string]: string | undefined };
   difficulty?: PuzzleDifficulty;
   themes?: {
     dynamic: string;

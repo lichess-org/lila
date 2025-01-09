@@ -104,7 +104,6 @@ export interface AnalyseOpts {
   practice?: StudyPracticeData;
   $side?: JQuery;
   $underboard?: JQuery;
-  i18n: any;
   chat: any;
   socketUrl: string;
   socketVersion: number;

@@ -1,5 +1,5 @@
 window.lishogi.ready.then(() => {
-  $('.security table form').submit(function (this: HTMLFormElement) {
+  $('.security table form').on('submit', function (this: HTMLFormElement) {
     window.lishogi.xhr.formToXhr(this);
     $(this)
       .parent()

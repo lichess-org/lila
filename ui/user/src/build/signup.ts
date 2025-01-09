@@ -4,14 +4,14 @@ import { debounce } from 'common/timings';
 window.lishogi.ready.then(() => {
   const $form = $('#signup_form'),
     $exists = $form.find('.username-exists'),
-    $username = $form.find('input[name="username"]').on('change keyup paste', function () {
+    $username = $form.find<HTMLInputElement>('input[name="username"]').on('change keyup paste', function () {
       $exists.hide();
       usernameCheck();
     });
 
   const usernameCheck = debounce(function () {
     const name = $username.val();
-    if (name.length >= 3)
+    if (name && name.length >= 3)
       window.lishogi.xhr
         .json('GET', '/api/player/autocomplete', {
           url: { term: name, exists: true },

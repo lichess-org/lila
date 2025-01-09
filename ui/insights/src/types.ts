@@ -8,7 +8,6 @@ export interface InsightOpts {
   usernameHash: string;
   endpoint: string;
   isBot: boolean;
-  i18n: any;
   pref: any;
 }
 

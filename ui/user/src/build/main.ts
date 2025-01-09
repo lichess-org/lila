@@ -2,15 +2,15 @@ import * as domData from 'common/data';
 
 window.lishogi.ready.then(() => {
   $('.user-show .note-zone-toggle').each(function (this: HTMLElement) {
-    $(this).click(function () {
+    $(this).on('click',function () {
       $('.user-show .note-zone').toggle();
     });
-    if (location.search.includes('note')) $(this).click();
+    if (location.search.includes('note')) $(this).trigger('click');
   });
 
   $('.user-show .claim_title_zone').each(function () {
     const $zone = $(this);
-    $zone.find('.actions a').click(function (this: HTMLAnchorElement) {
+    $zone.find('.actions a').on('click', function (this: HTMLAnchorElement) {
       window.lishogi.xhr.text('POST', this.href);
       $zone.remove();
       return false;
@@ -34,16 +34,16 @@ window.lishogi.ready.then(() => {
         window.lishogi.loadInfiniteScroll('.angle-content .infinitescroll');
       });
     }
-    $angles.on('click', 'a', function () {
+    $angles.on('click', 'a', function (this: HTMLAnchorElement) {
       $angles.find('.active').removeClass('active');
       $(this).addClass('active');
-      browseTo($(this).attr('href'));
+      browseTo(this.href);
       return false;
     });
-    $('.user-show').on('click', '#games a', function () {
+    $('.user-show').on('click', '#games a', function (this: HTMLAnchorElement) {
       if ($('#games .to-search').hasClass('active') || $(this).hasClass('to-search')) return true;
       $(this).addClass('active');
-      browseTo($(this).attr('href'));
+      browseTo(this.href);
       return false;
     });
   });

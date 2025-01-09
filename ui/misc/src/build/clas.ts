@@ -8,7 +8,7 @@ window.lishogi.ready.then(() => {
       descending: true,
     });
   });
-  $('.name-regen').click(function (this: HTMLAnchorElement) {
+  $('.name-regen').on('click', function (this: HTMLAnchorElement) {
     window.lishogi.xhr.text('GET', this.href).then(name => $('#form3-create-username').val(name));
     return false;
   });
