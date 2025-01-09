@@ -27,7 +27,7 @@
       text-align: center;
     }
     &:hover {
-      background: mix($c-accent, $c-bg-box, 10%);
+      background: $m-accent_bg-box_mix_10;
     }
   }
 }

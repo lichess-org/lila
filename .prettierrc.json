@@ -1,14 +1,5 @@
 {
   "singleQuote": true,
-  "printWidth": 120,
-  "arrowParens": "avoid",
-  "trailingComma": "es5",
-  "overrides": [
-    {
-      "files": ["tsconfig.json"],
-      "options": {
-        "trailingComma": "none"
-      }
-    }
-  ]
+  "printWidth": 100,
+  "arrowParens": "avoid"
 }

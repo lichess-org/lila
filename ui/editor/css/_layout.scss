@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 #main-wrap {
   --main-max-width: auto;
   @include breakpoint($mq-col1-uniboard) {
@@ -32,8 +34,8 @@
     $files4: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 11 * 4 + 2rem);
     grid-template-rows: fit-content(0);
     grid-template-columns:
-      var(--col2-uniboard-main-size) $block-gap minmax(#{$col2-uniboard-table-min / 2}, $files2) minmax(
-        #{$col2-uniboard-table-min / 2},
+      var(--col2-uniboard-main-size) $block-gap minmax(math.div($col2-uniboard-table-min, 2), $files2) minmax(
+        math.div($col2-uniboard-table-min, 2),
         $files2
       )
       minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4}));
@@ -48,8 +50,8 @@
       $files2K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 2 + 1rem);
       $files4K: calc((var(--col2-uniboard-main-size) - #{$hands-gap}) / 7 * 4 + 2rem);
       grid-template-columns:
-        var(--col2-uniboard-main-size) $block-gap minmax(#{$col2-uniboard-table-min / 2}, $files2K) minmax(
-          #{$col2-uniboard-table-min / 2},
+        var(--col2-uniboard-main-size) $block-gap minmax(math.div($col2-uniboard-table-min, 2), $files2K) minmax(
+          math.div($col2-uniboard-table-min, 2),
           $files2K
         )
         minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4K}));
@@ -58,10 +60,11 @@
       $files2K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 4 + 1rem);
       $files4K-nh: calc((var(--col2-uniboard-main-size-no-hands)) / 12 * 8 + 2rem);
       grid-template-columns:
-        var(--col2-uniboard-main-size-no-hands) $big-block-gap minmax(#{$col2-uniboard-table-min / 2}, $files2K-nh) minmax(
-          #{$col2-uniboard-table-min / 2},
+        var(--col2-uniboard-main-size-no-hands) $big-block-gap minmax(
+          math.div($col2-uniboard-table-min, 2),
           $files2K-nh
         )
+        minmax(math.div($col2-uniboard-table-min, 2), $files2K-nh)
         minmax(0, calc(#{$col2-uniboard-table-max} - #{$files4K-nh}));
     }
   }

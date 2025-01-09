@@ -1,0 +1,14 @@
+@use 'sass:color';
+
+$c-site-hue: 32;
+
+@function c-blacker($color, $weight) {
+  @return color.mix(#000, $color, $weight);
+}
+@function c-whiter($color, $weight) {
+  @return color.mix(#fff, $color, $weight);
+}
+
+@function c-light($color, $value) {
+  @return color.change($color, $lightness: $value);
+}

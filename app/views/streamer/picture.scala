@@ -12,8 +12,8 @@ object picture {
   def apply(s: lila.streamer.Streamer.WithUser, error: Option[String] = None)(implicit ctx: Context) =
     views.html.base.layout(
       title = xStreamerPicture.txt(),
-      moreJs = jsTag("streamer.form.js"),
-      moreCss = cssTag("streamer.form")
+      moreCss = cssTag("misc.streamer.form"),
+      moreJs = jsTag("misc.streamer-form")
     ) {
       main(cls := "streamer-picture small-page box")(
         h1(xStreamerPicture(userLink(s.user))),

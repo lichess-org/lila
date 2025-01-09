@@ -1,0 +1,7 @@
+{
+  "extends": "@build/tsconfig/build",
+  "compilerOptions": {
+    "rootDir": "."
+  },
+  "include": ["trans.ts"]
+}

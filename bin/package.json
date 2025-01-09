@@ -1,0 +1,17 @@
+{
+  "name": "@bin/utils",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "xml2js": "^0.6.2",
+    "@types/xml2js": "^0.4.14",
+    "fast-xml-parser": "^4"
+  },
+  "scripts": {
+    "trans-dump": "tsx ./trans.ts",
+    "trans-lint": "./trans-lint.py ../translation/dest/*/*.xml"
+  }
+}

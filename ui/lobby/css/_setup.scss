@@ -1,147 +1,139 @@
-$c-setup: $c-secondary;
-$c-slider: $c-setup;
+#modal-wrap.lobby-setup {
+  padding: 0;
 
-.game-setup {
-  display: block;
-  #modal-wrap {
+  @include breakpoint($mq-col2) {
     width: 30em;
-    padding: 0;
   }
-  text-align: center;
   h2 {
-    margin: 1.5rem 0;
+    margin: 1.25rem 0;
   }
-  form > div {
-    padding: 0.5em 1em;
+
+  input.slider {
+    width: 100%;
+    padding: 0.6rem 0;
   }
-  form {
-    margin-bottom: 1em;
+  input.slider.big {
+    font-size: 1.25rem;
   }
+
   group.radio {
-    margin: auto;
-    width: 70%;
+    margin-bottom: 0.5rem;
+    & > div {
+      flex: 1;
+    }
+    &.dual > div {
+      min-width: 125px;
+    }
     .disabled {
-      opacity: 0.4;
       cursor: not-allowed;
-    }
-    input:checked + label {
-      background: $c-setup;
+      opacity: 0.4;
     }
   }
-  .mode_choice,
-  .sfen_position {
-    group.radio div {
-      flex-basis: 50%;
+
+  strong {
+    display: inline-block;
+    width: 2.2rem;
+    text-align: left;
+    &.right {
+      text-align: right;
     }
   }
-  .mode_choice {
-    margin: 0.5em 0;
+
+  .section {
+    padding: 1rem 2rem;
+    &.setup-time {
+      padding: 0 2rem;
+      padding-top: 1rem;
+    }
   }
-  .optional_config,
-  .ratings {
+
+  .select {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    label {
+      width: 50%;
+      text-align: center;
+    }
+    select {
+      min-width: 50%;
+    }
+  }
+
+  a.info {
+    color: $c-font-dimmer;
+    &:hover {
+      color: $c-font;
+    }
+  }
+
+  .setup-position.section {
+    border-top: $border;
+
+    .setup-handicap {
+      margin: 1rem 0;
+    }
+    .setup-sfen {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      input {
+        flex: 1;
+      }
+    }
+  }
+
+  .setup-time-mode {
+    margin-bottom: 0.5rem;
+  }
+
+  .setup-time.section {
     background: $c-bg-zebra;
     border-top: $border;
     border-bottom: $border;
   }
-  .sfen_position {
-    border-bottom: none;
-  }
-  .ai_info {
-    padding-top: 3px;
-  }
-  .advanced_toggle {
-    display: none;
-    &.show-inline-block {
-      display: inline-block !important;
-    }
-    border: solid $c-setup;
-    border-width: 0 8px 8px 0;
-    border-radius: $box-radius-size;
-    padding: 5px;
-    transform: rotate(45deg);
-    margin-top: 1rem;
+
+  .setup-time-extra-toggle {
+    font-size: 1.6rem;
+    width: 2rem;
+    margin: auto;
     cursor: pointer;
-    &.active {
-      margin-top: 1.5rem;
-      transform: rotate(-135deg);
+    transition: 100ms;
+    &.open {
+      transform: rotate(180deg);
+    }
+    &:hover {
+      color: $c-accent;
     }
   }
-  .advanced_setup #config_periods {
-    margin-top: 6px;
-  }
-  .label_select {
-    @extend %flex-center;
-    text-align: left;
-    &.variant {
-      margin-bottom: 0.5em;
-    }
-    label {
-      flex: 0 0 33%;
-      text-align: right;
-    }
-    select {
-      margin-left: 0.8em;
-      font-weight: bold;
+
+  .setup-time-extra,
+  .setup-levels {
+    group.radio {
+      margin-top: 0.5rem;
     }
   }
-  .sfen_position {
-    .handicap.label_select {
-      @extend %flex-center-nowrap;
-      margin-top: 1rem;
-      label {
-        text-align: left;
-        flex: unset;
-      }
-      select {
-        flex-grow: 1;
-      }
+
+  .setup-levels {
+    padding-bottom: 0.25rem;
+  }
+
+  .small-sliders {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    input {
+      width: unset;
+      max-width: 30%;
     }
-    .sfen_form {
-      margin-top: 0.5em;
-      @extend %flex-center-nowrap;
-      input {
-        flex-grow: 1;
-        margin-left: 0.8em;
-        &.success {
-          border-color: $c-good;
-        }
-        &.failure {
-          background: mix($c-bg-box, $c-bad, 80%);
-          box-shadow: 0 0 13px $c-bad;
-        }
-      }
-    }
-    .board_editor {
-      display: block;
-      width: 55%;
-      min-height: 200px;
-      margin: 0.5em auto;
-      .spinner {
-        padding-top: 55px;
-      }
+    .rating-values {
+      flex: 1;
+      display: flex;
+      justify-content: space-evenly;
     }
   }
-  .ui-slider {
-    margin: 0.5em 1em;
-  }
-  .slider {
-    padding-top: 5px;
-    text-align: left;
-    span {
-      font-weight: bold;
-    }
-  }
-  .ratings {
-    @extend %box-radius-bottom;
-    padding: 0.5em;
-    width: 100%;
-    text-align: center;
-    border-bottom: none;
-  }
-  .ratings div {
-    display: none;
-  }
-  .color-submits {
+
+  .setup-submits {
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -149,56 +141,55 @@ $c-slider: $c-setup;
     text-align: center;
     position: relative;
     margin-top: 0.5em;
-    &__button {
-      margin: 0 0.5em;
+    margin-bottom: 1em;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 0.5rem;
+      padding: 0;
       width: 64px;
       height: 64px;
-      padding: 7px;
-      @if $theme == 'transp' {
+      @include theme-wrap('transp') {
         background: $c-bg-input;
         &:hover {
-          background: darken($c-bg-input, 3) !important;
+          background: $m-bg-input_lightness_neg3 !important;
         }
-      }
-      i {
-        display: block;
-        padding: 0;
-        width: 50px;
-        height: 50px;
-        background-size: 50px 50px;
-      }
-      &.sente i {
-        background-image: img-url('../images/blackPiece.svg');
-      }
-      &.gote i {
-        background-image: img-url('../images/whitePiece.svg');
       }
       &.random {
+        font-size: 5rem;
         width: 85px;
         height: 85px;
-        padding: 10px;
-        i {
-          background-image: img-url('bwPiece.svg');
-          background-size: 65px 65px;
-          width: 65px;
-          height: 65px;
-        }
+        padding: 0;
       }
       &:disabled {
         opacity: 0.3;
         cursor: not-allowed;
       }
     }
+    .button-title {
+      margin-top: 0.25rem;
+    }
   }
-  .spinner {
-    height: 85px;
-    width: 85px;
-    padding: 1rem 1.4rem;
-  }
-  .submit-error-message {
-    position: absolute;
-    top: 25%;
-    font-size: 1.5rem;
-    z-index: 2;
+
+  .setup-ratings {
+    @extend %box-radius-bottom;
+    background: $c-bg-zebra;
+    border-top: $border;
+    border-bottom: $border;
+    padding: 0.5em;
+    width: 100%;
+    text-align: center;
+    border-bottom: none;
+    &-value {
+      @extend %flex-center;
+      justify-content: center;
+      min-height: 2rem;
+      strong {
+        width: unset;
+        margin-left: 0.4em;
+      }
+    }
   }
 }

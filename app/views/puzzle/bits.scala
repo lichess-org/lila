@@ -7,8 +7,7 @@ import play.api.libs.json.Json
 
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.MessageKey
-import lila.puzzle.{ PuzzleDifficulty, PuzzleTheme }
+import lila.puzzle.PuzzleTheme
 
 object bits {
 
@@ -24,8 +23,6 @@ object bits {
 
   def daily(p: lila.puzzle.Puzzle, sfen: shogi.format.forsyth.Sfen, lastUsi: String) =
     miniTag(sfen, p.color, lastUsi)(span)
-
-  def jsI18n(implicit lang: Lang) = i18nJsObject(i18nKeys)
 
   lazy val jsonThemes = PuzzleTheme.all
     .collect {
@@ -69,58 +66,4 @@ object bits {
         trans.puzzle.submissions()
       )
     )
-
-  private val i18nKeys: List[MessageKey] = {
-    List(
-      trans.black,
-      trans.white,
-      trans.sente,
-      trans.gote,
-      trans.shitate,
-      trans.uwate,
-      trans.puzzle.yourPuzzleRatingX,
-      trans.puzzle.bestMove,
-      trans.mistake,
-      trans.puzzle.keepGoing,
-      trans.puzzle.notTheMove,
-      trans.puzzle.trySomethingElse,
-      trans.yourTurn,
-      trans.puzzle.findTheBestMoveForX,
-      trans.viewTheSolution,
-      trans.puzzle.puzzleSuccess,
-      trans.puzzle.puzzleComplete,
-      trans.puzzle.hidden,
-      trans.puzzle.jumpToNextPuzzleImmediately,
-      trans.puzzle.fromGameLink,
-      trans.puzzle.puzzleSource,
-      trans.puzzle.didYouLikeThisPuzzle,
-      trans.puzzle.voteToLoadNextOne,
-      trans.puzzle.puzzleId,
-      trans.puzzle.ratingX,
-      trans.puzzle.playedXTimes,
-      trans.puzzle.continueTraining,
-      trans.puzzle.difficultyLevel,
-      trans.puzzle.example,
-      trans.puzzle.toGetPersonalizedPuzzles,
-      trans.puzzle.addAnotherTheme,
-      trans.signUp,
-      trans.analysis,
-      trans.playWithTheMachine,
-      trans.pressXtoFocus,
-      trans.pressXtoSubmit,
-      trans.levelX,
-      // ceval
-      trans.depthX,
-      trans.usingServerAnalysis,
-      trans.loadingEngine,
-      trans.cloudAnalysis,
-      trans.goDeeper,
-      trans.showThreat,
-      trans.gameOver,
-      trans.inLocalBrowser,
-      trans.toggleLocalEvaluation
-    ) ::: PuzzleTheme.all.map(_.name) :::
-      PuzzleTheme.all.map(_.description) :::
-      PuzzleDifficulty.all.map(_.name)
-  }.map(_.key)
 }

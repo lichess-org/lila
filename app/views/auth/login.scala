@@ -18,8 +18,8 @@ object login {
   def apply(form: Form[_], referrer: Option[String])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signIn.txt(),
-      moreJs = jsTag("login.js"),
-      moreCss = cssTag("auth"),
+      moreCss = cssTag("user.auth"),
+      moreJs = jsTag("user.login"),
       canonicalPath = lila.common.CanonicalPath(routes.Auth.login).some,
       withHrefLangs = lila.i18n.LangList.All.some
     ) {

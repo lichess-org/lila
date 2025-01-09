@@ -1,0 +1,15 @@
+{
+  "name": "service-worker",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "devDependencies": {
+    "types-serviceworker": "^0.0.1"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
+  }
+}

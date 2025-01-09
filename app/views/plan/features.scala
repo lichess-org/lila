@@ -14,7 +14,7 @@ object features {
   def apply()(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.features.txt(),
-      moreCss = cssTag("feature"),
+      moreCss = cssTag("misc.feature"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = trans.features.txt(),

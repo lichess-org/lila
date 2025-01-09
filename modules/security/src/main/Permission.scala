@@ -57,7 +57,6 @@ object Permission {
   case object Settings         extends Permission("SETTINGS", "Lila settings")
   case object Streamers        extends Permission("STREAMERS", "Manage streamers")
   case object Verified         extends Permission("VERIFIED", "Verified badge")
-  case object Prismic          extends Permission("PRISMIC", "Prismic preview")
   case object MonitoredMod     extends Permission("MONITORED_MOD", "Monitored mod")
   case object StudyAdmin       extends Permission("STUDY_ADMIN", "Study admin")
   case object ApiHog           extends Permission("API_HOG", "API hog")
@@ -65,7 +64,7 @@ object Permission {
   case object LishogiTeam
       extends Permission(
         "LISHOGI_TEAM",
-        List(Prismic),
+        List(Beta),
         "Lishogi team"
       )
 
@@ -211,7 +210,6 @@ object Permission {
     ),
     "Feature" -> List(
       Beta,
-      Prismic,
       Coach,
       Teacher,
       ApiHog
@@ -236,7 +234,7 @@ object Permission {
   }.toSet
 
   lazy val nonModPermissions: Set[Permission] =
-    Set(Beta, Prismic, Coach, Teacher, Developer, Verified, ApiHog)
+    Set(Beta, Coach, Teacher, Developer, Verified, ApiHog)
 
   lazy val modPermissions: Set[Permission] = all diff nonModPermissions
 

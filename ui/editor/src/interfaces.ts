@@ -1,6 +1,7 @@
 import { Role, Rules } from 'shogiops/types';
 
 export interface EditorData {
+  element: HTMLElement | undefined;
   baseUrl: string;
   sfen: string;
   variant: Rules;

@@ -21,6 +21,19 @@
   grid-area: main;
   display: grid;
 
+  grid-template-rows: auto auto minmax(20em, 30vh);
+  grid-template-areas:
+    'board'
+    'controls'
+    'tools'
+    'side'
+    'acpl'
+    'under'
+    'chat'
+    'uchat';
+
+  --meta-height: auto;
+
   &__side {
     grid-area: side;
     justify-content: start;
@@ -52,19 +65,6 @@
     grid-area: gauge;
     display: none;
   }
-
-  --meta-height: auto;
-
-  grid-template-rows: auto auto minmax(20em, 30vh);
-  grid-template-areas:
-    'board'
-    'controls'
-    'tools'
-    'side'
-    'acpl'
-    'under'
-    'chat'
-    'uchat';
 
   @include breakpoint($mq-col2) {
     grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;

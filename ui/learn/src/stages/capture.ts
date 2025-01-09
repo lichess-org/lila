@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import { anyCapture, extinct } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
@@ -7,7 +8,7 @@ import { toPiece } from '../util';
 const levels: IncompleteLevel[] = [
   {
     // lance
-    goal: 'takeTheEnemyPieces',
+    goal: i18n('learn:takeTheEnemyPieces'),
     sfen: '9/4n4/9/9/4p4/9/9/4L4/9 b -',
     nbMoves: 2,
     success: extinct('gote'),
@@ -17,7 +18,7 @@ const levels: IncompleteLevel[] = [
   },
   {
     // gold
-    goal: 'takeTheEnemyPiecesAndDontLoseYours',
+    goal: i18n('learn:takeTheEnemyPiecesAndDontLoseYours'),
     sfen: '9/9/4nr3/4G4/9/9/9/9/9 b -',
     nbMoves: 2,
     success: extinct('gote'),
@@ -27,7 +28,7 @@ const levels: IncompleteLevel[] = [
   },
   {
     // bishop
-    goal: 'takeTheEnemyPiecesAndDontLoseYours',
+    goal: i18n('learn:takeTheEnemyPiecesAndDontLoseYours'),
     sfen: '9/9/9/4p4/9/4B1s2/5g3/9/9 b -',
     nbMoves: 4,
     success: extinct('gote'),
@@ -36,7 +37,7 @@ const levels: IncompleteLevel[] = [
   },
   {
     // knight
-    goal: 'takeTheEnemyPiecesAndDontLoseYours',
+    goal: i18n('learn:takeTheEnemyPiecesAndDontLoseYours'),
     sfen: '9/3spg3/3p1p3/4N4/9/9/9/9/9 b -',
     nbMoves: 5,
     success: extinct('gote'),
@@ -45,7 +46,7 @@ const levels: IncompleteLevel[] = [
   },
   {
     // rook
-    goal: 'takeTheEnemyPiecesAndDontLoseYours',
+    goal: i18n('learn:takeTheEnemyPiecesAndDontLoseYours'),
     sfen: '9/4r1s2/5n3/3R1b3/9/9/9/9/9 b -',
     nbMoves: 6,
     success: extinct('gote'),
@@ -55,7 +56,7 @@ const levels: IncompleteLevel[] = [
   },
   {
     // silver
-    goal: 'takeTheEnemyPiecesAndDontLoseYours',
+    goal: i18n('learn:takeTheEnemyPiecesAndDontLoseYours'),
     sfen: '9/5l+p2/4S4/4pp3/9/9/9/9/9 b -',
     nbMoves: 7,
     success: extinct('gote'),
@@ -66,11 +67,11 @@ const levels: IncompleteLevel[] = [
 
 const stage: IncompleteStage = {
   key: 'capture',
-  title: 'capture',
-  subtitle: 'takeTheEnemyPieces',
-  intro: 'captureIntro',
+  title: i18n('learn:capture'),
+  subtitle: i18n('learn:takeTheEnemyPieces'),
+  intro: i18n('learn:captureIntro'),
   levels: levels.map((l, i) => createLevel(l, i)),
-  complete: 'captureComplete',
+  complete: i18n('learn:captureComplete'),
 };
 
 export default stage;

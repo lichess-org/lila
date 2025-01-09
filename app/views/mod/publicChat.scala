@@ -15,8 +15,8 @@ object publicChat {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Public Chats",
-      moreCss = cssTag("mod.communication"),
-      moreJs = jsTag("public-chat.js")
+      moreCss = cssTag("user.mod.communication"),
+      moreJs = jsTag("user.public-chat")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("public-chat"),

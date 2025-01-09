@@ -24,7 +24,6 @@ interface CtrlTeamInfo {
 export default class TournamentController {
   opts: TournamentOpts;
   data: TournamentData;
-  trans: Trans;
   socket: TournamentSocket;
   page: number;
   pages: Pages = {};
@@ -46,14 +45,12 @@ export default class TournamentController {
   redraw: () => void;
   nbWatchers: number = 0;
 
-  private watchingGameId: string;
   private lastStorage = window.lishogi.storage.make('last-redirect');
 
   constructor(opts: TournamentOpts, redraw: () => void) {
     this.opts = opts;
     this.data = opts.data;
     this.redraw = redraw;
-    this.trans = window.lishogi.trans(opts.i18n);
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page || 1;
     this.focusOnMe = tour.isIn(this);
@@ -65,9 +62,14 @@ export default class TournamentController {
     this.recountTeams();
     this.redirectToMyGame();
 
-    this.newArrangementSettings = storedJsonProp('arrangement.newArrangementSettings' + this.data.id, () => {
-      return { points: { w: 3, d: 2, l: 1 } };
-    });
+    this.newArrangementSettings = storedJsonProp(
+      'arrangement.newArrangementSettings' + this.data.id,
+      () => {
+        return { points: { w: 3, d: 2, l: 1 } };
+      }
+    );
+    console.log('Data', this.data);
+    // this.newArrangement = this.newArrangementSettings();
 
     const hash = window.location.hash,
       userIds = hash.slice(1).split(';');
@@ -78,12 +80,12 @@ export default class TournamentController {
       userIds.every(u => this.data.standing.players.some(p => p.id === u))
     )
       this.arrangement = this.findOrCreateArrangement(userIds);
-    else if (hash.length === 8) this.arrangement = this.data.standing.arrangements.find(a => a.id === hash);
+    else if (hash.length === 8)
+      this.arrangement = this.data.standing.arrangements.find(a => a.id === hash);
 
     window.lishogi.pubsub.on('socket.in.crowd', data => {
       this.nbWatchers = data.nb;
     });
-    if (this.data.featured) this.startWatching(this.data.featured.id);
   }
 
   askReload = (): void => {
@@ -102,11 +104,11 @@ export default class TournamentController {
     this.data.isClosed = data.isClosed;
     this.data.candidatesOnly = data.candidatesOnly;
     this.data.candidatesFull = data.candidatesFull;
-    if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id) this.playerInfo.data = data.playerInfo;
+    if (data.playerInfo && data.playerInfo.player.id === this.playerInfo.id)
+      this.playerInfo.data = data.playerInfo;
 
     this.loadPage(data.standing);
     if (this.focusOnMe) this.scrollToMe();
-    if (data.featured) this.startWatching(data.featured.id);
     sound.end(data);
     sound.countDown(data);
     this.shadedCandidates = [];
@@ -115,19 +117,20 @@ export default class TournamentController {
     this.redirectToMyGame();
   };
 
-  isRobin = () => this.data.system === 'robin';
-  isOrganized = () => this.data.system === 'organized';
-  isArena = () => this.data.system === 'arena';
+  isRobin = (): boolean => this.data.system === 'robin';
+  isOrganized = (): boolean => this.data.system === 'organized';
+  isArena = (): boolean => this.data.system === 'arena';
 
-  isCreator = () => this.data.createdBy === this.opts.userId;
+  isCreator = (): boolean => this.data.createdBy === this.opts.userId;
 
-  myGameId = () => {
+  myGameId = (): string => {
     return this.data.me?.gameId;
   };
 
   private recountTeams() {
     if (this.data.teamBattle)
-      this.data.teamBattle.hasMoreThanTenTeams = Object.keys(this.data.teamBattle.teams).length > 10;
+      this.data.teamBattle.hasMoreThanTenTeams =
+        Object.keys(this.data.teamBattle.teams).length > 10;
   }
 
   private redirectToMyGame() {
@@ -135,7 +138,7 @@ export default class TournamentController {
     if (gameId) this.redirectFirst(gameId);
   }
 
-  redirectFirst = (gameId: string, rightNow?: boolean) => {
+  redirectFirst = (gameId: string, rightNow?: boolean): void => {
     const delay = rightNow || document.hasFocus() ? 10 : 1000 + Math.random() * 500;
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
@@ -145,7 +148,7 @@ export default class TournamentController {
     }, delay);
   };
 
-  loadPage = (data: Standing) => {
+  loadPage = (data: Standing): void => {
     if (this.isArena()) {
       if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
     } else if (this.isOrganized()) {
@@ -153,14 +156,15 @@ export default class TournamentController {
       for (let i = 1; i <= Math.ceil(data.players.length / maxPerPage); i++)
         this.pages[i] = data.players.slice((i - 1) * maxPerPage, i * maxPerPage);
     }
+    console.log('PAGES', this.pages);
   };
 
-  setPage = (page: number) => {
+  setPage = (page: number): void => {
     this.page = page;
     if (this.isArena()) xhr.loadPage(this, page);
   };
 
-  jumpToPageOf = (name: string) => {
+  jumpToPageOf = (name: string): void => {
     const userId = name.toLowerCase();
     if (this.isArena()) {
       xhr.loadPageOf(this, userId).then(data => {
@@ -168,7 +172,9 @@ export default class TournamentController {
         this.page = data.page;
         this.searching = false;
         this.focusOnMe = false;
-        this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
+        this.pages[this.page]
+          .filter(p => p.name.toLowerCase() == userId)
+          .forEach(this.showPlayerInfo);
       });
     } else {
       const index = this.data.standing.players.findIndex(p => p.id === userId);
@@ -179,22 +185,22 @@ export default class TournamentController {
     this.redraw();
   };
 
-  userSetPage = (page: number) => {
+  userSetPage = (page: number): void => {
     this.focusOnMe = false;
     this.setPage(page);
   };
 
-  userNextPage = () => this.userSetPage(this.page + 1);
-  userPrevPage = () => this.userSetPage(this.page - 1);
-  userLastPage = () => this.userSetPage(players(this).nbPages);
+  userNextPage = (): void => this.userSetPage(this.page + 1);
+  userPrevPage = (): void => this.userSetPage(this.page - 1);
+  userLastPage = (): void => this.userSetPage(players(this).nbPages);
 
-  withdraw = () => {
+  withdraw = (): void => {
     xhr.withdraw(this);
     this.joinSpinner = true;
     this.focusOnMe = false;
   };
 
-  join = (password?: string, team?: string) => {
+  join = (password?: string, team?: string): any => {
     this.joinWithTeamSelector = false;
     if (!this.data.verdicts.accepted)
       return this.data.verdicts.list.forEach(v => {
@@ -209,39 +215,34 @@ export default class TournamentController {
     }
   };
 
-  processCandidate(userId: string, accept: boolean) {
+  processCandidate(userId: string, accept: boolean): void {
     this.shadedCandidates.push(userId);
     this.socket.send('process-candidate', { u: userId, v: accept });
     this.redraw();
   }
 
-  playerKick(userId: string) {
+  playerKick(userId: string): void {
     this.socket.send('player-kick', { v: userId });
     this.redraw();
   }
 
-  private startWatching(id: string) {
-    if (id !== this.watchingGameId) {
-      this.watchingGameId = id;
-      setTimeout(() => this.socket.send('startWatching', id), 1000);
-    }
-  }
-
-  scrollToMe = () => {
+  scrollToMe = (): void => {
     if (this.isArena() || this.isOrganized()) {
       const page = myPage(this);
       if (page && page !== this.page) this.setPage(page);
     }
   };
 
-  toggleFocusOnMe = () => {
+  toggleFocusOnMe = (): void => {
     if (!this.data.me) return;
     this.focusOnMe = !this.focusOnMe;
     if (this.focusOnMe) this.scrollToMe();
   };
 
   findArrangement = (users: string[]): Arrangement | undefined => {
-    return this.data.standing.arrangements.find(a => users.includes(a.user1.id) && users.includes(a.user2.id));
+    return this.data.standing.arrangements.find(
+      a => users.includes(a.user1.id) && users.includes(a.user2.id)
+    );
   };
 
   findOrCreateArrangement = (users: string[]): Arrangement => {
@@ -262,10 +263,15 @@ export default class TournamentController {
     }
   };
 
-  showArrangement = (arrangement: Arrangement | undefined) => {
+  showArrangement = (arrangement: Arrangement | undefined): void => {
     console.log('showArrangement', arrangement);
     this.arrangement = arrangement;
-    if (arrangement) window.history.replaceState(null, '', '#' + arrangement.user1.id + ';' + arrangement.user2.id);
+    if (arrangement)
+      window.history.replaceState(
+        null,
+        '',
+        '#' + arrangement.user1.id + ';' + arrangement.user2.id
+      );
     else history.replaceState(null, '', window.location.pathname + window.location.search);
     this.redraw();
     window.scrollTo({
@@ -274,7 +280,9 @@ export default class TournamentController {
     });
   };
 
-  arrangementMatch = (arrangement: Arrangement, yes: boolean) => {
+  arrangementMatch = (arrangement: Arrangement, yes: boolean): void => {
+    console.log('arrangementMatch', arrangement, yes);
+
     this.socket.send('arrangement-match', {
       id: arrangement.id,
       users: arrangement.user1.id + ';' + arrangement.user2.id,
@@ -282,7 +290,7 @@ export default class TournamentController {
     });
   };
 
-  arrangementTime = (arrangement: Arrangement, date: Date | undefined) => {
+  arrangementTime = (arrangement: Arrangement, date: Date | undefined): void => {
     console.log('arrangementTime', arrangement, date, date?.getTime());
     const data = {
       id: arrangement.id,
@@ -292,11 +300,11 @@ export default class TournamentController {
     this.socket.send('arrangement-time', data);
   };
 
-  showOrganizerArrangement() {
+  showOrganizerArrangement(): void {
     this.newArrangement = this.newArrangementSettings();
   }
 
-  showPlayerInfo = player => {
+  showPlayerInfo = (player: any): void => {
     if (this.data.secondsToStart) return;
     const userId = player.name.toLowerCase();
     this.teamInfo.requested = undefined;
@@ -308,11 +316,11 @@ export default class TournamentController {
     if (this.playerInfo.id) xhr.playerInfo(this, this.playerInfo.id);
   };
 
-  setPlayerInfoData = data => {
+  setPlayerInfoData = (data: PlayerInfo): void => {
     if (data.player.id === this.playerInfo.id) this.playerInfo.data = data;
   };
 
-  showTeamInfo = (teamId: string) => {
+  showTeamInfo = (teamId: string): void => {
     this.playerInfo.id = undefined;
     this.teamInfo = {
       requested: this.teamInfo.requested === teamId ? undefined : teamId,
@@ -321,11 +329,11 @@ export default class TournamentController {
     if (this.teamInfo.requested) xhr.teamInfo(this, this.teamInfo.requested);
   };
 
-  setTeamInfo = (teamInfo: TeamInfo) => {
+  setTeamInfo = (teamInfo: TeamInfo): void => {
     if (teamInfo.id === this.teamInfo.requested) this.teamInfo.loaded = teamInfo;
   };
 
-  toggleSearch = () => {
+  toggleSearch = (): void => {
     this.searching = !this.searching;
   };
 }

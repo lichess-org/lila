@@ -115,8 +115,8 @@ object appeal2 {
   private def layout(title: String)(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(
-        cssTag("form3"),
-        cssTag("appeal")
+        cssTag("misc.form3"),
+        cssTag("user.appeal")
       ),
       title = title
     )(body)

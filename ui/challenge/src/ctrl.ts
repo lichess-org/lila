@@ -1,16 +1,14 @@
 import notify from 'common/notification';
 import { ChallengeData, ChallengeOpts, ChallengeUser, Ctrl } from './interfaces';
-import * as xhr from './xhr';
+import { once } from 'common/storage';
 
 const li = window.lishogi;
 
 export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () => void): Ctrl {
-  let trans: Trans;
   let redirecting = false;
 
   function update(d: ChallengeData) {
     data = d;
-    trans = li.trans(d.i18n || {});
     opts.setCount(countActiveIn());
     notifyNew();
   }
@@ -21,12 +19,13 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
 
   function notifyNew() {
     data.in.forEach(c => {
-      if (li.once('c-' + c.id)) {
+      if (once('c-' + c.id, false)) {
         if (!li.quietMode && data.in.length <= 3) {
           opts.show();
-          li.sound.newChallenge();
+          li.sound.play('newChallenge');
         }
-        const pushSubsribed = parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
+        const pushSubsribed =
+          parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
         !pushSubsribed && c.challenger && notify(showUser(c.challenger) + ' challenges you!');
         opts.pulse();
       }
@@ -34,8 +33,8 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
   }
 
   function showUser(user: ChallengeUser) {
-    var rating = user.rating + (user.provisional ? '?' : '');
-    var fullName = (user.title ? user.title + ' ' : '') + user.name;
+    const rating = user.rating + (user.provisional ? '?' : ''),
+      fullName = (user.title ? user.title + ' ' : '') + user.name;
     return fullName + ' (' + rating + ')';
   }
 
@@ -43,16 +42,15 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
 
   return {
     data: () => data,
-    trans: () => trans,
     update,
     decline(id) {
       data.in.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.decline(id).fail(() =>
+          window.lishogi.xhr.text('POST', `/challenge/${id}/decline`).catch(() =>
             window.lishogi.announce({
               msg: 'Failed to send challenge decline',
-            })
+            }),
           );
         }
       });
@@ -61,10 +59,10 @@ export default function (opts: ChallengeOpts, data: ChallengeData, redraw: () =>
       data.out.forEach(c => {
         if (c.id === id) {
           c.declined = true;
-          xhr.cancel(id).fail(() =>
+          window.lishogi.xhr.text('POST', `/challenge/${id}/cancel`).catch(() =>
             window.lishogi.announce({
               msg: 'Failed to send challenge cancellation',
-            })
+            }),
           );
         }
       });

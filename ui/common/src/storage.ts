@@ -15,7 +15,7 @@ const storage = window.lishogi.storage;
 export function storedProp(k: string, defaultValue: boolean): StoredBooleanProp;
 export function storedProp<T>(k: string, defaultValue: T): StoredProp<T>;
 export function storedProp(k: string, defaultValue: any) {
-  const sk = 'analyse.' + k,
+  const sk = 'analyse.' + k, // remove analyse
     isBoolean = defaultValue === true || defaultValue === false;
   let value: any;
   return function (v: any) {
@@ -63,3 +63,12 @@ export const storedSet = <V>(propKey: string, maxSize: number): StoredSet<V> => 
     return set;
   };
 };
+
+export function once(key: string, always?: boolean): boolean {
+  if (always) return true;
+  if (!window.lishogi.storage.get(key)) {
+    window.lishogi.storage.set(key, '1');
+    return true;
+  }
+  return false;
+}

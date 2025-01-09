@@ -3,12 +3,6 @@ package lila.common
 import scala.concurrent.duration._
 import play.api.mvc.Call
 
-case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
-  def compare(other: ApiVersion) = Integer.compare(value, other.value)
-  def gt(other: Int)             = value > other
-  def gte(other: Int)            = value >= other
-}
-
 case class AssetVersion(value: String) extends AnyVal with StringValue
 
 object AssetVersion {

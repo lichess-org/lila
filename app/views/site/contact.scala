@@ -341,7 +341,7 @@ object contact {
     help.layout(
       title = trans.contact.contact.txt(),
       active = "contact",
-      moreCss = cssTag("contact"),
+      moreCss = cssTag("misc.contact"),
       moreJs = embedJsUnsafe("""location=location.hash||"#help-root""""),
       contentCls = "page box box-pad"
     )(

@@ -6,19 +6,17 @@ import { adjustDateToLocal, adjustDateToUTC, formattedDate, player as renderPlay
 import { bind } from 'common/snabbdom';
 import header from './header';
 import { backControl, utcControl } from './controls';
+import { flatpickr } from 'common/assets';
+import { i18n } from 'i18n';
 
 export function arrangementView(ctrl: TournamentController, a: Arrangement): VNodes {
   return [header(ctrl), controls(ctrl), arrangement(ctrl, a)];
 }
 
 function controls(ctrl: TournamentController) {
-  return backControl(
-    ctrl,
-    () => {
-      ctrl.showArrangement(undefined);
-    },
-    [utcControl(ctrl)]
-  );
+  return backControl(ctrl, () => {
+    ctrl.showArrangement(undefined);
+  }, [utcControl(ctrl)]);
 }
 
 function arrangement(ctrl: TournamentController, a: Arrangement): VNode {
@@ -26,10 +24,12 @@ function arrangement(ctrl: TournamentController, a: Arrangement): VNode {
     player1 = ctrl.data.standing.players.find(p => p.id === a.user1.id),
     player2 = ctrl.data.standing.players.find(p => p.id === a.user2.id),
     utc = ctrl.utc();
+  console.log('arrangement', ctrl.data.standing.players, a, player1, player2);
   if (player1 && player2) {
     return h(
       'div.arrangement',
       {
+        // key: JSON.stringify(a),
         class: {
           flipped: hasMe && a.user1.id === ctrl.opts.userId,
         },
@@ -84,8 +84,8 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
       },
       hook: {
         insert: (node: VNode) => {
-          window.lishogi.flatpickr().done(() => {
-            fInstance = window.flatpickr(node.elm, {
+          flatpickr().then(() => {
+            fInstance = window.flatpickr(node.elm as HTMLInputElement, {
               minDate: 'today',
               maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 3),
               dateFormat: 'U',
@@ -99,6 +99,7 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
                 return formattedDate(date, utc);
               },
               parseDate: (dateString, format) => {
+                console.log('parseDate', dateString, format, new Date(dateString));
                 if (format === 'U') {
                   return new Date(parseInt(dateString));
                 }
@@ -106,8 +107,9 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
               },
               disableMobile: true,
               position: 'above center',
-              locale: document.documentElement.lang,
+              locale: document.documentElement.lang as any,
             });
+            console.log('fInstance: ', fInstance);
             if (user.scheduledAt) {
               const scheduledDate = new Date(user.scheduledAt),
                 finalDate = ctrl.utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
@@ -117,10 +119,12 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
           });
         },
         destroy: () => {
+          console.log('destroy:', fInstance);
           if (fInstance) fInstance.destroy();
           fInstance = null;
         },
         postpatch: () => {
+          console.log('postpatch:', fInstance);
           if (fInstance && user.scheduledAt) {
             const utc = ctrl.utc(),
               scheduledDate = new Date(user.scheduledAt),
@@ -155,10 +159,16 @@ function myActions(ctrl: TournamentController, a: Arrangement, user: Arrangement
 
 function otherActions(a: Arrangement, u: ArrangementUser, hasMe: boolean, utc: boolean): VNode {
   const disabled =
-    !!a.gameId || !u.scheduledAt || u.scheduledAt < new Date().getTime() || a.scheduledAt === u.scheduledAt;
+    !!a.gameId ||
+    !u.scheduledAt ||
+    u.scheduledAt < new Date().getTime() ||
+    a.scheduledAt === u.scheduledAt;
   return h('div.actions', [
     h('input.time-select', {
-      attrs: { value: u.scheduledAt ? formattedDate(new Date(u.scheduledAt), utc) : '', disabled: true },
+      attrs: {
+        value: u.scheduledAt ? formattedDate(new Date(u.scheduledAt), utc) : '',
+        disabled: true,
+      },
     }),
     hasMe
       ? h(
@@ -182,32 +192,38 @@ function infoLine(title: string, value: string | number | undefined): VNode {
   return h('div.info-line', [h('div.title', title), h('div.value', value || '-')]);
 }
 
-function middleButtons(ctrl: TournamentController, a: Arrangement, hasMe: boolean, utc: boolean): VNode {
-  const noarg = ctrl.trans.noarg,
-    winner = a.winner ? ctrl.data.standing.players.find(p => p.id === a.winner)?.name : undefined;
+function middleButtons(
+  ctrl: TournamentController,
+  a: Arrangement,
+  hasMe: boolean,
+  utc: boolean
+): VNode {
+  const winner = a.winner
+    ? ctrl.data.standing.players.find(p => p.id === a.winner)?.name
+    : undefined;
   return h('div.arr-agreed', [
     h('div.infos', [
       infoLine(
-        noarg('scheduledAt' as I18nKey),
+        i18n('tourArrangements:scheduledAt'),
         a.scheduledAt ? formattedDate(new Date(a.scheduledAt), utc) : undefined
       ),
-      infoLine(noarg('status' as I18nKey), a.status ? statusView(ctrl.trans, a.status, a.color, false) : undefined),
-      infoLine(noarg('winner' as I18nKey), winner),
-      infoLine(noarg('nbOfMoves' as I18nKey), a.plies),
+      infoLine(i18n('search:result'), a.status ? statusView(a.status, a.color, false) : undefined),
+      infoLine(i18n('winner'), winner),
+      infoLine(i18n('nbMoves'), a.plies),
     ]),
     h('div.game-button', [
       h('div.timer'),
       a.gameId
-        ? h('a.button', { attrs: { href: '/' + a.gameId } }, noarg('goToGame' as I18nKey))
+        ? h('a.button', { attrs: { href: '/' + a.gameId } }, i18n('tourArrangements:goToGame'))
         : h(
             'button.button',
             {
               hook: bind('click', _ => ctrl.arrangementMatch(a, true)),
               attrs: { disabled: !hasMe },
             },
-            noarg('startGame' as I18nKey)
+            i18n('tourArrangements:startGame')
           ),
-      !a.gameId ? h('div.warning', noarg('gameWillNotStart' as I18nKey)) : null,
+      !a.gameId ? h('div.warning', i18n('tourArrangements:gameWillNotStart')) : null,
     ]),
     h(
       'div.history',
@@ -235,14 +251,18 @@ function middleButtons(ctrl: TournamentController, a: Arrangement, hasMe: boolea
                 insert: vnode => {
                   const date = formattedDate(new Date(parseInt(split[1]) * 1000), ctrl.utc());
                   (vnode.elm as HTMLElement).innerHTML =
-                    `<span>${player.name}</span> ` + historyAction(split[2], noarg) + ` <time>${date}</time>`;
+                    `<span>${player.name}</span> ` +
+                    historyAction(split[2]) +
+                    ` <time>${date}</time>`;
                   vnode.data!.cachedUTC = ctrl.utc;
                 },
                 postpatch(old, vnode) {
                   if (old.data!.cachedUTC !== ctrl.utc) {
                     const date = formattedDate(new Date(parseInt(split[1]) * 1000), ctrl.utc());
                     (vnode.elm as HTMLElement).innerHTML =
-                      `<span>${player.name}</span> ` + historyAction(split[2], noarg) + ` <time>${date}</time>`;
+                      `<span>${player.name}</span> ` +
+                      historyAction(split[2]) +
+                      ` <time>${date}</time>`;
                   }
                   vnode.data!.cachedUTC = ctrl.utc;
                 },
@@ -255,20 +275,20 @@ function middleButtons(ctrl: TournamentController, a: Arrangement, hasMe: boolea
   ]);
 }
 
-function historyAction(action: string, noarg: TransNoArg) {
+function historyAction(action: string) {
   switch (action) {
     case 'A':
-      return noarg('accepted' as I18nKey);
+      return i18n('tourArrangements:accepted');
     case 'M':
-      return noarg('removed' as I18nKey);
+      return i18n('tourArrangements:removed');
     case 'P':
-      return noarg('proposed' as I18nKey);
+      return i18n('tourArrangements:proposed');
     case 'R':
-      return noarg('ready' as I18nKey);
+      return i18n('tourArrangements:ready');
     case 'N':
-      return noarg('notReady' as I18nKey);
+      return i18n('tourArrangements:notReady');
     case 'S':
-      return noarg('starts' as I18nKey);
+      return i18n('tourArrangements:starts');
     default:
       return '?';
   }

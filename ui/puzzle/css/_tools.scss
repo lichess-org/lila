@@ -54,14 +54,14 @@
 
   flex: 1 0 8rem;
 
+  background: $c-bg-high;
+  justify-content: center;
+
   @include breakpoint($mq-col2) {
     @include breakpoint($mq-tall) {
       flex: 1 0 10rem;
     }
   }
-
-  background: $c-bg-high;
-  justify-content: center;
 
   &:not(.after) {
     padding: 2em;

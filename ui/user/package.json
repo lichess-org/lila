@@ -1,0 +1,21 @@
+{
+  "name": "user",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "tablesort": "^5.3",
+    "qrcode": "^1.5.3"
+  },
+  "devDependencies": {
+    "@types/qrcode": "^1.5.5"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
+  }
+}

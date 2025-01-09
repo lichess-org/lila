@@ -5,6 +5,7 @@ import MsgCtrl from '../ctrl';
 import { SearchResult, User } from '../interfaces';
 import renderContacts from './contact';
 import { userIcon, userName } from './util';
+import { i18n } from 'i18n';
 
 export function renderInput(ctrl: MsgCtrl): VNode {
   return h('div.msg-app__side__search', [
@@ -13,7 +14,7 @@ export function renderInput(ctrl: MsgCtrl): VNode {
       : h('input', {
           attrs: {
             value: '',
-            placeholder: ctrl.trans.noarg('searchOrStartNewDiscussion'),
+            placeholder: i18n('searchOrStartNewDiscussion'),
           },
           hook: {
             insert(vnode) {
@@ -38,7 +39,7 @@ export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
   return h('div.msg-app__search.msg-app__side__content', [
     res.contacts[0] &&
       h('section', [
-        h('h2', ctrl.trans.noarg('discussions')),
+        h('h2', i18n('discussions')),
         h(
           'div.msg-app__search__contacts',
           res.contacts.map(t => renderContacts(ctrl, t))
@@ -46,7 +47,7 @@ export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
       ]),
     res.friends[0] &&
       h('section', [
-        h('h2', ctrl.trans.noarg('friends')),
+        h('h2', i18n('friends')),
         h(
           'div.msg-app__search__users',
           res.friends.map(u => renderUser(ctrl, u))
@@ -54,7 +55,7 @@ export function renderResults(ctrl: MsgCtrl, res: SearchResult): VNode {
       ]),
     res.users[0] &&
       h('section', [
-        h('h2', ctrl.trans.noarg('players')),
+        h('h2', i18n('players')),
         h(
           'div.msg-app__search__users',
           res.users.map(u => renderUser(ctrl, u))

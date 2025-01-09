@@ -20,8 +20,6 @@ import {
 } from './shogi';
 import { currentPosition, sound } from './util';
 
-const li = window.lishogi;
-
 export default class LearnCtrl {
   shogiground: Api;
 
@@ -32,14 +30,12 @@ export default class LearnCtrl {
 
   timeouts: number[] = [];
   progress: ProgressStorage;
-  trans: Trans;
   pref: any;
 
   constructor(
     private opts: LearnOpts,
     readonly redraw: Redraw
   ) {
-    this.trans = li.trans(this.opts.i18n);
     this.pref = opts.pref;
 
     this.categories = categories.categories;

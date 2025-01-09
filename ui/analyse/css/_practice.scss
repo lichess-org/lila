@@ -51,7 +51,8 @@
   }
   &.goodMove .verdict::before {
     background: $c-good;
-    content: 'O';
+    font-family: 'lishogi';
+    content: 'K';
     font-size: 1.7em;
   }
   &.inaccuracy .verdict {

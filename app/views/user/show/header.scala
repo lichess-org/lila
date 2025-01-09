@@ -188,7 +188,7 @@ object header {
           val profile = u.profileOrDefault
           div(id := "us_profile")(
             if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserSpy)))
-              div(cls := "rating-history")(spinner)
+              views.html.user.bits.ratingHistoryContainer
             else
               ctx.is(u) option newPlayer(u),
             div(cls := "profile-side")(

@@ -1,0 +1,26 @@
+{
+  "name": "i18n",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/i18n.d.ts",
+      "import": "./dist/i18n.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "common": "workspace:*"
+  },
+  "scripts": {
+    "clean": "del dist",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true
+  }
+}

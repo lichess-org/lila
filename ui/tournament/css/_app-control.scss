@@ -6,10 +6,10 @@
   .fbt {
     height: 100%;
     padding: 0.6em 0.8em;
+    text-transform: uppercase;
     @include breakpoint($mq-xx-small) {
       padding: 0.6em 1em;
     }
-    text-transform: uppercase;
     &.denied {
       pointer-events: none;
       background-color: $c-bad;
@@ -75,18 +75,18 @@
   .pager {
     @extend %flex-center;
     flex-basis: 100%;
+    user-select: none;
     justify-content: space-between;
     @include breakpoint($mq-x-small) {
       flex-basis: unset;
     }
-    user-select: none;
     .page {
       margin: 0 3px;
       white-space: nowrap;
     }
     input {
       border: none;
-      background: fade-out($c-secondary, 0.8);
+      background: $m-secondary_alpha_neg80;
     }
     .search,
     input,

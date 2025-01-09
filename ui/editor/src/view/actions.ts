@@ -4,8 +4,9 @@ import { EditorState } from '../interfaces';
 import { initialSfen } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
 import { opposite } from 'shogiops/util';
-import { standardColorName, transWithColorName } from 'common/colorName';
 import { isHandicap } from 'shogiops/handicaps';
+import { colorName } from 'shogi/color-name';
+import { i18n, i18nFormatCapitalized } from 'i18n';
 
 export function actions(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.actions', [
@@ -31,7 +32,7 @@ function initialPosition(ctrl: EditorCtrl, state: EditorState): VNode {
         },
       },
     },
-    ctrl.trans.noarg('startPosition')
+    i18n('startPosition')
   );
 }
 
@@ -49,7 +50,7 @@ function clearBoard(ctrl: EditorCtrl, state: EditorState): VNode {
         },
       },
     },
-    ctrl.trans.noarg('clearBoard')
+    i18n('clearBoard')
   );
 }
 
@@ -69,7 +70,7 @@ function fillGotesHand(ctrl: EditorCtrl): VNode | null {
             },
           },
         },
-        transWithColorName(ctrl.trans, 'fillXHand', 'gote', false)
+        i18nFormatCapitalized('fillXHand', colorName('gote', false))
       );
 }
 
@@ -84,7 +85,7 @@ function flipBoard(ctrl: EditorCtrl): VNode {
         },
       },
     },
-    `${ctrl.trans.noarg('flipBoard')} (${standardColorName(ctrl.trans, ctrl.shogiground.state.orientation)})`
+    `${i18n('flipBoard')} (${colorName(ctrl.shogiground.state.orientation, false)})`
   );
 }
 
@@ -101,6 +102,6 @@ function colorTurn(ctrl: EditorCtrl, state: EditorState): VNode {
       },
       attrs: { 'data-icon': '' },
     },
-    h('span', transWithColorName(ctrl.trans, 'xPlays', ctrl.turn, handicap))
+    h('span', i18nFormatCapitalized('xPlays', colorName(ctrl.turn, handicap)))
   );
 }

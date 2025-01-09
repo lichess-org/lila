@@ -1,67 +1,79 @@
 import { Status, StatusId, StatusName } from '../interfaces';
-import { transWithColorName } from 'common/colorName';
+import { colorName } from 'shogi/color-name';
 import { statusIdToName } from '../status';
+import { i18n, i18nFormatCapitalized } from 'i18n';
 
 export default function status(
-  trans: Trans,
   status: Status | StatusName | StatusId,
   winner: Color | undefined,
   isHandicap: boolean
 ): string {
-  const noarg = trans.noarg,
-    name: StatusName | undefined =
-      typeof status === 'object' ? status.name : typeof status === 'number' ? statusIdToName(status) : status;
+  const name: StatusName | undefined =
+    typeof status === 'object'
+      ? status.name
+      : typeof status === 'number'
+        ? statusIdToName(status)
+        : status;
   switch (name) {
     case 'created':
-      return '-'; // Good enough, shouldn't happen
+      return '-'; // good enough, shouldn't happen
     case 'started':
-      return noarg('playingRightNow');
+      return i18n('playingRightNow');
     case 'paused':
-      return noarg('gameAdjourned');
+      return i18n('gameAdjourned');
     case 'aborted':
-      return noarg('gameAborted');
+      return i18n('gameAborted');
     case 'mate':
-      return noarg('checkmate');
+      return i18n('checkmate');
     case 'resign':
       return winner
-        ? transWithColorName(trans, 'xResigned', winner === 'sente' ? 'gote' : 'sente', isHandicap)
-        : noarg('finished');
+        ? i18nFormatCapitalized(
+            'xResigned',
+            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap)
+          )
+        : i18n('finished');
     case 'stalemate':
-      return noarg('stalemate');
+      return i18n('stalemate');
     case 'impasse27':
-      return noarg('impasse');
+      return i18n('impasse');
     case 'tryRule':
       return 'Try rule';
     case 'perpetualCheck':
-      return noarg('perpetualCheck');
+      return i18n('perpetualCheck');
     case 'repetition':
-      return noarg('repetition');
+      return i18n('repetition');
     case 'timeout':
       switch (winner) {
         case 'sente':
         case 'gote':
-          return transWithColorName(trans, 'xLeftTheGame', winner === 'sente' ? 'gote' : 'sente', isHandicap);
+          return i18nFormatCapitalized(
+            'xLeftTheGame',
+            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap)
+          );
         default:
-          return noarg('draw');
+          return i18n('draw');
       }
     case 'draw':
-      return noarg('draw');
+      return i18n('draw');
     case 'outoftime':
-      return noarg('timeOut');
+      return i18n('timeOut');
     case 'noStart':
       return winner
-        ? transWithColorName(trans, 'xDidntMove', winner === 'sente' ? 'gote' : 'sente', isHandicap)
-        : noarg('finished');
+        ? i18nFormatCapitalized(
+            'xDidntMove',
+            colorName(winner === 'sente' ? 'gote' : 'sente', isHandicap)
+          )
+        : i18n('finished');
     case 'cheat':
-      return noarg('cheatDetected');
+      return i18n('cheatDetected');
     case 'unknownFinish':
-      return noarg('finished');
+      return i18n('finished');
     case 'royalsLost':
-      return noarg('royalsLost');
+      return i18n('royalsLost');
     case 'bareKing':
-      return noarg('bareKing');
+      return i18n('bareKing');
     case 'specialVariantEnd':
-      return noarg('check'); // enough for now
+      return i18n('check'); // enough for now
     default:
       return name || '?';
   }

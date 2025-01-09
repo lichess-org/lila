@@ -25,7 +25,7 @@ object index {
   ) =
     views.html.base.layout(
       title = lishogiCoaches.txt(),
-      moreCss = cssTag("coach"),
+      moreCss = cssTag("misc.coach"),
       moreJs = infiniteScrollTag
       // maybe someday - withHrefLangs = lila.i18n.LangList.All.some
     ) {

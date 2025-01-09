@@ -1,11 +1,13 @@
 import { bind } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import discussionView from './discussion';
-import { Ctrl, Tab } from './interfaces';
+import { ChatCtrl, Tab } from './interfaces';
 import { moderationView } from './moderation';
 import { noteView } from './note';
+import { loadCompiledScript } from 'common/assets';
+import { i18n } from 'i18n';
 
-export default function (ctrl: Ctrl): VNode {
+export default function (ctrl: ChatCtrl): VNode {
   const mod = ctrl.moderation();
 
   return h(
@@ -22,7 +24,7 @@ export default function (ctrl: Ctrl): VNode {
   );
 }
 
-function renderPalantir(ctrl: Ctrl) {
+function renderPalantir(ctrl: ChatCtrl) {
   const p = ctrl.palantir;
   if (!p.enabled()) return;
   return p.instance
@@ -35,22 +37,19 @@ function renderPalantir(ctrl: Ctrl) {
         hook: bind('click', () => {
           if (!p.loaded) {
             p.loaded = true;
-            const li = window.lishogi;
-            li.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
-              li.loadScript(li.compiledScript('palantir')).then(() => {
-                p.instance = window.Palantir!.palantir({
-                  uid: ctrl.data.userId,
-                  redraw: ctrl.redraw,
-                });
-                ctrl.redraw();
+            loadCompiledScript('palantir').then(() => {
+              p.instance = window.lishogi.modules.palantir({
+                uid: ctrl.data.userId,
+                redraw: ctrl.redraw,
               });
+              ctrl.redraw();
             });
           }
         }),
       });
 }
 
-function normalView(ctrl: Ctrl) {
+function normalView(ctrl: ChatCtrl) {
   const active = ctrl.vm.tab;
   return [
     h('div.mchat__tabs.nb_' + ctrl.allTabs.length, [
@@ -68,7 +67,7 @@ function normalView(ctrl: Ctrl) {
   ];
 }
 
-function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
+function renderTab(ctrl: ChatCtrl, tab: Tab, active: Tab) {
   return h(
     'div.mchat__tab.' + tab,
     {
@@ -79,7 +78,7 @@ function renderTab(ctrl: Ctrl, tab: Tab, active: Tab) {
   );
 }
 
-function tabName(ctrl: Ctrl, tab: Tab) {
+function tabName(ctrl: ChatCtrl, tab: Tab) {
   if (tab === 'discussion')
     return [
       h('span', ctrl.data.name),
@@ -88,7 +87,7 @@ function tabName(ctrl: Ctrl, tab: Tab) {
         : h('input', {
             attrs: {
               type: 'checkbox',
-              title: ctrl.trans.noarg('toggleTheChat'),
+              title: i18n('toggleTheChat'),
               checked: ctrl.vm.enabled,
             },
             hook: bind('change', (e: Event) => {
@@ -96,7 +95,7 @@ function tabName(ctrl: Ctrl, tab: Tab) {
             }),
           }),
     ];
-  if (tab === 'note') return [h('span', ctrl.trans.noarg('notes'))];
+  if (tab === 'note') return [h('span', i18n('notes'))];
   if (ctrl.plugin && tab === ctrl.plugin.tab.key) return [h('span', ctrl.plugin.tab.name)];
   return [];
 }

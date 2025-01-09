@@ -12,11 +12,9 @@ export interface ChatOpts {
   public: boolean;
   permissions: Permissions;
   timeoutReasons?: ModerationReason[];
-  i18n: { [key: string]: string | undefined };
   preset?: string;
   noteId?: string;
   noteText?: string;
-  loadCss: (url: string) => void;
   plugin?: ChatPlugin;
   alwaysEnabled: boolean;
 }
@@ -58,7 +56,7 @@ export interface Permissions {
 
 export type Tab = string;
 
-export interface Ctrl {
+export interface ChatCtrl {
   data: ChatData;
   opts: ChatOpts;
   vm: ViewModel;
@@ -67,7 +65,6 @@ export interface Ctrl {
   note?: NoteCtrl;
   moderation(): ModerationCtrl | undefined;
   post(text: string): void;
-  trans: Trans;
   setTab(tab: Tab): void;
   setEnabled(v: boolean): void;
   plugin?: ChatPlugin;
@@ -77,7 +74,7 @@ export interface Ctrl {
 }
 
 export interface ChatPalantir {
-  instance?: Palantir;
+  instance?: any;
   loaded: boolean;
   enabled: Prop<boolean>;
 }
@@ -85,7 +82,6 @@ export interface ChatPalantir {
 export interface ViewModel {
   tab: Tab;
   enabled: boolean;
-  placeholderKey: I18nKey;
   loading: boolean;
   timeout: boolean;
   writeable: boolean;
@@ -94,13 +90,11 @@ export interface ViewModel {
 export interface NoteOpts {
   id: string;
   text?: string;
-  trans: Trans;
   redraw: Redraw;
 }
 
 export interface NoteCtrl {
   id: string;
-  trans: Trans;
   text(): string | undefined;
   fetch(): void;
   post(text: string): void;

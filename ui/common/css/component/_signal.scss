@@ -10,7 +10,7 @@ signal > i {
   margin-left: 1px;
   display: inline-block;
   height: 40%;
-  background-color: c-dimmer($c-good);
+  background-color: $m-good_bg-high_mix_80;
 }
 signal > i:nth-child(2) {
   height: 60%;

@@ -1,6 +1,7 @@
 package views.html.user
 
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -26,16 +27,19 @@ object perfStat {
     views.html.base.layout(
       title = s"${u.username} - ${perfStats.txt(perfType.trans)}",
       robots = false,
+      moreCss = cssTag("user.perf-stat"),
       moreJs = frag(
-        jsAt("compiled/user.js"),
-        ratingChart.map { rc =>
+        jsTag("user"),
+        ratingChart map { rc =>
           frag(
-            jsTag("chart/ratingHistory.js"),
-            embedJsUnsafe(s"lishogi.ratingHistoryChart($rc,'${perfType.trans(lila.i18n.defaultLang)}');")
+            chartTag,
+            moduleJsTag(
+              "chart.rating-history",
+              Json.obj("data" -> rc, "singlePerfName" -> s"${perfType.trans(lila.i18n.defaultLang)}")
+            )
           )
         }
-      ),
-      moreCss = cssTag("perf-stat")
+      )
     ) {
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(u, rankMap, perfType.some)),
@@ -54,7 +58,7 @@ object perfStat {
               bits.perfTrophies(u, rankMap.view.filterKeys(perfType.==).toMap)
             )
           ),
-          ratingChart.isDefined option div(cls := "rating-history")(spinner),
+          ratingChart.isDefined option bits.ratingHistoryContainer,
           div(cls := "box__pad perf-stat__content")(
             glicko(u, perfType, u.perfs(perfType), percentile),
             counter(stat.count),

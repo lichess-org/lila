@@ -1,0 +1,23 @@
+{
+  "name": "@build/wrapper",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/wrapper.ts",
+      "import": "./src/wrapper.ts"
+    },
+    "./*": {
+      "types": "./src/*.ts",
+      "import": "./src/*.ts"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "chalk": "^5"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  }
+}

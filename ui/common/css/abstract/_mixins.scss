@@ -27,7 +27,9 @@
 }
 
 @mixin hoverflow {
-  overflow-y: auto;
+  & {
+    overflow-y: auto; // todo
+  }
   @media (hover: hover) {
     overflow: hidden;
     &:hover {
@@ -78,5 +80,11 @@
   }
   .main-v-chushogi & {
     #{$prop}: 0;
+  }
+}
+
+@mixin theme-wrap($theme-class) {
+  html.#{$theme-class} & {
+    @content;
   }
 }

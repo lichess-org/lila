@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $mq-col2: $mq-xx-small;
 $mq-col3:
   $mq-small $mq-landscape,
@@ -80,7 +82,7 @@ $mq-not-col3: $mq-not-small;
       justify-content: center;
     }
     &__counters {
-      margin: #{$block-gap / 3} 0 #{$block-gap / -3} 0;
+      margin: math.div($block-gap, 3) 0 math.div($block-gap, -3) 0;
     }
     .timeline {
       margin-left: 0;

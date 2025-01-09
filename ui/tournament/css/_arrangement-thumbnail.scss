@@ -9,7 +9,7 @@
   border-width: 0 1px 1px 0;
   cursor: pointer;
   &:hover {
-    background: mix($c-accent, $c-bg-box, 10%);
+    background: $m-accent_bg-box_mix_10;
   }
   .arr-name {
     font-size: 1.3rem;

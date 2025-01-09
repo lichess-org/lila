@@ -1,9 +1,9 @@
 import { defined } from 'common/common';
-import { onInsert } from 'common/snabbdom';
+import { MaybeVNode, onInsert } from 'common/snabbdom';
 import { h } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
-import { renderIndexAndMove } from './moveView';
+import { renderIndexAndMove } from './move-view';
 
 export interface ForkCtrl {
   state(): {
@@ -60,7 +60,7 @@ export function make(root: AnalyseCtrl): ForkCtrl {
   };
 }
 
-export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
+export function view(root: AnalyseCtrl, concealOf?: ConcealOf): MaybeVNode {
   if (root.embed || root.retro) return;
   const state = root.fork.state();
   if (!state.displayed) return;
@@ -72,7 +72,9 @@ export function view(root: AnalyseCtrl, concealOf?: ConcealOf) {
         el.addEventListener('click', e => {
           const target = e.target as HTMLElement,
             it = parseInt(
-              (target.parentNode as HTMLElement).getAttribute('data-it') || target.getAttribute('data-it') || ''
+              (target.parentNode as HTMLElement).getAttribute('data-it') ||
+                target.getAttribute('data-it') ||
+                ''
             );
           root.fork.proceed(it);
           root.redraw();

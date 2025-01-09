@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.mvc._
-import play.api.libs.json.Json
 import scalatags.Text.all.Frag
 
 import lila.api.Context
@@ -38,9 +37,7 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
     Results.NotFound(html.base.notFound()(ctx))
   }
 
-  def blacklisted(implicit ctx: Context): Result =
-    if (lila.api.Mobile.Api requested ctx.req) Results.Unauthorized(Json.obj("error" -> blacklistMessage))
-    else Results.Unauthorized(blacklistMessage)
+  def blacklisted: Result = Results.Unauthorized(blacklistMessage)
 
   private val blacklistMessage =
     "Sorry, your IP address has been used to violate the ToS, and is now blacklisted."

@@ -14,7 +14,7 @@ object dev {
     val title = "Settings"
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("user.mod.misc")
     )(
       main(cls := "page-menu")(
         mod.menu("setting"),
@@ -51,7 +51,7 @@ object dev {
     val title = "Command Line Interface"
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("user.mod.misc")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("cli"),

@@ -76,7 +76,7 @@
 
   m-config,
   .editing {
-    background: mix($c-accent, $c-bg-box, 10%) !important;
+    background: $m-accent_bg-box_mix_10 !important;
   }
   m-config {
     @extend %flex-between;

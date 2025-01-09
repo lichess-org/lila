@@ -16,8 +16,8 @@ object layout {
   )(body: Frag)(implicit ctx: Context): Frag =
     views.html.base.layout(
       title = title,
-      moreCss = frag(cssTag("account"), evenMoreCss),
-      moreJs = frag(jsTag("account.js"), evenMoreJs)
+      moreCss = frag(cssTag("user.account"), evenMoreCss),
+      moreJs = frag(jsTag("user.account"), evenMoreJs)
     ) {
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(

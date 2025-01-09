@@ -50,7 +50,7 @@ object theirs {
                   // very rare message, don't translate
                   s"You have the wrong color link for this open challenge. The ${color.??(_.name)} player has already joined."
                 )
-              else if (!c.mode.rated || ctx.isAuth) {
+              else if ((!c.mode.rated && c.hasClock) || ctx.isAuth) {
                 frag(
                   (c.mode.rated && c.unlimited) option
                     badTag(trans.bewareTheGameIsRatedButHasNoClock()),
@@ -62,14 +62,13 @@ object theirs {
                 frag(
                   hr,
                   badTag(
-                    p("This game is rated"),
+                    c.mode.rated option p(trans.rated.txt()),
+                    !c.hasClock option p(trans.correspondence.txt()),
                     p(
-                      "You must ",
                       a(
                         cls  := "button",
                         href := s"${routes.Auth.login}?referrer=${routes.Round.watcher(c.id, "sente")}"
-                      )(trans.signIn()),
-                      " to join it."
+                      )(trans.signIn())
                     )
                   )
                 )

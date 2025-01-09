@@ -18,7 +18,7 @@ object search {
   def apply(form: Form[_], users: List[lila.user.User.WithEmails])(implicit ctx: Context) =
     views.html.base.layout(
       title = "Search users",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("user.mod.misc")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -46,7 +46,7 @@ object search {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Fingerprint",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("user.mod.misc")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),
@@ -83,7 +83,7 @@ object search {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "IP address",
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("user.mod.misc")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("search"),

@@ -1,9 +1,12 @@
 import { bind } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import LobbyController from '../../ctrl';
+import { i18n } from 'i18n';
+import { TimeMode } from '../../setup/util';
 
 export function createSeek(ctrl: LobbyController): VNode {
-  if (!ctrl.data.me) return h('div.create', h('a.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')));
+  if (!ctrl.data.me)
+    return h('div.create', h('a.button', { attrs: { href: '/signup' } }, i18n('signUp')));
   else
     return h(
       'div.create',
@@ -11,15 +14,11 @@ export function createSeek(ctrl: LobbyController): VNode {
         'a.button.accent',
         {
           hook: bind('click', () => {
-            $('.lobby__start .config_hook')
-              .each(function (this: HTMLElement) {
-                this.dataset.hrefAddon = '?time=correspondence';
-              })
-              .trigger('mousedown')
-              .trigger('click');
+            ctrl.setupCtrl.open('hook', { timeMode: TimeMode.Corres });
+            ctrl.redraw();
           }),
         },
-        ctrl.trans('createAGame')
-      )
+        i18n('createAGame'),
+      ),
     );
 }

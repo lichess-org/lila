@@ -1,0 +1,27 @@
+{
+  "name": "@build/vendor",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "howler": "^2",
+    "jquery": "3.7.1",
+    "spectrum": "github:WandererXII/spectrum",
+    "fairy-stockfish-nnue.wasm": "=1.1.8",
+    "shogiground": "catalog:",
+    "jquery-powertip": "^1",
+    "nouislider": "^15",
+    "infinite-scroll": "^4",
+    "sortablejs": "^1.15",
+    "@liskadan/sliding-puzzles": "^0.1",
+    "@yaireo/tagify": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "start": "tsx ./src/index.ts"
+  }
+}

@@ -59,7 +59,7 @@ object index {
 
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("streamer.list"),
+      moreCss = cssTag("misc.streamer.list"),
       moreJs = infiniteScrollTag
     ) {
       main(cls                                                          := "page-menu")(

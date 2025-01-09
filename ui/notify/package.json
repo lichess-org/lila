@@ -1,23 +1,17 @@
 {
   "name": "notify",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org notifications ui",
-  "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "type": "module",
   "dependencies": {
-    "common": "2.0.0",
-    "snabbdom": "^3.5.1"
-  },
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/jquery": "^2.0",
-    "@types/lishogi": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^5"
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "snabbdom": "catalog:"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
   }
 }

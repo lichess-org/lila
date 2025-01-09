@@ -120,18 +120,14 @@
       opacity: 1;
     }
   }
-  .sound,
-  .notation {
-    .content {
-      display: flex;
-      margin: 5px 0 5px 5px;
-    }
-    .selector a {
-      border-radius: $box-radius-size 0 0 $box-radius-size;
-    }
+
+  .sound {
     .slider {
-      flex: 0 0 $slider-width;
-      margin: 1rem 1.3rem 1rem 1rem;
+      border-top: $border;
+      input {
+        width: 100%;
+        font-size: 1.25rem;
+      }
     }
     &.silent .slider {
       opacity: 0.2;
@@ -154,11 +150,11 @@
 
   .board .zoom {
     display: none;
+    border-top: $border;
+    padding: 1.5rem;
     @include breakpoint($mq-board-resizable) {
       display: block;
     }
-    border-top: $border;
-    padding: 1.5rem;
   }
   .board .slider {
     margin-top: 1rem;

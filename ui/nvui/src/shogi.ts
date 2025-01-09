@@ -1,21 +1,29 @@
-import { Hand, Hands, Pieces, files, ranks } from 'shogiground/types';
-import { allKeys, opposite } from 'shogiground/util';
+import { Hand, Hands, Pieces } from 'shogiground/types';
+import { opposite } from 'shogiground/util';
 import { boardToSfen } from 'shogiground/sfen';
 import { parseBoardSfen, parseSfen, pieceToForsyth, roleToForsyth } from 'shogiops/sfen';
-import { Piece, Role, isDrop } from 'shogiops/types';
+import { Piece, Role, SquareName } from 'shogiops/types';
 import { VNode, h } from 'snabbdom';
 import { Setting, makeSetting } from './setting';
 import { dimensions, handRoles } from 'shogiops/variant/util';
-import { makeUsi, parseUsi } from 'shogiops/util';
+import { isDrop, makeUsi, parseUsi } from 'shogiops/util';
 import { toKanjiDigit } from 'shogiops/notation/util';
 import { makeKifBoard } from 'shogiops/notation/kif';
-import { toMoveOrDrop } from 'keyboardMove/dist/plugins/util'; // todo better later
+import { toMoveOrDrop } from 'keyboard-move/util';
+import { allKeys, files, ranks } from 'shogiground/constants';
+import { useJp } from 'common/common';
 
 export type Style = 'usi' | 'literate' | 'nato' | 'anna' | 'japanese';
 
-const supportedVariants: VariantKey[] = ['standard', 'minishogi', 'annanshogi', 'kyotoshogi', 'checkshogi'];
+const supportedVariants: VariantKey[] = [
+  'standard',
+  'minishogi',
+  'annanshogi',
+  'kyotoshogi',
+  'checkshogi',
+];
 
-export function supportedVariant(key: VariantKey) {
+export function supportedVariant(key: VariantKey): boolean {
   return supportedVariants.includes(key);
 }
 
@@ -28,13 +36,18 @@ export function styleSetting(): Setting<Style> {
       ['nato', 'Nato: pawn, 7 golf 3 foxtrot'],
       ['japanese', 'Japanese: ７ 七 ３ 六'],
     ],
-    default: document.documentElement.lang === 'ja' ? 'japanese' : 'anna',
+    default: useJp() ? 'japanese' : 'anna',
     storage: window.lishogi.storage.make('nvui.moveNotation'),
   });
 }
 
 // sfen of node, therefore after usi was performed
-export function renderMove(usi: Usi | undefined, sfen: Sfen, variant: VariantKey, style: Style): string {
+export function renderMove(
+  usi: Usi | undefined,
+  sfen: Sfen,
+  variant: VariantKey,
+  style: Style,
+): string {
   if (!usi) return '';
   const pos = parseSfen(variant, sfen, false),
     move = parseUsi(usi);
@@ -71,7 +84,7 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
         'horse',
         'dragon',
       ].forEach(role => {
-        const keys = [];
+        const keys: SquareName[] = [];
         for (const [key, piece] of pieces) {
           if (piece.color === color && piece.role === role) keys.push(key);
         }
@@ -88,11 +101,11 @@ export function renderPieces(pieces: Pieces, style: Style): VNode {
               `${l[0]}: ${l
                 .slice(1)
                 .map((k: Key) => renderKey(k, style))
-                .join(', ')}`
+                .join(', ')}`,
           )
           .join(', '),
       ]);
-    })
+    }),
   );
 }
 
@@ -127,7 +140,7 @@ export function renderHand(
   pov: Color,
   hand: Hand | undefined,
   variant: VariantKey,
-  style: Style
+  style: Style,
 ): string {
   let handStr = '',
     color = position === 'top' ? opposite(pov) : pov;
@@ -152,12 +165,12 @@ export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey, sty
   const reversedFiles = [...files].slice(0, dimensions(variant).files).reverse(),
     board = [[' ', ...reversedFiles, ' ']];
   for (let rank of ranks.slice(0, dimensions(variant).ranks)) {
-    let line = [];
+    let line: string[] = [];
     for (let file of reversedFiles) {
       let key = (file + rank) as Key;
       const piece = pieces.get(key) as Piece;
       if (piece) {
-        const letter = pieceToForsyth(variant)(piece);
+        const letter = pieceToForsyth(variant)(piece)!;
         line.push(letter);
       } else line.push('-');
     }

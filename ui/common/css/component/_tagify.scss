@@ -1,4 +1,6 @@
-:root {
+@use 'sass:math';
+
+html {
   --tagify-dd-color-primary: $c-primary; // should be same as "$tags-focus-border-color"
   --tagify-dd-bg-color: $c-bg-box;
 }
@@ -7,7 +9,7 @@
   // SCSS "default" allows overriding variables BEFORE they are set in the below lines of code
   $self: &;
   $tags-border-color: $c-border !default;
-  $tags-hover-border-color: c-clearer($c-border) !default;
+  $tags-hover-border-color: $m-border_lightness_20 !default;
   $tags-focus-border-color: $c-primary !default;
 
   $tagMargin: 5px !default;
@@ -16,12 +18,12 @@
   $tag-text-color: $c-font-clearer !default;
   $tag-text-color--edit: $c-font-clearer !default;
   $tag-bg: $c-bg-zebra2 !default;
-  $tag-hover: mix($c-primary, $c-bg-zebra2, 20%) !default;
-  $tag-remove: mix($c-bad, $c-bg-zebra2, 60%) !default;
+  $tag-hover: $m-primary_bg-zebra2_mix_20 !default;
+  $tag-remove: $m-bad_bg-zebra2_mix_60 !default;
   $tag-remove-btn-bg: none !default;
   $tag-remove-btn-bg--hover: $c-bad !default;
   $tag-invalid-color: $tag-remove !default;
-  $tag-invalid-bg: mix($c-bad, $c-bg-zebra2, 20%) !default;
+  $tag-invalid-bg: $m-bad_bg-zebra2_mix_20 !default;
   $tag-inset-shadow-size: 1.1em !default;
 
   // CSS variables
@@ -53,6 +55,22 @@
     }
   }
 
+  @extend %box-radius;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  border: 1px solid $tags-border-color;
+  border: 1px solid var(--tags-border-color);
+  padding: 0;
+  margin: 1em 0;
+  line-height: 1.1;
+  cursor: text;
+  outline: none;
+  position: relative;
+  transition: 0.1s;
+  text-align: left;
+  min-height: 2.5rem;
+
   @mixin tagReadonlyBG {
     background: linear-gradient(
         45deg,
@@ -80,22 +98,6 @@
       transform: rotate(1turn);
     }
   }
-
-  @extend %box-radius;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  border: 1px solid $tags-border-color;
-  border: 1px solid var(--tags-border-color);
-  padding: 0;
-  margin: 1em 0;
-  line-height: 1.1;
-  cursor: text;
-  outline: none;
-  position: relative;
-  transition: 0.1s;
-  text-align: left;
-  min-height: 2.5rem;
 
   &:hover {
     border-color: $tags-hover-border-color;
@@ -228,7 +230,7 @@
       div {
         // :not([contenteditable])
         &::before {
-          $size: -$tagMargin/2;
+          $size: math.div(-$tagMargin, 2);
           $size: -2px;
           top: $size;
           right: $size;
@@ -336,8 +338,8 @@
 
     width: $size;
     height: $size;
-    margin-right: $size/3;
-    margin-left: -$size/3;
+    margin-right: math.div($size, 3);
+    margin-left: math.div(-$size, 3);
 
     transition: 0.2s ease-out;
 
@@ -503,8 +505,8 @@
       right: 0;
       bottom: 0;
       font: $size monospace;
-      line-height: $size/2;
-      height: $size/2;
+      line-height: math.div($size, 2);
+      height: math.div($size, 2);
       pointer-events: none;
       transform: translate(-150%, -50%) scaleX(1.2) rotate(90deg);
       transition: 0.2s ease-in-out;

@@ -4,16 +4,21 @@ import { bind, bindSubmit, onInsert } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import { Redraw } from '../interfaces';
 import { StudyCtrl, Topic } from './interfaces';
+import { loadCssPath, loadVendorScript } from 'common/assets';
+import { i18n } from 'i18n';
 
 export interface TopicsCtrl {
   open: Prop<boolean>;
   getTopics(): Topic[];
   save(data: string): void;
-  trans: Trans;
   redraw: Redraw;
 }
 
-export function ctrl(save: (data: string) => void, getTopics: () => Topic[], trans: Trans, redraw: Redraw): TopicsCtrl {
+export function ctrl(
+  save: (data: string) => void,
+  getTopics: () => Topic[],
+  redraw: Redraw
+): TopicsCtrl {
   const open = prop(false);
 
   return {
@@ -23,7 +28,6 @@ export function ctrl(save: (data: string) => void, getTopics: () => Topic[], tra
       save(data);
       open(false);
     },
-    trans,
     redraw,
   };
 }
@@ -45,7 +49,7 @@ export function view(ctrl: StudyCtrl): VNode {
           {
             hook: bind('click', () => ctrl.topics.open(true), ctrl.redraw),
           },
-          [ctrl.trans.noarg('manageTopics')]
+          i18n('study:manageTopics')
         )
       : null,
   ]);
@@ -74,7 +78,7 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
           h(
             'textarea',
             {
-              hook: onInsert(elm => setupTagify(elm, userId)),
+              hook: onInsert(elm => setupTagify(elm as HTMLTextAreaElement, userId)),
             },
             ctrl.getTopics().join(', ').replace(/[<>]/g, '')
           ),
@@ -83,7 +87,7 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
             {
               type: 'submit',
             },
-            ctrl.trans.noarg('apply')
+            i18n('apply')
           ),
         ]
       ),
@@ -91,30 +95,35 @@ export function formView(ctrl: TopicsCtrl, userId?: string): VNode {
   });
 }
 
-function setupTagify(elm: HTMLElement, userId?: string) {
-  window.lishogi.loadCssPath('tagify');
-  window.lishogi.loadScript('vendor/tagify/tagify.min.js').then(() => {
-    tagify = new window.Tagify(elm, {
-      pattern: /.{2,}/,
-      maxTags: 30,
-    });
-    let abortCtrl; // for aborting the call
-    tagify.on('input', e => {
-      const term = e.detail.value.trim();
+function setupTagify(elm: HTMLTextAreaElement, userId?: string) {
+  loadCssPath('misc.tagify');
+  loadVendorScript('tagify', 'tagify/tagify.min.js').then(() => {
+    const tagi = (tagify = new window.Tagify(elm, { pattern: /.{2,}/, maxTags: 30 }));
+    let abortCtrl: AbortController | undefined; // for aborting the call
+    tagi.on('input', e => {
+      const term = (e.detail as Tagify.TagData).value.trim();
       if (term.length < 2) return;
-      tagify.settings.whitelist.length = 0; // reset the whitelist
+      tagi.settings.whitelist.length = 0; // reset the whitelist
       abortCtrl && abortCtrl.abort();
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
-      tagify.loading(true).dropdown.hide.call(tagify);
-
-      fetch(`/study/topic/autocomplete?term=${encodeURIComponent(term)}&user=${userId}`, { signal: abortCtrl.signal })
-        .then(r => r.json())
+      tagi.loading(true).dropdown.hide.call(tagi);
+      window.lishogi.xhr
+        .json(
+          'GET',
+          '/study/topic/autocomplete',
+          { url: { term, user: userId } },
+          {
+            signal: abortCtrl.signal,
+          }
+        )
         .then(list => {
-          tagify.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
-          tagify.loading(false).dropdown.show.call(tagify, term); // render the suggestions dropdown
+          tagi.settings.whitelist.splice(0, list.length, ...list); // update whitelist Array in-place
+          tagi.loading(false).dropdown.show.call(tagi, term); // render the suggestions dropdown
         });
     });
-    $('.tagify__input').focus();
+    $('.tagify__input').each(function (this: HTMLInputElement) {
+      this.focus();
+    });
   });
 }

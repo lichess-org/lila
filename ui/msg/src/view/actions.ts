@@ -2,6 +2,7 @@ import { bind } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import MsgCtrl from '../ctrl';
 import { Convo } from '../interfaces';
+import { i18n, i18nFormat } from 'i18n';
 
 export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
   if (convo.user.id == 'lishogi') return [];
@@ -13,7 +14,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       attrs: {
         'data-icon': 'U',
         href: `/?user=${convo.user.name}#friend`,
-        title: ctrl.trans.noarg('challengeToPlay'),
+        title: i18n('challengeToPlay'),
       },
     })
   );
@@ -24,9 +25,9 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         key: 'unblock',
         attrs: {
           'data-icon': 'k',
-          title: ctrl.trans.noarg('blocked'),
+          title: i18n('blocked'),
           type: 'button',
-          'data-hover-text': ctrl.trans.noarg('unblock'),
+          'data-hover-text': i18n('unblock'),
         },
         hook: bind('click', ctrl.unblock),
       })
@@ -38,7 +39,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         attrs: {
           'data-icon': 'k',
           type: 'button',
-          title: ctrl.trans.noarg('block'),
+          title: i18n('block'),
         },
         hook: bind('click', withConfirm(ctrl.block)),
       })
@@ -49,7 +50,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       attrs: {
         'data-icon': 'q',
         type: 'button',
-        title: ctrl.trans.noarg('delete'),
+        title: i18n('delete'),
       },
       hook: bind('click', withConfirm(ctrl.delete)),
     })
@@ -60,7 +61,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
         key: 'report',
         attrs: {
           'data-icon': '!',
-          title: ctrl.trans('reportXToModerators', convo.user.name),
+          title: i18nFormat('reportXToModerators', convo.user.name),
         },
         hook: bind('click', withConfirm(ctrl.report)),
       })

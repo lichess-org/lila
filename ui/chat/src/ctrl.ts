@@ -1,12 +1,13 @@
-import { prop } from 'common/common';
-import { ChatOpts, Ctrl, Line, ModerationCtrl, Permissions, Redraw, Tab, ViewModel } from './interfaces';
+import { prop, requestIdleCallbackWithFallback } from 'common/common';
+import { ChatOpts, ChatCtrl, Line, ModerationCtrl, Permissions, Redraw, Tab, ViewModel } from './interfaces';
 import { moderationCtrl } from './moderation';
 import { noteCtrl } from './note';
 import { presetCtrl } from './preset';
+import { loadCssPath } from 'common/assets';
 
 const li = window.lishogi;
 
-export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
+export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
   const data = opts.data;
   data.domVersion = 1; // increment to force redraw
   const maxLines = 200;
@@ -30,7 +31,6 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
   const vm: ViewModel = {
     tab: allTabs.find(tab => tab === storedTab) || allTabs[0],
     enabled: opts.alwaysEnabled || !li.storage.get('nochat'),
-    placeholderKey: 'talkInChat',
     loading: false,
     timeout: opts.timeout,
     writeable: opts.writeable,
@@ -88,8 +88,6 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     redraw();
   };
 
-  const trans = li.trans(opts.i18n);
-
   function instanciateModeration() {
     if (opts.permissions.timeout || opts.permissions.local) {
       moderation = moderationCtrl({
@@ -97,7 +95,7 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
         permissions: opts.permissions,
         redraw,
       });
-      opts.loadCss('chat.mod');
+      loadCssPath('chat.mod');
     }
   }
   instanciateModeration();
@@ -106,7 +104,6 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
     ? noteCtrl({
         id: opts.noteId,
         text: opts.noteText,
-        trans,
         redraw,
       })
     : undefined;
@@ -143,14 +140,13 @@ export default function (opts: ChatOpts, redraw: Redraw): Ctrl {
       vm.tab = t;
       tabStorage.set(t);
       // It's a lame way to do it. Give me a break.
-      if (t === 'discussion') li.requestIdleCallback(() => $('.mchat__say').focus());
+      if (t === 'discussion') requestIdleCallbackWithFallback(() => $('.mchat__say').focus());
       redraw();
     },
     moderation: () => moderation,
     note,
     preset,
     post,
-    trans,
     plugin: opts.plugin,
     setEnabled(v: boolean) {
       vm.enabled = v;

@@ -20,10 +20,9 @@
   .link {
     @extend %top-icon;
     /* we don't want a lighter dark font in the top gradient */
-    @if $theme == 'transp' {
+    color: $c-font;
+    @include theme-wrap('transp') {
       @extend %page-text;
-    } @else {
-      color: $c-font;
     }
     font-size: 1.1rem;
     padding: 0 0.7rem;
@@ -68,7 +67,7 @@
   }
   .signin {
     margin: 0 1rem;
-    @if $theme == 'transp' {
+    @include theme-wrap('transp') {
       &.button-empty {
         @extend %metal;
         color: $c-font-clear;

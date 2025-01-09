@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import { obstaclesCaptured } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
@@ -6,7 +7,7 @@ import { toPiece } from '../util';
 
 const levels: IncompleteLevel[] = [
   {
-    goal: 'lancesAreStraighforward',
+    goal: i18n('learn:lancesAreStraighforward'),
     sfen: '9/9/9/9/9/9/9/9/4L4 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -14,14 +15,14 @@ const levels: IncompleteLevel[] = [
     drawShapes: initial([arrow('5i', '5g'), arrow('5g', '5d')]),
   },
   {
-    goal: 'lancePromotion',
+    goal: i18n('learn:lancePromotion'),
     sfen: '9/9/9/9/9/9/9/9/L7L b -',
     nbMoves: 4,
     success: obstaclesCaptured,
     obstacles: ['9b', '8a', '1b', '2a'],
   },
   {
-    goal: 'lanceSummary',
+    goal: i18n('learn:lanceSummary'),
     sfen: '9/9/9/9/9/4L4/9/9/9 b -',
     nbMoves: 1,
     success: obstaclesCaptured,
@@ -29,7 +30,7 @@ const levels: IncompleteLevel[] = [
     squareHighlights: initial(pieceMovesHighlihts(toPiece('L'), '5f')),
   },
   {
-    goal: 'planceSummaryTwo',
+    goal: i18n('learn:planceSummaryTwo'),
     sfen: '9/9/9/9/9/4+L4/9/9/9 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -40,11 +41,11 @@ const levels: IncompleteLevel[] = [
 
 const stage: IncompleteStage = {
   key: 'lance',
-  title: 'theLance',
-  subtitle: 'itMovesStraightForward',
-  intro: 'lanceIntro',
+  title: i18n('learn:theLance'),
+  subtitle: i18n('learn:itMovesStraightForward'),
+  intro: i18n('learn:lanceIntro'),
   levels: levels.map((l, i) => createLevel(l, i)),
-  complete: 'lanceComplete',
+  complete: i18n('learn:lanceComplete'),
 };
 
 export default stage;

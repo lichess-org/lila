@@ -1,0 +1,7 @@
+{
+  "extends": "@build/tsconfig",
+  "compilerOptions": {
+    "lib": ["ES2017"],
+    "types": ["types-serviceworker"]
+  }
+}

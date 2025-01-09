@@ -1333,8 +1333,8 @@ paths:
               properties:
                 name:
                   type: string
-                  description: The tournament name. Leave empty to get a random Grandmaster name
-                clockTime:
+                  description: The tournament name. Leave empty to get a random animal
+                timeControlSetup.clockTime:
                   type: number
                   description: Clock initial time in minutes
                   example: 2
@@ -1359,34 +1359,24 @@ paths:
                     - 40
                     - 50
                     - 60
-                clockIncrement:
+                timeControlSetup.clockIncrement:
                   type: integer
                   description: Clock increment in seconds
                   example: 1
                   enum: [0, 1, 2, 3, 4, 5, 6, 7, 10, 15, 20, 25, 30, 40, 50, 60]
-                clockByoyomi:
+                timeControlSetup.clockByoyomi:
                   type: integer
                   description: Clock byoyomi in seconds
                   example: 1
                   enum: [0, 1, 2, 3, 4, 5, 6, 7, 10, 15, 20, 25, 30, 40, 50, 60]
-                periods:
+                timeControlSetup.periods:
                   type: integer
                   description: Clock periods for byoyomi
                   example: 1
                   enum: [0, 1, 2, 3, 4, 5]
-                minutes:
+               startDate:
                   type: integer
-                  description: How long the tournament lasts, in minutes
-                  example: 60
-                  enum: [20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100, 110, 120, 150, 180, 210, 240, 270, 300, 330, 360, 420, 480, 540, 600, 720]
-                waitMinutes:
-                  type: integer
-                  description: How long to wait before starting the tournament, from now, in minutes
-                  default: 5
-                  enum: [1, 2, 3, 5, 10, 15, 20, 30, 45, 60]
-                startDate:
-                  type: integer
-                  description: Timestamp to start the tournament at a given date and time. Overrides the `waitMinutes` setting
+                  description: Timestamp to start the tournament at a given date and time.
                 variant:
                   $ref: '#/components/schemas/VariantKey'
                 rated:
@@ -3487,7 +3477,7 @@ paths:
 
         Share the URL of the challenge. the first 2 players to click it will be paired for a game.
 
-        The response body also contains `senteUrl` and `goteUrl`.
+        The response body also contains `urlSente` and `urlGote`.
         You can control which color each player gets by giving them these URLs,
         instead of the main challenge URL.
 
@@ -4382,9 +4372,6 @@ components:
     LightUser:
       type: object
       properties:
-        id:
-          type: string
-          example: "shogi_harbour"
         name:
           type: string
           example: "Shogi_Harbour"
@@ -4395,9 +4382,9 @@ components:
         patron:
           type: boolean
           example: true
-        online:
-          type: boolean
-          example: true
+        id:
+          type: string
+          example: "shogi_harbour"
 
     Perf:
       type: object

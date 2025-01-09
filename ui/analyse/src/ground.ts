@@ -1,6 +1,7 @@
-import { notationFiles, notationRanks } from 'common/notation';
-import { predrop, premove } from 'common/pre-sg';
-import resizeHandle from 'common/resize';
+import { notationFiles, notationRanks } from 'shogi/notation';
+import { predrop } from 'shogi/pre-drop';
+import { premove } from 'shogi/pre-move';
+import resizeHandle from 'shogi/resize';
 import { Config as SgConfig } from 'shogiground/config';
 import { DrawShape } from 'shogiground/draw';
 import * as sg from 'shogiground/types';
@@ -78,7 +79,10 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
       },
       insert(boardEls?: sg.BoardElements, _handEls?: sg.HandElements) {
         if (!ctrl.embed && boardEls)
-          resizeHandle(boardEls, ctrl.data.pref.resizeHandle, { ply: ctrl.node.ply, initialPly: ctrl.mainline[0].ply });
+          resizeHandle(boardEls, ctrl.data.pref.resizeHandle, {
+            ply: ctrl.node.ply,
+            initialPly: ctrl.mainline[0].ply,
+          });
       },
     },
     premovable: {
@@ -105,7 +109,12 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
           capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
-          pieceCanPromote(variant)(piece, parseSquareName(orig)!, parseSquareName(dest)!, capture) &&
+          pieceCanPromote(variant)(
+            piece,
+            parseSquareName(orig)!,
+            parseSquareName(dest)!,
+            capture
+          ) &&
           !pieceForcePromote(variant)(piece, parseSquareName(dest)!)
         );
       },

@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import { scenarioFailure, scenarioSuccess } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
@@ -13,7 +14,7 @@ const digits = {
 
 const levels: IncompleteLevel[] = [
   {
-    goal: 'ifTheSamePositionOccurs',
+    goal: i18n('learn:ifTheSamePositionOccurs'),
     sfen: '9/9/9/9/k8/9/+p8/3+p5/K8 b - 1',
     nbMoves: 12,
     success: scenarioSuccess,
@@ -31,7 +32,7 @@ const levels: IncompleteLevel[] = [
     ),
   },
   {
-    goal: 'perpetualCheckIsALoss',
+    goal: i18n('learn:perpetualCheckIsALoss'),
     sfen: '3k5/9/1s+P+P+P4/9/P2+b5/KP7/1+b7/9/9 b -',
     nbMoves: 12,
     success: scenarioSuccess,
@@ -43,7 +44,7 @@ const levels: IncompleteLevel[] = [
     ),
   },
   {
-    goal: 'boardFlippedFindBestMove',
+    goal: i18n('learn:boardFlippedFindBestMove'),
     sfen: '3k5/9/1s+P+P+P4/9/P2+b5/KP+b6/9/9/9 w -',
     nbMoves: 3,
     success: scenarioSuccess,
@@ -55,11 +56,11 @@ const levels: IncompleteLevel[] = [
 
 const stage: IncompleteStage = {
   key: 'repetition',
-  title: 'repetition',
-  subtitle: 'fourfoldRepetitionIsADrawExcept',
-  intro: 'repetitionIntro',
+  title: i18n('learn:repetition'),
+  subtitle: i18n('learn:fourfoldRepetitionIsADrawExcept'),
+  intro: i18n('learn:repetitionIntro'),
   levels: levels.map((l, i) => createLevel(l, i)),
-  complete: 'repetitionComplete',
+  complete: i18n('learn:repetitionComplete'),
 };
 
 export default stage;

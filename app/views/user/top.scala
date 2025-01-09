@@ -16,7 +16,7 @@ object top {
 
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("slist"),
+      moreCss = cssTag("misc.slist"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${trans.leaderboard.txt()} - ${perfType.trans}",

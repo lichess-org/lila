@@ -1,3 +1,4 @@
+import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from 'common/assets';
 import { Prop, defined, prop } from 'common/common';
 import { analysis, editor } from 'common/links';
 import { Shogiground } from 'shogiground';
@@ -23,11 +24,10 @@ import { handRoles, promotableRoles, promote, unpromote } from 'shogiops/variant
 import { defaultPosition } from 'shogiops/variant/variant';
 import { EditorData, EditorOptions, EditorState, Redraw, Selected } from './interfaces';
 import { makeConfig } from './shogiground';
+import { i18n } from 'i18n';
 
 export default class EditorCtrl {
-  data: EditorData;
   options: EditorOptions;
-  trans: Trans;
   shogiground: SgApi;
   redraw: Redraw;
 
@@ -43,12 +43,12 @@ export default class EditorCtrl {
   currentBeforeStack: string;
   forwardStack: string[] = [];
 
-  constructor(data: EditorData, redraw: Redraw) {
-    this.data = data;
-    this.rules = data.variant;
-    this.options = data.options;
-
-    this.trans = window.lishogi.trans(this.data.i18n);
+  constructor(
+    public data: EditorData,
+    redraw: Redraw
+  ) {
+    this.rules = this.data.variant;
+    this.options = this.data.options || {};
 
     this.shogiground = Shogiground(makeConfig(this));
 
@@ -57,21 +57,21 @@ export default class EditorCtrl {
     this.bind();
 
     this.redraw = () => {};
-    if (!this.setSfen(data.sfen)) {
-      alert(this.trans.noarg('invalidSfen'));
+    if (!this.setSfen(this.data.sfen)) {
+      alert(i18n('invalidSfen'));
       this.startPosition();
     }
     this.redraw = redraw;
   }
 
   bind(): void {
-    if (!window.Mousetrap) return;
+    if (!window.lishogi.mousetrap) return;
     const preventing = (f: () => void) => (e: MouseEvent) => {
       e.preventDefault();
       f();
     };
 
-    const kbd = window.Mousetrap;
+    const kbd = window.lishogi.mousetrap;
     kbd.bind(
       ['f'],
       preventing(() => {
@@ -108,7 +108,7 @@ export default class EditorCtrl {
     );
 
     document.addEventListener('touchmove', e => {
-      this.lastTouchMovePos = eventPosition(e as any);
+      this.lastTouchMovePos = eventPosition(e);
       if (!this.initTouchMovePos) this.initTouchMovePos = this.lastTouchMovePos;
     });
   }
@@ -385,8 +385,8 @@ export default class EditorCtrl {
       },
       true
     );
-    if (rules === 'chushogi') window.lishogi.loadChushogiPieceSprite();
-    else if (rules === 'kyotoshogi') window.lishogi.loadKyotoshogiPieceSprite();
+    if (rules === 'chushogi') loadChushogiPieceSprite();
+    else if (rules === 'kyotoshogi') loadKyotoshogiPieceSprite();
     this.onChange(false, true);
   }
 

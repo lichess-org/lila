@@ -1,17 +1,24 @@
-import { Handicap, RULES, Role, Rules } from 'shogiops/types';
+import { RULES } from 'shogiops/constants';
+import { Handicap, Role, Rules } from 'shogiops/types';
 import { defaultPosition } from 'shogiops/variant/variant';
 import { findHandicaps, isHandicap } from 'shogiops/handicaps';
 import { VNode, h } from 'snabbdom';
-import { roleName } from 'common/notation';
+import { roleName } from 'shogi/notation';
+import { i18nVariant } from 'i18n/variant';
 import EditorCtrl from '../ctrl';
 import { EditorState } from '../interfaces';
+import { i18n } from 'i18n';
 
 export function tools(ctrl: EditorCtrl, state: EditorState): VNode {
-  return h('div.tools', [variants(ctrl), positions(ctrl, state), !ctrl.data.embed ? pieceCounter(ctrl) : null]);
+  return h('div.tools', [
+    variants(ctrl),
+    positions(ctrl, state),
+    !ctrl.data.embed ? pieceCounter(ctrl) : null,
+  ]);
 }
 
 function variants(ctrl: EditorCtrl): VNode {
-  function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
+  function variant2option(key: Rules, ctrl: EditorCtrl): VNode {
     return h(
       'option',
       {
@@ -20,7 +27,7 @@ function variants(ctrl: EditorCtrl): VNode {
           selected: key === ctrl.rules,
         },
       },
-      `${ctrl.trans.noarg('variant')} | ${name}`
+      `${i18n('variant')} | ${i18nVariant(key)}`,
     );
   }
   return h('div.variants', [
@@ -34,7 +41,7 @@ function variants(ctrl: EditorCtrl): VNode {
           },
         },
       },
-      RULES.map(rules => variant2option(rules, ctrl.trans(rules), ctrl))
+      RULES.map(rules => variant2option(rules, ctrl)),
     ),
   ]);
 }
@@ -50,7 +57,7 @@ function positions(ctrl: EditorCtrl, state: EditorState): VNode {
           selected: state.sfen === handicap.sfen,
         },
       },
-      `${handicap.japaneseName} (${handicap.englishName})`
+      `${handicap.japaneseName} (${handicap.englishName})`,
     );
   };
   return h('div.positions', [
@@ -58,7 +65,9 @@ function positions(ctrl: EditorCtrl, state: EditorState): VNode {
       'select',
       {
         props: {
-          value: isHandicap({ sfen: state.sfen, rules: ctrl.rules }) ? state.sfen.split(' ').slice(0, 4).join(' ') : '',
+          value: isHandicap({ sfen: state.sfen, rules: ctrl.rules })
+            ? state.sfen.split(' ').slice(0, 4).join(' ')
+            : '',
         },
         on: {
           change(e) {
@@ -76,10 +85,10 @@ function positions(ctrl: EditorCtrl, state: EditorState): VNode {
               value: '',
             },
           },
-          `- ${ctrl.trans.noarg('boardEditor')}  -`
+          `- ${i18n('boardEditor')}  -`,
         ),
-        optgroup(ctrl.trans.noarg('handicaps'), findHandicaps({ rules: ctrl.rules }).map(position2option)),
-      ]
+        optgroup(i18n('handicaps'), findHandicaps({ rules: ctrl.rules }).map(position2option)),
+      ],
     ),
   ]);
 }
@@ -89,9 +98,28 @@ function optgroup(name: string, opts: VNode[]): VNode {
 }
 
 function pieceCounter(ctrl: EditorCtrl): VNode {
-  const pieceValueOrder: Role[] = ['pawn', 'lance', 'knight', 'silver', 'gold', 'bishop', 'rook', 'tokin', 'king'];
-  function singlePieceCounter(cur: number, total: number, name: string, suffix: string = ''): VNode {
-    return h('span', [h('strong', ` ${name}: `), `${cur.toString()}/${total.toString()}`, h('span', suffix)]);
+  const pieceValueOrder: Role[] = [
+    'pawn',
+    'lance',
+    'knight',
+    'silver',
+    'gold',
+    'bishop',
+    'rook',
+    'tokin',
+    'king',
+  ];
+  function singlePieceCounter(
+    cur: number,
+    total: number,
+    name: string,
+    suffix: string = '',
+  ): VNode {
+    return h('span', [
+      h('strong', ` ${name}: `),
+      `${cur.toString()}/${total.toString()}`,
+      h('span', suffix),
+    ]);
   }
   const defaultBoard = defaultPosition(ctrl.rules).board,
     initialRoles = defaultBoard.presentRoles().sort((a, b) => {
@@ -111,8 +139,13 @@ function pieceCounter(ctrl: EditorCtrl): VNode {
     h(
       'div',
       pieceCount.map((s, i) =>
-        singlePieceCounter(ctrl.countPieces(s[0]), s[1], s[2], pieceCount.length > i + 1 ? ', ' : '')
-      )
-    )
+        singlePieceCounter(
+          ctrl.countPieces(s[0]),
+          s[1],
+          s[2],
+          pieceCount.length > i + 1 ? ', ' : '',
+        ),
+      ),
+    ),
   );
 }

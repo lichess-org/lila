@@ -13,7 +13,7 @@ object categ {
   def index(categs: List[lila.forum.CategView])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.forum.txt(),
-      moreCss = cssTag("forum"),
+      moreCss = cssTag("misc.forum"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = trans.forum.txt(),
@@ -72,7 +72,7 @@ object categ {
 
     views.html.base.layout(
       title = categ.translatedName,
-      moreCss = cssTag("forum"),
+      moreCss = cssTag("misc.forum"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = s"${trans.forum.txt()}: ${categ.translatedName}",

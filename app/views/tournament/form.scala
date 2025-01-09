@@ -6,7 +6,7 @@ import play.api.data.{ Field, Form }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.tournament.{ Condition, DataForm, TimeControl, Tournament }
+import lila.tournament.{ Condition, DataForm, Format, TimeControl, Tournament }
 
 import controllers.routes
 
@@ -18,7 +18,7 @@ object form {
       moreCss = cssTag("tournament.form"),
       moreJs = frag(
         flatpickrTag,
-        jsTag("tournamentForm.js")
+        jsTag("tournament.form")
       )
     ) {
       val fields = new TourFields(form, none)
@@ -47,7 +47,7 @@ object form {
       moreCss = cssTag("tournament.form"),
       moreJs = frag(
         flatpickrTag,
-        jsTag("tournamentForm.js")
+        jsTag("tournament.form")
       )
     ) {
       val fields = new TourFields(form, tour.some)
@@ -233,7 +233,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
     )(
       form3.select(
         _,
-        DataForm.formats.map(f => (f, transKeyTxt(f))),
+        Format.all.map(f => (f.key, f.trans)),
         disabled = disabledAfterCreate
       )
     )
@@ -358,7 +358,7 @@ final private class TourFields(form: Form[_], tour: Option[Tournament])(implicit
       form3.group(
         form("finishDate"),
         frag("End date"),
-        klass = "f-robin",
+        klass = "f-robin f-organized",
         half = true
       )(form3.flatpickr(_))
     )

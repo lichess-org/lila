@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 /* shared with analysis */
 .game__meta {
   @extend %box-neat-force;
@@ -5,8 +7,8 @@
   padding: #{$block-gap * 0.7} $block-gap;
   section:not(:last-child) {
     border-bottom: $border;
-    margin-bottom: #{$block-gap * 2 / 3};
-    padding-bottom: #{$block-gap * 2 / 3};
+    margin-bottom: math.div($block-gap * 2, 3);
+    padding-bottom: math.div($block-gap * 2, 3);
   }
   &__infos {
     @extend %flex-center-nowrap;

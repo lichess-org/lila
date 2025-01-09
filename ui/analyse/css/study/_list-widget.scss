@@ -55,7 +55,7 @@ $c-study: $c-primary;
         color: $c-font-dim;
       }
       &::before {
-        color: mix($c-link, $c-bg-box, 80%);
+        color: $m-link_bg-box_mix_80;
         font-size: 4em;
         margin-right: 0.2em;
         @include transition();
@@ -68,9 +68,9 @@ $c-study: $c-primary;
       }
     }
     &:hover {
-      background: mix($c-study, $c-bg-box, 10%);
+      background: $m-primary_bg-box_mix_10;
       .top::before {
-        color: mix($c-link, $c-bg-box, 100%);
+        color: $c-link;
       }
     }
   }

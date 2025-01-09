@@ -1,4 +1,12 @@
 .analyse {
+  grid-template-rows: auto;
+  grid-template-areas:
+    'board'
+    'controls'
+    'under'
+    'tools'
+    'side';
+
   .practice__side {
     grid-area: side;
     margin-top: $block-gap;
@@ -7,14 +15,6 @@
   &__acpl {
     display: none;
   }
-
-  grid-template-rows: auto;
-  grid-template-areas:
-    'board'
-    'controls'
-    'under'
-    'tools'
-    'side';
 
   @include breakpoint($mq-col2) {
     grid-template-rows: min-content;

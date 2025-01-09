@@ -83,6 +83,17 @@ final class JsonView(
       "members"   -> s.study.members.members.values.take(4)
     )
 
+  def embed(study: Study, currentChapter: Chapter, chapters: List[Chapter.IdName]) =
+    Json.obj(
+      "id"   -> study.id.value,
+      "name" -> study.name.value,
+      "chapter" -> Json
+        .obj(
+          "id" -> currentChapter.id
+        ),
+      "chapters" -> chapters.map(chapterIdNameWrites.writes)
+    )
+
   private def addChapterMode(c: Chapter)(js: JsObject): JsObject =
     js.add("practice", c.isPractice)
       .add("gamebook", c.isGamebook)
@@ -245,6 +256,9 @@ object JsonView {
   implicit private val chapterSetupWrites     = Json.writes[Chapter.Setup]
   implicit private[study] val chapterMetadataWrites = OWrites[Chapter.Metadata] { c =>
     Json.obj("id" -> c._id, "name" -> c.name, "variant" -> c.setup.variant.key)
+  }
+  implicit private[study] val chapterIdNameWrites = OWrites[Chapter.IdName] { c =>
+    Json.obj("id" -> c.id, "name" -> c.name)
   }
 
   implicit private[study] val positionRefWrites: Writes[Position.Ref] = Json.writes[Position.Ref]

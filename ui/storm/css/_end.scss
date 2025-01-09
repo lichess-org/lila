@@ -4,6 +4,10 @@
 .storm--end {
   display: grid;
 
+  grid-row-gap: $block-gap;
+  grid-column-gap: $block-gap;
+  grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
+
   &__high {
     grid-area: high;
   }
@@ -23,10 +27,6 @@
   .storm-play-again {
     grid-area: play;
   }
-
-  grid-row-gap: $block-gap;
-  grid-column-gap: $block-gap;
-  grid-template-areas: 'high' 'score' 'play' 'stats' 'history';
 
   @include breakpoint($mq-col2) {
     grid-template-areas: 'high high' 'score stats' 'play play' 'history history';

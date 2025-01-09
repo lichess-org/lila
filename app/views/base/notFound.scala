@@ -11,17 +11,21 @@ object notFound {
 
   def apply()(implicit ctx: Context) =
     layout(
-      title = "Page not found",
+      title = trans.pageNotFound.txt(),
       moreCss = frag(
-        cssTag("not-found"),
-        cssAt("vendor/sliding-puzzles/assets/css/hakoirimusume.css")
+        cssTag("misc.not-found"),
+        vendorCssTag("sliding-puzzles", "hakoirimusume.css")
+      ),
+      moreJs = frag(
+        vendorJsTag("sliding-puzzles", "sliding-puzzles.min.js"),
+        jsTag("misc.hakoirimusume")
       )
     ) {
       main(cls := "not-found page-small box box-pad")(
         header(
           h1("404"),
           div(
-            strong("Page not found!"),
+            strong(trans.pageNotFound.txt()),
             p(
               "Return to ",
               a(href := routes.Lobby.home)("the homepage"),
@@ -49,9 +53,7 @@ object notFound {
               target := "_blank"
             )("Sliding puzzles")
           )
-        ),
-        jsAt("vendor/sliding-puzzles/dist/sliding-puzzles.min.js"),
-        jsAt("javascripts/hakoirimusume.js")
+        )
       )
     }
 }

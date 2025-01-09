@@ -1,18 +1,18 @@
 import { Prop } from 'common/common';
 import { Status } from 'game';
 import { AnalyseData, Redraw } from '../interfaces';
-import { CommentForm } from './commentForm';
+import { CommentForm } from './comment-form';
 import { DescriptionCtrl } from './description';
-import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
+import GamebookPlayCtrl from './gamebook/gamebook-play-ctrl';
 import { GamebookOverride } from './gamebook/interfaces';
-import { MultiBoardCtrl } from './multiBoard';
+import { MultiBoardCtrl } from './multi-board';
 import { NotifCtrl } from './notif';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import { ServerEvalCtrl } from './serverEval';
-import { StudyChaptersCtrl } from './studyChapters';
-import { GlyphCtrl } from './studyGlyph';
+import { ServerEval } from './server-eval';
+import { StudyChaptersCtrl } from './study-chapters';
+import { GlyphCtrl } from './study-glyph';
 import { TopicsCtrl } from './topics';
-import { StoredProp } from 'common/storage';
+import { StoredProp, StoredSet } from 'common/storage';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -27,7 +27,7 @@ export interface StudyCtrl {
   commentForm: CommentForm;
   glyphForm: GlyphCtrl;
   topics: TopicsCtrl;
-  serverEval: ServerEvalCtrl;
+  serverEval: ServerEval;
   share: any;
   tags: any;
   studyDesc: DescriptionCtrl;
@@ -39,7 +39,7 @@ export interface StudyCtrl {
   canJumpTo(path: Tree.Path): boolean;
   onJump(): void;
   withPosition(obj: any): any;
-  setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
+  setPath(path: Tree.Path, node: Tree.Node): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
   forceVariation(path: Tree.Path, force: boolean): void;
@@ -48,7 +48,6 @@ export interface StudyCtrl {
   toggleWrite(): void;
   isWriting(): boolean;
   makeChange(t: string, d: any): boolean;
-  startTour(): void;
   userJump(path: Tree.Path): void;
   currentNode(): Tree.Node;
   practice?: StudyPracticeCtrl;
@@ -59,7 +58,6 @@ export interface StudyCtrl {
   setGamebookOverride(o: GamebookOverride): void;
   onPremoveSet(): void;
   redraw: Redraw;
-  trans: Trans;
 }
 
 export type Tab = 'intro' | 'members' | 'chapters';
@@ -170,6 +168,12 @@ export interface StudyChapter {
   features: StudyChapterFeatures;
   description?: string;
   gameLength?: number;
+  serverEval?: StudyChapterServerEval;
+}
+
+export interface StudyChapterServerEval {
+  done: boolean;
+  path: string;
 }
 
 interface StudyChapterSetup {
@@ -204,6 +208,29 @@ export interface StudyMemberMap {
   [id: string]: StudyMember;
 }
 
+export interface StudyMembersCtrl {
+  dict: Prop<StudyMemberMap>;
+  confing: Prop<string | undefined>;
+  myId: string | null;
+  inviteForm: StudyInviteFormCtrl;
+  update: (members: StudyMemberMap) => void;
+  setActive: (id: string) => void;
+  isActive: (id: string) => boolean;
+  owner: () => StudyMember;
+  myMember: () => StudyMember | null;
+  isOwner: () => boolean;
+  canContribute: () => boolean;
+  max: number;
+  setRole: (id: string, role: any) => void;
+  kick: (id: string) => void;
+  leave: () => void;
+  ordered: () => StudyMember[];
+  size: () => number;
+  setSpectators: (usernames?: string[]) => void;
+  isOnline: (userId: string) => boolean;
+  hasOnlineContributor: () => boolean;
+}
+
 export type TagTypes = string[];
 export type TagArray = [string, string];
 
@@ -234,4 +261,24 @@ export interface ChapterPreviewPlayer {
 export interface GamePlayer {
   playerId: string;
   userId?: string;
+}
+
+export interface StudyInviteFormCtrl {
+  open: Prop<boolean>;
+  candidates(): string[];
+  members: Prop<StudyMemberMap>;
+  setSpectators: (usernames: string[]) => void;
+  setFollowings: (usernames: string[]) => void;
+  delFollowing: (username: string) => void;
+  addFollowing: (username: string) => void;
+  toggle(): void;
+  invite: (titleName: string) => void;
+  previouslyInvited: StoredSet<string>;
+  redraw: () => void;
+}
+
+export interface StudyTagsCtrl {
+  submit(name: string): (value: string) => void;
+  getChapter: () => StudyChapter;
+  types: TagTypes;
 }

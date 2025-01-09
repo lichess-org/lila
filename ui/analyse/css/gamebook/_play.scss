@@ -39,7 +39,7 @@
     /* fixes firefox overflow when comment is long https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox */
     min-height: 0;
     max-height: 25rem;
-    @if $theme-dark {
+    body.dark & {
       border: 1px solid $c-font-dimmer;
     }
     &::after {
@@ -164,7 +164,7 @@
       a {
         @extend %flex-column;
         flex: 1 1 100%;
-        background: mix($c-primary, $c-bg-box, 80%);
+        background: $m-primary_bg-box_mix_80;
         color: $c-primary-over;
         font-size: 1.2em;
         align-items: center;

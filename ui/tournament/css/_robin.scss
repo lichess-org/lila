@@ -125,19 +125,19 @@ main.arr-table {
                 }
               }
               &.h {
+                animation: highlight 5s ease;
+                animation-fill-mode: both;
                 @keyframes highlight {
                   0% {
                     background-color: transparent;
                   }
                   50% {
-                    background-color: mix($c-accent, transparent, 30%);
+                    background-color: $m-accent_alpha_neg30;
                   }
                   100% {
                     background-color: transparent;
                   }
                 }
-                animation: highlight 5s ease;
-                animation-fill-mode: both;
               }
               & > div {
                 z-index: 100;

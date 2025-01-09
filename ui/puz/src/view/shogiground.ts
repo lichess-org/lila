@@ -1,4 +1,4 @@
-import resizeHandle from 'common/resize';
+import resizeHandle from 'shogi/resize';
 import { Config as SgConfig } from 'shogiground/config';
 //mport { Role } from 'shogiops/types';
 //mport { parseSquareName } from 'shogiops/util';

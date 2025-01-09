@@ -3,6 +3,7 @@ import { makeKifHeader, parseKifHeader } from 'shogiops/notation/kif';
 import { makeSfen, parseSfen } from 'shogiops/sfen';
 import { VNode, h } from 'snabbdom';
 import EditorCtrl from '../ctrl';
+import { i18n } from 'i18n';
 
 export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
   const pos = parseSfen(ctrl.rules, sfen);
@@ -25,7 +26,7 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
           input(e) {
             const el = e.target as HTMLInputElement;
             const valid = parseSfen(ctrl.rules, el.value.trim()).isOk;
-            el.setCustomValidity(valid ? '' : ctrl.trans.noarg('invalidSfen'));
+            el.setCustomValidity(valid ? '' : i18n('invalidSfen'));
           },
           blur(e) {
             const el = e.target as HTMLInputElement;
@@ -61,14 +62,15 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
           attrs: { 'data-icon': 'G' },
           on: {
             click: () => {
-              const kif = $('.copyables .kif textarea').val(),
+              const kifEl = document.querySelector('.copyables .kif textarea') as HTMLTextAreaElement,
+                kif = kifEl.value,
                 parsed = parseKifHeader(kif);
               if (parsed.isOk) ctrl.setSfen(makeSfen(parsed.value));
               ctrl.redraw();
             },
           },
         },
-        ctrl.trans.noarg('importKif')
+        i18n('importKif')
       ),
     ]),
     ctrl.rules === 'standard'
@@ -88,14 +90,15 @@ export function inputs(ctrl: EditorCtrl, sfen: string): VNode | undefined {
               attrs: { 'data-icon': 'G' },
               on: {
                 click: () => {
-                  const csa = $('.copyables .csa textarea').val(),
+                  const csaEl = document.querySelector('.copyables .csa textarea') as HTMLTextAreaElement,
+                    csa = csaEl.value,
                     parsed = parseCsaHeader(csa);
                   if (parsed.isOk) ctrl.setSfen(makeSfen(parsed.value));
                   ctrl.redraw();
                 },
               },
             },
-            ctrl.trans.noarg('importCsa')
+            i18n('importCsa')
           ),
         ])
       : null,

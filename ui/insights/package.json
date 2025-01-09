@@ -1,25 +1,21 @@
 {
   "name": "insights",
-  "version": "3.0.0",
   "private": true,
-  "description": "lishogi.org insights",
-  "author": "WandererXII",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/lishogi": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^5"
-  },
+  "type": "module",
   "dependencies": {
-    "chart.js": "^4.4",
+    "chart.js": "catalog:",
     "chartjs-plugin-datalabels": "^2.2",
-    "common": "2.0.0",
-    "shogiops": "^0.17.0",
-    "snabbdom": "^3.5.1"
+    "common": "workspace:*",
+    "shogi": "workspace:*",
+    "i18n": "workspace:*",
+    "shogiops": "catalog:",
+    "snabbdom": "catalog:"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
   }
 }

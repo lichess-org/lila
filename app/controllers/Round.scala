@@ -38,7 +38,7 @@ final class Round(
                   .withMatchup(pov.game)) zip
                 (pov.game.isSwitchable ?? otherPovs(pov.game)) zip
                 env.bookmark.api.exists(pov.game, ctx.me) zip
-                env.api.roundApi.player(pov, tour, lila.api.Mobile.Api.currentVersion) map {
+                env.api.roundApi.player(pov, tour) map {
                   case ((((((_, simul), chatOption), crosstable), playing), bookmarked), data) =>
                     simul foreach env.simul.api.onPlayerConnection(pov.game, ctx.me)
                     Ok(
@@ -56,13 +56,13 @@ final class Round(
                 }
             }
           },
-      api = apiVersion => {
+      json = {
         if (isTheft(pov)) fuccess(theftResponse)
         else
           env.tournament.api.gameView.mobile(pov.game) flatMap { tour =>
             pov.game.playableByAi ?? env.fishnet.player(pov.game)
             gameC.preloadUsers(pov.game) zip
-              env.api.roundApi.player(pov, tour, apiVersion) zip
+              env.api.roundApi.player(pov, tour) zip
               getPlayerChat(pov.game, none) map { case ((_, data), chat) =>
                 Ok(
                   data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
@@ -168,7 +168,6 @@ final class Round(
                     env.api.roundApi.watcher(
                       pov,
                       tour,
-                      lila.api.Mobile.Api.currentVersion,
                       tv = userTv.map { u =>
                         lila.round.OnUserTv(u.id)
                       }
@@ -193,16 +192,15 @@ final class Round(
                   .notationDump(pov.game, none, NotationDump.WithFlags(clocks = false))
               } yield Ok(html.round.watcher.crawler(pov, kif))
           },
-          api = apiVersion =>
-            for {
-              data     <- env.api.roundApi.watcher(pov, none, apiVersion, tv = none)
-              analysis <- analyser get pov.game
-              chat     <- getWatcherChat(pov.game)
-            } yield Ok {
-              data
-                .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
-                .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
-            }
+          json = for {
+            data     <- env.api.roundApi.watcher(pov, none, tv = none)
+            analysis <- analyser get pov.game
+            chat     <- getWatcherChat(pov.game)
+          } yield Ok {
+            data
+              .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
+              .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
+          }
         ) dmap (_.noCache)
     }
 

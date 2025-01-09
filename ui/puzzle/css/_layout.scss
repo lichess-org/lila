@@ -10,6 +10,14 @@
   grid-area: main;
   display: grid;
 
+  grid-template-areas:
+    'board'
+    'controls'
+    'tools'
+    'session'
+    'kb-move'
+    'side';
+
   &__side {
     @extend %zen;
     grid-area: side;
@@ -43,14 +51,6 @@
     grid-area: kb-move;
     margin-bottom: 0.5em;
   }
-
-  grid-template-areas:
-    'board'
-    'controls'
-    'tools'
-    'session'
-    'kb-move'
-    'side';
 
   &__moves {
     display: none;

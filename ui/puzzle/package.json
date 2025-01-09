@@ -1,31 +1,23 @@
 {
   "name": "puzzle",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org puzzle solver",
-  "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/chart.js": "^2.9.29",
-    "@types/lishogi": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^5"
-  },
+  "type": "module",
   "dependencies": {
-    "ceval": "2.0.0",
-    "chart.js": "^4.4",
-    "common": "2.0.0",
-    "keyboardMove": "1.0.0",
-    "shogiground": "^0.9.0",
-    "shogiops": "^0.17.0",
-    "snabbdom": "^3.5.1",
-    "tree": "2.0.0"
+    "ceval": "workspace:*",
+    "common": "workspace:*",
+    "shogi": "workspace:*",
+    "i18n": "workspace:*",
+    "keyboard-move": "workspace:*",
+    "shogiground": "catalog:",
+    "shogiops": "catalog:",
+    "snabbdom": "catalog:",
+    "tree": "workspace:*"
   },
   "scripts": {
-    "noDash": "rollup --config",
-    "dash": "rollup --config --config-plugin dashboard",
-    "dev": "rollup --config && rollup --config --config-plugin dashboard",
-    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin dashboard"
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
   }
 }

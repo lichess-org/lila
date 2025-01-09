@@ -17,7 +17,7 @@ object bots {
 
     views.html.base.layout(
       title = title,
-      moreCss = frag(cssTag("slist"), cssTag("user.list")),
+      moreCss = frag(cssTag("misc.slist"), cssTag("user.list")),
       wrapClass = "full-screen-force"
     )(
       main(cls := "page-menu bots")(

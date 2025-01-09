@@ -29,7 +29,7 @@ object show {
     val title     = xCoachesStudents.txt(coachName)
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("coach"),
+      moreCss = cssTag("misc.coach"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = title,

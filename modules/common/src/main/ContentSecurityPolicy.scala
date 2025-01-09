@@ -19,13 +19,6 @@ case class ContentSecurityPolicy(
       scriptSrc = "'unsafe-eval'" :: scriptSrc
     )
 
-  def withStripe =
-    copy(
-      connectSrc = "https://*.stripe.com" :: connectSrc,
-      scriptSrc = "https://*.stripe.com" :: scriptSrc,
-      frameSrc = "https://*.stripe.com" :: frameSrc
-    )
-
   def withTwitch =
     copy(
       defaultSrc = Nil,
@@ -44,8 +37,6 @@ case class ContentSecurityPolicy(
       styleSrc = "https://platform.twitter.com" :: styleSrc
     )
 
-  def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
-
   def withRecaptcha =
     copy(
       scriptSrc = "https://www.google.com" :: scriptSrc,
@@ -56,17 +47,6 @@ case class ContentSecurityPolicy(
     copy(
       connectSrc = "wss://0.peerjs.com" :: connectSrc
     )
-
-  private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy =
-    if (maybe)
-      copy(
-        scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
-        frameSrc = "https://lishogi.prismic.io" :: "https://lishogi.cdn.prismic.io" :: frameSrc,
-        connectSrc = "https://lishogi.prismic.io" :: "https://lishogi.cdn.prismic.io" :: connectSrc
-      )
-    else this
-
-  def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
 
   override def toString: String =
     List(

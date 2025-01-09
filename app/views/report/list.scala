@@ -93,7 +93,7 @@ object list {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = "Reports",
-      moreCss = cssTag("mod.report")
+      moreCss = cssTag("user.mod.report")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("report"),

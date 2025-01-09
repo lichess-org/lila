@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 object show {
 
@@ -22,25 +21,24 @@ object show {
       moreCss = cssTag("simul.show"),
       title = sim.fullName,
       moreJs = frag(
-        jsModule("simul"),
-        embedJsUnsafe(s"""lishogi.simul=${safeJsonValue(
-            Json.obj(
-              "data"          -> data,
-              "i18n"          -> bits.jsI18n(),
-              "socketVersion" -> socketVersion.value,
-              "userId"        -> ctx.userId,
-              "chat" -> chatOption.map { c =>
-                views.html.chat.json(
-                  c.chat,
-                  name = trans.chatRoom.txt(),
-                  timeout = c.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
-                  localMod = ctx.userId has sim.hostId
-                )
-              }
-            )
-          )}""")
+        moduleJsTag(
+          "simul",
+          Json.obj(
+            "data"          -> data,
+            "socketVersion" -> socketVersion.value,
+            "userId"        -> ctx.userId,
+            "chat" -> chatOption.map { c =>
+              views.html.chat.json(
+                c.chat,
+                name = trans.chatRoom.txt(),
+                timeout = c.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}"),
+                localMod = ctx.userId has sim.hostId
+              )
+            }
+          )
+        )
       )
     ) {
       val handicap = (for {

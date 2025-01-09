@@ -1,0 +1,105 @@
+.tour__form {
+  .tour-name > div {
+    @extend %flex-center-nowrap;
+    overflow: hidden;
+    gap: 1em;
+    > * {
+      flex: 1 1 auto;
+    }
+  }
+  form.f-robin,
+  form.f-organized {
+    .f-arena {
+      display: none;
+    }
+  }
+  form.f-arena {
+    .f-robin,
+    .f-organized {
+      display: none;
+    }
+  }
+  form.f-rt .f-corres {
+    display: none;
+  }
+  form.f-corres .f-rt {
+    display: none;
+  }
+}
+.tour__faq {
+  margin-top: $block-gap;
+  h2 {
+    margin: 1.2em 0 0.5em 0;
+  }
+}
+.textcomplete-dropdown {
+  @extend %popup-shadow;
+  background: $c-bg-popup;
+  li {
+    list-style: none;
+    border-top: $border;
+    padding: 0.5em;
+    min-width: 100px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  li.textcomplete-header,
+  li.textcomplete-footer {
+    display: none;
+  }
+  li:hover,
+  .active {
+    background-color: $m-accent_bg-popup_mix_10;
+  }
+  a {
+    color: $c-font;
+  }
+}
+
+.form-fieldset {
+  @extend %box-radius;
+  border: $border;
+  background: $c-bg-zebra;
+  margin: 1rem 0 3rem 0;
+  padding: 2rem 2rem 0 2rem;
+
+  legend {
+    @extend %box-radius;
+    background: $c-bg-zebra;
+    padding: 0.5em 1.5em;
+    text-align: right;
+    font-size: 1.2em;
+    user-select: none;
+  }
+}
+.form-fieldset--toggle {
+  legend {
+    border-top: $border;
+    cursor: pointer;
+    &::after {
+      content: 'S';
+      font-family: 'lishogi';
+      margin-left: 1ch;
+    }
+  }
+}
+.form-fieldset--toggle-off {
+  background: none;
+  border-width: 1px 0 0 0;
+  padding-top: 0;
+  legend {
+    border: $border;
+    background: none;
+    &:hover {
+      @extend %box-neat;
+      background: $c-bg-zebra;
+    }
+    &::after {
+      font-family: 'lishogi';
+      content: 'R';
+    }
+  }
+  > *:not(legend) {
+    display: none;
+  }
+}

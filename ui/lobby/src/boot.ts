@@ -1,21 +1,34 @@
-export default function boot(cfg, element) {
-  let lobby;
+import { LobbyOpts } from './interfaces';
+import LobbyController from './ctrl';
+import { numberFormat } from 'common/number';
+import { SetupKey } from './setup/ctrl';
+
+export default function boot(
+  opts: LobbyOpts,
+  start: (opts: LobbyOpts) => LobbyController,
+): LobbyController {
+  let ctrl: LobbyController;
   const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
     nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
-    getParameterByName = name => {
-      var match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
-      return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    getParameterByName = <T extends string>(name: string): T | undefined => {
+      const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+      return match ? (decodeURIComponent(match[1].replace(/\+/g, ' ')) as T) : undefined;
     },
     onFirstConnect = () => {
-      var gameId = getParameterByName('hook_like');
+      const gameId = getParameterByName<string>('hook_like');
       if (!gameId) return;
-      $.post(`/setup/hook/${window.lishogi.sri}/like/${gameId}?rr=${lobby.setup.ratingRange() || ''}`);
-      lobby.setTab('real_time', false);
+      window.lishogi.xhr.text('POST', `/setup/hook/${window.lishogi.sri}/like/${gameId}`, {
+        url: {
+          rr: ctrl.setupCtrl.ratingRange() || '',
+        },
+      });
+      ctrl.setTab('real_time', false);
+      ctrl.redraw();
       history.replaceState(null, '', '/');
     };
-  window.lishogi.socket = window.lishogi.StrongSocket('/lobby/socket/v4', false, {
+  window.lishogi.socket = new window.lishogi.StrongSocket('/lobby/socket/v4', false, {
     receive: function (t, d) {
-      lobby.socketReceive(t, d);
+      ctrl.socket.receive(t, d);
     },
     events: {
       n: function (_nbUsers, msg) {
@@ -25,12 +38,9 @@ export default function boot(cfg, element) {
         }, window.lishogi.socket.pingInterval() / 2);
       },
       reload_timeline: function () {
-        $.ajax({
-          url: '/timeline',
-          success: function (html) {
-            $('.timeline').html(html);
-            window.lishogi.pubsub.emit('content_loaded');
-          },
+        window.lishogi.xhr.text('GET', '/timeline').then(html => {
+          $('.timeline').html(html);
+          window.lishogi.pubsub.emit('content_loaded');
         });
       },
       featured: function (o) {
@@ -38,7 +48,7 @@ export default function boot(cfg, element) {
         window.lishogi.pubsub.emit('content_loaded');
       },
       redirect: function (e) {
-        lobby.setRedirecting();
+        ctrl.setRedirecting();
         window.lishogi.redirect(e);
       },
       tournaments: function (data) {
@@ -46,8 +56,8 @@ export default function boot(cfg, element) {
         window.lishogi.pubsub.emit('content_loaded');
       },
       sfen: function (e) {
-        window.lishogi.StrongSocket.defaults.events.sfen(e);
-        lobby.gameActivity(e.id);
+        window.lishogi.StrongSocket.defaultParams.events.sfen(e);
+        ctrl.gameActivity(e.id);
       },
     },
     options: {
@@ -56,71 +66,72 @@ export default function boot(cfg, element) {
     },
   });
 
-  cfg.blindMode = $('body').hasClass('blind-mode');
-  cfg.trans = window.lishogi.trans(cfg.i18n);
-  cfg.socketSend = window.lishogi.socket.send;
-  cfg.element = element;
-  cfg.variant = getParameterByName('variant');
-  cfg.sfen = getParameterByName('sfen');
+  opts.blindMode = $('body').hasClass('blind-mode');
+  opts.socketSend = window.lishogi.socket.send;
+  opts.variant = getParameterByName<VariantKey>('variant');
+  opts.sfen = getParameterByName<Sfen>('sfen');
 
-  lobby = window.LishogiLobby.start(cfg);
+  ctrl = start(opts);
 
   const $startButtons = $('.lobby__start'),
-    clickEvent = cfg.blindMode ? 'click' : 'mousedown';
+    clickEvent = opts.blindMode ? 'click' : 'mousedown';
 
   $startButtons
-    .find('a:not(.disabled)')
-    .on(clickEvent, function () {
+    .find('button:not(.disabled)')
+    .on(clickEvent, function (this: HTMLElement) {
       $(this).addClass('active').siblings().removeClass('active');
-      window.lishogi.loadCssPath('lobby.setup');
-      let url = (this as HTMLAnchorElement).href;
-      if (this.dataset.hrefAddon) {
-        url += this.dataset.hrefAddon;
-        delete this.dataset.hrefAddon;
-      }
-      $.ajax({
-        url: url,
-        success: function (html) {
-          lobby.setup.prepareForm(
-            $.modal(html, 'game-setup', () => {
-              $startButtons.find('.active').removeClass('active');
-            })
-          );
-          window.lishogi.pubsub.emit('content_loaded');
-        },
-        error: function (res) {
-          if (res.status == 400) alert(res.responseText);
-          window.lishogi.reload();
-        },
-      });
+      const cls = this.classList,
+        sKey = cls.contains('config_hook')
+          ? 'hook'
+          : cls.contains('config_friend')
+            ? 'friend'
+            : 'ai';
+      ctrl.setupCtrl.open(sKey);
+      ctrl.redraw();
       return false;
     })
     .on('click', function () {
       return false;
     });
 
-  if (['#ai', '#friend', '#hook'].includes(location.hash)) {
-    $startButtons
-      .find('.config_' + location.hash.replace('#', ''))
-      .each(function () {
-        this.dataset.hrefAddon = location.search;
-      })
-      .trigger(clickEvent);
+  const hash = location.hash;
+
+  if (['#ai', '#friend', '#hook'].includes(hash)) {
+    console.log('boot:', location.search);
+    const setupData: Record<string, string> = location.search
+      ? location.search
+          .slice(1)
+          .split('&')
+          .map(p => p.split('='))
+          .reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {})
+      : {};
+
+    if (setupData.sfen) {
+      setupData.position = '1';
+      setupData.handicap = '';
+    }
+
+    ctrl.setupCtrl.open(location.hash.slice(1) as SetupKey, setupData);
 
     if (location.hash === '#hook') {
-      if (/time=realTime/.test(location.search)) lobby.setTab('real_time');
-      else if (/time=correspondence/.test(location.search)) lobby.setTab('seeks');
+      if (/time=realTime/.test(location.search)) ctrl.setTab('real_time');
+      else if (/time=correspondence/.test(location.search)) ctrl.setTab('seeks');
+      ctrl.redraw();
     }
 
     history.replaceState(null, '', '/');
   }
+
+  return ctrl;
 }
 
 function spreadNumber(selector: string, nbSteps: number) {
   const el = document.querySelector(selector) as HTMLElement;
   let previous = parseInt(el.getAttribute('data-count')!);
   const display = function (prev, cur, it) {
-    el.textContent = window.lishogi.numberFormat(Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps));
+    el.textContent = numberFormat(
+      Math.round((prev * (nbSteps - 1 - it) + cur * (it + 1)) / nbSteps),
+    );
   };
   let timeouts: number[] = [];
   return function (nb, overrideNbSteps?) {

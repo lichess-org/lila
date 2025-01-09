@@ -8,7 +8,8 @@ import { standing as oStanding } from './organized';
 import { playing, recents, standing as rStanding, yourUpcoming } from './robin';
 import { teamStanding } from './battle';
 import header from './header';
-import teamInfo from './teamInfo';
+import teamInfo from './team-info';
+import { useJp } from 'common/common';
 
 export const name = 'created';
 
@@ -16,7 +17,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl),
     proverb = h(
       'blockquote.pull-quote',
-      h('p', document.documentElement.lang === 'ja' ? ctrl.data.proverb.japanese : ctrl.data.proverb.english)
+      h('p', useJp() ? ctrl.data.proverb.japanese : ctrl.data.proverb.english)
     ),
     faq = ctrl.opts.$faq
       ? h('div', {

@@ -1,5 +1,6 @@
+import { idleTimer } from 'common/timings';
 import LobbyController from './ctrl';
-import * as hookRepo from './hookRepo';
+import * as hookRepo from './hook-repo';
 import { Hook } from './interfaces';
 import { action } from './util';
 
@@ -7,13 +8,11 @@ interface Handlers {
   [key: string]: (data: any) => void;
 }
 
-const li = window.lishogi;
-
 export default class LobbySocket {
   handlers: Handlers;
 
   constructor(
-    readonly send: SocketSend,
+    readonly send: Socket.Send,
     ctrl: LobbyController
   ) {
     this.send = send;
@@ -46,7 +45,7 @@ export default class LobbySocket {
       },
     };
 
-    li.idleTimer(
+    idleTimer(
       3 * 60 * 1000,
       () => send('idle', true),
       () => {
@@ -56,10 +55,10 @@ export default class LobbySocket {
     );
   }
 
-  realTimeIn() {
+  realTimeIn(): void {
     this.send('hookIn');
   }
-  realTimeOut() {
+  realTimeOut(): void {
     this.send('hookOut');
   }
 

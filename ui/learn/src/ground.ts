@@ -1,10 +1,10 @@
-import { notationFiles, notationRanks } from 'common/notation';
-import resizeHandle from 'common/resize';
+import { notationFiles, notationRanks } from 'shogi/notation';
+import resizeHandle from 'shogi/resize';
 import { Config } from 'shogiground/config';
 import { Drawable, SquareHighlight } from 'shogiground/draw';
 import { shogigroundDropDests, shogigroundMoveDests } from 'shogiops/compat';
-import { Piece, Role, isDrop } from 'shogiops/types';
-import { makeSquareName, parseSquareName, parseUsi } from 'shogiops/util';
+import { Piece, Role } from 'shogiops/types';
+import { makeSquareName, parseSquareName, parseUsi, isDrop } from 'shogiops/util';
 import { pieceCanPromote, pieceForcePromote, promote } from 'shogiops/variant/util';
 import LearnCtrl from './ctrl';
 import { Level, UsiWithColor } from './interfaces';
@@ -33,7 +33,12 @@ export function initConfig(ctrl: LearnCtrl): Config {
         const piece = ctrl.shogiground.state.pieces.get(orig) as Piece;
         return (
           !!piece &&
-          pieceCanPromote('standard')(piece, parseSquareName(orig)!, parseSquareName(dest)!, undefined) &&
+          pieceCanPromote('standard')(
+            piece,
+            parseSquareName(orig)!,
+            parseSquareName(dest)!,
+            undefined,
+          ) &&
           !pieceForcePromote('standard')(piece, parseSquareName(dest)!)
         );
       },
@@ -134,8 +139,15 @@ export function createDrawable(level: Level, usiCList: UsiWithColor[] = []): Par
 export function playUsi(ctrl: LearnCtrl, usiC: UsiWithColor): void {
   const moveOrDrop = parseUsi(usiC.usi)!;
   if (isDrop(moveOrDrop)) {
-    ctrl.shogiground.drop({ role: moveOrDrop.role, color: usiC.color }, makeSquareName(moveOrDrop.to));
+    ctrl.shogiground.drop(
+      { role: moveOrDrop.role, color: usiC.color },
+      makeSquareName(moveOrDrop.to),
+    );
   } else {
-    ctrl.shogiground.move(makeSquareName(moveOrDrop.from), makeSquareName(moveOrDrop.to), moveOrDrop.promotion);
+    ctrl.shogiground.move(
+      makeSquareName(moveOrDrop.from),
+      makeSquareName(moveOrDrop.to),
+      moveOrDrop.promotion,
+    );
   }
 }

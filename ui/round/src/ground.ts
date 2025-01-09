@@ -1,13 +1,20 @@
-import { notationFiles, notationRanks } from 'common/notation';
-import { predrop, premove } from 'common/pre-sg';
-import resizeHandle from 'common/resize';
+import { notationFiles, notationRanks } from 'shogi/notation';
+import { predrop } from 'shogi/pre-drop';
+import { premove } from 'shogi/pre-move';
+import resizeHandle from 'shogi/resize';
 import { Config } from 'shogiground/config';
 import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole, parseSfen, roleToForsyth } from 'shogiops/sfen';
 import { Piece, Role } from 'shogiops/types';
 import { makeSquareName, parseSquareName } from 'shogiops/util';
-import { handRoles, pieceCanPromote, pieceForcePromote, promotableOnDrop, promote } from 'shogiops/variant/util';
-import { h } from 'snabbdom';
+import {
+  handRoles,
+  pieceCanPromote,
+  pieceForcePromote,
+  promotableOnDrop,
+  promote,
+} from 'shogiops/variant/util';
+import { h, VNode } from 'snabbdom';
 import RoundController from './ctrl';
 import { RoundData } from './interfaces';
 import { firstPly, plyStep } from './round';
@@ -50,7 +57,10 @@ export function makeConfig(ctrl: RoundController): Config {
       },
       insert(elements) {
         if (elements)
-          resizeHandle(elements, data.pref.resizeHandle, { ply: ctrl.ply, initialPly: firstPly(ctrl.data) });
+          resizeHandle(elements, data.pref.resizeHandle, {
+            ply: ctrl.ply,
+            initialPly: firstPly(ctrl.data),
+          });
       },
     },
     hands: {
@@ -82,7 +92,12 @@ export function makeConfig(ctrl: RoundController): Config {
           capture = ctrl.shogiground.state.pieces.get(dest) as Piece | undefined;
         return (
           !!piece &&
-          pieceCanPromote(variant)(piece, parseSquareName(orig)!, parseSquareName(dest)!, capture) &&
+          pieceCanPromote(variant)(
+            piece,
+            parseSquareName(orig)!,
+            parseSquareName(dest)!,
+            capture
+          ) &&
           !pieceForcePromote(variant)(piece, parseSquareName(dest)!)
         );
       },
@@ -127,7 +142,7 @@ export function makeConfig(ctrl: RoundController): Config {
   };
 }
 
-export function reload(ctrl: RoundController) {
+export function reload(ctrl: RoundController): void {
   ctrl.shogiground.set(makeConfig(ctrl));
 }
 
@@ -135,7 +150,7 @@ export function boardOrientation(data: RoundData, flip: boolean): Color {
   return flip ? data.opponent.color : data.player.color;
 }
 
-export function renderBoard(ctrl: RoundController) {
+export function renderBoard(ctrl: RoundController): VNode {
   return h('div.sg-wrap', {
     hook: {
       insert: vnode => {

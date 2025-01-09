@@ -1,19 +1,26 @@
-import { colorName } from 'common/colorName';
-import { engineNameFromCode } from 'common/engineName';
+import { engineNameFromCode } from 'shogi/engine-name';
 import { Player } from 'game';
 import { isHandicap } from 'shogiops/handicaps';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
+import { colorName } from 'shogi/color-name';
+import { i18n, i18nFormat } from 'i18n';
 
-export function userHtml(ctrl: RoundController, player: Player, position: Position) {
+export function userHtml(ctrl: RoundController, player: Player, position: Position): VNode {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : perf && perf.rating,
     rd = player.ratingDiff,
     ratingDiff =
-      rd === 0 ? h('span', '±0') : rd && rd > 0 ? h('good', '+' + rd) : rd && rd < 0 ? h('bad', '−' + -rd) : undefined,
+      rd === 0
+        ? h('span', '±0')
+        : rd && rd > 0
+          ? h('good', '+' + rd)
+          : rd && rd < 0
+            ? h('bad', '−' + -rd)
+            : undefined,
     handicap = isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen });
 
   if (user) {
@@ -30,17 +37,21 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
       },
       [
         h(
-          `div.player-color.${player.color}`,
+          `div.color-icon.${player.color}`,
           {
             attrs: {
-              title: colorName(ctrl.trans.noarg, player.color, handicap),
+              title: colorName(player.color, handicap),
             },
           },
-          []
+          [],
         ),
         h('i.line' + (user.patron ? '.patron' : ''), {
           attrs: {
-            title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
+            title: connecting
+              ? 'Connecting to the game'
+              : player.onGame
+                ? 'Joined the game'
+                : 'Left the game',
           },
         }),
         h(
@@ -54,11 +65,15 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           },
           user.title
             ? [
-                h('span.title', user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, user.title),
+                h(
+                  'span.title',
+                  user.title == 'BOT' ? { attrs: { 'data-bot': true } } : {},
+                  user.title,
+                ),
                 ' ',
                 user.username,
               ]
-            : [user.username]
+            : [user.username],
         ),
         rating ? h('rating', rating + (player.provisional ? '?' : '')) : null,
         ratingDiff,
@@ -66,11 +81,11 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           ? h('span', {
               attrs: {
                 'data-icon': 'j',
-                title: ctrl.trans.noarg('thisAccountViolatedTos'),
+                title: i18n('thisAccountViolatedTos'),
               },
             })
           : null,
-      ]
+      ],
     );
   }
   const connecting = !player.onGame && ctrl.firstSeconds;
@@ -85,26 +100,30 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
     },
     [
       h(
-        `div.player-color.${player.color}`,
+        `div.color-icon.${player.color}`,
         {
           attrs: {
-            title: colorName(ctrl.trans.noarg, player.color, handicap),
+            title: colorName(player.color, handicap),
           },
         },
-        []
+        [],
       ),
       h('i.line', {
         attrs: {
-          title: connecting ? 'Connecting to the game' : player.onGame ? 'Joined the game' : 'Left the game',
+          title: connecting
+            ? 'Connecting to the game'
+            : player.onGame
+              ? 'Joined the game'
+              : 'Left the game',
         },
       }),
       h('name', player.ai ? engineNameFromCode(player.aiCode) : player.name || 'Anonymous'),
-      player.ai ? h('div.ai-level', ctrl.trans('levelX', player.ai)) : null,
-    ]
+      player.ai ? h('div.ai-level', i18nFormat('levelX', player.ai)) : null,
+    ],
   );
 }
 
-export function userTxt(player: Player) {
+export function userTxt(player: Player): string {
   if (player.user) {
     return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
   } else if (player.ai) return engineNameFromCode(player.aiCode);

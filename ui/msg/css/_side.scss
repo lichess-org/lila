@@ -2,6 +2,10 @@
   &__side {
     @extend %flex-column;
     flex: 0 0 50ch;
+    background: $c-bg-zebra;
+    overflow: hidden;
+    user-select: none;
+    border-right: $border;
     @include breakpoint($mq-not-medium) {
       flex: 0 0 40ch;
     }
@@ -12,10 +16,6 @@
         display: flex;
       }
     }
-    background: $c-bg-zebra;
-    overflow: hidden;
-    user-select: none;
-    border-right: $border;
     ::-webkit-scrollbar,
     ::-webkit-scrollbar-corner {
       background: $c-bg-zebra;
@@ -42,11 +42,11 @@
       @extend %flex-center-nowrap;
       cursor: pointer;
       &:hover {
-        background: mix($c-msg, $c-bg-box, 15%);
+        background: $m-secondary_bg-box_mix_15;
       }
       &:active,
       &.active {
-        background: mix($c-msg, $c-bg-box, 30%);
+        background: $m-secondary_bg-box_mix_30;
       }
       &__icon {
         flex: 0 0 auto;

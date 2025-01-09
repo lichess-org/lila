@@ -18,12 +18,12 @@ object signup {
   def apply(form: Form[_], recaptcha: lila.security.RecaptchaPublicConfig)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.signUp.txt(),
+      moreCss = cssTag("user.auth"),
       moreJs = frag(
-        jsTag("signup.js"),
+        jsTag("user.signup"),
         recaptcha.enabled option recaptchaScript,
         fingerprintTag
       ),
-      moreCss = cssTag("auth"),
       csp = defaultCsp.withRecaptcha.some,
       withHrefLangs = lila.i18n.LangList.All.some
     ) {

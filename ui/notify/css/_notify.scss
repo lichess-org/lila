@@ -49,13 +49,13 @@
       }
     }
     &.new {
-      background: mix($c-new, $c-bg-header-dropdown, 27%);
+      background: $m-secondary_bg-header-dropdown_mix_27;
       i {
-        color: $c-new;
+        color: $c-secondary;
         opacity: 0.7;
       }
       &:hover {
-        background: mix($c-new, $c-bg-header-dropdown, 36%);
+        background: $m-secondary_bg-header-dropdown_mix_36;
         i {
           opacity: 1;
         }

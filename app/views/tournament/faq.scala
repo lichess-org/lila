@@ -14,7 +14,7 @@ object faq {
   def page(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournamentFAQ.txt(),
-      moreCss = cssTag("page")
+      moreCss = cssTag("misc.page")
     ) {
       main(cls := "page-small box box-pad page")(
         h1(

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "rootDir": "${configDir}/src",
+    "outDir": "${configDir}/dist",
+    "incremental": true,
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "composite": true,
+    "isolatedDeclarations": true,
+    "isolatedModules": true,
+    "target": "ES2017",
+    "lib": ["DOM", "ES2017"],
+    "types": ["lishogi", "jquery"]
+  },
+  "include": ["${configDir}/src"]
+}

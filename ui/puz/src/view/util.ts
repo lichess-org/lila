@@ -2,7 +2,7 @@ import { VNode, h } from 'snabbdom';
 import { Config, Run } from '../interfaces';
 import { getNow } from '../util';
 
-export const playModifiers = (run: Run) => {
+export const playModifiers = (run: Run): Record<string, boolean> => {
   const now = getNow();
   const malus = run.modifier.malus;
   const bonus = run.modifier.bonus;

@@ -5,11 +5,8 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.rating.RatingRange
 
 object filter {
-
-  import bits._
 
   def apply(form: Form[_])(implicit ctx: Context) =
     frag(
@@ -67,24 +64,8 @@ object filter {
                   translatedBooleanYesFilterChoice
                 )
               )
-            ),
-            ctx.isAuth option tr(
-              td(trans.ratingRange()),
-              td(
-                label(cls := "range")("? - ?"),
-                div(cls := "rating-range")(
-                  renderInput(form("ratingRange"))(
-                    dataMin := RatingRange.min,
-                    dataMax := RatingRange.max
-                  )
-                )
-              )
             )
           )
-        ),
-        ctx.isAnon option frag(
-          renderInput(form("mode")),
-          renderInput(form("ratingRange"))
         ),
         div(cls := "actions")(
           submitButton(cls := "button button-empty button-red text reset", dataIcon := "k")(trans.reset()),

@@ -49,7 +49,7 @@
         content: '';
         background-image: url(../images/learn/star.svg);
         background-size: cover;
-        filter: saturate(0);
+        filter: saturate(0%);
         opacity: 0.2;
       }
       .star {
@@ -151,17 +151,17 @@
 
 @keyframes star-appear {
   0% {
-    filter: saturate(1);
+    filter: saturate(100%);
     opacity: 0.5;
     transform: scale(0) rotate(-360deg);
   }
   85% {
-    filter: saturate(1);
+    filter: saturate(100%);
     opacity: 1;
     transform: scale(1.3) rotate(10deg);
   }
   100% {
-    filter: saturate(1);
+    filter: saturate(100%);
     opacity: 1;
     transform: scale(1) rotate(0);
   }

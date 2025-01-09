@@ -25,24 +25,24 @@ export default class Filter {
 
   constructor(
     storage: LishogiStorage,
-    readonly root: LobbyController
+    readonly root: LobbyController,
   ) {
     this.store = makeStore(storage);
     this.set(this.store.get());
   }
 
-  toggle = () => {
+  toggle = (): void => {
     this.open = !this.open;
   };
 
-  set = (data: FormLines | null) => {
+  set = (data: FormLines | null): void => {
     this.data = data && {
       form: data,
       filter: toFormObject(data),
     };
   };
 
-  save = (form: HTMLFormElement | null) => {
+  save = (form: HTMLFormElement | null): void => {
     const lines = form && toFormLines(form);
     if (lines) this.store.set(lines);
     else this.store.remove();
@@ -53,7 +53,6 @@ export default class Filter {
   filter = (hooks: Hook[]): Filtered => {
     if (!this.data) return { visible: hooks, hidden: 0 };
     const f = this.data.filter,
-      ratingRange = f.ratingRange && f.ratingRange.split('-').map(r => parseInt(r, 10)),
       visible: Hook[] = [];
     let variant: string,
       hidden = 0;
@@ -67,7 +66,6 @@ export default class Filter {
           (f.mode?.length == 1 && f.mode[0] != (hook.ra || 0).toString()) ||
           (f.increment?.length == 1 && f.increment[0] != hook.i.toString()) ||
           (f.byoyomi?.length == 1 && f.byoyomi[0] != hook.b.toString()) ||
-          (ratingRange && hook.rating && (hook.rating < ratingRange[0] || hook.rating > ratingRange[1])) ||
           (!hook.u && (!f.anonymous || f.anonymous.length == 0))
         ) {
           hidden++;
@@ -85,7 +83,6 @@ export default class Filter {
   filterSeeks = (seeks: Seek[]): FilteredSeeks => {
     if (!this.data) return { visible: seeks, hidden: 0 };
     const f = this.data.filter,
-      ratingRange = f.ratingRange?.split('-').map(r => parseInt(r, 10)),
       visible: Seek[] = [];
     let variant: string,
       hidden = 0;
@@ -97,8 +94,7 @@ export default class Filter {
         if (
           !f.variant?.includes(variant) ||
           (f.mode?.length == 1 && f.mode[0] != (seek.mode || 0).toString()) ||
-          (seek.days && !f.days?.includes(seek.days.toString())) ||
-          (ratingRange && (seek.rating < ratingRange[0] || seek.rating > ratingRange[1]))
+          (seek.days && !f.days?.includes(seek.days.toString()))
         ) {
           hidden++;
         } else visible.push(seek);

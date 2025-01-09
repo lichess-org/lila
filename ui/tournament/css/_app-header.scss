@@ -10,7 +10,7 @@
     overflow: hidden;
     a {
       /* GM wikipedia */
-      color: mix($c-link, $c-font, 35%);
+      color: $m-link_font_mix_35;
       &:hover {
         color: $c-link;
       }
@@ -54,7 +54,7 @@
     max-width: 25vw;
     &-title {
       @extend %flex-column;
-      // text-align: right; // ??
+      // text-align: right; // todo ??
     }
   }
   .tour-sched & h1,

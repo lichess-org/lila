@@ -6,7 +6,7 @@ export type Open = (sub: string) => void;
 
 export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | undefined = undefined) {
   return {
-    insert: (vnode: VNode) => {
+    insert: (vnode: VNode): void => {
       (vnode.elm as HTMLElement).addEventListener(eventName, e => {
         e.stopPropagation();
         f(e);
@@ -17,7 +17,7 @@ export function bind(eventName: string, f: (e: Event) => void, redraw: Redraw | 
   };
 }
 
-export function header(name: string, close: Close) {
+export function header(name: string, close: Close): VNode {
   return h(
     'a.head.text',
     {

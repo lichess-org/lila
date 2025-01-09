@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.{ richText, safeJsonValue }
+import lila.common.String.html.richText
 import lila.team.Team
 import lila.app.mashup.TeamInfo
 
@@ -39,21 +39,21 @@ object show {
           v    <- socketVersion
           chat <- chatOption
         } yield frag(
-          jsModule("chat"),
-          embedJsUnsafe(s"""lishogi.team=${safeJsonValue(
-              Json.obj(
-                "id"            -> t.id,
-                "socketVersion" -> v.value,
-                "chat" -> views.html.chat.json(
-                  chat.chat,
-                  name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
-                  timeout = chat.timeout,
-                  public = true,
-                  resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
-                  localMod = ctx.userId exists t.leaders.contains
-                )
+          moduleJsTag(
+            "team",
+            Json.obj(
+              "id"            -> t.id,
+              "socketVersion" -> v.value,
+              "chat" -> views.html.chat.json(
+                chat.chat,
+                name = if (t.isChatFor(_.LEADERS)) leadersChat.txt() else trans.chatRoom.txt(),
+                timeout = chat.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"team/${chat.chat.id}"),
+                localMod = ctx.userId exists t.leaders.contains
               )
-            )}""")
+            )
+          )
         ),
       canonicalPath = lila.common.CanonicalPath(routes.Team.show(t.id)).some
     ) {

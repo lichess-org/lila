@@ -1,10 +1,20 @@
 import { MaybeVNode, dataIcon, onInsert } from 'common/snabbdom';
-import { engineNameFromCode } from 'common/engineName';
+import { engineNameFromCode } from 'shogi/engine-name';
 import { VNode, h } from 'snabbdom';
-import { Controller, Puzzle, PuzzleDifficulty, PuzzleGame, PuzzlePlayer } from '../interfaces';
+import {
+  Controller,
+  Puzzle,
+  PuzzleDifficulty,
+  PuzzleGame,
+  PuzzlePlayer,
+  ThemeKey,
+} from '../interfaces';
+import { i18n, i18nVdom, i18nVdomPlural } from 'i18n';
+import { i18nThemes } from './theme';
+import { numberFormat } from 'common/number';
 
 export function puzzleBox(ctrl: Controller): VNode {
-  var data = ctrl.getData();
+  const data = ctrl.getData();
   return h('div.puzzle__side__metas', [
     puzzleInfos(ctrl, data.puzzle),
     data.game.id ? gameInfos(ctrl, data.game, data.puzzle) : sourceInfos(ctrl, data.game),
@@ -20,34 +30,39 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
     [
       h('div', [
         h('p', [
-          ...ctrl.trans.vdom(
-            'puzzleId',
+          ...i18nVdom(
+            'puzzle:puzzleId',
             h(
               'a',
               {
                 attrs: { href: `/training/${puzzle.id}` },
               },
-              '#' + puzzle.id
-            )
+              '#' + puzzle.id,
+            ),
           ),
         ]),
         h(
           'p',
-          ctrl.trans.vdom(
-            'ratingX',
-            ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating)
-          )
+          i18nVdom(
+            'puzzle:ratingX',
+            ctrl.vm.mode === 'play'
+              ? h('span.hidden', i18n('puzzle:hidden'))
+              : h('strong', puzzle.rating),
+          ),
         ),
-        h('p', ctrl.trans.vdom('playedXTimes', h('strong', window.lishogi.numberFormat(puzzle.plays)))),
+        h(
+          'p',
+          i18nVdomPlural('playedXTimes', puzzle.plays, h('strong', numberFormat(puzzle.plays))),
+        ),
       ]),
-    ]
+    ],
   );
 }
 
 function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
   const authorName =
     ctrl.vm.mode === 'play'
-      ? h('span.hidden', ctrl.trans.noarg('hidden'))
+      ? h('span.hidden', i18n('puzzle:hidden'))
       : game.author && game.author.startsWith('http')
         ? h(
             'a',
@@ -57,7 +72,7 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
                 target: '_blank',
               },
             },
-            game.author.replace(/(^\w+:|^)\/\//, '')
+            game.author.replace(/(^\w+:|^)\/\//, ''),
           )
         : game.author
           ? h('span', game.author)
@@ -69,10 +84,10 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
     },
     [
       h('div', [
-        h('p', ctrl.trans.vdom('puzzleSource', authorName)),
+        h('p', i18nVdom('puzzle:puzzleSource', authorName)),
         h('div.source-description', game.description ?? ''),
       ]),
-    ]
+    ],
   );
 }
 
@@ -88,8 +103,8 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
       h('div', [
         h(
           'p',
-          ctrl.trans.vdom(
-            'fromGameLink',
+          i18nVdom(
+            'puzzle:fromGameLink',
             ctrl.vm.mode == 'play'
               ? h('span', gameName)
               : h(
@@ -99,9 +114,9 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
                       href: `/${game.id}/${ctrl.vm.pov}#${puzzle.initialPly}`,
                     },
                   },
-                  gameName
-                )
-          )
+                  gameName,
+                ),
+          ),
         ),
         h(
           'div.players',
@@ -109,7 +124,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
             h(
               'div.player.color-icon.is.text.' + p.color,
               p.ai
-                ? engineNameFromCode(p.aiCode, p.ai, ctrl.trans)
+                ? engineNameFromCode(p.aiCode, p.ai)
                 : p.userId === 'anon'
                   ? 'Anonymous'
                   : p.userId
@@ -118,14 +133,14 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
                         {
                           attrs: { href: '/@/' + p.userId },
                         },
-                        playerName(p)
+                        playerName(p),
                       )
-                    : p.name
-            )
-          )
+                    : p.name,
+            ),
+          ),
         ),
       ]),
-    ]
+    ],
   );
 }
 
@@ -137,21 +152,21 @@ export function userBox(ctrl: Controller): VNode {
   const data = ctrl.getData();
   if (!data.user)
     return h('div.puzzle__side__user', [
-      h('p', ctrl.trans.noarg('toGetPersonalizedPuzzles')),
-      h('button.button', { attrs: { href: '/signup' } }, ctrl.trans.noarg('signUp')),
+      h('p', i18n('puzzle:toGetPersonalizedPuzzles')),
+      h('button.button', { attrs: { href: '/signup' } }, i18n('signUp')),
     ]);
   const diff = ctrl.vm.round?.ratingDiff;
   return h('div.puzzle__side__user', [
     h(
       'div.puzzle__side__user__rating',
-      ctrl.trans.vdom(
-        'yourPuzzleRatingX',
+      i18nVdom(
+        'puzzle:yourPuzzleRatingX',
         h('strong', [
           data.user.rating - (diff || 0),
           ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
           ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
-        ])
-      )
+        ]),
+      ),
     ),
   ]);
 }
@@ -170,7 +185,7 @@ export function replay(ctrl: Controller): MaybeVNode {
           href: `/training/dashboard/${replay.days}`,
         },
       },
-      ['« ', `Replaying ${ctrl.trans.noarg(ctrl.getData().theme.key as I18nKey)} puzzles`]
+      ['« ', `Replaying ${i18nThemes[ctrl.getData().theme.key as ThemeKey]} puzzles`],
     ),
     h('div.puzzle__side__replay__bar', {
       attrs: {
@@ -193,12 +208,14 @@ export function config(ctrl: Controller): MaybeVNode {
           },
           hook: {
             insert: vnode =>
-              (vnode.elm as HTMLElement).addEventListener('change', () => ctrl.autoNext(!ctrl.autoNext())),
+              (vnode.elm as HTMLElement).addEventListener('change', () =>
+                ctrl.autoNext(!ctrl.autoNext()),
+              ),
           },
         }),
         h('label', { attrs: { for: id } }),
       ]),
-      h('label', { attrs: { for: id } }, ctrl.trans.noarg('jumpToNextPuzzleImmediately')),
+      h('label', { attrs: { for: id } }, i18n('puzzle:jumpToNextPuzzleImmediately')),
     ]),
     !ctrl.getData().replay && ctrl.difficulty
       ? h(
@@ -215,14 +232,16 @@ export function config(ctrl: Controller): MaybeVNode {
               {
                 attrs: { for: 'puzzle-difficulty' },
               },
-              ctrl.trans.noarg('difficultyLevel')
+              i18n('puzzle:difficultyLevel'),
             ),
             h(
               'select#puzzle-difficulty.puzzle__difficulty__selector',
               {
                 attrs: { name: 'difficulty' },
                 hook: onInsert(elm =>
-                  elm.addEventListener('change', () => (elm.parentNode as HTMLFormElement).submit())
+                  elm.addEventListener('change', () =>
+                    (elm.parentNode as HTMLFormElement).submit(),
+                  ),
                 ),
               },
               difficulties.map(diff =>
@@ -234,12 +253,20 @@ export function config(ctrl: Controller): MaybeVNode {
                       selected: diff == ctrl.difficulty,
                     },
                   },
-                  ctrl.trans.noarg(diff)
-                )
-              )
+                  i18nDifficulty[diff],
+                ),
+              ),
             ),
-          ]
+          ],
         )
       : null,
   ]);
 }
+
+const i18nDifficulty: Record<string, string> = {
+  easiest: i18n('puzzle:easiest'),
+  easier: i18n('puzzle:easier'),
+  normal: i18n('puzzle:normal'),
+  harder: i18n('puzzle:harder'),
+  hardest: i18n('puzzle:hardest'),
+};

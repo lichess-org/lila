@@ -21,10 +21,9 @@ final class Learn(env: Env) extends LilaController(env) {
           .map { progress =>
             Ok(html.learn.index(progress, ctx.pref))
           },
-        api = _ =>
-          ctx.me.fold(BadRequest("Not logged in").fuccess) { me =>
-            env.learn.api.get(me) map { Json.toJson(_) } dmap { JsonOk(_) }
-          }
+        json = ctx.me.fold(BadRequest("Not logged in").fuccess) { me =>
+          env.learn.api.get(me) map { Json.toJson(_) } dmap { JsonOk(_) }
+        }
       )
     }
 

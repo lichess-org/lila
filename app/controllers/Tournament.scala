@@ -55,11 +55,10 @@ final class Tournament(
           pageHit
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson)).noCache
         },
-        api = _ =>
-          for {
-            (visible, _) <- upcomingCache.getUnit
-            scheduleJson <- env.tournament apiJsonView visible
-          } yield Ok(scheduleJson)
+        json = for {
+          (visible, _) <- upcomingCache.getUnit
+          scheduleJson <- env.tournament apiJsonView visible
+        } yield Ok(scheduleJson)
       )
     }
 
@@ -123,32 +122,31 @@ final class Tournament(
               } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)).noCache)
             }
             .monSuccess(_.tournament.apiShowPartial(false, HTTPRequest clientName ctx.req)),
-          api = _ =>
-            tourOption
-              .fold(notFoundJson("No such tournament")) { tour =>
-                get("playerInfo").?? { api.playerInfo(tour, _) } zip
-                  getBool("socketVersion").??(env.tournament version tour.id dmap some) flatMap {
-                    case (playerInfoExt, socketVersion) =>
-                      jsonView(
-                        tour = tour,
-                        page = page,
-                        me = ctx.me,
-                        getUserTeamIds = getUserTeamIds,
-                        getTeamName = env.team.getTeamName,
-                        playerInfoExt = playerInfoExt,
-                        socketVersion = socketVersion,
-                        partial = getBool("partial")
-                      )
-                  } dmap { Ok(_).noCache }
-              }
-              .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
+          json = tourOption
+            .fold(notFoundJson("No such tournament")) { tour =>
+              get("playerInfo").ifTrue(tour.isArena) ?? { api.playerInfo(tour, _) } zip
+                getBool("socketVersion").??(env.tournament version tour.id dmap some) flatMap {
+                  case (playerInfoExt, socketVersion) =>
+                    jsonView(
+                      tour = tour,
+                      page = page,
+                      me = ctx.me,
+                      getUserTeamIds = getUserTeamIds,
+                      getTeamName = env.team.getTeamName,
+                      playerInfoExt = playerInfoExt,
+                      socketVersion = socketVersion,
+                      partial = getBool("partial")
+                    )
+                } dmap { Ok(_).noCache }
+            }
+            .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
         )
       }
     }
 
   def standing(id: String, page: Int) =
     Open { implicit ctx =>
-      OptionFuResult(repo byId id) { tour =>
+      OptionFuResult(repo arenaById id) { tour =>
         JsonOk {
           env.tournament.standingApi(tour, page)
         }
@@ -157,7 +155,7 @@ final class Tournament(
 
   def pageOf(id: String, userId: String) =
     Open { implicit ctx =>
-      OptionFuResult(repo byId id) { tour =>
+      OptionFuResult(repo arenaById id) { tour =>
         api.pageOf(tour, UserModel normalize userId) flatMap {
           _ ?? { page =>
             JsonOk {
@@ -215,11 +213,10 @@ final class Tournament(
               api.joinWithResult(id, me, password, teamId, getUserTeamIds, isLeader) flatMap { result =>
                 negotiate(
                   html = Redirect(routes.Tournament.show(id)).fuccess,
-                  api = _ =>
-                    fuccess {
-                      if (result) jsonOkResult
-                      else BadRequest(Json.obj("joined" -> false))
-                    }
+                  json = fuccess {
+                    if (result) jsonOkResult
+                    else BadRequest(Json.obj("joined" -> false))
+                  }
                 )
               }
             }
@@ -307,7 +304,7 @@ final class Tournament(
                       me,
                       teams,
                       getLeaderTeamIds,
-                      andJoin = setup.realFormat != lila.tournament.Format.Organized
+                      andJoin = setup.realFormat == lila.tournament.Format.Arena
                     ) map { tour =>
                       Redirect {
                         if (tour.isTeamBattle) routes.Tournament.teamBattleEdit(tour.id)
@@ -316,7 +313,7 @@ final class Tournament(
                     }
                   }
               ),
-            api = _ => doApiCreate(me)
+            json = doApiCreate(me)
           )
         }
       }
@@ -401,10 +398,9 @@ final class Tournament(
     Open { implicit ctx =>
       negotiate(
         html = notFound,
-        api = _ =>
-          env.tournament.cached.onHomepage.getUnit.nevermind map {
-            lila.tournament.Spotlight.select(_, ctx.me, 4)
-          } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
+        json = env.tournament.cached.onHomepage.getUnit.nevermind map {
+          lila.tournament.Spotlight.select(_, ctx.me, 4)
+        } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
       )
     }
 

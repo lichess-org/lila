@@ -239,7 +239,7 @@ final class Team(
             if (nb >= TeamModel.maxJoin)
               negotiate(
                 html = BadRequest(views.html.site.message.teamJoinLimit).fuccess,
-                api = _ => BadRequest(jsonError("You have joined too many teams")).fuccess
+                json = BadRequest(jsonError("You have joined too many teams")).fuccess
               )
             else
               negotiate(
@@ -248,7 +248,7 @@ final class Team(
                   case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).flashSuccess.fuccess
                   case _                    => notFound(ctx)
                 },
-                api = _ => {
+                json = {
                   implicit val body = ctx.body
                   forms.apiRequest
                     .bindFromRequest()
@@ -357,7 +357,7 @@ final class Team(
           OptionFuResult(api.cancelRequest(id, me) orElse api.quit(id, me)) { team =>
             negotiate(
               html = Redirect(routes.Team.show(team.id)).flashSuccess.fuccess,
-              api = _ => jsonOkResult.fuccess
+              json = jsonOkResult.fuccess
             )
           }(ctx),
       scoped = _ =>

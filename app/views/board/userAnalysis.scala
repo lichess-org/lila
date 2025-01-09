@@ -5,8 +5,6 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
-import views.html.base.layout.{ bits => layout }
 
 import controllers.routes
 
@@ -19,18 +17,18 @@ object userAnalysis {
         cssTag("analyse.free"),
         withForecast option cssTag("analyse.forecast"),
         ctx.blind option cssTag("round.nvui"),
-        pov.game.variant.chushogi option layout.chuPieceSprite,
-        pov.game.variant.kyotoshogi option layout.kyoPieceSprite
+        pov.game.variant.chushogi option chuPieceSprite,
+        pov.game.variant.kyotoshogi option kyoPieceSprite
       ),
       moreJs = frag(
-        analyseTag,
-        analyseNvuiTag,
-        embedJsUnsafe(s"""lishogi=lishogi||{};lishogi.user_analysis=${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "i18n" -> userAnalysisI18n(withForecast = withForecast, withNvui = ctx.blind)
-            )
-          )}""")
+        ctx.blind option analyseNvuiTag,
+        moduleJsTag(
+          "analyse",
+          Json.obj(
+            "mode" -> "analyse",
+            "data" -> data
+          )
+        )
       ),
       csp = defaultCsp.withWebAssembly.some,
       shogiground = false,

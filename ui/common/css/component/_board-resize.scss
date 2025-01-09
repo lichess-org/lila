@@ -34,11 +34,11 @@ sg-resize {
     }
     &:hover {
       border-radius: 50%;
-      background: fade-out($c-accent, 0.5);
+      background: $m-accent_alpha_neg50;
     }
     .resizing & {
       border-radius: 50%;
-      background: fade-out($c-secondary, 0.5);
+      background: $m-secondary_alpha_neg50;
     }
   }
 }

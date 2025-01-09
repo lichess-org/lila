@@ -56,28 +56,27 @@ final class Search(env: Env) extends LilaController(env) {
                           InternalServerError("Sorry, we can't process that query at the moment")
                         }
                     ),
-                  api = _ =>
-                    searchForm
-                      .bindFromRequest()
-                      .fold(
-                        _ =>
-                          Ok {
-                            jsonError("Could not process search query")
-                          }.fuccess,
-                        data =>
-                          data.nonEmptyQuery ?? { query =>
-                            env.gameSearch.paginator(query, page) dmap some
-                          } flatMap {
-                            case Some(s) =>
-                              env.api.userGameApi.jsPaginator(s) dmap {
-                                Ok(_)
-                              }
-                            case None =>
-                              BadRequest(jsonError("Could not process search query")).fuccess
-                          } recover { _ =>
-                            InternalServerError(jsonError("Sorry, we can't process that query at the moment"))
-                          }
-                      )
+                  json = searchForm
+                    .bindFromRequest()
+                    .fold(
+                      _ =>
+                        Ok {
+                          jsonError("Could not process search query")
+                        }.fuccess,
+                      data =>
+                        data.nonEmptyQuery ?? { query =>
+                          env.gameSearch.paginator(query, page) dmap some
+                        } flatMap {
+                          case Some(s) =>
+                            env.api.userGameApi.jsPaginator(s) dmap {
+                              Ok(_)
+                            }
+                          case None =>
+                            BadRequest(jsonError("Could not process search query")).fuccess
+                        } recover { _ =>
+                          InternalServerError(jsonError("Sorry, we can't process that query at the moment"))
+                        }
+                    )
                 )
               }
             }(rateLimitedFu)

@@ -29,16 +29,15 @@ final class Relation(
             else
               html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable)
           }),
-          api = _ =>
-            fuccess(
-              Ok(
-                Json.obj(
-                  "followable" -> followable,
-                  "following"  -> relation.contains(true),
-                  "blocking"   -> relation.contains(false)
-                )
+          json = fuccess(
+            Ok(
+              Json.obj(
+                "followable" -> followable,
+                "following"  -> relation.contains(true),
+                "blocking"   -> relation.contains(false)
               )
             )
+          )
         )
       }
 
@@ -81,7 +80,7 @@ final class Relation(
               html = api countFollowers user.id map { nbFollowers =>
                 Ok(html.relation.bits.following(user, pag, nbFollowers))
               },
-              api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
+              json = Ok(jsonRelatedPaginator(pag)).fuccess
             )
           }
         }
@@ -97,7 +96,7 @@ final class Relation(
               html = api countFollowing user.id map { nbFollowing =>
                 Ok(html.relation.bits.followers(user, pag, nbFollowing))
               },
-              api = _ => Ok(jsonRelatedPaginator(pag)).fuccess
+              json = Ok(jsonRelatedPaginator(pag)).fuccess
             )
           }
         }

@@ -37,42 +37,28 @@ final class Setup(
     key = "setup.post.bot.ai"
   )
 
-  def aiForm =
-    Open { implicit ctx =>
-      if (HTTPRequest isXhr ctx.req) {
-        fuccess(
-          forms.aiFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))
-        ) map { form =>
-          val variant = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard
-          html.setup.forms.ai(
-            form,
-            form("sfen").value map Sfen.clean flatMap ValidSfen(getBool("strict"), variant)
-          )
-        }
-      } else Redirect(s"${routes.Lobby.home}#ai").fuccess
-    }
-
   def ai = OpenBody { implicit ctx =>
     BotAiRateLimit(~ctx.userId, cost = ctx.me.exists(_.isBot) ?? 1) {
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         implicit val req = ctx.body
-        forms.ai
+        forms
+          .ai(ctx)
           .bindFromRequest()
           .fold(
             err =>
               negotiate(
                 html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
+                json = jsonFormError(err)
               ),
             config =>
               processor.ai(config)(ctx) flatMap { pov =>
                 negotiate(
                   html = fuccess(redirectPov(pov)),
-                  api = apiVersion =>
+                  json =
                     if (getBool("redirect"))
                       fuccess(Ok(redirectPovJson(pov)))
                     else
-                      env.api.roundApi.player(pov, none, apiVersion) map { data =>
+                      env.api.roundApi.player(pov, none) map { data =>
                         Created(data) as JSON
                       }
                 )
@@ -90,29 +76,6 @@ final class Setup(
       )
       .add("cookie" -> lila.game.AnonCookie.json(pov))
 
-  def friendForm(userId: Option[String]) =
-    Open { implicit ctx =>
-      if (HTTPRequest isXhr ctx.req)
-        fuccess(
-          forms.friendFilled(get("sfen").map(Sfen.clean), get("variant").flatMap(shogi.variant.Variant.apply))
-        ) flatMap { form =>
-          val variant   = form("variant").value.flatMap(shogi.variant.Variant.apply) | shogi.variant.Standard
-          val validSfen = form("sfen").value map Sfen.clean flatMap ValidSfen(false, variant)
-          userId ?? env.user.repo.named flatMap {
-            case None => Ok(html.setup.forms.friend(form, none, none, validSfen)).fuccess
-            case Some(user) =>
-              env.challenge.granter(ctx.me, user, none) map {
-                case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
-                case None         => Ok(html.setup.forms.friend(form, user.some, none, validSfen))
-              }
-          }
-        }
-      else
-        fuccess {
-          Redirect(s"${routes.Lobby.home}#friend")
-        }
-    }
-
   def friend(userId: Option[String]) =
     OpenBody { implicit ctx =>
       implicit val req = ctx.body
@@ -124,7 +87,7 @@ final class Setup(
             err =>
               negotiate(
                 html = keyPages.home(Results.BadRequest),
-                api = _ => jsonFormError(err)
+                json = jsonFormError(err)
               ),
             config =>
               userId ?? env.user.repo.enabledById flatMap { destUser =>
@@ -133,7 +96,7 @@ final class Setup(
                     val message = lila.challenge.ChallengeDenied.translated(denied)
                     negotiate(
                       html = BadRequest(html.site.message.challengeDenied(message)).fuccess,
-                      api = _ => BadRequest(jsonError(message)).fuccess
+                      json = BadRequest(jsonError(message)).fuccess
                     )
                   case None =>
                     import lila.challenge.Challenge._
@@ -160,31 +123,18 @@ final class Setup(
                       case true =>
                         negotiate(
                           html = fuccess(Redirect(routes.Round.watcher(challenge.id, "sente"))),
-                          api = _ => challengeC showChallenge challenge
+                          json = challengeC showChallenge challenge
                         )
                       case false =>
                         negotiate(
                           html = fuccess(Redirect(routes.Lobby.home)),
-                          api = _ => fuccess(BadRequest(jsonError("Challenge not created")))
+                          json = fuccess(BadRequest(jsonError("Challenge not created")))
                         )
                     }
                 }
               }
           )
       }(rateLimitedFu)
-    }
-
-  def hookForm =
-    Open { implicit ctx =>
-      NoBot {
-        if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-          fuccess(forms.hookFilled(timeModeString = get("time"))) map { html.setup.forms.hook(_) }
-        }
-        else
-          fuccess {
-            Redirect(s"${routes.Lobby.home}#hook")
-          }
-      }
     }
 
   private def hookResponse(res: HookResult) =

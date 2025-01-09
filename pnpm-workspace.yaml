@@ -1,0 +1,18 @@
+packages:
+  - 'ui/**/*'
+  - 'bin/'
+
+catalog:
+  shogiground: ^0.10.1
+  shogiops: ^0.18.0
+  snabbdom: ^3.5.1
+  '@badrap/result': ^0.2
+  'chart.js': ^4.4
+  '@types/node': ^20
+  tsx: ^4
+  '@textcomplete/core': '^0.1.13'
+  '@textcomplete/textarea': '^0.1.13'
+  '@yaireo/tagify': '^4.32'
+  '@types/yaireo__tagify': '^4.27'
+  'debounce-promise': '^3.1'
+  '@types/debounce-promise': '^3.1'

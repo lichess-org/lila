@@ -1,6 +1,7 @@
 import { defined } from 'common/common';
 import { VNode, h } from 'snabbdom';
 import { Redraw } from './util';
+import { i18n } from 'i18n';
 
 export interface PingData {
   ping: number | undefined;
@@ -9,10 +10,9 @@ export interface PingData {
 
 export interface PingCtrl {
   data: PingData;
-  trans: Trans;
 }
 
-export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
+export function ctrl(redraw: Redraw): PingCtrl {
   const data: PingData = {
     ping: undefined,
     server: undefined,
@@ -30,7 +30,7 @@ export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
     redraw();
   });
 
-  return { data, trans };
+  return { data };
 }
 
 function signalBars(d: PingData) {
@@ -53,7 +53,7 @@ export function view(ctrl: PingCtrl): VNode {
       'span.ping',
       {
         attrs: {
-          title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLishogi'),
+          title: 'PING: ' + i18n('networkLagBetweenYouAndLishogi'),
         },
       },
       [h('em', 'PING'), h('strong', defined(d.ping) ? '' + d.ping : '?'), h('em', 'ms')]
@@ -62,7 +62,7 @@ export function view(ctrl: PingCtrl): VNode {
       'span.server',
       {
         attrs: {
-          title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLishogiServer'),
+          title: 'SERVER: ' + i18n('timeToProcessAMoveOnLishogiServer'),
         },
       },
       [h('em', 'SERVER'), h('strong', defined(d.server) ? showMillis(d.server) : ['?']), h('em', 'ms')]

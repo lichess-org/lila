@@ -44,7 +44,7 @@ final class I18n(env: Env) extends LilaController(env) {
                 if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
                 else redir
               }.fuccess,
-              api = _ => Ok(Json.obj("lang" -> lang.code)).fuccess
+              json = Ok(Json.obj("lang" -> lang.code)).fuccess
             )
           }
         )

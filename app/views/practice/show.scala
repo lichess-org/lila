@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 object show {
 
@@ -18,16 +17,16 @@ object show {
       title = us.practiceStudy.name,
       moreCss = cssTag("analyse.practice"),
       moreJs = frag(
-        analyseTag,
-        analyseNvuiTag,
-        embedJsUnsafe(s"""lishogi=window.lishogi||{};lishogi.practice=${safeJsonValue(
-            Json.obj(
-              "practice" -> data.practice,
-              "study"    -> data.study,
-              "data"     -> data.analysis,
-              "i18n"     -> board.userAnalysisI18n()
-            )
-          )}""")
+        ctx.blind option analyseNvuiTag,
+        moduleJsTag(
+          "analyse",
+          Json.obj(
+            "mode"     -> "practice",
+            "practice" -> data.practice,
+            "study"    -> data.study,
+            "data"     -> data.analysis
+          )
+        )
       ),
       csp = defaultCsp.withWebAssembly.some,
       shogiground = false,

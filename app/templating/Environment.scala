@@ -41,8 +41,6 @@ object Environment
   def isProd         = env.isProd
   def isStage        = env.isStage
 
-  def apiVersion = lila.api.Mobile.Api.currentVersion
-
   lazy val insightsEndpoint = env.insightsEndpoint
   lazy val insightsSecret   = env.insightsSecret
 

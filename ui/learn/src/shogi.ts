@@ -1,5 +1,5 @@
 import { DropDests, MoveDests } from 'shogiground/types';
-import { SquareSet } from 'shogiops/squareSet';
+import { SquareSet } from 'shogiops/square-set';
 import { NormalMove, PieceName, Square } from 'shogiops/types';
 import { makeSquareName, makeUsi, opposite } from 'shogiops/util';
 import { Position } from 'shogiops/variant/position';
@@ -39,7 +39,8 @@ export function illegalShogigroundDropDests(pos: Position): DropDests {
     const pieceName: PieceName = `${pos.turn} ${role}`;
     if (pos.hands.color(pos.turn).get(role) > 0) {
       let squares = notOccuppied;
-      if (role === 'pawn' || role === 'lance' || role === 'knight') squares = squares.diff(backrank(pos.turn));
+      if (role === 'pawn' || role === 'lance' || role === 'knight')
+        squares = squares.diff(backrank(pos.turn));
       if (role === 'knight') squares = squares.diff(secondBackrank(pos.turn));
       const d: Key[] = Array.from(squares, s => makeSquareName(s));
       result.set(pieceName, d);
@@ -55,7 +56,8 @@ export function findRandomMove(pos: Position): Usi | undefined {
     dests: Square[] = Array.from(moveDests.get(randomOrig)!),
     randomDest: Square | undefined = dests[Math.floor(Math.random() * dests.length)];
 
-  if (randomOrig !== undefined && randomDest !== undefined) return makeUsi({ from: randomOrig, to: randomDest });
+  if (randomOrig !== undefined && randomDest !== undefined)
+    return makeUsi({ from: randomOrig, to: randomDest });
   return;
 }
 

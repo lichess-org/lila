@@ -1,28 +1,29 @@
 {
   "name": "ceval",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org local computer analysis",
-  "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
-  "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
-  "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
-  },
-  "devDependencies": {
-    "@types/jquery": "^2.0",
-    "@types/lishogi": "2.0.0",
-    "typescript": "^5"
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js"
+    }
   },
   "dependencies": {
-    "@badrap/result": "^0.2",
-    "common": "2.0.0",
+    "@badrap/result": "catalog:",
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "shogi": "workspace:*",
     "idb-keyval": "^6.2",
-    "shogiops": "^0.17.0",
-    "snabbdom": "^3.5.1"
+    "shogiops": "catalog:",
+    "shogiground": "catalog:",
+    "snabbdom": "catalog:"
+  },
+  "scripts": {
+    "clean": "del dist",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true
   }
 }

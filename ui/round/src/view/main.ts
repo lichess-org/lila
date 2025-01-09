@@ -3,9 +3,10 @@ import { VNode, h } from 'snabbdom';
 import RoundController from '../ctrl';
 import * as shogiground from '../ground';
 import * as keyboard from '../keyboard';
-import { render as keyboardMove } from 'keyboardMove';
+import { render as keyboardMove } from 'keyboard-move';
 import * as util from '../util';
 import { renderTable } from './table';
+import { hasTouchEvents } from 'common/mobile';
 
 export function main(ctrl: RoundController): VNode {
   const d = ctrl.data;
@@ -24,7 +25,7 @@ export function main(ctrl: RoundController): VNode {
               (ctrl.data.pref.blindfold ? '.blindfold' : ''),
             {
               hook:
-                window.lishogi.hasTouchEvents || window.lishogi.storage.get('scrollMoves') == '0'
+                hasTouchEvents || window.lishogi.storage.get('scrollMoves') == '0'
                   ? undefined
                   : util.bind(
                       'wheel',

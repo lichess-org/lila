@@ -101,17 +101,15 @@ final class JsonView(
   private def variantJson(speed: shogi.Speed)(v: shogi.variant.Variant) =
     Json.obj(
       "key"  -> v.key,
-      "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString),
-      "name" -> v.name
+      "icon" -> lila.game.PerfPicker.perfType(speed, v, none).map(_.iconChar.toString)
     )
 
   private def playerJson(player: SimulPlayer): Fu[JsObject] =
     getLightUser(player.user) map { light =>
       Json
         .obj(
-          "id"      -> player.user,
-          "variant" -> player.variant.key,
-          "rating"  -> player.rating
+          "id"     -> player.user,
+          "rating" -> player.rating
         )
         .add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
@@ -128,25 +126,26 @@ final class JsonView(
     }
 
   private def gameJson(hostId: User.ID, g: Game) =
-    Json.obj(
-      "id"       -> g.id,
-      "status"   -> g.status.id,
-      "variant"  -> g.variant.key,
-      "sfen"     -> g.situation.toSfen,
-      "lastMove" -> ~g.lastUsiStr,
-      "orient"   -> g.playerByUserId(hostId).map(_.color)
-    )
+    Json
+      .obj(
+        "id"       -> g.id,
+        "status"   -> g.status.id,
+        "variant"  -> g.variant.key,
+        "sfen"     -> g.situation.toSfen,
+        "lastMove" -> ~g.lastUsiStr,
+        "orient"   -> g.playerByUserId(hostId).map(_.color)
+      )
+      .add("winner" -> g.winnerColor.map(_.name))
+      .add("played" -> g.isBeingPlayed)
 
   private def pairingJson(games: List[Game], hostId: String)(p: SimulPairing): Fu[Option[JsObject]] =
     games.find(_.id == p.gameId) ?? { game =>
       playerJson(p.player) map { player =>
         Json
           .obj(
-            "player"      -> player,
-            "hostColor"   -> p.hostColor,
-            "winnerColor" -> p.winnerColor,
-            "wins"        -> p.wins, // can't be normalized because BC
-            "game"        -> gameJson(hostId, game)
+            "player"    -> player,
+            "hostColor" -> p.hostColor,
+            "game"      -> gameJson(hostId, game)
           )
           .some
       }

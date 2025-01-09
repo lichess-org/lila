@@ -1,0 +1,22 @@
+{
+  "name": "chart",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "ceval": "workspace:*",
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "chart.js": "^4",
+    "chartjs-plugin-datalabels": "^2",
+    "@juggle/resize-observer": "^3.4.0",
+    "chartjs-adapter-dayjs-4": "^1.0.4",
+    "chartjs-plugin-zoom": "^2.2.0",
+    "dayjs": "^1.11.13",
+    "nouislider": "^15.8.1"
+  },
+  "scripts": {},
+  "lishogi": {
+    "bundle": true
+  }
+}

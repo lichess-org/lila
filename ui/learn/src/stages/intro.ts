@@ -2,17 +2,18 @@ import { SquareHighlight } from 'shogiground/draw';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
 import { arrow, initial } from '../shapes';
+import { i18n } from 'i18n';
 
 const levels: IncompleteLevel[] = [
   {
-    goal: 'choosePieceDesign',
+    goal: i18n('learn:choosePieceDesign'),
     sfen: '9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -',
     nbMoves: 1,
     success: () => true,
-    text: 'clickHereAfterYouveChosen',
+    text: i18n('learn:clickHereAfterYouveChosen'),
   },
   {
-    goal: 'promotionZone',
+    goal: i18n('learn:promotionZone'),
     sfen: '9/9/9/4P4/9/9/9/9/9 b -',
     nbMoves: 1,
     success: () => true,
@@ -51,7 +52,7 @@ const levels: IncompleteLevel[] = [
       }),
   },
   {
-    goal: 'senteGoesFirst',
+    goal: i18n('learn:senteGoesFirst'),
     sfen: '9/9/9/9/9/9/PPPPPPPPP/1B5R1/LNSGKGSNL b -',
     nbMoves: 1,
     success: () => true,
@@ -60,10 +61,10 @@ const levels: IncompleteLevel[] = [
 
 const stage: IncompleteStage = {
   key: 'introduction',
-  title: 'theIntroduction',
-  subtitle: 'introBasics',
-  intro: 'introIntro',
+  title: i18n('learn:theIntroduction'),
+  subtitle: i18n('learn:introBasics'),
+  intro: i18n('learn:introIntro'),
   levels: levels.map((l, i) => createLevel(l, i)),
-  complete: 'introCompleteTwo',
+  complete: i18n('learn:introCompleteTwo'),
 };
 export default stage;

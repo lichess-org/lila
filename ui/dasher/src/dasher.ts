@@ -1,6 +1,6 @@
 import { Prop, prop } from 'common/common';
 import { BackgroundCtrl, BackgroundData, ctrl as backgroundCtrl } from './background';
-import { CustomThemeCtrl, CustomThemeData, ctrl as customThemeCtrl } from './customTheme';
+import { CustomThemeCtrl, CustomThemeData, ctrl as customThemeCtrl } from './custom-theme';
 import { LangsCtrl, LangsData, ctrl as langsCtrl } from './langs';
 import { NotationCtrl, NotationData, ctrl as notationCtrl } from './notation';
 import { PieceCtrl, PieceSetData, ctrl as pieceCtrl } from './piece';
@@ -43,7 +43,6 @@ export interface DasherCtrl {
   mode: Prop<Mode>;
   setMode(m: Mode): void;
   data: DasherData;
-  trans: Trans;
   ping: PingCtrl;
   subs: {
     langs: LangsCtrl;
@@ -62,8 +61,6 @@ export interface DasherOpts {
 }
 
 export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): DasherCtrl {
-  const trans = window.lishogi.trans(data.i18n);
-
   let mode: Prop<Mode> = prop(defaultMode as Mode);
 
   function setMode(m: Mode) {
@@ -74,16 +71,16 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     setMode(defaultMode);
   }
 
-  const ping = pingCtrl(trans, redraw);
+  const ping = pingCtrl(redraw);
 
   const subs = {
-    langs: langsCtrl(data.lang, trans, close),
-    sound: soundCtrl(data.sound, trans, redraw, close),
-    background: backgroundCtrl(data.background, trans, redraw, close),
-    theme: themeCtrl(data.theme, trans, redraw, setMode),
-    customTheme: customThemeCtrl(data.customTheme, trans, redraw, setMode),
-    notation: notationCtrl(data.notation, trans, redraw, close),
-    piece: pieceCtrl(data.piece, data.chuPiece, data.kyoPiece, trans, redraw, close),
+    langs: langsCtrl(data.lang, close),
+    sound: soundCtrl(data.sound, redraw, close),
+    background: backgroundCtrl(data.background, redraw, close),
+    theme: themeCtrl(data.theme, redraw, setMode),
+    customTheme: customThemeCtrl(data.customTheme, redraw, setMode),
+    notation: notationCtrl(data.notation, redraw, close),
+    piece: pieceCtrl(data.piece, data.chuPiece, data.kyoPiece, redraw, close),
   };
 
   window.lishogi.pubsub.on('top.toggle.user_tag', () => setMode(defaultMode));
@@ -92,7 +89,6 @@ export function makeCtrl(opts: DasherOpts, data: DasherData, redraw: Redraw): Da
     mode,
     setMode,
     data,
-    trans,
     ping,
     subs,
     opts,

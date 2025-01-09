@@ -1,0 +1,23 @@
+{
+  "name": "team",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "chat": "workspace:*",
+    "snabbdom": "catalog:",
+    "@yaireo/tagify": "catalog:",
+    "debounce-promise": "catalog:"
+  },
+  "devDependencies": {
+    "@types/yaireo__tagify": "catalog:"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
+  }
+}

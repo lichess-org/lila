@@ -6,6 +6,11 @@
 
 .simul {
   display: grid;
+  grid-template-areas:
+    'main'
+    'side'
+    'uchat';
+  grid-gap: $block-gap;
 
   &__side {
     grid-area: side;
@@ -23,13 +28,6 @@
   .chat__members {
     grid-area: uchat;
   }
-
-  grid-template-areas:
-    'main'
-    'side'
-    'uchat';
-
-  grid-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
     min-width: 600px;

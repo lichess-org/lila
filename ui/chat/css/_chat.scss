@@ -9,6 +9,7 @@
   @extend %box-neat-force, %flex-column;
   grid-area: chat;
   justify-content: stretch;
+  min-height: 15em;
   &__content {
     @extend %flex-column;
     background: $c-bg-box;
@@ -24,5 +25,4 @@
       resize: none;
     }
   }
-  min-height: 15em;
 }

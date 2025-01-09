@@ -17,6 +17,11 @@
   grid-area: main;
   display: grid;
   grid-gap: $block-gap;
+  grid-template-areas:
+    'app'
+    'under'
+    'side'
+    'uchat';
 
   &__app {
     grid-area: app;
@@ -32,12 +37,6 @@
     @extend %zen;
     grid-area: uchat;
   }
-
-  grid-template-areas:
-    'app'
-    'under'
-    'side'
-    'uchat';
 
   @include breakpoint($mq-col2) {
     grid-template-columns: 1fr $col2-uniboard-table;

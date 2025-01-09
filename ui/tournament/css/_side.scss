@@ -60,7 +60,7 @@
   .tour__prize {
     @extend %box-radius;
     padding: 1em;
-    background: mix($c-fancy, $c-bg-box, 15%);
+    background: $m-fancy_bg-box_mix_15;
     margin-bottom: 1em;
     font-size: 0.9em;
   }

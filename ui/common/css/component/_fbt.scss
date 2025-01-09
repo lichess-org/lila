@@ -5,7 +5,7 @@
   @include transition();
   @media (hover: hover) {
     &:hover:not(.disabled):not([disabled]) {
-      background: mix($c-secondary, $c-bg-box, 75%);
+      background: $m-secondary_bg-box_mix_75;
       color: #fff;
     }
   }

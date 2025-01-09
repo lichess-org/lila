@@ -20,7 +20,7 @@
       border-left: 2px solid $c-border;
       border-bottom: 1px solid $c-border;
       transform: skew(45deg) rotate(-45deg);
-      @if $theme == 'transp' {
+      @include theme-wrap('transp') {
         display: none;
       }
     }

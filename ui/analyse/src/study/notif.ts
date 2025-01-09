@@ -11,7 +11,7 @@ export interface NotifCtrl {
   get(): Notif | undefined;
 }
 
-export function ctrl(redraw: () => void) {
+export function ctrl(redraw: () => void): NotifCtrl {
   let current: Notif | undefined;
   let timeout: number;
   return {

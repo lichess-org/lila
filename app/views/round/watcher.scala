@@ -6,7 +6,6 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
 object watcher {
@@ -38,16 +37,14 @@ object watcher {
       variant = pov.game.variant,
       title = gameVsText(pov.game, withRatings = true),
       moreJs = frag(
-        roundNvuiTag,
-        roundTag,
-        embedJsUnsafe(s"""lishogi=window.lishogi||{};customWS=true;onload=function(){
-LishogiRound.boot(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "i18n" -> jsI18n(pov.game),
-              "chat" -> chatJson
-            )
-          )})}""")
+        ctx.blind option roundNvuiTag,
+        moduleJsTag(
+          "round",
+          Json.obj(
+            "data" -> data,
+            "chat" -> chatJson
+          )
+        )
       ),
       openGraph = povOpenGraph(pov).some,
       shogiground = false

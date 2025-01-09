@@ -1,10 +1,13 @@
 import * as game from 'game';
 import { VNode, h } from 'snabbdom';
 import { defined } from 'common/common';
-import { engineNameFromCode } from 'common/engineName';
+import { engineNameFromCode } from 'shogi/engine-name';
 import AnalyseCtrl from './ctrl';
 
-export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VNode, VNode] | undefined {
+export default function renderClocks(
+  ctrl: AnalyseCtrl,
+  withNames: boolean
+): [VNode, VNode] | undefined {
   if (ctrl.embed || (ctrl.data.game.status.name === 'started' && !ctrl.imported)) return;
   const node = ctrl.node,
     clock = node.clock,
@@ -32,8 +35,24 @@ export default function renderClocks(ctrl: AnalyseCtrl, withNames: boolean): [VN
   const showTenths = true; // let's see
 
   return [
-    renderClock('sente', centis[0], sentePlayer, isSenteTurn, sentePov ? 'bottom' : 'top', showTenths, showNames),
-    renderClock('gote', centis[1], gotePlayer, !isSenteTurn, sentePov ? 'top' : 'bottom', showTenths, showNames),
+    renderClock(
+      'sente',
+      centis[0],
+      sentePlayer,
+      isSenteTurn,
+      sentePov ? 'bottom' : 'top',
+      showTenths,
+      showNames
+    ),
+    renderClock(
+      'gote',
+      centis[1],
+      gotePlayer,
+      !isSenteTurn,
+      sentePov ? 'top' : 'bottom',
+      showTenths,
+      showNames
+    ),
   ];
 }
 
@@ -51,7 +70,10 @@ function renderClock(
     {
       class: { active },
     },
-    [showNames ? playerName(color, player) : undefined, h('div.time', clockContent(centis, showTenths))]
+    [
+      showNames ? playerName(color, player) : undefined,
+      h('div.time', clockContent(centis, showTenths)),
+    ]
   );
 }
 
@@ -62,7 +84,9 @@ function clockContent(centis: number | undefined, showTenths: boolean): Array<st
     sep = ':',
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
   if (!showTenths || centis >= 360000) return [Math.floor(centis / 360000) + sep + baseStr];
-  return centis >= 6000 ? [baseStr] : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
+  return centis >= 6000
+    ? [baseStr]
+    : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
 }
 
 export function renderTime(centis: number, forceHours: boolean): string {

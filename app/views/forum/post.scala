@@ -72,7 +72,7 @@ object post {
         ),
         a(cls := "anchor", href := url)(s"#${post.number}")
       ),
-      p(cls := "forum-post__message")(
+      p(cls := "forum-post__message expand-text")(
         if (post.erased) "<erased>"
         else richText(post.text)
       ),

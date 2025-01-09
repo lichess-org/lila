@@ -6,7 +6,6 @@ import play.api.libs.json.{ JsObject, Json }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 object show {
 
@@ -26,18 +25,17 @@ object show {
       title = trans.puzzles.txt(),
       moreCss = cssTag("puzzle"),
       moreJs = frag(
-        jsModule("puzzle", true),
-        embedJsUnsafe(s"""$$(function() {
-          LishogiPuzzle(${safeJsonValue(
-            Json
-              .obj(
-                "data" -> data,
-                "pref" -> pref,
-                "i18n" -> bits.jsI18n
-              )
-              .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
-              .add("difficulty" -> difficulty.map(_.key))
-          )})})""")
+        translationJsTag("puzzle"),
+        moduleJsTag(
+          "puzzle",
+          Json
+            .obj(
+              "data" -> data,
+              "pref" -> pref
+            )
+            .add("themes" -> ctx.isAuth.option(bits.jsonThemes))
+            .add("difficulty" -> difficulty.map(_.key))
+        )
       ),
       csp = defaultCsp.withWebAssembly.some,
       shogiground = false,

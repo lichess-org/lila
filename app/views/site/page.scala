@@ -12,7 +12,7 @@ object page {
       withHrefLangs: Option[lila.i18n.LangList.AlternativeLangs] = None
   )(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = cssTag("page"),
+      moreCss = cssTag("misc.page"),
       title = ~doc.getText("doc.title"),
       withHrefLangs = withHrefLangs
     ) {

@@ -117,13 +117,11 @@
       background-repeat: no-repeat;
       background-size: 90%;
       filter: grayscale(1);
-      &.pointer {
-        $sel-fill-pointer: #{str-slice('' + ie-hex-str($c-good), 4, 9)};
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='height: 512px; width: 512px;'%3E%3Cg class='' transform='translate(0,0)' style=''%3E%3Cpath d='M459.15 269.75a133.197 133.197 0 0 1-55.862 179.975l-42.782 22.541-10.52 5.533a71.277 71.277 0 0 1-62.966 1.685l-167.077-71.38 15.733-46.676 99.363 19.194-51.458-97.78-82.843-157.411 40.357-21.232 82.844 157.457 19.934-10.485-36.521-69.445 40.335-21.22 36.52 69.445 19.935-10.485-28.2-53.598 40.358-21.232 28.2 53.598 19.945-10.576-19.354-36.886 40.346-21.174 19.354 36.885 54.348 103.301zM73.268 146.674a60.03 60.03 0 0 1 42.361-102.459 60.098 60.098 0 0 1 56.58 80.169l10.588 20.013A78.29 78.29 0 0 0 115.708 26a78.233 78.233 0 0 0-5.635 156.262L99.428 162.02a59.688 59.688 0 0 1-26.16-15.346z' fill='%23#{$sel-fill-pointer}' fill-opacity='1'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+      &.pointer svg {
+        fill: $c-good;
       }
-      &.trash {
-        $sel-fill-trash: #{str-slice('' + ie-hex-str($c-bad), 4, 9)};
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='height:512px;width:512px' viewBox='0 0 512 512'%3E%3Cpath fill-opacity='.01' d='M0 0h512v512H0z'/%3E%3Cpath d='M199 103v50h-78v30h270v-30h-78v-50H199zm18 18h78v32h-78v-32zm-79.002 80 30.106 286h175.794l30.104-286H137.998zm62.338 13.38.64 8.98 16 224 .643 8.976-17.956 1.283-.64-8.98-16-224-.643-8.976 17.956-1.283zm111.328 0 17.955 1.284-.643 8.977-16 224-.64 8.98-17.956-1.284.643-8.977 16-224 .64-8.98zM247 215h18v242h-18V215z' fill='%23#{$sel-fill-trash}'/%3E%3C/svg%3E");
+      &.trash svg {
+        fill: $c-bad;
       }
     }
   }

@@ -3,6 +3,7 @@ import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
+import { loadCssPath } from 'common/assets';
 
 const preventing = (f: () => void) => (e: MouseEvent) => {
   e.preventDefault();
@@ -10,8 +11,8 @@ const preventing = (f: () => void) => (e: MouseEvent) => {
 };
 
 export function bind(ctrl: AnalyseCtrl): void {
-  if (!window.Mousetrap) return;
-  const kbd = window.Mousetrap;
+  if (!window.lishogi.mousetrap) return;
+  const kbd = window.lishogi.mousetrap;
   kbd.bind(
     ['left', 'j'],
     preventing(() => {
@@ -115,7 +116,7 @@ export function bind(ctrl: AnalyseCtrl): void {
         key,
         preventing(() => {
           $(selector).each(function (this: HTMLElement) {
-            window.lishogi.dispatchEvent(this, 'mousedown');
+            this.dispatchEvent(new Event('mousedown'));
           });
         })
       );
@@ -129,7 +130,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
   return modal({
     class: 'study__modal.keyboard-help',
     onInsert(el: HTMLElement) {
-      window.lishogi.loadCssPath('analyse.keyboard');
+      loadCssPath('analyse.keyboard');
       $(el)
         .find('.scrollable')
         .load('/analysis/help?study=' + (ctrl.study ? 1 : 0));

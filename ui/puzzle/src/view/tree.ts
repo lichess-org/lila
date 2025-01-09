@@ -1,11 +1,12 @@
 import { renderEval as normalizeEval } from 'ceval';
 import { defined } from 'common/common';
-import { notationsWithColor } from 'common/notation';
+import { notationsWithColor } from 'shogi/notation';
 import { MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 import throttle from 'common/throttle';
 import { Classes, VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
 import { Controller } from '../interfaces';
+import { i18n } from 'i18n';
 
 interface Ctx {
   ctrl: Controller;
@@ -22,8 +23,8 @@ interface Glyph {
 }
 
 const autoScroll = throttle(150, (ctrl: Controller, el) => {
-  var cont = el.parentNode;
-  var target = el.querySelector('.active');
+  const cont = el.parentNode,
+    target = el.querySelector('.active');
   if (!target) {
     cont.scrollTop = ctrl.vm.path === treePath.root ? 0 : 99999;
     return;
@@ -64,7 +65,7 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): MaybeVNo
         renderLines(ctx, cs.slice(1), {
           parentPath: opts.parentPath,
           isMainline: true,
-        })
+        }),
       ),
       ...mainChildren,
     ];
@@ -84,14 +85,16 @@ function renderLines(ctx: Ctx, nodes: Tree.Node[], opts: RenderOpts): VNode {
         renderMoveAndChildrenOf(ctx, n, {
           parentPath: opts.parentPath,
           isMainline: false,
-        })
+        }),
       );
-    })
+    }),
   );
 }
 
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
-  return opts.isMainline ? renderMainlineMoveOf(ctx, node, opts) : renderVariationMoveOf(ctx, node, opts);
+  return opts.isMainline
+    ? renderMainlineMoveOf(ctx, node, opts)
+    : renderVariationMoveOf(ctx, node, opts);
 }
 
 function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNode {
@@ -108,31 +111,34 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNod
       attrs: { p: path },
       class: classes,
     },
-    renderMove(ctx, node)
+    renderMove(node),
   );
 }
 
 function renderGlyph(glyph: Glyph): VNode {
   return h(
-    'glyph',
-    {
-      attrs: { title: glyph.name },
-    },
-    glyph.symbol
+    'span.glyphs',
+    h(
+      'glyph',
+      {
+        attrs: { title: glyph.name },
+      },
+      glyph.symbol,
+    ),
   );
 }
 
-function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
+function puzzleGlyph(node: Tree.Node): MaybeVNode {
   switch (node.puzzle) {
     case 'good':
     case 'win':
       return renderGlyph({
-        name: ctx.ctrl.trans.noarg('bestMove'),
-        symbol: 'O',
+        name: i18n('bestMove'),
+        symbol: 'O', // todo
       });
     case 'fail':
       return renderGlyph({
-        name: ctx.ctrl.trans.noarg('mistake'),
+        name: i18n('mistake'),
         symbol: '✗',
       });
     default:
@@ -140,13 +146,17 @@ function puzzleGlyph(ctx: Ctx, node: Tree.Node): MaybeVNode {
   }
 }
 
-export function renderMove(ctx: Ctx, node: Tree.Node): MaybeVNodes {
+export function renderMove(node: Tree.Node): MaybeVNodes {
   const ev = node.eval || node.ceval;
   return [
     renderNotation(node),
-    puzzleGlyph(ctx, node),
+    puzzleGlyph(node),
     ev &&
-      (defined(ev.cp) ? renderEval(normalizeEval(ev.cp)) : defined(ev.mate) ? renderEval('#' + ev.mate) : undefined),
+      (defined(ev.cp)
+        ? renderEval(normalizeEval(ev.cp))
+        : defined(ev.mate)
+          ? renderEval('#' + ev.mate)
+          : undefined),
   ];
 }
 
@@ -163,7 +173,7 @@ function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: RenderOpts): VNo
       attrs: { p: path },
       class: classes,
     },
-    [renderIndex(node.ply, true), renderNotation(node), puzzleGlyph(ctx, node)]
+    [renderIndex(node.ply, true), renderNotation(node), puzzleGlyph(node)],
   );
 }
 
@@ -228,6 +238,6 @@ export function render(ctrl: Controller): VNode {
         parentPath: '',
         isMainline: true,
       }),
-    ]
+    ],
   );
 }

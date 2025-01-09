@@ -1,6 +1,8 @@
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
 import { Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Ctrl, TimeControl } from './interfaces';
+import { i18nVariant } from 'i18n/variant';
+import { i18n, i18nPluralSame } from 'i18n';
 
 export function loaded(ctrl: Ctrl): VNode {
   return ctrl.redirecting()
@@ -38,7 +40,6 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
-    const trans = ctrl.trans();
     return h(
       'div.challenge.' + dir + '.c-' + c.id,
       {
@@ -51,7 +52,9 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
           h('span.head', renderUser(dir === 'in' ? c.challenger : c.destUser)),
           h(
             'span.desc',
-            [trans(c.rated ? 'rated' : 'casual'), timeControl(c.timeControl, trans), trans(c.variant.key)].join(' - ')
+            [c.rated ? i18n('rated') : i18n('casual'), timeControl(c.timeControl), i18nVariant(c.variant.key)].join(
+              ' - '
+            )
           ),
         ]),
         h('i', {
@@ -64,7 +67,6 @@ function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
 }
 
 function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
-  const trans = ctrl.trans();
   return [
     h(
       'form',
@@ -79,7 +81,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
           attrs: {
             type: 'submit',
             'data-icon': 'E',
-            title: trans('accept'),
+            title: i18n('accept'),
           },
           hook: onClick(ctrl.onRedirect),
         }),
@@ -89,7 +91,7 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
       attrs: {
         type: 'submit',
         'data-icon': 'L',
-        title: trans('decline'),
+        title: i18n('decline'),
       },
       hook: onClick(() => ctrl.decline(c.id)),
     }),
@@ -97,34 +99,33 @@ function inButtons(ctrl: Ctrl, c: Challenge): VNode[] {
 }
 
 function outButtons(ctrl: Ctrl, c: Challenge) {
-  const trans = ctrl.trans();
   return [
     h('div.owner', [
-      h('span.waiting', ctrl.trans()('waiting')),
+      h('span.waiting', i18n('waiting')),
       h('a.view', {
         attrs: {
           'data-icon': 'v',
           href: '/' + c.id,
-          title: trans('viewInFullSize'),
+          title: i18n('viewInFullSize'),
         },
       }),
     ]),
     h('button.button.decline', {
       attrs: {
         'data-icon': 'L',
-        title: trans('cancel'),
+        title: i18n('cancel'),
       },
       hook: onClick(() => ctrl.cancel(c.id)),
     }),
   ];
 }
 
-function timeControl(c: TimeControl, trans: Trans): string {
+function timeControl(c: TimeControl): string {
   switch (c.type) {
     case 'unlimited':
-      return trans.noarg('unlimited');
+      return i18n('unlimited');
     case 'correspondence':
-      return trans.plural('nbDays', c.daysPerTurn || 0);
+      return i18nPluralSame('nbDays', c.daysPerTurn || 0);
     case 'clock':
       return c.show || '-';
   }

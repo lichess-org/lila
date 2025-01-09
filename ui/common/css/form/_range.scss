@@ -1,5 +1,6 @@
 @mixin range-thumb {
-  @include metal;
+  // https://css-tricks.com/sliding-nightmare-understanding-range-input/
+
   border: 1px solid $c-font-dimmer;
   height: 1em;
   width: 1.5em;
@@ -29,7 +30,6 @@ input[type='range'] {
   &::-webkit-slider-thumb {
     @include range-thumb;
     -webkit-appearance: none;
-    margin-top: -0.3px;
   }
 
   &::-moz-range-track {

@@ -15,9 +15,9 @@ object topic {
   def form(categ: lila.forum.Categ, form: Form[_], captcha: lila.common.Captcha)(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.createANewTopic.txt(),
-      moreCss = cssTag("forum"),
+      moreCss = cssTag("misc.forum"),
       moreJs = frag(
-        jsTag("forum-post.js"),
+        jsTag("misc.forum-post"),
         captchaTag
       )
     ) {
@@ -76,11 +76,11 @@ object topic {
       title =
         s"${topic.name} - ${trans.page.txt().toLowerCase} ${posts.currentPage}/${posts.nbPages} - ${categ.translatedName}",
       moreJs = frag(
-        jsTag("forum-post.js"),
-        formWithCaptcha.isDefined option captchaTag,
-        jsAt("compiled/embed-analyse.js")
+        jsTag("misc.forum-post"),
+        jsTag("misc.expand-text"),
+        formWithCaptcha.isDefined option captchaTag
       ),
-      moreCss = cssTag("forum"),
+      moreCss = cssTag("misc.forum"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = topic.name,
@@ -88,6 +88,7 @@ object topic {
           description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
         )
         .some,
+      csp = defaultCsp.withTwitter.some,
       canonicalPath =
         lila.common.CanonicalPath(routes.ForumTopic.show(categ.slug, topic.slug, posts.currentPage)).some
     ) {
@@ -102,7 +103,7 @@ object topic {
           ),
           topic.name
         ),
-        div(cls := "forum-topic__posts embed_analyse")(
+        div(cls := "forum-topic__posts")(
           posts.currentPageResults.map { p =>
             post.show(
               categ,

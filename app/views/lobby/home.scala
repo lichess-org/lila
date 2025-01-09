@@ -6,7 +6,6 @@ import lila.api.Context
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
 import controllers.routes
@@ -21,20 +20,17 @@ object home {
         s"lishogi.${if (isProd && !isStage) "org" else "dev"} - ${trans.freeOnlineShogi.txt()}"
       },
       moreJs = frag(
-        jsModule("lobby", defer = true),
-        embedJsUnsafe(
-          s"""lishogi=window.lishogi||{};customWS=true;lishogi_lobby=${safeJsonValue(
+        moduleJsTag(
+          "lobby",
+          Json.obj(
+            "data" -> data,
+            "playban" -> playban.map { pb =>
               Json.obj(
-                "data" -> data,
-                "playban" -> playban.map { pb =>
-                  Json.obj(
-                    "minutes"          -> pb.mins,
-                    "remainingSeconds" -> (pb.remainingSeconds + 3)
-                  )
-                },
-                "i18n" -> i18nJsObject(i18nKeys)
+                "minutes"          -> pb.mins,
+                "remainingSeconds" -> (pb.remainingSeconds + 3)
               )
-            )}"""
+            }
+          )
         )
       ),
       moreCss = cssTag("lobby"),
@@ -48,7 +44,6 @@ object home {
           description = trans.siteDescription.txt()
         )
         .some,
-      deferJs = true,
       canonicalPath = lila.common.CanonicalPath("/").some,
       withHrefLangs = lila.i18n.LangList.All.some
     ) {
@@ -61,24 +56,21 @@ object home {
         div(cls := "lobby__table")(
           div(cls := "lobby__start")(
             ctx.blind option h2(trans.play()),
-            a(
-              href := routes.Setup.hookForm,
+            button(
               cls := List(
                 "button button-metal config_hook" -> true,
                 "disabled"                        -> (playban.isDefined || currentGame.isDefined || ctx.isBot)
               ),
               trans.createAGame()
             ),
-            a(
-              href := routes.Setup.friendForm(none),
+            button(
               cls := List(
                 "button button-metal config_friend" -> true,
                 "disabled"                          -> currentGame.isDefined
               ),
               trans.playWithAFriend()
             ),
-            a(
-              href := routes.Setup.aiForm,
+            button(
               cls := List(
                 "button button-metal config_ai" -> true,
                 "disabled"                      -> currentGame.isDefined
@@ -190,51 +182,4 @@ object home {
     }
   }
 
-  private val i18nKeys = List(
-    trans.black,
-    trans.white,
-    trans.sente,
-    trans.gote,
-    trans.shitate,
-    trans.uwate,
-    trans.realTime,
-    trans.correspondence,
-    trans.nbGamesInPlay,
-    trans.player,
-    trans.time,
-    trans.joinTheGame,
-    trans.cancel,
-    trans.casual,
-    trans.rated,
-    trans.variant,
-    trans.standard,
-    trans.minishogi,
-    trans.chushogi,
-    trans.annanshogi,
-    trans.kyotoshogi,
-    trans.checkshogi,
-    trans.ultrabullet,
-    trans.bullet,
-    trans.blitz,
-    trans.rapid,
-    trans.classical,
-    trans.mode,
-    trans.list,
-    trans.graph,
-    trans.filterGames,
-    trans.youNeedAnAccountToDoThat,
-    trans.oneDay,
-    trans.nbDays,
-    trans.levelX,
-    trans.yourTurn,
-    trans.rating,
-    trans.createAGame,
-    trans.startPosition,
-    trans.presets,
-    trans.lobby,
-    trans.custom,
-    trans.anonymous,
-    trans.readyToPlay,
-    trans.xPlays
-  ).map(_.key)
 }

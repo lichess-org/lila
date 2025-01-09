@@ -1,6 +1,5 @@
-@import 'dark';
-
-$theme: 'transp';
+@use 'util' as *;
+@use 'dark' as *;
 
 $c-bg-high: hsla(0, 0%, 0%, 0.6);
 $c-bg-low: hsla(0, 0%, 0%, 0.5);
@@ -24,37 +23,6 @@ $c-page-input: $c-bg-box;
 
 $text-shadow: 0.5px 1px 1px #000;
 
-%page-text-shadow {
-  text-shadow: $text-shadow;
-}
-
-@mixin metal {
-  background: hsla(0, 0%, 0%, 0.6);
-}
-@mixin metal-hover {
-  background: hsla(0, 0%, 7%, 0.55);
-}
-
-@mixin theme-style {
-  body.transp {
-    &::before {
-      content: ' ';
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background-image: var(--tr-bg-url, none);
-      background-position: center center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      z-index: -1;
-    }
-  }
-}
-
-$c-bg-sente: black;
-$c-font-sente: white;
-
-$c-bg-gote: white;
-$c-font-gonte: black;
+$c-bg-metal: hsla(0, 0%, 0%, 0.6);
+$c-bg-metal-hover: hsla(0, 0%, 7%, 0.55);
+$c-font-metal-hover: inherit;

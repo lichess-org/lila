@@ -1,24 +1,17 @@
 {
   "name": "simul",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org simul",
-  "type": "module",
-  "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^5"
-  },
+  "type": "module",
   "dependencies": {
-    "chat": "2.0.0",
-    "common": "2.0.0",
-    "game": "2.0.0",
-    "mithril": "github:ornicar/mithril.js#lila-1"
+    "chat": "workspace:*",
+    "common": "workspace:*",
+    "shogi": "workspace:*",
+    "i18n": "workspace:*",
+    "game": "workspace:*",
+    "snabbdom": "catalog:"
   },
-  "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+  "lishogi": {
+    "bundle": true
   }
 }

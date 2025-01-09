@@ -83,4 +83,10 @@ object bits {
         button(cls := "button", name := "v", value := false)("I don't have an official title")
       )
     )
+
+  def ratingHistoryContainer = div(cls := "rating-history-container")(
+    div(cls := "time-selector-buttons"),
+    spinner,
+    div(cls := "chart-container")(canvas(cls := "rating-history"))
+  )
 }

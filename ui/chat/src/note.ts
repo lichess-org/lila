@@ -2,15 +2,16 @@ import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
 import { NoteCtrl, NoteOpts } from './interfaces';
 import * as xhr from './xhr';
+import { debounce } from 'common/timings';
+import { i18n } from 'i18n';
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string | undefined = opts.text;
-  const doPost = window.lishogi.debounce(() => {
+  const doPost = debounce(() => {
     xhr.setNote(opts.id, text || '');
   }, 1000);
   return {
     id: opts.id,
-    trans: opts.trans,
     text: () => text,
     fetch() {
       xhr.getNote(opts.id).then(t => {
@@ -39,7 +40,7 @@ export function noteView(ctrl: NoteCtrl): VNode {
     );
   return h('textarea', {
     attrs: {
-      placeholder: ctrl.trans('typePrivateNotesHere'),
+      placeholder: i18n('typePrivateNotesHere'),
     },
     hook: {
       insert(vnode) {

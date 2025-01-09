@@ -64,7 +64,7 @@ final class User(
       EnabledUser(username) { u =>
         negotiate(
           html = renderShow(u),
-          api = _ => apiGames(u, GameFilter.All.name, 1)
+          json = apiGames(u, GameFilter.All.name, 1)
         )
       }
     }
@@ -117,7 +117,7 @@ final class User(
                 } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
                 else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
             } yield res,
-            api = _ => apiGames(u, filter, page)
+            json = apiGames(u, filter, page)
           )
         }
       }
@@ -134,7 +134,7 @@ final class User(
             if (erased.value) notFound
             else NotFound(html.user.show.page.disabled(u)).fuccess
           },
-          api = _ => fuccess(NotFound(jsonError("No such user, or account closed")))
+          json = fuccess(NotFound(jsonError("No such user, or account closed")))
         )
     }
 
@@ -153,7 +153,7 @@ final class User(
                     Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
                       .withHeaders(CACHE_CONTROL -> "max-age=5")
                   },
-                  api = _ => {
+                  json = {
                     import lila.game.JsonView.crosstableWrites
                     fuccess(
                       Ok(
@@ -175,16 +175,15 @@ final class User(
       val max = 50
       negotiate(
         html = notFoundJson(),
-        api = _ =>
-          env.user.cached.getTop50Online map { users =>
-            Ok(
-              Json.toJson(
-                users
-                  .take(getInt("nb", req).fold(10)(_ min max))
-                  .map(env.user.jsonView(_))
-              )
+        json = env.user.cached.getTop50Online map { users =>
+          Ok(
+            Json.toJson(
+              users
+                .take(getInt("nb", req).fold(10)(_ min max))
+                .map(env.user.jsonView(_))
             )
-          }
+          )
+        }
       )
     }
 
@@ -258,25 +257,24 @@ final class User(
                 nbAllTime = nbAllTime
               )
             ),
-          api = _ =>
-            fuccess {
-              implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
-              Ok(
-                Json.obj(
-                  "bullet"         -> leaderboards.bullet,
-                  "blitz"          -> leaderboards.blitz,
-                  "rapid"          -> leaderboards.rapid,
-                  "classical"      -> leaderboards.classical,
-                  "ultraBullet"    -> leaderboards.ultraBullet,
-                  "correspondence" -> leaderboards.correspondence,
-                  "minishogi"      -> leaderboards.minishogi,
-                  "chushogi"       -> leaderboards.chushogi,
-                  "annanshogi"     -> leaderboards.annanshogi,
-                  "kyotoshogi"     -> leaderboards.kyotoshogi,
-                  "checkshogi"     -> leaderboards.checkshogi
-                )
+          json = fuccess {
+            implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+            Ok(
+              Json.obj(
+                "bullet"         -> leaderboards.bullet,
+                "blitz"          -> leaderboards.blitz,
+                "rapid"          -> leaderboards.rapid,
+                "classical"      -> leaderboards.classical,
+                "ultraBullet"    -> leaderboards.ultraBullet,
+                "correspondence" -> leaderboards.correspondence,
+                "minishogi"      -> leaderboards.minishogi,
+                "chushogi"       -> leaderboards.chushogi,
+                "annanshogi"     -> leaderboards.annanshogi,
+                "kyotoshogi"     -> leaderboards.kyotoshogi,
+                "checkshogi"     -> leaderboards.checkshogi
               )
-            }
+            )
+          }
         )
       }
     }
@@ -288,11 +286,10 @@ final class User(
           users =>
             negotiate(
               html = Ok(html.user.top(perfType, users)).fuccess,
-              api = _ =>
-                fuccess {
-                  implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
-                  Ok(Json.obj("users" -> users))
-                }
+              json = fuccess {
+                implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+                Ok(Json.obj("users" -> users))
+              }
             )
         }
       }
@@ -302,10 +299,9 @@ final class User(
     Open { implicit ctx =>
       negotiate(
         html = notFound,
-        api = _ =>
-          env.user.cached.topWeek.map { users =>
-            Ok(Json toJson users.map(env.user.jsonView.lightPerfIsOnline))
-          }
+        json = env.user.cached.topWeek.map { users =>
+          Ok(Json toJson users.map(env.user.jsonView.lightPerfIsOnline))
+        }
       )
     }
 
@@ -484,15 +480,14 @@ final class User(
               _           <- env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
               response <- negotiate(
                 html = Ok(html.user.perfStat(u, ranks, perfType, percentile, perfStat, ratingChart)).fuccess,
-                api = _ =>
-                  getBool("graph").?? {
-                    env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
-                  } map {
-                    val data = env.perfStat.jsonView(u, perfStat, ranks get perfType, percentile)
-                    _.fold(data) { graph =>
-                      data + ("graph" -> graph)
-                    }
-                  } map { Ok(_) }
+                json = getBool("graph").?? {
+                  env.history.ratingChartApi.singlePerf(u, perfType).map(_.some)
+                } map {
+                  val data = env.perfStat.jsonView(u, perfStat, ranks get perfType, percentile)
+                  _.fold(data) { graph =>
+                    data + ("graph" -> graph)
+                  }
+                } map { Ok(_) }
               )
             } yield response
           }

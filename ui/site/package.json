@@ -1,41 +1,16 @@
 {
   "name": "site",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org website",
-  "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@babel/core": "^7",
-    "@babel/preset-env": "^7",
-    "babelify": "^10",
-    "browserify": "^16",
-    "fancy-log": "^1",
-    "gulp": "^4",
-    "gulp-babel": "^8.0.0",
-    "gulp-concat": "^2.6",
-    "gulp-rename": "^2",
-    "gulp-size": "^3",
-    "gulp-terser": "^1",
-    "request": "^2",
-    "tsify": "^5",
-    "typescript": "^5",
-    "vinyl-buffer": "^1",
-    "vinyl-source-stream": "^2",
-    "watchify": "^3"
-  },
+  "type": "module",
   "dependencies": {
-    "balloon-css": "^1.2.0",
-    "fairy-stockfish-nnue.wasm": "=1.1.5",
-    "highcharts": "=4.2.5",
-    "hopscotch": "^0.3.1",
-    "shogiground": "^0.9.0",
-    "shogiops": "^0.17.0",
-    "spectrum": "github:WandererXII/spectrum",
-    "tablesort": "^5.3"
+    "common": "workspace:*",
+    "i18n": "workspace:*"
   },
   "scripts": {
-    "dev": "gulp dev",
-    "prod": "gulp prod"
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
   }
 }

@@ -15,11 +15,7 @@ final class Msg(
         html = inboxJson(me) map { json =>
           Ok(views.html.msg.home(json))
         },
-        api = v =>
-          {
-            if (v >= 5) inboxJson(me)
-            else env.msg.compat.inbox(me, getInt("page"))
-          } map { Ok(_) }
+        json = inboxJson(me) map { Ok(_) }
       )
     }
 
@@ -31,7 +27,7 @@ final class Msg(
           case None =>
             negotiate(
               html = Redirect(routes.Msg.home).fuccess,
-              api = _ => notFoundJson()
+              json = notFoundJson()
             )
           case Some(c) =>
             def newJson = inboxJson(me).map { _ + ("convo" -> env.msg.json.convo(c)) }
@@ -39,11 +35,7 @@ final class Msg(
               html = newJson map { json =>
                 Ok(views.html.msg.home(json))
               },
-              api = v =>
-                {
-                  if (v >= 5) newJson
-                  else fuccess(env.msg.compat.thread(me, c))
-                } map { Ok(_) }
+              json = newJson map { Ok(_) }
             )
         }
     }
@@ -73,48 +65,20 @@ final class Msg(
         inboxJson(me) map { Ok(_) }
     }
 
-  def compatCreate =
-    AuthBody { implicit ctx => me =>
-      ctx.hasInbox ?? {
-        env.msg.compat
-          .create(me)(ctx.body, formBinding)
+  def apiPost(username: String) = {
+    val userId = lila.user.User normalize username
+    ScopedBody(_.Msg.Write) { implicit req => me =>
+      (!me.kid && userId != me.id) ?? {
+        import play.api.data._
+        import play.api.data.Forms._
+        Form(single("text" -> nonEmptyText))
+          .bindFromRequest()
           .fold(
-            jsonFormError,
-            _ map { id =>
-              Ok(Json.obj("ok" -> true, "id" -> id))
-            }
+            err => jsonFormErrorFor(err, req, me.some),
+            text => env.msg.api.post(me.id, userId, text)
           )
       }
     }
-
-  def apiPost(username: String) = {
-    val userId = lila.user.User normalize username
-    AuthOrScopedBody(_.Msg.Write)(
-      // compat: reply
-      auth = implicit ctx =>
-        me =>
-          ctx.hasInbox ?? {
-            env.msg.compat
-              .reply(me, userId)(ctx.body, formBinding)
-              .fold(
-                jsonFormError,
-                _ inject Ok(Json.obj("ok" -> true, "id" -> userId))
-              )
-          },
-      // new API: create/reply
-      scoped = implicit req =>
-        me =>
-          (!me.kid && userId != me.id) ?? {
-            import play.api.data._
-            import play.api.data.Forms._
-            Form(single("text" -> nonEmptyText))
-              .bindFromRequest()
-              .fold(
-                err => jsonFormErrorFor(err, req, me.some),
-                text => env.msg.api.post(me.id, userId, text)
-              )
-          }
-    )
   }
 
   private def inboxJson(me: lila.user.User) =

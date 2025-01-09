@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.I18nKeys
 
 object chat {
 
@@ -67,7 +66,6 @@ object chat {
           .add("loginRequired" -> chat.loginRequired)
           .add("restricted" -> restricted)
           .add("palantir" -> (palantir && ctx.isAuth)),
-        "i18n"      -> i18n(withNote = withNoteAge.isDefined),
         "writeable" -> writeable,
         "public"    -> public,
         "permissions" -> Json
@@ -82,13 +80,4 @@ object chat {
       .add("noteAge" -> withNoteAge)
       .add("timeoutReasons" -> isGranted(_.ChatTimeout).option(lila.chat.JsonView.timeoutReasons))
 
-  def i18n(withNote: Boolean)(implicit ctx: Context) =
-    i18nOptionJsObject(
-      I18nKeys.talkInChat.some,
-      I18nKeys.toggleTheChat.some,
-      I18nKeys.loginToChat.some,
-      I18nKeys.youHaveBeenTimedOut.some,
-      withNote option I18nKeys.notes,
-      withNote option I18nKeys.typePrivateNotesHere
-    )
 }

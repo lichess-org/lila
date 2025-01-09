@@ -341,11 +341,8 @@ POST  /account/preferences                    controllers.Pref.formApply
 POST  /account/preferences/verify-title       controllers.Pref.verifyTitle
 
 # Setup
-GET   /setup/ai                        controllers.Setup.aiForm
 POST  /setup/ai                        controllers.Setup.ai
-GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
-GET   /setup/hook                      controllers.Setup.hookForm
 POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
 POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
@@ -454,8 +451,6 @@ POST  /forum/post/:id                  controllers.ForumPost.edit(id: String)
 POST  /forum/post/:id/react/:reaction/:v controllers.ForumPost.react(id: String, reaction: String, v: Boolean)
 GET   /forum/redirect/post/:id         controllers.ForumPost.redirect(id: String)
 
-# Msg compat
-POST  /inbox/new                       controllers.Msg.compatCreate
 # Msg
 GET   /inbox                           controllers.Msg.home
 GET   /inbox/search                    controllers.Msg.search(q: String)
@@ -565,7 +560,6 @@ GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: Str
 GET   /api/tournament/:id/teams        controllers.Api.tournamentTeams(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/simul                       controllers.Simul.apiList
-GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
 POST  /api/stream/games-by-users       controllers.Api.gamesByUsersStream
@@ -692,7 +686,6 @@ GET   /variant                         controllers.Page.variantHome
 GET   /variant/:key                    controllers.Page.variant(key)
 
 # Help
-GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 

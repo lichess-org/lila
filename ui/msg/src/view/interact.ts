@@ -3,6 +3,7 @@ import throttle from 'common/throttle';
 import { VNode, h } from 'snabbdom';
 import MsgCtrl from '../ctrl';
 import { User } from '../interfaces';
+import { hasTouchEvents } from 'common/mobile';
 
 export default function renderInteract(ctrl: MsgCtrl, user: User): VNode {
   const connected = ctrl.connected();
@@ -90,5 +91,5 @@ function setupTextarea(area: HTMLTextAreaElement, contact: string, ctrl: MsgCtrl
   });
   area.addEventListener('send', send);
 
-  if (!window.lishogi.hasTouchEvents) area.focus();
+  if (!hasTouchEvents) area.focus();
 }

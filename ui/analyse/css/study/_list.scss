@@ -14,7 +14,7 @@
     &:hover,
     &.active {
       color: $c-font-clear;
-      background: mix($c-link, $c-bg-box, 10%);
+      background: $m-link_bg-box_mix_10;
     }
   }
   act {

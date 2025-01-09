@@ -41,8 +41,8 @@ object event {
   def show(e: lila.event.Event)(implicit ctx: Context) =
     views.html.base.layout(
       title = e.title,
-      moreCss = cssTag("event"),
-      moreJs = jsTag("event-countdown.js")
+      moreCss = cssTag("misc.event"),
+      moreJs = jsTag("misc.event-countdown")
     ) {
       main(cls := "page-small event box box-pad")(
         h1(dataIcon := "", cls := "text")(e.title),
@@ -111,8 +111,12 @@ object event {
   private def inForm(form: Form[_])(implicit ctx: Context) =
     frag(
       form3.split(
-        form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
-        form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(form3.flatpickr(_))
+        form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(
+          form3.flatpickr(_, init = true)
+        ),
+        form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(
+          form3.flatpickr(_, init = true)
+        )
       ),
       form3.group(
         form("title"),
@@ -166,14 +170,11 @@ object event {
     views.html.base.layout(
       title = title,
       moreCss = cssTag(css),
-      moreJs = frag(
-        flatpickrTag,
-        delayFlatpickrStartUTC
-      )
+      moreJs = frag(flatpickrTag)
     ) {
       main(cls := "page-menu")(
         mod.menu("event"),
         body
       )
     }
-}
+} //todo flatpickr start

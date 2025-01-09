@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import scala.util.chaining._
 
 import lila.common.config.NetConfig
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.memo.RateLimit
 import lila.user.{ PasswordHasher, User }
 
@@ -70,7 +70,7 @@ final class Signup(
             case true =>
               signupRateLimit(data.username, if (data.recaptchaResponse.isDefined) 1 else 2) {
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
-                  lila.mon.user.register.count(none)
+                  lila.mon.user.register.count.increment()
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
                   val email = emailAddressValidator
                     .validate(data.realEmail) err s"Invalid email ${data.email}"
@@ -81,13 +81,12 @@ final class Signup(
                       passwordHash,
                       email.acceptable,
                       blind,
-                      none,
                       mustConfirmEmail = mustConfirm.value
                     )
                     .orFail(s"No user could be created for ${data.username}")
-                    .addEffect { logSignup(_, email.acceptable, data.fingerPrint, none, mustConfirm) }
+                    .addEffect { logSignup(_, email.acceptable, data.fingerPrint, mustConfirm) }
                     .flatMap {
-                      confirmOrAllSet(email, mustConfirm, data.fingerPrint, none)
+                      confirmOrAllSet(email, mustConfirm, data.fingerPrint)
                     }
                 }
               }
@@ -97,23 +96,20 @@ final class Signup(
   private def confirmOrAllSet(
       email: EmailAddressValidator.Acceptable,
       mustConfirm: MustConfirmEmail,
-      fingerPrint: Option[FingerPrint],
-      apiVersion: Option[ApiVersion]
+      fingerPrint: Option[FingerPrint]
   )(user: User)(implicit req: RequestHeader, lang: Lang): Fu[Signup.Result] =
     store.deletePreviousSessions(user) >> {
       if (mustConfirm.value) {
         emailConfirm.send(user, email.acceptable) >> {
           if (emailConfirm.effective)
-            api.saveSignup(user.id, apiVersion, fingerPrint) inject
+            api.saveSignup(user.id, fingerPrint) inject
               Signup.ConfirmEmail(user, email.acceptable)
           else fuccess(Signup.AllSet(user, email.acceptable))
         }
       } else fuccess(Signup.AllSet(user, email.acceptable))
     }
 
-  def mobile(
-      apiVersion: ApiVersion
-  )(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
+  def mobile(implicit req: Request[_], lang: Lang, formBinding: FormBinding): Fu[Signup.Result] =
     forms.signup.mobile
       .bindFromRequest()
       .fold[Fu[Signup.Result]](
@@ -123,7 +119,7 @@ final class Signup(
             val email = emailAddressValidator
               .validate(data.realEmail) err s"Invalid email ${data.email}"
             val mustConfirm = MustConfirmEmail.YesBecauseMobile
-            lila.mon.user.register.count(apiVersion.some)
+            lila.mon.user.register.count.increment()
             lila.mon.user.register.mustConfirmEmail(mustConfirm.toString).increment()
             val passwordHash = authenticator passEnc User.ClearPassword(data.password)
             userRepo
@@ -132,13 +128,12 @@ final class Signup(
                 passwordHash,
                 email.acceptable,
                 false,
-                apiVersion.some,
                 mustConfirmEmail = mustConfirm.value
               )
               .orFail(s"No user could be created for ${data.username}")
-              .addEffect { logSignup(_, email.acceptable, none, apiVersion.some, mustConfirm) }
+              .addEffect { logSignup(_, email.acceptable, none, mustConfirm) }
               .flatMap {
-                confirmOrAllSet(email, mustConfirm, none, apiVersion.some)
+                confirmOrAllSet(email, mustConfirm, none)
               }
           }
       )
@@ -167,13 +162,12 @@ final class Signup(
       user: User,
       email: EmailAddress,
       fingerPrint: Option[FingerPrint],
-      apiVersion: Option[ApiVersion],
       mustConfirm: MustConfirmEmail
   ) =
     authLog(
       user.username,
       email.value,
-      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)} api: ${apiVersion.??(_.value)}"
+      s"fp: ${fingerPrint} mustConfirm: $mustConfirm fp: ${fingerPrint.??(_.value)}}"
     )
 
   private def signupErrLog(err: Form[_]) =

@@ -8,7 +8,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.puzzle.PuzzleDashboard
 import lila.puzzle.PuzzleTheme
 import lila.user.User
@@ -34,26 +33,26 @@ object dashboard {
           PuzzleTheme(key).name.txt()
         }
         frag(
-          jsModule("puzzle.dashboard", true),
-          embedJsUnsafe(s"""$$(function() {
-            LishogiPuzzleDashboard.renderRadar(${safeJsonValue(
-              Json
-                .obj(
-                  "radar" -> Json.obj(
-                    "labels" -> mostPlayed.map { case (key, _) =>
-                      PuzzleTheme(key).name.txt()
-                    },
-                    "datasets" -> Json.arr(
-                      Json.obj(
-                        "label" -> "Performance",
-                        "data" -> mostPlayed.map { case (_, results) =>
-                          results.performance
-                        }
-                      )
+          chartTag,
+          moduleJsTag(
+            "chart.puzzle-dashboard",
+            Json
+              .obj(
+                "radar" -> Json.obj(
+                  "labels" -> mostPlayed.map { case (key, _) =>
+                    PuzzleTheme(key).name.txt()
+                  },
+                  "datasets" -> Json.arr(
+                    Json.obj(
+                      "label" -> "Performance",
+                      "data" -> mostPlayed.map { case (_, results) =>
+                        results.performance
+                      }
                     )
                   )
                 )
-            )})})""")
+              )
+          )
         )
       }
     ) { dash =>

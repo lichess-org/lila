@@ -16,7 +16,7 @@ object help {
       title = title,
       active = active,
       contentCls = "page box box-pad",
-      moreCss = cssTag("page")
+      moreCss = cssTag("misc.page")
     )(
       frag(
         h1(title),
@@ -30,13 +30,8 @@ object help {
     layout(
       title = title,
       active = "source",
-      moreCss = frag(cssTag("source")),
-      contentCls = "page",
-      moreJs = embedJsUnsafe(
-        """$('#asset-version-date').text(lishogi.info.date);
-$('#asset-version-commit').attr('href', 'https://github.com/WandererXII/lishogi/commits/' + lishogi.info.commit).find('pre').text(lishogi.info.commit);
-$('#asset-version-message').text(lishogi.info.message);"""
-      )
+      moreCss = cssTag("misc.source"),
+      contentCls = "page"
     )(
       frag(
         st.section(cls := "box box-pad body")(
@@ -49,29 +44,12 @@ $('#asset-version-message').text(lishogi.info.message);"""
             h2("lila version")
           ),
           table(cls := "slist slist-pad")(
-            env.appVersionDate zip env.appVersionCommit zip env.appVersionMessage map {
-              case ((date, commit), message) =>
-                tr(
-                  td("Server"),
-                  td(date),
-                  td(a(href := s"https://github.com/WandererXII/lishogi/commits/$commit")(pre(commit))),
-                  td(message)
-                )
-            },
-            tr(
-              td("Assets"),
-              td(id := "asset-version-date"),
-              td(a(id := "asset-version-commit")(pre)),
-              td(id := "asset-version-message")
-            ),
             tr(
               td("Boot"),
               td(momentFromNow(lila.common.Uptime.startedAt))
             )
           )
-        ),
-        br,
-        st.section(cls := "box")(freeJs())
+        )
       )
     )
   }
@@ -94,7 +72,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
     layout(
       title = "Webmasters",
       active = "webmasters",
-      moreCss = cssTag("page"),
+      moreCss = cssTag("misc.page"),
       contentCls = "page"
     )(
       frag(
@@ -128,7 +106,7 @@ $('#asset-version-message').text(lishogi.info.message);"""
               input(
                 id  := "puzzle-embed-src",
                 cls := "copyable autoselect",
-                value := s"""<iframe src="$netBaseUrl/training/frame?theme=wood&bg=light&pieceSet=Ryoko_1Kanji" $args></iframe>"""
+                value := s"""<iframe src="$netBaseUrl/training/frame?theme=wood&pieceSet=Ryoko_1Kanji" $args></iframe>"""
               ),
               button(
                 title    := "Copy code",

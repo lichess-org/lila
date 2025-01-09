@@ -2,9 +2,10 @@ import { Shogiground } from 'shogiground';
 import { usiToSquareNames } from 'shogiops/compat';
 import { forsythToRole } from 'shogiops/sfen';
 import { handRoles } from 'shogiops/variant/util';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import LobbyController from '../ctrl';
-import { engineNameFromCode } from 'common/engineName';
+import { engineNameFromCode } from 'shogi/engine-name';
+import { i18n } from 'i18n';
 
 function timer(pov) {
   const date = Date.now() + pov.secondsLeft * 1000;
@@ -17,13 +18,11 @@ function timer(pov) {
         },
       },
     },
-    window.lishogi.timeago.format(date)
+    window.lishogi.timeago.format(date),
   );
 }
 
-export default function (ctrl: LobbyController) {
-  if (ctrl.data.nowPlaying.some(pov => pov.variant.key === 'chushogi')) window.lishogi.loadChushogiPieceSprite();
-  if (ctrl.data.nowPlaying.some(pov => pov.variant.key === 'kyotoshogi')) window.lishogi.loadKyotoshogiPieceSprite();
+export default function (ctrl: LobbyController): VNode {
   return h(
     'div.now-playing',
     ctrl.data.nowPlaying.map(function (pov) {
@@ -62,27 +61,27 @@ export default function (ctrl: LobbyController) {
                         fromForsyth: forsythToRole(variant),
                       },
                     },
-                    { board: vnode.elm as HTMLElement }
+                    { board: vnode.elm as HTMLElement },
                   );
                 },
               },
-            })
+            }),
           ),
           h('span.meta', [
             pov.opponent.ai
-              ? engineNameFromCode(pov.opponent.aiCode, pov.opponent.ai, ctrl.trans)
+              ? engineNameFromCode(pov.opponent.aiCode, pov.opponent.ai)
               : pov.opponent.username,
             h(
               'span.indicator',
               pov.isMyTurn
                 ? pov.secondsLeft && pov.hasMoved
                   ? timer(pov)
-                  : [ctrl.trans.noarg('yourTurn')]
-                : h('span', '\xa0')
+                  : [i18n('yourTurn')]
+                : h('span', '\xa0'),
             ),
           ]),
-        ]
+        ],
       );
-    })
+    }),
   );
 }

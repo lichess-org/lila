@@ -1,7 +1,6 @@
 package views.html.base
 
 import play.api.i18n.Lang
-import play.api.libs.json.Json
 
 import org.joda.time.DateTime
 
@@ -18,8 +17,8 @@ import controllers.routes
 object layout {
 
   object bits {
-    val doctype                      = raw("<!DOCTYPE html>")
-    def htmlTag(implicit lang: Lang) = html(st.lang := lila.i18n.languageCode(lang))
+    val doctype                            = raw("<!DOCTYPE html>")
+    def htmlTag(lang: Lang, theme: String) = html(st.lang := lila.i18n.languageCode(lang), cls := theme)
     val topComment = raw("""<!-- Lishogi is open source! See https://lishogi.org/source -->""")
     val charset    = raw("""<meta charset="utf-8">""")
     val viewport = raw(
@@ -35,31 +34,8 @@ object layout {
       raw {
         s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
       }
-    def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
-    def pieceSprite(ps: lila.pref.PieceSet): Frag =
-      link(
-        id   := "piece-sprite",
-        href := assetUrl(s"piece-css/$ps.css"),
-        tpe  := "text/css",
-        rel  := "stylesheet"
-      )
-
-    def chuPieceSprite(implicit ctx: Context): Frag = chuPieceSprite(ctx.currentChuPieceSet)
-    def chuPieceSprite(ps: lila.pref.PieceSet): Frag =
-      link(
-        id   := "chu-piece-sprite",
-        href := assetUrl(s"piece-css/$ps.css"),
-        tpe  := "text/css",
-        rel  := "stylesheet"
-      )
-    def kyoPieceSprite(implicit ctx: Context): Frag = kyoPieceSprite(ctx.currentKyoPieceSet)
-    def kyoPieceSprite(ps: lila.pref.PieceSet): Frag =
-      link(
-        id   := "kyo-piece-sprite",
-        href := assetUrl(s"piece-css/$ps.css"),
-        tpe  := "text/css",
-        rel  := "stylesheet"
-      )
+    val windowLishogi: String =
+      """window.lishogi={ready:new Promise(r=>document.addEventListener("DOMContentLoaded",r)),modulesData:{}}"""
   }
   import bits._
 
@@ -152,6 +128,7 @@ object layout {
     div(id := "clinput")(
       clinputLink,
       input(
+        id           := "lishogi-clinput",
         spellcheck   := "false",
         autocomplete := ctx.blind.toString,
         aria.label   := trans.search.search.txt(),
@@ -227,6 +204,12 @@ object layout {
     (zoom ++ customBg ++ customTheme).reduceLeftOption(_ + _)
   }
 
+  private val vendorSiteJs = frag(
+    jQueryTag,
+    howlerTag,
+    powertipTag
+  )
+
   private val spaceRegex              = """\s{2,}+""".r
   private def spaceless(html: String) = raw(spaceRegex.replaceAllIn(html.replace("\\n", ""), ""))
 
@@ -234,13 +217,13 @@ object layout {
   private val dataUser          = attr("data-user")
   private val dataDate          = attr("data-date")
   private val dataSocketDomains = attr("data-socket-domains")
-  private val dataPreload       = attr("data-preload")
   private val dataNonce         = attr("data-nonce")
   private val dataAnnounce      = attr("data-announce")
   private val dataColorName     = attr("data-color-name")
   private val dataNotation      = attr("data-notation")
   val dataSoundSet              = attr("data-sound-set")
   val dataTheme                 = attr("data-theme")
+  val dataBoardTheme            = attr("data-board-theme")
   val dataPieceSet              = attr("data-piece-set")
   val dataChuPieceSet           = attr("data-chu-piece-set")
   val dataKyoPieceSet           = attr("data-kyo-piece-set")
@@ -258,7 +241,6 @@ object layout {
       openGraph: Option[lila.app.ui.OpenGraph] = None,
       shogiground: Boolean = true,
       zoomable: Boolean = false,
-      deferJs: Boolean = false,
       csp: Option[ContentSecurityPolicy] = None,
       wrapClass: String = "",
       canonicalPath: Option[CanonicalPath] = None,
@@ -266,7 +248,7 @@ object layout {
   )(body: Frag)(implicit ctx: Context): Frag =
     frag(
       doctype,
-      htmlTag(ctx.lang)(
+      htmlTag(ctx.lang, ctx.currentBg)(
         topComment,
         head(
           charset,
@@ -278,12 +260,13 @@ object layout {
             else if (isProd) fullTitle | s"$title | lishogi.org"
             else s"[dev] ${fullTitle | s"$title | lishogi.dev"}"
           },
-          cssTag("site"),
-          ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
-          ctx.userContext.impersonatedBy.isDefined option cssTagNoTheme("mod.impersonate"),
-          ctx.blind option cssTagNoTheme("blind"),
+          cssTag("common.variables"),
+          cssTag("misc.site"),
+          ctx.pageData.inquiry.isDefined option cssTag("user.mod.inquiry"),
+          ctx.userContext.impersonatedBy.isDefined option cssTag("user.mod.impersonate"),
+          ctx.blind option cssTag("misc.blind"),
           moreCss,
-          pieceSprite,
+          defaultPieceSprite,
           meta(
             content := openGraph.fold(trans.siteDescription.txt())(o => o.description),
             name    := "description"
@@ -310,7 +293,15 @@ object layout {
               ctx.req.queryString.removed("lang").isEmpty &&
               canonicalPath.fold(true)(_.value == ctx.req.path)
             }
-            .map(hrefLangs)
+            .map(hrefLangs),
+          embedJsUnsafe(windowLishogi),
+          ctx.requiresFingerprint option fingerprintTag,
+          vendorSiteJs,
+          shogiground option vendorJsTag("shogiground", "shogiground.min.js"),
+          jsTag("site"),
+          translationJsTag("core"),
+          moreJs,
+          ctx.pageData.inquiry.isDefined option jsTag("misc.inquiry")
         ),
         st.body(
           cls := List(
@@ -336,6 +327,7 @@ object layout {
           dataAssetVersion  := assetVersion.value,
           dataNonce         := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
           dataTheme         := ctx.currentBg,
+          dataBoardTheme    := ctx.currentTheme.key,
           dataPieceSet      := ctx.currentPieceSet.key,
           dataChuPieceSet   := ctx.currentChuPieceSet.key,
           dataKyoPieceSet   := ctx.currentKyoPieceSet.key,
@@ -358,27 +350,14 @@ object layout {
             )
           )(body),
           ctx.isAuth option div(
-            id          := "friend_box",
-            dataPreload := safeJsonValue(Json.obj("i18n" -> i18nJsObject(i18nKeys)))
+            id := "friend_box"
           )(
             div(cls := "friend_box_title")(trans.nbFriendsOnline.plural(0, iconTag("S"))),
             div(cls   := "content_wrap none")(
               div(cls := "content list")
             )
           ),
-          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
-          shogiground option jsTag("vendor/shogiground.min.js"),
-          ctx.requiresFingerprint option fingerprintTag,
-          if (minifiedAssets)
-            jsModule("site", defer = deferJs)
-          else
-            frag(
-              jsModule("deps", defer = deferJs),
-              jsModule("site", defer = deferJs)
-            ),
-          moreJs,
-          embedJsUnsafe(s"""lishogi.quantity=${lila.i18n.JsQuantity(ctx.lang)};$timeagoLocaleScript"""),
-          ctx.pageData.inquiry.isDefined option jsTag("inquiry.js", defer = deferJs)
+          a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting())
         )
       )
     )
@@ -447,5 +426,4 @@ object layout {
       )
   }
 
-  private val i18nKeys = List(trans.nbFriendsOnline.key)
 }

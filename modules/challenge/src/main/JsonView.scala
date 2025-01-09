@@ -3,7 +3,6 @@ package lila.challenge
 import play.api.libs.json._
 import play.api.i18n.Lang
 
-import lila.i18n.{ I18nKeys => trans }
 import lila.socket.Socket.SocketVersion
 import lila.socket.UserLagCache
 
@@ -33,9 +32,8 @@ final class JsonView(
 
   def apply(a: AllChallenges)(implicit lang: Lang): JsObject =
     Json.obj(
-      "in"   -> a.in.map(apply(Direction.In.some)),
-      "out"  -> a.out.map(apply(Direction.Out.some)),
-      "i18n" -> lila.i18n.JsDump.keysToObject(i18nKeys, lang)
+      "in"  -> a.in.map(apply(Direction.In.some)),
+      "out" -> a.out.map(apply(Direction.Out.some))
     )
 
   def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction])(implicit
@@ -45,6 +43,13 @@ final class JsonView(
       "challenge"     -> apply(direction)(challenge),
       "socketVersion" -> socketVersion
     )
+
+  def api(
+      challenge: Challenge,
+      socketVersion: SocketVersion,
+      direction: Option[Direction]
+  )(implicit lang: Lang) =
+    (apply(direction)(challenge)) ++ Json.obj("socketVersion" -> socketVersion)
 
   def apply(direction: Option[Direction])(c: Challenge)(implicit lang: Lang): JsObject =
     Json
@@ -87,21 +92,4 @@ final class JsonView(
     if (c.initialSfen.isDefined) '*'
     else c.perfType.iconChar
 
-  private val i18nKeys = List(
-    trans.rated,
-    trans.casual,
-    trans.waiting,
-    trans.accept,
-    trans.decline,
-    trans.viewInFullSize,
-    trans.cancel,
-    trans.unlimited,
-    trans.nbDays,
-    trans.standard,
-    trans.minishogi,
-    trans.chushogi,
-    trans.annanshogi,
-    trans.kyotoshogi,
-    trans.checkshogi
-  ).map(_.key)
 }

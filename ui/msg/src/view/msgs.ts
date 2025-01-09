@@ -1,9 +1,12 @@
 import { bind } from 'common/snabbdom';
+import { isMoreThanText } from 'common/rich-text';
 import { VNode, h } from 'snabbdom';
 import MsgCtrl from '../ctrl';
 import { Convo, Daily, Msg } from '../interfaces';
-import * as enhance from './enhance';
 import { scroller } from './scroller';
+import { i18n, i18nFormat } from 'i18n';
+import { msgEnhance } from './enhance';
+import { loadCompiledScript } from 'common/assets';
 
 export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
   return h(
@@ -30,13 +33,16 @@ export default function renderMsgs(ctrl: MsgCtrl, convo: Convo): VNode {
                   ctrl.getMore();
                 }),
               },
-              'Load more'
+              'Load more',
             )
           : null,
         ...contentMsgs(ctrl, convo.msgs),
-        h('div.msg-app__convo__msgs__typing', ctrl.typing ? `${convo.user.name} is typing...` : null),
+        h(
+          'div.msg-app__convo__msgs__typing',
+          ctrl.typing ? i18nFormat('xIsTyping', convo.user.name) : null,
+        ),
       ]),
-    ]
+    ],
   );
 }
 
@@ -49,19 +55,22 @@ function contentMsgs(ctrl: MsgCtrl, msgs: Msg[]): VNode[] {
 
 function renderDaily(ctrl: MsgCtrl, daily: Daily): VNode[] {
   return [
-    h('day', renderDate(daily.date, ctrl.trans)),
+    h('day', renderDate(daily.date)),
     ...daily.msgs.map(group =>
       h(
         'group',
-        group.map(msg => renderMsg(ctrl, msg))
-      )
+        group.map(msg => renderMsg(ctrl, msg)),
+      ),
     ),
   ];
 }
 
 function renderMsg(ctrl: MsgCtrl, msg: Msg) {
   const tag = msg.user == ctrl.data.me.id ? 'mine' : 'their';
-  return h(tag, [renderText(msg), h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`)]);
+  return h(tag, [
+    renderText(msg),
+    h('em', `${pad2(msg.date.getHours())}:${pad2(msg.date.getMinutes())}`),
+  ]);
 }
 const pad2 = (num: number): string => (num < 10 ? '0' : '') + num;
 
@@ -92,25 +101,29 @@ const today = new Date();
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
-function renderDate(date: Date, trans: Trans) {
-  if (sameDay(date, today)) return trans.noarg('today').toUpperCase();
-  if (sameDay(date, yesterday)) return trans.noarg('yesterday').toUpperCase();
+function renderDate(date: Date) {
+  if (sameDay(date, today)) return i18n('today').toUpperCase();
+  if (sameDay(date, yesterday)) return i18n('yesterday').toUpperCase();
   return renderFullDate(date);
 }
 
-const renderFullDate = (date: Date) => `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+const renderFullDate = (date: Date) =>
+  `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
 
 const sameDay = (d: Date, e: Date) =>
   d.getDate() == e.getDate() && d.getMonth() == e.getMonth() && d.getFullYear() == e.getFullYear();
 
 const renderText = (msg: Msg) =>
-  enhance.isMoreThanText(msg.text)
+  isMoreThanText(msg.text)
     ? h('t', {
         hook: {
           create(_, vnode: VNode) {
             const el = vnode.elm as HTMLElement;
-            el.innerHTML = enhance.enhance(msg.text);
-            el.querySelectorAll('img').forEach(c => c.addEventListener('load', scroller.auto, { once: true }));
+            el.innerHTML = msgEnhance(msg.text);
+            el.classList.add('expand-text');
+            el.querySelectorAll('img').forEach(c =>
+              c.addEventListener('load', scroller.auto, { once: true }),
+            );
           },
         },
       })
@@ -119,6 +132,6 @@ const renderText = (msg: Msg) =>
 const setupMsgs = (insert: boolean) => (vnode: VNode) => {
   const el = vnode.elm as HTMLElement;
   if (insert) scroller.init(el);
-  enhance.expandIFrames(el);
+  if (window.lishogi.modules.miscExpandText) window.lishogi.modules.miscExpandText();
   scroller.toMarker() || scroller.auto();
 };

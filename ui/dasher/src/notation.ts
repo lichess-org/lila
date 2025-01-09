@@ -1,6 +1,7 @@
-import { Notation } from 'common/notation';
+import { Notation } from 'shogi/notation';
 import { VNode, h } from 'snabbdom';
 import { Close, Redraw, bind, header } from './util';
+import { i18n } from 'i18n';
 
 export interface NotationData {
   current: Notation;
@@ -11,31 +12,32 @@ export interface NotationCtrl {
   set(n: Notation): void;
   data: NotationData;
   redraw: Redraw;
-  trans: Trans;
   close: Close;
 }
 
-export function ctrl(data: NotationData, trans: Trans, redraw: Redraw, close: Close): NotationCtrl {
+export function ctrl(data: NotationData, redraw: Redraw, close: Close): NotationCtrl {
   return {
     set(n: Notation) {
       data.current = n;
-      $.post('/pref/notation', { notation: n }, () => {
-        // we need to reload the page to see changes
-        window.lishogi.reload();
-      }).fail(() => window.lishogi.announce({ msg: 'Failed to save notation preference' }));
+      window.lishogi.xhr
+        .text('POST', '/pref/notation', { formData: { notation: n } })
+        .then(window.lishogi.reload, () =>
+          window.lishogi.announce({ msg: 'Failed to save notation preference' }),
+        );
       redraw();
     },
     data,
     redraw,
-    trans,
     close,
   };
 }
 
 export function view(ctrl: NotationCtrl): VNode {
   return h('div.sub.notation.', [
-    header(ctrl.trans('notationSystem'), ctrl.close),
-    h('div.content', [h('div.selector', ctrl.data.list.map(notationView(ctrl, ctrl.data.current)))]),
+    header(i18n('notationSystem'), ctrl.close),
+    h('div.content', [
+      h('div.selector', ctrl.data.list.map(notationView(ctrl, ctrl.data.current))),
+    ]),
   ]);
 }
 
@@ -51,7 +53,7 @@ function notationView(ctrl: NotationCtrl, current: Notation) {
           'data-icon': 'E',
         },
       },
-      notationDisplay(ctrl, n)
+      notationDisplay(n),
     );
 }
 
@@ -69,22 +71,26 @@ function notationExample(notation: Notation): string {
       return '７六歩(77)';
     case Notation.Usi:
       return '7g7f';
+    case Notation.Yorozuya:
+      return '７六歩';
   }
 }
 
-function notationDisplay(ctrl: NotationCtrl, notation: Notation): string {
+function notationDisplay(notation: Notation): string {
   switch (notation) {
     case Notation.Western:
-      return ctrl.trans.noarg('westernNotation') + ' (76)';
+      return i18n('preferences:westernNotation') + ' (76)';
     case Notation.WesternEngine:
-      return ctrl.trans.noarg('westernNotation') + ' (7f)';
+      return i18n('preferences:westernNotation') + ' (7f)';
     case Notation.Japanese:
-      return ctrl.trans.noarg('japaneseNotation');
+      return i18n('preferences:japaneseNotation');
     case Notation.Kawasaki:
-      return ctrl.trans.noarg('kitaoKawasakiNotation');
+      return i18n('preferences:kitaoKawasakiNotation');
     case Notation.Kif:
-      return ctrl.trans.noarg('kifNotation');
+      return i18n('preferences:kifNotation');
     case Notation.Usi:
       return 'USI';
+    case Notation.Yorozuya:
+      return i18n('preferences:yorozuyaNotation');
   }
 }

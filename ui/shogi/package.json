@@ -1,0 +1,25 @@
+{
+  "name": "shogi",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "shogiops": "catalog:",
+    "shogiground": "catalog:"
+  },
+  "scripts": {
+    "clean": "del dist",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true
+  }
+}

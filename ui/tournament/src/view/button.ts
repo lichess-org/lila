@@ -3,6 +3,7 @@ import spinner from 'common/spinner';
 import { h } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { isIn } from '../tournament';
+import { i18n } from 'i18n';
 
 function orJoinSpinner(ctrl: TournamentController, f: () => MaybeVNode): MaybeVNode {
   return ctrl.joinSpinner ? spinner() : f();
@@ -12,7 +13,7 @@ export function withdraw(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
     const candidate = ctrl.data.isCandidate,
       pause = ctrl.data.isStarted && !candidate,
-      title = ctrl.trans.noarg(pause ? 'pause' : 'withdraw');
+      title = pause ? i18n('pause') : i18n('withdraw');
 
     if (pause && !ctrl.isArena()) return;
     const button = h(
@@ -26,7 +27,7 @@ export function withdraw(ctrl: TournamentController): MaybeVNode {
       },
       !candidate ? title : undefined
     );
-    if (candidate) return h('div.waiting', [h('span', ctrl.trans.noarg('waitingForApproval' as I18nKey)), button]);
+    if (candidate) return h('div.waiting', [h('span', i18n('waitingForApproval')), button]);
     else return button;
   });
 }
@@ -48,14 +49,14 @@ export function join(ctrl: TournamentController): MaybeVNode {
             'click',
             _ => {
               if (ctrl.data.private && !ctrl.data.me) {
-                const p = prompt(ctrl.trans.noarg('password'));
+                const p = prompt(i18n('password'));
                 if (p !== null) ctrl.join(p);
               } else ctrl.join();
             },
             ctrl.redraw
           ),
         },
-        askToJoin ? ctrl.trans.noarg('askToJoin' as I18nKey) : ctrl.trans.noarg('join')
+        askToJoin ? i18n('askToJoin') : i18n('join')
       );
     return delay
       ? h(
@@ -98,9 +99,9 @@ export function joinWithdraw(ctrl: TournamentController): MaybeVNode {
           'data-icon': 'G',
         },
       },
-      ctrl.trans.noarg('signIn')
+      i18n('signIn')
     );
-  if (ctrl.data.isDenied) return h('div.fbt.denied', ctrl.trans.noarg('denied' as I18nKey));
+  if (ctrl.data.isDenied) return h('div.fbt.denied', i18n('denied'));
   else if (!ctrl.data.isFinished) return isIn(ctrl) || ctrl.data.isCandidate ? withdraw(ctrl) : join(ctrl);
 }
 
@@ -119,6 +120,6 @@ export function managePlayers(ctrl: TournamentController): MaybeVNode {
         },
         hook: bind('click', () => (ctrl.playerManagement = !ctrl.playerManagement), ctrl.redraw),
       },
-      !ctrl.isOrganized() ? ctrl.trans.noarg('managePlayers' as I18nKey) : undefined
+      !ctrl.isOrganized() ? i18n('managePlayers') : undefined
     );
 }

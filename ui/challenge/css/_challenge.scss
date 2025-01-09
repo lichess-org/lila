@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 #challenge-app {
   width: 20rem;
   right: 0;
@@ -19,7 +21,7 @@
     background: $c-bg-header-dropdown;
     margin-bottom: 5px;
     @include transition(height);
-    transition-delay: #{$transition-duration * 2 / 3};
+    transition-delay: math.div($transition-duration * 2, 3);
     position: relative;
     height: 67px;
     &:hover {

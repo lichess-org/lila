@@ -1,10 +1,12 @@
 # search ignores
 translation/dest
-ui/*/css/build
 public/font
 public/images
 public/piece
 public/piece-css
 public/sound
-public/vendor
-public/javascripts/vendor
+public/vendors
+public/compiled
+public/translation
+public/css
+

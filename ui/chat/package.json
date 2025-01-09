@@ -1,27 +1,27 @@
 {
   "name": "chat",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org chat ui",
-  "type": "module",
-  "module": "dist/main.js",
-  "types": "dist/main.d.ts",
-  "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental --outDir ./dist --declaration --inlineSourceMap",
-    "dev": "yarn run compile && rollup --config",
-    "prod": "yarn run compile && rollup --config --config-prod"
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.js"
+    },
+    "./interfaces": {
+      "types": "./dist/interfaces.d.ts"
+    }
   },
   "dependencies": {
-    "common": "2.0.0",
-    "snabbdom": "^3.5.1"
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "snabbdom": "catalog:"
   },
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/jquery": "^2.0",
-    "@types/lishogi": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^5"
+  "scripts": {
+    "clean": "del dist",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true
   }
 }

@@ -1,3 +1,5 @@
+import { assetUrl } from './assets';
+
 let notifications: Array<Notification> = [];
 let listening = false;
 
@@ -17,7 +19,7 @@ function notify(msg: string | (() => string)) {
   storage.set('' + Date.now());
   if ($.isFunction(msg)) msg = msg();
   const notification = new Notification('lishogi.org', {
-    icon: window.lishogi.assetUrl('logo/lishogi-favicon-256.png', {
+    icon: assetUrl('logo/lishogi-favicon-256.png', {
       noVersion: true,
     }),
     body: msg,
@@ -27,7 +29,7 @@ function notify(msg: string | (() => string)) {
   listenToFocus();
 }
 
-export default function (msg: string | (() => string)) {
+export default function (msg: string | (() => string)): void {
   if (document.hasFocus() || !('Notification' in window)) return;
   if (Notification.permission === 'granted') {
     // increase chances that the first tab can put a local storage lock

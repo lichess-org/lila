@@ -1,11 +1,10 @@
-import { transWithColorName } from 'common/colorName';
 import { MaybeVNodes } from 'common/snabbdom';
 import * as game from 'game';
 import * as status from 'game/status';
 import { isHandicap } from 'shogiops/handicaps';
 import { h } from 'snabbdom';
-import { renderClock } from '../clock/clockView';
-import renderCorresClock from '../corresClock/corresClockView';
+import { renderClock } from '../clock/clock-view';
+import renderCorresClock from '../corres-clock/corres-clock-view';
 import RoundController from '../ctrl';
 import { Position } from '../interfaces';
 import * as button from './button';
@@ -13,6 +12,8 @@ import * as suggestion from './suggestions';
 import renderExpiration from './expiration';
 import * as replay from './replay';
 import * as renderUser from './user';
+import { colorName } from 'shogi/color-name';
+import { i18n, i18nFormatCapitalized } from 'i18n';
 
 function renderPlayer(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
@@ -23,21 +24,27 @@ const isLoading = (ctrl: RoundController): boolean => ctrl.loading || ctrl.redir
 
 const loader = () => h('i.ddloader');
 
-function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes) {
+function renderTableWith(ctrl: RoundController, buttons: MaybeVNodes): MaybeVNodes {
   return [replay.render(ctrl), buttons.find(x => !!x) ? h('div.rcontrols', buttons) : null];
 }
 
-export const renderTableEnd = (ctrl: RoundController) => {
-  return renderTableWith(ctrl, [isLoading(ctrl) ? loader() : button.backToTournament(ctrl) || button.followUp(ctrl)]);
-};
-
-export const renderTableWatch = (ctrl: RoundController) => {
+export const renderTableEnd = (ctrl: RoundController): MaybeVNodes => {
   return renderTableWith(ctrl, [
-    isLoading(ctrl) ? loader() : game.playableEvenPaused(ctrl.data) ? undefined : button.watcherFollowUp(ctrl),
+    isLoading(ctrl) ? loader() : button.backToTournament(ctrl) || button.followUp(ctrl),
   ]);
 };
 
-export const renderTablePlay = (ctrl: RoundController) => {
+export const renderTableWatch = (ctrl: RoundController): MaybeVNodes => {
+  return renderTableWith(ctrl, [
+    isLoading(ctrl)
+      ? loader()
+      : game.playableEvenPaused(ctrl.data)
+        ? undefined
+        : button.watcherFollowUp(ctrl),
+  ]);
+};
+
+export const renderTablePlay = (ctrl: RoundController): MaybeVNodes => {
   const d = ctrl.data,
     loading = isLoading(ctrl),
     pausable = ctrl.showPauseButton(),
@@ -48,24 +55,40 @@ export const renderTablePlay = (ctrl: RoundController) => {
         ? []
         : [
             game.abortable(d)
-              ? button.standard(ctrl, undefined, 'L', 'abortGame', 'abort')
-              : button.standard(ctrl, game.takebackable, 'i', 'proposeATakeback', 'takeback-yes', ctrl.takebackYes),
+              ? button.standard(ctrl, undefined, 'L', i18n('abortGame'), 'abort')
+              : button.standard(
+                  ctrl,
+                  game.takebackable,
+                  'i',
+                  i18n('proposeATakeback'),
+                  'takeback-yes',
+                  ctrl.takebackYes
+                ),
             ctrl.showImpasseButton() ? button.impasse(ctrl) : null,
             ctrl.showDrawButton()
               ? ctrl.drawConfirm
                 ? button.drawConfirm(ctrl)
-                : button.standard(ctrl, ctrl.canOfferDraw, '', 'offerDraw', 'draw-yes', () => ctrl.offerDraw(true))
+                : button.standard(ctrl, ctrl.canOfferDraw, '', i18n('offerDraw'), 'draw-yes', () =>
+                    ctrl.offerDraw(true)
+                  )
               : null,
             pausable
               ? ctrl.pauseConfirm
                 ? button.pauseConfirm(ctrl)
-                : button.standard(ctrl, ctrl.canOfferPause, 'Z', 'offerAdjournment', 'pause-yes', () =>
-                    ctrl.offerPause(true)
+                : button.standard(
+                    ctrl,
+                    ctrl.canOfferPause,
+                    'Z',
+                    i18n('offerAdjournment'),
+                    'pause-yes',
+                    () => ctrl.offerPause(true)
                   )
               : null,
             ctrl.resignConfirm
               ? button.resignConfirm(ctrl)
-              : button.standard(ctrl, game.resignable, 'b', 'resign', 'resign-confirm', () => ctrl.resign(true)),
+              : button.standard(ctrl, game.resignable, 'b', i18n('resign'), 'resign-confirm', () =>
+                  ctrl.resign(true)
+                ),
             replay.analysisButton(ctrl),
           ],
     buttons: MaybeVNodes = loading
@@ -109,13 +132,16 @@ function whosTurn(ctrl: RoundController, color: Color, position: Position) {
       ? h(
           'div.rclock-turn__text',
           d.player.spectator
-            ? transWithColorName(
-                ctrl.trans,
+            ? i18nFormatCapitalized(
                 'xPlays',
-                d.game.player,
-                isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen })
+                colorName(
+                  d.game.player,
+                  isHandicap({ rules: d.game.variant.key, sfen: d.game.initialSfen })
+                )
               )
-            : ctrl.trans(d.game.player === d.player.color ? 'yourTurn' : 'waitingForOpponent')
+            : d.game.player === d.player.color
+              ? i18n('yourTurn')
+              : i18n('waitingForOpponent')
         )
       : null,
   ]);
@@ -125,7 +151,7 @@ function anyClock(ctrl: RoundController, position: Position) {
   const player = ctrl.playerAt(position);
   if (ctrl.clock) return renderClock(ctrl, player, position);
   else if (ctrl.data.correspondence && ctrl.data.game.plies > 1 && !(ctrl.data.game.status.id > 21))
-    return renderCorresClock(ctrl.corresClock!, ctrl.trans, player.color, position, ctrl.data.game.player);
+    return renderCorresClock(ctrl.corresClock!, player.color, position, ctrl.data.game.player);
   else return whosTurn(ctrl, player.color, position);
 }
 

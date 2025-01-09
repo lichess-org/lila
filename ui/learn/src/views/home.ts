@@ -1,14 +1,17 @@
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { categories } from '../categories';
 import LearnCtrl from '../ctrl';
 import { Stage } from '../interfaces';
 import { average } from '../util';
+import { i18n, i18nFormat } from 'i18n';
 
 function calcPercentage(ctrl: LearnCtrl): number {
   const max = ctrl.stages.map(s => s.levels.length).reduce((a, b) => a + b, 0) * 3,
     keys = Object.keys(ctrl.progress.progress.stages),
     total: number = keys
-      .map(k => ((ctrl.progress.progress.stages[k]?.scores || []) as number[]).reduce((a, b) => a + b, 0))
+      .map(k =>
+        ((ctrl.progress.progress.stages[k]?.scores || []) as number[]).reduce((a, b) => a + b, 0)
+      )
       .reduce((a, b) => a + b, 0);
 
   return Math.round((total / max) * 100);
@@ -27,11 +30,11 @@ function makeStars(start: number) {
   return stars;
 }
 
-function ribbon(ctrl: LearnCtrl, s: Stage, status: string, res: number[]) {
+function ribbon(s: Stage, status: string, res: number[]) {
   if (status === 'future') return;
   let content;
   if (status === 'ongoing') {
-    content = res.length > 0 ? [res.length, s.levels.length].join(' / ') : ctrl.trans.noarg('play');
+    content = res.length > 0 ? [res.length, s.levels.length].join(' / ') : i18n('learn:play');
   } else content = makeStars(Math.floor(average(res)));
   return h('div.ribbon.' + status, h('div.ribbon-inner', content));
 }
@@ -40,10 +43,10 @@ function side(ctrl: LearnCtrl) {
   const progress = calcPercentage(ctrl);
   return h('div.learn__side-home' + (progress === 100 ? '.done' : ''), [
     h('i.fat'),
-    h('h1', ctrl.trans.noarg('learnShogi')),
-    h('h2', ctrl.trans.noarg('byPlaying')),
+    h('h1', i18n('learn:learnShogi')),
+    h('h2', i18n('learn:byPlaying')),
     h('div.progress', [
-      h('div.text', ctrl.trans('progressX', progress + '%')),
+      h('div.text', i18nFormat('learn:progressX', progress + '%')),
       h('div.bar', {
         style: {
           width: progress + '%',
@@ -57,11 +60,11 @@ function side(ctrl: LearnCtrl) {
             {
               on: {
                 click: () => {
-                  if (confirm(ctrl.trans.noarg('youWillLoseAllYourProgress'))) ctrl.reset();
+                  if (confirm(i18n('learn:youWillLoseAllYourProgress'))) ctrl.reset();
                 },
               },
             },
-            ctrl.trans.noarg('resetMyProgress')
+            i18n('learn:resetMyProgress')
           )
         : null,
     ]),
@@ -69,10 +72,15 @@ function side(ctrl: LearnCtrl) {
 }
 
 function whatNext(ctrl: LearnCtrl) {
-  const makeStage = (href: string, img: string, title: I18nKey, subtitle: I18nKey, done?: boolean) => {
-    const transTitle = ctrl.trans.noarg(title);
+  const makeStage = (
+    href: string,
+    img: string,
+    title: string,
+    subtitle: string,
+    done?: boolean
+  ) => {
     return h(
-      'a.stage' + titleVerbosityClass(transTitle) + (done ? '.done' : ''),
+      'a.stage' + titleVerbosityClass(title) + (done ? '.done' : ''),
       {
         attrs: {
           href: href,
@@ -81,22 +89,53 @@ function whatNext(ctrl: LearnCtrl) {
       [
         done ? h('div.ribbon.done', h('div.ribbon-inner', makeStars(3))) : null,
         h('div.stage-img.' + img),
-        h('div.text', [h('h3', transTitle), h('p.subtitle', ctrl.trans.noarg(subtitle))]),
+        h('div.text', [h('h3', title), h('p.subtitle', subtitle)]),
       ]
     );
   };
   const userId = ctrl.progress.progress._id;
   return h('div.categ.what_next', [
-    h('h2', ctrl.trans.noarg('whatNext')),
-    h('p', ctrl.trans.noarg('youKnowHowToPlayShogi')),
+    h('h2', i18n('learn:whatNext')),
+    h('p', i18n('learn:youKnowHowToPlayShogi')),
     h('div.categ_stages', [
       userId
-        ? makeStage('/@/' + userId, 'beams-aura', 'register', 'getAFreeLishogiAccount', true)
-        : makeStage('/signup', 'beams-aura', 'register', 'getAFreeLishogiAccount'),
-      makeStage('/resources', 'king', 'shogiResources', 'curatedShogiResources'),
-      makeStage('/training', 'bullseye', 'puzzles', 'exerciseYourTacticalSkills'),
-      makeStage('/#hook', 'sword-clash', 'playPeople', 'opponentsFromAroundTheWorld'),
-      makeStage('/#ai', 'vintage-robot', 'playMachine', 'testYourSkillsWithTheComputer'),
+        ? makeStage(
+            '/@/' + userId,
+            'beams-aura',
+            i18n('learn:register'),
+            i18n('learn:getAFreeLishogiAccount'),
+            true
+          )
+        : makeStage(
+            '/signup',
+            'beams-aura',
+            i18n('learn:register'),
+            i18n('learn:getAFreeLishogiAccount')
+          ),
+      makeStage(
+        '/resources',
+        'king',
+        i18n('learn:shogiResources'),
+        i18n('learn:curatedShogiResources')
+      ),
+      makeStage(
+        '/training',
+        'bullseye',
+        i18n('learn:puzzles'),
+        i18n('learn:exerciseYourTacticalSkills')
+      ),
+      makeStage(
+        '/#hook',
+        'sword-clash',
+        i18n('learn:playPeople'),
+        i18n('learn:opponentsFromAroundTheWorld')
+      ),
+      makeStage(
+        '/#ai',
+        'vintage-robot',
+        i18n('learn:playMachine'),
+        i18n('learn:testYourSkillsWithTheComputer')
+      ),
     ]),
   ]);
 }
@@ -105,14 +144,14 @@ function titleVerbosityClass(title: string) {
   return title.length > 13 ? (title.length > 18 ? '.vvv' : '.vv') : '';
 }
 
-export default function (ctrl: LearnCtrl) {
+export default function (ctrl: LearnCtrl): VNode {
   let prevComplete = true;
   return h('div.main.learn.learn--map', [
     h('div.learn__side', side(ctrl)),
     h('div.learn__main.learn-stages', [
       ...categories.map(categ => {
         return h('div.categ', [
-          h('h2', ctrl.trans.noarg(categ.key)),
+          h('h2', categ.name),
           h(
             'div.categ_stages',
             categ.stages.map(s => {
@@ -126,12 +165,12 @@ export default function (ctrl: LearnCtrl) {
                 status = 'ongoing';
                 prevComplete = false;
               }
-
-              const title = ctrl.trans.noarg(s.title);
               return h(
                 'a.stage.' +
                   status +
-                  (s.id === 1 && Object.keys(ctrl.progress.progress.stages).length === 0 ? '.first' : ''),
+                  (s.id === 1 && Object.keys(ctrl.progress.progress.stages).length === 0
+                    ? '.first'
+                    : ''),
                 {
                   on: {
                     click: () => {
@@ -141,11 +180,11 @@ export default function (ctrl: LearnCtrl) {
                   },
                 },
                 [
-                  ribbon(ctrl, s, status, res),
+                  ribbon(s, status, res),
                   h('div.stage-img.' + s.key),
-                  h('div.text' + titleVerbosityClass(title), [
-                    h('h3', title),
-                    h('p.subtitle', ctrl.trans.noarg(s.subtitle)),
+                  h('div.text' + titleVerbosityClass(s.title), [
+                    h('h3', s.title),
+                    h('p.subtitle', s.subtitle),
                   ]),
                 ]
               );

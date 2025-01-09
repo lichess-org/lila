@@ -27,11 +27,11 @@ export default class CurrentPuzzle {
     return pos;
   };
 
-  expectedMove = () => this.line[this.moveIndex];
+  expectedMove = (): string => this.line[this.moveIndex];
 
-  lastMove = () => this.line[this.moveIndex - 1];
+  lastMove = (): string => this.line[this.moveIndex - 1];
 
-  isOver = () => this.moveIndex >= this.line.length - 1;
+  isOver = (): boolean => this.moveIndex >= this.line.length - 1;
 
-  isAmbPromotion = () => this.ambPromotions.includes(this.moveIndex);
+  isAmbPromotion = (): boolean => this.ambPromotions.includes(this.moveIndex);
 }

@@ -16,7 +16,7 @@ object reopen {
   ) =
     views.html.base.layout(
       title = "Reopen your account",
-      moreCss = cssTag("auth"),
+      moreCss = cssTag("user.auth"),
       moreJs = captchaTag
     ) {
       main(cls := "page-small box box-pad")(

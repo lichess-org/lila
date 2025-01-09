@@ -1,9 +1,3 @@
-import throttle from 'common/throttle';
-
-function throttled(sound: string): () => void {
-  return throttle(100, () => window.lishogi.sound[sound]());
-}
-
-export const move = throttled('move');
-export const capture = throttled('capture');
-export const check = throttled('check');
+export const move: () => void = window.lishogi.sound.throttlePlay('move');
+export const capture: () => void = window.lishogi.sound.throttlePlay('capture');
+export const check: () => void = window.lishogi.sound.throttlePlay('check');

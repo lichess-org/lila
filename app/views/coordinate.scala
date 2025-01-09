@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.pref.Pref.Color
 
 import controllers.routes
@@ -15,10 +14,23 @@ object coordinate {
   def home(scoreOption: Option[lila.coordinate.Score])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.coordinates.coordinateTraining.txt(),
-      moreCss = cssTag("coordinate"),
+      moreCss = cssTag("misc.coordinate"),
       moreJs = frag(
-        jsTag("vendor/sparkline.min.js"),
-        jsAt("compiled/coordinate.js")
+        chartTag,
+        jsTag("chart.coordinate"),
+        moduleJsTag(
+          "misc.coordinate",
+          Json.obj(
+            "colorPref" -> ctx.pref.coordColorName,
+            "scoreUrl"  -> ctx.isAuth.option(routes.Coordinate.score.url),
+            "points" -> scoreOption.map(s => {
+              Json.obj(
+                "sente" -> s.sente,
+                "gote"  -> s.gote
+              )
+            })
+          )
+        )
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -31,10 +43,8 @@ object coordinate {
       withHrefLangs = lila.i18n.LangList.All.some
     )(
       main(
-        id                      := "trainer",
-        cls                     := "coord-trainer training init",
-        attr("data-color-pref") := ctx.pref.coordColorName,
-        attr("data-score-url")  := ctx.isAuth.option(routes.Coordinate.score.url)
+        id  := "trainer",
+        cls := "coord-trainer training init"
       )(
         div(cls := "coord-trainer__side")(
           div(cls := "box")(
@@ -43,7 +53,7 @@ object coordinate {
               div(cls := "scores")(scoreCharts(score))
             }
           ),
-          form(cls := "color buttons", action := routes.Coordinate.color)(
+          form(cls := "color buttons", action := routes.Coordinate.color, method := "post")(
             st.group(cls := "radio")(
               List(Color.SENTE, Color.RANDOM, Color.GOTE).map { id =>
                 div(
@@ -108,7 +118,7 @@ object coordinate {
                 raw(s"""<strong>${"%.2f".format(s.sum.toDouble / s.size)}</strong>""")
               )
             ),
-            div(cls := "user_chart", attr("data-points") := safeJsonValue(Json toJson s))
+            canvas(cls := "user_chart")
           )
         )
       }

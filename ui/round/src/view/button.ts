@@ -8,6 +8,8 @@ import { Hooks, VNode, h } from 'snabbdom';
 import RoundController from '../ctrl';
 import { RoundData } from '../interfaces';
 import * as util from '../util';
+import { debounce } from 'common/timings';
+import { i18n, i18nFormat, i18nVdomPlural } from 'i18n';
 
 function analysisBoardOrientation(data: RoundData) {
   return data.player.color;
@@ -36,7 +38,7 @@ function standardStudyForm(ctrl: RoundController): VNode {
             type: 'submit',
           },
         },
-        ctrl.trans.noarg('createStudy')
+        i18n('study:createStudy')
       ),
     ]
   );
@@ -50,19 +52,20 @@ function postGameStudyForm(ctrl: RoundController): VNode {
         $(el).on('submit', e => {
           e.preventDefault();
           const formData = $(e.target).serialize();
-          window.lishogi.debounce(
+          console.log(formData); // todo
+
+          debounce(
             () => {
-              $.post('/study/post-game-study', formData)
-                .done(res => {
+              window.lishogi.xhr
+                .json('POST', '/study/post-game-study')
+                .then(res => {
                   if (res.redirect) {
                     ctrl.setRedirecting();
-                    window.lishogi.hasToReload = true;
+                    window.lishogi.properReload = true;
                     window.location.href = res.redirect;
                   }
                 })
-                .fail(res => {
-                  alert(`${res.statusText} - ${res.error}`);
-                });
+                .catch(res => alert(`${res.statusText} - ${res.error}`));
             },
             1000,
             true
@@ -75,7 +78,7 @@ function postGameStudyForm(ctrl: RoundController): VNode {
         attrs: { type: 'hidden', name: 'gameId', value: ctrl.data.game.id },
       }),
       h('div', [
-        h('label', ctrl.trans.noarg('studyWith')),
+        h('label', i18n('studyWith')),
         h('input.user-invite', {
           hook: onInsert<HTMLInputElement>(el => {
             window.lishogi.userAutocomplete($(el), {
@@ -85,7 +88,7 @@ function postGameStudyForm(ctrl: RoundController): VNode {
           }),
           attrs: {
             name: 'invited',
-            placeholder: ctrl.trans.noarg('searchByUsername') + ` (${ctrl.trans.noarg('optional').toLowerCase()})`,
+            placeholder: i18n('study:searchByUsername') + ` (${i18n('optional').toLowerCase()})`,
           },
         }),
       ]),
@@ -99,7 +102,7 @@ function postGameStudyForm(ctrl: RoundController): VNode {
             type: 'submit',
           },
         },
-        ctrl.trans.noarg('createStudy')
+        i18n('study:createStudy')
       ),
     ]
   );
@@ -132,16 +135,19 @@ function studyModal(ctrl: RoundController): VNode {
     content: [
       h('div', [
         h('div.study-option', [
-          h('div.study-title', ctrl.trans.noarg('postGameStudy')),
-          h('div.desc', ctrl.trans.noarg('postGameStudyExplanation')),
+          h('div.study-title', i18n('postGameStudy')),
+          h('div.desc', i18n('postGameStudyExplanation')),
           postGameStudyForm(ctrl),
           h(
             'a.text',
             { attrs: { 'data-icon': '', href: `/study/post-game-study/${d.game.id}/hot` } },
-            ctrl.trans.noarg('postGameStudiesOfGame')
+            i18n('postGameStudiesOfGame')
           ),
         ]),
-        h('div.study-option', [h('div.study-title', ctrl.trans.noarg('standardStudy')), standardStudyForm(ctrl)]),
+        h('div.study-option', [
+          h('div.study-title', i18n('standardStudy')),
+          standardStudyForm(ctrl),
+        ]),
       ]),
     ],
   });
@@ -154,10 +160,10 @@ function studyButton(ctrl: RoundController): VNode | null {
     isAnon = !ctrl.data.player.user,
     withAnonOrAnon = !ctrl.data.opponent.user || isAnon;
   const title = withAnonOrAnon
-    ? ctrl.trans.noarg('postGameStudy')
+    ? i18n('postGameStudy')
     : !!ctrl.data.player.spectator
-      ? ctrl.trans.noarg('studyOfPlayers')
-      : ctrl.trans.noarg('studyWithOpponent');
+      ? i18n('studyOfPlayers')
+      : i18n('studyWithOpponent');
   return game.replayable(d)
     ? h('div.post-game-study', [
         ctrl.postGameStudyOffer && !loadingStudy
@@ -166,14 +172,14 @@ function studyButton(ctrl: RoundController): VNode | null {
               {
                 attrs: {
                   'data-icon': 'L',
-                  title: ctrl.trans.noarg('decline'),
+                  title: i18n('decline'),
                 },
                 hook: util.bind('click', () => {
                   ctrl.postGameStudyOffer = false;
                   ctrl.redraw();
                 }),
               },
-              ctrl.nvui ? ctrl.trans.noarg('decline') : ''
+              ctrl.nvui ? i18n('decline') : ''
             )
           : null,
         d.game.postGameStudy && !loadingStudy
@@ -241,7 +247,7 @@ function analysisButton(ctrl: RoundController): VNode | null {
             if (location.pathname === url.split('#')[0]) location.reload();
           }),
         },
-        ctrl.noarg('analysis')
+        i18n('analysis')
       )
     : null;
 }
@@ -249,8 +255,7 @@ function analysisButton(ctrl: RoundController): VNode | null {
 function rematchButtons(ctrl: RoundController): MaybeVNodes {
   const d = ctrl.data,
     me = !!d.player.offeringRematch,
-    them = !!d.opponent.offeringRematch,
-    noarg = ctrl.noarg;
+    them = !!d.opponent.offeringRematch;
   return [
     them
       ? h(
@@ -258,13 +263,13 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
           {
             attrs: {
               'data-icon': 'L',
-              title: noarg('decline'),
+              title: i18n('decline'),
             },
             hook: util.bind('click', () => {
               ctrl.socket.send('rematch-no');
             }),
           },
-          ctrl.nvui ? noarg('decline') : ''
+          ctrl.nvui ? i18n('decline') : ''
         )
       : null,
     h(
@@ -276,7 +281,11 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
           disabled: !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
         },
         attrs: {
-          title: them ? noarg('yourOpponentWantsToPlayANewGameWithYou') : me ? noarg('rematchOfferSent') : '',
+          title: them
+            ? i18n('yourOpponentWantsToPlayANewGameWithYou')
+            : me
+              ? i18n('rematchOfferSent')
+              : '',
         },
         hook: util.bind(
           'click',
@@ -289,12 +298,13 @@ function rematchButtons(ctrl: RoundController): MaybeVNodes {
             } else if (d.opponent.onGame) {
               d.player.offeringRematch = true;
               ctrl.socket.send('rematch-yes');
-            } else if (!(e.target as HTMLElement).classList.contains('disabled')) ctrl.challengeRematch();
+            } else if (!(e.target as HTMLElement).classList.contains('disabled'))
+              ctrl.challengeRematch();
           },
           ctrl.redraw
         ),
       },
-      [me ? spinner() : h('span', noarg('rematch'))]
+      [me ? spinner() : h('span', i18n('rematch'))]
     ),
   ];
 }
@@ -303,8 +313,7 @@ export function resume(ctrl: RoundController): MaybeVNode {
   if (!status.paused(ctrl.data)) return null;
   const d = ctrl.data,
     me = !!d.player.offeringResume,
-    them = !!d.opponent.offeringResume,
-    noarg = ctrl.noarg;
+    them = !!d.opponent.offeringResume;
   return h('div.resume-button', [
     them
       ? h(
@@ -312,13 +321,13 @@ export function resume(ctrl: RoundController): MaybeVNode {
           {
             attrs: {
               'data-icon': 'L',
-              title: noarg('decline'),
+              title: i18n('decline'),
             },
             hook: util.bind('click', () => {
               ctrl.socket.send('resume-no');
             }),
           },
-          ctrl.nvui ? noarg('decline') : ''
+          ctrl.nvui ? i18n('decline') : ''
         )
       : null,
     h(
@@ -330,7 +339,11 @@ export function resume(ctrl: RoundController): MaybeVNode {
           disabled: !me && !(d.opponent.onGame || (!d.clock && d.player.user && d.opponent.user)),
         },
         attrs: {
-          title: them ? noarg('yourOpponentProposesResumption') : me ? noarg('resumptionOfferSent') : '',
+          title: them
+            ? i18n('yourOpponentProposesResumption')
+            : me
+              ? i18n('resumptionOfferSent')
+              : '',
         },
         hook: util.bind(
           'click',
@@ -347,7 +360,7 @@ export function resume(ctrl: RoundController): MaybeVNode {
           ctrl.redraw
         ),
       },
-      [me ? spinner() : h('span', noarg(them ? 'acceptResumption' : 'offerResumption'))]
+      [me ? spinner() : h('span', them ? i18n('acceptResumption') : i18n('offerResumption'))]
     ),
   ]);
 }
@@ -356,7 +369,7 @@ export function standard(
   ctrl: RoundController,
   condition: ((d: RoundData) => boolean) | undefined,
   icon: string,
-  hint: I18nKey,
+  hint: string,
   socketMsg: string,
   onclick?: () => void
 ): VNode {
@@ -369,13 +382,13 @@ export function standard(
     {
       attrs: {
         disabled: !enabled(),
-        title: ctrl.noarg(hint),
+        title: hint,
       },
       hook: util.bind('click', _ => {
         if (enabled()) onclick ? onclick() : ctrl.socket.sendLoading(socketMsg);
       }),
     },
-    [h('span', ctrl.nvui ? [ctrl.noarg(hint)] : util.justIcon(icon))]
+    [h('span', ctrl.nvui ? [hint] : util.justIcon(icon))]
   );
 }
 
@@ -384,7 +397,7 @@ export function impasse(ctrl: RoundController): MaybeVNode {
     'button.fbt.impasse',
     {
       attrs: {
-        title: ctrl.noarg('impasse'),
+        title: i18n('impasse'),
         disabled: !['standard', 'annanshogi', 'checkshogi'].includes(ctrl.data.game.variant.key),
       },
       class: { active: ctrl.impasseHelp },
@@ -393,115 +406,127 @@ export function impasse(ctrl: RoundController): MaybeVNode {
         ctrl.redraw();
       }),
     },
-    [h('span', ctrl.nvui ? [ctrl.noarg('impasse')] : util.justIcon('&'))]
+    [h('span', ctrl.nvui ? [i18n('impasse')] : util.justIcon('&'))]
   );
 }
 
-export function opponentGone(ctrl: RoundController) {
+export function opponentGone(ctrl: RoundController): MaybeVNode {
   const gone = ctrl.opponentGone();
   return gone === true
     ? h('div.suggestion', [
-        h('p', { hook: onSuggestionHook }, ctrl.noarg('opponentLeftChoices')),
+        h('p', { hook: onSuggestionHook }, i18n('opponentLeftChoices')),
         h(
           'button.button',
           {
             hook: util.bind('click', () => ctrl.socket.sendLoading('resign-force')),
           },
-          ctrl.noarg('forceResignation')
+          i18n('forceResignation')
         ),
         h(
           'button.button',
           {
             hook: util.bind('click', () => ctrl.socket.sendLoading('draw-force')),
           },
-          ctrl.noarg('forceDraw')
+          i18n('forceDraw')
         ),
       ])
     : gone
-      ? h('div.suggestion', [h('p', ctrl.trans.vdomPlural('opponentLeftCounter', gone, h('strong', '' + gone)))])
+      ? h('div.suggestion', [
+          h('p', i18nVdomPlural('opponentLeftCounter', gone, h('strong', '' + gone))),
+        ])
       : null;
 }
 
 function actConfirm(
-  ctrl: RoundController,
   f: (v: boolean) => void,
-  transKey: I18nKey,
+  transKey: string,
+  title: string,
   icon: string,
   klass?: string
 ): VNode {
   return h('div.act-confirm.' + transKey, [
     h('button.fbt.yes.' + (klass || ''), {
-      attrs: { title: ctrl.noarg(transKey), 'data-icon': icon },
+      attrs: { title: title, 'data-icon': icon },
       hook: util.bind('click', () => f(true)),
     }),
     h('button.fbt.no', {
-      attrs: { title: ctrl.noarg('cancel'), 'data-icon': 'L' },
+      attrs: { title: i18n('cancel'), 'data-icon': 'L' },
       hook: util.bind('click', () => f(false)),
     }),
   ]);
 }
 
 export function resignConfirm(ctrl: RoundController): VNode {
-  return actConfirm(ctrl, ctrl.resign, 'resign', 'b');
+  return actConfirm(ctrl.resign, 'resign', i18n('resign'), 'b');
 }
 
 export function drawConfirm(ctrl: RoundController): VNode {
-  return actConfirm(ctrl, ctrl.offerDraw, 'offerDraw', '', 'draw-yes');
+  return actConfirm(ctrl.offerDraw, 'offerDraw', i18n('offerDraw'), '', 'draw-yes');
 }
 
 export function pauseConfirm(ctrl: RoundController): VNode {
-  return actConfirm(ctrl, ctrl.offerPause, 'offerAdjournment', 'Z', 'pause-yes');
+  return actConfirm(
+    ctrl.offerPause,
+    'offerAdjournment',
+    i18n('offerAdjournment'),
+    'Z',
+    'pause-yes'
+  );
 }
 
-export function cancelDrawOffer(ctrl: RoundController) {
-  return ctrl.data.player.offeringDraw ? h('div.pending', [h('p', ctrl.noarg('drawOfferSent'))]) : null;
+export function cancelDrawOffer(ctrl: RoundController): MaybeVNode {
+  return ctrl.data.player.offeringDraw ? h('div.pending', [h('p', i18n('drawOfferSent'))]) : null;
 }
 
-export function cancelPauseOffer(ctrl: RoundController) {
-  return ctrl.data.player.offeringPause ? h('div.pending', [h('p', ctrl.noarg('adjournmentOfferSent'))]) : null;
+export function cancelPauseOffer(ctrl: RoundController): MaybeVNode {
+  return ctrl.data.player.offeringPause
+    ? h('div.pending', [h('p', i18n('adjournmentOfferSent'))])
+    : null;
 }
 
-export function cancelResumeOffer(ctrl: RoundController) {
-  return ctrl.data.player.offeringResume ? h('div.pending', [h('p', ctrl.noarg('resumptionOfferSent'))]) : null;
+export function cancelResumeOffer(ctrl: RoundController): MaybeVNode {
+  return ctrl.data.player.offeringResume
+    ? h('div.pending', [h('p', i18n('resumptionOfferSent'))])
+    : null;
 }
 
-export function answerOpponentDrawOffer(ctrl: RoundController) {
+export function answerOpponentDrawOffer(ctrl: RoundController): MaybeVNode {
   return ctrl.data.opponent.offeringDraw
     ? h('div.negotiation.draw', [
-        h('p', ctrl.noarg('yourOpponentOffersADraw')),
+        h('p', i18n('yourOpponentOffersADraw')),
         acceptButton(ctrl, 'draw-yes', () => ctrl.socket.sendLoading('draw-yes')),
         declineButton(ctrl, () => ctrl.socket.sendLoading('draw-no')),
       ])
     : null;
 }
 
-export function answerOpponentPauseOffer(ctrl: RoundController) {
+export function answerOpponentPauseOffer(ctrl: RoundController): MaybeVNode {
   return ctrl.data.opponent.offeringPause
     ? h('div.negotiation.pause', [
-        h('p', ctrl.noarg('yourOpponentOffersAnAdjournment')),
+        h('p', i18n('yourOpponentOffersAnAdjournment')),
         acceptButton(ctrl, 'pause-yes', () => ctrl.socket.sendLoading('pause-yes')),
         declineButton(ctrl, () => ctrl.socket.sendLoading('pause-no')),
       ])
     : null;
 }
 
-export function cancelTakebackProposition(ctrl: RoundController) {
+export function cancelTakebackProposition(ctrl: RoundController): MaybeVNode {
   return ctrl.data.player.proposingTakeback
     ? h('div.pending', [
-        h('p', ctrl.noarg('takebackPropositionSent')),
+        h('p', i18n('takebackPropositionSent')),
         h(
           'button.button',
           {
             hook: util.bind('click', () => ctrl.socket.sendLoading('takeback-no')),
           },
-          ctrl.noarg('cancel')
+          i18n('cancel')
         ),
       ])
     : null;
 }
 
-function acceptButton(ctrl: RoundController, klass: string, action: () => void, i18nKey: I18nKey = 'accept') {
-  const text = ctrl.noarg(i18nKey);
+function acceptButton(ctrl: RoundController, klass: string, action: () => void) {
+  const text = i18n('accept');
   return ctrl.nvui
     ? h(
         'button.' + klass,
@@ -518,8 +543,12 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void, 
         hook: util.bind('click', action),
       });
 }
-function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nKey = 'decline') {
-  const text = ctrl.noarg(i18nKey);
+function declineButton(
+  ctrl: RoundController,
+  action: () => void,
+  text: string | undefined = undefined
+) {
+  text = text || i18n('decline');
   return ctrl.nvui
     ? h(
         'button',
@@ -537,10 +566,10 @@ function declineButton(ctrl: RoundController, action: () => void, i18nKey: I18nK
       });
 }
 
-export function answerOpponentTakebackProposition(ctrl: RoundController) {
+export function answerOpponentTakebackProposition(ctrl: RoundController): MaybeVNode {
   return ctrl.data.opponent.proposingTakeback
     ? h('div.negotiation.takeback', [
-        h('p', ctrl.noarg('yourOpponentProposesATakeback')),
+        h('p', i18n('yourOpponentProposesATakeback')),
         acceptButton(ctrl, 'takeback-yes', ctrl.takebackYes),
         declineButton(ctrl, () => ctrl.socket.sendLoading('takeback-no')),
       ])
@@ -550,8 +579,8 @@ export function answerOpponentTakebackProposition(ctrl: RoundController) {
 export function submitUsi(ctrl: RoundController): VNode | undefined {
   return ctrl.usiToSubmit
     ? h('div.negotiation.move-confirm', [
-        declineButton(ctrl, () => ctrl.submitUsi(false), 'cancel'),
-        h('p', ctrl.noarg('confirmMove')),
+        declineButton(ctrl, () => ctrl.submitUsi(false), i18n('cancel')),
+        h('p', i18n('confirmMove')),
         acceptButton(ctrl, 'confirm-yes', () => ctrl.submitUsi(true)),
       ])
     : undefined;
@@ -570,7 +599,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
             },
             hook: util.bind('click', ctrl.setRedirecting),
           },
-          ctrl.noarg('backToTournament')
+          i18n('backToTournament')
         ),
         h(
           'form',
@@ -580,18 +609,20 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
               action: '/tournament/' + d.tournament.id + '/withdraw',
             },
           },
-          [h('button.text.fbt.weak', util.justIcon('Z'), ctrl.trans.noargOrCapitalize('pause'))]
+          [h('button.text.fbt.weak', util.justIcon('Z'), i18n('pause'))]
         ),
         analysisButton(ctrl),
       ])
     : undefined;
 }
 
-export function moretime(ctrl: RoundController) {
+export function moretime(ctrl: RoundController): MaybeVNode {
   return game.moretimeable(ctrl.data)
     ? h('a.moretime', {
         attrs: {
-          title: ctrl.data.clock ? ctrl.trans('giveNbSeconds', ctrl.data.clock.moretime) : ctrl.noarg('giveMoreTime'),
+          title: ctrl.data.clock
+            ? i18nFormat('giveNbSeconds', ctrl.data.clock.moretime)
+            : i18n('preferences:giveMoreTime'),
           'data-icon': 'O',
         },
         hook: util.bind('click', ctrl.socket.moreTime),
@@ -602,7 +633,11 @@ export function moretime(ctrl: RoundController) {
 export function followUp(ctrl: RoundController): VNode {
   const d = ctrl.data,
     rematchable =
-      !d.game.rematch && (status.finished(d) || status.aborted(d)) && !d.tournament && !d.simul && !d.game.boosted,
+      !d.game.rematch &&
+      (status.finished(d) || status.aborted(d)) &&
+      !d.tournament &&
+      !d.simul &&
+      !d.game.boosted,
     newable = (status.finished(d) || status.aborted(d)) && d.game.source === 'lobby',
     rematchZone = ctrl.challengeRematched
       ? [
@@ -611,7 +646,7 @@ export function followUp(ctrl: RoundController): VNode {
             {
               hook: onSuggestionHook,
             },
-            ctrl.noarg('rematchOfferSent')
+            i18n('rematchOfferSent')
           ),
         ]
       : rematchable || d.game.rematch
@@ -625,7 +660,7 @@ export function followUp(ctrl: RoundController): VNode {
           {
             attrs: { href: '/tournament/' + d.tournament.id },
           },
-          ctrl.noarg('viewTournament')
+          i18n('viewTournament')
         )
       : null,
     newable
@@ -636,7 +671,7 @@ export function followUp(ctrl: RoundController): VNode {
               href: '/?hook_like=' + d.game.id,
             },
           },
-          ctrl.noarg('newOpponent')
+          i18n('newOpponent')
         )
       : null,
     studyButton(ctrl),
@@ -657,7 +692,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
                 href: `/${d.game.rematch}/${d.opponent.color}`,
               },
             },
-            ctrl.noarg('viewRematch')
+            i18n('viewRematch')
           )
         : null,
       d.tournament
@@ -666,7 +701,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
             {
               attrs: { href: '/tournament/' + d.tournament.id },
             },
-            ctrl.noarg('viewTournament')
+            i18n('viewTournament')
           )
         : null,
       studyButton(ctrl),
@@ -676,4 +711,6 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
   return content.find(x => !!x) ? h('div.follow-up', content) : null;
 }
 
-const onSuggestionHook: Hooks = util.onInsert(el => window.lishogi.pubsub.emit('round.suggestion', el.textContent));
+const onSuggestionHook: Hooks = util.onInsert(el =>
+  window.lishogi.pubsub.emit('round.suggestion', el.textContent)
+);

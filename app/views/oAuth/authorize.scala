@@ -11,7 +11,7 @@ object authorize {
   def apply(prompt: AuthorizationRequest.Prompt, me: User)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Authorization",
-      moreCss = cssTag("oauth"),
+      moreCss = cssTag("user.oauth"),
       moreJs = embedJsUnsafe(
         """setTimeout(function(){const el=document.getElementById('oauth-authorize');el.removeAttribute('disabled');}, 2000);"""
       )

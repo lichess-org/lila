@@ -1,10 +1,11 @@
+import { VNodes } from 'snabbdom';
 import LobbyController from '../../ctrl';
 import * as chart from './chart';
 import { createSeek } from './correspondence';
 import * as filterView from './filter';
 import * as list from './list';
 
-export default function (ctrl: LobbyController) {
+export default function (ctrl: LobbyController): VNodes {
   let filterBody, body, nbFiltered, modeToggle, res, button;
 
   const isSeeks = ctrl.tab === 'seeks';

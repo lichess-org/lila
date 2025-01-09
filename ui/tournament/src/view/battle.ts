@@ -3,8 +3,9 @@ import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { TeamBattle, RankedTeam } from '../interfaces';
 import { playerName } from './util';
+import { i18nFormat } from 'i18n';
 
-export function joinWithTeamSelector(ctrl: TournamentController) {
+export function joinWithTeamSelector(ctrl: TournamentController): VNode {
   const onClose = () => {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
@@ -98,7 +99,7 @@ function extraTeams(ctrl: TournamentController): VNode {
             href: `/tournament/${ctrl.data.id}/teams`,
           },
         },
-        ctrl.trans('viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length)
+        i18nFormat('arena:viewAllXTeams', Object.keys(ctrl.data.teamBattle!.teams).length)
       )
     )
   );

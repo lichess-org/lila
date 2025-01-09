@@ -1,0 +1,9 @@
+@import '../../../common/css/plugin';
+
+$c-dasher: $c-secondary;
+$c-dasher-over: $c-secondary-over;
+$c-dasher-light: $m-secondary_bg-header-dropdown_mix_15;
+$c-slider: $c-dasher;
+
+@import '../../../common/css/form/cmn-toggle';
+@import '../dasher';

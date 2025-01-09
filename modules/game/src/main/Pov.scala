@@ -15,8 +15,6 @@ case class Pov(game: Game, color: Color) {
 
   def opponent = game player !color
 
-  def isFirstPlayer = game.firstPlayer.color == color
-
   def unary_! = Pov(game, !color)
 
   def flip = Pov(game, !color)

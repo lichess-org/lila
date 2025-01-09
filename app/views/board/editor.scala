@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -17,18 +16,12 @@ object editor {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.boardEditor.txt(),
-      moreJs = frag(
-        jsModule("editor"),
-        embedJsUnsafe(
-          s"""var data=${safeJsonValue(jsData(sit, orientation))};
-LishogiEditor(document.getElementById('editor-app'), data);"""
-        )
-      ),
       moreCss = frag(
         cssTag("editor"),
-        sit.variant.chushogi option views.html.base.layout.bits.chuPieceSprite,
-        sit.variant.kyotoshogi option views.html.base.layout.bits.kyoPieceSprite
+        sit.variant.chushogi option chuPieceSprite,
+        sit.variant.kyotoshogi option kyoPieceSprite
       ),
+      moreJs = moduleJsTag("editor", jsData(sit, orientation)),
       shogiground = false,
       zoomable = true,
       openGraph = lila.app.ui
@@ -72,39 +65,7 @@ LishogiEditor(document.getElementById('editor-app'), data);"""
           "resizeHandle"       -> ctx.pref.resizeHandle,
           "highlightLastDests" -> ctx.pref.highlightLastDests,
           "squareOverlay"      -> ctx.pref.squareOverlay
-        ),
-      "i18n" -> i18nJsObject(i18nKeyes)
+        )
     )
 
-  private val i18nKeyes = List(
-    trans.black,
-    trans.white,
-    trans.sente,
-    trans.gote,
-    trans.shitate,
-    trans.uwate,
-    trans.setTheBoard,
-    trans.boardEditor,
-    trans.startPosition,
-    trans.clearBoard,
-    trans.invalidSfen,
-    trans.fillXHand,
-    trans.flipBoard,
-    trans.loadPosition,
-    trans.popularOpenings,
-    trans.handicaps,
-    trans.xPlays,
-    trans.variant,
-    trans.continueFromHere,
-    trans.playWithTheMachine,
-    trans.playWithAFriend,
-    trans.analysis,
-    trans.toStudy,
-    trans.standard,
-    trans.minishogi,
-    trans.chushogi,
-    trans.annanshogi,
-    trans.kyotoshogi,
-    trans.checkshogi
-  ).map(_.key)
 }

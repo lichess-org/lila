@@ -119,13 +119,13 @@ final class UserAnalysis(
                     )
                 ).noCache
               },
-            api = apiVersion => mobileAnalysis(pov, apiVersion)
+            json = mobileAnalysis(pov)
           )
         }
       }
     }
 
-  private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit
+  private def mobileAnalysis(pov: Pov)(implicit
       ctx: Context
   ): Fu[Result] =
     gameC.preloadUsers(pov.game) zip
@@ -134,7 +134,6 @@ final class UserAnalysis(
         import lila.game.JsonView.crosstableWrites
         env.api.roundApi.review(
           pov,
-          apiVersion,
           tv = none,
           analysis,
           withFlags = WithFlags(division = true, clocks = true, movetimes = true)

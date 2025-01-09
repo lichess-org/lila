@@ -10,7 +10,7 @@ import * as shogiground from './shogiground';
 import * as side from './side';
 import theme from './theme';
 import { render as treeView } from './tree';
-import { render as renderKeyboardMove } from 'keyboardMove';
+import { render as renderKeyboardMove } from 'keyboard-move';
 
 function renderAnalyse(ctrl: Controller): VNode {
   return h('div.puzzle__moves.areplay', [treeView(ctrl)]);
@@ -18,10 +18,17 @@ function renderAnalyse(ctrl: Controller): VNode {
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
-  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+  return (
+    target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act')
+  );
 }
 
-function jumpButton(icon: string, effect: string, disabled: boolean, glowing: boolean = false): VNode {
+function jumpButton(
+  icon: string,
+  effect: string,
+  disabled: boolean,
+  glowing: boolean = false,
+): VNode {
   return h('button.fbt', {
     class: { disabled, glowing },
     attrs: {
@@ -48,7 +55,7 @@ function controls(ctrl: Controller): VNode {
             else if (action === 'first') control.first(ctrl);
             else if (action === 'last') control.last(ctrl);
           },
-          ctrl.redraw
+          ctrl.redraw,
         );
       }),
     },
@@ -59,7 +66,7 @@ function controls(ctrl: Controller): VNode {
         jumpButton('X', 'next', !nextNode, goNext),
         jumpButton('V', 'last', !nextNode, goNext),
       ]),
-    ]
+    ],
   );
 }
 
@@ -100,10 +107,10 @@ export default function (ctrl: Controller): VNode {
                     if (e.deltaY > 0 && scroll) control.next(ctrl);
                     else if (e.deltaY < 0 && scroll) control.prev(ctrl);
                     ctrl.redraw();
-                  })
+                  }),
                 ),
         },
-        shogiground.renderBoard(ctrl)
+        shogiground.renderBoard(ctrl),
       ),
       cevalView.renderGauge(ctrl),
       h('div.puzzle__tools', [
@@ -114,7 +121,7 @@ export default function (ctrl: Controller): VNode {
           {
             class: { active: showCeval },
           },
-          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : h('div.ceval')
+          showCeval ? [cevalView.renderCeval(ctrl), cevalView.renderPvs(ctrl)] : h('div.ceval'),
         ),
         renderAnalyse(ctrl),
         feedbackView(ctrl),
@@ -122,7 +129,7 @@ export default function (ctrl: Controller): VNode {
       controls(ctrl),
       session(ctrl),
       ctrl.keyboardMove ? renderKeyboardMove(ctrl.keyboardMove) : null,
-    ]
+    ],
   );
 }
 
@@ -131,7 +138,11 @@ function session(ctrl: Controller) {
     current = ctrl.getData().puzzle.id;
   return h('div.puzzle__session', [
     ...rounds.map(round => {
-      const rd = round.ratingDiff ? (round.ratingDiff > 0 ? '+' + round.ratingDiff : round.ratingDiff) : null;
+      const rd = round.ratingDiff
+        ? round.ratingDiff > 0
+          ? '+' + round.ratingDiff
+          : round.ratingDiff
+        : null;
       return h(
         `a.result-${round.result}${rd ? '' : '.result-empty'}`,
         {
@@ -143,7 +154,7 @@ function session(ctrl: Controller) {
             href: `/training/${ctrl.session.theme}/${round.id}`,
           },
         },
-        rd
+        rd,
       );
     }),
     rounds.find(r => r.id == current)

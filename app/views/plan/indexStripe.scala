@@ -17,8 +17,8 @@ object indexStripe {
   ) =
     views.html.base.layout(
       title = thankYou.txt(),
-      moreCss = cssTag("plan"),
-      moreJs = jsTag("plan.js")
+      moreCss = cssTag("misc.plan"),
+      moreJs = jsTag("misc.plan")
     ) {
       main(cls := "box box-pad plan")(
         h1(

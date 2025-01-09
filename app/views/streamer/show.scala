@@ -17,7 +17,7 @@ object show {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = xStreamsShogi.txt(s.titleName),
-      moreCss = cssTag("streamer.show"),
+      moreCss = cssTag("misc.streamer.show"),
       openGraph = lila.app.ui
         .OpenGraph(
           title = xStreamsShogi.txt(s.titleName),

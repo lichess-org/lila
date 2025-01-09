@@ -16,7 +16,7 @@
     padding: 1em;
 
     &:hover {
-      background: lighten($c-primary, 10%);
+      background: $m-primary_lightness_10;
     }
 
     i::before {

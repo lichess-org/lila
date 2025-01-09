@@ -56,7 +56,7 @@
   }
   input:hover,
   input:focus {
-    background: mix($c-primary, $c-bg-box, 10%);
+    background: $m-primary_bg-box_mix_10;
   }
   select {
     cursor: pointer;
@@ -71,7 +71,7 @@
   margin: 0.75em;
   .topic {
     @extend %box-radius;
-    background: mix($c-primary, $c-bg-box, 17%);
+    background: $m-primary_bg-box_mix_15;
     padding: 0.2em 0.6em;
     margin: 0.2em;
   }

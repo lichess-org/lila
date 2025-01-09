@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import { obstaclesCaptured } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
@@ -6,7 +7,7 @@ import { toPiece } from '../util';
 
 const levels: IncompleteLevel[] = [
   {
-    goal: 'grabAllTheStars',
+    goal: i18n('learn:grabAllTheStars'),
     sfen: '9/9/9/9/9/9/6B2/9/9 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -14,7 +15,7 @@ const levels: IncompleteLevel[] = [
     drawShapes: initial([arrow('3g', '6d'), arrow('6d', '8f')]),
   },
   {
-    goal: 'ehThereIsNoPiece',
+    goal: i18n('learn:ehThereIsNoPiece'),
     sfen: '9/9/9/9/9/9/9/9/9 b B',
     nbMoves: 7,
     success: obstaclesCaptured,
@@ -22,14 +23,14 @@ const levels: IncompleteLevel[] = [
     drawShapes: initial([circle(toPiece('B')), circle('5e'), arrow('5e', '8h')]),
   },
   {
-    goal: 'bishopPromotion',
+    goal: i18n('learn:bishopPromotion'),
     sfen: '9/9/9/9/9/9/2B6/9/9 b -',
     nbMoves: 3,
     success: obstaclesCaptured,
     obstacles: ['2b', '3b', '8g'],
   },
   {
-    goal: 'bishopSummary',
+    goal: i18n('learn:bishopSummary'),
     sfen: '9/9/9/9/4B4/9/9/9/9 b -',
     nbMoves: 1,
     success: obstaclesCaptured,
@@ -37,7 +38,7 @@ const levels: IncompleteLevel[] = [
     squareHighlights: initial(pieceMovesHighlihts(toPiece('B'), '5e')),
   },
   {
-    goal: 'horseSummary',
+    goal: i18n('learn:horseSummary'),
     sfen: '9/9/9/9/4+B4/9/9/9/9 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -48,11 +49,11 @@ const levels: IncompleteLevel[] = [
 
 const stage: IncompleteStage = {
   key: 'bishop',
-  title: 'theBishop',
-  subtitle: 'itMovesDiagonally',
-  intro: 'bishopIntro',
+  title: i18n('learn:theBishop'),
+  subtitle: i18n('learn:itMovesDiagonally'),
+  intro: i18n('learn:bishopIntro'),
   levels: levels.map((l, i) => createLevel(l, i)),
-  complete: 'bishopComplete',
+  complete: i18n('learn:bishopComplete'),
 };
 
 export default stage;

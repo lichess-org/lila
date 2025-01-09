@@ -11,7 +11,8 @@ object show {
   def apply(post: lila.blog.FullPost)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     views.html.base.layout(
       title = post.title,
-      moreJs = jsAt("compiled/embed-analyse.js"),
+      moreCss = cssTag("misc.blog"),
+      moreJs = jsTag("misc.expand-text"),
       openGraph = lila.app.ui
         .OpenGraph(
           `type` = "article",
@@ -21,8 +22,7 @@ object show {
           description = ~post.doc.getText(s"${post.coll}.shortlede")
         )
         .some,
-      moreCss = cssTag("blog"),
-      csp = bits.csp,
+      csp = defaultCsp.withTwitter.some,
       withHrefLangs = post.allLangIds.map { ids =>
         lila.i18n.LangList
           .Custom(
@@ -39,7 +39,7 @@ object show {
           h1(post.title),
           bits.metas(post),
           div(cls := "illustration")(st.img(src := post.image)),
-          div(cls := "body embed_analyse")(
+          div(cls := "body expand-text")(
             post.doc
               .getHtml(s"${post.coll}.body", prismic.linkResolver)
               .map(lila.blog.Youtube.fixStartTimes)

@@ -1,19 +1,18 @@
 {
   "name": "palantir",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org webrtc media calls",
-  "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "peerjs": "^1.5"
+  },
   "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/lishogi": "2.0.0",
-    "@types/webrtc": "^0.0.32",
-    "rollup": "^2",
-    "typescript": "^5"
+    "@types/webrtc": "^0.0.32"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
   }
 }

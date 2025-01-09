@@ -6,7 +6,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -24,17 +23,14 @@ object index {
       variant = pov.game.variant,
       title = s"${transKeyTxt(channel.key)} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}",
       moreJs = frag(
-        roundTag,
-        embedJsUnsafe(
-          s"""lishogi=window.lishogi||{};customWS=true;onload=function(){LishogiRound.boot(${safeJsonValue(
-              Json.obj(
-                "data" -> data,
-                "i18n" -> views.html.round.jsI18n(pov.game)
-              )
-            )})}"""
+        moduleJsTag(
+          "round",
+          Json.obj(
+            "data" -> data
+          )
         )
       ),
-      moreCss = cssTag("tv.single"),
+      moreCss = cssTag("misc.tv.single"),
       shogiground = false,
       openGraph = lila.app.ui
         .OpenGraph(

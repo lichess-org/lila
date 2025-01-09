@@ -1,3 +1,5 @@
-import { attributesModule, classModule, init } from 'snabbdom';
+import { attributesModule, classModule, init, VNode } from 'snabbdom';
 
-export default init([classModule, attributesModule]);
+const sInit: (oldVnode: VNode | Element, vnode: VNode) => VNode = init([classModule, attributesModule]);
+
+export default sInit;

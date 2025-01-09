@@ -4,6 +4,7 @@ import TournamentController from '../ctrl';
 import { teamName } from './battle';
 import { playerName, preloadUserTips, ratio2percent, player as renderPlayer } from './util';
 import { PageData } from '../interfaces';
+import { i18n } from 'i18n';
 
 const scoreTagNames = ['score', 'streak', 'double'];
 
@@ -34,7 +35,7 @@ function playerTr(ctrl: TournamentController, player) {
           ? h('i', {
               attrs: {
                 'data-icon': 'Z',
-                title: ctrl.trans.noarg('pause'),
+                title: i18n('pause'),
               },
             })
           : player.rank
@@ -63,33 +64,32 @@ function podiumUsername(p) {
   );
 }
 
-function podiumStats(p, trans: Trans): VNode {
-  const noarg = trans.noarg,
-    nb = p.nb;
+function podiumStats(p): VNode {
+  const nb = p.nb;
   return h('table.stats', [
-    p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
-    h('tr', [h('th', noarg('gamesPlayed')), h('td', nb.game)]),
+    p.performance ? h('tr', [h('th', i18n('performance')), h('td', p.performance)]) : null,
+    h('tr', [h('th', i18n('gamesPlayed')), h('td', nb.game)]),
     ...(nb.game
       ? [
-          h('tr', [h('th', noarg('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
-          h('tr', [h('th', noarg('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))]),
+          h('tr', [h('th', i18n('winRate')), h('td', ratio2percent(nb.win / nb.game))]),
+          h('tr', [h('th', i18n('berserkRate')), h('td', ratio2percent(nb.berserk / nb.game))]),
         ]
       : []),
   ]);
 }
 
-function podiumPosition(p, pos, trans: Trans): VNode | undefined {
-  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, trans)]);
+function podiumPosition(p, pos): VNode | undefined {
+  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p)]);
 }
 
 let lastBody: MaybeVNodes | undefined;
 
-export function podium(ctrl: TournamentController) {
+export function podium(ctrl: TournamentController): VNode {
   const p = ctrl.data.podium || [];
   return h('div.tour__podium', [
-    podiumPosition(p[1], 'second', ctrl.trans),
-    podiumPosition(p[0], 'first', ctrl.trans),
-    podiumPosition(p[2], 'third', ctrl.trans),
+    podiumPosition(p[1], 'second'),
+    podiumPosition(p[0], 'first'),
+    podiumPosition(p[2], 'third'),
   ]);
 }
 

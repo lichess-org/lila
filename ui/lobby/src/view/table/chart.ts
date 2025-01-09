@@ -1,9 +1,10 @@
 import { bind } from 'common/snabbdom';
-import { getPerfIcon } from 'common/perfIcons';
+import { getPerfIcon } from 'common/perf-icons';
 import { VNode, h } from 'snabbdom';
 import LobbyController from '../../ctrl';
 import { Hook, Seek } from '../../interfaces';
 import { action, isHook } from '../../util';
+import { i18n, i18nPluralSame } from 'i18n';
 
 function percents(v) {
   return v + '%';
@@ -30,7 +31,7 @@ function renderPlot(ctrl: LobbyController, hs: Hook | Seek): VNode {
             closeDelay: 200,
             popupId: 'hook',
           })
-          .data('powertipjq', $(renderPowertip(ctrl, hs)))
+          .data('powertipjq', $(renderPowertip(hs)))
           .on({
             powerTipRender() {
               $('#hook .inner-clickable').click(() => {
@@ -50,25 +51,27 @@ function renderPlot(ctrl: LobbyController, hs: Hook | Seek): VNode {
   });
 }
 
-function renderPowertip(ctrl: LobbyController, hs: Hook | Seek): string {
+function renderPowertip(hs: Hook | Seek): string {
   const color = (isHook(hs) ? hs.c : hs.color) || 'random';
   let html = '<div class="inner">';
   if (hs.rating) {
     const usr = isHook(hs) ? hs.u : hs.username;
     html += '<a class="opponent ulpt is color-icon ' + color + '" href="/@/' + usr + '">';
-    html += ' ' + usr + ' (' + hs.rating + ((isHook(hs) ? hs.prov : hs.provisional) ? '?' : '') + ')';
+    html +=
+      ' ' + usr + ' (' + hs.rating + ((isHook(hs) ? hs.prov : hs.provisional) ? '?' : '') + ')';
     html += '</a>';
   } else {
-    html += '<span class="opponent anon ' + color + '">' + ctrl.trans('anonymous') + '</span>';
+    html += '<span class="opponent anon ' + color + '">' + i18n('anonymous') + '</span>';
   }
   html += '<div class="inner-clickable">';
-  html += `<div>${isHook(hs) ? hs.clock : hs.days ? ctrl.trans.plural('nbDays', hs.days) : 'INF'}</div>`;
+  html += `<div>${isHook(hs) ? hs.clock : hs.days ? i18nPluralSame('nbDays', hs.days) : 'INF'}</div>`;
   html +=
     '<i data-icon="' +
     getPerfIcon(hs.perf || hs.variant || 'standard') +
     '"> ' +
-    ctrl.trans((isHook(hs) ? hs.ra : hs.mode) ? 'rated' : 'casual') +
-    '</i>';
+    (isHook(hs) ? hs.ra : hs.mode)
+      ? i18n('rated')
+      : i18n('casual') + '</i>';
   html += '</div>';
   html += '</div>';
   return html;
@@ -148,15 +151,19 @@ function renderYAxis() {
   return tags;
 }
 
-export function toggle(ctrl: LobbyController) {
+export function toggle(ctrl: LobbyController): VNode {
   return h('i.toggle', {
     key: 'set-mode-list',
-    attrs: { title: ctrl.trans.noarg('list'), 'data-icon': '?' },
+    attrs: { title: i18n('list'), 'data-icon': '?' },
     hook: bind('mousedown', _ => ctrl.setMode('list'), ctrl.redraw),
   });
 }
 
-export function render(tab: 'seeks' | 'real_time', ctrl: LobbyController, hss: Seek[] | Hook[]) {
+export function render(
+  tab: 'seeks' | 'real_time',
+  ctrl: LobbyController,
+  hss: Seek[] | Hook[]
+): VNode {
   // filter out overlappping seeks
   if (tab === 'seeks') {
     const seen: string[] = [];
@@ -174,7 +181,8 @@ export function render(tab: 'seeks' | 'real_time', ctrl: LobbyController, hss: S
         hook: bind(
           'click',
           e => {
-            if ((e.target as HTMLElement).classList.contains('plot')) ctrl.clickHook((e.target as HTMLElement).id);
+            if ((e.target as HTMLElement).classList.contains('plot'))
+              ctrl.clickHook((e.target as HTMLElement).id);
           },
           ctrl.redraw
         ),

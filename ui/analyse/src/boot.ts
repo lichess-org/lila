@@ -1,28 +1,76 @@
-import { AnalyseApi, AnalyseOpts } from './interfaces';
+import { AnalyseOpts } from './interfaces';
+import AnalyseCtrl from './ctrl';
 
-export default function (start: (opts: AnalyseOpts) => AnalyseApi) {
-  return function (cfg: AnalyseOpts) {
-    const li = window.lishogi,
-      data = cfg.data;
-    let analyse: AnalyseApi;
+export function replay(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseCtrl): AnalyseCtrl {
+  let ctrl: AnalyseCtrl;
 
-    li.socket = li.StrongSocket(data.url.socket, data.player.version, {
-      options: {
-        name: 'analyse',
-      },
-      params: {
-        userTv: data.userTv && data.userTv.id,
-      },
-      receive: function (t, d) {
-        analyse.socketReceive(t, d);
-      },
-      events: {},
-    });
-    cfg.$side = $('.analyse__side').clone();
-    cfg.$underboard = $('.analyse__underboard').clone();
-    cfg.trans = li.trans(cfg.i18n);
-    cfg.initialPly = 'url';
-    cfg.socketSend = li.socket.send;
-    analyse = start(cfg);
-  };
+  const data = opts.data,
+    socketUrl = `/watch/${data.game.id}/${data.player.color}/v6`;
+  window.lishogi.socket = new window.lishogi.StrongSocket(socketUrl, data.player.version, {
+    options: {
+      name: 'analyse',
+    },
+    params: {
+      userTv: data.userTv && data.userTv.id,
+    },
+    receive: function (t, d) {
+      ctrl.socket.receive(t, d);
+    },
+    events: {},
+  });
+  opts.$side = $('.analyse__side').clone();
+  opts.$underboard = $('.analyse__underboard').clone();
+  opts.initialPly = 'url';
+  opts.socketSend = window.lishogi.socket.send;
+  ctrl = start(opts);
+
+  return ctrl;
+}
+
+export function study(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseCtrl): AnalyseCtrl {
+  let ctrl: AnalyseCtrl;
+  opts.initialPly = 'url';
+  window.lishogi.socket = new window.lishogi.StrongSocket(opts.socketUrl, opts.socketVersion, {
+    receive: function (t, d) {
+      ctrl.socket.receive(t, d);
+    },
+  });
+  opts.socketSend = window.lishogi.socket.send;
+  ctrl = start(opts);
+
+  return ctrl;
+}
+
+export function analysis(
+  opts: AnalyseOpts,
+  start: (opts: AnalyseOpts) => AnalyseCtrl
+): AnalyseCtrl {
+  let ctrl: AnalyseCtrl;
+  opts.initialPly = 'url';
+  window.lishogi.socket = new window.lishogi.StrongSocket('/analysis/socket/v4', false, {
+    receive: function (t, d) {
+      ctrl.socket.receive(t, d);
+    },
+  });
+  opts.socketSend = window.lishogi.socket.send;
+  opts.$side = $('.analyse__side').clone();
+  ctrl = start(opts);
+
+  return ctrl;
+}
+
+export function practice(
+  opts: AnalyseOpts,
+  start: (opts: AnalyseOpts) => AnalyseCtrl
+): AnalyseCtrl {
+  let ctrl: AnalyseCtrl;
+  window.lishogi.socket = new window.lishogi.StrongSocket('/analysis/socket/v4', false, {
+    receive: function (t, d) {
+      ctrl.socket.receive(t, d);
+    },
+  });
+  opts.socketSend = window.lishogi.socket.send;
+  ctrl = start(opts);
+
+  return ctrl;
 }

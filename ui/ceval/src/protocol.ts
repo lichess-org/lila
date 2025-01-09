@@ -1,6 +1,6 @@
 import { defined } from 'common/common';
-import { DropMove, isDrop } from 'shogiops/types';
-import { makeUsi, parseUsi } from 'shogiops/util';
+import { DropMove } from 'shogiops/types';
+import { makeUsi, parseUsi, isDrop } from 'shogiops/util';
 import { parseSfen } from 'shogiops/sfen';
 import { Config, Work } from './types';
 import { promote } from 'shogiops/variant/util';
@@ -95,10 +95,14 @@ export class Protocol {
           case 'score':
             isMate = parts[++i] === 'mate';
             povEv = parseInt(parts[++i]);
-            if (parts[i + 1] === 'lowerbound' || parts[i + 1] === 'upperbound') evalType = parts[++i];
+            if (parts[i + 1] === 'lowerbound' || parts[i + 1] === 'upperbound')
+              evalType = parts[++i];
             break;
           case 'pv':
-            moves = this.work.variant === 'kyotoshogi' ? this.fromFairyKyotoFormat(parts.slice(++i)) : parts.slice(++i);
+            moves =
+              this.work.variant === 'kyotoshogi'
+                ? this.fromFairyKyotoFormat(parts.slice(++i))
+                : parts.slice(++i);
             // shouldn't happen
             if (['resign', 'win'].includes(moves[0])) {
               console.warn('Received', moves[0], 'for', this.work);
@@ -164,7 +168,11 @@ export class Protocol {
         // pruning. Therefore not using `go depth ${this.work.maxDepth}` and
         // manually ensuring engine gets to spend a minimum amount of
         // time/nodes on each position.
-        if (depth >= this.work.maxDepth && elapsedMs > 8000 && nodes > 4000 * Math.exp(this.work.maxDepth * 0.3))
+        if (
+          depth >= this.work.maxDepth &&
+          elapsedMs > 8000 &&
+          nodes > 4000 * Math.exp(this.work.maxDepth * 0.3)
+        )
           this.stop();
       }
     }
@@ -201,7 +209,9 @@ export class Protocol {
 
       const threadChange = this.setOption('Threads', this.work.threads || 1),
         hashChange = this.setOption('USI_Hash', this.work.hashSize || 16),
-        enteringKingRuleChange = enteringKingRule ? this.setOption('EnteringKingRule', enteringKingRule) : false,
+        enteringKingRuleChange = enteringKingRule
+          ? this.setOption('EnteringKingRule', enteringKingRule)
+          : false,
         multiPvChange = this.setOption('MultiPV', this.work.multiPv);
 
       if (threadChange || hashChange || enteringKingRuleChange || multiPvChange) {
@@ -219,7 +229,7 @@ export class Protocol {
       this.send(
         this.work.maxDepth >= 99
           ? `go depth ${maxSearchPlies}` // 'go infinite' would not finish even if entire tree search completed
-          : 'go movetime 90000'
+          : 'go movetime 90000',
       );
     }
   }
@@ -280,7 +290,7 @@ export class Protocol {
     return (
       `position sfen ${transformString(splitSfen[0], mappingBoard)} ${splitSfen[1] || 'b'} ${transformString(
         splitSfen[2] || '-',
-        mappingHand
+        mappingHand,
       )} moves ` + uMoves.join(' ')
     );
   }

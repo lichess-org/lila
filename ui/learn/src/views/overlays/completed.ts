@@ -1,7 +1,9 @@
 import { VNode, h } from 'snabbdom';
+import { MaybeVNode } from 'common/snabbdom';
 import { nextStage } from '../../categories';
 import LearnCtrl from '../../ctrl';
 import { average } from '../../util';
+import { i18n, i18nFormat } from 'i18n';
 
 function makeStars(score: number): VNode[] {
   const stars = [];
@@ -9,7 +11,7 @@ function makeStars(score: number): VNode[] {
   return stars;
 }
 
-export default function (ctrl: LearnCtrl) {
+export default function (ctrl: LearnCtrl): MaybeVNode {
   if (!ctrl.vm) return;
   const stage = ctrl.vm.stage,
     next = nextStage(stage.id),
@@ -26,8 +28,8 @@ export default function (ctrl: LearnCtrl) {
     },
     h('div.learn__screen', [
       h('div.stars', makeStars(stars)),
-      h('h1', ctrl.trans('stageXComplete', stage.id)),
-      h('p', ctrl.trans.noarg(stage.complete)),
+      h('h1', i18nFormat('learn:stageXComplete', stage.id)),
+      h('p', stage.complete),
       h('div.buttons', [
         next
           ? h(
@@ -40,11 +42,7 @@ export default function (ctrl: LearnCtrl) {
                   },
                 },
               },
-              [
-                ctrl.trans.noarg('next') + ': ',
-                ctrl.trans.noarg(next.title) + ' ',
-                h('i', { attrs: { 'data-icon': 'H' } }),
-              ]
+              [i18n('learn:next') + ': ', next.title + ' ', h('i', { attrs: { 'data-icon': 'H' } })]
             )
           : null,
         h(
@@ -60,7 +58,7 @@ export default function (ctrl: LearnCtrl) {
               },
             },
           },
-          ctrl.trans.noarg('backToMenu')
+          i18n('learn:backToMenu')
         ),
       ]),
     ])

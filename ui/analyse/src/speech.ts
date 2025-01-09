@@ -1,17 +1,17 @@
-export function setup() {
+import { loadCompiledScript } from 'common/assets';
+
+export function setup(): void {
   window.lishogi.pubsub.on('speech.enabled', onSpeechChange);
   onSpeechChange(window.lishogi.sound.speech());
 }
 
 function onSpeechChange(enabled: boolean) {
-  if (!window.LishogiSpeech && enabled) window.lishogi.loadScript(window.lishogi.compiledScript('speech'));
-  else if (window.LishogiSpeech && !enabled) window.LishogiSpeech = undefined;
+  if (!window.lishogi.modules.speech && enabled) loadCompiledScript('speech');
+  else if (window.lishogi.modules.speech && !enabled)
+    (window.lishogi.modules.speech as any) = undefined;
 }
 
-export function node(n: Tree.Node) {
-  withSpeech(s => s.notation(n.notation, true));
-}
-
-function withSpeech(f: (speech: LishogiSpeech) => void) {
-  if (window.LishogiSpeech) f(window.LishogiSpeech);
+export function node(n: Tree.Node): void {
+  if (window.lishogi.modules.speech)
+    window.lishogi.modules.speech({ notation: n.notation, cut: true });
 }

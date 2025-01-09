@@ -62,7 +62,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
       }
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
-      gameRepo findRandomStandardCheckmate distribution
+      gameRepo findRandomMinishogiCheckmate distribution
 
     private def getFromDb(id: String): Fu[Option[Captcha]] =
       gameRepo game id flatMap { _ ?? fromGame }
@@ -79,7 +79,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         moves = rewinded.situation.moveDestinations map { case (from, dests) =>
           from.key -> dests.mkString
         }
-      } yield Captcha(game.id, sfen(rewinded), rewinded.color.sente, solutions, moves = moves)
+      } yield Captcha(game.id, sfen(rewinded), rewinded.color.sente, solutions)
 
     // Not looking for drop checkmates or checking promotions
     private def solve(game: ShogiGame): Option[Captcha.Solutions] =
@@ -92,7 +92,7 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
           }
         }
         .to(List) map { usi =>
-        s"${usi.orig} ${usi.dest}"
+        s"${usi.orig}${usi.dest}" // we don't care about promotions
       } toNel
 
     private def rewind(moves: Usis): Option[ShogiGame] =
@@ -100,14 +100,13 @@ final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.E
         .fromUsi(
           moves.dropRight(1),
           none,
-          shogi.variant.Standard,
+          shogi.variant.Minishogi,
           Tags.empty
         )
         .valid
         .map(_.state)
         .toOption
 
-    // only board
     private def sfen(game: ShogiGame): String = game.situation.toSfen.value.split(' ').take(1).mkString(" ")
   }
 }

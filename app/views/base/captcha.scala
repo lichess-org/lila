@@ -11,7 +11,6 @@ import controllers.routes
 object captcha {
 
   private val dataCheckUrl = attr("data-check-url")
-  private val dataPlayable = attr("data-playable")
   private val dataX        = attr("data-x")
   private val dataY        = attr("data-y")
   private val dataZ        = attr("data-z")
@@ -31,18 +30,15 @@ object captcha {
         )(
           div(cls := "challenge")(
             div(
-              cls          := "mini-board parse-sfen " + variantClass(shogi.variant.Minishogi),
-              dataPlayable := "1",
-              dataVariant  := "minishogi",
-              dataNoHands  := "1",
-              dataX        := encodeSfen(captcha.hint),
+              cls   := s"mini-board ${variantClass(shogi.variant.Minishogi)}",
+              dataX := encodeSfen(captcha.hint),
               dataY := encodeSfen(if (captcha.sente) {
                 "sente"
               } else {
                 "gote"
               }),
-              dataZ := encodeSfen(captcha.sfenBoard)
-            )(div("sg-wrap"))
+              dataZ   := encodeSfen(captcha.sfenBoard)
+            )(div(cls := "sg-wrap"))
           ),
           div(cls := "captcha-explanation")(
             label(cls := "form-label")(

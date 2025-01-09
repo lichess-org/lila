@@ -1,5 +1,5 @@
 export const green = '#629924';
-export const greenShades = [
+export const greenShades: string[] = [
   '#629924',
   '#65962E',
   '#699338',
@@ -13,7 +13,7 @@ export const greenShades = [
 ];
 
 export const red = '#cc3333';
-export const redShades = [
+export const redShades: string[] = [
   '#CC3333',
   '#C43C3C',
   '#BB4444',

@@ -211,11 +211,8 @@ trait FormHelper { self: I18nHelper =>
         div(cls := "form-group is-invalid")(error(err))
       }
 
-    def flatpickr(field: Field, withTime: Boolean = true): Frag =
-      input(field, klass = "flatpickr")(
-        dataEnableTime := withTime,
-        datatime24h    := withTime
-      )
+    def flatpickr(field: Field, init: Boolean = false): Frag =
+      input(field, klass = s"flatpickr${init ?? " flatpickr--init"}")
 
     object file {
       def image(name: String): Frag = st.input(tpe := "file", st.name := name, accept := "image/*")

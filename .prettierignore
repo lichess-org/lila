@@ -1,27 +1,12 @@
-/modules
 /app
+/modules
 project
-bin
 conf
 
-public/css
-public/doc
-public/piece-css
-public/compiled
-public/glyphs.json
-public/javascripts/vendor
-public/vendor
-
-translation
+/public
+/translation
 
 dist/
-ui/common/**/*.js
-ui/common/**/*.d.ts
-ui/game/**/*.js
-ui/game/**/*.d.ts
-ui/nvui/**/*.js
-ui/nvui/**/*.d.ts
-ui/@types/lishogi/i18n.d.ts
 
 *.min.js
 

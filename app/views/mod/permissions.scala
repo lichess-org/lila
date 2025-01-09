@@ -14,8 +14,8 @@ object permissions {
     views.html.base.layout(
       title = s"${u.username} permissions",
       moreCss = frag(
-        cssTag("mod.permission"),
-        cssTag("form3")
+        cssTag("user.mod.permission"),
+        cssTag("misc.form3")
       )
     ) {
       val userPerms = Permission(u.roles)

@@ -1,0 +1,19 @@
+{
+  "name": "@build/js",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "devDependencies": {
+    "@build/wrapper": "workspace:*",
+    "@types/node": "catalog:",
+    "esbuild": "^0.24",
+    "esbuild-isolated-dts": "^0.1.1",
+    "fast-glob": "^3",
+    "tsx": "catalog:",
+    "grfn": "^2"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "start": "tsx ./src/index.ts"
+  }
+}

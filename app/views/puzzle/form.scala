@@ -15,7 +15,7 @@ object form {
   ) =
     views.html.base.layout(
       title = "Submit new puzzles",
-      moreCss = cssTag("form3-captcha")
+      moreCss = cssTag("misc.form3-captcha")
     ) {
       main(cls := "page-small box box-pad report")(
         h1("Submit new puzzles"),

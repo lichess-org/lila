@@ -23,6 +23,11 @@ export interface InsightFilter {
 }
 export type InsightFilterWithoutCustom = Omit<InsightFilter, 'custom'>;
 
+type WithArray<T> = {
+  [K in keyof T]: T[K] extends any[] ? T[K] : T[K][];
+};
+export type InsightFilterOptions = WithArray<InsightFilterWithoutCustom>;
+
 export interface InsightCustom {
   type: 'game' | 'moves';
   x: string;
@@ -50,8 +55,8 @@ export interface CustomResult extends Result {
 }
 export interface OutcomeResult extends Result {
   winrate: WinRate;
-  winStatuses: CounterObj<Status>;
-  lossStatuses: CounterObj<Status>;
+  winStatuses: CounterObj<StatusId>;
+  lossStatuses: CounterObj<StatusId>;
 }
 export interface MovesResult extends Result {
   nbOfMoves: number;
@@ -123,25 +128,41 @@ export interface ClockConfig {
 
 export type Usi = string;
 
-export enum Status {
-  checkmate = 30,
-  resign = 31,
-  stalemate = 32,
-  timeout = 33,
-  draw = 34,
-  outoftime = 35,
-  cheat = 36,
-  noStart = 37,
-  unknownFinish = 38,
-  perpetualCheck = 40,
-  impasse27 = 41,
-  royalsLost = 42,
-  bareKing = 43,
-  repetition = 44,
-  specialVariantEnd = 45,
-}
+export const StatusObject = {
+  checkmate: 30,
+  resign: 31,
+  stalemate: 32,
+  timeout: 33,
+  draw: 34,
+  outoftime: 35,
+  cheat: 36,
+  noStart: 37,
+  unknownFinish: 38,
+  perpetualCheck: 40,
+  impasse27: 41,
+  royalsLost: 42,
+  bareKing: 43,
+  repetition: 44,
+  specialVariantEnd: 45,
+} as const;
+export type StatusId = (typeof StatusObject)[keyof typeof StatusObject];
+export type StatusKey = keyof typeof StatusObject;
 
-export const speeds: Speed[] = ['ultraBullet', 'bullet', 'blitz', 'rapid', 'classical', 'correspondence'];
-export const variants: VariantKey[] = ['standard', 'minishogi', 'chushogi', 'annanshogi', 'kyotoshogi', 'checkshogi'];
+export const speeds: Speed[] = [
+  'ultraBullet',
+  'bullet',
+  'blitz',
+  'rapid',
+  'classical',
+  'correspondence',
+];
+export const variants: VariantKey[] = [
+  'standard',
+  'minishogi',
+  'chushogi',
+  'annanshogi',
+  'kyotoshogi',
+  'checkshogi',
+];
 
 export type Redraw = () => void;

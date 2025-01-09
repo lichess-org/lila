@@ -1,7 +1,6 @@
 import { view as cevalView } from 'ceval';
-import { transWithColorName } from 'common/colorName';
 import { defined } from 'common/common';
-import { bindMobileMousedown } from 'common/mobile';
+import { bindMobileMousedown, hasTouchEvents } from 'common/mobile';
 import { bind, bindNonPassive, dataIcon, MaybeVNode, onInsert } from 'common/snabbdom';
 import spinner from 'common/spinner';
 import stepwiseScroll from 'common/wheel';
@@ -13,44 +12,50 @@ import { parseSfen } from 'shogiops/sfen';
 import { VNode, h } from 'snabbdom';
 import { path as treePath } from 'tree';
 import { render as acplView } from './acpl';
-import { view as actionMenu } from './actionMenu';
+import { view as actionMenu } from './action-menu';
 import renderClocks from './clocks';
 import * as control from './control';
 import AnalyseCtrl from './ctrl';
-import forecastView from './forecast/forecastView';
+import forecastView from './forecast/forecast-view';
 import { view as forkView } from './fork';
-import * as gridHacks from './gridHacks';
+import * as gridHacks from './grid-hacks';
 import * as shogiground from './ground';
 import { ConcealOf } from './interfaces';
 import { view as keyboardView } from './keyboard';
-import * as notationExport from './notationExport';
-import practiceView from './practice/practiceView';
-import retroView from './retrospect/retroView';
-import serverSideUnderboard from './serverSideUnderboard';
-import * as gbEdit from './study/gamebook/gamebookEdit';
-import * as gbPlay from './study/gamebook/gamebookPlayView';
+import * as notationExport from './notation-export';
+import practiceView from './practice/practice-view';
+import retroView from './retrospect/retro-view';
+import serverSideUnderboard from './server-side-underboard';
+import * as gbEdit from './study/gamebook/gamebook-edit';
+import * as gbPlay from './study/gamebook/gamebook-play-view';
 import { StudyCtrl } from './study/interfaces';
-import renderPlayerBars from './study/playerBars';
-import * as studyPracticeView from './study/practice/studyPracticeView';
-import * as studyView from './study/studyView';
-import { render as renderTreeView } from './treeView/treeView';
-import { studyAdvancedButton, studyModal } from './studyModal';
-
-const li = window.lishogi;
+import renderPlayerBars from './study/player-bars';
+import * as studyPracticeView from './study/practice/study-practice-view';
+import * as studyView from './study/study-view';
+import { render as renderTreeView } from './tree-view/tree-view';
+import { studyAdvancedButton, studyModal } from './study-modal';
+import { colorName } from 'shogi/color-name';
+import { i18n, i18nFormatCapitalized, i18nPluralSame } from 'i18n';
+import { makeChat } from 'chat';
 
 function renderResult(ctrl: AnalyseCtrl): MaybeVNode {
-  const handicap = isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen });
+  const handicap = isHandicap({
+    rules: ctrl.data.game.variant.key,
+    sfen: ctrl.data.game.initialSfen,
+  });
   const render = (status: String, winner?: Color) =>
-    h('div.status', [status, winner ? ', ' + transWithColorName(ctrl.trans, 'xIsVictorious', winner, handicap) : null]);
+    h('div.status', [
+      status,
+      winner ? ', ' + i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap)) : null,
+    ]);
   if (ctrl.data.game.status.id >= 30) {
-    const status = statusView(ctrl.trans, ctrl.data.game.status, ctrl.data.game.winner, handicap);
+    const status = statusView(ctrl.data.game.status, ctrl.data.game.winner, handicap);
     return render(status, ctrl.data.game.winner);
   } else if (ctrl.study && ctrl.study.data.chapter.setup.endStatus) {
     const status = statusView(
-      ctrl.trans,
       ctrl.study.data.chapter.setup.endStatus.status,
       ctrl.study.data.chapter.setup.endStatus.winner,
-      handicap
+      handicap,
     );
     return render(status, ctrl.study.data.chapter.setup.endStatus.winner);
   } else return null;
@@ -96,7 +101,8 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
             const el = vnode.elm as HTMLInputElement;
             el.value = defined(ctrl.sfenInput) ? ctrl.sfenInput : ctrl.node.sfen;
             el.addEventListener('change', _ => {
-              if (el.value !== ctrl.node.sfen && el.reportValidity()) ctrl.changeSfen(el.value.trim());
+              if (el.value !== ctrl.node.sfen && el.reportValidity())
+                ctrl.changeSfen(el.value.trim());
             });
             el.addEventListener('input', _ => {
               ctrl.sfenInput = el.value;
@@ -129,7 +135,10 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               (el as HTMLTextAreaElement).value = defined(ctrl.kifInput)
                 ? ctrl.kifInput
                 : notationExport.renderFullKif(ctrl);
-              el.addEventListener('input', e => (ctrl.kifInput = (e.target as HTMLTextAreaElement).value));
+              el.addEventListener(
+                'input',
+                e => (ctrl.kifInput = (e.target as HTMLTextAreaElement).value),
+              );
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.kifInput)
@@ -148,10 +157,10 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
                 const kif = $('.copyables .kif textarea').val();
                 if (kif !== notationExport.renderFullKif(ctrl)) ctrl.changeNotation(kif);
               },
-              ctrl.redraw
+              ctrl.redraw,
             ),
           },
-          ctrl.trans.noarg('importKif')
+          i18n('importKif'),
         ),
       ]),
     ]),
@@ -166,7 +175,10 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
                   (el as HTMLTextAreaElement).value = defined(ctrl.csaInput)
                     ? ctrl.csaInput
                     : notationExport.renderFullCsa(ctrl);
-                  el.addEventListener('input', e => (ctrl.csaInput = (e.target as HTMLTextAreaElement).value));
+                  el.addEventListener(
+                    'input',
+                    e => (ctrl.csaInput = (e.target as HTMLTextAreaElement).value),
+                  );
                 }),
                 postpatch: (_, vnode) => {
                   (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.csaInput)
@@ -185,10 +197,10 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
                     const csa = $('.copyables .csa textarea').val();
                     if (csa !== notationExport.renderFullCsa(ctrl)) ctrl.changeNotation(csa);
                   },
-                  ctrl.redraw
+                  ctrl.redraw,
                 ),
               },
-              ctrl.trans.noarg('importCsa')
+              i18n('importCsa'),
             ),
           ]),
         ])
@@ -203,7 +215,10 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
               (el as HTMLTextAreaElement).value = defined(ctrl.urlInput)
                 ? ctrl.urlInput
                 : notationExport.renderUrlUsiLine(ctrl);
-              el.addEventListener('input', e => (ctrl.urlInput = (e.target as HTMLTextAreaElement).value));
+              el.addEventListener(
+                'input',
+                e => (ctrl.urlInput = (e.target as HTMLTextAreaElement).value),
+              );
             }),
             postpatch: (_, vnode) => {
               (vnode.elm as HTMLTextAreaElement).value = defined(ctrl.urlInput)
@@ -219,9 +234,11 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
           attrs: { 'data-icon': '' },
         },
         [
-          ctrl.trans.noarg('shareMainlineUrl'),
-          ctrl.mainline.length > 300 ? h('span.error', 'MAX: ' + ctrl.trans('nbMoves', 300)) : null,
-        ]
+          i18n('shareMainlineUrl'),
+          ctrl.mainline.length > 300
+            ? h('span.error', 'MAX: ' + i18nPluralSame('nbMoves', 300))
+            : null,
+        ],
       ),
     ]),
   ]);
@@ -236,7 +253,9 @@ function jumpButton(icon: string, effect: string, enabled: boolean): VNode {
 
 function dataAct(e: Event): string | null {
   const target = e.target as HTMLElement;
-  return target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
+  return (
+    target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act')
+  );
 }
 
 function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
@@ -258,8 +277,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
 function controls(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    menuIsOpen = ctrl.actionMenu.open,
-    noarg = ctrl.trans.noarg;
+    menuIsOpen = ctrl.actionMenu.open;
   return h(
     'div.analyse__controls.analyse-controls',
     {
@@ -274,7 +292,7 @@ function controls(ctrl: AnalyseCtrl) {
             else if (action === 'practice') ctrl.togglePractice();
             else if (action === 'menu') ctrl.actionMenu.toggle();
           },
-          ctrl.redraw
+          ctrl.redraw,
         );
       }),
     },
@@ -287,7 +305,7 @@ function controls(ctrl: AnalyseCtrl) {
               ? [
                   h('a.fbt', {
                     attrs: {
-                      title: noarg('analysis'),
+                      title: i18n('analysis'),
                       target: '_blank',
                       href: ctrl.studyPractice.analysisUrl(),
                       'data-icon': 'A',
@@ -298,17 +316,19 @@ function controls(ctrl: AnalyseCtrl) {
                   !ctrl.synthetic ? studyAdvancedButton(ctrl, menuIsOpen) : null,
                   h('button.fbt', {
                     attrs: {
-                      title: noarg('practiceWithComputer'),
+                      title: i18n('practiceWithComputer'),
                       'data-act': 'practice',
                       'data-icon': '',
                       hidden: !!ctrl.retro,
-                      disabled: menuIsOpen || !(ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()),
+                      disabled:
+                        menuIsOpen ||
+                        !(ctrl.ceval.possible && ctrl.ceval.allowed() && !ctrl.isGamebook()),
                     },
                     class: {
                       active: !!ctrl.practice,
                     },
                   }),
-                ]
+                ],
           ),
       h('div.jumps', [
         !ctrl.embed ? jumpButton('W', 'first', canJumpPrev) : undefined,
@@ -321,12 +341,12 @@ function controls(ctrl: AnalyseCtrl) {
         : h('button.fbt', {
             class: { active: menuIsOpen },
             attrs: {
-              title: noarg('menu'),
+              title: i18n('menu'),
               'data-act': 'menu',
               'data-icon': '[',
             },
           }),
-    ]
+    ],
   );
 }
 
@@ -371,7 +391,8 @@ export default function (ctrl: AnalyseCtrl): VNode {
           forceInnerCoords(ctrl, needsInnerCoords);
         },
         postpatch(old, vnode) {
-          if (old.data!.gaugeOn !== gaugeOn) li.dispatchEvent(document.body, 'shogiground.resize');
+          if (old.data!.gaugeOn !== gaugeOn)
+            document.body.dispatchEvent(new Event('shogiground.resize'));
           vnode.data!.gaugeOn = gaugeOn;
         },
       },
@@ -392,7 +413,9 @@ export default function (ctrl: AnalyseCtrl): VNode {
         addChapterId(study, 'div.analyse__board.main-board.v-' + ctrl.data.game.variant.key),
         {
           hook:
-            window.lishogi.hasTouchEvents || ctrl.gamebookPlay() || window.lishogi.storage.get('scrollMoves') == '0'
+            hasTouchEvents ||
+            ctrl.gamebookPlay() ||
+            window.lishogi.storage.get('scrollMoves') == '0'
               ? undefined
               : bindNonPassive(
                   'wheel',
@@ -404,7 +427,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
                     if (e.deltaY > 0 && scroll) control.next(ctrl);
                     else if (e.deltaY < 0 && scroll) control.prev(ctrl);
                     ctrl.redraw();
-                  })
+                  }),
                 ),
         },
         [
@@ -412,7 +435,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
           playerBars ? playerBars[ctrl.bottomIsSente() ? 1 : 0] : null,
           shogiground.renderBoard(ctrl),
           playerBars ? playerBars[ctrl.bottomIsSente() ? 0 : 1] : null,
-        ]
+        ],
       ),
       gaugeOn ? cevalView.renderGauge(ctrl) : null,
       gamebookPlayView ||
@@ -434,9 +457,11 @@ export default function (ctrl: AnalyseCtrl): VNode {
             'div.analyse__underboard',
             {
               hook:
-                ctrl.synthetic || playable(ctrl.data) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl)),
+                ctrl.synthetic || playable(ctrl.data)
+                  ? undefined
+                  : onInsert(elm => serverSideUnderboard(elm, ctrl)),
             },
-            study ? studyView.underboard(ctrl) : [inputs(ctrl)]
+            study ? studyView.underboard(ctrl) : [inputs(ctrl)],
           ),
       acplView(ctrl),
       ctrl.embed
@@ -468,20 +493,18 @@ export default function (ctrl: AnalyseCtrl): VNode {
                                   'data-icon': 'i',
                                 },
                               },
-                              ctrl.trans.noarg('backToGame')
-                            )
+                              i18n('backToGame'),
+                            ),
                           )
                         : null,
-                    ]
+                    ],
             ),
       ctrl.opts.chat &&
         h('section.mchat', {
           hook: onInsert(_ => {
             if (ctrl.opts.chat.instance) ctrl.opts.chat.instance.destroy();
             ctrl.opts.chat.parseMoves = true;
-            li.makeChat(ctrl.opts.chat, chat => {
-              ctrl.opts.chat.instance = chat;
-            });
+            ctrl.opts.chat.instance = makeChat(ctrl.opts.chat);
           }),
         }),
       ctrl.embed
@@ -491,8 +514,8 @@ export default function (ctrl: AnalyseCtrl): VNode {
             {
               hook: onInsert(el => $(el).watchers()),
             },
-            [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')]
+            [h('span.number', '\xa0'), ' ', i18n('spectators'), ' ', h('span.list')],
           ),
-    ]
+    ],
   );
 }

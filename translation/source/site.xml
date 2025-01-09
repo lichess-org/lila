@@ -103,6 +103,7 @@
 	<string name="recentGames">Recent games</string>
 	<string name="topGames">Top games</string>
 	<string name="noGameFound">No game found</string>
+	<string name="pageNotFound">Page not found</string>
 	<string name="maybeIncludeMoreGamesFromThePreferencesMenu">Maybe include more games from the preferences menu?</string>
 	<string name="openingExplorer">Opening explorer</string>
 	<string name="xOpeningExplorer">%s opening explorer</string>
@@ -336,6 +337,7 @@
 	<string name="tournament">Tournament</string>
 	<string name="tournamentLeaderboard">Tournament leaderboard</string>
 	<string name="tournaments">Tournaments</string>
+	<string name="myTournaments">My tournaments</string>
 	<string name="tournamentPoints">Tournament points</string>
 	<plurals name="nbTournamentPoints">
 		<item quantity="one">%s tournament point</item>
@@ -459,7 +461,10 @@
 	<string name="showAdvancedSettings">Show advanced settings</string>
 	<string name="makePrivateTournament">Make the tournament private, and restrict access with a password</string>
 	<string name="join">Join</string>
+	<string name="askToJoin" comment="Tournament join request">Ask to join</string>
+	<string name="waitingForApproval" comment="Awaiting join request approval">Waiting for approval</string>
 	<string name="pause">Pause</string>
+	<string name="denied" comment="Was rejected from joining tournament/simul...">Denied</string>
 	<string name="withdraw">Withdraw</string>
 	<string name="points">Points</string>
 	<string name="wins">Wins</string>
@@ -516,6 +521,7 @@
 	<string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
 	<string name="toTrackYourProgress">To track your progress:</string>
 	<string name="goodMove">Good move</string>
+	<string name="brilliantMove">Brilliant move</string>
 	<string name="bestMove">Best move!</string>
 	<string name="success">Success</string>
 	<string name="thankYou">Thank you!</string>
@@ -550,6 +556,7 @@
 	<string name="replyToThisTopic">Reply to this topic</string>
 	<string name="reply">Reply</string>
 	<string name="message">Message</string>
+	<string name="xIsTyping" comment="Username is typing...">%s is typing...</string>
 	<string name="createTheTopic">Create the topic</string>
 	<string name="reportAUser">Report a user</string>
 	<string name="user">User</string>
@@ -612,7 +619,8 @@
 	<string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
 	<string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
 	<string name="timeline">Timeline</string>
-	<string name="starting">Starting:</string>
+	<string name="starting" comment="Ex.: Starting: 50 minutes">Starting:</string>
+	<string name="ending" comment="Ex.: Ending: 4th of July">Ending:</string>
 	<string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
 	<string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
 	<string name="biographyDescription">Talk about yourself, your interests, what you like in shogi, your favourite openings, players, ...</string>
@@ -723,6 +731,7 @@
 	<string name="tournamentMayHaveBeenCanceled">The tournament may have been cancelled if all players left before it started.</string>
 	<string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
 	<string name="weeklyPerfTypeRatingDistribution">Weekly %s rating distribution</string>
+	<string name="monthlyPerfTypeRatingDistribution">Monthly %s rating distribution</string>
 	<plurals name="nbPerfTypePlayersThisWeek">
 		<item quantity="one">%1$s %2$s player this week.</item>
 		<item quantity="other">%1$s %2$s players this week.</item>
@@ -982,9 +991,13 @@
 	<string name="preview">Preview</string>
 	<string name="variantNotSupported" comment="Used in engine evaluation for variants like chushogi, annanshogi, etc.">Variant not supported</string>
 	<string name="readyToPlay" comment="Used as a help on a game that can be immediately started without waiting (ai games for example, or timecontrol where another player is already waiting)">Ready to play</string>
-	<string name="general-shogi-discussion">General Shogi Discussion</string>
-	<string name="game-analysis">Game Analysis</string>
-	<string name="lishogi-feedback">Lishogi Feedback</string>
-	<string name="off-topic-discussion">Off-Topic Discussion</string>
-	<string name="teamXForum">Forum of the team %s</string>
+	<string name="generalShogiDiscussionForum" comment="Forum category title">General Shogi Discussion</string>
+	<string name="gameAnalysisForum" comment="Forum category title">Game Analysis</string>
+	<string name="lishogiFeedbackForum" comment="Forum category title">Lishogi Feedback</string>
+	<string name="offTopicDiscussionForum" comment="Forum category title">Off-Topic Discussion</string>
+	<string name="teamXForum" comment="Forum category title">Forum of the team %s</string>
+	<string name="kickPlayer">Kick player</string>
+	<string name="managePlayers" comment="Manage players in tournaments - for tournament organizers">Manage players</string>
+	<string name="notReversible" comment="Attached to action (deleting study for example) that cannot be reversed">Not reversible</string>
+	<string name="shareMainlineUrl" comment="Mainline means moves without variations (branches)">Share mainline URL</string>
 </resources>

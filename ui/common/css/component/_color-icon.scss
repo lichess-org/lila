@@ -1,18 +1,11 @@
 .color-icon {
-  @if $theme-light {
-    &.sente::before {
-      content: '☗';
-    }
-    &.gote::before {
-      content: '☖';
-    }
-  } @else {
-    &.sente::before {
-      content: '☖';
-    }
-    &.gote::before {
-      content: '☗';
-    }
+  font-family: 'lishogi';
+  text-transform: unset;
+  &.sente::before {
+    content: $sente-symbol;
+  }
+  &.gote::before {
+    content: $gote-symbol;
   }
   &.random::before {
     content: 'l';

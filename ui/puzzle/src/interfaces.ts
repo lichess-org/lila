@@ -1,7 +1,7 @@
 import { CevalCtrl, NodeEvals } from 'ceval';
 import { Prop } from 'common/common';
 import { Deferred } from 'common/defer';
-import { EngineCode } from 'common/engineName';
+import { EngineCode } from 'shogi/engine-name';
 import { StoredBooleanProp } from 'common/storage';
 import { Api as SgApi } from 'shogiground/api';
 import { Config as SgConfig } from 'shogiground/config';
@@ -9,7 +9,7 @@ import { MoveOrDrop, Outcome, Piece } from 'shogiops/types';
 import { Shogi } from 'shogiops/variant/shogi';
 import { TreeWrapper } from 'tree';
 import PuzzleSession from './session';
-import { KeyboardMove } from 'keyboardMove';
+import { KeyboardMove } from 'keyboard-move';
 
 export type Redraw = () => void;
 
@@ -23,7 +23,33 @@ export interface KeyboardController {
   playBestMove(): void;
 }
 
-export type ThemeKey = string;
+export type ThemeKey =
+  | 'mix'
+  | 'advantage'
+  | 'equality'
+  | 'crushing'
+  | 'opening'
+  | 'middlegame'
+  | 'endgame'
+  | 'oneMove'
+  | 'short'
+  | 'long'
+  | 'veryLong'
+  | 'fork'
+  | 'pin'
+  | 'sacrifice'
+  | 'strikingPawn'
+  | 'joiningPawn'
+  | 'edgeAttack'
+  | 'mate'
+  | 'mateIn1'
+  | 'mateIn3'
+  | 'mateIn5'
+  | 'mateIn7'
+  | 'mateIn9'
+  | 'tsume'
+  | 'lishogiGames'
+  | 'otherSources';
 export interface AllThemes {
   dynamic: ThemeKey[];
   static: Set<ThemeKey>;
@@ -47,7 +73,6 @@ export interface Controller extends KeyboardController {
   getNode(): Tree.Node;
   position(): Shogi;
   showComputer(): boolean;
-  trans: Trans;
   getData(): PuzzleData;
   getTree(): TreeWrapper;
   shogiground: SgApi;
@@ -189,9 +214,7 @@ export interface PuzzleResult {
   replayComplete?: boolean;
 }
 
-export interface RoundThemes {
-  [key: string]: boolean;
-}
+export type RoundThemes = Record<ThemeKey, boolean>;
 
 export interface PuzzleRound {
   win: boolean;

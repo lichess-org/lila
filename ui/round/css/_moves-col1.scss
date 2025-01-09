@@ -24,10 +24,9 @@
     white-space: nowrap;
     overflow-x: scroll;
     color: $c-font-page;
-    @if $theme-light {
-      box-shadow: 0 4px 4px c-light($c-bg-page, 78%) inset;
-    } @else {
-      box-shadow: 0 4px 12px #000 inset;
+    box-shadow: 0 4px 12px #000 inset;
+    @include theme-wrap('light') {
+      box-shadow: 0 4px 4px $m-bg-page_c-lightness_78 inset;
     }
     &::-webkit-scrollbar {
       height: 0px;
@@ -54,11 +53,11 @@
     cursor: pointer;
     &.active,
     &:hover {
-      @if $theme-light {
-        background: hsl($c-site-hue, 20%, 85%);
-      } @else {
-        background: $c-bg-zebra;
-      }
+      background: $c-bg-zebra;
+      // todo
+      // @include theme-wrap('light') {
+      //   background: hsl($c-site-hue, 20%, 85%);
+      // }
     }
     &.active {
       color: $c-font-clearer;

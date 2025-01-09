@@ -1,3 +1,4 @@
+import { assetUrl, loadScript } from 'common/assets';
 import { Cache } from './cache';
 import { Protocol } from './protocol';
 import { Config, Work } from './types';
@@ -66,7 +67,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
     return ThreadedWasmWorker.protocols[this.opts.module];
   }
 
-  protected async boot(cfg: Config) {
+  protected async boot(cfg: Config): Promise<void> {
     if (!ThreadedWasmWorker.engine[this.opts.module]) {
       const version = this.opts.version;
       const cache = this.opts.cache;
@@ -87,7 +88,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
         if (!wasmBinary) {
           wasmBinary = await new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();
-            req.open('GET', window.lishogi.assetUrl(wasmPath, { version }), true);
+            req.open('GET', assetUrl(wasmPath, { version }), true);
             req.responseType = 'arraybuffer';
             req.onerror = event => reject(event);
             req.onprogress = event => this.opts.downloadProgress?.(event.loaded);
@@ -107,11 +108,11 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       }
 
       // Load Emscripten module.
-      await window.lishogi.loadScript(this.opts.baseUrl + this.opts.baseName + '.js', { version });
-      const engine = await window[this.opts.module]!({
+      await loadScript(assetUrl(this.opts.baseUrl + this.opts.baseName + '.js', { version }));
+      const engine = await (window as any)[this.opts.module]!({
         wasmBinary,
         locateFile: (path: string) =>
-          window.lishogi.assetUrl(this.opts.baseUrl + path, {
+          assetUrl(this.opts.baseUrl + path, {
             version: version,
             sameDomain: path.endsWith('.worker.js'),
           }),
@@ -129,7 +130,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
     }
   }
 
-  destroy() {
+  destroy(): void {
     // Terminated instances to not get freed reliably
     // (https://github.com/lichess-org/lila/issues/7334). So instead of
     // destroying, just stop instances and keep them around for reuse.

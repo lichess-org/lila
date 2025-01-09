@@ -1,4 +1,5 @@
-import { ROLES, Role } from 'shogiops/types';
+import { Role } from 'shogiops/types';
+import { ROLES } from 'shogiops/constants';
 import { speeds, variants } from './types';
 
 export function toPercentage(n: number, total: number): number {

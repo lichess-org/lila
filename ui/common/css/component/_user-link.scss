@@ -11,24 +11,8 @@
       opacity: 1;
     }
   }
-  .player-color {
-    font-family: lishogi;
+  .color-icon {
     font-size: 1.2em;
-    @if $theme-light {
-      &.sente::before {
-        content: '☗';
-      }
-      &.gote::before {
-        content: '☖';
-      }
-    } @else {
-      &.sente::before {
-        content: '☖';
-      }
-      &.gote::before {
-        content: '☗';
-      }
-    }
   }
   .line {
     @extend %data-icon;

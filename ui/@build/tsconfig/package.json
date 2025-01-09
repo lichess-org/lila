@@ -1,0 +1,10 @@
+{
+  "name": "@build/tsconfig",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    ".": "./tsconfig.json",
+    "./build": "./build/tsconfig.json"
+  }
+}

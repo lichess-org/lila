@@ -12,13 +12,13 @@
   }
   .categ_stages {
     --min-width: 100vw;
-    @include breakpoint($mq-xx-small) {
-      --min-width: 400px;
-    }
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--min-width), 1fr));
     grid-gap: 1em 1.5em;
     margin: 0.8em 0 3em 0;
+    @include breakpoint($mq-xx-small) {
+      --min-width: 400px;
+    }
   }
   .stage {
     @extend %box-radius, %flex-center-nowrap;
@@ -37,7 +37,10 @@
       width: 80px;
       height: 80px;
       margin: 0 13px;
-      filter: if($theme-light, brightness(0.2), brightness(0.9));
+      filter: brightness(0.9);
+      @include theme-wrap('light') {
+        filter: brightness(0.2);
+      }
     }
     .text {
       height: 100%;
@@ -71,9 +74,9 @@
       & > div {
         opacity: 1;
       }
-      background: mix($c-primary, $c-bg-box, 15%);
+      background: $m-primary_bg-box_mix_15;
       &.done {
-        background: mix($c-secondary, $c-bg-box, 15%);
+        background: $m-secondary_bg-box_mix_15;
       }
     }
     .ribbon {
@@ -152,12 +155,12 @@
     .stage {
       border-left: 2px solid $c-accent;
       &:hover {
-        background: mix($c-accent, $c-bg-box, 15%);
+        background: $m-accent_bg-box_mix_15;
       }
       &.done {
         border-left: 2px solid $c-secondary;
         &:hover {
-          background: mix($c-secondary, $c-bg-box, 15%);
+          background: $m-secondary_bg-box_mix_15;
         }
       }
     }
@@ -172,10 +175,10 @@
 
 @keyframes glow {
   from {
-    box-shadow: 0 0 15px -5px if($theme-light, #536dfe, #b3e5fc);
+    box-shadow: 0 0 15px -5px $c-primary-glow;
   }
   to {
-    box-shadow: 0 0 15px 5px if($theme-light, #536dfe, #b3e5fc);
+    box-shadow: 0 0 15px 5px $c-primary-glow;
   }
 }
 

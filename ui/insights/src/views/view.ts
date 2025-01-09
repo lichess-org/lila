@@ -10,6 +10,7 @@ import { times } from './tabs/times';
 import { analysis } from './tabs/analysis';
 import { custom } from './tabs/custom';
 import { filter } from './filter';
+import { i18nPluralSame } from 'i18n';
 
 export default function (ctrl: InsightCtrl): VNode {
   return h('div.page-menu', [
@@ -67,7 +68,7 @@ function content(ctrl: InsightCtrl, tab: Tab): VNode {
     tab === 'outcomes'
       ? outcomes(ctrl, data)
       : tab === 'opponents'
-        ? opponents(ctrl, data)
+        ? opponents(data)
         : tab === 'moves'
           ? moves(ctrl, data)
           : tab === 'times'
@@ -75,9 +76,9 @@ function content(ctrl: InsightCtrl, tab: Tab): VNode {
             : tab === 'analysis'
               ? analysis(ctrl, data)
               : custom(ctrl, data);
-  return h('div.angle-content', [res, footer(data, ctrl.trans)]);
+  return h('div.angle-content', [res, footer(data)]);
 }
 
-function footer(res: Result, trans: Trans): VNode {
-  return h('div.footer', trans.plural('nbGames', res.nbOfGames));
+function footer(res: Result): VNode {
+  return h('div.footer', i18nPluralSame('nbGames', res.nbOfGames));
 }

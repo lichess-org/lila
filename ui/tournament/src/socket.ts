@@ -2,11 +2,11 @@ import TournamentController from './ctrl';
 import { Arrangement } from './interfaces';
 
 export interface TournamentSocket {
-  send: SocketSend;
+  send: Socket.Send;
   receive(type: string, data: any): void;
 }
 
-export default function (send: SocketSend, ctrl: TournamentController) {
+export default function (send: Socket.Send, ctrl: TournamentController): TournamentSocket {
   const handlers = {
     reload() {
       setTimeout(ctrl.askReload, Math.floor(Math.random() * 4000));

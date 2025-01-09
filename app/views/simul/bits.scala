@@ -1,7 +1,5 @@
 package views.html.simul
 
-import play.api.i18n.Lang
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -12,8 +10,6 @@ object bits {
 
   def link(simulId: lila.simul.Simul.ID): Frag =
     a(href := routes.Simul.show(simulId))("Simultaneous exhibition")
-
-  def jsI18n()(implicit lang: Lang) = i18nJsObject(baseTranslations)
 
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
@@ -45,29 +41,4 @@ object bits {
       " - ",
       sim.variants.map(v => variantName(v)).mkString(", ")
     )
-
-  private val baseTranslations = Vector(
-    trans.finished,
-    trans.withdraw,
-    trans.join,
-    trans.cancel,
-    trans.joinTheGame,
-    trans.nbPlaying,
-    trans.nbWins,
-    trans.nbDraws,
-    trans.nbLosses,
-    trans.by,
-    trans.signIn,
-    trans.mustBeInTeam,
-    trans.host,
-    trans.xWon,
-    trans.xLost,
-    trans.draw,
-    trans.standard,
-    trans.minishogi,
-    trans.chushogi,
-    trans.annanshogi,
-    trans.kyotoshogi,
-    trans.checkshogi
-  ).map(_.key)
 }

@@ -136,8 +136,7 @@
         bottom: 0;
         left: 0;
         width: var(--p);
-        background: mix($c-bg-page, $c-primary, 40%)
-          linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
+        background: $m-bg-page_primary_mix_40 linear-gradient(180deg, rgba(255%, 255%, 255%, 0.15) 0%, transparent 35%);
         animation: bar-glider-anim 3s linear infinite;
         @include transition(width, 1s);
       }
@@ -181,7 +180,7 @@
       }
 
       &:hover {
-        background: mix($c-bg-box, $c-link, 90%);
+        background: $m-link_bg-box_mix_10;
       }
 
       &.strike a {

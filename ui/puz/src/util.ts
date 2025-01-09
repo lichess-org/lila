@@ -4,21 +4,22 @@ import { Puzzle } from './interfaces';
 
 export const getNow = (): number => Math.round(performance.now());
 
-export const puzzlePov = (puzzle: Puzzle) => parseSfen('standard', puzzle.sfen, false).unwrap().turn;
+export const puzzlePov = (puzzle: Puzzle): Color => parseSfen('standard', puzzle.sfen, false).unwrap().turn;
 
-function make(file: string, volume?: number) {
+function make(file: string, volume?: number): () => void {
   const baseUrl = $('body').data('asset-url') + '/assets/sound/';
   const sound = new window.Howl({
     src: [baseUrl + file + '.ogg', baseUrl + file + '.mp3'],
     volume: volume || 1,
   });
   return function () {
-    if (window.lishogi.sound.set() !== 'silent') throttle(1000, sound.play());
+    if (window.lishogi.sound.set() !== 'silent') throttle(1000, sound.play);
   };
 }
 
-export const sound = {
-  move: (take: boolean = false) => window.lishogi.sound[take ? 'capture' : 'move'](),
+export const sound: Record<'move' | 'capture' | 'wrong' | 'good' | 'end', () => void> = {
+  move: (): void => window.lishogi.sound.play('move'),
+  capture: (): void => window.lishogi.sound.play('capture'),
   wrong: make('storm/stormWrong'),
   good: make('storm/stormGood'),
   end: make('storm/stormEnd'),

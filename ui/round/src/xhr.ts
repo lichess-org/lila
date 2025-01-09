@@ -1,30 +1,24 @@
 import throttle from 'common/throttle';
 import RoundController from './ctrl';
+import { RoundData } from './interfaces';
 
-export const headers = {
-  Accept: 'application/vnd.lishogi.v4+json',
-};
-
-export function reload(ctrl: RoundController) {
-  return $.ajax({
-    url: ctrl.data.url.round,
-    headers,
-  }).fail(window.lishogi.reload);
+export function reload(ctrl: RoundController): Promise<RoundData> {
+  const url = ctrl.data.player.spectator
+    ? `/${ctrl.data.game.id}/${ctrl.data.player.color}`
+    : `/${ctrl.data.game.id}${ctrl.data.player.id}`;
+  return window.lishogi.xhr.json('GET', url).catch(window.lishogi.reload);
 }
 
-export function whatsNext(ctrl: RoundController) {
-  return $.ajax({
-    url: '/whats-next/' + ctrl.data.game.id + ctrl.data.player.id,
-    headers,
-  });
+export function whatsNext(ctrl: RoundController): Promise<{ next: string }> {
+  return window.lishogi.xhr.json('GET', `/whats-next/${ctrl.data.game.id}${ctrl.data.player.id}`);
 }
 
-export function challengeRematch(gameId: string) {
-  return $.ajax({
-    method: 'POST',
-    url: '/challenge/rematch-of/' + gameId,
-    headers,
-  });
+export function challengeRematch(gameId: string): Promise<void> {
+  return window.lishogi.xhr.json('POST', '/challenge/rematch-of/' + gameId);
 }
 
-export const setZen = throttle(1000, zen => $.post('/pref/zen', { zen: zen ? 1 : 0 }));
+export const setZen: (zen: boolean) => void = throttle(1000, zen =>
+  window.lishogi.xhr.text('POST', '/pref/zen', {
+    formData: { zen },
+  })
+);

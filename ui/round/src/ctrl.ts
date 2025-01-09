@@ -1,4 +1,4 @@
-import { makeNotation, makeNotationLine } from 'common/notation';
+import { makeNotation, makeNotationLine } from 'shogi/notation';
 import notify from 'common/notification';
 import * as game from 'game';
 import * as status from 'game/status';
@@ -10,14 +10,24 @@ import { samePiece } from 'shogiground/util';
 import { eagleLionAttacks, falconLionAttacks } from 'shogiops/attacks';
 import { checksSquareNames, shogigroundSecondLionStep, usiToSquareNames } from 'shogiops/compat';
 import { initialSfen, parseSfen } from 'shogiops/sfen';
-import { NormalMove, Piece, Role, Square, isDrop } from 'shogiops/types';
-import { defined, makeSquareName, makeUsi, opposite, parseSquareName, parseUsi, squareDist } from 'shogiops/util';
+import { NormalMove, Piece, Role, Square } from 'shogiops/types';
+import { State } from 'shogiground/state';
+import {
+  defined,
+  makeSquareName,
+  makeUsi,
+  opposite,
+  parseSquareName,
+  parseUsi,
+  squareDist,
+  isDrop,
+} from 'shogiops/util';
 import { Chushogi } from 'shogiops/variant/chushogi';
 import { handRoles, promotableOnDrop, promote, unpromote } from 'shogiops/variant/util';
 import * as blur from './blur';
-import * as cevalSub from './cevalSub';
-import { ClockController } from './clock/clockCtrl';
-import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
+import * as cevalSub from './ceval-sub';
+import { ClockController } from './clock/clock-ctrl';
+import { CorresClockController, ctrl as makeCorresClock } from './corres-clock/corres-clock-ctrl';
 import * as ground from './ground';
 import {
   ApiEnd,
@@ -33,17 +43,20 @@ import {
   Step,
 } from './interfaces';
 import * as keyboard from './keyboard';
-import { KeyboardMove, ctrl as makeKeyboardMove } from 'keyboardMove';
-import MoveOn from './moveOn';
+import { KeyboardMove, ctrl as makeKeyboardMove } from 'keyboard-move';
+import MoveOn from './move-on';
 import * as round from './round';
 import { RoundSocket, make as makeSocket } from './socket';
 import * as sound from './sound';
 import * as speech from './speech';
 import * as title from './title';
-import TransientMove from './transientMove';
+import TransientMove from './transient-move';
 import * as util from './util';
 import * as renderUser from './view/user';
 import * as xhr from './xhr';
+import { loadScript } from 'common/assets';
+import { requestIdleCallbackWithFallback } from 'common/common';
+import { i18n } from 'i18n';
 
 interface GoneBerserk {
   sente?: boolean;
@@ -60,8 +73,6 @@ export default class RoundController {
   shogiground: SgApi;
   clock?: ClockController;
   corresClock?: CorresClockController;
-  trans: Trans;
-  noarg: TransNoArg;
   keyboardMove?: KeyboardMove;
   moveOn: MoveOn;
 
@@ -93,7 +104,7 @@ export default class RoundController {
 
   constructor(
     readonly opts: RoundOpts,
-    readonly redraw: Redraw
+    readonly redraw: Redraw,
   ) {
     round.massage(opts.data);
 
@@ -114,13 +125,14 @@ export default class RoundController {
 
     this.socket = makeSocket(opts.socketSend, this);
 
-    if (li.RoundNVUI) this.nvui = li.RoundNVUI(redraw) as NvuiPlugin;
+    if (li.modules.roundNvui) this.nvui = li.modules.roundNvui(redraw) as NvuiPlugin;
 
     if (d.clock)
       this.clock = new ClockController(d, {
         onFlag: this.socket.outoftime,
         redraw: this.redraw,
-        soundColor: d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
+        soundColor:
+          d.simul || d.player.spectator || !d.pref.clockSound ? undefined : d.player.color,
         nvui: !!this.nvui,
       });
     else {
@@ -132,9 +144,6 @@ export default class RoundController {
 
     this.moveOn = new MoveOn(this, 'move-on');
     this.transientMove = new TransientMove(this.socket);
-
-    this.trans = li.trans(opts.i18n);
-    this.noarg = this.trans.noarg;
 
     this.setKeyboardMove();
 
@@ -153,8 +162,8 @@ export default class RoundController {
 
     li.pubsub.on('sound_set', set => {
       if (!this.music && set === 'music')
-        li.loadScript('javascripts/music/play.js').then(() => {
-          this.music = li.playMusic();
+        loadScript('javascripts/music/play.js').then(() => {
+          this.music = li.modules.miscMusic();
         });
       if (this.music && set !== 'music') this.music = undefined;
     });
@@ -163,12 +172,10 @@ export default class RoundController {
       if (this.isPlaying()) {
         const zen = !$('body').hasClass('zen');
         $('body').toggleClass('zen', zen);
-        li.dispatchEvent(window, 'resize');
+        window.dispatchEvent(new Event('resize'));
         xhr.setZen(zen);
       }
     });
-
-    if (li.ab && this.isPlaying()) li.ab.init(this);
   }
 
   private initNotation = (): void => {
@@ -177,9 +184,10 @@ export default class RoundController {
       movesNotation: MoveNotation[] = makeNotationLine(
         this.data.game.initialSfen || initialSfen(this.data.game.variant.key),
         this.data.game.variant.key,
-        usis
+        usis,
       );
-    for (let i = 1; i < this.data.steps.length; i++) this.data.steps[i].notation = movesNotation[i - 1];
+    for (let i = 1; i < this.data.steps.length; i++)
+      this.data.steps[i].notation = movesNotation[i - 1];
   };
 
   private showExpiration = () => {
@@ -189,9 +197,8 @@ export default class RoundController {
   };
 
   private onUserMove = (orig: Key, dest: Key, prom: boolean, meta: sg.MoveMetadata) => {
-    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.move(this, meta);
-
-    if (this.data.game.variant.key === 'chushogi') return this.onChushogiMove(orig, dest, prom, meta);
+    if (this.data.game.variant.key === 'chushogi')
+      return this.onChushogiMove(orig, dest, prom, meta);
 
     // to update hand immediately and not wait on apiMove
     if (meta.captured) {
@@ -209,7 +216,6 @@ export default class RoundController {
   };
 
   private onUserDrop = (piece: Piece, key: Key, prom: boolean, meta: sg.MoveMetadata) => {
-    if (li.ab && (!this.keyboardMove || !this.keyboardMove.usedMove)) li.ab.drop(this, meta);
     let role = piece.role;
     if (prom && promotableOnDrop(this.data.game.variant.key)(piece))
       role = promote(this.data.game.variant.key)(role) || role;
@@ -225,8 +231,10 @@ export default class RoundController {
       this.lionFirstMove === undefined &&
       squareDist(parseSquareName(orig), parseSquareName(dest)) === 1 &&
       (['lion', 'lionpromoted'].includes(piece.role) ||
-        (piece.role === 'eagle' && eagleLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))) ||
-        (piece.role === 'falcon' && falconLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))))
+        (piece.role === 'eagle' &&
+          eagleLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))) ||
+        (piece.role === 'falcon' &&
+          falconLionAttacks(parseSquareName(orig), piece.color).has(parseSquareName(dest))))
     ) {
       const pos = posRes.value as Chushogi;
       this.shogiground.set({
@@ -246,7 +254,8 @@ export default class RoundController {
         to: parseSquareName(dest),
       };
     } else {
-      const hadMid = this.lionFirstMove !== undefined && makeSquareName(this.lionFirstMove.to) !== dest;
+      const hadMid =
+        this.lionFirstMove !== undefined && makeSquareName(this.lionFirstMove.to) !== dest;
       const move: NormalMove = {
         from: hadMid ? this.lionFirstMove!.from : parseSquareName(orig),
         to: parseSquareName(dest),
@@ -275,7 +284,12 @@ export default class RoundController {
     return this.data.simul && this.data.simul.hostId === this.opts.userId;
   };
 
-  makeSgHooks = () => ({
+  makeSgHooks = (): {
+    onUserMove: NonNullable<State['movable']['events']['after']>;
+    onUserDrop: NonNullable<State['droppable']['events']['after']>;
+    onMove: NonNullable<State['events']['move']>;
+    onDrop: NonNullable<State['events']['drop']>;
+  } => ({
     onUserMove: this.onUserMove,
     onUserDrop: this.onUserDrop,
     onMove: this.onMove,
@@ -292,9 +306,9 @@ export default class RoundController {
     else this.redraw();
   };
 
-  userJumpPlyDelta = (plyDelta: Ply) => this.userJump(this.ply + plyDelta);
+  userJumpPlyDelta = (plyDelta: Ply): void => this.userJump(this.ply + plyDelta);
 
-  isPlaying = () => game.isPlayerPlaying(this.data);
+  isPlaying = (): boolean => game.isPlayerPlaying(this.data);
 
   jump = (ply: Ply): boolean => {
     ply = Math.max(round.firstPly(this.data), Math.min(round.lastPly(this.data), ply));
@@ -333,7 +347,8 @@ export default class RoundController {
     }
     this.lionFirstMove = undefined;
     this.autoScroll();
-    if (this.keyboardMove) this.keyboardMove.update({ sfen: s.sfen, lastSquare: this.stepDest(this.stepAt(ply)) });
+    if (this.keyboardMove)
+      this.keyboardMove.update({ sfen: s.sfen, lastSquare: this.stepDest(this.stepAt(ply)) });
     li.pubsub.emit('ply', ply);
     return true;
   };
@@ -343,16 +358,18 @@ export default class RoundController {
     return (
       d.pref.replay === 2 ||
       (d.pref.replay === 1 &&
-        (d.game.speed === 'classical' || d.game.speed === 'unlimited' || d.game.speed === 'correspondence'))
+        (d.game.speed === 'classical' ||
+          d.game.speed === 'unlimited' ||
+          d.game.speed === 'correspondence'))
     );
   };
 
-  isLate = () => this.replaying() && status.playing(this.data);
+  isLate = (): boolean => this.replaying() && status.playing(this.data);
 
-  playerAt = (position: Position) =>
+  playerAt = (position: Position): game.Player =>
     (this.flip as any) ^ ((position === 'top') as any) ? this.data.opponent : this.data.player;
 
-  flipNow = () => {
+  flipNow = (): void => {
     this.flip = !this.nvui && !this.flip;
     this.shogiground.set({
       orientation: ground.boardOrientation(this.data, this.flip),
@@ -360,9 +377,9 @@ export default class RoundController {
     this.redraw();
   };
 
-  setTitle = () => title.set(this);
+  setTitle = (): void => title.set(this);
 
-  sendUsiData = (data: any, meta: MoveMetadata = {}) => {
+  sendUsiData = (data: any, meta: MoveMetadata = {}): void => {
     const socketOpts: SocketOpts = {
       ackable: true,
     };
@@ -380,11 +397,12 @@ export default class RoundController {
     }
     this.socket.send('usi', data, socketOpts);
 
-    if (!status.prepaused(this.data)) this.transientMove.register(this.clock?.times[this.data.player.color]);
+    if (!status.prepaused(this.data))
+      this.transientMove.register(this.clock?.times[this.data.player.color]);
     this.redraw();
   };
 
-  sendUsi = (usi: Usi, meta: sg.MoveMetadata) => {
+  sendUsi = (usi: Usi, meta: sg.MoveMetadata): void => {
     const socUsi: SocketUsi = {
       u: usi,
     };
@@ -398,18 +416,22 @@ export default class RoundController {
     }
   };
 
-  showYourMoveNotification = () => {
+  showYourMoveNotification = (): void => {
     const d = this.data;
     if (game.isPlayerTurn(d))
       notify(() => {
-        let txt = this.trans('yourTurn'),
+        let txt = i18n('yourTurn'),
           opponent = renderUser.userTxt(d.opponent);
         if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
         else {
           const m_step = d.steps[d.steps.length - 1];
           const prev_step = d.steps[d.steps.length - 2];
           if (m_step && prev_step && m_step.usi) {
-            const moveNotation = makeNotation(prev_step.sfen, this.data.game.variant.key, m_step.usi);
+            const moveNotation = makeNotation(
+              prev_step.sfen,
+              this.data.game.variant.key,
+              m_step.usi,
+            );
             txt = opponent + '\nplayed ' + moveNotation + '.\n' + txt;
           }
         }
@@ -421,7 +443,8 @@ export default class RoundController {
       });
   };
 
-  playerByColor = (c: Color) => this.data[c === this.data.player.color ? 'player' : 'opponent'];
+  playerByColor = (c: Color): game.Player =>
+    this.data[c === this.data.player.color ? 'player' : 'opponent'];
 
   apiMove = (o: ApiMove): void => {
     const d = this.data,
@@ -454,7 +477,8 @@ export default class RoundController {
             color: playedColor,
           };
         // no need to drop the piece if it is already there - would play the sound again
-        if (!capture || !samePiece(capture, piece)) this.shogiground.drop(piece, keys[0], !!unpromotedRole);
+        if (!capture || !samePiece(capture, piece))
+          this.shogiground.drop(piece, keys[0], !!unpromotedRole);
       } else {
         // This block needs to be idempotent
         if (defined(move.midStep)) {
@@ -528,7 +552,10 @@ export default class RoundController {
     this.autoScroll();
     this.onChange();
     if (this.keyboardMove)
-      this.keyboardMove.update({ sfen: step.sfen, lastSquare: lastStep?.usi ? parseUsi(lastStep.usi)?.to : undefined });
+      this.keyboardMove.update({
+        sfen: step.sfen,
+        lastSquare: lastStep?.usi ? parseUsi(lastStep.usi)?.to : undefined,
+      });
     if (this.music) this.music.jump(o);
     speech.notation(step.notation);
   };
@@ -540,7 +567,8 @@ export default class RoundController {
     this.initNotation();
     this.shouldSendMoveTime = false;
     this.lionFirstMove = undefined;
-    if (this.clock) this.clock.setClock(d, d.clock!.sente, d.clock!.gote, d.clock!.sPeriods, d.clock!.gPeriods);
+    if (this.clock)
+      this.clock.setClock(d, d.clock!.sente, d.clock!.gote, d.clock!.sPeriods, d.clock!.gPeriods);
     if (this.corresClock) this.corresClock.update(d.correspondence.sente, d.correspondence.gote);
     if (!this.replaying()) ground.reload(this);
     this.setTitle();
@@ -558,6 +586,7 @@ export default class RoundController {
   };
 
   endWithData = (o: ApiEnd): void => {
+    console.log('endWithData ctrl'); // todo
     const d = this.data;
     d.game.winner = o.winner;
     d.game.status = o.status;
@@ -578,12 +607,13 @@ export default class RoundController {
       d.opponent.ratingDiff = o.ratingDiff[d.opponent.color];
     }
     if (!d.player.spectator && d.game.plies > 1)
-      li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+      li.sound.play(o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw');
     this.setTitle();
     this.moveOn.next();
     this.setQuietMode();
     this.setLoading(false);
-    if (this.clock && o.clock) this.clock.setClock(d, o.clock.sc * 0.01, o.clock.gc * 0.01, o.clock.sp, o.clock.gp);
+    if (this.clock && o.clock)
+      this.clock.setClock(d, o.clock.sc * 0.01, o.clock.gc * 0.01, o.clock.sp, o.clock.gp);
     this.redraw();
     this.autoScroll();
     this.onChange();
@@ -595,32 +625,11 @@ export default class RoundController {
     this.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(
       () => {
-        li.challengeApp.open();
-        if (li.once('rematch-challenge'))
-          setTimeout(() => {
-            li.hopscotch(function () {
-              window.hopscotch
-                .configure({
-                  i18n: { doneBtn: 'OK, got it' },
-                })
-                .startTour({
-                  id: 'rematch-challenge',
-                  showPrevButton: true,
-                  steps: [
-                    {
-                      title: 'Challenged to a rematch',
-                      content: 'Your opponent is offline, but they can accept this challenge later!',
-                      target: '#challenge-app',
-                      placement: 'bottom',
-                    },
-                  ],
-                });
-            });
-          }, 1000);
+        li.challengeApp?.open();
       },
       _ => {
         this.challengeRematched = false;
-      }
+      },
     );
   };
 
@@ -640,11 +649,14 @@ export default class RoundController {
       li.quietMode = is;
       $('body')
         .toggleClass('playing', is)
-        .toggleClass('no-select', is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5);
+        .toggleClass(
+          'no-select',
+          is && this.clock && this.clock.millisOf(this.data.player.color) <= 3e5,
+        );
     }
   };
 
-  takebackYes = () => {
+  takebackYes = (): void => {
     this.socket.sendLoading('takeback-yes');
     this.shogiground.cancelPremove();
   };
@@ -665,21 +677,21 @@ export default class RoundController {
     }
   };
 
-  goBerserk = () => {
+  goBerserk = (): void => {
     this.socket.berserk();
-    li.sound.berserk();
+    li.sound.play('berserk');
   };
 
   setBerserk = (color: Color): void => {
     if (this.clock) this.clock.setBerserk(color);
     if (this.goneBerserk[color]) return;
     this.goneBerserk[color] = true;
-    if (color !== this.data.player.color) li.sound.berserk();
+    if (color !== this.data.player.color) li.sound.play('berserk');
     this.redraw();
     $('<i data-icon="`">').appendTo($(`.game__meta .player.${color} .user-link`));
   };
 
-  setLoading = (v: boolean, duration: number = 1500) => {
+  setLoading = (v: boolean, duration: number = 1500): void => {
     clearTimeout(this.loadingTimeout);
     if (v) {
       this.loading = true;
@@ -694,7 +706,7 @@ export default class RoundController {
     }
   };
 
-  setRedirecting = () => {
+  setRedirecting = (): void => {
     this.redirecting = true;
     setTimeout(() => {
       this.redirecting = false;
@@ -720,7 +732,7 @@ export default class RoundController {
   };
 
   private goneTick: number | undefined;
-  setGone = (gone: number | boolean) => {
+  setGone = (gone: number | boolean): void => {
     game.setGone(this.data, this.data.opponent.color, gone);
     clearTimeout(this.goneTick);
     if (Number(gone) > 1)
@@ -733,7 +745,9 @@ export default class RoundController {
 
   opponentGone = (): number | boolean => {
     const d = this.data;
-    return d.opponent.gone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.gone;
+    return (
+      d.opponent.gone !== false && !game.isPlayerTurn(d) && game.resignable(d) && d.opponent.gone
+    );
   };
 
   showDrawButton = (): boolean => {
@@ -741,7 +755,10 @@ export default class RoundController {
   };
 
   canOfferDraw = (): boolean => {
-    return game.drawable(this.data) && (!this.lastDrawOfferAtPly || this.lastDrawOfferAtPly < this.ply - 20);
+    return (
+      game.drawable(this.data) &&
+      (!this.lastDrawOfferAtPly || this.lastDrawOfferAtPly < this.ply - 20)
+    );
   };
 
   offerDraw = (v: boolean): void => {
@@ -818,7 +835,7 @@ export default class RoundController {
     }
   };
 
-  stepAt = (ply: Ply) => round.plyStep(this.data, ply);
+  stepAt = (ply: Ply): Step => round.plyStep(this.data, ply);
 
   private stepDest = (step: Step | undefined): Square | undefined => {
     if (step?.usi) return parseUsi(step.usi)?.to;
@@ -828,9 +845,9 @@ export default class RoundController {
   private delayedInit = () => {
     const d = this.data;
     if (this.isPlaying() && game.nbMoves(d, d.player.color) === 0 && !this.isSimulHost()) {
-      li.sound.genericNotify();
+      li.sound.play('genericNotify');
     }
-    li.requestIdleCallback(() => {
+    requestIdleCallbackWithFallback(() => {
       const d = this.data;
       if (this.isPlaying()) {
         if (!d.simul) blur.init(d.steps.length > 2);
@@ -840,7 +857,14 @@ export default class RoundController {
 
         window.addEventListener('beforeunload', e => {
           const d = this.data;
-          if (li.hasToReload || this.nvui || !game.playable(d) || !d.clock || d.opponent.ai || this.isSimulHost())
+          if (
+            window.lishogi.properReload ||
+            this.nvui ||
+            !game.playable(d) ||
+            !d.clock ||
+            d.opponent.ai ||
+            this.isSimulHost()
+          )
             return;
           this.socket.send('bye2');
           const msg = 'There is a game in progress!';
@@ -849,11 +873,11 @@ export default class RoundController {
         });
 
         if (!this.nvui && d.pref.submitMove) {
-          window.Mousetrap.bind('esc', () => {
+          window.lishogi.mousetrap.bind('esc', () => {
             this.submitUsi(false);
             this.shogiground.cancelMoveOrDrop();
           });
-          window.Mousetrap.bind('return', () => this.submitUsi(true));
+          window.lishogi.mousetrap.bind('return', () => this.submitUsi(true));
         }
         cevalSub.subscribe(this);
       }

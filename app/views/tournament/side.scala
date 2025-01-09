@@ -81,14 +81,18 @@ object side {
             }
           )
         ),
-        tour.noBerserk option div(cls := "text", dataIcon := "`")(trans.arena.noBerserkAllowed()),
-        tour.noStreak option div(cls := "text", dataIcon := "Q")(trans.arena.noArenaStreaks()),
+        tour.isArena && tour.noBerserk option div(cls := "text", dataIcon := "`")(
+          trans.arena.noBerserkAllowed()
+        ),
+        tour.isArena && tour.noStreak option div(cls := "text", dataIcon := "Q")(
+          trans.arena.noArenaStreaks()
+        ),
         !tour.isScheduled option frag(trans.by(userIdLink(tour.createdBy.some)), br),
         frag(
           absClientDateTime(
             tour.startsAt
           ),
-          "-",
+          " - ",
           absClientDateTime(tour.finishesAt)
         ),
         tour.startingPosition.map { pos =>

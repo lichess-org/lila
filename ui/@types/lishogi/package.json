@@ -1,8 +1,14 @@
 {
   "name": "@types/lishogi",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org type declarations",
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later"
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "devDependencies": {
+    "flatpickr": "^4.6",
+    "shogiground": "catalog:",
+    "shogiops": "catalog:",
+    "chart.js": "^4",
+    "@types/howler": "^2",
+    "@types/yaireo__tagify": "^4"
+  }
 }

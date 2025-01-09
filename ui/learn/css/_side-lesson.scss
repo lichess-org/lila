@@ -29,7 +29,7 @@
     border-top: $border;
   }
   .categ > h2:hover {
-    background-color: fade-out($c-primary, 0.8);
+    background-color: $m-primary_alpha_neg80;
   }
   .categ.active {
     border: $border;
@@ -59,22 +59,25 @@
       margin-right: 10px;
       margin-left: 2px;
       padding: 10px;
-      filter: if($theme-light, brightness(0.2), brightness(0.9));
+      filter: brightness(0.9);
+      @include theme-wrap('light') {
+        filter: brightness(0.2);
+      }
     }
     &.active {
-      background-color: fade-out($c-primary, 0.8);
+      background-color: $m-primary_alpha_neg80;
       border-left: 2px solid $c-primary;
     }
     &.done {
       border-left: 2px solid $c-good;
       &:hover {
-        background-color: fade-out($c-good, 0.8);
+        background-color: $m-good_alpha_neg80;
       }
     }
     &.future {
       border-left: 2px solid $c-primary;
       &:hover {
-        background-color: fade-out($c-primary, 0.8);
+        background-color: $m-primary_alpha_neg80;
       }
     }
     &:hover {

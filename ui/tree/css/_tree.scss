@@ -52,7 +52,7 @@
   }
   move.active {
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: $m-primary_bg-box_mix_20;
     color: $c-font-clear;
     move-notation::before {
       color: $c-font-clear;
@@ -61,9 +61,9 @@
   &-inline move.active,
   line move.active {
     @extend %box-radius;
-    background: mix($c-primary, $c-bg-box, 40%);
+    background: $m-primary_bg-box_mix_40;
     color: $c-font-clearer;
-    outline: 1px solid mix($c-primary, $c-bg-box, 60%);
+    outline: 1px solid $m-primary_bg-box_mix_60;
     move-notation::before {
       color: $c-font-clearer;
     }
@@ -143,12 +143,14 @@
     margin-left: 0.08em;
     vertical-align: bottom;
   }
-  &-column > move glyph {
+  &-column > move .glyphs {
     flex: 0 1 auto;
-    margin-right: auto;
-    text-align: center;
-    overflow: hidden;
-    font-size: 0.82em;
+    glyph {
+      margin-right: auto;
+      text-align: center;
+      overflow: hidden;
+      font-size: 0.82em;
+    }
   }
   &-column > index {
     flex: 0 0 17%;

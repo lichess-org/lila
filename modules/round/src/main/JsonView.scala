@@ -4,7 +4,6 @@ import scala.math
 
 import play.api.libs.json._
 
-import lila.common.ApiVersion
 import lila.game.JsonView._
 import lila.game.{ Game, Player => GamePlayer, Pov }
 import lila.pref.Pref
@@ -52,7 +51,6 @@ final class JsonView(
   def playerJson(
       pov: Pov,
       pref: Pref,
-      apiVersion: ApiVersion,
       playerUser: Option[User],
       withFlags: WithFlags,
       nvui: Boolean
@@ -84,10 +82,6 @@ final class JsonView(
             }.add("aiCode", opponent.aiCode)
               .add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
               .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
-            "url" -> Json.obj(
-              "socket" -> s"/play/$fullId/v$apiVersion",
-              "round"  -> s"/$fullId"
-            ),
             "pref" -> Json
               .obj(
                 "animationDuration" -> animationMillis(pov, pref),
@@ -149,7 +143,6 @@ final class JsonView(
   def watcherJson(
       pov: Pov,
       pref: Pref,
-      apiVersion: ApiVersion,
       me: Option[User],
       tv: Option[OnTv],
       withFlags: WithFlags
@@ -175,10 +168,6 @@ final class JsonView(
               "onGame" -> (opponent.isAi || socket.onGame(opponent.color))
             ),
             "orientation" -> pov.color.name,
-            "url" -> Json.obj(
-              "socket" -> s"/watch/$gameId/${color.name}/v$apiVersion",
-              "round"  -> s"/$gameId/${color.name}"
-            ),
             "pref" -> Json
               .obj(
                 "animationDuration" -> animationMillis(pov, pref),

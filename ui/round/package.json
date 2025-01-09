@@ -1,30 +1,25 @@
 {
   "name": "round",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org round",
-  "author": "Thibault Duplessis, WandererXII",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/lishogi": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^5"
-  },
+  "type": "module",
   "dependencies": {
-    "@badrap/result": "^0.2",
-    "chat": "2.0.0",
-    "common": "2.0.0",
-    "game": "2.0.0",
-    "keyboardMove": "1.0.0",
-    "nvui": "2.0.0",
-    "shogiground": "^0.9.0",
-    "shogiops": "^0.17.0",
-    "snabbdom": "^3.5.1"
+    "@badrap/result": "catalog:",
+    "chat": "workspace:*",
+    "common": "workspace:*",
+    "shogi": "workspace:*",
+    "i18n": "workspace:*",
+    "game": "workspace:*",
+    "keyboard-move": "workspace:*",
+    "nvui": "workspace:*",
+    "shogiground": "catalog:",
+    "shogiops": "catalog:",
+    "snabbdom": "catalog:"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "nvui": "rollup --config --config-plugin nvui",
-    "prod": "rollup --config --config-prod && rollup --config --config-prod --config-plugin nvui"
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
   }
 }

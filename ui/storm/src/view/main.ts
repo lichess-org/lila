@@ -7,6 +7,7 @@ import { VNode, h } from 'snabbdom';
 import config from '../config';
 import StormCtrl from '../ctrl';
 import renderEnd from './end';
+import { i18n } from 'i18n';
 
 export default function (ctrl: StormCtrl): VNode {
   if (ctrl.vm.dupTab) return renderReload('This run was opened in another tab!');
@@ -55,7 +56,7 @@ const renderPlay = (ctrl: StormCtrl): VNode[] => [
   h('div.puz-board.main-board', shogigroundBoard(ctrl)),
   shogigroundHand(ctrl, 'top'),
   h('div.puz-side', [
-    ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(ctrl),
+    ctrl.run.clock.startAt ? renderSolved(ctrl) : renderStart(),
     renderClock(ctrl.run, ctrl.endNow, true),
     h('div.puz-side__table', [renderControls(ctrl), renderCombo(config, renderBonus)(ctrl.run)]),
   ]),
@@ -71,22 +72,22 @@ const renderControls = (ctrl: StormCtrl): VNode =>
       attrs: {
         href: '/storm',
         'data-icon': 'B',
-        title: ctrl.trans('newRun'),
+        title: i18n('storm:newRun'),
       },
     }),
     h('a.puz-side__control__end.button.button-empty', {
       attrs: {
         'data-icon': 'b',
-        title: ctrl.trans('endRun'),
+        title: i18n('storm:endRun'),
       },
       hook: onInsert(el => el.addEventListener('click', ctrl.endNow)),
     }),
   ]);
 
-const renderStart = (ctrl: StormCtrl) =>
+const renderStart = () =>
   h(
     'div.puz-side__top.puz-side__start',
-    h('div.puz-side__start__text', [h('strong', 'Tsume Storm'), h('span', ctrl.trans('moveToStart'))])
+    h('div.puz-side__start__text', [h('strong', 'Tsume Storm'), h('span', i18n('storm:moveToStart'))])
   );
 
 const renderReload = (msg: string) =>

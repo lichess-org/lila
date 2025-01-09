@@ -108,7 +108,8 @@ object Query {
   def variant(v: shogi.variant.Variant) =
     $doc(F.variant -> (if (v.standard) $exists(false) else $int(v.id)))
 
-  lazy val variantStandard = variant(shogi.variant.Standard)
+  lazy val variantStandard  = variant(shogi.variant.Standard)
+  lazy val variantMinishogi = variant(shogi.variant.Minishogi)
 
   val notFromPosition: Bdoc =
     F.initialSfen $exists false

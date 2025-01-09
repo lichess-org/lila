@@ -1,32 +1,32 @@
 import { VNode, h } from 'snabbdom';
 import InsightCtrl from '../../ctrl';
-import { section } from '../util';
+import { section, translateRole } from '../util';
 import { InsightFilter, TimesResult } from '../../types';
 import { allRoles } from 'shogiops/variant/util';
 import { barChart } from '../charts';
 import { accent, primary, total } from '../colors';
 import { fixed } from '../../util';
+import { i18n } from 'i18n';
 
 export function times(ctrl: InsightCtrl, data: TimesResult): VNode {
-  const noarg = ctrl.trans.noarg;
   return h('div.times', [
     h('section.padding', [
       h('div.third-wrap', [
         h('div.big-number-with-desc.total', [
           h('div.big-number', secondsToString(data.totalTime)),
-          h('span.desc', noarg('totalTimeSpentThinking')),
+          h('span.desc', i18n('insights:totalTimeSpentThinking')),
         ]),
         h('div.big-number-with-desc.game', [
           h('div.big-number', secondsToString(data.avgTimePerGame)),
-          h('span.desc', noarg('averageTimePerGame')),
+          h('span.desc', i18n('insights:averageTimePerGame')),
         ]),
         h('div.big-number-with-desc.move-drop', [
           h('div.big-number', secondsToString(data.avgTimePerMoveAndDrop)),
-          h('span.desc', noarg('averageTimePerMoveOrDrop')),
+          h('span.desc', i18n('insights:averageTimePerMoveOrDrop')),
         ]),
       ]),
     ]),
-    section(noarg('timeSpentThinkingByPiece'), timesByRoleChart(data, ctrl.filter, ctrl.trans)),
+    section(i18n('insights:timeSpentThinkingByPiece'), timesByRoleChart(data, ctrl.filter)),
   ]);
 }
 
@@ -38,7 +38,7 @@ function secondsToString(seconds: number): VNode {
   else return h('div', [Math.round(seconds), h('span.tiny', 's')]);
 }
 
-function timesByRoleChart(data: TimesResult, flt: InsightFilter, trans: Trans): VNode {
+function timesByRoleChart(data: TimesResult, flt: InsightFilter): VNode {
   const variant = flt.variant,
     moves = data.sumOfTimesByMoveRole,
     movesCnt = data.nbOfMovesByRole,
@@ -53,10 +53,10 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter, trans: Trans): 
   const valueMap = (value: number | string): string => 'Σ: ' + value;
 
   return barChart('times-role-chart', JSON.stringify(flt), {
-    labels: roles.map(r => trans.noarg(r).split(' ')),
+    labels: roles.map(r => translateRole(r).split(' ')),
     datasets: [
       {
-        label: trans.noarg('moves'),
+        label: i18n('insights:moves'),
         backgroundColor: primary,
         data: roles.map(key => Math.round(moves[key] || 0)),
         tooltip: {
@@ -67,7 +67,7 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter, trans: Trans): 
         },
       },
       {
-        label: trans.noarg('drops'),
+        label: i18n('insights:drops'),
         backgroundColor: accent,
         data: roles.map(key => Math.round(drops[key] || 0)),
         tooltip: {
@@ -78,7 +78,7 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter, trans: Trans): 
         },
       },
       {
-        label: trans.noarg('total'),
+        label: i18n('insights:total'),
         backgroundColor: total,
         data: totals.map(n => Math.round(n)),
         hidden: true,
@@ -90,6 +90,6 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter, trans: Trans): 
       },
     ],
     total: totalMoves + totalDrops,
-    opts: { trans: trans, valueAffix: 's' },
+    opts: { valueAffix: 's' },
   });
 }

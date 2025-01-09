@@ -14,14 +14,13 @@ export interface ForecastStep {
 }
 
 export interface ForecastCtrl {
-  addNodes(fc);
-  reloadToLastPly();
-  truncate(fc: ForecastStep[]): ForecastStep[];
-  playAndSave(node: ForecastStep);
-  findStartingWithNode(node: ForecastStep): ForecastStep[][];
-  isCandidate(fc: ForecastStep[]): boolean;
-  addNodes(fc: ForecastStep[]);
-  removeIndex(index: number);
+  addNodes: (fc: ForecastStep[]) => void;
+  reloadToLastPly: () => void;
+  truncate: (fc: ForecastStep[]) => ForecastStep[];
+  playAndSave: (node: ForecastStep) => void;
+  findStartingWithNode: (node: ForecastStep) => ForecastStep[][];
+  isCandidate: (fc: ForecastStep[]) => boolean;
+  removeIndex: (index: number) => void;
   list(): ForecastStep[][];
   loading: Prop<boolean>;
   onMyTurn: boolean;

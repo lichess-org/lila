@@ -13,7 +13,7 @@
     color: $c-font-page;
     @include transition();
     &:hover {
-      background: mix($c-accent, $c-bg-box, 15%);
+      background: $m-accent_bg-box_mix_15;
     }
     &-active,
     &:only-child {

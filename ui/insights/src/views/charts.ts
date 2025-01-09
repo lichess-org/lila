@@ -2,9 +2,9 @@ import Chart, { ChartConfiguration, ChartData, LegendOptions, TooltipOptions } f
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { h, VNode } from 'snabbdom';
 import { bg, fontClear, fontDimmer } from './colors';
-import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 import { Options } from 'chartjs-plugin-datalabels/types/options';
 import { fixed } from '../util';
+import { i18n } from 'i18n';
 
 const isLight = document.body.classList.contains('light');
 
@@ -49,7 +49,6 @@ export interface MyChartDataset {
 }
 
 export interface MyChartOptions {
-  trans: Trans;
   percentage?: boolean;
   valueAffix?: string;
   autoSkip?: boolean;
@@ -127,7 +126,7 @@ function lineData(data: MyChartData): ChartData<'line', number[]> {
   };
 }
 
-function legend(data: MyChartData): _DeepPartialObject<LegendOptions<'bar'>> {
+function legend(data: MyChartData): DeepPartialObject<LegendOptions<'bar'>> {
   return {
     display: data.datasets.length > 1,
     align: 'end',
@@ -182,7 +181,7 @@ function scales(opts: MyChartOptions, nbOfLabels: number) {
   };
 }
 
-function datalabels(data: MyChartData, labelsLength: number): _DeepPartialObject<Options> {
+function datalabels(data: MyChartData, labelsLength: number): DeepPartialObject<Options> {
   if (labelsLength >= 12) return { display: false };
   const maxValue = data.datasets.reduce((acc, cur) => {
     const max = Math.max(...(cur.data as number[]));
@@ -212,7 +211,7 @@ function datalabels(data: MyChartData, labelsLength: number): _DeepPartialObject
   };
 }
 
-function tooltip<T extends 'bar' | 'line'>(data: MyChartData): _DeepPartialObject<TooltipOptions<T>> {
+function tooltip<T extends 'bar' | 'line'>(data: MyChartData): DeepPartialObject<TooltipOptions<T>> {
   return {
     animation: false,
     yAlign: 'bottom',
@@ -239,19 +238,19 @@ function tooltip<T extends 'bar' | 'line'>(data: MyChartData): _DeepPartialObjec
         res.push(dataset.tooltip.valueMap(dWithAffix));
 
         const countData = dataset.tooltip.counts?.[index];
-        if (countData !== undefined) res.push(`${data.opts.trans('count')}: ${countData}`);
+        if (countData !== undefined) res.push(`${i18n('insights:count')}: ${countData}`);
 
         const averageData = dataset.tooltip.average?.[index];
         if (averageData !== undefined)
           res.push(
-            `${data.opts.trans('average')}: ${fixed(averageData, 2) + (data.opts.valueAffix || (data.opts.percentage ? '%' : ''))}`
+            `${i18n('insights:average')}: ${fixed(averageData, 2) + (data.opts.valueAffix || (data.opts.percentage ? '%' : ''))}`
           );
 
         const percentageOfDataset = dataset.tooltip.total ? fixed((d / dataset.tooltip.total) * 100, 1) : undefined;
         if (percentageOfDataset) res.push(`${dataset.label}: ${percentageOfDataset}%`);
 
         const percentageOfTotal = data.total ? fixed((d / data.total) * 100, 1) : undefined;
-        if (percentageOfTotal) res.push(`${data.opts.trans('total')}: ${percentageOfTotal}%`);
+        if (percentageOfTotal) res.push(`${i18n('insights:total')}: ${percentageOfTotal}%`);
 
         return res;
       },
@@ -276,3 +275,17 @@ function tooltip<T extends 'bar' | 'line'>(data: MyChartData): _DeepPartialObjec
     },
   };
 }
+
+// DeepPartial implementation taken from the utility-types NPM package, which is
+// Copyright (c) 2016 Piotr Witek <piotrek.witek@gmail.com> (http://piotrwitek.github.io)
+// and used under the terms of the MIT license
+type DeepPartial<T> = T extends Function
+  ? T
+  : T extends Array<infer U>
+    ? DeepPartialArray<U>
+    : T extends object
+      ? DeepPartialObject<T>
+      : T | undefined;
+
+type DeepPartialArray<T> = Array<DeepPartial<T>>;
+type DeepPartialObject<T> = { [P in keyof T]?: DeepPartial<T[P]> };

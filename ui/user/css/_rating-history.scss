@@ -1,0 +1,19 @@
+.rating-history-container {
+  flex: 1 1 58%;
+  height: 350px;
+
+  .chart-container {
+    height: 90%;
+  }
+
+  .spinner {
+    width: 90px;
+    height: 90px;
+    margin: 120px auto 0 auto;
+  }
+  .time-selector-buttons button {
+    display: inline-flex;
+    text-transform: uppercase;
+    border: $border;
+  }
+}

@@ -1,5 +1,7 @@
 package views.html.simul
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -16,12 +18,7 @@ object home {
   )(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = cssTag("simul.list"),
-      moreJs = embedJsUnsafe(s"""$$(function() {
-  lishogi.StrongSocket.defaults.params.flag = 'simul';
-  lishogi.pubsub.on('socket.in.reload', () => {
-    $$('.simul-list__content').load('${routes.Simul.homeReload}', () => lishogi.pubsub.emit('content_loaded'));
-  });
-});"""),
+      moreJs = moduleJsTag("simul.home", Json.obj()),
       title = trans.simultaneousExhibitions.txt(),
       openGraph = lila.app.ui
         .OpenGraph(

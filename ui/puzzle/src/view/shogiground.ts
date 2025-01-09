@@ -1,5 +1,5 @@
-import { notationFiles, notationRanks } from 'common/notation';
-import resizeHandle from 'common/resize';
+import { notationFiles, notationRanks } from 'shogi/notation';
+import resizeHandle from 'shogi/resize';
 import { Config as SgConfig } from 'shogiground/config';
 import { Piece, Role } from 'shogiops/types';
 import { parseSquareName } from 'shogiops/util';

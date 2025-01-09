@@ -5,7 +5,7 @@ class Scroller {
   element?: HTMLElement;
   marker?: HTMLElement;
 
-  init = (e: HTMLElement) => {
+  init = (e: HTMLElement): void => {
     this.enabled = true;
     this.element = e;
     this.element.addEventListener(
@@ -16,15 +16,14 @@ class Scroller {
       }),
       { passive: true }
     );
-    window.el = this.element;
   };
-  auto = () => {
+  auto = (): void => {
     if (this.element && this.enabled) requestAnimationFrame(() => (this.element!.scrollTop = 9999999));
   };
-  enable = (v: boolean) => {
+  enable = (v: boolean): void => {
     this.enabled = v;
   };
-  setMarker = () => {
+  setMarker = (): void => {
     this.marker = this.element && (this.element.querySelector('mine,their') as HTMLElement);
   };
   toMarker = (): boolean => {
@@ -34,7 +33,7 @@ class Scroller {
     }
     return false;
   };
-  to = (target: HTMLElement) => {
+  to = (target: HTMLElement): boolean => {
     if (this.element) {
       const top = target.offsetTop - this.element.offsetHeight / 2 + target.offsetHeight / 2;
       if (top > 0) this.element.scrollTop = top;
@@ -44,4 +43,4 @@ class Scroller {
   };
 }
 
-export const scroller = new Scroller();
+export const scroller: Scroller = new Scroller();

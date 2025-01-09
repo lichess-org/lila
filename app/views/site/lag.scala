@@ -12,11 +12,10 @@ object lag {
     help.layout(
       title = isLishogiLagging.txt(),
       active = "lag",
-      moreCss = cssTag("lag"),
+      moreCss = cssTag("chart.lag"),
       moreJs = frag(
-        highchartsLatestTag,
-        highchartsMoreTag,
-        jsTag("lag.js")
+        chartTag,
+        jsTag("chart.lag")
       )
     ) {
       main(cls := "box box-pad lag")(
@@ -35,14 +34,18 @@ object lag {
         div(cls := "sections")(
           st.section(cls := "server")(
             h2(lishogiServerLatency()),
-            div(cls := "meter"),
+            div(cls := "meter")(
+              canvas
+            ),
             p(
               lishogiServerLatencyExplanation()
             )
           ),
           st.section(cls := "network")(
             h2(networkBetweenLishogiAndYou()),
-            div(cls := "meter"),
+            div(cls := "meter")(
+              canvas
+            ),
             p(
               networkBetweenLishogiAndYouExplanation()
             )

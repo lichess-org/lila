@@ -1,0 +1,91 @@
+/* free analysis on /analysis */
+@import 'base';
+@import 'player-clock';
+
+.copyables {
+  .pair {
+    @extend %flex-center;
+    position: relative;
+    .name {
+      min-width: 4rem;
+      font-weight: bold;
+      text-align: center;
+      color: $c-font-dim;
+      margin-left: $block-gap;
+    }
+    .copyable {
+      flex-grow: 1;
+      margin-right: $block-gap;
+    }
+    .action {
+      @extend %box-radius-bottom;
+      position: absolute;
+      @include hand-width(right);
+      top: 100%;
+      text-align: right;
+      opacity: 0;
+      @include transition();
+    }
+    textarea:focus ~ .action {
+      opacity: 1;
+    }
+    @include breakpoint($mq-col2) {
+      .name {
+        @include hand-width(width);
+        margin-left: 0;
+      }
+      .copyable {
+        @include board-width(width);
+        flex-grow: 0;
+        margin-right: 0;
+      }
+      .main-v-chushogi & {
+        .name {
+          min-width: 4rem;
+        }
+        .copyable {
+          width: unset;
+          flex: 1;
+        }
+      }
+    }
+  }
+  .kif,
+  .csa {
+    margin: 2em 0;
+    textarea {
+      min-height: 10em;
+      white-space: pre-wrap;
+      word-break: break-all;
+      overflow-x: hidden;
+    }
+  }
+  .url {
+    margin: 2em 0;
+    .form-help {
+      @include hand-width(margin-left);
+      font-size: 90%;
+      margin-top: 0.25rem;
+      color: $c-font-dim;
+      .error {
+        color: $c-bad;
+        margin-left: 2rem;
+      }
+    }
+  }
+}
+
+.mselect {
+  font-size: 1.5em;
+  label span,
+  a {
+    @extend %flex-center-nowrap;
+    &::before {
+      line-height: 0;
+    }
+  }
+  .inner {
+    padding-left: 0.4em;
+    border-left: $border;
+  }
+}

@@ -11,18 +11,10 @@ object HTTPRequest {
 
   def isSynchronousHttp(req: RequestHeader) = !isXhr(req)
 
-  def isEventSource(req: RequestHeader): Boolean =
-    req.headers get "Accept" contains "text/event-stream"
-
   def isSafe(req: RequestHeader)   = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
-
-  def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers
-      .get(HeaderNames.ACCEPT)
-      .exists(_ startsWith "application/vnd.lishogi.v")
 
   private val appOrigins = Set(
     "capacitor://localhost", // ios
@@ -114,28 +106,25 @@ object HTTPRequest {
 
   def isOAuth(req: RequestHeader) = bearer(req).isDefined
 
-  def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
-  def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"
+  def accepts(req: RequestHeader): Option[String] = req.headers.get(HeaderNames.ACCEPT)
+
+  def acceptsNdJson(req: RequestHeader) = accepts(req) contains "application/x-ndjson"
+  def acceptsJson(req: RequestHeader) = accepts(req) exists { a =>
+    a.startsWith("application/json") || a.startsWith("application/vnd.lishogi.")
+  }
+
+  def isEventSource(req: RequestHeader): Boolean = accepts(req) contains "text/event-stream"
+
+  def isProgrammatic(req: RequestHeader) =
+    isXhr(req) || isFishnet(req) || isApi(req)
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.HandlerDef).fold("NoHandler") { handler =>
       s"${handler.controller.drop(12)}.${handler.method}"
     }
 
-  private val ApiVersionHeaderPattern = """application/vnd\.lishogi\.v(\d++)\+json""".r
-
-  def apiVersion(req: RequestHeader): Option[ApiVersion] = {
-    req.headers.get(HeaderNames.ACCEPT) flatMap {
-      case ApiVersionHeaderPattern(v) => v.toIntOption map ApiVersion.apply
-      case _                          => none
-    }
-  }
-
   def clientName(req: RequestHeader) =
     if (isXhr(req)) "xhr"
     else if (isCrawler(req)) "crawler"
-    else
-      apiVersion(req).fold("browser") { v =>
-        s"api/$v"
-      }
+    else "browser"
 }

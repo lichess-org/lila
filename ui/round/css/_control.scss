@@ -185,7 +185,7 @@
       @include transition();
     }
     &.me {
-      background: mix($c-primary, $c-bg-box, 80%);
+      background: $m-primary_bg-box_mix_80;
     }
     @keyframes rubber-band {
       from {
@@ -212,7 +212,7 @@
     }
     &.fbt:not(.disabled):hover,
     &.fbt.active {
-      background: mix($c-link, $c-bg-box, 70%);
+      background: $m-link_bg-box_mix_70;
       color: #fff;
       animation: none;
     }
@@ -279,7 +279,7 @@
     margin-top: 1px;
     border: 0;
     opacity: 0.7;
-    background: mix($c-bad, $c-bg-box, 50%);
+    background: $m-bad_bg-box_mix_50;
     @include transition();
     display: none;
     @include breakpoint($mq-col2) {
@@ -306,7 +306,7 @@
       }
       &:hover ~ .new-study-button {
         color: #fff;
-        background: mix($c-secondary, $c-bg-box, 75%);
+        background: $m-secondary_bg-box_mix_75;
         &::after {
           content: '';
           width: 1px;

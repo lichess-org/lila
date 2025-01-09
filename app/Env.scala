@@ -90,10 +90,6 @@ final class Env(
   val insightsEndpoint = config.get[String]("insights.endpoint")
   val insightsSecret   = config.get[String]("insights.secret")
 
-  val appVersionDate    = config.getOptional[String]("app.version.date")
-  val appVersionCommit  = config.getOptional[String]("app.version.commit")
-  val appVersionMessage = config.getOptional[String]("app.version.message")
-
   lazy val apiTimelineSetting = memo.settingStore[Int](
     "apiTimelineEntries",
     default = 10,

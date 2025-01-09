@@ -1,5 +1,6 @@
 import { h, VNode } from 'snabbdom';
 import { adjustDateToLocal, adjustDateToUTC, formattedDate } from './util';
+import { flatpickr } from 'common/assets';
 
 let fInstance;
 export function flatpickrInput(
@@ -7,7 +8,7 @@ export function flatpickrInput(
   scheduledAt: number | undefined,
   f: (date: Date) => void,
   utc: () => boolean
-) {
+): VNode {
   return h('input.flatpickr', {
     attrs: {
       disabled,
@@ -17,8 +18,8 @@ export function flatpickrInput(
     },
     hook: {
       insert: (node: VNode) => {
-        window.lishogi.flatpickr().done(() => {
-          fInstance = window.flatpickr(node.elm, {
+        flatpickr().then(() => {
+          fInstance = window.flatpickr(node.elm as HTMLElement, {
             minDate: 'today',
             maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31 * 3),
             dateFormat: 'U',
@@ -42,8 +43,9 @@ export function flatpickrInput(
             },
             disableMobile: true,
             position: 'above center',
-            locale: document.documentElement.lang,
+            locale: document.documentElement.lang as any,
           });
+          console.log('fInstance: ', fInstance);
           if (scheduledAt) {
             const scheduledDate = new Date(scheduledAt),
               finalDate = utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
@@ -53,13 +55,16 @@ export function flatpickrInput(
         });
       },
       destroy: () => {
+        console.log('destroy:', fInstance);
         if (fInstance) fInstance.destroy();
         fInstance = null;
       },
       postpatch: () => {
+        console.log('postpatch:', fInstance, utc());
         if (fInstance && scheduledAt) {
           const scheduledDate = new Date(scheduledAt),
             finalDate = utc() ? adjustDateToUTC(scheduledDate) : scheduledDate;
+          console.log('FINAL DATE:', finalDate);
 
           fInstance.setDate(finalDate, false);
           fInstance.altInput.value = formattedDate(scheduledDate, utc());

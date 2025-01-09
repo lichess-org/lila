@@ -5,28 +5,37 @@ import * as pagination from '../pagination';
 import { arenaControls, robinControls, organizedControls } from './controls';
 import * as tour from '../tournament';
 import { standing } from './arena';
-import { howDoesThisWork, playing, recents, standing as rStanding, upcoming, yourCurrent, yourUpcoming } from './robin';
+import {
+  howDoesThisWork,
+  playing,
+  recents,
+  standing as rStanding,
+  upcoming,
+  yourCurrent,
+  yourUpcoming,
+} from './robin';
 import { standing as oStanding } from './organized';
 import { teamStanding } from './battle';
 import header from './header';
-import playerInfo from './playerInfo';
+import playerInfo from './player-info';
 import tourTable from './table';
-import teamInfo from './teamInfo';
+import teamInfo from './team-info';
+import { i18n, i18nFormat } from 'i18n';
 
-function joinTheGame(ctrl: TournamentController, gameId: string) {
+function joinTheGame(gameId: string) {
   return h(
     'a.tour__ur-playing.button.is.is-after',
     {
       attrs: { href: '/' + gameId },
     },
-    [ctrl.trans.noarg('youArePlaying'), h('br'), ctrl.trans.noarg('joinTheGame')]
+    [i18n('youArePlaying'), h('br'), i18n('joinTheGame')]
   );
 }
 
 function notice(ctrl: TournamentController): VNode {
   return tour.willBePaired(ctrl)
-    ? h('div.tour__notice', ctrl.trans('standByX', ctrl.data.me.username))
-    : h('div.tour__notice.closed', ctrl.trans('tournamentPairingsAreNowClosed'));
+    ? h('div.tour__notice', i18nFormat('standByX', ctrl.data.me.username))
+    : h('div.tour__notice.closed', i18n('tournamentPairingsAreNowClosed'));
 }
 
 export const name = 'started';
@@ -34,10 +43,11 @@ export const name = 'started';
 export function main(ctrl: TournamentController): MaybeVNodes {
   const gameId = ctrl.myGameId(),
     pag = pagination.players(ctrl);
+  console.log('pag', pag);
   if (ctrl.isArena())
     return [
       header(ctrl),
-      gameId ? joinTheGame(ctrl, gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
+      gameId ? joinTheGame(gameId) : tour.isIn(ctrl) ? notice(ctrl) : null,
       teamStanding(ctrl, 'started'),
       arenaControls(ctrl, pag),
       standing(ctrl, pag, 'started'),
@@ -68,5 +78,9 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 }
 
 export function table(ctrl: TournamentController): VNode | undefined {
-  return ctrl.playerInfo.id ? playerInfo(ctrl) : ctrl.teamInfo.requested ? teamInfo(ctrl) : tourTable(ctrl);
+  return ctrl.playerInfo.id
+    ? playerInfo(ctrl)
+    : ctrl.teamInfo.requested
+      ? teamInfo(ctrl)
+      : tourTable(ctrl);
 }

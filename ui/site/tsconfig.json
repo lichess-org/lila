@@ -1,9 +1,6 @@
 {
-  "extends": "../tsconfig.base.json",
-  "include": ["src/*.ts", "src/*.js"],
+  "extends": "@build/tsconfig",
   "compilerOptions": {
-    "outDir": "./tmp",
-    "allowJs": true,
     "noImplicitAny": false
   }
 }

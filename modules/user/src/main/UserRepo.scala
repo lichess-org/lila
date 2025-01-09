@@ -6,7 +6,7 @@ import reactivemongo.akkastream.{ cursorProducer, AkkaStreamCursor }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
-import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
+import lila.common.{ EmailAddress, NormalizedEmailAddress }
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
 
@@ -300,13 +300,12 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
       lang: Option[String] = None
   ): Fu[Option[User]] =
     !nameExists(username) flatMap {
       _ ?? {
-        val doc = newUser(username, passwordHash, email, blind, mobileApiVersion, mustConfirmEmail, lang) ++
+        val doc = newUser(username, passwordHash, email, blind, mustConfirmEmail, lang) ++
           ("len" -> BSONInteger(username.size))
         coll.insert.one(doc) >> named(normalize(username))
       }
@@ -636,7 +635,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
       passwordHash: HashedPassword,
       email: EmailAddress,
       blind: Boolean,
-      mobileApiVersion: Option[ApiVersion],
       mustConfirmEmail: Boolean,
       lang: Option[String]
   ) = {
@@ -645,19 +643,18 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
 
     val normalizedEmail = email.normalize
     $doc(
-      F.id                    -> normalize(username),
-      F.username              -> username,
-      F.email                 -> normalizedEmail,
-      F.mustConfirmEmail      -> mustConfirmEmail.option(DateTime.now),
-      F.bpass                 -> passwordHash,
-      F.perfs                 -> $empty,
-      F.count                 -> Count.default,
-      F.enabled               -> true,
-      F.createdAt             -> DateTime.now,
-      F.createdWithApiVersion -> mobileApiVersion.map(_.value),
-      F.seenAt                -> DateTime.now,
-      F.playTime              -> User.PlayTime(0, 0),
-      F.lang                  -> lang
+      F.id               -> normalize(username),
+      F.username         -> username,
+      F.email            -> normalizedEmail,
+      F.mustConfirmEmail -> mustConfirmEmail.option(DateTime.now),
+      F.bpass            -> passwordHash,
+      F.perfs            -> $empty,
+      F.count            -> Count.default,
+      F.enabled          -> true,
+      F.createdAt        -> DateTime.now,
+      F.seenAt           -> DateTime.now,
+      F.playTime         -> User.PlayTime(0, 0),
+      F.lang             -> lang
     ) ++ {
       (email.value != normalizedEmail.value) ?? $doc(F.verbatimEmail -> email)
     } ++ {

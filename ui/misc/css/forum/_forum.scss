@@ -1,0 +1,36 @@
+@import 'search';
+@import 'topic';
+@import 'post';
+@import 'completion';
+@import 'table';
+@import 'pagination';
+@import 'mention';
+@import 'reactions';
+
+.forum {
+  h1,
+  .slist .subject {
+    @extend %break-word-hard;
+  }
+
+  &.forum-categ {
+    padding-bottom: 1rem;
+    .sticky {
+      background: $m-secondary_bg-box_mix_10;
+    }
+    .sticky:nth-child(even) {
+      background: $m-secondary_bg-zebra_mix_10;
+    }
+
+    .bar-top {
+      @extend %box-padding;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      h1 {
+        margin: 0;
+      }
+    }
+  }
+}

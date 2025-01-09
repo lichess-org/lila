@@ -28,7 +28,7 @@ function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
     });
 }
 
-export function renderPager(ctrl: TournamentController, pag): MaybeVNodes {
+export function renderPager(ctrl: TournamentController, pag: PageData): MaybeVNodes {
   const enabled = !!pag.currentPageResults,
     page = ctrl.page;
   return pag.nbPages > -1

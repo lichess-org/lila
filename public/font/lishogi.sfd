@@ -21,7 +21,7 @@ OS2Version: 3
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1554434404
-ModificationTime: 1728523406
+ModificationTime: 1733260232
 PfmFamily: 17
 TTFWeight: 400
 TTFWidth: 5
@@ -88,7 +88,7 @@ Grid
 -512 468.027770996 m 0
  1024 468.027770996 l 1024
 EndSplineSet
-BeginChars: 113 113
+BeginChars: 114 114
 
 StartChar: uniE020
 Encoding: 110 57376 0
@@ -937,7 +937,7 @@ Encoding: 12 45 13
 GlifName: arrow-streamline-target
 Width: 512
 GlyphClass: 2
-Flags: WO
+Flags: W
 LayerCount: 2
 Fore
 SplineSet
@@ -7015,6 +7015,27 @@ SplineSet
  359.46484375 35.140625 l 2,56,57
 EndSplineSet
 Validated: 1
+EndChar
+
+StartChar: uF0000
+Encoding: 113 983040 113
+Width: 512
+LayerCount: 2
+Fore
+SplineSet
+258.734375 402.6875 m 2,0,1
+ 245.2578125 399.9296875 245.2578125 399.9296875 157.9296875 369.71875 c 1,2,-1
+ 118.515625 70.4140625 l 1,3,-1
+ 403 71 l 1,4,-1
+ 354.484375 371.2265625 l 1,5,-1
+ 258.734375 402.6875 l 2,0,1
+173.2890625 358.09375 m 1,6,-1
+ 256.109375 386.7421875 l 1,7,-1
+ 339.4609375 359.3515625 l 1,8,-1
+ 383.4921875 86.859375 l 1,9,-1
+ 137.5 86.3515625 l 1,10,-1
+ 173.2890625 358.09375 l 1,6,-1
+EndSplineSet
 EndChar
 EndChars
 EndSplineFont

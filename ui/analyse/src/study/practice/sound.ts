@@ -10,7 +10,7 @@ function make(file: string) {
   };
 }
 
-export default function () {
+export default function (): Record<'success' | 'failure', () => void> {
   return {
     success: make('other/energy3'),
     failure: make('other/failure2'),

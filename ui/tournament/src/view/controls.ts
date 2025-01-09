@@ -5,6 +5,7 @@ import * as buttons from './button';
 import * as pagination from '../pagination';
 import { PageData } from '../interfaces';
 import { organizeArrangementButton } from './organized';
+import { i18n } from 'i18n';
 
 export function arenaControls(ctrl: TournamentController, pag: PageData): VNode {
   return h('div.tour__controls', [
@@ -25,10 +26,10 @@ export function robinControls(ctrl: TournamentController): VNode {
     },
     [
       h('div.pager', [
-        controlButton(ctrl.trans.noarg('first'), 'W', 'first'),
-        controlButton(ctrl.trans.noarg('previous'), 'Y', 'prev'),
-        controlButton(ctrl.trans.noarg('next'), 'X', 'next'),
-        controlButton(ctrl.trans.noarg('last'), 'V', 'last'),
+        controlButton(i18n('study:first'), 'W', 'first'),
+        controlButton(i18n('study:previous'), 'Y', 'prev'),
+        controlButton(i18n('study:next'), 'X', 'next'),
+        controlButton(i18n('study:last'), 'V', 'last'),
       ]),
       h('div.right', [buttons.managePlayers(ctrl), buttons.joinWithdraw(ctrl)]),
     ]
@@ -54,10 +55,10 @@ export function backControl(ctrl: TournamentController, f: () => void, extra: VN
         {
           attrs: {
             'data-icon': 'I',
-            title: ctrl.trans.noarg('back'),
+            title: i18n('back'),
           },
         },
-        ctrl.trans.noarg('back')
+        i18n('back')
       )
     ),
     ...extra,

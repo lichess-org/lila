@@ -1,5 +1,4 @@
 import { MaybeVNodes } from 'common/snabbdom';
-import { transWithColorName } from 'common/colorName';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { TournamentData } from '../interfaces';
@@ -10,40 +9,47 @@ import { podium, standing } from './arena';
 import { standing as oStanding } from './organized';
 import { teamStanding } from './battle';
 import header from './header';
-import playerInfo from './playerInfo';
-import teamInfo from './teamInfo';
+import playerInfo from './player-info';
+import teamInfo from './team-info';
 import { numberRow } from './util';
+import { once } from 'common/storage';
+import { loadCompiledScript } from 'common/assets';
+import { colorName } from 'shogi/color-name';
+import { i18n, i18nFormatCapitalized } from 'i18n';
 
 function confetti(data: TournamentData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && window.lishogi.once('tournament.end.canvas.' + data.id))
+  if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
     return h('canvas#confetti', {
       hook: {
-        insert: _ => window.lishogi.loadScript('javascripts/confetti.js'),
+        insert: _ => loadCompiledScript('misc.confetti'),
       },
     });
 }
 
-function stats(data: TournamentData, trans: Trans): VNode {
-  const noarg = trans.noarg,
-    tableData = [
-      numberRow(noarg('averageElo'), data.stats.averageRating, 'raw'),
-      numberRow(noarg('gamesPlayed'), data.stats.games),
-      numberRow(noarg('movesPlayed'), data.stats.moves),
-      numberRow(
-        transWithColorName(trans, 'xWins', 'sente', false),
-        [data.stats.senteWins, data.stats.games],
-        'percent'
-      ),
-      numberRow(transWithColorName(trans, 'xWins', 'gote', false), [data.stats.goteWins, data.stats.games], 'percent'),
-      numberRow(noarg('draws'), [data.stats.draws, data.stats.games], 'percent'),
-    ];
+function stats(data: TournamentData): VNode {
+  const tableData = [
+    numberRow(i18n('averageElo'), data.stats.averageRating, 'raw'),
+    numberRow(i18n('gamesPlayed'), data.stats.games),
+    numberRow(i18n('movesPlayed'), data.stats.moves),
+    numberRow(
+      i18nFormatCapitalized('xWins', colorName('sente', false)),
+      [data.stats.senteWins, data.stats.games],
+      'percent'
+    ),
+    numberRow(
+      i18nFormatCapitalized('xWins', colorName('gote', false)),
+      [data.stats.goteWins, data.stats.games],
+      'percent'
+    ),
+    numberRow(i18n('draws'), [data.stats.draws, data.stats.games], 'percent'),
+  ];
 
   if (data.berserkable) {
     const berserkRate = [data.stats.berserks / 2, data.stats.games];
-    tableData.push(numberRow(noarg('berserkRate'), berserkRate, 'percent'));
+    tableData.push(numberRow(i18n('berserkRate'), berserkRate, 'percent'));
   }
 
-  return h('div.tour__stats', [h('h2', noarg('tournamentComplete')), h('table', tableData)]);
+  return h('div.tour__stats', [h('h2', i18n('tournamentComplete')), h('table', tableData)]);
 }
 
 export const name = 'finished';
@@ -53,20 +59,26 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   const teamS = teamStanding(ctrl, 'finished');
   if (ctrl.isArena())
     return [
-      ...(teamS ? [header(ctrl), teamS] : [h('div.big_top', [confetti(ctrl.data), header(ctrl), podium(ctrl)])]),
+      ...(teamS
+        ? [header(ctrl), teamS]
+        : [h('div.big_top', [confetti(ctrl.data), header(ctrl), podium(ctrl)])]),
       arenaControls(ctrl, pag),
       standing(ctrl, pag),
     ];
   else if (ctrl.isRobin())
     return [
-      ...(teamS ? [header(ctrl), teamS] : [h('div.big_top', [confetti(ctrl.data), header(ctrl), rPodium(ctrl)])]),
+      ...(teamS
+        ? [header(ctrl), teamS]
+        : [h('div.big_top', [confetti(ctrl.data), header(ctrl), rPodium(ctrl)])]),
       robinControls(ctrl),
       rStanding(ctrl, 'finished'),
       recents(ctrl),
     ];
   else
     return [
-      ...(teamS ? [header(ctrl), teamS] : [h('div.big_top', [confetti(ctrl.data), header(ctrl), rPodium(ctrl)])]),
+      ...(teamS
+        ? [header(ctrl), teamS]
+        : [h('div.big_top', [confetti(ctrl.data), header(ctrl), rPodium(ctrl)])]),
       organizedControls(ctrl, pag),
       oStanding(ctrl, pag, 'finished'),
       recents(ctrl),
@@ -79,6 +91,6 @@ export function table(ctrl: TournamentController): VNode | undefined {
     : ctrl.teamInfo.requested
       ? teamInfo(ctrl)
       : stats
-        ? stats(ctrl.data, ctrl.trans)
+        ? stats(ctrl.data)
         : undefined;
 }

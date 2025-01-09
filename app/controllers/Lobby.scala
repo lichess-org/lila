@@ -28,7 +28,7 @@ final class Lobby(
             Ok(html).noCache
           }
         } dmap env.lilaCookie.ensure(ctx.req),
-        api = _ => fuccess(Ok(lobbyJson))
+        json = fuccess(Ok(lobbyJson))
       )
     }
 
@@ -41,10 +41,9 @@ final class Lobby(
     Open { implicit ctx =>
       negotiate(
         html = fuccess(NotFound),
-        api = _ =>
-          ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
-            Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
-          }
+        json = ctx.me.fold(env.lobby.seekApi.forAnon)(env.lobby.seekApi.forUser) map { seeks =>
+          Ok(JsArray(seeks.map(_.render))).withHeaders(CACHE_CONTROL -> s"max-age=10")
+        }
       )
     }
 

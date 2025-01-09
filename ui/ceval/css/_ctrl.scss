@@ -19,8 +19,10 @@
 
     flex: 0 0 40px;
     margin-right: 8px;
+    cursor: not-allowed;
     &.disabled label {
       pointer-events: none;
+      opacity: 0.5;
     }
   }
 

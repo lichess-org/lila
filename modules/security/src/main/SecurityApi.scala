@@ -10,7 +10,7 @@ import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.annotation.nowarn
 
-import lila.common.{ ApiVersion, EmailAddress, HTTPRequest, IpAddress }
+import lila.common.{ EmailAddress, HTTPRequest, IpAddress }
 import lila.db.dsl._
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.user.{ User, UserRepo }
@@ -80,7 +80,7 @@ final class SecurityApi(
       _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
     }
 
-  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit
+  def saveAuthentication(userId: User.ID)(implicit
       req: RequestHeader
   ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
@@ -88,14 +88,14 @@ final class SecurityApi(
       case false =>
         val sessionId = Random secureString 22
         if (tor isExitNode HTTPRequest.lastRemoteAddress(req)) logger.info(s"TOR login $userId")
-        store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
+        store.save(sessionId, userId, req, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit
+  def saveSignup(userId: User.ID, fp: Option[FingerPrint])(implicit
       req: RequestHeader
   ): Funit = {
     val sessionId = lila.common.ThreadLocalRandom nextString 22
-    store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
+    store.save(s"SIG-$sessionId", userId, req, up = false, fp = fp)
   }
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerPrintedUser]] =

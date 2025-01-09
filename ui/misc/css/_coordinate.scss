@@ -1,0 +1,206 @@
+$mq-col1: $mq-not-medium;
+$mq-col2: $mq-medium;
+$mq-col3: $mq-x-large;
+
+#main-wrap {
+  --main-max-width: calc(
+    (100vh - #{$site-header-outer-height} - #{$col1-uniboard-controls} - #{$hands-gap}) / 12 * 9
+  );
+  @include breakpoint($mq-col2) {
+    --main-max-width: auto;
+  }
+}
+
+.coord-trainer {
+  grid-area: main;
+  display: grid;
+
+  grid-template-areas:
+    'board'
+    'progress'
+    'button'
+    'table'
+    'side';
+  grid-row-gap: $block-gap;
+
+  overflow: hidden; // coords cause mobile to have horiz scrolling
+
+  &__side {
+    grid-area: side;
+  }
+  &__board {
+    grid-area: board;
+  }
+  &__table {
+    grid-area: table;
+  }
+  &__progress {
+    grid-area: progress;
+  }
+  &__button {
+    grid-area: button;
+  }
+  &__score,
+  &__timer {
+    font-family: 'storm';
+    font-size: 5em;
+    margin: $block-gap;
+  }
+
+  .hurry {
+    color: $c-bad !important;
+  }
+
+  @include breakpoint($mq-col2) {
+    grid-template-columns: var(--col2-uniboard-main-size) $block-gap $col2-uniboard-table;
+    grid-template-rows: fit-content(0);
+    grid-template-areas:
+      'board    . table'
+      'board    . button'
+      'progress . side'
+      '.        . side';
+  }
+
+  @include breakpoint($mq-col3) {
+    grid-template-areas:
+      'side . board    . table'
+      'side . board    . button'
+      '.    . progress . .';
+    grid-template-rows: fit-content(0);
+    grid-template-columns: $col3-uniboard-side $block-gap var(--col3-uniboard-main-size) $block-gap $col3-uniboard-table;
+  }
+
+  .box {
+    padding: 2vmin 0 1vmin 0;
+    margin-top: $block-gap;
+    h1,
+    h2 {
+      font-size: 1.5em;
+      padding: 0 !important;
+      text-align: center;
+    }
+    p {
+      margin: 1em;
+    }
+    &.current-status {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  form.color {
+    margin-top: $block-gap;
+    .color i {
+      display: block;
+      width: 30px;
+      height: 30px;
+      background-size: 30px 30px;
+      background-repeat: no-repeat;
+      padding: 0;
+    }
+    .color_1 i {
+      background-image: url(../images/blackPiece.svg);
+    }
+    .color_2 i {
+      background-image: url(../images/bwPiece.svg);
+    }
+    .color_3 i {
+      background-image: url(../images/whitePiece.svg);
+    }
+  }
+
+  .next_coord {
+    @extend %flex-center;
+    z-index: 2;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 5%;
+    width: 90%;
+    height: 100%;
+    font-size: 160px;
+    font-weight: bold;
+    opacity: 1;
+    pointer-events: none;
+    color: #eee;
+    text-shadow: 0 10px 10px #444;
+    opacity: 0.8;
+  }
+  #next_coord0 {
+    color: #fff;
+  }
+  #next_coord1 {
+    display: none; // Remove completely, if no one wants it back
+  }
+  #next_coord1,
+  #next_coord0 {
+    user-select: none;
+  }
+  .progress_bar {
+    @extend %box-radius;
+    width: 100%;
+    height: 10px;
+    background-color: $c-font-dim;
+  }
+  &__table {
+    @extend %flex-center;
+    justify-content: space-around;
+    .explanation li {
+      list-style: outside disc;
+      margin: 0.5em 0 0.5em 1em;
+    }
+  }
+  &__button {
+    @extend %flex-center;
+    justify-content: center;
+  }
+  &.wrong .coord-trainer__score,
+  &.wrong #next_coord0 {
+    color: $c-bad !important;
+  }
+
+  &.play .start,
+  #next_coord,
+  &.play form.color {
+    display: none;
+  }
+  &.play #next_coord {
+    display: block;
+  }
+
+  &.play.sente .coord-trainer__button .current-color {
+    width: 64px;
+    height: 64px;
+    background-image: url(../images/blackPiece.svg);
+    background-repeat: no-repeat;
+  }
+  &.play.gote .coord-trainer__button .current-color {
+    width: 64px;
+    height: 64px;
+    background-image: url(../images/whitePiece.svg);
+    background-repeat: no-repeat;
+  }
+
+  &.init {
+    @include breakpoint($mq-col1) {
+      .explanation {
+        margin: 1em;
+      }
+    }
+    .coord-trainer__score,
+    .coord-trainer__progress,
+    .current-color,
+    .current-status {
+      display: none;
+    }
+    form.color {
+      margin-bottom: $block-gap;
+    }
+  }
+}
+
+#jqstooltip {
+  box-sizing: content-box;
+}

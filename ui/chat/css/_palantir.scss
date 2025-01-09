@@ -3,10 +3,10 @@
     background: none;
   }
   50% {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $m-secondary_bg-box_mix_30;
   }
   60% {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $m-primary_bg-box_mix_30;
   }
   70% {
     background: none;

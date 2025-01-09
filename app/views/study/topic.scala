@@ -16,8 +16,8 @@ object topic {
   def index(popular: StudyTopics, mine: Option[StudyTopics], myForm: Option[Form[_]])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.study.studyTopics.txt(),
-      moreCss = frag(cssTag("study.index"), cssTag("form3"), cssTag("tagify")),
-      moreJs = frag(tagifyTag, jsTag("study/topic-form.js")),
+      moreCss = frag(cssTag("analyse.study.index"), cssTag("misc.form3"), cssTag("misc.tagify")),
+      moreJs = frag(tagifyTag, jsTag("analyse.study-topic-form")),
       wrapClass = "full-screen-force"
     ) {
       main(cls := "page-menu")(
@@ -52,7 +52,7 @@ object topic {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = topic.value,
-      moreCss = cssTag("study.index"),
+      moreCss = cssTag("analyse.study.index"),
       wrapClass = "full-screen-force",
       moreJs = infiniteScrollTag
     ) {

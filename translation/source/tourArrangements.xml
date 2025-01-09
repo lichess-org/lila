@@ -9,7 +9,13 @@
 	<string name="scheduledAt" comment="Date/time when game is scheduled for">Scheduled at</string>
 	<string name="yourUpcomingGames">Your upcoming games</string>
 	<string name="playingRightNow" comment="Games in tournament that are being played right now">Playing right now</string>
-	<string name="recentlyPlayedGames">Recently played games</string>
+	<string name="latestGames">Latest games</string>
 	<string name="gameWillNotStart">Game will not start automatically!</string>
 	<string name="organized" comment="Tournament format - organized, players can only play games created by the organizer">Organized</string>
+	<string name="accepted">Accepted</string>
+	<string name="removed">Removed</string>
+	<string name="proposed">Proposed</string>
+	<string name="ready">Ready</string>
+	<string name="notReady">Not ready</string>
+	<string name="starts">Starts</string>
 </resources>

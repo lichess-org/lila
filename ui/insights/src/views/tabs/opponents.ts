@@ -1,23 +1,22 @@
 import { VNode, h } from 'snabbdom';
-import InsightCtrl from '../../ctrl';
 import { section, winrateTable } from '../util';
 import { OpponentResult } from '../../types';
 import { fixed } from '../../util';
+import { i18n } from 'i18n';
 
-export function opponents(ctrl: InsightCtrl, data: OpponentResult): VNode {
-  const noarg = ctrl.trans.noarg;
+export function opponents(data: OpponentResult): VNode {
   return h('div.opponents', [
     h('section.padding.half-wrap', [
       h('div.big-number-with-desc', [
         averageOpponentRating(data.avgOpponentRating),
-        h('span.desc', noarg('averageOpponentRating')),
+        h('span.desc', i18n('insights:averageOpponentRating')),
       ]),
       h('div.big-number-with-desc', [
         averageOpponentRatingDiff(data.avgOpponentRatingDiff),
-        h('span.desc', noarg('averageOpponentRatingDiff')),
+        h('span.desc', i18n('insights:averageOpponentRatingDiff')),
       ]),
     ]),
-    section(noarg('mostPlayedOpponents'), mostPlayedOpponentsTable(data, noarg)),
+    section(i18n('insights:mostPlayedOpponents'), mostPlayedOpponentsTable(data)),
   ]);
 }
 
@@ -28,10 +27,10 @@ function averageOpponentRatingDiff(nb: number): VNode {
   return h('div.big-number.diff', (nb > 0 ? '+' : '') + fixed(nb));
 }
 
-function mostPlayedOpponentsTable(data: OpponentResult, noarg: TransNoArg): VNode {
+function mostPlayedOpponentsTable(data: OpponentResult): VNode {
   return winrateTable(
     'most-played-opponents',
-    [noarg('opponent'), noarg('games'), noarg('winRate')],
+    [i18n('opponent'), i18n('games'), i18n('winRate')],
     data.winrateByMostPlayedOpponent,
     key =>
       h(

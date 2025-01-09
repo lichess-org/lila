@@ -9,7 +9,7 @@ object mobile {
   def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
     views.html.base.layout(
       title = "Mobile",
-      moreCss = cssTag("mobile")
+      moreCss = cssTag("misc.mobile")
     ) {
       main(
         div(cls := "mobile page-small box box-pad")(

@@ -1,12 +1,16 @@
-export function skip(txt: string) {
+export function skip(txt: string): boolean {
   return analyse(txt) && window.lishogi.storage.get('chat-spam') != '1';
 }
-export function hasTeamUrl(txt: string) {
+export function hasTeamUrl(txt: string): boolean {
   return !!txt.match(teamUrlRegex);
 }
-export function report(txt: string) {
+export function report(txt: string): void {
   if (analyse(txt)) {
-    $.post('/jslog/' + window.location.href.substr(-12) + '?n=spam');
+    window.lishogi.xhr.text('POST', '/jslog/' + window.location.href.slice(-12), {
+      url: {
+        n: 'spam',
+      },
+    });
     window.lishogi.storage.set('chat-spam', '1');
   }
 }

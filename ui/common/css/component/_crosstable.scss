@@ -40,7 +40,7 @@
   &__matchup {
     flex: 1 1 auto;
     font-weight: bold;
-    background: mix($c-primary, $c-bg-box, 20%);
+    background: $m-primary_bg-box_mix_20;
   }
   povs {
     a {
@@ -57,7 +57,7 @@
       opacity: 0.2;
     }
     &.current a {
-      background: mix($c-accent, $c-bg-box, 70%);
+      background: $m-accent_bg-box_mix_70;
       color: #fff;
       opacity: 1 !important;
     }

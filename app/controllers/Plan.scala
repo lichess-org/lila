@@ -59,7 +59,6 @@ final class Plan(env: Env)(implicit system: akka.actor.ActorSystem) extends Lila
       _         <- env.user.lightUserApi preloadMany { recentIds ::: bestIds }
     } yield Ok(
       html.plan.index(
-        stripePublicKey = env.plan.stripePublicKey,
         email = email,
         patron = patron,
         recentIds = recentIds,

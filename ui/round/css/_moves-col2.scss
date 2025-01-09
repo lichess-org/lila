@@ -1,6 +1,6 @@
 /* context: .rmoves */
 @include breakpoint($mq-col2) {
-  @if $theme != 'transp' {
+  @include theme-wrap('transp') {
     background: $c-bg-box;
   }
   .moves {
@@ -30,7 +30,7 @@
     }
     &.active {
       font-weight: bold;
-      background: mix($c-primary, $c-bg-box, 20%);
+      background: $m-primary_bg-box_mix_20;
       color: $c-font-clear;
     }
   }

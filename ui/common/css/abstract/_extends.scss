@@ -23,28 +23,35 @@
   color: $c-font-page;
 }
 %page-text {
-  @extend %page-font, %page-text-shadow !optional;
+  @extend %page-font;
+  @include theme-wrap('transp') {
+    text-shadow: $text-shadow;
+  }
 }
 
 %metal {
-  @include metal;
+  background: $c-bg-metal;
+  color: $c-font-metal;
+  text-shadow: $metal-shadow;
 }
 %metal-hover {
-  @include metal-hover;
+  background: $c-bg-metal-hover;
+  color: $c-font-metal-hover;
+  text-shadow: $metal-shadow;
 }
 
 %active-inset-shadow {
-  box-shadow: 0 3px 4px hsla(0, 0, 0, 0.15) inset;
+  box-shadow: 0 3px 4px hsla(0, 0%, 0%, 0.15) inset;
 }
 
 %active {
   @extend %active-inset-shadow;
   background: $c-accent;
-  color: #fff;
+  color: $c-accent-over;
   text-shadow: 0 1px 1px black !important;
 }
 %active-hover {
-  background: mix(white, $c-accent, 20%);
+  background: $m-white_accent_mix_20;
 }
 
 %active-soft {
@@ -64,10 +71,10 @@
     0 10px 10px rgba(0, 0, 0, 0.22);
 }
 %button-shadow {
-  box-shadow: 0 2px 5px 0 hsla(0, 0, 0%, 0.225);
+  box-shadow: 0 2px 5px 0 hsla(0, 0%, 0%, 0.225);
 }
 %button-raised-shadow {
-  box-shadow: 0 4px 10px 0px hsla(0, 0, 0, 0.225);
+  box-shadow: 0 4px 10px 0px hsla(0, 0%, 0%, 0.225);
 }
 %button-none {
   background: none;
@@ -147,12 +154,13 @@
   @extend %video;
   position: relative;
   height: 0;
-  padding-bottom: calc(56.25% + 3rem);
+  padding-bottom: calc(56.25%);
 }
 
 %game-embed {
-  @include breakpoint($mq-not-xx-small) {
-    padding-bottom: calc(170% + 3rem);
+  padding-bottom: calc(175%);
+  @include breakpoint($mq-x-small) {
+    padding-bottom: calc(56.25%);
   }
 }
 

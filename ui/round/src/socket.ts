@@ -3,14 +3,16 @@ import throttle from 'common/throttle';
 import * as game from 'game';
 import { isPlayerTurn } from 'game';
 import RoundController from './ctrl';
-import { Untyped } from './interfaces';
+import { RoundData, Untyped } from './interfaces';
 import * as sound from './sound';
 import * as xhr from './xhr';
+import { i18n } from 'i18n';
+import { loadCssPath } from 'common/assets';
 
 const li = window.lishogi;
 
 export interface RoundSocket extends Untyped {
-  send: SocketSend;
+  send: Socket.Send;
   handlers: Untyped;
   moreTime(): void;
   outoftime(): void;
@@ -52,15 +54,16 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
   };
 }
 
-export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
+export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
   function reload(o: Incoming, isRetry?: boolean) {
     // avoid reload if possible!
     if (o && o.t) {
       ctrl.setLoading(false);
       handlers[o.t](o.d);
     } else
-      xhr.reload(ctrl).then(data => {
-        if (li.socket.getVersion() > data.player.version) {
+      xhr.reload(ctrl).then((data: RoundData) => {
+        const v = li.socket.getVersion();
+        if (v !== false && v > data.player.version) {
           // race condition! try to reload again
           if (isRetry) li.reload();
           // give up and reload the page
@@ -74,7 +77,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.setLoading(false);
       ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
       const fromOp = (ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color]);
-      if (fromOp) notify(ctrl.noarg('yourOpponentProposesATakeback'));
+      if (fromOp) notify(i18n('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
     usi: ctrl.apiMove,
@@ -103,7 +106,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     rematchOffer(by: Color) {
       ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
       if ((ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color))
-        notify(ctrl.noarg('yourOpponentWantsToPlayANewGameWithYou'));
+        notify(i18n('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
     rematchTaken(nextId: string) {
@@ -114,7 +117,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     drawOffer(by) {
       ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
       const fromOp = (ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color);
-      if (fromOp) notify(ctrl.noarg('yourOpponentOffersADraw'));
+      if (fromOp) notify(i18n('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
     pauseOffer(by) {
@@ -122,7 +125,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         const fromOp = by === ctrl.data.opponent.color;
         if (fromOp) ctrl.data.opponent.offeringPause = true;
         else ctrl.data.player.offeringPause = true;
-        if (fromOp && !ctrl.data.player.offeringPause) notify(ctrl.noarg('yourOpponentOffersAnAdjournment'));
+        if (fromOp && !ctrl.data.player.offeringPause)
+          notify(i18n('yourOpponentOffersAnAdjournment'));
       } else ctrl.data.player.offeringPause = ctrl.data.opponent.offeringPause = !!by;
       ctrl.redraw();
     },
@@ -130,7 +134,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ctrl.data.player.offeringPause = ctrl.data.opponent.offeringPause = false;
       ctrl.data.player.offeringResume = by === ctrl.data.player.color;
       const fromOp = (ctrl.data.opponent.offeringResume = by === ctrl.data.opponent.color);
-      if (fromOp) notify(ctrl.noarg('yourOpponentProposesResumption'));
+      if (fromOp) notify(i18n('yourOpponentProposesResumption'));
       ctrl.redraw();
     },
     berserk(color: Color) {
@@ -149,12 +153,12 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
       ) {
         ctrl.setRedirecting();
         sound.move();
-        li.hasToReload = true;
+        window.lishogi.properReload = true;
         location.href = '/' + gameId;
       }
     },
     simulEnd(simul: game.Simul) {
-      li.loadCssPath('modal');
+      loadCssPath('misc.modal');
       $.modal(
         $(
           '<p>Simul complete!</p><br /><br />' +

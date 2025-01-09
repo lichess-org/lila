@@ -122,6 +122,8 @@ object Challenge {
 
   sealed trait TimeControl
   object TimeControl {
+    def make(clock: Option[shogi.Clock.Config], days: Option[Int]) =
+      clock.map(Clock).orElse(days map Correspondence).getOrElse(Unlimited)
     case object Unlimited                        extends TimeControl
     case class Correspondence(days: Int)         extends TimeControl
     case class Clock(config: shogi.Clock.Config) extends TimeControl {
@@ -177,7 +179,8 @@ object Challenge {
       color: String,
       challenger: Challenger,
       destUser: Option[User],
-      rematchOf: Option[String]
+      rematchOf: Option[String],
+      isOpen: Boolean = false
   ): Challenge = {
     val (colorChoice, finalColor) = color match {
       case "sente" => ColorChoice.Sente  -> shogi.Sente
@@ -189,7 +192,6 @@ object Challenge {
         Mode.Casual
       case _ => mode
     }
-    val isOpen = challenger == Challenge.Challenger.Open
     new Challenge(
       _id = randomId,
       status = Status.Created,

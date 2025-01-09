@@ -1,0 +1,22 @@
+#topnav div {
+  visibility: visible;
+  font-size: 0.8em;
+}
+#main-wrap {
+  margin-top: 170px;
+}
+.lobby__app {
+  .tabs-horiz,
+  .lobby__app__content {
+    display: none !important;
+  }
+}
+
+#clinput {
+  .link {
+    display: none;
+  }
+  input {
+    width: auto;
+  }
+}

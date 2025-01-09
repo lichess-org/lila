@@ -35,8 +35,6 @@ final class Env(
   import StripeClient.configLoader
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
-  val stripePublicKey = config.stripe.publicKey
-
   private lazy val patronColl = db(config.patronColl)
   private lazy val chargeColl = db(config.chargeColl)
 

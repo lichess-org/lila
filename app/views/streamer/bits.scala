@@ -16,7 +16,7 @@ object bits extends Context.ToLang {
     views.html.site.message(
       title = becomeStreamer.txt(),
       icon = Some(""),
-      moreCss = cssTag("streamer.form").some
+      moreCss = cssTag("misc.streamer.form").some
     )(
       postForm(cls := "streamer-new", action := routes.Streamer.create)(
         h2(doYouHaveStream()),

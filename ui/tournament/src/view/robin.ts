@@ -2,14 +2,22 @@ import { bind, MaybeVNode } from 'common/snabbdom';
 import { ids } from 'game/status';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
-import { arrangementHasUser, playerName, preloadUserTips, ratio2percent, player as renderPlayer } from './util';
+import {
+  arrangementHasUser,
+  playerName,
+  preloadUserTips,
+  ratio2percent,
+  player as renderPlayer,
+} from './util';
 import { Arrangement } from '../interfaces';
-import { arrangementThumbnail } from './arrangementThumbnail';
+import { arrangementThumbnail } from './arrangement-thumbnail';
+import { i18n } from 'i18n';
 
 function tableClick(ctrl: TournamentController): (e: Event) => void {
   return (e: Event) => {
     const target = e.target as HTMLElement;
     const players = target.dataset.p;
+    console.log(players);
     if (players) {
       ctrl.showArrangement(ctrl.findOrCreateArrangement(players.split(';')));
     }
@@ -77,7 +85,9 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
           'thead',
           h(
             'tr',
-            ctrl.data.standing.players.map((player, i) => h('th', { attrs: { title: player.name } }, i + 1))
+            ctrl.data.standing.players.map((player, i) =>
+              h('th', { attrs: { title: player.name } }, i + 1)
+            )
           )
         ),
         h(
@@ -133,7 +143,11 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
             h(
               'tr',
               { class: { kicked: player.kicked } },
-              h('td', { class: { winner: !!maxScore && maxScore === player.score } }, player.score || 0)
+              h(
+                'td',
+                { class: { winner: !!maxScore && maxScore === player.score } },
+                player.score || 0
+              )
             )
           )
         ),
@@ -152,35 +166,39 @@ function podiumUsername(p) {
   );
 }
 
-function podiumStats(ctrl: TournamentController, p, games: Arrangement[]): VNode {
-  const noarg = ctrl.trans.noarg,
-    userId = p.id,
+function podiumStats(p, games: Arrangement[]): VNode {
+  const userId = p.id,
     gamesOfPlayer = games.filter(a => arrangementHasUser(a, userId));
   return h('table.stats', [
-    p.performance ? h('tr', [h('th', noarg('performance')), h('td', p.performance)]) : null,
-    h('tr', [h('th', noarg('gamesPlayed')), h('td', gamesOfPlayer.length)]),
+    p.performance ? h('tr', [h('th', i18n('performance')), h('td', p.performance)]) : null,
+    h('tr', [h('th', i18n('gamesPlayed')), h('td', gamesOfPlayer.length)]),
     ...(gamesOfPlayer.length
       ? [
           h('tr', [
-            h('th', noarg('winRate')),
-            h('td', ratio2percent(gamesOfPlayer.filter(g => g.winner === userId).length / gamesOfPlayer.length)),
+            h('th', i18n('winRate')),
+            h(
+              'td',
+              ratio2percent(
+                gamesOfPlayer.filter(g => g.winner === userId).length / gamesOfPlayer.length
+              )
+            ),
           ]),
         ]
       : []),
   ]);
 }
 
-function podiumPosition(ctrl: TournamentController, p, pos, games: Arrangement[]): VNode | undefined {
-  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(ctrl, p, games)]);
+function podiumPosition(p, pos, games: Arrangement[]): VNode | undefined {
+  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, games)]);
 }
 
-export function podium(ctrl: TournamentController) {
+export function podium(ctrl: TournamentController): VNode {
   const p = [...ctrl.data.standing.players].sort((a, b) => b.score - a.score).slice(0, 3),
     games = ctrl.data.standing.arrangements.filter(a => !!a.gameId);
   return h('div.tour__podium', [
-    podiumPosition(ctrl, p[1], 'second', games),
-    podiumPosition(ctrl, p[0], 'first', games),
-    podiumPosition(ctrl, p[2], 'third', games),
+    podiumPosition(p[1], 'second', games),
+    podiumPosition(p[0], 'first', games),
+    podiumPosition(p[2], 'third', games),
   ]);
 }
 
@@ -190,7 +208,10 @@ export function yourCurrent(ctrl: TournamentController): MaybeVNode {
     .sort((a, b) => a.scheduledAt! - b.scheduledAt!)
     .map(a => arrangementThumbnail(ctrl, a));
   return arrs.some(a => !!a)
-    ? h('div.arrs.arrs-current', [h('h2.arrs-title', 'Your current games'), h('div.arrs-grid', arrs)])
+    ? h('div.arrs.arrs-current', [
+        h('h2.arrs-title', 'Your current games'),
+        h('div.arrs-grid', arrs),
+      ])
     : null;
 }
 
@@ -200,7 +221,10 @@ export function yourUpcoming(ctrl: TournamentController): MaybeVNode {
     .sort((a, b) => a.scheduledAt! - b.scheduledAt!)
     .map(a => arrangementThumbnail(ctrl, a));
   return arrs.some(a => !!a)
-    ? h('div.arrs.arrs-your-upcoming', [h('h2.arrs-title', 'Your upcoming games'), h('div.arrs-grid', arrs)])
+    ? h('div.arrs.arrs-your-upcoming', [
+        h('h2.arrs-title', 'Your upcoming games'),
+        h('div.arrs-grid', arrs),
+      ])
     : null;
 }
 
@@ -217,7 +241,10 @@ export function playing(ctrl: TournamentController): MaybeVNode {
     .filter(a => a.status === ids.started)
     .map(a => arrangementThumbnail(ctrl, a));
   return arrs.some(a => !!a)
-    ? h('div.arrs.arrs-playing', [h('h2.arrs-title', 'Playing right now'), h('div.arrs-grid', arrs)])
+    ? h('div.arrs.arrs-playing', [
+        h('h2.arrs-title', 'Playing right now'),
+        h('div.arrs-grid', arrs),
+      ])
     : null;
 }
 
@@ -227,7 +254,10 @@ export function recents(ctrl: TournamentController): MaybeVNode {
     .slice(0, 3)
     .map(a => arrangementThumbnail(ctrl, a));
   return arrs.some(a => !!a)
-    ? h('div.arrs.arrs-recents', [h('h2.arrs-title', 'Recently played games'), h('div.arrs-grid', arrs)])
+    ? h('div.arrs.arrs-recents', [
+        h('h2.arrs-title', 'Recently played games'),
+        h('div.arrs-grid', arrs),
+      ])
     : null;
 }
 

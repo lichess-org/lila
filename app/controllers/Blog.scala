@@ -10,8 +10,7 @@ import lila.common.config.MaxPerPage
 final class Blog(
     env: Env,
     prismicC: Prismic
-)(implicit ws: play.api.libs.ws.WSClient)
-    extends LilaController(env) {
+) extends LilaController(env) {
 
   import prismicC._
 
@@ -54,22 +53,6 @@ final class Blog(
         case Some(post) =>
           fuccess(Redirect(routes.Blog.show(post.id, ref)))
         case _ => notFound
-      }
-    }
-
-  def preview(token: String) =
-    WithPrismic { _ => implicit prismic =>
-      prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home.url) map { redirectUrl =>
-        Redirect(redirectUrl)
-          .withCookies(
-            Cookie(
-              io.prismic.Prismic.previewCookie,
-              token,
-              path = "/",
-              maxAge = Some(30 * 60 * 1000),
-              httpOnly = false
-            )
-          )
       }
     }
 

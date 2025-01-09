@@ -1,0 +1,228 @@
+/* Example custom theme */
+
+:root {
+  --c-bg-page: #1d2021;
+  --c-bg-high: #282828;
+  --c-bg-low: #3c3836;
+
+  --c-font: #ebdbb2;
+
+  --c-accent: #fb4934;
+  --c-primary: #83a598;
+  --c-secondary: #8c8e0d;
+
+  --c-accent-over: #fff;
+  --c-primary-over: #fff;
+  --c-secondary-over: #fff;
+
+  --c-brag: #bf811d;
+  --c-brag-over: #fff;
+
+  --c-border: #404040;
+  --c-shade: #4d4d4d;
+  --c-font-shadow: #000;
+  --c-page-mask: #0009;
+
+  --c-good: #629924;
+  --c-good-over: #fff;
+  --c-red: #c33;
+  --c-bad: var(--c-red);
+  --c-error: var(--c-red);
+  --c-error-over: #fff;
+  --c-bad-over: #fff;
+  --c-warn: #bf811d;
+  --c-warn-over: #fff;
+
+  --c-sente-symbol: '☗';
+  --c-gote-symbol: '☖';
+
+  --c-brilliant: #21c43a;
+  --c-good-move: #5ddf73;
+  --c-interesting: #f075e1;
+  --c-inaccuracy: #53b2ea;
+  --c-mistake: #e69d00;
+  --c-blunder: #df5353;
+  --m-inaccuracy_saturation_100: #3db8ff;
+  --m-mistake_saturation_100: #e69d00;
+  --m-blunder_saturation_100: #f33;
+
+  --c-fancy: #b72fc6;
+  --c-fancy-over: #fff;
+  --c-bot: #b72fc6;
+  --c-clas: #7f5af0;
+
+  --c-darken: #333;
+
+  --c-body-gradient: var(--c-bg-page);
+
+  --c-bg-zebra: color-mix(in srgb, var(--c-bg-high) 100%, white 4%);
+  --c-bg-zebra2: color-mix(in srgb, var(--c-bg-high) 100%, white 8%);
+
+  --c-bg-box-opaque: var(--c-bg-high);
+  --c-bg-box: var(--c-bg-high);
+  --c-page-input: var(--c-bg-high);
+  --c-bg-input: var(--c-page-input);
+
+  --c-border-page: var(--c-border);
+
+  --c-bg-metal: var(--c-bg-zebra);
+  --c-bg-metal-hover: var(--c-bg-zebra2);
+
+  --c-bg-header-dropdown: var(--c-bg-low);
+  --c-header-dropdown: var(--c-popup);
+  --c-bg-popup: var(--c-bg-low);
+  --c-popup: var(--c-font-clear);
+
+  --c-font-clear: color-mix(in srgb, var(--c-font) 100%, white 30%);
+  --c-font-clearer: color-mix(in srgb, var(--c-font) 70%, white 70%);
+  --c-font-dim: color-mix(in srgb, var(--c-font) 100%, black 15%);
+  --c-font-dimmer: color-mix(in srgb, var(--c-font) 100%, black 80%);
+  --c-font-page: var(--c-font-dim);
+  --text-shadow: none;
+
+  --c-accent-clear: color-mix(in srgb, var(--c-accent) 80%, white);
+  --c-accent-dim: color-mix(in srgb, var(--c-accent) 80%, black);
+  --c-primary-clear: color-mix(in srgb, var(--c-primary) 80%, white);
+  --c-primary-dim: color-mix(in srgb, var(--c-primary) 80%, black);
+  --c-secondary-dim: color-mix(in srgb, var(--c-secondary) 80%, black);
+  --c-secondary-dimmer: color-mix(in srgb, var(--c-secondary) 70%, black);
+
+  --c-link: var(--c-primary);
+  --c-link-clear: var(--c-primary-clear);
+  --c-link-dim: var(--c-primary-dim);
+  --c-link-hover: color-mix(in srgb, var(--c-primary) 90%, white 10%);
+  --c-link-over: var(--c-primary-over);
+
+  --c-font-metal-hover: var(--c-font-clear);
+  --c-font-metal: inherit;
+  --metal-shadow: none;
+
+  --c-primary-glow: color-mix(in srgb, var(--c-primary) 75%, white);
+
+  --m-accent_alpha_neg40: color-mix(in srgb, var(--c-accent) 60%, transparent);
+  --m-bg-box_alpha_neg50: color-mix(in srgb, var(--c-bg-box) 50%, transparent);
+  --m-link_alpha_neg60: color-mix(in srgb, var(--c-link) 40%, transparent);
+  --m-accent_alpha_neg50: color-mix(in srgb, var(--c-accent) 50%, transparent);
+  --m-secondary_alpha_neg50: color-mix(in srgb, var(--c-secondary) 50%, transparent);
+  --m-secondary_alpha_neg80: color-mix(in srgb, var(--c-secondary) 20%, transparent);
+  --m-primary_alpha_neg80: color-mix(in srgb, var(--c-primary) 20%, transparent);
+  --m-good_alpha_neg80: color-mix(in srgb, var(--c-good) 20%, transparent);
+  --m-bg-high_alpha_neg50: color-mix(in srgb, var(--c-bg-high) 50%, transparent);
+  --m-secondary_alpha_neg60: color-mix(in srgb, var(--c-secondary) 40%, transparent);
+  --m-font-dim_alpha_neg90: color-mix(in srgb, var(--c-font-dim) 10%, transparent);
+  --m-accent_alpha_neg80: color-mix(in srgb, var(--c-accent) 20%, transparent);
+  --m-accent_alpha_neg70: color-mix(in srgb, var(--c-accent) 30%, transparent);
+  --m-bg-box_alpha_neg20: color-mix(in srgb, var(--c-bg-box) 80%, transparent);
+  --m-brag_alpha_neg50: color-mix(in srgb, var(--c-brag) 50%, transparent);
+  --m-accent_alpha_neg30: color-mix(in srgb, var(--c-accent) 70%, transparent);
+
+  --m-accent_bg-box_mix_10: color-mix(in srgb, var(--c-accent) 10%, var(--c-bg-box) 90%);
+  --m-primary_bg-box_mix_25: color-mix(in srgb, var(--c-primary) 25%, var(--c-bg-box) 75%);
+  --m-secondary_bg-box_mix_40: color-mix(in srgb, var(--c-secondary) 40%, var(--c-bg-box) 60%);
+  --m-primary_bg-box_mix_80: color-mix(in srgb, var(--c-primary) 80%, var(--c-bg-box) 20%);
+  --m-primary_bg-box_mix_10: color-mix(in srgb, var(--c-primary) 10%, var(--c-bg-box) 90%);
+  --m-link_black_mix_70: color-mix(in srgb, var(--c-link) 70%, black 30%);
+  --m-link_bg-box_mix_80: color-mix(in srgb, var(--c-link) 80%, var(--c-bg-box) 20%);
+  --m-link_bg-box_mix_10: color-mix(in srgb, var(--c-link) 10%, var(--c-bg-box) 90%);
+  --m-primary_bg-box_mix_12: color-mix(in srgb, var(--c-primary) 12%, var(--c-bg-box) 88%);
+  --m-primary_bg-box_mix_15: color-mix(in srgb, var(--c-primary) 15%, var(--c-bg-box) 85%);
+  --m-secondary_bg-box_mix_20: color-mix(in srgb, var(--c-secondary) 20%, var(--c-bg-box) 80%);
+  --m-secondary_bg-box_mix_10: color-mix(in srgb, var(--c-secondary) 10%, var(--c-bg-box) 90%);
+  --m-secondary_bg-box_mix_30: color-mix(in srgb, var(--c-secondary) 30%, var(--c-bg-box) 70%);
+  --m-primary_bg-box_mix_30: color-mix(in srgb, var(--c-primary) 30%, var(--c-bg-box) 70%);
+  --m-accent_bg-box_mix_15: color-mix(in srgb, var(--c-accent) 15%, var(--c-bg-box) 85%);
+  --m-white_accent_mix_20: color-mix(in srgb, white 20%, var(--c-accent) 80%);
+  --m-secondary_bg-page_mix_60: color-mix(in srgb, var(--c-secondary) 60%, var(--c-bg-page) 40%);
+  --m-secondary_bg-page_mix_80: color-mix(in srgb, var(--c-secondary) 80%, var(--c-bg-page) 20%);
+  --m-primary_bg-box_mix_20: color-mix(in srgb, var(--c-primary) 20%, var(--c-bg-box) 80%);
+  --m-accent_bg-box_mix_70: color-mix(in srgb, var(--c-accent) 70%, var(--c-bg-box) 30%);
+  --m-secondary_bg-box_mix_75: color-mix(in srgb, var(--c-secondary) 75%, var(--c-bg-box) 25%);
+  --m-secondary_bg-popup_mix_10: color-mix(in srgb, var(--c-secondary) 10%, var(--c-bg-popup) 90%);
+  --m-link_bg-box_mix_20: color-mix(in srgb, var(--c-link) 20%, var(--c-bg-box) 80%);
+  --m-primary_bg-popup_mix_50: color-mix(in srgb, var(--c-primary) 50%, var(--c-bg-popup) 50%);
+  --m-good_bg-high_mix_80: color-mix(in srgb, var(--c-good) 80%, var(--c-bg-high) 20%);
+  --m-primary_bg-zebra2_mix_20: color-mix(in srgb, var(--c-primary) 20%, var(--c-bg-zebra2) 80%);
+  --m-bad_bg-zebra2_mix_60: color-mix(in srgb, var(--c-bad) 60%, var(--c-bg-zebra2) 40%);
+  --m-bad_bg-zebra2_mix_20: color-mix(in srgb, var(--c-bad) 20%, var(--c-bg-zebra2) 80%);
+  --m-error_bg-high_mix_10: color-mix(in srgb, var(--c-error) 10%, var(--c-bg-high) 90%);
+  --m-secondary_bg-box_mix_90: color-mix(in srgb, var(--c-secondary) 90%, var(--c-bg-box) 10%);
+  --m-accent_bg-box_mix_90: color-mix(in srgb, var(--c-accent) 90%, var(--c-bg-box) 10%);
+  --m-secondary_bg-header-dropdown_mix_15: color-mix(
+    in srgb,
+    var(--c-secondary) 15%,
+    var(--c-bg-header-dropdown) 85%
+  );
+  --m-secondary_bg-box_mix_15: color-mix(in srgb, var(--c-secondary) 15%, var(--c-bg-box) 85%);
+  --m-bg-box_bad_mix_80: color-mix(in srgb, var(--c-bg-box) 80%, var(--c-bad) 20%);
+  --m-secondary_bg-box_mix_50: color-mix(in srgb, var(--c-secondary) 50%, var(--c-bg-box) 50%);
+  --m-secondary_bg-header-dropdown_mix_27: color-mix(
+    in srgb,
+    var(--c-secondary) 27%,
+    var(--c-bg-header-dropdown) 73%
+  );
+  --m-secondary_bg-header-dropdown_mix_36: color-mix(
+    in srgb,
+    var(--c-secondary) 36%,
+    var(--c-bg-header-dropdown) 64%
+  );
+  --m-primary_black_mix_80: color-mix(in srgb, var(--c-primary) 80%, black 20%);
+  --m-primary_white_mix_60: color-mix(in srgb, var(--c-primary) 60%, white 40%);
+  --m-primary_white_mix_40: color-mix(in srgb, var(--c-primary) 40%, white 60%);
+  --m-good_darken_mix_85: color-mix(in srgb, var(--c-good) 85%, var(--c-darken) 15%);
+  --m-good_darken_mix_50: color-mix(in srgb, var(--c-good) 50%, var(--c-darken) 50%);
+  --m-bad_darken_mix_80: color-mix(in srgb, var(--c-bad) 80%, var(--c-darken) 20%);
+  --m-brag_darken_mix_85: color-mix(in srgb, var(--c-brag) 85%, var(--c-darken) 15%);
+  --m-primary_darken_mix_80: color-mix(in srgb, var(--c-primary) 80%, var(--c-darken) 20%);
+  --m-primary_bg-box_mix_70: color-mix(in srgb, var(--c-primary) 70%, var(--c-bg-box) 30%);
+  --m-bg-box_good_mix_80: color-mix(in srgb, var(--c-bg-box) 80%, var(--c-good) 20%);
+  --m-bg-box_good_mix_74: color-mix(in srgb, var(--c-bg-box) 74%, var(--c-good) 26%);
+  --m-bg-page_primary_mix_40: color-mix(in srgb, var(--c-bg-page) 40%, var(--c-primary) 60%);
+  --m-bad_bg-box_mix_30: color-mix(in srgb, var(--c-bad) 30%, var(--c-bg-box) 70%);
+  --m-bad_bg-box_mix_50: color-mix(in srgb, var(--c-bad) 50%, var(--c-bg-box) 50%);
+  --m-link_bg-box_mix_70: color-mix(in srgb, var(--c-link) 70%, var(--c-bg-box) 30%);
+  --m-black_accent_mix_30: color-mix(in srgb, black 30%, var(--c-accent) 70%);
+  --m-good_bg-box_mix_10: color-mix(in srgb, var(--c-good) 10%, var(--c-bg-box) 90%);
+  --m-font-clear_clas_mix_30: color-mix(in srgb, var(--c-font-clear) 30%, var(--c-clas) 70%);
+  --m-white_clas_mix_80: color-mix(in srgb, white 80%, var(--c-clas) 20%);
+  --m-bg-box_clas_mix_93: color-mix(in srgb, var(--c-bg-box) 93%, var(--c-clas) 7%);
+  --m-clas_bg-box_mix_80: color-mix(in srgb, var(--c-clas) 80%, var(--c-bg-box) 20%);
+  --m-clas_bg-box_mix_10: color-mix(in srgb, var(--c-clas) 10%, var(--c-bg-box) 90%);
+  --m-bg-zebra_clas_mix_20: color-mix(in srgb, var(--c-bg-zebra) 20%, var(--c-clas) 80%);
+  --m-bg-box_white_mix_80: color-mix(in srgb, var(--c-bg-box) 80%, white 20%);
+  --m-brag_bg-box_mix_15: color-mix(in srgb, var(--c-brag) 15%, var(--c-bg-box) 85%);
+  --m-bg-box_clas_mix_70: color-mix(in srgb, var(--c-bg-box) 70%, var(--c-clas) 30%);
+  --m-clas_white_mix_86: color-mix(in srgb, var(--c-clas) 86%, var(--c-white) 14%);
+  --m-accent_bg-popup_mix_10: color-mix(in srgb, var(--c-accent) 10%, var(--c-bg-popup) 90%);
+  --m-error_bg-box_mix_15: color-mix(in srgb, var(--c-error) 15%, var(--c-bg-box) 85%);
+  --m-accent_bg-box_mix_12: color-mix(in srgb, var(--c-accent) 12%, var(--c-bg-box) 88%);
+  --m-secondary_bg-zebra_mix_10: color-mix(in srgb, var(--c-secondary) 10%, var(--c-bg-zebra) 90%);
+  --m-bg-zebra_red_mix_80: color-mix(in srgb, var(--c-bg-zebra) 80%, var(--c-red) 20%);
+  --m-bg-zebra2_red_mix_80: color-mix(in srgb, var(--c-bg-zebra2) 80%, var(--c-red) 20%);
+  --m-white_brag_mix_20: color-mix(in srgb, var(--c-white) 20%, var(--c-brag) 80%);
+  --m-brag_bg-box_mix_20: color-mix(in srgb, var(--c-brag) 20%, var(--c-bg-box) 80%);
+  --m-font-clear_primary_mix_10: color-mix(in srgb, var(--c-font-clear) 10%, var(--c-primary) 90%);
+  --m-font-clearer_primary_mix_25: color-mix(
+    in srgb,
+    var(--c-font-clearer) 25%,
+    var(--c-primary) 75%
+  );
+  --m-link_bg-box_mix_15: color-mix(in srgb, var(--c-link) 15%, var(--c-bg-box) 85%);
+  --m-brag_bg-page_mix_60: color-mix(in srgb, var(--c-brag) 60%, var(--c-bg-page) 40%);
+  --m-brag_shade_mix_80: color-mix(in srgb, var(--c-brag) 80%, var(--c-shade) 20%);
+  --m-bad_bg-box_mix_10: color-mix(in srgb, var(--c-bg-box) 10%, var(--c-bad) 90%);
+  --m-bg-box_bg-page_mix_50: color-mix(in srgb, var(--c-bg-box) 50%, var(--c-bg-page) 50%);
+  --m-link_font_mix_35: color-mix(in srgb, var(--c-link) 35%, var(--c-font) 65%);
+  --m-secondary_bg-box_mix_70: color-mix(in srgb, var(--c-secondary) 70%, var(--c-bg-box) 30%);
+  --m-link_bg-page_mix_20: color-mix(in srgb, var(--c-link) 20%, var(--c-bg-page) 80%);
+  --m-fancy_bg-box_mix_15: color-mix(in srgb, var(--c-fancy) 15%, var(--c-bg-box) 85%);
+  --m-brag_bg-page_mix_20: color-mix(in srgb, var(--c-brag) 20%, var(--c-bg-page) 80%);
+  --m-primary_bg-box_mix_40: color-mix(in srgb, var(--c-primary) 40%, var(--c-bg-box) 60%);
+  --m-primary_bg-box_mix_60: color-mix(in srgb, var(--c-primary) 60%, var(--c-bg-box) 40%);
+
+  --m-primary_lightness_10: color-mix(in srgb, var(--c-primary) 100%, white 10%);
+  --m-secondary_lightness_4: color-mix(in srgb, var(--c-secondary) 100%, white 4%);
+  --m-error_lightness_11: color-mix(in srgb, var(--c-secondary) 100%, white 11%);
+  --m-border_lightness_20: color-mix(in srgb, var(--c-border) 100%, white 20%);
+  --m-bg-input_lightness_neg3: color-mix(in srgb, var(--c-bg-input) 100%, black 3%);
+  --m-bg-page_c-lightness_78: color-mix(in srgb, var(--c-bg-page) 100%, white 78%);
+}

@@ -1,8 +1,5 @@
 #friend_box {
   display: none;
-  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
-    display: block;
-  }
   position: fixed;
   bottom: 0;
   right: 0;
@@ -17,6 +14,9 @@
   max-height: 95%;
   /* improve scroll perfs */
   backface-visibility: hidden;
+  @include breakpoint($mq-topnav-visible $mq-site-header-tall) {
+    display: block;
+  }
   @include hoverflow;
   .friend_box_title {
     @extend %metal;
@@ -34,7 +34,7 @@
     div {
       display: flex;
       &:hover {
-        background: mix($c-secondary, $c-bg-popup, 10%);
+        background: $m-secondary_bg-popup_mix_10;
       }
     }
     a {

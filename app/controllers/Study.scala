@@ -29,14 +29,14 @@ final class Study(
           env.study.pager.all(ctx.me, Order.default, page) flatMap { pag =>
             negotiate(
               html = Ok(html.study.list.all(pag, Order.default)).fuccess,
-              api = _ => apiStudies(pag)
+              json = apiStudies(pag)
             )
           }
         else
           env.studySearch(ctx.me)(text, page) flatMap { pag =>
             negotiate(
               html = Ok(html.study.list.search(pag, text)).fuccess,
-              api = _ => apiStudies(pag)
+              json = apiStudies(pag)
             )
           }
       }
@@ -53,7 +53,7 @@ final class Study(
             env.study.pager.all(ctx.me, order, page) flatMap { pag =>
               negotiate(
                 html = Ok(html.study.list.all(pag, order)).fuccess,
-                api = _ => apiStudies(pag)
+                json = apiStudies(pag)
               )
             }
         }
@@ -69,7 +69,7 @@ final class Study(
           env.study.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
             negotiate(
               html = Ok(html.study.list.byOwner(pag, Order(order), owner)).fuccess,
-              api = _ => apiStudies(pag)
+              json = apiStudies(pag)
             )
           }
         }
@@ -83,7 +83,7 @@ final class Study(
           html = env.study.topicApi.userTopics(me.id) map { topics =>
             Ok(html.study.list.mine(pag, Order(order), me, topics))
           },
-          api = _ => apiStudies(pag)
+          json = apiStudies(pag)
         )
       }
     }
@@ -93,7 +93,7 @@ final class Study(
       env.study.pager.minePublic(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.minePublic(pag, Order(order), me)).fuccess,
-          api = _ => apiStudies(pag)
+          json = apiStudies(pag)
         )
       }
     }
@@ -103,7 +103,7 @@ final class Study(
       env.study.pager.minePrivate(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.minePrivate(pag, Order(order), me)).fuccess,
-          api = _ => apiStudies(pag)
+          json = apiStudies(pag)
         )
       }
     }
@@ -115,7 +115,7 @@ final class Study(
           html = env.study.topicApi.userTopics(me.id) map { topics =>
             Ok(html.study.list.mineMember(pag, Order(order), me, topics))
           },
-          api = _ => apiStudies(pag)
+          json = apiStudies(pag)
         )
       }
     }
@@ -125,7 +125,7 @@ final class Study(
       env.study.pager.mineLikes(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.mineLikes(pag, Order(order))).fuccess,
-          api = _ => apiStudies(pag)
+          json = apiStudies(pag)
         )
       }
     }
@@ -135,7 +135,7 @@ final class Study(
       env.study.pager.minePostGameStudies(me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.minePostGameStudies(pag, Order(order))).fuccess,
-          api = _ => apiStudies(pag)
+          json = apiStudies(pag)
         )
       }
     }
@@ -147,7 +147,7 @@ final class Study(
       env.study.pager.postGameStudiesOf(gameId.take(8), ctx.me, Order(order), page) flatMap { pag =>
         negotiate(
           html = Ok(html.study.list.postGameStudiesOf(gameId.take(8), pag, Order(order))).fuccess,
-          api = _ => apiStudies(pag)
+          json = apiStudies(pag)
         )
       }
     }
@@ -186,20 +186,19 @@ final class Study(
               sVersion <- env.study.version(sc.study.id)
               streams  <- streamsOf(sc.study)
             } yield Ok(html.study.show(sc, data, chat, sVersion, streams)).enableSharedArrayBuffer,
-            api = _ =>
-              chatOf(sc.study).map { chatOpt =>
-                Ok(
-                  Json.obj(
-                    "study" -> data.study.add("chat" -> chatOpt.map { c =>
-                      lila.chat.JsonView.mobile(
-                        chat = c.chat,
-                        writeable = ctx.userId.??(sc.study.canChat)
-                      )
-                    }),
-                    "analysis" -> data.analysis
-                  )
+            json = chatOf(sc.study).map { chatOpt =>
+              Ok(
+                Json.obj(
+                  "study" -> data.study.add("chat" -> chatOpt.map { c =>
+                    lila.chat.JsonView.mobile(
+                      chat = c.chat,
+                      writeable = ctx.userId.??(sc.study.canChat)
+                    )
+                  }),
+                  "analysis" -> data.analysis
                 )
-              }
+              )
+            }
           )
         } yield res
       }
@@ -413,13 +412,10 @@ final class Study(
         _.fold(embedNotFound) { case WithChapter(study, chapter) =>
           for {
             chapters <- env.study.chapterRepo.idNames(study.id)
-            studyJson <- env.study.jsonView(
-              study.copy(
-                members = lila.study.StudyMembers(Map.empty) // don't need no members
-              ),
-              List(chapter.metadata),
+            studyJson = env.study.jsonView.embed(
+              study,
               chapter,
-              none
+              chapters
             )
             setup       = chapter.setup
             initialSfen = chapter.root.sfen.some
@@ -436,10 +432,10 @@ final class Study(
                 chapter.root
               )
             )
-            data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
+            data = JsData(study = studyJson, analysis = analysis)
             result <- negotiate(
-              html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
-              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+              html = Ok(html.study.embed(study, chapter, data)).fuccess,
+              json = Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
             )
           } yield result
         }
@@ -615,7 +611,7 @@ final class Study(
     else
       negotiate(
         html = fuccess(Unauthorized(html.site.message.privateStudy(study))),
-        api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
+        json = fuccess(Unauthorized(jsonError("This study is now private")))
       )
 
   private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =

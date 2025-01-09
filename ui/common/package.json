@@ -1,8 +1,7 @@
 {
   "name": "common",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org common utils",
+  "license": "AGPL-3.0-or-later",
   "type": "module",
   "exports": {
     "./*": {
@@ -10,19 +9,16 @@
       "import": "./dist/*.js"
     }
   },
-  "author": "Thibault Duplessis, WandererXII",
-  "license": "AGPL-3.0-or-later",
-  "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
-  },
-  "devDependencies": {
-    "@types/lishogi": "2.0.0",
-    "typescript": "^5"
-  },
   "dependencies": {
-    "shogiground": "^0.9.0",
-    "shogiops": "^0.17.0"
+    "shogiground": "catalog:",
+    "shogiops": "catalog:",
+    "snabbdom": "catalog:"
+  },
+  "scripts": {
+    "clean": "del dist && del css/theme/gen",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true
   }
 }

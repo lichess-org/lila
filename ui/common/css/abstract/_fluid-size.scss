@@ -1,15 +1,17 @@
+@use 'sass:math';
+
 $vp-min-width: 320px !default;
 $vp-max-width: 1200px !default;
 
 @function strip-unit($value) {
-  @return $value / ($value * 0 + 1);
+  @return math.div($value, $value * 0 + 1);
 }
 
 @mixin fluid-size($prop, $min-size, $max-size, $min-vw: $vp-min-width, $max-vw: $vp-max-width) {
-  $u1: unit($min-vw);
-  $u2: unit($max-vw);
-  $u3: unit($min-size);
-  $u4: unit($max-size);
+  $u1: math.unit($min-vw);
+  $u2: math.unit($max-vw);
+  $u3: math.unit($min-size);
+  $u4: math.unit($max-size);
 
   @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
     & {

@@ -20,7 +20,7 @@
       @extend %nowrap-ellipsis;
     }
     &[data-usi]:hover {
-      background: mix($c-secondary, $c-bg-box, 20%);
+      background: $m-secondary_bg-box_mix_20;
       cursor: pointer;
     }
     strong {

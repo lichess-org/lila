@@ -1,0 +1,31 @@
+{
+  "name": "keyboard-move",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/ctrl.d.ts",
+      "import": "./dist/ctrl.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "dependencies": {
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "shogiground": "catalog:",
+    "shogiops": "catalog:",
+    "snabbdom": "catalog:"
+  },
+  "scripts": {
+    "clean": "del dist",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true,
+    "bundle": true
+  }
+}

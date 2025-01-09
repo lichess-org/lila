@@ -53,28 +53,26 @@ final class Account(
     Auth { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = _ => {
-          env.relation.api.countFollowers(me.id) zip
-            env.pref.api.getPref(me) zip
-            env.round.proxyRepo.urgentGames(me) zip
-            env.challenge.api.countInFor.get(me.id) zip
-            env.playban.api.currentBan(me.id) map {
-              case ((((nbFollowers, prefs), povs), nbChallenges), playban) =>
-                Ok {
-                  import lila.pref.JsonView._
-                  env.user.jsonView(me) ++ Json
-                    .obj(
-                      "prefs"        -> prefs,
-                      "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-                      "nbFollowers"  -> nbFollowers,
-                      "nbChallenges" -> nbChallenges
-                    )
-                    .add("kid" -> me.kid)
-                    .add("troll" -> me.marks.troll)
-                    .add("playban" -> playban)
-                }.withHeaders(CACHE_CONTROL -> s"max-age=15")
-            }
-        }
+        json = env.relation.api.countFollowers(me.id) zip
+          env.pref.api.getPref(me) zip
+          env.round.proxyRepo.urgentGames(me) zip
+          env.challenge.api.countInFor.get(me.id) zip
+          env.playban.api.currentBan(me.id) map {
+            case ((((nbFollowers, prefs), povs), nbChallenges), playban) =>
+              Ok {
+                import lila.pref.JsonView._
+                env.user.jsonView(me) ++ Json
+                  .obj(
+                    "prefs"        -> prefs,
+                    "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
+                    "nbFollowers"  -> nbFollowers,
+                    "nbChallenges" -> nbChallenges
+                  )
+                  .add("kid" -> me.kid)
+                  .add("troll" -> me.marks.troll)
+                  .add("playban" -> playban)
+              }.withHeaders(CACHE_CONTROL -> s"max-age=15")
+          }
       )
     }
 
@@ -82,7 +80,7 @@ final class Account(
     Auth { implicit ctx => me =>
       negotiate(
         html = notFound,
-        api = _ => doNowPlaying(me, ctx.req)
+        json = doNowPlaying(me, ctx.req)
       )
     }
 
@@ -308,13 +306,13 @@ final class Account(
               err =>
                 negotiate(
                   html = BadRequest(html.account.kid(me, err, false)).fuccess,
-                  api = _ => BadRequest(errorsAsJson(err)).fuccess
+                  json = BadRequest(errorsAsJson(err)).fuccess
                 ),
               _ =>
                 env.user.repo.setKid(me, getBool("v")) >>
                   negotiate(
                     html = Redirect(routes.Account.kid).flashSuccess.fuccess,
-                    api = _ => jsonOkResult.fuccess
+                    json = jsonOkResult.fuccess
                   )
             )
         }

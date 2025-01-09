@@ -2,11 +2,10 @@ import { VNode, h } from 'snabbdom';
 import { DasherCtrl, Mode } from './dasher';
 import { view as pingView } from './ping';
 import { bind } from './util';
+import { i18n } from 'i18n';
 
 export default function (ctrl: DasherCtrl): VNode {
-  const d = ctrl.data,
-    trans = ctrl.trans,
-    noarg = trans.noarg;
+  const d = ctrl.data;
 
   function userLinks(): VNode | null {
     return d.user
@@ -14,26 +13,26 @@ export default function (ctrl: DasherCtrl): VNode {
           h(
             'a.user-link.online.text.is-green',
             linkCfg(`/@/${d.user.name}`, d.user.patron ? '' : ''),
-            noarg('profile')
+            i18n('profile')
           ),
 
-          d.inbox ? h('a.text', linkCfg('/inbox', 'e'), noarg('inbox')) : null,
+          d.inbox ? h('a.text', linkCfg('/inbox', 'e'), i18n('inbox')) : null,
 
           h(
             'a.text',
             linkCfg('/account/preferences/game-display', '%', ctrl.opts.playing ? { target: '_blank' } : undefined),
-            noarg('preferences')
+            i18n('preferences:preferences')
           ),
 
           h(
             'a.text',
             linkCfg('/insights/' + d.user.name, '7', ctrl.opts.playing ? { target: '_blank' } : undefined),
-            noarg('insights')
+            i18n('insights:insights')
           ),
 
-          !d.coach ? null : h('a.text', linkCfg('/coach/edit', ':'), noarg('coachManager')),
+          !d.coach ? null : h('a.text', linkCfg('/coach/edit', ':'), i18n('coachManager')),
 
-          !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', ''), noarg('streamerManager')),
+          !d.streamer ? null : h('a.text', linkCfg('/streamer/edit', ''), i18n('streamerManager')),
 
           h(
             'form.logout',
@@ -49,7 +48,7 @@ export default function (ctrl: DasherCtrl): VNode {
                     'data-icon': 'w',
                   },
                 },
-                noarg('logOut')
+                i18n('logOut')
               ),
             ]
           ),
@@ -57,17 +56,17 @@ export default function (ctrl: DasherCtrl): VNode {
       : null;
   }
 
-  const langs = h('a.sub', modeCfg(ctrl, 'langs'), noarg('language'));
+  const langs = h('a.sub', modeCfg(ctrl, 'langs'), i18n('language'));
 
-  const sound = h('a.sub', modeCfg(ctrl, 'sound'), noarg('sound'));
+  const sound = h('a.sub', modeCfg(ctrl, 'sound'), i18n('sound'));
 
-  const background = h('a.sub', modeCfg(ctrl, 'background'), noarg('background'));
+  const background = h('a.sub', modeCfg(ctrl, 'background'), i18n('background'));
 
-  const theme = h('a.sub', modeCfg(ctrl, 'theme'), noarg('boardTheme'));
+  const theme = h('a.sub', modeCfg(ctrl, 'theme'), i18n('boardTheme'));
 
-  const piece = h('a.sub', modeCfg(ctrl, 'piece'), noarg('pieceSet'));
+  const piece = h('a.sub', modeCfg(ctrl, 'piece'), i18n('pieceSet'));
 
-  const notation = h('a.sub', modeCfg(ctrl, 'notation'), noarg('notationSystem'));
+  const notation = h('a.sub', modeCfg(ctrl, 'notation'), i18n('notationSystem'));
 
   const zenToggle = ctrl.opts.playing
     ? h('div.zen.selector', [
@@ -80,7 +79,7 @@ export default function (ctrl: DasherCtrl): VNode {
             },
             hook: bind('click', () => window.lishogi.pubsub.emit('zen')),
           },
-          noarg('zenMode')
+          i18n('preferences:zenMode')
         ),
       ])
     : null;

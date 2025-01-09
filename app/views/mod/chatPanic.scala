@@ -12,7 +12,7 @@ object chatPanic {
     val title = "Chat Panic"
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("mod.misc")
+      moreCss = cssTag("user.mod.misc")
     ) {
       main(cls := "page-menu")(
         views.html.mod.menu("panic"),

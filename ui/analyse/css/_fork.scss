@@ -1,5 +1,3 @@
-$c-fork: $c-primary;
-
 .analyse__fork {
   @extend %flex-center;
   flex: 0 0 auto;
@@ -8,7 +6,7 @@ $c-fork: $c-primary;
   }
   move {
     @extend %move-notation, %flex-center;
-    background: mix($c-fork, $c-bg-box, 25%);
+    background: $m-primary_bg-box_mix_25;
     color: $c-font-clear;
     flex: 0 0 50%;
     cursor: pointer;
@@ -20,7 +18,7 @@ $c-fork: $c-primary;
   }
   move:hover,
   &:not(:hover) move.selected {
-    background: mix($c-fork, $c-bg-box, 100%);
+    background: $c-primary;
     color: #fff;
   }
   glyph {

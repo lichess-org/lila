@@ -31,7 +31,7 @@
   day {
     border-radius: 6px;
     box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
-    @if $theme-dark {
+    body.dark & {
       box-shadow: 0 1px 0.5px rgb(0, 0, 0);
     }
     margin: 0.2em 0;
@@ -41,7 +41,7 @@
   }
   day {
     @extend %roboto;
-    background: mix($c-primary, $c-bg-box, 15%);
+    background: $m-primary_bg-box_mix_15;
     align-self: center;
     font-size: 0.9em;
     color: $c-font;
@@ -49,14 +49,14 @@
   }
   mine {
     align-self: flex-end;
-    background: mix($c-msg, $c-bg-box, 15%);
+    background: $m-secondary_bg-box_mix_15;
     &:first-child {
       border-top-right-radius: 0;
     }
   }
   their {
     align-self: flex-start;
-    background: mix($c-brag, $c-bg-box, 15%);
+    background: $m-brag_bg-box_mix_15;
     &:first-child {
       border-top-left-radius: 0;
     }
@@ -73,18 +73,19 @@
     max-width: 100%;
     max-height: 40vh;
   }
-  .has-embed {
-    max-width: 90%;
-    width: 90%;
-  }
-  .embed {
-    @extend %embed;
-    &--game {
-      @extend %game-embed;
-    }
-    &.not-found {
-      height: 100px;
-      padding: 0;
+  .embed-wrap {
+    width: 70vh;
+    max-width: 95%;
+    margin: $block-gap;
+    .embed {
+      @extend %embed;
+      &--game {
+        @extend %game-embed;
+      }
+      &.not-found {
+        height: 100px;
+        padding: 0;
+      }
     }
   }
 }

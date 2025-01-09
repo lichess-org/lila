@@ -23,7 +23,7 @@ object faq {
     help.layout(
       title = trans.faq.frequentlyAskedQuestions.txt(),
       active = "faq",
-      moreCss = cssTag("faq")
+      moreCss = cssTag("misc.faq")
     ) {
       main(cls := "faq small-page box box-pad")(
         h1(cls := "lishogi_title")(frequentlyAskedQuestions()),

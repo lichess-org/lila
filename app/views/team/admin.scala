@@ -15,8 +15,8 @@ object admin {
     val title = s"${t.name} - ${trans.team.teamLeaders.txt()}"
     views.html.base.layout(
       title = title,
-      moreCss = frag(cssTag("team"), cssTag("tagify")),
-      moreJs = frag(tagifyTag, jsTag("team-admin.js"))
+      moreCss = frag(cssTag("team"), cssTag("misc.tagify")),
+      moreJs = frag(tagifyTag, jsTag("team.admin"))
     ) {
       main(cls := "page-menu page-small")(
         bits.menu(none),

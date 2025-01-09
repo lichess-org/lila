@@ -49,7 +49,12 @@ private object DisposableEmailDomain {
   private val staticBlacklist = Set(
     "lishogi.org",
     "gamil.com",
-    "gmali.com"
+    "gmeil.com",
+    "gmali.com",
+    "gmil.com",
+    "gamail.com",
+    "gnail.com",
+    "hotamil.com"
   )
 
   private val whitelist = Set(
@@ -63,11 +68,20 @@ private object DisposableEmailDomain {
     "google.com",
     "hotmail.com",
     "hotmail.co.uk",
+    "ikmail.com",
     "mac.com",
     "me.com",
     "mail.com",
     "msn.com",
     "live.com",
+    "live.com.mx",
+    "live.com.ar",
+    "live.com.au",
+    "live.com.br",
+    "live.com.my",
+    "live.com.pt",
+    "live.com.sg",
+    "live.com.org",
     "sbcglobal.net",
     "verizon.net",
     "yahoo.com",
@@ -75,6 +89,7 @@ private object DisposableEmailDomain {
     "protonmail.com",
     "protonmail.ch",
     "pm.me",
+    "proton.me",
     /* Other global domains */
     "email.com",
     "games.com" /* AOL */,
@@ -86,6 +101,7 @@ private object DisposableEmailDomain {
     "lavabit.com",
     "love.com" /* AOL */,
     "outlook.com",
+    "outlook.com.au",
     "pobox.com",
     "rocketmail.com" /* Yahoo */,
     "safe-mail.net",
@@ -93,9 +109,12 @@ private object DisposableEmailDomain {
     "ygm.com" /* AOL */,
     "ymail.com" /* Yahoo */,
     "zoho.com",
+    "zoho.in",
+    "zohomail.eu",
     "fastmail.com",
     "fastmail.fm",
     "yandex.com",
+    "yandex.net",
     /* United States ISP domains */
     "bellsouth.net",
     "charter.net",
@@ -128,6 +147,7 @@ private object DisposableEmailDomain {
     "daum.net",
     "nate.com",
     "yahoo.co.jp",
+    "outlook.jp",
     "yahoo.co.kr",
     "yahoo.co.id",
     "yahoo.co.in",
@@ -145,6 +165,7 @@ private object DisposableEmailDomain {
     "neuf.fr",
     "free.fr",
     /* German ISP domains */
+    "aikq.de",
     "gmx.de",
     "hotmail.de",
     "live.de",
@@ -165,18 +186,18 @@ private object DisposableEmailDomain {
     "voo.be",
     "tvcablenet.be",
     "telenet.be",
-    /* Czech */
-    "seznam.cz",
     /* Argentinian ISP domains */
     "hotmail.com.ar",
-    "live.com.ar",
     "yahoo.com.ar",
     "fibertel.com.ar",
     "speedy.com.ar",
     "arnet.com.ar",
+    /* Domains used in Vietnam */
+    "outlook.com.vn",
+    "yahoo.com.vn",
+    "vnnic.vn",
     /* Domains used in Mexico */
     "yahoo.com.mx",
-    "live.com.mx",
     "hotmail.es",
     "hotmail.com.mx",
     "prodigy.net.mx",
@@ -194,10 +215,23 @@ private object DisposableEmailDomain {
     "globo.com",
     "globomail.com",
     "oi.com.br",
+    /* Domains used in Portugal */
+    "sapo.pt",
+    "outlook.pt",
     /* Domains without an A record */
     "cabletv.on.ca",
     "live.ca",
     "unitybox.de",
-    "volki.at"
+    "volki.at",
+    /* others */
+    "seznam.cz",
+    "skole.hr",
+    "freeshell.org",
+    "hotmail.nl",
+    "live.nl",
+    "startmail.com",
+    "palaciodegranda.com",
+    "laudepalaciogranda.com",
+    "mozmail.com" // Mozilla Firefox Relay Domain
   )
 }

@@ -17,7 +17,7 @@
       cursor: pointer;
       @include transition();
       &.disabled {
-        background: mix($c-accent, $c-bg-box, 15%);
+        background: $m-accent_bg-box_mix_15;
         color: transparent;
         cursor: default;
       }

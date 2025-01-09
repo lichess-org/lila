@@ -38,6 +38,9 @@ private[setup] trait Config {
 
   def validClock = !hasClock || clockHasTime
 
+  def validTimeMode(isAuth: Boolean) =
+    isAuth || hasClock
+
   def validSpeed(isBot: Boolean) =
     !isBot || makeClock.fold(true) { c =>
       Speed(c) >= Speed.Bullet
@@ -53,7 +56,8 @@ private[setup] trait Config {
     if (clockHasTime) byoyomi else 10,
     periods
   )
-  def makeDaysPerTurn: Option[Int] = (timeMode == TimeMode.Correspondence) option days
+  def makeDaysPerTurn: Option[Int] =
+    (timeMode == TimeMode.Correspondence) option days
 }
 
 trait Positional { self: Config =>

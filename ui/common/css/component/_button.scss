@@ -15,7 +15,7 @@
   &:not(.disabled):hover {
     @extend %button-raised-shadow;
     color: $c-primary-over;
-    background: lighten($c-primary, 7);
+    background: $m-primary_lightness_10;
   }
   &:not(.disabled):focus {
     @extend %focus-shadow;
@@ -33,23 +33,23 @@
   &-green {
     background: $c-secondary;
     &:not(.disabled):hover {
-      background: lighten($c-secondary, 4);
+      background: $m-secondary_lightness_4;
     }
   }
   &-red {
     background: $c-error;
     &:not(.disabled):hover {
-      background: lighten($c-error, 11);
+      background: $m-error_lightness_11;
     }
   }
   &.button-empty {
     transition: none;
+    background: none;
+    box-shadow: none;
     &,
     &:hover {
       color: $c-primary;
     }
-    background: none;
-    box-shadow: none;
     &:not(.disabled):hover {
       @extend %button-shadow;
     }

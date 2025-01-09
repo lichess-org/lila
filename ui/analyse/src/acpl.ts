@@ -1,16 +1,17 @@
 import { defined } from 'common/common';
-import { engineNameFromCode } from 'common/engineName';
+import { engineNameFromCode } from 'shogi/engine-name';
 import { bind, dataIcon } from 'common/snabbdom';
 import * as game from 'game';
 import { VNode, VNodeData, h, thunk } from 'snabbdom';
 import AnalyseCtrl from './ctrl';
-import { findTag } from './study/studyChapters';
+import { findTag } from './study/study-chapters';
+import { i18n } from 'i18n';
 
 type AdviceKind = 'inaccuracy' | 'mistake' | 'blunder';
 
 interface Advice {
   kind: AdviceKind;
-  plural: I18nKey;
+  name: string;
   symbol: string;
 }
 
@@ -34,21 +35,20 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
   return h(
     'span',
     p.name ||
-      (p.ai && engineNameFromCode(p.aiCode, p.ai, ctrl.trans)) ||
+      (p.ai && engineNameFromCode(p.aiCode, p.ai)) ||
       (ctrl.study && findTag(ctrl.study.data.chapter.tags, color)) ||
       'Anonymous'
   );
 }
 
 const advices: Advice[] = [
-  { kind: 'inaccuracy', plural: 'inaccuracies', symbol: '?!' },
-  { kind: 'mistake', plural: 'mistakes', symbol: '?' },
-  { kind: 'blunder', plural: 'blunders', symbol: '??' },
+  { kind: 'inaccuracy', name: i18n('inaccuracies'), symbol: '?!' },
+  { kind: 'mistake', name: i18n('mistakes'), symbol: '?' },
+  { kind: 'blunder', name: i18n('blunders'), symbol: '??' },
 ];
 
 function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
-  const d = ctrl.data,
-    trans = ctrl.trans.noarg;
+  const d = ctrl.data;
   const acpl = d.analysis![color].acpl;
   return h(
     'table',
@@ -60,7 +60,10 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
       },
     },
     [
-      h('thead', h('tr', [h('td', h('i.is.color-icon.' + color)), h('th', renderPlayer(ctrl, color))])),
+      h(
+        'thead',
+        h('tr', [h('td', h('i.is.color-icon.' + color)), h('th', renderPlayer(ctrl, color))])
+      ),
       h(
         'tbody',
         advices
@@ -73,9 +76,17 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
                     'data-symbol': a.symbol,
                   }
                 : {};
-            return h('tr' + (nb ? `.symbol${style}` : ''), { attrs }, [h('td', '' + nb), h('th', trans(a.plural))]);
+            return h('tr' + (nb ? `.symbol${style}` : ''), { attrs }, [
+              h('td', '' + nb),
+              h('th', a.name),
+            ]);
           })
-          .concat(h('tr', [h('td', '' + (defined(acpl) ? acpl : '?')), h('th', trans('averageCentipawnLoss'))]))
+          .concat(
+            h('tr', [
+              h('td', '' + (defined(acpl) ? acpl : '?')),
+              h('th', i18n('averageCentipawnLoss')),
+            ])
+          )
       ),
     ]
   );
@@ -105,7 +116,7 @@ function doRender(ctrl: AnalyseCtrl): VNode {
               attrs: dataIcon('G'),
               hook: bind('click', ctrl.toggleRetro, ctrl.redraw),
             },
-            ctrl.trans.noarg('learnFromYourMistakes')
+            i18n('learnFromYourMistakes')
           ),
       playerTable(ctrl, 'gote'),
     ]
@@ -115,7 +126,11 @@ function doRender(ctrl: AnalyseCtrl): VNode {
 export function render(ctrl: AnalyseCtrl): VNode | undefined {
   if (ctrl.studyPractice || ctrl.embed) return;
 
-  if (!ctrl.data.analysis || !ctrl.showComputer() || (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval'))
+  if (
+    !ctrl.data.analysis ||
+    !ctrl.showComputer() ||
+    (ctrl.study && ctrl.study.vm.toolTab() !== 'serverEval')
+  )
     return h('div.analyse__acpl');
 
   // don't cache until the analysis is complete!

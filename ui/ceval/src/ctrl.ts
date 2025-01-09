@@ -1,22 +1,34 @@
 import { Result } from '@badrap/result';
 import { prop } from 'common/common';
-import { EngineCode, engineCode, engineName } from 'common/engineName';
-import { isImpasse } from 'common/impasse';
+import { EngineCode, engineCode, engineName } from 'shogi/engine-name';
+import { isImpasse } from 'shogi/impasse';
 import { isAndroid, isIOS, isIPad } from 'common/mobile';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { parseSfen } from 'shogiops/sfen';
 import { defaultPosition } from 'shogiops/variant/variant';
 import { Cache } from './cache';
-import { CevalCtrl, CevalOpts, CevalTechnology, Hovering, PvBoard, Started, Step, Work } from './types';
+import {
+  CevalCtrl,
+  CevalOpts,
+  CevalTechnology,
+  Hovering,
+  PvBoard,
+  Started,
+  Step,
+  Work,
+} from './types';
 import { unsupportedVariants } from './util';
-import { povChances } from './winningChances';
+import { povChances } from './winning-chances';
 import { AbstractWorker, ThreadedWasmWorker } from './worker';
 
 const sharedWasmMemory = (initial: number, maximum: number): WebAssembly.Memory =>
   new WebAssembly.Memory({ shared: true, initial, maximum } as WebAssembly.MemoryDescriptor);
 
-function sendableSharedWasmMemory(initial: number, maximum: number): WebAssembly.Memory | undefined {
+function sendableSharedWasmMemory(
+  initial: number,
+  maximum: number
+): WebAssembly.Memory | undefined {
   // Atomics
   if (typeof Atomics !== 'object') return;
 
@@ -70,7 +82,8 @@ export default function (opts: CevalOpts): CevalCtrl {
   const analysable = pos.isOk && !unsupportedVariants.includes(opts.variant.key);
 
   // select nnue > hce > none
-  const useYaneuraou = analysable && engineCode(opts.variant.key, opts.initialSfen) === EngineCode.YaneuraOu,
+  const useYaneuraou =
+      analysable && engineCode(opts.variant.key, opts.initialSfen) === EngineCode.YaneuraOu,
     fairySupports = analysable && !useYaneuraou;
   let supportsNnue = false,
     technology: CevalTechnology = 'none',
@@ -87,8 +100,8 @@ export default function (opts: CevalOpts): CevalCtrl {
       technology = 'hce';
 
       const sourceWithSimd = Uint8Array.from([
-        0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115, 116, 0, 0, 10, 15,
-        1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11,
+        0, 97, 115, 109, 1, 0, 0, 0, 1, 5, 1, 96, 0, 1, 123, 3, 2, 1, 0, 7, 8, 1, 4, 116, 101, 115,
+        116, 0, 0, 10, 15, 1, 13, 0, 65, 0, 253, 17, 65, 0, 253, 17, 253, 186, 1, 11,
       ]);
       supportsNnue = WebAssembly.validate(sourceWithSimd);
       if (useYaneuraou && enableNnue()) technology = 'nnue';
@@ -109,7 +122,10 @@ export default function (opts: CevalOpts): CevalCtrl {
     );
   const threads = () => {
     const stored = window.lishogi.storage.get(storageKey('ceval.threads'));
-    return Math.min(maxThreads, stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4));
+    return Math.min(
+      maxThreads,
+      stored ? parseInt(stored, 10) : Math.ceil((navigator.hardwareConcurrency || 1) / 4)
+    );
   };
   const pow2floor = (n: number) => {
     let pow2 = 1;
@@ -149,7 +165,9 @@ export default function (opts: CevalOpts): CevalCtrl {
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.LocalEval | null = null;
   const allowed = prop(true);
-  const enabled = prop(technology !== 'none' && opts.possible && analysable && allowed() && enabledAfterDisable());
+  const enabled = prop(
+    technology !== 'none' && opts.possible && analysable && allowed() && enabledAfterDisable()
+  );
   const downloadProgress = prop(0);
   let running = false;
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
@@ -188,7 +206,13 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     const impassePosition = isImpasse(opts.variant.key, step.sfen, steps[0].sfen);
 
-    if (!enabled() || !opts.possible || !enabledAfterDisable() || (impassePosition && enteringKingRule())) return;
+    if (
+      !enabled() ||
+      !opts.possible ||
+      !enabledAfterDisable() ||
+      (impassePosition && enteringKingRule())
+    )
+      return;
 
     const maxDepth = effectiveMaxDepth();
 
@@ -235,28 +259,31 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     // Notify all other tabs to disable ceval.
     window.lishogi.storage.fire('ceval.disable');
-    window.lishogi.tempStorage.set('ceval.enabled-after', window.lishogi.storage.get('ceval.disable')!);
+    window.lishogi.tempStorage.set(
+      'ceval.enabled-after',
+      window.lishogi.storage.get('ceval.disable')!
+    );
 
     if (!worker) {
       if (technology == 'nnue')
         worker = new ThreadedWasmWorker({
           baseName: 'yaneuraou.k-p',
-          baseUrl: 'vendor/yaneuraou.k-p/lib/',
+          baseUrl: 'vendors/yaneuraou.k-p/lib/',
           module: 'YaneuraOu_K_P',
           downloadProgress: throttle(200, mb => {
             downloadProgress(mb);
             opts.redraw();
           }),
-          version: 'e01aa3c',
+          version: 'e01aa3d',
           wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
           cache: window.indexedDB && new Cache('ceval-wasm-cache'),
         });
       else if (technology == 'hce')
         worker = new ThreadedWasmWorker({
           baseName: 'stockfish',
-          baseUrl: 'vendor/fairy/',
+          baseUrl: 'vendors/fairy/',
           module: 'Stockfish',
-          version: 'b02c911',
+          version: 'b02c912',
           wasmMemory: sharedWasmMemory(2048, maxWasmPages(2048)),
         });
     }

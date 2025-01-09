@@ -1,6 +1,7 @@
 package views.html.user.show
 
 import play.api.data.Form
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.mashup.UserInfo.Angle
@@ -35,7 +36,7 @@ object page {
       moreJs = moreJs(info),
       moreCss = frag(
         cssTag("user.show"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserSpy) option cssTag("user.mod.user")
       ),
       robots = u.count.game >= 10,
       canonicalPath = lila.common.CanonicalPath(routes.User.show(u.username)).some
@@ -65,7 +66,7 @@ object page {
       moreCss = frag(
         cssTag("user.show"),
         filters.current.name == "search" option cssTag("user.show.search"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        isGranted(_.UserSpy) option cssTag("user.mod.user")
       ),
       robots = u.count.game >= 10,
       canonicalPath = lila.common.CanonicalPath(routes.User.games(u.username, "all")).some
@@ -82,15 +83,15 @@ object page {
   private def moreJs(info: UserInfo, withSearch: Boolean = false)(implicit ctx: Context) =
     frag(
       infiniteScrollTag,
-      jsAt("compiled/user.js"),
-      info.ratingChart.map { ratingChart =>
+      jsTag("user"),
+      info.ratingChart.map { rc =>
         frag(
-          jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lishogi.ratingHistoryChart($ratingChart);")
+          chartTag,
+          moduleJsTag("chart.rating-history", Json.obj("data" -> rc))
         )
       },
-      withSearch option frag(jsTag("search.js")),
-      isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+      withSearch option frag(jsTag("misc.search")),
+      isGranted(_.UserSpy) option jsTag("user.mod")
     )
 
   def disabled(u: User)(implicit ctx: Context) =

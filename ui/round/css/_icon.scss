@@ -30,7 +30,7 @@
     }
 
     .fbt.yes {
-      $act-confirm-shade: mix(#000, $c-accent, 30%);
+      $act-confirm-shade: $m-black_accent_mix_30;
       position: absolute;
       right: 0;
       top: -3px;

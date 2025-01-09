@@ -1,7 +1,9 @@
 import { VNode, h } from 'snabbdom';
+import { modal } from 'common/modal';
 import { setup } from 'common/links';
 import { EditorState } from '../interfaces';
 import EditorCtrl from '../ctrl';
+import { i18n } from 'i18n';
 
 export function links(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('div.links', [analysis(ctrl, state), continueWith(ctrl, state), study(ctrl, state)]);
@@ -14,16 +16,19 @@ function analysis(ctrl: EditorCtrl, state: EditorState): VNode {
       attrs: {
         'data-icon': 'A',
         rel: 'nofollow',
-        ...(state.legalSfen ? { href: ctrl.makeAnalysisUrl(state.legalSfen, ctrl.bottomColor()) } : {}),
+        ...(state.legalSfen
+          ? { href: ctrl.makeAnalysisUrl(state.legalSfen, ctrl.bottomColor()) }
+          : {}),
       },
       class: {
         disabled: !state.legalSfen,
       },
     },
-    ctrl.trans.noarg('analysis')
+    i18n('analysis')
   );
 }
 
+let openModal = false;
 function continueWith(ctrl: EditorCtrl, state: EditorState): VNode {
   return h(
     'span.button.text',
@@ -34,38 +39,49 @@ function continueWith(ctrl: EditorCtrl, state: EditorState): VNode {
       },
       on: {
         click: () => {
-          if (state.playable) $.modal($('.continue-with'));
+          if (state.playable) {
+            openModal = true;
+            ctrl.redraw();
+          }
         },
       },
     },
     [
-      ctrl.trans.noarg('continueFromHere'),
-      h('div.continue-with.none', [
-        h(
-          'a',
-          {
-            class: {
-              button: true,
-              disabled: ['chushogi', 'annanshogi'].includes(ctrl.rules),
+      i18n('continueFromHere'),
+      openModal
+        ? modal({
+            class: 'continue-with',
+            onClose() {
+              openModal = false;
+              ctrl.redraw();
             },
-            attrs: {
-              href: setup('/', ctrl.rules, state.legalSfen || '', 'ai'),
-              rel: 'nofollow',
-            },
-          },
-          ctrl.trans.noarg('playWithTheMachine')
-        ),
-        h(
-          'a.button.text',
-          {
-            attrs: {
-              href: setup('/', ctrl.rules, state.legalSfen || '', 'friend'),
-              rel: 'nofollow',
-            },
-          },
-          ctrl.trans.noarg('playWithAFriend')
-        ),
-      ]),
+            content: [
+              h(
+                'a.button.text',
+                {
+                  class: {
+                    disabled: ['chushogi', 'annanshogi'].includes(ctrl.rules),
+                  },
+                  attrs: {
+                    href: setup('/', ctrl.rules, state.legalSfen || '', 'ai'),
+                    rel: 'nofollow',
+                  },
+                },
+                i18n('playWithTheMachine')
+              ),
+              h(
+                'a.button.text',
+                {
+                  attrs: {
+                    href: setup('/', ctrl.rules, state.legalSfen || '', 'friend'),
+                    rel: 'nofollow',
+                  },
+                },
+                i18n('playWithAFriend')
+              ),
+            ],
+          })
+        : undefined,
     ]
   );
 }
@@ -105,7 +121,7 @@ function study(ctrl: EditorCtrl, state: EditorState): VNode {
             disabled: !state.legalSfen,
           },
         },
-        ctrl.trans.noarg('toStudy')
+        i18n('toStudy')
       ),
     ]
   );

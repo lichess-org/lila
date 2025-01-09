@@ -36,7 +36,7 @@ object bits {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("user-tournament"),
+      moreCss = cssTag("user.tournament"),
       moreJs = moreJs
     ) {
       main(cls := "page-menu")(

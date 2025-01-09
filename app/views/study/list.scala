@@ -127,7 +127,7 @@ object list {
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
     views.html.base.layout(
       title = text,
-      moreCss = cssTag("study.index"),
+      moreCss = cssTag("analyse.study.index"),
       wrapClass = "full-screen-force",
       moreJs = infiniteScrollTag
     ) {
@@ -194,7 +194,7 @@ object list {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("study.index"),
+      moreCss = cssTag("analyse.study.index"),
       wrapClass = "full-screen-force",
       moreJs = infiniteScrollTag,
       canonicalPath = canonicalPath

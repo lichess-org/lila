@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 /// Z-indexes map, gathering all Z layers of the application
 /// @access private
 /// @type Map
@@ -43,5 +45,5 @@ $z-indexes: (
 /// @return {Number}
 /// @require $z-indexes
 @function z($layer) {
-  @return map-get($z-indexes, $layer);
+  @return map.get($z-indexes, $layer);
 }

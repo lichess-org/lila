@@ -25,7 +25,7 @@ final class Importer(env: Env) extends LilaController(env) {
           failure =>
             negotiate(
               html = Ok(html.game.importGame(failure)).fuccess,
-              api = _ => BadRequest(Json.obj("error" -> "Invalid notation")).fuccess
+              json = BadRequest(Json.obj("error" -> "Invalid notation")).fuccess
             ),
           data =>
             env.importer.importer(data, ctx.userId) flatMap { game =>

@@ -6,7 +6,7 @@ $clock-height: 20px;
   }
   @include breakpoint($mq-col2) {
     .analyse__underboard {
-      margin-top: calc(#{$clock-height / 2} + 3vmin);
+      margin-top: calc($clock-height / 2 + 3vmin);
     }
   }
   @include breakpoint($mq-col1) {

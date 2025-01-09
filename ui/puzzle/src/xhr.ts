@@ -1,6 +1,5 @@
 import { defined } from 'common/common';
 import throttle from 'common/throttle';
-import * as xhr from 'common/xhr';
 import { PuzzleReplay, PuzzleResult, ThemeKey } from './interfaces';
 
 export function complete(
@@ -9,32 +8,38 @@ export function complete(
   win: boolean,
   replay?: PuzzleReplay
 ): Promise<PuzzleResult | undefined> {
-  return xhr.json(`/training/complete/${theme}/${puzzleId}`, {
-    method: 'POST',
-    body: xhr.form({
+  return window.lishogi.xhr.json('POST', `/training/complete/${theme}/${puzzleId}`, {
+    formData: {
       win,
       ...(replay ? { replayDays: replay.days } : {}),
-    }),
+    },
   });
 }
 
 export function vote(puzzleId: string, vote: boolean): Promise<void> {
-  return xhr.json(`/training/${puzzleId}/vote`, {
-    method: 'POST',
-    body: xhr.form({ vote }),
+  return window.lishogi.xhr.json('POST', `/training/${puzzleId}/vote`, {
+    formData: { vote },
   });
 }
 
-export function voteTheme(puzzleId: string, theme: ThemeKey, vote: boolean | undefined): Promise<void> {
-  return xhr.json(`/training/${puzzleId}/vote/${theme}`, {
-    method: 'POST',
-    body: defined(vote) ? xhr.form({ vote }) : undefined,
-  });
+export function voteTheme(
+  puzzleId: string,
+  theme: ThemeKey,
+  vote: boolean | undefined
+): Promise<void> {
+  return window.lishogi.xhr.json(
+    'POST',
+    `/training/${puzzleId}/vote/${theme}`,
+    defined(vote)
+      ? {
+          formData: { vote },
+        }
+      : undefined
+  );
 }
 
-export const setZen = throttle(1000, zen =>
-  xhr.text('/pref/zen', {
-    method: 'post',
-    body: xhr.form({ zen: zen ? 1 : 0 }),
+export const setZen: (zen: boolean) => void = throttle(1000, zen =>
+  window.lishogi.xhr.text('POST', '/pref/zen', {
+    formData: { zen: zen ? 1 : 0 },
   })
 );

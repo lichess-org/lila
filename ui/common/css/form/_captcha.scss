@@ -6,8 +6,8 @@
   }
   &.is-invalid:not(.success) {
     @extend %box-radius;
-    border: 1px solid $c-error;
-    background: mix($c-error, $c-bg-high, 10%);
+    outline: 1px solid $c-error;
+    background: $m-error_bg-high_mix_10;
   }
   .challenge {
     flex: 0 0 210px;

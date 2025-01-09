@@ -6,7 +6,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.challenge.Challenge
-import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -16,15 +15,15 @@ object bits {
       implicit ctx: Context
   ) =
     frag(
-      jsTag("challenge.js", defer = true),
-      embedJsUnsafe(s"""lishogi=window.lishogi||{};customWs=true;lishogi_challenge = ${safeJsonValue(
-          Json.obj(
-            "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
-            "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
-            "owner"     -> owner,
-            "data"      -> json
-          )
-        )}""")
+      moduleJsTag(
+        "challenge.page",
+        Json.obj(
+          "socketUrl" -> s"/challenge/${c.id}/socket/v5",
+          "xhrUrl"    -> routes.Challenge.show(c.id, color.map(_.name)).url,
+          "owner"     -> owner,
+          "data"      -> json
+        )
+      )
     )
 
   def details(c: Challenge, mine: Boolean)(implicit ctx: Context) =

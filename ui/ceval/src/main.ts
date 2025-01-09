@@ -1,8 +1,8 @@
 import ctrl from './ctrl';
 import * as view from './view';
-import * as winningChances from './winningChances';
+import * as winningChances from './winning-chances';
 
-export { CevalCtrl, NodeEvals, Eval, EvalMeta, CevalOpts } from './types';
+export type { CevalCtrl, NodeEvals, Eval, EvalMeta, CevalOpts } from './types';
 export { isEvalBetter, renderEval } from './util';
 export { ctrl, view, winningChances };
 

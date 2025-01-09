@@ -1,38 +1,47 @@
 import { dataIcon } from 'common/snabbdom';
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 import { Arrangement } from '../interfaces';
+import { initOneWithState } from 'common/mini-board';
+import { numberFormat } from 'common/number';
 
-export function miniBoard(game) {
+export function miniBoard(game: any): VNode {
   return h(
-    'a.mini-board' + '.v-' + game.variant + '.parse-sfen.mini-board-' + game.id,
+    'a.mini-board' + '.v-' + game.variant + '.mini-board-' + game.id,
     {
       key: game.id,
       attrs: {
         href: '/' + game.id + (game.color === 'sente' ? '' : '/gote'),
-        'data-color': game.color,
-        'data-sfen': game.sfen,
-        'data-lastmove': game.lastMove,
-        'data-variant': game.variant,
       },
       hook: {
         insert(vnode) {
-          window.lishogi.parseSfen($(vnode.elm as HTMLElement));
+          initOneWithState(vnode.elm as HTMLElement, {
+            variant: game.variant,
+            sfen: game.sfen,
+            orientation: game.color,
+            lastMove: game.lastMove,
+          });
         },
       },
     },
-    [h('div.sg-wrap')]
+    h('div.sg-wrap')
   );
 }
 
-export function ratio2percent(r: number) {
+export function ratio2percent(r: number): string {
   return Math.round(100 * r) + '%';
 }
 
-export function playerName(p) {
+export function playerName(p: any): VNode[] | string {
   return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
 }
 
-export function player(p, asLink: boolean, withRating: boolean, defender: boolean = false, leader: boolean = false) {
+export function player(
+  p: any,
+  asLink: boolean,
+  withRating: boolean,
+  defender: boolean = false,
+  leader: boolean = false
+): VNode {
   return h(
     'a.ulpt.user-link' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
     {
@@ -52,7 +61,7 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
   );
 }
 
-export function numberRow(name: string, value: any, typ?: string) {
+export function numberRow(name: string, value: any, typ?: string): VNode {
   return h('tr', [
     h('th', name),
     h(
@@ -63,12 +72,12 @@ export function numberRow(name: string, value: any, typ?: string) {
           ? value[1] > 0
             ? ratio2percent(value[0] / value[1])
             : 0
-          : window.lishogi.numberFormat(value)
+          : numberFormat(value)
     ),
   ]);
 }
 
-export function preloadUserTips(el: HTMLElement) {
+export function preloadUserTips(el: HTMLElement): void {
   window.lishogi.powertip.manualUserIn(el);
 }
 
@@ -77,10 +86,10 @@ export function arrangementHasUser(a: Arrangement, userId: string): boolean {
 }
 
 // hacky for flatpickr
-export function adjustDateToUTC(date) {
+export function adjustDateToUTC(date: Date): Date {
   return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
 }
-export function adjustDateToLocal(date) {
+export function adjustDateToLocal(date: Date): Date {
   return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 }
 

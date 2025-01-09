@@ -16,7 +16,7 @@ object checkYourEmail {
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.checkYourEmail.txt(),
-      moreCss = cssTag("email-confirm")
+      moreCss = cssTag("misc.email-confirm")
     ) {
       main(
         cls := s"page-small box box-pad email-confirm ${if (form.exists(_.hasErrors)) "error" else "anim"}"

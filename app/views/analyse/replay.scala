@@ -7,7 +7,6 @@ import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.game.{ Game, Pov }
 
 import controllers.routes
@@ -111,17 +110,17 @@ object replay {
         ctx.blind option cssTag("round.nvui")
       ),
       moreJs = frag(
-        analyseTag,
-        analyseNvuiTag,
-        embedJsUnsafe(s"""lishogi=lishogi||{};lishogi.analyse=${safeJsonValue(
-            Json.obj(
-              "data"   -> data,
-              "i18n"   -> jsI18n(),
-              "userId" -> ctx.userId,
-              "chat"   -> chatJson,
-              "hunter" -> isGranted(_.Hunter)
-            )
-          )}""")
+        ctx.blind option analyseNvuiTag,
+        moduleJsTag(
+          "analyse",
+          Json.obj(
+            "mode"   -> "replay",
+            "data"   -> data,
+            "userId" -> ctx.userId,
+            "chat"   -> chatJson,
+            "hunter" -> isGranted(_.Hunter)
+          )
+        )
       ),
       openGraph = povOpenGraph(pov).some
     )(
@@ -147,7 +146,8 @@ object replay {
             div(cls := "analyse__underboard")(
               div(cls := "analyse__underboard__panels")(
                 game.analysable option div(cls := "computer-analysis")(
-                  if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
+                  if (analysis.isDefined || analysisStarted)
+                    div(id := "acpl-chart-container")(canvas(id := "acpl-chart"))
                   else
                     postForm(
                       cls    := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
@@ -159,7 +159,9 @@ object replay {
                     )
                 ),
                 div(cls := "move-times")(
-                  (game.plies > 1 && !game.isNotationImport) option div(id := "movetimes-chart")
+                  (game.plies > 1 && !game.isNotationImport) option div(id := "movetimes-chart-container")(
+                    canvas(id                                              := "movetimes-chart")
+                  )
                 ),
                 div(cls := "sfen-notation")(
                   div(

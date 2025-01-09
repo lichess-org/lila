@@ -17,10 +17,8 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
 ```javascript
 {
   "username": "thibault",
-  "title": null,                            // chess title like FM or LM (lichess master)
-  "online": true,                           // is the player currently using lichess?
-  "engine": false,                          // true if the user is known to use a chess engine
-  "language": "en",                         // preferred language
+  "online": true,
+  "language": "en",
   "profile": {
     "bio": "Developer of lichess",
     "country": "FR",
@@ -28,19 +26,18 @@ Set-Cookie: lila2="3b5cc8c80f0af258a31dc4fd1b5381cabe7388c7-sessionId=80q7V5stkK
     "lastName": "Duplessis",
     "location": "Paris"
   },
-  "nowPlaying": [                           // list of games waiting for your move
+  "nowPlaying": [
     {
       "id": "abcdefgh1234",
-      "variant": "chess960", // standard
-      "speed": "blitz", // bullet|blitz|classical|unlimited
-      "perf": "chess960", // bullet|blitz|classical|chess960|kingOfTheHill|threeCheck
+      "variant": "standard",
+      "speed": "blitz",
+      "perf": "standard",
       "rated": true,
       "opponent": {
         "id": "supercopter",
         "username": "SuperCopter",
         "rating": 2399
     },
-    // more games maybe
   ],
   "perfs": {                                // user performances in different games
     "bullet": {

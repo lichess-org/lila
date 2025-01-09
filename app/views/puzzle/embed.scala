@@ -10,19 +10,19 @@ import lila.puzzle.DailyPuzzle
 
 object embed {
 
+  import EmbedConfig.implicits.configLang
+
   def apply(daily: DailyPuzzle.WithHtml)(implicit config: EmbedConfig) =
     views.html.base.embed(
-      title = "lishogi.org shogi puzzle",
-      cssModule = "tv.embed"
+      title = s"lishogi.org - ${trans.puzzles.txt()}",
+      moreCss = cssTag("embed.puzzle"),
+      moreJs = jsTag("embed.puzzle")
     )(
       dailyLink(daily)(config.lang)(
         targetBlank,
         id  := "daily-puzzle",
         cls := "embedded"
-      ),
-      jQueryTag,
-      jsAt("javascripts/vendor/shogiground.min.js", false),
-      jsAt("compiled/puzzle.js", false)
+      )
     )
 
   def dailyLink(daily: DailyPuzzle.WithHtml)(implicit lang: Lang) = a(

@@ -1,6 +1,8 @@
 /* Common imports for all pages */
 
-@import '../../../node_modules/breakpoint-sass/stylesheets/breakpoint';
+@import 'breakpoint-sass/stylesheets/breakpoint';
+
+@import 'theme/gen/theme';
 
 @import 'abstract/all';
 
@@ -11,16 +13,15 @@
 @import 'base/data-icon';
 @import 'base/unread';
 @import 'base/util';
-
-@include theme-style;
+@import 'base/theme';
 
 @import 'layout/base';
 @import 'layout/page-menu';
 
-@import 'vendor/shogiground/shogiground';
+@import 'shogiground/shogiground';
 
 @import 'header/header';
-@import '../../cli/css/clinput';
+@import '../../misc/css/cli/clinput';
 
 @import 'component/board';
 @import 'component/hands';

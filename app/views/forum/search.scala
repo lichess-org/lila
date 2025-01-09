@@ -17,7 +17,7 @@ object search {
     views.html.base.layout(
       title = title,
       moreJs = infiniteScrollTag,
-      moreCss = cssTag("forum")
+      moreCss = cssTag("misc.forum")
     )(
       main(cls := "box box search")(
         div(cls := "box__top")(

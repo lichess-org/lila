@@ -50,7 +50,7 @@ final class Puzzle(
         OptionFuResult(env.puzzle.daily.get) { daily =>
           negotiate(
             html = renderShow(daily.puzzle, PuzzleTheme.mix),
-            api = _ => renderJson(daily.puzzle, PuzzleTheme.mix) dmap { Ok(_) }
+            json = renderJson(daily.puzzle, PuzzleTheme.mix) dmap { Ok(_) }
           ) dmap (_.noCache)
         }
       }
@@ -352,18 +352,17 @@ final class Puzzle(
     Open { implicit ctx =>
       negotiate(
         html = notFound,
-        api = _ =>
-          PuzzleTheme.find(themeOrId) match {
-            case None if themeOrId.sizeIs == Puz.idSize =>
-              OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
-                ctx.me.?? { me =>
-                  !env.puzzle.api.round.exists(me, puz.id) map {
-                    _ ?? env.puzzle.api.casual.set(me, puz.id)
-                  }
-                } >> Ok(env.puzzle.jsonView.mobile(Seq(puz), PuzzleTheme.mix, ctx.me)).fuccess
-              }
-            case themeOpt => batch(themeOpt.getOrElse(PuzzleTheme.mix)) dmap { Ok(_) }
-          }
+        json = PuzzleTheme.find(themeOrId) match {
+          case None if themeOrId.sizeIs == Puz.idSize =>
+            OptionFuResult(env.puzzle.api.puzzle find Puz.Id(themeOrId)) { puz =>
+              ctx.me.?? { me =>
+                !env.puzzle.api.round.exists(me, puz.id) map {
+                  _ ?? env.puzzle.api.casual.set(me, puz.id)
+                }
+              } >> Ok(env.puzzle.jsonView.mobile(Seq(puz), PuzzleTheme.mix, ctx.me)).fuccess
+            }
+          case themeOpt => batch(themeOpt.getOrElse(PuzzleTheme.mix)) dmap { Ok(_) }
+        }
       )
     }
 
@@ -374,27 +373,25 @@ final class Puzzle(
       implicit val req = ctx.body
       negotiate(
         html = notFound,
-        api = _ => {
-          env.puzzle.forms.mobile.solutions
-            .bindFromRequest()
-            .fold(
-              jsonFormError,
-              solutions =>
-                ctx.me match {
-                  case Some(me) =>
-                    env.puzzle.finisher.batch(
-                      me,
-                      solutions.take(maxOfflineBatch)
-                    ) map {
-                      _.map { case (round, rDiff) => env.puzzle.jsonView.roundJsonApi(round, rDiff) }
-                    } dmap { JsonOk(_) }
-                  case None =>
-                    env.puzzle.finisher.batchIncPuzzlePlays(
-                      solutions.take(maxOfflineBatch).flatMap(sol => Puz.toId(sol.id))
-                    ) inject { jsonOkResult }
-                }
-            )
-        }
+        json = env.puzzle.forms.mobile.solutions
+          .bindFromRequest()
+          .fold(
+            jsonFormError,
+            solutions =>
+              ctx.me match {
+                case Some(me) =>
+                  env.puzzle.finisher.batch(
+                    me,
+                    solutions.take(maxOfflineBatch)
+                  ) map {
+                    _.map { case (round, rDiff) => env.puzzle.jsonView.roundJsonApi(round, rDiff) }
+                  } dmap { JsonOk(_) }
+                case None =>
+                  env.puzzle.finisher.batchIncPuzzlePlays(
+                    solutions.take(maxOfflineBatch).flatMap(sol => Puz.toId(sol.id))
+                  ) inject { jsonOkResult }
+              }
+          )
       )
     }
 

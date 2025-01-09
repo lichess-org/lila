@@ -15,8 +15,8 @@ object bits {
   )(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("clas"),
-      moreJs = jsAt("compiled/clas.js")
+      moreCss = cssTag("misc.clas"),
+      moreJs = jsTag("misc.clas")
     )(
       if (isGranted(_.Teacher))
         main(cls := "page-menu")(

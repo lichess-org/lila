@@ -34,9 +34,6 @@ export interface AnalyseData {
   clock?: Clock;
   tags?: string[][];
   pref: any;
-  url: {
-    socket: string;
-  };
   userTv?: {
     id: string;
   };
@@ -84,7 +81,7 @@ export interface Analysis {
   id: string;
   sente: AnalysisSide;
   gote: AnalysisSide;
-  partial: boolean;
+  partial?: boolean;
 }
 
 export interface AnalysisSide {
@@ -95,14 +92,13 @@ export interface AnalysisSide {
 }
 
 export interface AnalyseOpts {
-  element: HTMLElement;
   data: AnalyseData;
   initialPly?: number | string;
   userId: string | null;
   hunter: boolean;
+  mode: 'replay' | 'study' | 'analyse' | 'practice';
   embed: boolean;
-  socketSend: SocketSend;
-  trans: Trans;
+  socketSend: Socket.Send;
   study?: any;
   tagTypes?: string;
   practice?: StudyPracticeData;
@@ -110,6 +106,8 @@ export interface AnalyseOpts {
   $underboard?: JQuery;
   i18n: any;
   chat: any;
+  socketUrl: string;
+  socketVersion: number;
 }
 
 export type Conceal = boolean | 'conceal' | 'hide' | null;

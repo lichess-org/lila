@@ -23,6 +23,7 @@ export interface Notification {
 }
 
 export interface Ctrl {
+  redraw: Redraw;
   update(data: NotifyData, incoming: boolean): void;
   data(): NotifyData | undefined;
   initiating(): boolean;

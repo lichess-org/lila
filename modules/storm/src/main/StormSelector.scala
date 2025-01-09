@@ -19,21 +19,21 @@ final class StormSelector(colls: PuzzleColls, cacheApi: CacheApi)(implicit ec: E
 
   private val theme        = lila.puzzle.PuzzleTheme.mix.key.value
   private val tier         = lila.puzzle.PuzzleTier.Good.key
-  private val maxDeviation = 85
+  private val maxDeviation = 600
 
   private val ratingBuckets =
     List(
-      1000 -> 7,
-      1150 -> 7,
-      1300 -> 8,
-      1450 -> 9,
-      1600 -> 10,
-      1750 -> 11,
-      1900 -> 13,
+      1000 -> 8,
+      1150 -> 8,
+      1300 -> 9,
+      1450 -> 10,
+      1600 -> 12,
+      1750 -> 13,
+      1900 -> 14,
       2050 -> 15,
       2200 -> 17,
       2350 -> 19,
-      2500 -> 21
+      2500 -> 20
     )
   private val poolSize = ratingBuckets.foldLeft(0) { case (acc, (_, nb)) =>
     acc + nb

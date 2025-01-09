@@ -1,19 +1,16 @@
-import { form, json, text } from 'common/xhr';
+export const userModInfo = (username: string): Promise<any> =>
+  window.lishogi.xhr.json('GET', '/mod/chat-user/' + username);
 
-export const userModInfo = (username: string) => json('/mod/chat-user/' + username);
-
-export const flag = (resource: string, username: string, text: string) =>
-  json('/report/flag', {
-    method: 'post',
-    body: form({ username, resource, text }),
+export const flag = (resource: string, username: string, text: string): Promise<any> =>
+  window.lishogi.xhr.json('POST', '/report/flag', {
+    formData: { username, resource, text },
   });
 
-export const getNote = (id: string) => text(noteUrl(id));
+export const getNote = (id: string): Promise<any> => window.lishogi.xhr.text('GET', noteUrl(id));
 
-export const setNote = (id: string, text: string) =>
-  json(noteUrl(id), {
-    method: 'post',
-    body: form({ text }),
+export const setNote = (id: string, text: string): Promise<any> =>
+  window.lishogi.xhr.json('POST', noteUrl(id), {
+    formData: { text },
   });
 
 const noteUrl = (id: string) => `/${id}/note`;

@@ -8,7 +8,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Pov }
-import views.html.base.layout.{ bits => baseLayout }
 
 import controllers.routes
 
@@ -32,14 +31,13 @@ object bits {
       moreCss = frag(
         cssTag("round"),
         ctx.blind option cssTag("round.nvui"),
-        variant.chushogi option baseLayout.chuPieceSprite,
-        variant.kyotoshogi option baseLayout.kyoPieceSprite,
+        variant.chushogi option chuPieceSprite,
+        variant.kyotoshogi option kyoPieceSprite,
         moreCss
       ),
       shogiground = shogiground,
       playing = playing,
       robots = robots,
-      deferJs = true,
       zoomable = true,
       csp = defaultCsp.withPeer.some,
       withHrefLangs = withHrefLangs

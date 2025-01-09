@@ -1,5 +1,7 @@
 import { VNode, h } from 'snabbdom';
 import { Close, Redraw, bind, header, validateUrl } from './util';
+import { debounce } from 'common/timings';
+import { i18n } from 'i18n';
 
 type Key = 'light' | 'dark' | 'transp';
 
@@ -9,7 +11,6 @@ export interface BackgroundCtrl {
   get(): Key;
   getImage(): string;
   setImage(i: string): void;
-  trans: Trans;
   close: Close;
 }
 
@@ -23,29 +24,31 @@ interface Background {
   name: string;
 }
 
-export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: Close): BackgroundCtrl {
+export function ctrl(data: BackgroundData, redraw: Redraw, close: Close): BackgroundCtrl {
   const list: Background[] = [
-    { key: 'light', name: trans.noarg('light') },
-    { key: 'dark', name: trans.noarg('dark') },
-    { key: 'transp', name: trans.noarg('transparent') },
+    { key: 'light', name: i18n('light') },
+    { key: 'dark', name: i18n('dark') },
+    { key: 'transp', name: i18n('transparent') },
   ];
 
-  const announceFail = () => window.lishogi.announce({ msg: 'Failed to save background preference' });
+  const announceFail = () =>
+    window.lishogi.announce({ msg: 'Failed to save background preference' });
 
   return {
     list,
-    trans,
     get: () => data.current,
     set(c: Key) {
       data.current = c;
-      $.post('/pref/bg', { bg: c }, reloadAllTheThings).fail(announceFail);
+      window.lishogi.xhr.text('POST', '/pref/bg', { formData: { bg: c } }).catch(announceFail);
       applyBackground(data, list);
       redraw();
     },
     getImage: () => data.image,
     setImage(i: string) {
       data.image = i;
-      $.post('/pref/bgImg', { bgImg: i }, reloadAllTheThings).fail(announceFail);
+      window.lishogi.xhr
+        .text('POST', '/pref/bgImg', { formData: { bgImg: i } })
+        .catch(announceFail);
       applyBackground(data, list);
       redraw();
     },
@@ -57,7 +60,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
   const cur = ctrl.get();
 
   return h('div.sub.background', [
-    header(ctrl.trans.noarg('background'), ctrl.close),
+    header(i18n('background'), ctrl.close),
     h(
       'div.selector.large',
       ctrl.list.map(bg => {
@@ -68,9 +71,9 @@ export function view(ctrl: BackgroundCtrl): VNode {
             attrs: { 'data-icon': 'E' },
             hook: bind('click', () => ctrl.set(bg.key)),
           },
-          bg.name
+          bg.name,
         );
-      })
+      }),
     ),
     cur === 'transp' ? imageInput(ctrl) : null,
   ]);
@@ -78,7 +81,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
 
 function imageInput(ctrl: BackgroundCtrl) {
   return h('div.image', [
-    h('p', ctrl.trans.noarg('backgroundImageUrl')),
+    h('p', i18n('backgroundImageUrl')),
     h('input', {
       attrs: {
         type: 'text',
@@ -89,10 +92,10 @@ function imageInput(ctrl: BackgroundCtrl) {
         insert: vnode => {
           $(vnode.elm as HTMLElement).on(
             'change keyup paste',
-            window.lishogi.debounce(function (this: HTMLElement) {
+            debounce(function (this: HTMLElement) {
               const url = ($(this).val() as string).trim();
               if (validateUrl(url)) ctrl.setImage(url);
-            }, 300)
+            }, 300),
           );
         },
       },
@@ -103,21 +106,9 @@ function imageInput(ctrl: BackgroundCtrl) {
 function applyBackground(data: BackgroundData, list: Background[]) {
   const key = data.current;
 
-  $('body')
-    .removeClass(list.map(b => b.key).join(' '))
-    .addClass(key === 'transp' ? 'transp dark' : key);
-
-  const prev = $('body').data('theme');
-  $('body').data('theme', key);
-  $('link[href*=".' + prev + '."]').each(function (this: HTMLElement) {
-    var link = document.createElement('link');
-    link.type = 'text/css';
-    link.rel = 'stylesheet';
-    link.href = $(this)
-      .attr('href')
-      .replace('.' + prev + '.', '.' + key + '.');
-    link.onload = () => setTimeout(() => this.remove(), 100);
-    document.head.appendChild(link);
+  document.querySelectorAll('body, html').forEach(el => {
+    el.classList.remove(...list.map(b => b.key));
+    el.classList.add(...(key === 'transp' ? ['transp', 'dark'] : [key]));
   });
 
   if (key === 'transp') {
@@ -125,6 +116,6 @@ function applyBackground(data: BackgroundData, list: Background[]) {
   }
 }
 
-function reloadAllTheThings() {
-  if (window.Highcharts) window.lishogi.reload();
-}
+// function reloadAllTheThings() {
+//   if (window.Chart && confirm('Page will be reloaded')) window.lishogi.reload();
+// }

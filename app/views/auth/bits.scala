@@ -37,7 +37,7 @@ object bits {
   ) =
     views.html.base.layout(
       title = trans.passwordReset.txt(),
-      moreCss = cssTag("auth"),
+      moreCss = cssTag("user.auth"),
       moreJs = captchaTag
     ) {
       main(cls := "auth auth-signup box box-pad")(
@@ -71,7 +71,7 @@ object bits {
   ) =
     views.html.base.layout(
       title = s"${u.username} - ${trans.changePassword.txt()}",
-      moreCss = cssTag("form3")
+      moreCss = cssTag("misc.form3")
     ) {
       main(cls := "page-small box box-pad")(
         (ok match {
@@ -103,7 +103,7 @@ object bits {
   ) =
     views.html.base.layout(
       title = trans.loginByEmail.txt(),
-      moreCss = cssTag("auth"),
+      moreCss = cssTag("user.auth"),
       moreJs = captchaTag
     ) {
       main(cls := "auth auth-signup box box-pad")(

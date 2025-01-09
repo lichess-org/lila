@@ -15,7 +15,7 @@ object layout {
   )(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("video"),
+      moreCss = cssTag("misc.video"),
       moreJs = infiniteScrollTag,
       wrapClass = "full-screen-force",
       openGraph = openGraph

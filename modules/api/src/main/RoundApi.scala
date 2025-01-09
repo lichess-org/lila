@@ -4,7 +4,6 @@ import play.api.i18n.Lang
 import play.api.libs.json._
 
 import lila.analyse.{ Analysis, JsonView => analysisJson }
-import lila.common.ApiVersion
 import lila.game.{ Game, Pov }
 import lila.pref.Pref
 import lila.round.JsonView.WithFlags
@@ -17,7 +16,6 @@ import lila.user.User
 
 final private[api] class RoundApi(
     jsonView: JsonView,
-    noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     tourApi: lila.tournament.TournamentApi,
@@ -26,27 +24,24 @@ final private[api] class RoundApi(
     getLightUser: lila.common.LightUser.GetterSync
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def player(pov: Pov, tour: Option[TourView], apiVersion: ApiVersion)(implicit
+  def player(pov: Pov, tour: Option[TourView])(implicit
       ctx: Context
   ): Fu[JsObject] = {
     implicit val lang = ctx.lang
     jsonView.playerJson(
       pov,
       ctx.pref,
-      apiVersion,
       ctx.me,
       withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs)),
       nvui = ctx.blind
     ) zip
       (pov.game.simulId ?? simulApi.find) zip
-      (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
       forecastApi.loadForDisplay(pov) zip
-      bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, simul), note), forecast), bookmarked) =>
+      bookmarkApi.exists(pov.game, ctx.me) map { case (((json, simul), forecast), bookmarked) =>
         (
           withTournament(pov, tour) _ compose
             withSimul(simul) compose
             withSteps(pov) compose
-            withNote(note) compose
             withBookmark(bookmarked) compose
             withForecastCount(forecast.map(_.steps.size))
         )(json)
@@ -57,25 +52,21 @@ final private[api] class RoundApi(
   def watcher(
       pov: Pov,
       tour: Option[TourView],
-      apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv]
   )(implicit ctx: Context): Fu[JsObject] = {
     implicit val lang = ctx.lang
     jsonView.watcherJson(
       pov,
       ctx.pref,
-      apiVersion,
       ctx.me,
       tv,
       withFlags = WithFlags(blurs = ctx.me ?? Granter(_.ViewBlurs))
     ) zip
       (pov.game.simulId ?? simulApi.find) zip
-      (ctx.me.ifTrue(ctx.isMobileApi) ?? (me => noteApi.get(pov.gameId, me.id))) zip
-      bookmarkApi.exists(pov.game, ctx.me) map { case (((json, simul), note), bookmarked) =>
+      bookmarkApi.exists(pov.game, ctx.me) map { case ((json, simul), bookmarked) =>
         (
           withTournament(pov, tour) _ compose
             withSimul(simul) compose
-            withNote(note) compose
             withBookmark(bookmarked) compose
             withSteps(pov)
         )(json)
@@ -85,7 +76,6 @@ final private[api] class RoundApi(
 
   def review(
       pov: Pov,
-      apiVersion: ApiVersion,
       tv: Option[lila.round.OnTv] = None,
       analysis: Option[Analysis] = None,
       withFlags: WithFlags
@@ -94,19 +84,16 @@ final private[api] class RoundApi(
     jsonView.watcherJson(
       pov,
       ctx.pref,
-      apiVersion,
       ctx.me,
       tv,
       withFlags = withFlags.copy(blurs = ctx.me ?? Granter(_.ViewBlurs))
     ) zip
       tourApi.gameView.analysis(pov.game) zip
       (pov.game.simulId ?? simulApi.find) zip
-      ctx.userId.ifTrue(ctx.isMobileApi).?? { noteApi.get(pov.gameId, _) } zip
-      bookmarkApi.exists(pov.game, ctx.me) map { case ((((json, tour), simul), note), bookmarked) =>
+      bookmarkApi.exists(pov.game, ctx.me) map { case (((json, tour), simul), bookmarked) =>
         (
           withTournament(pov, tour) _ compose
             withSimul(simul) compose
-            withNote(note) compose
             withBookmark(bookmarked) compose
             withTree(pov, analysis, withFlags) compose
             withAnalysis(pov.game, analysis)
@@ -117,14 +104,12 @@ final private[api] class RoundApi(
 
   def embed(
       pov: Pov,
-      apiVersion: ApiVersion,
       analysis: Option[Analysis] = None,
       withFlags: WithFlags
   ): Fu[JsObject] = {
     jsonView.watcherJson(
       pov,
       Pref.default,
-      apiVersion,
       none,
       none,
       withFlags = withFlags
@@ -176,9 +161,6 @@ final private[api] class RoundApi(
       variant = pov.game.variant,
       initialSfen = pov.game.initialSfen
     ))
-
-  private def withNote(note: String)(json: JsObject) =
-    if (note.isEmpty) json else json + ("note" -> JsString(note))
 
   private def withBookmark(v: Boolean)(json: JsObject) =
     json.add("bookmarked" -> v)

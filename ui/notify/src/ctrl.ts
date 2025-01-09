@@ -1,5 +1,4 @@
 import notify from 'common/notification';
-import * as xhr from 'common/xhr';
 import { Ctrl, NotifyData, NotifyOpts, Redraw } from './interfaces';
 import { asText } from './view';
 
@@ -39,20 +38,19 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     const notif = data.pager.currentPageResults.find(n => !n.read);
     if (!notif) return;
     opts.pulse();
-    if (!li.quietMode) li.sound.newPM();
+    if (!li.quietMode) li.sound.play('newPM');
     const text = asText(notif);
-    const pushSubsribed = parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
+    const pushSubsribed =
+      parseInt(li.storage.get('push-subscribed2') || '0', 10) + 86400000 >= Date.now(); // 24h
     if (!pushSubsribed && text) notify(text);
   }
 
   function loadPage(page: number) {
-    return $.get(
-      '/notify',
-      {
-        page: page || 1,
-      },
-      d => update(d, false)
-    ).fail(() => window.lishogi.announce({ msg: 'Failed to load notifications' }));
+    console.log('CALLED LAODPAGE');
+    return window.lishogi.xhr
+      .json('GET', '/notify', { url: { page: page || 1 } })
+      .then((d: any) => update(d, false))
+      .catch(() => window.lishogi.announce({ msg: 'Failed to load notifications' }));
   }
 
   function nextPage() {
@@ -97,17 +95,14 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
   };
 
   function clear() {
-    xhr
-      .text('/notify/clear', {
-        method: 'post',
-      })
-      .then(
-        _ => update(emptyNotifyData, false),
-        _ => window.lishogi.announce({ msg: 'Failed to clear notifications' })
-      );
+    window.lishogi.xhr.text('POST', '/notify/clear').then(
+      _ => update(emptyNotifyData, false),
+      _ => window.lishogi.announce({ msg: 'Failed to clear notifications' })
+    );
   }
 
   return {
+    redraw,
     data: () => data,
     initiating: () => initiating,
     scrolling: () => scrolling,

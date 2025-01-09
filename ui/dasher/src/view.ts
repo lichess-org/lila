@@ -1,7 +1,7 @@
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
 import { view as backgroundView } from './background';
-import { view as customThemeView } from './customTheme';
+import { view as customThemeView } from './custom-theme';
 import { DasherCtrl } from './dasher';
 import { view as langsView } from './langs';
 import links from './links';

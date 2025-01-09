@@ -22,11 +22,11 @@ object communication {
     views.html.base.layout(
       title = u.username + " communications",
       moreCss = frag(
-        cssTag("mod.communication"),
-        isGranted(_.UserSpy) option cssTag("mod.user")
+        cssTag("user.mod.communication"),
+        isGranted(_.UserSpy) option cssTag("user.mod.user")
       ),
       moreJs = frag(
-        isGranted(_.UserSpy) option jsAt("compiled/user-mod.js")
+        isGranted(_.UserSpy) option jsTag("user.mod")
       )
     ) {
       main(id := "communication", cls := "box box-pad")(

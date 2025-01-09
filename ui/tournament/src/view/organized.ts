@@ -1,9 +1,10 @@
-import { bind, MaybeVNodes } from 'common/snabbdom';
+import { bind, MaybeVNode, MaybeVNodes } from 'common/snabbdom';
 import { ids } from 'game/status';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
 import { arrangementHasUser, preloadUserTips, player as renderPlayer } from './util';
 import { Arrangement, PageData } from '../interfaces';
+import { i18n } from 'i18n';
 
 function tableClick(ctrl: TournamentController): (e: Event) => void {
   return (e: Event) => {
@@ -62,7 +63,7 @@ function playerTr(ctrl: TournamentController, player, rank: number) {
           ? h('i', {
               attrs: {
                 'data-icon': 'Z',
-                title: ctrl.trans.noarg('pause'),
+                title: i18n('pause'),
               },
             })
           : rank
@@ -101,7 +102,7 @@ export function standing(ctrl: TournamentController, pag: PageData, klass?: stri
   );
 }
 
-export function organizeArrangementButton(ctrl: TournamentController) {
+export function organizeArrangementButton(ctrl: TournamentController): MaybeVNode {
   if (!ctrl.isCreator()) return;
   return h(
     'button.fbt.text',

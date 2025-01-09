@@ -1,12 +1,14 @@
 import { VNode, h } from 'snabbdom';
 import InsightCtrl from '../ctrl';
 import { InsightFilter } from '../types';
-import { colorName } from 'common/colorName';
-import { bind, dataIcon, onInsert } from 'common/snabbdom';
+import { colorName } from 'shogi/color-name';
+import { bind, dataIcon } from 'common/snabbdom';
 import { allOptions } from '../filter';
+import { i18n, i18nPluralSame } from 'i18n';
+import { i18nVariant } from 'i18n/variant';
+import { translateSpeed } from './util';
 
 export function filter(ctrl: InsightCtrl): VNode {
-  const noarg = ctrl.trans.noarg;
   return h('div.filter', [
     h(
       'div.filter-toggle',
@@ -15,8 +17,8 @@ export function filter(ctrl: InsightCtrl): VNode {
         {
           hook: bind('click', () => (ctrl.filterToggle = !ctrl.filterToggle), ctrl.redraw),
         },
-        [noarg('filterGames'), h('i', { attrs: dataIcon(ctrl.filterToggle ? 'S' : 'R') })]
-      )
+        [i18n('filterGames'), h('i', { attrs: dataIcon(ctrl.filterToggle ? 'S' : 'R') })],
+      ),
     ),
     h(
       'div.filter-wrap',
@@ -26,22 +28,22 @@ export function filter(ctrl: InsightCtrl): VNode {
         },
       },
       [
-        h('h2', noarg('filterGames')),
-        options(ctrl, 'since', allOptions.since, (nb: number) => ctrl.trans.plural('nbDays', nb)),
-        options(ctrl, 'variant', allOptions.variant, noarg),
+        h('h2', i18n('filterGames')),
+        options(ctrl, 'since', allOptions.since, (nb: number) => i18nPluralSame('nbDays', nb)),
+        options(ctrl, 'variant', allOptions.variant, i18nVariant),
         options(ctrl, 'color', allOptions.color, (s: 'both' | 'sente' | 'gote') =>
           s === 'both'
-            ? `${colorName(noarg, 'sente', false)}/${colorName(noarg, 'gote', false)}`
-            : colorName(noarg, s, false)
+            ? `${colorName('sente', false)}/${colorName('gote', false)}`
+            : colorName(s, false),
         ),
         options(ctrl, 'rated', allOptions.rated, (s: 'both' | 'yes' | 'no') =>
-          s === 'both' ? `${noarg('yes')}/${noarg('no')}` : noarg(s)
+          s === 'both' ? `${i18n('yes')}/${i18n('no')}` : s === 'yes' ? i18n('yes') : i18n('no'),
         ),
         options(ctrl, 'computer', allOptions.computer, (s: 'both' | 'yes' | 'no') =>
-          s === 'both' ? `${noarg('yes')}/${noarg('no')}` : noarg(s)
+          s === 'both' ? `${i18n('yes')}/${i18n('no')}` : s === 'yes' ? i18n('yes') : i18n('no'),
         ),
-        options(ctrl, 'speeds', allOptions.speeds, ctrl.trans.noargOrCapitalize, true),
-      ]
+        optionsSpeed(ctrl),
+      ],
     ),
   ]);
 }
@@ -51,7 +53,6 @@ function options(
   key: keyof InsightFilter,
   values: string[],
   display: (value: string | number) => string,
-  multiSelect: boolean = false
 ): VNode {
   const current = ctrl.filter[key];
   function value2option(value: string, name: string): VNode {
@@ -60,41 +61,72 @@ function options(
       {
         attrs: {
           value: value,
-          selected: Array.isArray(current) && current.includes(value as Speed) ? 'selected' : current === value,
+          selected:
+            Array.isArray(current) && current.includes(value as Speed)
+              ? 'selected'
+              : current === value,
         },
       },
-      name
+      name,
     );
   }
   return h('div.options.key-' + key, [
-    h('h3', key === 'computer' ? ctrl.trans('computer') : ctrl.trans(key as any)),
+    h('h3', i18ns[key]),
     h(
       'select',
       {
-        attrs: { id: key, multiple: multiSelect },
+        attrs: { id: key },
         on: {
           change(e) {
             const value = (e.target as HTMLSelectElement).value;
-            if (!multiSelect) ctrl.updateFilter({ [key]: value });
+            ctrl.updateFilter({ [key]: value });
           },
         },
-        hook: onInsert(el => {
-          if (multiSelect)
-            $(el).multipleSelect({
-              placeholder: ctrl.trans(key as any),
-              width: '100%',
-              selectAll: false,
-              minimumCountSelected: 10,
-              onClick: function (view: { value: Speed; checked: boolean }) {
-                if (view.checked && !ctrl.filter.speeds.includes(view.value)) ctrl.filter.speeds.push(view.value);
-                else if (!view.checked && ctrl.filter.speeds.includes(view.value))
-                  ctrl.filter.speeds = ctrl.filter.speeds.filter(s => s !== view.value);
-                ctrl.updateFilter({}, true);
-              },
-            });
-        }),
       },
-      values.map(v => value2option(v, display(v)))
+      values.map(v => value2option(v, display(v))),
     ),
   ]);
 }
+
+function optionsSpeed(ctrl: InsightCtrl): VNode {
+  function speed2checkbox(speed: Speed): VNode {
+    return h('label', [
+      h('input', {
+        attrs: {
+          type: 'checkbox',
+          value: speed,
+          checked: ctrl.filter.speeds.includes(speed),
+        },
+        on: {
+          change(e) {
+            const isChecked = (e.target as HTMLInputElement).checked;
+            if (isChecked && !ctrl.filter.speeds.includes(speed)) ctrl.filter.speeds.push(speed);
+            else if (!isChecked && ctrl.filter.speeds.includes(speed))
+              ctrl.filter.speeds = ctrl.filter.speeds.filter(s => s !== speed);
+
+            ctrl.updateFilter({}, true);
+          },
+        },
+      }),
+      translateSpeed(speed),
+    ]);
+  }
+
+  return h('div.options.key-speed', [
+    h('h3', i18ns.speeds),
+    h(
+      'div',
+      allOptions.speeds.map(s => speed2checkbox(s)),
+    ),
+  ]);
+}
+
+const i18ns: Record<keyof InsightFilter, string> = {
+  since: i18n('search:from'),
+  variant: i18n('variant'),
+  color: i18n('insights:color'),
+  rated: i18n('rated'),
+  speeds: i18n('insights:speed'),
+  computer: i18n('computer'),
+  custom: i18n('custom'),
+};

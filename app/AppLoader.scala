@@ -25,11 +25,9 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   }
 
   lila.log("boot").info {
-    val java             = System.getProperty("java.version")
-    val mem              = Runtime.getRuntime().maxMemory() / 1024 / 1024
-    val appVersionCommit = ~configuration.getOptional[String]("app.version.commit")
-    val appVersionDate   = ~configuration.getOptional[String]("app.version.date")
-    s"lila $appVersionCommit $appVersionDate / java ${java}, memory: ${mem}MB"
+    val java = System.getProperty("java.version")
+    val mem  = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    s"lila / java ${java}, memory: ${mem}MB"
   }
 
   lila.mon.start(configuration.get[Boolean]("kamon.enabled"))

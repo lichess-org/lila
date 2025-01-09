@@ -34,9 +34,7 @@ final class ChallengeApi(
     isLimitedByMaxPlaying(c) flatMap {
       case true => fuFalse
       case false =>
-        {
-          repo like c flatMap { _ ?? repo.cancel }
-        } >> (repo insert c) >>- {
+        repo.insertIfMissing(c) >>- {
           uncacheAndNotify(c)
           Bus.publish(Event.Create(c), "challenge")
         } inject true

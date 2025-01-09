@@ -1,5 +1,6 @@
 import { VNode, h } from 'snabbdom';
 import { Close, header } from './util';
+import { i18n } from 'i18n';
 
 type Code = string;
 
@@ -18,11 +19,10 @@ export interface LangsCtrl {
   list(): Lang[];
   current: Code;
   accepted: Set<Code>;
-  trans: Trans;
   close: Close;
 }
 
-export function ctrl(data: LangsData, trans: Trans, close: Close): LangsCtrl {
+export function ctrl(data: LangsData, close: Close): LangsCtrl {
   const accepted = new Set(data.accepted);
   return {
     list() {
@@ -30,14 +30,13 @@ export function ctrl(data: LangsData, trans: Trans, close: Close): LangsCtrl {
     },
     current: data.current,
     accepted,
-    trans,
     close,
   };
 }
 
 export function view(ctrl: LangsCtrl): VNode {
   return h('div.sub.langs', [
-    header(ctrl.trans.noarg('language'), ctrl.close),
+    header(i18n('language'), ctrl.close),
     h(
       'form',
       {

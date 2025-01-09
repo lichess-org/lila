@@ -11,7 +11,9 @@ group.radio {
     left: -99999px;
   }
   label {
-    @extend %metal, %flex-center;
+    @extend %flex-center;
+    background: $c-bg-input;
+    color: $c-font-clear;
     justify-content: center;
     padding: 10px;
     height: 100%;
@@ -26,7 +28,7 @@ group.radio {
     border-right: 0;
   }
   input:checked + label {
-    @extend %active;
-    text-shadow: none !important;
+    background: $c-accent;
+    color: $c-accent-over;
   }
 }

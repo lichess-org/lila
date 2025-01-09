@@ -53,7 +53,6 @@ final class Analyse(
             case ((((((analysis, analysisInProgress), simul), chat), crosstable), bookmarked), kif) =>
               env.api.roundApi.review(
                 pov,
-                lila.api.Mobile.Api.currentVersion,
                 tv = userTv.map { u =>
                   lila.round.OnUserTv(u.id)
                 },
@@ -89,7 +88,6 @@ final class Analyse(
           val pov = Pov(game, shogi.Color.fromSente(color == "sente"))
           env.api.roundApi.embed(
             pov,
-            lila.api.Mobile.Api.currentVersion,
             withFlags = WithFlags()
           ) map { data =>
             Ok(html.analyse.embed(pov, data)).enableSharedArrayBuffer

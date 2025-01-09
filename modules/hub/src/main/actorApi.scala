@@ -98,7 +98,7 @@ package mod {
 }
 
 package playban {
-  case class Playban(userId: String, mins: Int)
+  case class Playban(userId: String, mins: Int, inTournament: Boolean)
 }
 
 package captcha {

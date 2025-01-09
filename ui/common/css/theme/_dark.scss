@@ -1,15 +1,6 @@
-@import 'default';
+@use 'sass:color';
 
-$theme: 'dark';
-$theme-light: false;
-$theme-dark: true;
-
-@function c-dimmer($color, $weight: 20%) {
-  @return mix(#000, $color, $weight);
-}
-@function c-clearer($color, $weight: 20%) {
-  @return mix(#fff, $color, $weight);
-}
+@use 'util' as *;
 
 $c-bg-page: hsl($c-site-hue, 8%, 7%);
 $c-bg-high: hsl($c-site-hue, 5%, 14%);
@@ -29,40 +20,45 @@ $c-font-clearer: c-light($c-font, 89%);
 $c-shade: c-light($c-font, 30%);
 $c-font-page: $c-font-dim;
 
-/* Primary: blue */
 $c-primary: hsl(209, 73%, 52%);
-$c-primary-dim: c-dimmer($c-primary, 15%);
-$c-primary-clear: c-clearer($c-primary);
+$c-primary-dim: c-blacker($c-primary, 15%);
+$c-primary-clear: c-whiter($c-primary, 20%);
+$c-primary-glow: hsl(231, 99%, 66%);
+$c-primary-over: #fff;
 
-/* Secondary: green */
 $c-secondary: hsl(88, 62%, 37%);
-$c-secondary-dim: c-dimmer($c-secondary);
-$c-secondary-dimmer: c-dimmer($c-secondary, 40%);
+$c-secondary-dim: c-blacker($c-secondary, 20%);
+$c-secondary-dimmer: c-blacker($c-secondary, 40%);
+$c-secondary-over: #fff;
 
-/* Brag: gold */
+$c-accent: hsl(22, 100%, 42%);
+$c-accent-dim: c-blacker($c-accent, 20%);
+$c-accent-clear: c-whiter($c-accent, 20%);
+$c-accent-over: #fff;
+
 $c-brag: hsl(37, 74%, 43%);
+$c-brag-over: #fff;
 
-/* Fancy: pink */
-$c-fancy: hsl(294, 62%, 48%);
+$c-red: hsl(0, 60%, 50%);
+$c-error: $c-red;
+$c-error-over: #fff;
 
-/* Good: green */
 $c-good: $c-secondary;
 $c-good-over: $c-secondary-over;
 
-/* Warn: orange */
 $c-warn: $c-brag;
 $c-warn-over: $c-brag-over;
 
-/* Bad: red */
 $c-bad: $c-error;
 $c-bad-over: $c-error-over;
 
-/* move error highlights */
+$c-fancy: hsl(294, 62%, 48%);
+$c-fancy-over: white;
+
 $c-inaccuracy: hsl(202, 78%, 62%);
 $c-mistake: hsl(41, 100%, 45%);
 $c-blunder: hsl(0, 69%, 60%);
 
-/* good move highlights */
 $c-good-move: hsl(130, 67%, 62%);
 $c-brilliant: hsl(129, 71%, 45%);
 $c-interesting: hsl(307, 80%, 70%);
@@ -70,11 +66,17 @@ $c-interesting: hsl(307, 80%, 70%);
 $c-link: $c-primary;
 $c-link-dim: $c-primary-dim;
 $c-link-clear: $c-primary-clear;
-$c-link-hover: c-clearer(saturate($c-primary, 100%), 25%);
+$c-link-hover: c-whiter(color.adjust($c-primary, $saturation: 100%), 25%);
+$c-link-over: $c-primary-over;
 
 $c-bg-box: $c-bg-high;
 $c-bg-box-opaque: $c-bg-box;
 $c-bg-input: c-light($c-bg-page, 13%);
+
+$c-border: hsl(0, 0%, 25%);
+$c-border-page: hsl(0, 0%, 22%);
+
+$c-page-mask: hsla(0, 0%, 0%, 0.6);
 
 $c-bg-popup: $c-bg-low;
 $c-popup: $c-font-clear;
@@ -82,30 +84,24 @@ $c-popup: $c-font-clear;
 $c-bg-header-dropdown: $c-bg-popup;
 $c-header-dropdown: $c-popup;
 
-$c-bot: $c-fancy;
-
-$c-page-input: $c-bg-box;
-
-$c-border: hsl(0, 0%, 25%);
-$c-border-page: hsl(0, 0%, 22%);
-$border: $border-width $border-style $c-border;
+$c-darken: #333;
+$c-clas: rgb(127, 90, 240);
 
 $c-font-shadow: black;
 $text-shadow: none;
 
-@mixin metal {
-  background: $c-bg-zebra;
-}
-@mixin metal-hover {
-  background: $c-bg-zebra2;
-  color: $c-font-clear;
-}
+$c-bot: $c-fancy;
 
-@mixin theme-style {
-}
+$c-page-input: $c-bg-box;
 
-$c-bg-sente: $c-bg-zebra;
-$c-font-sente: $c-font;
+$c-bg-metal: $c-bg-zebra;
+$c-font-metal: inherit;
+$metal-shadow: none;
+$c-bg-metal-hover: $c-bg-zebra2;
+$c-font-metal-hover: $c-font-clear;
 
-$c-bg-gote: $c-font;
-$c-font-gote: $c-bg-zebra;
+$sente-symbol: '☖';
+$gote-symbol: '☗';
+
+$c-eval-sente: #555;
+$c-eval-gote: #a0a0a0;

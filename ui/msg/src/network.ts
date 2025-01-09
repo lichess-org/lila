@@ -1,61 +1,71 @@
-import { form, json } from 'common/xhr';
 import MsgCtrl from './ctrl';
 import { Contact, Convo, Msg, MsgData, SearchResult, User } from './interfaces';
 
 export function loadConvo(userId: string): Promise<MsgData> {
-  return json(`/inbox/${userId}`).then(upgradeData);
+  return window.lishogi.xhr.json('GET', `/inbox/${userId}`).then(upgradeData);
 }
 
 export function getMore(userId: string, before: Date): Promise<MsgData> {
-  return json(`/inbox/${userId}?before=${before.getTime()}`).then(upgradeData);
+  return window.lishogi.xhr
+    .json('GET', `/inbox/${userId}`, {
+      url: {
+        before: before.getTime(),
+      },
+    })
+    .then(upgradeData);
 }
 
 export function loadContacts(): Promise<MsgData> {
-  return json(`/inbox`).then(upgradeData);
+  return window.lishogi.xhr.json('GET', `/inbox`).then(upgradeData);
 }
 
 export function search(q: string): Promise<SearchResult> {
-  return json(`/inbox/search?q=${q}`).then(
-    res =>
-      ({
-        ...res,
-        contacts: res.contacts.map(upgradeContact),
-      }) as SearchResult
-  );
+  return window.lishogi.xhr
+    .json('GET', `/inbox/search`, {
+      url: {
+        q,
+      },
+    })
+    .then(
+      res =>
+        ({
+          ...res,
+          contacts: res.contacts.map(upgradeContact),
+        }) as SearchResult
+    );
 }
 
-export function block(u: string) {
-  return json(`/rel/block/${u}`, { method: 'post' });
+export function block(u: string): Promise<any> {
+  return window.lishogi.xhr.json('POST', `/rel/block/${u}`);
 }
 
-export function unblock(u: string) {
-  return json(`/rel/unblock/${u}`, { method: 'post' });
+export function unblock(u: string): Promise<any> {
+  return window.lishogi.xhr.json('POST', `/rel/unblock/${u}`);
 }
 
 export function del(u: string): Promise<MsgData> {
-  return json(`/inbox/${u}`, { method: 'delete' }).then(upgradeData);
+  return window.lishogi.xhr.json('DELETE', `/inbox/${u}`).then(upgradeData);
 }
 
 export function report(name: string, text: string): Promise<any> {
-  return json('/report/flag', {
-    method: 'post',
-    body: form({
+  return window.lishogi.xhr.json('POST', '/report/flag', {
+    formData: {
       username: name,
       text: text,
       resource: 'msg',
-    }),
+    },
   });
 }
 
-export function post(dest: string, text: string) {
+export function post(dest: string, text: string): void {
   window.lishogi.pubsub.emit('socket.send', 'msgSend', { dest, text });
 }
 
-export function setRead(dest: string) {
+export function setRead(dest: string): void {
   window.lishogi.pubsub.emit('socket.send', 'msgRead', dest);
 }
 
-export function typing(dest: string) {
+export function typing(dest: string): void {
   window.lishogi.pubsub.emit('socket.send', 'msgType', dest);
 }
 
@@ -83,7 +93,7 @@ export function websocketHandler(ctrl: MsgCtrl) {
     }
   });
 
-  return () => connected;
+  return (): boolean => connected;
 }
 
 // the upgrade functions convert incoming timestamps into JS dates

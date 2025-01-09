@@ -39,7 +39,7 @@ final class Auth(
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(implicit
       ctx: Context
   ): Fu[Result] =
-    api.saveAuthentication(u.id, ctx.mobileApiVersion) flatMap { sessionId =>
+    api.saveAuthentication(u.id) flatMap { sessionId =>
       negotiate(
         html = fuccess {
           val redirectTo = get("referrer").flatMap(env.api.referrerRedirect.valid) orElse
@@ -47,7 +47,7 @@ final class Auth(
             routes.Lobby.home.url
           result.fold(Redirect(redirectTo))(_(redirectTo))
         },
-        api = _ => mobileUserOk(u, sessionId)
+        json = mobileUserOk(u, sessionId)
       ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
 
@@ -89,7 +89,7 @@ final class Auth(
             err =>
               negotiate(
                 html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
-                api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
+                json = Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
               ),
             usernameOrEmail =>
               HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
@@ -106,7 +106,7 @@ final class Auth(
                               case _ => Unauthorized(html.auth.login(err, referrer))
                             }
                           },
-                          api = _ =>
+                          json =
                             Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
                         )
                       },
@@ -116,7 +116,7 @@ final class Auth(
                           case Some(u) if u.disabled =>
                             negotiate(
                               html = redirectTo(routes.Account.reopen.url).fuccess,
-                              api = _ => Unauthorized(jsonError("This account is closed.")).fuccess
+                              json = Unauthorized(jsonError("This account is closed.")).fuccess
                             )
                           case Some(u) =>
                             env.user.repo.email(u.id) foreach {
@@ -138,7 +138,7 @@ final class Auth(
         env.push.webSubscriptionApi.unsubscribeBySession(currentSessionId) >>
         negotiate(
           html = Redirect(routes.Auth.login).fuccess,
-          api = _ => Ok(Json.obj("ok" -> true)).fuccess
+          json = Ok(Json.obj("ok" -> true)).fuccess
         ).dmap(_.withCookies(env.lilaCookie.newSession))
     }
 
@@ -147,7 +147,7 @@ final class Auth(
     Open { implicit ctx =>
       negotiate(
         html = notFound,
-        api = _ => {
+        json = {
           ctxReq.session get lila.common.HTTPRequest.userSessionIdKey foreach env.security.store.delete
           Ok(Json.obj("ok" -> true)).withCookies(env.lilaCookie.newSession).fuccess
         }
@@ -185,16 +185,14 @@ final class Auth(
                 case Signup.AllSet(user, email) =>
                   welcome(user, email, sendWelcomeEmail = true) >> redirectNewUser(user)
               },
-            api = apiVersion =>
-              env.security.signup
-                .mobile(apiVersion)
-                .flatMap {
-                  case Signup.RateLimited        => limitedDefault.zero.fuccess
-                  case Signup.Bad(err)           => jsonFormError(err)
-                  case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).fuccess
-                  case Signup.AllSet(user, email) =>
-                    welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user)
-                }
+            json = env.security.signup.mobile
+              .flatMap {
+                case Signup.RateLimited        => limitedDefault.zero.fuccess
+                case Signup.Bad(err)           => jsonFormError(err)
+                case Signup.ConfirmEmail(_, _) => Ok(Json.obj("email_confirm" -> true)).fuccess
+                case Signup.AllSet(user, email) =>
+                  welcome(user, email, sendWelcomeEmail = true) >> authenticateUser(user)
+              }
           )
         }
       }
@@ -281,10 +279,10 @@ final class Auth(
     }
 
   private def redirectNewUser(user: UserModel)(implicit ctx: Context) = {
-    api.saveAuthentication(user.id, ctx.mobileApiVersion) flatMap { sessionId =>
+    api.saveAuthentication(user.id) flatMap { sessionId =>
       negotiate(
         html = Redirect(routes.User.show(user.username)).fuccess,
-        api = _ => mobileUserOk(user, sessionId)
+        json = mobileUserOk(user, sessionId)
       ) map authenticateCookie(sessionId)
     } recoverWith authRecovery
   }

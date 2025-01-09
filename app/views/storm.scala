@@ -7,7 +7,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.common.String.html.safeJsonValue
 import lila.storm.{ StormDay, StormHigh }
 import lila.user.User
 
@@ -15,17 +14,13 @@ object storm {
 
   def home(data: JsObject, pref: JsObject, high: Option[StormHigh])(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = frag(cssTag("storm")),
-      moreJs = frag(
-        jsModule("storm"),
-        embedJsUnsafe(s"""$$(function() {
-          LishogiStorm.start(${safeJsonValue(
-            Json.obj(
-              "data" -> data,
-              "pref" -> pref,
-              "i18n" -> i18nJsObject(i18nKeys)
-            )
-          )})})""")
+      moreCss = cssTag("storm"),
+      moreJs = moduleJsTag(
+        "storm",
+        Json.obj(
+          "data" -> data,
+          "pref" -> pref
+        )
       ),
       title = "Tsume Storm",
       zoomable = true,
@@ -135,27 +130,4 @@ object storm {
       )
     )
 
-  private val i18nKeys = {
-    import lila.i18n.I18nKeys.{ storm => t }
-    List(
-      t.moveToStart,
-      t.puzzlesSolved,
-      t.newDailyHighscore,
-      t.newWeeklyHighscore,
-      t.newMonthlyHighscore,
-      t.newAllTimeHighscore,
-      t.previousHighscoreWasX,
-      t.playAgain,
-      t.score,
-      t.moves,
-      t.accuracy,
-      t.combo,
-      t.time,
-      t.timePerMove,
-      t.highestSolved,
-      t.puzzlesPlayed,
-      t.newRun,
-      t.endRun
-    ).map(_.key)
-  }
 }

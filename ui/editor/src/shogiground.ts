@@ -1,5 +1,5 @@
-import resizeHandle from 'common/resize';
-import { notationFiles, notationRanks } from 'common/notation';
+import resizeHandle from 'shogi/resize';
+import { notationFiles, notationRanks } from 'shogi/notation';
 import { Config as SgConfig } from 'shogiground/config';
 import { forsythToRole, roleToForsyth } from 'shogiops/sfen';
 import { handRoles, promote, unpromote } from 'shogiops/variant/util';

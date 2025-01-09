@@ -4,8 +4,6 @@ import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import kamon.tag.TagSet
 import kamon.metric.{ Counter, Timer }
 
-import lila.common.ApiVersion
-
 object mon {
 
   @inline private def tags(elems: (String, Any)*): Map[String, Any] = Map.from(elems)
@@ -185,8 +183,8 @@ object mon {
   object user {
     val online = gauge("user.online").withoutTags()
     object register {
-      def count(api: Option[ApiVersion]) = counter("user.register.count").withTag("api", apiTag(api))
-      def mustConfirmEmail(v: String)    = counter("user.register.mustConfirmEmail").withTag("type", v)
+      val count                       = counter("user.register.count").withoutTags()
+      def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) =
         counter("user.register.confirmEmail").withTag("success", successTag(success))
       val modConfirmEmail = counter("user.register.modConfirmEmail").withoutTags()
@@ -325,10 +323,10 @@ object mon {
       val prep              = future("tournament.pairing.prep")
       val wmmatching        = timer("tournament.pairing.wmmatching").withoutTags()
     }
-    object robin {
-      val create          = future("tournament.robin.create")
-      val createPlayerMap = timer("tournament.robin.create.playerMap").withoutTags()
-      val createFeature   = timer("tournament.robin.create.feature").withoutTags()
+    object arrangement {
+      val create          = future("tournament.arrangement.create")
+      val createPlayerMap = timer("tournament.arrangement.create.playerMap").withoutTags()
+      val createFeature   = timer("tournament.arrangement.create.feature").withoutTags()
     }
     val created        = gauge("tournament.count").withTag("type", "created")
     val started        = gauge("tournament.count").withTag("type", "started")
@@ -618,8 +616,6 @@ object mon {
       )
 
   private def successTag(success: Boolean) = if (success) "success" else "failure"
-
-  private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   implicit def mapToTags(m: Map[String, Any]): TagSet = TagSet from m
 }

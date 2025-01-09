@@ -1,10 +1,10 @@
-import { ChatPlugin } from 'chat';
+import { ChatPlugin } from 'chat/interfaces';
 import { GameData, Status } from 'game';
 import { MoveMetadata as SgMoveMetadata } from 'shogiground/types';
 import { Role } from 'shogiops/types';
 import { VNode } from 'snabbdom';
-import { Centis, ClockData, Seconds } from './clock/clockCtrl';
-import { CorresClockData } from './corresClock/corresClockCtrl';
+import { Centis, ClockData, Seconds } from './clock/clock-ctrl';
+import { CorresClockData } from './corres-clock/corres-clock-ctrl';
 import RoundController from './ctrl';
 
 export type Redraw = () => void;
@@ -34,10 +34,6 @@ export interface RoundData extends GameData {
   steps: Step[];
   forecastCount?: number;
   correspondence: CorresClockData;
-  url: {
-    socket: string;
-    round: string;
-  };
   tv?: Tv;
   userTv?: {
     id: string;
@@ -59,9 +55,8 @@ export interface Tv {
 export interface RoundOpts {
   data: RoundData;
   userId?: string;
-  socketSend: SocketSend;
+  socketSend: Socket.Send;
   onChange(d: RoundData): void;
-  element: HTMLElement;
   klasses: string[];
   crosstableEl: HTMLElement;
   i18n: any;

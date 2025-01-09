@@ -9,17 +9,26 @@ object embed {
 
   import EmbedConfig.implicits._
 
-  def apply(title: String, cssModule: String)(body: Modifier*)(implicit config: EmbedConfig) =
+  def apply(
+      title: String,
+      moreCss: Frag = emptyFrag,
+      moreJs: Frag = emptyFrag,
+      variant: shogi.variant.Variant = shogi.variant.Standard
+  )(body: Modifier*)(implicit config: EmbedConfig) =
     frag(
       layout.bits.doctype,
-      layout.bits.htmlTag(config.lang)(
+      layout.bits.htmlTag(config.lang, config.bg)(
         head(
           layout.bits.charset,
           layout.bits.viewport,
           layout.bits.metaCsp(basicCsp withNonce config.nonce),
           st.headTitle(title),
-          layout.bits.pieceSprite(config.pieceSet),
-          cssTagWithTheme(cssModule, config.bg)
+          pieceSpriteByVariant(variant),
+          cssTag("common.variables"),
+          moreCss,
+          embedJsUnsafe(layout.bits.windowLishogi, config.nonce.some),
+          vendorJsTag("shogiground", "shogiground.min.js"),
+          moreJs
         ),
         st.body(cls := s"base highlight ${config.board}")(
           layout.dataSoundSet     := SoundSet.silent.key,
@@ -33,4 +42,9 @@ object embed {
         )
       )
     )
+
+  def pieceSpriteByVariant(variant: shogi.variant.Variant)(implicit config: EmbedConfig): Frag =
+    if (variant.chushogi) chuPieceSprite(config.chuPieceSet)
+    else if (variant.kyotoshogi) kyoPieceSprite(config.kyoPieceSet)
+    else defaultPieceSprite(config.pieceSet)
 }

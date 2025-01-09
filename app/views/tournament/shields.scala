@@ -48,7 +48,7 @@ object shields {
   def byCateg(categ: TournamentShield.Category, awards: List[TournamentShield.Award])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournamentShields.txt(),
-      moreCss = frag(cssTag("tournament.leaderboard"), cssTag("slist"))
+      moreCss = frag(cssTag("tournament.leaderboard"), cssTag("misc.slist"))
     ) {
       main(cls := "page-menu page-small tournament-categ-shields")(
         views.html.user.bits.communityMenu("shield"),

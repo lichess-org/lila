@@ -5,6 +5,7 @@ import congrats from './congrats';
 import completed from './overlays/completed';
 import starting from './overlays/starting';
 import side from './side';
+import { i18n } from 'i18n';
 
 const star = h('i', { attrs: { 'data-icon': 't' } });
 
@@ -50,7 +51,7 @@ function renderFailed(ctrl: LearnCtrl) {
       },
     },
     [
-      h('h2', ctrl.trans.noarg('puzzleFailed')),
+      h('h2', i18n('learn:puzzleFailed')),
       h(
         'button',
         {
@@ -61,7 +62,7 @@ function renderFailed(ctrl: LearnCtrl) {
             },
           },
         },
-        ctrl.trans.noarg('retry')
+        i18n('learn:retry')
       ),
     ]
   );
@@ -80,7 +81,7 @@ function renderCompleted(ctrl: LearnCtrl) {
       },
     },
     [
-      h('h2', ctrl.trans.noarg(congrats())),
+      h('h2', congrats()),
       vm.level.nextButton || vm.stageState === 'end'
         ? h(
             'button',
@@ -92,7 +93,7 @@ function renderCompleted(ctrl: LearnCtrl) {
                 },
               },
             },
-            ctrl.trans.noarg('next')
+            i18n('next')
           )
         : makeStars(vm.score || 0),
     ]
@@ -111,7 +112,7 @@ function renderInfo(ctrl: LearnCtrl) {
         },
       },
     },
-    ctrl.trans.noarg(ctrl.vm.level.text)
+    ctrl.vm.level.text
   );
 }
 
@@ -155,13 +156,13 @@ export default function (ctrl: LearnCtrl): VNode {
         h('div.wrap', [
           h('div.title', [
             h('div.stage-img.' + stage.key),
-            h('div.text', [h('h2', ctrl.trans.noarg(stage.title)), h('p.subtitle', ctrl.trans.noarg(stage.subtitle))]),
+            h('div.text', [h('h2', stage.title), h('p.subtitle', stage.subtitle)]),
           ]),
           vm.levelState === 'fail'
             ? renderFailed(ctrl)
             : vm.levelState === 'completed'
               ? renderCompleted(ctrl)
-              : h('div.goal', typeof level.goal === 'string' ? ctrl.trans.noarg(level.goal) : level.goal(ctrl.trans)),
+              : h('div.goal', level.goal),
           progress(ctrl),
         ]),
       ]),

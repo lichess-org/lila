@@ -1,6 +1,7 @@
 import { bind, dataIcon } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import { Controller } from '../interfaces';
+import { i18n } from 'i18n';
 
 const renderVote = (ctrl: Controller): VNode =>
   h(
@@ -10,8 +11,8 @@ const renderVote = (ctrl: Controller): VNode =>
       : [
           ctrl.session.isNew() && ctrl.getData().user?.provisional
             ? h('div.puzzle__vote__help', [
-                h('p', ctrl.trans.noarg('didYouLikeThisPuzzle')),
-                h('p', ctrl.trans.noarg('voteToLoadNextOne')),
+                h('p', i18n('puzzle:didYouLikeThisPuzzle')),
+                h('p', i18n('puzzle:voteToLoadNextOne')),
               ])
             : null,
           h(
@@ -39,20 +40,20 @@ const renderContinue = (ctrl: Controller) =>
     {
       hook: bind('click', ctrl.nextPuzzle),
     },
-    [h('i', { attrs: dataIcon('G') }), ctrl.trans.noarg('continueTraining')]
+    [h('i', { attrs: dataIcon('G') }), i18n('puzzle:continueTraining')]
   );
 
 export default function (ctrl: Controller): VNode {
   const data = ctrl.getData();
   return h('div.puzzle__feedback.after', [
-    h('div.complete', ctrl.trans.noarg(ctrl.vm.lastFeedback == 'win' ? 'puzzleSuccess' : 'puzzleComplete')),
+    h('div.complete', ctrl.vm.lastFeedback == 'win' ? i18n('puzzle:puzzleSuccess') : i18n('puzzle:puzzleComplete')),
     data.user ? renderVote(ctrl) : renderContinue(ctrl),
     h('div.puzzle__more', [
       h('a', {
         attrs: {
           'data-icon': '',
           href: `/analysis/${ctrl.vm.node.sfen.replace(/ /g, '_')}?color=${ctrl.vm.pov}#practice`,
-          title: ctrl.trans.noarg('playWithTheMachine'),
+          title: i18n('playWithTheMachine'),
         },
       }),
       ctrl.getData().user
@@ -61,7 +62,7 @@ export default function (ctrl: Controller): VNode {
             {
               hook: bind('click', ctrl.nextPuzzle),
             },
-            ctrl.trans.noarg('continueTraining')
+            i18n('puzzle:continueTraining')
           )
         : undefined,
     ]),

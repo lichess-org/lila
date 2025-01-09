@@ -14,6 +14,7 @@ final private class Joiner(
     gameRepo exists c.id flatMap {
       case true                                                           => fuccess(None)
       case _ if color.map(Challenge.ColorChoice.apply).has(c.colorChoice) => fuccess(None)
+      case _ if !c.hasClock && destUser.isEmpty                           => fuccess(None)
       case _ =>
         c.challengerUserId.??(userRepo.byId) flatMap { challengerUser =>
           val shogiGame =

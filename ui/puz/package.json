@@ -1,33 +1,26 @@
 {
   "name": "puz",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org fast puzzle utils",
+  "license": "AGPL-3.0-or-later",
   "type": "module",
   "exports": {
     "./*": {
       "types": "./dist/*.d.ts",
-      "import": [
-        "./dist/*.js",
-        "./dist/*"
-      ]
+      "import": "./dist/*.js"
     }
   },
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
-  "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
-  },
   "dependencies": {
-    "common": "2.0.0",
-    "shogiground": "^0.9.0",
-    "shogiops": "^0.17.0",
-    "snabbdom": "^3.5.1"
+    "common": "workspace:*",
+    "shogi": "workspace:*",
+    "shogiground": "catalog:",
+    "shogiops": "catalog:",
+    "snabbdom": "catalog:"
   },
-  "devDependencies": {
-    "@types/lishogi": "2.0.0",
-    "typescript": "^5"
+  "scripts": {
+    "clean": "del dist",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true
   }
 }

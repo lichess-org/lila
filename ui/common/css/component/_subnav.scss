@@ -44,7 +44,7 @@
       @include transition();
       &::after {
         content: '';
-        background: fade-out($c-accent, 0.4);
+        background: $m-accent_alpha_neg40;
         width: 3px;
         position: absolute;
         height: 98%;

@@ -9,7 +9,6 @@ import scala.util.chaining._
 import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
-import lila.common.Json.jodaWrites
 import lila.common.{ HTTPRequest, IpAddress }
 
 final class Api(
@@ -21,28 +20,6 @@ final class Api(
 
   private val userApi = env.api.userApi
   private val gameApi = env.api.gameApi
-
-  private lazy val apiStatusJson = {
-    val api = lila.api.Mobile.Api
-    Json.obj(
-      "api" -> Json.obj(
-        "current" -> api.currentVersion.value,
-        "olds" -> api.oldVersions.map { old =>
-          Json.obj(
-            "version"       -> old.version.value,
-            "deprecatedAt"  -> old.deprecatedAt,
-            "unsupportedAt" -> old.unsupportedAt
-          )
-        }
-      )
-    )
-  }
-
-  val status = Action { req =>
-    val appVersion  = get("v", req)
-    val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade _
-    Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
-  }
 
   def index =
     Action {
@@ -132,7 +109,7 @@ final class Api(
 
   // for mobile app
   def userGames(name: String) =
-    MobileApiRequest { req =>
+    ApiRequest { req =>
       val page = (getInt("page", req) | 1) atLeast 1 atMost 200
       val nb   = MaxPerPage((getInt("nb", req) | 10) atLeast 1 atMost 100)
       val cost = page * nb.value + 10
@@ -343,11 +320,6 @@ final class Api(
   def ApiRequest(js: RequestHeader => Fu[ApiResult]) =
     Action.async { req =>
       js(req) map toHttp
-    }
-  def MobileApiRequest(js: RequestHeader => Fu[ApiResult]) =
-    Action.async { req =>
-      if (lila.api.Mobile.Api requested req) js(req) map toHttp
-      else fuccess(NotFound)
     }
 
   lazy val tooManyRequests =

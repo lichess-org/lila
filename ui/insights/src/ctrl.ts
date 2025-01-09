@@ -1,8 +1,7 @@
 import { InsightData, InsightFilter, InsightOpts, Redraw, Tab, tabs, variants } from './types';
 import { defaultFilter, filterOptions } from './filter';
 import { idFromSpeed, idFromVariant } from './util';
-
-const li = window.lishogi;
+import { debounce } from 'common/timings';
 
 export default class InsightCtrl {
   userId: string;
@@ -21,11 +20,10 @@ export default class InsightCtrl {
   data: InsightData;
   filter: InsightFilter;
 
-  trans: Trans;
   pref: any;
 
   constructor(
-    private opts: InsightOpts,
+    opts: InsightOpts,
     readonly redraw: Redraw
   ) {
     this.username = opts.username;
@@ -33,7 +31,6 @@ export default class InsightCtrl {
     this.usernameHash = opts.usernameHash;
     this.endpoint = opts.endpoint;
     this.isBot = opts.isBot;
-    this.trans = li.trans(this.opts.i18n);
     this.pref = opts.pref;
 
     const params = new URL(self.location.href).searchParams;
@@ -59,7 +56,11 @@ export default class InsightCtrl {
 
   updateUrl(): void {
     const q = this.queryString(this.activeTab, false);
-    window.history.replaceState('', '', `/insights/${this.userId}/${this.activeTab}${q ? `?${q}` : ''}`);
+    window.history.replaceState(
+      '',
+      '',
+      `/insights/${this.userId}/${this.activeTab}${q ? `?${q}` : ''}`
+    );
   }
 
   changeTab(tab: Tab): void {
@@ -132,11 +133,15 @@ export default class InsightCtrl {
       df = defaultFilter(false);
     if (forApi) {
       params.u = this.userId;
-      params.tmz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      params.tmz =
+        window.Intl && Intl.DateTimeFormat
+          ? Intl.DateTimeFormat().resolvedOptions().timeZone
+          : 'UTC';
     }
 
     if (this.filter.since !== df.since) params.since = this.filter.since;
-    if (this.filter.variant !== df.variant) params.variant = idFromVariant(this.filter.variant).toString();
+    if (this.filter.variant !== df.variant)
+      params.variant = idFromVariant(this.filter.variant).toString();
     if (this.filter.color !== df.color) params.color = this.filter.color;
     if (this.filter.rated !== df.rated) params.rated = this.filter.rated;
     if (this.filter.computer !== df.computer) params.computer = this.filter.computer;
@@ -165,14 +170,14 @@ export default class InsightCtrl {
     this.fetchData('custom');
   }
 
-  updateFilter(flt: Partial<InsightFilter>, debounce: boolean = false): void {
+  updateFilter(flt: Partial<InsightFilter>, toDebounce: boolean = false): void {
     if (flt.color && flt.color !== 'both') this.mostPlayedMovesColor = flt.color;
 
     Object.assign(this.filter, flt);
     this.updateUrl();
     this.resetData();
     this.redraw();
-    if (debounce) window.lishogi.debounce(() => this.fetchData(this.activeTab), 1500)();
+    if (toDebounce) debounce(() => this.fetchData(this.activeTab), 1500)();
     else this.fetchData(this.activeTab);
   }
 

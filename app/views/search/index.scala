@@ -20,11 +20,11 @@ object index {
     import commons._
     views.html.base.layout(
       title = searchInXGames.txt(nbGames.localize, nbGames),
+      moreCss = cssTag("misc.search"),
       moreJs = frag(
-        jsTag("search.js"),
+        jsTag("misc.search"),
         infiniteScrollTag
-      ),
-      moreCss = cssTag("search")
+      )
     ) {
       main(cls := "box page-small search")(
         h1(advancedSearch()),

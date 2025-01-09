@@ -1,7 +1,7 @@
 import { DrawShape, SquareHighlight } from 'shogiground/draw';
 import { opposite } from 'shogiground/util';
 import { attacks } from 'shogiops/attacks';
-import { SquareSet } from 'shogiops/squareSet';
+import { SquareSet } from 'shogiops/square-set';
 import { Piece } from 'shogiops/types';
 import { makeSquareName, parseSquareName } from 'shogiops/util';
 import { Level, Shape, UsiWithColor, VmEvaluation } from './interfaces';
@@ -66,7 +66,9 @@ export function onDest<T extends Shape>(dest: Key, shapes: T[]): VmEvaluation<T[
 export function onSuccess<T extends Shape>(shapes: T[]): VmEvaluation<T[]> {
   return (level: Level, usiCList: UsiWithColor[]): T[] => {
     const usiCListTrim =
-      usiCList.length && usiCList[usiCList.length - 1].color !== level.color ? usiCList.slice(0, -1) : usiCList;
+      usiCList.length && usiCList[usiCList.length - 1].color !== level.color
+        ? usiCList.slice(0, -1)
+        : usiCList;
     if (level.success(level, usiCListTrim)) return shapes;
     else return [];
   };

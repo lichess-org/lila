@@ -1,4 +1,3 @@
-@import '../../site/css/user/number-menu';
 @import 'side';
 
 // canvas {
@@ -32,7 +31,9 @@
   @import 'times';
   @import 'analysis';
   @import 'custom';
+}
 
+.angle-content {
   min-height: calc(98vh - 4rem - var(--site-header-height) - var(--site-header-margin));
   height: calc(100% - 4rem);
   max-width: 100vw;
@@ -227,13 +228,13 @@
     }
     .table-col3 {
       flex: 5;
-      @include breakpoint($mq-small) {
-        flex: 7;
-      }
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
+      @include breakpoint($mq-small) {
+        flex: 7;
+      }
     }
   }
   & > div:first-child {

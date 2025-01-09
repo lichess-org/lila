@@ -1,7 +1,6 @@
 package lila.challenge
 
 import org.joda.time.DateTime
-import scala.annotation.nowarn
 
 import lila.common.config.Max
 import lila.db.dsl._
@@ -59,17 +58,23 @@ final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit
       x ::: y
     }
 
-  @nowarn("cat=unused") def like(c: Challenge) =
+  private def sameOrigAndDest(c: Challenge) =
     ~(for {
       challengerId <- c.challengerUserId
-      destUserId   <- c.destUserId
-      if c.active
+      destUserId   <- c.destUserId.ifTrue(c.active)
     } yield coll.one[Challenge](
       selectCreated ++ $doc(
         "challenger.id" -> challengerId,
         "destUser.id"   -> destUserId
       )
     ))
+
+  def insertIfMissing(c: Challenge) = sameOrigAndDest(c) flatMap {
+    case Some(prev) if prev.rematchOf.exists(c.rematchOf.has) => funit
+    case Some(prev) if prev.id == c.id                        => funit
+    case Some(prev)                                           => cancel(prev) >> insert(c)
+    case None                                                 => insert(c)
+  }
 
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))

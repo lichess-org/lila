@@ -1,8 +1,7 @@
 {
   "name": "game",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org game",
+  "license": "AGPL-3.0-or-later",
   "type": "module",
   "exports": {
     ".": {
@@ -14,18 +13,17 @@
       "import": "./dist/*.js"
     }
   },
-  "author": "Thibault Duplessis",
-  "license": "AGPL-3.0-or-later",
-  "scripts": {
-    "compile": "../../node_modules/typescript/bin/tsc --incremental",
-    "dev": "yarn run compile",
-    "prod": "yarn run compile"
-  },
   "dependencies": {
-    "snabbdom": "^3.5.1"
+    "common": "workspace:*",
+    "shogi": "workspace:*",
+    "i18n": "workspace:*",
+    "snabbdom": "catalog:"
   },
-  "devDependencies": {
-    "@types/lishogi": "2.0.0",
-    "typescript": "^5"
+  "scripts": {
+    "clean": "del dist",
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "compile": true
   }
 }

@@ -1,5 +1,7 @@
 import { VNode, h } from 'snabbdom';
 import { Close, Redraw, bind, header } from './util';
+import { debounce } from 'common/timings';
+import { i18n } from 'i18n';
 
 type SoundKey = string;
 
@@ -18,11 +20,10 @@ export interface SoundCtrl {
   set(k: SoundKey): void;
   volume(v: number): void;
   redraw: Redraw;
-  trans: Trans;
   close: Close;
 }
 
-export function ctrl(soundData: SoundData, trans: Trans, redraw: Redraw, close: Close): SoundCtrl {
+export function ctrl(soundData: SoundData, redraw: Redraw, close: Close): SoundCtrl {
   const api = window.lishogi.sound;
 
   return {
@@ -34,25 +35,24 @@ export function ctrl(soundData: SoundData, trans: Trans, redraw: Redraw, close: 
     set(key: SoundKey) {
       api.speech(key == 'speech');
       window.lishogi.pubsub.emit('speech.enabled', api.speech());
-      if (api.speech()) api.say({ en: 'Speech synthesis ready' });
+      if (api.speech()) api.say({ en: 'Speech synthesis ready', jp: '音声合成の準備が整いました' });
       else {
         api.changeSet(key);
         // If we want to play move for all sets we need to get move sound for pentatonic
-        if (key === 'music') api.genericNotify();
-        else api.move();
-        $.post('/pref/soundSet', { set: key }).fail(() =>
-          window.lishogi.announce({ msg: 'Failed to save sound preference' })
-        );
+        if (key === 'music') api.play('genericNotify');
+        else api.play('move');
+        window.lishogi.xhr
+          .text('POST', '/pref/soundSet', { formData: { set: key } })
+          .catch(() => window.lishogi.announce({ msg: 'Failed to save sound preference' }));
       }
       redraw();
     },
     volume(v: number) {
       api.setVolume(v);
       // plays a move sound if speech is off
-      api.move('pawn 7 F');
+      api.sayOrPlay('move', { en: 'Volume set', jp: '音量が設定されました' });
     },
     redraw,
-    trans,
     close,
   };
 }
@@ -70,28 +70,41 @@ export function view(ctrl: SoundCtrl): VNode {
       },
     },
     [
-      header(ctrl.trans.noarg('sound'), ctrl.close),
+      header(i18n('sound'), ctrl.close),
       h('div.content', [
-        h('div.slider', { hook: { insert: vn => makeSlider(ctrl, vn) } }),
         h('div.selector', ctrl.makeList().map(soundView(ctrl, current))),
+        slider(ctrl),
       ]),
-    ]
+    ],
   );
 }
 
-function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
-  const setVolume = window.lishogi.debounce(ctrl.volume, 50);
-  window.lishogi.slider().done(() => {
-    $(vnode.elm as HTMLElement).slider({
-      orientation: 'vertical',
-      min: 0,
-      max: 1,
-      range: 'min',
-      step: 0.01,
-      value: ctrl.api.getVolume(),
-      slide: (_: any, ui: any) => setVolume(ui.value),
-    });
-  });
+function slider(ctrl: SoundCtrl): VNode {
+  return h(
+    'div.slider',
+    h('input', {
+      attrs: {
+        id: 'sound-slider',
+        type: 'range',
+        min: 0,
+        max: 1,
+        step: 0.01,
+      },
+      hook: {
+        insert: vnode => {
+          const el = vnode.elm as HTMLInputElement,
+            setVolume = debounce(ctrl.volume, 300);
+
+          el.value = ctrl.api.getVolume();
+          el.addEventListener('input', _ => {
+            const value = parseFloat(el.value);
+            setVolume(value);
+          });
+          el.addEventListener('mouseout', _ => el.blur());
+        },
+      },
+    }),
+  );
 }
 
 function soundView(ctrl: SoundCtrl, current: SoundKey) {
@@ -103,6 +116,6 @@ function soundView(ctrl: SoundCtrl, current: SoundKey) {
         class: { active: current === s.key },
         attrs: { 'data-icon': 'E' },
       },
-      s.name
+      s.name,
     );
 }

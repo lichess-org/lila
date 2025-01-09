@@ -48,13 +48,13 @@ final class Tv(
       val onTv = lila.round.OnLishogiTv(channel.key, flip)
       negotiate(
         html = env.tournament.api.gameView.watcher(pov.game) flatMap { tour =>
-          env.api.roundApi.watcher(pov, tour, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
+          env.api.roundApi.watcher(pov, tour, tv = onTv.some) zip
             env.game.crosstableApi.withMatchup(game) zip
             env.tv.tv.getChampions map { case ((data, cross), champions) =>
               Ok(html.tv.index(channel, champions, pov, data, cross, history)).noCache
             }
         },
-        api = apiVersion => env.api.roundApi.watcher(pov, none, apiVersion, tv = onTv.some) dmap { Ok(_) }
+        json = env.api.roundApi.watcher(pov, none, tv = onTv.some) dmap { Ok(_) }
       )
     }
   }

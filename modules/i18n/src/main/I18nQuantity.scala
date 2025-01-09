@@ -34,7 +34,7 @@ private object I18nQuantity {
       else Other
 
     def french(c: Count) =
-      if (c < 2) One
+      if (c <= 1) One
       else Other
 
     def czech(c: Count) =
@@ -121,10 +121,6 @@ private object I18nQuantity {
       else if (c == 2) Two
       else Other
 
-    def zero(c: Count) =
-      if (c == 0 || c == 1) One
-      else Other
-
     @nowarn("cat=unused") def none(c: Count) = Other
   }
 
@@ -133,7 +129,9 @@ private object I18nQuantity {
   private val langMap: Map[Language, Selector] = LangList.all.map { case (lang, _) =>
     lang.language -> (lang.language match {
 
-      case "fr" | "ff" | "kab" => french _
+      case "fr" | "ff" | "kab" | "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" |
+          "ti" | "wa" =>
+        french _
 
       case "cs" | "sk" => czech _
 
@@ -158,9 +156,6 @@ private object I18nQuantity {
       case "mt" => maltese _
 
       case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
-
-      case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
-        selectors.zero _
 
       case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
           "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |

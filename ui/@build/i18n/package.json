@@ -1,0 +1,17 @@
+{
+  "name": "@build/i18n",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "devDependencies": {
+    "tsx": "catalog:",
+    "fast-glob": "^3",
+    "fast-xml-parser": "^4",
+    "@build/wrapper": "workspace:*",
+    "@types/node": "catalog:"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "start": "tsx ./src/index.ts"
+  }
+}

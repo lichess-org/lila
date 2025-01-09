@@ -18,7 +18,7 @@
   .game-list {
     .host {
       @extend %box-radius;
-      box-shadow: 0 0 0 7px fade-out($c-accent, 0.7);
+      box-shadow: 0 0 0 7px $m-accent_alpha_neg70;
     }
     .vstext {
       @extend %metal;

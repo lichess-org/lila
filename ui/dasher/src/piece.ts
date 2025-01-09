@@ -1,5 +1,8 @@
 import { VNode, h } from 'snabbdom';
 import { Close, Redraw, bind, header } from './util';
+import { assetUrl } from 'common/assets';
+import { i18nVariant } from 'i18n/variant';
+import { i18n } from 'i18n';
 
 type PieceSetKey = string;
 type PieceSet = {
@@ -14,7 +17,6 @@ export interface PieceSetData {
 }
 
 export interface PieceCtrl {
-  trans: Trans;
   std: PieceSetData;
   chu: PieceSetData;
   kyo: PieceSetData;
@@ -28,14 +30,12 @@ export function ctrl(
   std: PieceSetData,
   chu: PieceSetData,
   kyo: PieceSetData,
-  trans: Trans,
   redraw: Redraw,
   close: Close
 ): PieceCtrl {
   const isChushogi = !!document.body.querySelector('.main-v-chushogi'),
     isKyotoshogi = !isChushogi && !!document.body.querySelector('.main-v-kyotoshogi');
   return {
-    trans,
     std: std,
     chu: chu,
     kyo: kyo,
@@ -51,9 +51,15 @@ export function ctrl(
       else std.current = key;
 
       applyPiece(key);
-      $.post(`/pref/${isChu(key) ? 'chuPieceSet' : isKyo(key) ? 'kyoPieceSet' : 'pieceSet'}`, {
-        set: key,
-      }).fail(() => window.lishogi.announce({ msg: 'Failed to save piece set preference' }));
+      window.lishogi.xhr
+        .text(
+          'POST',
+          `/pref/${isChu(key) ? 'chuPieceSet' : isKyo(key) ? 'kyoPieceSet' : 'pieceSet'}`,
+          {
+            formData: { set: key },
+          }
+        )
+        .catch(() => window.lishogi.announce({ msg: 'Failed to save piece set preference' }));
       redraw();
     },
     close,
@@ -62,7 +68,7 @@ export function ctrl(
 
 export function view(ctrl: PieceCtrl): VNode {
   return h('div.sub.piece', [
-    header(ctrl.trans.noarg('pieceSet'), () => ctrl.close()),
+    header(i18n('pieceSet'), () => ctrl.close()),
     h(
       'div.list-wrap',
       {
@@ -86,7 +92,11 @@ export function view(ctrl: PieceCtrl): VNode {
         }),
       },
       ['standard', 'chushogi', 'kyotoshogi'].map((v: Tab) =>
-        h('div', { attrs: { 'data-tab': v }, class: { active: ctrl.activeTab === v } }, ctrl.trans.noarg(v))
+        h(
+          'div',
+          { attrs: { 'data-tab': v }, class: { active: ctrl.activeTab === v } },
+          i18nVariant(v)
+        )
       )
     ),
   ]);
@@ -127,7 +137,7 @@ function pieceView(current: PieceSetKey) {
       [
         h('piece', {
           attrs: {
-            style: `background-image:url(${window.lishogi.assetUrl(pieceImage(p.key))}); will-change: ${
+            style: `background-image:url(${assetUrl(pieceImage(p.key))}); will-change: ${
               isPngPiece(p.key) && p.key !== 'pixel' ? 'transform' : 'auto'
             }`,
           },

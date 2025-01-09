@@ -39,9 +39,10 @@ export interface Seek {
   variant?: VariantKey;
 }
 
+export type RatingsRecord = Record<Perf, { rating: number; clueless?: boolean } | undefined>;
+
 export interface LobbyOpts extends Untyped {
-  element: HTMLElement;
-  socketSend: SocketSend;
+  socketSend: Socket.Send;
   blindMode: boolean;
   variant?: VariantKey;
   sfen?: string;
@@ -67,6 +68,6 @@ export interface PresetOpts {
   isAnon: boolean;
   isNewPlayer: boolean;
   aiLevel?: number;
-  rating?: number;
+  ratings?: RatingsRecord;
   ratingDiff: number;
 }

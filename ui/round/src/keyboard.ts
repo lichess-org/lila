@@ -6,16 +6,16 @@ const preventing = (f: () => void) => (e: MouseEvent) => {
   f();
 };
 
-export function prev(ctrl: RoundController) {
+export function prev(ctrl: RoundController): void {
   ctrl.userJump(ctrl.ply - 1);
 }
 
-export function next(ctrl: RoundController) {
+export function next(ctrl: RoundController): void {
   ctrl.userJump(ctrl.ply + 1);
 }
 
-export function init(ctrl: RoundController) {
-  const k = window.Mousetrap;
+export function init(ctrl: RoundController): void {
+  const k = window.lishogi.mousetrap;
   k.bind(
     ['left', 'j'],
     preventing(function () {

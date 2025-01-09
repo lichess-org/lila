@@ -1,5 +1,6 @@
 import { VNode, h } from 'snabbdom';
 import LearnCtrl from '../ctrl';
+import { i18n } from 'i18n';
 
 export default function (ctrl: LearnCtrl): VNode {
   return h('div.learn__side-map', [
@@ -14,7 +15,7 @@ export default function (ctrl: LearnCtrl): VNode {
             },
           },
         },
-        [h('div.stage-img.samurai-helmet'), ctrl.trans.noarg('menu')]
+        [h('div.stage-img.samurai-helmet'), i18n('learn:menu')]
       ),
       ...ctrl.categories.map(categ => {
         return h(
@@ -35,7 +36,7 @@ export default function (ctrl: LearnCtrl): VNode {
                   },
                 },
               },
-              ctrl.trans.noarg(categ.key)
+              categ.name
             ),
             h(
               'div.categ_stages',
@@ -52,7 +53,7 @@ export default function (ctrl: LearnCtrl): VNode {
                       },
                     },
                   },
-                  [h(`div.stage-img.${s.key}`), h('span', ctrl.trans.noarg(s.title))]
+                  [h(`div.stage-img.${s.key}`), h('span', s.title)]
                 );
               })
             ),

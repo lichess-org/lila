@@ -22,13 +22,10 @@ trait ScalatagsAttrs {
   val dataIcon         = attr("data-icon")
   val dataHref         = attr("data-href")
   val dataCount        = attr("data-count")
-  val dataEnableTime   = attr("data-enable-time")
-  val datatime24h      = attr("data-time_24h")
   val dataColor        = attr("data-color")
   val dataSfen         = attr("data-sfen")
   val dataVariant      = attr("data-variant")
   val dataLastUsi      = attr("data-lastmove")
-  val dataNoHands      = attr("data-no-hands")
   val dataRel          = attr("data-rel")
   val novalidate       = attr("novalidate").empty
   val datetimeAttr     = attr("datetime")

@@ -13,7 +13,7 @@ object invite {
       invite: ClasInvite
   )(implicit ctx: Context) =
     views.html.base.layout(
-      moreCss = cssTag("clas"),
+      moreCss = cssTag("misc.clas"),
       title = c.name
     ) {
       main(cls := "page-small box box-pad page clas-invitation")(

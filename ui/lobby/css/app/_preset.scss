@@ -19,10 +19,9 @@
     align-items: center;
     cursor: pointer;
     border: $border;
-    @if $theme-light {
-      background: fade-out($c-bg-box, 0.5);
-    } @else {
-      background: fade-out($c-font-dim, 0.95);
+    background: $m-font-dim_alpha_neg90;
+    @include theme-wrap('light') {
+      background: $m-bg-box_alpha_neg50;
     }
     color: $c-font-clear;
     @include transition();
@@ -39,7 +38,7 @@
       position: relative;
     }
     &:hover {
-      background: fade-out($c-accent, 0.8);
+      background: $m-accent_alpha_neg80;
       opacity: 1;
       &.isReady::before {
         opacity: 0.5;

@@ -189,7 +189,6 @@ final class ClasApi(
           passwordHash = authenticator.passEnc(password),
           email = email,
           blind = false,
-          mobileApiVersion = none,
           mustConfirmEmail = false,
           lang = teacher.lang
         )

@@ -9,7 +9,7 @@ import reactivemongo.api.bson.{ BSONHandler, Macros }
 import scala.concurrent.duration._
 import scala.concurrent.blocking
 
-import lila.common.{ ApiVersion, HTTPRequest, IpAddress, ThreadLocalRandom }
+import lila.common.{ HTTPRequest, IpAddress, ThreadLocalRandom }
 import lila.db.dsl._
 import lila.user.User
 
@@ -54,7 +54,6 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
       sessionId: String,
       userId: User.ID,
       req: RequestHeader,
-      apiVersion: Option[ApiVersion],
       up: Boolean,
       fp: Option[FingerPrint]
   ): Funit =
@@ -73,7 +72,6 @@ final class Store(val coll: Coll, cacheApi: lila.memo.CacheApi, localIp: IpAddre
           "ua"   -> HTTPRequest.userAgent(req).|("?"),
           "date" -> DateTime.now,
           "up"   -> up,
-          "api"  -> apiVersion.map(_.value),
           "fp"   -> fp.flatMap(FingerHash.apply).flatMap(fingerHashBSONHandler.writeOpt)
         )
       )

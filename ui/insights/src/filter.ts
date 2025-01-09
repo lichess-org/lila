@@ -1,4 +1,4 @@
-import { InsightFilter, InsightFilterWithoutCustom, speeds, variants } from './types';
+import { InsightFilter, InsightFilterOptions, InsightFilterWithoutCustom, speeds, variants } from './types';
 
 export function defaultFilter(isBot: boolean): InsightFilter {
   return {
@@ -19,7 +19,7 @@ export function defaultFilter(isBot: boolean): InsightFilter {
 export function filterOptions<K extends keyof InsightFilterWithoutCustom>(key: K): InsightFilterWithoutCustom[K][] {
   return allOptions[key] as InsightFilterWithoutCustom[K][];
 }
-export const allOptions = {
+export const allOptions: InsightFilterOptions = {
   since: [7, 30, 90, 365].map(n => n.toString()),
   variant: variants,
   color: ['both', 'sente', 'gote'],

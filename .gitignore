@@ -1,36 +1,31 @@
+# scala
+conf/application.conf
+target
+project/.bloop/
+project/project
+project/target
 .sbtopts
 .bloop/
 .metals/
-project/.bloop/
 .bsp
-
-conf/application.conf
-conf/version.conf
 .metals
-.vscode
 
-logs
-project/project
-project/target
+# ui stuff
 public/compiled
-public/vendor/bar-rating
-public/vendor/highcharts-4.2.5
-public/vendor/hopscotch
-public/vendor/fairy
-public/vendor/spectrum
-public/vendor/sliding-puzzles
-public/css/
-target
-data/
+public/css
+public/vendors
+public/translation
+ui/common/css/theme/gen
+ui/**/*/tsconfig.tsbuildinfo
 dist/
 node_modules/
-local/
-ui/*/npm-debug.log
-ui/*/tsconfig.tsbuildinfo
-hs_*.log
-yarn-error.log
 
-RUNNING_PID
+# logs
+logs
+hs_*.log
+
+# vscode
+.vscode
 
 # Eclipse auto-generated files
 /modules/*/.classpath

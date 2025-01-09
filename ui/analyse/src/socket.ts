@@ -10,13 +10,13 @@ interface Req {
 }
 
 export interface Socket {
-  send: SocketSend;
+  send: Socket.Send;
   receive(type: string, data: any): boolean;
   sendAnaUsi(req: Req): void;
   sendForecasts(req: Req): void;
 }
 
-export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
+export function make(send: Socket.Send, ctrl: AnalyseCtrl): Socket {
   let anaUsiTimeout: number | undefined;
 
   // forecast mode: reload when opponent moves
@@ -31,7 +31,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   }
 
   function addStudyData(req, isWrite = false): void {
-    var c = currentChapterId();
+    const c = currentChapterId();
     if (c) {
       req.ch = c;
       if (isWrite) {
@@ -54,7 +54,11 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       ctrl.reset();
     },
     sfen(e) {
-      if (ctrl.forecast && e.id === ctrl.data.game.id && treeOps.last(ctrl.mainline)!.sfen.indexOf(e.sfen) !== 0) {
+      if (
+        ctrl.forecast &&
+        e.id === ctrl.data.game.id &&
+        treeOps.last(ctrl.mainline)!.sfen.indexOf(e.sfen) !== 0
+      ) {
         ctrl.forecast.reloadToLastPly();
       }
     },

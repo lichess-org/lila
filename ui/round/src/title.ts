@@ -1,18 +1,21 @@
 import { isPlayerTurn } from 'game';
 import { aborted, finished, paused } from 'game/status';
 import RoundController from './ctrl';
+import { i18n } from 'i18n';
 
 const initialTitle = document.title;
 
-var curFaviconIdx = 0;
-const F = ['/assets/logo/lishogi-favicon-32.png', '/assets/logo/lishogi-favicon-32-invert.png'].map(function (path, i) {
-  return function () {
-    if (curFaviconIdx !== i) {
-      (document.getElementById('favicon') as HTMLAnchorElement).href = path;
-      curFaviconIdx = i;
-    }
-  };
-});
+let curFaviconIdx = 0;
+const F = ['/assets/logo/lishogi-favicon-32.png', '/assets/logo/lishogi-favicon-32-invert.png'].map(
+  function (path, i) {
+    return function () {
+      if (curFaviconIdx !== i) {
+        (document.getElementById('favicon') as HTMLAnchorElement).href = path;
+        curFaviconIdx = i;
+      }
+    };
+  },
+);
 
 let tickerTimer: number | undefined;
 function resetTicker() {
@@ -31,22 +34,22 @@ function startTicker() {
   if (!tickerTimer) tickerTimer = setTimeout(tick, 200);
 }
 
-export function init() {
+export function init(): void {
   window.addEventListener('focus', resetTicker);
 }
 
-export function set(ctrl: RoundController, text?: string) {
+export function set(ctrl: RoundController, text?: string): void {
   if (ctrl.data.player.spectator) return;
   if (!text) {
     if (aborted(ctrl.data) || finished(ctrl.data)) {
-      text = ctrl.trans('gameOver');
+      text = i18n('gameOver');
     } else if (paused(ctrl.data)) {
-      text = ctrl.trans('gameAdjourned');
+      text = i18n('gameAdjourned');
     } else if (isPlayerTurn(ctrl.data)) {
-      text = ctrl.trans('yourTurn');
+      text = i18n('yourTurn');
       if (!document.hasFocus()) startTicker();
     } else {
-      text = ctrl.trans('waitingForOpponent');
+      text = i18n('waitingForOpponent');
       resetTicker();
     }
   }

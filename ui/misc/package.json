@@ -1,0 +1,26 @@
+{
+  "name": "misc",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "shogiops": "catalog:",
+    "shogiground": "catalog:",
+    "canvas-confetti": "^1.9.3",
+    "flatpickr": "^4.6",
+    "tablesort": "^5.3",
+    "@textcomplete/core": "catalog:",
+    "@textcomplete/textarea": "catalog:"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.6.4"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
+  }
+}

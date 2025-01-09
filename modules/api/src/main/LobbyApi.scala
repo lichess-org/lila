@@ -20,9 +20,17 @@ final class LobbyApi(
           Json.obj(
             "me" -> ctx.me.map { u =>
               Json
-                .obj("username" -> u.username)
+                .obj(
+                  "username" -> u.username,
+                  "ratings" -> JsObject(u.perfs.perfsMap map { case (key, perf) =>
+                    key -> Json
+                      .obj(
+                        "rating" -> perf.intRating
+                      )
+                      .add("clueless" -> perf.clueless)
+                  })
+                )
                 .add("isBot" -> u.isBot)
-                .add("rating" -> u.perfs.standard.some.withFilter(r => !r.clueless).map(_.intRating))
                 .add("aiLevel" -> u.perfs.aiLevels.standard)
                 .add("isNewPlayer" -> !u.hasGames)
             },

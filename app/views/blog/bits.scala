@@ -49,5 +49,4 @@ object bits {
       strong(cls := "headline")(post.doc.getHtml(s"${post.coll}.shortlede", prismic.linkResolver).map(raw))
     )
 
-  private[blog] def csp(implicit ctx: Context) = defaultCsp.withPrismic(isGranted(_.Prismic)).some
 }

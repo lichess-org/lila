@@ -1,14 +1,26 @@
 import throttle from 'common/throttle';
 import Filter from './filter';
-import * as hookRepo from './hookRepo';
-import { Hook, LobbyData, LobbyOpts, Mode, Preset, PresetOpts, Seek, Sort, Tab } from './interfaces';
-import * as seekRepo from './seekRepo';
-import Setup from './setup';
+import * as hookRepo from './hook-repo';
+import {
+  Hook,
+  LobbyData,
+  LobbyOpts,
+  Mode,
+  Preset,
+  PresetOpts,
+  RatingsRecord,
+  Seek,
+  Sort,
+  Tab,
+} from './interfaces';
+import * as seekRepo from './seek-repo';
 import LobbySocket from './socket';
 import { Stores, make as makeStores } from './store';
 import { action } from './util';
 import variantConfirm from './variant';
 import * as xhr from './xhr';
+import SetupCtrl from './setup/ctrl';
+import { loadChushogiPieceSprite, loadKyotoshogiPieceSprite } from 'common/assets';
 
 const li = window.lishogi;
 
@@ -26,34 +38,35 @@ export default class LobbyController {
   stepping: boolean = false;
   reloadSeeks: boolean = false;
   redirecting: boolean = false;
-  trans: Trans;
   filter: Filter;
-  setup: Setup;
+  ratings: RatingsRecord | undefined;
   presetOpts: PresetOpts;
   allPresets: Preset[];
   currentPresetId: string | undefined; // real time only
+  setupCtrl: SetupCtrl;
 
   private flushHooksTimeout?: number;
   private alreadyWatching: string[] = [];
 
   constructor(
     readonly opts: LobbyOpts,
-    readonly redraw: () => void
+    readonly redraw: () => void,
   ) {
     this.data = opts.data;
     this.data.hooks = [];
     this.playban = opts.playban;
     this.isBot = opts.data.me && opts.data.me.isBot;
     this.isAnon = !opts.data.me;
+    this.ratings = opts.data.me?.ratings;
     this.presetOpts = {
       isAnon: this.isAnon,
       isNewPlayer: !!opts.data.me?.isNewPlayer,
       aiLevel: opts.data.me?.aiLevel && parseInt(opts.data.me.aiLevel),
-      rating: opts.data.me?.rating && parseInt(opts.data.me.rating),
+      ratings: opts.data.me?.ratings,
       ratingDiff: 300,
     };
     this.filter = new Filter(li.storage.make('lobby.filter2'), this);
-    this.setup = new Setup(li.storage.make, this);
+    this.setupCtrl = new SetupCtrl(this);
     this.initAllPresets();
 
     this.socket = new LobbySocket(opts.socketSend, this);
@@ -61,15 +74,16 @@ export default class LobbyController {
     this.stores = makeStores(this.data.me ? this.data.me.username.toLowerCase() : null);
     (this.tab = this.isBot ? 'now_playing' : this.stores.tab.get()),
       (this.mode = this.stores.mode.get()),
-      (this.sort = this.stores.sort.get()),
-      (this.trans = opts.trans);
+      (this.sort = this.stores.sort.get());
 
     this.flushHooksSchedule();
 
+    this.updatePieceThemes();
     this.startWatching();
 
     if (this.playban) {
-      if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
+      if (this.playban.remainingSecond < 86400)
+        setTimeout(li.reload, this.playban.remainingSeconds * 1000);
     } else {
       setInterval(() => {
         if (hookRepo.tabs.includes(this.tab) && !this.data.hooks.length) this.socket.realTimeIn();
@@ -89,7 +103,7 @@ export default class LobbyController {
     if (this.tab === 'real_time') this.redraw();
   }
 
-  flushHooks = (now: boolean) => {
+  flushHooks = (now: boolean): void => {
     if (this.flushHooksTimeout) clearTimeout(this.flushHooksTimeout);
     if (now) this.doFlushHooks();
     else {
@@ -105,7 +119,7 @@ export default class LobbyController {
 
   private flushHooksSchedule = (): number => setTimeout(this.flushHooks, 8000);
 
-  initAllPresets = () => {
+  initAllPresets = (): void => {
     const highestDefeatedAi = this.presetOpts.aiLevel || 1,
       level = Math.min(Math.max(highestDefeatedAi, 2), 7); // the middle level
     this.allPresets = [
@@ -134,10 +148,11 @@ export default class LobbyController {
     });
   };
 
-  setTab = (tab: Tab, store = true) => {
+  setTab = (tab: Tab, store = true): void => {
     if (tab !== this.tab) {
       if (tab === 'seeks') this.seeksNow();
-      else if (hookRepo.tabs.includes(tab) && !hookRepo.tabs.includes(this.tab)) this.socket.realTimeIn();
+      else if (hookRepo.tabs.includes(tab) && !hookRepo.tabs.includes(this.tab))
+        this.socket.realTimeIn();
       else if (hookRepo.tabs.includes(this.tab) && !hookRepo.tabs.includes(tab)) {
         this.socket.realTimeOut();
         this.data.hooks = [];
@@ -149,48 +164,48 @@ export default class LobbyController {
     this.filter.open = false;
   };
 
-  setMode = (mode: Mode) => {
+  setMode = (mode: Mode): void => {
     this.mode = this.stores.mode.set(mode);
     this.filter.open = false;
   };
 
-  setSort = (sort: Extract<'rating' | 'time', Sort>) => {
+  setSort = (sort: Extract<'rating' | 'time', Sort>): void => {
     if (sort === this.sort) this.sort = this.stores.sort.set(sort + '-reverse');
     else this.sort = this.stores.sort.set(sort);
   };
 
-  onSetFilter = () => {
+  onSetFilter = (): void => {
     this.flushHooks(true);
     if (this.tab !== 'real_time') this.redraw();
   };
 
-  clickHook = (id: string) => {
+  clickHook = (id: string): void => {
     const hook = hookRepo.find(this, id);
     if (!hook || hook.disabled || this.stepping || this.redirecting) return;
     const act = action(hook);
-    if (act === 'cancel' || variantConfirm(hook.variant || 'standard', this.trans.noarg))
+    if (act === 'cancel' || variantConfirm(hook.variant || 'standard'))
       this.socket.send(act, hook.id);
   };
 
-  clickSeek = (id: string) => {
+  clickSeek = (id: string): void => {
     const seek = seekRepo.find(this, id);
     if (!seek || this.redirecting) return;
     const act = action(seek);
     if (this.isAnon) window.location.href = '/signup';
-    else if (act === 'cancel' || variantConfirm(seek.variant || 'standard', this.trans.noarg))
+    else if (act === 'cancel' || variantConfirm(seek.variant || 'standard'))
       this.socket.send(act + 'Seek', seek.id);
   };
 
-  seeksNow = throttle(100, () => xhr.seeks().then(this.setSeeks));
-  seeksEventually = throttle(7000, () => xhr.seeks().then(this.setSeeks));
+  seeksNow: () => void = throttle(100, () => xhr.seeks().then(this.setSeeks));
+  seeksEventually: () => void = throttle(7000, () => xhr.seeks().then(this.setSeeks));
 
-  setSeeks = (seeks: Seek[]) => {
+  setSeeks = (seeks: Seek[]): void => {
     this.reloadSeeks = false;
     this.data.seeks = seeks;
     this.redraw();
   };
 
-  clickPreset = preset => {
+  clickPreset = (preset: Preset): void => {
     xhr.seekFromPreset(preset, this.presetOpts);
     if (preset.ai) {
       this.setRedirecting();
@@ -203,24 +218,33 @@ export default class LobbyController {
     }
   };
 
-  gameActivity = gameId => {
+  gameActivity = (gameId: string): void => {
     if (this.data.nowPlaying.find(p => p.gameId === gameId))
       xhr.nowPlaying().then(povs => {
         this.data.nowPlaying = povs;
+        this.updatePieceThemes();
         this.startWatching();
         this.redraw();
       });
   };
 
+  private updatePieceThemes() {
+    if (this.data.nowPlaying.some(pov => pov.variant.key === 'chushogi')) loadChushogiPieceSprite();
+    if (this.data.nowPlaying.some(pov => pov.variant.key === 'kyotoshogi'))
+      loadKyotoshogiPieceSprite();
+  }
+
   private startWatching() {
-    const newIds = this.data.nowPlaying.map(p => p.gameId).filter(id => !this.alreadyWatching.includes(id));
+    const newIds = this.data.nowPlaying
+      .map(p => p.gameId)
+      .filter(id => !this.alreadyWatching.includes(id));
     if (newIds.length) {
       setTimeout(() => this.socket.send('startWatching', newIds.join(' ')), 2000);
       newIds.forEach(id => this.alreadyWatching.push(id));
     }
   }
 
-  setRedirecting = () => {
+  setRedirecting = (): void => {
     this.redirecting = true;
     setTimeout(() => {
       this.redirecting = false;
@@ -229,7 +253,7 @@ export default class LobbyController {
     this.redraw();
   };
 
-  awake = () => {
+  awake = (): void => {
     switch (this.tab) {
       case 'presets':
         this.data.hooks = [];

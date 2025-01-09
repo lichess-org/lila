@@ -8,8 +8,8 @@ import sign from 'puz/sign';
 import { getNow, puzzlePov, sound } from 'puz/util';
 import { Shogiground } from 'shogiground';
 import { Api as SgApi } from 'shogiground/api';
-import { MoveOrDrop, Piece, Role, isDrop, isMove } from 'shogiops/types';
-import { makeUsi, parseSquareName, parseUsi } from 'shogiops/util';
+import { MoveOrDrop, Piece, Role } from 'shogiops/types';
+import { makeUsi, parseSquareName, parseUsi, isDrop, isMove } from 'shogiops/util';
 import { pieceForcePromote } from 'shogiops/variant/util';
 import config from './config';
 import { StormData, StormOpts, StormPrefs, StormRecap, StormVm } from './interfaces';
@@ -21,14 +21,12 @@ export default class StormCtrl {
   pref: StormPrefs;
   run: Run;
   vm: StormVm;
-  trans: Trans;
   shogiground: SgApi;
 
   constructor(opts: StormOpts, redraw: (data: StormData) => void) {
     this.data = opts.data;
     this.pref = opts.pref;
     this.redraw = () => redraw(this.data);
-    this.trans = window.lishogi.trans(opts.i18n);
     this.shogiground = Shogiground();
     this.run = {
       pov: puzzlePov(this.data.puzzles[0]),
@@ -112,7 +110,13 @@ export default class StormCtrl {
       pos.isCheckmate() ||
       usi == puzzle.expectedMove() ||
       (!isDrop(md) &&
-        this.isSameMove(usi, puzzle.expectedMove(), puzzle.isAmbPromotion(), pos.turn, pos.board.getRole(md.from)))
+        this.isSameMove(
+          usi,
+          puzzle.expectedMove(),
+          puzzle.isAmbPromotion(),
+          pos.turn,
+          pos.board.getRole(md.from),
+        ))
     ) {
       puzzle.moveIndex++;
       this.run.combo.inc();
@@ -127,9 +131,11 @@ export default class StormCtrl {
         if (!this.incPuzzle()) this.end();
       } else {
         puzzle.moveIndex++;
-        captureSound = captureSound || pos.board.occupied.has(parseUsi(puzzle.line[puzzle.moveIndex])!.to);
+        captureSound =
+          captureSound || pos.board.occupied.has(parseUsi(puzzle.line[puzzle.moveIndex])!.to);
       }
-      sound.move(captureSound);
+      if (captureSound) sound.capture();
+      else sound.move();
     } else {
       sound.wrong();
       this.pushToHistory(false);
@@ -152,7 +158,13 @@ export default class StormCtrl {
   }
 
   // When not promotion isn't an option usi in solution might not contain '+'
-  private isSameMove(u1: string, u2: string, ignoreProm: boolean, turn: Color, role?: Role): boolean {
+  private isSameMove(
+    u1: string,
+    u2: string,
+    ignoreProm: boolean,
+    turn: Color,
+    role?: Role,
+  ): boolean {
     const usi1 = parseUsi(u1)!,
       usi2 = parseUsi(u2)!;
     if (isDrop(usi1) && isDrop(usi2)) {
@@ -197,16 +209,19 @@ export default class StormCtrl {
     errors: this.run.errors,
     combo: this.run.combo.best,
     time: (this.run.endAt! - this.run.clock.startAt!) / 1000,
-    highest: this.run.history.reduce((h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h), 0),
+    highest: this.run.history.reduce(
+      (h, r) => (r.win && r.puzzle.rating > h ? r.puzzle.rating : h),
+      0,
+    ),
     signed: this.vm.signed(),
   });
 
-  toggleFilterSlow = () => {
+  toggleFilterSlow = (): void => {
     this.vm.filterSlow = !this.vm.filterSlow;
     this.redraw();
   };
 
-  toggleFilterFailed = () => {
+  toggleFilterFailed = (): void => {
     this.vm.filterFailed = !this.vm.filterFailed;
     this.redraw();
   };
@@ -222,5 +237,6 @@ export default class StormCtrl {
     });
   };
 
-  private hotkeys = () => window.Mousetrap.bind('space', () => location.reload()).bind('return', this.end);
+  private hotkeys = () =>
+    window.lishogi.mousetrap.bind('space', () => location.reload()).bind('return', this.end);
 }

@@ -1,6 +1,8 @@
 import { dataIcon } from 'common/snabbdom';
 import { VNode, h } from 'snabbdom';
 import TournamentController from '../ctrl';
+import { assetUrl } from 'common/assets';
+import { i18n } from 'i18n';
 
 function startClock(time) {
   return {
@@ -14,12 +16,12 @@ function hasFreq(freq, d) {
   return d.schedule && d.schedule.freq === freq;
 }
 
-function clock(d, trans: Trans): VNode | undefined {
+function clock(d): VNode | undefined {
   if (d.isFinished) return;
   if (d.secondsToFinish) {
     if (d.secondsToFinish > oneDayInSeconds)
       return h('div.clock.clock-title', [
-        h('span.shy', trans.noarg('ending:' as I18nKey) + ' '),
+        h('span.shy', i18n('ending') + ' '),
         new Date(Date.now() + d.secondsToFinish * 1000).toLocaleString(),
       ]);
     else
@@ -28,7 +30,7 @@ function clock(d, trans: Trans): VNode | undefined {
         {
           hook: startClock(d.secondsToFinish),
         },
-        [h('span.shy', trans.noarg('ending:' as I18nKey)), h('div.time')]
+        [h('span.shy', i18n('ending')), h('div.time')]
       );
   }
   if (d.secondsToStart) {
@@ -53,7 +55,7 @@ function clock(d, trans: Trans): VNode | undefined {
         {
           hook: startClock(d.secondsToStart),
         },
-        [h('span.shy', trans.noarg('starting')), h('span.time.text')]
+        [h('span.shy', i18n('starting')), h('span.time.text')]
       );
   }
 }
@@ -64,7 +66,7 @@ function image(d): VNode | undefined {
   const s = d.spotlight;
   if (s && s.iconImg)
     return h('img.img', {
-      attrs: { src: window.lishogi.assetUrl('images/' + s.iconImg) },
+      attrs: { src: assetUrl('images/' + s.iconImg) },
     });
   return h('i.img', {
     attrs: dataIcon((s && s.iconFont) || 'g'),
@@ -107,5 +109,5 @@ function title(ctrl: TournamentController) {
 }
 
 export default function (ctrl: TournamentController): VNode {
-  return h('div.tour__main__header', [image(ctrl.data), title(ctrl), clock(ctrl.data, ctrl.trans)]);
+  return h('div.tour__main__header', [image(ctrl.data), title(ctrl), clock(ctrl.data)]);
 }

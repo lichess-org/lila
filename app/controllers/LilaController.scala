@@ -12,7 +12,7 @@ import scalatags.Text.Frag
 
 import lila.api.{ BodyContext, Context, HeaderContext, PageData }
 import lila.app._
-import lila.common.{ ApiVersion, HTTPRequest, Nonce }
+import lila.common.{ HTTPRequest, Nonce }
 import lila.i18n.I18nLangPicker
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
@@ -53,8 +53,6 @@ abstract private[controllers] class LilaController(val env: Env)
 
   implicit protected def LilaFragToResult(frag: Frag): Result = Ok(frag)
 
-  implicit protected def makeApiVersion(v: Int) = ApiVersion(v)
-
   implicit protected lazy val formBinding: FormBinding = parse.formBinding(parse.DefaultMaxTextLength)
 
   protected val jsonOkBody   = Json.obj("ok" -> true)
@@ -70,7 +68,7 @@ abstract private[controllers] class LilaController(val env: Env)
   )(implicit req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
-      api = _ => fuccess(jsonOkResult)
+      json = fuccess(jsonOkResult)
     )
 
   implicit def ctxLang(implicit ctx: Context)         = ctx.lang
@@ -308,14 +306,13 @@ abstract private[controllers] class LilaController(val env: Env)
       _.fold(a) { ban =>
         negotiate(
           html = keyPages.home(Results.Forbidden),
-          api = _ =>
-            fuccess {
-              Forbidden(
-                jsonError(
-                  s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."
-                )
-              ) as JSON
-            }
+          json = fuccess {
+            Forbidden(
+              jsonError(
+                s"Banned from playing for ${ban.remainingMinutes} minutes. Reason: Too many aborts, unplayed games, or rage quits."
+              )
+            ) as JSON
+          }
         )
       }
     }
@@ -325,14 +322,13 @@ abstract private[controllers] class LilaController(val env: Env)
       _.fold(a) { current =>
         negotiate(
           html = keyPages.home(Results.Forbidden),
-          api = _ =>
-            fuccess {
-              Forbidden(
-                jsonError(
-                  s"You are already playing ${current.opponent}"
-                )
-              ) as JSON
-            }
+          json = fuccess {
+            Forbidden(
+              jsonError(
+                s"You are already playing ${current.opponent}"
+              )
+            ) as JSON
+          }
         )
       }
     }
@@ -420,7 +416,7 @@ abstract private[controllers] class LilaController(val env: Env)
       html =
         if (HTTPRequest isSynchronousHttp ctx.req) fuccess(renderNotFound(ctx))
         else fuccess(Results.NotFound("Resource not found")),
-      api = _ => notFoundJson("Resource not found")
+      json = notFoundJson("Resource not found")
     )
 
   def jsonError[A: Writes](err: A): JsObject = Json.obj("error" -> err)
@@ -455,12 +451,11 @@ abstract private[controllers] class LilaController(val env: Env)
         Redirect(routes.Auth.signup) withCookies env.lilaCookie
           .session(env.security.api.AccessUri, ctx.req.uri)
       },
-      api = _ =>
-        env.lilaCookie
-          .ensure(ctx.req) {
-            Unauthorized(jsonError("Login required"))
-          }
-          .fuccess
+      json = env.lilaCookie
+        .ensure(ctx.req) {
+          Unauthorized(jsonError("Login required"))
+        }
+        .fuccess
     )
 
   private val forbiddenJsonResult = Forbidden(jsonError("Authorization failed"))
@@ -471,18 +466,15 @@ abstract private[controllers] class LilaController(val env: Env)
         Forbidden(views.html.site.message.authFailed)
       }
       else fuccess(Results.Forbidden("Authorization failed")),
-      api = _ => fuccess(forbiddenJsonResult)
+      json = fuccess(forbiddenJsonResult)
     )
 
-  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(implicit
+  protected def negotiate(html: => Fu[Result], json: => Fu[Result])(implicit
       req: RequestHeader
   ): Fu[Result] =
-    lila.api.Mobile.Api
-      .requestVersion(req)
-      .fold(html) { v =>
-        api(v) dmap (_ as JSON)
-      }
-      .dmap(_.withHeaders("Vary" -> "Accept"))
+    if (HTTPRequest.acceptsJson(req))
+      json.dmap(_.withHeaders("Vary" -> "Accept").as(JSON))
+    else html.dmap(_.withHeaders("Vary" -> "Accept"))
 
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] =
     restoreUser(req) flatMap { case (d, impersonatedBy) =>
@@ -554,7 +546,6 @@ abstract private[controllers] class LilaController(val env: Env)
         d.copy(user =
           d.user
             .addRole(lila.security.Permission.Beta.dbKey)
-            .addRole(lila.security.Permission.Prismic.dbKey)
         ).some
       case d => d
     } flatMap {
@@ -627,9 +618,6 @@ abstract private[controllers] class LilaController(val env: Env)
     )
     json validate jsonGlobalErrorRenamer getOrElse json
   }
-
-  protected def apiFormError(form: Form[_]): JsObject =
-    Json.obj("error" -> errorsAsJson(form)(lila.i18n.defaultLang))
 
   protected def jsonFormError(err: Form[_])(implicit lang: Lang) =
     fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))

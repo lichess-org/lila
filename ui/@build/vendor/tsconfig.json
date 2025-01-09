@@ -1,0 +1,4 @@
+{
+  "extends": "@build/tsconfig/build",
+  "exclude": ["src/local"]
+}

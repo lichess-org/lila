@@ -62,7 +62,7 @@ object variant {
   )(body: Modifier*)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
-      moreCss = cssTag("variant"),
+      moreCss = cssTag("misc.variant"),
       openGraph = openGraph,
       withHrefLangs = withHrefLangs
     )(

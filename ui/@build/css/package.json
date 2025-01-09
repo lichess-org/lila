@@ -1,0 +1,26 @@
+{
+  "name": "@build/css",
+  "private": true,
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "dependencies": {
+    "breakpoint-sass": "^2.7",
+    "balloon-css": "^1"
+  },
+  "devDependencies": {
+    "tsx": "catalog:",
+    "@build/wrapper": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/sass-graph": "^2",
+    "sass-embedded": "^1",
+    "sass-graph-ts": "^5",
+    "fast-glob": "^3",
+    "postcss": "^8",
+    "cssnano": "^7",
+    "autoprefixer": "^10"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "start": "tsx ./src/index.ts"
+  }
+}

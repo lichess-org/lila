@@ -1,0 +1,68 @@
+/* embed a game replay */
+
+$mq-col1: 9999px;
+
+@import '../../../analyse/css/tools';
+@import '../../../analyse/css/action-menu';
+@import '../../../analyse/css/controls';
+@import './layout';
+@import './footer';
+@import './not-found';
+
+html {
+  overflow: hidden;
+}
+body {
+  overflow-y: hidden;
+  background: none;
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-corner {
+    background: $c-bg-zebra;
+  }
+}
+
+.chapter-name {
+  @extend %roboto;
+  padding: 0.3em;
+  border-bottom: $border;
+  background: $c-bg-zebra;
+  text-align: center;
+}
+
+.analyse__tools {
+  @extend %box-radius-top;
+  background: $c-bg-box;
+  box-shadow: none;
+  border: $border;
+  border-bottom: none;
+}
+
+.analyse__moves {
+  border: none;
+  .tview2-column > index {
+    background: none;
+  }
+}
+.analyse__controls {
+  @extend %box-radius-bottom;
+  overflow: hidden;
+  background: $c-bg-box;
+  border: $border;
+  .jumps .fbt {
+    border-right: $border;
+    &:last-child {
+      border-right: none;
+    }
+  }
+  .fbt {
+    border-radius: 0;
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+  }
+}
+
+sg-board {
+  border-radius: 0;
+  box-shadow: none;
+}

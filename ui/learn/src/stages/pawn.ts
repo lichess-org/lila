@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import { obstaclesCaptured } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
@@ -6,7 +7,7 @@ import { toPiece } from '../util';
 
 const levels: IncompleteLevel[] = [
   {
-    goal: 'pawnsMoveOneSquareOnly',
+    goal: i18n('learn:pawnsMoveOneSquareOnly'),
     sfen: '9/9/9/9/9/9/2P6/9/9 b -',
     nbMoves: 3,
     success: obstaclesCaptured,
@@ -14,14 +15,14 @@ const levels: IncompleteLevel[] = [
     drawShapes: initial([arrow('7g', '7f'), arrow('7f', '7e'), arrow('7e', '7d')]),
   },
   {
-    goal: 'pawnPromotion',
+    goal: i18n('learn:pawnPromotion'),
     sfen: '9/9/9/9/9/9/6P2/9/9 b -',
     nbMoves: 5,
     success: obstaclesCaptured,
     obstacles: ['2c'],
   },
   {
-    goal: 'pawnSummary',
+    goal: i18n('learn:pawnSummary'),
     sfen: '9/9/9/9/9/4P4/9/9/9 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -29,7 +30,7 @@ const levels: IncompleteLevel[] = [
     squareHighlights: initial(pieceMovesHighlihts(toPiece('P'), '5f')),
   },
   {
-    goal: 'tokinSummary',
+    goal: i18n('learn:tokinSummary'),
     sfen: '9/9/9/9/9/4+P4/9/9/9 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -40,11 +41,11 @@ const levels: IncompleteLevel[] = [
 
 const stage: IncompleteStage = {
   key: 'pawn',
-  title: 'thePawn',
-  subtitle: 'itMovesForwardOnly',
-  intro: 'pawnIntro',
+  title: i18n('learn:thePawn'),
+  subtitle: i18n('learn:itMovesForwardOnly'),
+  intro: i18n('learn:pawnIntro'),
   levels: levels.map((l, i) => createLevel(l, i)),
-  complete: 'pawnComplete',
+  complete: i18n('learn:pawnComplete'),
 };
 
 export default stage;

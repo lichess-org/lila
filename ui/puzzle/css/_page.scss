@@ -24,6 +24,7 @@
 
     display: flex;
     padding: 1.5em 1em 1.5em 0;
+    color: $c-font;
 
     &::before {
       @extend %data-icon;
@@ -36,7 +37,7 @@
     }
 
     &:hover {
-      background: mix($c-bg-box, $c-link, 90%);
+      background: $m-link_bg-box_mix_10;
 
       &::before {
         color: $c-primary;
@@ -77,7 +78,7 @@
       @extend %box-neat;
 
       font-size: 1.2em;
-      background: mix($c-bg-box, $c-good, 80%);
+      background: $m-bg-box_good_mix_80;
       color: $c-good;
       margin: 2em 4em;
 
@@ -90,7 +91,7 @@
       }
 
       &:hover {
-        background: mix($c-bg-box, $c-good, 74%);
+        background: $m-bg-box_good_mix_74;
       }
 
       @include breakpoint($mq-not-small) {

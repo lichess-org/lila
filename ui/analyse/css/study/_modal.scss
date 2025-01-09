@@ -28,13 +28,13 @@
     margin-bottom: 0.5em;
     i {
       font-size: 0.6em;
+      margin-left: 1rem;
+      opacity: 0.5;
+      cursor: pointer;
       &,
       &::before {
         vertical-align: top;
       }
-      margin-left: 1rem;
-      opacity: 0.5;
-      cursor: pointer;
       &:hover {
         opacity: 0.7;
         color: $c-primary;

@@ -4,6 +4,7 @@ import { VNode, h } from 'snabbdom';
 import { ModerationCtrl, ModerationData, ModerationOpts, ModerationReason } from './interfaces';
 import { userLink } from './util';
 import { userModInfo } from './xhr';
+import { numberFormat } from 'common/number';
 
 export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   let data: ModerationData | undefined;
@@ -56,7 +57,7 @@ export function moderationCtrl(opts: ModerationOpts): ModerationCtrl {
   };
 }
 
-export const lineAction = () => h('i.mod', { attrs: { 'data-icon': '' } });
+export const lineAction = (): VNode => h('i.mod', { attrs: { 'data-icon': '' } });
 
 export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   if (!ctrl) return;
@@ -68,7 +69,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   const infos = data.history
     ? h(
         'div.infos.block',
-        [window.lishogi.numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined]
+        [numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined]
           .map(t => t && h('span', t))
           .concat([
             h(

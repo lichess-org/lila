@@ -11,17 +11,12 @@ object twoFactor {
 
   import trans.tfa._
 
-  private val qrCode = raw(
-    """<div style="width: 276px; height: 276px; padding: 10px; background: white; margin: 2em auto;"><div id="qrcode" style="width: 256px; height: 256px;"></div></div>"""
-  )
-
   def setup(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) =
     account.layout(
       title = s"${u.username} - ${twoFactorAuth.txt()}",
       active = "twofactor",
       evenMoreJs = frag(
-        jsAt("javascripts/vendor/qrcode.min.js"),
-        jsTag("twofactor.form.js")
+        jsTag("user.twofactor-form")
       )
     ) {
       div(cls := "account twofactor box box-pad")(
@@ -38,7 +33,7 @@ object twoFactor {
             )
           ),
           div(cls := "form-group")(scanTheCode()),
-          qrCode,
+          canvas(id := "qrcode"),
           div(cls := "form-group explanation")(enterPassword()),
           form3.hidden(form("secret")),
           form3.passwordModified(form("passwd"), trans.password())(

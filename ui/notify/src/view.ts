@@ -1,7 +1,9 @@
 import spinner from 'common/spinner';
 import { VNode, h } from 'snabbdom';
-import { Ctrl, Notification, NotifyData } from './interfaces';
+import { Ctrl, NotifyData } from './interfaces';
+import type { Notification } from './interfaces';
 import { renderers } from './renderers';
+import { i18n } from 'i18n';
 
 export default function (ctrl: Ctrl): VNode {
   const d = ctrl.data();
@@ -32,7 +34,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
         h('button.delete.button.button-empty', {
           attrs: {
             'data-icon': 'q',
-            title: 'Clear',
+            title: i18n('delete'),
           },
           hook: clickHook(ctrl.clear),
         })

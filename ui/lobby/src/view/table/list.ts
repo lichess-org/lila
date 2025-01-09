@@ -1,17 +1,18 @@
 import { bind } from 'common/snabbdom';
-import { getPerfIcon } from 'common/perfIcons';
-import { h } from 'snabbdom';
+import { getPerfIcon } from 'common/perf-icons';
+import { h, VNode } from 'snabbdom';
 import LobbyController from '../../ctrl';
-import * as hookRepo from '../../hookRepo';
-import * as seekRepo from '../../seekRepo';
+import * as hookRepo from '../../hook-repo';
+import * as seekRepo from '../../seek-repo';
 import { Hook, Seek } from '../../interfaces';
 import { tds } from '../util';
-import { capitalize } from 'common/string';
 import { action, isHook } from '../../util';
+import { i18n, i18nPluralSame } from 'i18n';
+import { i18nPerf } from 'i18n/perf';
+import { i18nVariant } from 'i18n/variant';
 
-function renderHookOrSeek(ctrl: LobbyController, hs: Hook | Seek) {
-  const noarg = ctrl.trans.noarg,
-    act = action(hs),
+function renderHookOrSeek(hs: Hook | Seek) {
+  const act = action(hs),
     disabled = isHook(hs) && !!hs.disabled,
     username = isHook(hs) ? hs.u : hs.username,
     isRated = isHook(hs) ? hs.ra : hs.mode === 1;
@@ -24,8 +25,10 @@ function renderHookOrSeek(ctrl: LobbyController, hs: Hook | Seek) {
         title: disabled
           ? ''
           : act === 'join'
-            ? noarg('joinTheGame') + ' | ' + capitalize(noarg((hs.perf || hs.variant) as I18nKey))
-            : noarg('cancel'),
+            ? i18n('joinTheGame') +
+              ' | ' +
+              ((hs.perf ? i18nPerf(hs.perf) : undefined) || i18nVariant(hs.variant || 'standard'))
+            : i18n('cancel'),
         'data-id': hs.id,
       },
     },
@@ -41,13 +44,13 @@ function renderHookOrSeek(ctrl: LobbyController, hs: Hook | Seek) {
           )
         : 'Anonymous',
       (hs.rating ? hs.rating : '-') + ((isHook(hs) ? hs.prov : hs.provisional) ? '?' : ''),
-      isHook(hs) ? hs.clock : hs.days ? ctrl.trans.plural('nbDays', hs.days) : '∞',
+      isHook(hs) ? hs.clock : hs.days ? i18nPluralSame('nbDays', hs.days) : '∞',
       h(
         'span',
         {
           attrs: { 'data-icon': getPerfIcon(hs.perf || hs.variant || 'standard') },
         },
-        noarg(isRated ? 'rated' : 'casual')
+        isRated ? i18n('rated') : i18n('casual')
       ),
     ])
   );
@@ -67,17 +70,21 @@ function isNotMine(hs: Hook | Seek) {
   return !isMine(hs);
 }
 
-export function toggle(ctrl: LobbyController) {
+export function toggle(ctrl: LobbyController): VNode {
   return h('i.toggle', {
     key: 'set-mode-chart',
-    attrs: { title: ctrl.trans.noarg('graph'), 'data-icon': '9' },
+    attrs: { title: i18n('graph'), 'data-icon': '9' },
     hook: bind('mousedown', _ => ctrl.setMode('chart'), ctrl.redraw),
   });
 }
 
-export function render(tab: 'seeks' | 'real_time', ctrl: LobbyController, allHs: Seek[] | Hook[]) {
+export function render(
+  tab: 'seeks' | 'real_time',
+  ctrl: LobbyController,
+  allHs: Seek[] | Hook[]
+): VNode {
   const mine = allHs.filter(isMine),
-    render = (hs: Hook | Seek) => renderHookOrSeek(ctrl, hs),
+    render = (hs: Hook | Seek) => renderHookOrSeek(hs),
     standards = allHs.filter(isNotMine).filter(isStandard(true)),
     variants = allHs.filter(isNotMine).filter(isStandard(false));
 
@@ -105,7 +112,7 @@ export function render(tab: 'seeks' | 'real_time', ctrl: LobbyController, allHs:
               {
                 attrs: { colspan: 5 },
               },
-              '— ' + ctrl.trans('variant') + ' —'
+              '— ' + i18n('variant') + ' —'
             ),
           ]
         )
@@ -118,7 +125,7 @@ export function render(tab: 'seeks' | 'real_time', ctrl: LobbyController, allHs:
       'thead',
       h('tr', [
         h('th'),
-        h('th', ctrl.trans('player')),
+        h('th', i18n('player')),
         h(
           'th',
           {
@@ -129,7 +136,7 @@ export function render(tab: 'seeks' | 'real_time', ctrl: LobbyController, allHs:
             },
             hook: bind('click', _ => ctrl.setSort('rating'), ctrl.redraw),
           },
-          [h('i.is'), ctrl.trans('rating')]
+          [h('i.is'), i18n('rating')]
         ),
         h(
           'th',
@@ -141,9 +148,9 @@ export function render(tab: 'seeks' | 'real_time', ctrl: LobbyController, allHs:
             },
             hook: bind('click', _ => ctrl.setSort('time'), ctrl.redraw),
           },
-          [h('i.is'), ctrl.trans('time')]
+          [h('i.is'), i18n('time')]
         ),
-        h('th', ctrl.trans('mode')),
+        h('th', i18n('mode')),
       ])
     ),
     h(

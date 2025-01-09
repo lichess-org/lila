@@ -7,10 +7,11 @@ const preventing = (f: () => void) => (e: MouseEvent) => {
 };
 
 export default function (ctrl: KeyboardController): void {
-  window.Mousetrap.bind(['left', 'j'], () => {
-    control.prev(ctrl);
-    ctrl.redraw();
-  })
+  window.lishogi.mousetrap
+    .bind(['left', 'j'], () => {
+      control.prev(ctrl);
+      ctrl.redraw();
+    })
     .bind(
       ['right', 'k'],
       preventing(() => {

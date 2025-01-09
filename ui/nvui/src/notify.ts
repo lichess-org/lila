@@ -1,4 +1,5 @@
-import { h } from 'snabbdom';
+import { requestIdleCallbackWithFallback } from 'common/common';
+import { h, VNode } from 'snabbdom';
 
 type Notification = {
   text: string;
@@ -13,17 +14,17 @@ export class Notify {
     readonly timeout: number = 3000
   ) {}
 
-  set = (msg: string) => {
+  set = (msg: string): void => {
     // make sure it's different from previous, so it gets read again
     if (this.notification && this.notification.text == msg) msg += ' ';
     this.notification = { text: msg, date: new Date() };
-    window.lishogi.requestIdleCallback(this.redraw);
+    requestIdleCallbackWithFallback(this.redraw);
   };
 
-  currentText = () =>
+  currentText = (): string =>
     this.notification && this.notification.date.getTime() > Date.now() - this.timeout ? this.notification.text : '';
 
-  render = () =>
+  render = (): VNode =>
     h(
       'div.notify',
       {

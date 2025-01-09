@@ -1,0 +1,84 @@
+$mq-col2: $mq-medium;
+
+main.importer {
+  .explanation {
+    margin: 3vh 0;
+    text-align: center;
+  }
+  form {
+    .import-top {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      @include breakpoint($mq-col2) {
+        flex-direction: row;
+      }
+      .left {
+        flex: 4;
+        @include breakpoint($mq-col2) {
+          margin-right: 1rem;
+        }
+      }
+      .right {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+
+    label.notation {
+      display: block;
+      margin-bottom: 1em;
+    }
+
+    label.notation span {
+      display: block;
+      margin-bottom: 1em;
+    }
+
+    textarea {
+      width: 98%;
+      height: 50vh !important;
+      padding: 1em;
+    }
+
+    .form-check div {
+      justify-content: center;
+    }
+
+    .form-check > small {
+      display: flex;
+      justify-content: center;
+    }
+
+    .analyse > span {
+      float: left;
+      margin-right: 10px;
+    }
+    .analyse > label {
+      cursor: pointer;
+    }
+
+    .upload input {
+      margin-left: 1em;
+    }
+
+    button.submit {
+      margin: 0 auto;
+      display: block;
+    }
+
+    p.error {
+      margin: 10px 0;
+      color: red;
+    }
+    pre.error {
+      max-width: 90vw;
+      overflow-x: auto;
+    }
+    .wait {
+      display: none;
+    }
+  }
+}

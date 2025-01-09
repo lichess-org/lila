@@ -1,3 +1,4 @@
+import { i18n } from 'i18n';
 import { obstaclesCaptured } from '../assert';
 import { IncompleteLevel, IncompleteStage } from '../interfaces';
 import { createLevel } from '../level';
@@ -6,7 +7,7 @@ import { toPiece } from '../util';
 
 const levels: IncompleteLevel[] = [
   {
-    goal: 'grabAllTheStars',
+    goal: i18n('learn:grabAllTheStars'),
     sfen: '9/9/9/9/9/4S4/9/9/9 b -',
     nbMoves: 4,
     success: obstaclesCaptured,
@@ -14,28 +15,28 @@ const levels: IncompleteLevel[] = [
     drawShapes: initial([arrow('5f', '5e'), arrow('5e', '6d'), arrow('6d', '7e'), arrow('7e', '8f')]),
   },
   {
-    goal: 'grabAllTheStars',
+    goal: i18n('learn:grabAllTheStars'),
     sfen: '9/9/9/4S4/9/9/9/9/9 b -',
     nbMoves: 5,
     success: obstaclesCaptured,
     obstacles: ['4e', '5f', '6g', '5h', '4i'],
   },
   {
-    goal: 'theFewerMoves',
+    goal: i18n('learn:theFewerMoves'),
     sfen: '9/9/9/9/3S5/6S2/9/9/9 b -',
     nbMoves: 5,
     success: obstaclesCaptured,
     obstacles: ['6f', '6g', '5f', '3e', '2f'],
   },
   {
-    goal: 'silverPromotion',
+    goal: i18n('learn:silverPromotion'),
     sfen: '9/9/9/6S2/9/9/9/9/9 b -',
     nbMoves: 3,
     success: obstaclesCaptured,
     obstacles: ['5d', '4d', '4c'],
   },
   {
-    goal: 'silverSummary',
+    goal: i18n('learn:silverSummary'),
     sfen: '9/9/9/9/9/4S4/9/9/9 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -43,7 +44,7 @@ const levels: IncompleteLevel[] = [
     squareHighlights: initial(pieceMovesHighlihts(toPiece('S'), '5f')),
   },
   {
-    goal: 'psilverSummary',
+    goal: i18n('learn:psilverSummary'),
     sfen: '9/9/9/9/9/4+S4/9/9/9 b -',
     nbMoves: 2,
     success: obstaclesCaptured,
@@ -54,10 +55,10 @@ const levels: IncompleteLevel[] = [
 
 const stage: IncompleteStage = {
   key: 'silver',
-  title: 'theSilver',
-  subtitle: 'itMovesEitherForwardOrDiagonallyBack',
-  intro: 'silverIntro',
+  title: i18n('learn:theSilver'),
+  subtitle: i18n('learn:itMovesEitherForwardOrDiagonallyBack'),
+  intro: i18n('learn:silverIntro'),
   levels: levels.map((l, i) => createLevel(l, i)),
-  complete: 'silverComplete',
+  complete: i18n('learn:silverComplete'),
 };
 export default stage;

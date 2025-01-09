@@ -80,12 +80,10 @@
 
     background: $c-bg-zebra2;
 
-    $c-darken: #333;
-
     &--win {
-      $c-first: mix($c-good, $c-darken, 85%);
-      $c-fix: mix($c-good, $c-darken, 50%);
-      $c-fail: mix($c-bad, $c-darken, 80%);
+      $c-first: $m-good_darken_mix_85;
+      $c-fix: $m-good_darken_mix_50;
+      $c-fail: $m-bad_darken_mix_80;
 
       background:
         #{$glow-gradient},
@@ -102,7 +100,7 @@
     }
 
     &--perf {
-      background: #{$glow-gradient} mix($c-brag, $c-darken, 85%);
+      background: #{$glow-gradient} $m-brag_darken_mix_85;
       color: $c-good-over;
     }
 
@@ -119,7 +117,7 @@
       &[href] {
         opacity: 1;
         cursor: pointer;
-        background: #{$glow-gradient} mix($c-primary, $c-darken, 80%);
+        background: #{$glow-gradient} $m-primary_darken_mix_80;
 
         &:hover {
           background: #{$glow-gradient} $c-primary;
@@ -134,7 +132,7 @@
 
         i {
           opacity: 1;
-          color: mix($c-primary, $c-bg-box, 70%);
+          color: $m-primary_bg-box_mix_70;
           position: absolute;
           font-size: 5.5em !important;
           margin-bottom: 0.2em;
@@ -154,8 +152,7 @@
         color: $c-good-over;
       }
     }
-
-    @if $theme-light {
+    @include theme-wrap('light') {
       &--played span {
         color: $c-font-dim !important;
       }
@@ -181,12 +178,11 @@
     margin-top: 6vh;
 
     &__title {
+      font-size: 1.2em;
+      margin-bottom: 4vh;
       h2 {
         @include fluid-size('font-size', 20px, 40px);
       }
-
-      font-size: 1.2em;
-      margin-bottom: 4vh;
     }
   }
 

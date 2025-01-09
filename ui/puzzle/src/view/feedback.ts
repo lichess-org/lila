@@ -1,8 +1,9 @@
 import { MaybeVNode, bind } from 'common/snabbdom';
-import { transWithColorName } from 'common/colorName';
 import { VNode, h } from 'snabbdom';
 import { Controller } from '../interfaces';
 import afterView from './after';
+import { colorName } from 'shogi/color-name';
+import { i18n, i18nFormatCapitalized } from 'i18n';
 
 function viewSolution(ctrl: Controller): VNode {
   return h(
@@ -16,7 +17,7 @@ function viewSolution(ctrl: Controller): VNode {
         {
           hook: bind('click', ctrl.viewSolution),
         },
-        ctrl.trans.noarg('viewTheSolution')
+        i18n('viewTheSolution')
       ),
     ]
   );
@@ -26,8 +27,8 @@ function initial(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.play', [
     h('div.player', [
       h('div.instruction', [
-        h('strong', ctrl.trans.noarg('yourTurn')),
-        h('em', transWithColorName(ctrl.trans, 'findTheBestMoveForX', ctrl.vm.pov, false)),
+        h('strong', i18n('yourTurn')),
+        h('em', i18nFormatCapitalized('puzzle:findTheBestMoveForX', colorName(ctrl.vm.pov, false))),
       ]),
     ]),
     viewSolution(ctrl),
@@ -37,8 +38,11 @@ function initial(ctrl: Controller): VNode {
 function good(ctrl: Controller): VNode {
   return h('div.puzzle__feedback.good', [
     h('div.player', [
-      h('div.icon', 'O'),
-      h('div.instruction', [h('strong', ctrl.trans.noarg('bestMove')), h('em', ctrl.trans.noarg('keepGoing'))]),
+      h('div.icon', 'O'), // todo
+      h('div.instruction', [
+        h('strong', i18n('puzzle:bestMove')),
+        h('em', i18n('puzzle:keepGoing')),
+      ]),
     ]),
     viewSolution(ctrl),
   ]);
@@ -49,8 +53,8 @@ function fail(ctrl: Controller): VNode {
     h('div.player', [
       h('div.icon', '✗'),
       h('div.instruction', [
-        h('strong', ctrl.trans.noarg('notTheMove')),
-        h('em', ctrl.trans.noarg('trySomethingElse')),
+        h('strong', i18n('puzzle:notTheMove')),
+        h('em', i18n('puzzle:trySomethingElse')),
       ]),
     ]),
     viewSolution(ctrl),

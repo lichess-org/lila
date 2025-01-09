@@ -31,11 +31,11 @@
     @include transition(opacity, 0.3s);
   }
   &:not(.created):not(.loading) tbody tr:hover {
-    background: mix($c-primary, $c-bg-box, 30%);
+    background: $m-primary_bg-box_mix_30;
     cursor: pointer;
   }
   tr.me td:first-child {
-    $c-me-border: mix($c-secondary, $c-bg-box, 70%);
+    $c-me-border: $m-secondary_bg-box_mix_70;
     background: linear-gradient(
       to right,
       $c-me-border 0px,
@@ -45,7 +45,7 @@
     );
   }
   tr.active td:last-child {
-    $c-active-border: mix($c-primary, $c-bg-box, 70%);
+    $c-active-border: $m-primary_bg-box_mix_70;
     background: linear-gradient(
       to left,
       $c-active-border 0px,

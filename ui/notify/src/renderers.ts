@@ -17,7 +17,8 @@ export const renderers: Renderers = {
         h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
         h('span', ' mentioned you in « ' + n.content.topic + ' ».'),
       ]),
-    text: n => userFullName(n.content.mentionedBy) + ' mentioned you in « ' + n.content.topic + ' ».',
+    text: n =>
+      userFullName(n.content.mentionedBy) + ' mentioned you in « ' + n.content.topic + ' ».',
   },
   invitedStudy: {
     html: n =>
@@ -25,7 +26,8 @@ export const renderers: Renderers = {
         h('span', [h('strong', userFullName(n.content.invitedBy)), drawTime(n)]),
         h('span', ' invited you to « ' + n.content.studyName + ' ».'),
       ]),
-    text: n => userFullName(n.content.invitedBy) + ' invited you to « ' + n.content.studyName + ' ».',
+    text: n =>
+      userFullName(n.content.invitedBy) + ' invited you to « ' + n.content.studyName + ' ».',
   },
   privateMessage: {
     html: n =>
@@ -150,12 +152,12 @@ function generic(n: Notification, url: string | undefined, icon: string, content
         attrs: { 'data-icon': icon },
       }),
       h('span.content', content),
-    ]
+    ],
   );
 }
 
 function drawTime(n: Notification) {
-  var date = new Date(n.date);
+  const date = new Date(n.date);
   return h(
     'time.timeago',
     {
@@ -164,7 +166,7 @@ function drawTime(n: Notification) {
         datetime: n.date,
       },
     },
-    window.lishogi.timeago.format(date)
+    window.lishogi.timeago.format(date),
   );
 }
 

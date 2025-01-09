@@ -3,7 +3,6 @@ package views.html.tournament
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ I18nKeys => trans }
 import lila.tournament.Tournament
 
 import controllers.routes
@@ -48,77 +47,5 @@ object bits {
       br,
       "If it has prizes, Lishogi is NOT responsible for paying them."
     )
-
-  def scheduleJsI18n(implicit ctx: Context) = i18nJsObject(schedulei18nKeys)
-
-  def jsI18n(tour: Tournament)(implicit ctx: Context) = i18nJsObject(
-    i18nKeys ++ (tour.isTeamBattle ?? teamBattleI18nKeys) ++ (tour.isRobin ?? robinI18nKeys)
-  )
-
-  private val i18nKeys = List(
-    trans.black,
-    trans.white,
-    trans.sente,
-    trans.gote,
-    trans.shitate,
-    trans.uwate,
-    trans.standing,
-    trans.starting,
-    trans.tournamentIsStarting,
-    trans.youArePlaying,
-    trans.standByX,
-    trans.tournamentPairingsAreNowClosed,
-    trans.join,
-    trans.pause,
-    trans.withdraw,
-    trans.joinTheGame,
-    trans.signIn,
-    trans.averageElo,
-    trans.gamesPlayed,
-    trans.nbPlayers,
-    trans.winRate,
-    trans.berserkRate,
-    trans.performance,
-    trans.tournamentComplete,
-    trans.movesPlayed,
-    trans.xWins,
-    trans.draws,
-    trans.nextXTournament,
-    trans.averageOpponent,
-    trans.password,
-    trans.standard,
-    trans.minishogi,
-    trans.chushogi,
-    trans.annanshogi,
-    trans.kyotoshogi,
-    trans.checkshogi
-  ).map(_.key)
-
-  private val teamBattleI18nKeys = List(
-    trans.arena.viewAllXTeams,
-    trans.arena.averagePerformance,
-    trans.arena.averageScore,
-    trans.team.teamPage
-  ).map(_.key)
-
-  private val robinI18nKeys = List(
-    trans.tourArrangements.scheduledAt,
-    trans.tourArrangements.roundRobin,
-    trans.tourArrangements.startGame,
-    trans.tourArrangements.goToGame,
-    trans.tourArrangements.waitingForOther,
-    trans.tourArrangements.proposeTime,
-    trans.tourArrangements.cancelScheduled,
-    trans.tourArrangements.scheduledAt,
-    trans.tourArrangements.yourUpcomingGames,
-    trans.tourArrangements.playingRightNow,
-    trans.tourArrangements.recentlyPlayedGames,
-    trans.tourArrangements.gameWillNotStart
-  ).map(_.key)
-
-  private val schedulei18nKeys = List(
-    trans.ratedTournament,
-    trans.casualTournament
-  ).map(_.key)
 
 }

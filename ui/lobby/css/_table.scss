@@ -11,7 +11,8 @@
     @include breakpoint($mq-col2) {
       margin: 2em 0 0 0;
     }
-    a {
+    button {
+      color: $c-font-clear;
       font-size: 1.1em;
       text-align: center;
       margin: 0.15em 0;
@@ -22,7 +23,7 @@
     }
     @include breakpoint($mq-col4) {
       justify-content: center;
-      a {
+      button {
         margin: 1.2em 0;
         padding: 1em;
       }

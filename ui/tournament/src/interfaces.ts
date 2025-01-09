@@ -14,8 +14,8 @@ export interface Standing {
 }
 
 export interface TournamentOpts extends Untyped {
-  element: HTMLElement;
-  socketSend: SocketSend;
+  data: TournamentData;
+  socketSend: Socket.Send;
 }
 
 export interface TournamentData extends Untyped {

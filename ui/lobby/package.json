@@ -1,28 +1,25 @@
 {
   "name": "lobby",
-  "version": "2.0.0",
   "private": true,
-  "description": "lishogi.org lobby",
-  "author": "Thibault Duplessis",
   "license": "AGPL-3.0-or-later",
-  "devDependencies": {
-    "@build/rollupProject": "2.0.0",
-    "@types/debounce-promise": "^3.1.4",
-    "@types/jquery": "^2.0",
-    "@types/lishogi": "2.0.0",
-    "rollup": "^2",
-    "typescript": "^5"
-  },
+  "type": "module",
   "dependencies": {
-    "common": "2.0.0",
-    "debounce-promise": "^3.1.2",
-    "game": "2.0.0",
-    "shogiground": "^0.9.0",
-    "shogiops": "^0.17.0",
-    "snabbdom": "^3.5.1"
+    "common": "workspace:*",
+    "i18n": "workspace:*",
+    "shogi": "workspace:*",
+    "debounce-promise": "catalog:",
+    "game": "workspace:*",
+    "shogiground": "catalog:",
+    "shogiops": "catalog:",
+    "snabbdom": "catalog:"
+  },
+  "devDependencies": {
+    "@types/debounce-promise": "^3.1.4"
   },
   "scripts": {
-    "dev": "rollup --config",
-    "prod": "rollup --config --config-prod"
+    "type-check": "tsc --noEmit"
+  },
+  "lishogi": {
+    "bundle": true
   }
 }

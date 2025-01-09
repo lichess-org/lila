@@ -1,6 +1,6 @@
-import { h } from 'snabbdom';
+import { h, VNode } from 'snabbdom';
 
-export function userLink(u: string, title?: string) {
+export function userLink(u: string, title?: string): VNode {
   const trunc = u.substring(0, 14);
   return h(
     'a',

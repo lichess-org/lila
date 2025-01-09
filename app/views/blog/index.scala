@@ -19,8 +19,7 @@ object index {
 
     views.html.base.layout(
       title = trans.blog.txt(),
-      moreCss = cssTag("blog"),
-      csp = bits.csp,
+      moreCss = cssTag("misc.blog"),
       moreJs = infiniteScrollTag,
       withHrefLangs = lila.i18n.LangList.EnglishJapanese.some
     )(
@@ -51,8 +50,7 @@ object index {
   def byYear(year: Int, posts: List[MiniPost])(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.blogPostsFromYear.txt(year),
-      moreCss = cssTag("blog"),
-      csp = bits.csp
+      moreCss = cssTag("misc.blog")
     )(
       main(cls := "page-menu")(
         bits.menu(year.some),

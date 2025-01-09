@@ -11,6 +11,7 @@ $mq-col3: $mq-col3-uniboard;
 .learn {
   grid-area: main;
   display: grid;
+  grid-gap: 3vmin;
 
   &__side {
     grid-area: side;
@@ -35,7 +36,6 @@ $mq-col3: $mq-col3-uniboard;
       'side'
       'main';
   }
-  grid-gap: 3vmin;
 
   @include breakpoint($mq-col2) {
     &--run {

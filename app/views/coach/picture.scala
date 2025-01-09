@@ -12,8 +12,8 @@ object picture {
   def apply(c: lila.coach.Coach.WithUser, error: Option[String] = None)(implicit ctx: Context) =
     views.html.account.layout(
       title = s"${c.user.titleUsername} coach picture",
-      evenMoreJs = jsTag("coach.form.js"),
-      evenMoreCss = cssTag("coach.editor"),
+      evenMoreCss = cssTag("misc.coach.editor"),
+      evenMoreJs = jsTag("misc.coach-form"),
       active = "coach"
     ) {
       div(cls := "account coach-edit coach-picture box")(

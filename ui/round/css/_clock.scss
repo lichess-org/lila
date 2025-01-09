@@ -119,15 +119,15 @@
     }
   }
   &.running .time {
-    background: mix($c-secondary, $c-bg-box, 30%);
+    background: $m-secondary_bg-box_mix_30;
     color: $c-font-clearer;
   }
   &.emerg:not(.byo) .time,
   &.outoftime .time {
-    background-color: mix($c-bad, $c-bg-box, 25%);
+    background-color: $m-bad_bg-box_mix_30;
   }
   &.emerg.running .time {
-    background-color: mix($c-bad, $c-bg-box, 50%);
+    background-color: $m-bad_bg-box_mix_50;
     color: $c-font-clearer;
   }
   &.over {

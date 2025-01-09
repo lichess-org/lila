@@ -8,6 +8,13 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
 
 .tour {
   display: grid;
+  grid-gap: $block-gap;
+
+  grid-template-areas:
+    'main'
+    'side'
+    'uchat'
+    'table';
 
   &__side {
     grid-area: side;
@@ -23,14 +30,6 @@ $chat-optimal-size: calc(100vh - #{$site-header-outer-height} - #{$block-gap} - 
   .chat__members {
     grid-area: uchat;
   }
-
-  grid-template-areas:
-    'main'
-    'side'
-    'uchat'
-    'table';
-
-  grid-gap: $block-gap;
 
   @include breakpoint($mq-col2) {
     grid-template-columns: $col2-uniboard-default-width $col2-uniboard-table;

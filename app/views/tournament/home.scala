@@ -5,7 +5,6 @@ import play.api.libs.json.Json
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.tournament.Tournament
 
 import controllers.routes
@@ -24,15 +23,11 @@ object home {
       wrapClass = "full-screen-force",
       moreJs = frag(
         infiniteScrollTag,
-        jsModule("tournamentSchedule"),
-        embedJsUnsafe(
-          s"""var app=LishogiTournamentSchedule.app(document.querySelector('.tour-chart'), ${safeJsonValue(
-              Json.obj(
-                "data" -> json,
-                "i18n" -> bits.scheduleJsI18n
-              )
-            )});
-var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=app.update;"""
+        moduleJsTag(
+          "tournament.schedule",
+          Json.obj(
+            "data" -> json
+          )
         )
       ),
       openGraph = lila.app.ui
@@ -62,7 +57,7 @@ var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
           p(cls := "tour__links")(
             ctx.me map { me =>
               frag(
-                a(href := routes.UserTournament.path(me.username, "created"))("My tournaments"),
+                a(href := routes.UserTournament.path(me.username, "created"))(trans.myTournaments()),
                 br
               )
             },
@@ -100,7 +95,6 @@ var d=lishogi.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
             thead(
               tr(
                 th(colspan := 2, cls := "large")(trans.finished()),
-                th(trans.duration()),
                 th(trans.winner()),
                 th(trans.players())
               )

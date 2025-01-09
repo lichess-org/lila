@@ -40,13 +40,13 @@
       color: $c-font;
       padding: 0.4em;
       @include transition(background);
-      background: fade-out($c-bg-box, 0.6);
+      background: $m-bg-box_alpha_neg50;
       overflow: hidden;
       &:nth-child(even) {
         background: $c-bg-zebra2;
       }
       &:hover {
-        background: fade-out($c-link, 0.6);
+        background: $m-link_alpha_neg60;
         color: $c-font-clear;
       }
       &.active,

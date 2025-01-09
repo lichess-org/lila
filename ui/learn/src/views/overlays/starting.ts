@@ -1,7 +1,9 @@
 import { h } from 'snabbdom';
+import { MaybeVNode } from 'common/snabbdom';
 import LearnCtrl from '../../ctrl';
+import { i18n, i18nFormat } from 'i18n';
 
-export default function (ctrl: LearnCtrl) {
+export default function (ctrl: LearnCtrl): MaybeVNode {
   if (!ctrl.vm) return null;
   else
     return h(
@@ -15,10 +17,10 @@ export default function (ctrl: LearnCtrl) {
         },
       },
       h('div.learn__screen.', [
-        h('h1', ctrl.trans('stageX', ctrl.vm.stage.id) + ': ' + ctrl.trans.noarg(ctrl.vm.stage.title)),
+        h('h1', i18nFormat('learn:stageX', ctrl.vm.stage.id) + ': ' + ctrl.vm.stage.title),
         h('div.stage-img.' + ctrl.vm.stage.key),
-        h('p', ctrl.trans.noarg(ctrl.vm.stage.intro)),
-        h('div.buttons', h('a.next', ctrl.trans.noarg('letsGo'))),
+        h('p', ctrl.vm.stage.intro),
+        h('div.buttons', h('a.next', i18n('learn:letsGo'))),
       ])
     );
 }

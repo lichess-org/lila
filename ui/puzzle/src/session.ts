@@ -1,4 +1,4 @@
-import { storedJsonProp } from 'common/storage';
+import { StoredJsonProp, storedJsonProp } from 'common/storage';
 import { ThemeKey } from './interfaces';
 
 interface SessionRound {
@@ -13,32 +13,32 @@ interface Store {
 }
 
 export default class PuzzleSession {
-  maxSize = 100;
-  maxAge = 1000 * 3600;
+  maxSize: number = 100;
+  maxAge: number = 1000 * 3600;
 
   constructor(
     readonly theme: ThemeKey,
     readonly userId?: string
   ) {}
 
-  default = () => ({
+  default = (): Store => ({
     theme: this.theme,
     rounds: [],
     at: Date.now(),
   });
 
-  store = storedJsonProp<Store>(`puzzle.session.${this.userId || 'anon'}`, this.default);
+  store: StoredJsonProp<Store> = storedJsonProp<Store>(`puzzle.session.${this.userId || 'anon'}`, this.default);
 
-  clear = () => this.update(s => ({ ...s, rounds: [] }));
+  clear = (): Store => this.update(s => ({ ...s, rounds: [] }));
 
-  get = () => {
+  get = (): Store => {
     const prev = this.store();
     return prev.theme == this.theme && prev.at > Date.now() - this.maxAge ? prev : this.default();
   };
 
   update = (f: (s: Store) => Store): Store => this.store(f(this.get()));
 
-  complete = (id: string, result: boolean) =>
+  complete = (id: string, result: boolean): Store =>
     this.update(s => {
       const i = s.rounds.findIndex(r => r.id == id);
       if (i == -1) {
@@ -49,7 +49,7 @@ export default class PuzzleSession {
       return s;
     });
 
-  setRatingDiff = (id: string, ratingDiff: number) =>
+  setRatingDiff = (id: string, ratingDiff: number): Store =>
     this.update(s => {
       s.rounds.forEach(r => {
         if (r.id == id) r.ratingDiff = ratingDiff;

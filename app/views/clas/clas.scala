@@ -15,8 +15,8 @@ object clas {
   def home(implicit ctx: Context) =
     views.html.base.layout(
       moreCss = frag(
-        cssTag("page"),
-        cssTag("clas")
+        cssTag("misc.page"),
+        cssTag("misc.clas")
       ),
       title = trans.clas.lishogiClasses.txt()
     ) {

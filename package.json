@@ -1,74 +1,46 @@
 {
   "name": "lishogi",
-  "version": "2.0.0",
   "private": true,
   "description": "lishogi.org: the forever free, adless and open source shogi server",
   "repository": {
     "type": "git",
     "url": "https://github.com/WandererXII/lishogi.git"
   },
-  "keywords": [
-    "shogi",
-    "lishogi"
-  ],
-  "author": "Thibault Duplessis and the gang (lichess)",
+  "author": "Thibault Duplessis and the gang (lichess), WandererXII (lishogi)",
   "license": "AGPL-3.0-or-later",
   "bugs": {
     "url": "https://github.com/WandererXII/lishogi/issues"
   },
   "homepage": "https://lishogi.org",
   "engines": {
-    "node": ">=14.3 <=18",
-    "yarn": "^1"
+    "node": ">=20",
+    "pnpm": ">=9"
   },
+  "packageManager": "pnpm@9.12.2",
   "dependencies": {
-    "xml2js": "^0.6.2"
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7",
-    "@typescript-eslint/parser": "^7",
-    "eslint": "^8",
-    "eslint-config-prettier": "^9",
-    "prettier": "^3",
+    "@build/tsconfig": "workspace:*",
+    "@types/jquery": "^3",
+    "@types/lishogi": "workspace:*",
+    "del-cli": "^6",
     "typescript": "^5"
   },
-  "workspaces": [
-    "ui",
-    "ui/analyse",
-    "ui/ceval",
-    "ui/challenge",
-    "ui/chat",
-    "ui/cli",
-    "ui/common",
-    "ui/dasher",
-    "ui/editor",
-    "ui/game",
-    "ui/nvui",
-    "ui/speech",
-    "ui/palantir",
-    "ui/insights",
-    "ui/keyboardMove",
-    "ui/learn",
-    "ui/lobby",
-    "ui/notify",
-    "ui/puzzle",
-    "ui/puz",
-    "ui/round",
-    "ui/serviceWorker",
-    "ui/simul",
-    "ui/site",
-    "ui/storm",
-    "ui/tournament",
-    "ui/tournamentSchedule",
-    "ui/tournamentCalendar",
-    "ui/tree",
-    "ui/msg",
-    "ui/@build/rollupProject",
-    "ui/@types/lishogi"
-  ],
+  "devDependencies": {
+    "prettier": "^3"
+  },
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "type-check": "pnpm m run type-check",
+    "clean": "del public/compiled && del public/css && del public/translation && pnpm m run clean",
+    "build:js": "pnpm --filter @build/js run start",
+    "build:css": "pnpm --filter @build/css run start",
+    "build:vendor": "pnpm --filter @build/vendor run start",
+    "build:pieces": "pnpm --filter @build/pieces run start",
+    "build:i18n:ts": "pnpm --filter @build/i18n run start",
+    "build:i18n:scala": "pnpm --filter @bin/utils run trans-dump",
+    "build:ui": "pnpm run clean && pnpm run build:js && pnpm run build:i18n:ts && pnpm run build:css && pnpm run build:pieces && pnpm run build:vendor",
+    "server": "./lila"
   }
 }

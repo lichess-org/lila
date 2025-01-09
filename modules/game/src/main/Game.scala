@@ -91,6 +91,8 @@ case class Game(
   def simulId       = metadata.simulId
   def postGameStudy = metadata.postGameStudy
 
+  def arrangementId = metadata.arrangementId
+
   def isTournament = tournamentId.isDefined
   def isSimul      = simulId.isDefined
   def isMandatory  = isTournament || isSimul

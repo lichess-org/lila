@@ -13,7 +13,7 @@ object emailConfirm {
   ) =
     views.html.base.layout(
       title = "Email confirmation",
-      moreCss = cssTag("mod.misc"),
+      moreCss = cssTag("user.mod.misc"),
       moreJs = embedJsUnsafe("""$('.mod-confirm form input').on('paste', function() {
 setTimeout(function() { $(this).parent().submit(); }.bind(this), 50);
 }).each(function() {

@@ -12,7 +12,6 @@ object index {
 
   def apply(
       email: Option[lila.common.EmailAddress],
-      stripePublicKey: String,
       patron: Option[lila.plan.Patron],
       recentIds: List[String],
       bestIds: List[String]
@@ -20,10 +19,9 @@ object index {
 
     views.html.base.layout(
       title = becomePatron.txt(),
-      moreCss = cssTag("plan"),
+      moreCss = cssTag("misc.plan"),
       moreJs = frag(
-        jsTag("checkout.js"),
-        embedJsUnsafe(s"""lishogi.checkout("$stripePublicKey");""")
+        jsTag("misc.checkout")
       ),
       openGraph = lila.app.ui
         .OpenGraph(
@@ -32,7 +30,6 @@ object index {
           description = freeShogi.txt()
         )
         .some,
-      csp = defaultCsp.withStripe.some,
       withHrefLangs = lila.i18n.LangList.All.some
     ) {
       main(cls := "page-menu plan")(

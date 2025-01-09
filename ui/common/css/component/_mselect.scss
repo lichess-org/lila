@@ -53,8 +53,8 @@ $c-mselect: $c-primary;
       color: $c-mselect;
       background: $c-bg-popup;
       &:not(.current):hover {
-        color: $c-font-clear;
-        // background: mix($c-mselect, $c-bg-popup, 50%);
+        color: $c-font-clear; // todo
+        background: $m-primary_bg-popup_mix_50;
       }
       &::before {
         margin-right: 0.4em;

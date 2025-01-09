@@ -44,13 +44,15 @@ export class ProgressStorage {
 }
 
 function xhrReset(): void {
-  $.post('/learn/reset');
+  window.lishogi.xhr.json('POST', '/learn/reset');
 }
 
 function xhrSaveScore(stageKey: string, levelId: number, score: number): void {
-  $.post('/learn/score', {
-    stage: stageKey,
-    level: levelId,
-    score: score,
+  window.lishogi.xhr.json('POST', '/learn/score', {
+    formData: {
+      stage: stageKey,
+      level: levelId,
+      score: score,
+    },
   });
 }

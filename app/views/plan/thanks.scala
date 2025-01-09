@@ -14,7 +14,7 @@ object thanks {
       ctx: Context
   ) =
     views.html.base.layout(
-      moreCss = cssTag("page"),
+      moreCss = cssTag("misc.page"),
       title = thankYou.txt()
     ) {
       main(cls := "page-small page box box-pad")(

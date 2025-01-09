@@ -66,7 +66,7 @@ final class Challenge(
             (c.challengerUserId ?? env.user.repo.named) map { user =>
               Ok(html.challenge.theirs(c, json, user, get("color") flatMap shogi.Color.fromName))
             },
-        api = _ => Ok(json).fuccess
+        json = Ok(json).fuccess
       ) flatMap withChallengeAnonCookie(mine && c.challengerIsAnon, c, true)
     } dmap env.lilaCookie.ensure(ctx.req)
 
@@ -90,12 +90,12 @@ final class Challenge(
             case Some(pov) =>
               negotiate(
                 html = Redirect(routes.Round.watcher(pov.gameId, cc.fold("sente")(_.name))).fuccess,
-                api = apiVersion => env.api.roundApi.player(pov, none, apiVersion) map { Ok(_) }
+                json = env.api.roundApi.player(pov, none) map { Ok(_) }
               ) flatMap withChallengeAnonCookie(ctx.isAnon, c, false)
             case None =>
               negotiate(
                 html = Redirect(routes.Round.watcher(c.id, cc.fold("sente")(_.name))).fuccess,
-                api = _ => notFoundJson("Someone else accepted the challenge")
+                json = notFoundJson("Someone else accepted the challenge")
               )
           }
       }
@@ -213,7 +213,7 @@ final class Challenge(
         .user(me)
         .bindFromRequest()
         .fold(
-          err => BadRequest(apiFormError(err)).fuccess,
+          err => jsonFormError(err),
           config => {
             val cost = if (me.isApiHog) 0 else 1
             ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req, cost = cost) {
@@ -246,7 +246,7 @@ final class Challenge(
                             case true =>
                               JsonOk(
                                 env.challenge.jsonView
-                                  .show(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
+                                  .api(challenge, SocketVersion(0), lila.challenge.Direction.Out.some)
                               )
                             case false =>
                               BadRequest(jsonError("Challenge not created"))
@@ -288,32 +288,32 @@ final class Challenge(
     }
 
   def openCreate =
-    Action.async { implicit req =>
-      implicit val lang = reqLang
+    OpenBody { implicit ctx =>
+      implicit val req = ctx.body
       env.setup.forms.api.open
         .bindFromRequest()
         .fold(
-          err => BadRequest(apiFormError(err)).fuccess,
+          err => jsonFormError(err),
           config =>
             ChallengeIpRateLimit(HTTPRequest lastRemoteAddress req) {
               import lila.challenge.Challenge._
+              val timeControl = TimeControl.make(config.clock, config.days)
               val challenge = lila.challenge.Challenge
                 .make(
                   variant = config.variant,
                   initialSfen = config.sfen,
-                  timeControl = config.clock.fold[TimeControl](TimeControl.Unlimited) {
-                    TimeControl.Clock.apply
-                  },
-                  mode = shogi.Mode.Casual,
+                  timeControl = timeControl,
+                  mode = shogi.Mode(config.rated),
                   color = "random",
                   challenger = Challenger.Open,
                   destUser = none,
-                  rematchOf = none
+                  rematchOf = none,
+                  isOpen = true
                 )
               (env.challenge.api create challenge) map {
                 case true =>
                   JsonOk(
-                    env.challenge.jsonView.show(challenge, SocketVersion(0), none) ++ Json.obj(
+                    env.challenge.jsonView.api(challenge, SocketVersion(0), none) ++ Json.obj(
                       "urlSente" -> s"${env.net.baseUrl}/${challenge.id}?color=sente",
                       "urlGote"  -> s"${env.net.baseUrl}/${challenge.id}?color=gote"
                     )

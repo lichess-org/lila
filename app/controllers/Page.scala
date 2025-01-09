@@ -74,14 +74,13 @@ final class Page(
       import play.api.libs.json._
       negotiate(
         html = Ok(views.html.site.variant.home).fuccess,
-        api = _ =>
-          Ok(JsArray(shogi.variant.Variant.all.map { v =>
-            Json.obj(
-              "id"   -> v.id,
-              "key"  -> v.key,
-              "name" -> v.name
-            )
-          })).fuccess
+        json = Ok(JsArray(shogi.variant.Variant.all.map { v =>
+          Json.obj(
+            "id"   -> v.id,
+            "key"  -> v.key,
+            "name" -> v.name
+          )
+        })).fuccess
       )
     }
 

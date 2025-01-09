@@ -14,12 +14,14 @@ final class FormFactory {
 
   val filter = Form(single("local" -> text))
 
-  def aiFilled(sfen: Option[Sfen], variant: Option[Variant]): Form[AiConfig] =
-    ai fill sfen.foldLeft(AiConfig.default) { case (config, f) =>
+  def aiFilled(sfen: Option[Sfen], variant: Option[Variant])(implicit
+      ctx: UserContext
+  ): Form[AiConfig] =
+    ai(ctx) fill sfen.foldLeft(AiConfig.default) { case (config, f) =>
       config.copy(sfen = f.some, variant = variant.getOrElse(Standard))
     }
 
-  lazy val ai = Form(
+  def ai(ctx: UserContext) = Form(
     mapping(
       "variant"   -> aiVariants,
       "timeMode"  -> timeMode,
@@ -33,6 +35,7 @@ final class FormFactory {
       "sfen"      -> sfenField
     )(AiConfig.from)(_.>>)
       .verifying("invalidSfen", _.validSfen)
+      .verifying("Invalid timemode", _.validTimeMode(ctx.isAuth))
       .verifying("Can't play that time control with this variant", _.timeControlNonStandard)
   )
 
@@ -58,6 +61,7 @@ final class FormFactory {
         "sfen"      -> sfenField
       )(FriendConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
+        .verifying("Invalid timemode", _.validTimeMode(ctx.isAuth))
         .verifying("Invalid speed", _.validSpeed(ctx.me.exists(_.isBot)))
         .verifying("invalidSfen", _.validSfen)
     )
@@ -80,6 +84,7 @@ final class FormFactory {
         "color"       -> color
       )(HookConfig.from)(_.>>)
         .verifying("Invalid clock", _.validClock)
+        .verifying("Invalid timemode", _.validTimeMode(ctx.isAuth))
         .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
     )
   }
@@ -161,8 +166,12 @@ final class FormFactory {
       mapping(
         variant,
         clock,
-        "sfen" -> sfenField
-      )(OpenConfig.from)(_.>>).verifying("invalidSfen", _.validSfen)
+        "days"  -> optional(days),
+        "rated" -> boolean,
+        "sfen"  -> sfenField
+      )(OpenConfig.from)(_.>>)
+        .verifying("invalidSfen", _.validSfen)
+        .verifying("rated without a clock", c => c.clock.isDefined || c.days.isDefined || !c.rated)
     )
   }
 }
