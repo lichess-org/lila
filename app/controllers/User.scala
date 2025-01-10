@@ -128,7 +128,7 @@ final class User(
               res <-
                 if HTTPRequest.isSynchronousHttp(ctx.req) then
                   for
-                    info   <- env.userInfo(u, nbs, withUblog = false)
+                    info   <- env.userInfo(u, nbs, withUblog = true)
                     _      <- env.team.cached.lightCache.preloadMany(info.teamIds)
                     social <- env.socialInfo(u)
                     searchForm = (filters.current == GameFilter.Search).option(
