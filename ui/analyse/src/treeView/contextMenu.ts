@@ -90,7 +90,9 @@ function view(opts: Opts, coords: Coords): VNode {
         action(licon.InternalArrow, i18n.site.forceVariation, () => ctrl.forceVariation(opts.path, true)),
 
       action(licon.Clipboard, i18n.site.copyVariationPgn, () =>
-        navigator.clipboard.writeText(renderVariationPgn(opts.root.tree.getNodeList(opts.path))),
+        navigator.clipboard.writeText(
+          renderVariationPgn(opts.root.data.game, opts.root.tree.getNodeList(opts.path)),
+        ),
       ),
     ],
   );
