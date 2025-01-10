@@ -72,6 +72,7 @@ private object GameStream:
               )
               .add("provisional" -> p.provisional))
         )
+        .add("winner" -> g.winnerColor.map(_.name))
         .add("initialFen" -> initialFen)
         .add("clock" -> g.clock.map: clock =>
           Json.obj(
