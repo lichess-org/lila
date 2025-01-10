@@ -36,7 +36,7 @@ function mostPlayedOpponentsTable(data: OpponentResult): VNode {
       h(
         'a.table-col1.user-link.ulpt',
         {
-          attrs: { href: '/@/' + key },
+          attrs: { href: `/@/${key}` },
           class: { small: key.length >= 16 },
         },
         key,

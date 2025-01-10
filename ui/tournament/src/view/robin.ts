@@ -47,7 +47,7 @@ function playerNameStanding(_ctrl: TournamentController, player) {
 export function standing(ctrl: TournamentController, klass?: string): VNode {
   const maxScore = Math.max(...ctrl.data.standing.players.map(p => p.score || 0)),
     size = ctrl.data.standing.players.length;
-  return h('div.r-table-wrap' + (klass ? '.' + klass : '') + (size === 0 ? '.none' : ''), [
+  return h(`div.r-table-wrap${klass ? `.${klass}` : ''}${size === 0 ? '.none' : ''}`, [
     h(
       'div.r-table-wrap-players',
       h('table', [
@@ -103,7 +103,7 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
               },
               ctrl.data.standing.players.map((player2, j) => {
                 const arr = ctrl.findArrangement([player.id, player2.id]),
-                  key = player.id + ';' + player2.id;
+                  key = `${player.id};${player2.id}`;
                 return h(
                   'td',
                   {
@@ -116,7 +116,7 @@ export function standing(ctrl: TournamentController, klass?: string): VNode {
                       h: ctrl.highlightArrs.includes(key),
                     },
                   },
-                  !!arr?.status
+                  arr?.status
                     ? h('div', {
                         class: {
                           p: arr.status == ids.started,
@@ -160,7 +160,7 @@ function podiumUsername(p) {
   return h(
     'a.text.ulpt.user-link',
     {
-      attrs: { href: '/@/' + p.name },
+      attrs: { href: `/@/${p.name}` },
     },
     playerName(p),
   );
@@ -189,7 +189,7 @@ function podiumStats(p, games: Arrangement[]): VNode {
 }
 
 function podiumPosition(p, pos, games: Arrangement[]): VNode | undefined {
-  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p, games)]);
+  if (p) return h(`div.${pos}`, [h('div.trophy'), podiumUsername(p), podiumStats(p, games)]);
 }
 
 export function podium(ctrl: TournamentController): VNode {

@@ -7,7 +7,7 @@ window.lishogi.ready.then(() => {
 
   QRCode.toCanvas(
     document.getElementById('qrcode'),
-    'otpauth://totp/' + issuer + ':' + user + '?secret=' + secret + '&issuer=' + issuer,
+    `otpauth://totp/${issuer}:${user}?secret=${secret}&issuer=${issuer}`,
     {
       width: 320,
     },

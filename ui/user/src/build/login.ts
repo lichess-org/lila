@@ -30,7 +30,7 @@ function load($f: JQuery): void {
             load($(selector));
           } else {
             alert(
-              err.responseText || err.statusText + '. Please wait some time before trying again.',
+              err.responseText || `${err.statusText}. Please wait some time before trying again.`,
             );
             $f.find('.submit').prop('disabled', false);
           }

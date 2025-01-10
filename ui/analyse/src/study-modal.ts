@@ -80,7 +80,7 @@ function postGameStudyForm(ctrl: AnalyseCtrl): VNode {
           }),
           attrs: {
             name: 'invited',
-            placeholder: i18n('study:searchByUsername') + ` (${i18n('optional').toLowerCase()})`,
+            placeholder: `${i18n('study:searchByUsername')} (${i18n('optional').toLowerCase()})`,
           },
         }),
       ]),

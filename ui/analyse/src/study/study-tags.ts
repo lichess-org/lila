@@ -93,7 +93,7 @@ function renderTags(chapter: StudyChapter, submit, types: string[]): VNode {
         return h(
           'tr',
           {
-            key: '' + r[0],
+            key: `${r[0]}`,
           },
           [
             h(
@@ -147,7 +147,7 @@ function translateTag(tag: string, handicap: boolean): string {
     return colorName(tag.toLowerCase() as Color, handicap);
   } else if (tag.startsWith('Sente') || tag.startsWith('Gote')) {
     return i18nColorTag(tag, handicap);
-  } else return tagI18n[transformString(tag) + 'Tag'] || tag;
+  } else return tagI18n[`${transformString(tag)}Tag`] || tag;
 }
 
 export function view(root: StudyCtrl): VNode {
@@ -158,11 +158,11 @@ export function view(root: StudyCtrl): VNode {
       .join(','),
     key =
       chapter.id + root.data.name + chapter.name + root.data.likes + tagKey + root.vm.mode.write;
-  return thunk('div.' + chapter.id, doRender, [root, key]);
+  return thunk(`div.${chapter.id}`, doRender, [root, key]);
 }
 
 function i18nColorTag(tag: string, handicap: boolean): string {
-  const xTag = tag.replace(/^(Sente|Gote)/, 'x') + 'Tag',
+  const xTag = `${tag.replace(/^(Sente|Gote)/, 'x')}Tag`,
     color = tag.startsWith('Sente') ? 'sente' : 'gote';
   switch (xTag) {
     case 'xEloTag':

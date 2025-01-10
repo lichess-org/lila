@@ -12,7 +12,7 @@ function authorDom(author: Tree.CommentAuthor) {
     return h(
       'span.user-link.ulpt',
       {
-        attrs: { 'data-href': '/@/' + author.id },
+        attrs: { 'data-href': `/@/${author.id}` },
       },
       author.name,
     );
@@ -20,8 +20,8 @@ function authorDom(author: Tree.CommentAuthor) {
 
 export function authorText(author: Tree.CommentAuthor): string {
   if (!author) return '';
-  if (typeof author === 'string') return '[' + author + ']';
-  else return '[' + author.name + ']';
+  if (typeof author === 'string') return `[${author}]`;
+  else return `[${author.name}]`;
 }
 
 export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNode | undefined {
@@ -38,7 +38,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
       const isMine = by.id && ctrl.opts.userId === by.id;
       if (!includingMine && isMine) return;
       const canDelete = isMine || study.members.isOwner();
-      return h('div.study__comment.' + comment.id, [
+      return h(`div.study__comment.${comment.id}`, [
         canDelete && study.vm.mode.write
           ? h('a.edit', {
               attrs: {
@@ -48,7 +48,7 @@ export function currentComments(ctrl: AnalyseCtrl, includingMine: boolean): VNod
               hook: bind(
                 'click',
                 _ => {
-                  if (confirm('Delete ' + authorText(by) + "'s comment?"))
+                  if (confirm(`Delete ${authorText(by)}'s comment?`))
                     study.commentForm.delete(chapter.id, ctrl.path, comment.id);
                 },
                 ctrl.redraw,

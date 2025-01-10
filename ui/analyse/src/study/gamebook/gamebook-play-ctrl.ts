@@ -45,7 +45,7 @@ export default class GamebookPlayCtrl {
       state.feedback = 'end';
     } else if (this.isMyMove()) {
       state.feedback = 'play';
-      state.hint = (node.gamebook || {}).hint;
+      state.hint = node.gamebook?.hint;
     } else if (this.root.onMainline) {
       state.feedback = 'good';
     } else {
@@ -83,11 +83,12 @@ export default class GamebookPlayCtrl {
       case 'bad':
         this.retry();
         break;
-      case 'end':
+      case 'end': {
         const s = this.root.study!,
           c = s.nextChapter();
         if (c) s.setChapter(c.id);
         break;
+      }
       default:
         this.next();
     }
@@ -117,7 +118,7 @@ export default class GamebookPlayCtrl {
 
   onShapeChange = (shapes: Tree.Shape[]): void => {
     const node = this.root.node;
-    if (node.gamebook && node.gamebook.shapes && !shapes.length) {
+    if (node.gamebook?.shapes && !shapes.length) {
       node.shapes = node.gamebook.shapes.slice(0);
       this.root.jump(this.root.path);
     }

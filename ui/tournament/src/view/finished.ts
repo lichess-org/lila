@@ -18,7 +18,7 @@ import teamInfo from './team-info';
 import { numberRow } from './util';
 
 function confetti(data: TournamentData): VNode | undefined {
-  if (data.me && data.isRecentlyFinished && once('tournament.end.canvas.' + data.id))
+  if (data.me && data.isRecentlyFinished && once(`tournament.end.canvas.${data.id}`))
     return h('canvas#confetti', {
       hook: {
         insert: _ => loadCompiledScript('misc.confetti'),

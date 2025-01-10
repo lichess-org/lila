@@ -61,9 +61,9 @@ function renderNodesHtml(nodes: ForecastStep[]): MaybeVNodes {
     addColorIcon = notationsWithColor();
 
   nodes.forEach((node, index) => {
-    const colorIcon = addColorIcon ? ('.color-icon.' + (node.ply % 2) ? 'gote' : 'sente') : '';
-    tags.push(h('index', index + 1 + '.'));
-    tags.push(h('move-notation' + colorIcon, node.notation));
+    const colorIcon = addColorIcon ? (`.color-icon.${node.ply % 2}` ? 'gote' : 'sente') : '';
+    tags.push(h('index', `${index + 1}.`));
+    tags.push(h(`move-notation${colorIcon}`, node.notation));
   });
   return tags;
 }

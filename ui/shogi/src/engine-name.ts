@@ -31,7 +31,7 @@ export function engineName(rules: Rules, sfen: Sfen | undefined, level?: number)
 
 export function engineNameFromCode(code?: EngineCode, level?: number): string {
   const name = code === EngineCode.Fairy ? 'Fairy Stockfish' : useJp ? 'やねうら王' : 'YaneuraOu';
-  if (level) return name + ' - ' + i18nFormat('levelX', level);
+  if (level) return `${name} - ${i18nFormat('levelX', level)}`;
   else return name;
 }
 

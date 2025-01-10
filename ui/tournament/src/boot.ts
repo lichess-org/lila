@@ -8,7 +8,7 @@ export function boot(
   $('body').data('tournament-id', opts.data.id);
   let ctrl;
   window.lishogi.socket = new window.lishogi.StrongSocket(
-    '/tournament/' + opts.data.id + '/socket/v4',
+    `/tournament/${opts.data.id}/socket/v4`,
     opts.data.socketVersion,
     {
       receive: (t, d) => ctrl.socket.receive(t, d),

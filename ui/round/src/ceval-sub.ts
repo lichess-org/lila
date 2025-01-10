@@ -27,7 +27,7 @@ export function subscribe(ctrl: RoundController): void {
       e.value &&
       truncateSfen(step.sfen) === truncateSfen(e.value)
     ) {
-      window.lishogi.xhr.text('POST', '/jslog/' + d.game.id + d.player.id, {
+      window.lishogi.xhr.text('POST', `/jslog/${d.game.id}${d.player.id}`, {
         url: { n: 'ceval' },
       });
       found = true;

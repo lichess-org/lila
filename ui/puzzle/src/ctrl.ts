@@ -518,7 +518,7 @@ export default function (opts: PuzzleOpts, redraw: Redraw): Controller {
   initiate(opts.data);
 
   function playBestMove(): void {
-    const usi = nextNodeBest() || (vm.node.ceval && vm.node.ceval.pvs[0].moves[0]);
+    const usi = nextNodeBest() || vm.node.ceval?.pvs[0].moves[0];
     if (usi) playUsi(usi);
   }
 

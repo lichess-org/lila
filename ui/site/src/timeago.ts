@@ -17,7 +17,7 @@ LIMITS[2] *= 2; // Show hours up to 2 days.
 function toDate(input: Date | string | number) {
   return input instanceof Date
     ? input
-    : new Date(isNaN(input as any) ? input : Number.parseInt(input as any));
+    : new Date(Number.isNaN(input as any) ? input : Number.parseInt(input as any));
 }
 
 // format the diff second to *** time ago

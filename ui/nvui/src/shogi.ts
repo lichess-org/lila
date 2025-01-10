@@ -55,7 +55,7 @@ export function renderMove(
   const piece = pos.value.board.get(move.to)!;
   if (isDrop(move)) {
     const to = usi.slice(2, 4) as Key;
-    return renderRole(piece.role, style) + ' * ' + renderKey(to, style);
+    return `${renderRole(piece.role, style)} * ${renderKey(to, style)}`;
   } else {
     const from = usi.slice(0, 2) as Key,
       to = usi.slice(2, 4) as Key;
@@ -118,7 +118,7 @@ export function renderPieceKeys(pieces: Pieces, hands: Hands, p: string, style: 
   for (const [k, piece] of pieces) {
     if (piece && `${piece.color} ${piece.role}` === name) res.push(k);
   }
-  const handStr = (hands.get(color)?.get(role) || 'none') + ' in hand';
+  const handStr = `${hands.get(color)?.get(role) || 'none'} in hand`;
   return `${style === 'japanese' ? `${renderColor(color, style)} ${rolesJP[role]}` : name}: ${
     res.length ? res.map(k => renderKey(k, style)).join(', ') : 'none'
   }; ${handStr}`;
@@ -153,7 +153,7 @@ export function renderHand(
       if (senteCnt) handStr += senteCnt > 1 ? senteCnt.toString() + forsyth : forsyth;
     }
   }
-  return renderColor(color, style) + ': ' + (handStr || '-');
+  return `${renderColor(color, style)}: ${handStr || '-'}`;
 }
 
 export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey, style: Style): string {
@@ -174,7 +174,7 @@ export function renderBoard(pieces: Pieces, pov: Color, variant: VariantKey, sty
         line.push(letter);
       } else line.push('-');
     }
-    board.push(['' + rank, ...line, '' + rank]);
+    board.push([`${rank}`, ...line, `${rank}`]);
   }
   board.push([' ', ...reversedFiles, ' ']);
   if (pov === 'gote') {

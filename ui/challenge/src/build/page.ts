@@ -49,7 +49,7 @@ function main(opts: any): void {
     if (document.getElementById('ping-challenge')) {
       try {
         window.lishogi.socket.send('ping');
-      } catch (e) {}
+      } catch (_e) {}
       setTimeout(pingNow, 9000);
     }
   }

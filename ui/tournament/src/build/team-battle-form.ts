@@ -24,8 +24,8 @@ window.lishogi.ready.then(() => {
               _ => callback([]),
             );
         },
-        template: team => team.name + ', by ' + team.owner + ', with ' + team.members + ' members',
-        replace: team => '$1' + team.id + ' "' + team.name + '" by ' + team.owner + '\n',
+        template: team => `${team.name}, by ${team.owner}, with ${team.members} members`,
+        replace: team => `$1${team.id} "${team.name}" by ${team.owner}\n`,
       },
     ]);
   });

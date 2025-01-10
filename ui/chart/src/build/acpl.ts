@@ -46,7 +46,7 @@ function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): 
     mainline.slice(1).map(node => {
       const isSente = (node.ply & 1) === 1;
       let cp: number | undefined = node.eval && 0;
-      if (node.eval && node.eval.mate)
+      if (node.eval?.mate)
         cp = node.eval.mate > 0 ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
       else if (node.eval?.mate) cp = isSente ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
       if (node.eval?.cp) cp = node.eval.cp;
@@ -56,7 +56,7 @@ function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): 
       winChances.push({ x: node.ply, y: winchance });
 
       const { advice, color: glyphColor } = glyphProperties(node);
-      const label = node.ply + plyOffset + '. ' + ' ' + node.notation;
+      const label = `${node.ply + plyOffset}.  ${node.notation}`;
       let annotation = '';
       if (advice) annotation = ` [${i18n(advice)}]`;
       const isBlur =
@@ -143,7 +143,7 @@ function main(el: HTMLCanvasElement, data: AnalyseData, mainline: Tree.Node[]): 
                 e = ev.mate;
                 mateSymbol = '#';
               }
-              return i18n('advantage') + ': ' + mateSymbol + advantageSign + e;
+              return `${i18n('advantage')}: ${mateSymbol}${advantageSign}${e}`;
             },
             title: items => (items[0] ? moveLabels[items[0].dataIndex] : ''),
           },

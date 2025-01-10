@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import { prefix } from './constants.js';
 
 export async function extractVariables(files: string[]): Promise<Set<string>> {

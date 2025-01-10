@@ -103,7 +103,7 @@ function edit(ctrl: DescriptionCtrl, id: string, chapter: boolean): VNode {
     ]),
     h('form.form3', [
       h('div.form-group', [
-        h('textarea#form-control.desc-text.' + id, {
+        h(`textarea#form-control.desc-text.${id}`, {
           hook: onInsert<HTMLInputElement>(el => {
             el.value = ctrl.text === '-' ? '' : ctrl.text || '';
             el.onkeyup = el.onpaste = () => {

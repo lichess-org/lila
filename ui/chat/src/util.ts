@@ -11,7 +11,7 @@ export function userLink(u: string, title?: string): VNode {
         ulpt: true,
       },
       attrs: {
-        href: '/@/' + u,
+        href: `/@/${u}`,
       },
     },
     title

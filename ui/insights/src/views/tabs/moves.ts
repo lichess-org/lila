@@ -153,7 +153,7 @@ function colorSelector(ctrl: InsightCtrl): VNode {
 function colorChoice(ctrl: InsightCtrl, color: Color): VNode {
   const disabled = ctrl.filter.color !== 'both' && ctrl.filter.color !== color;
   return h(
-    'a.' + color,
+    `a.${color}`,
     {
       class: { selected: ctrl.mostPlayedMovesColor === color, disabled: disabled },
       hook: bind('click', () => {

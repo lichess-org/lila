@@ -28,7 +28,7 @@ export function fillJquery(): void {
       });
       return this;
     };
-    $.fn.show = $.fn.fadeIn = function (duration, cb) {
+    $.fn.show = $.fn.fadeIn = function (_duration, cb) {
       return update(
         this,
         el => {
@@ -39,7 +39,7 @@ export function fillJquery(): void {
         cb,
       );
     };
-    $.fn.hide = $.fn.fadeOut = function (duration, cb) {
+    $.fn.hide = $.fn.fadeOut = function (_duration, cb) {
       return update(
         this,
         el => {
@@ -52,7 +52,7 @@ export function fillJquery(): void {
       // no animations to stop
       return this;
     };
-    $.fn.animate = function (prop, speed, easing, callback) {
+    $.fn.animate = function (prop, _speed, _easing, callback) {
       $.fn.css(prop);
       if ($.isFunction(callback)) callback();
       return this;
@@ -68,7 +68,7 @@ export function fillJquery(): void {
 
   $.modal = (html, cls, onClose, withDataAndEvents) => {
     $.modal.close();
-    if (!html.clone) html = $('<div>' + html + '</div>');
+    if (!html.clone) html = $(`<div>${html}</div>`);
     const $wrap = $('<div id="modal-wrap">')
       .html(html.clone(withDataAndEvents).removeClass('none'))
       .prepend('<span class="close" data-icon="L"></span>');

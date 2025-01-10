@@ -13,7 +13,7 @@ export function custom(ctrl: InsightCtrl, res: CustomResult): VNode {
     custom = ctrl.filter.custom,
     key = JSON.stringify(ctrl.filter);
   return h(
-    'div.custom.' + custom.type + custom.x + '-' + custom.y,
+    `div.custom.${custom.type}${custom.x}-${custom.y}`,
     h('section.with-title', [
       h('div.custom-title-bar', [
         h('h2', i18n('custom')),
@@ -26,7 +26,7 @@ export function custom(ctrl: InsightCtrl, res: CustomResult): VNode {
         ),
       ]),
       h('div.section-container', [
-        data ? groupChart(data, custom, key) : h('div.no-data', 'No data - ' + res.error),
+        data ? groupChart(data, custom, key) : h('div.no-data', `No data - ${res.error}`),
         h('div.custom-select-by', [
           select(ctrl, 'y', mappingsByType(custom.type)),
           h('span', 'by'),
@@ -147,7 +147,7 @@ function groupChart(
     custom.x === 'status'
       ? data.labels.map(l => translateStatusName(l).split(' '))
       : data.labels.map(l => labelTranslate(l).split(' '));
-  return barChart('custom-chart-' + custom.x + '-' + custom.y, key, {
+  return barChart(`custom-chart-${custom.x}-${custom.y}`, key, {
     labels: labels,
     datasets: parsedDatasets,
     total: !countMappingKeys.includes(custom.y)

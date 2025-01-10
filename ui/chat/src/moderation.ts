@@ -74,14 +74,14 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
   const infos = data.history
     ? h(
         'div.infos.block',
-        [numberFormat(data.games || 0) + ' games', data.tos ? 'TOS' : undefined]
+        [`${numberFormat(data.games || 0)} games`, data.tos ? 'TOS' : undefined]
           .map(t => t && h('span', t))
           .concat([
             h(
               'a',
               {
                 attrs: {
-                  href: '/@/' + data.username + '?mod',
+                  href: `/@/${data.username}?mod`,
                 },
               },
               'profile',
@@ -94,7 +94,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
                     'a',
                     {
                       attrs: {
-                        href: '/mod/' + data.username + '/communication',
+                        href: `/mod/${data.username}/communication`,
                       },
                     },
                     'coms',
@@ -161,7 +161,7 @@ export function moderationView(ctrl?: ModerationCtrl): VNode[] | undefined {
     : undefined;
 
   return [
-    h('div.top', { key: 'mod-' + data.id }, [
+    h('div.top', { key: `mod-${data.id}` }, [
       h(
         'span.text',
         {

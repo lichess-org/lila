@@ -184,7 +184,7 @@ function otherActions(a: Arrangement, u: ArrangementUser, hasMe: boolean, utc: b
     hasMe
       ? h('a.user-button.message', {
           attrs: {
-            href: '/inbox/' + u.id,
+            href: `/inbox/${u.id}`,
             'data-icon': 'c',
           },
         })
@@ -218,7 +218,7 @@ function middleButtons(
     h('div.game-button', [
       h('div.timer'),
       a.gameId
-        ? h('a.button', { attrs: { href: '/' + a.gameId } }, i18n('tourArrangements:goToGame'))
+        ? h('a.button', { attrs: { href: `/${a.gameId}` } }, i18n('tourArrangements:goToGame'))
         : h(
             'button.button',
             {
@@ -258,9 +258,7 @@ function middleButtons(
                     ctrl.utc(),
                   );
                   (vnode.elm as HTMLElement).innerHTML =
-                    `<span>${player.name}</span> ` +
-                    historyAction(split[2]) +
-                    ` <time>${date}</time>`;
+                    `<span>${player.name}</span> ${historyAction(split[2])} <time>${date}</time>`;
                   vnode.data!.cachedUTC = ctrl.utc;
                 },
                 postpatch(old, vnode) {
@@ -270,9 +268,7 @@ function middleButtons(
                       ctrl.utc(),
                     );
                     (vnode.elm as HTMLElement).innerHTML =
-                      `<span>${player.name}</span> ` +
-                      historyAction(split[2]) +
-                      ` <time>${date}</time>`;
+                      `<span>${player.name}</span> ${historyAction(split[2])} <time>${date}</time>`;
                   }
                   vnode.data!.cachedUTC = ctrl.utc;
                 },

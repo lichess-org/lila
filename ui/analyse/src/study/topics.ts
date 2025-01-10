@@ -104,7 +104,7 @@ function setupTagify(elm: HTMLTextAreaElement, userId?: string) {
       const term = (e.detail as Tagify.TagData).value.trim();
       if (term.length < 2) return;
       tagi.settings.whitelist.length = 0; // reset the whitelist
-      abortCtrl && abortCtrl.abort();
+      abortCtrl?.abort();
       abortCtrl = new AbortController();
       // show loading animation and hide the suggestions dropdown
       tagi.loading(true).dropdown.hide.call(tagi);

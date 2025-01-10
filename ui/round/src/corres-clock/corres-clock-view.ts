@@ -7,11 +7,11 @@ import { moretime } from '../view/button';
 import type { CorresClockController } from './corres-clock-ctrl';
 
 function prefixInteger(num: number, length: number): string {
-  return (num / Math.pow(10, length)).toFixed(length).slice(2);
+  return (num / 10 ** length).toFixed(length).slice(2);
 }
 
 function bold(x: string) {
-  return '<b>' + x + '</b>';
+  return `<b>${x}</b>`;
 }
 
 function formatClockTime(time: Millis) {
@@ -24,15 +24,15 @@ function formatClockTime(time: Millis) {
     // days : hours
     const days = date.getUTCDate() - 1;
     hours = date.getUTCHours();
-    str += (days === 1 ? i18n('oneDay') : i18nPluralSame('nbDays', days)) + ' ';
+    str += `${days === 1 ? i18n('oneDay') : i18nPluralSame('nbDays', days)} `;
     if (hours !== 0) str += i18nPluralSame('nbHours', hours);
   } else if (time >= 3600 * 1000) {
     // hours : minutes
     hours = date.getUTCHours();
-    str += bold(prefixInteger(hours, 2)) + ':' + bold(minutes);
+    str += `${bold(prefixInteger(hours, 2))}:${bold(minutes)}`;
   } else {
     // minutes : seconds
-    str += bold(minutes) + ':' + bold(seconds);
+    str += `${bold(minutes)}:${bold(seconds)}`;
   }
   return str;
 }
@@ -49,7 +49,7 @@ export default function (
     },
     isPlayer = ctrl.root.data.player.color === color;
   return h(
-    'div.rclock.rclock-correspondence.rclock-' + position,
+    `div.rclock.rclock-correspondence.rclock-${position}`,
     {
       class: {
         outoftime: millis <= 0,

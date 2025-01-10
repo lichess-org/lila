@@ -1,5 +1,5 @@
-import * as fs from 'fs';
-import path from 'path';
+import * as fs from 'node:fs';
+import path from 'node:path';
 import { themes } from './constants.js';
 import type { ThemeRecord } from './types.js';
 

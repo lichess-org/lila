@@ -22,12 +22,12 @@ window.lishogi.ready.then(() => {
       };
     getUsernames().forEach(user => {
       const option: string[] = [];
-      option.push("<option value='" + user + "'");
+      option.push(`<option value='${user}'`);
       option.push(isSelected(row, 'winner', user, 'req-winner'));
       option.push(isSelected(row, 'loser', user, 'req-loser'));
       option.push(isSelected(row, 'senteUser', user, 'req-sente'));
       option.push(isSelected(row, 'goteUser', user, 'req-gote'));
-      option.push('>' + user + '</option>');
+      option.push(`>${user}</option>`);
       options.push(option.join(''));
     });
     $(row).find('select').html(options.join(''));
@@ -67,7 +67,7 @@ window.lishogi.ready.then(() => {
 
   result.querySelectorAll('a.permalink').forEach(el => {
     const s = el.classList.contains('download') ? serialize(true) : serialized;
-    el.setAttribute('href', (el.getAttribute('href') || '').split('?')[0] + '?' + s);
+    el.setAttribute('href', `${(el.getAttribute('href') || '').split('?')[0]}?${s}`);
   });
 
   rows.forEach(row => {

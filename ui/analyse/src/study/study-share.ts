@@ -84,8 +84,8 @@ export function view(ctrl: StudyShareCtrl): VNode {
   const isPrivate = ctrl.isPrivate();
   if (ctrl.withPly() && ctrl.onMainline()) {
     const p = ctrl.currentNode().ply;
-    fullUrl += '#' + p;
-    embedUrl += '#' + p;
+    fullUrl += `#${p}`;
+    embedUrl += `#${p}`;
   }
   return h('div.study__share', [
     h('form.form3', [

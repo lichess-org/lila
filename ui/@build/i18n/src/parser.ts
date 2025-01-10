@@ -1,5 +1,5 @@
+import { readFile } from 'node:fs/promises';
 import { XMLParser } from 'fast-xml-parser';
-import { readFile } from 'fs/promises';
 import type { I18nObj, PluralCategory, XmlSource } from './types.js';
 
 interface StringResource {

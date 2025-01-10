@@ -73,7 +73,7 @@ function themeView(ctrl: ThemeCtrl, t: Theme | 'thickGrid') {
         attrs: { title: t.name },
         class: { active: ctrl.data.current === t.key },
       },
-      h('span.' + t.key),
+      h(`span.${t.key}`),
     );
 }
 

@@ -21,9 +21,9 @@ export function smallWinrateChart(winrate: WinRate): VNode {
     lossPercent = toPercentage(winrate[2], totalGames);
   return h('div.small-winrate-wrap', [
     h('div.small-winrate-info-wrap', [
-      winPercent ? h('span.win', winPercent + '%') : null,
-      drawPercent ? h('span.draw', drawPercent + '%') : null,
-      lossPercent ? h('span.loss', lossPercent + '%') : null,
+      winPercent ? h('span.win', `${winPercent}%`) : null,
+      drawPercent ? h('span.draw', `${drawPercent}%`) : null,
+      lossPercent ? h('span.loss', `${lossPercent}%`) : null,
     ]),
     horizontalBar([winPercent, drawPercent, lossPercent], ['win', 'draw', 'loss']),
   ]);
@@ -33,9 +33,9 @@ export function horizontalBar(numbers: number[], cls: string[] = []): VNode {
   return h(
     'div.simple-horizontal-bar',
     numbers.map((n, i) =>
-      h('div' + (cls[i] ? `.${cls[i]}` : ''), {
+      h(`div${cls[i] ? `.${cls[i]}` : ''}`, {
         style: {
-          width: n + '%',
+          width: `${n}%`,
         },
       }),
     ),
@@ -48,7 +48,7 @@ export function winrateTable(
   records: Record<string, WinRate>,
   fn: (key: string) => VNode,
 ): VNode {
-  return h('div.winrate-table.' + cls, [
+  return h(`div.winrate-table.${cls}`, [
     h('div.winrate-table-header', [
       h('div.table-col1', headers[0]),
       h('div.table-col2', headers[1]),
@@ -71,7 +71,7 @@ function tableContent(records: Record<string, WinRate>, fn: (key: string) => VNo
 
 export function bigNumberWithDesc(nb: number | string, desc: string, cls = '', affix = ''): VNode {
   const node = affix ? h('div', [nb, h('span.tiny', affix)]) : nb;
-  return h('div.big-number-with-desc' + (cls ? '.' + cls : ''), [
+  return h(`div.big-number-with-desc${cls ? `.${cls}` : ''}`, [
     h('div.big-number', node),
     h('span.desc', desc),
   ]);

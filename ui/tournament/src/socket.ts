@@ -36,7 +36,7 @@ export default function (send: Socket.Send, ctrl: TournamentController): Tournam
       )
         ctrl.arrangement = arr;
       else {
-        const key = arr.user1.id + ';' + arr.user2.id;
+        const key = `${arr.user1.id};${arr.user2.id}`;
         ctrl.highlightArrs.push(key);
         setTimeout(() => {
           ctrl.highlightArrs = ctrl.highlightArrs.filter(k => k !== key);

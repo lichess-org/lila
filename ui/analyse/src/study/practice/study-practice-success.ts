@@ -34,8 +34,8 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
   const node = root.node;
   if (!node.usi) return null;
   const outcome = root.outcome();
-  if (outcome && outcome.winner && outcome.winner !== root.bottomColor()) return false;
-  if (outcome && outcome.winner && outcome.winner === root.bottomColor()) return true;
+  if (outcome?.winner && outcome.winner !== root.bottomColor()) return false;
+  if (outcome?.winner && outcome.winner === root.bottomColor()) return true;
   if (hasBlundered(root.practice!.comment())) return false;
   switch (goal.result) {
     case 'drawIn':
@@ -49,12 +49,13 @@ export default function (root: AnalyseCtrl, goal: Goal, nbMoves: number): boolea
     case 'evalIn':
       if (nbMoves >= goal.moves!) return isWinning(node, goal.cp!, root.bottomColor());
       break;
-    case 'mateIn':
+    case 'mateIn': {
       if (nbMoves > goal.moves!) return false;
       const mateIn = myMateIn(node, root.bottomColor());
       if (mateIn === null) return null;
       if (!mateIn || (mateIn as number) + nbMoves > goal.moves!) return false;
       break;
+    }
     case 'promotion': // todo ?
       if (!node.usi[4]) return null;
       return isWinning(node, goal.cp!, root.bottomColor());

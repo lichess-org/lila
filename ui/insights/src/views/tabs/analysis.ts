@@ -38,10 +38,10 @@ function accuracyByResult(data: AnalysisResult): VNode {
 
 function verticalBar(name: string, numbers: number[], cls: string[] = []): VNode {
   return h(
-    'div.simple-vertical-bar.' + name,
+    `div.simple-vertical-bar.${name}`,
     numbers
       .filter(n => n > 5)
-      .map((n, i) => h('div' + (cls[i] ? `.${cls[i]}` : ''), { style: { height: n + '%' } })),
+      .map((n, i) => h(`div${cls[i] ? `.${cls[i]}` : ''}`, { style: { height: `${n}%` } })),
   );
 }
 
@@ -55,7 +55,7 @@ function accuracyByMoveNumber(data: AnalysisResult, flt: InsightFilter): VNode {
       {
         label: i18n('insights:accuracy'),
         borderColor: accuracy,
-        backgroundColor: accuracy + '55',
+        backgroundColor: `${accuracy}55`,
         data: labels.map(key => fixed(d[key])),
         tooltip: {
           valueMap: (value: number) => `${i18n('insights:average')}: ${value}`,

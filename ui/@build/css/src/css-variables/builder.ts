@@ -1,5 +1,5 @@
-import path from 'path';
-import { mkdir } from 'fs/promises';
+import { mkdir } from 'node:fs/promises';
+import path from 'node:path';
 import { generateCssVariables } from './css-variable-generator.js';
 import { generateScssMap } from './scss-map-generator.js';
 import { parseThemes } from './theme-parser.js';

@@ -62,14 +62,13 @@ function main(redraw: Redraw) {
           h('h1', gameText(ctrl)),
           h('h2', i18n('nvui:gameInfo')),
           ...['sente', 'gote'].map((color: Color) =>
-            h('p', [color + ' player: ', playerHtml(ctrl, ctrl.playerByColor(color))]),
+            h('p', [`${color} player: `, playerHtml(ctrl, ctrl.playerByColor(color))]),
           ),
           h('p', `${d.game.rated ? i18n('rated') : i18n('casual')} ${d.game.perf}`),
           d.clock
             ? h(
                 'p',
-                i18n('clock') +
-                  `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`,
+                `${i18n('clock')}: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`,
               )
             : null,
           h('h2', i18n('nvui:moves')),
@@ -216,7 +215,7 @@ function onSubmit(
 ) {
   return () => {
     let input = $input.val()?.trim()!;
-    if (isShortCommand(input)) input = '/' + input;
+    if (isShortCommand(input)) input = `/${input}`;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
@@ -256,7 +255,7 @@ function isShortCommand(input: string): boolean {
 function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
   const lowered = c.toLowerCase();
   if (lowered == 'c' || lowered == 'clock')
-    notify($('.nvui .botc').text() + ', ' + $('.nvui .topc').text());
+    notify(`${$('.nvui .botc').text()}, ${$('.nvui .topc').text()}`);
   else if (lowered == 'l' || lowered == 'last') notify($('.lastMove').text());
   else if (lowered == 'abort') $('.nvui button.abort').trigger('click');
   else if (lowered == 'resign') $('.nvui button.resign-confirm').trigger('click');
@@ -288,8 +287,8 @@ function anyClock(ctrl: RoundController, position: Position) {
 function renderMoves(steps: Step[], variant: VariantKey, style: Style) {
   const res: Array<string | VNode> = [];
   steps.forEach(s => {
-    if (s.ply & 1) res.push(Math.ceil(s.ply / 2) + ' ');
-    res.push(renderMove(s.usi, s.sfen, variant, style) + ', ');
+    if (s.ply & 1) res.push(`${Math.ceil(s.ply / 2)} `);
+    res.push(`${renderMove(s.usi, s.sfen, variant, style)}, `);
     if (s.ply % 2 === 0) res.push(h('br'));
   });
   return res;
@@ -300,20 +299,20 @@ function playerHtml(ctrl: RoundController, player: game.Player) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating,
+    rating = player.rating ? player.rating : perf?.rating,
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+    ratingDiff = rd ? (rd > 0 ? `+${rd}` : rd < 0 ? `−${-rd}` : '') : '';
   return user
     ? h('span', [
         h(
           'a',
           {
-            attrs: { href: '/@/' + user.username },
+            attrs: { href: `/@/${user.username}` },
           },
           user.title ? `${user.title} ${user.username}` : user.username,
         ),
-        rating ? ` ${rating}` : ``,
-        ' ' + ratingDiff,
+        rating ? ` ${rating}` : '',
+        ` ${ratingDiff}`,
       ])
     : 'Anonymous';
 }
@@ -323,7 +322,7 @@ function playerText(ctrl: RoundController, player: game.Player) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating;
+    rating = player.rating ? player.rating : perf?.rating;
   if (!user) return 'Anonymous';
   return `${user.title || ''} ${user.username} rated ${rating || 'unknown'}`;
 }
@@ -333,7 +332,7 @@ function gameText(ctrl: RoundController) {
   return [
     d.game.status.name == 'started'
       ? ctrl.isPlaying()
-        ? 'You play the ' + ctrl.data.player.color + ' pieces.'
+        ? `You play the ${ctrl.data.player.color} pieces.`
         : 'Spectating.'
       : 'Game over.',
     d.game.rated ? 'Rated' : 'Casual',

@@ -17,10 +17,10 @@ export function arrangementThumbnail(
 
   if (players.length === 2)
     return h(
-      (asLink ? 'a' : 'div') + '.arr-thumb-wrap',
+      `${asLink ? 'a' : 'div'}.arr-thumb-wrap`,
       {
         hook: !asLink ? bind('click', _ => ctrl.showArrangement(a)) : {},
-        attrs: { href: '/tournament' + ctrl.data.id + '#' + a.id },
+        attrs: { href: `/tournament${ctrl.data.id}#${a.id}` },
       },
       [
         a.name ? h('div.arr-name', a.name) : null,

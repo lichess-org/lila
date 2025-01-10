@@ -55,25 +55,7 @@ export function userAutocomplete($input: JQuery, opts: UserCompleteOpts): Promis
             pending: spinnerHtml,
             suggestion: (o: any) => {
               const tag = opts.tag || 'a';
-              return (
-                '<' +
-                tag +
-                ' class="ulpt user-link' +
-                (o.online ? ' online' : '') +
-                '" ' +
-                (tag === 'a' ? '' : 'data-') +
-                'href="/@/' +
-                o.name +
-                '">' +
-                '<i class="line' +
-                (o.patron ? ' patron' : '') +
-                '"></i>' +
-                (o.title ? '<span class="title">' + o.title + '</span>&nbsp;' : '') +
-                o.name +
-                '</' +
-                tag +
-                '>'
-              );
+              return `<${tag} class="ulpt user-link${o.online ? ' online' : ''}" ${tag === 'a' ? '' : 'data-'}href="/@/${o.name}"><i class="line${o.patron ? ' patron' : ''}"></i>${o.title ? `<span class="title">${o.title}</span>&nbsp;` : ''}${o.name}</${tag}>`;
             },
           },
         },
@@ -82,9 +64,9 @@ export function userAutocomplete($input: JQuery, opts: UserCompleteOpts): Promis
     if (opts.focus) $input.trigger('focus');
     if (opts.onSelect)
       $input
-        .on('typeahead:select', (_, sel) => opts.onSelect && opts.onSelect(sel))
+        .on('typeahead:select', (_, sel) => opts.onSelect?.(sel))
         .on('keypress', function (e) {
-          if (e.which == 10 || e.which == 13) opts.onSelect && opts.onSelect($(this).val());
+          if (e.which == 10 || e.which == 13) opts.onSelect?.($(this).val());
         });
   });
 }

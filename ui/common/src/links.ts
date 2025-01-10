@@ -16,7 +16,7 @@ export function analysis(
 
   return (
     window.lishogi.xhr.urlWithParams(`/analysis${variantPath}${sfenPath}`, {
-      moves: usis && usis.length ? usis.join('_') : undefined,
+      moves: usis?.length ? usis.join('_') : undefined,
       evaluation,
       color: color !== 'sente' ? color : undefined,
     }) + hash
@@ -27,7 +27,7 @@ export function editor(variant: VariantKey, sfen: Sfen, color?: Color): string {
   const variantPath = variant !== 'standard' ? `/${variant}` : '',
     orientationQuery = color && color !== 'sente' ? `?orientation=${color}` : '';
   if (sfen === initialSfen(variant)) return `/editor${variantPath}${orientationQuery}`;
-  return `/editor${variantPath}/${encodeSfen(sfen)}` + orientationQuery;
+  return `/editor${variantPath}/${encodeSfen(sfen)}${orientationQuery}`;
 }
 
 export function setup(
@@ -39,7 +39,7 @@ export function setup(
   const sfenQuery = sfen !== initialSfen(variant) ? `sfen=${encodeSfen(sfen, true)}&` : '',
     variantQuery = `variant=${variantToId(variant)}`,
     modeAnchor = mode ? `#${mode}` : '';
-  return baseUrl + '?' + sfenQuery + variantQuery + modeAnchor;
+  return `${baseUrl}?${sfenQuery}${variantQuery}${modeAnchor}`;
 }
 
 export function encodeSfen(sfen: string, query = false): string {

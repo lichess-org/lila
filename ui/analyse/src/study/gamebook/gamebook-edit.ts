@@ -156,7 +156,7 @@ const saveNode = throttle(500, (ctrl: AnalyseCtrl, gamebook: Tree.Gamebook) => {
 });
 
 function nodeGamebookValue(node: Tree.Node, field: string): string {
-  return (node.gamebook && node.gamebook[field]) || '';
+  return node.gamebook?.[field] || '';
 }
 
 function textareaHook(ctrl: AnalyseCtrl, field: string): Hooks {

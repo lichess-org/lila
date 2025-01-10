@@ -40,15 +40,15 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined):
             h(
               'tbody',
               players.map((p: TourPlayer, i: number) => {
-                return h('tr.' + p.n, [
+                return h(`tr.${p.n}`, [
                   h('td.name', [
-                    h('span.rank', '' + (i + 1)),
+                    h('span.rank', `${i + 1}`),
                     h(
                       'a.user-link.ulpt',
                       {
                         attrs: { href: `/@/${p.n}` },
                       },
-                      (p.t ? p.t + ' ' : '') + p.n,
+                      (p.t ? `${p.t} ` : '') + p.n,
                     ),
                   ]),
                   h(
@@ -59,7 +59,7 @@ export function tourStandingCtrl(players: TourPlayer[], team: Team | undefined):
                           attrs: { 'data-icon': 'Q' },
                         }
                       : {},
-                    '' + p.s,
+                    `${p.s}`,
                   ),
                 ]);
               }),

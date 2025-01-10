@@ -54,10 +54,10 @@ export function renderInlineCommentsOf(
 
 function authorText(author: Tree.CommentAuthor): string {
   if (!author) return '';
-  if (typeof author === 'string') return '[' + author + ']';
-  else return '[' + author.name + ']';
+  if (typeof author === 'string') return `[${author}]`;
+  else return `[${author.name}]`;
 }
 
 export function truncateComment(text: string, len: number): string {
-  return text.length > len ? text.slice(0, len - 10) + ' [...]' : text;
+  return text.length > len ? `${text.slice(0, len - 10)} [...]` : text;
 }

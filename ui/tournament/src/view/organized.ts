@@ -85,7 +85,7 @@ export function standing(ctrl: TournamentController, pag: PageData, klass?: stri
     : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
-    'table.slist.tour__standing' + (klass ? '.' + klass : ''),
+    `table.slist.tour__standing${klass ? `.${klass}` : ''}`,
     { hook: bind('click', tableClick(ctrl)) },
     h(
       'tbody',

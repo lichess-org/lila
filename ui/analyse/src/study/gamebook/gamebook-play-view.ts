@@ -81,7 +81,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     color = ctrl.root.turnColor();
   if (fb === 'bad')
     return h(
-      'div.feedback.act.bad' + (state.comment ? '.com' : ''),
+      `div.feedback.act.bad${state.comment ? '.com' : ''}`,
       {
         hook: bind('click', ctrl.retry),
       },
@@ -97,7 +97,7 @@ function renderFeedback(ctrl: GamebookPlayCtrl, state: State) {
     );
   if (fb === 'end') return renderEnd(ctrl);
   return h(
-    'div.feedback.info.' + fb + (state.init ? '.init' : ''),
+    `div.feedback.info.${fb}${state.init ? '.init' : ''}`,
     h(
       'div',
       fb === 'play'

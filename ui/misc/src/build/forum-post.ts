@@ -42,7 +42,7 @@ window.lishogi.ready.then(() => {
     // We only ask the server for the thread participants once the user has clicked the text box as most hits to the
     // forums will be only to read the thread. So the 'thread participants' starts out empty until the post text area
     // is focused.
-    const threadParticipants = window.lishogi.xhr.json('GET', '/forum/participants/' + topicId);
+    const threadParticipants = window.lishogi.xhr.json('GET', `/forum/participants/${topicId}`);
 
     new Textcomplete(new TextareaEditor(this), [
       {
@@ -80,7 +80,7 @@ window.lishogi.ready.then(() => {
             }
           });
         },
-        replace: (mention: string) => '$1@' + mention + ' ',
+        replace: (mention: string) => `$1@${mention} `,
       },
     ]);
   });

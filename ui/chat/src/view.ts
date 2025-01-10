@@ -11,7 +11,7 @@ export default function (ctrl: ChatCtrl): VNode {
   const mod = ctrl.moderation();
 
   return h(
-    'section.mchat' + (ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'),
+    `section.mchat${ctrl.opts.alwaysEnabled ? '' : '.mchat-optional'}`,
     {
       class: {
         'mchat-mod': !!mod,
@@ -52,12 +52,12 @@ function renderPalantir(ctrl: ChatCtrl) {
 function normalView(ctrl: ChatCtrl) {
   const active = ctrl.vm.tab;
   return [
-    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, [
+    h(`div.mchat__tabs.nb_${ctrl.allTabs.length}`, [
       ...ctrl.allTabs.map(t => renderTab(ctrl, t, active)),
       renderPalantir(ctrl),
     ]),
     h(
-      'div.mchat__content.' + active,
+      `div.mchat__content.${active}`,
       active === 'note' && ctrl.note
         ? [noteView(ctrl.note)]
         : ctrl.plugin && active === ctrl.plugin.tab.key
@@ -69,7 +69,7 @@ function normalView(ctrl: ChatCtrl) {
 
 function renderTab(ctrl: ChatCtrl, tab: Tab, active: Tab) {
   return h(
-    'div.mchat__tab.' + tab,
+    `div.mchat__tab.${tab}`,
     {
       class: { 'mchat__tab-active': tab === active },
       hook: bind('click', () => ctrl.setTab(tab)),

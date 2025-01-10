@@ -12,7 +12,7 @@ const star = h('i', { attrs: { 'data-icon': 't' } });
 function makeStars(score: number): VNode {
   const stars = [];
   for (let i = 0; i < score; i++) stars.push(star);
-  return h('span.stars.st' + stars.length, stars);
+  return h(`span.stars.st${stars.length}`, stars);
 }
 
 function progress(ctrl: LearnCtrl) {
@@ -24,7 +24,7 @@ function progress(ctrl: LearnCtrl) {
       const status = level.id === vm.level.id ? 'active' : score ? 'done' : 'future';
       const label = score ? makeStars(score) : h('span.id', level.id);
       return h(
-        'a.' + status,
+        `a.${status}`,
         {
           on: {
             click: () => {
@@ -155,7 +155,7 @@ export default function (ctrl: LearnCtrl): VNode {
       h('div.learn__table', [
         h('div.wrap', [
           h('div.title', [
-            h('div.stage-img.' + stage.key),
+            h(`div.stage-img.${stage.key}`),
             h('div.text', [h('h2', stage.title), h('p.subtitle', stage.subtitle)]),
           ]),
           vm.levelState === 'fail'

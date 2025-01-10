@@ -14,12 +14,12 @@ import type AnalyseCtrl from './ctrl';
 import { baseUrl } from './util';
 
 function makeKifTime(moveTime: number, totalTime: number): string {
-  return '   (' + renderTime(moveTime, false) + '/' + renderTime(totalTime, true) + ')';
+  return `   (${renderTime(moveTime, false)}/${renderTime(totalTime, true)})`;
 }
 
 function pad(str: string, size: number): string {
-  while (str.length < size) str = ' ' + str;
-  return str + ' ';
+  while (str.length < size) str = ` ${str}`;
+  return `${str} `;
 }
 
 function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] {
@@ -53,7 +53,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
     }
     if (defined(m.comments)) {
       for (const c of m.comments) {
-        res.push('* ' + c.text);
+        res.push(`* ${c.text}`);
       }
     }
   }
@@ -62,7 +62,7 @@ function makeKifNodes(node: Tree.Node, pos: Position, offset: number): string[] 
     const newPos = parseSfen(pos.rules, m.sfen, false);
     if (newPos.isOk) {
       for (const m2 of m.children.slice(1)) {
-        res.push('\n変化：' + m2.ply + '手');
+        res.push(`\n変化：${m2.ply}手`);
         res.push(...makeKifNodes(m2, newPos.value, offset));
       }
     }
@@ -139,7 +139,7 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
   const unwatedTagNames = ['Sente', 'Gote', 'Handicap', 'Termination', 'Result'],
     otherTags = tags
       .filter(t => !unwatedTagNames.includes(t[0]))
-      .map(t => (tagToKif(t[0], handicap) || t[0]) + '：' + t[1]);
+      .map(t => `${tagToKif(t[0], handicap) || t[0]}：${t[1]}`);
 
   // We want these even empty
   const sente = tags.find(t => t[0] === 'Sente')?.[1] ?? '',
@@ -158,7 +158,7 @@ export function renderFullKif(ctrl: AnalyseCtrl): string {
 }
 
 function makeCsaTime(moveTime: number): string {
-  return ',T' + Math.floor(moveTime / 100);
+  return `,T${Math.floor(moveTime / 100)}`;
 }
 
 function makeCsaMainline(node: Tree.Node, pos: Shogi): string[] {
@@ -179,7 +179,7 @@ function makeCsaMainline(node: Tree.Node, pos: Shogi): string[] {
     }
     if (defined(m.comments)) {
       for (const c of m.comments) {
-        res.push("'" + c.text);
+        res.push(`'${c.text}`);
       }
     }
   }

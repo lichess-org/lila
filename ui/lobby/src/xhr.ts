@@ -48,5 +48,5 @@ export function seekFromPreset(preset: Preset, opts: PresetOpts): Promise<any> {
         window.lishogi.redirect(data);
       });
   } else
-    return window.lishogi.xhr.json('POST', '/setup/hook/' + window.lishogi.sri, { formData: data });
+    return window.lishogi.xhr.json('POST', `/setup/hook/${window.lishogi.sri}`, { formData: data });
 }

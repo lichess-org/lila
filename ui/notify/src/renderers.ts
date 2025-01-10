@@ -13,41 +13,39 @@ export const renderers: Renderers = {
   },
   mention: {
     html: n =>
-      generic(n, '/forum/redirect/post/' + n.content.postId, 'd', [
+      generic(n, `/forum/redirect/post/${n.content.postId}`, 'd', [
         h('span', [h('strong', userFullName(n.content.mentionedBy)), drawTime(n)]),
-        h('span', ' mentioned you in « ' + n.content.topic + ' ».'),
+        h('span', ` mentioned you in « ${n.content.topic} ».`),
       ]),
-    text: n =>
-      userFullName(n.content.mentionedBy) + ' mentioned you in « ' + n.content.topic + ' ».',
+    text: n => `${userFullName(n.content.mentionedBy)} mentioned you in « ${n.content.topic} ».`,
   },
   invitedStudy: {
     html: n =>
-      generic(n, '/study/' + n.content.studyId, '4', [
+      generic(n, `/study/${n.content.studyId}`, '4', [
         h('span', [h('strong', userFullName(n.content.invitedBy)), drawTime(n)]),
-        h('span', ' invited you to « ' + n.content.studyName + ' ».'),
+        h('span', ` invited you to « ${n.content.studyName} ».`),
       ]),
-    text: n =>
-      userFullName(n.content.invitedBy) + ' invited you to « ' + n.content.studyName + ' ».',
+    text: n => `${userFullName(n.content.invitedBy)} invited you to « ${n.content.studyName} ».`,
   },
   privateMessage: {
     html: n =>
-      generic(n, '/inbox/' + n.content.user.name, 'c', [
+      generic(n, `/inbox/${n.content.user.name}`, 'c', [
         h('span', [h('strong', userFullName(n.content.user)), drawTime(n)]),
         h('span', n.content.text),
       ]),
-    text: n => userFullName(n.content.sender) + ': ' + n.content.text,
+    text: n => `${userFullName(n.content.sender)}: ${n.content.text}`,
   },
   teamJoined: {
     html: n =>
-      generic(n, '/team/' + n.content.id, 'f', [
+      generic(n, `/team/${n.content.id}`, 'f', [
         h('span', [h('strong', n.content.name), drawTime(n)]),
         h('span', 'You are now part of the team.'),
       ]),
-    text: n => 'You have joined  « ' + n.content.name + '  ».',
+    text: n => `You have joined  « ${n.content.name}  ».`,
   },
   titledTourney: {
     html: n =>
-      generic(n, '/tournament/' + n.content.id, 'g', [
+      generic(n, `/tournament/${n.content.id}`, 'g', [
         h('span', [h('strong', 'Lishogi Titled Arena'), drawTime(n)]),
         h('span', n.content.text),
       ]),
@@ -74,8 +72,8 @@ export const renderers: Renderers = {
         default:
           result = "It's a draw.";
       }
-      return generic(n, '/' + n.content.id, ';', [
-        h('span', [h('strong', 'Game vs ' + userFullName(n.content.opponent)), drawTime(n)]),
+      return generic(n, `/${n.content.id}`, ';', [
+        h('span', [h('strong', `Game vs ${userFullName(n.content.opponent)}`), drawTime(n)]),
         h('span', result),
       ]);
     },
@@ -91,16 +89,16 @@ export const renderers: Renderers = {
         default:
           result = 'Draw';
       }
-      return result + ' vs ' + userFullName(n.content.opponent);
+      return `${result} vs ${userFullName(n.content.opponent)}`;
     },
   },
   pausedGame: {
     html: n =>
-      generic(n, '/' + n.content.id, 'G', [
+      generic(n, `/${n.content.id}`, 'G', [
         h('span', [h('strong', 'Do not forget!'), drawTime(n)]),
-        h('span', 'Adjourned game with ' + userFullName(n.content.opponent)),
+        h('span', `Adjourned game with ${userFullName(n.content.opponent)}`),
       ]),
-    text: n => 'Adjourned game with ' + userFullName(n.content.opponent),
+    text: n => `Adjourned game with ${userFullName(n.content.opponent)}`,
   },
   planStart: {
     html: n =>
@@ -122,15 +120,15 @@ export const renderers: Renderers = {
     html: n =>
       generic(n, '/player/myself', '', [
         h('span', [h('strong', 'You lost to a cheater'), drawTime(n)]),
-        h('span', 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.'),
+        h('span', `Refund: ${n.content.points} ${n.content.perf} rating points.`),
       ]),
-    text: n => 'Refund: ' + n.content.points + ' ' + n.content.perf + ' rating points.',
+    text: n => `Refund: ${n.content.points} ${n.content.perf} rating points.`,
   },
   corresAlarm: {
     html: n =>
-      generic(n, '/' + n.content.id, ';', [
+      generic(n, `/${n.content.id}`, ';', [
         h('span', [h('strong', 'Time is almost up!'), drawTime(n)]),
-        h('span', 'Game vs ' + n.content.op),
+        h('span', `Game vs ${n.content.op}`),
       ]),
     text: _ => 'Time is almost up!',
   },
@@ -172,5 +170,5 @@ function drawTime(n: Notification) {
 
 function userFullName(u?: LightUser) {
   if (!u) return 'Anonymous';
-  return u.title ? u.title + ' ' + u.name : u.name;
+  return u.title ? `${u.title} ${u.name}` : u.name;
 }

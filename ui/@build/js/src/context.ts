@@ -55,8 +55,7 @@ export function esbuildContext(): Context {
     ],
 
     async run(pkg: PackageInfo, event: WatchEventType, filepath: string | null) {
-      if ((filepath && filepath.endsWith('package.json')) || event === 'rename')
-        clearPkgContexts(pkg);
+      if (filepath?.endsWith('package.json') || event === 'rename') clearPkgContexts(pkg);
       await grfn(graph(pkg))();
     },
 

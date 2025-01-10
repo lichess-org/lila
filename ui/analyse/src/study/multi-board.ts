@@ -23,8 +23,8 @@ export class MultiBoardCtrl {
   ) {}
 
   addNode(pos: Position, node: Tree.Node): void {
-    const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
-    if (cp && cp.playing) {
+    const cp = this.pager?.currentPageResults.find(cp => cp.id == pos.chapterId);
+    if (cp?.playing) {
       cp.sfen = node.sfen;
       cp.lastMove = node.usi;
       this.redraw();
@@ -143,7 +143,7 @@ function makePreview(study: StudyCtrl) {
         ]
       : [h('div.name', preview.name), makeSg(preview), h('div.name')]; // empty name to keep board centered
     return h(
-      'a.' + preview.id,
+      `a.${preview.id}`,
       {
         attrs: { title: preview.name },
         class: {
@@ -159,7 +159,7 @@ function makePreview(study: StudyCtrl) {
 function makePlayer(player: ChapterPreviewPlayer): VNode {
   return h('div.player', [
     player.title ? `${player.title} ${player.name}` : player.name,
-    player.rating && h('span', '' + player.rating),
+    player.rating && h('span', `${player.rating}`),
   ]);
 }
 

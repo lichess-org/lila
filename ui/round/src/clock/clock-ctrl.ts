@@ -108,8 +108,8 @@ export class ClockController {
     this.initial = cdata.initial;
 
     this.totalPeriods = cdata.periods;
-    this.curPeriods['sente'] = cdata.sPeriods ?? 0;
-    this.curPeriods['gote'] = cdata.gPeriods ?? 0;
+    this.curPeriods.sente = cdata.sPeriods ?? 0;
+    this.curPeriods.gote = cdata.gPeriods ?? 0;
 
     this.goneBerserk[d.player.color] = !!d.player.berserk;
     this.goneBerserk[d.opponent.color] = !!d.opponent.berserk;
@@ -140,8 +140,8 @@ export class ClockController {
       activeColor: isClockRunning ? d.game.player : undefined,
       lastUpdate: performance.now() + delayMs,
     };
-    this.curPeriods['sente'] = sPer;
-    this.curPeriods['gote'] = gPer;
+    this.curPeriods.sente = sPer;
+    this.curPeriods.gote = gPer;
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], d.game.player, delayMs);
   };
@@ -161,7 +161,7 @@ export class ClockController {
     this.emergSound.byoTicks = undefined;
   };
 
-  stopClock = (): Millis | void => {
+  stopClock = (): Millis | undefined => {
     const color = this.times.activeColor;
     if (color) {
       const curElapse = this.elapsed();

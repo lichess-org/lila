@@ -35,11 +35,11 @@ export function withdraw(ctrl: TournamentController): MaybeVNode {
 export function join(ctrl: TournamentController): MaybeVNode {
   return orJoinSpinner(ctrl, () => {
     const askToJoin = ctrl.data.candidatesOnly && !ctrl.data.me,
-      delay = ctrl.data.me && ctrl.data.me.pauseDelay,
+      delay = ctrl.data.me?.pauseDelay,
       joinable = ctrl.data.verdicts.accepted && !delay && !ctrl.data.isBot,
       highlightable = joinable && ctrl.data.createdBy !== ctrl.opts.userId,
       button = h(
-        'button.fbt.text' + (highlightable ? '.highlight' : ''),
+        `button.fbt.text${highlightable ? '.highlight' : ''}`,
         {
           attrs: {
             disabled: !joinable,
@@ -95,7 +95,7 @@ export function joinWithdraw(ctrl: TournamentController): MaybeVNode {
       'a.fbt.text.highlight',
       {
         attrs: {
-          href: '/login?referrer=' + window.location.pathname,
+          href: `/login?referrer=${window.location.pathname}`,
           'data-icon': 'G',
         },
       },

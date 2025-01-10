@@ -48,7 +48,7 @@ function allChallenges(ctrl: Ctrl, d: ChallengeData, nb: number): VNode {
 function challenge(ctrl: Ctrl, dir: ChallengeDirection) {
   return (c: Challenge) => {
     return h(
-      'div.challenge.' + dir + '.c-' + c.id,
+      `div.challenge.${dir}.c-${c.id}`,
       {
         class: {
           declined: !!c.declined,
@@ -114,7 +114,7 @@ function outButtons(ctrl: Ctrl, c: Challenge) {
       h('a.view', {
         attrs: {
           'data-icon': 'v',
-          href: '/' + c.id,
+          href: `/${c.id}`,
           title: i18n('viewInFullSize'),
         },
       }),
@@ -150,11 +150,11 @@ function renderUser(u?: ChallengeUser): VNode {
       class: { online: !!u.online },
     },
     [
-      h('i.line' + (u.patron ? '.patron' : '')),
+      h(`i.line${u.patron ? '.patron' : ''}`),
       h('name', [
         u.title &&
-          h('span.title', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
-        u.name + ' (' + rating + ') ',
+          h('span.title', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, `${u.title} `),
+        `${u.name} (${rating}) `,
       ]),
       h(
         'signal',

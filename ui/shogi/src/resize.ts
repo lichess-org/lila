@@ -29,7 +29,7 @@ export default function resizeHandle(
     let zoom = initialZoom;
 
     const saveZoom = debounce(() => {
-      window.lishogi.xhr.text('POST', `/pref/zoom`, { url: { v: 100 + zoom } });
+      window.lishogi.xhr.text('POST', '/pref/zoom', { url: { v: 100 + zoom } });
     }, 700);
 
     const resize = (move: MouchEvent) => {

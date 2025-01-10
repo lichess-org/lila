@@ -73,7 +73,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       // Fetch WASM file ourselves, for caching and progress indication.
       let wasmBinary: ArrayBuffer | undefined;
       if (cache) {
-        const wasmPath = this.opts.baseUrl + this.opts.baseName + '.wasm';
+        const wasmPath = `${this.opts.baseUrl + this.opts.baseName}.wasm`;
         if (cache) {
           try {
             const [found, data] = await cache.get(wasmPath, version);
@@ -106,7 +106,7 @@ export class ThreadedWasmWorker extends AbstractWorker<ThreadedWasmWorkerOpts> {
       }
 
       // Load Emscripten module.
-      await loadScript(assetUrl(this.opts.baseUrl + this.opts.baseName + '.js', { version }));
+      await loadScript(assetUrl(`${this.opts.baseUrl + this.opts.baseName}.js`, { version }));
       const engine = await (window as any)[this.opts.module]!({
         wasmBinary,
         locateFile: (path: string) =>

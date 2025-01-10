@@ -1,5 +1,5 @@
+import { basename } from 'node:path';
 import vm from 'node:vm';
-import { basename } from 'path';
 
 export function isValidJs(code: string): boolean {
   try {

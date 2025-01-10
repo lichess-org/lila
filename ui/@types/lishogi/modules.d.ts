@@ -6,7 +6,7 @@ export interface LishogiModules {
   miscExpandText?: () => void;
   miscMusic: () => { jump: (node: Tree.Node) => void };
   notify?: (opts: any) => any;
-  palantir: (opts: any) => void | { render: (h: any) => any };
+  palantir: (opts: any) => undefined | { render: (h: any) => any };
   speech?: (opts: LishogiSpeech) => any;
   chartAcpl?: (
     el: HTMLCanvasElement,

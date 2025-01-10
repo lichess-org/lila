@@ -50,7 +50,7 @@ function timesByRoleChart(data: TimesResult, flt: InsightFilter): VNode {
     totalMoves = roles.reduce((a, b) => a + (moves[b] || 0), 0),
     totalDrops = roles.reduce((a, b) => a + (drops[b] || 0), 0);
 
-  const valueMap = (value: number | string): string => 'Σ: ' + value;
+  const valueMap = (value: number | string): string => `Σ: ${value}`;
 
   return barChart('times-role-chart', JSON.stringify(flt), {
     labels: roles.map(r => translateRole(r).split(' ')),

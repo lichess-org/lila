@@ -118,11 +118,11 @@ function pronounce(str: string): string | undefined {
 // ７六歩, ７八金直
 export function renderMoveOrDrop(md: string): string {
   // avoiding the collision
-  if (md[0] === '+' || md[0] === '成') md = '!' + md.substring(1);
+  if (md[0] === '+' || md[0] === '成') md = `!${md.substring(1)}`;
   return md
     .replace('不成', '=')
     .split('')
     .map(c => pronounce(c) || toRole(c) || toNumber(c) || toLetter(c))
-    .filter(s => s && s.length)
+    .filter(s => s?.length)
     .join(' ');
 }

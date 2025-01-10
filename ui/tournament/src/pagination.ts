@@ -25,7 +25,7 @@ function button(
 
 function scrollToMeButton(ctrl: TournamentController): VNode | undefined {
   if (ctrl.data.me)
-    return h('button.fbt' + (ctrl.focusOnMe ? '.active' : ''), {
+    return h(`button.fbt${ctrl.focusOnMe ? '.active' : ''}`, {
       attrs: {
         'data-icon': '7',
         title: 'Scroll to your player',
@@ -41,7 +41,7 @@ export function renderPager(ctrl: TournamentController, pag: PageData): MaybeVNo
     ? searchOr(ctrl, [
         button('First', 'W', () => ctrl.userSetPage(1), enabled && page > 1, ctrl),
         button('Prev', 'Y', ctrl.userPrevPage, enabled && page > 1, ctrl),
-        h('span.page', (pag.nbResults ? pag.from + 1 : 0) + '-' + pag.to + ' / ' + pag.nbResults),
+        h('span.page', `${pag.nbResults ? pag.from + 1 : 0}-${pag.to} / ${pag.nbResults}`),
         button('Next', 'X', ctrl.userNextPage, enabled && page < pag.nbPages, ctrl),
         button('Last', 'V', ctrl.userLastPage, enabled && page < pag.nbPages, ctrl),
         scrollToMeButton(ctrl),

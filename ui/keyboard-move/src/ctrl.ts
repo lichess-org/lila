@@ -116,7 +116,7 @@ export function ctrl(root: RootController, step: Step): KeyboardMove {
     confirmMove: () => root.submitUsi?.(true),
     usedMove,
     jump(plyDelta: number) {
-      root.userJumpPlyDelta && root.userJumpPlyDelta(plyDelta);
+      root.userJumpPlyDelta?.(plyDelta);
       root.redraw();
     },
     justSelected: () => performance.now() - lastSelect < 500,

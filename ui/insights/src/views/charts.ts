@@ -20,7 +20,7 @@ export function chart<T extends 'line' | 'bar' | 'doughnut'>(
   opts: ChartConfiguration<T, number[] | Record<string | number, number>>,
 ): VNode {
   return h(
-    'div.canvas-wrap.' + id + (full ? '.full' : ''),
+    `div.canvas-wrap.${id}${full ? '.full' : ''}`,
     h(`canvas#${id}.chart`, {
       key: key,
       hook: {

@@ -6,11 +6,11 @@ import type { Arrangement } from '../interfaces';
 
 export function miniBoard(game: any): VNode {
   return h(
-    'a.mini-board' + '.v-' + game.variant + '.mini-board-' + game.id,
+    `a.mini-board.v-${game.variant}.mini-board-${game.id}`,
     {
       key: game.id,
       attrs: {
-        href: '/' + game.id + (game.color === 'sente' ? '' : '/gote'),
+        href: `/${game.id}${game.color === 'sente' ? '' : '/gote'}`,
       },
       hook: {
         insert(vnode) {
@@ -28,11 +28,11 @@ export function miniBoard(game: any): VNode {
 }
 
 export function ratio2percent(r: number): string {
-  return Math.round(100 * r) + '%';
+  return `${Math.round(100 * r)}%`;
 }
 
 export function playerName(p: any): VNode[] | string {
-  return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
+  return p.title ? [h('span.title', p.title), ` ${p.name}`] : p.name;
 }
 
 export function player(
@@ -43,20 +43,20 @@ export function player(
   leader = false,
 ): VNode {
   return h(
-    'a.ulpt.user-link' + (((p.title || '') + p.name).length > 15 ? '.long' : ''),
+    `a.ulpt.user-link${((p.title || '') + p.name).length > 15 ? '.long' : ''}`,
     {
-      attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
+      attrs: asLink ? { href: `/@/${p.name}` } : { 'data-href': `/@/${p.name}` },
       hook: {
         destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
       },
     },
     [
       h(
-        'span.name' + (defender ? '.defender' : leader ? '.leader' : ''),
+        `span.name${defender ? '.defender' : leader ? '.leader' : ''}`,
         defender ? { attrs: dataIcon('5') } : leader ? { attrs: dataIcon('8') } : {},
         playerName(p),
       ),
-      withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null,
+      withRating ? h('span.rating', ` ${p.rating}${p.provisional ? '?' : ''}`) : null,
     ],
   );
 }

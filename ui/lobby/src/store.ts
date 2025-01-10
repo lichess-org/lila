@@ -39,11 +39,11 @@ const sort: Config<Sort> = {
 };
 
 function makeStore<A>(conf: Config<A>, userId: string): Store<A> {
-  const fullKey = conf.key + ':' + (userId || '-');
+  const fullKey = `${conf.key}:${userId || '-'}`;
   return {
     set(v: string): A {
       const t: A = conf.fix(v);
-      window.lishogi.storage.set(fullKey, ('' + t) as string);
+      window.lishogi.storage.set(fullKey, `${t}` as string);
       return t;
     },
     get(): A {

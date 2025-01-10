@@ -63,7 +63,7 @@ export function view(ctrl: LangsCtrl): VNode {
 function langView(current: Code, accepted: Set<Code>) {
   return (l: Lang) =>
     h(
-      'button' + (current === l[0] ? '.current' : '') + (accepted.has(l[0]) ? '.accepted' : ''),
+      `button${current === l[0] ? '.current' : ''}${accepted.has(l[0]) ? '.accepted' : ''}`,
       {
         attrs: {
           type: 'submit',

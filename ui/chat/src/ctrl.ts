@@ -54,7 +54,7 @@ export default function (opts: ChatOpts, redraw: Redraw): ChatCtrl {
     text = text.trim();
     if (!text) return;
     if (text.length > 140) {
-      alert('Max length: 140 chars. ' + text.length + ' chars used.');
+      alert(`Max length: 140 chars. ${text.length} chars used.`);
       return;
     }
     li.pubsub.emit('socket.send', 'talk', text);

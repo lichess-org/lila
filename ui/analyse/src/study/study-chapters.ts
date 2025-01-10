@@ -74,7 +74,7 @@ export function isFinished(c: StudyChapter): boolean {
 
 export function findTag(tags: TagArray[], name: string): string | undefined {
   const t = tags.find(t => t[0].toLowerCase() === name);
-  return t && t[1];
+  return t?.[1];
 }
 
 export function view(ctrl: StudyCtrl): VNode {
@@ -151,7 +151,7 @@ export function view(ctrl: StudyCtrl): VNode {
             class: { active, editing, loading, draggable: canContribute },
           },
           [
-            h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
+            h('span', loading ? h('span.ddloader') : [`${i + 1}`]),
             h('h3', chapter.name),
             canContribute ? h('act', { attrs: dataIcon('%') }) : null,
           ],

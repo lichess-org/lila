@@ -17,7 +17,7 @@ function renderHookOrSeek(hs: Hook | Seek) {
     username = isHook(hs) ? hs.u : hs.username,
     isRated = isHook(hs) ? hs.ra : hs.mode === 1;
   return h(
-    'tr.hook.' + act,
+    `tr.hook.${act}`,
     {
       key: hs.id,
       class: { disabled },
@@ -25,20 +25,18 @@ function renderHookOrSeek(hs: Hook | Seek) {
         title: disabled
           ? ''
           : act === 'join'
-            ? i18n('joinTheGame') +
-              ' | ' +
-              ((hs.perf ? i18nPerf(hs.perf) : undefined) || i18nVariant(hs.variant || 'standard'))
+            ? `${i18n('joinTheGame')} | ${(hs.perf ? i18nPerf(hs.perf) : undefined) || i18nVariant(hs.variant || 'standard')}`
             : i18n('cancel'),
         'data-id': hs.id,
       },
     },
     tds([
-      h('span.is.is2.color-icon.' + ((isHook(hs) ? hs.c : hs.color) || 'random')),
+      h(`span.is.is2.color-icon.${(isHook(hs) ? hs.c : hs.color) || 'random'}`),
       hs.rating
         ? h(
             'span.ulink.ulpt',
             {
-              attrs: { 'data-href': '/@/' + username },
+              attrs: { 'data-href': `/@/${username}` },
             },
             username,
           )
@@ -110,7 +108,7 @@ export function render(
               {
                 attrs: { colspan: 5 },
               },
-              '— ' + i18n('variant') + ' —',
+              `— ${i18n('variant')} —`,
             ),
           ],
         )

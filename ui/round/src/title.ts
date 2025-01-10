@@ -51,5 +51,5 @@ export function set(ctrl: RoundController, text?: string): void {
       resetTicker();
     }
   }
-  document.title = text + ' - ' + initialTitle;
+  document.title = `${text} - ${initialTitle}`;
 }

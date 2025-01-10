@@ -22,7 +22,7 @@ window.lishogi.ready.then(() => {
         html: 'Fill in basic information',
         check: () => {
           for (const name of ['profile.headline', 'languages']) {
-            if (!$editor.find('[name="' + name + '"]').val()) return false;
+            if (!$editor.find(`[name="${name}"]`).val()) return false;
           }
           return true;
         },
@@ -51,7 +51,7 @@ window.lishogi.ready.then(() => {
     $editor.find('.tabs > div').removeClass('active');
     $(this).addClass('active');
     $editor.find('.panel').removeClass('active');
-    $editor.find('.panel.' + $(this).data('tab')).addClass('active');
+    $editor.find(`.panel.${$(this).data('tab')}`).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
   const submit = debounce(() => {

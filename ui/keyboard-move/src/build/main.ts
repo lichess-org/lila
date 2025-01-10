@@ -231,12 +231,7 @@ function readClocks(clockCtrl: any | undefined) {
   const msgs = ['sente', 'gote'].map(color => {
     const time = clockCtrl.millisOf(color);
     const date = new Date(time);
-    const msg =
-      (time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : '') +
-      ' ' +
-      simplePlural(date.getUTCMinutes(), 'minute') +
-      ' ' +
-      simplePlural(date.getUTCSeconds(), 'second');
+    const msg = `${time >= 3600000 ? simplePlural(Math.floor(time / 3600000), 'hour') : ''} ${simplePlural(date.getUTCMinutes(), 'minute')} ${simplePlural(date.getUTCSeconds(), 'second')}`;
     return `${color}: ${msg}`;
   });
   window.lishogi.sound.say({ en: msgs.join('. ') });

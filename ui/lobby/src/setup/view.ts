@@ -60,7 +60,7 @@ function variant(ctrl: SetupCtrl): VNode {
     h('a.info', {
       attrs: { href: '/variant', target: '_blank', 'data-icon': '', title: i18n('variants') },
     }),
-    h('label', {}, i18n('variant') + ':'),
+    h('label', {}, `${i18n('variant')}:`),
     select(ctrl, 'variant', variantChoicesTranslated),
   ]);
 }
@@ -84,7 +84,7 @@ function positionInput(ctrl: SetupCtrl): VNode {
       h('a.info', {
         attrs: { href: handicapLink, target: '_blank', 'data-icon': '', title: i18n('variants') },
       }),
-      h('label', { attrs: { for: 'handicap' } }, i18n('handicap') + '?' + ':'),
+      h('label', { attrs: { for: 'handicap' } }, `${i18n('handicap')}?:`),
       select(
         ctrl,
         'handicap',
@@ -297,12 +297,12 @@ function innerModalNvui(ctrl: SetupCtrl): MaybeVNodes {
     ctrl.key !== 'ai' ? selectNvui(ctrl, i18n('mode'), 'mode', modeChoicesTranslated) : undefined,
     ctrl.key === 'ai' ? selectNvui(ctrl, i18n('level'), 'level', aiLevelChoices) : undefined,
     h('div.color-submit', [
-      h('label', { attrs: { for: `ls-color-submit` } }, i18n('side')),
+      h('label', { attrs: { for: 'ls-color-submit' } }, i18n('side')),
       h(
         'select',
         {
           attrs: {
-            id: `ls-color-submit`,
+            id: 'ls-color-submit',
             name: 'color',
           },
           hook: bind('change', e => {

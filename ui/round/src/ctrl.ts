@@ -425,7 +425,7 @@ export default class RoundController {
       notify(() => {
         let txt = i18n('yourTurn'),
           opponent = renderUser.userTxt(d.opponent);
-        if (this.ply < 1) txt = opponent + '\njoined the game.\n' + txt;
+        if (this.ply < 1) txt = `${opponent}\njoined the game.\n${txt}`;
         else {
           const m_step = d.steps[d.steps.length - 1];
           const prev_step = d.steps[d.steps.length - 2];
@@ -435,14 +435,14 @@ export default class RoundController {
               this.data.game.variant.key,
               m_step.usi,
             );
-            txt = opponent + '\nplayed ' + moveNotation + '.\n' + txt;
+            txt = `${opponent}\nplayed ${moveNotation}.\n${txt}`;
           }
         }
         return txt;
       });
     else if (this.isPlaying() && this.ply < 1)
       notify(() => {
-        return renderUser.userTxt(d.opponent) + '\njoined the game.';
+        return `${renderUser.userTxt(d.opponent)}\njoined the game.`;
       });
   };
 

@@ -82,7 +82,7 @@ new (class implements SoundI {
     const doIt = () => {
       const storage = lichess.storage.make('just-played');
       if (Date.now() - Number.parseInt(storage.get()!, 10) < 2000) return;
-      storage.set('' + Date.now());
+      storage.set(`${Date.now()}`);
       this.play(name);
     };
     if (document.hasFocus()) doIt();

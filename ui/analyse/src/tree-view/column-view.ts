@@ -139,10 +139,10 @@ function renderMainlineMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderVariationMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-    colorIcon = notationsWithColor() ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : '',
+    colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '',
     content: MaybeVNodes = [
       moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true),
-      h('move-notation' + colorIcon, node.notation),
+      h(`move-notation${colorIcon}`, node.notation),
     ],
     classes = nodeClasses(ctx, node, path);
   if (opts.conceal) classes[opts.conceal as string] = true;
@@ -208,11 +208,11 @@ function renderMainlineCommentsOf(
 
   return node.comments!.map(comment => {
     if (comment.by === 'lishogi' && !ctx.showComputer) return;
-    let sel = 'comment' + colorClass;
+    let sel = `comment${colorClass}`;
     if (comment.text.startsWith('Inaccuracy.')) sel += '.inaccuracy';
     else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
     else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
-    if (conceal) sel += '.' + conceal;
+    if (conceal) sel += `.${conceal}`;
     const by = withAuthor ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
       truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {

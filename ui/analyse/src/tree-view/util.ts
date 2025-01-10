@@ -154,14 +154,11 @@ export function renderInlineCommentsOf(
 }
 
 export function findCurrentPath(c: AnalyseCtrl): Tree.Path | undefined {
-  return (
-    (!c.synthetic && playable(c.data) && c.initialPath) ||
-    (c.retro && c.retro.current() && c.retro.current().prev.path)
-  );
+  return (!c.synthetic && playable(c.data) && c.initialPath) || c.retro?.current()?.prev.path;
 }
 
 export function truncateComment(text: string, len: number, ctx: Ctx): string {
-  return ctx.truncateComments && text.length > len ? text.slice(0, len - 10) + ' [...]' : text;
+  return ctx.truncateComments && text.length > len ? `${text.slice(0, len - 10)} [...]` : text;
 }
 
 export function retroLine(ctx: Ctx, node: Tree.Node, opts: Opts): VNode | undefined {

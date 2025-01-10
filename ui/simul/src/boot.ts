@@ -6,7 +6,7 @@ export function boot(opts: SimulOpts, start: (opts: SimulOpts) => SimulCtrl): Si
 
   let ctrl: SimulCtrl;
   window.lishogi.socket = new window.lishogi.StrongSocket(
-    '/simul/' + opts.data.id + '/socket/v4',
+    `/simul/${opts.data.id}/socket/v4`,
     opts.socketVersion,
     {
       receive: (t, d) => {

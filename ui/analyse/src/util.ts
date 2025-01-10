@@ -19,9 +19,9 @@ export function iconTag(icon: string): VNode {
 export function nodeFullName(node: Tree.Node): VNode {
   if (node.notation)
     return h('span', [
-      node.ply + '. ',
+      `${node.ply}. `,
       h(
-        'span' + (notationsWithColor() ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : ''),
+        `span${notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : ''}`,
         node.notation,
       ),
     ]);
@@ -29,7 +29,7 @@ export function nodeFullName(node: Tree.Node): VNode {
 }
 
 export function plural(noun: string, nb: number): string {
-  return nb + ' ' + (nb === 1 ? noun : noun + 's');
+  return `${nb} ${nb === 1 ? noun : `${noun}s`}`;
 }
 
 export function titleNameToId(titleName: string): string {

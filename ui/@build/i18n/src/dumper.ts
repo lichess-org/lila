@@ -1,5 +1,5 @@
-import * as path from 'path';
-import { readdir, writeFile } from 'fs/promises';
+import { readdir, writeFile } from 'node:fs/promises';
+import * as path from 'node:path';
 import { parseXmls } from './parser.js';
 import { categoryName } from './util.js';
 

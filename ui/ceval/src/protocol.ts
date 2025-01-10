@@ -279,7 +279,7 @@ export class Protocol {
       // 5e4d+ -> 5e4d-, if necessary
       else if (move.promotion) {
         const roleChar = pos.board.getRole(move.from)![0],
-          fairyUsi = mappingBoard[roleChar]?.includes('+') ? usi.slice(0, -1) + '-' : usi;
+          fairyUsi = mappingBoard[roleChar]?.includes('+') ? `${usi.slice(0, -1)}-` : usi;
 
         uMoves.push(fairyUsi);
       } else uMoves.push(usi);
@@ -287,12 +287,10 @@ export class Protocol {
     });
 
     const splitSfen = sfen.split(' ');
-    return (
-      `position sfen ${transformString(splitSfen[0], mappingBoard)} ${splitSfen[1] || 'b'} ${transformString(
-        splitSfen[2] || '-',
-        mappingHand,
-      )} moves ` + uMoves.join(' ')
-    );
+    return `position sfen ${transformString(splitSfen[0], mappingBoard)} ${splitSfen[1] || 'b'} ${transformString(
+      splitSfen[2] || '-',
+      mappingHand,
+    )} moves ${uMoves.join(' ')}`;
   }
 
   fromFairyKyotoFormat(moves: string[]): Usi[] {
@@ -304,7 +302,7 @@ export class Protocol {
         return makeUsi({ role: promotedRole, to: dropUnpromoted.to });
       }
       // 5e4d- -> 5e4d+
-      else if (usi.includes('-')) return usi.slice(0, -1) + '+';
+      else if (usi.includes('-')) return `${usi.slice(0, -1)}+`;
       else return usi;
     });
   }

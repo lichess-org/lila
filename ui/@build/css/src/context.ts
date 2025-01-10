@@ -46,7 +46,7 @@ export function sassContext(): Context {
       isFiltered = flags.includes('--filter');
       onlyVars = flags.includes('--vars');
 
-      outdir = rootPath + '/public/css/';
+      outdir = `${rootPath}/public/css/`;
       await fs.promises.mkdir(outdir, { recursive: true });
 
       await innerInit();
@@ -76,7 +76,7 @@ export function sassContext(): Context {
           ];
       processor = postcss(postCssPlugins);
 
-      sassOptions.loadPaths = [rootPath + '/ui/@build/css/node_modules'];
+      sassOptions.loadPaths = [`${rootPath}/ui/@build/css/node_modules`];
       if (!isProd) sassOptions.sourceMap = true;
     },
 
@@ -93,7 +93,7 @@ export function sassContext(): Context {
         allAffected = recImports(filepath),
         rebuildFiles = filterBuildFiles(allAffected);
       if (Array.from(newExtracted).some(e => !extracted.has(e))) {
-        console.log(`Rebuilding variable files...`);
+        console.log('Rebuilding variable files...');
         await buildVars();
       }
       console.log(`Building ${rebuildFiles.length} css files...`);
@@ -102,7 +102,7 @@ export function sassContext(): Context {
 
     async runAll() {
       if (onlyVars) return;
-      console.log(`Building all css files...`);
+      console.log('Building all css files...');
 
       await Promise.all(
         Array.from(buildFiles).flatMap(([name, files]) =>
@@ -123,7 +123,7 @@ export function sassContext(): Context {
     await Promise.all(
       packages.map(async pkg => {
         const name = pkg.name.startsWith('@') ? pkg.name.split('/')[1] : pkg.name,
-          files = await fg(pkg.path + '/css/**/*.scss');
+          files = await fg(`${pkg.path}/css/**/*.scss`);
         allFiles.set(name, files);
         buildFiles.set(name, filterBuildFiles(files));
       }),
@@ -164,11 +164,11 @@ export function sassContext(): Context {
   function createSourceMap(sourceMap: Exclude<sass.CompileResult['sourceMap'], undefined>): string {
     const sm = JSON.stringify(sourceMap),
       smBase64 = (Buffer.from(sm, 'utf8') || '').toString('base64');
-    return '/*# sourceMappingURL=data:application/json;charset=utf-8;base64,' + smBase64 + ' */';
+    return `/*# sourceMappingURL=data:application/json;charset=utf-8;base64,${smBase64} */`;
   }
 
   function initGraph(): void {
-    graph = SassGraph.parseDir(rootPath + '/ui/', { extensions: ['scss'] })!;
+    graph = SassGraph.parseDir(`${rootPath}/ui/`, { extensions: ['scss'] })!;
   }
 
   function updateGraph(path: string): void {

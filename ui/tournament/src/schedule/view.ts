@@ -30,7 +30,7 @@ function displayClockLimit(limit) {
 function displayClock(clock) {
   return (
     displayClockLimit(clock.limit) +
-    (clock.increment > 0 ? '+' + clock.increment : '|' + clock.byoyomi)
+    (clock.increment > 0 ? `+${clock.increment}` : `|${clock.byoyomi}`)
   );
 }
 
@@ -112,7 +112,7 @@ function tournamentClass(tour) {
       'tsht-short': tour.minutes <= 30,
       'tsht-max-rating': !userCreated && tour.hasMaxRating,
     };
-  if (tour.schedule) classes['tsht-' + tour.schedule.freq] = true;
+  if (tour.schedule) classes[`tsht-${tour.schedule.freq}`] = true;
   return classes;
 }
 
@@ -144,8 +144,8 @@ function renderTournament(tour) {
     {
       class: tournamentClass(tour),
       attrs: {
-        href: '/tournament/' + tour.id,
-        style: 'width: ' + width + 'px; left: ' + left + 'px; padding-left: ' + paddingLeft + 'px',
+        href: `/tournament/${tour.id}`,
+        style: `width: ${width}px; left: ${left}px; padding-left: ${paddingLeft}px`,
       },
     },
     [
@@ -164,8 +164,8 @@ function renderTournament(tour) {
         h('span.name', i18nName(tour)),
         h('span.infos', [
           h('span.text', [
-            displayClock(tour.clock) + ' ',
-            tour.variant.key === 'standard' ? null : tour.variant.name + ' ',
+            `${displayClock(tour.clock)} `,
+            tour.variant.key === 'standard' ? null : `${tour.variant.name} `,
             tour.position ? 'Thematic ' : null,
             tour.rated ? i18n('ratedTournament') : i18n('casualTournament'),
           ]),
@@ -198,7 +198,7 @@ function renderTimeline() {
         'div.timeheader',
         {
           class: { hour: !time.getMinutes() },
-          attrs: { style: 'left: ' + leftPos(time.getTime()) + 'px' },
+          attrs: { style: `left: ${leftPos(time.getTime())}px` },
         },
         timeString(time),
       ),
@@ -207,7 +207,7 @@ function renderTimeline() {
   }
   timeHeaders.push(
     h('div.timeheader.now', {
-      attrs: { style: 'left: ' + leftPos(now) + 'px' },
+      attrs: { style: `left: ${leftPos(now)}px` },
     }),
   );
 
@@ -216,7 +216,7 @@ function renderTimeline() {
 
 // converts Date to "%H:%M" with leading zeros
 function timeString(time) {
-  return ('0' + time.getHours()).slice(-2) + ':' + ('0' + time.getMinutes()).slice(-2);
+  return `${(`0${time.getHours()}`).slice(-2)}:${(`0${time.getMinutes()}`).slice(-2)}`;
 }
 
 function isSystemTournament(t) {
@@ -265,7 +265,7 @@ export default function (ctrl: any): VNode {
             el.addEventListener('click', e => {
               if (
                 mousedownAt &&
-                Math.pow(e.clientX - mousedownAt[0], 2) + Math.pow(e.clientY - mousedownAt[1], 2)
+                (e.clientX - mousedownAt[0]) ** 2 + (e.clientY - mousedownAt[1]) ** 2
               ) {
                 e.preventDefault();
                 return false;

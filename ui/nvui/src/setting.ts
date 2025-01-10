@@ -46,7 +46,7 @@ export function renderSetting<A>(setting: Setting<A>, redraw: () => void): VNode
         'option',
         {
           attrs: {
-            value: '' + key,
+            value: `${key}`,
             selected: key === v,
           },
         },

@@ -45,18 +45,8 @@ window.lishogi.ready.then(() => {
               );
         },
         template: (o: LightUserOnline) =>
-          '<span class="ulpt user-link' +
-          (o.online ? ' online' : '') +
-          '" data-href="/@/' +
-          o.name +
-          '">' +
-          '<i class="line' +
-          (o.patron ? ' patron' : '') +
-          '"></i>' +
-          (o.title ? '<span class="utitle">' + o.title + '</span>&nbsp;' : '') +
-          o.name +
-          '</span>',
-        replace: (o: LightUserOnline) => '$1' + o.name + '\n',
+          `<span class="ulpt user-link${o.online ? ' online' : ''}" data-href="/@/${o.name}"><i class="line${o.patron ? ' patron' : ''}"></i>${o.title ? `<span class="utitle">${o.title}</span>&nbsp;` : ''}${o.name}</span>`,
+        replace: (o: LightUserOnline) => `$1${o.name}\n`,
       },
     ]);
   });
@@ -69,8 +59,8 @@ window.lishogi.ready.then(() => {
     a = Number.parseFloat(a);
     b = Number.parseFloat(b);
 
-    a = isNaN(a) ? 0 : a;
-    b = isNaN(b) ? 0 : b;
+    a = Number.isNaN(a) ? 0 : a;
+    b = Number.isNaN(b) ? 0 : b;
 
     return a - b;
   }

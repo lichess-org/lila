@@ -35,7 +35,7 @@ window.lishogi.ready.then(() => {
     let amount;
     try {
       amount = Number.parseFloat(raw!.replace(',', '.').replace(/[^0-9\.]/gim, ''));
-    } catch (e) {
+    } catch (_e) {
       return false;
     }
     let cents = Math.round(amount * 100);
@@ -46,7 +46,7 @@ window.lishogi.ready.then(() => {
     }
     if (cents < min) cents = min;
     else if (cents > max) cents = max;
-    const usd = '$' + cents / 100;
+    const usd = `$${cents / 100}`;
     $(this).text(usd);
     $(this).siblings('input').data('amount', cents).data('usd', usd);
 
@@ -63,7 +63,7 @@ window.lishogi.ready.then(() => {
     }
     if (!cents || cents < min || cents > max) return;
     const amount = cents / 100,
-      $form = $checkout.find('form.paypal_checkout.' + getFreq());
+      $form = $checkout.find(`form.paypal_checkout.${getFreq()}`);
     $form.find('input.amount').val(amount);
     $form.trigger('submit');
     $checkout.find('.service').html(spinnerHtml);

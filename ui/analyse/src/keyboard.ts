@@ -133,7 +133,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       loadCssPath('analyse.keyboard');
       $(el)
         .find('.scrollable')
-        .load('/analysis/help?study=' + (ctrl.study ? 1 : 0));
+        .load(`/analysis/help?study=${ctrl.study ? 1 : 0}`);
     },
     onClose() {
       ctrl.keyboardHelp = false;

@@ -31,7 +31,7 @@ export default function (ctrl: DasherCtrl): VNode {
           h(
             'a.text',
             linkCfg(
-              '/insights/' + d.user.name,
+              `/insights/${d.user.name}`,
               '7',
               ctrl.opts.playing ? { target: '_blank' } : undefined,
             ),

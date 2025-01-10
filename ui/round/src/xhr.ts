@@ -14,7 +14,7 @@ export function whatsNext(ctrl: RoundController): Promise<{ next: string }> {
 }
 
 export function challengeRematch(gameId: string): Promise<void> {
-  return window.lishogi.xhr.json('POST', '/challenge/rematch-of/' + gameId);
+  return window.lishogi.xhr.json('POST', `/challenge/rematch-of/${gameId}`);
 }
 
 export const setZen: (zen: boolean) => void = throttle(1000, zen =>

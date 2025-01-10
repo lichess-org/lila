@@ -1,4 +1,4 @@
-import type { WatchEventType } from 'fs';
+import type { WatchEventType } from 'node:fs';
 
 export type PackageName = string;
 

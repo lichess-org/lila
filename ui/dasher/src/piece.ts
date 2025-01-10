@@ -148,7 +148,7 @@ function pieceView(current: PieceSetKey) {
 
 function applyPiece(key: PieceSetKey) {
   const sprite = $(`#${isChu(key) ? 'chu-' : isKyo(key) ? 'kyo-' : ''}piece-sprite`);
-  if (sprite.length) sprite.attr('href', sprite.attr('href').replace(/\w+\.css/, key + '.css'));
+  if (sprite.length) sprite.attr('href', sprite.attr('href').replace(/\w+\.css/, `${key}.css`));
 
   if (isChu(key)) document.body.dataset.chuPieceSet = key;
   else if (isKyo(key)) document.body.dataset.kyoPieceSet = key;

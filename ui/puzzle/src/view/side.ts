@@ -37,7 +37,7 @@ function puzzleInfos(ctrl: Controller, puzzle: Puzzle): VNode {
               {
                 attrs: { href: `/training/${puzzle.id}` },
               },
-              '#' + puzzle.id,
+              `#${puzzle.id}`,
             ),
           ),
         ]),
@@ -63,7 +63,7 @@ function sourceInfos(ctrl: Controller, game: PuzzleGame): VNode {
   const authorName =
     ctrl.vm.mode === 'play'
       ? h('span.hidden', i18n('puzzle:hidden'))
-      : game.author && game.author.startsWith('http')
+      : game.author?.startsWith('http')
         ? h(
             'a',
             {
@@ -122,7 +122,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
           'div.players',
           game.players?.map(p =>
             h(
-              'div.player.color-icon.is.text.' + p.color,
+              `div.player.color-icon.is.text.${p.color}`,
               p.ai
                 ? engineNameFromCode(p.aiCode, p.ai)
                 : p.userId === 'anon'
@@ -131,7 +131,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
                     ? h(
                         'a.user-link.ulpt',
                         {
-                          attrs: { href: '/@/' + p.userId },
+                          attrs: { href: `/@/${p.userId}` },
                         },
                         playerName(p),
                       )
@@ -145,7 +145,7 @@ function gameInfos(ctrl: Controller, game: PuzzleGame, puzzle: Puzzle): VNode {
 }
 
 function playerName(p: PuzzlePlayer) {
-  return p.title && p.title != 'BOT' ? [h('span.title', p.title), ' ' + p.name] : p.name;
+  return p.title && p.title != 'BOT' ? [h('span.title', p.title), ` ${p.name}`] : p.name;
 }
 
 export function userBox(ctrl: Controller): VNode {
@@ -163,8 +163,8 @@ export function userBox(ctrl: Controller): VNode {
         'puzzle:yourPuzzleRatingX',
         h('strong', [
           data.user.rating - (diff || 0),
-          ...(diff && diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
-          ...(diff && diff < 0 ? [' ', h('bad.rp', '−' + -diff)] : []),
+          ...(diff && diff > 0 ? [' ', h('good.rp', `+${diff}`)] : []),
+          ...(diff && diff < 0 ? [' ', h('bad.rp', `−${-diff}`)] : []),
         ]),
       ),
     ),

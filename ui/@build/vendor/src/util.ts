@@ -1,7 +1,7 @@
-import { execSync } from 'child_process';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-import * as fs from 'fs/promises';
+import { execSync } from 'node:child_process';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const baseDistFolder = path.join(
   path.dirname(execSync('pnpm root -w').toString()),

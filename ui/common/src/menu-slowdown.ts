@@ -17,14 +17,15 @@ const menuSlowdown = (): void => {
 
   const interval = 100;
   const sensitivity = 10;
+  const timeoutKey = 'timeoutId';
 
   // current X and Y position of mouse, updated during mousemove tracking (shared across instances)
   let cX: number, cY: number;
 
   // saves the current pointer position coordinates based on the given mousemove event
-  const track = (ev: JQueryEventObject) => {
-    cX = ev.pageX;
-    cY = ev.pageY;
+  const track = (ev: JQuery.Event) => {
+    cX = ev.pageX!;
+    cY = ev.pageY!;
   };
 
   // state properties:
@@ -46,7 +47,7 @@ const menuSlowdown = (): void => {
         sensitivity
       ) {
         $el.off(state.event, track);
-        delete state.timeoutId;
+        delete state[timeoutKey];
         // set hoverIntent state as active for this element (permits `out` handler to trigger)
         state.isActive = true;
         handler();
@@ -55,17 +56,18 @@ const menuSlowdown = (): void => {
         state.pX = cX;
         state.pY = cY;
         // use self-calling timeout, guarantees intervals are spaced out properly (avoids JavaScript timer bugs)
-        state.timeoutId = setTimeout(compare, interval);
+        state[timeoutKey] = setTimeout(compare, interval);
       }
     };
 
     // A private function for handling mouse 'hovering'
-    const handleHover = (ev: JQueryEventObject) => {
+    const handleHover = (ev: any) => {
       // clear any existing timeout
-      if (state.timeoutId) state.timeoutId = clearTimeout(state.timeoutId);
+      if (state[timeoutKey]) state[timeoutKey] = clearTimeout(state[timeoutKey]);
 
       // namespaced event used to register and unregister mousemove tracking
-      const mousemove = (state.event = 'mousemove');
+      state.event = 'mousemove';
+      const mousemove = state.event;
 
       // handle the event, based on its type
       if (ev.type == 'mouseenter') {
@@ -77,7 +79,7 @@ const menuSlowdown = (): void => {
         // update "current" X and Y position based on mousemove
         $el.off(mousemove, track).on(mousemove, track);
         // start polling interval (self-calling timeout) to compare mouse coordinates over time
-        state.timeoutId = setTimeout(compare, interval);
+        state[timeoutKey] = setTimeout(compare, interval);
       } else {
         // "mouseleave"
         // do nothing if not already active

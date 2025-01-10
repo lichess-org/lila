@@ -1,5 +1,5 @@
 export const userModInfo = (username: string): Promise<any> =>
-  window.lishogi.xhr.json('GET', '/mod/chat-user/' + username);
+  window.lishogi.xhr.json('GET', `/mod/chat-user/${username}`);
 
 export const flag = (resource: string, username: string, text: string): Promise<any> =>
   window.lishogi.xhr.json('POST', '/report/flag', {

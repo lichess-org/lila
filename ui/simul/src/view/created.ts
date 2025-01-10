@@ -42,7 +42,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                     i18n('withdraw'),
                   )
                 : h(
-                    'a.button.text' + (ctrl.teamBlock() ? '.disabled' : ''),
+                    `a.button.text${ctrl.teamBlock() ? '.disabled' : ''}`,
                     {
                       attrs: {
                         disabled: ctrl.teamBlock(),
@@ -87,7 +87,7 @@ export default function (showText: (ctrl: SimulCtrl) => MaybeVNode) {
                 {
                   attrs: {
                     'data-icon': 'G',
-                    href: '/login?referrer=' + window.location.pathname,
+                    href: `/login?referrer=${window.location.pathname}`,
                   },
                 },
                 i18n('signIn'),

@@ -11,14 +11,14 @@ const widget = (name: string, prototype: any): any => {
   });
   constructor.prototype = prototype;
   $.fn[name] = function (method) {
-    const returnValue = this;
+    let returnValue = this;
     const args = Array.prototype.slice.call(arguments, 1);
     if (typeof method === 'string')
       this.each(function () {
         const instance = $.data(this, name);
         if (!instance) return;
         if (!$.isFunction(instance[method]) || method.charAt(0) === '_')
-          return $.error("no such method '" + method + "' for " + name + ' widget instance');
+          return $.error(`no such method '${method}' for ${name} widget instance`);
         returnValue = instance[method].apply(instance, args);
       });
     else
@@ -53,9 +53,9 @@ export function initWidgets(): void {
           u ? `<a class="user-link ulpt" href="/@/${u.toLowerCase()}">${u}</a>` : 'Anonymous',
         );
         if (data.anons === 1) tags.push('Anonymous');
-        else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
+        else if (data.anons) tags.push(`Anonymous (${data.anons})`);
         this.list.html(tags.join(', '));
-      } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
+      } else if (!this.number.length) this.list.html(`${data.nb} players in the chat`);
       this.element.removeClass('none');
     },
   });
@@ -75,33 +75,15 @@ export function initWidgets(): void {
         };
       };
       const renderUser = (user: any) => {
-        const icon = '<i class="line' + (user.patron ? ' patron' : '') + '"></i>',
+        const icon = `<i class="line${user.patron ? ' patron' : ''}"></i>`,
           titleTag = user.title
-            ? '<span class="title"' +
-              (user.title === 'BOT' ? ' data-bot' : '') +
-              '>' +
-              user.title +
-              '</span>&nbsp;'
+            ? `<span class="title"${user.title === 'BOT' ? ' data-bot' : ''}>${user.title}</span>&nbsp;`
             : '',
-          url = '/@/' + user.name,
+          url = `/@/${user.name}`,
           tvButton = user.playing
-            ? '<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="' +
-              url +
-              '/tv" data-href="' +
-              url +
-              '"></a>'
+            ? `<a data-icon="1" class="tv ulpt" data-pt-pos="nw" href="${url}/tv" data-href="${url}"></a>`
             : '';
-        return (
-          '<div><a class="user-link ulpt" data-pt-pos="nw" href="' +
-          url +
-          '">' +
-          icon +
-          titleTag +
-          user.name +
-          '</a>' +
-          tvButton +
-          '</div>'
-        );
+        return `<div><a class="user-link ulpt" data-pt-pos="nw" href="${url}">${icon}${titleTag}${user.name}</a>${tvButton}</div>`;
       };
       return {
         _create: function () {
@@ -201,9 +183,9 @@ export function initWidgets(): void {
         seconds = date.getUTCSeconds();
 
       if (hours > 0) {
-        return hours + ':' + this._pad(minutes) + ':' + this._pad(seconds);
+        return `${hours}:${this._pad(minutes)}:${this._pad(seconds)}`;
       } else {
-        return minutes + ':' + this._pad(seconds);
+        return `${minutes}:${this._pad(seconds)}`;
       }
     },
   });

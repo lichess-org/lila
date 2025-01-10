@@ -3,7 +3,7 @@ import { fontColor, fontFamily } from '../common';
 
 declare module 'chart.js' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface PluginOptionsByType<TType extends ChartType> {
+  interface PluginOptionsByType<_TType extends ChartType> {
     needle?: {
       value: number;
     };
@@ -111,18 +111,14 @@ function main(): void {
       if (v.server === -1 || v.network === -1) return;
       const c =
         v.server <= 100 && v.network <= 500 ? 'nope-nope' : v.server <= 100 ? 'nope-yep' : 'yep';
-      $('.lag .answer span')
-        .addClass('none')
-        .parent()
-        .find('.' + c)
-        .removeClass('none');
+      $('.lag .answer span').addClass('none').parent().find(`.${c}`).removeClass('none');
       chart.update();
     };
   });
 }
 
 const makeTitle = (index: number, lat: number) => [
-  (index ? 'Ping' : 'Server latency') + ' in milliseconds',
+  `${index ? 'Ping' : 'Server latency'} in milliseconds`,
   `${lat}`,
 ];
 

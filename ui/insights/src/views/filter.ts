@@ -70,7 +70,7 @@ function options(
       name,
     );
   }
-  return h('div.options.key-' + key, [
+  return h(`div.options.key-${key}`, [
     h('h3', i18ns[key]),
     h(
       'select',

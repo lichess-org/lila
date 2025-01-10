@@ -12,9 +12,9 @@ export interface BoolSetting {
 }
 
 export function boolSetting(o: BoolSetting, redraw: Redraw): VNode {
-  const fullId = 'abset-' + o.id;
+  const fullId = `abset-${o.id}`;
   return h(
-    'div.setting.' + fullId,
+    `div.setting.${fullId}`,
     o.title
       ? {
           attrs: { title: o.title },
@@ -23,7 +23,7 @@ export function boolSetting(o: BoolSetting, redraw: Redraw): VNode {
     [
       h('label', { attrs: { for: fullId } }, o.name),
       h('div.switch', [
-        h('input#' + fullId + '.cmn-toggle', {
+        h(`input#${fullId}.cmn-toggle`, {
           attrs: {
             type: 'checkbox',
             checked: o.checked,

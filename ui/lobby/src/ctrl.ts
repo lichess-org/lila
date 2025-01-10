@@ -55,7 +55,7 @@ export default class LobbyController {
     this.data = opts.data;
     this.data.hooks = [];
     this.playban = opts.playban;
-    this.isBot = opts.data.me && opts.data.me.isBot;
+    this.isBot = opts.data.me?.isBot;
     this.isAnon = !opts.data.me;
     this.ratings = opts.data.me?.ratings;
     this.presetOpts = {
@@ -136,7 +136,7 @@ export default class LobbyController {
       { days: 5 },
     ].map((p, i) => {
       return {
-        id: 'pid-' + i,
+        id: `pid-${i}`,
         lim: p.lim || 0,
         byo: p.byo || 0,
         inc: 0,
@@ -170,7 +170,7 @@ export default class LobbyController {
   };
 
   setSort = (sort: Extract<'rating' | 'time', Sort>): void => {
-    if (sort === this.sort) this.sort = this.stores.sort.set(sort + '-reverse');
+    if (sort === this.sort) this.sort = this.stores.sort.set(`${sort}-reverse`);
     else this.sort = this.stores.sort.set(sort);
   };
 
@@ -193,7 +193,7 @@ export default class LobbyController {
     const act = action(seek);
     if (this.isAnon) window.location.href = '/signup';
     else if (act === 'cancel' || variantConfirm(seek.variant || 'standard'))
-      this.socket.send(act + 'Seek', seek.id);
+      this.socket.send(`${act}Seek`, seek.id);
   };
 
   seeksNow: () => void = throttle(100, () => xhr.seeks().then(this.setSeeks));

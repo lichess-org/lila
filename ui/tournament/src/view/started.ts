@@ -26,7 +26,7 @@ function joinTheGame(gameId: string) {
   return h(
     'a.tour__ur-playing.button.is.is-after',
     {
-      attrs: { href: '/' + gameId },
+      attrs: { href: `/${gameId}` },
     },
     [i18n('youArePlaying'), h('br'), i18n('joinTheGame')],
   );

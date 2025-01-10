@@ -32,8 +32,8 @@ function renderTournament(tour: Tournament, day: Date) {
     {
       class: tournamentClass(tour, day),
       attrs: {
-        href: '/tournament/' + tour.id,
-        style: 'width: ' + width + '%; left: ' + left + '%',
+        href: `/tournament/${tour.id}`,
+        style: `width: ${width}%; left: ${left}%`,
         title: `${tour.fullName} - ${format(tour.bounds.start, 'EEEE, dd/MM/yyyy HH:mm')}`,
       },
     },
@@ -112,7 +112,7 @@ function renderTimeline() {
       h(
         'div.timeheader',
         {
-          attrs: { style: 'left: ' + (hour / 24) * 100 + '%' },
+          attrs: { style: `left: ${(hour / 24) * 100}%` },
         },
         timeString(hour),
       ),
@@ -122,7 +122,7 @@ function renderTimeline() {
 
 // converts Date to "%H:%M" with leading zeros
 function timeString(hour) {
-  return ('0' + hour).slice(-2);
+  return `0${hour}`.slice(-2);
 }
 
 function makeGroups(days: Date[]): Date[][] {

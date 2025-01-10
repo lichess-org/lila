@@ -79,9 +79,9 @@ function notationExample(notation: Notation): string {
 function notationDisplay(notation: Notation): string {
   switch (notation) {
     case Notation.Western:
-      return i18n('preferences:westernNotation') + ' (76)';
+      return `${i18n('preferences:westernNotation')} (76)`;
     case Notation.WesternEngine:
-      return i18n('preferences:westernNotation') + ' (7f)';
+      return `${i18n('preferences:westernNotation')} (7f)`;
     case Notation.Japanese:
       return i18n('preferences:japaneseNotation');
     case Notation.Kawasaki:

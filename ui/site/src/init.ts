@@ -23,7 +23,7 @@ export function init(): void {
     initMiniBoards();
     pubsub.on('content_loaded', initMiniBoards);
     pubsub.on('socket.in.sfen', (e: { id: string; sfen: Sfen; lm: Usi }) => {
-      const els = document.querySelectorAll<HTMLElement>('.mini-board-' + e.id);
+      const els = document.querySelectorAll<HTMLElement>(`.mini-board-${e.id}`);
       if (els.length) {
         els.forEach(el => {
           el.dataset.sfen = e.sfen;
@@ -45,7 +45,7 @@ export function init(): void {
     pubsub.on('content_loaded', renderTimeago);
 
     function renderFlatpickr() {
-      if (!!window.flatpickr) {
+      if (window.flatpickr) {
         document
           .querySelectorAll('.flatpickr--init')
           .forEach(el => window.flatpickr(el, { enableTime: true, time_24hr: true }));
@@ -67,9 +67,9 @@ export function init(): void {
         $(this).select();
       })
       .on('click', 'button.copy', function (this: HTMLElement) {
-        $('#' + $(this).data('rel')).trigger('select');
+        $(`#${$(this).data('rel')}`).trigger('select');
         const targetId = $(this).data('rel'),
-          textToCopy = $('#' + targetId).val() as string;
+          textToCopy = $(`#${targetId}`).val() as string;
         navigator.clipboard
           .writeText(textToCopy)
           .then(() => {
@@ -187,7 +187,7 @@ export function init(): void {
       const $p = $(this).parent();
       $p.toggleClass('shown');
       $p.siblings('.shown').removeClass('shown');
-      window.lishogi.pubsub.emit('top.toggle.' + $(this).attr('id'));
+      window.lishogi.pubsub.emit(`top.toggle.${$(this).attr('id')}`);
       setTimeout(() => {
         const handler: (e: JQuery.ClickEvent) => void = (e: JQuery.ClickEvent) => {
           if (
@@ -250,7 +250,7 @@ export function init(): void {
     // prevent zoom when keyboard shows on iOS
     if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream) {
       const el = document.querySelector('meta[name=viewport]')!;
-      el.setAttribute('content', el.getAttribute('content') + ',maximum-scale=1.0');
+      el.setAttribute('content', `${el.getAttribute('content')},maximum-scale=1.0`);
     }
 
     if (location.hash === '#blind' && !$('body').hasClass('blind-mode'))
@@ -271,23 +271,10 @@ export function init(): void {
 
   pubsub.on('socket.in.tournamentReminder', (data: any) => {
     if ($('#announce').length || $('body').data('tournament-id') == data.id) return;
-    const url = '/tournament/' + data.id;
+    const url = `/tournament/${data.id}`;
     $('body')
       .append(
-        '<div id="announce">' +
-          '<a data-icon="g" class="text" href="' +
-          url +
-          '">' +
-          data.name +
-          '</a>' +
-          '<div class="actions">' +
-          '<a class="withdraw text" href="' +
-          url +
-          '/withdraw" data-icon="Z">Pause</a>' +
-          '<a class="text" href="' +
-          url +
-          '" data-icon="G">Resume</a>' +
-          '</div></div>',
+        `<div id="announce"><a data-icon="g" class="text" href="${url}">${data.name}</a><div class="actions"><a class="withdraw text" href="${url}/withdraw" data-icon="Z">Pause</a><a class="text" href="${url}" data-icon="G">Resume</a></div></div>`,
       )
       .find('#announce .withdraw')
       .on('click', function (this: HTMLAnchorElement) {
@@ -341,7 +328,7 @@ export function init(): void {
       const vapid = document.body.getAttribute('data-vapid');
       if (vapid && Notification.permission == 'granted') {
         reg.pushManager.getSubscription().then(sub => {
-          const curKey = sub && sub.options.applicationServerKey;
+          const curKey = sub?.options.applicationServerKey;
           const isNewKey =
             curKey && btoa(String.fromCharCode.apply(null, new Uint8Array(curKey))) !== vapid;
           const resub =
@@ -363,7 +350,7 @@ export function init(): void {
                   },
                   body: JSON.stringify(sub),
                 }).then(res => {
-                  if (res.ok && !res.redirected) pushStorage.set('' + Date.now());
+                  if (res.ok && !res.redirected) pushStorage.set(`${Date.now()}`);
                   else sub.unsubscribe();
                 }),
               err => {

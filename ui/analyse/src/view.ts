@@ -46,12 +46,12 @@ function renderResult(ctrl: AnalyseCtrl): MaybeVNode {
   const render = (status: string, winner?: Color) =>
     h('div.status', [
       status,
-      winner ? ', ' + i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap)) : null,
+      winner ? `, ${i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap))}` : null,
     ]);
   if (ctrl.data.game.status.id >= 30) {
     const status = statusView(ctrl.data.game.status, ctrl.data.game.winner, handicap);
     return render(status, ctrl.data.game.winner);
-  } else if (ctrl.study && ctrl.study.data.chapter.setup.endStatus) {
+  } else if (ctrl.study?.data.chapter.setup.endStatus) {
     const status = statusView(
       ctrl.study.data.chapter.setup.endStatus.status,
       ctrl.study.data.chapter.setup.endStatus.winner,
@@ -234,7 +234,7 @@ function inputs(ctrl: AnalyseCtrl): VNode | undefined {
         [
           i18n('shareMainlineUrl'),
           ctrl.mainline.length > 300
-            ? h('span.error', 'MAX: ' + i18nPluralSame('nbMoves', 300))
+            ? h('span.error', `MAX: ${i18nPluralSame('nbMoves', 300)}`)
             : null,
         ],
       ),
@@ -298,7 +298,7 @@ function controls(ctrl: AnalyseCtrl) {
       ctrl.embed || ctrl.forecast
         ? null
         : h(
-            'div.features' + (!ctrl.synthetic ? '.from-game' : ''),
+            `div.features${!ctrl.synthetic ? '.from-game' : ''}`,
             ctrl.studyPractice
               ? [
                   h('a.fbt', {
@@ -355,14 +355,14 @@ function forceInnerCoords(ctrl: AnalyseCtrl, v: boolean) {
 }
 
 function addChapterId(study: StudyCtrl | undefined, cssClass: string) {
-  return cssClass + (study && study.data.chapter ? '.' + study.data.chapter.id : '');
+  return cssClass + (study?.data.chapter ? `.${study.data.chapter.id}` : '');
 }
 
 export default function (ctrl: AnalyseCtrl): VNode {
   if (ctrl.nvui) return ctrl.nvui.render(ctrl);
   const concealOf = makeConcealOf(ctrl),
     study = ctrl.study,
-    showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
+    showCevalPvs = !ctrl.retro?.isSolving() && !ctrl.practice,
     menuIsOpen = ctrl.actionMenu.open,
     gamebookPlay = ctrl.gamebookPlay(),
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
@@ -372,7 +372,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
     gaugeOn = ctrl.showEvalGauge(),
     needsInnerCoords = !!playerBars;
   return h(
-    'main.sb-insert.analyse.main-v-' + ctrl.data.game.variant.key, // sb-insert - to force snabbdom to call insert
+    `main.sb-insert.analyse.main-v-${ctrl.data.game.variant.key}`, // sb-insert - to force snabbdom to call insert
     {
       hook: {
         insert: vn => {
@@ -408,7 +408,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
       study ? studyView.overboard(study) : null,
 
       h(
-        addChapterId(study, 'div.analyse__board.main-board.v-' + ctrl.data.game.variant.key),
+        addChapterId(study, `div.analyse__board.main-board.v-${ctrl.data.game.variant.key}`),
         {
           hook:
             hasTouchEvents ||
@@ -470,7 +470,7 @@ export default function (ctrl: AnalyseCtrl): VNode {
               'aside.analyse__side',
               {
                 hook: onInsert(elm => {
-                  ctrl.opts.$side && ctrl.opts.$side.length && $(elm).replaceWith(ctrl.opts.$side);
+                  ctrl.opts.$side?.length && $(elm).replaceWith(ctrl.opts.$side);
                   $(elm).append($('.streamers').clone().removeClass('none'));
                 }),
               },

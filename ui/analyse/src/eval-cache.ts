@@ -90,7 +90,7 @@ export function make(opts: Opts): EvalCache {
     }),
     fetch(path: Tree.Path, multiPv: number): void {
       const node = opts.getNode();
-      if ((node.ceval && node.ceval.cloud) || !opts.canGet()) return;
+      if (node.ceval?.cloud || !opts.canGet()) return;
       const serverEval = fetchedBySfen[node.sfen];
       if (serverEval) return opts.receive(toCeval(serverEval), path, false);
       else if (node.sfen in fetchedBySfen) return;

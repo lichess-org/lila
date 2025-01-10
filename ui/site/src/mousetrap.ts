@@ -56,7 +56,7 @@ const MAP: Record<string, string> = {
   93: 'meta',
   224: 'meta',
 };
-for (let i = 1; i < 20; ++i) MAP[111 + i] = 'f' + i;
+for (let i = 1; i < 20; ++i) MAP[111 + i] = `f${i}`;
 for (let i = 0; i <= 9; ++i) MAP[i + 96] = i.toString();
 
 const KEYCODE_MAP: Record<string, string> = {
@@ -171,7 +171,7 @@ class Mousetrap {
    */
   bind = (combinations: string | string[], callback: Callback, action?: Action): Mousetrap => {
     this.bindMultiple(
-      combinations instanceof Array ? combinations : [combinations],
+      Array.isArray(combinations) ? combinations : [combinations],
       callback,
       action,
     );

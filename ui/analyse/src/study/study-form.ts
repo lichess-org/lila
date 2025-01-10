@@ -33,7 +33,7 @@ function select(s: Select): MaybeVNodes {
     h(
       'label.form-label',
       {
-        attrs: { for: 'study-' + s.key },
+        attrs: { for: `study-${s.key}` },
       },
       s.name,
     ),
@@ -116,7 +116,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
           hook: bindSubmit(e => {
             const obj: FormData = {};
             'name visibility computer cloneable chat sticky description'.split(' ').forEach(n => {
-              const el = (e.target as HTMLElement).querySelector('#study-' + n) as HTMLInputElement;
+              const el = (e.target as HTMLElement).querySelector(`#study-${n}`) as HTMLInputElement;
               if (el) obj[n] = el.value;
             });
             ctrl.save(obj, isNew);
@@ -190,7 +190,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   ['true', i18n('study:yesKeepEveryoneOnTheSamePosition')],
                   ['false', i18n('study:noLetPeopleBrowseFreely')],
                 ],
-                selected: '' + data.settings.sticky,
+                selected: `${data.settings.sticky}`,
               }),
             ),
             h(
@@ -202,7 +202,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
                   ['false', i18n('study:noPinnedComment')],
                   ['true', i18n('study:rightUnderTheBoard')],
                 ],
-                selected: '' + data.settings.description,
+                selected: `${data.settings.description}`,
               }),
             ),
           ]),
@@ -224,7 +224,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
               'form',
               {
                 attrs: {
-                  action: '/study/' + data.id + '/clear-chat',
+                  action: `/study/${data.id}/clear-chat`,
                   method: 'post',
                 },
                 hook: bindNonPassive('submit', _ =>
@@ -237,7 +237,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
           'form',
           {
             attrs: {
-              action: '/study/' + data.id + '/delete',
+              action: `/study/${data.id}/delete`,
               method: 'post',
             },
             hook: bindNonPassive(

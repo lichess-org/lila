@@ -149,7 +149,7 @@ export function usiToNotation(
           refNode = useParentNode && parentNode ? parentNode : node,
           refSfen =
             !node.usi && useParentNode
-              ? refNode.sfen.replace(/ (b|w) /, ' ' + toBW(textPlyColor) + ' ')
+              ? refNode.sfen.replace(/ (b|w) /, ` ${toBW(textPlyColor)} `)
               : refNode.sfen, // for initial node
           moveOrDrop = match[2] && parseUsi(match[2]), // to make sure we have valid usi
           notation = moveOrDrop && makeNotation(refSfen, variant, makeUsi(moveOrDrop), refNode.usi);

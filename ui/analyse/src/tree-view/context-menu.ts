@@ -49,13 +49,13 @@ function positionMenu(menu: HTMLElement, coords: Coords): void {
 
   menu.style.left =
     windowWidth - coords.x < menuWidth
-      ? windowWidth - menuWidth + 'px'
-      : (menu.style.left = coords.x + 'px');
+      ? `${windowWidth - menuWidth}px`
+      : (menu.style.left = `${coords.x}px`);
 
   menu.style.top =
     windowHeight - coords.y < menuHeight
-      ? windowHeight - menuHeight + 'px'
-      : (menu.style.top = coords.y + 'px');
+      ? `${windowHeight - menuHeight}px`
+      : (menu.style.top = `${coords.y}px`);
 }
 
 function action(icon: string, text: string, handler: () => void): VNode {
@@ -75,7 +75,7 @@ function view(opts: Opts, coords: Coords): VNode {
     onMainline = ctrl.tree.pathIsMainline(opts.path) && !ctrl.tree.pathIsForcedVariation(opts.path),
     cantChangeMainline = !!ctrl.study?.data.chapter.gameLength;
   return h(
-    'div#' + elementId + '.visible',
+    `div#${elementId}.visible`,
     {
       hook: {
         ...onInsert(elm => {
@@ -113,13 +113,13 @@ export default function (e: MouseEvent, opts: Opts): void {
     pos = { x: 0, y: 0 };
   }
 
-  const el = $('#' + elementId)[0] || $('<div id="' + elementId + '">').appendTo($('body'))[0];
+  const el = $(`#${elementId}`)[0] || $(`<div id="${elementId}">`).appendTo($('body'))[0];
   opts.root.contextMenuPath = opts.path;
   function close(e: MouseEvent) {
     if (e.button === 2) return; // right click
     opts.root.contextMenuPath = undefined;
     document.removeEventListener('click', close, false);
-    $('#' + elementId).removeClass('visible');
+    $(`#${elementId}`).removeClass('visible');
     opts.root.redraw();
   }
   document.addEventListener('click', close, false);

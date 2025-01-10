@@ -43,7 +43,7 @@ function deleteButton(ctrl: AnalyseCtrl, userId: string | null): VNode | undefin
       {
         attrs: {
           method: 'post',
-          action: '/' + g.id + '/delete',
+          action: `/${g.id}/delete`,
         },
         hook: bindNonPassive('submit', _ => confirm(i18n('deleteThisImportedGame'))),
       },
@@ -88,7 +88,7 @@ function rangeConfig(read: () => number, write: (value: number) => void): Hooks 
   return {
     insert: vnode => {
       const el = vnode.elm as HTMLInputElement;
-      el.value = '' + read();
+      el.value = `${read()}`;
       el.addEventListener('input', _ => write(Number.parseInt(el.value)));
       el.addEventListener('mouseout', _ => el.blur());
     },
@@ -96,8 +96,8 @@ function rangeConfig(read: () => number, write: (value: number) => void): Hooks 
 }
 
 function formatHashSize(v: number): string {
-  if (v < 1000) return v + 'MB';
-  else return Math.round(v / 1024) + 'GB';
+  if (v < 1000) return `${v}MB`;
+  else return `${Math.round(v / 1024)}GB`;
 }
 
 function hiddenInput(name: string, value: string) {
@@ -112,7 +112,7 @@ function studyButton(ctrl: AnalyseCtrl) {
       'a.button.button-empty',
       {
         attrs: {
-          href: '/study/' + ctrl.study.data.id + '#' + ctrl.study.currentChapter().id,
+          href: `/study/${ctrl.study.data.id}#${ctrl.study.currentChapter().id}`,
           target: '_blank',
           'data-icon': '4',
         },
@@ -182,7 +182,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
               attrs: {
                 href: d.userAnalysis
                   ? editor(d.game.variant.key, ctrl.node.sfen, ctrl.shogiground.state.orientation)
-                  : '/' + d.game.id + '/edit?sfen=' + encodeSfen(ctrl.node.sfen, true),
+                  : `/${d.game.id}/edit?sfen=${encodeSfen(ctrl.node.sfen, true)}`,
                 rel: 'nofollow',
                 target: ctrl.embed ? '_blank' : '',
                 'data-icon': 'm',
@@ -194,7 +194,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
         ? h(
             'a.button.button-empty',
             {
-              hook: bind('click', _ => $.modal($('.continue-with.g_' + d.game.id))),
+              hook: bind('click', _ => $.modal($(`.continue-with.g_${d.game.id}`))),
               attrs: dataIcon('U'),
             },
             i18n('continueFromHere'),
@@ -207,13 +207,13 @@ export function view(ctrl: AnalyseCtrl): VNode {
   const notSupported = 'Browser does not support this option';
 
   const cevalConfig: MaybeVNodes =
-    ceval && ceval.possible && ceval.allowed()
+    ceval?.possible && ceval.allowed()
       ? ([h('h2', i18n('computerAnalysis'))] as MaybeVNodes)
           .concat([
             ctrlBoolSetting(
               {
                 name: i18n('enable'),
-                title: (mandatoryCeval ? 'Required by practice mode' : 'Engine') + ' (Hotkey: z)',
+                title: `${mandatoryCeval ? 'Required by practice mode' : 'Engine'} (Hotkey: z)`,
                 id: 'all',
                 checked: ctrl.showComputer(),
                 disabled: mandatoryCeval,
@@ -278,7 +278,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                   ),
                   ctrlBoolSetting(
                     {
-                      name: i18n('impasse') + ' - ' + i18n('computerAnalysis'),
+                      name: `${i18n('impasse')} - ${i18n('computerAnalysis')}`,
                       title: ceval.supportsNnue ? 'YaneuraOu - EnteringKingRule' : notSupported,
                       id: 'enteringKingRule',
                       checked: ceval.supportsNnue && ceval.enteringKingRule(),
@@ -291,7 +291,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                     const max = 5;
                     return h('div.setting', [
                       h('label', { attrs: { for: id } }, i18n('multipleLines')),
-                      h('input#' + id, {
+                      h(`input#${id}`, {
                         attrs: {
                           type: 'range',
                           min: 0,
@@ -303,7 +303,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                           ctrl.cevalSetMultiPv,
                         ),
                       }),
-                      h('div.range_value', ceval.multiPv() + ' / ' + max),
+                      h('div.range_value', `${ceval.multiPv()} / ${max}`),
                     ]);
                   })('analyse-multipv'),
                   ceval.threads
@@ -319,7 +319,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                             },
                             i18n('cpus'),
                           ),
-                          h('input#' + id, {
+                          h(`input#${id}`, {
                             attrs: {
                               type: 'range',
                               min: 1,
@@ -346,7 +346,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                             },
                             i18n('memory'),
                           ),
-                          h('input#' + id, {
+                          h(`input#${id}`, {
                             attrs: {
                               type: 'range',
                               min: 4,
@@ -356,7 +356,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
                             },
                             hook: rangeConfig(
                               () => Math.floor(Math.log2(ceval.hashSize!())),
-                              v => ctrl.cevalSetHashSize(Math.pow(2, v)),
+                              v => ctrl.cevalSetHashSize(2 ** v),
                             ),
                           }),
                           h('div.range_value', formatHashSize(ceval.hashSize())),
@@ -392,7 +392,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
       .concat([
         deleteButton(ctrl, ctrl.opts.userId),
         canContinue
-          ? h('div.continue-with.none.g_' + d.game.id, [
+          ? h(`div.continue-with.none.g_${d.game.id}`, [
               h(
                 'a.button',
                 {

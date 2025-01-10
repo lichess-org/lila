@@ -37,7 +37,7 @@ interface ToolButtonOpts {
 
 function toolButton(opts: ToolButtonOpts): VNode {
   return h(
-    'span.' + opts.tab,
+    `span.${opts.tab}`,
     {
       attrs: { title: opts.hint },
       class: { active: opts.tab === opts.ctrl.vm.toolTab() },
@@ -70,7 +70,7 @@ function buttons(root: AnalyseCtrl): VNode {
               class: { on: ctrl.vm.mode.sticky },
               hook: bind('click', ctrl.toggleSticky),
             },
-            [ctrl.vm.behind ? h('span.behind', '' + ctrl.vm.behind) : h('i.is'), 'SYNC'],
+            [ctrl.vm.behind ? h('span.behind', `${ctrl.vm.behind}`) : h('i.is'), 'SYNC'],
           )
         : null,
       canContribute
@@ -150,7 +150,7 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
         {
           attrs: {
             title: i18n('backToGame'),
-            href: '/' + ctrl.data.postGameStudy.gameId + (me?.playerId || ''),
+            href: `/${ctrl.data.postGameStudy.gameId}${me?.playerId || ''}`,
             ...dataIcon('i'),
           },
         },
@@ -164,7 +164,7 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
       return h('div.game_info', [
         gameBackButton,
         h(
-          'button.button.button-empty' + (!isOnline || !myOpponent.userId ? '.disabled' : ''),
+          `button.button.button-empty${!isOnline || !myOpponent.userId ? '.disabled' : ''}`,
           {
             class: {
               offering: offering,
@@ -185,7 +185,7 @@ function postGameButtons(ctrl: StudyCtrl): MaybeVNode {
         ),
         h(
           'a.button.button-empty',
-          { attrs: { href: '/?hook_like=' + ctrl.data.postGameStudy.gameId } },
+          { attrs: { href: `/?hook_like=${ctrl.data.postGameStudy.gameId}` } },
           i18n('newOpponent'),
         ),
       ]);
@@ -209,7 +209,7 @@ function metadata(ctrl: StudyCtrl): VNode {
           },
           hook: bind('click', ctrl.toggleLike),
         },
-        '' + d.likes,
+        `${d.likes}`,
       ),
     ]),
     topicsView(ctrl),
@@ -222,7 +222,7 @@ export function side(ctrl: StudyCtrl): VNode {
 
   const makeTab = (key: Tab, name: string) =>
     h(
-      'span.' + key,
+      `span.${key}`,
       {
         class: { active: activeTab === key },
         hook: bind(

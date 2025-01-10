@@ -42,7 +42,7 @@ export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | u
     labels.push('');
   }
 
-  const logC = Math.pow(Math.log(3), 2);
+  const logC = Math.log(3) ** 2;
 
   const blurs = [toBlurArray(data.player), toBlurArray(data.opponent)];
   if (data.player.color === 'sente') blurs.reverse();
@@ -59,11 +59,8 @@ export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | u
     const color = ply & 1;
     const colorName = color ? 'sente' : 'gote';
 
-    const y = Math.max(
-      Math.pow(Math.log(0.005 * Math.min(centis, 12e4) + 3), 2) - logC,
-      x > 1 ? 0.3 : 0,
-    );
-    let label = ply + '. ' + notation;
+    const y = Math.max(Math.log(0.005 * Math.min(centis, 12e4) + 3) ** 2 - logC, x > 1 ? 0.3 : 0);
+    let label = `${ply}. ${notation}`;
     const movePoint: MovePoint = {
       x: node ? node.ply : tree[x].ply + 1,
       y: color ? y : -y,
@@ -79,7 +76,7 @@ export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | u
     }
 
     const seconds = (centis / 100).toFixed(centis >= 200 ? 1 : 2);
-    label += '\n' + i18nPluralSame('nbSeconds', Number(seconds));
+    label += `\n${i18nPluralSame('nbSeconds', Number(seconds))}`;
     moveSeries[colorName].push(movePoint);
 
     let clock = node ? node.clock : undefined;
@@ -91,7 +88,7 @@ export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | u
       }
     }
     if (clock) {
-      label += '\n' + formatClock(clock);
+      label += `\n${formatClock(clock)}`;
       totalSeries[colorName].push({
         x: node ? node.ply : tree[x].ply + 1,
         y: color ? clock : -clock,
@@ -202,16 +199,14 @@ export function movetime(el: HTMLCanvasElement, data: AnalyseData): PlyChart | u
   return movetimeChart;
 }
 
-const toBlurArray = (player: Player) =>
-  player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
+const toBlurArray = (player: Player) => (player.blurs?.bits ? player.blurs.bits.split('') : []);
 
 const formatClock = (centis: number) => {
   let result = '';
-  if (centis >= 60 * 60 * 100) result += Math.floor(centis / 60 / 6000) + ':';
-  result +=
-    Math.floor((centis % (60 * 6000)) / 6000)
-      .toString()
-      .padStart(2, '0') + ':';
+  if (centis >= 60 * 60 * 100) result += `${Math.floor(centis / 60 / 6000)}:`;
+  result += `${Math.floor((centis % (60 * 6000)) / 6000)
+    .toString()
+    .padStart(2, '0')}:`;
   const secs = (centis % 6000) / 100;
   if (centis < 6000) result += secs.toFixed(2).padStart(5, '0');
   else result += Math.floor(secs).toString().padStart(2, '0');

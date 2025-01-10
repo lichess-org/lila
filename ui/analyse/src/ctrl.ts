@@ -192,8 +192,7 @@ export default class AnalyseCtrl {
     this.shogiground.set(makeConfig(this), true);
     this.showGround(true);
 
-    if (location.hash === '#practice' || (this.study && this.study.data.chapter.practice))
-      this.togglePractice();
+    if (location.hash === '#practice' || this.study?.data.chapter.practice) this.togglePractice();
     else if (location.hash === '#menu') requestIdleCallbackWithFallback(this.actionMenu.toggle);
 
     keyboard.bind(this);
@@ -254,7 +253,7 @@ export default class AnalyseCtrl {
           : players.gote.userId === userId
             ? 'gote'
             : undefined);
-    this.flipped = userOrientation && this.data.orientation !== userOrientation ? true : false;
+    this.flipped = !!(userOrientation && this.data.orientation !== userOrientation);
   };
 
   private setPath = (path: Tree.Path): void => {
@@ -398,7 +397,7 @@ export default class AnalyseCtrl {
 
   private updateHref: () => void = debounce(() => {
     if (!this.opts.study && !this.synthetic)
-      window.history.replaceState(null, '', '#' + this.node.ply);
+      window.history.replaceState(null, '', `#${this.node.ply}`);
   }, 500);
 
   autoScroll(): void {
@@ -527,12 +526,11 @@ export default class AnalyseCtrl {
   };
 
   userMove = (orig: Key, dest: Key, prom: boolean, capture?: sg.Piece): void => {
-    if (this.data.game.variant.key === 'chushogi')
-      return this.chushogiUserMove(orig, dest, prom, capture);
+    if (this.data.game.variant.key === 'chushogi') this.chushogiUserMove(orig, dest, prom, capture);
 
     const usi = orig + dest + (prom ? '+' : '');
     this.justPlayedUsi = usi;
-    this.sound[!!capture ? 'capture' : 'move']();
+    this.sound[capture ? 'capture' : 'move']();
     this.sendUsi(usi);
   };
 
@@ -550,7 +548,7 @@ export default class AnalyseCtrl {
   };
 
   private chushogiUserMove = (orig: Key, dest: Key, prom: boolean, capture?: sg.Piece): void => {
-    this.sound[!!capture ? 'capture' : 'move']();
+    this.sound[capture ? 'capture' : 'move']();
 
     const posRes = this.position(this.node),
       piece = posRes.isOk && posRes.value.board.get(parseSquareName(orig))!;
@@ -637,11 +635,7 @@ export default class AnalyseCtrl {
     if (
       (count.nodes >= 10 || count.comments > 0) &&
       !confirm(
-        i18n('delete').toUpperCase() +
-          ': ' +
-          i18nPluralSame('nbMoves', count.nodes) +
-          (count.comments ? ' and ' + util.plural('comment', count.comments) : '') +
-          '?',
+        `${i18n('delete').toUpperCase()}: ${i18nPluralSame('nbMoves', count.nodes)}${count.comments ? ` and ${util.plural('comment', count.comments)}` : ''}?`,
       )
     )
       return;
@@ -876,7 +870,7 @@ export default class AnalyseCtrl {
 
   private resetAutoShapes() {
     if (this.showAutoShapes() || this.showMoveAnnotation()) this.setAutoShapes();
-    else this.shogiground && this.shogiground.setAutoShapes([]);
+    else this.shogiground?.setAutoShapes([]);
   }
 
   toggleAutoShapes = (v: boolean): void => {
@@ -946,7 +940,7 @@ export default class AnalyseCtrl {
   }
 
   playBestMove(): void {
-    const usi = this.nextNodeBest() || (this.node.ceval && this.node.ceval.pvs[0].moves[0]);
+    const usi = this.nextNodeBest() || this.node.ceval?.pvs[0].moves[0];
     if (usi) this.playUsi(usi);
   }
 
@@ -1008,10 +1002,10 @@ export default class AnalyseCtrl {
   }
 
   gamebookPlay = (): GamebookPlayCtrl | undefined => {
-    return this.study && this.study.gamebookPlay();
+    return this.study?.gamebookPlay();
   };
 
-  isGamebook = (): boolean => !!(this.study && this.study.data.chapter.gamebook);
+  isGamebook = (): boolean => !!this.study?.data.chapter.gamebook;
 
   // plies respect color - it is even if it's sente turn and vice versa
   // but move number is a separate thing

@@ -13,7 +13,7 @@ function selector(data: StudyPracticeData) {
     'select.selector',
     {
       hook: bind('change', e => {
-        location.href = '/practice/' + (e.target as HTMLInputElement).value;
+        location.href = `/practice/${(e.target as HTMLInputElement).value}`;
       }),
     },
     [
@@ -31,7 +31,7 @@ function selector(data: StudyPracticeData) {
             attrs: { label: section.name },
           },
           section.studies.map(study =>
-            option(section.id + '/' + study.slug + '/' + study.id, '', study.name),
+            option(`${section.id}/${study.slug}/${study.id}`, '', study.name),
           ),
         ),
       ),
@@ -45,15 +45,15 @@ function renderGoal(practice: StudyPracticeCtrl, inMoves: number) {
     case 'mate':
       return 'Checkmate the opponent';
     case 'mateIn':
-      return 'Checkmate the opponent in ' + plural('move', inMoves);
+      return `Checkmate the opponent in ${plural('move', inMoves)}`;
     case 'drawIn':
-      return 'Hold the draw for ' + plural('more move', inMoves);
+      return `Hold the draw for ${plural('more move', inMoves)}`;
     case 'equalIn':
-      return 'Equalize in ' + plural('move', inMoves);
+      return `Equalize in ${plural('move', inMoves)}`;
     case 'evalIn':
       if (practice.isSente() === goal.cp! >= 0)
-        return 'Get a winning position in ' + plural('move', inMoves);
-      return 'Defend for ' + plural('move', inMoves);
+        return `Get a winning position in ${plural('move', inMoves)}`;
+      return `Defend for ${plural('move', inMoves)}`;
     case 'promotion':
       return 'Safely promote your pawn';
     default:
@@ -72,7 +72,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
       : [];
   else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
-    case true:
+    case true: {
       const next = ctrl.nextChapter();
       return [
         h(
@@ -90,6 +90,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
           ],
         ),
       ];
+    }
     case false:
       return [
         h(
@@ -125,7 +126,7 @@ export function side(ctrl: StudyCtrl): VNode {
 
   return h('div.practice__side', [
     h('div.practice__side__title', [
-      h('i.' + data.study.id),
+      h(`i.${data.study.id}`),
       h('div.text', [h('h1', data.study.name), h('em', data.study.desc)]),
     ]),
     h(
@@ -153,13 +154,13 @@ export function side(ctrl: StudyCtrl): VNode {
               {
                 key: chapter.id,
                 attrs: {
-                  href: data.url + '/' + chapter.id,
+                  href: `${data.url}/${chapter.id}`,
                   'data-id': chapter.id,
                 },
                 class: { active, loading },
               },
               [
-                h('span.status.' + completion, {
+                h(`span.status.${completion}`, {
                   attrs: {
                     'data-icon': (loading || active) && completion === 'ongoing' ? 'G' : 'E',
                   },

@@ -14,7 +14,7 @@ function win(s: any): void {
 
 function move(s: any): void {
   const mcnt = document.getElementById('move-cnt');
-  if (mcnt) mcnt.innerHTML = s.moves + ' ';
+  if (mcnt) mcnt.innerHTML = `${s.moves} `;
 }
 
 function startPuzzle(): void {

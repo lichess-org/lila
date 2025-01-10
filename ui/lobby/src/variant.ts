@@ -2,7 +2,7 @@ import { i18n } from 'i18n';
 import { i18nVariant } from 'i18n/variant';
 
 function storageKey(key) {
-  return 'lobby.variant.' + key;
+  return `lobby.variant.${key}`;
 }
 
 export default function (variant: VariantKey): boolean {

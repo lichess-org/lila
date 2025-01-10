@@ -1,4 +1,4 @@
-import { promises as fs } from 'fs';
+import { promises as fs } from 'node:fs';
 import fg from 'fast-glob';
 
 const IMPORT_REGEX = /import\s*{([^}]+)}\s*from\s*['"]i18n(?:\/i18n)?['"`]/g;

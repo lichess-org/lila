@@ -150,11 +150,11 @@ function renderUser(user: LightUser) {
   return h(
     'a.ulpt.user-link',
     {
-      attrs: { href: '/@/' + user.name },
+      attrs: { href: `/@/${user.name}` },
       hook: {
         destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
       },
     },
-    user.title ? [h('span.title', user.title), ' ' + user.name] : user.name,
+    user.title ? [h('span.title', user.title), ` ${user.name}`] : user.name,
   );
 }

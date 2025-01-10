@@ -1,8 +1,8 @@
 import type { ChapterPreview, ReloadData, StudyChapterConfig } from './interfaces';
 
 export function reload(baseUrl: string, id: string, chapterId?: string): Promise<ReloadData> {
-  let url = '/' + baseUrl + '/' + id;
-  if (chapterId) url += '/' + chapterId;
+  let url = `/${baseUrl}/${id}`;
+  if (chapterId) url += `/${chapterId}`;
   return window.lishogi.xhr.json('GET', url);
 }
 

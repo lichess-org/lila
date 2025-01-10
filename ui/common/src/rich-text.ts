@@ -15,7 +15,7 @@ const linkHtml = (href: string, content: string): string =>
   `<a target="_blank" rel="nofollow noopener noreferrer" href="${href}">${content}</a>`;
 
 export function toLink(url: string): string {
-  if (!url.match(/^[A-Za-z]+:\/\//)) url = 'https://' + url;
+  if (!url.match(/^[A-Za-z]+:\/\//)) url = `https://${url}`;
   return linkHtml(url, url.replace(/https?:\/\//, ''));
 }
 
@@ -38,13 +38,13 @@ export const innerHTML = <A>(a: A, toHtml: (a: A) => string): Hooks => ({
 export function linkReplace(href: string, body?: string): string {
   if (href.includes('&quot;')) return href;
   return linkHtml(
-    href.startsWith('/') || href.includes('://') ? href : '//' + href,
+    href.startsWith('/') || href.includes('://') ? href : `//${href}`,
     body ? body : href,
   );
 }
 
 export const userLinkReplace = (_: string, prefix: string, user: string): string =>
-  prefix + linkReplace('/@/' + user, '@' + user);
+  prefix + linkReplace(`/@/${user}`, `@${user}`);
 
 export const expandMentions = (html: string): string => html.replace(userPattern, userLinkReplace);
 
@@ -64,7 +64,7 @@ const movePattern = /\b(\d+)\s*(\.)\s*(([1-9][a-i])[1-9][a-i](\+|=)?)[!\?]{0,5}/
 function moveReplacer(match: string, turn: number) {
   if (turn < 1 || turn > 200) return match;
   const ply = turn - 1;
-  return '<a class="jump" data-ply="' + ply + '">' + match + '</a>';
+  return `<a class="jump" data-ply="${ply}">${match}</a>`;
 }
 
 const addPlies = (html: string) => html.replace(movePattern, moveReplacer);

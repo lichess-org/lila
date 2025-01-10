@@ -61,7 +61,7 @@ export function view(ctrl: SoundCtrl): VNode {
   const current = ctrl.api.speech() ? 'speech' : ctrl.api.set();
 
   return h(
-    'div.sub.sound.' + ctrl.api.set(),
+    `div.sub.sound.${ctrl.api.set()}`,
     {
       hook: {
         insert() {

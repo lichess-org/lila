@@ -47,7 +47,7 @@ export function i18nContext(): Context {
     packageWatch: [{ path: 'src', options: { recursive: true } }],
 
     async run(pkg: PackageInfo) {
-      console.log(`Building i18n files...`);
+      console.log('Building i18n files...');
       packagesKeyCache[pkg.name] = await extractI18nKeysFromDir(
         pkg.name,
         path.join(pkg.path, 'src'),
@@ -56,7 +56,7 @@ export function i18nContext(): Context {
     },
 
     async runAll() {
-      console.log(`Building i18n files...`);
+      console.log('Building i18n files...');
       await writeI18n();
     },
 
@@ -146,7 +146,7 @@ export function i18nContext(): Context {
         console.warn(`Cannot build ${name}${usedFilter ? ': --filter flag was used' : ''}`);
       }
     }
-    outputKeys['core'] = coreKeys;
+    outputKeys.core = coreKeys;
 
     for (const lang of [...otherLangs, defaultLang]) {
       const i18n = lang === defaultLang ? sourceI18n : langsI18n[lang];

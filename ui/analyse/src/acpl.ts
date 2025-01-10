@@ -17,8 +17,8 @@ interface Advice {
 
 function renderRatingDiff(rd: number | undefined): VNode | undefined {
   if (rd === 0) return h('span', '±0');
-  if (rd && rd > 0) return h('good', '+' + rd);
-  if (rd && rd < 0) return h('bad', '−' + -rd);
+  if (rd && rd > 0) return h('good', `+${rd}`);
+  if (rd && rd < 0) return h('bad', `−${-rd}`);
   return;
 }
 
@@ -28,7 +28,7 @@ function renderPlayer(ctrl: AnalyseCtrl, color: Color): VNode {
     return h(
       'a.user-link.ulpt',
       {
-        attrs: { href: '/@/' + p.user.username },
+        attrs: { href: `/@/${p.user.username}` },
       },
       [p.user.username, ' ', renderRatingDiff(p.ratingDiff)],
     );
@@ -62,7 +62,7 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
     [
       h(
         'thead',
-        h('tr', [h('td', h('i.is.color-icon.' + color)), h('th', renderPlayer(ctrl, color))]),
+        h('tr', [h('td', h(`i.is.color-icon.${color}`)), h('th', renderPlayer(ctrl, color))]),
       ),
       h(
         'tbody',
@@ -76,14 +76,14 @@ function playerTable(ctrl: AnalyseCtrl, color: Color): VNode {
                     'data-symbol': a.symbol,
                   }
                 : {};
-            return h('tr' + (nb ? `.symbol${style}` : ''), { attrs }, [
-              h('td', '' + nb),
+            return h(`tr${nb ? `.symbol${style}` : ''}`, { attrs }, [
+              h('td', `${nb}`),
               h('th', a.name),
             ]);
           })
           .concat(
             h('tr', [
-              h('td', '' + (defined(acpl) ? acpl : '?')),
+              h('td', `${defined(acpl) ? acpl : '?'}`),
               h('th', i18n('averageCentipawnLoss')),
             ]),
           ),
@@ -135,7 +135,7 @@ export function render(ctrl: AnalyseCtrl): VNode | undefined {
 
   // don't cache until the analysis is complete!
   const buster = ctrl.data.analysis.partial ? Math.random() : '';
-  let cacheKey = '' + buster + !!ctrl.retro;
+  let cacheKey = `${buster}${!!ctrl.retro}`;
   if (ctrl.study) cacheKey += ctrl.study.data.chapter.id;
 
   return h('div.analyse__acpl', thunk('div.advice-summary', doRender, [ctrl, cacheKey]));

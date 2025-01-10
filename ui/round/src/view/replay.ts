@@ -72,7 +72,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
           [
             viewStatus(ctrl.data.game.status, ctrl.data.game.winner, handicap),
             winner
-              ? ' - ' + i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap))
+              ? ` - ${i18nFormatCapitalized('xIsVictorious', colorName(winner, handicap))}`
               : '',
           ],
         ),
@@ -97,7 +97,7 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
       h(
         moveTag +
           (notationsWithColor()
-            ? '.color-icon.' + ((i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'gote' : 'sente')
+            ? `.color-icon.${(i + (ctrl.data.game.startedAtPly || 0)) % 2 ? 'gote' : 'sente'}`
             : ''),
         {
           class: { active: moveNumber === curMove },
@@ -124,11 +124,11 @@ export function analysisButton(ctrl: RoundController): VNode {
       attrs: {
         disabled: disabled,
         title: i18n('analysis'),
-        href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+        href: `${gameRoute(ctrl.data, ctrl.data.player.color)}/analysis#${ctrl.ply}`,
         'data-icon': 'A',
       },
     },
-    forecastCount ? ['' + forecastCount] : [],
+    forecastCount ? [`${forecastCount}`] : [],
   );
 }
 
@@ -144,13 +144,13 @@ function renderButtons(ctrl: RoundController) {
         e => {
           const target = e.target as HTMLElement;
           const ply = Number.parseInt(target.getAttribute('data-ply') || '');
-          if (!isNaN(ply)) ctrl.userJump(ply);
+          if (!Number.isNaN(ply)) ctrl.userJump(ply);
           else {
             const action =
               target.getAttribute('data-act') ||
               (target.parentNode as HTMLElement).getAttribute('data-act');
             if (action === 'flip') {
-              if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
+              if (d.tv) location.href = `/tv/${d.tv.channel}${d.tv.flip ? '' : '?flip=1'}`;
               else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
               else ctrl.flipNow();
             }

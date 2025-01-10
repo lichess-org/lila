@@ -56,7 +56,7 @@ export default function (ctrl: TournamentController): VNode | undefined {
               h(
                 'a',
                 {
-                  attrs: { href: '/team/' + data.id },
+                  attrs: { href: `/team/${data.id}` },
                 },
                 i18n('team:teamPage'),
               ),
@@ -75,12 +75,12 @@ export default function (ctrl: TournamentController): VNode | undefined {
                 hook: bind('click', () => ctrl.jumpToPageOf(p.name)),
               },
               [
-                h('th', '' + (i + 1)),
+                h('th', `${i + 1}`),
                 h('td', renderPlayer(p, false, true, false, i < nbLeaders)),
                 h('td.total', [
                   p.fire && !ctrl.data.isFinished
-                    ? h('strong.is-gold', { attrs: dataIcon('Q') }, '' + p.score)
-                    : h('strong', '' + p.score),
+                    ? h('strong.is-gold', { attrs: dataIcon('Q') }, `${p.score}`)
+                    : h('strong', `${p.score}`),
                 ]),
               ],
             ),

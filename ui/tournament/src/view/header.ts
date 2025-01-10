@@ -21,7 +21,7 @@ function clock(d): VNode | undefined {
   if (d.secondsToFinish) {
     if (d.secondsToFinish > oneDayInSeconds)
       return h('div.clock.clock-title', [
-        h('span.shy', i18n('ending') + ' '),
+        h('span.shy', `${i18n('ending')} `),
         new Date(Date.now() + d.secondsToFinish * 1000).toLocaleString(),
       ]);
     else
@@ -46,7 +46,7 @@ function clock(d): VNode | undefined {
             insert(vnode) {
               (vnode.elm as HTMLElement).setAttribute(
                 'datetime',
-                '' + (Date.now() + d.secondsToStart * 1000),
+                `${Date.now() + d.secondsToStart * 1000}`,
               );
             },
           },
@@ -67,12 +67,12 @@ function image(d): VNode | undefined {
   if (d.isFinished) return;
   if (hasFreq('shield', d) || hasFreq('marathon', d)) return;
   const s = d.spotlight;
-  if (s && s.iconImg)
+  if (s?.iconImg)
     return h('img.img', {
-      attrs: { src: assetUrl('images/' + s.iconImg) },
+      attrs: { src: assetUrl(`images/${s.iconImg}`) },
     });
   return h('i.img', {
-    attrs: dataIcon((s && s.iconFont) || 'g'),
+    attrs: dataIcon(s?.iconFont || 'g'),
   });
 }
 

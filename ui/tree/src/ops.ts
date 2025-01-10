@@ -97,11 +97,10 @@ export function reconstruct(parts: any): Tree.Node {
 export function merge(n1: Tree.Node, n2: Tree.Node): void {
   n1.eval = n2.eval;
   if (n2.glyphs) n1.glyphs = n2.glyphs;
-  n2.comments &&
-    n2.comments.forEach(c => {
-      if (!n1.comments) n1.comments = [c];
-      else if (!n1.comments.some(d => d.text === c.text)) n1.comments.push(c);
-    });
+  n2.comments?.forEach(c => {
+    if (!n1.comments) n1.comments = [c];
+    else if (!n1.comments.some(d => d.text === c.text)) n1.comments.push(c);
+  });
   n2.children.forEach(c => {
     const existing = childById(n1, c.id);
     if (existing) merge(existing, c);

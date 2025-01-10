@@ -8,7 +8,7 @@ import { miniBoard, player as renderPlayer } from './util';
 
 function featuredPlayer(player) {
   return h('div.tour__featured__player', [
-    h('strong', '#' + player.rank),
+    h('strong', `#${player.rank}`),
     renderPlayer(player, true, true, false),
     player.berserk
       ? h('i', {
@@ -30,7 +30,7 @@ function featured(f): VNode {
 }
 
 function duelPlayerMeta(p: DuelPlayer) {
-  return [h('em.rank', '#' + p.k), p.t ? h('em.title', p.t) : null, h('em.rating', '' + p.r)];
+  return [h('em.rank', `#${p.k}`), p.t ? h('em.title', p.t) : null, h('em.rating', `${p.r}`)];
 }
 
 function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
@@ -39,7 +39,7 @@ function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
       'a.glpt',
       {
         key: d.id,
-        attrs: { href: '/' + d.id },
+        attrs: { href: `/${d.id}` },
       },
       [
         battle && duelTeams

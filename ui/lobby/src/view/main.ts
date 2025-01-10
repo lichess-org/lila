@@ -27,9 +27,9 @@ export default function (ctrl: LobbyController): VNode {
         body = renderPlaying(ctrl);
         break;
     }
-  return h('div.lobby__app.lobby__app-' + ctrl.tab, [
+  return h(`div.lobby__app.lobby__app-${ctrl.tab}`, [
     h('div.tabs-horiz', renderTabs(ctrl)),
-    h('div.lobby__app__content.l' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body),
+    h(`div.lobby__app__content.l${ctrl.redirecting ? 'redir' : ctrl.tab}`, data, body),
     ctrl.setupCtrl.isOpen ? setupModal(ctrl.setupCtrl) : undefined,
   ]);
 }

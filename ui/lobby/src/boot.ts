@@ -11,7 +11,7 @@ export default function boot(
   const nbRoundSpread = spreadNumber('#nb_games_in_play > strong', 8),
     nbUserSpread = spreadNumber('#nb_connected_players > strong', 10),
     getParameterByName = <T extends string>(name: string): T | undefined => {
-      const match = RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+      const match = RegExp(`[?&]${name}=([^&]*)`).exec(location.search);
       return match ? (decodeURIComponent(match[1].replace(/\+/g, ' ')) as T) : undefined;
     },
     onFirstConnect = () => {

@@ -32,8 +32,8 @@ function winrateChart(winrate: [number, number, number]): VNode {
 }
 
 function winrateInfo(type: 'win' | 'draw' | 'loss', percent: number, nbGames: number): VNode {
-  return h('div.winrate-info.winrate-info__' + type, [
-    h('span.wr_percent', percent + '% '),
+  return h(`div.winrate-info.winrate-info__${type}`, [
+    h('span.wr_percent', `${percent}% `),
     h('span.wr_nb-games', i18nPluralSame('nbGames', nbGames)),
   ]);
 }
@@ -77,7 +77,7 @@ function barResultChart(
       {
         label: i18n('insights:total'),
         borderColor: total,
-        backgroundColor: total + '33',
+        backgroundColor: `${total}33`,
         data: allKeys.map(key => (wins[key] || 0) + (losses[key] || 0)),
         hidden: true,
         tooltip: {

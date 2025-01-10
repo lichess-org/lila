@@ -8,7 +8,7 @@ export const assetUrl = (path: string, opts?: AssetUrlOpts): string => {
   opts = opts || {};
   const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
     version = document.body.getAttribute('data-asset-version');
-  return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
+  return `${baseUrl}/assets${opts.noVersion ? '' : `/_${version}`}/${path}`;
 };
 
 const loadCss = (href: string): Promise<void> => {

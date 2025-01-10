@@ -84,7 +84,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     );
   }
   function nodeBestUsi(node: Tree.Node): Usi | undefined {
-    const usi = (node.tbhit && node.tbhit.best) || (node.ceval && node.ceval.pvs[0].moves[0]);
+    const usi = node.tbhit?.best || node.ceval?.pvs[0].moves[0];
     return usi;
   }
 
@@ -92,7 +92,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     let verdict: Verdict, best;
     const outcome = root.outcome(node);
 
-    if (outcome && outcome.winner) verdict = 'goodMove';
+    if (outcome?.winner) verdict = 'goodMove';
     else {
       const nodeEval: Eval =
         tbhitToEval(node.tbhit) ||

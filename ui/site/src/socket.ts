@@ -70,12 +70,12 @@ export class StrongSocket implements IStrongSocket {
   connect = (): void => {
     this.destroy();
     this.autoReconnect = true;
-    const fullUrl = urlWithParams(this.options.protocol + '//' + this.baseUrl() + this.url, {
+    const fullUrl = urlWithParams(`${this.options.protocol}//${this.baseUrl()}${this.url}`, {
       ...this.settings.params,
       v: this.version === false ? undefined : this.version.toString(),
     });
 
-    this.debug('connection attempt to ' + fullUrl);
+    this.debug(`connection attempt to ${fullUrl}`);
     try {
       const ws = (this.ws = new WebSocket(fullUrl));
       ws.onerror = e => this.onError(e);
@@ -83,12 +83,12 @@ export class StrongSocket implements IStrongSocket {
         this.isOpen = false;
         pubsub.emit('socket.close');
         if (this.autoReconnect) {
-          this.debug('Will autoreconnect in ' + this.options.autoReconnectDelay);
+          this.debug(`Will autoreconnect in ${this.options.autoReconnectDelay}`);
           this.scheduleConnect(this.options.autoReconnectDelay);
         }
       };
       ws.onopen = () => {
-        this.debug('connected to ' + fullUrl);
+        this.debug(`connected to ${fullUrl}`);
         this.onSuccess();
         const cl = document.body.classList;
         cl.remove('offline');
@@ -134,10 +134,10 @@ export class StrongSocket implements IStrongSocket {
       if (!stack.includes('round.nvui'))
         setTimeout(() => this.send('rep', { n: `soc: ${message} ${stack}` }), 10000);
     }
-    this.debug('send ' + message);
+    this.debug(`send ${message}`);
     try {
       this.ws!.send(message);
-    } catch (e) {
+    } catch (_e) {
       // maybe sent before socket opens,
       // try again a second later.
       if (!noRetry) setTimeout(() => this.send(t, msg.d, o, true), 1000);
@@ -199,7 +199,7 @@ export class StrongSocket implements IStrongSocket {
   handle = (m: Socket.MsgIn): any => {
     if (m.v && this.version !== false) {
       if (m.v <= this.version) {
-        this.debug('already has event ' + m.v);
+        this.debug(`already has event ${m.v}`);
         return;
       }
       // it's impossible but according to previous logging, it happens nonetheless
@@ -217,8 +217,8 @@ export class StrongSocket implements IStrongSocket {
         break;
       default:
         // return true in a receive handler to prevent pubsub and events
-        if (!(this.settings.receive && this.settings.receive(m.t, m.d))) {
-          pubsub.emit('socket.in.' + m.t, m.d, m);
+        if (!this.settings.receive?.(m.t, m.d)) {
+          pubsub.emit(`socket.in.${m.t}`, m.d, m);
           if (this.settings?.events?.[m.t]) this.settings.events[m.t](m.d || null, m);
         }
     }
@@ -253,7 +253,7 @@ export class StrongSocket implements IStrongSocket {
     console.log('ERRROR', e);
 
     this.options.debug = true;
-    this.debug('error: ' + JSON.stringify(e));
+    this.debug(`error: ${JSON.stringify(e)}`);
     this.tryOtherUrl = true;
     clearTimeout(this.pingSchedule);
   };

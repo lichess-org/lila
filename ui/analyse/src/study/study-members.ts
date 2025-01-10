@@ -177,9 +177,9 @@ export function view(ctrl: StudyCtrl): VNode {
     return h(
       'span.user-link.ulpt',
       {
-        attrs: { 'data-href': '/@/' + u.name },
+        attrs: { 'data-href': `/@/${u.name}` },
       },
-      (u.title ? u.title + ' ' : '') + u.name,
+      (u.title ? `${u.title} ` : '') + u.name,
     );
   }
 
@@ -207,7 +207,7 @@ export function view(ctrl: StudyCtrl): VNode {
       (member.user.id !== members.myId || ctrl.data.admin)
     )
       return h('act', {
-        key: 'cfg-' + member.user.id,
+        key: `cfg-${member.user.id}`,
         attrs: dataIcon('%'),
         hook: bind(
           'click',
@@ -234,7 +234,7 @@ export function view(ctrl: StudyCtrl): VNode {
     return h(
       'm-config',
       {
-        key: member.user.id + '-config',
+        key: `${member.user.id}-config`,
         hook: onInsert(el => scrollTo($(el).parent('.members')[0] as HTMLElement, el)),
       },
       [

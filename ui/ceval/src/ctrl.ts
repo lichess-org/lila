@@ -42,7 +42,7 @@ function sendableSharedWasmMemory(
   // Structured cloning
   try {
     window.postMessage(mem.buffer, '*');
-  } catch (e) {
+  } catch (_e) {
     return undefined;
   }
 
@@ -109,7 +109,7 @@ export default function (opts: CevalOpts): CevalCtrl {
       try {
         sharedMem.grow(1);
         growableSharedMem = true;
-      } catch (e) {
+      } catch (_e) {
         // memory growth not supported
       }
     }
@@ -245,7 +245,7 @@ export default function (opts: CevalOpts): CevalCtrl {
 
     if (threatMode) {
       const c = step.ply % 2 === 1 ? 'b' : 'w';
-      const sfen = step.sfen.replace(/ (b|w) /, ' ' + c + ' ');
+      const sfen = step.sfen.replace(/ (b|w) /, ` ${c} `);
       work.currentSfen = sfen;
       work.initialSfen = sfen;
     } else {

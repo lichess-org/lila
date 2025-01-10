@@ -40,7 +40,7 @@ export const graphWrap =
       }
     }
     // Final node with dependency on everything, otherwise we return too soon
-    g['_all_'] = [() => {}, affected];
+    g._all_ = [() => {}, affected];
 
     return g;
   };

@@ -45,7 +45,7 @@ function renderOffTrack(ctrl: PracticeCtrl): VNode {
 function renderEnd(root: AnalyseCtrl, end: Outcome): VNode {
   const color = end.winner || root.turnColor();
   return h('div.player', [
-    color ? h('div.no-square', h('piece.king.' + color)) : h('div.icon.off', '!'),
+    color ? h('div.no-square', h(`piece.king.${color}`)) : h('div.icon.off', '!'),
     h('div.instruction', [
       h('strong', end.winner ? i18n('checkmate') : i18n('draw')),
       end.winner
@@ -79,7 +79,7 @@ function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
       attrs: {
         style: `width: ${
           node.ceval
-            ? (100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth) + '%'
+            ? `${(100 * Math.max(0, node.ceval.depth - minDepth)) / (maxDepth - minDepth)}%`
             : 0
         }`,
       },
@@ -90,7 +90,7 @@ function renderEvalProgress(node: Tree.Node, maxDepth: number): VNode {
 function renderRunning(root: AnalyseCtrl, ctrl: PracticeCtrl): VNode {
   const hint = ctrl.hinting();
   return h('div.player.running', [
-    h('div.no-square', h('piece.king.' + root.turnColor())),
+    h('div.no-square', h(`piece.king.${root.turnColor()}`)),
     h(
       'div.instruction',
       (ctrl.isMyTurn()
@@ -128,7 +128,7 @@ export default function (root: AnalyseCtrl): VNode | undefined {
   const end: Outcome | undefined = ctrl.currentNode().fourfold
     ? { result: 'draw', winner: undefined }
     : root.outcome();
-  return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
+  return h(`div.practice-box.training-box.sub-box.${comment ? comment.verdict : 'no-verdict'}`, [
     h('div.title', i18n('practiceWithComputer')),
     h(
       'div.feedback',

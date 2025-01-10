@@ -55,14 +55,13 @@ function main(redraw: Redraw) {
           h('h1', i18n('nvui:textualRepresentation')),
           h('h2', i18n('nvui:gameInfo')),
           ...['sente', 'gote'].map((color: Color) =>
-            h('p', [color + ' player: ', renderPlayer(ctrl, playerByColor(d, color))]),
+            h('p', [`${color} player: `, renderPlayer(ctrl, playerByColor(d, color))]),
           ),
           h('p', `${d.game.rated ? i18n('rated') : i18n('casual')}`),
           d.clock
             ? h(
                 'p',
-                i18n('clock') +
-                  `: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`,
+                `${i18n('clock')}: ${d.clock.initial / 60} + ${d.clock.increment} | ${d.clock.byoyomi})`,
               )
             : null,
           h('h2', i18n('nvui:moves')),
@@ -186,7 +185,7 @@ function onSubmit(
 ) {
   return () => {
     let input = $input.val()?.trim()!;
-    if (isShortCommand(input)) input = '/' + input;
+    if (isShortCommand(input)) input = `/${input}`;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const usi = validUsi(input, ctrl.node.sfen, ctrl.data.game.variant.key);
@@ -350,20 +349,20 @@ function userHtml(ctrl: AnalyseController, player: Player) {
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating,
+    rating = player.rating ? player.rating : perf?.rating,
     rd = player.ratingDiff,
-    ratingDiff = rd ? (rd > 0 ? '+' + rd : rd < 0 ? '−' + -rd : '') : '';
+    ratingDiff = rd ? (rd > 0 ? `+${rd}` : rd < 0 ? `−${-rd}` : '') : '';
   return user
     ? h('span', [
         h(
           'a',
           {
-            attrs: { href: '/@/' + user.username },
+            attrs: { href: `/@/${user.username}` },
           },
           user.title ? `${user.title} ${user.username}` : user.username,
         ),
-        rating ? ` ${rating}` : ``,
-        ' ' + ratingDiff,
+        rating ? ` ${rating}` : '',
+        ` ${ratingDiff}`,
       ])
     : 'Anonymous';
 }

@@ -36,20 +36,20 @@ function ribbon(s: Stage, status: string, res: number[]) {
   if (status === 'ongoing') {
     content = res.length > 0 ? [res.length, s.levels.length].join(' / ') : i18n('learn:play');
   } else content = makeStars(Math.floor(average(res)));
-  return h('div.ribbon.' + status, h('div.ribbon-inner', content));
+  return h(`div.ribbon.${status}`, h('div.ribbon-inner', content));
 }
 
 function side(ctrl: LearnCtrl) {
   const progress = calcPercentage(ctrl);
-  return h('div.learn__side-home' + (progress === 100 ? '.done' : ''), [
+  return h(`div.learn__side-home${progress === 100 ? '.done' : ''}`, [
     h('i.fat'),
     h('h1', i18n('learn:learnShogi')),
     h('h2', i18n('learn:byPlaying')),
     h('div.progress', [
-      h('div.text', i18nFormat('learn:progressX', progress + '%')),
+      h('div.text', i18nFormat('learn:progressX', `${progress}%`)),
       h('div.bar', {
         style: {
-          width: progress + '%',
+          width: `${progress}%`,
         },
       }),
     ]),
@@ -80,7 +80,7 @@ function whatNext(ctrl: LearnCtrl) {
     done?: boolean,
   ) => {
     return h(
-      'a.stage' + titleVerbosityClass(title) + (done ? '.done' : ''),
+      `a.stage${titleVerbosityClass(title)}${done ? '.done' : ''}`,
       {
         attrs: {
           href: href,
@@ -88,7 +88,7 @@ function whatNext(ctrl: LearnCtrl) {
       },
       [
         done ? h('div.ribbon.done', h('div.ribbon-inner', makeStars(3))) : null,
-        h('div.stage-img.' + img),
+        h(`div.stage-img.${img}`),
         h('div.text', [h('h3', title), h('p.subtitle', subtitle)]),
       ],
     );
@@ -100,7 +100,7 @@ function whatNext(ctrl: LearnCtrl) {
     h('div.categ_stages', [
       userId
         ? makeStage(
-            '/@/' + userId,
+            `/@/${userId}`,
             'beams-aura',
             i18n('learn:register'),
             i18n('learn:getAFreeLishogiAccount'),
@@ -166,11 +166,11 @@ export default function (ctrl: LearnCtrl): VNode {
                 prevComplete = false;
               }
               return h(
-                'a.stage.' +
-                  status +
-                  (s.id === 1 && Object.keys(ctrl.progress.progress.stages).length === 0
+                `a.stage.${status}${
+                  s.id === 1 && Object.keys(ctrl.progress.progress.stages).length === 0
                     ? '.first'
-                    : ''),
+                    : ''
+                }`,
                 {
                   on: {
                     click: () => {
@@ -181,8 +181,8 @@ export default function (ctrl: LearnCtrl): VNode {
                 },
                 [
                   ribbon(s, status, res),
-                  h('div.stage-img.' + s.key),
-                  h('div.text' + titleVerbosityClass(s.title), [
+                  h(`div.stage-img.${s.key}`),
+                  h(`div.text${titleVerbosityClass(s.title)}`, [
                     h('h3', s.title),
                     h('p.subtitle', s.subtitle),
                   ]),

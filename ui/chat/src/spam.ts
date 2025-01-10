@@ -6,7 +6,7 @@ export function hasTeamUrl(txt: string): boolean {
 }
 export function report(txt: string): void {
   if (analyse(txt)) {
-    window.lishogi.xhr.text('POST', '/jslog/' + window.location.href.slice(-12), {
+    window.lishogi.xhr.text('POST', `/jslog/${window.location.href.slice(-12)}`, {
       url: {
         n: 'spam',
       },

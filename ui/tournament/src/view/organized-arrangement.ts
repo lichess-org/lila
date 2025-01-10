@@ -73,7 +73,7 @@ const organizerArrangementForm = (ctrl: TournamentController): MaybeVNode => {
 
   const handleSubmit = () => {
     const arrangement = {
-      users: state.user1?.id + ';' + state.user2?.id,
+      users: `${state.user1?.id};${state.user2?.id}`,
       name: state.name || undefined,
       color: state.color ? state.color === 'sente' : undefined,
       points: state.points ? `${state.points.l};${state.points.d};${state.points.w}` : undefined,

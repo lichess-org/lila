@@ -14,7 +14,7 @@ function timer(pov) {
     {
       hook: {
         insert(vnode) {
-          (vnode.elm as HTMLElement).setAttribute('datetime', '' + date);
+          (vnode.elm as HTMLElement).setAttribute('datetime', `${date}`);
         },
       },
     },
@@ -27,14 +27,14 @@ export default function (ctrl: LobbyController): VNode {
     'div.now-playing',
     ctrl.data.nowPlaying.map(pov =>
       h(
-        'a' + (pov.isMyTurn ? '.my_turn' : ''),
+        `a${pov.isMyTurn ? '.my_turn' : ''}`,
         {
           key: pov.gameId,
-          attrs: { href: '/' + pov.fullId },
+          attrs: { href: `/${pov.fullId}` },
         },
         [
           h(
-            'div.mini-board.v-' + pov.variant.key,
+            `div.mini-board.v-${pov.variant.key}`,
             h('div.sg-wrap', {
               hook: {
                 insert(vnode) {

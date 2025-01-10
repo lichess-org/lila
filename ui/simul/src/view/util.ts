@@ -6,9 +6,9 @@ import type { Player } from '../interfaces';
 
 export function player(p: Player, ctrl: SimulCtrl) {
   return h(
-    'a.text.ulpt.user-link.' + (ctrl.data.host.id != p.id ? 'online' : 'offline'),
+    `a.text.ulpt.user-link.${ctrl.data.host.id != p.id ? 'online' : 'offline'}`,
     {
-      attrs: { href: '/@/' + p.id },
+      attrs: { href: `/@/${p.id}` },
       hook: {
         destroy(vnode) {
           $.powerTip.destroy(vnode.elm as HTMLElement);
@@ -23,7 +23,7 @@ export function player(p: Player, ctrl: SimulCtrl) {
   );
 }
 
-const userName = (u: LightUser) => (u.title ? [h('span.utitle', u.title), ' ' + u.name] : [u.name]);
+const userName = (u: LightUser) => (u.title ? [h('span.utitle', u.title), ` ${u.name}`] : [u.name]);
 
 export const title = (ctrl: SimulCtrl) =>
   h('h1', [

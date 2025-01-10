@@ -82,7 +82,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
   const data = ctrl.current();
   return data
     ? modal.modal({
-        class: 'study__modal.edit-' + data.id, // full redraw when changing chapter
+        class: `study__modal.edit-${data.id}`, // full redraw when changing chapter
         onClose() {
           ctrl.current(null);
           ctrl.redraw();

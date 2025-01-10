@@ -45,7 +45,7 @@ export default function (ctrl: LearnCtrl): VNode {
                   ctrl.progress.get(s.key).filter(s => s > 0).length === s.levels.length;
                 const status = s.key === ctrl.vm?.stage.key ? 'active' : result ? 'done' : 'future';
                 return h(
-                  'a.stage.' + status,
+                  `a.stage.${status}`,
                   {
                     on: {
                       click: () => {

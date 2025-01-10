@@ -4,7 +4,7 @@ function lishogiOrchestra() {
   const soundDir = assetUrl('sound/instrument/', { noVersion: true });
 
   const makeSoundPair = (sound: string) => {
-    return [soundDir + sound + '.ogg', soundDir + sound + '.mp3'];
+    return [`${soundDir + sound}.ogg`, `${soundDir + sound}.mp3`];
   };
 
   const instruments: Record<string, any[]> = {
@@ -20,17 +20,17 @@ function lishogiOrchestra() {
   // load celesta and clav sounds
   for (let i = 1; i <= 24; i++) {
     let fn: string;
-    if (i > 9) fn = 'c0' + i;
-    else fn = 'c00' + i;
+    if (i > 9) fn = `c0${i}`;
+    else fn = `c00${i}`;
     instruments.celesta.push(
       new window.Howl({
-        src: makeSoundPair('celesta/' + fn),
+        src: makeSoundPair(`celesta/${fn}`),
         volume: 0.3,
       }),
     );
     instruments.clav.push(
       new window.Howl({
-        src: makeSoundPair('clav/' + fn),
+        src: makeSoundPair(`clav/${fn}`),
         volume: 0.2,
       }),
     );
@@ -39,7 +39,7 @@ function lishogiOrchestra() {
   for (let i = 1; i <= 3; i++) {
     instruments.swells.push(
       new Howl({
-        src: makeSoundPair('swells/swell' + i),
+        src: makeSoundPair(`swells/swell${i}`),
         volume: 0.5,
       }),
     );

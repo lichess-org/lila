@@ -80,13 +80,13 @@ function main(opts: CoordinatesOpts): void {
     $side.find('.user_chart').each(function (this: HTMLCanvasElement, index: number) {
       const isSente = index === 0,
         data = isSente ? opts.points.sente : opts.points.gote;
-      (window.lishogi.modules as any)['chartCoordinate'](this, data, isSente ? 'sente' : 'gote');
+      (window.lishogi.modules as any).chartCoordinate(this, data, isSente ? 'sente' : 'gote');
     });
   };
   showCharts();
 
   const centerRight = () => {
-    $right.css('top', 256 - $right.height()! / 2 + 'px');
+    $right.css('top', `${256 - $right.height()! / 2}px`);
   };
   centerRight();
 
@@ -116,9 +116,9 @@ function main(opts: CoordinatesOpts): void {
     $('#next_coord0').removeClass('nope');
     const lastElement = $coords.shift()!;
     $.each($coords, (i, e) => {
-      e.attr('id', 'next_coord' + i);
+      e.attr('id', `next_coord${i}`);
     });
-    lastElement.attr('id', 'next_coord' + $coords.length);
+    lastElement.attr('id', `next_coord${$coords.length}`);
     lastElement.text(newCoord($coords[$coords.length - 1].text()));
     $coords.push(lastElement);
   };
@@ -154,7 +154,7 @@ function main(opts: CoordinatesOpts): void {
       $timer.addClass('hurry');
     }
     $timer.text(left);
-    $bar.css('width', (100 * spent) / duration + '%');
+    $bar.css('width', `${(100 * spent) / duration}%`);
     if (spent < duration) setTimeout(tick, tickDelay);
     else stop();
   };

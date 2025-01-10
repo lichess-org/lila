@@ -88,7 +88,7 @@ function postGameStudyForm(ctrl: RoundController): VNode {
           }),
           attrs: {
             name: 'invited',
-            placeholder: i18n('study:searchByUsername') + ` (${i18n('optional').toLowerCase()})`,
+            placeholder: `${i18n('study:searchByUsername')} (${i18n('optional').toLowerCase()})`,
           },
         }),
       ]),
@@ -161,7 +161,7 @@ function studyButton(ctrl: RoundController): VNode | null {
     withAnonOrAnon = !ctrl.data.opponent.user || isAnon;
   const title = withAnonOrAnon
     ? i18n('postGameStudy')
-    : !!ctrl.data.player.spectator
+    : ctrl.data.player.spectator
       ? i18n('studyOfPlayers')
       : i18n('studyWithOpponent');
   return game.replayable(d)
@@ -189,7 +189,7 @@ function studyButton(ctrl: RoundController): VNode | null {
                 class: {
                   glowing: ctrl.postGameStudyOffer && !loadingStudy && !initiatedStudy,
                 },
-                attrs: { href: '/study/' + d.game.postGameStudy },
+                attrs: { href: `/study/${d.game.postGameStudy}` },
                 hook: util.bind('click', () => {
                   ctrl.postGameStudyOffer = false;
                 }),
@@ -201,7 +201,7 @@ function studyButton(ctrl: RoundController): VNode | null {
               {
                 attrs: {
                   method: 'post',
-                  action: '/study/post-game-study/' + d.game.id,
+                  action: `/study/post-game-study/${d.game.id}`,
                 },
                 hook: util.bind('submit', () => {
                   setTimeout(() => {
@@ -236,7 +236,7 @@ function studyButton(ctrl: RoundController): VNode | null {
 
 function analysisButton(ctrl: RoundController): VNode | null {
   const d = ctrl.data,
-    url = gameRoute(d, analysisBoardOrientation(d)) + '#' + ctrl.ply;
+    url = `${gameRoute(d, analysisBoardOrientation(d))}#${ctrl.ply}`;
   return game.replayable(d)
     ? h(
         'a.fbt',
@@ -376,7 +376,7 @@ export function standard(
   // disabled if condition callback is provided and is falsy
   const enabled = () => !condition || condition(ctrl.data);
   return h(
-    'button.fbt.' + socketMsg,
+    `button.fbt.${socketMsg}`,
     {
       attrs: {
         disabled: !enabled(),
@@ -430,7 +430,7 @@ export function opponentGone(ctrl: RoundController): MaybeVNode {
       ])
     : gone
       ? h('div.suggestion', [
-          h('p', i18nVdomPlural('opponentLeftCounter', gone, h('strong', '' + gone))),
+          h('p', i18nVdomPlural('opponentLeftCounter', gone, h('strong', `${gone}`))),
         ])
       : null;
 }
@@ -442,8 +442,8 @@ function actConfirm(
   icon: string,
   klass?: string,
 ): VNode {
-  return h('div.act-confirm.' + transKey, [
-    h('button.fbt.yes.' + (klass || ''), {
+  return h(`div.act-confirm.${transKey}`, [
+    h(`button.fbt.yes.${klass || ''}`, {
       attrs: { title: title, 'data-icon': icon },
       hook: util.bind('click', () => f(true)),
     }),
@@ -527,7 +527,7 @@ function acceptButton(ctrl: RoundController, klass: string, action: () => void) 
   const text = i18n('accept');
   return ctrl.nvui
     ? h(
-        'button.' + klass,
+        `button.${klass}`,
         {
           hook: util.bind('click', action),
         },
@@ -593,7 +593,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
           {
             attrs: {
               'data-icon': 'G',
-              href: '/tournament/' + d.tournament.id,
+              href: `/tournament/${d.tournament.id}`,
             },
             hook: util.bind('click', ctrl.setRedirecting),
           },
@@ -604,7 +604,7 @@ export function backToTournament(ctrl: RoundController): VNode | undefined {
           {
             attrs: {
               method: 'post',
-              action: '/tournament/' + d.tournament.id + '/withdraw',
+              action: `/tournament/${d.tournament.id}/withdraw`,
             },
           },
           [h('button.text.fbt.weak', util.justIcon('Z'), i18n('pause'))],
@@ -656,7 +656,7 @@ export function followUp(ctrl: RoundController): VNode {
       ? h(
           'a.fbt',
           {
-            attrs: { href: '/tournament/' + d.tournament.id },
+            attrs: { href: `/tournament/${d.tournament.id}` },
           },
           i18n('viewTournament'),
         )
@@ -666,7 +666,7 @@ export function followUp(ctrl: RoundController): VNode {
           'a.fbt',
           {
             attrs: {
-              href: '/?hook_like=' + d.game.id,
+              href: `/?hook_like=${d.game.id}`,
             },
           },
           i18n('newOpponent'),
@@ -697,7 +697,7 @@ export function watcherFollowUp(ctrl: RoundController): VNode | null {
         ? h(
             'a.fbt',
             {
-              attrs: { href: '/tournament/' + d.tournament.id },
+              attrs: { href: `/tournament/${d.tournament.id}` },
             },
             i18n('viewTournament'),
           )

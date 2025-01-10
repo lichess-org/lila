@@ -8,9 +8,9 @@ export const puzzlePov = (puzzle: Puzzle): Color =>
   parseSfen('standard', puzzle.sfen, false).unwrap().turn;
 
 function make(file: string, volume?: number): () => void {
-  const baseUrl = $('body').data('asset-url') + '/assets/sound/';
+  const baseUrl = `${$('body').data('asset-url')}/assets/sound/`;
   const sound = new window.Howl({
-    src: [baseUrl + file + '.ogg', baseUrl + file + '.mp3'],
+    src: [`${baseUrl + file}.ogg`, `${baseUrl + file}.mp3`],
     volume: volume || 1,
   });
   return () => {

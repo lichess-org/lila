@@ -43,8 +43,8 @@ export default function (ctrl: LearnCtrl): MaybeVNode {
                 },
               },
               [
-                i18n('learn:next') + ': ',
-                next.title + ' ',
+                `${i18n('learn:next')}: `,
+                `${next.title} `,
                 h('i', { attrs: { 'data-icon': 'H' } }),
               ],
             )

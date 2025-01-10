@@ -187,7 +187,7 @@ export default class SetupCtrl {
     const getNumber = (k: keyof SetupData, options: number[]): number => {
       const extra = extraData?.[k] ? Number.parseInt(extraData[k]) : undefined,
         saved = extra ?? Number.parseInt(store[k]);
-      if (saved !== null && saved !== undefined && !isNaN(saved) && options.includes(saved))
+      if (saved !== null && saved !== undefined && !Number.isNaN(saved) && options.includes(saved))
         return saved;
       else return SetupCtrl.defaultData[k] as number;
     };
@@ -241,9 +241,9 @@ export default class SetupCtrl {
   }
 
   open(key: SetupKey, extraData?: Record<string, string>): void {
-    console.log('store hook:', this.stores['hook'].get());
-    console.log('store friend:', this.stores['friend'].get());
-    console.log('store ai:', this.stores['ai'].get());
+    console.log('store hook:', this.stores.hook.get());
+    console.log('store friend:', this.stores.friend.get());
+    console.log('store ai:', this.stores.ai.get());
     this.initData(key, extraData);
 
     console.log('data:', this.data);

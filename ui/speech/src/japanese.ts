@@ -63,7 +63,7 @@ export function renderMoveOrDrop(md: string): string | undefined {
   if (match)
     return [match[1], match[2], match[3], match[4]]
       .map(toHiragana)
-      .filter(s => s && s.length)
+      .filter(s => s?.length)
       .join(' ');
   else return undefined;
 }

@@ -68,7 +68,7 @@ export default class TournamentController {
     this.redirectToMyGame();
 
     this.newArrangementSettings = storedJsonProp(
-      'arrangement.newArrangementSettings' + this.data.id,
+      `arrangement.newArrangementSettings${this.data.id}`,
       () => {
         return { points: { w: 3, d: 2, l: 1 } };
       },
@@ -100,7 +100,7 @@ export default class TournamentController {
 
   reload = (data: TournamentData): void => {
     // we joined a private tournament! Reload the page to load the chat
-    if (!this.data.me && data.me && this.data['private']) window.lishogi.reload();
+    if (!this.data.me && data.me && this.data.private) window.lishogi.reload();
 
     this.data = { ...this.data, ...data };
     this.data.me = data.me;
@@ -148,7 +148,7 @@ export default class TournamentController {
     setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
-        window.lishogi.redirect('/' + gameId);
+        window.lishogi.redirect(`/${gameId}`);
       }
     }, delay);
   };
@@ -272,11 +272,7 @@ export default class TournamentController {
     console.log('showArrangement', arrangement);
     this.arrangement = arrangement;
     if (arrangement)
-      window.history.replaceState(
-        null,
-        '',
-        '#' + arrangement.user1.id + ';' + arrangement.user2.id,
-      );
+      window.history.replaceState(null, '', `#${arrangement.user1.id};${arrangement.user2.id}`);
     else history.replaceState(null, '', window.location.pathname + window.location.search);
     this.redraw();
     window.scrollTo({
@@ -290,7 +286,7 @@ export default class TournamentController {
 
     this.socket.send('arrangement-match', {
       id: arrangement.id,
-      users: arrangement.user1.id + ';' + arrangement.user2.id,
+      users: `${arrangement.user1.id};${arrangement.user2.id}`,
       y: yes,
     });
   };
@@ -299,9 +295,9 @@ export default class TournamentController {
     console.log('arrangementTime', arrangement, date, date?.getTime());
     const data = {
       id: arrangement.id,
-      users: arrangement.user1.id + ';' + arrangement.user2.id,
+      users: `${arrangement.user1.id};${arrangement.user2.id}`,
     };
-    if (date) data['t'] = date.getTime();
+    if (date) data.t = date.getTime();
     this.socket.send('arrangement-time', data);
   };
 

@@ -41,7 +41,7 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string |
           `Cloud - ${ceval.shouldUseYaneuraou ? 'NNUE' : 'HCE'}`,
         ),
       ]
-    : [i18nFormat('depthX', depth + '/' + Math.max(depth, evs.client.maxDepth))];
+    : [i18nFormat('depthX', `${depth}/${Math.max(depth, evs.client.maxDepth)}`)];
   if (ceval.canGoDeeper())
     t.push(
       h('a.deeper', {
@@ -59,19 +59,19 @@ function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string |
       }),
     );
   else if (!evs.client.cloud && evs.client.knps)
-    t.push(', ' + Math.round(evs.client.knps) + 'k nodes/s');
+    t.push(`, ${Math.round(evs.client.knps)}k nodes/s`);
   return t;
 }
 
 function threatInfo(threat?: Tree.LocalEval | false): string {
   if (!threat) return i18n('loadingEngine');
-  let t = i18nFormat('depthX', (threat.depth || 0) + '/' + threat.maxDepth);
-  if (threat.knps) t += ', ' + Math.round(threat.knps) + 'k nodes/s';
+  let t = i18nFormat('depthX', `${threat.depth || 0}/${threat.maxDepth}`);
+  if (threat.knps) t += `, ${Math.round(threat.knps)}k nodes/s`;
   return t;
 }
 
 function threatButton(ctrl: ParentCtrl): VNode | null {
-  if (ctrl.disableThreatMode && ctrl.disableThreatMode()) return null;
+  if (ctrl.disableThreatMode?.()) return null;
   return h('a.show-threat', {
     class: {
       active: ctrl.threatMode(),
@@ -79,7 +79,7 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
     },
     attrs: {
       'data-icon': '7',
-      title: i18n('showThreat') + ' (x)',
+      title: `${i18n('showThreat')} (x)`,
     },
     hook: {
       insert: vnode => (vnode.elm as HTMLElement).addEventListener('click', ctrl.toggleThreatMode),
@@ -108,9 +108,9 @@ function engineName(ctrl: CevalCtrl): VNode[] {
             'HCE',
           )
         : unsupportedVariants.includes(ctrl.variant.key)
-          ? h('span.technology.not.' + ctrl.variant.key, '-')
+          ? h(`span.technology.not.${ctrl.variant.key}`, '-')
           : h(
-              'span.technology.bad.' + ctrl.variant.key,
+              `span.technology.bad.${ctrl.variant.key}`,
               {
                 attrs: {
                   title: 'Unfortunately local analysis is not available for this device or browser',
@@ -180,7 +180,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
         : Math.min(100, Math.round((100 * evs.client.depth) / evs.client.maxDepth))
       : 0;
   } else if (bestEv && defined(bestEv.mate)) {
-    pearl = '#' + bestEv.mate;
+    pearl = `#${bestEv.mate}`;
     percent = 100;
   } else if (ctrl.outcome() || isImpasseOutcome) {
     pearl = '-';
@@ -250,7 +250,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     'div.switch',
     {
       class: {
-        disabled: (ctrl.mandatoryCeval && ctrl.mandatoryCeval()) || !instance.analysable,
+        disabled: ctrl.mandatoryCeval?.() || !instance.analysable,
       },
       attrs: { title: !instance.analysable ? '' : `${i18n('toggleLocalEvaluation')} (l)` },
     },
@@ -270,7 +270,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   );
 
   return h(
-    'div.ceval' + (enabled ? '.enabled' : ''),
+    `div.ceval${enabled ? '.enabled' : ''}`,
     {
       class: {
         computing: percent < 100 && instance.isComputing(),
@@ -411,7 +411,7 @@ function renderPv(threat: boolean, multiPv: number, pv?: Tree.PvData, pos?: Posi
       data.attrs = { 'data-usi': pv.moves[0] };
     }
     if (multiPv > 1) {
-      children.push(h('strong', defined(pv.mate) ? '#' + pv.mate : renderEval(pv.cp!)));
+      children.push(h('strong', defined(pv.mate) ? `#${pv.mate}` : renderEval(pv.cp!)));
     }
     if (pos) {
       children.push(...renderPvMoves(pos.clone(), pv.moves.slice(0, MAX_NUM_MOVES)));
@@ -445,15 +445,15 @@ function renderPvMoves(pos: Position, pv: Usi[]): VNode[] {
     addColorIcon = notationsWithColor();
 
   for (let i = 0; i < moves.length; i++) {
-    const colorIcon = addColorIcon ? '.color-icon.' + pos.turn : '',
+    const colorIcon = addColorIcon ? `.color-icon.${pos.turn}` : '',
       moveNumber = `${pos.moveNumber}. `;
     pos.play(moves[i]);
     const usi = makeUsi(moves[i]),
       sfen = makeSfen(pos);
-    key += '|' + usi;
+    key += `|${usi}`;
     vnodes.push(
       h(
-        'span.pv-move' + colorIcon,
+        `span.pv-move${colorIcon}`,
         {
           key,
           attrs: {
@@ -499,7 +499,7 @@ function renderPvBoard(ctrl: ParentCtrl): VNode | undefined {
     },
   };
   const sgVNode = h(
-    'div.mini-board.v-' + instance.variant.key,
+    `div.mini-board.v-${instance.variant.key}`,
     h('div.sg-wrap', {
       hook: {
         insert: (vnode: any) =>

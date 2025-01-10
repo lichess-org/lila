@@ -65,7 +65,7 @@ export function compute(ctrl: AnalyseCtrl): DrawShape[] {
   const { eval: nEval, sfen: nSfen, ceval: nCeval, threat: nThreat } = ctrl.node;
 
   let shapes: DrawShape[] = [];
-  if (ctrl.retro && ctrl.retro.showBadNode()) {
+  if (ctrl.retro?.showBadNode()) {
     return makeShapesFromUsi(color, ctrl.retro.showBadNode().usi, 'engineThreat');
   }
   if (hovering && hovering.sfen === nSfen)
@@ -134,7 +134,7 @@ const prependDropShadow = (svgBase: string) =>
   <filter id="shadow">
     <feDropShadow dx="4" dy="7" stdDeviation="5" flood-opacity="0.5" />
   </filter>
-</defs>` + svgBase;
+</defs>${svgBase}`;
 // NOTE:
 //   Base svg was authored with Inkscape.
 //   On Inkscape, by using "Object to Path", text is converted to path, which enables consistent layout on browser.

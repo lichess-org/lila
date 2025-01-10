@@ -33,7 +33,7 @@ export function renderClock(ctrl: RoundController, player: Player, position: Pos
     postpatch: (_, vnode) => update(vnode.elm as HTMLElement),
   };
   return h(
-    'div.rclock.rclock-' + position,
+    `div.rclock.rclock-${position}`,
     {
       class: {
         outoftime: millis <= 0,
@@ -94,13 +94,9 @@ const sepLow = '<sep class="low">:</sep>';
 function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, nvui: boolean) {
   const date = new Date(time);
   if (nvui)
-    return (
-      (time >= 3600000 ? Math.floor(time / 3600000) + 'H:' : '') +
-      date.getUTCMinutes() +
-      'M:' +
-      date.getUTCSeconds() +
-      'S'
-    );
+    return `${
+      (time >= 3600000 ? `${Math.floor(time / 3600000)}H:` : '') + date.getUTCMinutes()
+    }M:${date.getUTCSeconds()}S`;
   const millis = date.getUTCMilliseconds(),
     sep = isRunning && millis < 500 ? sepLow : sepHigh,
     baseStr = pad2(date.getUTCMinutes()) + sep + pad2(date.getUTCSeconds());
@@ -110,10 +106,10 @@ function formatClockTime(time: Millis, showTenths: boolean, isRunning: boolean, 
   } else if (showTenths) {
     let tenthsStr = Math.floor(millis / 100).toString();
     if (!isRunning && time < 1000) {
-      tenthsStr += '<huns>' + (Math.floor(millis / 10) % 10) + '</huns>';
+      tenthsStr += `<huns>${Math.floor(millis / 10) % 10}</huns>`;
     }
 
-    return baseStr + '<tenths><sep>.</sep>' + tenthsStr + '</tenths>';
+    return `${baseStr}<tenths><sep>.</sep>${tenthsStr}</tenths>`;
   } else {
     return baseStr;
   }
@@ -132,7 +128,7 @@ export function updateElements(
       true,
       clock.opts.nvui,
     );
-  if (els.clock && els.clock.parentElement) {
+  if (els.clock?.parentElement) {
     const cl = els.clock.parentElement.classList;
     if (
       (millis < clock.emergMs && clock.byoyomi === 0) ||
@@ -148,7 +144,7 @@ function showBerserk(ctrl: RoundController, color: Color): boolean {
 }
 
 function renderBerserk(ctrl: RoundController, color: Color, position: Position) {
-  return showBerserk(ctrl, color) ? h('div.berserked.' + position, justIcon('`')) : null;
+  return showBerserk(ctrl, color) ? h(`div.berserked.${position}`, justIcon('`')) : null;
 }
 
 function goBerserk(ctrl: RoundController) {
@@ -168,11 +164,11 @@ function tourRank(ctrl: RoundController, color: Color, position: Position) {
     ranks = d.tournament?.ranks;
   return ranks && !showBerserk(ctrl, color)
     ? h(
-        'div.tour-rank.' + position,
+        `div.tour-rank.${position}`,
         {
           attrs: { title: 'Current tournament rank' },
         },
-        '#' + ranks[color],
+        `#${ranks[color]}`,
       )
     : null;
 }

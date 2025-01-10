@@ -6,7 +6,7 @@ window.lishogi.ready.then(() => {
 
     $form.removeClass('f-arena f-robin f-organized');
 
-    $form.addClass('f-' + selectedValue);
+    $form.addClass(`f-${selectedValue}`);
   }
   function updateTimeControlClass() {
     const $select = $('#form3-timeControlSetup_timeControl');
@@ -14,7 +14,7 @@ window.lishogi.ready.then(() => {
     const selectedValue = $select.val();
 
     $form.removeClass('f-corres f-rt');
-    $form.addClass('f-' + (selectedValue == 1 ? 'rt' : 'corres'));
+    $form.addClass(`f-${selectedValue == 1 ? 'rt' : 'corres'}`);
   }
 
   updateFormatClass();

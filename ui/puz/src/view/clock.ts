@@ -27,10 +27,10 @@ export default function renderClock(run: Run, onFlag: OnFlag, withBonus: boolean
     ...(withBonus
       ? [
           !!malus && malus.at > getNow() - 900
-            ? h('div.puz-clock__malus', '-' + malus.seconds)
+            ? h('div.puz-clock__malus', `-${malus.seconds}`)
             : null,
           !!bonus && bonus.at > getNow() - 900
-            ? h('div.puz-clock__bonus', '+' + bonus.seconds)
+            ? h('div.puz-clock__bonus', `+${bonus.seconds}`)
             : null,
         ]
       : []),
@@ -57,7 +57,7 @@ const formatMs = (millis: number): string => {
   const date = new Date(Math.max(0, Math.ceil(millis / 1000) * 1000)),
     minutes = date.getUTCMinutes(),
     seconds = date.getUTCSeconds();
-  return minutes + ':' + pad(seconds);
+  return `${minutes}:${pad(seconds)}`;
 };
 
 function computeModifierDiff(now: number, mod?: TimeMod) {

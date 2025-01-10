@@ -9,7 +9,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   const loading = prop(false);
 
   function keyOf(fc: ForecastStep[]): string {
-    return fc.map(node => node.ply + ':' + node.usi).join(',');
+    return fc.map(node => `${node.ply}:${node.usi}`).join(',');
   }
 
   function contains(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
@@ -95,7 +95,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
     loading(true);
     redraw();
     window.lishogi.xhr
-      .json('POST', saveUrl + '/' + encodeUsi(node.usi), {
+      .json('POST', `${saveUrl}/${encodeUsi(node.usi)}`, {
         json: findStartingWithNode(node)
           .filter(fc => fc.length > 1)
           .map(fc => fc.slice(1)),

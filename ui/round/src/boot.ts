@@ -20,7 +20,7 @@ export function boot(
     : `/play/${data.game.id}${data.player.id}/v6`;
   li.socket = new li.StrongSocket(socketUrl, data.player.version, {
     options: { name: 'round' },
-    params: { userTv: data.userTv && data.userTv.id },
+    params: { userTv: data.userTv?.id },
     receive(t: string, d: any) {
       ctrl.socket.receive(t, d);
     },
@@ -28,7 +28,7 @@ export function boot(
       tvSelect(o: any) {
         if (data.tv && data.tv.channel == o.channel) li.reload();
         else
-          $('.tv-channels .' + o.channel + ' .champion').html(
+          $(`.tv-channels .${o.channel} .champion`).html(
             o.player
               ? [o.player.title, o.player.name, o.player.rating].filter(x => x).join('&nbsp')
               : 'Anonymous',
@@ -48,7 +48,7 @@ export function boot(
           });
       },
       tourStanding(s: TourPlayer[]) {
-        if (opts.chat && opts.chat.plugin && chat) {
+        if (opts.chat?.plugin && chat) {
           (opts.chat.plugin as TourStandingCtrl).set(s);
           chat.redraw();
         }
@@ -99,9 +99,9 @@ export function boot(
       return true;
     });
   if (location.pathname.lastIndexOf('/round-next/', 0) === 0)
-    history.replaceState(null, '', '/' + data.game.id);
+    history.replaceState(null, '', `/${data.game.id}`);
   if (location.pathname.length === 9 && data.player.id)
-    history.replaceState(null, '', '/' + data.game.id + data.player.id);
+    history.replaceState(null, '', `/${data.game.id}${data.player.id}`);
   $('#zentog').on('click', () => li.pubsub.emit('zen'));
   li.storage.make('reload-round-tabs').listen(li.reload);
 

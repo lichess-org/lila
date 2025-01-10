@@ -29,5 +29,5 @@ export function ctrl(redraw: () => void): NotifCtrl {
 
 export function view(ctrl: NotifCtrl): VNode | undefined {
   const c = ctrl.get();
-  return c ? h('div.notif.' + c.class, c.text) : undefined;
+  return c ? h(`div.notif.${c.class}`, c.text) : undefined;
 }

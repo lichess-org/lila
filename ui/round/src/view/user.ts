@@ -11,15 +11,15 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
-    rating = player.rating ? player.rating : perf && perf.rating,
+    rating = player.rating ? player.rating : perf?.rating,
     rd = player.ratingDiff,
     ratingDiff =
       rd === 0
         ? h('span', '±0')
         : rd && rd > 0
-          ? h('good', '+' + rd)
+          ? h('good', `+${rd}`)
           : rd && rd < 0
-            ? h('bad', '−' + -rd)
+            ? h('bad', `−${-rd}`)
             : undefined,
     handicap = isHandicap({ rules: ctrl.data.game.variant.key, sfen: ctrl.data.game.initialSfen });
 
@@ -45,7 +45,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           },
           [],
         ),
-        h('i.line' + (user.patron ? '.patron' : ''), {
+        h(`i.line${user.patron ? '.patron' : ''}`, {
           attrs: {
             title: connecting
               ? 'Connecting to the game'
@@ -59,7 +59,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
           {
             attrs: {
               'data-pt-pos': 's',
-              href: '/@/' + user.username,
+              href: `/@/${user.username}`,
               target: ctrl.isPlaying() ? '_blank' : '_self',
             },
           },
@@ -125,7 +125,7 @@ export function userHtml(ctrl: RoundController, player: Player, position: Positi
 
 export function userTxt(player: Player): string {
   if (player.user) {
-    return (player.user.title ? player.user.title + ' ' : '') + player.user.username;
+    return (player.user.title ? `${player.user.title} ` : '') + player.user.username;
   } else if (player.ai) return engineNameFromCode(player.aiCode);
   else return 'Anonymous';
 }

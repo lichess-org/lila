@@ -57,7 +57,7 @@ function backoff(delay: number, factor: number, callback: Callback): Callback {
 export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
   function reload(o: Incoming, isRetry?: boolean) {
     // avoid reload if possible!
-    if (o && o.t) {
+    if (o?.t) {
       ctrl.setLoading(false);
       handlers[o.t](o.d);
     } else
@@ -98,8 +98,8 @@ export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
       }
     },
     crowd(o) {
-      game.setOnGame(ctrl.data, 'sente', o['sente']);
-      game.setOnGame(ctrl.data, 'gote', o['gote']);
+      game.setOnGame(ctrl.data, 'sente', o.sente);
+      game.setOnGame(ctrl.data, 'gote', o.gote);
       ctrl.redraw();
     },
     endData: ctrl.endWithData,
@@ -154,19 +154,14 @@ export function make(send: Socket.Send, ctrl: RoundController): RoundSocket {
         ctrl.setRedirecting();
         sound.move();
         window.lishogi.properReload = true;
-        location.href = '/' + gameId;
+        location.href = `/${gameId}`;
       }
     },
     simulEnd(simul: game.Simul) {
       loadCssPath('misc.modal');
       $.modal(
         $(
-          '<p>Simul complete!</p><br /><br />' +
-            '<a class="button" href="/simul/' +
-            simul.id +
-            '">Back to ' +
-            simul.name +
-            ' simul</a>',
+          `<p>Simul complete!</p><br /><br /><a class="button" href="/simul/${simul.id}">Back to ${simul.name} simul</a>`,
         ),
       );
     },

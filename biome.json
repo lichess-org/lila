@@ -32,7 +32,8 @@
         "noUnusedVariables": "error"
       },
       "performance": {
-        "noAccumulatingSpread": "off"
+        "noAccumulatingSpread": "off",
+        "noDelete": "off"
       }
     }
   },

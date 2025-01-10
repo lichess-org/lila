@@ -55,7 +55,7 @@ export default function renderActions(ctrl: MsgCtrl, convo: Convo): VNode[] {
       hook: bind('click', withConfirm(ctrl.delete)),
     }),
   );
-  if (!!convo.msgs[0])
+  if (convo.msgs[0])
     nodes.push(
       h(`button.${cls}.bad`, {
         key: 'report',

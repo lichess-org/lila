@@ -112,7 +112,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
   });
 
   if (key === 'transp') {
-    document.body.style.setProperty('--tr-bg-url', 'url(' + data.image + ')');
+    document.body.style.setProperty('--tr-bg-url', `url(${data.image})`);
   }
 }
 

@@ -53,8 +53,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
     const $panel = $panels.filter('.computer-analysis');
     if (!$('#acpl-chart-container').length)
       $panel.html(
-        '<div id="acpl-chart-container"><canvas id="acpl-chart"></canvas></div>' +
-          (loading ? chartLoader() : ''),
+        `<div id="acpl-chart-container"><canvas id="acpl-chart"></canvas></div>${loading ? chartLoader() : ''}`,
       );
     else if (loading && !$('#acpl-chart-container-loader').length) $panel.append(chartLoader());
     loadCompiledScript('chart').then(() => {
@@ -68,10 +67,7 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
   const setPanel = (panel: string) => {
     $menu.children('.active').removeClass('active');
     $menu.find(`[data-panel="${panel}"]`).addClass('active');
-    $panels
-      .removeClass('active')
-      .filter('.' + panel)
-      .addClass('active');
+    $panels.removeClass('active').filter(`.${panel}`).addClass('active');
     if (panel == 'move-times' && !timeChartLoaded)
       loadCompiledScript('chart').then(() => {
         loadCompiledScript('chart.movetime').then(() => {
@@ -123,19 +119,10 @@ export default function (element: HTMLElement, ctrl: AnalyseCtrl): void {
   });
   $panels.on('click', '.embed-howto', function (this: HTMLElement) {
     const url = `${baseUrl()}/embed/${data.game.id}${location.hash}`;
-    const iframe =
-      '<iframe src="' + url + '?theme=auto&bg=auto"\nwidth=600 height=400 frameborder=0></iframe>';
+    const iframe = `<iframe src="${url}?theme=auto&bg=auto"\nwidth=600 height=400 frameborder=0></iframe>`;
     $.modal(
       $(
-        '<strong style="font-size:1.5em">' +
-          $(this).html() +
-          '</strong><br /><br />' +
-          '<pre>' +
-          escapeHtml(iframe) +
-          '</pre><br />' +
-          iframe +
-          '<br /><br />' +
-          '<a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>',
+        `<strong style="font-size:1.5em">${$(this).html()}</strong><br /><br /><pre>${escapeHtml(iframe)}</pre><br />${iframe}<br /><br /><a class="text" data-icon="" href="/developers#embed-game">Read more about embedding games</a>`,
       ),
     );
   });

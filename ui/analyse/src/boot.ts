@@ -11,7 +11,7 @@ export function replay(opts: AnalyseOpts, start: (opts: AnalyseOpts) => AnalyseC
       name: 'analyse',
     },
     params: {
-      userTv: data.userTv && data.userTv.id,
+      userTv: data.userTv?.id,
     },
     receive: (t, d) => {
       ctrl.socket.receive(t, d);

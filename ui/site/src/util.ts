@@ -11,4 +11,4 @@ export function generateSri(): string {
   }
 }
 
-export const initiatingHtml: string = '<div class="initiating">' + spinnerHtml + '</div>';
+export const initiatingHtml: string = `<div class="initiating">${spinnerHtml}</div>`;

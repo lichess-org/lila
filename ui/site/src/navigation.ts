@@ -7,15 +7,15 @@ export function redirect(obj: string | { url: string; cookie: Cookie }): void {
     url = obj.url;
     if (obj.cookie) {
       const cookie = [
-        encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
-        '; max-age=' + obj.cookie.maxAge,
+        `${encodeURIComponent(obj.cookie.name)}=${obj.cookie.value}`,
+        `; max-age=${obj.cookie.maxAge}`,
         '; path=/',
-        '; domain=' + location.hostname,
+        `; domain=${location.hostname}`,
       ].join('');
       document.cookie = cookie;
     }
   }
-  const href = '//' + location.host + '/' + url.replace(/^\//, '');
+  const href = `//${location.host}/${url.replace(/^\//, '')}`;
   redirectInProgress = href;
   location.href = href;
 }

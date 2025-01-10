@@ -20,7 +20,7 @@ function result(win, stat): string {
 
 function playerTitle(player) {
   return h('h2', [
-    h('span.rank', player.rank ? player.rank + '. ' : ''),
+    h('span.rank', player.rank ? `${player.rank}. ` : ''),
     renderPlayer(player, true, false, false),
   ]);
 }
@@ -101,19 +101,19 @@ export default function (ctrl: TournamentController): VNode {
           poa.map((p, i) => {
             const res = result(p.win, p.status);
             return h(
-              'tr.glpt.' + (res === '1' ? ' win' : res === '0' ? ' loss' : ''),
+              `tr.glpt.${res === '1' ? ' win' : res === '0' ? ' loss' : ''}`,
               {
                 key: p.id,
-                attrs: { 'data-href': '/' + p.id + '/' + p.color },
+                attrs: { 'data-href': `/${p.id}/${p.color}` },
                 hook: {
                   destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
                 },
               },
               [
-                h('th', '' + (Math.max(nb.game, poaLen) - i)),
+                h('th', `${Math.max(nb.game, poaLen) - i}`),
                 h('td', playerName(p.op)),
                 h('td', p.op.rating),
-                h('td.is.color-icon.' + p.color),
+                h(`td.is.color-icon.${p.color}`),
                 h('td', res),
               ],
             );

@@ -1,9 +1,11 @@
 import Peer from 'peerjs';
 import type { PalantirOpts, State } from '../interface';
 
-function main(opts: PalantirOpts): void | {
-  render: (h: any) => any;
-} {
+function main(opts: PalantirOpts):
+  | undefined
+  | {
+      render: (h: any) => any;
+    } {
   const devices = navigator.mediaDevices;
   if (!devices) return alert('Voice chat requires navigator.mediaDevices');
 
@@ -43,7 +45,7 @@ function main(opts: PalantirOpts): void | {
         }
       })
       .on('connection', c => {
-        log('Connected to: ' + c.peer);
+        log(`Connected to: ${c.peer}`);
       })
       .on('disconnected', () => {
         if (state == 'stopping') destroyPeer();
@@ -131,7 +133,7 @@ function main(opts: PalantirOpts): void | {
   }
 
   function connectionsTo(peerId) {
-    return (peer && peer.connections[peerId]) || [];
+    return peer?.connections[peerId] || [];
   }
   function findOpenConnectionTo(peerId) {
     return connectionsTo(peerId).find(c => c.open);
@@ -192,7 +194,7 @@ function main(opts: PalantirOpts): void | {
       const connections = allOpenConnections();
       return devices
         ? h(
-            'div.mchat__tab.palantir.data-count.palantir-' + state,
+            `div.mchat__tab.palantir.data-count.palantir-${state}`,
             {
               attrs: {
                 'data-icon': '',
@@ -209,7 +211,7 @@ function main(opts: PalantirOpts): void | {
             },
             state == 'on'
               ? connections.map(c =>
-                  h('audio.palantir__audio.' + c.peer, {
+                  h(`audio.palantir__audio.${c.peer}`, {
                     attrs: { autoplay: true },
                     hook: {
                       insert(vnode) {

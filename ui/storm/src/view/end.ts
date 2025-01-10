@@ -131,10 +131,10 @@ const renderHistory = (ctrl: StormCtrl): VNode => {
               }),
               h('span.storm--end__history__round__meta', [
                 h('span.storm--end__history__round__result', [
-                  h(round.win ? 'good' : 'bad', Math.round(round.millis / 1000) + 's'),
+                  h(round.win ? 'good' : 'bad', `${Math.round(round.millis / 1000)}s`),
                   h('rating', round.puzzle.rating),
                 ]),
-                h('span.storm--end__history__round__id', '#' + round.puzzle.id),
+                h('span.storm--end__history__round__id', `#${round.puzzle.id}`),
               ]),
             ],
           ),

@@ -16,11 +16,11 @@ export function modal(d: Modal): VNode {
     },
     [
       h(
-        'div#modal-wrap.' + d.class,
+        `div#modal-wrap.${d.class}`,
         {
           hook: onInsert(el => {
             el.addEventListener('mousedown', e => e.stopPropagation());
-            d.onInsert && d.onInsert(el);
+            d.onInsert?.(el);
           }),
         },
         [

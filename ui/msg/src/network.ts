@@ -16,12 +16,12 @@ export function getMore(userId: string, before: Date): Promise<MsgData> {
 }
 
 export function loadContacts(): Promise<MsgData> {
-  return window.lishogi.xhr.json('GET', `/inbox`).then(upgradeData);
+  return window.lishogi.xhr.json('GET', '/inbox').then(upgradeData);
 }
 
 export function search(q: string): Promise<SearchResult> {
   return window.lishogi.xhr
-    .json('GET', `/inbox/search`, {
+    .json('GET', '/inbox/search', {
       url: {
         q,
       },

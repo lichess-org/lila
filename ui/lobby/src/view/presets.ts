@@ -48,7 +48,7 @@ function presetButton(p: Preset, ctrl: LobbyController): VNode {
         ? i18nPluralSame('nbDays', p.days)
         : clockShow(p.lim * 60, p.byo, p.inc, p.per),
     perf = presetPerf(p),
-    perfName = p.ai ? 'AI - ' + i18nFormat('levelX', p.ai).toLowerCase() : i18nPerf(perf),
+    perfName = p.ai ? `AI - ${i18nFormat('levelX', p.ai).toLowerCase()}` : i18nPerf(perf),
     isReady =
       !!p.ai ||
       (p.timeMode == 2
@@ -57,10 +57,10 @@ function presetButton(p: Preset, ctrl: LobbyController): VNode {
     attrs = {
       'data-id': p.id,
     };
-  if (p.ai) attrs['title'] = engineName('standard', undefined, p.ai);
+  if (p.ai) attrs.title = engineName('standard', undefined, p.ai);
 
   return h(
-    'div' + (p.ai === 1 && ctrl.presetOpts.isNewPlayer ? '.highlight' : ''),
+    `div${p.ai === 1 && ctrl.presetOpts.isNewPlayer ? '.highlight' : ''}`,
     {
       attrs,
       class: {

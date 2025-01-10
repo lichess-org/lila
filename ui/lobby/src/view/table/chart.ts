@@ -7,7 +7,7 @@ import type { Hook, Seek } from '../../interfaces';
 import { action, isHook } from '../../util';
 
 function percents(v) {
-  return v + '%';
+  return `${v}%`;
 }
 
 function renderPlot(ctrl: LobbyController, hs: Hook | Seek): VNode {
@@ -15,7 +15,7 @@ function renderPlot(ctrl: LobbyController, hs: Hook | Seek): VNode {
     left = Math.max(0, xCoord(hs)),
     act = action(hs),
     klass = ['plot.new', (isHook(hs) ? hs.ra : hs.mode) ? 'rated' : 'casual', act].join('.');
-  return h('span#' + hs.id + '.' + klass, {
+  return h(`span#${hs.id}.${klass}`, {
     key: hs.id,
     attrs: {
       'data-icon': getPerfIcon(hs.perf || hs.variant || 'standard'),
@@ -56,22 +56,18 @@ function renderPowertip(hs: Hook | Seek): string {
   let html = '<div class="inner">';
   if (hs.rating) {
     const usr = isHook(hs) ? hs.u : hs.username;
-    html += '<a class="opponent ulpt is color-icon ' + color + '" href="/@/' + usr + '">';
-    html +=
-      ' ' + usr + ' (' + hs.rating + ((isHook(hs) ? hs.prov : hs.provisional) ? '?' : '') + ')';
+    html += `<a class="opponent ulpt is color-icon ${color}" href="/@/${usr}">`;
+    html += ` ${usr} (${hs.rating}${(isHook(hs) ? hs.prov : hs.provisional) ? '?' : ''})`;
     html += '</a>';
   } else {
-    html += '<span class="opponent anon ' + color + '">' + i18n('anonymous') + '</span>';
+    html += `<span class="opponent anon ${color}">${i18n('anonymous')}</span>`;
   }
   html += '<div class="inner-clickable">';
   html += `<div>${isHook(hs) ? hs.clock : hs.days ? i18nPluralSame('nbDays', hs.days) : 'INF'}</div>`;
   html +=
-    '<i data-icon="' +
-    getPerfIcon(hs.perf || hs.variant || 'standard') +
-    '"> ' +
-    (isHook(hs) ? hs.ra : hs.mode)
+    `<i data-icon="${getPerfIcon(hs.perf || hs.variant || 'standard')}"> ${isHook(hs) ? hs.ra : hs.mode}`
       ? i18n('rated')
-      : i18n('casual') + '</i>';
+      : `${i18n('casual')}</i>`;
   html += '</div>';
   html += '</div>';
   return html;
@@ -100,14 +96,14 @@ function renderXAxis(tab: 'seeks' | 'real_time') {
       h(
         'span.x.label',
         {
-          attrs: { style: 'left:' + percents(oneSlice * (i + 1)) },
+          attrs: { style: `left:${percents(oneSlice * (i + 1))}` },
         },
-        '' + v,
+        `${v}`,
       ),
     );
     tags.push(
       h('div.grid.vert', {
-        attrs: { style: 'width:' + percents(oneSlice * (i + 1)) },
+        attrs: { style: `width:${percents(oneSlice * (i + 1))}` },
       }),
     );
   });
@@ -137,14 +133,14 @@ function renderYAxis() {
       h(
         'span.y.label',
         {
-          attrs: { style: 'bottom:' + percents(oneSlice * (i + 1)) },
+          attrs: { style: `bottom:${percents(oneSlice * (i + 1))}` },
         },
-        '' + v,
+        `${v}`,
       ),
     );
     tags.push(
       h('div.grid.horiz', {
-        attrs: { style: 'height:' + percents(oneSlice * (i + 1)) },
+        attrs: { style: `height:${percents(oneSlice * (i + 1))}` },
       }),
     );
   });

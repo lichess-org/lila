@@ -147,7 +147,7 @@ export function makeConfig(ctrl: AnalyseCtrl): SgConfig {
     },
     disableContextMenu: true,
   };
-  ctrl.study && ctrl.study.mutateSgConfig(config);
+  ctrl.study?.mutateSgConfig(config);
 
   return config;
 }

@@ -216,7 +216,7 @@ export default function (
     members.dict(s.members);
     chapters.list(s.chapters);
     ctrl.flipped = false;
-    if (!!s.postGameStudy) ctrl.setOrientation();
+    if (s.postGameStudy) ctrl.setOrientation();
 
     const merge = !vm.mode.write && sameChapter;
     ctrl.reloadData(d.analysis, merge);
@@ -310,7 +310,7 @@ export default function (
           }),
         );
       }
-      gamebookPlay && gamebookPlay.onShapeChange(shapes);
+      gamebookPlay?.onShapeChange(shapes);
     };
   }
 

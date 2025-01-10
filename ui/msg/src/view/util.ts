@@ -3,14 +3,14 @@ import type { User } from '../interfaces';
 
 export function userIcon(user: User, cls: string): VNode {
   return h(
-    'div.user-link.' + cls,
+    `div.user-link.${cls}`,
     {
       class: {
         online: user.online,
         offline: !user.online,
       },
     },
-    [h('i.line' + (user.patron ? '.patron' : ''))],
+    [h(`i.line${user.patron ? '.patron' : ''}`)],
   );
 }
 

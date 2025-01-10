@@ -93,7 +93,7 @@ export function utcControl(ctrl: TournamentController): VNode {
 
 function controlButton(text: string, icon: string, cls: string, el: MaybeVNode = undefined): VNode {
   return h(
-    'button.fbt.is.' + cls,
+    `button.fbt.is.${cls}`,
     {
       attrs: {
         'data-icon': icon,

@@ -7,13 +7,13 @@ const $zone = $('.mod-zone');
 let nbOthers = 100;
 
 function streamLoad() {
-  const source = new EventSource($toggle.attr('href') + '?nbOthers=' + nbOthers);
+  const source = new EventSource(`${$toggle.attr('href')}?nbOthers=${nbOthers}`);
   const callback = debounce(() => userMod($zone), 300);
   source.addEventListener('message', e => {
     if (!e.data) return;
     const html = $('<output>').append($.parseHTML(e.data));
     html.find('.mz-section').each(function () {
-      const prev = $('#' + this.id);
+      const prev = $(`#${this.id}`);
       if (prev.length) prev.replaceWith($(this));
       else $zone.append($(this).clone());
     });
@@ -62,7 +62,7 @@ function userMod($zone: any): void {
       .find('a')
       .each(function (i) {
         const id = (this as HTMLAnchorElement).href.replace(/.+(#\w+)$/, '$1'),
-          n = '' + (i + 1);
+          n = `${i + 1}`;
         $(this).prepend(`<i>${n}</i>`);
         window.lishogi.mousetrap.bind(n, () => scrollTo(id));
       });
@@ -138,7 +138,7 @@ function userMod($zone: any): void {
 
 function makeReady(selector: string, f: (el: Element, i: number) => any, cls?: string): void {
   cls = cls || 'ready';
-  $zone.find(selector + `:not(.${cls})`).each(function (i) {
+  $zone.find(`${selector}:not(.${cls})`).each(function (i) {
     f($(this).addClass(cls)[0], i);
   });
 }
@@ -155,8 +155,8 @@ const onScroll = () =>
       a = Number.parseFloat(a);
       b = Number.parseFloat(b);
 
-      a = isNaN(a) ? 0 : a;
-      b = isNaN(b) ? 0 : b;
+      a = Number.isNaN(a) ? 0 : a;
+      b = Number.isNaN(b) ? 0 : b;
 
       return a - b;
     };

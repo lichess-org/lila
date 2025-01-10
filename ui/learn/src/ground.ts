@@ -122,8 +122,8 @@ export function createDrawable(level: Level, usiCList: UsiWithColor[] = []): Par
   const obastacles: SquareHighlight[] = [],
     usis = usiCList.map(uc => uc.usi),
     dests = usis.map(u => makeSquareName(parseUsi(u)!.to)),
-    drawShapes = level.drawShapes && level.drawShapes(level, usiCList),
-    squares = level.squareHighlights && level.squareHighlights(level, usiCList);
+    drawShapes = level.drawShapes?.(level, usiCList),
+    squares = level.squareHighlights?.(level, usiCList);
 
   if (level.obstacles)
     level.obstacles.map(o => {

@@ -59,8 +59,8 @@ export default class LearnCtrl {
 
   setLesson(stageId: number, levelId = 1): void {
     const category = this.categories.find(c => c.stages.some(s => s.id === stageId)),
-      stage = category && category.stages.find(s => s.id === stageId),
-      level = stage && stage.levels.find(l => l.id === levelId);
+      stage = category?.stages.find(s => s.id === stageId),
+      level = stage?.levels.find(l => l.id === levelId);
 
     if (level) {
       this.clearTimetouts();
@@ -82,7 +82,7 @@ export default class LearnCtrl {
       this.applyOpponentMoveOrDrop();
       this.shogiground.set(ground.destsAndCheck(level, this.vm.usiCList));
 
-      window.history.replaceState('', '', '/learn#/' + stage.id + '/' + level.id);
+      window.history.replaceState('', '', `/learn#/${stage.id}/${level.id}`);
       window.scrollTo(0, 0);
       if (this.vm.stageState === 'init') sound.start();
     } else this.setHome();
@@ -146,7 +146,7 @@ export default class LearnCtrl {
   }
 
   private applyOpponentMoveOrDrop(): void {
-    if (this.vm && this.vm.level.scenario) {
+    if (this.vm?.level.scenario) {
       const scenario = this.vm.level.scenario,
         usiCList = this.vm.usiCList,
         sUsiC = scenario[usiCList.length];
@@ -174,8 +174,7 @@ export default class LearnCtrl {
 
       // check if we are done - success or fail
       if (this.vm.level.success(this.vm.level, this.vm.usiCList)) this.completeLevel();
-      else if (this.vm.level.failure && this.vm.level.failure(this.vm.level, this.vm.usiCList))
-        this.failLevel();
+      else if (this.vm.level.failure?.(this.vm.level, this.vm.usiCList)) this.failLevel();
 
       // update shogiground accordingly
       const pos = currentPosition(this.vm.level, this.vm.usiCList),

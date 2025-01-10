@@ -15,7 +15,9 @@ export class CommentForm {
   opening: Prop<boolean> = prop(false);
   constructor(readonly root: AnalyseCtrl) {}
 
-  submit = (text: string): void | null => this.current() && this.doSubmit(text);
+  submit = (text: string): void => {
+    this.current() && this.doSubmit(text);
+  };
 
   doSubmit: (...args: any[]) => void = throttle(500, (text: string) => {
     const cur = this.current();
@@ -55,7 +57,7 @@ export function view(root: AnalyseCtrl): VNode {
 
     if (old?.data!.path !== newKey) {
       const mine = (current.node.comments || []).find(
-        (c: any) => c.by && c.by.id && c.by.id === ctrl.root.opts.userId,
+        (c: any) => c.by?.id && c.by.id === ctrl.root.opts.userId,
       );
       el.value = mine ? mine.text : '';
     }
@@ -77,8 +79,8 @@ export function view(root: AnalyseCtrl): VNode {
             const el = vnode.elm as HTMLInputElement;
             el.oninput = () => setTimeout(() => ctrl.submit(el.value), 50);
             const heightStore = window.lishogi.storage.make('study.comment.height');
-            el.onmouseup = () => heightStore.set('' + el.offsetHeight);
-            el.style.height = Number.parseInt(heightStore.get() || '80') + 'px';
+            el.onmouseup = () => heightStore.set(`${el.offsetHeight}`);
+            el.style.height = `${Number.parseInt(heightStore.get() || '80')}px`;
 
             $(el).on('keydown', e => {
               if (e.code === 'Escape') el.blur();

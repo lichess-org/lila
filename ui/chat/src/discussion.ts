@@ -26,7 +26,7 @@ export default function (ctrl: ChatCtrl): Array<VNode | undefined> {
     mod = ctrl.moderation();
   const vnodes = [
     h(
-      'ol.mchat__messages.chat-v-' + ctrl.data.domVersion,
+      `ol.mchat__messages.chat-v-${ctrl.data.domVersion}`,
       {
         attrs: {
           role: 'log',
@@ -215,7 +215,7 @@ function renderLine(ctrl: ChatCtrl, line: Line) {
 
   if (system) return h('li.system', textNode);
 
-  if (line.c) return h('li', [h('span.color', '[' + line.c + ']'), textNode]);
+  if (line.c) return h('li', [h('span.color', `[${line.c}]`), textNode]);
 
   const userNode = thunk('a', line.u, userLink, [line.u, line.title]);
 

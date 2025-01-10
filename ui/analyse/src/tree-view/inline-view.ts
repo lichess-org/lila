@@ -115,10 +115,10 @@ function renderInline(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
 
 function renderMoveOf(ctx: Ctx, node: Tree.Node, opts: Opts): VNode {
   const path = opts.parentPath + node.id,
-    colorIcon = notationsWithColor() ? '.color-icon.' + (node.ply % 2 ? 'sente' : 'gote') : '',
+    colorIcon = notationsWithColor() ? `.color-icon.${node.ply % 2 ? 'sente' : 'gote'}` : '',
     content: MaybeVNodes = [
       node.ply ? moveView.renderIndex(node.ply, ctx.ctrl.plyOffset(), true) : null,
-      h('move-notation' + colorIcon, node.notation),
+      h(`move-notation${colorIcon}`, node.notation),
     ];
   if (node.glyphs && ctx.showGlyphs) content.push(moveView.renderGlyphs(node.glyphs));
   return h(

@@ -17,8 +17,8 @@ export default function (ctrl: LearnCtrl): MaybeVNode {
         },
       },
       h('div.learn__screen.', [
-        h('h1', i18nFormat('learn:stageX', ctrl.vm.stage.id) + ': ' + ctrl.vm.stage.title),
-        h('div.stage-img.' + ctrl.vm.stage.key),
+        h('h1', `${i18nFormat('learn:stageX', ctrl.vm.stage.id)}: ${ctrl.vm.stage.title}`),
+        h(`div.stage-img.${ctrl.vm.stage.key}`),
         h('p', ctrl.vm.stage.intro),
         h('div.buttons', h('a.next', i18n('learn:letsGo'))),
       ]),

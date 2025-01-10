@@ -55,7 +55,7 @@ export function joinWithTeamSelector(ctrl: TournamentController): VNode {
                         h(
                           'a',
                           {
-                            attrs: { href: '/team/' + t },
+                            attrs: { href: `/team/${t}` },
                           },
                           tb.teams[t],
                         ),
@@ -75,7 +75,7 @@ export function teamStanding(ctrl: TournamentController, klass?: string): VNode 
     standing = ctrl.data.teamStanding,
     bigBattle = battle && Object.keys(battle.teams).length > 10;
   return battle && standing
-    ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
+    ? h(`table.slist.tour__team-standing${klass ? `.${klass}` : ''}`, [
         h('tbody', [
           ...standing.map(rt => teamTr(ctrl, battle, rt)),
           ...(bigBattle ? [extraTeams(ctrl), myTeam(ctrl, battle)] : []),
@@ -112,7 +112,7 @@ function myTeam(ctrl: TournamentController, battle: TeamBattle): MaybeVNode {
 
 export function teamName(battle: TeamBattle, teamId: string): VNode {
   return h(
-    battle.hasMoreThanTenTeams ? 'team' : 'team.ttc-' + Object.keys(battle.teams).indexOf(teamId),
+    battle.hasMoreThanTenTeams ? 'team' : `team.ttc-${Object.keys(battle.teams).indexOf(teamId)}`,
     battle.teams[teamId],
   );
 }
@@ -128,13 +128,13 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
           key: p.user.name,
           class: { top: i === 0 },
           attrs: {
-            'data-href': '/@/' + p.user.name,
+            'data-href': `/@/${p.user.name}`,
           },
           hook: {
             destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
           },
         },
-        [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), '' + p.score],
+        [...(i === 0 ? [h('username', playerName(p.user)), ' '] : []), `${p.score}`],
       ),
     );
   });
@@ -148,7 +148,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
       hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw),
     },
     [
-      h('td.rank', '' + team.rank),
+      h('td.rank', `${team.rank}`),
       h('td.team', [teamName(battle, team.id)]),
       h(
         'td.players',
@@ -163,7 +163,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
         },
         players,
       ),
-      h('td.total', [h('strong', '' + team.score)]),
+      h('td.total', [h('strong', `${team.score}`)]),
     ],
   );
 }

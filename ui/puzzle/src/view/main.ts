@@ -88,7 +88,7 @@ export default function (ctrl: Controller): VNode {
         theme(ctrl),
       ]),
       h(
-        'div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''),
+        `div.puzzle__board.main-board${ctrl.pref.blindfold ? '.blindfold' : ''}`,
         {
           hook:
             'ontouchstart' in window || window.lishogi.storage.get('scrollMoves') == '0'
@@ -135,7 +135,7 @@ function session(ctrl: Controller) {
     ...rounds.map(round => {
       const rd = round.ratingDiff
         ? round.ratingDiff > 0
-          ? '+' + round.ratingDiff
+          ? `+${round.ratingDiff}`
           : round.ratingDiff
         : null;
       return h(

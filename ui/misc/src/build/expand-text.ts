@@ -34,10 +34,10 @@ function toYouTubeEmbedUrl(url: string | undefined): Parsed | undefined {
       }
     }
   });
-  const params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
+  const params = `modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=${start}`;
   return {
     type: 'youtube',
-    src: 'https://www.youtube.com/embed/' + m[1] + '?' + params,
+    src: `https://www.youtube.com/embed/${m[1]}?${params}`,
   };
 }
 
@@ -54,21 +54,21 @@ function toTwitterEmbedUrl(url: string | undefined): Parsed | undefined {
 const domain = window.location.host;
 
 function toStudyEmbedUrl(url: string | undefined): Parsed | undefined {
-  const studyRegex = new RegExp(domain + '/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b', 'i'),
+  const studyRegex = new RegExp(`${domain}/study/(?:embed/)?(\\w{8})/(\\w{8})(#\\d+)?\\b`, 'i'),
     m = url?.match(studyRegex);
-  return m ? { type: 'study', src: '/study/embed/' + m[1] + '/' + m[2] + (m[3] || '') } : undefined;
+  return m ? { type: 'study', src: `/study/embed/${m[1]}/${m[2]}${m[3] || ''}` } : undefined;
 }
 
 function toGameEmbedUrl(url: string | undefined): Parsed | undefined {
   const gameRegex = new RegExp(
-      domain + '/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?\\b',
+      `${domain}/(?:embed/)?(\\w{8})(?:(?:/(sente|gote))|\\w{4}|)(#\\d+)?\\b`,
       'i',
     ),
     m = url?.match(gameRegex);
   if (!m) return;
 
-  let src = '/embed/' + m[1];
-  if (m[2]) src += '/' + m[2]; // orientation
+  let src = `/embed/${m[1]}`;
+  if (m[2]) src += `/${m[2]}`; // orientation
   if (m[3]) src += m[3]; // ply hash
 
   return {
@@ -89,9 +89,7 @@ function parseLink(a: HTMLAnchorElement): Parsed | undefined {
 
 function expandYoutube(a: Candidate) {
   const $iframe = $(
-    '<div class="embed-wrap"><div class="embed"><iframe src="' +
-      a.src +
-      '" credentialless></iframe></div></div>',
+    `<div class="embed-wrap"><div class="embed"><iframe src="${a.src}" credentialless></iframe></div></div>`,
   );
   $(a.element).replaceWith($iframe);
   return $iframe;

@@ -58,7 +58,7 @@ function podiumUsername(p) {
   return h(
     'a.text.ulpt.user-link',
     {
-      attrs: { href: '/@/' + p.name },
+      attrs: { href: `/@/${p.name}` },
     },
     playerName(p),
   );
@@ -79,7 +79,7 @@ function podiumStats(p): VNode {
 }
 
 function podiumPosition(p, pos): VNode | undefined {
-  if (p) return h('div.' + pos, [h('div.trophy'), podiumUsername(p), podiumStats(p)]);
+  if (p) return h(`div.${pos}`, [h('div.trophy'), podiumUsername(p), podiumStats(p)]);
 }
 
 let lastBody: MaybeVNodes | undefined;
@@ -99,7 +99,7 @@ export function standing(ctrl: TournamentController, pag: PageData, klass?: stri
     : lastBody;
   if (pag.currentPageResults) lastBody = tableBody;
   return h(
-    'table.slist.tour__standing' + (klass ? '.' + klass : ''),
+    `table.slist.tour__standing${klass ? `.${klass}` : ''}`,
     {
       class: { loading: !pag.currentPageResults },
     },

@@ -92,7 +92,7 @@ export default class InsightCtrl {
           val = val
             .split('')
             .map((n: string) => Number.parseInt(n))
-            .filter((n: number) => !isNaN(n));
+            .filter((n: number) => !Number.isNaN(n));
         val = val || flt[key] || df[key];
         if (key !== 'custom') {
           const opt = filterOptions(key);
@@ -114,7 +114,7 @@ export default class InsightCtrl {
   fetchData(tab: Tab): void {
     this.isError = false;
     const queryString = this.queryString(tab, true);
-    const path = this.endpoint + '/' + tab + (queryString ? '?' + queryString : '');
+    const path = `${this.endpoint}/${tab}${queryString ? `?${queryString}` : ''}`;
     fetch(path, {
       headers: {
         'Content-Type': 'application/json',

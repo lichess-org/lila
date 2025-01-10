@@ -31,7 +31,7 @@ export default function renderConvo(ctrl: MsgCtrl, convo: Convo): VNode {
               },
             },
             [
-              h('i.line' + (user.id == 'lishogi' ? '.moderator' : user.patron ? '.patron' : '')),
+              h(`i.line${user.id == 'lishogi' ? '.moderator' : user.patron ? '.patron' : ''}`),
               ...userName(user),
             ],
           ),

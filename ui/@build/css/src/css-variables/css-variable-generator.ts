@@ -1,5 +1,5 @@
-import path from 'path';
-import { writeFile } from 'fs/promises';
+import { writeFile } from 'node:fs/promises';
+import path from 'node:path';
 import { prefix, signature, themes } from './constants.js';
 import { type ThemeRecord, defaultTheme } from './types.js';
 

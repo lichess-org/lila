@@ -23,7 +23,7 @@ export const modeChoices: [string, string][] = [
 ];
 
 export const fieldValue = (e: Event, id: string): string =>
-  ((e.target as HTMLElement).querySelector('#chapter-' + id) as HTMLInputElement)?.value;
+  ((e.target as HTMLElement).querySelector(`#chapter-${id}`) as HTMLInputElement)?.value;
 
 export interface StudyChapterNewFormCtrl {
   root: AnalyseCtrl;
@@ -100,7 +100,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
   const activeTab = ctrl.vm.tab(),
     makeTab = (key: string, name: string, title: string) =>
       h(
-        'span.' + key,
+        `span.${key}`,
         {
           class: { active: activeTab === key },
           attrs: { title },
@@ -205,7 +205,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                             ctrl.vm.editorOrientation(orientation);
                           },
                         };
-                        ctrl.vm.editor = window['LishogiEditor'](vnode.elm as HTMLElement, data);
+                        ctrl.vm.editor = window.LishogiEditor(vnode.elm as HTMLElement, data);
                         ctrl.vm.editorSfen(ctrl.vm.editor.getSfen());
                       });
                     },

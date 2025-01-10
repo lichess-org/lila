@@ -86,7 +86,7 @@ function clockContent(centis: number | undefined, showTenths: boolean): Array<st
   if (!showTenths || centis >= 360000) return [Math.floor(centis / 360000) + sep + baseStr];
   return centis >= 6000
     ? [baseStr]
-    : [baseStr, h('tenths', '.' + Math.floor(millis / 100).toString())];
+    : [baseStr, h('tenths', `.${Math.floor(millis / 100).toString()}`)];
 }
 
 export function renderTime(centis: number, forceHours: boolean): string {
@@ -111,7 +111,7 @@ function playerName(color: Color, player: game.Player | undefined): VNode {
         : player.name && player.name !== '?'
           ? player.name
           : 'Anonymous';
-  return h('div.name', [h('i.color-icon.' + color), name]);
+  return h('div.name', [h(`i.color-icon.${color}`), name]);
 }
 
 function renderOnlyName(color: Color, player: game.Player, active: boolean, cls: string) {
