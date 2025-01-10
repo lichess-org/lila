@@ -77,7 +77,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def vendorJsTag(vendor: String, path: String): Frag =
     jsAt(s"vendors/${vendor}/${path}")
 
-  lazy val jQueryTag         = vendorJsTag("jquery", "jquery.slim.min.js")
+  lazy val jQueryTag         = vendorJsTag("jquery", "jquery.min.js")
   lazy val howlerTag         = vendorJsTag("howler", "howler.core.min.js")
   lazy val powertipTag       = vendorJsTag("jquery-powertip", "jquery.powertip.min.js")
   lazy val infiniteScrollTag = vendorJsTag("infinite-scroll", "infinite-scroll.pkgd.min.js")

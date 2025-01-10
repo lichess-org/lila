@@ -2,7 +2,7 @@ import { copyLocalPackage, copyVendorPackage } from './util.js';
 
 const vendorsJs: [string, string[]][] = [
   ['howler', ['dist/howler.core.min.js']],
-  ['jquery', ['dist/jquery.slim.min.js']],
+  ['jquery', ['dist/jquery.min.js']],
   ['spectrum', ['dist/spectrum.min.js', 'dist/spectrum.min.css']],
   ['fairy-stockfish-nnue.wasm', ['stockfish.js', 'stockfish.wasm', 'stockfish.worker.js']],
   ['shogiground', ['dist/shogiground.min.js']],
